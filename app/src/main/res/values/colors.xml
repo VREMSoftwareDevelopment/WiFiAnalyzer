@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+
+    <color name="wifi0">#FF0000</color>
+    <color name="wifi1">#FEA400</color>
+    <color name="wifi2">#FEA400</color>
+    <color name="wifi3">#008000</color>
+    <color name="wifi4">#008000</color>
+</resources>

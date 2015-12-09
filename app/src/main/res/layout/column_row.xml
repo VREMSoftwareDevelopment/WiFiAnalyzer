@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:id="@+id/ssid"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ssid"
+        android:id="@+id/levelImage"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/levelImage"
+        android:layout_alignRight="@id/levelImage"
+        android:id="@+id/securityImage"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ssid"
+        android:layout_toRightOf="@id/levelImage"
+        android:layout_marginStart="@dimen/abc_list_item_padding_horizontal_material"
+        android:id="@+id/level"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ssid"
+        android:layout_toRightOf="@id/level"
+        android:layout_marginStart="@dimen/abc_list_item_padding_horizontal_material"
+        android:text="CH "
+        android:id="@+id/channelName"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ssid"
+        android:layout_toRightOf="@id/channelName"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/channel"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ssid"
+        android:layout_toRightOf="@id/channel"
+        android:id="@+id/frequency"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/level"
+        android:layout_toRightOf="@id/levelImage"
+        android:textStyle="italic"
+        android:layout_marginStart="@dimen/abc_list_item_padding_horizontal_material"
+        android:id="@+id/capabilities"/>
+
+</RelativeLayout>
