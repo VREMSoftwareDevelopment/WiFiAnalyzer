@@ -1,3 +1,3 @@
 # WifiAnalyzer
 
-    Android application to analyze WiFi signals.
+Android application to analyze WiFi signals.
