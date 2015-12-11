@@ -1,3 +1,18 @@
+/*
+ *    Copyright (C) 2010 - 2015 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
 package com.vrem.wifianalyzer;
 
 import android.content.Context;
@@ -7,21 +22,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(new ListViewAdapter(this, scanResults()));
+        listView.setAdapter(new ListViewAdapter(this, wifiScan()));
         listView.setOnItemClickListener(makeListViewOnItemClickListener());
 
         handler = new Handler();
@@ -54,15 +64,8 @@ public class MainActivity extends AppCompatActivity {
         return new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ScanResult itemValue = (ScanResult) listView.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(),
-                        "SSID: " + itemValue.SSID +
-                        "\nBSSID: " + itemValue.BSSID +
-                        "\nLEVEL: " + itemValue.level +
-                        "\nFREQUENCY: " + itemValue.frequency +
-                        "\n" + itemValue.capabilities
-                        , Toast.LENGTH_LONG)
-                        .show();
+            Toast.makeText(getApplicationContext(),
+                    listView.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
             }
         };
     }
@@ -75,11 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return item.getItemId() == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
     private WifiManager getWifiManager() {
@@ -91,27 +90,18 @@ public class MainActivity extends AppCompatActivity {
         return wifiManager;
     }
 
-    private List<ScanResult> scanResults() {
+    private List<WifiScan> wifiScan() {
+        List<WifiScan> results = new ArrayList<>();
         Toast.makeText(this, "Scanning WiFi ... ", Toast.LENGTH_SHORT).show();
 
         wifiManager.startScan();
-        List<ScanResult> results = wifiManager.getScanResults();
-        if (results == null) {
-            return new ArrayList<>();
-        }
-        Collections.sort(results, new Comparator<ScanResult>() {
-            @Override
-            public int compare(ScanResult lhs, ScanResult rhs) {
-                int result = rhs.level - lhs.level;
-                if (result == 0) {
-                    result = rhs.SSID.compareTo(lhs.SSID);
-                    if (result == 0) {
-                        result = rhs.BSSID.compareTo(lhs.BSSID);
-                    }
-                }
-                return result;
+        List<ScanResult> scanResults = wifiManager.getScanResults();
+        if (scanResults != null) {
+            for (ScanResult scanResult: scanResults) {
+                results.add(WifiScan.make(scanResult));
             }
-        });
+            Collections.sort(results);
+        }
         return results;
     }
 
@@ -121,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 ListViewAdapter listViewAdapter = (ListViewAdapter) listView.getAdapter();
                 listViewAdapter.clear();
-                listViewAdapter.addAll(scanResults());
+                listViewAdapter.addAll(wifiScan());
                 listViewAdapter.notifyDataSetChanged();
                 handler.postDelayed(updateListView(), DELAY_MILLIS);
             }
