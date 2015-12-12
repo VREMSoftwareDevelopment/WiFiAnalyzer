@@ -13,11 +13,13 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer;
+package com.vrem.wifianalyzer.wifi;
 
 import android.net.wifi.WifiManager;
 
-enum WifiLevel {
+import com.vrem.wifianalyzer.R;
+
+public enum Strength {
     ZERO(R.drawable.ic_signal_wifi_1_bar_red_900_48dp, R.color.wifi0),
     ONE(R.drawable.ic_signal_wifi_1_bar_yellow_900_48dp, R.color.wifi1),
     TWO(R.drawable.ic_signal_wifi_2_bar_yellow_900_48dp, R.color.wifi2),
@@ -27,28 +29,28 @@ enum WifiLevel {
     private final int imageResource;
     private final int colorResource;
 
-    WifiLevel(int imageResource, int colorResource) {
+    Strength(int imageResource, int colorResource) {
         this.imageResource = imageResource;
         this.colorResource = colorResource;
     }
 
-    int getColorResource() {
+    public int getColorResource() {
         return colorResource;
     }
 
-    int getImageResource() {
+    public int getImageResource() {
         return imageResource;
     }
 
-    static WifiLevel find(int level) {
-        int maxLevel = WifiLevel.values().length;
+    public static Strength find(int level) {
+        int maxLevel = Strength.values().length;
         int signalLevel = WifiManager.calculateSignalLevel(level, maxLevel);
         if (signalLevel < 0) {
-            return WifiLevel.ZERO;
+            return Strength.ZERO;
         }
         if (signalLevel >= maxLevel) {
-            return WifiLevel.FOUR;
+            return Strength.FOUR;
         }
-        return WifiLevel.values()[signalLevel];
+        return Strength.values()[signalLevel];
     }
 }

@@ -13,11 +13,11 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer;
+package com.vrem.wifianalyzer.wifi;
 
 import android.support.annotation.NonNull;
 
-enum Frequency {
+public enum Frequency {
     UNKNOWN(0, 0, 0, ""),
     TWO_POINT_FOUR(2412, 2472, 1, "2.4Ghz"),
     TWO_POINT_FOUR_CH_14(2484, 2484, 14, "2.4Ghz"),
@@ -37,22 +37,22 @@ enum Frequency {
         this.band = band;
     }
 
-    boolean inRange(int value) {
+    public boolean inRange(int value) {
         return value >= start && value <= end;
     }
 
-    int channel(int value) {
+    public int channel(int value) {
         if (inRange(value)) {
             return (value - start) / CHANNEL_FREQUENCY_SPREAD + offset;
         }
         return 0;
     }
 
-    String getBand() {
+    public String getBand() {
         return band;
     }
 
-    static Frequency find(int value) {
+    public static Frequency find(int value) {
         for (Frequency frequency: Frequency.values()) {
             if (frequency.inRange(value)) {
                 return frequency;

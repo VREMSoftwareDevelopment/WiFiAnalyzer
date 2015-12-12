@@ -24,12 +24,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vrem.wifianalyzer.wifi.Details;
+import com.vrem.wifianalyzer.wifi.Security;
+import com.vrem.wifianalyzer.wifi.Strength;
+
 import java.util.List;
 
-public class ListViewAdapter extends ArrayAdapter<WifiInfo> {
+public class ListViewAdapter extends ArrayAdapter<Details> {
 
-    public ListViewAdapter(Activity activity, List<WifiInfo> wifiInfoResults) {
-        super(activity, android.R.layout.simple_list_item_1, wifiInfoResults);
+    public ListViewAdapter(Activity activity) {
+        super(activity, android.R.layout.simple_list_item_1);
     }
 
     @Override
@@ -39,26 +43,26 @@ public class ListViewAdapter extends ArrayAdapter<WifiInfo> {
             convertView = inflater.inflate(R.layout.column_row, null);
         }
 
-        WifiInfo wifiInfo = getItem(position);
+        Details details = getItem(position);
 
         ((TextView) convertView.findViewById(R.id.ssid)).setText(
-                (TextUtils.isEmpty(wifiInfo.getSSID()) ? "HIDDEN" : wifiInfo.getSSID()) + " (" + wifiInfo.getBSSID() + ")");
+                (TextUtils.isEmpty(details.getSSID()) ? "HIDDEN" : details.getSSID()) + " (" + details.getBSSID() + ")");
 
-        WifiLevel wifiLevel = wifiInfo.getWifiLevel();
+        Strength strength = details.getWifiLevel();
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.levelImage);
-        imageView.setImageResource(wifiLevel.getImageResource());
+        imageView.setImageResource(strength.getImageResource());
 
         ImageView securityImage = (ImageView) convertView.findViewById(R.id.securityImage);
-        securityImage.setImageResource(wifiInfo.getSecurity().getImageResource());
+        securityImage.setImageResource(details.getSecurity().getImageResource());
 
         TextView textLevel = (TextView) convertView.findViewById(R.id.level);
-        textLevel.setText(wifiInfo.getLevel() + "dBm");
-        textLevel.setTextColor(getContext().getResources().getColor(wifiLevel.getColorResource()));
+        textLevel.setText(details.getLevel() + "dBm");
+        textLevel.setTextColor(getContext().getResources().getColor(strength.getColorResource()));
 
-        ((TextView) convertView.findViewById(R.id.channel)).setText("" + wifiInfo.getChannel());
-        ((TextView) convertView.findViewById(R.id.frequency)).setText(" (" + wifiInfo.getFrequency().getBand()+")");
-        ((TextView) convertView.findViewById(R.id.security)).setText(securitiesAsString(wifiInfo.getSecurities()));
+        ((TextView) convertView.findViewById(R.id.channel)).setText("" + details.getChannel());
+        ((TextView) convertView.findViewById(R.id.frequency)).setText(" (" + details.getFrequency().getBand()+")");
+        ((TextView) convertView.findViewById(R.id.security)).setText(securitiesAsString(details.getSecurities()));
 
         return convertView;
     }

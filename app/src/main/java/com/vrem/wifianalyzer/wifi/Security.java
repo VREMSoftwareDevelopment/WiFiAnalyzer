@@ -13,12 +13,14 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer;
+package com.vrem.wifianalyzer.wifi;
+
+import com.vrem.wifianalyzer.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-enum Security {
+public enum Security {
     // weak security first - keep this order
     NONE(R.drawable.unlock),
     WEP(R.drawable.brokenlock),
@@ -32,11 +34,11 @@ enum Security {
         this.imageResource = imageResource;
     }
 
-    int getImageResource() {
+    public int getImageResource() {
         return imageResource;
     }
 
-    static List<Security> findAll(String capabilities) {
+    public static List<Security> findAll(String capabilities) {
         List<Security> results = new ArrayList<>();
         if (capabilities != null) {
             String[] values = capabilities.toUpperCase().replace("][", "-").replace("]", "").replace("[", "").split("-");
@@ -51,7 +53,7 @@ enum Security {
         return results;
     }
 
-    static Security findOne(String capabilities) {
+    public static Security findOne(String capabilities) {
         List<Security> securities = findAll(capabilities);
         for (Security security: Security.values()) {
             if (securities.contains(security)) {

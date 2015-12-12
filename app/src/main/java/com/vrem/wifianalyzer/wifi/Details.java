@@ -13,23 +13,23 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer;
+package com.vrem.wifianalyzer.wifi;
 
 import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 
 import java.util.List;
 
-public class WifiInfo implements Comparable<WifiInfo> {
+public class Details implements Comparable<Details> {
 
     private final ScanResult scanResult;
 
-    private WifiInfo(ScanResult scanResult) {
+    private Details(ScanResult scanResult) {
         this.scanResult = scanResult;
     }
 
-    public static WifiInfo make(@NonNull ScanResult scanResult) {
-        return new WifiInfo(scanResult);
+    public static Details make(@NonNull ScanResult scanResult) {
+        return new Details(scanResult);
     }
 
     public Frequency getFrequency() {
@@ -48,8 +48,8 @@ public class WifiInfo implements Comparable<WifiInfo> {
         return Security.findAll(scanResult.capabilities);
     }
 
-    public WifiLevel getWifiLevel() {
-        return WifiLevel.find(scanResult.level);
+    public Strength getWifiLevel() {
+        return Strength.find(scanResult.level);
     }
 
     public String getSSID() {
@@ -74,7 +74,7 @@ public class WifiInfo implements Comparable<WifiInfo> {
     }
 
     @Override
-    public int compareTo(@NonNull WifiInfo another) {
+    public int compareTo(@NonNull Details another) {
         int result = another.scanResult.level - this.scanResult.level;
         if (result == 0) {
             result = this.scanResult.SSID.compareTo(another.scanResult.SSID);
