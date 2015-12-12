@@ -57,7 +57,7 @@ public class Scanner {
         };
     }
 
-    private void update() {
+    public void update() {
         ListViewAdapter listViewAdapter = (ListViewAdapter) listView.getAdapter();
         listViewAdapter.clear();
         listViewAdapter.addAll(scan());

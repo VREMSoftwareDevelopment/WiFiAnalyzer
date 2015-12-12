@@ -18,6 +18,7 @@ package com.vrem.wifianalyzer;
 import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -34,6 +35,8 @@ import com.vrem.wifianalyzer.wifi.Scanner;
 public class MainActivity extends AppCompatActivity {
 
     private ListView listView;
+    private Scanner scanner;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,21 +46,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        this.swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        this.swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
+
         this.listView = (ListView) findViewById(R.id.listView);
         this.listView.setAdapter(new ListViewAdapter(this));
-        this.listView.setOnItemClickListener(makeListViewOnItemClickListener());
+        this.listView.setOnItemClickListener(new ListViewOnItemClickListener());
 
-        Scanner.performPeriodicScans((WifiManager) getSystemService(Context.WIFI_SERVICE), this.listView);
-    }
-
-    private OnItemClickListener makeListViewOnItemClickListener() {
-        return new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Details details = (Details) listView.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), details.toString(), Toast.LENGTH_LONG).show();
-            }
-        };
+        scanner = Scanner.performPeriodicScans((WifiManager) getSystemService(Context.WIFI_SERVICE), this.listView);
     }
 
     @Override
@@ -71,4 +67,20 @@ public class MainActivity extends AppCompatActivity {
         return item.getItemId() == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
+    class ListViewOnItemClickListener implements  OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Details details = (Details) listView.getItemAtPosition(position);
+            Toast.makeText(getApplicationContext(), details.toString(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
+        @Override
+        public void onRefresh() {
+            swipeRefreshLayout.setRefreshing(true);
+            scanner.update();
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
 }
