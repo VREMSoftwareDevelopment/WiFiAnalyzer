@@ -18,16 +18,18 @@ package com.vrem.wifianalyzer;
 import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 
-public class WifiScan implements Comparable<WifiScan> {
+import java.util.List;
+
+public class WifiInfo implements Comparable<WifiInfo> {
 
     private final ScanResult scanResult;
 
-    private WifiScan(ScanResult scanResult) {
+    private WifiInfo(ScanResult scanResult) {
         this.scanResult = scanResult;
     }
 
-    public static WifiScan make(@NonNull ScanResult scanResult) {
-        return new WifiScan(scanResult);
+    public static WifiInfo make(@NonNull ScanResult scanResult) {
+        return new WifiInfo(scanResult);
     }
 
     public Frequency getFrequency() {
@@ -42,7 +44,7 @@ public class WifiScan implements Comparable<WifiScan> {
         return Security.findOne(scanResult.capabilities);
     }
 
-    public String getSecurities() {
+    public List<Security> getSecurities() {
         return Security.findAll(scanResult.capabilities);
     }
 
@@ -72,7 +74,7 @@ public class WifiScan implements Comparable<WifiScan> {
     }
 
     @Override
-    public int compareTo(@NonNull WifiScan another) {
+    public int compareTo(@NonNull WifiInfo another) {
         int result = another.scanResult.level - this.scanResult.level;
         if (result == 0) {
             result = this.scanResult.SSID.compareTo(another.scanResult.SSID);

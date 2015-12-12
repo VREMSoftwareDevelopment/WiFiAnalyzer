@@ -16,6 +16,7 @@
 package com.vrem.wifianalyzer;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +26,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ListViewAdapter extends ArrayAdapter<WifiScan> {
+public class ListViewAdapter extends ArrayAdapter<WifiInfo> {
 
-    public ListViewAdapter(Activity activity, List<WifiScan> wifiScanResults) {
-        super(activity, android.R.layout.simple_list_item_1, wifiScanResults);
+    public ListViewAdapter(Activity activity, List<WifiInfo> wifiInfoResults) {
+        super(activity, android.R.layout.simple_list_item_1, wifiInfoResults);
     }
 
     @Override
@@ -38,31 +39,37 @@ public class ListViewAdapter extends ArrayAdapter<WifiScan> {
             convertView = inflater.inflate(R.layout.column_row, null);
         }
 
-        WifiScan wifiScan = getItem(position);
+        WifiInfo wifiInfo = getItem(position);
 
         ((TextView) convertView.findViewById(R.id.ssid)).setText(
-                (wifiScan.getSSID().length() == 0 ? "HIDDEN" : wifiScan.getSSID()) + " (" + wifiScan.getBSSID() + ")");
+                (TextUtils.isEmpty(wifiInfo.getSSID()) ? "HIDDEN" : wifiInfo.getSSID()) + " (" + wifiInfo.getBSSID() + ")");
 
-        WifiLevel wifiLevel = wifiScan.getWifiLevel();
-        Security security = wifiScan.getSecurity();
-        String securities = wifiScan.getSecurities();
-        Frequency frequency = wifiScan.getFrequency();
-        int channel = wifiScan.getChannel();
+        WifiLevel wifiLevel = wifiInfo.getWifiLevel();
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.levelImage);
         imageView.setImageResource(wifiLevel.getImageResource());
+        imageView.setColorFilter(getContext().getResources().getColor(wifiLevel.getColorResource()));
 
         ImageView securityImage = (ImageView) convertView.findViewById(R.id.securityImage);
-        securityImage.setImageResource(security.getImageResource());
+        securityImage.setImageResource(wifiInfo.getSecurity().getImageResource());
 
         TextView textLevel = (TextView) convertView.findViewById(R.id.level);
-        textLevel.setText(wifiScan.getLevel() + "dBm");
+        textLevel.setText(wifiInfo.getLevel() + "dBm");
         textLevel.setTextColor(getContext().getResources().getColor(wifiLevel.getColorResource()));
 
-        ((TextView) convertView.findViewById(R.id.channel)).setText("" + channel);
-        ((TextView) convertView.findViewById(R.id.frequency)).setText(" (" + frequency.getBand()+")");
-        ((TextView) convertView.findViewById(R.id.security)).setText(securities);
+        ((TextView) convertView.findViewById(R.id.channel)).setText("" + wifiInfo.getChannel());
+        ((TextView) convertView.findViewById(R.id.frequency)).setText(" (" + wifiInfo.getFrequency().getBand()+")");
+        ((TextView) convertView.findViewById(R.id.security)).setText(securitiesAsString(wifiInfo.getSecurities()));
 
         return convertView;
+    }
+
+    private String securitiesAsString(List<Security> securities) {
+        StringBuilder result = new StringBuilder();
+        for (Security current: securities) {
+            result.append(current.name());
+            result.append(" ");
+        }
+        return result.toString();
     }
 }

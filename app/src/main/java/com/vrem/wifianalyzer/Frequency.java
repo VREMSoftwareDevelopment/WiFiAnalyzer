@@ -15,6 +15,8 @@
  */
 package com.vrem.wifianalyzer;
 
+import android.support.annotation.NonNull;
+
 enum Frequency {
     UNKNOWN(0, 0, 0, ""),
     TWO_POINT_FOUR(2412, 2472, 1, "2.4Ghz"),
@@ -28,7 +30,7 @@ enum Frequency {
     private int offset;
     private String band;
 
-    Frequency(int start, int end, int offset, String band) {
+    Frequency(int start, int end, int offset, @NonNull String band) {
         this.start = start;
         this.end = end;
         this.offset = offset;

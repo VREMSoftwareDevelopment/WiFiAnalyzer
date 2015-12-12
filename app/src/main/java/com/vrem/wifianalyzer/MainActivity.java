@@ -90,15 +90,15 @@ public class MainActivity extends AppCompatActivity {
         return wifiManager;
     }
 
-    private List<WifiScan> wifiScan() {
-        List<WifiScan> results = new ArrayList<>();
+    private List<WifiInfo> wifiScan() {
+        List<WifiInfo> results = new ArrayList<>();
         Toast.makeText(this, "Scanning WiFi ... ", Toast.LENGTH_SHORT).show();
 
         wifiManager.startScan();
         List<ScanResult> scanResults = wifiManager.getScanResults();
         if (scanResults != null) {
             for (ScanResult scanResult: scanResults) {
-                results.add(WifiScan.make(scanResult));
+                results.add(WifiInfo.make(scanResult));
             }
             Collections.sort(results);
         }

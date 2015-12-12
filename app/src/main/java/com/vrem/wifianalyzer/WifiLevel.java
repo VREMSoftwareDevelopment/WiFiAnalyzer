@@ -18,7 +18,7 @@ package com.vrem.wifianalyzer;
 import android.net.wifi.WifiManager;
 
 enum WifiLevel {
-    ZERO(R.drawable.wifi0, R.color.wifi0),
+    ZERO(R.drawable.wifi1, R.color.wifi0),
     ONE(R.drawable.wifi1, R.color.wifi1),
     TWO(R.drawable.wifi2, R.color.wifi2),
     THREE(R.drawable.wifi3, R.color.wifi3),

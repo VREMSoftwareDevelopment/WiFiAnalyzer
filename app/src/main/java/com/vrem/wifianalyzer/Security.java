@@ -35,7 +35,8 @@ enum Security {
     int getImageResource() {
         return imageResource;
     }
-    private static List<Security> findSecurities(String capabilities) {
+
+    static List<Security> findAll(String capabilities) {
         List<Security> results = new ArrayList<>();
         if (capabilities != null) {
             String[] values = capabilities.toUpperCase().replace("][", "-").replace("]", "").replace("[", "").split("-");
@@ -51,7 +52,7 @@ enum Security {
     }
 
     static Security findOne(String capabilities) {
-        List<Security> securities = findSecurities(capabilities);
+        List<Security> securities = findAll(capabilities);
         for (Security security: Security.values()) {
             if (securities.contains(security)) {
                 return security;
@@ -60,12 +61,4 @@ enum Security {
         return Security.NONE;
     }
 
-    static String findAll(String capabilities) {
-        StringBuilder result = new StringBuilder();
-        for (Security current: findSecurities(capabilities)) {
-            result.append(current.name());
-            result.append(" ");
-        }
-        return result.toString();
-    }
 }
