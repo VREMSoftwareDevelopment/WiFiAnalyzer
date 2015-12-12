@@ -48,7 +48,6 @@ public class ListViewAdapter extends ArrayAdapter<WifiInfo> {
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.levelImage);
         imageView.setImageResource(wifiLevel.getImageResource());
-        imageView.setColorFilter(getContext().getResources().getColor(wifiLevel.getColorResource()));
 
         ImageView securityImage = (ImageView) convertView.findViewById(R.id.securityImage);
         securityImage.setImageResource(wifiInfo.getSecurity().getImageResource());

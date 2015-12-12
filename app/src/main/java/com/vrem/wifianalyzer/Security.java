@@ -23,8 +23,8 @@ enum Security {
     NONE(R.drawable.unlock),
     WEP(R.drawable.brokenlock),
     WPS(R.drawable.brokenlock),
-    WPA(R.drawable.lock),
-    WPA2(R.drawable.lock);
+    WPA(R.drawable.ic_lock_black_18dp),
+    WPA2(R.drawable.ic_lock_black_18dp);
 
     private final int imageResource;
 

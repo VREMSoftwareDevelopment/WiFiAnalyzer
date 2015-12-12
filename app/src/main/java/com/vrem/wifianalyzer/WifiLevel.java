@@ -18,11 +18,11 @@ package com.vrem.wifianalyzer;
 import android.net.wifi.WifiManager;
 
 enum WifiLevel {
-    ZERO(R.drawable.wifi1, R.color.wifi0),
-    ONE(R.drawable.wifi1, R.color.wifi1),
-    TWO(R.drawable.wifi2, R.color.wifi2),
-    THREE(R.drawable.wifi3, R.color.wifi3),
-    FOUR(R.drawable.wifi4, R.color.wifi4);
+    ZERO(R.drawable.ic_signal_wifi_1_bar_red_900_48dp, R.color.wifi0),
+    ONE(R.drawable.ic_signal_wifi_1_bar_yellow_900_48dp, R.color.wifi1),
+    TWO(R.drawable.ic_signal_wifi_2_bar_yellow_900_48dp, R.color.wifi2),
+    THREE(R.drawable.ic_signal_wifi_3_bar_green_900_48dp, R.color.wifi3),
+    FOUR(R.drawable.ic_signal_wifi_4_bar_green_900_48dp, R.color.wifi4);
 
     private final int imageResource;
     private final int colorResource;
