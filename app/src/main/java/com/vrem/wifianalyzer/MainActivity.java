@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         this.listView.setAdapter(new ListViewAdapter(this));
         this.listView.setOnItemClickListener(new ListViewOnItemClickListener());
 
-        scanner = Scanner.performPeriodicScans((WifiManager) getSystemService(Context.WIFI_SERVICE), this.listView);
+        scanner = Scanner.performPeriodicScans(this, (WifiManager) getSystemService(Context.WIFI_SERVICE), this.listView);
     }
 
     @Override

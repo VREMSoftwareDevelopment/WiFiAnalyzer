@@ -15,11 +15,13 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
+import android.content.Context;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.vrem.wifianalyzer.ListViewAdapter;
 
@@ -28,20 +30,22 @@ import java.util.Collections;
 import java.util.List;
 
 public class Scanner {
-    public static final int DELAY_MILLIS = 60000;
+    public static final int DELAY_MILLIS = 30000;
 
+    private final Context context;
+    private final WiFi wifi;
     private final ListView listView;
     private final Handler handler;
-    private final WiFi wifi;
 
-    private Scanner(@NonNull WifiManager wifiManager, @NonNull ListView listView) {
+    private Scanner(@NonNull Context context, @NonNull WifiManager wifiManager, @NonNull ListView listView) {
+        this.context = context;
         this.wifi = new WiFi(wifiManager);
         this.listView = listView;
         this.handler = new Handler();
     }
 
-    public static Scanner performPeriodicScans(@NonNull WifiManager wifiManager, @NonNull ListView listView) {
-        Scanner scanner = new Scanner(wifiManager, listView);
+    public static Scanner performPeriodicScans(@NonNull Context context, @NonNull WifiManager wifiManager, @NonNull ListView listView) {
+        Scanner scanner = new Scanner(context, wifiManager, listView);
         scanner.update();
         scanner.handler.postDelayed(scanner.performPeriodicScan(), DELAY_MILLIS);
         return scanner;
@@ -51,6 +55,7 @@ public class Scanner {
         return new Runnable() {
             @Override
             public void run() {
+                Toast.makeText(context.getApplicationContext(), "Scanning...", Toast.LENGTH_SHORT).show();
                 update();
                 handler.postDelayed(performPeriodicScan(), DELAY_MILLIS);
             }
