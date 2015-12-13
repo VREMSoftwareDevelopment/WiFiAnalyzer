@@ -25,8 +25,11 @@ import android.widget.Toast;
 
 import com.vrem.wifianalyzer.ListViewAdapter;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class Scanner {
@@ -36,17 +39,20 @@ public class Scanner {
     private final WiFi wifi;
     private final ListView listView;
     private final Handler handler;
+    private final DateFormat timeFormat;
 
     private Scanner(@NonNull Context context, @NonNull WifiManager wifiManager, @NonNull ListView listView) {
         this.context = context;
         this.wifi = new WiFi(wifiManager);
         this.listView = listView;
         this.handler = new Handler();
+        this.timeFormat = new SimpleDateFormat("mm:ss.SSS");
     }
 
     public static Scanner performPeriodicScans(@NonNull Context context, @NonNull WifiManager wifiManager, @NonNull ListView listView) {
         Scanner scanner = new Scanner(context, wifiManager, listView);
         scanner.update();
+        scanner.handler.removeCallbacks(scanner.performPeriodicScan());
         scanner.handler.postDelayed(scanner.performPeriodicScan(), DELAY_MILLIS);
         return scanner;
     }
@@ -55,9 +61,10 @@ public class Scanner {
         return new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(context.getApplicationContext(), "Scanning...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context.getApplicationContext(), "Scanning ... " + timeFormat.format(new Date()), Toast.LENGTH_SHORT).show();
                 update();
-                handler.postDelayed(performPeriodicScan(), DELAY_MILLIS);
+                handler.removeCallbacks(this);
+                handler.postDelayed(this, DELAY_MILLIS);
             }
         };
     }
