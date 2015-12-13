@@ -49,7 +49,7 @@ public class Details implements Comparable<Details> {
     }
 
     public Strength getWifiLevel() {
-        return Strength.find(scanResult.level);
+        return Strength.calculate(scanResult.level);
     }
 
     public String getSSID() {
