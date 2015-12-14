@@ -25,20 +25,20 @@ public class StrengthTest {
 
     @Test
     public void testGetImageResource() throws Exception {
-        assertEquals(R.drawable.ic_signal_wifi_1_bar_red_900_48dp, Strength.ZERO.getImageResource());
-        assertEquals(R.drawable.ic_signal_wifi_1_bar_yellow_900_48dp, Strength.ONE.getImageResource());
-        assertEquals(R.drawable.ic_signal_wifi_2_bar_yellow_900_48dp, Strength.TWO.getImageResource());
-        assertEquals(R.drawable.ic_signal_wifi_3_bar_green_900_48dp, Strength.THREE.getImageResource());
-        assertEquals(R.drawable.ic_signal_wifi_4_bar_green_900_48dp, Strength.FOUR.getImageResource());
+        assertEquals(R.drawable.ic_signal_wifi_0_bar_black_48dp, Strength.ZERO.getImageResource());
+        assertEquals(R.drawable.ic_signal_wifi_1_bar_black_48dp, Strength.ONE.getImageResource());
+        assertEquals(R.drawable.ic_signal_wifi_2_bar_black_48dp, Strength.TWO.getImageResource());
+        assertEquals(R.drawable.ic_signal_wifi_3_bar_black_48dp, Strength.THREE.getImageResource());
+        assertEquals(R.drawable.ic_signal_wifi_4_bar_black_48dp, Strength.FOUR.getImageResource());
     }
 
     @Test
     public void testGetColorResource() throws Exception {
-        assertEquals(R.color.wifi0, Strength.ZERO.getColorResource());
-        assertEquals(R.color.wifi1, Strength.ONE.getColorResource());
-        assertEquals(R.color.wifi2, Strength.TWO.getColorResource());
-        assertEquals(R.color.wifi3, Strength.THREE.getColorResource());
-        assertEquals(R.color.wifi4, Strength.FOUR.getColorResource());
+        assertEquals(R.color.error_color, Strength.ZERO.getColorResource());
+        assertEquals(R.color.warning_color, Strength.ONE.getColorResource());
+        assertEquals(R.color.warning_color, Strength.TWO.getColorResource());
+        assertEquals(R.color.success_color, Strength.THREE.getColorResource());
+        assertEquals(R.color.success_color, Strength.FOUR.getColorResource());
     }
 
     @Test

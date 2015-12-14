@@ -25,8 +25,8 @@ import java.util.TreeSet;
 public enum Security {
     // weak security first - keep this order
     NONE(R.drawable.ic_lock_open_black_18dp),
-    WPS(R.drawable.ic_lock_outline_red_900_18dp),
-    WEP(R.drawable.ic_lock_outline_red_900_18dp),
+    WPS(R.drawable.ic_lock_outline_black_18dp),
+    WEP(R.drawable.ic_lock_outline_black_18dp),
     WPA(R.drawable.ic_lock_black_18dp),
     WPA2(R.drawable.ic_lock_black_18dp);
 

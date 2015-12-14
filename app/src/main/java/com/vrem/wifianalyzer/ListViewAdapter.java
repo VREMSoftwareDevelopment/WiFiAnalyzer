@@ -44,24 +44,24 @@ public class ListViewAdapter extends ArrayAdapter<Details> {
         }
 
         Details details = getItem(position);
+        Strength strength = details.getWifiLevel();
+        Security security = details.getSecurity();
 
         ((TextView) convertView.findViewById(R.id.ssid)).setText(
                 (TextUtils.isEmpty(details.getSSID()) ? "HIDDEN" : details.getSSID()) + " (" + details.getBSSID() + ")");
 
-        Strength strength = details.getWifiLevel();
-
         ImageView imageView = (ImageView) convertView.findViewById(R.id.levelImage);
         imageView.setImageResource(strength.getImageResource());
+        imageView.setColorFilter(convertView.getResources().getColor(strength.getColorResource()));
 
-        ImageView securityImage = (ImageView) convertView.findViewById(R.id.securityImage);
-        securityImage.setImageResource(details.getSecurity().getImageResource());
+        ((ImageView) convertView.findViewById(R.id.securityImage)).setImageResource(security.getImageResource());
 
         TextView textLevel = (TextView) convertView.findViewById(R.id.level);
         textLevel.setText(details.getLevel() + "dBm");
         textLevel.setTextColor(getContext().getResources().getColor(strength.getColorResource()));
 
         ((TextView) convertView.findViewById(R.id.channel)).setText("" + details.getChannel());
-        ((TextView) convertView.findViewById(R.id.frequency)).setText(" (" + details.getFrequency().getBand()+")");
+        ((TextView) convertView.findViewById(R.id.frequency)).setText(" (" + details.getFrequency().getBand() + ")");
         ((TextView) convertView.findViewById(R.id.security)).setText(securitiesAsString(details.getSecurities()));
 
         return convertView;

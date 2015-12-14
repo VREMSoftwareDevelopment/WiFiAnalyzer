@@ -18,11 +18,11 @@ package com.vrem.wifianalyzer.wifi;
 import com.vrem.wifianalyzer.R;
 
 public enum Strength {
-    ZERO(R.drawable.ic_signal_wifi_1_bar_red_900_48dp, R.color.wifi0),
-    ONE(R.drawable.ic_signal_wifi_1_bar_yellow_900_48dp, R.color.wifi1),
-    TWO(R.drawable.ic_signal_wifi_2_bar_yellow_900_48dp, R.color.wifi2),
-    THREE(R.drawable.ic_signal_wifi_3_bar_green_900_48dp, R.color.wifi3),
-    FOUR(R.drawable.ic_signal_wifi_4_bar_green_900_48dp, R.color.wifi4);
+    ZERO(R.drawable.ic_signal_wifi_1_bar_black_48dp, R.color.error_color),
+    ONE(R.drawable.ic_signal_wifi_1_bar_black_48dp, R.color.warning_color),
+    TWO(R.drawable.ic_signal_wifi_2_bar_black_48dp, R.color.warning_color),
+    THREE(R.drawable.ic_signal_wifi_3_bar_black_48dp, R.color.success_color),
+    FOUR(R.drawable.ic_signal_wifi_4_bar_black_48dp, R.color.success_color);
 
     private final int imageResource;
     private final int colorResource;

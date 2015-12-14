@@ -30,8 +30,8 @@ public class SecurityTest {
     @Test
     public void testGetImageResource() throws Exception {
         assertEquals(R.drawable.ic_lock_open_black_18dp, Security.NONE.getImageResource());
-        assertEquals(R.drawable.ic_lock_outline_red_900_18dp, Security.WPS.getImageResource());
-        assertEquals(R.drawable.ic_lock_outline_red_900_18dp, Security.WEP.getImageResource());
+        assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WPS.getImageResource());
+        assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WEP.getImageResource());
         assertEquals(R.drawable.ic_lock_black_18dp, Security.WPA.getImageResource());
         assertEquals(R.drawable.ic_lock_black_18dp, Security.WPA2.getImageResource());
     }

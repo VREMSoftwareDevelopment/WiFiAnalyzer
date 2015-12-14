@@ -3,9 +3,6 @@
     <color name="channel">#0000CC</color>
     <color name="security">#669999</color>
 
-    <color name="wifi0">#B71C1C</color>
-    <color name="wifi1">#F57F17</color>
-    <color name="wifi2">#F57F17</color>
-    <color name="wifi3">#1B5E20</color>
-    <color name="wifi4">#1B5E20</color>
+    <color name="warning_color">#F57F17</color>
+    <color name="success_color">#1B5E20</color>
 </resources>
