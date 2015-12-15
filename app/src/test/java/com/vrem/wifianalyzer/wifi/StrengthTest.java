@@ -15,17 +15,26 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
+import android.net.wifi.WifiManager;
+
 import com.vrem.wifianalyzer.R;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(WifiManager.class)
 public class StrengthTest {
 
     @Test
     public void testGetImageResource() throws Exception {
-        assertEquals(R.drawable.ic_signal_wifi_0_bar_black_48dp, Strength.ZERO.getImageResource());
+        assertEquals(R.drawable.ic_signal_wifi_1_bar_black_48dp, Strength.ZERO.getImageResource());
         assertEquals(R.drawable.ic_signal_wifi_1_bar_black_48dp, Strength.ONE.getImageResource());
         assertEquals(R.drawable.ic_signal_wifi_2_bar_black_48dp, Strength.TWO.getImageResource());
         assertEquals(R.drawable.ic_signal_wifi_3_bar_black_48dp, Strength.THREE.getImageResource());
@@ -43,19 +52,16 @@ public class StrengthTest {
 
     @Test
     public void testFind() throws Exception {
-        assertEquals(Strength.ZERO, Strength.calculate(-100));
-        assertEquals(Strength.ZERO, Strength.calculate(-89));
-
-        assertEquals(Strength.ONE, Strength.calculate(-88));
-        assertEquals(Strength.ONE, Strength.calculate(-78));
-
-        assertEquals(Strength.TWO, Strength.calculate(-77));
-        assertEquals(Strength.TWO, Strength.calculate(-67));
-
-        assertEquals(Strength.THREE, Strength.calculate(-66));
-        assertEquals(Strength.THREE, Strength.calculate(-56));
-
-        assertEquals(Strength.FOUR, Strength.calculate(-55));
-        assertEquals(Strength.FOUR, Strength.calculate(0));
+        // setup
+        int value = -55;
+        Strength expected = Strength.TWO;
+        PowerMockito.mockStatic(WifiManager.class);
+        // expected
+        Mockito.when(WifiManager.calculateSignalLevel(value, Strength.values().length)).thenReturn(expected.ordinal());
+        // execute
+        Strength actual = Strength.calculate(value);
+        // validate
+        assertEquals(expected, actual);
+        PowerMockito.verifyStatic();
     }
 }
