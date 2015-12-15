@@ -20,10 +20,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.widget.ListView;
 import android.widget.Toast;
-
-import com.vrem.wifianalyzer.ListViewAdapter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -37,20 +34,20 @@ public class Scanner {
 
     private final Context context;
     private final WiFi wifi;
-    private final ListView listView;
+    private final ScannerData<Details> scannerData;
     private final Handler handler;
     private final DateFormat timeFormat;
 
-    private Scanner(@NonNull Context context, @NonNull WifiManager wifiManager, @NonNull ListView listView) {
+    private Scanner(@NonNull Context context, @NonNull WifiManager wifiManager, @NonNull ScannerData<Details> scannerData) {
         this.context = context;
         this.wifi = new WiFi(wifiManager);
-        this.listView = listView;
+        this.scannerData = scannerData;
         this.handler = new Handler();
         this.timeFormat = new SimpleDateFormat("mm:ss.SSS");
     }
 
-    public static Scanner performPeriodicScans(@NonNull Context context, @NonNull WifiManager wifiManager, @NonNull ListView listView) {
-        Scanner scanner = new Scanner(context, wifiManager, listView);
+    public static Scanner performPeriodicScans(@NonNull Context context, @NonNull WifiManager wifiManager, @NonNull ScannerData<Details> scannerData) {
+        Scanner scanner = new Scanner(context, wifiManager, scannerData);
         scanner.update();
         scanner.handler.removeCallbacks(scanner.performPeriodicScan());
         scanner.handler.postDelayed(scanner.performPeriodicScan(), DELAY_MILLIS);
@@ -70,10 +67,8 @@ public class Scanner {
     }
 
     public void update() {
-        ListViewAdapter listViewAdapter = (ListViewAdapter) listView.getAdapter();
-        listViewAdapter.clear();
-        listViewAdapter.addAll(scan());
-        listViewAdapter.notifyDataSetChanged();
+        scannerData.addAll(scan());
+        scannerData.notifyDataSetChanged();
     }
 
     private List<Details> scan() {

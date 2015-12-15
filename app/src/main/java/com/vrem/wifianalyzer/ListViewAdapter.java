@@ -15,12 +15,11 @@
  */
 package com.vrem.wifianalyzer;
 
-import android.app.Activity;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,25 +29,24 @@ import com.vrem.wifianalyzer.wifi.Strength;
 
 import java.util.List;
 
-public class ListViewAdapter extends ArrayAdapter<Details> {
+public class ListViewAdapter extends BaseListViewAdapter<Details,String> {
 
-    public ListViewAdapter(Activity activity) {
-        super(activity, android.R.layout.simple_list_item_1);
+    public ListViewAdapter(@NonNull AppCompatActivity activity) {
+        super(activity);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
-        if (convertView == null){
-            convertView = inflater.inflate(R.layout.column_row, null);
-        }
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        convertView = getView(convertView, R.layout.list_group);
 
-        Details details = getItem(position);
+        Details details = getGroupData(groupPosition);
         Strength strength = details.getWifiLevel();
         Security security = details.getSecurity();
 
-        ((TextView) convertView.findViewById(R.id.ssid)).setText(
-                (TextUtils.isEmpty(details.getSSID()) ? "HIDDEN" : details.getSSID()) + " (" + details.getBSSID() + ")");
+        ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
+        groupIndicator.setImageResource(isExpanded ? R.drawable.ic_expand_less_black_24dp : R.drawable.ic_expand_more_black_24dp);
+
+        ((TextView) convertView.findViewById(R.id.ssid)).setText((TextUtils.isEmpty(details.getSSID()) ? "HIDDEN" : details.getSSID()));
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.levelImage);
         imageView.setImageResource(strength.getImageResource());
@@ -58,7 +56,7 @@ public class ListViewAdapter extends ArrayAdapter<Details> {
 
         TextView textLevel = (TextView) convertView.findViewById(R.id.level);
         textLevel.setText(details.getLevel() + "dBm");
-        textLevel.setTextColor(getContext().getResources().getColor(strength.getColorResource()));
+        textLevel.setTextColor(getActivity().getResources().getColor(strength.getColorResource()));
 
         ((TextView) convertView.findViewById(R.id.channel)).setText("" + details.getChannel());
         ((TextView) convertView.findViewById(R.id.frequency)).setText(" (" + details.getFrequency().getBand() + ")");
@@ -74,5 +72,16 @@ public class ListViewAdapter extends ArrayAdapter<Details> {
             result.append(" ");
         }
         return result.toString();
+    }
+
+    @Override
+    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        convertView = getView(convertView, R.layout.list_item);
+
+        String childText = getChildData(groupPosition, childPosition);
+        TextView txtListChild = (TextView) convertView.findViewById(R.id.item);
+
+        txtListChild.setText(childText);
+        return convertView;
     }
 }
