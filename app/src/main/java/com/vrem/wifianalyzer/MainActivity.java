@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         this.listView = (ExpandableListView) findViewById(R.id.listView);
         this.listView.setAdapter(listViewAdapter);
 
-        scanner = Scanner.performPeriodicScans(this, (WifiManager) getSystemService(Context.WIFI_SERVICE), listViewAdapter);
+        scanner = Scanner.performPeriodicScans((WifiManager) getSystemService(Context.WIFI_SERVICE), listViewAdapter);
     }
 
     @Override

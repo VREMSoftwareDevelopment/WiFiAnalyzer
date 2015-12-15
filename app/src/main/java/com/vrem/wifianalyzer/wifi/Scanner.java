@@ -15,39 +15,35 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
-import android.content.Context;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
+import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class Scanner {
     public static final int DELAY_MILLIS = 30000;
 
-    private final Context context;
     private final WiFi wifi;
     private final ScannerData<Details> scannerData;
     private final Handler handler;
     private final DateFormat timeFormat;
 
-    private Scanner(@NonNull Context context, @NonNull WifiManager wifiManager, @NonNull ScannerData<Details> scannerData) {
-        this.context = context;
+    private Scanner(@NonNull WifiManager wifiManager, @NonNull ScannerData<Details> scannerData) {
         this.wifi = new WiFi(wifiManager);
         this.scannerData = scannerData;
         this.handler = new Handler();
         this.timeFormat = new SimpleDateFormat("mm:ss.SSS");
     }
 
-    public static Scanner performPeriodicScans(@NonNull Context context, @NonNull WifiManager wifiManager, @NonNull ScannerData<Details> scannerData) {
-        Scanner scanner = new Scanner(context, wifiManager, scannerData);
+    public static Scanner performPeriodicScans(@NonNull WifiManager wifiManager, @NonNull ScannerData<Details> scannerData) {
+        Scanner scanner = new Scanner(wifiManager, scannerData);
         scanner.update();
         scanner.handler.removeCallbacks(scanner.performPeriodicScan());
         scanner.handler.postDelayed(scanner.performPeriodicScan(), DELAY_MILLIS);
@@ -58,7 +54,7 @@ public class Scanner {
         return new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(context.getApplicationContext(), "Scanning ... " + timeFormat.format(new Date()), Toast.LENGTH_SHORT).show();
+                Log.i(">>>", "Scanner.performPeriodicScan");
                 update();
                 handler.removeCallbacks(this);
                 handler.postDelayed(this, DELAY_MILLIS);
