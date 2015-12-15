@@ -21,12 +21,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.BaseExpandableListAdapter;
 
-import com.vrem.wifianalyzer.wifi.ScannerData;
+import com.vrem.wifianalyzer.wifi.Update;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseListViewAdapter<T,U> extends BaseExpandableListAdapter implements ScannerData<T> {
+public abstract class BaseListViewAdapter<T,U> extends BaseExpandableListAdapter implements Update<T> {
 
     private final AppCompatActivity activity;
     private List<T> details = new ArrayList<>();
@@ -37,9 +37,10 @@ public abstract class BaseListViewAdapter<T,U> extends BaseExpandableListAdapter
     }
 
     @Override
-    public void addAll(@NonNull List<T> details) {
+    public void update(@NonNull List<T> details) {
         this.details.clear();
         this.details = details;
+        notifyDataSetChanged();
     }
 
     protected List<T> getDetails() {

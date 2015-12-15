@@ -31,19 +31,19 @@ public class Scanner {
     public static final int DELAY_MILLIS = 30000;
 
     private final WiFi wifi;
-    private final ScannerData<Details> scannerData;
+    private final Update<Details> update;
     private final Handler handler;
     private final DateFormat timeFormat;
 
-    private Scanner(@NonNull WifiManager wifiManager, @NonNull ScannerData<Details> scannerData) {
+    private Scanner(@NonNull WifiManager wifiManager, @NonNull Update<Details> update) {
         this.wifi = new WiFi(wifiManager);
-        this.scannerData = scannerData;
+        this.update = update;
         this.handler = new Handler();
         this.timeFormat = new SimpleDateFormat("mm:ss.SSS");
     }
 
-    public static Scanner performPeriodicScans(@NonNull WifiManager wifiManager, @NonNull ScannerData<Details> scannerData) {
-        Scanner scanner = new Scanner(wifiManager, scannerData);
+    public static Scanner performPeriodicScans(@NonNull WifiManager wifiManager, @NonNull Update<Details> update) {
+        Scanner scanner = new Scanner(wifiManager, update);
         scanner.update();
         scanner.handler.removeCallbacks(scanner.performPeriodicScan());
         scanner.handler.postDelayed(scanner.performPeriodicScan(), DELAY_MILLIS);
@@ -63,8 +63,7 @@ public class Scanner {
     }
 
     public void update() {
-        scannerData.addAll(scan());
-        scannerData.notifyDataSetChanged();
+        update.update(scan());
     }
 
     private List<Details> scan() {

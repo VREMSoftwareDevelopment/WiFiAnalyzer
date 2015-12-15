@@ -19,7 +19,6 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-public interface ScannerData<T> {
-    void notifyDataSetChanged();
-    void addAll(@NonNull List<T> data);
+public interface Update<T> {
+    void update(@NonNull List<T> data);
 }
