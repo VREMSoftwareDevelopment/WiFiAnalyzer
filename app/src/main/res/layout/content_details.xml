@@ -4,15 +4,22 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:layout_width="@dimen/activity_horizontal_margin_tab"
+        android:layout_height="wrap_content"
+        android:id="@+id/tab"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:layout_toRightOf="@id/tab"
         android:id="@+id/ssid"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ssid"
+        android:layout_toRightOf="@id/tab"
         android:id="@+id/levelImage"/>
 
     <ImageView

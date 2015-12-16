@@ -1,5 +1,5 @@
 <resources>
     <dimen name="activity_horizontal_margin">8dp</dimen>
     <dimen name="activity_vertical_margin">8dp</dimen>
-    <dimen name="activity_horizontal_margin_child">24dp</dimen>
+    <dimen name="activity_horizontal_margin_tab">48dp</dimen>
 </resources>

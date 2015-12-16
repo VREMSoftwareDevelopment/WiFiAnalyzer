@@ -49,7 +49,8 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
 
         Details details = (Details) getGroup(groupPosition);
 
-        String ssid = (TextUtils.isEmpty(details.getSSID()) ? "HIDDEN" : details.getSSID()) + " ";
+        TextView tab = (TextView) convertView.findViewById(R.id.tab);
+        tab.setVisibility(View.GONE);
 
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
         if (details.getChildren().isEmpty()) {
@@ -60,26 +61,29 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
                     isExpanded ? R.drawable.ic_expand_less_black_24dp : R.drawable.ic_expand_more_black_24dp);
         }
 
-        return getView(details, convertView, ssid);
+        return getView(details, convertView);
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        convertView = getView(convertView, R.layout.content_child);
+        convertView = getView(convertView, R.layout.content_details);
+
+        convertView.setBackgroundColor(activity.getResources().getColor(R.color.shadow_mid_color));
 
         Details details = (Details) getChild(groupPosition, childPosition);
 
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
         groupIndicator.setVisibility(View.GONE);
 
-        return getView(details, convertView, "");
+        return getView(details, convertView);
     }
 
-    private View getView(Details details, View convertView, String ssid) {
+    private View getView(Details details, View convertView) {
         Strength strength = details.getWifiLevel();
         Security security = details.getSecurity();
+        String ssid = (TextUtils.isEmpty(details.getSSID()) ? "HIDDEN" : details.getSSID());
 
-        ((TextView) convertView.findViewById(R.id.ssid)).setText(ssid + details.getBSSID());
+        ((TextView) convertView.findViewById(R.id.ssid)).setText(ssid + " (" + details.getBSSID() + ")");
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.levelImage);
         imageView.setImageResource(strength.getImageResource());
