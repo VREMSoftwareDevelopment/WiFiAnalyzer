@@ -23,26 +23,24 @@ import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Scanner {
     public static final int DELAY_MILLIS = 30000;
 
     private final WiFi wifi;
-    private final Update<Details> update;
+    private final Update update;
     private final Handler handler;
     private final DateFormat timeFormat;
 
-    private Scanner(@NonNull WifiManager wifiManager, @NonNull Update<Details> update) {
+    private Scanner(@NonNull WifiManager wifiManager, @NonNull Update update) {
         this.wifi = new WiFi(wifiManager);
         this.update = update;
         this.handler = new Handler();
         this.timeFormat = new SimpleDateFormat("mm:ss.SSS");
     }
 
-    public static Scanner performPeriodicScans(@NonNull WifiManager wifiManager, @NonNull Update<Details> update) {
+    public static Scanner performPeriodicScans(@NonNull WifiManager wifiManager, @NonNull Update update) {
         Scanner scanner = new Scanner(wifiManager, update);
         scanner.update();
         scanner.handler.removeCallbacks(scanner.performPeriodicScan());
@@ -66,15 +64,14 @@ public class Scanner {
         update.update(scan());
     }
 
-    private List<Details> scan() {
-        List<Details> results = new ArrayList<>();
+    private Info scan() {
+        Info results = new Info();
         wifi.enable();
         List<ScanResult> scanResults = wifi.scan();
         if (scanResults != null) {
             for (ScanResult scanResult: scanResults) {
                 results.add(Details.make(scanResult));
             }
-            Collections.sort(results);
         }
         return results;
     }

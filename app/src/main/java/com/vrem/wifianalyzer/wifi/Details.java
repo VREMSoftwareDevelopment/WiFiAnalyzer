@@ -18,9 +18,14 @@ package com.vrem.wifianalyzer.wifi;
 import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Details implements Comparable<Details> {
 
     private final ScanResult scanResult;
+    private final List<Details> children = new ArrayList<>();
 
     private Details(ScanResult scanResult) {
         this.scanResult = scanResult;
@@ -62,6 +67,28 @@ public class Details implements Comparable<Details> {
         return scanResult.capabilities;
     }
 
+    public void addChild(Details details) {
+        children.add(details);
+        Collections.sort(children);
+    }
+
+    public void addChildren(List<Details> details) {
+        children.addAll(details);
+        Collections.sort(children);
+    }
+
+    public List<Details> getChildren() {
+        return children;
+    }
+
+    public void clearChildren() {
+        children.clear();
+    }
+
+    public Details getChild(int index) {
+        return children.get(index);
+    }
+
     @Override
     public String toString() {
         return "SSID: " + this.scanResult.SSID +
@@ -69,6 +96,18 @@ public class Details implements Comparable<Details> {
             "\nLEVEL: " + this.scanResult.level +
             "\nFREQUENCY: " + this.scanResult.frequency +
             "\n" + this.scanResult.capabilities;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof Details)) return false;
+        return getSSID().equals(((Details) other).getSSID());
+    }
+
+    @Override
+    public int hashCode() {
+        return getSSID().hashCode();
     }
 
     @Override

@@ -17,8 +17,6 @@ package com.vrem.wifianalyzer.wifi;
 
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
-public interface Update<T> {
-    void update(@NonNull List<T> data);
+public interface Update {
+    void update(@NonNull Info data);
 }
