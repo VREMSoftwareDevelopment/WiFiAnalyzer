@@ -29,19 +29,19 @@ public class Scanner {
     public static final int DELAY_MILLIS = 30000;
 
     private final WiFi wifi;
-    private final Update update;
+    private final Updater updater;
     private final Handler handler;
     private final DateFormat timeFormat;
 
-    private Scanner(@NonNull WifiManager wifiManager, @NonNull Update update) {
+    private Scanner(@NonNull WifiManager wifiManager, @NonNull Updater updater) {
         this.wifi = new WiFi(wifiManager);
-        this.update = update;
+        this.updater = updater;
         this.handler = new Handler();
         this.timeFormat = new SimpleDateFormat("mm:ss.SSS");
     }
 
-    public static Scanner performPeriodicScans(@NonNull WifiManager wifiManager, @NonNull Update update) {
-        Scanner scanner = new Scanner(wifiManager, update);
+    public static Scanner performPeriodicScans(@NonNull WifiManager wifiManager, @NonNull Updater updater) {
+        Scanner scanner = new Scanner(wifiManager, updater);
         scanner.update();
         scanner.handler.removeCallbacks(scanner.performPeriodicScan());
         scanner.handler.postDelayed(scanner.performPeriodicScan(), DELAY_MILLIS);
@@ -61,7 +61,7 @@ public class Scanner {
     }
 
     public void update() {
-        update.update(scan());
+        updater.update(scan());
     }
 
     private Info scan() {

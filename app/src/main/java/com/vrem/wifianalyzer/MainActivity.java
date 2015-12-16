@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private ExpandableListView expandableListView;
     private Scanner scanner;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ListViewAdapter listViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +44,14 @@ public class MainActivity extends AppCompatActivity {
         this.swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         this.swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        this.listViewAdapter = new ListViewAdapter(this);
-
         this.expandableListView = (ExpandableListView) findViewById(R.id.listView);
-        this.expandableListView.setAdapter(this.listViewAdapter);
 
-        scanner = Scanner.performPeriodicScans((WifiManager) getSystemService(Context.WIFI_SERVICE), this.listViewAdapter);
+        ListViewAdapter listViewAdapter = new ListViewAdapter(this);
+        listViewAdapter.setExpandableListView(this.expandableListView);
+
+        this.expandableListView.setAdapter(listViewAdapter);
+
+        scanner = Scanner.performPeriodicScans((WifiManager) getSystemService(Context.WIFI_SERVICE), listViewAdapter);
     }
 
     @Override
@@ -69,10 +70,6 @@ public class MainActivity extends AppCompatActivity {
         public void onRefresh() {
             swipeRefreshLayout.setRefreshing(true);
             scanner.update();
-            listViewAdapter.notifyDataSetChanged();
-            for (int i = 0; i < listViewAdapter.getGroupCount(); i++) {
-                expandableListView.collapseGroup(i);
-            }
             swipeRefreshLayout.setRefreshing(false);
         }
     }

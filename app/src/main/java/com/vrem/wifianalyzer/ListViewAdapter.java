@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,12 +30,13 @@ import com.vrem.wifianalyzer.wifi.Details;
 import com.vrem.wifianalyzer.wifi.Info;
 import com.vrem.wifianalyzer.wifi.Security;
 import com.vrem.wifianalyzer.wifi.Strength;
-import com.vrem.wifianalyzer.wifi.Update;
+import com.vrem.wifianalyzer.wifi.Updater;
 
-public class ListViewAdapter extends BaseExpandableListAdapter implements Update {
+public class ListViewAdapter extends BaseExpandableListAdapter implements Updater {
 
     private final AppCompatActivity activity;
     private Info info = new Info();
+    private ExpandableListView expandableListView;
 
     public ListViewAdapter(@NonNull AppCompatActivity activity) {
         super();
@@ -100,6 +102,11 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     public void update(@NonNull Info info) {
         this.info = info;
         notifyDataSetChanged();
+        if (expandableListView != null) {
+            for (int i = 0; i < getGroupCount(); i++) {
+                this.expandableListView.collapseGroup(i);
+            }
+        }
     }
 
     @Override
@@ -142,7 +149,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         return false;
     }
 
-    protected View getView(View view, int resource) {
+    private View getView(View view, int resource) {
         if (view != null) {
             return view;
         }
@@ -150,4 +157,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         return inflater.inflate(resource, null);
     }
 
+    void setExpandableListView(ExpandableListView expandableListView) {
+        this.expandableListView = expandableListView;
+    }
 }
