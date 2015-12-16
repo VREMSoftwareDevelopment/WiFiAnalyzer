@@ -3,9 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:id="@+id/ssid"/>
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/ssid"
         android:id="@+id/levelImage"/>
 
     <ImageView
@@ -14,14 +21,6 @@
         android:layout_alignBottom="@id/levelImage"
         android:layout_alignRight="@id/levelImage"
         android:id="@+id/securityImage"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/levelImage"
-        android:layout_marginStart="@dimen/abc_list_item_padding_horizontal_material"
-        android:textStyle="bold"
-        android:id="@+id/ssid"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,12 +50,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ssid"
-        android:layout_toRightOf="@id/frequency"
+        android:layout_below="@id/level"
+        android:layout_toRightOf="@id/levelImage"
         android:textStyle="italic"
         android:textColor="@color/security"
         android:layout_marginStart="@dimen/abc_list_item_padding_horizontal_material"
-        android:id="@+id/security"/>
+        android:id="@+id/capabilities"/>
 
     <ImageView
         android:layout_width="wrap_content"

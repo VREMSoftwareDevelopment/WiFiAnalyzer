@@ -18,8 +18,6 @@ package com.vrem.wifianalyzer.wifi;
 import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
 public class Details implements Comparable<Details> {
 
     private final ScanResult scanResult;
@@ -44,10 +42,6 @@ public class Details implements Comparable<Details> {
         return Security.findOne(scanResult.capabilities);
     }
 
-    public List<Security> getSecurities() {
-        return Security.findAll(scanResult.capabilities);
-    }
-
     public Strength getWifiLevel() {
         return Strength.calculate(scanResult.level);
     }
@@ -62,6 +56,10 @@ public class Details implements Comparable<Details> {
 
     public int getLevel() {
         return scanResult.level;
+    }
+
+    public String getCapabilities() {
+        return scanResult.capabilities;
     }
 
     @Override

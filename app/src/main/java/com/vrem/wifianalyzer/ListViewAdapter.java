@@ -27,8 +27,6 @@ import com.vrem.wifianalyzer.wifi.Details;
 import com.vrem.wifianalyzer.wifi.Security;
 import com.vrem.wifianalyzer.wifi.Strength;
 
-import java.util.List;
-
 public class ListViewAdapter extends BaseListViewAdapter<Details,String> {
 
     public ListViewAdapter(@NonNull AppCompatActivity activity) {
@@ -37,16 +35,37 @@ public class ListViewAdapter extends BaseListViewAdapter<Details,String> {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        convertView = getView(convertView, R.layout.list_group);
+        convertView = getView(convertView, R.layout.content_details);
 
         Details details = getGroupData(groupPosition);
-        Strength strength = details.getWifiLevel();
-        Security security = details.getSecurity();
 
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
-        groupIndicator.setImageResource(isExpanded ? R.drawable.ic_expand_less_black_24dp : R.drawable.ic_expand_more_black_24dp);
+        groupIndicator.setImageResource(
+                isExpanded ? R.drawable.ic_expand_less_black_24dp : R.drawable.ic_expand_more_black_24dp);
 
-        ((TextView) convertView.findViewById(R.id.ssid)).setText((TextUtils.isEmpty(details.getSSID()) ? "HIDDEN" : details.getSSID()));
+        ((TextView) convertView.findViewById(R.id.ssid)).setText(
+                (TextUtils.isEmpty(details.getSSID()) ? "HIDDEN" : details.getSSID() + " " + details.getBSSID()));
+
+        return getView(details, convertView);
+    }
+
+    @Override
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        convertView = getView(convertView, R.layout.content_child);
+
+        Details details = getGroupData(groupPosition);
+
+        ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
+        groupIndicator.setVisibility(View.GONE);
+
+        ((TextView) convertView.findViewById(R.id.ssid)).setText(details.getBSSID());
+
+        return getView(details, convertView);
+    }
+
+    private View getView(Details details, View convertView) {
+        Strength strength = details.getWifiLevel();
+        Security security = details.getSecurity();
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.levelImage);
         imageView.setImageResource(strength.getImageResource());
@@ -60,28 +79,9 @@ public class ListViewAdapter extends BaseListViewAdapter<Details,String> {
 
         ((TextView) convertView.findViewById(R.id.channel)).setText("" + details.getChannel());
         ((TextView) convertView.findViewById(R.id.frequency)).setText(" (" + details.getFrequency().getBand() + ")");
-        ((TextView) convertView.findViewById(R.id.security)).setText(securitiesAsString(details.getSecurities()));
+        ((TextView) convertView.findViewById(R.id.capabilities)).setText(details.getCapabilities());
 
         return convertView;
     }
 
-    private String securitiesAsString(List<Security> securities) {
-        StringBuilder result = new StringBuilder();
-        for (Security current: securities) {
-            result.append(current.name());
-            result.append(" ");
-        }
-        return result.toString();
-    }
-
-    @Override
-    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        convertView = getView(convertView, R.layout.list_item);
-
-        String childText = getChildData(groupPosition, childPosition);
-        TextView txtListChild = (TextView) convertView.findViewById(R.id.item);
-
-        txtListChild.setText(childText);
-        return convertView;
-    }
 }
