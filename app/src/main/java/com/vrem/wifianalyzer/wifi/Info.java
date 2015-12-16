@@ -18,40 +18,42 @@ package com.vrem.wifianalyzer.wifi;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Info {
-    private final List<Details> parents = new ArrayList<>();
+    private final Map<String,Details> parents = new TreeMap<>();
 
     public List<Details> getParents() {
-        return parents;
+        List<Details> results = new ArrayList<>(this.parents.values());
+        Collections.sort(results);
+        return results;
     }
     public Details getParent(int index) {
-        return parents.get(index);
+        return getParents().get(index);
     }
 
     public List<Details> getChildren(int index) {
-        return parents.get(index).getChildren();
+        return getParents().get(index).getChildren();
     }
     public Details getChild(int indexParent, int indexChild) {
-        return parents.get(indexParent).getChild(indexChild);
+        return getParents().get(indexParent).getChild(indexChild);
     }
 
     public void add(Details details) {
-        if (parents.contains(details)) {
-            int index = parents.indexOf(details);
-            Details parent = parents.get(index);
-            if (parent.getLevel() >= details.getLevel()) {
-                parent.addChild(details);
-            } else {
-                details.addChildren(parent.getChildren());
-                parent.clearChildren();
-                details.addChild(parent);
-                parents.add(index, details);
-            }
-        } else {
-            parents.add(details);
+        Details parent = this.parents.get(details.getSSID());
+        if (parent == null) {
+            this.parents.put(details.getSSID(), details);
+            return;
         }
-        Collections.sort(parents);
+        if (parent.getLevel() >= details.getLevel()) {
+            parent.addChild(details);
+            return;
+        }
+        details.addChildren(parent.getChildren());
+        parent.clearChildren();
+        details.addChild(parent);
+        parents.put(details.getSSID(), details);
     }
 
 }

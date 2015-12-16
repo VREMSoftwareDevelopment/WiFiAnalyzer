@@ -53,6 +53,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         if (details.getChildren().isEmpty()) {
             groupIndicator.setVisibility(View.GONE);
         } else {
+            groupIndicator.setVisibility(View.VISIBLE);
             groupIndicator.setImageResource(
                     isExpanded ? R.drawable.ic_expand_less_black_24dp : R.drawable.ic_expand_more_black_24dp);
         }
@@ -148,4 +149,5 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         LayoutInflater inflater = activity.getLayoutInflater();
         return inflater.inflate(resource, null);
     }
+
 }
