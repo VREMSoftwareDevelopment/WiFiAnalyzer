@@ -29,13 +29,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WiFiTest {
 
     @Mock private WifiManager wifiManager;
+    @Mock private ScanResult scanResult;
     private WiFi fixture;
 
     @Before
@@ -72,24 +73,25 @@ public class WiFiTest {
         // expected
         Mockito.when(wifiManager.startScan()).thenReturn(false);
         // execute
-        List<ScanResult> actual = fixture.scan();
+        Information actual = fixture.scan();
         // verify
-        assertTrue(actual.isEmpty());
+        assertEquals(0, actual.getParentsSize());
         Mockito.verify(wifiManager).startScan();
     }
 
     @Test
     public void testScanWithStartScanTrue() throws Exception {
         // setup
-        List<ScanResult> expected = new ArrayList<>();
+        List<ScanResult> scanResults = new ArrayList<>();
+        Information expected = new Information(scanResults);
         // expected
         Mockito.when(wifiManager.startScan()).thenReturn(true);
-        Mockito.when(wifiManager.getScanResults()).thenReturn(expected);
+        Mockito.when(wifiManager.getScanResults()).thenReturn(scanResults);
         // execute
-        List<ScanResult> actual = fixture.scan();
+        Information actual = fixture.scan();
         // verify
         assertEquals(expected, actual);
-        assertSame(expected, actual);
+        assertNotSame(expected, actual);
         Mockito.verify(wifiManager).startScan();
         Mockito.verify(wifiManager).getScanResults();
     }

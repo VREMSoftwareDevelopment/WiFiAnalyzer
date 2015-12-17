@@ -19,7 +19,6 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WiFi {
@@ -33,12 +32,12 @@ public class WiFi {
         return wifiManager.isWifiEnabled() || wifiManager.setWifiEnabled(true);
     }
 
-    public List<ScanResult> scan() {
-        List<ScanResult> results = new ArrayList<>();
+    public Information scan() {
+        Information result = new Information();
         if (!wifiManager.startScan()) {
-            return results;
+            return result;
         }
         List<ScanResult> scanResults = wifiManager.getScanResults();
-        return scanResults == null ? results : scanResults;
+        return scanResults == null ? result : new Information(scanResults);
     }
 }

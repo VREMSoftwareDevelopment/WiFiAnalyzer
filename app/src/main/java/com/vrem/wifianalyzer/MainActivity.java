@@ -18,6 +18,7 @@ package com.vrem.wifianalyzer;
 import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,7 @@ import android.view.MenuItem;
 import android.widget.ExpandableListView;
 
 import com.vrem.wifianalyzer.wifi.Scanner;
+import com.vrem.wifianalyzer.wifi.WiFi;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
         this.expandableListView.setAdapter(listViewAdapter);
 
-        scanner = Scanner.performPeriodicScans((WifiManager) getSystemService(Context.WIFI_SERVICE), listViewAdapter);
+        scanner = Scanner.performPeriodicScans(
+                new WiFi((WifiManager) getSystemService(Context.WIFI_SERVICE)), listViewAdapter, new Handler());
     }
 
     @Override

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class Information {
     private final List<Details> detailsList = new ArrayList<>();
@@ -121,5 +122,17 @@ public class Information {
             }
             return result;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        return Objects.equals(detailsList, ((Information) o).detailsList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(detailsList);
     }
 }

@@ -15,52 +15,52 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
-import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.util.Log;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 public class Scanner {
-    public static final int DELAY_MILLIS = 30000;
+    static final int DELAY_MILLIS = 30000;
 
     private final WiFi wifi;
     private final Updater updater;
-    private final Handler handler;
-    private final DateFormat timeFormat;
+    private PerformPeriodicScan performPeriodicScan;
 
-    private Scanner(@NonNull WifiManager wifiManager, @NonNull Updater updater) {
-        this.wifi = new WiFi(wifiManager);
+    private Scanner(@NonNull WiFi wifi, @NonNull Updater updater) {
+        this.wifi = wifi;
         this.updater = updater;
-        this.handler = new Handler();
-        this.timeFormat = new SimpleDateFormat("mm:ss.SSS");
     }
 
-    public static Scanner performPeriodicScans(@NonNull WifiManager wifiManager, @NonNull Updater updater) {
-        Scanner scanner = new Scanner(wifiManager, updater);
+    public static Scanner performPeriodicScans(@NonNull WiFi wifi, @NonNull Updater updater, @NonNull Handler handler) {
+        Scanner scanner = new Scanner(wifi, updater);
         scanner.update();
-        scanner.handler.removeCallbacks(scanner.performPeriodicScan());
-        scanner.handler.postDelayed(scanner.performPeriodicScan(), DELAY_MILLIS);
+        scanner.performPeriodicScan = new PerformPeriodicScan(scanner, handler);
+        handler.postDelayed(scanner.performPeriodicScan, DELAY_MILLIS);
         return scanner;
-    }
-
-    private Runnable performPeriodicScan() {
-        return new Runnable() {
-            @Override
-            public void run() {
-                Log.i(">>>", "Scanner.performPeriodicScan");
-                update();
-                handler.removeCallbacks(this);
-                handler.postDelayed(this, DELAY_MILLIS);
-            }
-        };
     }
 
     public void update() {
         wifi.enable();
-        updater.update(new Information(wifi.scan()));
+        updater.update(wifi.scan());
+    }
+
+    PerformPeriodicScan getPerformPeriodicScan() {
+        return performPeriodicScan;
+    }
+
+    static class PerformPeriodicScan implements Runnable {
+        private final Scanner scanner;
+        private final Handler handler;
+
+        PerformPeriodicScan(@NonNull Scanner scanner, @NonNull Handler handler) {
+            this.scanner = scanner;
+            this.handler = handler;
+        }
+        @Override
+        public void run() {
+            scanner.update();
+            handler.removeCallbacks(this);
+            handler.postDelayed(this, DELAY_MILLIS);
+        }
     }
 
 }
