@@ -27,7 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vrem.wifianalyzer.wifi.Details;
-import com.vrem.wifianalyzer.wifi.Info;
+import com.vrem.wifianalyzer.wifi.Information;
 import com.vrem.wifianalyzer.wifi.Security;
 import com.vrem.wifianalyzer.wifi.Strength;
 import com.vrem.wifianalyzer.wifi.Updater;
@@ -35,7 +35,7 @@ import com.vrem.wifianalyzer.wifi.Updater;
 public class ListViewAdapter extends BaseExpandableListAdapter implements Updater {
 
     private final AppCompatActivity activity;
-    private Info info = new Info();
+    private Information information = new Information();
     private ExpandableListView expandableListView;
 
     public ListViewAdapter(@NonNull AppCompatActivity activity) {
@@ -53,12 +53,13 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         tab.setVisibility(View.GONE);
 
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
-        if (details.getChildren().isEmpty()) {
-            groupIndicator.setVisibility(View.GONE);
-        } else {
+
+        if (getChildrenCount(groupPosition) > 0) {
             groupIndicator.setVisibility(View.VISIBLE);
             groupIndicator.setImageResource(
                     isExpanded ? R.drawable.ic_expand_less_black_24dp : R.drawable.ic_expand_more_black_24dp);
+        } else {
+            groupIndicator.setVisibility(View.GONE);
         }
 
         return getView(details, convertView);
@@ -103,8 +104,8 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     }
 
     @Override
-    public void update(@NonNull Info info) {
-        this.info = info;
+    public void update(@NonNull Information information) {
+        this.information = information;
         notifyDataSetChanged();
         if (expandableListView != null) {
             for (int i = 0; i < getGroupCount(); i++) {
@@ -115,22 +116,22 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
 
     @Override
     public int getGroupCount() {
-        return this.info.getParents().size();
+        return this.information.getParentsSize();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.info.getParent(groupPosition).getChildren().size();
+        return this.information.getChildrenSize(groupPosition);
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return this.info.getParent(groupPosition);
+        return this.information.getParent(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return this.info.getChild(groupPosition, childPosition);
+        return this.information.getChild(groupPosition, childPosition);
     }
 
     @Override
@@ -150,7 +151,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 
     private View getView(View view, int resource) {

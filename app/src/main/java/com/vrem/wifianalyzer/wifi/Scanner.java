@@ -15,7 +15,6 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
-import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -23,7 +22,6 @@ import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 public class Scanner {
     public static final int DELAY_MILLIS = 30000;
@@ -61,19 +59,8 @@ public class Scanner {
     }
 
     public void update() {
-        updater.update(scan());
-    }
-
-    private Info scan() {
-        Info results = new Info();
         wifi.enable();
-        List<ScanResult> scanResults = wifi.scan();
-        if (scanResults != null) {
-            for (ScanResult scanResult: scanResults) {
-                results.add(Details.make(scanResult));
-            }
-        }
-        return results;
+        updater.update(new Information(wifi.scan()));
     }
 
 }

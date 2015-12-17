@@ -24,7 +24,6 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:groupIndicator="@null"
-            android:childDivider="@color/background_floating_material_dark"
             android:id="@+id/listView"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
