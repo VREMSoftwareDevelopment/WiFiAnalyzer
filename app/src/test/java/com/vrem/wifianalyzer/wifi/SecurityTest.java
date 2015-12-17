@@ -44,6 +44,7 @@ public class SecurityTest {
 
     @Test
     public void testFindOne() throws Exception {
+        assertEquals(Security.NONE, Security.findOne("xyz"));
         assertEquals(Security.NONE, Security.findOne(Security.NONE.name()));
         assertEquals(Security.WPS, Security.findOne(Security.WPS.name()));
         assertEquals(Security.WEP, Security.findOne(Security.WEP.name()));

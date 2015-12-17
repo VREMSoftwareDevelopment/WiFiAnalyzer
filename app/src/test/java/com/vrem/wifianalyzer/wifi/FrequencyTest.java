@@ -46,6 +46,8 @@ public class FrequencyTest {
 
     @Test
     public void testChannel() throws Exception {
+        assertEquals(0, Frequency.TWO_POINT_FOUR.channel(1000));
+
         assertEquals(1, Frequency.TWO_POINT_FOUR.channel(2412));
         assertEquals(13, Frequency.TWO_POINT_FOUR.channel(2472));
 
@@ -65,6 +67,8 @@ public class FrequencyTest {
 
     @Test
     public void testFind() throws Exception {
+        assertEquals(Frequency.UNKNOWN, Frequency.find(1000));
+
         assertEquals(Frequency.UNKNOWN, Frequency.find(0));
         assertEquals(Frequency.TWO_POINT_FOUR, Frequency.find(2412));
         assertEquals(Frequency.TWO_POINT_FOUR_CH_14, Frequency.find(2484));

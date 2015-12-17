@@ -22,7 +22,7 @@ public class Details {
 
     private final ScanResult scanResult;
 
-    private Details(ScanResult scanResult) {
+    private Details(@NonNull ScanResult scanResult) {
         this.scanResult = scanResult;
     }
 
@@ -60,15 +60,6 @@ public class Details {
 
     public String getCapabilities() {
         return scanResult.capabilities;
-    }
-
-    @Override
-    public String toString() {
-        return "SSID: " + this.scanResult.SSID +
-            "\nBSSID: " + this.scanResult.BSSID +
-            "\nLEVEL: " + this.scanResult.level +
-            "\nFREQUENCY: " + this.scanResult.frequency +
-            "\n" + this.scanResult.capabilities;
     }
 
 }
