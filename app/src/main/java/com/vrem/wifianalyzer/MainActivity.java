@@ -31,7 +31,6 @@ import com.vrem.wifianalyzer.wifi.WiFi;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ExpandableListView expandableListView;
     private Scanner scanner;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -46,12 +45,12 @@ public class MainActivity extends AppCompatActivity {
         this.swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         this.swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        this.expandableListView = (ExpandableListView) findViewById(R.id.listView);
+        ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.listView);
 
         ListViewAdapter listViewAdapter = new ListViewAdapter(this);
-        listViewAdapter.setExpandableListView(this.expandableListView);
+        listViewAdapter.setExpandableListView(expandableListView);
 
-        this.expandableListView.setAdapter(listViewAdapter);
+        expandableListView.setAdapter(listViewAdapter);
 
         scanner = Scanner.performPeriodicScans(
                 new WiFi((WifiManager) getSystemService(Context.WIFI_SERVICE)), listViewAdapter, new Handler());

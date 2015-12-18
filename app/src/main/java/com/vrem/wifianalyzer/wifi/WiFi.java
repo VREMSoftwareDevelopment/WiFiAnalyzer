@@ -16,6 +16,7 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
 
@@ -38,6 +39,8 @@ public class WiFi {
             return result;
         }
         List<ScanResult> scanResults = wifiManager.getScanResults();
-        return scanResults == null ? result : new Information(scanResults);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        return scanResults == null ? result : new Information(scanResults, wifiInfo);
     }
+
 }

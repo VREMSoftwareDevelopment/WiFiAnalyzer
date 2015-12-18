@@ -16,8 +16,13 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import java.math.BigInteger;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,13 +36,45 @@ public class Information {
     public Information() {
     }
 
-    public Information(List<ScanResult> scanResults) {
+    public Information(List<ScanResult> scanResults, WifiInfo wifiInfo) {
         if (scanResults != null) {
             for (ScanResult scanResult: scanResults) {
-                detailsList.add(Details.make(scanResult));
+                detailsList.add(Details.make(scanResult, getIPAddress(scanResult, wifiInfo)));
             }
             populateRelationship();
             sortRelationship();
+        }
+    }
+
+    private String getIPAddress(ScanResult scanResult, WifiInfo wifiInfo) {
+        if (wifiInfo != null &&
+            scanResult.SSID.equals(wifiInfo.getSSID().substring(1, wifiInfo.getSSID().length()-1)) &&
+            scanResult.BSSID.equals(wifiInfo.getBSSID())) {
+
+            byte[] bytes = BigInteger.valueOf(wifiInfo.getIpAddress()).toByteArray();
+            reverse(bytes);
+            try {
+                return InetAddress.getByAddress(bytes).getHostAddress();
+            } catch (UnknownHostException e) {
+                Log.e("IPAddress", e.getMessage());
+            }
+        }
+        return "";
+    }
+
+    public void reverse(byte[] array) {
+        if (array == null) {
+            return;
+        }
+        int i = 0;
+        int j = array.length - 1;
+        byte tmp;
+        while (j > i) {
+            tmp = array[j];
+            array[j] = array[i];
+            array[i] = tmp;
+            j--;
+            i++;
         }
     }
 

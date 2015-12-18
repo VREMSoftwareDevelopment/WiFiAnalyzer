@@ -23,13 +23,19 @@ public class Details {
     public static final double DISTANCE_MHZ_M = 27.55;
 
     private final ScanResult scanResult;
+    private final String ipAddress;
 
-    private Details(@NonNull ScanResult scanResult) {
+    private Details(@NonNull ScanResult scanResult, @NonNull String ipAddress) {
         this.scanResult = scanResult;
+        this.ipAddress = ipAddress;
     }
 
-    public static Details make(@NonNull ScanResult scanResult) {
-        return new Details(scanResult);
+    public static Details make(@NonNull ScanResult scanResult, @NonNull String ipAddress) {
+        return new Details(scanResult, ipAddress);
+    }
+
+    public String getIpAddress() {
+        return ipAddress;
     }
 
     public int getFrequency() {

@@ -34,6 +34,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(WifiManager.class)
 public class DetailsTest {
+    public static final String MY_IP_ADDRESS = "MyIPAddress";
     @Mock private ScanResult scanResult;
 
     private Details fixture;
@@ -41,7 +42,15 @@ public class DetailsTest {
 
     @Before
     public void setUp() throws Exception {
-        fixture = Details.make(scanResult);
+        fixture = Details.make(scanResult, MY_IP_ADDRESS);
+    }
+
+    @Test
+    public void testGetIPAddress() throws Exception {
+        // execute
+        String actual = fixture.getIpAddress();
+        // validate
+        assertEquals(MY_IP_ADDRESS, actual);
     }
 
     @Test
@@ -51,7 +60,7 @@ public class DetailsTest {
         // execute
         int actual = fixture.getFrequency();
         // validate
-        assertEquals(scanResult.frequency , actual);
+        assertEquals(scanResult.frequency, actual);
     }
 
     @Test

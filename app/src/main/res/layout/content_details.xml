@@ -15,6 +15,14 @@
         android:layout_toRightOf="@id/tab"
         android:id="@+id/ssid"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/connected"
+        android:layout_toRightOf="@id/ssid"
+        android:id="@+id/ipaddress"/>
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

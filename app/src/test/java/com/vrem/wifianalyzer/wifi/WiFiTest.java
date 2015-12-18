@@ -16,6 +16,7 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
 import org.junit.Before;
@@ -37,6 +38,7 @@ public class WiFiTest {
 
     @Mock private WifiManager wifiManager;
     @Mock private ScanResult scanResult;
+    @Mock private WifiInfo wifiInfo;
     private WiFi fixture;
 
     @Before
@@ -83,10 +85,11 @@ public class WiFiTest {
     public void testScanWithStartScanTrue() throws Exception {
         // setup
         List<ScanResult> scanResults = new ArrayList<>();
-        Information expected = new Information(scanResults);
+        Information expected = new Information(scanResults, wifiInfo);
         // expected
         Mockito.when(wifiManager.startScan()).thenReturn(true);
         Mockito.when(wifiManager.getScanResults()).thenReturn(scanResults);
+        Mockito.when(wifiManager.getConnectionInfo()).thenReturn(wifiInfo);
         // execute
         Information actual = fixture.scan();
         // verify
@@ -94,5 +97,6 @@ public class WiFiTest {
         assertNotSame(expected, actual);
         Mockito.verify(wifiManager).startScan();
         Mockito.verify(wifiManager).getScanResults();
+        Mockito.verify(wifiManager).getConnectionInfo();
     }
 }

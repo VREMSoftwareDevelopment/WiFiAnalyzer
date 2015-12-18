@@ -87,7 +87,8 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         Security security = details.getSecurity();
         String ssid = (TextUtils.isEmpty(details.getSSID()) ? "HIDDEN" : details.getSSID());
 
-        ((TextView) convertView.findViewById(R.id.ssid)).setText(ssid + " (" + details.getBSSID() + ")");
+        ((TextView) convertView.findViewById(R.id.ssid)).setText(ssid + " (" + details.getBSSID() + ") ");
+        ((TextView) convertView.findViewById(R.id.ipaddress)).setText(details.getIpAddress());
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.levelImage);
         imageView.setImageResource(strength.getImageResource());
