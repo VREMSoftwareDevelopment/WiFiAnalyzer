@@ -19,7 +19,8 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 
 public class Scanner {
-    static final int DELAY_MILLIS = 30000;
+    static final int DELAY_INITIAL = 1;
+    static final int DELAY_INTERVAL = 30000;
 
     private final WiFi wifi;
     private final Updater updater;
@@ -32,9 +33,8 @@ public class Scanner {
 
     public static Scanner performPeriodicScans(@NonNull WiFi wifi, @NonNull Updater updater, @NonNull Handler handler) {
         Scanner scanner = new Scanner(wifi, updater);
-        scanner.update();
         scanner.performPeriodicScan = new PerformPeriodicScan(scanner, handler);
-        handler.postDelayed(scanner.performPeriodicScan, DELAY_MILLIS);
+        handler.postDelayed(scanner.performPeriodicScan, DELAY_INITIAL);
         return scanner;
     }
 
@@ -59,7 +59,7 @@ public class Scanner {
         public void run() {
             scanner.update();
             handler.removeCallbacks(this);
-            handler.postDelayed(this, DELAY_MILLIS);
+            handler.postDelayed(this, DELAY_INTERVAL);
         }
     }
 

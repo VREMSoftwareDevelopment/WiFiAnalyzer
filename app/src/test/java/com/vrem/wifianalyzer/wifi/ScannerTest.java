@@ -46,10 +46,7 @@ public class ScannerTest {
     @Test
     public void testPerformPeriodicScans() throws Exception {
         // validate
-        Mockito.verify(wifi).enable();
-        Mockito.verify(wifi).scan();
-        Mockito.verify(updater).update(information);
-        Mockito.verify(handler).postDelayed(fixture.getPerformPeriodicScan(), Scanner.DELAY_MILLIS);
+        Mockito.verify(handler).postDelayed(fixture.getPerformPeriodicScan(), Scanner.DELAY_INITIAL);
     }
 
     @Test
@@ -57,9 +54,9 @@ public class ScannerTest {
         // execute
         fixture.update();
         // validate
-        Mockito.verify(wifi, Mockito.times(2)).enable();
-        Mockito.verify(wifi, Mockito.times(2)).scan();
-        Mockito.verify(updater, Mockito.times(2)).update(information);
+        Mockito.verify(wifi).enable();
+        Mockito.verify(wifi).scan();
+        Mockito.verify(updater).update(information);
     }
 
     @Test
@@ -71,7 +68,7 @@ public class ScannerTest {
         // validate
         Mockito.verify(scanner).update();
         Mockito.verify(handler).removeCallbacks(fixture);
-        Mockito.verify(handler).postDelayed(fixture, Scanner.DELAY_MILLIS);
+        Mockito.verify(handler).postDelayed(fixture, Scanner.DELAY_INTERVAL);
     }
 
 }
