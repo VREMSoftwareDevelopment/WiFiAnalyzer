@@ -19,9 +19,9 @@ import android.support.annotation.NonNull;
 
 public enum Frequency {
     UNKNOWN(0, 0, 0, ""),
-    TWO_POINT_FOUR(2412, 2472, 1, "2.4Ghz"),
-    TWO_POINT_FOUR_CH_14(2484, 2484, 14, "2.4Ghz"),
-    FIVE(5170, 5825, 34, "5Ghz");
+    TWO_POINT_FOUR(2412, 2472, 1, "2.4GHz"),
+    TWO_POINT_FOUR_CH_14(2484, 2484, 14, "2.4GHz"),
+    FIVE(5170, 5825, 34, "5GHz");
 
     final int CHANNEL_FREQUENCY_SPREAD = 5;
 
@@ -59,5 +59,9 @@ public enum Frequency {
             }
         }
         return Frequency.UNKNOWN;
+    }
+
+    public static int findChannel(int value) {
+        return Frequency.find(value).channel(value);
     }
 }

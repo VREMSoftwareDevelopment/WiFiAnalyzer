@@ -20,6 +20,8 @@ import android.support.annotation.NonNull;
 
 public class Details {
 
+    public static final double DISTANCE_MHZ_M = 27.55;
+
     private final ScanResult scanResult;
 
     private Details(@NonNull ScanResult scanResult) {
@@ -30,12 +32,12 @@ public class Details {
         return new Details(scanResult);
     }
 
-    public Frequency getFrequency() {
-        return Frequency.find(scanResult.frequency);
+    public int getFrequency() {
+        return scanResult.frequency;
     }
 
     public int getChannel() {
-        return getFrequency().channel(scanResult.frequency);
+        return Frequency.findChannel(scanResult.frequency);
     }
 
     public Security getSecurity() {
@@ -60,6 +62,11 @@ public class Details {
 
     public String getCapabilities() {
         return scanResult.capabilities;
+    }
+
+    public double getDistance()    {
+        return Math.pow(10.0,
+            (DISTANCE_MHZ_M - (20 * Math.log10(scanResult.frequency)) + Math.abs(scanResult.level)) / 20.0);
     }
 
 }

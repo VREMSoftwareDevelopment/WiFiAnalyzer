@@ -2,6 +2,7 @@
 <resources>
     <color name="channel">#0000CC</color>
     <color name="security">#669999</color>
+    <color name="distance">#563f7A</color>
 
     <color name="warning_color">#F57F17</color>
     <color name="success_color">#1B5E20</color>

@@ -32,11 +32,14 @@ import com.vrem.wifianalyzer.wifi.Security;
 import com.vrem.wifianalyzer.wifi.Strength;
 import com.vrem.wifianalyzer.wifi.Updater;
 
+import java.text.DecimalFormat;
+
 public class ListViewAdapter extends BaseExpandableListAdapter implements Updater {
 
     private final AppCompatActivity activity;
     private Information information = new Information();
     private ExpandableListView expandableListView;
+    private DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
     public ListViewAdapter(@NonNull AppCompatActivity activity) {
         super();
@@ -97,7 +100,8 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         textLevel.setTextColor(activity.getResources().getColor(strength.getColorResource()));
 
         ((TextView) convertView.findViewById(R.id.channel)).setText("" + details.getChannel());
-        ((TextView) convertView.findViewById(R.id.frequency)).setText(" (" + details.getFrequency().getBand() + ")");
+        ((TextView) convertView.findViewById(R.id.frequency)).setText(" (" + details.getFrequency() + "MHz)");
+        ((TextView) convertView.findViewById(R.id.distance)).setText(decimalFormat.format(details.getDistance()) + "m");
         ((TextView) convertView.findViewById(R.id.capabilities)).setText(details.getCapabilities());
 
         return convertView;

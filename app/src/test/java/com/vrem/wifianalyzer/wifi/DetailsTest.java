@@ -27,6 +27,8 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.text.DecimalFormat;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(PowerMockRunner.class)
@@ -35,6 +37,7 @@ public class DetailsTest {
     @Mock private ScanResult scanResult;
 
     private Details fixture;
+    private DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
     @Before
     public void setUp() throws Exception {
@@ -44,12 +47,11 @@ public class DetailsTest {
     @Test
     public void testGetFrequency() throws Exception {
         // setup
-        Frequency expected = Frequency.TWO_POINT_FOUR;
         scanResult.frequency = 2470;
         // execute
-        Frequency actual = fixture.getFrequency();
+        int actual = fixture.getFrequency();
         // validate
-        assertEquals(expected, actual);
+        assertEquals(scanResult.frequency , actual);
     }
 
     @Test
@@ -75,7 +77,7 @@ public class DetailsTest {
     }
 
     @Test
-    public void testGetWifiLevel() throws Exception {
+    public void testGetStrength() throws Exception {
         // setup
         PowerMockito.mockStatic(WifiManager.class);
         Strength expected = Strength.TWO;
@@ -126,5 +128,23 @@ public class DetailsTest {
         String actual = fixture.getCapabilities();
         // validate
         assertEquals(scanResult.capabilities, actual);
+    }
+
+    @Test
+    public void testGetDistance() throws Exception {
+        testDistance(2437, -36, "0.62");
+        testDistance(2437, -42, "1.23");
+        testDistance(2432, -88, "246.34");
+        testDistance(2412, -91, "350.85");
+    }
+
+    private void testDistance(int frequency, int level, String expected) throws Exception {
+        // setup
+        scanResult.frequency = frequency;
+        scanResult.level = level;
+        // execute
+        double actual = fixture.getDistance();
+        // validate
+        assertEquals(expected, decimalFormat.format(actual));
     }
 }
