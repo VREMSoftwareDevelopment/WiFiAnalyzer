@@ -42,7 +42,7 @@ public class Details {
         return Security.findOne(scanResult.capabilities);
     }
 
-    public Strength getWifiLevel() {
+    public Strength getStrength() {
         return Strength.calculate(scanResult.level);
     }
 

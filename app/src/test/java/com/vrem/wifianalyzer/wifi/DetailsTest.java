@@ -83,7 +83,7 @@ public class DetailsTest {
         // expected
         Mockito.when(WifiManager.calculateSignalLevel(scanResult.level, Strength.values().length)).thenReturn(expected.ordinal());
         // execute
-        Strength actual = fixture.getWifiLevel();
+        Strength actual = fixture.getStrength();
         // validate
         assertEquals(expected, actual);
     }

@@ -80,7 +80,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     }
 
     private View getView(Details details, View convertView) {
-        Strength strength = details.getWifiLevel();
+        Strength strength = details.getStrength();
         Security security = details.getSecurity();
         String ssid = (TextUtils.isEmpty(details.getSSID()) ? "HIDDEN" : details.getSSID());
 
