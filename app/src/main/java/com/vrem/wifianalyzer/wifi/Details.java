@@ -38,6 +38,10 @@ public class Details {
         return ipAddress;
     }
 
+    public boolean isConnected() {
+        return ipAddress.length() > 0;
+    }
+
     public int getFrequency() {
         return scanResult.frequency;
     }
@@ -63,7 +67,7 @@ public class Details {
     }
 
     public int getLevel() {
-        return scanResult.level;
+        return Math.abs(scanResult.level);
     }
 
     public String getCapabilities() {

@@ -22,7 +22,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -30,6 +29,9 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.text.DecimalFormat;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(WifiManager.class)
@@ -43,6 +45,17 @@ public class DetailsTest {
     @Before
     public void setUp() throws Exception {
         fixture = Details.make(scanResult, MY_IP_ADDRESS);
+    }
+
+    @Test
+    public void testIsConnected() throws Exception {
+        assertTrue(fixture.isConnected());
+    }
+
+    @Test
+    public void testIsNotConnected() throws Exception {
+        fixture = Details.make(scanResult, "");
+        assertFalse(fixture.isConnected());
     }
 
     @Test
@@ -92,7 +105,7 @@ public class DetailsTest {
         Strength expected = Strength.TWO;
         scanResult.level = -86;
         // expected
-        Mockito.when(WifiManager.calculateSignalLevel(scanResult.level, Strength.values().length)).thenReturn(expected.ordinal());
+        when(WifiManager.calculateSignalLevel(scanResult.level, Strength.values().length)).thenReturn(expected.ordinal());
         // execute
         Strength actual = fixture.getStrength();
         // validate
@@ -122,11 +135,11 @@ public class DetailsTest {
     @Test
     public void testGetLevel() throws Exception {
         // setup
-        scanResult.level = 3;
+        scanResult.level = -3;
         // execute
         int actual = fixture.getLevel();
         // validate
-        assertEquals(scanResult.level, actual);
+        assertEquals(Math.abs(scanResult.level), actual);
     }
 
     @Test

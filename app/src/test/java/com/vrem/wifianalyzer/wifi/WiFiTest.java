@@ -75,7 +75,7 @@ public class WiFiTest {
         // expected
         Mockito.when(wifiManager.startScan()).thenReturn(false);
         // execute
-        Information actual = fixture.scan();
+        WifiInformation actual = fixture.scan();
         // verify
         assertEquals(0, actual.getParentsSize());
         Mockito.verify(wifiManager).startScan();
@@ -85,13 +85,13 @@ public class WiFiTest {
     public void testScanWithStartScanTrue() throws Exception {
         // setup
         List<ScanResult> scanResults = new ArrayList<>();
-        Information expected = new Information(scanResults, wifiInfo);
+        WifiInformation expected = new WifiInformation(scanResults, wifiInfo);
         // expected
         Mockito.when(wifiManager.startScan()).thenReturn(true);
         Mockito.when(wifiManager.getScanResults()).thenReturn(scanResults);
         Mockito.when(wifiManager.getConnectionInfo()).thenReturn(wifiInfo);
         // execute
-        Information actual = fixture.scan();
+        WifiInformation actual = fixture.scan();
         // verify
         assertEquals(expected, actual);
         assertNotSame(expected, actual);

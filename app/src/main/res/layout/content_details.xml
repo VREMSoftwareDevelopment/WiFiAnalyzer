@@ -4,24 +4,35 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="@dimen/activity_horizontal_margin_tab"
+        android:layout_width="@dimen/list_view_item_horizontal_tab"
         android:layout_height="wrap_content"
         android:id="@+id/tab"/>
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:layout_toRightOf="@id/tab"
-        android:id="@+id/ssid"/>
+        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
+        android:src="@drawable/ic_label_black_18dp"
+        android:tint="@color/connected"
+        android:id="@+id/connectedImage"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/connectedImage"
+        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:textStyle="bold"
         android:textColor="@color/connected"
-        android:layout_toRightOf="@id/ssid"
-        android:id="@+id/ipaddress"/>
+        android:id="@+id/connected"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/connected"
+        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
+        android:textStyle="bold"
+        android:id="@+id/ssid"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -42,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ssid"
         android:layout_toRightOf="@id/levelImage"
-        android:layout_marginStart="@dimen/abc_list_item_padding_horizontal_material"
+        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:id="@+id/level"/>
 
     <TextView
@@ -50,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ssid"
         android:layout_toRightOf="@id/level"
-        android:layout_marginStart="@dimen/abc_list_item_padding_horizontal_material"
+        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:textColor="@color/channel"
         android:textStyle="bold"
         android:id="@+id/channel"/>
@@ -60,6 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ssid"
         android:layout_toRightOf="@id/channel"
+        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:id="@+id/frequency"/>
 
     <TextView
@@ -67,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ssid"
         android:layout_toRightOf="@id/frequency"
-        android:layout_marginStart="@dimen/abc_list_item_padding_horizontal_material"
+        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:textColor="@color/distance"
         android:textStyle="bold"
         android:id="@+id/distance"/>
@@ -79,14 +91,14 @@
         android:layout_toRightOf="@id/levelImage"
         android:textStyle="italic"
         android:textColor="@color/security"
-        android:layout_marginStart="@dimen/abc_list_item_padding_horizontal_material"
+        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:id="@+id/capabilities"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:id="@+id/groupIndicator"/>
 
 </RelativeLayout>

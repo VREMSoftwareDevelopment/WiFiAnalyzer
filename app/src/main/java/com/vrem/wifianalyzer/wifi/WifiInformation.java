@@ -20,6 +20,8 @@ import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -29,14 +31,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-public class Information {
+public class WifiInformation {
     private final List<Details> detailsList = new ArrayList<>();
     private final List<Relationship> relationships = new ArrayList<>();
 
-    public Information() {
+    public WifiInformation() {
     }
 
-    public Information(List<ScanResult> scanResults, WifiInfo wifiInfo) {
+    public WifiInformation(List<ScanResult> scanResults, WifiInfo wifiInfo) {
         if (scanResults != null) {
             for (ScanResult scanResult: scanResults) {
                 detailsList.add(Details.make(scanResult, getIPAddress(scanResult, wifiInfo)));
@@ -52,7 +54,7 @@ public class Information {
             scanResult.BSSID.equals(wifiInfo.getBSSID())) {
 
             byte[] bytes = BigInteger.valueOf(wifiInfo.getIpAddress()).toByteArray();
-            reverse(bytes);
+            ArrayUtils.reverse(bytes);
             try {
                 return InetAddress.getByAddress(bytes).getHostAddress();
             } catch (UnknownHostException e) {
@@ -60,22 +62,6 @@ public class Information {
             }
         }
         return "";
-    }
-
-    public void reverse(byte[] array) {
-        if (array == null) {
-            return;
-        }
-        int i = 0;
-        int j = array.length - 1;
-        byte tmp;
-        while (j > i) {
-            tmp = array[j];
-            array[j] = array[i];
-            array[i] = tmp;
-            j--;
-            i++;
-        }
     }
 
     private void populateRelationship() {
@@ -118,7 +104,7 @@ public class Information {
         public int compare(Details lhs, Details rhs) {
             int result = lhs.getSSID().compareTo(rhs.getSSID());
             if (result == 0) {
-                result = rhs.getLevel() - lhs.getLevel();
+                result = lhs.getLevel() - rhs.getLevel();
                 if (result == 0) {
                     result = lhs.getBSSID().compareTo(rhs.getBSSID());
                 }
@@ -130,7 +116,7 @@ public class Information {
     class LevelComparator implements Comparator<Details> {
         @Override
         public int compare(Details lhs, Details rhs) {
-            int result = rhs.getLevel() - lhs.getLevel();
+            int result = lhs.getLevel() - rhs.getLevel();
             if (result == 0) {
                 result = lhs.getSSID().compareTo(rhs.getSSID());
                 if (result == 0) {
@@ -144,17 +130,18 @@ public class Information {
     class Relationship implements Comparable<Relationship> {
         public final Details parent;
         public final List<Details> chidlren = new ArrayList<>();
+
         public Relationship(@NonNull Details parent) {
             this.parent = parent;
         }
 
         @Override
-        public int compareTo(@NonNull Relationship another) {
-            int result = another.parent.getLevel() - this.parent.getLevel();
+        public int compareTo(@NonNull Relationship other) {
+            int result = this.parent.getLevel() - other.parent.getLevel();
             if (result == 0) {
-                result = this.parent.getSSID().compareTo(another.parent.getSSID());
+                result = this.parent.getSSID().compareTo(other.parent.getSSID());
                 if (result == 0) {
-                    result = this.parent.getBSSID().compareTo(another.parent.getBSSID());
+                    result = this.parent.getBSSID().compareTo(other.parent.getBSSID());
                 }
             }
             return result;
@@ -165,7 +152,7 @@ public class Information {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        return Objects.equals(detailsList, ((Information) o).detailsList);
+        return Objects.equals(detailsList, ((WifiInformation) o).detailsList);
     }
 
     @Override

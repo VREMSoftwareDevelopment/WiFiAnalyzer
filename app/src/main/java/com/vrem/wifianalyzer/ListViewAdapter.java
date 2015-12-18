@@ -27,19 +27,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vrem.wifianalyzer.wifi.Details;
-import com.vrem.wifianalyzer.wifi.Information;
 import com.vrem.wifianalyzer.wifi.Security;
 import com.vrem.wifianalyzer.wifi.Strength;
 import com.vrem.wifianalyzer.wifi.Updater;
+import com.vrem.wifianalyzer.wifi.WifiInformation;
 
 import java.text.DecimalFormat;
 
 public class ListViewAdapter extends BaseExpandableListAdapter implements Updater {
 
     private final AppCompatActivity activity;
-    private Information information = new Information();
+    private WifiInformation wifiInformation = new WifiInformation();
     private ExpandableListView expandableListView;
-    private DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    private DecimalFormat distanceFormat = new DecimalFormat("#.##");
 
     public ListViewAdapter(@NonNull AppCompatActivity activity) {
         super();
@@ -56,7 +56,6 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         tab.setVisibility(View.GONE);
 
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
-
         if (getChildrenCount(groupPosition) > 0) {
             groupIndicator.setVisibility(View.VISIBLE);
             groupIndicator.setImageResource(
@@ -83,34 +82,43 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     }
 
     private View getView(Details details, View convertView) {
-        Strength strength = details.getStrength();
-        Security security = details.getSecurity();
+        TextView connected = ((TextView) convertView.findViewById(R.id.connected));
+        connected.setText(details.getIpAddress());
+        ImageView connectedImage = (ImageView) convertView.findViewById(R.id.connectedImage);
+        if (details.isConnected()) {
+            connectedImage.setVisibility(View.VISIBLE);
+            connected.setVisibility(View.VISIBLE);
+        } else {
+            connectedImage.setVisibility(View.GONE);
+            connected.setVisibility(View.GONE);
+        }
+
         String ssid = (TextUtils.isEmpty(details.getSSID()) ? "HIDDEN" : details.getSSID());
+        ((TextView) convertView.findViewById(R.id.ssid)).setText(ssid + " (" + details.getBSSID() + ")");
 
-        ((TextView) convertView.findViewById(R.id.ssid)).setText(ssid + " (" + details.getBSSID() + ") ");
-        ((TextView) convertView.findViewById(R.id.ipaddress)).setText(details.getIpAddress());
-
+        Strength strength = details.getStrength();
         ImageView imageView = (ImageView) convertView.findViewById(R.id.levelImage);
         imageView.setImageResource(strength.getImageResource());
         imageView.setColorFilter(convertView.getResources().getColor(strength.getColorResource()));
 
+        Security security = details.getSecurity();
         ((ImageView) convertView.findViewById(R.id.securityImage)).setImageResource(security.getImageResource());
 
         TextView textLevel = (TextView) convertView.findViewById(R.id.level);
         textLevel.setText(details.getLevel() + "dBm");
         textLevel.setTextColor(activity.getResources().getColor(strength.getColorResource()));
 
-        ((TextView) convertView.findViewById(R.id.channel)).setText("" + details.getChannel());
-        ((TextView) convertView.findViewById(R.id.frequency)).setText(" (" + details.getFrequency() + "MHz)");
-        ((TextView) convertView.findViewById(R.id.distance)).setText(decimalFormat.format(details.getDistance()) + "m");
+        ((TextView) convertView.findViewById(R.id.channel)).setText(""+details.getChannel());
+        ((TextView) convertView.findViewById(R.id.frequency)).setText("("+details.getFrequency() + "MHz)");
+        ((TextView) convertView.findViewById(R.id.distance)).setText(distanceFormat.format(details.getDistance()) + "m");
         ((TextView) convertView.findViewById(R.id.capabilities)).setText(details.getCapabilities());
 
         return convertView;
     }
 
     @Override
-    public void update(@NonNull Information information) {
-        this.information = information;
+    public void update(@NonNull WifiInformation wifiInformation) {
+        this.wifiInformation = wifiInformation;
         notifyDataSetChanged();
         if (expandableListView != null) {
             for (int i = 0; i < getGroupCount(); i++) {
@@ -121,22 +129,22 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
 
     @Override
     public int getGroupCount() {
-        return this.information.getParentsSize();
+        return this.wifiInformation.getParentsSize();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.information.getChildrenSize(groupPosition);
+        return this.wifiInformation.getChildrenSize(groupPosition);
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return this.information.getParent(groupPosition);
+        return this.wifiInformation.getParent(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return this.information.getChild(groupPosition, childPosition);
+        return this.wifiInformation.getChild(groupPosition, childPosition);
     }
 
     @Override

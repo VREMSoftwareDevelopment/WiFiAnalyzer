@@ -32,13 +32,13 @@ public class ScannerTest {
     @Mock private Scanner scanner;
 
     private Scanner fixture;
-    private Information information;
+    private WifiInformation wifiInformation;
 
     @Before
     public void setUp() throws Exception {
-        information = new Information();
+        wifiInformation = new WifiInformation();
 
-        Mockito.when(wifi.scan()).thenReturn(information);
+        Mockito.when(wifi.scan()).thenReturn(wifiInformation);
 
         fixture = Scanner.performPeriodicScans(wifi, updater, handler);
     }
@@ -56,7 +56,7 @@ public class ScannerTest {
         // validate
         Mockito.verify(wifi).enable();
         Mockito.verify(wifi).scan();
-        Mockito.verify(updater).update(information);
+        Mockito.verify(updater).update(wifiInformation);
     }
 
     @Test

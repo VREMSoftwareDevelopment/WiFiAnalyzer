@@ -33,14 +33,14 @@ public class WiFi {
         return wifiManager.isWifiEnabled() || wifiManager.setWifiEnabled(true);
     }
 
-    public Information scan() {
-        Information result = new Information();
+    public WifiInformation scan() {
+        WifiInformation result = new WifiInformation();
         if (!wifiManager.startScan()) {
             return result;
         }
         List<ScanResult> scanResults = wifiManager.getScanResults();
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-        return scanResults == null ? result : new Information(scanResults, wifiInfo);
+        return scanResults == null ? result : new WifiInformation(scanResults, wifiInfo);
     }
 
 }
