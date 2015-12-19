@@ -47,13 +47,13 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     private ExpandableListView expandableListView;
     private WifiInformation wifiInformation;
 
-    public ListViewAdapter(@NonNull AppCompatActivity activity) {
+    public ListViewAdapter(@NonNull AppCompatActivity appCompatActivity) {
         super();
-        this.activity = activity;
-        this.resources = activity.getResources();
-        this.headerView = getView(null, R.layout.content_header);
-        this.distanceFormat = new DecimalFormat("#.##");
-        this.wifiInformation = new WifiInformation();
+        activity = appCompatActivity;
+        resources = activity.getResources();
+        headerView = activity.findViewById(R.id.contentHeader);
+        distanceFormat = new DecimalFormat("#.##");
+        wifiInformation = new WifiInformation();
     }
 
     @Override
@@ -88,35 +88,25 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     @Override
     public void update(@NonNull WifiInformation wifiInformation) {
         this.wifiInformation = wifiInformation;
-        if (this.expandableListView != null) {
+        if (expandableListView != null) {
             for (int i = 0; i < getGroupCount(); i++) {
-                this.expandableListView.collapseGroup(i);
+                expandableListView.collapseGroup(i);
             }
-            addHeader();
+            header();
         }
         notifyDataSetChanged();
     }
 
-    private void addHeader() {
-        Connection connection = this.wifiInformation.getConnection();
+    private void header() {
+        Connection connection = wifiInformation.getConnection();
         if (!connection.isConnected()) {
-            if (this.expandableListView.getHeaderViewsCount() > 0) {
-                this.expandableListView.removeHeaderView(this.headerView);
-            }
+            headerView.setVisibility(View.GONE);
             return;
         }
-        if (this.expandableListView.getHeaderViewsCount() == 0) {
-            this.expandableListView.addHeaderView(this.headerView);
-        }
+        headerView.setVisibility(View.VISIBLE);
 
         setView(headerView, connection.getDetailsInfo());
 
-        headerView.setBackgroundColor(resources.getColor(R.color.header));
-        headerView.setPadding(
-                resources.getDimensionPixelSize(R.dimen.activity_horizontal_margin),
-                0,
-                resources.getDimensionPixelSize(R.dimen.activity_horizontal_margin),
-                0);
         TextView ssid = (TextView) headerView.findViewById(R.id.ssid);
         ssid.setText(ssid.getText() + " " + connection.getIpAddress());
         ssid.setTextColor(resources.getColor(R.color.connected));
@@ -124,22 +114,22 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
 
     @Override
     public int getGroupCount() {
-        return this.wifiInformation.getParentsSize();
+        return wifiInformation.getParentsSize();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.wifiInformation.getChildrenSize(groupPosition);
+        return wifiInformation.getChildrenSize(groupPosition);
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return this.wifiInformation.getParent(groupPosition);
+        return wifiInformation.getParent(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return this.wifiInformation.getChild(groupPosition, childPosition);
+        return wifiInformation.getChild(groupPosition, childPosition);
     }
 
     @Override
@@ -170,7 +160,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         return inflater.inflate(resource, null);
     }
 
-    void setExpandableListView(ExpandableListView expandableListView) {
+    void setExpandableListView(@NonNull ExpandableListView expandableListView) {
         this.expandableListView = expandableListView;
     }
 

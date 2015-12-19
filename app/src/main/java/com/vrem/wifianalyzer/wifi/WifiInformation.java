@@ -26,7 +26,7 @@ import java.util.List;
 
 public class WifiInformation {
     private final Connection connection;
-    private final List<Details> detailsList = new ArrayList<>();
+    private final List<DetailsInfo> detailsInfoList = new ArrayList<>();
     private final List<Relationship> relationships = new ArrayList<>();
 
     public WifiInformation() {
@@ -37,9 +37,9 @@ public class WifiInformation {
         connection = new Connection(wifiInfo);
         if (scanResults != null) {
             for (ScanResult scanResult : scanResults) {
-                Details details = new Details(scanResult);
-                if (!connection.addDetailsInfo(details)) {
-                    detailsList.add(details);
+                DetailsInfo detailsInfo = new Details(scanResult);
+                if (!connection.addDetailsInfo(detailsInfo)) {
+                    detailsInfoList.add(detailsInfo);
                 }
             }
             populateRelationship();
@@ -48,48 +48,48 @@ public class WifiInformation {
     }
 
     private void populateRelationship() {
-        Collections.sort(detailsList, new SSIDComparator());
+        Collections.sort(detailsInfoList, new SSIDComparator());
         Relationship relationship = null;
-        for (Details details : this.detailsList) {
-            if (relationship == null || !relationship.parent.getSSID().equals(details.getSSID())) {
-                relationship = new Relationship(details);
+        for (DetailsInfo detailsInfo : detailsInfoList) {
+            if (relationship == null || !relationship.parent.getSSID().equals(detailsInfo.getSSID())) {
+                relationship = new Relationship(detailsInfo);
                 relationships.add(relationship);
             } else {
-                relationship.children.add(details);
+                relationship.children.add(detailsInfo);
             }
         }
     }
 
     private void sortRelationship() {
-        Collections.sort(this.relationships);
-        for (Relationship information : this.relationships) {
+        Collections.sort(relationships);
+        for (Relationship information : relationships) {
             Collections.sort(information.children, new LevelComparator());
         }
     }
 
     public int getParentsSize() {
-        return this.relationships.size();
+        return relationships.size();
     }
 
-    public Details getParent(int index) {
-        return this.relationships.get(index).parent;
+    public DetailsInfo getParent(int index) {
+        return relationships.get(index).parent;
     }
 
     public int getChildrenSize(int index) {
-        return this.relationships.get(index).children.size();
+        return relationships.get(index).children.size();
     }
 
-    public Details getChild(int indexParent, int indexChild) {
-        return this.relationships.get(indexParent).children.get(indexChild);
+    public DetailsInfo getChild(int indexParent, int indexChild) {
+        return relationships.get(indexParent).children.get(indexChild);
     }
 
     public Connection getConnection() {
         return connection;
     }
 
-    class SSIDComparator implements Comparator<Details> {
+    class SSIDComparator implements Comparator<DetailsInfo> {
         @Override
-        public int compare(Details lhs, Details rhs) {
+        public int compare(DetailsInfo lhs, DetailsInfo rhs) {
             int result = lhs.getSSID().compareTo(rhs.getSSID());
             if (result == 0) {
                 result = lhs.getLevel() - rhs.getLevel();
@@ -101,9 +101,9 @@ public class WifiInformation {
         }
     }
 
-    class LevelComparator implements Comparator<Details> {
+    class LevelComparator implements Comparator<DetailsInfo> {
         @Override
-        public int compare(Details lhs, Details rhs) {
+        public int compare(DetailsInfo lhs, DetailsInfo rhs) {
             int result = lhs.getLevel() - rhs.getLevel();
             if (result == 0) {
                 result = lhs.getSSID().compareTo(rhs.getSSID());
@@ -116,20 +116,20 @@ public class WifiInformation {
     }
 
     class Relationship implements Comparable<Relationship> {
-        public final Details parent;
-        public final List<Details> children = new ArrayList<>();
+        public final DetailsInfo parent;
+        public final List<DetailsInfo> children = new ArrayList<>();
 
-        public Relationship(@NonNull Details parent) {
+        public Relationship(@NonNull DetailsInfo parent) {
             this.parent = parent;
         }
 
         @Override
         public int compareTo(@NonNull Relationship other) {
-            int result = this.parent.getLevel() - other.parent.getLevel();
+            int result = parent.getLevel() - other.parent.getLevel();
             if (result == 0) {
-                result = this.parent.getSSID().compareTo(other.parent.getSSID());
+                result = parent.getSSID().compareTo(other.parent.getSSID());
                 if (result == 0) {
-                    result = this.parent.getBSSID().compareTo(other.parent.getBSSID());
+                    result = parent.getBSSID().compareTo(other.parent.getBSSID());
                 }
             }
             return result;
