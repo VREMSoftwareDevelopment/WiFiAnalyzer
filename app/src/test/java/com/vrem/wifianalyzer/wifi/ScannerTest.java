@@ -23,7 +23,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -36,7 +35,6 @@ public class ScannerTest {
 
     private Scanner fixture;
     private WifiInformation wifiInformation;
-    private Updater [] updaters;
 
     @Before
     public void setUp() throws Exception {
@@ -44,8 +42,7 @@ public class ScannerTest {
 
         when(wifi.scan()).thenReturn(wifiInformation);
 
-        updaters = new Updater[] {updater, updater, updater};
-        fixture = Scanner.performPeriodicScans(wifi, handler, updaters);
+        fixture = Scanner.performPeriodicScans(wifi, handler, updater);
     }
 
     @Test
@@ -61,7 +58,7 @@ public class ScannerTest {
         // validate
         verify(wifi).enable();
         verify(wifi).scan();
-        verify(updater, times(updaters.length)).update(wifiInformation);
+        verify(updater).update(wifiInformation);
     }
 
     @Test

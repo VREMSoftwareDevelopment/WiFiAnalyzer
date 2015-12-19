@@ -15,6 +15,7 @@
  */
 package com.vrem.wifianalyzer;
 
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -26,6 +27,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vrem.wifianalyzer.wifi.Connection;
 import com.vrem.wifianalyzer.wifi.Details;
 import com.vrem.wifianalyzer.wifi.Security;
 import com.vrem.wifianalyzer.wifi.Strength;
@@ -37,13 +39,19 @@ import java.text.DecimalFormat;
 public class ListViewAdapter extends BaseExpandableListAdapter implements Updater {
 
     private final AppCompatActivity activity;
-    private WifiInformation wifiInformation = new WifiInformation();
+    private final View headerView;
+    private final DecimalFormat distanceFormat;
+    private final Resources resources;
     private ExpandableListView expandableListView;
-    private DecimalFormat distanceFormat = new DecimalFormat("#.##");
+    private WifiInformation wifiInformation;
 
     public ListViewAdapter(@NonNull AppCompatActivity activity) {
         super();
         this.activity = activity;
+        this.resources = activity.getResources();
+        this.headerView = getView(null, R.layout.content_header);
+        this.distanceFormat = new DecimalFormat("#.##");
+        this.wifiInformation = new WifiInformation();
     }
 
     @Override
@@ -52,8 +60,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
 
         Details details = (Details) getGroup(groupPosition);
 
-        TextView tab = (TextView) convertView.findViewById(R.id.tab);
-        tab.setVisibility(View.GONE);
+        convertView.findViewById(R.id.tab).setVisibility(View.GONE);
 
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
         if (getChildrenCount(groupPosition) > 0) {
@@ -71,12 +78,11 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         convertView = getView(convertView, R.layout.content_details);
 
-        convertView.setBackgroundColor(activity.getResources().getColor(R.color.shadow_mid_color));
+        convertView.setBackgroundColor(resources.getColor(R.color.shadow_mid_color));
 
         Details details = (Details) getChild(groupPosition, childPosition);
 
-        ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
-        groupIndicator.setVisibility(View.GONE);
+        convertView.findViewById(R.id.groupIndicator).setVisibility(View.GONE);
 
         return getView(details, convertView);
     }
@@ -90,14 +96,14 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         Strength strength = details.getStrength();
         ImageView imageView = (ImageView) convertView.findViewById(R.id.levelImage);
         imageView.setImageResource(strength.getImageResource());
-        imageView.setColorFilter(convertView.getResources().getColor(strength.getColorResource()));
+        imageView.setColorFilter(resources.getColor(strength.getColorResource()));
 
         Security security = details.getSecurity();
         ((ImageView) convertView.findViewById(R.id.securityImage)).setImageResource(security.getImageResource());
 
         TextView textLevel = (TextView) convertView.findViewById(R.id.level);
         textLevel.setText(details.getLevel() + "dBm");
-        textLevel.setTextColor(activity.getResources().getColor(strength.getColorResource()));
+        textLevel.setTextColor(resources.getColor(strength.getColorResource()));
 
         ((TextView) convertView.findViewById(R.id.channel)).setText(""+details.getChannel());
         ((TextView) convertView.findViewById(R.id.frequency)).setText("("+details.getFrequency() + "MHz)");
@@ -110,12 +116,55 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     @Override
     public void update(@NonNull WifiInformation wifiInformation) {
         this.wifiInformation = wifiInformation;
-        notifyDataSetChanged();
-        if (expandableListView != null) {
+        if (this.expandableListView != null) {
             for (int i = 0; i < getGroupCount(); i++) {
                 this.expandableListView.collapseGroup(i);
             }
+            addHeader();
         }
+        notifyDataSetChanged();
+    }
+
+    private void addHeader() {
+        Connection connection = this.wifiInformation.getConnection();
+        if (!connection.isConnected()) {
+            if (this.expandableListView.getHeaderViewsCount() > 0) {
+                this.expandableListView.removeHeaderView(this.headerView);
+            }
+            return;
+        }
+        if (this.expandableListView.getHeaderViewsCount() == 0) {
+            this.expandableListView.addHeaderView(this.headerView);
+        }
+        headerView.setBackgroundColor(resources.getColor(R.color.primary_dark_material_light));
+        headerView.setPadding(
+                resources.getDimensionPixelSize(R.dimen.activity_horizontal_margin),
+                0,
+                resources.getDimensionPixelSize(R.dimen.activity_horizontal_margin),
+                0);
+
+        headerView.findViewById(R.id.tab).setVisibility(View.GONE);
+        headerView.findViewById(R.id.connected).setVisibility(View.GONE);
+        TextView ssid = (TextView) headerView.findViewById(R.id.ssid);
+        ssid.setText(connection.getSSID() + " (" + connection.getBSSID() + ")");
+        ssid.setTextColor(resources.getColor(R.color.connected));
+
+        Strength strength = connection.getStrength();
+        ImageView imageView = (ImageView) headerView.findViewById(R.id.levelImage);
+        imageView.setImageResource(strength.getImageResource());
+        imageView.setColorFilter(resources.getColor(strength.getColorResource()));
+
+        TextView textLevel = (TextView) headerView.findViewById(R.id.level);
+        textLevel.setText(connection.getRssi() + "dBm");
+        textLevel.setTextColor(resources.getColor(strength.getColorResource()));
+
+        ((TextView) headerView.findViewById(R.id.channel)).setText("" + connection.getChannel());
+        ((TextView) headerView.findViewById(R.id.frequency)).setText("("+connection.getFrequency() + "MHz)");
+        ((TextView) headerView.findViewById(R.id.distance)).setText(distanceFormat.format(connection.getDistance()) + "m");
+
+        TextView ipAddress = (TextView) headerView.findViewById(R.id.capabilities);
+        ipAddress.setText(connection.getIpAddress());
+        ipAddress.setTextColor(resources.getColor(R.color.connected));
     }
 
     @Override

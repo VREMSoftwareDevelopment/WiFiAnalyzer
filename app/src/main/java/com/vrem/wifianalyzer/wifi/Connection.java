@@ -73,4 +73,12 @@ public class Connection {
         return Distance.calculate(getFrequency(), getRssi());
     }
 
+    public int getChannel() {
+        return Frequency.findChannel(getFrequency());
+    }
+
+    public Strength getStrength() {
+        return Strength.calculate(-wifiInfo.getRssi());
+    }
+
 }

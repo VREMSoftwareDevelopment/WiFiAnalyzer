@@ -16,6 +16,7 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.util.Log;
 
 import org.junit.Before;
@@ -34,7 +35,7 @@ import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(Log.class)
+@PrepareForTest({WifiManager.class, Log.class})
 public class ConnectionTest {
     @Mock private WifiInfo wifiInfo;
 
@@ -156,6 +157,34 @@ public class ConnectionTest {
         assertEquals(expected, actual, 0.0);
         verify(wifiInfo).getFrequency();
         verify(wifiInfo).getRssi();
+    }
+
+    @Test
+    public void testGetStrength() throws Exception {
+        // setup
+        mockStatic(WifiManager.class);
+        Strength expected = Strength.TWO;
+        int rssi = 86;
+        when(wifiInfo.getRssi()).thenReturn(rssi);
+        when(WifiManager.calculateSignalLevel(-rssi, Strength.values().length)).thenReturn(expected.ordinal());
+        // execute
+        Strength actual = fixture.getStrength();
+        // validate
+        assertEquals(expected, actual);
+        verify(wifiInfo).getRssi();
+        verifyStatic();
+    }
+
+    @Test
+    public void testGetChannel() throws Exception {
+        // setup
+        int expected = 5;
+        when(wifiInfo.getFrequency()).thenReturn(2435);
+        // execute
+        int actual = fixture.getChannel();
+        // validate
+        assertEquals(expected, actual);
+        verify(wifiInfo).getFrequency();
     }
 
 }

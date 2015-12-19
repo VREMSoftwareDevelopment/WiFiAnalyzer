@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         scanner = Scanner.performPeriodicScans(wiFi, new Handler(), listViewAdapter);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);

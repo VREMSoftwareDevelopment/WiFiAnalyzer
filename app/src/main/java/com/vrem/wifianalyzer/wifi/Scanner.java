@@ -23,16 +23,16 @@ public class Scanner {
     static final int DELAY_INTERVAL = 60000 * 5;    // every 5 minutes
 
     private final WiFi wifi;
-    private final Updater [] updaters;
+    private final Updater updater;
     private PerformPeriodicScan performPeriodicScan;
 
-    private Scanner(@NonNull WiFi wifi, @NonNull Updater ... updaters) {
+    private Scanner(@NonNull WiFi wifi, @NonNull Updater updater) {
         this.wifi = wifi;
-        this.updaters = updaters;
+        this.updater = updater;
     }
 
-    public static Scanner performPeriodicScans(@NonNull WiFi wifi, @NonNull Handler handler, @NonNull Updater ... updaters) {
-        Scanner scanner = new Scanner(wifi, updaters);
+    public static Scanner performPeriodicScans(@NonNull WiFi wifi, @NonNull Handler handler, @NonNull Updater updater) {
+        Scanner scanner = new Scanner(wifi, updater);
         scanner.performPeriodicScan = new PerformPeriodicScan(scanner, handler);
         handler.postDelayed(scanner.performPeriodicScan, DELAY_INITIAL);
         return scanner;
@@ -40,10 +40,7 @@ public class Scanner {
 
     public void update() {
         wifi.enable();
-        WifiInformation wifiInformation = wifi.scan();
-        for(Updater updater: updaters) {
-            updater.update(wifiInformation);
-        }
+        updater.update(wifi.scan());
     }
 
     PerformPeriodicScan getPerformPeriodicScan() {
