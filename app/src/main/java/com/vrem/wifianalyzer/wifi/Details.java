@@ -18,6 +18,9 @@ package com.vrem.wifianalyzer.wifi;
 import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 public class Details implements DetailsInfo {
     private final ScanResult scanResult;
 
@@ -32,7 +35,7 @@ public class Details implements DetailsInfo {
 
     @Override
     public int getChannel() {
-        return Frequency.findChannel(scanResult.frequency);
+        return Frequency.findChannel(getFrequency());
     }
 
     @Override
@@ -82,4 +85,25 @@ public class Details implements DetailsInfo {
         return result;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+
+        if (other == null || getClass() != other.getClass()) return false;
+
+        Details details = (Details) other;
+
+        return new EqualsBuilder()
+                .append(getSSID(), details.getSSID())
+                .append(getBSSID(), details.getBSSID())
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(getSSID())
+                .append(getBSSID())
+                .toHashCode();
+    }
 }

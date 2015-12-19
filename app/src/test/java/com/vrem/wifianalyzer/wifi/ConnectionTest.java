@@ -15,6 +15,7 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
+import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
@@ -39,16 +40,16 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({WifiManager.class, Log.class})
 public class ConnectionTest {
-    public static final String BSSID = "BSSID-123";
-    public static final String SSID = "SSID-123";
     @Mock private WifiInfo wifiInfo;
-    @Mock private DetailsInfo detailsInfo;
+    @Mock private ScanResult scanResult;
+    private DetailsInfo detailsInfo;
 
     private Connection fixture;
 
     @Before
     public void setUp() throws Exception {
         fixture = new Connection(wifiInfo);
+        detailsInfo = makeDetailsInfo();
     }
 
     @Test
@@ -90,22 +91,22 @@ public class ConnectionTest {
     @Test
     public void testGetBSSID() throws Exception {
         // setup
-        when(wifiInfo.getBSSID()).thenReturn(BSSID);
+        when(wifiInfo.getBSSID()).thenReturn(detailsInfo.getBSSID());
         // execute
         String actual = fixture.getBSSID();
         // validate
-        assertEquals(BSSID, actual);
+        assertEquals(detailsInfo.getBSSID(), actual);
         verify(wifiInfo).getBSSID();
     }
 
     @Test
     public void testGetSSID() throws Exception {
         // setup
-        when(wifiInfo.getSSID()).thenReturn(SSID);
+        when(wifiInfo.getSSID()).thenReturn(detailsInfo.getSSID());
         // execute
         String actual = fixture.getSSID();
         // validate
-        assertEquals(SSID, actual);
+        assertEquals(detailsInfo.getSSID(), actual);
         verify(wifiInfo).getSSID();
     }
 
@@ -145,8 +146,6 @@ public class ConnectionTest {
         assertFalse(actual);
         verify(wifiInfo, never()).getSSID();
         verify(wifiInfo, never()).getBSSID();
-        verify(detailsInfo, never()).getSSID();
-        verify(detailsInfo, never()).getBSSID();
     }
 
     @Test
@@ -162,15 +161,11 @@ public class ConnectionTest {
     private void validateSSIDAndBSSID() {
         verify(wifiInfo).getSSID();
         verify(wifiInfo).getBSSID();
-        verify(detailsInfo).getSSID();
-        verify(detailsInfo).getBSSID();
     }
 
     private void withSSIDAndBSSID() {
-        when(wifiInfo.getSSID()).thenReturn(SSID);
-        when(wifiInfo.getBSSID()).thenReturn(BSSID);
-        when(detailsInfo.getSSID()).thenReturn(SSID);
-        when(detailsInfo.getBSSID()).thenReturn(BSSID);
+        when(wifiInfo.getSSID()).thenReturn(detailsInfo.getSSID());
+        when(wifiInfo.getBSSID()).thenReturn(detailsInfo.getBSSID());
     }
 
     @Test
@@ -179,4 +174,7 @@ public class ConnectionTest {
         assertFalse(fixture.hasDetails());
     }
 
+    private DetailsInfo makeDetailsInfo() {
+        return new DummyDetails(scanResult, "SSID-123", "BSSID-123", 0);
+    }
 }
