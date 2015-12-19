@@ -136,7 +136,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         if (this.expandableListView.getHeaderViewsCount() == 0) {
             this.expandableListView.addHeaderView(this.headerView);
         }
-        headerView.setBackgroundColor(resources.getColor(R.color.primary_dark_material_light));
+        headerView.setBackgroundColor(resources.getColor(R.color.header));
         headerView.setPadding(
                 resources.getDimensionPixelSize(R.dimen.activity_horizontal_margin),
                 0,
