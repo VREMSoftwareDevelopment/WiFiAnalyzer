@@ -36,10 +36,6 @@ public enum Security {
         this.imageResource = imageResource;
     }
 
-    public int getImageResource() {
-        return imageResource;
-    }
-
     public static List<Security> findAll(String capabilities) {
         Set<Security> results = new TreeSet<>();
         if (capabilities != null) {
@@ -64,6 +60,10 @@ public enum Security {
             }
         }
         return Security.NONE;
+    }
+
+    public int getImageResource() {
+        return imageResource;
     }
 
 }

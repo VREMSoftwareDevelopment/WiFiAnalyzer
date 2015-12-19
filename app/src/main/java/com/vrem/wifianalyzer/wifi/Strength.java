@@ -34,16 +34,16 @@ public enum Strength {
         this.colorResource = colorResource;
     }
 
+    public static Strength calculate(int level) {
+        return Strength.values()[WifiManager.calculateSignalLevel(level, values().length)];
+    }
+
     public int getColorResource() {
         return colorResource;
     }
 
     public int getImageResource() {
         return imageResource;
-    }
-
-    public static Strength calculate(int level) {
-        return Strength.values()[WifiManager.calculateSignalLevel(level, values().length)];
     }
 
 }

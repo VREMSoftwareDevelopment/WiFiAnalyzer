@@ -37,6 +37,19 @@ public enum Frequency {
         this.band = band;
     }
 
+    public static Frequency find(int value) {
+        for (Frequency frequency : Frequency.values()) {
+            if (frequency.inRange(value)) {
+                return frequency;
+            }
+        }
+        return Frequency.UNKNOWN;
+    }
+
+    public static int findChannel(int value) {
+        return Frequency.find(value).channel(value);
+    }
+
     public boolean inRange(int value) {
         return value >= start && value <= end;
     }
@@ -50,18 +63,5 @@ public enum Frequency {
 
     public String getBand() {
         return band;
-    }
-
-    public static Frequency find(int value) {
-        for (Frequency frequency : Frequency.values()) {
-            if (frequency.inRange(value)) {
-                return frequency;
-            }
-        }
-        return Frequency.UNKNOWN;
-    }
-
-    public static int findChannel(int value) {
-        return Frequency.find(value).channel(value);
     }
 }
