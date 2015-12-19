@@ -32,7 +32,7 @@ import com.vrem.wifianalyzer.wifi.DetailsInfo;
 import com.vrem.wifianalyzer.wifi.Security;
 import com.vrem.wifianalyzer.wifi.Strength;
 import com.vrem.wifianalyzer.wifi.Updater;
-import com.vrem.wifianalyzer.wifi.WiFiInformation;
+import com.vrem.wifianalyzer.wifi.WiFiData;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -45,7 +45,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     private final DecimalFormat distanceFormat;
     private final Resources resources;
     private ExpandableListView expandableListView;
-    private WiFiInformation wifiInformation;
+    private WiFiData wifiData;
 
     public ListViewAdapter(@NonNull AppCompatActivity appCompatActivity) {
         super();
@@ -53,12 +53,12 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         resources = activity.getResources();
         headerView = activity.findViewById(R.id.contentHeader);
         distanceFormat = new DecimalFormat("#.##");
-        wifiInformation = new WiFiInformation();
+        wifiData = new WiFiData();
     }
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        convertView = getView(convertView, R.layout.content_details);
+        convertView = getView(convertView);
         Details details = (Details) getGroup(groupPosition);
         setView(convertView, details);
 
@@ -77,7 +77,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        convertView = getView(convertView, R.layout.content_details);
+        convertView = getView(convertView);
         Details details = (Details) getChild(groupPosition, childPosition);
         setView(convertView, details);
 
@@ -89,8 +89,8 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     }
 
     @Override
-    public void update(@NonNull WiFiInformation wifiInformation) {
-        this.wifiInformation = wifiInformation;
+    public void update(@NonNull WiFiData wifiData) {
+        this.wifiData = wifiData;
         if (expandableListView != null) {
             for (int i = 0; i < getGroupCount(); i++) {
                 expandableListView.collapseGroup(i);
@@ -101,7 +101,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     }
 
     private void header() {
-        Connection connection = wifiInformation.getConnection();
+        Connection connection = wifiData.getConnection();
 
         if (connection.isConnected()) {
             setView(headerView, connection.getDetailsInfo());
@@ -118,22 +118,22 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
 
     @Override
     public int getGroupCount() {
-        return wifiInformation.getParentsSize();
+        return wifiData.getParentsSize();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return wifiInformation.getChildrenSize(groupPosition);
+        return wifiData.getChildrenSize(groupPosition);
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return wifiInformation.getParent(groupPosition);
+        return wifiData.getParent(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return wifiInformation.getChild(groupPosition, childPosition);
+        return wifiData.getChild(groupPosition, childPosition);
     }
 
     @Override
@@ -156,12 +156,12 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         return true;
     }
 
-    private View getView(View view, int resource) {
+    private View getView(View view) {
         if (view != null) {
             return view;
         }
         LayoutInflater inflater = activity.getLayoutInflater();
-        return inflater.inflate(resource, null);
+        return inflater.inflate(R.layout.content_details, null);
     }
 
     void setExpandableListView(@NonNull ExpandableListView expandableListView) {

@@ -23,16 +23,16 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class WiFiInformation {
+public class WiFiData {
     private final Connection connection;
     private final List<DetailsInfo> detailsInfoList = new ArrayList<>();
     private final List<WiFiRelationship> wifiRelationships = new ArrayList<>();
 
-    public WiFiInformation() {
+    public WiFiData() {
         this(null, null);
     }
 
-    public WiFiInformation(List<ScanResult> scanResults, WifiInfo wifiInfo) {
+    public WiFiData(List<ScanResult> scanResults, WifiInfo wifiInfo) {
         connection = new Connection(wifiInfo);
         if (scanResults != null) {
             for (ScanResult scanResult : scanResults) {
@@ -63,23 +63,31 @@ public class WiFiInformation {
         return wifiRelationships.size();
     }
 
+    private boolean isInParentRange(int index) {
+        return index >= 0 && index < getParentsSize();
+    }
+
+    private boolean isInChildrenRange(int indexParent, int indexChild) {
+        return isInParentRange(indexParent) && indexChild >= 0 && indexChild < getChildrenSize(indexParent);
+    }
+
     public DetailsInfo getParent(int index) {
-        return wifiRelationships.get(index).getParent();
+        return isInParentRange(index) ? wifiRelationships.get(index).getParent() : null;
     }
 
     public int getChildrenSize(int index) {
-        return wifiRelationships.get(index).getChildrenSize();
+        return isInParentRange(index) ? wifiRelationships.get(index).getChildrenSize() : 0;
     }
 
     public DetailsInfo getChild(int indexParent, int indexChild) {
-        return wifiRelationships.get(indexParent).getChild(indexChild);
+        return isInChildrenRange(indexParent, indexChild) ? wifiRelationships.get(indexParent).getChild(indexChild) : null;
     }
 
     public Connection getConnection() {
         return connection;
     }
 
-    class SSIDComparator implements Comparator<DetailsInfo> {
+    private class SSIDComparator implements Comparator<DetailsInfo> {
         @Override
         public int compare(DetailsInfo lhs, DetailsInfo rhs) {
             int result = lhs.getSSID().compareTo(rhs.getSSID());

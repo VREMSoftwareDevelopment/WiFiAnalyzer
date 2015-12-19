@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         return item.getItemId() == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
-    class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
+    private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
         @Override
         public void onRefresh() {
             swipeRefreshLayout.setRefreshing(true);

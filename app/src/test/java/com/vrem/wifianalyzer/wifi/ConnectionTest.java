@@ -113,13 +113,12 @@ public class ConnectionTest {
     @Test
     public void testGetSSIDWithQuotes() throws Exception {
         // setup
-        String input = "\"Hello1234\"";
-        String expected = "Hello1234";
+        String expected = "\"Hello1234\"";
         when(wifiInfo.getSSID()).thenReturn(expected);
         // execute
         String actual = fixture.getSSID();
         // validate
-        assertEquals(expected, actual);
+        assertEquals(expected.replace("\"", ""), actual);
         verify(wifiInfo).getSSID();
     }
 

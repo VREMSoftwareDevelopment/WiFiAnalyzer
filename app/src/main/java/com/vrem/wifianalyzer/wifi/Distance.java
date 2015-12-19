@@ -15,9 +15,9 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
-public class Distance {
+class Distance {
 
-    public static final double DISTANCE_MHZ_M = 27.55;
+    private static final double DISTANCE_MHZ_M = 27.55;
 
     public static double calculate(int frequency, int level) {
         return Math.pow(10.0,

@@ -72,7 +72,7 @@ public class Connection {
     }
 
     public boolean addDetailsInfo(@NonNull DetailsInfo detailsInfo) {
-        if (match(detailsInfo)) {
+        if (!hasDetails() && match(detailsInfo)) {
             this.detailsInfo = detailsInfo;
             return true;
         }

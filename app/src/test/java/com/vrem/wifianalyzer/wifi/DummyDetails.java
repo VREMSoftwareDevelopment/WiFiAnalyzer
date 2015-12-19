@@ -18,8 +18,6 @@ package com.vrem.wifianalyzer.wifi;
 import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 
-import org.mockito.Mockito;
-
 public class DummyDetails extends Details {
     private final String ssid;
     private final String bssid;

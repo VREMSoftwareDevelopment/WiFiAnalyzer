@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 
 public class DistanceTest {
 
-    private DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    private final DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
     @Test
     public void testCalculate() throws Exception {
@@ -33,7 +33,7 @@ public class DistanceTest {
         validate(2412, -91, "350.85");
     }
 
-    private void validate(int frequency, int level, String expected) throws Exception {
+    private void validate(int frequency, int level, String expected) {
         assertEquals(expected, decimalFormat.format(Distance.calculate(frequency, level)));
     }
 }

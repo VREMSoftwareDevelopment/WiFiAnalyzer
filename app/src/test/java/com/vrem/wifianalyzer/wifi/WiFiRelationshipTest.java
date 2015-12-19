@@ -16,8 +16,6 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.net.wifi.ScanResult;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +23,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WiFiRelationshipTest {
@@ -52,10 +51,6 @@ public class WiFiRelationshipTest {
     }
 
     @Test
-    public void testAddChild() throws Exception {
-    }
-
-    @Test
     public void testGetParent() throws Exception {
         // execute
         DetailsInfo actual = fixture.getParent();
@@ -69,6 +64,9 @@ public class WiFiRelationshipTest {
         assertEquals(child1, fixture.getChild(0));
         assertSame(child1, fixture.getChild(0));
 
+        assertEquals(child2, fixture.getChild(1));
+        assertSame(child2, fixture.getChild(1));
+
         assertEquals(child3, fixture.getChild(2));
         assertSame(child3, fixture.getChild(2));
     }
@@ -76,7 +74,6 @@ public class WiFiRelationshipTest {
     @Test
     public void testGetChildrenSize() throws Exception {
         assertEquals(3, fixture.getChildrenSize());
-
     }
 
     private DetailsInfo makeDetailsInfo(int level) {

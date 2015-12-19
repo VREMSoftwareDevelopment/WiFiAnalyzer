@@ -77,7 +77,7 @@ public class WiFiTest {
         // setup
         when(wifiManager.startScan()).thenReturn(false);
         // execute
-        WiFiInformation actual = fixture.scan();
+        WiFiData actual = fixture.scan();
         // verify
         assertEquals(0, actual.getParentsSize());
         verify(wifiManager).startScan();
@@ -93,9 +93,9 @@ public class WiFiTest {
         Mockito.when(wifiManager.getScanResults()).thenReturn(scanResults);
         Mockito.when(wifiManager.getConnectionInfo()).thenReturn(wifiInfo);
         // execute
-        WiFiInformation actual = fixture.scan();
+        WiFiData actual = fixture.scan();
         // verify
-        assertEquals(fixture.getWifiInformation(), actual);
+        assertEquals(fixture.getWifiData(), actual);
         verify(wifiManager).startScan();
         verify(wifiManager).getScanResults();
         verify(wifiManager).getConnectionInfo();

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class WiFiRelationship implements Comparable<WiFiRelationship> {
+class WiFiRelationship implements Comparable<WiFiRelationship> {
     private final DetailsInfo parent;
     private final List<DetailsInfo> children;
 

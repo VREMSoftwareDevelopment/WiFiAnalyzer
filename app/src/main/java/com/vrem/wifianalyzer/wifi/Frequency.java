@@ -23,12 +23,12 @@ public enum Frequency {
     TWO_POINT_FOUR_CH_14(2484, 2484, 14, "2.4GHz"),
     FIVE(5170, 5825, 34, "5GHz");
 
-    final int CHANNEL_FREQUENCY_SPREAD = 5;
+    private final int CHANNEL_FREQUENCY_SPREAD = 5;
 
-    private int start;
-    private int end;
-    private int offset;
-    private String band;
+    private final int start;
+    private final int end;
+    private final int offset;
+    private final String band;
 
     Frequency(int start, int end, int offset, @NonNull String band) {
         this.start = start;

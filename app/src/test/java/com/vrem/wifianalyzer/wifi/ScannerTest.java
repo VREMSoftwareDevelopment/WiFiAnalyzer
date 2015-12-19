@@ -34,13 +34,13 @@ public class ScannerTest {
     @Mock private Scanner scanner;
 
     private Scanner fixture;
-    private WiFiInformation wifiInformation;
+    private WiFiData wifiData;
 
     @Before
     public void setUp() throws Exception {
-        wifiInformation = new WiFiInformation();
+        wifiData = new WiFiData();
 
-        when(wifi.scan()).thenReturn(wifiInformation);
+        when(wifi.scan()).thenReturn(wifiData);
 
         fixture = Scanner.performPeriodicScans(wifi, handler, updater);
     }
@@ -58,7 +58,7 @@ public class ScannerTest {
         // validate
         verify(wifi).enable();
         verify(wifi).scan();
-        verify(updater).update(wifiInformation);
+        verify(updater).update(wifiData);
     }
 
     @Test
