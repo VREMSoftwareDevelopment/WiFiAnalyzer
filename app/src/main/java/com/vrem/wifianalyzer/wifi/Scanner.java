@@ -20,19 +20,19 @@ import android.support.annotation.NonNull;
 
 public class Scanner {
     static final int DELAY_INITIAL = 1;
-    static final int DELAY_INTERVAL = 30000;
+    static final int DELAY_INTERVAL = 60000 * 5;    // every 5 minutes
 
     private final WiFi wifi;
-    private final Updater updater;
+    private final Updater [] updaters;
     private PerformPeriodicScan performPeriodicScan;
 
-    private Scanner(@NonNull WiFi wifi, @NonNull Updater updater) {
+    private Scanner(@NonNull WiFi wifi, @NonNull Updater ... updaters) {
         this.wifi = wifi;
-        this.updater = updater;
+        this.updaters = updaters;
     }
 
-    public static Scanner performPeriodicScans(@NonNull WiFi wifi, @NonNull Updater updater, @NonNull Handler handler) {
-        Scanner scanner = new Scanner(wifi, updater);
+    public static Scanner performPeriodicScans(@NonNull WiFi wifi, @NonNull Handler handler, @NonNull Updater ... updaters) {
+        Scanner scanner = new Scanner(wifi, updaters);
         scanner.performPeriodicScan = new PerformPeriodicScan(scanner, handler);
         handler.postDelayed(scanner.performPeriodicScan, DELAY_INITIAL);
         return scanner;
@@ -40,7 +40,10 @@ public class Scanner {
 
     public void update() {
         wifi.enable();
-        updater.update(wifi.scan());
+        WifiInformation wifiInformation = wifi.scan();
+        for(Updater updater: updaters) {
+            updater.update(wifiInformation);
+        }
     }
 
     PerformPeriodicScan getPerformPeriodicScan() {

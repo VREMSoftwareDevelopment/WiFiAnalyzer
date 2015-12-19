@@ -82,16 +82,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     }
 
     private View getView(Details details, View convertView) {
-        TextView connected = ((TextView) convertView.findViewById(R.id.connected));
-        connected.setText(details.getIpAddress());
-        ImageView connectedImage = (ImageView) convertView.findViewById(R.id.connectedImage);
-        if (details.isConnected()) {
-            connectedImage.setVisibility(View.VISIBLE);
-            connected.setVisibility(View.VISIBLE);
-        } else {
-            connectedImage.setVisibility(View.GONE);
-            connected.setVisibility(View.GONE);
-        }
+        convertView.findViewById(R.id.connected).setVisibility(details.isConnected() ? View.VISIBLE : View.GONE);
 
         String ssid = (TextUtils.isEmpty(details.getSSID()) ? "HIDDEN" : details.getSSID());
         ((TextView) convertView.findViewById(R.id.ssid)).setText(ssid + " (" + details.getBSSID() + ")");

@@ -22,15 +22,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-
-import java.text.DecimalFormat;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
@@ -40,11 +39,10 @@ public class DetailsTest {
     @Mock private ScanResult scanResult;
 
     private Details fixture;
-    private DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
     @Before
     public void setUp() throws Exception {
-        fixture = Details.make(scanResult, MY_IP_ADDRESS);
+        fixture = new Details(scanResult, true);
     }
 
     @Test
@@ -54,16 +52,8 @@ public class DetailsTest {
 
     @Test
     public void testIsNotConnected() throws Exception {
-        fixture = Details.make(scanResult, "");
+        fixture = new Details(scanResult, false);
         assertFalse(fixture.isConnected());
-    }
-
-    @Test
-    public void testGetIPAddress() throws Exception {
-        // execute
-        String actual = fixture.getIpAddress();
-        // validate
-        assertEquals(MY_IP_ADDRESS, actual);
     }
 
     @Test
@@ -101,15 +91,15 @@ public class DetailsTest {
     @Test
     public void testGetStrength() throws Exception {
         // setup
-        PowerMockito.mockStatic(WifiManager.class);
+        mockStatic(WifiManager.class);
         Strength expected = Strength.TWO;
         scanResult.level = -86;
-        // expected
         when(WifiManager.calculateSignalLevel(scanResult.level, Strength.values().length)).thenReturn(expected.ordinal());
         // execute
         Strength actual = fixture.getStrength();
         // validate
         assertEquals(expected, actual);
+        verifyStatic();
     }
 
     @Test
@@ -154,19 +144,13 @@ public class DetailsTest {
 
     @Test
     public void testGetDistance() throws Exception {
-        testDistance(2437, -36, "0.62");
-        testDistance(2437, -42, "1.23");
-        testDistance(2432, -88, "246.34");
-        testDistance(2412, -91, "350.85");
-    }
-
-    private void testDistance(int frequency, int level, String expected) throws Exception {
         // setup
-        scanResult.frequency = frequency;
-        scanResult.level = level;
+        scanResult.frequency = 2414;
+        scanResult.level = -50;
+        double expected = Distance.calculate(scanResult.frequency, scanResult.level);
         // execute
         double actual = fixture.getDistance();
         // validate
-        assertEquals(expected, decimalFormat.format(actual));
+        assertEquals(expected, actual, 0.0);
     }
 }

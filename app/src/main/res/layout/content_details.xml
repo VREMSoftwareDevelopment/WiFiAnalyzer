@@ -15,15 +15,6 @@
         android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:src="@drawable/ic_label_black_18dp"
         android:tint="@color/connected"
-        android:id="@+id/connectedImage"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/connectedImage"
-        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:textStyle="bold"
-        android:textColor="@color/connected"
         android:id="@+id/connected"/>
 
     <TextView

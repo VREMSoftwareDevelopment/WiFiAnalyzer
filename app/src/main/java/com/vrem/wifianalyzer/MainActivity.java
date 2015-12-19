@@ -52,8 +52,9 @@ public class MainActivity extends AppCompatActivity {
 
         expandableListView.setAdapter(listViewAdapter);
 
-        scanner = Scanner.performPeriodicScans(
-                new WiFi((WifiManager) getSystemService(Context.WIFI_SERVICE)), listViewAdapter, new Handler());
+        WiFi wiFi = new WiFi((WifiManager) getSystemService(Context.WIFI_SERVICE));
+
+        scanner = Scanner.performPeriodicScans(wiFi, new Handler(), listViewAdapter);
     }
 
     @Override

@@ -32,6 +32,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WiFiTest {
@@ -48,37 +50,37 @@ public class WiFiTest {
 
     @Test
     public void testEnableWhenIsWiFiEnabledTrue() throws Exception {
-        // expected
-        Mockito.when(wifiManager.isWifiEnabled()).thenReturn(true);
+        // setup
+        when(wifiManager.isWifiEnabled()).thenReturn(true);
         // execute
         boolean actual = fixture.enable();
         // verify
         assertTrue(actual);
-        Mockito.verify(wifiManager).isWifiEnabled();
+        verify(wifiManager).isWifiEnabled();
     }
 
     @Test
     public void testEnableWhenIsWiFiEnabledFalse() throws Exception {
-        // expected
-        Mockito.when(wifiManager.isWifiEnabled()).thenReturn(false);
-        Mockito.when(wifiManager.setWifiEnabled(true)).thenReturn(true);
+        // setup
+        when(wifiManager.isWifiEnabled()).thenReturn(false);
+        when(wifiManager.setWifiEnabled(true)).thenReturn(true);
         // execute
         boolean actual = fixture.enable();
         // verify
         assertTrue(actual);
-        Mockito.verify(wifiManager).isWifiEnabled();
-        Mockito.verify(wifiManager).setWifiEnabled(true);
+        verify(wifiManager).isWifiEnabled();
+        verify(wifiManager).setWifiEnabled(true);
     }
 
     @Test
     public void testScanWithStartScanFalse() throws Exception {
-        // expected
-        Mockito.when(wifiManager.startScan()).thenReturn(false);
+        // setup
+        when(wifiManager.startScan()).thenReturn(false);
         // execute
         WifiInformation actual = fixture.scan();
         // verify
         assertEquals(0, actual.getParentsSize());
-        Mockito.verify(wifiManager).startScan();
+        verify(wifiManager).startScan();
     }
 
     @Test
@@ -86,7 +88,6 @@ public class WiFiTest {
         // setup
         List<ScanResult> scanResults = new ArrayList<>();
         WifiInformation expected = new WifiInformation(scanResults, wifiInfo);
-        // expected
         Mockito.when(wifiManager.startScan()).thenReturn(true);
         Mockito.when(wifiManager.getScanResults()).thenReturn(scanResults);
         Mockito.when(wifiManager.getConnectionInfo()).thenReturn(wifiInfo);
@@ -95,8 +96,8 @@ public class WiFiTest {
         // verify
         assertEquals(expected, actual);
         assertNotSame(expected, actual);
-        Mockito.verify(wifiManager).startScan();
-        Mockito.verify(wifiManager).getScanResults();
-        Mockito.verify(wifiManager).getConnectionInfo();
+        verify(wifiManager).startScan();
+        verify(wifiManager).getScanResults();
+        verify(wifiManager).getConnectionInfo();
     }
 }

@@ -18,13 +18,7 @@ package com.vrem.wifianalyzer.wifi;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import org.apache.commons.lang3.ArrayUtils;
-
-import java.math.BigInteger;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -32,36 +26,30 @@ import java.util.List;
 import java.util.Objects;
 
 public class WifiInformation {
+    private final Connection connection;
     private final List<Details> detailsList = new ArrayList<>();
     private final List<Relationship> relationships = new ArrayList<>();
 
     public WifiInformation() {
+        this(null, null);
     }
 
     public WifiInformation(List<ScanResult> scanResults, WifiInfo wifiInfo) {
+        connection = new Connection(wifiInfo);
         if (scanResults != null) {
             for (ScanResult scanResult: scanResults) {
-                detailsList.add(Details.make(scanResult, getIPAddress(scanResult, wifiInfo)));
+                detailsList.add(new Details(scanResult, isConnected(scanResult)));
             }
             populateRelationship();
             sortRelationship();
         }
     }
 
-    private String getIPAddress(ScanResult scanResult, WifiInfo wifiInfo) {
-        if (wifiInfo != null &&
-            scanResult.SSID.equals(wifiInfo.getSSID().substring(1, wifiInfo.getSSID().length()-1)) &&
-            scanResult.BSSID.equals(wifiInfo.getBSSID())) {
-
-            byte[] bytes = BigInteger.valueOf(wifiInfo.getIpAddress()).toByteArray();
-            ArrayUtils.reverse(bytes);
-            try {
-                return InetAddress.getByAddress(bytes).getHostAddress();
-            } catch (UnknownHostException e) {
-                Log.e("IPAddress", e.getMessage());
-            }
-        }
-        return "";
+    private boolean isConnected(ScanResult scanResult) {
+        return connection != null &&
+                connection.isConnected() &&
+                scanResult.SSID.equals(connection.getSSID()) &&
+                scanResult.BSSID.equals(connection.getBSSID());
     }
 
     private void populateRelationship() {
@@ -72,7 +60,7 @@ public class WifiInformation {
                 relationship = new Relationship(details);
                 relationships.add(relationship);
             } else {
-                relationship.chidlren.add(details);
+                relationship.children.add(details);
             }
         }
     }
@@ -80,7 +68,7 @@ public class WifiInformation {
     private void sortRelationship() {
         Collections.sort(this.relationships);
         for (Relationship information: this.relationships) {
-            Collections.sort(information.chidlren, new LevelComparator());
+            Collections.sort(information.children, new LevelComparator());
         }
     }
 
@@ -92,11 +80,15 @@ public class WifiInformation {
     }
 
     public int getChildrenSize(int index) {
-        return this.relationships.get(index).chidlren.size();
+        return this.relationships.get(index).children.size();
     }
 
     public Details getChild(int indexParent, int indexChild) {
-        return this.relationships.get(indexParent).chidlren.get(indexChild);
+        return this.relationships.get(indexParent).children.get(indexChild);
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 
     class SSIDComparator implements Comparator<Details> {
@@ -129,7 +121,7 @@ public class WifiInformation {
 
     class Relationship implements Comparable<Relationship> {
         public final Details parent;
-        public final List<Details> chidlren = new ArrayList<>();
+        public final List<Details> children = new ArrayList<>();
 
         public Relationship(@NonNull Details parent) {
             this.parent = parent;

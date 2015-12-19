@@ -21,8 +21,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ScannerTest {
@@ -33,20 +36,22 @@ public class ScannerTest {
 
     private Scanner fixture;
     private WifiInformation wifiInformation;
+    private Updater [] updaters;
 
     @Before
     public void setUp() throws Exception {
         wifiInformation = new WifiInformation();
 
-        Mockito.when(wifi.scan()).thenReturn(wifiInformation);
+        when(wifi.scan()).thenReturn(wifiInformation);
 
-        fixture = Scanner.performPeriodicScans(wifi, updater, handler);
+        updaters = new Updater[] {updater, updater, updater};
+        fixture = Scanner.performPeriodicScans(wifi, handler, updaters);
     }
 
     @Test
     public void testPerformPeriodicScans() throws Exception {
         // validate
-        Mockito.verify(handler).postDelayed(fixture.getPerformPeriodicScan(), Scanner.DELAY_INITIAL);
+        verify(handler).postDelayed(fixture.getPerformPeriodicScan(), Scanner.DELAY_INITIAL);
     }
 
     @Test
@@ -54,9 +59,9 @@ public class ScannerTest {
         // execute
         fixture.update();
         // validate
-        Mockito.verify(wifi).enable();
-        Mockito.verify(wifi).scan();
-        Mockito.verify(updater).update(wifiInformation);
+        verify(wifi).enable();
+        verify(wifi).scan();
+        verify(updater, times(updaters.length)).update(wifiInformation);
     }
 
     @Test
@@ -66,9 +71,9 @@ public class ScannerTest {
         // execute
         fixture.run();
         // validate
-        Mockito.verify(scanner).update();
-        Mockito.verify(handler).removeCallbacks(fixture);
-        Mockito.verify(handler).postDelayed(fixture, Scanner.DELAY_INTERVAL);
+        verify(scanner).update();
+        verify(handler).removeCallbacks(fixture);
+        verify(handler).postDelayed(fixture, Scanner.DELAY_INTERVAL);
     }
 
 }

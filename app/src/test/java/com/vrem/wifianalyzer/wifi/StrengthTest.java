@@ -21,12 +21,13 @@ import com.vrem.wifianalyzer.R;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.verifyStatic;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(WifiManager.class)
@@ -55,13 +56,13 @@ public class StrengthTest {
         // setup
         int value = -55;
         Strength expected = Strength.TWO;
-        PowerMockito.mockStatic(WifiManager.class);
-        // expected
-        Mockito.when(WifiManager.calculateSignalLevel(value, Strength.values().length)).thenReturn(expected.ordinal());
+        mockStatic(WifiManager.class);
+        when(WifiManager.calculateSignalLevel(value, Strength.values().length)).thenReturn(expected.ordinal());
         // execute
         Strength actual = Strength.calculate(value);
         // validate
         assertEquals(expected, actual);
-        PowerMockito.verifyStatic();
+        verifyStatic();
     }
+
 }

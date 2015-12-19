@@ -23,23 +23,15 @@ public class Details {
     public static final double DISTANCE_MHZ_M = 27.55;
 
     private final ScanResult scanResult;
-    private final String ipAddress;
+    private final boolean connected;
 
-    private Details(@NonNull ScanResult scanResult, @NonNull String ipAddress) {
+    public Details(@NonNull ScanResult scanResult, boolean connected) {
         this.scanResult = scanResult;
-        this.ipAddress = ipAddress;
-    }
-
-    public static Details make(@NonNull ScanResult scanResult, @NonNull String ipAddress) {
-        return new Details(scanResult, ipAddress);
-    }
-
-    public String getIpAddress() {
-        return ipAddress;
+        this.connected = connected;
     }
 
     public boolean isConnected() {
-        return ipAddress.length() > 0;
+        return connected;
     }
 
     public int getFrequency() {
@@ -75,8 +67,7 @@ public class Details {
     }
 
     public double getDistance()    {
-        return Math.pow(10.0,
-            (DISTANCE_MHZ_M - (20 * Math.log10(scanResult.frequency)) + Math.abs(scanResult.level)) / 20.0);
+        return Distance.calculate(getFrequency(), getLevel());
     }
 
 }
