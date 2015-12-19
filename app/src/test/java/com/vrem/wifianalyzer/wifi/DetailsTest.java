@@ -26,8 +26,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
@@ -35,25 +33,13 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(WifiManager.class)
 public class DetailsTest {
-    public static final String MY_IP_ADDRESS = "MyIPAddress";
     @Mock private ScanResult scanResult;
 
     private Details fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = new Details(scanResult, true);
-    }
-
-    @Test
-    public void testIsConnected() throws Exception {
-        assertTrue(fixture.isConnected());
-    }
-
-    @Test
-    public void testIsNotConnected() throws Exception {
-        fixture = new Details(scanResult, false);
-        assertFalse(fixture.isConnected());
+        fixture = new Details(scanResult);
     }
 
     @Test

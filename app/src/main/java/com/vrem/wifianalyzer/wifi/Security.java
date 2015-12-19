@@ -43,8 +43,9 @@ public enum Security {
     public static List<Security> findAll(String capabilities) {
         Set<Security> results = new TreeSet<>();
         if (capabilities != null) {
-            String[] values = capabilities.toUpperCase().replace("][", "-").replace("]", "").replace("[", "").split("-");
-            for (String value: values) {
+            String[] values = capabilities.toUpperCase()
+                    .replace("][", "-").replace("]", "").replace("[", "").split("-");
+            for (String value : values) {
                 try {
                     results.add(Security.valueOf(value));
                 } catch (Exception e) {
@@ -57,7 +58,7 @@ public enum Security {
 
     public static Security findOne(String capabilities) {
         List<Security> securities = findAll(capabilities);
-        for (Security security: Security.values()) {
+        for (Security security : Security.values()) {
             if (securities.contains(security)) {
                 return security;
             }

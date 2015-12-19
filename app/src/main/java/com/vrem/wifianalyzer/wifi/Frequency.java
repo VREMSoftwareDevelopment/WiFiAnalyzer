@@ -53,7 +53,7 @@ public enum Frequency {
     }
 
     public static Frequency find(int value) {
-        for (Frequency frequency: Frequency.values()) {
+        for (Frequency frequency : Frequency.values()) {
             if (frequency.inRange(value)) {
                 return frequency;
             }

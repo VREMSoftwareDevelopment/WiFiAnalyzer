@@ -28,7 +28,9 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
@@ -37,7 +39,10 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({WifiManager.class, Log.class})
 public class ConnectionTest {
+    public static final String BSSID = "BSSID-123";
+    public static final String SSID = "SSID-123";
     @Mock private WifiInfo wifiInfo;
+    @Mock private DetailsInfo detailsInfo;
 
     private Connection fixture;
 
@@ -83,50 +88,24 @@ public class ConnectionTest {
     }
 
     @Test
-    public void testGetFrequency() throws Exception {
-        // setup
-        int expected = 2470;
-        when(wifiInfo.getFrequency()).thenReturn(expected);
-        // execute
-        int actual = fixture.getFrequency();
-        // validate
-        assertEquals(expected, actual);
-        verify(wifiInfo).getFrequency();
-    }
-
-    @Test
-    public void testGetRssi() throws Exception {
-        // setup
-        int expected = -55;
-        when(wifiInfo.getRssi()).thenReturn(expected);
-        // execute
-        int actual = fixture.getRssi();
-        // validate
-        assertEquals(Math.abs(expected), actual);
-        verify(wifiInfo).getRssi();
-    }
-
-    @Test
     public void testGetBSSID() throws Exception {
         // setup
-        String expected = "23:34";
-        when(wifiInfo.getBSSID()).thenReturn(expected);
+        when(wifiInfo.getBSSID()).thenReturn(BSSID);
         // execute
         String actual = fixture.getBSSID();
         // validate
-        assertEquals(expected, actual);
+        assertEquals(BSSID, actual);
         verify(wifiInfo).getBSSID();
     }
 
     @Test
     public void testGetSSID() throws Exception {
         // setup
-        String expected = "Hello1234";
-        when(wifiInfo.getSSID()).thenReturn(expected);
+        when(wifiInfo.getSSID()).thenReturn(SSID);
         // execute
         String actual = fixture.getSSID();
         // validate
-        assertEquals(expected, actual);
+        assertEquals(SSID, actual);
         verify(wifiInfo).getSSID();
     }
 
@@ -144,47 +123,60 @@ public class ConnectionTest {
     }
 
     @Test
-    public void testGetDistance() throws Exception {
+    public void testAddDetails() throws Exception {
         // setup
-        int frequency = 2414;
-        int rssi = -50;
-        when(wifiInfo.getFrequency()).thenReturn(frequency);
-        when(wifiInfo.getRssi()).thenReturn(rssi);
-        double expected = Distance.calculate(frequency, rssi);
+        withSSIDAndBSSID();
         // execute
-        double actual = fixture.getDistance();
+        boolean actual = fixture.addDetailsInfo(detailsInfo);
         // validate
-        assertEquals(expected, actual, 0.0);
-        verify(wifiInfo).getFrequency();
-        verify(wifiInfo).getRssi();
+        assertTrue(actual);
+        assertEquals(detailsInfo, fixture.getDetailsInfo());
+        assertSame(detailsInfo, fixture.getDetailsInfo());
+        validateSSIDAndBSSID();
     }
 
     @Test
-    public void testGetStrength() throws Exception {
+    public void testAddDetailsFails() throws Exception {
         // setup
-        mockStatic(WifiManager.class);
-        Strength expected = Strength.TWO;
-        int rssi = 86;
-        when(wifiInfo.getRssi()).thenReturn(rssi);
-        when(WifiManager.calculateSignalLevel(-rssi, Strength.values().length)).thenReturn(expected.ordinal());
+        fixture = new Connection(null);
         // execute
-        Strength actual = fixture.getStrength();
-        // validate
-        assertEquals(expected, actual);
-        verify(wifiInfo).getRssi();
-        verifyStatic();
+        boolean actual = fixture.addDetailsInfo(detailsInfo);
+        // execute
+        assertFalse(actual);
+        verify(wifiInfo, never()).getSSID();
+        verify(wifiInfo, never()).getBSSID();
+        verify(detailsInfo, never()).getSSID();
+        verify(detailsInfo, never()).getBSSID();
     }
 
     @Test
-    public void testGetChannel() throws Exception {
+    public void testHasDetails() throws Exception {
         // setup
-        int expected = 5;
-        when(wifiInfo.getFrequency()).thenReturn(2435);
-        // execute
-        int actual = fixture.getChannel();
-        // validate
-        assertEquals(expected, actual);
-        verify(wifiInfo).getFrequency();
+        withSSIDAndBSSID();
+        fixture.addDetailsInfo(detailsInfo);
+        // execute and validate
+        assertTrue(fixture.hasDetails());
+        validateSSIDAndBSSID();
+    }
+
+    private void validateSSIDAndBSSID() {
+        verify(wifiInfo).getSSID();
+        verify(wifiInfo).getBSSID();
+        verify(detailsInfo).getSSID();
+        verify(detailsInfo).getBSSID();
+    }
+
+    private void withSSIDAndBSSID() {
+        when(wifiInfo.getSSID()).thenReturn(SSID);
+        when(wifiInfo.getBSSID()).thenReturn(BSSID);
+        when(detailsInfo.getSSID()).thenReturn(SSID);
+        when(detailsInfo.getBSSID()).thenReturn(BSSID);
+    }
+
+    @Test
+    public void testDoesNotHaveDetails() throws Exception {
+        // execute and validate
+        assertFalse(fixture.hasDetails());
     }
 
 }

@@ -6,21 +6,13 @@
     <TextView
         android:layout_width="@dimen/list_view_item_horizontal_tab"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:id="@+id/tab"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tab"
-        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:src="@drawable/ic_label_black_18dp"
-        android:tint="@color/connected"
-        android:id="@+id/connected"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/connected"
+        android:layout_toRightOf="@id/tab"
         android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:textStyle="bold"
         android:id="@+id/ssid"/>
@@ -90,6 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:visibility="gone"
         android:id="@+id/groupIndicator"/>
 
 </RelativeLayout>

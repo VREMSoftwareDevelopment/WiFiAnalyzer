@@ -18,7 +18,6 @@ package com.vrem.wifianalyzer;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +28,13 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.wifi.Connection;
 import com.vrem.wifianalyzer.wifi.Details;
+import com.vrem.wifianalyzer.wifi.DetailsInfo;
 import com.vrem.wifianalyzer.wifi.Security;
 import com.vrem.wifianalyzer.wifi.Strength;
 import com.vrem.wifianalyzer.wifi.Updater;
 import com.vrem.wifianalyzer.wifi.WifiInformation;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.DecimalFormat;
 
@@ -57,58 +59,28 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         convertView = getView(convertView, R.layout.content_details);
-
         Details details = (Details) getGroup(groupPosition);
-
-        convertView.findViewById(R.id.tab).setVisibility(View.GONE);
+        setView(convertView, details);
 
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
         if (getChildrenCount(groupPosition) > 0) {
             groupIndicator.setVisibility(View.VISIBLE);
             groupIndicator.setImageResource(
                     isExpanded ? R.drawable.ic_expand_less_black_24dp : R.drawable.ic_expand_more_black_24dp);
-        } else {
-            groupIndicator.setVisibility(View.GONE);
         }
 
-        return getView(details, convertView);
+        return convertView;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         convertView = getView(convertView, R.layout.content_details);
+        Details details = (Details) getChild(groupPosition, childPosition);
+        setView(convertView, details);
 
         convertView.setBackgroundColor(resources.getColor(R.color.shadow_mid_color));
-
-        Details details = (Details) getChild(groupPosition, childPosition);
-
+        convertView.findViewById(R.id.tab).setVisibility(View.VISIBLE);
         convertView.findViewById(R.id.groupIndicator).setVisibility(View.GONE);
-
-        return getView(details, convertView);
-    }
-
-    private View getView(Details details, View convertView) {
-        convertView.findViewById(R.id.connected).setVisibility(details.isConnected() ? View.VISIBLE : View.GONE);
-
-        String ssid = (TextUtils.isEmpty(details.getSSID()) ? "HIDDEN" : details.getSSID());
-        ((TextView) convertView.findViewById(R.id.ssid)).setText(ssid + " (" + details.getBSSID() + ")");
-
-        Strength strength = details.getStrength();
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.levelImage);
-        imageView.setImageResource(strength.getImageResource());
-        imageView.setColorFilter(resources.getColor(strength.getColorResource()));
-
-        Security security = details.getSecurity();
-        ((ImageView) convertView.findViewById(R.id.securityImage)).setImageResource(security.getImageResource());
-
-        TextView textLevel = (TextView) convertView.findViewById(R.id.level);
-        textLevel.setText(details.getLevel() + "dBm");
-        textLevel.setTextColor(resources.getColor(strength.getColorResource()));
-
-        ((TextView) convertView.findViewById(R.id.channel)).setText(""+details.getChannel());
-        ((TextView) convertView.findViewById(R.id.frequency)).setText("("+details.getFrequency() + "MHz)");
-        ((TextView) convertView.findViewById(R.id.distance)).setText(distanceFormat.format(details.getDistance()) + "m");
-        ((TextView) convertView.findViewById(R.id.capabilities)).setText(details.getCapabilities());
 
         return convertView;
     }
@@ -136,35 +108,18 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         if (this.expandableListView.getHeaderViewsCount() == 0) {
             this.expandableListView.addHeaderView(this.headerView);
         }
+
+        setView(headerView, connection.getDetailsInfo());
+
         headerView.setBackgroundColor(resources.getColor(R.color.header));
         headerView.setPadding(
                 resources.getDimensionPixelSize(R.dimen.activity_horizontal_margin),
                 0,
                 resources.getDimensionPixelSize(R.dimen.activity_horizontal_margin),
                 0);
-
-        headerView.findViewById(R.id.tab).setVisibility(View.GONE);
-        headerView.findViewById(R.id.connected).setVisibility(View.GONE);
         TextView ssid = (TextView) headerView.findViewById(R.id.ssid);
-        ssid.setText(connection.getSSID() + " (" + connection.getBSSID() + ")");
+        ssid.setText(ssid.getText() + " " + connection.getIpAddress());
         ssid.setTextColor(resources.getColor(R.color.connected));
-
-        Strength strength = connection.getStrength();
-        ImageView imageView = (ImageView) headerView.findViewById(R.id.levelImage);
-        imageView.setImageResource(strength.getImageResource());
-        imageView.setColorFilter(resources.getColor(strength.getColorResource()));
-
-        TextView textLevel = (TextView) headerView.findViewById(R.id.level);
-        textLevel.setText(connection.getRssi() + "dBm");
-        textLevel.setTextColor(resources.getColor(strength.getColorResource()));
-
-        ((TextView) headerView.findViewById(R.id.channel)).setText("" + connection.getChannel());
-        ((TextView) headerView.findViewById(R.id.frequency)).setText("("+connection.getFrequency() + "MHz)");
-        ((TextView) headerView.findViewById(R.id.distance)).setText(distanceFormat.format(connection.getDistance()) + "m");
-
-        TextView ipAddress = (TextView) headerView.findViewById(R.id.capabilities);
-        ipAddress.setText(connection.getIpAddress());
-        ipAddress.setTextColor(resources.getColor(R.color.connected));
     }
 
     @Override
@@ -218,4 +173,27 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     void setExpandableListView(ExpandableListView expandableListView) {
         this.expandableListView = expandableListView;
     }
+
+    private void setView(@NonNull View view, @NonNull DetailsInfo detailsInfo) {
+        String ssid = (StringUtils.isBlank(detailsInfo.getSSID()) ? "***" : detailsInfo.getSSID());
+        ((TextView) view.findViewById(R.id.ssid)).setText(ssid + " (" + detailsInfo.getBSSID() + ")");
+
+        Strength strength = detailsInfo.getStrength();
+        ImageView imageView = (ImageView) view.findViewById(R.id.levelImage);
+        imageView.setImageResource(strength.getImageResource());
+        imageView.setColorFilter(resources.getColor(strength.getColorResource()));
+
+        Security security = detailsInfo.getSecurity();
+        ((ImageView) view.findViewById(R.id.securityImage)).setImageResource(security.getImageResource());
+
+        TextView textLevel = (TextView) view.findViewById(R.id.level);
+        textLevel.setText(detailsInfo.getLevel() + "dBm");
+        textLevel.setTextColor(resources.getColor(strength.getColorResource()));
+
+        ((TextView) view.findViewById(R.id.channel)).setText("" + detailsInfo.getChannel());
+        ((TextView) view.findViewById(R.id.frequency)).setText("(" + detailsInfo.getFrequency() + "MHz)");
+        ((TextView) view.findViewById(R.id.distance)).setText(distanceFormat.format(detailsInfo.getDistance()) + "m");
+        ((TextView) view.findViewById(R.id.capabilities)).setText(detailsInfo.getCapabilities());
+    }
+
 }

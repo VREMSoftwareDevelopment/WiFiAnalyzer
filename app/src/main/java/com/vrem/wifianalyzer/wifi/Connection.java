@@ -16,6 +16,7 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.net.wifi.WifiInfo;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -26,6 +27,7 @@ import java.net.UnknownHostException;
 
 public class Connection {
     private final WifiInfo wifiInfo;
+    private DetailsInfo detailsInfo;
 
     public Connection(WifiInfo wifiInfo) {
         this.wifiInfo = wifiInfo;
@@ -33,6 +35,10 @@ public class Connection {
 
     public boolean isConnected() {
         return wifiInfo != null;
+    }
+
+    public boolean hasDetails() {
+        return detailsInfo != null;
     }
 
     public String getIpAddress() {
@@ -46,39 +52,34 @@ public class Connection {
         return "";
     }
 
-    public int getFrequency() {
-        return wifiInfo.getFrequency();
-    }
-
-    public String getSSID() {
+    String getSSID() {
         String result = wifiInfo.getSSID();
         if (result.charAt(0) == '"') {
             result = result.substring(1);
         }
-        if (result.charAt(result.length()-1) == '"') {
-            result = result.substring(0, result.length()-1);
+        if (result.charAt(result.length() - 1) == '"') {
+            result = result.substring(0, result.length() - 1);
         }
         return result;
     }
 
-    public String getBSSID() {
-        return isConnected() ? wifiInfo.getBSSID() : "";
+    String getBSSID() {
+        return wifiInfo.getBSSID();
     }
 
-    public int getRssi() {
-        return Math.abs(wifiInfo.getRssi());
+    public DetailsInfo getDetailsInfo() {
+        return detailsInfo;
     }
 
-    public double getDistance()    {
-        return Distance.calculate(getFrequency(), getRssi());
+    public boolean addDetailsInfo(@NonNull DetailsInfo detailsInfo) {
+        if (match(detailsInfo)) {
+            this.detailsInfo = detailsInfo;
+            return true;
+        }
+        return false;
     }
 
-    public int getChannel() {
-        return Frequency.findChannel(getFrequency());
+    private boolean match(@NonNull DetailsInfo detailsInfo) {
+        return isConnected() && getSSID().equals(detailsInfo.getSSID()) && getBSSID().equals(detailsInfo.getBSSID());
     }
-
-    public Strength getStrength() {
-        return Strength.calculate(-wifiInfo.getRssi());
-    }
-
 }

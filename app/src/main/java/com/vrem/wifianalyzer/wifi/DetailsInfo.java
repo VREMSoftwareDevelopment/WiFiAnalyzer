@@ -15,13 +15,22 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
-public class Distance {
+public interface DetailsInfo {
+    String getSSID();
 
-    public static final double DISTANCE_MHZ_M = 27.55;
+    String getBSSID();
 
-    public static double calculate(int frequency, int level) {
-        return Math.pow(10.0,
-                (DISTANCE_MHZ_M - (20 * Math.log10(frequency)) + Math.abs(level)) / 20.0);
-    }
+    int getFrequency();
 
+    int getChannel();
+
+    Security getSecurity();
+
+    Strength getStrength();
+
+    int getLevel();
+
+    String getCapabilities();
+
+    double getDistance();
 }

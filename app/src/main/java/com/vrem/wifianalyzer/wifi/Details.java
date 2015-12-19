@@ -18,56 +18,55 @@ package com.vrem.wifianalyzer.wifi;
 import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 
-public class Details {
-
-    public static final double DISTANCE_MHZ_M = 27.55;
-
+public class Details implements DetailsInfo {
     private final ScanResult scanResult;
-    private final boolean connected;
 
-    public Details(@NonNull ScanResult scanResult, boolean connected) {
+    public Details(@NonNull ScanResult scanResult) {
         this.scanResult = scanResult;
-        this.connected = connected;
     }
 
-    public boolean isConnected() {
-        return connected;
-    }
-
+    @Override
     public int getFrequency() {
         return scanResult.frequency;
     }
 
+    @Override
     public int getChannel() {
         return Frequency.findChannel(scanResult.frequency);
     }
 
+    @Override
     public Security getSecurity() {
         return Security.findOne(scanResult.capabilities);
     }
 
+    @Override
     public Strength getStrength() {
         return Strength.calculate(scanResult.level);
     }
 
+    @Override
     public String getSSID() {
         return scanResult.SSID;
     }
 
+    @Override
     public String getBSSID() {
         return scanResult.BSSID;
     }
 
+    @Override
     public int getLevel() {
         return Math.abs(scanResult.level);
     }
 
+    @Override
     public String getCapabilities() {
         return scanResult.capabilities;
     }
 
-    public double getDistance()    {
+    @Override
+    public double getDistance() {
         return Distance.calculate(getFrequency(), getLevel());
     }
-
 }

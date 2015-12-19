@@ -36,25 +36,21 @@ public class WifiInformation {
     public WifiInformation(List<ScanResult> scanResults, WifiInfo wifiInfo) {
         connection = new Connection(wifiInfo);
         if (scanResults != null) {
-            for (ScanResult scanResult: scanResults) {
-                detailsList.add(new Details(scanResult, isConnected(scanResult)));
+            for (ScanResult scanResult : scanResults) {
+                Details details = new Details(scanResult);
+                if (!connection.addDetailsInfo(details)) {
+                    detailsList.add(details);
+                }
             }
             populateRelationship();
             sortRelationship();
         }
     }
 
-    private boolean isConnected(ScanResult scanResult) {
-        return connection != null &&
-                connection.isConnected() &&
-                scanResult.SSID.equals(connection.getSSID()) &&
-                scanResult.BSSID.equals(connection.getBSSID());
-    }
-
     private void populateRelationship() {
         Collections.sort(detailsList, new SSIDComparator());
         Relationship relationship = null;
-        for (Details details: this.detailsList) {
+        for (Details details : this.detailsList) {
             if (relationship == null || !relationship.parent.getSSID().equals(details.getSSID())) {
                 relationship = new Relationship(details);
                 relationships.add(relationship);
@@ -66,7 +62,7 @@ public class WifiInformation {
 
     private void sortRelationship() {
         Collections.sort(this.relationships);
-        for (Relationship information: this.relationships) {
+        for (Relationship information : this.relationships) {
             Collections.sort(information.children, new LevelComparator());
         }
     }
@@ -74,6 +70,7 @@ public class WifiInformation {
     public int getParentsSize() {
         return this.relationships.size();
     }
+
     public Details getParent(int index) {
         return this.relationships.get(index).parent;
     }

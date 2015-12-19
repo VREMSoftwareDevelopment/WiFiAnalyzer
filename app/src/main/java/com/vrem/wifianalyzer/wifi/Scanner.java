@@ -55,6 +55,7 @@ public class Scanner {
             this.scanner = scanner;
             this.handler = handler;
         }
+
         @Override
         public void run() {
             scanner.update();
