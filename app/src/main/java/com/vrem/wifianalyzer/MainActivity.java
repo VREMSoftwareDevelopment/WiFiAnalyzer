@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        this.swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
         this.swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
         ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.listView);
