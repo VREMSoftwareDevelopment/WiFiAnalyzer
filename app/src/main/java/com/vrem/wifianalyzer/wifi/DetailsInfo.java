@@ -15,7 +15,7 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
-public interface DetailsInfo {
+public interface DetailsInfo extends Comparable<DetailsInfo> {
     String getSSID();
 
     String getBSSID();

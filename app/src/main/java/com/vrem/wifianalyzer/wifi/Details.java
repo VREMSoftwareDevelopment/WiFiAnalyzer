@@ -69,4 +69,17 @@ public class Details implements DetailsInfo {
     public double getDistance() {
         return Distance.calculate(getFrequency(), getLevel());
     }
+
+    @Override
+    public int compareTo(@NonNull DetailsInfo other) {
+        int result = getLevel() - other.getLevel();
+        if (result == 0) {
+            result = getSSID().compareTo(other.getSSID());
+            if (result == 0) {
+                result = getBSSID().compareTo(other.getBSSID());
+            }
+        }
+        return result;
+    }
+
 }

@@ -32,7 +32,7 @@ import com.vrem.wifianalyzer.wifi.DetailsInfo;
 import com.vrem.wifianalyzer.wifi.Security;
 import com.vrem.wifianalyzer.wifi.Strength;
 import com.vrem.wifianalyzer.wifi.Updater;
-import com.vrem.wifianalyzer.wifi.WifiInformation;
+import com.vrem.wifianalyzer.wifi.WiFiInformation;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -45,7 +45,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     private final DecimalFormat distanceFormat;
     private final Resources resources;
     private ExpandableListView expandableListView;
-    private WifiInformation wifiInformation;
+    private WiFiInformation wifiInformation;
 
     public ListViewAdapter(@NonNull AppCompatActivity appCompatActivity) {
         super();
@@ -53,7 +53,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         resources = activity.getResources();
         headerView = activity.findViewById(R.id.contentHeader);
         distanceFormat = new DecimalFormat("#.##");
-        wifiInformation = new WifiInformation();
+        wifiInformation = new WiFiInformation();
     }
 
     @Override
@@ -62,11 +62,14 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         Details details = (Details) getGroup(groupPosition);
         setView(convertView, details);
 
+        convertView.findViewById(R.id.tab).setVisibility(View.GONE);
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
         if (getChildrenCount(groupPosition) > 0) {
             groupIndicator.setVisibility(View.VISIBLE);
             groupIndicator.setImageResource(
                     isExpanded ? R.drawable.ic_expand_less_black_24dp : R.drawable.ic_expand_more_black_24dp);
+        } else {
+            groupIndicator.setVisibility(View.GONE);
         }
 
         return convertView;
@@ -86,7 +89,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     }
 
     @Override
-    public void update(@NonNull WifiInformation wifiInformation) {
+    public void update(@NonNull WiFiInformation wifiInformation) {
         this.wifiInformation = wifiInformation;
         if (expandableListView != null) {
             for (int i = 0; i < getGroupCount(); i++) {
@@ -99,17 +102,18 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
 
     private void header() {
         Connection connection = wifiInformation.getConnection();
-        if (!connection.isConnected()) {
+
+        if (connection.isConnected()) {
+            setView(headerView, connection.getDetailsInfo());
+
+            TextView ssid = (TextView) headerView.findViewById(R.id.ssid);
+            ssid.setText(ssid.getText() + " " + connection.getIpAddress());
+            ssid.setTextColor(resources.getColor(R.color.connected));
+
+            headerView.setVisibility(View.VISIBLE);
+        } else {
             headerView.setVisibility(View.GONE);
-            return;
         }
-        headerView.setVisibility(View.VISIBLE);
-
-        setView(headerView, connection.getDetailsInfo());
-
-        TextView ssid = (TextView) headerView.findViewById(R.id.ssid);
-        ssid.setText(ssid.getText() + " " + connection.getIpAddress());
-        ssid.setTextColor(resources.getColor(R.color.connected));
     }
 
     @Override

@@ -24,7 +24,7 @@ import java.util.List;
 
 public class WiFi {
     private final WifiManager wifiManager;
-    private WifiInformation wifiInformation;
+    private WiFiInformation wifiInformation;
 
     public WiFi(@NonNull WifiManager wifiManager) {
         this.wifiManager = wifiManager;
@@ -34,19 +34,19 @@ public class WiFi {
         return wifiManager.isWifiEnabled() || wifiManager.setWifiEnabled(true);
     }
 
-    public WifiInformation scan() {
-        wifiInformation = new WifiInformation();
+    public WiFiInformation scan() {
+        wifiInformation = new WiFiInformation();
         if (wifiManager.startScan()) {
             List<ScanResult> scanResults = wifiManager.getScanResults();
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
             if (scanResults != null) {
-                wifiInformation = new WifiInformation(scanResults, wifiInfo);
+                wifiInformation = new WiFiInformation(scanResults, wifiInfo);
             }
         }
         return wifiInformation;
     }
 
-    WifiInformation getWifiInformation() {
+    WiFiInformation getWifiInformation() {
         return wifiInformation;
     }
 }

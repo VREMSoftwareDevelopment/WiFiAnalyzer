@@ -34,11 +34,11 @@ public class ScannerTest {
     @Mock private Scanner scanner;
 
     private Scanner fixture;
-    private WifiInformation wifiInformation;
+    private WiFiInformation wifiInformation;
 
     @Before
     public void setUp() throws Exception {
-        wifiInformation = new WifiInformation();
+        wifiInformation = new WiFiInformation();
 
         when(wifi.scan()).thenReturn(wifiInformation);
 

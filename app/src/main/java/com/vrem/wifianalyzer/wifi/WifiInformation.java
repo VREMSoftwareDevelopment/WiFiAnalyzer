@@ -17,23 +17,22 @@ package com.vrem.wifianalyzer.wifi;
 
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
-import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class WifiInformation {
+public class WiFiInformation {
     private final Connection connection;
     private final List<DetailsInfo> detailsInfoList = new ArrayList<>();
-    private final List<Relationship> relationships = new ArrayList<>();
+    private final List<WiFiRelationship> wifiRelationships = new ArrayList<>();
 
-    public WifiInformation() {
+    public WiFiInformation() {
         this(null, null);
     }
 
-    public WifiInformation(List<ScanResult> scanResults, WifiInfo wifiInfo) {
+    public WiFiInformation(List<ScanResult> scanResults, WifiInfo wifiInfo) {
         connection = new Connection(wifiInfo);
         if (scanResults != null) {
             for (ScanResult scanResult : scanResults) {
@@ -43,44 +42,37 @@ public class WifiInformation {
                 }
             }
             populateRelationship();
-            sortRelationship();
         }
     }
 
     private void populateRelationship() {
         Collections.sort(detailsInfoList, new SSIDComparator());
-        Relationship relationship = null;
+        WiFiRelationship wifiRelationship = null;
         for (DetailsInfo detailsInfo : detailsInfoList) {
-            if (relationship == null || !relationship.parent.getSSID().equals(detailsInfo.getSSID())) {
-                relationship = new Relationship(detailsInfo);
-                relationships.add(relationship);
+            if (wifiRelationship == null || !wifiRelationship.getParent().getSSID().equals(detailsInfo.getSSID())) {
+                wifiRelationship = new WiFiRelationship(detailsInfo);
+                wifiRelationships.add(wifiRelationship);
             } else {
-                relationship.children.add(detailsInfo);
+                wifiRelationship.addChild(detailsInfo);
             }
         }
-    }
-
-    private void sortRelationship() {
-        Collections.sort(relationships);
-        for (Relationship information : relationships) {
-            Collections.sort(information.children, new LevelComparator());
-        }
+        Collections.sort(wifiRelationships);
     }
 
     public int getParentsSize() {
-        return relationships.size();
+        return wifiRelationships.size();
     }
 
     public DetailsInfo getParent(int index) {
-        return relationships.get(index).parent;
+        return wifiRelationships.get(index).getParent();
     }
 
     public int getChildrenSize(int index) {
-        return relationships.get(index).children.size();
+        return wifiRelationships.get(index).getChildrenSize();
     }
 
     public DetailsInfo getChild(int indexParent, int indexChild) {
-        return relationships.get(indexParent).children.get(indexChild);
+        return wifiRelationships.get(indexParent).getChild(indexChild);
     }
 
     public Connection getConnection() {
@@ -95,41 +87,6 @@ public class WifiInformation {
                 result = lhs.getLevel() - rhs.getLevel();
                 if (result == 0) {
                     result = lhs.getBSSID().compareTo(rhs.getBSSID());
-                }
-            }
-            return result;
-        }
-    }
-
-    class LevelComparator implements Comparator<DetailsInfo> {
-        @Override
-        public int compare(DetailsInfo lhs, DetailsInfo rhs) {
-            int result = lhs.getLevel() - rhs.getLevel();
-            if (result == 0) {
-                result = lhs.getSSID().compareTo(rhs.getSSID());
-                if (result == 0) {
-                    result = lhs.getBSSID().compareTo(rhs.getBSSID());
-                }
-            }
-            return result;
-        }
-    }
-
-    class Relationship implements Comparable<Relationship> {
-        public final DetailsInfo parent;
-        public final List<DetailsInfo> children = new ArrayList<>();
-
-        public Relationship(@NonNull DetailsInfo parent) {
-            this.parent = parent;
-        }
-
-        @Override
-        public int compareTo(@NonNull Relationship other) {
-            int result = parent.getLevel() - other.parent.getLevel();
-            if (result == 0) {
-                result = parent.getSSID().compareTo(other.parent.getSSID());
-                if (result == 0) {
-                    result = parent.getBSSID().compareTo(other.parent.getBSSID());
                 }
             }
             return result;

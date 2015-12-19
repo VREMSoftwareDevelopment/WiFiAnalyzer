@@ -16,6 +16,7 @@
         android:orientation="vertical"
         android:id="@+id/contentHeader"
         android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:visibility="gone"
         android:background="@color/header">
 
