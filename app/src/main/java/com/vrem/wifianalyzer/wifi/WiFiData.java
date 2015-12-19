@@ -17,6 +17,11 @@ package com.vrem.wifianalyzer.wifi;
 
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.vrem.wifianalyzer.vendor.Remote;
+import com.vrem.wifianalyzer.vendor.VendorService;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,14 +34,15 @@ public class WiFiData {
     private final List<WiFiRelationship> wifiRelationships = new ArrayList<>();
 
     public WiFiData() {
-        this(null, null);
+        connection = new Connection();
     }
 
-    public WiFiData(List<ScanResult> scanResults, WifiInfo wifiInfo) {
+    public WiFiData(List<ScanResult> scanResults, WifiInfo wifiInfo, @NonNull VendorService vendorService) {
         connection = new Connection(wifiInfo);
         if (scanResults != null) {
             for (ScanResult scanResult : scanResults) {
-                DetailsInfo detailsInfo = new Details(scanResult);
+                String vendorName = vendorService.getVendorName(scanResult.BSSID);
+                DetailsInfo detailsInfo = new Details(scanResult, vendorName);
                 if (!connection.addDetailsInfo(detailsInfo)) {
                     detailsInfoList.add(detailsInfo);
                 }

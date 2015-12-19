@@ -36,13 +36,10 @@ import com.vrem.wifianalyzer.wifi.WiFiData;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.text.DecimalFormat;
-
 public class ListViewAdapter extends BaseExpandableListAdapter implements Updater {
 
     private final AppCompatActivity activity;
     private final View headerView;
-    private final DecimalFormat distanceFormat;
     private final Resources resources;
     private ExpandableListView expandableListView;
     private WiFiData wifiData;
@@ -52,7 +49,6 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         activity = appCompatActivity;
         resources = activity.getResources();
         headerView = activity.findViewById(R.id.contentHeader);
-        distanceFormat = new DecimalFormat("#.##");
         wifiData = new WiFiData();
     }
 
@@ -107,7 +103,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
             setView(headerView, connection.getDetailsInfo());
 
             TextView ssid = (TextView) headerView.findViewById(R.id.ssid);
-            ssid.setText(ssid.getText() + " " + connection.getIpAddress());
+            ssid.setText(String.format("%s %s", ssid.getText(), connection.getIpAddress()));
             ssid.setTextColor(resources.getColor(R.color.connected));
 
             headerView.setVisibility(View.VISIBLE);
@@ -170,7 +166,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
 
     private void setView(@NonNull View view, @NonNull DetailsInfo detailsInfo) {
         String ssid = (StringUtils.isBlank(detailsInfo.getSSID()) ? "***" : detailsInfo.getSSID());
-        ((TextView) view.findViewById(R.id.ssid)).setText(ssid + " (" + detailsInfo.getBSSID() + ")");
+        ((TextView) view.findViewById(R.id.ssid)).setText(String.format("%s (%s)", ssid, detailsInfo.getBSSID()));
 
         Strength strength = detailsInfo.getStrength();
         ImageView imageView = (ImageView) view.findViewById(R.id.levelImage);
@@ -181,13 +177,22 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         ((ImageView) view.findViewById(R.id.securityImage)).setImageResource(security.getImageResource());
 
         TextView textLevel = (TextView) view.findViewById(R.id.level);
-        textLevel.setText(detailsInfo.getLevel() + "dBm");
+        textLevel.setText(String.format("%ddBm", detailsInfo.getLevel()));
         textLevel.setTextColor(resources.getColor(strength.getColorResource()));
 
-        ((TextView) view.findViewById(R.id.channel)).setText("" + detailsInfo.getChannel());
-        ((TextView) view.findViewById(R.id.frequency)).setText("(" + detailsInfo.getFrequency() + "MHz)");
-        ((TextView) view.findViewById(R.id.distance)).setText(distanceFormat.format(detailsInfo.getDistance()) + "m");
+        ((TextView) view.findViewById(R.id.channel)).setText(String.format("%d", detailsInfo.getChannel()));
+        ((TextView) view.findViewById(R.id.frequency)).setText(String.format("(%dMHz)", detailsInfo.getFrequency()));
+        ((TextView) view.findViewById(R.id.distance)).setText(String.format("%6.2fm", detailsInfo.getDistance()));
         ((TextView) view.findViewById(R.id.capabilities)).setText(detailsInfo.getCapabilities());
+
+        TextView textVendor = ((TextView) view.findViewById(R.id.vendor));
+        String vendor = detailsInfo.getVendorName();
+        if (StringUtils.isBlank(vendor)) {
+            textVendor.setVisibility(View.GONE);
+        } else {
+            textVendor.setVisibility(View.VISIBLE);
+            textVendor.setText(vendor);
+        }
     }
 
 }

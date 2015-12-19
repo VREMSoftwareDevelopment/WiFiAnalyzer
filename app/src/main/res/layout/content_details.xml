@@ -77,6 +77,14 @@
         android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:id="@+id/capabilities"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/capabilities"
+        android:layout_toRightOf="@id/levelImage"
+        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
+        android:id="@+id/vendor"/>
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

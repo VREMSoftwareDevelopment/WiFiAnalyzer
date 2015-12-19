@@ -17,8 +17,10 @@ package com.vrem.wifianalyzer.wifi;
 
 import android.support.annotation.NonNull;
 
+import org.apache.commons.lang3.StringUtils;
+
 public enum Frequency {
-    UNKNOWN(0, 0, 0, ""),
+    UNKNOWN(0, 0, 0, StringUtils.EMPTY),
     TWO_POINT_FOUR(2412, 2472, 1, "2.4GHz"),
     TWO_POINT_FOUR_CH_14(2484, 2484, 14, "2.4GHz"),
     FIVE(5170, 5825, 34, "5GHz");

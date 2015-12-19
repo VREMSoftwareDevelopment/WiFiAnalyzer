@@ -18,14 +18,17 @@ package com.vrem.wifianalyzer.wifi;
 import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class Details implements DetailsInfo {
     private final ScanResult scanResult;
+    private final String vendorName;
 
-    public Details(@NonNull ScanResult scanResult) {
+    public Details(@NonNull ScanResult scanResult, @NonNull String vendorName) {
         this.scanResult = scanResult;
+        this.vendorName = vendorName;
     }
 
     @Override
@@ -71,6 +74,11 @@ public class Details implements DetailsInfo {
     @Override
     public double getDistance() {
         return Distance.calculate(getFrequency(), getLevel());
+    }
+
+    @Override
+    public String getVendorName() {
+        return vendorName;
     }
 
     @Override

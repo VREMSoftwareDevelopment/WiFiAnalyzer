@@ -20,6 +20,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigInteger;
 import java.net.InetAddress;
@@ -28,6 +29,10 @@ import java.net.UnknownHostException;
 public class Connection {
     private final WifiInfo wifiInfo;
     private DetailsInfo detailsInfo;
+
+    public Connection() {
+        this(null);
+    }
 
     public Connection(WifiInfo wifiInfo) {
         this.wifiInfo = wifiInfo;
@@ -49,7 +54,7 @@ public class Connection {
         } catch (UnknownHostException e) {
             Log.e("IPAddress", e.getMessage());
         }
-        return "";
+        return StringUtils.EMPTY;
     }
 
     String getSSID() {

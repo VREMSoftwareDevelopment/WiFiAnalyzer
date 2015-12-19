@@ -19,12 +19,13 @@ import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 
 public class DummyDetails extends Details {
+    private static final String VENDOR_NAME = "VendorName";
     private final String ssid;
     private final String bssid;
     private final int level;
 
     public DummyDetails(@NonNull ScanResult scanResult, @NonNull String ssid, @NonNull String bssid, int level) {
-        super(scanResult);
+        super(scanResult, VENDOR_NAME);
         this.ssid = ssid;
         this.bssid = bssid;
         this.level = level;

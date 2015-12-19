@@ -19,6 +19,8 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
+import com.vrem.wifianalyzer.vendor.VendorService;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,15 +39,16 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WiFiTest {
-
     @Mock private WifiManager wifiManager;
+    @Mock private VendorService vendorService;
     @Mock private ScanResult scanResult;
     @Mock private WifiInfo wifiInfo;
+
     private WiFi fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = new WiFi(wifiManager);
+        fixture = new WiFi(wifiManager, vendorService);
     }
 
     @Test

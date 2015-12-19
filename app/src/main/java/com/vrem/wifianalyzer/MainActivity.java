@@ -26,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
 
+import com.vrem.wifianalyzer.vendor.VendorService;
 import com.vrem.wifianalyzer.wifi.Scanner;
 import com.vrem.wifianalyzer.wifi.WiFi;
 
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         expandableListView.setAdapter(listViewAdapter);
 
-        WiFi wiFi = new WiFi((WifiManager) getSystemService(Context.WIFI_SERVICE));
+        WiFi wiFi = new WiFi((WifiManager) getSystemService(Context.WIFI_SERVICE), new VendorService());
 
         scanner = Scanner.performPeriodicScans(wiFi, new Handler(), listViewAdapter);
     }

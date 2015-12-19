@@ -33,13 +33,21 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(WifiManager.class)
 public class DetailsTest {
+    private static final String VENDOR_NAME = "VendorName";
+
     @Mock private ScanResult scanResult;
 
     private Details fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = new Details(scanResult);
+        fixture = new Details(scanResult, VENDOR_NAME);
+    }
+
+    @Test
+    public void testGetVendorName() throws Exception {
+        // validate
+        assertEquals(VENDOR_NAME, fixture.getVendorName());
     }
 
     @Test

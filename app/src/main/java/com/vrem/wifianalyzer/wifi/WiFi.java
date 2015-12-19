@@ -20,14 +20,18 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
 
+import com.vrem.wifianalyzer.vendor.VendorService;
+
 import java.util.List;
 
 public class WiFi {
     private final WifiManager wifiManager;
+    private final VendorService vendorService;
     private WiFiData wifiData;
 
-    public WiFi(@NonNull WifiManager wifiManager) {
+    public WiFi(@NonNull WifiManager wifiManager, @NonNull VendorService vendorService) {
         this.wifiManager = wifiManager;
+        this.vendorService = vendorService;
     }
 
     public boolean enable() {
@@ -40,7 +44,7 @@ public class WiFi {
             List<ScanResult> scanResults = wifiManager.getScanResults();
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
             if (scanResults != null) {
-                wifiData = new WiFiData(scanResults, wifiInfo);
+                wifiData = new WiFiData(scanResults, wifiInfo, vendorService);
             }
         }
         return wifiData;

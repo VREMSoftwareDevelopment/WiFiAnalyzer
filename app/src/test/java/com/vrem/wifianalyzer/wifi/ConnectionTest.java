@@ -20,6 +20,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,8 +43,8 @@ import static org.powermock.api.mockito.PowerMockito.when;
 public class ConnectionTest {
     @Mock private WifiInfo wifiInfo;
     @Mock private ScanResult scanResult;
-    private DetailsInfo detailsInfo;
 
+    private DetailsInfo detailsInfo;
     private Connection fixture;
 
     @Before
@@ -83,7 +84,7 @@ public class ConnectionTest {
         // execute
         String actual = fixture.getIpAddress();
         // validate
-        assertEquals("", actual);
+        assertEquals(StringUtils.EMPTY, actual);
         verify(wifiInfo).getIpAddress();
         verifyStatic();
     }

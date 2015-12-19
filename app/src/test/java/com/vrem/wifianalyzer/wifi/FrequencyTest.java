@@ -15,6 +15,7 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -59,7 +60,7 @@ public class FrequencyTest {
 
     @Test
     public void testGetBand() throws Exception {
-        assertEquals("", Frequency.UNKNOWN.getBand());
+        assertEquals(StringUtils.EMPTY, Frequency.UNKNOWN.getBand());
         assertEquals("2.4GHz", Frequency.TWO_POINT_FOUR.getBand());
         assertEquals("2.4GHz", Frequency.TWO_POINT_FOUR_CH_14.getBand());
         assertEquals("5GHz", Frequency.FIVE.getBand());

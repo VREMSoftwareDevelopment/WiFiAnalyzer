@@ -13,26 +13,29 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.wifi;
+package com.vrem.wifianalyzer.vendor;
 
-public interface DetailsInfo extends Comparable<DetailsInfo> {
-    String getSSID();
+import android.os.AsyncTask;
+import android.util.Log;
 
-    String getBSSID();
+import com.vrem.wifianalyzer.wifi.DetailsInfo;
 
-    int getFrequency();
+import org.apache.commons.lang3.StringUtils;
 
-    int getChannel();
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-    Security getSecurity();
+public class VendorService {
 
-    Strength getStrength();
+    private static final String MAX_VENDOR_LOOKUP = "http://www.macvendorlookup.com/api/v2/%s";
 
-    int getLevel();
-
-    String getCapabilities();
-
-    double getDistance();
-
-    String getVendorName();
+    public String getVendorName(String macAddress) {
+        return StringUtils.EMPTY;
+    }
 }
