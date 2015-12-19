@@ -30,8 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -81,21 +81,21 @@ public class WiFiTest {
         // verify
         assertEquals(0, actual.getParentsSize());
         verify(wifiManager).startScan();
+        verify(wifiManager, never()).getScanResults();
+        verify(wifiManager, never()).getConnectionInfo();
     }
 
     @Test
     public void testScanWithStartScanTrue() throws Exception {
         // setup
         List<ScanResult> scanResults = new ArrayList<>();
-        WifiInformation expected = new WifiInformation(scanResults, wifiInfo);
         Mockito.when(wifiManager.startScan()).thenReturn(true);
         Mockito.when(wifiManager.getScanResults()).thenReturn(scanResults);
         Mockito.when(wifiManager.getConnectionInfo()).thenReturn(wifiInfo);
         // execute
         WifiInformation actual = fixture.scan();
         // verify
-        assertEquals(expected, actual);
-        assertNotSame(expected, actual);
+        assertEquals(fixture.getWifiInformation(), actual);
         verify(wifiManager).startScan();
         verify(wifiManager).getScanResults();
         verify(wifiManager).getConnectionInfo();
