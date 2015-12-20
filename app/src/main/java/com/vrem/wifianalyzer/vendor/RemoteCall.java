@@ -72,15 +72,14 @@ public class RemoteCall extends AsyncTask<String, Void, String> {
                 JSONArray jsonArray = new JSONArray(result);
                 if (jsonArray.length() > 0) {
                     JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    String macAddressStart = getValue(jsonObject, "startHex");
-                    String macAddressEnd = getValue(jsonObject, "endHex");
-                    String companyName = getValue(jsonObject, "company");
-                    if (StringUtils.isNotBlank(macAddressStart) && StringUtils.isNotBlank(macAddressEnd)) {
-                        vendorCache.add(macAddress, new VendorData(macAddressStart, macAddressEnd, companyName));
+                    String macAddress = getValue(jsonObject, "startHex");
+                    String vendorName = getValue(jsonObject, "company");
+                    if (StringUtils.isNotBlank(macAddress)) {
+                        vendorCache.add(macAddress, vendorName);
                     }
                 }
             } catch (JSONException e) {
-                Log.e(macAddress, e.getMessage());
+                Log.e(" >>> " + macAddress, e.getMessage());
             }
         }
     }

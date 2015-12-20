@@ -17,14 +17,15 @@ package com.vrem.wifianalyzer.vendor;
 
 import android.support.annotation.NonNull;
 
-public class VendorService {
-    private VendorCache vendorCache = Cache.INSTANCE;
+class MacAddress {
+    private static final int MAX_LEN = 6;
 
-    public String getVendorName(String macAddress) {
-        return vendorCache.find(macAddress);
+    private MacAddress() {
     }
 
-    void setVendorCache(@NonNull VendorCache vendorCache) {
-        this.vendorCache = vendorCache;
+    static String clean(@NonNull String macAddress) {
+        String result = macAddress.replace(":", "");
+        return result.substring(0, Math.min(result.length(), MAX_LEN)).toUpperCase();
     }
+
 }

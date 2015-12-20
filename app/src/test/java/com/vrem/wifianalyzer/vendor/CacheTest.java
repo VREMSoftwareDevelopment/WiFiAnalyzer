@@ -15,6 +15,7 @@
  */
 package com.vrem.wifianalyzer.vendor;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +30,15 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CacheTest {
+    static final String MAC_IN_RANGE1 = "00:23:AB:8C:DF:10";
+    static final String MAC_IN_RANGE2 = "00:23:AB:00:DF:1C";
+
+    static final String MAC_NOT_IN_RANGE1 = "00:23:AA:FF:FF:FF";
+    static final String MAC_NOT_IN_RANGE2 = "00:23:AC:00:00:00";
+
+    static final String MAC_ADDRESS = "0023AB";
+    static final String COMPANY_NAME = "CISCO SYSTEMS, INC.";
+
     @Mock
     private RemoteCall remoteCall;
 
@@ -48,54 +58,52 @@ public class CacheTest {
     @Test
     public void testFind() throws Exception {
         // execute
-        VendorData actual = fixture.find(VendorDataHelper.MAC_IN_RANGE1);
+        String actual = fixture.find(MAC_IN_RANGE1);
         // validate
-        assertEquals(VendorData.EMPTY, actual);
-        assertSame(VendorData.EMPTY, actual);
+        assertEquals(StringUtils.EMPTY, actual);
+        assertSame(StringUtils.EMPTY, actual);
 
-        verify(remoteCall).execute(VendorDataHelper.MAC_IN_RANGE1);
+        verify(remoteCall).execute(MAC_IN_RANGE1);
     }
 
     @Test
     public void testFindWithMacAddressesBelongToSameCompany() throws Exception {
         // setup
-        fixture.find(VendorDataHelper.MAC_IN_RANGE1);
+        fixture.find(MAC_IN_RANGE1);
         // execute
-        VendorData actual = fixture.find(VendorDataHelper.MAC_IN_RANGE2);
-        fixture.find(VendorDataHelper.MAC_IN_RANGE2.toLowerCase());
+        String actual = fixture.find(MAC_IN_RANGE2);
+        fixture.find(MAC_IN_RANGE2.toLowerCase());
         // validate
-        assertEquals(VendorData.EMPTY, actual);
-        assertSame(VendorData.EMPTY, actual);
+        assertEquals(StringUtils.EMPTY, actual);
+        assertSame(StringUtils.EMPTY, actual);
 
-        verify(remoteCall, never()).execute(VendorDataHelper.MAC_IN_RANGE2);
-        verify(remoteCall, never()).execute(VendorDataHelper.MAC_IN_RANGE2.toLowerCase());
+        verify(remoteCall, never()).execute(MAC_IN_RANGE2);
+        verify(remoteCall, never()).execute(MAC_IN_RANGE2.toLowerCase());
     }
 
     @Test
     public void testFindWithDataAddedToCache() throws Exception {
         // setup
-        VendorData expected = VendorDataHelper.make();
-        fixture.add(VendorDataHelper.MAC_IN_RANGE1, expected);
+        fixture.add(MAC_IN_RANGE1, COMPANY_NAME);
         // execute
-        VendorData actual = fixture.find(VendorDataHelper.MAC_IN_RANGE1);
+        String actual = fixture.find(MAC_IN_RANGE1);
         // validate
-        assertEquals(expected, actual);
-        assertSame(expected, actual);
+        assertEquals(COMPANY_NAME, actual);
+        assertSame(COMPANY_NAME, actual);
 
-        verify(remoteCall, never()).execute(VendorDataHelper.MAC_IN_RANGE1);
+        verify(remoteCall, never()).execute(MAC_IN_RANGE1);
     }
 
     @Test
     public void testFindWithDataNotAddedToCacheForTheSameVendor() throws Exception {
         // setup
-        VendorData expected = VendorDataHelper.make();
-        fixture.add(VendorDataHelper.MAC_IN_RANGE1, expected);
+        fixture.add(MAC_IN_RANGE1, COMPANY_NAME);
         // execute
-        VendorData actual = fixture.find(VendorDataHelper.MAC_IN_RANGE2);
+        String actual = fixture.find(MAC_IN_RANGE2);
         // validate
-        assertEquals(expected, actual);
-        assertSame(expected, actual);
+        assertEquals(COMPANY_NAME, actual);
+        assertSame(COMPANY_NAME, actual);
 
-        verify(remoteCall, never()).execute(VendorDataHelper.MAC_IN_RANGE2);
+        verify(remoteCall, never()).execute(MAC_IN_RANGE2);
     }
 }

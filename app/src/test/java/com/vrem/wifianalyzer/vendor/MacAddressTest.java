@@ -15,19 +15,16 @@
  */
 package com.vrem.wifianalyzer.vendor;
 
-class VendorDataHelper {
-    static final String MAC_IN_RANGE1 = "00:23:AB:8C:DF:10";
-    static final String MAC_IN_RANGE2 = "00:23:AB:00:DF:1C";
+import org.junit.Test;
 
-    static final String MAC_START_NOT_IN_RANGE = "00:23:AA:FF:FF:FF";
-    static final String MAC_END_NOT_IN_RANGE = "00:23:AC:00:00:00";
+import static org.junit.Assert.assertEquals;
 
-    static final String MAC_START = "0023AB000000";
-    static final String MAC_END = "0023ABFFFFFF";
-    static final String COMPANY_NAME = "CISCO SYSTEMS, INC.";
-
-    static VendorData make() {
-        return new VendorData(MAC_START, MAC_END, COMPANY_NAME);
+public class MacAddressTest {
+    @Test
+    public void testClean() throws Exception {
+        assertEquals("34AF", MacAddress.clean("34aF"));
+        assertEquals("34AF0B", MacAddress.clean("34aF0B"));
+        assertEquals("34AA0B", MacAddress.clean("34:aa:0b"));
+        assertEquals("34AC0B", MacAddress.clean(MacAddress.clean("34:ac:0B:A0")));
     }
-
 }

@@ -26,6 +26,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
@@ -147,4 +148,27 @@ public class DetailsTest {
         // validate
         assertEquals(expected, actual, 0.0);
     }
+
+    @Test
+    public void testEquals() throws Exception {
+        // setup
+        scanResult.SSID = "SSID";
+        scanResult.BSSID = "BSSID";
+        Details other = new Details(scanResult, VENDOR_NAME);
+        // execute & validate
+        // validate
+        assertEquals(fixture, other);
+        assertNotSame(fixture, other);
+    }
+
+    @Test
+    public void testHashCode() throws Exception {
+        // setup
+        scanResult.SSID = "SSID";
+        scanResult.BSSID = "BSSID";
+        Details other = new Details(scanResult, VENDOR_NAME);
+        // execute & validate
+        assertEquals(fixture.hashCode(), other.hashCode());
+    }
+
 }

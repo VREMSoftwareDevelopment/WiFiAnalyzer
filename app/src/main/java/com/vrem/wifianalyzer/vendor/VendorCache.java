@@ -18,7 +18,7 @@ package com.vrem.wifianalyzer.vendor;
 import android.support.annotation.NonNull;
 
 interface VendorCache {
-    VendorData find(@NonNull String macAddress);
+    String find(@NonNull String macAddress);
 
-    void add(@NonNull String macAddress, @NonNull VendorData vendorData);
+    void add(@NonNull String macAddress, @NonNull String vendorName);
 }

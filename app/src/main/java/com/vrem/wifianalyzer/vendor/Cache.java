@@ -17,54 +17,55 @@ package com.vrem.wifianalyzer.vendor;
 
 import android.support.annotation.NonNull;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 enum Cache implements VendorCache {
     INSTANCE;
 
-    private final Set<VendorData> datas = new TreeSet<>();
-    private final FastCache fastCache = new FastCache();
+    private final Map<String, String> cache = new TreeMap<>();
+
     private RemoteCall remoteCall;
 
     Cache() {
         // Prepopulate Small Cache Set
-        datas.add(new VendorData("00026F000000", "00026FFFFFFF", "Senao International Co., Ltd."));
-        datas.add(new VendorData("20AA4B000000", "20AA4BFFFFFF", "Cisco-Linksys, LLC"));
-        datas.add(new VendorData("20CF30000000", "20CF30FFFFFF", "ASUSTek COMPUTER INC."));
-        datas.add(new VendorData("586D8F000000", "586D8FFFFFFF", "Cisco-Linksys, LLC"));
-        datas.add(new VendorData("681590000000", "681590FFFFFF", "SAGEMCOM SAS"));
-        datas.add(new VendorData("6CB0CE000000", "6CB0CEFFFFFF", "NETGEAR"));
-        datas.add(new VendorData("84948C000000", "84948CFFFFFF", "Hitron Technologies. Inc"));
-        datas.add(new VendorData("B00594000000", "B00594FFFFFF", "Liteon Technology Corporation"));
-        datas.add(new VendorData("E840F2000000", "E840F2FFFFFF", "PEGATRON CORPORATION"));
+        cache.put("00026F", "Senao International Co., Ltd.");
+        cache.put("10FEED", "TP-LINK TECHNOLOGIES CO., LTD.");
+        cache.put("20AA4B", "Cisco-Linksys, LLC");
+        cache.put("20CF30", "ASUSTek COMPUTER INC.");
+        cache.put("44E9DD", "SAGEMCOM SAS");
+        cache.put("54B80A", "D-Link International");
+        cache.put("586D8F", "Cisco-Linksys, LLC");
+        cache.put("681590", "SAGEMCOM SAS");
+        cache.put("6C3BE5", "Hewlett Packard");
+        cache.put("6CB0CE", "NETGEAR");
+        cache.put("6CCA08", "ARRIS Group, Inc.");
+        cache.put("744401", "NETGEAR");
+        cache.put("788DF7", "Hitron Technologies. Inc");
+        cache.put("84948C", "Hitron Technologies. Inc");
+        cache.put("B00594", "Liteon Technology Corporation");
+        cache.put("BC1401", "Hitron Technologies. Inc");
+        cache.put("BC4DFB", "Hitron Technologies. Inc");
+        cache.put("E840F2", "PEGATRON CORPORATION");
     }
 
     @Override
-    public VendorData find(@NonNull String macAddress) {
-        macAddress = macAddress.toUpperCase();
-        VendorData result = fastCache.get(macAddress);
+    public String find(@NonNull String macAddress) {
+        String request = macAddress.toUpperCase();
+        String result = cache.get(MacAddress.clean(macAddress));
         if (result != null) {
             return result;
         }
-        for (VendorData vendorData : datas) {
-            if (vendorData.inRange(macAddress)) {
-                fastCache.put(macAddress, vendorData);
-                return vendorData;
-            }
-        }
-        result = VendorData.EMPTY;
-        fastCache.put(macAddress, result);
-        getRemoteCall().execute(macAddress);
-        return result;
+        add(macAddress, StringUtils.EMPTY);
+        getRemoteCall().execute(request);
+        return StringUtils.EMPTY;
     }
 
     @Override
-    public void add(@NonNull String macAddress, @NonNull VendorData vendorData) {
-        datas.add(vendorData);
-        fastCache.put(macAddress, vendorData);
+    public void add(@NonNull String macAddress, @NonNull String vendorName) {
+        cache.put(MacAddress.clean(macAddress), vendorName);
     }
 
     RemoteCall getRemoteCall() {
@@ -76,30 +77,6 @@ enum Cache implements VendorCache {
     }
 
     void clear() {
-        fastCache.clear();
-        datas.clear();
+        cache.clear();
     }
-
-    private class FastCache {
-        public static final int MAX_KEY_LENGTH = 8;
-
-        private final Map<String, VendorData> cache = new TreeMap<>();
-
-        String key(@NonNull String macAddress) {
-            return macAddress.substring(0, Math.min(MAX_KEY_LENGTH, macAddress.length()));
-        }
-
-        void put(@NonNull String macAddress, @NonNull VendorData vendorData) {
-            cache.put(key(macAddress), vendorData);
-        }
-
-        VendorData get(@NonNull String macAddress) {
-            return cache.get(key(macAddress));
-        }
-
-        void clear() {
-            cache.clear();
-        }
-    }
-
 }

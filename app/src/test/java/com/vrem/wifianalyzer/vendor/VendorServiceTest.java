@@ -15,6 +15,7 @@
  */
 package com.vrem.wifianalyzer.vendor;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -29,20 +30,25 @@ public class VendorServiceTest {
     @Mock
     private VendorCache vendorCache;
 
+    private VendorService fixture;
+
+    @Before
+    public void setUp() throws Exception {
+        fixture = new VendorService();
+        fixture.setVendorCache(vendorCache);
+    }
+
     @Test
     public void testGetVendorName() throws Exception {
         // setup
-        String mac = "MACAddress";
-        String expected = "vendorName";
-        VendorService fixture = new VendorService();
-        fixture.setVendorCache(vendorCache);
-        VendorData vendorData = new VendorData(mac, mac, expected);
-        when(vendorCache.find(mac)).thenReturn(vendorData);
+        String macAddress = "macAddress";
+        String vendorName = "vendorName";
+        when(vendorCache.find(macAddress)).thenReturn(vendorName);
         // execute
-        String actual = fixture.getVendorName(mac);
+        String actual = fixture.getVendorName(macAddress);
         // validate
-        assertEquals(expected, actual);
-        verify(vendorCache).find(mac);
+        assertEquals(vendorName, actual);
+        verify(vendorCache).find(macAddress);
     }
 
 }
