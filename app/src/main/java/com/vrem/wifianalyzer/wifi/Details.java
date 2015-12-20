@@ -18,7 +18,7 @@ package com.vrem.wifianalyzer.wifi;
 import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -83,14 +83,11 @@ public class Details implements DetailsInfo {
 
     @Override
     public int compareTo(@NonNull DetailsInfo other) {
-        int result = getLevel() - other.getLevel();
-        if (result == 0) {
-            result = getSSID().compareTo(other.getSSID());
-            if (result == 0) {
-                result = getBSSID().compareTo(other.getBSSID());
-            }
-        }
-        return result;
+        return new CompareToBuilder()
+                .append(getLevel(), other.getLevel())
+                .append(getSSID(), other.getSSID())
+                .append(getBSSID(), other.getBSSID())
+                .toComparison();
     }
 
     @Override
@@ -99,11 +96,9 @@ public class Details implements DetailsInfo {
 
         if (other == null || getClass() != other.getClass()) return false;
 
-        Details details = (Details) other;
-
         return new EqualsBuilder()
-                .append(getSSID(), details.getSSID())
-                .append(getBSSID(), details.getBSSID())
+                .append(getSSID(), ((Details) other).getSSID())
+                .append(getBSSID(), ((Details) other).getBSSID())
                 .isEquals();
     }
 

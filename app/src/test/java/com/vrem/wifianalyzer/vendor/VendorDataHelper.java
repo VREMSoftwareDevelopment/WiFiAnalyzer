@@ -15,16 +15,19 @@
  */
 package com.vrem.wifianalyzer.vendor;
 
-import android.support.annotation.NonNull;
+class VendorDataHelper {
+    static final String MAC_IN_RANGE1 = "00:23:AB:8C:DF:10";
+    static final String MAC_IN_RANGE2 = "00:23:AB:00:DF:1C";
 
-public class VendorService {
-    private VendorCache vendorCache = Cache.INSTANCE;
+    static final String MAC_START_NOT_IN_RANGE = "00:23:AA:FF:FF:FF";
+    static final String MAC_END_NOT_IN_RANGE = "00:23:AC:00:00:00";
 
-    public String getVendorName(String macAddress) {
-        return vendorCache.find(macAddress).getCompanyName();
+    static final String MAC_START = "0023AB000000";
+    static final String MAC_END = "0023ABFFFFFF";
+    static final String COMPANY_NAME = "CISCO SYSTEMS, INC.";
+
+    static VendorData make() {
+        return new VendorData(MAC_START, MAC_END, COMPANY_NAME);
     }
 
-    void setVendorCache(@NonNull VendorCache vendorCache) {
-        this.vendorCache = vendorCache;
-    }
 }

@@ -17,14 +17,8 @@ package com.vrem.wifianalyzer.vendor;
 
 import android.support.annotation.NonNull;
 
-public class VendorService {
-    private VendorCache vendorCache = Cache.INSTANCE;
+interface VendorCache {
+    VendorData find(@NonNull String macAddress);
 
-    public String getVendorName(String macAddress) {
-        return vendorCache.find(macAddress).getCompanyName();
-    }
-
-    void setVendorCache(@NonNull VendorCache vendorCache) {
-        this.vendorCache = vendorCache;
-    }
+    void add(@NonNull String macAddress, @NonNull VendorData vendorData);
 }

@@ -35,7 +35,7 @@ public class StrengthTest {
 
     @Test
     public void testGetImageResource() throws Exception {
-        assertEquals(R.drawable.ic_signal_wifi_1_bar_black_48dp, Strength.ZERO.getImageResource());
+        assertEquals(R.drawable.ic_signal_wifi_0_bar_black_48dp, Strength.ZERO.getImageResource());
         assertEquals(R.drawable.ic_signal_wifi_1_bar_black_48dp, Strength.ONE.getImageResource());
         assertEquals(R.drawable.ic_signal_wifi_2_bar_black_48dp, Strength.TWO.getImageResource());
         assertEquals(R.drawable.ic_signal_wifi_3_bar_black_48dp, Strength.THREE.getImageResource());

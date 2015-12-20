@@ -18,9 +18,7 @@ package com.vrem.wifianalyzer.wifi;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.vrem.wifianalyzer.vendor.Remote;
 import com.vrem.wifianalyzer.vendor.VendorService;
 
 import java.util.ArrayList;

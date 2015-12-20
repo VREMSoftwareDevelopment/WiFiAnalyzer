@@ -20,7 +20,7 @@ import android.net.wifi.WifiManager;
 import com.vrem.wifianalyzer.R;
 
 public enum Strength {
-    ZERO(R.drawable.ic_signal_wifi_1_bar_black_48dp, R.color.error_color),
+    ZERO(R.drawable.ic_signal_wifi_0_bar_black_48dp, R.color.error_color),
     ONE(R.drawable.ic_signal_wifi_1_bar_black_48dp, R.color.warning_color),
     TWO(R.drawable.ic_signal_wifi_2_bar_black_48dp, R.color.warning_color),
     THREE(R.drawable.ic_signal_wifi_3_bar_black_48dp, R.color.success_color),
