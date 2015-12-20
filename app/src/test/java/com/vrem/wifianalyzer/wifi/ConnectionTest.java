@@ -55,12 +55,27 @@ public class ConnectionTest {
 
     @Test
     public void testIsConnected() throws Exception {
+        // setup
+        when(wifiInfo.getNetworkId()).thenReturn(0);
+        // execute and validate
         assertTrue(fixture.isConnected());
+        verify(wifiInfo).getNetworkId();
     }
 
     @Test
-    public void testIsNotConnected() throws Exception {
+    public void testIsNotConnectedWithInvalidNetworkId() throws Exception {
+        // setup
+        when(wifiInfo.getNetworkId()).thenReturn(-1);
+        // execute and validate
+        assertFalse(fixture.isConnected());
+        verify(wifiInfo).getNetworkId();
+    }
+
+    @Test
+    public void testIsNotConnectedWithNullWiFiInfo() throws Exception {
+        // setup
         fixture = new Connection(null);
+        // execute and validate
         assertFalse(fixture.isConnected());
     }
 

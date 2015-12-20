@@ -99,7 +99,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     private void header() {
         Connection connection = wifiData.getConnection();
 
-        if (connection.isConnected()) {
+        if (connection.isConnected() && connection.hasDetails()) {
             setView(headerView, connection.getDetailsInfo());
 
             TextView ssid = (TextView) headerView.findViewById(R.id.ssid);

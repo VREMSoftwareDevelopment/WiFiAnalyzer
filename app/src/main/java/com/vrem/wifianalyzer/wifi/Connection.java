@@ -39,7 +39,7 @@ public class Connection {
     }
 
     public boolean isConnected() {
-        return wifiInfo != null;
+        return wifiInfo != null && wifiInfo.getNetworkId() != -1;
     }
 
     public boolean hasDetails() {
