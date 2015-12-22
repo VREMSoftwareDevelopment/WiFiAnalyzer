@@ -19,6 +19,7 @@ import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
 
+import com.vrem.wifianalyzer.vendor.Database;
 import com.vrem.wifianalyzer.vendor.VendorService;
 import com.vrem.wifianalyzer.wifi.Scanner;
 import com.vrem.wifianalyzer.wifi.WiFi;
@@ -47,15 +49,19 @@ public class MainActivity extends AppCompatActivity {
         this.swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
         ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.listView);
-
         ListViewAdapter listViewAdapter = new ListViewAdapter(this);
         listViewAdapter.setExpandableListView(expandableListView);
-
         expandableListView.setAdapter(listViewAdapter);
 
-        WiFi wiFi = new WiFi((WifiManager) getSystemService(Context.WIFI_SERVICE), new VendorService());
+        scanner = Scanner.performPeriodicScans(getWiFi(), new Handler(), listViewAdapter);
+    }
 
-        scanner = Scanner.performPeriodicScans(wiFi, new Handler(), listViewAdapter);
+    @NonNull
+    private WiFi getWiFi() {
+        Database database = new Database(this);
+        VendorService vendorService = new VendorService(database);
+        WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        return new WiFi(wifiManager, vendorService);
     }
 
 

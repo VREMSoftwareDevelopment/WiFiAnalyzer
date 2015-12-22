@@ -17,14 +17,45 @@ package com.vrem.wifianalyzer.vendor;
 
 import android.support.annotation.NonNull;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Set;
+import java.util.TreeSet;
+
 public class VendorService {
-    private VendorCache vendorCache = Cache.INSTANCE;
+    private final Set<String> cache = new TreeSet<>();
+    private Database database;
+    private RemoteCall remoteCall;
+
+    public VendorService(@NonNull Database database) {
+        this.database = database;
+    }
 
     public String getVendorName(String macAddress) {
-        return vendorCache.find(macAddress);
+        String result = database.find(macAddress);
+        if (result != null) {
+            return result;
+        }
+        String key = MacAddress.clean(macAddress);
+        if (!cache.contains(key)) {
+            cache.add(key);
+            getRemoteCall().execute(macAddress);
+        }
+        return StringUtils.EMPTY;
     }
 
-    void setVendorCache(@NonNull VendorCache vendorCache) {
-        this.vendorCache = vendorCache;
+    RemoteCall getRemoteCall() {
+        RemoteCall result = remoteCall == null ? new RemoteCall() : remoteCall;
+        result.setDatabase(database);
+        return result;
     }
+
+    void setRemoteCall(@NonNull RemoteCall remoteCall) {
+        this.remoteCall = remoteCall;
+    }
+
+    void clear() {
+        cache.clear();
+    }
+
 }

@@ -15,6 +15,8 @@
  */
 package com.vrem.wifianalyzer.vendor;
 
+import org.apache.commons.lang3.StringUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,33 +24,71 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class VendorServiceTest {
-    @Mock
-    private VendorCache vendorCache;
+    static final String MAC_IN_RANGE1 = "00:23:AB:8C:DF:10";
+    static final String MAC_IN_RANGE2 = "00:23:AB:00:DF:1C";
+    static final String VENDOR_NAME = "CISCO SYSTEMS, INC.";
+
+    @Mock private Database database;
+    @Mock private RemoteCall remoteCall;
 
     private VendorService fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = new VendorService();
-        fixture.setVendorCache(vendorCache);
+        fixture = new VendorService(database);
+        fixture.setRemoteCall(remoteCall);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        fixture.clear();
     }
 
     @Test
-    public void testGetVendorName() throws Exception {
+    public void testFindWithNameFound() throws Exception {
         // setup
-        String macAddress = "macAddress";
-        String vendorName = "vendorName";
-        when(vendorCache.find(macAddress)).thenReturn(vendorName);
+        when(database.find(MAC_IN_RANGE1)).thenReturn(VENDOR_NAME);
         // execute
-        String actual = fixture.getVendorName(macAddress);
+        String actual = fixture.getVendorName(MAC_IN_RANGE1);
         // validate
-        assertEquals(vendorName, actual);
-        verify(vendorCache).find(macAddress);
+        assertEquals(VENDOR_NAME, actual);
+        verify(database).find(MAC_IN_RANGE1);
     }
 
+    @Test
+    public void testFindWithNameNotFound() throws Exception {
+        // execute
+        String actual = fixture.getVendorName(MAC_IN_RANGE1);
+        when(database.find(MAC_IN_RANGE1)).thenReturn(null);
+        // validate
+        verify(database).find(MAC_IN_RANGE1);
+        verify(remoteCall).execute(MAC_IN_RANGE1);
+
+        assertEquals(StringUtils.EMPTY, actual);
+        assertSame(StringUtils.EMPTY, actual);
+    }
+
+    @Test
+    public void testFindWithMacAddressesBelongToSameVendor() throws Exception {
+        // setup
+        fixture.getVendorName(MAC_IN_RANGE1);
+        // execute
+        String actual = fixture.getVendorName(MAC_IN_RANGE2);
+        fixture.getVendorName(MAC_IN_RANGE2.toLowerCase());
+        // validate
+        verify(database).find(MAC_IN_RANGE1);
+        verify(remoteCall).execute(MAC_IN_RANGE1);
+        verify(remoteCall, never()).execute(MAC_IN_RANGE2);
+        verify(remoteCall, never()).execute(MAC_IN_RANGE2.toLowerCase());
+
+        assertEquals(StringUtils.EMPTY, actual);
+        assertSame(StringUtils.EMPTY, actual);
+    }
 }

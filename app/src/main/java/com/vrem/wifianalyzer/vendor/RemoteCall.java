@@ -33,14 +33,13 @@ import java.net.URLConnection;
 public class RemoteCall extends AsyncTask<String, Void, String> {
     private static final String MAX_VENDOR_LOOKUP = "http://www.macvendorlookup.com/api/v2/%s";
 
-    private VendorCache vendorCache = Cache.INSTANCE;
-    private String macAddress;
+    private Database database;
 
     protected String doInBackground(String... params) {
         if (params.length < 1 || StringUtils.isBlank(params[0])) {
             return StringUtils.EMPTY;
         }
-        macAddress = params[0];
+        String macAddress = params[0];
         String request = String.format(MAX_VENDOR_LOOKUP, macAddress.replace(":", "-"));
         BufferedReader bufferedReader = null;
         try {
@@ -75,11 +74,12 @@ public class RemoteCall extends AsyncTask<String, Void, String> {
                     String macAddress = getValue(jsonObject, "startHex");
                     String vendorName = getValue(jsonObject, "company");
                     if (StringUtils.isNotBlank(macAddress)) {
-                        vendorCache.add(macAddress, vendorName);
+                        Log.i(macAddress, vendorName);
+                        database.insert(macAddress, vendorName);
                     }
                 }
             } catch (JSONException e) {
-                Log.e(" >>> " + macAddress, e.getMessage());
+                Log.e("<RemoteCall>", result, e);
             }
         }
     }
@@ -93,8 +93,7 @@ public class RemoteCall extends AsyncTask<String, Void, String> {
         }
     }
 
-
-    void setCache(@NonNull VendorCache vendorCache) {
-        this.vendorCache = vendorCache;
+    void setDatabase(@NonNull Database database) {
+        this.database = database;
     }
 }
