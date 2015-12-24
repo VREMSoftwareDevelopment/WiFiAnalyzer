@@ -1,0 +1,5 @@
+<resources>
+    <integer name="scan_interval_default">5</integer>
+    <integer name="scan_interval_min">2</integer>
+    <integer name="scan_interval_max">30</integer>
+</resources>

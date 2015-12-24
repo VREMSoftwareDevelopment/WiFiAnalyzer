@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.vrem.wifianalyzer.ScanIntervalPreference
+        android:defaultValue="@integer/scan_interval_default"
+        android:key="@string/scan_interval_key"
+        android:persistent="true"
+        android:summary="@string/scan_interval_summary"
+        android:title="@string/scan_interval_title" />
+</PreferenceScreen>
