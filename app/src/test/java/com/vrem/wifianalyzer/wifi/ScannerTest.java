@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -35,6 +36,7 @@ public class ScannerTest {
 
     private Scanner fixture;
     private WiFiData wifiData;
+    private int scanInterval;
 
     @Before
     public void setUp() throws Exception {
@@ -42,13 +44,15 @@ public class ScannerTest {
 
         when(wifi.scan()).thenReturn(wifiData);
 
-        fixture = Scanner.performPeriodicScans(wifi, handler, updater);
+        scanInterval = 10;
+        fixture = Scanner.performPeriodicScans(wifi, handler, updater, scanInterval);
     }
 
     @Test
     public void testPerformPeriodicScans() throws Exception {
         // validate
         verify(handler).postDelayed(fixture.getPerformPeriodicScan(), Scanner.DELAY_INITIAL);
+        assertEquals(scanInterval, fixture.getPerformPeriodicScan().getScanInterval());
     }
 
     @Test
@@ -62,15 +66,25 @@ public class ScannerTest {
     }
 
     @Test
+    public void testSetScanInterval() throws Exception {
+        // setup
+        int expected = scanInterval * 10;
+        // execute
+        fixture.setScanInterval(expected);
+        // validate
+        assertEquals(expected, fixture.getPerformPeriodicScan().getScanInterval());
+    }
+
+    @Test
     public void testPerformPeriodicScanRun() throws Exception {
         // setup
-        Scanner.PerformPeriodicScan fixture = new Scanner.PerformPeriodicScan(scanner, handler);
+        Scanner.PerformPeriodicScan fixture = new Scanner.PerformPeriodicScan(scanner, handler, scanInterval);
         // execute
         fixture.run();
         // validate
         verify(scanner).update();
         verify(handler).removeCallbacks(fixture);
-        verify(handler).postDelayed(fixture, Scanner.DELAY_INTERVAL);
+        verify(handler).postDelayed(fixture, scanInterval * Scanner.DELAY_INTERVAL);
     }
 
 }

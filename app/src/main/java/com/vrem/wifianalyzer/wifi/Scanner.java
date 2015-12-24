@@ -20,7 +20,7 @@ import android.support.annotation.NonNull;
 
 public class Scanner {
     static final int DELAY_INITIAL = 1;
-    static final int DELAY_INTERVAL = 60000 * 5;    // every 5 minutes
+    static final int DELAY_INTERVAL = 1000;
 
     private final WiFi wifi;
     private final Updater updater;
@@ -31,9 +31,9 @@ public class Scanner {
         this.updater = updater;
     }
 
-    public static Scanner performPeriodicScans(@NonNull WiFi wifi, @NonNull Handler handler, @NonNull Updater updater) {
+    public static Scanner performPeriodicScans(@NonNull WiFi wifi, @NonNull Handler handler, @NonNull Updater updater, int scanInterval) {
         Scanner scanner = new Scanner(wifi, updater);
-        scanner.performPeriodicScan = new PerformPeriodicScan(scanner, handler);
+        scanner.performPeriodicScan = new PerformPeriodicScan(scanner, handler, scanInterval);
         handler.postDelayed(scanner.performPeriodicScan, DELAY_INITIAL);
         return scanner;
     }
@@ -43,6 +43,10 @@ public class Scanner {
         updater.update(wifi.scan());
     }
 
+    public void setScanInterval(int scanInterval) {
+        performPeriodicScan.setScanInterval(scanInterval);
+    }
+
     PerformPeriodicScan getPerformPeriodicScan() {
         return performPeriodicScan;
     }
@@ -50,17 +54,27 @@ public class Scanner {
     static class PerformPeriodicScan implements Runnable {
         private final Scanner scanner;
         private final Handler handler;
+        private int scanInterval;
 
-        PerformPeriodicScan(@NonNull Scanner scanner, @NonNull Handler handler) {
+        PerformPeriodicScan(@NonNull Scanner scanner, @NonNull Handler handler, int scanInterval) {
             this.scanner = scanner;
             this.handler = handler;
+            setScanInterval(scanInterval);
         }
 
         @Override
         public void run() {
             scanner.update();
             handler.removeCallbacks(this);
-            handler.postDelayed(this, DELAY_INTERVAL);
+            handler.postDelayed(this, scanInterval * DELAY_INTERVAL);
+        }
+
+        int getScanInterval() {
+            return scanInterval;
+        }
+
+        void setScanInterval(int scanInterval) {
+            this.scanInterval = scanInterval;
         }
     }
 

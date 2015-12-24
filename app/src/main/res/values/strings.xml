@@ -8,4 +8,8 @@
     <string name="scan_interval_title">WiFi Scan Interval</string>
     <string name="scan_interval_summary">%d seconds between each WiFi scan</string>
     <string name="scan_interval_key">scan_interval</string>
+
+    <integer name="scan_interval_default">5</integer>
+    <integer name="scan_interval_min">2</integer>
+    <integer name="scan_interval_max">30</integer>
 </resources>

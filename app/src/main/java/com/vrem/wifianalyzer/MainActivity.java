@@ -17,6 +17,8 @@ package com.vrem.wifianalyzer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,7 +36,7 @@ import com.vrem.wifianalyzer.vendor.VendorService;
 import com.vrem.wifianalyzer.wifi.Scanner;
 import com.vrem.wifianalyzer.wifi.WiFi;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener {
 
     private Scanner scanner;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -45,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences.registerOnSharedPreferenceChangeListener(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -57,7 +62,12 @@ public class MainActivity extends AppCompatActivity {
         listViewAdapter.setExpandableListView(expandableListView);
         expandableListView.setAdapter(listViewAdapter);
 
-        scanner = Scanner.performPeriodicScans(getWiFi(), new Handler(), listViewAdapter);
+        scanner = Scanner.performPeriodicScans(getWiFi(), new Handler(), listViewAdapter, getScanInterval(preferences));
+    }
+
+    private int getScanInterval(SharedPreferences preferences) {
+        int defaultValue = getResources().getInteger(R.integer.scan_interval_default);
+        return preferences.getInt(getString(R.string.scan_interval_key), defaultValue);
     }
 
     @NonNull
@@ -86,6 +96,12 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        scanner.setScanInterval(getScanInterval(sharedPreferences));
+    }
+
 
     private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
         @Override
