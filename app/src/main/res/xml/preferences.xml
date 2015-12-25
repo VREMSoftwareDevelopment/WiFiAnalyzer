@@ -6,4 +6,13 @@
         android:persistent="true"
         android:summary="@string/scan_interval_summary"
         android:title="@string/scan_interval_title" />
+
+    <ListPreference
+        android:defaultValue="@string/group_by_default"
+        android:entries="@array/group_by_array"
+        android:entryValues="@array/group_by_array"
+        android:key="@string/group_by_key"
+        android:persistent="true"
+        android:summary="@string/group_by_summary"
+        android:title="@string/group_by_title" />
 </PreferenceScreen>

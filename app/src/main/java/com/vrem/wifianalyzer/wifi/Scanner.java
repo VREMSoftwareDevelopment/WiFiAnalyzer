@@ -51,6 +51,10 @@ public class Scanner {
         return performPeriodicScan;
     }
 
+    public void setGroupBy(@NonNull GroupBy groupBy) {
+        wifi.setGroupBy(groupBy);
+    }
+
     static class PerformPeriodicScan implements Runnable {
         private final Scanner scanner;
         private final Handler handler;

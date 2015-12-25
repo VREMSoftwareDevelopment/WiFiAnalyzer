@@ -87,4 +87,12 @@ public class ScannerTest {
         verify(handler).postDelayed(fixture, scanInterval * Scanner.DELAY_INTERVAL);
     }
 
+    @Test
+    public void testSetGroupBy() throws Exception {
+        // execute
+        fixture.setGroupBy(GroupBy.CHANNEL);
+        // validate
+        verify(wifi).setGroupBy(GroupBy.CHANNEL);
+    }
+
 }

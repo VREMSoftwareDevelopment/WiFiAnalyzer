@@ -48,7 +48,7 @@ public class WiFiTest {
 
     @Before
     public void setUp() throws Exception {
-        fixture = new WiFi(wifiManager, vendorService);
+        fixture = new WiFi(wifiManager, vendorService, GroupBy.SSID);
     }
 
     @Test

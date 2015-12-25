@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="group_by_array">
+        <item>SSID</item>
+        <item>Channel</item>
+    </string-array>
+
+</resources>

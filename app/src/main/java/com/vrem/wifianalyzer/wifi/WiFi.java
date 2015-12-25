@@ -27,11 +27,13 @@ import java.util.List;
 public class WiFi {
     private final WifiManager wifiManager;
     private final VendorService vendorService;
+    private GroupBy groupBy;
     private WiFiData wifiData;
 
-    public WiFi(@NonNull WifiManager wifiManager, @NonNull VendorService vendorService) {
+    public WiFi(@NonNull WifiManager wifiManager, @NonNull VendorService vendorService, @NonNull GroupBy groupBy) {
         this.wifiManager = wifiManager;
         this.vendorService = vendorService;
+        setGroupBy(groupBy);
     }
 
     public boolean enable() {
@@ -44,7 +46,7 @@ public class WiFi {
             List<ScanResult> scanResults = wifiManager.getScanResults();
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
             if (scanResults != null) {
-                wifiData = new WiFiData(scanResults, wifiInfo, vendorService);
+                wifiData = new WiFiData(scanResults, wifiInfo, vendorService, groupBy);
             }
         }
         return wifiData;
@@ -52,5 +54,9 @@ public class WiFi {
 
     WiFiData getWifiData() {
         return wifiData;
+    }
+
+    public void setGroupBy(@NonNull GroupBy groupBy) {
+        this.groupBy = groupBy;
     }
 }

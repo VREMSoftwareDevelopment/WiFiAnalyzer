@@ -23,7 +23,6 @@ import com.vrem.wifianalyzer.vendor.VendorService;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class WiFiData {
@@ -35,7 +34,7 @@ public class WiFiData {
         connection = new Connection();
     }
 
-    public WiFiData(List<ScanResult> scanResults, WifiInfo wifiInfo, @NonNull VendorService vendorService) {
+    public WiFiData(List<ScanResult> scanResults, WifiInfo wifiInfo, @NonNull VendorService vendorService, @NonNull GroupBy groupBy) {
         connection = new Connection(wifiInfo);
         if (scanResults != null) {
             for (ScanResult scanResult : scanResults) {
@@ -45,15 +44,15 @@ public class WiFiData {
                     detailsInfoList.add(detailsInfo);
                 }
             }
-            populateRelationship();
+            populateRelationship(groupBy);
         }
     }
 
-    private void populateRelationship() {
-        Collections.sort(detailsInfoList, new SSIDComparator());
+    private void populateRelationship(@NonNull GroupBy groupBy) {
+        Collections.sort(detailsInfoList, groupBy.getSortOrder());
         WiFiRelationship wifiRelationship = null;
         for (DetailsInfo detailsInfo : detailsInfoList) {
-            if (wifiRelationship == null || !wifiRelationship.getParent().getSSID().equals(detailsInfo.getSSID())) {
+            if (wifiRelationship == null || groupBy.getGroupBy().compare(wifiRelationship.getParent(), detailsInfo) != 0) {
                 wifiRelationship = new WiFiRelationship(detailsInfo);
                 wifiRelationships.add(wifiRelationship);
             } else {
@@ -90,19 +89,4 @@ public class WiFiData {
     public Connection getConnection() {
         return connection;
     }
-
-    private class SSIDComparator implements Comparator<DetailsInfo> {
-        @Override
-        public int compare(DetailsInfo lhs, DetailsInfo rhs) {
-            int result = lhs.getSSID().compareTo(rhs.getSSID());
-            if (result == 0) {
-                result = lhs.getLevel() - rhs.getLevel();
-                if (result == 0) {
-                    result = lhs.getBSSID().compareTo(rhs.getBSSID());
-                }
-            }
-            return result;
-        }
-    }
-
 }

@@ -85,8 +85,8 @@ public class Details implements DetailsInfo {
     public int compareTo(@NonNull DetailsInfo other) {
         return new CompareToBuilder()
                 .append(getLevel(), other.getLevel())
-                .append(getSSID(), other.getSSID())
-                .append(getBSSID(), other.getBSSID())
+                .append(getSSID().toUpperCase(), other.getSSID().toUpperCase())
+                .append(getBSSID().toUpperCase(), other.getBSSID().toUpperCase())
                 .toComparison();
     }
 
@@ -97,16 +97,16 @@ public class Details implements DetailsInfo {
         if (other == null || getClass() != other.getClass()) return false;
 
         return new EqualsBuilder()
-                .append(getSSID(), ((Details) other).getSSID())
-                .append(getBSSID(), ((Details) other).getBSSID())
+                .append(getSSID().toUpperCase(), ((Details) other).getSSID().toUpperCase())
+                .append(getBSSID().toUpperCase(), ((Details) other).getBSSID().toUpperCase())
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(getSSID())
-                .append(getBSSID())
+                .append(getSSID().toUpperCase())
+                .append(getBSSID().toUpperCase())
                 .toHashCode();
     }
 }

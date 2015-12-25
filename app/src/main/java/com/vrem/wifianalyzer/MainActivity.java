@@ -33,6 +33,7 @@ import android.widget.ExpandableListView;
 
 import com.vrem.wifianalyzer.vendor.Database;
 import com.vrem.wifianalyzer.vendor.VendorService;
+import com.vrem.wifianalyzer.wifi.GroupBy;
 import com.vrem.wifianalyzer.wifi.Scanner;
 import com.vrem.wifianalyzer.wifi.WiFi;
 
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         listViewAdapter.setExpandableListView(expandableListView);
         expandableListView.setAdapter(listViewAdapter);
 
-        scanner = Scanner.performPeriodicScans(getWiFi(), new Handler(), listViewAdapter, getScanInterval(preferences));
+        scanner = Scanner.performPeriodicScans(getWiFi(preferences), new Handler(), listViewAdapter, getScanInterval(preferences));
     }
 
     private int getScanInterval(SharedPreferences preferences) {
@@ -71,11 +72,17 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     @NonNull
-    private WiFi getWiFi() {
+    private GroupBy getGroupBy(SharedPreferences preferences) {
+        String defaultValue = getResources().getString(R.string.group_by_default);
+        return GroupBy.find(preferences.getString(getString(R.string.group_by_key), defaultValue));
+    }
+
+    @NonNull
+    private WiFi getWiFi(SharedPreferences preferences) {
         Database database = new Database(this);
         VendorService vendorService = new VendorService(database);
         WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        return new WiFi(wifiManager, vendorService);
+        return new WiFi(wifiManager, vendorService, getGroupBy(preferences));
     }
 
 
@@ -88,6 +95,9 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_refresh:
+                refresh();
+                return true;
             case R.id.action_settings:
                 Intent i = new Intent(this, SettingActivity.class);
                 startActivity(i);
@@ -100,15 +110,20 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         scanner.setScanInterval(getScanInterval(sharedPreferences));
+        scanner.setGroupBy(getGroupBy(sharedPreferences));
+        refresh();
     }
 
+    private void refresh() {
+        swipeRefreshLayout.setRefreshing(true);
+        scanner.update();
+        swipeRefreshLayout.setRefreshing(false);
+    }
 
     private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
         @Override
         public void onRefresh() {
-            swipeRefreshLayout.setRefreshing(true);
-            scanner.update();
-            swipeRefreshLayout.setRefreshing(false);
+            refresh();
         }
     }
 }
