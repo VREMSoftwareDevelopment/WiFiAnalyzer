@@ -27,13 +27,15 @@ import java.util.List;
 public class WiFi {
     private final WifiManager wifiManager;
     private final VendorService vendorService;
-    private GroupBy groupBy;
     private WiFiData wifiData;
+    private GroupBy groupBy;
+    private boolean hideWeakSignal;
 
-    public WiFi(@NonNull WifiManager wifiManager, @NonNull VendorService vendorService, @NonNull GroupBy groupBy) {
+    public WiFi(@NonNull WifiManager wifiManager, @NonNull VendorService vendorService, @NonNull GroupBy groupBy, boolean hideWeakSignal) {
         this.wifiManager = wifiManager;
         this.vendorService = vendorService;
-        setGroupBy(groupBy);
+        groupBy(groupBy);
+        hideWeakSignal(hideWeakSignal);
     }
 
     public boolean enable() {
@@ -46,17 +48,21 @@ public class WiFi {
             List<ScanResult> scanResults = wifiManager.getScanResults();
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
             if (scanResults != null) {
-                wifiData = new WiFiData(scanResults, wifiInfo, vendorService, groupBy);
+                wifiData = new WiFiData(scanResults, wifiInfo, vendorService, groupBy, hideWeakSignal);
             }
         }
         return wifiData;
     }
 
-    WiFiData getWifiData() {
+    WiFiData wifiData() {
         return wifiData;
     }
 
-    public void setGroupBy(@NonNull GroupBy groupBy) {
+    public void groupBy(@NonNull GroupBy groupBy) {
         this.groupBy = groupBy;
+    }
+
+    public void hideWeakSignal(boolean hideWeakSignal) {
+        this.hideWeakSignal = hideWeakSignal;
     }
 }

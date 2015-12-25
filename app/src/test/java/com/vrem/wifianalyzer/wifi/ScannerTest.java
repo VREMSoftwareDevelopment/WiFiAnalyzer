@@ -45,14 +45,14 @@ public class ScannerTest {
         when(wifi.scan()).thenReturn(wifiData);
 
         scanInterval = 10;
-        fixture = Scanner.performPeriodicScans(wifi, handler, updater, scanInterval);
+        fixture = Scanner.performPeriodicScan(wifi, handler, updater, scanInterval);
     }
 
     @Test
-    public void testPerformPeriodicScans() throws Exception {
+    public void testPerformPeriodicScan() throws Exception {
         // validate
-        verify(handler).postDelayed(fixture.getPerformPeriodicScan(), Scanner.DELAY_INITIAL);
-        assertEquals(scanInterval, fixture.getPerformPeriodicScan().getScanInterval());
+        verify(handler).postDelayed(fixture.performPeriodicScan(), Scanner.DELAY_INITIAL);
+        assertEquals(scanInterval, fixture.performPeriodicScan().scanInterval());
     }
 
     @Test
@@ -66,13 +66,13 @@ public class ScannerTest {
     }
 
     @Test
-    public void testSetScanInterval() throws Exception {
+    public void testScanInterval() throws Exception {
         // setup
         int expected = scanInterval * 10;
         // execute
-        fixture.setScanInterval(expected);
+        fixture.scanInterval(expected);
         // validate
-        assertEquals(expected, fixture.getPerformPeriodicScan().getScanInterval());
+        assertEquals(expected, fixture.performPeriodicScan().scanInterval());
     }
 
     @Test
@@ -88,11 +88,19 @@ public class ScannerTest {
     }
 
     @Test
-    public void testSetGroupBy() throws Exception {
+    public void testGroupBy() throws Exception {
         // execute
-        fixture.setGroupBy(GroupBy.CHANNEL);
+        fixture.groupBy(GroupBy.CHANNEL);
         // validate
-        verify(wifi).setGroupBy(GroupBy.CHANNEL);
+        verify(wifi).groupBy(GroupBy.CHANNEL);
+    }
+
+    @Test
+    public void testHideWeakSignal() throws Exception {
+        // execute
+        fixture.hideWeakSignal(true);
+        // validate
+        verify(wifi).hideWeakSignal(true);
     }
 
 }

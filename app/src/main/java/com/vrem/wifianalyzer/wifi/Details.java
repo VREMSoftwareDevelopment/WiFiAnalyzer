@@ -32,61 +32,61 @@ public class Details implements DetailsInfo {
     }
 
     @Override
-    public int getFrequency() {
+    public int frequency() {
         return scanResult.frequency;
     }
 
     @Override
-    public int getChannel() {
-        return Frequency.findChannel(getFrequency());
+    public int channel() {
+        return Frequency.findChannel(frequency());
     }
 
     @Override
-    public Security getSecurity() {
+    public Security security() {
         return Security.findOne(scanResult.capabilities);
     }
 
     @Override
-    public Strength getStrength() {
+    public Strength strength() {
         return Strength.calculate(scanResult.level);
     }
 
     @Override
-    public String getSSID() {
+    public String SSID() {
         return scanResult.SSID;
     }
 
     @Override
-    public String getBSSID() {
+    public String BSSID() {
         return scanResult.BSSID;
     }
 
     @Override
-    public int getLevel() {
+    public int level() {
         return Math.abs(scanResult.level);
     }
 
     @Override
-    public String getCapabilities() {
+    public String capabilities() {
         return scanResult.capabilities;
     }
 
     @Override
-    public double getDistance() {
-        return Distance.calculate(getFrequency(), getLevel());
+    public double distance() {
+        return Distance.calculate(frequency(), level());
     }
 
     @Override
-    public String getVendorName() {
+    public String vendorName() {
         return vendorName;
     }
 
     @Override
     public int compareTo(@NonNull DetailsInfo other) {
         return new CompareToBuilder()
-                .append(getLevel(), other.getLevel())
-                .append(getSSID().toUpperCase(), other.getSSID().toUpperCase())
-                .append(getBSSID().toUpperCase(), other.getBSSID().toUpperCase())
+                .append(level(), other.level())
+                .append(SSID().toUpperCase(), other.SSID().toUpperCase())
+                .append(BSSID().toUpperCase(), other.BSSID().toUpperCase())
                 .toComparison();
     }
 
@@ -97,16 +97,16 @@ public class Details implements DetailsInfo {
         if (other == null || getClass() != other.getClass()) return false;
 
         return new EqualsBuilder()
-                .append(getSSID().toUpperCase(), ((Details) other).getSSID().toUpperCase())
-                .append(getBSSID().toUpperCase(), ((Details) other).getBSSID().toUpperCase())
+                .append(SSID().toUpperCase(), ((Details) other).SSID().toUpperCase())
+                .append(BSSID().toUpperCase(), ((Details) other).BSSID().toUpperCase())
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(getSSID().toUpperCase())
-                .append(getBSSID().toUpperCase())
+                .append(SSID().toUpperCase())
+                .append(BSSID().toUpperCase())
                 .toHashCode();
     }
 }

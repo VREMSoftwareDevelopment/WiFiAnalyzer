@@ -59,11 +59,11 @@ public class FrequencyTest {
     }
 
     @Test
-    public void testGetBand() throws Exception {
-        assertEquals(StringUtils.EMPTY, Frequency.UNKNOWN.getBand());
-        assertEquals("2.4GHz", Frequency.TWO_POINT_FOUR.getBand());
-        assertEquals("2.4GHz", Frequency.TWO_POINT_FOUR_CH_14.getBand());
-        assertEquals("5GHz", Frequency.FIVE.getBand());
+    public void testBand() throws Exception {
+        assertEquals(StringUtils.EMPTY, Frequency.UNKNOWN.band());
+        assertEquals("2.4GHz", Frequency.TWO_POINT_FOUR.band());
+        assertEquals("2.4GHz", Frequency.TWO_POINT_FOUR_CH_14.band());
+        assertEquals("5GHz", Frequency.FIVE.band());
     }
 
     @Test

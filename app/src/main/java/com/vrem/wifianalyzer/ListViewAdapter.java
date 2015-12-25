@@ -60,12 +60,17 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
 
         convertView.findViewById(R.id.tab).setVisibility(View.GONE);
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
-        if (getChildrenCount(groupPosition) > 0) {
+        TextView groupCount = (TextView) convertView.findViewById(R.id.groupCount);
+        int childrenCount = getChildrenCount(groupPosition);
+        if (childrenCount > 0) {
             groupIndicator.setVisibility(View.VISIBLE);
             groupIndicator.setImageResource(
                     isExpanded ? R.drawable.ic_expand_less_black_24dp : R.drawable.ic_expand_more_black_24dp);
+            groupCount.setVisibility(View.VISIBLE);
+            groupCount.setText(String.format("(%d) ", childrenCount));
         } else {
             groupIndicator.setVisibility(View.GONE);
+            groupCount.setVisibility(View.GONE);
         }
 
         return convertView;
@@ -80,6 +85,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         convertView.setBackgroundColor(resources.getColor(R.color.shadow_mid_color));
         convertView.findViewById(R.id.tab).setVisibility(View.VISIBLE);
         convertView.findViewById(R.id.groupIndicator).setVisibility(View.GONE);
+        convertView.findViewById(R.id.groupCount).setVisibility(View.GONE);
 
         return convertView;
     }
@@ -97,13 +103,13 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     }
 
     private void header() {
-        Connection connection = wifiData.getConnection();
+        Connection connection = wifiData.connection();
 
-        if (connection.isConnected() && connection.hasDetails()) {
-            setView(headerView, connection.getDetailsInfo());
+        if (connection.connected() && connection.hasDetails()) {
+            setView(headerView, connection.detailsInfo());
 
             TextView ssid = (TextView) headerView.findViewById(R.id.ssid);
-            ssid.setText(String.format("%s %s", ssid.getText(), connection.getIpAddress()));
+            ssid.setText(String.format("%s %s", ssid.getText(), connection.ipAddress()));
             ssid.setTextColor(resources.getColor(R.color.connected));
 
             headerView.setVisibility(View.VISIBLE);
@@ -114,22 +120,22 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
 
     @Override
     public int getGroupCount() {
-        return wifiData.getParentsSize();
+        return wifiData.parentsCount();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return wifiData.getChildrenSize(groupPosition);
+        return wifiData.childrenCount(groupPosition);
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return wifiData.getParent(groupPosition);
+        return wifiData.parent(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return wifiData.getChild(groupPosition, childPosition);
+        return wifiData.child(groupPosition, childPosition);
     }
 
     @Override
@@ -165,28 +171,28 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
     }
 
     private void setView(@NonNull View view, @NonNull DetailsInfo detailsInfo) {
-        String ssid = (StringUtils.isBlank(detailsInfo.getSSID()) ? "***" : detailsInfo.getSSID());
-        ((TextView) view.findViewById(R.id.ssid)).setText(String.format("%s (%s)", ssid, detailsInfo.getBSSID()));
+        String ssid = (StringUtils.isBlank(detailsInfo.SSID()) ? "***" : detailsInfo.SSID());
+        ((TextView) view.findViewById(R.id.ssid)).setText(String.format("%s (%s)", ssid, detailsInfo.BSSID()));
 
-        Strength strength = detailsInfo.getStrength();
+        Strength strength = detailsInfo.strength();
         ImageView imageView = (ImageView) view.findViewById(R.id.levelImage);
-        imageView.setImageResource(strength.getImageResource());
-        imageView.setColorFilter(resources.getColor(strength.getColorResource()));
+        imageView.setImageResource(strength.imageResource());
+        imageView.setColorFilter(resources.getColor(strength.colorResource()));
 
-        Security security = detailsInfo.getSecurity();
-        ((ImageView) view.findViewById(R.id.securityImage)).setImageResource(security.getImageResource());
+        Security security = detailsInfo.security();
+        ((ImageView) view.findViewById(R.id.securityImage)).setImageResource(security.imageResource());
 
         TextView textLevel = (TextView) view.findViewById(R.id.level);
-        textLevel.setText(String.format("%ddBm", detailsInfo.getLevel()));
-        textLevel.setTextColor(resources.getColor(strength.getColorResource()));
+        textLevel.setText(String.format("%ddBm", detailsInfo.level()));
+        textLevel.setTextColor(resources.getColor(strength.colorResource()));
 
-        ((TextView) view.findViewById(R.id.channel)).setText(String.format("%d", detailsInfo.getChannel()));
-        ((TextView) view.findViewById(R.id.frequency)).setText(String.format("(%dMHz)", detailsInfo.getFrequency()));
-        ((TextView) view.findViewById(R.id.distance)).setText(String.format("%6.2fm", detailsInfo.getDistance()));
-        ((TextView) view.findViewById(R.id.capabilities)).setText(detailsInfo.getCapabilities());
+        ((TextView) view.findViewById(R.id.channel)).setText(String.format("%d", detailsInfo.channel()));
+        ((TextView) view.findViewById(R.id.frequency)).setText(String.format("(%dMHz)", detailsInfo.frequency()));
+        ((TextView) view.findViewById(R.id.distance)).setText(String.format("%6.2fm", detailsInfo.distance()));
+        ((TextView) view.findViewById(R.id.capabilities)).setText(detailsInfo.capabilities());
 
         TextView textVendor = ((TextView) view.findViewById(R.id.vendor));
-        String vendor = detailsInfo.getVendorName();
+        String vendor = detailsInfo.vendorName();
         if (StringUtils.isBlank(vendor)) {
             textVendor.setVisibility(View.GONE);
         } else {

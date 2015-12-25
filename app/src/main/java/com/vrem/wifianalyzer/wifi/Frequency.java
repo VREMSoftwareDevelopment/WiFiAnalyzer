@@ -63,7 +63,7 @@ public enum Frequency {
         return 0;
     }
 
-    public String getBand() {
+    public String band() {
         return band;
     }
 }

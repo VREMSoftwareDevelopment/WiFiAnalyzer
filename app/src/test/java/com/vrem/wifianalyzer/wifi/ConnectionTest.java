@@ -54,50 +54,50 @@ public class ConnectionTest {
     }
 
     @Test
-    public void testIsConnected() throws Exception {
+    public void testConnected() throws Exception {
         // setup
         when(wifiInfo.getNetworkId()).thenReturn(0);
         // execute and validate
-        assertTrue(fixture.isConnected());
+        assertTrue(fixture.connected());
         verify(wifiInfo).getNetworkId();
     }
 
     @Test
-    public void testIsNotConnectedWithInvalidNetworkId() throws Exception {
+    public void testNotConnectedWithInvalidNetworkId() throws Exception {
         // setup
         when(wifiInfo.getNetworkId()).thenReturn(-1);
         // execute and validate
-        assertFalse(fixture.isConnected());
+        assertFalse(fixture.connected());
         verify(wifiInfo).getNetworkId();
     }
 
     @Test
-    public void testIsNotConnectedWithNullWiFiInfo() throws Exception {
+    public void testNotConnectedWithNullWiFiInfo() throws Exception {
         // setup
         fixture = new Connection(null);
         // execute and validate
-        assertFalse(fixture.isConnected());
+        assertFalse(fixture.connected());
     }
 
     @Test
-    public void testGetIpAddress() throws Exception {
+    public void testIpAddress() throws Exception {
         // setup
         when(wifiInfo.getIpAddress()).thenReturn(123456789);
         // execute
-        String actual = fixture.getIpAddress();
+        String actual = fixture.ipAddress();
         // validate
         assertEquals("21.205.91.7", actual);
         verify(wifiInfo).getIpAddress();
     }
 
     @Test
-    public void testGetIpAddressInvalid() throws Exception {
+    public void testIpAddressInvalid() throws Exception {
         // setup
         mockStatic(Log.class);
         when(wifiInfo.getIpAddress()).thenReturn(123);
         when(Log.e("IPAddress", "java.net.UnknownHostException: addr is of illegal length")).thenReturn(0);
         // execute
-        String actual = fixture.getIpAddress();
+        String actual = fixture.ipAddress();
         // validate
         assertEquals(StringUtils.EMPTY, actual);
         verify(wifiInfo).getIpAddress();
@@ -105,34 +105,34 @@ public class ConnectionTest {
     }
 
     @Test
-    public void testGetBSSID() throws Exception {
+    public void testBSSID() throws Exception {
         // setup
-        when(wifiInfo.getBSSID()).thenReturn(detailsInfo.getBSSID());
+        when(wifiInfo.getBSSID()).thenReturn(detailsInfo.BSSID());
         // execute
-        String actual = fixture.getBSSID();
+        String actual = fixture.BSSID();
         // validate
-        assertEquals(detailsInfo.getBSSID(), actual);
+        assertEquals(detailsInfo.BSSID(), actual);
         verify(wifiInfo).getBSSID();
     }
 
     @Test
-    public void testGetSSID() throws Exception {
+    public void testSSID() throws Exception {
         // setup
-        when(wifiInfo.getSSID()).thenReturn(detailsInfo.getSSID());
+        when(wifiInfo.getSSID()).thenReturn(detailsInfo.SSID());
         // execute
-        String actual = fixture.getSSID();
+        String actual = fixture.SSID();
         // validate
-        assertEquals(detailsInfo.getSSID(), actual);
+        assertEquals(detailsInfo.SSID(), actual);
         verify(wifiInfo).getSSID();
     }
 
     @Test
-    public void testGetSSIDWithQuotes() throws Exception {
+    public void testSSIDWithQuotes() throws Exception {
         // setup
         String expected = "\"Hello1234\"";
         when(wifiInfo.getSSID()).thenReturn(expected);
         // execute
-        String actual = fixture.getSSID();
+        String actual = fixture.SSID();
         // validate
         assertEquals(expected.replace("\"", ""), actual);
         verify(wifiInfo).getSSID();
@@ -143,11 +143,11 @@ public class ConnectionTest {
         // setup
         withSSIDAndBSSID();
         // execute
-        boolean actual = fixture.addDetailsInfo(detailsInfo);
+        boolean actual = fixture.detailsInfo(detailsInfo);
         // validate
         assertTrue(actual);
-        assertEquals(detailsInfo, fixture.getDetailsInfo());
-        assertSame(detailsInfo, fixture.getDetailsInfo());
+        assertEquals(detailsInfo, fixture.detailsInfo());
+        assertSame(detailsInfo, fixture.detailsInfo());
         validateSSIDAndBSSID();
     }
 
@@ -156,7 +156,7 @@ public class ConnectionTest {
         // setup
         fixture = new Connection(null);
         // execute
-        boolean actual = fixture.addDetailsInfo(detailsInfo);
+        boolean actual = fixture.detailsInfo(detailsInfo);
         // execute
         assertFalse(actual);
         verify(wifiInfo, never()).getSSID();
@@ -167,7 +167,7 @@ public class ConnectionTest {
     public void testHasDetails() throws Exception {
         // setup
         withSSIDAndBSSID();
-        fixture.addDetailsInfo(detailsInfo);
+        fixture.detailsInfo(detailsInfo);
         // execute and validate
         assertTrue(fixture.hasDetails());
         validateSSIDAndBSSID();
@@ -179,8 +179,8 @@ public class ConnectionTest {
     }
 
     private void withSSIDAndBSSID() {
-        when(wifiInfo.getSSID()).thenReturn(detailsInfo.getSSID());
-        when(wifiInfo.getBSSID()).thenReturn(detailsInfo.getBSSID());
+        when(wifiInfo.getSSID()).thenReturn(detailsInfo.SSID());
+        when(wifiInfo.getBSSID()).thenReturn(detailsInfo.BSSID());
     }
 
     @Test

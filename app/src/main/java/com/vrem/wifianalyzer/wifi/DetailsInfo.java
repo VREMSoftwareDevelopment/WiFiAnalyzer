@@ -16,23 +16,23 @@
 package com.vrem.wifianalyzer.wifi;
 
 public interface DetailsInfo extends Comparable<DetailsInfo> {
-    String getSSID();
+    String SSID();
 
-    String getBSSID();
+    String BSSID();
 
-    int getFrequency();
+    int frequency();
 
-    int getChannel();
+    int channel();
 
-    Security getSecurity();
+    Security security();
 
-    Strength getStrength();
+    Strength strength();
 
-    int getLevel();
+    int level();
 
-    String getCapabilities();
+    String capabilities();
 
-    double getDistance();
+    double distance();
 
-    String getVendorName();
+    String vendorName();
 }

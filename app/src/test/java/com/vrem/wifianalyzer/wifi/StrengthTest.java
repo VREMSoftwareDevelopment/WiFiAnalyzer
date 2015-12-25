@@ -25,6 +25,8 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
@@ -34,21 +36,30 @@ import static org.powermock.api.mockito.PowerMockito.when;
 public class StrengthTest {
 
     @Test
-    public void testGetImageResource() throws Exception {
-        assertEquals(R.drawable.ic_signal_wifi_0_bar_black_48dp, Strength.ZERO.getImageResource());
-        assertEquals(R.drawable.ic_signal_wifi_1_bar_black_48dp, Strength.ONE.getImageResource());
-        assertEquals(R.drawable.ic_signal_wifi_2_bar_black_48dp, Strength.TWO.getImageResource());
-        assertEquals(R.drawable.ic_signal_wifi_3_bar_black_48dp, Strength.THREE.getImageResource());
-        assertEquals(R.drawable.ic_signal_wifi_4_bar_black_48dp, Strength.FOUR.getImageResource());
+    public void testImageResource() throws Exception {
+        assertEquals(R.drawable.ic_signal_wifi_0_bar_black_48dp, Strength.ZERO.imageResource());
+        assertEquals(R.drawable.ic_signal_wifi_1_bar_black_48dp, Strength.ONE.imageResource());
+        assertEquals(R.drawable.ic_signal_wifi_2_bar_black_48dp, Strength.TWO.imageResource());
+        assertEquals(R.drawable.ic_signal_wifi_3_bar_black_48dp, Strength.THREE.imageResource());
+        assertEquals(R.drawable.ic_signal_wifi_4_bar_black_48dp, Strength.FOUR.imageResource());
     }
 
     @Test
-    public void testGetColorResource() throws Exception {
-        assertEquals(R.color.error_color, Strength.ZERO.getColorResource());
-        assertEquals(R.color.warning_color, Strength.ONE.getColorResource());
-        assertEquals(R.color.warning_color, Strength.TWO.getColorResource());
-        assertEquals(R.color.success_color, Strength.THREE.getColorResource());
-        assertEquals(R.color.success_color, Strength.FOUR.getColorResource());
+    public void testColorResource() throws Exception {
+        assertEquals(R.color.error_color, Strength.ZERO.colorResource());
+        assertEquals(R.color.warning_color, Strength.ONE.colorResource());
+        assertEquals(R.color.warning_color, Strength.TWO.colorResource());
+        assertEquals(R.color.success_color, Strength.THREE.colorResource());
+        assertEquals(R.color.success_color, Strength.FOUR.colorResource());
+    }
+
+    @Test
+    public void testWeak() throws Exception {
+        assertTrue(Strength.ZERO.weak());
+        assertFalse(Strength.ONE.weak());
+        assertFalse(Strength.TWO.weak());
+        assertFalse(Strength.THREE.weak());
+        assertFalse(Strength.FOUR.weak());
     }
 
     @Test

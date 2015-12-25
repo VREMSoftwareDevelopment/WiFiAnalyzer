@@ -48,7 +48,7 @@ public class WiFiTest {
 
     @Before
     public void setUp() throws Exception {
-        fixture = new WiFi(wifiManager, vendorService, GroupBy.SSID);
+        fixture = new WiFi(wifiManager, vendorService, GroupBy.SSID, false);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class WiFiTest {
         // execute
         WiFiData actual = fixture.scan();
         // verify
-        assertEquals(0, actual.getParentsSize());
+        assertEquals(0, actual.parentsCount());
         verify(wifiManager).startScan();
         verify(wifiManager, never()).getScanResults();
         verify(wifiManager, never()).getConnectionInfo();
@@ -98,7 +98,7 @@ public class WiFiTest {
         // execute
         WiFiData actual = fixture.scan();
         // verify
-        assertEquals(fixture.getWifiData(), actual);
+        assertEquals(fixture.wifiData(), actual);
         verify(wifiManager).startScan();
         verify(wifiManager).getScanResults();
         verify(wifiManager).getConnectionInfo();

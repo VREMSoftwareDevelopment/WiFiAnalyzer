@@ -62,7 +62,7 @@ public enum Security {
         return Security.NONE;
     }
 
-    public int getImageResource() {
+    public int imageResource() {
         return imageResource;
     }
 

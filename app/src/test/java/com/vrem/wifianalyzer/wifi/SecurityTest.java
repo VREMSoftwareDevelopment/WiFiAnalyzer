@@ -28,12 +28,12 @@ import static org.junit.Assert.assertEquals;
 public class SecurityTest {
 
     @Test
-    public void testGetImageResource() throws Exception {
-        assertEquals(R.drawable.ic_lock_open_black_18dp, Security.NONE.getImageResource());
-        assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WPS.getImageResource());
-        assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WEP.getImageResource());
-        assertEquals(R.drawable.ic_lock_black_18dp, Security.WPA.getImageResource());
-        assertEquals(R.drawable.ic_lock_black_18dp, Security.WPA2.getImageResource());
+    public void testImageResource() throws Exception {
+        assertEquals(R.drawable.ic_lock_open_black_18dp, Security.NONE.imageResource());
+        assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WPS.imageResource());
+        assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WEP.imageResource());
+        assertEquals(R.drawable.ic_lock_black_18dp, Security.WPA.imageResource());
+        assertEquals(R.drawable.ic_lock_black_18dp, Security.WPA2.imageResource());
     }
 
     @Test

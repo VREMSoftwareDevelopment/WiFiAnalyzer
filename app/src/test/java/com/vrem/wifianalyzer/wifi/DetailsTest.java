@@ -46,105 +46,105 @@ public class DetailsTest {
     }
 
     @Test
-    public void testGetVendorName() throws Exception {
+    public void testVendorName() throws Exception {
         // validate
-        assertEquals(VENDOR_NAME, fixture.getVendorName());
+        assertEquals(VENDOR_NAME, fixture.vendorName());
     }
 
     @Test
-    public void testGetFrequency() throws Exception {
+    public void testFrequency() throws Exception {
         // setup
         scanResult.frequency = 2470;
         // execute
-        int actual = fixture.getFrequency();
+        int actual = fixture.frequency();
         // validate
         assertEquals(scanResult.frequency, actual);
     }
 
     @Test
-    public void testGetChannel() throws Exception {
+    public void testChannel() throws Exception {
         // setup
         int expected = 5;
         scanResult.frequency = 2435;
         // execute
-        int actual = fixture.getChannel();
+        int actual = fixture.channel();
         // validate
         assertEquals(expected, actual);
     }
 
     @Test
-    public void testGetSecurity() throws Exception {
+    public void testSecurity() throws Exception {
         // setup
         Security expected = Security.WPA;
         scanResult.capabilities = "WPA";
         // execute
-        Security actual = fixture.getSecurity();
+        Security actual = fixture.security();
         // validate
         assertEquals(expected, actual);
     }
 
     @Test
-    public void testGetStrength() throws Exception {
+    public void testStrength() throws Exception {
         // setup
         mockStatic(WifiManager.class);
         Strength expected = Strength.TWO;
         scanResult.level = -86;
         when(WifiManager.calculateSignalLevel(scanResult.level, Strength.values().length)).thenReturn(expected.ordinal());
         // execute
-        Strength actual = fixture.getStrength();
+        Strength actual = fixture.strength();
         // validate
         assertEquals(expected, actual);
         verifyStatic();
     }
 
     @Test
-    public void testGetSSID() throws Exception {
+    public void testSSID() throws Exception {
         // setup
         scanResult.SSID = "xyzSSID";
         // execute
-        String actual = fixture.getSSID();
+        String actual = fixture.SSID();
         // validate
         assertEquals(scanResult.SSID, actual);
     }
 
     @Test
-    public void testGetBSSID() throws Exception {
+    public void testBSSID() throws Exception {
         // setup
         scanResult.BSSID = "xyzBSSID";
         // execute
-        String actual = fixture.getBSSID();
+        String actual = fixture.BSSID();
         // validate
         assertEquals(scanResult.BSSID, actual);
     }
 
     @Test
-    public void testGetLevel() throws Exception {
+    public void testLevel() throws Exception {
         // setup
         scanResult.level = -3;
         // execute
-        int actual = fixture.getLevel();
+        int actual = fixture.level();
         // validate
         assertEquals(Math.abs(scanResult.level), actual);
     }
 
     @Test
-    public void testGetCapabilities() throws Exception {
+    public void testCapabilities() throws Exception {
         // setup
         scanResult.capabilities = "xyzCapabilities";
         // execute
-        String actual = fixture.getCapabilities();
+        String actual = fixture.capabilities();
         // validate
         assertEquals(scanResult.capabilities, actual);
     }
 
     @Test
-    public void testGetDistance() throws Exception {
+    public void testDistance() throws Exception {
         // setup
         scanResult.frequency = 2414;
         scanResult.level = -50;
         double expected = Distance.calculate(scanResult.frequency, scanResult.level);
         // execute
-        double actual = fixture.getDistance();
+        double actual = fixture.distance();
         // validate
         assertEquals(expected, actual, 0.0);
     }

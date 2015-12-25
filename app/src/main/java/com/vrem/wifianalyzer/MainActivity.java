@@ -63,26 +63,31 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         listViewAdapter.setExpandableListView(expandableListView);
         expandableListView.setAdapter(listViewAdapter);
 
-        scanner = Scanner.performPeriodicScans(getWiFi(preferences), new Handler(), listViewAdapter, getScanInterval(preferences));
+        scanner = Scanner.performPeriodicScan(wifi(preferences), new Handler(), listViewAdapter, scanInterval(preferences));
     }
 
-    private int getScanInterval(SharedPreferences preferences) {
+    private int scanInterval(SharedPreferences preferences) {
         int defaultValue = getResources().getInteger(R.integer.scan_interval_default);
         return preferences.getInt(getString(R.string.scan_interval_key), defaultValue);
     }
 
+    private boolean hideWeakSignal(SharedPreferences preferences) {
+        boolean defaultValue = getResources().getBoolean(R.bool.hide_weak_signal_default);
+        return preferences.getBoolean(getString(R.string.hide_weak_signal_key), defaultValue);
+    }
+
     @NonNull
-    private GroupBy getGroupBy(SharedPreferences preferences) {
+    private GroupBy groupBy(SharedPreferences preferences) {
         String defaultValue = getResources().getString(R.string.group_by_default);
         return GroupBy.find(preferences.getString(getString(R.string.group_by_key), defaultValue));
     }
 
     @NonNull
-    private WiFi getWiFi(SharedPreferences preferences) {
+    private WiFi wifi(SharedPreferences preferences) {
         Database database = new Database(this);
         VendorService vendorService = new VendorService(database);
         WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        return new WiFi(wifiManager, vendorService, getGroupBy(preferences));
+        return new WiFi(wifiManager, vendorService, groupBy(preferences), hideWeakSignal(preferences));
     }
 
 
@@ -109,8 +114,9 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        scanner.setScanInterval(getScanInterval(sharedPreferences));
-        scanner.setGroupBy(getGroupBy(sharedPreferences));
+        scanner.scanInterval(scanInterval(sharedPreferences));
+        scanner.groupBy(groupBy(sharedPreferences));
+        scanner.hideWeakSignal(hideWeakSignal(sharedPreferences));
         refresh();
     }
 

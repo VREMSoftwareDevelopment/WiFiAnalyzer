@@ -51,29 +51,29 @@ public class WiFiRelationshipTest {
     }
 
     @Test
-    public void testGetParent() throws Exception {
+    public void testParent() throws Exception {
         // execute
-        DetailsInfo actual = fixture.getParent();
+        DetailsInfo actual = fixture.parent();
         // validate
         assertEquals(this.parent, actual);
         assertSame(this.parent, actual);
     }
 
     @Test
-    public void testGetChild() throws Exception {
-        assertEquals(child1, fixture.getChild(0));
-        assertSame(child1, fixture.getChild(0));
+    public void testChild() throws Exception {
+        assertEquals(child1, fixture.child(0));
+        assertSame(child1, fixture.child(0));
 
-        assertEquals(child2, fixture.getChild(1));
-        assertSame(child2, fixture.getChild(1));
+        assertEquals(child2, fixture.child(1));
+        assertSame(child2, fixture.child(1));
 
-        assertEquals(child3, fixture.getChild(2));
-        assertSame(child3, fixture.getChild(2));
+        assertEquals(child3, fixture.child(2));
+        assertSame(child3, fixture.child(2));
     }
 
     @Test
-    public void testGetChildrenSize() throws Exception {
-        assertEquals(3, fixture.getChildrenSize());
+    public void testChildrenCount() throws Exception {
+        assertEquals(3, fixture.childrenCount());
     }
 
     private DetailsInfo makeDetailsInfo(int level) {

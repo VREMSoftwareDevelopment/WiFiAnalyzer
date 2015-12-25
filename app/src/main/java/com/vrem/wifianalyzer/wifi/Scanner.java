@@ -31,7 +31,7 @@ public class Scanner {
         this.updater = updater;
     }
 
-    public static Scanner performPeriodicScans(@NonNull WiFi wifi, @NonNull Handler handler, @NonNull Updater updater, int scanInterval) {
+    public static Scanner performPeriodicScan(@NonNull WiFi wifi, @NonNull Handler handler, @NonNull Updater updater, int scanInterval) {
         Scanner scanner = new Scanner(wifi, updater);
         scanner.performPeriodicScan = new PerformPeriodicScan(scanner, handler, scanInterval);
         handler.postDelayed(scanner.performPeriodicScan, DELAY_INITIAL);
@@ -43,16 +43,20 @@ public class Scanner {
         updater.update(wifi.scan());
     }
 
-    public void setScanInterval(int scanInterval) {
-        performPeriodicScan.setScanInterval(scanInterval);
+    public void scanInterval(int scanInterval) {
+        performPeriodicScan.scanInterval(scanInterval);
     }
 
-    PerformPeriodicScan getPerformPeriodicScan() {
+    PerformPeriodicScan performPeriodicScan() {
         return performPeriodicScan;
     }
 
-    public void setGroupBy(@NonNull GroupBy groupBy) {
-        wifi.setGroupBy(groupBy);
+    public void groupBy(@NonNull GroupBy groupBy) {
+        wifi.groupBy(groupBy);
+    }
+
+    public void hideWeakSignal(boolean hideWeakSignal) {
+        wifi.hideWeakSignal(hideWeakSignal);
     }
 
     static class PerformPeriodicScan implements Runnable {
@@ -63,7 +67,7 @@ public class Scanner {
         PerformPeriodicScan(@NonNull Scanner scanner, @NonNull Handler handler, int scanInterval) {
             this.scanner = scanner;
             this.handler = handler;
-            setScanInterval(scanInterval);
+            scanInterval(scanInterval);
         }
 
         @Override
@@ -73,11 +77,11 @@ public class Scanner {
             handler.postDelayed(this, scanInterval * DELAY_INTERVAL);
         }
 
-        int getScanInterval() {
+        int scanInterval() {
             return scanInterval;
         }
 
-        void setScanInterval(int scanInterval) {
+        void scanInterval(int scanInterval) {
             this.scanInterval = scanInterval;
         }
     }

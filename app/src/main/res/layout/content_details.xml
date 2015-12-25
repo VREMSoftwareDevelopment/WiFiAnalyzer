@@ -4,93 +4,101 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/tab"
         android:layout_width="@dimen/list_view_item_horizontal_tab"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:id="@+id/tab"/>
+        android:visibility="gone" />
 
     <TextView
+        android:id="@+id/ssid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tab"
         android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:textStyle="bold"
-        android:id="@+id/ssid"/>
+        android:layout_toRightOf="@id/tab"
+        android:textStyle="bold" />
 
     <ImageView
+        android:id="@+id/levelImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ssid"
-        android:layout_toRightOf="@id/tab"
-        android:id="@+id/levelImage"/>
+        android:layout_toRightOf="@id/tab" />
 
     <ImageView
+        android:id="@+id/securityImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/levelImage"
-        android:layout_alignRight="@id/levelImage"
-        android:id="@+id/securityImage"/>
+        android:layout_alignRight="@id/levelImage" />
 
     <TextView
+        android:id="@+id/level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ssid"
-        android:layout_toRightOf="@id/levelImage"
         android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:id="@+id/level"/>
+        android:layout_toRightOf="@id/levelImage" />
 
     <TextView
+        android:id="@+id/channel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ssid"
+        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:layout_toRightOf="@id/level"
-        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:textColor="@color/channel"
-        android:textStyle="bold"
-        android:id="@+id/channel"/>
+        android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/frequency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ssid"
-        android:layout_toRightOf="@id/channel"
         android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:id="@+id/frequency"/>
+        android:layout_toRightOf="@id/channel" />
 
     <TextView
+        android:id="@+id/distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ssid"
+        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:layout_toRightOf="@id/frequency"
-        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:textColor="@color/distance"
-        android:textStyle="bold"
-        android:id="@+id/distance"/>
+        android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/capabilities"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/level"
-        android:layout_toRightOf="@id/levelImage"
-        android:textStyle="italic"
-        android:textColor="@color/security"
         android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:id="@+id/capabilities"/>
+        android:layout_toRightOf="@id/levelImage"
+        android:textColor="@color/security"
+        android:textStyle="italic" />
 
     <TextView
+        android:id="@+id/vendor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/capabilities"
-        android:layout_toRightOf="@id/levelImage"
         android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:id="@+id/vendor"/>
+        android:layout_toRightOf="@id/levelImage" />
 
-    <ImageView
+    <TextView
+        android:id="@+id/groupCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/groupIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:visibility="gone"
-        android:id="@+id/groupIndicator"/>
+        android:layout_alignParentRight="true"
+        android:visibility="gone" />
 
 </RelativeLayout>

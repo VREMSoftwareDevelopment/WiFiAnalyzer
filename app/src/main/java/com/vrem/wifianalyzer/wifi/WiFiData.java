@@ -34,13 +34,14 @@ public class WiFiData {
         connection = new Connection();
     }
 
-    public WiFiData(List<ScanResult> scanResults, WifiInfo wifiInfo, @NonNull VendorService vendorService, @NonNull GroupBy groupBy) {
+    public WiFiData(List<ScanResult> scanResults, WifiInfo wifiInfo, @NonNull VendorService vendorService,
+                    @NonNull GroupBy groupBy, boolean hideWeakSignal) {
         connection = new Connection(wifiInfo);
         if (scanResults != null) {
             for (ScanResult scanResult : scanResults) {
                 String vendorName = vendorService.getVendorName(scanResult.BSSID);
                 DetailsInfo detailsInfo = new Details(scanResult, vendorName);
-                if (!connection.addDetailsInfo(detailsInfo)) {
+                if (!connection.detailsInfo(detailsInfo) && !hideWeakSignal(hideWeakSignal, detailsInfo)) {
                     detailsInfoList.add(detailsInfo);
                 }
             }
@@ -48,11 +49,15 @@ public class WiFiData {
         }
     }
 
+    private boolean hideWeakSignal(boolean hideWeakSignal, DetailsInfo detailsInfo) {
+        return hideWeakSignal && detailsInfo.strength().weak();
+    }
+
     private void populateRelationship(@NonNull GroupBy groupBy) {
         Collections.sort(detailsInfoList, groupBy.getSortOrder());
         WiFiRelationship wifiRelationship = null;
         for (DetailsInfo detailsInfo : detailsInfoList) {
-            if (wifiRelationship == null || groupBy.getGroupBy().compare(wifiRelationship.getParent(), detailsInfo) != 0) {
+            if (wifiRelationship == null || groupBy.getGroupBy().compare(wifiRelationship.parent(), detailsInfo) != 0) {
                 wifiRelationship = new WiFiRelationship(detailsInfo);
                 wifiRelationships.add(wifiRelationship);
             } else {
@@ -62,31 +67,31 @@ public class WiFiData {
         Collections.sort(wifiRelationships);
     }
 
-    public int getParentsSize() {
+    public int parentsCount() {
         return wifiRelationships.size();
     }
 
-    private boolean isInParentRange(int index) {
-        return index >= 0 && index < getParentsSize();
+    private boolean validParentIndex(int index) {
+        return index >= 0 && index < parentsCount();
     }
 
-    private boolean isInChildrenRange(int indexParent, int indexChild) {
-        return isInParentRange(indexParent) && indexChild >= 0 && indexChild < getChildrenSize(indexParent);
+    private boolean validChildrenIndex(int indexParent, int indexChild) {
+        return validParentIndex(indexParent) && indexChild >= 0 && indexChild < childrenCount(indexParent);
     }
 
-    public DetailsInfo getParent(int index) {
-        return isInParentRange(index) ? wifiRelationships.get(index).getParent() : null;
+    public DetailsInfo parent(int index) {
+        return validParentIndex(index) ? wifiRelationships.get(index).parent() : null;
     }
 
-    public int getChildrenSize(int index) {
-        return isInParentRange(index) ? wifiRelationships.get(index).getChildrenSize() : 0;
+    public int childrenCount(int index) {
+        return validParentIndex(index) ? wifiRelationships.get(index).childrenCount() : 0;
     }
 
-    public DetailsInfo getChild(int indexParent, int indexChild) {
-        return isInChildrenRange(indexParent, indexChild) ? wifiRelationships.get(indexParent).getChild(indexChild) : null;
+    public DetailsInfo child(int indexParent, int indexChild) {
+        return validChildrenIndex(indexParent, indexChild) ? wifiRelationships.get(indexParent).child(indexChild) : null;
     }
 
-    public Connection getConnection() {
+    public Connection connection() {
         return connection;
     }
 }

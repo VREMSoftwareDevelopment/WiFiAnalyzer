@@ -38,7 +38,7 @@ public class Connection {
         this.wifiInfo = wifiInfo;
     }
 
-    public boolean isConnected() {
+    public boolean connected() {
         return wifiInfo != null && wifiInfo.getNetworkId() != -1;
     }
 
@@ -46,7 +46,7 @@ public class Connection {
         return detailsInfo != null;
     }
 
-    public String getIpAddress() {
+    public String ipAddress() {
         byte[] bytes = BigInteger.valueOf(wifiInfo.getIpAddress()).toByteArray();
         ArrayUtils.reverse(bytes);
         try {
@@ -57,7 +57,7 @@ public class Connection {
         return StringUtils.EMPTY;
     }
 
-    String getSSID() {
+    String SSID() {
         String result = wifiInfo.getSSID();
         if (result.charAt(0) == '"') {
             result = result.substring(1);
@@ -68,15 +68,15 @@ public class Connection {
         return result;
     }
 
-    String getBSSID() {
+    String BSSID() {
         return wifiInfo.getBSSID();
     }
 
-    public DetailsInfo getDetailsInfo() {
+    public DetailsInfo detailsInfo() {
         return detailsInfo;
     }
 
-    public boolean addDetailsInfo(@NonNull DetailsInfo detailsInfo) {
+    public boolean detailsInfo(@NonNull DetailsInfo detailsInfo) {
         if (!hasDetails() && match(detailsInfo)) {
             this.detailsInfo = detailsInfo;
             return true;
@@ -85,6 +85,6 @@ public class Connection {
     }
 
     private boolean match(@NonNull DetailsInfo detailsInfo) {
-        return isConnected() && getSSID().equals(detailsInfo.getSSID()) && getBSSID().equals(detailsInfo.getBSSID());
+        return connected() && SSID().equals(detailsInfo.SSID()) && BSSID().equals(detailsInfo.BSSID());
     }
 }

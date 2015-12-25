@@ -35,21 +35,21 @@ class WiFiRelationship implements Comparable<WiFiRelationship> {
         Collections.sort(children);
     }
 
-    public DetailsInfo getParent() {
+    public DetailsInfo parent() {
         return parent;
     }
 
-    public DetailsInfo getChild(int index) {
+    public DetailsInfo child(int index) {
         return children.get(index);
     }
 
-    public int getChildrenSize() {
+    public int childrenCount() {
         return children.size();
     }
 
     @Override
     public int compareTo(@NonNull WiFiRelationship other) {
-        return getParent().compareTo(other.getParent());
+        return parent().compareTo(other.parent());
     }
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
     <com.vrem.wifianalyzer.ScanIntervalPreference
         android:defaultValue="@integer/scan_interval_default"
         android:key="@string/scan_interval_key"
@@ -15,4 +16,11 @@
         android:persistent="true"
         android:summary="@string/group_by_summary"
         android:title="@string/group_by_title" />
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/hide_weak_signal_default"
+        android:key="@string/hide_weak_signal_key"
+        android:persistent="true"
+        android:title="@string/hide_weak_signal_title" />
+
 </PreferenceScreen>
