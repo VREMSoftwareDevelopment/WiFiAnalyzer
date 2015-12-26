@@ -18,7 +18,6 @@ package com.vrem.wifianalyzer;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
-import android.widget.Toolbar;
 
 public class SettingActivity extends PreferenceActivity {
     @Override

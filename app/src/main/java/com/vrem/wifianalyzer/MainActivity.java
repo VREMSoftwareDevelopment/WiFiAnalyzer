@@ -26,7 +26,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
@@ -51,9 +50,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         preferences.registerOnSharedPreferenceChangeListener(this);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         this.swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
         this.swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
