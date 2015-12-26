@@ -1,3 +1,10 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"/>
+
+    <style name="ThemeAppCompatDark" parent="Theme.AppCompat" />
+
+    <style name="ThemeAppCompatLight" parent="Theme.AppCompat.Light.DarkActionBar" />
+
+    <style name="ThemeDeviceDefaultDark" parent="android:Theme.DeviceDefault" />
+
+    <style name="ThemeDeviceDefaultLight" parent="android:Theme.DeviceDefault.Light.DarkActionBar" />
 </resources>

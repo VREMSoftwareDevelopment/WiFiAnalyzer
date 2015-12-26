@@ -13,15 +13,19 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer;
+package com.vrem.wifianalyzer.settings;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 
+import com.vrem.wifianalyzer.R;
+
 public class SettingActivity extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(new Settings(this).themeStyle().themeDeviceDefaultStyle());
+
         super.onCreate(savedInstanceState);
 
         getFragmentManager().beginTransaction()

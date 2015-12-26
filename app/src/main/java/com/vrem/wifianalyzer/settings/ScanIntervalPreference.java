@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer;
+package com.vrem.wifianalyzer.settings;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -22,6 +22,8 @@ import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.NumberPicker;
+
+import com.vrem.wifianalyzer.R;
 
 public class ScanIntervalPreference extends DialogPreference {
     private final int valueDefault;

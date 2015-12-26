@@ -41,11 +41,11 @@ public enum GroupBy {
         }
     }
 
-    Comparator<DetailsInfo> getSortOrder() {
+    Comparator<DetailsInfo> sortOrder() {
         return sortOrder;
     }
 
-    Comparator<DetailsInfo> getGroupBy() {
+    Comparator<DetailsInfo> groupBy() {
         return groupBy;
     }
 

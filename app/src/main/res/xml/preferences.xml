@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <com.vrem.wifianalyzer.ScanIntervalPreference
+    <com.vrem.wifianalyzer.settings.ScanIntervalPreference
         android:defaultValue="@integer/scan_interval_default"
         android:key="@string/scan_interval_key"
         android:persistent="true"
@@ -23,4 +22,12 @@
         android:persistent="true"
         android:title="@string/hide_weak_signal_title" />
 
+    <ListPreference
+        android:defaultValue="@string/theme_default"
+        android:entries="@array/theme_array"
+        android:entryValues="@array/theme_array"
+        android:key="@string/theme_key"
+        android:persistent="true"
+        android:summary="@string/theme_summary"
+        android:title="@string/theme_title" />
 </PreferenceScreen>

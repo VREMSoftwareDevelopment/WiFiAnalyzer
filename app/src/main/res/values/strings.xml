@@ -23,4 +23,9 @@
     <string name="hide_weak_signal_key">hide_weak_signal</string>
     <bool name="hide_weak_signal_default">false</bool>
 
+    <string name="theme_title">Theme</string>
+    <string name="theme_summary">%s</string>
+    <string name="theme_key">theme</string>
+    <string name="theme_default">Dark</string>
+
 </resources>

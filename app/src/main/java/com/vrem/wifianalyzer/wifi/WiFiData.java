@@ -54,10 +54,10 @@ public class WiFiData {
     }
 
     private void populateRelationship(@NonNull GroupBy groupBy) {
-        Collections.sort(detailsInfoList, groupBy.getSortOrder());
+        Collections.sort(detailsInfoList, groupBy.sortOrder());
         WiFiRelationship wifiRelationship = null;
         for (DetailsInfo detailsInfo : detailsInfoList) {
-            if (wifiRelationship == null || groupBy.getGroupBy().compare(wifiRelationship.parent(), detailsInfo) != 0) {
+            if (wifiRelationship == null || groupBy.groupBy().compare(wifiRelationship.parent(), detailsInfo) != 0) {
                 wifiRelationship = new WiFiRelationship(detailsInfo);
                 wifiRelationships.add(wifiRelationship);
             } else {
