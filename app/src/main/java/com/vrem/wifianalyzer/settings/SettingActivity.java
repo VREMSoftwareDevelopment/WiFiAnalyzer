@@ -15,9 +15,11 @@
  */
 package com.vrem.wifianalyzer.settings;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.R;
 
@@ -30,6 +32,25 @@ public class SettingActivity extends PreferenceActivity {
 
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new SettingPreferenceFragment()).commit();
+
+        enableHomeButton();
+    }
+
+    private void enableHomeButton() {
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public static class SettingPreferenceFragment extends PreferenceFragment {

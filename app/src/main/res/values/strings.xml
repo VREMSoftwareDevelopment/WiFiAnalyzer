@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">WiFi Analyzer</string>
 
+    <string name="setting_activity_label">WiFi Analyzer Settings</string>
+
     <string name="action_refresh">Refresh</string>
     <string name="action_settings">Settings</string>
 

@@ -22,7 +22,7 @@
         </activity>
         <activity
             android:name=".settings.SettingActivity"
-            android:label="@string/action_settings">
+            android:label="@string/setting_activity_label">
         </activity>
     </application>
 
