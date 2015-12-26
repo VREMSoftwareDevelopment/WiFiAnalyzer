@@ -163,7 +163,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
             return view;
         }
         LayoutInflater inflater = activity.getLayoutInflater();
-        return inflater.inflate(R.layout.content_details, null);
+        return inflater.inflate(R.layout.main_content_details, null);
     }
 
     void setExpandableListView(@NonNull ExpandableListView expandableListView) {

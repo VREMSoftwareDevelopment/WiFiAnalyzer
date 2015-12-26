@@ -7,8 +7,8 @@
     android:fitsSystemWindows="true"
     tools:context="com.vrem.wifianalyzer.MainActivity">
 
-    <include layout="@layout/activity_toolbar" />
+    <include layout="@layout/main_toolbar" />
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/main_content" />
 
 </android.support.design.widget.CoordinatorLayout>
