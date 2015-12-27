@@ -41,6 +41,7 @@ public class SettingActivity extends PreferenceActivity {
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.mipmap.ic_launcher);
         }
     }
 

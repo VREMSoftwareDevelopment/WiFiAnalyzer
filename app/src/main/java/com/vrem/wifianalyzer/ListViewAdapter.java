@@ -66,6 +66,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
             groupIndicator.setVisibility(View.VISIBLE);
             groupIndicator.setImageResource(
                     isExpanded ? R.drawable.ic_expand_less_black_24dp : R.drawable.ic_expand_more_black_24dp);
+            groupIndicator.setColorFilter(resources.getColor(R.color.icons_color));
             groupCount.setVisibility(View.VISIBLE);
             groupCount.setText(String.format("(%d) ", childrenCount));
         } else {
@@ -180,7 +181,9 @@ public class ListViewAdapter extends BaseExpandableListAdapter implements Update
         imageView.setColorFilter(resources.getColor(strength.colorResource()));
 
         Security security = detailsInfo.security();
-        ((ImageView) view.findViewById(R.id.securityImage)).setImageResource(security.imageResource());
+        ImageView securityImage = (ImageView) view.findViewById(R.id.securityImage);
+        securityImage.setImageResource(security.imageResource());
+        securityImage.setColorFilter(resources.getColor(R.color.icons_color));
 
         TextView textLevel = (TextView) view.findViewById(R.id.level);
         textLevel.setText(String.format("%ddBm", detailsInfo.level()));

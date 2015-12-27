@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="header">#A8A8A8</color>
-    <color name="connected">#0000CC</color>
-    <color name="channel">#0000CC</color>
-    <color name="security">#669999</color>
-    <color name="distance">#563f7A</color>
+    <color name="connected">#0D47A1</color>
+    <color name="connected_backround">#616161</color>
 
-    <color name="warning_color">#F57F17</color>
-    <color name="success_color">#1B5E20</color>
+    <color name="channel">#9E9E9E</color>
+    <color name="security">#669999</color>
+    <color name="distance">#009688</color>
+
+    <color name="icons_color">#9E9E9E</color>
+    <color name="warning_color">#FFC107</color>
+    <color name="success_color">#2E7D32</color>
 </resources>

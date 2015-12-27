@@ -56,7 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ssid"
         android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:layout_toRightOf="@id/channel" />
+        android:layout_toRightOf="@id/channel"
+        android:textColor="@color/channel" />
 
     <TextView
         android:id="@+id/distance"
