@@ -30,6 +30,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.when;
@@ -39,32 +41,12 @@ public class DatabaseTest {
     static final String MAC_ADDDRES = "00:23:AB:8C:DF:10";
     static final String VENDOR_NAME = "CISCO SYSTEMS, INC.";
     static final long ID = 213L;
+    static final int INDEX = 2;
 
     @Mock private SQLiteDatabase sqliteDatabase;
     @Mock private Cursor cursor;
     @Mock private ContentValues contentValues;
     @Mock private Context context;
-
-    class DatabaseMock extends Database {
-        public DatabaseMock() {
-            super(context);
-        }
-
-        @Override
-        public SQLiteDatabase getWritableDatabase() {
-            return sqliteDatabase;
-        }
-
-        @Override
-        public SQLiteDatabase getReadableDatabase() {
-            return sqliteDatabase;
-        }
-
-        @Override
-        ContentValues getContentValues() {
-            return contentValues;
-        }
-    }
 
     private Database fixture;
 
@@ -106,32 +88,51 @@ public class DatabaseTest {
     @Test
     public void testFind() throws Exception {
         // setup
-        int index = 2;
-        when(sqliteDatabase.rawQuery(Database.SELECT_BY_MAC, new String[]{MacAddress.clean(MAC_ADDDRES)})).thenReturn(cursor);
-        when(cursor.moveToFirst()).thenReturn(true);
-        when(cursor.getColumnIndex(Database.COLUMN_NAME)).thenReturn(index);
-        when(cursor.getString(index)).thenReturn(VENDOR_NAME);
+        withQuery(true);
+        when(cursor.getColumnIndexOrThrow(Database.COLUMN_NAME)).thenReturn(INDEX);
+        when(cursor.getString(INDEX)).thenReturn(VENDOR_NAME);
         // execute
         String actual = fixture.find(MAC_ADDDRES);
         // validate
-        verify(sqliteDatabase).rawQuery(Database.SELECT_BY_MAC, new String[]{MacAddress.clean(MAC_ADDDRES)});
-        verify(cursor).moveToFirst();
-        verify(cursor).getColumnIndex(Database.COLUMN_NAME);
-        verify(cursor).getString(index);
+        verifyQuery();
+        verify(cursor).getColumnIndexOrThrow(Database.COLUMN_NAME);
+        verify(cursor).getString(INDEX);
         assertEquals(VENDOR_NAME, actual);
     }
 
     @Test
     public void testFindNoRowFound() throws Exception {
         // setup
-        when(sqliteDatabase.rawQuery(Database.SELECT_BY_MAC, new String[]{MacAddress.clean(MAC_ADDDRES)})).thenReturn(cursor);
-        when(cursor.moveToFirst()).thenReturn(false);
+        withQuery(false);
         // execute
         String actual = fixture.find(MAC_ADDDRES);
         // validate
-        verify(sqliteDatabase).rawQuery(Database.SELECT_BY_MAC, new String[]{MacAddress.clean(MAC_ADDDRES)});
-        verify(cursor).moveToFirst();
+        verifyQuery();
+        verify(cursor, never()).getColumnIndexOrThrow(Database.COLUMN_NAME);
+        verify(cursor, never()).getString(anyInt());
         assertNull(actual);
+    }
+
+    private void withQuery(boolean moveToFirstReturn) {
+        when(sqliteDatabase
+            .query(
+                Database.TABLE_NAME,
+                new String[]{Database.COLUMN_NAME},
+                Database.COLUMN_MAC + "=?",
+                new String[]{MacAddress.clean(MAC_ADDDRES)},
+                null, null, null)
+            ).thenReturn(cursor);
+        when(cursor.moveToFirst()).thenReturn(moveToFirstReturn);
+    }
+
+    private void verifyQuery() {
+        verify(sqliteDatabase)
+            .query(Database.TABLE_NAME,
+                    new String[]{Database.COLUMN_NAME},
+                    Database.COLUMN_MAC + "=?",
+                    new String[]{MacAddress.clean(MAC_ADDDRES)},
+                    null, null, null);
+        verify(cursor).moveToFirst();
     }
 
     @Test
@@ -149,28 +150,50 @@ public class DatabaseTest {
     }
 
     private void expectedFindAll() {
-        when(sqliteDatabase.rawQuery(Database.SELECT_ALL, null)).thenReturn(cursor);
+        when(sqliteDatabase.query(Database.TABLE_NAME, Database.ALL_COLUMNS, null, null, null, null, Database.SORT_ORDER)).thenReturn(cursor);
         when(cursor.moveToFirst()).thenReturn(true);
         when(cursor.isAfterLast()).thenReturn(false).thenReturn(true);
-        when(cursor.getColumnIndex(Database.COLUMN_ID)).thenReturn(0);
+        when(cursor.getColumnIndexOrThrow(Database._ID)).thenReturn(0);
         when(cursor.getLong(0)).thenReturn(ID);
-        when(cursor.getColumnIndex(Database.COLUMN_MAC)).thenReturn(1);
+        when(cursor.getColumnIndexOrThrow(Database.COLUMN_MAC)).thenReturn(1);
         when(cursor.getString(1)).thenReturn(MAC_ADDDRES);
-        when(cursor.getColumnIndex(Database.COLUMN_NAME)).thenReturn(2);
+        when(cursor.getColumnIndexOrThrow(Database.COLUMN_NAME)).thenReturn(2);
         when(cursor.getString(2)).thenReturn(VENDOR_NAME);
     }
 
     private void verifyFindAll() {
-        verify(sqliteDatabase).rawQuery(Database.SELECT_ALL, null);
+        verify(sqliteDatabase).query(Database.TABLE_NAME, Database.ALL_COLUMNS, null, null, null, null, Database.SORT_ORDER);
         verify(cursor).moveToFirst();
         verify(cursor, times(2)).isAfterLast();
         verify(cursor).moveToNext();
-        verify(cursor).getColumnIndex(Database.COLUMN_ID);
+        verify(cursor).getColumnIndexOrThrow(Database._ID);
         verify(cursor).getLong(0);
-        verify(cursor).getColumnIndex(Database.COLUMN_MAC);
+        verify(cursor).getColumnIndexOrThrow(Database.COLUMN_MAC);
         verify(cursor).getString(1);
-        verify(cursor).getColumnIndex(Database.COLUMN_NAME);
+        verify(cursor).getColumnIndexOrThrow(Database.COLUMN_NAME);
         verify(cursor).getString(2);
     }
+
+    class DatabaseMock extends Database {
+        public DatabaseMock() {
+            super(context);
+        }
+
+        @Override
+        public SQLiteDatabase getWritableDatabase() {
+            return sqliteDatabase;
+        }
+
+        @Override
+        public SQLiteDatabase getReadableDatabase() {
+            return sqliteDatabase;
+        }
+
+        @Override
+        ContentValues getContentValues() {
+            return contentValues;
+        }
+    }
+
 
 }
