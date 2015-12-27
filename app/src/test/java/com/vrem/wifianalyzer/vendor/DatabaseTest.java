@@ -128,10 +128,10 @@ public class DatabaseTest {
     private void verifyQuery() {
         verify(sqliteDatabase)
             .query(Database.TABLE_NAME,
-                    new String[]{Database.COLUMN_NAME},
-                    Database.COLUMN_MAC + "=?",
-                    new String[]{MacAddress.clean(MAC_ADDDRES)},
-                    null, null, null);
+                new String[]{Database.COLUMN_NAME},
+                Database.COLUMN_MAC + "=?",
+                new String[]{MacAddress.clean(MAC_ADDDRES)},
+                null, null, null);
         verify(cursor).moveToFirst();
     }
 

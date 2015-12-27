@@ -13,27 +13,28 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.settings;
+package com.vrem.wifianalyzer.vendor;
 
+import android.app.ListActivity;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceFragment;
 import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.Utils;
+import com.vrem.wifianalyzer.settings.Settings;
 
-public class SettingActivity extends PreferenceActivity {
+public class VendorActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(new Settings(this).themeStyle().themeDeviceDefaultStyle());
 
         super.onCreate(savedInstanceState);
-
-        getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new SettingPreferenceFragment()).commit();
+        setContentView(R.layout.vendor_content);
 
         Utils.enableHomeButton(getActionBar());
+
+        setListAdapter(new VendorListViewAdapter(this, new Database(this).findAll()));
+
     }
 
     @Override
@@ -43,13 +44,5 @@ public class SettingActivity extends PreferenceActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public static class SettingPreferenceFragment extends PreferenceFragment {
-        @Override
-        public void onCreate(final Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.preferences);
-        }
     }
 }

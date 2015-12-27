@@ -32,6 +32,7 @@ import android.widget.ExpandableListView;
 import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.Database;
+import com.vrem.wifianalyzer.vendor.VendorActivity;
 import com.vrem.wifianalyzer.vendor.VendorService;
 import com.vrem.wifianalyzer.wifi.Scanner;
 import com.vrem.wifianalyzer.wifi.WiFi;
@@ -88,8 +89,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
                 refresh();
                 return true;
             case R.id.action_settings:
-                Intent i = new Intent(this, SettingActivity.class);
-                startActivity(i);
+                startActivity(new Intent(this, SettingActivity.class));
+                return true;
+            case R.id.action_vendors:
+                startActivity(new Intent(this, VendorActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

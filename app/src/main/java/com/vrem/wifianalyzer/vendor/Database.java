@@ -19,7 +19,7 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
     static final String COLUMN_MAC = "mac";
     static final String COLUMN_NAME = "name";
     static final String [] ALL_COLUMNS = new String[] {_ID, COLUMN_NAME, COLUMN_MAC};
-    static final String SORT_ORDER = COLUMN_NAME+" DESC, "+COLUMN_MAC+" DESC,"+_ID+" DESC";
+    static final String SORT_ORDER = COLUMN_NAME+","+COLUMN_MAC+","+_ID;
 
     static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " ("
         + _ID + " INTEGER PRIMARY KEY NOT NULL,"

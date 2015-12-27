@@ -5,15 +5,22 @@
 
     <item
         android:id="@+id/action_refresh"
+        android:icon="@drawable/ic_refresh_grey_500_48dp"
         android:orderInCategory="100"
         android:title="@string/action_refresh"
-        android:icon="@drawable/ic_refresh_grey_500_48dp"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_settings"
+        android:icon="@drawable/ic_settings_grey_500_48dp"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        android:icon="@drawable/ic_settings_grey_500_48dp"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_vendors"
+        android:icon="@drawable/ic_list_grey_500_48dp"
+        android:orderInCategory="100"
+        android:title="@string/action_vendors"
         app:showAsAction="ifRoom" />
 </menu>
