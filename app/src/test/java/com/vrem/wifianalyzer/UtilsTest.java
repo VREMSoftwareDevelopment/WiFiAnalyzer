@@ -22,7 +22,6 @@ public class UtilsTest {
         // validate
         verify(actionBar).setHomeButtonEnabled(true);
         verify(actionBar).setDisplayHomeAsUpEnabled(true);
-        verify(actionBar).setHomeAsUpIndicator(R.mipmap.ic_launcher);
     }
 
     @Test
@@ -32,6 +31,5 @@ public class UtilsTest {
         // validate
         verify(actionBar, never()).setHomeButtonEnabled(true);
         verify(actionBar, never()).setDisplayHomeAsUpEnabled(true);
-        verify(actionBar, never()).setHomeAsUpIndicator(R.mipmap.ic_launcher);
     }
 }

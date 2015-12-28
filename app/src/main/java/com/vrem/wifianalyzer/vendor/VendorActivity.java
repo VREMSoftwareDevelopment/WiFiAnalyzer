@@ -17,6 +17,7 @@ package com.vrem.wifianalyzer.vendor;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.R;
@@ -40,7 +41,7 @@ public class VendorActivity extends ListActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
+            NavUtils.navigateUpFromSameTask(this);
             return true;
         }
         return super.onOptionsItemSelected(item);

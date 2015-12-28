@@ -15,12 +15,12 @@
         android:icon="@drawable/ic_settings_grey_500_48dp"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_vendors"
         android:icon="@drawable/ic_list_grey_500_48dp"
         android:orderInCategory="100"
         android:title="@string/action_vendors"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 </menu>
