@@ -41,7 +41,8 @@ public class WiFiData {
             for (ScanResult scanResult : scanResults) {
                 String vendorName = vendorService.getVendorName(scanResult.BSSID);
                 DetailsInfo detailsInfo = new Details(scanResult, vendorName);
-                if (!connection.detailsInfo(detailsInfo) && !hideWeakSignal(hideWeakSignal, detailsInfo)) {
+                connection.detailsInfo(detailsInfo);
+                if (!hideWeakSignal(hideWeakSignal, detailsInfo)) {
                     detailsInfoList.add(detailsInfo);
                 }
             }
