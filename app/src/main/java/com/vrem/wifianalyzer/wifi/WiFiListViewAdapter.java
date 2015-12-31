@@ -13,11 +13,11 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer;
+package com.vrem.wifianalyzer.wifi;
 
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,29 +26,23 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.vrem.wifianalyzer.wifi.Connection;
-import com.vrem.wifianalyzer.wifi.Details;
-import com.vrem.wifianalyzer.wifi.DetailsInfo;
-import com.vrem.wifianalyzer.wifi.Security;
-import com.vrem.wifianalyzer.wifi.Strength;
-import com.vrem.wifianalyzer.wifi.Updater;
-import com.vrem.wifianalyzer.wifi.WiFiData;
+import com.vrem.wifianalyzer.R;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class ListViewAdapter extends BaseExpandableListAdapter implements Updater {
+public class WiFiListViewAdapter extends BaseExpandableListAdapter implements Updater {
 
-    private final AppCompatActivity activity;
+    private final FragmentActivity activity;
     private final View headerView;
     private final Resources resources;
     private ExpandableListView expandableListView;
     private WiFiData wifiData;
 
-    public ListViewAdapter(@NonNull AppCompatActivity appCompatActivity) {
+    public WiFiListViewAdapter(@NonNull View headerView, @NonNull FragmentActivity fragmentActivity) {
         super();
-        activity = appCompatActivity;
-        resources = activity.getResources();
-        headerView = activity.findViewById(R.id.contentHeader);
+        this.activity = fragmentActivity;
+        this.resources = activity.getResources();
+        this.headerView = headerView;
         wifiData = new WiFiData();
     }
 
