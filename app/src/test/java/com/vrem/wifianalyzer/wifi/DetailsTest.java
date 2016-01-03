@@ -48,7 +48,7 @@ public class DetailsTest {
     @Test
     public void testVendorName() throws Exception {
         // validate
-        assertEquals(VENDOR_NAME, fixture.vendorName());
+        assertEquals(VENDOR_NAME, fixture.getVendorName());
     }
 
     @Test
@@ -56,7 +56,7 @@ public class DetailsTest {
         // setup
         scanResult.frequency = 2470;
         // execute
-        int actual = fixture.frequency();
+        int actual = fixture.getFrequency();
         // validate
         assertEquals(scanResult.frequency, actual);
     }
@@ -67,7 +67,7 @@ public class DetailsTest {
         int expected = 5;
         scanResult.frequency = 2435;
         // execute
-        int actual = fixture.channel();
+        int actual = fixture.getChannel();
         // validate
         assertEquals(expected, actual);
     }
@@ -78,7 +78,7 @@ public class DetailsTest {
         Security expected = Security.WPA;
         scanResult.capabilities = "WPA";
         // execute
-        Security actual = fixture.security();
+        Security actual = fixture.getSecurity();
         // validate
         assertEquals(expected, actual);
     }
@@ -91,7 +91,7 @@ public class DetailsTest {
         scanResult.level = -86;
         when(WifiManager.calculateSignalLevel(scanResult.level, Strength.values().length)).thenReturn(expected.ordinal());
         // execute
-        Strength actual = fixture.strength();
+        Strength actual = fixture.getStrength();
         // validate
         assertEquals(expected, actual);
         verifyStatic();
@@ -102,7 +102,7 @@ public class DetailsTest {
         // setup
         scanResult.SSID = "xyzSSID";
         // execute
-        String actual = fixture.SSID();
+        String actual = fixture.getSSID();
         // validate
         assertEquals(scanResult.SSID, actual);
     }
@@ -112,7 +112,7 @@ public class DetailsTest {
         // setup
         scanResult.BSSID = "xyzBSSID";
         // execute
-        String actual = fixture.BSSID();
+        String actual = fixture.getBSSID();
         // validate
         assertEquals(scanResult.BSSID, actual);
     }
@@ -122,7 +122,7 @@ public class DetailsTest {
         // setup
         scanResult.level = -3;
         // execute
-        int actual = fixture.level();
+        int actual = fixture.getLevel();
         // validate
         assertEquals(Math.abs(scanResult.level), actual);
     }
@@ -132,7 +132,7 @@ public class DetailsTest {
         // setup
         scanResult.capabilities = "xyzCapabilities";
         // execute
-        String actual = fixture.capabilities();
+        String actual = fixture.getCapabilities();
         // validate
         assertEquals(scanResult.capabilities, actual);
     }
@@ -144,7 +144,7 @@ public class DetailsTest {
         scanResult.level = -50;
         double expected = Distance.calculate(scanResult.frequency, scanResult.level);
         // execute
-        double actual = fixture.distance();
+        double actual = fixture.getDistance();
         // validate
         assertEquals(expected, actual, 0.0);
     }
@@ -152,8 +152,8 @@ public class DetailsTest {
     @Test
     public void testEquals() throws Exception {
         // setup
-        scanResult.SSID = "SSID";
-        scanResult.BSSID = "BSSID";
+        scanResult.SSID = "getSSID";
+        scanResult.BSSID = "getBSSID";
         Details other = new Details(scanResult, VENDOR_NAME);
         // execute & validate
         // validate
@@ -164,8 +164,8 @@ public class DetailsTest {
     @Test
     public void testHashCode() throws Exception {
         // setup
-        scanResult.SSID = "SSID";
-        scanResult.BSSID = "BSSID";
+        scanResult.SSID = "getSSID";
+        scanResult.BSSID = "getBSSID";
         Details other = new Details(scanResult, VENDOR_NAME);
         // execute & validate
         assertEquals(fixture.hashCode(), other.hashCode());

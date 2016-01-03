@@ -21,13 +21,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
 import java.util.List;
 
 public class VendorListViewAdapter extends ArrayAdapter<Database.VendorData> {
+
+    private MainContext mainContext = MainContext.INSTANCE;
 
     public VendorListViewAdapter(@NonNull Context context, @NonNull List<Database.VendorData> vendors) {
         super(context, R.layout.vendor_content_details, vendors);
@@ -35,7 +39,7 @@ public class VendorListViewAdapter extends ArrayAdapter<Database.VendorData> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = mainContext.getLayoutInflater();
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.vendor_content_details, parent, false);
         }

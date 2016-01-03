@@ -53,9 +53,9 @@ public enum GroupBy {
         @Override
         public int compare(DetailsInfo lhs, DetailsInfo rhs) {
             return new CompareToBuilder()
-                    .append(lhs.SSID().toUpperCase(), rhs.SSID().toUpperCase())
-                    .append(lhs.level(), rhs.level())
-                    .append(lhs.BSSID().toUpperCase(), rhs.BSSID().toUpperCase())
+                    .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
+                    .append(lhs.getLevel(), rhs.getLevel())
+                    .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
                     .toComparison();
         }
     }
@@ -64,7 +64,7 @@ public enum GroupBy {
         @Override
         public int compare(DetailsInfo lhs, DetailsInfo rhs) {
             return new CompareToBuilder()
-                    .append(lhs.SSID().toUpperCase(), rhs.SSID().toUpperCase())
+                    .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
                     .toComparison();
         }
     }
@@ -73,10 +73,10 @@ public enum GroupBy {
         @Override
         public int compare(DetailsInfo lhs, DetailsInfo rhs) {
             return new CompareToBuilder()
-                    .append(lhs.channel(), rhs.channel())
-                    .append(lhs.level(), rhs.level())
-                    .append(lhs.SSID().toUpperCase(), rhs.SSID().toUpperCase())
-                    .append(lhs.BSSID().toUpperCase(), rhs.BSSID().toUpperCase())
+                    .append(lhs.getChannel(), rhs.getChannel())
+                    .append(lhs.getLevel(), rhs.getLevel())
+                    .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
+                    .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
                     .toComparison();
         }
     }
@@ -85,7 +85,7 @@ public enum GroupBy {
         @Override
         public int compare(DetailsInfo lhs, DetailsInfo rhs) {
             return new CompareToBuilder()
-                    .append(lhs.channel(), rhs.channel())
+                    .append(lhs.getChannel(), rhs.getChannel())
                     .toComparison();
         }
     }

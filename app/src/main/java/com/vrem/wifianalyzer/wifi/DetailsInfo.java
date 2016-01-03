@@ -15,24 +15,21 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
+import java.util.List;
+
 public interface DetailsInfo extends Comparable<DetailsInfo> {
-    String SSID();
-
-    String BSSID();
-
-    int frequency();
-
-    int channel();
-
-    Security security();
-
-    Strength strength();
-
-    int level();
-
-    String capabilities();
-
-    double distance();
-
-    String vendorName();
+    String getSSID();
+    String getBSSID();
+    int getFrequency();
+    int getChannel();
+    Security getSecurity();
+    Strength getStrength();
+    int getLevel();
+    String getCapabilities();
+    double getDistance();
+    String getVendorName();
+    String getIPAddress();
+    boolean isConnected();
+    List<DetailsInfo> getChildren();
+    void addChild(DetailsInfo detailsInfo);
 }

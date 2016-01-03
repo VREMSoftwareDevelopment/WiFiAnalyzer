@@ -23,7 +23,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public enum Security {
-    // weak security first - keep this order
+    // weak getSecurity first - keep this order
     NONE(R.drawable.ic_lock_open_black_18dp),
     WPS(R.drawable.ic_lock_outline_black_18dp),
     WEP(R.drawable.ic_lock_outline_black_18dp),
@@ -45,7 +45,7 @@ public enum Security {
                 try {
                     results.add(Security.valueOf(value));
                 } catch (Exception e) {
-                    // skip capabilities that are not security
+                    // skip getCapabilities that are not getSecurity
                 }
             }
         }

@@ -16,77 +16,110 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Details implements DetailsInfo {
     private final ScanResult scanResult;
     private final String vendorName;
+    private final String ipAddress;
+    private final List<DetailsInfo> children;
 
-    public Details(@NonNull ScanResult scanResult, @NonNull String vendorName) {
+    public Details(@NonNull ScanResult scanResult, @NonNull String vendorName, @NonNull String ipAddress) {
         this.scanResult = scanResult;
         this.vendorName = vendorName;
+        this.ipAddress = StringUtils.EMPTY;
+        this.children = new ArrayList<>();
+    }
+
+    public Details(@NonNull ScanResult scanResult, @NonNull String vendorName) {
+        this(scanResult, vendorName, StringUtils.EMPTY);
     }
 
     @Override
-    public int frequency() {
+    public int getFrequency() {
         return scanResult.frequency;
     }
 
     @Override
-    public int channel() {
-        return Frequency.findChannel(frequency());
+    public int getChannel() {
+        return Frequency.findChannel(getFrequency());
     }
 
     @Override
-    public Security security() {
+    public Security getSecurity() {
         return Security.findOne(scanResult.capabilities);
     }
 
     @Override
-    public Strength strength() {
+    public Strength getStrength() {
         return Strength.calculate(scanResult.level);
     }
 
     @Override
-    public String SSID() {
+    public String getSSID() {
         return scanResult.SSID;
     }
 
     @Override
-    public String BSSID() {
+    public String getBSSID() {
         return scanResult.BSSID;
     }
 
     @Override
-    public int level() {
+    public int getLevel() {
         return Math.abs(scanResult.level);
     }
 
     @Override
-    public String capabilities() {
+    public String getCapabilities() {
         return scanResult.capabilities;
     }
 
     @Override
-    public double distance() {
-        return Distance.calculate(frequency(), level());
+    public double getDistance() {
+        return Distance.calculate(getFrequency(), getLevel());
     }
 
     @Override
-    public String vendorName() {
+    public String getVendorName() {
         return vendorName;
+    }
+
+    @Override
+    public String getIPAddress() {
+        return ipAddress;
+    }
+
+    @Override
+    public boolean isConnected() {
+        return StringUtils.isNotBlank(getIPAddress());
+    }
+
+    @Override
+    public List<DetailsInfo> getChildren() {
+        return children;
+    }
+
+    public void addChild(@NonNull DetailsInfo detailsInfo) {
+        children.add(detailsInfo);
     }
 
     @Override
     public int compareTo(@NonNull DetailsInfo other) {
         return new CompareToBuilder()
-                .append(level(), other.level())
-                .append(SSID().toUpperCase(), other.SSID().toUpperCase())
-                .append(BSSID().toUpperCase(), other.BSSID().toUpperCase())
+                .append(getLevel(), other.getLevel())
+                .append(getSSID().toUpperCase(), other.getSSID().toUpperCase())
+                .append(getBSSID().toUpperCase(), other.getBSSID().toUpperCase())
                 .toComparison();
     }
 
@@ -97,16 +130,16 @@ public class Details implements DetailsInfo {
         if (other == null || getClass() != other.getClass()) return false;
 
         return new EqualsBuilder()
-                .append(SSID().toUpperCase(), ((Details) other).SSID().toUpperCase())
-                .append(BSSID().toUpperCase(), ((Details) other).BSSID().toUpperCase())
+                .append(getSSID().toUpperCase(), ((Details) other).getSSID().toUpperCase())
+                .append(getBSSID().toUpperCase(), ((Details) other).getBSSID().toUpperCase())
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(SSID().toUpperCase())
-                .append(BSSID().toUpperCase())
+                .append(getSSID().toUpperCase())
+                .append(getBSSID().toUpperCase())
                 .toHashCode();
     }
 }

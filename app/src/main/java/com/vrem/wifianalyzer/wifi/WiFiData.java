@@ -19,80 +19,94 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 
+import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.VendorService;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class WiFiData {
-    private final Connection connection;
-    private final List<DetailsInfo> detailsInfoList = new ArrayList<>();
-    private final List<WiFiRelationship> wifiRelationships = new ArrayList<>();
 
-    public WiFiData() {
-        connection = new Connection();
+    private MainContext mainContext = MainContext.INSTANCE;
+
+    private List<ScanResult> scanResults;
+    private WifiInfo wifiInfo;
+
+    public WiFiData(List<ScanResult> scanResults, WifiInfo wifiInfo) {
+        this.scanResults = scanResults;
+        this.wifiInfo = wifiInfo;
     }
 
-    public WiFiData(List<ScanResult> scanResults, WifiInfo wifiInfo, @NonNull VendorService vendorService,
-                    @NonNull GroupBy groupBy, boolean hideWeakSignal) {
-        connection = new Connection(wifiInfo);
+    public List<DetailsInfo> getWiFiList() {
         if (scanResults != null) {
+            Settings settings = mainContext.getSettings();
+            List<DetailsInfo> wifiList= buildWiFiList(settings.hideWeakSignal());
+            return groupWiFiList(settings.getGroupBy(), wifiList);
+        }
+        return new ArrayList<>();
+    }
+
+    public DetailsInfo getConnection() {
+        if (scanResults != null) {
+            VendorService vendorService = mainContext.getVendorService();
+            Connection connection = new Connection(wifiInfo);
             for (ScanResult scanResult : scanResults) {
-                String vendorName = vendorService.getVendorName(scanResult.BSSID);
-                DetailsInfo detailsInfo = new Details(scanResult, vendorName);
-                connection.detailsInfo(detailsInfo);
-                if (!hideWeakSignal(hideWeakSignal, detailsInfo)) {
-                    detailsInfoList.add(detailsInfo);
+                String ipAddress = connection.getIPAddress(scanResult);
+                if (StringUtils.isNotBlank(ipAddress)) {
+                    String vendorName = vendorService.getVendorName(scanResult.BSSID);
+                    return new Details(scanResult, vendorName, ipAddress);
                 }
             }
-            populateRelationship(groupBy);
         }
+        return null;
     }
 
-    private boolean hideWeakSignal(boolean hideWeakSignal, DetailsInfo detailsInfo) {
-        return hideWeakSignal && detailsInfo.strength().weak();
-    }
-
-    private void populateRelationship(@NonNull GroupBy groupBy) {
-        Collections.sort(detailsInfoList, groupBy.sortOrder());
-        WiFiRelationship wifiRelationship = null;
-        for (DetailsInfo detailsInfo : detailsInfoList) {
-            if (wifiRelationship == null || groupBy.groupBy().compare(wifiRelationship.parent(), detailsInfo) != 0) {
-                wifiRelationship = new WiFiRelationship(detailsInfo);
-                wifiRelationships.add(wifiRelationship);
+    @NonNull
+    private List<DetailsInfo> groupWiFiList(@NonNull GroupBy groupBy, List<DetailsInfo> wifiList) {
+        List<DetailsInfo> results = new ArrayList<>();
+        Collections.sort(wifiList, groupBy.sortOrder());
+        DetailsInfo parent = null;
+        for (DetailsInfo detailsInfo : wifiList) {
+            if (parent == null || groupBy.groupBy().compare(parent, detailsInfo) != 0) {
+                if (parent != null) {
+                    Collections.sort(parent.getChildren());
+                }
+                parent = detailsInfo;
+                results.add(parent);
             } else {
-                wifiRelationship.addChild(detailsInfo);
+                parent.addChild(detailsInfo);
             }
         }
-        Collections.sort(wifiRelationships);
+        if (parent != null) {
+            Collections.sort(parent.getChildren());
+        }
+        Collections.sort(results);
+        return results;
     }
 
-    public int parentsCount() {
-        return wifiRelationships.size();
+    @NonNull
+    private List<DetailsInfo> buildWiFiList(@NonNull boolean hideWeakSignal) {
+        List<DetailsInfo> results = new ArrayList<>();
+        VendorService vendorService = mainContext.getVendorService();
+        DetailsInfo connection = getConnection();
+        for (ScanResult scanResult : scanResults) {
+            String vendorName = vendorService.getVendorName(scanResult.BSSID);
+            Details details = new Details(scanResult, vendorName);
+            if (details.equals(connection)) {
+                results.add(connection);
+            } else if (!hideWeakSignal(hideWeakSignal, details)) {
+                results.add(details);
+            }
+        }
+        return results;
     }
 
-    private boolean validParentIndex(int index) {
-        return index >= 0 && index < parentsCount();
-    }
 
-    private boolean validChildrenIndex(int indexParent, int indexChild) {
-        return validParentIndex(indexParent) && indexChild >= 0 && indexChild < childrenCount(indexParent);
-    }
-
-    public DetailsInfo parent(int index) {
-        return validParentIndex(index) ? wifiRelationships.get(index).parent() : null;
-    }
-
-    public int childrenCount(int index) {
-        return validParentIndex(index) ? wifiRelationships.get(index).childrenCount() : 0;
-    }
-
-    public DetailsInfo child(int indexParent, int indexChild) {
-        return validChildrenIndex(indexParent, indexChild) ? wifiRelationships.get(indexParent).child(indexChild) : null;
-    }
-
-    public Connection connection() {
-        return connection;
+    private boolean hideWeakSignal(boolean hideWeakSignal, DetailsInfo detailsInfo) {
+        return hideWeakSignal && detailsInfo.getStrength().weak();
     }
 }

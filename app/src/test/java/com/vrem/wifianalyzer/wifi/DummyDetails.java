@@ -32,17 +32,17 @@ public class DummyDetails extends Details {
     }
 
     @Override
-    public String SSID() {
+    public String getSSID() {
         return ssid;
     }
 
     @Override
-    public String BSSID() {
+    public String getBSSID() {
         return bssid;
     }
 
     @Override
-    public int level() {
+    public int getLevel() {
         return level;
     }
 

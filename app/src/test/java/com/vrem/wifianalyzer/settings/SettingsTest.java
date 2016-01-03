@@ -8,7 +8,6 @@ import android.preference.PreferenceManager;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.GroupBy;
 
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
@@ -54,7 +53,7 @@ public class SettingsTest {
     @Test
     public void testSharedPreferences() throws Exception {
         // execute
-        SharedPreferences actual = fixture.sharedPreferences();
+        SharedPreferences actual = fixture.getSharedPreferences();
         // validate
         assertEquals(sharedPreferences, actual);
     }
@@ -69,7 +68,7 @@ public class SettingsTest {
         when(resources.getInteger(R.integer.scan_interval_default)).thenReturn(defaultValue);
         when(sharedPreferences.getInt(key, defaultValue)).thenReturn(expected);
         // execute
-        int actual = fixture.scanInterval();
+        int actual = fixture.getScanInterval();
         // validate
         assertEquals(expected, actual);
         verifyResourceKey(R.string.scan_interval_key);
@@ -115,7 +114,7 @@ public class SettingsTest {
         when(resources.getString(R.string.group_by_default)).thenReturn(defaultValue);
         when(sharedPreferences.getString(key, defaultValue)).thenReturn(expected.name());
         // execute
-        GroupBy actual = fixture.groupBy();
+        GroupBy actual = fixture.getGroupBy();
         // validate
         assertEquals(expected, actual);
         verifyResourceKey(R.string.group_by_key);
@@ -133,7 +132,7 @@ public class SettingsTest {
         when(resources.getString(R.string.theme_default)).thenReturn(defaultValue);
         when(sharedPreferences.getString(key, defaultValue)).thenReturn(expected.name());
         // execute
-        ThemeStyle actual = fixture.themeStyle();
+        ThemeStyle actual = fixture.getThemeStyle();
         // validate
         assertEquals(expected, actual);
         verifyResourceKey(R.string.theme_key);

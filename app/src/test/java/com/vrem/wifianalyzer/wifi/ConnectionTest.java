@@ -107,22 +107,22 @@ public class ConnectionTest {
     @Test
     public void testBSSID() throws Exception {
         // setup
-        when(wifiInfo.getBSSID()).thenReturn(detailsInfo.BSSID());
+        when(wifiInfo.getBSSID()).thenReturn(detailsInfo.getBSSID());
         // execute
         String actual = fixture.BSSID();
         // validate
-        assertEquals(detailsInfo.BSSID(), actual);
+        assertEquals(detailsInfo.getBSSID(), actual);
         verify(wifiInfo).getBSSID();
     }
 
     @Test
     public void testSSID() throws Exception {
         // setup
-        when(wifiInfo.getSSID()).thenReturn(detailsInfo.SSID());
+        when(wifiInfo.getSSID()).thenReturn(detailsInfo.getSSID());
         // execute
         String actual = fixture.SSID();
         // validate
-        assertEquals(detailsInfo.SSID(), actual);
+        assertEquals(detailsInfo.getSSID(), actual);
         verify(wifiInfo).getSSID();
     }
 
@@ -179,8 +179,8 @@ public class ConnectionTest {
     }
 
     private void withSSIDAndBSSID() {
-        when(wifiInfo.getSSID()).thenReturn(detailsInfo.SSID());
-        when(wifiInfo.getBSSID()).thenReturn(detailsInfo.BSSID());
+        when(wifiInfo.getSSID()).thenReturn(detailsInfo.getSSID());
+        when(wifiInfo.getBSSID()).thenReturn(detailsInfo.getBSSID());
     }
 
     @Test
@@ -190,6 +190,6 @@ public class ConnectionTest {
     }
 
     private DetailsInfo makeDetailsInfo() {
-        return new DummyDetails(scanResult, "SSID-123", "BSSID-123", 0);
+        return new DummyDetails(scanResult, "getSSID-123", "getBSSID-123", 0);
     }
 }

@@ -15,6 +15,7 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
+import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -26,38 +27,31 @@ import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-public class Connection {
+class Connection {
     private final WifiInfo wifiInfo;
-    private DetailsInfo detailsInfo;
 
-    public Connection() {
-        this(null);
-    }
-
-    public Connection(WifiInfo wifiInfo) {
+    Connection(WifiInfo wifiInfo) {
         this.wifiInfo = wifiInfo;
     }
 
-    public boolean connected() {
+    private boolean isConnected() {
         return wifiInfo != null && wifiInfo.getNetworkId() != -1;
     }
 
-    public boolean hasDetails() {
-        return detailsInfo != null;
-    }
-
-    public String ipAddress() {
-        byte[] bytes = BigInteger.valueOf(wifiInfo.getIpAddress()).toByteArray();
-        ArrayUtils.reverse(bytes);
-        try {
-            return InetAddress.getByAddress(bytes).getHostAddress();
-        } catch (UnknownHostException e) {
-            Log.e("IPAddress", e.getMessage());
+    String getIPAddress(ScanResult scanResult) {
+        if (isConnected() && match(scanResult)) {
+            byte[] bytes = BigInteger.valueOf(wifiInfo.getIpAddress()).toByteArray();
+            ArrayUtils.reverse(bytes);
+            try {
+                return InetAddress.getByAddress(bytes).getHostAddress();
+            } catch (UnknownHostException e) {
+                Log.e("IPAddress", e.getMessage());
+            }
         }
         return StringUtils.EMPTY;
     }
 
-    String SSID() {
+    private String getSSID() {
         String result = wifiInfo.getSSID();
         if (result.charAt(0) == '"') {
             result = result.substring(1);
@@ -68,23 +62,11 @@ public class Connection {
         return result;
     }
 
-    String BSSID() {
+    private String getBSSID() {
         return wifiInfo.getBSSID();
     }
 
-    public DetailsInfo detailsInfo() {
-        return detailsInfo;
-    }
-
-    public boolean detailsInfo(@NonNull DetailsInfo detailsInfo) {
-        if (!hasDetails() && match(detailsInfo)) {
-            this.detailsInfo = detailsInfo;
-            return true;
-        }
-        return false;
-    }
-
-    private boolean match(@NonNull DetailsInfo detailsInfo) {
-        return connected() && SSID().equals(detailsInfo.SSID()) && BSSID().equals(detailsInfo.BSSID());
+    private boolean match(@NonNull ScanResult scanResult) {
+        return isConnected() && getSSID().equals(scanResult.SSID) && getBSSID().equals(scanResult.BSSID);
     }
 }

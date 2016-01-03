@@ -15,6 +15,8 @@
  */
 package com.vrem.wifianalyzer.vendor;
 
+import com.vrem.wifianalyzer.MainContext;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -36,14 +38,16 @@ public class VendorServiceTest {
     static final String VENDOR_NAME = "CISCO SYSTEMS, INC.";
 
     @Mock private Database database;
-    @Mock private RemoteCall remoteCall;
+    @Mock private VendorRemoteCall vendorRemoteCall;
 
     private VendorService fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = new VendorService(database);
-        fixture.setRemoteCall(remoteCall);
+        MainContext.INSTANCE.setDatabase(database);
+        MainContext.INSTANCE.setVendorRemoteCall(vendorRemoteCall);
+
+        fixture = new VendorService();
     }
 
     @After
@@ -69,7 +73,7 @@ public class VendorServiceTest {
         when(database.find(MAC_IN_RANGE1)).thenReturn(null);
         // validate
         verify(database).find(MAC_IN_RANGE1);
-        verify(remoteCall).execute(MAC_IN_RANGE1);
+        verify(vendorRemoteCall).execute(MAC_IN_RANGE1);
 
         assertEquals(StringUtils.EMPTY, actual);
         assertSame(StringUtils.EMPTY, actual);
@@ -84,9 +88,9 @@ public class VendorServiceTest {
         fixture.getVendorName(MAC_IN_RANGE2.toLowerCase());
         // validate
         verify(database).find(MAC_IN_RANGE1);
-        verify(remoteCall).execute(MAC_IN_RANGE1);
-        verify(remoteCall, never()).execute(MAC_IN_RANGE2);
-        verify(remoteCall, never()).execute(MAC_IN_RANGE2.toLowerCase());
+        verify(vendorRemoteCall).execute(MAC_IN_RANGE1);
+        verify(vendorRemoteCall, never()).execute(MAC_IN_RANGE2);
+        verify(vendorRemoteCall, never()).execute(MAC_IN_RANGE2.toLowerCase());
 
         assertEquals(StringUtils.EMPTY, actual);
         assertSame(StringUtils.EMPTY, actual);

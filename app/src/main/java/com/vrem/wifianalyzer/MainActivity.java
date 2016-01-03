@@ -15,50 +15,60 @@
  */
 package com.vrem.wifianalyzer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.vendor.Database;
 import com.vrem.wifianalyzer.vendor.VendorFragment;
+import com.vrem.wifianalyzer.vendor.VendorRemoteCall;
+import com.vrem.wifianalyzer.vendor.VendorService;
 import com.vrem.wifianalyzer.wifi.Scanner;
 import com.vrem.wifianalyzer.wifi.WiFiFragment;
 
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
-public class MainActivity extends AppCompatActivity
-        implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
+    private MainContext mainContext = MainContext.INSTANCE;
 
     private WiFiFragment wiFiFragment;
-    private Settings settings;
     private int themeAppCompatStyle;
     private VendorFragment vendorFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        settings = new Settings(this);
+        initializeMainContext(this);
+
+        Settings settings = mainContext.getSettings();
         settings.initializeDefaultValues();
-        themeAppCompatStyle = settings.themeStyle().themeAppCompatStyle();
+        themeAppCompatStyle = settings.getThemeStyle().themeAppCompatStyle();
         setTheme(themeAppCompatStyle);
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.main_activity);
 
         wiFiFragment = new WiFiFragment();
         vendorFragment = new VendorFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.main_fragment, wiFiFragment).commit();
 
-        settings.sharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        settings.getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,6 +81,18 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+    }
+
+    private void initializeMainContext(@NonNull Context context) {
+        mainContext.setSettings(new Settings(context));
+        mainContext.setHandler(new Handler());
+        mainContext.setScanner(new Scanner());
+        mainContext.setDatabase(new Database(context));
+        mainContext.setVendorService(new VendorService());
+        mainContext.setWifiManager((WifiManager) context.getSystemService(Context.WIFI_SERVICE));
+        mainContext.setVendorRemoteCall(new VendorRemoteCall());
+        mainContext.setLayoutInflater((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
     }
 
     @Override
@@ -95,13 +117,15 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (themeAppCompatStyle != settings.themeStyle().themeAppCompatStyle()) {
+        if (themeAppCompatStyle != mainContext.getSettings().getThemeStyle().themeAppCompatStyle()) {
             reloadActivity();
         } else {
+/*
             Scanner scanner = wiFiFragment.getScanner();
-            scanner.scanInterval(settings.scanInterval());
-            scanner.groupBy(settings.groupBy());
+            scanner.scanInterval(settings.getScanInterval());
+            scanner.groupBy(settings.getGroupBy());
             scanner.hideWeakSignal(settings.hideWeakSignal());
+*/
             wiFiFragment.refresh();
         }
     }

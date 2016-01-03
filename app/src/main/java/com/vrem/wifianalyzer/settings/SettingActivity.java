@@ -21,13 +21,18 @@ import android.preference.PreferenceFragment;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.Utils;
 
 public class SettingActivity extends PreferenceActivity {
+
+    private MainContext mainContext = MainContext.INSTANCE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(new Settings(this).themeStyle().themeDeviceDefaultStyle());
+        Settings settings = mainContext.getSettings();
+        setTheme(settings.getThemeStyle().themeDeviceDefaultStyle());
 
         super.onCreate(savedInstanceState);
 

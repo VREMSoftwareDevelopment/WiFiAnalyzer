@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.Database;
@@ -36,16 +37,14 @@ import com.vrem.wifianalyzer.vendor.VendorService;
 
 public class WiFiFragment extends Fragment {
 
-    private Scanner scanner;
+    private MainContext mainContext = MainContext.INSTANCE;
+
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Settings settings;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
-
-        settings = new Settings(activity);
 
         View view = inflater.inflate(R.layout.main_content, container, false);
         View headerView = view.findViewById(R.id.contentHeader);
@@ -53,33 +52,20 @@ public class WiFiFragment extends Fragment {
         this.swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
         this.swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.listView);
         WiFiListViewAdapter wifiListViewAdapter = new WiFiListViewAdapter(headerView, activity);
-        wifiListViewAdapter.setExpandableListView(expandableListView);
+
+        ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.listView);
         expandableListView.setAdapter(wifiListViewAdapter);
 
-        scanner = Scanner.performPeriodicScan(wifi(activity), new Handler(), wifiListViewAdapter, settings.scanInterval());
         return view;
     }
 
-    @NonNull
-    private WiFi wifi(FragmentActivity activity) {
-        Database database = new Database(activity);
-        VendorService vendorService = new VendorService(database);
-        WifiManager wifiManager = (WifiManager) activity.getSystemService(Context.WIFI_SERVICE);
-        return new WiFi(wifiManager, vendorService, settings.groupBy(), settings.hideWeakSignal());
-    }
-
-
     public void refresh() {
         swipeRefreshLayout.setRefreshing(true);
-        scanner.update();
+        mainContext.getScanner().update();
         swipeRefreshLayout.setRefreshing(false);
     }
 
-    public Scanner getScanner() {
-        return scanner;
-    }
 
     private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
         @Override

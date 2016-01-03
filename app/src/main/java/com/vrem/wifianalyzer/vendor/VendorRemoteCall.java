@@ -19,6 +19,8 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.vrem.wifianalyzer.MainContext;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,10 +32,10 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class RemoteCall extends AsyncTask<String, Void, String> {
+public class VendorRemoteCall extends AsyncTask<String, Void, String> {
     private static final String MAX_VENDOR_LOOKUP = "http://www.macvendorlookup.com/api/v2/%s";
 
-    private Database database;
+    private MainContext mainContext = MainContext.INSTANCE;
 
     protected String doInBackground(String... params) {
         if (params.length < 1 || StringUtils.isBlank(params[0])) {
@@ -75,11 +77,12 @@ public class RemoteCall extends AsyncTask<String, Void, String> {
                     String vendorName = getValue(jsonObject, "company");
                     if (StringUtils.isNotBlank(macAddress)) {
                         Log.i(macAddress, vendorName);
+                        Database database = mainContext.getDatabase();
                         database.insert(macAddress, vendorName);
                     }
                 }
             } catch (JSONException e) {
-                Log.e("<RemoteCall>", result, e);
+                Log.e("<VendorRemoteCall>", result, e);
             }
         }
     }
@@ -93,7 +96,4 @@ public class RemoteCall extends AsyncTask<String, Void, String> {
         }
     }
 
-    void setDatabase(@NonNull Database database) {
-        this.database = database;
-    }
 }

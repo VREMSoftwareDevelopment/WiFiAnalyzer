@@ -15,75 +15,79 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
+import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+
+import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.settings.Settings;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Scanner {
     static final int DELAY_INITIAL = 1;
     static final int DELAY_INTERVAL = 1000;
 
-    private final WiFi wifi;
-    private final Updater updater;
-    private PerformPeriodicScan performPeriodicScan;
+    private MainContext mainContext = MainContext.INSTANCE;
 
-    private Scanner(@NonNull WiFi wifi, @NonNull Updater updater) {
-        this.wifi = wifi;
-        this.updater = updater;
-    }
+    private final PerformPeriodicScan performPeriodicScan;
+    private WiFiData wifiData;
+    private List<UpdateNotifier> updateNotifiers = new ArrayList<>();
 
-    public static Scanner performPeriodicScan(@NonNull WiFi wifi, @NonNull Handler handler, @NonNull Updater updater, int scanInterval) {
-        Scanner scanner = new Scanner(wifi, updater);
-        scanner.performPeriodicScan = new PerformPeriodicScan(scanner, handler, scanInterval);
-        handler.postDelayed(scanner.performPeriodicScan, DELAY_INITIAL);
-        return scanner;
+    public Scanner() {
+        this.performPeriodicScan = new PerformPeriodicScan();
     }
 
     public void update() {
-        wifi.enable();
-        updater.update(wifi.scan());
+        WifiManager wifiManager = mainContext.getWifiManager();
+        if (wifiManager.isWifiEnabled()) {
+            wifiManager.setWifiEnabled(true);
+        }
+        if (wifiManager.startScan()) {
+            wifiData = new WiFiData(wifiManager.getScanResults(), wifiManager.getConnectionInfo());
+            for (UpdateNotifier updateNotifier: updateNotifiers) {
+                updateNotifier.update();
+            }
+        }
     }
 
-    public void scanInterval(int scanInterval) {
-        performPeriodicScan.scanInterval(scanInterval);
+    public WiFiData getWifiData() {
+        return wifiData;
     }
 
-    PerformPeriodicScan performPeriodicScan() {
+    public boolean addUpdateNotifier(@NonNull UpdateNotifier updateNotifier) {
+        return updateNotifiers.add(updateNotifier);
+    }
+
+    public boolean removeUpdateNotifier(@NonNull UpdateNotifier updateNotifier) {
+        return updateNotifiers.remove(updateNotifier);
+    }
+
+    List<UpdateNotifier> getUpdateNotifiers() {
+        return updateNotifiers;
+    }
+
+    PerformPeriodicScan getPerformPeriodicScan() {
         return performPeriodicScan;
     }
 
-    public void groupBy(@NonNull GroupBy groupBy) {
-        wifi.groupBy(groupBy);
-    }
+    class PerformPeriodicScan implements Runnable {
+        PerformPeriodicScan() {
+            nextRun(DELAY_INITIAL);
+        }
 
-    public void hideWeakSignal(boolean hideWeakSignal) {
-        wifi.hideWeakSignal(hideWeakSignal);
-    }
-
-    static class PerformPeriodicScan implements Runnable {
-        private final Scanner scanner;
-        private final Handler handler;
-        private int scanInterval;
-
-        PerformPeriodicScan(@NonNull Scanner scanner, @NonNull Handler handler, int scanInterval) {
-            this.scanner = scanner;
-            this.handler = handler;
-            scanInterval(scanInterval);
+        private void nextRun(int delayInitial) {
+            Handler handler = mainContext.getHandler();
+            handler.removeCallbacks(this);
+            handler.postDelayed(this, delayInitial);
         }
 
         @Override
         public void run() {
-            scanner.update();
-            handler.removeCallbacks(this);
-            handler.postDelayed(this, scanInterval * DELAY_INTERVAL);
-        }
-
-        int scanInterval() {
-            return scanInterval;
-        }
-
-        void scanInterval(int scanInterval) {
-            this.scanInterval = scanInterval;
+            update();
+            Settings settings = mainContext.getSettings();
+            nextRun(settings.getScanInterval() * DELAY_INTERVAL);
         }
     }
-
 }

@@ -164,9 +164,9 @@ public class WiFiDataTest {
         // validate
         assertFalse(fixture.connection().connected());
         assertEquals(4, fixture.parentsCount());
-        assertEquals(scanResult3.SSID, fixture.parent(0).SSID());
-        assertEquals(scanResult2.SSID, fixture.parent(2).SSID());
-        assertEquals(scanResult4.SSID, fixture.parent(3).SSID());
+        assertEquals(scanResult3.SSID, fixture.parent(0).getSSID());
+        assertEquals(scanResult2.SSID, fixture.parent(2).getSSID());
+        assertEquals(scanResult4.SSID, fixture.parent(3).getSSID());
     }
 
     @Test
@@ -174,10 +174,10 @@ public class WiFiDataTest {
         // execute
         fixture = new WiFiData(scanResults, null, vendorService, GroupBy.SSID, false);
         // validate
-        assertEquals(VENDOR_NAME + scanResult3.BSSID, fixture.parent(0).vendorName());
-        assertEquals(VENDOR_NAME + scanResult1.BSSID, fixture.parent(1).vendorName());
-        assertEquals(VENDOR_NAME + scanResult2.BSSID, fixture.parent(2).vendorName());
-        assertEquals(VENDOR_NAME + scanResult4.BSSID, fixture.parent(3).vendorName());
+        assertEquals(VENDOR_NAME + scanResult3.BSSID, fixture.parent(0).getVendorName());
+        assertEquals(VENDOR_NAME + scanResult1.BSSID, fixture.parent(1).getVendorName());
+        assertEquals(VENDOR_NAME + scanResult2.BSSID, fixture.parent(2).getVendorName());
+        assertEquals(VENDOR_NAME + scanResult4.BSSID, fixture.parent(3).getVendorName());
 
         verify(vendorService, times(7)).getVendorName(anyString());
     }
@@ -189,8 +189,8 @@ public class WiFiDataTest {
         // validate
         assertFalse(fixture.connection().connected());
         assertEquals(3, fixture.childrenCount(2));
-        assertEquals(scanResult_2.BSSID, fixture.child(2, 0).BSSID());
-        assertEquals(scanResult_1.BSSID, fixture.child(2, 2).BSSID());
+        assertEquals(scanResult_2.BSSID, fixture.child(2, 0).getBSSID());
+        assertEquals(scanResult_1.BSSID, fixture.child(2, 2).getBSSID());
     }
 
     @Test
@@ -203,8 +203,8 @@ public class WiFiDataTest {
         // validate
         assertTrue(fixture.connection().connected());
         assertEquals(3, fixture.parentsCount());
-        assertEquals(scanResult3.SSID, fixture.parent(0).SSID());
-        assertEquals(scanResult4.SSID, fixture.parent(2).SSID());
+        assertEquals(scanResult3.SSID, fixture.parent(0).getSSID());
+        assertEquals(scanResult4.SSID, fixture.parent(2).getSSID());
     }
 
     @Test
@@ -217,8 +217,8 @@ public class WiFiDataTest {
         // validate
         assertTrue(fixture.connection().connected());
         assertEquals(2, fixture.childrenCount(2));
-        assertEquals(scanResult_2.BSSID, fixture.child(2, 0).BSSID());
-        assertEquals(scanResult_3.BSSID, fixture.child(2, 1).BSSID());
+        assertEquals(scanResult_2.BSSID, fixture.child(2, 0).getBSSID());
+        assertEquals(scanResult_3.BSSID, fixture.child(2, 1).getBSSID());
     }
 
     @Test
@@ -228,9 +228,9 @@ public class WiFiDataTest {
         // validate
         assertFalse(fixture.connection().connected());
         assertEquals(4, fixture.parentsCount());
-        assertEquals(scanResult3.SSID, fixture.parent(0).SSID());
-        assertEquals(scanResult2.SSID, fixture.parent(2).SSID());
-        assertEquals(scanResult4.SSID, fixture.parent(3).SSID());
+        assertEquals(scanResult3.SSID, fixture.parent(0).getSSID());
+        assertEquals(scanResult2.SSID, fixture.parent(2).getSSID());
+        assertEquals(scanResult4.SSID, fixture.parent(3).getSSID());
     }
 
     @Test
@@ -238,10 +238,10 @@ public class WiFiDataTest {
         // execute
         fixture = new WiFiData(scanResults, null, vendorService, GroupBy.CHANNEL, false);
         // validate
-        assertEquals(VENDOR_NAME + scanResult3.BSSID, fixture.parent(0).vendorName());
-        assertEquals(VENDOR_NAME + scanResult1.BSSID, fixture.parent(1).vendorName());
-        assertEquals(VENDOR_NAME + scanResult2.BSSID, fixture.parent(2).vendorName());
-        assertEquals(VENDOR_NAME + scanResult4.BSSID, fixture.parent(3).vendorName());
+        assertEquals(VENDOR_NAME + scanResult3.BSSID, fixture.parent(0).getVendorName());
+        assertEquals(VENDOR_NAME + scanResult1.BSSID, fixture.parent(1).getVendorName());
+        assertEquals(VENDOR_NAME + scanResult2.BSSID, fixture.parent(2).getVendorName());
+        assertEquals(VENDOR_NAME + scanResult4.BSSID, fixture.parent(3).getVendorName());
 
         verify(vendorService, times(7)).getVendorName(anyString());
     }
@@ -253,8 +253,8 @@ public class WiFiDataTest {
         // validate
         assertFalse(fixture.connection().connected());
         assertEquals(3, fixture.childrenCount(2));
-        assertEquals(scanResult_2.BSSID, fixture.child(2, 0).BSSID());
-        assertEquals(scanResult_1.BSSID, fixture.child(2, 2).BSSID());
+        assertEquals(scanResult_2.BSSID, fixture.child(2, 0).getBSSID());
+        assertEquals(scanResult_1.BSSID, fixture.child(2, 2).getBSSID());
     }
 
     @Test
@@ -267,8 +267,8 @@ public class WiFiDataTest {
         // validate
         assertTrue(fixture.connection().connected());
         assertEquals(3, fixture.parentsCount());
-        assertEquals(scanResult3.SSID, fixture.parent(0).SSID());
-        assertEquals(scanResult4.SSID, fixture.parent(2).SSID());
+        assertEquals(scanResult3.SSID, fixture.parent(0).getSSID());
+        assertEquals(scanResult4.SSID, fixture.parent(2).getSSID());
     }
 
     @Test
@@ -281,8 +281,8 @@ public class WiFiDataTest {
         // validate
         assertTrue(fixture.connection().connected());
         assertEquals(2, fixture.childrenCount(2));
-        assertEquals(scanResult_2.BSSID, fixture.child(2, 0).BSSID());
-        assertEquals(scanResult_3.BSSID, fixture.child(2, 1).BSSID());
+        assertEquals(scanResult_2.BSSID, fixture.child(2, 0).getBSSID());
+        assertEquals(scanResult_3.BSSID, fixture.child(2, 1).getBSSID());
     }
 
     @Test

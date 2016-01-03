@@ -35,27 +35,27 @@ public class Settings {
         PreferenceManager.setDefaultValues(context, R.xml.preferences, false);
     }
 
-    public SharedPreferences sharedPreferences() {
+    public SharedPreferences getSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public int scanInterval() {
+    public int getScanInterval() {
         int defaultValue = context.getResources().getInteger(R.integer.scan_interval_default);
-        return sharedPreferences().getInt(context.getString(R.string.scan_interval_key), defaultValue);
+        return getSharedPreferences().getInt(context.getString(R.string.scan_interval_key), defaultValue);
     }
 
     public boolean hideWeakSignal() {
         boolean defaultValue = context.getResources().getBoolean(R.bool.hide_weak_signal_default);
-        return sharedPreferences().getBoolean(context.getString(R.string.hide_weak_signal_key), defaultValue);
+        return getSharedPreferences().getBoolean(context.getString(R.string.hide_weak_signal_key), defaultValue);
     }
 
-    public GroupBy groupBy() {
+    public GroupBy getGroupBy() {
         String defaultValue = context.getResources().getString(R.string.group_by_default);
-        return GroupBy.find(sharedPreferences().getString(context.getString(R.string.group_by_key), defaultValue));
+        return GroupBy.find(getSharedPreferences().getString(context.getString(R.string.group_by_key), defaultValue));
     }
 
-    public ThemeStyle themeStyle() {
+    public ThemeStyle getThemeStyle() {
         String defaultValue = context.getResources().getString(R.string.theme_default);
-        return ThemeStyle.find(sharedPreferences().getString(context.getString(R.string.theme_key), defaultValue));
+        return ThemeStyle.find(getSharedPreferences().getString(context.getString(R.string.theme_key), defaultValue));
     }
 }

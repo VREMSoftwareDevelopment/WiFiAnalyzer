@@ -22,28 +22,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class WiFiListViewAdapter extends BaseExpandableListAdapter implements Updater {
+import java.util.ArrayList;
+import java.util.List;
+
+public class WiFiListViewAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
+
+    private MainContext mainContext = MainContext.INSTANCE;
 
     private final FragmentActivity activity;
     private final View headerView;
     private final Resources resources;
-    private ExpandableListView expandableListView;
-    private WiFiData wifiData;
+    private final Data data;
 
     public WiFiListViewAdapter(@NonNull View headerView, @NonNull FragmentActivity fragmentActivity) {
         super();
         this.activity = fragmentActivity;
         this.resources = activity.getResources();
         this.headerView = headerView;
-        wifiData = new WiFiData();
+        this.data = new Data();
+        mainContext.getScanner().addUpdateNotifier(this);
     }
 
     @Override
@@ -58,8 +63,9 @@ public class WiFiListViewAdapter extends BaseExpandableListAdapter implements Up
         int childrenCount = getChildrenCount(groupPosition);
         if (childrenCount > 0) {
             groupIndicator.setVisibility(View.VISIBLE);
-            groupIndicator.setImageResource(
-                    isExpanded ? R.drawable.ic_expand_less_black_24dp : R.drawable.ic_expand_more_black_24dp);
+            groupIndicator.setImageResource(isExpanded
+                ? R.drawable.ic_expand_less_black_24dp
+                : R.drawable.ic_expand_more_black_24dp);
             groupIndicator.setColorFilter(resources.getColor(R.color.icons_color));
             groupCount.setVisibility(View.VISIBLE);
             groupCount.setText(String.format("(%d) ", childrenCount));
@@ -86,27 +92,16 @@ public class WiFiListViewAdapter extends BaseExpandableListAdapter implements Up
     }
 
     @Override
-    public void update(@NonNull WiFiData wifiData) {
-        this.wifiData = wifiData;
-        if (expandableListView != null) {
-            for (int i = 0; i < getGroupCount(); i++) {
-                expandableListView.collapseGroup(i);
-            }
-            header();
-        }
+    public void update() {
+        data.update(mainContext.getScanner().getWifiData());
+        header();
         notifyDataSetChanged();
     }
 
+
     private void header() {
-        Connection connection = wifiData.connection();
-
-        if (connection.connected() && connection.hasDetails()) {
-            setView(headerView, connection.detailsInfo());
-
-            TextView ssid = (TextView) headerView.findViewById(R.id.ssid);
-            ssid.setText(String.format("%s %s", ssid.getText(), connection.ipAddress()));
-            ssid.setTextColor(resources.getColor(R.color.connected));
-
+        if (data.connection != null) {
+            setView(headerView, data.connection);
             headerView.setVisibility(View.VISIBLE);
         } else {
             headerView.setVisibility(View.GONE);
@@ -115,22 +110,22 @@ public class WiFiListViewAdapter extends BaseExpandableListAdapter implements Up
 
     @Override
     public int getGroupCount() {
-        return wifiData.parentsCount();
+        return data.parentsCount();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return wifiData.childrenCount(groupPosition);
+        return data.childrenCount(groupPosition);
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return wifiData.parent(groupPosition);
+        return data.parent(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return wifiData.child(groupPosition, childPosition);
+        return data.child(groupPosition, childPosition);
     }
 
     @Override
@@ -157,44 +152,84 @@ public class WiFiListViewAdapter extends BaseExpandableListAdapter implements Up
         if (view != null) {
             return view;
         }
-        LayoutInflater inflater = activity.getLayoutInflater();
+
+        LayoutInflater inflater = mainContext.getLayoutInflater();
         return inflater.inflate(R.layout.main_content_details, null);
     }
 
-    void setExpandableListView(@NonNull ExpandableListView expandableListView) {
-        this.expandableListView = expandableListView;
-    }
-
     private void setView(@NonNull View view, @NonNull DetailsInfo detailsInfo) {
-        String ssid = (StringUtils.isBlank(detailsInfo.SSID()) ? "***" : detailsInfo.SSID());
-        ((TextView) view.findViewById(R.id.ssid)).setText(String.format("%s (%s)", ssid, detailsInfo.BSSID()));
 
-        Strength strength = detailsInfo.strength();
+        TextView textSSID = (TextView) headerView.findViewById(R.id.ssid);
+        textSSID.setText(String.format("%s (%s) %s",
+                StringUtils.isBlank(detailsInfo.getSSID()) ? "***" : detailsInfo.getSSID(),
+                detailsInfo.getBSSID(),
+                detailsInfo.getIPAddress()));
+        if (StringUtils.isNotBlank(detailsInfo.getIPAddress())) {
+            textSSID.setTextColor(resources.getColor(R.color.connected));
+        }
+
+        Strength strength = detailsInfo.getStrength();
         ImageView imageView = (ImageView) view.findViewById(R.id.levelImage);
         imageView.setImageResource(strength.imageResource());
         imageView.setColorFilter(resources.getColor(strength.colorResource()));
 
-        Security security = detailsInfo.security();
+        Security security = detailsInfo.getSecurity();
         ImageView securityImage = (ImageView) view.findViewById(R.id.securityImage);
         securityImage.setImageResource(security.imageResource());
         securityImage.setColorFilter(resources.getColor(R.color.icons_color));
 
         TextView textLevel = (TextView) view.findViewById(R.id.level);
-        textLevel.setText(String.format("%ddBm", detailsInfo.level()));
+        textLevel.setText(String.format("%ddBm", detailsInfo.getLevel()));
         textLevel.setTextColor(resources.getColor(strength.colorResource()));
 
-        ((TextView) view.findViewById(R.id.channel)).setText(String.format("%d", detailsInfo.channel()));
-        ((TextView) view.findViewById(R.id.frequency)).setText(String.format("(%dMHz)", detailsInfo.frequency()));
-        ((TextView) view.findViewById(R.id.distance)).setText(String.format("%6.2fm", detailsInfo.distance()));
-        ((TextView) view.findViewById(R.id.capabilities)).setText(detailsInfo.capabilities());
+        ((TextView) view.findViewById(R.id.channel)).setText(String.format("%d", detailsInfo.getChannel()));
+        ((TextView) view.findViewById(R.id.frequency)).setText(String.format("(%dMHz)", detailsInfo.getFrequency()));
+        ((TextView) view.findViewById(R.id.distance)).setText(String.format("%6.2fm", detailsInfo.getDistance()));
+        ((TextView) view.findViewById(R.id.capabilities)).setText(detailsInfo.getCapabilities());
 
         TextView textVendor = ((TextView) view.findViewById(R.id.vendor));
-        String vendor = detailsInfo.vendorName();
+        String vendor = detailsInfo.getVendorName();
         if (StringUtils.isBlank(vendor)) {
             textVendor.setVisibility(View.GONE);
         } else {
             textVendor.setVisibility(View.VISIBLE);
             textVendor.setText(vendor);
+        }
+    }
+
+    class Data {
+        DetailsInfo connection;
+        List<DetailsInfo> wifiList = new ArrayList<>();
+
+        void update(WiFiData wifiData) {
+            if (wifiData != null) {
+                connection = wifiData.getConnection();
+                wifiList = wifiData.getWiFiList();
+            }
+        }
+
+        int parentsCount() {
+            return wifiList.size();
+        }
+
+        boolean validParentIndex(int index) {
+            return index >= 0 && index < parentsCount();
+        }
+
+        boolean validChildrenIndex(int indexParent, int indexChild) {
+            return validParentIndex(indexParent) && indexChild >= 0 && indexChild < childrenCount(indexParent);
+        }
+
+        DetailsInfo parent(int index) {
+            return validParentIndex(index) ? wifiList.get(index) : null;
+        }
+
+        int childrenCount(int index) {
+            return validParentIndex(index) ? wifiList.get(index).getChildren().size() : 0;
+        }
+
+        DetailsInfo child(int indexParent, int indexChild) {
+            return validChildrenIndex(indexParent, indexChild) ? wifiList.get(indexParent).getChildren().get(indexChild) : null;
         }
     }
 
