@@ -15,16 +15,41 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
+import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.vendor.VendorService;
+
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(WifiManager.class)
 public class WiFiDataTest {
-/*
     public static final String VENDOR_NAME = "VendorName+";
 
     public static final int FREQUENCY1 = 2412;
@@ -39,7 +64,6 @@ public class WiFiDataTest {
     public static final int LEVEL4 = 4;
 
     @Mock private WifiInfo wifiInfo;
-    @Mock private VendorService vendorService;
     @Mock private ScanResult scanResult1;
     @Mock private ScanResult scanResult2;
     @Mock private ScanResult scanResult3;
@@ -48,12 +72,21 @@ public class WiFiDataTest {
     @Mock private ScanResult scanResult_2;
     @Mock private ScanResult scanResult_3;
 
+    @Mock private VendorService vendorService;
+    @Mock private Settings settings;
+
     private List<ScanResult> scanResults;
     private WiFiData fixture;
 
     @Before
     public void setUp() throws Exception {
         mockStatic(WifiManager.class);
+
+        MainContext mainContext = MainContext.INSTANCE;
+        mainContext.setVendorService(vendorService);
+        mainContext.setSettings(settings);
+
+        when(settings.getGroupBy()).thenReturn(GroupBy.SSID);
 
         scanResults = Arrays.asList(scanResult_3,
                 scanResult3,
@@ -67,14 +100,23 @@ public class WiFiDataTest {
         setUpScanResultChildren(scanResult2);
         withSignalLevel();
         withVendorNames();
+        withWifiInfo();
+
+        fixture = new WiFiData(scanResults, wifiInfo);
+    }
+
+    private void withWifiInfo() {
+        when(wifiInfo.getSSID()).thenReturn(scanResult1.SSID);
+        when(wifiInfo.getBSSID()).thenReturn(scanResult1.BSSID);
+        when(wifiInfo.getIpAddress()).thenReturn(123456789);
     }
 
     private void withSignalLevel() {
-        PowerMockito.when(WifiManager.calculateSignalLevel(LEVEL0, Strength.values().length)).thenReturn(LEVEL0);
-        PowerMockito.when(WifiManager.calculateSignalLevel(LEVEL1, Strength.values().length)).thenReturn(LEVEL1);
-        PowerMockito.when(WifiManager.calculateSignalLevel(LEVEL2, Strength.values().length)).thenReturn(LEVEL2);
-        PowerMockito.when(WifiManager.calculateSignalLevel(LEVEL3, Strength.values().length)).thenReturn(LEVEL3);
-        PowerMockito.when(WifiManager.calculateSignalLevel(LEVEL4, Strength.values().length)).thenReturn(LEVEL4);
+        when(WifiManager.calculateSignalLevel(LEVEL0, Strength.values().length)).thenReturn(LEVEL0);
+        when(WifiManager.calculateSignalLevel(LEVEL1, Strength.values().length)).thenReturn(LEVEL1);
+        when(WifiManager.calculateSignalLevel(LEVEL2, Strength.values().length)).thenReturn(LEVEL2);
+        when(WifiManager.calculateSignalLevel(LEVEL3, Strength.values().length)).thenReturn(LEVEL3);
+        when(WifiManager.calculateSignalLevel(LEVEL4, Strength.values().length)).thenReturn(LEVEL4);
     }
 
     private void setUpScanResultChildren(ScanResult scanResult) {
@@ -123,147 +165,81 @@ public class WiFiDataTest {
     }
 
     @Test
-    public void testEmptyObject() throws Exception {
+    public void testGetConnectionEmptyObject() throws Exception {
         // execute
-        fixture = new WiFiData();
+        fixture = new WiFiData(null, wifiInfo);
         // validate
-        assertFalse(fixture.connection().connected());
-        assertEquals(0, fixture.parentsCount());
-        assertNull(fixture.parent(0));
-        assertEquals(0, fixture.childrenCount(0));
-        assertNull(fixture.child(0, 0));
-
-        verify(vendorService, never()).getVendorName(anyString());
+        assertNull(fixture.getConnection());
     }
 
     @Test
-    public void testParentsWithoutConnectionGroupBySSID() throws Exception {
+    public void testGetWiFiListEmptyObject() throws Exception {
         // execute
-        fixture = new WiFiData(scanResults, null, vendorService, GroupBy.SSID, false);
+        fixture = new WiFiData(null, wifiInfo);
         // validate
-        assertFalse(fixture.connection().connected());
-        assertEquals(4, fixture.parentsCount());
-        assertEquals(scanResult3.SSID, fixture.parent(0).getSSID());
-        assertEquals(scanResult2.SSID, fixture.parent(2).getSSID());
-        assertEquals(scanResult4.SSID, fixture.parent(3).getSSID());
+        assertTrue(fixture.getWiFiList().isEmpty());
     }
 
     @Test
-    public void testVendorNameGroupBySSID() throws Exception {
+    public void testGetWiFiListWithSSID() throws Exception {
+        // setup
+        fixture = new WiFiData(scanResults, null);
         // execute
-        fixture = new WiFiData(scanResults, null, vendorService, GroupBy.SSID, false);
+        List<DetailsInfo> actual = fixture.getWiFiList();
         // validate
-        assertEquals(VENDOR_NAME + scanResult3.BSSID, fixture.parent(0).getVendorName());
-        assertEquals(VENDOR_NAME + scanResult1.BSSID, fixture.parent(1).getVendorName());
-        assertEquals(VENDOR_NAME + scanResult2.BSSID, fixture.parent(2).getVendorName());
-        assertEquals(VENDOR_NAME + scanResult4.BSSID, fixture.parent(3).getVendorName());
+        assertEquals(4, actual.size());
+        assertEquals(scanResult3.SSID, actual.get(0).getSSID());
+        assertEquals(scanResult2.SSID, actual.get(2).getSSID());
+        assertEquals(scanResult4.SSID, actual.get(3).getSSID());
+
+        verify(settings).getGroupBy();
+    }
+
+    @Test
+    public void testGetWiFiListWithVendorName() throws Exception {
+        // setup
+        fixture = new WiFiData(scanResults, null);
+        // execute
+        List<DetailsInfo> actual = fixture.getWiFiList();
+        // validate
+        assertEquals(VENDOR_NAME + scanResult3.BSSID, actual.get(0).getVendorName());
+        assertEquals(VENDOR_NAME + scanResult1.BSSID, actual.get(1).getVendorName());
+        assertEquals(VENDOR_NAME + scanResult2.BSSID, actual.get(2).getVendorName());
+        assertEquals(VENDOR_NAME + scanResult4.BSSID, actual.get(3).getVendorName());
 
         verify(vendorService, times(7)).getVendorName(anyString());
     }
 
     @Test
-    public void testChildrenWithoutConnectionGroupBySSID() throws Exception {
-        // execute
-        fixture = new WiFiData(scanResults, null, vendorService, GroupBy.SSID, false);
-        // validate
-        assertFalse(fixture.connection().connected());
-        assertEquals(3, fixture.childrenCount(2));
-        assertEquals(scanResult_2.BSSID, fixture.child(2, 0).getBSSID());
-        assertEquals(scanResult_1.BSSID, fixture.child(2, 2).getBSSID());
-    }
-
-    @Test
-    public void testParentsWithConnectionGroupBySSID() throws Exception {
+    public void testGetWiFiListWithChildren() throws Exception {
         // setup
-        when(wifiInfo.getSSID()).thenReturn(scanResult1.SSID);
-        when(wifiInfo.getBSSID()).thenReturn(scanResult1.BSSID);
+        fixture = new WiFiData(scanResults, null);
         // execute
-        fixture = new WiFiData(scanResults, wifiInfo, vendorService, GroupBy.SSID, false);
+        List<DetailsInfo> actual = fixture.getWiFiList();
         // validate
-        assertTrue(fixture.connection().connected());
-        assertEquals(3, fixture.parentsCount());
-        assertEquals(scanResult3.SSID, fixture.parent(0).getSSID());
-        assertEquals(scanResult4.SSID, fixture.parent(2).getSSID());
+        List<DetailsInfo> children = actual.get(2).getChildren();
+        assertEquals(3, children.size());
+        assertEquals(scanResult_2.BSSID, children.get(0).getBSSID());
+        assertEquals(scanResult_1.BSSID, children.get(2).getBSSID());
     }
 
     @Test
-    public void testChildrenWithConnectionGroupBySSID() throws Exception {
+    public void testGetConnection() throws Exception {
         // setup
-        when(wifiInfo.getSSID()).thenReturn(scanResult_1.SSID);
-        when(wifiInfo.getBSSID()).thenReturn(scanResult_1.BSSID);
+        DetailsInfo expected = new Details(scanResult1, VENDOR_NAME + scanResult1.BSSID, "21.205.91.7");
+        fixture = new WiFiData(scanResults, wifiInfo);
         // execute
-        fixture = new WiFiData(scanResults, wifiInfo, vendorService, GroupBy.SSID, false);
+        DetailsInfo actual = fixture.getConnection();
         // validate
-        assertTrue(fixture.connection().connected());
-        assertEquals(2, fixture.childrenCount(2));
-        assertEquals(scanResult_2.BSSID, fixture.child(2, 0).getBSSID());
-        assertEquals(scanResult_3.BSSID, fixture.child(2, 1).getBSSID());
+        assertEquals(expected, actual);
+        assertNotSame(expected, actual);
+        assertEquals(expected.getSSID(), actual.getSSID());
+        assertEquals(expected.getBSSID(), actual.getBSSID());
+        assertEquals(expected.getVendorName(), actual.getVendorName());
+        assertEquals(expected.getIPAddress(), actual.getIPAddress());
     }
 
-    @Test
-    public void testParentsWithoutConnectionGroupByChannel() throws Exception {
-        // execute
-        fixture = new WiFiData(scanResults, null, vendorService, GroupBy.CHANNEL, false);
-        // validate
-        assertFalse(fixture.connection().connected());
-        assertEquals(4, fixture.parentsCount());
-        assertEquals(scanResult3.SSID, fixture.parent(0).getSSID());
-        assertEquals(scanResult2.SSID, fixture.parent(2).getSSID());
-        assertEquals(scanResult4.SSID, fixture.parent(3).getSSID());
-    }
-
-    @Test
-    public void testVendorNameGroupByChannel() throws Exception {
-        // execute
-        fixture = new WiFiData(scanResults, null, vendorService, GroupBy.CHANNEL, false);
-        // validate
-        assertEquals(VENDOR_NAME + scanResult3.BSSID, fixture.parent(0).getVendorName());
-        assertEquals(VENDOR_NAME + scanResult1.BSSID, fixture.parent(1).getVendorName());
-        assertEquals(VENDOR_NAME + scanResult2.BSSID, fixture.parent(2).getVendorName());
-        assertEquals(VENDOR_NAME + scanResult4.BSSID, fixture.parent(3).getVendorName());
-
-        verify(vendorService, times(7)).getVendorName(anyString());
-    }
-
-    @Test
-    public void testChildrenWithoutConnectionGroupByChannel() throws Exception {
-        // execute
-        fixture = new WiFiData(scanResults, null, vendorService, GroupBy.CHANNEL, false);
-        // validate
-        assertFalse(fixture.connection().connected());
-        assertEquals(3, fixture.childrenCount(2));
-        assertEquals(scanResult_2.BSSID, fixture.child(2, 0).getBSSID());
-        assertEquals(scanResult_1.BSSID, fixture.child(2, 2).getBSSID());
-    }
-
-    @Test
-    public void testParentsWithConnectionGroupByChannel() throws Exception {
-        // setup
-        when(wifiInfo.getSSID()).thenReturn(scanResult1.SSID);
-        when(wifiInfo.getBSSID()).thenReturn(scanResult1.BSSID);
-        // execute
-        fixture = new WiFiData(scanResults, wifiInfo, vendorService, GroupBy.CHANNEL, false);
-        // validate
-        assertTrue(fixture.connection().connected());
-        assertEquals(3, fixture.parentsCount());
-        assertEquals(scanResult3.SSID, fixture.parent(0).getSSID());
-        assertEquals(scanResult4.SSID, fixture.parent(2).getSSID());
-    }
-
-    @Test
-    public void testChildrenWithConnectionGroupByChannel() throws Exception {
-        // setup
-        when(wifiInfo.getSSID()).thenReturn(scanResult_1.SSID);
-        when(wifiInfo.getBSSID()).thenReturn(scanResult_1.BSSID);
-        // execute
-        fixture = new WiFiData(scanResults, wifiInfo, vendorService, GroupBy.CHANNEL, false);
-        // validate
-        assertTrue(fixture.connection().connected());
-        assertEquals(2, fixture.childrenCount(2));
-        assertEquals(scanResult_2.BSSID, fixture.child(2, 0).getBSSID());
-        assertEquals(scanResult_3.BSSID, fixture.child(2, 1).getBSSID());
-    }
-
+    /*
     @Test
     public void testHideWeakSignal() throws Exception {
         // setup
@@ -273,7 +249,7 @@ public class WiFiDataTest {
         fixture = new WiFiData(scanResults, wifiInfo, vendorService, GroupBy.SSID, true);
         // validate
         assertTrue(fixture.connection().connected());
-        assertEquals(2, fixture.parentsCount());
+        assertEquals(2, actual.getsCount());
     }
 */
 }

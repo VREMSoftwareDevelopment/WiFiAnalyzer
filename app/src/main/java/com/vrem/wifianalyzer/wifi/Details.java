@@ -23,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,7 +38,7 @@ public class Details implements DetailsInfo {
     public Details(@NonNull ScanResult scanResult, @NonNull String vendorName, @NonNull String ipAddress) {
         this.scanResult = scanResult;
         this.vendorName = vendorName;
-        this.ipAddress = StringUtils.EMPTY;
+        this.ipAddress = ipAddress;
         this.children = new ArrayList<>();
     }
 
@@ -141,5 +142,10 @@ public class Details implements DetailsInfo {
                 .append(getSSID().toUpperCase())
                 .append(getBSSID().toUpperCase())
                 .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

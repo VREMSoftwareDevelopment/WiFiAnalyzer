@@ -18,6 +18,7 @@ package com.vrem.wifianalyzer.wifi;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,13 +47,13 @@ public class DetailsTest {
     }
 
     @Test
-    public void testVendorName() throws Exception {
+    public void testGetVendorName() throws Exception {
         // validate
         assertEquals(VENDOR_NAME, fixture.getVendorName());
     }
 
     @Test
-    public void testFrequency() throws Exception {
+    public void testGetFrequency() throws Exception {
         // setup
         scanResult.frequency = 2470;
         // execute
@@ -62,7 +63,7 @@ public class DetailsTest {
     }
 
     @Test
-    public void testChannel() throws Exception {
+    public void testGetChannel() throws Exception {
         // setup
         int expected = 5;
         scanResult.frequency = 2435;
@@ -73,7 +74,7 @@ public class DetailsTest {
     }
 
     @Test
-    public void testSecurity() throws Exception {
+    public void testGetSecurity() throws Exception {
         // setup
         Security expected = Security.WPA;
         scanResult.capabilities = "WPA";
@@ -84,7 +85,7 @@ public class DetailsTest {
     }
 
     @Test
-    public void testStrength() throws Exception {
+    public void testGetStrength() throws Exception {
         // setup
         mockStatic(WifiManager.class);
         Strength expected = Strength.TWO;
@@ -98,7 +99,7 @@ public class DetailsTest {
     }
 
     @Test
-    public void testSSID() throws Exception {
+    public void testGetSSID() throws Exception {
         // setup
         scanResult.SSID = "xyzSSID";
         // execute
@@ -108,7 +109,7 @@ public class DetailsTest {
     }
 
     @Test
-    public void testBSSID() throws Exception {
+    public void testGetBSSID() throws Exception {
         // setup
         scanResult.BSSID = "xyzBSSID";
         // execute
@@ -118,7 +119,7 @@ public class DetailsTest {
     }
 
     @Test
-    public void testLevel() throws Exception {
+    public void testGetLevel() throws Exception {
         // setup
         scanResult.level = -3;
         // execute
@@ -128,7 +129,7 @@ public class DetailsTest {
     }
 
     @Test
-    public void testCapabilities() throws Exception {
+    public void testGetCapabilities() throws Exception {
         // setup
         scanResult.capabilities = "xyzCapabilities";
         // execute
@@ -138,7 +139,7 @@ public class DetailsTest {
     }
 
     @Test
-    public void testDistance() throws Exception {
+    public void testGetDistance() throws Exception {
         // setup
         scanResult.frequency = 2414;
         scanResult.level = -50;
@@ -147,6 +148,17 @@ public class DetailsTest {
         double actual = fixture.getDistance();
         // validate
         assertEquals(expected, actual, 0.0);
+    }
+
+    @Test
+    public void testGetIPAddressEmpty() throws Exception {
+        assertEquals(StringUtils.EMPTY, fixture.getIPAddress());
+    }
+
+    @Test
+    public void testGetIPAddress() throws Exception {
+        fixture = new Details(scanResult, VENDOR_NAME, "IPAddress");
+        assertEquals("IPAddress", fixture.getIPAddress());
     }
 
     @Test
