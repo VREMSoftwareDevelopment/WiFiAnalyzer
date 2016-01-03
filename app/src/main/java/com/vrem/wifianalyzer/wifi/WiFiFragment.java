@@ -42,13 +42,13 @@ public class WiFiFragment extends Fragment {
         View view = inflater.inflate(R.layout.main_content, container, false);
         View headerView = view.findViewById(R.id.contentHeader);
 
-        this.swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
-        this.swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
+        swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        WiFiListViewAdapter wifiListViewAdapter = new WiFiListViewAdapter(headerView, activity);
+        WiFiListAdapter wifiListAdapter = new WiFiListAdapter(headerView, activity);
 
         ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.listView);
-        expandableListView.setAdapter(wifiListViewAdapter);
+        expandableListView.setAdapter(wifiListAdapter);
 
         return view;
     }
@@ -59,12 +59,17 @@ public class WiFiFragment extends Fragment {
         swipeRefreshLayout.setRefreshing(false);
     }
 
-
     private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
         @Override
         public void onRefresh() {
             refresh();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
     }
 
 }

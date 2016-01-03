@@ -31,10 +31,10 @@ public enum MainContext {
     private Settings settings;
     private Scanner scanner;
     private Handler handler;
-    private Database database;
     private VendorService vendorService;
     private WifiManager wifiManager;
     private LayoutInflater layoutInflater;
+    private Database database;
 
     public Settings getSettings() {
         return settings;
@@ -50,14 +50,6 @@ public enum MainContext {
 
     public void setHandler(@NonNull Handler handler) {
         this.handler = handler;
-    }
-
-    public Database getDatabase() {
-        return database;
-    }
-
-    public void setDatabase(@NonNull Database database) {
-        this.database = database;
     }
 
     public VendorService getVendorService() {
@@ -90,5 +82,13 @@ public enum MainContext {
 
     public LayoutInflater getLayoutInflater() {
         return layoutInflater;
+    }
+
+    public void setDatabase(@NonNull Database database) {
+        this.database = database;
+    }
+
+    public Database getDatabase() {
+        return database;
     }
 }

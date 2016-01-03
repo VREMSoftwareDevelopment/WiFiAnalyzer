@@ -77,8 +77,7 @@ public class RemoteCall extends AsyncTask<String, Void, String> {
                     String vendorName = getValue(jsonObject, "company");
                     if (StringUtils.isNotBlank(macAddress)) {
                         Log.i(macAddress, vendorName);
-                        Database database = mainContext.getDatabase();
-                        database.insert(macAddress, vendorName);
+                        mainContext.getDatabase().insert(macAddress, vendorName);
                     }
                 }
             } catch (JSONException e) {

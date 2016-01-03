@@ -56,6 +56,7 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
     }
 
     public String find(String mac) {
+        String result = null;
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor cursor = db.query(
@@ -65,9 +66,10 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
                 new String[]{MacAddress.clean(mac)},
                 null, null, null);
         if (cursor.moveToFirst()) {
-            return cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
+            result = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
         }
-        return null;
+        cursor.close();
+        return result;
     }
 
     public List<VendorData> findAll() {
@@ -84,6 +86,7 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
                 cursor.moveToNext();
             }
         }
+        cursor.close();
         return results;
     }
 

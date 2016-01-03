@@ -15,9 +15,9 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,19 +33,17 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WiFiListViewAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
+public class WiFiListAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
 
     private MainContext mainContext = MainContext.INSTANCE;
 
-    private final FragmentActivity activity;
     private final View headerView;
     private final Resources resources;
     private final Data data;
 
-    public WiFiListViewAdapter(@NonNull View headerView, @NonNull FragmentActivity fragmentActivity) {
+    public WiFiListAdapter(@NonNull View headerView, @NonNull Context context) {
         super();
-        this.activity = fragmentActivity;
-        this.resources = activity.getResources();
+        this.resources = context.getResources();
         this.headerView = headerView;
         this.data = new Data();
         mainContext.getScanner().addUpdateNotifier(this);

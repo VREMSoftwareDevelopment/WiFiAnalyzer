@@ -17,22 +17,32 @@ package com.vrem.wifianalyzer.vendor;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
 public class VendorFragment extends ListFragment {
+
+    private MainContext mainContext = MainContext.INSTANCE;
+    private VendorArrayAdapter vendorArrayAdapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        FragmentActivity activity = getActivity();
         View view = inflater.inflate(R.layout.vendor_content, container, false);
-        VendorListViewAdapter vendorListViewAdapter = new VendorListViewAdapter(activity, new Database(activity).findAll());
-        setListAdapter(vendorListViewAdapter);
+        vendorArrayAdapter = new VendorArrayAdapter(getActivity(), mainContext.getDatabase().findAll());
+        setListAdapter(vendorArrayAdapter);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        vendorArrayAdapter.clear();
+        vendorArrayAdapter.addAll(mainContext.getDatabase().findAll());
     }
 }

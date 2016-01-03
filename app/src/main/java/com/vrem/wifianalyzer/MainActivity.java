@@ -65,7 +65,9 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
         wiFiFragment = new WiFiFragment();
         vendorFragment = new VendorFragment();
+
         getSupportFragmentManager().beginTransaction().add(R.id.main_fragment, wiFiFragment).commit();
+        setTitle(R.string.action_wifi_list);
 
         settings.getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
@@ -84,10 +86,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     private void initializeMainContext(@NonNull Context context) {
+        mainContext.setDatabase(new Database(context));
         mainContext.setSettings(new Settings(context));
         mainContext.setHandler(new Handler());
         mainContext.setScanner(new Scanner());
-        mainContext.setDatabase(new Database(context));
         mainContext.setVendorService(new VendorService());
         mainContext.setWifiManager((WifiManager) context.getSystemService(Context.WIFI_SERVICE));
         mainContext.setLayoutInflater((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
@@ -147,9 +149,8 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
         switch (menuItem.getItemId()) {
             case R.id.action_wifi_list:
-                wiFiFragment.refresh();
-                setTitle(R.string.action_wifi_list);
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, wiFiFragment).commit();
+                setTitle(R.string.action_wifi_list);
                 break;
             case R.id.action_vendors:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, vendorFragment).commit();

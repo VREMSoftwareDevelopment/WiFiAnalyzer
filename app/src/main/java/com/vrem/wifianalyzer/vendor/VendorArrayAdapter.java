@@ -28,11 +28,11 @@ import com.vrem.wifianalyzer.R;
 
 import java.util.List;
 
-public class VendorListViewAdapter extends ArrayAdapter<Database.VendorData> {
+public class VendorArrayAdapter extends ArrayAdapter<Database.VendorData> {
 
     private MainContext mainContext = MainContext.INSTANCE;
 
-    public VendorListViewAdapter(@NonNull Context context, @NonNull List<Database.VendorData> vendors) {
+    public VendorArrayAdapter(@NonNull Context context, @NonNull List<Database.VendorData> vendors) {
         super(context, R.layout.vendor_content_details, vendors);
     }
 

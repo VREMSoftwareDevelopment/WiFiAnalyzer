@@ -20,10 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <!--
-                <include layout="@layout/main_content" />
-        -->
-
     </LinearLayout>
 
     <android.support.design.widget.NavigationView

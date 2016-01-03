@@ -21,6 +21,8 @@ import com.vrem.wifianalyzer.MainContext;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -28,21 +30,25 @@ public class VendorService {
 
     private MainContext mainContext = MainContext.INSTANCE;
 
-    private final Set<String> cache = new TreeSet<>();
+    private final Set<String> remoteCalls = new TreeSet<>();
+    private final Map<String,String> cache = new HashMap<>();
     private RemoteCall remoteCall;
 
     public VendorService() {
     }
 
     public String getVendorName(String macAddress) {
-        Database database = mainContext.getDatabase();
-        String result = database.find(macAddress);
+        String key = MacAddress.clean(macAddress);
+        if (cache.containsKey(key)) {
+            return cache.get(key);
+        }
+        String result = mainContext.getDatabase().find(macAddress);
         if (result != null) {
+            cache.put(key, result);
             return result;
         }
-        String key = MacAddress.clean(macAddress);
-        if (!cache.contains(key)) {
-            cache.add(key);
+        if (!remoteCalls.contains(key)) {
+            remoteCalls.add(key);
             getRemoteCall().execute(macAddress);
         }
         return StringUtils.EMPTY;
@@ -58,6 +64,7 @@ public class VendorService {
 
     void clear() {
         cache.clear();
+        remoteCalls.clear();
     }
 
 }
