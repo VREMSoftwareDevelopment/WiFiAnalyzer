@@ -34,18 +34,14 @@ class Connection {
         this.wifiInfo = wifiInfo;
     }
 
-    private boolean isConnected() {
-        return wifiInfo != null && wifiInfo.getNetworkId() != -1;
-    }
-
     String getIPAddress(ScanResult scanResult) {
-        if (isConnected() && match(scanResult)) {
+        if (match(scanResult)) {
             byte[] bytes = BigInteger.valueOf(wifiInfo.getIpAddress()).toByteArray();
             ArrayUtils.reverse(bytes);
             try {
                 return InetAddress.getByAddress(bytes).getHostAddress();
             } catch (UnknownHostException e) {
-                Log.e("IPAddress", e.getMessage());
+                // invalid ip address
             }
         }
         return StringUtils.EMPTY;
@@ -62,11 +58,11 @@ class Connection {
         return result;
     }
 
-    private String getBSSID() {
-        return wifiInfo.getBSSID();
-    }
-
     private boolean match(@NonNull ScanResult scanResult) {
-        return isConnected() && getSSID().equals(scanResult.SSID) && getBSSID().equals(scanResult.BSSID);
+        return wifiInfo != null
+            && scanResult != null
+            && wifiInfo.getNetworkId() != -1
+            && getSSID().equals(scanResult.SSID)
+            && wifiInfo.getBSSID().equals(scanResult.BSSID);
     }
 }

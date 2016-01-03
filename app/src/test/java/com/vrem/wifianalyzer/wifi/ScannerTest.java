@@ -32,8 +32,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -75,7 +73,7 @@ public class ScannerTest {
         // execute
         fixture.update();
         // validate
-        expectedUpdates();
+        verifyUpdates();
     }
 
     @Test
@@ -94,10 +92,10 @@ public class ScannerTest {
         verify(handler, times(2)).removeCallbacks(performPeriodicScan);
         verify(handler).postDelayed(performPeriodicScan, scanInterval * Scanner.DELAY_INTERVAL);
 
-        expectedUpdates();
+        verifyUpdates();
     }
 
-    private void expectedUpdates() {
+    private void verifyUpdates() {
         verify(wifiManager).isWifiEnabled();
         verify(wifiManager).setWifiEnabled(true);
         verify(wifiManager).startScan();

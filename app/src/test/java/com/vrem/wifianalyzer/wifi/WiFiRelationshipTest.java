@@ -15,16 +15,8 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
-import android.net.wifi.ScanResult;
-
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WiFiRelationshipTest {
