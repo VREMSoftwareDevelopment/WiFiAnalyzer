@@ -46,6 +46,7 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(WifiManager.class)
 public class WiFiDataTest {
+/*
     public static final String VENDOR_NAME = "VendorName+";
 
     public static final int FREQUENCY1 = 2412;
@@ -296,5 +297,5 @@ public class WiFiDataTest {
         assertTrue(fixture.connection().connected());
         assertEquals(2, fixture.parentsCount());
     }
-
+*/
 }

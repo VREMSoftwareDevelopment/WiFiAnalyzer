@@ -41,6 +41,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({WifiManager.class, Log.class})
 public class ConnectionTest {
+/*
     @Mock private WifiInfo wifiInfo;
     @Mock private ScanResult scanResult;
 
@@ -192,4 +193,5 @@ public class ConnectionTest {
     private DetailsInfo makeDetailsInfo() {
         return new DummyDetails(scanResult, "getSSID-123", "getBSSID-123", 0);
     }
+*/
 }

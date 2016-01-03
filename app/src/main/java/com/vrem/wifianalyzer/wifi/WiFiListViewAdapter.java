@@ -92,12 +92,11 @@ public class WiFiListViewAdapter extends BaseExpandableListAdapter implements Up
     }
 
     @Override
-    public void update() {
-        data.update(mainContext.getScanner().getWifiData());
+    public void update(WiFiData wifiData) {
+        data.update(wifiData);
         header();
         notifyDataSetChanged();
     }
-
 
     private void header() {
         if (data.connection != null) {

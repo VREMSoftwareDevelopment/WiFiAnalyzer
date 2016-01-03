@@ -41,31 +41,23 @@ public class Scanner {
 
     public void update() {
         WifiManager wifiManager = mainContext.getWifiManager();
-        if (wifiManager.isWifiEnabled()) {
+        if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
         }
         if (wifiManager.startScan()) {
             wifiData = new WiFiData(wifiManager.getScanResults(), wifiManager.getConnectionInfo());
             for (UpdateNotifier updateNotifier: updateNotifiers) {
-                updateNotifier.update();
+                updateNotifier.update(wifiData);
             }
         }
     }
 
-    public WiFiData getWifiData() {
+    WiFiData getWifiData() {
         return wifiData;
     }
 
     public boolean addUpdateNotifier(@NonNull UpdateNotifier updateNotifier) {
         return updateNotifiers.add(updateNotifier);
-    }
-
-    public boolean removeUpdateNotifier(@NonNull UpdateNotifier updateNotifier) {
-        return updateNotifiers.remove(updateNotifier);
-    }
-
-    List<UpdateNotifier> getUpdateNotifiers() {
-        return updateNotifiers;
     }
 
     PerformPeriodicScan getPerformPeriodicScan() {

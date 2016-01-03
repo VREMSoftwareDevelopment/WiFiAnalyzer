@@ -15,6 +15,8 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 
@@ -27,8 +29,12 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -37,74 +43,77 @@ public class ScannerTest {
     @Mock private Handler handler;
     @Mock private Settings settings;
     @Mock private WifiManager wifiManager;
+    @Mock private UpdateNotifier updateNotifier;
+    @Mock private WifiInfo wifiInfo;
 
     private Scanner fixture;
-    private WiFiData wifiData;
 
     @Before
     public void setUp() throws Exception {
-        MainContext.INSTANCE.setSettings(settings);
-        MainContext.INSTANCE.setHandler(handler);
-        MainContext.INSTANCE.setWifiManager(wifiManager);
+        MainContext mainContext = MainContext.INSTANCE;
+        mainContext.setSettings(settings);
+        mainContext.setHandler(handler);
+        mainContext.setWifiManager(wifiManager);
+
+        fixture = new Scanner();
     }
 
     @Test
-    public void testInitialPerformPeriodicScan() throws Exception {
-        // execute
-        fixture = new Scanner();
-        // validate
+    public void testPerformPeriodicScanInitial() throws Exception {
+        // setup
         Scanner.PerformPeriodicScan performPeriodicScan = fixture.getPerformPeriodicScan();
+        // validate
         verify(handler).removeCallbacks(performPeriodicScan);
         verify(handler).postDelayed(performPeriodicScan, Scanner.DELAY_INITIAL);
     }
 
-/*
     @Test
     public void testUpdate() throws Exception {
+        // setup
+        List<ScanResult> scanResults = new ArrayList<>();
+        withUpdates(scanResults);
         // execute
         fixture.update();
         // validate
-        verify(wifi).enable();
-        verify(wifi).scan();
-        verify(updateNotifier).update(wifiData);
-    }
-
-    @Test
-    public void testScanInterval() throws Exception {
-        // setup
-        int expected = scanInterval * 10;
-        // execute
-        fixture.scanInterval(expected);
-        // validate
-        assertEquals(expected, fixture.performPeriodicScan().scanInterval());
+        expectedUpdates();
     }
 
     @Test
     public void testPerformPeriodicScanRun() throws Exception {
         // setup
-        Scanner.PerformPeriodicScan fixture = new Scanner.PerformPeriodicScan(scanner, handler, scanInterval);
+        List<ScanResult> scanResults = new ArrayList<>();
+        int scanInterval = 15;
+        Scanner.PerformPeriodicScan performPeriodicScan = fixture.getPerformPeriodicScan();
+
+        withUpdates(scanResults);
+
+        when(settings.getScanInterval()).thenReturn(scanInterval);
         // execute
-        fixture.run();
+        performPeriodicScan.run();
         // validate
-        verify(scanner).update();
-        verify(handler).removeCallbacks(fixture);
-        verify(handler).postDelayed(fixture, scanInterval * Scanner.DELAY_INTERVAL);
+        verify(handler, times(2)).removeCallbacks(performPeriodicScan);
+        verify(handler).postDelayed(performPeriodicScan, scanInterval * Scanner.DELAY_INTERVAL);
+
+        expectedUpdates();
     }
 
-    @Test
-    public void testGroupBy() throws Exception {
-        // execute
-        fixture.groupBy(GroupBy.CHANNEL);
-        // validate
-        verify(wifi).groupBy(GroupBy.CHANNEL);
+    private void expectedUpdates() {
+        verify(wifiManager).isWifiEnabled();
+        verify(wifiManager).setWifiEnabled(true);
+        verify(wifiManager).startScan();
+        verify(wifiManager).getScanResults();
+        verify(wifiManager).getConnectionInfo();
+
+        verify(updateNotifier).update(fixture.getWifiData());
     }
 
-    @Test
-    public void testHideWeakSignal() throws Exception {
-        // execute
-        fixture.hideWeakSignal(true);
-        // validate
-        verify(wifi).hideWeakSignal(true);
+    private void withUpdates(List<ScanResult> scanResults) {
+        fixture.addUpdateNotifier(updateNotifier);
+
+        when(wifiManager.isWifiEnabled()).thenReturn(false);
+        when(wifiManager.startScan()).thenReturn(true);
+        when(wifiManager.getScanResults()).thenReturn(scanResults);
+        when(wifiManager.getConnectionInfo()).thenReturn(wifiInfo);
     }
-*/
+
 }

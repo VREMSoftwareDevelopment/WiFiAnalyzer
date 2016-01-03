@@ -42,7 +42,7 @@ public class WiFiData {
     }
 
     public List<DetailsInfo> getWiFiList() {
-        if (scanResults != null) {
+        if (hasData()) {
             Settings settings = mainContext.getSettings();
             List<DetailsInfo> wifiList= buildWiFiList(settings.hideWeakSignal());
             return groupWiFiList(settings.getGroupBy(), wifiList);
@@ -50,8 +50,12 @@ public class WiFiData {
         return new ArrayList<>();
     }
 
+    private boolean hasData() {
+        return scanResults != null && !scanResults.isEmpty();
+    }
+
     public DetailsInfo getConnection() {
-        if (scanResults != null) {
+        if (hasData()) {
             VendorService vendorService = mainContext.getVendorService();
             Connection connection = new Connection(wifiInfo);
             for (ScanResult scanResult : scanResults) {
