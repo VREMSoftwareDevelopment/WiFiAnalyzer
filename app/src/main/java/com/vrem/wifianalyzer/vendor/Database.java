@@ -18,13 +18,13 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
 
     static final String COLUMN_MAC = "mac";
     static final String COLUMN_NAME = "name";
-    static final String [] ALL_COLUMNS = new String[] {_ID, COLUMN_NAME, COLUMN_MAC};
-    static final String SORT_ORDER = COLUMN_NAME+","+COLUMN_MAC+","+_ID;
+    static final String[] ALL_COLUMNS = new String[]{_ID, COLUMN_NAME, COLUMN_MAC};
+    static final String SORT_ORDER = COLUMN_NAME + "," + COLUMN_MAC + "," + _ID;
 
     static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " ("
-        + _ID + " INTEGER PRIMARY KEY NOT NULL,"
-        + COLUMN_MAC + " TEXT UNIQUE NOT NULL,"
-        + COLUMN_NAME + " TEXT NOT NULL)";
+            + _ID + " INTEGER PRIMARY KEY NOT NULL,"
+            + COLUMN_MAC + " TEXT UNIQUE NOT NULL,"
+            + COLUMN_NAME + " TEXT NOT NULL)";
     static final String TABLE_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
 
@@ -59,11 +59,11 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor cursor = db.query(
-            TABLE_NAME,
-            new String[] { COLUMN_NAME },
-            COLUMN_MAC + "=?",
-            new String[] { MacAddress.clean(mac) },
-            null, null, null);
+                TABLE_NAME,
+                new String[]{COLUMN_NAME},
+                COLUMN_MAC + "=?",
+                new String[]{MacAddress.clean(mac)},
+                null, null, null);
         if (cursor.moveToFirst()) {
             return cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
         }

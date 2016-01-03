@@ -38,16 +38,16 @@ public class VendorServiceTest {
     static final String VENDOR_NAME = "CISCO SYSTEMS, INC.";
 
     @Mock private Database database;
-    @Mock private VendorRemoteCall vendorRemoteCall;
+    @Mock private RemoteCall remoteCall;
 
     private VendorService fixture;
 
     @Before
     public void setUp() throws Exception {
         MainContext.INSTANCE.setDatabase(database);
-        MainContext.INSTANCE.setVendorRemoteCall(vendorRemoteCall);
 
         fixture = new VendorService();
+        fixture.setRemoteCall(remoteCall);
     }
 
     @After
@@ -73,7 +73,7 @@ public class VendorServiceTest {
         when(database.find(MAC_IN_RANGE1)).thenReturn(null);
         // validate
         verify(database).find(MAC_IN_RANGE1);
-        verify(vendorRemoteCall).execute(MAC_IN_RANGE1);
+        verify(remoteCall).execute(MAC_IN_RANGE1);
 
         assertEquals(StringUtils.EMPTY, actual);
         assertSame(StringUtils.EMPTY, actual);
@@ -88,9 +88,9 @@ public class VendorServiceTest {
         fixture.getVendorName(MAC_IN_RANGE2.toLowerCase());
         // validate
         verify(database).find(MAC_IN_RANGE1);
-        verify(vendorRemoteCall).execute(MAC_IN_RANGE1);
-        verify(vendorRemoteCall, never()).execute(MAC_IN_RANGE2);
-        verify(vendorRemoteCall, never()).execute(MAC_IN_RANGE2.toLowerCase());
+        verify(remoteCall).execute(MAC_IN_RANGE1);
+        verify(remoteCall, never()).execute(MAC_IN_RANGE2);
+        verify(remoteCall, never()).execute(MAC_IN_RANGE2.toLowerCase());
 
         assertEquals(StringUtils.EMPTY, actual);
         assertSame(StringUtils.EMPTY, actual);

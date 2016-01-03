@@ -15,11 +15,7 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
-import android.content.Context;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -31,9 +27,6 @@ import android.widget.ExpandableListView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.vendor.Database;
-import com.vrem.wifianalyzer.vendor.VendorService;
 
 public class WiFiFragment extends Fragment {
 

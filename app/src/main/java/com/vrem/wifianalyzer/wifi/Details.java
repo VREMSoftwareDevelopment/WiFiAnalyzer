@@ -16,7 +16,6 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.net.wifi.ScanResult;
-import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +25,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Details implements DetailsInfo {

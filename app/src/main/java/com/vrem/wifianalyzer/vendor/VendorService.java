@@ -15,7 +15,7 @@
  */
 package com.vrem.wifianalyzer.vendor;
 
-import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainContext;
 
@@ -29,7 +29,7 @@ public class VendorService {
     private MainContext mainContext = MainContext.INSTANCE;
 
     private final Set<String> cache = new TreeSet<>();
-    private VendorRemoteCall vendorRemoteCall;
+    private RemoteCall remoteCall;
 
     public VendorService() {
     }
@@ -43,10 +43,17 @@ public class VendorService {
         String key = MacAddress.clean(macAddress);
         if (!cache.contains(key)) {
             cache.add(key);
-            VendorRemoteCall vendorRemoteCall= mainContext.getVendorRemoteCall();
-            vendorRemoteCall.execute(macAddress);
+            getRemoteCall().execute(macAddress);
         }
         return StringUtils.EMPTY;
+    }
+
+    RemoteCall getRemoteCall() {
+        return remoteCall == null ? new RemoteCall() : remoteCall;
+    }
+
+    void setRemoteCall(@NonNull RemoteCall remoteCall) {
+        this.remoteCall = remoteCall;
     }
 
     void clear() {

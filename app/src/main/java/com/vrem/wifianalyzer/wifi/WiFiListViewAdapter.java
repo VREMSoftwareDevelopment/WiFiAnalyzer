@@ -64,8 +64,8 @@ public class WiFiListViewAdapter extends BaseExpandableListAdapter implements Up
         if (childrenCount > 0) {
             groupIndicator.setVisibility(View.VISIBLE);
             groupIndicator.setImageResource(isExpanded
-                ? R.drawable.ic_expand_less_black_24dp
-                : R.drawable.ic_expand_more_black_24dp);
+                    ? R.drawable.ic_expand_less_black_24dp
+                    : R.drawable.ic_expand_more_black_24dp);
             groupIndicator.setColorFilter(resources.getColor(R.color.icons_color));
             groupCount.setVisibility(View.VISIBLE);
             groupCount.setText(String.format("(%d) ", childrenCount));
@@ -158,13 +158,18 @@ public class WiFiListViewAdapter extends BaseExpandableListAdapter implements Up
 
     private void setView(@NonNull View view, @NonNull DetailsInfo detailsInfo) {
 
-        TextView textSSID = (TextView) headerView.findViewById(R.id.ssid);
-        textSSID.setText(String.format("%s (%s) %s",
-                StringUtils.isBlank(detailsInfo.getSSID()) ? "***" : detailsInfo.getSSID(),
-                detailsInfo.getBSSID(),
-                detailsInfo.getIPAddress()));
-        if (StringUtils.isNotBlank(detailsInfo.getIPAddress())) {
-            textSSID.setTextColor(resources.getColor(R.color.connected));
+        ((TextView) view.findViewById(R.id.ssid)).setText(
+                String.format("%s (%s)",
+                        StringUtils.isBlank(detailsInfo.getSSID()) ? "***" : detailsInfo.getSSID(),
+                        detailsInfo.getBSSID()));
+
+        TextView textIPAddress = (TextView) view.findViewById(R.id.ipAddress);
+        String ipAddress = detailsInfo.getIPAddress();
+        if (StringUtils.isBlank(ipAddress)) {
+            textIPAddress.setVisibility(View.GONE);
+        } else {
+            textIPAddress.setVisibility(View.VISIBLE);
+            textIPAddress.setText(ipAddress);
         }
 
         Strength strength = detailsInfo.getStrength();

@@ -22,7 +22,6 @@ import android.view.LayoutInflater;
 
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.Database;
-import com.vrem.wifianalyzer.vendor.VendorRemoteCall;
 import com.vrem.wifianalyzer.vendor.VendorService;
 import com.vrem.wifianalyzer.wifi.Scanner;
 
@@ -34,7 +33,6 @@ public enum MainContext {
     private Handler handler;
     private Database database;
     private VendorService vendorService;
-    private VendorRemoteCall vendorRemoteCall;
     private WifiManager wifiManager;
     private LayoutInflater layoutInflater;
 
@@ -84,14 +82,6 @@ public enum MainContext {
 
     public WifiManager getWifiManager() {
         return wifiManager;
-    }
-
-    public void setVendorRemoteCall(@NonNull VendorRemoteCall vendorRemoteCall) {
-        this.vendorRemoteCall = vendorRemoteCall;
-    }
-
-    public VendorRemoteCall getVendorRemoteCall() {
-        return vendorRemoteCall;
     }
 
     public void setLayoutInflater(LayoutInflater layoutInflater) {

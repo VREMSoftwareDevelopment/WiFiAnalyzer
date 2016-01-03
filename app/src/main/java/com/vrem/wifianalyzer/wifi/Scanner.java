@@ -46,7 +46,7 @@ public class Scanner {
         }
         if (wifiManager.startScan()) {
             wifiData = new WiFiData(wifiManager.getScanResults(), wifiManager.getConnectionInfo());
-            for (UpdateNotifier updateNotifier: updateNotifiers) {
+            for (UpdateNotifier updateNotifier : updateNotifiers) {
                 updateNotifier.update(wifiData);
             }
         }

@@ -18,7 +18,6 @@ package com.vrem.wifianalyzer.wifi;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -60,9 +59,9 @@ class Connection {
 
     private boolean match(@NonNull ScanResult scanResult) {
         return wifiInfo != null
-            && scanResult != null
-            && wifiInfo.getNetworkId() != -1
-            && getSSID().equals(scanResult.SSID)
-            && wifiInfo.getBSSID().equals(scanResult.BSSID);
+                && scanResult != null
+                && wifiInfo.getNetworkId() != -1
+                && getSSID().equals(scanResult.SSID)
+                && wifiInfo.getBSSID().equals(scanResult.BSSID);
     }
 }

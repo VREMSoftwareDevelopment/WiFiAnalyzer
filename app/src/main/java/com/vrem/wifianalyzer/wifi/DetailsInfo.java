@@ -19,17 +19,30 @@ import java.util.List;
 
 public interface DetailsInfo extends Comparable<DetailsInfo> {
     String getSSID();
+
     String getBSSID();
+
     int getFrequency();
+
     int getChannel();
+
     Security getSecurity();
+
     Strength getStrength();
+
     int getLevel();
+
     String getCapabilities();
+
     double getDistance();
+
     String getVendorName();
+
     String getIPAddress();
+
     boolean isConnected();
+
     List<DetailsInfo> getChildren();
+
     void addChild(DetailsInfo detailsInfo);
 }

@@ -37,7 +37,6 @@ import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.Database;
 import com.vrem.wifianalyzer.vendor.VendorFragment;
-import com.vrem.wifianalyzer.vendor.VendorRemoteCall;
 import com.vrem.wifianalyzer.vendor.VendorService;
 import com.vrem.wifianalyzer.wifi.Scanner;
 import com.vrem.wifianalyzer.wifi.WiFiFragment;
@@ -91,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         mainContext.setDatabase(new Database(context));
         mainContext.setVendorService(new VendorService());
         mainContext.setWifiManager((WifiManager) context.getSystemService(Context.WIFI_SERVICE));
-        mainContext.setVendorRemoteCall(new VendorRemoteCall());
         mainContext.setLayoutInflater((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
     }
 
@@ -120,12 +118,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         if (themeAppCompatStyle != mainContext.getSettings().getThemeStyle().themeAppCompatStyle()) {
             reloadActivity();
         } else {
-/*
-            Scanner scanner = wiFiFragment.getScanner();
-            scanner.scanInterval(settings.getScanInterval());
-            scanner.groupBy(settings.getGroupBy());
-            scanner.hideWeakSignal(settings.hideWeakSignal());
-*/
             wiFiFragment.refresh();
         }
     }
@@ -150,8 +142,12 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
         switch (menuItem.getItemId()) {
             case R.id.action_wifi_list:
+                wiFiFragment.refresh();
                 setTitle(R.string.action_wifi_list);
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, wiFiFragment).commit();
                 break;
@@ -166,8 +162,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
                 break;
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }

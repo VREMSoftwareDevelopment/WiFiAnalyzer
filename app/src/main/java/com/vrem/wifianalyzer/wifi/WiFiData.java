@@ -44,7 +44,7 @@ public class WiFiData {
     public List<DetailsInfo> getWiFiList() {
         if (hasData()) {
             Settings settings = mainContext.getSettings();
-            List<DetailsInfo> wifiList= buildWiFiList(settings.hideWeakSignal());
+            List<DetailsInfo> wifiList = buildWiFiList(settings.hideWeakSignal());
             return groupWiFiList(settings.getGroupBy(), wifiList);
         }
         return new ArrayList<>();
