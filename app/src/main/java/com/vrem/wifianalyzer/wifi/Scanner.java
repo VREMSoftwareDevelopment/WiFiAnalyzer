@@ -1,5 +1,5 @@
 /*
- *    Copyright (C) 2010 - 2015 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -28,10 +28,8 @@ import java.util.List;
 public class Scanner {
     static final int DELAY_INITIAL = 1;
     static final int DELAY_INTERVAL = 1000;
-
-    private MainContext mainContext = MainContext.INSTANCE;
-
     private final PerformPeriodicScan performPeriodicScan;
+    private MainContext mainContext = MainContext.INSTANCE;
     private WiFiData wifiData;
     private List<UpdateNotifier> updateNotifiers = new ArrayList<>();
 

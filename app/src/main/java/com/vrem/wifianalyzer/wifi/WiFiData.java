@@ -1,5 +1,5 @@
 /*
- *    Copyright (C) 2010 - 2015 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -93,7 +93,7 @@ public class WiFiData {
     }
 
     @NonNull
-    private List<DetailsInfo> buildWiFiList(@NonNull boolean hideWeakSignal) {
+    private List<DetailsInfo> buildWiFiList(boolean hideWeakSignal) {
         List<DetailsInfo> results = new ArrayList<>();
         VendorService vendorService = mainContext.getVendorService();
         DetailsInfo connection = getConnection();

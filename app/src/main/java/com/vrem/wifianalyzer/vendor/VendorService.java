@@ -1,5 +1,5 @@
 /*
- *    Copyright (C) 2010 - 2015 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -28,10 +28,9 @@ import java.util.TreeSet;
 
 public class VendorService {
 
-    private MainContext mainContext = MainContext.INSTANCE;
-
     private final Set<String> remoteCalls = new TreeSet<>();
     private final Map<String,String> cache = new HashMap<>();
+    private MainContext mainContext = MainContext.INSTANCE;
     private RemoteCall remoteCall;
 
     public VendorService() {

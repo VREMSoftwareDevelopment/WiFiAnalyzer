@@ -1,5 +1,5 @@
 /*
- *    Copyright (C) 2010 - 2015 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@ package com.vrem.wifianalyzer.wifi;
 
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
-import android.support.annotation.NonNull;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -57,7 +56,7 @@ class Connection {
         return result;
     }
 
-    private boolean match(@NonNull ScanResult scanResult) {
+    private boolean match(ScanResult scanResult) {
         return wifiInfo != null
                 && scanResult != null
                 && wifiInfo.getNetworkId() != -1

@@ -1,5 +1,5 @@
 /*
- *    Copyright (C) 2010 - 2015 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -60,35 +60,35 @@ public enum MainContext {
         this.vendorService = vendorService;
     }
 
-    public void setScanner(@NonNull Scanner scanner) {
-        this.scanner = scanner;
-    }
-
     public Scanner getScanner() {
         return scanner;
     }
 
-    public void setWifiManager(@NonNull WifiManager wifiManager) {
-        this.wifiManager = wifiManager;
+    public void setScanner(@NonNull Scanner scanner) {
+        this.scanner = scanner;
     }
 
     public WifiManager getWifiManager() {
         return wifiManager;
     }
 
-    public void setLayoutInflater(LayoutInflater layoutInflater) {
-        this.layoutInflater = layoutInflater;
+    public void setWifiManager(@NonNull WifiManager wifiManager) {
+        this.wifiManager = wifiManager;
     }
 
     public LayoutInflater getLayoutInflater() {
         return layoutInflater;
     }
 
-    public void setDatabase(@NonNull Database database) {
-        this.database = database;
+    public void setLayoutInflater(LayoutInflater layoutInflater) {
+        this.layoutInflater = layoutInflater;
     }
 
     public Database getDatabase() {
         return database;
+    }
+
+    public void setDatabase(@NonNull Database database) {
+        this.database = database;
     }
 }
