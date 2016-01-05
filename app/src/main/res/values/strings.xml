@@ -26,7 +26,7 @@
     <string name="group_by_title">WiFi Group By</string>
     <string name="group_by_summary">%s</string>
     <string name="group_by_key">group_by</string>
-    <string name="group_by_default">SSID</string>
+    <string name="group_by_default">NONE</string>
 
     <string name="hide_weak_signal_title">Hide Weak WiFi Signal</string>
     <string name="hide_weak_signal_key">hide_weak_signal</string>

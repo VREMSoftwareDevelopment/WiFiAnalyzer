@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -36,19 +37,16 @@ import android.view.MenuItem;
 import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.Database;
-import com.vrem.wifianalyzer.vendor.VendorFragment;
 import com.vrem.wifianalyzer.vendor.VendorService;
 import com.vrem.wifianalyzer.wifi.Scanner;
-import com.vrem.wifianalyzer.wifi.WiFiFragment;
 
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
 public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
     private MainContext mainContext = MainContext.INSTANCE;
 
-    private WiFiFragment wiFiFragment;
+    private NavigationView navigationView;
     private int themeAppCompatStyle;
-    private VendorFragment vendorFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +58,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         setTheme(themeAppCompatStyle);
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.main_activity);
-
-        wiFiFragment = new WiFiFragment();
-        vendorFragment = new VendorFragment();
-
-        getSupportFragmentManager().beginTransaction().add(R.id.main_fragment, wiFiFragment).commit();
-        setTitle(R.string.action_wifi_list);
 
         settings.getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
@@ -80,9 +71,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
+        mainNavigationMenu();
     }
 
     private void initializeMainContext(@NonNull Context context) {
@@ -105,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.action_refresh:
-                wiFiFragment.refresh();
+                mainContext.getScanner().update();
                 return true;
             case R.id.action_settings:
                 startActivity(new Intent(this, SettingActivity.class));
@@ -120,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         if (themeAppCompatStyle != mainContext.getSettings().getThemeStyle().themeAppCompatStyle()) {
             reloadActivity();
         } else {
-            wiFiFragment.refresh();
+            mainContext.getScanner().update();
         }
     }
 
@@ -142,27 +131,39 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         }
     }
 
+    private void mainNavigationMenu() {
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        Menu menu = navigationView.getMenu();
+        for (MainNavigation mainNavigation : MainNavigation.values()) {
+            MenuItem menuItem = menu.add(0, mainNavigation.ordinal(), mainNavigation.ordinal(), mainNavigation.getTitle());
+            menuItem.setIcon(mainNavigation.getIcon());
+        }
+        onNavigationItemSelected(navigationView.getMenu().getItem(MainNavigation.WIFI_LIST.ordinal()));
+    }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-
-        switch (menuItem.getItemId()) {
-            case R.id.action_wifi_list:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, wiFiFragment).commit();
-                setTitle(R.string.action_wifi_list);
-                break;
-            case R.id.action_vendors:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, vendorFragment).commit();
-                setTitle(R.string.action_vendors);
-                break;
-            case R.id.action_settings:
-                startActivity(new Intent(this, SettingActivity.class));
-                break;
-            default:
-                break;
+        MainNavigation item = MainNavigation.find(menuItem.getItemId());
+        Fragment fragment = item.getFragment();
+        if (fragment == null) {
+            startActivity(new Intent(this, item.getActivity()));
+        } else {
+            selectedMenuItem(menuItem.getItemId());
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, item.getFragment()).commit();
         }
-
+        setTitle(item.getTitle());
         return true;
+    }
+
+    private void selectedMenuItem(int itemId) {
+        Menu menu = navigationView.getMenu();
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.getItem(i);
+            item.setCheckable(itemId == i);
+            item.setChecked(itemId == i);
+        }
     }
 }

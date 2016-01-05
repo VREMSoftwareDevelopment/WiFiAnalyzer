@@ -35,11 +35,10 @@ import java.util.List;
 
 public class WiFiListAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
 
-    private MainContext mainContext = MainContext.INSTANCE;
-
     private final View headerView;
     private final Resources resources;
     private final Data data;
+    private MainContext mainContext = MainContext.INSTANCE;
 
     public WiFiListAdapter(@NonNull View headerView, @NonNull Context context) {
         super();
@@ -66,7 +65,7 @@ public class WiFiListAdapter extends BaseExpandableListAdapter implements Update
                     : R.drawable.ic_expand_more_black_24dp);
             groupIndicator.setColorFilter(resources.getColor(R.color.icons_color));
             groupCount.setVisibility(View.VISIBLE);
-            groupCount.setText(String.format("(%d) ", childrenCount));
+            groupCount.setText(String.format("(%d) ", childrenCount + 1));
         } else {
             groupIndicator.setVisibility(View.GONE);
             groupCount.setVisibility(View.GONE);

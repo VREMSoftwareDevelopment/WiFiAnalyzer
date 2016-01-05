@@ -22,6 +22,7 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 import java.util.Comparator;
 
 public enum GroupBy {
+    NONE(new None(), new None()),
     SSID(new SSIDSortOrder(), new SSIDGroupBy()),
     CHANNEL(new ChannelSortOrder(), new ChannelGroupBy());
 
@@ -37,7 +38,7 @@ public enum GroupBy {
         try {
             return valueOf(value.toUpperCase());
         } catch (Exception e) {
-            return GroupBy.SSID;
+            return GroupBy.NONE;
         }
     }
 
@@ -49,7 +50,14 @@ public enum GroupBy {
         return groupBy;
     }
 
-    private static class SSIDSortOrder implements Comparator<DetailsInfo> {
+    static class None implements Comparator<DetailsInfo> {
+        @Override
+        public int compare(DetailsInfo lhs, DetailsInfo rhs) {
+            return lhs.equals(rhs) ? 0 : 1;
+        }
+    }
+
+    static class SSIDSortOrder implements Comparator<DetailsInfo> {
         @Override
         public int compare(DetailsInfo lhs, DetailsInfo rhs) {
             return new CompareToBuilder()
@@ -60,7 +68,7 @@ public enum GroupBy {
         }
     }
 
-    private static class SSIDGroupBy implements Comparator<DetailsInfo> {
+    static class SSIDGroupBy implements Comparator<DetailsInfo> {
         @Override
         public int compare(DetailsInfo lhs, DetailsInfo rhs) {
             return new CompareToBuilder()
@@ -69,7 +77,7 @@ public enum GroupBy {
         }
     }
 
-    private static class ChannelSortOrder implements Comparator<DetailsInfo> {
+    static class ChannelSortOrder implements Comparator<DetailsInfo> {
         @Override
         public int compare(DetailsInfo lhs, DetailsInfo rhs) {
             return new CompareToBuilder()
@@ -81,7 +89,7 @@ public enum GroupBy {
         }
     }
 
-    private static class ChannelGroupBy implements Comparator<DetailsInfo> {
+    static class ChannelGroupBy implements Comparator<DetailsInfo> {
         @Override
         public int compare(DetailsInfo lhs, DetailsInfo rhs) {
             return new CompareToBuilder()

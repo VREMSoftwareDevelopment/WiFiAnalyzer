@@ -53,10 +53,16 @@ public class WiFiFragment extends Fragment {
         return view;
     }
 
-    public void refresh() {
+    private void refresh() {
         swipeRefreshLayout.setRefreshing(true);
         mainContext.getScanner().update();
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
     }
 
     private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
@@ -64,12 +70,6 @@ public class WiFiFragment extends Fragment {
         public void onRefresh() {
             refresh();
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        refresh();
     }
 
 }
