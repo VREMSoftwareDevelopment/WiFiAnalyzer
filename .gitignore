@@ -1,8 +1,9 @@
 *.iml
 .gradle
-/local.properties
+local.properties
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
-/build
+build
 /captures
+proguard-rules.pro
