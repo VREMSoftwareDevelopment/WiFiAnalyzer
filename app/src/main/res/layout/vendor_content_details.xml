@@ -10,27 +10,20 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/vendor_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:layout_toRightOf="@id/vendor_name" />
-
-    <TextView
         android:id="@+id/vendor_mac_from"
-        android:textColor="@color/channel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/vendor_name"
-        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer" />
+        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
+        android:textColor="@color/channel" />
 
     <TextView
         android:id="@+id/vendor_mac_to"
-        android:textColor="@color/channel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/vendor_name"
         android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:layout_toRightOf="@id/vendor_mac_from" />
+        android:layout_toRightOf="@id/vendor_mac_from"
+        android:textColor="@color/channel" />
 
 </RelativeLayout>

@@ -44,7 +44,6 @@ public class VendorArrayAdapter extends ArrayAdapter<Database.VendorData> {
         }
         Database.VendorData item = getItem(position);
         ((TextView) convertView.findViewById(R.id.vendor_name)).setText(item.name);
-        ((TextView) convertView.findViewById(R.id.vendor_id)).setText(String.format("(%d)", item.id));
 
         String macAddress = item.mac + "-";
         if (item.mac.length() >= 6) {
