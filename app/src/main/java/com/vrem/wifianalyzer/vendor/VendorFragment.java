@@ -34,7 +34,7 @@ public class VendorFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.vendor_content, container, false);
-        vendorArrayAdapter = new VendorArrayAdapter(getActivity(), mainContext.getDatabase().findAll());
+        vendorArrayAdapter = new VendorArrayAdapter(getActivity(), mainContext.getVendorService().findAll());
         setListAdapter(vendorArrayAdapter);
         return view;
     }
@@ -42,7 +42,6 @@ public class VendorFragment extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
-        vendorArrayAdapter.clear();
-        vendorArrayAdapter.addAll(mainContext.getDatabase().findAll());
+        vendorArrayAdapter.setVendors(mainContext.getVendorService().findAll());
     }
 }

@@ -26,14 +26,18 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
 
-public class VendorArrayAdapter extends ArrayAdapter<Database.VendorData> {
+class VendorArrayAdapter extends ArrayAdapter<String> {
 
     private MainContext mainContext = MainContext.INSTANCE;
+    private SortedMap<String, List<String>> vendors;
 
-    public VendorArrayAdapter(@NonNull Context context, @NonNull List<Database.VendorData> vendors) {
-        super(context, R.layout.vendor_content_details, vendors);
+    VendorArrayAdapter(@NonNull Context context, @NonNull SortedMap<String, List<String>> vendors) {
+        super(context, R.layout.vendor_content_details, new ArrayList<>(vendors.keySet()));
+        this.vendors = vendors;
     }
 
     @Override
@@ -42,18 +46,27 @@ public class VendorArrayAdapter extends ArrayAdapter<Database.VendorData> {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.vendor_content_details, parent, false);
         }
-        Database.VendorData item = getItem(position);
-        ((TextView) convertView.findViewById(R.id.vendor_name)).setText(item.name);
+        String name = getItem(position);
+        ((TextView) convertView.findViewById(R.id.vendor_name)).setText(name);
 
-        String macAddress = item.mac + "-";
-        if (item.mac.length() >= 6) {
-            macAddress = String.format("%s:%s:%s:",
-                    item.mac.substring(0, 2),
-                    item.mac.substring(2, 4),
-                    item.mac.substring(4, 6));
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String mac : vendors.get(name)) {
+            if (stringBuilder.length() > 0) {
+                stringBuilder.append(", ");
+            }
+            String macAddress =
+                    mac.length() < 6
+                            ? "*" + mac + "*"
+                            : String.format("%s:%s:%s", mac.substring(0, 2), mac.substring(2, 4), mac.substring(4, 6));
+            stringBuilder.append(macAddress);
         }
-        ((TextView) convertView.findViewById(R.id.vendor_mac_from)).setText(macAddress + "00:00:00");
-        ((TextView) convertView.findViewById(R.id.vendor_mac_to)).setText(macAddress + "FF:FF:FF");
+        ((TextView) convertView.findViewById(R.id.vendor_macs)).setText(stringBuilder.toString());
         return convertView;
+    }
+
+    public void setVendors(@NonNull SortedMap<String, List<String>> vendors) {
+        this.vendors = vendors;
+        clear();
+        addAll(new ArrayList<>(vendors.keySet()));
     }
 }

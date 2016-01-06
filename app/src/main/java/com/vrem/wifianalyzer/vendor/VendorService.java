@@ -21,9 +21,14 @@ import com.vrem.wifianalyzer.MainContext;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class VendorService {
@@ -36,7 +41,7 @@ public class VendorService {
     public VendorService() {
     }
 
-    public String getVendorName(String macAddress) {
+    public String findVendorName(String macAddress) {
         String key = MacAddress.clean(macAddress);
         if (cache.containsKey(key)) {
             return cache.get(key);
@@ -66,4 +71,19 @@ public class VendorService {
         remoteCalls.clear();
     }
 
+    public SortedMap<String, List<String>> findAll() {
+        SortedMap<String, List<String>> results = new TreeMap<>();
+        List<VendorData> vendorDatas = mainContext.getDatabase().findAll();
+        for (VendorData vendorData : vendorDatas) {
+            String key = vendorData.getName();
+            List<String> macs = results.get(key);
+            if (macs == null) {
+                macs = new ArrayList<>();
+                results.put(key, macs);
+            }
+            macs.add(vendorData.getMac());
+            Collections.sort(macs);
+        }
+        return results;
+    }
 }

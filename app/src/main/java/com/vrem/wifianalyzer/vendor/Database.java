@@ -43,7 +43,7 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
         onCreate(db);
     }
 
-    public long insert(String mac, String name) {
+    long insert(String mac, String name) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = getContentValues();
         values.put(COLUMN_MAC, MacAddress.clean(mac));
@@ -55,7 +55,7 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
         return new ContentValues();
     }
 
-    public String find(String mac) {
+    String find(String mac) {
         String result = null;
         SQLiteDatabase db = getReadableDatabase();
 
@@ -72,27 +72,21 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
         return result;
     }
 
-    public List<VendorData> findAll() {
+    List<VendorData> findAll() {
         List<VendorData> results = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, ALL_COLUMNS, null, null, null, null, SORT_ORDER);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                VendorData vendorData = new VendorData();
-                vendorData.id = cursor.getLong(cursor.getColumnIndexOrThrow(_ID));
-                vendorData.mac = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_MAC));
-                vendorData.name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
+                VendorData vendorData = new VendorData(
+                        cursor.getLong(cursor.getColumnIndexOrThrow(_ID)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_MAC)));
                 results.add(vendorData);
                 cursor.moveToNext();
             }
         }
         cursor.close();
         return results;
-    }
-
-    public class VendorData {
-        public long id;
-        public String mac;
-        public String name;
     }
 }

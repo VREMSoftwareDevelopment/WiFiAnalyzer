@@ -61,7 +61,7 @@ public class WiFiData {
             for (ScanResult scanResult : scanResults) {
                 String ipAddress = connection.getIPAddress(scanResult);
                 if (StringUtils.isNotBlank(ipAddress)) {
-                    String vendorName = vendorService.getVendorName(scanResult.BSSID);
+                    String vendorName = vendorService.findVendorName(scanResult.BSSID);
                     return new Details(scanResult, vendorName, ipAddress);
                 }
             }
@@ -98,7 +98,7 @@ public class WiFiData {
         VendorService vendorService = mainContext.getVendorService();
         DetailsInfo connection = getConnection();
         for (ScanResult scanResult : scanResults) {
-            String vendorName = vendorService.getVendorName(scanResult.BSSID);
+            String vendorName = vendorService.findVendorName(scanResult.BSSID);
             Details details = new Details(scanResult, vendorName);
             if (details.equals(connection)) {
                 results.add(connection);

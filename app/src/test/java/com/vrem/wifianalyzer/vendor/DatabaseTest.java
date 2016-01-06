@@ -140,13 +140,13 @@ public class DatabaseTest {
         // setup
         expectedFindAll();
         // execute
-        List<Database.VendorData> actual = fixture.findAll();
+        List<VendorData> actual = fixture.findAll();
         // validate
         verifyFindAll();
         assertEquals(1, actual.size());
-        assertEquals(ID, actual.get(0).id);
-        assertEquals(MAC_ADDDRES, actual.get(0).mac);
-        assertEquals(VENDOR_NAME, actual.get(0).name);
+        assertEquals(ID, actual.get(0).getId());
+        assertEquals(MAC_ADDDRES, actual.get(0).getMac());
+        assertEquals(VENDOR_NAME, actual.get(0).getName());
     }
 
     private void expectedFindAll() {

@@ -156,7 +156,7 @@ public class WiFiDataTest {
 
     private void withVendorNames() {
         for (ScanResult scanResult : scanResults) {
-            when(vendorService.getVendorName(scanResult.BSSID)).thenReturn(VENDOR_NAME + scanResult.BSSID);
+            when(vendorService.findVendorName(scanResult.BSSID)).thenReturn(VENDOR_NAME + scanResult.BSSID);
         }
     }
 
@@ -203,7 +203,7 @@ public class WiFiDataTest {
         assertEquals(VENDOR_NAME + scanResult2.BSSID, actual.get(2).getVendorName());
         assertEquals(VENDOR_NAME + scanResult4.BSSID, actual.get(3).getVendorName());
 
-        verify(vendorService, times(7)).getVendorName(anyString());
+        verify(vendorService, times(7)).findVendorName(anyString());
     }
 
     @Test

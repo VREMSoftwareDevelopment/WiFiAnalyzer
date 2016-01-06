@@ -27,7 +27,9 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
@@ -153,12 +155,14 @@ public class DetailsTest {
     @Test
     public void testGetIPAddressEmpty() throws Exception {
         assertEquals(StringUtils.EMPTY, fixture.getIPAddress());
+        assertFalse(fixture.isConnected());
     }
 
     @Test
     public void testGetIPAddress() throws Exception {
         fixture = new Details(scanResult, VENDOR_NAME, "IPAddress");
         assertEquals("IPAddress", fixture.getIPAddress());
+        assertTrue(fixture.isConnected());
     }
 
     @Test

@@ -32,7 +32,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class RemoteCall extends AsyncTask<String, Void, String> {
+class RemoteCall extends AsyncTask<String, Void, String> {
     private static final String MAX_VENDOR_LOOKUP = "http://www.macvendorlookup.com/api/v2/%s";
 
     private MainContext mainContext = MainContext.INSTANCE;

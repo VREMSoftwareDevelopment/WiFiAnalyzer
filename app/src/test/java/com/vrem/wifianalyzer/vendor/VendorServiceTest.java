@@ -15,6 +15,8 @@
  */
 package com.vrem.wifianalyzer.vendor;
 
+import android.support.annotation.NonNull;
+
 import com.vrem.wifianalyzer.MainContext;
 
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +26,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.SortedMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -60,7 +66,7 @@ public class VendorServiceTest {
         // setup
         when(database.find(MAC_IN_RANGE1)).thenReturn(VENDOR_NAME);
         // execute
-        String actual = fixture.getVendorName(MAC_IN_RANGE1);
+        String actual = fixture.findVendorName(MAC_IN_RANGE1);
         // validate
         assertEquals(VENDOR_NAME, actual);
         verify(database).find(MAC_IN_RANGE1);
@@ -69,7 +75,7 @@ public class VendorServiceTest {
     @Test
     public void testFindWithNameNotFound() throws Exception {
         // execute
-        String actual = fixture.getVendorName(MAC_IN_RANGE1);
+        String actual = fixture.findVendorName(MAC_IN_RANGE1);
         when(database.find(MAC_IN_RANGE1)).thenReturn(null);
         // validate
         verify(database).find(MAC_IN_RANGE1);
@@ -82,10 +88,10 @@ public class VendorServiceTest {
     @Test
     public void testFindWithMacAddressesBelongToSameVendor() throws Exception {
         // setup
-        fixture.getVendorName(MAC_IN_RANGE1);
+        fixture.findVendorName(MAC_IN_RANGE1);
         // execute
-        String actual = fixture.getVendorName(MAC_IN_RANGE2);
-        fixture.getVendorName(MAC_IN_RANGE2.toLowerCase());
+        String actual = fixture.findVendorName(MAC_IN_RANGE2);
+        fixture.findVendorName(MAC_IN_RANGE2.toLowerCase());
         // validate
         verify(database).find(MAC_IN_RANGE1);
         verify(remoteCall).execute(MAC_IN_RANGE1);
@@ -95,4 +101,36 @@ public class VendorServiceTest {
         assertEquals(StringUtils.EMPTY, actual);
         assertSame(StringUtils.EMPTY, actual);
     }
+
+    @Test
+    public void testFindAll() throws Exception {
+        // setup
+        List<VendorData> vendorDatas = withVendorDatas();
+        when(database.findAll()).thenReturn(vendorDatas);
+        // execute
+        SortedMap<String, List<String>> actual = fixture.findAll();
+        // validate
+        verify(database).findAll();
+
+        assertEquals(3, actual.size());
+        assertEquals(1, actual.get(vendorDatas.get(0).getName()).size());
+        assertEquals(3, actual.get(vendorDatas.get(1).getName()).size());
+        assertEquals(1, actual.get(vendorDatas.get(4).getName()).size());
+
+        List<String> macs = actual.get(vendorDatas.get(1).getName());
+        assertEquals(vendorDatas.get(3).getMac(), macs.get(0));
+        assertEquals(vendorDatas.get(1).getMac(), macs.get(1));
+        assertEquals(vendorDatas.get(2).getMac(), macs.get(2));
+    }
+
+    @NonNull
+    private List<VendorData> withVendorDatas() {
+        return Arrays.asList(
+                new VendorData(3, "Name3", "Mac3"),
+                new VendorData(4, "Name1", "Mac1-2"),
+                new VendorData(1, "Name1", "Mac1-3"),
+                new VendorData(2, "Name1", "Mac1-1"),
+                new VendorData(5, "Name2", "Mac2"));
+    }
+
 }
