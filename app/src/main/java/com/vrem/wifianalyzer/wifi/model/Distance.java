@@ -13,18 +13,18 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.vendor;
+package com.vrem.wifianalyzer.wifi.model;
 
-import org.junit.Test;
+class Distance {
 
-import static org.junit.Assert.assertEquals;
+    private static final double DISTANCE_MHZ_M = 27.55;
 
-public class MacAddressTest {
-    @Test
-    public void testClean() throws Exception {
-        assertEquals("34AF", MacAddress.clean("34aF"));
-        assertEquals("34AF0B", MacAddress.clean("34aF0B"));
-        assertEquals("34AA0B", MacAddress.clean("34:aa:0b"));
-        assertEquals("34AC0B", MacAddress.clean(MacAddress.clean("34:ac:0B:A0")));
+    private Distance() {
     }
+
+    static double calculate(int frequency, int level) {
+        return Math.pow(10.0,
+                (DISTANCE_MHZ_M - (20 * Math.log10(frequency)) + Math.abs(level)) / 20.0);
+    }
+
 }

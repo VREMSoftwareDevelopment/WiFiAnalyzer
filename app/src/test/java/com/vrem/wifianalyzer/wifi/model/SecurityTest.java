@@ -13,10 +13,11 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.wifi;
+package com.vrem.wifianalyzer.wifi.model;
 
 import com.vrem.wifianalyzer.R;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -29,7 +30,7 @@ public class SecurityTest {
 
     @Test
     public void testImageResource() throws Exception {
-        assertEquals(R.drawable.ic_lock_open_black_18dp, Security.NONE.imageResource());
+        Assert.assertEquals(R.drawable.ic_lock_open_black_18dp, Security.NONE.imageResource());
         assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WPS.imageResource());
         assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WEP.imageResource());
         assertEquals(R.drawable.ic_lock_black_18dp, Security.WPA.imageResource());

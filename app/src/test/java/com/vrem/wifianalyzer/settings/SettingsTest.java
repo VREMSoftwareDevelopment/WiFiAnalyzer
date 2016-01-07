@@ -6,7 +6,7 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.GroupBy;
+import com.vrem.wifianalyzer.wifi.model.GroupBy;
 
 import org.junit.After;
 import org.junit.Before;
@@ -17,6 +17,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
@@ -89,19 +90,16 @@ public class SettingsTest {
     @Test
     public void testHideWeakSignal() throws Exception {
         // setup
-        boolean defaultValue = false;
         String key = "xyz";
-        boolean expected = true;
         withResourceKey(R.string.hide_weak_signal_key, key);
-        when(resources.getBoolean(R.bool.hide_weak_signal_default)).thenReturn(defaultValue);
-        when(sharedPreferences.getBoolean(key, defaultValue)).thenReturn(expected);
+        when(resources.getBoolean(R.bool.hide_weak_signal_default)).thenReturn(false);
+        when(sharedPreferences.getBoolean(key, false)).thenReturn(true);
         // execute
-        boolean actual = fixture.hideWeakSignal();
+        assertTrue(fixture.hideWeakSignal());
         // validate
-        assertEquals(expected, actual);
         verifyResourceKey(R.string.hide_weak_signal_key);
         verify(resources).getBoolean(R.bool.hide_weak_signal_default);
-        verify(sharedPreferences).getBoolean(key, defaultValue);
+        verify(sharedPreferences).getBoolean(key, false);
     }
 
     @Test

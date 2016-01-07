@@ -13,18 +13,27 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.wifi;
+package com.vrem.wifianalyzer.wifi.model;
 
-class Distance {
+import org.junit.Test;
 
-    private static final double DISTANCE_MHZ_M = 27.55;
+import java.text.DecimalFormat;
 
-    private Distance() {
+import static org.junit.Assert.assertEquals;
+
+public class DistanceTest {
+
+    private final DecimalFormat decimalFormat = new DecimalFormat("#.##");
+
+    @Test
+    public void testCalculate() throws Exception {
+        validate(2437, -36, "0.62");
+        validate(2437, -42, "1.23");
+        validate(2432, -88, "246.34");
+        validate(2412, -91, "350.85");
     }
 
-    static double calculate(int frequency, int level) {
-        return Math.pow(10.0,
-                (DISTANCE_MHZ_M - (20 * Math.log10(frequency)) + Math.abs(level)) / 20.0);
+    private void validate(int frequency, int level, String expected) {
+        assertEquals(expected, decimalFormat.format(Distance.calculate(frequency, level)));
     }
-
 }

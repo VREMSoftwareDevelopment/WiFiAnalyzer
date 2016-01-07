@@ -21,7 +21,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.GroupBy;
+import com.vrem.wifianalyzer.wifi.model.GroupBy;
 
 public class Settings {
 

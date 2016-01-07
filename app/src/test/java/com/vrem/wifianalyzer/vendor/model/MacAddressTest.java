@@ -13,19 +13,18 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.vendor;
+package com.vrem.wifianalyzer.vendor.model;
 
-import android.support.annotation.NonNull;
+import org.junit.Test;
 
-class MacAddress {
-    private static final int MAX_LEN = 6;
+import static org.junit.Assert.assertEquals;
 
-    private MacAddress() {
+public class MacAddressTest {
+    @Test
+    public void testClean() throws Exception {
+        assertEquals("34AF", MacAddress.clean("34aF"));
+        assertEquals("34AF0B", MacAddress.clean("34aF0B"));
+        assertEquals("34AA0B", MacAddress.clean("34:aa:0b"));
+        assertEquals("34AC0B", MacAddress.clean(MacAddress.clean("34:ac:0B:A0")));
     }
-
-    static String clean(@NonNull String macAddress) {
-        String result = macAddress.replace(":", "");
-        return result.substring(0, Math.min(result.length(), MAX_LEN)).toUpperCase();
-    }
-
 }

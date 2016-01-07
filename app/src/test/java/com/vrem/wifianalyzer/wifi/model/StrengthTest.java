@@ -13,12 +13,13 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.wifi;
+package com.vrem.wifianalyzer.wifi.model;
 
 import android.net.wifi.WifiManager;
 
 import com.vrem.wifianalyzer.R;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -37,7 +38,7 @@ public class StrengthTest {
 
     @Test
     public void testImageResource() throws Exception {
-        assertEquals(R.drawable.ic_signal_wifi_0_bar_black_48dp, Strength.ZERO.imageResource());
+        Assert.assertEquals(R.drawable.ic_signal_wifi_0_bar_black_48dp, Strength.ZERO.imageResource());
         assertEquals(R.drawable.ic_signal_wifi_1_bar_black_48dp, Strength.ONE.imageResource());
         assertEquals(R.drawable.ic_signal_wifi_2_bar_black_48dp, Strength.TWO.imageResource());
         assertEquals(R.drawable.ic_signal_wifi_3_bar_black_48dp, Strength.THREE.imageResource());

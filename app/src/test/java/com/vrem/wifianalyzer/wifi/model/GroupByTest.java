@@ -13,8 +13,9 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.wifi;
+package com.vrem.wifianalyzer.wifi.model;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -35,7 +36,7 @@ public class GroupByTest {
 
     @Test
     public void testFind() throws Exception {
-        assertEquals(GroupBy.NONE, GroupBy.find(null));
+        Assert.assertEquals(GroupBy.NONE, GroupBy.find(null));
         assertEquals(GroupBy.NONE, GroupBy.find(""));
         assertEquals(GroupBy.NONE, GroupBy.find("xYz"));
 

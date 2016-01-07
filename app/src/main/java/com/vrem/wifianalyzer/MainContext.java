@@ -21,9 +21,9 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 
 import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.vendor.Database;
-import com.vrem.wifianalyzer.vendor.VendorService;
-import com.vrem.wifianalyzer.wifi.Scanner;
+import com.vrem.wifianalyzer.vendor.model.Database;
+import com.vrem.wifianalyzer.vendor.model.VendorService;
+import com.vrem.wifianalyzer.wifi.model.Scanner;
 
 public enum MainContext {
     INSTANCE;

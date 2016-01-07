@@ -1,4 +1,4 @@
-package com.vrem.wifianalyzer.vendor;
+package com.vrem.wifianalyzer.vendor.model;
 
 import android.content.ContentValues;
 import android.content.Context;

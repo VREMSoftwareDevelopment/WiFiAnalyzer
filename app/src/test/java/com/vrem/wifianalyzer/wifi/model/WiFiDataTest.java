@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.wifi;
+package com.vrem.wifianalyzer.wifi.model;
 
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
@@ -21,7 +21,7 @@ import android.net.wifi.WifiManager;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.vendor.VendorService;
+import com.vrem.wifianalyzer.vendor.model.VendorService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -235,17 +235,4 @@ public class WiFiDataTest {
         assertEquals(expected.getIPAddress(), actual.getIPAddress());
     }
 
-    /*
-    @Test
-    public void testHideWeakSignal() throws Exception {
-        // setup
-        when(wifiInfo.getSSID()).thenReturn(scanResult1.SSID);
-        when(wifiInfo.getBSSID()).thenReturn(scanResult1.BSSID);
-        // execute
-        fixture = new WiFiData(scanResults, wifiInfo, vendorService, GroupBy.SSID, true);
-        // validate
-        assertTrue(fixture.connection().connected());
-        assertEquals(2, actual.getsCount());
-    }
-*/
 }

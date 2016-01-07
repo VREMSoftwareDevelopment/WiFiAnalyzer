@@ -13,36 +13,19 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.wifi;
+package com.vrem.wifianalyzer.vendor.model;
 
-import java.util.List;
+import android.support.annotation.NonNull;
 
-public interface DetailsInfo extends Comparable<DetailsInfo> {
-    String getSSID();
+class MacAddress {
+    private static final int MAX_LEN = 6;
 
-    String getBSSID();
+    private MacAddress() {
+    }
 
-    int getFrequency();
+    static String clean(@NonNull String macAddress) {
+        String result = macAddress.replace(":", "");
+        return result.substring(0, Math.min(result.length(), MAX_LEN)).toUpperCase();
+    }
 
-    int getChannel();
-
-    Security getSecurity();
-
-    Strength getStrength();
-
-    int getLevel();
-
-    String getCapabilities();
-
-    double getDistance();
-
-    String getVendorName();
-
-    String getIPAddress();
-
-    boolean isConnected();
-
-    List<DetailsInfo> getChildren();
-
-    void addChild(DetailsInfo detailsInfo);
 }

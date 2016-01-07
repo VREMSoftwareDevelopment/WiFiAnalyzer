@@ -13,27 +13,36 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.wifi;
+package com.vrem.wifianalyzer.wifi.model;
 
-import org.junit.Test;
+import java.util.List;
 
-import java.text.DecimalFormat;
+public interface DetailsInfo extends Comparable<DetailsInfo> {
+    String getSSID();
 
-import static org.junit.Assert.assertEquals;
+    String getBSSID();
 
-public class DistanceTest {
+    int getFrequency();
 
-    private final DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    int getChannel();
 
-    @Test
-    public void testCalculate() throws Exception {
-        validate(2437, -36, "0.62");
-        validate(2437, -42, "1.23");
-        validate(2432, -88, "246.34");
-        validate(2412, -91, "350.85");
-    }
+    Security getSecurity();
 
-    private void validate(int frequency, int level, String expected) {
-        assertEquals(expected, decimalFormat.format(Distance.calculate(frequency, level)));
-    }
+    Strength getStrength();
+
+    int getLevel();
+
+    String getCapabilities();
+
+    double getDistance();
+
+    String getVendorName();
+
+    String getIPAddress();
+
+    boolean isConnected();
+
+    List<DetailsInfo> getChildren();
+
+    void addChild(DetailsInfo detailsInfo);
 }

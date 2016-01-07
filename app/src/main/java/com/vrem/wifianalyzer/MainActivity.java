@@ -36,9 +36,9 @@ import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.vendor.Database;
-import com.vrem.wifianalyzer.vendor.VendorService;
-import com.vrem.wifianalyzer.wifi.Scanner;
+import com.vrem.wifianalyzer.vendor.model.Database;
+import com.vrem.wifianalyzer.vendor.model.VendorService;
+import com.vrem.wifianalyzer.wifi.model.Scanner;
 
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 

@@ -27,6 +27,11 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.model.Details;
+import com.vrem.wifianalyzer.wifi.model.DetailsInfo;
+import com.vrem.wifianalyzer.wifi.model.Security;
+import com.vrem.wifianalyzer.wifi.model.Strength;
+import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
 import org.apache.commons.lang3.StringUtils;
 
