@@ -29,6 +29,11 @@ import static org.junit.Assert.assertEquals;
 public class SecurityTest {
 
     @Test
+    public void testSecurity() throws Exception {
+        assertEquals(5, Security.values().length);
+    }
+
+    @Test
     public void testImageResource() throws Exception {
         Assert.assertEquals(R.drawable.ic_lock_open_black_18dp, Security.NONE.imageResource());
         assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WPS.imageResource());

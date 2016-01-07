@@ -23,6 +23,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class FrequencyTest {
+    @Test
+    public void testFrequency() throws Exception {
+        assertEquals(4, Frequency.values().length);
+    }
 
     @Test
     public void testInRange() throws Exception {

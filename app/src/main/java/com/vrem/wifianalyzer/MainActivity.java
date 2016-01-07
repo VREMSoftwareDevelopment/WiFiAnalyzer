@@ -34,6 +34,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.vrem.wifianalyzer.navigation.NavigationMenu;
+import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
@@ -45,8 +47,8 @@ import static android.support.design.widget.NavigationView.OnNavigationItemSelec
 public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
     private MainContext mainContext = MainContext.INSTANCE;
 
-    private NavigationView navigationView;
     private int themeAppCompatStyle;
+    private NavigationMenuView navigationMenuView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,38 +134,28 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     private void mainNavigationMenu() {
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (android.support.design.widget.NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        Menu menu = navigationView.getMenu();
-        for (MainNavigation mainNavigation : MainNavigation.values()) {
-            MenuItem menuItem = menu.add(0, mainNavigation.ordinal(), mainNavigation.ordinal(), mainNavigation.getTitle());
-            menuItem.setIcon(mainNavigation.getIcon());
-        }
-        onNavigationItemSelected(navigationView.getMenu().getItem(MainNavigation.WIFI_LIST.ordinal()));
+
+        navigationMenuView = new NavigationMenuView(navigationView);
+        navigationMenuView.makeMenu();
+
+        onNavigationItemSelected(navigationView.getMenu().getItem(navigationMenuView.getDefaultMenuItemId()));
     }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        MainNavigation item = MainNavigation.find(menuItem.getItemId());
+        NavigationMenu item = navigationMenuView.getSelectedMenuItem(menuItem.getItemId());
         Fragment fragment = item.getFragment();
         if (fragment == null) {
             startActivity(new Intent(this, item.getActivity()));
         } else {
-            selectedMenuItem(menuItem.getItemId());
             getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, item.getFragment()).commit();
         }
         setTitle(item.getTitle());
         return true;
     }
 
-    private void selectedMenuItem(int itemId) {
-        Menu menu = navigationView.getMenu();
-        for (int i = 0; i < menu.size(); i++) {
-            MenuItem item = menu.getItem(i);
-            item.setCheckable(itemId == i);
-            item.setChecked(itemId == i);
-        }
-    }
 }

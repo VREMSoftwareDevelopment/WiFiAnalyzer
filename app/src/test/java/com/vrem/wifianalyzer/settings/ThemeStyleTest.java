@@ -24,6 +24,11 @@ import static org.junit.Assert.assertEquals;
 public class ThemeStyleTest {
 
     @Test
+    public void testThemeStyle() throws Exception {
+        assertEquals(2, ThemeStyle.values().length);
+    }
+
+    @Test
     public void testFind() throws Exception {
         assertEquals(ThemeStyle.LIGHT, ThemeStyle.find(null));
         assertEquals(ThemeStyle.LIGHT, ThemeStyle.find(""));

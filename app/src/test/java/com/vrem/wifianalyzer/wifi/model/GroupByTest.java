@@ -35,6 +35,11 @@ public class GroupByTest {
     private DetailsInfo rhs;
 
     @Test
+    public void testGroupByNumber() throws Exception {
+        assertEquals(3, GroupBy.values().length);
+    }
+
+    @Test
     public void testFind() throws Exception {
         Assert.assertEquals(GroupBy.NONE, GroupBy.find(null));
         assertEquals(GroupBy.NONE, GroupBy.find(""));

@@ -37,6 +37,11 @@ import static org.powermock.api.mockito.PowerMockito.when;
 public class StrengthTest {
 
     @Test
+    public void testStrength() throws Exception {
+        assertEquals(5, Strength.values().length);
+    }
+
+    @Test
     public void testImageResource() throws Exception {
         Assert.assertEquals(R.drawable.ic_signal_wifi_0_bar_black_48dp, Strength.ZERO.imageResource());
         assertEquals(R.drawable.ic_signal_wifi_1_bar_black_48dp, Strength.ONE.imageResource());
