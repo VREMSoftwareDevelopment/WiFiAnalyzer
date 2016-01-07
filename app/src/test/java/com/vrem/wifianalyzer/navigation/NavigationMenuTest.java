@@ -30,7 +30,7 @@ public class NavigationMenuTest {
 
     @Test
     public void testNavigationMenu() throws Exception {
-        assertEquals(3, NavigationMenu.values().length);
+        assertEquals(4, NavigationMenu.values().length);
     }
 
     @Test
@@ -38,12 +38,14 @@ public class NavigationMenuTest {
         assertEquals(NavigationMenu.WIFI_LIST, NavigationMenu.find(-1));
 
         assertEquals(NavigationMenu.WIFI_LIST, NavigationMenu.find(NavigationMenu.WIFI_LIST.ordinal()));
+        assertEquals(NavigationMenu.CHANNEL_ANALYZER, NavigationMenu.find(NavigationMenu.CHANNEL_ANALYZER.ordinal()));
         assertEquals(NavigationMenu.VENDOR_LIST, NavigationMenu.find(NavigationMenu.VENDOR_LIST.ordinal()));
         assertEquals(NavigationMenu.SETTINGS, NavigationMenu.find(NavigationMenu.SETTINGS.ordinal()));
     }
 
     @Test
     public void testGetFragment() throws Exception {
+        assertTrue(NavigationMenu.WIFI_LIST.getFragment() instanceof WiFiFragment);
         assertTrue(NavigationMenu.WIFI_LIST.getFragment() instanceof WiFiFragment);
         assertTrue(NavigationMenu.VENDOR_LIST.getFragment() instanceof VendorFragment);
         assertNull(NavigationMenu.SETTINGS.getFragment());

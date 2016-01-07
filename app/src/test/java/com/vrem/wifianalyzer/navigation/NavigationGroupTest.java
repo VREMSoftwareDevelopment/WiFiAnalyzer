@@ -39,11 +39,18 @@ public class NavigationGroupTest {
 
     @Test
     public void testNavigationGroupMenuItems() throws Exception {
-        assertArrayEquals(new NavigationMenu[]{NavigationMenu.WIFI_LIST},
+        assertArrayEquals(new NavigationMenu[]{
+                        NavigationMenu.WIFI_LIST,
+                        NavigationMenu.CHANNEL_ANALYZER
+                },
                 NavigationGroup.GROUP_FEATURE.navigationMenu());
-        assertArrayEquals(new NavigationMenu[]{NavigationMenu.VENDOR_LIST},
+        assertArrayEquals(new NavigationMenu[]{
+                        NavigationMenu.VENDOR_LIST
+                },
                 NavigationGroup.GROUP_OTHER.navigationMenu());
-        assertArrayEquals(new NavigationMenu[]{NavigationMenu.SETTINGS},
+        assertArrayEquals(new NavigationMenu[]{
+                        NavigationMenu.SETTINGS
+                },
                 NavigationGroup.GROUP_SETTINGS.navigationMenu());
     }
 }

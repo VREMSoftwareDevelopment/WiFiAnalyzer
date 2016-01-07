@@ -33,6 +33,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
@@ -40,11 +41,15 @@ import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
+import com.vrem.wifianalyzer.wifi.UpdateNotifier;
+import com.vrem.wifianalyzer.wifi.WiFiViewHelper;
+import com.vrem.wifianalyzer.wifi.model.DetailsInfo;
 import com.vrem.wifianalyzer.wifi.model.Scanner;
+import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
-public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener, UpdateNotifier {
     private MainContext mainContext = MainContext.INSTANCE;
 
     private int themeAppCompatStyle;
@@ -74,11 +79,14 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         toggle.syncState();
 
         mainNavigationMenu();
+
+        mainContext.getScanner().addUpdateNotifier(this);
     }
 
     private void initializeMainContext(@NonNull Context context) {
-        mainContext.setDatabase(new Database(context));
-        mainContext.setSettings(new Settings(context));
+        mainContext.setContext(context);
+        mainContext.setDatabase(new Database());
+        mainContext.setSettings(new Settings());
         mainContext.setHandler(new Handler());
         mainContext.setScanner(new Scanner());
         mainContext.setVendorService(new VendorService());
@@ -158,4 +166,16 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         return true;
     }
 
+    @Override
+    public void update(WiFiData wiFiData) {
+        View view = findViewById(R.id.connection);
+
+        DetailsInfo connection = wiFiData.getConnection();
+        if (connection != null && connection.isConnected()) {
+            view.setVisibility(View.VISIBLE);
+            WiFiViewHelper.setView(getResources(), view, connection);
+        } else {
+            view.setVisibility(View.GONE);
+        }
+    }
 }

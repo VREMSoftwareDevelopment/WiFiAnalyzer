@@ -28,7 +28,7 @@ import android.widget.ExpandableListView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
-public class WiFiFragment extends Fragment {
+public class ChannelAnalyzerFragment extends Fragment {
 
     private MainContext mainContext = MainContext.INSTANCE;
 

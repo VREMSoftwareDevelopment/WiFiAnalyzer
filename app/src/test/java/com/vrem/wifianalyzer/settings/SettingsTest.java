@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
 
@@ -36,7 +37,9 @@ public class SettingsTest {
     public void setUp() throws Exception {
         mockStatic(PreferenceManager.class);
 
-        fixture = new Settings(context);
+        MainContext.INSTANCE.setContext(context);
+
+        fixture = new Settings();
 
         when(PreferenceManager.getDefaultSharedPreferences(context)).thenReturn(sharedPreferences);
     }

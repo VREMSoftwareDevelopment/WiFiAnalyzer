@@ -29,35 +29,29 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.Details;
 import com.vrem.wifianalyzer.wifi.model.DetailsInfo;
-import com.vrem.wifianalyzer.wifi.model.Security;
-import com.vrem.wifianalyzer.wifi.model.Strength;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WiFiListAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
 
-    private final View headerView;
     private final Resources resources;
     private final Data data;
     private MainContext mainContext = MainContext.INSTANCE;
 
-    public WiFiListAdapter(@NonNull View headerView, @NonNull Context context) {
+    public WiFiListAdapter(@NonNull Context context) {
         super();
         this.resources = context.getResources();
-        this.headerView = headerView;
         this.data = new Data();
         mainContext.getScanner().addUpdateNotifier(this);
     }
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        convertView = getView(convertView);
+        convertView = getView(convertView, parent);
         Details details = (Details) getGroup(groupPosition);
-        setView(convertView, details);
+        WiFiViewHelper.setView(resources, convertView, details);
 
         convertView.findViewById(R.id.tab).setVisibility(View.GONE);
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
@@ -81,9 +75,9 @@ public class WiFiListAdapter extends BaseExpandableListAdapter implements Update
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        convertView = getView(convertView);
+        convertView = getView(convertView, parent);
         Details details = (Details) getChild(groupPosition, childPosition);
-        setView(convertView, details);
+        WiFiViewHelper.setView(resources, convertView, details);
 
         convertView.setBackgroundColor(resources.getColor(R.color.shadow_mid_color));
         convertView.findViewById(R.id.tab).setVisibility(View.VISIBLE);
@@ -96,17 +90,7 @@ public class WiFiListAdapter extends BaseExpandableListAdapter implements Update
     @Override
     public void update(WiFiData wifiData) {
         data.update(wifiData);
-        header();
         notifyDataSetChanged();
-    }
-
-    private void header() {
-        if (data.connection != null) {
-            setView(headerView, data.connection);
-            headerView.setVisibility(View.VISIBLE);
-        } else {
-            headerView.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -149,58 +133,13 @@ public class WiFiListAdapter extends BaseExpandableListAdapter implements Update
         return true;
     }
 
-    private View getView(View view) {
-        if (view != null) {
-            return view;
+    private View getView(View convertView, ViewGroup parentView) {
+        if (convertView != null) {
+            return convertView;
         }
 
         LayoutInflater inflater = mainContext.getLayoutInflater();
         return inflater.inflate(R.layout.main_content_details, null);
-    }
-
-    private void setView(@NonNull View view, @NonNull DetailsInfo detailsInfo) {
-
-        ((TextView) view.findViewById(R.id.ssid)).setText(
-                String.format("%s (%s)",
-                        StringUtils.isBlank(detailsInfo.getSSID()) ? "***" : detailsInfo.getSSID(),
-                        detailsInfo.getBSSID()));
-
-        TextView textIPAddress = (TextView) view.findViewById(R.id.ipAddress);
-        String ipAddress = detailsInfo.getIPAddress();
-        if (StringUtils.isBlank(ipAddress)) {
-            textIPAddress.setVisibility(View.GONE);
-        } else {
-            textIPAddress.setVisibility(View.VISIBLE);
-            textIPAddress.setText(ipAddress);
-        }
-
-        Strength strength = detailsInfo.getStrength();
-        ImageView imageView = (ImageView) view.findViewById(R.id.levelImage);
-        imageView.setImageResource(strength.imageResource());
-        imageView.setColorFilter(resources.getColor(strength.colorResource()));
-
-        Security security = detailsInfo.getSecurity();
-        ImageView securityImage = (ImageView) view.findViewById(R.id.securityImage);
-        securityImage.setImageResource(security.imageResource());
-        securityImage.setColorFilter(resources.getColor(R.color.icons_color));
-
-        TextView textLevel = (TextView) view.findViewById(R.id.level);
-        textLevel.setText(String.format("%ddBm", detailsInfo.getLevel()));
-        textLevel.setTextColor(resources.getColor(strength.colorResource()));
-
-        ((TextView) view.findViewById(R.id.channel)).setText(String.format("%d", detailsInfo.getChannel()));
-        ((TextView) view.findViewById(R.id.frequency)).setText(String.format("(%dMHz)", detailsInfo.getFrequency()));
-        ((TextView) view.findViewById(R.id.distance)).setText(String.format("%6.2fm", detailsInfo.getDistance()));
-        ((TextView) view.findViewById(R.id.capabilities)).setText(detailsInfo.getCapabilities());
-
-        TextView textVendor = ((TextView) view.findViewById(R.id.vendor));
-        String vendor = detailsInfo.getVendorName();
-        if (StringUtils.isBlank(vendor)) {
-            textVendor.setVisibility(View.GONE);
-        } else {
-            textVendor.setVisibility(View.VISIBLE);
-            textVendor.setText(vendor);
-        }
     }
 
     class Data {

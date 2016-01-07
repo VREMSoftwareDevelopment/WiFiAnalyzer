@@ -20,6 +20,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.vrem.wifianalyzer.MainContext;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +40,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DatabaseTest {
-    static final String MAC_ADDDRES = "00:23:AB:8C:DF:10";
+    static final String MAC_ADDRESS = "00:23:AB:8C:DF:10";
     static final String VENDOR_NAME = "CISCO SYSTEMS, INC.";
     static final long ID = 213L;
     static final int INDEX = 2;
@@ -52,6 +54,8 @@ public class DatabaseTest {
 
     @Before
     public void setUp() throws Exception {
+        MainContext.INSTANCE.setContext(context);
+
         fixture = new DatabaseMock();
     }
 
@@ -77,10 +81,10 @@ public class DatabaseTest {
         // setup
         when(sqliteDatabase.insert(Database.TABLE_NAME, null, contentValues)).thenReturn(ID);
         // execute
-        long actual = fixture.insert(MAC_ADDDRES, VENDOR_NAME);
+        long actual = fixture.insert(MAC_ADDRESS, VENDOR_NAME);
         // validate
         verify(sqliteDatabase).insert(Database.TABLE_NAME, null, contentValues);
-        verify(contentValues).put(Database.COLUMN_MAC, MacAddress.clean(MAC_ADDDRES));
+        verify(contentValues).put(Database.COLUMN_MAC, MacAddress.clean(MAC_ADDRESS));
         verify(contentValues).put(Database.COLUMN_NAME, VENDOR_NAME);
         assertEquals(ID, actual);
     }
@@ -92,7 +96,7 @@ public class DatabaseTest {
         when(cursor.getColumnIndexOrThrow(Database.COLUMN_NAME)).thenReturn(INDEX);
         when(cursor.getString(INDEX)).thenReturn(VENDOR_NAME);
         // execute
-        String actual = fixture.find(MAC_ADDDRES);
+        String actual = fixture.find(MAC_ADDRESS);
         // validate
         verifyQuery();
         verify(cursor).getColumnIndexOrThrow(Database.COLUMN_NAME);
@@ -105,7 +109,7 @@ public class DatabaseTest {
         // setup
         withQuery(false);
         // execute
-        String actual = fixture.find(MAC_ADDDRES);
+        String actual = fixture.find(MAC_ADDRESS);
         // validate
         verifyQuery();
         verify(cursor, never()).getColumnIndexOrThrow(Database.COLUMN_NAME);
@@ -119,7 +123,7 @@ public class DatabaseTest {
                 Database.TABLE_NAME,
                 new String[]{Database.COLUMN_NAME},
                 Database.COLUMN_MAC + "=?",
-                new String[]{MacAddress.clean(MAC_ADDDRES)},
+                    new String[]{MacAddress.clean(MAC_ADDRESS)},
                 null, null, null)
             ).thenReturn(cursor);
         when(cursor.moveToFirst()).thenReturn(moveToFirstReturn);
@@ -130,7 +134,7 @@ public class DatabaseTest {
             .query(Database.TABLE_NAME,
                 new String[]{Database.COLUMN_NAME},
                 Database.COLUMN_MAC + "=?",
-                new String[]{MacAddress.clean(MAC_ADDDRES)},
+                    new String[]{MacAddress.clean(MAC_ADDRESS)},
                 null, null, null);
         verify(cursor).moveToFirst();
     }
@@ -145,7 +149,7 @@ public class DatabaseTest {
         verifyFindAll();
         assertEquals(1, actual.size());
         assertEquals(ID, actual.get(0).getId());
-        assertEquals(MAC_ADDDRES, actual.get(0).getMac());
+        assertEquals(MAC_ADDRESS, actual.get(0).getMac());
         assertEquals(VENDOR_NAME, actual.get(0).getName());
     }
 
@@ -156,7 +160,7 @@ public class DatabaseTest {
         when(cursor.getColumnIndexOrThrow(Database._ID)).thenReturn(0);
         when(cursor.getLong(0)).thenReturn(ID);
         when(cursor.getColumnIndexOrThrow(Database.COLUMN_MAC)).thenReturn(1);
-        when(cursor.getString(1)).thenReturn(MAC_ADDDRES);
+        when(cursor.getString(1)).thenReturn(MAC_ADDRESS);
         when(cursor.getColumnIndexOrThrow(Database.COLUMN_NAME)).thenReturn(2);
         when(cursor.getString(2)).thenReturn(VENDOR_NAME);
     }
@@ -176,7 +180,7 @@ public class DatabaseTest {
 
     class DatabaseMock extends Database {
         public DatabaseMock() {
-            super(context);
+            super();
         }
 
         @Override

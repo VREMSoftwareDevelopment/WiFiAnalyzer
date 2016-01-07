@@ -1,11 +1,12 @@
 package com.vrem.wifianalyzer.vendor.model;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+
+import com.vrem.wifianalyzer.MainContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +29,8 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
     static final String TABLE_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
 
-    public Database(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    public Database() {
+        super(MainContext.INSTANCE.getContext(), DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override

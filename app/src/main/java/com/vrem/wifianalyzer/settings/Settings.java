@@ -18,43 +18,45 @@ package com.vrem.wifianalyzer.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
 
 public class Settings {
+    private MainContext mainContext = MainContext.INSTANCE;
 
-    private final Context context;
-
-    public Settings(@NonNull Context context) {
-        this.context = context;
+    public Settings() {
     }
 
     public void initializeDefaultValues() {
-        PreferenceManager.setDefaultValues(context, R.xml.preferences, false);
+        PreferenceManager.setDefaultValues(mainContext.getContext(), R.xml.preferences, false);
     }
 
     public SharedPreferences getSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(context);
+        return PreferenceManager.getDefaultSharedPreferences(mainContext.getContext());
     }
 
     public int getScanInterval() {
-        int defaultValue = context.getResources().getInteger(R.integer.scan_interval_default);
+        Context context = mainContext.getContext();
+        int defaultValue =context.getResources().getInteger(R.integer.scan_interval_default);
         return getSharedPreferences().getInt(context.getString(R.string.scan_interval_key), defaultValue);
     }
 
     public boolean hideWeakSignal() {
+        Context context = mainContext.getContext();
         boolean defaultValue = context.getResources().getBoolean(R.bool.hide_weak_signal_default);
         return getSharedPreferences().getBoolean(context.getString(R.string.hide_weak_signal_key), defaultValue);
     }
 
     public GroupBy getGroupBy() {
-        String defaultValue = context.getResources().getString(R.string.group_by_default);
+        Context context = mainContext.getContext();
+        String defaultValue =context.getResources().getString(R.string.group_by_default);
         return GroupBy.find(getSharedPreferences().getString(context.getString(R.string.group_by_key), defaultValue));
     }
 
     public ThemeStyle getThemeStyle() {
+        Context context = mainContext.getContext();
         String defaultValue = context.getResources().getString(R.string.theme_default);
         return ThemeStyle.find(getSharedPreferences().getString(context.getString(R.string.theme_key), defaultValue));
     }

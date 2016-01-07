@@ -22,10 +22,12 @@ import android.support.v4.app.Fragment;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.vendor.VendorFragment;
+import com.vrem.wifianalyzer.wifi.ChannelAnalyzerFragment;
 import com.vrem.wifianalyzer.wifi.WiFiFragment;
 
 public enum NavigationMenu {
     WIFI_LIST(R.mipmap.ic_launcher, R.string.action_wifi_list, new WiFiFragment()),
+    CHANNEL_ANALYZER(R.drawable.ic_tune_grey_500_48dp, R.string.action_channel_analyzer, new ChannelAnalyzerFragment()),
     VENDOR_LIST(R.drawable.ic_list_grey_500_48dp, R.string.action_vendors, new VendorFragment()),
     SETTINGS(R.drawable.ic_settings_grey_500_48dp, R.string.action_settings, SettingActivity.class);
 

@@ -15,6 +15,7 @@
  */
 package com.vrem.wifianalyzer;
 
+import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -29,6 +30,7 @@ public enum MainContext {
     INSTANCE;
 
     private Settings settings;
+    private Context context;
     private Scanner scanner;
     private Handler handler;
     private VendorService vendorService;
@@ -90,5 +92,13 @@ public enum MainContext {
 
     public void setDatabase(@NonNull Database database) {
         this.database = database;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(@NonNull Context context) {
+        this.context = context;
     }
 }
