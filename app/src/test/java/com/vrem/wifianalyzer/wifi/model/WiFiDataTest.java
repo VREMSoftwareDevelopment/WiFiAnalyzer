@@ -38,6 +38,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -51,7 +52,7 @@ public class WiFiDataTest {
     public static final int FREQUENCY1 = 2412;
     public static final int FREQUENCY2 = 2417;
     public static final int FREQUENCY3 = 2422;
-    public static final int FREQUENCY4 = 2427;
+    public static final int FREQUENCY4 = 2417;
 
     public static final int LEVEL0 = 0;
     public static final int LEVEL1 = 1;
@@ -235,4 +236,19 @@ public class WiFiDataTest {
         assertEquals(expected.getIPAddress(), actual.getIPAddress());
     }
 
+    @Test
+    public void testGetWiFiChannelList() throws Exception {
+        // setup
+        fixture = new WiFiData(scanResults, null);
+        // execute
+        List<DetailsInfo> actual = fixture.getWiFiChannelList();
+        // validate
+        assertEquals(3, actual.size());
+        assertEquals(scanResult3.SSID, actual.get(0).getSSID());
+        assertEquals(scanResult1.SSID, actual.get(1).getSSID());
+        assertEquals(scanResult2.SSID, actual.get(2).getSSID());
+
+        verify(settings, never()).getGroupBy();
+        verify(settings, never()).hideWeakSignal();
+    }
 }

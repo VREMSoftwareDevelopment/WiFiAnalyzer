@@ -36,7 +36,7 @@ class VendorArrayAdapter extends ArrayAdapter<String> {
     private SortedMap<String, List<String>> vendors;
 
     VendorArrayAdapter(@NonNull Context context, @NonNull SortedMap<String, List<String>> vendors) {
-        super(context, R.layout.vendor_content_details, new ArrayList<>(vendors.keySet()));
+        super(context, R.layout.vendor_details, new ArrayList<>(vendors.keySet()));
         this.vendors = vendors;
     }
 
@@ -44,7 +44,7 @@ class VendorArrayAdapter extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = mainContext.getLayoutInflater();
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.vendor_content_details, parent, false);
+            convertView = inflater.inflate(R.layout.vendor_details, parent, false);
         }
         String name = getItem(position);
         ((TextView) convertView.findViewById(R.id.vendor_name)).setText(name);

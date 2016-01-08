@@ -41,17 +41,15 @@ public class WiFiData {
         this.wifiInfo = wifiInfo;
     }
 
+    @NonNull
     public List<DetailsInfo> getWiFiList() {
-        if (hasData()) {
-            Settings settings = mainContext.getSettings();
-            List<DetailsInfo> wifiList = buildWiFiList(settings.hideWeakSignal());
-            return groupWiFiList(settings.getGroupBy(), wifiList);
-        }
-        return new ArrayList<>();
+        Settings settings = mainContext.getSettings();
+        return getWiFiList(settings.getGroupBy(), settings.hideWeakSignal());
     }
 
-    private boolean hasData() {
-        return scanResults != null && !scanResults.isEmpty();
+    @NonNull
+    public List<DetailsInfo> getWiFiChannelList() {
+        return getWiFiList(GroupBy.CHANNEL, false);
     }
 
     public DetailsInfo getConnection() {
@@ -69,7 +67,14 @@ public class WiFiData {
         return null;
     }
 
-    @NonNull
+    private List<DetailsInfo> getWiFiList(@NonNull GroupBy groupBy, boolean hideWeakSignal) {
+        return hasData() ? groupWiFiList(groupBy, buildWiFiList(hideWeakSignal)) : new ArrayList<DetailsInfo>();
+    }
+
+    private boolean hasData() {
+        return scanResults != null && !scanResults.isEmpty();
+    }
+
     private List<DetailsInfo> groupWiFiList(@NonNull GroupBy groupBy, List<DetailsInfo> wifiList) {
         List<DetailsInfo> results = new ArrayList<>();
         Collections.sort(wifiList, groupBy.sortOrder());
@@ -92,7 +97,6 @@ public class WiFiData {
         return results;
     }
 
-    @NonNull
     private List<DetailsInfo> buildWiFiList(boolean hideWeakSignal) {
         List<DetailsInfo> results = new ArrayList<>();
         VendorService vendorService = mainContext.getVendorService();

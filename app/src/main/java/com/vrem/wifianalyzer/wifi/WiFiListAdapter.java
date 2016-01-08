@@ -34,13 +34,13 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WiFiListAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
+class WiFiListAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
 
+    private final MainContext mainContext = MainContext.INSTANCE;
     private final Resources resources;
     private final Data data;
-    private final MainContext mainContext = MainContext.INSTANCE;
 
-    public WiFiListAdapter(@NonNull Context context) {
+    WiFiListAdapter(@NonNull Context context) {
         super();
         this.resources = context.getResources();
         this.data = new Data();
@@ -139,7 +139,7 @@ public class WiFiListAdapter extends BaseExpandableListAdapter implements Update
         }
 
         LayoutInflater inflater = mainContext.getLayoutInflater();
-        return inflater.inflate(R.layout.main_content_details, null);
+        return inflater.inflate(R.layout.wifi_details, null);
     }
 
     class Data {

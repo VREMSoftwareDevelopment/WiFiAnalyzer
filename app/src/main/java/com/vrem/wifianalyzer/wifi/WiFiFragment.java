@@ -16,7 +16,6 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -34,19 +33,18 @@ public class WiFiFragment extends Fragment {
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
 
-        View view = inflater.inflate(R.layout.main_content, container, false);
+        View view = inflater.inflate(R.layout.wifi_content, container, false);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.wifiSwipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
         WiFiListAdapter wifiListAdapter = new WiFiListAdapter(activity);
 
-        ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.listView);
+        ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.wifiListView);
         expandableListView.setAdapter(wifiListAdapter);
 
         return view;

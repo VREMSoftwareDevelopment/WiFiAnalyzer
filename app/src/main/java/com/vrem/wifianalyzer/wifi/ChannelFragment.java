@@ -16,38 +16,36 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
+import android.widget.ListView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
-public class ChannelAnalyzerFragment extends Fragment {
+public class ChannelFragment extends Fragment {
 
     private final MainContext mainContext = MainContext.INSTANCE;
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
 
-        View view = inflater.inflate(R.layout.main_content, container, false);
+        View view = inflater.inflate(R.layout.channel_content, container, false);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.channelSwipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        WiFiListAdapter wifiListAdapter = new WiFiListAdapter(activity);
+        ChannelListAdapter channelListAdapter = new ChannelListAdapter(activity);
 
-        ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.listView);
-        expandableListView.setAdapter(wifiListAdapter);
+        ListView listView = (ListView) view.findViewById(R.id.channelListView);
+        listView.setAdapter(channelListAdapter);
 
         return view;
     }
