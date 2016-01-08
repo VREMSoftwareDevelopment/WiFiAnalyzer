@@ -2,6 +2,8 @@ package com.vrem.wifianalyzer.vendor.model;
 
 import android.support.annotation.NonNull;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 class VendorData {
     private final String name;
     private final String mac;
@@ -25,4 +27,8 @@ class VendorData {
         return mac;
     }
 
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 }
