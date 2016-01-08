@@ -24,7 +24,7 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
 
 public class Settings {
-    private MainContext mainContext = MainContext.INSTANCE;
+    private final MainContext mainContext = MainContext.INSTANCE;
 
     public Settings() {
     }

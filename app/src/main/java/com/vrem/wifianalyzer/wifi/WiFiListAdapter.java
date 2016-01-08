@@ -38,7 +38,7 @@ public class WiFiListAdapter extends BaseExpandableListAdapter implements Update
 
     private final Resources resources;
     private final Data data;
-    private MainContext mainContext = MainContext.INSTANCE;
+    private final MainContext mainContext = MainContext.INSTANCE;
 
     public WiFiListAdapter(@NonNull Context context) {
         super();

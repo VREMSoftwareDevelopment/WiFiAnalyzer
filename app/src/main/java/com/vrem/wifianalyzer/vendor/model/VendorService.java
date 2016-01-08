@@ -35,7 +35,7 @@ public class VendorService {
 
     private final Set<String> remoteCalls = new TreeSet<>();
     private final Map<String,String> cache = new HashMap<>();
-    private MainContext mainContext = MainContext.INSTANCE;
+    private final MainContext mainContext = MainContext.INSTANCE;
     private RemoteCall remoteCall;
 
     public VendorService() {

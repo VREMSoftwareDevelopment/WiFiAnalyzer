@@ -31,7 +31,7 @@ import java.util.List;
 
 public class WiFiData {
 
-    private MainContext mainContext = MainContext.INSTANCE;
+    private final MainContext mainContext = MainContext.INSTANCE;
 
     private List<ScanResult> scanResults;
     private WifiInfo wifiInfo;

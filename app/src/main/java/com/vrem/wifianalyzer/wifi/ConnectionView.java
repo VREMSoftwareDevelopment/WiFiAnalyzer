@@ -13,35 +13,36 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.vendor;
+package com.vrem.wifianalyzer.wifi;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ListFragment;
-import android.view.LayoutInflater;
+import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.model.DetailsInfo;
+import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
-public class VendorFragment extends ListFragment {
-
+public class ConnectionView implements UpdateNotifier {
+    private final Activity activity;
     private final MainContext mainContext = MainContext.INSTANCE;
-    private VendorArrayAdapter vendorArrayAdapter;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.vendor_content, container, false);
-        vendorArrayAdapter = new VendorArrayAdapter(getActivity(), mainContext.getVendorService().findAll());
-        setListAdapter(vendorArrayAdapter);
-        return view;
+    public ConnectionView(@NonNull Activity activity) {
+        this.activity = activity;
+        mainContext.getScanner().addUpdateNotifier(this);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        vendorArrayAdapter.setVendors(mainContext.getVendorService().findAll());
+    public void update(WiFiData wiFiData) {
+        View view = activity.findViewById(R.id.connection);
+
+        DetailsInfo connection = wiFiData.getConnection();
+        if (connection != null && connection.isConnected()) {
+            view.setVisibility(View.VISIBLE);
+            WiFiViewHelper.setView(activity.getResources(), view, connection);
+        } else {
+            view.setVisibility(View.GONE);
+        }
     }
 }

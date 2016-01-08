@@ -30,7 +30,7 @@ import com.vrem.wifianalyzer.R;
 
 public class ChannelAnalyzerFragment extends Fragment {
 
-    private MainContext mainContext = MainContext.INSTANCE;
+    private final MainContext mainContext = MainContext.INSTANCE;
 
     private SwipeRefreshLayout swipeRefreshLayout;
 

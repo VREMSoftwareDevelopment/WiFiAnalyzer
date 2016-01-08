@@ -23,7 +23,6 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -33,7 +32,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
@@ -41,19 +39,17 @@ import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
-import com.vrem.wifianalyzer.wifi.UpdateNotifier;
-import com.vrem.wifianalyzer.wifi.WiFiViewHelper;
-import com.vrem.wifianalyzer.wifi.model.DetailsInfo;
+import com.vrem.wifianalyzer.wifi.ConnectionView;
 import com.vrem.wifianalyzer.wifi.model.Scanner;
-import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
-public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener, UpdateNotifier {
-    private MainContext mainContext = MainContext.INSTANCE;
+public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
+    private final MainContext mainContext = MainContext.INSTANCE;
 
     private int themeAppCompatStyle;
     private NavigationMenuView navigationMenuView;
+    private ConnectionView connectionView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +74,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        mainNavigationMenu();
+        navigationMenuView = new NavigationMenuView(this);
+        onNavigationItemSelected(navigationMenuView.defaultMenuItem());
 
-        mainContext.getScanner().addUpdateNotifier(this);
+        connectionView = new ConnectionView(this);
     }
 
     private void initializeMainContext(@NonNull Context context) {
@@ -141,21 +138,11 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         }
     }
 
-    private void mainNavigationMenu() {
-        NavigationView navigationView = (android.support.design.widget.NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        navigationMenuView = new NavigationMenuView(navigationView);
-        navigationMenuView.makeMenu();
-
-        onNavigationItemSelected(navigationView.getMenu().getItem(navigationMenuView.getDefaultMenuItemId()));
-    }
-
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        NavigationMenu item = navigationMenuView.getSelectedMenuItem(menuItem.getItemId());
+        NavigationMenu item = navigationMenuView.selectedMenuItem(menuItem.getItemId());
         Fragment fragment = item.getFragment();
         if (fragment == null) {
             startActivity(new Intent(this, item.getActivity()));
@@ -166,16 +153,4 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         return true;
     }
 
-    @Override
-    public void update(WiFiData wiFiData) {
-        View view = findViewById(R.id.connection);
-
-        DetailsInfo connection = wiFiData.getConnection();
-        if (connection != null && connection.isConnected()) {
-            view.setVisibility(View.VISIBLE);
-            WiFiViewHelper.setView(getResources(), view, connection);
-        } else {
-            view.setVisibility(View.GONE);
-        }
-    }
 }

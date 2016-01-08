@@ -35,7 +35,7 @@ import java.net.URLConnection;
 class RemoteCall extends AsyncTask<String, Void, String> {
     private static final String MAX_VENDOR_LOOKUP = "http://www.macvendorlookup.com/api/v2/%s";
 
-    private MainContext mainContext = MainContext.INSTANCE;
+    private final MainContext mainContext = MainContext.INSTANCE;
 
     protected String doInBackground(String... params) {
         if (params.length < 1 || StringUtils.isBlank(params[0])) {

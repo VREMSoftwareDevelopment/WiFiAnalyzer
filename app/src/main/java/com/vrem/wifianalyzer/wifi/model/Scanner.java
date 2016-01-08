@@ -29,8 +29,9 @@ import java.util.List;
 public class Scanner {
     static final int DELAY_INITIAL = 1;
     static final int DELAY_INTERVAL = 1000;
+
     private final PerformPeriodicScan performPeriodicScan;
-    private MainContext mainContext = MainContext.INSTANCE;
+    private final MainContext mainContext = MainContext.INSTANCE;
     private WiFiData wifiData;
     private List<UpdateNotifier> updateNotifiers = new ArrayList<>();
 

@@ -32,7 +32,7 @@ import java.util.SortedMap;
 
 class VendorArrayAdapter extends ArrayAdapter<String> {
 
-    private MainContext mainContext = MainContext.INSTANCE;
+    private final MainContext mainContext = MainContext.INSTANCE;
     private SortedMap<String, List<String>> vendors;
 
     VendorArrayAdapter(@NonNull Context context, @NonNull SortedMap<String, List<String>> vendors) {

@@ -27,7 +27,7 @@ import com.vrem.wifianalyzer.R;
 
 public class SettingActivity extends PreferenceActivity {
 
-    private MainContext mainContext = MainContext.INSTANCE;
+    private final MainContext mainContext = MainContext.INSTANCE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -15,20 +15,26 @@
  */
 package com.vrem.wifianalyzer.navigation;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.vrem.wifianalyzer.R;
+
 public class NavigationMenuView {
     private final NavigationView navigationView;
 
-    public NavigationMenuView(@NonNull NavigationView navigationView) {
-        this.navigationView = navigationView;
+    public NavigationMenuView(@NonNull Activity activity) {
+        navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
 
+        populateNavigationMenu();
+
+        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) activity);
     }
 
-    public void makeMenu() {
+    private void populateNavigationMenu() {
         Menu menu = navigationView.getMenu();
         for (NavigationGroup navigationGroup : NavigationGroup.values()) {
             for (NavigationMenu navigationMenu : navigationGroup.navigationMenu()) {
@@ -38,24 +44,20 @@ public class NavigationMenuView {
         }
     }
 
-    public int getDefaultMenuItemId() {
-        return NavigationMenu.WIFI_LIST.ordinal();
+    public MenuItem defaultMenuItem() {
+        return navigationView.getMenu().getItem(NavigationMenu.WIFI_LIST.ordinal());
     }
 
-    public NavigationMenu getSelectedMenuItem(int menuItemId) {
+    public NavigationMenu selectedMenuItem(int menuItemId) {
         NavigationMenu result = NavigationMenu.find(menuItemId);
         if (result.getFragment() != null) {
-            selectedMenuItem(menuItemId);
+            Menu menu = navigationView.getMenu();
+            for (int i = 0; i < menu.size(); i++) {
+                MenuItem item = menu.getItem(i);
+                item.setCheckable(menuItemId == i);
+                item.setChecked(menuItemId == i);
+            }
         }
         return result;
-    }
-
-    private void selectedMenuItem(int itemId) {
-        Menu menu = navigationView.getMenu();
-        for (int i = 0; i < menu.size(); i++) {
-            MenuItem item = menu.getItem(i);
-            item.setCheckable(itemId == i);
-            item.setChecked(itemId == i);
-        }
     }
 }
