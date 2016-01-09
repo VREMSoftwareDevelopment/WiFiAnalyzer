@@ -35,7 +35,6 @@ import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
-import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
@@ -103,9 +102,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
             case R.id.action_refresh:
                 mainContext.getScanner().update();
                 return true;
-            case R.id.action_settings:
-                startActivity(new Intent(this, SettingActivity.class));
-                return true;
             default:
                 return super.onOptionsItemSelected(menuItem);
         }
@@ -148,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
             startActivity(new Intent(this, item.getActivity()));
         } else {
             getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, item.getFragment()).commit();
-            setTitle(item.getTitle());
+            setTitle(menuItem.getTitle());
         }
         return true;
     }

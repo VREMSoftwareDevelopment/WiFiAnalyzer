@@ -10,11 +10,4 @@
         android:title="@string/action_refresh"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/ic_settings_grey_500_48dp"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="ifRoom" />
-
 </menu>
