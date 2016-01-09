@@ -42,6 +42,7 @@ public class VendorServiceTest {
     static final String MAC_IN_RANGE1 = "00:23:AB:8C:DF:10";
     static final String MAC_IN_RANGE2 = "00:23:AB:00:DF:1C";
     static final String VENDOR_NAME = "CISCO SYSTEMS, INC.";
+    static final String EXPECTED_VENDOR_NAME = "CISCO SYSTEMS INC";
 
     @Mock private Database database;
     @Mock private RemoteCall remoteCall;
@@ -68,7 +69,7 @@ public class VendorServiceTest {
         // execute
         String actual = fixture.findVendorName(MAC_IN_RANGE1);
         // validate
-        assertEquals(VENDOR_NAME, actual);
+        assertEquals(EXPECTED_VENDOR_NAME, actual);
         verify(database).find(MAC_IN_RANGE1);
     }
 
@@ -126,11 +127,11 @@ public class VendorServiceTest {
     @NonNull
     private List<VendorData> withVendorDatas() {
         return Arrays.asList(
-                new VendorData(3, "Name3", "Mac3"),
-                new VendorData(4, "Name1", "Mac1-2"),
-                new VendorData(1, "Name1", "Mac1-3"),
-                new VendorData(2, "Name1", "Mac1-1"),
-                new VendorData(5, "Name2", "Mac2"));
+                new VendorData(3, "NAME3", "Mac3"),
+                new VendorData(4, "NAME1", "Mac1-2"),
+                new VendorData(1, "NAME1", "Mac1-3"),
+                new VendorData(2, "NAME1", "Mac1-1"),
+                new VendorData(5, "NAME2", "Mac2"));
     }
 
 }

@@ -32,6 +32,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
@@ -52,7 +53,7 @@ public class WiFiDataTest {
     public static final int FREQUENCY1 = 2412;
     public static final int FREQUENCY2 = 2417;
     public static final int FREQUENCY3 = 2422;
-    public static final int FREQUENCY4 = 2417;
+    public static final int FREQUENCY4 = 2422;
 
     public static final int LEVEL0 = 0;
     public static final int LEVEL1 = 1;
@@ -241,12 +242,12 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null);
         // execute
-        List<DetailsInfo> actual = fixture.getWiFiChannelList();
+        Map<Integer, List<DetailsInfo>> actual = fixture.getWiFiChannelList();
         // validate
         assertEquals(3, actual.size());
-        assertEquals(scanResult3.SSID, actual.get(0).getSSID());
-        assertEquals(scanResult1.SSID, actual.get(1).getSSID());
-        assertEquals(scanResult2.SSID, actual.get(2).getSSID());
+        assertEquals(1, actual.get(Frequency.findChannel(FREQUENCY1)).size());
+        assertEquals(4, actual.get(Frequency.findChannel(FREQUENCY2)).size());
+        assertEquals(2, actual.get(Frequency.findChannel(FREQUENCY3)).size());
 
         verify(settings, never()).getGroupBy();
         verify(settings, never()).hideWeakSignal();

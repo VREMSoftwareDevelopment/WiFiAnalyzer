@@ -28,19 +28,24 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.model.ChannelRating;
 import com.vrem.wifianalyzer.wifi.model.DetailsInfo;
+import com.vrem.wifianalyzer.wifi.model.Frequency;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
-class ChannelListAdapter extends ArrayAdapter<DetailsInfo> implements UpdateNotifier {
+class ChannelListAdapter extends ArrayAdapter<Integer> implements UpdateNotifier {
 
     private final MainContext mainContext = MainContext.INSTANCE;
     private final Resources resources;
+    private Map<Integer, List<DetailsInfo>> wifiChannelList = new TreeMap<>();
 
     ChannelListAdapter(@NonNull Context context) {
-        super(context, R.layout.channel_details, new ArrayList<DetailsInfo>());
+        super(context, R.layout.channel_details, new ArrayList<Integer>());
         this.resources = context.getResources();
         mainContext.getScanner().addUpdateNotifier(this);
     }
@@ -48,7 +53,8 @@ class ChannelListAdapter extends ArrayAdapter<DetailsInfo> implements UpdateNoti
     @Override
     public void update(WiFiData wifiData) {
         clear();
-        addAll(wifiData.getWiFiChannelList());
+        addAll(Frequency.find24GHZChannels());
+        wifiChannelList = wifiData.getWiFiChannelList();
         notifyDataSetChanged();
     }
 
@@ -58,13 +64,15 @@ class ChannelListAdapter extends ArrayAdapter<DetailsInfo> implements UpdateNoti
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.channel_details, parent, false);
         }
-        DetailsInfo item = getItem(position);
 
-        Rating rating = new Rating(item);
-        int count = rating.getCount();
-        int color = rating.getColor();
+        Integer channel = getItem(position);
 
-        ((TextView) convertView.findViewById(R.id.channelNumber)).setText("" + item.getChannel());
+        ((TextView) convertView.findViewById(R.id.channelNumber)).setText("" + channel);
+
+        ChannelRating channelRating = new ChannelRating(wifiChannelList.get(channel));
+        int count = channelRating.getCount();
+        int color = channelRating.getColor();
+
         ((TextView) convertView.findViewById(R.id.channelAPCount)).setText(String.format("AP %d", count));
 
         RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.channelRating);
@@ -76,40 +84,4 @@ class ChannelListAdapter extends ArrayAdapter<DetailsInfo> implements UpdateNoti
         return convertView;
     }
 
-    class Rating {
-        private DetailsInfo detailsInfo;
-
-        Rating(@NonNull DetailsInfo detailsInfo) {
-            this.detailsInfo = detailsInfo;
-        }
-
-        int getCount() {
-            int count = detailsInfo.getChildren().size();
-            if (!detailsInfo.isConnected()) {
-                boolean found = false;
-                List<DetailsInfo> children = detailsInfo.getChildren();
-                for (DetailsInfo child : children) {
-                    if (child.isConnected()) {
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    count++;
-                }
-            }
-            return count;
-        }
-
-        int getColor() {
-            int count = getCount();
-            int color = R.color.success_color;
-            if (count > 3) {
-                color = R.color.error_color;
-            } else if (count > 1) {
-                color = R.color.warning_color;
-            }
-            return color;
-        }
-    }
 }

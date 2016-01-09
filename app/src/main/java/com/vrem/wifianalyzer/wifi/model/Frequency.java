@@ -19,6 +19,9 @@ import android.support.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Frequency {
     UNKNOWN(0, 0, 0, StringUtils.EMPTY),
     TWO_POINT_FOUR(2412, 2472, 1, "2.4GHz"),
@@ -52,6 +55,16 @@ public enum Frequency {
         return Frequency.find(value).channel(value);
     }
 
+    public static List<Integer> find24GHZChannels() {
+        List<Integer> results = Frequency.TWO_POINT_FOUR.channels();
+        results.addAll(Frequency.TWO_POINT_FOUR_CH_14.channels());
+        return results;
+    }
+
+    public static List<Integer> find5GHZChannels() {
+        return Frequency.FIVE.channels();
+    }
+
     public boolean inRange(int value) {
         return value >= start && value <= end;
     }
@@ -74,4 +87,16 @@ public enum Frequency {
     public boolean is5GHZ() {
         return Frequency.FIVE.equals(this);
     }
+
+    public List<Integer> channels() {
+        List<Integer> results = new ArrayList<>();
+        for (int i = start; i <= end; i += CHANNEL_FREQUENCY_SPREAD) {
+            int channel = channel(i);
+            if (channel > 0) {
+                results.add(channel);
+            }
+        }
+        return results;
+    }
+
 }

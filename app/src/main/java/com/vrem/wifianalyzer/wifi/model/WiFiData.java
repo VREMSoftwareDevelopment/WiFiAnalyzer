@@ -28,6 +28,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class WiFiData {
 
@@ -48,8 +50,16 @@ public class WiFiData {
     }
 
     @NonNull
-    public List<DetailsInfo> getWiFiChannelList() {
-        return getWiFiList(GroupBy.CHANNEL, false);
+    public Map<Integer, List<DetailsInfo>> getWiFiChannelList() {
+        Map<Integer, List<DetailsInfo>> results = new TreeMap<>();
+        List<DetailsInfo> wiFiList = getWiFiList(GroupBy.CHANNEL, false);
+        for (DetailsInfo detailsInfo : wiFiList) {
+            List<DetailsInfo> details = new ArrayList<>();
+            details.add(detailsInfo);
+            details.addAll(detailsInfo.getChildren());
+            results.put(detailsInfo.getChannel(), details);
+        }
+        return results;
     }
 
     public DetailsInfo getConnection() {

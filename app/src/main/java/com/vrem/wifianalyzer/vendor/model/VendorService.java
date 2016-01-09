@@ -97,6 +97,7 @@ public class VendorService {
                 .replace(",", " ")
                 .replace("   ", " ")
                 .replace("  ", " ")
+                .trim()
                 .toUpperCase();
     }
 }

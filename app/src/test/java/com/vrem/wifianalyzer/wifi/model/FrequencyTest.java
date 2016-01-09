@@ -15,9 +15,15 @@
  */
 package com.vrem.wifianalyzer.wifi.model;
 
+import android.support.annotation.NonNull;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -97,7 +103,47 @@ public class FrequencyTest {
     }
 
     @Test
+    public void testFindChannels() throws Exception {
+        assertTrue(Frequency.UNKNOWN.channels().isEmpty());
+        assertArrayEquals(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}, Frequency.TWO_POINT_FOUR.channels().toArray(new Integer[]{}));
+        assertArrayEquals(new Integer[]{14}, Frequency.TWO_POINT_FOUR_CH_14.channels().toArray(new Integer[]{}));
+        assertArrayEquals(expected5GHZChannels().toArray(new Integer[]{}), Frequency.FIVE.channels().toArray(new Integer[]{}));
+    }
+
+    @Test
     public void testFindChannel() throws Exception {
         assertEquals(1, Frequency.findChannel(2412));
+    }
+
+    @Test
+    public void testFind24GHZChannels() throws Exception {
+        // setup
+        List<Integer> expected = new ArrayList<>();
+        for (int i = 1; i <= 14; i++) {
+            expected.add(i);
+        }
+        // execute
+        List<Integer> actual = Frequency.find24GHZChannels();
+        // validate
+        assertArrayEquals(expected.toArray(new Integer[]{}), actual.toArray(new Integer[]{}));
+    }
+
+    @Test
+    public void testFind5GHZChannels() throws Exception {
+        // setup
+        List<Integer> expected = expected5GHZChannels();
+        // execute
+        List<Integer> actual = Frequency.find5GHZChannels();
+        // validate
+        assertArrayEquals(expected.toArray(new Integer[]{}), actual.toArray(new Integer[]{}));
+    }
+
+    @NonNull
+    private List<Integer> expected5GHZChannels() {
+        List<Integer> expected = new ArrayList<>();
+        for (int i = 34; i <= 165; i++) {
+            expected.add(i);
+        }
+        return expected;
     }
 }
