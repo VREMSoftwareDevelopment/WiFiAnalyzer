@@ -26,25 +26,30 @@ import com.vrem.wifianalyzer.wifi.ChannelFragment;
 import com.vrem.wifianalyzer.wifi.WiFiFragment;
 
 public enum NavigationMenu {
-    WIFI_LIST(R.mipmap.ic_launcher, R.string.action_wifi_list, new WiFiFragment()),
-    CHANNEL_ANALYZER(R.drawable.ic_tune_grey_500_48dp, R.string.action_channel_analyzer, new ChannelFragment()),
-    VENDOR_LIST(R.drawable.ic_list_grey_500_48dp, R.string.action_vendors, new VendorFragment()),
+    WIFI_LIST(R.mipmap.ic_launcher, R.string.action_wifi_list, true, new WiFiFragment()),
+    CHANNEL_ANALYZER(R.drawable.ic_tune_grey_500_48dp, R.string.action_channel_analyzer, true, new ChannelFragment()),
+    VENDOR_LIST(R.drawable.ic_list_grey_500_48dp, R.string.action_vendors, false, new VendorFragment()),
     SETTINGS(R.drawable.ic_settings_grey_500_48dp, R.string.action_settings, SettingActivity.class);
 
-    private int icon;
-    private int title;
-    private Fragment fragment;
-    private Class<? extends Activity> activity;
+    private final int icon;
+    private final int title;
+    private final boolean subTitle;
+    private final Fragment fragment;
+    private final Class<? extends Activity> activity;
 
-    NavigationMenu(int icon, int title, @NonNull Fragment fragment) {
+    NavigationMenu(int icon, int title, boolean subTitle, @NonNull Fragment fragment) {
         this.icon = icon;
         this.title = title;
+        this.subTitle = subTitle;
         this.fragment = fragment;
+        this.activity = null;
     }
 
     NavigationMenu(int icon, int title, @NonNull Class<? extends Activity> activity) {
         this.icon = icon;
         this.title = title;
+        this.subTitle = false;
+        this.fragment = null;
         this.activity = activity;
     }
 
@@ -66,6 +71,10 @@ public enum NavigationMenu {
 
     public int getTitle() {
         return title;
+    }
+
+    public boolean isSubTitle() {
+        return subTitle;
     }
 
     int getIcon() {

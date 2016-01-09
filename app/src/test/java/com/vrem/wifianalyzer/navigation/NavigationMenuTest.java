@@ -18,11 +18,13 @@ package com.vrem.wifianalyzer.navigation;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.vendor.VendorFragment;
+import com.vrem.wifianalyzer.wifi.ChannelFragment;
 import com.vrem.wifianalyzer.wifi.WiFiFragment;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -46,7 +48,7 @@ public class NavigationMenuTest {
     @Test
     public void testGetFragment() throws Exception {
         assertTrue(NavigationMenu.WIFI_LIST.getFragment() instanceof WiFiFragment);
-        assertTrue(NavigationMenu.WIFI_LIST.getFragment() instanceof WiFiFragment);
+        assertTrue(NavigationMenu.CHANNEL_ANALYZER.getFragment() instanceof ChannelFragment);
         assertTrue(NavigationMenu.VENDOR_LIST.getFragment() instanceof VendorFragment);
         assertNull(NavigationMenu.SETTINGS.getFragment());
     }
@@ -54,6 +56,7 @@ public class NavigationMenuTest {
     @Test
     public void testGetActivity() throws Exception {
         assertNull(NavigationMenu.WIFI_LIST.getActivity());
+        assertNull(NavigationMenu.CHANNEL_ANALYZER.getActivity());
         assertNull(NavigationMenu.VENDOR_LIST.getActivity());
         assertEquals(SettingActivity.class, NavigationMenu.SETTINGS.getActivity());
     }
@@ -61,13 +64,23 @@ public class NavigationMenuTest {
     @Test
     public void testGetTitle() throws Exception {
         assertEquals(R.string.action_wifi_list, NavigationMenu.WIFI_LIST.getTitle());
+        assertEquals(R.string.action_channel_analyzer, NavigationMenu.CHANNEL_ANALYZER.getTitle());
         assertEquals(R.string.action_vendors, NavigationMenu.VENDOR_LIST.getTitle());
         assertEquals(R.string.action_settings, NavigationMenu.SETTINGS.getTitle());
     }
 
     @Test
+    public void testIsSubTitle() throws Exception {
+        assertTrue(NavigationMenu.WIFI_LIST.isSubTitle());
+        assertTrue(NavigationMenu.CHANNEL_ANALYZER.isSubTitle());
+        assertFalse(NavigationMenu.VENDOR_LIST.isSubTitle());
+        assertFalse(NavigationMenu.SETTINGS.isSubTitle());
+    }
+
+    @Test
     public void testGetIcon() throws Exception {
         assertEquals(R.mipmap.ic_launcher, NavigationMenu.WIFI_LIST.getIcon());
+        assertEquals(R.drawable.ic_tune_grey_500_48dp, NavigationMenu.CHANNEL_ANALYZER.getIcon());
         assertEquals(R.drawable.ic_list_grey_500_48dp, NavigationMenu.VENDOR_LIST.getIcon());
         assertEquals(R.drawable.ic_settings_grey_500_48dp, NavigationMenu.SETTINGS.getIcon());
     }

@@ -41,6 +41,8 @@ import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.ConnectionView;
 import com.vrem.wifianalyzer.wifi.model.Scanner;
 
+import org.apache.commons.lang3.StringUtils;
+
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
 public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private int themeAppCompatStyle;
     private NavigationMenuView navigationMenuView;
     private ConnectionView connectionView;
+    private boolean subTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
             reloadActivity();
         } else {
             mainContext.getScanner().update();
+            subTitle();
         }
     }
 
@@ -143,10 +147,16 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         if (fragment == null) {
             startActivity(new Intent(this, item.getActivity()));
         } else {
+            subTitle = item.isSubTitle();
             getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, item.getFragment()).commit();
             setTitle(menuItem.getTitle());
+            subTitle();
         }
         return true;
+    }
+
+    private void subTitle() {
+        getSupportActionBar().setSubtitle(subTitle ? mainContext.getSettings().getWiFiBand().getBand() : StringUtils.EMPTY);
     }
 
 }
