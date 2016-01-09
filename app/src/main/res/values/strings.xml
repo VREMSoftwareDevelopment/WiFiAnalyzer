@@ -17,6 +17,11 @@
     <string name="no_data">No Data</string>
 
     <!-- Strings related to Settings -->
+    <string name="wifi_band_title">WiFi Band</string>
+    <string name="wifi_band_summary">%s</string>
+    <string name="wifi_band_key">wifi_band</string>
+    <string name="wifi_band_default">2.4 GHz</string>
+
     <string name="scan_interval_title">WiFi Scan Interval</string>
     <string name="scan_interval_summary">%d seconds between each WiFi scan</string>
     <string name="scan_interval_key">scan_interval</string>

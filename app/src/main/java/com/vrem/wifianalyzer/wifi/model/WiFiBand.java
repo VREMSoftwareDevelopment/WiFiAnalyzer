@@ -15,36 +15,28 @@
  */
 package com.vrem.wifianalyzer.wifi.model;
 
-import java.util.List;
+import android.support.annotation.NonNull;
 
-public interface DetailsInfo extends Comparable<DetailsInfo> {
-    String getSSID();
+public enum WiFiBand {
+    TWO_POINT_FOUR("2.4 GHz"),
+    FIVE("5 GHz");
 
-    String getBSSID();
+    private final String band;
 
-    int getFrequency();
+    WiFiBand(@NonNull String band) {
+        this.band = band;
+    }
 
-    int getChannel();
+    public static WiFiBand find(String value) {
+        for (WiFiBand wifiBand : WiFiBand.values()) {
+            if (wifiBand.getBand().equals(value)) {
+                return wifiBand;
+            }
+        }
+        return WiFiBand.TWO_POINT_FOUR;
+    }
 
-    WiFiBand getWiFiBand();
-
-    Security getSecurity();
-
-    Strength getStrength();
-
-    int getLevel();
-
-    String getCapabilities();
-
-    double getDistance();
-
-    String getVendorName();
-
-    String getIPAddress();
-
-    boolean isConnected();
-
-    List<DetailsInfo> getChildren();
-
-    void addChild(DetailsInfo detailsInfo);
+    public String getBand() {
+        return band;
+    }
 }

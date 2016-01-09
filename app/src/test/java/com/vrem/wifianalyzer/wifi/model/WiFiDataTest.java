@@ -85,6 +85,7 @@ public class WiFiDataTest {
         mainContext.setSettings(settings);
 
         when(settings.getGroupBy()).thenReturn(GroupBy.SSID);
+        when(settings.getWiFiBand()).thenReturn(WiFiBand.TWO_POINT_FOUR);
 
         scanResults = Arrays.asList(scanResult_3,
                 scanResult3,
@@ -179,6 +180,17 @@ public class WiFiDataTest {
     }
 
     @Test
+    public void testGetWiFiListEmpty() throws Exception {
+        // setup
+        fixture = new WiFiData(scanResults, null);
+        when(settings.getWiFiBand()).thenReturn(WiFiBand.FIVE);
+        // execute
+        List<DetailsInfo> actual = fixture.getWiFiList();
+        // validate
+        assertTrue(actual.isEmpty());
+    }
+
+    @Test
     public void testGetWiFiListWithSSID() throws Exception {
         // setup
         fixture = new WiFiData(scanResults, null);
@@ -190,6 +202,7 @@ public class WiFiDataTest {
         assertEquals(scanResult2.SSID, actual.get(2).getSSID());
         assertEquals(scanResult4.SSID, actual.get(3).getSSID());
 
+        verify(settings).getWiFiBand();
         verify(settings).getGroupBy();
     }
 
@@ -249,7 +262,19 @@ public class WiFiDataTest {
         assertEquals(4, actual.get(Frequency.findChannel(FREQUENCY2)).size());
         assertEquals(2, actual.get(Frequency.findChannel(FREQUENCY3)).size());
 
+        verify(settings).getWiFiBand();
         verify(settings, never()).getGroupBy();
         verify(settings, never()).hideWeakSignal();
+    }
+
+    @Test
+    public void testGetWiFiChannelListEmpty() throws Exception {
+        // setup
+        fixture = new WiFiData(scanResults, null);
+        when(settings.getWiFiBand()).thenReturn(WiFiBand.FIVE);
+        // execute
+        Map<Integer, List<DetailsInfo>> actual = fixture.getWiFiChannelList();
+        // validate
+        assertTrue(actual.isEmpty());
     }
 }

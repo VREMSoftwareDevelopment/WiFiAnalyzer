@@ -17,7 +17,6 @@ package com.vrem.wifianalyzer.wifi.model;
 
 import android.support.annotation.NonNull;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -26,6 +25,7 @@ import java.util.List;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class FrequencyTest {
@@ -70,10 +70,10 @@ public class FrequencyTest {
 
     @Test
     public void testBand() throws Exception {
-        assertEquals(StringUtils.EMPTY, Frequency.UNKNOWN.band());
-        assertEquals("2.4GHz", Frequency.TWO_POINT_FOUR.band());
-        assertEquals("2.4GHz", Frequency.TWO_POINT_FOUR_CH_14.band());
-        assertEquals("5GHz", Frequency.FIVE.band());
+        assertNull(Frequency.UNKNOWN.wifiBand());
+        assertEquals(WiFiBand.TWO_POINT_FOUR, Frequency.TWO_POINT_FOUR.wifiBand());
+        assertEquals(WiFiBand.TWO_POINT_FOUR, Frequency.TWO_POINT_FOUR_CH_14.wifiBand());
+        assertEquals(WiFiBand.FIVE, Frequency.FIVE.wifiBand());
     }
 
     @Test
@@ -105,9 +105,9 @@ public class FrequencyTest {
     @Test
     public void testFindChannels() throws Exception {
         assertTrue(Frequency.UNKNOWN.channels().isEmpty());
-        assertArrayEquals(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}, Frequency.TWO_POINT_FOUR.channels().toArray(new Integer[]{}));
-        assertArrayEquals(new Integer[]{14}, Frequency.TWO_POINT_FOUR_CH_14.channels().toArray(new Integer[]{}));
-        assertArrayEquals(expected5GHZChannels().toArray(new Integer[]{}), Frequency.FIVE.channels().toArray(new Integer[]{}));
+        assertListEquals(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}, Frequency.TWO_POINT_FOUR.channels());
+        assertListEquals(new Integer[]{14}, Frequency.TWO_POINT_FOUR_CH_14.channels());
+        assertListEquals(expected5GHZChannels(), Frequency.FIVE.channels());
     }
 
     @Test
@@ -123,9 +123,9 @@ public class FrequencyTest {
             expected.add(i);
         }
         // execute
-        List<Integer> actual = Frequency.find24GHZChannels();
+        List<Integer> actual = Frequency.findChannels(WiFiBand.TWO_POINT_FOUR);
         // validate
-        assertArrayEquals(expected.toArray(new Integer[]{}), actual.toArray(new Integer[]{}));
+        assertListEquals(expected, actual);
     }
 
     @Test
@@ -133,9 +133,9 @@ public class FrequencyTest {
         // setup
         List<Integer> expected = expected5GHZChannels();
         // execute
-        List<Integer> actual = Frequency.find5GHZChannels();
+        List<Integer> actual = Frequency.findChannels(WiFiBand.FIVE);
         // validate
-        assertArrayEquals(expected.toArray(new Integer[]{}), actual.toArray(new Integer[]{}));
+        assertListEquals(expected, actual);
     }
 
     @NonNull
@@ -145,5 +145,13 @@ public class FrequencyTest {
             expected.add(i);
         }
         return expected;
+    }
+
+    private void assertListEquals(Integer[] expected, List<Integer> actual) {
+        assertArrayEquals(expected, actual.toArray());
+    }
+
+    private void assertListEquals(List<Integer> expected, List<Integer> actual) {
+        assertArrayEquals(expected.toArray(), actual.toArray());
     }
 }

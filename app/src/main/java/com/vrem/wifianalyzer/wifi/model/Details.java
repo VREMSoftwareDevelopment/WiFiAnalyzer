@@ -55,6 +55,11 @@ public class Details implements DetailsInfo {
     }
 
     @Override
+    public WiFiBand getWiFiBand() {
+        return Frequency.find(getFrequency()).wifiBand();
+    }
+
+    @Override
     public Security getSecurity() {
         return Security.findOne(scanResult.capabilities);
     }

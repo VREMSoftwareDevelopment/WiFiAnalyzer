@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="wifi_band_array">
+        <item>2.4 GHz</item>
+        <item>5 GHz</item>
+    </string-array>
+
     <string-array name="group_by_array">
         <item>None</item>
         <item>SSID</item>

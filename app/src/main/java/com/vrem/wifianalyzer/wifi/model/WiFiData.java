@@ -109,15 +109,18 @@ public class WiFiData {
 
     private List<DetailsInfo> buildWiFiList(boolean hideWeakSignal) {
         List<DetailsInfo> results = new ArrayList<>();
+        WiFiBand wiFiBand = mainContext.getSettings().getWiFiBand();
         VendorService vendorService = mainContext.getVendorService();
         DetailsInfo connection = getConnection();
         for (ScanResult scanResult : scanResults) {
             String vendorName = vendorService.findVendorName(scanResult.BSSID);
             Details details = new Details(scanResult, vendorName);
-            if (details.equals(connection)) {
-                results.add(connection);
-            } else if (!hideWeakSignal(hideWeakSignal, details)) {
-                results.add(details);
+            if (wiFiBand.equals(details.getWiFiBand())) {
+                if (details.equals(connection)) {
+                    results.add(connection);
+                } else if (!hideWeakSignal(hideWeakSignal, details)) {
+                    results.add(details);
+                }
             }
         }
         return results;

@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
+import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 
 import org.junit.After;
 import org.junit.Before;
@@ -120,6 +121,24 @@ public class SettingsTest {
         assertEquals(expected, actual);
         verifyResourceKey(R.string.group_by_key);
         verify(resources).getString(R.string.group_by_default);
+        verify(sharedPreferences).getString(key, defaultValue);
+    }
+
+    @Test
+    public void testWiFiBand() throws Exception {
+        // setup
+        String defaultValue = "some";
+        String key = "xyz";
+        WiFiBand expected = WiFiBand.TWO_POINT_FOUR;
+        withResourceKey(R.string.wifi_band_key, key);
+        when(resources.getString(R.string.wifi_band_default)).thenReturn(defaultValue);
+        when(sharedPreferences.getString(key, defaultValue)).thenReturn(expected.name());
+        // execute
+        WiFiBand actual = fixture.getWiFiBand();
+        // validate
+        assertEquals(expected, actual);
+        verifyResourceKey(R.string.wifi_band_key);
+        verify(resources).getString(R.string.wifi_band_default);
         verify(sharedPreferences).getString(key, defaultValue);
     }
 

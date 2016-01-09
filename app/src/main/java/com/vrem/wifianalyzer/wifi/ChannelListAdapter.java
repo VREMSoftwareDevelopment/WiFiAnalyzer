@@ -53,7 +53,7 @@ class ChannelListAdapter extends ArrayAdapter<Integer> implements UpdateNotifier
     @Override
     public void update(WiFiData wifiData) {
         clear();
-        addAll(Frequency.find24GHZChannels());
+        addAll(Frequency.findChannels(mainContext.getSettings().getWiFiBand()));
         wifiChannelList = wifiData.getWiFiChannelList();
         notifyDataSetChanged();
     }

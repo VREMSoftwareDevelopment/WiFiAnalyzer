@@ -17,29 +17,32 @@ package com.vrem.wifianalyzer.wifi.model;
 
 import android.support.annotation.NonNull;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public enum Frequency {
-    UNKNOWN(0, 0, 0, StringUtils.EMPTY),
-    TWO_POINT_FOUR(2412, 2472, 1, "2.4GHz"),
-    TWO_POINT_FOUR_CH_14(2484, 2484, 14, "2.4GHz"),
-    FIVE(5170, 5825, 34, "5GHz");
+    UNKNOWN(),
+    TWO_POINT_FOUR(2412, 2472, 1, WiFiBand.TWO_POINT_FOUR),
+    TWO_POINT_FOUR_CH_14(2484, 2484, 14, WiFiBand.TWO_POINT_FOUR),
+    FIVE(5170, 5825, 34, WiFiBand.FIVE);
 
     private final int CHANNEL_FREQUENCY_SPREAD = 5;
 
     private final int start;
     private final int end;
     private final int offset;
-    private final String band;
+    private final WiFiBand wifiBand;
 
-    Frequency(int start, int end, int offset, @NonNull String band) {
+    Frequency() {
+        start = end = offset = 0;
+        wifiBand = null;
+    }
+
+    Frequency(int start, int end, int offset, @NonNull WiFiBand wifiBand) {
         this.start = start;
         this.end = end;
         this.offset = offset;
-        this.band = band;
+        this.wifiBand = wifiBand;
     }
 
     public static Frequency find(int value) {
@@ -55,14 +58,14 @@ public enum Frequency {
         return Frequency.find(value).channel(value);
     }
 
-    public static List<Integer> find24GHZChannels() {
-        List<Integer> results = Frequency.TWO_POINT_FOUR.channels();
-        results.addAll(Frequency.TWO_POINT_FOUR_CH_14.channels());
+    public static List<Integer> findChannels(WiFiBand wiFiBand) {
+        List<Integer> results = new ArrayList<>();
+        for (Frequency frequency : values()) {
+            if (wiFiBand.equals(frequency.wifiBand())) {
+                results.addAll(frequency.channels());
+            }
+        }
         return results;
-    }
-
-    public static List<Integer> find5GHZChannels() {
-        return Frequency.FIVE.channels();
     }
 
     public boolean inRange(int value) {
@@ -76,16 +79,16 @@ public enum Frequency {
         return 0;
     }
 
-    public String band() {
-        return band;
+    public WiFiBand wifiBand() {
+        return wifiBand;
     }
 
     public boolean is24GHZ() {
-        return Frequency.TWO_POINT_FOUR.equals(this) || Frequency.TWO_POINT_FOUR_CH_14.equals(this);
+        return WiFiBand.TWO_POINT_FOUR.equals(this.wifiBand());
     }
 
     public boolean is5GHZ() {
-        return Frequency.FIVE.equals(this);
+        return WiFiBand.FIVE.equals(this.wifiBand());
     }
 
     public List<Integer> channels() {

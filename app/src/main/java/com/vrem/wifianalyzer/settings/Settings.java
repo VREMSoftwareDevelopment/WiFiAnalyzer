@@ -22,6 +22,7 @@ import android.preference.PreferenceManager;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
+import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 
 public class Settings {
     private final MainContext mainContext = MainContext.INSTANCE;
@@ -39,7 +40,7 @@ public class Settings {
 
     public int getScanInterval() {
         Context context = mainContext.getContext();
-        int defaultValue =context.getResources().getInteger(R.integer.scan_interval_default);
+        int defaultValue = context.getResources().getInteger(R.integer.scan_interval_default);
         return getSharedPreferences().getInt(context.getString(R.string.scan_interval_key), defaultValue);
     }
 
@@ -51,8 +52,14 @@ public class Settings {
 
     public GroupBy getGroupBy() {
         Context context = mainContext.getContext();
-        String defaultValue =context.getResources().getString(R.string.group_by_default);
+        String defaultValue = context.getResources().getString(R.string.group_by_default);
         return GroupBy.find(getSharedPreferences().getString(context.getString(R.string.group_by_key), defaultValue));
+    }
+
+    public WiFiBand getWiFiBand() {
+        Context context = mainContext.getContext();
+        String defaultValue = context.getResources().getString(R.string.wifi_band_default);
+        return WiFiBand.find(getSharedPreferences().getString(context.getString(R.string.wifi_band_key), defaultValue));
     }
 
     public ThemeStyle getThemeStyle() {
