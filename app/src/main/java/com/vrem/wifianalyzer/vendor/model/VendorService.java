@@ -48,6 +48,7 @@ public class VendorService {
         }
         String result = mainContext.getDatabase().find(macAddress);
         if (result != null) {
+            result = cleanVendorName(result);
             cache.put(key, result);
             return result;
         }
@@ -75,7 +76,7 @@ public class VendorService {
         SortedMap<String, List<String>> results = new TreeMap<>();
         List<VendorData> vendorDatas = mainContext.getDatabase().findAll();
         for (VendorData vendorData : vendorDatas) {
-            String key = vendorData.getName();
+            String key = cleanVendorName(vendorData.getName());
             List<String> macs = results.get(key);
             if (macs == null) {
                 macs = new ArrayList<>();
@@ -85,5 +86,17 @@ public class VendorService {
             Collections.sort(macs);
         }
         return results;
+    }
+
+    private String cleanVendorName(String name) {
+        if (StringUtils.isEmpty(name)) {
+            return StringUtils.EMPTY;
+        }
+        return name
+                .replace(".", " ")
+                .replace(",", " ")
+                .replace("   ", " ")
+                .replace("  ", " ")
+                .toUpperCase();
     }
 }
