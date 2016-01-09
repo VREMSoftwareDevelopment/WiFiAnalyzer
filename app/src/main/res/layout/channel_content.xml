@@ -18,7 +18,9 @@
         <ListView
             android:id="@+id/channelListView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:dividerHeight="0dp" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

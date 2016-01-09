@@ -148,8 +148,8 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
             startActivity(new Intent(this, item.getActivity()));
         } else {
             getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, item.getFragment()).commit();
+            setTitle(item.getTitle());
         }
-        setTitle(item.getTitle());
         return true;
     }
 

@@ -16,13 +16,14 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
@@ -58,29 +59,57 @@ class ChannelListAdapter extends ArrayAdapter<DetailsInfo> implements UpdateNoti
             convertView = inflater.inflate(R.layout.channel_details, parent, false);
         }
         DetailsInfo item = getItem(position);
-        int count = item.getChildren().size();
-        if (!item.isConnected()) {
-            boolean found = false;
-            List<DetailsInfo> children = item.getChildren();
-            for (DetailsInfo child : children) {
-                if (child.isConnected()) {
-                    found = true;
-                    break;
+
+        Rating rating = new Rating(item);
+        int count = rating.getCount();
+        int color = rating.getColor();
+
+        ((TextView) convertView.findViewById(R.id.channelNumber)).setText("" + item.getChannel());
+        ((TextView) convertView.findViewById(R.id.channelAPCount)).setText(String.format("AP %d", count));
+
+        RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.channelRating);
+        ratingBar.setProgressTintList(ColorStateList.valueOf(resources.getColor(color)));
+        ratingBar.setNumStars(5);
+        ratingBar.setStepSize(1);
+        ratingBar.setRating(Math.max(0, 5 - count));
+
+        return convertView;
+    }
+
+    class Rating {
+        private DetailsInfo detailsInfo;
+
+        Rating(@NonNull DetailsInfo detailsInfo) {
+            this.detailsInfo = detailsInfo;
+        }
+
+        int getCount() {
+            int count = detailsInfo.getChildren().size();
+            if (!detailsInfo.isConnected()) {
+                boolean found = false;
+                List<DetailsInfo> children = detailsInfo.getChildren();
+                for (DetailsInfo child : children) {
+                    if (child.isConnected()) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    count++;
                 }
             }
-            if (!found) {
-                count++;
+            return count;
+        }
+
+        int getColor() {
+            int count = getCount();
+            int color = R.color.success_color;
+            if (count > 3) {
+                color = R.color.error_color;
+            } else if (count > 1) {
+                color = R.color.warning_color;
             }
+            return color;
         }
-        int color = R.color.success_color;
-        if (count > 3) {
-            color = R.color.error_color;
-        } else if (count > 1) {
-            color = R.color.warning_color;
-        }
-        ((TextView) convertView.findViewById(R.id.channelNumber)).setText("" + item.getChannel());
-        ((TextView) convertView.findViewById(R.id.channelWiFiCount)).setText("" + (count));
-        ((ImageView) convertView.findViewById(R.id.channelImage)).setColorFilter(resources.getColor(color));
-        return convertView;
     }
 }

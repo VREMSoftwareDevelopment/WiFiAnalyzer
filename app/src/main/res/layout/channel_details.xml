@@ -5,26 +5,29 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/channelImage"
+    <RatingBar
+        android:id="@+id/channelRating"
+        style="?android:attr/ratingBarStyleIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_star_rate_black_36dp" />
+        android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/channelNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:textColor="@color/channel"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/channelWiFiCount"
+        android:id="@+id/channelAPCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:textColor="@color/connected"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
 </LinearLayout>
