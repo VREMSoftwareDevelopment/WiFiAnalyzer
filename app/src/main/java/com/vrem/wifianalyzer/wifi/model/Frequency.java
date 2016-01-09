@@ -66,4 +66,12 @@ public enum Frequency {
     public String band() {
         return band;
     }
+
+    public boolean is24GHZ() {
+        return Frequency.TWO_POINT_FOUR.equals(this) || Frequency.TWO_POINT_FOUR_CH_14.equals(this);
+    }
+
+    public boolean is5GHZ() {
+        return Frequency.FIVE.equals(this);
+    }
 }

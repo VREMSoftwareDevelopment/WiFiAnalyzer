@@ -81,6 +81,22 @@ public class FrequencyTest {
     }
 
     @Test
+    public void testIs24GHZ() throws Exception {
+        assertFalse(Frequency.UNKNOWN.is24GHZ());
+        assertTrue(Frequency.TWO_POINT_FOUR.is24GHZ());
+        assertTrue(Frequency.TWO_POINT_FOUR_CH_14.is24GHZ());
+        assertFalse(Frequency.FIVE.is24GHZ());
+    }
+
+    @Test
+    public void testIs5GHZ() throws Exception {
+        assertFalse(Frequency.UNKNOWN.is5GHZ());
+        assertFalse(Frequency.TWO_POINT_FOUR.is5GHZ());
+        assertFalse(Frequency.TWO_POINT_FOUR_CH_14.is5GHZ());
+        assertTrue(Frequency.FIVE.is5GHZ());
+    }
+
+    @Test
     public void testFindChannel() throws Exception {
         assertEquals(1, Frequency.findChannel(2412));
     }
