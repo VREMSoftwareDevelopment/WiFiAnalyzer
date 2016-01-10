@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class ChannelRating {
-    private final static int CHANNEL_OFFSET = 1;
+    private final static int CHANNEL_OFFSET = 2;
 
     private Map<Integer, List<WiFiDetails>> wifiChannels = new TreeMap<>();
 

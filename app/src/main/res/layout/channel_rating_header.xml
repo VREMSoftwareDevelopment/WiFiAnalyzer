@@ -1,37 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:paddingTop="@dimen/list_view_item_horizontal_spacer">
+    android:orientation="horizontal">
 
-    <RatingBar
-        android:id="@+id/channelRating"
-        style="?android:attr/ratingBarStyleSmall"
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:paddingRight="@dimen/list_view_item_horizontal_spacer"
-        android:stepSize="1.0" />
+        android:text="@string/channel_rating_heading_rating"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/channelNumber"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.75"
         android:paddingLeft="@dimen/list_view_item_horizontal_spacer"
         android:paddingRight="@dimen/list_view_item_horizontal_spacer"
-        android:textColor="@color/channel"
-        android:textStyle="bold"/>
+        android:text="@string/channel_rating_heading_number"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/accessPointCount"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.75"
         android:paddingLeft="@dimen/list_view_item_horizontal_spacer"
-        android:textColor="@color/connected"
-        android:textStyle="bold"/>
+        android:text="@string/channel_rating_heading_count"
+        android:textStyle="bold" />
 
 </LinearLayout>

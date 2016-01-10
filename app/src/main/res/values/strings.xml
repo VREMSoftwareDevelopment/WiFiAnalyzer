@@ -16,6 +16,10 @@
     <string name="button_cancel">Cancel</string>
     <string name="no_data">No Data</string>
 
+    <string name="channel_rating_heading_rating">Channel Rating</string>
+    <string name="channel_rating_heading_number">Channel Number</string>
+    <string name="channel_rating_heading_count">Access Point Count</string>
+
     <!-- Strings related to Settings -->
     <string name="wifi_band_title">WiFi Band</string>
     <string name="wifi_band_summary">%s</string>

@@ -65,12 +65,14 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
         Integer channel = getItem(position);
         int count = channelRating.getCount(channel);
 
-        ((TextView) convertView.findViewById(R.id.channelNumber)).setText(String.format("CH %d", channel));
-        ((TextView) convertView.findViewById(R.id.channelAPCount)).setText(String.format("AP (%d)", count));
+        ((TextView) convertView.findViewById(R.id.channelNumber)).setText(String.format("%d", channel));
+        ((TextView) convertView.findViewById(R.id.accessPointCount)).setText(String.format("%d", count));
 
         Strength strength = Strength.reverse(channelRating.getStrength(channel));
         RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.channelRating);
-        ratingBar.setNumStars(Strength.values().length);
+        int size = Strength.values().length;
+        ratingBar.setMax(size);
+        ratingBar.setNumStars(size);
         ratingBar.setRating(strength.ordinal()+1);
         ratingBar.setProgressTintList(ColorStateList.valueOf(resources.getColor(strength.colorResource())));
 
