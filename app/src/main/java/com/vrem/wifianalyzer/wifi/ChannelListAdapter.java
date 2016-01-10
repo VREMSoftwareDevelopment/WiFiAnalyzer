@@ -30,6 +30,7 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
 import com.vrem.wifianalyzer.wifi.model.Frequency;
+import com.vrem.wifianalyzer.wifi.model.Strength;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
 import java.util.ArrayList;
@@ -62,18 +63,16 @@ class ChannelListAdapter extends ArrayAdapter<Integer> implements UpdateNotifier
         }
 
         Integer channel = getItem(position);
-
-        int apCount = channelRating.getAPCount(channel);
         int count = channelRating.getCount(channel);
-        int color = resources.getColor(channelRating.getColor(channel));
 
         ((TextView) convertView.findViewById(R.id.channelNumber)).setText(String.format("CH %d", channel));
-        ((TextView) convertView.findViewById(R.id.channelAPCount)).setText(String.format("AP (%d)", apCount));
+        ((TextView) convertView.findViewById(R.id.channelAPCount)).setText(String.format("AP (%d)", count));
 
+        Strength strength = Strength.reverse(channelRating.getStrength(channel));
         RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.channelRating);
-        int rating = Math.max(0, ratingBar.getNumStars() - count);
-        ratingBar.setRating(rating);
-        ratingBar.setProgressTintList(ColorStateList.valueOf(color));
+        ratingBar.setNumStars(Strength.values().length);
+        ratingBar.setRating(strength.ordinal()+1);
+        ratingBar.setProgressTintList(ColorStateList.valueOf(resources.getColor(strength.colorResource())));
 
         return convertView;
     }

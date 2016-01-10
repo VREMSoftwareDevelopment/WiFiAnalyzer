@@ -38,6 +38,10 @@ public enum Strength {
         return Strength.values()[WifiManager.calculateSignalLevel(level, values().length)];
     }
 
+    public static Strength reverse(Strength strength) {
+        return Strength.values()[Strength.values().length - strength.ordinal() - 1];
+    }
+
     public int colorResource() {
         return colorResource;
     }

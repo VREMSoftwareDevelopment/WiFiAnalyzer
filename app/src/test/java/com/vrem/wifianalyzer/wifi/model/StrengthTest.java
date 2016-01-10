@@ -82,4 +82,13 @@ public class StrengthTest {
         verifyStatic();
     }
 
+    @Test
+    public void testReverse() throws Exception {
+        assertEquals(Strength.FOUR, Strength.reverse(Strength.ZERO));
+        assertEquals(Strength.THREE, Strength.reverse(Strength.ONE));
+        assertEquals(Strength.TWO, Strength.reverse(Strength.TWO));
+        assertEquals(Strength.ONE, Strength.reverse(Strength.THREE));
+        assertEquals(Strength.ZERO, Strength.reverse(Strength.FOUR));
+    }
+
 }

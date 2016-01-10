@@ -10,7 +10,6 @@
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:numStars="5"
         android:stepSize="1.0" />
 
     <TextView

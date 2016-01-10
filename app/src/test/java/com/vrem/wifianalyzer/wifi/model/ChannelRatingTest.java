@@ -15,8 +15,6 @@
  */
 package com.vrem.wifianalyzer.wifi.model;
 
-import com.vrem.wifianalyzer.R;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,6 +29,7 @@ import java.util.TreeMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -52,93 +51,56 @@ public class ChannelRatingTest {
         fixture = new ChannelRating();
     }
 
-
     @Test
     public void testChannelRating() throws Exception {
         assertEquals(0, fixture.getCount(CHANNEL));
-        assertEquals(R.color.success_color, fixture.getColor(CHANNEL));
-    }
-
-    @Test
-    public void testGetAPCount() throws Exception {
-        // setup
-        Map<Integer, List<DetailsInfo>> details = withDetails();
-        int expected = details.get(CHANNEL).size() - 1;
-        fixture.setWiFiChannels(details);
-        // execute
-        int actual = fixture.getAPCount(CHANNEL);
-        // validate
-        assertEquals(expected, actual);
-        verifyDetails();
+        assertEquals(Strength.ZERO, fixture.getStrength(CHANNEL));
     }
 
     @Test
     public void testGetCount() throws Exception {
         // setup
         Map<Integer, List<DetailsInfo>> details = withDetails();
-        int expected = 1;
         fixture.setWiFiChannels(details);
-        // execute
-        int actual = fixture.getCount(CHANNEL);
-        // validate
-        assertEquals(expected, actual);
-        verifyDetails();
+        // execute & validate
+        assertEquals(details.get(CHANNEL).size(), fixture.getCount(CHANNEL));
     }
 
     @Test
-    public void testGetColorWarning() throws Exception {
+    public void testGetStrength() throws Exception {
         // setup
         Map<Integer, List<DetailsInfo>> details = withDetails();
         fixture.setWiFiChannels(details);
-        // execute
-        int actual = fixture.getColor(CHANNEL);
-        // validate
-        assertEquals(R.color.warning_color, actual);
+        expectedDetails();
+        // execute & validate
+        assertEquals(detailsInfo3.getStrength(), fixture.getStrength(CHANNEL));
         verifyDetails();
-    }
-
-    @Test
-    public void testGetColorError() throws Exception {
-        // setup
-        Map<Integer, List<DetailsInfo>> details = withDetails();
-        withAdditionalDetails(details);
-        fixture.setWiFiChannels(details);
-        // execute
-        int actual = fixture.getColor(CHANNEL);
-        // validate
-        assertEquals(R.color.error_color, actual);
-        verifyDetails();
-        verifyAdditionalDetails();
-    }
-
-    private void verifyAdditionalDetails() {
-        verify(detailsInfo3).isConnected();
-        verify(detailsInfo3).getStrength();
-    }
-
-    private void withAdditionalDetails(Map<Integer, List<DetailsInfo>> details) {
-        List<DetailsInfo> detailsInfos = details.get(CHANNEL);
-        detailsInfos.add(detailsInfo3);
-        when(detailsInfo3.getStrength()).thenReturn(Strength.TWO);
     }
 
     private void verifyDetails() {
         verify(detailsInfo1).isConnected();
         verify(detailsInfo2).isConnected();
+        verify(detailsInfo3).isConnected();
 
         verify(detailsInfo1).getStrength();
         verify(detailsInfo2, never()).getStrength();
+        verify(detailsInfo3, times(2)).getStrength();
     }
 
     private Map<Integer, List<DetailsInfo>> withDetails() {
+        Map<Integer, List<DetailsInfo>> results = new TreeMap<>();
+        results.put(CHANNEL, new ArrayList<>(Arrays.asList(new DetailsInfo[]{detailsInfo1, detailsInfo2, detailsInfo3})));
+        return results;
+    }
+
+    private void expectedDetails() {
         when(detailsInfo1.isConnected()).thenReturn(false);
         when(detailsInfo2.isConnected()).thenReturn(true);
+        when(detailsInfo3.isConnected()).thenReturn(false);
 
-        when(detailsInfo1.getStrength()).thenReturn(Strength.TWO);
-
-        Map<Integer, List<DetailsInfo>> results = new TreeMap<>();
-        results.put(CHANNEL, new ArrayList<>(Arrays.asList(new DetailsInfo[]{detailsInfo1, detailsInfo2})));
-        return results;
+        when(detailsInfo1.getStrength()).thenReturn(Strength.ONE);
+        when(detailsInfo2.getStrength()).thenReturn(Strength.FOUR);
+        when(detailsInfo3.getStrength()).thenReturn(Strength.THREE);
     }
 
 }
