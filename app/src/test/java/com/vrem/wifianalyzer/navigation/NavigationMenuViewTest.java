@@ -117,7 +117,7 @@ public class NavigationMenuViewTest {
     public void testGetSelectedMenuItemWithFragment() throws Exception {
         // setup
         int size = 3;
-        NavigationMenu expected = NavigationMenu.CHANNEL_ANALYZER;
+        NavigationMenu expected = NavigationMenu.CHANNEL_RATING;
         withSelectedMenuItem(expected, size);
         // execute
         NavigationMenu actual = fixture.selectedMenuItem(expected.ordinal());

@@ -37,7 +37,7 @@ public class ChannelRatingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
 
-        View view = inflater.inflate(R.layout.channel_analyzer_content, container, false);
+        View view = inflater.inflate(R.layout.channel_rating_content, container, false);
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.channelSwipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());

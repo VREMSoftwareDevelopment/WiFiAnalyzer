@@ -41,7 +41,7 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
     private final ChannelRating channelRating;
 
     ChannelRatingAdapter(@NonNull Context context) {
-        super(context, R.layout.channel_analyzer_details, new ArrayList<Integer>());
+        super(context, R.layout.channel_rating_details, new ArrayList<Integer>());
         this.resources = context.getResources();
         mainContext.getScanner().addUpdateNotifier(this);
         this.channelRating = new ChannelRating();
@@ -59,7 +59,7 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = mainContext.getLayoutInflater();
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.channel_analyzer_details, parent, false);
+            convertView = inflater.inflate(R.layout.channel_rating_details, parent, false);
         }
 
         Integer channel = getItem(position);

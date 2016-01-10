@@ -27,7 +27,7 @@ import com.vrem.wifianalyzer.wifi.ChannelRatingFragment;
 
 public enum NavigationMenu {
     ACCESS_POINTS(R.mipmap.ic_launcher, R.string.action_access_points, true, new AccessPointsFragment()),
-    CHANNEL_ANALYZER(R.drawable.ic_wifi_tethering_grey_500_48dp, R.string.action_channel_analyzer, true, new ChannelRatingFragment()),
+    CHANNEL_RATING(R.drawable.ic_wifi_tethering_grey_500_48dp, R.string.action_channel_rating, true, new ChannelRatingFragment()),
     VENDOR_LIST(R.drawable.ic_list_grey_500_48dp, R.string.action_vendors, false, new VendorFragment()),
     SETTINGS(R.drawable.ic_settings_grey_500_48dp, R.string.action_settings, SettingActivity.class);
 
