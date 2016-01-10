@@ -28,8 +28,8 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.Details;
-import com.vrem.wifianalyzer.wifi.model.DetailsInfo;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
+import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,8 +143,8 @@ class WiFiListAdapter extends BaseExpandableListAdapter implements UpdateNotifie
     }
 
     class Data {
-        DetailsInfo connection;
-        List<DetailsInfo> wifiList = new ArrayList<>();
+        WiFiDetails connection;
+        List<WiFiDetails> wifiList = new ArrayList<>();
 
         void update(WiFiData wifiData) {
             if (wifiData != null) {
@@ -165,7 +165,7 @@ class WiFiListAdapter extends BaseExpandableListAdapter implements UpdateNotifie
             return validParentIndex(indexParent) && indexChild >= 0 && indexChild < childrenCount(indexParent);
         }
 
-        DetailsInfo parent(int index) {
+        WiFiDetails parent(int index) {
             return validParentIndex(index) ? wifiList.get(index) : null;
         }
 
@@ -173,7 +173,7 @@ class WiFiListAdapter extends BaseExpandableListAdapter implements UpdateNotifie
             return validParentIndex(index) ? wifiList.get(index).getChildren().size() : 0;
         }
 
-        DetailsInfo child(int indexParent, int indexChild) {
+        WiFiDetails child(int indexParent, int indexChild) {
             return validChildrenIndex(indexParent, indexChild) ? wifiList.get(indexParent).getChildren().get(indexChild) : null;
         }
     }

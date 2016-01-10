@@ -38,11 +38,11 @@ public class ChannelRatingTest {
     private final static int CHANNEL = 1;
 
     @Mock
-    private DetailsInfo detailsInfo1;
+    private WiFiDetails wifiDetails1;
     @Mock
-    private DetailsInfo detailsInfo2;
+    private WiFiDetails wifiDetails2;
     @Mock
-    private DetailsInfo detailsInfo3;
+    private WiFiDetails wifiDetails3;
 
     private ChannelRating fixture;
 
@@ -60,7 +60,7 @@ public class ChannelRatingTest {
     @Test
     public void testGetCount() throws Exception {
         // setup
-        Map<Integer, List<DetailsInfo>> details = withDetails();
+        Map<Integer, List<WiFiDetails>> details = withDetails();
         fixture.setWiFiChannels(details);
         // execute & validate
         assertEquals(details.get(CHANNEL).size(), fixture.getCount(CHANNEL));
@@ -69,38 +69,38 @@ public class ChannelRatingTest {
     @Test
     public void testGetStrength() throws Exception {
         // setup
-        Map<Integer, List<DetailsInfo>> details = withDetails();
+        Map<Integer, List<WiFiDetails>> details = withDetails();
         fixture.setWiFiChannels(details);
         expectedDetails();
         // execute & validate
-        assertEquals(detailsInfo3.getStrength(), fixture.getStrength(CHANNEL));
+        assertEquals(wifiDetails3.getStrength(), fixture.getStrength(CHANNEL));
         verifyDetails();
     }
 
     private void verifyDetails() {
-        verify(detailsInfo1).isConnected();
-        verify(detailsInfo2).isConnected();
-        verify(detailsInfo3).isConnected();
+        verify(wifiDetails1).isConnected();
+        verify(wifiDetails2).isConnected();
+        verify(wifiDetails3).isConnected();
 
-        verify(detailsInfo1).getStrength();
-        verify(detailsInfo2, never()).getStrength();
-        verify(detailsInfo3, times(2)).getStrength();
+        verify(wifiDetails1).getStrength();
+        verify(wifiDetails2, never()).getStrength();
+        verify(wifiDetails3, times(2)).getStrength();
     }
 
-    private Map<Integer, List<DetailsInfo>> withDetails() {
-        Map<Integer, List<DetailsInfo>> results = new TreeMap<>();
-        results.put(CHANNEL, new ArrayList<>(Arrays.asList(new DetailsInfo[]{detailsInfo1, detailsInfo2, detailsInfo3})));
+    private Map<Integer, List<WiFiDetails>> withDetails() {
+        Map<Integer, List<WiFiDetails>> results = new TreeMap<>();
+        results.put(CHANNEL, new ArrayList<>(Arrays.asList(new WiFiDetails[]{wifiDetails1, wifiDetails2, wifiDetails3})));
         return results;
     }
 
     private void expectedDetails() {
-        when(detailsInfo1.isConnected()).thenReturn(false);
-        when(detailsInfo2.isConnected()).thenReturn(true);
-        when(detailsInfo3.isConnected()).thenReturn(false);
+        when(wifiDetails1.isConnected()).thenReturn(false);
+        when(wifiDetails2.isConnected()).thenReturn(true);
+        when(wifiDetails3.isConnected()).thenReturn(false);
 
-        when(detailsInfo1.getStrength()).thenReturn(Strength.ONE);
-        when(detailsInfo2.getStrength()).thenReturn(Strength.FOUR);
-        when(detailsInfo3.getStrength()).thenReturn(Strength.THREE);
+        when(wifiDetails1.getStrength()).thenReturn(Strength.ONE);
+        when(wifiDetails2.getStrength()).thenReturn(Strength.FOUR);
+        when(wifiDetails3.getStrength()).thenReturn(Strength.THREE);
     }
 
 }

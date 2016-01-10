@@ -44,25 +44,25 @@ public class WiFiData {
     }
 
     @NonNull
-    public List<DetailsInfo> getWiFiList() {
+    public List<WiFiDetails> getWiFiList() {
         Settings settings = mainContext.getSettings();
         return getWiFiList(settings.getGroupBy(), settings.hideWeakSignal());
     }
 
     @NonNull
-    public Map<Integer, List<DetailsInfo>> getWiFiChannels() {
-        Map<Integer, List<DetailsInfo>> results = new TreeMap<>();
-        List<DetailsInfo> wiFiList = getWiFiList(GroupBy.CHANNEL, false);
-        for (DetailsInfo detailsInfo : wiFiList) {
-            List<DetailsInfo> details = new ArrayList<>();
-            details.add(detailsInfo);
-            details.addAll(detailsInfo.getChildren());
-            results.put(detailsInfo.getChannel(), details);
+    public Map<Integer, List<WiFiDetails>> getWiFiChannels() {
+        Map<Integer, List<WiFiDetails>> results = new TreeMap<>();
+        List<WiFiDetails> wifiList = getWiFiList(GroupBy.CHANNEL, false);
+        for (WiFiDetails wifiDetails : wifiList) {
+            List<WiFiDetails> details = new ArrayList<>();
+            details.add(wifiDetails);
+            details.addAll(wifiDetails.getChildren());
+            results.put(wifiDetails.getChannel(), details);
         }
         return results;
     }
 
-    public DetailsInfo getConnection() {
+    public WiFiDetails getConnection() {
         if (hasData()) {
             VendorService vendorService = mainContext.getVendorService();
             Connection connection = new Connection(wifiInfo);
@@ -77,27 +77,27 @@ public class WiFiData {
         return null;
     }
 
-    private List<DetailsInfo> getWiFiList(@NonNull GroupBy groupBy, boolean hideWeakSignal) {
-        return hasData() ? groupWiFiList(groupBy, buildWiFiList(hideWeakSignal)) : new ArrayList<DetailsInfo>();
+    private List<WiFiDetails> getWiFiList(@NonNull GroupBy groupBy, boolean hideWeakSignal) {
+        return hasData() ? groupWiFiList(groupBy, buildWiFiList(hideWeakSignal)) : new ArrayList<WiFiDetails>();
     }
 
     private boolean hasData() {
         return scanResults != null && !scanResults.isEmpty();
     }
 
-    private List<DetailsInfo> groupWiFiList(@NonNull GroupBy groupBy, List<DetailsInfo> wifiList) {
-        List<DetailsInfo> results = new ArrayList<>();
+    private List<WiFiDetails> groupWiFiList(@NonNull GroupBy groupBy, List<WiFiDetails> wifiList) {
+        List<WiFiDetails> results = new ArrayList<>();
         Collections.sort(wifiList, groupBy.sortOrder());
-        DetailsInfo parent = null;
-        for (DetailsInfo detailsInfo : wifiList) {
-            if (parent == null || groupBy.groupBy().compare(parent, detailsInfo) != 0) {
+        WiFiDetails parent = null;
+        for (WiFiDetails wifiDetails : wifiList) {
+            if (parent == null || groupBy.groupBy().compare(parent, wifiDetails) != 0) {
                 if (parent != null) {
                     Collections.sort(parent.getChildren());
                 }
-                parent = detailsInfo;
+                parent = wifiDetails;
                 results.add(parent);
             } else {
-                parent.addChild(detailsInfo);
+                parent.addChild(wifiDetails);
             }
         }
         if (parent != null) {
@@ -107,15 +107,15 @@ public class WiFiData {
         return results;
     }
 
-    private List<DetailsInfo> buildWiFiList(boolean hideWeakSignal) {
-        List<DetailsInfo> results = new ArrayList<>();
-        WiFiBand wiFiBand = mainContext.getSettings().getWiFiBand();
+    private List<WiFiDetails> buildWiFiList(boolean hideWeakSignal) {
+        List<WiFiDetails> results = new ArrayList<>();
+        WiFiBand wifiBand = mainContext.getSettings().getWiFiBand();
         VendorService vendorService = mainContext.getVendorService();
-        DetailsInfo connection = getConnection();
+        WiFiDetails connection = getConnection();
         for (ScanResult scanResult : scanResults) {
             String vendorName = vendorService.findVendorName(scanResult.BSSID);
             Details details = new Details(scanResult, vendorName);
-            if (wiFiBand.equals(details.getWiFiBand())) {
+            if (wifiBand.equals(details.getWiFiBand())) {
                 if (details.equals(connection)) {
                     results.add(connection);
                 } else if (!hideWeakSignal(hideWeakSignal, details)) {
@@ -127,7 +127,7 @@ public class WiFiData {
     }
 
 
-    private boolean hideWeakSignal(boolean hideWeakSignal, DetailsInfo detailsInfo) {
-        return hideWeakSignal && detailsInfo.getStrength().weak();
+    private boolean hideWeakSignal(boolean hideWeakSignal, WiFiDetails wifiDetails) {
+        return hideWeakSignal && wifiDetails.getStrength().weak();
     }
 }

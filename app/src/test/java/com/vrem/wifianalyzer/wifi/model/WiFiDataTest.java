@@ -185,7 +185,7 @@ public class WiFiDataTest {
         fixture = new WiFiData(scanResults, null);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.FIVE);
         // execute
-        List<DetailsInfo> actual = fixture.getWiFiList();
+        List<WiFiDetails> actual = fixture.getWiFiList();
         // validate
         assertTrue(actual.isEmpty());
     }
@@ -195,7 +195,7 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null);
         // execute
-        List<DetailsInfo> actual = fixture.getWiFiList();
+        List<WiFiDetails> actual = fixture.getWiFiList();
         // validate
         assertEquals(4, actual.size());
         assertEquals(scanResult3.SSID, actual.get(0).getSSID());
@@ -211,7 +211,7 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null);
         // execute
-        List<DetailsInfo> actual = fixture.getWiFiList();
+        List<WiFiDetails> actual = fixture.getWiFiList();
         // validate
         assertEquals(VENDOR_NAME + scanResult3.BSSID, actual.get(0).getVendorName());
         assertEquals(VENDOR_NAME + scanResult1.BSSID, actual.get(1).getVendorName());
@@ -226,9 +226,9 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null);
         // execute
-        List<DetailsInfo> actual = fixture.getWiFiList();
+        List<WiFiDetails> actual = fixture.getWiFiList();
         // validate
-        List<DetailsInfo> children = actual.get(2).getChildren();
+        List<WiFiDetails> children = actual.get(2).getChildren();
         assertEquals(3, children.size());
         assertEquals(scanResult_2.BSSID, children.get(0).getBSSID());
         assertEquals(scanResult_1.BSSID, children.get(2).getBSSID());
@@ -237,10 +237,10 @@ public class WiFiDataTest {
     @Test
     public void testGetConnection() throws Exception {
         // setup
-        DetailsInfo expected = new Details(scanResult1, VENDOR_NAME + scanResult1.BSSID, "21.205.91.7");
+        WiFiDetails expected = new Details(scanResult1, VENDOR_NAME + scanResult1.BSSID, "21.205.91.7");
         fixture = new WiFiData(scanResults, wifiInfo);
         // execute
-        DetailsInfo actual = fixture.getConnection();
+        WiFiDetails actual = fixture.getConnection();
         // validate
         assertEquals(expected, actual);
         assertNotSame(expected, actual);
@@ -255,7 +255,7 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null);
         // execute
-        Map<Integer, List<DetailsInfo>> actual = fixture.getWiFiChannels();
+        Map<Integer, List<WiFiDetails>> actual = fixture.getWiFiChannels();
         // validate
         assertEquals(3, actual.size());
         assertEquals(1, actual.get(Frequency.findChannel(FREQUENCY1)).size());
@@ -273,7 +273,7 @@ public class WiFiDataTest {
         fixture = new WiFiData(scanResults, null);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.FIVE);
         // execute
-        Map<Integer, List<DetailsInfo>> actual = fixture.getWiFiChannels();
+        Map<Integer, List<WiFiDetails>> actual = fixture.getWiFiChannels();
         // validate
         assertTrue(actual.isEmpty());
     }

@@ -17,7 +17,7 @@ package com.vrem.wifianalyzer.wifi.model;
 
 import java.util.List;
 
-public interface DetailsInfo extends Comparable<DetailsInfo> {
+public interface WiFiDetails extends Comparable<WiFiDetails> {
     String getSSID();
 
     String getBSSID();
@@ -44,7 +44,7 @@ public interface DetailsInfo extends Comparable<DetailsInfo> {
 
     boolean isConnected();
 
-    List<DetailsInfo> getChildren();
+    List<WiFiDetails> getChildren();
 
-    void addChild(DetailsInfo detailsInfo);
+    void addChild(WiFiDetails wifiDetails);
 }

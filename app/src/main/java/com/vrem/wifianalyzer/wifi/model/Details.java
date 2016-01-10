@@ -27,11 +27,11 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Details implements DetailsInfo {
+public class Details implements WiFiDetails {
     private final ScanResult scanResult;
     private final String vendorName;
     private final String ipAddress;
-    private final List<DetailsInfo> children;
+    private final List<WiFiDetails> children;
 
     public Details(@NonNull ScanResult scanResult, @NonNull String vendorName, @NonNull String ipAddress) {
         this.scanResult = scanResult;
@@ -110,16 +110,16 @@ public class Details implements DetailsInfo {
     }
 
     @Override
-    public List<DetailsInfo> getChildren() {
+    public List<WiFiDetails> getChildren() {
         return children;
     }
 
-    public void addChild(@NonNull DetailsInfo detailsInfo) {
-        children.add(detailsInfo);
+    public void addChild(@NonNull WiFiDetails wifiDetails) {
+        children.add(wifiDetails);
     }
 
     @Override
-    public int compareTo(@NonNull DetailsInfo other) {
+    public int compareTo(@NonNull WiFiDetails other) {
         return new CompareToBuilder()
                 .append(getLevel(), other.getLevel())
                 .append(getSSID().toUpperCase(), other.getSSID().toUpperCase())

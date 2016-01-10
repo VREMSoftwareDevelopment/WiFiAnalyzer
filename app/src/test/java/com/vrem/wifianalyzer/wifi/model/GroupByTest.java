@@ -30,9 +30,9 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class GroupByTest {
     @Mock
-    private DetailsInfo lhs;
+    private WiFiDetails lhs;
     @Mock
-    private DetailsInfo rhs;
+    private WiFiDetails rhs;
 
     @Test
     public void testGroupByNumber() throws Exception {
@@ -137,17 +137,17 @@ public class GroupByTest {
         verify(rhs).getChannel();
     }
 
-    private void withDetailsInfo(DetailsInfo detailsInfo, String BSSID) {
-        when(detailsInfo.getChannel()).thenReturn(0);
-        when(detailsInfo.getLevel()).thenReturn(0);
-        when(detailsInfo.getSSID()).thenReturn("SSID");
-        when(detailsInfo.getBSSID()).thenReturn(BSSID);
+    private void withDetailsInfo(WiFiDetails wifiDetails, String BSSID) {
+        when(wifiDetails.getChannel()).thenReturn(0);
+        when(wifiDetails.getLevel()).thenReturn(0);
+        when(wifiDetails.getSSID()).thenReturn("SSID");
+        when(wifiDetails.getBSSID()).thenReturn(BSSID);
     }
 
-    private void verifyDetailsInfo(DetailsInfo detailsInfo) {
-        verify(detailsInfo).getLevel();
-        verify(detailsInfo).getSSID();
-        verify(detailsInfo).getBSSID();
+    private void verifyDetailsInfo(WiFiDetails wifiDetails) {
+        verify(wifiDetails).getLevel();
+        verify(wifiDetails).getSSID();
+        verify(wifiDetails).getBSSID();
     }
 
     @Test

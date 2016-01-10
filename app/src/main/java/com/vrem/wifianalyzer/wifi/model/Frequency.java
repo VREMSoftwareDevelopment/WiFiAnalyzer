@@ -58,10 +58,10 @@ public enum Frequency {
         return Frequency.find(value).channel(value);
     }
 
-    public static List<Integer> findChannels(WiFiBand wiFiBand) {
+    public static List<Integer> findChannels(WiFiBand wifiBand) {
         List<Integer> results = new ArrayList<>();
         for (Frequency frequency : values()) {
-            if (wiFiBand.equals(frequency.wifiBand())) {
+            if (wifiBand.equals(frequency.wifiBand())) {
                 results.addAll(frequency.channels());
             }
         }

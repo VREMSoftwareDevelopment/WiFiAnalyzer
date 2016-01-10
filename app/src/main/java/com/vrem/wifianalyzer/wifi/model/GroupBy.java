@@ -26,10 +26,10 @@ public enum GroupBy {
     SSID(new SSIDSortOrder(), new SSIDGroupBy()),
     CHANNEL(new ChannelSortOrder(), new ChannelGroupBy());
 
-    private final Comparator<DetailsInfo> sortOrder;
-    private final Comparator<DetailsInfo> groupBy;
+    private final Comparator<WiFiDetails> sortOrder;
+    private final Comparator<WiFiDetails> groupBy;
 
-    GroupBy(@NonNull Comparator<DetailsInfo> sortOrder, @NonNull Comparator<DetailsInfo> groupBy) {
+    GroupBy(@NonNull Comparator<WiFiDetails> sortOrder, @NonNull Comparator<WiFiDetails> groupBy) {
         this.sortOrder = sortOrder;
         this.groupBy = groupBy;
     }
@@ -42,24 +42,24 @@ public enum GroupBy {
         }
     }
 
-    Comparator<DetailsInfo> sortOrder() {
+    Comparator<WiFiDetails> sortOrder() {
         return sortOrder;
     }
 
-    Comparator<DetailsInfo> groupBy() {
+    Comparator<WiFiDetails> groupBy() {
         return groupBy;
     }
 
-    static class None implements Comparator<DetailsInfo> {
+    static class None implements Comparator<WiFiDetails> {
         @Override
-        public int compare(DetailsInfo lhs, DetailsInfo rhs) {
+        public int compare(WiFiDetails lhs, WiFiDetails rhs) {
             return lhs.equals(rhs) ? 0 : 1;
         }
     }
 
-    static class SSIDSortOrder implements Comparator<DetailsInfo> {
+    static class SSIDSortOrder implements Comparator<WiFiDetails> {
         @Override
-        public int compare(DetailsInfo lhs, DetailsInfo rhs) {
+        public int compare(WiFiDetails lhs, WiFiDetails rhs) {
             return new CompareToBuilder()
                     .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
                     .append(lhs.getLevel(), rhs.getLevel())
@@ -68,18 +68,18 @@ public enum GroupBy {
         }
     }
 
-    static class SSIDGroupBy implements Comparator<DetailsInfo> {
+    static class SSIDGroupBy implements Comparator<WiFiDetails> {
         @Override
-        public int compare(DetailsInfo lhs, DetailsInfo rhs) {
+        public int compare(WiFiDetails lhs, WiFiDetails rhs) {
             return new CompareToBuilder()
                     .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
                     .toComparison();
         }
     }
 
-    static class ChannelSortOrder implements Comparator<DetailsInfo> {
+    static class ChannelSortOrder implements Comparator<WiFiDetails> {
         @Override
-        public int compare(DetailsInfo lhs, DetailsInfo rhs) {
+        public int compare(WiFiDetails lhs, WiFiDetails rhs) {
             return new CompareToBuilder()
                     .append(lhs.getChannel(), rhs.getChannel())
                     .append(lhs.getLevel(), rhs.getLevel())
@@ -89,9 +89,9 @@ public enum GroupBy {
         }
     }
 
-    static class ChannelGroupBy implements Comparator<DetailsInfo> {
+    static class ChannelGroupBy implements Comparator<WiFiDetails> {
         @Override
-        public int compare(DetailsInfo lhs, DetailsInfo rhs) {
+        public int compare(WiFiDetails lhs, WiFiDetails rhs) {
             return new CompareToBuilder()
                     .append(lhs.getChannel(), rhs.getChannel())
                     .toComparison();

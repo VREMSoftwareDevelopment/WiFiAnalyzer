@@ -22,9 +22,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.model.DetailsInfo;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.Strength;
+import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -32,14 +32,14 @@ public final class WiFiViewHelper {
     private WiFiViewHelper() {
     }
 
-    public static void setView(@NonNull Resources resources, @NonNull View view, @NonNull DetailsInfo detailsInfo) {
+    public static void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetails wifiDetails) {
         ((TextView) view.findViewById(R.id.ssid)).setText(
                 String.format("%s (%s)",
-                        StringUtils.isBlank(detailsInfo.getSSID()) ? "***" : detailsInfo.getSSID(),
-                        detailsInfo.getBSSID()));
+                        StringUtils.isBlank(wifiDetails.getSSID()) ? "***" : wifiDetails.getSSID(),
+                        wifiDetails.getBSSID()));
 
         TextView textIPAddress = (TextView) view.findViewById(R.id.ipAddress);
-        String ipAddress = detailsInfo.getIPAddress();
+        String ipAddress = wifiDetails.getIPAddress();
         if (StringUtils.isBlank(ipAddress)) {
             textIPAddress.setVisibility(View.GONE);
         } else {
@@ -47,27 +47,27 @@ public final class WiFiViewHelper {
             textIPAddress.setText(ipAddress);
         }
 
-        Strength strength = detailsInfo.getStrength();
+        Strength strength = wifiDetails.getStrength();
         ImageView imageView = (ImageView) view.findViewById(R.id.levelImage);
         imageView.setImageResource(strength.imageResource());
         imageView.setColorFilter(resources.getColor(strength.colorResource()));
 
-        Security security = detailsInfo.getSecurity();
+        Security security = wifiDetails.getSecurity();
         ImageView securityImage = (ImageView) view.findViewById(R.id.securityImage);
         securityImage.setImageResource(security.imageResource());
         securityImage.setColorFilter(resources.getColor(R.color.icons_color));
 
         TextView textLevel = (TextView) view.findViewById(R.id.level);
-        textLevel.setText(String.format("%ddBm", detailsInfo.getLevel()));
+        textLevel.setText(String.format("%ddBm", wifiDetails.getLevel()));
         textLevel.setTextColor(resources.getColor(strength.colorResource()));
 
-        ((TextView) view.findViewById(R.id.channel)).setText(String.format("CH %d", detailsInfo.getChannel()));
-        ((TextView) view.findViewById(R.id.frequency)).setText(String.format("%dMHz", detailsInfo.getFrequency()));
-        ((TextView) view.findViewById(R.id.distance)).setText(String.format("%6.2fm", detailsInfo.getDistance()));
-        ((TextView) view.findViewById(R.id.capabilities)).setText(detailsInfo.getCapabilities());
+        ((TextView) view.findViewById(R.id.channel)).setText(String.format("CH %d", wifiDetails.getChannel()));
+        ((TextView) view.findViewById(R.id.frequency)).setText(String.format("%dMHz", wifiDetails.getFrequency()));
+        ((TextView) view.findViewById(R.id.distance)).setText(String.format("%6.2fm", wifiDetails.getDistance()));
+        ((TextView) view.findViewById(R.id.capabilities)).setText(wifiDetails.getCapabilities());
 
         TextView textVendor = ((TextView) view.findViewById(R.id.vendor));
-        String vendor = detailsInfo.getVendorName();
+        String vendor = wifiDetails.getVendorName();
         if (StringUtils.isBlank(vendor)) {
             textVendor.setVisibility(View.GONE);
         } else {

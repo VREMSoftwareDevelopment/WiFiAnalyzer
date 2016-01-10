@@ -21,8 +21,8 @@ import android.view.View;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.model.DetailsInfo;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
+import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
 
 public class ConnectionView implements UpdateNotifier {
     private final Activity activity;
@@ -34,10 +34,10 @@ public class ConnectionView implements UpdateNotifier {
     }
 
     @Override
-    public void update(WiFiData wiFiData) {
+    public void update(WiFiData wifiData) {
         View view = activity.findViewById(R.id.connection);
 
-        DetailsInfo connection = wiFiData.getConnection();
+        WiFiDetails connection = wifiData.getConnection();
         if (connection != null && connection.isConnected()) {
             view.setVisibility(View.VISIBLE);
             WiFiViewHelper.setView(activity.getResources(), view, connection);

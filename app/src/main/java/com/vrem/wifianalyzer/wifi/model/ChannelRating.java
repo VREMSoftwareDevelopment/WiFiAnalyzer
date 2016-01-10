@@ -25,7 +25,7 @@ import java.util.TreeMap;
 public class ChannelRating {
     private final static int CHANNEL_OFFSET = 1;
 
-    private Map<Integer, List<DetailsInfo>> wiFiChannels = new TreeMap<>();
+    private Map<Integer, List<WiFiDetails>> wifiChannels = new TreeMap<>();
 
     public ChannelRating() {
     }
@@ -36,24 +36,24 @@ public class ChannelRating {
 
     public Strength getStrength(int channel) {
         Strength strength = Strength.ZERO;
-        for (DetailsInfo detailsInfo : collectOverlappingChannels(channel)) {
-            if (!detailsInfo.isConnected()) {
-                strength = Strength.values()[Math.max(strength.ordinal(), detailsInfo.getStrength().ordinal())];
+        for (WiFiDetails wifiDetails : collectOverlappingChannels(channel)) {
+            if (!wifiDetails.isConnected()) {
+                strength = Strength.values()[Math.max(strength.ordinal(), wifiDetails.getStrength().ordinal())];
             }
         }
         return strength;
     }
 
-    public void setWiFiChannels(@NonNull Map<Integer, List<DetailsInfo>> wiFiChannels) {
-        this.wiFiChannels = wiFiChannels;
+    public void setWiFiChannels(@NonNull Map<Integer, List<WiFiDetails>> wifiChannels) {
+        this.wifiChannels = wifiChannels;
     }
 
-    private List<DetailsInfo> collectOverlappingChannels(int channel) {
-        List<DetailsInfo> details = new ArrayList<>();
+    private List<WiFiDetails> collectOverlappingChannels(int channel) {
+        List<WiFiDetails> details = new ArrayList<>();
         for (int i = channel - CHANNEL_OFFSET; i <= channel + CHANNEL_OFFSET; i++) {
-            List<DetailsInfo> detailsInfos = wiFiChannels.get(i);
-            if (detailsInfos != null) {
-                details.addAll(detailsInfos);
+            List<WiFiDetails> wifiDetails = wifiChannels.get(i);
+            if (wifiDetails != null) {
+                details.addAll(wifiDetails);
             }
         }
         return details;
