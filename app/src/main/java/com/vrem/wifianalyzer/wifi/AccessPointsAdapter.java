@@ -34,13 +34,13 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
 import java.util.ArrayList;
 import java.util.List;
 
-class WiFiListAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
+class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
 
     private final MainContext mainContext = MainContext.INSTANCE;
     private final Resources resources;
     private final Data data;
 
-    WiFiListAdapter(@NonNull Context context) {
+    AccessPointsAdapter(@NonNull Context context) {
         super();
         this.resources = context.getResources();
         this.data = new Data();
@@ -51,7 +51,7 @@ class WiFiListAdapter extends BaseExpandableListAdapter implements UpdateNotifie
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         convertView = getView(convertView, parent);
         Details details = (Details) getGroup(groupPosition);
-        WiFiViewHelper.setView(resources, convertView, details);
+        AccessPointsDetails.setView(resources, convertView, details);
 
         convertView.findViewById(R.id.tab).setVisibility(View.GONE);
         ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
@@ -77,7 +77,7 @@ class WiFiListAdapter extends BaseExpandableListAdapter implements UpdateNotifie
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         convertView = getView(convertView, parent);
         Details details = (Details) getChild(groupPosition, childPosition);
-        WiFiViewHelper.setView(resources, convertView, details);
+        AccessPointsDetails.setView(resources, convertView, details);
 
         convertView.setBackgroundColor(resources.getColor(R.color.shadow_mid_color));
         convertView.findViewById(R.id.tab).setVisibility(View.VISIBLE);
@@ -139,7 +139,7 @@ class WiFiListAdapter extends BaseExpandableListAdapter implements UpdateNotifie
         }
 
         LayoutInflater inflater = mainContext.getLayoutInflater();
-        return inflater.inflate(R.layout.wifi_details, null);
+        return inflater.inflate(R.layout.access_points_details, null);
     }
 
     class Data {

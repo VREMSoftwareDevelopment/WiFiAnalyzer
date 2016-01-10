@@ -92,12 +92,12 @@ public class NavigationMenuViewTest {
     @Test
     public void testDefaultMenuItem() throws Exception {
         // setup
-        when(menu.getItem(NavigationMenu.WIFI_LIST.ordinal())).thenReturn(selectedMenuItem);
+        when(menu.getItem(NavigationMenu.ACCESS_POINTS.ordinal())).thenReturn(selectedMenuItem);
         // execute
         MenuItem actual = fixture.defaultMenuItem();
         // validate
         assertEquals(selectedMenuItem, actual);
-        verify(menu).getItem(NavigationMenu.WIFI_LIST.ordinal());
+        verify(menu).getItem(NavigationMenu.ACCESS_POINTS.ordinal());
     }
 
     @Test

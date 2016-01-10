@@ -40,7 +40,7 @@ public class NavigationGroupTest {
     @Test
     public void testNavigationGroupMenuItems() throws Exception {
         assertArrayEquals(new NavigationMenu[]{
-                        NavigationMenu.WIFI_LIST,
+                        NavigationMenu.ACCESS_POINTS,
                         NavigationMenu.CHANNEL_ANALYZER
                 },
                 NavigationGroup.GROUP_FEATURE.navigationMenu());

@@ -45,7 +45,7 @@ public class NavigationMenuView {
     }
 
     public MenuItem defaultMenuItem() {
-        return navigationView.getMenu().getItem(NavigationMenu.WIFI_LIST.ordinal());
+        return navigationView.getMenu().getItem(NavigationMenu.ACCESS_POINTS.ordinal());
     }
 
     public NavigationMenu selectedMenuItem(int menuItemId) {

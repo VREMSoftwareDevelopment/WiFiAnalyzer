@@ -40,7 +40,7 @@ public class ConnectionView implements UpdateNotifier {
         WiFiDetails connection = wifiData.getConnection();
         if (connection != null && connection.isConnected()) {
             view.setVisibility(View.VISIBLE);
-            WiFiViewHelper.setView(activity.getResources(), view, connection);
+            AccessPointsDetails.setView(activity.getResources(), view, connection);
         } else {
             view.setVisibility(View.GONE);
         }

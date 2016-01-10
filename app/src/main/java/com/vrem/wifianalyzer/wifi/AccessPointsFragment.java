@@ -27,7 +27,7 @@ import android.widget.ExpandableListView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
-public class WiFiFragment extends Fragment {
+public class AccessPointsFragment extends Fragment {
 
     private final MainContext mainContext = MainContext.INSTANCE;
 
@@ -37,12 +37,12 @@ public class WiFiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
 
-        View view = inflater.inflate(R.layout.wifi_content, container, false);
+        View view = inflater.inflate(R.layout.access_points_content, container, false);
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.wifiSwipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        WiFiListAdapter wifiListAdapter = new WiFiListAdapter(activity);
+        AccessPointsAdapter wifiListAdapter = new AccessPointsAdapter(activity);
 
         ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.wifiListView);
         expandableListView.setAdapter(wifiListAdapter);

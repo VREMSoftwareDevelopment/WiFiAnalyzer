@@ -27,7 +27,7 @@ import android.widget.ListView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
-public class ChannelFragment extends Fragment {
+public class ChannelRatingFragment extends Fragment {
 
     private final MainContext mainContext = MainContext.INSTANCE;
 
@@ -37,15 +37,15 @@ public class ChannelFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
 
-        View view = inflater.inflate(R.layout.channel_content, container, false);
+        View view = inflater.inflate(R.layout.channel_analyzer_content, container, false);
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.channelSwipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        ChannelListAdapter channelListAdapter = new ChannelListAdapter(activity);
+        ChannelRatingAdapter channelRatingAdapter = new ChannelRatingAdapter(activity);
 
         ListView listView = (ListView) view.findViewById(R.id.channelListView);
-        listView.setAdapter(channelListAdapter);
+        listView.setAdapter(channelRatingAdapter);
 
         return view;
     }

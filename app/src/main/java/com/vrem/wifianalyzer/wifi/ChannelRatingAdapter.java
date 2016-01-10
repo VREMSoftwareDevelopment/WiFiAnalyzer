@@ -35,13 +35,13 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
 import java.util.ArrayList;
 
-class ChannelListAdapter extends ArrayAdapter<Integer> implements UpdateNotifier {
+class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifier {
     private final MainContext mainContext = MainContext.INSTANCE;
     private final Resources resources;
     private final ChannelRating channelRating;
 
-    ChannelListAdapter(@NonNull Context context) {
-        super(context, R.layout.channel_details, new ArrayList<Integer>());
+    ChannelRatingAdapter(@NonNull Context context) {
+        super(context, R.layout.channel_analyzer_details, new ArrayList<Integer>());
         this.resources = context.getResources();
         mainContext.getScanner().addUpdateNotifier(this);
         this.channelRating = new ChannelRating();
@@ -59,7 +59,7 @@ class ChannelListAdapter extends ArrayAdapter<Integer> implements UpdateNotifier
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = mainContext.getLayoutInflater();
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.channel_details, parent, false);
+            convertView = inflater.inflate(R.layout.channel_analyzer_details, parent, false);
         }
 
         Integer channel = getItem(position);

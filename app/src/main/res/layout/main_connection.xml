@@ -9,5 +9,5 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:visibility="gone">
 
-    <include layout="@layout/wifi_details" />
+    <include layout="@layout/access_points_details" />
 </LinearLayout>

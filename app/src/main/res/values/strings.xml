@@ -8,7 +8,7 @@
 
     <string name="action_refresh">Refresh</string>
     <string name="action_settings">Settings</string>
-    <string name="action_wifi_list">WiFi List</string>
+    <string name="action_access_points">Access Points</string>
     <string name="action_channel_analyzer">Channel Analyzer</string>
     <string name="action_vendors">Vendors</string>
 
@@ -22,14 +22,14 @@
     <string name="wifi_band_key">wifi_band</string>
     <string name="wifi_band_default">2.4 GHz</string>
 
-    <string name="scan_interval_title">WiFi Scan Interval</string>
-    <string name="scan_interval_summary">%d seconds between each WiFi scan</string>
+    <string name="scan_interval_title">Scan Interval</string>
+    <string name="scan_interval_summary">%d seconds between each scan</string>
     <string name="scan_interval_key">scan_interval</string>
     <integer name="scan_interval_default">15</integer>
     <integer name="scan_interval_min">5</integer>
     <integer name="scan_interval_max">30</integer>
 
-    <string name="group_by_title">WiFi Group By</string>
+    <string name="group_by_title">Group Access Points By</string>
     <string name="group_by_summary">%s</string>
     <string name="group_by_key">group_by</string>
     <string name="group_by_default">NONE</string>

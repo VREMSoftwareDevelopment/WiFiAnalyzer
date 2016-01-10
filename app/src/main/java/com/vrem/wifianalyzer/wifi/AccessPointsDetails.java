@@ -28,8 +28,8 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
 
 import org.apache.commons.lang3.StringUtils;
 
-public final class WiFiViewHelper {
-    private WiFiViewHelper() {
+public final class AccessPointsDetails {
+    private AccessPointsDetails() {
     }
 
     public static void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetails wifiDetails) {
