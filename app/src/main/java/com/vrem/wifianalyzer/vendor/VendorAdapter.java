@@ -30,12 +30,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedMap;
 
-class VendorArrayAdapter extends ArrayAdapter<String> {
+class VendorAdapter extends ArrayAdapter<String> {
 
     private final MainContext mainContext = MainContext.INSTANCE;
     private SortedMap<String, List<String>> vendors;
 
-    VendorArrayAdapter(@NonNull Context context, @NonNull SortedMap<String, List<String>> vendors) {
+    VendorAdapter(@NonNull Context context, @NonNull SortedMap<String, List<String>> vendors) {
         super(context, R.layout.vendor_details, new ArrayList<>(vendors.keySet()));
         this.vendors = vendors;
     }
