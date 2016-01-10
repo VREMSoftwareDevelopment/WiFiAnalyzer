@@ -61,8 +61,8 @@ public final class WiFiViewHelper {
         textLevel.setText(String.format("%ddBm", detailsInfo.getLevel()));
         textLevel.setTextColor(resources.getColor(strength.colorResource()));
 
-        ((TextView) view.findViewById(R.id.channel)).setText(String.format("%d", detailsInfo.getChannel()));
-        ((TextView) view.findViewById(R.id.frequency)).setText(String.format("(%dMHz)", detailsInfo.getFrequency()));
+        ((TextView) view.findViewById(R.id.channel)).setText(String.format("CH %d", detailsInfo.getChannel()));
+        ((TextView) view.findViewById(R.id.frequency)).setText(String.format("%dMHz", detailsInfo.getFrequency()));
         ((TextView) view.findViewById(R.id.distance)).setText(String.format("%6.2fm", detailsInfo.getDistance()));
         ((TextView) view.findViewById(R.id.capabilities)).setText(detailsInfo.getCapabilities());
 

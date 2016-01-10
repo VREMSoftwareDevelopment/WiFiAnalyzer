@@ -50,7 +50,7 @@ public class WiFiData {
     }
 
     @NonNull
-    public Map<Integer, List<DetailsInfo>> getWiFiChannelList() {
+    public Map<Integer, List<DetailsInfo>> getWiFiChannels() {
         Map<Integer, List<DetailsInfo>> results = new TreeMap<>();
         List<DetailsInfo> wiFiList = getWiFiList(GroupBy.CHANNEL, false);
         for (DetailsInfo detailsInfo : wiFiList) {

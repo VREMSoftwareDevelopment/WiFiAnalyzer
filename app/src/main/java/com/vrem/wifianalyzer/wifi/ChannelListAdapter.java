@@ -29,32 +29,28 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
-import com.vrem.wifianalyzer.wifi.model.DetailsInfo;
 import com.vrem.wifianalyzer.wifi.model.Frequency;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 class ChannelListAdapter extends ArrayAdapter<Integer> implements UpdateNotifier {
-
     private final MainContext mainContext = MainContext.INSTANCE;
     private final Resources resources;
-    private Map<Integer, List<DetailsInfo>> wifiChannelList = new TreeMap<>();
+    private final ChannelRating channelRating;
 
     ChannelListAdapter(@NonNull Context context) {
         super(context, R.layout.channel_details, new ArrayList<Integer>());
         this.resources = context.getResources();
         mainContext.getScanner().addUpdateNotifier(this);
+        this.channelRating = new ChannelRating();
     }
 
     @Override
     public void update(WiFiData wifiData) {
         clear();
         addAll(Frequency.findChannels(mainContext.getSettings().getWiFiBand()));
-        wifiChannelList = wifiData.getWiFiChannelList();
+        channelRating.setWiFiChannels(wifiData.getWiFiChannels());
         notifyDataSetChanged();
     }
 
@@ -67,19 +63,17 @@ class ChannelListAdapter extends ArrayAdapter<Integer> implements UpdateNotifier
 
         Integer channel = getItem(position);
 
-        ((TextView) convertView.findViewById(R.id.channelNumber)).setText("" + channel);
+        int apCount = channelRating.getAPCount(channel);
+        int count = channelRating.getCount(channel);
+        int color = resources.getColor(channelRating.getColor(channel));
 
-        ChannelRating channelRating = new ChannelRating(wifiChannelList.get(channel));
-        int count = channelRating.getCount();
-        int color = channelRating.getColor();
-
-        ((TextView) convertView.findViewById(R.id.channelAPCount)).setText(String.format("AP %d", count));
+        ((TextView) convertView.findViewById(R.id.channelNumber)).setText(String.format("CH %d", channel));
+        ((TextView) convertView.findViewById(R.id.channelAPCount)).setText(String.format("AP (%d)", apCount));
 
         RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.channelRating);
-        ratingBar.setProgressTintList(ColorStateList.valueOf(resources.getColor(color)));
-        ratingBar.setNumStars(5);
-        ratingBar.setStepSize(1);
-        ratingBar.setRating(Math.max(0, 5 - count));
+        int rating = Math.max(0, ratingBar.getNumStars() - count);
+        ratingBar.setRating(rating);
+        ratingBar.setProgressTintList(ColorStateList.valueOf(color));
 
         return convertView;
     }

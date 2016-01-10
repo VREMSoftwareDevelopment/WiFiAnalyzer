@@ -15,39 +15,81 @@
  */
 package com.vrem.wifianalyzer.wifi.model;
 
+import android.support.annotation.NonNull;
+
 import com.vrem.wifianalyzer.R;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class ChannelRating {
-    private List<DetailsInfo> details;
+    final static int STRENGTH_SIZE = Strength.values().length;
 
-    public ChannelRating(List<DetailsInfo> details) {
-        this.details = details;
+    private Map<Integer, List<DetailsInfo>> wiFiChannels = new TreeMap<>();
+
+    public ChannelRating() {
     }
 
-    public int getCount() {
-        if (details == null) {
-            return 0;
+    public int getAPCount(int channel) {
+        int count = 0;
+        int[] counts = calculateChannelDistribution(channel);
+        for (int value : counts) {
+            count += value;
         }
-        int count = details.size();
-        for (DetailsInfo detailsInfo : details) {
-            if (detailsInfo.isConnected()) {
-                count--;
-                break;
+        return count;
+    }
+
+    public int getCount(int channel) {
+        int[] counts = calculateChannelDistribution(channel);
+        int count = 0;
+        for (int i = STRENGTH_SIZE - 1; i > STRENGTH_SIZE / 2 - 1 && count < STRENGTH_SIZE; i--) {
+            if (counts[i] >= 2) {
+                count = STRENGTH_SIZE;
+            } else {
+                count += counts[i];
             }
         }
         return count;
     }
 
-    public int getColor() {
-        int count = getCount();
+    public int getColor(int channel) {
+        int count = getCount(channel);
         int color = R.color.success_color;
-        if (count > 3) {
+        if (count >= STRENGTH_SIZE) {
             color = R.color.error_color;
-        } else if (count > 1) {
+        } else if (count >= 1) {
             color = R.color.warning_color;
         }
         return color;
+    }
+
+    public void setWiFiChannels(@NonNull Map<Integer, List<DetailsInfo>> wiFiChannels) {
+        this.wiFiChannels = wiFiChannels;
+    }
+
+
+    private int[] calculateChannelDistribution(int channel) {
+        List<DetailsInfo> details = collectOverlappingChannels(channel);
+
+        int[] count = new int[STRENGTH_SIZE];
+        for (DetailsInfo detailsInfo : details) {
+            if (!detailsInfo.isConnected()) {
+                count[detailsInfo.getStrength().ordinal()]++;
+            }
+        }
+        return count;
+    }
+
+    private List<DetailsInfo> collectOverlappingChannels(int channel) {
+        List<DetailsInfo> details = new ArrayList<>();
+        for (int i = channel - 2; i <= channel + 2; i++) {
+            List<DetailsInfo> detailsInfos = wiFiChannels.get(i);
+            if (detailsInfos != null) {
+                details.addAll(detailsInfos);
+            }
+        }
+        return details;
     }
 }

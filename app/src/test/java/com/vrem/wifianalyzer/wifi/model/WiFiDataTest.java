@@ -255,7 +255,7 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null);
         // execute
-        Map<Integer, List<DetailsInfo>> actual = fixture.getWiFiChannelList();
+        Map<Integer, List<DetailsInfo>> actual = fixture.getWiFiChannels();
         // validate
         assertEquals(3, actual.size());
         assertEquals(1, actual.get(Frequency.findChannel(FREQUENCY1)).size());
@@ -273,7 +273,7 @@ public class WiFiDataTest {
         fixture = new WiFiData(scanResults, null);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.FIVE);
         // execute
-        Map<Integer, List<DetailsInfo>> actual = fixture.getWiFiChannelList();
+        Map<Integer, List<DetailsInfo>> actual = fixture.getWiFiChannels();
         // validate
         assertTrue(actual.isEmpty());
     }

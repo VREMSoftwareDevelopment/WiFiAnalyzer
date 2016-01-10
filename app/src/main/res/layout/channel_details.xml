@@ -7,16 +7,16 @@
 
     <RatingBar
         android:id="@+id/channelRating"
-        style="?android:attr/ratingBarStyleIndicator"
+        style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_height="match_parent"
+        android:numStars="5"
+        android:stepSize="1.0" />
 
     <TextView
         android:id="@+id/channelNumber"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="match_parent"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:textColor="@color/channel"
         android:textStyle="bold"/>
@@ -24,8 +24,7 @@
     <TextView
         android:id="@+id/channelAPCount"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="match_parent"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:textColor="@color/connected"
         android:textStyle="bold"/>
