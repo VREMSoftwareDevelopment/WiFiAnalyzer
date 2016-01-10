@@ -80,7 +80,7 @@ public class NavigationMenuTest {
     @Test
     public void testGetIcon() throws Exception {
         assertEquals(R.mipmap.ic_launcher, NavigationMenu.ACCESS_POINTS.getIcon());
-        assertEquals(R.drawable.ic_tune_grey_500_48dp, NavigationMenu.CHANNEL_ANALYZER.getIcon());
+        assertEquals(R.drawable.ic_wifi_tethering_grey_500_48dp, NavigationMenu.CHANNEL_ANALYZER.getIcon());
         assertEquals(R.drawable.ic_list_grey_500_48dp, NavigationMenu.VENDOR_LIST.getIcon());
         assertEquals(R.drawable.ic_settings_grey_500_48dp, NavigationMenu.SETTINGS.getIcon());
     }
