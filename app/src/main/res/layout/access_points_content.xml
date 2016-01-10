@@ -9,13 +9,13 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/wifiSwipeRefresh"
+        android:id="@+id/accessPointsRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ExpandableListView
-            android:id="@+id/wifiListView"
+            android:id="@+id/accessPointsView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:groupIndicator="@null" />

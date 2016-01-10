@@ -39,13 +39,11 @@ public class AccessPointsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.access_points_content, container, false);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.wifiSwipeRefresh);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.accessPointsRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        AccessPointsAdapter wifiListAdapter = new AccessPointsAdapter(activity);
-
-        ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.wifiListView);
-        expandableListView.setAdapter(wifiListAdapter);
+        ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.accessPointsView);
+        expandableListView.setAdapter(new AccessPointsAdapter(activity));
 
         return view;
     }
