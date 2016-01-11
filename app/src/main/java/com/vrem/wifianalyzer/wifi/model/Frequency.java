@@ -61,7 +61,7 @@ public enum Frequency {
     public static List<Integer> findChannels(WiFiBand wifiBand) {
         List<Integer> results = new ArrayList<>();
         for (Frequency frequency : values()) {
-            if (wifiBand.equals(frequency.wifiBand())) {
+            if (WiFiBand.ALL.equals(wifiBand) || wifiBand.equals(frequency.wifiBand())) {
                 results.addAll(frequency.channels());
             }
         }
@@ -81,14 +81,6 @@ public enum Frequency {
 
     public WiFiBand wifiBand() {
         return wifiBand;
-    }
-
-    public boolean is24GHZ() {
-        return WiFiBand.TWO_POINT_FOUR.equals(this.wifiBand());
-    }
-
-    public boolean is5GHZ() {
-        return WiFiBand.FIVE.equals(this.wifiBand());
     }
 
     public List<Integer> channels() {

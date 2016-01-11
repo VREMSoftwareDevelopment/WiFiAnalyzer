@@ -15,8 +15,6 @@
  */
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.support.annotation.NonNull;
-
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -87,22 +85,6 @@ public class FrequencyTest {
     }
 
     @Test
-    public void testIs24GHZ() throws Exception {
-        assertFalse(Frequency.UNKNOWN.is24GHZ());
-        assertTrue(Frequency.TWO_POINT_FOUR.is24GHZ());
-        assertTrue(Frequency.TWO_POINT_FOUR_CH_14.is24GHZ());
-        assertFalse(Frequency.FIVE.is24GHZ());
-    }
-
-    @Test
-    public void testIs5GHZ() throws Exception {
-        assertFalse(Frequency.UNKNOWN.is5GHZ());
-        assertFalse(Frequency.TWO_POINT_FOUR.is5GHZ());
-        assertFalse(Frequency.TWO_POINT_FOUR_CH_14.is5GHZ());
-        assertTrue(Frequency.FIVE.is5GHZ());
-    }
-
-    @Test
     public void testFindChannels() throws Exception {
         assertTrue(Frequency.UNKNOWN.channels().isEmpty());
         assertListEquals(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}, Frequency.TWO_POINT_FOUR.channels());
@@ -118,14 +100,19 @@ public class FrequencyTest {
     @Test
     public void testFind24GHZChannels() throws Exception {
         // setup
-        List<Integer> expected = new ArrayList<>();
-        for (int i = 1; i <= 14; i++) {
-            expected.add(i);
-        }
+        List<Integer> expected = expected24GHZChannels();
         // execute
         List<Integer> actual = Frequency.findChannels(WiFiBand.TWO_POINT_FOUR);
         // validate
         assertListEquals(expected, actual);
+    }
+
+    private List<Integer> expected24GHZChannels() {
+        List<Integer> expected = new ArrayList<>();
+        for (int i = 1; i <= 14; i++) {
+            expected.add(i);
+        }
+        return expected;
     }
 
     @Test
@@ -138,13 +125,23 @@ public class FrequencyTest {
         assertListEquals(expected, actual);
     }
 
-    @NonNull
     private List<Integer> expected5GHZChannels() {
         List<Integer> expected = new ArrayList<>();
         for (int i = 34; i <= 165; i++) {
             expected.add(i);
         }
         return expected;
+    }
+
+    @Test
+    public void testFindAllChannels() throws Exception {
+        // setup
+        List<Integer> expected = expected24GHZChannels();
+        expected.addAll(expected5GHZChannels());
+        // execute
+        List<Integer> actual = Frequency.findChannels(WiFiBand.ALL);
+        // validate
+        assertListEquals(expected, actual);
     }
 
     private void assertListEquals(Integer[] expected, List<Integer> actual) {

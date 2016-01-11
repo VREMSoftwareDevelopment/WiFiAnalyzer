@@ -129,7 +129,7 @@ public class SettingsTest {
         // setup
         String defaultValue = "some";
         String key = "xyz";
-        WiFiBand expected = WiFiBand.TWO_POINT_FOUR;
+        WiFiBand expected = WiFiBand.ALL;
         withResourceKey(R.string.wifi_band_key, key);
         when(resources.getString(R.string.wifi_band_default)).thenReturn(defaultValue);
         when(sharedPreferences.getString(key, defaultValue)).thenReturn(expected.name());

@@ -24,7 +24,7 @@
     <string name="wifi_band_title">WiFi Band</string>
     <string name="wifi_band_summary">%s</string>
     <string name="wifi_band_key">wifi_band</string>
-    <string name="wifi_band_default">2.4 GHz</string>
+    <string name="wifi_band_default">2.4 &amp; 5 GHz</string>
 
     <string name="scan_interval_title">Scan Interval</string>
     <string name="scan_interval_summary">%d seconds between each scan</string>

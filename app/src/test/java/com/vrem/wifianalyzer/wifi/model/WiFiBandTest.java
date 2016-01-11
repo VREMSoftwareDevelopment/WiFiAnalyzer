@@ -22,20 +22,22 @@ import static org.junit.Assert.assertEquals;
 public class WiFiBandTest {
     @Test
     public void testWiFiBand() throws Exception {
-        assertEquals(2, WiFiBand.values().length);
+        assertEquals(3, WiFiBand.values().length);
     }
 
     @Test
     public void testGetBand() throws Exception {
+        assertEquals("2.4 & 5 GHz", WiFiBand.ALL.getBand());
         assertEquals("2.4 GHz", WiFiBand.TWO_POINT_FOUR.getBand());
         assertEquals("5 GHz", WiFiBand.FIVE.getBand());
     }
 
     @Test
     public void testFind() throws Exception {
-        assertEquals(WiFiBand.TWO_POINT_FOUR, WiFiBand.find(null));
-        assertEquals(WiFiBand.TWO_POINT_FOUR, WiFiBand.find("XYZ"));
+        assertEquals(WiFiBand.ALL, WiFiBand.find(null));
+        assertEquals(WiFiBand.ALL, WiFiBand.find("XYZ"));
 
+        assertEquals(WiFiBand.ALL, WiFiBand.find(WiFiBand.ALL.getBand()));
         assertEquals(WiFiBand.TWO_POINT_FOUR, WiFiBand.find(WiFiBand.TWO_POINT_FOUR.getBand()));
         assertEquals(WiFiBand.FIVE, WiFiBand.find(WiFiBand.FIVE.getBand()));
     }

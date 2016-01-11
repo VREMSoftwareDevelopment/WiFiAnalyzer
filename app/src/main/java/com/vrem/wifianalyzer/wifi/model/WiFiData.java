@@ -115,7 +115,7 @@ public class WiFiData {
         for (ScanResult scanResult : scanResults) {
             String vendorName = vendorService.findVendorName(scanResult.BSSID);
             Details details = new Details(scanResult, vendorName);
-            if (wifiBand.equals(details.getWiFiBand())) {
+            if (WiFiBand.ALL.equals(wifiBand) || wifiBand.equals(details.getWiFiBand())) {
                 if (details.equals(connection)) {
                     results.add(connection);
                 } else if (!hideWeakSignal(hideWeakSignal, details)) {
