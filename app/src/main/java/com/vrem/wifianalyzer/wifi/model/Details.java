@@ -19,7 +19,6 @@ import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -116,15 +115,6 @@ public class Details implements WiFiDetails {
 
     public void addChild(@NonNull WiFiDetails wifiDetails) {
         children.add(wifiDetails);
-    }
-
-    @Override
-    public int compareTo(@NonNull WiFiDetails other) {
-        return new CompareToBuilder()
-                .append(getLevel(), other.getLevel())
-                .append(getSSID().toUpperCase(), other.getSSID().toUpperCase())
-                .append(getBSSID().toUpperCase(), other.getBSSID().toUpperCase())
-                .toComparison();
     }
 
     @Override

@@ -85,6 +85,7 @@ public class WiFiDataTest {
         mainContext.setSettings(settings);
 
         when(settings.getGroupBy()).thenReturn(GroupBy.SSID);
+        when(settings.getSortBy()).thenReturn(SortBy.STRENGTH);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.TWO_POINT_FOUR);
 
         scanResults = Arrays.asList(scanResult_3,

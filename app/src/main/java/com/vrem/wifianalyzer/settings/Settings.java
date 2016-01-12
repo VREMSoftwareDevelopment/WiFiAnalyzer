@@ -22,6 +22,7 @@ import android.preference.PreferenceManager;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
+import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 
 public class Settings {
@@ -48,6 +49,12 @@ public class Settings {
         Context context = mainContext.getContext();
         boolean defaultValue = context.getResources().getBoolean(R.bool.hide_weak_signal_default);
         return getSharedPreferences().getBoolean(context.getString(R.string.hide_weak_signal_key), defaultValue);
+    }
+
+    public SortBy getSortBy() {
+        Context context = mainContext.getContext();
+        String defaultValue = context.getResources().getString(R.string.sort_by_default);
+        return SortBy.find(getSharedPreferences().getString(context.getString(R.string.sort_by_key), defaultValue));
     }
 
     public GroupBy getGroupBy() {

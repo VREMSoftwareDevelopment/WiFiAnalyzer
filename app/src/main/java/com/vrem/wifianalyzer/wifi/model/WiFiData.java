@@ -86,13 +86,14 @@ public class WiFiData {
     }
 
     private List<WiFiDetails> groupWiFiList(@NonNull GroupBy groupBy, List<WiFiDetails> wifiList) {
+        SortBy sortBy = mainContext.getSettings().getSortBy();
         List<WiFiDetails> results = new ArrayList<>();
         Collections.sort(wifiList, groupBy.sortOrder());
         WiFiDetails parent = null;
         for (WiFiDetails wifiDetails : wifiList) {
             if (parent == null || groupBy.groupBy().compare(parent, wifiDetails) != 0) {
                 if (parent != null) {
-                    Collections.sort(parent.getChildren());
+                    Collections.sort(parent.getChildren(), sortBy.comparator());
                 }
                 parent = wifiDetails;
                 results.add(parent);
@@ -101,9 +102,9 @@ public class WiFiData {
             }
         }
         if (parent != null) {
-            Collections.sort(parent.getChildren());
+            Collections.sort(parent.getChildren(), sortBy.comparator());
         }
-        Collections.sort(results);
+        Collections.sort(results, sortBy.comparator());
         return results;
     }
 

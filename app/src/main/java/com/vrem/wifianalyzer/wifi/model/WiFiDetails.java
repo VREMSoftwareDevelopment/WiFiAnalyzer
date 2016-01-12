@@ -17,7 +17,7 @@ package com.vrem.wifianalyzer.wifi.model;
 
 import java.util.List;
 
-public interface WiFiDetails extends Comparable<WiFiDetails> {
+public interface WiFiDetails {
     String getSSID();
 
     String getBSSID();

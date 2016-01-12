@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
+import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 
 import org.junit.After;
@@ -121,6 +122,24 @@ public class SettingsTest {
         assertEquals(expected, actual);
         verifyResourceKey(R.string.group_by_key);
         verify(resources).getString(R.string.group_by_default);
+        verify(sharedPreferences).getString(key, defaultValue);
+    }
+
+    @Test
+    public void testSortBy() throws Exception {
+        // setup
+        String defaultValue = "some";
+        String key = "xyz";
+        SortBy expected = SortBy.STRENGTH;
+        withResourceKey(R.string.sort_by_key, key);
+        when(resources.getString(R.string.sort_by_default)).thenReturn(defaultValue);
+        when(sharedPreferences.getString(key, defaultValue)).thenReturn(expected.name());
+        // execute
+        SortBy actual = fixture.getSortBy();
+        // validate
+        assertEquals(expected, actual);
+        verifyResourceKey(R.string.sort_by_key);
+        verify(resources).getString(R.string.sort_by_default);
         verify(sharedPreferences).getString(key, defaultValue);
     }
 

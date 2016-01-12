@@ -17,6 +17,15 @@
         android:title="@string/scan_interval_title" />
 
     <ListPreference
+        android:defaultValue="@string/sort_by_default"
+        android:entries="@array/sort_by_array"
+        android:entryValues="@array/sort_by_array"
+        android:key="@string/sort_by_key"
+        android:persistent="true"
+        android:summary="@string/sort_by_summary"
+        android:title="@string/sort_by_title" />
+
+    <ListPreference
         android:defaultValue="@string/group_by_default"
         android:entries="@array/group_by_array"
         android:entryValues="@array/group_by_array"

@@ -13,6 +13,12 @@
         <item>Channel</item>
     </string-array>
 
+    <string-array name="sort_by_array">
+        <item>Signal Strength</item>
+        <item>SSID</item>
+        <item>Channel</item>
+    </string-array>
+
     <string-array name="theme_array">
         <item>Dark</item>
         <item>Light</item>
