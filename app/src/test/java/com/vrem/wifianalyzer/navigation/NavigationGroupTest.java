@@ -41,7 +41,8 @@ public class NavigationGroupTest {
     public void testNavigationGroupMenuItems() throws Exception {
         assertArrayEquals(new NavigationMenu[]{
                         NavigationMenu.ACCESS_POINTS,
-                        NavigationMenu.CHANNEL_RATING
+                        NavigationMenu.CHANNEL_RATING,
+                        NavigationMenu.CHANNEL_GRAPH
                 },
                 NavigationGroup.GROUP_FEATURE.navigationMenu());
         assertArrayEquals(new NavigationMenu[]{

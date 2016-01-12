@@ -10,6 +10,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_access_points">Access Points</string>
     <string name="action_channel_rating">Channel Rating</string>
+    <string name="action_channel_graph">Channel Graph</string>
     <string name="action_vendors">Vendors</string>
 
     <string name="button_ok">OK</string>

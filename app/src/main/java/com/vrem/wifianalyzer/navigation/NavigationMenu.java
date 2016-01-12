@@ -23,11 +23,13 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.vendor.VendorFragment;
 import com.vrem.wifianalyzer.wifi.AccessPointsFragment;
+import com.vrem.wifianalyzer.wifi.ChannelGraphFragment;
 import com.vrem.wifianalyzer.wifi.ChannelRatingFragment;
 
 public enum NavigationMenu {
     ACCESS_POINTS(R.mipmap.ic_launcher, R.string.action_access_points, true, new AccessPointsFragment()),
     CHANNEL_RATING(R.drawable.ic_wifi_tethering_grey_500_48dp, R.string.action_channel_rating, true, new ChannelRatingFragment()),
+    CHANNEL_GRAPH(R.drawable.ic_insert_chart_grey_500_48dp, R.string.action_channel_graph, true, new ChannelGraphFragment()),
     VENDOR_LIST(R.drawable.ic_list_grey_500_48dp, R.string.action_vendors, false, new VendorFragment()),
     SETTINGS(R.drawable.ic_settings_grey_500_48dp, R.string.action_settings, SettingActivity.class);
 

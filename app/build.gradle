@@ -30,6 +30,7 @@ dependencies {
     compile 'com.android.support:design:22.2.1'
     compile 'org.apache.commons:commons-lang3:3.4'
     // Unit Test Dependencies
+    compile 'com.jjoe64:graphview:4.0.1'
     testCompile 'junit:junit:4.12'
     testCompile 'org.powermock:powermock-module-junit4:1.6.4'
     testCompile 'org.powermock:powermock-api-mockito:1.6.4'
