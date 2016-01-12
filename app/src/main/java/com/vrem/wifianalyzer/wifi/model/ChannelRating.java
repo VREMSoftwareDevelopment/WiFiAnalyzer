@@ -23,8 +23,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class ChannelRating {
-    private final static int CHANNEL_OFFSET = 2;
-
     private Map<Integer, List<WiFiDetails>> wifiChannels = new TreeMap<>();
 
     public ChannelRating() {
@@ -50,7 +48,7 @@ public class ChannelRating {
 
     private List<WiFiDetails> collectOverlappingChannels(int channel) {
         List<WiFiDetails> details = new ArrayList<>();
-        for (int i = channel - CHANNEL_OFFSET; i <= channel + CHANNEL_OFFSET; i++) {
+        for (int i = channel - WiFiData.CHANNEL_OFFSET; i <= channel + WiFiData.CHANNEL_OFFSET; i++) {
             List<WiFiDetails> wifiDetails = wifiChannels.get(i);
             if (wifiDetails != null) {
                 details.addAll(wifiDetails);

@@ -49,7 +49,7 @@ public enum SortBy {
         @Override
         public int compare(WiFiDetails lhs, WiFiDetails rhs) {
             return new CompareToBuilder()
-                    .append(lhs.getLevel(), rhs.getLevel())
+                    .append(rhs.getLevel(), lhs.getLevel())
                     .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
                     .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
                     .toComparison();
@@ -62,7 +62,7 @@ public enum SortBy {
         public int compare(WiFiDetails lhs, WiFiDetails rhs) {
             return new CompareToBuilder()
                     .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
-                    .append(lhs.getLevel(), rhs.getLevel())
+                    .append(rhs.getLevel(), lhs.getLevel())
                     .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
                     .toComparison();
         }
@@ -73,7 +73,7 @@ public enum SortBy {
         public int compare(WiFiDetails lhs, WiFiDetails rhs) {
             return new CompareToBuilder()
                     .append(lhs.getChannel(), rhs.getChannel())
-                    .append(lhs.getLevel(), rhs.getLevel())
+                    .append(rhs.getLevel(), lhs.getLevel())
                     .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
                     .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
                     .toComparison();

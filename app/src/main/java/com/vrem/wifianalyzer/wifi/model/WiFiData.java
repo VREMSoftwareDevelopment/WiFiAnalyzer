@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class WiFiData {
+    public static final int CHANNEL_OFFSET = 2;
     private static final String QUOTE = "\"";
 
     private final MainContext mainContext = MainContext.INSTANCE;

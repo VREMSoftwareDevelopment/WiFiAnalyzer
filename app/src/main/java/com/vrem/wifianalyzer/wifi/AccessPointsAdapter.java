@@ -88,7 +88,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     }
 
     @Override
-    public void update(WiFiData wifiData) {
+    public void update(@NonNull WiFiData wifiData) {
         data.update(wifiData);
         notifyDataSetChanged();
     }

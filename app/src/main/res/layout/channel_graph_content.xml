@@ -8,9 +8,17 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <com.jjoe64.graphview.GraphView
-        android:id="@+id/channelGraph"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/channelGraphRefresh"
         android:layout_width="match_parent"
-        android:layout_height="200dip" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/channelGraph"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

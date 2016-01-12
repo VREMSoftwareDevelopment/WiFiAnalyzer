@@ -86,7 +86,7 @@ public class Details implements WiFiDetails {
 
     @Override
     public int getLevel() {
-        return Math.abs(scanResult.level);
+        return scanResult.level;
     }
 
     @Override

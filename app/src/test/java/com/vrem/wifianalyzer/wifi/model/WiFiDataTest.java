@@ -57,11 +57,11 @@ public class WiFiDataTest {
     public static final int FREQUENCY3 = 2422;
     public static final int FREQUENCY4 = 2422;
 
-    public static final int LEVEL0 = 0;
-    public static final int LEVEL1 = 1;
-    public static final int LEVEL2 = 2;
-    public static final int LEVEL3 = 3;
-    public static final int LEVEL4 = 4;
+    public static final int LEVEL0 = -5;
+    public static final int LEVEL1 = -4;
+    public static final int LEVEL2 = -3;
+    public static final int LEVEL3 = -2;
+    public static final int LEVEL4 = -1;
 
     @Mock private WifiInfo wifiInfo;
     @Mock private ScanResult scanResult1;
@@ -135,15 +135,15 @@ public class WiFiDataTest {
         scanResult_1.SSID = scanResult_2.SSID = scanResult_3.SSID = scanResult.SSID;
 
         scanResult_1.BSSID = "B" + scanResult.SSID + "_1";
-        scanResult_1.level = LEVEL4;
+        scanResult_1.level = LEVEL2 - 3;
         scanResult_1.frequency = scanResult.frequency;
 
         scanResult_2.BSSID = "B" + scanResult.SSID + "_2";
-        scanResult_2.level = LEVEL3;
+        scanResult_2.level = LEVEL2 - 1;
         scanResult_2.frequency = scanResult.frequency;
 
         scanResult_3.BSSID = "B" + scanResult.SSID + "_3";
-        scanResult_3.level = LEVEL3;
+        scanResult_3.level = LEVEL2 - 2;
         scanResult_3.frequency = scanResult.frequency;
 
     }
@@ -211,9 +211,10 @@ public class WiFiDataTest {
         List<WiFiDetails> actual = fixture.getWiFiList();
         // validate
         assertEquals(4, actual.size());
-        assertEquals(scanResult3.SSID, actual.get(0).getSSID());
-        assertEquals(scanResult2.SSID, actual.get(2).getSSID());
-        assertEquals(scanResult4.SSID, actual.get(3).getSSID());
+        assertEquals(scanResult2.SSID, actual.get(0).getSSID());
+        assertEquals(scanResult4.SSID, actual.get(1).getSSID());
+        assertEquals(scanResult1.SSID, actual.get(2).getSSID());
+        assertEquals(scanResult3.SSID, actual.get(3).getSSID());
         verify(settings).getWiFiBand();
         verify(settings).getGroupBy();
         verify(settings).getSortBy();
@@ -226,10 +227,10 @@ public class WiFiDataTest {
         // execute
         List<WiFiDetails> actual = fixture.getWiFiList();
         // validate
-        assertEquals(VENDOR_NAME + scanResult3.BSSID, actual.get(0).getVendorName());
-        assertEquals(VENDOR_NAME + scanResult1.BSSID, actual.get(1).getVendorName());
-        assertEquals(VENDOR_NAME + scanResult2.BSSID, actual.get(2).getVendorName());
-        assertEquals(VENDOR_NAME + scanResult4.BSSID, actual.get(3).getVendorName());
+        assertEquals(VENDOR_NAME + scanResult2.BSSID, actual.get(0).getVendorName());
+        assertEquals(VENDOR_NAME + scanResult4.BSSID, actual.get(1).getVendorName());
+        assertEquals(VENDOR_NAME + scanResult1.BSSID, actual.get(2).getVendorName());
+        assertEquals(VENDOR_NAME + scanResult3.BSSID, actual.get(3).getVendorName());
 
         verify(vendorService, times(7)).findVendorName(anyString());
     }
@@ -241,9 +242,11 @@ public class WiFiDataTest {
         // execute
         List<WiFiDetails> actual = fixture.getWiFiList();
         // validate
-        List<WiFiDetails> children = actual.get(2).getChildren();
+        WiFiDetails wiFiDetails = actual.get(0);
+        List<WiFiDetails> children = wiFiDetails.getChildren();
         assertEquals(3, children.size());
         assertEquals(scanResult_2.BSSID, children.get(0).getBSSID());
+        assertEquals(scanResult_3.BSSID, children.get(1).getBSSID());
         assertEquals(scanResult_1.BSSID, children.get(2).getBSSID());
     }
 
@@ -273,10 +276,10 @@ public class WiFiDataTest {
         List<WiFiDetails> actual = fixture.getWiFiList();
         // validate
         assertEquals(4, actual.size());
-        assertTrue(actual.get(0).isConfiguredNetwork());
+        assertFalse(actual.get(0).isConfiguredNetwork());
         assertFalse(actual.get(1).isConfiguredNetwork());
         assertFalse(actual.get(2).isConfiguredNetwork());
-        assertFalse(actual.get(3).isConfiguredNetwork());
+        assertTrue(actual.get(3).isConfiguredNetwork());
     }
 
     @Test

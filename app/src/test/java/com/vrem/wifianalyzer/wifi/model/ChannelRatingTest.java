@@ -35,7 +35,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ChannelRatingTest {
-    private final static int CHANNEL = 1;
+    private static final int CHANNEL = 1;
 
     @Mock
     private WiFiDetails wifiDetails1;

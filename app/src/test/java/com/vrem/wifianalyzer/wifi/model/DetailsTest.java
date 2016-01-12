@@ -133,7 +133,7 @@ public class DetailsTest {
         // execute
         int actual = fixture.getLevel();
         // validate
-        assertEquals(Math.abs(scanResult.level), actual);
+        assertEquals(scanResult.level, actual);
     }
 
     @Test

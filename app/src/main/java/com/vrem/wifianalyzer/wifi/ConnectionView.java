@@ -34,7 +34,7 @@ public class ConnectionView implements UpdateNotifier {
     }
 
     @Override
-    public void update(WiFiData wifiData) {
+    public void update(@NonNull WiFiData wifiData) {
         View view = activity.findViewById(R.id.connection);
 
         WiFiDetails connection = wifiData.getConnection();
