@@ -27,6 +27,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -50,51 +52,50 @@ public class ConnectionTest {
     @Test
     public void testGetIPAddress() throws Exception {
         // setup
-        withConnection(SSID);
         when(wifiInfo.getIpAddress()).thenReturn(123456789);
         // execute
-        String actual = fixture.getIPAddress(scanResult);
+        String actual = fixture.getIPAddress();
         // validate
-        verifyConnection();
         verify(wifiInfo).getIpAddress();
-
         assertEquals("21.205.91.7", actual);
-    }
-
-    @Test
-    public void testGetIPAddressWithNoResult() throws Exception {
-        // execute
-        String actual = fixture.getIPAddress(null);
-        // validate
-        assertEquals(StringUtils.EMPTY, actual);
     }
 
     @Test
     public void testIpAddressInvalid() throws Exception {
         // setup
-        withConnection(SSID);
         when(wifiInfo.getIpAddress()).thenReturn(123);
         // execute
-        String actual = fixture.getIPAddress(scanResult);
+        String actual = fixture.getIPAddress();
         // validate
-        verifyConnection();
         verify(wifiInfo).getIpAddress();
-
         assertEquals(StringUtils.EMPTY, actual);
     }
 
     @Test
-    public void testSSIDWithQuotes() throws Exception {
+    public void testMatches() throws Exception {
         // setup
-        withConnection(SSID_QUOTED);
-        when(wifiInfo.getIpAddress()).thenReturn(123456789);
+        withConnection(SSID);
         // execute
-        String actual = fixture.getIPAddress(scanResult);
+        boolean actual = fixture.matches(scanResult);
         // validate
         verifyConnection();
-        verify(wifiInfo).getIpAddress();
+        assertTrue(actual);
+    }
 
-        assertEquals("21.205.91.7", actual);
+    @Test
+    public void testMatchesWithNull() throws Exception {
+        assertFalse(fixture.matches(null));
+    }
+
+    @Test
+    public void testMatchesWithSSIDQuotes() throws Exception {
+        // setup
+        withConnection(SSID_QUOTED);
+        // execute
+        boolean actual = fixture.matches(scanResult);
+        // validate
+        verifyConnection();
+        assertTrue(actual);
     }
 
     private void withConnection(@NonNull String ssid) {

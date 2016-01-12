@@ -16,6 +16,7 @@
 package com.vrem.wifianalyzer.wifi.model;
 
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
@@ -35,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -74,6 +76,7 @@ public class WiFiDataTest {
     @Mock private Settings settings;
 
     private List<ScanResult> scanResults;
+    private List<WifiConfiguration> configuredNetworks;
     private WiFiData fixture;
 
     @Before
@@ -101,8 +104,17 @@ public class WiFiDataTest {
         withSignalLevel();
         withVendorNames();
         withWifiInfo();
+        withConfiguredNetworks();
 
-        fixture = new WiFiData(scanResults, wifiInfo);
+        fixture = new WiFiData(scanResults, wifiInfo, configuredNetworks);
+    }
+
+    private void withConfiguredNetworks() {
+        WifiConfiguration wifiConfiguration1 = new WifiConfiguration();
+        wifiConfiguration1.SSID = "\"" + scanResult3.SSID + "\"";
+        WifiConfiguration wifiConfiguration2 = new WifiConfiguration();
+        wifiConfiguration2.SSID = "123-456-789";
+        configuredNetworks = Arrays.asList(wifiConfiguration1, wifiConfiguration2);
     }
 
     private void withWifiInfo() {
@@ -167,7 +179,7 @@ public class WiFiDataTest {
     @Test
     public void testGetConnectionEmptyObject() throws Exception {
         // execute
-        fixture = new WiFiData(null, wifiInfo);
+        fixture = new WiFiData(null, wifiInfo, null);
         // validate
         assertNull(fixture.getConnection());
     }
@@ -175,7 +187,7 @@ public class WiFiDataTest {
     @Test
     public void testGetWiFiListEmptyObject() throws Exception {
         // execute
-        fixture = new WiFiData(null, wifiInfo);
+        fixture = new WiFiData(null, wifiInfo, null);
         // validate
         assertTrue(fixture.getWiFiList().isEmpty());
     }
@@ -183,7 +195,7 @@ public class WiFiDataTest {
     @Test
     public void testGetWiFiListEmpty() throws Exception {
         // setup
-        fixture = new WiFiData(scanResults, null);
+        fixture = new WiFiData(scanResults, null, null);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.FIVE);
         // execute
         List<WiFiDetails> actual = fixture.getWiFiList();
@@ -194,7 +206,7 @@ public class WiFiDataTest {
     @Test
     public void testGetWiFiListWithSSID() throws Exception {
         // setup
-        fixture = new WiFiData(scanResults, null);
+        fixture = new WiFiData(scanResults, null, null);
         // execute
         List<WiFiDetails> actual = fixture.getWiFiList();
         // validate
@@ -202,15 +214,15 @@ public class WiFiDataTest {
         assertEquals(scanResult3.SSID, actual.get(0).getSSID());
         assertEquals(scanResult2.SSID, actual.get(2).getSSID());
         assertEquals(scanResult4.SSID, actual.get(3).getSSID());
-
         verify(settings).getWiFiBand();
         verify(settings).getGroupBy();
+        verify(settings).getSortBy();
     }
 
     @Test
     public void testGetWiFiListWithVendorName() throws Exception {
         // setup
-        fixture = new WiFiData(scanResults, null);
+        fixture = new WiFiData(scanResults, null, null);
         // execute
         List<WiFiDetails> actual = fixture.getWiFiList();
         // validate
@@ -225,7 +237,7 @@ public class WiFiDataTest {
     @Test
     public void testGetWiFiListWithChildren() throws Exception {
         // setup
-        fixture = new WiFiData(scanResults, null);
+        fixture = new WiFiData(scanResults, null, null);
         // execute
         List<WiFiDetails> actual = fixture.getWiFiList();
         // validate
@@ -238,8 +250,8 @@ public class WiFiDataTest {
     @Test
     public void testGetConnection() throws Exception {
         // setup
-        WiFiDetails expected = new Details(scanResult1, VENDOR_NAME + scanResult1.BSSID, "21.205.91.7");
-        fixture = new WiFiData(scanResults, wifiInfo);
+        WiFiDetails expected = Details.makeConnection(scanResult1, VENDOR_NAME + scanResult1.BSSID, "21.205.91.7");
+        fixture = new WiFiData(scanResults, wifiInfo, null);
         // execute
         WiFiDetails actual = fixture.getConnection();
         // validate
@@ -249,12 +261,28 @@ public class WiFiDataTest {
         assertEquals(expected.getBSSID(), actual.getBSSID());
         assertEquals(expected.getVendorName(), actual.getVendorName());
         assertEquals(expected.getIPAddress(), actual.getIPAddress());
+        assertTrue(actual.isConnected());
+        assertTrue(actual.isConfiguredNetwork());
+    }
+
+    @Test
+    public void testIsConfiguredNetwork() throws Exception {
+        // setup
+        fixture = new WiFiData(scanResults, null, configuredNetworks);
+        // execute
+        List<WiFiDetails> actual = fixture.getWiFiList();
+        // validate
+        assertEquals(4, actual.size());
+        assertTrue(actual.get(0).isConfiguredNetwork());
+        assertFalse(actual.get(1).isConfiguredNetwork());
+        assertFalse(actual.get(2).isConfiguredNetwork());
+        assertFalse(actual.get(3).isConfiguredNetwork());
     }
 
     @Test
     public void testGetWiFiChannelList() throws Exception {
         // setup
-        fixture = new WiFiData(scanResults, null);
+        fixture = new WiFiData(scanResults, null, null);
         // execute
         Map<Integer, List<WiFiDetails>> actual = fixture.getWiFiChannels();
         // validate
@@ -271,7 +299,7 @@ public class WiFiDataTest {
     @Test
     public void testGetWiFiChannelListEmpty() throws Exception {
         // setup
-        fixture = new WiFiData(scanResults, null);
+        fixture = new WiFiData(scanResults, null, null);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.FIVE);
         // execute
         Map<Integer, List<WiFiDetails>> actual = fixture.getWiFiChannels();

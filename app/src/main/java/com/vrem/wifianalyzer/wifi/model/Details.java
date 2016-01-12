@@ -30,17 +30,23 @@ public class Details implements WiFiDetails {
     private final ScanResult scanResult;
     private final String vendorName;
     private final String ipAddress;
+    private final boolean configuredNetwork;
     private final List<WiFiDetails> children;
 
-    public Details(@NonNull ScanResult scanResult, @NonNull String vendorName, @NonNull String ipAddress) {
+    private Details(@NonNull ScanResult scanResult, @NonNull String vendorName, @NonNull String ipAddress, boolean configuredNetwork) {
         this.scanResult = scanResult;
         this.vendorName = vendorName;
         this.ipAddress = ipAddress;
+        this.configuredNetwork = configuredNetwork;
         this.children = new ArrayList<>();
     }
 
-    public Details(@NonNull ScanResult scanResult, @NonNull String vendorName) {
-        this(scanResult, vendorName, StringUtils.EMPTY);
+    public static Details makeConnection(@NonNull ScanResult scanResult, @NonNull String vendorName, @NonNull String ipAddress) {
+        return new Details(scanResult, vendorName, ipAddress, true);
+    }
+
+    public static Details makeScanResult(@NonNull ScanResult scanResult, @NonNull String vendorName, boolean configuredNetwork) {
+        return new Details(scanResult, vendorName, StringUtils.EMPTY, configuredNetwork);
     }
 
     @Override
@@ -106,6 +112,11 @@ public class Details implements WiFiDetails {
     @Override
     public boolean isConnected() {
         return StringUtils.isNotBlank(getIPAddress());
+    }
+
+    @Override
+    public boolean isConfiguredNetwork() {
+        return configuredNetwork;
     }
 
     @Override

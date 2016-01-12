@@ -16,6 +16,7 @@
 package com.vrem.wifianalyzer.wifi.model;
 
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 
@@ -32,15 +33,17 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class WiFiData {
+    private static final String QUOTE = "\"";
 
     private final MainContext mainContext = MainContext.INSTANCE;
+    private final List<ScanResult> scanResults;
+    private final WifiInfo connectionInfo;
+    private final List<WifiConfiguration> configuredNetworks;
 
-    private List<ScanResult> scanResults;
-    private WifiInfo wifiInfo;
-
-    public WiFiData(List<ScanResult> scanResults, WifiInfo wifiInfo) {
+    public WiFiData(List<ScanResult> scanResults, WifiInfo connectionInfo, List<WifiConfiguration> configuredNetworks) {
         this.scanResults = scanResults;
-        this.wifiInfo = wifiInfo;
+        this.connectionInfo = connectionInfo;
+        this.configuredNetworks = configuredNetworks;
     }
 
     @NonNull
@@ -65,12 +68,12 @@ public class WiFiData {
     public WiFiDetails getConnection() {
         if (hasData()) {
             VendorService vendorService = mainContext.getVendorService();
-            Connection connection = new Connection(wifiInfo);
+            Connection connection = new Connection(connectionInfo);
             for (ScanResult scanResult : scanResults) {
-                String ipAddress = connection.getIPAddress(scanResult);
-                if (StringUtils.isNotBlank(ipAddress)) {
+                if (connection.matches(scanResult)) {
+                    String ipAddress = connection.getIPAddress();
                     String vendorName = vendorService.findVendorName(scanResult.BSSID);
-                    return new Details(scanResult, vendorName, ipAddress);
+                    return Details.makeConnection(scanResult, vendorName, ipAddress);
                 }
             }
         }
@@ -115,7 +118,7 @@ public class WiFiData {
         WiFiDetails connection = getConnection();
         for (ScanResult scanResult : scanResults) {
             String vendorName = vendorService.findVendorName(scanResult.BSSID);
-            Details details = new Details(scanResult, vendorName);
+            Details details = Details.makeScanResult(scanResult, vendorName, isConfiguredNetwork(scanResult));
             if (WiFiBand.ALL.equals(wifiBand) || wifiBand.equals(details.getWiFiBand())) {
                 if (details.equals(connection)) {
                     results.add(connection);
@@ -127,8 +130,19 @@ public class WiFiData {
         return results;
     }
 
-
     private boolean hideWeakSignal(boolean hideWeakSignal, WiFiDetails wifiDetails) {
         return hideWeakSignal && wifiDetails.getStrength().weak();
+    }
+
+    private boolean isConfiguredNetwork(@NonNull ScanResult scanResult) {
+        if (configuredNetworks != null) {
+            for (WifiConfiguration wifiConfiguration : configuredNetworks) {
+                String ssid = StringUtils.removeEnd(StringUtils.removeStart(wifiConfiguration.SSID, QUOTE), QUOTE);
+                if (scanResult.SSID.equalsIgnoreCase(ssid)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

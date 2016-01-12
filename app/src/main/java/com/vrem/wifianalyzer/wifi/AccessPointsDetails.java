@@ -47,6 +47,14 @@ public final class AccessPointsDetails {
             textIPAddress.setText(ipAddress);
         }
 
+        ImageView configuredImage = (ImageView) view.findViewById(R.id.configuredImage);
+        if (wifiDetails.isConfiguredNetwork()) {
+            configuredImage.setVisibility(View.VISIBLE);
+            configuredImage.setColorFilter(resources.getColor(R.color.connected));
+        } else {
+            configuredImage.setVisibility(View.GONE);
+        }
+
         Strength strength = wifiDetails.getStrength();
         ImageView imageView = (ImageView) view.findViewById(R.id.levelImage);
         imageView.setImageResource(strength.imageResource());

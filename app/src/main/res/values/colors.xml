@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="connected">#0D47A1</color>
+    <color name="connected">#2196F3</color>
     <color name="connected_backround">#616161</color>
 
     <color name="channel">#9E9E9E</color>

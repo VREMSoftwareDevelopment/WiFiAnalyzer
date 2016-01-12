@@ -9,11 +9,19 @@
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
+    <ImageView
+        android:id="@+id/configuredImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tab"
+        android:src="@drawable/ic_check_black_18dp"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/ssid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tab"
+        android:layout_toRightOf="@id/configuredImage"
         android:textStyle="bold" />
 
     <TextView

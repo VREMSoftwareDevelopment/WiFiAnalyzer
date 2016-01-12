@@ -26,41 +26,33 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 class Connection {
+    private static final String QUOTE = "\"";
+
     private final WifiInfo wifiInfo;
 
     Connection(WifiInfo wifiInfo) {
         this.wifiInfo = wifiInfo;
     }
 
-    String getIPAddress(ScanResult scanResult) {
-        if (match(scanResult)) {
-            byte[] bytes = BigInteger.valueOf(wifiInfo.getIpAddress()).toByteArray();
-            ArrayUtils.reverse(bytes);
-            try {
-                return InetAddress.getByAddress(bytes).getHostAddress();
-            } catch (UnknownHostException e) {
-                // invalid ip address
-            }
+    String getIPAddress() {
+        byte[] bytes = BigInteger.valueOf(wifiInfo.getIpAddress()).toByteArray();
+        ArrayUtils.reverse(bytes);
+        try {
+            return InetAddress.getByAddress(bytes).getHostAddress();
+        } catch (UnknownHostException e) {
+            return StringUtils.EMPTY;
         }
-        return StringUtils.EMPTY;
     }
 
     private String getSSID() {
-        String result = wifiInfo.getSSID();
-        if (result.charAt(0) == '"') {
-            result = result.substring(1);
-        }
-        if (result.charAt(result.length() - 1) == '"') {
-            result = result.substring(0, result.length() - 1);
-        }
-        return result;
+        return StringUtils.removeEnd(StringUtils.removeStart(wifiInfo.getSSID(), QUOTE), QUOTE);
     }
 
-    private boolean match(ScanResult scanResult) {
+    public boolean matches(ScanResult scanResult) {
         return wifiInfo != null
                 && scanResult != null
                 && wifiInfo.getNetworkId() != -1
-                && getSSID().equals(scanResult.SSID)
-                && wifiInfo.getBSSID().equals(scanResult.BSSID);
+                && getSSID().equalsIgnoreCase(scanResult.SSID)
+                && wifiInfo.getBSSID().equalsIgnoreCase(scanResult.BSSID);
     }
 }

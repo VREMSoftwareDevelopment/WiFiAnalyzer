@@ -45,13 +45,19 @@ public class DetailsTest {
 
     @Before
     public void setUp() throws Exception {
-        fixture = new Details(scanResult, VENDOR_NAME);
+        fixture = Details.makeScanResult(scanResult, VENDOR_NAME, false);
     }
 
     @Test
     public void testGetVendorName() throws Exception {
         // validate
         assertEquals(VENDOR_NAME, fixture.getVendorName());
+    }
+
+    @Test
+    public void testIsConfiguredNetwork() throws Exception {
+        // validate
+        assertFalse(fixture.isConfiguredNetwork());
     }
 
     @Test
@@ -160,9 +166,10 @@ public class DetailsTest {
 
     @Test
     public void testGetIPAddress() throws Exception {
-        fixture = new Details(scanResult, VENDOR_NAME, "IPAddress");
+        fixture = Details.makeConnection(scanResult, VENDOR_NAME, "IPAddress");
         assertEquals("IPAddress", fixture.getIPAddress());
         assertTrue(fixture.isConnected());
+        assertTrue(fixture.isConfiguredNetwork());
     }
 
     @Test
@@ -170,7 +177,7 @@ public class DetailsTest {
         // setup
         scanResult.SSID = "getSSID";
         scanResult.BSSID = "getBSSID";
-        Details other = new Details(scanResult, VENDOR_NAME);
+        Details other = Details.makeScanResult(scanResult, VENDOR_NAME, false);
         // execute & validate
         // validate
         assertEquals(fixture, other);
@@ -182,7 +189,7 @@ public class DetailsTest {
         // setup
         scanResult.SSID = "getSSID";
         scanResult.BSSID = "getBSSID";
-        Details other = new Details(scanResult, VENDOR_NAME);
+        Details other = Details.makeScanResult(scanResult, VENDOR_NAME, false);
         // execute & validate
         assertEquals(fixture.hashCode(), other.hashCode());
     }

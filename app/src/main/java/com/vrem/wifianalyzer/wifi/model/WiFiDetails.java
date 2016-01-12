@@ -44,6 +44,8 @@ public interface WiFiDetails {
 
     boolean isConnected();
 
+    boolean isConfiguredNetwork();
+
     List<WiFiDetails> getChildren();
 
     void addChild(WiFiDetails wifiDetails);

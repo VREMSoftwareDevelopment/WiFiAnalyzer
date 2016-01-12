@@ -15,6 +15,9 @@
  */
 package com.vrem.wifianalyzer.wifi.model;
 
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -45,7 +48,10 @@ public class Scanner {
             wifiManager.setWifiEnabled(true);
         }
         if (wifiManager.startScan()) {
-            wifiData = new WiFiData(wifiManager.getScanResults(), wifiManager.getConnectionInfo());
+            List<ScanResult> scanResults = wifiManager.getScanResults();
+            WifiInfo connectionInfo = wifiManager.getConnectionInfo();
+            List<WifiConfiguration> configuredNetworks = wifiManager.getConfiguredNetworks();
+            wifiData = new WiFiData(scanResults, connectionInfo, configuredNetworks);
             for (UpdateNotifier updateNotifier : updateNotifiers) {
                 updateNotifier.update(wifiData);
             }
