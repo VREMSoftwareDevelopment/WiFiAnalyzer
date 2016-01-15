@@ -60,4 +60,8 @@ public class NavigationMenuView {
         }
         return result;
     }
+
+    NavigationView getNavigationView() {
+        return navigationView;
+    }
 }
