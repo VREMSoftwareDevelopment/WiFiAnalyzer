@@ -25,6 +25,7 @@
         <activity
             android:name=".settings.SettingActivity"
             android:label="@string/setting_activity_label"
+            android:launchMode="singleTask"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
