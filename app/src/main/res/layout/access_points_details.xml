@@ -1,121 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
+    <!-- Column 1 -->
     <TextView
         android:id="@+id/tab"
         android:layout_width="@dimen/list_view_item_horizontal_tab"
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
-    <ImageView
-        android:id="@+id/configuredImage"
+    <!-- Column 2 -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tab"
-        android:src="@drawable/ic_check_black_18dp"
-        android:visibility="gone" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/ssid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/configuredImage"
-        android:textStyle="bold" />
+        <!-- Row 1 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/ipAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:layout_toRightOf="@id/ssid"
-        android:textColor="@color/connected"
-        android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/configuredImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
+                android:src="@drawable/ic_tag_faces_black_18dp"
+                android:visibility="gone" />
 
-    <ImageView
-        android:id="@+id/levelImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ssid"
-        android:layout_toRightOf="@id/tab" />
+            <TextView
+                android:id="@+id/ssid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/securityImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/levelImage"
-        android:layout_alignRight="@id/levelImage" />
+            <TextView
+                android:id="@+id/ipAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                android:textColor="@color/connected"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/level"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ssid"
-        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:layout_toRightOf="@id/levelImage" />
+        <!-- Row 2 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/channel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ssid"
-        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:layout_toRightOf="@id/level"
-        android:textColor="@color/channel"
-        android:textStyle="bold" />
+            <!-- Column 1 -->
+            <ImageView
+                android:id="@+id/levelImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/frequency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ssid"
-        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:layout_toRightOf="@id/channel"
-        android:textColor="@color/channel" />
+            <!-- Column 2 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ssid"
-        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:layout_toRightOf="@id/frequency"
-        android:textColor="@color/distance"
-        android:textStyle="bold" />
+                <!-- Row 1 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/capabilities"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/level"
-        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:layout_toRightOf="@id/levelImage"
-        android:textColor="@color/security"
-        android:textStyle="italic" />
+                    <TextView
+                        android:id="@+id/level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/vendor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/capabilities"
-        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
-        android:layout_toRightOf="@id/levelImage" />
+                    <TextView
+                        android:id="@+id/channel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                        android:textColor="@color/channel"
+                        android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/groupCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/frequency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                        android:textColor="@color/channel" />
 
-    <ImageView
-        android:id="@+id/groupIndicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                        android:textColor="@color/distance"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-</RelativeLayout>
+                <!-- Row 2 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/securityImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/capabilities"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                        android:textColor="@color/security"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <!-- Row 3 -->
+                <TextView
+                    android:id="@+id/vendor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Column 3 -->
+            <LinearLayout
+                android:id="@+id/groupColumn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/groupCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right" />
+
+                <!-- Row 2 -->
+                <ImageView
+                    android:id="@+id/groupIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

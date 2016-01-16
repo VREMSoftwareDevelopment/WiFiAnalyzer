@@ -15,7 +15,6 @@
  */
 package com.vrem.wifianalyzer.wifi;
 
-import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
@@ -48,8 +47,7 @@ public class AccessPointsDetailsTest extends RobolectricBaseTest {
     @Test
     public void testSetViewWithWiFiDetailsAsConnection() throws Exception {
         // setup
-        ScanResult scanResult = ShadowScanResult.newInstance("SSID", "BSSID", "capabilities", 1, 2);
-        WiFiDetails wifiDetails = Details.makeConnection(scanResult, "VendorName", "IPAddress");
+        WiFiDetails wifiDetails = Details.makeConnection(ShadowScanResult.newInstance("SSID", "BSSID", "capabilities", 1, 2), "VendorName", "IPAddress");
         // execute
         AccessPointsDetails.setView(resources, view, wifiDetails);
         // validate
@@ -62,13 +60,14 @@ public class AccessPointsDetailsTest extends RobolectricBaseTest {
 
         validateTextViewValue(wifiDetails.getVendorName(), R.id.vendor);
         assertEquals(View.VISIBLE, view.findViewById(R.id.vendor).getVisibility());
+
+        assertEquals(View.GONE, view.findViewById(R.id.groupColumn).getVisibility());
     }
 
     @Test
     public void testSetViewWithWiFiDetailsAsScanResult() throws Exception {
         // setup
-        ScanResult scanResult = ShadowScanResult.newInstance("", "BSSID", "capabilities", 1, 2);
-        WiFiDetails wifiDetails = Details.makeScanResult(scanResult, "", false);
+        WiFiDetails wifiDetails = Details.makeScanResult(ShadowScanResult.newInstance("", "BSSID", "capabilities", 1, 2), "", false);
         // execute
         AccessPointsDetails.setView(resources, view, wifiDetails);
         // validate
@@ -77,6 +76,7 @@ public class AccessPointsDetailsTest extends RobolectricBaseTest {
         assertEquals(View.GONE, view.findViewById(R.id.ipAddress).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.configuredImage).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.vendor).getVisibility());
+        assertEquals(View.GONE, view.findViewById(R.id.groupColumn).getVisibility());
     }
 
     private void validateTextViewValues(@NonNull WiFiDetails wifiDetails, @NonNull String ssid) {

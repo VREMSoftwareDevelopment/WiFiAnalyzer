@@ -54,20 +54,17 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         AccessPointsDetails.setView(resources, convertView, details);
 
         convertView.findViewById(R.id.tab).setVisibility(View.GONE);
-        ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
-        TextView groupCount = (TextView) convertView.findViewById(R.id.groupCount);
         int childrenCount = getChildrenCount(groupPosition);
         if (childrenCount > 0) {
-            groupIndicator.setVisibility(View.VISIBLE);
+            convertView.findViewById(R.id.groupColumn).setVisibility(View.VISIBLE);
+            ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
             groupIndicator.setImageResource(isExpanded
                     ? R.drawable.ic_expand_less_black_24dp
                     : R.drawable.ic_expand_more_black_24dp);
             groupIndicator.setColorFilter(resources.getColor(R.color.icons_color));
-            groupCount.setVisibility(View.VISIBLE);
-            groupCount.setText(String.format("(%d) ", childrenCount + 1));
+            ((TextView) convertView.findViewById(R.id.groupCount)).setText(String.format("(%d) ", childrenCount + 1));
         } else {
-            groupIndicator.setVisibility(View.GONE);
-            groupCount.setVisibility(View.GONE);
+            convertView.findViewById(R.id.groupColumn).setVisibility(View.GONE);
         }
 
         return convertView;
@@ -81,8 +78,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
 
         convertView.setBackgroundColor(resources.getColor(R.color.shadow_mid_color));
         convertView.findViewById(R.id.tab).setVisibility(View.VISIBLE);
-        convertView.findViewById(R.id.groupIndicator).setVisibility(View.GONE);
-        convertView.findViewById(R.id.groupCount).setVisibility(View.GONE);
+        convertView.findViewById(R.id.groupColumn).setVisibility(View.GONE);
 
         return convertView;
     }
