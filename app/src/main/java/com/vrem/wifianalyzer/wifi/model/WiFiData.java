@@ -80,6 +80,10 @@ public class WiFiData {
         return null;
     }
 
+    public List<WiFiDetails> getWiFiListAll() {
+        return getWiFiList(GroupBy.NONE, false);
+    }
+
     private List<WiFiDetails> getWiFiList(@NonNull GroupBy groupBy, boolean hideWeakSignal) {
         return hasData() ? groupWiFiList(groupBy, buildWiFiList(hideWeakSignal)) : new ArrayList<WiFiDetails>();
     }

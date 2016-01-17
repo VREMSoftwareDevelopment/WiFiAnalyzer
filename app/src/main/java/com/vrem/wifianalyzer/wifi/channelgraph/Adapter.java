@@ -26,8 +26,6 @@ import com.vrem.wifianalyzer.wifi.WiFiConstants;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
 
-import java.util.List;
-
 class Adapter implements UpdateNotifier {
     private final MainContext mainContext = MainContext.INSTANCE;
     private final GraphView graphView;
@@ -44,9 +42,8 @@ class Adapter implements UpdateNotifier {
         graphView.removeAllSeries();
         new Utils().updateLegendRenderer(graphView);
 
-        List<WiFiDetails> wifiList = wifiData.getWiFiList();
         int colorIndex = 0;
-        for (WiFiDetails wifiDetails : wifiList) {
+        for (WiFiDetails wifiDetails : wifiData.getWiFiListAll()) {
             int channel = wifiDetails.getChannel();
             if (!constraints.contains(channel)) {
                 continue;
@@ -72,12 +69,10 @@ class Adapter implements UpdateNotifier {
             series.setColor(Colors.values()[colorIndex].getPrimary());
             series.setBackgroundColor(Colors.values()[colorIndex].getBackground());
             series.setDrawBackground(true);
-            series.setTitle(wifiDetails.getTitle());
+            series.setTitle(wifiDetails.getSSID() + " " + channel);
             colorIndex++;
-
             graphView.addSeries(series);
         }
-
     }
 
 }
