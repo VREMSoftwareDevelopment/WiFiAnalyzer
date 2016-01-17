@@ -309,4 +309,18 @@ public class WiFiDataTest {
         // validate
         assertTrue(actual.isEmpty());
     }
+
+    @Test
+    public void testGetWiFiListRaw() throws Exception {
+        // setup
+        fixture = new WiFiData(scanResults, null, null);
+        when(settings.getWiFiBand()).thenReturn(WiFiBand.ALL);
+        // execute
+        List<WiFiDetails> actual = fixture.getWiFiListRaw();
+        // validate
+        assertEquals(7, actual.size());
+        assertEquals(scanResult2.BSSID, actual.get(0).getBSSID());
+        assertEquals(scanResult_1.BSSID, actual.get(6).getBSSID());
+    }
+
 }
