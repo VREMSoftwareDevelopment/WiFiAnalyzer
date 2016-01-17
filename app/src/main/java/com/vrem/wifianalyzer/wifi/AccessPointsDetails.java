@@ -28,11 +28,8 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
 
 import org.apache.commons.lang3.StringUtils;
 
-public final class AccessPointsDetails {
-    private AccessPointsDetails() {
-    }
-
-    public static void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetails wifiDetails) {
+public class AccessPointsDetails {
+    public void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetails wifiDetails, boolean child) {
         ((TextView) view.findViewById(R.id.ssid)).setText(
                 String.format("%s (%s)",
                         StringUtils.isBlank(wifiDetails.getSSID()) ? "***" : wifiDetails.getSSID(),
@@ -82,5 +79,13 @@ public final class AccessPointsDetails {
             textVendor.setVisibility(View.VISIBLE);
             textVendor.setText(vendor);
         }
+
+        if (child) {
+            view.findViewById(R.id.tab).setVisibility(View.VISIBLE);
+            view.setBackgroundColor(resources.getColor(R.color.shadow_mid_color));
+        } else {
+            view.findViewById(R.id.tab).setVisibility(View.GONE);
+        }
+
     }
 }

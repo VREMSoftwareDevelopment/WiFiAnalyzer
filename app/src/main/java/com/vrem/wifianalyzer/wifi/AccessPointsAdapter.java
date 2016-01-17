@@ -39,11 +39,13 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     private final MainContext mainContext = MainContext.INSTANCE;
     private final Resources resources;
     private final Data data;
+    private final AccessPointsDetails accessPointsDetails;
 
     AccessPointsAdapter(@NonNull Context context) {
         super();
         this.resources = context.getResources();
         this.data = new Data();
+        this.accessPointsDetails = new AccessPointsDetails();
         mainContext.getScanner().addUpdateNotifier(this);
     }
 
@@ -51,9 +53,8 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         convertView = getView(convertView, parent);
         Details details = (Details) getGroup(groupPosition);
-        AccessPointsDetails.setView(resources, convertView, details);
+        accessPointsDetails.setView(resources, convertView, details, false);
 
-        convertView.findViewById(R.id.tab).setVisibility(View.GONE);
         int childrenCount = getChildrenCount(groupPosition);
         if (childrenCount > 0) {
             convertView.findViewById(R.id.groupColumn).setVisibility(View.VISIBLE);
@@ -74,12 +75,8 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         convertView = getView(convertView, parent);
         Details details = (Details) getChild(groupPosition, childPosition);
-        AccessPointsDetails.setView(resources, convertView, details);
-
-        convertView.setBackgroundColor(resources.getColor(R.color.shadow_mid_color));
-        convertView.findViewById(R.id.tab).setVisibility(View.VISIBLE);
+        accessPointsDetails.setView(resources, convertView, details, true);
         convertView.findViewById(R.id.groupColumn).setVisibility(View.GONE);
-
         return convertView;
     }
 

@@ -42,6 +42,7 @@ public class AccessPointsDetailsTest extends RobolectricBaseTest {
         super.setUp();
         view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.access_points_details, null);
         assertNotNull(view);
+        fixture = new AccessPointsDetails();
     }
 
     @Test
@@ -49,7 +50,7 @@ public class AccessPointsDetailsTest extends RobolectricBaseTest {
         // setup
         WiFiDetails wifiDetails = Details.makeConnection(ShadowScanResult.newInstance("SSID", "BSSID", "capabilities", 1, 2), "VendorName", "IPAddress");
         // execute
-        AccessPointsDetails.setView(resources, view, wifiDetails);
+        fixture.setView(resources, view, wifiDetails, false);
         // validate
         validateTextViewValues(wifiDetails, "SSID");
 
@@ -61,6 +62,7 @@ public class AccessPointsDetailsTest extends RobolectricBaseTest {
         validateTextViewValue(wifiDetails.getVendorName(), R.id.vendor);
         assertEquals(View.VISIBLE, view.findViewById(R.id.vendor).getVisibility());
 
+        assertEquals(View.GONE, view.findViewById(R.id.tab).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.groupColumn).getVisibility());
     }
 
@@ -69,13 +71,14 @@ public class AccessPointsDetailsTest extends RobolectricBaseTest {
         // setup
         WiFiDetails wifiDetails = Details.makeScanResult(ShadowScanResult.newInstance("", "BSSID", "capabilities", 1, 2), "", false);
         // execute
-        AccessPointsDetails.setView(resources, view, wifiDetails);
+        fixture.setView(resources, view, wifiDetails, true);
         // validate
         validateTextViewValues(wifiDetails, "***");
 
         assertEquals(View.GONE, view.findViewById(R.id.ipAddress).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.configuredImage).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.vendor).getVisibility());
+        assertEquals(View.VISIBLE, view.findViewById(R.id.tab).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.groupColumn).getVisibility());
     }
 

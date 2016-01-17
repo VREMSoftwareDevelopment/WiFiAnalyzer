@@ -25,11 +25,13 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
 
 public class ConnectionView implements UpdateNotifier {
-    private final Activity activity;
     private final MainContext mainContext = MainContext.INSTANCE;
+    private final Activity activity;
+    private AccessPointsDetails accessPointsDetails;
 
     public ConnectionView(@NonNull Activity activity) {
         this.activity = activity;
+        setAccessPointsDetails(new AccessPointsDetails());
         mainContext.getScanner().addUpdateNotifier(this);
     }
 
@@ -40,9 +42,13 @@ public class ConnectionView implements UpdateNotifier {
         WiFiDetails connection = wifiData.getConnection();
         if (connection != null && connection.isConnected()) {
             view.setVisibility(View.VISIBLE);
-            AccessPointsDetails.setView(activity.getResources(), view, connection);
+            accessPointsDetails.setView(activity.getResources(), view, connection, false);
         } else {
             view.setVisibility(View.GONE);
         }
+    }
+
+    void setAccessPointsDetails(@NonNull AccessPointsDetails accessPointsDetails) {
+        this.accessPointsDetails = accessPointsDetails;
     }
 }
