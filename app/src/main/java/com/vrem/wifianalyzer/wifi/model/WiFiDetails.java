@@ -18,6 +18,8 @@ package com.vrem.wifianalyzer.wifi.model;
 import java.util.List;
 
 public interface WiFiDetails {
+    String getTitle();
+
     String getSSID();
 
     String getBSSID();

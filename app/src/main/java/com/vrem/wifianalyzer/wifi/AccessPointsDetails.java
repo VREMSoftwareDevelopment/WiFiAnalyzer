@@ -30,10 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class AccessPointsDetails {
     public void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetails wifiDetails, boolean child) {
-        ((TextView) view.findViewById(R.id.ssid)).setText(
-                String.format("%s (%s)",
-                        StringUtils.isBlank(wifiDetails.getSSID()) ? "***" : wifiDetails.getSSID(),
-                        wifiDetails.getBSSID()));
+        ((TextView) view.findViewById(R.id.ssid)).setText(wifiDetails.getTitle());
 
         TextView textIPAddress = (TextView) view.findViewById(R.id.ipAddress);
         String ipAddress = wifiDetails.getIPAddress();

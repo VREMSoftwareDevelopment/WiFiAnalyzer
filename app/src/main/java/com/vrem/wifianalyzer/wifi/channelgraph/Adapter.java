@@ -72,7 +72,7 @@ class Adapter implements UpdateNotifier {
             series.setColor(Colors.values()[colorIndex].getPrimary());
             series.setBackgroundColor(Colors.values()[colorIndex].getBackground());
             series.setDrawBackground(true);
-            series.setTitle(wifiDetails.getSSID());
+            series.setTitle(wifiDetails.getTitle());
             colorIndex++;
 
             graphView.addSeries(series);
