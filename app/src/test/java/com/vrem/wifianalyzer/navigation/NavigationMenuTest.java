@@ -19,8 +19,8 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.vendor.VendorFragment;
 import com.vrem.wifianalyzer.wifi.AccessPointsFragment;
-import com.vrem.wifianalyzer.wifi.ChannelGraphFragment;
 import com.vrem.wifianalyzer.wifi.ChannelRatingFragment;
+import com.vrem.wifianalyzer.wifi.channelgraph.ChannelGraphFragment;
 
 import org.junit.Test;
 

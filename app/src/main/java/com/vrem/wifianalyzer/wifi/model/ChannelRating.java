@@ -17,6 +17,8 @@ package com.vrem.wifianalyzer.wifi.model;
 
 import android.support.annotation.NonNull;
 
+import com.vrem.wifianalyzer.wifi.WiFiConstants;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +50,7 @@ public class ChannelRating {
 
     private List<WiFiDetails> collectOverlappingChannels(int channel) {
         List<WiFiDetails> details = new ArrayList<>();
-        for (int i = channel - WiFiData.CHANNEL_OFFSET; i <= channel + WiFiData.CHANNEL_OFFSET; i++) {
+        for (int i = channel - WiFiConstants.CHANNEL_OFFSET; i <= channel + WiFiConstants.CHANNEL_OFFSET; i++) {
             List<WiFiDetails> wifiDetails = wifiChannels.get(i);
             if (wifiDetails != null) {
                 details.addAll(wifiDetails);

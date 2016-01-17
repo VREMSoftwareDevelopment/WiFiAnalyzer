@@ -17,8 +17,8 @@ package com.vrem.wifianalyzer.wifi.model;
 
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public enum Frequency {
     UNKNOWN(),
@@ -58,8 +58,8 @@ public enum Frequency {
         return Frequency.find(value).channel(value);
     }
 
-    public static List<Integer> findChannels(WiFiBand wifiBand) {
-        List<Integer> results = new ArrayList<>();
+    public static SortedSet<Integer> findChannels(WiFiBand wifiBand) {
+        SortedSet<Integer> results = new TreeSet<>();
         for (Frequency frequency : values()) {
             if (WiFiBand.ALL.equals(wifiBand) || wifiBand.equals(frequency.wifiBand())) {
                 results.addAll(frequency.channels());
@@ -83,8 +83,8 @@ public enum Frequency {
         return wifiBand;
     }
 
-    public List<Integer> channels() {
-        List<Integer> results = new ArrayList<>();
+    public SortedSet<Integer> channels() {
+        SortedSet<Integer> results = new TreeSet<>();
         for (int i = start; i <= end; i += CHANNEL_FREQUENCY_SPREAD) {
             int channel = channel(i);
             if (channel > 0) {

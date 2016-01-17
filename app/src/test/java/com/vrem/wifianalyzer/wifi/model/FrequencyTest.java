@@ -17,8 +17,8 @@ package com.vrem.wifianalyzer.wifi.model;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -87,9 +87,9 @@ public class FrequencyTest {
     @Test
     public void testFindChannels() throws Exception {
         assertTrue(Frequency.UNKNOWN.channels().isEmpty());
-        assertListEquals(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}, Frequency.TWO_POINT_FOUR.channels());
-        assertListEquals(new Integer[]{14}, Frequency.TWO_POINT_FOUR_CH_14.channels());
-        assertListEquals(expected5GHZChannels(), Frequency.FIVE.channels());
+        assertSetEquals(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}, Frequency.TWO_POINT_FOUR.channels());
+        assertSetEquals(new Integer[]{14}, Frequency.TWO_POINT_FOUR_CH_14.channels());
+        assertSetEquals(expected5GHZChannels(), Frequency.FIVE.channels());
     }
 
     @Test
@@ -100,15 +100,15 @@ public class FrequencyTest {
     @Test
     public void testFind24GHZChannels() throws Exception {
         // setup
-        List<Integer> expected = expected24GHZChannels();
+        SortedSet<Integer> expected = expected24GHZChannels();
         // execute
-        List<Integer> actual = Frequency.findChannels(WiFiBand.TWO_POINT_FOUR);
+        SortedSet<Integer> actual = Frequency.findChannels(WiFiBand.TWO_POINT_FOUR);
         // validate
-        assertListEquals(expected, actual);
+        assertSetEquals(expected, actual);
     }
 
-    private List<Integer> expected24GHZChannels() {
-        List<Integer> expected = new ArrayList<>();
+    private SortedSet<Integer> expected24GHZChannels() {
+        SortedSet<Integer> expected = new TreeSet<>();
         for (int i = 1; i <= 14; i++) {
             expected.add(i);
         }
@@ -118,15 +118,15 @@ public class FrequencyTest {
     @Test
     public void testFind5GHZChannels() throws Exception {
         // setup
-        List<Integer> expected = expected5GHZChannels();
+        SortedSet<Integer> expected = expected5GHZChannels();
         // execute
-        List<Integer> actual = Frequency.findChannels(WiFiBand.FIVE);
+        SortedSet<Integer> actual = Frequency.findChannels(WiFiBand.FIVE);
         // validate
-        assertListEquals(expected, actual);
+        assertSetEquals(expected, actual);
     }
 
-    private List<Integer> expected5GHZChannels() {
-        List<Integer> expected = new ArrayList<>();
+    private SortedSet<Integer> expected5GHZChannels() {
+        SortedSet<Integer> expected = new TreeSet<>();
         for (int i = 34; i <= 165; i++) {
             expected.add(i);
         }
@@ -136,19 +136,19 @@ public class FrequencyTest {
     @Test
     public void testFindAllChannels() throws Exception {
         // setup
-        List<Integer> expected = expected24GHZChannels();
+        SortedSet<Integer> expected = expected24GHZChannels();
         expected.addAll(expected5GHZChannels());
         // execute
-        List<Integer> actual = Frequency.findChannels(WiFiBand.ALL);
+        SortedSet<Integer> actual = Frequency.findChannels(WiFiBand.ALL);
         // validate
-        assertListEquals(expected, actual);
+        assertSetEquals(expected, actual);
     }
 
-    private void assertListEquals(Integer[] expected, List<Integer> actual) {
+    private void assertSetEquals(Integer[] expected, SortedSet<Integer> actual) {
         assertArrayEquals(expected, actual.toArray());
     }
 
-    private void assertListEquals(List<Integer> expected, List<Integer> actual) {
+    private void assertSetEquals(SortedSet<Integer> expected, SortedSet<Integer> actual) {
         assertArrayEquals(expected.toArray(), actual.toArray());
     }
 }
