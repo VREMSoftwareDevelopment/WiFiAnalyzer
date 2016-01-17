@@ -21,6 +21,9 @@
     <string name="channel_rating_heading_number">Channel Number</string>
     <string name="channel_rating_heading_count">Access Point Count</string>
 
+    <string name="graph_wifi_channels">WiFi Channels</string>
+    <string name="graph_signal_strength">Signal Strength (dBm)</string>
+
     <!-- Strings related to Settings -->
     <string name="wifi_band_title">WiFi Band</string>
     <string name="wifi_band_summary">%s</string>
