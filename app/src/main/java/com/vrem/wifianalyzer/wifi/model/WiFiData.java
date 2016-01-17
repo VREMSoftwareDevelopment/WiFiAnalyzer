@@ -80,7 +80,7 @@ public class WiFiData {
         return null;
     }
 
-    public List<WiFiDetails> getWiFiListAll() {
+    public List<WiFiDetails> getWiFiListRaw() {
         return getWiFiList(GroupBy.NONE, false);
     }
 

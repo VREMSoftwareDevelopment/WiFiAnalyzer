@@ -43,7 +43,7 @@ class Adapter implements UpdateNotifier {
         new Utils().updateLegendRenderer(graphView);
 
         int colorIndex = 0;
-        for (WiFiDetails wifiDetails : wifiData.getWiFiListAll()) {
+        for (WiFiDetails wifiDetails : wifiData.getWiFiListRaw()) {
             int channel = wifiDetails.getChannel();
             if (!constraints.contains(channel)) {
                 continue;
@@ -69,7 +69,7 @@ class Adapter implements UpdateNotifier {
             series.setColor(Colors.values()[colorIndex].getPrimary());
             series.setBackgroundColor(Colors.values()[colorIndex].getBackground());
             series.setDrawBackground(true);
-            series.setTitle(wifiDetails.getSSID() + " " + channel);
+            series.setTitle(wifiDetails.getTitle() + " " + channel);
             colorIndex++;
             graphView.addSeries(series);
         }
