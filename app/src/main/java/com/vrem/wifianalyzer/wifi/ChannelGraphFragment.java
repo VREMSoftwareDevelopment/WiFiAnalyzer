@@ -39,14 +39,14 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 
 public class ChannelGraphFragment extends Fragment {
-
+    private static final int OFFSET_X = 2;
     private static final int MIN_X = 1;
     private static final int MAX_X = 14;
-    private static final int CNT_X = MAX_X;
+    private static final int CNT_X = 14;
 
     private static final int MIN_Y = -100;
     private static final int MAX_Y = -30;
-    private static final int CNT_Y = (MAX_Y - MIN_Y) / 10 + 1;
+    private static final int CNT_Y = 8;
 
     private final MainContext mainContext = MainContext.INSTANCE;
 
@@ -113,7 +113,7 @@ public class ChannelGraphFragment extends Fragment {
             String result = StringUtils.EMPTY;
             if (isValueX) {
                 int valueAsInt = (int) (value + 0.5);
-                if ((valueAsInt >= MIN_X && valueAsInt < MAX_X) ||
+                if ((valueAsInt >= MIN_X && valueAsInt <= MAX_X) ||
                         (valueAsInt > MAX_X && valueAsInt < 100 && valueAsInt % 2 == 0) ||
                         (valueAsInt > 100 && valueAsInt % 3 == 0)) {
                     result += valueAsInt;
@@ -156,11 +156,11 @@ public class ChannelGraphFragment extends Fragment {
                 int level = wifiDetails.getLevel();
                 LineGraphSeries<DataPoint> series =
                         new LineGraphSeries<>(new DataPoint[]{
-                                new DataPoint(channel - 2, MIN_Y),
-                                new DataPoint(channel - 1, level),
+                                new DataPoint(channel - OFFSET_X, MIN_Y),
+                                new DataPoint(channel - OFFSET_X / 2, level),
                                 new DataPoint(channel, level),
-                                new DataPoint(channel + 1, level),
-                                new DataPoint(channel + 2, MIN_Y),
+                                new DataPoint(channel + OFFSET_X / 2, level),
+                                new DataPoint(channel + OFFSET_X, MIN_Y),
                         });
                 if (colorIndex >= ChannelGraphColors.values().length) {
                     colorIndex = 0;
@@ -173,6 +173,13 @@ public class ChannelGraphFragment extends Fragment {
 
                 graphView.addSeries(series);
             }
+            addDefaultSeries();
         }
+
+        private void addDefaultSeries() {
+            graphView.addSeries(new LineGraphSeries<>(new DataPoint[]{new DataPoint(MIN_X - OFFSET_X, MIN_Y)}));
+            graphView.addSeries(new LineGraphSeries<>(new DataPoint[]{new DataPoint(MAX_X + OFFSET_X, MIN_Y)}));
+        }
+
     }
 }
