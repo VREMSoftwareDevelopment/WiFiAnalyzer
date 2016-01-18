@@ -21,7 +21,6 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
 import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 
 import org.junit.Before;
@@ -41,7 +40,6 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -73,7 +71,6 @@ public class WiFiDataTest {
     @Mock private ScanResult scanResult_3;
 
     @Mock private VendorService vendorService;
-    @Mock private Settings settings;
 
     private List<ScanResult> scanResults;
     private List<WifiConfiguration> configuredNetworks;
@@ -85,11 +82,6 @@ public class WiFiDataTest {
 
         MainContext mainContext = MainContext.INSTANCE;
         mainContext.setVendorService(vendorService);
-        mainContext.setSettings(settings);
-
-        when(settings.getGroupBy()).thenReturn(GroupBy.SSID);
-        when(settings.getSortBy()).thenReturn(SortBy.STRENGTH);
-        when(settings.getWiFiBand()).thenReturn(WiFiBand.TWO_POINT_FOUR);
 
         scanResults = Arrays.asList(scanResult_3,
                 scanResult3,
@@ -189,16 +181,15 @@ public class WiFiDataTest {
         // execute
         fixture = new WiFiData(null, wifiInfo, null);
         // validate
-        assertTrue(fixture.getWiFiList().isEmpty());
+        assertTrue(fixture.getWiFiList(WiFiBand.TWO_POINT_FOUR, GroupBy.SSID, SortBy.STRENGTH).isEmpty());
     }
 
     @Test
     public void testGetWiFiListEmpty() throws Exception {
         // setup
         fixture = new WiFiData(scanResults, null, null);
-        when(settings.getWiFiBand()).thenReturn(WiFiBand.FIVE);
         // execute
-        List<WiFiDetails> actual = fixture.getWiFiList();
+        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.FIVE, GroupBy.SSID, SortBy.STRENGTH);
         // validate
         assertTrue(actual.isEmpty());
     }
@@ -208,16 +199,13 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null, null);
         // execute
-        List<WiFiDetails> actual = fixture.getWiFiList();
+        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.TWO_POINT_FOUR, GroupBy.SSID, SortBy.STRENGTH);
         // validate
         assertEquals(4, actual.size());
         assertEquals(scanResult2.SSID, actual.get(0).getSSID());
         assertEquals(scanResult4.SSID, actual.get(1).getSSID());
         assertEquals(scanResult1.SSID, actual.get(2).getSSID());
         assertEquals(scanResult3.SSID, actual.get(3).getSSID());
-        verify(settings).getWiFiBand();
-        verify(settings).getGroupBy();
-        verify(settings).getSortBy();
     }
 
     @Test
@@ -225,7 +213,7 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null, null);
         // execute
-        List<WiFiDetails> actual = fixture.getWiFiList();
+        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.TWO_POINT_FOUR, GroupBy.SSID, SortBy.STRENGTH);
         // validate
         assertEquals(VENDOR_NAME + scanResult2.BSSID, actual.get(0).getVendorName());
         assertEquals(VENDOR_NAME + scanResult4.BSSID, actual.get(1).getVendorName());
@@ -240,7 +228,7 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null, null);
         // execute
-        List<WiFiDetails> actual = fixture.getWiFiList();
+        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.TWO_POINT_FOUR, GroupBy.SSID, SortBy.STRENGTH);
         // validate
         WiFiDetails wiFiDetails = actual.get(0);
         List<WiFiDetails> children = wiFiDetails.getChildren();
@@ -273,7 +261,7 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null, configuredNetworks);
         // execute
-        List<WiFiDetails> actual = fixture.getWiFiList();
+        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.TWO_POINT_FOUR, GroupBy.SSID, SortBy.STRENGTH);
         // validate
         assertEquals(4, actual.size());
         assertFalse(actual.get(0).isConfiguredNetwork());
@@ -287,40 +275,34 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null, null);
         // execute
-        Map<Integer, List<WiFiDetails>> actual = fixture.getWiFiChannels();
+        Map<Integer, List<WiFiDetails>> actual = fixture.getWiFiChannels(WiFiBand.TWO_POINT_FOUR);
         // validate
         assertEquals(3, actual.size());
         assertEquals(1, actual.get(Frequency.findChannel(FREQUENCY1)).size());
         assertEquals(4, actual.get(Frequency.findChannel(FREQUENCY2)).size());
         assertEquals(2, actual.get(Frequency.findChannel(FREQUENCY3)).size());
-
-        verify(settings).getWiFiBand();
-        verify(settings, never()).getGroupBy();
-        verify(settings, never()).hideWeakSignal();
     }
 
     @Test
     public void testGetWiFiChannelListEmpty() throws Exception {
         // setup
         fixture = new WiFiData(scanResults, null, null);
-        when(settings.getWiFiBand()).thenReturn(WiFiBand.FIVE);
         // execute
-        Map<Integer, List<WiFiDetails>> actual = fixture.getWiFiChannels();
+        Map<Integer, List<WiFiDetails>> actual = fixture.getWiFiChannels(WiFiBand.FIVE);
         // validate
         assertTrue(actual.isEmpty());
     }
 
     @Test
-    public void testGetWiFiListRaw() throws Exception {
+    public void testGetWiFiList() throws Exception {
         // setup
         fixture = new WiFiData(scanResults, null, null);
-        when(settings.getWiFiBand()).thenReturn(WiFiBand.ALL);
         // execute
-        List<WiFiDetails> actual = fixture.getWiFiListRaw();
+        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.TWO_POINT_FOUR);
         // validate
         assertEquals(7, actual.size());
-        assertEquals(scanResult2.BSSID, actual.get(0).getBSSID());
-        assertEquals(scanResult_1.BSSID, actual.get(6).getBSSID());
+        assertEquals(scanResult1.BSSID, actual.get(0).getBSSID());
+        assertEquals(scanResult4.BSSID, actual.get(6).getBSSID());
     }
 
 }

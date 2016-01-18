@@ -31,6 +31,7 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
 import com.vrem.wifianalyzer.wifi.model.Frequency;
 import com.vrem.wifianalyzer.wifi.model.Strength;
+import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
 import java.util.ArrayList;
@@ -49,9 +50,10 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
 
     @Override
     public void update(@NonNull WiFiData wifiData) {
+        WiFiBand wiFiBand = mainContext.getSettings().getWiFiBand();
         clear();
-        addAll(Frequency.findChannels(mainContext.getSettings().getWiFiBand()));
-        channelRating.setWiFiChannels(wifiData.getWiFiChannels());
+        addAll(Frequency.findChannels(wiFiBand));
+        channelRating.setWiFiChannels(wifiData.getWiFiChannels(wiFiBand));
         notifyDataSetChanged();
     }
 

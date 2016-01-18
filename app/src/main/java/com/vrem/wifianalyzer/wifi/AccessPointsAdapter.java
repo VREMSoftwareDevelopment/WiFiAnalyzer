@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.Details;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
@@ -142,7 +143,8 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         void update(WiFiData wifiData) {
             if (wifiData != null) {
                 connection = wifiData.getConnection();
-                wifiList = wifiData.getWiFiList();
+                Settings settings = mainContext.getSettings();
+                wifiList = wifiData.getWiFiList(settings.getWiFiBand(), settings.getGroupBy(), settings.getSortBy());
             }
         }
 

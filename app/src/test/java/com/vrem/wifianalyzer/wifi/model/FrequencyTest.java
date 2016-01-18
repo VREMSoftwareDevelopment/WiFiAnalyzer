@@ -133,17 +133,6 @@ public class FrequencyTest {
         return expected;
     }
 
-    @Test
-    public void testFindAllChannels() throws Exception {
-        // setup
-        SortedSet<Integer> expected = expected24GHZChannels();
-        expected.addAll(expected5GHZChannels());
-        // execute
-        SortedSet<Integer> actual = Frequency.findChannels(WiFiBand.ALL);
-        // validate
-        assertSetEquals(expected, actual);
-    }
-
     private void assertSetEquals(Integer[] expected, SortedSet<Integer> actual) {
         assertArrayEquals(expected, actual.toArray());
     }

@@ -28,7 +28,7 @@
     <string name="wifi_band_title">WiFi Band</string>
     <string name="wifi_band_summary">%s</string>
     <string name="wifi_band_key">wifi_band</string>
-    <string name="wifi_band_default">2.4 &amp; 5 GHz</string>
+    <string name="wifi_band_default">2.4 GHz</string>
 
     <string name="scan_interval_title">Scan Interval</string>
     <string name="scan_interval_summary">%d seconds between each scan</string>
@@ -46,10 +46,6 @@
     <string name="group_by_summary">%s</string>
     <string name="group_by_key">group_by</string>
     <string name="group_by_default">NONE</string>
-
-    <string name="hide_weak_signal_title">Hide Weak WiFi Signal</string>
-    <string name="hide_weak_signal_key">hide_weak_signal</string>
-    <bool name="hide_weak_signal_default">false</bool>
 
     <string name="theme_title">Theme</string>
     <string name="theme_summary">%s</string>

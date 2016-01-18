@@ -55,12 +55,6 @@ public class AxisLabelTest {
         when(resources.getConfiguration()).thenReturn(configuration);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testAxisLabelNotSupportedWiFiBand() throws Exception {
-        Constraints constraints = new Constraints(WiFiBand.ALL);
-        AxisLabel fixture = new AxisLabel(constraints);
-    }
-
     @Test
     public void testFormatLabelYAxis() throws Exception {
         // setup

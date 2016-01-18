@@ -20,7 +20,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
@@ -93,21 +92,6 @@ public class SettingsTest {
     }
 
     @Test
-    public void testHideWeakSignal() throws Exception {
-        // setup
-        String key = "xyz";
-        withResourceKey(R.string.hide_weak_signal_key, key);
-        when(resources.getBoolean(R.bool.hide_weak_signal_default)).thenReturn(false);
-        when(sharedPreferences.getBoolean(key, false)).thenReturn(true);
-        // execute
-        assertTrue(fixture.hideWeakSignal());
-        // validate
-        verifyResourceKey(R.string.hide_weak_signal_key);
-        verify(resources).getBoolean(R.bool.hide_weak_signal_default);
-        verify(sharedPreferences).getBoolean(key, false);
-    }
-
-    @Test
     public void testGroupBy() throws Exception {
         // setup
         String defaultValue = "some";
@@ -148,7 +132,7 @@ public class SettingsTest {
         // setup
         String defaultValue = "some";
         String key = "xyz";
-        WiFiBand expected = WiFiBand.ALL;
+        WiFiBand expected = WiFiBand.TWO_POINT_FOUR;
         withResourceKey(R.string.wifi_band_key, key);
         when(resources.getString(R.string.wifi_band_default)).thenReturn(defaultValue);
         when(sharedPreferences.getString(key, defaultValue)).thenReturn(expected.name());

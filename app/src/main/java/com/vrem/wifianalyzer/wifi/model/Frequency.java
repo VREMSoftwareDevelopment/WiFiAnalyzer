@@ -58,10 +58,10 @@ public enum Frequency {
         return Frequency.find(value).channel(value);
     }
 
-    public static SortedSet<Integer> findChannels(WiFiBand wifiBand) {
+    public static SortedSet<Integer> findChannels(@NonNull WiFiBand wifiBand) {
         SortedSet<Integer> results = new TreeSet<>();
         for (Frequency frequency : values()) {
-            if (WiFiBand.ALL.equals(wifiBand) || wifiBand.equals(frequency.wifiBand())) {
+            if (wifiBand.equals(frequency.wifiBand())) {
                 results.addAll(frequency.channels());
             }
         }

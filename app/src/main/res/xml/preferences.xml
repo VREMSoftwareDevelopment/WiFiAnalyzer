@@ -34,12 +34,6 @@
         android:summary="@string/group_by_summary"
         android:title="@string/group_by_title" />
 
-    <CheckBoxPreference
-        android:defaultValue="@bool/hide_weak_signal_default"
-        android:key="@string/hide_weak_signal_key"
-        android:persistent="true"
-        android:title="@string/hide_weak_signal_title" />
-
     <ListPreference
         android:defaultValue="@string/theme_default"
         android:entries="@array/theme_array"

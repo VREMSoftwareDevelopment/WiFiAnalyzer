@@ -21,17 +21,14 @@ import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.WiFiConstants;
-import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
 
 class AxisLabel implements LabelFormatter {
     private final MainContext mainContext = MainContext.INSTANCE;
     private final Constraints constraints;
 
     AxisLabel(@NonNull Constraints constraints) {
-        Validate.isTrue(WiFiBand.TWO_POINT_FOUR.equals(constraints.getWiFiBand()) || WiFiBand.FIVE.equals(constraints.getWiFiBand()));
         this.constraints = constraints;
     }
 

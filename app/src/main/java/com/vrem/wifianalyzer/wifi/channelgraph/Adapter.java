@@ -43,7 +43,7 @@ class Adapter implements UpdateNotifier {
         new Utils().updateLegendRenderer(graphView);
 
         int colorIndex = 0;
-        for (WiFiDetails wifiDetails : wifiData.getWiFiListRaw()) {
+        for (WiFiDetails wifiDetails : wifiData.getWiFiList(mainContext.getSettings().getWiFiBand())) {
             int channel = wifiDetails.getChannel();
             if (!constraints.contains(channel)) {
                 continue;
