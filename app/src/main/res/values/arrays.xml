@@ -2,7 +2,6 @@
 <resources>
 
     <string-array name="wifi_band_array">
-        <item>2.4 &amp; 5 GHz</item>
         <item>2.4 GHz</item>
         <item>5 GHz</item>
     </string-array>
