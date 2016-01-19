@@ -5,7 +5,7 @@
     android:orientation="horizontal">
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:paddingRight="@dimen/list_view_item_horizontal_spacer"
@@ -13,7 +13,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.75"
         android:paddingLeft="@dimen/list_view_item_horizontal_spacer"
@@ -22,7 +22,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.75"
         android:paddingLeft="@dimen/list_view_item_horizontal_spacer"

@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
@@ -42,8 +43,9 @@ public class ChannelRatingFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.channelRatingRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
+        TextView bestChannels = (TextView) view.findViewById(R.id.channelRatingBestChannels);
         ListView listView = (ListView) view.findViewById(R.id.channelRatingView);
-        listView.setAdapter(new ChannelRatingAdapter(activity));
+        listView.setAdapter(new ChannelRatingAdapter(activity, bestChannels));
 
         return view;
     }

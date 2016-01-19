@@ -35,15 +35,18 @@ import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
 import java.util.ArrayList;
+import java.util.SortedSet;
 
 class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifier {
     private final MainContext mainContext = MainContext.INSTANCE;
     private final Resources resources;
     private final ChannelRating channelRating;
+    private final TextView bestChannels;
 
-    ChannelRatingAdapter(@NonNull Context context) {
+    ChannelRatingAdapter(@NonNull Context context, @NonNull TextView bestChannels) {
         super(context, R.layout.channel_rating_details, new ArrayList<Integer>());
         this.resources = context.getResources();
+        this.bestChannels = bestChannels;
         mainContext.getScanner().addUpdateNotifier(this);
         this.channelRating = new ChannelRating();
     }
@@ -52,8 +55,10 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
     public void update(@NonNull WiFiData wifiData) {
         WiFiBand wiFiBand = mainContext.getSettings().getWiFiBand();
         clear();
-        addAll(Frequency.findChannels(wiFiBand));
+        SortedSet<Integer> channels = Frequency.findChannels(wiFiBand);
+        addAll(channels);
         channelRating.setWiFiChannels(wifiData.getWiFiChannels(wiFiBand));
+        bestChannels(channels);
         notifyDataSetChanged();
     }
 
@@ -79,6 +84,26 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
         ratingBar.setProgressTintList(ColorStateList.valueOf(resources.getColor(strength.colorResource())));
 
         return convertView;
+    }
+
+    void bestChannels(SortedSet<Integer> channels) {
+        StringBuilder result = new StringBuilder();
+        for (Integer channel : channels) {
+            Strength strength = Strength.reverse(channelRating.getStrength(channel));
+            if (Strength.FOUR.equals(strength) || Strength.THREE.equals(strength)) {
+                if (result.length() > 0) {
+                    result.append(", ");
+                }
+                result.append(channel);
+            }
+        }
+        if (result.length() > 0) {
+            bestChannels.setText(result.toString());
+            bestChannels.setTextColor(resources.getColor(R.color.success_color));
+        } else {
+            bestChannels.setText(resources.getText(R.string.channel_rating_best_none));
+            bestChannels.setTextColor(resources.getColor(R.color.error_color));
+        }
     }
 
 }
