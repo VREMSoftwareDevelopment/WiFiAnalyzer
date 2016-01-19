@@ -29,7 +29,6 @@ import com.jjoe64.graphview.Viewport;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.WiFiConstants;
-import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 
 public class ChannelGraphFragment extends Fragment {
     private final MainContext mainContext = MainContext.INSTANCE;
@@ -42,7 +41,7 @@ public class ChannelGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.channelGraphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        Constraints constraints = new Constraints(WiFiBand.TWO_POINT_FOUR);
+        Constraints constraints = new Constraints(mainContext.getSettings().getWiFiBand());
         AxisLabel axisLabel = new AxisLabel(constraints);
         GraphView graphView = makeGraphView(view, constraints);
         new Adapter(graphView, constraints);
@@ -65,8 +64,6 @@ public class ChannelGraphFragment extends Fragment {
 
         gridLabelRenderer.setVerticalAxisTitle(getResources().getString(R.string.graph_signal_strength));
         gridLabelRenderer.setVerticalLabelsVisible(true);
-
-        new Utils().updateLegendRenderer(graphView);
 
         Viewport viewport = graphView.getViewport();
         viewport.setScrollable(constraints.isScrollable());

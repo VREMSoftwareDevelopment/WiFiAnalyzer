@@ -18,6 +18,7 @@ package com.vrem.wifianalyzer.wifi.channelgraph;
 import android.support.annotation.NonNull;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.vrem.wifianalyzer.MainContext;
@@ -26,53 +27,101 @@ import com.vrem.wifianalyzer.wifi.WiFiConstants;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
 class Adapter implements UpdateNotifier {
     private final MainContext mainContext = MainContext.INSTANCE;
     private final GraphView graphView;
     private final Constraints constraints;
+    private final Map<String, LineGraphSeries<DataPoint>> seriesMap;
+    private final Random random;
 
     Adapter(@NonNull GraphView graphView, @NonNull Constraints constraints) {
         this.graphView = graphView;
         this.constraints = constraints;
+        this.seriesMap = new TreeMap<>();
+        this.random = new Random();
         mainContext.getScanner().addUpdateNotifier(this);
     }
 
     @Override
     public void update(@NonNull WiFiData wifiData) {
-        graphView.removeAllSeries();
-        new Utils().updateLegendRenderer(graphView);
-
-        int colorIndex = 0;
+        Set<String> newSeries = new TreeSet<>();
         for (WiFiDetails wifiDetails : wifiData.getWiFiList(mainContext.getSettings().getWiFiBand())) {
-            int channel = wifiDetails.getChannel();
-            if (!constraints.contains(channel)) {
-                continue;
-            }
-            int level = wifiDetails.getLevel();
-            LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
-                    new DataPoint(channel - WiFiConstants.CHANNEL_OFFSET, WiFiConstants.MIN_Y),
-                    new DataPoint(channel - WiFiConstants.CHANNEL_OFFSET / 2, level),
-                    new DataPoint(channel, level),
-                    new DataPoint(channel + WiFiConstants.CHANNEL_OFFSET / 2, level),
-                    new DataPoint(channel + WiFiConstants.CHANNEL_OFFSET, WiFiConstants.MIN_Y)
-            });
-            if (colorIndex == Colors.BLUE.ordinal()) {
-                colorIndex++;
-            }
-            if (wifiDetails.isConnected()) {
-                colorIndex = Colors.BLUE.ordinal();
+            String key = wifiDetails.getTitle();
+            newSeries.add(key);
+            LineGraphSeries<DataPoint> series = seriesMap.get(key);
+            if (series == null) {
+                series = new LineGraphSeries<>(createDataPoints(wifiDetails));
+                setSeriesOptions(series, wifiDetails);
+                graphView.addSeries(series);
+                seriesMap.put(key, series);
             } else {
-                if (colorIndex >= Colors.values().length - 1) {
-                    colorIndex = 0;
-                }
+                series.resetData(createDataPoints(wifiDetails));
             }
-            series.setColor(Colors.values()[colorIndex].getPrimary());
-            series.setBackgroundColor(Colors.values()[colorIndex].getBackground());
-            series.setDrawBackground(true);
-            series.setTitle(wifiDetails.getTitle() + " " + channel);
-            colorIndex++;
-            graphView.addSeries(series);
+        }
+        removeSeries(newSeries);
+        updateLegendRenderer();
+    }
+
+    private void removeSeries(Set<String> newSeries) {
+        List<String> remove = new ArrayList<>();
+        for (String title : seriesMap.keySet()) {
+            if (!newSeries.contains(title)) {
+                graphView.removeSeries(seriesMap.get(title));
+                remove.add(title);
+            }
+        }
+        for (String title : remove) {
+            seriesMap.remove(title);
         }
     }
 
+    private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetails wifiDetails) {
+        int colorIndex = getColorIndex(wifiDetails);
+        series.setColor(Colors.values()[colorIndex].getPrimary());
+        series.setBackgroundColor(Colors.values()[colorIndex].getBackground());
+        series.setDrawBackground(true);
+        series.setThickness(wifiDetails.isConnected() ? 6 : 2);
+        series.setTitle(wifiDetails.getTitle() + " " + wifiDetails.getChannel());
+    }
+
+    private int getColorIndex(@NonNull WiFiDetails wifiDetails) {
+        if (wifiDetails.isConnected()) {
+            return Colors.BLUE.ordinal();
+        }
+        int colorIndex = random.nextInt(Colors.values().length - 1);
+        if (colorIndex == Colors.BLUE.ordinal()) {
+            colorIndex++;
+        }
+        return colorIndex;
+    }
+
+    @NonNull
+    private DataPoint[] createDataPoints(@NonNull WiFiDetails wifiDetails) {
+        int channel = wifiDetails.getChannel();
+        int level = wifiDetails.getLevel();
+        return new DataPoint[]{
+                new DataPoint(channel - WiFiConstants.CHANNEL_OFFSET, WiFiConstants.MIN_Y),
+                new DataPoint(channel - WiFiConstants.CHANNEL_OFFSET / 2, level),
+                new DataPoint(channel, level),
+                new DataPoint(channel + WiFiConstants.CHANNEL_OFFSET / 2, level),
+                new DataPoint(channel + WiFiConstants.CHANNEL_OFFSET, WiFiConstants.MIN_Y)
+        };
+    }
+
+    private void updateLegendRenderer() {
+        LegendRenderer legendRenderer = graphView.getLegendRenderer();
+        legendRenderer.resetStyles();
+        legendRenderer.setVisible(true);
+        legendRenderer.setWidth(0);
+        legendRenderer.setFixedPosition(0, 0);
+        legendRenderer.setTextSize(legendRenderer.getTextSize() * 0.50f);
+    }
 }
