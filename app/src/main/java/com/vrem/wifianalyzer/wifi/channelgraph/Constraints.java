@@ -45,11 +45,11 @@ class Constraints {
     }
 
     int minXBounds() {
-        return is24GHz() ? minX() - WiFiConstants.CHANNEL_OFFSET : WiFiConstants.MIN_X;
+        return minX() - WiFiConstants.CHANNEL_OFFSET;
     }
 
     int maxXBounds() {
-        return is24GHz() ? maxX() + WiFiConstants.CHANNEL_OFFSET : WiFiConstants.MAX_X;
+        return minXBounds() + WiFiConstants.CNT_X;
     }
 
     boolean isScrollable() {
