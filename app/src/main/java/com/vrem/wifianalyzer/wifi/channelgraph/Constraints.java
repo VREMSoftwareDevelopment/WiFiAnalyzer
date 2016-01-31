@@ -45,7 +45,7 @@ class Constraints {
     }
 
     int minXBounds() {
-        return minX() - WiFiConstants.CHANNEL_OFFSET;
+        return minX() - Frequency.CHANNEL_SPREAD;
     }
 
     int maxXBounds() {
@@ -57,7 +57,7 @@ class Constraints {
     }
 
     boolean is24GHz() {
-        return WiFiBand.TWO_POINT_FOUR.equals(wifiBand);
+        return WiFiBand.TWO.equals(wifiBand);
     }
 
     boolean contains(int channel) {

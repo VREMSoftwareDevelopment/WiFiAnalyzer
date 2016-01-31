@@ -27,16 +27,16 @@ public class WiFiBandTest {
 
     @Test
     public void testGetBand() throws Exception {
-        assertEquals("2.4 GHz", WiFiBand.TWO_POINT_FOUR.getBand());
+        assertEquals("2.4 GHz", WiFiBand.TWO.getBand());
         assertEquals("5 GHz", WiFiBand.FIVE.getBand());
     }
 
     @Test
     public void testFind() throws Exception {
-        assertEquals(WiFiBand.TWO_POINT_FOUR, WiFiBand.find(null));
-        assertEquals(WiFiBand.TWO_POINT_FOUR, WiFiBand.find("XYZ"));
+        assertEquals(WiFiBand.TWO, WiFiBand.find(null));
+        assertEquals(WiFiBand.TWO, WiFiBand.find("XYZ"));
 
-        assertEquals(WiFiBand.TWO_POINT_FOUR, WiFiBand.find(WiFiBand.TWO_POINT_FOUR.getBand()));
+        assertEquals(WiFiBand.TWO, WiFiBand.find(WiFiBand.TWO.getBand()));
         assertEquals(WiFiBand.FIVE, WiFiBand.find(WiFiBand.FIVE.getBand()));
     }
 

@@ -18,7 +18,7 @@ package com.vrem.wifianalyzer.wifi.model;
 import android.support.annotation.NonNull;
 
 public enum WiFiBand {
-    TWO_POINT_FOUR("2.4 GHz"),
+    TWO("2.4 GHz"),
     FIVE("5 GHz");
 
     private final String band;
@@ -33,7 +33,7 @@ public enum WiFiBand {
                 return wifiBand;
             }
         }
-        return WiFiBand.TWO_POINT_FOUR;
+        return WiFiBand.TWO;
     }
 
     public String getBand() {

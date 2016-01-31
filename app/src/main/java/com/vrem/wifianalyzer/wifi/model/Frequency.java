@@ -22,26 +22,32 @@ import java.util.TreeSet;
 
 public enum Frequency {
     UNKNOWN(),
-    TWO_POINT_FOUR(2412, 2472, 1, WiFiBand.TWO_POINT_FOUR),
-    TWO_POINT_FOUR_CH_14(2484, 2484, 14, WiFiBand.TWO_POINT_FOUR),
-    FIVE(5170, 5825, 34, WiFiBand.FIVE);
+    TWO(2412, 2477, 2401, 2499, 1, 14, WiFiBand.TWO),
+    FIVE(5170, 5825, 5001, 5999, 34, 165, WiFiBand.FIVE);
 
-    private final int CHANNEL_FREQUENCY_SPREAD = 5;
+    public static final int CHANNEL_FREQUENCY_SPREAD = 5;
+    public static final int CHANNEL_SPREAD = 2;
 
+    private final int channelFrequencyStart;
+    private final int channelFrequencyEnd;
     private final int start;
     private final int end;
-    private final int offset;
+    private final int channelFirst;
+    private final int channelLast;
     private final WiFiBand wifiBand;
 
     Frequency() {
-        start = end = offset = 0;
+        channelFrequencyStart = channelFrequencyEnd = channelFirst = channelLast = start = end = 0;
         wifiBand = null;
     }
 
-    Frequency(int start, int end, int offset, @NonNull WiFiBand wifiBand) {
+    Frequency(int channelFrequencyStart, int channelFrequencyEnd, int start, int end, int channelFirst, int channelLast, @NonNull WiFiBand wifiBand) {
+        this.channelFrequencyStart = channelFrequencyStart;
+        this.channelFrequencyEnd = channelFrequencyEnd;
         this.start = start;
         this.end = end;
-        this.offset = offset;
+        this.channelFirst = channelFirst;
+        this.channelLast = channelLast;
         this.wifiBand = wifiBand;
     }
 
@@ -74,7 +80,13 @@ public enum Frequency {
 
     public int channel(int value) {
         if (inRange(value)) {
-            return (value - start) / CHANNEL_FREQUENCY_SPREAD + offset;
+            if (value <= channelFrequencyStart) {
+                return channelFirst;
+            }
+            if (value >= channelFrequencyEnd) {
+                return channelLast;
+            }
+            return (value - channelFrequencyStart) / CHANNEL_FREQUENCY_SPREAD + channelFirst;
         }
         return 0;
     }
@@ -85,10 +97,9 @@ public enum Frequency {
 
     public SortedSet<Integer> channels() {
         SortedSet<Integer> results = new TreeSet<>();
-        for (int i = start; i <= end; i += CHANNEL_FREQUENCY_SPREAD) {
-            int channel = channel(i);
-            if (channel > 0) {
-                results.add(channel);
+        if (channelFirst != channelLast) {
+            for (int i = channelFirst; i <= channelLast; i++) {
+                results.add(i);
             }
         }
         return results;

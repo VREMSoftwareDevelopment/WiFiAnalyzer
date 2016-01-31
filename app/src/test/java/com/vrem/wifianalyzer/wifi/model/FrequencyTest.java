@@ -29,7 +29,7 @@ import static org.junit.Assert.assertTrue;
 public class FrequencyTest {
     @Test
     public void testFrequency() throws Exception {
-        assertEquals(4, Frequency.values().length);
+        assertEquals(3, Frequency.values().length);
     }
 
     @Test
@@ -38,73 +38,66 @@ public class FrequencyTest {
         assertFalse(Frequency.UNKNOWN.inRange(1));
         assertFalse(Frequency.UNKNOWN.inRange(-1));
 
-        assertTrue(Frequency.TWO_POINT_FOUR.inRange(2412));
-        assertTrue(Frequency.TWO_POINT_FOUR.inRange(2472));
-        assertFalse(Frequency.TWO_POINT_FOUR.inRange(2411));
-        assertFalse(Frequency.TWO_POINT_FOUR.inRange(2473));
+        assertTrue(Frequency.TWO.inRange(2401));
+        assertTrue(Frequency.TWO.inRange(2499));
+        assertFalse(Frequency.TWO.inRange(2400));
+        assertFalse(Frequency.TWO.inRange(2500));
 
-        assertTrue(Frequency.TWO_POINT_FOUR_CH_14.inRange(2484));
-        assertFalse(Frequency.TWO_POINT_FOUR_CH_14.inRange(2485));
-        assertFalse(Frequency.TWO_POINT_FOUR_CH_14.inRange(2483));
-
-        assertTrue(Frequency.FIVE.inRange(5170));
-        assertTrue(Frequency.FIVE.inRange(5825));
-        assertFalse(Frequency.FIVE.inRange(5169));
-        assertFalse(Frequency.FIVE.inRange(5826));
+        assertTrue(Frequency.FIVE.inRange(5001));
+        assertTrue(Frequency.FIVE.inRange(5999));
+        assertFalse(Frequency.FIVE.inRange(5000));
+        assertFalse(Frequency.FIVE.inRange(6000));
     }
 
     @Test
     public void testChannel() throws Exception {
-        assertEquals(0, Frequency.TWO_POINT_FOUR.channel(1000));
+        assertEquals(0, Frequency.TWO.channel(2400));
+        assertEquals(0, Frequency.TWO.channel(2500));
 
-        assertEquals(1, Frequency.TWO_POINT_FOUR.channel(2412));
-        assertEquals(13, Frequency.TWO_POINT_FOUR.channel(2472));
+        assertEquals(1, Frequency.TWO.channel(2401));
+        assertEquals(1, Frequency.TWO.channel(2416));
+        assertEquals(14, Frequency.TWO.channel(2477));
+        assertEquals(14, Frequency.TWO.channel(2499));
 
-        assertEquals(14, Frequency.TWO_POINT_FOUR_CH_14.channel(2484));
+        assertEquals(0, Frequency.FIVE.channel(5000));
+        assertEquals(0, Frequency.FIVE.channel(6000));
 
-        assertEquals(34, Frequency.FIVE.channel(5170));
+        assertEquals(34, Frequency.FIVE.channel(5001));
+        assertEquals(34, Frequency.FIVE.channel(5174));
         assertEquals(165, Frequency.FIVE.channel(5825));
+        assertEquals(165, Frequency.FIVE.channel(5899));
     }
 
     @Test
     public void testBand() throws Exception {
         assertNull(Frequency.UNKNOWN.wifiBand());
-        assertEquals(WiFiBand.TWO_POINT_FOUR, Frequency.TWO_POINT_FOUR.wifiBand());
-        assertEquals(WiFiBand.TWO_POINT_FOUR, Frequency.TWO_POINT_FOUR_CH_14.wifiBand());
+        assertEquals(WiFiBand.TWO, Frequency.TWO.wifiBand());
         assertEquals(WiFiBand.FIVE, Frequency.FIVE.wifiBand());
     }
 
     @Test
     public void testFind() throws Exception {
-        assertEquals(Frequency.UNKNOWN, Frequency.find(1000));
+        assertEquals(Frequency.UNKNOWN, Frequency.find(2400));
+        assertEquals(Frequency.UNKNOWN, Frequency.find(2500));
+        assertEquals(Frequency.UNKNOWN, Frequency.find(5000));
+        assertEquals(Frequency.UNKNOWN, Frequency.find(6000));
 
-        assertEquals(Frequency.UNKNOWN, Frequency.find(0));
-        assertEquals(Frequency.TWO_POINT_FOUR, Frequency.find(2412));
-        assertEquals(Frequency.TWO_POINT_FOUR_CH_14, Frequency.find(2484));
-        assertEquals(Frequency.FIVE, Frequency.find(5825));
+        assertEquals(Frequency.TWO, Frequency.find(2401));
+        assertEquals(Frequency.TWO, Frequency.find(2499));
+        assertEquals(Frequency.FIVE, Frequency.find(5001));
+        assertEquals(Frequency.FIVE, Frequency.find(5999));
     }
 
     @Test
     public void testFindChannels() throws Exception {
         assertTrue(Frequency.UNKNOWN.channels().isEmpty());
-        assertSetEquals(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}, Frequency.TWO_POINT_FOUR.channels());
-        assertSetEquals(new Integer[]{14}, Frequency.TWO_POINT_FOUR_CH_14.channels());
+        assertSetEquals(expected24GHZChannels(), Frequency.TWO.channels());
         assertSetEquals(expected5GHZChannels(), Frequency.FIVE.channels());
     }
 
     @Test
     public void testFindChannel() throws Exception {
         assertEquals(1, Frequency.findChannel(2412));
-    }
-
-    @Test
-    public void testFind24GHZChannels() throws Exception {
-        // setup
-        SortedSet<Integer> expected = expected24GHZChannels();
-        // execute
-        SortedSet<Integer> actual = Frequency.findChannels(WiFiBand.TWO_POINT_FOUR);
-        // validate
-        assertSetEquals(expected, actual);
     }
 
     private SortedSet<Integer> expected24GHZChannels() {
@@ -115,26 +108,12 @@ public class FrequencyTest {
         return expected;
     }
 
-    @Test
-    public void testFind5GHZChannels() throws Exception {
-        // setup
-        SortedSet<Integer> expected = expected5GHZChannels();
-        // execute
-        SortedSet<Integer> actual = Frequency.findChannels(WiFiBand.FIVE);
-        // validate
-        assertSetEquals(expected, actual);
-    }
-
     private SortedSet<Integer> expected5GHZChannels() {
         SortedSet<Integer> expected = new TreeSet<>();
         for (int i = 34; i <= 165; i++) {
             expected.add(i);
         }
         return expected;
-    }
-
-    private void assertSetEquals(Integer[] expected, SortedSet<Integer> actual) {
-        assertArrayEquals(expected, actual.toArray());
     }
 
     private void assertSetEquals(SortedSet<Integer> expected, SortedSet<Integer> actual) {

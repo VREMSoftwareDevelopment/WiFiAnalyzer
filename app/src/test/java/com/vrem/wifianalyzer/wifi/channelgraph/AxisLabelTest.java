@@ -58,7 +58,7 @@ public class AxisLabelTest {
     @Test
     public void testFormatLabelYAxis() throws Exception {
         // setup
-        Constraints constraints = new Constraints(WiFiBand.TWO_POINT_FOUR);
+        Constraints constraints = new Constraints(WiFiBand.TWO);
         AxisLabel fixture = new AxisLabel(constraints);
         // execute & validate
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(WiFiConstants.MIN_Y, false));
@@ -71,7 +71,7 @@ public class AxisLabelTest {
     public void testFormatLabelXAxis24WithPortrait() throws Exception {
         // setup
         configuration.orientation = Configuration.ORIENTATION_PORTRAIT;
-        Constraints constraints = new Constraints(WiFiBand.TWO_POINT_FOUR);
+        Constraints constraints = new Constraints(WiFiBand.TWO);
         AxisLabel fixture = new AxisLabel(constraints);
         // execute & validate
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.minX() - 1, true));
@@ -90,7 +90,7 @@ public class AxisLabelTest {
     public void testFormatLabelXAxis24WithLandscape() throws Exception {
         // setup
         configuration.orientation = Configuration.ORIENTATION_LANDSCAPE;
-        Constraints constraints = new Constraints(WiFiBand.TWO_POINT_FOUR);
+        Constraints constraints = new Constraints(WiFiBand.TWO);
         AxisLabel fixture = new AxisLabel(constraints);
         // execute & validate
         assertEquals("11", fixture.formatLabel(11, true));

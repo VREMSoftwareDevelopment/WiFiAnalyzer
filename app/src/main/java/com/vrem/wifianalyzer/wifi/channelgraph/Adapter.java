@@ -24,6 +24,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.UpdateNotifier;
 import com.vrem.wifianalyzer.wifi.WiFiConstants;
+import com.vrem.wifianalyzer.wifi.model.Frequency;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
 
@@ -108,11 +109,11 @@ class Adapter implements UpdateNotifier {
         int channel = wifiDetails.getChannel();
         int level = wifiDetails.getLevel();
         return new DataPoint[]{
-                new DataPoint(channel - WiFiConstants.CHANNEL_OFFSET, WiFiConstants.MIN_Y),
-                new DataPoint(channel - WiFiConstants.CHANNEL_OFFSET / 2, level),
+                new DataPoint(channel - Frequency.CHANNEL_SPREAD, WiFiConstants.MIN_Y),
+                new DataPoint(channel - Frequency.CHANNEL_SPREAD / 2, level),
                 new DataPoint(channel, level),
-                new DataPoint(channel + WiFiConstants.CHANNEL_OFFSET / 2, level),
-                new DataPoint(channel + WiFiConstants.CHANNEL_OFFSET, WiFiConstants.MIN_Y)
+                new DataPoint(channel + Frequency.CHANNEL_SPREAD / 2, level),
+                new DataPoint(channel + Frequency.CHANNEL_SPREAD, WiFiConstants.MIN_Y)
         };
     }
 
