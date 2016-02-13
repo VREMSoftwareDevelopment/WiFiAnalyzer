@@ -23,7 +23,7 @@ import java.util.TreeSet;
 public enum Frequency {
     UNKNOWN(),
     TWO(2412, 2477, 2401, 2499, 1, 14, WiFiBand.TWO),
-    FIVE(5170, 5825, 5001, 5999, 34, 165, WiFiBand.FIVE);
+    FIVE(5180, 5825, 5001, 5999, 36, 165, WiFiBand.FIVE);
 
     public static final int CHANNEL_FREQUENCY_SPREAD = 5;
     public static final int CHANNEL_SPREAD = 2;

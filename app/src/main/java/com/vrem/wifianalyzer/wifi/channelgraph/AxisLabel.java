@@ -43,9 +43,7 @@ class AxisLabel implements LabelFormatter {
                 } else {
                     if (valueAsInt <= 10) {
                         result += valueAsInt;
-                    } else if (valueAsInt <= 100 && valueAsInt % 2 == 0) {
-                        result += valueAsInt;
-                    } else if (valueAsInt > 100 && valueAsInt % 3 == 0) {
+                    } else if (valueAsInt > 10 && valueAsInt % 2 == 0) {
                         result += valueAsInt;
                     }
                 }

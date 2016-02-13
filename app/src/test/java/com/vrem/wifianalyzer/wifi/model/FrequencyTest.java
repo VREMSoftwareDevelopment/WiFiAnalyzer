@@ -62,8 +62,8 @@ public class FrequencyTest {
         assertEquals(0, Frequency.FIVE.channel(5000));
         assertEquals(0, Frequency.FIVE.channel(6000));
 
-        assertEquals(34, Frequency.FIVE.channel(5001));
-        assertEquals(34, Frequency.FIVE.channel(5174));
+        assertEquals(36, Frequency.FIVE.channel(5001));
+        assertEquals(36, Frequency.FIVE.channel(5184));
         assertEquals(165, Frequency.FIVE.channel(5825));
         assertEquals(165, Frequency.FIVE.channel(5899));
     }
@@ -110,7 +110,7 @@ public class FrequencyTest {
 
     private SortedSet<Integer> expected5GHZChannels() {
         SortedSet<Integer> expected = new TreeSet<>();
-        for (int i = 34; i <= 165; i++) {
+        for (int i = 36; i <= 165; i++) {
             expected.add(i);
         }
         return expected;

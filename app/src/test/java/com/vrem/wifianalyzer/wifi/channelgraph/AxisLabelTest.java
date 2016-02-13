@@ -107,17 +107,17 @@ public class AxisLabelTest {
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.minX() - 1, true));
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.maxX() + 1, true));
 
-        assertEquals("34", fixture.formatLabel(constraints.minX(), true));
-        assertEquals("36", fixture.formatLabel(36, true));
+        assertEquals("36", fixture.formatLabel(constraints.minX(), true));
+        assertEquals("38", fixture.formatLabel(38, true));
 
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(35, true));
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(99, true));
 
-        assertEquals("165", fixture.formatLabel(constraints.maxX(), true));
+        assertEquals("164", fixture.formatLabel(164, true));
         assertEquals("162", fixture.formatLabel(162, true));
 
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(165, true));
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(163, true));
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(164, true));
     }
 
     @Test
@@ -127,7 +127,7 @@ public class AxisLabelTest {
         Constraints constraints = new Constraints(WiFiBand.FIVE);
         AxisLabel fixture = new AxisLabel(constraints);
         // execute & validate
-        assertEquals("35", fixture.formatLabel(35, true));
+        assertEquals("37", fixture.formatLabel(37, true));
         assertEquals("99", fixture.formatLabel(99, true));
 
         assertEquals("163", fixture.formatLabel(163, true));

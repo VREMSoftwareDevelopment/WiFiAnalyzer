@@ -14,10 +14,24 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.jjoe64.graphview.GraphView
-            android:id="@+id/channelGraph"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <ViewSwitcher
+            android:id="@+id/ViewSwitcher"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/channelGraph2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/channelGraph5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+        </ViewSwitcher>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

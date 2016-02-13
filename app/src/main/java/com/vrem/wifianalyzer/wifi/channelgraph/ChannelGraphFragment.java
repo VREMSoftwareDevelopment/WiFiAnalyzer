@@ -15,20 +15,17 @@
  */
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ViewSwitcher;
 
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GridLabelRenderer;
-import com.jjoe64.graphview.Viewport;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.WiFiConstants;
 
 public class ChannelGraphFragment extends Fragment {
     private final MainContext mainContext = MainContext.INSTANCE;
@@ -41,43 +38,14 @@ public class ChannelGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.channelGraphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        Constraints constraints = new Constraints(mainContext.getSettings().getWiFiBand());
-        AxisLabel axisLabel = new AxisLabel(constraints);
-        GraphView graphView = makeGraphView(view, constraints);
-        new Adapter(graphView, constraints);
+        ViewSwitcher viewSwitcher = (ViewSwitcher) view.findViewById(R.id.ViewSwitcher);
+
+        Resources resources = getResources();
+
+        ChannelGraphView.channelGraphView2(view, resources).make();
+        ChannelGraphView.channelGraphView5(view, resources).make();
 
         return view;
-    }
-
-    private GraphView makeGraphView(@NonNull View view, @NonNull Constraints constraints) {
-        GraphView graphView = (GraphView) view.findViewById(R.id.channelGraph);
-        graphView.setMinimumWidth(20);
-
-        GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
-        gridLabelRenderer.setHighlightZeroLines(false);
-        gridLabelRenderer.setLabelFormatter(new AxisLabel(constraints));
-        gridLabelRenderer.setNumHorizontalLabels(constraints.cntX());
-        gridLabelRenderer.setNumVerticalLabels(WiFiConstants.CNT_Y);
-
-        gridLabelRenderer.setHorizontalAxisTitle(getResources().getString(R.string.graph_wifi_channels));
-        gridLabelRenderer.setHorizontalLabelsVisible(true);
-
-        gridLabelRenderer.setVerticalAxisTitle(getResources().getString(R.string.graph_signal_strength));
-        gridLabelRenderer.setVerticalLabelsVisible(true);
-
-        Viewport viewport = graphView.getViewport();
-        viewport.setScrollable(constraints.isScrollable());
-        viewport.setScalable(false);
-
-        viewport.setXAxisBoundsManual(true);
-        viewport.setMinX(constraints.minXBounds());
-        viewport.setMaxX(constraints.maxXBounds());
-
-        viewport.setYAxisBoundsManual(true);
-        viewport.setMinY(WiFiConstants.MIN_Y);
-        viewport.setMaxY(WiFiConstants.MAX_Y);
-
-        return graphView;
     }
 
     private void refresh() {

@@ -16,6 +16,7 @@
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
@@ -54,7 +55,7 @@ class Adapter implements UpdateNotifier {
     @Override
     public void update(@NonNull WiFiData wifiData) {
         Set<String> newSeries = new TreeSet<>();
-        for (WiFiDetails wifiDetails : wifiData.getWiFiList(mainContext.getSettings().getWiFiBand())) {
+        for (WiFiDetails wifiDetails : wifiData.getWiFiList(constraints.getWiFiBand())) {
             String key = wifiDetails.getTitle();
             newSeries.add(key);
             LineGraphSeries<DataPoint> series = seriesMap.get(key);
@@ -69,6 +70,8 @@ class Adapter implements UpdateNotifier {
         }
         removeSeries(newSeries);
         updateLegendRenderer();
+
+        graphView.setVisibility(constraints.getWiFiBand().equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
     }
 
     private void removeSeries(Set<String> newSeries) {
@@ -104,7 +107,6 @@ class Adapter implements UpdateNotifier {
         return colorIndex;
     }
 
-    @NonNull
     private DataPoint[] createDataPoints(@NonNull WiFiDetails wifiDetails) {
         int channel = wifiDetails.getChannel();
         int level = wifiDetails.getLevel();
