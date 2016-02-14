@@ -57,7 +57,7 @@ class ChannelGraphView {
         GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
         gridLabelRenderer.setHighlightZeroLines(false);
         gridLabelRenderer.setLabelFormatter(new AxisLabel(constraints));
-        gridLabelRenderer.setNumHorizontalLabels(constraints.cntX());
+        gridLabelRenderer.setNumHorizontalLabels(constraints.boundsCount());
         gridLabelRenderer.setNumVerticalLabels(WiFiConstants.CNT_Y);
 
         gridLabelRenderer.setHorizontalAxisTitle(resources.getString(R.string.graph_wifi_channels));
@@ -67,12 +67,12 @@ class ChannelGraphView {
         gridLabelRenderer.setVerticalLabelsVisible(true);
 
         Viewport viewport = graphView.getViewport();
-        viewport.setScrollable(constraints.isScrollable());
+        viewport.setScrollable(true);
         viewport.setScalable(false);
 
         viewport.setXAxisBoundsManual(true);
-        viewport.setMinX(constraints.minXBounds());
-        viewport.setMaxX(constraints.maxXBounds());
+        viewport.setMinX(constraints.boundsMin());
+        viewport.setMaxX(constraints.boundsMax());
 
         viewport.setYAxisBoundsManual(true);
         viewport.setMinY(WiFiConstants.MIN_Y);

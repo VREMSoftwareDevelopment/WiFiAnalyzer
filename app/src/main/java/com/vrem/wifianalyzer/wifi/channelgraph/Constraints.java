@@ -32,32 +32,24 @@ class Constraints {
         this.channels = Frequency.findChannels(wifiBand);
     }
 
-    int minX() {
+    int channelFirst() {
         return channels.first();
     }
 
-    int maxX() {
+    int channelLast() {
         return channels.last();
     }
 
-    int cntX() {
+    int boundsCount() {
         return WiFiConstants.CNT_X;
     }
 
-    int minXBounds() {
-        return minX() - Frequency.CHANNEL_SPREAD;
+    int boundsMin() {
+        return channelFirst() - Frequency.CHANNEL_SPREAD;
     }
 
-    int maxXBounds() {
-        return minXBounds() + WiFiConstants.CNT_X;
-    }
-
-    boolean isScrollable() {
-        return !is24GHz();
-    }
-
-    boolean is24GHz() {
-        return WiFiBand.TWO.equals(wifiBand);
+    int boundsMax() {
+        return boundsMin() + boundsCount();
     }
 
     boolean contains(int channel) {

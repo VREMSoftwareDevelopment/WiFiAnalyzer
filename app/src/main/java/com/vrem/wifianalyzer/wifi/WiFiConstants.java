@@ -19,7 +19,7 @@ public class WiFiConstants {
     public static final int MIN_Y = -100;
     public static final int MAX_Y = -10;
     public static final int CNT_Y = (MAX_Y - MIN_Y) / 10 + 1;
-    public static final int CNT_X = 18;
+    public static final int CNT_X = 14;
 
     private WiFiConstants() {
     }

@@ -74,13 +74,13 @@ public class AxisLabelTest {
         Constraints constraints = new Constraints(WiFiBand.TWO);
         AxisLabel fixture = new AxisLabel(constraints);
         // execute & validate
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.minX() - 1, true));
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.maxX() + 1, true));
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.channelFirst() - 1, true));
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.channelLast() + 1, true));
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(11, true));
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(13, true));
 
-        assertEquals("1", fixture.formatLabel(constraints.minX(), true));
-        assertEquals("14", fixture.formatLabel(constraints.maxX(), true));
+        assertEquals("1", fixture.formatLabel(constraints.channelFirst(), true));
+        assertEquals("14", fixture.formatLabel(constraints.channelLast(), true));
         assertEquals("9", fixture.formatLabel(9, true));
         assertEquals("10", fixture.formatLabel(10, true));
         assertEquals("12", fixture.formatLabel(12, true));
@@ -104,10 +104,10 @@ public class AxisLabelTest {
         Constraints constraints = new Constraints(WiFiBand.FIVE);
         AxisLabel fixture = new AxisLabel(constraints);
         // execute & validate
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.minX() - 1, true));
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.maxX() + 1, true));
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.channelFirst() - 1, true));
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.channelLast() + 1, true));
 
-        assertEquals("36", fixture.formatLabel(constraints.minX(), true));
+        assertEquals("36", fixture.formatLabel(constraints.channelFirst(), true));
         assertEquals("38", fixture.formatLabel(38, true));
 
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(35, true));

@@ -50,6 +50,7 @@ class Adapter implements UpdateNotifier {
         this.seriesMap = new TreeMap<>();
         this.random = new Random();
         mainContext.getScanner().addUpdateNotifier(this);
+        this.graphView.addSeries(defaultsSeries());
     }
 
     @Override
@@ -117,6 +118,25 @@ class Adapter implements UpdateNotifier {
                 new DataPoint(channel + Frequency.CHANNEL_SPREAD / 2, level),
                 new DataPoint(channel + Frequency.CHANNEL_SPREAD, WiFiConstants.MIN_Y)
         };
+    }
+
+    private LineGraphSeries<DataPoint> defaultsSeries() {
+        int minValue = constraints.channelFirst() - Frequency.CHANNEL_SPREAD;
+        int maxValue = constraints.channelLast() + Frequency.CHANNEL_SPREAD;
+        if (maxValue % 2 != 0) {
+            maxValue++;
+        }
+        DataPoint[] dataPoints = new DataPoint[]{
+                new DataPoint(minValue, WiFiConstants.MIN_Y),
+                new DataPoint(maxValue, WiFiConstants.MIN_Y)
+        };
+
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
+        series.setColor(Colors.values()[Colors.GREY.ordinal()].getPrimary());
+        series.setDrawBackground(false);
+        series.setThickness(0);
+        series.setTitle("");
+        return series;
     }
 
     private void updateLegendRenderer() {

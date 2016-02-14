@@ -37,7 +37,7 @@ class AxisLabel implements LabelFormatter {
         String result = StringUtils.EMPTY;
         if (isValueX) {
             int valueAsInt = (int) (value + 0.5);
-            if (valueAsInt >= constraints.minX() && valueAsInt <= constraints.maxX()) {
+            if (valueAsInt >= constraints.channelFirst() && valueAsInt <= constraints.channelLast()) {
                 if (mainContext.isOrientationLandscape()) {
                     result += valueAsInt;
                 } else {
