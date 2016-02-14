@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">WiFi Analyzer</string>
-
-    <string name="setting_activity_label">Settings</string>
+    <string name="app_company_name">VREM Software Development</string>
+    <string name="app_copyright">Copyright (C) 2015 - 2016</string>
+    <string name="app_license_name">Licensed under the Apache License, Version 2.0</string>
+    <string name="app_license_url">http://www.apache.org/licenses/LICENSE-2.0</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
