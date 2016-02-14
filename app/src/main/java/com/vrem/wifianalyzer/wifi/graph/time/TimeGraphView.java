@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.wifi.channelgraph;
+package com.vrem.wifianalyzer.wifi.graph.time;
 
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
@@ -26,41 +26,43 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.WiFiConstants;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 
-class ChannelGraphView {
+class TimeGraphView {
+    static final int TIME_LABEL_CNT = 10;
+
     private final View parentView;
     private final Resources resources;
     private final int channelGraphViewId;
-    private final Constraints constraints;
+    private final WiFiBand wifiBand;
 
     private GraphView graphView;
-    private Adapter adapter;
+    private TimeGraphAdapter timeGraphAdapter;
 
-    ChannelGraphView(@NonNull View parentView, @NonNull Resources resources, int channelGraphViewId, @NonNull Constraints constraints) {
+    TimeGraphView(@NonNull View parentView, @NonNull Resources resources, @NonNull WiFiBand wifiBand) {
         this.parentView = parentView;
         this.resources = resources;
-        this.channelGraphViewId = channelGraphViewId;
-        this.constraints = constraints;
+        this.wifiBand = wifiBand;
+        this.channelGraphViewId = WiFiBand.TWO.equals(wifiBand) ? R.id.timeGraph2 : R.id.timeGraph5;
     }
 
-    static ChannelGraphView channelGraphView2(@NonNull View parentView, @NonNull Resources resources) {
-        return new ChannelGraphView(parentView, resources, R.id.channelGraph2, new Constraints(WiFiBand.TWO));
+    static TimeGraphView timeGraphView2(@NonNull View parentView, @NonNull Resources resources) {
+        return new TimeGraphView(parentView, resources, WiFiBand.TWO);
     }
 
-    static ChannelGraphView channelGraphView5(@NonNull View parentView, @NonNull Resources resources) {
-        return new ChannelGraphView(parentView, resources, R.id.channelGraph5, new Constraints(WiFiBand.FIVE));
+    static TimeGraphView timeGraphView5(@NonNull View parentView, @NonNull Resources resources) {
+        return new TimeGraphView(parentView, resources, WiFiBand.FIVE);
     }
 
-    ChannelGraphView make() {
+    TimeGraphView make() {
         graphView = (GraphView) parentView.findViewById(this.channelGraphViewId);
-        graphView.setMinimumWidth(20);
+        graphView.setMinimumWidth(TIME_LABEL_CNT);
 
         GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
         gridLabelRenderer.setHighlightZeroLines(false);
-        gridLabelRenderer.setLabelFormatter(new AxisLabel(constraints));
-        gridLabelRenderer.setNumHorizontalLabels(constraints.boundsCount());
+        gridLabelRenderer.setLabelFormatter(new TimeGraphAxisLabel());
         gridLabelRenderer.setNumVerticalLabels(WiFiConstants.CNT_Y);
+        gridLabelRenderer.setNumHorizontalLabels(TIME_LABEL_CNT);
 
-        gridLabelRenderer.setHorizontalAxisTitle(resources.getString(R.string.graph_wifi_channels));
+        gridLabelRenderer.setHorizontalAxisTitle(resources.getString(R.string.graph_time));
         gridLabelRenderer.setHorizontalLabelsVisible(true);
 
         gridLabelRenderer.setVerticalAxisTitle(resources.getString(R.string.graph_signal_strength));
@@ -70,15 +72,15 @@ class ChannelGraphView {
         viewport.setScrollable(true);
         viewport.setScalable(false);
 
-        viewport.setXAxisBoundsManual(true);
-        viewport.setMinX(constraints.boundsMin());
-        viewport.setMaxX(constraints.boundsMax());
-
         viewport.setYAxisBoundsManual(true);
         viewport.setMinY(WiFiConstants.MIN_Y);
         viewport.setMaxY(WiFiConstants.MAX_Y);
 
-        adapter = new Adapter(graphView, constraints);
+        viewport.setXAxisBoundsManual(true);
+        viewport.setMinX(0);
+        viewport.setMaxX(TIME_LABEL_CNT);
+
+        timeGraphAdapter = new TimeGraphAdapter(graphView, wifiBand);
 
         return this;
     }
@@ -87,7 +89,7 @@ class ChannelGraphView {
         return graphView;
     }
 
-    Adapter getAdapter() {
-        return adapter;
+    TimeGraphAdapter getTimeGraphAdapter() {
+        return timeGraphAdapter;
     }
 }

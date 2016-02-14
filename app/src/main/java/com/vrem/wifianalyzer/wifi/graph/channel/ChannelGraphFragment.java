@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.wifi.channelgraph;
+package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -38,7 +38,7 @@ public class ChannelGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.channelGraphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        ViewSwitcher viewSwitcher = (ViewSwitcher) view.findViewById(R.id.ViewSwitcher);
+        ViewSwitcher viewSwitcher = (ViewSwitcher) view.findViewById(R.id.channelGraphSwitcher);
 
         Resources resources = getResources();
 

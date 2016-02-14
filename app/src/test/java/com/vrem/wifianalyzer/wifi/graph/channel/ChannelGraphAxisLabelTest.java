@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.wifi.channelgraph;
+package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -36,7 +36,7 @@ import static org.junit.Assert.assertEquals;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AxisLabelTest {
+public class ChannelGraphAxisLabelTest {
     @Mock
     private GraphView graphView;
     @Mock
@@ -59,7 +59,7 @@ public class AxisLabelTest {
     public void testFormatLabelYAxis() throws Exception {
         // setup
         Constraints constraints = new Constraints(WiFiBand.TWO);
-        AxisLabel fixture = new AxisLabel(constraints);
+        ChannelGraphAxisLabel fixture = new ChannelGraphAxisLabel(constraints);
         // execute & validate
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(WiFiConstants.MIN_Y, false));
         assertEquals("-99", fixture.formatLabel(WiFiConstants.MIN_Y + 1, false));
@@ -72,7 +72,7 @@ public class AxisLabelTest {
         // setup
         configuration.orientation = Configuration.ORIENTATION_PORTRAIT;
         Constraints constraints = new Constraints(WiFiBand.TWO);
-        AxisLabel fixture = new AxisLabel(constraints);
+        ChannelGraphAxisLabel fixture = new ChannelGraphAxisLabel(constraints);
         // execute & validate
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.channelFirst() - 1, true));
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.channelLast() + 1, true));
@@ -91,7 +91,7 @@ public class AxisLabelTest {
         // setup
         configuration.orientation = Configuration.ORIENTATION_LANDSCAPE;
         Constraints constraints = new Constraints(WiFiBand.TWO);
-        AxisLabel fixture = new AxisLabel(constraints);
+        ChannelGraphAxisLabel fixture = new ChannelGraphAxisLabel(constraints);
         // execute & validate
         assertEquals("11", fixture.formatLabel(11, true));
         assertEquals("13", fixture.formatLabel(13, true));
@@ -102,7 +102,7 @@ public class AxisLabelTest {
         // setup
         configuration.orientation = Configuration.ORIENTATION_PORTRAIT;
         Constraints constraints = new Constraints(WiFiBand.FIVE);
-        AxisLabel fixture = new AxisLabel(constraints);
+        ChannelGraphAxisLabel fixture = new ChannelGraphAxisLabel(constraints);
         // execute & validate
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.channelFirst() - 1, true));
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.channelLast() + 1, true));
@@ -125,7 +125,7 @@ public class AxisLabelTest {
         // setup
         configuration.orientation = Configuration.ORIENTATION_LANDSCAPE;
         Constraints constraints = new Constraints(WiFiBand.FIVE);
-        AxisLabel fixture = new AxisLabel(constraints);
+        ChannelGraphAxisLabel fixture = new ChannelGraphAxisLabel(constraints);
         // execute & validate
         assertEquals("37", fixture.formatLabel(37, true));
         assertEquals("99", fixture.formatLabel(99, true));

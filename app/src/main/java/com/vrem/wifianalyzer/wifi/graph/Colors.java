@@ -13,9 +13,9 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.wifi.channelgraph;
+package com.vrem.wifianalyzer.wifi.graph;
 
-enum Colors {
+public enum Colors {
     RED         (0xFFf44336, 0x33f44336),
     PINK        (0xFFe91e63, 0x33e91e63),
     PURPLE      (0xFF9c27b0, 0x339c27b0),
@@ -44,11 +44,11 @@ enum Colors {
         this.background = background;
     }
 
-    int getPrimary() {
+    public int getPrimary() {
         return primary;
     }
 
-    int getBackground() {
+    public int getBackground() {
         return background;
     }
 }

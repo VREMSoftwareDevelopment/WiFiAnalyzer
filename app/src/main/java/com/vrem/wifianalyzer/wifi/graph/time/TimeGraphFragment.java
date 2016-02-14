@@ -13,18 +13,19 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.wifi.timegraph;
+package com.vrem.wifianalyzer.wifi.graph.time;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ViewSwitcher;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-
 
 public class TimeGraphFragment extends Fragment {
     private final MainContext mainContext = MainContext.INSTANCE;
@@ -36,6 +37,13 @@ public class TimeGraphFragment extends Fragment {
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.timeGraphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
+
+        ViewSwitcher viewSwitcher = (ViewSwitcher) view.findViewById(R.id.timeGraphSwitcher);
+
+        Resources resources = getResources();
+
+        TimeGraphView.timeGraphView2(view, resources).make();
+        TimeGraphView.timeGraphView5(view, resources).make();
 
         return view;
     }
