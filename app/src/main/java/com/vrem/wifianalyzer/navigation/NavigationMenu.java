@@ -20,18 +20,22 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.about.AboutActivity;
 import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.vendor.VendorFragment;
 import com.vrem.wifianalyzer.wifi.AccessPointsFragment;
 import com.vrem.wifianalyzer.wifi.ChannelRatingFragment;
 import com.vrem.wifianalyzer.wifi.channelgraph.ChannelGraphFragment;
+import com.vrem.wifianalyzer.wifi.timegraph.TimeGraphFragment;
 
 public enum NavigationMenu {
     ACCESS_POINTS(R.mipmap.ic_launcher, R.string.action_access_points, true, new AccessPointsFragment()),
     CHANNEL_RATING(R.drawable.ic_wifi_tethering_grey_500_48dp, R.string.action_channel_rating, true, new ChannelRatingFragment()),
     CHANNEL_GRAPH(R.drawable.ic_insert_chart_grey_500_48dp, R.string.action_channel_graph, true, new ChannelGraphFragment()),
+    TIME_GRAPH(R.drawable.ic_show_chart_grey_500_48dp, R.string.action_time_graph, true, new TimeGraphFragment()),
     VENDOR_LIST(R.drawable.ic_list_grey_500_48dp, R.string.action_vendors, false, new VendorFragment()),
-    SETTINGS(R.drawable.ic_settings_grey_500_48dp, R.string.action_settings, SettingActivity.class);
+    SETTINGS(R.drawable.ic_settings_grey_500_48dp, R.string.action_settings, SettingActivity.class),
+    ABOUT(R.drawable.ic_info_grey_500_48dp, R.string.action_about, AboutActivity.class);
 
     private final int icon;
     private final int title;

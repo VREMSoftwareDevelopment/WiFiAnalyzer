@@ -18,9 +18,9 @@ package com.vrem.wifianalyzer.navigation;
 import android.support.annotation.NonNull;
 
 enum NavigationGroup {
-    GROUP_FEATURE(NavigationMenu.ACCESS_POINTS, NavigationMenu.CHANNEL_RATING, NavigationMenu.CHANNEL_GRAPH),
+    GROUP_FEATURE(NavigationMenu.ACCESS_POINTS, NavigationMenu.CHANNEL_RATING, NavigationMenu.CHANNEL_GRAPH, NavigationMenu.TIME_GRAPH),
     GROUP_OTHER(NavigationMenu.VENDOR_LIST),
-    GROUP_SETTINGS(NavigationMenu.SETTINGS);
+    GROUP_SETTINGS(NavigationMenu.SETTINGS, NavigationMenu.ABOUT);
 
     private final NavigationMenu[] navigationMenu;
 

@@ -42,7 +42,8 @@ public class NavigationGroupTest {
         assertArrayEquals(new NavigationMenu[]{
                         NavigationMenu.ACCESS_POINTS,
                         NavigationMenu.CHANNEL_RATING,
-                        NavigationMenu.CHANNEL_GRAPH
+                        NavigationMenu.CHANNEL_GRAPH,
+                        NavigationMenu.TIME_GRAPH
                 },
                 NavigationGroup.GROUP_FEATURE.navigationMenu());
         assertArrayEquals(new NavigationMenu[]{
@@ -50,7 +51,8 @@ public class NavigationGroupTest {
                 },
                 NavigationGroup.GROUP_OTHER.navigationMenu());
         assertArrayEquals(new NavigationMenu[]{
-                        NavigationMenu.SETTINGS
+                        NavigationMenu.SETTINGS,
+                        NavigationMenu.ABOUT
                 },
                 NavigationGroup.GROUP_SETTINGS.navigationMenu());
     }
