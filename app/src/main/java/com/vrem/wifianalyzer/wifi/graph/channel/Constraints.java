@@ -40,16 +40,12 @@ class Constraints {
         return channels.last();
     }
 
-    int boundsCount() {
-        return WiFiConstants.CNT_X;
-    }
-
     int boundsMin() {
         return channelFirst() - Frequency.CHANNEL_SPREAD;
     }
 
     int boundsMax() {
-        return boundsMin() + boundsCount();
+        return boundsMin() + WiFiConstants.CNT_X;
     }
 
     boolean contains(int channel) {

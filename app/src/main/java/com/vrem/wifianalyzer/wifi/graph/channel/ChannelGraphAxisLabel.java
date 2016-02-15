@@ -35,23 +35,18 @@ class ChannelGraphAxisLabel implements LabelFormatter {
     @Override
     public String formatLabel(double value, boolean isValueX) {
         String result = StringUtils.EMPTY;
+        int valueAsInt = (int) (value + (value < 0 ? -0.5 : 0.5));
         if (isValueX) {
-            int valueAsInt = (int) (value + 0.5);
             if (valueAsInt >= constraints.channelFirst() && valueAsInt <= constraints.channelLast()) {
-                if (mainContext.isOrientationLandscape()) {
+                if (valueAsInt < 100) {
                     result += valueAsInt;
-                } else {
-                    if (valueAsInt <= 10) {
-                        result += valueAsInt;
-                    } else if (valueAsInt > 10 && valueAsInt % 2 == 0) {
-                        result += valueAsInt;
-                    }
+                } else if (valueAsInt >= 100 && valueAsInt % 2 == 0) {
+                    result += valueAsInt;
                 }
             }
         } else {
-            int valueAsInt = (int) (value - 0.5);
             if (valueAsInt > WiFiConstants.MIN_Y) {
-                result += (int) (value - 0.5);
+                result += valueAsInt;
             }
         }
         return result;

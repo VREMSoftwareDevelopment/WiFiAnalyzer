@@ -27,8 +27,6 @@ import com.vrem.wifianalyzer.wifi.WiFiConstants;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 
 class TimeGraphView {
-    static final int TIME_LABEL_CNT = 10;
-
     private final View parentView;
     private final Resources resources;
     private final int channelGraphViewId;
@@ -54,13 +52,13 @@ class TimeGraphView {
 
     TimeGraphView make() {
         graphView = (GraphView) parentView.findViewById(this.channelGraphViewId);
-        graphView.setMinimumWidth(TIME_LABEL_CNT);
+        graphView.setMinimumWidth(WiFiConstants.CNT_X);
 
         GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
         gridLabelRenderer.setHighlightZeroLines(false);
         gridLabelRenderer.setLabelFormatter(new TimeGraphAxisLabel());
         gridLabelRenderer.setNumVerticalLabels(WiFiConstants.CNT_Y);
-        gridLabelRenderer.setNumHorizontalLabels(TIME_LABEL_CNT);
+        gridLabelRenderer.setNumHorizontalLabels(WiFiConstants.CNT_X);
 
         gridLabelRenderer.setHorizontalAxisTitle(resources.getString(R.string.graph_time));
         gridLabelRenderer.setHorizontalLabelsVisible(true);
@@ -78,7 +76,7 @@ class TimeGraphView {
 
         viewport.setXAxisBoundsManual(true);
         viewport.setMinX(0);
-        viewport.setMaxX(TIME_LABEL_CNT);
+        viewport.setMaxX(WiFiConstants.CNT_X);
 
         timeGraphAdapter = new TimeGraphAdapter(graphView, wifiBand);
 

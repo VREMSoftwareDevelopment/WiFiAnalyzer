@@ -31,14 +31,14 @@ class TimeGraphAxisLabel implements LabelFormatter {
     @Override
     public String formatLabel(double value, boolean isValueX) {
         String result = StringUtils.EMPTY;
+        int valueAsInt = (int) (value + (value < 0 ? -0.5 : 0.5));
         if (isValueX) {
-            if (value > 0) {
-                result += ((int) (value + 0.5) * mainContext.getSettings().getScanInterval());
+            if (valueAsInt > 0) {
+                result += (valueAsInt * mainContext.getSettings().getScanInterval());
             }
         } else {
-            int valueAsInt = (int) (value - 0.5);
             if (valueAsInt > WiFiConstants.MIN_Y) {
-                result += (int) (value - 0.5);
+                result += valueAsInt;
             }
         }
         return result;

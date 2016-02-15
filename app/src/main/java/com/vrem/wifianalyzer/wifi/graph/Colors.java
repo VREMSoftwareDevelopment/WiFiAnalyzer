@@ -15,33 +15,41 @@
  */
 package com.vrem.wifianalyzer.wifi.graph;
 
-public enum Colors {
-    RED         (0xFFf44336, 0x33f44336),
-    PINK        (0xFFe91e63, 0x33e91e63),
-    PURPLE      (0xFF9c27b0, 0x339c27b0),
-    DEEP_PURPLE (0xFF673ab7, 0x33673ab7),
-    INDIGO      (0xFF3f51b5, 0x333f51b5),
-    BLUE        (0xFF2196f3, 0x332196f3),
-    LIGHT_BLUE  (0xFF03a9f4, 0x3303a9f4),
-    CYAN        (0xFF00bcd4, 0x3300bcd4),
-    TEAL        (0xFF009688, 0x33009688),
-    GREEN       (0xFF4caf50, 0x334caf50),
-    LIGHT_GREEN (0xFF8bc34a, 0x338bc34a),
-    LIME        (0xFFcddc39, 0x33cddc39),
-    YELLOW      (0xFFffeb3b, 0x33ffeb3b),
-    AMBER       (0xFFffc107, 0x33ffc107),
-    ORANGE      (0xFFff9800, 0x33ff9800),
-    DEEP_ORANGE (0xFFff5722, 0x33ff5722),
-    BROWN       (0xFF795548, 0x33795548),
-    GREY        (0xFF9e9e9e, 0x339e9e9e),
-    BLUE_GREY   (0xFF607d8b, 0x33607d8b);
+import java.util.Random;
 
-    private int primary;
-    private int background;
+public enum Colors {
+    RED         (0xFFF44336, 0x33F44336),
+    PINK        (0xFFE91E63, 0x33E91E63),
+    PURPLE      (0xFF9C27B0, 0x339C27B0),
+    DEEP_PURPLE (0xFF673AB7, 0x33673AB7),
+    INDIGO      (0xFF3F51B5, 0x333F51B5),
+    LIGHT_BLUE  (0xFF03A9F4, 0x3303A9F4),
+    CYAN        (0xFF00BCD4, 0x3300BCD4),
+    TEAL        (0xFF009688, 0x33009688),
+    GREEN       (0xFF4CAF50, 0x334CAF50),
+    LIGHT_GREEN (0xFF8BC34A, 0x338BC34A),
+    LIME        (0xFFCDDC39, 0x33CDDC39),
+    YELLOW      (0xFFFFEB3B, 0x33FFEB3B),
+    AMBER       (0xFFFFC107, 0x33FFC107),
+    ORANGE      (0xFFFF9800, 0x33FF9800),
+    DEEP_ORANGE (0xFFFF5722, 0x33FF5722),
+    BROWN       (0xFF795548, 0x33795548),
+    GREY        (0xFF9E9E9E, 0x339E9E9E),
+    BLUE_GREY   (0xFF607D8B, 0x33607D8B),
+    // NOTE: Do NOT use the last two colors
+    BLUE        (0xFF2196F3, 0x332196F3),
+    TRANSPARENT (0x009E9E9E, 0x009E9E9E);
+
+    private final int primary;
+    private final int background;
 
     Colors(int primary, int background) {
         this.primary = primary;
         this.background = background;
+    }
+
+    public static Colors findRandomColor() {
+        return Colors.values()[new Random().nextInt(Colors.values().length - 3)];
     }
 
     public int getPrimary() {
@@ -51,4 +59,5 @@ public enum Colors {
     public int getBackground() {
         return background;
     }
+
 }

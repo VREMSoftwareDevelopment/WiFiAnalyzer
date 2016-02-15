@@ -19,21 +19,18 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.UpdateNotifier;
 import com.vrem.wifianalyzer.wifi.WiFiConstants;
 import com.vrem.wifianalyzer.wifi.graph.Colors;
+import com.vrem.wifianalyzer.wifi.graph.GraphAdapterUtils;
 import com.vrem.wifianalyzer.wifi.model.Frequency;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -43,14 +40,12 @@ class ChannelGraphAdapter implements UpdateNotifier {
     private final GraphView graphView;
     private final Constraints constraints;
     private final Map<String, LineGraphSeries<DataPoint>> seriesMap;
-    private final Random random;
 
     ChannelGraphAdapter(@NonNull GraphView graphView, @NonNull Constraints constraints) {
         this.graphView = graphView;
         this.constraints = constraints;
         this.seriesMap = new TreeMap<>();
-        this.random = new Random();
-        mainContext.getScanner().addUpdateNotifier(this);
+        this.mainContext.getScanner().addUpdateNotifier(this);
         this.graphView.addSeries(defaultsSeries());
     }
 
@@ -70,43 +65,25 @@ class ChannelGraphAdapter implements UpdateNotifier {
                 series.resetData(createDataPoints(wifiDetails));
             }
         }
-        removeSeries(newSeries);
-        updateLegendRenderer();
+        GraphAdapterUtils.removeSeries(graphView, seriesMap, newSeries);
+        GraphAdapterUtils.updateLegendRenderer(graphView);
 
         graphView.setVisibility(constraints.getWiFiBand().equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
     }
 
-    private void removeSeries(Set<String> newSeries) {
-        List<String> remove = new ArrayList<>();
-        for (String title : seriesMap.keySet()) {
-            if (!newSeries.contains(title)) {
-                graphView.removeSeries(seriesMap.get(title));
-                remove.add(title);
-            }
-        }
-        for (String title : remove) {
-            seriesMap.remove(title);
-        }
-    }
-
     private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetails wifiDetails) {
-        int colorIndex = getColorIndex(wifiDetails);
-        series.setColor(Colors.values()[colorIndex].getPrimary());
-        series.setBackgroundColor(Colors.values()[colorIndex].getBackground());
-        series.setDrawBackground(true);
-        series.setThickness(wifiDetails.isConnected() ? 6 : 2);
-        series.setTitle(wifiDetails.getTitle() + " " + wifiDetails.getChannel());
-    }
-
-    private int getColorIndex(@NonNull WiFiDetails wifiDetails) {
         if (wifiDetails.isConnected()) {
-            return Colors.BLUE.ordinal();
+            series.setColor(Colors.BLUE.getPrimary());
+            series.setBackgroundColor(Colors.BLUE.getBackground());
+            series.setThickness(6);
+        } else {
+            Colors colors = Colors.findRandomColor();
+            series.setColor(colors.getPrimary());
+            series.setBackgroundColor(colors.getBackground());
+            series.setThickness(2);
         }
-        int colorIndex = random.nextInt(Colors.values().length - 1);
-        if (colorIndex == Colors.BLUE.ordinal()) {
-            colorIndex++;
-        }
-        return colorIndex;
+        series.setDrawBackground(true);
+        series.setTitle(wifiDetails.getTitle() + " " + wifiDetails.getChannel());
     }
 
     private DataPoint[] createDataPoints(@NonNull WiFiDetails wifiDetails) {
@@ -133,19 +110,10 @@ class ChannelGraphAdapter implements UpdateNotifier {
         };
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
-        series.setColor(Colors.values()[Colors.GREY.ordinal()].getPrimary());
+        series.setColor(Colors.TRANSPARENT.getPrimary());
         series.setDrawBackground(false);
         series.setThickness(0);
         series.setTitle("");
         return series;
-    }
-
-    private void updateLegendRenderer() {
-        LegendRenderer legendRenderer = graphView.getLegendRenderer();
-        legendRenderer.resetStyles();
-        legendRenderer.setVisible(true);
-        legendRenderer.setWidth(0);
-        legendRenderer.setFixedPosition(0, 0);
-        legendRenderer.setTextSize(legendRenderer.getTextSize() * 0.50f);
     }
 }

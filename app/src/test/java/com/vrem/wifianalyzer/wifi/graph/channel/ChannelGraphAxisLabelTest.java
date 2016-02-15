@@ -68,39 +68,21 @@ public class ChannelGraphAxisLabelTest {
     }
 
     @Test
-    public void testFormatLabelXAxis24WithPortrait() throws Exception {
+    public void testFormatLabelXAxis2() throws Exception {
         // setup
-        configuration.orientation = Configuration.ORIENTATION_PORTRAIT;
         Constraints constraints = new Constraints(WiFiBand.TWO);
         ChannelGraphAxisLabel fixture = new ChannelGraphAxisLabel(constraints);
         // execute & validate
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.channelFirst() - 1, true));
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.channelLast() + 1, true));
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(11, true));
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(13, true));
 
         assertEquals("1", fixture.formatLabel(constraints.channelFirst(), true));
         assertEquals("14", fixture.formatLabel(constraints.channelLast(), true));
-        assertEquals("9", fixture.formatLabel(9, true));
-        assertEquals("10", fixture.formatLabel(10, true));
-        assertEquals("12", fixture.formatLabel(12, true));
     }
 
     @Test
-    public void testFormatLabelXAxis24WithLandscape() throws Exception {
+    public void testFormatLabelXAxis5() throws Exception {
         // setup
-        configuration.orientation = Configuration.ORIENTATION_LANDSCAPE;
-        Constraints constraints = new Constraints(WiFiBand.TWO);
-        ChannelGraphAxisLabel fixture = new ChannelGraphAxisLabel(constraints);
-        // execute & validate
-        assertEquals("11", fixture.formatLabel(11, true));
-        assertEquals("13", fixture.formatLabel(13, true));
-    }
-
-    @Test
-    public void testFormatLabelXAxis5WithPortrait() throws Exception {
-        // setup
-        configuration.orientation = Configuration.ORIENTATION_PORTRAIT;
         Constraints constraints = new Constraints(WiFiBand.FIVE);
         ChannelGraphAxisLabel fixture = new ChannelGraphAxisLabel(constraints);
         // execute & validate
@@ -108,30 +90,9 @@ public class ChannelGraphAxisLabelTest {
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.channelLast() + 1, true));
 
         assertEquals("36", fixture.formatLabel(constraints.channelFirst(), true));
-        assertEquals("38", fixture.formatLabel(38, true));
-
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(35, true));
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(99, true));
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(constraints.channelLast(), true));
 
         assertEquals("164", fixture.formatLabel(164, true));
-        assertEquals("162", fixture.formatLabel(162, true));
-
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(165, true));
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(163, true));
     }
-
-    @Test
-    public void testFormatLabelXAxis5WithLandscape() throws Exception {
-        // setup
-        configuration.orientation = Configuration.ORIENTATION_LANDSCAPE;
-        Constraints constraints = new Constraints(WiFiBand.FIVE);
-        ChannelGraphAxisLabel fixture = new ChannelGraphAxisLabel(constraints);
-        // execute & validate
-        assertEquals("37", fixture.formatLabel(37, true));
-        assertEquals("99", fixture.formatLabel(99, true));
-
-        assertEquals("163", fixture.formatLabel(163, true));
-        assertEquals("164", fixture.formatLabel(164, true));
-    }
-
 }
