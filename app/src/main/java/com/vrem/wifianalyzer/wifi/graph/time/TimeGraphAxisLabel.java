@@ -33,7 +33,7 @@ class TimeGraphAxisLabel implements LabelFormatter {
         String result = StringUtils.EMPTY;
         int valueAsInt = (int) (value + (value < 0 ? -0.5 : 0.5));
         if (isValueX) {
-            if (valueAsInt > 0) {
+            if (valueAsInt >= 0 && valueAsInt % 2 == 0) {
                 result += (valueAsInt * mainContext.getSettings().getScanInterval());
             }
         } else {

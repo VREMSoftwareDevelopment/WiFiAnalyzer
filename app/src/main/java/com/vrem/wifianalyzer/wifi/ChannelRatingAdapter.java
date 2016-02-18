@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.SortedSet;
 
 class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifier {
+    public static final int MAX_CHANNELS_TO_DISPLAY = 10;
     private final MainContext mainContext = MainContext.INSTANCE;
     private final Resources resources;
     private final ChannelRating channelRating;
@@ -87,14 +88,20 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
     }
 
     void bestChannels(SortedSet<Integer> channels) {
+        int channelCount = 0;
         StringBuilder result = new StringBuilder();
         for (Integer channel : channels) {
+            if (channelCount > MAX_CHANNELS_TO_DISPLAY) {
+                result.append("...");
+                break;
+            }
             Strength strength = Strength.reverse(channelRating.getStrength(channel));
             if (Strength.FOUR.equals(strength) || Strength.THREE.equals(strength)) {
                 if (result.length() > 0) {
                     result.append(", ");
                 }
                 result.append(channel);
+                channelCount++;
             }
         }
         if (result.length() > 0) {
