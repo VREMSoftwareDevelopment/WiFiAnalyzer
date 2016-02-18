@@ -38,9 +38,9 @@ class ChannelGraphAxisLabel implements LabelFormatter {
         int valueAsInt = (int) (value + (value < 0 ? -0.5 : 0.5));
         if (isValueX) {
             if (valueAsInt >= constraints.channelFirst() && valueAsInt <= constraints.channelLast()) {
-                if (valueAsInt < 100) {
+                if (valueAsInt < 14) {
                     result += valueAsInt;
-                } else if (valueAsInt >= 100 && valueAsInt % 2 == 0) {
+                } else if (valueAsInt >= 14 && valueAsInt % 2 == 0) {
                     result += valueAsInt;
                 }
             }

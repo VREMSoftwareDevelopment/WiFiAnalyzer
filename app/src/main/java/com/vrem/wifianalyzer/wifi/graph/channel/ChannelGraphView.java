@@ -52,13 +52,13 @@ class ChannelGraphView {
 
     ChannelGraphView make() {
         graphView = (GraphView) parentView.findViewById(this.channelGraphViewId);
-        graphView.setMinimumWidth(WiFiConstants.CNT_X);
+        graphView.setMinimumWidth(constraints.boundsSize());
 
         GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
         gridLabelRenderer.setHighlightZeroLines(false);
         gridLabelRenderer.setLabelFormatter(new ChannelGraphAxisLabel(constraints));
         gridLabelRenderer.setNumVerticalLabels(WiFiConstants.CNT_Y);
-        gridLabelRenderer.setNumHorizontalLabels(WiFiConstants.CNT_X);
+        gridLabelRenderer.setNumHorizontalLabels(constraints.boundsSize());
 
         gridLabelRenderer.setHorizontalAxisTitle(resources.getString(R.string.graph_wifi_channels));
         gridLabelRenderer.setHorizontalLabelsVisible(true);

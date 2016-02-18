@@ -45,7 +45,11 @@ class Constraints {
     }
 
     int boundsMax() {
-        return boundsMin() + WiFiConstants.CNT_X;
+        return boundsMin() + WiFiConstants.CNT_X - 1;
+    }
+
+    int boundsSize() {
+        return WiFiConstants.CNT_X;
     }
 
     boolean contains(int channel) {

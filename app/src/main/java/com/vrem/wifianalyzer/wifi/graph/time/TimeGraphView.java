@@ -76,7 +76,7 @@ class TimeGraphView {
 
         viewport.setXAxisBoundsManual(true);
         viewport.setMinX(0);
-        viewport.setMaxX(WiFiConstants.CNT_X);
+        viewport.setMaxX(WiFiConstants.CNT_X - 1);
 
         timeGraphAdapter = new TimeGraphAdapter(graphView, wifiBand);
 
