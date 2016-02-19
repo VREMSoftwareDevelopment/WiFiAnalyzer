@@ -38,41 +38,41 @@ import java.util.TreeSet;
 class ChannelGraphAdapter implements UpdateNotifier {
     private final MainContext mainContext = MainContext.INSTANCE;
     private final GraphView graphView;
-    private final Constraints constraints;
+    private final Frequency frequency;
     private final Map<String, LineGraphSeries<DataPoint>> seriesMap;
 
-    ChannelGraphAdapter(@NonNull GraphView graphView, @NonNull Constraints constraints) {
+    ChannelGraphAdapter(@NonNull GraphView graphView, @NonNull Frequency frequency) {
         this.graphView = graphView;
-        this.constraints = constraints;
+        this.frequency = frequency;
         this.seriesMap = new TreeMap<>();
         this.mainContext.getScanner().addUpdateNotifier(this);
         this.graphView.addSeries(defaultsSeries());
     }
 
     @Override
-    public void update(@NonNull WiFiData wifiData) {
+    public void update(@NonNull WiFiData wiFiData) {
         Set<String> newSeries = new TreeSet<>();
-        for (WiFiDetails wifiDetails : wifiData.getWiFiList(constraints.getWiFiBand())) {
-            String key = wifiDetails.getTitle();
+        for (WiFiDetails wiFiDetails : wiFiData.getWiFiList(frequency.getWiFiBand())) {
+            String key = wiFiDetails.getTitle();
             newSeries.add(key);
             LineGraphSeries<DataPoint> series = seriesMap.get(key);
             if (series == null) {
-                series = new LineGraphSeries<>(createDataPoints(wifiDetails));
-                setSeriesOptions(series, wifiDetails);
+                series = new LineGraphSeries<>(createDataPoints(wiFiDetails));
+                setSeriesOptions(series, wiFiDetails);
                 graphView.addSeries(series);
                 seriesMap.put(key, series);
             } else {
-                series.resetData(createDataPoints(wifiDetails));
+                series.resetData(createDataPoints(wiFiDetails));
             }
         }
         GraphAdapterUtils.removeSeries(graphView, seriesMap, newSeries);
         GraphAdapterUtils.updateLegendRenderer(graphView);
 
-        graphView.setVisibility(constraints.getWiFiBand().equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
+        graphView.setVisibility(frequency.getWiFiBand().equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
     }
 
-    private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetails wifiDetails) {
-        if (wifiDetails.isConnected()) {
+    private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetails wiFiDetails) {
+        if (wiFiDetails.isConnected()) {
             series.setColor(Colors.BLUE.getPrimary());
             series.setBackgroundColor(Colors.BLUE.getBackground());
             series.setThickness(6);
@@ -83,12 +83,12 @@ class ChannelGraphAdapter implements UpdateNotifier {
             series.setThickness(2);
         }
         series.setDrawBackground(true);
-        series.setTitle(wifiDetails.getTitle() + " " + wifiDetails.getChannel());
+        series.setTitle(wiFiDetails.getTitle() + " " + wiFiDetails.getChannel());
     }
 
-    private DataPoint[] createDataPoints(@NonNull WiFiDetails wifiDetails) {
-        int channel = wifiDetails.getChannel();
-        int level = wifiDetails.getLevel();
+    private DataPoint[] createDataPoints(@NonNull WiFiDetails wiFiDetails) {
+        int channel = wiFiDetails.getChannel();
+        int level = wiFiDetails.getLevel();
         return new DataPoint[]{
                 new DataPoint(channel - Frequency.CHANNEL_SPREAD, WiFiConstants.MIN_Y),
                 new DataPoint(channel - Frequency.CHANNEL_SPREAD / 2, level),
@@ -99,8 +99,8 @@ class ChannelGraphAdapter implements UpdateNotifier {
     }
 
     private LineGraphSeries<DataPoint> defaultsSeries() {
-        int minValue = constraints.channelFirst() - Frequency.CHANNEL_SPREAD;
-        int maxValue = constraints.channelLast() + Frequency.CHANNEL_SPREAD;
+        int minValue = frequency.getChannelFirst() - Frequency.CHANNEL_SPREAD;
+        int maxValue = frequency.getChannelLast() + Frequency.CHANNEL_SPREAD;
         if (maxValue % 2 != 0) {
             maxValue++;
         }

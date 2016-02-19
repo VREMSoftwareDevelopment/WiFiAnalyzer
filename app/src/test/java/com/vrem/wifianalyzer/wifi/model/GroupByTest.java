@@ -137,17 +137,17 @@ public class GroupByTest {
         verify(rhs).getChannel();
     }
 
-    private void withDetailsInfo(WiFiDetails wifiDetails, String BSSID) {
-        when(wifiDetails.getChannel()).thenReturn(0);
-        when(wifiDetails.getLevel()).thenReturn(0);
-        when(wifiDetails.getSSID()).thenReturn("SSID");
-        when(wifiDetails.getBSSID()).thenReturn(BSSID);
+    private void withDetailsInfo(WiFiDetails wiFiDetails, String BSSID) {
+        when(wiFiDetails.getChannel()).thenReturn(0);
+        when(wiFiDetails.getLevel()).thenReturn(0);
+        when(wiFiDetails.getSSID()).thenReturn("SSID");
+        when(wiFiDetails.getBSSID()).thenReturn(BSSID);
     }
 
-    private void verifyDetailsInfo(WiFiDetails wifiDetails) {
-        verify(wifiDetails).getLevel();
-        verify(wifiDetails).getSSID();
-        verify(wifiDetails).getBSSID();
+    private void verifyDetailsInfo(WiFiDetails wiFiDetails) {
+        verify(wiFiDetails).getLevel();
+        verify(wiFiDetails).getSSID();
+        verify(wiFiDetails).getBSSID();
     }
 
     @Test

@@ -56,8 +56,8 @@ public class FrequencyTest {
 
         assertEquals(1, Frequency.TWO.channel(2401));
         assertEquals(1, Frequency.TWO.channel(2416));
-        assertEquals(14, Frequency.TWO.channel(2477));
-        assertEquals(14, Frequency.TWO.channel(2499));
+        assertEquals(11, Frequency.TWO.channel(2462));
+        assertEquals(11, Frequency.TWO.channel(2499));
 
         assertEquals(0, Frequency.FIVE.channel(5000));
         assertEquals(0, Frequency.FIVE.channel(6000));
@@ -70,9 +70,9 @@ public class FrequencyTest {
 
     @Test
     public void testBand() throws Exception {
-        assertNull(Frequency.UNKNOWN.wifiBand());
-        assertEquals(WiFiBand.TWO, Frequency.TWO.wifiBand());
-        assertEquals(WiFiBand.FIVE, Frequency.FIVE.wifiBand());
+        assertNull(Frequency.UNKNOWN.wiFiBand());
+        assertEquals(WiFiBand.TWO, Frequency.TWO.wiFiBand());
+        assertEquals(WiFiBand.FIVE, Frequency.FIVE.wiFiBand());
     }
 
     @Test
@@ -102,7 +102,7 @@ public class FrequencyTest {
 
     private SortedSet<Integer> expected24GHZChannels() {
         SortedSet<Integer> expected = new TreeSet<>();
-        for (int i = 1; i <= 14; i++) {
+        for (int i = 1; i <= 11; i++) {
             expected.add(i);
         }
         return expected;

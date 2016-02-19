@@ -35,7 +35,7 @@ public class Scanner {
 
     private final PerformPeriodicScan performPeriodicScan;
     private final MainContext mainContext = MainContext.INSTANCE;
-    private WiFiData wifiData;
+    private WiFiData wiFiData;
     private List<UpdateNotifier> updateNotifiers = new ArrayList<>();
 
     public Scanner() {
@@ -51,15 +51,15 @@ public class Scanner {
             List<ScanResult> scanResults = wifiManager.getScanResults();
             WifiInfo connectionInfo = wifiManager.getConnectionInfo();
             List<WifiConfiguration> configuredNetworks = wifiManager.getConfiguredNetworks();
-            wifiData = new WiFiData(scanResults, connectionInfo, configuredNetworks);
+            wiFiData = new WiFiData(scanResults, connectionInfo, configuredNetworks);
             for (UpdateNotifier updateNotifier : updateNotifiers) {
-                updateNotifier.update(wifiData);
+                updateNotifier.update(wiFiData);
             }
         }
     }
 
     WiFiData getWifiData() {
-        return wifiData;
+        return wiFiData;
     }
 
     public boolean addUpdateNotifier(@NonNull UpdateNotifier updateNotifier) {

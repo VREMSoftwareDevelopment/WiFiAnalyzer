@@ -48,18 +48,18 @@ public class AccessPointsDetailsTest extends RobolectricBaseTest {
     @Test
     public void testSetViewWithWiFiDetailsAsConnection() throws Exception {
         // setup
-        WiFiDetails wifiDetails = Details.makeConnection(ShadowScanResult.newInstance("SSID", "BSSID", "capabilities", 1, 2), "VendorName", "IPAddress");
+        WiFiDetails wiFiDetails = Details.makeConnection(ShadowScanResult.newInstance("SSID", "BSSID", "capabilities", 1, 2), "VendorName", "IPAddress");
         // execute
-        fixture.setView(resources, view, wifiDetails, false);
+        fixture.setView(resources, view, wiFiDetails, false);
         // validate
-        validateTextViewValues(wifiDetails, "SSID");
+        validateTextViewValues(wiFiDetails, "SSID");
 
-        validateTextViewValue(wifiDetails.getIPAddress(), R.id.ipAddress);
+        validateTextViewValue(wiFiDetails.getIPAddress(), R.id.ipAddress);
         assertEquals(View.VISIBLE, view.findViewById(R.id.ipAddress).getVisibility());
 
         assertEquals(View.VISIBLE, view.findViewById(R.id.configuredImage).getVisibility());
 
-        validateTextViewValue(wifiDetails.getVendorName(), R.id.vendor);
+        validateTextViewValue(wiFiDetails.getVendorName(), R.id.vendor);
         assertEquals(View.VISIBLE, view.findViewById(R.id.vendor).getVisibility());
 
         assertEquals(View.GONE, view.findViewById(R.id.tab).getVisibility());
@@ -69,11 +69,11 @@ public class AccessPointsDetailsTest extends RobolectricBaseTest {
     @Test
     public void testSetViewWithWiFiDetailsAsScanResult() throws Exception {
         // setup
-        WiFiDetails wifiDetails = Details.makeScanResult(ShadowScanResult.newInstance("", "BSSID", "capabilities", 1, 2), "", false);
+        WiFiDetails wiFiDetails = Details.makeScanResult(ShadowScanResult.newInstance("", "BSSID", "capabilities", 1, 2), "", false);
         // execute
-        fixture.setView(resources, view, wifiDetails, true);
+        fixture.setView(resources, view, wiFiDetails, true);
         // validate
-        validateTextViewValues(wifiDetails, "***");
+        validateTextViewValues(wiFiDetails, "***");
 
         assertEquals(View.GONE, view.findViewById(R.id.ipAddress).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.configuredImage).getVisibility());
@@ -82,13 +82,13 @@ public class AccessPointsDetailsTest extends RobolectricBaseTest {
         assertEquals(View.GONE, view.findViewById(R.id.groupColumn).getVisibility());
     }
 
-    private void validateTextViewValues(@NonNull WiFiDetails wifiDetails, @NonNull String ssid) {
-        validateTextViewValue(ssid + " (" + wifiDetails.getBSSID() + ")", R.id.ssid);
-        validateTextViewValue(String.format("%ddBm", wifiDetails.getLevel()), R.id.level);
-        validateTextViewValue(String.format("CH %d", wifiDetails.getChannel()), R.id.channel);
-        validateTextViewValue(String.format("%dMHz", wifiDetails.getFrequency()), R.id.frequency);
-        validateTextViewValue(String.format("%6.2fm", wifiDetails.getDistance()), R.id.distance);
-        validateTextViewValue(wifiDetails.getCapabilities(), R.id.capabilities);
+    private void validateTextViewValues(@NonNull WiFiDetails wiFiDetails, @NonNull String ssid) {
+        validateTextViewValue(ssid + " (" + wiFiDetails.getBSSID() + ")", R.id.ssid);
+        validateTextViewValue(String.format("%ddBm", wiFiDetails.getLevel()), R.id.level);
+        validateTextViewValue(String.format("CH %d", wiFiDetails.getChannel()), R.id.channel);
+        validateTextViewValue(String.format("%dMHz", wiFiDetails.getFrequency()), R.id.frequency);
+        validateTextViewValue(String.format("%6.2fm", wiFiDetails.getDistance()), R.id.distance);
+        validateTextViewValue(wiFiDetails.getCapabilities(), R.id.capabilities);
     }
 
     private void validateTextViewValue(@NonNull String expected, int id) {

@@ -50,5 +50,5 @@ public interface WiFiDetails {
 
     List<WiFiDetails> getChildren();
 
-    void addChild(WiFiDetails wifiDetails);
+    void addChild(WiFiDetails wiFiDetails);
 }

@@ -17,43 +17,28 @@ package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import android.support.annotation.NonNull;
 
-import com.jjoe64.graphview.LabelFormatter;
-import com.jjoe64.graphview.Viewport;
 import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.wifi.WiFiConstants;
+import com.vrem.wifianalyzer.wifi.graph.AxisLabelFormatter;
+import com.vrem.wifianalyzer.wifi.model.Frequency;
+import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 
 import org.apache.commons.lang3.StringUtils;
 
-class ChannelGraphAxisLabel implements LabelFormatter {
+class ChannelGraphAxisLabel extends AxisLabelFormatter {
     private final MainContext mainContext = MainContext.INSTANCE;
-    private final Constraints constraints;
+    private final Frequency frequency;
 
-    ChannelGraphAxisLabel(@NonNull Constraints constraints) {
-        this.constraints = constraints;
+    ChannelGraphAxisLabel(@NonNull Frequency frequency) {
+        this.frequency = frequency;
     }
 
     @Override
-    public String formatLabel(double value, boolean isValueX) {
-        String result = StringUtils.EMPTY;
-        int valueAsInt = (int) (value + (value < 0 ? -0.5 : 0.5));
-        if (isValueX) {
-            if (valueAsInt >= constraints.channelFirst() && valueAsInt <= constraints.channelLast()) {
-                if (valueAsInt <= 11) {
-                    result += valueAsInt;
-                } else if (valueAsInt >= 14 && valueAsInt % 2 == 0) {
-                    result += valueAsInt;
-                }
-            }
-        } else {
-            if (valueAsInt > WiFiConstants.MIN_Y) {
-                result += valueAsInt;
+    protected String getXAxisValue(int valueAsInt) {
+        if (valueAsInt >= frequency.getChannelFirst() && valueAsInt <= frequency.getChannelLast()) {
+            if (WiFiBand.TWO.equals(frequency.getWiFiBand()) || valueAsInt % 2 == 0) {
+                return "" + valueAsInt;
             }
         }
-        return result;
-    }
-
-    @Override
-    public void setViewport(Viewport viewport) {
-        // ignore
+        return StringUtils.EMPTY;
     }
 }

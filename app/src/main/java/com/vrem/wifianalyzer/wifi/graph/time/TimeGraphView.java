@@ -30,16 +30,16 @@ class TimeGraphView {
     private final View parentView;
     private final Resources resources;
     private final int channelGraphViewId;
-    private final WiFiBand wifiBand;
+    private final WiFiBand wiFiBand;
 
     private GraphView graphView;
     private TimeGraphAdapter timeGraphAdapter;
 
-    TimeGraphView(@NonNull View parentView, @NonNull Resources resources, @NonNull WiFiBand wifiBand) {
+    TimeGraphView(@NonNull View parentView, @NonNull Resources resources, @NonNull WiFiBand wiFiBand) {
         this.parentView = parentView;
         this.resources = resources;
-        this.wifiBand = wifiBand;
-        this.channelGraphViewId = WiFiBand.TWO.equals(wifiBand) ? R.id.timeGraph2 : R.id.timeGraph5;
+        this.wiFiBand = wiFiBand;
+        this.channelGraphViewId = WiFiBand.TWO.equals(wiFiBand) ? R.id.timeGraph2 : R.id.timeGraph5;
     }
 
     static TimeGraphView timeGraphView2(@NonNull View parentView, @NonNull Resources resources) {
@@ -78,7 +78,7 @@ class TimeGraphView {
         viewport.setMinX(0);
         viewport.setMaxX(WiFiConstants.CNT_X - 1);
 
-        timeGraphAdapter = new TimeGraphAdapter(graphView, wifiBand);
+        timeGraphAdapter = new TimeGraphAdapter(graphView, wiFiBand);
 
         return this;
     }

@@ -36,10 +36,10 @@ public class ConnectionView implements UpdateNotifier {
     }
 
     @Override
-    public void update(@NonNull WiFiData wifiData) {
+    public void update(@NonNull WiFiData wiFiData) {
         View view = activity.findViewById(R.id.connection);
 
-        WiFiDetails connection = wifiData.getConnection();
+        WiFiDetails connection = wiFiData.getConnection();
         if (connection != null && connection.isConnected()) {
             view.setVisibility(View.VISIBLE);
             accessPointsDetails.setView(activity.getResources(), view, connection, false);

@@ -53,12 +53,12 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
     }
 
     @Override
-    public void update(@NonNull WiFiData wifiData) {
+    public void update(@NonNull WiFiData wiFiData) {
         WiFiBand wiFiBand = mainContext.getSettings().getWiFiBand();
         clear();
         SortedSet<Integer> channels = Frequency.findChannels(wiFiBand);
         addAll(channels);
-        channelRating.setWiFiChannels(wifiData.getWiFiChannels(wiFiBand));
+        channelRating.setWiFiChannels(wiFiData.getWiFiChannels(wiFiBand));
         bestChannels(channels);
         notifyDataSetChanged();
     }

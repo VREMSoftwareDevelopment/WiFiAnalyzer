@@ -61,7 +61,7 @@ public class Details implements WiFiDetails {
 
     @Override
     public WiFiBand getWiFiBand() {
-        return Frequency.find(getFrequency()).wifiBand();
+        return Frequency.find(getFrequency()).wiFiBand();
     }
 
     @Override
@@ -129,8 +129,8 @@ public class Details implements WiFiDetails {
         return String.format("%s (%s)", StringUtils.isBlank(getSSID()) ? "***" : getSSID(), getBSSID());
     }
 
-    public void addChild(@NonNull WiFiDetails wifiDetails) {
-        children.add(wifiDetails);
+    public void addChild(@NonNull WiFiDetails wiFiDetails) {
+        children.add(wiFiDetails);
     }
 
     @Override

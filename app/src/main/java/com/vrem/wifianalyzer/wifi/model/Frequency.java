@@ -22,7 +22,7 @@ import java.util.TreeSet;
 
 public enum Frequency {
     UNKNOWN(),
-    TWO(2412, 2477, 2401, 2499, 1, 14, WiFiBand.TWO),
+    TWO(2412, 2462, 2401, 2499, 1, 11, WiFiBand.TWO),
     FIVE(5180, 5825, 5001, 5999, 36, 165, WiFiBand.FIVE);
 
     public static final int CHANNEL_FREQUENCY_SPREAD = 5;
@@ -34,21 +34,21 @@ public enum Frequency {
     private final int end;
     private final int channelFirst;
     private final int channelLast;
-    private final WiFiBand wifiBand;
+    private final WiFiBand wiFiBand;
 
     Frequency() {
         channelFrequencyStart = channelFrequencyEnd = channelFirst = channelLast = start = end = 0;
-        wifiBand = null;
+        wiFiBand = null;
     }
 
-    Frequency(int channelFrequencyStart, int channelFrequencyEnd, int start, int end, int channelFirst, int channelLast, @NonNull WiFiBand wifiBand) {
+    Frequency(int channelFrequencyStart, int channelFrequencyEnd, int start, int end, int channelFirst, int channelLast, @NonNull WiFiBand wiFiBand) {
         this.channelFrequencyStart = channelFrequencyStart;
         this.channelFrequencyEnd = channelFrequencyEnd;
         this.start = start;
         this.end = end;
         this.channelFirst = channelFirst;
         this.channelLast = channelLast;
-        this.wifiBand = wifiBand;
+        this.wiFiBand = wiFiBand;
     }
 
     public static Frequency find(int value) {
@@ -64,10 +64,10 @@ public enum Frequency {
         return Frequency.find(value).channel(value);
     }
 
-    public static SortedSet<Integer> findChannels(@NonNull WiFiBand wifiBand) {
+    public static SortedSet<Integer> findChannels(@NonNull WiFiBand wiFiBand) {
         SortedSet<Integer> results = new TreeSet<>();
         for (Frequency frequency : values()) {
-            if (wifiBand.equals(frequency.wifiBand())) {
+            if (wiFiBand.equals(frequency.wiFiBand())) {
                 results.addAll(frequency.channels());
             }
         }
@@ -91,8 +91,8 @@ public enum Frequency {
         return 0;
     }
 
-    public WiFiBand wifiBand() {
-        return wifiBand;
+    public WiFiBand wiFiBand() {
+        return wiFiBand;
     }
 
     public SortedSet<Integer> channels() {
@@ -105,4 +105,15 @@ public enum Frequency {
         return results;
     }
 
+    public int getChannelFirst() {
+        return channelFirst;
+    }
+
+    public int getChannelLast() {
+        return channelLast;
+    }
+
+    public WiFiBand getWiFiBand() {
+        return wiFiBand;
+    }
 }

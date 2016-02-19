@@ -49,7 +49,7 @@ public class ConnectionViewTest {
     @Mock
     private AccessPointsDetails accessPointsDetails;
     @Mock
-    private WiFiData wifiData;
+    private WiFiData wiFiData;
     @Mock
     private WiFiDetails connection;
 
@@ -75,9 +75,9 @@ public class ConnectionViewTest {
     @Test
     public void testUpdateWithNullConnection() throws Exception {
         // setup
-        when(wifiData.getConnection()).thenReturn(null);
+        when(wiFiData.getConnection()).thenReturn(null);
         // execute
-        fixture.update(wifiData);
+        fixture.update(wiFiData);
         // validate
         verify(connection, never()).isConnected();
         verify(view).setVisibility(View.GONE);
@@ -86,10 +86,10 @@ public class ConnectionViewTest {
     @Test
     public void testUpdateWithConnectionNotConnected() throws Exception {
         // setup
-        when(wifiData.getConnection()).thenReturn(connection);
+        when(wiFiData.getConnection()).thenReturn(connection);
         when(connection.isConnected()).thenReturn(false);
         // execute
-        fixture.update(wifiData);
+        fixture.update(wiFiData);
         // validate
         verify(connection).isConnected();
         verify(view).setVisibility(View.GONE);
@@ -98,10 +98,10 @@ public class ConnectionViewTest {
     @Test
     public void testUpdateWithConnection() throws Exception {
         // setup
-        when(wifiData.getConnection()).thenReturn(connection);
+        when(wiFiData.getConnection()).thenReturn(connection);
         when(connection.isConnected()).thenReturn(true);
         // execute
-        fixture.update(wifiData);
+        fixture.update(wiFiData);
         // validate
         verify(activity).getResources();
         verify(connection).isConnected();

@@ -28,9 +28,9 @@ public enum WiFiBand {
     }
 
     public static WiFiBand find(String value) {
-        for (WiFiBand wifiBand : WiFiBand.values()) {
-            if (wifiBand.getBand().equals(value)) {
-                return wifiBand;
+        for (WiFiBand wiFiBand : WiFiBand.values()) {
+            if (wiFiBand.getBand().equals(value)) {
+                return wiFiBand;
             }
         }
         return WiFiBand.TWO;

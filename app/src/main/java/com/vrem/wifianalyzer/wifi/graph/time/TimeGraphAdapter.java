@@ -37,42 +37,42 @@ import java.util.TreeSet;
 class TimeGraphAdapter implements UpdateNotifier {
     private final MainContext mainContext = MainContext.INSTANCE;
     private final GraphView graphView;
-    private final WiFiBand wifiBand;
+    private final WiFiBand wiFiBand;
     private final Map<String, LineGraphSeries<DataPoint>> seriesMap;
     private int timeIndex;
 
-    TimeGraphAdapter(@NonNull GraphView graphView, @NonNull WiFiBand wifiBand) {
+    TimeGraphAdapter(@NonNull GraphView graphView, @NonNull WiFiBand wiFiBand) {
         this.graphView = graphView;
-        this.wifiBand = wifiBand;
+        this.wiFiBand = wiFiBand;
         this.seriesMap = new TreeMap<>();
         this.timeIndex = 0;
         this.mainContext.getScanner().addUpdateNotifier(this);
     }
 
     @Override
-    public void update(@NonNull WiFiData wifiData) {
+    public void update(@NonNull WiFiData wiFiData) {
         Set<String> newSeries = new TreeSet<>();
-        for (WiFiDetails wifiDetails : wifiData.getWiFiList(wifiBand)) {
-            String key = wifiDetails.getTitle();
+        for (WiFiDetails wiFiDetails : wiFiData.getWiFiList(wiFiBand)) {
+            String key = wiFiDetails.getTitle();
             newSeries.add(key);
             LineGraphSeries<DataPoint> series = seriesMap.get(key);
             if (series == null) {
                 series = new LineGraphSeries<>();
-                setSeriesOptions(series, wifiDetails);
+                setSeriesOptions(series, wiFiDetails);
                 graphView.addSeries(series);
                 seriesMap.put(key, series);
             }
-            series.appendData(new DataPoint(timeIndex, wifiDetails.getLevel()), true, timeIndex + 1);
+            series.appendData(new DataPoint(timeIndex, wiFiDetails.getLevel()), true, timeIndex + 1);
         }
         GraphAdapterUtils.removeSeries(graphView, seriesMap, newSeries);
         GraphAdapterUtils.updateLegendRenderer(graphView);
 
-        graphView.setVisibility(wifiBand.equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
+        graphView.setVisibility(wiFiBand.equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
         timeIndex++;
     }
 
-    private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetails wifiDetails) {
-        if (wifiDetails.isConnected()) {
+    private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetails wiFiDetails) {
+        if (wiFiDetails.isConnected()) {
             series.setColor(Colors.BLUE.getPrimary());
             series.setThickness(6);
         } else {
@@ -80,7 +80,7 @@ class TimeGraphAdapter implements UpdateNotifier {
             series.setThickness(2);
         }
         series.setDrawBackground(false);
-        series.setTitle(wifiDetails.getTitle() + " " + wifiDetails.getChannel());
+        series.setTitle(wiFiDetails.getTitle() + " " + wiFiDetails.getChannel());
     }
 
 }

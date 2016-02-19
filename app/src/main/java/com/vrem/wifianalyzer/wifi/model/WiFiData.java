@@ -50,11 +50,11 @@ public class WiFiData {
     public Map<Integer, List<WiFiDetails>> getWiFiChannels(@NonNull WiFiBand wiFiBand) {
         Map<Integer, List<WiFiDetails>> results = new TreeMap<>();
         List<WiFiDetails> wifiList = getWiFiList(wiFiBand, GroupBy.CHANNEL, SortBy.STRENGTH);
-        for (WiFiDetails wifiDetails : wifiList) {
+        for (WiFiDetails wiFiDetails : wifiList) {
             List<WiFiDetails> details = new ArrayList<>();
-            details.add(wifiDetails);
-            details.addAll(wifiDetails.getChildren());
-            results.put(wifiDetails.getChannel(), details);
+            details.add(wiFiDetails);
+            details.addAll(wiFiDetails.getChildren());
+            results.put(wiFiDetails.getChannel(), details);
         }
         return results;
     }
@@ -91,15 +91,15 @@ public class WiFiData {
         List<WiFiDetails> results = new ArrayList<>();
         Collections.sort(wifiList, groupBy.sortOrder());
         WiFiDetails parent = null;
-        for (WiFiDetails wifiDetails : wifiList) {
-            if (parent == null || groupBy.groupBy().compare(parent, wifiDetails) != 0) {
+        for (WiFiDetails wiFiDetails : wifiList) {
+            if (parent == null || groupBy.groupBy().compare(parent, wiFiDetails) != 0) {
                 if (parent != null) {
                     Collections.sort(parent.getChildren(), sortBy.comparator());
                 }
-                parent = wifiDetails;
+                parent = wiFiDetails;
                 results.add(parent);
             } else {
-                parent.addChild(wifiDetails);
+                parent.addChild(wiFiDetails);
             }
         }
         if (parent != null) {
@@ -109,13 +109,13 @@ public class WiFiData {
         return results;
     }
 
-    private List<WiFiDetails> buildWiFiList(@NonNull WiFiBand wifiBand) {
+    private List<WiFiDetails> buildWiFiList(@NonNull WiFiBand wiFiBand) {
         List<WiFiDetails> results = new ArrayList<>();
         WiFiDetails connection = getConnection();
         for (ScanResult scanResult : scanResults) {
             String vendorName = vendorService.findVendorName(scanResult.BSSID);
             Details details = Details.makeScanResult(scanResult, vendorName, isConfiguredNetwork(scanResult));
-            if (details.getWiFiBand().equals(wifiBand)) {
+            if (details.getWiFiBand().equals(wiFiBand)) {
                 if (details.equals(connection)) {
                     results.add(connection);
                 } else {

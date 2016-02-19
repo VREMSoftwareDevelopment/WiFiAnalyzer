@@ -24,41 +24,39 @@ import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.Viewport;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.WiFiConstants;
-import com.vrem.wifianalyzer.wifi.model.WiFiBand;
+import com.vrem.wifianalyzer.wifi.model.Frequency;
 
 class ChannelGraphView {
     private final View parentView;
     private final Resources resources;
-    private final int channelGraphViewId;
-    private final Constraints constraints;
+    private final Frequency frequency;
 
     private GraphView graphView;
     private ChannelGraphAdapter channelGraphAdapter;
 
-    ChannelGraphView(@NonNull View parentView, @NonNull Resources resources, @NonNull WiFiBand wifiBand) {
+    ChannelGraphView(@NonNull View parentView, @NonNull Resources resources, @NonNull Frequency frequency) {
         this.parentView = parentView;
         this.resources = resources;
-        this.channelGraphViewId = WiFiBand.TWO.equals(wifiBand) ? R.id.channelGraph2 : R.id.channelGraph5;
-        this.constraints = new Constraints(wifiBand);
+        this.frequency = frequency;
     }
 
     static ChannelGraphView channelGraphView2(@NonNull View parentView, @NonNull Resources resources) {
-        return new ChannelGraphView(parentView, resources, WiFiBand.TWO);
+        return new ChannelGraphView(parentView, resources, Frequency.TWO);
     }
 
     static ChannelGraphView channelGraphView5(@NonNull View parentView, @NonNull Resources resources) {
-        return new ChannelGraphView(parentView, resources, WiFiBand.FIVE);
+        return new ChannelGraphView(parentView, resources, Frequency.FIVE);
     }
 
     ChannelGraphView make() {
-        graphView = (GraphView) parentView.findViewById(this.channelGraphViewId);
-        graphView.setMinimumWidth(constraints.boundsSize());
+        graphView = (GraphView) parentView.findViewById(Frequency.TWO.equals(frequency) ? R.id.channelGraph2 : R.id.channelGraph5);
+        graphView.setMinimumWidth(WiFiConstants.CNT_X);
 
         GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
         gridLabelRenderer.setHighlightZeroLines(false);
-        gridLabelRenderer.setLabelFormatter(new ChannelGraphAxisLabel(constraints));
+        gridLabelRenderer.setLabelFormatter(new ChannelGraphAxisLabel(frequency));
         gridLabelRenderer.setNumVerticalLabels(WiFiConstants.CNT_Y);
-        gridLabelRenderer.setNumHorizontalLabels(constraints.boundsSize());
+        gridLabelRenderer.setNumHorizontalLabels(WiFiConstants.CNT_X);
 
         gridLabelRenderer.setHorizontalAxisTitle(resources.getString(R.string.graph_wifi_channels));
         gridLabelRenderer.setHorizontalLabelsVisible(true);
@@ -67,7 +65,7 @@ class ChannelGraphView {
         gridLabelRenderer.setVerticalLabelsVisible(true);
 
         Viewport viewport = graphView.getViewport();
-        viewport.setScrollable(true);
+        viewport.setScrollable(Frequency.FIVE.equals(frequency));
         viewport.setScalable(false);
 
         viewport.setYAxisBoundsManual(true);
@@ -75,10 +73,11 @@ class ChannelGraphView {
         viewport.setMaxY(WiFiConstants.MAX_Y);
 
         viewport.setXAxisBoundsManual(true);
-        viewport.setMinX(constraints.boundsMin());
-        viewport.setMaxX(constraints.boundsMax());
+        int boundsMin = frequency.getChannelFirst() - Frequency.CHANNEL_SPREAD;
+        viewport.setMinX(boundsMin);
+        viewport.setMaxX(boundsMin + WiFiConstants.CNT_X - 1);
 
-        channelGraphAdapter = new ChannelGraphAdapter(graphView, constraints);
+        channelGraphAdapter = new ChannelGraphAdapter(graphView, frequency);
 
         return this;
     }

@@ -82,8 +82,8 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     }
 
     @Override
-    public void update(@NonNull WiFiData wifiData) {
-        data.update(wifiData);
+    public void update(@NonNull WiFiData wiFiData) {
+        data.update(wiFiData);
         notifyDataSetChanged();
     }
 
@@ -140,11 +140,11 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         WiFiDetails connection;
         List<WiFiDetails> wifiList = new ArrayList<>();
 
-        void update(WiFiData wifiData) {
-            if (wifiData != null) {
-                connection = wifiData.getConnection();
+        void update(WiFiData wiFiData) {
+            if (wiFiData != null) {
+                connection = wiFiData.getConnection();
                 Settings settings = mainContext.getSettings();
-                wifiList = wifiData.getWiFiList(settings.getWiFiBand(), settings.getGroupBy(), settings.getSortBy());
+                wifiList = wiFiData.getWiFiList(settings.getWiFiBand(), settings.getGroupBy(), settings.getSortBy());
             }
         }
 

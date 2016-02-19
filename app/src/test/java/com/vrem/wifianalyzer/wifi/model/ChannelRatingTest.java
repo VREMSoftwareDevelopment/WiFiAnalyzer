@@ -38,11 +38,11 @@ public class ChannelRatingTest {
     private static final int CHANNEL = 1;
 
     @Mock
-    private WiFiDetails wifiDetails1;
+    private WiFiDetails wiFiDetails1;
     @Mock
-    private WiFiDetails wifiDetails2;
+    private WiFiDetails wiFiDetails2;
     @Mock
-    private WiFiDetails wifiDetails3;
+    private WiFiDetails wiFiDetails3;
 
     private ChannelRating fixture;
 
@@ -73,34 +73,34 @@ public class ChannelRatingTest {
         fixture.setWiFiChannels(details);
         expectedDetails();
         // execute & validate
-        assertEquals(wifiDetails3.getStrength(), fixture.getStrength(CHANNEL));
+        assertEquals(wiFiDetails3.getStrength(), fixture.getStrength(CHANNEL));
         verifyDetails();
     }
 
     private void verifyDetails() {
-        verify(wifiDetails1).isConnected();
-        verify(wifiDetails2).isConnected();
-        verify(wifiDetails3).isConnected();
+        verify(wiFiDetails1).isConnected();
+        verify(wiFiDetails2).isConnected();
+        verify(wiFiDetails3).isConnected();
 
-        verify(wifiDetails1).getStrength();
-        verify(wifiDetails2, never()).getStrength();
-        verify(wifiDetails3, times(2)).getStrength();
+        verify(wiFiDetails1).getStrength();
+        verify(wiFiDetails2, never()).getStrength();
+        verify(wiFiDetails3, times(2)).getStrength();
     }
 
     private Map<Integer, List<WiFiDetails>> withDetails() {
         Map<Integer, List<WiFiDetails>> results = new TreeMap<>();
-        results.put(CHANNEL, new ArrayList<>(Arrays.asList(new WiFiDetails[]{wifiDetails1, wifiDetails2, wifiDetails3})));
+        results.put(CHANNEL, new ArrayList<>(Arrays.asList(new WiFiDetails[]{wiFiDetails1, wiFiDetails2, wiFiDetails3})));
         return results;
     }
 
     private void expectedDetails() {
-        when(wifiDetails1.isConnected()).thenReturn(false);
-        when(wifiDetails2.isConnected()).thenReturn(true);
-        when(wifiDetails3.isConnected()).thenReturn(false);
+        when(wiFiDetails1.isConnected()).thenReturn(false);
+        when(wiFiDetails2.isConnected()).thenReturn(true);
+        when(wiFiDetails3.isConnected()).thenReturn(false);
 
-        when(wifiDetails1.getStrength()).thenReturn(Strength.ONE);
-        when(wifiDetails2.getStrength()).thenReturn(Strength.FOUR);
-        when(wifiDetails3.getStrength()).thenReturn(Strength.THREE);
+        when(wiFiDetails1.getStrength()).thenReturn(Strength.ONE);
+        when(wiFiDetails2.getStrength()).thenReturn(Strength.FOUR);
+        when(wiFiDetails3.getStrength()).thenReturn(Strength.THREE);
     }
 
 }

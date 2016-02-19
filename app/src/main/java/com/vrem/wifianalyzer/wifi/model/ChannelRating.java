@@ -34,9 +34,9 @@ public class ChannelRating {
 
     public Strength getStrength(int channel) {
         Strength strength = Strength.ZERO;
-        for (WiFiDetails wifiDetails : collectOverlappingChannels(channel)) {
-            if (!wifiDetails.isConnected()) {
-                strength = Strength.values()[Math.max(strength.ordinal(), wifiDetails.getStrength().ordinal())];
+        for (WiFiDetails wiFiDetails : collectOverlappingChannels(channel)) {
+            if (!wiFiDetails.isConnected()) {
+                strength = Strength.values()[Math.max(strength.ordinal(), wiFiDetails.getStrength().ordinal())];
             }
         }
         return strength;
@@ -49,9 +49,9 @@ public class ChannelRating {
     private List<WiFiDetails> collectOverlappingChannels(int channel) {
         List<WiFiDetails> details = new ArrayList<>();
         for (int i = channel - Frequency.CHANNEL_SPREAD; i <= channel + Frequency.CHANNEL_SPREAD; i++) {
-            List<WiFiDetails> wifiDetails = wifiChannels.get(i);
-            if (wifiDetails != null) {
-                details.addAll(wifiDetails);
+            List<WiFiDetails> wiFiDetails = wifiChannels.get(i);
+            if (wiFiDetails != null) {
+                details.addAll(wiFiDetails);
             }
         }
         return details;
