@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.wifi.graph.time;
+package com.vrem.wifianalyzer.wifi.graph;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -24,28 +24,54 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ViewSwitcher;
 
+import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 
-public class TimeGraphFragment extends Fragment {
+public class ChannelGraphFragment extends Fragment {
     private final MainContext mainContext = MainContext.INSTANCE;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.time_graph_content, container, false);
+        View view = inflater.inflate(R.layout.channel_graph_content, container, false);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.timeGraphRefresh);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.channelGraphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        ViewSwitcher viewSwitcher = (ViewSwitcher) view.findViewById(R.id.timeGraphSwitcher);
+        ViewSwitcher viewSwitcher = (ViewSwitcher) view.findViewById(R.id.channelGraphSwitcher);
 
         Resources resources = getResources();
 
-        TimeGraphView.timeGraphView2(view, resources).make();
-        TimeGraphView.timeGraphView5(view, resources).make();
+        makeGraphView(view, resources, R.id.channelGraph2, WiFiBand.TWO);
+        makeGraphView(view, resources, R.id.channelGraph5, WiFiBand.FIVE);
 
         return view;
+    }
+
+    private void makeGraphView(View view, Resources resources, int graphViewId, WiFiBand wiFiBand) {
+        int minX = wiFiBand.getChannelFirst() - WiFiBand.CHANNEL_SPREAD;
+        int maxX = minX + GraphViewBuilder.CNT_X - 1;
+        boolean scrollable = false;
+        AxisLabel axisLabel = new AxisLabel(wiFiBand.getChannelFirst(), wiFiBand.getChannelLast());
+
+        if (WiFiBand.FIVE.equals(wiFiBand)) {
+            axisLabel.setEvenOnly(true);
+            scrollable = true;
+        }
+
+        GraphViewBuilder graphViewBuilder = new GraphViewBuilder(view, graphViewId)
+                .setVerticalTitle(resources.getString(R.string.graph_axis_y))
+                .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
+                .setScrollable(scrollable)
+                .setLabelFormatter(axisLabel)
+                .setMinX(minX)
+                .setMaxX(maxX);
+
+
+        GraphView graphView = graphViewBuilder.build();
+        new ChannelGraphAdapter(graphView, wiFiBand);
     }
 
     private void refresh() {

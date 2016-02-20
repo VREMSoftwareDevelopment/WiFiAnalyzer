@@ -17,23 +17,89 @@ package com.vrem.wifianalyzer.wifi.model;
 
 import android.support.annotation.NonNull;
 
-public enum WiFiBand {
-    TWO("2.4 GHz"),
-    FIVE("5 GHz");
+import java.util.SortedSet;
+import java.util.TreeSet;
 
+public enum WiFiBand {
+    TWO(2412, 2462, 2401, 2499, 1, 11, "2.4 GHz"),
+    FIVE(5180, 5825, 5001, 5999, 36, 165, "5 GHz");
+
+    public static final int CHANNEL_FREQUENCY_SPREAD = 5;
+    public static final int CHANNEL_SPREAD = 2;
+
+    private final int channelFrequencyStart;
+    private final int channelFrequencyEnd;
+    private final int start;
+    private final int end;
+    private final int channelFirst;
+    private final int channelLast;
     private final String band;
 
-    WiFiBand(@NonNull String band) {
+    WiFiBand(int channelFrequencyStart, int channelFrequencyEnd, int start, int end, int channelFirst, int channelLast, @NonNull String band) {
+        this.channelFrequencyStart = channelFrequencyStart;
+        this.channelFrequencyEnd = channelFrequencyEnd;
+        this.start = start;
+        this.end = end;
+        this.channelFirst = channelFirst;
+        this.channelLast = channelLast;
         this.band = band;
     }
 
-    public static WiFiBand find(String value) {
+    public static WiFiBand findByFrequency(int value) {
+        for (WiFiBand wiFiBand : WiFiBand.values()) {
+            if (wiFiBand.inRange(value)) {
+                return wiFiBand;
+            }
+        }
+        return WiFiBand.TWO;
+    }
+
+    public static int findChannelByFrequency(int value) {
+        return WiFiBand.findByFrequency(value).getChannelByFrequency(value);
+    }
+
+    public static WiFiBand findByBand(String value) {
         for (WiFiBand wiFiBand : WiFiBand.values()) {
             if (wiFiBand.getBand().equals(value)) {
                 return wiFiBand;
             }
         }
         return WiFiBand.TWO;
+    }
+
+    public boolean inRange(int value) {
+        return value >= start && value <= end;
+    }
+
+    public int getChannelByFrequency(int value) {
+        if (inRange(value)) {
+            if (value <= channelFrequencyStart) {
+                return channelFirst;
+            }
+            if (value >= channelFrequencyEnd) {
+                return channelLast;
+            }
+            return (value - channelFrequencyStart) / CHANNEL_FREQUENCY_SPREAD + channelFirst;
+        }
+        return 0;
+    }
+
+    public SortedSet<Integer> getChannels() {
+        SortedSet<Integer> results = new TreeSet<>();
+        if (channelFirst != channelLast) {
+            for (int i = channelFirst; i <= channelLast; i++) {
+                results.add(i);
+            }
+        }
+        return results;
+    }
+
+    public int getChannelFirst() {
+        return channelFirst;
+    }
+
+    public int getChannelLast() {
+        return channelLast;
     }
 
     public String getBand() {

@@ -278,9 +278,9 @@ public class WiFiDataTest {
         Map<Integer, List<WiFiDetails>> actual = fixture.getWiFiChannels(WiFiBand.TWO);
         // validate
         assertEquals(3, actual.size());
-        assertEquals(1, actual.get(Frequency.findChannel(FREQUENCY1)).size());
-        assertEquals(4, actual.get(Frequency.findChannel(FREQUENCY2)).size());
-        assertEquals(2, actual.get(Frequency.findChannel(FREQUENCY3)).size());
+        assertEquals(1, actual.get(WiFiBand.findChannelByFrequency(FREQUENCY1)).size());
+        assertEquals(4, actual.get(WiFiBand.findChannelByFrequency(FREQUENCY2)).size());
+        assertEquals(2, actual.get(WiFiBand.findChannelByFrequency(FREQUENCY3)).size());
     }
 
     @Test

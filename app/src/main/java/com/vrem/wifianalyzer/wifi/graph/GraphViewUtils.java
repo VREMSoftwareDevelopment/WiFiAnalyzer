@@ -27,8 +27,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class GraphAdapterUtils {
-    public static void removeSeries(@NonNull GraphView graphView, @NonNull Map<String, LineGraphSeries<DataPoint>> seriesMap, @NonNull Set<String> newSeries) {
+class GraphViewUtils {
+    private GraphView graphView;
+
+    GraphViewUtils(@NonNull GraphView graphView) {
+        this.graphView = graphView;
+    }
+
+    void updateSeries(@NonNull Map<String, LineGraphSeries<DataPoint>> seriesMap, @NonNull Set<String> newSeries) {
         List<String> remove = new ArrayList<>();
         for (String title : seriesMap.keySet()) {
             if (!newSeries.contains(title)) {
@@ -41,7 +47,7 @@ public class GraphAdapterUtils {
         }
     }
 
-    public static void updateLegendRenderer(@NonNull GraphView graphView) {
+    void updateLegend() {
         LegendRenderer legendRenderer = graphView.getLegendRenderer();
         legendRenderer.resetStyles();
         legendRenderer.setVisible(true);

@@ -34,7 +34,7 @@ import java.util.TreeSet;
 public class VendorService {
 
     private final Set<String> remoteCalls = new TreeSet<>();
-    private final Map<String,String> cache = new HashMap<>();
+    private final Map<String, String> cache = new HashMap<>();
     private final MainContext mainContext = MainContext.INSTANCE;
     private RemoteCall remoteCall;
 

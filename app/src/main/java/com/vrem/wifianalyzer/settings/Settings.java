@@ -60,7 +60,7 @@ public class Settings {
     public WiFiBand getWiFiBand() {
         Context context = mainContext.getContext();
         String defaultValue = context.getResources().getString(R.string.wifi_band_default);
-        return WiFiBand.find(getSharedPreferences().getString(context.getString(R.string.wifi_band_key), defaultValue));
+        return WiFiBand.findByBand(getSharedPreferences().getString(context.getString(R.string.wifi_band_key), defaultValue));
     }
 
     public ThemeStyle getThemeStyle() {

@@ -29,7 +29,6 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
-import com.vrem.wifianalyzer.wifi.model.Frequency;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -56,7 +55,7 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
     public void update(@NonNull WiFiData wiFiData) {
         WiFiBand wiFiBand = mainContext.getSettings().getWiFiBand();
         clear();
-        SortedSet<Integer> channels = Frequency.findChannels(wiFiBand);
+        SortedSet<Integer> channels = wiFiBand.getChannels();
         addAll(channels);
         channelRating.setWiFiChannels(wiFiData.getWiFiChannels(wiFiBand));
         bestChannels(channels);
@@ -81,7 +80,7 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
         int size = Strength.values().length;
         ratingBar.setMax(size);
         ratingBar.setNumStars(size);
-        ratingBar.setRating(strength.ordinal()+1);
+        ratingBar.setRating(strength.ordinal() + 1);
         ratingBar.setProgressTintList(ColorStateList.valueOf(resources.getColor(strength.colorResource())));
 
         return convertView;

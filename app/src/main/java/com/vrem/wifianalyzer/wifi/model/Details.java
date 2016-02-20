@@ -56,12 +56,12 @@ public class Details implements WiFiDetails {
 
     @Override
     public int getChannel() {
-        return Frequency.findChannel(getFrequency());
+        return WiFiBand.findChannelByFrequency(getFrequency());
     }
 
     @Override
     public WiFiBand getWiFiBand() {
-        return Frequency.find(getFrequency()).wiFiBand();
+        return WiFiBand.findByFrequency(getFrequency());
     }
 
     @Override

@@ -48,7 +48,7 @@ public class ChannelRating {
 
     private List<WiFiDetails> collectOverlappingChannels(int channel) {
         List<WiFiDetails> details = new ArrayList<>();
-        for (int i = channel - Frequency.CHANNEL_SPREAD; i <= channel + Frequency.CHANNEL_SPREAD; i++) {
+        for (int i = channel - WiFiBand.CHANNEL_SPREAD; i <= channel + WiFiBand.CHANNEL_SPREAD; i++) {
             List<WiFiDetails> wiFiDetails = wifiChannels.get(i);
             if (wiFiDetails != null) {
                 details.addAll(wiFiDetails);

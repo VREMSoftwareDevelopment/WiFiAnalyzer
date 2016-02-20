@@ -17,22 +17,34 @@ package com.vrem.wifianalyzer.wifi.graph;
 
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
-import com.vrem.wifianalyzer.wifi.WiFiConstants;
 
 import org.apache.commons.lang3.StringUtils;
 
-public abstract class AxisLabelFormatter implements LabelFormatter {
-    protected abstract String getXAxisValue(int valueAsInt);
+public class AxisLabel implements LabelFormatter {
+    private final int minValue;
+    private final int maxValue;
+    private boolean evenOnly;
+
+    AxisLabel(int minValue, int maxValue) {
+        this.minValue = minValue;
+        this.maxValue = maxValue;
+        this.evenOnly = false;
+    }
+
+    void setEvenOnly(boolean evenOnly) {
+        this.evenOnly = evenOnly;
+    }
 
     @Override
     public String formatLabel(double value, boolean isValueX) {
         int valueAsInt = (int) (value + (value < 0 ? -0.5 : 0.5));
         if (isValueX) {
-            if (valueAsInt >= 0) {
-                return getXAxisValue(valueAsInt);
+            if (valueAsInt >= minValue && valueAsInt <= maxValue && (!evenOnly || valueAsInt % 2 == 0)) {
+                return "" + valueAsInt;
             }
+            return StringUtils.EMPTY;
         } else {
-            if (valueAsInt > WiFiConstants.MIN_Y) {
+            if (valueAsInt <= GraphViewBuilder.MAX_Y && valueAsInt > GraphViewBuilder.MIN_Y) {
                 return "" + valueAsInt;
             }
         }
