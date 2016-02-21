@@ -13,31 +13,38 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer;
+package com.vrem.wifianalyzer.about;
 
-import android.content.res.Resources;
+import android.support.v7.app.ActionBar;
 
-import org.junit.Before;
+import com.vrem.wifianalyzer.BuildConfig;
+import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.RobolectricUtil;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public abstract class RobolectricBaseTest {
+public class AboutActivityTest {
 
-    protected MainActivity activity;
-    protected Resources resources;
+    private MainActivity mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
 
-    @Before
-    public void setUp() throws Exception {
-        activity = Robolectric.setupActivity(MainActivity.class);
-        resources = activity.getResources();
-
-        assertNotNull(activity);
-        assertNotNull(resources);
+    @Test
+    public void testTitle() throws Exception {
+        // setup
+        AboutActivity fixture = Robolectric.setupActivity(AboutActivity.class);
+        String expected = fixture.getResources().getString(R.string.action_about);
+        // execute
+        ActionBar actual = fixture.getSupportActionBar();
+        // validate
+        assertEquals(expected, actual.getTitle());
     }
+
 }

@@ -19,27 +19,34 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
+import com.vrem.wifianalyzer.BuildConfig;
+import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.RobolectricBaseTest;
+import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.model.Details;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowScanResult;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class AccessPointsDetailsTest extends RobolectricBaseTest {
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
+public class AccessPointsDetailsTest {
+    private MainActivity activity = RobolectricUtil.INSTANCE.getMainActivity();
 
     private View view;
     private AccessPointsDetails fixture;
 
     @Before
     public void setUp() throws Exception {
-        super.setUp();
         view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.access_points_details, null);
         assertNotNull(view);
         fixture = new AccessPointsDetails();
@@ -50,7 +57,7 @@ public class AccessPointsDetailsTest extends RobolectricBaseTest {
         // setup
         WiFiDetails wiFiDetails = Details.makeConnection(ShadowScanResult.newInstance("SSID", "BSSID", "capabilities", 1, 2), "VendorName", "IPAddress");
         // execute
-        fixture.setView(resources, view, wiFiDetails, false);
+        fixture.setView(activity.getResources(), view, wiFiDetails, false);
         // validate
         validateTextViewValues(wiFiDetails, "SSID");
 
@@ -71,7 +78,7 @@ public class AccessPointsDetailsTest extends RobolectricBaseTest {
         // setup
         WiFiDetails wiFiDetails = Details.makeScanResult(ShadowScanResult.newInstance("", "BSSID", "capabilities", 1, 2), "", false);
         // execute
-        fixture.setView(resources, view, wiFiDetails, true);
+        fixture.setView(activity.getResources(), view, wiFiDetails, true);
         // validate
         validateTextViewValues(wiFiDetails, "***");
 

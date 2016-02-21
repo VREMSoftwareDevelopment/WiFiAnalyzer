@@ -72,13 +72,13 @@ class ChannelGraphAdapter implements UpdateNotifier {
 
     private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetails wiFiDetails) {
         if (wiFiDetails.isConnected()) {
-            series.setColor(GraphColors.BLUE.getPrimary());
-            series.setBackgroundColor(GraphColors.BLUE.getBackground());
+            series.setColor(GraphColor.BLUE.getPrimary());
+            series.setBackgroundColor(GraphColor.BLUE.getBackground());
             series.setThickness(6);
         } else {
-            GraphColors graphColors = GraphColors.findRandomColor();
-            series.setColor(graphColors.getPrimary());
-            series.setBackgroundColor(graphColors.getBackground());
+            GraphColor graphColor = GraphColor.findColor();
+            series.setColor(graphColor.getPrimary());
+            series.setBackgroundColor(graphColor.getBackground());
             series.setThickness(2);
         }
         series.setDrawBackground(true);
@@ -109,7 +109,7 @@ class ChannelGraphAdapter implements UpdateNotifier {
         };
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
-        series.setColor(GraphColors.TRANSPARENT.getPrimary());
+        series.setColor(GraphColor.TRANSPARENT.getPrimary());
         series.setDrawBackground(false);
         series.setThickness(0);
         series.setTitle("");

@@ -64,6 +64,10 @@ class VendorAdapter extends ArrayAdapter<String> {
         return convertView;
     }
 
+    SortedMap<String, List<String>> getVendors() {
+        return vendors;
+    }
+
     public void setVendors(@NonNull SortedMap<String, List<String>> vendors) {
         this.vendors = vendors;
         clear();

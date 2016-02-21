@@ -16,7 +16,6 @@
 package com.vrem.wifianalyzer;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -101,10 +100,6 @@ public enum MainContext {
 
     public void setContext(@NonNull Context context) {
         this.context = context;
-    }
-
-    public boolean isOrientationLandscape() {
-        return Configuration.ORIENTATION_LANDSCAPE == context.getResources().getConfiguration().orientation;
     }
 
 }

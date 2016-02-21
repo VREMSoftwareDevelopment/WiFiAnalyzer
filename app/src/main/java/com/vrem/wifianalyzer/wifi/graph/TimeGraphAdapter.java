@@ -73,10 +73,10 @@ class TimeGraphAdapter implements UpdateNotifier {
 
     private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetails wiFiDetails) {
         if (wiFiDetails.isConnected()) {
-            series.setColor(GraphColors.BLUE.getPrimary());
+            series.setColor(GraphColor.BLUE.getPrimary());
             series.setThickness(6);
         } else {
-            series.setColor(GraphColors.findRandomColor().getPrimary());
+            series.setColor(GraphColor.findColor().getPrimary());
             series.setThickness(2);
         }
         series.setDrawBackground(false);

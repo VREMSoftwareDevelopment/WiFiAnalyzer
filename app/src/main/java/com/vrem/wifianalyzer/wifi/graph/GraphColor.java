@@ -15,9 +15,7 @@
  */
 package com.vrem.wifianalyzer.wifi.graph;
 
-import java.util.Random;
-
-public enum GraphColors {
+enum GraphColor {
     RED(0xFFF44336, 0x33F44336),
     PINK(0xFFE91E63, 0x33E91E63),
     PURPLE(0xFF9C27B0, 0x339C27B0),
@@ -40,23 +38,29 @@ public enum GraphColors {
     BLUE(0xFF2196F3, 0x332196F3),
     TRANSPARENT(0x009E9E9E, 0x009E9E9E);
 
+    static int maxColor = GraphColor.values().length - 2;
+    private static int currentColor = -1;
     private final int primary;
     private final int background;
 
-    GraphColors(int primary, int background) {
+    GraphColor(int primary, int background) {
         this.primary = primary;
         this.background = background;
     }
 
-    public static GraphColors findRandomColor() {
-        return GraphColors.values()[new Random().nextInt(GraphColors.values().length - 3)];
+    static GraphColor findColor() {
+        currentColor++;
+        if (currentColor >= maxColor) {
+            currentColor = 0;
+        }
+        return GraphColor.values()[currentColor];
     }
 
-    public int getPrimary() {
+    int getPrimary() {
         return primary;
     }
 
-    public int getBackground() {
+    int getBackground() {
         return background;
     }
 

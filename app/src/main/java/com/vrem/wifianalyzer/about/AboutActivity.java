@@ -22,11 +22,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.settings.Settings;
 
 public class AboutActivity extends AppCompatActivity {
+    private final MainContext mainContext = MainContext.INSTANCE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Settings settings = mainContext.getSettings();
+        setTheme(settings.getThemeStyle().themeDeviceDefaultStyle());
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.about_content);

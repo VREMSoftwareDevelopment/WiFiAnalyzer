@@ -19,21 +19,28 @@ import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.vrem.wifianalyzer.RobolectricBaseTest;
+import com.vrem.wifianalyzer.BuildConfig;
+import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
 
-public class NavigationMenuViewTest extends RobolectricBaseTest {
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
+public class NavigationMenuViewTest {
+    private MainActivity activity = RobolectricUtil.INSTANCE.getMainActivity();
+
     private NavigationMenuView fixture;
     private NavigationView navigationView;
 
     @Before
     public void setUp() throws Exception {
-        super.setUp();
-
         fixture = activity.getNavigationMenuView();
         navigationView = fixture.getNavigationView();
     }
@@ -49,7 +56,7 @@ public class NavigationMenuViewTest extends RobolectricBaseTest {
             for (NavigationMenu navigationMenu : navigationGroup.navigationMenu()) {
                 MenuItem actual = menu.getItem(navigationMenu.ordinal());
                 assertEquals(navigationGroup.ordinal(), actual.getGroupId());
-                assertEquals(resources.getString(navigationMenu.getTitle()), actual.getTitle());
+                assertEquals(activity.getResources().getString(navigationMenu.getTitle()), actual.getTitle());
                 assertEquals(navigationMenu.ordinal(), actual.getItemId());
                 assertEquals(navigationMenu.ordinal(), actual.getOrder());
             }
