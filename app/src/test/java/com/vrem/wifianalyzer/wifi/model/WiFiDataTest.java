@@ -78,8 +78,6 @@ public class WiFiDataTest {
 
     @Before
     public void setUp() throws Exception {
-        mockStatic(WifiManager.class);
-
         MainContext mainContext = MainContext.INSTANCE;
         mainContext.setVendorService(vendorService);
 
@@ -116,6 +114,7 @@ public class WiFiDataTest {
     }
 
     private void withSignalLevel() {
+        mockStatic(WifiManager.class);
         when(WifiManager.calculateSignalLevel(LEVEL0, Strength.values().length)).thenReturn(LEVEL0);
         when(WifiManager.calculateSignalLevel(LEVEL1, Strength.values().length)).thenReturn(LEVEL1);
         when(WifiManager.calculateSignalLevel(LEVEL2, Strength.values().length)).thenReturn(LEVEL2);

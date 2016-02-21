@@ -16,12 +16,14 @@
 package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +32,9 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -42,6 +46,12 @@ public class ScannerTest {
     @Mock private WifiManager wifiManager;
     @Mock private UpdateNotifier updateNotifier;
     @Mock private WifiInfo wifiInfo;
+    @Mock
+    private Cache cache;
+
+    private List<ScanResult> scanResults;
+    private List<ScanResult> cachedScanResults;
+    private List<WifiConfiguration> configuredNetworks;
 
     private Scanner fixture;
 
@@ -52,7 +62,13 @@ public class ScannerTest {
         mainContext.setHandler(handler);
         mainContext.setWifiManager(wifiManager);
 
+        scanResults = new ArrayList<>();
+        cachedScanResults = new ArrayList<>();
+        configuredNetworks = new ArrayList<>();
+
         fixture = new Scanner();
+        fixture.setCache(cache);
+        fixture.addUpdateNotifier(updateNotifier);
     }
 
     @Test
@@ -61,16 +77,49 @@ public class ScannerTest {
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void testUpdateWithWiFiData() throws Exception {
         // setup
-        fixture.addUpdateNotifier(updateNotifier);
-        withWiFiManager();
+        withCache(cachedScanResults);
+        withWiFiManager(scanResults, configuredNetworks);
         // execute
         fixture.update();
         // validate
-        verify(updateNotifier).update(fixture.getWifiData());
+        WiFiData wifiData = fixture.getWifiData();
+        verify(updateNotifier).update(wifiData);
+        assertEquals(wifiInfo, wifiData.getWiFiInfo());
+        assertEquals(configuredNetworks, wifiData.getConfiguredNetworks());
+        assertEquals(cachedScanResults, wifiData.getScanResults());
+    }
 
+    @Test
+    public void testUpdateWithWiFiManager() throws Exception {
+        // setup
+        withCache(cachedScanResults);
+        withWiFiManager(scanResults, configuredNetworks);
+        // execute
+        fixture.update();
+        // validate
         verifyWiFiManager();
+    }
+
+    @Test
+    public void testUpdateWithCache() throws Exception {
+        // setup
+        withCache(cachedScanResults);
+        withWiFiManager(scanResults, configuredNetworks);
+        // execute
+        fixture.update();
+        // validate
+        verifyCache(scanResults);
+    }
+
+    private void withCache(List<ScanResult> cachedScanResults) {
+        when(cache.getScanResults()).thenReturn(cachedScanResults);
+    }
+
+    private void verifyCache(List<ScanResult> scanResults) {
+        verify(cache).add(scanResults);
+        verify(cache).getScanResults();
     }
 
     private void verifyWiFiManager() {
@@ -79,13 +128,15 @@ public class ScannerTest {
         verify(wifiManager).startScan();
         verify(wifiManager).getScanResults();
         verify(wifiManager).getConnectionInfo();
+        verify(wifiManager).getConfiguredNetworks();
     }
 
-    private void withWiFiManager() {
+    private void withWiFiManager(List<ScanResult> scanResults, List<WifiConfiguration> configuredNetworks) {
         when(wifiManager.isWifiEnabled()).thenReturn(false);
         when(wifiManager.startScan()).thenReturn(true);
-        when(wifiManager.getScanResults()).thenReturn(new ArrayList<ScanResult>());
+        when(wifiManager.getScanResults()).thenReturn(scanResults);
         when(wifiManager.getConnectionInfo()).thenReturn(wifiInfo);
+        when(wifiManager.getConfiguredNetworks()).thenReturn(configuredNetworks);
     }
 
 }

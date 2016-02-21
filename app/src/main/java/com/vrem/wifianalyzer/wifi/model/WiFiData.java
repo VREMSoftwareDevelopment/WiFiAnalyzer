@@ -137,4 +137,16 @@ public class WiFiData {
         }
         return false;
     }
+
+    public WifiInfo getWiFiInfo() {
+        return connectionInfo;
+    }
+
+    public List<WifiConfiguration> getConfiguredNetworks() {
+        return configuredNetworks;
+    }
+
+    public List<ScanResult> getScanResults() {
+        return scanResults;
+    }
 }

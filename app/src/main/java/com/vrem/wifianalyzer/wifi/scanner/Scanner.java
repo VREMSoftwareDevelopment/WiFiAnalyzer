@@ -15,9 +15,6 @@
  */
 package com.vrem.wifianalyzer.wifi.scanner;
 
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiConfiguration;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
 
@@ -30,11 +27,14 @@ import java.util.List;
 public class Scanner {
     private final PeriodicScan periodicScan;
     private final MainContext mainContext = MainContext.INSTANCE;
+    private final List<UpdateNotifier> updateNotifiers;
     private WiFiData wiFiData;
-    private List<UpdateNotifier> updateNotifiers = new ArrayList<>();
+    private Cache cache;
 
     public Scanner() {
         this.periodicScan = new PeriodicScan(this);
+        this.updateNotifiers = new ArrayList<>();
+        setCache(new Cache());
     }
 
     public void update() {
@@ -43,10 +43,8 @@ public class Scanner {
             wifiManager.setWifiEnabled(true);
         }
         if (wifiManager.startScan()) {
-            List<ScanResult> scanResults = wifiManager.getScanResults();
-            WifiInfo connectionInfo = wifiManager.getConnectionInfo();
-            List<WifiConfiguration> configuredNetworks = wifiManager.getConfiguredNetworks();
-            wiFiData = new WiFiData(scanResults, connectionInfo, configuredNetworks);
+            cache.add(wifiManager.getScanResults());
+            wiFiData = new WiFiData(cache.getScanResults(), wifiManager.getConnectionInfo(), wifiManager.getConfiguredNetworks());
             for (UpdateNotifier updateNotifier : updateNotifiers) {
                 updateNotifier.update(wiFiData);
             }
@@ -64,4 +62,9 @@ public class Scanner {
     PeriodicScan getPeriodicScan() {
         return periodicScan;
     }
+
+    void setCache(@NonNull Cache cache) {
+        this.cache = cache;
+    }
+
 }
