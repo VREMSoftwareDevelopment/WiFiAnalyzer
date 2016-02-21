@@ -31,13 +31,11 @@ public class SettingActivity extends PreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Settings settings = mainContext.getSettings();
-        setTheme(settings.getThemeStyle().themeDeviceDefaultStyle());
+        setTheme(mainContext.getSettings().getThemeStyle().themeDeviceDefaultStyle());
 
         super.onCreate(savedInstanceState);
 
-        getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new SettingPreferenceFragment()).commit();
+        getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingPreferenceFragment()).commit();
 
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {

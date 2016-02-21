@@ -31,8 +31,7 @@ public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Settings settings = mainContext.getSettings();
-        setTheme(settings.getThemeStyle().themeDeviceDefaultStyle());
+        setTheme(mainContext.getSettings().getThemeStyle().themeAppCompatStyle());
 
         super.onCreate(savedInstanceState);
 

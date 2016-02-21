@@ -29,6 +29,8 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -44,7 +46,9 @@ public class AboutActivityTest {
         // execute
         ActionBar actual = fixture.getSupportActionBar();
         // validate
+        assertNotNull(actual);
         assertEquals(expected, actual.getTitle());
+        assertNull(fixture.getActionBar());
     }
 
 }
