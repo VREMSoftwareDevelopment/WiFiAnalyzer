@@ -23,6 +23,7 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
+import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 public class ConnectionView implements UpdateNotifier {
     private final MainContext mainContext = MainContext.INSTANCE;

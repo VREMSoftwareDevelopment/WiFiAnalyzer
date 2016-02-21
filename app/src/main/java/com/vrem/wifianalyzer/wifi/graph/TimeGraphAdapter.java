@@ -22,10 +22,10 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.wifi.UpdateNotifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
+import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 import java.util.Map;
 import java.util.Set;

@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.vrem.wifianalyzer.wifi.model;
+package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
@@ -24,7 +24,7 @@ import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.wifi.UpdateNotifier;
+import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
 import java.util.ArrayList;
 import java.util.List;

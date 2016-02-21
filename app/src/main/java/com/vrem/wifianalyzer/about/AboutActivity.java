@@ -24,7 +24,6 @@ import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.settings.Settings;
 
 public class AboutActivity extends AppCompatActivity {
     private final MainContext mainContext = MainContext.INSTANCE;

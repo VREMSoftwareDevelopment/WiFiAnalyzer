@@ -1,4 +1,4 @@
-package com.vrem.wifianalyzer.wifi;
+package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.support.annotation.NonNull;
 
