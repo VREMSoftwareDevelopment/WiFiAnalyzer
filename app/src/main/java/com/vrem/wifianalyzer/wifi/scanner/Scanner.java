@@ -19,27 +19,22 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Scanner {
-    static final int DELAY_INITIAL = 1;
-    static final int DELAY_INTERVAL = 1000;
-
-    private final PerformPeriodicScan performPeriodicScan;
+    private final PeriodicScan periodicScan;
     private final MainContext mainContext = MainContext.INSTANCE;
     private WiFiData wiFiData;
     private List<UpdateNotifier> updateNotifiers = new ArrayList<>();
 
     public Scanner() {
-        this.performPeriodicScan = new PerformPeriodicScan();
+        this.periodicScan = new PeriodicScan(this);
     }
 
     public void update() {
@@ -66,26 +61,7 @@ public class Scanner {
         return updateNotifiers.add(updateNotifier);
     }
 
-    PerformPeriodicScan getPerformPeriodicScan() {
-        return performPeriodicScan;
-    }
-
-    class PerformPeriodicScan implements Runnable {
-        PerformPeriodicScan() {
-            nextRun(DELAY_INITIAL);
-        }
-
-        private void nextRun(int delayInitial) {
-            Handler handler = mainContext.getHandler();
-            handler.removeCallbacks(this);
-            handler.postDelayed(this, delayInitial);
-        }
-
-        @Override
-        public void run() {
-            update();
-            Settings settings = mainContext.getSettings();
-            nextRun(settings.getScanInterval() * DELAY_INTERVAL);
-        }
+    PeriodicScan getPeriodicScan() {
+        return periodicScan;
     }
 }

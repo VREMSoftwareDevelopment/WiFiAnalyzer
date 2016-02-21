@@ -30,9 +30,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import static org.mockito.Mockito.times;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -57,60 +56,35 @@ public class ScannerTest {
     }
 
     @Test
-    public void testPerformPeriodicScanInitial() throws Exception {
-        // setup
-        Scanner.PerformPeriodicScan performPeriodicScan = fixture.getPerformPeriodicScan();
-        // validate
-        verify(handler).removeCallbacks(performPeriodicScan);
-        verify(handler).postDelayed(performPeriodicScan, Scanner.DELAY_INITIAL);
+    public void testPeriodicScanIsSet() throws Exception {
+        assertNotNull(fixture.getPeriodicScan());
     }
 
     @Test
     public void testUpdate() throws Exception {
         // setup
-        List<ScanResult> scanResults = new ArrayList<>();
-        withUpdates(scanResults);
+        fixture.addUpdateNotifier(updateNotifier);
+        withWiFiManager();
         // execute
         fixture.update();
         // validate
-        verifyUpdates();
+        verify(updateNotifier).update(fixture.getWifiData());
+
+        verifyWiFiManager();
     }
 
-    @Test
-    public void testPerformPeriodicScanRun() throws Exception {
-        // setup
-        List<ScanResult> scanResults = new ArrayList<>();
-        int scanInterval = 15;
-        Scanner.PerformPeriodicScan performPeriodicScan = fixture.getPerformPeriodicScan();
-
-        withUpdates(scanResults);
-
-        when(settings.getScanInterval()).thenReturn(scanInterval);
-        // execute
-        performPeriodicScan.run();
-        // validate
-        verify(handler, times(2)).removeCallbacks(performPeriodicScan);
-        verify(handler).postDelayed(performPeriodicScan, scanInterval * Scanner.DELAY_INTERVAL);
-
-        verifyUpdates();
-    }
-
-    private void verifyUpdates() {
+    private void verifyWiFiManager() {
         verify(wifiManager).isWifiEnabled();
         verify(wifiManager).setWifiEnabled(true);
         verify(wifiManager).startScan();
         verify(wifiManager).getScanResults();
         verify(wifiManager).getConnectionInfo();
-
-        verify(updateNotifier).update(fixture.getWifiData());
     }
 
-    private void withUpdates(List<ScanResult> scanResults) {
-        fixture.addUpdateNotifier(updateNotifier);
-
+    private void withWiFiManager() {
         when(wifiManager.isWifiEnabled()).thenReturn(false);
         when(wifiManager.startScan()).thenReturn(true);
-        when(wifiManager.getScanResults()).thenReturn(scanResults);
+        when(wifiManager.getScanResults()).thenReturn(new ArrayList<ScanResult>());
         when(wifiManager.getConnectionInfo()).thenReturn(wifiInfo);
     }
 
