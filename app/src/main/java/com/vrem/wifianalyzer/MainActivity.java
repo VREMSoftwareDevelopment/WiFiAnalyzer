@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (themeAppCompatStyle != mainContext.getSettings().getThemeStyle().themeAppCompatStyle()) {
+        if (isThemeChanged()) {
             reloadActivity();
         } else {
             mainContext.getScanner().update();
@@ -121,11 +121,15 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         }
     }
 
+    private boolean isThemeChanged() {
+        return themeAppCompatStyle != mainContext.getSettings().getThemeStyle().themeAppCompatStyle();
+    }
+
     private void reloadActivity() {
         finish();
         Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
