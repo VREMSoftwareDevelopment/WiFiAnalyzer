@@ -39,6 +39,12 @@ public class CacheTest {
     private ScanResult scanResult2;
     @Mock
     private ScanResult scanResult3;
+    @Mock
+    private ScanResult scanResult4;
+    @Mock
+    private ScanResult scanResult5;
+    @Mock
+    private ScanResult scanResult6;
 
     private Cache fixture;
 
@@ -92,17 +98,27 @@ public class CacheTest {
         // execute
         List<ScanResult> actuals = fixture.getScanResults();
         // validate
-        assertEquals(1, actuals.size());
+        assertEquals(3, actuals.size());
         assertEquals(scanResult3, actuals.get(0));
+        assertEquals(scanResult4, actuals.get(1));
+        assertEquals(scanResult6, actuals.get(2));
     }
 
     private void withScanResults() {
-        scanResult1.BSSID = scanResult2.BSSID = scanResult3.BSSID = "BBSID";
+        scanResult1.BSSID = scanResult2.BSSID = scanResult3.BSSID = "BBSID1";
         scanResult1.level = 1;
         scanResult2.level = 2;
         scanResult3.level = 3;
-        fixture.add(Arrays.asList(new ScanResult[]{scanResult1}));
-        fixture.add(Arrays.asList(new ScanResult[]{scanResult2}));
-        fixture.add(Arrays.asList(new ScanResult[]{scanResult3}));
+
+        scanResult4.BSSID = scanResult5.BSSID = "BBSID2";
+        scanResult4.level = 5;
+        scanResult5.level = 4;
+
+        scanResult6.BSSID = "BBSID3";
+        scanResult6.level = 1;
+
+        fixture.add(Arrays.asList(scanResult1, scanResult4));
+        fixture.add(Arrays.asList(scanResult2, scanResult5));
+        fixture.add(Arrays.asList(scanResult3, scanResult6));
     }
 }
