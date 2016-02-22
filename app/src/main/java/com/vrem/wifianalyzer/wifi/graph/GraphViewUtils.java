@@ -28,13 +28,15 @@ import java.util.Map;
 import java.util.Set;
 
 class GraphViewUtils {
-    private GraphView graphView;
+    private final GraphView graphView;
+    private final Map<String, LineGraphSeries<DataPoint>> seriesMap;
 
-    GraphViewUtils(@NonNull GraphView graphView) {
+    public GraphViewUtils(@NonNull GraphView graphView, @NonNull Map<String, LineGraphSeries<DataPoint>> seriesMap) {
         this.graphView = graphView;
+        this.seriesMap = seriesMap;
     }
 
-    void updateSeries(@NonNull Map<String, LineGraphSeries<DataPoint>> seriesMap, @NonNull Set<String> newSeries) {
+    void updateSeries(@NonNull Set<String> newSeries) {
         List<String> remove = new ArrayList<>();
         for (String title : seriesMap.keySet()) {
             if (!newSeries.contains(title)) {

@@ -22,6 +22,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
@@ -45,30 +46,41 @@ class TimeGraphAdapter implements UpdateNotifier {
         this.wiFiBand = wiFiBand;
         this.seriesMap = new TreeMap<>();
         this.timeIndex = 0;
-        this.graphViewUtils = new GraphViewUtils(graphView);
+        this.graphViewUtils = new GraphViewUtils(graphView, seriesMap);
         this.mainContext.getScanner().addUpdateNotifier(this);
     }
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         Set<String> newSeries = new TreeSet<>();
-        for (WiFiDetails wiFiDetails : wiFiData.getWiFiList(wiFiBand)) {
-            String key = wiFiDetails.getTitle();
-            newSeries.add(key);
-            LineGraphSeries<DataPoint> series = seriesMap.get(key);
-            if (series == null) {
-                series = new LineGraphSeries<>();
-                setSeriesOptions(series, wiFiDetails);
-                graphView.addSeries(series);
-                seriesMap.put(key, series);
-            }
-            series.appendData(new DataPoint(timeIndex, wiFiDetails.getLevel()), true, timeIndex + 1);
+        WiFiDetails connection = wiFiData.getConnection();
+        if (connection != null && this.wiFiBand.equals(connection.getWiFiBand())) {
+            addData(newSeries, connection);
         }
-        graphViewUtils.updateSeries(seriesMap, newSeries);
+        for (WiFiDetails wiFiDetails : wiFiData.getWiFiList(wiFiBand, SortBy.STRENGTH)) {
+            if (wiFiDetails.isConnected()) {
+                continue;
+            }
+            addData(newSeries, wiFiDetails);
+        }
+        graphViewUtils.updateSeries(newSeries);
         graphViewUtils.updateLegend();
 
         graphView.setVisibility(wiFiBand.equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
         timeIndex++;
+    }
+
+    private void addData(@NonNull Set<String> newSeries, @NonNull WiFiDetails wiFiDetails) {
+        String key = wiFiDetails.getTitle();
+        newSeries.add(key);
+        LineGraphSeries<DataPoint> series = seriesMap.get(key);
+        if (series == null) {
+            series = new LineGraphSeries<>();
+            setSeriesOptions(series, wiFiDetails);
+            graphView.addSeries(series);
+            seriesMap.put(key, series);
+        }
+        series.appendData(new DataPoint(timeIndex, wiFiDetails.getLevel()), true, timeIndex + 1);
     }
 
     private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetails wiFiDetails) {

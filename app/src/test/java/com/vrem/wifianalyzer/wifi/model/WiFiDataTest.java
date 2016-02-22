@@ -297,7 +297,7 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null, null);
         // execute
-        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.TWO);
+        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.TWO, SortBy.SSID);
         // validate
         assertEquals(7, actual.size());
         assertEquals(scanResult1.BSSID, actual.get(0).getBSSID());

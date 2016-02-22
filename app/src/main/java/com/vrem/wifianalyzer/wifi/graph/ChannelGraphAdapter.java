@@ -22,6 +22,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
@@ -38,36 +39,56 @@ class ChannelGraphAdapter implements UpdateNotifier {
     private final WiFiBand wiFiBand;
     private final Map<String, LineGraphSeries<DataPoint>> seriesMap;
     private final GraphViewUtils graphViewUtils;
+    private boolean defaultAdded;
 
     ChannelGraphAdapter(@NonNull GraphView graphView, @NonNull WiFiBand wiFiBand) {
         this.graphView = graphView;
         this.wiFiBand = wiFiBand;
         this.seriesMap = new TreeMap<>();
-        this.graphViewUtils = new GraphViewUtils(graphView);
-        this.graphView.addSeries(defaultsSeries());
+        this.graphViewUtils = new GraphViewUtils(graphView, seriesMap);
         this.mainContext.getScanner().addUpdateNotifier(this);
     }
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         Set<String> newSeries = new TreeSet<>();
-        for (WiFiDetails wiFiDetails : wiFiData.getWiFiList(wiFiBand)) {
-            String key = wiFiDetails.getTitle();
-            newSeries.add(key);
-            LineGraphSeries<DataPoint> series = seriesMap.get(key);
-            if (series == null) {
-                series = new LineGraphSeries<>(createDataPoints(wiFiDetails));
-                setSeriesOptions(series, wiFiDetails);
-                graphView.addSeries(series);
-                seriesMap.put(key, series);
-            } else {
-                series.resetData(createDataPoints(wiFiDetails));
-            }
-        }
-        graphViewUtils.updateSeries(seriesMap, newSeries);
+        addConnection(wiFiData, newSeries);
+        addDefaultsSeries();
+        addWiFiDetails(wiFiData, newSeries);
+        graphViewUtils.updateSeries(newSeries);
         graphViewUtils.updateLegend();
 
         graphView.setVisibility(wiFiBand.equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
+    }
+
+    private void addWiFiDetails(@NonNull WiFiData wiFiData, Set<String> newSeries) {
+        for (WiFiDetails wiFiDetails : wiFiData.getWiFiList(wiFiBand, SortBy.CHANNEL)) {
+            if (wiFiDetails.isConnected()) {
+                continue;
+            }
+            addData(newSeries, wiFiDetails);
+        }
+    }
+
+    private void addConnection(@NonNull WiFiData wiFiData, Set<String> newSeries) {
+        WiFiDetails connection = wiFiData.getConnection();
+        if (connection != null && this.wiFiBand.equals(connection.getWiFiBand())) {
+            addData(newSeries, connection);
+        }
+    }
+
+    private void addData(@NonNull Set<String> newSeries, @NonNull WiFiDetails wiFiDetails) {
+        String key = wiFiDetails.getTitle();
+        newSeries.add(key);
+        LineGraphSeries<DataPoint> series = seriesMap.get(key);
+        if (series == null) {
+            series = new LineGraphSeries<>(createDataPoints(wiFiDetails));
+            setSeriesOptions(series, wiFiDetails);
+            graphView.addSeries(series);
+            seriesMap.put(key, series);
+        } else {
+            series.resetData(createDataPoints(wiFiDetails));
+        }
     }
 
     private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetails wiFiDetails) {
@@ -97,7 +118,11 @@ class ChannelGraphAdapter implements UpdateNotifier {
         };
     }
 
-    private LineGraphSeries<DataPoint> defaultsSeries() {
+    private void addDefaultsSeries() {
+        if (WiFiBand.TWO.equals(wiFiBand) || defaultAdded) {
+            return;
+        }
+
         int minValue = wiFiBand.getChannelFirst() - WiFiBand.CHANNEL_SPREAD;
         int maxValue = wiFiBand.getChannelLast() + WiFiBand.CHANNEL_SPREAD;
         if (maxValue % 2 != 0) {
@@ -113,6 +138,7 @@ class ChannelGraphAdapter implements UpdateNotifier {
         series.setDrawBackground(false);
         series.setThickness(0);
         series.setTitle("");
-        return series;
+        graphView.addSeries(series);
+        defaultAdded = true;
     }
 }

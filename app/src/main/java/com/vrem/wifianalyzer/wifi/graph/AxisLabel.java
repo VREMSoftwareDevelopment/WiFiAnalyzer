@@ -20,7 +20,7 @@ import com.jjoe64.graphview.Viewport;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class AxisLabel implements LabelFormatter {
+class AxisLabel implements LabelFormatter {
     private final int minValue;
     private final int maxValue;
     private boolean evenOnly;

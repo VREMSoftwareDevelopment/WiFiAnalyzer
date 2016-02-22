@@ -74,8 +74,8 @@ public class WiFiData {
     }
 
     @NonNull
-    public List<WiFiDetails> getWiFiList(@NonNull WiFiBand wiFiBand) {
-        return getWiFiList(wiFiBand, GroupBy.NONE, SortBy.SSID);
+    public List<WiFiDetails> getWiFiList(@NonNull WiFiBand wiFiBand, @NonNull SortBy sortBy) {
+        return getWiFiList(wiFiBand, GroupBy.NONE, sortBy);
     }
 
     @NonNull
