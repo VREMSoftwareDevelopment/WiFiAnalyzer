@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         mainContext.setVendorService(new VendorService());
         mainContext.setWifiManager((WifiManager) context.getSystemService(Context.WIFI_SERVICE));
         mainContext.setLayoutInflater((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+        mainContext.setLogger(new Logger());
     }
 
     @Override

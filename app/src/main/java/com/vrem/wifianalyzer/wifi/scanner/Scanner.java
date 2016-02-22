@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Scanner {
-    private final PeriodicScan periodicScan;
     private final MainContext mainContext = MainContext.INSTANCE;
+    private final PeriodicScan periodicScan;
     private final List<UpdateNotifier> updateNotifiers;
     private WiFiData wiFiData;
     private Cache cache;
@@ -57,6 +57,7 @@ public class Scanner {
     }
 
     public boolean addUpdateNotifier(@NonNull UpdateNotifier updateNotifier) {
+        mainContext.getLogger().info(updateNotifier, "update notifier added");
         return updateNotifiers.add(updateNotifier);
     }
 

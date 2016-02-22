@@ -22,6 +22,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 
+import com.vrem.wifianalyzer.Logger;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -47,8 +48,8 @@ public class ScannerTest {
     @Mock private WifiManager wifiManager;
     @Mock private UpdateNotifier updateNotifier;
     @Mock private WifiInfo wifiInfo;
-    @Mock
-    private Cache cache;
+    @Mock private Cache cache;
+    @Mock private Logger logger;
 
     private List<ScanResult> scanResults;
     private List<ScanResult> cachedScanResults;
@@ -62,6 +63,7 @@ public class ScannerTest {
         mainContext.setSettings(settings);
         mainContext.setHandler(handler);
         mainContext.setWifiManager(wifiManager);
+        mainContext.setLogger(logger);
 
         scanResults = new ArrayList<>();
         cachedScanResults = new ArrayList<>();

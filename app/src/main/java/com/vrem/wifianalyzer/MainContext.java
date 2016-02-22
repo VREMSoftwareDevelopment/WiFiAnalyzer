@@ -38,6 +38,7 @@ public enum MainContext {
     private WifiManager wifiManager;
     private LayoutInflater layoutInflater;
     private Database database;
+    private Logger logger;
 
     public Settings getSettings() {
         return settings;
@@ -101,6 +102,14 @@ public enum MainContext {
 
     public void setContext(@NonNull Context context) {
         this.context = context;
+    }
+
+    public Logger getLogger() {
+        return logger;
+    }
+
+    public void setLogger(@NonNull Logger logger) {
+        this.logger = logger;
     }
 
 }

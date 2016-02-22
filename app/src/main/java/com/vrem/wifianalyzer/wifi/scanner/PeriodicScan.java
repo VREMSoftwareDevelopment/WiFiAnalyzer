@@ -20,7 +20,6 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.settings.Settings;
 
 class PeriodicScan implements Runnable {
     static final int DELAY_INITIAL = 1;
@@ -42,8 +41,8 @@ class PeriodicScan implements Runnable {
 
     @Override
     public void run() {
+        mainContext.getLogger().info(this, "running scan...");
         scanner.update();
-        Settings settings = mainContext.getSettings();
-        nextRun(settings.getScanInterval() * DELAY_INTERVAL);
+        nextRun(mainContext.getSettings().getScanInterval() * DELAY_INTERVAL);
     }
 }

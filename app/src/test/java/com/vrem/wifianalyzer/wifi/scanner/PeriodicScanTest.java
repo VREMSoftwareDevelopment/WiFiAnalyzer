@@ -18,6 +18,7 @@ package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.os.Handler;
 
+import com.vrem.wifianalyzer.Logger;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.Settings;
 
@@ -33,12 +34,10 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PeriodicScanTest {
-    @Mock
-    private Handler handler;
-    @Mock
-    private Settings settings;
-    @Mock
-    private Scanner scanner;
+    @Mock private Handler handler;
+    @Mock private Settings settings;
+    @Mock private Scanner scanner;
+    @Mock private Logger logger;
 
     private PeriodicScan fixture;
 
@@ -47,6 +46,7 @@ public class PeriodicScanTest {
         MainContext mainContext = MainContext.INSTANCE;
         mainContext.setSettings(settings);
         mainContext.setHandler(handler);
+        mainContext.setLogger(logger);
 
         fixture = new PeriodicScan(scanner);
     }
