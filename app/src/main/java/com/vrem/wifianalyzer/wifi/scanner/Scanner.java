@@ -22,23 +22,26 @@ import android.support.annotation.NonNull;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Scanner {
     private final MainContext mainContext = MainContext.INSTANCE;
     private final PeriodicScan periodicScan;
-    private final List<UpdateNotifier> updateNotifiers;
+    private final Map<String, UpdateNotifier> updateNotifiers;
     private WiFiData wiFiData;
     private Cache cache;
 
     public Scanner() {
         this.periodicScan = new PeriodicScan(this);
-        this.updateNotifiers = new ArrayList<>();
+        this.updateNotifiers = new TreeMap<>();
         setCache(new Cache());
     }
 
     public void update() {
+        mainContext.getLogger().info(this, "running update...");
         WifiManager wifiManager = mainContext.getWifiManager();
         if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
@@ -46,7 +49,9 @@ public class Scanner {
         if (wifiManager.startScan()) {
             cache.add(wifiManager.getScanResults());
             wiFiData = new WiFiData(cache.getScanResults(), wifiManager.getConnectionInfo(), wifiManager.getConfiguredNetworks());
-            for (UpdateNotifier updateNotifier : updateNotifiers) {
+            for (String key : updateNotifiers.keySet()) {
+                UpdateNotifier updateNotifier = updateNotifiers.get(key);
+                mainContext.getLogger().info(this, "running notifier: " + key);
                 updateNotifier.update(wiFiData);
             }
         }
@@ -56,9 +61,14 @@ public class Scanner {
         return wiFiData;
     }
 
-    public boolean addUpdateNotifier(@NonNull UpdateNotifier updateNotifier) {
-        mainContext.getLogger().info(updateNotifier, "update notifier added");
-        return updateNotifiers.add(updateNotifier);
+    public void addUpdateNotifier(@NonNull UpdateNotifier updateNotifier) {
+        addUpdateNotifier(updateNotifier, StringUtils.EMPTY);
+    }
+
+    public void addUpdateNotifier(@NonNull UpdateNotifier updateNotifier, @NonNull String tag) {
+        String key = updateNotifier.getClass().getName() + tag;
+        mainContext.getLogger().info(this, "register notifier: " + key);
+        updateNotifiers.put(key, updateNotifier);
     }
 
     PeriodicScan getPeriodicScan() {

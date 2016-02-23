@@ -47,7 +47,7 @@ class ChannelGraphAdapter implements UpdateNotifier {
         this.wiFiBand = wiFiBand;
         this.seriesMap = new TreeMap<>();
         this.graphViewUtils = new GraphViewUtils(graphView, seriesMap);
-        this.mainContext.getScanner().addUpdateNotifier(this);
+        this.mainContext.getScanner().addUpdateNotifier(this, wiFiBand.name());
     }
 
     @Override

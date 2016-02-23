@@ -49,8 +49,8 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
         super(context, R.layout.channel_rating_details, new ArrayList<Integer>());
         this.resources = context.getResources();
         this.bestChannels = bestChannels;
-        mainContext.getScanner().addUpdateNotifier(this);
         this.channelRating = new ChannelRating();
+        mainContext.getScanner().addUpdateNotifier(this);
     }
 
     @Override

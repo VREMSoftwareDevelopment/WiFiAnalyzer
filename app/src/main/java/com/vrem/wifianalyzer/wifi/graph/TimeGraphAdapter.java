@@ -48,7 +48,7 @@ class TimeGraphAdapter implements UpdateNotifier {
         this.seriesMap = new TreeMap<>();
         this.timeIndex = 0;
         this.graphViewUtils = new GraphViewUtils(graphView, seriesMap);
-        this.mainContext.getScanner().addUpdateNotifier(this);
+        this.mainContext.getScanner().addUpdateNotifier(this, wiFiBand.name());
     }
 
     @Override
