@@ -38,14 +38,13 @@ class ChannelGraphView {
     private final GraphView graphView;
     private final Map<String, LineGraphSeries<DataPoint>> seriesMap;
     private final GraphViewUtils graphViewUtils;
-    private boolean defaultAdded;
 
     private ChannelGraphView(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources, @NonNull WiFiBand wiFiBand, boolean scrollable, boolean evenOnly) {
         this.wiFiBand = wiFiBand;
         this.graphView = makeGraphView(graphViewBuilder, resources, scrollable, evenOnly);
         this.seriesMap = new TreeMap<>();
         this.graphViewUtils = new GraphViewUtils(graphView, seriesMap);
-        this.defaultAdded = false;
+        addDefaultsSeries();
     }
 
     static ChannelGraphView make2(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources) {
@@ -73,7 +72,6 @@ class ChannelGraphView {
     void update(@NonNull WiFiData wiFiData) {
         Set<String> newSeries = new TreeSet<>();
         addConnection(wiFiData, newSeries);
-        addDefaultsSeries();
         addWiFiDetails(wiFiData, newSeries);
         graphViewUtils.updateSeries(newSeries);
         graphViewUtils.updateLegend();
@@ -138,10 +136,6 @@ class ChannelGraphView {
     }
 
     private void addDefaultsSeries() {
-        if (defaultAdded) {
-            return;
-        }
-
         int minValue = wiFiBand.getChannelFirst() - WiFiBand.CHANNEL_SPREAD;
         int maxValue = wiFiBand.getChannelLast() + WiFiBand.CHANNEL_SPREAD;
         if (maxValue % 2 != 0) {
@@ -158,6 +152,5 @@ class ChannelGraphView {
         series.setThickness(0);
         series.setTitle("");
         graphView.addSeries(series);
-        defaultAdded = true;
     }
 }
