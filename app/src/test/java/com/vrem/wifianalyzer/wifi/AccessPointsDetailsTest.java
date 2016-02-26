@@ -93,7 +93,7 @@ public class AccessPointsDetailsTest {
     private void validateTextViewValues(@NonNull WiFiDetails wiFiDetails, @NonNull String ssid) {
         validateTextViewValue(ssid + " (" + wiFiDetails.getBSSID() + ")", R.id.ssid);
         validateTextViewValue(String.format("%ddBm", wiFiDetails.getLevel()), R.id.level);
-        validateTextViewValue(String.format("CH %d", wiFiDetails.getChannel()), R.id.channel);
+        validateTextViewValue(String.format("%d", wiFiDetails.getChannel()), R.id.channel);
         validateTextViewValue(String.format("%dMHz", wiFiDetails.getFrequency()), R.id.frequency);
         validateTextViewValue(String.format("%6.2fm", wiFiDetails.getDistance()), R.id.distance);
         validateTextViewValue(wiFiDetails.getCapabilities(), R.id.capabilities);
