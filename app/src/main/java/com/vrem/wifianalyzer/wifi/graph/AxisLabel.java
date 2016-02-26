@@ -32,8 +32,9 @@ class AxisLabel implements LabelFormatter {
         this.evenOnly = false;
     }
 
-    void setEvenOnly(boolean evenOnly) {
+    AxisLabel setEvenOnly(boolean evenOnly) {
         this.evenOnly = evenOnly;
+        return this;
     }
 
     @Override

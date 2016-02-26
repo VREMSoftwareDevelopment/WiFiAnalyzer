@@ -23,12 +23,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ViewSwitcher;
 
-import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 
 public class TimeGraphFragment extends Fragment {
     private final MainContext mainContext = MainContext.INSTANCE;
@@ -41,27 +38,14 @@ public class TimeGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.timeGraphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        ViewSwitcher viewSwitcher = (ViewSwitcher) view.findViewById(R.id.timeGraphSwitcher);
+        view.findViewById(R.id.timeGraphSwitcher);
 
         Resources resources = getResources();
-        makeGraphView(view, resources, R.id.timeGraph2, WiFiBand.TWO);
-        makeGraphView(view, resources, R.id.timeGraph5, WiFiBand.FIVE);
+        new TimeGraphAdapter(
+                TimeGraphView.make2(new GraphViewBuilder(view, R.id.timeGraph2), resources),
+                TimeGraphView.make5(new GraphViewBuilder(view, R.id.timeGraph5), resources));
 
         return view;
-    }
-
-    private void makeGraphView(View view, Resources resources, int graphViewId, WiFiBand wiFiBand) {
-        AxisLabel axisLabel = new AxisLabel(0, Integer.MAX_VALUE);
-        axisLabel.setEvenOnly(true);
-
-        GraphView graphView = new GraphViewBuilder(view, graphViewId)
-                .setLabelFormatter(axisLabel)
-                .setVerticalTitle(resources.getString(R.string.graph_axis_y))
-                .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
-                .setScrollable(true)
-                .build();
-
-        new TimeGraphAdapter(graphView, wiFiBand);
     }
 
     private void refresh() {

@@ -23,12 +23,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ViewSwitcher;
 
-import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 
 public class ChannelGraphFragment extends Fragment {
     private final MainContext mainContext = MainContext.INSTANCE;
@@ -41,38 +38,14 @@ public class ChannelGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.channelGraphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        ViewSwitcher viewSwitcher = (ViewSwitcher) view.findViewById(R.id.channelGraphSwitcher);
+        view.findViewById(R.id.channelGraphSwitcher);
 
         Resources resources = getResources();
-
-        makeGraphView(view, resources, R.id.channelGraph2, WiFiBand.TWO);
-        makeGraphView(view, resources, R.id.channelGraph5, WiFiBand.FIVE);
+        new ChannelGraphAdapter(
+                ChannelGraphView.make2(new GraphViewBuilder(view, R.id.channelGraph2), resources),
+                ChannelGraphView.make5(new GraphViewBuilder(view, R.id.channelGraph5), resources));
 
         return view;
-    }
-
-    private void makeGraphView(View view, Resources resources, int graphViewId, WiFiBand wiFiBand) {
-        int minX = wiFiBand.getChannelFirst() - WiFiBand.CHANNEL_SPREAD;
-        int maxX = minX + GraphViewBuilder.CNT_X - 1;
-        boolean scrollable = false;
-        AxisLabel axisLabel = new AxisLabel(wiFiBand.getChannelFirst(), wiFiBand.getChannelLast());
-
-        if (WiFiBand.FIVE.equals(wiFiBand)) {
-            axisLabel.setEvenOnly(true);
-            scrollable = true;
-        }
-
-        GraphViewBuilder graphViewBuilder = new GraphViewBuilder(view, graphViewId)
-                .setVerticalTitle(resources.getString(R.string.graph_axis_y))
-                .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
-                .setScrollable(scrollable)
-                .setLabelFormatter(axisLabel)
-                .setMinX(minX)
-                .setMaxX(maxX);
-
-
-        GraphView graphView = graphViewBuilder.build();
-        new ChannelGraphAdapter(graphView, wiFiBand);
     }
 
     private void refresh() {

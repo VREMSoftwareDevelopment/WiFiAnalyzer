@@ -17,83 +17,24 @@
 package com.vrem.wifianalyzer.wifi.graph;
 
 import android.support.annotation.NonNull;
-import android.view.View;
 
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.wifi.model.SortBy;
-import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
-import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
-
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 class TimeGraphAdapter implements UpdateNotifier {
     private final MainContext mainContext = MainContext.INSTANCE;
-    private final GraphView graphView;
-    private final WiFiBand wiFiBand;
-    private final Map<String, LineGraphSeries<DataPoint>> seriesMap;
-    private final GraphViewUtils graphViewUtils;
-    private int timeIndex;
+    private final TimeGraphView[] timeGraphViews;
 
-    TimeGraphAdapter(@NonNull GraphView graphView, @NonNull WiFiBand wiFiBand) {
-        this.graphView = graphView;
-        this.wiFiBand = wiFiBand;
-        this.seriesMap = new TreeMap<>();
-        this.timeIndex = 0;
-        this.graphViewUtils = new GraphViewUtils(graphView, seriesMap);
-        this.mainContext.getScanner().addUpdateNotifier(this, wiFiBand.name());
+    TimeGraphAdapter(@NonNull TimeGraphView... timeGraphViews) {
+        this.timeGraphViews = timeGraphViews;
+        this.mainContext.getScanner().addUpdateNotifier(this);
     }
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
-        Set<String> newSeries = new TreeSet<>();
-        WiFiDetails connection = wiFiData.getConnection();
-        if (connection != null && this.wiFiBand.equals(connection.getWiFiBand())) {
-            addData(newSeries, connection);
+        for (TimeGraphView timeGraphView : timeGraphViews) {
+            timeGraphView.update(wiFiData);
         }
-        for (WiFiDetails wiFiDetails : wiFiData.getWiFiList(wiFiBand, SortBy.STRENGTH)) {
-            if (wiFiDetails.isConnected()) {
-                continue;
-            }
-            addData(newSeries, wiFiDetails);
-        }
-        graphViewUtils.updateSeries(newSeries);
-        graphViewUtils.updateLegend();
-
-        graphView.setVisibility(wiFiBand.equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
-        timeIndex++;
     }
-
-    private void addData(@NonNull Set<String> newSeries, @NonNull WiFiDetails wiFiDetails) {
-        String key = wiFiDetails.getTitle();
-        newSeries.add(key);
-        LineGraphSeries<DataPoint> series = seriesMap.get(key);
-        if (series == null) {
-            series = new LineGraphSeries<>();
-            setSeriesOptions(series, wiFiDetails);
-            graphView.addSeries(series);
-            seriesMap.put(key, series);
-        }
-        series.appendData(new DataPoint(timeIndex, wiFiDetails.getLevel()), true, timeIndex + 1);
-    }
-
-    private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetails wiFiDetails) {
-        if (wiFiDetails.isConnected()) {
-            series.setColor(GraphColor.BLUE.getPrimary());
-            series.setThickness(6);
-        } else {
-            series.setColor(GraphColor.findColor().getPrimary());
-            series.setThickness(2);
-        }
-        series.setDrawBackground(false);
-        series.setTitle(wiFiDetails.getTitle() + " " + wiFiDetails.getChannel());
-    }
-
 }

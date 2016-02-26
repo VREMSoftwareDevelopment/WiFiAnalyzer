@@ -21,6 +21,7 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.Logger;
 import com.vrem.wifianalyzer.MainContext;
@@ -35,6 +36,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -46,7 +48,8 @@ public class ScannerTest {
     @Mock private Handler handler;
     @Mock private Settings settings;
     @Mock private WifiManager wifiManager;
-    @Mock private UpdateNotifier updateNotifier;
+    @Mock private UpdateNotifier updateNotifier1;
+    @Mock private UpdateNotifier updateNotifier2;
     @Mock private WifiInfo wifiInfo;
     @Mock private Cache cache;
     @Mock private Logger logger;
@@ -71,12 +74,33 @@ public class ScannerTest {
 
         fixture = new Scanner();
         fixture.setCache(cache);
-        fixture.addUpdateNotifier(updateNotifier);
+        fixture.addUpdateNotifier(updateNotifier1);
     }
 
     @Test
     public void testPeriodicScanIsSet() throws Exception {
         assertNotNull(fixture.getPeriodicScan());
+    }
+
+    @Test
+    public void testAddUpdateNotifierAllowsOnlyOneNotifierPerClass() throws Exception {
+        Map<String, UpdateNotifier> updateNotifiers = fixture.getUpdateNotifiers();
+        assertEquals(1, updateNotifiers.size());
+        assertEquals(updateNotifier1, updateNotifiers.get(updateNotifier1.getClass().getName()));
+
+        fixture.addUpdateNotifier(updateNotifier2);
+        assertEquals(1, updateNotifiers.size());
+        assertEquals(updateNotifier2, updateNotifiers.get(updateNotifier1.getClass().getName()));
+
+        UpdateNotifier myUpdateNotifier = new UpdateNotifier() {
+            @Override
+            public void update(@NonNull WiFiData wiFiData) {
+            }
+        };
+
+        fixture.addUpdateNotifier(myUpdateNotifier);
+        assertEquals(2, updateNotifiers.size());
+        assertEquals(myUpdateNotifier, updateNotifiers.get(myUpdateNotifier.getClass().getName()));
     }
 
     @Test
@@ -88,7 +112,7 @@ public class ScannerTest {
         fixture.update();
         // validate
         WiFiData wifiData = fixture.getWifiData();
-        verify(updateNotifier).update(wifiData);
+        verify(updateNotifier1).update(wifiData);
         assertEquals(wifiInfo, wifiData.getWiFiInfo());
         assertEquals(configuredNetworks, wifiData.getConfiguredNetworks());
         assertEquals(cachedScanResults, wifiData.getScanResults());

@@ -46,9 +46,9 @@ public class AxisLabelTest {
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(MIN_X - 1, true));
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(MAX_X + 1, true));
 
-        assertEquals(""+ MIN_X, fixture.formatLabel(MIN_X, true));
-        assertEquals(""+((MIN_X + MAX_X)/2), fixture.formatLabel(((MIN_X + MAX_X)/2), true));
-        assertEquals(""+ MAX_X, fixture.formatLabel(MAX_X, true));
+        assertEquals("" + MIN_X, fixture.formatLabel(MIN_X, true));
+        assertEquals("" + ((MIN_X + MAX_X) / 2), fixture.formatLabel(((MIN_X + MAX_X) / 2), true));
+        assertEquals("" + MAX_X, fixture.formatLabel(MAX_X, true));
     }
 
     @Test

@@ -17,11 +17,14 @@
 package com.vrem.wifianalyzer.wifi.graph;
 
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,7 @@ import java.util.Map;
 import java.util.Set;
 
 class GraphViewUtils {
+    private final MainContext mainContext = MainContext.INSTANCE;
     private final GraphView graphView;
     private final Map<String, LineGraphSeries<DataPoint>> seriesMap;
 
@@ -58,4 +62,9 @@ class GraphViewUtils {
         legendRenderer.setFixedPosition(0, 0);
         legendRenderer.setTextSize(legendRenderer.getTextSize() * 0.50f);
     }
+
+    void setVisibility(@NonNull WiFiBand wiFiBand) {
+        graphView.setVisibility(wiFiBand.equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
+    }
+
 }

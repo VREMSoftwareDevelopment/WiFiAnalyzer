@@ -22,8 +22,6 @@ import android.support.annotation.NonNull;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -62,11 +60,7 @@ public class Scanner {
     }
 
     public void addUpdateNotifier(@NonNull UpdateNotifier updateNotifier) {
-        addUpdateNotifier(updateNotifier, StringUtils.EMPTY);
-    }
-
-    public void addUpdateNotifier(@NonNull UpdateNotifier updateNotifier, @NonNull String tag) {
-        String key = updateNotifier.getClass().getName() + tag;
+        String key = updateNotifier.getClass().getName();
         mainContext.getLogger().info(this, "register notifier: " + key);
         updateNotifiers.put(key, updateNotifier);
     }
@@ -79,4 +73,7 @@ public class Scanner {
         this.cache = cache;
     }
 
+    Map<String, UpdateNotifier> getUpdateNotifiers() {
+        return updateNotifiers;
+    }
 }
