@@ -93,11 +93,19 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                        android:text="@string/channel_short_name"
+                        android:textColor="@color/channel"
+                        android:textStyle="bold" />
+
+                    <TextView
                         android:id="@+id/channel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
-                        android:textColor="@color/channel"
+                        android:textColor="@color/channel_number"
                         android:textStyle="bold" />
 
                     <TextView

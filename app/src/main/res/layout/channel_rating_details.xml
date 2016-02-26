@@ -38,7 +38,7 @@
         android:layout_weight="1.75"
         android:paddingLeft="@dimen/list_view_item_horizontal_spacer"
         android:paddingRight="@dimen/list_view_item_horizontal_spacer"
-        android:textColor="@color/channel"
+        android:textColor="@color/channel_number"
         android:textStyle="bold"/>
 
     <TextView

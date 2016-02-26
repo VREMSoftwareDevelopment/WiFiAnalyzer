@@ -20,6 +20,7 @@
     <color name="connected_backround">#616161</color>
 
     <color name="channel">#9E9E9E</color>
+    <color name="channel_number">#607D8B</color>
     <color name="security">#669999</color>
     <color name="distance">#009688</color>
 
