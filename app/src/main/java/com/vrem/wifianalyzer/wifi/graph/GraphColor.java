@@ -36,7 +36,7 @@ enum GraphColor {
     GREY(0xFF9E9E9E, 0x339E9E9E),
     BLUE_GREY(0xFF607D8B, 0x33607D8B),
     // NOTE: Do NOT use the last two colors
-    BLUE(0xFF2196F3, 0x332196F3),
+    BLUE(0xFF2196F3, 0x662196F3),
     TRANSPARENT(0x009E9E9E, 0x009E9E9E);
 
     static int maxColor = GraphColor.values().length - 2;

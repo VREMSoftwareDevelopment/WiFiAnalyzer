@@ -39,31 +39,34 @@ class ChannelGraphView {
     private final Map<String, LineGraphSeries<DataPoint>> seriesMap;
     private final GraphViewUtils graphViewUtils;
 
-    private ChannelGraphView(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources, @NonNull WiFiBand wiFiBand, boolean scrollable, boolean evenOnly) {
+    private ChannelGraphView(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources, @NonNull WiFiBand wiFiBand) {
+        boolean options = WiFiBand.FIVE.equals(wiFiBand);
         this.wiFiBand = wiFiBand;
-        this.graphView = makeGraphView(graphViewBuilder, resources, scrollable, evenOnly);
+        this.graphView = makeGraphView(graphViewBuilder, resources, this.wiFiBand, options);
         this.seriesMap = new TreeMap<>();
         this.graphViewUtils = new GraphViewUtils(graphView, seriesMap);
-        addDefaultsSeries();
+        if (options) {
+            addDefaultsSeries(graphView, wiFiBand);
+        }
     }
 
     static ChannelGraphView make2(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources) {
-        return new ChannelGraphView(graphViewBuilder, resources, WiFiBand.TWO, false, false);
+        return new ChannelGraphView(graphViewBuilder, resources, WiFiBand.TWO);
     }
 
     static ChannelGraphView make5(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources) {
-        return new ChannelGraphView(graphViewBuilder, resources, WiFiBand.FIVE, true, true);
+        return new ChannelGraphView(graphViewBuilder, resources, WiFiBand.FIVE);
     }
 
-    private GraphView makeGraphView(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources, boolean scrollable, boolean evenOnly) {
+    private GraphView makeGraphView(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources, @NonNull WiFiBand wiFiBand, boolean options) {
         int minX = wiFiBand.getChannelFirst() - WiFiBand.CHANNEL_SPREAD;
         int maxX = minX + GraphViewBuilder.CNT_X - 1;
 
         return graphViewBuilder
-                .setLabelFormatter(new AxisLabel(wiFiBand.getChannelFirst(), wiFiBand.getChannelLast()).setEvenOnly(evenOnly))
+                .setLabelFormatter(new AxisLabel(wiFiBand.getChannelFirst(), wiFiBand.getChannelLast()).setEvenOnly(options))
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
-                .setScrollable(scrollable)
+                .setScrollable(options)
                 .setMinX(minX)
                 .setMaxX(maxX)
                 .build();
@@ -135,7 +138,7 @@ class ChannelGraphView {
         };
     }
 
-    private void addDefaultsSeries() {
+    private void addDefaultsSeries(@NonNull GraphView graphView, @NonNull WiFiBand wiFiBand) {
         int minValue = wiFiBand.getChannelFirst() - WiFiBand.CHANNEL_SPREAD;
         int maxValue = wiFiBand.getChannelLast() + WiFiBand.CHANNEL_SPREAD;
         if (maxValue % 2 != 0) {
