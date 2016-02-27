@@ -30,10 +30,9 @@ android {
         }
         def versionMajor = 1
         def versionMinor = 0
-        def versionPatch = Integer.parseInt(properties['version_patch'].toString()) + increment
-        def versionBuild = Integer.parseInt(properties['version_build'].toString()) + 1
-        def versionStore = Integer.parseInt(properties['version_store'].toString()) + increment
-
+        def versionPatch = properties['version_patch'].toString().toInteger() + increment
+        def versionBuild = properties['version_build'].toString().toInteger() + 1
+        def versionStore = properties['version_store'].toString().toInteger() + increment
         properties['version_patch'] = versionPatch.toString()
         properties['version_build'] = versionBuild.toString()
         properties['version_store'] = versionStore.toString()
