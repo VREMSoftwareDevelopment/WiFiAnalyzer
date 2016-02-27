@@ -18,22 +18,42 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 22
     buildToolsVersion "23.0.2"
+    def propertiesFilename = 'build.properties'
+    def propertiesFile = file(propertiesFilename)
+    if (propertiesFile.canRead()) {
+        def Properties properties = new Properties()
+        properties.load(new FileInputStream(propertiesFile))
+        def increment = 0
+        def taskNames = gradle.getStartParameter().getTaskNames()
+        if ('assemble' in taskNames || 'assembleRelease' in taskNames || 'aR' in taskNames) {
+            increment = 1;
+        }
+        def versionMajor = 1
+        def versionMinor = 0
+        def versionPatch = Integer.parseInt(properties['version_patch'].toString()) + increment
+        def versionBuild = Integer.parseInt(properties['version_build'].toString()) + 1
+        def versionStore = Integer.parseInt(properties['version_store'].toString()) + increment
 
-    defaultConfig {
-        applicationId "com.vrem.wifianalyzer"
-        minSdkVersion 22
-        targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        properties['version_patch'] = versionPatch.toString()
+        properties['version_build'] = versionBuild.toString()
+        properties['version_store'] = versionStore.toString()
+
+        properties.store(propertiesFile.newWriter(), null)
+
+        defaultConfig {
+            applicationId "com.vrem.wifianalyzer"
+            minSdkVersion 22
+            targetSdkVersion 22
+            versionCode versionStore
+            versionName "${versionMajor}.${versionMinor}.${versionPatch} (${versionBuild})"
+        }
+    } else {
+        throw new GradleException("Could not read " + propertiesFilename + " file!")
     }
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
         }
-    }
-    lintOptions {
-        abortOnError false
     }
     packagingOptions {
         exclude 'LICENSE.txt'

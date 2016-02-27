@@ -15,11 +15,13 @@
   -->
 
 <resources>
+    <!-- application start -->
     <string name="app_name">WiFi Analyzer</string>
     <string name="app_company_name">VREM Software Development</string>
     <string name="app_copyright">Copyright \u00A9 2015 - 2016</string>
     <string name="app_license_name">Licensed under the Apache License, Version 2.0</string>
     <string name="app_license_url">http://www.apache.org/licenses/LICENSE-2.0</string>
+    <!-- application end -->
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -49,7 +51,7 @@
     <string name="graph_time_axis_x">Scan Count</string>
     <string name="graph_axis_y">Signal Strength (dBm)</string>
 
-    <!-- Strings related to Settings -->
+    <!-- settings start -->
     <string name="wifi_band_title">WiFi Band</string>
     <string name="wifi_band_summary">%s</string>
     <string name="wifi_band_key">wifi_band</string>
@@ -76,5 +78,15 @@
     <string name="theme_summary">%s</string>
     <string name="theme_key">theme</string>
     <string name="theme_default">Dark</string>
-    <!-- Strings related to Settings -->
+    <!-- settings end -->
+
+    <!-- about start -->
+    <string name="about_libraries_title">Used Libraries:</string>
+    <string name="about_library_apache">Apache Commons</string>
+    <string name="about_library_apache_url">https://commons.apache.org</string>
+    <string name="about_library_graphview">Graph View</string>
+    <string name="about_library_graphview_url">http://www.android-graphview.org</string>
+    <string name="about_library_material">Material Design Icons</string>
+    <string name="about_library_material_url">https://design.google.com/icons</string>
+    <!-- about end -->
 </resources>
