@@ -45,6 +45,6 @@ public class GraphColorTest {
 
     @Test
     public void testGetBackground() throws Exception {
-        assertEquals(0x662196F3, GraphColor.BLUE.getBackground());
+        assertEquals(0x332196F3, GraphColor.BLUE.getBackground());
     }
 }

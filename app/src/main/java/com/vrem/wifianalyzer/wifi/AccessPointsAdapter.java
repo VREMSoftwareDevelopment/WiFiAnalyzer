@@ -146,7 +146,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
             if (wiFiData != null) {
                 connection = wiFiData.getConnection();
                 Settings settings = mainContext.getSettings();
-                wifiList = wiFiData.getWiFiList(settings.getWiFiBand(), settings.getGroupBy(), settings.getSortBy());
+                wifiList = wiFiData.getWiFiList(settings.getWiFiBand(), settings.getSortBy(), settings.getGroupBy());
             }
         }
 

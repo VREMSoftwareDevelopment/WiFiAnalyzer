@@ -181,7 +181,7 @@ public class WiFiDataTest {
         // execute
         fixture = new WiFiData(null, wifiInfo, null);
         // validate
-        assertTrue(fixture.getWiFiList(WiFiBand.TWO, GroupBy.SSID, SortBy.STRENGTH).isEmpty());
+        assertTrue(fixture.getWiFiList(WiFiBand.TWO, SortBy.STRENGTH, GroupBy.SSID).isEmpty());
     }
 
     @Test
@@ -189,7 +189,7 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null, null);
         // execute
-        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.FIVE, GroupBy.SSID, SortBy.STRENGTH);
+        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.FIVE, SortBy.STRENGTH, GroupBy.SSID);
         // validate
         assertTrue(actual.isEmpty());
     }
@@ -199,7 +199,7 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null, null);
         // execute
-        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.TWO, GroupBy.SSID, SortBy.STRENGTH);
+        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.TWO, SortBy.STRENGTH, GroupBy.SSID);
         // validate
         assertEquals(4, actual.size());
         assertEquals(scanResult2.SSID, actual.get(0).getSSID());
@@ -213,7 +213,7 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null, null);
         // execute
-        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.TWO, GroupBy.SSID, SortBy.STRENGTH);
+        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.TWO, SortBy.STRENGTH, GroupBy.SSID);
         // validate
         assertEquals(VENDOR_NAME + scanResult2.BSSID, actual.get(0).getVendorName());
         assertEquals(VENDOR_NAME + scanResult4.BSSID, actual.get(1).getVendorName());
@@ -228,7 +228,7 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null, null);
         // execute
-        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.TWO, GroupBy.SSID, SortBy.STRENGTH);
+        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.TWO, SortBy.STRENGTH, GroupBy.SSID);
         // validate
         WiFiDetails wiFiDetails = actual.get(0);
         List<WiFiDetails> children = wiFiDetails.getChildren();
@@ -261,7 +261,7 @@ public class WiFiDataTest {
         // setup
         fixture = new WiFiData(scanResults, null, configuredNetworks);
         // execute
-        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.TWO, GroupBy.SSID, SortBy.STRENGTH);
+        List<WiFiDetails> actual = fixture.getWiFiList(WiFiBand.TWO, SortBy.STRENGTH, GroupBy.SSID);
         // validate
         assertEquals(4, actual.size());
         assertFalse(actual.get(0).isConfiguredNetwork());

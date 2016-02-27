@@ -17,6 +17,8 @@
 package com.vrem.wifianalyzer.wifi.graph;
 
 enum GraphColor {
+    BLUE(0xFF2196F3, 0x332196F3),
+    BLUE_GREY(0xFF607D8B, 0x33607D8B),
     RED(0xFFF44336, 0x33F44336),
     PINK(0xFFE91E63, 0x33E91E63),
     PURPLE(0xFF9C27B0, 0x339C27B0),
@@ -34,12 +36,10 @@ enum GraphColor {
     DEEP_ORANGE(0xFFFF5722, 0x33FF5722),
     BROWN(0xFF795548, 0x33795548),
     GREY(0xFF9E9E9E, 0x339E9E9E),
-    BLUE_GREY(0xFF607D8B, 0x33607D8B),
-    // NOTE: Do NOT use the last two colors
-    BLUE(0xFF2196F3, 0x662196F3),
+    // NOTE: Do NOT use the last color
     TRANSPARENT(0x009E9E9E, 0x009E9E9E);
 
-    static int maxColor = GraphColor.values().length - 2;
+    static int maxColor = GraphColor.values().length - 1;
     private static int currentColor = -1;
     private final int primary;
     private final int background;

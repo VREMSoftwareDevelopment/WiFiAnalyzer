@@ -22,8 +22,8 @@ import android.support.annotation.NonNull;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
@@ -34,6 +34,8 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 class TimeGraphView {
+    private final MainContext mainContext = MainContext.INSTANCE;
+
     private final WiFiBand wiFiBand;
     private final GraphView graphView;
     private final Map<String, LineGraphSeries<DataPoint>> seriesMap;
@@ -67,28 +69,13 @@ class TimeGraphView {
 
     void update(@NonNull WiFiData wiFiData) {
         Set<String> newSeries = new TreeSet<>();
-        addConnection(wiFiData, newSeries);
-        addWiFiDetails(wiFiData, newSeries);
+        for (WiFiDetails wiFiDetails : wiFiData.getWiFiList(wiFiBand, mainContext.getSettings().getSortBy())) {
+            addData(newSeries, wiFiDetails);
+        }
         graphViewUtils.updateSeries(newSeries);
         graphViewUtils.updateLegend();
         graphViewUtils.setVisibility(wiFiBand);
         scanCount++;
-    }
-
-    private void addWiFiDetails(@NonNull WiFiData wiFiData, Set<String> newSeries) {
-        for (WiFiDetails wiFiDetails : wiFiData.getWiFiList(wiFiBand, SortBy.STRENGTH)) {
-            if (wiFiDetails.isConnected()) {
-                continue;
-            }
-            addData(newSeries, wiFiDetails);
-        }
-    }
-
-    private void addConnection(@NonNull WiFiData wiFiData, Set<String> newSeries) {
-        WiFiDetails connection = wiFiData.getConnection();
-        if (connection != null && wiFiBand.equals(connection.getWiFiBand())) {
-            addData(newSeries, connection);
-        }
     }
 
     private void addData(@NonNull Set<String> newSeries, @NonNull WiFiDetails wiFiDetails) {
@@ -105,13 +92,7 @@ class TimeGraphView {
     }
 
     private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetails wiFiDetails) {
-        if (wiFiDetails.isConnected()) {
-            series.setColor(GraphColor.BLUE.getPrimary());
-            series.setThickness(6);
-        } else {
-            series.setColor(GraphColor.findColor().getPrimary());
-            series.setThickness(2);
-        }
+        series.setColor(GraphColor.findColor().getPrimary());
         series.setDrawBackground(false);
         series.setTitle(wiFiDetails.getTitle() + " " + wiFiDetails.getChannel());
     }

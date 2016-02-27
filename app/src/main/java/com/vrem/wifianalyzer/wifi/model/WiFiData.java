@@ -50,7 +50,7 @@ public class WiFiData {
     @NonNull
     public Map<Integer, List<WiFiDetails>> getWiFiChannels(@NonNull WiFiBand wiFiBand) {
         Map<Integer, List<WiFiDetails>> results = new TreeMap<>();
-        List<WiFiDetails> wifiList = getWiFiList(wiFiBand, GroupBy.CHANNEL, SortBy.STRENGTH);
+        List<WiFiDetails> wifiList = getWiFiList(wiFiBand, SortBy.STRENGTH, GroupBy.CHANNEL);
         for (WiFiDetails wiFiDetails : wifiList) {
             List<WiFiDetails> details = new ArrayList<>();
             details.add(wiFiDetails);
@@ -76,20 +76,27 @@ public class WiFiData {
 
     @NonNull
     public List<WiFiDetails> getWiFiList(@NonNull WiFiBand wiFiBand, @NonNull SortBy sortBy) {
-        return getWiFiList(wiFiBand, GroupBy.NONE, sortBy);
+        return getWiFiList(wiFiBand, sortBy, GroupBy.NONE);
     }
 
     @NonNull
-    public List<WiFiDetails> getWiFiList(@NonNull WiFiBand wiFiBand, @NonNull GroupBy groupBy, @NonNull SortBy sortBy) {
-        return hasData() ? groupWiFiList(groupBy, sortBy, buildWiFiList(wiFiBand)) : new ArrayList<WiFiDetails>();
+    public List<WiFiDetails> getWiFiList(@NonNull WiFiBand wiFiBand, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
+        if (hasData()) {
+            List<WiFiDetails> wiFiDetails = buildWiFiList(wiFiBand);
+            return groupWiFiList(wiFiDetails, sortBy, groupBy);
+        }
+        return new ArrayList<>();
     }
 
     private boolean hasData() {
         return scanResults != null && !scanResults.isEmpty();
     }
 
-    private List<WiFiDetails> groupWiFiList(@NonNull GroupBy groupBy, @NonNull SortBy sortBy, @NonNull List<WiFiDetails> wifiList) {
+    private List<WiFiDetails> groupWiFiList(@NonNull List<WiFiDetails> wifiList, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
         List<WiFiDetails> results = new ArrayList<>();
+        if (wifiList.isEmpty()) {
+            return results;
+        }
         Collections.sort(wifiList, groupBy.sortOrder());
         WiFiDetails parent = null;
         for (WiFiDetails wiFiDetails : wifiList) {
