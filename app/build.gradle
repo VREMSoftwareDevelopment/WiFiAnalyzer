@@ -15,39 +15,17 @@
  */
 
 apply plugin: 'com.android.application'
+
 android {
+    def version = updateVersion();
     compileSdkVersion 22
     buildToolsVersion "23.0.2"
-    def propertiesFilename = 'build.properties'
-    def propertiesFile = file(propertiesFilename)
-    if (propertiesFile.canRead()) {
-        def Properties properties = new Properties()
-        properties.load(new FileInputStream(propertiesFile))
-        def increment = 0
-        def taskNames = gradle.getStartParameter().getTaskNames()
-        if ('assemble' in taskNames || 'assembleRelease' in taskNames || 'aR' in taskNames) {
-            increment = 1;
-        }
-        def versionMajor = 1
-        def versionMinor = 0
-        def versionPatch = properties['version_patch'].toString().toInteger() + increment
-        def versionBuild = properties['version_build'].toString().toInteger() + 1
-        def versionStore = properties['version_store'].toString().toInteger() + increment
-        properties['version_patch'] = versionPatch.toString()
-        properties['version_build'] = versionBuild.toString()
-        properties['version_store'] = versionStore.toString()
-
-        properties.store(propertiesFile.newWriter(), null)
-
-        defaultConfig {
-            applicationId "com.vrem.wifianalyzer"
-            minSdkVersion 22
-            targetSdkVersion 22
-            versionCode versionStore
-            versionName "${versionMajor}.${versionMinor}.${versionPatch} (${versionBuild})"
-        }
-    } else {
-        throw new GradleException("Could not read " + propertiesFilename + " file!")
+    defaultConfig {
+        applicationId "com.vrem.wifianalyzer"
+        minSdkVersion 22
+        targetSdkVersion 22
+        versionCode version.versionCode
+        versionName version.versionName
     }
     buildTypes {
         release {
@@ -58,6 +36,7 @@ android {
         exclude 'LICENSE.txt'
     }
 }
+
 dependencies {
     // Compile Build Dependencies
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -71,4 +50,39 @@ dependencies {
     testCompile 'org.powermock:powermock-api-mockito:1.6.4'
     testCompile 'com.googlecode.junit-toolbox:junit-toolbox:2.2'
     testCompile 'org.robolectric:robolectric:3.1-SNAPSHOT'
+}
+
+class Version {
+    int versionCode
+    String versionName
+}
+
+def Version updateVersion() {
+    def propertiesFilename = 'build.properties'
+    def propertiesFile = file(propertiesFilename)
+    if (propertiesFile.canRead()) {
+        def Properties properties = new Properties()
+        properties.load(new FileInputStream(propertiesFile))
+        def versionMajor = properties['version_major'].toString().toInteger()
+        def versionMinor = properties['version_minor'].toString().toInteger()
+        def versionPatch = properties['version_patch'].toString().toInteger()
+        def versionBuild = properties['version_build'].toString().toInteger()
+        def versionStore = properties['version_store'].toString().toInteger()
+
+        def taskNames = gradle.getStartParameter().getTaskNames()
+        if ('assemble' in taskNames || 'assembleRelease' in taskNames || 'aR' in taskNames) {
+            versionPatch++
+            versionStore++
+            properties['version_patch'] = versionPatch.toString()
+            properties['version_store'] = versionStore.toString()
+        }
+        versionBuild++
+        properties['version_build'] = versionBuild.toString()
+        properties.store(propertiesFile.newWriter(), "Build Properties")
+
+        def versionName = "${versionMajor}.${versionMinor}.${versionPatch} (${versionBuild})"
+        return new Version(versionCode: versionStore, versionName: versionName)
+    } else {
+        throw new GradleException("Could not read " + propertiesFilename + " file!")
+    }
 }
