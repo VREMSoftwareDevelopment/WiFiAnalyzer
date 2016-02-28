@@ -7,6 +7,5 @@ Android application to analyze WiFi signals.
 - Install Android Studio (Current Version 1.5.1)
 - Import project into Android Studio
   - In Welcome to Android Studio Screen select Import project ...
-  - In Android Studio, go to File -> New -> Import project ...
-	- Select the root directory of the WifiAnalyzer repository and click "OK".
+  - Select the root directory of the WifiAnalyzer repository and click "OK".
 - WifiAnalyzer will be build automatically
