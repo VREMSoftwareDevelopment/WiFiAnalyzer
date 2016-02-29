@@ -39,8 +39,7 @@ enum GraphColor {
     // NOTE: Do NOT use the last color
     TRANSPARENT(0x009E9E9E, 0x009E9E9E);
 
-    static int maxColor = GraphColor.values().length - 1;
-    private static int currentColor = -1;
+    static int MAX_COLOR = GraphColor.values().length - 1;
     private final int primary;
     private final int background;
 
@@ -49,12 +48,15 @@ enum GraphColor {
         this.background = background;
     }
 
-    static GraphColor findColor() {
-        currentColor++;
-        if (currentColor >= maxColor) {
-            currentColor = 0;
+    static GraphColor findColor(GraphColor currentGraphColor) {
+        int colorIndex = 0;
+        if (currentGraphColor != null) {
+            colorIndex = currentGraphColor.ordinal() + 1;
+            if (colorIndex >= MAX_COLOR) {
+                colorIndex = 0;
+            }
         }
-        return GraphColor.values()[currentColor];
+        return GraphColor.values()[colorIndex];
     }
 
     int getPrimary() {

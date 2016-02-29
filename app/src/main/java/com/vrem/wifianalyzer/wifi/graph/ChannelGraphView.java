@@ -40,6 +40,7 @@ class ChannelGraphView {
     private final GraphView graphView;
     private final Map<String, LineGraphSeries<DataPoint>> seriesMap;
     private final GraphViewUtils graphViewUtils;
+    private GraphColor currentGraphColor;
 
     private ChannelGraphView(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources, @NonNull WiFiBand wiFiBand) {
         boolean options = WiFiBand.FIVE.equals(wiFiBand);
@@ -47,6 +48,7 @@ class ChannelGraphView {
         this.graphView = makeGraphView(graphViewBuilder, resources, this.wiFiBand, options);
         this.seriesMap = new TreeMap<>();
         this.graphViewUtils = new GraphViewUtils(graphView, seriesMap);
+        this.currentGraphColor = null;
         if (options) {
             addDefaultsSeries(graphView, wiFiBand);
         }
@@ -99,9 +101,9 @@ class ChannelGraphView {
     }
 
     private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetails wiFiDetails) {
-        GraphColor graphColor = GraphColor.findColor();
-        series.setColor(graphColor.getPrimary());
-        series.setBackgroundColor(graphColor.getBackground());
+        currentGraphColor = GraphColor.findColor(currentGraphColor);
+        series.setColor(currentGraphColor.getPrimary());
+        series.setBackgroundColor(currentGraphColor.getBackground());
         series.setDrawBackground(true);
         series.setTitle(wiFiDetails.getTitle() + " " + wiFiDetails.getChannel());
     }

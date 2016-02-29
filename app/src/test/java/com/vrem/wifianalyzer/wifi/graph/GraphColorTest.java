@@ -28,14 +28,12 @@ public class GraphColorTest {
     }
 
     @Test
-    public void testFindColorWrapWhenMaxIsReached() throws Exception {
-        for (int i = 0; i < GraphColor.values().length; i++) {
-            if (i < GraphColor.maxColor) {
-                assertEquals(GraphColor.values()[i], GraphColor.findColor());
-            } else {
-                assertEquals(GraphColor.values()[i - GraphColor.maxColor], GraphColor.findColor());
-            }
-        }
+    public void testFindColor() throws Exception {
+        assertEquals(GraphColor.values()[0], GraphColor.findColor(null));
+        assertEquals(GraphColor.values()[1], GraphColor.findColor(GraphColor.values()[0]));
+        assertEquals(GraphColor.values()[2], GraphColor.findColor(GraphColor.values()[1]));
+        assertEquals(GraphColor.values()[GraphColor.MAX_COLOR - 1], GraphColor.findColor(GraphColor.values()[GraphColor.MAX_COLOR - 2]));
+        assertEquals(GraphColor.values()[0], GraphColor.findColor(GraphColor.values()[GraphColor.MAX_COLOR - 1]));
     }
 
     @Test
