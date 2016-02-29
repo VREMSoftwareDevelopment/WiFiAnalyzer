@@ -1,6 +1,14 @@
 # WiFi Analyzer
 
-Android application to analyze WiFi signals.
+Optimize WiFi network, by checking WiFi network status, WiFi signal strength and identify crowded WiFi channels.
+
+### Features:
+
+* Designed to run on Android
+* Access Points list
+* Channel signal strength graph
+* Access Point signal strength graph over time
+* Analyze WiFi networks to rate WiFi channels
 
 ### Clone project
   `git clone https://github.com/VREMSoftwareDevelopment/WifiAnalyzer.git`
