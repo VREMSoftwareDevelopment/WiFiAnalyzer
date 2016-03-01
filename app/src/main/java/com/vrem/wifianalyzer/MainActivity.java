@@ -32,7 +32,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
@@ -94,23 +93,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         mainContext.setWifiManager((WifiManager) context.getSystemService(Context.WIFI_SERVICE));
         mainContext.setLayoutInflater((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
         mainContext.setLogger(new Logger());
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.action_refresh:
-                mainContext.getScanner().update();
-                return true;
-            default:
-                return super.onOptionsItemSelected(menuItem);
-        }
     }
 
     @Override

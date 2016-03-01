@@ -26,7 +26,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_refresh">Refresh</string>
     <string name="action_access_points">Access Points</string>
     <string name="action_channel_rating">Channel Rating</string>
     <string name="action_channel_graph">Channel Graph</string>
