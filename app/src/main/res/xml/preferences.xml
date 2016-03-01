@@ -51,6 +51,15 @@
         android:title="@string/group_by_title" />
 
     <ListPreference
+        android:defaultValue="@string/graph_legend_default"
+        android:entries="@array/graph_legend_array"
+        android:entryValues="@array/graph_legend_array"
+        android:key="@string/graph_legend_key"
+        android:persistent="true"
+        android:summary="@string/graph_legend_summary"
+        android:title="@string/graph_legend_title" />
+
+    <ListPreference
         android:defaultValue="@string/theme_default"
         android:entries="@array/theme_array"
         android:entryValues="@array/theme_array"

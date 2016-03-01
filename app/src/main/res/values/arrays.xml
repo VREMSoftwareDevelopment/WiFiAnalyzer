@@ -34,6 +34,12 @@
         <item>Channel</item>
     </string-array>
 
+    <string-array name="graph_legend_array">
+        <item>Left</item>
+        <item>Right</item>
+        <item>Hide</item>
+    </string-array>
+
     <string-array name="theme_array">
         <item>Dark</item>
         <item>Light</item>

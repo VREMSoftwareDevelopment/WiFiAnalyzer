@@ -35,10 +35,12 @@ class GraphViewUtils {
     private final MainContext mainContext = MainContext.INSTANCE;
     private final GraphView graphView;
     private final Map<String, LineGraphSeries<DataPoint>> seriesMap;
+    private GraphLegend graphLegend;
 
     public GraphViewUtils(@NonNull GraphView graphView, @NonNull Map<String, LineGraphSeries<DataPoint>> seriesMap) {
         this.graphView = graphView;
         this.seriesMap = seriesMap;
+        this.graphLegend = mainContext.getSettings().getGraphLegend();
     }
 
     void updateSeries(@NonNull Set<String> newSeries) {
@@ -55,12 +57,33 @@ class GraphViewUtils {
     }
 
     void updateLegend() {
+        resetLegendRenderer();
         LegendRenderer legendRenderer = graphView.getLegendRenderer();
+        legendRenderer.setVisible(isVisible());
         legendRenderer.resetStyles();
-        legendRenderer.setVisible(true);
         legendRenderer.setWidth(0);
-        legendRenderer.setFixedPosition(0, 0);
+        positionLegend(legendRenderer);
         legendRenderer.setTextSize(legendRenderer.getTextSize() * 0.50f);
+    }
+
+    private void positionLegend(LegendRenderer legendRenderer) {
+        if (GraphLegend.RIGHT.equals(graphLegend)) {
+            legendRenderer.setAlign(LegendRenderer.LegendAlign.TOP);
+        } else if (GraphLegend.LEFT.equals(graphLegend)) {
+            legendRenderer.setFixedPosition(0, 0);
+        }
+    }
+
+    private boolean isVisible() {
+        return !GraphLegend.HIDE.equals(this.graphLegend);
+    }
+
+    private void resetLegendRenderer() {
+        if (!graphLegend.equals(mainContext.getSettings().getGraphLegend())) {
+            LegendRenderer legendRenderer = new LegendRenderer(graphView);
+            graphView.setLegendRenderer(legendRenderer);
+            graphLegend = mainContext.getSettings().getGraphLegend();
+        }
     }
 
     void setVisibility(@NonNull WiFiBand wiFiBand) {
