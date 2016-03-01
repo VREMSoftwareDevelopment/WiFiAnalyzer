@@ -25,6 +25,7 @@
     <color name="distance">#009688</color>
 
     <color name="icons_color">#9E9E9E</color>
+    <color name="error_color">#DD2C00</color>
     <color name="warning_color">#FFC107</color>
     <color name="success_color">#2E7D32</color>
 </resources>
