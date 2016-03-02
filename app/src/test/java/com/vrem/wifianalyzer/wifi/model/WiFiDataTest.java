@@ -33,7 +33,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -268,29 +267,6 @@ public class WiFiDataTest {
         assertFalse(actual.get(1).isConfiguredNetwork());
         assertFalse(actual.get(2).isConfiguredNetwork());
         assertTrue(actual.get(3).isConfiguredNetwork());
-    }
-
-    @Test
-    public void testGetWiFiChannelList() throws Exception {
-        // setup
-        fixture = new WiFiData(scanResults, null, null);
-        // execute
-        Map<Integer, List<WiFiDetails>> actual = fixture.getWiFiChannels(WiFiBand.TWO);
-        // validate
-        assertEquals(3, actual.size());
-        assertEquals(1, actual.get(WiFiBand.findChannelByFrequency(FREQUENCY1)).size());
-        assertEquals(4, actual.get(WiFiBand.findChannelByFrequency(FREQUENCY2)).size());
-        assertEquals(2, actual.get(WiFiBand.findChannelByFrequency(FREQUENCY3)).size());
-    }
-
-    @Test
-    public void testGetWiFiChannelListEmpty() throws Exception {
-        // setup
-        fixture = new WiFiData(scanResults, null, null);
-        // execute
-        Map<Integer, List<WiFiDetails>> actual = fixture.getWiFiChannels(WiFiBand.FIVE);
-        // validate
-        assertTrue(actual.isEmpty());
     }
 
     @Test

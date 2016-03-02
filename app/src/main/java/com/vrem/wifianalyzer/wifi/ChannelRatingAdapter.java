@@ -30,6 +30,7 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
+import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -59,7 +60,7 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
         clear();
         SortedSet<Integer> channels = wiFiBand.getChannels();
         addAll(channels);
-        channelRating.setWiFiChannels(wiFiData.getWiFiChannels(wiFiBand));
+        channelRating.setWiFiChannels(wiFiData.getWiFiList(wiFiBand, SortBy.STRENGTH));
         bestChannels(channels);
         notifyDataSetChanged();
     }

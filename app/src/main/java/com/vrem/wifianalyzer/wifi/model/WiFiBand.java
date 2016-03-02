@@ -25,8 +25,8 @@ public enum WiFiBand {
     TWO(2412, 2462, 2401, 2499, 1, 11, "2.4 GHz"),
     FIVE(5180, 5825, 5001, 5999, 36, 165, "5 GHz");
 
-    public static final int CHANNEL_FREQUENCY_SPREAD = 5;
-    public static final int CHANNEL_SPREAD = 2;
+    private static final int CHANNEL_FREQUENCY_SPREAD = 5;
+    private static final int CHANNEL_SPREAD = 2;
 
     private final int channelFrequencyStart;
     private final int channelFrequencyEnd;
@@ -99,8 +99,16 @@ public enum WiFiBand {
         return channelFirst;
     }
 
+    public int getChannelFirstHidden() {
+        return getChannelFirst() - CHANNEL_SPREAD;
+    }
+
     public int getChannelLast() {
         return channelLast;
+    }
+
+    public int getChannelLastHidden() {
+        return getChannelLast() + CHANNEL_SPREAD;
     }
 
     public String getBand() {

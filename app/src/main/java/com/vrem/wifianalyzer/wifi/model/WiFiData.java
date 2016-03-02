@@ -29,8 +29,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class WiFiData {
     private static final String QUOTE = "\"";
@@ -45,19 +43,6 @@ public class WiFiData {
         this.connectionInfo = connectionInfo;
         this.configuredNetworks = configuredNetworks;
         this.vendorService = MainContext.INSTANCE.getVendorService();
-    }
-
-    @NonNull
-    public Map<Integer, List<WiFiDetails>> getWiFiChannels(@NonNull WiFiBand wiFiBand) {
-        Map<Integer, List<WiFiDetails>> results = new TreeMap<>();
-        List<WiFiDetails> wifiList = getWiFiList(wiFiBand, SortBy.STRENGTH, GroupBy.CHANNEL);
-        for (WiFiDetails wiFiDetails : wifiList) {
-            List<WiFiDetails> details = new ArrayList<>();
-            details.add(wiFiDetails);
-            details.addAll(wiFiDetails.getChildren());
-            results.put(wiFiDetails.getChannel(), details);
-        }
-        return results;
     }
 
     public WiFiDetails getConnection() {

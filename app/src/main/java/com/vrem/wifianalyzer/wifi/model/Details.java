@@ -56,8 +56,28 @@ public class Details implements WiFiDetails {
     }
 
     @Override
+    public int getFrequencyStart() {
+        return getFrequency() - ChannelWidth.W20MHZ.getWidth() / 2;
+    }
+
+    @Override
+    public int getFrequencyEnd() {
+        return getFrequency() + ChannelWidth.W20MHZ.getWidth() / 2;
+    }
+
+    @Override
     public int getChannel() {
         return WiFiBand.findChannelByFrequency(getFrequency());
+    }
+
+    @Override
+    public int getChannelStart() {
+        return WiFiBand.findChannelByFrequency(getFrequencyStart());
+    }
+
+    @Override
+    public int getChannelEnd() {
+        return WiFiBand.findChannelByFrequency(getFrequencyEnd());
     }
 
     @Override

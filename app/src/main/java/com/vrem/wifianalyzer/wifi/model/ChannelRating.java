@@ -20,11 +20,9 @@ import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class ChannelRating {
-    private Map<Integer, List<WiFiDetails>> wifiChannels = new TreeMap<>();
+    private List<WiFiDetails> wiFiList = new ArrayList<>();
 
     public ChannelRating() {
     }
@@ -43,18 +41,17 @@ public class ChannelRating {
         return strength;
     }
 
-    public void setWiFiChannels(@NonNull Map<Integer, List<WiFiDetails>> wifiChannels) {
-        this.wifiChannels = wifiChannels;
+    public void setWiFiChannels(@NonNull List<WiFiDetails> wiFiList) {
+        this.wiFiList = wiFiList;
     }
 
     private List<WiFiDetails> collectOverlappingChannels(int channel) {
-        List<WiFiDetails> details = new ArrayList<>();
-        for (int i = channel - WiFiBand.CHANNEL_SPREAD; i <= channel + WiFiBand.CHANNEL_SPREAD; i++) {
-            List<WiFiDetails> wiFiDetails = wifiChannels.get(i);
-            if (wiFiDetails != null) {
-                details.addAll(wiFiDetails);
+        List<WiFiDetails> result = new ArrayList<>();
+        for (WiFiDetails wiFiDetails : wiFiList) {
+            if (channel >= wiFiDetails.getChannelStart() && channel <= wiFiDetails.getChannelEnd()) {
+                result.add(wiFiDetails);
             }
         }
-        return details;
+        return result;
     }
 }

@@ -25,8 +25,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.never;
@@ -61,20 +59,22 @@ public class ChannelRatingTest {
     @Test
     public void testGetCount() throws Exception {
         // setup
-        Map<Integer, List<WiFiDetails>> details = withDetails();
-        fixture.setWiFiChannels(details);
+        fixture.setWiFiChannels(withDetails());
+        expectedChannels();
         // execute & validate
-        assertEquals(details.get(CHANNEL).size(), fixture.getCount(CHANNEL));
+        assertEquals(3, fixture.getCount(CHANNEL));
+        verifyChannels();
     }
 
     @Test
     public void testGetStrength() throws Exception {
         // setup
-        Map<Integer, List<WiFiDetails>> details = withDetails();
-        fixture.setWiFiChannels(details);
+        fixture.setWiFiChannels(withDetails());
+        expectedChannels();
         expectedDetails();
         // execute & validate
         assertEquals(wiFiDetails3.getStrength(), fixture.getStrength(CHANNEL));
+        verifyChannels();
         verifyDetails();
     }
 
@@ -88,10 +88,17 @@ public class ChannelRatingTest {
         verify(wiFiDetails3, times(2)).getStrength();
     }
 
-    private Map<Integer, List<WiFiDetails>> withDetails() {
-        Map<Integer, List<WiFiDetails>> results = new TreeMap<>();
-        results.put(CHANNEL, new ArrayList<>(Arrays.asList(new WiFiDetails[]{wiFiDetails1, wiFiDetails2, wiFiDetails3})));
-        return results;
+    private void verifyChannels() {
+        verify(wiFiDetails1).getChannelStart();
+        verify(wiFiDetails1).getChannelEnd();
+        verify(wiFiDetails2).getChannelStart();
+        verify(wiFiDetails2).getChannelEnd();
+        verify(wiFiDetails3).getChannelStart();
+        verify(wiFiDetails3).getChannelEnd();
+    }
+
+    private List<WiFiDetails> withDetails() {
+        return new ArrayList<>(Arrays.asList(new WiFiDetails[]{wiFiDetails1, wiFiDetails2, wiFiDetails3}));
     }
 
     private void expectedDetails() {
@@ -102,6 +109,17 @@ public class ChannelRatingTest {
         when(wiFiDetails1.getStrength()).thenReturn(Strength.ONE);
         when(wiFiDetails2.getStrength()).thenReturn(Strength.FOUR);
         when(wiFiDetails3.getStrength()).thenReturn(Strength.THREE);
+    }
+
+    private void expectedChannels() {
+        when(wiFiDetails1.getChannelStart()).thenReturn(CHANNEL);
+        when(wiFiDetails1.getChannelEnd()).thenReturn(CHANNEL);
+
+        when(wiFiDetails2.getChannelStart()).thenReturn(CHANNEL);
+        when(wiFiDetails2.getChannelEnd()).thenReturn(CHANNEL);
+
+        when(wiFiDetails3.getChannelStart()).thenReturn(CHANNEL);
+        when(wiFiDetails3.getChannelEnd()).thenReturn(CHANNEL);
     }
 
 }

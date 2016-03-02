@@ -16,48 +16,20 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import java.util.List;
+enum ChannelWidth {
+    W20MHZ(20),
+    W40MHZ(40),
+    W80MHZ(80),
+    W160MHZ(160),
+    W80MHZ_80MHZ(160);
 
-public interface WiFiDetails {
-    String getTitle();
+    private final int width;
 
-    String getSSID();
+    ChannelWidth(int width) {
+        this.width = width;
+    }
 
-    String getBSSID();
-
-    int getFrequency();
-
-    int getFrequencyStart();
-
-    int getFrequencyEnd();
-
-    int getChannel();
-
-    int getChannelStart();
-
-    int getChannelEnd();
-
-    WiFiBand getWiFiBand();
-
-    Security getSecurity();
-
-    Strength getStrength();
-
-    int getLevel();
-
-    String getCapabilities();
-
-    double getDistance();
-
-    String getVendorName();
-
-    String getIPAddress();
-
-    boolean isConnected();
-
-    boolean isConfiguredNetwork();
-
-    List<WiFiDetails> getChildren();
-
-    void addChild(WiFiDetails wiFiDetails);
+    int getWidth() {
+        return width;
+    }
 }

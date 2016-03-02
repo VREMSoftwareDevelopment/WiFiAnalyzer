@@ -63,7 +63,7 @@ class ChannelGraphView {
     }
 
     private GraphView makeGraphView(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources, @NonNull WiFiBand wiFiBand, boolean options) {
-        int minX = wiFiBand.getChannelFirst() - WiFiBand.CHANNEL_SPREAD;
+        int minX = wiFiBand.getChannelFirstHidden();
         int maxX = minX + GraphViewBuilder.CNT_X - 1;
 
         return graphViewBuilder
@@ -110,25 +110,22 @@ class ChannelGraphView {
 
     private DataPoint[] createDataPoints(@NonNull WiFiDetails wiFiDetails) {
         int channel = wiFiDetails.getChannel();
+        int channelStart = wiFiDetails.getChannelStart();
+        int channelEnd = wiFiDetails.getChannelStart();
         int level = wiFiDetails.getLevel();
         return new DataPoint[]{
-                new DataPoint(channel - WiFiBand.CHANNEL_SPREAD, GraphViewBuilder.MIN_Y),
-                new DataPoint(channel - WiFiBand.CHANNEL_SPREAD / 2, level),
+                new DataPoint(channelStart, GraphViewBuilder.MIN_Y),
+                new DataPoint(channelStart + 1, level),
                 new DataPoint(channel, level),
-                new DataPoint(channel + WiFiBand.CHANNEL_SPREAD / 2, level),
-                new DataPoint(channel + WiFiBand.CHANNEL_SPREAD, GraphViewBuilder.MIN_Y)
+                new DataPoint(channelEnd - 1, level),
+                new DataPoint(channelEnd, GraphViewBuilder.MIN_Y)
         };
     }
 
     private void addDefaultsSeries(@NonNull GraphView graphView, @NonNull WiFiBand wiFiBand) {
-        int minValue = wiFiBand.getChannelFirst() - WiFiBand.CHANNEL_SPREAD;
-        int maxValue = wiFiBand.getChannelLast() + WiFiBand.CHANNEL_SPREAD;
-        if (maxValue % 2 != 0) {
-            maxValue++;
-        }
         DataPoint[] dataPoints = new DataPoint[]{
-                new DataPoint(minValue, GraphViewBuilder.MIN_Y),
-                new DataPoint(maxValue, GraphViewBuilder.MIN_Y)
+                new DataPoint(wiFiBand.getChannelFirstHidden(), GraphViewBuilder.MIN_Y),
+                new DataPoint(wiFiBand.getChannelLastHidden(), GraphViewBuilder.MIN_Y)
         };
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
