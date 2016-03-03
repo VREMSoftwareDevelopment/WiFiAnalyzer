@@ -108,7 +108,7 @@ public class WiFiData {
         for (ScanResult scanResult : scanResults) {
             String vendorName = vendorService.findVendorName(scanResult.BSSID);
             Details details = Details.makeScanResult(scanResult, vendorName, isConfiguredNetwork(scanResult));
-            if (details.getWiFiBand().equals(wiFiBand)) {
+            if (details.getWiFiFrequency().getWiFiBand().equals(wiFiBand)) {
                 if (details.equals(connection)) {
                     results.add(connection);
                 } else {

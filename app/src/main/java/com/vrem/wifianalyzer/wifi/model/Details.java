@@ -33,6 +33,7 @@ public class Details implements WiFiDetails {
     private final String ipAddress;
     private final boolean configuredNetwork;
     private final List<WiFiDetails> children;
+    private final WiFiFrequency wiFiFrequency;
 
     private Details(@NonNull ScanResult scanResult, @NonNull String vendorName, @NonNull String ipAddress, boolean configuredNetwork) {
         this.scanResult = scanResult;
@@ -40,6 +41,7 @@ public class Details implements WiFiDetails {
         this.ipAddress = ipAddress;
         this.configuredNetwork = configuredNetwork;
         this.children = new ArrayList<>();
+        this.wiFiFrequency = new Frequency(scanResult);
     }
 
     public static Details makeConnection(@NonNull ScanResult scanResult, @NonNull String vendorName, @NonNull String ipAddress) {
@@ -51,38 +53,8 @@ public class Details implements WiFiDetails {
     }
 
     @Override
-    public int getFrequency() {
-        return scanResult.frequency;
-    }
-
-    @Override
-    public int getFrequencyStart() {
-        return getFrequency() - ChannelWidth.W20MHZ.getWidth() / 2;
-    }
-
-    @Override
-    public int getFrequencyEnd() {
-        return getFrequency() + ChannelWidth.W20MHZ.getWidth() / 2;
-    }
-
-    @Override
-    public int getChannel() {
-        return WiFiBand.findChannelByFrequency(getFrequency());
-    }
-
-    @Override
-    public int getChannelStart() {
-        return WiFiBand.findChannelByFrequency(getFrequencyStart());
-    }
-
-    @Override
-    public int getChannelEnd() {
-        return WiFiBand.findChannelByFrequency(getFrequencyEnd());
-    }
-
-    @Override
-    public WiFiBand getWiFiBand() {
-        return WiFiBand.findByFrequency(getFrequency());
+    public WiFiFrequency getWiFiFrequency() {
+        return wiFiFrequency;
     }
 
     @Override
@@ -117,7 +89,7 @@ public class Details implements WiFiDetails {
 
     @Override
     public double getDistance() {
-        return Distance.calculate(getFrequency(), getLevel());
+        return Distance.calculate(getWiFiFrequency().getFrequency(), getLevel());
     }
 
     @Override

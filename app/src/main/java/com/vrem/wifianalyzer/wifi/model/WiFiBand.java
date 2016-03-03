@@ -22,10 +22,10 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 public enum WiFiBand {
-    TWO(2412, 2462, 2401, 2499, 1, 11, "2.4 GHz"),
-    FIVE(5180, 5825, 5001, 5999, 36, 165, "5 GHz");
+    GHZ_2(2412, 2462, 2401, 2499, 1, 11, "2.4 GHz"),
+    GHZ_5(5180, 5825, 5001, 5999, 36, 165, "5 GHz");
 
-    private static final int CHANNEL_FREQUENCY_SPREAD = 5;
+    static final int CHANNEL_FREQUENCY_SPREAD = 5;
     private static final int CHANNEL_SPREAD = 2;
 
     private final int channelFrequencyStart;
@@ -52,7 +52,7 @@ public enum WiFiBand {
                 return wiFiBand;
             }
         }
-        return WiFiBand.TWO;
+        return WiFiBand.GHZ_2;
     }
 
     public static int findChannelByFrequency(int value) {
@@ -65,7 +65,7 @@ public enum WiFiBand {
                 return wiFiBand;
             }
         }
-        return WiFiBand.TWO;
+        return WiFiBand.GHZ_2;
     }
 
     public boolean inRange(int value) {

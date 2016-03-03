@@ -53,11 +53,11 @@ class TimeGraphView {
     }
 
     static TimeGraphView make2(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources) {
-        return new TimeGraphView(graphViewBuilder, resources, WiFiBand.TWO);
+        return new TimeGraphView(graphViewBuilder, resources, WiFiBand.GHZ_2);
     }
 
     static TimeGraphView make5(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources) {
-        return new TimeGraphView(graphViewBuilder, resources, WiFiBand.FIVE);
+        return new TimeGraphView(graphViewBuilder, resources, WiFiBand.GHZ_5);
     }
 
     private GraphView makeGraphView(GraphViewBuilder graphViewBuilder, Resources resources) {
@@ -97,7 +97,7 @@ class TimeGraphView {
         currentGraphColor = GraphColor.findColor(currentGraphColor);
         series.setColor(currentGraphColor.getPrimary());
         series.setDrawBackground(false);
-        series.setTitle(wiFiDetails.getTitle() + " " + wiFiDetails.getChannel());
+        series.setTitle(wiFiDetails.getTitle() + " " + wiFiDetails.getWiFiFrequency().getChannel());
     }
 
 }

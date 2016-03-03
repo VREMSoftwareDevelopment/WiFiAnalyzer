@@ -27,6 +27,7 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.model.Details;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
+import com.vrem.wifianalyzer.wifi.model.WiFiFrequency;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -91,10 +92,11 @@ public class AccessPointsDetailsTest {
     }
 
     private void validateTextViewValues(@NonNull WiFiDetails wiFiDetails, @NonNull String ssid) {
+        WiFiFrequency wiFiFrequency = wiFiDetails.getWiFiFrequency();
         validateTextViewValue(ssid + " (" + wiFiDetails.getBSSID() + ")", R.id.ssid);
         validateTextViewValue(String.format("%ddBm", wiFiDetails.getLevel()), R.id.level);
-        validateTextViewValue(String.format("%d", wiFiDetails.getChannel()), R.id.channel);
-        validateTextViewValue(String.format("%dMHz", wiFiDetails.getFrequency()), R.id.frequency);
+        validateTextViewValue(String.format("%d", wiFiFrequency.getChannel()), R.id.channel);
+        validateTextViewValue(String.format("%dMHz", wiFiFrequency.getFrequency()), R.id.frequency);
         validateTextViewValue(String.format("%6.2fm", wiFiDetails.getDistance()), R.id.distance);
         validateTextViewValue(wiFiDetails.getCapabilities(), R.id.capabilities);
     }

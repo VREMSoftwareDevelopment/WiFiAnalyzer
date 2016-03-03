@@ -27,6 +27,7 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
+import com.vrem.wifianalyzer.wifi.model.WiFiFrequency;
 
 import java.util.Map;
 import java.util.Set;
@@ -43,7 +44,7 @@ class ChannelGraphView {
     private GraphColor currentGraphColor;
 
     private ChannelGraphView(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources, @NonNull WiFiBand wiFiBand) {
-        boolean options = WiFiBand.FIVE.equals(wiFiBand);
+        boolean options = WiFiBand.GHZ_5.equals(wiFiBand);
         this.wiFiBand = wiFiBand;
         this.graphView = makeGraphView(graphViewBuilder, resources, this.wiFiBand, options);
         this.seriesMap = new TreeMap<>();
@@ -55,11 +56,11 @@ class ChannelGraphView {
     }
 
     static ChannelGraphView make2(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources) {
-        return new ChannelGraphView(graphViewBuilder, resources, WiFiBand.TWO);
+        return new ChannelGraphView(graphViewBuilder, resources, WiFiBand.GHZ_2);
     }
 
     static ChannelGraphView make5(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources) {
-        return new ChannelGraphView(graphViewBuilder, resources, WiFiBand.FIVE);
+        return new ChannelGraphView(graphViewBuilder, resources, WiFiBand.GHZ_5);
     }
 
     private GraphView makeGraphView(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources, @NonNull WiFiBand wiFiBand, boolean options) {
@@ -105,13 +106,14 @@ class ChannelGraphView {
         series.setColor(currentGraphColor.getPrimary());
         series.setBackgroundColor(currentGraphColor.getBackground());
         series.setDrawBackground(true);
-        series.setTitle(wiFiDetails.getTitle() + " " + wiFiDetails.getChannel());
+        series.setTitle(wiFiDetails.getTitle() + " " + wiFiDetails.getWiFiFrequency().getChannel());
     }
 
     private DataPoint[] createDataPoints(@NonNull WiFiDetails wiFiDetails) {
-        int channel = wiFiDetails.getChannel();
-        int channelStart = wiFiDetails.getChannelStart();
-        int channelEnd = wiFiDetails.getChannelStart();
+        WiFiFrequency wiFiFrequency = wiFiDetails.getWiFiFrequency();
+        int channel = wiFiFrequency.getChannel();
+        int channelStart = wiFiFrequency.getChannelStart();
+        int channelEnd = wiFiFrequency.getChannelEnd();
         int level = wiFiDetails.getLevel();
         return new DataPoint[]{
                 new DataPoint(channelStart, GraphViewBuilder.MIN_Y),

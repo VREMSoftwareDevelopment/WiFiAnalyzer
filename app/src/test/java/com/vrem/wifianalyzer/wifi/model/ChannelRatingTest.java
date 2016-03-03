@@ -34,14 +34,17 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ChannelRatingTest {
-    private static final int CHANNEL = 1;
+    private static final int CHANNEL1 = 1;
+    private static final int CHANNEL2 = 2;
+    private static final int CHANNEL3 = 3;
 
-    @Mock
-    private WiFiDetails wiFiDetails1;
-    @Mock
-    private WiFiDetails wiFiDetails2;
-    @Mock
-    private WiFiDetails wiFiDetails3;
+    @Mock private WiFiDetails wiFiDetails1;
+    @Mock private WiFiDetails wiFiDetails2;
+    @Mock private WiFiDetails wiFiDetails3;
+
+    @Mock private WiFiFrequency wiFiFrequency1;
+    @Mock private WiFiFrequency wiFiFrequency2;
+    @Mock private WiFiFrequency wiFiFrequency3;
 
     private ChannelRating fixture;
 
@@ -52,17 +55,37 @@ public class ChannelRatingTest {
 
     @Test
     public void testChannelRating() throws Exception {
-        assertEquals(0, fixture.getCount(CHANNEL));
-        assertEquals(Strength.ZERO, fixture.getStrength(CHANNEL));
+        assertEquals(0, fixture.getCount(CHANNEL1));
+        assertEquals(Strength.ZERO, fixture.getStrength(CHANNEL1));
     }
 
     @Test
-    public void testGetCount() throws Exception {
+    public void testGetCountChannel1() throws Exception {
         // setup
         fixture.setWiFiChannels(withDetails());
         expectedChannels();
         // execute & validate
-        assertEquals(3, fixture.getCount(CHANNEL));
+        assertEquals(1, fixture.getCount(CHANNEL1));
+        verifyChannels();
+    }
+
+    @Test
+    public void testGetCountChannel2() throws Exception {
+        // setup
+        fixture.setWiFiChannels(withDetails());
+        expectedChannels();
+        // execute & validate
+        assertEquals(2, fixture.getCount(CHANNEL2));
+        verifyChannels();
+    }
+
+    @Test
+    public void testGetCountChannel3() throws Exception {
+        // setup
+        fixture.setWiFiChannels(withDetails());
+        expectedChannels();
+        // execute & validate
+        assertEquals(3, fixture.getCount(CHANNEL3));
         verifyChannels();
     }
 
@@ -73,7 +96,7 @@ public class ChannelRatingTest {
         expectedChannels();
         expectedDetails();
         // execute & validate
-        assertEquals(wiFiDetails3.getStrength(), fixture.getStrength(CHANNEL));
+        assertEquals(wiFiDetails3.getStrength(), fixture.getStrength(CHANNEL3));
         verifyChannels();
         verifyDetails();
     }
@@ -89,12 +112,9 @@ public class ChannelRatingTest {
     }
 
     private void verifyChannels() {
-        verify(wiFiDetails1).getChannelStart();
-        verify(wiFiDetails1).getChannelEnd();
-        verify(wiFiDetails2).getChannelStart();
-        verify(wiFiDetails2).getChannelEnd();
-        verify(wiFiDetails3).getChannelStart();
-        verify(wiFiDetails3).getChannelEnd();
+        verify(wiFiDetails1).getWiFiFrequency();
+        verify(wiFiDetails2).getWiFiFrequency();
+        verify(wiFiDetails3).getWiFiFrequency();
     }
 
     private List<WiFiDetails> withDetails() {
@@ -112,14 +132,18 @@ public class ChannelRatingTest {
     }
 
     private void expectedChannels() {
-        when(wiFiDetails1.getChannelStart()).thenReturn(CHANNEL);
-        when(wiFiDetails1.getChannelEnd()).thenReturn(CHANNEL);
+        when(wiFiDetails1.getWiFiFrequency()).thenReturn(wiFiFrequency1);
+        when(wiFiDetails2.getWiFiFrequency()).thenReturn(wiFiFrequency2);
+        when(wiFiDetails3.getWiFiFrequency()).thenReturn(wiFiFrequency3);
 
-        when(wiFiDetails2.getChannelStart()).thenReturn(CHANNEL);
-        when(wiFiDetails2.getChannelEnd()).thenReturn(CHANNEL);
+        when(wiFiFrequency1.getChannelStart()).thenReturn(CHANNEL1);
+        when(wiFiFrequency1.getChannelEnd()).thenReturn(CHANNEL3);
 
-        when(wiFiDetails3.getChannelStart()).thenReturn(CHANNEL);
-        when(wiFiDetails3.getChannelEnd()).thenReturn(CHANNEL);
+        when(wiFiFrequency2.getChannelStart()).thenReturn(CHANNEL2);
+        when(wiFiFrequency2.getChannelEnd()).thenReturn(CHANNEL3);
+
+        when(wiFiFrequency3.getChannelStart()).thenReturn(CHANNEL3);
+        when(wiFiFrequency3.getChannelEnd()).thenReturn(CHANNEL3);
     }
 
 }

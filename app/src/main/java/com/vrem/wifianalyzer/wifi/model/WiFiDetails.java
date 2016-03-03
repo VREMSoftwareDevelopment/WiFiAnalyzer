@@ -20,44 +20,18 @@ import java.util.List;
 
 public interface WiFiDetails {
     String getTitle();
-
     String getSSID();
-
     String getBSSID();
-
-    int getFrequency();
-
-    int getFrequencyStart();
-
-    int getFrequencyEnd();
-
-    int getChannel();
-
-    int getChannelStart();
-
-    int getChannelEnd();
-
-    WiFiBand getWiFiBand();
-
+    WiFiFrequency getWiFiFrequency();
     Security getSecurity();
-
     Strength getStrength();
-
     int getLevel();
-
     String getCapabilities();
-
     double getDistance();
-
     String getVendorName();
-
     String getIPAddress();
-
     boolean isConnected();
-
     boolean isConfiguredNetwork();
-
     List<WiFiDetails> getChildren();
-
     void addChild(WiFiDetails wiFiDetails);
 }

@@ -26,6 +26,7 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
+import com.vrem.wifianalyzer.wifi.model.WiFiFrequency;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -64,8 +65,9 @@ public class AccessPointsDetails {
         textLevel.setText(String.format("%ddBm", wiFiDetails.getLevel()));
         textLevel.setTextColor(resources.getColor(strength.colorResource()));
 
-        ((TextView) view.findViewById(R.id.channel)).setText(String.format("%d", wiFiDetails.getChannel()));
-        ((TextView) view.findViewById(R.id.frequency)).setText(String.format("%dMHz", wiFiDetails.getFrequency()));
+        WiFiFrequency wiFiFrequency = wiFiDetails.getWiFiFrequency();
+        ((TextView) view.findViewById(R.id.channel)).setText(String.format("%d", wiFiFrequency.getChannel()));
+        ((TextView) view.findViewById(R.id.frequency)).setText(String.format("%dMHz", wiFiFrequency.getFrequency()));
         ((TextView) view.findViewById(R.id.distance)).setText(String.format("%6.2fm", wiFiDetails.getDistance()));
         ((TextView) view.findViewById(R.id.capabilities)).setText(wiFiDetails.getCapabilities());
 

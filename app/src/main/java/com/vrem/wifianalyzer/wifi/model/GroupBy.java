@@ -82,7 +82,7 @@ public enum GroupBy {
         @Override
         public int compare(WiFiDetails lhs, WiFiDetails rhs) {
             return new CompareToBuilder()
-                    .append(lhs.getChannel(), rhs.getChannel())
+                    .append(lhs.getWiFiFrequency().getChannel(), rhs.getWiFiFrequency().getChannel())
                     .append(rhs.getLevel(), lhs.getLevel())
                     .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
                     .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
@@ -94,7 +94,7 @@ public enum GroupBy {
         @Override
         public int compare(WiFiDetails lhs, WiFiDetails rhs) {
             return new CompareToBuilder()
-                    .append(lhs.getChannel(), rhs.getChannel())
+                    .append(lhs.getWiFiFrequency().getChannel(), rhs.getWiFiFrequency().getChannel())
                     .toComparison();
         }
     }

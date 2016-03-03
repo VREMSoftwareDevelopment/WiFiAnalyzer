@@ -62,27 +62,6 @@ public class DetailsTest {
     }
 
     @Test
-    public void testGetFrequency() throws Exception {
-        // setup
-        scanResult.frequency = 2470;
-        // execute
-        int actual = fixture.getFrequency();
-        // validate
-        assertEquals(scanResult.frequency, actual);
-    }
-
-    @Test
-    public void testGetChannel() throws Exception {
-        // setup
-        int expected = 5;
-        scanResult.frequency = 2435;
-        // execute
-        int actual = fixture.getChannel();
-        // validate
-        assertEquals(expected, actual);
-    }
-
-    @Test
     public void testGetSecurity() throws Exception {
         // setup
         Security expected = Security.WPA;

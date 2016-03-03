@@ -16,20 +16,20 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-enum ChannelWidth {
-    W20MHZ(20),
-    W40MHZ(40),
-    W80MHZ(80),
-    W160MHZ(160),
-    W80MHZ_80MHZ(160);
+public interface WiFiFrequency {
+    int getFrequency();
 
-    private final int width;
+    int getFrequencyStart();
 
-    ChannelWidth(int width) {
-        this.width = width;
-    }
+    int getFrequencyEnd();
 
-    int getWidth() {
-        return width;
-    }
+    int getChannel();
+
+    int getChannelStart();
+
+    int getChannelEnd();
+
+    WiFiBand getWiFiBand();
+
+    WiFiWidth getWiFiWidth();
 }

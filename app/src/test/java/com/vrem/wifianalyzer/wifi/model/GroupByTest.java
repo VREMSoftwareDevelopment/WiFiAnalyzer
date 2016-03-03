@@ -30,10 +30,10 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GroupByTest {
-    @Mock
-    private WiFiDetails lhs;
-    @Mock
-    private WiFiDetails rhs;
+    @Mock private WiFiDetails lhsWiFiDetails;
+    @Mock private WiFiDetails rhsWiFiDetails;
+    @Mock private WiFiFrequency lhsWiFiFrequency;
+    @Mock private WiFiFrequency rhsWiFiFrequency;
 
     @Test
     public void testGroupByNumber() throws Exception {
@@ -74,10 +74,10 @@ public class GroupByTest {
     public void testNoneComparator() throws Exception {
         GroupBy.None comparator = new GroupBy.None();
 
-        assertEquals(0, comparator.compare(lhs, lhs));
-        assertEquals(0, comparator.compare(rhs, rhs));
-        assertEquals(1, comparator.compare(lhs, rhs));
-        assertEquals(1, comparator.compare(rhs, lhs));
+        assertEquals(0, comparator.compare(lhsWiFiDetails, lhsWiFiDetails));
+        assertEquals(0, comparator.compare(rhsWiFiDetails, rhsWiFiDetails));
+        assertEquals(1, comparator.compare(lhsWiFiDetails, rhsWiFiDetails));
+        assertEquals(1, comparator.compare(rhsWiFiDetails, lhsWiFiDetails));
     }
 
     @Test
@@ -86,60 +86,67 @@ public class GroupByTest {
         validateChannelGroupBy(-1, 0, 1);
         validateChannelGroupBy(1, 1, 0);
 
-        verify(lhs, times(3)).getChannel();
-        verify(rhs, times(3)).getChannel();
+        verify(lhsWiFiDetails, times(3)).getWiFiFrequency();
+        verify(rhsWiFiDetails, times(3)).getWiFiFrequency();
+        verify(lhsWiFiFrequency, times(3)).getChannel();
+        verify(rhsWiFiFrequency, times(3)).getChannel();
     }
 
     private void validateChannelGroupBy(int expected, int lhsValue, int rhsValue) {
         // setup
         GroupBy.ChannelGroupBy comparator = new GroupBy.ChannelGroupBy();
-        when(lhs.getChannel()).thenReturn(lhsValue);
-        when(rhs.getChannel()).thenReturn(rhsValue);
+        when(lhsWiFiDetails.getWiFiFrequency()).thenReturn(lhsWiFiFrequency);
+        when(rhsWiFiDetails.getWiFiFrequency()).thenReturn(rhsWiFiFrequency);
+        when(lhsWiFiFrequency.getChannel()).thenReturn(lhsValue);
+        when(rhsWiFiFrequency.getChannel()).thenReturn(rhsValue);
         // execute & validate
-        assertEquals(expected, comparator.compare(lhs, rhs));
+        assertEquals(expected, comparator.compare(lhsWiFiDetails, rhsWiFiDetails));
     }
 
     @Test
     public void testChannelSortOrderComparatorEquals() throws Exception {
         GroupBy.ChannelSortOrder comparator = new GroupBy.ChannelSortOrder();
-        withDetailsInfo(lhs, "BSSID");
-        withDetailsInfo(rhs, "BSSID");
+        withDetailsInfo(lhsWiFiDetails, rhsWiFiFrequency, "BSSID");
+        withDetailsInfo(rhsWiFiDetails, rhsWiFiFrequency, "BSSID");
         // execute & validate
-        assertEquals(0, comparator.compare(lhs, rhs));
-        verifyDetailsInfo(lhs);
-        verifyDetailsInfo(rhs);
-        verify(lhs).getChannel();
-        verify(rhs).getChannel();
+        assertEquals(0, comparator.compare(lhsWiFiDetails, rhsWiFiDetails));
+        verifyDetailsInfo(lhsWiFiDetails);
+        verifyDetailsInfo(rhsWiFiDetails);
+        verifyWiFiDetails();
+    }
+
+    private void verifyWiFiDetails() {
+        verify(lhsWiFiDetails).getWiFiFrequency();
+        verify(rhsWiFiDetails).getWiFiFrequency();
     }
 
     @Test
     public void testChannelSortOrderComparatorLess() throws Exception {
         GroupBy.ChannelSortOrder comparator = new GroupBy.ChannelSortOrder();
-        withDetailsInfo(lhs, "BSSID");
-        withDetailsInfo(rhs, "CSSID");
+        withDetailsInfo(lhsWiFiDetails, rhsWiFiFrequency, "BSSID");
+        withDetailsInfo(rhsWiFiDetails, rhsWiFiFrequency, "CSSID");
         // execute & validate
-        assertEquals(-1, comparator.compare(lhs, rhs));
-        verifyDetailsInfo(lhs);
-        verifyDetailsInfo(rhs);
-        verify(lhs).getChannel();
-        verify(rhs).getChannel();
+        assertEquals(-1, comparator.compare(lhsWiFiDetails, rhsWiFiDetails));
+        verifyDetailsInfo(lhsWiFiDetails);
+        verifyDetailsInfo(rhsWiFiDetails);
+        verifyWiFiDetails();
     }
 
     @Test
     public void testChannelSortOrderComparatorMore() throws Exception {
         GroupBy.ChannelSortOrder comparator = new GroupBy.ChannelSortOrder();
-        withDetailsInfo(lhs, "BSSID");
-        withDetailsInfo(rhs, "ASSID");
+        withDetailsInfo(lhsWiFiDetails, lhsWiFiFrequency, "BSSID");
+        withDetailsInfo(rhsWiFiDetails, rhsWiFiFrequency, "ASSID");
         // execute & validate
-        assertEquals(1, comparator.compare(lhs, rhs));
-        verifyDetailsInfo(lhs);
-        verifyDetailsInfo(rhs);
-        verify(lhs).getChannel();
-        verify(rhs).getChannel();
+        assertEquals(1, comparator.compare(lhsWiFiDetails, rhsWiFiDetails));
+        verifyDetailsInfo(lhsWiFiDetails);
+        verifyDetailsInfo(rhsWiFiDetails);
+        verifyWiFiDetails();
     }
 
-    private void withDetailsInfo(WiFiDetails wiFiDetails, String BSSID) {
-        when(wiFiDetails.getChannel()).thenReturn(0);
+    private void withDetailsInfo(WiFiDetails wiFiDetails, WiFiFrequency wiFiFrequency, String BSSID) {
+        when(wiFiDetails.getWiFiFrequency()).thenReturn(wiFiFrequency);
+        when(wiFiFrequency.getChannel()).thenReturn(0);
         when(wiFiDetails.getLevel()).thenReturn(0);
         when(wiFiDetails.getSSID()).thenReturn("SSID");
         when(wiFiDetails.getBSSID()).thenReturn(BSSID);
@@ -157,49 +164,49 @@ public class GroupByTest {
         validateSSIDGroupBy(-1, "B-SSID", "C-SSID");
         validateSSIDGroupBy(1, "B-SSID", "A-SSID");
 
-        verify(lhs, times(3)).getSSID();
-        verify(rhs, times(3)).getSSID();
+        verify(lhsWiFiDetails, times(3)).getSSID();
+        verify(rhsWiFiDetails, times(3)).getSSID();
     }
 
     private void validateSSIDGroupBy(int expected, String lhsValue, String rhsValue) {
         // setup
         GroupBy.SSIDGroupBy comparator = new GroupBy.SSIDGroupBy();
-        when(lhs.getSSID()).thenReturn(lhsValue);
-        when(rhs.getSSID()).thenReturn(rhsValue);
+        when(lhsWiFiDetails.getSSID()).thenReturn(lhsValue);
+        when(rhsWiFiDetails.getSSID()).thenReturn(rhsValue);
         // execute & validate
-        assertEquals(expected, comparator.compare(lhs, rhs));
+        assertEquals(expected, comparator.compare(lhsWiFiDetails, rhsWiFiDetails));
     }
 
     @Test
     public void testSSIDSortOrderComparatorEquals() throws Exception {
         GroupBy.SSIDSortOrder comparator = new GroupBy.SSIDSortOrder();
-        withDetailsInfo(lhs, "BSSID");
-        withDetailsInfo(rhs, "BSSID");
+        withDetailsInfo(lhsWiFiDetails, rhsWiFiFrequency, "BSSID");
+        withDetailsInfo(rhsWiFiDetails, rhsWiFiFrequency, "BSSID");
         // execute & validate
-        assertEquals(0, comparator.compare(lhs, rhs));
-        verifyDetailsInfo(lhs);
-        verifyDetailsInfo(rhs);
+        assertEquals(0, comparator.compare(lhsWiFiDetails, rhsWiFiDetails));
+        verifyDetailsInfo(lhsWiFiDetails);
+        verifyDetailsInfo(rhsWiFiDetails);
     }
 
     @Test
     public void testSSIDSortOrderComparatorLess() throws Exception {
         GroupBy.SSIDSortOrder comparator = new GroupBy.SSIDSortOrder();
-        withDetailsInfo(lhs, "BSSID");
-        withDetailsInfo(rhs, "CSSID");
+        withDetailsInfo(lhsWiFiDetails, rhsWiFiFrequency, "BSSID");
+        withDetailsInfo(rhsWiFiDetails, rhsWiFiFrequency, "CSSID");
         // execute & validate
-        assertEquals(-1, comparator.compare(lhs, rhs));
-        verifyDetailsInfo(lhs);
-        verifyDetailsInfo(rhs);
+        assertEquals(-1, comparator.compare(lhsWiFiDetails, rhsWiFiDetails));
+        verifyDetailsInfo(lhsWiFiDetails);
+        verifyDetailsInfo(rhsWiFiDetails);
     }
 
     @Test
     public void testSSIDSortOrderComparatorMore() throws Exception {
         GroupBy.SSIDSortOrder comparator = new GroupBy.SSIDSortOrder();
-        withDetailsInfo(lhs, "BSSID");
-        withDetailsInfo(rhs, "ASSID");
+        withDetailsInfo(lhsWiFiDetails, rhsWiFiFrequency, "BSSID");
+        withDetailsInfo(rhsWiFiDetails, rhsWiFiFrequency, "ASSID");
         // execute & validate
-        assertEquals(1, comparator.compare(lhs, rhs));
-        verifyDetailsInfo(lhs);
-        verifyDetailsInfo(rhs);
+        assertEquals(1, comparator.compare(lhsWiFiDetails, rhsWiFiDetails));
+        verifyDetailsInfo(lhsWiFiDetails);
+        verifyDetailsInfo(rhsWiFiDetails);
     }
 }
