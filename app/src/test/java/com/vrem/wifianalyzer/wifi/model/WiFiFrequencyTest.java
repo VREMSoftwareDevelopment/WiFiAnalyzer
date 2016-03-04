@@ -25,6 +25,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WiFiFrequencyTest {
@@ -81,4 +82,20 @@ public class WiFiFrequencyTest {
         assertEquals(CHANNEL + WiFiWidth.MHZ_20.getChannelWidthHalf(), fixture.getChannelEnd());
     }
 
+    @Test
+    public void testEquals() throws Exception {
+        // setup
+        WiFiFrequency other = new WiFiFrequency(FREQUENCY);
+        // execute & validate
+        assertEquals(fixture, other);
+        assertNotSame(fixture, other);
+    }
+
+    @Test
+    public void testHashCode() throws Exception {
+        // setup
+        WiFiFrequency other = new WiFiFrequency(FREQUENCY);
+        // execute & validate
+        assertEquals(fixture.hashCode(), other.hashCode());
+    }
 }

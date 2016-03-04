@@ -159,7 +159,6 @@ public class DetailsTest {
         scanResult.BSSID = "getBSSID";
         Details other = Details.makeScanResult(scanResult, VENDOR_NAME, false);
         // execute & validate
-        // validate
         assertEquals(fixture, other);
         assertNotSame(fixture, other);
     }

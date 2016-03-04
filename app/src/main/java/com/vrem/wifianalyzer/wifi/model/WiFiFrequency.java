@@ -19,6 +19,10 @@ package com.vrem.wifianalyzer.wifi.model;
 import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class WiFiFrequency {
     private final int frequency;
     private final WiFiWidth wiFiWidth;
@@ -69,4 +73,32 @@ public class WiFiFrequency {
     public WiFiWidth getWiFiWidth() {
         return wiFiWidth;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        return new EqualsBuilder()
+                .append(getFrequency(), ((WiFiFrequency) other).getFrequency())
+                .append(getWiFiWidth(), ((WiFiFrequency) other).getWiFiWidth())
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(getFrequency())
+                .append(getWiFiWidth())
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
+
 }
