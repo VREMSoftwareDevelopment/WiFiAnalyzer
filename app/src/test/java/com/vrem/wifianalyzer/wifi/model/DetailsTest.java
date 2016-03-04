@@ -38,14 +38,15 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(WifiManager.class)
 public class DetailsTest {
+    public static final int FREQUENCY = 2414;
     private static final String VENDOR_NAME = "VendorName";
-
     @Mock private ScanResult scanResult;
 
     private Details fixture;
 
     @Before
     public void setUp() throws Exception {
+        scanResult.frequency = FREQUENCY;
         fixture = Details.makeScanResult(scanResult, VENDOR_NAME, false);
     }
 
@@ -129,7 +130,6 @@ public class DetailsTest {
     @Test
     public void testGetDistance() throws Exception {
         // setup
-        scanResult.frequency = 2414;
         scanResult.level = -50;
         double expected = Distance.calculate(scanResult.frequency, scanResult.level);
         // execute

@@ -16,20 +16,57 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-public interface WiFiFrequency {
-    int getFrequency();
+import android.net.wifi.ScanResult;
+import android.support.annotation.NonNull;
 
-    int getFrequencyStart();
+public class WiFiFrequency {
+    private final int frequency;
+    private final WiFiWidth wiFiWidth;
+    private final WiFiBand wiFiBand;
 
-    int getFrequencyEnd();
+    public WiFiFrequency(@NonNull ScanResult scanResult) {
+        this(scanResult.frequency);
+    }
 
-    int getChannel();
+    public WiFiFrequency(int frequency) {
+        this(frequency, WiFiWidth.MHZ_20);
+    }
 
-    int getChannelStart();
+    public WiFiFrequency(int frequency, @NonNull WiFiWidth wiFiWidth) {
+        this.frequency = frequency;
+        this.wiFiWidth = wiFiWidth;
+        this.wiFiBand = WiFiBand.findByFrequency(frequency);
+    }
 
-    int getChannelEnd();
+    public int getFrequency() {
+        return frequency;
+    }
 
-    WiFiBand getWiFiBand();
+    public int getFrequencyStart() {
+        return getFrequency() - getWiFiWidth().getFrequencyWidthHalf();
+    }
 
-    WiFiWidth getWiFiWidth();
+    public int getFrequencyEnd() {
+        return getFrequency() + getWiFiWidth().getFrequencyWidthHalf();
+    }
+
+    public int getChannel() {
+        return WiFiBand.findChannelByFrequency(getFrequency());
+    }
+
+    public int getChannelStart() {
+        return getChannel() - getWiFiWidth().getChannelWidthHalf();
+    }
+
+    public int getChannelEnd() {
+        return getChannel() + getWiFiWidth().getChannelWidthHalf();
+    }
+
+    public WiFiBand getWiFiBand() {
+        return wiFiBand;
+    }
+
+    public WiFiWidth getWiFiWidth() {
+        return wiFiWidth;
+    }
 }

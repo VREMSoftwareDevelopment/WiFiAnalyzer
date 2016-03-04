@@ -41,7 +41,7 @@ public class Details implements WiFiDetails {
         this.ipAddress = ipAddress;
         this.configuredNetwork = configuredNetwork;
         this.children = new ArrayList<>();
-        this.wiFiFrequency = new Frequency(scanResult);
+        this.wiFiFrequency = new WiFiFrequency(scanResult);
     }
 
     public static Details makeConnection(@NonNull ScanResult scanResult, @NonNull String vendorName, @NonNull String ipAddress) {
