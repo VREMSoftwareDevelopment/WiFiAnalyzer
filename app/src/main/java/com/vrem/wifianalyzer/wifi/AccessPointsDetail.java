@@ -82,7 +82,6 @@ public class AccessPointsDetail {
 
         if (child) {
             view.findViewById(R.id.tab).setVisibility(View.VISIBLE);
-            view.setBackgroundColor(resources.getColor(R.color.shadow_mid_color));
         } else {
             view.findViewById(R.id.tab).setVisibility(View.GONE);
         }
