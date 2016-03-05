@@ -32,9 +32,6 @@ public final class WiFiUtils {
     private static final int MAX_RSSI = -55;
     private static final String QUOTE = "\"";
 
-    private WiFiUtils() {
-    }
-
     public static double calculateDistance(int frequency, int level) {
         return Math.pow(10.0, (DISTANCE_MHZ_M - (20 * Math.log10(frequency)) + Math.abs(level)) / 20.0);
     }

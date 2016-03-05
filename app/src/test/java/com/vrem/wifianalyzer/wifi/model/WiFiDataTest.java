@@ -16,6 +16,8 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
+import android.support.annotation.NonNull;
+
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 
@@ -32,6 +34,7 @@ import java.util.List;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -170,6 +173,15 @@ public class WiFiDataTest {
 
     @Test
     public void testGetWiFiDetails() throws Exception {
+        // setup
+        fixture = new WiFiData(wiFiDetails, wiFiConnection, wiFiConfigurations) {
+            @NonNull
+            @Override
+            List<WiFiDetail> getWiFiDetails(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
+                fail("Should not apply grouping");
+                return null;
+            }
+        };
         // execute
         List<WiFiDetail> actual = fixture.getWiFiDetails(WiFiBand.GHZ_2, SortBy.SSID);
         // validate

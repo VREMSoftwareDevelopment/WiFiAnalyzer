@@ -52,19 +52,22 @@ public class WiFiData {
 
     @NonNull
     public List<WiFiDetail> getWiFiDetails(@NonNull WiFiBand wiFiBand, @NonNull SortBy sortBy) {
-        return Collections.unmodifiableList(getWiFiDetails(wiFiBand, sortBy, GroupBy.NONE));
+        return getWiFiDetails(wiFiBand, sortBy, GroupBy.NONE);
     }
 
     @NonNull
     public List<WiFiDetail> getWiFiDetails(@NonNull WiFiBand wiFiBand, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
-        return Collections.unmodifiableList(groupWiFiDetails(buildWiFiDetails(wiFiBand), sortBy, groupBy));
+        List<WiFiDetail> results = getWiFiDetails(wiFiBand);
+        if (!results.isEmpty() && !GroupBy.NONE.equals(groupBy)) {
+            results = getWiFiDetails(results, sortBy, groupBy);
+        }
+        Collections.sort(results, sortBy.comparator());
+        return Collections.unmodifiableList(results);
     }
 
-    private List<WiFiDetail> groupWiFiDetails(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
+    @NonNull
+    List<WiFiDetail> getWiFiDetails(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
         List<WiFiDetail> results = new ArrayList<>();
-        if (wiFiDetails.isEmpty()) {
-            return results;
-        }
         Collections.sort(wiFiDetails, groupBy.sortOrder());
         WiFiDetail parent = null;
         for (WiFiDetail wiFiDetail : wiFiDetails) {
@@ -85,7 +88,8 @@ public class WiFiData {
         return results;
     }
 
-    private List<WiFiDetail> buildWiFiDetails(@NonNull WiFiBand wiFiBand) {
+    @NonNull
+    List<WiFiDetail> getWiFiDetails(@NonNull WiFiBand wiFiBand) {
         List<WiFiDetail> results = new ArrayList<>();
         WiFiDetail connection = getConnection();
         for (WiFiDetail wiFiDetail : wiFiDetails) {
@@ -103,14 +107,17 @@ public class WiFiData {
         return results;
     }
 
+    @NonNull
     public List<WiFiDetail> getWiFiDetails() {
         return Collections.unmodifiableList(wiFiDetails);
     }
 
+    @NonNull
     public List<String> getWiFiConfigurations() {
         return Collections.unmodifiableList(wiFiConfigurations);
     }
 
+    @NonNull
     public WiFiConnection getWiFiConnection() {
         return wiFiConnection;
     }
