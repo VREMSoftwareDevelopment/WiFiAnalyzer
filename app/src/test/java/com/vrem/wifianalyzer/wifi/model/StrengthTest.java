@@ -16,25 +16,14 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.net.wifi.WifiManager;
-
 import com.vrem.wifianalyzer.R;
 
-import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.verifyStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(WifiManager.class)
 public class StrengthTest {
 
     @Test
@@ -44,7 +33,7 @@ public class StrengthTest {
 
     @Test
     public void testImageResource() throws Exception {
-        Assert.assertEquals(R.drawable.ic_signal_wifi_0_bar_black_48dp, Strength.ZERO.imageResource());
+        assertEquals(R.drawable.ic_signal_wifi_0_bar_black_48dp, Strength.ZERO.imageResource());
         assertEquals(R.drawable.ic_signal_wifi_1_bar_black_48dp, Strength.ONE.imageResource());
         assertEquals(R.drawable.ic_signal_wifi_2_bar_black_48dp, Strength.TWO.imageResource());
         assertEquals(R.drawable.ic_signal_wifi_3_bar_black_48dp, Strength.THREE.imageResource());
@@ -70,17 +59,20 @@ public class StrengthTest {
     }
 
     @Test
-    public void testFind() throws Exception {
-        // setup
-        int value = -55;
-        Strength expected = Strength.TWO;
-        mockStatic(WifiManager.class);
-        when(WifiManager.calculateSignalLevel(value, Strength.values().length)).thenReturn(expected.ordinal());
-        // execute
-        Strength actual = Strength.calculate(value);
-        // validate
-        assertEquals(expected, actual);
-        verifyStatic();
+    public void testCalculate() throws Exception {
+        assertEquals(Strength.ZERO, Strength.calculate(-89));
+
+        assertEquals(Strength.ONE, Strength.calculate(-88));
+        assertEquals(Strength.ONE, Strength.calculate(-78));
+
+        assertEquals(Strength.TWO, Strength.calculate(-77));
+        assertEquals(Strength.TWO, Strength.calculate(-67));
+
+        assertEquals(Strength.THREE, Strength.calculate(-66));
+        assertEquals(Strength.THREE, Strength.calculate(-56));
+
+        assertEquals(Strength.FOUR, Strength.calculate(-55));
+        assertEquals(Strength.FOUR, Strength.calculate(0));
     }
 
     @Test

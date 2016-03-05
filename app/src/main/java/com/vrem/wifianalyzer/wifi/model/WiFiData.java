@@ -45,14 +45,14 @@ public class WiFiData {
         this.vendorService = MainContext.INSTANCE.getVendorService();
     }
 
-    public WiFiDetails getConnection() {
+    public WiFiDetail getConnection() {
         if (hasData()) {
             Connection connection = new Connection(connectionInfo);
             for (ScanResult scanResult : scanResults) {
                 if (connection.matches(scanResult)) {
                     String ipAddress = connection.getIPAddress();
                     String vendorName = vendorService.findVendorName(scanResult.BSSID);
-                    return Details.makeConnection(scanResult, vendorName, ipAddress);
+                    return new WiFiDetail(scanResult, new WiFiAdditional(vendorName, ipAddress));
                 }
             }
         }
@@ -60,15 +60,15 @@ public class WiFiData {
     }
 
     @NonNull
-    public List<WiFiDetails> getWiFiList(@NonNull WiFiBand wiFiBand, @NonNull SortBy sortBy) {
-        return getWiFiList(wiFiBand, sortBy, GroupBy.NONE);
+    public List<WiFiDetail> getWiFiDetails(@NonNull WiFiBand wiFiBand, @NonNull SortBy sortBy) {
+        return getWiFiDetails(wiFiBand, sortBy, GroupBy.NONE);
     }
 
     @NonNull
-    public List<WiFiDetails> getWiFiList(@NonNull WiFiBand wiFiBand, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
+    public List<WiFiDetail> getWiFiDetails(@NonNull WiFiBand wiFiBand, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
         if (hasData()) {
-            List<WiFiDetails> wiFiDetails = buildWiFiList(wiFiBand);
-            return groupWiFiList(wiFiDetails, sortBy, groupBy);
+            List<WiFiDetail> wiFiDetails = buildWiFiDetails(wiFiBand);
+            return groupWiFiDetails(wiFiDetails, sortBy, groupBy);
         }
         return new ArrayList<>();
     }
@@ -77,22 +77,22 @@ public class WiFiData {
         return scanResults != null && !scanResults.isEmpty();
     }
 
-    private List<WiFiDetails> groupWiFiList(@NonNull List<WiFiDetails> wifiList, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
-        List<WiFiDetails> results = new ArrayList<>();
-        if (wifiList.isEmpty()) {
+    private List<WiFiDetail> groupWiFiDetails(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
+        List<WiFiDetail> results = new ArrayList<>();
+        if (wiFiDetails.isEmpty()) {
             return results;
         }
-        Collections.sort(wifiList, groupBy.sortOrder());
-        WiFiDetails parent = null;
-        for (WiFiDetails wiFiDetails : wifiList) {
-            if (parent == null || groupBy.groupBy().compare(parent, wiFiDetails) != 0) {
+        Collections.sort(wiFiDetails, groupBy.sortOrder());
+        WiFiDetail parent = null;
+        for (WiFiDetail wiFiDetail : wiFiDetails) {
+            if (parent == null || groupBy.groupBy().compare(parent, wiFiDetail) != 0) {
                 if (parent != null) {
                     Collections.sort(parent.getChildren(), sortBy.comparator());
                 }
-                parent = wiFiDetails;
+                parent = wiFiDetail;
                 results.add(parent);
             } else {
-                parent.addChild(wiFiDetails);
+                parent.addChild(wiFiDetail);
             }
         }
         if (parent != null) {
@@ -102,17 +102,17 @@ public class WiFiData {
         return results;
     }
 
-    private List<WiFiDetails> buildWiFiList(@NonNull WiFiBand wiFiBand) {
-        List<WiFiDetails> results = new ArrayList<>();
-        WiFiDetails connection = getConnection();
+    private List<WiFiDetail> buildWiFiDetails(@NonNull WiFiBand wiFiBand) {
+        List<WiFiDetail> results = new ArrayList<>();
+        WiFiDetail connection = getConnection();
         for (ScanResult scanResult : scanResults) {
             String vendorName = vendorService.findVendorName(scanResult.BSSID);
-            Details details = Details.makeScanResult(scanResult, vendorName, isConfiguredNetwork(scanResult));
-            if (details.getWiFiFrequency().getWiFiBand().equals(wiFiBand)) {
-                if (details.equals(connection)) {
+            WiFiDetail wiFiDetail = new WiFiDetail(scanResult, new WiFiAdditional(vendorName, isConfiguredNetwork(scanResult)));
+            if (wiFiDetail.getWiFiSignal().getWiFiBand().equals(wiFiBand)) {
+                if (wiFiDetail.equals(connection)) {
                     results.add(connection);
                 } else {
-                    results.add(details);
+                    results.add(wiFiDetail);
                 }
             }
         }

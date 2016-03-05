@@ -28,7 +28,7 @@ import java.util.Deque;
 import java.util.List;
 
 class Cache {
-    static final int MAX_CACHE_SIZE = 5;
+    static final int MAX_CACHE_SIZE = 3;
 
     private final Deque<List<ScanResult>> cache = new ArrayDeque<>(MAX_CACHE_SIZE);
 

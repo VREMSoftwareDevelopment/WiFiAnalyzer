@@ -28,31 +28,32 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 
 @RunWith(MockitoJUnitRunner.class)
-public class WiFiFrequencyTest {
-    public static final int FREQUENCY = 2435;
-    public static final int CHANNEL = 5;
+public class WiFiSignalTest {
+    private static final int FREQUENCY = 2435;
+    private static final int CHANNEL = 5;
+    private static final int LEVEL = -65;
 
     @Mock
     private ScanResult scanResult;
 
-    private WiFiFrequency fixture;
+    private WiFiSignal fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = new WiFiFrequency(FREQUENCY);
-        assertEquals(WiFiBand.GHZ_2, fixture.getWiFiBand());
-        assertEquals(WiFiWidth.MHZ_20, fixture.getWiFiWidth());
+        fixture = new WiFiSignal(FREQUENCY, LEVEL);
     }
 
     @Test
     public void testWiFiFrequencyWithScanResult() throws Exception {
         // setup
         scanResult.frequency = FREQUENCY;
+        scanResult.level = LEVEL;
         // execute
-        fixture = new WiFiFrequency(scanResult);
+        fixture = new WiFiSignal(scanResult);
         // validate
-        assertEquals(scanResult.frequency, fixture.getFrequency());
+        assertEquals(FREQUENCY, fixture.getFrequency());
         assertEquals(CHANNEL, fixture.getChannel());
+        assertEquals(LEVEL, fixture.getLevel());
         assertEquals(WiFiBand.GHZ_2, fixture.getWiFiBand());
         assertEquals(WiFiWidth.MHZ_20, fixture.getWiFiWidth());
     }
@@ -60,12 +61,21 @@ public class WiFiFrequencyTest {
     @Test
     public void testWiFiFrequencyWithFrequencyAndWiFiWidth() throws Exception {
         // execute
-        fixture = new WiFiFrequency(FREQUENCY, WiFiWidth.MHZ_80);
+        fixture = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_80, LEVEL);
         // validate
         assertEquals(FREQUENCY, fixture.getFrequency());
         assertEquals(CHANNEL, fixture.getChannel());
+        assertEquals(LEVEL, fixture.getLevel());
         assertEquals(WiFiBand.GHZ_2, fixture.getWiFiBand());
         assertEquals(WiFiWidth.MHZ_80, fixture.getWiFiWidth());
+    }
+
+    @Test
+    public void testWiFiFrequency() throws Exception {
+        // validate
+        assertEquals(LEVEL, fixture.getLevel());
+        assertEquals(WiFiBand.GHZ_2, fixture.getWiFiBand());
+        assertEquals(WiFiWidth.MHZ_20, fixture.getWiFiWidth());
     }
 
     @Test
@@ -83,9 +93,19 @@ public class WiFiFrequencyTest {
     }
 
     @Test
+    public void testGetStrength() throws Exception {
+        assertEquals(Strength.THREE, fixture.getStrength());
+    }
+
+    @Test
+    public void testGetDistance() throws Exception {
+        assertEquals(WiFiUtils.calculateDistance(FREQUENCY, LEVEL), fixture.getDistance(), 0.0);
+    }
+
+    @Test
     public void testEquals() throws Exception {
         // setup
-        WiFiFrequency other = new WiFiFrequency(FREQUENCY);
+        WiFiSignal other = new WiFiSignal(FREQUENCY, LEVEL);
         // execute & validate
         assertEquals(fixture, other);
         assertNotSame(fixture, other);
@@ -94,7 +114,7 @@ public class WiFiFrequencyTest {
     @Test
     public void testHashCode() throws Exception {
         // setup
-        WiFiFrequency other = new WiFiFrequency(FREQUENCY);
+        WiFiSignal other = new WiFiSignal(FREQUENCY, LEVEL);
         // execute & validate
         assertEquals(fixture.hashCode(), other.hashCode());
     }

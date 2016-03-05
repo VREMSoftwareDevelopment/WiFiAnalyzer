@@ -27,9 +27,9 @@ public enum SortBy {
     SSID(new SSIDComparator()),
     CHANNEL(new ChannelComparator());
 
-    private final Comparator<WiFiDetails> comparator;
+    private final Comparator<WiFiDetail> comparator;
 
-    SortBy(@NonNull Comparator<WiFiDetails> comparator) {
+    SortBy(@NonNull Comparator<WiFiDetail> comparator) {
         this.comparator = comparator;
     }
 
@@ -41,16 +41,16 @@ public enum SortBy {
         }
     }
 
-    Comparator<WiFiDetails> comparator() {
+    Comparator<WiFiDetail> comparator() {
         return comparator;
     }
 
 
-    static class StrengthComparator implements Comparator<WiFiDetails> {
+    static class StrengthComparator implements Comparator<WiFiDetail> {
         @Override
-        public int compare(WiFiDetails lhs, WiFiDetails rhs) {
+        public int compare(WiFiDetail lhs, WiFiDetail rhs) {
             return new CompareToBuilder()
-                    .append(rhs.getLevel(), lhs.getLevel())
+                    .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
                     .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
                     .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
                     .toComparison();
@@ -58,23 +58,23 @@ public enum SortBy {
     }
 
 
-    static class SSIDComparator implements Comparator<WiFiDetails> {
+    static class SSIDComparator implements Comparator<WiFiDetail> {
         @Override
-        public int compare(WiFiDetails lhs, WiFiDetails rhs) {
+        public int compare(WiFiDetail lhs, WiFiDetail rhs) {
             return new CompareToBuilder()
                     .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
-                    .append(rhs.getLevel(), lhs.getLevel())
+                    .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
                     .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
                     .toComparison();
         }
     }
 
-    static class ChannelComparator implements Comparator<WiFiDetails> {
+    static class ChannelComparator implements Comparator<WiFiDetail> {
         @Override
-        public int compare(WiFiDetails lhs, WiFiDetails rhs) {
+        public int compare(WiFiDetail lhs, WiFiDetail rhs) {
             return new CompareToBuilder()
-                    .append(lhs.getWiFiFrequency().getChannel(), rhs.getWiFiFrequency().getChannel())
-                    .append(rhs.getLevel(), lhs.getLevel())
+                    .append(lhs.getWiFiSignal().getChannel(), rhs.getWiFiSignal().getChannel())
+                    .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
                     .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
                     .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
                     .toComparison();

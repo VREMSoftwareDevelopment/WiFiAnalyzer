@@ -26,7 +26,7 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
-import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import java.util.Map;
 import java.util.Set;
@@ -71,8 +71,8 @@ class TimeGraphView {
 
     void update(@NonNull WiFiData wiFiData) {
         Set<String> newSeries = new TreeSet<>();
-        for (WiFiDetails wiFiDetails : wiFiData.getWiFiList(wiFiBand, mainContext.getSettings().getSortBy())) {
-            addData(newSeries, wiFiDetails);
+        for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, mainContext.getSettings().getSortBy())) {
+            addData(newSeries, wiFiDetail);
         }
         graphViewUtils.updateSeries(newSeries);
         graphViewUtils.updateLegend();
@@ -80,24 +80,24 @@ class TimeGraphView {
         scanCount++;
     }
 
-    private void addData(@NonNull Set<String> newSeries, @NonNull WiFiDetails wiFiDetails) {
-        String key = wiFiDetails.getTitle();
+    private void addData(@NonNull Set<String> newSeries, @NonNull WiFiDetail wiFiDetail) {
+        String key = wiFiDetail.getTitle();
         newSeries.add(key);
         LineGraphSeries<DataPoint> series = seriesMap.get(key);
         if (series == null) {
             series = new LineGraphSeries<>();
-            setSeriesOptions(series, wiFiDetails);
+            setSeriesOptions(series, wiFiDetail);
             graphView.addSeries(series);
             seriesMap.put(key, series);
         }
-        series.appendData(new DataPoint(scanCount, wiFiDetails.getLevel()), true, scanCount + 1);
+        series.appendData(new DataPoint(scanCount, wiFiDetail.getWiFiSignal().getLevel()), true, scanCount + 1);
     }
 
-    private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetails wiFiDetails) {
+    private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetail wiFiDetail) {
         currentGraphColor = GraphColor.findColor(currentGraphColor);
         series.setColor(currentGraphColor.getPrimary());
         series.setDrawBackground(false);
-        series.setTitle(wiFiDetails.getTitle() + " " + wiFiDetails.getWiFiFrequency().getChannel());
+        series.setTitle(wiFiDetail.getTitle() + " " + wiFiDetail.getWiFiSignal().getChannel());
     }
 
 }

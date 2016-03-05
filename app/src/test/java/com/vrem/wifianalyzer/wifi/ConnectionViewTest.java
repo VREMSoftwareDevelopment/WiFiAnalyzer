@@ -22,10 +22,13 @@ import android.view.View;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
-import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +36,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.when;
 
@@ -48,11 +50,11 @@ public class ConnectionViewTest {
     @Mock
     private View view;
     @Mock
-    private AccessPointsDetails accessPointsDetails;
+    private AccessPointsDetail accessPointsDetail;
     @Mock
     private WiFiData wiFiData;
     @Mock
-    private WiFiDetails connection;
+    private WiFiAdditional wiFiAdditional;
 
     private ConnectionView fixture;
 
@@ -64,7 +66,7 @@ public class ConnectionViewTest {
         when(activity.findViewById(R.id.connection)).thenReturn(view);
 
         fixture = new ConnectionView(activity);
-        fixture.setAccessPointsDetails(accessPointsDetails);
+        fixture.setAccessPointsDetail(accessPointsDetail);
     }
 
     @After
@@ -80,33 +82,35 @@ public class ConnectionViewTest {
         // execute
         fixture.update(wiFiData);
         // validate
-        verify(connection, never()).isConnected();
         verify(view).setVisibility(View.GONE);
     }
 
     @Test
     public void testUpdateWithConnectionNotConnected() throws Exception {
         // setup
+        WiFiDetail connection = withConnection(WiFiAdditional.EMPTY);
         when(wiFiData.getConnection()).thenReturn(connection);
-        when(connection.isConnected()).thenReturn(false);
         // execute
         fixture.update(wiFiData);
         // validate
-        verify(connection).isConnected();
         verify(view).setVisibility(View.GONE);
     }
 
     @Test
     public void testUpdateWithConnection() throws Exception {
         // setup
+        WiFiDetail connection = withConnection(new WiFiAdditional(StringUtils.EMPTY, "IPADDRESS"));
         when(wiFiData.getConnection()).thenReturn(connection);
-        when(connection.isConnected()).thenReturn(true);
         // execute
         fixture.update(wiFiData);
         // validate
         verify(activity).getResources();
-        verify(connection).isConnected();
         verify(view).setVisibility(View.VISIBLE);
-        verify(accessPointsDetails).setView(resources, view, connection, false);
+        verify(accessPointsDetail).setView(resources, view, connection, false);
     }
+
+    private WiFiDetail withConnection(WiFiAdditional wiFiAdditional) {
+        return new WiFiDetail("SSID", "BSSID", StringUtils.EMPTY, new WiFiSignal(2435, -55), wiFiAdditional);
+    }
+
 }

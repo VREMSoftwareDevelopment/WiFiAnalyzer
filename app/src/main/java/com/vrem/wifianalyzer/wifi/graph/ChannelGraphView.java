@@ -26,8 +26,8 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
-import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
-import com.vrem.wifianalyzer.wifi.model.WiFiFrequency;
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import java.util.Map;
 import java.util.Set;
@@ -79,42 +79,42 @@ class ChannelGraphView {
 
     void update(@NonNull WiFiData wiFiData) {
         Set<String> newSeries = new TreeSet<>();
-        for (WiFiDetails wiFiDetails : wiFiData.getWiFiList(wiFiBand, mainContext.getSettings().getSortBy())) {
-            addData(newSeries, wiFiDetails);
+        for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, mainContext.getSettings().getSortBy())) {
+            addData(newSeries, wiFiDetail);
         }
         graphViewUtils.updateSeries(newSeries);
         graphViewUtils.updateLegend();
         graphViewUtils.setVisibility(wiFiBand);
     }
 
-    private void addData(@NonNull Set<String> newSeries, @NonNull WiFiDetails wiFiDetails) {
-        String key = wiFiDetails.getTitle();
+    private void addData(@NonNull Set<String> newSeries, @NonNull WiFiDetail wiFiDetail) {
+        String key = wiFiDetail.getTitle();
         newSeries.add(key);
         LineGraphSeries<DataPoint> series = seriesMap.get(key);
         if (series == null) {
-            series = new LineGraphSeries<>(createDataPoints(wiFiDetails));
-            setSeriesOptions(series, wiFiDetails);
+            series = new LineGraphSeries<>(createDataPoints(wiFiDetail));
+            setSeriesOptions(series, wiFiDetail);
             graphView.addSeries(series);
             seriesMap.put(key, series);
         } else {
-            series.resetData(createDataPoints(wiFiDetails));
+            series.resetData(createDataPoints(wiFiDetail));
         }
     }
 
-    private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetails wiFiDetails) {
+    private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetail wiFiDetail) {
         currentGraphColor = GraphColor.findColor(currentGraphColor);
         series.setColor(currentGraphColor.getPrimary());
         series.setBackgroundColor(currentGraphColor.getBackground());
         series.setDrawBackground(true);
-        series.setTitle(wiFiDetails.getTitle() + " " + wiFiDetails.getWiFiFrequency().getChannel());
+        series.setTitle(wiFiDetail.getTitle() + " " + wiFiDetail.getWiFiSignal().getChannel());
     }
 
-    private DataPoint[] createDataPoints(@NonNull WiFiDetails wiFiDetails) {
-        WiFiFrequency wiFiFrequency = wiFiDetails.getWiFiFrequency();
-        int channel = wiFiFrequency.getChannel();
-        int channelStart = wiFiFrequency.getChannelStart();
-        int channelEnd = wiFiFrequency.getChannelEnd();
-        int level = wiFiDetails.getLevel();
+    private DataPoint[] createDataPoints(@NonNull WiFiDetail wiFiDetail) {
+        WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
+        int channel = wiFiSignal.getChannel();
+        int channelStart = wiFiSignal.getChannelStart();
+        int channelEnd = wiFiSignal.getChannelEnd();
+        int level = wiFiSignal.getLevel();
         return new DataPoint[]{
                 new DataPoint(channelStart, GraphViewBuilder.MIN_Y),
                 new DataPoint(channelStart + 1, level),

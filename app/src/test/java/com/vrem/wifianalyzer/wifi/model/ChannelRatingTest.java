@@ -16,134 +16,71 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ChannelRatingTest {
-    private static final int CHANNEL1 = 1;
-    private static final int CHANNEL2 = 2;
-    private static final int CHANNEL3 = 3;
-
-    @Mock private WiFiDetails wiFiDetails1;
-    @Mock private WiFiDetails wiFiDetails2;
-    @Mock private WiFiDetails wiFiDetails3;
-
-    @Mock private WiFiFrequency wiFiFrequency1;
-    @Mock private WiFiFrequency wiFiFrequency2;
-    @Mock private WiFiFrequency wiFiFrequency3;
+    private WiFiDetail wiFiDetail1;
+    private WiFiDetail wiFiDetail2;
+    private WiFiDetail wiFiDetail3;
 
     private ChannelRating fixture;
 
     @Before
     public void setUp() throws Exception {
+        wiFiDetail1 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY, new WiFiSignal(2445, -75), WiFiAdditional.EMPTY);
+        wiFiDetail2 = new WiFiDetail("SSID2", "BSSID2", StringUtils.EMPTY, new WiFiSignal(2435, -55), WiFiAdditional.EMPTY);
+        wiFiDetail3 = new WiFiDetail("SSID3", "BSSID3", StringUtils.EMPTY, new WiFiSignal(2455, -35), WiFiAdditional.EMPTY);
         fixture = new ChannelRating();
+        fixture.setWiFiChannels(new ArrayList<>(Arrays.asList(new WiFiDetail[]{wiFiDetail1, wiFiDetail2, wiFiDetail3})));
     }
 
     @Test
     public void testChannelRating() throws Exception {
-        assertEquals(0, fixture.getCount(CHANNEL1));
-        assertEquals(Strength.ZERO, fixture.getStrength(CHANNEL1));
+        // setup
+        int channel = wiFiDetail1.getWiFiSignal().getChannel();
+        fixture = new ChannelRating();
+        // execute & validate
+        assertEquals(0, fixture.getCount(channel));
+        assertEquals(Strength.ZERO, fixture.getStrength(channel));
     }
 
     @Test
     public void testGetCountChannel1() throws Exception {
         // setup
-        fixture.setWiFiChannels(withDetails());
-        expectedChannels();
+        int channel = wiFiDetail1.getWiFiSignal().getChannel();
         // execute & validate
-        assertEquals(1, fixture.getCount(CHANNEL1));
-        verifyChannels();
+        assertEquals(3, fixture.getCount(channel));
     }
 
     @Test
     public void testGetCountChannel2() throws Exception {
         // setup
-        fixture.setWiFiChannels(withDetails());
-        expectedChannels();
+        int channel = wiFiDetail2.getWiFiSignal().getChannel();
         // execute & validate
-        assertEquals(2, fixture.getCount(CHANNEL2));
-        verifyChannels();
+        assertEquals(2, fixture.getCount(channel));
     }
 
     @Test
     public void testGetCountChannel3() throws Exception {
         // setup
-        fixture.setWiFiChannels(withDetails());
-        expectedChannels();
+        int channel = wiFiDetail3.getWiFiSignal().getChannel();
         // execute & validate
-        assertEquals(3, fixture.getCount(CHANNEL3));
-        verifyChannels();
+        assertEquals(2, fixture.getCount(channel));
     }
 
     @Test
-    public void testGetStrength() throws Exception {
+    public void testGetStrengthShouldReturnMaximum() throws Exception {
         // setup
-        fixture.setWiFiChannels(withDetails());
-        expectedChannels();
-        expectedDetails();
+        int channel = wiFiDetail1.getWiFiSignal().getChannel();
         // execute & validate
-        assertEquals(wiFiDetails3.getStrength(), fixture.getStrength(CHANNEL3));
-        verifyChannels();
-        verifyDetails();
-    }
-
-    private void verifyDetails() {
-        verify(wiFiDetails1).isConnected();
-        verify(wiFiDetails2).isConnected();
-        verify(wiFiDetails3).isConnected();
-
-        verify(wiFiDetails1).getStrength();
-        verify(wiFiDetails2, never()).getStrength();
-        verify(wiFiDetails3, times(2)).getStrength();
-    }
-
-    private void verifyChannels() {
-        verify(wiFiDetails1).getWiFiFrequency();
-        verify(wiFiDetails2).getWiFiFrequency();
-        verify(wiFiDetails3).getWiFiFrequency();
-    }
-
-    private List<WiFiDetails> withDetails() {
-        return new ArrayList<>(Arrays.asList(new WiFiDetails[]{wiFiDetails1, wiFiDetails2, wiFiDetails3}));
-    }
-
-    private void expectedDetails() {
-        when(wiFiDetails1.isConnected()).thenReturn(false);
-        when(wiFiDetails2.isConnected()).thenReturn(true);
-        when(wiFiDetails3.isConnected()).thenReturn(false);
-
-        when(wiFiDetails1.getStrength()).thenReturn(Strength.ONE);
-        when(wiFiDetails2.getStrength()).thenReturn(Strength.FOUR);
-        when(wiFiDetails3.getStrength()).thenReturn(Strength.THREE);
-    }
-
-    private void expectedChannels() {
-        when(wiFiDetails1.getWiFiFrequency()).thenReturn(wiFiFrequency1);
-        when(wiFiDetails2.getWiFiFrequency()).thenReturn(wiFiFrequency2);
-        when(wiFiDetails3.getWiFiFrequency()).thenReturn(wiFiFrequency3);
-
-        when(wiFiFrequency1.getChannelStart()).thenReturn(CHANNEL1);
-        when(wiFiFrequency1.getChannelEnd()).thenReturn(CHANNEL3);
-
-        when(wiFiFrequency2.getChannelStart()).thenReturn(CHANNEL2);
-        when(wiFiFrequency2.getChannelEnd()).thenReturn(CHANNEL3);
-
-        when(wiFiFrequency3.getChannelStart()).thenReturn(CHANNEL3);
-        when(wiFiFrequency3.getChannelEnd()).thenReturn(CHANNEL3);
+        assertEquals(wiFiDetail3.getWiFiSignal().getStrength(), fixture.getStrength(channel));
     }
 
 }

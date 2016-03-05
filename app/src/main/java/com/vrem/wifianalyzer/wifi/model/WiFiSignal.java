@@ -23,22 +23,24 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class WiFiFrequency {
+public class WiFiSignal {
     private final int frequency;
     private final WiFiWidth wiFiWidth;
     private final WiFiBand wiFiBand;
+    private final int level;
 
-    public WiFiFrequency(@NonNull ScanResult scanResult) {
-        this(scanResult.frequency);
+    public WiFiSignal(@NonNull ScanResult scanResult) {
+        this(scanResult.frequency, scanResult.level);
     }
 
-    public WiFiFrequency(int frequency) {
-        this(frequency, WiFiWidth.MHZ_20);
+    public WiFiSignal(int frequency, int level) {
+        this(frequency, WiFiWidth.MHZ_20, level);
     }
 
-    public WiFiFrequency(int frequency, @NonNull WiFiWidth wiFiWidth) {
+    public WiFiSignal(int frequency, @NonNull WiFiWidth wiFiWidth, int level) {
         this.frequency = frequency;
         this.wiFiWidth = wiFiWidth;
+        this.level = level;
         this.wiFiBand = WiFiBand.findByFrequency(frequency);
     }
 
@@ -74,6 +76,18 @@ public class WiFiFrequency {
         return wiFiWidth;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public Strength getStrength() {
+        return Strength.calculate(level);
+    }
+
+    public double getDistance() {
+        return WiFiUtils.calculateDistance(getFrequency(), getLevel());
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {
@@ -83,8 +97,8 @@ public class WiFiFrequency {
             return false;
         }
         return new EqualsBuilder()
-                .append(getFrequency(), ((WiFiFrequency) other).getFrequency())
-                .append(getWiFiWidth(), ((WiFiFrequency) other).getWiFiWidth())
+                .append(getFrequency(), ((WiFiSignal) other).getFrequency())
+                .append(getWiFiWidth(), ((WiFiSignal) other).getWiFiWidth())
                 .isEquals();
     }
 

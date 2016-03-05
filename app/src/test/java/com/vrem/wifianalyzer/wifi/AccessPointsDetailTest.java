@@ -25,9 +25,9 @@ import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
-import com.vrem.wifianalyzer.wifi.model.Details;
-import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
-import com.vrem.wifianalyzer.wifi.model.WiFiFrequency;
+import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -41,34 +41,34 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class AccessPointsDetailsTest {
+public class AccessPointsDetailTest {
     private MainActivity activity = RobolectricUtil.INSTANCE.getMainActivity();
 
     private View view;
-    private AccessPointsDetails fixture;
+    private AccessPointsDetail fixture;
 
     @Before
     public void setUp() throws Exception {
         view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.access_points_details, null);
         assertNotNull(view);
-        fixture = new AccessPointsDetails();
+        fixture = new AccessPointsDetail();
     }
 
     @Test
-    public void testSetViewWithWiFiDetailsAsConnection() throws Exception {
+    public void testSetViewWithWiFiDetailAsConnection() throws Exception {
         // setup
-        WiFiDetails wiFiDetails = Details.makeConnection(ShadowScanResult.newInstance("SSID", "BSSID", "capabilities", 1, 2), "VendorName", "IPAddress");
+        WiFiDetail wiFiDetail = new WiFiDetail(ShadowScanResult.newInstance("SSID", "BSSID", "capabilities", 1, 2), new WiFiAdditional("VendorName", "IPAddress"));
         // execute
-        fixture.setView(activity.getResources(), view, wiFiDetails, false);
+        fixture.setView(activity.getResources(), view, wiFiDetail, false);
         // validate
-        validateTextViewValues(wiFiDetails, "SSID");
+        validateTextViewValues(wiFiDetail, "SSID");
 
-        validateTextViewValue(wiFiDetails.getIPAddress(), R.id.ipAddress);
+        validateTextViewValue(wiFiDetail.getWiFiAdditional().getIPAddress(), R.id.ipAddress);
         assertEquals(View.VISIBLE, view.findViewById(R.id.ipAddress).getVisibility());
 
         assertEquals(View.VISIBLE, view.findViewById(R.id.configuredImage).getVisibility());
 
-        validateTextViewValue(wiFiDetails.getVendorName(), R.id.vendor);
+        validateTextViewValue(wiFiDetail.getWiFiAdditional().getVendorName(), R.id.vendor);
         assertEquals(View.VISIBLE, view.findViewById(R.id.vendor).getVisibility());
 
         assertEquals(View.GONE, view.findViewById(R.id.tab).getVisibility());
@@ -76,13 +76,13 @@ public class AccessPointsDetailsTest {
     }
 
     @Test
-    public void testSetViewWithWiFiDetailsAsScanResult() throws Exception {
+    public void testSetViewWithWiFiDetailAsScanResult() throws Exception {
         // setup
-        WiFiDetails wiFiDetails = Details.makeScanResult(ShadowScanResult.newInstance("", "BSSID", "capabilities", 1, 2), "", false);
+        WiFiDetail wiFiDetail = new WiFiDetail(ShadowScanResult.newInstance("", "BSSID", "capabilities", 1, 2), new WiFiAdditional("", false));
         // execute
-        fixture.setView(activity.getResources(), view, wiFiDetails, true);
+        fixture.setView(activity.getResources(), view, wiFiDetail, true);
         // validate
-        validateTextViewValues(wiFiDetails, "***");
+        validateTextViewValues(wiFiDetail, "***");
 
         assertEquals(View.GONE, view.findViewById(R.id.ipAddress).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.configuredImage).getVisibility());
@@ -91,14 +91,14 @@ public class AccessPointsDetailsTest {
         assertEquals(View.GONE, view.findViewById(R.id.groupColumn).getVisibility());
     }
 
-    private void validateTextViewValues(@NonNull WiFiDetails wiFiDetails, @NonNull String ssid) {
-        WiFiFrequency wiFiFrequency = wiFiDetails.getWiFiFrequency();
-        validateTextViewValue(ssid + " (" + wiFiDetails.getBSSID() + ")", R.id.ssid);
-        validateTextViewValue(String.format("%ddBm", wiFiDetails.getLevel()), R.id.level);
-        validateTextViewValue(String.format("%d", wiFiFrequency.getChannel()), R.id.channel);
-        validateTextViewValue(String.format("%dMHz", wiFiFrequency.getFrequency()), R.id.frequency);
-        validateTextViewValue(String.format("%6.2fm", wiFiDetails.getDistance()), R.id.distance);
-        validateTextViewValue(wiFiDetails.getCapabilities(), R.id.capabilities);
+    private void validateTextViewValues(@NonNull WiFiDetail wiFiDetail, @NonNull String ssid) {
+        WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
+        validateTextViewValue(ssid + " (" + wiFiDetail.getBSSID() + ")", R.id.ssid);
+        validateTextViewValue(String.format("%ddBm", wiFiSignal.getLevel()), R.id.level);
+        validateTextViewValue(String.format("%d", wiFiSignal.getChannel()), R.id.channel);
+        validateTextViewValue(String.format("%dMHz", wiFiSignal.getFrequency()), R.id.frequency);
+        validateTextViewValue(String.format("%6.2fm", wiFiSignal.getDistance()), R.id.distance);
+        validateTextViewValue(wiFiDetail.getCapabilities(), R.id.capabilities);
     }
 
     private void validateTextViewValue(@NonNull String expected, int id) {

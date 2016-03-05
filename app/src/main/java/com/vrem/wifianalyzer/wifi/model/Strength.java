@@ -16,8 +16,6 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.net.wifi.WifiManager;
-
 import com.vrem.wifianalyzer.R;
 
 public enum Strength {
@@ -36,7 +34,7 @@ public enum Strength {
     }
 
     public static Strength calculate(int level) {
-        return Strength.values()[WifiManager.calculateSignalLevel(level, values().length)];
+        return Strength.values()[WiFiUtils.calculateSignalLevel(level, values().length)];
     }
 
     public static Strength reverse(Strength strength) {

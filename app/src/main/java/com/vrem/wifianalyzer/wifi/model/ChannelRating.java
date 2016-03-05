@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChannelRating {
-    private List<WiFiDetails> wiFiList = new ArrayList<>();
+    private List<WiFiDetail> wiFiDetails = new ArrayList<>();
 
     public ChannelRating() {
     }
@@ -33,24 +33,24 @@ public class ChannelRating {
 
     public Strength getStrength(int channel) {
         Strength strength = Strength.ZERO;
-        for (WiFiDetails wiFiDetails : collectOverlappingChannels(channel)) {
-            if (!wiFiDetails.isConnected()) {
-                strength = Strength.values()[Math.max(strength.ordinal(), wiFiDetails.getStrength().ordinal())];
+        for (WiFiDetail wiFiDetail : collectOverlappingChannels(channel)) {
+            if (!wiFiDetail.getWiFiAdditional().isConnected()) {
+                strength = Strength.values()[Math.max(strength.ordinal(), wiFiDetail.getWiFiSignal().getStrength().ordinal())];
             }
         }
         return strength;
     }
 
-    public void setWiFiChannels(@NonNull List<WiFiDetails> wiFiList) {
-        this.wiFiList = wiFiList;
+    public void setWiFiChannels(@NonNull List<WiFiDetail> wiFiDetails) {
+        this.wiFiDetails = wiFiDetails;
     }
 
-    private List<WiFiDetails> collectOverlappingChannels(int channel) {
-        List<WiFiDetails> result = new ArrayList<>();
-        for (WiFiDetails wiFiDetails : wiFiList) {
-            WiFiFrequency wiFiFrequency = wiFiDetails.getWiFiFrequency();
-            if (channel >= wiFiFrequency.getChannelStart() && channel <= wiFiFrequency.getChannelEnd()) {
-                result.add(wiFiDetails);
+    private List<WiFiDetail> collectOverlappingChannels(int channel) {
+        List<WiFiDetail> result = new ArrayList<>();
+        for (WiFiDetail wiFiDetail : wiFiDetails) {
+            WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
+            if (channel >= wiFiSignal.getChannelStart() && channel <= wiFiSignal.getChannelEnd()) {
+                result.add(wiFiDetail);
             }
         }
         return result;

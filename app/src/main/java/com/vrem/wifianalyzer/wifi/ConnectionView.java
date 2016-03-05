@@ -23,17 +23,17 @@ import android.view.View;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
-import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 public class ConnectionView implements UpdateNotifier {
     private final MainContext mainContext = MainContext.INSTANCE;
     private final Activity activity;
-    private AccessPointsDetails accessPointsDetails;
+    private AccessPointsDetail accessPointsDetail;
 
     public ConnectionView(@NonNull Activity activity) {
         this.activity = activity;
-        setAccessPointsDetails(new AccessPointsDetails());
+        setAccessPointsDetail(new AccessPointsDetail());
         mainContext.getScanner().addUpdateNotifier(this);
     }
 
@@ -41,16 +41,16 @@ public class ConnectionView implements UpdateNotifier {
     public void update(@NonNull WiFiData wiFiData) {
         View view = activity.findViewById(R.id.connection);
 
-        WiFiDetails connection = wiFiData.getConnection();
-        if (connection != null && connection.isConnected()) {
+        WiFiDetail connection = wiFiData.getConnection();
+        if (connection != null && connection.getWiFiAdditional().isConnected()) {
             view.setVisibility(View.VISIBLE);
-            accessPointsDetails.setView(activity.getResources(), view, connection, false);
+            accessPointsDetail.setView(activity.getResources(), view, connection, false);
         } else {
             view.setVisibility(View.GONE);
         }
     }
 
-    void setAccessPointsDetails(@NonNull AccessPointsDetails accessPointsDetails) {
-        this.accessPointsDetails = accessPointsDetails;
+    void setAccessPointsDetail(@NonNull AccessPointsDetail accessPointsDetail) {
+        this.accessPointsDetail = accessPointsDetail;
     }
 }

@@ -29,9 +29,8 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.wifi.model.Details;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
-import com.vrem.wifianalyzer.wifi.model.WiFiDetails;
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 import java.util.ArrayList;
@@ -42,21 +41,21 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     private final MainContext mainContext = MainContext.INSTANCE;
     private final Resources resources;
     private final Data data;
-    private final AccessPointsDetails accessPointsDetails;
+    private final AccessPointsDetail accessPointsDetail;
 
     AccessPointsAdapter(@NonNull Context context) {
         super();
         this.resources = context.getResources();
         this.data = new Data();
-        this.accessPointsDetails = new AccessPointsDetails();
+        this.accessPointsDetail = new AccessPointsDetail();
         mainContext.getScanner().addUpdateNotifier(this);
     }
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         convertView = getView(convertView, parent);
-        Details details = (Details) getGroup(groupPosition);
-        accessPointsDetails.setView(resources, convertView, details, false);
+        WiFiDetail details = (WiFiDetail) getGroup(groupPosition);
+        accessPointsDetail.setView(resources, convertView, details, false);
 
         int childrenCount = getChildrenCount(groupPosition);
         if (childrenCount > 0) {
@@ -77,8 +76,8 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         convertView = getView(convertView, parent);
-        Details details = (Details) getChild(groupPosition, childPosition);
-        accessPointsDetails.setView(resources, convertView, details, true);
+        WiFiDetail details = (WiFiDetail) getChild(groupPosition, childPosition);
+        accessPointsDetail.setView(resources, convertView, details, true);
         convertView.findViewById(R.id.groupColumn).setVisibility(View.GONE);
         return convertView;
     }
@@ -139,19 +138,19 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     }
 
     class Data {
-        WiFiDetails connection;
-        List<WiFiDetails> wifiList = new ArrayList<>();
+        WiFiDetail connection;
+        List<WiFiDetail> wiFiDetails = new ArrayList<>();
 
         void update(WiFiData wiFiData) {
             if (wiFiData != null) {
                 connection = wiFiData.getConnection();
                 Settings settings = mainContext.getSettings();
-                wifiList = wiFiData.getWiFiList(settings.getWiFiBand(), settings.getSortBy(), settings.getGroupBy());
+                wiFiDetails = wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy(), settings.getGroupBy());
             }
         }
 
         int parentsCount() {
-            return wifiList.size();
+            return wiFiDetails.size();
         }
 
         boolean validParentIndex(int index) {
@@ -162,16 +161,16 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
             return validParentIndex(indexParent) && indexChild >= 0 && indexChild < childrenCount(indexParent);
         }
 
-        WiFiDetails parent(int index) {
-            return validParentIndex(index) ? wifiList.get(index) : null;
+        WiFiDetail parent(int index) {
+            return validParentIndex(index) ? wiFiDetails.get(index) : null;
         }
 
         int childrenCount(int index) {
-            return validParentIndex(index) ? wifiList.get(index).getChildren().size() : 0;
+            return validParentIndex(index) ? wiFiDetails.get(index).getChildren().size() : 0;
         }
 
-        WiFiDetails child(int indexParent, int indexChild) {
-            return validChildrenIndex(indexParent, indexChild) ? wifiList.get(indexParent).getChildren().get(indexChild) : null;
+        WiFiDetail child(int indexParent, int indexChild) {
+            return validChildrenIndex(indexParent, indexChild) ? wiFiDetails.get(indexParent).getChildren().get(indexChild) : null;
         }
     }
 

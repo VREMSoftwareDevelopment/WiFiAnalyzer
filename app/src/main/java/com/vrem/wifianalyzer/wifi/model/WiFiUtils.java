@@ -16,25 +16,27 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import org.junit.Test;
+public final class WiFiUtils {
 
-import java.text.DecimalFormat;
+    private static final double DISTANCE_MHZ_M = 27.55;
+    private static final int MIN_RSSI = -100;
+    private static final int MAX_RSSI = -55;
 
-import static org.junit.Assert.assertEquals;
-
-public class DistanceTest {
-
-    private final DecimalFormat decimalFormat = new DecimalFormat("#.##");
-
-    @Test
-    public void testCalculate() throws Exception {
-        validate(2437, -36, "0.62");
-        validate(2437, -42, "1.23");
-        validate(2432, -88, "246.34");
-        validate(2412, -91, "350.85");
+    private WiFiUtils() {
     }
 
-    private void validate(int frequency, int level, String expected) {
-        assertEquals(expected, decimalFormat.format(Distance.calculate(frequency, level)));
+    public static double calculateDistance(int frequency, int level) {
+        return Math.pow(10.0,
+                (DISTANCE_MHZ_M - (20 * Math.log10(frequency)) + Math.abs(level)) / 20.0);
+    }
+
+    public static int calculateSignalLevel(int rssi, int numLevels) {
+        if (rssi <= MIN_RSSI) {
+            return 0;
+        }
+        if (rssi >= MAX_RSSI) {
+            return numLevels - 1;
+        }
+        return (rssi - MIN_RSSI) * (numLevels - 1) / (MAX_RSSI - MIN_RSSI);
     }
 }
