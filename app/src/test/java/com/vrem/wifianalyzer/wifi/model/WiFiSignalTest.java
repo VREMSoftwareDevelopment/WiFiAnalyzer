@@ -16,25 +16,16 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.net.wifi.ScanResult;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 
-@RunWith(MockitoJUnitRunner.class)
 public class WiFiSignalTest {
     private static final int FREQUENCY = 2435;
     private static final int CHANNEL = 5;
     private static final int LEVEL = -65;
-
-    @Mock
-    private ScanResult scanResult;
 
     private WiFiSignal fixture;
 
@@ -44,15 +35,8 @@ public class WiFiSignalTest {
     }
 
     @Test
-    public void testWiFiFrequencyWithScanResult() throws Exception {
-        // setup
-        scanResult.frequency = FREQUENCY;
-        scanResult.level = LEVEL;
-        // execute
-        fixture = new WiFiSignal(scanResult);
+    public void testWiFiFrequency() throws Exception {
         // validate
-        assertEquals(FREQUENCY, fixture.getFrequency());
-        assertEquals(CHANNEL, fixture.getChannel());
         assertEquals(LEVEL, fixture.getLevel());
         assertEquals(WiFiBand.GHZ_2, fixture.getWiFiBand());
         assertEquals(WiFiWidth.MHZ_20, fixture.getWiFiWidth());
@@ -68,14 +52,6 @@ public class WiFiSignalTest {
         assertEquals(LEVEL, fixture.getLevel());
         assertEquals(WiFiBand.GHZ_2, fixture.getWiFiBand());
         assertEquals(WiFiWidth.MHZ_80, fixture.getWiFiWidth());
-    }
-
-    @Test
-    public void testWiFiFrequency() throws Exception {
-        // validate
-        assertEquals(LEVEL, fixture.getLevel());
-        assertEquals(WiFiBand.GHZ_2, fixture.getWiFiBand());
-        assertEquals(WiFiWidth.MHZ_20, fixture.getWiFiWidth());
     }
 
     @Test

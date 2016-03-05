@@ -36,7 +36,7 @@ class Cache {
         ScanResult current = null;
         List<ScanResult> results = new ArrayList<>();
         for (ScanResult scanResult : combineCache()) {
-            if (current != null && scanResult.BSSID.equalsIgnoreCase(current.BSSID)) {
+            if (current != null && scanResult.BSSID.equals(current.BSSID)) {
                 continue;
             }
             current = scanResult;
@@ -72,7 +72,7 @@ class Cache {
         @Override
         public int compare(ScanResult lhs, ScanResult rhs) {
             return new CompareToBuilder()
-                    .append(lhs.BSSID.toUpperCase(), rhs.BSSID.toUpperCase())
+                    .append(lhs.BSSID, rhs.BSSID)
                     .append(rhs.level, lhs.level)
                     .toComparison();
         }

@@ -20,7 +20,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
@@ -38,7 +37,7 @@ public class ChannelRatingTest {
         wiFiDetail2 = new WiFiDetail("SSID2", "BSSID2", StringUtils.EMPTY, new WiFiSignal(2435, -55), WiFiAdditional.EMPTY);
         wiFiDetail3 = new WiFiDetail("SSID3", "BSSID3", StringUtils.EMPTY, new WiFiSignal(2455, -35), WiFiAdditional.EMPTY);
         fixture = new ChannelRating();
-        fixture.setWiFiChannels(new ArrayList<>(Arrays.asList(new WiFiDetail[]{wiFiDetail1, wiFiDetail2, wiFiDetail3})));
+        fixture.setWiFiChannels(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3));
     }
 
     @Test

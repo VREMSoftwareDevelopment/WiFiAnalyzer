@@ -16,7 +16,7 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-enum WiFiWidth {
+public enum WiFiWidth {
     MHZ_20(20),
     MHZ_40(40),
     MHZ_80(80),
@@ -35,19 +35,19 @@ enum WiFiWidth {
         this.channelWidthHalf = channelWidth / 2;
     }
 
-    int getFrequencyWidth() {
+    public int getFrequencyWidth() {
         return frequencyWidth;
     }
 
-    int getFrequencyWidthHalf() {
+    public int getFrequencyWidthHalf() {
         return frequencyWidthHalf;
     }
 
-    int getChannelWidth() {
+    public int getChannelWidth() {
         return channelWidth;
     }
 
-    int getChannelWidthHalf() {
+    public int getChannelWidthHalf() {
         return channelWidthHalf;
     }
 }

@@ -23,6 +23,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class WiFiAdditional {
     public final static WiFiAdditional EMPTY = new WiFiAdditional(StringUtils.EMPTY, false);
+
     private final String vendorName;
     private final String ipAddress;
     private final boolean configuredNetwork;

@@ -16,65 +16,48 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiConfiguration;
-import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class WiFiData {
-    private static final String QUOTE = "\"";
-
-    private final List<ScanResult> scanResults;
-    private final WifiInfo connectionInfo;
-    private final List<WifiConfiguration> configuredNetworks;
+    private final List<WiFiDetail> wiFiDetails;
+    private final WiFiConnection wiFiConnection;
+    private final List<String> wiFiConfigurations;
     private final VendorService vendorService;
 
-    public WiFiData(List<ScanResult> scanResults, WifiInfo connectionInfo, List<WifiConfiguration> configuredNetworks) {
-        this.scanResults = scanResults;
-        this.connectionInfo = connectionInfo;
-        this.configuredNetworks = configuredNetworks;
+    public WiFiData(@NonNull List<WiFiDetail> wiFiDetails, @NonNull WiFiConnection wiFiConnection, @NonNull List<String> wiFiConfigurations) {
+        this.wiFiDetails = wiFiDetails;
+        this.wiFiConnection = wiFiConnection;
+        this.wiFiConfigurations = wiFiConfigurations;
         this.vendorService = MainContext.INSTANCE.getVendorService();
     }
 
+    @NonNull
     public WiFiDetail getConnection() {
-        if (hasData()) {
-            Connection connection = new Connection(connectionInfo);
-            for (ScanResult scanResult : scanResults) {
-                if (connection.matches(scanResult)) {
-                    String ipAddress = connection.getIPAddress();
-                    String vendorName = vendorService.findVendorName(scanResult.BSSID);
-                    return new WiFiDetail(scanResult, new WiFiAdditional(vendorName, ipAddress));
-                }
+        for (WiFiDetail wiFiDetail : wiFiDetails) {
+            if (wiFiConnection.equals(new WiFiConnection(wiFiDetail.getSSID(), wiFiDetail.getBSSID()))) {
+                String ipAddress = wiFiConnection.getIpAddress();
+                String vendorName = vendorService.findVendorName(wiFiDetail.getBSSID());
+                return new WiFiDetail(wiFiDetail, new WiFiAdditional(vendorName, ipAddress));
             }
         }
-        return null;
+        return WiFiDetail.EMPTY;
     }
 
     @NonNull
     public List<WiFiDetail> getWiFiDetails(@NonNull WiFiBand wiFiBand, @NonNull SortBy sortBy) {
-        return getWiFiDetails(wiFiBand, sortBy, GroupBy.NONE);
+        return Collections.unmodifiableList(getWiFiDetails(wiFiBand, sortBy, GroupBy.NONE));
     }
 
     @NonNull
     public List<WiFiDetail> getWiFiDetails(@NonNull WiFiBand wiFiBand, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
-        if (hasData()) {
-            List<WiFiDetail> wiFiDetails = buildWiFiDetails(wiFiBand);
-            return groupWiFiDetails(wiFiDetails, sortBy, groupBy);
-        }
-        return new ArrayList<>();
-    }
-
-    private boolean hasData() {
-        return scanResults != null && !scanResults.isEmpty();
+        return Collections.unmodifiableList(groupWiFiDetails(buildWiFiDetails(wiFiBand), sortBy, groupBy));
     }
 
     private List<WiFiDetail> groupWiFiDetails(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
@@ -105,41 +88,30 @@ public class WiFiData {
     private List<WiFiDetail> buildWiFiDetails(@NonNull WiFiBand wiFiBand) {
         List<WiFiDetail> results = new ArrayList<>();
         WiFiDetail connection = getConnection();
-        for (ScanResult scanResult : scanResults) {
-            String vendorName = vendorService.findVendorName(scanResult.BSSID);
-            WiFiDetail wiFiDetail = new WiFiDetail(scanResult, new WiFiAdditional(vendorName, isConfiguredNetwork(scanResult)));
+        for (WiFiDetail wiFiDetail : wiFiDetails) {
             if (wiFiDetail.getWiFiSignal().getWiFiBand().equals(wiFiBand)) {
                 if (wiFiDetail.equals(connection)) {
                     results.add(connection);
                 } else {
-                    results.add(wiFiDetail);
+                    String vendorName = vendorService.findVendorName(wiFiDetail.getBSSID());
+                    boolean contains = wiFiConfigurations.contains(wiFiDetail.getSSID());
+                    WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName, contains);
+                    results.add(new WiFiDetail(wiFiDetail, wiFiAdditional));
                 }
             }
         }
         return results;
     }
 
-    private boolean isConfiguredNetwork(@NonNull ScanResult scanResult) {
-        if (configuredNetworks != null) {
-            for (WifiConfiguration wifiConfiguration : configuredNetworks) {
-                String ssid = StringUtils.removeEnd(StringUtils.removeStart(wifiConfiguration.SSID, QUOTE), QUOTE);
-                if (scanResult.SSID.equalsIgnoreCase(ssid)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    public List<WiFiDetail> getWiFiDetails() {
+        return Collections.unmodifiableList(wiFiDetails);
     }
 
-    public WifiInfo getWiFiInfo() {
-        return connectionInfo;
+    public List<String> getWiFiConfigurations() {
+        return Collections.unmodifiableList(wiFiConfigurations);
     }
 
-    public List<WifiConfiguration> getConfiguredNetworks() {
-        return configuredNetworks;
-    }
-
-    public List<ScanResult> getScanResults() {
-        return scanResults;
+    public WiFiConnection getWiFiConnection() {
+        return wiFiConnection;
     }
 }

@@ -40,7 +40,7 @@ import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ConnectionViewTest {
+public class WiFiConnectionViewTest {
     @Mock
     private Scanner scanner;
     @Mock
@@ -73,16 +73,6 @@ public class ConnectionViewTest {
     public void tearDown() throws Exception {
         verify(scanner).addUpdateNotifier(fixture);
         verify(activity).findViewById(R.id.connection);
-    }
-
-    @Test
-    public void testUpdateWithNullConnection() throws Exception {
-        // setup
-        when(wiFiData.getConnection()).thenReturn(null);
-        // execute
-        fixture.update(wiFiData);
-        // validate
-        verify(view).setVisibility(View.GONE);
     }
 
     @Test

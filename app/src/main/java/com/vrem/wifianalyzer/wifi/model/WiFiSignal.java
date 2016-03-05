@@ -16,7 +16,6 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -24,14 +23,12 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class WiFiSignal {
+    public final static WiFiSignal EMPTY = new WiFiSignal(0, 0);
+
     private final int frequency;
     private final WiFiWidth wiFiWidth;
     private final WiFiBand wiFiBand;
     private final int level;
-
-    public WiFiSignal(@NonNull ScanResult scanResult) {
-        this(scanResult.frequency, scanResult.level);
-    }
 
     public WiFiSignal(int frequency, int level) {
         this(frequency, WiFiWidth.MHZ_20, level);

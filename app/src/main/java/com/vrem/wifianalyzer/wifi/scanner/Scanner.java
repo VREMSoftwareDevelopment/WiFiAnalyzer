@@ -29,12 +29,13 @@ public class Scanner {
     private final MainContext mainContext = MainContext.INSTANCE;
     private final PeriodicScan periodicScan;
     private final Map<String, UpdateNotifier> updateNotifiers;
-    private WiFiData wiFiData;
     private Cache cache;
+    private Transformer transformer;
 
     public Scanner() {
         this.periodicScan = new PeriodicScan(this);
         this.updateNotifiers = new TreeMap<>();
+        setTransformer(new Transformer());
         setCache(new Cache());
     }
 
@@ -46,17 +47,13 @@ public class Scanner {
         }
         if (wifiManager.startScan()) {
             cache.add(wifiManager.getScanResults());
-            wiFiData = new WiFiData(cache.getScanResults(), wifiManager.getConnectionInfo(), wifiManager.getConfiguredNetworks());
+            WiFiData wiFiData = transformer.transformToWiFiData(cache.getScanResults(), wifiManager.getConnectionInfo(), wifiManager.getConfiguredNetworks());
             for (String key : updateNotifiers.keySet()) {
                 UpdateNotifier updateNotifier = updateNotifiers.get(key);
                 mainContext.getLogger().info(this, "running notifier: " + key);
                 updateNotifier.update(wiFiData);
             }
         }
-    }
-
-    WiFiData getWifiData() {
-        return wiFiData;
     }
 
     public void addUpdateNotifier(@NonNull UpdateNotifier updateNotifier) {
@@ -71,6 +68,10 @@ public class Scanner {
 
     void setCache(@NonNull Cache cache) {
         this.cache = cache;
+    }
+
+    void setTransformer(@NonNull Transformer transformer) {
+        this.transformer = transformer;
     }
 
     Map<String, UpdateNotifier> getUpdateNotifiers() {

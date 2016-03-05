@@ -28,25 +28,21 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
-
-import java.util.ArrayList;
-import java.util.List;
 
 class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
 
     private final MainContext mainContext = MainContext.INSTANCE;
     private final Resources resources;
-    private final Data data;
+    private final AccessPointsAdapterData accessPointsAdapterData;
     private final AccessPointsDetail accessPointsDetail;
 
     AccessPointsAdapter(@NonNull Context context) {
         super();
         this.resources = context.getResources();
-        this.data = new Data();
+        this.accessPointsAdapterData = new AccessPointsAdapterData();
         this.accessPointsDetail = new AccessPointsDetail();
         mainContext.getScanner().addUpdateNotifier(this);
     }
@@ -84,28 +80,28 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
-        data.update(wiFiData);
+        accessPointsAdapterData.update(wiFiData);
         notifyDataSetChanged();
     }
 
     @Override
     public int getGroupCount() {
-        return data.parentsCount();
+        return accessPointsAdapterData.parentsCount();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return data.childrenCount(groupPosition);
+        return accessPointsAdapterData.childrenCount(groupPosition);
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return data.parent(groupPosition);
+        return accessPointsAdapterData.parent(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return data.child(groupPosition, childPosition);
+        return accessPointsAdapterData.child(groupPosition, childPosition);
     }
 
     @Override
@@ -135,43 +131,6 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
 
         LayoutInflater inflater = mainContext.getLayoutInflater();
         return inflater.inflate(R.layout.access_points_details, null);
-    }
-
-    class Data {
-        WiFiDetail connection;
-        List<WiFiDetail> wiFiDetails = new ArrayList<>();
-
-        void update(WiFiData wiFiData) {
-            if (wiFiData != null) {
-                connection = wiFiData.getConnection();
-                Settings settings = mainContext.getSettings();
-                wiFiDetails = wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy(), settings.getGroupBy());
-            }
-        }
-
-        int parentsCount() {
-            return wiFiDetails.size();
-        }
-
-        boolean validParentIndex(int index) {
-            return index >= 0 && index < parentsCount();
-        }
-
-        boolean validChildrenIndex(int indexParent, int indexChild) {
-            return validParentIndex(indexParent) && indexChild >= 0 && indexChild < childrenCount(indexParent);
-        }
-
-        WiFiDetail parent(int index) {
-            return validParentIndex(index) ? wiFiDetails.get(index) : null;
-        }
-
-        int childrenCount(int index) {
-            return validParentIndex(index) ? wiFiDetails.get(index).getChildren().size() : 0;
-        }
-
-        WiFiDetail child(int indexParent, int indexChild) {
-            return validChildrenIndex(indexParent, indexChild) ? wiFiDetails.get(indexParent).getChildren().get(indexChild) : null;
-        }
     }
 
 }

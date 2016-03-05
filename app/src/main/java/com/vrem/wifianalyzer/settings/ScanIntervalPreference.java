@@ -59,7 +59,9 @@ public class ScanIntervalPreference extends DialogPreference {
         numberPicker = (NumberPicker) view.findViewById(R.id.scan_interval_picker);
         numberPicker.setMinValue(valueMin);
         numberPicker.setMaxValue(valueMax);
-        if (value != null) numberPicker.setValue(value);
+        if (value != null) {
+            numberPicker.setValue(value);
+        }
         numberPicker.setWrapSelectorWheel(false);
     }
 

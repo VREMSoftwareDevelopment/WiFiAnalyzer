@@ -16,7 +16,6 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WiFiDetail {
+    public final static WiFiDetail EMPTY = new WiFiDetail(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, WiFiSignal.EMPTY);
+
     private final List<WiFiDetail> children;
     private final String SSID;
     private final String BSSID;
@@ -45,8 +46,12 @@ public class WiFiDetail {
         this.children = new ArrayList<>();
     }
 
-    public WiFiDetail(@NonNull ScanResult scanResult, @NonNull WiFiAdditional wiFiAdditional) {
-        this(scanResult.SSID, scanResult.BSSID, scanResult.capabilities, new WiFiSignal(scanResult), wiFiAdditional);
+    public WiFiDetail(@NonNull String SSID, @NonNull String BSSID, @NonNull String capabilities, @NonNull WiFiSignal wiFiSignal) {
+        this(SSID, BSSID, capabilities, wiFiSignal, WiFiAdditional.EMPTY);
+    }
+
+    public WiFiDetail(@NonNull WiFiDetail wiFiDetail, @NonNull WiFiAdditional wiFiAdditional) {
+        this(wiFiDetail.getSSID(), wiFiDetail.getBSSID(), wiFiDetail.getCapabilities(), wiFiDetail.getWiFiSignal(), wiFiAdditional);
     }
 
     public Security getSecurity() {

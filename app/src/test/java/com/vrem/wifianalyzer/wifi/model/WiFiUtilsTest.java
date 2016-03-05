@@ -16,6 +16,7 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.text.DecimalFormat;
@@ -54,6 +55,18 @@ public class WiFiUtilsTest {
 
         assertEquals(4, WiFiUtils.calculateSignalLevel(-55, 5));
         assertEquals(4, WiFiUtils.calculateSignalLevel(0, 5));
+    }
+
+    @Test
+    public void testConvertIpAddress() throws Exception {
+        assertEquals("21.205.91.7", WiFiUtils.convertIpAddress(123456789));
+        assertEquals(StringUtils.EMPTY, WiFiUtils.convertIpAddress(1234));
+    }
+
+    @Test
+    public void testConvertSSID() throws Exception {
+        assertEquals("SSID", WiFiUtils.convertSSID("\"SSID\""));
+        assertEquals("SSID", WiFiUtils.convertSSID("SSID"));
     }
 
 }

@@ -52,7 +52,11 @@ public class ScannerTest {
     @Mock private UpdateNotifier updateNotifier2;
     @Mock private WifiInfo wifiInfo;
     @Mock private Cache cache;
+    @Mock
+    private Transformer transformer;
     @Mock private Logger logger;
+    @Mock
+    private WiFiData wiFiData;
 
     private List<ScanResult> scanResults;
     private List<ScanResult> cachedScanResults;
@@ -74,6 +78,7 @@ public class ScannerTest {
 
         fixture = new Scanner();
         fixture.setCache(cache);
+        fixture.setTransformer(transformer);
         fixture.addUpdateNotifier(updateNotifier1);
     }
 
@@ -106,23 +111,23 @@ public class ScannerTest {
     @Test
     public void testUpdateWithWiFiData() throws Exception {
         // setup
-        withCache(cachedScanResults);
-        withWiFiManager(scanResults, configuredNetworks);
+        withCache();
+        withTransformer();
+        withWiFiManager();
         // execute
         fixture.update();
         // validate
-        WiFiData wifiData = fixture.getWifiData();
-        verify(updateNotifier1).update(wifiData);
-        assertEquals(wifiInfo, wifiData.getWiFiInfo());
-        assertEquals(configuredNetworks, wifiData.getConfiguredNetworks());
-        assertEquals(cachedScanResults, wifiData.getScanResults());
+        verifyCache();
+        verifyTransfomer();
+        verifyWiFiManager();
+        verify(updateNotifier1).update(wiFiData);
     }
 
     @Test
     public void testUpdateWithWiFiManager() throws Exception {
         // setup
-        withCache(cachedScanResults);
-        withWiFiManager(scanResults, configuredNetworks);
+        withCache();
+        withWiFiManager();
         // execute
         fixture.update();
         // validate
@@ -132,19 +137,23 @@ public class ScannerTest {
     @Test
     public void testUpdateWithCache() throws Exception {
         // setup
-        withCache(cachedScanResults);
-        withWiFiManager(scanResults, configuredNetworks);
+        withCache();
+        withWiFiManager();
         // execute
         fixture.update();
         // validate
-        verifyCache(scanResults);
+        verifyCache();
     }
 
-    private void withCache(List<ScanResult> cachedScanResults) {
+    private void withCache() {
         when(cache.getScanResults()).thenReturn(cachedScanResults);
     }
 
-    private void verifyCache(List<ScanResult> scanResults) {
+    private void withTransformer() {
+        when(transformer.transformToWiFiData(cachedScanResults, wifiInfo, configuredNetworks)).thenReturn(wiFiData);
+    }
+
+    private void verifyCache() {
         verify(cache).add(scanResults);
         verify(cache).getScanResults();
     }
@@ -158,7 +167,7 @@ public class ScannerTest {
         verify(wifiManager).getConfiguredNetworks();
     }
 
-    private void withWiFiManager(List<ScanResult> scanResults, List<WifiConfiguration> configuredNetworks) {
+    private void withWiFiManager() {
         when(wifiManager.isWifiEnabled()).thenReturn(false);
         when(wifiManager.startScan()).thenReturn(true);
         when(wifiManager.getScanResults()).thenReturn(scanResults);
@@ -166,4 +175,7 @@ public class ScannerTest {
         when(wifiManager.getConfiguredNetworks()).thenReturn(configuredNetworks);
     }
 
+    private void verifyTransfomer() {
+        verify(transformer).transformToWiFiData(cachedScanResults, wifiInfo, configuredNetworks);
+    }
 }
