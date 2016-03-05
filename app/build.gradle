@@ -58,31 +58,45 @@ class Version {
 }
 
 def Version updateVersion() {
-    def propertiesFilename = 'build.properties'
-    def propertiesFile = file(propertiesFilename)
+    def propertiesFile = file('build.properties')
+    def Properties properties = readProperties(propertiesFile)
+
+    def versionMajor = properties['version_major'].toString().toInteger()
+    def versionMinor = properties['version_minor'].toString().toInteger()
+    def versionPatch = properties['version_patch'].toString().toInteger()
+    def versionBuild = properties['version_build'].toString().toInteger()
+    def versionStore = properties['version_store'].toString().toInteger()
+
+    def taskNames = gradle.getStartParameter().getTaskNames()
+    if ('assemble' in taskNames || 'assembleRelease' in taskNames || 'aR' in taskNames) {
+        versionPatch++
+        versionStore++
+        properties['version_patch'] = versionPatch.toString()
+        properties['version_store'] = versionStore.toString()
+    }
+    versionBuild++
+    properties['version_build'] = versionBuild.toString()
+
+    writeProperties(propertiesFile, properties)
+
+    def versionName = "${versionMajor}.${versionMinor}.${versionPatch} (${versionBuild})"
+    return new Version(versionCode: versionStore, versionName: versionName)
+}
+
+def Properties readProperties(propertiesFile) {
     if (propertiesFile.canRead()) {
         def Properties properties = new Properties()
-        properties.load(new FileInputStream(propertiesFile))
-        def versionMajor = properties['version_major'].toString().toInteger()
-        def versionMinor = properties['version_minor'].toString().toInteger()
-        def versionPatch = properties['version_patch'].toString().toInteger()
-        def versionBuild = properties['version_build'].toString().toInteger()
-        def versionStore = properties['version_store'].toString().toInteger()
-
-        def taskNames = gradle.getStartParameter().getTaskNames()
-        if ('assemble' in taskNames || 'assembleRelease' in taskNames || 'aR' in taskNames) {
-            versionPatch++
-            versionStore++
-            properties['version_patch'] = versionPatch.toString()
-            properties['version_store'] = versionStore.toString()
-        }
-        versionBuild++
-        properties['version_build'] = versionBuild.toString()
-        properties.store(propertiesFile.newWriter(), "Build Properties")
-
-        def versionName = "${versionMajor}.${versionMinor}.${versionPatch} (${versionBuild})"
-        return new Version(versionCode: versionStore, versionName: versionName)
+        def inputStream = new FileInputStream(propertiesFile);
+        properties.load(inputStream)
+        inputStream.close()
+        return properties
     } else {
-        throw new GradleException("Could not read " + propertiesFilename + " file!")
+        throw new GradleException("Could not read " + propertiesFile.name + " file!")
     }
+}
+
+def writeProperties(propertiesFile, properties) {
+    def writer = propertiesFile.newWriter()
+    properties.store(writer, "Build Properties")
+    writer.close()
 }
