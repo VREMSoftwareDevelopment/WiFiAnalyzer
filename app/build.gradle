@@ -17,9 +17,20 @@
 apply plugin: 'com.android.application'
 
 android {
-    def version = updateVersion();
+    def keystoreInfo = getKeystoreInfo()
+    signingConfigs {
+        config {
+            keyAlias keystoreInfo.keyAlias
+            keyPassword keystoreInfo.keyPassword
+            storeFile file(keystoreInfo.storeFilename)
+            storePassword keystoreInfo.storePassword
+        }
+    }
+
     compileSdkVersion 22
     buildToolsVersion "23.0.2"
+
+    def version = updateVersion()
     defaultConfig {
         applicationId "com.vrem.wifianalyzer"
         minSdkVersion 22
@@ -27,13 +38,21 @@ android {
         versionCode version.versionCode
         versionName version.versionName
     }
+
     buildTypes {
         release {
             minifyEnabled true
+            signingConfig signingConfigs.config
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
+        }
+        debug {
+            debuggable true
         }
     }
+
     packagingOptions {
-        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
     }
 }
 
@@ -68,7 +87,8 @@ def Version updateVersion() {
     def versionStore = properties['version_store'].toString().toInteger()
 
     def taskNames = gradle.getStartParameter().getTaskNames()
-    if ('assemble' in taskNames || 'assembleRelease' in taskNames || 'aR' in taskNames) {
+    if (':app:assembleRelease' in taskNames) {
+        System.out.println(">>> Building Release Version...")
         versionPatch++
         versionStore++
         properties['version_patch'] = versionPatch.toString()
@@ -79,19 +99,22 @@ def Version updateVersion() {
 
     writeProperties(propertiesFile, properties)
 
-    def versionName = "${versionMajor}.${versionMinor}.${versionPatch} (${versionBuild})"
+    def versionName = "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
+    System.out.println(">>> " + project.parent.name + " Version Name: " + versionName + " Code: " + versionStore)
     return new Version(versionCode: versionStore, versionName: versionName)
 }
 
 def Properties readProperties(propertiesFile) {
     if (propertiesFile.canRead()) {
         def Properties properties = new Properties()
-        def inputStream = new FileInputStream(propertiesFile);
+        def inputStream = new FileInputStream(propertiesFile)
         properties.load(inputStream)
         inputStream.close()
         return properties
     } else {
-        throw new GradleException("Could not read " + propertiesFile.name + " file!")
+        def message = "Could not read " + propertiesFile.name + " file!"
+        System.err.println(message)
+        throw new GradleException(message)
     }
 }
 
@@ -99,4 +122,28 @@ def writeProperties(propertiesFile, properties) {
     def writer = propertiesFile.newWriter()
     properties.store(writer, "Build Properties")
     writer.close()
+}
+
+class KeystoreInfo {
+    String keyAlias
+    String keyPassword
+    String storeFilename
+    String storePassword
+}
+
+def KeystoreInfo getKeystoreInfo() {
+    def propertiesFile = file('../../keystores/androidkeystore.properties')
+    def Properties properties = readProperties(propertiesFile)
+
+    def keyAlias = properties['key_alias'].toString()
+    def keyPassword = properties['key_password'].toString()
+    def storeFilename = properties['store_filename'].toString()
+    def storePassword = properties['store_password'].toString()
+
+    return new KeystoreInfo(
+            keyAlias: keyAlias,
+            keyPassword: keyPassword,
+            storeFilename: storeFilename,
+            storePassword: storePassword
+    )
 }
