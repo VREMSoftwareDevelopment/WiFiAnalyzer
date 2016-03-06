@@ -37,6 +37,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.SortedSet;
 
 class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifier {
@@ -61,7 +62,7 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
         SortedSet<Integer> channels = wiFiBand.getChannels();
         addAll(channels);
         channelRating.setWiFiChannels(wiFiData.getWiFiDetails(wiFiBand, SortBy.STRENGTH));
-        bestChannels(channels);
+        bestChannels(wiFiBand, channels);
         notifyDataSetChanged();
     }
 
@@ -89,29 +90,34 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
         return convertView;
     }
 
-    void bestChannels(SortedSet<Integer> channels) {
+    private void bestChannels(@NonNull WiFiBand wiFiBand, @NonNull SortedSet<Integer> channels) {
+        List<ChannelRating.ChannelAPCount> channelAPCounts = channelRating.getBestChannels(channels);
         int channelCount = 0;
         StringBuilder result = new StringBuilder();
-        for (Integer channel : channels) {
+        for (ChannelRating.ChannelAPCount channelAPCount : channelAPCounts) {
             if (channelCount > MAX_CHANNELS_TO_DISPLAY) {
                 result.append("...");
                 break;
             }
-            Strength strength = Strength.reverse(channelRating.getStrength(channel));
-            if (Strength.FOUR.equals(strength) || Strength.THREE.equals(strength)) {
-                if (result.length() > 0) {
-                    result.append(", ");
-                }
-                result.append(channel);
-                channelCount++;
+            if (result.length() > 0) {
+                result.append(", ");
             }
+            result.append(channelAPCount.getChannel());
+            channelCount++;
         }
         if (result.length() > 0) {
-            bestChannels.setText(result.toString());
-            bestChannels.setTextColor(resources.getColor(R.color.success_color));
+            this.bestChannels.setText(result.toString());
+            this.bestChannels.setTextColor(resources.getColor(R.color.success_color));
         } else {
-            bestChannels.setText(resources.getText(R.string.channel_rating_best_none));
-            bestChannels.setTextColor(resources.getColor(R.color.error_color));
+            StringBuilder message = new StringBuilder(resources.getText(R.string.channel_rating_best_none));
+            if (WiFiBand.GHZ_2.equals(wiFiBand)) {
+                message.append(" ");
+                message.append(resources.getText(R.string.channel_rating_best_alternative));
+                message.append(" ");
+                message.append(WiFiBand.GHZ_5.getBand());
+            }
+            this.bestChannels.setText(message);
+            this.bestChannels.setTextColor(resources.getColor(R.color.error_color));
         }
     }
 

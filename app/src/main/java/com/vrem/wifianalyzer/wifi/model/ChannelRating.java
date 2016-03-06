@@ -18,8 +18,13 @@ package com.vrem.wifianalyzer.wifi.model;
 
 import android.support.annotation.NonNull;
 
+import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.SortedSet;
 
 public class ChannelRating {
     private List<WiFiDetail> wiFiDetails = new ArrayList<>();
@@ -58,4 +63,48 @@ public class ChannelRating {
         }
         return result;
     }
+
+    public List<ChannelAPCount> getBestChannels(@NonNull final SortedSet<Integer> channels) {
+        List<ChannelAPCount> results = new ArrayList<>();
+        for (Integer channel : channels) {
+            Strength strength = getStrength(channel);
+            if (Strength.ZERO.equals(strength) || Strength.ONE.equals(strength)) {
+                results.add(new ChannelAPCount(channel, getCount(channel)));
+            }
+        }
+        Collections.sort(results);
+        return results;
+    }
+
+    public class ChannelAPCount implements Comparable<ChannelAPCount> {
+        private final int channel;
+        private final int apCount;
+
+        public ChannelAPCount(int channel, int apCount) {
+            this.channel = channel;
+            this.apCount = apCount;
+        }
+
+        public int getChannel() {
+            return channel;
+        }
+
+        public int getApCount() {
+            return apCount;
+        }
+
+        @Override
+        public int compareTo(@NonNull ChannelAPCount another) {
+            return new CompareToBuilder()
+                    .append(getApCount(), another.getApCount())
+                    .append(getChannel(), another.getChannel())
+                    .toComparison();
+        }
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
+        }
+    }
+
 }

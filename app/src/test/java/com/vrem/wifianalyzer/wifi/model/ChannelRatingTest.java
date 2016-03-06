@@ -22,6 +22,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.SortedSet;
 
 import static org.junit.Assert.assertEquals;
 
@@ -35,10 +36,10 @@ public class ChannelRatingTest {
 
     @Before
     public void setUp() throws Exception {
-        wiFiDetail1 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY, new WiFiSignal(2445, -75), WiFiAdditional.EMPTY);
-        wiFiDetail2 = new WiFiDetail("SSID2", "BSSID2", StringUtils.EMPTY, new WiFiSignal(2435, -55), WiFiAdditional.EMPTY);
-        wiFiDetail3 = new WiFiDetail("SSID3", "BSSID3", StringUtils.EMPTY, new WiFiSignal(2455, -35), WiFiAdditional.EMPTY);
-        wiFiDetail4 = new WiFiDetail("SSID4", "BSSID4", StringUtils.EMPTY, new WiFiSignal(2435, -35), new WiFiAdditional(StringUtils.EMPTY, "192.168.1.1"));
+        wiFiDetail1 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY, new WiFiSignal(2445, -70), WiFiAdditional.EMPTY);
+        wiFiDetail2 = new WiFiDetail("SSID2", "BSSID2", StringUtils.EMPTY, new WiFiSignal(2435, -80), WiFiAdditional.EMPTY);
+        wiFiDetail3 = new WiFiDetail("SSID3", "BSSID3", StringUtils.EMPTY, new WiFiSignal(2455, -60), WiFiAdditional.EMPTY);
+        wiFiDetail4 = new WiFiDetail("SSID4", "BSSID4", StringUtils.EMPTY, new WiFiSignal(2435, -50), new WiFiAdditional(StringUtils.EMPTY, "192.168.1.1"));
         wiFiDetails = Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4);
         fixture = new ChannelRating();
         fixture.setWiFiChannels(wiFiDetails);
@@ -56,8 +57,9 @@ public class ChannelRatingTest {
 
     @Test
     public void testGetCountChannelWithWiFiDetail1() throws Exception {
+        // setup
         WiFiSignal wiFiSignal = wiFiDetail1.getWiFiSignal();
-        System.out.println(wiFiDetail1.getSSID() + " S:" + wiFiSignal.getChannelStart() + " M:" + wiFiSignal.getChannel() + " E:" + wiFiSignal.getChannelEnd());
+        // execute & validate
         assertEquals(2, fixture.getCount(wiFiSignal.getChannelStart()));
         assertEquals(3, fixture.getCount(wiFiSignal.getChannel()));
         assertEquals(2, fixture.getCount(wiFiSignal.getChannelEnd()));
@@ -65,8 +67,9 @@ public class ChannelRatingTest {
 
     @Test
     public void testGetCountChannelWithWiFiDetail2() throws Exception {
+        // setup
         WiFiSignal wiFiSignal = wiFiDetail2.getWiFiSignal();
-        System.out.println(wiFiDetail2.getSSID() + " S:" + wiFiSignal.getChannelStart() + " M:" + wiFiSignal.getChannel() + " E:" + wiFiSignal.getChannelEnd());
+        // execute & validate
         assertEquals(1, fixture.getCount(wiFiSignal.getChannelStart()));
         assertEquals(2, fixture.getCount(wiFiSignal.getChannel()));
         assertEquals(3, fixture.getCount(wiFiSignal.getChannelEnd()));
@@ -74,8 +77,9 @@ public class ChannelRatingTest {
 
     @Test
     public void testGetCountChannelWithWiFiDetail3() throws Exception {
+        // setup
         WiFiSignal wiFiSignal = wiFiDetail3.getWiFiSignal();
-        System.out.println(wiFiDetail3.getSSID() + " S:" + wiFiSignal.getChannelStart() + " M:" + wiFiSignal.getChannel() + " E:" + wiFiSignal.getChannelEnd());
+        // execute & validate
         assertEquals(3, fixture.getCount(wiFiSignal.getChannelStart()));
         assertEquals(2, fixture.getCount(wiFiSignal.getChannel()));
         assertEquals(1, fixture.getCount(wiFiSignal.getChannelEnd()));
@@ -83,10 +87,26 @@ public class ChannelRatingTest {
 
     @Test
     public void testGetStrengthShouldReturnMaximum() throws Exception {
+        assertEquals(wiFiDetail3.getWiFiSignal().getStrength(), fixture.getStrength(wiFiDetail1.getWiFiSignal().getChannel()));
+    }
+
+    @Test
+    public void testGetBestChannelsSortedInOrderWithMinimumChannels() throws Exception {
         // setup
-        int channel = wiFiDetail1.getWiFiSignal().getChannel();
-        // execute & validate
-        assertEquals(wiFiDetail3.getWiFiSignal().getStrength(), fixture.getStrength(channel));
+        SortedSet<Integer> channels = WiFiBand.GHZ_2.getChannels();
+        // execute
+        List<ChannelRating.ChannelAPCount> actual = fixture.getBestChannels(channels);
+        // validate
+        assertEquals(4, actual.size());
+        validateChannelAPCount(1, 0, actual.get(0));
+        validateChannelAPCount(2, 0, actual.get(1));
+        validateChannelAPCount(3, 1, actual.get(2));
+        validateChannelAPCount(4, 1, actual.get(3));
+    }
+
+    private void validateChannelAPCount(int expectedChannel, int expectedAPCount, ChannelRating.ChannelAPCount channelAPCount) {
+        assertEquals(expectedChannel, channelAPCount.getChannel());
+        assertEquals(expectedAPCount, channelAPCount.getApCount());
     }
 
 }
