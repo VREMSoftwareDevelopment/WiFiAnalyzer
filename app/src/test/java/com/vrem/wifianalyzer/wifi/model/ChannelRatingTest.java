@@ -21,6 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,7 +29,8 @@ public class ChannelRatingTest {
     private WiFiDetail wiFiDetail1;
     private WiFiDetail wiFiDetail2;
     private WiFiDetail wiFiDetail3;
-
+    private WiFiDetail wiFiDetail4;
+    private List<WiFiDetail> wiFiDetails;
     private ChannelRating fixture;
 
     @Before
@@ -36,8 +38,10 @@ public class ChannelRatingTest {
         wiFiDetail1 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY, new WiFiSignal(2445, -75), WiFiAdditional.EMPTY);
         wiFiDetail2 = new WiFiDetail("SSID2", "BSSID2", StringUtils.EMPTY, new WiFiSignal(2435, -55), WiFiAdditional.EMPTY);
         wiFiDetail3 = new WiFiDetail("SSID3", "BSSID3", StringUtils.EMPTY, new WiFiSignal(2455, -35), WiFiAdditional.EMPTY);
+        wiFiDetail4 = new WiFiDetail("SSID4", "BSSID4", StringUtils.EMPTY, new WiFiSignal(2435, -35), new WiFiAdditional(StringUtils.EMPTY, "192.168.1.1"));
+        wiFiDetails = Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4);
         fixture = new ChannelRating();
-        fixture.setWiFiChannels(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3));
+        fixture.setWiFiChannels(wiFiDetails);
     }
 
     @Test
@@ -51,27 +55,30 @@ public class ChannelRatingTest {
     }
 
     @Test
-    public void testGetCountChannel1() throws Exception {
-        // setup
-        int channel = wiFiDetail1.getWiFiSignal().getChannel();
-        // execute & validate
-        assertEquals(3, fixture.getCount(channel));
+    public void testGetCountChannelWithWiFiDetail1() throws Exception {
+        WiFiSignal wiFiSignal = wiFiDetail1.getWiFiSignal();
+        System.out.println(wiFiDetail1.getSSID() + " S:" + wiFiSignal.getChannelStart() + " M:" + wiFiSignal.getChannel() + " E:" + wiFiSignal.getChannelEnd());
+        assertEquals(2, fixture.getCount(wiFiSignal.getChannelStart()));
+        assertEquals(3, fixture.getCount(wiFiSignal.getChannel()));
+        assertEquals(2, fixture.getCount(wiFiSignal.getChannelEnd()));
     }
 
     @Test
-    public void testGetCountChannel2() throws Exception {
-        // setup
-        int channel = wiFiDetail2.getWiFiSignal().getChannel();
-        // execute & validate
-        assertEquals(2, fixture.getCount(channel));
+    public void testGetCountChannelWithWiFiDetail2() throws Exception {
+        WiFiSignal wiFiSignal = wiFiDetail2.getWiFiSignal();
+        System.out.println(wiFiDetail2.getSSID() + " S:" + wiFiSignal.getChannelStart() + " M:" + wiFiSignal.getChannel() + " E:" + wiFiSignal.getChannelEnd());
+        assertEquals(1, fixture.getCount(wiFiSignal.getChannelStart()));
+        assertEquals(2, fixture.getCount(wiFiSignal.getChannel()));
+        assertEquals(3, fixture.getCount(wiFiSignal.getChannelEnd()));
     }
 
     @Test
-    public void testGetCountChannel3() throws Exception {
-        // setup
-        int channel = wiFiDetail3.getWiFiSignal().getChannel();
-        // execute & validate
-        assertEquals(2, fixture.getCount(channel));
+    public void testGetCountChannelWithWiFiDetail3() throws Exception {
+        WiFiSignal wiFiSignal = wiFiDetail3.getWiFiSignal();
+        System.out.println(wiFiDetail3.getSSID() + " S:" + wiFiSignal.getChannelStart() + " M:" + wiFiSignal.getChannel() + " E:" + wiFiSignal.getChannelEnd());
+        assertEquals(3, fixture.getCount(wiFiSignal.getChannelStart()));
+        assertEquals(2, fixture.getCount(wiFiSignal.getChannel()));
+        assertEquals(1, fixture.getCount(wiFiSignal.getChannelEnd()));
     }
 
     @Test

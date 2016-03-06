@@ -48,6 +48,9 @@ public class ChannelRating {
     private List<WiFiDetail> collectOverlappingChannels(int channel) {
         List<WiFiDetail> result = new ArrayList<>();
         for (WiFiDetail wiFiDetail : wiFiDetails) {
+            if (wiFiDetail.getWiFiAdditional().isConnected()) {
+                continue;
+            }
             WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
             if (channel >= wiFiSignal.getChannelStart() && channel <= wiFiSignal.getChannelEnd()) {
                 result.add(wiFiDetail);
