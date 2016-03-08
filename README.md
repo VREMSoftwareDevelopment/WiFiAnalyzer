@@ -18,5 +18,5 @@ Optimize WiFi network, by checking WiFi network status, WiFi signal strength and
   2. Import project into Android Studio
       * In Welcome to Android Studio Screen select Import project ...
       * Select the root directory of the WifiAnalyzer repository and click "OK".
-      * WifiAnalyzer will be build automatically
+      * WiFi Analyzer will be build automatically
 
