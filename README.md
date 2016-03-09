@@ -9,7 +9,7 @@ This is the official repository of open-source WiFi Analyzer.
 ![Main Menu Screenshot](https://github.com/VREMSoftwareDevelopment/WifiAnalyzer/raw/master/screenshots/screenshot1.png "Main Menu Screenshot")
 
 ## Features:
-Optimize your WiFi network, by checking WiFi network status, signal strength and identifing crowded  channels using an open-source WiFi Analyzer for Android
+Optimize your WiFi network, by checking WiFi network status, signal strength and identifying crowded channels using an open-source WiFi Analyzer for Android
 * Identify nearby Access Points
 * Graph channels signal strength
 * Graph Access Point signal strength over time
