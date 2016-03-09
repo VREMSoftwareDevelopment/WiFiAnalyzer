@@ -21,6 +21,8 @@
     <string name="app_copyright">Copyright \u00A9 2015 - 2016</string>
     <string name="app_license_name">Licensed under the Apache License, Version 2.0</string>
     <string name="app_license_url">http://www.apache.org/licenses/LICENSE-2.0</string>
+    <string name="app_description">Optimize WiFi network, by checking WiFi network status, WiFi signal strength and identify crowded WiFi channels using an open-source WiFi Analyzer for Android</string>
+    <string name="app_url">https://github.com/VREMSoftwareDevelopment/WifiAnalyzer</string>
     <!-- application end -->
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
