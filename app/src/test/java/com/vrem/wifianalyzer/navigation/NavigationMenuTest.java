@@ -98,12 +98,12 @@ public class NavigationMenuTest {
 
     @Test
     public void testGetIcon() throws Exception {
-        assertEquals(R.mipmap.ic_launcher, NavigationMenu.ACCESS_POINTS.getIcon());
+        assertEquals(R.drawable.ic_network_wifi_grey_500_48dp, NavigationMenu.ACCESS_POINTS.getIcon());
         assertEquals(R.drawable.ic_wifi_tethering_grey_500_48dp, NavigationMenu.CHANNEL_RATING.getIcon());
         assertEquals(R.drawable.ic_insert_chart_grey_500_48dp, NavigationMenu.CHANNEL_GRAPH.getIcon());
         assertEquals(R.drawable.ic_show_chart_grey_500_48dp, NavigationMenu.TIME_GRAPH.getIcon());
         assertEquals(R.drawable.ic_list_grey_500_48dp, NavigationMenu.VENDOR_LIST.getIcon());
         assertEquals(R.drawable.ic_settings_grey_500_48dp, NavigationMenu.SETTINGS.getIcon());
-        assertEquals(R.drawable.ic_info_grey_500_48dp, NavigationMenu.ABOUT.getIcon());
+        assertEquals(R.drawable.ic_info_outline_grey_500_48dp, NavigationMenu.ABOUT.getIcon());
     }
 }
