@@ -17,33 +17,22 @@
 apply plugin: 'com.android.application'
 
 android {
-    def keystoreInfo = getKeystoreInfo()
-    signingConfigs {
-        config {
-            keyAlias keystoreInfo.keyAlias
-            keyPassword keystoreInfo.keyPassword
-            storeFile file(keystoreInfo.storeFilename)
-            storePassword keystoreInfo.storePassword
-        }
-    }
-
     compileSdkVersion 22
     buildToolsVersion "23.0.2"
 
-    def version = updateVersion()
     defaultConfig {
         applicationId "com.vrem.wifianalyzer"
         minSdkVersion 22
         targetSdkVersion 22
-        versionCode version.versionCode
-        versionName version.versionName
+        versionCode
+        versionName
     }
 
     buildTypes {
         release {
             minifyEnabled true
-            signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android.txt')
+            signingConfig
         }
         debug {
             debuggable true
@@ -54,6 +43,17 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
     }
+}
+
+if (project.hasProperty('keyAlias')) {
+    def propertiesFile = file('../../keystores/androidkeystore.properties')
+    def Properties properties = readProperties(propertiesFile);
+
+    System.out.println(">>> Signing Config " + properties)
+    android.buildTypes.release.signingConfig.keyAlias = properties['key_alias'].toString()
+    android.buildTypes.release.signingConfig.keyPassword = properties['key_password'].toString()
+    android.buildTypes.release.signingConfig.storeFile = file(properties['store_filename'].toString())
+    android.buildTypes.release.signingConfig.storePassword = properties['store_password'].toString()
 }
 
 dependencies {
@@ -71,12 +71,9 @@ dependencies {
     testCompile 'org.robolectric:robolectric:3.1-SNAPSHOT'
 }
 
-class Version {
-    int versionCode
-    String versionName
-}
+updateVersion()
 
-def Version updateVersion() {
+def updateVersion() {
     def propertiesFile = file('build.properties')
     def Properties properties = readProperties(propertiesFile)
 
@@ -86,8 +83,7 @@ def Version updateVersion() {
     def versionBuild = properties['version_build'].toString().toInteger()
     def versionStore = properties['version_store'].toString().toInteger()
 
-    def taskNames = gradle.getStartParameter().getTaskNames()
-    if (':app:assembleRelease' in taskNames) {
+    if (isReleaseBuild()) {
         System.out.println(">>> Building Release Version...")
         versionPatch++
         versionStore++
@@ -101,7 +97,13 @@ def Version updateVersion() {
 
     def versionName = "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
     System.out.println(">>> " + project.parent.name + " Version Name: " + versionName + " Code: " + versionStore)
-    return new Version(versionCode: versionStore, versionName: versionName)
+    android.defaultConfig.versionCode = versionStore
+    android.defaultConfig.versionName = versionName
+}
+
+def isReleaseBuild() {
+    def tasks = gradle.getStartParameter().getTaskNames()
+    return ':app:assembleRelease' in tasks || 'assembleRelease' in tasks
 }
 
 def Properties readProperties(propertiesFile) {
@@ -112,7 +114,7 @@ def Properties readProperties(propertiesFile) {
         inputStream.close()
         return properties
     } else {
-        def message = "Could not read " + propertiesFile.name + " file!"
+        def message = ">>> Could not read " + propertiesFile.name + " file!"
         System.err.println(message)
         throw new GradleException(message)
     }
@@ -122,28 +124,4 @@ def writeProperties(propertiesFile, properties) {
     def writer = propertiesFile.newWriter()
     properties.store(writer, "Build Properties")
     writer.close()
-}
-
-class KeystoreInfo {
-    String keyAlias
-    String keyPassword
-    String storeFilename
-    String storePassword
-}
-
-def KeystoreInfo getKeystoreInfo() {
-    def propertiesFile = file('../../keystores/androidkeystore.properties')
-    def Properties properties = readProperties(propertiesFile)
-
-    def keyAlias = properties['key_alias'].toString()
-    def keyPassword = properties['key_password'].toString()
-    def storeFilename = properties['store_filename'].toString()
-    def storePassword = properties['store_password'].toString()
-
-    return new KeystoreInfo(
-            keyAlias: keyAlias,
-            keyPassword: keyPassword,
-            storeFilename: storeFilename,
-            storePassword: storePassword
-    )
 }
