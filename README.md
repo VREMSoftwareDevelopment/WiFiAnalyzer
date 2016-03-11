@@ -1,6 +1,6 @@
 # WiFi Analyzer (open-source) for Android 5.1+
 
-Optimize your WiFi network using WiFi Analyzer (open-source) by checking WiFi network status, signal strength and identifying crowded channels.
+Optimize your WiFi network using WiFi Analyzer (open-source) by examining surrounding WiFi networks, measuring their signal strength as well as identifying crowded channels.
 
 [![Download from Google Play](http://www.android.com/images/brand/android_app_on_play_large.png "Download from Google Play")](https://play.google.com/store/apps/details?id=com.vrem.wifianalyzer)
 
