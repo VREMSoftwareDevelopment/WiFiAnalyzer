@@ -19,9 +19,6 @@
     <string name="app_name">WiFi Analyzer</string>
     <string name="app_company_name">VREM Software Development</string>
     <string name="app_copyright">Copyright \u00A9 2015 - 2016</string>
-    <string name="app_license_name">Licensed under the Apache License, Version 2.0</string>
-    <string name="app_license_url">http://www.apache.org/licenses/LICENSE-2.0</string>
-    <string name="app_description">Optimize your WiFi network, by checking WiFi network status, signal strength and identifying crowded channels using an open-source WiFi Analyzer for Android</string>
     <string name="app_url">https://github.com/VREMSoftwareDevelopment/WifiAnalyzer</string>
     <!-- application end -->
 
@@ -88,7 +85,12 @@
     <!-- settings end -->
 
     <!-- about start -->
-    <string name="about_libraries_title">Used Libraries:</string>
+    <string name="about_license_title">License:</string>
+    <string name="about_license_name">Licensed under the Apache License, Version 2.0</string>
+    <string name="about_license_url">http://www.apache.org/licenses/LICENSE-2.0</string>
+    <string name="about_description_title">Description:</string>
+    <string name="about_description_text">Optimize your WiFi network, by checking WiFi network status, signal strength and identifying crowded channels using an open-source WiFi Analyzer for Android</string>
+    <string name="about_libraries_title">Libraries Used:</string>
     <string name="about_library_apache">Apache Commons</string>
     <string name="about_library_apache_url">https://commons.apache.org</string>
     <string name="about_library_graphview">Graph View</string>
