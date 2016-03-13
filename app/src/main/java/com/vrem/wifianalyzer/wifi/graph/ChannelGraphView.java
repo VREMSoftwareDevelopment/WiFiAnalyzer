@@ -106,7 +106,7 @@ class ChannelGraphView {
         series.setColor(currentGraphColor.getPrimary());
         series.setBackgroundColor(currentGraphColor.getBackground());
         series.setDrawBackground(true);
-        series.setTitle(wiFiDetail.getTitle() + " " + wiFiDetail.getWiFiSignal().getChannel());
+        series.setTitle(graphViewUtils.getSeriesTitle(wiFiDetail));
     }
 
     private DataPoint[] createDataPoints(@NonNull WiFiDetail wiFiDetail) {

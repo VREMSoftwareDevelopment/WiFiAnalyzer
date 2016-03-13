@@ -95,6 +95,14 @@ public enum WiFiBand {
         return results;
     }
 
+    public int getFrequencyStart() {
+        return channelFrequencyStart;
+    }
+
+    public int getFrequencyEnd() {
+        return channelFrequencyEnd;
+    }
+
     public int getChannelFirst() {
         return channelFirst;
     }

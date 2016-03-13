@@ -59,7 +59,7 @@ public class WiFiDetail {
     }
 
     public String getSSID() {
-        return SSID;
+        return StringUtils.isBlank(SSID) ? "***" : SSID;
     }
 
     public String getBSSID() {
@@ -83,7 +83,7 @@ public class WiFiDetail {
     }
 
     public String getTitle() {
-        return String.format("%s (%s)", StringUtils.isBlank(getSSID()) ? "***" : getSSID(), getBSSID());
+        return String.format("%s (%s)", getSSID(), getBSSID());
     }
 
     public void addChild(@NonNull WiFiDetail wiFiDetail) {

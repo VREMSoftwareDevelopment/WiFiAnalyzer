@@ -24,7 +24,9 @@ import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +37,12 @@ class GraphViewUtils {
     private final MainContext mainContext = MainContext.INSTANCE;
     private final GraphView graphView;
     private final Map<String, LineGraphSeries<DataPoint>> seriesMap;
-    private GraphLegend graphLegend;
+    private GraphLegendPosition graphLegendPosition;
 
     public GraphViewUtils(@NonNull GraphView graphView, @NonNull Map<String, LineGraphSeries<DataPoint>> seriesMap) {
         this.graphView = graphView;
         this.seriesMap = seriesMap;
-        this.graphLegend = mainContext.getSettings().getGraphLegend();
+        this.graphLegendPosition = mainContext.getSettings().getGraphLegend();
     }
 
     void updateSeries(@NonNull Set<String> newSeries) {
@@ -62,32 +64,27 @@ class GraphViewUtils {
         legendRenderer.setVisible(isVisible());
         legendRenderer.resetStyles();
         legendRenderer.setWidth(0);
-        positionLegend(legendRenderer);
-        legendRenderer.setTextSize(legendRenderer.getTextSize() * 0.50f);
-    }
-
-    private void positionLegend(LegendRenderer legendRenderer) {
-        if (GraphLegend.RIGHT.equals(graphLegend)) {
-            legendRenderer.setAlign(LegendRenderer.LegendAlign.TOP);
-        } else if (GraphLegend.LEFT.equals(graphLegend)) {
-            legendRenderer.setFixedPosition(0, 0);
-        }
+        graphLegendPosition.setPosition(legendRenderer);
     }
 
     private boolean isVisible() {
-        return !GraphLegend.HIDE.equals(this.graphLegend);
+        return !GraphLegendPosition.HIDE.equals(this.graphLegendPosition);
     }
 
     private void resetLegendRenderer() {
-        if (!graphLegend.equals(mainContext.getSettings().getGraphLegend())) {
+        if (!graphLegendPosition.equals(mainContext.getSettings().getGraphLegend())) {
             LegendRenderer legendRenderer = new LegendRenderer(graphView);
             graphView.setLegendRenderer(legendRenderer);
-            graphLegend = mainContext.getSettings().getGraphLegend();
+            graphLegendPosition = mainContext.getSettings().getGraphLegend();
         }
     }
 
     void setVisibility(@NonNull WiFiBand wiFiBand) {
         graphView.setVisibility(wiFiBand.equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
+    }
+
+    String getSeriesTitle(@NonNull WiFiDetail wiFiDetail) {
+        return wiFiDetail.getSSID() + " " + mainContext.getContext().getResources().getString(R.string.channel_short_name) + " " + wiFiDetail.getWiFiSignal().getChannel();
     }
 
 }
