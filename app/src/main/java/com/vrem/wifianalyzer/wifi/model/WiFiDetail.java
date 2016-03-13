@@ -19,6 +19,7 @@ package com.vrem.wifianalyzer.wifi.model;
 import android.support.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -26,7 +27,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WiFiDetail {
+public class WiFiDetail implements Comparable<WiFiDetail> {
     public final static WiFiDetail EMPTY = new WiFiDetail(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, WiFiSignal.EMPTY);
 
     private final List<WiFiDetail> children;
@@ -98,21 +99,29 @@ public class WiFiDetail {
 
         WiFiDetail otherDetail = (WiFiDetail) other;
         return new EqualsBuilder()
-                .append(getSSID().toUpperCase(), (otherDetail).getSSID().toUpperCase())
-                .append(getBSSID().toUpperCase(), (otherDetail).getBSSID().toUpperCase())
+                .append(getSSID(), (otherDetail).getSSID())
+                .append(getBSSID(), (otherDetail).getBSSID())
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(getSSID().toUpperCase())
-                .append(getBSSID().toUpperCase())
+                .append(getSSID())
+                .append(getBSSID())
                 .toHashCode();
     }
 
     @Override
+    public int compareTo(@NonNull WiFiDetail another) {
+        return new CompareToBuilder()
+                .append(getSSID(), another.getSSID())
+                .append(getBSSID(), another.getBSSID())
+                .toComparison();
+    }
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
     }
+
 }

@@ -78,4 +78,13 @@ public class WiFiDetailTest {
         // execute & validate
         assertEquals(fixture.hashCode(), other.hashCode());
     }
+
+    @Test
+    public void testCompareTo() throws Exception {
+        // setup
+        WiFiDetail other = new WiFiDetail(SSID, BSSID, WPA, wiFiSignal);
+        // execute & validate
+        assertEquals(0, fixture.compareTo(other));
+    }
+
 }

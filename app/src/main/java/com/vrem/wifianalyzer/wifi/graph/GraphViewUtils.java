@@ -22,9 +22,8 @@ import android.view.View;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.Series;
 import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
@@ -36,25 +35,25 @@ import java.util.Set;
 class GraphViewUtils {
     private final MainContext mainContext = MainContext.INSTANCE;
     private final GraphView graphView;
-    private final Map<String, LineGraphSeries<DataPoint>> seriesMap;
+    private final Map<WiFiDetail, ? extends Series<DataPoint>> seriesMap;
     private GraphLegendPosition graphLegendPosition;
 
-    public GraphViewUtils(@NonNull GraphView graphView, @NonNull Map<String, LineGraphSeries<DataPoint>> seriesMap) {
+    public GraphViewUtils(@NonNull GraphView graphView, @NonNull Map<WiFiDetail, ? extends Series<DataPoint>> seriesMap) {
         this.graphView = graphView;
         this.seriesMap = seriesMap;
         this.graphLegendPosition = mainContext.getSettings().getGraphLegend();
     }
 
-    void updateSeries(@NonNull Set<String> newSeries) {
-        List<String> remove = new ArrayList<>();
-        for (String title : seriesMap.keySet()) {
-            if (!newSeries.contains(title)) {
-                graphView.removeSeries(seriesMap.get(title));
-                remove.add(title);
+    void updateSeries(@NonNull Set<WiFiDetail> newSeries) {
+        List<WiFiDetail> remove = new ArrayList<>();
+        for (WiFiDetail wiFiDetail : seriesMap.keySet()) {
+            if (!newSeries.contains(wiFiDetail)) {
+                graphView.removeSeries(seriesMap.get(wiFiDetail));
+                remove.add(wiFiDetail);
             }
         }
-        for (String title : remove) {
-            seriesMap.remove(title);
+        for (WiFiDetail wiFiDetail : remove) {
+            seriesMap.remove(wiFiDetail);
         }
     }
 
@@ -81,10 +80,6 @@ class GraphViewUtils {
 
     void setVisibility(@NonNull WiFiBand wiFiBand) {
         graphView.setVisibility(wiFiBand.equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
-    }
-
-    String getSeriesTitle(@NonNull WiFiDetail wiFiDetail) {
-        return wiFiDetail.getSSID() + " " + mainContext.getContext().getResources().getString(R.string.channel_short_name) + " " + wiFiDetail.getWiFiSignal().getChannel();
     }
 
 }

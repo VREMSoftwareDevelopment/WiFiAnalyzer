@@ -38,7 +38,7 @@ class TimeGraphView {
 
     private final WiFiBand wiFiBand;
     private final GraphView graphView;
-    private final Map<String, LineGraphSeries<DataPoint>> seriesMap;
+    private final Map<WiFiDetail, LineGraphSeries<DataPoint>> seriesMap;
     private final GraphViewUtils graphViewUtils;
     private int scanCount;
     private GraphColor currentGraphColor;
@@ -70,7 +70,7 @@ class TimeGraphView {
     }
 
     void update(@NonNull WiFiData wiFiData) {
-        Set<String> newSeries = new TreeSet<>();
+        Set<WiFiDetail> newSeries = new TreeSet<>();
         for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, mainContext.getSettings().getSortBy())) {
             addData(newSeries, wiFiDetail);
         }
@@ -80,15 +80,14 @@ class TimeGraphView {
         scanCount++;
     }
 
-    private void addData(@NonNull Set<String> newSeries, @NonNull WiFiDetail wiFiDetail) {
-        String key = wiFiDetail.getTitle();
-        newSeries.add(key);
-        LineGraphSeries<DataPoint> series = seriesMap.get(key);
+    private void addData(@NonNull Set<WiFiDetail> newSeries, @NonNull WiFiDetail wiFiDetail) {
+        newSeries.add(wiFiDetail);
+        LineGraphSeries<DataPoint> series = seriesMap.get(wiFiDetail);
         if (series == null) {
             series = new LineGraphSeries<>();
             setSeriesOptions(series, wiFiDetail);
             graphView.addSeries(series);
-            seriesMap.put(key, series);
+            seriesMap.put(wiFiDetail, series);
         }
         series.appendData(new DataPoint(scanCount, wiFiDetail.getWiFiSignal().getLevel()), true, scanCount + 1);
     }
@@ -97,7 +96,7 @@ class TimeGraphView {
         currentGraphColor = GraphColor.findColor(currentGraphColor);
         series.setColor(currentGraphColor.getPrimary());
         series.setDrawBackground(false);
-        series.setTitle(graphViewUtils.getSeriesTitle(wiFiDetail));
+        series.setTitle(wiFiDetail.getSSID());
     }
 
 }
