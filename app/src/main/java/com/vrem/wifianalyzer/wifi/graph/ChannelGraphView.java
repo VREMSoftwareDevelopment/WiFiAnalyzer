@@ -18,13 +18,9 @@ package com.vrem.wifianalyzer.wifi.graph;
 
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.DataPointInterface;
-import com.jjoe64.graphview.series.OnDataPointTapListener;
-import com.jjoe64.graphview.series.Series;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
@@ -107,7 +103,7 @@ class ChannelGraphView {
         series.setBackgroundColor(currentGraphColor.getBackground());
         series.setDrawBackground(true);
         series.setTitle(wiFiDetail.getSSID());
-        series.setOnDataPointTapListener(new GraphTapListener());
+        graphViewUtils.setOnDataPointTapListener(series);
     }
 
     private DataPoint[] createDataPoints(@NonNull WiFiDetail wiFiDetail) {
@@ -142,18 +138,4 @@ class ChannelGraphView {
     private boolean is5GHZ() {
         return WiFiBand.GHZ_5.equals(wiFiBand);
     }
-
-    private class GraphTapListener implements OnDataPointTapListener {
-        @Override
-        public void onTap(@NonNull Series series, @NonNull DataPointInterface dataPoint) {
-            for (WiFiDetail wiFiDetail : seriesMap.keySet()) {
-                ChannelGraphSeries<DataPoint> channelGraphSeries = seriesMap.get(wiFiDetail);
-                if (series == channelGraphSeries) {
-                    Toast.makeText(mainContext.getContext(), wiFiDetail.getTitle(), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-        }
-    }
-
 }

@@ -16,14 +16,18 @@
 
 package com.vrem.wifianalyzer.wifi.graph;
 
+import android.app.Dialog;
 import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.DataPointInterface;
+import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.wifi.AccessPointsDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
@@ -82,4 +86,21 @@ class GraphViewUtils {
         graphView.setVisibility(wiFiBand.equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
     }
 
+    public void setOnDataPointTapListener(Series<DataPoint> series) {
+        series.setOnDataPointTapListener(new GraphTapListener());
+    }
+
+    private class GraphTapListener implements OnDataPointTapListener {
+        @Override
+        public void onTap(@NonNull Series series, @NonNull DataPointInterface dataPoint) {
+            for (WiFiDetail wiFiDetail : seriesMap.keySet()) {
+                Series<DataPoint> channelGraphSeries = seriesMap.get(wiFiDetail);
+                if (series == channelGraphSeries) {
+                    Dialog dialog = new AccessPointsDetail().popupDialog(mainContext.getContext(), mainContext.getLayoutInflater(), wiFiDetail);
+                    dialog.show();
+                    return;
+                }
+            }
+        }
+    }
 }

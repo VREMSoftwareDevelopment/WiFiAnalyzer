@@ -53,13 +53,6 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/ipAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
-                android:textColor="@color/connected"
-                android:textStyle="bold" />
         </LinearLayout>
 
         <!-- Row 2 -->
@@ -146,9 +139,18 @@
 
                 <!-- Row 3 -->
                 <TextView
+                    android:id="@+id/ipAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/connected"
+                    android:textStyle="bold" />
+
+                <!-- Row 4 -->
+                <TextView
                     android:id="@+id/vendor"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
+
             </LinearLayout>
 
             <!-- Column 3 -->

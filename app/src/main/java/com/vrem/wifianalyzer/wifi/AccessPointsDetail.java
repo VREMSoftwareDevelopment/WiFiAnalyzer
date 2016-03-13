@@ -16,9 +16,13 @@
 
 package com.vrem.wifianalyzer.wifi;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -85,6 +89,28 @@ public class AccessPointsDetail {
         } else {
             view.findViewById(R.id.tab).setVisibility(View.GONE);
         }
-
     }
+
+    public Dialog popupDialog(@NonNull Context context, @NonNull LayoutInflater inflater, @NonNull WiFiDetail wiFiDetail) {
+        View view = inflater.inflate(R.layout.access_points_details_popup, null);
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(view);
+        setView(context.getResources(), view, wiFiDetail, false);
+        dialog.findViewById(R.id.popupButton).setOnClickListener(new PopupDialogListener(dialog));
+        return dialog;
+    }
+
+    private class PopupDialogListener implements OnClickListener {
+        private final Dialog dialog;
+
+        PopupDialogListener(@NonNull Dialog dialog) {
+            this.dialog = dialog;
+        }
+
+        @Override
+        public void onClick(View view) {
+            dialog.dismiss();
+        }
+    }
+
 }

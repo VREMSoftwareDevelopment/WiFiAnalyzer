@@ -90,6 +90,7 @@ class TimeGraphView {
             seriesMap.put(wiFiDetail, series);
         }
         series.appendData(new DataPoint(scanCount, wiFiDetail.getWiFiSignal().getLevel()), true, scanCount + 1);
+        graphViewUtils.setOnDataPointTapListener(series);
     }
 
     private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetail wiFiDetail) {
