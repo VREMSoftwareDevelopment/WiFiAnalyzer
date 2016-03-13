@@ -16,47 +16,56 @@
 
 package com.vrem.wifianalyzer.wifi.graph;
 
-enum GraphColor {
-    BLUE(0xFF2196F3, 0x332196F3),
-    BLUE_GREY(0xFF607D8B, 0x33607D8B),
-    RED(0xFFF44336, 0x33F44336),
-    PINK(0xFFE91E63, 0x33E91E63),
-    PURPLE(0xFF9C27B0, 0x339C27B0),
-    DEEP_PURPLE(0xFF673AB7, 0x33673AB7),
-    INDIGO(0xFF3F51B5, 0x333F51B5),
-    LIGHT_BLUE(0xFF03A9F4, 0x3303A9F4),
-    CYAN(0xFF00BCD4, 0x3300BCD4),
-    TEAL(0xFF009688, 0x33009688),
-    GREEN(0xFF4CAF50, 0x334CAF50),
-    LIGHT_GREEN(0xFF8BC34A, 0x338BC34A),
-    LIME(0xFFCDDC39, 0x33CDDC39),
-    YELLOW(0xFFFFEB3B, 0x33FFEB3B),
-    AMBER(0xFFFFC107, 0x33FFC107),
-    ORANGE(0xFFFF9800, 0x33FF9800),
-    DEEP_ORANGE(0xFFFF5722, 0x33FF5722),
-    BROWN(0xFF795548, 0x33795548),
-    GREY(0xFF9E9E9E, 0x339E9E9E),
-    // NOTE: Do NOT use the last color
-    TRANSPARENT(0x009E9E9E, 0x009E9E9E);
+import org.apache.commons.lang3.ArrayUtils;
 
-    static int MAX_COLOR = GraphColor.values().length - 1;
+class GraphColor {
+
+    final static GraphColor TRANSPARENT = new GraphColor(0x009E9E9E, 0x009E9E9E);
+
+    final static GraphColor [] GRAPH_COLORS = new GraphColor[] {
+            new GraphColor(0xFFFB1554, 0x33FB1554),
+            new GraphColor(0xFF74FF89, 0x3374FF89),
+            new GraphColor(0xFF8B1EFC, 0x338B1EFC),
+            new GraphColor(0xFF3B6D9D, 0x333B6D9D),
+            new GraphColor(0xFF886D03, 0x33886D03),
+            new GraphColor(0xFFFDD3CD, 0x33FDD3CD),
+            new GraphColor(0xFFE077EA, 0x33E077EA),
+            new GraphColor(0xFF6EFFE6, 0x336EFFE6),
+            new GraphColor(0xFF034713, 0x33034713),
+            new GraphColor(0xFF411457, 0x33411457),
+            new GraphColor(0xFF74230C, 0x3374230C),
+            new GraphColor(0xFFA6D3F5, 0x33A6D3F5),
+            new GraphColor(0xFFF98A96, 0x33F98A96),
+            new GraphColor(0xFF2F944C, 0x332F944C),
+            new GraphColor(0xFFEAA579, 0x33EAA579),
+            new GraphColor(0xFF3C7172, 0x333C7172),
+            new GraphColor(0xFF43310B, 0x3343310B),
+            new GraphColor(0xFFC55616, 0x33C55616),
+            new GraphColor(0xFF94136D, 0x3394136D),
+            new GraphColor(0xFF2ECF76, 0x332ECF76)
+    };
+
     private final int primary;
     private final int background;
 
-    GraphColor(int primary, int background) {
+    private GraphColor(int primary, int background) {
         this.primary = primary;
         this.background = background;
     }
 
-    static GraphColor findColor(GraphColor currentGraphColor) {
+    static GraphColor findColor(GraphColor graphColor) {
         int colorIndex = 0;
-        if (currentGraphColor != null) {
-            colorIndex = currentGraphColor.ordinal() + 1;
-            if (colorIndex >= MAX_COLOR) {
+        if (graphColor != null) {
+            colorIndex = ArrayUtils.indexOf(GRAPH_COLORS, graphColor);
+            if (colorIndex < 0) {
+                colorIndex = 0;
+            }
+            colorIndex += 1;
+            if (colorIndex >= GRAPH_COLORS.length) {
                 colorIndex = 0;
             }
         }
-        return GraphColor.values()[colorIndex];
+        return GRAPH_COLORS[colorIndex];
     }
 
     int getPrimary() {

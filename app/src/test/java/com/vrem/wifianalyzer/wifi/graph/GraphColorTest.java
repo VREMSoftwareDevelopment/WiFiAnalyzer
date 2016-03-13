@@ -24,25 +24,16 @@ public class GraphColorTest {
 
     @Test
     public void testGraphColors() throws Exception {
-        assertEquals(20, GraphColor.values().length);
+        assertEquals(20, GraphColor.GRAPH_COLORS.length);
     }
 
     @Test
     public void testFindColor() throws Exception {
-        assertEquals(GraphColor.values()[0], GraphColor.findColor(null));
-        assertEquals(GraphColor.values()[1], GraphColor.findColor(GraphColor.values()[0]));
-        assertEquals(GraphColor.values()[2], GraphColor.findColor(GraphColor.values()[1]));
-        assertEquals(GraphColor.values()[GraphColor.MAX_COLOR - 1], GraphColor.findColor(GraphColor.values()[GraphColor.MAX_COLOR - 2]));
-        assertEquals(GraphColor.values()[0], GraphColor.findColor(GraphColor.values()[GraphColor.MAX_COLOR - 1]));
+        assertEquals(GraphColor.GRAPH_COLORS[0], GraphColor.findColor(null));
+        assertEquals(GraphColor.GRAPH_COLORS[1], GraphColor.findColor(GraphColor.GRAPH_COLORS[0]));
+        assertEquals(GraphColor.GRAPH_COLORS[2], GraphColor.findColor(GraphColor.GRAPH_COLORS[1]));
+        assertEquals(GraphColor.GRAPH_COLORS[GraphColor.GRAPH_COLORS.length - 1], GraphColor.findColor(GraphColor.GRAPH_COLORS[GraphColor.GRAPH_COLORS.length - 2]));
+        assertEquals(GraphColor.GRAPH_COLORS[0], GraphColor.findColor(GraphColor.GRAPH_COLORS[GraphColor.GRAPH_COLORS.length - 1]));
     }
 
-    @Test
-    public void testGetPrimary() throws Exception {
-        assertEquals(0xFF2196F3, GraphColor.BLUE.getPrimary());
-    }
-
-    @Test
-    public void testGetBackground() throws Exception {
-        assertEquals(0x332196F3, GraphColor.BLUE.getBackground());
-    }
 }
