@@ -23,7 +23,7 @@ import android.preference.PreferenceManager;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.graph.GraphLegendPosition;
+import com.vrem.wifianalyzer.wifi.graph.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
@@ -185,16 +185,16 @@ public class SettingsTest {
         // setup
         String defaultValue = "some";
         String key = "xyz";
-        GraphLegendPosition expected = GraphLegendPosition.RIGHT;
-        withResourceKey(R.string.graph_legend_key, key);
-        when(resources.getString(R.string.graph_legend_default)).thenReturn(defaultValue);
+        GraphLegend expected = GraphLegend.RIGHT;
+        withResourceKey(R.string.time_graph_legend_key, key);
+        when(resources.getString(R.string.time_graph_legend_default)).thenReturn(defaultValue);
         when(sharedPreferences.getString(key, defaultValue)).thenReturn(expected.name());
         // execute
-        GraphLegendPosition actual = fixture.getGraphLegend();
+        GraphLegend actual = fixture.getTimeGraphLegend();
         // validate
         assertEquals(expected, actual);
-        verifyResourceKey(R.string.graph_legend_key);
-        verify(resources).getString(R.string.graph_legend_default);
+        verifyResourceKey(R.string.time_graph_legend_key);
+        verify(resources).getString(R.string.time_graph_legend_default);
         verify(sharedPreferences).getString(key, defaultValue);
     }
 }

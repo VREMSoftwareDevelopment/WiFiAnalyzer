@@ -73,10 +73,15 @@
     <string name="group_by_key">group_by</string>
     <string name="group_by_default">None</string>
 
-    <string name="graph_legend_title">Time Graph Legend Display</string>
-    <string name="graph_legend_summary">%s</string>
-    <string name="graph_legend_key">graph_legend</string>
-    <string name="graph_legend_default">Left</string>
+    <string name="channel_graph_legend_title">Channel Graph Legend Display</string>
+    <string name="channel_graph_legend_summary">%s</string>
+    <string name="channel_graph_legend_key">channel_graph_legend</string>
+    <string name="channel_graph_legend_default">Hide</string>
+
+    <string name="time_graph_legend_title">Time Graph Legend Display</string>
+    <string name="time_graph_legend_summary">%s</string>
+    <string name="time_graph_legend_key">time_graph_legend</string>
+    <string name="time_graph_legend_default">Left</string>
 
     <string name="theme_title">Theme</string>
     <string name="theme_summary">%s</string>

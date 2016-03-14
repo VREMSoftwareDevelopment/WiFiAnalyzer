@@ -28,6 +28,8 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -46,7 +48,7 @@ class ChannelGraphView {
         this.wiFiBand = wiFiBand;
         this.graphView = makeGraphView(graphViewBuilder, resources, this.wiFiBand);
         this.seriesMap = new TreeMap<>();
-        this.graphViewUtils = new GraphViewUtils(graphView, seriesMap);
+        this.graphViewUtils = new GraphViewUtils(graphView, seriesMap, mainContext.getSettings().getChannelGraphLegend());
         this.currentGraphColor = null;
         if (is5GHZ()) {
             addDefaultsSeries(graphView, wiFiBand);
@@ -81,6 +83,7 @@ class ChannelGraphView {
             addData(newSeries, wiFiDetail);
         }
         graphViewUtils.updateSeries(newSeries);
+        graphViewUtils.updateLegend(mainContext.getSettings().getChannelGraphLegend());
         graphViewUtils.setVisibility(wiFiBand);
     }
 
@@ -101,7 +104,6 @@ class ChannelGraphView {
         currentGraphColor = GraphColor.findColor(currentGraphColor);
         series.setColor(currentGraphColor.getPrimary());
         series.setBackgroundColor(currentGraphColor.getBackground());
-        series.setDrawBackground(true);
         series.setTitle(wiFiDetail.getSSID());
         graphViewUtils.setOnDataPointTapListener(series);
     }
@@ -129,9 +131,8 @@ class ChannelGraphView {
 
         ChannelGraphSeries<DataPoint> series = new ChannelGraphSeries<>(dataPoints);
         series.setColor(GraphColor.TRANSPARENT.getPrimary());
-        series.setDrawBackground(false);
         series.setThickness(0);
-        series.setTitle("");
+        series.setTitle(StringUtils.EMPTY);
         graphView.addSeries(series);
     }
 

@@ -90,9 +90,7 @@ public class ChannelGraphSeries<E extends DataPointInterface> extends BaseSeries
         paint.setColor(getColor());
 
         paintBackground.setColor(styles.backgroundColor);
-        if (styles.drawBackground) {
-            pathBackground.reset();
-        }
+        pathBackground.reset();
 
         double diffY = maxY - minY;
         double diffX = maxX - minX;
@@ -170,13 +168,11 @@ public class ChannelGraphSeries<E extends DataPointInterface> extends BaseSeries
                 path.moveTo(startX, startY);
                 path.lineTo(endX, endY);
                 canvas.drawPath(path, paint);
-                if (styles.drawBackground) {
-                    if (i == 1) {
-                        firstX = startX;
-                        pathBackground.moveTo(startX, startY);
-                    }
-                    pathBackground.lineTo(endX, endY);
+                if (i == 1) {
+                    firstX = startX;
+                    pathBackground.moveTo(startX, startY);
                 }
+                pathBackground.lineTo(endX, endY);
                 lastUsedEndX = endX;
             }
             lastEndY = orgY;
@@ -185,12 +181,10 @@ public class ChannelGraphSeries<E extends DataPointInterface> extends BaseSeries
             i++;
         }
 
-        if (styles.drawBackground) {
-            pathBackground.lineTo((float) lastUsedEndX, graphHeight + graphTop);
-            pathBackground.lineTo(firstX, graphHeight + graphTop);
-            pathBackground.close();
-            canvas.drawPath(pathBackground, paintBackground);
-        }
+        pathBackground.lineTo((float) lastUsedEndX, graphHeight + graphTop);
+        pathBackground.lineTo(firstX, graphHeight + graphTop);
+        pathBackground.close();
+        canvas.drawPath(pathBackground, paintBackground);
 
         if (StringUtils.isNotBlank(getTitle())) {
             float x = (float) (lastUsedEndX + firstX) / 2;
@@ -203,10 +197,6 @@ public class ChannelGraphSeries<E extends DataPointInterface> extends BaseSeries
 
     }
 
-    public void setDrawBackground(boolean drawBackground) {
-        styles.drawBackground = drawBackground;
-    }
-
     public void setBackgroundColor(int backgroundColor) {
         styles.backgroundColor = backgroundColor;
     }
@@ -217,7 +207,6 @@ public class ChannelGraphSeries<E extends DataPointInterface> extends BaseSeries
 
     private final class Styles {
         private int thickness = 5;
-        private boolean drawBackground = false;
         private int backgroundColor = Color.argb(100, 172, 218, 255);
     }
 

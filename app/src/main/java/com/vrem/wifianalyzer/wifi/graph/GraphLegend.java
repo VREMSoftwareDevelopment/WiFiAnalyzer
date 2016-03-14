@@ -16,52 +16,56 @@
 
 package com.vrem.wifianalyzer.wifi.graph;
 
+import android.support.annotation.NonNull;
+
 import com.jjoe64.graphview.LegendRenderer;
 
-public enum GraphLegendPosition {
-    LEFT(new PositionLeft()),
-    RIGHT(new PositionRight()),
-    HIDE(new PositionNone());
+public enum GraphLegend {
+    LEFT(new DisplayLeft()),
+    RIGHT(new DisplayRight()),
+    HIDE(new DisplayNone());
 
-    private Position position;
+    private Display display;
 
-    GraphLegendPosition(Position position) {
-        this.position = position;
+    GraphLegend(Display display) {
+        this.display = display;
     }
 
-    public static GraphLegendPosition find(String value) {
+    public static GraphLegend find(String value, @NonNull GraphLegend defaultValue) {
         try {
             return valueOf(value.toUpperCase());
         } catch (Exception e) {
-            return GraphLegendPosition.LEFT;
+            return defaultValue;
         }
     }
 
-    public void setPosition(LegendRenderer legendRenderer) {
-        position.set(legendRenderer);
+    public void display(LegendRenderer legendRenderer) {
+        display.display(legendRenderer);
     }
 
-    private interface Position {
-        void set(LegendRenderer legendRenderer);
+    private interface Display {
+        void display(LegendRenderer legendRenderer);
     }
 
-    private static class PositionNone implements Position {
+    private static class DisplayNone implements Display {
         @Override
-        public void set(LegendRenderer legendRenderer) {
-            // nothing to do
+        public void display(LegendRenderer legendRenderer) {
+            legendRenderer.setVisible(false);
         }
     }
 
-    private static class PositionLeft implements Position {
+    private static class DisplayLeft implements Display {
         @Override
-        public void set(LegendRenderer legendRenderer) {
+        public void display(LegendRenderer legendRenderer) {
+            legendRenderer.setVisible(true);
             legendRenderer.setFixedPosition(0, 0);
         }
     }
 
-    private static class PositionRight implements Position {
+    private static class DisplayRight implements Display {
         @Override
-        public void set(LegendRenderer legendRenderer) {
+        public void display(LegendRenderer legendRenderer) {
+            legendRenderer.setVisible(true);
             legendRenderer.setAlign(LegendRenderer.LegendAlign.TOP);
         }
     }

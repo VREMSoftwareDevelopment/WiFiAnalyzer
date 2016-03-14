@@ -23,7 +23,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class WiFiSignal {
-    public final static WiFiSignal EMPTY = new WiFiSignal(0, 0);
+    public static final WiFiSignal EMPTY = new WiFiSignal(0, 0);
 
     private final int frequency;
     private final WiFiWidth wiFiWidth;

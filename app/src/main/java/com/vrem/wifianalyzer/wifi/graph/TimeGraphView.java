@@ -47,7 +47,7 @@ class TimeGraphView {
         this.wiFiBand = wiFiBand;
         this.graphView = makeGraphView(graphViewBuilder, resources);
         this.seriesMap = new TreeMap<>();
-        this.graphViewUtils = new GraphViewUtils(graphView, seriesMap);
+        this.graphViewUtils = new GraphViewUtils(graphView, seriesMap, mainContext.getSettings().getTimeGraphLegend());
         this.scanCount = 0;
         this.currentGraphColor = null;
     }
@@ -75,7 +75,7 @@ class TimeGraphView {
             addData(newSeries, wiFiDetail);
         }
         graphViewUtils.updateSeries(newSeries);
-        graphViewUtils.updateLegend();
+        graphViewUtils.updateLegend(mainContext.getSettings().getTimeGraphLegend());
         graphViewUtils.setVisibility(wiFiBand);
         scanCount++;
     }

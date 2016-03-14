@@ -37,15 +37,17 @@ import java.util.Map;
 import java.util.Set;
 
 class GraphViewUtils {
+    private static final float TEXT_SIZE_ADJUSTMENT = 0.75f;
     private final MainContext mainContext = MainContext.INSTANCE;
     private final GraphView graphView;
     private final Map<WiFiDetail, ? extends Series<DataPoint>> seriesMap;
-    private GraphLegendPosition graphLegendPosition;
+    private GraphLegend graphLegend;
 
-    public GraphViewUtils(@NonNull GraphView graphView, @NonNull Map<WiFiDetail, ? extends Series<DataPoint>> seriesMap) {
+    public GraphViewUtils(@NonNull GraphView graphView, @NonNull Map<WiFiDetail, ? extends Series<DataPoint>> seriesMap,
+                          @NonNull GraphLegend graphLegend) {
         this.graphView = graphView;
         this.seriesMap = seriesMap;
-        this.graphLegendPosition = mainContext.getSettings().getGraphLegend();
+        this.graphLegend = graphLegend;
     }
 
     void updateSeries(@NonNull Set<WiFiDetail> newSeries) {
@@ -61,24 +63,20 @@ class GraphViewUtils {
         }
     }
 
-    void updateLegend() {
-        resetLegendRenderer();
+    void updateLegend(@NonNull GraphLegend graphLegend) {
+        resetLegendRenderer(graphLegend);
         LegendRenderer legendRenderer = graphView.getLegendRenderer();
-        legendRenderer.setVisible(isVisible());
         legendRenderer.resetStyles();
         legendRenderer.setWidth(0);
-        graphLegendPosition.setPosition(legendRenderer);
+        legendRenderer.setTextSize(legendRenderer.getTextSize() * TEXT_SIZE_ADJUSTMENT);
+        graphLegend.display(legendRenderer);
     }
 
-    private boolean isVisible() {
-        return !GraphLegendPosition.HIDE.equals(this.graphLegendPosition);
-    }
-
-    private void resetLegendRenderer() {
-        if (!graphLegendPosition.equals(mainContext.getSettings().getGraphLegend())) {
+    private void resetLegendRenderer(@NonNull GraphLegend graphLegend) {
+        if (!this.graphLegend.equals(graphLegend)) {
             LegendRenderer legendRenderer = new LegendRenderer(graphView);
             graphView.setLegendRenderer(legendRenderer);
-            graphLegendPosition = mainContext.getSettings().getGraphLegend();
+            this.graphLegend = graphLegend;
         }
     }
 

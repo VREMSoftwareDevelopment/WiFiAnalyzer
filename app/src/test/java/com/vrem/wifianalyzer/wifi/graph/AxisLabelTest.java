@@ -23,8 +23,8 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class AxisLabelTest {
-    private final static int MIN_X = 2;
-    private final static int MAX_X = 5;
+    private static final int MIN_X = 2;
+    private static final int MAX_X = 5;
     private AxisLabel fixture;
 
     @Before

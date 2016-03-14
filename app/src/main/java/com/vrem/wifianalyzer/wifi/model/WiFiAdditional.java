@@ -22,7 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class WiFiAdditional {
-    public final static WiFiAdditional EMPTY = new WiFiAdditional(StringUtils.EMPTY, false);
+    public static final WiFiAdditional EMPTY = new WiFiAdditional(StringUtils.EMPTY, false);
 
     private final String vendorName;
     private final String ipAddress;

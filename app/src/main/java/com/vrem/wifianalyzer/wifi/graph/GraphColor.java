@@ -20,9 +20,9 @@ import org.apache.commons.lang3.ArrayUtils;
 
 class GraphColor {
 
-    final static GraphColor TRANSPARENT = new GraphColor(0x009E9E9E, 0x009E9E9E);
+    static final GraphColor TRANSPARENT = new GraphColor(0x009E9E9E, 0x009E9E9E);
 
-    final static GraphColor [] GRAPH_COLORS = new GraphColor[] {
+    static final GraphColor[] GRAPH_COLORS = new GraphColor[]{
             new GraphColor(0xFFFB1554, 0x33FB1554),
             new GraphColor(0xFF74FF89, 0x3374FF89),
             new GraphColor(0xFF8B1EFC, 0x338B1EFC),

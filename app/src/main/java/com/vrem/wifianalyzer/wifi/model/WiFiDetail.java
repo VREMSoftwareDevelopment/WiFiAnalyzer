@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WiFiDetail implements Comparable<WiFiDetail> {
-    public final static WiFiDetail EMPTY = new WiFiDetail(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, WiFiSignal.EMPTY);
+    public static final WiFiDetail EMPTY = new WiFiDetail(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, WiFiSignal.EMPTY);
 
     private final List<WiFiDetail> children;
     private final String SSID;

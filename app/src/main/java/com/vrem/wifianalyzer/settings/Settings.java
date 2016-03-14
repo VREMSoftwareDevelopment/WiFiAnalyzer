@@ -22,7 +22,7 @@ import android.preference.PreferenceManager;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.graph.GraphLegendPosition;
+import com.vrem.wifianalyzer.wifi.graph.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
@@ -59,10 +59,16 @@ public class Settings {
         return GroupBy.find(getSharedPreferences().getString(context.getString(R.string.group_by_key), defaultValue));
     }
 
-    public GraphLegendPosition getGraphLegend() {
+    public GraphLegend getChannelGraphLegend() {
         Context context = mainContext.getContext();
-        String defaultValue = context.getResources().getString(R.string.graph_legend_default);
-        return GraphLegendPosition.find(getSharedPreferences().getString(context.getString(R.string.graph_legend_key), defaultValue));
+        String defaultValue = context.getResources().getString(R.string.channel_graph_legend_default);
+        return GraphLegend.find(getSharedPreferences().getString(context.getString(R.string.channel_graph_legend_key), defaultValue), GraphLegend.HIDE);
+    }
+
+    public GraphLegend getTimeGraphLegend() {
+        Context context = mainContext.getContext();
+        String defaultValue = context.getResources().getString(R.string.time_graph_legend_default);
+        return GraphLegend.find(getSharedPreferences().getString(context.getString(R.string.time_graph_legend_key), defaultValue), GraphLegend.LEFT);
     }
 
     public WiFiBand getWiFiBand() {

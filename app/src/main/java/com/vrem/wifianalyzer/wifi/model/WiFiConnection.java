@@ -24,7 +24,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class WiFiConnection {
-    public final static WiFiConnection EMPTY = new WiFiConnection(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY);
+    public static final WiFiConnection EMPTY = new WiFiConnection(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY);
 
     private final String SSID;
     private final String BSSID;

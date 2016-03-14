@@ -51,13 +51,22 @@
         android:title="@string/group_by_title" />
 
     <ListPreference
-        android:defaultValue="@string/graph_legend_default"
+        android:defaultValue="@string/channel_graph_legend_default"
         android:entries="@array/graph_legend_array"
         android:entryValues="@array/graph_legend_array"
-        android:key="@string/graph_legend_key"
+        android:key="@string/channel_graph_legend_key"
         android:persistent="true"
-        android:summary="@string/graph_legend_summary"
-        android:title="@string/graph_legend_title" />
+        android:summary="@string/channel_graph_legend_summary"
+        android:title="@string/channel_graph_legend_title" />
+
+    <ListPreference
+        android:defaultValue="@string/time_graph_legend_default"
+        android:entries="@array/graph_legend_array"
+        android:entryValues="@array/graph_legend_array"
+        android:key="@string/time_graph_legend_key"
+        android:persistent="true"
+        android:summary="@string/time_graph_legend_summary"
+        android:title="@string/time_graph_legend_title" />
 
     <ListPreference
         android:defaultValue="@string/theme_default"
