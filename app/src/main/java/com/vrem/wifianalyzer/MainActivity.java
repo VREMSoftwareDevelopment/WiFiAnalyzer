@@ -103,12 +103,17 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         if (isThemeChanged()) {
             reloadActivity();
         } else {
-            update();
+            mainContext.getScanner().update();
+            updateSubTitle();
         }
     }
 
     private boolean isThemeChanged() {
-        return themeAppCompatStyle != mainContext.getSettings().getThemeStyle().themeAppCompatStyle();
+        if (themeAppCompatStyle != mainContext.getSettings().getThemeStyle().themeAppCompatStyle()) {
+            themeAppCompatStyle = mainContext.getSettings().getThemeStyle().themeAppCompatStyle();
+            return true;
+        }
+        return false;
     }
 
     private void reloadActivity() {
@@ -141,13 +146,12 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
             subTitle = item.isSubTitle();
             getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, item.getFragment()).commit();
             setTitle(menuItem.getTitle());
-            update();
+            updateSubTitle();
         }
         return true;
     }
 
-    private void update() {
-        mainContext.getScanner().update();
+    private void updateSubTitle() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setSubtitle(subTitle ? mainContext.getSettings().getWiFiBand().getBand() : StringUtils.EMPTY);
@@ -162,7 +166,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         @Override
         public void onClick(View view) {
             mainContext.getSettings().toggleWiFiBand();
-            update();
         }
     }
 
