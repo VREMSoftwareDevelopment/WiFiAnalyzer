@@ -82,4 +82,10 @@ public class Settings {
         String defaultValue = context.getResources().getString(R.string.theme_default);
         return ThemeStyle.find(getSharedPreferences().getString(context.getString(R.string.theme_key), defaultValue));
     }
+
+    public void toggleWiFiBand() {
+        SharedPreferences.Editor editor = getSharedPreferences().edit();
+        editor.putString(mainContext.getContext().getString(R.string.wifi_band_key), getWiFiBand().toggle().getBand());
+        editor.commit();
+    }
 }

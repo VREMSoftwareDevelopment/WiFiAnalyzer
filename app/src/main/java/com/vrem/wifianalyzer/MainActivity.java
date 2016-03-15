@@ -33,6 +33,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         settings.getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setOnClickListener(new WiFiBandToggle());
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -100,8 +103,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         if (isThemeChanged()) {
             reloadActivity();
         } else {
-            mainContext.getScanner().update();
-            subTitle();
+            update();
         }
     }
 
@@ -139,12 +141,13 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
             subTitle = item.isSubTitle();
             getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, item.getFragment()).commit();
             setTitle(menuItem.getTitle());
-            subTitle();
+            update();
         }
         return true;
     }
 
-    private void subTitle() {
+    private void update() {
+        mainContext.getScanner().update();
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setSubtitle(subTitle ? mainContext.getSettings().getWiFiBand().getBand() : StringUtils.EMPTY);
@@ -153,6 +156,14 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     public NavigationMenuView getNavigationMenuView() {
         return navigationMenuView;
+    }
+
+    private class WiFiBandToggle implements OnClickListener {
+        @Override
+        public void onClick(View view) {
+            mainContext.getSettings().toggleWiFiBand();
+            update();
+        }
     }
 
 }

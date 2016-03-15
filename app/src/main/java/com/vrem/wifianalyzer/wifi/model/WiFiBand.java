@@ -122,4 +122,8 @@ public enum WiFiBand {
     public String getBand() {
         return band;
     }
+
+    public WiFiBand toggle() {
+        return WiFiBand.GHZ_2.equals(this) ? WiFiBand.GHZ_5 : WiFiBand.GHZ_2;
+    }
 }

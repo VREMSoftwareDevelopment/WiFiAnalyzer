@@ -121,4 +121,11 @@ public class WiFiBandTest {
 
     private void assertSetEquals(SortedSet<Integer> expected, SortedSet<Integer> actual) {
         assertArrayEquals(expected.toArray(), actual.toArray());
-    }}
+    }
+
+    @Test
+    public void testToggle() throws Exception {
+        assertEquals(WiFiBand.GHZ_5, WiFiBand.GHZ_2.toggle());
+        assertEquals(WiFiBand.GHZ_2, WiFiBand.GHZ_5.toggle());
+    }
+}
