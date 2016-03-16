@@ -57,6 +57,9 @@ public class Transformer {
                 results.add(wiFiDetail);
             }
         }
+/*
+        addTestData(results);
+*/
         return Collections.unmodifiableList(results);
     }
 
@@ -66,4 +69,15 @@ public class Transformer {
         List<String> wifiConfigurations = transformWifiConfigurations(configuredNetworks);
         return new WiFiData(wiFiDetails, wiFiConnection, wifiConfigurations);
     }
+
+/*
+    private void addTestData(List<WiFiDetail> wiFiDetails) {
+        int level = -60;
+        wiFiDetails.addAll(Arrays.asList(
+            new WiFiDetail("SSID-TEST1", "BSSID:2.4GHZ:01", Security.WPA2.name(), new WiFiSignal(WiFiBand.GHZ_2.getFrequencyStart(), level)),
+            new WiFiDetail("SSID-TEST2", "BSSID:2.4GHZ:02", Security.WPA.name(), new WiFiSignal(WiFiBand.GHZ_2.getFrequencyEnd(), level)),
+            new WiFiDetail("SSID-TEST3", "BSSID:5GHZ:03", Security.WPA2.name(), new WiFiSignal(WiFiBand.GHZ_5.getFrequencyStart(), level)),
+            new WiFiDetail("SSID-TEST4", "BSSID:5GHZ:04", Security.WPA .name(), new WiFiSignal(WiFiBand.GHZ_5.getFrequencyEnd(), level))));
+    }
+*/
 }

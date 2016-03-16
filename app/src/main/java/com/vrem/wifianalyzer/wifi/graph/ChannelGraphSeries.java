@@ -17,7 +17,7 @@
 package com.vrem.wifianalyzer.wifi.graph;
 
 /**
- * change ChannelGraphSeries GraphView
+ * modified version of com.jjoe64.graphview.series.LineGraphSeries
  */
 
 import android.graphics.Canvas;
@@ -35,8 +35,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Iterator;
 
 public class ChannelGraphSeries<E extends DataPointInterface> extends BaseSeries<E> {
-
-    private Styles styles;
+    private int thickness = 5;
+    private int backgroundColor = Color.argb(100, 172, 218, 255);
     private Paint paint;
     private TextPaint paintTitle;
     private Paint paintBackground;
@@ -53,7 +53,6 @@ public class ChannelGraphSeries<E extends DataPointInterface> extends BaseSeries
     }
 
     protected void init() {
-        styles = new Styles();
         paint = new Paint();
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStyle(Paint.Style.STROKE);
@@ -69,6 +68,11 @@ public class ChannelGraphSeries<E extends DataPointInterface> extends BaseSeries
 
     @Override
     public void draw(GraphView graphView, Canvas canvas, boolean isSecondScale) {
+        paint.setColor(getColor());
+        paint.setStrokeWidth(thickness);
+        paintBackground.setColor(backgroundColor);
+        pathBackground.reset();
+
         resetDataPoints();
 
         // get data
@@ -86,12 +90,6 @@ public class ChannelGraphSeries<E extends DataPointInterface> extends BaseSeries
         }
 
         // draw data
-        paint.setStrokeWidth(styles.thickness);
-        paint.setColor(getColor());
-
-        paintBackground.setColor(styles.backgroundColor);
-        pathBackground.reset();
-
         double diffY = maxY - minY;
         double diffX = maxX - minX;
 
@@ -186,7 +184,7 @@ public class ChannelGraphSeries<E extends DataPointInterface> extends BaseSeries
         pathBackground.close();
         canvas.drawPath(pathBackground, paintBackground);
 
-        if (StringUtils.isNotBlank(getTitle())) {
+        if (StringUtils.isNotBlank(getTitle()) && lastUsedEndX > 0) {
             float x = (float) (lastUsedEndX + firstX) / 2;
             float y = (float) (graphTop - titleY) + graphHeight - 10;
 
@@ -194,20 +192,13 @@ public class ChannelGraphSeries<E extends DataPointInterface> extends BaseSeries
             paintTitle.setTextSize(graphView.getLegendRenderer().getTextSize());
             canvas.drawText(getTitle(), x, y, paintTitle);
         }
-
     }
 
     public void setBackgroundColor(int backgroundColor) {
-        styles.backgroundColor = backgroundColor;
+        this.backgroundColor = backgroundColor;
     }
 
     public void setThickness(int thickness) {
-        styles.thickness = thickness;
+        this.thickness = thickness;
     }
-
-    private final class Styles {
-        private int thickness = 5;
-        private int backgroundColor = Color.argb(100, 172, 218, 255);
-    }
-
 }
