@@ -14,13 +14,14 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph;
+package com.vrem.wifianalyzer.wifi.graph.color;
 
-import org.apache.commons.lang3.ArrayUtils;
+import java.util.Arrays;
+import java.util.Stack;
 
-class GraphColor {
+public class GraphColors {
 
-    static final GraphColor TRANSPARENT = new GraphColor(0x009E9E9E, 0x009E9E9E);
+    public static final GraphColor TRANSPARENT = new GraphColor(0x009E9E9E, 0x009E9E9E);
 
     static final GraphColor[] GRAPH_COLORS = new GraphColor[]{
             new GraphColor(0xFFFB1554, 0x33FB1554),
@@ -39,41 +40,37 @@ class GraphColor {
             new GraphColor(0xFF2F944C, 0x332F944C),
             new GraphColor(0xFFEAA579, 0x33EAA579),
             new GraphColor(0xFF3C7172, 0x333C7172),
-            new GraphColor(0xFF43310B, 0x3343310B),
             new GraphColor(0xFFC55616, 0x33C55616),
             new GraphColor(0xFF94136D, 0x3394136D),
-            new GraphColor(0xFF2ECF76, 0x332ECF76)
+            new GraphColor(0xFF2ECF76, 0x332ECF76),
+            new GraphColor(0xFF2196F3, 0x332196F3)
     };
 
-    private final int primary;
-    private final int background;
+    final Stack<GraphColor> colors = new Stack<>();
 
-    private GraphColor(int primary, int background) {
-        this.primary = primary;
-        this.background = background;
+    public GraphColor getColor() {
+        if (colors.isEmpty()) {
+            colors.addAll(Arrays.asList(GRAPH_COLORS));
+        }
+        return colors.pop();
     }
 
-    static GraphColor findColor(GraphColor graphColor) {
-        int colorIndex = 0;
-        if (graphColor != null) {
-            colorIndex = ArrayUtils.indexOf(GRAPH_COLORS, graphColor);
-            if (colorIndex < 0) {
-                colorIndex = 0;
-            }
-            colorIndex += 1;
-            if (colorIndex >= GRAPH_COLORS.length) {
-                colorIndex = 0;
+    public boolean addColor(int primaryColor) {
+        GraphColor graphColor = findColor(primaryColor);
+        if (graphColor == null || colors.contains(graphColor)) {
+            return false;
+        }
+        colors.push(graphColor);
+        return true;
+    }
+
+    private GraphColor findColor(int primaryColor) {
+        for (GraphColor graphColor : GRAPH_COLORS) {
+            if (primaryColor == graphColor.getPrimary()) {
+                return graphColor;
             }
         }
-        return GRAPH_COLORS[colorIndex];
-    }
-
-    int getPrimary() {
-        return primary;
-    }
-
-    int getBackground() {
-        return background;
+        return null;
     }
 
 }

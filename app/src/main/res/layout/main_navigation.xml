@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@drawable/ic_wifi_green_800_48dp" />
 
     <TextView
         android:layout_width="match_parent"

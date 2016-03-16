@@ -23,6 +23,8 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.graph.color.GraphColor;
+import com.vrem.wifianalyzer.wifi.graph.color.GraphColors;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -42,14 +44,12 @@ class ChannelGraphView {
     private final GraphView graphView;
     private final Map<WiFiDetail, ChannelGraphSeries<DataPoint>> seriesMap;
     private final GraphViewUtils graphViewUtils;
-    private GraphColor currentGraphColor;
 
     private ChannelGraphView(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources, @NonNull WiFiBand wiFiBand) {
         this.wiFiBand = wiFiBand;
         this.graphView = makeGraphView(graphViewBuilder, resources, this.wiFiBand);
         this.seriesMap = new TreeMap<>();
         this.graphViewUtils = new GraphViewUtils(graphView, seriesMap, mainContext.getSettings().getChannelGraphLegend());
-        this.currentGraphColor = null;
         if (is5GHZ()) {
             addDefaultsSeries(graphView, wiFiBand);
         }
@@ -101,10 +101,10 @@ class ChannelGraphView {
     }
 
     private void setSeriesOptions(@NonNull ChannelGraphSeries<DataPoint> series, @NonNull WiFiDetail wiFiDetail) {
-        currentGraphColor = GraphColor.findColor(currentGraphColor);
-        series.setColor(currentGraphColor.getPrimary());
-        series.setBackgroundColor(currentGraphColor.getBackground());
-        series.setTitle(wiFiDetail.getSSID());
+        GraphColor graphColor = graphViewUtils.getColor();
+        series.setColor(graphColor.getPrimary());
+        series.setBackgroundColor(graphColor.getBackground());
+        series.setTitle(graphViewUtils.getTitle(wiFiDetail));
         graphViewUtils.setOnDataPointTapListener(series);
     }
 
@@ -130,7 +130,7 @@ class ChannelGraphView {
         };
 
         ChannelGraphSeries<DataPoint> series = new ChannelGraphSeries<>(dataPoints);
-        series.setColor(GraphColor.TRANSPARENT.getPrimary());
+        series.setColor(GraphColors.TRANSPARENT.getPrimary());
         series.setThickness(0);
         series.setTitle(StringUtils.EMPTY);
         graphView.addSeries(series);

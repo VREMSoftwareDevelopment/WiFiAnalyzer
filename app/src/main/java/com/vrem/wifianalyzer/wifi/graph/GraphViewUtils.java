@@ -28,6 +28,8 @@ import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.AccessPointsDetail;
+import com.vrem.wifianalyzer.wifi.graph.color.GraphColor;
+import com.vrem.wifianalyzer.wifi.graph.color.GraphColors;
 import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
@@ -41,6 +43,7 @@ class GraphViewUtils {
     private final MainContext mainContext = MainContext.INSTANCE;
     private final GraphView graphView;
     private final Map<WiFiDetail, ? extends Series<DataPoint>> seriesMap;
+    private final GraphColors graphColors;
     private GraphLegend graphLegend;
 
     public GraphViewUtils(@NonNull GraphView graphView, @NonNull Map<WiFiDetail, ? extends Series<DataPoint>> seriesMap,
@@ -48,13 +51,16 @@ class GraphViewUtils {
         this.graphView = graphView;
         this.seriesMap = seriesMap;
         this.graphLegend = graphLegend;
+        this.graphColors = new GraphColors();
     }
 
     void updateSeries(@NonNull Set<WiFiDetail> newSeries) {
         List<WiFiDetail> remove = new ArrayList<>();
         for (WiFiDetail wiFiDetail : seriesMap.keySet()) {
             if (!newSeries.contains(wiFiDetail)) {
-                graphView.removeSeries(seriesMap.get(wiFiDetail));
+                Series<DataPoint> series = seriesMap.get(wiFiDetail);
+                graphColors.addColor(series.getColor());
+                graphView.removeSeries(series);
                 remove.add(wiFiDetail);
             }
         }
@@ -82,6 +88,14 @@ class GraphViewUtils {
 
     void setVisibility(@NonNull WiFiBand wiFiBand) {
         graphView.setVisibility(wiFiBand.equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
+    }
+
+    String getTitle(@NonNull WiFiDetail wiFiDetail) {
+        return wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getChannel();
+    }
+
+    GraphColor getColor() {
+        return graphColors.getColor();
     }
 
     public void setOnDataPointTapListener(Series<DataPoint> series) {
