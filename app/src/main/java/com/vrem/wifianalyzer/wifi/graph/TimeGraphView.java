@@ -97,7 +97,7 @@ class TimeGraphView {
         currentGraphColor = GraphColor.findColor(currentGraphColor);
         series.setColor(currentGraphColor.getPrimary());
         series.setDrawBackground(false);
-        series.setTitle(wiFiDetail.getSSID());
+        series.setTitle(graphViewUtils.getTitle(wiFiDetail));
     }
 
 }

@@ -84,6 +84,10 @@ class GraphViewUtils {
         graphView.setVisibility(wiFiBand.equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
     }
 
+    String getTitle(@NonNull WiFiDetail wiFiDetail) {
+        return wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getChannel();
+    }
+
     public void setOnDataPointTapListener(Series<DataPoint> series) {
         series.setOnDataPointTapListener(new GraphTapListener());
     }
