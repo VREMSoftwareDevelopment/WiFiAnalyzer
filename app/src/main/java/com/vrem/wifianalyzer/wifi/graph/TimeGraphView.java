@@ -41,7 +41,6 @@ class TimeGraphView {
     private final Map<WiFiDetail, LineGraphSeries<DataPoint>> seriesMap;
     private final GraphViewUtils graphViewUtils;
     private int scanCount;
-    private GraphColor currentGraphColor;
 
     private TimeGraphView(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources, @NonNull WiFiBand wiFiBand) {
         this.wiFiBand = wiFiBand;
@@ -49,7 +48,6 @@ class TimeGraphView {
         this.seriesMap = new TreeMap<>();
         this.graphViewUtils = new GraphViewUtils(graphView, seriesMap, mainContext.getSettings().getTimeGraphLegend());
         this.scanCount = 0;
-        this.currentGraphColor = null;
     }
 
     static TimeGraphView make2(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources) {
@@ -94,8 +92,7 @@ class TimeGraphView {
     }
 
     private void setSeriesOptions(@NonNull LineGraphSeries<DataPoint> series, @NonNull WiFiDetail wiFiDetail) {
-        currentGraphColor = GraphColor.findColor(currentGraphColor);
-        series.setColor(currentGraphColor.getPrimary());
+        series.setColor(graphViewUtils.getColor().getPrimary());
         series.setDrawBackground(false);
         series.setTitle(graphViewUtils.getTitle(wiFiDetail));
     }

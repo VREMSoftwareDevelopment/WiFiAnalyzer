@@ -51,7 +51,7 @@ import static android.support.design.widget.NavigationView.OnNavigationItemSelec
 public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
     private final MainContext mainContext = MainContext.INSTANCE;
 
-    private int themeAppCompatStyle;
+    private int currentTheme;
     private NavigationMenuView navigationMenuView;
     private ConnectionView connectionView;
     private boolean subTitle;
@@ -62,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
         Settings settings = mainContext.getSettings();
         settings.initializeDefaultValues();
-        themeAppCompatStyle = settings.getThemeStyle().themeAppCompatStyle();
-        setTheme(themeAppCompatStyle);
+        currentTheme = settings.getThemeStyle().themeAppCompatStyle();
+        setTheme(currentTheme);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
@@ -109,8 +109,9 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     private boolean isThemeChanged() {
-        if (themeAppCompatStyle != mainContext.getSettings().getThemeStyle().themeAppCompatStyle()) {
-            themeAppCompatStyle = mainContext.getSettings().getThemeStyle().themeAppCompatStyle();
+        int settingTheme = mainContext.getSettings().getThemeStyle().themeAppCompatStyle();
+        if (this.currentTheme != settingTheme) {
+            this.currentTheme = settingTheme;
             return true;
         }
         return false;

@@ -45,4 +45,27 @@
         <item>Light</item>
     </string-array>
 
+    <string-array name="grap_colors">
+        <item>#FB1554</item>
+        <item>#74FF89</item>
+        <item>#8B1EFC</item>
+        <item>#3B6D9D</item>
+        <item>#886D03</item>
+        <item>#FDD3CD</item>
+        <item>#E077EA</item>
+        <item>#6EFFE6</item>
+        <item>#034713</item>
+        <item>#411457</item>
+        <item>#74230C</item>
+        <item>#A6D3F5</item>
+        <item>#F98A96</item>
+        <item>#2F944C</item>
+        <item>#EAA579</item>
+        <item>#3C7172</item>
+        <item>#C55616</item>
+        <item>#94136D</item>
+        <item>#2ECF76</item>
+        <item>#2196F3</item>
+    </string-array>
+
 </resources>
