@@ -35,6 +35,13 @@ public enum WiFiWidth {
         this.channelWidthHalf = channelWidth / 2;
     }
 
+    public static WiFiWidth find(int ordinal) {
+        if (ordinal < 0 || ordinal >= values().length) {
+            return WiFiWidth.MHZ_20;
+        }
+        return values()[ordinal];
+    }
+
     public int getFrequencyWidth() {
         return frequencyWidth;
     }

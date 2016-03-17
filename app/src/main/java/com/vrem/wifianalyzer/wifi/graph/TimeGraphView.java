@@ -63,7 +63,6 @@ class TimeGraphView {
                 .setLabelFormatter(new AxisLabel(0, Integer.MAX_VALUE).setEvenOnly(true))
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
-                .setScrollable(true)
                 .build();
     }
 

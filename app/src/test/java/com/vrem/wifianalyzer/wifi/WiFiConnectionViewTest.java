@@ -26,6 +26,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import org.apache.commons.lang3.StringUtils;
@@ -100,7 +101,8 @@ public class WiFiConnectionViewTest {
     }
 
     private WiFiDetail withConnection(WiFiAdditional wiFiAdditional) {
-        return new WiFiDetail("SSID", "BSSID", StringUtils.EMPTY, new WiFiSignal(2435, -55), wiFiAdditional);
+        return new WiFiDetail("SSID", "BSSID", StringUtils.EMPTY,
+                new WiFiSignal(2435, WiFiWidth.MHZ_20, -55), wiFiAdditional);
     }
 
 }

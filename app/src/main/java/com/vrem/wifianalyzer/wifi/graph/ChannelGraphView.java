@@ -71,7 +71,6 @@ class ChannelGraphView {
                 .setLabelFormatter(new AxisLabel(wiFiBand.getChannelFirst(), wiFiBand.getChannelLast()).setEvenOnly(is5GHZ()))
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
-                .setScrollable(is5GHZ())
                 .setMinX(minX)
                 .setMaxX(maxX)
                 .build();

@@ -35,7 +35,6 @@ class GraphViewBuilder {
     private LabelFormatter labelFormatter;
     private String verticalTitle;
     private String horizontalTitle;
-    private boolean scrollable;
     private int minX;
     private int maxX;
 
@@ -61,11 +60,6 @@ class GraphViewBuilder {
         return this;
     }
 
-    GraphViewBuilder setScrollable(boolean scrollable) {
-        this.scrollable = scrollable;
-        return this;
-    }
-
     GraphViewBuilder setMinX(int minX) {
         this.minX = minX;
         return this;
@@ -86,7 +80,7 @@ class GraphViewBuilder {
     }
 
     private void setViewPort(@NonNull Viewport viewport) {
-        viewport.setScrollable(scrollable);
+        viewport.setScrollable(true);
 
         viewport.setYAxisBoundsManual(true);
         viewport.setMinY(MIN_Y);

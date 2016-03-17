@@ -38,7 +38,7 @@ public class WiFiDetailTest {
     @Before
     public void setUp() throws Exception {
         wiFiAdditional = new WiFiAdditional(VENDOR_NAME, false);
-        wiFiSignal = new WiFiSignal(FREQUENCY, LEVEL);
+        wiFiSignal = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_20, LEVEL);
         fixture = new WiFiDetail(SSID, BSSID, WPA, wiFiSignal, wiFiAdditional);
     }
 

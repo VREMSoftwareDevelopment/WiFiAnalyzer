@@ -36,10 +36,14 @@ public class ChannelRatingTest {
 
     @Before
     public void setUp() throws Exception {
-        wiFiDetail1 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY, new WiFiSignal(2445, -70), WiFiAdditional.EMPTY);
-        wiFiDetail2 = new WiFiDetail("SSID2", "BSSID2", StringUtils.EMPTY, new WiFiSignal(2435, -80), WiFiAdditional.EMPTY);
-        wiFiDetail3 = new WiFiDetail("SSID3", "BSSID3", StringUtils.EMPTY, new WiFiSignal(2455, -60), WiFiAdditional.EMPTY);
-        wiFiDetail4 = new WiFiDetail("SSID4", "BSSID4", StringUtils.EMPTY, new WiFiSignal(2435, -50), new WiFiAdditional(StringUtils.EMPTY, "192.168.1.1"));
+        wiFiDetail1 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
+                new WiFiSignal(2445, WiFiWidth.MHZ_20, -70), WiFiAdditional.EMPTY);
+        wiFiDetail2 = new WiFiDetail("SSID2", "BSSID2", StringUtils.EMPTY,
+                new WiFiSignal(2435, WiFiWidth.MHZ_20, -80), WiFiAdditional.EMPTY);
+        wiFiDetail3 = new WiFiDetail("SSID3", "BSSID3", StringUtils.EMPTY,
+                new WiFiSignal(2455, WiFiWidth.MHZ_20, -60), WiFiAdditional.EMPTY);
+        wiFiDetail4 = new WiFiDetail("SSID4", "BSSID4", StringUtils.EMPTY,
+                new WiFiSignal(2435, WiFiWidth.MHZ_20, -50), new WiFiAdditional(StringUtils.EMPTY, "192.168.1.1"));
         wiFiDetails = Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4);
         fixture = new ChannelRating();
         fixture.setWiFiChannels(wiFiDetails);

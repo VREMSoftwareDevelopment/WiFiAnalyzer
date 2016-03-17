@@ -63,4 +63,13 @@ public class WiFiWidthTest {
         assertEquals(16, WiFiWidth.MHZ_80_80.getChannelWidthHalf());
     }
 
+    @Test
+    public void testFind() throws Exception {
+        for (WiFiWidth wiFiWidth : WiFiWidth.values()) {
+            assertEquals(wiFiWidth, WiFiWidth.find(wiFiWidth.ordinal()));
+        }
+        assertEquals(WiFiWidth.MHZ_20, WiFiWidth.find(-1));
+        assertEquals(WiFiWidth.MHZ_20, WiFiWidth.find(WiFiWidth.values().length));
+    }
+
 }

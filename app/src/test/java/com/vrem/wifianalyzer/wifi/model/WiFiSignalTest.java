@@ -31,7 +31,7 @@ public class WiFiSignalTest {
 
     @Before
     public void setUp() throws Exception {
-        fixture = new WiFiSignal(FREQUENCY, LEVEL);
+        fixture = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_20, LEVEL);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class WiFiSignalTest {
     @Test
     public void testEquals() throws Exception {
         // setup
-        WiFiSignal other = new WiFiSignal(FREQUENCY, LEVEL);
+        WiFiSignal other = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_20, LEVEL);
         // execute & validate
         assertEquals(fixture, other);
         assertNotSame(fixture, other);
@@ -90,7 +90,7 @@ public class WiFiSignalTest {
     @Test
     public void testHashCode() throws Exception {
         // setup
-        WiFiSignal other = new WiFiSignal(FREQUENCY, LEVEL);
+        WiFiSignal other = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_20, LEVEL);
         // execute & validate
         assertEquals(fixture.hashCode(), other.hashCode());
     }

@@ -28,6 +28,7 @@ import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
@@ -57,7 +58,9 @@ public class AccessPointsDetailTest {
     @Test
     public void testSetViewWithWiFiDetailAsConnection() throws Exception {
         // setup
-        WiFiDetail wiFiDetail = new WiFiDetail("SSID", "BSSID", "capabilities", new WiFiSignal(1, 2), new WiFiAdditional("VendorName", "IPAddress"));
+        WiFiDetail wiFiDetail = new WiFiDetail("SSID", "BSSID", "capabilities",
+                new WiFiSignal(1, WiFiWidth.MHZ_20, 2),
+                new WiFiAdditional("VendorName", "IPAddress"));
         // execute
         fixture.setView(activity.getResources(), view, wiFiDetail, false);
         // validate
@@ -78,7 +81,9 @@ public class AccessPointsDetailTest {
     @Test
     public void testSetViewWithWiFiDetailAsScanResult() throws Exception {
         // setup
-        WiFiDetail wiFiDetail = new WiFiDetail(StringUtils.EMPTY, "BSSID", "capabilities", new WiFiSignal(1, 2), new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = new WiFiDetail(StringUtils.EMPTY, "BSSID", "capabilities",
+                new WiFiSignal(1, WiFiWidth.MHZ_20, 2),
+                new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
         fixture.setView(activity.getResources(), view, wiFiDetail, true);
         // validate
