@@ -111,7 +111,6 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
         } else {
             StringBuilder message = new StringBuilder(resources.getText(R.string.channel_rating_best_none));
             if (WiFiBand.GHZ_2.equals(wiFiBand)) {
-                message.append(" ");
                 message.append(resources.getText(R.string.channel_rating_best_alternative));
                 message.append(" ");
                 message.append(WiFiBand.GHZ_5.getBand());
