@@ -32,4 +32,4 @@ You can find the license text [here](http://www.apache.org/licenses/LICENSE-2.0)
       * Select the root directory of the WiFi Analyzer repository and click "OK".
       * WiFi Analyzer will build automatically
 
-[See code coverage](https://vremsoftwaredevelopment.github.io/WifiAnalyzer/coverage-prod)
+[See code coverage](https://vremsoftwaredevelopment.github.io/WifiAnalyzer/coverage)
