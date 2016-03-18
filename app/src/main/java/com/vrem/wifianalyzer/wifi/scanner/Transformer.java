@@ -90,10 +90,10 @@ public class Transformer {
     private void addTestData(List<WiFiDetail> wiFiDetails) {
         int level = -60;
         wiFiDetails.addAll(Arrays.asList(
-            new WiFiDetail("SSID-TEST1", "BSSID:2.4GHZ:01", Security.WPA2.name(), new WiFiSignal(WiFiBand.GHZ_2.getFrequencyStart(), WiFiWidth.MHZ_20, level)),
-            new WiFiDetail("SSID-TEST2", "BSSID:2.4GHZ:02", Security.WPA.name(), new WiFiSignal(WiFiBand.GHZ_2.getFrequencyEnd(), WiFiWidth.MHZ_20, level)),
-            new WiFiDetail("SSID-TEST3", "BSSID:5GHZ:03", Security.WPA2.name(), new WiFiSignal(WiFiBand.GHZ_5.getFrequencyStart(), WiFiWidth.MHZ_20, level)),
-            new WiFiDetail("SSID-TEST4", "BSSID:5GHZ:04", Security.WPA .name(), new WiFiSignal(WiFiBand.GHZ_5.getFrequencyEnd(), WiFiWidth.MHZ_20, level))));
+                new WiFiDetail("SSID-TEST1", "BSSID:2.4GHZ:01", Security.WPA.name(), new WiFiSignal(WiFiBand.GHZ_2.getFrequencyStart(), WiFiWidth.MHZ_20, level)),
+                new WiFiDetail("SSID-TEST2", "BSSID:2.4GHZ:02", Security.WEP.name(), new WiFiSignal(WiFiBand.GHZ_2.getFrequencyEnd(), WiFiWidth.MHZ_20, level)),
+                new WiFiDetail("SSID-TEST3", "BSSID:5.0GHZ:03", Security.WPA.name(), new WiFiSignal(WiFiBand.GHZ_5.getFrequencyStart(), WiFiWidth.MHZ_20, level)),
+                new WiFiDetail("SSID-TEST4", "BSSID:5.0GHZ:04", Security.WEP.name(), new WiFiSignal(WiFiBand.GHZ_5.getFrequencyEnd(), WiFiWidth.MHZ_20, level))));
     }
 */
 }

@@ -67,8 +67,10 @@ public class WiFiBandTest {
 
         assertEquals(1, WiFiBand.GHZ_2.getChannelByFrequency(2401));
         assertEquals(1, WiFiBand.GHZ_2.getChannelByFrequency(2416));
-        assertEquals(11, WiFiBand.GHZ_2.getChannelByFrequency(2462));
-        assertEquals(11, WiFiBand.GHZ_2.getChannelByFrequency(2499));
+        assertEquals(13, WiFiBand.GHZ_2.getChannelByFrequency(2472));
+        assertEquals(14, WiFiBand.GHZ_2.getChannelByFrequency(2473));
+        assertEquals(14, WiFiBand.GHZ_2.getChannelByFrequency(2484));
+        assertEquals(14, WiFiBand.GHZ_2.getChannelByFrequency(2499));
 
         assertEquals(0, WiFiBand.GHZ_5.getChannelByFrequency(5000));
         assertEquals(0, WiFiBand.GHZ_5.getChannelByFrequency(6000));
@@ -105,7 +107,7 @@ public class WiFiBandTest {
 
     private SortedSet<Integer> expected24GHZChannels() {
         SortedSet<Integer> expected = new TreeSet<>();
-        for (int i = 1; i <= 11; i++) {
+        for (int i = 1; i <= 14; i++) {
             expected.add(i);
         }
         return expected;

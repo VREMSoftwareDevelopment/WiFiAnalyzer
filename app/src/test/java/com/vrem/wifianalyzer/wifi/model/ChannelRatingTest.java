@@ -101,11 +101,14 @@ public class ChannelRatingTest {
         // execute
         List<ChannelRating.ChannelAPCount> actual = fixture.getBestChannels(channels);
         // validate
-        assertEquals(4, actual.size());
+        assertEquals(7, actual.size());
         validateChannelAPCount(1, 0, actual.get(0));
         validateChannelAPCount(2, 0, actual.get(1));
-        validateChannelAPCount(3, 1, actual.get(2));
-        validateChannelAPCount(4, 1, actual.get(3));
+        validateChannelAPCount(12, 0, actual.get(2));
+        validateChannelAPCount(13, 0, actual.get(3));
+        validateChannelAPCount(14, 0, actual.get(4));
+        validateChannelAPCount(3, 1, actual.get(5));
+        validateChannelAPCount(4, 1, actual.get(6));
     }
 
     private void validateChannelAPCount(int expectedChannel, int expectedAPCount, ChannelRating.ChannelAPCount channelAPCount) {

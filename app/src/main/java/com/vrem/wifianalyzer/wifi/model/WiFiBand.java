@@ -22,28 +22,22 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 public enum WiFiBand {
-    GHZ_2(2412, 2462, 2401, 2499, 1, 11, "2.4 GHz"),
-    GHZ_5(5180, 5825, 5001, 5999, 36, 165, "5 GHz");
+    GHZ_2("2.4 GHz", 2401, 2499, new Range(2412, 2472, 1), new Range(2484, 2484, 14)),
+    GHZ_5("5 GHz", 5001, 5999, new Range(5180, 5825, 36));
 
     static final int CHANNEL_FREQUENCY_SPREAD = 5;
     private static final int CHANNEL_SPREAD = 2;
 
-    private final int channelFrequencyStart;
-    private final int channelFrequencyEnd;
-    private final int start;
-    private final int end;
-    private final int channelFirst;
-    private final int channelLast;
     private final String band;
+    private final int frequencyStart;
+    private final int frequencyEnd;
+    private final Range[] ranges;
 
-    WiFiBand(int channelFrequencyStart, int channelFrequencyEnd, int start, int end, int channelFirst, int channelLast, @NonNull String band) {
-        this.channelFrequencyStart = channelFrequencyStart;
-        this.channelFrequencyEnd = channelFrequencyEnd;
-        this.start = start;
-        this.end = end;
-        this.channelFirst = channelFirst;
-        this.channelLast = channelLast;
+    WiFiBand(@NonNull String band, int frequencyStart, int frequencyEnd, Range... ranges) {
         this.band = band;
+        this.frequencyStart = frequencyStart;
+        this.frequencyEnd = frequencyEnd;
+        this.ranges = ranges;
     }
 
     public static WiFiBand findByFrequency(int value) {
@@ -69,42 +63,43 @@ public enum WiFiBand {
     }
 
     public boolean inRange(int value) {
-        return value >= start && value <= end;
+        return value >= frequencyStart && value <= frequencyEnd;
     }
 
-    public int getChannelByFrequency(int value) {
-        if (inRange(value)) {
-            if (value <= channelFrequencyStart) {
-                return channelFirst;
-            }
-            if (value >= channelFrequencyEnd) {
-                return channelLast;
-            }
-            return (value - channelFrequencyStart) / CHANNEL_FREQUENCY_SPREAD + channelFirst;
+    public int getChannelByFrequency(int frequency) {
+        if (!inRange(frequency)) {
+            return 0;
         }
-        return 0;
+        for (Range range : ranges) {
+            if (frequency <= range.getFrequencyStart()) {
+                return range.getChannelFirst();
+            }
+            int channel = range.getChannelByFrequency(frequency);
+            if (channel != 0) {
+                return channel;
+            }
+        }
+        return getChannelLast();
     }
 
     public SortedSet<Integer> getChannels() {
         SortedSet<Integer> results = new TreeSet<>();
-        if (channelFirst != channelLast) {
-            for (int i = channelFirst; i <= channelLast; i++) {
-                results.add(i);
-            }
+        for (int i = getChannelFirst(); i <= getChannelLast(); i++) {
+            results.add(i);
         }
         return results;
     }
 
     public int getFrequencyStart() {
-        return channelFrequencyStart;
+        return ranges[0].getFrequencyStart();
     }
 
     public int getFrequencyEnd() {
-        return channelFrequencyEnd;
+        return ranges[ranges.length - 1].getFrequencyEnd();
     }
 
     public int getChannelFirst() {
-        return channelFirst;
+        return ranges[0].getChannelFirst();
     }
 
     public int getChannelFirstHidden() {
@@ -112,11 +107,11 @@ public enum WiFiBand {
     }
 
     public int getChannelLast() {
-        return channelLast;
+        return ranges[ranges.length - 1].getChannelLast();
     }
 
     public int getChannelLastHidden() {
-        return getChannelLast() + CHANNEL_SPREAD;
+        return getChannelLast() + CHANNEL_SPREAD + 1;
     }
 
     public String getBand() {
@@ -125,5 +120,40 @@ public enum WiFiBand {
 
     public WiFiBand toggle() {
         return WiFiBand.GHZ_2.equals(this) ? WiFiBand.GHZ_5 : WiFiBand.GHZ_2;
+    }
+
+    private static class Range {
+        private final int frequencyStart;
+        private final int frequencyEnd;
+        private final int channelFirst;
+
+        private Range(int frequencyStart, int frequencyEnd, int channelFirst) {
+            this.frequencyStart = frequencyStart;
+            this.frequencyEnd = frequencyEnd;
+            this.channelFirst = channelFirst;
+        }
+
+        private int getChannelByFrequency(int value) {
+            if (value >= frequencyStart && value <= frequencyEnd) {
+                return (value - frequencyStart) / CHANNEL_FREQUENCY_SPREAD + channelFirst;
+            }
+            return 0;
+        }
+
+        private int getFrequencyStart() {
+            return frequencyStart;
+        }
+
+        private int getFrequencyEnd() {
+            return frequencyEnd;
+        }
+
+        private int getChannelFirst() {
+            return channelFirst;
+        }
+
+        private int getChannelLast() {
+            return getChannelByFrequency(getFrequencyEnd());
+        }
     }
 }

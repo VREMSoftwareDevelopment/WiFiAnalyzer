@@ -30,8 +30,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -50,9 +48,7 @@ class ChannelGraphView {
         this.graphView = makeGraphView(graphViewBuilder, resources, this.wiFiBand);
         this.seriesMap = new TreeMap<>();
         this.graphViewUtils = new GraphViewUtils(graphView, seriesMap, mainContext.getSettings().getChannelGraphLegend());
-        if (is5GHZ()) {
-            addDefaultsSeries(graphView, wiFiBand);
-        }
+        addDefaultsSeries(graphView, wiFiBand);
     }
 
     static ChannelGraphView make2(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources) {
@@ -131,7 +127,6 @@ class ChannelGraphView {
         ChannelGraphSeries<DataPoint> series = new ChannelGraphSeries<>(dataPoints);
         series.setColor(GraphColors.TRANSPARENT.getPrimary());
         series.setThickness(0);
-        series.setTitle(StringUtils.EMPTY);
         graphView.addSeries(series);
     }
 
