@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<resources>
+    <!-- application start -->
+    <string name="app_name">WiFi分析仪</string>
+    <string name="app_company_name">VREM 软件开发</string>
+    <string name="app_copyright">版权 \u00A9 2015 - 2016</string>
+    <!-- application end -->
+
+    <string name="navigation_drawer_open">打开式导览</string>
+    <string name="navigation_drawer_close">关闭导览</string>
+
+    <string name="action_access_points">接入点</string>
+    <string name="action_channel_rating">信道评级</string>
+    <string name="action_channel_graph">信道图</string>
+    <string name="action_time_graph">时间图</string>
+    <string name="action_vendors">供应商</string>
+    <string name="action_settings">设置</string>
+    <string name="action_about">关于</string>
+
+    <string name="button_cancel">取消</string>
+    <string name="no_data">没有数据</string>
+
+    <string name="channel_rating_best">最佳信道:</string>
+    <string name="channel_rating_best_none">没有</string>
+    <string name="channel_rating_best_alternative">尝试另一种WiFi频段</string>
+
+    <string name="channel_rating_heading_rating">信道评级</string>
+    <string name="channel_rating_heading_number">信道数</string>
+    <string name="channel_rating_heading_count">接入点计数</string>
+    <string name="channel_short_name">信道</string>
+
+    <string name="graph_channel_axis_x">WiFi信道</string>
+    <string name="graph_time_axis_x">扫描计数</string>
+    <string name="graph_axis_y">信号强度 (dBm)</string>
+
+    <!-- settings start -->
+    <string name="wifi_band_title">WiFi频段</string>
+
+    <string name="scan_interval_title">扫描间隔</string>
+    <string name="scan_interval_summary">%d 每次扫描之间秒</string>
+
+    <string name="sort_by_title">排序接入点通过</string>
+    <string name="sort_by_default">信号强度</string>
+
+    <string name="group_by_title">组接入点通过</string>
+    <string name="group_by_default">没有</string>
+
+    <string name="channel_graph_legend_title">信道图例显示</string>
+    <string name="channel_graph_legend_default">隐藏</string>
+
+    <string name="time_graph_legend_title">时间图例显示</string>
+    <string name="time_graph_legend_default">左边</string>
+
+    <string name="theme_title">主题</string>
+    <string name="theme_default">黑暗</string>
+    <!-- settings end -->
+
+    <!-- about start -->
+    <string name="about_license_title">执照:</string>
+    <string name="about_license_name">Apache许可证下授权, 版 2.0</string>
+    <string name="about_description_title">描述:</string>
+    <string name="about_description_text">优化您的WiFi网络，通过检查WiFi网络状态，信号强度和使用开放源码的WiFi分析仪为Android识别拥挤的渠道</string>
+    <string name="about_libraries_title">用于图书馆:</string>
+    <string name="about_library_graphview">图表视图</string>
+    <string name="about_library_material">材料设计图标</string>
+    <string name="about_contributor_title">贡献者:</string>
+    <!-- about end -->
+</resources>

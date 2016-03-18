@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
@@ -19,7 +20,7 @@
     <string name="app_name">WiFi Analyzer BETA</string>
     <string name="app_company_name">VREM Software Development</string>
     <string name="app_copyright">Copyright \u00A9 2015 - 2016</string>
-    <string name="app_url">https://github.com/VREMSoftwareDevelopment/WifiAnalyzer</string>
+    <string name="app_url" translatable="false">https://github.com/VREMSoftwareDevelopment/WifiAnalyzer</string>
     <!-- application end -->
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -33,7 +34,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_about">About</string>
 
-    <string name="button_ok">OK</string>
+    <string name="button_ok" translatable="false">OK</string>
     <string name="button_cancel">Cancel</string>
     <string name="no_data">No Data</string>
 
@@ -52,57 +53,57 @@
 
     <!-- settings start -->
     <string name="wifi_band_title">WiFi Band</string>
-    <string name="wifi_band_summary">%s</string>
-    <string name="wifi_band_key">wifi_band</string>
-    <string name="wifi_band_default">2.4 GHz</string>
+    <string name="wifi_band_summary" translatable="false">%s</string>
+    <string name="wifi_band_key" translatable="false">wifi_band</string>
+    <string name="wifi_band_default" translatable="false">2.4 GHz</string>
 
     <string name="scan_interval_title">Scan Interval</string>
     <string name="scan_interval_summary">%d seconds between each scan</string>
-    <string name="scan_interval_key">scan_interval</string>
+    <string name="scan_interval_key" translatable="false">scan_interval</string>
     <integer name="scan_interval_default">15</integer>
     <integer name="scan_interval_min">5</integer>
     <integer name="scan_interval_max">30</integer>
 
     <string name="sort_by_title">Sort Access Points By</string>
-    <string name="sort_by_summary">%s</string>
-    <string name="sort_by_key">sort_by</string>
+    <string name="sort_by_summary" translatable="false">%s</string>
+    <string name="sort_by_key" translatable="false">sort_by</string>
     <string name="sort_by_default">Signal Strength</string>
 
     <string name="group_by_title">Group Access Points By</string>
-    <string name="group_by_summary">%s</string>
-    <string name="group_by_key">group_by</string>
+    <string name="group_by_summary" translatable="false">%s</string>
+    <string name="group_by_key" translatable="false">group_by</string>
     <string name="group_by_default">None</string>
 
     <string name="channel_graph_legend_title">Channel Graph Legend Display</string>
-    <string name="channel_graph_legend_summary">%s</string>
-    <string name="channel_graph_legend_key">channel_graph_legend</string>
+    <string name="channel_graph_legend_summary" translatable="false">%s</string>
+    <string name="channel_graph_legend_key" translatable="false">channel_graph_legend</string>
     <string name="channel_graph_legend_default">Hide</string>
 
     <string name="time_graph_legend_title">Time Graph Legend Display</string>
-    <string name="time_graph_legend_summary">%s</string>
-    <string name="time_graph_legend_key">time_graph_legend</string>
+    <string name="time_graph_legend_summary" translatable="false">%s</string>
+    <string name="time_graph_legend_key" translatable="false">time_graph_legend</string>
     <string name="time_graph_legend_default">Left</string>
 
     <string name="theme_title">Theme</string>
-    <string name="theme_summary">%s</string>
-    <string name="theme_key">theme</string>
+    <string name="theme_summary" translatable="false">%s</string>
+    <string name="theme_key" translatable="false">theme</string>
     <string name="theme_default">Dark</string>
     <!-- settings end -->
 
     <!-- about start -->
     <string name="about_license_title">License:</string>
     <string name="about_license_name">Licensed under the Apache License, Version 2.0</string>
-    <string name="about_license_url">http://www.apache.org/licenses/LICENSE-2.0</string>
+    <string name="about_license_url" translatable="false">http://www.apache.org/licenses/LICENSE-2.0</string>
     <string name="about_description_title">Description:</string>
     <string name="about_description_text">Optimize your WiFi network, by checking WiFi network status, signal strength and identifying crowded channels using an open-source WiFi Analyzer for Android</string>
     <string name="about_libraries_title">Libraries Used:</string>
-    <string name="about_library_apache">Apache Commons</string>
-    <string name="about_library_apache_url">https://commons.apache.org</string>
+    <string name="about_library_apache" translatable="false">Apache Commons</string>
+    <string name="about_library_apache_url" translatable="false">https://commons.apache.org</string>
     <string name="about_library_graphview">Graph View</string>
-    <string name="about_library_graphview_url">http://www.android-graphview.org</string>
+    <string name="about_library_graphview_url" translatable="false">http://www.android-graphview.org</string>
     <string name="about_library_material">Material Design Icons</string>
-    <string name="about_library_material_url">https://design.google.com/icons</string>
+    <string name="about_library_material_url" translatable="false">https://design.google.com/icons</string>
     <string name="about_contributor_title">Contributors:</string>
-    <string name="about_contributor_list">Alex Orchard, Dan Light, Graham Foster, Michael Melo, Silviu Marcu, Vadim Karantayer</string>
+    <string name="about_contributor_list" translatable="false">Alex Orchard, Dan Light, Graham Foster, Lee McCallum, Michael Melo, Silviu Marcu, Vadim Karantayer</string>
     <!-- about end -->
 </resources>
