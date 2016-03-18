@@ -23,9 +23,10 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiRange;
 import com.vrem.wifianalyzer.wifi.graph.color.GraphColor;
 import com.vrem.wifianalyzer.wifi.graph.color.GraphColors;
-import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
@@ -60,11 +61,12 @@ class ChannelGraphView {
     }
 
     private GraphView makeGraphView(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources, @NonNull WiFiBand wiFiBand) {
-        int minX = wiFiBand.getChannelFirstHidden();
+        WiFiRange wiFiRange = wiFiBand.getWiFiRange();
+        int minX = wiFiRange.getChannelFirstHidden();
         int maxX = minX + GraphViewBuilder.CNT_X - 1;
 
         return graphViewBuilder
-                .setLabelFormatter(new AxisLabel(wiFiBand.getChannelFirst(), wiFiBand.getChannelLast()).setEvenOnly(is5GHZ()))
+                .setLabelFormatter(new AxisLabel(wiFiRange.getChannelFirst(), wiFiRange.getChannelLast()).setEvenOnly(is5GHZ()))
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
                 .setMinX(minX)
@@ -119,9 +121,10 @@ class ChannelGraphView {
     }
 
     private void addDefaultsSeries(@NonNull GraphView graphView, @NonNull WiFiBand wiFiBand) {
+        WiFiRange wiFiRange = wiFiBand.getWiFiRange();
         DataPoint[] dataPoints = new DataPoint[]{
-                new DataPoint(wiFiBand.getChannelFirstHidden(), GraphViewBuilder.MIN_Y),
-                new DataPoint(wiFiBand.getChannelLastHidden(), GraphViewBuilder.MIN_Y)
+                new DataPoint(wiFiRange.getChannelFirstHidden(), GraphViewBuilder.MIN_Y),
+                new DataPoint(wiFiRange.getChannelLastHidden(), GraphViewBuilder.MIN_Y)
         };
 
         ChannelGraphSeries<DataPoint> series = new ChannelGraphSeries<>(dataPoints);

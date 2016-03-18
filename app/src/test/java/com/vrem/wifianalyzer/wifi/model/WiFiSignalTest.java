@@ -16,6 +16,8 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+
 import org.junit.Before;
 import org.junit.Test;
 

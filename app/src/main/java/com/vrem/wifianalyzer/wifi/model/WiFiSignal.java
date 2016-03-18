@@ -18,6 +18,8 @@ package com.vrem.wifianalyzer.wifi.model;
 
 import android.support.annotation.NonNull;
 
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;

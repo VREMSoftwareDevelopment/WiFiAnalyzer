@@ -23,10 +23,10 @@ import android.preference.PreferenceManager;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
-import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 
 import org.junit.After;
 import org.junit.Before;

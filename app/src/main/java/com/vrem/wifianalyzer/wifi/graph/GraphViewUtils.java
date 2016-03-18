@@ -28,9 +28,9 @@ import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.AccessPointsDetail;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.color.GraphColor;
 import com.vrem.wifianalyzer.wifi.graph.color.GraphColors;
-import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ import java.util.Map;
 import java.util.Set;
 
 class GraphViewUtils {
-    private static final float TEXT_SIZE_ADJUSTMENT = 0.75f;
+    private static final float TEXT_SIZE_ADJUSTMENT = 0.90f;
     private final MainContext mainContext = MainContext.INSTANCE;
     private final GraphView graphView;
     private final Map<WiFiDetail, ? extends Series<DataPoint>> seriesMap;

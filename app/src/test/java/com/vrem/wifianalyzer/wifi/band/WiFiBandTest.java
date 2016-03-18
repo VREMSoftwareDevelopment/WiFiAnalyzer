@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.model;
+package com.vrem.wifianalyzer.wifi.band;
 
 import org.junit.Test;
 
@@ -96,8 +96,8 @@ public class WiFiBandTest {
 
     @Test
     public void testFindChannels() throws Exception {
-        assertSetEquals(expected24GHZChannels(), WiFiBand.GHZ_2.getChannels());
-        assertSetEquals(expected5GHZChannels(), WiFiBand.GHZ_5.getChannels());
+        assertSetEquals(expected24GHZChannels(), WiFiBand.GHZ_2.getWiFiRange().getChannels());
+        assertSetEquals(expected5GHZChannels(), WiFiBand.GHZ_5.getWiFiRange().getChannels());
     }
 
     @Test

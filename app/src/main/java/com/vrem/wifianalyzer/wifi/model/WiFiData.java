@@ -20,6 +20,7 @@ import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 
 import java.util.ArrayList;
 import java.util.Collections;

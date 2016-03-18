@@ -16,6 +16,8 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -97,7 +99,7 @@ public class ChannelRatingTest {
     @Test
     public void testGetBestChannelsSortedInOrderWithMinimumChannels() throws Exception {
         // setup
-        SortedSet<Integer> channels = WiFiBand.GHZ_2.getChannels();
+        SortedSet<Integer> channels = WiFiBand.GHZ_2.getWiFiRange().getChannels();
         // execute
         List<ChannelRating.ChannelAPCount> actual = fixture.getBestChannels(channels);
         // validate
