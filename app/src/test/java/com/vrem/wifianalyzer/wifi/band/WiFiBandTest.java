@@ -19,7 +19,6 @@ package com.vrem.wifianalyzer.wifi.band;
 import org.junit.Test;
 
 import java.util.SortedSet;
-import java.util.TreeSet;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -49,76 +48,60 @@ public class WiFiBandTest {
 
     @Test
     public void testInRange() throws Exception {
-        assertTrue(WiFiBand.GHZ_2.inRange(2401));
+        assertTrue(WiFiBand.GHZ_2.inRange(2402));
         assertTrue(WiFiBand.GHZ_2.inRange(2499));
-        assertFalse(WiFiBand.GHZ_2.inRange(2400));
+        assertFalse(WiFiBand.GHZ_2.inRange(2401));
         assertFalse(WiFiBand.GHZ_2.inRange(2500));
 
-        assertTrue(WiFiBand.GHZ_5.inRange(5001));
-        assertTrue(WiFiBand.GHZ_5.inRange(5999));
-        assertFalse(WiFiBand.GHZ_5.inRange(5000));
-        assertFalse(WiFiBand.GHZ_5.inRange(6000));
+        assertTrue(WiFiBand.GHZ_5.inRange(4900));
+        assertTrue(WiFiBand.GHZ_5.inRange(5900));
+        assertFalse(WiFiBand.GHZ_5.inRange(4899));
+        assertFalse(WiFiBand.GHZ_5.inRange(5901));
     }
 
     @Test
-    public void testChannel() throws Exception {
-        assertEquals(0, WiFiBand.GHZ_2.getChannelByFrequency(2400));
-        assertEquals(0, WiFiBand.GHZ_2.getChannelByFrequency(2500));
+    public void testFindChannel() throws Exception {
+        assertEquals(1, WiFiBand.GHZ_2.findChannel(2410).getChannel());
+        assertEquals(1, WiFiBand.GHZ_2.findChannel(2412).getChannel());
+        assertEquals(13, WiFiBand.GHZ_2.findChannel(2470).getChannel());
+        assertEquals(13, WiFiBand.GHZ_2.findChannel(2472).getChannel());
+        assertEquals(13, WiFiBand.GHZ_2.findChannel(2474).getChannel());
+        assertEquals(14, WiFiBand.GHZ_2.findChannel(2484).getChannel());
+        assertEquals(14, WiFiBand.GHZ_2.findChannel(2486).getChannel());
 
-        assertEquals(1, WiFiBand.GHZ_2.getChannelByFrequency(2401));
-        assertEquals(1, WiFiBand.GHZ_2.getChannelByFrequency(2416));
-        assertEquals(13, WiFiBand.GHZ_2.getChannelByFrequency(2472));
-        assertEquals(14, WiFiBand.GHZ_2.getChannelByFrequency(2473));
-        assertEquals(14, WiFiBand.GHZ_2.getChannelByFrequency(2484));
-        assertEquals(14, WiFiBand.GHZ_2.getChannelByFrequency(2499));
+        assertEquals(183, WiFiBand.GHZ_5.findChannel(4913).getChannel());
+        assertEquals(183, WiFiBand.GHZ_5.findChannel(4915).getChannel());
+        assertEquals(36, WiFiBand.GHZ_5.findChannel(5178).getChannel());
+        assertEquals(36, WiFiBand.GHZ_5.findChannel(5180).getChannel());
+        assertEquals(36, WiFiBand.GHZ_5.findChannel(5182).getChannel());
+        assertEquals(165, WiFiBand.GHZ_5.findChannel(5825).getChannel());
+        assertEquals(165, WiFiBand.GHZ_5.findChannel(5827).getChannel());
+    }
 
-        assertEquals(0, WiFiBand.GHZ_5.getChannelByFrequency(5000));
-        assertEquals(0, WiFiBand.GHZ_5.getChannelByFrequency(6000));
+    @Test
+    public void testFindChannelFail() throws Exception {
+        assertEquals(WiFiChannel.UNKNOWN, WiFiBand.GHZ_2.findChannel(2402));
+        assertEquals(WiFiChannel.UNKNOWN, WiFiBand.GHZ_2.findChannel(2409));
+        assertEquals(WiFiChannel.UNKNOWN, WiFiBand.GHZ_2.findChannel(2489));
+        assertEquals(WiFiChannel.UNKNOWN, WiFiBand.GHZ_2.findChannel(2499));
 
-        assertEquals(36, WiFiBand.GHZ_5.getChannelByFrequency(5001));
-        assertEquals(36, WiFiBand.GHZ_5.getChannelByFrequency(5184));
-        assertEquals(165, WiFiBand.GHZ_5.getChannelByFrequency(5825));
-        assertEquals(165, WiFiBand.GHZ_5.getChannelByFrequency(5899));
+        assertEquals(WiFiChannel.UNKNOWN, WiFiBand.GHZ_5.findChannel(4900));
+        assertEquals(WiFiChannel.UNKNOWN, WiFiBand.GHZ_5.findChannel(4912));
+        assertEquals(WiFiChannel.UNKNOWN, WiFiBand.GHZ_5.findChannel(5829));
+        assertEquals(WiFiChannel.UNKNOWN, WiFiBand.GHZ_5.findChannel(5900));
     }
 
     @Test
     public void testFind() throws Exception {
         assertEquals(WiFiBand.GHZ_2, WiFiBand.findByFrequency(2400));
         assertEquals(WiFiBand.GHZ_2, WiFiBand.findByFrequency(2500));
-        assertEquals(WiFiBand.GHZ_2, WiFiBand.findByFrequency(5000));
-        assertEquals(WiFiBand.GHZ_2, WiFiBand.findByFrequency(6000));
+        assertEquals(WiFiBand.GHZ_2, WiFiBand.findByFrequency(4899));
+        assertEquals(WiFiBand.GHZ_2, WiFiBand.findByFrequency(5901));
 
         assertEquals(WiFiBand.GHZ_2, WiFiBand.findByFrequency(2401));
         assertEquals(WiFiBand.GHZ_2, WiFiBand.findByFrequency(2499));
-        assertEquals(WiFiBand.GHZ_5, WiFiBand.findByFrequency(5001));
-        assertEquals(WiFiBand.GHZ_5, WiFiBand.findByFrequency(5999));
-    }
-
-    @Test
-    public void testFindChannels() throws Exception {
-        assertSetEquals(expected24GHZChannels(), WiFiBand.GHZ_2.getWiFiRange().getChannels());
-        assertSetEquals(expected5GHZChannels(), WiFiBand.GHZ_5.getWiFiRange().getChannels());
-    }
-
-    @Test
-    public void testFindChannel() throws Exception {
-        assertEquals(1, WiFiBand.findChannelByFrequency(2412));
-    }
-
-    private SortedSet<Integer> expected24GHZChannels() {
-        SortedSet<Integer> expected = new TreeSet<>();
-        for (int i = 1; i <= 14; i++) {
-            expected.add(i);
-        }
-        return expected;
-    }
-
-    private SortedSet<Integer> expected5GHZChannels() {
-        SortedSet<Integer> expected = new TreeSet<>();
-        for (int i = 36; i <= 165; i++) {
-            expected.add(i);
-        }
-        return expected;
+        assertEquals(WiFiBand.GHZ_5, WiFiBand.findByFrequency(4901));
+        assertEquals(WiFiBand.GHZ_5, WiFiBand.findByFrequency(5899));
     }
 
     private void assertSetEquals(SortedSet<Integer> expected, SortedSet<Integer> actual) {
@@ -130,4 +113,11 @@ public class WiFiBandTest {
         assertEquals(WiFiBand.GHZ_5, WiFiBand.GHZ_2.toggle());
         assertEquals(WiFiBand.GHZ_2, WiFiBand.GHZ_5.toggle());
     }
+
+    @Test
+    public void testGetWiFiChannels() throws Exception {
+        assertEquals(WiFiChannel.GHZ_2, WiFiBand.GHZ_2.getWiFiChannels());
+        assertEquals(WiFiChannel.GHZ_5, WiFiBand.GHZ_5.getWiFiChannels());
+    }
+
 }

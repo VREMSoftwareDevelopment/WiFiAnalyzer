@@ -60,7 +60,7 @@ class TimeGraphView {
 
     private GraphView makeGraphView(GraphViewBuilder graphViewBuilder, Resources resources) {
         return graphViewBuilder
-                .setLabelFormatter(new AxisLabel(0, Integer.MAX_VALUE).setEvenOnly(true))
+                .setLabelFormatter(new TimeAxisLabel())
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
                 .build();

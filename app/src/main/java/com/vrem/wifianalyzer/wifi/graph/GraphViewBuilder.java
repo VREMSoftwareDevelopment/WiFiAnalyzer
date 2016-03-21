@@ -23,12 +23,14 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 
 class GraphViewBuilder {
     static final int MIN_Y = -100;
     static final int MAX_Y = -10;
     static final int CNT_Y = (MAX_Y - MIN_Y) / 10 + 1;
     static final int CNT_X = 16;
+    static final int MAX_X = (CNT_X - 1) * WiFiChannel.FREQUENCY_SPREAD;
 
     private final View view;
     private final int graphViewId;
@@ -36,13 +38,10 @@ class GraphViewBuilder {
     private String verticalTitle;
     private String horizontalTitle;
     private int minX;
-    private int maxX;
 
     GraphViewBuilder(@NonNull View view, int graphViewId) {
         this.view = view;
         this.graphViewId = graphViewId;
-        this.minX = 0;
-        this.maxX = CNT_X - 1;
     }
 
     GraphViewBuilder setLabelFormatter(@NonNull LabelFormatter labelFormatter) {
@@ -65,11 +64,6 @@ class GraphViewBuilder {
         return this;
     }
 
-    GraphViewBuilder setMaxX(int maxX) {
-        this.maxX = maxX;
-        return this;
-    }
-
     GraphView build() {
         GraphView graphView = (GraphView) view.findViewById(graphViewId);
 
@@ -88,7 +82,7 @@ class GraphViewBuilder {
 
         viewport.setXAxisBoundsManual(true);
         viewport.setMinX(minX);
-        viewport.setMaxX(maxX);
+        viewport.setMaxX(minX + MAX_X);
     }
 
     private void setGridLabelRenderer(@NonNull GridLabelRenderer gridLabelRenderer) {

@@ -16,6 +16,8 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
+import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -43,24 +45,6 @@ public class WiFiWidthTest {
         assertEquals(40, WiFiWidth.MHZ_80.getFrequencyWidthHalf());
         assertEquals(80, WiFiWidth.MHZ_160.getFrequencyWidthHalf());
         assertEquals(80, WiFiWidth.MHZ_80_80.getFrequencyWidthHalf());
-    }
-
-    @Test
-    public void testGetChannelWidth() throws Exception {
-        assertEquals(4, WiFiWidth.MHZ_20.getChannelWidth());
-        assertEquals(8, WiFiWidth.MHZ_40.getChannelWidth());
-        assertEquals(16, WiFiWidth.MHZ_80.getChannelWidth());
-        assertEquals(32, WiFiWidth.MHZ_160.getChannelWidth());
-        assertEquals(32, WiFiWidth.MHZ_80_80.getChannelWidth());
-    }
-
-    @Test
-    public void testGetChannelHalfWidth() throws Exception {
-        assertEquals(2, WiFiWidth.MHZ_20.getChannelWidthHalf());
-        assertEquals(4, WiFiWidth.MHZ_40.getChannelWidthHalf());
-        assertEquals(8, WiFiWidth.MHZ_80.getChannelWidthHalf());
-        assertEquals(16, WiFiWidth.MHZ_160.getChannelWidthHalf());
-        assertEquals(16, WiFiWidth.MHZ_80_80.getChannelWidthHalf());
     }
 
     @Test

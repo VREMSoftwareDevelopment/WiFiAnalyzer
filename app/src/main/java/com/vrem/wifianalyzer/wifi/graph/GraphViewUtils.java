@@ -91,7 +91,7 @@ class GraphViewUtils {
     }
 
     String getTitle(@NonNull WiFiDetail wiFiDetail) {
-        return wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getChannel();
+        return wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getWiFiChannel().getChannel();
     }
 
     GraphColor getColor() {

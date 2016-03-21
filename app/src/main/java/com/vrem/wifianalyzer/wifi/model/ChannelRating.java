@@ -18,13 +18,14 @@ package com.vrem.wifianalyzer.wifi.model;
 
 import android.support.annotation.NonNull;
 
+import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.SortedSet;
 
 public class ChannelRating {
     private List<WiFiDetail> wiFiDetails = new ArrayList<>();
@@ -32,13 +33,13 @@ public class ChannelRating {
     public ChannelRating() {
     }
 
-    public int getCount(int channel) {
-        return collectOverlappingChannels(channel).size();
+    public int getCount(WiFiChannel wiFiChannel) {
+        return collectOverlapping(wiFiChannel).size();
     }
 
-    public Strength getStrength(int channel) {
+    public Strength getStrength(WiFiChannel wiFiChannel) {
         Strength strength = Strength.ZERO;
-        for (WiFiDetail wiFiDetail : collectOverlappingChannels(channel)) {
+        for (WiFiDetail wiFiDetail : collectOverlapping(wiFiChannel)) {
             if (!wiFiDetail.getWiFiAdditional().isConnected()) {
                 strength = Strength.values()[Math.max(strength.ordinal(), wiFiDetail.getWiFiSignal().getStrength().ordinal())];
             }
@@ -50,26 +51,26 @@ public class ChannelRating {
         this.wiFiDetails = wiFiDetails;
     }
 
-    private List<WiFiDetail> collectOverlappingChannels(int channel) {
+    private List<WiFiDetail> collectOverlapping(WiFiChannel wiFiChannel) {
         List<WiFiDetail> result = new ArrayList<>();
         for (WiFiDetail wiFiDetail : wiFiDetails) {
             if (wiFiDetail.getWiFiAdditional().isConnected()) {
                 continue;
             }
             WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-            if (channel >= wiFiSignal.getChannelStart() && channel <= wiFiSignal.getChannelEnd()) {
+            if (wiFiChannel.getFrequency() >= wiFiSignal.getFrequencyStart() && wiFiChannel.getFrequency() <= wiFiSignal.getFrequencyEnd()) {
                 result.add(wiFiDetail);
             }
         }
         return result;
     }
 
-    public List<ChannelAPCount> getBestChannels(@NonNull final SortedSet<Integer> channels) {
+    public List<ChannelAPCount> getBestChannels(@NonNull final List<WiFiChannel> wiFiChannels) {
         List<ChannelAPCount> results = new ArrayList<>();
-        for (Integer channel : channels) {
-            Strength strength = getStrength(channel);
+        for (WiFiChannel wiFiChannel : wiFiChannels) {
+            Strength strength = getStrength(wiFiChannel);
             if (Strength.ZERO.equals(strength) || Strength.ONE.equals(strength)) {
-                results.add(new ChannelAPCount(channel, getCount(channel)));
+                results.add(new ChannelAPCount(wiFiChannel, getCount(wiFiChannel)));
             }
         }
         Collections.sort(results);
@@ -77,27 +78,27 @@ public class ChannelRating {
     }
 
     public class ChannelAPCount implements Comparable<ChannelAPCount> {
-        private final int channel;
-        private final int apCount;
+        private final WiFiChannel wiFiChannel;
+        private final int count;
 
-        public ChannelAPCount(int channel, int apCount) {
-            this.channel = channel;
-            this.apCount = apCount;
+        public ChannelAPCount(WiFiChannel wiFiChannel, int count) {
+            this.wiFiChannel = wiFiChannel;
+            this.count = count;
         }
 
-        public int getChannel() {
-            return channel;
+        public WiFiChannel getWiFiChannel() {
+            return wiFiChannel;
         }
 
-        public int getApCount() {
-            return apCount;
+        public int getCount() {
+            return count;
         }
 
         @Override
         public int compareTo(@NonNull ChannelAPCount another) {
             return new CompareToBuilder()
-                    .append(getApCount(), another.getApCount())
-                    .append(getChannel(), another.getChannel())
+                    .append(getCount(), another.getCount())
+                    .append(getWiFiChannel(), another.getWiFiChannel())
                     .toComparison();
         }
 

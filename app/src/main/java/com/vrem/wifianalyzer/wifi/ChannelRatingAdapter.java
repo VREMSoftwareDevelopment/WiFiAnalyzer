@@ -30,6 +30,7 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
@@ -38,9 +39,8 @@ import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedSet;
 
-class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifier {
+class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNotifier {
     public static final int MAX_CHANNELS_TO_DISPLAY = 10;
     private final MainContext mainContext = MainContext.INSTANCE;
     private final Resources resources;
@@ -48,7 +48,7 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
     private final TextView bestChannels;
 
     ChannelRatingAdapter(@NonNull Context context, @NonNull TextView bestChannels) {
-        super(context, R.layout.channel_rating_details, new ArrayList<Integer>());
+        super(context, R.layout.channel_rating_details, new ArrayList<WiFiChannel>());
         this.resources = context.getResources();
         this.bestChannels = bestChannels;
         this.channelRating = new ChannelRating();
@@ -58,11 +58,11 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         WiFiBand wiFiBand = mainContext.getSettings().getWiFiBand();
+        List<WiFiChannel> wiFiChannels = wiFiBand.getWiFiChannels();
         clear();
-        SortedSet<Integer> channels = wiFiBand.getWiFiRange().getChannels();
-        addAll(channels);
+        addAll(wiFiChannels);
         channelRating.setWiFiChannels(wiFiData.getWiFiDetails(wiFiBand, SortBy.STRENGTH));
-        bestChannels(wiFiBand, channels);
+        bestChannels(wiFiBand, wiFiChannels);
         notifyDataSetChanged();
     }
 
@@ -73,13 +73,13 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
             convertView = inflater.inflate(R.layout.channel_rating_details, parent, false);
         }
 
-        Integer channel = getItem(position);
-        int count = channelRating.getCount(channel);
+        WiFiChannel wiFiChannel = getItem(position);
+        int count = channelRating.getCount(wiFiChannel);
 
-        ((TextView) convertView.findViewById(R.id.channelNumber)).setText(String.format("%d", channel));
+        ((TextView) convertView.findViewById(R.id.channelNumber)).setText(String.format("%d", wiFiChannel.getChannel()));
         ((TextView) convertView.findViewById(R.id.accessPointCount)).setText(String.format("%d", count));
 
-        Strength strength = Strength.reverse(channelRating.getStrength(channel));
+        Strength strength = Strength.reverse(channelRating.getStrength(wiFiChannel));
         RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.channelRating);
         int size = Strength.values().length;
         ratingBar.setMax(size);
@@ -90,8 +90,8 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
         return convertView;
     }
 
-    private void bestChannels(@NonNull WiFiBand wiFiBand, @NonNull SortedSet<Integer> channels) {
-        List<ChannelRating.ChannelAPCount> channelAPCounts = channelRating.getBestChannels(channels);
+    private void bestChannels(@NonNull WiFiBand wiFiBand, @NonNull List<WiFiChannel> wiFiChannels) {
+        List<ChannelRating.ChannelAPCount> channelAPCounts = channelRating.getBestChannels(wiFiChannels);
         int channelCount = 0;
         StringBuilder result = new StringBuilder();
         for (ChannelRating.ChannelAPCount channelAPCount : channelAPCounts) {
@@ -102,7 +102,7 @@ class ChannelRatingAdapter extends ArrayAdapter<Integer> implements UpdateNotifi
             if (result.length() > 0) {
                 result.append(", ");
             }
-            result.append(channelAPCount.getChannel());
+            result.append(channelAPCount.getWiFiChannel().getChannel());
             channelCount++;
         }
         if (result.length() > 0) {

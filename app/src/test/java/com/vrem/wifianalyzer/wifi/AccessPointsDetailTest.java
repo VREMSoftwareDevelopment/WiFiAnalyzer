@@ -25,10 +25,10 @@ import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
@@ -100,7 +100,7 @@ public class AccessPointsDetailTest {
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         validateTextViewValue(ssid + " (" + wiFiDetail.getBSSID() + ")", R.id.ssid);
         validateTextViewValue(String.format("%ddBm", wiFiSignal.getLevel()), R.id.level);
-        validateTextViewValue(String.format("%d", wiFiSignal.getChannel()), R.id.channel);
+        validateTextViewValue(String.format("%d", wiFiSignal.getWiFiChannel().getChannel()), R.id.channel);
         validateTextViewValue(String.format("%dMHz", wiFiSignal.getFrequency()), R.id.frequency);
         validateTextViewValue(String.format("%6.2fm", wiFiSignal.getDistance()), R.id.distance);
         validateTextViewValue(wiFiDetail.getCapabilities(), R.id.capabilities);

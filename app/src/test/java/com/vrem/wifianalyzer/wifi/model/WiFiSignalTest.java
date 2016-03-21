@@ -17,6 +17,7 @@
 package com.vrem.wifianalyzer.wifi.model;
 
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 
 public class WiFiSignalTest {
-    private static final int FREQUENCY = 2435;
+    private static final int FREQUENCY = 2432;
     private static final int CHANNEL = 5;
     private static final int LEVEL = -65;
 
@@ -50,7 +51,7 @@ public class WiFiSignalTest {
         fixture = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_80, LEVEL);
         // validate
         assertEquals(FREQUENCY, fixture.getFrequency());
-        assertEquals(CHANNEL, fixture.getChannel());
+        assertEquals(CHANNEL, fixture.getWiFiChannel().getChannel());
         assertEquals(LEVEL, fixture.getLevel());
         assertEquals(WiFiBand.GHZ_2, fixture.getWiFiBand());
         assertEquals(WiFiWidth.MHZ_80, fixture.getWiFiWidth());
@@ -64,10 +65,8 @@ public class WiFiSignalTest {
     }
 
     @Test
-    public void testGetChannel() throws Exception {
-        assertEquals(CHANNEL, fixture.getChannel());
-        assertEquals(CHANNEL - WiFiWidth.MHZ_20.getChannelWidthHalf(), fixture.getChannelStart());
-        assertEquals(CHANNEL + WiFiWidth.MHZ_20.getChannelWidthHalf(), fixture.getChannelEnd());
+    public void testGetWiFiChannel() throws Exception {
+        assertEquals(CHANNEL, fixture.getWiFiChannel().getChannel());
     }
 
     @Test

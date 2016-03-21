@@ -20,12 +20,12 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 
+import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import com.vrem.wifianalyzer.wifi.model.WiFiUtils;
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -90,10 +90,24 @@ public class Transformer {
     private void addTestData(List<WiFiDetail> wiFiDetails) {
         int level = -60;
         wiFiDetails.addAll(Arrays.asList(
-                new WiFiDetail("SSID-TEST1", "BSSID:2.4GHZ:01", Security.WPA.name(), new WiFiSignal(WiFiBand.GHZ_2.getFrequencyStart(), WiFiWidth.MHZ_20, level)),
-                new WiFiDetail("SSID-TEST2", "BSSID:2.4GHZ:02", Security.WEP.name(), new WiFiSignal(WiFiBand.GHZ_2.getFrequencyEnd(), WiFiWidth.MHZ_20, level)),
-                new WiFiDetail("SSID-TEST3", "BSSID:5.0GHZ:03", Security.WPA.name(), new WiFiSignal(WiFiBand.GHZ_5.getFrequencyStart(), WiFiWidth.MHZ_20, level)),
-                new WiFiDetail("SSID-TEST4", "BSSID:5.0GHZ:04", Security.WEP.name(), new WiFiSignal(WiFiBand.GHZ_5.getFrequencyEnd(), WiFiWidth.MHZ_20, level))));
+                new WiFiDetail("SSID-TEST1", "BSSID:2.4GHZ:01", Security.WPA.name(), new WiFiSignal(getFrequencyStart(WiFiBand.GHZ_2), WiFiWidth.MHZ_20, level)),
+                new WiFiDetail("SSID-TEST2", "BSSID:2.4GHZ:02", Security.WEP.name(), new WiFiSignal(getFrequencyEnd(WiFiBand.GHZ_2), WiFiWidth.MHZ_20, level)),
+                new WiFiDetail("SSID-TEST3", "BSSID:5.0GHZ:03", Security.WEP.name(), new WiFiSignal(getFrequencyMiddle(WiFiBand.GHZ_2), WiFiWidth.MHZ_20, level)),
+
+                new WiFiDetail("SSID-TEST4", "BSSID:5.0GHZ:04", Security.WPA.name(), new WiFiSignal(getFrequencyStart(WiFiBand.GHZ_5), WiFiWidth.MHZ_20, level)),
+                new WiFiDetail("SSID-TEST5", "BSSID:5.0GHZ:05", Security.WEP.name(), new WiFiSignal(getFrequencyEnd(WiFiBand.GHZ_5), WiFiWidth.MHZ_20, level)),
+                new WiFiDetail("SSID-TEST6", "BSSID:5.0GHZ:06", Security.WEP.name(), new WiFiSignal(getFrequencyMiddle(WiFiBand.GHZ_5), WiFiWidth.MHZ_20, level))
+        ));
+    }
+
+    private int getFrequencyStart(@NonNull WiFiBand wiFiBand) {
+        return wiFiBand.getWiFiChannels().get(0).getFrequency();
+    }
+    private int getFrequencyMiddle(@NonNull WiFiBand wiFiBand) {
+        return wiFiBand.getWiFiChannels().get(wiFiBand.getWiFiChannels().size() / 2 - 1).getFrequency();
+    }
+    private int getFrequencyEnd(@NonNull WiFiBand wiFiBand) {
+        return wiFiBand.getWiFiChannels().get(wiFiBand.getWiFiChannels().size()-1).getFrequency();
     }
 */
 }

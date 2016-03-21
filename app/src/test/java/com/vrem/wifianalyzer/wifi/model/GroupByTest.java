@@ -16,6 +16,8 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
+import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Before;

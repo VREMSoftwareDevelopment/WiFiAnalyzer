@@ -16,20 +16,23 @@
 
 package com.vrem.wifianalyzer.wifi.graph;
 
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
-public class AxisLabelTest {
-    private static final int MIN_X = 2;
-    private static final int MAX_X = 5;
-    private AxisLabel fixture;
+public class ChannelAxisLabelTest {
+    private ChannelAxisLabel fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = new AxisLabel(MIN_X, MAX_X);
+        fixture = new ChannelAxisLabel(WiFiBand.GHZ_2);
     }
 
     @Test
@@ -43,19 +46,20 @@ public class AxisLabelTest {
 
     @Test
     public void testXAxis() throws Exception {
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(MIN_X - 1, true));
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(MAX_X + 1, true));
-
-        assertEquals("" + MIN_X, fixture.formatLabel(MIN_X, true));
-        assertEquals("" + ((MIN_X + MAX_X) / 2), fixture.formatLabel(((MIN_X + MAX_X) / 2), true));
-        assertEquals("" + MAX_X, fixture.formatLabel(MAX_X, true));
+        List<WiFiChannel> wiFiChannels = WiFiBand.GHZ_2.getWiFiChannels();
+        assertEquals("" + wiFiChannels.get(0).getChannel(),
+                fixture.formatLabel(wiFiChannels.get(0).getFrequency(), true));
+        assertEquals("" + wiFiChannels.get(wiFiChannels.size() - 1).getChannel(),
+                fixture.formatLabel(wiFiChannels.get(wiFiChannels.size() - 1).getFrequency(), true));
     }
 
     @Test
-    public void testXAxisEven() throws Exception {
-        fixture.setEvenOnly(true);
-
-        assertEquals("" + MIN_X, fixture.formatLabel(MIN_X, true));
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(MAX_X, true));
+    public void testXAxisWithInvalidFrequencies() throws Exception {
+        List<WiFiChannel> wiFiChannels = WiFiBand.GHZ_5.getWiFiChannels();
+        assertEquals(StringUtils.EMPTY,
+                fixture.formatLabel(wiFiChannels.get(0).getFrequency(), true));
+        assertEquals(StringUtils.EMPTY,
+                fixture.formatLabel(wiFiChannels.get(wiFiChannels.size() - 1).getFrequency(), true));
     }
+
 }

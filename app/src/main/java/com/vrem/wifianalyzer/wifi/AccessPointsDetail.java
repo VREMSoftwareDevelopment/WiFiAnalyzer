@@ -70,7 +70,7 @@ public class AccessPointsDetail {
         textLevel.setText(String.format("%ddBm", wiFiSignal.getLevel()));
         textLevel.setTextColor(resources.getColor(strength.colorResource()));
 
-        ((TextView) view.findViewById(R.id.channel)).setText(String.format("%d", wiFiSignal.getChannel()));
+        ((TextView) view.findViewById(R.id.channel)).setText(String.format("%d", wiFiSignal.getWiFiChannel().getChannel()));
         ((TextView) view.findViewById(R.id.frequency)).setText(String.format("%dMHz", wiFiSignal.getFrequency()));
         ((TextView) view.findViewById(R.id.distance)).setText(String.format("%6.2fm", wiFiSignal.getDistance()));
         ((TextView) view.findViewById(R.id.capabilities)).setText(wiFiDetail.getCapabilities());

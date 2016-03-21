@@ -19,6 +19,8 @@ package com.vrem.wifianalyzer.wifi.model;
 import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -51,24 +53,16 @@ public class WiFiSignal {
         return getFrequency() + getWiFiWidth().getFrequencyWidthHalf();
     }
 
-    public int getChannel() {
-        return WiFiBand.findChannelByFrequency(getFrequency());
-    }
-
-    public int getChannelStart() {
-        return getChannel() - getWiFiWidth().getChannelWidthHalf();
-    }
-
-    public int getChannelEnd() {
-        return getChannel() + getWiFiWidth().getChannelWidthHalf();
-    }
-
     public WiFiBand getWiFiBand() {
         return wiFiBand;
     }
 
     public WiFiWidth getWiFiWidth() {
         return wiFiWidth;
+    }
+
+    public WiFiChannel getWiFiChannel() {
+        return getWiFiBand().findChannel(getFrequency());
     }
 
     public int getLevel() {
