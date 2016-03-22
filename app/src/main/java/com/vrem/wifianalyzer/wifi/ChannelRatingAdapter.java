@@ -31,6 +31,7 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
@@ -39,6 +40,7 @@ import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNotifier {
     public static final int MAX_CHANNELS_TO_DISPLAY = 10;
@@ -58,12 +60,23 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         WiFiBand wiFiBand = mainContext.getSettings().getWiFiBand();
-        List<WiFiChannel> wiFiChannels = wiFiBand.getWiFiChannels().getChannels();
-        clear();
-        addAll(wiFiChannels);
+        List<WiFiChannel> wiFiChannels = setWiFiChannels(wiFiBand);
         channelRating.setWiFiChannels(wiFiData.getWiFiDetails(wiFiBand, SortBy.STRENGTH));
         bestChannels(wiFiBand, wiFiChannels);
         notifyDataSetChanged();
+    }
+
+    private List<WiFiChannel> setWiFiChannels(WiFiBand wiFiBand) {
+        Locale locale = resources.getConfiguration().locale;
+        List<WiFiChannel> wiFiChannels = new ArrayList<>();
+        for (WiFiChannel wiFiChannel : wiFiBand.getWiFiChannels().getChannels()) {
+            if (WiFiChannelCountry.isChannelAvailable(locale, wiFiBand, wiFiChannel.getChannel())) {
+                wiFiChannels.add(wiFiChannel);
+            }
+        }
+        clear();
+        addAll(wiFiChannels);
+        return wiFiChannels;
     }
 
     @Override

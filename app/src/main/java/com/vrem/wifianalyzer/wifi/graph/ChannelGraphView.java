@@ -62,7 +62,7 @@ class ChannelGraphView {
 
     private GraphView makeGraphView(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources, @NonNull WiFiBand wiFiBand) {
         return graphViewBuilder
-                .setLabelFormatter(new ChannelAxisLabel(wiFiBand))
+                .setLabelFormatter(new ChannelAxisLabel(wiFiBand, resources))
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
                 .setWiFiBand(wiFiBand)

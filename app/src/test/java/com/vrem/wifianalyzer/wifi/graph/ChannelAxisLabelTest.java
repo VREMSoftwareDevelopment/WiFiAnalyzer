@@ -16,6 +16,9 @@
 
 package com.vrem.wifianalyzer.wifi.graph;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
+
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
@@ -23,15 +26,30 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ChannelAxisLabelTest {
+    @Mock
+    private Resources resources;
+    @Mock
+    private Configuration configuration;
+
     private ChannelAxisLabel fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = new ChannelAxisLabel(WiFiBand.GHZ_2);
+        fixture = new ChannelAxisLabel(WiFiBand.GHZ_2, resources);
+
+        when(resources.getConfiguration()).thenReturn(configuration);
+        configuration.locale = Locale.US;
     }
 
     @Test
@@ -45,15 +63,21 @@ public class ChannelAxisLabelTest {
 
     @Test
     public void testXAxis() throws Exception {
-        WiFiChannel wiFiChannel = WiFiBand.GHZ_2.getWiFiChannels().getChannels().get(0);
+        WiFiChannel wiFiChannel = WiFiBand.GHZ_2.getWiFiChannels().getWiFiChannelFirst();
         assertEquals("" + wiFiChannel.getChannel(), fixture.formatLabel(wiFiChannel.getFrequency(), true));
     }
 
     @Test
     public void testXAxisWithFrequencyInRange() throws Exception {
-        WiFiChannel wiFiChannel = WiFiBand.GHZ_2.getWiFiChannels().getChannels().get(0);
+        WiFiChannel wiFiChannel = WiFiBand.GHZ_2.getWiFiChannels().getWiFiChannelFirst();
         assertEquals("" + wiFiChannel.getChannel(), fixture.formatLabel(wiFiChannel.getFrequency() - 2, true));
         assertEquals("" + wiFiChannel.getChannel(), fixture.formatLabel(wiFiChannel.getFrequency() + 2, true));
+    }
+
+    @Test
+    public void testXAxisWithFrequencyNotAllowedInLocale() throws Exception {
+        WiFiChannel wiFiChannel = WiFiBand.GHZ_2.getWiFiChannels().getWiFiChannelLast();
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(wiFiChannel.getFrequency(), true));
     }
 
     @Test

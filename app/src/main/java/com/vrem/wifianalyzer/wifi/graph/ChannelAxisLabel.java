@@ -16,19 +16,25 @@
 
 package com.vrem.wifianalyzer.wifi.graph;
 
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Locale;
+
 class ChannelAxisLabel implements LabelFormatter {
     private final WiFiBand wiFiBand;
+    private final Resources resources;
 
-    ChannelAxisLabel(@NonNull WiFiBand wiFiBand) {
+    ChannelAxisLabel(@NonNull WiFiBand wiFiBand, @NonNull Resources resources) {
+        this.resources = resources;
         this.wiFiBand = wiFiBand;
     }
 
@@ -58,6 +64,10 @@ class ChannelAxisLabel implements LabelFormatter {
             wiFiChannel = wiFiBand.getWiFiChannels().findWiFiChannelInRange(value);
         }
         if (wiFiChannel == WiFiChannel.UNKNOWN) {
+            return StringUtils.EMPTY;
+        }
+        Locale locale = resources.getConfiguration().locale;
+        if (!WiFiChannelCountry.isChannelAvailable(locale, wiFiBand, wiFiChannel.getChannel())) {
             return StringUtils.EMPTY;
         }
         return "" + wiFiChannel.getChannel();
