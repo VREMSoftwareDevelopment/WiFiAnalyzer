@@ -19,8 +19,8 @@ package com.vrem.wifianalyzer.wifi.band;
 import android.support.annotation.NonNull;
 
 public enum WiFiBand {
-    GHZ_2("2.4 GHz", 2401, 2499, new WiFiChannels2()),
-    GHZ_5("5 GHz", 4901, 5899, new WiFiChannels5());
+    GHZ_2("2.4 GHz", 2401, 2499, WiFiChannels.makeGHZ_2()),
+    GHZ_5("5 GHz", 4901, 5899, WiFiChannels.makeGHZ_5());
 
     private final String band;
     private final int frequencyStart;
@@ -61,7 +61,11 @@ public enum WiFiBand {
     }
 
     public WiFiBand toggle() {
-        return WiFiBand.GHZ_2.equals(this) ? WiFiBand.GHZ_5 : WiFiBand.GHZ_2;
+        return isGHZ_5() ? WiFiBand.GHZ_2 : WiFiBand.GHZ_5;
+    }
+
+    public boolean isGHZ_5() {
+        return WiFiBand.GHZ_5.equals(this);
     }
 
     public WiFiChannels getWiFiChannels() {

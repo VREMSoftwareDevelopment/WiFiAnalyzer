@@ -50,6 +50,13 @@ public class ChannelAxisLabelTest {
     }
 
     @Test
+    public void testXAxisWithFrequencyInRange() throws Exception {
+        WiFiChannel wiFiChannel = WiFiBand.GHZ_2.getWiFiChannels().getChannels().get(0);
+        assertEquals("" + wiFiChannel.getChannel(), fixture.formatLabel(wiFiChannel.getFrequency() - 2, true));
+        assertEquals("" + wiFiChannel.getChannel(), fixture.formatLabel(wiFiChannel.getFrequency() + 2, true));
+    }
+
+    @Test
     public void testXAxisWithUnknownFrequencyReturnEmptyString() throws Exception {
         WiFiChannels wiFiChannels = WiFiBand.GHZ_2.getWiFiChannels();
         WiFiChannel wiFiChannel = wiFiChannels.getChannels().get(0);

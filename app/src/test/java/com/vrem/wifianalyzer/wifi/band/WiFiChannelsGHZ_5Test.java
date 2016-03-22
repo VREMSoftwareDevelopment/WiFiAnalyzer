@@ -21,41 +21,41 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class WiFiChannels5Test {
-    private WiFiChannels5 fixture;
+public class WiFiChannelsGHZ_5Test {
+    private WiFiChannels fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = new WiFiChannels5();
+        fixture = WiFiChannels.makeGHZ_5();
     }
 
     @Test
     public void testFindWiFiChannel() throws Exception {
-        assertEquals(183, fixture.findWiFiChannel(4913).getChannel());
-        assertEquals(183, fixture.findWiFiChannel(4915).getChannel());
-
-        assertEquals(36, fixture.findWiFiChannel(5178).getChannel());
         assertEquals(36, fixture.findWiFiChannel(5180).getChannel());
-        assertEquals(36, fixture.findWiFiChannel(5182).getChannel());
-
+        assertEquals(38, fixture.findWiFiChannel(5190).getChannel());
         assertEquals(165, fixture.findWiFiChannel(5825).getChannel());
-        assertEquals(165, fixture.findWiFiChannel(5827).getChannel());
+    }
+
+    @Test
+    public void testFindWiFiChannelInRange() throws Exception {
+        assertEquals(36, fixture.findWiFiChannelInRange(5178).getChannel());
+        assertEquals(36, fixture.findWiFiChannelInRange(5182).getChannel());
     }
 
     @Test
     public void testFindWiFiChannelFail() throws Exception {
-        assertEquals(WiFiChannel.UNKNOWN, fixture.findWiFiChannel(4912));
+        assertEquals(WiFiChannel.UNKNOWN, fixture.findWiFiChannel(5179));
         assertEquals(WiFiChannel.UNKNOWN, fixture.findWiFiChannel(5828));
     }
 
     @Test
     public void testGetWiFiChannelFirst() throws Exception {
-        assertEquals(34, fixture.getWiFiChannelFirst().getChannel());
+        assertEquals(36, fixture.getWiFiChannelFirst().getChannel());
     }
 
     @Test
     public void testGetWiFiChannelLast() throws Exception {
-        assertEquals(140, fixture.getWiFiChannelLast().getChannel());
+        assertEquals(165, fixture.getWiFiChannelLast().getChannel());
     }
 
     @Test
@@ -65,6 +65,6 @@ public class WiFiChannels5Test {
 
     @Test
     public void testGetFrequencyOffset() throws Exception {
-        assertEquals(10, fixture.getFrequencyOffset());
+        assertEquals(20, fixture.getFrequencyOffset());
     }
 }

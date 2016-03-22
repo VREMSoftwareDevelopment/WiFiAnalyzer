@@ -21,31 +21,32 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class WiFiChannels2Test {
+public class WiFiChannelsGHZ_2Test {
 
-    private WiFiChannels2 fixture;
+    private WiFiChannels fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = new WiFiChannels2();
+        fixture = WiFiChannels.makeGHZ_2();
     }
 
     @Test
     public void testFindWiFiChannel() throws Exception {
-        assertEquals(1, fixture.findWiFiChannel(2410).getChannel());
         assertEquals(1, fixture.findWiFiChannel(2412).getChannel());
-        assertEquals(13, fixture.findWiFiChannel(2470).getChannel());
         assertEquals(13, fixture.findWiFiChannel(2472).getChannel());
-        assertEquals(13, fixture.findWiFiChannel(2474).getChannel());
         assertEquals(14, fixture.findWiFiChannel(2484).getChannel());
-        assertEquals(14, fixture.findWiFiChannel(2486).getChannel());
+    }
 
+    @Test
+    public void testFindWiFiChannelInRange() throws Exception {
+        assertEquals(1, fixture.findWiFiChannelInRange(2410).getChannel());
+        assertEquals(1, fixture.findWiFiChannelInRange(2412).getChannel());
     }
 
     @Test
     public void testFindWiFiChannelFail() throws Exception {
-        assertEquals(WiFiChannel.UNKNOWN, fixture.findWiFiChannel(2409));
-        assertEquals(WiFiChannel.UNKNOWN, fixture.findWiFiChannel(2489));
+        assertEquals(WiFiChannel.UNKNOWN, fixture.findWiFiChannel(2411));
+        assertEquals(WiFiChannel.UNKNOWN, fixture.findWiFiChannel(2485));
     }
 
     @Test

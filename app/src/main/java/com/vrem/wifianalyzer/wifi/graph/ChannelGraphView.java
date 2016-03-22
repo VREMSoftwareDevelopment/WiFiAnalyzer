@@ -101,6 +101,7 @@ class ChannelGraphView {
     }
 
     private DataPoint[] createDataPoints(@NonNull WiFiDetail wiFiDetail) {
+        int frequencySpread = wiFiBand.getWiFiChannels().getFrequencySpread();
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         int frequency = wiFiSignal.getFrequency();
         int frequencyStart = wiFiSignal.getFrequencyStart();
@@ -108,18 +109,19 @@ class ChannelGraphView {
         int level = wiFiSignal.getLevel();
         return new DataPoint[]{
                 new DataPoint(frequencyStart, GraphViewBuilder.MIN_Y),
-                new DataPoint(frequencyStart + wiFiBand.getWiFiChannels().getFrequencySpread(), level),
+                new DataPoint(frequencyStart + frequencySpread, level),
                 new DataPoint(frequency, level),
-                new DataPoint(frequencyEnd - wiFiBand.getWiFiChannels().getFrequencySpread(), level),
+                new DataPoint(frequencyEnd - frequencySpread, level),
                 new DataPoint(frequencyEnd, GraphViewBuilder.MIN_Y)
         };
     }
 
     private void addDefaultsSeries(@NonNull GraphView graphView, @NonNull WiFiBand wiFiBand) {
         WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
+        int frequencyOffset = wiFiBand.getWiFiChannels().getFrequencyOffset();
         DataPoint[] dataPoints = new DataPoint[]{
-                new DataPoint(wiFiChannels.getWiFiChannelFirst().getFrequency(), GraphViewBuilder.MIN_Y),
-                new DataPoint(wiFiChannels.getWiFiChannelLast().getFrequency(), GraphViewBuilder.MIN_Y)
+                new DataPoint(wiFiChannels.getWiFiChannelFirst().getFrequency() - frequencyOffset, GraphViewBuilder.MIN_Y),
+                new DataPoint(wiFiChannels.getWiFiChannelLast().getFrequency() + frequencyOffset, GraphViewBuilder.MIN_Y)
         };
 
         ChannelGraphSeries<DataPoint> series = new ChannelGraphSeries<>(dataPoints);

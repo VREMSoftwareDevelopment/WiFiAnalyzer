@@ -38,10 +38,7 @@ class ChannelAxisLabel implements LabelFormatter {
 
         int valueAsInt = (int) (value + (value < 0 ? -0.5 : 0.5));
         if (isValueX) {
-            WiFiChannel wiFiChannel = wiFiBand.getWiFiChannels().findWiFiChannel(valueAsInt);
-            if (wiFiChannel != WiFiChannel.UNKNOWN) {
-                result += wiFiChannel.getChannel();
-            }
+            result += findChannel(valueAsInt);
         } else {
             if (valueAsInt <= GraphViewBuilder.MAX_Y && valueAsInt > GraphViewBuilder.MIN_Y) {
                 result += valueAsInt;
@@ -54,4 +51,16 @@ class ChannelAxisLabel implements LabelFormatter {
     public void setViewport(Viewport viewport) {
         // ignore
     }
+
+    private String findChannel(int value) {
+        WiFiChannel wiFiChannel = wiFiBand.getWiFiChannels().findWiFiChannel(value);
+        if (wiFiChannel == WiFiChannel.UNKNOWN) {
+            wiFiChannel = wiFiBand.getWiFiChannels().findWiFiChannelInRange(value);
+        }
+        if (wiFiChannel == WiFiChannel.UNKNOWN) {
+            return StringUtils.EMPTY;
+        }
+        return "" + wiFiChannel.getChannel();
+    }
+
 }
