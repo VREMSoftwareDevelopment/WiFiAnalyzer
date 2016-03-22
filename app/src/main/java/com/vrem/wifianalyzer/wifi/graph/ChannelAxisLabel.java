@@ -38,7 +38,7 @@ class ChannelAxisLabel implements LabelFormatter {
 
         int valueAsInt = (int) (value + (value < 0 ? -0.5 : 0.5));
         if (isValueX) {
-            WiFiChannel wiFiChannel = wiFiBand.findChannel(valueAsInt);
+            WiFiChannel wiFiChannel = wiFiBand.getWiFiChannels().findWiFiChannel(valueAsInt);
             if (wiFiChannel != WiFiChannel.UNKNOWN) {
                 result += wiFiChannel.getChannel();
             }

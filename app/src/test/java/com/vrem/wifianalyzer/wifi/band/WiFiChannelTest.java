@@ -36,16 +36,6 @@ public class WiFiChannelTest {
     }
 
     @Test
-    public void testFrequencyStart() throws Exception {
-        assertEquals(198, fixture.getFrequencyStart());
-    }
-
-    @Test
-    public void testFrequencyEnd() throws Exception {
-        assertEquals(202, fixture.getFrequencyEnd());
-    }
-
-    @Test
     public void testEquals() throws Exception {
         assertEquals(fixture, other);
         assertNotSame(fixture, other);

@@ -18,12 +18,11 @@ package com.vrem.wifianalyzer.wifi.graph;
 
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -46,20 +45,15 @@ public class ChannelAxisLabelTest {
 
     @Test
     public void testXAxis() throws Exception {
-        List<WiFiChannel> wiFiChannels = WiFiBand.GHZ_2.getWiFiChannels();
-        assertEquals("" + wiFiChannels.get(0).getChannel(),
-                fixture.formatLabel(wiFiChannels.get(0).getFrequency(), true));
-        assertEquals("" + wiFiChannels.get(wiFiChannels.size() - 1).getChannel(),
-                fixture.formatLabel(wiFiChannels.get(wiFiChannels.size() - 1).getFrequency(), true));
+        WiFiChannel wiFiChannel = WiFiBand.GHZ_2.getWiFiChannels().getChannels().get(0);
+        assertEquals("" + wiFiChannel.getChannel(), fixture.formatLabel(wiFiChannel.getFrequency(), true));
     }
 
     @Test
-    public void testXAxisWithInvalidFrequencies() throws Exception {
-        List<WiFiChannel> wiFiChannels = WiFiBand.GHZ_5.getWiFiChannels();
-        assertEquals(StringUtils.EMPTY,
-                fixture.formatLabel(wiFiChannels.get(0).getFrequency(), true));
-        assertEquals(StringUtils.EMPTY,
-                fixture.formatLabel(wiFiChannels.get(wiFiChannels.size() - 1).getFrequency(), true));
+    public void testXAxisWithUnknownFrequencyReturnEmptyString() throws Exception {
+        WiFiChannels wiFiChannels = WiFiBand.GHZ_2.getWiFiChannels();
+        WiFiChannel wiFiChannel = wiFiChannels.getChannels().get(0);
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(wiFiChannel.getFrequency() - wiFiChannels.getFrequencyOffset(), true));
     }
 
 }

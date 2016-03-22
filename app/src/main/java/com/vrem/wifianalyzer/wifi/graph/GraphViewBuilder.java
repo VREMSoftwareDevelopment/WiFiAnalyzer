@@ -23,21 +23,21 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
-import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 
 class GraphViewBuilder {
     static final int MIN_Y = -100;
     static final int MAX_Y = -10;
     static final int CNT_Y = (MAX_Y - MIN_Y) / 10 + 1;
     static final int CNT_X = 16;
-    static final int MAX_X = (CNT_X - 1) * WiFiChannel.FREQUENCY_SPREAD;
 
     private final View view;
     private final int graphViewId;
     private LabelFormatter labelFormatter;
     private String verticalTitle;
     private String horizontalTitle;
-    private int minX;
+    private WiFiBand wiFiBand;
 
     GraphViewBuilder(@NonNull View view, int graphViewId) {
         this.view = view;
@@ -59,12 +59,16 @@ class GraphViewBuilder {
         return this;
     }
 
-    GraphViewBuilder setMinX(int minX) {
-        this.minX = minX;
+    GraphViewBuilder setWiFiBand(@NonNull WiFiBand wiFiBand) {
+        this.wiFiBand = wiFiBand;
         return this;
     }
 
     GraphView build() {
+        if (wiFiBand == null) {
+            throw new RuntimeException("WiFi Band is not assigned...");
+        }
+
         GraphView graphView = (GraphView) view.findViewById(graphViewId);
 
         setGridLabelRenderer(graphView.getGridLabelRenderer());
@@ -81,8 +85,10 @@ class GraphViewBuilder {
         viewport.setMaxY(MAX_Y);
 
         viewport.setXAxisBoundsManual(true);
-        viewport.setMinX(minX);
-        viewport.setMaxX(minX + MAX_X);
+        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
+        int frequencyStart = wiFiChannels.getWiFiChannelFirst().getFrequency() - wiFiChannels.getFrequencyOffset();
+        viewport.setMinX(frequencyStart);
+        viewport.setMaxX(frequencyStart + ((CNT_X - 1) * wiFiChannels.getFrequencySpread()));
     }
 
     private void setGridLabelRenderer(@NonNull GridLabelRenderer gridLabelRenderer) {

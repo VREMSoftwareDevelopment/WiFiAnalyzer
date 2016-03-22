@@ -18,55 +18,41 @@ package com.vrem.wifianalyzer.wifi.band;
 
 import android.support.annotation.NonNull;
 
-import java.util.Collections;
-import java.util.List;
-
 public enum WiFiBand {
-    GHZ_2("2.4 GHz", 2402, 2499, WiFiChannel.GHZ_2),
-    GHZ_5("5 GHz", 4900, 5900, WiFiChannel.GHZ_5);
+    GHZ_2("2.4 GHz", 2401, 2499, new WiFiChannels2()),
+    GHZ_5("5 GHz", 4901, 5899, new WiFiChannels5());
 
     private final String band;
     private final int frequencyStart;
     private final int frequencyEnd;
-    private final List<WiFiChannel> channels;
+    private final WiFiChannels wiFiChannels;
 
-    WiFiBand(@NonNull String band, int frequencyStart, int frequencyEnd, @NonNull List<WiFiChannel> channels) {
+    WiFiBand(@NonNull String band, int frequencyStart, int frequencyEnd, @NonNull WiFiChannels wiFiChannels) {
         this.band = band;
         this.frequencyStart = frequencyStart;
         this.frequencyEnd = frequencyEnd;
-        this.channels = channels;
+        this.wiFiChannels = wiFiChannels;
     }
 
-    public static WiFiBand findByFrequency(int value) {
+    public static WiFiBand findByFrequency(int frequency) {
         for (WiFiBand wiFiBand : WiFiBand.values()) {
-            if (wiFiBand.inRange(value)) {
+            if (wiFiBand.inRange(frequency)) {
                 return wiFiBand;
             }
         }
         return WiFiBand.GHZ_2;
     }
 
-    public static WiFiBand findByBand(String value) {
+    public static WiFiBand findByBand(String band) {
         for (WiFiBand wiFiBand : WiFiBand.values()) {
-            if (wiFiBand.getBand().equals(value)) {
+            if (wiFiBand.getBand().equals(band)) {
                 return wiFiBand;
             }
         }
         return WiFiBand.GHZ_2;
     }
 
-    public WiFiChannel findChannel(int frequency) {
-        if (inRange(frequency)) {
-            for (WiFiChannel current : channels) {
-                if (frequency >= current.getFrequencyStart() && frequency <= current.getFrequencyEnd()) {
-                    return current;
-                }
-            }
-        }
-        return WiFiChannel.UNKNOWN;
-    }
-
-    public boolean inRange(int value) {
+    private boolean inRange(int value) {
         return value >= frequencyStart && value <= frequencyEnd;
     }
 
@@ -78,15 +64,7 @@ public enum WiFiBand {
         return WiFiBand.GHZ_2.equals(this) ? WiFiBand.GHZ_5 : WiFiBand.GHZ_2;
     }
 
-    public int getFrequencyStart() {
-        return frequencyStart;
-    }
-
-    public int getFrequencyEnd() {
-        return frequencyEnd;
-    }
-
-    public List<WiFiChannel> getWiFiChannels() {
-        return Collections.unmodifiableList(channels);
+    public WiFiChannels getWiFiChannels() {
+        return wiFiChannels;
     }
 }
