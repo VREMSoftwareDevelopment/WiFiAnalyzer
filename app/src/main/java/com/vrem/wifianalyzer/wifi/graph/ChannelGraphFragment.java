@@ -38,10 +38,10 @@ public class ChannelGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.channelGraphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        view.findViewById(R.id.channelGraphSwitcher);
-
         Resources resources = getResources();
-        new ChannelGraphAdapter(ChannelGraphView.make2(view, resources), ChannelGraphView.make5(view, resources));
+        ChannelGraphView channelGraphView2 = ChannelGraphView.make2(view, resources);
+        ChannelGraphView channelGraphView5 = ChannelGraphView.make5(view, resources);
+        new ChannelGraphAdapter(channelGraphView2, channelGraphView5);
 
         return view;
     }

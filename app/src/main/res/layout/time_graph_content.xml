@@ -31,7 +31,6 @@
         android:orientation="vertical">
 
         <ViewSwitcher
-            android:id="@+id/timeGraphSwitcher"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 

@@ -30,6 +30,7 @@ import com.jjoe64.graphview.series.Series;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.AccessPointsDetail;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import com.vrem.wifianalyzer.wifi.graph.color.GraphColor;
 import com.vrem.wifianalyzer.wifi.graph.color.GraphColors;
@@ -80,8 +81,7 @@ class GraphViewUtils {
 
     private void setViewPortX(@NonNull WiFiBand wiFiBand) {
         WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
-        int frequencyStart = wiFiChannels.getWiFiChannelFirst().getFrequency() - wiFiChannels.getFrequencyOffset();
-        setViewPortX(frequencyStart, frequencyStart + ((GraphViewBuilder.CNT_X - 1) * wiFiChannels.getFrequencySpread()));
+        setViewPort(wiFiChannels.getWiFiChannelFirst(), wiFiChannels.getFrequencyOffset(), wiFiChannels.getFrequencySpread());
     }
 
     private void setViewPortX() {
@@ -93,6 +93,11 @@ class GraphViewUtils {
         viewport.setXAxisBoundsManual(true);
         viewport.setMinX(minX);
         viewport.setMaxX(maxX);
+    }
+
+    private void setViewPort(WiFiChannel wiFiChannel, int frequencyOffset, int frequencySpread) {
+        int frequencyStart = wiFiChannel.getFrequency() - frequencyOffset;
+        setViewPortX(frequencyStart, frequencyStart + ((GraphViewBuilder.CNT_X - 1) * frequencySpread));
     }
 
     void updateLegend(@NonNull GraphLegend graphLegend) {
@@ -124,7 +129,7 @@ class GraphViewUtils {
         return graphColors.getColor();
     }
 
-    public void setOnDataPointTapListener(Series<DataPoint> series) {
+    void setOnDataPointTapListener(Series<DataPoint> series) {
         series.setOnDataPointTapListener(new GraphTapListener());
     }
 

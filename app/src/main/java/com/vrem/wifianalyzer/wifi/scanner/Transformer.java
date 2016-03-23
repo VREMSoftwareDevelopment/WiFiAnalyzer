@@ -87,9 +87,8 @@ public class Transformer {
         */
         channelWidth
     }
-
 /*
-    private void addTestData(List<WiFiDetail> wiFiDetails) {
+    private void addTestData(@NonNull List<WiFiDetail> wiFiDetails) {
         int level = -60;
         wiFiDetails.addAll(Arrays.asList(
                 new WiFiDetail("SSID-TEST1", "BSSID:2.4GHZ:01", Security.WPA.name(), new WiFiSignal(getFrequencyStart(WiFiBand.GHZ_2), WiFiWidth.MHZ_20, level)),
@@ -103,13 +102,13 @@ public class Transformer {
     }
 
     private int getFrequencyStart(@NonNull WiFiBand wiFiBand) {
-        return wiFiBand.getWiFiChannels().get(0).getFrequency();
+        return wiFiBand.getWiFiChannels().getWiFiChannelFirst().getFrequency();
     }
     private int getFrequencyMiddle(@NonNull WiFiBand wiFiBand) {
-        return wiFiBand.getWiFiChannels().get(wiFiBand.getWiFiChannels().size() / 2 - 1).getFrequency();
+        return (getFrequencyStart(wiFiBand) + getFrequencyEnd(wiFiBand)) / 2;
     }
     private int getFrequencyEnd(@NonNull WiFiBand wiFiBand) {
-        return wiFiBand.getWiFiChannels().get(wiFiBand.getWiFiChannels().size()-1).getFrequency();
+        return wiFiBand.getWiFiChannels().getWiFiChannelLast().getFrequency();
     }
 */
 }
