@@ -17,10 +17,13 @@
 package com.vrem.wifianalyzer.wifi.band;
 
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class WiFiChannels {
     final static WiFiChannel[] CHANNELS_GHZ_2 = new WiFiChannel[]{
@@ -57,7 +60,7 @@ NOT SUPPORTED YET
             new WiFiChannel(12, 5060),
             new WiFiChannel(16, 5080),
 */
-            new WiFiChannel(36, 5180),
+            new WiFiChannel(36, 5180),      // 0
             new WiFiChannel(38, 5190),
             new WiFiChannel(40, 5200),
             new WiFiChannel(42, 5210),
@@ -72,7 +75,7 @@ NOT SUPPORTED YET
             new WiFiChannel(60, 5300),
             new WiFiChannel(62, 5310),
             new WiFiChannel(64, 5320),
-            new WiFiChannel(100, 5500),
+            new WiFiChannel(100, 5500),     // 15
             new WiFiChannel(104, 5520),
             new WiFiChannel(108, 5540),
             new WiFiChannel(112, 5560),
@@ -83,32 +86,48 @@ NOT SUPPORTED YET
             new WiFiChannel(132, 5660),
             new WiFiChannel(136, 5680),
             new WiFiChannel(140, 5700),
-            new WiFiChannel(149, 5745),
+            new WiFiChannel(149, 5745),     // 26
             new WiFiChannel(153, 5765),
             new WiFiChannel(157, 5785),
             new WiFiChannel(161, 5805),
             new WiFiChannel(165, 5825)
     };
-    private final List<WiFiChannel> channels;
-    private final int frequencySpread;
-    private final int frequencyOffset;
+    private final static int FREQUENCY_SPREAD = 5;
+    private List<WiFiChannel> channels;
+    private int frequencyOffset;
+    private List<Pair<WiFiChannel, WiFiChannel>> channelsSet;
+    private boolean bandGHZ_5;
 
-    private WiFiChannels(int frequencySpread, int frequencyOffset, @NonNull WiFiChannel... channels) {
-        this.frequencySpread = frequencySpread;
-        this.frequencyOffset = frequencyOffset;
-        this.channels = Arrays.asList(channels);
-    }
-
-    public static WiFiChannels makeGHZ_2() {
-        return new WiFiChannels(5, 10, CHANNELS_GHZ_2);
+    private WiFiChannels() {
     }
 
     public static WiFiChannels makeGHZ_5() {
-        return new WiFiChannels(5, 20, CHANNELS_GHZ_5);
+        WiFiChannels result = new WiFiChannels();
+        result.bandGHZ_5 = true;
+        result.frequencyOffset = FREQUENCY_SPREAD * 4;
+        result.channels = Arrays.asList(CHANNELS_GHZ_5);
+        result.channelsSet = Arrays.asList(
+                new Pair<>(CHANNELS_GHZ_5[0], CHANNELS_GHZ_5[14]),
+                new Pair<>(CHANNELS_GHZ_5[15], CHANNELS_GHZ_5[25]),
+                new Pair<>(CHANNELS_GHZ_5[26], CHANNELS_GHZ_5[CHANNELS_GHZ_5.length - 1]));
+        return result;
+    }
+
+    public static WiFiChannels makeGHZ_2() {
+        WiFiChannels result = new WiFiChannels();
+        result.bandGHZ_5 = false;
+        result.frequencyOffset = FREQUENCY_SPREAD * 2;
+        result.channels = Arrays.asList(CHANNELS_GHZ_2);
+        result.channelsSet = new ArrayList<>();
+        return result;
     }
 
     public List<WiFiChannel> getChannels() {
         return Collections.unmodifiableList(channels);
+    }
+
+    public List<Pair<WiFiChannel, WiFiChannel>> getChannelsSet() {
+        return Collections.unmodifiableList(channelsSet);
     }
 
     public WiFiChannel findWiFiChannel(int frequency) {
@@ -130,7 +149,7 @@ NOT SUPPORTED YET
     }
 
     public int getFrequencySpread() {
-        return frequencySpread;
+        return FREQUENCY_SPREAD;
     }
 
     public int getFrequencyOffset() {
@@ -138,11 +157,21 @@ NOT SUPPORTED YET
     }
 
     public WiFiChannel getWiFiChannelFirst() {
-        return getChannels().get(0);
+        return channels.get(0);
     }
 
     public WiFiChannel getWiFiChannelLast() {
-        return getChannels().get(getChannels().size() - 1);
+        return channels.get(channels.size() - 1);
+    }
+
+    public List<WiFiChannel> getAvailableChannels(@NonNull Locale locale) {
+        List<WiFiChannel> wiFiChannels = new ArrayList<>();
+        for (WiFiChannel wiFiChannel : channels) {
+            if (WiFiChannelCountry.isChannelAvailable(locale, bandGHZ_5, wiFiChannel.getChannel())) {
+                wiFiChannels.add(wiFiChannel);
+            }
+        }
+        return wiFiChannels;
     }
 
 }

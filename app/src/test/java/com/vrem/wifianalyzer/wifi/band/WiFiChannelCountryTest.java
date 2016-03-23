@@ -27,37 +27,37 @@ public class WiFiChannelCountryTest {
 
     @Test
     public void testIsChannelAvailableWithTrue() throws Exception {
-        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.US, WiFiBand.GHZ_2, 1));
-        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.US, WiFiBand.GHZ_2, 11));
+        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.US, WiFiBand.GHZ_2.isGHZ_5(), 1));
+        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.US, WiFiBand.GHZ_2.isGHZ_5(), 11));
 
-        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.US, WiFiBand.GHZ_5, 36));
-        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.US, WiFiBand.GHZ_5, 165));
+        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.US, WiFiBand.GHZ_5.isGHZ_5(), 36));
+        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.US, WiFiBand.GHZ_5.isGHZ_5(), 165));
 
-        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.UK, WiFiBand.GHZ_2, 1));
-        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.UK, WiFiBand.GHZ_2, 13));
+        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.UK, WiFiBand.GHZ_2.isGHZ_5(), 1));
+        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.UK, WiFiBand.GHZ_2.isGHZ_5(), 13));
 
-        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.UK, WiFiBand.GHZ_5, 36));
-        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.UK, WiFiBand.GHZ_5, 140));
+        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.UK, WiFiBand.GHZ_5.isGHZ_5(), 36));
+        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.UK, WiFiBand.GHZ_5.isGHZ_5(), 140));
     }
 
     @Test
     public void testIsChannelAvailableWithGHZ_2() throws Exception {
-        assertFalse(WiFiChannelCountry.isChannelAvailable(Locale.US, WiFiBand.GHZ_2, 0));
-        assertFalse(WiFiChannelCountry.isChannelAvailable(Locale.US, WiFiBand.GHZ_2, 12));
+        assertFalse(WiFiChannelCountry.isChannelAvailable(Locale.US, WiFiBand.GHZ_2.isGHZ_5(), 0));
+        assertFalse(WiFiChannelCountry.isChannelAvailable(Locale.US, WiFiBand.GHZ_2.isGHZ_5(), 12));
 
-        assertFalse(WiFiChannelCountry.isChannelAvailable(Locale.UK, WiFiBand.GHZ_2, 0));
-        assertFalse(WiFiChannelCountry.isChannelAvailable(Locale.UK, WiFiBand.GHZ_2, 14));
+        assertFalse(WiFiChannelCountry.isChannelAvailable(Locale.UK, WiFiBand.GHZ_2.isGHZ_5(), 0));
+        assertFalse(WiFiChannelCountry.isChannelAvailable(Locale.UK, WiFiBand.GHZ_2.isGHZ_5(), 14));
     }
 
     @Test
     public void testIsChannelAvailableWithGHZ_5() throws Exception {
-        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.US, WiFiBand.GHZ_5, 34));
-        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.US, WiFiBand.GHZ_5, 167));
+        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.US, WiFiBand.GHZ_5.isGHZ_5(), 34));
+        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.US, WiFiBand.GHZ_5.isGHZ_5(), 167));
 
-        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.UK, WiFiBand.GHZ_5, 34));
-        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.UK, WiFiBand.GHZ_5, 167));
+        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.UK, WiFiBand.GHZ_5.isGHZ_5(), 34));
+        assertTrue(WiFiChannelCountry.isChannelAvailable(Locale.UK, WiFiBand.GHZ_5.isGHZ_5(), 167));
 
-        assertTrue(WiFiChannelCountry.isChannelAvailable(new Locale("EN", "AE"), WiFiBand.GHZ_5, 34));
+        assertTrue(WiFiChannelCountry.isChannelAvailable(new Locale("EN", "AE"), WiFiBand.GHZ_5.isGHZ_5(), 34));
     }
 
 }

@@ -173,11 +173,11 @@ public class WiFiChannelCountry {
         this.channels = channels;
     }
 
-    public static boolean isChannelAvailable(@NonNull Locale locale, @NonNull WiFiBand wiFiBand, int channel) {
+        public static boolean isChannelAvailable(@NonNull Locale locale, boolean bandGHZ_5, int channel) {
         String country = locale.getCountry();
         for (WiFiChannelCountry wiFiChannelCountry : COUNTRY_CHANNELS) {
             if (wiFiChannelCountry.countryCode.equalsIgnoreCase(country)) {
-                return wiFiChannelCountry.isChannelAvailable(channel) || wiFiBand.isGHZ_5();
+                    return wiFiChannelCountry.isChannelAvailable(channel) || bandGHZ_5;
             }
         }
         return false;

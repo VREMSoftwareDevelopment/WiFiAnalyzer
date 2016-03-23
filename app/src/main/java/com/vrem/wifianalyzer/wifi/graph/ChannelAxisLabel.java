@@ -67,7 +67,7 @@ class ChannelAxisLabel implements LabelFormatter {
             return StringUtils.EMPTY;
         }
         Locale locale = resources.getConfiguration().locale;
-        if (!WiFiChannelCountry.isChannelAvailable(locale, wiFiBand, wiFiChannel.getChannel())) {
+        if (!WiFiChannelCountry.isChannelAvailable(locale, wiFiBand.isGHZ_5(), wiFiChannel.getChannel())) {
             return StringUtils.EMPTY;
         }
         return "" + wiFiChannel.getChannel();

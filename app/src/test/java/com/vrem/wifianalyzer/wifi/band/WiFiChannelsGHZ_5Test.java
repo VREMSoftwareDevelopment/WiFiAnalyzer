@@ -16,8 +16,12 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
+import android.support.v4.util.Pair;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 
@@ -66,5 +70,26 @@ public class WiFiChannelsGHZ_5Test {
     @Test
     public void testGetFrequencyOffset() throws Exception {
         assertEquals(20, fixture.getFrequencyOffset());
+    }
+
+    @Test
+    public void testGetChannelsSet() throws Exception {
+        assertEquals(3, fixture.getChannelsSet().size());
+        validatePair(36, 64, 0);
+        validatePair(100, 140, 1);
+        validatePair(149, 165, 2);
+    }
+
+    private void validatePair(int expectedFirst, int expectedSecond, int index) {
+        Pair<WiFiChannel, WiFiChannel> pair = fixture.getChannelsSet().get(index);
+        assertEquals(expectedFirst, pair.first.getChannel());
+        assertEquals(expectedSecond, pair.second.getChannel());
+    }
+
+    @Test
+    public void testGetAvailableChannels() throws Exception {
+        assertEquals(WiFiChannels.CHANNELS_GHZ_5.length, fixture.getAvailableChannels(Locale.US).size());
+        assertEquals(WiFiChannels.CHANNELS_GHZ_5.length, fixture.getAvailableChannels(Locale.UK).size());
+        assertEquals(WiFiChannels.CHANNELS_GHZ_5.length, fixture.getAvailableChannels(Locale.JAPAN).size());
     }
 }

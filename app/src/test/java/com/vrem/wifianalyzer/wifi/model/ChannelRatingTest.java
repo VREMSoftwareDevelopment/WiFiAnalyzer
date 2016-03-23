@@ -112,15 +112,15 @@ public class ChannelRatingTest {
         List<ChannelRating.ChannelAPCount> actual = fixture.getBestChannels(channels);
         // validate
         assertEquals(5, actual.size());
-        validateChannelAPCount(channels.get(0), 0, actual.get(0));      // channel 1
-        validateChannelAPCount(channels.get(1), 0, actual.get(1));      // channel 2
-        validateChannelAPCount(channels.get(11), 0, actual.get(2));     // channel 12
-        validateChannelAPCount(channels.get(12), 0, actual.get(3));     // channel 13
-        validateChannelAPCount(channels.get(13), 0, actual.get(4));     // channel 14
+        validateChannelAPCount(1, 0, actual.get(0));
+        validateChannelAPCount(2, 0, actual.get(1));
+        validateChannelAPCount(12, 0, actual.get(2));
+        validateChannelAPCount(13, 0, actual.get(3));
+        validateChannelAPCount(14, 0, actual.get(4));
     }
 
-    private void validateChannelAPCount(WiFiChannel expectedWiFiChannel, int expectedCount, ChannelRating.ChannelAPCount channelAPCount) {
-        assertEquals(expectedWiFiChannel, channelAPCount.getWiFiChannel());
+    private void validateChannelAPCount(int expectedChannel, int expectedCount, ChannelRating.ChannelAPCount channelAPCount) {
+        assertEquals(expectedChannel, channelAPCount.getWiFiChannel().getChannel());
         assertEquals(expectedCount, channelAPCount.getCount());
     }
 

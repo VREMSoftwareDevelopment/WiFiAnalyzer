@@ -19,7 +19,10 @@ package com.vrem.wifianalyzer.wifi.band;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Locale;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class WiFiChannelsGHZ_2Test {
 
@@ -67,5 +70,17 @@ public class WiFiChannelsGHZ_2Test {
     @Test
     public void testGetFrequencyOffset() throws Exception {
         assertEquals(10, fixture.getFrequencyOffset());
+    }
+
+    @Test
+    public void testGetChannelsSet() throws Exception {
+        assertTrue(fixture.getChannelsSet().isEmpty());
+    }
+
+    @Test
+    public void testGetAvailableChannels() throws Exception {
+        assertEquals(11, fixture.getAvailableChannels(Locale.US).size());
+        assertEquals(13, fixture.getAvailableChannels(Locale.UK).size());
+        assertEquals(14, fixture.getAvailableChannels(Locale.JAPAN).size());
     }
 }

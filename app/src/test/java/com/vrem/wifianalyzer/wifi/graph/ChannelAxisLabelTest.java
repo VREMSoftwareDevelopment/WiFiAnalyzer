@@ -83,7 +83,7 @@ public class ChannelAxisLabelTest {
     @Test
     public void testXAxisWithUnknownFrequencyReturnEmptyString() throws Exception {
         WiFiChannels wiFiChannels = WiFiBand.GHZ_2.getWiFiChannels();
-        WiFiChannel wiFiChannel = wiFiChannels.getChannels().get(0);
+        WiFiChannel wiFiChannel = wiFiChannels.getWiFiChannelFirst();
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(wiFiChannel.getFrequency() - wiFiChannels.getFrequencyOffset(), true));
     }
 

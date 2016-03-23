@@ -31,7 +31,6 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
-import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
@@ -68,12 +67,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
 
     private List<WiFiChannel> setWiFiChannels(WiFiBand wiFiBand) {
         Locale locale = resources.getConfiguration().locale;
-        List<WiFiChannel> wiFiChannels = new ArrayList<>();
-        for (WiFiChannel wiFiChannel : wiFiBand.getWiFiChannels().getChannels()) {
-            if (WiFiChannelCountry.isChannelAvailable(locale, wiFiBand, wiFiChannel.getChannel())) {
-                wiFiChannels.add(wiFiChannel);
-            }
-        }
+        List<WiFiChannel> wiFiChannels = wiFiBand.getWiFiChannels().getAvailableChannels(locale);
         clear();
         addAll(wiFiChannels);
         return wiFiChannels;
