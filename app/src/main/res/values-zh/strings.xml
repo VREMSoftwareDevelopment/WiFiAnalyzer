@@ -18,7 +18,7 @@
     <!-- application start -->
     <string name="app_name">WiFi分析仪</string>
     <string name="app_company_name">VREM 软件开发</string>
-    <string name="app_copyright">版权 \u00A9 2015 - 2016</string>
+    <string name="app_copyright">版权 \u00A9 2015 \u002D 2016</string>
     <!-- application end -->
 
     <string name="navigation_drawer_open">打开式导览</string>

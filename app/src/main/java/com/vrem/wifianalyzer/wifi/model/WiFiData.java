@@ -90,7 +90,7 @@ public class WiFiData {
     }
 
     @NonNull
-    List<WiFiDetail> getWiFiDetails(@NonNull WiFiBand wiFiBand) {
+    private List<WiFiDetail> getWiFiDetails(@NonNull WiFiBand wiFiBand) {
         List<WiFiDetail> results = new ArrayList<>();
         WiFiDetail connection = getConnection();
         for (WiFiDetail wiFiDetail : wiFiDetails) {

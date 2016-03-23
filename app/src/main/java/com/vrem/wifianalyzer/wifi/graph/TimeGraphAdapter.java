@@ -23,12 +23,11 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 class TimeGraphAdapter implements UpdateNotifier {
-    private final MainContext mainContext = MainContext.INSTANCE;
     private final TimeGraphView[] timeGraphViews;
 
     TimeGraphAdapter(@NonNull TimeGraphView... timeGraphViews) {
         this.timeGraphViews = timeGraphViews;
-        this.mainContext.getScanner().addUpdateNotifier(this);
+        MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
     }
 
     @Override

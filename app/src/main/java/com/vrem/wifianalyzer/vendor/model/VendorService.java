@@ -60,7 +60,7 @@ public class VendorService {
         return StringUtils.EMPTY;
     }
 
-    RemoteCall getRemoteCall() {
+    private RemoteCall getRemoteCall() {
         return remoteCall == null ? new RemoteCall() : remoteCall;
     }
 

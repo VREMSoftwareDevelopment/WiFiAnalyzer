@@ -34,25 +34,18 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Iterator;
 
-public class ChannelGraphSeries<E extends DataPointInterface> extends BaseSeries<E> {
+class ChannelGraphSeries<E extends DataPointInterface> extends BaseSeries<E> {
+    private final Paint paint;
+    private final TextPaint paintTitle;
+    private final Paint paintBackground;
+    private final Path path;
+    private final Path pathBackground;
     private int thickness = 5;
     private int backgroundColor = Color.argb(100, 172, 218, 255);
-    private Paint paint;
-    private TextPaint paintTitle;
-    private Paint paintBackground;
-    private Path path;
-    private Path pathBackground;
-
-    public ChannelGraphSeries() {
-        init();
-    }
 
     public ChannelGraphSeries(E[] data) {
         super(data);
-        init();
-    }
 
-    protected void init() {
         paint = new Paint();
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStyle(Paint.Style.STROKE);
@@ -198,7 +191,7 @@ public class ChannelGraphSeries<E extends DataPointInterface> extends BaseSeries
         this.backgroundColor = backgroundColor;
     }
 
-    public void setThickness(int thickness) {
-        this.thickness = thickness;
+    public void zeroThickness() {
+        this.thickness = 0;
     }
 }

@@ -41,9 +41,7 @@ public class TimeGraphFragment extends Fragment {
         view.findViewById(R.id.timeGraphSwitcher);
 
         Resources resources = getResources();
-        new TimeGraphAdapter(
-                TimeGraphView.make2(new GraphViewBuilder(view, R.id.timeGraph2), resources),
-                TimeGraphView.make5(new GraphViewBuilder(view, R.id.timeGraph5), resources));
+        new TimeGraphAdapter(TimeGraphView.make2(view, resources), TimeGraphView.make5(view, resources));
 
         return view;
     }

@@ -22,6 +22,7 @@ import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
+import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
@@ -29,6 +30,7 @@ import com.jjoe64.graphview.series.Series;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.AccessPointsDetail;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import com.vrem.wifianalyzer.wifi.graph.color.GraphColor;
 import com.vrem.wifianalyzer.wifi.graph.color.GraphColors;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -52,6 +54,13 @@ class GraphViewUtils {
         this.seriesMap = seriesMap;
         this.graphLegend = graphLegend;
         this.graphColors = new GraphColors();
+        setViewPortX();
+    }
+
+    public GraphViewUtils(@NonNull GraphView graphView, @NonNull Map<WiFiDetail, ? extends Series<DataPoint>> seriesMap,
+                          @NonNull GraphLegend graphLegend, @NonNull WiFiBand wiFiBand) {
+        this(graphView, seriesMap, graphLegend);
+        setViewPortX(wiFiBand);
     }
 
     void updateSeries(@NonNull Set<WiFiDetail> newSeries) {
@@ -67,6 +76,23 @@ class GraphViewUtils {
         for (WiFiDetail wiFiDetail : remove) {
             seriesMap.remove(wiFiDetail);
         }
+    }
+
+    private void setViewPortX(@NonNull WiFiBand wiFiBand) {
+        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
+        int frequencyStart = wiFiChannels.getWiFiChannelFirst().getFrequency() - wiFiChannels.getFrequencyOffset();
+        setViewPortX(frequencyStart, frequencyStart + ((GraphViewBuilder.CNT_X - 1) * wiFiChannels.getFrequencySpread()));
+    }
+
+    private void setViewPortX() {
+        setViewPortX(0, GraphViewBuilder.CNT_X - 1);
+    }
+
+    private void setViewPortX(int minX, int maxX) {
+        Viewport viewport = graphView.getViewport();
+        viewport.setXAxisBoundsManual(true);
+        viewport.setMinX(minX);
+        viewport.setMaxX(maxX);
     }
 
     void updateLegend(@NonNull GraphLegend graphLegend) {

@@ -23,21 +23,17 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
-import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 
 class GraphViewBuilder {
     static final int MIN_Y = -100;
     static final int MAX_Y = -10;
-    static final int CNT_Y = (MAX_Y - MIN_Y) / 10 + 1;
     static final int CNT_X = 16;
-
+    private static final int CNT_Y = (MAX_Y - MIN_Y) / 10 + 1;
     private final View view;
     private final int graphViewId;
     private LabelFormatter labelFormatter;
     private String verticalTitle;
     private String horizontalTitle;
-    private WiFiBand wiFiBand;
 
     GraphViewBuilder(@NonNull View view, int graphViewId) {
         this.view = view;
@@ -59,36 +55,21 @@ class GraphViewBuilder {
         return this;
     }
 
-    GraphViewBuilder setWiFiBand(@NonNull WiFiBand wiFiBand) {
-        this.wiFiBand = wiFiBand;
-        return this;
-    }
-
     GraphView build() {
-        if (wiFiBand == null) {
-            throw new RuntimeException("WiFi Band is not assigned...");
-        }
-
         GraphView graphView = (GraphView) view.findViewById(graphViewId);
 
         setGridLabelRenderer(graphView.getGridLabelRenderer());
-        setViewPort(graphView.getViewport());
+        setViewPortY(graphView.getViewport());
 
         return graphView;
     }
 
-    private void setViewPort(@NonNull Viewport viewport) {
+    private void setViewPortY(@NonNull Viewport viewport) {
         viewport.setScrollable(true);
 
         viewport.setYAxisBoundsManual(true);
         viewport.setMinY(MIN_Y);
         viewport.setMaxY(MAX_Y);
-
-        viewport.setXAxisBoundsManual(true);
-        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
-        int frequencyStart = wiFiChannels.getWiFiChannelFirst().getFrequency() - wiFiChannels.getFrequencyOffset();
-        viewport.setMinX(frequencyStart);
-        viewport.setMaxX(frequencyStart + ((CNT_X - 1) * wiFiChannels.getFrequencySpread()));
     }
 
     private void setGridLabelRenderer(@NonNull GridLabelRenderer gridLabelRenderer) {

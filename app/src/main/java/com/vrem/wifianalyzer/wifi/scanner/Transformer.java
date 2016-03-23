@@ -81,9 +81,11 @@ public class Transformer {
     }
 
     private enum Fields {
-        channelWidth,
-        centerFreq0,
-        centerFreq1
+        /*
+                centerFreq0,
+                centerFreq1,
+        */
+        channelWidth
     }
 
 /*

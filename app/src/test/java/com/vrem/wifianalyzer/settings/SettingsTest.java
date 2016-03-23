@@ -235,7 +235,7 @@ public class SettingsTest {
         // validate
         verify(sharedPreferences).edit();
         verify(editor).putString(wiFiBand.getBand(), wiFiBand.toggle().getBand());
-        verify(editor).commit();
+        verify(editor).apply();
     }
 
 }

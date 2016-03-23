@@ -41,9 +41,7 @@ public class ChannelGraphFragment extends Fragment {
         view.findViewById(R.id.channelGraphSwitcher);
 
         Resources resources = getResources();
-        new ChannelGraphAdapter(
-                ChannelGraphView.make2(new GraphViewBuilder(view, R.id.channelGraph2), resources),
-                ChannelGraphView.make5(new GraphViewBuilder(view, R.id.channelGraph5), resources));
+        new ChannelGraphAdapter(ChannelGraphView.make2(view, resources), ChannelGraphView.make5(view, resources));
 
         return view;
     }

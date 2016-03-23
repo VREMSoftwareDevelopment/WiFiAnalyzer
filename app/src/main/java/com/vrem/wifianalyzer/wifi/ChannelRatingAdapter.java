@@ -42,7 +42,8 @@ import java.util.List;
 import java.util.Locale;
 
 class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNotifier {
-    public static final int MAX_CHANNELS_TO_DISPLAY = 10;
+    private static final int MAX_CHANNELS_TO_DISPLAY = 10;
+
     private final MainContext mainContext = MainContext.INSTANCE;
     private final Resources resources;
     private final ChannelRating channelRating;

@@ -26,11 +26,9 @@ import java.util.List;
 
 class AccessPointsAdapterData {
     private final MainContext mainContext = MainContext.INSTANCE;
-    private WiFiDetail connection = WiFiDetail.EMPTY;
     private List<WiFiDetail> wiFiDetails = new ArrayList<>();
 
     void update(WiFiData wiFiData) {
-        connection = wiFiData.getConnection();
         Settings settings = mainContext.getSettings();
         wiFiDetails = wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy(), settings.getGroupBy());
     }
@@ -39,11 +37,11 @@ class AccessPointsAdapterData {
         return wiFiDetails.size();
     }
 
-    boolean validParentIndex(int index) {
+    private boolean validParentIndex(int index) {
         return index >= 0 && index < parentsCount();
     }
 
-    boolean validChildrenIndex(int indexParent, int indexChild) {
+    private boolean validChildrenIndex(int indexParent, int indexChild) {
         return validParentIndex(indexParent) && indexChild >= 0 && indexChild < childrenCount(indexParent);
     }
 

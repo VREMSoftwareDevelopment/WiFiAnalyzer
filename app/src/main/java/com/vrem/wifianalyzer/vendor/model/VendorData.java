@@ -23,7 +23,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 class VendorData {
     private final String name;
     private final String mac;
-    private long id;
+    private final long id;
 
     VendorData(long id, @NonNull String name, @NonNull String mac) {
         this.id = id;

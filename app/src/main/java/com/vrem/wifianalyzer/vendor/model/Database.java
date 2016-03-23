@@ -28,21 +28,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Database extends SQLiteOpenHelper implements BaseColumns {
-    static final int DATABASE_VERSION = 1;
-    static final String DATABASE_NAME = "WiFiAnalyzerDB.db";
-
     static final String TABLE_NAME = "macvendorname";
-
     static final String COLUMN_MAC = "mac";
     static final String COLUMN_NAME = "name";
     static final String[] ALL_COLUMNS = new String[]{_ID, COLUMN_NAME, COLUMN_MAC};
     static final String SORT_ORDER = COLUMN_NAME + "," + COLUMN_MAC + "," + _ID;
-
     static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " ("
             + _ID + " INTEGER PRIMARY KEY NOT NULL,"
             + COLUMN_MAC + " TEXT UNIQUE NOT NULL,"
             + COLUMN_NAME + " TEXT NOT NULL)";
     static final String TABLE_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME;
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "WiFiAnalyzerDB.db";
 
 
     public Database() {

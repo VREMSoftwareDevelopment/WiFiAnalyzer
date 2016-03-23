@@ -43,9 +43,9 @@ public class TimeAxisLabelTest {
     public void testXAxis() throws Exception {
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(-2, true));
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(-1, true));
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(0, true));
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(1, true));
 
-        assertEquals("0", fixture.formatLabel(0, true));
         assertEquals("2", fixture.formatLabel(2, true));
         assertEquals("10", fixture.formatLabel(10, true));
     }

@@ -86,6 +86,6 @@ public class Settings {
     public void toggleWiFiBand() {
         SharedPreferences.Editor editor = getSharedPreferences().edit();
         editor.putString(mainContext.getContext().getString(R.string.wifi_band_key), getWiFiBand().toggle().getBand());
-        editor.commit();
+        editor.apply();
     }
 }

@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     private int currentTheme;
     private NavigationMenuView navigationMenuView;
-    private ConnectionView connectionView;
     private boolean subTitle;
 
     @Override
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         navigationMenuView = new NavigationMenuView(this);
         onNavigationItemSelected(navigationMenuView.defaultMenuItem());
 
-        connectionView = new ConnectionView(this);
+        new ConnectionView(this);
     }
 
     private void initializeMainContext(@NonNull Context context) {

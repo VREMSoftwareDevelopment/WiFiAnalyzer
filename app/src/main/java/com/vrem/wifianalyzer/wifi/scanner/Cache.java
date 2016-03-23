@@ -68,7 +68,7 @@ class Cache {
         return cache;
     }
 
-    static class ScanResultComparator implements Comparator<ScanResult> {
+    private static class ScanResultComparator implements Comparator<ScanResult> {
         @Override
         public int compare(ScanResult lhs, ScanResult rhs) {
             return new CompareToBuilder()

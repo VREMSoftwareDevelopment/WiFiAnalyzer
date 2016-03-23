@@ -25,7 +25,7 @@ public enum GraphLegend {
     RIGHT(new DisplayRight()),
     HIDE(new DisplayNone());
 
-    private Display display;
+    private final Display display;
 
     GraphLegend(Display display) {
         this.display = display;

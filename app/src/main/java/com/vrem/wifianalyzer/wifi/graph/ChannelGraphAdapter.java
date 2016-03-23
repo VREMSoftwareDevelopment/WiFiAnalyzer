@@ -23,12 +23,11 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 class ChannelGraphAdapter implements UpdateNotifier {
-    private final MainContext mainContext = MainContext.INSTANCE;
     private final ChannelGraphView[] channelGraphViews;
 
     ChannelGraphAdapter(@NonNull ChannelGraphView... channelGraphViews) {
         this.channelGraphViews = channelGraphViews;
-        this.mainContext.getScanner().addUpdateNotifier(this);
+        MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
     }
 
     @Override

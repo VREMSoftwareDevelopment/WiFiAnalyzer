@@ -27,14 +27,13 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 public class ConnectionView implements UpdateNotifier {
-    private final MainContext mainContext = MainContext.INSTANCE;
     private final Activity activity;
     private AccessPointsDetail accessPointsDetail;
 
     public ConnectionView(@NonNull Activity activity) {
         this.activity = activity;
         setAccessPointsDetail(new AccessPointsDetail());
-        mainContext.getScanner().addUpdateNotifier(this);
+        MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
     }
 
     @Override
