@@ -52,13 +52,10 @@ public class ScannerTest {
     @Mock private UpdateNotifier updateNotifier2;
     @Mock private WifiInfo wifiInfo;
     @Mock private Cache cache;
-    @Mock
-    private Transformer transformer;
+    @Mock private Transformer transformer;
     @Mock private Logger logger;
-    @Mock
-    private WiFiData wiFiData;
-    @Mock
-    private PeriodicScan periodicScan;
+    @Mock private WiFiData wiFiData;
+    @Mock private PeriodicScan periodicScan;
 
     private List<ScanResult> scanResults;
     private List<ScanResult> cachedScanResults;
