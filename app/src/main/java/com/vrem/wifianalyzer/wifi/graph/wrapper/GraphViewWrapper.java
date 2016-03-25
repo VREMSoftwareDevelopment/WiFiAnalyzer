@@ -31,7 +31,6 @@ import com.jjoe64.graphview.series.Series;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.AccessPointsDetail;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import com.vrem.wifianalyzer.wifi.graph.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -48,15 +47,14 @@ public class GraphViewWrapper {
     private GraphLegend graphLegend;
 
     public GraphViewWrapper(@NonNull GraphView graphView, @NonNull GraphLegend graphLegend) {
+        this(graphView, graphLegend, null);
+    }
+
+    public GraphViewWrapper(@NonNull GraphView graphView, @NonNull GraphLegend graphLegend, WiFiBand wiFiBand) {
         this.graphView = graphView;
         this.graphLegend = graphLegend;
         this.seriesCache = new SeriesCache();
         this.graphColors = new GraphColors();
-        setViewPortX();
-    }
-
-    public GraphViewWrapper(@NonNull GraphView graphView, @NonNull GraphLegend graphLegend, @NonNull WiFiBand wiFiBand) {
-        this(graphView, graphLegend);
         setViewPortX(wiFiBand);
     }
 
@@ -104,25 +102,32 @@ public class GraphViewWrapper {
         graphView.addSeries(series);
     }
 
-    private void setViewPortX(@NonNull WiFiBand wiFiBand) {
-        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
-        setViewPort(wiFiChannels.getWiFiChannelFirst(), wiFiChannels.getFrequencyOffset(), wiFiChannels.getFrequencySpread());
-    }
-
-    private void setViewPortX() {
-        setViewPortX(0, GraphViewBuilder.CNT_X - 1);
-    }
-
-    private void setViewPortX(int minX, int maxX) {
+    private void setViewPortX(WiFiBand wiFiBand) {
         Viewport viewport = graphView.getViewport();
         viewport.setXAxisBoundsManual(true);
+        int minX = calculateViewPortMinX(wiFiBand);
         viewport.setMinX(minX);
-        viewport.setMaxX(maxX);
+        viewport.setMaxX(calculateViewPortMaxX(wiFiBand, minX));
     }
 
-    private void setViewPort(WiFiChannel wiFiChannel, int frequencyOffset, int frequencySpread) {
-        int frequencyStart = wiFiChannel.getFrequency() - frequencyOffset;
-        setViewPortX(frequencyStart, frequencyStart + ((GraphViewBuilder.CNT_X - 1) * frequencySpread));
+    private int calculateViewPortMinX(WiFiBand wiFiBand) {
+        if (wiFiBand == null) {
+            return 0;
+        }
+        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
+        return wiFiChannels.getWiFiChannelFirst().getFrequency() - wiFiChannels.getFrequencyOffset();
+    }
+
+    private int calculateViewPortMaxX(WiFiBand wiFiBand, int offset) {
+        if (wiFiBand == null) {
+            return offset + getViewPortMaxX();
+        }
+        return offset + (getViewPortMaxX() * wiFiBand.getWiFiChannels().getFrequencySpread());
+    }
+
+
+    private int getViewPortMaxX() {
+        return graphView.getGridLabelRenderer().getNumHorizontalLabels() - 1;
     }
 
     public void updateLegend(@NonNull GraphLegend graphLegend) {

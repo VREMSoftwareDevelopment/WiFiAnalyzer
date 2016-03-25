@@ -37,7 +37,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 class TimeGraphView {
-    private static final int MAX_SCAN_COUNT = 1000;
+    private static final int MAX_SCAN_COUNT = 400;
     private final MainContext mainContext = MainContext.INSTANCE;
 
     private final WiFiBand wiFiBand;
