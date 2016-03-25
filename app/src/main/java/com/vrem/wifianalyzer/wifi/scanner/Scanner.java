@@ -27,8 +27,8 @@ import java.util.TreeMap;
 
 public class Scanner {
     private final MainContext mainContext = MainContext.INSTANCE;
-    private final PeriodicScan periodicScan;
     private final Map<String, UpdateNotifier> updateNotifiers;
+    private PeriodicScan periodicScan;
     private Cache cache;
     private Transformer transformer;
 
@@ -62,8 +62,20 @@ public class Scanner {
         updateNotifiers.put(key, updateNotifier);
     }
 
+    public void pause() {
+        periodicScan.stop();
+    }
+
+    public void resume() {
+        periodicScan.start();
+    }
+
     PeriodicScan getPeriodicScan() {
         return periodicScan;
+    }
+
+    void setPeriodicScan(@NonNull PeriodicScan periodicScan) {
+        this.periodicScan = periodicScan;
     }
 
     void setCache(@NonNull Cache cache) {
@@ -77,4 +89,5 @@ public class Scanner {
     Map<String, UpdateNotifier> getUpdateNotifiers() {
         return updateNotifiers;
     }
+
 }

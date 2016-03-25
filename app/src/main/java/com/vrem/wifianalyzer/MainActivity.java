@@ -151,6 +151,18 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         return true;
     }
 
+    @Override
+    protected void onPause() {
+        mainContext.getScanner().pause();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mainContext.getScanner().resume();
+    }
+
     private void updateSubTitle() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

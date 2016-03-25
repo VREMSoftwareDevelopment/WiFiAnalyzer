@@ -68,4 +68,21 @@ public class PeriodicScanTest {
         verify(handler).postDelayed(fixture, scanInterval * PeriodicScan.DELAY_INTERVAL);
     }
 
+    @Test
+    public void testStop() throws Exception {
+        // execute
+        fixture.stop();
+        // validate
+        verify(handler, times(2)).removeCallbacks(fixture);
+    }
+
+    @Test
+    public void testStart() throws Exception {
+        // execute
+        fixture.start();
+        // validate
+        verify(handler, times(2)).removeCallbacks(fixture);
+        verify(handler, times(2)).postDelayed(fixture, PeriodicScan.DELAY_INITIAL);
+    }
+
 }
