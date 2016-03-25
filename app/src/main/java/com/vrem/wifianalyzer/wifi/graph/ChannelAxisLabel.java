@@ -24,6 +24,7 @@ import com.jjoe64.graphview.Viewport;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
+import com.vrem.wifianalyzer.wifi.graph.wrapper.GraphViewBuilder;
 
 import org.apache.commons.lang3.StringUtils;
 

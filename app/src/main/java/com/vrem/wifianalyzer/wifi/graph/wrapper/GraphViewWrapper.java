@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph;
+package com.vrem.wifianalyzer.wifi.graph.wrapper;
 
 import android.app.Dialog;
 import android.support.annotation.NonNull;
@@ -23,6 +23,7 @@ import android.view.View;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.Viewport;
+import com.jjoe64.graphview.series.BaseSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
@@ -32,51 +33,75 @@ import com.vrem.wifianalyzer.wifi.AccessPointsDetail;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
-import com.vrem.wifianalyzer.wifi.graph.color.GraphColor;
-import com.vrem.wifianalyzer.wifi.graph.color.GraphColors;
+import com.vrem.wifianalyzer.wifi.graph.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-class GraphViewUtils {
+public class GraphViewWrapper {
     private static final float TEXT_SIZE_ADJUSTMENT = 0.90f;
     private final MainContext mainContext = MainContext.INSTANCE;
     private final GraphView graphView;
-    private final Map<WiFiDetail, ? extends Series<DataPoint>> seriesMap;
+    private final SeriesCache seriesCache;
     private final GraphColors graphColors;
     private GraphLegend graphLegend;
 
-    public GraphViewUtils(@NonNull GraphView graphView, @NonNull Map<WiFiDetail, ? extends Series<DataPoint>> seriesMap,
-                          @NonNull GraphLegend graphLegend) {
+    public GraphViewWrapper(@NonNull GraphView graphView, @NonNull GraphLegend graphLegend) {
         this.graphView = graphView;
-        this.seriesMap = seriesMap;
         this.graphLegend = graphLegend;
+        this.seriesCache = new SeriesCache();
         this.graphColors = new GraphColors();
         setViewPortX();
     }
 
-    public GraphViewUtils(@NonNull GraphView graphView, @NonNull Map<WiFiDetail, ? extends Series<DataPoint>> seriesMap,
-                          @NonNull GraphLegend graphLegend, @NonNull WiFiBand wiFiBand) {
-        this(graphView, seriesMap, graphLegend);
+    public GraphViewWrapper(@NonNull GraphView graphView, @NonNull GraphLegend graphLegend, @NonNull WiFiBand wiFiBand) {
+        this(graphView, graphLegend);
         setViewPortX(wiFiBand);
     }
 
-    void updateSeries(@NonNull Set<WiFiDetail> newSeries) {
-        List<WiFiDetail> remove = new ArrayList<>();
-        for (WiFiDetail wiFiDetail : seriesMap.keySet()) {
-            if (!newSeries.contains(wiFiDetail)) {
-                Series<DataPoint> series = seriesMap.get(wiFiDetail);
-                graphColors.addColor(series.getColor());
-                graphView.removeSeries(series);
-                remove.add(wiFiDetail);
-            }
+    public void removeSeries(@NonNull Set<WiFiDetail> newSeries) {
+        List<BaseSeries<DataPoint>> removed = seriesCache.remove(newSeries);
+        for (Series series : removed) {
+            graphColors.addColor(series.getColor());
+            graphView.removeSeries(series);
         }
-        for (WiFiDetail wiFiDetail : remove) {
-            seriesMap.remove(wiFiDetail);
+    }
+
+    public boolean appendSeries(@NonNull WiFiDetail wiFiDetail, @NonNull BaseSeries<DataPoint> series, DataPoint data, int count) {
+        BaseSeries<DataPoint> current = seriesCache.add(wiFiDetail, series);
+        boolean added = isSameSeries(series, current);
+        if (added) {
+            addNewSeries(wiFiDetail, current);
+        } else {
+            current.appendData(data, true, count + 1);
         }
+        return added;
+    }
+
+    private boolean isSameSeries(@NonNull BaseSeries<DataPoint> series, BaseSeries<DataPoint> current) {
+        return current.equals(series);
+    }
+
+    public boolean addSeries(@NonNull WiFiDetail wiFiDetail, @NonNull BaseSeries<DataPoint> series, DataPoint[] data) {
+        BaseSeries<DataPoint> current = seriesCache.add(wiFiDetail, series);
+        boolean added = isSameSeries(series, current);
+        if (added) {
+            addNewSeries(wiFiDetail, current);
+        } else {
+            current.resetData(data);
+        }
+        return added;
+    }
+
+    private void addNewSeries(@NonNull WiFiDetail wiFiDetail, BaseSeries<DataPoint> series) {
+        addSeries(series);
+        series.setTitle(wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getWiFiChannel().getChannel());
+        series.setOnDataPointTapListener(new GraphTapListener());
+    }
+
+    public void addSeries(@NonNull BaseSeries series) {
+        graphView.addSeries(series);
     }
 
     private void setViewPortX(@NonNull WiFiBand wiFiBand) {
@@ -100,7 +125,7 @@ class GraphViewUtils {
         setViewPortX(frequencyStart, frequencyStart + ((GraphViewBuilder.CNT_X - 1) * frequencySpread));
     }
 
-    void updateLegend(@NonNull GraphLegend graphLegend) {
+    public void updateLegend(@NonNull GraphLegend graphLegend) {
         resetLegendRenderer(graphLegend);
         LegendRenderer legendRenderer = graphView.getLegendRenderer();
         legendRenderer.resetStyles();
@@ -117,32 +142,21 @@ class GraphViewUtils {
         }
     }
 
-    void setVisibility(@NonNull WiFiBand wiFiBand) {
+    public void setVisibility(@NonNull WiFiBand wiFiBand) {
         graphView.setVisibility(wiFiBand.equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
     }
 
-    String getTitle(@NonNull WiFiDetail wiFiDetail) {
-        return wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getWiFiChannel().getChannel();
-    }
-
-    GraphColor getColor() {
+    public GraphColor getColor() {
         return graphColors.getColor();
-    }
-
-    void setOnDataPointTapListener(Series<DataPoint> series) {
-        series.setOnDataPointTapListener(new GraphTapListener());
     }
 
     private class GraphTapListener implements OnDataPointTapListener {
         @Override
         public void onTap(@NonNull Series series, @NonNull DataPointInterface dataPoint) {
-            for (WiFiDetail wiFiDetail : seriesMap.keySet()) {
-                Series<DataPoint> channelGraphSeries = seriesMap.get(wiFiDetail);
-                if (series == channelGraphSeries) {
-                    Dialog dialog = new AccessPointsDetail().popupDialog(mainContext.getContext(), mainContext.getLayoutInflater(), wiFiDetail);
-                    dialog.show();
-                    return;
-                }
+            WiFiDetail wiFiDetail = seriesCache.find(series);
+            if (wiFiDetail != null) {
+                Dialog dialog = new AccessPointsDetail().popupDialog(mainContext.getContext(), mainContext.getLayoutInflater(), wiFiDetail);
+                dialog.show();
             }
         }
     }

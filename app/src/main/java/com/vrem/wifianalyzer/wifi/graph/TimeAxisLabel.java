@@ -18,6 +18,7 @@ package com.vrem.wifianalyzer.wifi.graph;
 
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
+import com.vrem.wifianalyzer.wifi.graph.wrapper.GraphViewBuilder;
 
 import org.apache.commons.lang3.StringUtils;
 

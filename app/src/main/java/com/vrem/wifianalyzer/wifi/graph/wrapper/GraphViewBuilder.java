@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph;
+package com.vrem.wifianalyzer.wifi.graph.wrapper;
 
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -24,38 +24,40 @@ import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
 
-class GraphViewBuilder {
-    static final int MIN_Y = -100;
-    static final int MAX_Y = -20;
-    static final int CNT_X = 16;
+public class GraphViewBuilder {
+    public static final int MIN_Y = -100;
+    public static final int MAX_Y = -20;
+    public static final int CNT_X = 16;
+
     private static final int CNT_Y = (MAX_Y - MIN_Y) / 10 + 1;
+
     private final View view;
     private final int graphViewId;
     private LabelFormatter labelFormatter;
     private String verticalTitle;
     private String horizontalTitle;
 
-    GraphViewBuilder(@NonNull View view, int graphViewId) {
+    public GraphViewBuilder(@NonNull View view, int graphViewId) {
         this.view = view;
         this.graphViewId = graphViewId;
     }
 
-    GraphViewBuilder setLabelFormatter(@NonNull LabelFormatter labelFormatter) {
+    public GraphViewBuilder setLabelFormatter(@NonNull LabelFormatter labelFormatter) {
         this.labelFormatter = labelFormatter;
         return this;
     }
 
-    GraphViewBuilder setVerticalTitle(@NonNull String verticalTitle) {
+    public GraphViewBuilder setVerticalTitle(@NonNull String verticalTitle) {
         this.verticalTitle = verticalTitle;
         return this;
     }
 
-    GraphViewBuilder setHorizontalTitle(@NonNull String horizontalTitle) {
+    public GraphViewBuilder setHorizontalTitle(@NonNull String horizontalTitle) {
         this.horizontalTitle = horizontalTitle;
         return this;
     }
 
-    GraphView build() {
+    public GraphView build() {
         GraphView graphView = (GraphView) view.findViewById(graphViewId);
 
         setGridLabelRenderer(graphView.getGridLabelRenderer());
@@ -95,5 +97,4 @@ class GraphViewBuilder {
             gridLabelRenderer.setHorizontalLabelsVisible(false);
         }
     }
-
 }

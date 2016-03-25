@@ -14,12 +14,12 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph.color;
+package com.vrem.wifianalyzer.wifi.graph.wrapper;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.vrem.wifianalyzer.wifi.graph.color.GraphColors.GRAPH_COLORS;
+import static com.vrem.wifianalyzer.wifi.graph.wrapper.GraphColors.GRAPH_COLORS;
 import static org.junit.Assert.assertEquals;
 
 public class GraphColorsTest {

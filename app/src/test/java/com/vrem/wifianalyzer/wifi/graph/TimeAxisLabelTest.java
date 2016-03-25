@@ -16,6 +16,8 @@
 
 package com.vrem.wifianalyzer.wifi.graph;
 
+import com.vrem.wifianalyzer.wifi.graph.wrapper.GraphViewBuilder;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;

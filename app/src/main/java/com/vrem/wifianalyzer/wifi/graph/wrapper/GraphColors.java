@@ -14,15 +14,12 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph.color;
+package com.vrem.wifianalyzer.wifi.graph.wrapper;
 
 import java.util.Arrays;
 import java.util.Stack;
 
-public class GraphColors {
-
-    public static final GraphColor TRANSPARENT = new GraphColor(0x009E9E9E, 0x009E9E9E);
-
+class GraphColors {
     static final GraphColor[] GRAPH_COLORS = new GraphColor[]{
             new GraphColor(0xFFFB1554, 0x33FB1554),
             new GraphColor(0xFF74FF89, 0x3374FF89),
@@ -48,14 +45,14 @@ public class GraphColors {
 
     private final Stack<GraphColor> colors = new Stack<>();
 
-    public GraphColor getColor() {
+    GraphColor getColor() {
         if (colors.isEmpty()) {
             colors.addAll(Arrays.asList(GRAPH_COLORS));
         }
         return colors.pop();
     }
 
-    public boolean addColor(int primaryColor) {
+    boolean addColor(int primaryColor) {
         GraphColor graphColor = findColor(primaryColor);
         if (graphColor == null || colors.contains(graphColor)) {
             return false;
@@ -64,7 +61,7 @@ public class GraphColors {
         return true;
     }
 
-    private GraphColor findColor(int primaryColor) {
+    GraphColor findColor(int primaryColor) {
         for (GraphColor graphColor : GRAPH_COLORS) {
             if (primaryColor == graphColor.getPrimary()) {
                 return graphColor;

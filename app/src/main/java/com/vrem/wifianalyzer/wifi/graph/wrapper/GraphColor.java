@@ -14,11 +14,13 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph.color;
+package com.vrem.wifianalyzer.wifi.graph.wrapper;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class GraphColor {
+    public static final GraphColor TRANSPARENT = new GraphColor(0x009E9E9E, 0x009E9E9E);
+
     private final int primary;
     private final int background;
 
