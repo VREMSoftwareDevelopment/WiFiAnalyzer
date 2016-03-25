@@ -16,8 +16,10 @@
 
 package com.vrem.wifianalyzer.wifi.graph.wrapper;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
@@ -31,15 +33,13 @@ public class GraphViewBuilder {
 
     private static final int CNT_Y = (MAX_Y - MIN_Y) / 10 + 1;
 
-    private final View view;
-    private final int graphViewId;
+    private final Context content;
     private LabelFormatter labelFormatter;
     private String verticalTitle;
     private String horizontalTitle;
 
-    public GraphViewBuilder(@NonNull View view, int graphViewId) {
-        this.view = view;
-        this.graphViewId = graphViewId;
+    public GraphViewBuilder(@NonNull Context content) {
+        this.content = content;
     }
 
     public GraphViewBuilder setLabelFormatter(@NonNull LabelFormatter labelFormatter) {
@@ -58,7 +58,10 @@ public class GraphViewBuilder {
     }
 
     public GraphView build() {
-        GraphView graphView = (GraphView) view.findViewById(graphViewId);
+        GraphView graphView = new GraphView(content);
+
+        graphView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        graphView.setVisibility(View.GONE);
 
         setGridLabelRenderer(graphView.getGridLabelRenderer());
         setViewPortY(graphView.getViewport());

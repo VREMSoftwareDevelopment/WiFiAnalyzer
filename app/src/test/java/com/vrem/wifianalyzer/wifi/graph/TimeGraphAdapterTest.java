@@ -16,7 +16,11 @@
 
 package com.vrem.wifianalyzer.wifi.graph;
 
+import android.support.annotation.NonNull;
+
+import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
@@ -26,13 +30,22 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TimeGraphAdapterTest {
     @Mock private Scanner scanner;
-    @Mock private TimeGraphView timeGraphView1;
     @Mock private TimeGraphView timeGraphView2;
+    @Mock
+    private TimeGraphView timeGraphView5;
+    @Mock
+    private GraphView graphView2;
+    @Mock
+    private GraphView graphView5;
     @Mock private WiFiData wifiData;
 
     private TimeGraphAdapter fixture;
@@ -41,7 +54,18 @@ public class TimeGraphAdapterTest {
     public void setUp() throws Exception {
         MainContext.INSTANCE.setScanner(scanner);
 
-        fixture = new TimeGraphAdapter(timeGraphView1, timeGraphView2);
+        fixture = new TimeGraphAdapter() {
+            @Override
+            protected TimeGraphView makeTimeGraphView(@NonNull WiFiBand wiFiBand) {
+                if (WiFiBand.GHZ_5.equals(wiFiBand)) {
+                    return timeGraphView5;
+                }
+                if (WiFiBand.GHZ_2.equals(wiFiBand)) {
+                    return timeGraphView2;
+                }
+                throw new RuntimeException("Unknown WiFiBand: " + wiFiBand);
+            }
+        };
     }
 
     @Test
@@ -54,7 +78,23 @@ public class TimeGraphAdapterTest {
         // execute
         fixture.update(wifiData);
         // validate
-        verify(timeGraphView1).update(wifiData);
         verify(timeGraphView2).update(wifiData);
+        verify(timeGraphView5).update(wifiData);
     }
+
+    @Test
+    public void testGetGraphViews() throws Exception {
+        // setup
+        when(timeGraphView2.getGraphView()).thenReturn(graphView2);
+        when(timeGraphView5.getGraphView()).thenReturn(graphView5);
+        // execute
+        List<GraphView> actual = fixture.getGraphViews();
+        // validate
+        assertEquals(WiFiBand.values().length, actual.size());
+        assertEquals(graphView2, actual.get(0));
+        assertEquals(graphView5, actual.get(1));
+        verify(timeGraphView2).getGraphView();
+        verify(timeGraphView5).getGraphView();
+    }
+    
 }

@@ -125,7 +125,6 @@ public class GraphViewWrapper {
         return offset + (getViewPortMaxX() * wiFiBand.getWiFiChannels().getFrequencySpread());
     }
 
-
     private int getViewPortMaxX() {
         return graphView.getGridLabelRenderer().getNumHorizontalLabels() - 1;
     }
@@ -153,6 +152,10 @@ public class GraphViewWrapper {
 
     public GraphColor getColor() {
         return graphColors.getColor();
+    }
+
+    public GraphView getGraphView() {
+        return graphView;
     }
 
     private class GraphTapListener implements OnDataPointTapListener {

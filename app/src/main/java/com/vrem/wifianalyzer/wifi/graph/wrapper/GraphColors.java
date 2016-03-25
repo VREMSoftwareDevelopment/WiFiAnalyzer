@@ -61,7 +61,7 @@ class GraphColors {
         return true;
     }
 
-    GraphColor findColor(int primaryColor) {
+    private GraphColor findColor(int primaryColor) {
         for (GraphColor graphColor : GRAPH_COLORS) {
             if (primaryColor == graphColor.getPrimary()) {
                 return graphColor;

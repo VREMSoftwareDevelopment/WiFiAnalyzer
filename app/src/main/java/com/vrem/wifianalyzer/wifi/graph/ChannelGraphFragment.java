@@ -16,14 +16,15 @@
 
 package com.vrem.wifianalyzer.wifi.graph;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ViewSwitcher;
 
+import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
@@ -33,15 +34,16 @@ public class ChannelGraphFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.channel_graph_content, container, false);
+        View view = inflater.inflate(R.layout.graph_content, container, false);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.channelGraphRefresh);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.graphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        Resources resources = getResources();
-        ChannelGraphView channelGraphView2 = ChannelGraphView.make2(view, resources);
-        ChannelGraphView channelGraphView5 = ChannelGraphView.make5(view, resources);
-        new ChannelGraphAdapter(channelGraphView2, channelGraphView5);
+        ViewSwitcher viewSwitcher = (ViewSwitcher) swipeRefreshLayout.findViewById(R.id.graphSwitcher);
+        ChannelGraphAdapter channelGraphAdapter = new ChannelGraphAdapter();
+        for (GraphView graphView : channelGraphAdapter.getGraphViews()) {
+            viewSwitcher.addView(graphView);
+        }
 
         return view;
     }

@@ -18,16 +18,32 @@ package com.vrem.wifianalyzer.wifi.graph;
 
 import android.support.annotation.NonNull;
 
+import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
-class ChannelGraphAdapter implements UpdateNotifier {
-    private final ChannelGraphView[] channelGraphViews;
+import java.util.ArrayList;
+import java.util.List;
 
-    ChannelGraphAdapter(@NonNull ChannelGraphView... channelGraphViews) {
-        this.channelGraphViews = channelGraphViews;
+class ChannelGraphAdapter implements UpdateNotifier {
+    private final List<ChannelGraphView> channelGraphViews;
+
+    ChannelGraphAdapter() {
+        channelGraphViews = new ArrayList<>();
+        for (WiFiBand wiFiBand : WiFiBand.values()) {
+            channelGraphViews.add(makeChannelGraphView(wiFiBand));
+        }
         MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
+    }
+
+    List<GraphView> getGraphViews() {
+        List<GraphView> result = new ArrayList<>();
+        for (ChannelGraphView channelGraphView : channelGraphViews) {
+            result.add(channelGraphView.getGraphView());
+        }
+        return result;
     }
 
     @Override
@@ -35,6 +51,10 @@ class ChannelGraphAdapter implements UpdateNotifier {
         for (ChannelGraphView channelGraphView : channelGraphViews) {
             channelGraphView.update(wiFiData);
         }
+    }
+
+    protected ChannelGraphView makeChannelGraphView(@NonNull WiFiBand wiFiBand) {
+        return new ChannelGraphView(wiFiBand);
     }
 
 }

@@ -18,16 +18,32 @@ package com.vrem.wifianalyzer.wifi.graph;
 
 import android.support.annotation.NonNull;
 
+import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
-class TimeGraphAdapter implements UpdateNotifier {
-    private final TimeGraphView[] timeGraphViews;
+import java.util.ArrayList;
+import java.util.List;
 
-    TimeGraphAdapter(@NonNull TimeGraphView... timeGraphViews) {
-        this.timeGraphViews = timeGraphViews;
+class TimeGraphAdapter implements UpdateNotifier {
+    private final List<TimeGraphView> timeGraphViews;
+
+    TimeGraphAdapter() {
+        timeGraphViews = new ArrayList<>();
+        for (WiFiBand wiFiBand : WiFiBand.values()) {
+            timeGraphViews.add(makeTimeGraphView(wiFiBand));
+        }
         MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
+    }
+
+    List<GraphView> getGraphViews() {
+        List<GraphView> result = new ArrayList<>();
+        for (TimeGraphView timeGraphView : timeGraphViews) {
+            result.add(timeGraphView.getGraphView());
+        }
+        return result;
     }
 
     @Override
@@ -35,5 +51,9 @@ class TimeGraphAdapter implements UpdateNotifier {
         for (TimeGraphView timeGraphView : timeGraphViews) {
             timeGraphView.update(wiFiData);
         }
+    }
+
+    protected TimeGraphView makeTimeGraphView(@NonNull WiFiBand wiFiBand) {
+        return new TimeGraphView(wiFiBand);
     }
 }

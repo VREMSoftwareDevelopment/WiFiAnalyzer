@@ -18,7 +18,6 @@ package com.vrem.wifianalyzer.wifi.graph;
 
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -45,24 +44,17 @@ class TimeGraphView {
     private int scanCount;
     private int xValue;
 
-    private TimeGraphView(@NonNull View view, int graphViewId, @NonNull Resources resources, @NonNull WiFiBand wiFiBand) {
+    TimeGraphView(@NonNull WiFiBand wiFiBand) {
         this.wiFiBand = wiFiBand;
         this.scanCount = this.xValue = 0;
-        GraphView graphView = makeGraphView(view, graphViewId, resources);
-        this.graphViewWrapper = new GraphViewWrapper(graphView, mainContext.getSettings().getTimeGraphLegend());
+        this.graphViewWrapper = new GraphViewWrapper(
+                makeGraphView(), mainContext.getSettings().getTimeGraphLegend());
         initialize();
     }
 
-    static TimeGraphView make2(@NonNull View view, Resources resources) {
-        return new TimeGraphView(view, R.id.timeGraph2, resources, WiFiBand.GHZ_2);
-    }
-
-    static TimeGraphView make5(@NonNull View view, @NonNull Resources resources) {
-        return new TimeGraphView(view, R.id.timeGraph5, resources, WiFiBand.GHZ_5);
-    }
-
-    private GraphView makeGraphView(@NonNull View view, int graphViewId, @NonNull Resources resources) {
-        return new GraphViewBuilder(view, graphViewId)
+    private GraphView makeGraphView() {
+        Resources resources = mainContext.getContext().getResources();
+        return new GraphViewBuilder(mainContext.getContext())
                 .setLabelFormatter(new TimeAxisLabel())
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
@@ -94,8 +86,6 @@ class TimeGraphView {
     }
 
     private void initialize() {
-        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
-        int frequencyOffset = wiFiBand.getWiFiChannels().getFrequencyOffset();
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
                 new DataPoint(0, GraphViewBuilder.MIN_Y),
                 new DataPoint(GraphViewBuilder.CNT_X - 1, GraphViewBuilder.MIN_Y)
@@ -105,4 +95,7 @@ class TimeGraphView {
         graphViewWrapper.addSeries(series);
     }
 
+    GraphView getGraphView() {
+        return graphViewWrapper.getGraphView();
+    }
 }

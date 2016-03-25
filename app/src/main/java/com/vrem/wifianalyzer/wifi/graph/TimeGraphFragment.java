@@ -16,14 +16,15 @@
 
 package com.vrem.wifianalyzer.wifi.graph;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ViewSwitcher;
 
+import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
@@ -33,15 +34,16 @@ public class TimeGraphFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.time_graph_content, container, false);
+        View view = inflater.inflate(R.layout.graph_content, container, false);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.timeGraphRefresh);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.graphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        Resources resources = getResources();
-        TimeGraphView timeGraphView2 = TimeGraphView.make2(view, resources);
-        TimeGraphView timeGraphView5 = TimeGraphView.make5(view, resources);
-        new TimeGraphAdapter(timeGraphView2, timeGraphView5);
+        ViewSwitcher viewSwitcher = (ViewSwitcher) swipeRefreshLayout.findViewById(R.id.graphSwitcher);
+        TimeGraphAdapter timeGraphAdapter = new TimeGraphAdapter();
+        for (GraphView graphView: timeGraphAdapter.getGraphViews()) {
+            viewSwitcher.addView(graphView);
+        }
 
         return view;
     }

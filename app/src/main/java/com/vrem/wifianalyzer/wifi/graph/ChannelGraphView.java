@@ -18,7 +18,6 @@ package com.vrem.wifianalyzer.wifi.graph;
 
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -42,23 +41,16 @@ class ChannelGraphView {
     private final WiFiBand wiFiBand;
     private final GraphViewWrapper graphViewWrapper;
 
-    private ChannelGraphView(@NonNull View view, int graphViewId, @NonNull Resources resources, @NonNull WiFiBand wiFiBand) {
+    ChannelGraphView(@NonNull WiFiBand wiFiBand) {
         this.wiFiBand = wiFiBand;
-        GraphView graphView = makeGraphView(view, graphViewId, resources);
-        this.graphViewWrapper = new GraphViewWrapper(graphView, mainContext.getSettings().getChannelGraphLegend(), wiFiBand);
+        this.graphViewWrapper = new GraphViewWrapper(
+                makeGraphView(), mainContext.getSettings().getChannelGraphLegend(), wiFiBand);
         initialize();
     }
 
-    static ChannelGraphView make2(@NonNull View view, @NonNull Resources resources) {
-        return new ChannelGraphView(view, R.id.channelGraph2, resources, WiFiBand.GHZ_2);
-    }
-
-    static ChannelGraphView make5(@NonNull View view, @NonNull Resources resources) {
-        return new ChannelGraphView(view, R.id.channelGraph5, resources, WiFiBand.GHZ_5);
-    }
-
-    private GraphView makeGraphView(@NonNull View view, int graphViewId, @NonNull Resources resources) {
-        return new GraphViewBuilder(view, graphViewId)
+    private GraphView makeGraphView() {
+        Resources resources = mainContext.getContext().getResources();
+        return new GraphViewBuilder(mainContext.getContext())
                 .setLabelFormatter(new ChannelAxisLabel(wiFiBand, resources))
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
@@ -114,5 +106,9 @@ class ChannelGraphView {
         series.setColor(GraphColor.TRANSPARENT.getPrimary());
         series.zeroThickness();
         graphViewWrapper.addSeries(series);
+    }
+
+    GraphView getGraphView() {
+        return graphViewWrapper.getGraphView();
     }
 }
