@@ -38,12 +38,10 @@ public class TimeGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.timeGraphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        view.findViewById(R.id.timeGraphSwitcher);
-
         Resources resources = getResources();
-        new TimeGraphAdapter(
-                TimeGraphView.make2(new GraphViewBuilder(view, R.id.timeGraph2), resources),
-                TimeGraphView.make5(new GraphViewBuilder(view, R.id.timeGraph5), resources));
+        TimeGraphView timeGraphView2 = TimeGraphView.make2(view, resources);
+        TimeGraphView timeGraphView5 = TimeGraphView.make5(view, resources);
+        new TimeGraphAdapter(timeGraphView2, timeGraphView5);
 
         return view;
     }

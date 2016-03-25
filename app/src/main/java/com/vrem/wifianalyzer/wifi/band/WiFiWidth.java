@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.model;
+package com.vrem.wifianalyzer.wifi.band;
 
 public enum WiFiWidth {
     MHZ_20(20),
@@ -25,14 +25,17 @@ public enum WiFiWidth {
 
     private final int frequencyWidth;
     private final int frequencyWidthHalf;
-    private final int channelWidth;
-    private final int channelWidthHalf;
 
     WiFiWidth(int frequencyWidth) {
         this.frequencyWidth = frequencyWidth;
         this.frequencyWidthHalf = frequencyWidth / 2;
-        this.channelWidth = frequencyWidth / WiFiBand.CHANNEL_FREQUENCY_SPREAD;
-        this.channelWidthHalf = channelWidth / 2;
+    }
+
+    public static WiFiWidth find(int ordinal) {
+        if (ordinal < 0 || ordinal >= values().length) {
+            return WiFiWidth.MHZ_20;
+        }
+        return values()[ordinal];
     }
 
     public int getFrequencyWidth() {
@@ -41,13 +44,5 @@ public enum WiFiWidth {
 
     public int getFrequencyWidthHalf() {
         return frequencyWidthHalf;
-    }
-
-    public int getChannelWidth() {
-        return channelWidth;
-    }
-
-    public int getChannelWidthHalf() {
-        return channelWidthHalf;
     }
 }

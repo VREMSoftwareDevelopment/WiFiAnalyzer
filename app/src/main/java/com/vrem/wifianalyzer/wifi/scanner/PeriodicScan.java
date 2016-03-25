@@ -16,7 +16,6 @@
 
 package com.vrem.wifianalyzer.wifi.scanner;
 
-import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainContext;
@@ -30,13 +29,20 @@ class PeriodicScan implements Runnable {
 
     PeriodicScan(@NonNull Scanner scanner) {
         this.scanner = scanner;
+        start();
+    }
+
+    void stop() {
+        mainContext.getHandler().removeCallbacks(this);
+    }
+
+    void start() {
         nextRun(DELAY_INITIAL);
     }
 
     private void nextRun(int delayInitial) {
-        Handler handler = mainContext.getHandler();
-        handler.removeCallbacks(this);
-        handler.postDelayed(this, delayInitial);
+        stop();
+        mainContext.getHandler().postDelayed(this, delayInitial);
     }
 
     @Override
@@ -44,4 +50,5 @@ class PeriodicScan implements Runnable {
         scanner.update();
         nextRun(mainContext.getSettings().getScanInterval() * DELAY_INTERVAL);
     }
+
 }

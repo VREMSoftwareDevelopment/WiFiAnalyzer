@@ -119,6 +119,7 @@ public class WiFiDetail implements Comparable<WiFiDetail> {
                 .append(getBSSID(), another.getBSSID())
                 .toComparison();
     }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);

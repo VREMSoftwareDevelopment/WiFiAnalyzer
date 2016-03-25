@@ -16,6 +16,8 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
+import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +40,7 @@ public class WiFiDetailTest {
     @Before
     public void setUp() throws Exception {
         wiFiAdditional = new WiFiAdditional(VENDOR_NAME, false);
-        wiFiSignal = new WiFiSignal(FREQUENCY, LEVEL);
+        wiFiSignal = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_20, LEVEL);
         fixture = new WiFiDetail(SSID, BSSID, WPA, wiFiSignal, wiFiAdditional);
     }
 

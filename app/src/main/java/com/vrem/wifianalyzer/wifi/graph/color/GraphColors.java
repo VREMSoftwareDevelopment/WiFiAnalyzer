@@ -46,7 +46,7 @@ public class GraphColors {
             new GraphColor(0xFF2196F3, 0x332196F3)
     };
 
-    final Stack<GraphColor> colors = new Stack<>();
+    private final Stack<GraphColor> colors = new Stack<>();
 
     public GraphColor getColor() {
         if (colors.isEmpty()) {

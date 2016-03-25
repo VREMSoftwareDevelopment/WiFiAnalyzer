@@ -22,6 +22,7 @@ import android.view.View;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -100,7 +101,8 @@ public class WiFiConnectionViewTest {
     }
 
     private WiFiDetail withConnection(WiFiAdditional wiFiAdditional) {
-        return new WiFiDetail("SSID", "BSSID", StringUtils.EMPTY, new WiFiSignal(2435, -55), wiFiAdditional);
+        return new WiFiDetail("SSID", "BSSID", StringUtils.EMPTY,
+                new WiFiSignal(2435, WiFiWidth.MHZ_20, -55), wiFiAdditional);
     }
 
 }

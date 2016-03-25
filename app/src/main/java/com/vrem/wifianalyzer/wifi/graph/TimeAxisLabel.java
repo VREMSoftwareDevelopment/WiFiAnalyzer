@@ -21,36 +21,21 @@ import com.jjoe64.graphview.Viewport;
 
 import org.apache.commons.lang3.StringUtils;
 
-class AxisLabel implements LabelFormatter {
-    private final int minValue;
-    private final int maxValue;
-    private boolean evenOnly;
-
-    AxisLabel(int minValue, int maxValue) {
-        this.minValue = minValue;
-        this.maxValue = maxValue;
-        this.evenOnly = false;
-    }
-
-    AxisLabel setEvenOnly(boolean evenOnly) {
-        this.evenOnly = evenOnly;
-        return this;
-    }
-
+class TimeAxisLabel implements LabelFormatter {
     @Override
     public String formatLabel(double value, boolean isValueX) {
+        String result = StringUtils.EMPTY;
         int valueAsInt = (int) (value + (value < 0 ? -0.5 : 0.5));
         if (isValueX) {
-            if (valueAsInt >= minValue && valueAsInt <= maxValue && (!evenOnly || valueAsInt % 2 == 0)) {
-                return "" + valueAsInt;
+            if (valueAsInt > 0 && valueAsInt % 2 == 0) {
+                result += valueAsInt;
             }
-            return StringUtils.EMPTY;
         } else {
             if (valueAsInt <= GraphViewBuilder.MAX_Y && valueAsInt > GraphViewBuilder.MIN_Y) {
-                return "" + valueAsInt;
+                result += valueAsInt;
             }
         }
-        return StringUtils.EMPTY;
+        return result;
     }
 
     @Override

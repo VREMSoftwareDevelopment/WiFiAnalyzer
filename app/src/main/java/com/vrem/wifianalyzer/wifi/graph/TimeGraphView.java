@@ -18,13 +18,14 @@ package com.vrem.wifianalyzer.wifi.graph;
 
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.model.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
@@ -42,28 +43,27 @@ class TimeGraphView {
     private final GraphViewUtils graphViewUtils;
     private int scanCount;
 
-    private TimeGraphView(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources, @NonNull WiFiBand wiFiBand) {
+    private TimeGraphView(@NonNull View view, int graphViewId, @NonNull Resources resources, @NonNull WiFiBand wiFiBand) {
         this.wiFiBand = wiFiBand;
-        this.graphView = makeGraphView(graphViewBuilder, resources);
+        this.graphView = makeGraphView(view, graphViewId, resources);
         this.seriesMap = new TreeMap<>();
         this.graphViewUtils = new GraphViewUtils(graphView, seriesMap, mainContext.getSettings().getTimeGraphLegend());
         this.scanCount = 0;
     }
 
-    static TimeGraphView make2(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources) {
-        return new TimeGraphView(graphViewBuilder, resources, WiFiBand.GHZ_2);
+    static TimeGraphView make2(@NonNull View view, Resources resources) {
+        return new TimeGraphView(view, R.id.timeGraph2, resources, WiFiBand.GHZ_2);
     }
 
-    static TimeGraphView make5(@NonNull GraphViewBuilder graphViewBuilder, @NonNull Resources resources) {
-        return new TimeGraphView(graphViewBuilder, resources, WiFiBand.GHZ_5);
+    static TimeGraphView make5(@NonNull View view, @NonNull Resources resources) {
+        return new TimeGraphView(view, R.id.timeGraph5, resources, WiFiBand.GHZ_5);
     }
 
-    private GraphView makeGraphView(GraphViewBuilder graphViewBuilder, Resources resources) {
-        return graphViewBuilder
-                .setLabelFormatter(new AxisLabel(0, Integer.MAX_VALUE).setEvenOnly(true))
+    private GraphView makeGraphView(@NonNull View view, int graphViewId, @NonNull Resources resources) {
+        return new GraphViewBuilder(view, graphViewId)
+                .setLabelFormatter(new TimeAxisLabel())
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
-                .setScrollable(true)
                 .build();
     }
 
@@ -96,5 +96,4 @@ class TimeGraphView {
         series.setDrawBackground(false);
         series.setTitle(graphViewUtils.getTitle(wiFiDetail));
     }
-
 }

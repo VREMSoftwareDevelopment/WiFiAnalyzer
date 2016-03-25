@@ -30,10 +30,9 @@ public class ScanIntervalPreference extends DialogPreference {
     private final int valueDefault;
     private final int valueMin;
     private final int valueMax;
-
+    private final CharSequence summary;
     private Integer value;
     private NumberPicker numberPicker;
-    private CharSequence summary;
 
     public ScanIntervalPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

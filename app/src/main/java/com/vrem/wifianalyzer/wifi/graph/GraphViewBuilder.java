@@ -27,23 +27,17 @@ import com.jjoe64.graphview.Viewport;
 class GraphViewBuilder {
     static final int MIN_Y = -100;
     static final int MAX_Y = -10;
-    static final int CNT_Y = (MAX_Y - MIN_Y) / 10 + 1;
     static final int CNT_X = 16;
-
+    private static final int CNT_Y = (MAX_Y - MIN_Y) / 10 + 1;
     private final View view;
     private final int graphViewId;
     private LabelFormatter labelFormatter;
     private String verticalTitle;
     private String horizontalTitle;
-    private boolean scrollable;
-    private int minX;
-    private int maxX;
 
     GraphViewBuilder(@NonNull View view, int graphViewId) {
         this.view = view;
         this.graphViewId = graphViewId;
-        this.minX = 0;
-        this.maxX = CNT_X - 1;
     }
 
     GraphViewBuilder setLabelFormatter(@NonNull LabelFormatter labelFormatter) {
@@ -61,40 +55,21 @@ class GraphViewBuilder {
         return this;
     }
 
-    GraphViewBuilder setScrollable(boolean scrollable) {
-        this.scrollable = scrollable;
-        return this;
-    }
-
-    GraphViewBuilder setMinX(int minX) {
-        this.minX = minX;
-        return this;
-    }
-
-    GraphViewBuilder setMaxX(int maxX) {
-        this.maxX = maxX;
-        return this;
-    }
-
     GraphView build() {
         GraphView graphView = (GraphView) view.findViewById(graphViewId);
 
         setGridLabelRenderer(graphView.getGridLabelRenderer());
-        setViewPort(graphView.getViewport());
+        setViewPortY(graphView.getViewport());
 
         return graphView;
     }
 
-    private void setViewPort(@NonNull Viewport viewport) {
-        viewport.setScrollable(scrollable);
+    private void setViewPortY(@NonNull Viewport viewport) {
+        viewport.setScrollable(true);
 
         viewport.setYAxisBoundsManual(true);
         viewport.setMinY(MIN_Y);
         viewport.setMaxY(MAX_Y);
-
-        viewport.setXAxisBoundsManual(true);
-        viewport.setMinX(minX);
-        viewport.setMaxX(maxX);
     }
 
     private void setGridLabelRenderer(@NonNull GridLabelRenderer gridLabelRenderer) {

@@ -57,6 +57,8 @@ public class ScannerTest {
     @Mock private Logger logger;
     @Mock
     private WiFiData wiFiData;
+    @Mock
+    private PeriodicScan periodicScan;
 
     private List<ScanResult> scanResults;
     private List<ScanResult> cachedScanResults;
@@ -178,4 +180,26 @@ public class ScannerTest {
     private void verifyTransfomer() {
         verify(transformer).transformToWiFiData(cachedScanResults, wifiInfo, configuredNetworks);
     }
+
+    @Test
+    public void testPause() throws Exception {
+        // setup
+        fixture.setPeriodicScan(periodicScan);
+        // execute
+        fixture.pause();
+        // validate
+        verify(periodicScan).stop();
+    }
+
+    @Test
+    public void testResume() throws Exception {
+        // setup
+        fixture.setPeriodicScan(periodicScan);
+        // execute
+        fixture.resume();
+        // validate
+        verify(periodicScan).start();
+    }
+
+
 }

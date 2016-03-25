@@ -22,10 +22,10 @@ import android.preference.PreferenceManager;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
-import com.vrem.wifianalyzer.wifi.model.WiFiBand;
 
 public class Settings {
     private final MainContext mainContext = MainContext.INSTANCE;
@@ -86,6 +86,6 @@ public class Settings {
     public void toggleWiFiBand() {
         SharedPreferences.Editor editor = getSharedPreferences().edit();
         editor.putString(mainContext.getContext().getString(R.string.wifi_band_key), getWiFiBand().toggle().getBand());
-        editor.commit();
+        editor.apply();
     }
 }

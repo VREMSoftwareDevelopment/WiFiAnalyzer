@@ -22,14 +22,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class AxisLabelTest {
-    private static final int MIN_X = 2;
-    private static final int MAX_X = 5;
-    private AxisLabel fixture;
+public class TimeAxisLabelTest {
+    private TimeAxisLabel fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = new AxisLabel(MIN_X, MAX_X);
+        fixture = new TimeAxisLabel();
     }
 
     @Test
@@ -43,19 +41,13 @@ public class AxisLabelTest {
 
     @Test
     public void testXAxis() throws Exception {
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(MIN_X - 1, true));
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(MAX_X + 1, true));
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(-2, true));
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(-1, true));
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(0, true));
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(1, true));
 
-        assertEquals("" + MIN_X, fixture.formatLabel(MIN_X, true));
-        assertEquals("" + ((MIN_X + MAX_X) / 2), fixture.formatLabel(((MIN_X + MAX_X) / 2), true));
-        assertEquals("" + MAX_X, fixture.formatLabel(MAX_X, true));
+        assertEquals("2", fixture.formatLabel(2, true));
+        assertEquals("10", fixture.formatLabel(10, true));
     }
 
-    @Test
-    public void testXAxisEven() throws Exception {
-        fixture.setEvenOnly(true);
-
-        assertEquals("" + MIN_X, fixture.formatLabel(MIN_X, true));
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(MAX_X, true));
-    }
 }

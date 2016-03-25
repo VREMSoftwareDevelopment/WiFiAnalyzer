@@ -49,7 +49,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        convertView = getView(convertView, parent);
+        convertView = getView(convertView);
         WiFiDetail details = (WiFiDetail) getGroup(groupPosition);
         accessPointsDetail.setView(resources, convertView, details, false);
 
@@ -71,7 +71,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        convertView = getView(convertView, parent);
+        convertView = getView(convertView);
         WiFiDetail details = (WiFiDetail) getChild(groupPosition, childPosition);
         accessPointsDetail.setView(resources, convertView, details, true);
         convertView.findViewById(R.id.groupColumn).setVisibility(View.GONE);
@@ -124,7 +124,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         return true;
     }
 
-    private View getView(View convertView, ViewGroup parentView) {
+    private View getView(View convertView) {
         if (convertView != null) {
             return convertView;
         }

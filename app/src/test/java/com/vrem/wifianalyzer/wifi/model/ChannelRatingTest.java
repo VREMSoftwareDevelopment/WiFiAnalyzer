@@ -16,97 +16,112 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
+import android.support.annotation.NonNull;
+
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.SortedSet;
 
 import static org.junit.Assert.assertEquals;
 
 public class ChannelRatingTest {
+    //    private WiFiDetail wiFiDetail1;
     private WiFiDetail wiFiDetail1;
     private WiFiDetail wiFiDetail2;
     private WiFiDetail wiFiDetail3;
-    private WiFiDetail wiFiDetail4;
-    private List<WiFiDetail> wiFiDetails;
     private ChannelRating fixture;
 
     @Before
     public void setUp() throws Exception {
-        wiFiDetail1 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY, new WiFiSignal(2445, -70), WiFiAdditional.EMPTY);
-        wiFiDetail2 = new WiFiDetail("SSID2", "BSSID2", StringUtils.EMPTY, new WiFiSignal(2435, -80), WiFiAdditional.EMPTY);
-        wiFiDetail3 = new WiFiDetail("SSID3", "BSSID3", StringUtils.EMPTY, new WiFiSignal(2455, -60), WiFiAdditional.EMPTY);
-        wiFiDetail4 = new WiFiDetail("SSID4", "BSSID4", StringUtils.EMPTY, new WiFiSignal(2435, -50), new WiFiAdditional(StringUtils.EMPTY, "192.168.1.1"));
-        wiFiDetails = Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4);
+        wiFiDetail1 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
+                new WiFiSignal(2432, WiFiWidth.MHZ_20, -50), WiFiAdditional.EMPTY);
+        wiFiDetail2 = new WiFiDetail("SSID2", "BSSID2", StringUtils.EMPTY,
+                new WiFiSignal(2442, WiFiWidth.MHZ_20, -70), WiFiAdditional.EMPTY);
+        wiFiDetail3 = new WiFiDetail("SSID3", "BSSID3", StringUtils.EMPTY,
+                new WiFiSignal(2452, WiFiWidth.MHZ_20, -60), WiFiAdditional.EMPTY);
         fixture = new ChannelRating();
-        fixture.setWiFiChannels(wiFiDetails);
     }
 
     @Test
     public void testChannelRating() throws Exception {
         // setup
-        int channel = wiFiDetail1.getWiFiSignal().getChannel();
-        fixture = new ChannelRating();
+        WiFiChannel wiFiChannel = wiFiDetail1.getWiFiSignal().getWiFiChannel();
         // execute & validate
-        assertEquals(0, fixture.getCount(channel));
-        assertEquals(Strength.ZERO, fixture.getStrength(channel));
+        assertEquals(0, fixture.getCount(wiFiChannel));
+        assertEquals(Strength.ZERO, fixture.getStrength(wiFiChannel));
     }
 
     @Test
-    public void testGetCountChannelWithWiFiDetail1() throws Exception {
+    public void testGetCount() throws Exception {
         // setup
-        WiFiSignal wiFiSignal = wiFiDetail1.getWiFiSignal();
-        // execute & validate
-        assertEquals(2, fixture.getCount(wiFiSignal.getChannelStart()));
-        assertEquals(3, fixture.getCount(wiFiSignal.getChannel()));
-        assertEquals(2, fixture.getCount(wiFiSignal.getChannelEnd()));
+        fixture.setWiFiChannels(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3));
+        // execute and validate
+        validateCount(2, wiFiDetail1.getWiFiSignal().getWiFiChannel());
+        validateCount(3, wiFiDetail2.getWiFiSignal().getWiFiChannel());
+        validateCount(2, wiFiDetail3.getWiFiSignal().getWiFiChannel());
     }
 
-    @Test
-    public void testGetCountChannelWithWiFiDetail2() throws Exception {
-        // setup
-        WiFiSignal wiFiSignal = wiFiDetail2.getWiFiSignal();
-        // execute & validate
-        assertEquals(1, fixture.getCount(wiFiSignal.getChannelStart()));
-        assertEquals(2, fixture.getCount(wiFiSignal.getChannel()));
-        assertEquals(3, fixture.getCount(wiFiSignal.getChannelEnd()));
-    }
-
-    @Test
-    public void testGetCountChannelWithWiFiDetail3() throws Exception {
-        // setup
-        WiFiSignal wiFiSignal = wiFiDetail3.getWiFiSignal();
-        // execute & validate
-        assertEquals(3, fixture.getCount(wiFiSignal.getChannelStart()));
-        assertEquals(2, fixture.getCount(wiFiSignal.getChannel()));
-        assertEquals(1, fixture.getCount(wiFiSignal.getChannelEnd()));
+    private void validateCount(int expected, @NonNull WiFiChannel wiFiChannel) {
+        assertEquals(expected, fixture.getCount(wiFiChannel));
     }
 
     @Test
     public void testGetStrengthShouldReturnMaximum() throws Exception {
-        assertEquals(wiFiDetail3.getWiFiSignal().getStrength(), fixture.getStrength(wiFiDetail1.getWiFiSignal().getChannel()));
+        // setup
+        WiFiDetail other = makeCopy(wiFiDetail1);
+        fixture.setWiFiChannels(Arrays.asList(other, wiFiDetail1));
+        Strength expected = wiFiDetail1.getWiFiSignal().getStrength();
+        // execute
+        Strength actual = fixture.getStrength(wiFiDetail1.getWiFiSignal().getWiFiChannel());
+        // execute and validate
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGetStrengthWithConnected() throws Exception {
+        // setup
+        wiFiDetail1 = new WiFiDetail(wiFiDetail1, new WiFiAdditional(StringUtils.EMPTY, "192.168.1.1"));
+        WiFiDetail other = makeCopy(wiFiDetail1);
+        fixture.setWiFiChannels(Arrays.asList(other, wiFiDetail1));
+        Strength expected = other.getWiFiSignal().getStrength();
+        // execute
+        Strength actual = fixture.getStrength(wiFiDetail1.getWiFiSignal().getWiFiChannel());
+        // execute and validate
+        assertEquals(expected, actual);
+    }
+
+    private WiFiDetail makeCopy(WiFiDetail wiFiDetail) {
+        return new WiFiDetail("SSID2-OTHER", "BSSID-OTHER", StringUtils.EMPTY,
+                new WiFiSignal(wiFiDetail.getWiFiSignal().getFrequency(), wiFiDetail.getWiFiSignal().getWiFiWidth(), -80),
+                WiFiAdditional.EMPTY);
     }
 
     @Test
     public void testGetBestChannelsSortedInOrderWithMinimumChannels() throws Exception {
         // setup
-        SortedSet<Integer> channels = WiFiBand.GHZ_2.getChannels();
+        List<WiFiChannel> channels = WiFiBand.GHZ_2.getWiFiChannels().getChannels();
+        fixture.setWiFiChannels(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3));
         // execute
         List<ChannelRating.ChannelAPCount> actual = fixture.getBestChannels(channels);
         // validate
-        assertEquals(4, actual.size());
+        assertEquals(5, actual.size());
         validateChannelAPCount(1, 0, actual.get(0));
         validateChannelAPCount(2, 0, actual.get(1));
-        validateChannelAPCount(3, 1, actual.get(2));
-        validateChannelAPCount(4, 1, actual.get(3));
+        validateChannelAPCount(12, 0, actual.get(2));
+        validateChannelAPCount(13, 0, actual.get(3));
+        validateChannelAPCount(14, 0, actual.get(4));
     }
 
-    private void validateChannelAPCount(int expectedChannel, int expectedAPCount, ChannelRating.ChannelAPCount channelAPCount) {
-        assertEquals(expectedChannel, channelAPCount.getChannel());
-        assertEquals(expectedAPCount, channelAPCount.getApCount());
+    private void validateChannelAPCount(int expectedChannel, int expectedCount, ChannelRating.ChannelAPCount channelAPCount) {
+        assertEquals(expectedChannel, channelAPCount.getWiFiChannel().getChannel());
+        assertEquals(expectedCount, channelAPCount.getCount());
     }
 
 }
