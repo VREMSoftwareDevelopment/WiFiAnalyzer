@@ -26,7 +26,7 @@ import com.jjoe64.graphview.Viewport;
 
 class GraphViewBuilder {
     static final int MIN_Y = -100;
-    static final int MAX_Y = -10;
+    static final int MAX_Y = -20;
     static final int CNT_X = 16;
     private static final int CNT_Y = (MAX_Y - MIN_Y) / 10 + 1;
     private final View view;
