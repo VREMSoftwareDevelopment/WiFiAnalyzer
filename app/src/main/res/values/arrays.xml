@@ -17,7 +17,7 @@
 
 <resources>
 
-    <string-array name="wifi_band_array">
+    <string-array name="wifi_band_array" translatable="false">
         <item>2.4 GHz</item>
         <item>5 GHz</item>
     </string-array>
@@ -45,7 +45,7 @@
         <item>Light</item>
     </string-array>
 
-    <string-array name="grap_colors">
+    <string-array name="grap_colors" translatable="false">
         <item>#FB1554</item>
         <item>#74FF89</item>
         <item>#8B1EFC</item>
