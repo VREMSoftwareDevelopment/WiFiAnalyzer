@@ -33,9 +33,9 @@ public enum SortBy {
         this.comparator = comparator;
     }
 
-    public static SortBy find(String value) {
+    public static SortBy find(int index) {
         try {
-            return valueOf(value.toUpperCase());
+            return values()[index];
         } catch (Exception e) {
             return SortBy.STRENGTH;
         }

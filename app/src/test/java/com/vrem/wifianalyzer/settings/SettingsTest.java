@@ -37,6 +37,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
@@ -50,6 +51,7 @@ public class SettingsTest {
     @Mock private SharedPreferences sharedPreferences;
     @Mock private SharedPreferences.Editor editor;
 
+    private String keyValue;
     private Settings fixture;
 
     @Before
@@ -58,9 +60,11 @@ public class SettingsTest {
 
         MainContext.INSTANCE.setContext(context);
 
+        keyValue = "xyz";
         fixture = new Settings();
 
         when(PreferenceManager.getDefaultSharedPreferences(context)).thenReturn(sharedPreferences);
+        when(context.getResources()).thenReturn(resources);
     }
 
     @After
@@ -85,157 +89,109 @@ public class SettingsTest {
     public void testScanInterval() throws Exception {
         // setup
         int defaultValue = 10;
-        String key = "xyz";
         int expected = 11;
-        withResourceKey(R.string.scan_interval_key, key);
+        when(context.getString(R.string.scan_interval_key)).thenReturn(keyValue);
         when(resources.getInteger(R.integer.scan_interval_default)).thenReturn(defaultValue);
-        when(sharedPreferences.getInt(key, defaultValue)).thenReturn(expected);
+        when(sharedPreferences.getInt(keyValue, defaultValue)).thenReturn(expected);
         // execute
         int actual = fixture.getScanInterval();
         // validate
         assertEquals(expected, actual);
-        verifyResourceKey(R.string.scan_interval_key);
-        verify(resources).getInteger(R.integer.scan_interval_default);
-        verify(sharedPreferences).getInt(key, defaultValue);
-    }
-
-    private void withResourceKey(int key, String returnValue) {
-        when(context.getResources()).thenReturn(resources);
-        when(context.getString(key)).thenReturn(returnValue);
-    }
-
-    private void verifyResourceKey(int key) {
         verify(context).getResources();
-        verify(context).getString(key);
+        verify(context).getString(R.string.scan_interval_key);
+        verify(resources).getInteger(R.integer.scan_interval_default);
+        verify(sharedPreferences).getInt(keyValue, defaultValue);
     }
 
     @Test
     public void testGroupBy() throws Exception {
         // setup
-        String defaultValue = "some";
-        String key = "xyz";
-        GroupBy expected = GroupBy.CHANNEL;
-        withResourceKey(R.string.group_by_key, key);
-        when(resources.getString(R.string.group_by_default)).thenReturn(defaultValue);
-        when(sharedPreferences.getString(key, defaultValue)).thenReturn(expected.name());
+        withPreferences(R.string.group_by_key, GroupBy.NONE.ordinal(), GroupBy.CHANNEL.ordinal());
         // execute
         GroupBy actual = fixture.getGroupBy();
         // validate
-        assertEquals(expected, actual);
-        verifyResourceKey(R.string.group_by_key);
-        verify(resources).getString(R.string.group_by_default);
-        verify(sharedPreferences).getString(key, defaultValue);
+        assertEquals(GroupBy.CHANNEL, actual);
+        verifyPreferences(R.string.group_by_key, GroupBy.NONE.ordinal());
     }
 
     @Test
     public void testSortBy() throws Exception {
         // setup
-        String defaultValue = "some";
-        String key = "xyz";
-        SortBy expected = SortBy.STRENGTH;
-        withResourceKey(R.string.sort_by_key, key);
-        when(resources.getString(R.string.sort_by_default)).thenReturn(defaultValue);
-        when(sharedPreferences.getString(key, defaultValue)).thenReturn(expected.name());
+        withPreferences(R.string.sort_by_key, SortBy.STRENGTH.ordinal(), SortBy.SSID.ordinal());
         // execute
         SortBy actual = fixture.getSortBy();
         // validate
-        assertEquals(expected, actual);
-        verifyResourceKey(R.string.sort_by_key);
-        verify(resources).getString(R.string.sort_by_default);
-        verify(sharedPreferences).getString(key, defaultValue);
+        assertEquals(SortBy.SSID, actual);
+        verifyPreferences(R.string.sort_by_key, SortBy.STRENGTH.ordinal());
     }
 
     @Test
     public void testThemeStyle() throws Exception {
         // setup
-        String defaultValue = "some";
-        String key = "xyz";
-        ThemeStyle expected = ThemeStyle.DARK;
-        withResourceKey(R.string.theme_key, key);
-        when(resources.getString(R.string.theme_default)).thenReturn(defaultValue);
-        when(sharedPreferences.getString(key, defaultValue)).thenReturn(expected.name());
+        withPreferences(R.string.theme_key, ThemeStyle.DARK.ordinal(), ThemeStyle.LIGHT.ordinal());
         // execute
         ThemeStyle actual = fixture.getThemeStyle();
         // validate
-        assertEquals(expected, actual);
-        verifyResourceKey(R.string.theme_key);
-        verify(resources).getString(R.string.theme_default);
-        verify(sharedPreferences).getString(key, defaultValue);
+        assertEquals(ThemeStyle.LIGHT, actual);
+        verifyPreferences(R.string.theme_key, ThemeStyle.DARK.ordinal());
     }
 
     @Test
     public void testChannelGraphLegend() throws Exception {
         // setup
-        String defaultValue = "some";
-        String key = "xyz";
-        GraphLegend expected = GraphLegend.RIGHT;
-        withResourceKey(R.string.channel_graph_legend_key, key);
-        when(resources.getString(R.string.channel_graph_legend_default)).thenReturn(defaultValue);
-        when(sharedPreferences.getString(key, defaultValue)).thenReturn(expected.name());
+        withPreferences(R.string.channel_graph_legend_key, GraphLegend.HIDE.ordinal(), GraphLegend.RIGHT.ordinal());
         // execute
         GraphLegend actual = fixture.getChannelGraphLegend();
         // validate
-        assertEquals(expected, actual);
-        verifyResourceKey(R.string.channel_graph_legend_key);
-        verify(resources).getString(R.string.channel_graph_legend_default);
-        verify(sharedPreferences).getString(key, defaultValue);
+        assertEquals(GraphLegend.RIGHT, actual);
+        verifyPreferences(R.string.channel_graph_legend_key, GraphLegend.HIDE.ordinal());
     }
 
     @Test
     public void testTimeGraphLegend() throws Exception {
         // setup
-        String defaultValue = "some";
-        String key = "xyz";
-        GraphLegend expected = GraphLegend.RIGHT;
-        withResourceKey(R.string.time_graph_legend_key, key);
-        when(resources.getString(R.string.time_graph_legend_default)).thenReturn(defaultValue);
-        when(sharedPreferences.getString(key, defaultValue)).thenReturn(expected.name());
+        withPreferences(R.string.time_graph_legend_key, GraphLegend.LEFT.ordinal(), GraphLegend.RIGHT.ordinal());
         // execute
         GraphLegend actual = fixture.getTimeGraphLegend();
         // validate
-        assertEquals(expected, actual);
-        verifyResourceKey(R.string.time_graph_legend_key);
-        verify(resources).getString(R.string.time_graph_legend_default);
-        verify(sharedPreferences).getString(key, defaultValue);
+        assertEquals(GraphLegend.RIGHT, actual);
+        verifyPreferences(R.string.time_graph_legend_key, GraphLegend.LEFT.ordinal());
     }
 
     @Test
     public void testWiFiBand() throws Exception {
         // setup
-        String defaultValue = "some";
-        String key = "xyz";
-        WiFiBand expected = WiFiBand.GHZ_2;
-        withWiFiBand(defaultValue, key, expected);
+        withPreferences(R.string.wifi_band_key, WiFiBand.GHZ_2.ordinal(), WiFiBand.GHZ_5.ordinal());
         // execute
         WiFiBand actual = fixture.getWiFiBand();
         // validate
-        assertEquals(expected, actual);
-        verifyResourceKey(R.string.wifi_band_key);
-        verify(resources).getString(R.string.wifi_band_default);
-        verify(sharedPreferences).getString(key, defaultValue);
-    }
-
-    private void withWiFiBand(String defaultValue, String key, WiFiBand expected) {
-        withResourceKey(R.string.wifi_band_key, key);
-        when(resources.getString(R.string.wifi_band_default)).thenReturn(defaultValue);
-        when(sharedPreferences.getString(key, defaultValue)).thenReturn(expected.name());
+        assertEquals(WiFiBand.GHZ_5, actual);
+        verifyPreferences(R.string.wifi_band_key, WiFiBand.GHZ_2.ordinal());
     }
 
     @Test
     public void testToggleWiFiBand() throws Exception {
         // setup
-        String defaultValue = "some";
-        String key = "xyz";
-        WiFiBand wiFiBand = WiFiBand.GHZ_2;
-        withWiFiBand(defaultValue, key, wiFiBand);
+        withPreferences(R.string.wifi_band_key, WiFiBand.GHZ_2.ordinal(), WiFiBand.GHZ_5.ordinal());
         when(sharedPreferences.edit()).thenReturn(editor);
-        withResourceKey(R.string.wifi_band_key, wiFiBand.getBand());
         // execute
         fixture.toggleWiFiBand();
         // validate
+        verify(context, times(2)).getString(R.string.wifi_band_key);
+        verify(sharedPreferences).getString(keyValue, "" + WiFiBand.GHZ_2.ordinal());
         verify(sharedPreferences).edit();
-        verify(editor).putString(wiFiBand.getBand(), wiFiBand.toggle().getBand());
+        verify(editor).putInt(keyValue, WiFiBand.GHZ_5.toggle().ordinal());
         verify(editor).apply();
+    }
+
+    void withPreferences(int keyIndex, int defaultValue, int returnValue) {
+        when(context.getString(keyIndex)).thenReturn(keyValue);
+        when(sharedPreferences.getString(keyValue, "" + defaultValue)).thenReturn("" + returnValue);
+    }
+
+    void verifyPreferences(int keyIndex, int defaultValue) {
+        verify(context).getString(keyIndex);
+        verify(sharedPreferences).getString(keyValue, "" + defaultValue);
     }
 
 }

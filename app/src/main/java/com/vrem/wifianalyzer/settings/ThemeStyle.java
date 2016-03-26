@@ -30,11 +30,11 @@ public enum ThemeStyle {
         this.themeDeviceDefaultStyle = themeDeviceDefaultStyle;
     }
 
-    public static ThemeStyle find(String themeStyle) {
+    public static ThemeStyle find(int index) {
         try {
-            return valueOf(themeStyle.toUpperCase());
+            return values()[index];
         } catch (Exception e) {
-            return LIGHT;
+            return DARK;
         }
     }
 

@@ -46,18 +46,12 @@ public class GroupByTest {
 
     @Test
     public void testFind() throws Exception {
-        Assert.assertEquals(GroupBy.NONE, GroupBy.find(null));
-        assertEquals(GroupBy.NONE, GroupBy.find(""));
-        assertEquals(GroupBy.NONE, GroupBy.find("xYz"));
+        Assert.assertEquals(GroupBy.NONE, GroupBy.find(-1));
+        assertEquals(GroupBy.NONE, GroupBy.find(3));
 
-        assertEquals(GroupBy.NONE, GroupBy.find(GroupBy.NONE.name()));
-        assertEquals(GroupBy.NONE, GroupBy.find(GroupBy.NONE.name().toLowerCase()));
-
-        assertEquals(GroupBy.SSID, GroupBy.find(GroupBy.SSID.name()));
-        assertEquals(GroupBy.SSID, GroupBy.find(GroupBy.SSID.name().toLowerCase()));
-
-        assertEquals(GroupBy.CHANNEL, GroupBy.find(GroupBy.CHANNEL.name()));
-        assertEquals(GroupBy.CHANNEL, GroupBy.find(GroupBy.CHANNEL.name().toLowerCase()));
+        assertEquals(GroupBy.NONE, GroupBy.find(GroupBy.NONE.ordinal()));
+        assertEquals(GroupBy.SSID, GroupBy.find(GroupBy.SSID.ordinal()));
+        assertEquals(GroupBy.CHANNEL, GroupBy.find(GroupBy.CHANNEL.ordinal()));
     }
 
     @Test

@@ -35,9 +35,9 @@ public enum GroupBy {
         this.groupBy = groupBy;
     }
 
-    public static GroupBy find(String value) {
+    public static GroupBy find(int index) {
         try {
-            return valueOf(value.toUpperCase());
+            return values()[index];
         } catch (Exception e) {
             return GroupBy.NONE;
         }

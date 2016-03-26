@@ -31,9 +31,9 @@ public enum GraphLegend {
         this.display = display;
     }
 
-    public static GraphLegend find(String value, @NonNull GraphLegend defaultValue) {
+    public static GraphLegend find(int index, @NonNull GraphLegend defaultValue) {
         try {
-            return valueOf(value.toUpperCase());
+            return values()[index];
         } catch (Exception e) {
             return defaultValue;
         }

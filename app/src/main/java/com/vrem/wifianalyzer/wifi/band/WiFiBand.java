@@ -43,13 +43,12 @@ public enum WiFiBand {
         return WiFiBand.GHZ_2;
     }
 
-    public static WiFiBand findByBand(String band) {
-        for (WiFiBand wiFiBand : WiFiBand.values()) {
-            if (wiFiBand.getBand().equals(band)) {
-                return wiFiBand;
-            }
+    public static WiFiBand find(int index) {
+        try {
+            return values()[index];
+        } catch (Exception e) {
+            return WiFiBand.GHZ_2;
         }
-        return WiFiBand.GHZ_2;
     }
 
     private boolean inRange(int value) {

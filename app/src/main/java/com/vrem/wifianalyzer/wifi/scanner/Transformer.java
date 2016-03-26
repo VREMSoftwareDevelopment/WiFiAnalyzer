@@ -105,7 +105,8 @@ public class Transformer {
         return wiFiBand.getWiFiChannels().getWiFiChannelFirst().getFrequency();
     }
     private int getFrequencyMiddle(@NonNull WiFiBand wiFiBand) {
-        return (getFrequencyStart(wiFiBand) + getFrequencyEnd(wiFiBand)) / 2;
+        int frequency = (getFrequencyStart(wiFiBand) + getFrequencyEnd(wiFiBand)) / 2;
+        return wiFiBand.getWiFiChannels().findWiFiChannelInRange(frequency).getFrequency();
     }
     private int getFrequencyEnd(@NonNull WiFiBand wiFiBand) {
         return wiFiBand.getWiFiChannels().getWiFiChannelLast().getFrequency();

@@ -16,7 +16,6 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -42,50 +41,46 @@ public class Settings {
     }
 
     public int getScanInterval() {
-        Context context = mainContext.getContext();
-        int defaultValue = context.getResources().getInteger(R.integer.scan_interval_default);
-        return getSharedPreferences().getInt(context.getString(R.string.scan_interval_key), defaultValue);
+        int defaultValue = mainContext.getContext().getResources().getInteger(R.integer.scan_interval_default);
+        return getSharedPreferences().getInt(mainContext.getContext().getString(R.string.scan_interval_key), defaultValue);
     }
 
     public SortBy getSortBy() {
-        Context context = mainContext.getContext();
-        String defaultValue = context.getResources().getString(R.string.sort_by_default);
-        return SortBy.find(getSharedPreferences().getString(context.getString(R.string.sort_by_key), defaultValue));
+        return SortBy.find(getInt(R.string.sort_by_key, SortBy.STRENGTH.ordinal()));
     }
 
     public GroupBy getGroupBy() {
-        Context context = mainContext.getContext();
-        String defaultValue = context.getResources().getString(R.string.group_by_default);
-        return GroupBy.find(getSharedPreferences().getString(context.getString(R.string.group_by_key), defaultValue));
+        return GroupBy.find(getInt(R.string.group_by_key, GroupBy.NONE.ordinal()));
     }
 
     public GraphLegend getChannelGraphLegend() {
-        Context context = mainContext.getContext();
-        String defaultValue = context.getResources().getString(R.string.channel_graph_legend_default);
-        return GraphLegend.find(getSharedPreferences().getString(context.getString(R.string.channel_graph_legend_key), defaultValue), GraphLegend.HIDE);
+        return GraphLegend.find(getInt(R.string.channel_graph_legend_key, GraphLegend.HIDE.ordinal()), GraphLegend.HIDE);
     }
 
     public GraphLegend getTimeGraphLegend() {
-        Context context = mainContext.getContext();
-        String defaultValue = context.getResources().getString(R.string.time_graph_legend_default);
-        return GraphLegend.find(getSharedPreferences().getString(context.getString(R.string.time_graph_legend_key), defaultValue), GraphLegend.LEFT);
+        return GraphLegend.find(getInt(R.string.time_graph_legend_key, GraphLegend.LEFT.ordinal()), GraphLegend.LEFT);
     }
 
     public WiFiBand getWiFiBand() {
-        Context context = mainContext.getContext();
-        String defaultValue = context.getResources().getString(R.string.wifi_band_default);
-        return WiFiBand.findByBand(getSharedPreferences().getString(context.getString(R.string.wifi_band_key), defaultValue));
+        return WiFiBand.find(getInt(R.string.wifi_band_key, WiFiBand.GHZ_2.ordinal()));
     }
 
     public ThemeStyle getThemeStyle() {
-        Context context = mainContext.getContext();
-        String defaultValue = context.getResources().getString(R.string.theme_default);
-        return ThemeStyle.find(getSharedPreferences().getString(context.getString(R.string.theme_key), defaultValue));
+        return ThemeStyle.find(getInt(R.string.theme_key, ThemeStyle.DARK.ordinal()));
     }
 
     public void toggleWiFiBand() {
         SharedPreferences.Editor editor = getSharedPreferences().edit();
-        editor.putString(mainContext.getContext().getString(R.string.wifi_band_key), getWiFiBand().toggle().getBand());
+        editor.putString(mainContext.getContext().getString(R.string.wifi_band_key), ""+getWiFiBand().toggle().ordinal());
         editor.apply();
     }
+
+    private int getInt(int key, int defaultValue) {
+        try {
+            return Integer.parseInt(getSharedPreferences().getString(mainContext.getContext().getString(key), "" + defaultValue));
+        } catch (Exception e) {
+            return defaultValue;
+        }
+    }
+
 }

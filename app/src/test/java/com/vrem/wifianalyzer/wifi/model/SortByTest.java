@@ -16,7 +16,6 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -38,17 +37,11 @@ public class SortByTest {
 
     @Test
     public void testFind() throws Exception {
-        Assert.assertEquals(SortBy.STRENGTH, SortBy.find(null));
-        assertEquals(SortBy.STRENGTH, SortBy.find(""));
-        assertEquals(SortBy.STRENGTH, SortBy.find("xYz"));
+        assertEquals(SortBy.STRENGTH, SortBy.find(-1));
+        assertEquals(SortBy.STRENGTH, SortBy.find(3));
 
-        assertEquals(SortBy.STRENGTH, SortBy.find(SortBy.STRENGTH.name()));
-        assertEquals(SortBy.STRENGTH, SortBy.find(SortBy.STRENGTH.name().toLowerCase()));
-
-        assertEquals(SortBy.SSID, SortBy.find(SortBy.SSID.name()));
-        assertEquals(SortBy.SSID, SortBy.find(SortBy.SSID.name().toLowerCase()));
-
-        assertEquals(SortBy.CHANNEL, SortBy.find(SortBy.CHANNEL.name()));
-        assertEquals(SortBy.CHANNEL, SortBy.find(SortBy.CHANNEL.name().toLowerCase()));
+        assertEquals(SortBy.STRENGTH, SortBy.find(SortBy.STRENGTH.ordinal()));
+        assertEquals(SortBy.SSID, SortBy.find(SortBy.SSID.ordinal()));
+        assertEquals(SortBy.CHANNEL, SortBy.find(SortBy.CHANNEL.ordinal()));
     }
 }

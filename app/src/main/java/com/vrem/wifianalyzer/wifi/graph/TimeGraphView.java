@@ -25,7 +25,6 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import com.vrem.wifianalyzer.wifi.graph.wrapper.GraphColor;
 import com.vrem.wifianalyzer.wifi.graph.wrapper.GraphViewBuilder;
 import com.vrem.wifianalyzer.wifi.graph.wrapper.GraphViewWrapper;

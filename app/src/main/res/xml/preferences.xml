@@ -17,61 +17,61 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <ListPreference
-        android:defaultValue="@string/wifi_band_default"
+        android:defaultValue="0"
         android:entries="@array/wifi_band_array"
-        android:entryValues="@array/wifi_band_array"
+        android:entryValues="@array/wifi_band_index_array"
         android:key="@string/wifi_band_key"
         android:persistent="true"
         android:summary="@string/wifi_band_summary"
         android:title="@string/wifi_band_title" />
 
     <com.vrem.wifianalyzer.settings.ScanIntervalPreference
-        android:defaultValue="@integer/scan_interval_default"
+        android:defaultValue="15"
         android:key="@string/scan_interval_key"
         android:persistent="true"
         android:summary="@string/scan_interval_summary"
         android:title="@string/scan_interval_title" />
 
     <ListPreference
-        android:defaultValue="@string/sort_by_default"
+        android:defaultValue="0"
         android:entries="@array/sort_by_array"
-        android:entryValues="@array/sort_by_array"
+        android:entryValues="@array/sort_by_index_array"
         android:key="@string/sort_by_key"
         android:persistent="true"
         android:summary="@string/sort_by_summary"
         android:title="@string/sort_by_title" />
 
     <ListPreference
-        android:defaultValue="@string/group_by_default"
+        android:defaultValue="0"
         android:entries="@array/group_by_array"
-        android:entryValues="@array/group_by_array"
+        android:entryValues="@array/group_by_index_array"
         android:key="@string/group_by_key"
         android:persistent="true"
         android:summary="@string/group_by_summary"
         android:title="@string/group_by_title" />
 
     <ListPreference
-        android:defaultValue="@string/channel_graph_legend_default"
+        android:defaultValue="2"
         android:entries="@array/graph_legend_array"
-        android:entryValues="@array/graph_legend_array"
+        android:entryValues="@array/graph_legend_index_array"
         android:key="@string/channel_graph_legend_key"
         android:persistent="true"
         android:summary="@string/channel_graph_legend_summary"
         android:title="@string/channel_graph_legend_title" />
 
     <ListPreference
-        android:defaultValue="@string/time_graph_legend_default"
+        android:defaultValue="0"
         android:entries="@array/graph_legend_array"
-        android:entryValues="@array/graph_legend_array"
+        android:entryValues="@array/graph_legend_index_array"
         android:key="@string/time_graph_legend_key"
         android:persistent="true"
         android:summary="@string/time_graph_legend_summary"
         android:title="@string/time_graph_legend_title" />
 
     <ListPreference
-        android:defaultValue="@string/theme_default"
+        android:defaultValue="0"
         android:entries="@array/theme_array"
-        android:entryValues="@array/theme_array"
+        android:entryValues="@array/theme_index_array"
         android:key="@string/theme_key"
         android:persistent="true"
         android:summary="@string/theme_summary"
