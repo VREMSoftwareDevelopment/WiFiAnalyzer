@@ -16,45 +16,109 @@
 
 package com.vrem.wifianalyzer.wifi.graph;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
-import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
-import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class ChannelGraphAdapter implements UpdateNotifier {
-    private final List<ChannelGraphView> channelGraphViews;
+class ChannelGraphAdapter extends GraphAdapter {
+    private static final float TEXT_SIZE_ADJUSTMENT = 0.8f;
+
+    private final MainContext mainContext = MainContext.INSTANCE;
+    private final List<Button> navigationItems = new ArrayList<>();
 
     ChannelGraphAdapter() {
-        channelGraphViews = new ArrayList<>();
-        for (WiFiBand wiFiBand : WiFiBand.values()) {
-            channelGraphViews.add(makeChannelGraphView(wiFiBand));
-        }
-        MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
+        super();
+        makeNavigationItems();
     }
 
-    List<GraphView> getGraphViews() {
-        List<GraphView> result = new ArrayList<>();
-        for (ChannelGraphView channelGraphView : channelGraphViews) {
-            result.add(channelGraphView.getGraphView());
+    @NonNull
+    @Override
+    List<GraphViewNotifier> makeGraphViewNotifiers() {
+        List<GraphViewNotifier> graphViewNotifiers = new ArrayList<>();
+        for (WiFiBand wiFiBand : WiFiBand.values()) {
+            for (Pair<WiFiChannel, WiFiChannel> bounds : wiFiBand.getWiFiChannels().getChannelsSet()) {
+                graphViewNotifiers.add(new ChannelGraphView(wiFiBand, bounds));
+            }
         }
-        return result;
+        return graphViewNotifiers;
+    }
+
+    List<Button> getNavigationItems() {
+        return navigationItems;
     }
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
-        for (ChannelGraphView channelGraphView : channelGraphViews) {
-            channelGraphView.update(wiFiData);
+        super.update(wiFiData);
+        WiFiBand wiFiBand = mainContext.getSettings().getWiFiBand();
+        for (Button button : navigationItems) {
+            button.setVisibility(wiFiBand.isGHZ_5() ? View.VISIBLE : View.GONE);
         }
     }
 
-    protected ChannelGraphView makeChannelGraphView(@NonNull WiFiBand wiFiBand) {
-        return new ChannelGraphView(wiFiBand);
+    private void makeNavigationItems() {
+        Context context = mainContext.getContext();
+        for (Pair<WiFiChannel, WiFiChannel> pair : WiFiBand.GHZ_5.getWiFiChannels().getChannelsSet()) {
+            navigationItems.add(makeNavigationItem(context, pair));
+        }
+    }
+
+    private Button makeNavigationItem(@NonNull Context context, @NonNull Pair<WiFiChannel, WiFiChannel> pair) {
+        Button button = new Button(context);
+        String text = pair.first.getChannel() + " - " + pair.second.getChannel();
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, TEXT_SIZE_ADJUSTMENT);
+        params.setMargins(10, -30, 10, -30);
+        button.setLayoutParams(params);
+        button.setVisibility(View.GONE);
+        button.setText(text);
+        button.setOnClickListener(new ButtonOnClickListener(pair));
+        setSelectedButton(button, pair.equals(mainContext.getBoundsGHZ_5()));
+        return button;
+    }
+
+    private void setButtonsBackgroundColor(View view) {
+        for (Button current : getNavigationItems()) {
+            setSelectedButton(current, current.equals(view));
+        }
+    }
+
+    private void setSelectedButton(Button button, boolean selected) {
+        if (selected) {
+            button.setBackgroundColor(mainContext.getContext().getResources().getColor(R.color.connected));
+            button.setSelected(true);
+        } else {
+            button.setBackgroundColor(mainContext.getContext().getResources().getColor(R.color.connected_background));
+            button.setSelected(false);
+        }
+    }
+
+    class ButtonOnClickListener implements OnClickListener {
+        private final Pair<WiFiChannel, WiFiChannel> pair;
+
+        ButtonOnClickListener(@NonNull Pair<WiFiChannel, WiFiChannel> pair) {
+            this.pair = pair;
+        }
+
+        @Override
+        public void onClick(View view) {
+            setButtonsBackgroundColor(view);
+            mainContext.setBoundsGHZ_5(pair);
+            mainContext.getScanner().update();
+        }
     }
 
 }

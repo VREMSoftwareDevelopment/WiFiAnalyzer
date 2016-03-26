@@ -75,6 +75,8 @@ public class GraphViewBuilder {
         viewport.setYAxisBoundsManual(true);
         viewport.setMinY(MIN_Y);
         viewport.setMaxY(MAX_Y);
+
+        viewport.setXAxisBoundsManual(true);
     }
 
     private void setGridLabelRenderer(@NonNull GridLabelRenderer gridLabelRenderer) {

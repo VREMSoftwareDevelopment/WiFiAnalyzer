@@ -18,7 +18,6 @@ package com.vrem.wifianalyzer.wifi.graph.wrapper;
 
 import android.app.Dialog;
 import android.support.annotation.NonNull;
-import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
@@ -30,8 +29,6 @@ import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.AccessPointsDetail;
-import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import com.vrem.wifianalyzer.wifi.graph.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
@@ -39,7 +36,7 @@ import java.util.List;
 import java.util.Set;
 
 public class GraphViewWrapper {
-    private static final float TEXT_SIZE_ADJUSTMENT = 0.90f;
+    private static final float TEXT_SIZE_ADJUSTMENT = 0.9f;
     private final MainContext mainContext = MainContext.INSTANCE;
     private final GraphView graphView;
     private final SeriesCache seriesCache;
@@ -47,15 +44,10 @@ public class GraphViewWrapper {
     private GraphLegend graphLegend;
 
     public GraphViewWrapper(@NonNull GraphView graphView, @NonNull GraphLegend graphLegend) {
-        this(graphView, graphLegend, null);
-    }
-
-    public GraphViewWrapper(@NonNull GraphView graphView, @NonNull GraphLegend graphLegend, WiFiBand wiFiBand) {
         this.graphView = graphView;
         this.graphLegend = graphLegend;
         this.seriesCache = new SeriesCache();
         this.graphColors = new GraphColors();
-        setViewPortX(wiFiBand);
     }
 
     public void removeSeries(@NonNull Set<WiFiDetail> newSeries) {
@@ -81,6 +73,22 @@ public class GraphViewWrapper {
         return current.equals(series);
     }
 
+    public void setViewport() {
+        Viewport viewport = graphView.getViewport();
+        viewport.setMinX(0);
+        viewport.setMaxX(getViewportCntX());
+    }
+
+    public void setViewport(int minX, int maxX) {
+        Viewport viewport = graphView.getViewport();
+        viewport.setMinX(minX);
+        viewport.setMaxX(maxX);
+    }
+
+    public int getViewportCntX() {
+        return graphView.getGridLabelRenderer().getNumHorizontalLabels() - 1;
+    }
+
     public boolean addSeries(@NonNull WiFiDetail wiFiDetail, @NonNull BaseSeries<DataPoint> series, DataPoint[] data) {
         BaseSeries<DataPoint> current = seriesCache.add(wiFiDetail, series);
         boolean added = isSameSeries(series, current);
@@ -102,33 +110,6 @@ public class GraphViewWrapper {
         graphView.addSeries(series);
     }
 
-    private void setViewPortX(WiFiBand wiFiBand) {
-        Viewport viewport = graphView.getViewport();
-        viewport.setXAxisBoundsManual(true);
-        int minX = calculateViewPortMinX(wiFiBand);
-        viewport.setMinX(minX);
-        viewport.setMaxX(calculateViewPortMaxX(wiFiBand, minX));
-    }
-
-    private int calculateViewPortMinX(WiFiBand wiFiBand) {
-        if (wiFiBand == null) {
-            return 0;
-        }
-        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
-        return wiFiChannels.getWiFiChannelFirst().getFrequency() - wiFiChannels.getFrequencyOffset();
-    }
-
-    private int calculateViewPortMaxX(WiFiBand wiFiBand, int offset) {
-        if (wiFiBand == null) {
-            return offset + getViewPortMaxX();
-        }
-        return offset + (getViewPortMaxX() * wiFiBand.getWiFiChannels().getFrequencySpread());
-    }
-
-    private int getViewPortMaxX() {
-        return graphView.getGridLabelRenderer().getNumHorizontalLabels() - 1;
-    }
-
     public void updateLegend(@NonNull GraphLegend graphLegend) {
         resetLegendRenderer(graphLegend);
         LegendRenderer legendRenderer = graphView.getLegendRenderer();
@@ -146,8 +127,8 @@ public class GraphViewWrapper {
         }
     }
 
-    public void setVisibility(@NonNull WiFiBand wiFiBand) {
-        graphView.setVisibility(wiFiBand.equals(mainContext.getSettings().getWiFiBand()) ? View.VISIBLE : View.GONE);
+    public void setVisibility(int visibility) {
+        graphView.setVisibility(visibility);
     }
 
     public GraphColor getColor() {

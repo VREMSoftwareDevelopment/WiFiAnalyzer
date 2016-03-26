@@ -20,11 +20,13 @@ import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public enum MainContext {
@@ -39,6 +41,7 @@ public enum MainContext {
     private LayoutInflater layoutInflater;
     private Database database;
     private Logger logger;
+    private Pair<WiFiChannel, WiFiChannel> boundsGHZ_5;
 
     public Settings getSettings() {
         return settings;
@@ -112,4 +115,11 @@ public enum MainContext {
         this.logger = logger;
     }
 
+    public Pair<WiFiChannel, WiFiChannel> getBoundsGHZ_5() {
+        return boundsGHZ_5;
+    }
+
+    public void setBoundsGHZ_5(@NonNull Pair<WiFiChannel, WiFiChannel> boundsGHZ_5) {
+        this.boundsGHZ_5 = boundsGHZ_5;
+    }
 }

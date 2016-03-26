@@ -18,6 +18,7 @@ package com.vrem.wifianalyzer.wifi.graph;
 
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -34,7 +35,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import java.util.Set;
 import java.util.TreeSet;
 
-class TimeGraphView {
+class TimeGraphView implements GraphViewNotifier {
     private static final int MAX_SCAN_COUNT = 400;
     private final MainContext mainContext = MainContext.INSTANCE;
 
@@ -46,8 +47,7 @@ class TimeGraphView {
     TimeGraphView(@NonNull WiFiBand wiFiBand) {
         this.wiFiBand = wiFiBand;
         this.scanCount = this.xValue = 0;
-        this.graphViewWrapper = new GraphViewWrapper(
-                makeGraphView(), mainContext.getSettings().getTimeGraphLegend());
+        this.graphViewWrapper = new GraphViewWrapper(makeGraphView(), mainContext.getSettings().getTimeGraphLegend());
         initialize();
     }
 
@@ -60,7 +60,8 @@ class TimeGraphView {
                 .build();
     }
 
-    void update(@NonNull WiFiData wiFiData) {
+    @Override
+    public void update(@NonNull WiFiData wiFiData) {
         Set<WiFiDetail> newSeries = new TreeSet<>();
         for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, mainContext.getSettings().getSortBy())) {
             newSeries.add(wiFiDetail);
@@ -68,11 +69,15 @@ class TimeGraphView {
         }
         graphViewWrapper.removeSeries(newSeries);
         graphViewWrapper.updateLegend(mainContext.getSettings().getTimeGraphLegend());
-        graphViewWrapper.setVisibility(wiFiBand);
+        graphViewWrapper.setVisibility(isSelected() ? View.VISIBLE : View.GONE);
         xValue++;
         if (scanCount < MAX_SCAN_COUNT) {
             scanCount++;
         }
+    }
+
+    private boolean isSelected() {
+        return wiFiBand.equals(mainContext.getSettings().getWiFiBand());
     }
 
     private void addData(@NonNull WiFiDetail wiFiDetail) {
@@ -85,6 +90,8 @@ class TimeGraphView {
     }
 
     private void initialize() {
+        graphViewWrapper.setViewport();
+
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
                 new DataPoint(0, GraphViewBuilder.MIN_Y),
                 new DataPoint(GraphViewBuilder.CNT_X - 1, GraphViewBuilder.MIN_Y)
@@ -94,7 +101,8 @@ class TimeGraphView {
         graphViewWrapper.addSeries(series);
     }
 
-    GraphView getGraphView() {
+    @Override
+    public GraphView getGraphView() {
         return graphViewWrapper.getGraphView();
     }
 }

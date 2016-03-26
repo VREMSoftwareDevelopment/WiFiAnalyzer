@@ -36,7 +36,7 @@ public enum WiFiBand {
 
     public static WiFiBand findByFrequency(int frequency) {
         for (WiFiBand wiFiBand : WiFiBand.values()) {
-            if (wiFiBand.inRange(frequency)) {
+            if (wiFiBand.isInRange(frequency)) {
                 return wiFiBand;
             }
         }
@@ -51,7 +51,7 @@ public enum WiFiBand {
         }
     }
 
-    private boolean inRange(int value) {
+    private boolean isInRange(int value) {
         return value >= frequencyStart && value <= frequencyEnd;
     }
 

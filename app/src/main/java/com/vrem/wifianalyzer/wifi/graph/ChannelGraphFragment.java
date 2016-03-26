@@ -22,7 +22,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ViewSwitcher;
+import android.widget.LinearLayout;
+import android.widget.ViewFlipper;
 
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContext;
@@ -39,13 +40,25 @@ public class ChannelGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.graphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        ViewSwitcher viewSwitcher = (ViewSwitcher) swipeRefreshLayout.findViewById(R.id.graphSwitcher);
         ChannelGraphAdapter channelGraphAdapter = new ChannelGraphAdapter();
-        for (GraphView graphView : channelGraphAdapter.getGraphViews()) {
-            viewSwitcher.addView(graphView);
-        }
+        addGraphViews(swipeRefreshLayout, channelGraphAdapter);
+        addGraphNavigation(view, channelGraphAdapter);
 
         return view;
+    }
+
+    private void addGraphNavigation(View view, ChannelGraphAdapter channelGraphAdapter) {
+        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.graphNavigation);
+        for (View navigation : channelGraphAdapter.getNavigationItems()) {
+            linearLayout.addView(navigation);
+        }
+    }
+
+    private void addGraphViews(View view, ChannelGraphAdapter channelGraphAdapter) {
+        ViewFlipper viewFlipper = (ViewFlipper) view.findViewById(R.id.graphFlipper);
+        for (GraphView graphView : channelGraphAdapter.getGraphViews()) {
+            viewFlipper.addView(graphView);
+        }
     }
 
     private void refresh() {

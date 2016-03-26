@@ -18,6 +18,7 @@ package com.vrem.wifianalyzer.wifi.graph;
 
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
@@ -32,11 +33,13 @@ import java.util.Locale;
 
 class ChannelAxisLabel implements LabelFormatter {
     private final WiFiBand wiFiBand;
+    private final Pair<WiFiChannel, WiFiChannel> bounds;
     private final Resources resources;
 
-    ChannelAxisLabel(@NonNull WiFiBand wiFiBand, @NonNull Resources resources) {
-        this.resources = resources;
+    ChannelAxisLabel(@NonNull WiFiBand wiFiBand, @NonNull Pair<WiFiChannel, WiFiChannel> bounds, @NonNull Resources resources) {
         this.wiFiBand = wiFiBand;
+        this.bounds = bounds;
+        this.resources = resources;
     }
 
     @Override
@@ -60,18 +63,19 @@ class ChannelAxisLabel implements LabelFormatter {
     }
 
     private String findChannel(int value) {
-        WiFiChannel wiFiChannel = wiFiBand.getWiFiChannels().findWiFiChannel(value);
+        WiFiChannel wiFiChannel = wiFiBand.getWiFiChannels().findWiFiChannel(value, bounds);
         if (wiFiChannel == WiFiChannel.UNKNOWN) {
-            wiFiChannel = wiFiBand.getWiFiChannels().findWiFiChannelInRange(value);
+            wiFiChannel = wiFiBand.getWiFiChannels().findWiFiChannelInRange(value, bounds);
         }
         if (wiFiChannel == WiFiChannel.UNKNOWN) {
             return StringUtils.EMPTY;
         }
         Locale locale = resources.getConfiguration().locale;
-        if (!WiFiChannelCountry.isChannelAvailable(locale, wiFiBand.isGHZ_5(), wiFiChannel.getChannel())) {
+        int channel = wiFiChannel.getChannel();
+        if (!WiFiChannelCountry.isChannelAvailable(locale, wiFiBand.isGHZ_5(), channel)) {
             return StringUtils.EMPTY;
         }
-        return "" + wiFiChannel.getChannel();
+        return "" + channel;
     }
 
 }

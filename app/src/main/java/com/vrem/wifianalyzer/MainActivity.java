@@ -42,6 +42,7 @@ import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.ConnectionView;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import org.apache.commons.lang3.StringUtils;
@@ -88,13 +89,15 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private void initializeMainContext(@NonNull Context context) {
         mainContext.setContext(context);
         mainContext.setDatabase(new Database());
-        mainContext.setSettings(new Settings());
+        Settings settings = new Settings();
+        mainContext.setSettings(settings);
         mainContext.setHandler(new Handler());
         mainContext.setScanner(new Scanner());
         mainContext.setVendorService(new VendorService());
         mainContext.setWifiManager((WifiManager) context.getSystemService(Context.WIFI_SERVICE));
         mainContext.setLayoutInflater((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
         mainContext.setLogger(new Logger());
+        mainContext.setBoundsGHZ_5(WiFiBand.GHZ_5.getWiFiChannels().getChannelsSet().get(0));
     }
 
     @Override

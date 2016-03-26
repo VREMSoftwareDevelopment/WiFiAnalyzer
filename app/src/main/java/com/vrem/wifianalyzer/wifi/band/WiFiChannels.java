@@ -92,7 +92,8 @@ NOT SUPPORTED YET
             new WiFiChannel(161, 5805),
             new WiFiChannel(165, 5825)
     };
-    private final static int FREQUENCY_SPREAD = 5;
+    private static final int ALLOWED_RANGE = 2;
+    private static final int FREQUENCY_SPREAD = 5;
     private List<WiFiChannel> channels;
     private int frequencyOffset;
     private List<Pair<WiFiChannel, WiFiChannel>> channelsSet;
@@ -118,7 +119,7 @@ NOT SUPPORTED YET
         result.bandGHZ_5 = false;
         result.frequencyOffset = FREQUENCY_SPREAD * 2;
         result.channels = Arrays.asList(CHANNELS_GHZ_2);
-        result.channelsSet = new ArrayList<>();
+        result.channelsSet = Arrays.asList(new Pair<>(CHANNELS_GHZ_2[0], CHANNELS_GHZ_2[CHANNELS_GHZ_2.length - 1]));
         return result;
     }
 
@@ -141,11 +142,29 @@ NOT SUPPORTED YET
 
     public WiFiChannel findWiFiChannelInRange(int frequency) {
         for (WiFiChannel wiFiChannel : channels) {
-            if (frequency >= wiFiChannel.getFrequency() - 2 && frequency <= wiFiChannel.getFrequency() + 2) {
+            if (frequency >= wiFiChannel.getFrequency() - ALLOWED_RANGE && frequency <= wiFiChannel.getFrequency() + ALLOWED_RANGE) {
                 return wiFiChannel;
             }
         }
         return WiFiChannel.UNKNOWN;
+    }
+
+    public WiFiChannel findWiFiChannel(int frequency, @NonNull Pair<WiFiChannel, WiFiChannel> bounds) {
+        if (isInRange(frequency, bounds)) {
+            return findWiFiChannel(frequency);
+        }
+        return WiFiChannel.UNKNOWN;
+    }
+
+    public WiFiChannel findWiFiChannelInRange(int frequency, @NonNull Pair<WiFiChannel, WiFiChannel> bounds) {
+        if (isInRange(frequency, bounds)) {
+            return findWiFiChannelInRange(frequency);
+        }
+        return WiFiChannel.UNKNOWN;
+    }
+
+    public boolean isInRange(int frequency, @NonNull Pair<WiFiChannel, WiFiChannel> bounds) {
+        return frequency >= bounds.first.getFrequency() - WiFiChannels.ALLOWED_RANGE && frequency <= bounds.second.getFrequency() + WiFiChannels.ALLOWED_RANGE;
     }
 
     public int getFrequencySpread() {

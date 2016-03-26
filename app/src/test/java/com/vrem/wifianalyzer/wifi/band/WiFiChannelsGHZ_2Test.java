@@ -16,13 +16,14 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
+import android.support.v4.util.Pair;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class WiFiChannelsGHZ_2Test {
 
@@ -74,7 +75,14 @@ public class WiFiChannelsGHZ_2Test {
 
     @Test
     public void testGetChannelsSet() throws Exception {
-        assertTrue(fixture.getChannelsSet().isEmpty());
+        assertEquals(1, fixture.getChannelsSet().size());
+        validatePair(1, 14);
+    }
+
+    private void validatePair(int expectedFirst, int expectedSecond) {
+        Pair<WiFiChannel, WiFiChannel> pair = fixture.getChannelsSet().get(0);
+        assertEquals(expectedFirst, pair.first.getChannel());
+        assertEquals(expectedSecond, pair.second.getChannel());
     }
 
     @Test
