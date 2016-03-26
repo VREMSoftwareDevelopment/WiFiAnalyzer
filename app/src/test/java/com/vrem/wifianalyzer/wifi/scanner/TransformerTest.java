@@ -16,10 +16,13 @@
 
 package com.vrem.wifianalyzer.wifi.scanner;
 
+import android.content.Context;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 
+import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -66,6 +69,8 @@ public class TransformerTest {
     private ScanResult scanResult2;
     @Mock
     private ScanResult scanResult3;
+    @Mock
+    private Context context;
 
     private List<ScanResult> scanResults;
     private List<WifiConfiguration> wifiConfigurations;
@@ -73,6 +78,9 @@ public class TransformerTest {
 
     @Before
     public void setUp() throws Exception {
+        MainContext.INSTANCE.setContext(context);
+        when(context.getString(R.string.app_name)).thenReturn(" " + Transformer.WI_FI_ANALYZER_BETA);
+
         scanResults = Arrays.asList(scanResult1, scanResult2, scanResult3);
         wifiConfigurations = Arrays.asList(wifiConfiguration1, wifiConfiguration2, wifiConfiguration3);
 
@@ -191,6 +199,17 @@ public class TransformerTest {
         when(wifiInfo.getSSID()).thenReturn(SSID_1);
         when(wifiInfo.getBSSID()).thenReturn(BSSID_1);
         when(wifiInfo.getIpAddress()).thenReturn(123456789);
+    }
+
+    @Test
+    public void testTestDataIsAddedInSpecialBetaMode() throws Exception {
+        // setup
+        withScanResult();
+        when(context.getString(R.string.app_name)).thenReturn(Transformer.WI_FI_ANALYZER_BETA);
+        // execute
+        List<WiFiDetail> actual = fixture.transformScanResults(scanResults);
+        // validate
+        assertEquals(scanResults.size() + 6, actual.size());
     }
 
 
