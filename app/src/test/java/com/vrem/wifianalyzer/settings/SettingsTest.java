@@ -180,7 +180,7 @@ public class SettingsTest {
         verify(context, times(2)).getString(R.string.wifi_band_key);
         verify(sharedPreferences).getString(keyValue, "" + WiFiBand.GHZ_2.ordinal());
         verify(sharedPreferences).edit();
-        verify(editor).putInt(keyValue, WiFiBand.GHZ_5.toggle().ordinal());
+        verify(editor).putString(keyValue, "" + WiFiBand.GHZ_5.toggle().ordinal());
         verify(editor).apply();
     }
 
