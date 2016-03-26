@@ -60,7 +60,8 @@ NOT SUPPORTED YET
             new WiFiChannel(12, 5060),
             new WiFiChannel(16, 5080),
 */
-            new WiFiChannel(36, 5180),      // 0
+            new WiFiChannel(34, 5170),      // 0
+            new WiFiChannel(36, 5180),
             new WiFiChannel(38, 5190),
             new WiFiChannel(40, 5200),
             new WiFiChannel(42, 5210),
@@ -75,21 +76,37 @@ NOT SUPPORTED YET
             new WiFiChannel(60, 5300),
             new WiFiChannel(62, 5310),
             new WiFiChannel(64, 5320),
-            new WiFiChannel(100, 5500),     // 15
+            new WiFiChannel(100, 5500),     // 16
+            new WiFiChannel(102, 5510),
             new WiFiChannel(104, 5520),
+            new WiFiChannel(106, 5530),
             new WiFiChannel(108, 5540),
+            new WiFiChannel(110, 5550),
             new WiFiChannel(112, 5560),
+            new WiFiChannel(114, 5570),
             new WiFiChannel(116, 5580),
+            new WiFiChannel(118, 5590),
             new WiFiChannel(120, 5600),
+            new WiFiChannel(122, 5610),
             new WiFiChannel(124, 5620),
+            new WiFiChannel(126, 5630),
             new WiFiChannel(128, 5640),
+            new WiFiChannel(130, 5650),
             new WiFiChannel(132, 5660),
+            new WiFiChannel(134, 5670),
             new WiFiChannel(136, 5680),
+            new WiFiChannel(138, 5690),
             new WiFiChannel(140, 5700),
-            new WiFiChannel(149, 5745),     // 26
+            new WiFiChannel(142, 5710),
+            new WiFiChannel(144, 5720),
+            new WiFiChannel(149, 5745),     // 39
+            new WiFiChannel(151, 5755),
             new WiFiChannel(153, 5765),
+            new WiFiChannel(155, 5775),
             new WiFiChannel(157, 5785),
+            new WiFiChannel(159, 5795),
             new WiFiChannel(161, 5805),
+            new WiFiChannel(163, 5815),
             new WiFiChannel(165, 5825)
     };
     private static final int ALLOWED_RANGE = 2;
@@ -98,6 +115,7 @@ NOT SUPPORTED YET
     private int frequencyOffset;
     private List<Pair<WiFiChannel, WiFiChannel>> channelsSet;
     private boolean bandGHZ_5;
+    private int frequencySpread;
 
     private WiFiChannels() {
     }
@@ -106,11 +124,12 @@ NOT SUPPORTED YET
         WiFiChannels result = new WiFiChannels();
         result.bandGHZ_5 = true;
         result.frequencyOffset = FREQUENCY_SPREAD * 4;
+        result.frequencySpread = FREQUENCY_SPREAD;
         result.channels = Arrays.asList(CHANNELS_GHZ_5);
         result.channelsSet = Arrays.asList(
-                new Pair<>(CHANNELS_GHZ_5[0], CHANNELS_GHZ_5[14]),
-                new Pair<>(CHANNELS_GHZ_5[15], CHANNELS_GHZ_5[25]),
-                new Pair<>(CHANNELS_GHZ_5[26], CHANNELS_GHZ_5[CHANNELS_GHZ_5.length - 1]));
+                new Pair<>(CHANNELS_GHZ_5[0], CHANNELS_GHZ_5[15]),
+                new Pair<>(CHANNELS_GHZ_5[16], CHANNELS_GHZ_5[38]),
+                new Pair<>(CHANNELS_GHZ_5[39], CHANNELS_GHZ_5[CHANNELS_GHZ_5.length - 1]));
         return result;
     }
 
@@ -118,6 +137,7 @@ NOT SUPPORTED YET
         WiFiChannels result = new WiFiChannels();
         result.bandGHZ_5 = false;
         result.frequencyOffset = FREQUENCY_SPREAD * 2;
+        result.frequencySpread = FREQUENCY_SPREAD;
         result.channels = Arrays.asList(CHANNELS_GHZ_2);
         result.channelsSet = Arrays.asList(new Pair<>(CHANNELS_GHZ_2[0], CHANNELS_GHZ_2[CHANNELS_GHZ_2.length - 1]));
         return result;
@@ -168,7 +188,7 @@ NOT SUPPORTED YET
     }
 
     public int getFrequencySpread() {
-        return FREQUENCY_SPREAD;
+        return frequencySpread;
     }
 
     public int getFrequencyOffset() {

@@ -54,7 +54,7 @@ public class WiFiChannelsGHZ_5Test {
 
     @Test
     public void testGetWiFiChannelFirst() throws Exception {
-        assertEquals(36, fixture.getWiFiChannelFirst().getChannel());
+        assertEquals(34, fixture.getWiFiChannelFirst().getChannel());
     }
 
     @Test
@@ -75,8 +75,8 @@ public class WiFiChannelsGHZ_5Test {
     @Test
     public void testGetChannelsSet() throws Exception {
         assertEquals(3, fixture.getChannelsSet().size());
-        validatePair(36, 64, 0);
-        validatePair(100, 140, 1);
+        validatePair(34, 64, 0);
+        validatePair(100, 144, 1);
         validatePair(149, 165, 2);
     }
 
