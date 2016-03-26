@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        settings.getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        settings.registerOnSharedPreferenceChangeListener(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setOnClickListener(new WiFiBandToggle());
