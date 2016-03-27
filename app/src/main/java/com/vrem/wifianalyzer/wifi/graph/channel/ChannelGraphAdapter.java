@@ -83,7 +83,7 @@ class ChannelGraphAdapter extends GraphAdapter {
         Button button = new Button(context);
         String text = pair.first.getChannel() + " - " + pair.second.getChannel();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, TEXT_SIZE_ADJUSTMENT);
-        params.setMargins(10, -30, 10, -30);
+        params.setMargins(5, -30, 5, -30);
         button.setLayoutParams(params);
         button.setVisibility(View.GONE);
         button.setText(text);

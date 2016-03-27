@@ -28,21 +28,22 @@ import java.util.Locale;
 class WiFiChannelsGHZ_5 extends WiFiChannels {
     private final static Pair<Integer, Integer> RANGE = new Pair<>(4900, 5899);
     private final static Pair<WiFiChannel, WiFiChannel> SET0 = new Pair<>(new WiFiChannel(7, 5035), new WiFiChannel(16, 5080));
-    private final static Pair<WiFiChannel, WiFiChannel> SET1 = new Pair<>(new WiFiChannel(34, 5170), new WiFiChannel(64, 5320));
-    private final static Pair<WiFiChannel, WiFiChannel> SET2 = new Pair<>(new WiFiChannel(100, 5500), new WiFiChannel(144, 5720));
+    private final static Pair<WiFiChannel, WiFiChannel> SET1 = new Pair<>(new WiFiChannel(36, 5180), new WiFiChannel(64, 5320));
+    private final static Pair<WiFiChannel, WiFiChannel> SET2 = new Pair<>(new WiFiChannel(100, 5500), new WiFiChannel(140, 5700));
     private final static Pair<WiFiChannel, WiFiChannel> SET3 = new Pair<>(new WiFiChannel(149, 5745), new WiFiChannel(165, 5825));
     private final static Pair<WiFiChannel, WiFiChannel> SET4 = new Pair<>(new WiFiChannel(183, 4915), new WiFiChannel(196, 4980));
+    private final static List<Pair<WiFiChannel, WiFiChannel>> SETS = Arrays.asList(SET0, SET1, SET2, SET3, SET4);
 
     private final static int FREQUENCY_OFFSET = WiFiChannel.FREQUENCY_SPREAD * 4;
-    private final static int FREQUENCY_SPREAD = WiFiChannel.FREQUENCY_SPREAD;
+    private final static int FREQUENCY_SPREAD = WiFiChannel.FREQUENCY_SPREAD * 2;
 
     WiFiChannelsGHZ_5() {
-        super(RANGE, Arrays.asList(SET0, SET1, SET2, SET3, SET4), FREQUENCY_OFFSET, FREQUENCY_SPREAD);
+        super(RANGE, SETS, FREQUENCY_OFFSET, FREQUENCY_SPREAD);
     }
 
     @Override
     public List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs() {
-        return Collections.unmodifiableList(Arrays.asList(SET1, SET2, SET3));
+        return Collections.unmodifiableList(SETS);
     }
 
     public Pair<WiFiChannel, WiFiChannel> getWiFiChannelFirstPair() {

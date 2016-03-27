@@ -22,8 +22,6 @@ import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
-import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
@@ -108,7 +106,8 @@ public class Transformer {
     }
 
     private boolean isBeta() {
-        return WI_FI_ANALYZER_BETA.equals(MainContext.INSTANCE.getContext().getString(R.string.app_name));
+        return false;
+//        return WI_FI_ANALYZER_BETA.equals(MainContext.INSTANCE.getContext().getString(R.string.app_name));
     }
 
     private int middle(@NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
