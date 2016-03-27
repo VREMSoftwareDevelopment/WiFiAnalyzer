@@ -57,7 +57,7 @@ public class WiFiChannelsGHZ_5Test {
 
     @Test
     public void testGetFrequencySpread() throws Exception {
-        assertEquals(10, fixture.getFrequencySpread());
+        assertEquals(5, fixture.getFrequencySpread());
     }
 
     @Test

@@ -35,7 +35,7 @@ class WiFiChannelsGHZ_5 extends WiFiChannels {
     private final static List<Pair<WiFiChannel, WiFiChannel>> SETS = Arrays.asList(SET0, SET1, SET2, SET3, SET4);
 
     private final static int FREQUENCY_OFFSET = WiFiChannel.FREQUENCY_SPREAD * 4;
-    private final static int FREQUENCY_SPREAD = WiFiChannel.FREQUENCY_SPREAD * 2;
+    private final static int FREQUENCY_SPREAD = WiFiChannel.FREQUENCY_SPREAD;
 
     WiFiChannelsGHZ_5() {
         super(RANGE, SETS, FREQUENCY_OFFSET, FREQUENCY_SPREAD);

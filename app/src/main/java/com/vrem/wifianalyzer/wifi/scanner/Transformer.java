@@ -19,13 +19,8 @@ package com.vrem.wifianalyzer.wifi.scanner;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
 
-import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
-import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -33,7 +28,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import com.vrem.wifianalyzer.wifi.model.WiFiUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -66,7 +60,9 @@ public class Transformer {
                 results.add(wiFiDetail);
             }
         }
+/*
         addTestData(results);
+*/
         return Collections.unmodifiableList(results);
     }
 
@@ -86,6 +82,7 @@ public class Transformer {
         return new WiFiData(wiFiDetails, wiFiConnection, wifiConfigurations);
     }
 
+/*
     private void addTestData(@NonNull List<WiFiDetail> wiFiDetails) {
         if (isBeta()) {
             WiFiBand[] values = WiFiBand.values();
@@ -106,13 +103,13 @@ public class Transformer {
     }
 
     private boolean isBeta() {
-        return false;
-//        return WI_FI_ANALYZER_BETA.equals(MainContext.INSTANCE.getContext().getString(R.string.app_name));
+        return WI_FI_ANALYZER_BETA.equals(MainContext.INSTANCE.getContext().getString(R.string.app_name));
     }
 
     private int middle(@NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         return (wiFiChannelPair.first.getFrequency() + wiFiChannelPair.second.getFrequency()) / 2;
     }
+*/
 
     private enum Fields {
         /*

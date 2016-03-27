@@ -23,7 +23,6 @@ import android.net.wifi.WifiInfo;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -201,18 +200,5 @@ public class TransformerTest {
         when(wifiInfo.getBSSID()).thenReturn(BSSID_1);
         when(wifiInfo.getIpAddress()).thenReturn(123456789);
     }
-
-    @Test
-    public void testTestDataIsAddedInSpecialBetaMode() throws Exception {
-        // setup
-        int offset = (WiFiBand.GHZ_2.getWiFiChannels().getWiFiChannelPairs().size() + WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs().size()) * 3;
-        withScanResult();
-        when(context.getString(R.string.app_name)).thenReturn(Transformer.WI_FI_ANALYZER_BETA);
-        // execute
-        List<WiFiDetail> actual = fixture.transformScanResults(scanResults);
-        // validate
-        assertEquals(scanResults.size() + offset, actual.size());
-    }
-
 
 }

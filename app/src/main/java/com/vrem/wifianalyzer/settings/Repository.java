@@ -38,7 +38,7 @@ class Repository {
         save(mainContext.getContext().getString(key), value);
     }
 
-    void save(String key, int value) {
+    private void save(String key, int value) {
         SharedPreferences.Editor editor = getSharedPreferences().edit();
         editor.putString(key, "" + value);
         editor.apply();

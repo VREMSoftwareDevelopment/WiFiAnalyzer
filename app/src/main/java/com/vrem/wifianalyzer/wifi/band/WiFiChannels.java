@@ -90,7 +90,7 @@ public abstract class WiFiChannels {
         return results;
     }
 
-    protected WiFiChannel getWiFiChannel(int frequency, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
+    WiFiChannel getWiFiChannel(int frequency, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         WiFiChannel first = wiFiChannelPair.first;
         WiFiChannel last = wiFiChannelPair.second;
         int channel = (int) (((double) (frequency - first.getFrequency()) / WiFiChannel.FREQUENCY_SPREAD) + first.getChannel() + 0.5);
