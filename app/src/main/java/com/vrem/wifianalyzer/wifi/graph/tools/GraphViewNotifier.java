@@ -14,24 +14,15 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph;
+package com.vrem.wifianalyzer.wifi.graph.tools;
 
 import android.support.annotation.NonNull;
 
-import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.jjoe64.graphview.GraphView;
+import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
-import java.util.ArrayList;
-import java.util.List;
+public interface GraphViewNotifier {
+    GraphView getGraphView();
 
-class TimeGraphAdapter extends GraphAdapter {
-    @NonNull
-    @Override
-    List<GraphViewNotifier> makeGraphViewNotifiers() {
-        List<GraphViewNotifier> graphViewNotifiers = new ArrayList<>();
-        for (WiFiBand wiFiBand : WiFiBand.values()) {
-            graphViewNotifiers.add(new TimeGraphView(wiFiBand));
-        }
-        return graphViewNotifiers;
-    }
-
+    void update(@NonNull WiFiData wiFiData);
 }

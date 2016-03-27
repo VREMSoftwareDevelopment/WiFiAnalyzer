@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph.wrapper;
+package com.vrem.wifianalyzer.wifi.graph.tools;
 
 import com.jjoe64.graphview.series.BaseSeries;
 import com.jjoe64.graphview.series.DataPoint;

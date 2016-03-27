@@ -14,11 +14,11 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph;
+package com.vrem.wifianalyzer.wifi.graph.time;
 
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
-import com.vrem.wifianalyzer.wifi.graph.wrapper.GraphViewBuilder;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewBuilder;
 
 import org.apache.commons.lang3.StringUtils;
 

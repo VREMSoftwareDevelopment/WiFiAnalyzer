@@ -14,15 +14,31 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph;
+package com.vrem.wifianalyzer.wifi.graph.tools;
 
-import android.support.annotation.NonNull;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.jjoe64.graphview.GraphView;
-import com.vrem.wifianalyzer.wifi.model.WiFiData;
+public class GraphColor {
+    public static final GraphColor TRANSPARENT = new GraphColor(0x009E9E9E, 0x009E9E9E);
 
-interface GraphViewNotifier {
-    GraphView getGraphView();
+    private final int primary;
+    private final int background;
 
-    void update(@NonNull WiFiData wiFiData);
+    GraphColor(int primary, int background) {
+        this.primary = primary;
+        this.background = background;
+    }
+
+    public int getPrimary() {
+        return primary;
+    }
+
+    public int getBackground() {
+        return background;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 }

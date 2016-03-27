@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph;
+package com.vrem.wifianalyzer.wifi.graph.tools;
 
 import android.support.annotation.NonNull;
 
@@ -56,7 +56,7 @@ public class GraphAdapterTest {
         fixture = new GraphAdapter() {
             @NonNull
             @Override
-            List<GraphViewNotifier> makeGraphViewNotifiers() {
+            public List<GraphViewNotifier> makeGraphViewNotifiers() {
                 return Arrays.asList(graphViewNotifier);
             }
         };

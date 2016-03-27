@@ -26,8 +26,8 @@ import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.vendor.VendorFragment;
 import com.vrem.wifianalyzer.wifi.AccessPointsFragment;
 import com.vrem.wifianalyzer.wifi.ChannelRatingFragment;
-import com.vrem.wifianalyzer.wifi.graph.ChannelGraphFragment;
-import com.vrem.wifianalyzer.wifi.graph.TimeGraphFragment;
+import com.vrem.wifianalyzer.wifi.graph.channel.ChannelGraphFragment;
+import com.vrem.wifianalyzer.wifi.graph.time.TimeGraphFragment;
 
 public enum NavigationMenu {
     ACCESS_POINTS(R.drawable.ic_network_wifi_grey_500_48dp, R.string.action_access_points, true, new AccessPointsFragment()),

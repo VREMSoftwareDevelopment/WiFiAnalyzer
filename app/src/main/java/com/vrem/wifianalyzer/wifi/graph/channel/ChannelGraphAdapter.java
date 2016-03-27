@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph;
+package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -29,6 +29,8 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphAdapter;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
 import java.util.ArrayList;
@@ -47,7 +49,7 @@ class ChannelGraphAdapter extends GraphAdapter {
 
     @NonNull
     @Override
-    List<GraphViewNotifier> makeGraphViewNotifiers() {
+    public List<GraphViewNotifier> makeGraphViewNotifiers() {
         List<GraphViewNotifier> graphViewNotifiers = new ArrayList<>();
         for (WiFiBand wiFiBand : WiFiBand.values()) {
             for (Pair<WiFiChannel, WiFiChannel> bounds : wiFiBand.getWiFiChannels().getChannelsSet()) {

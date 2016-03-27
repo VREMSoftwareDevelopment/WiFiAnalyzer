@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph;
+package com.vrem.wifianalyzer.wifi.graph.time;
 
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
@@ -26,9 +26,10 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.graph.wrapper.GraphColor;
-import com.vrem.wifianalyzer.wifi.graph.wrapper.GraphViewBuilder;
-import com.vrem.wifianalyzer.wifi.graph.wrapper.GraphViewWrapper;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphColor;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewBuilder;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 

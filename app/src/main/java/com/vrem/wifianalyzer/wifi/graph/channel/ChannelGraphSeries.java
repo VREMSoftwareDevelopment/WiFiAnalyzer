@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph;
+package com.vrem.wifianalyzer.wifi.graph.channel;
 
 /**
  * modified version of com.jjoe64.graphview.series.LineGraphSeries

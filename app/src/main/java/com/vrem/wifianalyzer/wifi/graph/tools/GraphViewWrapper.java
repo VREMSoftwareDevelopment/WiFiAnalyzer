@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph.wrapper;
+package com.vrem.wifianalyzer.wifi.graph.tools;
 
 import android.app.Dialog;
 import android.support.annotation.NonNull;
@@ -29,7 +29,6 @@ import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.AccessPointsDetail;
-import com.vrem.wifianalyzer.wifi.graph.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import java.util.List;

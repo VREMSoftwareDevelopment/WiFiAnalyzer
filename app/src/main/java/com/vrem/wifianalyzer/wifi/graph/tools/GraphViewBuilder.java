@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph.wrapper;
+package com.vrem.wifianalyzer.wifi.graph.tools;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

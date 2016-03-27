@@ -14,31 +14,26 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph.wrapper;
+package com.vrem.wifianalyzer.wifi.graph.time;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import android.support.annotation.NonNull;
 
-public class GraphColor {
-    public static final GraphColor TRANSPARENT = new GraphColor(0x009E9E9E, 0x009E9E9E);
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphAdapter;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
 
-    private final int primary;
-    private final int background;
+import java.util.ArrayList;
+import java.util.List;
 
-    GraphColor(int primary, int background) {
-        this.primary = primary;
-        this.background = background;
-    }
-
-    public int getPrimary() {
-        return primary;
-    }
-
-    public int getBackground() {
-        return background;
-    }
-
+class TimeGraphAdapter extends GraphAdapter {
+    @NonNull
     @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
+    public List<GraphViewNotifier> makeGraphViewNotifiers() {
+        List<GraphViewNotifier> graphViewNotifiers = new ArrayList<>();
+        for (WiFiBand wiFiBand : WiFiBand.values()) {
+            graphViewNotifiers.add(new TimeGraphView(wiFiBand));
+        }
+        return graphViewNotifiers;
     }
+
 }

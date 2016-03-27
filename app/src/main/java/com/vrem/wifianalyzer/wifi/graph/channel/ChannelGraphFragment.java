@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph;
+package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,13 +22,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
 
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
-public class TimeGraphFragment extends Fragment {
+public class ChannelGraphFragment extends Fragment {
     private final MainContext mainContext = MainContext.INSTANCE;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -39,18 +40,26 @@ public class TimeGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.graphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        addGraphViews(swipeRefreshLayout, new TimeGraphAdapter());
+        ChannelGraphAdapter channelGraphAdapter = new ChannelGraphAdapter();
+        addGraphViews(swipeRefreshLayout, channelGraphAdapter);
+        addGraphNavigation(view, channelGraphAdapter);
 
         return view;
     }
 
-    private void addGraphViews(View view, TimeGraphAdapter timeGraphAdapter) {
-        ViewFlipper viewFlipper = (ViewFlipper) view.findViewById(R.id.graphFlipper);
-        for (GraphView graphView : timeGraphAdapter.getGraphViews()) {
-            viewFlipper.addView(graphView);
+    private void addGraphNavigation(View view, ChannelGraphAdapter channelGraphAdapter) {
+        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.graphNavigation);
+        for (View navigation : channelGraphAdapter.getNavigationItems()) {
+            linearLayout.addView(navigation);
         }
     }
 
+    private void addGraphViews(View view, ChannelGraphAdapter channelGraphAdapter) {
+        ViewFlipper viewFlipper = (ViewFlipper) view.findViewById(R.id.graphFlipper);
+        for (GraphView graphView : channelGraphAdapter.getGraphViews()) {
+            viewFlipper.addView(graphView);
+        }
+    }
 
     private void refresh() {
         swipeRefreshLayout.setRefreshing(true);

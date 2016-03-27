@@ -14,9 +14,9 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph;
+package com.vrem.wifianalyzer.wifi.graph.time;
 
-import com.vrem.wifianalyzer.wifi.graph.wrapper.GraphViewBuilder;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewBuilder;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;

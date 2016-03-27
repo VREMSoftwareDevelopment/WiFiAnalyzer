@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph;
+package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -22,7 +22,7 @@ import android.content.res.Resources;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
-import com.vrem.wifianalyzer.wifi.graph.wrapper.GraphViewBuilder;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewBuilder;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
