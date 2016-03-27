@@ -20,7 +20,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 
 public class WiFiChannelTest {
     public static final int CHANNEL = 1;
@@ -33,6 +35,16 @@ public class WiFiChannelTest {
     public void setUp() throws Exception {
         fixture = new WiFiChannel(CHANNEL, FREQUENCY);
         other = new WiFiChannel(CHANNEL, FREQUENCY);
+    }
+
+    @Test
+    public void testIsInRange() throws Exception {
+        assertTrue(fixture.isInRange(FREQUENCY));
+        assertTrue(fixture.isInRange(FREQUENCY - 2));
+        assertTrue(fixture.isInRange(FREQUENCY + 2));
+
+        assertFalse(fixture.isInRange(FREQUENCY - 3));
+        assertFalse(fixture.isInRange(FREQUENCY + 3));
     }
 
     @Test

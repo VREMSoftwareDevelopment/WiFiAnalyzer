@@ -89,17 +89,17 @@ public class Transformer {
     }
 
     private void addTestData(@NonNull List<WiFiDetail> wiFiDetails) {
-        if (WI_FI_ANALYZER_BETA.equals(MainContext.INSTANCE.getContext().getString(R.string.app_name))) {
+        if (isBeta()) {
             WiFiBand[] values = WiFiBand.values();
             int level = -50;
             int count = 0;
             for (WiFiBand wiFiBand : values) {
                 WiFiWidth wiFiWidth = wiFiBand.isGHZ_5() ? WiFiWidth.MHZ_40 : WiFiWidth.MHZ_20;
-                for (Pair<WiFiChannel, WiFiChannel> bounds : wiFiBand.getWiFiChannels().getChannelsSet()) {
+                for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiBand.getWiFiChannels().getWiFiChannelPairs()) {
                     wiFiDetails.addAll(Arrays.asList(
-                            new WiFiDetail("SSID-T-" + count + "0", "BSSID:" + count + "0", Security.WPA.name(), new WiFiSignal(bounds.first.getFrequency(), wiFiWidth, level - 10)),
-                            new WiFiDetail("SSID-T-" + count + "1", "BSSID:" + count + "1", Security.WEP.name(), new WiFiSignal(middle(bounds), wiFiWidth, level - 20)),
-                            new WiFiDetail("SSID-T-" + count + "2", "BSSID:" + count + "2", Security.WPS.name(), new WiFiSignal(bounds.second.getFrequency(), wiFiWidth, level - 30))
+                            new WiFiDetail("SSID-T-" + count + "0", "BSSID:" + count + "0", Security.WPA.name(), new WiFiSignal(wiFiChannelPair.first.getFrequency(), wiFiWidth, level - 10)),
+                            new WiFiDetail("SSID-T-" + count + "1", "BSSID:" + count + "1", Security.WEP.name(), new WiFiSignal(middle(wiFiChannelPair), wiFiWidth, level - 20)),
+                            new WiFiDetail("SSID-T-" + count + "2", "BSSID:" + count + "2", Security.WPS.name(), new WiFiSignal(wiFiChannelPair.second.getFrequency(), wiFiWidth, level - 30))
                     ));
                     count++;
                 }
@@ -107,8 +107,12 @@ public class Transformer {
         }
     }
 
-    private int middle(@NonNull Pair<WiFiChannel, WiFiChannel> bounds) {
-        return (bounds.first.getFrequency() + bounds.second.getFrequency()) / 2;
+    private boolean isBeta() {
+        return WI_FI_ANALYZER_BETA.equals(MainContext.INSTANCE.getContext().getString(R.string.app_name));
+    }
+
+    private int middle(@NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
+        return (wiFiChannelPair.first.getFrequency() + wiFiChannelPair.second.getFrequency()) / 2;
     }
 
     private enum Fields {

@@ -62,7 +62,7 @@ public class WiFiSignal {
     }
 
     public WiFiChannel getWiFiChannel() {
-        return getWiFiBand().getWiFiChannels().findWiFiChannel(getFrequency());
+        return getWiFiBand().getWiFiChannels().getWiFiChannelByFrequency(getFrequency());
     }
 
     public int getLevel() {

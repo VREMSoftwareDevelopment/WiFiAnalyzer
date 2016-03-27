@@ -24,10 +24,17 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class WiFiChannel implements Comparable<WiFiChannel> {
-    public static final WiFiChannel UNKNOWN = new WiFiChannel(0, 0);
+    public static final WiFiChannel UNKNOWN = new WiFiChannel();
+
+    static final int FREQUENCY_SPREAD = 5;
+    static final int ALLOWED_RANGE = FREQUENCY_SPREAD / 2;
 
     private final int channel;
     private final int frequency;
+
+    private WiFiChannel() {
+        channel = frequency = 0;
+    }
 
     WiFiChannel(int channel, int frequency) {
         this.channel = channel;
@@ -40,6 +47,10 @@ public class WiFiChannel implements Comparable<WiFiChannel> {
 
     public int getFrequency() {
         return frequency;
+    }
+
+    public boolean isInRange(int frequency) {
+        return frequency >= this.frequency - ALLOWED_RANGE && frequency <= this.frequency + ALLOWED_RANGE;
     }
 
     @Override

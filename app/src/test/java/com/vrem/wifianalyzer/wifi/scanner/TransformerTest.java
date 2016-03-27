@@ -205,7 +205,7 @@ public class TransformerTest {
     @Test
     public void testTestDataIsAddedInSpecialBetaMode() throws Exception {
         // setup
-        int offset = (WiFiBand.GHZ_2.getWiFiChannels().getChannelsSet().size() + WiFiBand.GHZ_5.getWiFiChannels().getChannelsSet().size()) * 3;
+        int offset = (WiFiBand.GHZ_2.getWiFiChannels().getWiFiChannelPairs().size() + WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs().size()) * 3;
         withScanResult();
         when(context.getString(R.string.app_name)).thenReturn(Transformer.WI_FI_ANALYZER_BETA);
         // execute

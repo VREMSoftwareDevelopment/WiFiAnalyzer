@@ -18,7 +18,6 @@ package com.vrem.wifianalyzer.wifi.band;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -56,10 +55,4 @@ public class WiFiBandGHZ_2Test {
     public void testIsGHZ_5() throws Exception {
         assertFalse(WiFiBand.GHZ_2.isGHZ_5());
     }
-
-    @Test
-    public void testGetWiFiChannels() throws Exception {
-        assertArrayEquals(WiFiChannels.CHANNELS_GHZ_2, WiFiBand.GHZ_2.getWiFiChannels().getChannels().toArray());
-    }
-
 }

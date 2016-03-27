@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         mainContext.setWifiManager((WifiManager) context.getSystemService(Context.WIFI_SERVICE));
         mainContext.setLayoutInflater((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
         mainContext.setLogger(new Logger());
-        mainContext.setBoundsGHZ_5(WiFiBand.GHZ_5.getWiFiChannels().getChannelsSet().get(0));
+        mainContext.setWiFiChannelPair(WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelFirstPair());
     }
 
     @Override

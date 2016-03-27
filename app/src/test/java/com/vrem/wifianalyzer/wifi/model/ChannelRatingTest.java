@@ -32,7 +32,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class ChannelRatingTest {
-    //    private WiFiDetail wiFiDetail1;
     private WiFiDetail wiFiDetail1;
     private WiFiDetail wiFiDetail2;
     private WiFiDetail wiFiDetail3;
@@ -106,7 +105,7 @@ public class ChannelRatingTest {
     @Test
     public void testGetBestChannelsSortedInOrderWithMinimumChannels() throws Exception {
         // setup
-        List<WiFiChannel> channels = WiFiBand.GHZ_2.getWiFiChannels().getChannels();
+        List<WiFiChannel> channels = WiFiBand.GHZ_2.getWiFiChannels().getWiFiChannels();
         fixture.setWiFiChannels(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3));
         // execute
         List<ChannelRating.ChannelAPCount> actual = fixture.getBestChannels(channels);

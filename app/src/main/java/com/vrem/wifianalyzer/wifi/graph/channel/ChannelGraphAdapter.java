@@ -52,8 +52,8 @@ class ChannelGraphAdapter extends GraphAdapter {
     public List<GraphViewNotifier> makeGraphViewNotifiers() {
         List<GraphViewNotifier> graphViewNotifiers = new ArrayList<>();
         for (WiFiBand wiFiBand : WiFiBand.values()) {
-            for (Pair<WiFiChannel, WiFiChannel> bounds : wiFiBand.getWiFiChannels().getChannelsSet()) {
-                graphViewNotifiers.add(new ChannelGraphView(wiFiBand, bounds));
+            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiBand.getWiFiChannels().getWiFiChannelPairs()) {
+                graphViewNotifiers.add(new ChannelGraphView(wiFiBand, wiFiChannelPair));
             }
         }
         return graphViewNotifiers;
@@ -74,7 +74,7 @@ class ChannelGraphAdapter extends GraphAdapter {
 
     private void makeNavigationItems() {
         Context context = mainContext.getContext();
-        for (Pair<WiFiChannel, WiFiChannel> pair : WiFiBand.GHZ_5.getWiFiChannels().getChannelsSet()) {
+        for (Pair<WiFiChannel, WiFiChannel> pair : WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs()) {
             navigationItems.add(makeNavigationItem(context, pair));
         }
     }
@@ -88,7 +88,7 @@ class ChannelGraphAdapter extends GraphAdapter {
         button.setVisibility(View.GONE);
         button.setText(text);
         button.setOnClickListener(new ButtonOnClickListener(pair));
-        setSelectedButton(button, pair.equals(mainContext.getBoundsGHZ_5()));
+        setSelectedButton(button, pair.equals(mainContext.getWiFiChannelPair()));
         return button;
     }
 
@@ -109,16 +109,16 @@ class ChannelGraphAdapter extends GraphAdapter {
     }
 
     class ButtonOnClickListener implements OnClickListener {
-        private final Pair<WiFiChannel, WiFiChannel> pair;
+        private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
 
-        ButtonOnClickListener(@NonNull Pair<WiFiChannel, WiFiChannel> pair) {
-            this.pair = pair;
+        ButtonOnClickListener(@NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
+            this.wiFiChannelPair = wiFiChannelPair;
         }
 
         @Override
         public void onClick(View view) {
             setButtonsBackgroundColor(view);
-            mainContext.setBoundsGHZ_5(pair);
+            mainContext.setWiFiChannelPair(wiFiChannelPair);
             mainContext.getScanner().update();
         }
     }

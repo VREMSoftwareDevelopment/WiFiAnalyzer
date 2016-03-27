@@ -41,7 +41,7 @@ public enum MainContext {
     private LayoutInflater layoutInflater;
     private Database database;
     private Logger logger;
-    private Pair<WiFiChannel, WiFiChannel> boundsGHZ_5;
+    private Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
 
     public Settings getSettings() {
         return settings;
@@ -115,11 +115,11 @@ public enum MainContext {
         this.logger = logger;
     }
 
-    public Pair<WiFiChannel, WiFiChannel> getBoundsGHZ_5() {
-        return boundsGHZ_5;
+    public Pair<WiFiChannel, WiFiChannel> getWiFiChannelPair() {
+        return wiFiChannelPair;
     }
 
-    public void setBoundsGHZ_5(@NonNull Pair<WiFiChannel, WiFiChannel> boundsGHZ_5) {
-        this.boundsGHZ_5 = boundsGHZ_5;
+    public void setWiFiChannelPair(@NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
+        this.wiFiChannelPair = wiFiChannelPair;
     }
 }

@@ -47,7 +47,7 @@ public class ChannelAxisLabelTest {
 
     @Before
     public void setUp() throws Exception {
-        fixture = new ChannelAxisLabel(WiFiBand.GHZ_2, WiFiBand.GHZ_2.getWiFiChannels().getChannelsSet().get(0), resources);
+        fixture = new ChannelAxisLabel(WiFiBand.GHZ_2, WiFiBand.GHZ_2.getWiFiChannels().getWiFiChannelFirstPair(), resources);
 
         when(resources.getConfiguration()).thenReturn(configuration);
         configuration.locale = Locale.US;

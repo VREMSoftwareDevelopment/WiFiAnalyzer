@@ -24,7 +24,7 @@ import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
-import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewBuilder;
 
 import org.apache.commons.lang3.StringUtils;
@@ -33,12 +33,12 @@ import java.util.Locale;
 
 class ChannelAxisLabel implements LabelFormatter {
     private final WiFiBand wiFiBand;
-    private final Pair<WiFiChannel, WiFiChannel> bounds;
+    private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
     private final Resources resources;
 
-    ChannelAxisLabel(@NonNull WiFiBand wiFiBand, @NonNull Pair<WiFiChannel, WiFiChannel> bounds, @NonNull Resources resources) {
+    ChannelAxisLabel(@NonNull WiFiBand wiFiBand, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair, @NonNull Resources resources) {
         this.wiFiBand = wiFiBand;
-        this.bounds = bounds;
+        this.wiFiChannelPair = wiFiChannelPair;
         this.resources = resources;
     }
 
@@ -63,16 +63,14 @@ class ChannelAxisLabel implements LabelFormatter {
     }
 
     private String findChannel(int value) {
-        WiFiChannel wiFiChannel = wiFiBand.getWiFiChannels().findWiFiChannel(value, bounds);
-        if (wiFiChannel == WiFiChannel.UNKNOWN) {
-            wiFiChannel = wiFiBand.getWiFiChannels().findWiFiChannelInRange(value, bounds);
-        }
+        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
+        WiFiChannel wiFiChannel = wiFiChannels.getWiFiChannelByFrequency(value, wiFiChannelPair);
         if (wiFiChannel == WiFiChannel.UNKNOWN) {
             return StringUtils.EMPTY;
         }
         Locale locale = resources.getConfiguration().locale;
         int channel = wiFiChannel.getChannel();
-        if (!WiFiChannelCountry.isChannelAvailable(locale, wiFiBand.isGHZ_5(), channel)) {
+        if (!wiFiChannels.isChannelAvailable(locale, channel)) {
             return StringUtils.EMPTY;
         }
         return "" + channel;
