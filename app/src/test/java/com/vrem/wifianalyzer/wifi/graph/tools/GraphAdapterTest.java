@@ -23,6 +23,7 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,6 +61,11 @@ public class GraphAdapterTest {
                 return Arrays.asList(graphViewNotifier);
             }
         };
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        MainContext.INSTANCE.clear();
     }
 
     @Test

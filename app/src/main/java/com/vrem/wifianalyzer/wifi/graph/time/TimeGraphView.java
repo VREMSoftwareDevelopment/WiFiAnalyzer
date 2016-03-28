@@ -38,7 +38,6 @@ import java.util.TreeSet;
 
 class TimeGraphView implements GraphViewNotifier {
     private static final int MAX_SCAN_COUNT = 400;
-    private final MainContext mainContext = MainContext.INSTANCE;
 
     private final WiFiBand wiFiBand;
     private final GraphViewWrapper graphViewWrapper;
@@ -48,13 +47,13 @@ class TimeGraphView implements GraphViewNotifier {
     TimeGraphView(@NonNull WiFiBand wiFiBand) {
         this.wiFiBand = wiFiBand;
         this.scanCount = this.xValue = 0;
-        this.graphViewWrapper = new GraphViewWrapper(makeGraphView(), mainContext.getSettings().getTimeGraphLegend());
+        this.graphViewWrapper = new GraphViewWrapper(makeGraphView(), MainContext.INSTANCE.getSettings().getTimeGraphLegend());
         initialize();
     }
 
     private GraphView makeGraphView() {
-        Resources resources = mainContext.getResources();
-        return new GraphViewBuilder(mainContext.getContext())
+        Resources resources = MainContext.INSTANCE.getResources();
+        return new GraphViewBuilder(MainContext.INSTANCE.getContext())
                 .setLabelFormatter(new TimeAxisLabel())
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
@@ -64,12 +63,12 @@ class TimeGraphView implements GraphViewNotifier {
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         Set<WiFiDetail> newSeries = new TreeSet<>();
-        for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, mainContext.getSettings().getSortBy())) {
+        for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, MainContext.INSTANCE.getSettings().getSortBy())) {
             newSeries.add(wiFiDetail);
             addData(wiFiDetail);
         }
         graphViewWrapper.removeSeries(newSeries);
-        graphViewWrapper.updateLegend(mainContext.getSettings().getTimeGraphLegend());
+        graphViewWrapper.updateLegend(MainContext.INSTANCE.getSettings().getTimeGraphLegend());
         graphViewWrapper.setVisibility(isSelected() ? View.VISIBLE : View.GONE);
         xValue++;
         if (scanCount < MAX_SCAN_COUNT) {
@@ -78,7 +77,7 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     private boolean isSelected() {
-        return wiFiBand.equals(mainContext.getSettings().getWiFiBand());
+        return wiFiBand.equals(MainContext.INSTANCE.getSettings().getWiFiBand());
     }
 
     private void addData(@NonNull WiFiDetail wiFiDetail) {

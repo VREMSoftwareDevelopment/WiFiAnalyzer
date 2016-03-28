@@ -27,26 +27,20 @@ import java.util.Locale;
 
 class WiFiChannelsGHZ_2 extends WiFiChannels {
     private final static Pair<Integer, Integer> RANGE = new Pair<>(2400, 2499);
-    private final static WiFiChannel FIRST = new WiFiChannel(1, 2412);
-    private final static WiFiChannel LAST = new WiFiChannel(14, 2484);
-    private final static Pair<WiFiChannel, WiFiChannel> SET0 = new Pair<>(FIRST, new WiFiChannel(13, 2472));
-    private final static Pair<WiFiChannel, WiFiChannel> SET1 = new Pair<>(LAST, LAST);
-    private final static Pair<WiFiChannel, WiFiChannel> SET = new Pair<>(FIRST, LAST);
+    private final static List<Pair<WiFiChannel, WiFiChannel>> SETS = Arrays.asList(
+        new Pair<>(new WiFiChannel(1, 2412), new WiFiChannel(13, 2472)),
+        new Pair<>(new WiFiChannel(14, 2484), new WiFiChannel(14, 2484)));
+    private final static Pair<WiFiChannel, WiFiChannel> SET = new Pair<>(SETS.get(0).first, SETS.get(SETS.size()-1).second);
     private final static int FREQUENCY_OFFSET = WiFiChannel.FREQUENCY_SPREAD * 2;
     private final static int FREQUENCY_SPREAD = WiFiChannel.FREQUENCY_SPREAD;
 
     WiFiChannelsGHZ_2() {
-        super(RANGE, Arrays.asList(SET0, SET1), FREQUENCY_OFFSET, FREQUENCY_SPREAD);
+        super(RANGE, SETS, FREQUENCY_OFFSET, FREQUENCY_SPREAD);
     }
 
     @Override
-    public List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs() {
+    public List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs(@NonNull Locale locale) {
         return Collections.unmodifiableList(Arrays.asList(SET));
-    }
-
-    @Override
-    public Pair<WiFiChannel, WiFiChannel> getWiFiChannelFirstPair() {
-        return SET;
     }
 
     @Override
@@ -59,7 +53,7 @@ class WiFiChannelsGHZ_2 extends WiFiChannels {
     }
 
     @Override
-    public boolean isChannelAvailable(Locale locale, int channel) {
+    public boolean isChannelAvailable(@NonNull Locale locale, int channel) {
         return WiFiChannelCountry.find(locale).isChannelAvailableGHZ_2(channel);
     }
 

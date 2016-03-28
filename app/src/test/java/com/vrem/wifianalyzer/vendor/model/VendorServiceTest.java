@@ -61,6 +61,7 @@ public class VendorServiceTest {
     @After
     public void tearDown() throws Exception {
         fixture.clear();
+        MainContext.INSTANCE.clear();
     }
 
     @Test

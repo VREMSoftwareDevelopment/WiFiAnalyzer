@@ -23,6 +23,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.vrem.wifianalyzer.MainContext;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,6 +59,11 @@ public class DatabaseTest {
         MainContext.INSTANCE.setContext(context);
 
         fixture = new DatabaseMock();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        MainContext.INSTANCE.clear();
     }
 
     @Test

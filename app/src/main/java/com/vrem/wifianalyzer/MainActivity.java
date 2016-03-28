@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,11 +48,11 @@ import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Locale;
+
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
 public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
-    private final MainContext mainContext = MainContext.INSTANCE;
-
     private int currentTheme;
     private NavigationMenuView navigationMenuView;
     private boolean subTitle;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     protected void onCreate(Bundle savedInstanceState) {
         initializeMainContext(this);
 
-        Settings settings = mainContext.getSettings();
+        Settings settings = MainContext.INSTANCE.getSettings();
         settings.initializeDefaultValues();
         currentTheme = settings.getThemeStyle().themeAppCompatStyle();
         setTheme(currentTheme);
@@ -87,18 +88,24 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     private void initializeMainContext(@NonNull Context context) {
-        mainContext.setContext(context);
-        mainContext.setResources(context.getResources());
-        mainContext.setDatabase(new Database());
-        Settings settings = new Settings();
-        mainContext.setSettings(settings);
-        mainContext.setHandler(new Handler());
-        mainContext.setScanner(new Scanner());
-        mainContext.setVendorService(new VendorService());
-        mainContext.setWifiManager((WifiManager) context.getSystemService(Context.WIFI_SERVICE));
-        mainContext.setLayoutInflater((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
-        mainContext.setLogger(new Logger());
-        mainContext.setWiFiChannelPair(WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelFirstPair());
+        Resources resources = context.getResources();
+        Locale locale = resources.getConfiguration().locale;
+
+        MainContext.INSTANCE.setContext(context);
+        MainContext.INSTANCE.setResources(resources);
+        MainContext.INSTANCE.setLocale(locale);
+
+        MainContext.INSTANCE.setDatabase(new Database());
+        MainContext.INSTANCE.setSettings(new Settings());
+        MainContext.INSTANCE.setHandler(new Handler());
+        MainContext.INSTANCE.setVendorService(new VendorService());
+        MainContext.INSTANCE.setWifiManager((WifiManager) context.getSystemService(Context.WIFI_SERVICE));
+        MainContext.INSTANCE.setLayoutInflater((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+        MainContext.INSTANCE.setLogger(new Logger());
+        MainContext.INSTANCE.setWiFiChannelPair(WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(locale).get(0));
+
+        /* activate scanner only after everything is initialized */
+        MainContext.INSTANCE.setScanner(new Scanner());
     }
 
     @Override
@@ -106,13 +113,13 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         if (isThemeChanged()) {
             reloadActivity();
         } else {
-            mainContext.getScanner().update();
+            MainContext.INSTANCE.getScanner().update();
             updateSubTitle();
         }
     }
 
     private boolean isThemeChanged() {
-        int settingTheme = mainContext.getSettings().getThemeStyle().themeAppCompatStyle();
+        int settingTheme = MainContext.INSTANCE.getSettings().getThemeStyle().themeAppCompatStyle();
         if (this.currentTheme != settingTheme) {
             this.currentTheme = settingTheme;
             return true;
@@ -157,20 +164,20 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     protected void onPause() {
-        mainContext.getScanner().pause();
+        MainContext.INSTANCE.getScanner().pause();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mainContext.getScanner().resume();
+        MainContext.INSTANCE.getScanner().resume();
     }
 
     private void updateSubTitle() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setSubtitle(subTitle ? mainContext.getSettings().getWiFiBand().getBand() : StringUtils.EMPTY);
+            actionBar.setSubtitle(subTitle ? MainContext.INSTANCE.getSettings().getWiFiBand().getBand() : StringUtils.EMPTY);
         }
     }
 
@@ -181,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private class WiFiBandToggle implements OnClickListener {
         @Override
         public void onClick(View view) {
-            mainContext.getSettings().toggleWiFiBand();
+            MainContext.INSTANCE.getSettings().toggleWiFiBand();
         }
     }
 

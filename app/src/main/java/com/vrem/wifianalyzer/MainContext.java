@@ -30,6 +30,8 @@ import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
+import java.util.Locale;
+
 public enum MainContext {
     INSTANCE;
 
@@ -43,6 +45,7 @@ public enum MainContext {
     private LayoutInflater layoutInflater;
     private Database database;
     private Logger logger;
+    private Locale locale;
     private Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
 
     public Settings getSettings() {
@@ -131,5 +134,34 @@ public enum MainContext {
 
     public void setWiFiChannelPair(@NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         this.wiFiChannelPair = wiFiChannelPair;
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(@NonNull Locale locale) {
+        this.locale = locale;
+    }
+
+    public boolean isInitialized() {
+        return settings != null && context != null && resources != null && handler != null &&
+                vendorService != null && wifiManager != null && layoutInflater != null &&
+                database != null && logger != null && locale != null && wiFiChannelPair != null;
+    }
+
+    public void clear() {
+        settings = null;
+        context = null;
+        resources = null;
+        scanner = null;
+        handler = null;
+        vendorService = null;
+        wifiManager = null;
+        layoutInflater = null;
+        database = null;
+        logger = null;
+        locale = null;
+        wiFiChannelPair = null;
     }
 }

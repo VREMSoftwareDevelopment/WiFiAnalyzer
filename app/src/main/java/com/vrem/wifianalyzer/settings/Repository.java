@@ -24,10 +24,9 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
 class Repository {
-    private final MainContext mainContext = MainContext.INSTANCE;
 
     void initializeDefaultValues() {
-        PreferenceManager.setDefaultValues(mainContext.getContext(), R.xml.preferences, false);
+        PreferenceManager.setDefaultValues(MainContext.INSTANCE.getContext(), R.xml.preferences, false);
     }
 
     void registerOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener onSharedPreferenceChangeListener) {
@@ -35,7 +34,7 @@ class Repository {
     }
 
     void save(int key, int value) {
-        save(mainContext.getContext().getString(key), value);
+        save(MainContext.INSTANCE.getContext().getString(key), value);
     }
 
     private void save(String key, int value) {
@@ -45,7 +44,7 @@ class Repository {
     }
 
     int getStringAsInteger(int key, int defaultValue) {
-        String keyValue = mainContext.getContext().getString(key);
+        String keyValue = MainContext.INSTANCE.getContext().getString(key);
         try {
             return Integer.parseInt(getSharedPreferences().getString(keyValue, "" + defaultValue));
         } catch (Exception e) {
@@ -55,11 +54,11 @@ class Repository {
     }
 
     int getResourceInteger(int key) {
-        return mainContext.getResources().getInteger(key);
+        return MainContext.INSTANCE.getResources().getInteger(key);
     }
 
     int getInteger(int key, int defaultValue) {
-        String keyValue = mainContext.getContext().getString(key);
+        String keyValue = MainContext.INSTANCE.getContext().getString(key);
         try {
             return getSharedPreferences().getInt(keyValue, defaultValue);
         } catch (Exception e) {
@@ -69,6 +68,6 @@ class Repository {
     }
 
     private SharedPreferences getSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(mainContext.getContext());
+        return PreferenceManager.getDefaultSharedPreferences(MainContext.INSTANCE.getContext());
     }
 }

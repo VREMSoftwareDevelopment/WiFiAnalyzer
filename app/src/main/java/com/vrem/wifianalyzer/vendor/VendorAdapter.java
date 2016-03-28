@@ -33,7 +33,6 @@ import java.util.SortedMap;
 
 class VendorAdapter extends ArrayAdapter<String> {
 
-    private final MainContext mainContext = MainContext.INSTANCE;
     private SortedMap<String, List<String>> vendors;
 
     VendorAdapter(@NonNull Context context, @NonNull SortedMap<String, List<String>> vendors) {
@@ -43,7 +42,7 @@ class VendorAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = mainContext.getLayoutInflater();
+        LayoutInflater inflater = MainContext.INSTANCE.getLayoutInflater();
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.vendor_details, parent, false);
         }

@@ -21,6 +21,7 @@ import android.content.res.Resources;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,6 +51,11 @@ public class GraphColorsTest {
         when(resources.getStringArray(R.array.graph_colors)).thenReturn(colors);
 
         fixture = new GraphColors();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        MainContext.INSTANCE.clear();
     }
 
     @Test

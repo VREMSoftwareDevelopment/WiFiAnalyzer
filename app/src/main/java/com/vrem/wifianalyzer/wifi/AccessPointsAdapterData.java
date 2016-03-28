@@ -25,11 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 class AccessPointsAdapterData {
-    private final MainContext mainContext = MainContext.INSTANCE;
     private List<WiFiDetail> wiFiDetails = new ArrayList<>();
 
     void update(WiFiData wiFiData) {
-        Settings settings = mainContext.getSettings();
+        Settings settings = MainContext.INSTANCE.getSettings();
         wiFiDetails = wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy(), settings.getGroupBy());
     }
 

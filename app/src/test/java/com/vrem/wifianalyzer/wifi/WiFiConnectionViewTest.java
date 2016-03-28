@@ -74,6 +74,7 @@ public class WiFiConnectionViewTest {
     public void tearDown() throws Exception {
         verify(scanner).addUpdateNotifier(fixture);
         verify(activity).findViewById(R.id.connection);
+        MainContext.INSTANCE.clear();
     }
 
     @Test

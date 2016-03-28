@@ -44,7 +44,6 @@ import java.util.Locale;
 class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNotifier {
     private static final int MAX_CHANNELS_TO_DISPLAY = 10;
 
-    private final MainContext mainContext = MainContext.INSTANCE;
     private final Resources resources;
     private final ChannelRating channelRating;
     private final TextView bestChannels;
@@ -54,12 +53,12 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         this.resources = context.getResources();
         this.bestChannels = bestChannels;
         this.channelRating = new ChannelRating();
-        mainContext.getScanner().addUpdateNotifier(this);
+        MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
     }
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
-        WiFiBand wiFiBand = mainContext.getSettings().getWiFiBand();
+        WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
         List<WiFiChannel> wiFiChannels = setWiFiChannels(wiFiBand);
         channelRating.setWiFiChannels(wiFiData.getWiFiDetails(wiFiBand, SortBy.STRENGTH));
         bestChannels(wiFiBand, wiFiChannels);
@@ -76,7 +75,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = mainContext.getLayoutInflater();
+        LayoutInflater inflater = MainContext.INSTANCE.getLayoutInflater();
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.channel_rating_details, parent, false);
         }

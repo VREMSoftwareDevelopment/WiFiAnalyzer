@@ -29,7 +29,6 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
 public class TimeGraphFragment extends Fragment {
-    private final MainContext mainContext = MainContext.INSTANCE;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -54,7 +53,7 @@ public class TimeGraphFragment extends Fragment {
 
     private void refresh() {
         swipeRefreshLayout.setRefreshing(true);
-        mainContext.getScanner().update();
+        MainContext.INSTANCE.getScanner().update();
         swipeRefreshLayout.setRefreshing(false);
     }
 

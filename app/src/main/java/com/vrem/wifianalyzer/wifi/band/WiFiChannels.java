@@ -102,11 +102,9 @@ public abstract class WiFiChannels {
 
     public abstract List<WiFiChannel> getAvailableChannels(@NonNull Locale locale);
 
-    public abstract boolean isChannelAvailable(Locale locale, int channel);
+    public abstract boolean isChannelAvailable(@NonNull Locale locale, int channel);
 
-    public abstract List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs();
-
-    public abstract Pair<WiFiChannel, WiFiChannel> getWiFiChannelFirstPair();
+    public abstract List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs(@NonNull Locale locale);
 
     public abstract WiFiChannel getWiFiChannelByFrequency(int frequency, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair);
 

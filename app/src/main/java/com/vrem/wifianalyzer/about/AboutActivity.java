@@ -30,11 +30,10 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
 public class AboutActivity extends AppCompatActivity {
-    private final MainContext mainContext = MainContext.INSTANCE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(mainContext.getSettings().getThemeStyle().themeAppCompatStyle());
+        setTheme(MainContext.INSTANCE.getSettings().getThemeStyle().themeAppCompatStyle());
 
         super.onCreate(savedInstanceState);
 
@@ -57,7 +56,7 @@ public class AboutActivity extends AppCompatActivity {
             PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             ((TextView) findViewById(R.id.version_info)).setText(packageInfo.versionName + " - " + packageInfo.versionCode);
         } catch (PackageManager.NameNotFoundException e) {
-            mainContext.getLogger().error(this, "Version Information", e);
+            MainContext.INSTANCE.getLogger().error(this, "Version Information", e);
         }
     }
 

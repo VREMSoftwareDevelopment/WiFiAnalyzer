@@ -34,7 +34,6 @@ import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
 
-    private final MainContext mainContext = MainContext.INSTANCE;
     private final Resources resources;
     private final AccessPointsAdapterData accessPointsAdapterData;
     private final AccessPointsDetail accessPointsDetail;
@@ -44,7 +43,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         this.resources = context.getResources();
         this.accessPointsAdapterData = new AccessPointsAdapterData();
         this.accessPointsDetail = new AccessPointsDetail();
-        mainContext.getScanner().addUpdateNotifier(this);
+        MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
     }
 
     @Override
@@ -129,7 +128,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
             return convertView;
         }
 
-        LayoutInflater inflater = mainContext.getLayoutInflater();
+        LayoutInflater inflater = MainContext.INSTANCE.getLayoutInflater();
         return inflater.inflate(R.layout.access_points_details, null);
     }
 

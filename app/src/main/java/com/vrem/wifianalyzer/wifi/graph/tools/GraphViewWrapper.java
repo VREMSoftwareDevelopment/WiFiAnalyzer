@@ -36,7 +36,6 @@ import java.util.Set;
 
 public class GraphViewWrapper {
     private static final float TEXT_SIZE_ADJUSTMENT = 0.9f;
-    private final MainContext mainContext = MainContext.INSTANCE;
     private final GraphView graphView;
     private final SeriesCache seriesCache;
     private final GraphColors graphColors;
@@ -143,7 +142,7 @@ public class GraphViewWrapper {
         public void onTap(@NonNull Series series, @NonNull DataPointInterface dataPoint) {
             WiFiDetail wiFiDetail = seriesCache.find(series);
             if (wiFiDetail != null) {
-                Dialog dialog = new AccessPointsDetail().popupDialog(mainContext.getContext(), mainContext.getLayoutInflater(), wiFiDetail);
+                Dialog dialog = new AccessPointsDetail().popupDialog(MainContext.INSTANCE.getContext(), MainContext.INSTANCE.getLayoutInflater(), wiFiDetail);
                 dialog.show();
             }
         }

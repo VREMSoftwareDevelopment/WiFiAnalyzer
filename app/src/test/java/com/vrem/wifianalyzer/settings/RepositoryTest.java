@@ -73,6 +73,7 @@ public class RepositoryTest {
 
     @After
     public void tearDown() throws Exception {
+        MainContext.INSTANCE.clear();
         verifyStatic();
     }
 

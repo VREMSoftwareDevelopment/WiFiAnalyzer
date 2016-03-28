@@ -39,7 +39,6 @@ import java.util.List;
 class ChannelGraphAdapter extends GraphAdapter {
     private static final float TEXT_SIZE_ADJUSTMENT = 0.8f;
 
-    private final MainContext mainContext = MainContext.INSTANCE;
     private final List<Button> navigationItems = new ArrayList<>();
 
     ChannelGraphAdapter() {
@@ -52,7 +51,7 @@ class ChannelGraphAdapter extends GraphAdapter {
     public List<GraphViewNotifier> makeGraphViewNotifiers() {
         List<GraphViewNotifier> graphViewNotifiers = new ArrayList<>();
         for (WiFiBand wiFiBand : WiFiBand.values()) {
-            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiBand.getWiFiChannels().getWiFiChannelPairs()) {
+            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiBand.getWiFiChannels().getWiFiChannelPairs(MainContext.INSTANCE.getLocale())) {
                 graphViewNotifiers.add(new ChannelGraphView(wiFiBand, wiFiChannelPair));
             }
         }
@@ -66,15 +65,15 @@ class ChannelGraphAdapter extends GraphAdapter {
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         super.update(wiFiData);
-        WiFiBand wiFiBand = mainContext.getSettings().getWiFiBand();
+        WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
         for (Button button : navigationItems) {
             button.setVisibility(wiFiBand.isGHZ_5() ? View.VISIBLE : View.GONE);
         }
     }
 
     private void makeNavigationItems() {
-        Context context = mainContext.getContext();
-        for (Pair<WiFiChannel, WiFiChannel> pair : WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs()) {
+        Context context = MainContext.INSTANCE.getContext();
+        for (Pair<WiFiChannel, WiFiChannel> pair : WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(MainContext.INSTANCE.getLocale())) {
             navigationItems.add(makeNavigationItem(context, pair));
         }
     }
@@ -88,7 +87,7 @@ class ChannelGraphAdapter extends GraphAdapter {
         button.setVisibility(View.GONE);
         button.setText(text);
         button.setOnClickListener(new ButtonOnClickListener(pair));
-        setSelectedButton(button, pair.equals(mainContext.getWiFiChannelPair()));
+        setSelectedButton(button, pair.equals(MainContext.INSTANCE.getWiFiChannelPair()));
         return button;
     }
 
@@ -100,10 +99,10 @@ class ChannelGraphAdapter extends GraphAdapter {
 
     private void setSelectedButton(Button button, boolean selected) {
         if (selected) {
-            button.setBackgroundColor(mainContext.getResources().getColor(R.color.connected));
+            button.setBackgroundColor(MainContext.INSTANCE.getResources().getColor(R.color.connected));
             button.setSelected(true);
         } else {
-            button.setBackgroundColor(mainContext.getResources().getColor(R.color.connected_background));
+            button.setBackgroundColor(MainContext.INSTANCE.getResources().getColor(R.color.connected_background));
             button.setSelected(false);
         }
     }
@@ -118,8 +117,8 @@ class ChannelGraphAdapter extends GraphAdapter {
         @Override
         public void onClick(View view) {
             setButtonsBackgroundColor(view);
-            mainContext.setWiFiChannelPair(wiFiChannelPair);
-            mainContext.getScanner().update();
+            MainContext.INSTANCE.setWiFiChannelPair(wiFiChannelPair);
+            MainContext.INSTANCE.getScanner().update();
         }
     }
 

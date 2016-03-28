@@ -40,8 +40,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 class ChannelGraphView implements GraphViewNotifier {
-    private final MainContext mainContext = MainContext.INSTANCE;
-
     private final WiFiBand wiFiBand;
     private final GraphViewWrapper graphViewWrapper;
     private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
@@ -49,14 +47,14 @@ class ChannelGraphView implements GraphViewNotifier {
     ChannelGraphView(@NonNull WiFiBand wiFiBand, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         this.wiFiBand = wiFiBand;
         this.wiFiChannelPair = wiFiChannelPair;
-        this.graphViewWrapper = new GraphViewWrapper(makeGraphView(), mainContext.getSettings().getChannelGraphLegend());
+        this.graphViewWrapper = new GraphViewWrapper(makeGraphView(), MainContext.INSTANCE.getSettings().getChannelGraphLegend());
         initialize();
     }
 
     private GraphView makeGraphView() {
-        Resources resources = mainContext.getResources();
-        return new GraphViewBuilder(mainContext.getContext())
-                .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair, resources))
+        Resources resources = MainContext.INSTANCE.getResources();
+        return new GraphViewBuilder(MainContext.INSTANCE.getContext())
+                .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair, MainContext.INSTANCE.getLocale()))
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
                 .build();
@@ -65,14 +63,14 @@ class ChannelGraphView implements GraphViewNotifier {
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         Set<WiFiDetail> newSeries = new TreeSet<>();
-        for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, mainContext.getSettings().getSortBy())) {
+        for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, MainContext.INSTANCE.getSettings().getSortBy())) {
             if (isInRange(wiFiDetail.getWiFiSignal().getFrequency(), wiFiChannelPair)) {
                 newSeries.add(wiFiDetail);
                 addData(wiFiDetail);
             }
         }
         graphViewWrapper.removeSeries(newSeries);
-        graphViewWrapper.updateLegend(mainContext.getSettings().getChannelGraphLegend());
+        graphViewWrapper.updateLegend(MainContext.INSTANCE.getSettings().getChannelGraphLegend());
         graphViewWrapper.setVisibility(isSelected() ? View.VISIBLE : View.GONE);
     }
 
@@ -81,8 +79,8 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     private boolean isSelected() {
-        return wiFiBand.equals(mainContext.getSettings().getWiFiBand()) &&
-                (WiFiBand.GHZ_2.equals(wiFiBand) || wiFiChannelPair.equals(mainContext.getWiFiChannelPair()));
+        return wiFiBand.equals(MainContext.INSTANCE.getSettings().getWiFiBand()) &&
+                (WiFiBand.GHZ_2.equals(wiFiBand) || wiFiChannelPair.equals(MainContext.INSTANCE.getWiFiChannelPair()));
     }
 
     private void addData(@NonNull WiFiDetail wiFiDetail) {

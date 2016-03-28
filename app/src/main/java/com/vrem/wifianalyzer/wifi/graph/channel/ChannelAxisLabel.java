@@ -16,7 +16,6 @@
 
 package com.vrem.wifianalyzer.wifi.graph.channel;
 
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
@@ -34,12 +33,12 @@ import java.util.Locale;
 class ChannelAxisLabel implements LabelFormatter {
     private final WiFiBand wiFiBand;
     private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
-    private final Resources resources;
+    private final Locale locale;
 
-    ChannelAxisLabel(@NonNull WiFiBand wiFiBand, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair, @NonNull Resources resources) {
+    ChannelAxisLabel(@NonNull WiFiBand wiFiBand, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair, @NonNull Locale locale) {
         this.wiFiBand = wiFiBand;
         this.wiFiChannelPair = wiFiChannelPair;
-        this.resources = resources;
+        this.locale = locale;
     }
 
     @Override
@@ -68,7 +67,6 @@ class ChannelAxisLabel implements LabelFormatter {
         if (wiFiChannel == WiFiChannel.UNKNOWN) {
             return StringUtils.EMPTY;
         }
-        Locale locale = resources.getConfiguration().locale;
         int channel = wiFiChannel.getChannel();
         if (!wiFiChannels.isChannelAvailable(locale, channel)) {
             return StringUtils.EMPTY;

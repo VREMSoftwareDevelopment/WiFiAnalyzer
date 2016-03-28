@@ -24,7 +24,6 @@ class PeriodicScan implements Runnable {
     static final int DELAY_INITIAL = 1;
     static final int DELAY_INTERVAL = 1000;
 
-    private final MainContext mainContext = MainContext.INSTANCE;
     private final Scanner scanner;
 
     PeriodicScan(@NonNull Scanner scanner) {
@@ -33,7 +32,7 @@ class PeriodicScan implements Runnable {
     }
 
     void stop() {
-        mainContext.getHandler().removeCallbacks(this);
+        MainContext.INSTANCE.getHandler().removeCallbacks(this);
     }
 
     void start() {
@@ -42,13 +41,13 @@ class PeriodicScan implements Runnable {
 
     private void nextRun(int delayInitial) {
         stop();
-        mainContext.getHandler().postDelayed(this, delayInitial);
+        MainContext.INSTANCE.getHandler().postDelayed(this, delayInitial);
     }
 
     @Override
     public void run() {
         scanner.update();
-        nextRun(mainContext.getSettings().getScanInterval() * DELAY_INTERVAL);
+        nextRun(MainContext.INSTANCE.getSettings().getScanInterval() * DELAY_INTERVAL);
     }
 
 }

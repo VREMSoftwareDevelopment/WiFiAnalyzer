@@ -35,8 +35,6 @@ import java.net.URLConnection;
 class RemoteCall extends AsyncTask<String, Void, String> {
     private static final String MAX_VENDOR_LOOKUP = "https://www.macvendorlookup.com/api/v2/%s";
 
-    private final MainContext mainContext = MainContext.INSTANCE;
-
     protected String doInBackground(String... params) {
         if (params.length < 1 || StringUtils.isBlank(params[0])) {
             return StringUtils.EMPTY;
@@ -76,12 +74,12 @@ class RemoteCall extends AsyncTask<String, Void, String> {
                     String macAddress = getValue(jsonObject, "startHex");
                     String vendorName = getValue(jsonObject, "company");
                     if (StringUtils.isNotBlank(macAddress)) {
-                        mainContext.getLogger().info(this, macAddress + " " + vendorName);
-                        mainContext.getDatabase().insert(macAddress, vendorName);
+                        MainContext.INSTANCE.getLogger().info(this, macAddress + " " + vendorName);
+                        MainContext.INSTANCE.getDatabase().insert(macAddress, vendorName);
                     }
                 }
             } catch (JSONException e) {
-                mainContext.getLogger().error(this, result, e);
+                MainContext.INSTANCE.getLogger().error(this, result, e);
             }
         }
     }
