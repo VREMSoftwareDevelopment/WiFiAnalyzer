@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     private void initializeMainContext(@NonNull Context context) {
         mainContext.setContext(context);
+        mainContext.setResources(context.getResources());
         mainContext.setDatabase(new Database());
         Settings settings = new Settings();
         mainContext.setSettings(settings);

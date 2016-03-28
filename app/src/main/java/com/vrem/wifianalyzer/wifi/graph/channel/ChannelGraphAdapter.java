@@ -100,10 +100,10 @@ class ChannelGraphAdapter extends GraphAdapter {
 
     private void setSelectedButton(Button button, boolean selected) {
         if (selected) {
-            button.setBackgroundColor(mainContext.getContext().getResources().getColor(R.color.connected));
+            button.setBackgroundColor(mainContext.getResources().getColor(R.color.connected));
             button.setSelected(true);
         } else {
-            button.setBackgroundColor(mainContext.getContext().getResources().getColor(R.color.connected_background));
+            button.setBackgroundColor(mainContext.getResources().getColor(R.color.connected_background));
             button.setSelected(false);
         }
     }

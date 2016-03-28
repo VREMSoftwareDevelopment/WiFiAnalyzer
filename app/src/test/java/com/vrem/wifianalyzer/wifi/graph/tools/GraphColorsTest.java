@@ -16,31 +16,53 @@
 
 package com.vrem.wifianalyzer.wifi.graph.tools;
 
+import android.content.res.Resources;
+
+import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.R;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import static com.vrem.wifianalyzer.wifi.graph.tools.GraphColors.GRAPH_COLORS;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class GraphColorsTest {
+    @Mock
+    private Resources resources;
+
+    private String[] colors = new String[]{"#FB1554", "#33FB1554", "#74FF89", "#3374FF89", "#8B1EFC", "#338B1EFC"};
+    private GraphColor[] graphColors = new GraphColor[]{
+            new GraphColor(0xFB1554, 0x33FB1554),
+            new GraphColor(0x74FF89, 0x3374FF89),
+            new GraphColor(0x8B1EFC, 0x338B1EFC)
+    };
+
     private GraphColors fixture;
 
     @Before
     public void setUp() throws Exception {
+        MainContext.INSTANCE.setResources(resources);
+        when(resources.getStringArray(R.array.graph_colors)).thenReturn(colors);
+
         fixture = new GraphColors();
     }
 
     @Test
     public void testGetColorStartsOverWhenEndIsReached() throws Exception {
-        for (int i = GRAPH_COLORS.length - 1; i >= 0; i--) {
-            assertEquals(GRAPH_COLORS[i], fixture.getColor());
-        }
-        assertEquals(GRAPH_COLORS[GRAPH_COLORS.length - 1], fixture.getColor());
+        assertEquals(graphColors[2], fixture.getColor());
+        assertEquals(graphColors[1], fixture.getColor());
+        assertEquals(graphColors[0], fixture.getColor());
+        assertEquals(graphColors[2], fixture.getColor());
     }
 
     @Test
     public void testAddColorAddsColorToAvailablePool() throws Exception {
-        GraphColor expected = GRAPH_COLORS[GRAPH_COLORS.length - 1];
+        GraphColor expected = graphColors[2];
         assertEquals(expected, fixture.getColor());
         fixture.addColor(expected.getPrimary());
         assertEquals(expected, fixture.getColor());
@@ -48,9 +70,10 @@ public class GraphColorsTest {
 
     @Test
     public void testAddColorDoesNotAddNonExistingColor() throws Exception {
-        GraphColor graphColor = GRAPH_COLORS[GRAPH_COLORS.length - 1];
+        GraphColor expected = graphColors[1];
+        GraphColor graphColor = graphColors[2];
         assertEquals(graphColor, fixture.getColor());
         fixture.addColor(graphColor.getBackground());
-        assertEquals(GRAPH_COLORS[GRAPH_COLORS.length - 2], fixture.getColor());
+        assertEquals(expected, fixture.getColor());
     }
 }

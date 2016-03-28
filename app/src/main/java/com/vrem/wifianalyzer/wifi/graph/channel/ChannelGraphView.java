@@ -54,7 +54,7 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     private GraphView makeGraphView() {
-        Resources resources = mainContext.getContext().getResources();
+        Resources resources = mainContext.getResources();
         return new GraphViewBuilder(mainContext.getContext())
                 .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair, resources))
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
@@ -90,8 +90,8 @@ class ChannelGraphView implements GraphViewNotifier {
         ChannelGraphSeries<DataPoint> series = new ChannelGraphSeries<>(dataPoints);
         if (graphViewWrapper.addSeries(wiFiDetail, series, dataPoints)) {
             GraphColor graphColor = graphViewWrapper.getColor();
-            series.setColor(graphColor.getPrimary());
-            series.setBackgroundColor(graphColor.getBackground());
+            series.setColor((int) graphColor.getPrimary());
+            series.setBackgroundColor((int) graphColor.getBackground());
         }
     }
 
@@ -124,7 +124,7 @@ class ChannelGraphView implements GraphViewNotifier {
         };
 
         ChannelGraphSeries<DataPoint> series = new ChannelGraphSeries<>(dataPoints);
-        series.setColor(GraphColor.TRANSPARENT.getPrimary());
+        series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
         series.zeroThickness();
         graphViewWrapper.addSeries(series);
     }

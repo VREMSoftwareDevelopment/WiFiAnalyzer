@@ -61,13 +61,14 @@ public class RepositoryTest {
     public void setUp() throws Exception {
         mockStatic(PreferenceManager.class);
 
-        MainContext.INSTANCE.setContext(context);
+        MainContext mainContext = MainContext.INSTANCE;
+        mainContext.setContext(context);
+        mainContext.setResources(resources);
 
         keyValue = "xyz";
         fixture = new Repository();
 
         when(PreferenceManager.getDefaultSharedPreferences(context)).thenReturn(sharedPreferences);
-        when(context.getResources()).thenReturn(resources);
     }
 
     @After
@@ -142,13 +143,11 @@ public class RepositoryTest {
         // setup
         int keyIndex = R.integer.scan_interval_max;
         int expected = 1111;
-        when(context.getResources()).thenReturn(resources);
         when(resources.getInteger(keyIndex)).thenReturn(expected);
         // execute
         int actual = fixture.getResourceInteger(keyIndex);
         // validate
         assertEquals(expected, actual);
-        verify(context).getResources();
         verify(resources).getInteger(keyIndex);
     }
 

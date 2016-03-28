@@ -55,7 +55,7 @@ class Repository {
     }
 
     int getResourceInteger(int key) {
-        return mainContext.getContext().getResources().getInteger(key);
+        return mainContext.getResources().getInteger(key);
     }
 
     int getInteger(int key, int defaultValue) {

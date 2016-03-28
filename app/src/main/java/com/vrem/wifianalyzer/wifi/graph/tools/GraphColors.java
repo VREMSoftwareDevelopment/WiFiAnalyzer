@@ -16,53 +16,44 @@
 
 package com.vrem.wifianalyzer.wifi.graph.tools;
 
-import java.util.Arrays;
+import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.R;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 class GraphColors {
-    static final GraphColor[] GRAPH_COLORS = new GraphColor[]{
-            new GraphColor(0xFFFB1554, 0x33FB1554),
-            new GraphColor(0xFF74FF89, 0x3374FF89),
-            new GraphColor(0xFF8B1EFC, 0x338B1EFC),
-            new GraphColor(0xFF3B6D9D, 0x333B6D9D),
-            new GraphColor(0xFF886D03, 0x33886D03),
-            new GraphColor(0xFFFDD3CD, 0x33FDD3CD),
-            new GraphColor(0xFFE077EA, 0x33E077EA),
-            new GraphColor(0xFF6EFFE6, 0x336EFFE6),
-            new GraphColor(0xFF034713, 0x33034713),
-            new GraphColor(0xFF411457, 0x33411457),
-            new GraphColor(0xFF74230C, 0x3374230C),
-            new GraphColor(0xFFA6D3F5, 0x33A6D3F5),
-            new GraphColor(0xFFF98A96, 0x33F98A96),
-            new GraphColor(0xFF2F944C, 0x332F944C),
-            new GraphColor(0xFFEAA579, 0x33EAA579),
-            new GraphColor(0xFF3C7172, 0x333C7172),
-            new GraphColor(0xFFC55616, 0x33C55616),
-            new GraphColor(0xFF94136D, 0x3394136D),
-            new GraphColor(0xFF2ECF76, 0x332ECF76),
-            new GraphColor(0xFF2196F3, 0x332196F3)
-    };
+    private final List<GraphColor> availableGraphColors;
+    private final Stack<GraphColor> graphColors;
 
-    private final Stack<GraphColor> colors = new Stack<>();
-
-    GraphColor getColor() {
-        if (colors.isEmpty()) {
-            colors.addAll(Arrays.asList(GRAPH_COLORS));
+    GraphColors() {
+        graphColors = new Stack<>();
+        availableGraphColors = new ArrayList<>();
+        String[] colorsAsStrings = MainContext.INSTANCE.getResources().getStringArray(R.array.graph_colors);
+        for (int i = 0; i < colorsAsStrings.length; i += 2) {
+            availableGraphColors.add(new GraphColor(Long.parseLong(colorsAsStrings[i].substring(1), 16), Long.parseLong(colorsAsStrings[i + 1].substring(1), 16)));
         }
-        return colors.pop();
     }
 
-    boolean addColor(int primaryColor) {
+    GraphColor getColor() {
+        if (graphColors.isEmpty()) {
+            graphColors.addAll(availableGraphColors);
+        }
+        return graphColors.pop();
+    }
+
+    boolean addColor(long primaryColor) {
         GraphColor graphColor = findColor(primaryColor);
-        if (graphColor == null || colors.contains(graphColor)) {
+        if (graphColor == null || graphColors.contains(graphColor)) {
             return false;
         }
-        colors.push(graphColor);
+        graphColors.push(graphColor);
         return true;
     }
 
-    private GraphColor findColor(int primaryColor) {
-        for (GraphColor graphColor : GRAPH_COLORS) {
+    private GraphColor findColor(long primaryColor) {
+        for (GraphColor graphColor : availableGraphColors) {
             if (primaryColor == graphColor.getPrimary()) {
                 return graphColor;
             }

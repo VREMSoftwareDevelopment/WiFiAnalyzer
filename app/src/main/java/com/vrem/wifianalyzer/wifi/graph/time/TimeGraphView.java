@@ -53,7 +53,7 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     private GraphView makeGraphView() {
-        Resources resources = mainContext.getContext().getResources();
+        Resources resources = mainContext.getResources();
         return new GraphViewBuilder(mainContext.getContext())
                 .setLabelFormatter(new TimeAxisLabel())
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
@@ -85,7 +85,7 @@ class TimeGraphView implements GraphViewNotifier {
         DataPoint dataPoint = new DataPoint(xValue, wiFiDetail.getWiFiSignal().getLevel());
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{dataPoint});
         if (graphViewWrapper.appendSeries(wiFiDetail, series, dataPoint, scanCount)) {
-            series.setColor(graphViewWrapper.getColor().getPrimary());
+            series.setColor((int) graphViewWrapper.getColor().getPrimary());
             series.setDrawBackground(false);
         }
     }
@@ -97,7 +97,7 @@ class TimeGraphView implements GraphViewNotifier {
                 new DataPoint(0, GraphViewBuilder.MIN_Y),
                 new DataPoint(GraphViewBuilder.CNT_X - 1, GraphViewBuilder.MIN_Y)
         });
-        series.setColor(GraphColor.TRANSPARENT.getPrimary());
+        series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
         series.setThickness(0);
         graphViewWrapper.addSeries(series);
     }
