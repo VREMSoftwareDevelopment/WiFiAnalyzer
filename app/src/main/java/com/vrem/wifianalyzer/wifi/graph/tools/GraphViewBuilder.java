@@ -17,6 +17,7 @@
 package com.vrem.wifianalyzer.wifi.graph.tools;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -25,11 +26,14 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
+import com.vrem.wifianalyzer.MainContext;
 
 public class GraphViewBuilder {
     public static final int MIN_Y = -100;
     public static final int MAX_Y = -20;
-    public static final int CNT_X = 16;
+
+    private static final int CNT_X_SMALL = 16;
+    private static final int CNT_X_LARGE = 24;
 
     private static final int CNT_Y = (MAX_Y - MIN_Y) / 10 + 1;
 
@@ -40,6 +44,15 @@ public class GraphViewBuilder {
 
     public GraphViewBuilder(@NonNull Context content) {
         this.content = content;
+    }
+
+    public static int XAxisCount() {
+        return isLargeScreenLayout() ? CNT_X_LARGE : CNT_X_SMALL;
+    }
+
+    private static boolean isLargeScreenLayout() {
+        int screenLayoutSize = MainContext.INSTANCE.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        return screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_XLARGE;
     }
 
     public GraphViewBuilder setLabelFormatter(@NonNull LabelFormatter labelFormatter) {
@@ -82,7 +95,7 @@ public class GraphViewBuilder {
     private void setGridLabelRenderer(@NonNull GridLabelRenderer gridLabelRenderer) {
         gridLabelRenderer.setHighlightZeroLines(false);
         gridLabelRenderer.setNumVerticalLabels(CNT_Y);
-        gridLabelRenderer.setNumHorizontalLabels(CNT_X);
+        gridLabelRenderer.setNumHorizontalLabels(XAxisCount());
 
         if (labelFormatter != null) {
             gridLabelRenderer.setLabelFormatter(labelFormatter);

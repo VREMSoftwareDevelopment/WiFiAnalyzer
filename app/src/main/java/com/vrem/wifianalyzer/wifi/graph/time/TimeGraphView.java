@@ -94,7 +94,7 @@ class TimeGraphView implements GraphViewNotifier {
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
                 new DataPoint(0, GraphViewBuilder.MIN_Y),
-                new DataPoint(GraphViewBuilder.CNT_X - 1, GraphViewBuilder.MIN_Y)
+                new DataPoint(GraphViewBuilder.XAxisCount() - 1, GraphViewBuilder.MIN_Y)
         });
         series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
         series.setThickness(0);
