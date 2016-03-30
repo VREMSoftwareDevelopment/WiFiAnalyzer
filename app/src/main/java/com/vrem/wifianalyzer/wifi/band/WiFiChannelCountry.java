@@ -18,17 +18,15 @@ package com.vrem.wifianalyzer.wifi.band;
 
 import android.support.annotation.NonNull;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class WiFiChannelCountry {
-        static final String UNKNOWN = "Unknown country";
-        static final List<Integer> DEFAULT_CHANNELS_GHZ_2 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
-        static final List<Integer> DEFAULT_CHANNELS_GHZ_5 = Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64);
+    static final String UNKNOWN = "Unknown country";
+    static final List<Integer> DEFAULT_CHANNELS_GHZ_2 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+    static final List<Integer> DEFAULT_CHANNELS_GHZ_5 = Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64);
 
     private static final WiFiChannelCountry[] COUNTRY_CHANNELS = new WiFiChannelCountry[]{
             new WiFiChannelCountry("AE",
@@ -598,11 +596,8 @@ public class WiFiChannelCountry {
     private final List<Integer> channelsGHZ_2;
     private final List<Integer> channelsGHZ_5;
 
-    private WiFiChannelCountry() {
-            countryCode = StringUtils.EMPTY;
-            countryName = "Unknown";
-            channelsGHZ_2 = DEFAULT_CHANNELS_GHZ_2;
-            channelsGHZ_5 = DEFAULT_CHANNELS_GHZ_5;
+    public WiFiChannelCountry(@NonNull String countryCode) {
+        this(countryCode, DEFAULT_CHANNELS_GHZ_2, DEFAULT_CHANNELS_GHZ_5, UNKNOWN);
     }
 
     private WiFiChannelCountry(@NonNull String countryCode, @NonNull List<Integer> channelsGHZ_2, List<Integer> channelsGHZ_5, @NonNull String countryName) {
@@ -612,32 +607,32 @@ public class WiFiChannelCountry {
         this.countryName = countryName;
     }
 
-        public static WiFiChannelCountry find(@NonNull String countryCode) {
+    public static WiFiChannelCountry find(@NonNull String countryCode) {
         for (WiFiChannelCountry wiFiChannelCountry : COUNTRY_CHANNELS) {
                 if (wiFiChannelCountry.getCountryCode().equalsIgnoreCase(countryCode)) {
                 return wiFiChannelCountry;
             }
         }
-                return new WiFiChannelCountry(countryCode, DEFAULT_CHANNELS_GHZ_2, DEFAULT_CHANNELS_GHZ_5, UNKNOWN);
+        return new WiFiChannelCountry(countryCode);
     }
 
-        public static List<WiFiChannelCountry> getAll() {
-                return Collections.unmodifiableList(Arrays.asList(COUNTRY_CHANNELS));
-        }
+    public static List<WiFiChannelCountry> getAll() {
+        return Collections.unmodifiableList(Arrays.asList(COUNTRY_CHANNELS));
+    }
 
-        public String getCountryCode() {
+    public String getCountryCode() {
         return countryCode;
     }
 
-        public String getCountryName() {
+    public String getCountryName() {
         return countryName;
     }
 
-        public List<Integer> getChannelsGHZ_2() {
+    public List<Integer> getChannelsGHZ_2() {
         return Collections.unmodifiableList(channelsGHZ_2);
     }
 
-        public List<Integer> getChannelsGHZ_5() {
+    public List<Integer> getChannelsGHZ_5() {
         return Collections.unmodifiableList(channelsGHZ_5);
     }
 

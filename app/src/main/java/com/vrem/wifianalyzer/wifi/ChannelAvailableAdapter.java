@@ -49,8 +49,7 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
         return convertView;
     }
 
-    @NonNull
-    private String getChannels(List<Integer> channels) {
+    String getChannels(List<Integer> channels) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int channel : channels) {
             if (stringBuilder.length() > 0) {
