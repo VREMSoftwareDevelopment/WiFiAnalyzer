@@ -19,8 +19,14 @@ package com.vrem.wifianalyzer.wifi.scanner;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
+import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 
+import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
+import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -58,9 +64,7 @@ public class Transformer {
                 results.add(wiFiDetail);
             }
         }
-/*
         addTestData(results);
-*/
         return Collections.unmodifiableList(results);
     }
 
@@ -79,34 +83,21 @@ public class Transformer {
         List<String> wifiConfigurations = transformWifiConfigurations(configuredNetworks);
         return new WiFiData(wiFiDetails, wiFiConnection, wifiConfigurations);
     }
-/*
     private void addTestData(@NonNull List<WiFiDetail> wiFiDetails) {
         if (MainContext.INSTANCE.isDevelopmentMode()) {
-            WiFiBand[] values = WiFiBand.values();
-            int level = -50;
             int count = 0;
-            for (WiFiBand wiFiBand : values) {
-                WiFiWidth wiFiWidth = wiFiBand.isGHZ_5() ? WiFiWidth.MHZ_40 : WiFiWidth.MHZ_20;
-                for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiBand.getWiFiChannels().getWiFiChannelPairs()) {
-                    wiFiDetails.addAll(Arrays.asList(
-                            new WiFiDetail("SSID-T-" + count + "0", "BSSID:" + count + "0", Security.WPA.name(), new WiFiSignal(wiFiChannelPair.first.getFrequency(), wiFiWidth, level - 10)),
-                            new WiFiDetail("SSID-T-" + count + "1", "BSSID:" + count + "1", Security.WEP.name(), new WiFiSignal(middle(wiFiChannelPair), wiFiWidth, level - 20)),
-                            new WiFiDetail("SSID-T-" + count + "2", "BSSID:" + count + "2", Security.WPS.name(), new WiFiSignal(wiFiChannelPair.second.getFrequency(), wiFiWidth, level - 30))
-                    ));
-                    count++;
-                }
+            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(MainContext.INSTANCE.getLocale())) {
+                WiFiSignal wiFiSignal = new WiFiSignal(wiFiChannelPair.first.getFrequency(), WiFiWidth.MHZ_40, -60);
+                WiFiDetail wiFiDetail = new WiFiDetail("SSID-T-" + count + "0", "BSSID:" + count + "0", Security.WPA.name(), wiFiSignal);
+                wiFiDetails.add(wiFiDetail);
+                count++;
             }
         }
-    }
-
-    private boolean isBeta() {
-        return WI_FI_ANALYZER_BETA.equals(MainContext.INSTANCE.getContext().getString(R.string.app_name));
     }
 
     private int middle(@NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         return (wiFiChannelPair.first.getFrequency() + wiFiChannelPair.second.getFrequency()) / 2;
     }
-*/
     private enum Fields {
         /*
                 centerFreq0,

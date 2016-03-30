@@ -35,7 +35,7 @@ import java.util.Locale;
 public enum MainContext {
     INSTANCE;
 
-    private static final String WI_FI_ANALYZER_BETA = "WiFi Analyzer BETA";
+    public static final String WI_FI_ANALYZER_BETA = "WiFi Analyzer BETA";
 
     private Settings settings;
     private Context context;

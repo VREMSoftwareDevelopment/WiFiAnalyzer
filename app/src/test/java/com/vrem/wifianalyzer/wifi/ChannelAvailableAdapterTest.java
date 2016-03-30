@@ -23,6 +23,7 @@ import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
 import org.apache.commons.lang3.StringUtils;
@@ -63,7 +64,9 @@ public class ChannelAvailableAdapterTest {
         assertNotNull(actual);
 
         assertEquals(expected, ((TextView) actual.findViewById(R.id.channel_available_country)).getText());
+        assertEquals(WiFiBand.GHZ_2.getBand() + " : ", ((TextView) actual.findViewById(R.id.channel_available_title_ghz_2)).getText());
         assertEquals(expected_GHZ_2, ((TextView) actual.findViewById(R.id.channel_available_ghz_2)).getText());
+        assertEquals(WiFiBand.GHZ_5.getBand() + " : ", ((TextView) actual.findViewById(R.id.channel_available_title_ghz_5)).getText());
         assertEquals(expected_GHZ_5, ((TextView) actual.findViewById(R.id.channel_available_ghz_5)).getText());
     }
 

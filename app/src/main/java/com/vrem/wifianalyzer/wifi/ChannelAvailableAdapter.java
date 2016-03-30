@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
 import org.apache.commons.lang3.StringUtils;
@@ -45,9 +46,16 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
             convertView = inflater.inflate(R.layout.channel_available_details, parent, false);
         }
         WiFiChannelCountry wiFiChannelCountry = getItem(position);
-        ((TextView) convertView.findViewById(R.id.channel_available_country)).setText(wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName());
-        ((TextView) convertView.findViewById(R.id.channel_available_ghz_2)).setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ_2().toArray(), ","));
-        ((TextView) convertView.findViewById(R.id.channel_available_ghz_5)).setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ_5().toArray(), ","));
+        ((TextView) convertView.findViewById(R.id.channel_available_country))
+                .setText(wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName());
+        ((TextView) convertView.findViewById(R.id.channel_available_title_ghz_2))
+                .setText(WiFiBand.GHZ_2.getBand() + " : ");
+        ((TextView) convertView.findViewById(R.id.channel_available_ghz_2))
+                .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ_2().toArray(), ","));
+        ((TextView) convertView.findViewById(R.id.channel_available_title_ghz_5))
+                .setText(WiFiBand.GHZ_5.getBand() + " : ");
+        ((TextView) convertView.findViewById(R.id.channel_available_ghz_5))
+                .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ_5().toArray(), ","));
         return convertView;
     }
 
