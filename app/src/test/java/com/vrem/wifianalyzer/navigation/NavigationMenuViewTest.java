@@ -35,14 +35,14 @@ import static org.junit.Assert.assertEquals;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class NavigationMenuViewTest {
-    private MainActivity activity = RobolectricUtil.INSTANCE.getMainActivity();
-
+    private MainActivity mainActivity;
     private NavigationMenuView fixture;
     private NavigationView navigationView;
 
     @Before
     public void setUp() throws Exception {
-        fixture = activity.getNavigationMenuView();
+        mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
+        fixture = mainActivity.getNavigationMenuView();
         navigationView = fixture.getNavigationView();
     }
 
@@ -57,7 +57,7 @@ public class NavigationMenuViewTest {
             for (NavigationMenu navigationMenu : navigationGroup.navigationMenu()) {
                 MenuItem actual = menu.getItem(navigationMenu.ordinal());
                 assertEquals(navigationGroup.ordinal(), actual.getGroupId());
-                assertEquals(activity.getResources().getString(navigationMenu.getTitle()), actual.getTitle());
+                assertEquals(mainActivity.getResources().getString(navigationMenu.getTitle()), actual.getTitle());
                 assertEquals(navigationMenu.ordinal(), actual.getItemId());
                 assertEquals(navigationMenu.ordinal(), actual.getOrder());
             }

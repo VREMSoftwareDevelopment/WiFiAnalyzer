@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
@@ -17,7 +16,7 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <ListPreference
-        android:defaultValue="0"
+        android:defaultValue="@string/wifi_band_default"
         android:entries="@array/wifi_band_array"
         android:entryValues="@array/wifi_band_index_array"
         android:key="@string/wifi_band_key"
@@ -26,14 +25,14 @@
         android:title="@string/wifi_band_title" />
 
     <com.vrem.wifianalyzer.settings.ScanIntervalPreference
-        android:defaultValue="15"
+        android:defaultValue="@integer/scan_interval_default"
         android:key="@string/scan_interval_key"
         android:persistent="true"
         android:summary="@string/scan_interval_summary"
         android:title="@string/scan_interval_title" />
 
     <ListPreference
-        android:defaultValue="0"
+        android:defaultValue="@string/sort_by_default"
         android:entries="@array/sort_by_array"
         android:entryValues="@array/sort_by_index_array"
         android:key="@string/sort_by_key"
@@ -42,7 +41,7 @@
         android:title="@string/sort_by_title" />
 
     <ListPreference
-        android:defaultValue="0"
+        android:defaultValue="@string/group_by_default"
         android:entries="@array/group_by_array"
         android:entryValues="@array/group_by_index_array"
         android:key="@string/group_by_key"
@@ -51,7 +50,7 @@
         android:title="@string/group_by_title" />
 
     <ListPreference
-        android:defaultValue="2"
+        android:defaultValue="@string/channel_graph_legend_default"
         android:entries="@array/graph_legend_array"
         android:entryValues="@array/graph_legend_index_array"
         android:key="@string/channel_graph_legend_key"
@@ -60,7 +59,7 @@
         android:title="@string/channel_graph_legend_title" />
 
     <ListPreference
-        android:defaultValue="0"
+        android:defaultValue="@string/time_graph_legend_default"
         android:entries="@array/graph_legend_array"
         android:entryValues="@array/graph_legend_index_array"
         android:key="@string/time_graph_legend_key"
@@ -69,7 +68,7 @@
         android:title="@string/time_graph_legend_title" />
 
     <ListPreference
-        android:defaultValue="0"
+        android:defaultValue="@string/theme_default"
         android:entries="@array/theme_array"
         android:entryValues="@array/theme_index_array"
         android:key="@string/theme_key"

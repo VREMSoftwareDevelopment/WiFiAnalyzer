@@ -46,15 +46,14 @@ public class VendorAdapterTest {
     private static final String VENDOR2 = "V2";
     private static final String VENDOR3 = "V3";
 
-    private MainActivity activity = RobolectricUtil.INSTANCE.getMainActivity();
-
     private VendorAdapter fixture;
     private SortedMap<String, List<String>> vendors;
 
     @Before
     public void setUp() throws Exception {
+        MainActivity mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
         vendors = withVendors();
-        fixture = new VendorAdapter(activity, vendors);
+        fixture = new VendorAdapter(mainActivity, vendors);
 
         assertEquals(vendors, fixture.getVendors());
     }

@@ -37,12 +37,14 @@ import static org.junit.Assert.assertNull;
 @Config(constants = BuildConfig.class)
 public class AboutActivityTest {
 
-    private MainActivity mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
+    private MainActivity mainActivity;
+    private AboutActivity fixture;
 
     @Test
     public void testTitle() throws Exception {
         // setup
-        AboutActivity fixture = Robolectric.setupActivity(AboutActivity.class);
+        mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
+        fixture = Robolectric.setupActivity(AboutActivity.class);
         String expected = fixture.getResources().getString(R.string.action_about);
         // execute
         ActionBar actual = fixture.getSupportActionBar();

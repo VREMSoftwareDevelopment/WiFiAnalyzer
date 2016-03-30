@@ -43,13 +43,14 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class AccessPointsDetailTest {
-    private MainActivity activity = RobolectricUtil.INSTANCE.getMainActivity();
+    private MainActivity mainActivity;
 
     private View view;
     private AccessPointsDetail fixture;
 
     @Before
     public void setUp() throws Exception {
+        mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
         view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.access_points_details, null);
         assertNotNull(view);
         fixture = new AccessPointsDetail();
@@ -62,7 +63,7 @@ public class AccessPointsDetailTest {
                 new WiFiSignal(1, WiFiWidth.MHZ_20, 2),
                 new WiFiAdditional("VendorName", "IPAddress"));
         // execute
-        fixture.setView(activity.getResources(), view, wiFiDetail, false);
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         validateTextViewValues(wiFiDetail, "SSID");
 
@@ -85,7 +86,7 @@ public class AccessPointsDetailTest {
                 new WiFiSignal(1, WiFiWidth.MHZ_20, 2),
                 new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        fixture.setView(activity.getResources(), view, wiFiDetail, true);
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, true);
         // validate
         validateTextViewValues(wiFiDetail, "***");
 

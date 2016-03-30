@@ -39,15 +39,15 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ChannelAvailableAdapterTest {
-    private MainActivity activity = RobolectricUtil.INSTANCE.getMainActivity();
-
     private ChannelAvailableAdapter fixture;
     private WiFiChannelCountry wiFiChannelCountry;
 
     @Before
     public void setUp() throws Exception {
+        MainActivity mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
+
         wiFiChannelCountry = new WiFiChannelCountry("WFCC");
-        fixture = new ChannelAvailableAdapter(activity, Arrays.asList(wiFiChannelCountry));
+        fixture = new ChannelAvailableAdapter(mainActivity, Arrays.asList(wiFiChannelCountry));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class ChannelAvailableAdapterTest {
         String expected_GHZ_2 = fixture.getChannels(wiFiChannelCountry.getChannelsGHZ_2());
         String expected_GHZ_5 = fixture.getChannels(wiFiChannelCountry.getChannelsGHZ_5());
         // execute
-        View actual = fixture.getView(1, null, null);
+        View actual = fixture.getView(0, null, null);
         // validate
         assertNotNull(actual);
 
