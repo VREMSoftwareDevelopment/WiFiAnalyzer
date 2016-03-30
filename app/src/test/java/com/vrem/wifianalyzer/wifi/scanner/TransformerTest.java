@@ -22,7 +22,6 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 
 import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -79,12 +78,8 @@ public class TransformerTest {
 
     @Before
     public void setUp() throws Exception {
-        MainContext.INSTANCE.setContext(context);
-        when(context.getString(R.string.app_name)).thenReturn(" " + Transformer.WI_FI_ANALYZER_BETA);
-
         scanResults = Arrays.asList(scanResult1, scanResult2, scanResult3);
         wifiConfigurations = Arrays.asList(wifiConfiguration1, wifiConfiguration2, wifiConfiguration3);
-
         fixture = new Transformer();
     }
 

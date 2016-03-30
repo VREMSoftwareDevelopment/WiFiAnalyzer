@@ -32,8 +32,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class Transformer {
-    static final String WI_FI_ANALYZER_BETA = "WiFi Analyzer BETA";
-
     WiFiConnection transformWifiInfo(WifiInfo wifiInfo) {
         if (wifiInfo == null || wifiInfo.getNetworkId() == -1) {
             return WiFiConnection.EMPTY;
@@ -81,10 +79,9 @@ public class Transformer {
         List<String> wifiConfigurations = transformWifiConfigurations(configuredNetworks);
         return new WiFiData(wiFiDetails, wiFiConnection, wifiConfigurations);
     }
-
 /*
     private void addTestData(@NonNull List<WiFiDetail> wiFiDetails) {
-        if (isBeta()) {
+        if (MainContext.INSTANCE.isDevelopmentMode()) {
             WiFiBand[] values = WiFiBand.values();
             int level = -50;
             int count = 0;
@@ -110,7 +107,6 @@ public class Transformer {
         return (wiFiChannelPair.first.getFrequency() + wiFiChannelPair.second.getFrequency()) / 2;
     }
 */
-
     private enum Fields {
         /*
                 centerFreq0,

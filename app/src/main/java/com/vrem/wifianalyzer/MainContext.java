@@ -35,6 +35,8 @@ import java.util.Locale;
 public enum MainContext {
     INSTANCE;
 
+    private static final String WI_FI_ANALYZER_BETA = "WiFi Analyzer BETA";
+
     private Settings settings;
     private Context context;
     private Resources resources;
@@ -148,6 +150,10 @@ public enum MainContext {
         return settings != null && context != null && resources != null && handler != null &&
                 vendorService != null && wifiManager != null && layoutInflater != null &&
                 database != null && logger != null && locale != null && wiFiChannelPair != null;
+    }
+
+    public boolean isDevelopmentMode() {
+        return WI_FI_ANALYZER_BETA.equals(MainContext.INSTANCE.getContext().getString(R.string.app_name));
     }
 
     public void clear() {

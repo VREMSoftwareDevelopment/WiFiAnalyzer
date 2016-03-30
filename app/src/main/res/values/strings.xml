@@ -30,6 +30,7 @@
     <string name="action_channel_rating">Channel Rating</string>
     <string name="action_channel_graph">Channel Graph</string>
     <string name="action_time_graph">Time Graph</string>
+    <string name="action_channel_available">Available Channels</string>
     <string name="action_vendors">Vendors</string>
     <string name="action_settings">Settings</string>
     <string name="action_about">About</string>
