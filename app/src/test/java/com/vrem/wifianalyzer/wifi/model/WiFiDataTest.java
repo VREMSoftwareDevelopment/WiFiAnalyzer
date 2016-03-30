@@ -45,7 +45,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WiFiDataTest {
-    public static final String IP_ADDRESS = "21.205.91.7";
+    private static final String IP_ADDRESS = "21.205.91.7";
     private static final String VENDOR_NAME = "VendorName+";
     private static final String SSID_1 = "SSID1";
     private static final String SSID_2 = "SSID2";
@@ -66,14 +66,6 @@ public class WiFiDataTest {
     private VendorService vendorService;
 
     private WiFiConnection wiFiConnection;
-    private WiFiDetail wiFiDetail1;
-    private WiFiDetail wiFiDetail2;
-    private WiFiDetail wiFiDetail3;
-    private WiFiDetail wiFiDetail4;
-    private WiFiDetail wiFiDetail_1;
-    private WiFiDetail wiFiDetail_2;
-    private WiFiDetail wiFiDetail_3;
-
     private List<WiFiDetail> wiFiDetails;
     private List<String> wiFiConfigurations;
     private WiFiData fixture;
@@ -97,14 +89,14 @@ public class WiFiDataTest {
     }
 
     private List<WiFiDetail> withWiFiDetails() {
-        wiFiDetail1 = new WiFiDetail(SSID_1, BSSID_1, StringUtils.EMPTY, new WiFiSignal(FREQUENCY1, WiFiWidth.MHZ_20, LEVEL1));
-        wiFiDetail2 = new WiFiDetail(SSID_2, BSSID_2, StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2));
-        wiFiDetail3 = new WiFiDetail(SSID_3, BSSID_3, StringUtils.EMPTY, new WiFiSignal(FREQUENCY3, WiFiWidth.MHZ_20, LEVEL0));
-        wiFiDetail4 = new WiFiDetail(SSID_4, BSSID_4, StringUtils.EMPTY, new WiFiSignal(FREQUENCY4, WiFiWidth.MHZ_20, LEVEL2));
+        WiFiDetail wiFiDetail1 = new WiFiDetail(SSID_1, BSSID_1, StringUtils.EMPTY, new WiFiSignal(FREQUENCY1, WiFiWidth.MHZ_20, LEVEL1));
+        WiFiDetail wiFiDetail2 = new WiFiDetail(SSID_2, BSSID_2, StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2));
+        WiFiDetail wiFiDetail3 = new WiFiDetail(SSID_3, BSSID_3, StringUtils.EMPTY, new WiFiSignal(FREQUENCY3, WiFiWidth.MHZ_20, LEVEL0));
+        WiFiDetail wiFiDetail4 = new WiFiDetail(SSID_4, BSSID_4, StringUtils.EMPTY, new WiFiSignal(FREQUENCY4, WiFiWidth.MHZ_20, LEVEL2));
 
-        wiFiDetail_1 = new WiFiDetail(SSID_2, BSSID_2 + "_1", StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 3));
-        wiFiDetail_2 = new WiFiDetail(SSID_2, BSSID_2 + "_2", StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 1));
-        wiFiDetail_3 = new WiFiDetail(SSID_2, BSSID_2 + "_3", StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 2));
+        WiFiDetail wiFiDetail_1 = new WiFiDetail(SSID_2, BSSID_2 + "_1", StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 3));
+        WiFiDetail wiFiDetail_2 = new WiFiDetail(SSID_2, BSSID_2 + "_2", StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 1));
+        WiFiDetail wiFiDetail_3 = new WiFiDetail(SSID_2, BSSID_2 + "_3", StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 2));
 
         return Arrays.asList(wiFiDetail_3, wiFiDetail3, wiFiDetail_2, wiFiDetail1, wiFiDetail_1, wiFiDetail2, wiFiDetail4);
     }

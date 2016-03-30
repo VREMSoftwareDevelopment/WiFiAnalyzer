@@ -125,7 +125,6 @@ public class RepositoryTest {
     public void testGetStringAsIntegerThrowsException() throws Exception {
         // setup
         int keyIndex = R.string.app_name;
-        int value = 1111;
         int defaultValue = 2222;
         when(context.getString(keyIndex)).thenReturn(keyValue);
         when(sharedPreferences.getString(keyValue, "" + defaultValue)).thenThrow(new RuntimeException());
@@ -172,7 +171,6 @@ public class RepositoryTest {
     public void testGetIntegerThrowsException() throws Exception {
         // setup
         int keyIndex = R.string.app_name;
-        int value = 1111;
         int defaultValue = 2222;
         when(context.getString(keyIndex)).thenReturn(keyValue);
         when(sharedPreferences.getInt(keyValue, defaultValue)).thenThrow(new RuntimeException());

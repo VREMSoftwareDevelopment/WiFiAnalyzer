@@ -104,7 +104,7 @@ public class ScannerTest {
         mainContext.setLayoutInflater(layoutInflater);
         mainContext.setDatabase(database);
         mainContext.setLocale(Locale.US);
-        mainContext.setWiFiChannelPair(new Pair<WiFiChannel, WiFiChannel>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN));
+        mainContext.setWiFiChannelPair(new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN));
     }
 
     @After

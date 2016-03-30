@@ -25,8 +25,8 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 public class WiFiChannelTest {
-    public static final int CHANNEL = 1;
-    public static final int FREQUENCY = 200;
+    private static final int CHANNEL = 1;
+    private static final int FREQUENCY = 200;
 
     private WiFiChannel fixture;
     private WiFiChannel other;

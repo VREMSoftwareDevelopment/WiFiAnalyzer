@@ -124,11 +124,11 @@ public class SeriesCacheTest {
         assertEquals(wiFiDetails.get(1), actual);
     }
 
-    WiFiDetail makeWiFiDetail(String SSID) {
+    private WiFiDetail makeWiFiDetail(String SSID) {
         return new WiFiDetail(SSID, "BSSID", StringUtils.EMPTY, new WiFiSignal(100, WiFiWidth.MHZ_20, 5));
     }
 
-    List<WiFiDetail> withData() {
+    private List<WiFiDetail> withData() {
         List<WiFiDetail> results = new ArrayList<>();
         for (int i = 0; i < series.size(); i++) {
             WiFiDetail wiFiDetail = makeWiFiDetail("SSID" + i);

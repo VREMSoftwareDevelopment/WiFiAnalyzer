@@ -114,13 +114,9 @@ public class WiFiChannelsGHZ_2Test {
     @Test
     public void testGetChannelsSet() throws Exception {
         assertEquals(1, fixture.getWiFiChannelPairs(Locale.US).size());
-        validatePair(1, 14);
-    }
-
-    private void validatePair(int expectedFirst, int expectedSecond) {
-        Pair<WiFiChannel, WiFiChannel> pair = fixture.getWiFiChannelPairs(Locale.US).iterator().next();
-        assertEquals(expectedFirst, pair.first.getChannel());
-        assertEquals(expectedSecond, pair.second.getChannel());
+        Pair<WiFiChannel, WiFiChannel> pair = fixture.getWiFiChannelPairs(Locale.US).get(0);
+        assertEquals(1, pair.first.getChannel());
+        assertEquals(14, pair.second.getChannel());
     }
 
     @Test

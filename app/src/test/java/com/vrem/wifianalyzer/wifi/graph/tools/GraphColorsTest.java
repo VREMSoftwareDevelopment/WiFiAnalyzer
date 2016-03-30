@@ -33,16 +33,14 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GraphColorsTest {
-    @Mock
-    private Resources resources;
-
-    private String[] colors = new String[]{"#FB1554", "#33FB1554", "#74FF89", "#3374FF89", "#8B1EFC", "#338B1EFC"};
-    private GraphColor[] graphColors = new GraphColor[]{
+    private final String[] colors = new String[]{"#FB1554", "#33FB1554", "#74FF89", "#3374FF89", "#8B1EFC", "#338B1EFC"};
+    private final GraphColor[] graphColors = new GraphColor[]{
             new GraphColor(0xFB1554, 0x33FB1554),
             new GraphColor(0x74FF89, 0x3374FF89),
             new GraphColor(0x8B1EFC, 0x338B1EFC)
     };
-
+    @Mock
+    private Resources resources;
     private GraphColors fixture;
 
     @Before

@@ -50,7 +50,7 @@ public class ChannelAvailableFragment extends ListFragment {
         channelAvailableAdapter.addAll(getChannelAvailable());
     }
 
-    public List<WiFiChannelCountry> getChannelAvailable() {
+    private List<WiFiChannelCountry> getChannelAvailable() {
         List<WiFiChannelCountry> results = new ArrayList<>();
         MainContext mainContext = MainContext.INSTANCE;
         results.add(WiFiChannelCountry.find(mainContext.getLocale().getCountry()));
