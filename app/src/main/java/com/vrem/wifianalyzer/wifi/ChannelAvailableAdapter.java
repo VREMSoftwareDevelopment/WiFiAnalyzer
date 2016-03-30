@@ -28,6 +28,8 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 
 class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
@@ -44,19 +46,9 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
         }
         WiFiChannelCountry wiFiChannelCountry = getItem(position);
         ((TextView) convertView.findViewById(R.id.channel_available_country)).setText(wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName());
-        ((TextView) convertView.findViewById(R.id.channel_available_ghz_2)).setText(getChannels(wiFiChannelCountry.getChannelsGHZ_2()));
-        ((TextView) convertView.findViewById(R.id.channel_available_ghz_5)).setText(getChannels(wiFiChannelCountry.getChannelsGHZ_5()));
+        ((TextView) convertView.findViewById(R.id.channel_available_ghz_2)).setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ_2().toArray(), ","));
+        ((TextView) convertView.findViewById(R.id.channel_available_ghz_5)).setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ_5().toArray(), ","));
         return convertView;
     }
 
-    String getChannels(List<Integer> channels) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int channel : channels) {
-            if (stringBuilder.length() > 0) {
-                stringBuilder.append(", ");
-            }
-            stringBuilder.append(channel);
-        }
-        return stringBuilder.toString();
-    }
 }

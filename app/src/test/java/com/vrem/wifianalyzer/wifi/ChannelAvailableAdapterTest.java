@@ -25,6 +25,7 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,8 +55,8 @@ public class ChannelAvailableAdapterTest {
     public void testGetView() throws Exception {
         // setup
         String expected = wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName();
-        String expected_GHZ_2 = fixture.getChannels(wiFiChannelCountry.getChannelsGHZ_2());
-        String expected_GHZ_5 = fixture.getChannels(wiFiChannelCountry.getChannelsGHZ_5());
+        String expected_GHZ_2 = StringUtils.join(wiFiChannelCountry.getChannelsGHZ_2().toArray(), ",");
+        String expected_GHZ_5 = StringUtils.join(wiFiChannelCountry.getChannelsGHZ_5().toArray(), ",");
         // execute
         View actual = fixture.getView(0, null, null);
         // validate
