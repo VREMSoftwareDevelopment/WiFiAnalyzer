@@ -22,6 +22,7 @@ import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
+import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
@@ -84,9 +85,10 @@ public class Transformer {
         return new WiFiData(wiFiDetails, wiFiConnection, wifiConfigurations);
     }
     private void addTestData(@NonNull List<WiFiDetail> wiFiDetails) {
-        if (MainContext.INSTANCE.isDevelopmentMode()) {
+        MainConfiguration mainConfiguration = MainContext.INSTANCE.getMainConfiguration();
+        if (mainConfiguration.isDevelopmentMode()) {
             int count = 0;
-            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(MainContext.INSTANCE.getLocale())) {
+            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(mainConfiguration.getLocale())) {
                 WiFiSignal wiFiSignal = new WiFiSignal(wiFiChannelPair.first.getFrequency(), WiFiWidth.MHZ_40, -60);
                 WiFiDetail wiFiDetail = new WiFiDetail("SSID-T-" + count + "0", "BSSID:" + count + "0", Security.WPA.name(), wiFiSignal);
                 wiFiDetails.add(wiFiDetail);
@@ -95,9 +97,6 @@ public class Transformer {
         }
     }
 
-    private int middle(@NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
-        return (wiFiChannelPair.first.getFrequency() + wiFiChannelPair.second.getFrequency()) / 2;
-    }
     private enum Fields {
         /*
                 centerFreq0,

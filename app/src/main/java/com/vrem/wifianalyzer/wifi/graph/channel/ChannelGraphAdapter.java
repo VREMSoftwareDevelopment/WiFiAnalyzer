@@ -25,6 +25,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
@@ -39,10 +40,12 @@ import java.util.List;
 class ChannelGraphAdapter extends GraphAdapter {
     private static final float TEXT_SIZE_ADJUSTMENT = 0.8f;
 
+    private final MainConfiguration mainConfiguration;
     private final List<Button> navigationItems = new ArrayList<>();
 
     ChannelGraphAdapter() {
         super();
+        mainConfiguration = MainContext.INSTANCE.getMainConfiguration();
         makeNavigationItems();
     }
 
@@ -51,7 +54,7 @@ class ChannelGraphAdapter extends GraphAdapter {
     public List<GraphViewNotifier> makeGraphViewNotifiers() {
         List<GraphViewNotifier> graphViewNotifiers = new ArrayList<>();
         for (WiFiBand wiFiBand : WiFiBand.values()) {
-            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiBand.getWiFiChannels().getWiFiChannelPairs(MainContext.INSTANCE.getLocale())) {
+            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiBand.getWiFiChannels().getWiFiChannelPairs(mainConfiguration.getLocale())) {
                 graphViewNotifiers.add(new ChannelGraphView(wiFiBand, wiFiChannelPair));
             }
         }
@@ -73,7 +76,7 @@ class ChannelGraphAdapter extends GraphAdapter {
 
     private void makeNavigationItems() {
         Context context = MainContext.INSTANCE.getContext();
-        for (Pair<WiFiChannel, WiFiChannel> pair : WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(MainContext.INSTANCE.getLocale())) {
+        for (Pair<WiFiChannel, WiFiChannel> pair : WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(mainConfiguration.getLocale())) {
             navigationItems.add(makeNavigationItem(context, pair));
         }
     }
@@ -87,7 +90,7 @@ class ChannelGraphAdapter extends GraphAdapter {
         button.setVisibility(View.GONE);
         button.setText(text);
         button.setOnClickListener(new ButtonOnClickListener(pair));
-        setSelectedButton(button, pair.equals(MainContext.INSTANCE.getWiFiChannelPair()));
+        setSelectedButton(button, pair.equals(mainConfiguration.getWiFiChannelPair()));
         return button;
     }
 
@@ -117,7 +120,7 @@ class ChannelGraphAdapter extends GraphAdapter {
         @Override
         public void onClick(View view) {
             setButtonsBackgroundColor(view);
-            MainContext.INSTANCE.setWiFiChannelPair(wiFiChannelPair);
+            mainConfiguration.setWiFiChannelPair(wiFiChannelPair);
             MainContext.INSTANCE.getScanner().update();
         }
     }

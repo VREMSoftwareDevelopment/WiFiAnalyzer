@@ -17,7 +17,6 @@
 package com.vrem.wifianalyzer.wifi.graph.tools;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -47,12 +46,7 @@ public class GraphViewBuilder {
     }
 
     public static int XAxisCount() {
-        return isLargeScreenLayout() ? CNT_X_LARGE : CNT_X_SMALL;
-    }
-
-    private static boolean isLargeScreenLayout() {
-        int screenLayoutSize = MainContext.INSTANCE.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-        return screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_XLARGE;
+        return MainContext.INSTANCE.getMainConfiguration().isLargeScreenLayout() ? CNT_X_LARGE : CNT_X_SMALL;
     }
 
     public GraphViewBuilder setLabelFormatter(@NonNull LabelFormatter labelFormatter) {

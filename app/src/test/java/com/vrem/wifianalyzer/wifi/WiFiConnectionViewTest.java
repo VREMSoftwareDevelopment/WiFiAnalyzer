@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.view.View;
 
+import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
@@ -62,6 +63,7 @@ public class WiFiConnectionViewTest {
     @Before
     public void setUp() throws Exception {
         MainContext.INSTANCE.setScanner(scanner);
+        MainContext.INSTANCE.setMainConfiguration(new MainConfiguration());
 
         when(activity.getResources()).thenReturn(resources);
         when(activity.findViewById(R.id.connection)).thenReturn(view);
@@ -98,7 +100,7 @@ public class WiFiConnectionViewTest {
         // validate
         verify(activity).getResources();
         verify(view).setVisibility(View.VISIBLE);
-        verify(accessPointsDetail).setView(resources, view, connection, false);
+        verify(accessPointsDetail).setView(resources, view, connection, false, false);
     }
 
     private WiFiDetail withConnection(WiFiAdditional wiFiAdditional) {

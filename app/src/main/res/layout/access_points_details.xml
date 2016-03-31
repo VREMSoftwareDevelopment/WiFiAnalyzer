@@ -124,7 +124,30 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <!-- Row 2 -->
+                <!-- Row 2 optional -->
+                <LinearLayout
+                    android:id="@+id/channel_frequency_range_row"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/channel_frequency_range"
+                        android:textColor="@color/channel"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/channel_frequency_range"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                        android:textColor="@color/channel" />
+                </LinearLayout>
+
+                <!-- Row 3 -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -144,7 +167,7 @@
                         android:textStyle="italic" />
                 </LinearLayout>
 
-                <!-- Row 3 -->
+                <!-- Row 4 -->
                 <TextView
                     android:id="@+id/vendor"
                     android:layout_width="wrap_content"

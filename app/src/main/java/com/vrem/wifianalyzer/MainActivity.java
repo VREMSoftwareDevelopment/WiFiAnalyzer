@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -53,6 +54,8 @@ import java.util.Locale;
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
 public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
+    private static final String WI_FI_ANALYZER_BETA = "WiFi Analyzer BETA";
+
     private int currentTheme;
     private NavigationMenuView navigationMenuView;
     private boolean subTitle;
@@ -91,9 +94,15 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         Resources resources = context.getResources();
         Locale locale = resources.getConfiguration().locale;
 
+        MainConfiguration mainConfiguration = new MainConfiguration();
+        mainConfiguration.setLocale(locale);
+        mainConfiguration.setWiFiChannelPair(WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(locale).get(0));
+        mainConfiguration.setDevelopmentMode(isDevelopmentMode(context));
+        mainConfiguration.setLargeScreenLayout(isLargeScreenLayout());
+
+        MainContext.INSTANCE.setMainConfiguration(mainConfiguration);
         MainContext.INSTANCE.setContext(context);
         MainContext.INSTANCE.setResources(resources);
-        MainContext.INSTANCE.setLocale(locale);
 
         MainContext.INSTANCE.setDatabase(new Database());
         MainContext.INSTANCE.setSettings(new Settings());
@@ -102,10 +111,18 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         MainContext.INSTANCE.setWifiManager((WifiManager) context.getSystemService(Context.WIFI_SERVICE));
         MainContext.INSTANCE.setLayoutInflater((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
         MainContext.INSTANCE.setLogger(new Logger());
-        MainContext.INSTANCE.setWiFiChannelPair(WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(locale).get(0));
 
         /* activate scanner only after everything is initialized */
         MainContext.INSTANCE.setScanner(new Scanner());
+    }
+
+    private boolean isDevelopmentMode(@NonNull Context context) {
+        return WI_FI_ANALYZER_BETA.equals(context.getString(R.string.app_name));
+    }
+
+    private boolean isLargeScreenLayout() {
+        int screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        return screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_XLARGE;
     }
 
     @Override

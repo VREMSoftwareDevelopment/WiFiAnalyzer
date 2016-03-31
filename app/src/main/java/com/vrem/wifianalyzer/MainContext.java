@@ -21,21 +21,15 @@ import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
-import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
-
-import java.util.Locale;
 
 public enum MainContext {
     INSTANCE;
-
-    public static final String WI_FI_ANALYZER_BETA = "WiFi Analyzer BETA";
 
     private Settings settings;
     private Context context;
@@ -47,8 +41,7 @@ public enum MainContext {
     private LayoutInflater layoutInflater;
     private Database database;
     private Logger logger;
-    private Locale locale;
-    private Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
+    private MainConfiguration mainConfiguration;
 
     public Settings getSettings() {
         return settings;
@@ -130,30 +123,18 @@ public enum MainContext {
         this.logger = logger;
     }
 
-    public Pair<WiFiChannel, WiFiChannel> getWiFiChannelPair() {
-        return wiFiChannelPair;
+    public MainConfiguration getMainConfiguration() {
+        return mainConfiguration;
     }
 
-    public void setWiFiChannelPair(@NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
-        this.wiFiChannelPair = wiFiChannelPair;
-    }
-
-    public Locale getLocale() {
-        return locale;
-    }
-
-    public void setLocale(@NonNull Locale locale) {
-        this.locale = locale;
+    public void setMainConfiguration(@NonNull MainConfiguration mainConfiguration) {
+        this.mainConfiguration = mainConfiguration;
     }
 
     public boolean isInitialized() {
         return settings != null && context != null && resources != null && handler != null &&
                 vendorService != null && wifiManager != null && layoutInflater != null &&
-                database != null && logger != null && locale != null && wiFiChannelPair != null;
-    }
-
-    public boolean isDevelopmentMode() {
-        return WI_FI_ANALYZER_BETA.equals(MainContext.INSTANCE.getContext().getString(R.string.app_name));
+                database != null && logger != null && mainConfiguration != null && mainConfiguration.isInitialized();
     }
 
     public void clear() {
@@ -167,7 +148,6 @@ public enum MainContext {
         layoutInflater = null;
         database = null;
         logger = null;
-        locale = null;
-        wiFiChannelPair = null;
+        mainConfiguration = null;
     }
 }

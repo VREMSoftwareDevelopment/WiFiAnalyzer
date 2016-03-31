@@ -28,6 +28,7 @@ import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 
 import com.vrem.wifianalyzer.Logger;
+import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
@@ -89,11 +90,15 @@ public class ScannerTest {
         fixture.setCache(cache);
         fixture.setTransformer(transformer);
         fixture.addUpdateNotifier(updateNotifier1);
-
     }
 
     private void initializeMainContext() {
+        MainConfiguration mainConfiguration = new MainConfiguration();
+        mainConfiguration.setLocale(Locale.US);
+        mainConfiguration.setWiFiChannelPair(new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN));
+
         MainContext mainContext = MainContext.INSTANCE;
+        mainContext.setMainConfiguration(mainConfiguration);
         mainContext.setSettings(settings);
         mainContext.setHandler(handler);
         mainContext.setWifiManager(wifiManager);
@@ -103,8 +108,6 @@ public class ScannerTest {
         mainContext.setVendorService(vendorService);
         mainContext.setLayoutInflater(layoutInflater);
         mainContext.setDatabase(database);
-        mainContext.setLocale(Locale.US);
-        mainContext.setWiFiChannelPair(new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN));
     }
 
     @After

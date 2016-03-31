@@ -63,7 +63,7 @@ public class AccessPointsDetailTest {
                 new WiFiSignal(1, WiFiWidth.MHZ_20, 2),
                 new WiFiAdditional("VendorName", "IPAddress"));
         // execute
-        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false, false);
         // validate
         validateTextViewValues(wiFiDetail, "SSID");
 
@@ -77,6 +77,8 @@ public class AccessPointsDetailTest {
 
         assertEquals(View.GONE, view.findViewById(R.id.tab).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.groupColumn).getVisibility());
+
+        assertEquals(View.GONE, view.findViewById(R.id.channel_frequency_range_row).getVisibility());
     }
 
     @Test
@@ -86,15 +88,18 @@ public class AccessPointsDetailTest {
                 new WiFiSignal(1, WiFiWidth.MHZ_20, 2),
                 new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        fixture.setView(mainActivity.getResources(), view, wiFiDetail, true);
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, true, true);
         // validate
         validateTextViewValues(wiFiDetail, "***");
+        WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
+        validateTextViewValue(String.format("%d - %d MHz", wiFiSignal.getFrequencyStart(), wiFiSignal.getFrequencyEnd()), R.id.channel_frequency_range);
 
         assertEquals(View.GONE, view.findViewById(R.id.ipAddress).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.configuredImage).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.vendor).getVisibility());
         assertEquals(View.VISIBLE, view.findViewById(R.id.tab).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.groupColumn).getVisibility());
+        assertEquals(View.VISIBLE, view.findViewById(R.id.channel_frequency_range_row).getVisibility());
     }
 
     private void validateTextViewValues(@NonNull WiFiDetail wiFiDetail, @NonNull String ssid) {
