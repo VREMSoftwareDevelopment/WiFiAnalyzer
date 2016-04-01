@@ -107,6 +107,11 @@ public class WiFiChannelsGHZ_2Test {
     }
 
     @Test
+    public void testGetChannelOffset() throws Exception {
+        assertEquals(2, fixture.getChannelOffset());
+    }
+
+    @Test
     public void testGetWiFiChannelLast() throws Exception {
         assertEquals(14, fixture.getWiFiChannelLast().getChannel());
     }

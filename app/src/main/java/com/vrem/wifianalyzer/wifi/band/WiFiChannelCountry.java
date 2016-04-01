@@ -22,9 +22,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class WiFiChannelCountry {
+    public static final Locale LocaleWW = new Locale("", "WW");
+
     static final String UNKNOWN = "Unknown country";
+    static final String DEVELOPMENT = "DEVELOPMENT";
     static final List<Integer> DEFAULT_CHANNELS_GHZ_2 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
     static final List<Integer> DEFAULT_CHANNELS_GHZ_5 = Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64);
 
@@ -588,13 +592,17 @@ public class WiFiChannelCountry {
             new WiFiChannelCountry("ZM",
                     Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
                     Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140)
+            ),
+            new WiFiChannelCountry("WW",
+                    Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14),
+                    Arrays.asList(8, 12, 16, 36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 149, 153, 157, 161, 165, 184, 188, 192, 196)
             )
     };
 
     private final String countryCode;
-    private final String countryName;
     private final List<Integer> channelsGHZ_2;
     private final List<Integer> channelsGHZ_5;
+    private final String countryName;
 
     public WiFiChannelCountry(@NonNull String countryCode) {
         this(countryCode, DEFAULT_CHANNELS_GHZ_2, DEFAULT_CHANNELS_GHZ_5);
@@ -604,8 +612,7 @@ public class WiFiChannelCountry {
         this.countryCode = countryCode;
         this.channelsGHZ_2 = channelsGHZ_2;
         this.channelsGHZ_5 = channelsGHZ_5.isEmpty() ? DEFAULT_CHANNELS_GHZ_5 : channelsGHZ_5;
-        String countryName = Country.INSTANCE.getCountry(countryCode).getDisplayCountry();
-        this.countryName = countryCode.equals(countryName) ? UNKNOWN : countryName;
+        this.countryName = findCountryName(countryCode);
     }
 
     public static WiFiChannelCountry find(@NonNull String countryCode) {
@@ -619,6 +626,14 @@ public class WiFiChannelCountry {
 
     public static List<WiFiChannelCountry> getAll() {
         return Collections.unmodifiableList(Arrays.asList(COUNTRY_CHANNELS));
+    }
+
+    private String findCountryName(@NonNull String countryCode) {
+        if (LocaleWW.getCountry().equals(countryCode)) {
+            return DEVELOPMENT;
+        }
+        String countryName = Country.INSTANCE.getCountry(countryCode).getDisplayCountry();
+        return countryCode.equals(countryName) ? UNKNOWN : countryName;
     }
 
     public String getCountryCode() {

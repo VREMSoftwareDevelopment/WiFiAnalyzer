@@ -76,6 +76,10 @@ public abstract class WiFiChannels {
         return frequencyOffset;
     }
 
+    public int getChannelOffset() {
+        return frequencyOffset / WiFiChannel.FREQUENCY_SPREAD;
+    }
+
     public int getFrequencySpread() {
         return frequencySpread;
     }

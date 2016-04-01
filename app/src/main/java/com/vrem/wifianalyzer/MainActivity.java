@@ -44,6 +44,7 @@ import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.ConnectionView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import org.apache.commons.lang3.StringUtils;
@@ -108,10 +109,11 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     private void initializeMainConfiguration(@NonNull Context context) {
-        Locale locale = context.getResources().getConfiguration().locale;
+        boolean isDevelopmentMode = isDevelopmentMode(context);
+        Locale locale = isDevelopmentMode ? WiFiChannelCountry.LocaleWW : context.getResources().getConfiguration().locale;
         MainConfiguration.INSTANCE.setLocale(locale);
         MainConfiguration.INSTANCE.setWiFiChannelPair(WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(locale).get(0));
-        MainConfiguration.INSTANCE.setDevelopmentMode(isDevelopmentMode(context));
+        MainConfiguration.INSTANCE.setDevelopmentMode(isDevelopmentMode);
         MainConfiguration.INSTANCE.setLargeScreenLayout(isLargeScreenLayout());
     }
 

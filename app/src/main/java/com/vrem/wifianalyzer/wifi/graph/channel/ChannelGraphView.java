@@ -44,6 +44,10 @@ import java.util.Set;
 import java.util.TreeSet;
 
 class ChannelGraphView implements GraphViewNotifier {
+    private static final int CNT_X_SMALL_2 = 16;
+    private static final int CNT_X_SMALL_5 = 18;
+    private static final int CNT_X_LARGE = 24;
+
     private final WiFiBand wiFiBand;
     private final GraphViewWrapper graphViewWrapper;
     private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
@@ -58,7 +62,7 @@ class ChannelGraphView implements GraphViewNotifier {
     private GraphView makeGraphView() {
         MainContext mainContext = MainContext.INSTANCE;
         Resources resources = mainContext.getResources();
-        return new GraphViewBuilder(mainContext.getContext())
+        return new GraphViewBuilder(mainContext.getContext(), getNumX())
                 .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair, MainConfiguration.INSTANCE.getLocale()))
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
@@ -140,4 +144,15 @@ class ChannelGraphView implements GraphViewNotifier {
     public GraphView getGraphView() {
         return graphViewWrapper.getGraphView();
     }
+
+    private int getNumX() {
+        int numX = CNT_X_LARGE;
+        if (!MainConfiguration.INSTANCE.isLargeScreenLayout()) {
+            numX = WiFiBand.GHZ_2.equals(wiFiBand) ? CNT_X_SMALL_2 : CNT_X_SMALL_5;
+        }
+        int channelFirst = wiFiChannelPair.first.getChannel() - wiFiBand.getWiFiChannels().getChannelOffset();
+        int channelLast = wiFiChannelPair.second.getChannel() + wiFiBand.getWiFiChannels().getChannelOffset();
+        return Math.min(numX, channelLast - channelFirst + 1);
+    }
+
 }

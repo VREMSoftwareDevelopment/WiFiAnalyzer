@@ -23,6 +23,7 @@ import android.view.View;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -39,6 +40,8 @@ import java.util.TreeSet;
 
 class TimeGraphView implements GraphViewNotifier {
     private static final int MAX_SCAN_COUNT = 400;
+    private static final int NUM_X_SMALL = 18;
+    private static final int NUM_X_LARGE = 24;
 
     private final WiFiBand wiFiBand;
     private final GraphViewWrapper graphViewWrapper;
@@ -55,7 +58,7 @@ class TimeGraphView implements GraphViewNotifier {
     private GraphView makeGraphView() {
         MainContext mainContext = MainContext.INSTANCE;
         Resources resources = mainContext.getResources();
-        return new GraphViewBuilder(mainContext.getContext())
+        return new GraphViewBuilder(mainContext.getContext(), getNumX())
                 .setLabelFormatter(new TimeAxisLabel())
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
@@ -97,7 +100,7 @@ class TimeGraphView implements GraphViewNotifier {
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
                 new DataPoint(0, GraphViewBuilder.MIN_Y),
-                new DataPoint(GraphViewBuilder.XAxisCount() - 1, GraphViewBuilder.MIN_Y)
+                new DataPoint(getNumX() - 1, GraphViewBuilder.MIN_Y)
         });
         series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
         series.setThickness(0);
@@ -107,5 +110,9 @@ class TimeGraphView implements GraphViewNotifier {
     @Override
     public GraphView getGraphView() {
         return graphViewWrapper.getGraphView();
+    }
+
+    private int getNumX() {
+        return MainConfiguration.INSTANCE.isLargeScreenLayout() ? NUM_X_LARGE : NUM_X_SMALL;
     }
 }

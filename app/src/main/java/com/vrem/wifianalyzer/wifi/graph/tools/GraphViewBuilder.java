@@ -25,28 +25,21 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
-import com.vrem.wifianalyzer.MainConfiguration;
 
 public class GraphViewBuilder {
     public static final int MIN_Y = -100;
-    public static final int MAX_Y = -20;
-
-    private static final int CNT_X_SMALL = 16;
-    private static final int CNT_X_LARGE = 24;
-
-    private static final int CNT_Y = (MAX_Y - MIN_Y) / 10 + 1;
+    public static final int MAX_Y = -10;
+    private static final int NUM_Y = (MAX_Y - MIN_Y) / 10 + 1;
 
     private final Context content;
+    private final int numHorizontalLabels;
     private LabelFormatter labelFormatter;
     private String verticalTitle;
     private String horizontalTitle;
 
-    public GraphViewBuilder(@NonNull Context content) {
+    public GraphViewBuilder(@NonNull Context content, int numHorizontalLabels) {
         this.content = content;
-    }
-
-    public static int XAxisCount() {
-        return MainConfiguration.INSTANCE.isLargeScreenLayout() ? CNT_X_LARGE : CNT_X_SMALL;
+        this.numHorizontalLabels = numHorizontalLabels;
     }
 
     public GraphViewBuilder setLabelFormatter(@NonNull LabelFormatter labelFormatter) {
@@ -88,8 +81,8 @@ public class GraphViewBuilder {
 
     private void setGridLabelRenderer(@NonNull GridLabelRenderer gridLabelRenderer) {
         gridLabelRenderer.setHighlightZeroLines(false);
-        gridLabelRenderer.setNumVerticalLabels(CNT_Y);
-        gridLabelRenderer.setNumHorizontalLabels(XAxisCount());
+        gridLabelRenderer.setNumVerticalLabels(NUM_Y);
+        gridLabelRenderer.setNumHorizontalLabels(numHorizontalLabels);
 
         if (labelFormatter != null) {
             gridLabelRenderer.setLabelFormatter(labelFormatter);
