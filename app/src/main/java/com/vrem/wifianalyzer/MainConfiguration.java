@@ -23,7 +23,9 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 
 import java.util.Locale;
 
-public class MainConfiguration {
+public enum MainConfiguration {
+    INSTANCE;
+
     private Locale locale;
     private Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
     private boolean developmentMode;
@@ -65,4 +67,10 @@ public class MainConfiguration {
     public boolean isInitialized() {
         return locale != null && wiFiChannelPair != null;
     }
+
+    public void clear() {
+        locale = null;
+        wiFiChannelPair = null;
+    }
+
 }

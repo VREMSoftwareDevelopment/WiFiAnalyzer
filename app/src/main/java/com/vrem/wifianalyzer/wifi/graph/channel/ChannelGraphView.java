@@ -31,9 +31,11 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphColor;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphLegend;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewBuilder;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
+import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
@@ -42,27 +44,22 @@ import java.util.Set;
 import java.util.TreeSet;
 
 class ChannelGraphView implements GraphViewNotifier {
-    private final MainContext mainContext;
-    private final Settings settings;
-    private final MainConfiguration mainConfiguration;
     private final WiFiBand wiFiBand;
     private final GraphViewWrapper graphViewWrapper;
     private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
 
     ChannelGraphView(@NonNull WiFiBand wiFiBand, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
-        mainContext = MainContext.INSTANCE;
-        settings = mainContext.getSettings();
-        mainConfiguration = mainContext.getMainConfiguration();
         this.wiFiBand = wiFiBand;
         this.wiFiChannelPair = wiFiChannelPair;
-        this.graphViewWrapper = new GraphViewWrapper(makeGraphView(), settings.getChannelGraphLegend());
+        this.graphViewWrapper = new GraphViewWrapper(makeGraphView(), MainContext.INSTANCE.getSettings().getChannelGraphLegend());
         initialize();
     }
 
     private GraphView makeGraphView() {
+        MainContext mainContext = MainContext.INSTANCE;
         Resources resources = mainContext.getResources();
         return new GraphViewBuilder(mainContext.getContext())
-                .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair, mainConfiguration.getLocale()))
+                .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair, MainConfiguration.INSTANCE.getLocale()))
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
                 .build();
@@ -70,15 +67,18 @@ class ChannelGraphView implements GraphViewNotifier {
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
+        Settings settings = MainContext.INSTANCE.getSettings();
+        GraphLegend channelGraphLegend = settings.getChannelGraphLegend();
+        SortBy sortBy = settings.getSortBy();
         Set<WiFiDetail> newSeries = new TreeSet<>();
-        for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, settings.getSortBy())) {
+        for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, sortBy)) {
             if (isInRange(wiFiDetail.getWiFiSignal().getFrequency(), wiFiChannelPair)) {
                 newSeries.add(wiFiDetail);
                 addData(wiFiDetail);
             }
         }
         graphViewWrapper.removeSeries(newSeries);
-        graphViewWrapper.updateLegend(settings.getChannelGraphLegend());
+        graphViewWrapper.updateLegend(channelGraphLegend);
         graphViewWrapper.setVisibility(isSelected() ? View.VISIBLE : View.GONE);
     }
 
@@ -87,8 +87,9 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     private boolean isSelected() {
-        return wiFiBand.equals(settings.getWiFiBand()) &&
-                (WiFiBand.GHZ_2.equals(wiFiBand) || wiFiChannelPair.equals(mainConfiguration.getWiFiChannelPair()));
+        WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
+        Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = MainConfiguration.INSTANCE.getWiFiChannelPair();
+        return this.wiFiBand.equals(wiFiBand) && (WiFiBand.GHZ_2.equals(this.wiFiBand) || this.wiFiChannelPair.equals(wiFiChannelPair));
     }
 
     private void addData(@NonNull WiFiDetail wiFiDetail) {

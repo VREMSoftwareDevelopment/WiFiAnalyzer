@@ -25,6 +25,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphColor;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewBuilder;
@@ -52,8 +53,9 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     private GraphView makeGraphView() {
-        Resources resources = MainContext.INSTANCE.getResources();
-        return new GraphViewBuilder(MainContext.INSTANCE.getContext())
+        MainContext mainContext = MainContext.INSTANCE;
+        Resources resources = mainContext.getResources();
+        return new GraphViewBuilder(mainContext.getContext())
                 .setLabelFormatter(new TimeAxisLabel())
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
@@ -62,13 +64,14 @@ class TimeGraphView implements GraphViewNotifier {
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
+        Settings settings = MainContext.INSTANCE.getSettings();
         Set<WiFiDetail> newSeries = new TreeSet<>();
-        for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, MainContext.INSTANCE.getSettings().getSortBy())) {
+        for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, settings.getSortBy())) {
             newSeries.add(wiFiDetail);
             addData(wiFiDetail);
         }
         graphViewWrapper.removeSeries(newSeries);
-        graphViewWrapper.updateLegend(MainContext.INSTANCE.getSettings().getTimeGraphLegend());
+        graphViewWrapper.updateLegend(settings.getTimeGraphLegend());
         graphViewWrapper.setVisibility(isSelected() ? View.VISIBLE : View.GONE);
         xValue++;
         if (scanCount < MAX_SCAN_COUNT) {

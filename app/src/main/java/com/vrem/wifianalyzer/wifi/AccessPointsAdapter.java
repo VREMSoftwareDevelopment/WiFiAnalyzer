@@ -26,6 +26,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -37,14 +38,12 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     private final Resources resources;
     private final AccessPointsAdapterData accessPointsAdapterData;
     private final AccessPointsDetail accessPointsDetail;
-    private final boolean largeScreenLayout;
 
     AccessPointsAdapter(@NonNull Context context) {
         super();
         this.resources = context.getResources();
         this.accessPointsAdapterData = new AccessPointsAdapterData();
         this.accessPointsDetail = new AccessPointsDetail();
-        this.largeScreenLayout = MainContext.INSTANCE.getMainConfiguration().isLargeScreenLayout();
         MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
     }
 
@@ -52,7 +51,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         convertView = getView(convertView);
         WiFiDetail details = (WiFiDetail) getGroup(groupPosition);
-        accessPointsDetail.setView(resources, convertView, details, false, largeScreenLayout);
+        accessPointsDetail.setView(resources, convertView, details, false, MainConfiguration.INSTANCE.isLargeScreenLayout());
 
         int childrenCount = getChildrenCount(groupPosition);
         if (childrenCount > 0) {
@@ -74,7 +73,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         convertView = getView(convertView);
         WiFiDetail details = (WiFiDetail) getChild(groupPosition, childPosition);
-        accessPointsDetail.setView(resources, convertView, details, true, largeScreenLayout);
+        accessPointsDetail.setView(resources, convertView, details, true, MainConfiguration.INSTANCE.isLargeScreenLayout());
         convertView.findViewById(R.id.groupColumn).setVisibility(View.GONE);
         return convertView;
     }

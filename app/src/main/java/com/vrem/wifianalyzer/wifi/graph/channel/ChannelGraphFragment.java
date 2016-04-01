@@ -48,7 +48,7 @@ public class ChannelGraphFragment extends Fragment {
 
     private void addGraphNavigation(View view, ChannelGraphAdapter channelGraphAdapter) {
         LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.graphNavigation);
-        for (View navigation : channelGraphAdapter.getNavigationItems()) {
+        for (View navigation : channelGraphAdapter.getChannelGraphNavigation().getNavigationItems()) {
             linearLayout.addView(navigation);
         }
     }

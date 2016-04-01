@@ -25,7 +25,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
-import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.MainConfiguration;
 
 public class GraphViewBuilder {
     public static final int MIN_Y = -100;
@@ -46,7 +46,7 @@ public class GraphViewBuilder {
     }
 
     public static int XAxisCount() {
-        return MainContext.INSTANCE.getMainConfiguration().isLargeScreenLayout() ? CNT_X_LARGE : CNT_X_SMALL;
+        return MainConfiguration.INSTANCE.isLargeScreenLayout() ? CNT_X_LARGE : CNT_X_SMALL;
     }
 
     public GraphViewBuilder setLabelFormatter(@NonNull LabelFormatter labelFormatter) {

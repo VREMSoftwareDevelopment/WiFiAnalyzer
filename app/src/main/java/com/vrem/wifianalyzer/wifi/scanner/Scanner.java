@@ -19,6 +19,7 @@ package com.vrem.wifianalyzer.wifi.scanner;
 import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
 
+import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
@@ -32,8 +33,8 @@ public class Scanner {
     private Transformer transformer;
 
     public Scanner() {
-        if (!MainContext.INSTANCE.isInitialized()) {
-            throw new RuntimeException("Main Context is NOT set! Can not start WiFi scans...");
+        if (!MainContext.INSTANCE.isInitialized() || !MainConfiguration.INSTANCE.isInitialized()) {
+            throw new RuntimeException("Main Context/Configuration is NOT set! Can not start WiFi scans...");
         }
         this.periodicScan = new PeriodicScan(this);
         this.updateNotifiers = new TreeMap<>();
@@ -42,8 +43,9 @@ public class Scanner {
     }
 
     public void update() {
-        MainContext.INSTANCE.getLogger().info(this, "running update...");
-        WifiManager wifiManager = MainContext.INSTANCE.getWifiManager();
+        MainContext instance = MainContext.INSTANCE;
+        instance.getLogger().info(this, "running update...");
+        WifiManager wifiManager = instance.getWifiManager();
         if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
         }
@@ -52,7 +54,7 @@ public class Scanner {
             WiFiData wiFiData = transformer.transformToWiFiData(cache.getScanResults(), wifiManager.getConnectionInfo(), wifiManager.getConfiguredNetworks());
             for (String key : updateNotifiers.keySet()) {
                 UpdateNotifier updateNotifier = updateNotifiers.get(key);
-                MainContext.INSTANCE.getLogger().info(this, "running notifier: " + key);
+                instance.getLogger().info(this, "running notifier: " + key);
                 updateNotifier.update(wiFiData);
             }
         }

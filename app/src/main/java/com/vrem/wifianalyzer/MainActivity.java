@@ -21,7 +21,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -91,18 +90,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     private void initializeMainContext(@NonNull Context context) {
-        Resources resources = context.getResources();
-        Locale locale = resources.getConfiguration().locale;
+        initializeMainConfiguration(context);
 
-        MainConfiguration mainConfiguration = new MainConfiguration();
-        mainConfiguration.setLocale(locale);
-        mainConfiguration.setWiFiChannelPair(WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(locale).get(0));
-        mainConfiguration.setDevelopmentMode(isDevelopmentMode(context));
-        mainConfiguration.setLargeScreenLayout(isLargeScreenLayout());
-
-        MainContext.INSTANCE.setMainConfiguration(mainConfiguration);
         MainContext.INSTANCE.setContext(context);
-        MainContext.INSTANCE.setResources(resources);
+        MainContext.INSTANCE.setResources(context.getResources());
 
         MainContext.INSTANCE.setDatabase(new Database());
         MainContext.INSTANCE.setSettings(new Settings());
@@ -114,6 +105,14 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
         /* activate scanner only after everything is initialized */
         MainContext.INSTANCE.setScanner(new Scanner());
+    }
+
+    private void initializeMainConfiguration(@NonNull Context context) {
+        Locale locale = context.getResources().getConfiguration().locale;
+        MainConfiguration.INSTANCE.setLocale(locale);
+        MainConfiguration.INSTANCE.setWiFiChannelPair(WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(locale).get(0));
+        MainConfiguration.INSTANCE.setDevelopmentMode(isDevelopmentMode(context));
+        MainConfiguration.INSTANCE.setLargeScreenLayout(isLargeScreenLayout());
     }
 
     private boolean isDevelopmentMode(@NonNull Context context) {

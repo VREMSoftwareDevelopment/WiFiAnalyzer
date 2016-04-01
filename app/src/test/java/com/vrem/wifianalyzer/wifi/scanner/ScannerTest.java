@@ -93,12 +93,11 @@ public class ScannerTest {
     }
 
     private void initializeMainContext() {
-        MainConfiguration mainConfiguration = new MainConfiguration();
+        MainConfiguration mainConfiguration = MainConfiguration.INSTANCE;
         mainConfiguration.setLocale(Locale.US);
         mainConfiguration.setWiFiChannelPair(new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN));
 
         MainContext mainContext = MainContext.INSTANCE;
-        mainContext.setMainConfiguration(mainConfiguration);
         mainContext.setSettings(settings);
         mainContext.setHandler(handler);
         mainContext.setWifiManager(wifiManager);
@@ -112,6 +111,7 @@ public class ScannerTest {
 
     @After
     public void tearDown() throws Exception {
+        MainConfiguration.INSTANCE.clear();
         MainContext.INSTANCE.clear();
     }
 
