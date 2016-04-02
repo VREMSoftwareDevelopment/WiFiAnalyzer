@@ -71,9 +71,9 @@ public class WiFiChannelCountryTest {
     @Test
     public void testFindLocaleWW() throws Exception {
         // execute
-        WiFiChannelCountry actual = WiFiChannelCountry.find(WiFiChannelCountry.LocaleWW.getCountry());
+        WiFiChannelCountry actual = WiFiChannelCountry.find(WiFiChannelCountry.WORLD_LOCALE.getCountry());
         // validate
-        assertEquals(WiFiChannelCountry.LocaleWW.getCountry(), actual.getCountryCode());
+        assertEquals(WiFiChannelCountry.WORLD_LOCALE.getCountry(), actual.getCountryCode());
         assertEquals(WiFiChannelCountry.DEVELOPMENT, actual.getCountryName());
         assertEquals(14, actual.getChannelsGHZ_2().size());
         assertEquals(31, actual.getChannelsGHZ_5().size());
@@ -82,7 +82,7 @@ public class WiFiChannelCountryTest {
     @Test
     public void testFindFailes() throws Exception {
         // setup
-        String countryCode = "ZZ";
+        String countryCode = "11";
         // execute
         WiFiChannelCountry actual = WiFiChannelCountry.find(countryCode);
         // validate

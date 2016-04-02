@@ -33,7 +33,6 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 class ChannelGraphNavigation {
     private static final float TEXT_SIZE_ADJUSTMENT = 0.8f;
@@ -58,16 +57,20 @@ class ChannelGraphNavigation {
         Context context = MainContext.INSTANCE.getContext();
         MainConfiguration mainConfiguration = MainConfiguration.INSTANCE;
         Pair<WiFiChannel, WiFiChannel> selected = mainConfiguration.getWiFiChannelPair();
-        Locale locale = mainConfiguration.getLocale();
-        for (Pair<WiFiChannel, WiFiChannel> pair : WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(locale)) {
-            navigationItems.add(makeNavigationItem(context, pair, pair.equals(selected)));
+        List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = WiFiBand.GHZ_5.getWiFiChannels()
+                .getWiFiChannelPairs(mainConfiguration.getLocale());
+        if (wiFiChannelPairs.size() > 1) {
+            for (Pair<WiFiChannel, WiFiChannel> pair : wiFiChannelPairs) {
+                navigationItems.add(makeNavigationItem(context, pair, pair.equals(selected)));
+            }
         }
     }
 
     private Button makeNavigationItem(@NonNull Context context, Pair<WiFiChannel, WiFiChannel> pair, boolean selected) {
         Button button = new Button(context);
         String text = pair.first.getChannel() + " - " + pair.second.getChannel();
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, TEXT_SIZE_ADJUSTMENT);
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, TEXT_SIZE_ADJUSTMENT);
         if (MainConfiguration.INSTANCE.isLargeScreenLayout()) {
             params.setMargins(10, -10, 10, -10);
         } else {
@@ -111,5 +114,4 @@ class ChannelGraphNavigation {
             MainContext.INSTANCE.getScanner().update();
         }
     }
-
 }
