@@ -26,7 +26,6 @@ import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
-import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -89,11 +88,14 @@ public class Transformer {
         Locale locale = mainConfiguration.getLocale();
         if (mainConfiguration.isDevelopmentMode()) {
             int count = 0;
+            int level = -45;
+            String security = "[WPA-PSK-CCMP+TKIP][WPA2-PSK-CCMP+TKIP][WPS][ESS]";
             for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(locale)) {
-                WiFiSignal wiFiSignal = new WiFiSignal(wiFiChannelPair.first.getFrequency(), WiFiWidth.MHZ_40, -60);
-                WiFiDetail wiFiDetail = new WiFiDetail("SSID-T-" + count + "0", "BSSID:" + count + "0", Security.WPA.name(), wiFiSignal);
+                WiFiSignal wiFiSignal = new WiFiSignal(wiFiChannelPair.first.getFrequency(), WiFiWidth.MHZ_40, level);
+                WiFiDetail wiFiDetail = new WiFiDetail("TEST-SSID", "BSSID:0A:B0:0" + count + ":0" + count, security, wiFiSignal);
                 wiFiDetails.add(wiFiDetail);
                 count++;
+                level -= 10;
             }
         }
     }

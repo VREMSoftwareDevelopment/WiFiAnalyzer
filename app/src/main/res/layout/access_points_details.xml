@@ -29,15 +29,22 @@
 
     <!-- Column 2 -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <!-- Row 1 -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/groupIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/configuredImage"
@@ -64,7 +71,7 @@
 
         <!-- Row 2 -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -72,18 +79,18 @@
             <ImageView
                 android:id="@+id/levelImage"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
             <!-- Column 2 -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
                 android:orientation="vertical">
 
                 <!-- Row 1 -->
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -127,10 +134,10 @@
                 <!-- Row 2 optional -->
                 <LinearLayout
                     android:id="@+id/channel_frequency_range_row"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -149,7 +156,7 @@
 
                 <!-- Row 3 -->
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -170,33 +177,9 @@
                 <!-- Row 4 -->
                 <TextView
                     android:id="@+id/vendor"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"/>
-
-            </LinearLayout>
-
-            <!-- Column 3 -->
-            <LinearLayout
-                android:id="@+id/groupColumn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/groupCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right" />
-
-                <!-- Row 2 -->
-                <ImageView
-                    android:id="@+id/groupIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right" />
+                    android:visibility="visible"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -76,7 +76,7 @@ public class AccessPointsDetailTest {
         assertEquals(View.VISIBLE, view.findViewById(R.id.vendor).getVisibility());
 
         assertEquals(View.GONE, view.findViewById(R.id.tab).getVisibility());
-        assertEquals(View.GONE, view.findViewById(R.id.groupColumn).getVisibility());
+        assertEquals(View.GONE, view.findViewById(R.id.groupIndicator).getVisibility());
 
         assertEquals(View.GONE, view.findViewById(R.id.channel_frequency_range_row).getVisibility());
     }
@@ -98,7 +98,7 @@ public class AccessPointsDetailTest {
         assertEquals(View.GONE, view.findViewById(R.id.configuredImage).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.vendor).getVisibility());
         assertEquals(View.VISIBLE, view.findViewById(R.id.tab).getVisibility());
-        assertEquals(View.GONE, view.findViewById(R.id.groupColumn).getVisibility());
+        assertEquals(View.GONE, view.findViewById(R.id.groupIndicator).getVisibility());
         assertEquals(View.VISIBLE, view.findViewById(R.id.channel_frequency_range_row).getVisibility());
     }
 
@@ -108,7 +108,7 @@ public class AccessPointsDetailTest {
         validateTextViewValue(String.format("%ddBm", wiFiSignal.getLevel()), R.id.level);
         validateTextViewValue(String.format("%d", wiFiSignal.getWiFiChannel().getChannel()), R.id.channel);
         validateTextViewValue(String.format("%dMHz", wiFiSignal.getFrequency()), R.id.frequency);
-        validateTextViewValue(String.format("%6.2fm", wiFiSignal.getDistance()), R.id.distance);
+        validateTextViewValue(String.format("%.1fm", wiFiSignal.getDistance()), R.id.distance);
         validateTextViewValue(wiFiDetail.getCapabilities(), R.id.capabilities);
     }
 

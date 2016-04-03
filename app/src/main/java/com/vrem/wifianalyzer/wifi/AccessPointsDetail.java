@@ -72,7 +72,7 @@ public class AccessPointsDetail {
 
         ((TextView) view.findViewById(R.id.channel)).setText(String.format("%d", wiFiSignal.getWiFiChannel().getChannel()));
         ((TextView) view.findViewById(R.id.frequency)).setText(String.format("%dMHz", wiFiSignal.getFrequency()));
-        ((TextView) view.findViewById(R.id.distance)).setText(String.format("%6.2fm", wiFiSignal.getDistance()));
+        ((TextView) view.findViewById(R.id.distance)).setText(String.format("%.1fm", wiFiSignal.getDistance()));
         ((TextView) view.findViewById(R.id.capabilities)).setText(wiFiDetail.getCapabilities());
 
         TextView textVendor = ((TextView) view.findViewById(R.id.vendor));

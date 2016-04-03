@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
@@ -53,17 +52,16 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         WiFiDetail details = (WiFiDetail) getGroup(groupPosition);
         accessPointsDetail.setView(resources, convertView, details, false, MainConfiguration.INSTANCE.isLargeScreenLayout());
 
+        ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
         int childrenCount = getChildrenCount(groupPosition);
         if (childrenCount > 0) {
-            convertView.findViewById(R.id.groupColumn).setVisibility(View.VISIBLE);
-            ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
+            groupIndicator.setVisibility(View.VISIBLE);
             groupIndicator.setImageResource(isExpanded
                     ? R.drawable.ic_expand_less_black_24dp
                     : R.drawable.ic_expand_more_black_24dp);
             groupIndicator.setColorFilter(resources.getColor(R.color.icons_color));
-            ((TextView) convertView.findViewById(R.id.groupCount)).setText(String.format("(%d) ", childrenCount + 1));
         } else {
-            convertView.findViewById(R.id.groupColumn).setVisibility(View.GONE);
+            groupIndicator.setVisibility(View.GONE);
         }
 
         return convertView;
@@ -74,7 +72,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         convertView = getView(convertView);
         WiFiDetail details = (WiFiDetail) getChild(groupPosition, childPosition);
         accessPointsDetail.setView(resources, convertView, details, true, MainConfiguration.INSTANCE.isLargeScreenLayout());
-        convertView.findViewById(R.id.groupColumn).setVisibility(View.GONE);
+        convertView.findViewById(R.id.groupIndicator).setVisibility(View.GONE);
         return convertView;
     }
 
