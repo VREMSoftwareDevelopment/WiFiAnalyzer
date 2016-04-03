@@ -17,6 +17,7 @@
 package com.vrem.wifianalyzer;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -32,6 +33,7 @@ public enum MainContext {
 
     private Settings settings;
     private Context context;
+    private Resources resources;
     private Scanner scanner;
     private Handler handler;
     private VendorService vendorService;
@@ -96,6 +98,14 @@ public enum MainContext {
         this.database = database;
     }
 
+    public Resources getResources() {
+        return resources;
+    }
+
+    public void setResources(Resources resources) {
+        this.resources = resources;
+    }
+
     public Context getContext() {
         return context;
     }
@@ -112,4 +122,22 @@ public enum MainContext {
         this.logger = logger;
     }
 
+    public boolean isInitialized() {
+        return settings != null && context != null && resources != null && handler != null &&
+                vendorService != null && wifiManager != null && layoutInflater != null &&
+                database != null && logger != null;
+    }
+
+    public void clear() {
+        settings = null;
+        context = null;
+        resources = null;
+        scanner = null;
+        handler = null;
+        vendorService = null;
+        wifiManager = null;
+        layoutInflater = null;
+        database = null;
+        logger = null;
+    }
 }

@@ -32,7 +32,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class ChannelRatingTest {
-    //    private WiFiDetail wiFiDetail1;
     private WiFiDetail wiFiDetail1;
     private WiFiDetail wiFiDetail2;
     private WiFiDetail wiFiDetail3;
@@ -106,22 +105,22 @@ public class ChannelRatingTest {
     @Test
     public void testGetBestChannelsSortedInOrderWithMinimumChannels() throws Exception {
         // setup
-        List<WiFiChannel> channels = WiFiBand.GHZ_2.getWiFiChannels().getChannels();
+        List<WiFiChannel> channels = WiFiBand.GHZ_2.getWiFiChannels().getWiFiChannels();
         fixture.setWiFiChannels(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3));
         // execute
         List<ChannelRating.ChannelAPCount> actual = fixture.getBestChannels(channels);
         // validate
         assertEquals(5, actual.size());
-        validateChannelAPCount(1, 0, actual.get(0));
-        validateChannelAPCount(2, 0, actual.get(1));
-        validateChannelAPCount(12, 0, actual.get(2));
-        validateChannelAPCount(13, 0, actual.get(3));
-        validateChannelAPCount(14, 0, actual.get(4));
+        validateChannelAPCount(1, actual.get(0));
+        validateChannelAPCount(2, actual.get(1));
+        validateChannelAPCount(12, actual.get(2));
+        validateChannelAPCount(13, actual.get(3));
+        validateChannelAPCount(14, actual.get(4));
     }
 
-    private void validateChannelAPCount(int expectedChannel, int expectedCount, ChannelRating.ChannelAPCount channelAPCount) {
+    private void validateChannelAPCount(int expectedChannel, ChannelRating.ChannelAPCount channelAPCount) {
         assertEquals(expectedChannel, channelAPCount.getWiFiChannel().getChannel());
-        assertEquals(expectedCount, channelAPCount.getCount());
+        assertEquals(0, channelAPCount.getCount());
     }
 
 }

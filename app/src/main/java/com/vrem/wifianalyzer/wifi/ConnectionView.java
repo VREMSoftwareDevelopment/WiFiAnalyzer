@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -31,9 +32,10 @@ public class ConnectionView implements UpdateNotifier {
     private AccessPointsDetail accessPointsDetail;
 
     public ConnectionView(@NonNull Activity activity) {
+        MainContext mainContext = MainContext.INSTANCE;
         this.activity = activity;
         setAccessPointsDetail(new AccessPointsDetail());
-        MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
+        mainContext.getScanner().addUpdateNotifier(this);
     }
 
     @Override
@@ -43,7 +45,7 @@ public class ConnectionView implements UpdateNotifier {
         WiFiDetail connection = wiFiData.getConnection();
         if (connection.getWiFiAdditional().isConnected()) {
             view.setVisibility(View.VISIBLE);
-            accessPointsDetail.setView(activity.getResources(), view, connection, false);
+            accessPointsDetail.setView(activity.getResources(), view, connection, false, MainConfiguration.INSTANCE.isLargeScreenLayout());
         } else {
             view.setVisibility(View.GONE);
         }

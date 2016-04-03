@@ -28,14 +28,13 @@ import com.vrem.wifianalyzer.R;
 
 public class VendorFragment extends ListFragment {
 
-    private final MainContext mainContext = MainContext.INSTANCE;
     private VendorAdapter vendorAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.vendor_content, container, false);
-        vendorAdapter = new VendorAdapter(getActivity(), mainContext.getVendorService().findAll());
+        vendorAdapter = new VendorAdapter(getActivity(), MainContext.INSTANCE.getVendorService().findAll());
         setListAdapter(vendorAdapter);
         return view;
     }
@@ -43,6 +42,6 @@ public class VendorFragment extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
-        vendorAdapter.setVendors(mainContext.getVendorService().findAll());
+        vendorAdapter.setVendors(MainContext.INSTANCE.getVendorService().findAll());
     }
 }

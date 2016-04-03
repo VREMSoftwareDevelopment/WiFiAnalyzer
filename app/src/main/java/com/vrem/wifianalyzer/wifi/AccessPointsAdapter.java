@@ -24,8 +24,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -34,7 +34,6 @@ import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
 
-    private final MainContext mainContext = MainContext.INSTANCE;
     private final Resources resources;
     private final AccessPointsAdapterData accessPointsAdapterData;
     private final AccessPointsDetail accessPointsDetail;
@@ -44,26 +43,25 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         this.resources = context.getResources();
         this.accessPointsAdapterData = new AccessPointsAdapterData();
         this.accessPointsDetail = new AccessPointsDetail();
-        mainContext.getScanner().addUpdateNotifier(this);
+        MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
     }
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         convertView = getView(convertView);
         WiFiDetail details = (WiFiDetail) getGroup(groupPosition);
-        accessPointsDetail.setView(resources, convertView, details, false);
+        accessPointsDetail.setView(resources, convertView, details, false, MainConfiguration.INSTANCE.isLargeScreenLayout());
 
+        ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
         int childrenCount = getChildrenCount(groupPosition);
         if (childrenCount > 0) {
-            convertView.findViewById(R.id.groupColumn).setVisibility(View.VISIBLE);
-            ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
+            groupIndicator.setVisibility(View.VISIBLE);
             groupIndicator.setImageResource(isExpanded
                     ? R.drawable.ic_expand_less_black_24dp
                     : R.drawable.ic_expand_more_black_24dp);
             groupIndicator.setColorFilter(resources.getColor(R.color.icons_color));
-            ((TextView) convertView.findViewById(R.id.groupCount)).setText(String.format("(%d) ", childrenCount + 1));
         } else {
-            convertView.findViewById(R.id.groupColumn).setVisibility(View.GONE);
+            groupIndicator.setVisibility(View.GONE);
         }
 
         return convertView;
@@ -73,8 +71,8 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         convertView = getView(convertView);
         WiFiDetail details = (WiFiDetail) getChild(groupPosition, childPosition);
-        accessPointsDetail.setView(resources, convertView, details, true);
-        convertView.findViewById(R.id.groupColumn).setVisibility(View.GONE);
+        accessPointsDetail.setView(resources, convertView, details, true, MainConfiguration.INSTANCE.isLargeScreenLayout());
+        convertView.findViewById(R.id.groupIndicator).setVisibility(View.GONE);
         return convertView;
     }
 
@@ -129,7 +127,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
             return convertView;
         }
 
-        LayoutInflater inflater = mainContext.getLayoutInflater();
+        LayoutInflater inflater = MainContext.INSTANCE.getLayoutInflater();
         return inflater.inflate(R.layout.access_points_details, null);
     }
 

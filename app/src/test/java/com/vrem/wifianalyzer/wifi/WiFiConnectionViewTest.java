@@ -74,6 +74,7 @@ public class WiFiConnectionViewTest {
     public void tearDown() throws Exception {
         verify(scanner).addUpdateNotifier(fixture);
         verify(activity).findViewById(R.id.connection);
+        MainContext.INSTANCE.clear();
     }
 
     @Test
@@ -97,7 +98,7 @@ public class WiFiConnectionViewTest {
         // validate
         verify(activity).getResources();
         verify(view).setVisibility(View.VISIBLE);
-        verify(accessPointsDetail).setView(resources, view, connection, false);
+        verify(accessPointsDetail).setView(resources, view, connection, false, false);
     }
 
     private WiFiDetail withConnection(WiFiAdditional wiFiAdditional) {

@@ -48,6 +48,7 @@ public class NavigationGroupTest {
                 },
                 NavigationGroup.GROUP_FEATURE.navigationMenu());
         assertArrayEquals(new NavigationMenu[]{
+                        NavigationMenu.CHANNEL_AVAILABLE,
                         NavigationMenu.VENDOR_LIST
                 },
                 NavigationGroup.GROUP_OTHER.navigationMenu());

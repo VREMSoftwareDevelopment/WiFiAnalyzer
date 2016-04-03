@@ -19,6 +19,7 @@ package com.vrem.wifianalyzer.wifi.scanner;
 import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
 
+import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
@@ -26,13 +27,15 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Scanner {
-    private final MainContext mainContext = MainContext.INSTANCE;
     private final Map<String, UpdateNotifier> updateNotifiers;
     private PeriodicScan periodicScan;
     private Cache cache;
     private Transformer transformer;
 
     public Scanner() {
+        if (!MainContext.INSTANCE.isInitialized() || !MainConfiguration.INSTANCE.isInitialized()) {
+            throw new RuntimeException("Main Context/Configuration is NOT set! Can not start WiFi scans...");
+        }
         this.periodicScan = new PeriodicScan(this);
         this.updateNotifiers = new TreeMap<>();
         setTransformer(new Transformer());
@@ -40,8 +43,9 @@ public class Scanner {
     }
 
     public void update() {
-        mainContext.getLogger().info(this, "running update...");
-        WifiManager wifiManager = mainContext.getWifiManager();
+        MainContext instance = MainContext.INSTANCE;
+        instance.getLogger().info(this, "running update...");
+        WifiManager wifiManager = instance.getWifiManager();
         if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
         }
@@ -50,7 +54,7 @@ public class Scanner {
             WiFiData wiFiData = transformer.transformToWiFiData(cache.getScanResults(), wifiManager.getConnectionInfo(), wifiManager.getConfiguredNetworks());
             for (String key : updateNotifiers.keySet()) {
                 UpdateNotifier updateNotifier = updateNotifiers.get(key);
-                mainContext.getLogger().info(this, "running notifier: " + key);
+                instance.getLogger().info(this, "running notifier: " + key);
                 updateNotifier.update(wiFiData);
             }
         }
@@ -58,7 +62,7 @@ public class Scanner {
 
     public void addUpdateNotifier(@NonNull UpdateNotifier updateNotifier) {
         String key = updateNotifier.getClass().getName();
-        mainContext.getLogger().info(this, "register notifier: " + key);
+        MainContext.INSTANCE.getLogger().info(this, "register notifier: " + key);
         updateNotifiers.put(key, updateNotifier);
     }
 

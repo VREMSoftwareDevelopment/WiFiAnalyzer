@@ -22,8 +22,8 @@ import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.vendor.VendorFragment;
 import com.vrem.wifianalyzer.wifi.AccessPointsFragment;
 import com.vrem.wifianalyzer.wifi.ChannelRatingFragment;
-import com.vrem.wifianalyzer.wifi.graph.ChannelGraphFragment;
-import com.vrem.wifianalyzer.wifi.graph.TimeGraphFragment;
+import com.vrem.wifianalyzer.wifi.graph.channel.ChannelGraphFragment;
+import com.vrem.wifianalyzer.wifi.graph.time.TimeGraphFragment;
 
 import org.junit.Test;
 
@@ -36,7 +36,7 @@ public class NavigationMenuTest {
 
     @Test
     public void testNavigationMenu() throws Exception {
-        assertEquals(7, NavigationMenu.values().length);
+        assertEquals(8, NavigationMenu.values().length);
     }
 
     @Test
@@ -47,6 +47,7 @@ public class NavigationMenuTest {
         assertEquals(NavigationMenu.CHANNEL_RATING, NavigationMenu.find(NavigationMenu.CHANNEL_RATING.ordinal()));
         assertEquals(NavigationMenu.CHANNEL_GRAPH, NavigationMenu.find(NavigationMenu.CHANNEL_GRAPH.ordinal()));
         assertEquals(NavigationMenu.TIME_GRAPH, NavigationMenu.find(NavigationMenu.TIME_GRAPH.ordinal()));
+        assertEquals(NavigationMenu.CHANNEL_AVAILABLE, NavigationMenu.find(NavigationMenu.CHANNEL_AVAILABLE.ordinal()));
         assertEquals(NavigationMenu.VENDOR_LIST, NavigationMenu.find(NavigationMenu.VENDOR_LIST.ordinal()));
         assertEquals(NavigationMenu.SETTINGS, NavigationMenu.find(NavigationMenu.SETTINGS.ordinal()));
         assertEquals(NavigationMenu.ABOUT, NavigationMenu.find(NavigationMenu.ABOUT.ordinal()));

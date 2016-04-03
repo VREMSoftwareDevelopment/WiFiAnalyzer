@@ -36,7 +36,6 @@ public class VendorService {
 
     private final Set<String> remoteCalls = new TreeSet<>();
     private final Map<String, String> cache = new HashMap<>();
-    private final MainContext mainContext = MainContext.INSTANCE;
     private RemoteCall remoteCall;
 
     public VendorService() {
@@ -47,7 +46,7 @@ public class VendorService {
         if (cache.containsKey(key)) {
             return cache.get(key);
         }
-        String result = mainContext.getDatabase().find(macAddress);
+        String result = MainContext.INSTANCE.getDatabase().find(macAddress);
         if (result != null) {
             result = cleanVendorName(result);
             cache.put(key, result);
@@ -75,7 +74,7 @@ public class VendorService {
 
     public SortedMap<String, List<String>> findAll() {
         SortedMap<String, List<String>> results = new TreeMap<>();
-        List<VendorData> vendorDatas = mainContext.getDatabase().findAll();
+        List<VendorData> vendorDatas = MainContext.INSTANCE.getDatabase().findAll();
         for (VendorData vendorData : vendorDatas) {
             String key = cleanVendorName(vendorData.getName());
             List<String> macs = results.get(key);

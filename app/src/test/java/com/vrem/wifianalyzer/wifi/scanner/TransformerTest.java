@@ -16,15 +16,18 @@
 
 package com.vrem.wifianalyzer.wifi.scanner;
 
+import android.content.Context;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -66,6 +69,8 @@ public class TransformerTest {
     private ScanResult scanResult2;
     @Mock
     private ScanResult scanResult3;
+    @Mock
+    private Context context;
 
     private List<ScanResult> scanResults;
     private List<WifiConfiguration> wifiConfigurations;
@@ -73,10 +78,17 @@ public class TransformerTest {
 
     @Before
     public void setUp() throws Exception {
+        MainContext mainContext = MainContext.INSTANCE;
+        mainContext.setContext(context);
+
         scanResults = Arrays.asList(scanResult1, scanResult2, scanResult3);
         wifiConfigurations = Arrays.asList(wifiConfiguration1, wifiConfiguration2, wifiConfiguration3);
-
         fixture = new Transformer();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        MainContext.INSTANCE.clear();
     }
 
     @Test
@@ -192,6 +204,5 @@ public class TransformerTest {
         when(wifiInfo.getBSSID()).thenReturn(BSSID_1);
         when(wifiInfo.getIpAddress()).thenReturn(123456789);
     }
-
 
 }

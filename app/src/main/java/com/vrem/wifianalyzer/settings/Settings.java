@@ -16,76 +16,65 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 
-import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.graph.GraphLegend;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 
+import static android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+
 public class Settings {
-    private final MainContext mainContext = MainContext.INSTANCE;
+    private Repository repository;
 
     public Settings() {
+        setRepository(new Repository());
+    }
+
+    void setRepository(@NonNull Repository repository) {
+        this.repository = repository;
     }
 
     public void initializeDefaultValues() {
-        PreferenceManager.setDefaultValues(mainContext.getContext(), R.xml.preferences, false);
+        repository.initializeDefaultValues();
     }
 
-    public SharedPreferences getSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(mainContext.getContext());
+    public void registerOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener onSharedPreferenceChangeListener) {
+        repository.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
     }
 
     public int getScanInterval() {
-        Context context = mainContext.getContext();
-        int defaultValue = context.getResources().getInteger(R.integer.scan_interval_default);
-        return getSharedPreferences().getInt(context.getString(R.string.scan_interval_key), defaultValue);
+        return repository.getInteger(R.string.scan_interval_key, repository.getResourceInteger(R.integer.scan_interval_default));
     }
 
     public SortBy getSortBy() {
-        Context context = mainContext.getContext();
-        String defaultValue = context.getResources().getString(R.string.sort_by_default);
-        return SortBy.find(getSharedPreferences().getString(context.getString(R.string.sort_by_key), defaultValue));
+        return SortBy.find(repository.getStringAsInteger(R.string.sort_by_key, SortBy.STRENGTH.ordinal()));
     }
 
     public GroupBy getGroupBy() {
-        Context context = mainContext.getContext();
-        String defaultValue = context.getResources().getString(R.string.group_by_default);
-        return GroupBy.find(getSharedPreferences().getString(context.getString(R.string.group_by_key), defaultValue));
+        return GroupBy.find(repository.getStringAsInteger(R.string.group_by_key, GroupBy.NONE.ordinal()));
     }
 
     public GraphLegend getChannelGraphLegend() {
-        Context context = mainContext.getContext();
-        String defaultValue = context.getResources().getString(R.string.channel_graph_legend_default);
-        return GraphLegend.find(getSharedPreferences().getString(context.getString(R.string.channel_graph_legend_key), defaultValue), GraphLegend.HIDE);
+        return GraphLegend.find(repository.getStringAsInteger(R.string.channel_graph_legend_key, GraphLegend.HIDE.ordinal()), GraphLegend.HIDE);
     }
 
     public GraphLegend getTimeGraphLegend() {
-        Context context = mainContext.getContext();
-        String defaultValue = context.getResources().getString(R.string.time_graph_legend_default);
-        return GraphLegend.find(getSharedPreferences().getString(context.getString(R.string.time_graph_legend_key), defaultValue), GraphLegend.LEFT);
+        return GraphLegend.find(repository.getStringAsInteger(R.string.time_graph_legend_key, GraphLegend.LEFT.ordinal()), GraphLegend.LEFT);
     }
 
     public WiFiBand getWiFiBand() {
-        Context context = mainContext.getContext();
-        String defaultValue = context.getResources().getString(R.string.wifi_band_default);
-        return WiFiBand.findByBand(getSharedPreferences().getString(context.getString(R.string.wifi_band_key), defaultValue));
+        return WiFiBand.find(repository.getStringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ_2.ordinal()));
     }
 
     public ThemeStyle getThemeStyle() {
-        Context context = mainContext.getContext();
-        String defaultValue = context.getResources().getString(R.string.theme_default);
-        return ThemeStyle.find(getSharedPreferences().getString(context.getString(R.string.theme_key), defaultValue));
+        return ThemeStyle.find(repository.getStringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal()));
     }
 
     public void toggleWiFiBand() {
-        SharedPreferences.Editor editor = getSharedPreferences().edit();
-        editor.putString(mainContext.getContext().getString(R.string.wifi_band_key), getWiFiBand().toggle().getBand());
-        editor.apply();
+        repository.save(R.string.wifi_band_key, getWiFiBand().toggle().ordinal());
     }
+
 }

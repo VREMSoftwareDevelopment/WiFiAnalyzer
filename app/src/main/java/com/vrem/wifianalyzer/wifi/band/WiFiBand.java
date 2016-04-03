@@ -19,41 +19,32 @@ package com.vrem.wifianalyzer.wifi.band;
 import android.support.annotation.NonNull;
 
 public enum WiFiBand {
-    GHZ_2("2.4 GHz", 2401, 2499, WiFiChannels.makeGHZ_2()),
-    GHZ_5("5 GHz", 4901, 5899, WiFiChannels.makeGHZ_5());
+    GHZ_2("2.4 GHz", new WiFiChannelsGHZ_2()),
+    GHZ_5("5 GHz", new WiFiChannelsGHZ_5());
 
     private final String band;
-    private final int frequencyStart;
-    private final int frequencyEnd;
     private final WiFiChannels wiFiChannels;
 
-    WiFiBand(@NonNull String band, int frequencyStart, int frequencyEnd, @NonNull WiFiChannels wiFiChannels) {
+    WiFiBand(@NonNull String band, @NonNull WiFiChannels wiFiChannels) {
         this.band = band;
-        this.frequencyStart = frequencyStart;
-        this.frequencyEnd = frequencyEnd;
         this.wiFiChannels = wiFiChannels;
     }
 
     public static WiFiBand findByFrequency(int frequency) {
         for (WiFiBand wiFiBand : WiFiBand.values()) {
-            if (wiFiBand.inRange(frequency)) {
+            if (wiFiBand.getWiFiChannels().isInRange(frequency)) {
                 return wiFiBand;
             }
         }
         return WiFiBand.GHZ_2;
     }
 
-    public static WiFiBand findByBand(String band) {
-        for (WiFiBand wiFiBand : WiFiBand.values()) {
-            if (wiFiBand.getBand().equals(band)) {
-                return wiFiBand;
-            }
+    public static WiFiBand find(int index) {
+        try {
+            return values()[index];
+        } catch (Exception e) {
+            return WiFiBand.GHZ_2;
         }
-        return WiFiBand.GHZ_2;
-    }
-
-    private boolean inRange(int value) {
-        return value >= frequencyStart && value <= frequencyEnd;
     }
 
     public String getBand() {

@@ -25,19 +25,26 @@
         android:id="@+id/tab"
         android:layout_width="@dimen/list_view_item_horizontal_tab"
         android:layout_height="wrap_content"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <!-- Column 2 -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <!-- Row 1 -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/groupIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/configuredImage"
@@ -45,13 +52,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                 android:src="@drawable/ic_tag_faces_black_18dp"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/ssid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/ipAddress"
@@ -59,12 +66,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
                 android:textColor="@color/connected"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
         </LinearLayout>
 
         <!-- Row 2 -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -72,25 +79,25 @@
             <ImageView
                 android:id="@+id/levelImage"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
             <!-- Column 2 -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
                 android:orientation="vertical">
 
                 <!-- Row 1 -->
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/level"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -98,7 +105,7 @@
                         android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
                         android:text="@string/channel_short_name"
                         android:textColor="@color/channel"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/channel"
@@ -106,14 +113,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
                         android:textColor="@color/channel_number"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/frequency"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
-                        android:textColor="@color/channel" />
+                        android:textColor="@color/channel"/>
 
                     <TextView
                         android:id="@+id/distance"
@@ -121,19 +128,42 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
                         android:textColor="@color/distance"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
                 </LinearLayout>
 
-                <!-- Row 2 -->
+                <!-- Row 2 optional -->
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/channel_frequency_range_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/channel_frequency_range"
+                        android:textColor="@color/channel"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/channel_frequency_range"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                        android:textColor="@color/channel"/>
+                </LinearLayout>
+
+                <!-- Row 3 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/securityImage"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"/>
 
                     <TextView
                         android:id="@+id/capabilities"
@@ -141,39 +171,15 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
                         android:textColor="@color/security"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"/>
                 </LinearLayout>
 
-                <!-- Row 3 -->
+                <!-- Row 4 -->
                 <TextView
                     android:id="@+id/vendor"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"/>
-
-            </LinearLayout>
-
-            <!-- Column 3 -->
-            <LinearLayout
-                android:id="@+id/groupColumn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/groupCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right" />
-
-                <!-- Row 2 -->
-                <ImageView
-                    android:id="@+id/groupIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

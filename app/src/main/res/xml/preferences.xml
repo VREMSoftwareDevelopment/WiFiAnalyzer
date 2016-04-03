@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
@@ -19,7 +18,7 @@
     <ListPreference
         android:defaultValue="@string/wifi_band_default"
         android:entries="@array/wifi_band_array"
-        android:entryValues="@array/wifi_band_array"
+        android:entryValues="@array/wifi_band_index_array"
         android:key="@string/wifi_band_key"
         android:persistent="true"
         android:summary="@string/wifi_band_summary"
@@ -35,7 +34,7 @@
     <ListPreference
         android:defaultValue="@string/sort_by_default"
         android:entries="@array/sort_by_array"
-        android:entryValues="@array/sort_by_array"
+        android:entryValues="@array/sort_by_index_array"
         android:key="@string/sort_by_key"
         android:persistent="true"
         android:summary="@string/sort_by_summary"
@@ -44,7 +43,7 @@
     <ListPreference
         android:defaultValue="@string/group_by_default"
         android:entries="@array/group_by_array"
-        android:entryValues="@array/group_by_array"
+        android:entryValues="@array/group_by_index_array"
         android:key="@string/group_by_key"
         android:persistent="true"
         android:summary="@string/group_by_summary"
@@ -53,7 +52,7 @@
     <ListPreference
         android:defaultValue="@string/channel_graph_legend_default"
         android:entries="@array/graph_legend_array"
-        android:entryValues="@array/graph_legend_array"
+        android:entryValues="@array/graph_legend_index_array"
         android:key="@string/channel_graph_legend_key"
         android:persistent="true"
         android:summary="@string/channel_graph_legend_summary"
@@ -62,7 +61,7 @@
     <ListPreference
         android:defaultValue="@string/time_graph_legend_default"
         android:entries="@array/graph_legend_array"
-        android:entryValues="@array/graph_legend_array"
+        android:entryValues="@array/graph_legend_index_array"
         android:key="@string/time_graph_legend_key"
         android:persistent="true"
         android:summary="@string/time_graph_legend_summary"
@@ -71,7 +70,7 @@
     <ListPreference
         android:defaultValue="@string/theme_default"
         android:entries="@array/theme_array"
-        android:entryValues="@array/theme_array"
+        android:entryValues="@array/theme_index_array"
         android:key="@string/theme_key"
         android:persistent="true"
         android:summary="@string/theme_summary"

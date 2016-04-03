@@ -31,15 +31,11 @@ public class ThemeStyleTest {
 
     @Test
     public void testFind() throws Exception {
-        assertEquals(ThemeStyle.LIGHT, ThemeStyle.find(null));
-        assertEquals(ThemeStyle.LIGHT, ThemeStyle.find(""));
-        assertEquals(ThemeStyle.LIGHT, ThemeStyle.find("xYz"));
+        assertEquals(ThemeStyle.DARK, ThemeStyle.find(-1));
+        assertEquals(ThemeStyle.DARK, ThemeStyle.find(2));
 
-        assertEquals(ThemeStyle.LIGHT, ThemeStyle.find(ThemeStyle.LIGHT.name()));
-        assertEquals(ThemeStyle.LIGHT, ThemeStyle.find(ThemeStyle.LIGHT.name().toLowerCase()));
-
-        assertEquals(ThemeStyle.DARK, ThemeStyle.find(ThemeStyle.DARK.name()));
-        assertEquals(ThemeStyle.DARK, ThemeStyle.find(ThemeStyle.DARK.name().toLowerCase()));
+        assertEquals(ThemeStyle.LIGHT, ThemeStyle.find(ThemeStyle.LIGHT.ordinal()));
+        assertEquals(ThemeStyle.DARK, ThemeStyle.find(ThemeStyle.DARK.ordinal()));
     }
 
     @Test

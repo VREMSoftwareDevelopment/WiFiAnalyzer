@@ -17,7 +17,7 @@
 
 <resources>
     <color name="connected">#2196F3</color>
-    <color name="connected_backround">#616161</color>
+    <color name="connected_background">#616161</color>
 
     <color name="channel">#9E9E9E</color>
     <color name="channel_number">#607D8B</color>

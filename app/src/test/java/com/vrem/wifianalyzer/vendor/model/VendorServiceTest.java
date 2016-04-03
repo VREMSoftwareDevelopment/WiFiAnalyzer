@@ -40,10 +40,10 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class VendorServiceTest {
-    static final String MAC_IN_RANGE1 = "00:23:AB:8C:DF:10";
-    static final String MAC_IN_RANGE2 = "00:23:AB:00:DF:1C";
-    static final String VENDOR_NAME = "CISCO SYSTEMS, INC.";
-    static final String EXPECTED_VENDOR_NAME = "CISCO SYSTEMS INC";
+    private static final String MAC_IN_RANGE1 = "00:23:AB:8C:DF:10";
+    private static final String MAC_IN_RANGE2 = "00:23:AB:00:DF:1C";
+    private static final String VENDOR_NAME = "CISCO SYSTEMS, INC.";
+    private static final String EXPECTED_VENDOR_NAME = "CISCO SYSTEMS INC";
 
     @Mock private Database database;
     @Mock private RemoteCall remoteCall;
@@ -61,6 +61,7 @@ public class VendorServiceTest {
     @After
     public void tearDown() throws Exception {
         fixture.clear();
+        MainContext.INSTANCE.clear();
     }
 
     @Test

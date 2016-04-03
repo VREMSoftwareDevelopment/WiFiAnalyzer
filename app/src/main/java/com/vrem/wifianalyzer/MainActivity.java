@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Configuration;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,14 +43,18 @@ import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.ConnectionView;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Locale;
+
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
 public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
-    private final MainContext mainContext = MainContext.INSTANCE;
+    private static final String WI_FI_ANALYZER_BETA = "WiFi Analyzer BETA";
 
     private int currentTheme;
     private NavigationMenuView navigationMenuView;
@@ -59,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     protected void onCreate(Bundle savedInstanceState) {
         initializeMainContext(this);
 
-        Settings settings = mainContext.getSettings();
+        Settings settings = MainContext.INSTANCE.getSettings();
         settings.initializeDefaultValues();
         currentTheme = settings.getThemeStyle().themeAppCompatStyle();
         setTheme(currentTheme);
@@ -67,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        settings.getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        settings.registerOnSharedPreferenceChangeListener(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setOnClickListener(new WiFiBandToggle());
@@ -86,15 +91,39 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     private void initializeMainContext(@NonNull Context context) {
-        mainContext.setContext(context);
-        mainContext.setDatabase(new Database());
-        mainContext.setSettings(new Settings());
-        mainContext.setHandler(new Handler());
-        mainContext.setScanner(new Scanner());
-        mainContext.setVendorService(new VendorService());
-        mainContext.setWifiManager((WifiManager) context.getSystemService(Context.WIFI_SERVICE));
-        mainContext.setLayoutInflater((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
-        mainContext.setLogger(new Logger());
+        initializeMainConfiguration(context);
+
+        MainContext.INSTANCE.setContext(context);
+        MainContext.INSTANCE.setResources(context.getResources());
+
+        MainContext.INSTANCE.setDatabase(new Database());
+        MainContext.INSTANCE.setSettings(new Settings());
+        MainContext.INSTANCE.setHandler(new Handler());
+        MainContext.INSTANCE.setVendorService(new VendorService());
+        MainContext.INSTANCE.setWifiManager((WifiManager) context.getSystemService(Context.WIFI_SERVICE));
+        MainContext.INSTANCE.setLayoutInflater((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+        MainContext.INSTANCE.setLogger(new Logger());
+
+        /* activate scanner only after everything is initialized */
+        MainContext.INSTANCE.setScanner(new Scanner());
+    }
+
+    private void initializeMainConfiguration(@NonNull Context context) {
+        boolean isDevelopmentMode = isDevelopmentMode(context);
+        Locale locale = isDevelopmentMode ? WiFiChannelCountry.WORLD_LOCALE : context.getResources().getConfiguration().locale;
+        MainConfiguration.INSTANCE.setLocale(locale);
+        MainConfiguration.INSTANCE.setWiFiChannelPair(WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(locale).get(0));
+        MainConfiguration.INSTANCE.setDevelopmentMode(isDevelopmentMode);
+        MainConfiguration.INSTANCE.setLargeScreenLayout(isLargeScreenLayout());
+    }
+
+    private boolean isDevelopmentMode(@NonNull Context context) {
+        return WI_FI_ANALYZER_BETA.equals(context.getString(R.string.app_name));
+    }
+
+    private boolean isLargeScreenLayout() {
+        int screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        return screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_XLARGE;
     }
 
     @Override
@@ -102,13 +131,13 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         if (isThemeChanged()) {
             reloadActivity();
         } else {
-            mainContext.getScanner().update();
+            MainContext.INSTANCE.getScanner().update();
             updateSubTitle();
         }
     }
 
     private boolean isThemeChanged() {
-        int settingTheme = mainContext.getSettings().getThemeStyle().themeAppCompatStyle();
+        int settingTheme = MainContext.INSTANCE.getSettings().getThemeStyle().themeAppCompatStyle();
         if (this.currentTheme != settingTheme) {
             this.currentTheme = settingTheme;
             return true;
@@ -153,20 +182,20 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     protected void onPause() {
-        mainContext.getScanner().pause();
+        MainContext.INSTANCE.getScanner().pause();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mainContext.getScanner().resume();
+        MainContext.INSTANCE.getScanner().resume();
     }
 
     private void updateSubTitle() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setSubtitle(subTitle ? mainContext.getSettings().getWiFiBand().getBand() : StringUtils.EMPTY);
+            actionBar.setSubtitle(subTitle ? MainContext.INSTANCE.getSettings().getWiFiBand().getBand() : StringUtils.EMPTY);
         }
     }
 
@@ -177,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private class WiFiBandToggle implements OnClickListener {
         @Override
         public void onClick(View view) {
-            mainContext.getSettings().toggleWiFiBand();
+            MainContext.INSTANCE.getSettings().toggleWiFiBand();
         }
     }
 

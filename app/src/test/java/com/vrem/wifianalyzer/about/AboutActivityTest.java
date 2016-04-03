@@ -19,7 +19,6 @@ package com.vrem.wifianalyzer.about;
 import android.support.v7.app.ActionBar;
 
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
@@ -37,11 +36,10 @@ import static org.junit.Assert.assertNull;
 @Config(constants = BuildConfig.class)
 public class AboutActivityTest {
 
-    private MainActivity mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
-
     @Test
     public void testTitle() throws Exception {
         // setup
+        RobolectricUtil.INSTANCE.getMainActivity();
         AboutActivity fixture = Robolectric.setupActivity(AboutActivity.class);
         String expected = fixture.getResources().getString(R.string.action_about);
         // execute

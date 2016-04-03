@@ -43,13 +43,14 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class AccessPointsDetailTest {
-    private MainActivity activity = RobolectricUtil.INSTANCE.getMainActivity();
+    private MainActivity mainActivity;
 
     private View view;
     private AccessPointsDetail fixture;
 
     @Before
     public void setUp() throws Exception {
+        mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
         view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.access_points_details, null);
         assertNotNull(view);
         fixture = new AccessPointsDetail();
@@ -62,7 +63,7 @@ public class AccessPointsDetailTest {
                 new WiFiSignal(1, WiFiWidth.MHZ_20, 2),
                 new WiFiAdditional("VendorName", "IPAddress"));
         // execute
-        fixture.setView(activity.getResources(), view, wiFiDetail, false);
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false, false);
         // validate
         validateTextViewValues(wiFiDetail, "SSID");
 
@@ -75,7 +76,9 @@ public class AccessPointsDetailTest {
         assertEquals(View.VISIBLE, view.findViewById(R.id.vendor).getVisibility());
 
         assertEquals(View.GONE, view.findViewById(R.id.tab).getVisibility());
-        assertEquals(View.GONE, view.findViewById(R.id.groupColumn).getVisibility());
+        assertEquals(View.GONE, view.findViewById(R.id.groupIndicator).getVisibility());
+
+        assertEquals(View.GONE, view.findViewById(R.id.channel_frequency_range_row).getVisibility());
     }
 
     @Test
@@ -85,15 +88,18 @@ public class AccessPointsDetailTest {
                 new WiFiSignal(1, WiFiWidth.MHZ_20, 2),
                 new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        fixture.setView(activity.getResources(), view, wiFiDetail, true);
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, true, true);
         // validate
         validateTextViewValues(wiFiDetail, "***");
+        WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
+        validateTextViewValue(String.format("%d - %d MHz", wiFiSignal.getFrequencyStart(), wiFiSignal.getFrequencyEnd()), R.id.channel_frequency_range);
 
         assertEquals(View.GONE, view.findViewById(R.id.ipAddress).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.configuredImage).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.vendor).getVisibility());
         assertEquals(View.VISIBLE, view.findViewById(R.id.tab).getVisibility());
-        assertEquals(View.GONE, view.findViewById(R.id.groupColumn).getVisibility());
+        assertEquals(View.GONE, view.findViewById(R.id.groupIndicator).getVisibility());
+        assertEquals(View.VISIBLE, view.findViewById(R.id.channel_frequency_range_row).getVisibility());
     }
 
     private void validateTextViewValues(@NonNull WiFiDetail wiFiDetail, @NonNull String ssid) {
@@ -102,7 +108,7 @@ public class AccessPointsDetailTest {
         validateTextViewValue(String.format("%ddBm", wiFiSignal.getLevel()), R.id.level);
         validateTextViewValue(String.format("%d", wiFiSignal.getWiFiChannel().getChannel()), R.id.channel);
         validateTextViewValue(String.format("%dMHz", wiFiSignal.getFrequency()), R.id.frequency);
-        validateTextViewValue(String.format("%6.2fm", wiFiSignal.getDistance()), R.id.distance);
+        validateTextViewValue(String.format("%.1fm", wiFiSignal.getDistance()), R.id.distance);
         validateTextViewValue(wiFiDetail.getCapabilities(), R.id.capabilities);
     }
 

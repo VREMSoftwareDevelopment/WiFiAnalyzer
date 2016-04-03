@@ -23,6 +23,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.vrem.wifianalyzer.MainContext;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,10 +42,10 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DatabaseTest {
-    static final String MAC_ADDRESS = "00:23:AB:8C:DF:10";
-    static final String VENDOR_NAME = "CISCO SYSTEMS, INC.";
-    static final long ID = 213L;
-    static final int INDEX = 2;
+    private static final String MAC_ADDRESS = "00:23:AB:8C:DF:10";
+    private static final String VENDOR_NAME = "CISCO SYSTEMS, INC.";
+    private static final long ID = 213L;
+    private static final int INDEX = 2;
 
     @Mock private SQLiteDatabase sqliteDatabase;
     @Mock private Cursor cursor;
@@ -58,6 +59,11 @@ public class DatabaseTest {
         MainContext.INSTANCE.setContext(context);
 
         fixture = new DatabaseMock();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        MainContext.INSTANCE.clear();
     }
 
     @Test
