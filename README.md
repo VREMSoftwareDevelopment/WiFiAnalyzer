@@ -23,8 +23,8 @@ WiFi Analyzer is licensed under the Apache License, Version 2.0.
 You can find the license text [here](http://www.apache.org/licenses/LICENSE-2.0).
 
 ## Build WiFi Analyzer:
-### Clone project
-  `git clone https://github.com/VREMSoftwareDevelopment/WifiAnalyzer.git`
+### Fork project
+[How to fork project](https://help.github.com/articles/fork-a-repo)
 ### Build project
   1. Install Android Studio
   2. Import project into Android Studio
@@ -32,3 +32,5 @@ You can find the license text [here](http://www.apache.org/licenses/LICENSE-2.0)
       * Select the root directory of the WiFi Analyzer repository and click "OK".
       * WiFi Analyzer will build automatically
 
+
+[See code coverage](https://vremsoftwaredevelopment.github.io/WifiAnalyzer/coverage)
