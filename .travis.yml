@@ -1,0 +1,24 @@
+language:
+    android
+jdk:
+    oraclejdk7
+android:
+    components:
+        - build-tools-23.0.2
+        - android-22
+
+        # Additional components
+        - extra-google-google_play_services
+        - extra-google-m2repository
+        - extra-android-m2repository
+        - addon-google_apis-google-19
+
+script:
+    ./gradlew testDebugUnitTest -i
+
+before_cache:
+    - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+cache:
+    directories:
+        - $HOME/.gradle/caches/
+        - $HOME/.gradle/wrapper/
