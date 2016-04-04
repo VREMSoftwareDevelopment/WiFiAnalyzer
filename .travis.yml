@@ -9,10 +9,10 @@ android:
         # Additional components
         - extra-google-m2repository
         - extra-android-m2repository
-
 script:
     ./gradlew testDebugUnitTest -i
-
+before_install:
+    - chmod +x gradlew
 before_cache:
     - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
