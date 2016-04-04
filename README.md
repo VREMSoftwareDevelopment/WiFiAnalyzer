@@ -23,6 +23,7 @@ WiFi Analyzer is licensed under the Apache License, Version 2.0.
 You can find the license text [here](http://www.apache.org/licenses/LICENSE-2.0).
 
 ## Build WiFi Analyzer:
+Travis CI status [![Build Status](https://travis-ci.org/VREMSoftwareDevelopment/WifiAnalyzer.svg?branch=master)](https://travis-ci.org/VREMSoftwareDevelopment/WifiAnalyzer)
 ### Fork project
 [How to fork project](https://help.github.com/articles/fork-a-repo)
 ### Build project
