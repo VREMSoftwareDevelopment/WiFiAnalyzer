@@ -1,7 +1,7 @@
 language:
     android
 jdk:
-    oraclejdk7
+    oraclejdk8
 android:
     components:
         - tools
@@ -10,7 +10,7 @@ android:
         - extra-google-m2repository
         - extra-android-m2repository
 script:
-    ./gradlew testDebugUnitTest -i
+    ./gradlew testDebugUnitTest
 before_install:
     - chmod +x gradlew
 before_cache:
