@@ -10,7 +10,7 @@ android:
         - extra-google-m2repository
         - extra-android-m2repository
 script:
-    ./gradlew assembleDebug
+    ./gradlew test
 before_install:
     - chmod +x gradlew
 before_cache:
