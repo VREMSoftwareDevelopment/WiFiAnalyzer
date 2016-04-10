@@ -27,12 +27,12 @@ import java.util.List;
 class AccessPointsAdapterData {
     private List<WiFiDetail> wiFiDetails = new ArrayList<>();
 
-    void update(WiFiData wiFiData) {
+    protected void update(WiFiData wiFiData) {
         Settings settings = MainContext.INSTANCE.getSettings();
         wiFiDetails = wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy(), settings.getGroupBy());
     }
 
-    int parentsCount() {
+    protected int parentsCount() {
         return wiFiDetails.size();
     }
 
@@ -44,15 +44,15 @@ class AccessPointsAdapterData {
         return validParentIndex(indexParent) && indexChild >= 0 && indexChild < childrenCount(indexParent);
     }
 
-    WiFiDetail parent(int index) {
+    protected WiFiDetail parent(int index) {
         return validParentIndex(index) ? wiFiDetails.get(index) : WiFiDetail.EMPTY;
     }
 
-    int childrenCount(int index) {
+    protected int childrenCount(int index) {
         return validParentIndex(index) ? wiFiDetails.get(index).getChildren().size() : 0;
     }
 
-    WiFiDetail child(int indexParent, int indexChild) {
+    protected WiFiDetail child(int indexParent, int indexChild) {
         return validChildrenIndex(indexParent, indexChild) ? wiFiDetails.get(indexParent).getChildren().get(indexChild) : WiFiDetail.EMPTY;
     }
 }

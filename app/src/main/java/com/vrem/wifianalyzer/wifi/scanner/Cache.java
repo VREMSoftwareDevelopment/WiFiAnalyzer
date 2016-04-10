@@ -28,11 +28,11 @@ import java.util.Deque;
 import java.util.List;
 
 class Cache {
-    static final int MAX_CACHE_SIZE = 3;
+    protected static final int MAX_CACHE_SIZE = 3;
 
     private final Deque<List<ScanResult>> cache = new ArrayDeque<>(MAX_CACHE_SIZE);
 
-    List<ScanResult> getScanResults() {
+    protected List<ScanResult> getScanResults() {
         ScanResult current = null;
         List<ScanResult> results = new ArrayList<>();
         for (ScanResult scanResult : combineCache()) {
@@ -54,7 +54,7 @@ class Cache {
         return scanResults;
     }
 
-    void add(List<ScanResult> scanResults) {
+    protected void add(List<ScanResult> scanResults) {
         if (scanResults == null) {
             scanResults = new ArrayList<>();
         }
@@ -64,7 +64,7 @@ class Cache {
         this.cache.addFirst(scanResults);
     }
 
-    Deque<List<ScanResult>> getCache() {
+    protected Deque<List<ScanResult>> getCache() {
         return cache;
     }
 

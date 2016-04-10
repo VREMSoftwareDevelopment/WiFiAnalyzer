@@ -35,28 +35,26 @@ import java.util.List;
 
 class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
 
-    ChannelAvailableAdapter(@NonNull Context context, @NonNull List<WiFiChannelCountry> wiFiChannelCountries) {
+    protected ChannelAvailableAdapter(@NonNull Context context, @NonNull List<WiFiChannelCountry> wiFiChannelCountries) {
         super(context, R.layout.channel_available_details, wiFiChannelCountries);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = MainContext.INSTANCE.getLayoutInflater();
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.channel_available_details, parent, false);
-        }
+        View view = convertView == null ? inflater.inflate(R.layout.channel_available_details, parent, false) : convertView;
         WiFiChannelCountry wiFiChannelCountry = getItem(position);
-        ((TextView) convertView.findViewById(R.id.channel_available_country))
+        ((TextView) view.findViewById(R.id.channel_available_country))
                 .setText(wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName());
-        ((TextView) convertView.findViewById(R.id.channel_available_title_ghz_2))
+        ((TextView) view.findViewById(R.id.channel_available_title_ghz_2))
                 .setText(WiFiBand.GHZ2.getBand() + " : ");
-        ((TextView) convertView.findViewById(R.id.channel_available_ghz_2))
+        ((TextView) view.findViewById(R.id.channel_available_ghz_2))
                 .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ2().toArray(), ","));
-        ((TextView) convertView.findViewById(R.id.channel_available_title_ghz_5))
+        ((TextView) view.findViewById(R.id.channel_available_title_ghz_5))
                 .setText(WiFiBand.GHZ5.getBand() + " : ");
-        ((TextView) convertView.findViewById(R.id.channel_available_ghz_5))
+        ((TextView) view.findViewById(R.id.channel_available_ghz_5))
                 .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ5().toArray(), ","));
-        return convertView;
+        return view;
     }
 
 }

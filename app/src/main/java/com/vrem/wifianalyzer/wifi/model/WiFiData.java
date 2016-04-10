@@ -67,7 +67,7 @@ public class WiFiData {
     }
 
     @NonNull
-    List<WiFiDetail> getWiFiDetails(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
+    protected List<WiFiDetail> getWiFiDetails(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
         List<WiFiDetail> results = new ArrayList<>();
         Collections.sort(wiFiDetails, groupBy.sortOrder());
         WiFiDetail parent = null;

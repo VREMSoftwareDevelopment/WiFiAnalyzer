@@ -33,7 +33,7 @@ public class Settings {
         setRepository(new Repository());
     }
 
-    void setRepository(@NonNull Repository repository) {
+    public void setRepository(@NonNull Repository repository) {
         this.repository = repository;
     }
 

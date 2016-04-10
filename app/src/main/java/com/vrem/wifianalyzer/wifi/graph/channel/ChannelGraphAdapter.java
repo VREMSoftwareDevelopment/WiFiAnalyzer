@@ -33,7 +33,7 @@ import java.util.Locale;
 class ChannelGraphAdapter extends GraphAdapter {
     private final ChannelGraphNavigation channelGraphNavigation;
 
-    ChannelGraphAdapter() {
+    protected ChannelGraphAdapter() {
         super();
         channelGraphNavigation = new ChannelGraphNavigation();
     }
@@ -57,7 +57,7 @@ class ChannelGraphAdapter extends GraphAdapter {
         channelGraphNavigation.update();
     }
 
-    ChannelGraphNavigation getChannelGraphNavigation() {
+    protected ChannelGraphNavigation getChannelGraphNavigation() {
         return channelGraphNavigation;
     }
 }

@@ -21,21 +21,21 @@ import android.support.annotation.NonNull;
 import com.vrem.wifianalyzer.MainContext;
 
 class PeriodicScan implements Runnable {
-    static final int DELAY_INITIAL = 1;
-    static final int DELAY_INTERVAL = 1000;
+    protected static final int DELAY_INITIAL = 1;
+    protected static final int DELAY_INTERVAL = 1000;
 
     private final Scanner scanner;
 
-    PeriodicScan(@NonNull Scanner scanner) {
+    protected PeriodicScan(@NonNull Scanner scanner) {
         this.scanner = scanner;
         start();
     }
 
-    void stop() {
+    protected void stop() {
         MainContext.INSTANCE.getHandler().removeCallbacks(this);
     }
 
-    void start() {
+    protected void start() {
         nextRun(DELAY_INITIAL);
     }
 

@@ -27,10 +27,10 @@ import java.util.Locale;
 public class WiFiChannelCountry {
     public static final Locale WORLD_LOCALE = new Locale("", "ZZ");
 
-    static final String UNKNOWN = "Unknown country";
-    static final String DEVELOPMENT = "DEVELOPMENT";
-        static final List<Integer> DEFAULT_CHANNELS_GHZ2 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
-        static final List<Integer> DEFAULT_CHANNELS_GHZ5 = Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64);
+    protected static final String UNKNOWN = "Unknown country";
+    protected static final String DEVELOPMENT = "DEVELOPMENT";
+    protected static final List<Integer> DEFAULT_CHANNELS_GHZ2 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+    protected static final List<Integer> DEFAULT_CHANNELS_GHZ5 = Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64);
 
     private static final WiFiChannelCountry[] COUNTRY_CHANNELS = new WiFiChannelCountry[]{
             new WiFiChannelCountry("AE",
@@ -644,18 +644,18 @@ public class WiFiChannelCountry {
     };
 
     private final String countryCode;
-        private final List<Integer> channelsGHZ2;
-        private final List<Integer> channelsGHZ5;
+    private final List<Integer> channelsGHZ2;
+    private final List<Integer> channelsGHZ5;
     private final String countryName;
 
     public WiFiChannelCountry(@NonNull String countryCode) {
-            this(countryCode, DEFAULT_CHANNELS_GHZ2, DEFAULT_CHANNELS_GHZ5);
+        this(countryCode, DEFAULT_CHANNELS_GHZ2, DEFAULT_CHANNELS_GHZ5);
     }
 
-        private WiFiChannelCountry(@NonNull String countryCode, @NonNull List<Integer> channelsGHZ2, List<Integer> channelsGHZ5) {
+    private WiFiChannelCountry(@NonNull String countryCode, @NonNull List<Integer> channelsGHZ2, List<Integer> channelsGHZ5) {
         this.countryCode = countryCode;
-                this.channelsGHZ2 = channelsGHZ2;
-                this.channelsGHZ5 = channelsGHZ5.isEmpty() ? DEFAULT_CHANNELS_GHZ5 : channelsGHZ5;
+        this.channelsGHZ2 = channelsGHZ2;
+        this.channelsGHZ5 = channelsGHZ5.isEmpty() ? DEFAULT_CHANNELS_GHZ5 : channelsGHZ5;
         this.countryName = findCountryName(countryCode);
     }
 
@@ -688,19 +688,19 @@ public class WiFiChannelCountry {
         return countryName;
     }
 
-        public List<Integer> getChannelsGHZ2() {
-                return Collections.unmodifiableList(channelsGHZ2);
+    public List<Integer> getChannelsGHZ2() {
+        return Collections.unmodifiableList(channelsGHZ2);
     }
 
-        public List<Integer> getChannelsGHZ5() {
-                return Collections.unmodifiableList(channelsGHZ5);
+    public List<Integer> getChannelsGHZ5() {
+        return Collections.unmodifiableList(channelsGHZ5);
     }
 
-        boolean isChannelAvailableGHZ2(int channel) {
-                return channelsGHZ2.contains(channel);
+    protected boolean isChannelAvailableGHZ2(int channel) {
+        return channelsGHZ2.contains(channel);
     }
 
-        boolean isChannelAvailableGHZ5(int channel) {
-                return channelsGHZ5.contains(channel);
+    protected boolean isChannelAvailableGHZ5(int channel) {
+        return channelsGHZ5.contains(channel);
     }
 }

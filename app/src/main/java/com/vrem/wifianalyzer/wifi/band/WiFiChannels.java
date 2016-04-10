@@ -29,7 +29,7 @@ public abstract class WiFiChannels {
     private final int frequencyOffset;
     private final int frequencySpread;
 
-    WiFiChannels(@NonNull Pair<Integer, Integer> wiFiRange, @NonNull List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs, int frequencyOffset, int frequencySpread) {
+    protected WiFiChannels(@NonNull Pair<Integer, Integer> wiFiRange, @NonNull List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs, int frequencyOffset, int frequencySpread) {
         this.wiFiRange = wiFiRange;
         this.wiFiChannelPairs = wiFiChannelPairs;
         this.frequencyOffset = frequencyOffset;
@@ -94,7 +94,7 @@ public abstract class WiFiChannels {
         return results;
     }
 
-    WiFiChannel getWiFiChannel(int frequency, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
+    protected WiFiChannel getWiFiChannel(int frequency, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         WiFiChannel first = wiFiChannelPair.first;
         WiFiChannel last = wiFiChannelPair.second;
         int channel = (int) (((double) (frequency - first.getFrequency()) / WiFiChannel.FREQUENCY_SPREAD) + first.getChannel() + 0.5);
