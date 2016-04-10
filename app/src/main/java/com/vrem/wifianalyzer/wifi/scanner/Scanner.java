@@ -34,7 +34,7 @@ public class Scanner {
 
     public Scanner() {
         if (!MainContext.INSTANCE.isInitialized() || !MainConfiguration.INSTANCE.isInitialized()) {
-            throw new RuntimeException("Main Context/Configuration is NOT set! Can not start WiFi scans...");
+            throw new IllegalArgumentException("Main Context/Configuration is NOT set! Can not start WiFi scans...");
         }
         this.periodicScan = new PeriodicScan(this);
         this.updateNotifiers = new TreeMap<>();
