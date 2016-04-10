@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         boolean isDevelopmentMode = isDevelopmentMode(context);
         Locale locale = isDevelopmentMode ? WiFiChannelCountry.WORLD_LOCALE : context.getResources().getConfiguration().locale;
         MainConfiguration.INSTANCE.setLocale(locale);
-        MainConfiguration.INSTANCE.setWiFiChannelPair(WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(locale).get(0));
+        MainConfiguration.INSTANCE.setWiFiChannelPair(WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(locale).get(0));
         MainConfiguration.INSTANCE.setDevelopmentMode(isDevelopmentMode);
         MainConfiguration.INSTANCE.setLargeScreenLayout(isLargeScreenLayout());
     }

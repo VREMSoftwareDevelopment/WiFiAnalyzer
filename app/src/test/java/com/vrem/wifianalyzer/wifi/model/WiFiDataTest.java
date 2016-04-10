@@ -110,7 +110,7 @@ public class WiFiDataTest {
     @Test
     public void testGetWiFiDetailsWithSSID() throws Exception {
         // execute
-        List<WiFiDetail> actual = fixture.getWiFiDetails(WiFiBand.GHZ_2, SortBy.STRENGTH, GroupBy.SSID);
+        List<WiFiDetail> actual = fixture.getWiFiDetails(WiFiBand.GHZ2, SortBy.STRENGTH, GroupBy.SSID);
         // validate
         assertEquals(4, actual.size());
         assertEquals(SSID_2, actual.get(0).getSSID());
@@ -122,7 +122,7 @@ public class WiFiDataTest {
     @Test
     public void testGetWiFiDetailsWithVendorName() throws Exception {
         // execute
-        List<WiFiDetail> actual = fixture.getWiFiDetails(WiFiBand.GHZ_2, SortBy.STRENGTH, GroupBy.SSID);
+        List<WiFiDetail> actual = fixture.getWiFiDetails(WiFiBand.GHZ2, SortBy.STRENGTH, GroupBy.SSID);
         // validate
         assertEquals(VENDOR_NAME + BSSID_2, actual.get(0).getWiFiAdditional().getVendorName());
         assertEquals(VENDOR_NAME + BSSID_4, actual.get(1).getWiFiAdditional().getVendorName());
@@ -135,7 +135,7 @@ public class WiFiDataTest {
     @Test
     public void testGetWiFiDetailsWithChildren() throws Exception {
         // execute
-        List<WiFiDetail> actual = fixture.getWiFiDetails(WiFiBand.GHZ_2, SortBy.STRENGTH, GroupBy.SSID);
+        List<WiFiDetail> actual = fixture.getWiFiDetails(WiFiBand.GHZ2, SortBy.STRENGTH, GroupBy.SSID);
         // validate
         WiFiDetail wiFiDetail = actual.get(0);
         List<WiFiDetail> children = wiFiDetail.getChildren();
@@ -158,7 +158,7 @@ public class WiFiDataTest {
     @Test
     public void testIsConfiguredNetwork() throws Exception {
         // execute
-        List<WiFiDetail> actual = fixture.getWiFiDetails(WiFiBand.GHZ_2, SortBy.STRENGTH, GroupBy.SSID);
+        List<WiFiDetail> actual = fixture.getWiFiDetails(WiFiBand.GHZ2, SortBy.STRENGTH, GroupBy.SSID);
         // validate
         assertEquals(4, actual.size());
 
@@ -183,7 +183,7 @@ public class WiFiDataTest {
             }
         };
         // execute
-        List<WiFiDetail> actual = fixture.getWiFiDetails(WiFiBand.GHZ_2, SortBy.SSID);
+        List<WiFiDetail> actual = fixture.getWiFiDetails(WiFiBand.GHZ2, SortBy.SSID);
         // validate
         assertEquals(7, actual.size());
         assertEquals(BSSID_1, actual.get(0).getBSSID());

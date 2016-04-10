@@ -25,12 +25,12 @@ import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 
-public class WiFiChannelsGHZ_5Test {
+public class WiFiChannelsGHZ5Test {
     private WiFiChannels fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = new WiFiChannelsGHZ_5();
+        fixture = new WiFiChannelsGHZ5();
     }
 
     @Test

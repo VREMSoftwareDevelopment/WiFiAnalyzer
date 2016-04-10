@@ -93,7 +93,7 @@ class ChannelGraphView implements GraphViewNotifier {
     private boolean isSelected() {
         WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
         Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = MainConfiguration.INSTANCE.getWiFiChannelPair();
-        return this.wiFiBand.equals(wiFiBand) && (WiFiBand.GHZ_2.equals(this.wiFiBand) || this.wiFiChannelPair.equals(wiFiChannelPair));
+        return this.wiFiBand.equals(wiFiBand) && (WiFiBand.GHZ2.equals(this.wiFiBand) || this.wiFiChannelPair.equals(wiFiChannelPair));
     }
 
     private void addData(@NonNull WiFiDetail wiFiDetail) {
@@ -148,7 +148,7 @@ class ChannelGraphView implements GraphViewNotifier {
     private int getNumX() {
         int numX = CNT_X_LARGE;
         if (!MainConfiguration.INSTANCE.isLargeScreenLayout()) {
-            numX = WiFiBand.GHZ_2.equals(wiFiBand) ? CNT_X_SMALL_2 : CNT_X_SMALL_5;
+            numX = WiFiBand.GHZ2.equals(wiFiBand) ? CNT_X_SMALL_2 : CNT_X_SMALL_5;
         }
         int channelFirst = wiFiChannelPair.first.getChannel() - wiFiBand.getWiFiChannels().getChannelOffset();
         int channelLast = wiFiChannelPair.second.getChannel() + wiFiBand.getWiFiChannels().getChannelOffset();

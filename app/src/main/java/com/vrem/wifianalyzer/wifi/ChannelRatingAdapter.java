@@ -117,10 +117,10 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
             this.bestChannels.setTextColor(resources.getColor(R.color.success_color));
         } else {
             StringBuilder message = new StringBuilder(resources.getText(R.string.channel_rating_best_none));
-            if (WiFiBand.GHZ_2.equals(wiFiBand)) {
+            if (WiFiBand.GHZ2.equals(wiFiBand)) {
                 message.append(resources.getText(R.string.channel_rating_best_alternative));
                 message.append(" ");
-                message.append(WiFiBand.GHZ_5.getBand());
+                message.append(WiFiBand.GHZ5.getBand());
             }
             this.bestChannels.setText(message);
             this.bestChannels.setTextColor(resources.getColor(R.color.error_color));

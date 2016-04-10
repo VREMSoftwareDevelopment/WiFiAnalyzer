@@ -49,7 +49,7 @@ class ChannelGraphNavigation {
     void update() {
         WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
         for (Button button : navigationItems) {
-            button.setVisibility(wiFiBand.isGHZ_5() ? View.VISIBLE : View.GONE);
+            button.setVisibility(wiFiBand.isGHZ5() ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -57,7 +57,7 @@ class ChannelGraphNavigation {
         Context context = MainContext.INSTANCE.getContext();
         MainConfiguration mainConfiguration = MainConfiguration.INSTANCE;
         Pair<WiFiChannel, WiFiChannel> selected = mainConfiguration.getWiFiChannelPair();
-        List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = WiFiBand.GHZ_5.getWiFiChannels()
+        List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = WiFiBand.GHZ5.getWiFiChannels()
                 .getWiFiChannelPairs(mainConfiguration.getLocale());
         if (wiFiChannelPairs.size() > 1) {
             for (Pair<WiFiChannel, WiFiChannel> pair : wiFiChannelPairs) {

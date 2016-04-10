@@ -133,6 +133,7 @@ public class ScannerTest {
         UpdateNotifier myUpdateNotifier = new UpdateNotifier() {
             @Override
             public void update(@NonNull WiFiData wiFiData) {
+                // testing
             }
         };
 
