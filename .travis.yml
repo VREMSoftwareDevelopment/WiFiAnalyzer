@@ -1,3 +1,5 @@
+sudo:
+    false
 language:
     android
 jdk:
@@ -13,8 +15,6 @@ script:
     ./gradlew testDebugUnitTest jacocoTestDebugUnitTestReport
 before_install:
     - chmod +x gradlew
-    - sudo pip install --upgrade pip
-    - sudo pip install codecov
 before_cache:
     - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
@@ -22,4 +22,4 @@ cache:
         - $HOME/.gradle/caches/
         - $HOME/.gradle/wrapper/
 after_success:
-    - codecov
+    - bash <(curl -s https://codecov.io/bash)
