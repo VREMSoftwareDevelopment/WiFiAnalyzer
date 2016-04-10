@@ -136,23 +136,23 @@ public class SettingsTest {
     @Test
     public void testWiFiBand() throws Exception {
         // setup
-        when(repository.getStringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ_2.ordinal())).thenReturn(WiFiBand.GHZ_5.ordinal());
+        when(repository.getStringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal())).thenReturn(WiFiBand.GHZ5.ordinal());
         // execute
         WiFiBand actual = fixture.getWiFiBand();
         // validate
-        assertEquals(WiFiBand.GHZ_5, actual);
-        verify(repository).getStringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ_2.ordinal());
+        assertEquals(WiFiBand.GHZ5, actual);
+        verify(repository).getStringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal());
     }
 
     @Test
     public void testToggleWiFiBand() throws Exception {
         // setup
-        when(repository.getStringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ_2.ordinal())).thenReturn(WiFiBand.GHZ_5.ordinal());
+        when(repository.getStringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal())).thenReturn(WiFiBand.GHZ5.ordinal());
         // execute
         fixture.toggleWiFiBand();
         // validate
-        verify(repository).getStringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ_2.ordinal());
-        verify(repository).save(R.string.wifi_band_key, WiFiBand.GHZ_5.toggle().ordinal());
+        verify(repository).getStringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal());
+        verify(repository).save(R.string.wifi_band_key, WiFiBand.GHZ5.toggle().ordinal());
     }
 
 }

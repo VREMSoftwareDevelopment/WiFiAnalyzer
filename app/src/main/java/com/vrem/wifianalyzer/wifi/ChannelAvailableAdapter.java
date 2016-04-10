@@ -49,13 +49,13 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
         ((TextView) convertView.findViewById(R.id.channel_available_country))
                 .setText(wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName());
         ((TextView) convertView.findViewById(R.id.channel_available_title_ghz_2))
-                .setText(WiFiBand.GHZ_2.getBand() + " : ");
+                .setText(WiFiBand.GHZ2.getBand() + " : ");
         ((TextView) convertView.findViewById(R.id.channel_available_ghz_2))
-                .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ_2().toArray(), ","));
+                .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ2().toArray(), ","));
         ((TextView) convertView.findViewById(R.id.channel_available_title_ghz_5))
-                .setText(WiFiBand.GHZ_5.getBand() + " : ");
+                .setText(WiFiBand.GHZ5.getBand() + " : ");
         ((TextView) convertView.findViewById(R.id.channel_available_ghz_5))
-                .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ_5().toArray(), ","));
+                .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ5().toArray(), ","));
         return convertView;
     }
 

@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-class WiFiChannelsGHZ_5 extends WiFiChannels {
+class WiFiChannelsGHZ5 extends WiFiChannels {
     private final static Pair<Integer, Integer> RANGE = new Pair<>(4900, 5899);
     private final static List<Pair<WiFiChannel, WiFiChannel>> SETS = Arrays.asList(
             new Pair<>(new WiFiChannel(8, 5040), new WiFiChannel(16, 5080)),
@@ -36,7 +36,7 @@ class WiFiChannelsGHZ_5 extends WiFiChannels {
     private final static int FREQUENCY_OFFSET = WiFiChannel.FREQUENCY_SPREAD * 4;
     private final static int FREQUENCY_SPREAD = WiFiChannel.FREQUENCY_SPREAD;
 
-    WiFiChannelsGHZ_5() {
+    WiFiChannelsGHZ5() {
         super(RANGE, SETS, FREQUENCY_OFFSET, FREQUENCY_SPREAD);
     }
 
@@ -54,7 +54,7 @@ class WiFiChannelsGHZ_5 extends WiFiChannels {
     @Override
     public List<WiFiChannel> getAvailableChannels(@NonNull Locale locale) {
         List<WiFiChannel> wiFiChannels = new ArrayList<>();
-        for (int channel : WiFiChannelCountry.find(locale.getCountry()).getChannelsGHZ_5()) {
+        for (int channel : WiFiChannelCountry.find(locale.getCountry()).getChannelsGHZ5()) {
             wiFiChannels.add(getWiFiChannelByChannel(channel));
         }
         return wiFiChannels;
@@ -62,7 +62,7 @@ class WiFiChannelsGHZ_5 extends WiFiChannels {
 
     @Override
     public boolean isChannelAvailable(@NonNull Locale locale, int channel) {
-        return WiFiChannelCountry.find(locale.getCountry()).isChannelAvailableGHZ_5(channel);
+        return WiFiChannelCountry.find(locale.getCountry()).isChannelAvailableGHZ5(channel);
     }
 
     @Override

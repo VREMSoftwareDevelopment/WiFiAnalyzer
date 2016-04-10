@@ -41,7 +41,7 @@ public class WiFiSignalTest {
     public void testWiFiFrequency() throws Exception {
         // validate
         assertEquals(LEVEL, fixture.getLevel());
-        assertEquals(WiFiBand.GHZ_2, fixture.getWiFiBand());
+        assertEquals(WiFiBand.GHZ2, fixture.getWiFiBand());
         assertEquals(WiFiWidth.MHZ_20, fixture.getWiFiWidth());
     }
 
@@ -53,7 +53,7 @@ public class WiFiSignalTest {
         assertEquals(FREQUENCY, fixture.getFrequency());
         assertEquals(CHANNEL, fixture.getWiFiChannel().getChannel());
         assertEquals(LEVEL, fixture.getLevel());
-        assertEquals(WiFiBand.GHZ_2, fixture.getWiFiBand());
+        assertEquals(WiFiBand.GHZ2, fixture.getWiFiBand());
         assertEquals(WiFiWidth.MHZ_80, fixture.getWiFiWidth());
     }
 

@@ -19,40 +19,34 @@ package com.vrem.wifianalyzer.wifi.band;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-public class WiFiBandGHZ_2Test {
+public class WiFiBandGHZ5Test {
 
     @Test
     public void testGetBand() throws Exception {
-        assertEquals("2.4 GHz", WiFiBand.GHZ_2.getBand());
+        assertEquals("5 GHz", WiFiBand.GHZ5.getBand());
     }
 
     @Test
     public void testFindByBand() throws Exception {
-        assertEquals(WiFiBand.GHZ_2, WiFiBand.find(-1));
-        assertEquals(WiFiBand.GHZ_2, WiFiBand.find(2));
-
-        assertEquals(WiFiBand.GHZ_2, WiFiBand.find(WiFiBand.GHZ_2.ordinal()));
+        assertEquals(WiFiBand.GHZ5, WiFiBand.find(WiFiBand.GHZ5.ordinal()));
     }
 
     @Test
     public void testFind() throws Exception {
-        assertEquals(WiFiBand.GHZ_2, WiFiBand.findByFrequency(2400));
-        assertEquals(WiFiBand.GHZ_2, WiFiBand.findByFrequency(2500));
-        assertEquals(WiFiBand.GHZ_2, WiFiBand.findByFrequency(4899));
-        assertEquals(WiFiBand.GHZ_2, WiFiBand.findByFrequency(5901));
-        assertEquals(WiFiBand.GHZ_2, WiFiBand.findByFrequency(2401));
-        assertEquals(WiFiBand.GHZ_2, WiFiBand.findByFrequency(2499));
+        assertEquals(WiFiBand.GHZ5, WiFiBand.findByFrequency(4901));
+        assertEquals(WiFiBand.GHZ5, WiFiBand.findByFrequency(5899));
     }
 
     @Test
     public void testToggle() throws Exception {
-        assertEquals(WiFiBand.GHZ_5, WiFiBand.GHZ_2.toggle());
+        assertEquals(WiFiBand.GHZ2, WiFiBand.GHZ5.toggle());
     }
 
     @Test
     public void testIsGHZ_5() throws Exception {
-        assertFalse(WiFiBand.GHZ_2.isGHZ_5());
+        assertTrue(WiFiBand.GHZ5.isGHZ5());
     }
+
 }

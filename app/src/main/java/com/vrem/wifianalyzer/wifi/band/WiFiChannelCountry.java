@@ -29,8 +29,8 @@ public class WiFiChannelCountry {
 
     static final String UNKNOWN = "Unknown country";
     static final String DEVELOPMENT = "DEVELOPMENT";
-    static final List<Integer> DEFAULT_CHANNELS_GHZ_2 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
-    static final List<Integer> DEFAULT_CHANNELS_GHZ_5 = Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64);
+        static final List<Integer> DEFAULT_CHANNELS_GHZ2 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+        static final List<Integer> DEFAULT_CHANNELS_GHZ5 = Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64);
 
     private static final WiFiChannelCountry[] COUNTRY_CHANNELS = new WiFiChannelCountry[]{
             new WiFiChannelCountry("AE",
@@ -644,18 +644,18 @@ public class WiFiChannelCountry {
     };
 
     private final String countryCode;
-    private final List<Integer> channelsGHZ_2;
-    private final List<Integer> channelsGHZ_5;
+        private final List<Integer> channelsGHZ2;
+        private final List<Integer> channelsGHZ5;
     private final String countryName;
 
     public WiFiChannelCountry(@NonNull String countryCode) {
-        this(countryCode, DEFAULT_CHANNELS_GHZ_2, DEFAULT_CHANNELS_GHZ_5);
+            this(countryCode, DEFAULT_CHANNELS_GHZ2, DEFAULT_CHANNELS_GHZ5);
     }
 
-    private WiFiChannelCountry(@NonNull String countryCode, @NonNull List<Integer> channelsGHZ_2, List<Integer> channelsGHZ_5) {
+        private WiFiChannelCountry(@NonNull String countryCode, @NonNull List<Integer> channelsGHZ2, List<Integer> channelsGHZ5) {
         this.countryCode = countryCode;
-        this.channelsGHZ_2 = channelsGHZ_2;
-        this.channelsGHZ_5 = channelsGHZ_5.isEmpty() ? DEFAULT_CHANNELS_GHZ_5 : channelsGHZ_5;
+                this.channelsGHZ2 = channelsGHZ2;
+                this.channelsGHZ5 = channelsGHZ5.isEmpty() ? DEFAULT_CHANNELS_GHZ5 : channelsGHZ5;
         this.countryName = findCountryName(countryCode);
     }
 
@@ -688,19 +688,19 @@ public class WiFiChannelCountry {
         return countryName;
     }
 
-    public List<Integer> getChannelsGHZ_2() {
-        return Collections.unmodifiableList(channelsGHZ_2);
+        public List<Integer> getChannelsGHZ2() {
+                return Collections.unmodifiableList(channelsGHZ2);
     }
 
-    public List<Integer> getChannelsGHZ_5() {
-        return Collections.unmodifiableList(channelsGHZ_5);
+        public List<Integer> getChannelsGHZ5() {
+                return Collections.unmodifiableList(channelsGHZ5);
     }
 
-    boolean isChannelAvailableGHZ_2(int channel) {
-        return channelsGHZ_2.contains(channel);
+        boolean isChannelAvailableGHZ2(int channel) {
+                return channelsGHZ2.contains(channel);
     }
 
-    boolean isChannelAvailableGHZ_5(int channel) {
-        return channelsGHZ_5.contains(channel);
+        boolean isChannelAvailableGHZ5(int channel) {
+                return channelsGHZ5.contains(channel);
     }
 }

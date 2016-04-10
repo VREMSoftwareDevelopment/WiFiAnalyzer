@@ -27,13 +27,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class WiFiChannelsGHZ_2Test {
+public class WiFiChannelsGHZ2Test {
 
-    private WiFiChannelsGHZ_2 fixture;
+    private WiFiChannelsGHZ2 fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = new WiFiChannelsGHZ_2();
+        fixture = new WiFiChannelsGHZ2();
     }
 
     @Test

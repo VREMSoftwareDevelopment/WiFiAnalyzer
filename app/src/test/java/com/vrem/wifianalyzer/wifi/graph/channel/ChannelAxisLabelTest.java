@@ -34,7 +34,7 @@ public class ChannelAxisLabelTest {
 
     @Before
     public void setUp() throws Exception {
-        fixture = new ChannelAxisLabel(WiFiBand.GHZ_2, WiFiBand.GHZ_2.getWiFiChannels().getWiFiChannelPairs(Locale.US).get(0), Locale.US);
+        fixture = new ChannelAxisLabel(WiFiBand.GHZ2, WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelPairs(Locale.US).get(0), Locale.US);
     }
 
     @Test
@@ -48,26 +48,26 @@ public class ChannelAxisLabelTest {
 
     @Test
     public void testXAxis() throws Exception {
-        WiFiChannel wiFiChannel = WiFiBand.GHZ_2.getWiFiChannels().getWiFiChannelFirst();
+        WiFiChannel wiFiChannel = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelFirst();
         assertEquals("" + wiFiChannel.getChannel(), fixture.formatLabel(wiFiChannel.getFrequency(), true));
     }
 
     @Test
     public void testXAxisWithFrequencyInRange() throws Exception {
-        WiFiChannel wiFiChannel = WiFiBand.GHZ_2.getWiFiChannels().getWiFiChannelFirst();
+        WiFiChannel wiFiChannel = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelFirst();
         assertEquals("" + wiFiChannel.getChannel(), fixture.formatLabel(wiFiChannel.getFrequency() - 2, true));
         assertEquals("" + wiFiChannel.getChannel(), fixture.formatLabel(wiFiChannel.getFrequency() + 2, true));
     }
 
     @Test
     public void testXAxisWithFrequencyNotAllowedInLocale() throws Exception {
-        WiFiChannel wiFiChannel = WiFiBand.GHZ_2.getWiFiChannels().getWiFiChannelLast();
+        WiFiChannel wiFiChannel = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelLast();
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(wiFiChannel.getFrequency(), true));
     }
 
     @Test
     public void testXAxisWithUnknownFrequencyReturnEmptyString() throws Exception {
-        WiFiChannels wiFiChannels = WiFiBand.GHZ_2.getWiFiChannels();
+        WiFiChannels wiFiChannels = WiFiBand.GHZ2.getWiFiChannels();
         WiFiChannel wiFiChannel = wiFiChannels.getWiFiChannelFirst();
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(wiFiChannel.getFrequency() - wiFiChannels.getFrequencyOffset(), true));
     }

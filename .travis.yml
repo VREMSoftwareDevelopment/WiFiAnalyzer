@@ -1,3 +1,5 @@
+sudo:
+    false
 language:
     android
 jdk:
@@ -10,7 +12,7 @@ android:
         - extra-google-m2repository
         - extra-android-m2repository
 script:
-    ./gradlew testDebugUnitTest -i
+    ./gradlew testDebugUnitTest jacocoTestDebugUnitTestReport
 before_install:
     - chmod +x gradlew
 before_cache:
@@ -19,3 +21,5 @@ cache:
     directories:
         - $HOME/.gradle/caches/
         - $HOME/.gradle/wrapper/
+after_success:
+    - bash <(curl -s https://codecov.io/bash)

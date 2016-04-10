@@ -90,7 +90,7 @@ public class Transformer {
             int count = 0;
             int level = -45;
             String security = "[WPA-PSK-CCMP+TKIP][WPA2-PSK-CCMP+TKIP][WPS][ESS]";
-            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : WiFiBand.GHZ_5.getWiFiChannels().getWiFiChannelPairs(locale)) {
+            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(locale)) {
                 WiFiSignal wiFiSignal = new WiFiSignal(wiFiChannelPair.first.getFrequency(), WiFiWidth.MHZ_40, level);
                 WiFiDetail wiFiDetail = new WiFiDetail("TEST-SSID", "BSSID:0A:B0:0" + count + ":0" + count, security, wiFiSignal);
                 wiFiDetails.add(wiFiDetail);

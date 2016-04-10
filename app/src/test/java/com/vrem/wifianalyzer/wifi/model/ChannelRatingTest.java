@@ -105,7 +105,7 @@ public class ChannelRatingTest {
     @Test
     public void testGetBestChannelsSortedInOrderWithMinimumChannels() throws Exception {
         // setup
-        List<WiFiChannel> channels = WiFiBand.GHZ_2.getWiFiChannels().getWiFiChannels();
+        List<WiFiChannel> channels = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannels();
         fixture.setWiFiChannels(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3));
         // execute
         List<ChannelRating.ChannelAPCount> actual = fixture.getBestChannels(channels);

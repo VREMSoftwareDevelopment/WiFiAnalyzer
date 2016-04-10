@@ -66,7 +66,7 @@ public class Settings {
     }
 
     public WiFiBand getWiFiBand() {
-        return WiFiBand.find(repository.getStringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ_2.ordinal()));
+        return WiFiBand.find(repository.getStringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal()));
     }
 
     public ThemeStyle getThemeStyle() {
