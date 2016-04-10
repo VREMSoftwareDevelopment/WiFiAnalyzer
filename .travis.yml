@@ -13,8 +13,8 @@ script:
     ./gradlew test
 before_install:
     - chmod +x gradlew
-    - pip install --upgrade pip
-    - pip install codecov
+    - sudo pip install --upgrade pip
+    - sudo pip install codecov
 before_cache:
     - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
