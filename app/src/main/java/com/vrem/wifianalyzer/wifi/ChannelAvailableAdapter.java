@@ -41,8 +41,11 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = MainContext.INSTANCE.getLayoutInflater();
-        View view = convertView == null ? inflater.inflate(R.layout.channel_available_details, parent, false) : convertView;
+        View view = convertView;
+        if (view == null) {
+            LayoutInflater inflater = MainContext.INSTANCE.getLayoutInflater();
+            view = inflater.inflate(R.layout.channel_available_details, parent, false);
+        }
         WiFiChannelCountry wiFiChannelCountry = getItem(position);
         ((TextView) view.findViewById(R.id.channel_available_country))
                 .setText(wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName());

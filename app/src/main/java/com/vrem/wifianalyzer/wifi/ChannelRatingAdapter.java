@@ -75,26 +75,27 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = MainContext.INSTANCE.getLayoutInflater();
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.channel_rating_details, parent, false);
+        View view = convertView;
+        if (view == null) {
+            LayoutInflater inflater = MainContext.INSTANCE.getLayoutInflater();
+            view = inflater.inflate(R.layout.channel_rating_details, parent, false);
         }
 
         WiFiChannel wiFiChannel = getItem(position);
         int count = channelRating.getCount(wiFiChannel);
 
-        ((TextView) convertView.findViewById(R.id.channelNumber)).setText(String.format("%d", wiFiChannel.getChannel()));
-        ((TextView) convertView.findViewById(R.id.accessPointCount)).setText(String.format("%d", count));
+        ((TextView) view.findViewById(R.id.channelNumber)).setText(String.format("%d", wiFiChannel.getChannel()));
+        ((TextView) view.findViewById(R.id.accessPointCount)).setText(String.format("%d", count));
 
         Strength strength = Strength.reverse(channelRating.getStrength(wiFiChannel));
-        RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.channelRating);
+        RatingBar ratingBar = (RatingBar) view.findViewById(R.id.channelRating);
         int size = Strength.values().length;
         ratingBar.setMax(size);
         ratingBar.setNumStars(size);
         ratingBar.setRating(strength.ordinal() + 1);
         ratingBar.setProgressTintList(ColorStateList.valueOf(resources.getColor(strength.colorResource())));
 
-        return convertView;
+        return view;
     }
 
     private void bestChannels(@NonNull WiFiBand wiFiBand, @NonNull List<WiFiChannel> wiFiChannels) {
