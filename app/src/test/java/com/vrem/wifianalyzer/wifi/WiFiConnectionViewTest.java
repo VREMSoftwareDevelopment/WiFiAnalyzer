@@ -54,8 +54,6 @@ public class WiFiConnectionViewTest {
     private AccessPointsDetail accessPointsDetail;
     @Mock
     private WiFiData wiFiData;
-    @Mock
-    private WiFiAdditional wiFiAdditional;
 
     private ConnectionView fixture;
 

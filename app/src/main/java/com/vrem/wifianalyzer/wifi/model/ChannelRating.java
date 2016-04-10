@@ -30,9 +30,6 @@ import java.util.List;
 public class ChannelRating {
     private List<WiFiDetail> wiFiDetails = new ArrayList<>();
 
-    public ChannelRating() {
-    }
-
     public int getCount(WiFiChannel wiFiChannel) {
         return collectOverlapping(wiFiChannel).size();
     }
