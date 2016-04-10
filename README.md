@@ -28,6 +28,8 @@ Travis CI status [![Build Status](https://travis-ci.org/VREMSoftwareDevelopment/
 
 Codacy analysis [![Codacy Badge](https://api.codacy.com/project/badge/grade/203eaa0583694bcca6554190513179ba)](https://www.codacy.com/app/vremsoftwaredevelopment/WifiAnalyzer)
 
+Codecov [![codecov.io](https://codecov.io/github/VREMSoftwareDevelopment/WifiAnalyzer/coverage.svg?branch=master)](https://codecov.io/github/VREMSoftwareDevelopment/WifiAnalyzer?branch=master)
+
 ### Fork project
 [How to fork project](https://help.github.com/articles/fork-a-repo)
 ### Build project
@@ -36,6 +38,3 @@ Codacy analysis [![Codacy Badge](https://api.codacy.com/project/badge/grade/203e
       * In Welcome to Android Studio Screen select Import project ...
       * Select the root directory of the WiFi Analyzer repository and click "OK".
       * WiFi Analyzer will build automatically
-
-
-[See code coverage](https://vremsoftwaredevelopment.github.io/WifiAnalyzer/coverage)
