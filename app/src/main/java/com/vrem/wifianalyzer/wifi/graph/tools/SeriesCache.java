@@ -32,18 +32,18 @@ import java.util.TreeMap;
 class SeriesCache {
     private final Map<WiFiDetail, BaseSeries<DataPoint>> cache;
 
-    SeriesCache() {
+    protected SeriesCache() {
         this.cache = new TreeMap<>();
     }
 
-    BaseSeries<DataPoint> add(@NonNull WiFiDetail wiFiDetail, @NonNull BaseSeries<DataPoint> series) {
+    protected BaseSeries<DataPoint> add(@NonNull WiFiDetail wiFiDetail, @NonNull BaseSeries<DataPoint> series) {
         if (!contains(wiFiDetail)) {
             cache.put(wiFiDetail, series);
         }
         return cache.get(wiFiDetail);
     }
 
-    List<BaseSeries<DataPoint>> remove(@NonNull Set<WiFiDetail> series) {
+    protected List<BaseSeries<DataPoint>> remove(@NonNull Set<WiFiDetail> series) {
         List<BaseSeries<DataPoint>> removeSeries = new ArrayList<>();
         List<WiFiDetail> removeFromCache = new ArrayList<>();
         for (WiFiDetail wiFiDetail : cache.keySet()) {
@@ -59,7 +59,7 @@ class SeriesCache {
         return removeSeries;
     }
 
-    WiFiDetail find(@NonNull Series series) {
+    protected WiFiDetail find(@NonNull Series series) {
         for (WiFiDetail wiFiDetail : cache.keySet()) {
             if (series.equals(cache.get(wiFiDetail))) {
                 return wiFiDetail;
@@ -68,7 +68,7 @@ class SeriesCache {
         return null;
     }
 
-    boolean contains(@NonNull WiFiDetail wiFiDetail) {
+    protected boolean contains(@NonNull WiFiDetail wiFiDetail) {
         return cache.containsKey(wiFiDetail);
     }
 }

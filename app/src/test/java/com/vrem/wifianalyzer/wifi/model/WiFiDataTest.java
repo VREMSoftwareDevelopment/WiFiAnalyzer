@@ -177,7 +177,7 @@ public class WiFiDataTest {
         fixture = new WiFiData(wiFiDetails, wiFiConnection, wiFiConfigurations) {
             @NonNull
             @Override
-            List<WiFiDetail> getWiFiDetails(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
+            protected List<WiFiDetail> getWiFiDetails(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
                 fail("Should not apply grouping");
                 return null;
             }

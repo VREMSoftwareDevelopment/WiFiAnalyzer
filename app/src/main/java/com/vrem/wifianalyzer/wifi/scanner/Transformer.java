@@ -38,14 +38,14 @@ import java.util.List;
 import java.util.Locale;
 
 public class Transformer {
-    WiFiConnection transformWifiInfo(WifiInfo wifiInfo) {
+    protected WiFiConnection transformWifiInfo(WifiInfo wifiInfo) {
         if (wifiInfo == null || wifiInfo.getNetworkId() == -1) {
             return WiFiConnection.EMPTY;
         }
         return new WiFiConnection(WiFiUtils.convertSSID(wifiInfo.getSSID()), wifiInfo.getBSSID(), WiFiUtils.convertIpAddress(wifiInfo.getIpAddress()));
     }
 
-    List<String> transformWifiConfigurations(List<WifiConfiguration> configuredNetworks) {
+    protected List<String> transformWifiConfigurations(List<WifiConfiguration> configuredNetworks) {
         List<String> results = new ArrayList<>();
         if (configuredNetworks != null) {
             for (WifiConfiguration wifiConfiguration : configuredNetworks) {
@@ -55,7 +55,7 @@ public class Transformer {
         return Collections.unmodifiableList(results);
     }
 
-    List<WiFiDetail> transformScanResults(List<ScanResult> scanResults) {
+    protected List<WiFiDetail> transformScanResults(List<ScanResult> scanResults) {
         List<WiFiDetail> results = new ArrayList<>();
         if (scanResults != null) {
             for (ScanResult scanResult : scanResults) {
@@ -83,6 +83,7 @@ public class Transformer {
         List<String> wifiConfigurations = transformWifiConfigurations(configuredNetworks);
         return new WiFiData(wiFiDetails, wiFiConnection, wifiConfigurations);
     }
+
     private void addTestData(@NonNull List<WiFiDetail> wiFiDetails) {
         MainConfiguration mainConfiguration = MainConfiguration.INSTANCE;
         Locale locale = mainConfiguration.getLocale();

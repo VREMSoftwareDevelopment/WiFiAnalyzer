@@ -62,7 +62,7 @@ public class NavigationMenuView {
         return result;
     }
 
-    NavigationView getNavigationView() {
+    protected NavigationView getNavigationView() {
         return navigationView;
     }
 }

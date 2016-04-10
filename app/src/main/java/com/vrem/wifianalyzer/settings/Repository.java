@@ -25,15 +25,15 @@ import com.vrem.wifianalyzer.R;
 
 class Repository {
 
-    void initializeDefaultValues() {
+    protected void initializeDefaultValues() {
         PreferenceManager.setDefaultValues(MainContext.INSTANCE.getContext(), R.xml.preferences, false);
     }
 
-    void registerOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener onSharedPreferenceChangeListener) {
+    protected void registerOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener onSharedPreferenceChangeListener) {
         getSharedPreferences().registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
     }
 
-    void save(int key, int value) {
+    protected void save(int key, int value) {
         save(MainContext.INSTANCE.getContext().getString(key), value);
     }
 
@@ -43,7 +43,7 @@ class Repository {
         editor.apply();
     }
 
-    int getStringAsInteger(int key, int defaultValue) {
+    protected int getStringAsInteger(int key, int defaultValue) {
         String keyValue = MainContext.INSTANCE.getContext().getString(key);
         try {
             return Integer.parseInt(getSharedPreferences().getString(keyValue, "" + defaultValue));
@@ -53,11 +53,11 @@ class Repository {
         }
     }
 
-    int getResourceInteger(int key) {
+    protected int getResourceInteger(int key) {
         return MainContext.INSTANCE.getResources().getInteger(key);
     }
 
-    int getInteger(int key, int defaultValue) {
+    protected int getInteger(int key, int defaultValue) {
         String keyValue = MainContext.INSTANCE.getContext().getString(key);
         try {
             return getSharedPreferences().getInt(keyValue, defaultValue);

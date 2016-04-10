@@ -38,15 +38,15 @@ class ChannelGraphNavigation {
     private static final float TEXT_SIZE_ADJUSTMENT = 0.8f;
     private final List<Button> navigationItems = new ArrayList<>();
 
-    ChannelGraphNavigation() {
+    protected ChannelGraphNavigation() {
         makeNavigationItems();
     }
 
-    List<Button> getNavigationItems() {
+    protected List<Button> getNavigationItems() {
         return navigationItems;
     }
 
-    void update() {
+    protected void update() {
         WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
         for (Button button : navigationItems) {
             button.setVisibility(wiFiBand.isGHZ5() ? View.VISIBLE : View.GONE);
@@ -100,7 +100,7 @@ class ChannelGraphNavigation {
         }
     }
 
-    class ButtonOnClickListener implements OnClickListener {
+    private class ButtonOnClickListener implements OnClickListener {
         private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
 
         ButtonOnClickListener(@NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {

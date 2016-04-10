@@ -74,23 +74,23 @@ public class Scanner {
         periodicScan.start();
     }
 
-    PeriodicScan getPeriodicScan() {
+    protected PeriodicScan getPeriodicScan() {
         return periodicScan;
     }
 
-    void setPeriodicScan(@NonNull PeriodicScan periodicScan) {
+    protected void setPeriodicScan(@NonNull PeriodicScan periodicScan) {
         this.periodicScan = periodicScan;
     }
 
-    void setCache(@NonNull Cache cache) {
+    protected void setCache(@NonNull Cache cache) {
         this.cache = cache;
     }
 
-    void setTransformer(@NonNull Transformer transformer) {
+    protected void setTransformer(@NonNull Transformer transformer) {
         this.transformer = transformer;
     }
 
-    Map<String, UpdateNotifier> getUpdateNotifiers() {
+    protected Map<String, UpdateNotifier> getUpdateNotifiers() {
         return updateNotifiers;
     }
 

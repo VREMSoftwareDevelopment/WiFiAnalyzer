@@ -48,11 +48,11 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        convertView = getView(convertView);
+        View view = getView(convertView, parent);
         WiFiDetail details = (WiFiDetail) getGroup(groupPosition);
-        accessPointsDetail.setView(resources, convertView, details, false, MainConfiguration.INSTANCE.isLargeScreenLayout());
+        accessPointsDetail.setView(resources, view, details, false, MainConfiguration.INSTANCE.isLargeScreenLayout());
 
-        ImageView groupIndicator = (ImageView) convertView.findViewById(R.id.groupIndicator);
+        ImageView groupIndicator = (ImageView) view.findViewById(R.id.groupIndicator);
         int childrenCount = getChildrenCount(groupPosition);
         if (childrenCount > 0) {
             groupIndicator.setVisibility(View.VISIBLE);
@@ -64,16 +64,16 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
             groupIndicator.setVisibility(View.GONE);
         }
 
-        return convertView;
+        return view;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        convertView = getView(convertView);
+        View view = getView(convertView, parent);
         WiFiDetail details = (WiFiDetail) getChild(groupPosition, childPosition);
-        accessPointsDetail.setView(resources, convertView, details, true, MainConfiguration.INSTANCE.isLargeScreenLayout());
-        convertView.findViewById(R.id.groupIndicator).setVisibility(View.GONE);
-        return convertView;
+        accessPointsDetail.setView(resources, view, details, true, MainConfiguration.INSTANCE.isLargeScreenLayout());
+        view.findViewById(R.id.groupIndicator).setVisibility(View.GONE);
+        return view;
     }
 
     @Override
@@ -122,13 +122,13 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         return true;
     }
 
-    private View getView(View convertView) {
-        if (convertView != null) {
-            return convertView;
+    private View getView(View convertView, ViewGroup parent) {
+        View view = convertView;
+        if (view == null) {
+            LayoutInflater inflater = MainContext.INSTANCE.getLayoutInflater();
+            view = inflater.inflate(R.layout.access_points_details, parent, false);
         }
-
-        LayoutInflater inflater = MainContext.INSTANCE.getLayoutInflater();
-        return inflater.inflate(R.layout.access_points_details, null);
+        return view;
     }
 
 }

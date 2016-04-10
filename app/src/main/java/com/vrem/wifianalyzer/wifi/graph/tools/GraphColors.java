@@ -27,7 +27,7 @@ class GraphColors {
     private final List<GraphColor> availableGraphColors;
     private final Stack<GraphColor> graphColors;
 
-    GraphColors() {
+    protected GraphColors() {
         graphColors = new Stack<>();
         availableGraphColors = new ArrayList<>();
         String[] colorsAsStrings = MainContext.INSTANCE.getResources().getStringArray(R.array.graph_colors);
@@ -36,14 +36,14 @@ class GraphColors {
         }
     }
 
-    GraphColor getColor() {
+    protected GraphColor getColor() {
         if (graphColors.isEmpty()) {
             graphColors.addAll(availableGraphColors);
         }
         return graphColors.pop();
     }
 
-    boolean addColor(long primaryColor) {
+    protected boolean addColor(long primaryColor) {
         GraphColor graphColor = findColor(primaryColor);
         if (graphColor == null || graphColors.contains(graphColor)) {
             return false;
