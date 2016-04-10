@@ -15,6 +15,7 @@
  */
 
 apply plugin: 'com.android.application'
+apply plugin: 'jacoco-android'
 
 android {
     compileSdkVersion 22
@@ -36,6 +37,7 @@ android {
         }
         debug {
             debuggable true
+            testCoverageEnabled true
         }
     }
 
@@ -43,6 +45,12 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
     }
+}
+
+jacocoAndroidUnitTestReport {
+    csv.enabled false
+    html.enabled true
+    xml.enabled  false
 }
 
 if (project.hasProperty('keyAlias')) {
