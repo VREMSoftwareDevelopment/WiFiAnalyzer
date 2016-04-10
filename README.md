@@ -24,6 +24,7 @@ You can find the license text [here](http://www.apache.org/licenses/LICENSE-2.0)
 
 ## Build WiFi Analyzer:
 Travis CI status [![Build Status](https://travis-ci.org/VREMSoftwareDevelopment/WifiAnalyzer.svg?branch=master)](https://travis-ci.org/VREMSoftwareDevelopment/WifiAnalyzer)
+Codacy analysis [![Codacy Badge](https://api.codacy.com/project/badge/grade/203eaa0583694bcca6554190513179ba)](https://www.codacy.com/app/vremsoftwaredevelopment/WifiAnalyzer)
 ### Fork project
 [How to fork project](https://help.github.com/articles/fork-a-repo)
 ### Build project
