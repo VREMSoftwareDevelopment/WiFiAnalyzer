@@ -29,7 +29,7 @@
     <string name="action_channel_rating">信道评级</string>
     <string name="action_channel_graph">信道图</string>
     <string name="action_time_graph">时间图</string>
-    <string name="action_channel_available">可用频道</string>
+    <string name="action_channel_available">可用的信道</string>
     <string name="action_vendors">供应商</string>
     <string name="action_settings">设置</string>
     <string name="action_about">关于</string>
