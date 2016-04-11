@@ -43,18 +43,22 @@ public enum GraphLegend {
         display.display(legendRenderer);
     }
 
+    protected Display getDisplay() {
+        return display;
+    }
+
     private interface Display {
         void display(LegendRenderer legendRenderer);
     }
 
-    private static class DisplayNone implements Display {
+    protected static class DisplayNone implements Display {
         @Override
         public void display(LegendRenderer legendRenderer) {
             legendRenderer.setVisible(false);
         }
     }
 
-    private static class DisplayLeft implements Display {
+    protected static class DisplayLeft implements Display {
         @Override
         public void display(LegendRenderer legendRenderer) {
             legendRenderer.setVisible(true);
@@ -62,7 +66,7 @@ public enum GraphLegend {
         }
     }
 
-    private static class DisplayRight implements Display {
+    protected static class DisplayRight implements Display {
         @Override
         public void display(LegendRenderer legendRenderer) {
             legendRenderer.setVisible(true);
