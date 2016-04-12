@@ -35,17 +35,25 @@ import java.util.List;
 import java.util.Set;
 
 public class GraphViewWrapper {
-    private static final float TEXT_SIZE_ADJUSTMENT = 0.9f;
+    protected static final float TEXT_SIZE_ADJUSTMENT = 0.9f;
     private final GraphView graphView;
-    private final SeriesCache seriesCache;
-    private final GraphColors graphColors;
+    private SeriesCache seriesCache;
+    private GraphColors graphColors;
     private GraphLegend graphLegend;
 
     public GraphViewWrapper(@NonNull GraphView graphView, @NonNull GraphLegend graphLegend) {
         this.graphView = graphView;
         this.graphLegend = graphLegend;
-        this.seriesCache = new SeriesCache();
-        this.graphColors = new GraphColors();
+        setSeriesCache(new SeriesCache());
+        setGraphColors(new GraphColors());
+    }
+
+    protected void setSeriesCache(@NonNull SeriesCache seriesCache) {
+        this.seriesCache = seriesCache;
+    }
+
+    protected void setGraphColors(@NonNull GraphColors graphColors) {
+        this.graphColors = graphColors;
     }
 
     public void removeSeries(@NonNull Set<WiFiDetail> newSeries) {
@@ -119,10 +127,13 @@ public class GraphViewWrapper {
 
     private void resetLegendRenderer(@NonNull GraphLegend graphLegend) {
         if (!this.graphLegend.equals(graphLegend)) {
-            LegendRenderer legendRenderer = new LegendRenderer(graphView);
-            graphView.setLegendRenderer(legendRenderer);
+            graphView.setLegendRenderer(newLegendRenderer());
             this.graphLegend = graphLegend;
         }
+    }
+
+    protected LegendRenderer newLegendRenderer() {
+        return new LegendRenderer(graphView);
     }
 
     public void setVisibility(int visibility) {
@@ -137,7 +148,11 @@ public class GraphViewWrapper {
         return graphView;
     }
 
-    private class GraphTapListener implements OnDataPointTapListener {
+    protected GraphLegend getGraphLegend() {
+        return graphLegend;
+    }
+
+    protected class GraphTapListener implements OnDataPointTapListener {
         @Override
         public void onTap(@NonNull Series series, @NonNull DataPointInterface dataPoint) {
             WiFiDetail wiFiDetail = seriesCache.find(series);

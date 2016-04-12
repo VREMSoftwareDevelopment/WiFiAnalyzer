@@ -29,10 +29,11 @@ import com.jjoe64.graphview.Viewport;
 public class GraphViewBuilder {
     public static final int MIN_Y = -100;
     public static final int MAX_Y = -10;
-    private static final int NUM_Y = (MAX_Y - MIN_Y) / 10 + 1;
+    public static final int NUM_Y = (MAX_Y - MIN_Y) / 10 + 1;
 
     private final Context content;
     private final int numHorizontalLabels;
+    private final LayoutParams layoutParams;
     private LabelFormatter labelFormatter;
     private String verticalTitle;
     private String horizontalTitle;
@@ -40,6 +41,7 @@ public class GraphViewBuilder {
     public GraphViewBuilder(@NonNull Context content, int numHorizontalLabels) {
         this.content = content;
         this.numHorizontalLabels = numHorizontalLabels;
+        this.layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
     }
 
     public GraphViewBuilder setLabelFormatter(@NonNull LabelFormatter labelFormatter) {
@@ -59,27 +61,32 @@ public class GraphViewBuilder {
 
     public GraphView build() {
         GraphView graphView = new GraphView(content);
-
-        graphView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        graphView.setVisibility(View.GONE);
-
-        setGridLabelRenderer(graphView.getGridLabelRenderer());
-        setViewPortY(graphView.getViewport());
-
+        setGraphView(graphView);
+        setGridLabelRenderer(graphView);
+        setViewPortY(graphView);
         return graphView;
     }
 
-    private void setViewPortY(@NonNull Viewport viewport) {
-        viewport.setScrollable(true);
+    protected LayoutParams getLayoutParams() {
+        return layoutParams;
+    }
 
+    protected void setGraphView(@NonNull GraphView graphView) {
+        graphView.setLayoutParams(layoutParams);
+        graphView.setVisibility(View.GONE);
+    }
+
+    protected void setViewPortY(@NonNull GraphView graphView) {
+        Viewport viewport = graphView.getViewport();
+        viewport.setScrollable(true);
         viewport.setYAxisBoundsManual(true);
         viewport.setMinY(MIN_Y);
         viewport.setMaxY(MAX_Y);
-
         viewport.setXAxisBoundsManual(true);
     }
 
-    private void setGridLabelRenderer(@NonNull GridLabelRenderer gridLabelRenderer) {
+    protected void setGridLabelRenderer(@NonNull GraphView graphView) {
+        GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
         gridLabelRenderer.setHighlightZeroLines(false);
         gridLabelRenderer.setNumVerticalLabels(NUM_Y);
         gridLabelRenderer.setNumHorizontalLabels(numHorizontalLabels);

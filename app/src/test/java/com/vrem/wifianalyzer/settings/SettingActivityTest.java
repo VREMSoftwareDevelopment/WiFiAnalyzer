@@ -20,6 +20,7 @@ import android.app.ActionBar;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,9 +34,11 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class SettingActivityTest {
+
     @Test
     public void testTitle() throws Exception {
         // setup
+        RobolectricUtil.INSTANCE.getMainActivity();
         SettingActivity fixture = Robolectric.setupActivity(SettingActivity.class);
         String expected = fixture.getResources().getString(R.string.action_settings);
         // execute

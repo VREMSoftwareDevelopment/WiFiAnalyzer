@@ -29,7 +29,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -59,9 +58,7 @@ public class CacheTest {
         // execute
         fixture.add(null);
         // validate
-        assertFalse(fixture.getCache().isEmpty());
-        assertEquals(1, fixture.getCache().size());
-        assertTrue(fixture.getCache().getFirst().isEmpty());
+        assertTrue(fixture.getCache().isEmpty());
     }
 
     @Test

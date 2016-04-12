@@ -55,13 +55,12 @@ class Cache {
     }
 
     protected void add(List<ScanResult> scanResults) {
-        if (scanResults == null) {
-            scanResults = new ArrayList<>();
+        if (!cache.isEmpty() && cache.size() == MAX_CACHE_SIZE) {
+            cache.removeLast();
         }
-        if (cache.size() == MAX_CACHE_SIZE) {
-            this.cache.removeLast();
+        if (scanResults != null) {
+            cache.addFirst(scanResults);
         }
-        this.cache.addFirst(scanResults);
     }
 
     protected Deque<List<ScanResult>> getCache() {
