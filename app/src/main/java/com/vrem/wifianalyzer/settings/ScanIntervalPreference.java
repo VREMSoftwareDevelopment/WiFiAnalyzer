@@ -102,4 +102,8 @@ public class ScanIntervalPreference extends DialogPreference {
             super.setSummary(String.format(this.summary.toString(), getPersistedInt(valueDefault)));
         }
     }
+
+    protected int getValue() {
+        return value;
+    }
 }
