@@ -30,15 +30,21 @@ class GraphColors {
     protected GraphColors() {
         graphColors = new Stack<>();
         availableGraphColors = new ArrayList<>();
-        String[] colorsAsStrings = MainContext.INSTANCE.getResources().getStringArray(R.array.graph_colors);
-        for (int i = 0; i < colorsAsStrings.length; i += 2) {
-            availableGraphColors.add(new GraphColor(Long.parseLong(colorsAsStrings[i].substring(1), 16), Long.parseLong(colorsAsStrings[i + 1].substring(1), 16)));
+    }
+
+    private List<GraphColor> getAvailableGraphColors() {
+        if (availableGraphColors.isEmpty()) {
+            String[] colorsAsStrings = MainContext.INSTANCE.getResources().getStringArray(R.array.graph_colors);
+            for (int i = 0; i < colorsAsStrings.length; i += 2) {
+                availableGraphColors.add(new GraphColor(Long.parseLong(colorsAsStrings[i].substring(1), 16), Long.parseLong(colorsAsStrings[i + 1].substring(1), 16)));
+            }
         }
+        return availableGraphColors;
     }
 
     protected GraphColor getColor() {
         if (graphColors.isEmpty()) {
-            graphColors.addAll(availableGraphColors);
+            graphColors.addAll(getAvailableGraphColors());
         }
         return graphColors.pop();
     }
@@ -53,7 +59,7 @@ class GraphColors {
     }
 
     private GraphColor findColor(long primaryColor) {
-        for (GraphColor graphColor : availableGraphColors) {
+        for (GraphColor graphColor : getAvailableGraphColors()) {
             if (primaryColor == graphColor.getPrimary()) {
                 return graphColor;
             }
