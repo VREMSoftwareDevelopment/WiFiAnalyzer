@@ -41,7 +41,7 @@ import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class WiFiConnectionViewTest {
+public class ConnectionViewTest {
     @Mock
     private Scanner scanner;
     @Mock

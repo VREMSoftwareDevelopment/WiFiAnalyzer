@@ -56,7 +56,9 @@ public class TimeGraphFragmentTest {
 
     @Test
     public void testOnCreateView() throws Exception {
+        // execute
         SupportFragmentTestUtil.startFragment(fixture);
+        // validate
         assertNotNull(fixture);
     }
 

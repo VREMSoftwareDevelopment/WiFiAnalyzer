@@ -14,12 +14,10 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph.channel;
+package com.vrem.wifianalyzer.wifi;
 
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.RobolectricUtil;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import org.junit.After;
 import org.junit.Before;
@@ -30,23 +28,17 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class ChannelGraphFragmentTest {
+public class ChannelRatingFragmentTest {
 
-    private Scanner scanner;
-    private ChannelGraphFragment fixture;
+    private ChannelRatingFragment fixture;
 
     @Before
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
-
-        scanner = mock(Scanner.class);
-        MainContext.INSTANCE.setScanner(scanner);
-
-        fixture = new ChannelGraphFragment();
+        fixture = new ChannelRatingFragment();
     }
 
     @After
@@ -61,5 +53,4 @@ public class ChannelGraphFragmentTest {
         // validate
         assertNotNull(fixture);
     }
-
 }

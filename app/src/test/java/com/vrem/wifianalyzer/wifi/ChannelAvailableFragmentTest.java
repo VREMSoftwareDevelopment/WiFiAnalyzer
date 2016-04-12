@@ -14,12 +14,11 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph.channel;
+package com.vrem.wifianalyzer.wifi;
 
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.RobolectricUtil;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import org.junit.After;
 import org.junit.Before;
@@ -30,23 +29,17 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class ChannelGraphFragmentTest {
+public class ChannelAvailableFragmentTest {
 
-    private Scanner scanner;
-    private ChannelGraphFragment fixture;
+    private ChannelAvailableFragment fixture;
 
     @Before
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
-
-        scanner = mock(Scanner.class);
-        MainContext.INSTANCE.setScanner(scanner);
-
-        fixture = new ChannelGraphFragment();
+        fixture = new ChannelAvailableFragment();
     }
 
     @After
@@ -60,6 +53,19 @@ public class ChannelGraphFragmentTest {
         SupportFragmentTestUtil.startFragment(fixture);
         // validate
         assertNotNull(fixture);
+    }
+
+    @Test
+    public void testOnCreateViewInDevelopmentMode() throws Exception {
+        // setup
+        MainConfiguration mainConfiguration = MainConfiguration.INSTANCE;
+        boolean developmentMode = mainConfiguration.isDevelopmentMode();
+        mainConfiguration.setDevelopmentMode(!developmentMode);
+        // execute
+        SupportFragmentTestUtil.startFragment(fixture);
+        // validate
+        assertNotNull(fixture);
+        mainConfiguration.setDevelopmentMode(developmentMode);
     }
 
 }
