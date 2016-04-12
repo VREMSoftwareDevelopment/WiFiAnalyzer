@@ -17,11 +17,13 @@
 package com.vrem.wifianalyzer.settings;
 
 import android.app.ActionBar;
+import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -29,17 +31,28 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class SettingActivityTest {
 
+    private SettingActivity fixture;
+
+    @Before
+    public void setUp() throws Exception {
+        RobolectricUtil.INSTANCE.getMainActivity();
+        fixture = Robolectric.setupActivity(SettingActivity.class);
+    }
+
     @Test
     public void testTitle() throws Exception {
         // setup
-        RobolectricUtil.INSTANCE.getMainActivity();
-        SettingActivity fixture = Robolectric.setupActivity(SettingActivity.class);
         String expected = fixture.getResources().getString(R.string.action_settings);
         // execute
         ActionBar actual = fixture.getActionBar();
@@ -48,4 +61,25 @@ public class SettingActivityTest {
         assertEquals(expected, actual.getTitle());
     }
 
+    @Test
+    public void testOnOptionsItemSelectedWithHome() throws Exception {
+        // setup
+        MenuItem menuItem = mock(MenuItem.class);
+        when(menuItem.getItemId()).thenReturn(android.R.id.home);
+        // execute
+        boolean actual = fixture.onOptionsItemSelected(menuItem);
+        // validate
+        assertTrue(actual);
+        verify(menuItem).getItemId();
+    }
+
+    @Test
+    public void testOnOptionsItemSelected() throws Exception {
+        // setup
+        MenuItem menuItem = mock(MenuItem.class);
+        // execute
+        boolean actual = fixture.onOptionsItemSelected(menuItem);
+        // validate
+        assertFalse(actual);
+    }
 }
