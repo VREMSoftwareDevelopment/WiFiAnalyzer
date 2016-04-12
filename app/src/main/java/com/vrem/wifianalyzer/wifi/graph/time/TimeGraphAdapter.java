@@ -35,5 +35,4 @@ class TimeGraphAdapter extends GraphAdapter {
         }
         return graphViewNotifiers;
     }
-
 }

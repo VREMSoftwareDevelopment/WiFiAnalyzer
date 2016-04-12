@@ -77,6 +77,7 @@ dependencies {
     testCompile 'org.powermock:powermock-api-mockito:1.6.4'
     testCompile 'com.googlecode.junit-toolbox:junit-toolbox:2.2'
     testCompile 'org.robolectric:robolectric:3.1-SNAPSHOT'
+    testCompile 'org.robolectric:shadows-support-v4:3.0'
 }
 
 updateVersion()

@@ -14,72 +14,66 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.settings;
+package com.vrem.wifianalyzer.wifi.graph.time;
 
-import android.app.ActionBar;
-import android.view.MenuItem;
-
+import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class SettingActivityTest {
+public class TimeGraphAdapterTest {
 
-    private SettingActivity fixture;
+    private TimeGraphAdapter fixture;
 
     @Before
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
-        fixture = Robolectric.setupActivity(SettingActivity.class);
+
+        Scanner scanner = mock(Scanner.class);
+        MainContext.INSTANCE.setScanner(scanner);
+
+        fixture = new TimeGraphAdapter();
+
+        verify(scanner).addUpdateNotifier(fixture);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        RobolectricUtil.INSTANCE.restoreMainContext();
     }
 
     @Test
-    public void testTitle() throws Exception {
-        // setup
-        String expected = fixture.getResources().getString(R.string.action_settings);
+    public void testGetGraphViewNotifiers() throws Exception {
         // execute
-        ActionBar actual = fixture.getActionBar();
+        List<GraphViewNotifier> graphViewNotifiers = fixture.getGraphViewNotifiers();
         // validate
-        assertNotNull(actual);
-        assertEquals(expected, actual.getTitle());
+        assertEquals(WiFiBand.values().length, graphViewNotifiers.size());
     }
 
     @Test
-    public void testOnOptionsItemSelectedWithHome() throws Exception {
-        // setup
-        MenuItem menuItem = mock(MenuItem.class);
-        when(menuItem.getItemId()).thenReturn(android.R.id.home);
+    public void testGetGraphViews() throws Exception {
         // execute
-        boolean actual = fixture.onOptionsItemSelected(menuItem);
+        List<GraphView> graphViews = fixture.getGraphViews();
         // validate
-        assertTrue(actual);
-        verify(menuItem).getItemId();
+        assertEquals(WiFiBand.values().length, graphViews.size());
     }
 
-    @Test
-    public void testOnOptionsItemSelected() throws Exception {
-        // setup
-        MenuItem menuItem = mock(MenuItem.class);
-        // execute
-        boolean actual = fixture.onOptionsItemSelected(menuItem);
-        // validate
-        assertFalse(actual);
-    }
 }
