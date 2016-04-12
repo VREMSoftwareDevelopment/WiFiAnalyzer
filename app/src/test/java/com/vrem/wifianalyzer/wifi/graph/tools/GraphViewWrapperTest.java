@@ -25,11 +25,8 @@ import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.BaseSeries;
 import com.jjoe64.graphview.series.DataPoint;
-import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -76,11 +73,9 @@ public class GraphViewWrapperTest {
 
     @Before
     public void setUp() throws Exception {
-        MainContext.INSTANCE.setResources(resources);
         wiFiDetail = WiFiDetail.EMPTY;
         dataPoint = new DataPoint(1, 2);
 
-        when(resources.getStringArray(R.array.graph_colors)).thenReturn(new String[]{"#FFFB1554", "#33FB1554" });
         when(graphView.getLegendRenderer()).thenReturn(legendRenderer);
         when(legendRenderer.getTextSize()).thenReturn(VALUE);
 
@@ -94,11 +89,6 @@ public class GraphViewWrapperTest {
         fixture.setSeriesCache(seriesCache);
 
         assertEquals(GraphLegend.HIDE, fixture.getGraphLegend());
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        MainContext.INSTANCE.clear();
     }
 
     @Test

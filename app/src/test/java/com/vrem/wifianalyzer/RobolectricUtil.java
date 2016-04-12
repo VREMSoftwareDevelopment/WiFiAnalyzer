@@ -16,17 +16,67 @@
 
 package com.vrem.wifianalyzer;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.net.wifi.WifiManager;
+import android.os.Handler;
+import android.view.LayoutInflater;
+
+import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.vendor.model.Database;
+import com.vrem.wifianalyzer.vendor.model.VendorService;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
+
 import org.robolectric.Robolectric;
 
 public enum RobolectricUtil {
     INSTANCE;
 
     private MainActivity mainActivity;
+    private Settings settings;
+    private Context context;
+    private Resources resources;
+    private Scanner scanner;
+    private Handler handler;
+    private VendorService vendorService;
+    private WifiManager wifiManager;
+    private LayoutInflater layoutInflater;
+    private Database database;
+    private Logger logger;
 
     public MainActivity getMainActivity() {
         if (mainActivity == null) {
             mainActivity = Robolectric.setupActivity(MainActivity.class);
+            storeMainContext();
         }
         return mainActivity;
+    }
+
+    private void storeMainContext() {
+        MainContext mainContext = MainContext.INSTANCE;
+        settings = mainContext.getSettings();
+        context = mainContext.getContext();
+        resources = mainContext.getResources();
+        scanner = mainContext.getScanner();
+        handler = mainContext.getHandler();
+        vendorService = mainContext.getVendorService();
+        wifiManager = mainContext.getWifiManager();
+        layoutInflater = mainContext.getLayoutInflater();
+        database = mainContext.getDatabase();
+        logger = mainContext.getLogger();
+    }
+
+    public void restoreMainContext() {
+        MainContext mainContext = MainContext.INSTANCE;
+        mainContext.setSettings(settings);
+        mainContext.setContext(context);
+        mainContext.setResources(resources);
+        mainContext.setScanner(scanner);
+        mainContext.setHandler(handler);
+        mainContext.setVendorService(vendorService);
+        mainContext.setWifiManager(wifiManager);
+        mainContext.setLayoutInflater(layoutInflater);
+        mainContext.setDatabase(database);
+        mainContext.setLogger(logger);
     }
 }
