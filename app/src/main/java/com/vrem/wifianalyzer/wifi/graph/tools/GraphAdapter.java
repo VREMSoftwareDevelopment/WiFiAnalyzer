@@ -49,6 +49,10 @@ abstract public class GraphAdapter implements UpdateNotifier {
         }
     }
 
+    public List<GraphViewNotifier> getGraphViewNotifiers() {
+        return graphViewNotifiers;
+    }
+
     @NonNull
     abstract public List<GraphViewNotifier> makeGraphViewNotifiers();
 }
