@@ -33,17 +33,17 @@ import java.net.URL;
 import java.net.URLConnection;
 
 class RemoteCall extends AsyncTask<String, Void, String> {
-    private static final String MAX_VENDOR_LOOKUP = "https://www.macvendorlookup.com/api/v2/%s";
+    protected static final String MAX_VENDOR_LOOKUP = "https://www.macvendorlookup.com/api/v2/%s";
 
     protected String doInBackground(String... params) {
-        if (params.length < 1 || StringUtils.isBlank(params[0])) {
+        if (params == null || params.length < 1 || StringUtils.isBlank(params[0])) {
             return StringUtils.EMPTY;
         }
         String macAddress = params[0];
         String request = String.format(MAX_VENDOR_LOOKUP, macAddress.replace(":", "-"));
         BufferedReader bufferedReader = null;
         try {
-            URLConnection urlConnection = new URL(request).openConnection();
+            URLConnection urlConnection = getURLConnection(request);
             bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             StringBuilder response = new StringBuilder();
             String line;
@@ -64,9 +64,14 @@ class RemoteCall extends AsyncTask<String, Void, String> {
         }
     }
 
+    protected URLConnection getURLConnection(String request) throws IOException {
+        return new URL(request).openConnection();
+    }
+
     @Override
     protected void onPostExecute(String result) {
         if (StringUtils.isNotBlank(result)) {
+            MainContext mainContext = MainContext.INSTANCE;
             try {
                 JSONArray jsonArray = new JSONArray(result);
                 if (jsonArray.length() > 0) {
@@ -74,12 +79,12 @@ class RemoteCall extends AsyncTask<String, Void, String> {
                     String macAddress = getValue(jsonObject, "startHex");
                     String vendorName = getValue(jsonObject, "company");
                     if (StringUtils.isNotBlank(macAddress)) {
-                        MainContext.INSTANCE.getLogger().info(this, macAddress + " " + vendorName);
-                        MainContext.INSTANCE.getDatabase().insert(macAddress, vendorName);
+                        mainContext.getLogger().info(this, macAddress + " " + vendorName);
+                        mainContext.getDatabase().insert(macAddress, vendorName);
                     }
                 }
             } catch (JSONException e) {
-                MainContext.INSTANCE.getLogger().error(this, result, e);
+                mainContext.getLogger().error(this, result, e);
             }
         }
     }
