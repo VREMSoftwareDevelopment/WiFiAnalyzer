@@ -35,22 +35,30 @@ import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
 
     private final Resources resources;
-    private final AccessPointsAdapterData accessPointsAdapterData;
-    private final AccessPointsDetail accessPointsDetail;
+    private AccessPointsAdapterData accessPointsAdapterData;
+    private AccessPointsDetail accessPointsDetail;
 
     AccessPointsAdapter(@NonNull Context context) {
         super();
         this.resources = context.getResources();
-        this.accessPointsAdapterData = new AccessPointsAdapterData();
-        this.accessPointsDetail = new AccessPointsDetail();
+        setAccessPointsAdapterData(new AccessPointsAdapterData());
+        setAccessPointsDetail(new AccessPointsDetail());
         MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
+    }
+
+    protected void setAccessPointsAdapterData(@NonNull AccessPointsAdapterData accessPointsAdapterData) {
+        this.accessPointsAdapterData = accessPointsAdapterData;
+    }
+
+    protected void setAccessPointsDetail(@NonNull AccessPointsDetail accessPointsDetail) {
+        this.accessPointsDetail = accessPointsDetail;
     }
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         View view = getView(convertView, parent);
-        WiFiDetail details = (WiFiDetail) getGroup(groupPosition);
-        accessPointsDetail.setView(resources, view, details, false, MainConfiguration.INSTANCE.isLargeScreenLayout());
+        WiFiDetail wiFiDetail = (WiFiDetail) getGroup(groupPosition);
+        accessPointsDetail.setView(resources, view, wiFiDetail, false, MainConfiguration.INSTANCE.isLargeScreenLayout());
 
         ImageView groupIndicator = (ImageView) view.findViewById(R.id.groupIndicator);
         int childrenCount = getChildrenCount(groupPosition);
@@ -70,8 +78,8 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         View view = getView(convertView, parent);
-        WiFiDetail details = (WiFiDetail) getChild(groupPosition, childPosition);
-        accessPointsDetail.setView(resources, view, details, true, MainConfiguration.INSTANCE.isLargeScreenLayout());
+        WiFiDetail wiFiDetail = (WiFiDetail) getChild(groupPosition, childPosition);
+        accessPointsDetail.setView(resources, view, wiFiDetail, true, MainConfiguration.INSTANCE.isLargeScreenLayout());
         view.findViewById(R.id.groupIndicator).setVisibility(View.GONE);
         return view;
     }
