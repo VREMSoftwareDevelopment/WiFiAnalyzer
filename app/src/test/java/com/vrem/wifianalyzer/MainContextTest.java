@@ -14,12 +14,7 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph.channel;
-
-import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.RobolectricUtil;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
+package com.vrem.wifianalyzer;
 
 import org.junit.After;
 import org.junit.Before;
@@ -27,26 +22,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class ChannelGraphFragmentTest {
-
-    private Scanner scanner;
-    private ChannelGraphFragment fixture;
+public class MainContextTest {
 
     @Before
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
-
-        scanner = mock(Scanner.class);
-        MainContext.INSTANCE.setScanner(scanner);
-
-        fixture = new ChannelGraphFragment();
     }
 
     @After
@@ -55,11 +41,13 @@ public class ChannelGraphFragmentTest {
     }
 
     @Test
-    public void testOnCreateView() throws Exception {
+    public void testClear() throws Exception {
+        // setup
+        MainContext mainContext = MainContext.INSTANCE;
+        assertTrue(mainContext.isInitialized());
         // execute
-        SupportFragmentTestUtil.startFragment(fixture);
+        mainContext.clear();
         // validate
-        assertNotNull(fixture);
+        assertFalse(mainContext.isInitialized());
     }
-
 }

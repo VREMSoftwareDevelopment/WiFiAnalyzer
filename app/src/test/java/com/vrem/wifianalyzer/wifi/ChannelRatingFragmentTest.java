@@ -43,7 +43,7 @@ public class ChannelRatingFragmentTest {
 
     @After
     public void tearDown() throws Exception {
-        RobolectricUtil.INSTANCE.restoreMainContext();
+        RobolectricUtil.INSTANCE.restore();
     }
 
     @Test

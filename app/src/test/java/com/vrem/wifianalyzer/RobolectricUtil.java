@@ -20,14 +20,18 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
+import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import org.robolectric.Robolectric;
+
+import java.util.Locale;
 
 public enum RobolectricUtil {
     INSTANCE;
@@ -44,12 +48,23 @@ public enum RobolectricUtil {
     private Database database;
     private Logger logger;
 
+    private boolean developmentMode;
+    private Locale locale;
+    private boolean largeScreenLayout;
+    private Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
+
     public MainActivity getMainActivity() {
         if (mainActivity == null) {
             mainActivity = Robolectric.setupActivity(MainActivity.class);
             storeMainContext();
+            storeMainConfiguration();
         }
         return mainActivity;
+    }
+
+    public void restore() {
+        restoreMainContext();
+        restoreMainConfiguration();
     }
 
     private void storeMainContext() {
@@ -66,7 +81,15 @@ public enum RobolectricUtil {
         logger = mainContext.getLogger();
     }
 
-    public void restoreMainContext() {
+    private void storeMainConfiguration() {
+        MainConfiguration mainConfiguration = MainConfiguration.INSTANCE;
+        developmentMode = mainConfiguration.isDevelopmentMode();
+        locale = mainConfiguration.getLocale();
+        largeScreenLayout = mainConfiguration.isLargeScreenLayout();
+        wiFiChannelPair = mainConfiguration.getWiFiChannelPair();
+    }
+
+    private void restoreMainContext() {
         MainContext mainContext = MainContext.INSTANCE;
         mainContext.setSettings(settings);
         mainContext.setContext(context);
@@ -79,4 +102,13 @@ public enum RobolectricUtil {
         mainContext.setDatabase(database);
         mainContext.setLogger(logger);
     }
+
+    private void restoreMainConfiguration() {
+        MainConfiguration mainConfiguration = MainConfiguration.INSTANCE;
+        mainConfiguration.setDevelopmentMode(developmentMode);
+        mainConfiguration.setLocale(locale);
+        mainConfiguration.setLargeScreenLayout(largeScreenLayout);
+        mainConfiguration.setWiFiChannelPair(wiFiChannelPair);
+    }
+
 }
