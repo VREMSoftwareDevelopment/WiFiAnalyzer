@@ -49,24 +49,13 @@ class ChannelGraphView implements GraphViewNotifier {
     private static final int CNT_X_LARGE = 24;
 
     private final WiFiBand wiFiBand;
-    private final GraphViewWrapper graphViewWrapper;
     private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
+    private GraphViewWrapper graphViewWrapper;
 
     ChannelGraphView(@NonNull WiFiBand wiFiBand, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         this.wiFiBand = wiFiBand;
         this.wiFiChannelPair = wiFiChannelPair;
-        this.graphViewWrapper = new GraphViewWrapper(makeGraphView(), MainContext.INSTANCE.getSettings().getChannelGraphLegend());
-        initialize();
-    }
-
-    private GraphView makeGraphView() {
-        MainContext mainContext = MainContext.INSTANCE;
-        Resources resources = mainContext.getResources();
-        return new GraphViewBuilder(mainContext.getContext(), getNumX())
-                .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair, MainConfiguration.INSTANCE.getLocale()))
-                .setVerticalTitle(resources.getString(R.string.graph_axis_y))
-                .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
-                .build();
+        this.graphViewWrapper = makeGraphViewWrapper();
     }
 
     @Override
@@ -122,24 +111,6 @@ class ChannelGraphView implements GraphViewNotifier {
         };
     }
 
-    private void initialize() {
-        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
-        int frequencyOffset = wiFiChannels.getFrequencyOffset();
-        int minX = wiFiChannelPair.first.getFrequency() - frequencyOffset;
-        int maxX = minX + (graphViewWrapper.getViewportCntX() * wiFiChannels.getFrequencySpread());
-        graphViewWrapper.setViewport(minX, maxX);
-
-        DataPoint[] dataPoints = new DataPoint[]{
-                new DataPoint(minX, GraphViewBuilder.MIN_Y),
-                new DataPoint(wiFiChannelPair.second.getFrequency() + frequencyOffset, GraphViewBuilder.MIN_Y)
-        };
-
-        ChannelGraphSeries<DataPoint> series = new ChannelGraphSeries<>(dataPoints);
-        series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
-        series.zeroThickness();
-        graphViewWrapper.addSeries(series);
-    }
-
     @Override
     public GraphView getGraphView() {
         return graphViewWrapper.getGraphView();
@@ -155,4 +126,38 @@ class ChannelGraphView implements GraphViewNotifier {
         return Math.min(numX, channelLast - channelFirst + 1);
     }
 
+    private GraphView makeGraphView() {
+        MainContext mainContext = MainContext.INSTANCE;
+        Resources resources = mainContext.getResources();
+        return new GraphViewBuilder(mainContext.getContext(), getNumX())
+                .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair, MainConfiguration.INSTANCE.getLocale()))
+                .setVerticalTitle(resources.getString(R.string.graph_axis_y))
+                .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
+                .build();
+    }
+
+    private GraphViewWrapper makeGraphViewWrapper() {
+        graphViewWrapper = new GraphViewWrapper(makeGraphView(), MainContext.INSTANCE.getSettings().getChannelGraphLegend());
+
+        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
+        int frequencyOffset = wiFiChannels.getFrequencyOffset();
+        int minX = wiFiChannelPair.first.getFrequency() - frequencyOffset;
+        int maxX = minX + (graphViewWrapper.getViewportCntX() * wiFiChannels.getFrequencySpread());
+        graphViewWrapper.setViewport(minX, maxX);
+
+        DataPoint[] dataPoints = new DataPoint[]{
+                new DataPoint(minX, GraphViewBuilder.MIN_Y),
+                new DataPoint(wiFiChannelPair.second.getFrequency() + frequencyOffset, GraphViewBuilder.MIN_Y)
+        };
+
+        ChannelGraphSeries<DataPoint> series = new ChannelGraphSeries<>(dataPoints);
+        series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
+        series.zeroThickness();
+        graphViewWrapper.addSeries(series);
+        return graphViewWrapper;
+    }
+
+    protected void setGraphViewWrapper(@NonNull GraphViewWrapper graphViewWrapper) {
+        this.graphViewWrapper = graphViewWrapper;
+    }
 }

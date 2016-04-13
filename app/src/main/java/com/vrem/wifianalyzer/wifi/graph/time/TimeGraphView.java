@@ -44,25 +44,14 @@ class TimeGraphView implements GraphViewNotifier {
     private static final int NUM_X_LARGE = 24;
 
     private final WiFiBand wiFiBand;
-    private final GraphViewWrapper graphViewWrapper;
+    private GraphViewWrapper graphViewWrapper;
     private int scanCount;
     private int xValue;
 
     TimeGraphView(@NonNull WiFiBand wiFiBand) {
         this.wiFiBand = wiFiBand;
         this.scanCount = this.xValue = 0;
-        this.graphViewWrapper = new GraphViewWrapper(makeGraphView(), MainContext.INSTANCE.getSettings().getTimeGraphLegend());
-        initialize();
-    }
-
-    private GraphView makeGraphView() {
-        MainContext mainContext = MainContext.INSTANCE;
-        Resources resources = mainContext.getResources();
-        return new GraphViewBuilder(mainContext.getContext(), getNumX())
-                .setLabelFormatter(new TimeAxisLabel())
-                .setVerticalTitle(resources.getString(R.string.graph_axis_y))
-                .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
-                .build();
+        this.graphViewWrapper = makeGraphViewWrapper();
     }
 
     @Override
@@ -95,7 +84,32 @@ class TimeGraphView implements GraphViewNotifier {
         }
     }
 
-    private void initialize() {
+    @Override
+    public GraphView getGraphView() {
+        return graphViewWrapper.getGraphView();
+    }
+
+    private int getNumX() {
+        return MainConfiguration.INSTANCE.isLargeScreenLayout() ? NUM_X_LARGE : NUM_X_SMALL;
+    }
+
+    protected void setGraphViewWrapper(@NonNull GraphViewWrapper graphViewWrapper) {
+        this.graphViewWrapper = graphViewWrapper;
+    }
+
+    private GraphView makeGraphView() {
+        MainContext mainContext = MainContext.INSTANCE;
+        Resources resources = mainContext.getResources();
+        return new GraphViewBuilder(mainContext.getContext(), getNumX())
+                .setLabelFormatter(new TimeAxisLabel())
+                .setVerticalTitle(resources.getString(R.string.graph_axis_y))
+                .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
+                .build();
+    }
+
+    private GraphViewWrapper makeGraphViewWrapper() {
+        graphViewWrapper = new GraphViewWrapper(makeGraphView(), MainContext.INSTANCE.getSettings().getTimeGraphLegend());
+
         graphViewWrapper.setViewport();
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
@@ -105,14 +119,8 @@ class TimeGraphView implements GraphViewNotifier {
         series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
         series.setThickness(0);
         graphViewWrapper.addSeries(series);
+
+        return graphViewWrapper;
     }
 
-    @Override
-    public GraphView getGraphView() {
-        return graphViewWrapper.getGraphView();
-    }
-
-    private int getNumX() {
-        return MainConfiguration.INSTANCE.isLargeScreenLayout() ? NUM_X_LARGE : NUM_X_SMALL;
-    }
 }
