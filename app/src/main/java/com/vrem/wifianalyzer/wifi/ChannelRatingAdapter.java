@@ -27,6 +27,7 @@ import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
@@ -45,15 +46,19 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     private static final int MAX_CHANNELS_TO_DISPLAY = 10;
 
     private final Resources resources;
-    private final ChannelRating channelRating;
     private final TextView bestChannels;
+    private ChannelRating channelRating;
 
     ChannelRatingAdapter(@NonNull Context context, @NonNull TextView bestChannels) {
         super(context, R.layout.channel_rating_details, new ArrayList<WiFiChannel>());
         this.resources = context.getResources();
         this.bestChannels = bestChannels;
-        this.channelRating = new ChannelRating();
         MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
+        setChannelRating(new ChannelRating());
+    }
+
+    protected void setChannelRating(@NonNull ChannelRating channelRating) {
+        this.channelRating = channelRating;
     }
 
     @Override
@@ -66,7 +71,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     }
 
     private List<WiFiChannel> setWiFiChannels(WiFiBand wiFiBand) {
-        Locale locale = resources.getConfiguration().locale;
+        Locale locale = MainConfiguration.INSTANCE.getLocale();
         List<WiFiChannel> wiFiChannels = wiFiBand.getWiFiChannels().getAvailableChannels(locale);
         clear();
         addAll(wiFiChannels);
@@ -98,7 +103,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         return view;
     }
 
-    private void bestChannels(@NonNull WiFiBand wiFiBand, @NonNull List<WiFiChannel> wiFiChannels) {
+    protected void bestChannels(@NonNull WiFiBand wiFiBand, @NonNull List<WiFiChannel> wiFiChannels) {
         List<ChannelRating.ChannelAPCount> channelAPCounts = channelRating.getBestChannels(wiFiChannels);
         int channelCount = 0;
         StringBuilder result = new StringBuilder();
@@ -114,8 +119,8 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
             channelCount++;
         }
         if (result.length() > 0) {
-            this.bestChannels.setText(result.toString());
-            this.bestChannels.setTextColor(resources.getColor(R.color.success_color));
+            bestChannels.setText(result.toString());
+            bestChannels.setTextColor(resources.getColor(R.color.success_color));
         } else {
             StringBuilder message = new StringBuilder(resources.getText(R.string.channel_rating_best_none));
             if (WiFiBand.GHZ2.equals(wiFiBand)) {
@@ -123,8 +128,8 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
                 message.append(" ");
                 message.append(WiFiBand.GHZ5.getBand());
             }
-            this.bestChannels.setText(message);
-            this.bestChannels.setTextColor(resources.getColor(R.color.error_color));
+            bestChannels.setText(message);
+            bestChannels.setTextColor(resources.getColor(R.color.error_color));
         }
     }
 

@@ -36,7 +36,7 @@ public class WiFiChannel implements Comparable<WiFiChannel> {
         channel = frequency = 0;
     }
 
-    protected WiFiChannel(int channel, int frequency) {
+    public WiFiChannel(int channel, int frequency) {
         this.channel = channel;
         this.frequency = frequency;
     }

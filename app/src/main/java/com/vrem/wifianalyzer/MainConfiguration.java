@@ -71,6 +71,8 @@ public enum MainConfiguration {
     public void clear() {
         locale = null;
         wiFiChannelPair = null;
+        developmentMode = false;
+        largeScreenLayout = false;
     }
 
 }
