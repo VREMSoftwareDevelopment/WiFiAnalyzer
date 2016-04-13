@@ -21,6 +21,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 
+import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -36,6 +37,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -78,8 +80,8 @@ public class TransformerTest {
 
     @Before
     public void setUp() throws Exception {
-        MainContext mainContext = MainContext.INSTANCE;
-        mainContext.setContext(context);
+        MainContext.INSTANCE.setContext(context);
+        MainConfiguration.INSTANCE.setLocale(Locale.US);
 
         scanResults = Arrays.asList(scanResult1, scanResult2, scanResult3);
         wifiConfigurations = Arrays.asList(wifiConfiguration1, wifiConfiguration2, wifiConfiguration3);
@@ -89,6 +91,7 @@ public class TransformerTest {
     @After
     public void tearDown() throws Exception {
         MainContext.INSTANCE.clear();
+        MainConfiguration.INSTANCE.clear();
     }
 
     @Test
@@ -146,6 +149,17 @@ public class TransformerTest {
         validateWiFiDetail(SSID_1, BSSID_1, actual.get(0));
         validateWiFiDetail(SSID_2, BSSID_2, actual.get(1));
         validateWiFiDetail(SSID_3, BSSID_3, actual.get(2));
+    }
+
+    @Test
+    public void testTransformScanResultsInDevelopmentMode() throws Exception {
+        // setup
+        MainConfiguration.INSTANCE.setDevelopmentMode(true);
+        withScanResult();
+        // execute
+        List<WiFiDetail> actual = fixture.transformScanResults(scanResults);
+        // validate
+        assertEquals(scanResults.size() + 3, actual.size());
     }
 
     private void validateWiFiDetail(String SSID, String BSSID, WiFiDetail wiFiDetail) {
