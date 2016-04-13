@@ -40,6 +40,7 @@ import android.view.View.OnClickListener;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.ConnectionView;
@@ -56,7 +57,7 @@ import static android.support.design.widget.NavigationView.OnNavigationItemSelec
 public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
     private static final String WI_FI_ANALYZER_BETA = "WiFi Analyzer BETA";
 
-    private int currentTheme;
+    private ThemeStyle currentThemeStyle;
     private NavigationMenuView navigationMenuView;
     private boolean subTitle;
 
@@ -66,8 +67,8 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
         Settings settings = MainContext.INSTANCE.getSettings();
         settings.initializeDefaultValues();
-        currentTheme = settings.getThemeStyle().themeAppCompatStyle();
-        setTheme(currentTheme);
+        currentThemeStyle = settings.getThemeStyle();
+        setTheme(currentThemeStyle.themeAppCompatStyle());
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
@@ -137,9 +138,9 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     private boolean isThemeChanged() {
-        int settingTheme = MainContext.INSTANCE.getSettings().getThemeStyle().themeAppCompatStyle();
-        if (this.currentTheme != settingTheme) {
-            this.currentTheme = settingTheme;
+        ThemeStyle settingThemeStyle = MainContext.INSTANCE.getSettings().getThemeStyle();
+        if (!currentThemeStyle.equals(settingThemeStyle)) {
+            currentThemeStyle = settingThemeStyle;
             return true;
         }
         return false;
@@ -203,11 +204,14 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         return navigationMenuView;
     }
 
+    protected ThemeStyle getCurrentThemeStyle() {
+        return currentThemeStyle;
+    }
+
     private class WiFiBandToggle implements OnClickListener {
         @Override
         public void onClick(View view) {
             MainContext.INSTANCE.getSettings().toggleWiFiBand();
         }
     }
-
 }
