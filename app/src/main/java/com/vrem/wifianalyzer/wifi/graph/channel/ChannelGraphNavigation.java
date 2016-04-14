@@ -17,6 +17,7 @@
 package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.view.View;
@@ -28,8 +29,10 @@ import android.widget.LinearLayout;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +41,7 @@ class ChannelGraphNavigation {
     private static final float TEXT_SIZE_ADJUSTMENT = 0.8f;
     private final List<Button> navigationItems = new ArrayList<>();
 
-    protected ChannelGraphNavigation() {
+    ChannelGraphNavigation() {
         makeNavigationItems();
     }
 
@@ -47,15 +50,15 @@ class ChannelGraphNavigation {
     }
 
     protected void update() {
-        WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
+        WiFiBand wiFiBand = getSettings().getWiFiBand();
         for (Button button : navigationItems) {
             button.setVisibility(wiFiBand.isGHZ5() ? View.VISIBLE : View.GONE);
         }
     }
 
     private void makeNavigationItems() {
-        Context context = MainContext.INSTANCE.getContext();
-        Configuration configuration = MainContext.INSTANCE.getConfiguration();
+        Context context = getContext();
+        Configuration configuration = getConfiguration();
         Pair<WiFiChannel, WiFiChannel> selected = configuration.getWiFiChannelPair();
         List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = WiFiBand.GHZ5.getWiFiChannels()
                 .getWiFiChannelPairs(configuration.getLocale());
@@ -71,7 +74,7 @@ class ChannelGraphNavigation {
         String text = pair.first.getChannel() + " - " + pair.second.getChannel();
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, TEXT_SIZE_ADJUSTMENT);
-        if (MainContext.INSTANCE.getConfiguration().isLargeScreenLayout()) {
+        if (getConfiguration().isLargeScreenLayout()) {
             params.setMargins(10, -10, 10, -10);
         } else {
             params.setMargins(5, -30, 5, -30);
@@ -92,10 +95,10 @@ class ChannelGraphNavigation {
 
     private void setSelectedButton(Button button, boolean selected) {
         if (selected) {
-            button.setBackgroundColor(MainContext.INSTANCE.getResources().getColor(R.color.connected));
+            button.setBackgroundColor(getResources().getColor(R.color.connected));
             button.setSelected(true);
         } else {
-            button.setBackgroundColor(MainContext.INSTANCE.getResources().getColor(R.color.connected_background));
+            button.setBackgroundColor(getResources().getColor(R.color.connected_background));
             button.setSelected(false);
         }
     }
@@ -110,8 +113,71 @@ class ChannelGraphNavigation {
         @Override
         public void onClick(View view) {
             setButtonsBackgroundColor(view);
-            MainContext.INSTANCE.getConfiguration().setWiFiChannelPair(wiFiChannelPair);
-            MainContext.INSTANCE.getScanner().update();
+            getConfiguration().setWiFiChannelPair(wiFiChannelPair);
+            getScanner().update();
         }
     }
+
+    // injectors start
+    private Context context;
+    private Resources resources;
+    private Settings settings;
+    private Configuration configuration;
+    private Scanner scanner;
+
+    private Context getContext() {
+        if (context == null) {
+            context = MainContext.INSTANCE.getContext();
+        }
+        return context;
+    }
+
+    protected void setContext(@NonNull Context context) {
+        this.context = context;
+    }
+
+    private Resources getResources() {
+        if (resources == null) {
+            resources = MainContext.INSTANCE.getResources();
+        }
+        return resources;
+    }
+
+    protected void setResources(@NonNull Resources resources) {
+        this.resources = resources;
+    }
+
+    private Settings getSettings() {
+        if (settings == null) {
+            settings = MainContext.INSTANCE.getSettings();
+        }
+        return settings;
+    }
+
+    private void setSettings(@NonNull Settings settings) {
+        this.settings = settings;
+    }
+
+    private Configuration getConfiguration() {
+        if (configuration == null) {
+            configuration = MainContext.INSTANCE.getConfiguration();
+        }
+        return configuration;
+    }
+
+    private void setConfiguration(@NonNull Configuration configuration) {
+        this.configuration = configuration;
+    }
+
+    private Scanner getScanner() {
+        if (scanner == null) {
+            scanner = MainContext.INSTANCE.getScanner();
+        }
+        return scanner;
+    }
+
+    protected void setScanner(@NonNull Scanner scanner) {
+        this.scanner = scanner;
+    }
+    // injectors end
 }

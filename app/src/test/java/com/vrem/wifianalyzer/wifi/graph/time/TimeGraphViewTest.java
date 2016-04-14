@@ -16,18 +16,23 @@
 
 package com.vrem.wifianalyzer.wifi.graph.time;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphLegend;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
+import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,34 +52,54 @@ import static org.mockito.Mockito.when;
 @Config(constants = BuildConfig.class)
 public class TimeGraphViewTest {
     private GraphViewWrapper graphViewWrapper;
-
+    private Settings settings;
     private TimeGraphView fixture;
+    private Context context;
+    private Resources resources;
+    private Configuration configuration;
 
     @Before
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
 
         graphViewWrapper = mock(GraphViewWrapper.class);
+        context = mock(Context.class);
+        resources = mock(Resources.class);
+        settings = mock(Settings.class);
+        configuration = mock(Configuration.class);
 
-        fixture = new TimeGraphView(MainContext.INSTANCE.getSettings().getWiFiBand());
+        fixture = new TimeGraphView(WiFiBand.GHZ2);
         fixture.setGraphViewWrapper(graphViewWrapper);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        RobolectricUtil.INSTANCE.restore();
+        fixture.setContext(context);
+        fixture.setResources(resources);
+        fixture.setSettings(settings);
+        fixture.setConfiguration(configuration);
     }
 
     @Test
     public void testUpdate() throws Exception {
         // setup
         WiFiData wiFiData = new WiFiData(new ArrayList<WiFiDetail>(), WiFiConnection.EMPTY, new ArrayList<String>());
+        withSettings();
         // execute
         fixture.update(wiFiData);
         // validate
         verify(graphViewWrapper).removeSeries(any(Set.class));
-        verify(graphViewWrapper).updateLegend(MainContext.INSTANCE.getSettings().getTimeGraphLegend());
+        verify(graphViewWrapper).updateLegend(GraphLegend.LEFT);
         verify(graphViewWrapper).setVisibility(View.VISIBLE);
+        verifySettings();
+    }
+
+    private void verifySettings() {
+        verify(settings).getSortBy();
+        verify(settings).getTimeGraphLegend();
+        verify(settings).getWiFiBand();
+    }
+
+    private void withSettings() {
+        when(settings.getSortBy()).thenReturn(SortBy.SSID);
+        when(settings.getTimeGraphLegend()).thenReturn(GraphLegend.LEFT);
+        when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ2);
     }
 
     @Test

@@ -23,7 +23,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
 import com.vrem.wifianalyzer.Configuration;
-import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
@@ -39,6 +38,12 @@ import java.util.List;
 import java.util.Locale;
 
 public class Transformer {
+    private final Configuration configuration;
+
+    public Transformer(@NonNull Configuration configuration) {
+        this.configuration = configuration;
+    }
+
     protected WiFiConnection transformWifiInfo(WifiInfo wifiInfo) {
         if (wifiInfo == null || wifiInfo.getNetworkId() == -1) {
             return WiFiConnection.EMPTY;
@@ -86,7 +91,6 @@ public class Transformer {
     }
 
     private void addTestData(@NonNull List<WiFiDetail> wiFiDetails) {
-        Configuration configuration = MainContext.INSTANCE.getConfiguration();
         Locale locale = configuration.getLocale();
         if (configuration.isDevelopmentMode()) {
             int count = 0;

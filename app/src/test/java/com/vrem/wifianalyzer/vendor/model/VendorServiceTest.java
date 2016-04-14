@@ -18,8 +18,6 @@ package com.vrem.wifianalyzer.vendor.model;
 
 import android.support.annotation.NonNull;
 
-import com.vrem.wifianalyzer.MainContext;
-
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -52,16 +50,14 @@ public class VendorServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        MainContext.INSTANCE.setDatabase(database);
-
         fixture = new VendorService();
         fixture.setRemoteCall(remoteCall);
+        fixture.setDatabase(database);
     }
 
     @After
     public void tearDown() throws Exception {
         fixture.clear();
-        MainContext.INSTANCE.clear();
     }
 
     @Test

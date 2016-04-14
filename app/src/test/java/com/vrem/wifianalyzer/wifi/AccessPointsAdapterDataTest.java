@@ -16,7 +16,6 @@
 
 package com.vrem.wifianalyzer.wifi;
 
-import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
@@ -26,7 +25,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,14 +50,8 @@ public class AccessPointsAdapterDataTest {
 
     @Before
     public void setUp() throws Exception {
-        MainContext.INSTANCE.setSettings(settings);
-
         fixture = new AccessPointsAdapterData();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        MainContext.INSTANCE.clear();
+        fixture.setSettings(settings);
     }
 
     @Test

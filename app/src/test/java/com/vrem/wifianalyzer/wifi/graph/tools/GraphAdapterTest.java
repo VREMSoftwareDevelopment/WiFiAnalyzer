@@ -19,11 +19,10 @@ package com.vrem.wifianalyzer.wifi.graph.tools;
 import android.support.annotation.NonNull;
 
 import com.jjoe64.graphview.GraphView;
-import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +41,8 @@ public class GraphAdapterTest {
     @Mock
     private Scanner scanner;
     @Mock
+    private Configuration configuration;
+    @Mock
     private GraphViewNotifier graphViewNotifier;
     @Mock
     private GraphView graphView;
@@ -52,20 +53,13 @@ public class GraphAdapterTest {
 
     @Before
     public void setUp() throws Exception {
-        MainContext.INSTANCE.setScanner(scanner);
-
-        fixture = new GraphAdapter() {
+        fixture = new GraphAdapter(scanner, configuration) {
             @NonNull
             @Override
-            public List<GraphViewNotifier> makeGraphViewNotifiers() {
+            public List<GraphViewNotifier> makeGraphViewNotifiers(@NonNull Configuration configuration) {
                 return Arrays.asList(graphViewNotifier);
             }
         };
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        MainContext.INSTANCE.clear();
     }
 
     @Test

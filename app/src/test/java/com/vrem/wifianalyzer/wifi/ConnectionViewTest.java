@@ -21,7 +21,6 @@ import android.content.res.Resources;
 import android.view.View;
 
 import com.vrem.wifianalyzer.Configuration;
-import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
@@ -62,22 +61,18 @@ public class ConnectionViewTest {
 
     @Before
     public void setUp() throws Exception {
-        MainContext mainContext = MainContext.INSTANCE;
-        mainContext.setScanner(scanner);
-        mainContext.setConfiguration(configuration);
-
         when(activity.getResources()).thenReturn(resources);
         when(activity.findViewById(R.id.connection)).thenReturn(view);
 
-        fixture = new ConnectionView(activity);
+        fixture = new ConnectionView(activity, scanner);
         fixture.setAccessPointsDetail(accessPointsDetail);
+        fixture.setConfiguration(configuration);
     }
 
     @After
     public void tearDown() throws Exception {
         verify(scanner).addUpdateNotifier(fixture);
         verify(activity).findViewById(R.id.connection);
-        MainContext.INSTANCE.clear();
     }
 
     @Test

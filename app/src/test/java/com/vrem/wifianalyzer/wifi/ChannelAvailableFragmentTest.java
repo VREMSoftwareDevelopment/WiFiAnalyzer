@@ -18,7 +18,6 @@ package com.vrem.wifianalyzer.wifi;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
-import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.After;
@@ -41,21 +40,31 @@ import static org.mockito.Mockito.when;
 @Config(constants = BuildConfig.class)
 public class ChannelAvailableFragmentTest {
 
+    private Configuration configuration;
     private ChannelAvailableFragment fixture;
 
     @Before
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
+
+        configuration = mock(Configuration.class);
+
+        when(configuration.getLocale()).thenReturn(Locale.US);
+
         fixture = new ChannelAvailableFragment();
+        fixture.setConfiguration(configuration);
     }
 
     @After
     public void tearDown() throws Exception {
-        RobolectricUtil.INSTANCE.restore();
+        verify(configuration, atLeastOnce()).getLocale();
+        verify(configuration, atLeastOnce()).isDevelopmentMode();
     }
 
     @Test
     public void testOnCreateView() throws Exception {
+        // setup
+        when(configuration.isDevelopmentMode()).thenReturn(false);
         // execute
         SupportFragmentTestUtil.startFragment(fixture);
         // validate
@@ -65,16 +74,11 @@ public class ChannelAvailableFragmentTest {
     @Test
     public void testOnCreateViewInDevelopmentMode() throws Exception {
         // setup
-        Configuration configuration = mock(Configuration.class);
-        MainContext.INSTANCE.setConfiguration(configuration);
         when(configuration.isDevelopmentMode()).thenReturn(true);
-        when(configuration.getLocale()).thenReturn(Locale.US);
         // execute
         SupportFragmentTestUtil.startFragment(fixture);
         // validate
         assertNotNull(fixture);
-        verify(configuration, atLeastOnce()).isDevelopmentMode();
-        verify(configuration, atLeastOnce()).getLocale();
     }
 
 }

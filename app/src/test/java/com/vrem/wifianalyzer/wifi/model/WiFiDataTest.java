@@ -18,13 +18,11 @@ package com.vrem.wifianalyzer.wifi.model;
 
 import android.support.annotation.NonNull;
 
-import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,6 +60,7 @@ public class WiFiDataTest {
     private static final int LEVEL0 = -5;
     private static final int LEVEL1 = -4;
     private static final int LEVEL2 = -3;
+
     @Mock
     private VendorService vendorService;
 
@@ -72,8 +71,6 @@ public class WiFiDataTest {
 
     @Before
     public void setUp() throws Exception {
-        MainContext.INSTANCE.setVendorService(vendorService);
-
         wiFiDetails = withWiFiDetails();
         wiFiConnection = new WiFiConnection(SSID_1, BSSID_1, IP_ADDRESS);
         wiFiConfigurations = Arrays.asList(SSID_3, "123-456-789");
@@ -81,11 +78,7 @@ public class WiFiDataTest {
         withVendorNames();
 
         fixture = new WiFiData(wiFiDetails, wiFiConnection, wiFiConfigurations);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        MainContext.INSTANCE.clear();
+        fixture.setVendorService(vendorService);
     }
 
     private List<WiFiDetail> withWiFiDetails() {
@@ -182,6 +175,7 @@ public class WiFiDataTest {
                 return null;
             }
         };
+        fixture.setVendorService(vendorService);
         // execute
         List<WiFiDetail> actual = fixture.getWiFiDetails(WiFiBand.GHZ2, SortBy.SSID);
         // validate

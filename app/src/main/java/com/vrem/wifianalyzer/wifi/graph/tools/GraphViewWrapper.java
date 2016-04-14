@@ -17,7 +17,9 @@
 package com.vrem.wifianalyzer.wifi.graph.tools;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
@@ -157,9 +159,13 @@ public class GraphViewWrapper {
         public void onTap(@NonNull Series series, @NonNull DataPointInterface dataPoint) {
             WiFiDetail wiFiDetail = seriesCache.find(series);
             if (wiFiDetail != null) {
-                Dialog dialog = new AccessPointsDetail().popupDialog(MainContext.INSTANCE.getContext(), MainContext.INSTANCE.getLayoutInflater(), wiFiDetail);
+                MainContext mainContext = MainContext.INSTANCE;
+                LayoutInflater layoutInflater = mainContext.getLayoutInflater();
+                Context context = mainContext.getContext();
+                Dialog dialog = new AccessPointsDetail().popupDialog(context, layoutInflater, wiFiDetail);
                 dialog.show();
             }
         }
     }
+
 }

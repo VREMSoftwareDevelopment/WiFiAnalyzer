@@ -17,17 +17,18 @@
 package com.vrem.wifianalyzer.vendor.model;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-
-import com.vrem.wifianalyzer.MainContext;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Database extends SQLiteOpenHelper implements BaseColumns {
+
     static final String TABLE_NAME = "macvendorname";
     static final String COLUMN_MAC = "mac";
     static final String COLUMN_NAME = "name";
@@ -42,8 +43,8 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
     private static final String DATABASE_NAME = "WiFiAnalyzerDB.db";
 
 
-    public Database() {
-        super(MainContext.INSTANCE.getContext(), DATABASE_NAME, null, DATABASE_VERSION);
+    public Database(@NonNull Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override

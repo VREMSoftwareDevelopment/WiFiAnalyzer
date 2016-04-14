@@ -16,6 +16,8 @@
 
 package com.vrem.wifianalyzer.wifi;
 
+import android.support.annotation.NonNull;
+
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -28,7 +30,7 @@ class AccessPointsAdapterData {
     private List<WiFiDetail> wiFiDetails = new ArrayList<>();
 
     protected void update(WiFiData wiFiData) {
-        Settings settings = MainContext.INSTANCE.getSettings();
+        Settings settings = getSettings();
         wiFiDetails = wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy(), settings.getGroupBy());
     }
 
@@ -55,4 +57,20 @@ class AccessPointsAdapterData {
     protected WiFiDetail child(int indexParent, int indexChild) {
         return validChildrenIndex(indexParent, indexChild) ? wiFiDetails.get(indexParent).getChildren().get(indexChild) : WiFiDetail.EMPTY;
     }
+
+    // injectors start
+    private Settings settings;
+
+    private Settings getSettings() {
+        if (settings == null) {
+            settings = MainContext.INSTANCE.getSettings();
+        }
+        return settings;
+    }
+
+    protected void setSettings(@NonNull Settings settings) {
+        this.settings = settings;
+    }
+    // injectors end
+
 }

@@ -17,6 +17,7 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -27,9 +28,9 @@ import android.widget.ExpandableListView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class AccessPointsFragment extends Fragment {
-
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -42,14 +43,14 @@ public class AccessPointsFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
         ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.accessPointsView);
-        expandableListView.setAdapter(new AccessPointsAdapter(activity));
+        expandableListView.setAdapter(new AccessPointsAdapter(activity, getScanner()));
 
         return view;
     }
 
     private void refresh() {
         swipeRefreshLayout.setRefreshing(true);
-        MainContext.INSTANCE.getScanner().update();
+        getScanner().update();
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -66,4 +67,18 @@ public class AccessPointsFragment extends Fragment {
         }
     }
 
+    // injectors start
+    private Scanner scanner;
+
+    private Scanner getScanner() {
+        if (scanner == null) {
+            scanner = MainContext.INSTANCE.getScanner();
+        }
+        return scanner;
+    }
+
+    protected void setScanner(@NonNull Scanner scanner) {
+        this.scanner = scanner;
+    }
+    // injectors end
 }

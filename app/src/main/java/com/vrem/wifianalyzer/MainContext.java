@@ -18,8 +18,6 @@ package com.vrem.wifianalyzer;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.net.wifi.WifiManager;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 
@@ -35,9 +33,7 @@ public enum MainContext {
     private Context context;
     private Resources resources;
     private Scanner scanner;
-    private Handler handler;
     private VendorService vendorService;
-    private WifiManager wifiManager;
     private LayoutInflater layoutInflater;
     private Database database;
     private Logger logger;
@@ -47,23 +43,15 @@ public enum MainContext {
         return settings;
     }
 
-    public void setSettings(@NonNull Settings settings) {
+    protected void setSettings(@NonNull Settings settings) {
         this.settings = settings;
-    }
-
-    public Handler getHandler() {
-        return handler;
-    }
-
-    public void setHandler(@NonNull Handler handler) {
-        this.handler = handler;
     }
 
     public VendorService getVendorService() {
         return vendorService;
     }
 
-    public void setVendorService(@NonNull VendorService vendorService) {
+    protected void setVendorService(@NonNull VendorService vendorService) {
         this.vendorService = vendorService;
     }
 
@@ -71,23 +59,15 @@ public enum MainContext {
         return scanner;
     }
 
-    public void setScanner(@NonNull Scanner scanner) {
+    protected void setScanner(@NonNull Scanner scanner) {
         this.scanner = scanner;
-    }
-
-    public WifiManager getWifiManager() {
-        return wifiManager;
-    }
-
-    public void setWifiManager(@NonNull WifiManager wifiManager) {
-        this.wifiManager = wifiManager;
     }
 
     public LayoutInflater getLayoutInflater() {
         return layoutInflater;
     }
 
-    public void setLayoutInflater(LayoutInflater layoutInflater) {
+    protected void setLayoutInflater(LayoutInflater layoutInflater) {
         this.layoutInflater = layoutInflater;
     }
 
@@ -95,7 +75,7 @@ public enum MainContext {
         return database;
     }
 
-    public void setDatabase(@NonNull Database database) {
+    protected void setDatabase(@NonNull Database database) {
         this.database = database;
     }
 
@@ -103,7 +83,7 @@ public enum MainContext {
         return resources;
     }
 
-    public void setResources(Resources resources) {
+    protected void setResources(Resources resources) {
         this.resources = resources;
     }
 
@@ -111,7 +91,7 @@ public enum MainContext {
         return context;
     }
 
-    public void setContext(@NonNull Context context) {
+    protected void setContext(@NonNull Context context) {
         this.context = context;
     }
 
@@ -119,35 +99,15 @@ public enum MainContext {
         return logger;
     }
 
-    public void setLogger(@NonNull Logger logger) {
+    protected void setLogger(@NonNull Logger logger) {
         this.logger = logger;
-    }
-
-    public boolean isInitialized() {
-        return settings != null && context != null && resources != null && handler != null &&
-                vendorService != null && wifiManager != null && layoutInflater != null &&
-                database != null && logger != null && configuration != null;
-    }
-
-    public void clear() {
-        settings = null;
-        context = null;
-        resources = null;
-        scanner = null;
-        handler = null;
-        vendorService = null;
-        wifiManager = null;
-        layoutInflater = null;
-        database = null;
-        logger = null;
-        configuration = null;
     }
 
     public Configuration getConfiguration() {
         return configuration;
     }
 
-    public void setConfiguration(Configuration configuration) {
+    protected void setConfiguration(Configuration configuration) {
         this.configuration = configuration;
     }
 }

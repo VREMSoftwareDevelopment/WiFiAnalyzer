@@ -18,7 +18,7 @@ package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
@@ -36,32 +36,39 @@ import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ChannelGraphAdapterTest {
 
+    private Scanner scanner;
+    private Configuration configuration;
+    private ChannelGraphNavigation channelGraphNavigation;
     private ChannelGraphAdapter fixture;
 
     @Before
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
 
-        Scanner scanner = mock(Scanner.class);
-        MainContext.INSTANCE.setScanner(scanner);
+        scanner = mock(Scanner.class);
+        configuration = mock(Configuration.class);
+        channelGraphNavigation = mock(ChannelGraphNavigation.class);
 
-        fixture = new ChannelGraphAdapter();
+        when(configuration.getLocale()).thenReturn(Locale.US);
 
-        verify(scanner).addUpdateNotifier(fixture);
+        fixture = new ChannelGraphAdapter(scanner, configuration, channelGraphNavigation);
     }
 
     @After
     public void tearDown() throws Exception {
-        RobolectricUtil.INSTANCE.restore();
+        verify(scanner).addUpdateNotifier(fixture);
+        verify(configuration).getLocale();
     }
 
     @Test
@@ -77,7 +84,7 @@ public class ChannelGraphAdapterTest {
     private int expectedCount() {
         int expected = 0;
         for (WiFiBand wiFiBand : WiFiBand.values()) {
-            expected += wiFiBand.getWiFiChannels().getWiFiChannelPairs(MainContext.INSTANCE.getConfiguration().getLocale()).size();
+            expected += wiFiBand.getWiFiChannels().getWiFiChannelPairs(Locale.US).size();
         }
         return expected;
     }
@@ -98,6 +105,8 @@ public class ChannelGraphAdapterTest {
         WiFiData wiFiData = new WiFiData(new ArrayList<WiFiDetail>(), WiFiConnection.EMPTY, new ArrayList<String>());
         // execute
         fixture.update(wiFiData);
+        // validate
+        verify(channelGraphNavigation).update();
     }
 
 }

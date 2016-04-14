@@ -17,6 +17,7 @@
 package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -26,8 +27,10 @@ import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
 
 import com.jjoe64.graphview.GraphView;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class ChannelGraphFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -39,16 +42,17 @@ public class ChannelGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.graphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        ChannelGraphAdapter channelGraphAdapter = new ChannelGraphAdapter();
+        ChannelGraphNavigation channelGraphNavigation = new ChannelGraphNavigation();
+        ChannelGraphAdapter channelGraphAdapter = new ChannelGraphAdapter(getScanner(), getConfiguration(), channelGraphNavigation);
         addGraphViews(swipeRefreshLayout, channelGraphAdapter);
-        addGraphNavigation(view, channelGraphAdapter);
+        addGraphNavigation(view, channelGraphNavigation);
 
         return view;
     }
 
-    private void addGraphNavigation(View view, ChannelGraphAdapter channelGraphAdapter) {
+    private void addGraphNavigation(View view, ChannelGraphNavigation channelGraphNavigation) {
         LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.graphNavigation);
-        for (View navigation : channelGraphAdapter.getChannelGraphNavigation().getNavigationItems()) {
+        for (View navigation : channelGraphNavigation.getNavigationItems()) {
             linearLayout.addView(navigation);
         }
     }
@@ -62,7 +66,7 @@ public class ChannelGraphFragment extends Fragment {
 
     private void refresh() {
         swipeRefreshLayout.setRefreshing(true);
-        MainContext.INSTANCE.getScanner().update();
+        getScanner().update();
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -78,4 +82,31 @@ public class ChannelGraphFragment extends Fragment {
             refresh();
         }
     }
+
+    // injectors start
+    private Scanner scanner;
+    private Configuration configuration;
+
+    private Scanner getScanner() {
+        if (scanner == null) {
+            scanner = MainContext.INSTANCE.getScanner();
+        }
+        return scanner;
+    }
+
+    protected void setScanner(@NonNull Scanner scanner) {
+        this.scanner = scanner;
+    }
+
+    private Configuration getConfiguration() {
+        if (configuration == null) {
+            configuration = MainContext.INSTANCE.getConfiguration();
+        }
+        return configuration;
+    }
+
+    protected void setConfiguration(@NonNull Configuration configuration) {
+        this.configuration = configuration;
+    }
+    // injectors end
 }

@@ -33,7 +33,6 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class VendorService {
-
     private final Set<String> remoteCalls = new TreeSet<>();
     private final Map<String, String> cache = new HashMap<>();
     private RemoteCall remoteCall;
@@ -46,7 +45,7 @@ public class VendorService {
         if (cache.containsKey(key)) {
             return cache.get(key);
         }
-        String result = MainContext.INSTANCE.getDatabase().find(macAddress);
+        String result = getDatabase().find(macAddress);
         if (result != null) {
             result = cleanVendorName(result);
             cache.put(key, result);
@@ -74,7 +73,7 @@ public class VendorService {
 
     public SortedMap<String, List<String>> findAll() {
         SortedMap<String, List<String>> results = new TreeMap<>();
-        List<VendorData> vendorDatas = MainContext.INSTANCE.getDatabase().findAll();
+        List<VendorData> vendorDatas = getDatabase().findAll();
         for (VendorData vendorData : vendorDatas) {
             String key = cleanVendorName(vendorData.getName());
             List<String> macs = results.get(key);
@@ -100,4 +99,19 @@ public class VendorService {
                 .trim()
                 .toUpperCase();
     }
+
+    // injectors start
+    private Database database;
+
+    private Database getDatabase() {
+        if (database == null) {
+            database = MainContext.INSTANCE.getDatabase();
+        }
+        return database;
+    }
+
+    protected void setDatabase(@NonNull Database database) {
+        this.database = database;
+    }
+    // injectors end
 }

@@ -17,11 +17,9 @@
 package com.vrem.wifianalyzer.wifi.graph.time;
 
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,14 +42,9 @@ public class TimeGraphFragmentTest {
         RobolectricUtil.INSTANCE.getMainActivity();
 
         scanner = mock(Scanner.class);
-        MainContext.INSTANCE.setScanner(scanner);
 
         fixture = new TimeGraphFragment();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        RobolectricUtil.INSTANCE.restore();
+        fixture.setScanner(scanner);
     }
 
     @Test

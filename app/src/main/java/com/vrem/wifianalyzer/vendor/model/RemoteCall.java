@@ -19,6 +19,7 @@ package com.vrem.wifianalyzer.vendor.model;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+import com.vrem.wifianalyzer.Logger;
 import com.vrem.wifianalyzer.MainContext;
 
 import org.apache.commons.lang3.StringUtils;
@@ -71,7 +72,6 @@ class RemoteCall extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         if (StringUtils.isNotBlank(result)) {
-            MainContext mainContext = MainContext.INSTANCE;
             try {
                 JSONArray jsonArray = new JSONArray(result);
                 if (jsonArray.length() > 0) {
@@ -79,12 +79,12 @@ class RemoteCall extends AsyncTask<String, Void, String> {
                     String macAddress = getValue(jsonObject, "startHex");
                     String vendorName = getValue(jsonObject, "company");
                     if (StringUtils.isNotBlank(macAddress)) {
-                        mainContext.getLogger().info(this, macAddress + " " + vendorName);
-                        mainContext.getDatabase().insert(macAddress, vendorName);
+                        getLogger().info(this, macAddress + " " + vendorName);
+                        getDatabase().insert(macAddress, vendorName);
                     }
                 }
             } catch (JSONException e) {
-                mainContext.getLogger().error(this, result, e);
+                getLogger().error(this, result, e);
             }
         }
     }
@@ -98,4 +98,30 @@ class RemoteCall extends AsyncTask<String, Void, String> {
         }
     }
 
+    // injectors start
+    private Logger logger;
+    private Database database;
+
+    private Logger getLogger() {
+        if (logger == null) {
+            logger = MainContext.INSTANCE.getLogger();
+        }
+        return logger;
+    }
+
+    protected void setLogger(@NonNull Logger logger) {
+        this.logger = logger;
+    }
+
+    private Database getDatabase() {
+        if (database == null) {
+            database = MainContext.INSTANCE.getDatabase();
+        }
+        return database;
+    }
+
+    protected void setDatabase(@NonNull Database database) {
+        this.database = database;
+    }
+    // injectors end
 }

@@ -21,10 +21,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.vrem.wifianalyzer.BuildConfig;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
@@ -35,7 +36,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,6 +44,7 @@ import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -58,26 +59,27 @@ public class ChannelRatingAdapterTest {
     private ChannelRatingAdapter fixture;
     private TextView bestChannels;
     private Scanner scanner;
+    private Settings settings;
     private ChannelRating channelRating;
+    private Configuration configuration;
 
     @Before
     public void setUp() throws Exception {
         MainActivity mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
 
-        scanner = mock(Scanner.class);
-        MainContext.INSTANCE.setScanner(scanner);
-
-        bestChannels = mock(TextView.class);
         channelRating = mock(ChannelRating.class);
+        scanner = mock(Scanner.class);
+        configuration = mock(Configuration.class);
+        settings = mock(Settings.class);
+        bestChannels = mock(TextView.class);
 
-        fixture = new ChannelRatingAdapter(mainActivity, bestChannels);
+        fixture = new ChannelRatingAdapter(scanner, mainActivity, bestChannels);
         fixture.setChannelRating(channelRating);
+        fixture.setSettings(settings);
+        fixture.setConfiguration(configuration);
+        fixture.setSettings(settings);
     }
 
-    @After
-    public void tearDown() throws Exception {
-        RobolectricUtil.INSTANCE.restore();
-    }
 
     @Test
     public void testChannelRatingAdapter() throws Exception {
@@ -114,11 +116,15 @@ public class ChannelRatingAdapterTest {
     public void testUpdate() throws Exception {
         // setup
         WiFiData wiFiData = new WiFiData(new ArrayList<WiFiDetail>(), WiFiConnection.EMPTY, new ArrayList<String>());
-        List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(MainContext.INSTANCE.getSettings().getWiFiBand(), SortBy.STRENGTH);
+        List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(WiFiBand.GHZ5, SortBy.STRENGTH);
+        when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
+        when(configuration.getLocale()).thenReturn(Locale.US);
         // execute
         fixture.update(wiFiData);
         // validate
         verify(channelRating).setWiFiChannels(wiFiDetails);
+        verify(settings).getWiFiBand();
+        verify(configuration).getLocale();
     }
 
     @Test

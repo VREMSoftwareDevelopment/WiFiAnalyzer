@@ -27,7 +27,6 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
 public class SettingActivity extends PreferenceActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(MainContext.INSTANCE.getSettings().getThemeStyle().themeDeviceDefaultStyle());
