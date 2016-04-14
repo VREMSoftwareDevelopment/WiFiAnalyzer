@@ -23,7 +23,6 @@ import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
-import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -81,7 +80,7 @@ class ChannelGraphView implements GraphViewNotifier {
 
     private boolean isSelected() {
         WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
-        Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = MainConfiguration.INSTANCE.getWiFiChannelPair();
+        Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = MainContext.INSTANCE.getConfiguration().getWiFiChannelPair();
         return this.wiFiBand.equals(wiFiBand) && (WiFiBand.GHZ2.equals(this.wiFiBand) || this.wiFiChannelPair.equals(wiFiChannelPair));
     }
 
@@ -118,7 +117,7 @@ class ChannelGraphView implements GraphViewNotifier {
 
     private int getNumX() {
         int numX = CNT_X_LARGE;
-        if (!MainConfiguration.INSTANCE.isLargeScreenLayout()) {
+        if (!MainContext.INSTANCE.getConfiguration().isLargeScreenLayout()) {
             numX = WiFiBand.GHZ2.equals(wiFiBand) ? CNT_X_SMALL_2 : CNT_X_SMALL_5;
         }
         int channelFirst = wiFiChannelPair.first.getChannel() - wiFiBand.getWiFiChannels().getChannelOffset();
@@ -130,7 +129,7 @@ class ChannelGraphView implements GraphViewNotifier {
         MainContext mainContext = MainContext.INSTANCE;
         Resources resources = mainContext.getResources();
         return new GraphViewBuilder(mainContext.getContext(), getNumX())
-                .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair, MainConfiguration.INSTANCE.getLocale()))
+                .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair, mainContext.getConfiguration().getLocale()))
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
                 .build();

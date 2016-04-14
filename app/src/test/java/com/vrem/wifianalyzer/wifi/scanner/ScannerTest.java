@@ -27,8 +27,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.Logger;
-import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
@@ -55,22 +55,40 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ScannerTest {
-    @Mock private Handler handler;
-    @Mock private Settings settings;
-    @Mock private WifiManager wifiManager;
-    @Mock private UpdateNotifier updateNotifier1;
-    @Mock private UpdateNotifier updateNotifier2;
-    @Mock private WifiInfo wifiInfo;
-    @Mock private Cache cache;
-    @Mock private Transformer transformer;
-    @Mock private Logger logger;
-    @Mock private WiFiData wiFiData;
-    @Mock private PeriodicScan periodicScan;
-    @Mock private Context context;
-    @Mock private Resources resources;
-    @Mock private VendorService vendorService;
-    @Mock private LayoutInflater layoutInflater;
-    @Mock private Database database;
+    @Mock
+    private Handler handler;
+    @Mock
+    private Settings settings;
+    @Mock
+    private WifiManager wifiManager;
+    @Mock
+    private UpdateNotifier updateNotifier1;
+    @Mock
+    private UpdateNotifier updateNotifier2;
+    @Mock
+    private WifiInfo wifiInfo;
+    @Mock
+    private Cache cache;
+    @Mock
+    private Transformer transformer;
+    @Mock
+    private Logger logger;
+    @Mock
+    private WiFiData wiFiData;
+    @Mock
+    private PeriodicScan periodicScan;
+    @Mock
+    private Context context;
+    @Mock
+    private Resources resources;
+    @Mock
+    private VendorService vendorService;
+    @Mock
+    private LayoutInflater layoutInflater;
+    @Mock
+    private Database database;
+    @Mock
+    private Configuration configuration;
 
     private List<ScanResult> scanResults;
     private List<ScanResult> cachedScanResults;
@@ -93,10 +111,6 @@ public class ScannerTest {
     }
 
     private void initializeMainContext() {
-        MainConfiguration mainConfiguration = MainConfiguration.INSTANCE;
-        mainConfiguration.setLocale(Locale.US);
-        mainConfiguration.setWiFiChannelPair(new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN));
-
         MainContext mainContext = MainContext.INSTANCE;
         mainContext.setSettings(settings);
         mainContext.setHandler(handler);
@@ -107,11 +121,14 @@ public class ScannerTest {
         mainContext.setVendorService(vendorService);
         mainContext.setLayoutInflater(layoutInflater);
         mainContext.setDatabase(database);
+        mainContext.setConfiguration(configuration);
+
+        when(configuration.getLocale()).thenReturn(Locale.US);
+        when(configuration.getWiFiChannelPair()).thenReturn(new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN));
     }
 
     @After
     public void tearDown() throws Exception {
-        MainConfiguration.INSTANCE.clear();
         MainContext.INSTANCE.clear();
     }
 
@@ -232,6 +249,5 @@ public class ScannerTest {
         // validate
         verify(periodicScan).start();
     }
-
 
 }

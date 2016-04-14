@@ -20,7 +20,6 @@ import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
@@ -57,7 +56,7 @@ public class ChannelGraphViewTest {
 
         graphViewWrapper = mock(GraphViewWrapper.class);
 
-        fixture = new ChannelGraphView(MainContext.INSTANCE.getSettings().getWiFiBand(), MainConfiguration.INSTANCE.getWiFiChannelPair());
+        fixture = new ChannelGraphView(MainContext.INSTANCE.getSettings().getWiFiBand(), MainContext.INSTANCE.getConfiguration().getWiFiChannelPair());
         fixture.setGraphViewWrapper(graphViewWrapper);
     }
 

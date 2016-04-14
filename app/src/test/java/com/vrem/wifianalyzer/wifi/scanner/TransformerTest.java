@@ -21,7 +21,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 
-import com.vrem.wifianalyzer.MainConfiguration;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -73,6 +73,8 @@ public class TransformerTest {
     private ScanResult scanResult3;
     @Mock
     private Context context;
+    @Mock
+    private Configuration configuration;
 
     private List<ScanResult> scanResults;
     private List<WifiConfiguration> wifiConfigurations;
@@ -81,7 +83,7 @@ public class TransformerTest {
     @Before
     public void setUp() throws Exception {
         MainContext.INSTANCE.setContext(context);
-        MainConfiguration.INSTANCE.setLocale(Locale.US);
+        MainContext.INSTANCE.setConfiguration(configuration);
 
         scanResults = Arrays.asList(scanResult1, scanResult2, scanResult3);
         wifiConfigurations = Arrays.asList(wifiConfiguration1, wifiConfiguration2, wifiConfiguration3);
@@ -91,7 +93,6 @@ public class TransformerTest {
     @After
     public void tearDown() throws Exception {
         MainContext.INSTANCE.clear();
-        MainConfiguration.INSTANCE.clear();
     }
 
     @Test
@@ -154,11 +155,14 @@ public class TransformerTest {
     @Test
     public void testTransformScanResultsInDevelopmentMode() throws Exception {
         // setup
-        MainConfiguration.INSTANCE.setDevelopmentMode(true);
+        when(configuration.isDevelopmentMode()).thenReturn(true);
+        when(configuration.getLocale()).thenReturn(Locale.US);
         withScanResult();
         // execute
         List<WiFiDetail> actual = fixture.transformScanResults(scanResults);
         // validate
+        verify(configuration).isDevelopmentMode();
+        verify(configuration).getLocale();
         assertEquals(scanResults.size() + 3, actual.size());
     }
 

@@ -23,7 +23,6 @@ import android.view.View;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -90,7 +89,7 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     private int getNumX() {
-        return MainConfiguration.INSTANCE.isLargeScreenLayout() ? NUM_X_LARGE : NUM_X_SMALL;
+        return MainContext.INSTANCE.getConfiguration().isLargeScreenLayout() ? NUM_X_LARGE : NUM_X_SMALL;
     }
 
     protected void setGraphViewWrapper(@NonNull GraphViewWrapper graphViewWrapper) {

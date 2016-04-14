@@ -19,7 +19,7 @@ package com.vrem.wifianalyzer.wifi.graph.channel;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
-import com.vrem.wifianalyzer.MainConfiguration;
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphAdapter;
@@ -41,7 +41,7 @@ class ChannelGraphAdapter extends GraphAdapter {
     @NonNull
     @Override
     public List<GraphViewNotifier> makeGraphViewNotifiers() {
-        Locale locale = MainConfiguration.INSTANCE.getLocale();
+        Locale locale = MainContext.INSTANCE.getConfiguration().getLocale();
         List<GraphViewNotifier> graphViewNotifiers = new ArrayList<>();
         for (WiFiBand wiFiBand : WiFiBand.values()) {
             for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiBand.getWiFiChannels().getWiFiChannelPairs(locale)) {

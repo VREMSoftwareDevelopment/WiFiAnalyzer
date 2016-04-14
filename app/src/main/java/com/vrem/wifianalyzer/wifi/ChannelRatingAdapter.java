@@ -27,7 +27,6 @@ import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
@@ -71,7 +70,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     }
 
     private List<WiFiChannel> setWiFiChannels(WiFiBand wiFiBand) {
-        Locale locale = MainConfiguration.INSTANCE.getLocale();
+        Locale locale = MainContext.INSTANCE.getConfiguration().getLocale();
         List<WiFiChannel> wiFiChannels = wiFiBand.getWiFiChannels().getAvailableChannels(locale);
         clear();
         addAll(wiFiChannels);

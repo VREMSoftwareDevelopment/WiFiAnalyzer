@@ -20,7 +20,7 @@ import android.view.View;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.MainConfiguration;
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
@@ -51,10 +51,13 @@ public class AccessPointsAdapterTest {
     private AccessPointsAdapter fixture;
     private AccessPointsAdapterData accessPointsAdapterData;
     private AccessPointsDetail accessPointsDetail;
+    private boolean largeScreenLayout;
 
     @Before
     public void setUp() throws Exception {
         mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
+
+        largeScreenLayout = MainContext.INSTANCE.getConfiguration().isLargeScreenLayout();
 
         accessPointsAdapterData = mock(AccessPointsAdapterData.class);
         accessPointsDetail = mock(AccessPointsDetail.class);
@@ -80,7 +83,7 @@ public class AccessPointsAdapterTest {
         // validate
         assertNotNull(actual);
         assertEquals(View.GONE, actual.findViewById(R.id.groupIndicator).getVisibility());
-        verify(accessPointsDetail).setView(mainActivity.getResources(), actual, wiFiDetail, false, MainConfiguration.INSTANCE.isLargeScreenLayout());
+        verify(accessPointsDetail).setView(mainActivity.getResources(), actual, wiFiDetail, false, largeScreenLayout);
         verify(accessPointsAdapterData).parent(1);
         verify(accessPointsAdapterData).childrenCount(1);
     }
@@ -96,7 +99,7 @@ public class AccessPointsAdapterTest {
         // validate
         assertNotNull(actual);
         assertEquals(View.VISIBLE, actual.findViewById(R.id.groupIndicator).getVisibility());
-        verify(accessPointsDetail).setView(mainActivity.getResources(), actual, wiFiDetail, false, MainConfiguration.INSTANCE.isLargeScreenLayout());
+        verify(accessPointsDetail).setView(mainActivity.getResources(), actual, wiFiDetail, false, largeScreenLayout);
         verify(accessPointsAdapterData).parent(1);
         verify(accessPointsAdapterData).childrenCount(1);
     }
@@ -111,7 +114,7 @@ public class AccessPointsAdapterTest {
         // validate
         assertNotNull(actual);
         assertEquals(View.GONE, actual.findViewById(R.id.groupIndicator).getVisibility());
-        verify(accessPointsDetail).setView(mainActivity.getResources(), actual, wiFiDetail, true, MainConfiguration.INSTANCE.isLargeScreenLayout());
+        verify(accessPointsDetail).setView(mainActivity.getResources(), actual, wiFiDetail, true, largeScreenLayout);
         verify(accessPointsAdapterData).child(0, 0);
     }
 

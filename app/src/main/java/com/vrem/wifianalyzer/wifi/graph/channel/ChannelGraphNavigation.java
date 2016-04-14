@@ -25,7 +25,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.vrem.wifianalyzer.MainConfiguration;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
@@ -55,10 +55,10 @@ class ChannelGraphNavigation {
 
     private void makeNavigationItems() {
         Context context = MainContext.INSTANCE.getContext();
-        MainConfiguration mainConfiguration = MainConfiguration.INSTANCE;
-        Pair<WiFiChannel, WiFiChannel> selected = mainConfiguration.getWiFiChannelPair();
+        Configuration configuration = MainContext.INSTANCE.getConfiguration();
+        Pair<WiFiChannel, WiFiChannel> selected = configuration.getWiFiChannelPair();
         List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = WiFiBand.GHZ5.getWiFiChannels()
-                .getWiFiChannelPairs(mainConfiguration.getLocale());
+                .getWiFiChannelPairs(configuration.getLocale());
         if (wiFiChannelPairs.size() > 1) {
             for (Pair<WiFiChannel, WiFiChannel> pair : wiFiChannelPairs) {
                 navigationItems.add(makeNavigationItem(context, pair, pair.equals(selected)));
@@ -71,7 +71,7 @@ class ChannelGraphNavigation {
         String text = pair.first.getChannel() + " - " + pair.second.getChannel();
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, TEXT_SIZE_ADJUSTMENT);
-        if (MainConfiguration.INSTANCE.isLargeScreenLayout()) {
+        if (MainContext.INSTANCE.getConfiguration().isLargeScreenLayout()) {
             params.setMargins(10, -10, 10, -10);
         } else {
             params.setMargins(5, -30, 5, -30);
@@ -110,7 +110,7 @@ class ChannelGraphNavigation {
         @Override
         public void onClick(View view) {
             setButtonsBackgroundColor(view);
-            MainConfiguration.INSTANCE.setWiFiChannelPair(wiFiChannelPair);
+            MainContext.INSTANCE.getConfiguration().setWiFiChannelPair(wiFiChannelPair);
             MainContext.INSTANCE.getScanner().update();
         }
     }

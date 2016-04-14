@@ -23,13 +23,26 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 
 import java.util.Locale;
 
-public enum MainConfiguration {
-    INSTANCE;
-
-    private Locale locale;
+public class Configuration {
+    private final Locale locale;
+    private final boolean developmentMode;
+    private final boolean largeScreenLayout;
     private Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
-    private boolean developmentMode;
-    private boolean largeScreenLayout;
+
+    public Configuration(@NonNull Locale locale, boolean largeScreenLayout, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair, boolean developmentMode) {
+        this.locale = locale;
+        this.largeScreenLayout = largeScreenLayout;
+        setWiFiChannelPair(wiFiChannelPair);
+        this.developmentMode = developmentMode;
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public boolean isLargeScreenLayout() {
+        return largeScreenLayout;
+    }
 
     public Pair<WiFiChannel, WiFiChannel> getWiFiChannelPair() {
         return wiFiChannelPair;
@@ -39,40 +52,7 @@ public enum MainConfiguration {
         this.wiFiChannelPair = wiFiChannelPair;
     }
 
-    public Locale getLocale() {
-        return locale;
-    }
-
-    public void setLocale(@NonNull Locale locale) {
-        this.locale = locale;
-    }
-
-
     public boolean isDevelopmentMode() {
         return developmentMode;
     }
-
-    public void setDevelopmentMode(boolean developmentMode) {
-        this.developmentMode = developmentMode;
-    }
-
-    public boolean isLargeScreenLayout() {
-        return largeScreenLayout;
-    }
-
-    public void setLargeScreenLayout(boolean largeScreenLayout) {
-        this.largeScreenLayout = largeScreenLayout;
-    }
-
-    public boolean isInitialized() {
-        return locale != null && wiFiChannelPair != null;
-    }
-
-    public void clear() {
-        locale = null;
-        wiFiChannelPair = null;
-        developmentMode = false;
-        largeScreenLayout = false;
-    }
-
 }

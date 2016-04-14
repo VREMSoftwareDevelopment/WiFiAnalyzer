@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.view.View;
 
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
@@ -49,6 +50,8 @@ public class ConnectionViewTest {
     @Mock
     private Resources resources;
     @Mock
+    private Configuration configuration;
+    @Mock
     private View view;
     @Mock
     private AccessPointsDetail accessPointsDetail;
@@ -59,7 +62,9 @@ public class ConnectionViewTest {
 
     @Before
     public void setUp() throws Exception {
-        MainContext.INSTANCE.setScanner(scanner);
+        MainContext mainContext = MainContext.INSTANCE;
+        mainContext.setScanner(scanner);
+        mainContext.setConfiguration(configuration);
 
         when(activity.getResources()).thenReturn(resources);
         when(activity.findViewById(R.id.connection)).thenReturn(view);

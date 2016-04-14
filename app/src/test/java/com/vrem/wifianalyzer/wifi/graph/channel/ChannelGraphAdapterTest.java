@@ -18,7 +18,6 @@ package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
@@ -78,7 +77,7 @@ public class ChannelGraphAdapterTest {
     private int expectedCount() {
         int expected = 0;
         for (WiFiBand wiFiBand : WiFiBand.values()) {
-            expected += wiFiBand.getWiFiChannels().getWiFiChannelPairs(MainConfiguration.INSTANCE.getLocale()).size();
+            expected += wiFiBand.getWiFiChannels().getWiFiChannelPairs(MainContext.INSTANCE.getConfiguration().getLocale()).size();
         }
         return expected;
     }

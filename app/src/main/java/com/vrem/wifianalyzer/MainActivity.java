@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.res.Configuration;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -92,11 +91,9 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     private void initializeMainContext(@NonNull Context context) {
-        initializeMainConfiguration(context);
-
+        MainContext.INSTANCE.setConfiguration(getConfiguration(context));
         MainContext.INSTANCE.setContext(context);
         MainContext.INSTANCE.setResources(context.getResources());
-
         MainContext.INSTANCE.setDatabase(new Database());
         MainContext.INSTANCE.setSettings(new Settings());
         MainContext.INSTANCE.setHandler(new Handler());
@@ -109,22 +106,19 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         MainContext.INSTANCE.setScanner(new Scanner());
     }
 
-    private void initializeMainConfiguration(@NonNull Context context) {
-        boolean isDevelopmentMode = isDevelopmentMode(context);
+    private Configuration getConfiguration(@NonNull Context context) {
+        boolean isDevelopmentMode = WI_FI_ANALYZER_BETA.equals(context.getString(R.string.app_name));
         Locale locale = isDevelopmentMode ? WiFiChannelCountry.WORLD_LOCALE : context.getResources().getConfiguration().locale;
-        MainConfiguration.INSTANCE.setLocale(locale);
-        MainConfiguration.INSTANCE.setWiFiChannelPair(WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(locale).get(0));
-        MainConfiguration.INSTANCE.setDevelopmentMode(isDevelopmentMode);
-        MainConfiguration.INSTANCE.setLargeScreenLayout(isLargeScreenLayout());
-    }
-
-    private boolean isDevelopmentMode(@NonNull Context context) {
-        return WI_FI_ANALYZER_BETA.equals(context.getString(R.string.app_name));
+        return new Configuration(
+                locale,
+                isLargeScreenLayout(),
+                WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(locale).get(0),
+                isDevelopmentMode);
     }
 
     private boolean isLargeScreenLayout() {
-        int screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-        return screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_XLARGE;
+        int screenLayoutSize = getResources().getConfiguration().screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK;
+        return screenLayoutSize == android.content.res.Configuration.SCREENLAYOUT_SIZE_LARGE || screenLayoutSize == android.content.res.Configuration.SCREENLAYOUT_SIZE_XLARGE;
     }
 
     @Override

@@ -41,6 +41,7 @@ public enum MainContext {
     private LayoutInflater layoutInflater;
     private Database database;
     private Logger logger;
+    private Configuration configuration;
 
     public Settings getSettings() {
         return settings;
@@ -125,7 +126,7 @@ public enum MainContext {
     public boolean isInitialized() {
         return settings != null && context != null && resources != null && handler != null &&
                 vendorService != null && wifiManager != null && layoutInflater != null &&
-                database != null && logger != null;
+                database != null && logger != null && configuration != null;
     }
 
     public void clear() {
@@ -139,5 +140,14 @@ public enum MainContext {
         layoutInflater = null;
         database = null;
         logger = null;
+        configuration = null;
+    }
+
+    public Configuration getConfiguration() {
+        return configuration;
+    }
+
+    public void setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
     }
 }

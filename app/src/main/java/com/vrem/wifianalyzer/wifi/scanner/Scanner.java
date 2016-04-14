@@ -19,7 +19,6 @@ package com.vrem.wifianalyzer.wifi.scanner;
 import android.net.wifi.WifiManager;
 import android.support.annotation.NonNull;
 
-import com.vrem.wifianalyzer.MainConfiguration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
@@ -33,7 +32,7 @@ public class Scanner {
     private Transformer transformer;
 
     public Scanner() {
-        if (!MainContext.INSTANCE.isInitialized() || !MainConfiguration.INSTANCE.isInitialized()) {
+        if (!MainContext.INSTANCE.isInitialized()) {
             throw new IllegalArgumentException("Main Context/Configuration is NOT set! Can not start WiFi scans...");
         }
         this.periodicScan = new PeriodicScan(this);

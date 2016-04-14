@@ -22,7 +22,8 @@ import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
-import com.vrem.wifianalyzer.MainConfiguration;
+import com.vrem.wifianalyzer.Configuration;
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
@@ -85,9 +86,9 @@ public class Transformer {
     }
 
     private void addTestData(@NonNull List<WiFiDetail> wiFiDetails) {
-        MainConfiguration mainConfiguration = MainConfiguration.INSTANCE;
-        Locale locale = mainConfiguration.getLocale();
-        if (mainConfiguration.isDevelopmentMode()) {
+        Configuration configuration = MainContext.INSTANCE.getConfiguration();
+        Locale locale = configuration.getLocale();
+        if (configuration.isDevelopmentMode()) {
             int count = 0;
             int level = -45;
             String security = "[WPA-PSK-CCMP+TKIP][WPA2-PSK-CCMP+TKIP][WPS][ESS]";

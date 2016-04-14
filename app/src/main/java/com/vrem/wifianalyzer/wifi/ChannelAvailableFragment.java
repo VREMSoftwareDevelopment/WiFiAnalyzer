@@ -23,7 +23,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.vrem.wifianalyzer.MainConfiguration;
+import com.vrem.wifianalyzer.Configuration;
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
@@ -52,9 +53,9 @@ public class ChannelAvailableFragment extends ListFragment {
 
     private List<WiFiChannelCountry> getChannelAvailable() {
         List<WiFiChannelCountry> results = new ArrayList<>();
-        MainConfiguration mainConfiguration = MainConfiguration.INSTANCE;
-        results.add(WiFiChannelCountry.find(mainConfiguration.getLocale().getCountry()));
-        if (mainConfiguration.isDevelopmentMode()) {
+        Configuration configuration = MainContext.INSTANCE.getConfiguration();
+        results.add(WiFiChannelCountry.find(configuration.getLocale().getCountry()));
+        if (configuration.isDevelopmentMode()) {
             results.addAll(WiFiChannelCountry.getAll());
         }
         return results;

@@ -17,7 +17,8 @@
 package com.vrem.wifianalyzer.wifi;
 
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainConfiguration;
+import com.vrem.wifianalyzer.Configuration;
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.After;
@@ -28,7 +29,13 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
+import java.util.Locale;
+
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -58,14 +65,16 @@ public class ChannelAvailableFragmentTest {
     @Test
     public void testOnCreateViewInDevelopmentMode() throws Exception {
         // setup
-        MainConfiguration mainConfiguration = MainConfiguration.INSTANCE;
-        boolean developmentMode = mainConfiguration.isDevelopmentMode();
-        mainConfiguration.setDevelopmentMode(!developmentMode);
+        Configuration configuration = mock(Configuration.class);
+        MainContext.INSTANCE.setConfiguration(configuration);
+        when(configuration.isDevelopmentMode()).thenReturn(true);
+        when(configuration.getLocale()).thenReturn(Locale.US);
         // execute
         SupportFragmentTestUtil.startFragment(fixture);
         // validate
         assertNotNull(fixture);
-        mainConfiguration.setDevelopmentMode(developmentMode);
+        verify(configuration, atLeastOnce()).isDevelopmentMode();
+        verify(configuration, atLeastOnce()).getLocale();
     }
 
 }
