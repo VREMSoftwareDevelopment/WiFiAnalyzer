@@ -17,12 +17,9 @@
 package com.vrem.wifianalyzer.wifi;
 
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.RobolectricUtil;
-import com.vrem.wifianalyzer.vendor.model.VendorService;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
-import org.apache.commons.lang3.StringUtils;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,30 +28,24 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class AccessPointsFragmentTest {
 
+    private Scanner scanner;
     private AccessPointsFragment fixture;
 
     @Before
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
 
-        VendorService vendorService = mock(VendorService.class);
-        MainContext.INSTANCE.setVendorService(vendorService);
-        when(vendorService.findVendorName(anyString())).thenReturn(StringUtils.EMPTY);
+        scanner = mock(Scanner.class);
 
         fixture = new AccessPointsFragment();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        RobolectricUtil.INSTANCE.restore();
+        fixture.setScanner(scanner);
     }
 
     @Test
@@ -63,5 +54,6 @@ public class AccessPointsFragmentTest {
         SupportFragmentTestUtil.startFragment(fixture);
         // validate
         assertNotNull(fixture);
+        verify(scanner).update();
     }
 }

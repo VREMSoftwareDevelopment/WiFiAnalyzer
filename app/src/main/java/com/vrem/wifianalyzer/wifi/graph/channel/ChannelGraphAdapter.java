@@ -19,12 +19,13 @@ package com.vrem.wifianalyzer.wifi.graph.channel;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
-import com.vrem.wifianalyzer.MainConfiguration;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphAdapter;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,15 +34,15 @@ import java.util.Locale;
 class ChannelGraphAdapter extends GraphAdapter {
     private final ChannelGraphNavigation channelGraphNavigation;
 
-    protected ChannelGraphAdapter() {
-        super();
-        channelGraphNavigation = new ChannelGraphNavigation();
+    protected ChannelGraphAdapter(@NonNull Scanner scanner, @NonNull Configuration configuration, @NonNull ChannelGraphNavigation channelGraphNavigation) {
+        super(scanner, configuration);
+        this.channelGraphNavigation = channelGraphNavigation;
     }
 
     @NonNull
     @Override
-    public List<GraphViewNotifier> makeGraphViewNotifiers() {
-        Locale locale = MainConfiguration.INSTANCE.getLocale();
+    public List<GraphViewNotifier> makeGraphViewNotifiers(@NonNull Configuration configuration) {
+        Locale locale = configuration.getLocale();
         List<GraphViewNotifier> graphViewNotifiers = new ArrayList<>();
         for (WiFiBand wiFiBand : WiFiBand.values()) {
             for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiBand.getWiFiChannels().getWiFiChannelPairs(locale)) {
@@ -55,9 +56,5 @@ class ChannelGraphAdapter extends GraphAdapter {
     public void update(@NonNull WiFiData wiFiData) {
         super.update(wiFiData);
         channelGraphNavigation.update();
-    }
-
-    protected ChannelGraphNavigation getChannelGraphNavigation() {
-        return channelGraphNavigation;
     }
 }

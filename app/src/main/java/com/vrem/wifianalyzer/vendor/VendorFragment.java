@@ -17,6 +17,7 @@
 package com.vrem.wifianalyzer.vendor;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -25,16 +26,17 @@ import android.view.ViewGroup;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.vendor.model.VendorService;
 
 public class VendorFragment extends ListFragment {
-
     private VendorAdapter vendorAdapter;
+    private VendorService vendorService;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.vendor_content, container, false);
-        vendorAdapter = new VendorAdapter(getActivity(), MainContext.INSTANCE.getVendorService().findAll());
+        vendorAdapter = new VendorAdapter(getActivity(), getVendorService().findAll());
         setListAdapter(vendorAdapter);
         return view;
     }
@@ -42,6 +44,20 @@ public class VendorFragment extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
-        vendorAdapter.setVendors(MainContext.INSTANCE.getVendorService().findAll());
+        vendorAdapter.setVendors(getVendorService().findAll());
     }
+
+    // injectors start
+    private VendorService getVendorService() {
+        if (vendorService == null) {
+            vendorService = MainContext.INSTANCE.getVendorService();
+        }
+        return vendorService;
+    }
+
+    protected void setVendorService(@NonNull VendorService vendorService) {
+        this.vendorService = vendorService;
+    }
+    // injectors end
+
 }

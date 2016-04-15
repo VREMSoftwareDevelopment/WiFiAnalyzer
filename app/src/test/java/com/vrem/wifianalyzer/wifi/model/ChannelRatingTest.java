@@ -86,7 +86,7 @@ public class ChannelRatingTest {
     @Test
     public void testGetStrengthWithConnected() throws Exception {
         // setup
-        wiFiDetail1 = new WiFiDetail(wiFiDetail1, new WiFiAdditional(StringUtils.EMPTY, "192.168.1.1"));
+        wiFiDetail1 = new WiFiDetail(wiFiDetail1, new WiFiAdditional(StringUtils.EMPTY, "192.168.1.1", 11));
         WiFiDetail other = makeCopy(wiFiDetail1);
         fixture.setWiFiChannels(Arrays.asList(other, wiFiDetail1));
         Strength expected = other.getWiFiSignal().getStrength();

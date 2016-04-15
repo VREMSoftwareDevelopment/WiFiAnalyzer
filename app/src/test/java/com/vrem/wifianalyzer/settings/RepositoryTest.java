@@ -21,7 +21,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
-import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
 import org.junit.After;
@@ -61,19 +60,16 @@ public class RepositoryTest {
     public void setUp() throws Exception {
         mockStatic(PreferenceManager.class);
 
-        MainContext mainContext = MainContext.INSTANCE;
-        mainContext.setContext(context);
-        mainContext.setResources(resources);
-
         keyValue = "xyz";
         fixture = new Repository();
+        fixture.setContext(context);
+        fixture.setResources(resources);
 
         when(PreferenceManager.getDefaultSharedPreferences(context)).thenReturn(sharedPreferences);
     }
 
     @After
     public void tearDown() throws Exception {
-        MainContext.INSTANCE.clear();
         verifyStatic();
     }
 

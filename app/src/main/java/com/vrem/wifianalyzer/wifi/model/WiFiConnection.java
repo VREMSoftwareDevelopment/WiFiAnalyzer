@@ -24,20 +24,23 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class WiFiConnection {
-    public static final WiFiConnection EMPTY = new WiFiConnection(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY);
+    public static final int LINK_SPEED_INVALID = -1;
+    public static final WiFiConnection EMPTY = new WiFiConnection(StringUtils.EMPTY, StringUtils.EMPTY);
 
     private final String SSID;
     private final String BSSID;
     private final String ipAddress;
+    private final int linkSpeed;
 
-    public WiFiConnection(@NonNull String SSID, @NonNull String BSSID, @NonNull String ipAddress) {
+    public WiFiConnection(@NonNull String SSID, @NonNull String BSSID, @NonNull String ipAddress, int linkSpeed) {
         this.SSID = SSID;
         this.BSSID = BSSID;
         this.ipAddress = ipAddress;
+        this.linkSpeed = linkSpeed;
     }
 
     public WiFiConnection(@NonNull String SSID, @NonNull String BSSID) {
-        this(SSID, BSSID, StringUtils.EMPTY);
+        this(SSID, BSSID, StringUtils.EMPTY, LINK_SPEED_INVALID);
     }
 
     public String getSSID() {
@@ -50,6 +53,10 @@ public class WiFiConnection {
 
     public String getIpAddress() {
         return ipAddress;
+    }
+
+    public int getLinkSpeed() {
+        return linkSpeed;
     }
 
     @Override

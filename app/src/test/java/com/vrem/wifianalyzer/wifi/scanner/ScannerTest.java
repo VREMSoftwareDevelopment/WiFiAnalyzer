@@ -16,27 +16,18 @@
 
 package com.vrem.wifianalyzer.wifi.scanner;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
-import android.view.LayoutInflater;
 
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.Logger;
-import com.vrem.wifianalyzer.MainConfiguration;
-import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.vendor.model.Database;
-import com.vrem.wifianalyzer.vendor.model.VendorService;
-import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,7 +36,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -55,22 +45,30 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ScannerTest {
-    @Mock private Handler handler;
-    @Mock private Settings settings;
-    @Mock private WifiManager wifiManager;
-    @Mock private UpdateNotifier updateNotifier1;
-    @Mock private UpdateNotifier updateNotifier2;
-    @Mock private WifiInfo wifiInfo;
-    @Mock private Cache cache;
-    @Mock private Transformer transformer;
-    @Mock private Logger logger;
-    @Mock private WiFiData wiFiData;
-    @Mock private PeriodicScan periodicScan;
-    @Mock private Context context;
-    @Mock private Resources resources;
-    @Mock private VendorService vendorService;
-    @Mock private LayoutInflater layoutInflater;
-    @Mock private Database database;
+    @Mock
+    private Handler handler;
+    @Mock
+    private Settings settings;
+    @Mock
+    private WifiManager wifiManager;
+    @Mock
+    private UpdateNotifier updateNotifier1;
+    @Mock
+    private UpdateNotifier updateNotifier2;
+    @Mock
+    private WifiInfo wifiInfo;
+    @Mock
+    private Cache cache;
+    @Mock
+    private Transformer transformer;
+    @Mock
+    private Logger logger;
+    @Mock
+    private WiFiData wiFiData;
+    @Mock
+    private PeriodicScan periodicScan;
+    @Mock
+    private Configuration configuration;
 
     private List<ScanResult> scanResults;
     private List<ScanResult> cachedScanResults;
@@ -80,39 +78,13 @@ public class ScannerTest {
 
     @Before
     public void setUp() throws Exception {
-        initializeMainContext();
-
         scanResults = new ArrayList<>();
         cachedScanResults = new ArrayList<>();
         configuredNetworks = new ArrayList<>();
 
-        fixture = new Scanner();
+        fixture = new Scanner(wifiManager, handler, settings, transformer);
         fixture.setCache(cache);
-        fixture.setTransformer(transformer);
         fixture.addUpdateNotifier(updateNotifier1);
-    }
-
-    private void initializeMainContext() {
-        MainConfiguration mainConfiguration = MainConfiguration.INSTANCE;
-        mainConfiguration.setLocale(Locale.US);
-        mainConfiguration.setWiFiChannelPair(new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN));
-
-        MainContext mainContext = MainContext.INSTANCE;
-        mainContext.setSettings(settings);
-        mainContext.setHandler(handler);
-        mainContext.setWifiManager(wifiManager);
-        mainContext.setLogger(logger);
-        mainContext.setContext(context);
-        mainContext.setResources(resources);
-        mainContext.setVendorService(vendorService);
-        mainContext.setLayoutInflater(layoutInflater);
-        mainContext.setDatabase(database);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        MainConfiguration.INSTANCE.clear();
-        MainContext.INSTANCE.clear();
     }
 
     @Test
@@ -232,6 +204,5 @@ public class ScannerTest {
         // validate
         verify(periodicScan).start();
     }
-
 
 }

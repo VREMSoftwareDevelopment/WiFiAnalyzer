@@ -20,22 +20,23 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.vrem.wifianalyzer.MainConfiguration;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 public class ConnectionView implements UpdateNotifier {
     private final Activity activity;
     private AccessPointsDetail accessPointsDetail;
+    private Configuration configuration;
 
-    public ConnectionView(@NonNull Activity activity) {
-        MainContext mainContext = MainContext.INSTANCE;
+    public ConnectionView(@NonNull Activity activity, @NonNull Scanner scanner) {
         this.activity = activity;
         setAccessPointsDetail(new AccessPointsDetail());
-        mainContext.getScanner().addUpdateNotifier(this);
+        scanner.addUpdateNotifier(this);
     }
 
     @Override
@@ -45,7 +46,7 @@ public class ConnectionView implements UpdateNotifier {
         WiFiDetail connection = wiFiData.getConnection();
         if (connection.getWiFiAdditional().isConnected()) {
             view.setVisibility(View.VISIBLE);
-            accessPointsDetail.setView(activity.getResources(), view, connection, false, MainConfiguration.INSTANCE.isLargeScreenLayout());
+            accessPointsDetail.setView(activity.getResources(), view, connection, false, getConfiguration().isLargeScreenLayout());
         } else {
             view.setVisibility(View.GONE);
         }
@@ -54,4 +55,18 @@ public class ConnectionView implements UpdateNotifier {
     protected void setAccessPointsDetail(@NonNull AccessPointsDetail accessPointsDetail) {
         this.accessPointsDetail = accessPointsDetail;
     }
+
+    // injectors start
+    private Configuration getConfiguration() {
+        if (configuration == null) {
+            configuration = MainContext.INSTANCE.getConfiguration();
+        }
+        return configuration;
+    }
+
+    protected void setConfiguration(@NonNull Configuration configuration) {
+        this.configuration = configuration;
+    }
+    // injectors end
+
 }

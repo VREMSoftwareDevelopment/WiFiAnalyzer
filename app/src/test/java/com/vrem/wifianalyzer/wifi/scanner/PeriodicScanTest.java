@@ -18,10 +18,8 @@ package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.os.Handler;
 
-import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.Settings;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,16 +40,7 @@ public class PeriodicScanTest {
 
     @Before
     public void setUp() throws Exception {
-        MainContext mainContext = MainContext.INSTANCE;
-        mainContext.setSettings(settings);
-        mainContext.setHandler(handler);
-
-        fixture = new PeriodicScan(scanner);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        MainContext.INSTANCE.clear();
+        fixture = new PeriodicScan(scanner, handler, settings);
     }
 
     @Test

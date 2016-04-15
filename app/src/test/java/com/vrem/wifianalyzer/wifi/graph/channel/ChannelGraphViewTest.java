@@ -16,19 +16,25 @@
 
 package com.vrem.wifianalyzer.wifi.graph.channel;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.support.v4.util.Pair;
 import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainConfiguration;
-import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphLegend;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
+import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,6 +53,10 @@ import static org.mockito.Mockito.when;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ChannelGraphViewTest {
+    private Context context;
+    private Resources resources;
+    private Settings settings;
+    private Configuration configuration;
     private GraphViewWrapper graphViewWrapper;
 
     private ChannelGraphView fixture;
@@ -56,26 +66,44 @@ public class ChannelGraphViewTest {
         RobolectricUtil.INSTANCE.getMainActivity();
 
         graphViewWrapper = mock(GraphViewWrapper.class);
+        context = mock(Context.class);
+        resources = mock(Resources.class);
+        settings = mock(Settings.class);
+        configuration = mock(Configuration.class);
 
-        fixture = new ChannelGraphView(MainContext.INSTANCE.getSettings().getWiFiBand(), MainConfiguration.INSTANCE.getWiFiChannelPair());
+        fixture = new ChannelGraphView(WiFiBand.GHZ2, new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN));
         fixture.setGraphViewWrapper(graphViewWrapper);
-    }
+        fixture.setContext(context);
+        fixture.setResources(resources);
+        fixture.setSettings(settings);
+        fixture.setConfiguration(configuration);
 
-    @After
-    public void tearDown() throws Exception {
-        RobolectricUtil.INSTANCE.restore();
     }
 
     @Test
     public void testUpdate() throws Exception {
         // setup
         WiFiData wiFiData = new WiFiData(new ArrayList<WiFiDetail>(), WiFiConnection.EMPTY, new ArrayList<String>());
+        withSettings();
         // execute
         fixture.update(wiFiData);
         // validate
         verify(graphViewWrapper).removeSeries(any(Set.class));
-        verify(graphViewWrapper).updateLegend(MainContext.INSTANCE.getSettings().getChannelGraphLegend());
+        verify(graphViewWrapper).updateLegend(GraphLegend.RIGHT);
         verify(graphViewWrapper).setVisibility(View.VISIBLE);
+        verifySettings();
+    }
+
+    private void verifySettings() {
+        verify(settings).getChannelGraphLegend();
+        verify(settings).getSortBy();
+        verify(settings).getWiFiBand();
+    }
+
+    private void withSettings() {
+        when(settings.getChannelGraphLegend()).thenReturn(GraphLegend.RIGHT);
+        when(settings.getSortBy()).thenReturn(SortBy.CHANNEL);
+        when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ2);
     }
 
     @Test

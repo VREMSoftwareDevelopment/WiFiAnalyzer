@@ -175,11 +175,26 @@
                 </LinearLayout>
 
                 <!-- Row 4 -->
-                <TextView
-                    android:id="@+id/vendor"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"/>
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/linkSpeed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
+                        android:textColor="@color/connected"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/vendor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

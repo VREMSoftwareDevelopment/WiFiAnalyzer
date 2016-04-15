@@ -16,6 +16,7 @@
 
 package com.vrem.wifianalyzer.wifi;
 
+import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
@@ -61,7 +62,7 @@ public class AccessPointsDetailTest {
         // setup
         WiFiDetail wiFiDetail = new WiFiDetail("SSID", "BSSID", "capabilities",
                 new WiFiSignal(1, WiFiWidth.MHZ_20, 2),
-                new WiFiAdditional("VendorName", "IPAddress"));
+                new WiFiAdditional("VendorName", "IPAddress", 22));
         // execute
         fixture.setView(mainActivity.getResources(), view, wiFiDetail, false, false);
         // validate
@@ -71,6 +72,9 @@ public class AccessPointsDetailTest {
         assertEquals(View.VISIBLE, view.findViewById(R.id.ipAddress).getVisibility());
 
         assertEquals(View.VISIBLE, view.findViewById(R.id.configuredImage).getVisibility());
+
+        validateTextViewValue(String.format("%d%s", wiFiDetail.getWiFiAdditional().getLinkSpeed(), WifiInfo.LINK_SPEED_UNITS), R.id.linkSpeed);
+        assertEquals(View.VISIBLE, view.findViewById(R.id.linkSpeed).getVisibility());
 
         validateTextViewValue(wiFiDetail.getWiFiAdditional().getVendorName(), R.id.vendor);
         assertEquals(View.VISIBLE, view.findViewById(R.id.vendor).getVisibility());
@@ -92,7 +96,7 @@ public class AccessPointsDetailTest {
         // validate
         validateTextViewValues(wiFiDetail, "***");
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        validateTextViewValue(String.format("%d - %d MHz", wiFiSignal.getFrequencyStart(), wiFiSignal.getFrequencyEnd()), R.id.channel_frequency_range);
+        validateTextViewValue(String.format("%d - %d %s", wiFiSignal.getFrequencyStart(), wiFiSignal.getFrequencyEnd(), WifiInfo.FREQUENCY_UNITS), R.id.channel_frequency_range);
 
         assertEquals(View.GONE, view.findViewById(R.id.ipAddress).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.configuredImage).getVisibility());
@@ -107,7 +111,7 @@ public class AccessPointsDetailTest {
         validateTextViewValue(ssid + " (" + wiFiDetail.getBSSID() + ")", R.id.ssid);
         validateTextViewValue(String.format("%ddBm", wiFiSignal.getLevel()), R.id.level);
         validateTextViewValue(String.format("%d", wiFiSignal.getWiFiChannel().getChannel()), R.id.channel);
-        validateTextViewValue(String.format("%dMHz", wiFiSignal.getFrequency()), R.id.frequency);
+        validateTextViewValue(String.format("%d%s", wiFiSignal.getFrequency(), WifiInfo.FREQUENCY_UNITS), R.id.frequency);
         validateTextViewValue(String.format("%.1fm", wiFiSignal.getDistance()), R.id.distance);
         validateTextViewValue(wiFiDetail.getCapabilities(), R.id.capabilities);
     }

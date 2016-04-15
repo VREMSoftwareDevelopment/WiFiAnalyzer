@@ -20,7 +20,7 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.view.View;
 
-import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
@@ -49,6 +49,8 @@ public class ConnectionViewTest {
     @Mock
     private Resources resources;
     @Mock
+    private Configuration configuration;
+    @Mock
     private View view;
     @Mock
     private AccessPointsDetail accessPointsDetail;
@@ -59,20 +61,18 @@ public class ConnectionViewTest {
 
     @Before
     public void setUp() throws Exception {
-        MainContext.INSTANCE.setScanner(scanner);
-
         when(activity.getResources()).thenReturn(resources);
         when(activity.findViewById(R.id.connection)).thenReturn(view);
 
-        fixture = new ConnectionView(activity);
+        fixture = new ConnectionView(activity, scanner);
         fixture.setAccessPointsDetail(accessPointsDetail);
+        fixture.setConfiguration(configuration);
     }
 
     @After
     public void tearDown() throws Exception {
         verify(scanner).addUpdateNotifier(fixture);
         verify(activity).findViewById(R.id.connection);
-        MainContext.INSTANCE.clear();
     }
 
     @Test
@@ -89,7 +89,7 @@ public class ConnectionViewTest {
     @Test
     public void testUpdateWithConnection() throws Exception {
         // setup
-        WiFiDetail connection = withConnection(new WiFiAdditional(StringUtils.EMPTY, "IPADDRESS"));
+        WiFiDetail connection = withConnection(new WiFiAdditional(StringUtils.EMPTY, "IPADDRESS", 11));
         when(wiFiData.getConnection()).thenReturn(connection);
         // execute
         fixture.update(wiFiData);

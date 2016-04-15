@@ -16,6 +16,9 @@
 
 package com.vrem.wifianalyzer.wifi.graph.tools;
 
+import android.content.res.Resources;
+import android.support.annotation.NonNull;
+
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
@@ -26,6 +29,7 @@ import java.util.Stack;
 class GraphColors {
     private final List<GraphColor> availableGraphColors;
     private final Stack<GraphColor> graphColors;
+    private Resources resources;
 
     protected GraphColors() {
         graphColors = new Stack<>();
@@ -34,7 +38,7 @@ class GraphColors {
 
     private List<GraphColor> getAvailableGraphColors() {
         if (availableGraphColors.isEmpty()) {
-            String[] colorsAsStrings = MainContext.INSTANCE.getResources().getStringArray(R.array.graph_colors);
+            String[] colorsAsStrings = getResources().getStringArray(R.array.graph_colors);
             for (int i = 0; i < colorsAsStrings.length; i += 2) {
                 availableGraphColors.add(new GraphColor(Long.parseLong(colorsAsStrings[i].substring(1), 16), Long.parseLong(colorsAsStrings[i + 1].substring(1), 16)));
             }
@@ -66,5 +70,18 @@ class GraphColors {
         }
         return null;
     }
+
+    // injectors start
+    private Resources getResources() {
+        if (resources == null) {
+            resources = MainContext.INSTANCE.getResources();
+        }
+        return resources;
+    }
+
+    protected void setResources(@NonNull Resources resources) {
+        this.resources = resources;
+    }
+    // injectors end
 
 }

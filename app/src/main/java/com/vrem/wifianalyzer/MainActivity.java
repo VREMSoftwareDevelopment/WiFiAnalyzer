@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.res.Configuration;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,6 +46,7 @@ import com.vrem.wifianalyzer.wifi.ConnectionView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
+import com.vrem.wifianalyzer.wifi.scanner.Transformer;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -65,15 +65,14 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     protected void onCreate(Bundle savedInstanceState) {
         initializeMainContext(this);
 
-        Settings settings = MainContext.INSTANCE.getSettings();
-        settings.initializeDefaultValues();
-        currentThemeStyle = settings.getThemeStyle();
+        MainContext.INSTANCE.getSettings().initializeDefaultValues();
+        currentThemeStyle = MainContext.INSTANCE.getSettings().getThemeStyle();
         setTheme(currentThemeStyle.themeAppCompatStyle());
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        settings.registerOnSharedPreferenceChangeListener(this);
+        MainContext.INSTANCE.getSettings().registerOnSharedPreferenceChangeListener(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setOnClickListener(new WiFiBandToggle());
@@ -88,43 +87,40 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         navigationMenuView = new NavigationMenuView(this);
         onNavigationItemSelected(navigationMenuView.defaultMenuItem());
 
-        new ConnectionView(this);
+        new ConnectionView(this, MainContext.INSTANCE.getScanner());
     }
 
     private void initializeMainContext(@NonNull Context context) {
-        initializeMainConfiguration(context);
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        Handler handler = new Handler();
+        Settings settings = new Settings();
+        Configuration configuration = getConfiguration(context);
 
+        MainContext.INSTANCE.setConfiguration(configuration);
         MainContext.INSTANCE.setContext(context);
         MainContext.INSTANCE.setResources(context.getResources());
-
-        MainContext.INSTANCE.setDatabase(new Database());
-        MainContext.INSTANCE.setSettings(new Settings());
-        MainContext.INSTANCE.setHandler(new Handler());
+        MainContext.INSTANCE.setDatabase(new Database(context));
+        MainContext.INSTANCE.setSettings(settings);
         MainContext.INSTANCE.setVendorService(new VendorService());
-        MainContext.INSTANCE.setWifiManager((WifiManager) context.getSystemService(Context.WIFI_SERVICE));
         MainContext.INSTANCE.setLayoutInflater((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
         MainContext.INSTANCE.setLogger(new Logger());
 
-        /* activate scanner only after everything is initialized */
-        MainContext.INSTANCE.setScanner(new Scanner());
+        MainContext.INSTANCE.setScanner(new Scanner(wifiManager, handler, settings, new Transformer(configuration)));
     }
 
-    private void initializeMainConfiguration(@NonNull Context context) {
-        boolean isDevelopmentMode = isDevelopmentMode(context);
+    private Configuration getConfiguration(@NonNull Context context) {
+        boolean isDevelopmentMode = WI_FI_ANALYZER_BETA.equals(context.getString(R.string.app_name));
         Locale locale = isDevelopmentMode ? WiFiChannelCountry.WORLD_LOCALE : context.getResources().getConfiguration().locale;
-        MainConfiguration.INSTANCE.setLocale(locale);
-        MainConfiguration.INSTANCE.setWiFiChannelPair(WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(locale).get(0));
-        MainConfiguration.INSTANCE.setDevelopmentMode(isDevelopmentMode);
-        MainConfiguration.INSTANCE.setLargeScreenLayout(isLargeScreenLayout());
-    }
-
-    private boolean isDevelopmentMode(@NonNull Context context) {
-        return WI_FI_ANALYZER_BETA.equals(context.getString(R.string.app_name));
+        return new Configuration(
+                locale,
+                isLargeScreenLayout(),
+                WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(locale).get(0),
+                isDevelopmentMode);
     }
 
     private boolean isLargeScreenLayout() {
-        int screenLayoutSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-        return screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_XLARGE;
+        int screenLayoutSize = getResources().getConfiguration().screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK;
+        return screenLayoutSize == android.content.res.Configuration.SCREENLAYOUT_SIZE_LARGE || screenLayoutSize == android.content.res.Configuration.SCREENLAYOUT_SIZE_XLARGE;
     }
 
     @Override
@@ -208,10 +204,14 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         return currentThemeStyle;
     }
 
+    protected void wiFiBandToggle() {
+        MainContext.INSTANCE.getSettings().toggleWiFiBand();
+    }
+
     private class WiFiBandToggle implements OnClickListener {
         @Override
         public void onClick(View view) {
-            MainContext.INSTANCE.getSettings().toggleWiFiBand();
+            wiFiBandToggle();
         }
     }
 }

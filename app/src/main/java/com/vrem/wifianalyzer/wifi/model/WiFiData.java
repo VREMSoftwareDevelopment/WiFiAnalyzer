@@ -30,22 +30,21 @@ public class WiFiData {
     private final List<WiFiDetail> wiFiDetails;
     private final WiFiConnection wiFiConnection;
     private final List<String> wiFiConfigurations;
-    private final VendorService vendorService;
+    private VendorService vendorService;
 
     public WiFiData(@NonNull List<WiFiDetail> wiFiDetails, @NonNull WiFiConnection wiFiConnection, @NonNull List<String> wiFiConfigurations) {
         this.wiFiDetails = wiFiDetails;
         this.wiFiConnection = wiFiConnection;
         this.wiFiConfigurations = wiFiConfigurations;
-        this.vendorService = MainContext.INSTANCE.getVendorService();
     }
 
     @NonNull
     public WiFiDetail getConnection() {
         for (WiFiDetail wiFiDetail : wiFiDetails) {
             if (wiFiConnection.equals(new WiFiConnection(wiFiDetail.getSSID(), wiFiDetail.getBSSID()))) {
-                String ipAddress = wiFiConnection.getIpAddress();
-                String vendorName = vendorService.findVendorName(wiFiDetail.getBSSID());
-                return new WiFiDetail(wiFiDetail, new WiFiAdditional(vendorName, ipAddress));
+                String vendorName = getVendorService().findVendorName(wiFiDetail.getBSSID());
+                WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName, wiFiConnection.getIpAddress(), wiFiConnection.getLinkSpeed());
+                return new WiFiDetail(wiFiDetail, wiFiAdditional);
             }
         }
         return WiFiDetail.EMPTY;
@@ -98,7 +97,7 @@ public class WiFiData {
                 if (wiFiDetail.equals(connection)) {
                     results.add(connection);
                 } else {
-                    String vendorName = vendorService.findVendorName(wiFiDetail.getBSSID());
+                    String vendorName = getVendorService().findVendorName(wiFiDetail.getBSSID());
                     boolean contains = wiFiConfigurations.contains(wiFiDetail.getSSID());
                     WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName, contains);
                     results.add(new WiFiDetail(wiFiDetail, wiFiAdditional));
@@ -122,4 +121,17 @@ public class WiFiData {
     public WiFiConnection getWiFiConnection() {
         return wiFiConnection;
     }
+
+    // injectors start
+    private VendorService getVendorService() {
+        if (vendorService == null) {
+            vendorService = MainContext.INSTANCE.getVendorService();
+        }
+        return vendorService;
+    }
+
+    protected void setVendorService(@NonNull VendorService vendorService) {
+        this.vendorService = vendorService;
+    }
+    // injectors end
 }

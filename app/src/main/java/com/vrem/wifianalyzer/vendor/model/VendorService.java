@@ -33,20 +33,18 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class VendorService {
-
     private final Set<String> remoteCalls = new TreeSet<>();
     private final Map<String, String> cache = new HashMap<>();
-    private RemoteCall remoteCall;
 
-    public VendorService() {
-    }
+    private RemoteCall remoteCall;
+    private Database database;
 
     public String findVendorName(String macAddress) {
         String key = MacAddress.clean(macAddress);
         if (cache.containsKey(key)) {
             return cache.get(key);
         }
-        String result = MainContext.INSTANCE.getDatabase().find(macAddress);
+        String result = getDatabase().find(macAddress);
         if (result != null) {
             result = cleanVendorName(result);
             cache.put(key, result);
@@ -59,22 +57,14 @@ public class VendorService {
         return StringUtils.EMPTY;
     }
 
-    private RemoteCall getRemoteCall() {
-        return remoteCall == null ? new RemoteCall() : remoteCall;
-    }
-
-    void setRemoteCall(@NonNull RemoteCall remoteCall) {
-        this.remoteCall = remoteCall;
-    }
-
-    void clear() {
+    protected void clear() {
         cache.clear();
         remoteCalls.clear();
     }
 
     public SortedMap<String, List<String>> findAll() {
         SortedMap<String, List<String>> results = new TreeMap<>();
-        List<VendorData> vendorDatas = MainContext.INSTANCE.getDatabase().findAll();
+        List<VendorData> vendorDatas = getDatabase().findAll();
         for (VendorData vendorData : vendorDatas) {
             String key = cleanVendorName(vendorData.getName());
             List<String> macs = results.get(key);
@@ -100,4 +90,25 @@ public class VendorService {
                 .trim()
                 .toUpperCase();
     }
+
+    // injectors start
+    private RemoteCall getRemoteCall() {
+        return remoteCall == null ? new RemoteCall() : remoteCall;
+    }
+
+    protected void setRemoteCall(@NonNull RemoteCall remoteCall) {
+        this.remoteCall = remoteCall;
+    }
+
+    private Database getDatabase() {
+        if (database == null) {
+            database = MainContext.INSTANCE.getDatabase();
+        }
+        return database;
+    }
+
+    protected void setDatabase(@NonNull Database database) {
+        this.database = database;
+    }
+    // injectors end
 }

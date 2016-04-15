@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.wifi.graph.channel;
+package com.jjoe64.graphview.series;
 
 /**
  * modified version of com.jjoe64.graphview.series.LineGraphSeries
@@ -27,14 +27,12 @@ import android.graphics.Path;
 import android.text.TextPaint;
 
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.BaseSeries;
-import com.jjoe64.graphview.series.DataPointInterface;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Iterator;
 
-class ChannelGraphSeries<E extends DataPointInterface> extends BaseSeries<E> {
+public class TitleLineGraphSeries<E extends DataPointInterface> extends BaseSeries<E> {
     private final Paint paint;
     private final TextPaint paintTitle;
     private final Paint paintBackground;
@@ -43,7 +41,7 @@ class ChannelGraphSeries<E extends DataPointInterface> extends BaseSeries<E> {
     private int thickness = 5;
     private int backgroundColor = Color.argb(100, 172, 218, 255);
 
-    public ChannelGraphSeries(E[] data) {
+    public TitleLineGraphSeries(E[] data) {
         super(data);
 
         paint = new Paint();

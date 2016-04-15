@@ -48,6 +48,7 @@ public class AboutActivityTest {
     @Before
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
+
         fixture = Robolectric.setupActivity(AboutActivity.class);
     }
 

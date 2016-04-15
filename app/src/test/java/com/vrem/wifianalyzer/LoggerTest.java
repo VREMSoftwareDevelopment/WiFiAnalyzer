@@ -16,39 +16,30 @@
 
 package com.vrem.wifianalyzer;
 
-import org.junit.After;
+import com.ibm.icu.impl.IllegalIcuArgumentException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class MainConfigurationTest {
+public class LoggerTest {
 
     @Before
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
     }
 
-    @After
-    public void tearDown() throws Exception {
-        RobolectricUtil.INSTANCE.restore();
+    @Test
+    public void testError() throws Exception {
+        MainContext.INSTANCE.getLogger().error(this, "This is a error message", new IllegalIcuArgumentException("IllegalIcuArgumentException"));
     }
 
     @Test
-    public void testClear() throws Exception {
-        // setup
-        MainConfiguration mainConfiguration = MainConfiguration.INSTANCE;
-        assertTrue(mainConfiguration.isInitialized());
-        // execute
-        mainConfiguration.clear();
-        // validate
-        assertFalse(mainConfiguration.isInitialized());
+    public void testInfo() throws Exception {
+        MainContext.INSTANCE.getLogger().info(this, "This is a info message");
     }
-
 }

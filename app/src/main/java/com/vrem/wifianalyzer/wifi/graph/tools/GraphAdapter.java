@@ -19,8 +19,9 @@ package com.vrem.wifianalyzer.wifi.graph.tools;
 import android.support.annotation.NonNull;
 
 import com.jjoe64.graphview.GraphView;
-import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 import java.util.ArrayList;
@@ -29,9 +30,9 @@ import java.util.List;
 abstract public class GraphAdapter implements UpdateNotifier {
     private final List<GraphViewNotifier> graphViewNotifiers;
 
-    public GraphAdapter() {
-        graphViewNotifiers = makeGraphViewNotifiers();
-        MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
+    public GraphAdapter(@NonNull Scanner scanner, @NonNull Configuration configuration) {
+        graphViewNotifiers = makeGraphViewNotifiers(configuration);
+        scanner.addUpdateNotifier(this);
     }
 
     public List<GraphView> getGraphViews() {
@@ -54,5 +55,5 @@ abstract public class GraphAdapter implements UpdateNotifier {
     }
 
     @NonNull
-    abstract public List<GraphViewNotifier> makeGraphViewNotifiers();
+    abstract public List<GraphViewNotifier> makeGraphViewNotifiers(@NonNull Configuration configuration);
 }

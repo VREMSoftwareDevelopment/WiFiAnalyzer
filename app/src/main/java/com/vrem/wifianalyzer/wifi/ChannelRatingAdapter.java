@@ -20,22 +20,23 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.vrem.wifianalyzer.MainConfiguration;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 import java.util.ArrayList;
@@ -48,13 +49,15 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     private final Resources resources;
     private final TextView bestChannels;
     private ChannelRating channelRating;
+    private Configuration configuration;
+    private Settings settings;
 
-    ChannelRatingAdapter(@NonNull Context context, @NonNull TextView bestChannels) {
+    public ChannelRatingAdapter(@NonNull Scanner scanner, @NonNull Context context, @NonNull TextView bestChannels) {
         super(context, R.layout.channel_rating_details, new ArrayList<WiFiChannel>());
         this.resources = context.getResources();
         this.bestChannels = bestChannels;
-        MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
         setChannelRating(new ChannelRating());
+        scanner.addUpdateNotifier(this);
     }
 
     protected void setChannelRating(@NonNull ChannelRating channelRating) {
@@ -63,7 +66,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
-        WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
+        WiFiBand wiFiBand = getSettings().getWiFiBand();
         List<WiFiChannel> wiFiChannels = setWiFiChannels(wiFiBand);
         channelRating.setWiFiChannels(wiFiData.getWiFiDetails(wiFiBand, SortBy.STRENGTH));
         bestChannels(wiFiBand, wiFiChannels);
@@ -71,7 +74,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     }
 
     private List<WiFiChannel> setWiFiChannels(WiFiBand wiFiBand) {
-        Locale locale = MainConfiguration.INSTANCE.getLocale();
+        Locale locale = getConfiguration().getLocale();
         List<WiFiChannel> wiFiChannels = wiFiBand.getWiFiChannels().getAvailableChannels(locale);
         clear();
         addAll(wiFiChannels);
@@ -82,8 +85,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            LayoutInflater inflater = MainContext.INSTANCE.getLayoutInflater();
-            view = inflater.inflate(R.layout.channel_rating_details, parent, false);
+            view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.channel_rating_details, parent, false);
         }
 
         WiFiChannel wiFiChannel = getItem(position);
@@ -133,4 +135,27 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         }
     }
 
+    // injectors start
+    private Configuration getConfiguration() {
+        if (configuration == null) {
+            configuration = MainContext.INSTANCE.getConfiguration();
+        }
+        return configuration;
+    }
+
+    protected void setConfiguration(@NonNull Configuration configuration) {
+        this.configuration = configuration;
+    }
+
+    private Settings getSettings() {
+        if (settings == null) {
+            settings = MainContext.INSTANCE.getSettings();
+        }
+        return settings;
+    }
+
+    protected void setSettings(@NonNull Settings settings) {
+        this.settings = settings;
+    }
+    // injectors end
 }

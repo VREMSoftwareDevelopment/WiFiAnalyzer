@@ -18,7 +18,6 @@ package com.vrem.wifianalyzer.wifi;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -34,7 +33,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 
 class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
-
     protected ChannelAvailableAdapter(@NonNull Context context, @NonNull List<WiFiChannelCountry> wiFiChannelCountries) {
         super(context, R.layout.channel_available_details, wiFiChannelCountries);
     }
@@ -43,8 +41,7 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            LayoutInflater inflater = MainContext.INSTANCE.getLayoutInflater();
-            view = inflater.inflate(R.layout.channel_available_details, parent, false);
+            view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.channel_available_details, parent, false);
         }
         WiFiChannelCountry wiFiChannelCountry = getItem(position);
         ((TextView) view.findViewById(R.id.channel_available_country))

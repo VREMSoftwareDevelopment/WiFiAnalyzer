@@ -18,7 +18,6 @@ package com.vrem.wifianalyzer.vendor;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -32,7 +31,6 @@ import java.util.List;
 import java.util.SortedMap;
 
 class VendorAdapter extends ArrayAdapter<String> {
-
     private SortedMap<String, List<String>> vendors;
 
     VendorAdapter(@NonNull Context context, @NonNull SortedMap<String, List<String>> vendors) {
@@ -42,12 +40,12 @@ class VendorAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = MainContext.INSTANCE.getLayoutInflater();
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.vendor_details, parent, false);
+        View view = convertView;
+        if (view == null) {
+            view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.vendor_details, parent, false);
         }
         String name = getItem(position);
-        ((TextView) convertView.findViewById(R.id.vendor_name)).setText(name);
+        ((TextView) view.findViewById(R.id.vendor_name)).setText(name);
 
         StringBuilder stringBuilder = new StringBuilder();
         for (String mac : vendors.get(name)) {
@@ -60,11 +58,11 @@ class VendorAdapter extends ArrayAdapter<String> {
                             : String.format("%s:%s:%s", mac.substring(0, 2), mac.substring(2, 4), mac.substring(4, 6));
             stringBuilder.append(macAddress);
         }
-        ((TextView) convertView.findViewById(R.id.vendor_macs)).setText(stringBuilder.toString());
-        return convertView;
+        ((TextView) view.findViewById(R.id.vendor_macs)).setText(stringBuilder.toString());
+        return view;
     }
 
-    SortedMap<String, List<String>> getVendors() {
+    protected SortedMap<String, List<String>> getVendors() {
         return vendors;
     }
 

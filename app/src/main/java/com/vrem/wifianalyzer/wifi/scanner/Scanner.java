@@ -17,10 +17,10 @@
 package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.net.wifi.WifiManager;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
-import com.vrem.wifianalyzer.MainConfiguration;
-import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
 import java.util.Map;
@@ -28,24 +28,20 @@ import java.util.TreeMap;
 
 public class Scanner {
     private final Map<String, UpdateNotifier> updateNotifiers;
-    private PeriodicScan periodicScan;
+    private final WifiManager wifiManager;
+    private final Transformer transformer;
     private Cache cache;
-    private Transformer transformer;
+    private PeriodicScan periodicScan;
 
-    public Scanner() {
-        if (!MainContext.INSTANCE.isInitialized() || !MainConfiguration.INSTANCE.isInitialized()) {
-            throw new IllegalArgumentException("Main Context/Configuration is NOT set! Can not start WiFi scans...");
-        }
-        this.periodicScan = new PeriodicScan(this);
+    public Scanner(@NonNull WifiManager wifiManager, @NonNull Handler handler, @NonNull Settings settings, @NonNull Transformer transformer) {
+        this.wifiManager = wifiManager;
         this.updateNotifiers = new TreeMap<>();
-        setTransformer(new Transformer());
-        setCache(new Cache());
+        this.transformer = transformer;
+        this.setCache(new Cache());
+        this.periodicScan = new PeriodicScan(this, handler, settings);
     }
 
     public void update() {
-        MainContext instance = MainContext.INSTANCE;
-        instance.getLogger().info(this, "running update...");
-        WifiManager wifiManager = instance.getWifiManager();
         if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
         }
@@ -54,7 +50,6 @@ public class Scanner {
             WiFiData wiFiData = transformer.transformToWiFiData(cache.getScanResults(), wifiManager.getConnectionInfo(), wifiManager.getConfiguredNetworks());
             for (String key : updateNotifiers.keySet()) {
                 UpdateNotifier updateNotifier = updateNotifiers.get(key);
-                instance.getLogger().info(this, "running notifier: " + key);
                 updateNotifier.update(wiFiData);
             }
         }
@@ -62,12 +57,15 @@ public class Scanner {
 
     public void addUpdateNotifier(@NonNull UpdateNotifier updateNotifier) {
         String key = updateNotifier.getClass().getName();
-        MainContext.INSTANCE.getLogger().info(this, "register notifier: " + key);
         updateNotifiers.put(key, updateNotifier);
     }
 
     public void pause() {
         periodicScan.stop();
+    }
+
+    public boolean isRunning() {
+        return periodicScan.isRunning();
     }
 
     public void resume() {
@@ -84,10 +82,6 @@ public class Scanner {
 
     protected void setCache(@NonNull Cache cache) {
         this.cache = cache;
-    }
-
-    protected void setTransformer(@NonNull Transformer transformer) {
-        this.transformer = transformer;
     }
 
     protected Map<String, UpdateNotifier> getUpdateNotifiers() {

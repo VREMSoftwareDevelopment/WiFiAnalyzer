@@ -17,7 +17,7 @@
 package com.vrem.wifianalyzer.wifi;
 
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainConfiguration;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.After;
@@ -28,27 +28,43 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
+import java.util.Locale;
+
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ChannelAvailableFragmentTest {
 
+    private Configuration configuration;
     private ChannelAvailableFragment fixture;
 
     @Before
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
+
+        configuration = mock(Configuration.class);
+
+        when(configuration.getLocale()).thenReturn(Locale.US);
+
         fixture = new ChannelAvailableFragment();
+        fixture.setConfiguration(configuration);
     }
 
     @After
     public void tearDown() throws Exception {
-        RobolectricUtil.INSTANCE.restore();
+        verify(configuration, atLeastOnce()).getLocale();
+        verify(configuration, atLeastOnce()).isDevelopmentMode();
     }
 
     @Test
     public void testOnCreateView() throws Exception {
+        // setup
+        when(configuration.isDevelopmentMode()).thenReturn(false);
         // execute
         SupportFragmentTestUtil.startFragment(fixture);
         // validate
@@ -58,14 +74,11 @@ public class ChannelAvailableFragmentTest {
     @Test
     public void testOnCreateViewInDevelopmentMode() throws Exception {
         // setup
-        MainConfiguration mainConfiguration = MainConfiguration.INSTANCE;
-        boolean developmentMode = mainConfiguration.isDevelopmentMode();
-        mainConfiguration.setDevelopmentMode(!developmentMode);
+        when(configuration.isDevelopmentMode()).thenReturn(true);
         // execute
         SupportFragmentTestUtil.startFragment(fixture);
         // validate
         assertNotNull(fixture);
-        mainConfiguration.setDevelopmentMode(developmentMode);
     }
 
 }

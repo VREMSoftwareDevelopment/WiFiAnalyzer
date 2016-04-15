@@ -20,10 +20,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 
-import com.vrem.wifianalyzer.MainContext;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,14 +54,8 @@ public class DatabaseTest {
 
     @Before
     public void setUp() throws Exception {
-        MainContext.INSTANCE.setContext(context);
 
-        fixture = new DatabaseMock();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        MainContext.INSTANCE.clear();
+        fixture = new DatabaseMock(context);
     }
 
     @Test
@@ -186,8 +178,8 @@ public class DatabaseTest {
     }
 
     class DatabaseMock extends Database {
-        public DatabaseMock() {
-            super();
+        public DatabaseMock(@NonNull Context context) {
+            super(context);
         }
 
         @Override
@@ -201,7 +193,7 @@ public class DatabaseTest {
         }
 
         @Override
-        ContentValues getContentValues() {
+        public ContentValues getContentValues() {
             return contentValues;
         }
     }

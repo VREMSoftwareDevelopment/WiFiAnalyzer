@@ -18,6 +18,7 @@ package com.vrem.wifianalyzer.vendor;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.vendor.model.VendorService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,25 +27,42 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
+import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class VendorFragmentTest {
 
     private VendorFragment fixture;
+    private VendorService vendorService;
 
     @Before
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
+
+        vendorService = mock(VendorService.class);
+
         fixture = new VendorFragment();
+        fixture.setVendorService(vendorService);
     }
 
     @Test
     public void testOnCreateView() throws Exception {
+        // setup
+        SortedMap<String, List<String>> vendors = new TreeMap<>();
+        when(vendorService.findAll()).thenReturn(vendors);
         // execute
         SupportFragmentTestUtil.startFragment(fixture);
         // validate
         assertNotNull(fixture);
+        verify(vendorService, atLeastOnce()).findAll();
     }
 }

@@ -16,12 +16,8 @@
 
 package com.vrem.wifianalyzer;
 
-import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,64 +25,41 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class MainActivityTest {
 
     private MainActivity fixture;
-    private Scanner scanner;
 
     @Before
     public void setUp() throws Exception {
         fixture = RobolectricUtil.INSTANCE.getMainActivity();
-
-        scanner = mock(Scanner.class);
-        MainContext.INSTANCE.setScanner(scanner);
     }
 
-    @After
-    public void tearDown() throws Exception {
-        RobolectricUtil.INSTANCE.restore();
+    @Test
+    public void testMainActivity() throws Exception {
+        assertEquals(WiFiBand.GHZ2.getBand(), fixture.getSupportActionBar().getSubtitle());
+        assertTrue(MainContext.INSTANCE.getScanner().isRunning());
     }
 
     @Test
     public void testOnSharedPreferenceChanged() throws Exception {
-        // setup
         assertEquals(WiFiBand.GHZ2.getBand(), fixture.getSupportActionBar().getSubtitle());
-        MainContext.INSTANCE.getSettings().toggleWiFiBand();
-        // execute
-        fixture.onSharedPreferenceChanged(null, null);
-        // validate
+        fixture.findViewById(R.id.toolbar).performClick();
         assertEquals(WiFiBand.GHZ5.getBand(), fixture.getSupportActionBar().getSubtitle());
-        verify(scanner, atLeastOnce()).update();
-    }
-
-    @Test
-    public void testOnSharedPreferenceChangedThemeChange() throws Exception {
-        // setup
-        assertEquals(ThemeStyle.DARK, fixture.getCurrentThemeStyle());
-        Settings settings = mock(Settings.class);
-        MainContext.INSTANCE.setSettings(settings);
-        when(settings.getThemeStyle()).thenReturn(ThemeStyle.LIGHT);
-        // execute
-        fixture.onSharedPreferenceChanged(null, null);
-        // validate
-        assertEquals(ThemeStyle.LIGHT, fixture.getCurrentThemeStyle());
-        verify(scanner, never()).update();
+        fixture.findViewById(R.id.toolbar).performClick();
+        assertEquals(WiFiBand.GHZ2.getBand(), fixture.getSupportActionBar().getSubtitle());
     }
 
     @Test
     public void testOnPause() throws Exception {
-        // execute
         fixture.onPause();
-        // validate
-        verify(scanner).pause();
+        assertFalse(MainContext.INSTANCE.getScanner().isRunning());
+        fixture.onResume();
+        assertTrue(MainContext.INSTANCE.getScanner().isRunning());
     }
 
     @Test

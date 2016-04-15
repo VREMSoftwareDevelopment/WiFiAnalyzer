@@ -22,7 +22,7 @@ import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
-import com.vrem.wifianalyzer.MainConfiguration;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
@@ -38,11 +38,21 @@ import java.util.List;
 import java.util.Locale;
 
 public class Transformer {
+    private final Configuration configuration;
+
+    public Transformer(@NonNull Configuration configuration) {
+        this.configuration = configuration;
+    }
+
     protected WiFiConnection transformWifiInfo(WifiInfo wifiInfo) {
         if (wifiInfo == null || wifiInfo.getNetworkId() == -1) {
             return WiFiConnection.EMPTY;
         }
-        return new WiFiConnection(WiFiUtils.convertSSID(wifiInfo.getSSID()), wifiInfo.getBSSID(), WiFiUtils.convertIpAddress(wifiInfo.getIpAddress()));
+        return new WiFiConnection(
+                WiFiUtils.convertSSID(wifiInfo.getSSID()),
+                wifiInfo.getBSSID(),
+                WiFiUtils.convertIpAddress(wifiInfo.getIpAddress()),
+                wifiInfo.getLinkSpeed());
     }
 
     protected List<String> transformWifiConfigurations(List<WifiConfiguration> configuredNetworks) {
@@ -85,9 +95,8 @@ public class Transformer {
     }
 
     private void addTestData(@NonNull List<WiFiDetail> wiFiDetails) {
-        MainConfiguration mainConfiguration = MainConfiguration.INSTANCE;
-        Locale locale = mainConfiguration.getLocale();
-        if (mainConfiguration.isDevelopmentMode()) {
+        Locale locale = configuration.getLocale();
+        if (configuration.isDevelopmentMode()) {
             int count = 0;
             int level = -45;
             String security = "[WPA-PSK-CCMP+TKIP][WPA2-PSK-CCMP+TKIP][WPS][ESS]";
