@@ -44,8 +44,9 @@ public class ChannelGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.graphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        ChannelGraphNavigation channelGraphNavigation = new ChannelGraphNavigation();
-        ChannelGraphAdapter channelGraphAdapter = new ChannelGraphAdapter(getScanner(), getConfiguration(), channelGraphNavigation);
+        Configuration configuration = getConfiguration();
+        ChannelGraphNavigation channelGraphNavigation = new ChannelGraphNavigation(getActivity(), configuration);
+        ChannelGraphAdapter channelGraphAdapter = new ChannelGraphAdapter(getScanner(), configuration, channelGraphNavigation);
         addGraphViews(swipeRefreshLayout, channelGraphAdapter);
         addGraphNavigation(view, channelGraphNavigation);
 
