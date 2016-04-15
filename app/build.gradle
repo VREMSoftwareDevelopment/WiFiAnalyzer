@@ -48,6 +48,7 @@ android {
 }
 
 jacocoAndroidUnitTestReport {
+    excludes += ['**/com/jjoe64/*']
     html.enabled true
     xml.enabled true
     csv.enabled false

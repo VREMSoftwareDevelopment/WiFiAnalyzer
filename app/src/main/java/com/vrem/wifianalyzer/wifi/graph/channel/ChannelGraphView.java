@@ -24,6 +24,7 @@ import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.TitleLineGraphSeries;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
@@ -88,7 +89,7 @@ class ChannelGraphView implements GraphViewNotifier {
 
     private void addData(@NonNull WiFiDetail wiFiDetail) {
         DataPoint[] dataPoints = createDataPoints(wiFiDetail);
-        ChannelGraphSeries<DataPoint> series = new ChannelGraphSeries<>(dataPoints);
+        TitleLineGraphSeries<DataPoint> series = new TitleLineGraphSeries<>(dataPoints);
         if (graphViewWrapper.addSeries(wiFiDetail, series, dataPoints)) {
             GraphColor graphColor = graphViewWrapper.getColor();
             series.setColor((int) graphColor.getPrimary());
@@ -150,7 +151,7 @@ class ChannelGraphView implements GraphViewNotifier {
                 new DataPoint(wiFiChannelPair.second.getFrequency() + frequencyOffset, GraphViewBuilder.MIN_Y)
         };
 
-        ChannelGraphSeries<DataPoint> series = new ChannelGraphSeries<>(dataPoints);
+        TitleLineGraphSeries<DataPoint> series = new TitleLineGraphSeries<>(dataPoints);
         series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
         series.zeroThickness();
         graphViewWrapper.addSeries(series);
