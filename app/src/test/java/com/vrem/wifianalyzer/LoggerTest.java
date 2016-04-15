@@ -28,21 +28,18 @@ import org.robolectric.annotation.Config;
 @Config(constants = BuildConfig.class)
 public class LoggerTest {
 
-    private Logger fixture;
-
     @Before
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
-        fixture = new Logger();
     }
 
     @Test
     public void testError() throws Exception {
-        fixture.error(fixture, "This is a info message", new IllegalIcuArgumentException("IllegalIcuArgumentException"));
+        MainContext.INSTANCE.getLogger().error(this, "This is a error message", new IllegalIcuArgumentException("IllegalIcuArgumentException"));
     }
 
     @Test
     public void testInfo() throws Exception {
-        fixture.info(fixture, "This is a info message");
+        MainContext.INSTANCE.getLogger().info(this, "This is a info message");
     }
 }
