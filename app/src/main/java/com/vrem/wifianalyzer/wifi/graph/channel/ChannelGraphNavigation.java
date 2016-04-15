@@ -40,14 +40,12 @@ import java.util.List;
 class ChannelGraphNavigation {
     private static final float TEXT_SIZE_ADJUSTMENT = 0.8f;
     private final List<Button> navigationItems = new ArrayList<>();
-    private Context context;
     private Resources resources;
     private Settings settings;
-    private Configuration configuration;
     private Scanner scanner;
 
-    ChannelGraphNavigation() {
-        makeNavigationItems();
+    ChannelGraphNavigation(@NonNull Context context, @NonNull Configuration configuration) {
+        makeNavigationItems(context, configuration);
     }
 
     protected List<Button> getNavigationItems() {
@@ -61,25 +59,23 @@ class ChannelGraphNavigation {
         }
     }
 
-    private void makeNavigationItems() {
-        Context context = getContext();
-        Configuration configuration = getConfiguration();
+    private void makeNavigationItems(@NonNull Context context, @NonNull Configuration configuration) {
         Pair<WiFiChannel, WiFiChannel> selected = configuration.getWiFiChannelPair();
         List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = WiFiBand.GHZ5.getWiFiChannels()
                 .getWiFiChannelPairs(configuration.getLocale());
         if (wiFiChannelPairs.size() > 1) {
             for (Pair<WiFiChannel, WiFiChannel> pair : wiFiChannelPairs) {
-                navigationItems.add(makeNavigationItem(context, pair, pair.equals(selected)));
+                navigationItems.add(makeNavigationItem(context, configuration, pair, pair.equals(selected)));
             }
         }
     }
 
-    private Button makeNavigationItem(@NonNull Context context, Pair<WiFiChannel, WiFiChannel> pair, boolean selected) {
+    private Button makeNavigationItem(@NonNull Context context, @NonNull Configuration configuration, Pair<WiFiChannel, WiFiChannel> pair, boolean selected) {
         Button button = new Button(context);
         String text = pair.first.getChannel() + " - " + pair.second.getChannel();
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, TEXT_SIZE_ADJUSTMENT);
-        if (getConfiguration().isLargeScreenLayout()) {
+        if (configuration.isLargeScreenLayout()) {
             params.setMargins(10, -10, 10, -10);
         } else {
             params.setMargins(5, -30, 5, -30);
@@ -87,7 +83,7 @@ class ChannelGraphNavigation {
         button.setLayoutParams(params);
         button.setVisibility(View.GONE);
         button.setText(text);
-        button.setOnClickListener(new ButtonOnClickListener(pair));
+        button.setOnClickListener(new ButtonOnClickListener(configuration, pair));
         setSelectedButton(button, selected);
         return button;
     }
@@ -109,32 +105,23 @@ class ChannelGraphNavigation {
     }
 
     private class ButtonOnClickListener implements OnClickListener {
+        private final Configuration configuration;
         private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
 
-        ButtonOnClickListener(@NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
+        ButtonOnClickListener(@NonNull Configuration configuration, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
+            this.configuration = configuration;
             this.wiFiChannelPair = wiFiChannelPair;
         }
 
         @Override
         public void onClick(View view) {
             setButtonsBackgroundColor(view);
-            getConfiguration().setWiFiChannelPair(wiFiChannelPair);
+            configuration.setWiFiChannelPair(wiFiChannelPair);
             getScanner().update();
         }
     }
 
     // injectors start
-    private Context getContext() {
-        if (context == null) {
-            context = MainContext.INSTANCE.getContext();
-        }
-        return context;
-    }
-
-    protected void setContext(@NonNull Context context) {
-        this.context = context;
-    }
-
     private Resources getResources() {
         if (resources == null) {
             resources = MainContext.INSTANCE.getResources();
@@ -153,19 +140,8 @@ class ChannelGraphNavigation {
         return settings;
     }
 
-    private void setSettings(@NonNull Settings settings) {
+    protected void setSettings(@NonNull Settings settings) {
         this.settings = settings;
-    }
-
-    private Configuration getConfiguration() {
-        if (configuration == null) {
-            configuration = MainContext.INSTANCE.getConfiguration();
-        }
-        return configuration;
-    }
-
-    private void setConfiguration(@NonNull Configuration configuration) {
-        this.configuration = configuration;
     }
 
     private Scanner getScanner() {
