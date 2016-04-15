@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -50,6 +49,8 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     private final Resources resources;
     private final TextView bestChannels;
     private ChannelRating channelRating;
+    private Configuration configuration;
+    private Settings settings;
 
     public ChannelRatingAdapter(@NonNull Scanner scanner, @NonNull Context context, @NonNull TextView bestChannels) {
         super(context, R.layout.channel_rating_details, new ArrayList<WiFiChannel>());
@@ -135,9 +136,6 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     }
 
     // injectors start
-    private Configuration configuration;
-    private Settings settings;
-
     private Configuration getConfiguration() {
         if (configuration == null) {
             configuration = MainContext.INSTANCE.getConfiguration();

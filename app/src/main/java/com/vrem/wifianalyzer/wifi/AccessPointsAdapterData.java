@@ -28,6 +28,7 @@ import java.util.List;
 
 class AccessPointsAdapterData {
     private List<WiFiDetail> wiFiDetails = new ArrayList<>();
+    private Settings settings;
 
     protected void update(WiFiData wiFiData) {
         Settings settings = getSettings();
@@ -59,8 +60,6 @@ class AccessPointsAdapterData {
     }
 
     // injectors start
-    private Settings settings;
-
     private Settings getSettings() {
         if (settings == null) {
             settings = MainContext.INSTANCE.getSettings();

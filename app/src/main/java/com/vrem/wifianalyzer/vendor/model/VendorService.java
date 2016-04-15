@@ -35,7 +35,9 @@ import java.util.TreeSet;
 public class VendorService {
     private final Set<String> remoteCalls = new TreeSet<>();
     private final Map<String, String> cache = new HashMap<>();
+
     private RemoteCall remoteCall;
+    private Database database;
 
     public VendorService() {
     }
@@ -56,14 +58,6 @@ public class VendorService {
             getRemoteCall().execute(macAddress);
         }
         return StringUtils.EMPTY;
-    }
-
-    private RemoteCall getRemoteCall() {
-        return remoteCall == null ? new RemoteCall() : remoteCall;
-    }
-
-    void setRemoteCall(@NonNull RemoteCall remoteCall) {
-        this.remoteCall = remoteCall;
     }
 
     void clear() {
@@ -101,7 +95,13 @@ public class VendorService {
     }
 
     // injectors start
-    private Database database;
+    private RemoteCall getRemoteCall() {
+        return remoteCall == null ? new RemoteCall() : remoteCall;
+    }
+
+    void setRemoteCall(@NonNull RemoteCall remoteCall) {
+        this.remoteCall = remoteCall;
+    }
 
     private Database getDatabase() {
         if (database == null) {

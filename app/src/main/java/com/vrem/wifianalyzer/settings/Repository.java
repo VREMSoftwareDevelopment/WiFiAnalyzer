@@ -27,6 +27,8 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
 class Repository {
+    private Context context;
+    private Resources resources;
 
     protected void initializeDefaultValues() {
         PreferenceManager.setDefaultValues(getContext(), R.xml.preferences, false);
@@ -75,9 +77,6 @@ class Repository {
     }
 
     // injectors start
-    private Context context;
-    private Resources resources;
-
     private Context getContext() {
         if (context == null) {
             context = MainContext.INSTANCE.getContext();

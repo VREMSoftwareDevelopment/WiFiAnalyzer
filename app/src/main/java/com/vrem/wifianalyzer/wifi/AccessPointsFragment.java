@@ -31,6 +31,7 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class AccessPointsFragment extends Fragment {
+    private Scanner scanner;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -68,8 +69,6 @@ public class AccessPointsFragment extends Fragment {
     }
 
     // injectors start
-    private Scanner scanner;
-
     private Scanner getScanner() {
         if (scanner == null) {
             scanner = MainContext.INSTANCE.getScanner();

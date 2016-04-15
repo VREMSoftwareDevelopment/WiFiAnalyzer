@@ -53,6 +53,10 @@ class ChannelGraphView implements GraphViewNotifier {
     private final WiFiBand wiFiBand;
     private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
     private GraphViewWrapper graphViewWrapper;
+    private Context context;
+    private Resources resources;
+    private Settings settings;
+    private Configuration configuration;
 
     ChannelGraphView(@NonNull WiFiBand wiFiBand, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         this.wiFiBand = wiFiBand;
@@ -163,11 +167,6 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     // injectors start
-    private Context context;
-    private Resources resources;
-    private Settings settings;
-    private Configuration configuration;
-
     private Context getContext() {
         if (context == null) {
             context = MainContext.INSTANCE.getContext();

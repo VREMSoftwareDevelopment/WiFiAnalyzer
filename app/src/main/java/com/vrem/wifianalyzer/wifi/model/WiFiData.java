@@ -27,24 +27,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class WiFiData {
-    // injectors start
-    private VendorService vendorService;
-
-    private VendorService getVendorService() {
-        if (vendorService == null) {
-            vendorService = MainContext.INSTANCE.getVendorService();
-        }
-        return vendorService;
-    }
-
-    protected void setVendorService(@NonNull VendorService vendorService) {
-        this.vendorService = vendorService;
-    }
-    // injectors end
-
     private final List<WiFiDetail> wiFiDetails;
     private final WiFiConnection wiFiConnection;
     private final List<String> wiFiConfigurations;
+    private VendorService vendorService;
 
     public WiFiData(@NonNull List<WiFiDetail> wiFiDetails, @NonNull WiFiConnection wiFiConnection, @NonNull List<String> wiFiConfigurations) {
         this.wiFiDetails = wiFiDetails;
@@ -135,4 +121,17 @@ public class WiFiData {
     public WiFiConnection getWiFiConnection() {
         return wiFiConnection;
     }
+
+    // injectors start
+    private VendorService getVendorService() {
+        if (vendorService == null) {
+            vendorService = MainContext.INSTANCE.getVendorService();
+        }
+        return vendorService;
+    }
+
+    protected void setVendorService(@NonNull VendorService vendorService) {
+        this.vendorService = vendorService;
+    }
+    // injectors end
 }

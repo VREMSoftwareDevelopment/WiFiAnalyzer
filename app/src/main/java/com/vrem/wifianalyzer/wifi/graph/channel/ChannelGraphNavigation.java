@@ -40,6 +40,11 @@ import java.util.List;
 class ChannelGraphNavigation {
     private static final float TEXT_SIZE_ADJUSTMENT = 0.8f;
     private final List<Button> navigationItems = new ArrayList<>();
+    private Context context;
+    private Resources resources;
+    private Settings settings;
+    private Configuration configuration;
+    private Scanner scanner;
 
     ChannelGraphNavigation() {
         makeNavigationItems();
@@ -119,12 +124,6 @@ class ChannelGraphNavigation {
     }
 
     // injectors start
-    private Context context;
-    private Resources resources;
-    private Settings settings;
-    private Configuration configuration;
-    private Scanner scanner;
-
     private Context getContext() {
         if (context == null) {
             context = MainContext.INSTANCE.getContext();

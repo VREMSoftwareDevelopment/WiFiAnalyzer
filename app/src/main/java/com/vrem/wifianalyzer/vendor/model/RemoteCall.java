@@ -34,6 +34,9 @@ import java.net.URL;
 import java.net.URLConnection;
 
 class RemoteCall extends AsyncTask<String, Void, String> {
+    private Logger logger;
+    private Database database;
+
     protected static final String MAX_VENDOR_LOOKUP = "https://www.macvendorlookup.com/api/v2/%s";
 
     protected String doInBackground(String... params) {
@@ -99,9 +102,6 @@ class RemoteCall extends AsyncTask<String, Void, String> {
     }
 
     // injectors start
-    private Logger logger;
-    private Database database;
-
     private Logger getLogger() {
         if (logger == null) {
             logger = MainContext.INSTANCE.getLogger();

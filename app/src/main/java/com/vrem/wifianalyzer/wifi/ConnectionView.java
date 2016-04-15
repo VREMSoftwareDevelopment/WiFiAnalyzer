@@ -31,6 +31,7 @@ import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 public class ConnectionView implements UpdateNotifier {
     private final Activity activity;
     private AccessPointsDetail accessPointsDetail;
+    private Configuration configuration;
 
     public ConnectionView(@NonNull Activity activity, @NonNull Scanner scanner) {
         this.activity = activity;
@@ -56,8 +57,6 @@ public class ConnectionView implements UpdateNotifier {
     }
 
     // injectors start
-    private Configuration configuration;
-
     private Configuration getConfiguration() {
         if (configuration == null) {
             configuration = MainContext.INSTANCE.getConfiguration();

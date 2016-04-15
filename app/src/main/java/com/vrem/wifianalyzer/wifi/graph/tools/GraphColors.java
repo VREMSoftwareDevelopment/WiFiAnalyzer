@@ -27,23 +27,9 @@ import java.util.List;
 import java.util.Stack;
 
 class GraphColors {
-    // injectors start
-    private Resources resources;
-
-    private Resources getResources() {
-        if (resources == null) {
-            resources = MainContext.INSTANCE.getResources();
-        }
-        return resources;
-    }
-
-    protected void setResources(@NonNull Resources resources) {
-        this.resources = resources;
-    }
-    // injectors end
-
     private final List<GraphColor> availableGraphColors;
     private final Stack<GraphColor> graphColors;
+    private Resources resources;
 
     protected GraphColors() {
         graphColors = new Stack<>();
@@ -84,5 +70,18 @@ class GraphColors {
         }
         return null;
     }
+
+    // injectors start
+    private Resources getResources() {
+        if (resources == null) {
+            resources = MainContext.INSTANCE.getResources();
+        }
+        return resources;
+    }
+
+    protected void setResources(@NonNull Resources resources) {
+        this.resources = resources;
+    }
+    // injectors end
 
 }

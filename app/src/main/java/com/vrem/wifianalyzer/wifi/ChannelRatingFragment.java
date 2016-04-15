@@ -33,6 +33,7 @@ import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class ChannelRatingFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
+    private Scanner scanner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,8 +71,6 @@ public class ChannelRatingFragment extends Fragment {
     }
 
     // injectors start
-    private Scanner scanner;
-
     private Scanner getScanner() {
         if (scanner == null) {
             scanner = MainContext.INSTANCE.getScanner();

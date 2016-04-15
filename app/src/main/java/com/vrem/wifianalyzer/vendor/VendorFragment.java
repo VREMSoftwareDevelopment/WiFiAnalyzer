@@ -30,6 +30,7 @@ import com.vrem.wifianalyzer.vendor.model.VendorService;
 
 public class VendorFragment extends ListFragment {
     private VendorAdapter vendorAdapter;
+    private VendorService vendorService;
 
     @Nullable
     @Override
@@ -47,8 +48,6 @@ public class VendorFragment extends ListFragment {
     }
 
     // injectors start
-    private VendorService vendorService;
-
     private VendorService getVendorService() {
         if (vendorService == null) {
             vendorService = MainContext.INSTANCE.getVendorService();

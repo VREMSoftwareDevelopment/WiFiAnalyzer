@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChannelAvailableFragment extends ListFragment {
+    private Configuration configuration;
     private ChannelAvailableAdapter channelAvailableAdapter;
 
     @Nullable
@@ -62,8 +63,6 @@ public class ChannelAvailableFragment extends ListFragment {
     }
 
     // injectors start
-    private Configuration configuration;
-
     private Configuration getConfiguration() {
         if (configuration == null) {
             configuration = MainContext.INSTANCE.getConfiguration();

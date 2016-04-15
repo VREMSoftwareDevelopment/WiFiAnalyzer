@@ -48,6 +48,10 @@ class TimeGraphView implements GraphViewNotifier {
     private GraphViewWrapper graphViewWrapper;
     private int scanCount;
     private int xValue;
+    private Context context;
+    private Resources resources;
+    private Settings settings;
+    private Configuration configuration;
 
     TimeGraphView(@NonNull WiFiBand wiFiBand) {
         this.wiFiBand = wiFiBand;
@@ -124,11 +128,6 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     // injectors start
-    private Context context;
-    private Resources resources;
-    private Settings settings;
-    private Configuration configuration;
-
     private Context getContext() {
         if (context == null) {
             context = MainContext.INSTANCE.getContext();
