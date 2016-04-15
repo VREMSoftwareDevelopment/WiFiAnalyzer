@@ -31,15 +31,15 @@ class VendorData {
         this.mac = mac;
     }
 
-    long getId() {
+    protected long getId() {
         return id;
     }
 
-    String getName() {
+    protected String getName() {
         return name;
     }
 
-    String getMac() {
+    protected String getMac() {
         return mac;
     }
 

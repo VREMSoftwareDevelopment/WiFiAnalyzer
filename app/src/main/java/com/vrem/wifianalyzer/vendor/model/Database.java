@@ -29,16 +29,17 @@ import java.util.List;
 
 public class Database extends SQLiteOpenHelper implements BaseColumns {
 
-    static final String TABLE_NAME = "macvendorname";
-    static final String COLUMN_MAC = "mac";
-    static final String COLUMN_NAME = "name";
-    static final String[] ALL_COLUMNS = new String[]{_ID, COLUMN_NAME, COLUMN_MAC};
-    static final String SORT_ORDER = COLUMN_NAME + "," + COLUMN_MAC + "," + _ID;
-    static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " ("
+    protected static final String TABLE_NAME = "macvendorname";
+    protected static final String COLUMN_MAC = "mac";
+    protected static final String COLUMN_NAME = "name";
+    protected static final String[] ALL_COLUMNS = new String[]{_ID, COLUMN_NAME, COLUMN_MAC};
+    protected static final String SORT_ORDER = COLUMN_NAME + "," + COLUMN_MAC + "," + _ID;
+    protected static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " ("
             + _ID + " INTEGER PRIMARY KEY NOT NULL,"
             + COLUMN_MAC + " TEXT UNIQUE NOT NULL,"
             + COLUMN_NAME + " TEXT NOT NULL)";
-    static final String TABLE_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME;
+    protected static final String TABLE_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME;
+
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "WiFiAnalyzerDB.db";
 
@@ -58,7 +59,7 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
         onCreate(db);
     }
 
-    long insert(String mac, String name) {
+    public long insert(String mac, String name) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = getContentValues();
         values.put(COLUMN_MAC, MacAddress.clean(mac));
@@ -66,11 +67,11 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
         return db.insert(TABLE_NAME, null, values);
     }
 
-    ContentValues getContentValues() {
+    public ContentValues getContentValues() {
         return new ContentValues();
     }
 
-    String find(String mac) {
+    public String find(String mac) {
         String result = null;
         SQLiteDatabase db = getReadableDatabase();
 
@@ -87,7 +88,7 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
         return result;
     }
 
-    List<VendorData> findAll() {
+    public List<VendorData> findAll() {
         List<VendorData> results = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, ALL_COLUMNS, null, null, null, null, SORT_ORDER);

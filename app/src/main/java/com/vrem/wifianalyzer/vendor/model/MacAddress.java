@@ -24,7 +24,7 @@ class MacAddress {
     private MacAddress() {
     }
 
-    static String clean(@NonNull String macAddress) {
+    protected static String clean(@NonNull String macAddress) {
         String result = macAddress.replace(":", "");
         return result.substring(0, Math.min(result.length(), MAX_LEN)).toUpperCase();
     }

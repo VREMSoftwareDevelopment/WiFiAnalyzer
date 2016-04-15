@@ -39,9 +39,6 @@ public class VendorService {
     private RemoteCall remoteCall;
     private Database database;
 
-    public VendorService() {
-    }
-
     public String findVendorName(String macAddress) {
         String key = MacAddress.clean(macAddress);
         if (cache.containsKey(key)) {
@@ -60,7 +57,7 @@ public class VendorService {
         return StringUtils.EMPTY;
     }
 
-    void clear() {
+    protected void clear() {
         cache.clear();
         remoteCalls.clear();
     }
@@ -99,7 +96,7 @@ public class VendorService {
         return remoteCall == null ? new RemoteCall() : remoteCall;
     }
 
-    void setRemoteCall(@NonNull RemoteCall remoteCall) {
+    protected void setRemoteCall(@NonNull RemoteCall remoteCall) {
         this.remoteCall = remoteCall;
     }
 

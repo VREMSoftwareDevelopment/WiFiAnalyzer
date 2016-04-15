@@ -193,7 +193,7 @@ public class DatabaseTest {
         }
 
         @Override
-        ContentValues getContentValues() {
+        public ContentValues getContentValues() {
             return contentValues;
         }
     }
