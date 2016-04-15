@@ -16,6 +16,7 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,12 +27,22 @@ public class WiFiConnectionTest {
     private static final String SSID = "SSID-123";
     private static final String BSSID = "BSSID-123";
     private static final String IP_ADDRESS = "21.205.91.7";
+    private static final int LINK_SPEED = 21;
 
     private WiFiConnection fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = new WiFiConnection(SSID, BSSID, IP_ADDRESS);
+        fixture = new WiFiConnection(SSID, BSSID, IP_ADDRESS, LINK_SPEED);
+    }
+
+    @Test
+    public void testWiFiConnectionEmpty() throws Exception {
+        // validate
+        assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getSSID());
+        assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getBSSID());
+        assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getIpAddress());
+        assertEquals(WiFiConnection.LINK_SPEED_INVALID, WiFiConnection.EMPTY.getLinkSpeed());
     }
 
     @Test
@@ -40,6 +51,7 @@ public class WiFiConnectionTest {
         assertEquals(SSID, fixture.getSSID());
         assertEquals(BSSID, fixture.getBSSID());
         assertEquals(IP_ADDRESS, fixture.getIpAddress());
+        assertEquals(LINK_SPEED, fixture.getLinkSpeed());
     }
 
     @Test

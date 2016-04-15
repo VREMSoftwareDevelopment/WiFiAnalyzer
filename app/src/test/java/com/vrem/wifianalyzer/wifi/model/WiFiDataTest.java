@@ -45,6 +45,7 @@ import static org.mockito.Mockito.when;
 public class WiFiDataTest {
     private static final String IP_ADDRESS = "21.205.91.7";
     private static final String VENDOR_NAME = "VendorName+";
+    private static final int LINK_SPEED = 21;
     private static final String SSID_1 = "SSID1";
     private static final String SSID_2 = "SSID2";
     private static final String SSID_3 = "SSID3";
@@ -72,7 +73,7 @@ public class WiFiDataTest {
     @Before
     public void setUp() throws Exception {
         wiFiDetails = withWiFiDetails();
-        wiFiConnection = new WiFiConnection(SSID_1, BSSID_1, IP_ADDRESS);
+        wiFiConnection = new WiFiConnection(SSID_1, BSSID_1, IP_ADDRESS, LINK_SPEED);
         wiFiConfigurations = Arrays.asList(SSID_3, "123-456-789");
 
         withVendorNames();

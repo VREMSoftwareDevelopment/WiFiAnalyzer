@@ -19,6 +19,7 @@ package com.vrem.wifianalyzer.wifi;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
+import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.Strength;
+import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
@@ -39,12 +41,22 @@ public class AccessPointsDetail {
         ((TextView) view.findViewById(R.id.ssid)).setText(wiFiDetail.getTitle());
 
         TextView textIPAddress = (TextView) view.findViewById(R.id.ipAddress);
+        TextView textLinkSpeed = (TextView) view.findViewById(R.id.linkSpeed);
         String ipAddress = wiFiDetail.getWiFiAdditional().getIPAddress();
         if (StringUtils.isBlank(ipAddress)) {
             textIPAddress.setVisibility(View.GONE);
+            textLinkSpeed.setVisibility(View.GONE);
         } else {
             textIPAddress.setVisibility(View.VISIBLE);
             textIPAddress.setText(ipAddress);
+
+            int linkSpeed = wiFiDetail.getWiFiAdditional().getLinkSpeed();
+            if (linkSpeed == WiFiConnection.LINK_SPEED_INVALID) {
+                textLinkSpeed.setVisibility(View.GONE);
+            } else {
+                textLinkSpeed.setVisibility(View.VISIBLE);
+                textLinkSpeed.setText(String.format("%d%s", linkSpeed, WifiInfo.LINK_SPEED_UNITS));
+            }
         }
 
         ImageView configuredImage = (ImageView) view.findViewById(R.id.configuredImage);
@@ -71,7 +83,7 @@ public class AccessPointsDetail {
         textLevel.setTextColor(resources.getColor(strength.colorResource()));
 
         ((TextView) view.findViewById(R.id.channel)).setText(String.format("%d", wiFiSignal.getWiFiChannel().getChannel()));
-        ((TextView) view.findViewById(R.id.frequency)).setText(String.format("%dMHz", wiFiSignal.getFrequency()));
+        ((TextView) view.findViewById(R.id.frequency)).setText(String.format("%d%s", wiFiSignal.getFrequency(), WifiInfo.FREQUENCY_UNITS));
         ((TextView) view.findViewById(R.id.distance)).setText(String.format("%.1fm", wiFiSignal.getDistance()));
         ((TextView) view.findViewById(R.id.capabilities)).setText(wiFiDetail.getCapabilities());
 
@@ -92,8 +104,8 @@ public class AccessPointsDetail {
 
         if (frequencyRange) {
             view.findViewById(R.id.channel_frequency_range_row).setVisibility(View.VISIBLE);
-            ((TextView) view.findViewById(R.id.channel_frequency_range)).setText(String.format("%d - %d MHz",
-                    wiFiSignal.getFrequencyStart(), wiFiSignal.getFrequencyEnd()));
+            ((TextView) view.findViewById(R.id.channel_frequency_range)).setText(String.format("%d - %d %s",
+                    wiFiSignal.getFrequencyStart(), wiFiSignal.getFrequencyEnd(), WifiInfo.FREQUENCY_UNITS));
         } else {
             view.findViewById(R.id.channel_frequency_range_row).setVisibility(View.GONE);
         }

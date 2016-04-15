@@ -53,6 +53,7 @@ public class TransformerTest {
     private static final int FREQUENCY = 2435;
     private static final int LEVEL = -40;
     private static final String IP_ADDRESS = "21.205.91.7";
+    private static final int LINK_SPEED = 21;
 
     @Mock
     private WifiInfo wifiInfo;
@@ -99,6 +100,7 @@ public class TransformerTest {
         assertEquals(SSID_1, actual.getSSID());
         assertEquals(BSSID_1, actual.getBSSID());
         assertEquals(IP_ADDRESS, actual.getIpAddress());
+        assertEquals(LINK_SPEED, actual.getLinkSpeed());
 
         verify(wifiInfo).getNetworkId();
         verify(wifiInfo).getSSID();
@@ -208,6 +210,7 @@ public class TransformerTest {
         when(wifiInfo.getSSID()).thenReturn(SSID_1);
         when(wifiInfo.getBSSID()).thenReturn(BSSID_1);
         when(wifiInfo.getIpAddress()).thenReturn(123456789);
+        when(wifiInfo.getLinkSpeed()).thenReturn(LINK_SPEED);
     }
 
 }

@@ -89,7 +89,7 @@ public class ConnectionViewTest {
     @Test
     public void testUpdateWithConnection() throws Exception {
         // setup
-        WiFiDetail connection = withConnection(new WiFiAdditional(StringUtils.EMPTY, "IPADDRESS"));
+        WiFiDetail connection = withConnection(new WiFiAdditional(StringUtils.EMPTY, "IPADDRESS", 11));
         when(wiFiData.getConnection()).thenReturn(connection);
         // execute
         fixture.update(wiFiData);

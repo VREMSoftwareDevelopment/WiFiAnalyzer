@@ -26,12 +26,14 @@ import static org.junit.Assert.assertTrue;
 public class WiFiAdditionalTest {
     private static final String VENDOR_NAME = "VendorName";
     private static final String IP_ADDRESS = "IPAddress";
+    private static final int LINK_SPEED = 135;
 
     @Test
     public void testWiFiAdditionalWithIpAddress() throws Exception {
-        WiFiAdditional fixture = new WiFiAdditional(VENDOR_NAME, IP_ADDRESS);
+        WiFiAdditional fixture = new WiFiAdditional(VENDOR_NAME, IP_ADDRESS, LINK_SPEED);
         assertEquals(VENDOR_NAME, fixture.getVendorName());
         assertEquals(IP_ADDRESS, fixture.getIPAddress());
+        assertEquals(LINK_SPEED, fixture.getLinkSpeed());
         assertTrue(fixture.isConnected());
         assertTrue(fixture.isConfiguredNetwork());
     }
@@ -41,6 +43,7 @@ public class WiFiAdditionalTest {
         WiFiAdditional fixture = new WiFiAdditional(VENDOR_NAME, true);
         assertEquals(VENDOR_NAME, fixture.getVendorName());
         assertEquals(StringUtils.EMPTY, fixture.getIPAddress());
+        assertEquals(WiFiConnection.LINK_SPEED_INVALID, fixture.getLinkSpeed());
         assertFalse(fixture.isConnected());
         assertTrue(fixture.isConfiguredNetwork());
     }
@@ -49,6 +52,7 @@ public class WiFiAdditionalTest {
     public void testWiFiAdditionalEmpty() throws Exception {
         assertEquals(StringUtils.EMPTY, WiFiAdditional.EMPTY.getVendorName());
         assertEquals(StringUtils.EMPTY, WiFiAdditional.EMPTY.getIPAddress());
+        assertEquals(WiFiConnection.LINK_SPEED_INVALID, WiFiAdditional.EMPTY.getLinkSpeed());
         assertFalse(WiFiAdditional.EMPTY.isConnected());
         assertFalse(WiFiAdditional.EMPTY.isConfiguredNetwork());
     }

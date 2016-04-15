@@ -48,7 +48,11 @@ public class Transformer {
         if (wifiInfo == null || wifiInfo.getNetworkId() == -1) {
             return WiFiConnection.EMPTY;
         }
-        return new WiFiConnection(WiFiUtils.convertSSID(wifiInfo.getSSID()), wifiInfo.getBSSID(), WiFiUtils.convertIpAddress(wifiInfo.getIpAddress()));
+        return new WiFiConnection(
+                WiFiUtils.convertSSID(wifiInfo.getSSID()),
+                wifiInfo.getBSSID(),
+                WiFiUtils.convertIpAddress(wifiInfo.getIpAddress()),
+                wifiInfo.getLinkSpeed());
     }
 
     protected List<String> transformWifiConfigurations(List<WifiConfiguration> configuredNetworks) {
