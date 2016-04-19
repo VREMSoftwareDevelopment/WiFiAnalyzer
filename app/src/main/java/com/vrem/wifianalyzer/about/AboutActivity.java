@@ -52,11 +52,16 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void setVersionNumber() {
+        MainContext mainContext = MainContext.INSTANCE;
         try {
             PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            ((TextView) findViewById(R.id.version_info)).setText(packageInfo.versionName + " - " + packageInfo.versionCode);
+            String versionInfo = packageInfo.versionName;
+            if (mainContext.getConfiguration().isDevelopmentMode()) {
+                versionInfo += " - " + packageInfo.versionCode;
+            }
+            ((TextView) findViewById(R.id.version_info)).setText(versionInfo);
         } catch (PackageManager.NameNotFoundException e) {
-            MainContext.INSTANCE.getLogger().error(this, "Version Information", e);
+            mainContext.getLogger().error(this, "Version Information", e);
         }
     }
 

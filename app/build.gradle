@@ -93,6 +93,8 @@ def updateVersion() {
     def versionBuild = properties['version_build'].toString().toInteger()
     def versionStore = properties['version_store'].toString().toInteger()
 
+    versionBuild++
+    properties['version_build'] = versionBuild.toString()
     if (isReleaseBuild()) {
         System.out.println(">>> Building Release Version...")
         versionPatch++
@@ -100,13 +102,14 @@ def updateVersion() {
         properties['version_patch'] = versionPatch.toString()
         properties['version_store'] = versionStore.toString()
     }
-    versionBuild++
-    properties['version_build'] = versionBuild.toString()
 
     writeProperties(propertiesFile, properties)
 
-    def versionName = "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
-    System.out.println(">>> " + project.parent.name + " Version Name: " + versionName + " Code: " + versionStore)
+    def versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
+    if (android.defaultConfig.applicationId.endsWith(".BETA")) {
+        versionName = versionName + ".${versionBuild}"
+    }
+    System.out.println(">>> " + project.parent.name + " " + versionName + " (" + versionStore + ") '" + android.defaultConfig.applicationId + "'")
     android.defaultConfig.versionCode = versionStore
     android.defaultConfig.versionName = versionName
 }
