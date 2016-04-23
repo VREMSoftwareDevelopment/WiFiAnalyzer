@@ -16,10 +16,13 @@
 
 package com.vrem.wifianalyzer.about;
 
+import android.content.pm.PackageInfo;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.vrem.wifianalyzer.BuildConfig;
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
@@ -84,6 +87,22 @@ public class AboutActivityTest {
         boolean actual = fixture.onOptionsItemSelected(menuItem);
         // validate
         assertFalse(actual);
+    }
+
+    @Test
+    public void testSetVersionNumber() throws Exception {
+        // setup
+        String packageName = fixture.getPackageName();
+        PackageInfo packageInfo = fixture.getPackageManager().getPackageInfo(packageName, 0);
+        String expected = packageInfo.versionName;
+        if (MainContext.INSTANCE.getConfiguration().isDevelopmentMode()) {
+            expected += " - " + packageInfo.versionCode;
+        }
+        // execute
+        TextView actual = (TextView) fixture.findViewById(R.id.version_info);
+        // validate
+        assertNotNull(actual);
+        assertEquals(expected, actual.getText());
     }
 
 }
