@@ -20,7 +20,7 @@
     <string name="app_name">WiFi Analyzer</string>
     <string name="app_company_name">VREM Software Development</string>
     <string name="app_copyright">Copyright \u00A9 2015 \u002D 2016</string>
-    <string name="app_url" translatable="false">https://github.com/VREMSoftwareDevelopment/WifiAnalyzer</string>
+    <string name="app_url" translatable="false">https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer</string>
     <!-- application end -->
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

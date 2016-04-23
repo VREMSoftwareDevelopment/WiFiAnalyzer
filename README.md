@@ -7,7 +7,7 @@ Optimize your WiFi network using WiFi Analyzer (open-source) by examining surrou
 
 This is the official repository of WiFi Analyzer (open-source).
 
-![Main Menu Screenshot](https://github.com/VREMSoftwareDevelopment/WifiAnalyzer/raw/master/screenshots/screenshot1.png "Main Menu Screenshot") ![Access Points Screenshot](https://github.com/VREMSoftwareDevelopment/WifiAnalyzer/raw/master/screenshots/screenshot2.png "Access Points Screenshot") ![Channel Graph Screenshot](https://github.com/VREMSoftwareDevelopment/WifiAnalyzer/raw/master/screenshots/screenshot4.png "Channel Graph Screenshot")
+![Main Menu Screenshot](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/screenshot1.png "Main Menu Screenshot") ![Access Points Screenshot](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/screenshot2.png "Access Points Screenshot") ![Channel Graph Screenshot](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/screenshot4.png "Channel Graph Screenshot")
 
 ## Features:
 * Identify nearby Access Points
@@ -16,7 +16,7 @@ This is the official repository of WiFi Analyzer (open-source).
 * Analyze WiFi networks to rate channels
 
 ## Feedback:
-Bug reports and feature requests can be submitted [here](https://github.com/VREMSoftwareDevelopment/WifiAnalyzer/issues).
+Bug reports and feature requests can be submitted [here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues).
 
 ## License:
 WiFi Analyzer is licensed under the Apache License, Version 2.0.
@@ -25,11 +25,11 @@ You can find the license text [here](http://www.apache.org/licenses/LICENSE-2.0)
 
 ## Build WiFi Analyzer:
 
-Travis CI status [![Build Status](https://travis-ci.org/VREMSoftwareDevelopment/WifiAnalyzer.svg?branch=master)](https://travis-ci.org/VREMSoftwareDevelopment/WifiAnalyzer)
+Travis CI status [![Build Status](https://travis-ci.org/VREMSoftwareDevelopment/WiFiAnalyzer.svg?branch=master)](https://travis-ci.org/VREMSoftwareDevelopment/WiFiAnalyzer)
 
-Codacy analysis/coverage [![Codacy Badge](https://api.codacy.com/project/badge/grade/203eaa0583694bcca6554190513179ba)](https://www.codacy.com/app/vremsoftwaredevelopment/WifiAnalyzer) [![Codacy Badge](https://api.codacy.com/project/badge/coverage/203eaa0583694bcca6554190513179ba)](https://www.codacy.com/app/vremsoftwaredevelopment/WifiAnalyzer)
+Codacy analysis/coverage [![Codacy Badge](https://api.codacy.com/project/badge/grade/203eaa0583694bcca6554190513179ba)](https://www.codacy.com/app/vremsoftwaredevelopment/WiFiAnalyzer) [![Codacy Badge](https://api.codacy.com/project/badge/coverage/203eaa0583694bcca6554190513179ba)](https://www.codacy.com/app/vremsoftwaredevelopment/WiFiAnalyzer)
 
-Codecov [![codecov.io](https://codecov.io/github/VREMSoftwareDevelopment/WifiAnalyzer/coverage.svg?branch=master)](https://codecov.io/github/VREMSoftwareDevelopment/WifiAnalyzer?branch=master)
+Codecov [![codecov.io](https://codecov.io/github/VREMSoftwareDevelopment/WiFiAnalyzer/coverage.svg?branch=master)](https://codecov.io/github/VREMSoftwareDevelopment/WiFiAnalyzer?branch=master)
 
 ### Fork project
 [How to fork project](https://help.github.com/articles/fork-a-repo)
