@@ -22,13 +22,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 public class WiFiChannelCountry {
-    public static final Locale WORLD_LOCALE = new Locale("", "ZZ");
+    public static final String WORLD_CODE = "ZZ";
+    public static final String WORLD_NAME = "World";
+    public static final String UNKNOWN = "Unknown country";
 
-    protected static final String UNKNOWN = "Unknown country";
-    protected static final String DEVELOPMENT = "DEVELOPMENT";
     protected static final List<Integer> DEFAULT_CHANNELS_GHZ2 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
     protected static final List<Integer> DEFAULT_CHANNELS_GHZ5 = Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64);
 
@@ -637,7 +636,7 @@ public class WiFiChannelCountry {
                     Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
                     new ArrayList<Integer>()
             ),
-            new WiFiChannelCountry(WORLD_LOCALE.getCountry(),
+            new WiFiChannelCountry(WORLD_CODE,
                     Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14),
                     Arrays.asList(8, 12, 16, 36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 149, 153, 157, 161, 165, 184, 188, 192, 196)
             )
@@ -673,8 +672,8 @@ public class WiFiChannelCountry {
     }
 
     private String findCountryName(@NonNull String countryCode) {
-        if (WORLD_LOCALE.getCountry().equals(countryCode)) {
-            return DEVELOPMENT;
+        if (WORLD_CODE.equals(countryCode)) {
+            return WORLD_NAME;
         }
         String countryName = Country.INSTANCE.getCountry(countryCode).getDisplayCountry();
         return countryCode.equals(countryName) ? UNKNOWN : countryName;

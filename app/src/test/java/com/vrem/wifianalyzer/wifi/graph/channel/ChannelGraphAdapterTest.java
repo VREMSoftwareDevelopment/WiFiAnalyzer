@@ -18,8 +18,8 @@ package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
@@ -41,14 +41,14 @@ import java.util.Locale;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ChannelGraphAdapterTest {
 
     private Scanner scanner;
-    private Configuration configuration;
+    private Settings settings;
     private ChannelGraphNavigation channelGraphNavigation;
     private ChannelGraphAdapter fixture;
 
@@ -57,18 +57,18 @@ public class ChannelGraphAdapterTest {
         RobolectricUtil.INSTANCE.getMainActivity();
 
         scanner = mock(Scanner.class);
-        configuration = mock(Configuration.class);
+        settings = mock(Settings.class);
         channelGraphNavigation = mock(ChannelGraphNavigation.class);
 
-        when(configuration.getLocale()).thenReturn(Locale.US);
+        when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
 
-        fixture = new ChannelGraphAdapter(scanner, configuration, channelGraphNavigation);
+        fixture = new ChannelGraphAdapter(scanner, settings, channelGraphNavigation);
     }
 
     @After
     public void tearDown() throws Exception {
         verify(scanner).addUpdateNotifier(fixture);
-        verify(configuration).getLocale();
+        verify(settings).getCountryCode();
     }
 
     @Test
@@ -84,7 +84,7 @@ public class ChannelGraphAdapterTest {
     private int expectedCount() {
         int expected = 0;
         for (WiFiBand wiFiBand : WiFiBand.values()) {
-            expected += wiFiBand.getWiFiChannels().getWiFiChannelPairs(Locale.US).size();
+            expected += wiFiBand.getWiFiChannels().getWiFiChannelPairs(Locale.US.getCountry()).size();
         }
         return expected;
     }

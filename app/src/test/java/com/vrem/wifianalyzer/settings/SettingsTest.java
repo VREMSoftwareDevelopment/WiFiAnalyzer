@@ -16,7 +16,10 @@
 
 package com.vrem.wifianalyzer.settings;
 
+import android.content.Context;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
@@ -30,6 +33,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.Locale;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -39,13 +44,19 @@ public class SettingsTest {
     @Mock
     private Repository repository;
     @Mock
+    private Context context;
+    @Mock
+    private Resources resources;
+    @Mock
+    private Configuration configuration;
+    @Mock
     private OnSharedPreferenceChangeListener onSharedPreferenceChangeListener;
 
     private Settings fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = new Settings();
+        fixture = new Settings(context);
         fixture.setRepository(repository);
     }
 
@@ -155,4 +166,21 @@ public class SettingsTest {
         verify(repository).save(R.string.wifi_band_key, WiFiBand.GHZ5.toggle().ordinal());
     }
 
+    @Test
+    public void testGetCountryCode() throws Exception {
+        // setup
+        when(context.getResources()).thenReturn(resources);
+        when(resources.getConfiguration()).thenReturn(configuration);
+        configuration.locale = Locale.UK;
+
+        when(repository.getString(R.string.country_code_key, Locale.UK.getCountry())).thenReturn(Locale.US.getCountry());
+        // execute
+        String actual = fixture.getCountryCode();
+        // validate
+        assertEquals(Locale.US.getCountry(), actual);
+
+        verify(repository).getString(R.string.country_code_key, Locale.UK.getCountry());
+        verify(context).getResources();
+        verify(resources).getConfiguration();
+    }
 }

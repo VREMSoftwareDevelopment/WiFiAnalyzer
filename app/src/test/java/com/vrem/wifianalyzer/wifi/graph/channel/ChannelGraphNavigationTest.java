@@ -61,10 +61,9 @@ public class ChannelGraphNavigationTest {
         configuration = mock(Configuration.class);
 
         when(configuration.getWiFiChannelPair()).thenReturn(new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN));
-        when(configuration.getLocale()).thenReturn(Locale.US);
+        when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
 
-        fixture = new ChannelGraphNavigation(mainActivity, configuration);
-        fixture.setSettings(settings);
+        fixture = new ChannelGraphNavigation(mainActivity, settings, configuration);
         fixture.setScanner(scanner);
         fixture.setResources(mainActivity.getResources());
     }
@@ -72,7 +71,7 @@ public class ChannelGraphNavigationTest {
     @After
     public void tearDown() throws Exception {
         verify(configuration).getWiFiChannelPair();
-        verify(configuration).getLocale();
+        verify(settings).getCountryCode();
     }
 
     @Test
@@ -112,7 +111,7 @@ public class ChannelGraphNavigationTest {
     @Test
     public void testSelectNavigationUpdatesConfigurationAndScans() throws Exception {
         // setup
-        Pair<WiFiChannel, WiFiChannel> expected = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(Locale.US).get(0);
+        Pair<WiFiChannel, WiFiChannel> expected = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(Locale.US.getCountry()).get(0);
         Button navigationItem = fixture.getNavigationItems().get(0);
         // execute
         navigationItem.callOnClick();

@@ -135,7 +135,7 @@ class ChannelGraphView implements GraphViewNotifier {
     private GraphView makeGraphView() {
         Resources resources = getResources();
         return new GraphViewBuilder(getContext(), getNumX())
-                .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair, getConfiguration().getLocale()))
+                .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair, getSettings().getCountryCode()))
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
                 .build();

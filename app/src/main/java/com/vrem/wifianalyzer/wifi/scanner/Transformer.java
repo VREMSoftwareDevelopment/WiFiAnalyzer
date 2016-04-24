@@ -25,6 +25,7 @@ import android.support.v4.util.Pair;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -35,7 +36,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 public class Transformer {
     private final Configuration configuration;
@@ -95,12 +95,12 @@ public class Transformer {
     }
 
     private void addTestData(@NonNull List<WiFiDetail> wiFiDetails) {
-        Locale locale = configuration.getLocale();
         if (configuration.isDevelopmentMode()) {
             int count = 0;
             int level = -45;
             String security = "[WPA-PSK-CCMP+TKIP][WPA2-PSK-CCMP+TKIP][WPS][ESS]";
-            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(locale)) {
+            List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(WiFiChannelCountry.WORLD_CODE);
+            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiChannelPairs) {
                 WiFiSignal wiFiSignal = new WiFiSignal(wiFiChannelPair.first.getFrequency(), WiFiWidth.MHZ_40, level);
                 WiFiDetail wiFiDetail = new WiFiDetail("TEST-SSID", "BSSID:0A:B0:0" + count + ":0" + count, security, wiFiSignal);
                 wiFiDetails.add(wiFiDetail);

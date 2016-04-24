@@ -19,6 +19,7 @@ package com.vrem.wifianalyzer.wifi;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.settings.Settings;
 
 import org.junit.After;
 import org.junit.Before;
@@ -41,6 +42,7 @@ import static org.mockito.Mockito.when;
 public class ChannelAvailableFragmentTest {
 
     private Configuration configuration;
+    private Settings settings;
     private ChannelAvailableFragment fixture;
 
     @Before
@@ -49,16 +51,18 @@ public class ChannelAvailableFragmentTest {
 
         configuration = mock(Configuration.class);
 
-        when(configuration.getLocale()).thenReturn(Locale.US);
+        settings = mock(Settings.class);
+        when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
 
         fixture = new ChannelAvailableFragment();
         fixture.setConfiguration(configuration);
+        fixture.setSettings(settings);
     }
 
     @After
     public void tearDown() throws Exception {
-        verify(configuration, atLeastOnce()).getLocale();
         verify(configuration, atLeastOnce()).isDevelopmentMode();
+        verify(settings, atLeastOnce()).getCountryCode();
     }
 
     @Test

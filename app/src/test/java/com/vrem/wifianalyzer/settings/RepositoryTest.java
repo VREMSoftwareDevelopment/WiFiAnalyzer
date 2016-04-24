@@ -102,6 +102,22 @@ public class RepositoryTest {
     }
 
     @Test
+    public void testGetString() throws Exception {
+        // setup
+        int keyIndex = R.string.app_name;
+        String value = "1111";
+        String defaultValue = "2222";
+        when(context.getString(keyIndex)).thenReturn(keyValue);
+        when(sharedPreferences.getString(keyValue, defaultValue)).thenReturn(value);
+        // execute
+        String actual = fixture.getString(keyIndex, defaultValue);
+        // validate
+        assertEquals(value, actual);
+        verify(context).getString(keyIndex);
+        verify(sharedPreferences).getString(keyValue, "" + defaultValue);
+    }
+
+    @Test
     public void testGetStringAsInteger() throws Exception {
         // setup
         int keyIndex = R.string.app_name;

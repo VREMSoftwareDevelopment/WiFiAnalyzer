@@ -20,24 +20,17 @@ import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
-
-import java.util.Locale;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 
 public class Configuration {
-    private final Locale locale;
     private final boolean developmentMode;
     private final boolean largeScreenLayout;
     private Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
 
-    public Configuration(@NonNull Locale locale, boolean largeScreenLayout, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair, boolean developmentMode) {
-        this.locale = locale;
+    public Configuration(boolean largeScreenLayout, boolean developmentMode) {
         this.largeScreenLayout = largeScreenLayout;
-        setWiFiChannelPair(wiFiChannelPair);
         this.developmentMode = developmentMode;
-    }
-
-    public Locale getLocale() {
-        return locale;
+        setWiFiChannelPair(WiFiChannels.UNKNOWN);
     }
 
     public boolean isLargeScreenLayout() {

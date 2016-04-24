@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 class WiFiChannelsGHZ2 extends WiFiChannels {
     private final static Pair<Integer, Integer> RANGE = new Pair<>(2400, 2499);
@@ -39,22 +38,22 @@ class WiFiChannelsGHZ2 extends WiFiChannels {
     }
 
     @Override
-    public List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs(@NonNull Locale locale) {
+    public List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs(@NonNull String countryCode) {
         return Collections.unmodifiableList(Arrays.asList(SET));
     }
 
     @Override
-    public List<WiFiChannel> getAvailableChannels(@NonNull Locale locale) {
+    public List<WiFiChannel> getAvailableChannels(@NonNull String countryCode) {
         List<WiFiChannel> wiFiChannels = new ArrayList<>();
-        for (int channel : WiFiChannelCountry.find(locale.getCountry()).getChannelsGHZ2()) {
+        for (int channel : WiFiChannelCountry.find(countryCode).getChannelsGHZ2()) {
             wiFiChannels.add(getWiFiChannelByChannel(channel));
         }
         return wiFiChannels;
     }
 
     @Override
-    public boolean isChannelAvailable(@NonNull Locale locale, int channel) {
-        return WiFiChannelCountry.find(locale.getCountry()).isChannelAvailableGHZ2(channel);
+    public boolean isChannelAvailable(@NonNull String countryCode, int channel) {
+        return WiFiChannelCountry.find(countryCode).isChannelAvailableGHZ2(channel);
     }
 
     @Override

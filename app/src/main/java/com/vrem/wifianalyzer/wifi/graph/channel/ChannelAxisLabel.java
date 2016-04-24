@@ -28,17 +28,15 @@ import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewBuilder;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Locale;
-
 class ChannelAxisLabel implements LabelFormatter {
     private final WiFiBand wiFiBand;
     private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
-    private final Locale locale;
+    private final String countryCode;
 
-    ChannelAxisLabel(@NonNull WiFiBand wiFiBand, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair, @NonNull Locale locale) {
+    ChannelAxisLabel(@NonNull WiFiBand wiFiBand, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair, @NonNull String countryCode) {
         this.wiFiBand = wiFiBand;
         this.wiFiChannelPair = wiFiChannelPair;
-        this.locale = locale;
+        this.countryCode = countryCode;
     }
 
     @Override
@@ -68,7 +66,7 @@ class ChannelAxisLabel implements LabelFormatter {
             return StringUtils.EMPTY;
         }
         int channel = wiFiChannel.getChannel();
-        if (!wiFiChannels.isChannelAvailable(locale, channel)) {
+        if (!wiFiChannels.isChannelAvailable(countryCode, channel)) {
             return StringUtils.EMPTY;
         }
         return "" + channel;

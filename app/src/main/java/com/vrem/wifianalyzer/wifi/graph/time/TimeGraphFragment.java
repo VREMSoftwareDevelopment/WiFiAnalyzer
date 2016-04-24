@@ -26,15 +26,15 @@ import android.view.ViewGroup;
 import android.widget.ViewFlipper;
 
 import com.jjoe64.graphview.GraphView;
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class TimeGraphFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private Scanner scanner;
-    private Configuration configuration;
+    private Settings settings;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class TimeGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.graphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        addGraphViews(swipeRefreshLayout, new TimeGraphAdapter(getScanner(), getConfiguration()));
+        addGraphViews(swipeRefreshLayout, new TimeGraphAdapter(getScanner(), getSettings()));
 
         return view;
     }
@@ -87,15 +87,15 @@ public class TimeGraphFragment extends Fragment {
         this.scanner = scanner;
     }
 
-    private Configuration getConfiguration() {
-        if (configuration == null) {
-            configuration = MainContext.INSTANCE.getConfiguration();
+    private Settings getSettings() {
+        if (settings == null) {
+            settings = MainContext.INSTANCE.getSettings();
         }
-        return configuration;
+        return settings;
     }
 
-    protected void setConfiguration(@NonNull Configuration configuration) {
-        this.configuration = configuration;
+    protected void setSettings(@NonNull Settings settings) {
+        this.settings = settings;
     }
     // injectors end
 

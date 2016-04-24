@@ -43,14 +43,10 @@ import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.ConnectionView;
-import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 import com.vrem.wifianalyzer.wifi.scanner.Transformer;
 
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.Locale;
 
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
@@ -60,19 +56,22 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private ThemeStyle currentThemeStyle;
     private NavigationMenuView navigationMenuView;
     private boolean subTitle;
+    private String currentCountryCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         initializeMainContext(this);
 
-        MainContext.INSTANCE.getSettings().initializeDefaultValues();
-        currentThemeStyle = MainContext.INSTANCE.getSettings().getThemeStyle();
+        Settings settings = MainContext.INSTANCE.getSettings();
+        settings.initializeDefaultValues();
+        currentThemeStyle = settings.getThemeStyle();
+        currentCountryCode = settings.getCountryCode();
         setTheme(currentThemeStyle.themeAppCompatStyle());
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        MainContext.INSTANCE.getSettings().registerOnSharedPreferenceChangeListener(this);
+        settings.registerOnSharedPreferenceChangeListener(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setOnClickListener(new WiFiBandToggle());
@@ -93,11 +92,11 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private void initializeMainContext(@NonNull Context context) {
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         Handler handler = new Handler();
-        Settings settings = new Settings();
+        Settings settings = new Settings(context);
         Configuration configuration = getConfiguration(context);
 
-        MainContext.INSTANCE.setConfiguration(configuration);
         MainContext.INSTANCE.setContext(context);
+        MainContext.INSTANCE.setConfiguration(configuration);
         MainContext.INSTANCE.setResources(context.getResources());
         MainContext.INSTANCE.setDatabase(new Database(context));
         MainContext.INSTANCE.setSettings(settings);
@@ -110,12 +109,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     private Configuration getConfiguration(@NonNull Context context) {
         boolean isDevelopmentMode = WI_FI_ANALYZER_BETA.equals(context.getString(R.string.app_name));
-        Locale locale = isDevelopmentMode ? WiFiChannelCountry.WORLD_LOCALE : context.getResources().getConfiguration().locale;
-        return new Configuration(
-                locale,
-                isLargeScreenLayout(),
-                WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(locale).get(0),
-                isDevelopmentMode);
+        return new Configuration(isLargeScreenLayout(), isDevelopmentMode);
     }
 
     private boolean isLargeScreenLayout() {
@@ -125,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (isThemeChanged()) {
+        if (shouldReload()) {
             reloadActivity();
         } else {
             MainContext.INSTANCE.getScanner().update();
@@ -133,10 +127,16 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         }
     }
 
-    private boolean isThemeChanged() {
-        ThemeStyle settingThemeStyle = MainContext.INSTANCE.getSettings().getThemeStyle();
-        if (!currentThemeStyle.equals(settingThemeStyle)) {
+    private boolean shouldReload() {
+        Settings settings = MainContext.INSTANCE.getSettings();
+        ThemeStyle settingThemeStyle = settings.getThemeStyle();
+        if (currentThemeStyle == null || !currentThemeStyle.equals(settingThemeStyle)) {
             currentThemeStyle = settingThemeStyle;
+            return true;
+        }
+        String settingCountryCode = settings.getCountryCode();
+        if (currentCountryCode == null || !currentCountryCode.equals(settingCountryCode)) {
+            currentCountryCode = settingCountryCode;
             return true;
         }
         return false;

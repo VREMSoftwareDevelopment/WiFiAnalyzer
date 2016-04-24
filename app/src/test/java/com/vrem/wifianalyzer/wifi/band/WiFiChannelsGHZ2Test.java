@@ -118,16 +118,16 @@ public class WiFiChannelsGHZ2Test {
 
     @Test
     public void testGetChannelsSet() throws Exception {
-        assertEquals(1, fixture.getWiFiChannelPairs(Locale.US).size());
-        Pair<WiFiChannel, WiFiChannel> pair = fixture.getWiFiChannelPairs(Locale.US).get(0);
+        assertEquals(1, fixture.getWiFiChannelPairs(Locale.US.getCountry()).size());
+        Pair<WiFiChannel, WiFiChannel> pair = fixture.getWiFiChannelPairs(Locale.US.getCountry()).get(0);
         assertEquals(1, pair.first.getChannel());
         assertEquals(14, pair.second.getChannel());
     }
 
     @Test
     public void testGetAvailableChannels() throws Exception {
-        assertEquals(11, fixture.getAvailableChannels(Locale.US).size());
-        assertEquals(13, fixture.getAvailableChannels(Locale.UK).size());
-        assertEquals(14, fixture.getAvailableChannels(Locale.JAPAN).size());
+        assertEquals(11, fixture.getAvailableChannels(Locale.US.getCountry()).size());
+        assertEquals(13, fixture.getAvailableChannels(Locale.UK.getCountry()).size());
+        assertEquals(14, fixture.getAvailableChannels(Locale.JAPAN.getCountry()).size());
     }
 }

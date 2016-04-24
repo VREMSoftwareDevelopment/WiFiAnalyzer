@@ -32,6 +32,7 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import java.util.ArrayList;
@@ -40,12 +41,15 @@ import java.util.List;
 class ChannelGraphNavigation {
     private static final float TEXT_SIZE_ADJUSTMENT = 0.8f;
     private final List<Button> navigationItems = new ArrayList<>();
+    private final Settings settings;
+    private final Configuration configuration;
     private Resources resources;
-    private Settings settings;
     private Scanner scanner;
 
-    ChannelGraphNavigation(@NonNull Context context, @NonNull Configuration configuration) {
-        makeNavigationItems(context, configuration);
+    ChannelGraphNavigation(@NonNull Context context, @NonNull Settings settings, @NonNull Configuration configuration) {
+        this.settings = settings;
+        this.configuration = configuration;
+        makeNavigationItems(context);
     }
 
     protected List<Button> getNavigationItems() {
@@ -53,21 +57,29 @@ class ChannelGraphNavigation {
     }
 
     protected void update() {
-        WiFiBand wiFiBand = getSettings().getWiFiBand();
+        WiFiBand wiFiBand = settings.getWiFiBand();
         for (Button button : navigationItems) {
             button.setVisibility(wiFiBand.isGHZ5() ? View.VISIBLE : View.GONE);
         }
     }
 
-    private void makeNavigationItems(@NonNull Context context, @NonNull Configuration configuration) {
-        Pair<WiFiChannel, WiFiChannel> selected = configuration.getWiFiChannelPair();
-        List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = WiFiBand.GHZ5.getWiFiChannels()
-                .getWiFiChannelPairs(configuration.getLocale());
+    private void makeNavigationItems(@NonNull Context context) {
+        String countryCode = settings.getCountryCode();
+        List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(countryCode);
         if (wiFiChannelPairs.size() > 1) {
+            Pair<WiFiChannel, WiFiChannel> selected = getSelected(wiFiChannelPairs);
             for (Pair<WiFiChannel, WiFiChannel> pair : wiFiChannelPairs) {
                 navigationItems.add(makeNavigationItem(context, configuration, pair, pair.equals(selected)));
             }
         }
+    }
+
+    private Pair<WiFiChannel, WiFiChannel> getSelected(List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs) {
+        Pair<WiFiChannel, WiFiChannel> selected = configuration.getWiFiChannelPair();
+        if (WiFiChannels.UNKNOWN.equals(selected)) {
+            selected = wiFiChannelPairs.get(0);
+        }
+        return selected;
     }
 
     private Button makeNavigationItem(@NonNull Context context, @NonNull Configuration configuration, Pair<WiFiChannel, WiFiChannel> pair, boolean selected) {
@@ -83,7 +95,7 @@ class ChannelGraphNavigation {
         button.setLayoutParams(params);
         button.setVisibility(View.GONE);
         button.setText(text);
-        button.setOnClickListener(new ButtonOnClickListener(configuration, pair));
+        button.setOnClickListener(new ButtonOnClickListener(pair));
         setSelectedButton(button, selected);
         return button;
     }
@@ -105,11 +117,9 @@ class ChannelGraphNavigation {
     }
 
     private class ButtonOnClickListener implements OnClickListener {
-        private final Configuration configuration;
         private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
 
-        ButtonOnClickListener(@NonNull Configuration configuration, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
-            this.configuration = configuration;
+        ButtonOnClickListener(@NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
             this.wiFiChannelPair = wiFiChannelPair;
         }
 
@@ -131,17 +141,6 @@ class ChannelGraphNavigation {
 
     protected void setResources(@NonNull Resources resources) {
         this.resources = resources;
-    }
-
-    private Settings getSettings() {
-        if (settings == null) {
-            settings = MainContext.INSTANCE.getSettings();
-        }
-        return settings;
-    }
-
-    protected void setSettings(@NonNull Settings settings) {
-        this.settings = settings;
     }
 
     private Scanner getScanner() {
