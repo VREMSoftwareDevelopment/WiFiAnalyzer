@@ -19,7 +19,6 @@ package com.vrem.wifianalyzer.wifi.graph.time;
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.RobolectricUtil;
-import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
@@ -42,7 +41,6 @@ import static org.mockito.Mockito.verify;
 public class TimeGraphAdapterTest {
 
     private Scanner scanner;
-    private Settings settings;
     private TimeGraphAdapter fixture;
 
     @Before
@@ -50,9 +48,8 @@ public class TimeGraphAdapterTest {
         RobolectricUtil.INSTANCE.getMainActivity();
 
         scanner = mock(Scanner.class);
-        settings = mock(Settings.class);
 
-        fixture = new TimeGraphAdapter(scanner, settings);
+        fixture = new TimeGraphAdapter(scanner);
     }
 
     @After

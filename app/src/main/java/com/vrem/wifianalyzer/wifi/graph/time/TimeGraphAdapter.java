@@ -18,7 +18,6 @@ package com.vrem.wifianalyzer.wifi.graph.time;
 
 import android.support.annotation.NonNull;
 
-import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphAdapter;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
@@ -28,11 +27,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 class TimeGraphAdapter extends GraphAdapter {
-    protected TimeGraphAdapter(@NonNull Scanner scanner, @NonNull Settings settings) {
-        super(scanner, makeGraphViewNotifiers(settings));
+    protected TimeGraphAdapter(@NonNull Scanner scanner) {
+        super(scanner, makeGraphViewNotifiers());
     }
 
-    private static List<GraphViewNotifier> makeGraphViewNotifiers(@NonNull Settings settings) {
+    private static List<GraphViewNotifier> makeGraphViewNotifiers() {
         List<GraphViewNotifier> graphViewNotifiers = new ArrayList<>();
         for (WiFiBand wiFiBand : WiFiBand.values()) {
             graphViewNotifiers.add(new TimeGraphView(wiFiBand));
