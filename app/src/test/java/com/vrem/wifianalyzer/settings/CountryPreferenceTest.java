@@ -58,7 +58,7 @@ public class CountryPreferenceTest {
         // validate
         int expectedSize = expected.size();
         assertEquals(expectedSize, actual.length);
-        assertEquals(expected.get(0).getCountryName(), actual[0]);
+        assertEquals(expected.get(2).getCountryName(), actual[0]);
         assertEquals(expected.get(expectedSize - 1).getCountryName(), actual[expectedSize - 1]);
     }
 
@@ -71,7 +71,7 @@ public class CountryPreferenceTest {
         // validate
         int expectedSize = expected.size();
         assertEquals(expectedSize, actual.length);
-        assertEquals(expected.get(0).getCountryCode(), actual[0]);
+        assertEquals(expected.get(2).getCountryCode(), actual[0]);
         assertEquals(expected.get(expectedSize - 1).getCountryCode(), actual[expectedSize - 1]);
     }
 }

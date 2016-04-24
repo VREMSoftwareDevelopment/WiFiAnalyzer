@@ -23,7 +23,10 @@ import android.util.AttributeSet;
 
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
+import org.apache.commons.lang3.builder.CompareToBuilder;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CountryPreference extends ListPreference {
@@ -33,18 +36,61 @@ public class CountryPreference extends ListPreference {
     }
 
     private void initialize(@NonNull Context context) {
-        List<WiFiChannelCountry> wiFiChannelCountries = WiFiChannelCountry.getAll();
-        List<String> entries = new ArrayList<>(wiFiChannelCountries.size());
-        List<String> entryValues = new ArrayList<>(wiFiChannelCountries.size());
-        for (WiFiChannelCountry wiFiChannelCountry : wiFiChannelCountries) {
-            entries.add(wiFiChannelCountry.getCountryName());
-            entryValues.add(wiFiChannelCountry.getCountryCode());
-        }
-        setEntries(entries.toArray(new CharSequence[]{}));
-        setEntryValues(entryValues.toArray(new CharSequence[]{}));
-
-        String defaultValue = context.getResources().getConfiguration().locale.getCountry();
-        setDefaultValue(defaultValue);
+        List<Data> datas = getSortedDatas();
+        setEntries(getNames(datas));
+        setEntryValues(getCodes(datas));
+        setDefaultValue(context.getResources().getConfiguration().locale.getCountry());
     }
 
+    private CharSequence[] getCodes(List<Data> datas) {
+        List<String> entryValues = new ArrayList<>();
+        for (Data data: datas) {
+            entryValues.add(data.getCode());
+        }
+        return entryValues.toArray(new CharSequence[]{});
+    }
+
+    private CharSequence[] getNames(List<Data> datas) {
+        List<String> entries = new ArrayList<>();
+        for (Data data: datas) {
+            entries.add(data.getName());
+        }
+        return entries.toArray(new CharSequence[]{});
+    }
+
+    private List<Data> getSortedDatas() {
+        List<Data> datas = new ArrayList<>();
+        for (WiFiChannelCountry wiFiChannelCountry : WiFiChannelCountry.getAll()) {
+            datas.add(new Data(wiFiChannelCountry.getCountryCode(), wiFiChannelCountry.getCountryName()));
+        }
+        Collections.sort(datas);
+        return datas;
+    }
+
+    class Data implements Comparable<Data> {
+        private final String code;
+        private final String name;
+
+        public Data(String code, String name) {
+            this.code = code;
+            this.name = name;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public int compareTo(@NonNull Data another) {
+            return new CompareToBuilder()
+                .append(getName(), another.getName())
+                .append(getCode(), another.getCode())
+                .toComparison();
+        }
+
+    }
 }

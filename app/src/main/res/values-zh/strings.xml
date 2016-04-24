@@ -71,5 +71,6 @@
     <string name="about_library_graph_view">图表视图</string>
     <string name="about_library_material">材料设计图标</string>
     <string name="about_contributor_title">贡献者:</string>
+    <string name="country_code_title">国家</string>
     <!-- about end -->
 </resources>

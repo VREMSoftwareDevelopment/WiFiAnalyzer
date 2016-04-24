@@ -32,7 +32,6 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
-import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import java.util.ArrayList;
@@ -67,19 +66,11 @@ class ChannelGraphNavigation {
         String countryCode = settings.getCountryCode();
         List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(countryCode);
         if (wiFiChannelPairs.size() > 1) {
-            Pair<WiFiChannel, WiFiChannel> selected = getSelected(wiFiChannelPairs);
+            Pair<WiFiChannel, WiFiChannel> selected = configuration.getWiFiChannelPair();
             for (Pair<WiFiChannel, WiFiChannel> pair : wiFiChannelPairs) {
                 navigationItems.add(makeNavigationItem(context, configuration, pair, pair.equals(selected)));
             }
         }
-    }
-
-    private Pair<WiFiChannel, WiFiChannel> getSelected(List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs) {
-        Pair<WiFiChannel, WiFiChannel> selected = configuration.getWiFiChannelPair();
-        if (WiFiChannels.UNKNOWN.equals(selected)) {
-            selected = wiFiChannelPairs.get(0);
-        }
-        return selected;
     }
 
     private Button makeNavigationItem(@NonNull Context context, @NonNull Configuration configuration, Pair<WiFiChannel, WiFiChannel> pair, boolean selected) {
