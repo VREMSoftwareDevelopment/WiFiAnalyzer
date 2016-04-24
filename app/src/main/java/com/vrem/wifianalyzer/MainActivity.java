@@ -127,15 +127,15 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         }
     }
 
-    private boolean shouldReload() {
+    protected boolean shouldReload() {
         Settings settings = MainContext.INSTANCE.getSettings();
         ThemeStyle settingThemeStyle = settings.getThemeStyle();
-        if (currentThemeStyle == null || !currentThemeStyle.equals(settingThemeStyle)) {
+        if (!currentThemeStyle.equals(settingThemeStyle)) {
             currentThemeStyle = settingThemeStyle;
             return true;
         }
         String settingCountryCode = settings.getCountryCode();
-        if (currentCountryCode == null || !currentCountryCode.equals(settingCountryCode)) {
+        if (!currentCountryCode.equals(settingCountryCode)) {
             currentCountryCode = settingCountryCode;
             return true;
         }
@@ -200,10 +200,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         return navigationMenuView;
     }
 
-    protected ThemeStyle getCurrentThemeStyle() {
-        return currentThemeStyle;
-    }
-
     protected void wiFiBandToggle() {
         MainContext.INSTANCE.getSettings().toggleWiFiBand();
     }
@@ -213,5 +209,21 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         public void onClick(View view) {
             wiFiBandToggle();
         }
+    }
+
+    protected String getCurrentCountryCode() {
+        return currentCountryCode;
+    }
+
+    protected void setCurrentCountryCode(String currentCountryCode) {
+        this.currentCountryCode = currentCountryCode;
+    }
+
+    protected ThemeStyle getCurrentThemeStyle() {
+        return currentThemeStyle;
+    }
+
+    protected void setCurrentThemeStyle(ThemeStyle currentThemeStyle) {
+        this.currentThemeStyle = currentThemeStyle;
     }
 }

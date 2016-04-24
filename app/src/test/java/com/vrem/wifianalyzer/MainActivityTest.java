@@ -16,8 +16,10 @@
 
 package com.vrem.wifianalyzer;
 
+import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,6 +39,10 @@ public class MainActivityTest {
     @Before
     public void setUp() throws Exception {
         fixture = RobolectricUtil.INSTANCE.getMainActivity();
+    }
+
+    @After
+    public void tearDown() throws Exception {
     }
 
     @Test
@@ -68,5 +74,36 @@ public class MainActivityTest {
         // execute
         fixture.onBackPressed();
         // validate
+    }
+
+    @Test
+    public void testShouldReloadWithNoChanges() throws Exception {
+        // setup
+        String currentCountryCode = fixture.getCurrentCountryCode();
+        ThemeStyle currentThemeStyle = fixture.getCurrentThemeStyle();
+        // execute && validate
+        assertFalse(fixture.shouldReload());
+        assertEquals(currentCountryCode, fixture.getCurrentCountryCode());
+        assertEquals(currentThemeStyle, fixture.getCurrentThemeStyle());
+    }
+
+    @Test
+    public void testShouldReloadWithThemeChange() throws Exception {
+        // setup
+        ThemeStyle expected = fixture.getCurrentThemeStyle();
+        fixture.setCurrentThemeStyle(ThemeStyle.LIGHT.equals(expected) ? ThemeStyle.DARK : ThemeStyle.LIGHT);
+        // execute && validate
+        assertTrue(fixture.shouldReload());
+        assertEquals(expected, fixture.getCurrentThemeStyle());
+    }
+
+    @Test
+    public void testShouldReloadWithCountryChange() throws Exception {
+        // setup
+        String expected = fixture.getCurrentCountryCode();
+        fixture.setCurrentCountryCode("US".equals(expected) ? "UK" : "US");
+        // execute && validate
+        assertTrue(fixture.shouldReload());
+        assertEquals(expected, fixture.getCurrentCountryCode());
     }
 }
