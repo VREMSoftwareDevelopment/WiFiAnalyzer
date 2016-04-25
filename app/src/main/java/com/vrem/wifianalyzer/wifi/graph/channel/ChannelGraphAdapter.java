@@ -42,7 +42,7 @@ class ChannelGraphAdapter extends GraphAdapter {
         String countryCode = settings.getCountryCode();
         List<GraphViewNotifier> graphViewNotifiers = new ArrayList<>();
         for (WiFiBand wiFiBand : WiFiBand.values()) {
-            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiBand.getWiFiChannels().getWiFiChannelPairs(countryCode)) {
+            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiBand.getWiFiChannels().getWiFiChannelPairs()) {
                 graphViewNotifiers.add(new ChannelGraphView(wiFiBand, wiFiChannelPair));
             }
         }

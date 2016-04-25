@@ -25,7 +25,6 @@ import android.support.v4.util.Pair;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
-import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -99,8 +98,7 @@ public class Transformer {
             int count = 0;
             int level = -45;
             String security = "[WPA-PSK-CCMP+TKIP][WPA2-PSK-CCMP+TKIP][WPS][ESS]";
-            List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(WiFiChannelCountry.WORLD_CODE);
-            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiChannelPairs) {
+            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs()) {
                 WiFiSignal wiFiSignal = new WiFiSignal(wiFiChannelPair.first.getFrequency(), WiFiWidth.MHZ_40, level);
                 WiFiDetail wiFiDetail = new WiFiDetail("TEST-SSID", "BSSID:0A:B0:0" + count + ":0" + count, security, wiFiSignal);
                 wiFiDetails.add(wiFiDetail);

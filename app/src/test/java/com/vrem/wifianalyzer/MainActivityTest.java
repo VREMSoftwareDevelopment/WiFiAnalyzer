@@ -77,13 +77,11 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testShouldReloadWithNoChanges() throws Exception {
+    public void testShouldNotReloadWithNoChanges() throws Exception {
         // setup
-        String currentCountryCode = fixture.getCurrentCountryCode();
         ThemeStyle currentThemeStyle = fixture.getCurrentThemeStyle();
         // execute && validate
         assertFalse(fixture.shouldReload());
-        assertEquals(currentCountryCode, fixture.getCurrentCountryCode());
         assertEquals(currentThemeStyle, fixture.getCurrentThemeStyle());
     }
 
@@ -97,13 +95,4 @@ public class MainActivityTest {
         assertEquals(expected, fixture.getCurrentThemeStyle());
     }
 
-    @Test
-    public void testShouldReloadWithCountryChange() throws Exception {
-        // setup
-        String expected = fixture.getCurrentCountryCode();
-        fixture.setCurrentCountryCode("US".equals(expected) ? "UK" : "US");
-        // execute && validate
-        assertTrue(fixture.shouldReload());
-        assertEquals(expected, fixture.getCurrentCountryCode());
-    }
 }

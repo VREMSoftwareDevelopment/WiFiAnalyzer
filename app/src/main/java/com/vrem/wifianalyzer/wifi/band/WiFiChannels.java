@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class WiFiChannels {
-    public final static Pair<WiFiChannel, WiFiChannel> UNKNOWN = new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN);
+    public static final Pair<WiFiChannel, WiFiChannel> UNKNOWN = new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN);
 
     private final Pair<Integer, Integer> wiFiRange;
     private final List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs;
@@ -105,12 +105,13 @@ public abstract class WiFiChannels {
         return WiFiChannel.UNKNOWN;
     }
 
-    public abstract List<WiFiChannel> getAvailableChannels(@NonNull String countryCode);
+    public abstract List<WiFiChannel> getAvailableChannels(String countryCode);
 
-    public abstract boolean isChannelAvailable(@NonNull String countryCode, int channel);
+    public abstract boolean isChannelAvailable(String countryCode, int channel);
 
-    public abstract List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs(@NonNull String countryCode);
+    public abstract List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs();
+
+    public abstract Pair<WiFiChannel, WiFiChannel> getWiFiChannelPairFirst(String countryCode);
 
     public abstract WiFiChannel getWiFiChannelByFrequency(int frequency, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair);
-
 }

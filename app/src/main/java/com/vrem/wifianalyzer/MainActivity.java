@@ -51,28 +51,25 @@ import com.vrem.wifianalyzer.wifi.scanner.Transformer;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.List;
-
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
 public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
     private static final String WI_FI_ANALYZER_BETA = "WiFi Analyzer BETA";
 
+    private MainContext mainContext = MainContext.INSTANCE;
     private ThemeStyle currentThemeStyle;
     private NavigationMenuView navigationMenuView;
     private boolean subTitle;
-    private String currentCountryCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         initializeMainContext(this);
 
-        Settings settings = MainContext.INSTANCE.getSettings();
+        Settings settings = mainContext.getSettings();
         settings.initializeDefaultValues();
         setCurrentThemeStyle(settings.getThemeStyle());
-        setCurrentCountryCode(settings.getCountryCode());
         setTheme(getCurrentThemeStyle().themeAppCompatStyle());
-        setWiFiChannelPairs(getCurrentCountryCode());
+        setWiFiChannelPairs();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
@@ -92,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         navigationMenuView = new NavigationMenuView(this);
         onNavigationItemSelected(navigationMenuView.defaultMenuItem());
 
-        new ConnectionView(this, MainContext.INSTANCE.getScanner());
+        new ConnectionView(this, mainContext.getScanner());
     }
 
     private void initializeMainContext(@NonNull Context context) {
@@ -101,23 +98,21 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         Settings settings = new Settings(context);
         Configuration configuration = getConfiguration(context);
 
-        MainContext.INSTANCE.setContext(context);
-        MainContext.INSTANCE.setConfiguration(configuration);
-        MainContext.INSTANCE.setResources(context.getResources());
-        MainContext.INSTANCE.setDatabase(new Database(context));
-        MainContext.INSTANCE.setSettings(settings);
-        MainContext.INSTANCE.setVendorService(new VendorService());
-        MainContext.INSTANCE.setLayoutInflater((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
-        MainContext.INSTANCE.setLogger(new Logger());
-
-        MainContext.INSTANCE.setScanner(new Scanner(wifiManager, handler, settings, new Transformer(configuration)));
+        mainContext.setContext(context);
+        mainContext.setConfiguration(configuration);
+        mainContext.setResources(context.getResources());
+        mainContext.setDatabase(new Database(context));
+        mainContext.setSettings(settings);
+        mainContext.setVendorService(new VendorService());
+        mainContext.setLayoutInflater((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+        mainContext.setLogger(new Logger());
+        mainContext.setScanner(new Scanner(wifiManager, handler, settings, new Transformer(configuration)));
     }
 
-    private void setWiFiChannelPairs(String countryCode) {
-        List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(countryCode);
-        if (!wiFiChannelPairs.isEmpty()) {
-            MainContext.INSTANCE.getConfiguration().setWiFiChannelPair(wiFiChannelPairs.get(0));
-        }
+    private void setWiFiChannelPairs() {
+        String countryCode = mainContext.getSettings().getCountryCode();
+        Pair<WiFiChannel, WiFiChannel> pair = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairFirst(countryCode);
+        mainContext.getConfiguration().setWiFiChannelPair(pair);
     }
 
     private Configuration getConfiguration(@NonNull Context context) {
@@ -135,23 +130,17 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         if (shouldReload()) {
             reloadActivity();
         } else {
-            MainContext.INSTANCE.getScanner().update();
+            mainContext.getScanner().update();
             updateSubTitle();
         }
     }
 
     protected boolean shouldReload() {
-        boolean result = false;
-        Settings settings = MainContext.INSTANCE.getSettings();
+        Settings settings = mainContext.getSettings();
         ThemeStyle settingThemeStyle = settings.getThemeStyle();
-        if (!getCurrentThemeStyle().equals(settingThemeStyle)) {
+        boolean result = !getCurrentThemeStyle().equals(settingThemeStyle);
+        if (result) {
             setCurrentThemeStyle(settingThemeStyle);
-            result = true;
-        }
-        String settingCountryCode = settings.getCountryCode();
-        if (!getCurrentCountryCode().equals(settingCountryCode)) {
-            setCurrentCountryCode(settingCountryCode);
-            result = true;
         }
         return result;
     }
@@ -193,20 +182,20 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     protected void onPause() {
-        MainContext.INSTANCE.getScanner().pause();
+        mainContext.getScanner().pause();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        MainContext.INSTANCE.getScanner().resume();
+        mainContext.getScanner().resume();
     }
 
     private void updateSubTitle() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setSubtitle(subTitle ? MainContext.INSTANCE.getSettings().getWiFiBand().getBand() : StringUtils.EMPTY);
+            actionBar.setSubtitle(subTitle ? mainContext.getSettings().getWiFiBand().getBand() : StringUtils.EMPTY);
         }
     }
 
@@ -217,16 +206,8 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private class WiFiBandToggle implements OnClickListener {
         @Override
         public void onClick(View view) {
-            MainContext.INSTANCE.getSettings().toggleWiFiBand();
+            mainContext.getSettings().toggleWiFiBand();
         }
-    }
-
-    protected String getCurrentCountryCode() {
-        return currentCountryCode;
-    }
-
-    protected void setCurrentCountryCode(String currentCountryCode) {
-        this.currentCountryCode = currentCountryCode;
     }
 
     protected ThemeStyle getCurrentThemeStyle() {

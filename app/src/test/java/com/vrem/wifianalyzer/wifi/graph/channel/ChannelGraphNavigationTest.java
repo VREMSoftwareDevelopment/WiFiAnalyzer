@@ -79,7 +79,7 @@ public class ChannelGraphNavigationTest {
         // execute
         List<Button> actual = fixture.getNavigationItems();
         // validate
-        assertEquals(3, actual.size());
+        assertEquals(5, actual.size());
     }
 
     @Test
@@ -111,7 +111,7 @@ public class ChannelGraphNavigationTest {
     @Test
     public void testSelectNavigationUpdatesConfigurationAndScans() throws Exception {
         // setup
-        Pair<WiFiChannel, WiFiChannel> expected = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(Locale.US.getCountry()).get(0);
+        Pair<WiFiChannel, WiFiChannel> expected = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs().get(0);
         Button navigationItem = fixture.getNavigationItems().get(0);
         // execute
         navigationItem.callOnClick();

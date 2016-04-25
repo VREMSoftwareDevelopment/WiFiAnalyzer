@@ -84,7 +84,7 @@ public class ChannelGraphAdapterTest {
     private int expectedCount() {
         int expected = 0;
         for (WiFiBand wiFiBand : WiFiBand.values()) {
-            expected += wiFiBand.getWiFiChannels().getWiFiChannelPairs(Locale.US.getCountry()).size();
+            expected += wiFiBand.getWiFiChannels().getWiFiChannelPairs().size();
         }
         return expected;
     }

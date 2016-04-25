@@ -64,12 +64,9 @@ class ChannelGraphNavigation {
 
     private void makeNavigationItems(@NonNull Context context) {
         String countryCode = settings.getCountryCode();
-        List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(countryCode);
-        if (wiFiChannelPairs.size() > 1) {
-            Pair<WiFiChannel, WiFiChannel> selected = configuration.getWiFiChannelPair();
-            for (Pair<WiFiChannel, WiFiChannel> pair : wiFiChannelPairs) {
-                navigationItems.add(makeNavigationItem(context, configuration, pair, pair.equals(selected)));
-            }
+        Pair<WiFiChannel, WiFiChannel> selected = configuration.getWiFiChannelPair();
+        for (Pair<WiFiChannel, WiFiChannel> pair : WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs()) {
+            navigationItems.add(makeNavigationItem(context, configuration, pair, pair.equals(selected)));
         }
     }
 

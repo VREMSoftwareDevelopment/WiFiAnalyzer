@@ -21,6 +21,7 @@ import android.support.v4.util.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
@@ -117,11 +118,21 @@ public class WiFiChannelsGHZ2Test {
     }
 
     @Test
-    public void testGetChannelsSet() throws Exception {
-        assertEquals(1, fixture.getWiFiChannelPairs(Locale.US.getCountry()).size());
-        Pair<WiFiChannel, WiFiChannel> pair = fixture.getWiFiChannelPairs(Locale.US.getCountry()).get(0);
-        assertEquals(1, pair.first.getChannel());
-        assertEquals(14, pair.second.getChannel());
+    public void testGetWiFiChannelPairs() throws Exception {
+        List<Pair<WiFiChannel, WiFiChannel>> pair = fixture.getWiFiChannelPairs();
+        assertEquals(1, pair.size());
+        validatePair(1, 14, pair.get(0));
+    }
+
+    @Test
+    public void testGetWiFiChannelPair() throws Exception {
+        validatePair(1, 14, fixture.getWiFiChannelPairFirst(Locale.US.getCountry()));
+        validatePair(1, 14, fixture.getWiFiChannelPairFirst(null));
+    }
+
+    private void validatePair(int expectedFirst, int expectedSecond, Pair<WiFiChannel, WiFiChannel> pair) {
+        assertEquals(expectedFirst, pair.first.getChannel());
+        assertEquals(expectedSecond, pair.second.getChannel());
     }
 
     @Test

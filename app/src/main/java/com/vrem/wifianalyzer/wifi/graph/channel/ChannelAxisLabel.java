@@ -21,6 +21,8 @@ import android.support.v4.util.Pair;
 
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
+import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
@@ -31,12 +33,11 @@ import org.apache.commons.lang3.StringUtils;
 class ChannelAxisLabel implements LabelFormatter {
     private final WiFiBand wiFiBand;
     private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
-    private final String countryCode;
+    private Settings settings;
 
-    ChannelAxisLabel(@NonNull WiFiBand wiFiBand, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair, @NonNull String countryCode) {
+    ChannelAxisLabel(@NonNull WiFiBand wiFiBand, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         this.wiFiBand = wiFiBand;
         this.wiFiChannelPair = wiFiChannelPair;
-        this.countryCode = countryCode;
     }
 
     @Override
@@ -65,11 +66,25 @@ class ChannelAxisLabel implements LabelFormatter {
         if (wiFiChannel == WiFiChannel.UNKNOWN) {
             return StringUtils.EMPTY;
         }
+
         int channel = wiFiChannel.getChannel();
+        String countryCode = getSettings().getCountryCode();
         if (!wiFiChannels.isChannelAvailable(countryCode, channel)) {
             return StringUtils.EMPTY;
         }
         return "" + channel;
     }
 
+    // injectors start
+    private Settings getSettings() {
+        if (settings == null) {
+            settings = MainContext.INSTANCE.getSettings();
+        }
+        return settings;
+    }
+
+    protected void setSettings(@NonNull Settings settings) {
+        this.settings = settings;
+    }
+    // injectors end
 }

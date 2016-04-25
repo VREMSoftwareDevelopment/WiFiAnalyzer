@@ -21,37 +21,44 @@ import android.support.v4.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 class WiFiChannelsGHZ5 extends WiFiChannels {
-    private final static Pair<Integer, Integer> RANGE = new Pair<>(4900, 5899);
-    private final static List<Pair<WiFiChannel, WiFiChannel>> SETS = Arrays.asList(
+    private static final Pair<Integer, Integer> RANGE = new Pair<>(4900, 5899);
+    private static final List<Pair<WiFiChannel, WiFiChannel>> SETS = Arrays.asList(
             new Pair<>(new WiFiChannel(8, 5040), new WiFiChannel(16, 5080)),
             new Pair<>(new WiFiChannel(36, 5180), new WiFiChannel(64, 5320)),
             new Pair<>(new WiFiChannel(100, 5500), new WiFiChannel(140, 5700)),
             new Pair<>(new WiFiChannel(149, 5745), new WiFiChannel(165, 5825)),
             new Pair<>(new WiFiChannel(184, 4910), new WiFiChannel(196, 4980)));
 
-    private final static int FREQUENCY_OFFSET = WiFiChannel.FREQUENCY_SPREAD * 4;
-    private final static int FREQUENCY_SPREAD = WiFiChannel.FREQUENCY_SPREAD;
+    private static final int FREQUENCY_OFFSET = WiFiChannel.FREQUENCY_SPREAD * 4;
+    private static final int FREQUENCY_SPREAD = WiFiChannel.FREQUENCY_SPREAD;
+    private static final int DEFAULT_PAIR = 1;
 
     WiFiChannelsGHZ5() {
         super(RANGE, SETS, FREQUENCY_OFFSET, FREQUENCY_SPREAD);
     }
 
     @Override
-    public List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs(@NonNull String countryCode) {
-        List<Pair<WiFiChannel, WiFiChannel>> results = new ArrayList<>();
-        for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : SETS) {
-            if (isChannelAvailable(countryCode, wiFiChannelPair.first.getChannel())) {
-                results.add(wiFiChannelPair);
-            }
-        }
-        return results;
+    public List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs() {
+        return Collections.unmodifiableList(SETS);
     }
 
     @Override
-    public List<WiFiChannel> getAvailableChannels(@NonNull String countryCode) {
+    public Pair<WiFiChannel, WiFiChannel> getWiFiChannelPairFirst(String countryCode) {
+        List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = getWiFiChannelPairs();
+        for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiChannelPairs) {
+            if (isChannelAvailable(countryCode, wiFiChannelPair.first.getChannel())) {
+                return wiFiChannelPair;
+            }
+        }
+        return wiFiChannelPairs.get(DEFAULT_PAIR);
+    }
+
+    @Override
+    public List<WiFiChannel> getAvailableChannels(String countryCode) {
         List<WiFiChannel> wiFiChannels = new ArrayList<>();
         for (int channel : WiFiChannelCountry.find(countryCode).getChannelsGHZ5()) {
             wiFiChannels.add(getWiFiChannelByChannel(channel));
@@ -60,7 +67,7 @@ class WiFiChannelsGHZ5 extends WiFiChannels {
     }
 
     @Override
-    public boolean isChannelAvailable(@NonNull String countryCode, int channel) {
+    public boolean isChannelAvailable(String countryCode, int channel) {
         return WiFiChannelCountry.find(countryCode).isChannelAvailableGHZ5(channel);
     }
 
