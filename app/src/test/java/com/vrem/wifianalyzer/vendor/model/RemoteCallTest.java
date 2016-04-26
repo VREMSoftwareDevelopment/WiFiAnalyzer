@@ -43,7 +43,7 @@ import static org.mockito.Mockito.when;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class RemoteCallTest {
-    private final static String MAC_ADDRESS = "00:23:AB:7B:58:99";
+    private static final String MAC_ADDRESS = "00:23:AB:7B:58:99";
     private static final String VENDOR_NAME = "CISCO SYSTEMS, INC.";
 
     private Database database;

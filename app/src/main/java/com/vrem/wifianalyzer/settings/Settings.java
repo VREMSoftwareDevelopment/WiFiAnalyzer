@@ -16,6 +16,7 @@
 
 package com.vrem.wifianalyzer.settings;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.R;
@@ -27,9 +28,11 @@ import com.vrem.wifianalyzer.wifi.model.SortBy;
 import static android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
 public class Settings {
+    private final Context context;
     private Repository repository;
 
-    public Settings() {
+    public Settings(@NonNull Context context) {
+        this.context = context;
         setRepository(new Repository());
     }
 
@@ -77,4 +80,8 @@ public class Settings {
         repository.save(R.string.wifi_band_key, getWiFiBand().toggle().ordinal());
     }
 
+    public String getCountryCode() {
+        String countryCode = context.getResources().getConfiguration().locale.getCountry();
+        return repository.getString(R.string.country_code_key, countryCode);
+    }
 }

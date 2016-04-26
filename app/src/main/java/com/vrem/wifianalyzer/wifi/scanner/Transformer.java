@@ -35,7 +35,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 public class Transformer {
     private final Configuration configuration;
@@ -95,12 +94,11 @@ public class Transformer {
     }
 
     private void addTestData(@NonNull List<WiFiDetail> wiFiDetails) {
-        Locale locale = configuration.getLocale();
         if (configuration.isDevelopmentMode()) {
             int count = 0;
             int level = -45;
             String security = "[WPA-PSK-CCMP+TKIP][WPA2-PSK-CCMP+TKIP][WPS][ESS]";
-            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs(locale)) {
+            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs()) {
                 WiFiSignal wiFiSignal = new WiFiSignal(wiFiChannelPair.first.getFrequency(), WiFiWidth.MHZ_40, level);
                 WiFiDetail wiFiDetail = new WiFiDetail("TEST-SSID", "BSSID:0A:B0:0" + count + ":0" + count, security, wiFiSignal);
                 wiFiDetails.add(wiFiDetail);

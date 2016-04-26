@@ -54,6 +54,10 @@
     <string name="graph_axis_y">Signal Strength (dBm)</string>
 
     <!-- settings start -->
+    <string name="country_code_title">Country</string>
+    <string name="country_code_summary" translatable="false">%s</string>
+    <string name="country_code_key" translatable="false">country_code</string>
+
     <string name="wifi_band_title">WiFi Band</string>
     <string name="wifi_band_summary" translatable="false">%s</string>
     <string name="wifi_band_key" translatable="false">wifi_band</string>

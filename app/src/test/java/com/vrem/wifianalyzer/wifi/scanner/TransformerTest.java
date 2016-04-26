@@ -34,7 +34,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -145,14 +144,12 @@ public class TransformerTest {
     public void testTransformScanResultsInDevelopmentMode() throws Exception {
         // setup
         when(configuration.isDevelopmentMode()).thenReturn(true);
-        when(configuration.getLocale()).thenReturn(Locale.US);
         withScanResult();
         // execute
         List<WiFiDetail> actual = fixture.transformScanResults(scanResults);
         // validate
         verify(configuration).isDevelopmentMode();
-        verify(configuration).getLocale();
-        assertEquals(scanResults.size() + 3, actual.size());
+        assertEquals(scanResults.size() + 5, actual.size());
     }
 
     private void validateWiFiDetail(String SSID, String BSSID, WiFiDetail wiFiDetail) {

@@ -75,4 +75,11 @@
         android:persistent="true"
         android:summary="@string/theme_summary"
         android:title="@string/theme_title" />
+
+    <com.vrem.wifianalyzer.settings.CountryPreference
+        android:key="@string/country_code_key"
+        android:persistent="true"
+        android:summary="@string/country_code_summary"
+        android:title="@string/country_code_title" />
+
 </PreferenceScreen>

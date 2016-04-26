@@ -39,19 +39,27 @@ class Repository {
     }
 
     protected void save(int key, int value) {
-        save(getContext().getString(key), value);
+        save(getContext().getString(key), "" + value);
     }
 
-    private void save(String key, int value) {
+    private void save(String key, String value) {
         SharedPreferences.Editor editor = getSharedPreferences().edit();
-        editor.putString(key, "" + value);
+        editor.putString(key, value);
         editor.apply();
     }
 
     protected int getStringAsInteger(int key, int defaultValue) {
+        try {
+            return Integer.parseInt(getString(key, "" + defaultValue));
+        } catch (Exception e) {
+            return defaultValue;
+        }
+    }
+
+    protected String getString(int key, String defaultValue) {
         String keyValue = getContext().getString(key);
         try {
-            return Integer.parseInt(getSharedPreferences().getString(keyValue, "" + defaultValue));
+            return getSharedPreferences().getString(keyValue, defaultValue);
         } catch (Exception e) {
             save(keyValue, defaultValue);
             return defaultValue;
@@ -67,7 +75,7 @@ class Repository {
         try {
             return getSharedPreferences().getInt(keyValue, defaultValue);
         } catch (Exception e) {
-            save(keyValue, defaultValue);
+            save(keyValue, "" + defaultValue);
             return defaultValue;
         }
     }

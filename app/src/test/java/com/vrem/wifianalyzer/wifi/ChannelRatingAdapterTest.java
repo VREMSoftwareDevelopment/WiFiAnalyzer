@@ -21,7 +21,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
@@ -61,7 +60,6 @@ public class ChannelRatingAdapterTest {
     private Scanner scanner;
     private Settings settings;
     private ChannelRating channelRating;
-    private Configuration configuration;
 
     @Before
     public void setUp() throws Exception {
@@ -69,14 +67,11 @@ public class ChannelRatingAdapterTest {
 
         channelRating = mock(ChannelRating.class);
         scanner = mock(Scanner.class);
-        configuration = mock(Configuration.class);
         settings = mock(Settings.class);
         bestChannels = mock(TextView.class);
 
         fixture = new ChannelRatingAdapter(scanner, mainActivity, bestChannels);
         fixture.setChannelRating(channelRating);
-        fixture.setSettings(settings);
-        fixture.setConfiguration(configuration);
         fixture.setSettings(settings);
     }
 
@@ -118,13 +113,13 @@ public class ChannelRatingAdapterTest {
         WiFiData wiFiData = new WiFiData(new ArrayList<WiFiDetail>(), WiFiConnection.EMPTY, new ArrayList<String>());
         List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(WiFiBand.GHZ5, SortBy.STRENGTH);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
-        when(configuration.getLocale()).thenReturn(Locale.US);
+        when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
         // execute
         fixture.update(wiFiData);
         // validate
         verify(channelRating).setWiFiChannels(wiFiDetails);
         verify(settings).getWiFiBand();
-        verify(configuration).getLocale();
+        verify(settings).getCountryCode();
     }
 
     @Test

@@ -26,12 +26,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-enum Country {
-    INSTANCE;
-
+public class Country {
     private final List<Locale> countries;
 
-    Country() {
+    public Country() {
         countries = new ArrayList<>();
         for (Locale locale : Locale.getAvailableLocales()) {
             String countryCode = locale.getCountry();
@@ -42,7 +40,7 @@ enum Country {
         Collections.sort(countries, new LocaleCountryComparator());
     }
 
-    Locale getCountry(@NonNull String countryCode) {
+    public Locale getCountry(@NonNull String countryCode) {
         Locale country = new Locale("", countryCode);
         int index = Collections.binarySearch(countries, country, new LocaleCountryComparator());
         if (index < 0) {
@@ -51,7 +49,7 @@ enum Country {
         return countries.get(index);
     }
 
-    List<Locale> getCountries() {
+    public List<Locale> getCountries() {
         return Collections.unmodifiableList(countries);
     }
 

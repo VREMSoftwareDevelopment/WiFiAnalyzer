@@ -21,12 +21,13 @@ import android.support.v4.util.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 
 public class WiFiChannelsGHZ5Test {
-    private WiFiChannels fixture;
+    private WiFiChannelsGHZ5 fixture;
 
     @Before
     public void setUp() throws Exception {
@@ -71,53 +72,58 @@ public class WiFiChannelsGHZ5Test {
     }
 
     @Test
-    public void testGetWiFiChannelPairsUS() throws Exception {
-        Locale locale = Locale.US;
-        assertEquals(3, fixture.getWiFiChannelPairs(locale).size());
-        validatePair(36, 64, 0, locale);
-        validatePair(100, 140, 1, locale);
-        validatePair(149, 165, 2, locale);
+    public void testGetWiFiChannelPair() throws Exception {
+        Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = fixture.getWiFiChannelPairFirst(Locale.JAPAN.getCountry());
+        validatePair(8, 16, wiFiChannelPair);
     }
 
     @Test
-    public void testGetWiFiChannelPairsUK() throws Exception {
-        Locale locale = Locale.UK;
-        assertEquals(2, fixture.getWiFiChannelPairs(locale).size());
-        validatePair(36, 64, 0, locale);
-        validatePair(100, 140, 1, locale);
+    public void testGetWiFiChannelPairWithInvalidCountry() throws Exception {
+        Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = fixture.getWiFiChannelPairFirst(null);
+        validatePair(36, 64, wiFiChannelPair);
     }
 
     @Test
-    public void testGetWiFiChannelPairsJapan() throws Exception {
-        Locale locale = Locale.JAPAN;
-        assertEquals(4, fixture.getWiFiChannelPairs(locale).size());
-        validatePair(8, 16, 0, locale);
-        validatePair(36, 64, 1, locale);
-        validatePair(100, 140, 2, locale);
-        validatePair(184, 196, 3, locale);
+    public void testGetWiFiChannelPairs() throws Exception {
+        List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = fixture.getWiFiChannelPairs();
+        assertEquals(5, wiFiChannelPairs.size());
+        validatePair(8, 16, wiFiChannelPairs.get(0));
+        validatePair(36, 64, wiFiChannelPairs.get(1));
+        validatePair(100, 140, wiFiChannelPairs.get(2));
+        validatePair(149, 165, wiFiChannelPairs.get(3));
+        validatePair(184, 196, wiFiChannelPairs.get(4));
     }
 
-    @Test
-    public void testGetWiFiChannelPairsWorld() throws Exception {
-        Locale locale = WiFiChannelCountry.WORLD_LOCALE;
-        assertEquals(5, fixture.getWiFiChannelPairs(locale).size());
-        validatePair(8, 16, 0, locale);
-        validatePair(36, 64, 1, locale);
-        validatePair(100, 140, 2, locale);
-        validatePair(149, 165, 3, locale);
-        validatePair(184, 196, 4, locale);
-    }
-
-    private void validatePair(int expectedFirst, int expectedSecond, int index, Locale locale) {
-        Pair<WiFiChannel, WiFiChannel> pair = fixture.getWiFiChannelPairs(locale).get(index);
+    private void validatePair(int expectedFirst, int expectedSecond, Pair<WiFiChannel, WiFiChannel> pair) {
         assertEquals(expectedFirst, pair.first.getChannel());
         assertEquals(expectedSecond, pair.second.getChannel());
     }
 
     @Test
     public void testGetAvailableChannels() throws Exception {
-        assertEquals(24, fixture.getAvailableChannels(Locale.US).size());
-        assertEquals(19, fixture.getAvailableChannels(Locale.UK).size());
-        assertEquals(30, fixture.getAvailableChannels(Locale.JAPAN).size());
+        assertEquals(24, fixture.getAvailableChannels(Locale.US.getCountry()).size());
+        assertEquals(19, fixture.getAvailableChannels(Locale.UK.getCountry()).size());
+        assertEquals(30, fixture.getAvailableChannels(Locale.JAPAN.getCountry()).size());
     }
+
+    @Test
+    public void testGetWiFiChannelByFrequency5GHZ() throws Exception {
+        // setup
+        Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = fixture.getWiFiChannelPairs().get(1);
+        // execute
+        WiFiChannel actual = fixture.getWiFiChannelByFrequency(2000, wiFiChannelPair);
+        // validate
+        assertEquals(WiFiChannel.UNKNOWN, actual);
+    }
+
+    @Test
+    public void testGetWiFiChannelByFrequency5GHZInRange() throws Exception {
+        // setup
+        Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = fixture.getWiFiChannelPairs().get(1);
+        // execute
+        WiFiChannel actual = fixture.getWiFiChannelByFrequency(wiFiChannelPair.first.getFrequency(), wiFiChannelPair);
+        // validate
+        assertEquals(wiFiChannelPair.first, actual);
+    }
+
 }

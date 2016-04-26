@@ -21,9 +21,10 @@ import android.support.v4.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public abstract class WiFiChannels {
+    public static final Pair<WiFiChannel, WiFiChannel> UNKNOWN = new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN);
+
     private final Pair<Integer, Integer> wiFiRange;
     private final List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs;
     private final int frequencyOffset;
@@ -104,12 +105,13 @@ public abstract class WiFiChannels {
         return WiFiChannel.UNKNOWN;
     }
 
-    public abstract List<WiFiChannel> getAvailableChannels(@NonNull Locale locale);
+    public abstract List<WiFiChannel> getAvailableChannels(String countryCode);
 
-    public abstract boolean isChannelAvailable(@NonNull Locale locale, int channel);
+    public abstract boolean isChannelAvailable(String countryCode, int channel);
 
-    public abstract List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs(@NonNull Locale locale);
+    public abstract List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs();
+
+    public abstract Pair<WiFiChannel, WiFiChannel> getWiFiChannelPairFirst(String countryCode);
 
     public abstract WiFiChannel getWiFiChannelByFrequency(int frequency, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair);
-
 }

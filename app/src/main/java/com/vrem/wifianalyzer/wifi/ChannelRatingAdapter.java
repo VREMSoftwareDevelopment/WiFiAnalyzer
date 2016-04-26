@@ -26,7 +26,6 @@ import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -41,7 +40,6 @@ import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNotifier {
     private static final int MAX_CHANNELS_TO_DISPLAY = 10;
@@ -49,7 +47,6 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     private final Resources resources;
     private final TextView bestChannels;
     private ChannelRating channelRating;
-    private Configuration configuration;
     private Settings settings;
 
     public ChannelRatingAdapter(@NonNull Scanner scanner, @NonNull Context context, @NonNull TextView bestChannels) {
@@ -74,8 +71,8 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     }
 
     private List<WiFiChannel> setWiFiChannels(WiFiBand wiFiBand) {
-        Locale locale = getConfiguration().getLocale();
-        List<WiFiChannel> wiFiChannels = wiFiBand.getWiFiChannels().getAvailableChannels(locale);
+        String countryCode = getSettings().getCountryCode();
+        List<WiFiChannel> wiFiChannels = wiFiBand.getWiFiChannels().getAvailableChannels(countryCode);
         clear();
         addAll(wiFiChannels);
         return wiFiChannels;
@@ -136,17 +133,6 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     }
 
     // injectors start
-    private Configuration getConfiguration() {
-        if (configuration == null) {
-            configuration = MainContext.INSTANCE.getConfiguration();
-        }
-        return configuration;
-    }
-
-    protected void setConfiguration(@NonNull Configuration configuration) {
-        this.configuration = configuration;
-    }
-
     private Settings getSettings() {
         if (settings == null) {
             settings = MainContext.INSTANCE.getSettings();

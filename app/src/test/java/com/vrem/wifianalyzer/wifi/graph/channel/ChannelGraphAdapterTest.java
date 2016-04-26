@@ -18,7 +18,6 @@ package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
@@ -36,19 +35,16 @@ import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ChannelGraphAdapterTest {
 
     private Scanner scanner;
-    private Configuration configuration;
     private ChannelGraphNavigation channelGraphNavigation;
     private ChannelGraphAdapter fixture;
 
@@ -57,18 +53,14 @@ public class ChannelGraphAdapterTest {
         RobolectricUtil.INSTANCE.getMainActivity();
 
         scanner = mock(Scanner.class);
-        configuration = mock(Configuration.class);
         channelGraphNavigation = mock(ChannelGraphNavigation.class);
 
-        when(configuration.getLocale()).thenReturn(Locale.US);
-
-        fixture = new ChannelGraphAdapter(scanner, configuration, channelGraphNavigation);
+        fixture = new ChannelGraphAdapter(scanner, channelGraphNavigation);
     }
 
     @After
     public void tearDown() throws Exception {
         verify(scanner).addUpdateNotifier(fixture);
-        verify(configuration).getLocale();
     }
 
     @Test
@@ -84,7 +76,7 @@ public class ChannelGraphAdapterTest {
     private int expectedCount() {
         int expected = 0;
         for (WiFiBand wiFiBand : WiFiBand.values()) {
-            expected += wiFiBand.getWiFiChannels().getWiFiChannelPairs(Locale.US).size();
+            expected += wiFiBand.getWiFiChannels().getWiFiChannelPairs().size();
         }
         return expected;
     }

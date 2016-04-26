@@ -19,7 +19,6 @@ package com.vrem.wifianalyzer.wifi.graph.channel;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphAdapter;
@@ -29,23 +28,19 @@ import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 class ChannelGraphAdapter extends GraphAdapter {
     private final ChannelGraphNavigation channelGraphNavigation;
 
-    protected ChannelGraphAdapter(@NonNull Scanner scanner, @NonNull Configuration configuration, @NonNull ChannelGraphNavigation channelGraphNavigation) {
-        super(scanner, configuration);
+    protected ChannelGraphAdapter(@NonNull Scanner scanner, @NonNull ChannelGraphNavigation channelGraphNavigation) {
+        super(scanner, makeGraphViewNotifiers());
         this.channelGraphNavigation = channelGraphNavigation;
     }
 
-    @NonNull
-    @Override
-    public List<GraphViewNotifier> makeGraphViewNotifiers(@NonNull Configuration configuration) {
-        Locale locale = configuration.getLocale();
+    private static List<GraphViewNotifier> makeGraphViewNotifiers() {
         List<GraphViewNotifier> graphViewNotifiers = new ArrayList<>();
         for (WiFiBand wiFiBand : WiFiBand.values()) {
-            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiBand.getWiFiChannels().getWiFiChannelPairs(locale)) {
+            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiBand.getWiFiChannels().getWiFiChannelPairs()) {
                 graphViewNotifiers.add(new ChannelGraphView(wiFiBand, wiFiChannelPair));
             }
         }

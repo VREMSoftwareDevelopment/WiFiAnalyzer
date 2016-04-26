@@ -31,7 +31,7 @@ public class CountryTest {
 
     @Before
     public void setUp() throws Exception {
-        fixture = Country.INSTANCE;
+        fixture = new Country();
     }
 
     @Test

@@ -16,10 +16,7 @@
 
 package com.vrem.wifianalyzer.wifi.graph.tools;
 
-import android.support.annotation.NonNull;
-
 import com.jjoe64.graphview.GraphView;
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
@@ -41,8 +38,6 @@ public class GraphAdapterTest {
     @Mock
     private Scanner scanner;
     @Mock
-    private Configuration configuration;
-    @Mock
     private GraphViewNotifier graphViewNotifier;
     @Mock
     private GraphView graphView;
@@ -53,13 +48,7 @@ public class GraphAdapterTest {
 
     @Before
     public void setUp() throws Exception {
-        fixture = new GraphAdapter(scanner, configuration) {
-            @NonNull
-            @Override
-            public List<GraphViewNotifier> makeGraphViewNotifiers(@NonNull Configuration configuration) {
-                return Arrays.asList(graphViewNotifier);
-            }
-        };
+        fixture = new GraphAdapter(scanner, Arrays.asList(graphViewNotifier));
     }
 
     @Test
