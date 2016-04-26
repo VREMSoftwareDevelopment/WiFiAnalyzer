@@ -19,7 +19,6 @@ package com.vrem.wifianalyzer.wifi.graph.channel;
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.RobolectricUtil;
-import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
@@ -36,19 +35,16 @@ import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ChannelGraphAdapterTest {
 
     private Scanner scanner;
-    private Settings settings;
     private ChannelGraphNavigation channelGraphNavigation;
     private ChannelGraphAdapter fixture;
 
@@ -57,18 +53,14 @@ public class ChannelGraphAdapterTest {
         RobolectricUtil.INSTANCE.getMainActivity();
 
         scanner = mock(Scanner.class);
-        settings = mock(Settings.class);
         channelGraphNavigation = mock(ChannelGraphNavigation.class);
 
-        when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
-
-        fixture = new ChannelGraphAdapter(scanner, settings, channelGraphNavigation);
+        fixture = new ChannelGraphAdapter(scanner, channelGraphNavigation);
     }
 
     @After
     public void tearDown() throws Exception {
         verify(scanner).addUpdateNotifier(fixture);
-        verify(settings).getCountryCode();
     }
 
     @Test

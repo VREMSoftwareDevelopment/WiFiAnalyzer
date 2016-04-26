@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private ThemeStyle currentThemeStyle;
     private NavigationMenuView navigationMenuView;
     private boolean subTitle;
+    private String currentCountryCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +112,12 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     private void setWiFiChannelPairs() {
         String countryCode = mainContext.getSettings().getCountryCode();
-        Pair<WiFiChannel, WiFiChannel> pair = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairFirst(countryCode);
-        mainContext.getConfiguration().setWiFiChannelPair(pair);
+        if (!countryCode.equals(currentCountryCode)) {
+            Pair<WiFiChannel, WiFiChannel> pair = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairFirst(countryCode);
+            mainContext.getConfiguration().setWiFiChannelPair(pair);
+            currentCountryCode = countryCode;
+        }
+
     }
 
     private Configuration getConfiguration(@NonNull Context context) {
@@ -130,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         if (shouldReload()) {
             reloadActivity();
         } else {
+            setWiFiChannelPairs();
             mainContext.getScanner().update();
             updateSubTitle();
         }

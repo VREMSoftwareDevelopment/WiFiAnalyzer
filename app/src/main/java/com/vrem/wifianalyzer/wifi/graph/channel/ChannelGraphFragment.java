@@ -30,13 +30,12 @@ import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.wifi.graph.channel.ChannelGraphNavigation.NavigationItem;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class ChannelGraphFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private Scanner scanner;
-    private Settings settings;
     private Configuration configuration;
 
     @Override
@@ -46,10 +45,8 @@ public class ChannelGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.graphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        Configuration configuration = getConfiguration();
-        Settings settings = getSettings();
-        ChannelGraphNavigation channelGraphNavigation = new ChannelGraphNavigation(getActivity(), settings, configuration);
-        ChannelGraphAdapter channelGraphAdapter = new ChannelGraphAdapter(getScanner(), settings, channelGraphNavigation);
+        ChannelGraphNavigation channelGraphNavigation = new ChannelGraphNavigation(getActivity(), getConfiguration());
+        ChannelGraphAdapter channelGraphAdapter = new ChannelGraphAdapter(getScanner(), channelGraphNavigation);
         addGraphViews(swipeRefreshLayout, channelGraphAdapter);
         addGraphNavigation(view, channelGraphNavigation);
 
@@ -58,8 +55,8 @@ public class ChannelGraphFragment extends Fragment {
 
     private void addGraphNavigation(View view, ChannelGraphNavigation channelGraphNavigation) {
         LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.graphNavigation);
-        for (View navigation : channelGraphNavigation.getNavigationItems()) {
-            linearLayout.addView(navigation);
+        for (NavigationItem navigationItem : channelGraphNavigation.getNavigationItems()) {
+            linearLayout.addView(navigationItem.getButton());
         }
     }
 
@@ -110,17 +107,6 @@ public class ChannelGraphFragment extends Fragment {
 
     protected void setConfiguration(@NonNull Configuration configuration) {
         this.configuration = configuration;
-    }
-
-    private Settings getSettings() {
-        if (settings == null) {
-            settings = MainContext.INSTANCE.getSettings();
-        }
-        return settings;
-    }
-
-    protected void setSettings(@NonNull Settings settings) {
-        this.settings = settings;
     }
     // injectors end
 }
