@@ -105,4 +105,25 @@ public class WiFiChannelsGHZ5Test {
         assertEquals(19, fixture.getAvailableChannels(Locale.UK.getCountry()).size());
         assertEquals(30, fixture.getAvailableChannels(Locale.JAPAN.getCountry()).size());
     }
+
+    @Test
+    public void testGetWiFiChannelByFrequency5GHZ() throws Exception {
+        // setup
+        Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = fixture.getWiFiChannelPairs().get(1);
+        // execute
+        WiFiChannel actual = fixture.getWiFiChannelByFrequency(2000, wiFiChannelPair);
+        // validate
+        assertEquals(WiFiChannel.UNKNOWN, actual);
+    }
+
+    @Test
+    public void testGetWiFiChannelByFrequency5GHZInRange() throws Exception {
+        // setup
+        Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = fixture.getWiFiChannelPairs().get(1);
+        // execute
+        WiFiChannel actual = fixture.getWiFiChannelByFrequency(wiFiChannelPair.first.getFrequency(), wiFiChannelPair);
+        // validate
+        assertEquals(wiFiChannelPair.first, actual);
+    }
+
 }

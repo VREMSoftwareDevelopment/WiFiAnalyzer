@@ -19,6 +19,8 @@ package com.vrem.wifianalyzer.wifi.band;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,9 +51,11 @@ class WiFiChannelsGHZ5 extends WiFiChannels {
     @Override
     public Pair<WiFiChannel, WiFiChannel> getWiFiChannelPairFirst(String countryCode) {
         List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = getWiFiChannelPairs();
-        for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiChannelPairs) {
-            if (isChannelAvailable(countryCode, wiFiChannelPair.first.getChannel())) {
-                return wiFiChannelPair;
+        if (!StringUtils.isBlank(countryCode)) {
+            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiChannelPairs) {
+                if (isChannelAvailable(countryCode, wiFiChannelPair.first.getChannel())) {
+                    return wiFiChannelPair;
+                }
             }
         }
         return wiFiChannelPairs.get(DEFAULT_PAIR);
