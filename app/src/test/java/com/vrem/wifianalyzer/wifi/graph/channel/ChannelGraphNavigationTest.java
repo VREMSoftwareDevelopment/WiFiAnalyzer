@@ -23,6 +23,7 @@ import android.widget.Button;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
@@ -60,18 +61,24 @@ public class ChannelGraphNavigationTest {
     public void setUp() throws Exception {
         MainActivity mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
 
-        settings = mock(Settings.class);
         scanner = mock(Scanner.class);
+        MainContextHelper.INSTANCE.setScanner(scanner);
+
+        settings = mock(Settings.class);
         configuration = mock(Configuration.class);
 
         fixture = new ChannelGraphNavigation(mainActivity, configuration);
         fixture.setSettings(settings);
-        fixture.setScanner(scanner);
         fixture.setResources(mainActivity.getResources());
     }
 
     @After
     public void tearDown() throws Exception {
+        MainContextHelper.INSTANCE.restore();
+    }
+
+    @Test
+    public void testChannelGraphNavigation() throws Exception {
         verify(configuration, times(5)).isLargeScreenLayout();
     }
 

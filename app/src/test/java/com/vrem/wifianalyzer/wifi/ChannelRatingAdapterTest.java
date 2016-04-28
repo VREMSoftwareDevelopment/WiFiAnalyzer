@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -35,6 +36,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -70,11 +72,17 @@ public class ChannelRatingAdapterTest {
         settings = mock(Settings.class);
         bestChannels = mock(TextView.class);
 
-        fixture = new ChannelRatingAdapter(scanner, mainActivity, bestChannels);
+        MainContextHelper.INSTANCE.setScanner(scanner);
+
+        fixture = new ChannelRatingAdapter(mainActivity, bestChannels);
         fixture.setChannelRating(channelRating);
         fixture.setSettings(settings);
     }
 
+    @After
+    public void tearDown() throws Exception {
+        MainContextHelper.INSTANCE.restore();
+    }
 
     @Test
     public void testChannelRatingAdapter() throws Exception {

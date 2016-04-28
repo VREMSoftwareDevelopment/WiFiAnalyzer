@@ -24,7 +24,6 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphAdapter;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +31,8 @@ import java.util.List;
 class ChannelGraphAdapter extends GraphAdapter {
     private final ChannelGraphNavigation channelGraphNavigation;
 
-    protected ChannelGraphAdapter(@NonNull Scanner scanner, @NonNull ChannelGraphNavigation channelGraphNavigation) {
-        super(scanner, makeGraphViewNotifiers());
+    protected ChannelGraphAdapter(@NonNull ChannelGraphNavigation channelGraphNavigation) {
+        super(makeGraphViewNotifiers());
         this.channelGraphNavigation = channelGraphNavigation;
     }
 

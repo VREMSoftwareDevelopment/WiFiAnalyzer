@@ -21,6 +21,7 @@ import android.view.View;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
@@ -64,7 +65,9 @@ public class AccessPointsAdapterTest {
         configuration = mock(Configuration.class);
         scanner = mock(Scanner.class);
 
-        fixture = new AccessPointsAdapter(mainActivity, scanner);
+        MainContextHelper.INSTANCE.setScanner(scanner);
+
+        fixture = new AccessPointsAdapter(mainActivity);
         fixture.setAccessPointsAdapterData(accessPointsAdapterData);
         fixture.setAccessPointsDetail(accessPointsDetail);
         fixture.setConfiguration(configuration);
@@ -72,6 +75,11 @@ public class AccessPointsAdapterTest {
 
     @After
     public void tearDown() throws Exception {
+        MainContextHelper.INSTANCE.restore();
+    }
+
+    @Test
+    public void testAccessPointAdapter() throws Exception {
         verify(scanner).addUpdateNotifier(fixture);
     }
 

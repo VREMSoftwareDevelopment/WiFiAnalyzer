@@ -17,7 +17,6 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -29,11 +28,9 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class ChannelRatingFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Scanner scanner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,14 +43,14 @@ public class ChannelRatingFragment extends Fragment {
 
         TextView bestChannels = (TextView) view.findViewById(R.id.channelRatingBestChannels);
         ListView listView = (ListView) view.findViewById(R.id.channelRatingView);
-        listView.setAdapter(new ChannelRatingAdapter(getScanner(), activity, bestChannels));
+        listView.setAdapter(new ChannelRatingAdapter(activity, bestChannels));
 
         return view;
     }
 
     private void refresh() {
         swipeRefreshLayout.setRefreshing(true);
-        getScanner().update();
+        MainContext.INSTANCE.getScanner().update();
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -69,17 +66,4 @@ public class ChannelRatingFragment extends Fragment {
             refresh();
         }
     }
-
-    // injectors start
-    private Scanner getScanner() {
-        if (scanner == null) {
-            scanner = MainContext.INSTANCE.getScanner();
-        }
-        return scanner;
-    }
-
-    protected void setScanner(@NonNull Scanner scanner) {
-        this.scanner = scanner;
-    }
-    // injectors end
 }

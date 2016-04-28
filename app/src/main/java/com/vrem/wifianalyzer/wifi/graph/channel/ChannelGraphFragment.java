@@ -31,11 +31,9 @@ import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.graph.channel.ChannelGraphNavigation.NavigationItem;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class ChannelGraphFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Scanner scanner;
     private Configuration configuration;
 
     @Override
@@ -46,7 +44,7 @@ public class ChannelGraphFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
         ChannelGraphNavigation channelGraphNavigation = new ChannelGraphNavigation(getActivity(), getConfiguration());
-        ChannelGraphAdapter channelGraphAdapter = new ChannelGraphAdapter(getScanner(), channelGraphNavigation);
+        ChannelGraphAdapter channelGraphAdapter = new ChannelGraphAdapter(channelGraphNavigation);
         addGraphViews(swipeRefreshLayout, channelGraphAdapter);
         addGraphNavigation(view, channelGraphNavigation);
 
@@ -69,7 +67,7 @@ public class ChannelGraphFragment extends Fragment {
 
     private void refresh() {
         swipeRefreshLayout.setRefreshing(true);
-        getScanner().update();
+        MainContext.INSTANCE.getScanner().update();
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -87,17 +85,6 @@ public class ChannelGraphFragment extends Fragment {
     }
 
     // injectors start
-    private Scanner getScanner() {
-        if (scanner == null) {
-            scanner = MainContext.INSTANCE.getScanner();
-        }
-        return scanner;
-    }
-
-    protected void setScanner(@NonNull Scanner scanner) {
-        this.scanner = scanner;
-    }
-
     private Configuration getConfiguration() {
         if (configuration == null) {
             configuration = MainContext.INSTANCE.getConfiguration();

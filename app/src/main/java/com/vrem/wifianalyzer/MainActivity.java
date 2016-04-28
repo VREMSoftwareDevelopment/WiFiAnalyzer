@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         navigationMenuView = new NavigationMenuView(this);
         onNavigationItemSelected(navigationMenuView.defaultMenuItem());
 
-        new ConnectionView(this, mainContext.getScanner());
+        new ConnectionView(this);
     }
 
     private void initializeMainContext(@NonNull Context context) {
@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
             mainContext.getConfiguration().setWiFiChannelPair(pair);
             currentCountryCode = countryCode;
         }
-
     }
 
     private Configuration getConfiguration(@NonNull Context context) {

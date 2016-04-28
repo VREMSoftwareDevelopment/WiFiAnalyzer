@@ -21,6 +21,7 @@ import android.content.res.Resources;
 import android.view.View;
 
 import com.vrem.wifianalyzer.Configuration;
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
@@ -61,18 +62,21 @@ public class ConnectionViewTest {
 
     @Before
     public void setUp() throws Exception {
-        when(activity.getResources()).thenReturn(resources);
-        when(activity.findViewById(R.id.connection)).thenReturn(view);
+        MainContextHelper.INSTANCE.setScanner(scanner);
 
-        fixture = new ConnectionView(activity, scanner);
+        fixture = new ConnectionView(activity);
         fixture.setAccessPointsDetail(accessPointsDetail);
         fixture.setConfiguration(configuration);
     }
 
     @After
     public void tearDown() throws Exception {
+        MainContextHelper.INSTANCE.restore();
+    }
+
+    @Test
+    public void testConnectionView() throws Exception {
         verify(scanner).addUpdateNotifier(fixture);
-        verify(activity).findViewById(R.id.connection);
     }
 
     @Test
@@ -80,10 +84,12 @@ public class ConnectionViewTest {
         // setup
         WiFiDetail connection = withConnection(WiFiAdditional.EMPTY);
         when(wiFiData.getConnection()).thenReturn(connection);
+        when(activity.findViewById(R.id.connection)).thenReturn(view);
         // execute
         fixture.update(wiFiData);
         // validate
         verify(view).setVisibility(View.GONE);
+        verify(activity).findViewById(R.id.connection);
     }
 
     @Test
@@ -91,10 +97,14 @@ public class ConnectionViewTest {
         // setup
         WiFiDetail connection = withConnection(new WiFiAdditional(StringUtils.EMPTY, "IPADDRESS", 11));
         when(wiFiData.getConnection()).thenReturn(connection);
+        when(activity.findViewById(R.id.connection)).thenReturn(view);
+        when(activity.getResources()).thenReturn(resources);
         // execute
         fixture.update(wiFiData);
         // validate
+        verify(activity).findViewById(R.id.connection);
         verify(activity).getResources();
+        verify(configuration).isLargeScreenLayout();
         verify(view).setVisibility(View.VISIBLE);
         verify(accessPointsDetail).setView(resources, view, connection, false, false);
     }

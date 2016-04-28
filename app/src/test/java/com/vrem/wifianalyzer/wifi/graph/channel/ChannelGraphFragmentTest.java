@@ -17,9 +17,11 @@
 package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import com.vrem.wifianalyzer.BuildConfig;
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,9 +45,14 @@ public class ChannelGraphFragmentTest {
         RobolectricUtil.INSTANCE.getMainActivity();
 
         scanner = mock(Scanner.class);
+        MainContextHelper.INSTANCE.setScanner(scanner);
 
         fixture = new ChannelGraphFragment();
-        fixture.setScanner(scanner);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test

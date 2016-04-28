@@ -18,6 +18,7 @@ package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.BuildConfig;
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
@@ -53,13 +54,20 @@ public class ChannelGraphAdapterTest {
         RobolectricUtil.INSTANCE.getMainActivity();
 
         scanner = mock(Scanner.class);
+        MainContextHelper.INSTANCE.setScanner(scanner);
+
         channelGraphNavigation = mock(ChannelGraphNavigation.class);
 
-        fixture = new ChannelGraphAdapter(scanner, channelGraphNavigation);
+        fixture = new ChannelGraphAdapter(channelGraphNavigation);
     }
 
     @After
     public void tearDown() throws Exception {
+        MainContextHelper.INSTANCE.restore();
+    }
+
+    @Test
+    public void testChannelGraphAdapter() throws Exception {
         verify(scanner).addUpdateNotifier(fixture);
     }
 

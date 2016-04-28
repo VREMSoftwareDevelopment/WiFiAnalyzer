@@ -17,7 +17,6 @@
 package com.vrem.wifianalyzer.wifi.graph.time;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -28,11 +27,9 @@ import android.widget.ViewFlipper;
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class TimeGraphFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Scanner scanner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +38,7 @@ public class TimeGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.graphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        addGraphViews(swipeRefreshLayout, new TimeGraphAdapter(getScanner()));
+        addGraphViews(swipeRefreshLayout, new TimeGraphAdapter());
 
         return view;
     }
@@ -56,7 +53,7 @@ public class TimeGraphFragment extends Fragment {
 
     private void refresh() {
         swipeRefreshLayout.setRefreshing(true);
-        getScanner().update();
+        MainContext.INSTANCE.getScanner().update();
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -72,18 +69,5 @@ public class TimeGraphFragment extends Fragment {
             refresh();
         }
     }
-
-    // injectors start
-    private Scanner getScanner() {
-        if (scanner == null) {
-            scanner = MainContext.INSTANCE.getScanner();
-        }
-        return scanner;
-    }
-
-    protected void setScanner(@NonNull Scanner scanner) {
-        this.scanner = scanner;
-    }
-    // injectors end
 
 }

@@ -18,6 +18,7 @@ package com.vrem.wifianalyzer.wifi.graph.time;
 
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.BuildConfig;
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
@@ -48,12 +49,18 @@ public class TimeGraphAdapterTest {
         RobolectricUtil.INSTANCE.getMainActivity();
 
         scanner = mock(Scanner.class);
+        MainContextHelper.INSTANCE.setScanner(scanner);
 
-        fixture = new TimeGraphAdapter(scanner);
+        fixture = new TimeGraphAdapter();
     }
 
     @After
     public void tearDown() throws Exception {
+        MainContextHelper.INSTANCE.restore();
+    }
+
+    @Test
+    public void testTimeGraphAdapter() throws Exception {
         verify(scanner).addUpdateNotifier(fixture);
     }
 

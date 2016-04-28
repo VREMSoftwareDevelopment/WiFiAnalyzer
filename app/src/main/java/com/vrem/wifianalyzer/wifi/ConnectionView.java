@@ -25,7 +25,6 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 public class ConnectionView implements UpdateNotifier {
@@ -33,10 +32,10 @@ public class ConnectionView implements UpdateNotifier {
     private AccessPointsDetail accessPointsDetail;
     private Configuration configuration;
 
-    public ConnectionView(@NonNull Activity activity, @NonNull Scanner scanner) {
+    public ConnectionView(@NonNull Activity activity) {
         this.activity = activity;
         setAccessPointsDetail(new AccessPointsDetail());
-        scanner.addUpdateNotifier(this);
+        MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
     }
 
     @Override

@@ -17,9 +17,11 @@
 package com.vrem.wifianalyzer.wifi.graph.tools;
 
 import com.jjoe64.graphview.GraphView;
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +50,14 @@ public class GraphAdapterTest {
 
     @Before
     public void setUp() throws Exception {
-        fixture = new GraphAdapter(scanner, Arrays.asList(graphViewNotifier));
+        MainContextHelper.INSTANCE.setScanner(scanner);
+
+        fixture = new GraphAdapter(Arrays.asList(graphViewNotifier));
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test

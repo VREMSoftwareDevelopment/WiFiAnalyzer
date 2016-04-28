@@ -35,7 +35,6 @@ import com.vrem.wifianalyzer.wifi.model.ChannelRating;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 import java.util.ArrayList;
@@ -49,12 +48,12 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     private ChannelRating channelRating;
     private Settings settings;
 
-    public ChannelRatingAdapter(@NonNull Scanner scanner, @NonNull Context context, @NonNull TextView bestChannels) {
+    public ChannelRatingAdapter(@NonNull Context context, @NonNull TextView bestChannels) {
         super(context, R.layout.channel_rating_details, new ArrayList<WiFiChannel>());
         this.resources = context.getResources();
         this.bestChannels = bestChannels;
         setChannelRating(new ChannelRating());
-        scanner.addUpdateNotifier(this);
+        MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
     }
 
     protected void setChannelRating(@NonNull ChannelRating channelRating) {

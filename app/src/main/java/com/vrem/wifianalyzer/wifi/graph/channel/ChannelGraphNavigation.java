@@ -33,7 +33,6 @@ import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +43,6 @@ class ChannelGraphNavigation {
     private final Configuration configuration;
     private Resources resources;
     private Settings settings;
-    private Scanner scanner;
 
     ChannelGraphNavigation(@NonNull Context context, @NonNull Configuration configuration) {
         this.configuration = configuration;
@@ -131,17 +129,6 @@ class ChannelGraphNavigation {
         this.resources = resources;
     }
 
-    private Scanner getScanner() {
-        if (scanner == null) {
-            scanner = MainContext.INSTANCE.getScanner();
-        }
-        return scanner;
-    }
-
-    protected void setScanner(@NonNull Scanner scanner) {
-        this.scanner = scanner;
-    }
-
     private Settings getSettings() {
         if (settings == null) {
             settings = MainContext.INSTANCE.getSettings();
@@ -164,7 +151,7 @@ class ChannelGraphNavigation {
         @Override
         public void onClick(View view) {
             configuration.setWiFiChannelPair(wiFiChannelPair);
-            getScanner().update();
+            MainContext.INSTANCE.getScanner().update();
         }
     }
 

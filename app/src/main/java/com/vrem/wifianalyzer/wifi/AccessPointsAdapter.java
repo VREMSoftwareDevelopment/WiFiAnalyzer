@@ -29,7 +29,6 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
@@ -38,12 +37,12 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     private AccessPointsDetail accessPointsDetail;
     private Configuration configuration;
 
-    AccessPointsAdapter(@NonNull Context context, @NonNull Scanner scanner) {
+    AccessPointsAdapter(@NonNull Context context) {
         super();
         this.resources = context.getResources();
         setAccessPointsAdapterData(new AccessPointsAdapterData());
         setAccessPointsDetail(new AccessPointsDetail());
-        scanner.addUpdateNotifier(this);
+        MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
     }
 
     protected void setAccessPointsAdapterData(@NonNull AccessPointsAdapterData accessPointsAdapterData) {
