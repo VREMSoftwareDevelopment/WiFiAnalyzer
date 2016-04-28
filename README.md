@@ -29,7 +29,8 @@ Travis CI status [![Build Status](https://travis-ci.org/VREMSoftwareDevelopment/
 
 Codacy analysis/coverage [![Codacy Badge](https://api.codacy.com/project/badge/grade/203eaa0583694bcca6554190513179ba)](https://www.codacy.com/app/vremsoftwaredevelopment/WiFiAnalyzer) [![Codacy Badge](https://api.codacy.com/project/badge/coverage/203eaa0583694bcca6554190513179ba)](https://www.codacy.com/app/vremsoftwaredevelopment/WiFiAnalyzer)
 
-Codecov [![codecov.io](https://codecov.io/github/VREMSoftwareDevelopment/WiFiAnalyzer/coverage.svg?branch=master)](https://codecov.io/github/VREMSoftwareDevelopment/WiFiAnalyzer?branch=master)
+Codecov [![codecov](https://codecov.io/gh/VREMSoftwareDevelopment/WiFiAnalyzer/branch/master/graph/badge.svg)](https://codecov.io/gh/VREMSoftwareDevelopment/WiFiAnalyzer)
+
 
 ### Fork project
 [How to fork project](https://help.github.com/articles/fork-a-repo)
