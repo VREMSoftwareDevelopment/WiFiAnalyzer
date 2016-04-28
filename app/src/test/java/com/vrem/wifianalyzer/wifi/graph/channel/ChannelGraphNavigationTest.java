@@ -167,6 +167,24 @@ public class ChannelGraphNavigationTest {
     }
 
     @Test
+    public void testUpdateGHZ5WithCountryThatHasOnlyOneSet() throws Exception {
+        // setup
+        when(settings.getCountryCode()).thenReturn("XY");
+        when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
+        // execute
+        fixture.update();
+        // validate
+        List<NavigationItem> navigationItems = fixture.getNavigationItems();
+        assertEquals(View.GONE, navigationItems.get(0).getButton().getVisibility());
+        assertEquals(View.GONE, navigationItems.get(1).getButton().getVisibility());
+        assertEquals(View.GONE, navigationItems.get(2).getButton().getVisibility());
+        assertEquals(View.GONE, navigationItems.get(3).getButton().getVisibility());
+        assertEquals(View.GONE, navigationItems.get(4).getButton().getVisibility());
+        verify(settings).getCountryCode();
+        verify(settings).getWiFiBand();
+    }
+
+    @Test
     public void testSelectNavigationUpdatesConfigurationAndScans() throws Exception {
         // setup
         Pair<WiFiChannel, WiFiChannel> expected = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs().get(0);

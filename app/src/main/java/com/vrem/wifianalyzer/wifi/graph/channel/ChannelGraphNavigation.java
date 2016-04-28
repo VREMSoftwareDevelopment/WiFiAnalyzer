@@ -56,14 +56,13 @@ class ChannelGraphNavigation {
     }
 
     protected void update() {
+        List<NavigationItem> visible = getVisibleNavigationItems();
+        
         Pair<WiFiChannel, WiFiChannel> selectedWiFiChannelPair = configuration.getWiFiChannelPair();
-        WiFiBand wiFiBand = getSettings().getWiFiBand();
-        String countryCode = getSettings().getCountryCode();
-        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
         for (NavigationItem navigationItem : navigationItems) {
             Button button = navigationItem.getButton();
             Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = navigationItem.getWiFiChannelPair();
-            if (wiFiBand.isGHZ5() && wiFiChannels.isChannelAvailable(countryCode, wiFiChannelPair.first.getChannel())) {
+            if (visible.size() > 1 && visible.contains(navigationItem)) {
                 button.setVisibility(View.VISIBLE);
                 setSelectedButton(button, wiFiChannelPair.equals(selectedWiFiChannelPair));
             } else {
@@ -71,6 +70,20 @@ class ChannelGraphNavigation {
                 setSelectedButton(button, false);
             }
         }
+    }
+
+    private List<NavigationItem> getVisibleNavigationItems() {
+        WiFiBand wiFiBand = getSettings().getWiFiBand();
+        String countryCode = getSettings().getCountryCode();
+        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
+        List<NavigationItem> visible = new ArrayList<>();
+        for (NavigationItem navigationItem : navigationItems) {
+            Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = navigationItem.getWiFiChannelPair();
+            if (wiFiBand.isGHZ5() && wiFiChannels.isChannelAvailable(countryCode, wiFiChannelPair.first.getChannel())) {
+                visible.add(navigationItem);
+            }
+        }
+        return visible;
     }
 
     private void setSelectedButton(Button button, boolean selected) {
