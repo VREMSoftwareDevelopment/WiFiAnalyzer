@@ -38,7 +38,7 @@
 
     <string name="channel_rating_best">Лучшие Каналы:</string>
     <string name="channel_rating_best_none">Ничем</string>
-    <string name="channel_rating_best_alternative">, попробуйте альтернативную WiFi Диапазон</string>
+    <string name="channel_rating_best_alternative">, попробуйте альтернативный WiFi Диапазон</string>
 
     <string name="channel_rating_heading_rating">Оценить Каналы</string>
     <string name="channel_rating_heading_number">Номер Канала</string>
@@ -54,7 +54,7 @@
     <string name="country_code_title">Страна</string>
     <string name="wifi_band_title">WiFi Диапазон</string>
     <string name="scan_interval_title">Интервал Сканирования</string>
-    <string name="scan_interval_summary">%d Секунды Между Каждым Сканированием</string>
+    <string name="scan_interval_summary">%d секунд между каждым сканированием</string>
     <string name="sort_by_title">Сортировка</string>
     <string name="group_by_title">Группировка</string>
     <string name="channel_graph_legend_title">Показать Легенду Графика Каналa</string>
@@ -64,7 +64,7 @@
 
     <!-- about start -->
     <string name="about_license_title">Лицензия:</string>
-    <string name="about_license_name">Лицензия Зарегистрирована Под Apache Лицензия, Версия 2.0</string>
+    <string name="about_license_name">Лицензия Зарегистрирована под Apache, Версия 2.0</string>
     <string name="about_description_title">Описание:</string>
     <string name="about_description_text">Оптимизация сети WiFi, с помощью проверки состояния Wi-Fi cилы сигнала и определения переполненных каналов, используя WiFi Анализатор для Android</string>
     <string name="about_libraries_title">Использованные Библиотеки:</string>

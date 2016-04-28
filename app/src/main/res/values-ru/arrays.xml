@@ -34,7 +34,7 @@
     </string-array>
 
     <string-array name="theme_array">
-        <item>Темный</item>
-        <item>Светлый</item>
+        <item>Темная</item>
+        <item>Светлая</item>
     </string-array>
 </resources>
