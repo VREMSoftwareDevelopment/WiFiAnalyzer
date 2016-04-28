@@ -16,6 +16,11 @@
   -->
 
 <resources>
+    <string-array name="group_by_array">
+        <item>Nenhum</item>
+        <item>SSID</item>
+        <item>Canal</item>
+    </string-array>
 
     <string-array name="sort_by_array">
         <item>Força do Sinal</item>
