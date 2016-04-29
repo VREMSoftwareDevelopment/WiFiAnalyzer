@@ -16,6 +16,7 @@
 
 package com.vrem.wifianalyzer.wifi;
 
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
@@ -25,6 +26,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,18 +42,21 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AccessPointsAdapterDataTest {
-
-    @Mock
-    private Settings settings;
     @Mock
     private WiFiData wiFiData;
 
+    private Settings settings;
     private AccessPointsAdapterData fixture;
 
     @Before
     public void setUp() throws Exception {
+        settings = MainContextHelper.INSTANCE.getSettings();
         fixture = new AccessPointsAdapterData();
-        fixture.setSettings(settings);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test

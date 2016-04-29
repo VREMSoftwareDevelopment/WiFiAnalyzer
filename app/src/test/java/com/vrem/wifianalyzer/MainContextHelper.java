@@ -18,7 +18,6 @@ package com.vrem.wifianalyzer;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 
 import com.vrem.wifianalyzer.settings.Settings;
@@ -26,96 +25,106 @@ import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.powermock.api.mockito.PowerMockito.mock;
+
 public enum MainContextHelper {
     INSTANCE;
 
-    private Settings settings;
-    private Context context;
-    private Resources resources;
-    private Scanner scanner;
-    private VendorService vendorService;
-    private LayoutInflater layoutInflater;
-    private Database database;
-    private Logger logger;
-    private Configuration configuration;
-    private MainContext mainContext;
+    private final Map<Class, Object> saved;
+    private final MainContext mainContext;
 
     MainContextHelper() {
         mainContext = MainContext.INSTANCE;
+        saved = new HashMap<>();
     }
 
-    public void setSettings(@NonNull Settings settings) {
-        this.settings = mainContext.getSettings();
-        mainContext.setSettings(settings);
+    private Object save(Class clazz, Object object) {
+        saved.put(clazz, object);
+        return mock(clazz);
     }
 
-    public void setVendorService(@NonNull VendorService vendorService) {
-        this.vendorService = mainContext.getVendorService();
-        mainContext.setVendorService(vendorService);
+    public Settings getSettings() {
+        Settings result = (Settings) save(Settings.class, mainContext.getSettings());
+        mainContext.setSettings(result);
+        return result;
     }
 
-    public void setScanner(@NonNull Scanner scanner) {
-        this.scanner = mainContext.getScanner();
-        mainContext.setScanner(scanner);
+    public VendorService getVendorService() {
+        VendorService result = (VendorService) save(VendorService.class, mainContext.getVendorService());
+        mainContext.setVendorService(result);
+        return result;
     }
 
-    public void setLayoutInflater(LayoutInflater layoutInflater) {
-        this.layoutInflater = mainContext.getLayoutInflater();
-        mainContext.setLayoutInflater(layoutInflater);
+    public Scanner getScanner() {
+        Scanner result = (Scanner) save(Scanner.class, mainContext.getScanner());
+        mainContext.setScanner(result);
+        return result;
     }
 
-    public void setDatabase(@NonNull Database database) {
-        this.database = mainContext.getDatabase();
-        mainContext.setDatabase(database);
+    public LayoutInflater getLayoutInflater() {
+        LayoutInflater result = (LayoutInflater) save(LayoutInflater.class, mainContext.getLayoutInflater());
+        mainContext.setLayoutInflater(result);
+        return result;
     }
 
-    public void setResources(Resources resources) {
-        this.resources = mainContext.getResources();
-        mainContext.setResources(resources);
+    public Database getDatabase() {
+        Database result = (Database) save(Database.class, mainContext.getDatabase());
+        mainContext.setDatabase(result);
+        return result;
     }
 
-    public void setContext(@NonNull Context context) {
-        this.context = mainContext.getContext();
-        mainContext.setContext(context);
+    public Resources getResources() {
+        Resources result = (Resources) save(Resources.class, mainContext.getResources());
+        mainContext.setResources(result);
+        return result;
     }
 
-    public void setLogger(@NonNull Logger logger) {
-        this.logger = mainContext.getLogger();
-        mainContext.setLogger(logger);
+    public Context getContext() {
+        Context result = (Context) save(Context.class, mainContext.getContext());
+        mainContext.setContext(result);
+        return result;
     }
 
-    public void setConfiguration(Configuration configuration) {
-        this.configuration = mainContext.getConfiguration();
-        mainContext.setConfiguration(configuration);
+    public Logger getLogger() {
+        Logger result = (Logger) save(Logger.class, mainContext.getLogger());
+        mainContext.setLogger(result);
+        return result;
+    }
+
+    public Configuration getConfiguration() {
+        Configuration result = (Configuration) save(Configuration.class, mainContext.getConfiguration());
+        mainContext.setConfiguration(result);
+        return result;
     }
 
     public void restore() {
-        if (settings != null) {
-            mainContext.setSettings(settings);
+        for (Class clazz : saved.keySet()) {
+            Object result = saved.get(clazz);
+            if (clazz.equals(Settings.class)) {
+                mainContext.setSettings((Settings) result);
+            } else if (clazz.equals(VendorService.class)) {
+                mainContext.setVendorService((VendorService) result);
+            } else if (clazz.equals(Scanner.class)) {
+                mainContext.setScanner((Scanner) result);
+            } else if (clazz.equals(Context.class)) {
+                mainContext.setContext((Context) result);
+            } else if (clazz.equals(Resources.class)) {
+                mainContext.setResources((Resources) result);
+            } else if (clazz.equals(LayoutInflater.class)) {
+                mainContext.setLayoutInflater((LayoutInflater) result);
+            } else if (clazz.equals(Database.class)) {
+                mainContext.setDatabase((Database) result);
+            } else if (clazz.equals(Logger.class)) {
+                mainContext.setLogger((Logger) result);
+            } else if (clazz.equals(Configuration.class)) {
+                mainContext.setConfiguration((Configuration) result);
+            } else {
+                throw new IllegalArgumentException(clazz.getName());
+            }
         }
-        if (context != null) {
-            mainContext.setContext(context);
-        }
-        if (resources != null) {
-            mainContext.setResources(resources);
-        }
-        if (scanner != null) {
-            mainContext.setScanner(scanner);
-        }
-        if (vendorService != null) {
-            mainContext.setVendorService(vendorService);
-        }
-        if (layoutInflater != null) {
-            mainContext.setLayoutInflater(layoutInflater);
-        }
-        if (database != null) {
-            mainContext.setDatabase(database);
-        }
-        if (logger != null) {
-            mainContext.setLogger(logger);
-        }
-        if (configuration != null) {
-            mainContext.setConfiguration(configuration);
-        }
+        saved.clear();
     }
 }

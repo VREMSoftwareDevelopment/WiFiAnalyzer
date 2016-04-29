@@ -17,7 +17,6 @@
 package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.view.View;
@@ -29,7 +28,6 @@ import android.widget.LinearLayout;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
@@ -41,8 +39,6 @@ class ChannelGraphNavigation {
     private static final float TEXT_SIZE_ADJUSTMENT = 0.8f;
     private final List<NavigationItem> navigationItems = new ArrayList<>();
     private final Configuration configuration;
-    private Resources resources;
-    private Settings settings;
 
     ChannelGraphNavigation(@NonNull Context context, @NonNull Configuration configuration) {
         this.configuration = configuration;
@@ -71,8 +67,8 @@ class ChannelGraphNavigation {
     }
 
     private List<NavigationItem> getVisibleNavigationItems() {
-        WiFiBand wiFiBand = getSettings().getWiFiBand();
-        String countryCode = getSettings().getCountryCode();
+        WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
+        String countryCode = MainContext.INSTANCE.getSettings().getCountryCode();
         WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
         List<NavigationItem> visible = new ArrayList<>();
         for (NavigationItem navigationItem : navigationItems) {
@@ -86,10 +82,10 @@ class ChannelGraphNavigation {
 
     private void setSelectedButton(Button button, boolean selected) {
         if (selected) {
-            button.setBackgroundColor(getResources().getColor(R.color.connected));
+            button.setBackgroundColor(MainContext.INSTANCE.getResources().getColor(R.color.connected));
             button.setSelected(true);
         } else {
-            button.setBackgroundColor(getResources().getColor(R.color.connected_background));
+            button.setBackgroundColor(MainContext.INSTANCE.getResources().getColor(R.color.connected_background));
             button.setSelected(false);
         }
     }
@@ -116,30 +112,6 @@ class ChannelGraphNavigation {
         button.setOnClickListener(new ButtonOnClickListener(pair));
         return new NavigationItem(button, pair);
     }
-
-    // injectors start
-    private Resources getResources() {
-        if (resources == null) {
-            resources = MainContext.INSTANCE.getResources();
-        }
-        return resources;
-    }
-
-    protected void setResources(@NonNull Resources resources) {
-        this.resources = resources;
-    }
-
-    private Settings getSettings() {
-        if (settings == null) {
-            settings = MainContext.INSTANCE.getSettings();
-        }
-        return settings;
-    }
-
-    protected void setSettings(@NonNull Settings settings) {
-        this.settings = settings;
-    }
-    // injectors end
 
     private class ButtonOnClickListener implements OnClickListener {
         private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;

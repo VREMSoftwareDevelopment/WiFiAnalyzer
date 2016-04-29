@@ -16,13 +16,11 @@
 
 package com.vrem.wifianalyzer.wifi.graph.time;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.Configuration;
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
@@ -33,6 +31,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,6 +44,7 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -54,26 +54,22 @@ public class TimeGraphViewTest {
     private GraphViewWrapper graphViewWrapper;
     private Settings settings;
     private TimeGraphView fixture;
-    private Context context;
-    private Resources resources;
-    private Configuration configuration;
 
     @Before
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
 
         graphViewWrapper = mock(GraphViewWrapper.class);
-        context = mock(Context.class);
-        resources = mock(Resources.class);
-        settings = mock(Settings.class);
-        configuration = mock(Configuration.class);
+
+        settings = MainContextHelper.INSTANCE.getSettings();
 
         fixture = new TimeGraphView(WiFiBand.GHZ2);
         fixture.setGraphViewWrapper(graphViewWrapper);
-        fixture.setContext(context);
-        fixture.setResources(resources);
-        fixture.setSettings(settings);
-        fixture.setConfiguration(configuration);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test
@@ -92,7 +88,7 @@ public class TimeGraphViewTest {
 
     private void verifySettings() {
         verify(settings).getSortBy();
-        verify(settings).getTimeGraphLegend();
+        verify(settings, times(2)).getTimeGraphLegend();
         verify(settings).getWiFiBand();
     }
 

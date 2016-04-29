@@ -16,7 +16,6 @@
 
 package com.vrem.wifianalyzer.wifi.graph.channel;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
@@ -25,7 +24,6 @@ import android.view.View;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.TitleLineGraphSeries;
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -53,10 +51,6 @@ class ChannelGraphView implements GraphViewNotifier {
     private final WiFiBand wiFiBand;
     private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
     private GraphViewWrapper graphViewWrapper;
-    private Context context;
-    private Resources resources;
-    private Settings settings;
-    private Configuration configuration;
 
     ChannelGraphView(@NonNull WiFiBand wiFiBand, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         this.wiFiBand = wiFiBand;
@@ -66,7 +60,7 @@ class ChannelGraphView implements GraphViewNotifier {
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
-        Settings settings = getSettings();
+        Settings settings = MainContext.INSTANCE.getSettings();
         GraphLegend channelGraphLegend = settings.getChannelGraphLegend();
         SortBy sortBy = settings.getSortBy();
         Set<WiFiDetail> newSeries = new TreeSet<>();
@@ -86,8 +80,8 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     private boolean isSelected() {
-        WiFiBand wiFiBand = getSettings().getWiFiBand();
-        Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = getConfiguration().getWiFiChannelPair();
+        WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
+        Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = MainContext.INSTANCE.getConfiguration().getWiFiChannelPair();
         return this.wiFiBand.equals(wiFiBand) && (WiFiBand.GHZ2.equals(this.wiFiBand) || this.wiFiChannelPair.equals(wiFiChannelPair));
     }
 
@@ -124,7 +118,7 @@ class ChannelGraphView implements GraphViewNotifier {
 
     private int getNumX() {
         int numX = CNT_X_LARGE;
-        if (!getConfiguration().isLargeScreenLayout()) {
+        if (!MainContext.INSTANCE.getConfiguration().isLargeScreenLayout()) {
             numX = WiFiBand.GHZ2.equals(wiFiBand) ? CNT_X_SMALL_2 : CNT_X_SMALL_5;
         }
         int channelFirst = wiFiChannelPair.first.getChannel() - wiFiBand.getWiFiChannels().getChannelOffset();
@@ -133,8 +127,8 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     private GraphView makeGraphView() {
-        Resources resources = getResources();
-        return new GraphViewBuilder(getContext(), getNumX())
+        Resources resources = MainContext.INSTANCE.getResources();
+        return new GraphViewBuilder(MainContext.INSTANCE.getContext(), getNumX())
             .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair))
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
@@ -142,7 +136,7 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     private GraphViewWrapper makeGraphViewWrapper() {
-        graphViewWrapper = new GraphViewWrapper(makeGraphView(), getSettings().getChannelGraphLegend());
+        graphViewWrapper = new GraphViewWrapper(makeGraphView(), MainContext.INSTANCE.getSettings().getChannelGraphLegend());
 
         WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
         int frequencyOffset = wiFiChannels.getFrequencyOffset();
@@ -166,49 +160,4 @@ class ChannelGraphView implements GraphViewNotifier {
         this.graphViewWrapper = graphViewWrapper;
     }
 
-    // injectors start
-    private Context getContext() {
-        if (context == null) {
-            context = MainContext.INSTANCE.getContext();
-        }
-        return context;
-    }
-
-    protected void setContext(@NonNull Context context) {
-        this.context = context;
-    }
-
-    private Resources getResources() {
-        if (resources == null) {
-            resources = MainContext.INSTANCE.getResources();
-        }
-        return resources;
-    }
-
-    protected void setResources(@NonNull Resources resources) {
-        this.resources = resources;
-    }
-
-    private Settings getSettings() {
-        if (settings == null) {
-            settings = MainContext.INSTANCE.getSettings();
-        }
-        return settings;
-    }
-
-    protected void setSettings(@NonNull Settings settings) {
-        this.settings = settings;
-    }
-
-    private Configuration getConfiguration() {
-        if (configuration == null) {
-            configuration = MainContext.INSTANCE.getConfiguration();
-        }
-        return configuration;
-    }
-
-    protected void setConfiguration(@NonNull Configuration configuration) {
-        this.configuration = configuration;
-    }
-    // injectors end
 }

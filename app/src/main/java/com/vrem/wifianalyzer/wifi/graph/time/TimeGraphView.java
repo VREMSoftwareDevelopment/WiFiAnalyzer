@@ -16,7 +16,6 @@
 
 package com.vrem.wifianalyzer.wifi.graph.time;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -24,7 +23,6 @@ import android.view.View;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -48,10 +46,6 @@ class TimeGraphView implements GraphViewNotifier {
     private GraphViewWrapper graphViewWrapper;
     private int scanCount;
     private int xValue;
-    private Context context;
-    private Resources resources;
-    private Settings settings;
-    private Configuration configuration;
 
     TimeGraphView(@NonNull WiFiBand wiFiBand) {
         this.wiFiBand = wiFiBand;
@@ -61,7 +55,7 @@ class TimeGraphView implements GraphViewNotifier {
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
-        Settings settings = getSettings();
+        Settings settings = MainContext.INSTANCE.getSettings();
         Set<WiFiDetail> newSeries = new TreeSet<>();
         for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, settings.getSortBy())) {
             newSeries.add(wiFiDetail);
@@ -77,7 +71,7 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     private boolean isSelected() {
-        return wiFiBand.equals(getSettings().getWiFiBand());
+        return wiFiBand.equals(MainContext.INSTANCE.getSettings().getWiFiBand());
     }
 
     private void addData(@NonNull WiFiDetail wiFiDetail) {
@@ -95,7 +89,7 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     private int getNumX() {
-        return getConfiguration().isLargeScreenLayout() ? NUM_X_LARGE : NUM_X_SMALL;
+        return MainContext.INSTANCE.getConfiguration().isLargeScreenLayout() ? NUM_X_LARGE : NUM_X_SMALL;
     }
 
     protected void setGraphViewWrapper(@NonNull GraphViewWrapper graphViewWrapper) {
@@ -103,8 +97,8 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     private GraphView makeGraphView() {
-        Resources resources = getResources();
-        return new GraphViewBuilder(getContext(), getNumX())
+        Resources resources = MainContext.INSTANCE.getResources();
+        return new GraphViewBuilder(MainContext.INSTANCE.getContext(), getNumX())
                 .setLabelFormatter(new TimeAxisLabel())
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
@@ -112,7 +106,7 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     private GraphViewWrapper makeGraphViewWrapper() {
-        graphViewWrapper = new GraphViewWrapper(makeGraphView(), getSettings().getTimeGraphLegend());
+        graphViewWrapper = new GraphViewWrapper(makeGraphView(), MainContext.INSTANCE.getSettings().getTimeGraphLegend());
 
         graphViewWrapper.setViewport();
 
@@ -127,49 +121,4 @@ class TimeGraphView implements GraphViewNotifier {
         return graphViewWrapper;
     }
 
-    // injectors start
-    private Context getContext() {
-        if (context == null) {
-            context = MainContext.INSTANCE.getContext();
-        }
-        return context;
-    }
-
-    protected void setContext(@NonNull Context context) {
-        this.context = context;
-    }
-
-    private Resources getResources() {
-        if (resources == null) {
-            resources = MainContext.INSTANCE.getResources();
-        }
-        return resources;
-    }
-
-    protected void setResources(@NonNull Resources resources) {
-        this.resources = resources;
-    }
-
-    private Settings getSettings() {
-        if (settings == null) {
-            settings = MainContext.INSTANCE.getSettings();
-        }
-        return settings;
-    }
-
-    protected void setSettings(@NonNull Settings settings) {
-        this.settings = settings;
-    }
-
-    private Configuration getConfiguration() {
-        if (configuration == null) {
-            configuration = MainContext.INSTANCE.getConfiguration();
-        }
-        return configuration;
-    }
-
-    protected void setConfiguration(@NonNull Configuration configuration) {
-        this.configuration = configuration;
-    }
-    // injectors end
 }

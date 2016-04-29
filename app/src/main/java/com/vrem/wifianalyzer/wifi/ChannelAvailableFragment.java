@@ -17,25 +17,20 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChannelAvailableFragment extends ListFragment {
-    private Settings settings;
-    private Configuration configuration;
     private ChannelAvailableAdapter channelAvailableAdapter;
 
     @Nullable
@@ -56,35 +51,11 @@ public class ChannelAvailableFragment extends ListFragment {
 
     private List<WiFiChannelCountry> getChannelAvailable() {
         List<WiFiChannelCountry> results = new ArrayList<>();
-        Configuration configuration = getConfiguration();
-        results.add(WiFiChannelCountry.find(getSettings().getCountryCode()));
-        if (configuration.isDevelopmentMode()) {
+        results.add(WiFiChannelCountry.find(MainContext.INSTANCE.getSettings().getCountryCode()));
+        if (MainContext.INSTANCE.getConfiguration().isDevelopmentMode()) {
             results.addAll(WiFiChannelCountry.getAll());
         }
         return results;
     }
 
-    // injectors start
-    private Configuration getConfiguration() {
-        if (configuration == null) {
-            configuration = MainContext.INSTANCE.getConfiguration();
-        }
-        return configuration;
-    }
-
-    protected void setConfiguration(@NonNull Configuration configuration) {
-        this.configuration = configuration;
-    }
-
-    private Settings getSettings() {
-        if (settings == null) {
-            settings = MainContext.INSTANCE.getSettings();
-        }
-        return settings;
-    }
-
-    protected void setSettings(@NonNull Settings settings) {
-        this.settings = settings;
-    }
-    // injectors end
 }

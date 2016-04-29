@@ -24,7 +24,6 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -35,7 +34,6 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     private final Resources resources;
     private AccessPointsAdapterData accessPointsAdapterData;
     private AccessPointsDetail accessPointsDetail;
-    private Configuration configuration;
 
     AccessPointsAdapter(@NonNull Context context) {
         super();
@@ -57,7 +55,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         View view = getView(convertView, parent);
         WiFiDetail wiFiDetail = (WiFiDetail) getGroup(groupPosition);
-        accessPointsDetail.setView(resources, view, wiFiDetail, false, getConfiguration().isLargeScreenLayout());
+        accessPointsDetail.setView(resources, view, wiFiDetail, false, MainContext.INSTANCE.getConfiguration().isLargeScreenLayout());
 
         ImageView groupIndicator = (ImageView) view.findViewById(R.id.groupIndicator);
         int childrenCount = getChildrenCount(groupPosition);
@@ -78,7 +76,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         View view = getView(convertView, parent);
         WiFiDetail wiFiDetail = (WiFiDetail) getChild(groupPosition, childPosition);
-        accessPointsDetail.setView(resources, view, wiFiDetail, true, getConfiguration().isLargeScreenLayout());
+        accessPointsDetail.setView(resources, view, wiFiDetail, true, MainContext.INSTANCE.getConfiguration().isLargeScreenLayout());
         view.findViewById(R.id.groupIndicator).setVisibility(View.GONE);
         return view;
     }
@@ -136,17 +134,4 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         }
         return view;
     }
-
-    // injectors start
-    private Configuration getConfiguration() {
-        if (configuration == null) {
-            configuration = MainContext.INSTANCE.getConfiguration();
-        }
-        return configuration;
-    }
-
-    protected void setConfiguration(@NonNull Configuration configuration) {
-        this.configuration = configuration;
-    }
-    // injectors end
 }

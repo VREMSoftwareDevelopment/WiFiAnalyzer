@@ -16,6 +16,7 @@
 
 package com.vrem.wifianalyzer.wifi.graph.channel;
 
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
@@ -23,10 +24,10 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewBuilder;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Locale;
@@ -38,17 +39,20 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ChannelAxisLabelTest {
-    @Mock
     private Settings settings;
-
     private ChannelAxisLabel fixture;
 
     @Before
     public void setUp() throws Exception {
-        when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
+        settings = MainContextHelper.INSTANCE.getSettings();
+        when(this.settings.getCountryCode()).thenReturn(Locale.US.getCountry());
 
         fixture = new ChannelAxisLabel(WiFiBand.GHZ2, WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelPairs().get(0));
-        fixture.setSettings(settings);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test

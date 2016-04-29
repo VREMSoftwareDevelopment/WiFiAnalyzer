@@ -62,15 +62,13 @@ public class AccessPointsAdapterTest {
 
         accessPointsAdapterData = mock(AccessPointsAdapterData.class);
         accessPointsDetail = mock(AccessPointsDetail.class);
-        configuration = mock(Configuration.class);
-        scanner = mock(Scanner.class);
 
-        MainContextHelper.INSTANCE.setScanner(scanner);
+        configuration = MainContextHelper.INSTANCE.getConfiguration();
+        scanner = MainContextHelper.INSTANCE.getScanner();
 
         fixture = new AccessPointsAdapter(mainActivity);
         fixture.setAccessPointsAdapterData(accessPointsAdapterData);
         fixture.setAccessPointsDetail(accessPointsDetail);
-        fixture.setConfiguration(configuration);
     }
 
     @After

@@ -17,7 +17,6 @@
 package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -27,14 +26,12 @@ import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
 
 import com.jjoe64.graphview.GraphView;
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.graph.channel.ChannelGraphNavigation.NavigationItem;
 
 public class ChannelGraphFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Configuration configuration;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,7 +40,7 @@ public class ChannelGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.graphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        ChannelGraphNavigation channelGraphNavigation = new ChannelGraphNavigation(getActivity(), getConfiguration());
+        ChannelGraphNavigation channelGraphNavigation = new ChannelGraphNavigation(getActivity(), MainContext.INSTANCE.getConfiguration());
         ChannelGraphAdapter channelGraphAdapter = new ChannelGraphAdapter(channelGraphNavigation);
         addGraphViews(swipeRefreshLayout, channelGraphAdapter);
         addGraphNavigation(view, channelGraphNavigation);
@@ -84,16 +81,4 @@ public class ChannelGraphFragment extends Fragment {
         }
     }
 
-    // injectors start
-    private Configuration getConfiguration() {
-        if (configuration == null) {
-            configuration = MainContext.INSTANCE.getConfiguration();
-        }
-        return configuration;
-    }
-
-    protected void setConfiguration(@NonNull Configuration configuration) {
-        this.configuration = configuration;
-    }
-    // injectors end
 }
