@@ -1,5 +1,5 @@
 comment:
-  layout: header, changes, diff
+  layout: header, diff, changes, sunburst, uncovered
 coverage:
   status: {}
   
