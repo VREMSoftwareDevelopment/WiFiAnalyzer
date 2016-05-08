@@ -93,17 +93,23 @@ def updateVersion() {
     def versionBuild = properties['version_build'].toString().toInteger()
     def versionStore = properties['version_store'].toString().toInteger()
 
-    versionBuild++
-    properties['version_build'] = versionBuild.toString()
-    if (isReleaseBuild()) {
-        System.out.println(">>> Building Release Version...")
-        versionPatch++
-        versionStore++
-        properties['version_patch'] = versionPatch.toString()
-        properties['version_store'] = versionStore.toString()
+    def compileTask = isCompileTask()
+    def releaseTask = isReleaseTask()
+    if (compileTask || releaseTask) {
+        if (compileTask) {
+            System.out.println(">>> Compiling Source...")
+            versionBuild++
+            properties['version_build'] = versionBuild.toString()
+        }
+        if (releaseTask) {
+            System.out.println(">>> Building Release...")
+            versionPatch++
+            versionStore++
+            properties['version_patch'] = versionPatch.toString()
+            properties['version_store'] = versionStore.toString()
+        }
+        writeProperties(propertiesFile, properties)
     }
-
-    writeProperties(propertiesFile, properties)
 
     def versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
     if (android.defaultConfig.applicationId.endsWith(".BETA")) {
@@ -114,7 +120,13 @@ def updateVersion() {
     android.defaultConfig.versionName = versionName
 }
 
-def isReleaseBuild() {
+def isCompileTask() {
+    def tasks = gradle.getStartParameter().getTaskNames()
+    return ':app:generateDebugSources' in tasks || ':app:generateReleaseSources' in tasks ||
+            'generateDebugSources' in tasks || 'generateReleaseSources' in tasks
+}
+
+def isReleaseTask() {
     def tasks = gradle.getStartParameter().getTaskNames()
     return ':app:assembleRelease' in tasks || 'assembleRelease' in tasks
 }
