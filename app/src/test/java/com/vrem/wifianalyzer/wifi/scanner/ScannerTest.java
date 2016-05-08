@@ -71,7 +71,7 @@ public class ScannerTest {
     private Configuration configuration;
 
     private List<ScanResult> scanResults;
-    private List<ScanResult> cachedScanResults;
+    private List<CacheResult> cacheResults;
     private List<WifiConfiguration> configuredNetworks;
 
     private Scanner fixture;
@@ -79,7 +79,7 @@ public class ScannerTest {
     @Before
     public void setUp() throws Exception {
         scanResults = new ArrayList<>();
-        cachedScanResults = new ArrayList<>();
+        cacheResults = new ArrayList<>();
         configuredNetworks = new ArrayList<>();
 
         fixture = new Scanner(wifiManager, handler, settings, transformer);
@@ -152,11 +152,11 @@ public class ScannerTest {
     }
 
     private void withCache() {
-        when(cache.getScanResults()).thenReturn(cachedScanResults);
+        when(cache.getScanResults()).thenReturn(cacheResults);
     }
 
     private void withTransformer() {
-        when(transformer.transformToWiFiData(cachedScanResults, wifiInfo, configuredNetworks)).thenReturn(wiFiData);
+        when(transformer.transformToWiFiData(cacheResults, wifiInfo, configuredNetworks)).thenReturn(wiFiData);
     }
 
     private void verifyCache() {
@@ -182,7 +182,7 @@ public class ScannerTest {
     }
 
     private void verifyTransfomer() {
-        verify(transformer).transformToWiFiData(cachedScanResults, wifiInfo, configuredNetworks);
+        verify(transformer).transformToWiFiData(cacheResults, wifiInfo, configuredNetworks);
     }
 
     @Test

@@ -71,20 +71,19 @@ public class TransformerTest {
     @Mock
     private Configuration configuration;
 
-    private List<ScanResult> scanResults;
+    private List<CacheResult> cacheResults;
     private List<WifiConfiguration> wifiConfigurations;
     private Transformer fixture;
 
     @Before
     public void setUp() throws Exception {
-        scanResults = Arrays.asList(scanResult1, scanResult2, scanResult3);
         wifiConfigurations = Arrays.asList(wifiConfiguration1, wifiConfiguration2, wifiConfiguration3);
         fixture = new Transformer(configuration);
     }
 
     @Test
     public void testTransformWithNulls() throws Exception {
-        assertTrue(fixture.transformScanResults(null).isEmpty());
+        assertTrue(fixture.transformCacheResults(null).isEmpty());
         assertEquals(WiFiConnection.EMPTY, fixture.transformWifiInfo(null));
         assertTrue(fixture.transformWifiConfigurations(null).isEmpty());
     }
@@ -130,11 +129,11 @@ public class TransformerTest {
     @Test
     public void testTransformScanResults() throws Exception {
         // setup
-        withScanResult();
+        withCacheResults();
         // execute
-        List<WiFiDetail> actual = fixture.transformScanResults(scanResults);
+        List<WiFiDetail> actual = fixture.transformCacheResults(cacheResults);
         // validate
-        assertEquals(scanResults.size(), actual.size());
+        assertEquals(cacheResults.size(), actual.size());
         validateWiFiDetail(SSID_1, BSSID_1, actual.get(0));
         validateWiFiDetail(SSID_2, BSSID_2, actual.get(1));
         validateWiFiDetail(SSID_3, BSSID_3, actual.get(2));
@@ -144,12 +143,12 @@ public class TransformerTest {
     public void testTransformScanResultsInDevelopmentMode() throws Exception {
         // setup
         when(configuration.isDevelopmentMode()).thenReturn(true);
-        withScanResult();
+        withCacheResults();
         // execute
-        List<WiFiDetail> actual = fixture.transformScanResults(scanResults);
+        List<WiFiDetail> actual = fixture.transformCacheResults(cacheResults);
         // validate
         verify(configuration).isDevelopmentMode();
-        assertEquals(scanResults.size() + 5, actual.size());
+        assertEquals(cacheResults.size() + 5, actual.size());
     }
 
     private void validateWiFiDetail(String SSID, String BSSID, WiFiDetail wiFiDetail) {
@@ -165,18 +164,18 @@ public class TransformerTest {
     public void testWiFiData() throws Exception {
         // setup
         WiFiConnection expectedWiFiConnection = new WiFiConnection(SSID_1, BSSID_1);
-        withScanResult();
+        withCacheResults();
         withWiFiConfiguration();
         withWiFiInfo();
         // execute
-        WiFiData actual = fixture.transformToWiFiData(scanResults, wifiInfo, wifiConfigurations);
+        WiFiData actual = fixture.transformToWiFiData(cacheResults, wifiInfo, wifiConfigurations);
         // validate
         assertEquals(expectedWiFiConnection, actual.getWiFiConnection());
-        assertEquals(scanResults.size(), actual.getWiFiDetails().size());
+        assertEquals(cacheResults.size(), actual.getWiFiDetails().size());
         assertEquals(wifiConfigurations.size(), actual.getWiFiConfigurations().size());
     }
 
-    private void withScanResult() {
+    private void withCacheResults() {
         scanResult1.SSID = SSID_1;
         scanResult1.BSSID = BSSID_1;
         scanResult1.capabilities = WPA;
@@ -194,6 +193,11 @@ public class TransformerTest {
         scanResult3.capabilities = WPA;
         scanResult3.frequency = FREQUENCY;
         scanResult3.level = LEVEL;
+
+        cacheResults = Arrays.asList(
+            new CacheResult(scanResult1, scanResult1.level),
+            new CacheResult(scanResult2, scanResult2.level),
+            new CacheResult(scanResult3, scanResult2.level));
     }
 
     private void withWiFiConfiguration() {
