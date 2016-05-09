@@ -33,7 +33,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 class RemoteCall extends AsyncTask<String, Void, String> {
-    protected static final String MAX_VENDOR_LOOKUP = "https://www.macvendorlookup.com/api/v2/%s";
+    protected static final String MAX_VENDOR_LOOKUP = "http://www.macvendorlookup.com/api/v2/%s";
 
     protected String doInBackground(String... params) {
         if (params == null || params.length < 1 || StringUtils.isBlank(params[0])) {
