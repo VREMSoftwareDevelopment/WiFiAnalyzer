@@ -65,7 +65,7 @@
     <string name="about_contributor_title">Beitragende:</string>
     <string name="country_code_title">Land</string>
     <string name="channel_rating_best_none">Keine</string>
-    <string name="action_vendors"></string>
+    <string name="action_vendors">Hersteller</string>
     <string name="channel_rating_best_alternative">, versuche alternativ das WLAN Frequenzband</string>
     <!-- about end -->
 </resources>
