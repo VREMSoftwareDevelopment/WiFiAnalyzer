@@ -18,7 +18,6 @@ package com.vrem.wifianalyzer;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 
 import com.vrem.wifianalyzer.settings.Settings;
@@ -43,7 +42,7 @@ public enum MainContext {
         return settings;
     }
 
-    protected void setSettings(@NonNull Settings settings) {
+    protected void setSettings(Settings settings) {
         this.settings = settings;
     }
 
@@ -51,7 +50,7 @@ public enum MainContext {
         return vendorService;
     }
 
-    protected void setVendorService(@NonNull VendorService vendorService) {
+    protected void setVendorService(VendorService vendorService) {
         this.vendorService = vendorService;
     }
 
@@ -59,7 +58,7 @@ public enum MainContext {
         return scanner;
     }
 
-    protected void setScanner(@NonNull Scanner scanner) {
+    protected void setScanner(Scanner scanner) {
         this.scanner = scanner;
     }
 
@@ -75,7 +74,7 @@ public enum MainContext {
         return database;
     }
 
-    protected void setDatabase(@NonNull Database database) {
+    protected void setDatabase(Database database) {
         this.database = database;
     }
 
@@ -91,7 +90,7 @@ public enum MainContext {
         return context;
     }
 
-    protected void setContext(@NonNull Context context) {
+    protected void setContext(Context context) {
         this.context = context;
     }
 
@@ -99,7 +98,7 @@ public enum MainContext {
         return logger;
     }
 
-    protected void setLogger(@NonNull Logger logger) {
+    protected void setLogger(Logger logger) {
         this.logger = logger;
     }
 

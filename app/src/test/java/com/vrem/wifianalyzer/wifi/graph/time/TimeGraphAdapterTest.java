@@ -34,7 +34,6 @@ import org.robolectric.annotation.Config;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricGradleTestRunner.class)
@@ -48,8 +47,7 @@ public class TimeGraphAdapterTest {
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
 
-        scanner = mock(Scanner.class);
-        MainContextHelper.INSTANCE.setScanner(scanner);
+        scanner = MainContextHelper.INSTANCE.getScanner();
 
         fixture = new TimeGraphAdapter();
     }

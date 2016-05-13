@@ -37,7 +37,6 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GraphAdapterTest {
-    @Mock
     private Scanner scanner;
     @Mock
     private GraphViewNotifier graphViewNotifier;
@@ -50,7 +49,7 @@ public class GraphAdapterTest {
 
     @Before
     public void setUp() throws Exception {
-        MainContextHelper.INSTANCE.setScanner(scanner);
+        scanner = MainContextHelper.INSTANCE.getScanner();
 
         fixture = new GraphAdapter(Arrays.asList(graphViewNotifier));
     }

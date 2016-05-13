@@ -31,7 +31,7 @@
     <string name="action_channel_available">Доступные Каналы</string>
     <string name="action_vendors">Поставщики</string>
     <string name="action_settings">Настройки</string>
-    <string name="action_about">Насчет</string>
+    <string name="action_about">О Программе</string>
 
     <string name="button_cancel">Отставить</string>
     <string name="no_data">Нет Данных</string>

@@ -18,6 +18,8 @@ package com.vrem.wifianalyzer.vendor.model;
 
 import android.support.annotation.NonNull;
 
+import com.vrem.wifianalyzer.MainContextHelper;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -43,21 +45,22 @@ public class VendorServiceTest {
     private static final String VENDOR_NAME = "CISCO SYSTEMS, INC.";
     private static final String EXPECTED_VENDOR_NAME = "CISCO SYSTEMS INC";
 
-    @Mock private Database database;
     @Mock private RemoteCall remoteCall;
 
+    private Database database;
     private VendorService fixture;
 
     @Before
     public void setUp() throws Exception {
+        database = MainContextHelper.INSTANCE.getDatabase();
         fixture = new VendorService();
         fixture.setRemoteCall(remoteCall);
-        fixture.setDatabase(database);
     }
 
     @After
     public void tearDown() throws Exception {
         fixture.clear();
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test

@@ -18,7 +18,7 @@
 <resources>
     <!-- application start -->
     <string name="app_name">WLAN Tester</string>
-    <string name="app_company_name">VREM Software Development</string>
+    <string name="app_company_name">VREM Software-Entwicklung</string>
     <string name="app_copyright">Copyright \u00A9 2015 \u002D 2016</string>
     <!-- application end -->
 
@@ -51,7 +51,7 @@
     <string name="group_by_title">Gruppiere Access Points nach</string>
     <string name="channel_graph_legend_title">Legende in Kanalübersicht anzeige</string>
     <string name="time_graph_legend_title">Legende in Signalverlauf anzeigen</string>
-    <string name="theme_title">Design</string>
+    <string name="theme_title">Thema</string>
     <!-- settings end -->
 
     <!-- about start -->
@@ -60,8 +60,8 @@
     <string name="about_description_title">Beschreibung:</string>
     <string name="about_description_text">Verbessere dein WLAN Netwerk, indem du den Zustand und die Stärke des Signals misst und überlastete Kanäle mit einem freien WLAN Analyzer für Android erkennst</string>
     <string name="about_libraries_title">Benutzte Bibliotheken:</string>
-    <string name="about_library_graph_view">Graph View</string>
-    <string name="about_library_material">Material Design Icons</string>
+    <string name="about_library_graph_view">Graphansicht</string>
+    <string name="about_library_material">Material Design Ikonen</string>
     <string name="about_contributor_title">Beitragende:</string>
     <string name="country_code_title">Land</string>
     <string name="channel_rating_best_none">Keine</string>

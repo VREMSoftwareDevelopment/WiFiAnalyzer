@@ -53,8 +53,7 @@ public class ChannelGraphAdapterTest {
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
 
-        scanner = mock(Scanner.class);
-        MainContextHelper.INSTANCE.setScanner(scanner);
+        scanner = MainContextHelper.INSTANCE.getScanner();
 
         channelGraphNavigation = mock(ChannelGraphNavigation.class);
 

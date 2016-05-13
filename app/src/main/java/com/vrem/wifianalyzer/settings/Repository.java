@@ -16,22 +16,16 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.res.Resources;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
 class Repository {
-    private Context context;
-    private Resources resources;
-
     protected void initializeDefaultValues() {
-        PreferenceManager.setDefaultValues(getContext(), R.xml.preferences, false);
+        PreferenceManager.setDefaultValues(MainContext.INSTANCE.getContext(), R.xml.preferences, false);
     }
 
     protected void registerOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener onSharedPreferenceChangeListener) {
@@ -39,7 +33,7 @@ class Repository {
     }
 
     protected void save(int key, int value) {
-        save(getContext().getString(key), "" + value);
+        save(MainContext.INSTANCE.getContext().getString(key), "" + value);
     }
 
     private void save(String key, String value) {
@@ -57,7 +51,7 @@ class Repository {
     }
 
     protected String getString(int key, String defaultValue) {
-        String keyValue = getContext().getString(key);
+        String keyValue = MainContext.INSTANCE.getContext().getString(key);
         try {
             return getSharedPreferences().getString(keyValue, defaultValue);
         } catch (Exception e) {
@@ -67,11 +61,11 @@ class Repository {
     }
 
     protected int getResourceInteger(int key) {
-        return getResources().getInteger(key);
+        return MainContext.INSTANCE.getResources().getInteger(key);
     }
 
     protected int getInteger(int key, int defaultValue) {
-        String keyValue = getContext().getString(key);
+        String keyValue = MainContext.INSTANCE.getContext().getString(key);
         try {
             return getSharedPreferences().getInt(keyValue, defaultValue);
         } catch (Exception e) {
@@ -81,30 +75,6 @@ class Repository {
     }
 
     private SharedPreferences getSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(getContext());
+        return PreferenceManager.getDefaultSharedPreferences(MainContext.INSTANCE.getContext());
     }
-
-    // injectors start
-    private Context getContext() {
-        if (context == null) {
-            context = MainContext.INSTANCE.getContext();
-        }
-        return context;
-    }
-
-    protected void setContext(@NonNull Context context) {
-        this.context = context;
-    }
-
-    private Resources getResources() {
-        if (resources == null) {
-            resources = MainContext.INSTANCE.getResources();
-        }
-        return resources;
-    }
-
-    protected void setResources(@NonNull Resources resources) {
-        this.resources = resources;
-    }
-    // injectors end
 }

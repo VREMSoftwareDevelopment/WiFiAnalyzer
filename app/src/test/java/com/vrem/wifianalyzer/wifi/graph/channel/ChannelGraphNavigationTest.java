@@ -44,7 +44,6 @@ import java.util.Locale;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -61,15 +60,11 @@ public class ChannelGraphNavigationTest {
     public void setUp() throws Exception {
         MainActivity mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
 
-        scanner = mock(Scanner.class);
-        MainContextHelper.INSTANCE.setScanner(scanner);
-
-        settings = mock(Settings.class);
-        configuration = mock(Configuration.class);
+        scanner = MainContextHelper.INSTANCE.getScanner();
+        settings = MainContextHelper.INSTANCE.getSettings();
+        configuration = MainContextHelper.INSTANCE.getConfiguration();
 
         fixture = new ChannelGraphNavigation(mainActivity, configuration);
-        fixture.setSettings(settings);
-        fixture.setResources(mainActivity.getResources());
     }
 
     @After

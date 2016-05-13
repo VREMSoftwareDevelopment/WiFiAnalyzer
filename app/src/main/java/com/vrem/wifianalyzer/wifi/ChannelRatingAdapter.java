@@ -28,7 +28,6 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
@@ -46,7 +45,6 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     private final Resources resources;
     private final TextView bestChannels;
     private ChannelRating channelRating;
-    private Settings settings;
 
     public ChannelRatingAdapter(@NonNull Context context, @NonNull TextView bestChannels) {
         super(context, R.layout.channel_rating_details, new ArrayList<WiFiChannel>());
@@ -62,7 +60,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
-        WiFiBand wiFiBand = getSettings().getWiFiBand();
+        WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
         List<WiFiChannel> wiFiChannels = setWiFiChannels(wiFiBand);
         channelRating.setWiFiChannels(wiFiData.getWiFiDetails(wiFiBand, SortBy.STRENGTH));
         bestChannels(wiFiBand, wiFiChannels);
@@ -70,7 +68,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     }
 
     private List<WiFiChannel> setWiFiChannels(WiFiBand wiFiBand) {
-        String countryCode = getSettings().getCountryCode();
+        String countryCode = MainContext.INSTANCE.getSettings().getCountryCode();
         List<WiFiChannel> wiFiChannels = wiFiBand.getWiFiChannels().getAvailableChannels(countryCode);
         clear();
         addAll(wiFiChannels);
@@ -131,16 +129,4 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         }
     }
 
-    // injectors start
-    private Settings getSettings() {
-        if (settings == null) {
-            settings = MainContext.INSTANCE.getSettings();
-        }
-        return settings;
-    }
-
-    protected void setSettings(@NonNull Settings settings) {
-        this.settings = settings;
-    }
-    // injectors end
 }

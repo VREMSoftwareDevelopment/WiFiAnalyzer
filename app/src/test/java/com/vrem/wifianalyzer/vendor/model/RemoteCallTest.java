@@ -18,11 +18,13 @@ package com.vrem.wifianalyzer.vendor.model;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Logger;
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tools.ant.filters.StringInputStream;
 import org.json.JSONException;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,10 +57,10 @@ public class RemoteCallTest {
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
 
-        database = mock(Database.class);
-        logger = mock(Logger.class);
-        urlConnection = mock(URLConnection.class);
+        database = MainContextHelper.INSTANCE.getDatabase();
+        logger = MainContextHelper.INSTANCE.getLogger();
 
+        urlConnection = mock(URLConnection.class);
 
         fixture = new RemoteCall() {
             @Override
@@ -68,8 +70,11 @@ public class RemoteCallTest {
                 return urlConnection;
             }
         };
-        fixture.setDatabase(database);
-        fixture.setLogger(logger);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test

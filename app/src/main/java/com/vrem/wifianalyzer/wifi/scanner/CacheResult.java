@@ -14,25 +14,25 @@
  *    limitations under the License.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package com.vrem.wifianalyzer.wifi.scanner;
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.1'
-    }
-}
+import android.net.wifi.ScanResult;
+import android.support.annotation.NonNull;
 
-allprojects {
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-}
+class CacheResult {
+    private final ScanResult scanResult;
+    private final int levelAverage;
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+    protected CacheResult(@NonNull ScanResult scanResult, int levelAverage) {
+        this.scanResult = scanResult;
+        this.levelAverage = levelAverage;
+    }
+
+    protected ScanResult getScanResult() {
+        return scanResult;
+    }
+
+    protected int getLevelAverage() {
+        return levelAverage;
+    }
 }

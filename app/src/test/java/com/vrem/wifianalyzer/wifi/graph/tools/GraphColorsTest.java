@@ -18,12 +18,13 @@ package com.vrem.wifianalyzer.wifi.graph.tools;
 
 import android.content.res.Resources;
 
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -37,16 +38,19 @@ public class GraphColorsTest {
             new GraphColor(0x74FF89, 0x3374FF89),
             new GraphColor(0x8B1EFC, 0x338B1EFC)
     };
-    @Mock
     private Resources resources;
     private GraphColors fixture;
 
     @Before
     public void setUp() throws Exception {
+        resources = MainContextHelper.INSTANCE.getResources();
         when(resources.getStringArray(R.array.graph_colors)).thenReturn(colors);
-
         fixture = new GraphColors();
-        fixture.setResources(resources);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test

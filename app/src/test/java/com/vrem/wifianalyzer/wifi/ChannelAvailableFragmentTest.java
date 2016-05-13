@@ -18,6 +18,7 @@ package com.vrem.wifianalyzer.wifi;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.settings.Settings;
 
@@ -33,7 +34,6 @@ import java.util.Locale;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -49,20 +49,19 @@ public class ChannelAvailableFragmentTest {
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
 
-        configuration = mock(Configuration.class);
+        configuration = MainContextHelper.INSTANCE.getConfiguration();
+        settings = MainContextHelper.INSTANCE.getSettings();
 
-        settings = mock(Settings.class);
         when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
 
         fixture = new ChannelAvailableFragment();
-        fixture.setConfiguration(configuration);
-        fixture.setSettings(settings);
     }
 
     @After
     public void tearDown() throws Exception {
         verify(configuration, atLeastOnce()).isDevelopmentMode();
         verify(settings, atLeastOnce()).getCountryCode();
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test

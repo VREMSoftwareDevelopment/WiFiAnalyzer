@@ -18,6 +18,8 @@ package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.net.wifi.ScanResult;
 
+import com.vrem.wifianalyzer.MainContext;
+
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
 import java.util.ArrayDeque;
@@ -28,19 +30,25 @@ import java.util.Deque;
 import java.util.List;
 
 class Cache {
-    protected static final int MAX_CACHE_SIZE = 3;
+    private final Deque<List<ScanResult>> cache = new ArrayDeque<>();
 
-    private final Deque<List<ScanResult>> cache = new ArrayDeque<>(MAX_CACHE_SIZE);
-
-    protected List<ScanResult> getScanResults() {
+    protected List<CacheResult> getScanResults() {
         ScanResult current = null;
-        List<ScanResult> results = new ArrayList<>();
+        int levelTotal = 0;
+        int count = 0;
+        List<CacheResult> results = new ArrayList<>();
         for (ScanResult scanResult : combineCache()) {
-            if (current != null && scanResult.BSSID.equals(current.BSSID)) {
-                continue;
+            if (current != null && !scanResult.BSSID.equals(current.BSSID)) {
+                results.add(new CacheResult(current, levelTotal / count));
+                count = 0;
+                levelTotal = 0;
             }
             current = scanResult;
-            results.add(scanResult);
+            count++;
+            levelTotal += scanResult.level;
+        }
+        if (current != null) {
+            results.add(new CacheResult(current, levelTotal / count));
         }
         return results;
     }
@@ -55,8 +63,9 @@ class Cache {
     }
 
     protected void add(List<ScanResult> scanResults) {
-        if (!cache.isEmpty() && cache.size() == MAX_CACHE_SIZE) {
-            cache.removeLast();
+        int cacheSize = getCacheSize();
+        while (cache.size() >= cacheSize) {
+            cache.pollLast();
         }
         if (scanResults != null) {
             cache.addFirst(scanResults);
@@ -67,13 +76,24 @@ class Cache {
         return cache;
     }
 
+    protected int getCacheSize() {
+        int scanInterval = MainContext.INSTANCE.getSettings().getScanInterval();
+        if (scanInterval < 10) {
+            return 3;
+        }
+        if (scanInterval < 20) {
+            return 2;
+        }
+        return 1;
+    }
+
     private static class ScanResultComparator implements Comparator<ScanResult> {
         @Override
         public int compare(ScanResult lhs, ScanResult rhs) {
             return new CompareToBuilder()
-                    .append(lhs.BSSID, rhs.BSSID)
-                    .append(rhs.level, lhs.level)
-                    .toComparison();
+                .append(lhs.BSSID, rhs.BSSID)
+                .append(lhs.level, rhs.level)
+                .toComparison();
         }
     }
 }

@@ -17,9 +17,11 @@
 package com.vrem.wifianalyzer.vendor;
 
 import com.vrem.wifianalyzer.BuildConfig;
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +35,6 @@ import java.util.TreeMap;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -48,10 +49,14 @@ public class VendorFragmentTest {
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
 
-        vendorService = mock(VendorService.class);
+        vendorService = MainContextHelper.INSTANCE.getVendorService();
 
         fixture = new VendorFragment();
-        fixture.setVendorService(vendorService);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test

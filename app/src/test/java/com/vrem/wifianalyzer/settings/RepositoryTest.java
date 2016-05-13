@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 
 import org.junit.After;
@@ -43,10 +44,6 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @PrepareForTest(PreferenceManager.class)
 public class RepositoryTest {
     @Mock
-    private Context context;
-    @Mock
-    private Resources resources;
-    @Mock
     private SharedPreferences sharedPreferences;
     @Mock
     private OnSharedPreferenceChangeListener onSharedPreferenceChangeListener;
@@ -54,6 +51,8 @@ public class RepositoryTest {
     private Editor editor;
 
     private String keyValue;
+    private Context context;
+    private Resources resources;
     private Repository fixture;
 
     @Before
@@ -61,16 +60,19 @@ public class RepositoryTest {
         mockStatic(PreferenceManager.class);
 
         keyValue = "xyz";
-        fixture = new Repository();
-        fixture.setContext(context);
-        fixture.setResources(resources);
+
+        context = MainContextHelper.INSTANCE.getContext();
+        resources = MainContextHelper.INSTANCE.getResources();
 
         when(PreferenceManager.getDefaultSharedPreferences(context)).thenReturn(sharedPreferences);
+
+        fixture = new Repository();
     }
 
     @After
     public void tearDown() throws Exception {
         verifyStatic();
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test

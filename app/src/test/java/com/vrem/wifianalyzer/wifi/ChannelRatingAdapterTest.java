@@ -68,15 +68,13 @@ public class ChannelRatingAdapterTest {
         MainActivity mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
 
         channelRating = mock(ChannelRating.class);
-        scanner = mock(Scanner.class);
-        settings = mock(Settings.class);
         bestChannels = mock(TextView.class);
 
-        MainContextHelper.INSTANCE.setScanner(scanner);
+        scanner = MainContextHelper.INSTANCE.getScanner();
+        settings = MainContextHelper.INSTANCE.getSettings();
 
         fixture = new ChannelRatingAdapter(mainActivity, bestChannels);
         fixture.setChannelRating(channelRating);
-        fixture.setSettings(settings);
     }
 
     @After

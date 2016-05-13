@@ -44,13 +44,9 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ConnectionViewTest {
     @Mock
-    private Scanner scanner;
-    @Mock
     private Activity activity;
     @Mock
     private Resources resources;
-    @Mock
-    private Configuration configuration;
     @Mock
     private View view;
     @Mock
@@ -58,15 +54,17 @@ public class ConnectionViewTest {
     @Mock
     private WiFiData wiFiData;
 
+    private Scanner scanner;
+    private Configuration configuration;
     private ConnectionView fixture;
 
     @Before
     public void setUp() throws Exception {
-        MainContextHelper.INSTANCE.setScanner(scanner);
+        scanner = MainContextHelper.INSTANCE.getScanner();
+        configuration = MainContextHelper.INSTANCE.getConfiguration();
 
         fixture = new ConnectionView(activity);
         fixture.setAccessPointsDetail(accessPointsDetail);
-        fixture.setConfiguration(configuration);
     }
 
     @After
