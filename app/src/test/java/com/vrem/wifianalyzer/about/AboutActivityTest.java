@@ -19,6 +19,7 @@ package com.vrem.wifianalyzer.about;
 import android.content.pm.PackageInfo;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.vrem.wifianalyzer.BuildConfig;
@@ -26,6 +27,7 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -99,10 +101,23 @@ public class AboutActivityTest {
             expected += " - " + packageInfo.versionCode;
         }
         // execute
-        TextView actual = (TextView) fixture.findViewById(R.id.version_info);
+        TextView actual = (TextView) fixture.findViewById(R.id.about_version_info);
         // validate
         assertNotNull(actual);
         assertEquals(expected, actual.getText());
     }
 
+    @Test
+    public void testSetPackageName() throws Exception {
+        // setup
+        boolean isDevelopmentMode = MainContext.INSTANCE.getConfiguration().isDevelopmentMode();
+        String expectedName = isDevelopmentMode ? fixture.getPackageName() : StringUtils.EMPTY;
+        int expectedVisibility = isDevelopmentMode ? View.VISIBLE : View.GONE;
+        // execute
+        TextView actual = (TextView) fixture.findViewById(R.id.about_package_name);
+        // validate
+        assertNotNull(actual);
+        assertEquals(expectedVisibility, actual.getVisibility());
+        assertEquals(expectedName, actual.getText());
+    }
 }

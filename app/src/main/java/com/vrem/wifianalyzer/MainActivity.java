@@ -54,7 +54,7 @@ import org.apache.commons.lang3.StringUtils;
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
 public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
-    private static final String WI_FI_ANALYZER_BETA = "WiFi Analyzer BETA";
+    private static final String WI_FI_ANALYZER_BETA = "BETA";
 
     private MainContext mainContext = MainContext.INSTANCE;
     private ThemeStyle currentThemeStyle;
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         Handler handler = new Handler();
         Settings settings = new Settings(context);
-        Configuration configuration = getConfiguration(context);
+        Configuration configuration = new Configuration(isLargeScreenLayout(), isDevelopment());
 
         mainContext.setContext(context);
         mainContext.setConfiguration(configuration);
@@ -110,6 +110,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         mainContext.setScanner(new Scanner(wifiManager, handler, settings, new Transformer(configuration)));
     }
 
+    private boolean isDevelopment() {
+        return getPackageName().contains(WI_FI_ANALYZER_BETA);
+    }
+
     private void setWiFiChannelPairs() {
         String countryCode = mainContext.getSettings().getCountryCode();
         if (!countryCode.equals(currentCountryCode)) {
@@ -119,14 +123,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         }
     }
 
-    private Configuration getConfiguration(@NonNull Context context) {
-        boolean isDevelopmentMode = WI_FI_ANALYZER_BETA.equals(context.getString(R.string.app_name));
-        return new Configuration(isLargeScreenLayout(), isDevelopmentMode);
-    }
-
     private boolean isLargeScreenLayout() {
         int screenLayoutSize = getResources().getConfiguration().screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK;
-        return screenLayoutSize == android.content.res.Configuration.SCREENLAYOUT_SIZE_LARGE || screenLayoutSize == android.content.res.Configuration.SCREENLAYOUT_SIZE_XLARGE;
+        return screenLayoutSize == android.content.res.Configuration.SCREENLAYOUT_SIZE_LARGE ||
+            screenLayoutSize == android.content.res.Configuration.SCREENLAYOUT_SIZE_XLARGE;
     }
 
     @Override

@@ -56,7 +56,13 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/version_info"
+                    android:id="@+id/about_package_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/about_version_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold" />

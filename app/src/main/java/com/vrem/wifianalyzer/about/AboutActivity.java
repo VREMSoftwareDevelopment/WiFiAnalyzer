@@ -24,6 +24,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
@@ -42,6 +43,7 @@ public class AboutActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        setPackageName();
         setVersionNumber();
 
         ActionBar actionBar = getSupportActionBar();
@@ -59,9 +61,17 @@ public class AboutActivity extends AppCompatActivity {
             if (mainContext.getConfiguration().isDevelopmentMode()) {
                 versionInfo += " - " + packageInfo.versionCode;
             }
-            ((TextView) findViewById(R.id.version_info)).setText(versionInfo);
+            ((TextView) findViewById(R.id.about_version_info)).setText(versionInfo);
         } catch (PackageManager.NameNotFoundException e) {
             mainContext.getLogger().error(this, "Version Information", e);
+        }
+    }
+
+    private void setPackageName() {
+        if (MainContext.INSTANCE.getConfiguration().isDevelopmentMode()) {
+            TextView textView = (TextView) findViewById(R.id.about_package_name);
+            textView.setText(getPackageName());
+            textView.setVisibility(View.VISIBLE);
         }
     }
 
