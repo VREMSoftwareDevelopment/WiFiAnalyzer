@@ -93,21 +93,20 @@ def updateVersion() {
     def versionBuild = properties['version_build'].toString().toInteger()
     def versionStore = properties['version_store'].toString().toInteger()
 
-    def compileTask = isCompileTask()
-    def releaseTask = isReleaseTask()
-    if (compileTask || releaseTask) {
-        if (compileTask) {
-            System.out.println(">>> Compiling Source...")
-            versionBuild++
-            properties['version_build'] = versionBuild.toString()
-        }
-        if (releaseTask) {
-            System.out.println(">>> Building Release...")
-            versionPatch++
-            versionStore++
-            properties['version_patch'] = versionPatch.toString()
-            properties['version_store'] = versionStore.toString()
-        }
+    if (isReleaseTask()) {
+        System.out.println(">>> Building Release...")
+        versionPatch++
+        versionStore++
+        versionBuild = 0
+        properties['version_patch'] = versionPatch.toString()
+        properties['version_store'] = versionStore.toString()
+        properties['version_build'] = versionBuild.toString()
+        writeProperties(propertiesFile, properties)
+    }
+    if (isCompileTask()) {
+        System.out.println(">>> Compiling Source...")
+        versionBuild++
+        properties['version_build'] = versionBuild.toString()
         writeProperties(propertiesFile, properties)
     }
 
