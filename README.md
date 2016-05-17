@@ -15,6 +15,10 @@ This is the official repository of WiFi Analyzer (open-source).
 * Graph Access Point signal strength over time
 * Analyze WiFi networks to rate channels
 
+## Usage Tips:
+* Tap the title bar to switch between 2.4 and 5 GHz WiFi band.
+* Swipe to refresh manually screen content. 
+
 ## Feedback:
 Bug reports and feature requests can be submitted [here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues).
 
