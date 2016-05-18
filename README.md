@@ -19,6 +19,9 @@ This is the official repository of WiFi Analyzer (open-source).
 * Tap the title bar to switch between 2.4 and 5 GHz WiFi band.
 * Swipe to refresh manually screen content. 
 
+## How-to:
+* [How to guide in Czech](http://www.svetandroida.cz/aplikace-wifi-analyzer-open-source-201605)
+
 ## Feedback:
 Bug reports and feature requests can be submitted [here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues).
 
