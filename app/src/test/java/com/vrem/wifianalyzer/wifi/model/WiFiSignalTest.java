@@ -23,7 +23,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 
 public class WiFiSignalTest {
     private static final int FREQUENCY = 2432;
@@ -62,6 +64,16 @@ public class WiFiSignalTest {
         assertEquals(FREQUENCY, fixture.getFrequency());
         assertEquals(FREQUENCY - WiFiWidth.MHZ_20.getFrequencyWidthHalf(), fixture.getFrequencyStart());
         assertEquals(FREQUENCY + WiFiWidth.MHZ_20.getFrequencyWidthHalf(), fixture.getFrequencyEnd());
+    }
+
+    @Test
+    public void testGetInRange() throws Exception {
+        assertTrue(fixture.isInRange(FREQUENCY));
+        assertTrue(fixture.isInRange(FREQUENCY - WiFiWidth.MHZ_20.getFrequencyWidthHalf()));
+        assertTrue(fixture.isInRange(FREQUENCY + WiFiWidth.MHZ_20.getFrequencyWidthHalf()));
+
+        assertFalse(fixture.isInRange(FREQUENCY - WiFiWidth.MHZ_20.getFrequencyWidthHalf() - 1));
+        assertFalse(fixture.isInRange(FREQUENCY + WiFiWidth.MHZ_20.getFrequencyWidthHalf() + 1));
     }
 
     @Test

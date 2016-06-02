@@ -25,9 +25,13 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ChannelRating {
+    private static final int LEVEL_RANGE_MIN = -5;
+    private static final int LEVEL_RANGE_MAX = 5;
+    public static final int BSSID_LENGTH = 17;
     private List<WiFiDetail> wiFiDetails = new ArrayList<>();
 
     public int getCount(WiFiChannel wiFiChannel) {
@@ -45,17 +49,64 @@ public class ChannelRating {
     }
 
     public void setWiFiChannels(@NonNull List<WiFiDetail> wiFiDetails) {
-        this.wiFiDetails = wiFiDetails;
+        this.wiFiDetails = removeGuest(wiFiDetails);
+    }
+
+    private List<WiFiDetail> removeGuest(@NonNull List<WiFiDetail> wiFiDetails) {
+        List<WiFiDetail> results = new ArrayList<>();
+        WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
+        Collections.sort(wiFiDetails, new GuestSort());
+        for (WiFiDetail current : wiFiDetails) {
+            if (current.getWiFiAdditional().isConnected() || isGuest(current, wiFiDetail)) {
+                continue;
+            }
+            results.add(current);
+            wiFiDetail = current;
+        }
+        Collections.sort(results, SortBy.STRENGTH.comparator());
+        return results;
+    }
+
+    private static class GuestSort implements Comparator<WiFiDetail> {
+        @Override
+        public int compare(WiFiDetail lhs, WiFiDetail rhs) {
+            return new CompareToBuilder()
+                .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
+                .append(lhs.getWiFiSignal().getFrequency(), rhs.getWiFiSignal().getFrequency())
+                .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
+                .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
+                .toComparison();
+        }
+    }
+
+    private boolean isGuest(WiFiDetail lhs, WiFiDetail rhs) {
+        if (lhs == rhs) {
+            return true;
+        }
+        if (!isGuestBSSID(lhs.getBSSID(), rhs.getBSSID())) {
+            return false;
+        }
+        int result = lhs.getWiFiSignal().getFrequency() - rhs.getWiFiSignal().getFrequency();
+        if (result == 0) {
+            result = rhs.getWiFiSignal().getLevel() - lhs.getWiFiSignal().getLevel();
+            if (result > LEVEL_RANGE_MIN || result < LEVEL_RANGE_MAX) {
+                result = 0;
+            }
+        }
+        return result == 0;
+    }
+
+    private boolean isGuestBSSID(String lhs, String rhs) {
+        return lhs.length() == BSSID_LENGTH &&
+            lhs.length() == rhs.length() &&
+            lhs.substring(0, 0).equalsIgnoreCase(rhs.substring(0, 0)) &&
+            lhs.substring(2, BSSID_LENGTH - 1).equalsIgnoreCase(rhs.substring(2, BSSID_LENGTH - 1));
     }
 
     private List<WiFiDetail> collectOverlapping(WiFiChannel wiFiChannel) {
         List<WiFiDetail> result = new ArrayList<>();
         for (WiFiDetail wiFiDetail : wiFiDetails) {
-            if (wiFiDetail.getWiFiAdditional().isConnected()) {
-                continue;
-            }
-            WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-            if (wiFiChannel.getFrequency() >= wiFiSignal.getFrequencyStart() && wiFiChannel.getFrequency() <= wiFiSignal.getFrequencyEnd()) {
+            if (wiFiDetail.getWiFiSignal().isInRange(wiFiChannel.getFrequency())) {
                 result.add(wiFiDetail);
             }
         }

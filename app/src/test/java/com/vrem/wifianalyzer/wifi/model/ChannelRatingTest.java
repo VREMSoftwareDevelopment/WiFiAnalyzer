@@ -33,18 +33,26 @@ import static org.junit.Assert.assertEquals;
 
 public class ChannelRatingTest {
     private WiFiDetail wiFiDetail1;
+    private WiFiDetail wiFiDetail1Guest;
     private WiFiDetail wiFiDetail2;
     private WiFiDetail wiFiDetail3;
+    private WiFiDetail wiFiDetail3Guest;
+    private List<WiFiDetail> wiFiDetails;
     private ChannelRating fixture;
 
     @Before
     public void setUp() throws Exception {
-        wiFiDetail1 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
-                new WiFiSignal(2432, WiFiWidth.MHZ_20, -50), WiFiAdditional.EMPTY);
-        wiFiDetail2 = new WiFiDetail("SSID2", "BSSID2", StringUtils.EMPTY,
+        wiFiDetail1 = new WiFiDetail("SSID1", "20:cf:30:ce:1d:71", StringUtils.EMPTY,
+            new WiFiSignal(2432, WiFiWidth.MHZ_20, -50), WiFiAdditional.EMPTY);
+        wiFiDetail2 = new WiFiDetail("SSID2", "58:6d:8f:fa:ae:c0", StringUtils.EMPTY,
                 new WiFiSignal(2442, WiFiWidth.MHZ_20, -70), WiFiAdditional.EMPTY);
-        wiFiDetail3 = new WiFiDetail("SSID3", "BSSID3", StringUtils.EMPTY,
-                new WiFiSignal(2452, WiFiWidth.MHZ_20, -60), WiFiAdditional.EMPTY);
+        wiFiDetail3 = new WiFiDetail("SSID3", "84:94:8c:9d:40:68", StringUtils.EMPTY,
+            new WiFiSignal(2452, WiFiWidth.MHZ_20, -60), WiFiAdditional.EMPTY);
+        wiFiDetail1Guest = new WiFiDetail("SSID1", "22:cf:30:ce:1d:72", StringUtils.EMPTY,
+            new WiFiSignal(2432, WiFiWidth.MHZ_20, -52), WiFiAdditional.EMPTY);
+        wiFiDetail3Guest = new WiFiDetail("SSID3", "84:94:8c:9d:40:6c", StringUtils.EMPTY,
+            new WiFiSignal(2452, WiFiWidth.MHZ_20, -65), WiFiAdditional.EMPTY);
+        wiFiDetails = Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail1Guest, wiFiDetail3Guest);
         fixture = new ChannelRating();
     }
 
@@ -60,7 +68,7 @@ public class ChannelRatingTest {
     @Test
     public void testGetCount() throws Exception {
         // setup
-        fixture.setWiFiChannels(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3));
+        fixture.setWiFiChannels(wiFiDetails);
         // execute and validate
         validateCount(2, wiFiDetail1.getWiFiSignal().getWiFiChannel());
         validateCount(3, wiFiDetail2.getWiFiSignal().getWiFiChannel());
@@ -106,7 +114,7 @@ public class ChannelRatingTest {
     public void testGetBestChannelsSortedInOrderWithMinimumChannels() throws Exception {
         // setup
         List<WiFiChannel> channels = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannels();
-        fixture.setWiFiChannels(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3));
+        fixture.setWiFiChannels(wiFiDetails);
         // execute
         List<ChannelRating.ChannelAPCount> actual = fixture.getBestChannels(channels);
         // validate
