@@ -66,9 +66,9 @@
     <string name="scan_interval_title">Scan Interval</string>
     <string name="scan_interval_summary">%d seconds between each scan</string>
     <string name="scan_interval_key" translatable="false">scan_interval</string>
-    <integer name="scan_interval_min">5</integer>
-    <integer name="scan_interval_max">30</integer>
-    <integer name="scan_interval_default">15</integer>
+    <integer name="scan_interval_min" translatable="false">5</integer>
+    <integer name="scan_interval_max" translatable="false">30</integer>
+    <integer name="scan_interval_default" translatable="false">15</integer>
 
     <string name="sort_by_title">Sort Access Points By</string>
     <string name="sort_by_summary" translatable="false">%s</string>
