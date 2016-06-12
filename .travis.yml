@@ -12,7 +12,7 @@ android:
         - extra-google-m2repository
         - extra-android-m2repository
 script:
-    ./gradlew testDebugUnitTest jacocoTestDebugUnitTestReport
+    ./gradlew testDebugUnitTest jacocoTestDebugUnitTestReport --info
 before_install:
     - chmod +x gradlew
 before_cache:
