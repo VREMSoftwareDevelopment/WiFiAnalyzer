@@ -62,7 +62,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     public void update(@NonNull WiFiData wiFiData) {
         WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
         List<WiFiChannel> wiFiChannels = setWiFiChannels(wiFiBand);
-        channelRating.setWiFiChannels(wiFiData.getWiFiDetails(wiFiBand, SortBy.STRENGTH));
+        channelRating.setWiFiDetails(wiFiData.getWiFiDetails(wiFiBand, SortBy.STRENGTH));
         bestChannels(wiFiBand, wiFiChannels);
         notifyDataSetChanged();
     }

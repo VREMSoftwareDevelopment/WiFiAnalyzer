@@ -123,7 +123,7 @@ public class ChannelRatingAdapterTest {
         // execute
         fixture.update(wiFiData);
         // validate
-        verify(channelRating).setWiFiChannels(wiFiDetails);
+        verify(channelRating).setWiFiDetails(wiFiDetails);
         verify(settings).getWiFiBand();
         verify(settings).getCountryCode();
     }

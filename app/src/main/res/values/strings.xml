@@ -110,6 +110,6 @@
     <string name="about_library_material">Material Design Icons</string>
     <string name="about_library_material_url" translatable="false">https://design.google.com/icons</string>
     <string name="about_contributor_title">Contributors:</string>
-    <string name="about_contributor_list" translatable="false">"Alex Orchard, Caren DesBrisay, Dan Light, Gina Chaves, Graham Foster, Lee McCallum, Lukas Winkler, Michael Melo, Silviu Marcu, Vadim Karantayer, 'Akira"</string>
+    <string name="about_contributor_list" translatable="false">"Alex Orchard, Caren DesBrisay, Dan Light, Gina Chaves, Graham Foster, Lee McCallum, Lukas Winkler, Michael Melo, Silviu Marcu, Vadim Karantayer, 'Akira, Genghis"</string>
     <!-- about end -->
 </resources>

@@ -29,9 +29,10 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ChannelRating {
-    private static final int LEVEL_RANGE_MIN = -5;
-    private static final int LEVEL_RANGE_MAX = 5;
-    public static final int BSSID_LENGTH = 17;
+    protected static final int LEVEL_RANGE_MIN = -5;
+    protected static final int LEVEL_RANGE_MAX = 5;
+    protected static final int BSSID_LENGTH = 17;
+
     private List<WiFiDetail> wiFiDetails = new ArrayList<>();
 
     public int getCount(WiFiChannel wiFiChannel) {
@@ -48,8 +49,8 @@ public class ChannelRating {
         return strength;
     }
 
-    public void setWiFiChannels(@NonNull List<WiFiDetail> wiFiDetails) {
-        this.wiFiDetails = removeGuest(wiFiDetails);
+    public void setWiFiDetails(@NonNull List<WiFiDetail> wiFiDetails) {
+        this.wiFiDetails = removeGuest(new ArrayList<>(wiFiDetails));
     }
 
     private List<WiFiDetail> removeGuest(@NonNull List<WiFiDetail> wiFiDetails) {
@@ -57,7 +58,7 @@ public class ChannelRating {
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         Collections.sort(wiFiDetails, new GuestSort());
         for (WiFiDetail current : wiFiDetails) {
-            if (current.getWiFiAdditional().isConnected() || isGuest(current, wiFiDetail)) {
+            if (isGuest(current, wiFiDetail)) {
                 continue;
             }
             results.add(current);
@@ -65,6 +66,10 @@ public class ChannelRating {
         }
         Collections.sort(results, SortBy.STRENGTH.comparator());
         return results;
+    }
+
+    protected List<WiFiDetail> getWiFiDetails() {
+        return wiFiDetails;
     }
 
     private static class GuestSort implements Comparator<WiFiDetail> {
