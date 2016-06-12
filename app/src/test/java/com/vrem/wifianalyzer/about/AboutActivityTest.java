@@ -92,22 +92,6 @@ public class AboutActivityTest {
     }
 
     @Test
-    public void testSetVersionNumber() throws Exception {
-        // setup
-        String packageName = fixture.getPackageName();
-        PackageInfo packageInfo = fixture.getPackageManager().getPackageInfo(packageName, 0);
-        String expected = packageInfo.versionName;
-        if (MainContext.INSTANCE.getConfiguration().isDevelopmentMode()) {
-            expected += " - " + packageInfo.versionCode;
-        }
-        // execute
-        TextView actual = (TextView) fixture.findViewById(R.id.about_version_info);
-        // validate
-        assertNotNull(actual);
-        assertEquals(expected, actual.getText());
-    }
-
-    @Test
     public void testSetPackageName() throws Exception {
         // setup
         boolean isDevelopmentMode = MainContext.INSTANCE.getConfiguration().isDevelopmentMode();
