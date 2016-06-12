@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<resources>
+    <!-- application start -->
+    <string name="app_name">מנתח WiFi</string>
+    <string name="app_company_name">VREM Software Development</string>
+    <string name="app_copyright">זכויות יוצרים \u00A9 2015 \u002D 2016</string>
+    <!-- application end -->
+
+    <string name="navigation_drawer_open">פתח מגירת ניווט</string>
+    <string name="navigation_drawer_close">סגור מגירת ניווט</string>
+
+    <string name="action_access_points">נקודות גישה</string>
+    <string name="action_channel_rating">דירוג ערוץ</string>
+    <string name="action_channel_graph">תרשים ערוץ</string>
+    <string name="action_time_graph">תרשים זמן</string>
+    <string name="action_channel_available">ערוצים זמינים</string>
+    <string name="action_vendors">יצרנים</string>
+    <string name="action_settings">הגדרות</string>
+    <string name="action_about">אודות</string>
+
+    <string name="button_cancel">ביטול</string>
+    <string name="no_data">אין מידע</string>
+
+    <string name="channel_rating_best">ערוצים מיטביים:</string>
+    <string name="channel_rating_best_none">אין</string>
+    <string name="channel_rating_best_alternative">, נסה פס WiFi חלופי</string>
+
+    <string name="channel_rating_heading_rating">דירוג ערוץ</string>
+    <string name="channel_rating_heading_number">מספר ערוץ</string>
+    <string name="channel_rating_heading_count">ספירת גקודת גישה</string>
+    <string name="channel_short_name">ער</string>
+    <string name="channel_frequency_range">טווח:</string>
+
+    <string name="graph_channel_axis_x">ערוצי WiFi</string>
+    <string name="graph_time_axis_x">ספירת סריקה</string>
+    <string name="graph_axis_y">חוזק אות (dBm)</string>
+
+    <!-- settings start -->
+    <string name="country_code_title">מדינה</string>
+
+    <string name="wifi_band_title">פס WiFi</string>
+
+    <string name="scan_interval_title">תדירות סריקה</string>
+    <string name="scan_interval_summary">%d שניות בין כל סריקה</string>
+
+    <string name="sort_by_title">מיין נקודות גישה לפי</string>
+
+    <string name="group_by_title">קבץ נקודות גישה לפי</string>
+
+    <string name="channel_graph_legend_title">מקרא תצוגת תרשים ערוץ</string>
+
+    <string name="time_graph_legend_title">מקרא תצוגת תרשים זמן</string>
+
+    <string name="theme_title">ערכת נושא</string>
+    <!-- settings end -->
+
+    <!-- about start -->
+    <string name="about_license_title">רשיון:</string>
+    <string name="about_license_name">רשוי תחת הרשיון Apache License, גרסא 2.0</string>
+    <string name="about_description_title">תיאור:</string>
+    <string name="about_description_text">הפוך את רשת ה-WiFi ליעילה יותר, על ידי בדיקת מצב רשת WiFi, חוזק אות וזיהוי ערוצים צפופים באמצעות מנתח WiFi קוד-פתוח עבור Android</string>
+    <string name="about_libraries_title">ספריות בשימוש:</string>
+    <string name="about_library_graph_view">תצוגת תרשים</string>
+    <string name="about_library_material">סמל עיצוב אריג</string>
+    <string name="about_contributor_title">תורמים:</string>
+    <!-- about end -->
+</resources>
