@@ -35,11 +35,11 @@ public class ChannelRating {
 
     private List<WiFiDetail> wiFiDetails = new ArrayList<>();
 
-    public int getCount(WiFiChannel wiFiChannel) {
+    public int getCount(@NonNull WiFiChannel wiFiChannel) {
         return collectOverlapping(wiFiChannel).size();
     }
 
-    public Strength getStrength(WiFiChannel wiFiChannel) {
+    public Strength getStrength(@NonNull WiFiChannel wiFiChannel) {
         Strength strength = Strength.ZERO;
         for (WiFiDetail wiFiDetail : collectOverlapping(wiFiChannel)) {
             if (!wiFiDetail.getWiFiAdditional().isConnected()) {
@@ -74,7 +74,7 @@ public class ChannelRating {
 
     private static class GuestSort implements Comparator<WiFiDetail> {
         @Override
-        public int compare(WiFiDetail lhs, WiFiDetail rhs) {
+        public int compare(@NonNull WiFiDetail lhs, @NonNull WiFiDetail rhs) {
             return new CompareToBuilder()
                 .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
                 .append(lhs.getWiFiSignal().getFrequency(), rhs.getWiFiSignal().getFrequency())
@@ -84,10 +84,7 @@ public class ChannelRating {
         }
     }
 
-    private boolean isGuest(WiFiDetail lhs, WiFiDetail rhs) {
-        if (lhs == rhs) {
-            return true;
-        }
+    private boolean isGuest(@NonNull WiFiDetail lhs, @NonNull WiFiDetail rhs) {
         if (!isGuestBSSID(lhs.getBSSID(), rhs.getBSSID())) {
             return false;
         }
@@ -101,14 +98,14 @@ public class ChannelRating {
         return result == 0;
     }
 
-    private boolean isGuestBSSID(String lhs, String rhs) {
+    private boolean isGuestBSSID(@NonNull String lhs, @NonNull String rhs) {
         return lhs.length() == BSSID_LENGTH &&
             lhs.length() == rhs.length() &&
             lhs.substring(0, 0).equalsIgnoreCase(rhs.substring(0, 0)) &&
             lhs.substring(2, BSSID_LENGTH - 1).equalsIgnoreCase(rhs.substring(2, BSSID_LENGTH - 1));
     }
 
-    private List<WiFiDetail> collectOverlapping(WiFiChannel wiFiChannel) {
+    private List<WiFiDetail> collectOverlapping(@NonNull WiFiChannel wiFiChannel) {
         List<WiFiDetail> result = new ArrayList<>();
         for (WiFiDetail wiFiDetail : wiFiDetails) {
             if (wiFiDetail.getWiFiSignal().isInRange(wiFiChannel.getFrequency())) {
@@ -134,7 +131,7 @@ public class ChannelRating {
         private final WiFiChannel wiFiChannel;
         private final int count;
 
-        public ChannelAPCount(WiFiChannel wiFiChannel, int count) {
+        public ChannelAPCount(@NonNull WiFiChannel wiFiChannel, int count) {
             this.wiFiChannel = wiFiChannel;
             this.count = count;
         }
