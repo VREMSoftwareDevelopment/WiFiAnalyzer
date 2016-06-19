@@ -65,7 +65,7 @@ public class RemoteCallTest {
         fixture = new RemoteCall() {
             @Override
             protected URLConnection getURLConnection(String request) throws IOException {
-                String expectedRequest = String.format(MAX_VENDOR_LOOKUP, MAC_ADDRESS.replace(":", "-"));
+                String expectedRequest = String.format(MAX_VENDOR_LOOKUP, MAC_ADDRESS);
                 assertEquals(expectedRequest, request);
                 return urlConnection;
             }
@@ -80,8 +80,8 @@ public class RemoteCallTest {
     @Test
     public void testDoInBackground() throws Exception {
         // setup
-        String expected = "This\nis\nexpected\nresults\n";
-        when(urlConnection.getInputStream()).thenReturn(new StringInputStream(expected));
+        String expected = new RemoteResult(MAC_ADDRESS, VENDOR_NAME).toJson();
+        when(urlConnection.getInputStream()).thenReturn(new StringInputStream(VENDOR_NAME));
         // execute
         String actual = fixture.doInBackground(MAC_ADDRESS);
         // validate
@@ -117,25 +117,23 @@ public class RemoteCallTest {
     @Test
     public void testOnPostExecute() throws Exception {
         // setup
-        String macAddress = MAC_ADDRESS.replace(":", "");
-        String result = "[{\"startHex\":\"" + macAddress + "\",\"company\":\"" + VENDOR_NAME + "\"}]";
+        String result = new RemoteResult(MAC_ADDRESS, VENDOR_NAME).toJson();
         // execute
         fixture.onPostExecute(result);
         // validate
-        verify(logger).info(fixture, macAddress + " " + VENDOR_NAME);
-        verify(database).insert(macAddress, VENDOR_NAME);
+        verify(logger).info(fixture, MAC_ADDRESS + " " + VENDOR_NAME);
+        verify(database).insert(MAC_ADDRESS, VENDOR_NAME);
     }
 
     @Test
     public void testOnPostExecuteWithEmptyMacAddress() throws Exception {
         // setup
-        String macAddress = StringUtils.EMPTY;
-        String result = "[{\"startHex\":\"" + macAddress + "\",\"company\":\"" + VENDOR_NAME + "\"}]";
+        String result = new RemoteResult(StringUtils.EMPTY, VENDOR_NAME).toJson();
         // execute
         fixture.onPostExecute(result);
         // validate
-        verify(logger, never()).info(fixture, macAddress + " " + VENDOR_NAME);
-        verify(database, never()).insert(macAddress, VENDOR_NAME);
+        verify(logger, never()).info(fixture, StringUtils.EMPTY + " " + VENDOR_NAME);
+        verify(database, never()).insert(StringUtils.EMPTY, VENDOR_NAME);
     }
 
     @Test
@@ -149,7 +147,7 @@ public class RemoteCallTest {
     @Test
     public void testOnPostExecuteWithJSONException() throws Exception {
         // setup
-        String result = "{\"name\":\"123-XYZ\"}";
+        String result = "Not a JSON";
         // execute
         fixture.onPostExecute(result);
         // validate
