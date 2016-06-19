@@ -32,9 +32,6 @@ import java.net.URLConnection;
 class RemoteCall extends AsyncTask<String, Void, String> {
     protected static final String MAX_VENDOR_LOOKUP = "http://api.macvendors.com/%s";
 
-    private static final String MAC_ADDRESS_KEY = "mac_address";
-    private static final String VENDOR_NAME_KEY = "vendor_name";
-
     protected String doInBackground(String... params) {
         if (params == null || params.length < 1 || StringUtils.isBlank(params[0])) {
             return StringUtils.EMPTY;
