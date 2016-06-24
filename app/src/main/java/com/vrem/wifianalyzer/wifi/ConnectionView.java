@@ -22,9 +22,12 @@ import android.view.View;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
+
+import java.util.List;
 
 public class ConnectionView implements UpdateNotifier {
     private final Activity activity;
@@ -38,15 +41,23 @@ public class ConnectionView implements UpdateNotifier {
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
-        View view = activity.findViewById(R.id.connection);
-
+        MainContext mainContext = MainContext.INSTANCE;
         WiFiDetail connection = wiFiData.getConnection();
+
+        View connectionView = activity.findViewById(R.id.connection);
         if (connection.getWiFiAdditional().isConnected()) {
-            view.setVisibility(View.VISIBLE);
-            accessPointsDetail.setView(activity.getResources(), view, connection, false, MainContext.INSTANCE.getConfiguration().isLargeScreenLayout());
+            connectionView.setVisibility(View.VISIBLE);
+            accessPointsDetail.setView(activity.getResources(), connectionView, connection, false, mainContext.getConfiguration().isLargeScreenLayout());
         } else {
-            view.setVisibility(View.GONE);
+            connectionView.setVisibility(View.GONE);
         }
+
+        Settings settings = mainContext.getSettings();
+        List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy());
+
+        View noDataView = activity.findViewById(R.id.nodata);
+        noDataView.setVisibility(wiFiDetails.isEmpty() ? View.VISIBLE : View.GONE);
+
     }
 
     protected void setAccessPointsDetail(@NonNull AccessPointsDetail accessPointsDetail) {
