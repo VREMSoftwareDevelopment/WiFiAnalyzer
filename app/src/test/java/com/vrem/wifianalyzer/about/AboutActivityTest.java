@@ -17,6 +17,7 @@
 package com.vrem.wifianalyzer.about;
 
 import android.content.pm.PackageInfo;
+import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
@@ -98,7 +99,7 @@ public class AboutActivityTest {
         PackageInfo packageInfo = fixture.getPackageManager().getPackageInfo(packageName, 0);
         String expected = packageInfo.versionName;
         if (MainContext.INSTANCE.getConfiguration().isDevelopmentMode()) {
-            expected += " - " + packageInfo.versionCode;
+            expected += " - " + packageInfo.versionCode +  " SDK:" + Build.VERSION.SDK_INT;
         }
         // execute
         TextView actual = (TextView) fixture.findViewById(R.id.about_version_info);

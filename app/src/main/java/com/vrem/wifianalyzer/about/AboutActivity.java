@@ -18,6 +18,7 @@ package com.vrem.wifianalyzer.about;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
@@ -59,7 +60,7 @@ public class AboutActivity extends AppCompatActivity {
             PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String versionInfo = packageInfo.versionName;
             if (mainContext.getConfiguration().isDevelopmentMode()) {
-                versionInfo += " - " + packageInfo.versionCode;
+                versionInfo += " - " + packageInfo.versionCode + " SDK:" + Build.VERSION.SDK_INT;
             }
             ((TextView) findViewById(R.id.about_version_info)).setText(versionInfo);
         } catch (PackageManager.NameNotFoundException e) {
