@@ -34,25 +34,32 @@
 
     </LinearLayout>
 
-    <TextView
+    <LinearLayout
         android:id="@+id/nodata"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
-        android:text="@string/no_data"
-        android:textAlignment="center"
-        android:textColor="@color/error_color"
-        android:textStyle="bold"/>
+        android:orientation="vertical"
+        android:visibility="gone">
 
-    <TextView
-        android:id="@+id/nodata_geo"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:text="@string/no_data_geo_warning"
-        android:textAlignment="center"
-        android:textColor="@color/warning_color"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/no_data"
+            android:textAlignment="center"
+            android:textColor="@color/error_color"
+            android:textStyle="bold"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:text="@string/no_data_geo_warning"
+            android:textAlignment="center"
+            android:textColor="@color/warning_color"/>
+
+    </LinearLayout>
 </LinearLayout>

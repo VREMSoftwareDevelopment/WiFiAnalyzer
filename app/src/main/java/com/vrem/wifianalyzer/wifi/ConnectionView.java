@@ -54,10 +54,7 @@ public class ConnectionView implements UpdateNotifier {
 
         Settings settings = mainContext.getSettings();
         List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy());
-
-        View noDataView = activity.findViewById(R.id.nodata);
-        noDataView.setVisibility(wiFiDetails.isEmpty() ? View.VISIBLE : View.GONE);
-
+        activity.findViewById(R.id.nodata).setVisibility(wiFiDetails.isEmpty() ? View.VISIBLE : View.GONE);
     }
 
     protected void setAccessPointsDetail(@NonNull AccessPointsDetail accessPointsDetail) {

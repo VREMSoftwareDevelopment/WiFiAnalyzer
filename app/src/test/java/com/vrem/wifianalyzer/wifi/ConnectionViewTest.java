@@ -41,9 +41,12 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.when;
 
@@ -86,7 +89,7 @@ public class ConnectionViewTest {
     }
 
     @Test
-    public void testUpdateWithConnectionNotConnected() throws Exception {
+    public void testConnectionNotVisibleWithNoConnectionInformation() throws Exception {
         // setup
         WiFiDetail connection = withConnection(WiFiAdditional.EMPTY);
         when(wiFiData.getConnection()).thenReturn(connection);
@@ -94,12 +97,16 @@ public class ConnectionViewTest {
         // execute
         fixture.update(wiFiData);
         // validate
-        assertEquals(View.GONE, mainActivity.findViewById(R.id.connection).getVisibility());
+        View view = mainActivity.findViewById(R.id.connection);
+        assertEquals(View.GONE, view.getVisibility());
+
         verify(wiFiData).getConnection();
+        verify(configuration, never()).isLargeScreenLayout();
+        verify(accessPointsDetail, never()).setView(mainActivity.getResources(), view, connection, false, false);
     }
 
     @Test
-    public void testUpdateWithConnection() throws Exception {
+    public void testConnectionVisibleWithConnectionInformation() throws Exception {
         // setup
         WiFiDetail connection = withConnection(new WiFiAdditional(StringUtils.EMPTY, "IPADDRESS", 11));
         when(wiFiData.getConnection()).thenReturn(connection);
@@ -109,9 +116,35 @@ public class ConnectionViewTest {
         // validate
         View view = mainActivity.findViewById(R.id.connection);
         assertEquals(View.VISIBLE, view.getVisibility());
+
         verify(wiFiData).getConnection();
         verify(configuration).isLargeScreenLayout();
         verify(accessPointsDetail).setView(mainActivity.getResources(), view, connection, false, false);
+    }
+
+    @Test
+    public void testNoDataIsVisibleWithNoWiFiDetails() throws Exception {
+        // setup
+        when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
+        when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(new ArrayList<WiFiDetail>());
+        // execute
+        fixture.update(wiFiData);
+        // validate
+        assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.nodata).getVisibility());
+        verify(wiFiData).getWiFiDetails(settings.getWiFiBand(), settings.getSortBy());
+    }
+
+    @Test
+    public void testNoDataIsNotVisibleWithWiFiDetails() throws Exception {
+        // setup
+        List<WiFiDetail> wiFiDetails = Arrays.asList(withConnection(WiFiAdditional.EMPTY));
+        when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
+        when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(wiFiDetails);
+        // execute
+        fixture.update(wiFiData);
+        // validate
+        assertEquals(View.GONE, mainActivity.findViewById(R.id.nodata).getVisibility());
+        verify(wiFiData).getWiFiDetails(settings.getWiFiBand(), settings.getSortBy());
     }
 
     private WiFiDetail withConnection(WiFiAdditional wiFiAdditional) {
