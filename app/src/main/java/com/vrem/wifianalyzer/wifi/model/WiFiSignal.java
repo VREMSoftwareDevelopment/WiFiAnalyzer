@@ -77,6 +77,10 @@ public class WiFiSignal {
         return WiFiUtils.calculateDistance(getFrequency(), getLevel());
     }
 
+    public boolean isInRange(int frequency) {
+        return frequency >= getFrequencyStart() && frequency <= getFrequencyEnd();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {

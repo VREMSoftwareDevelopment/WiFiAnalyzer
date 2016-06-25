@@ -17,14 +17,11 @@
 package com.vrem.wifianalyzer.vendor.model;
 
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainContext;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,14 +30,14 @@ import java.net.URL;
 import java.net.URLConnection;
 
 class RemoteCall extends AsyncTask<String, Void, String> {
-    protected static final String MAX_VENDOR_LOOKUP = "http://www.macvendorlookup.com/api/v2/%s";
+    protected static final String MAX_VENDOR_LOOKUP = "http://api.macvendors.com/%s";
 
     protected String doInBackground(String... params) {
         if (params == null || params.length < 1 || StringUtils.isBlank(params[0])) {
             return StringUtils.EMPTY;
         }
         String macAddress = params[0];
-        String request = String.format(MAX_VENDOR_LOOKUP, macAddress.replace(":", "-"));
+        String request = String.format(MAX_VENDOR_LOOKUP, macAddress);
         BufferedReader bufferedReader = null;
         try {
             URLConnection urlConnection = getURLConnection(request);
@@ -48,9 +45,9 @@ class RemoteCall extends AsyncTask<String, Void, String> {
             StringBuilder response = new StringBuilder();
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                response.append(line).append("\n");
+                response.append(line);
             }
-            return response.toString();
+            return new RemoteResult(macAddress, response.toString()).toJson();
         } catch (Exception e) {
             return StringUtils.EMPTY;
         } finally {
@@ -72,28 +69,16 @@ class RemoteCall extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         if (StringUtils.isNotBlank(result)) {
             try {
-                JSONArray jsonArray = new JSONArray(result);
-                if (jsonArray.length() > 0) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    String macAddress = getValue(jsonObject, "startHex");
-                    String vendorName = getValue(jsonObject, "company");
-                    if (StringUtils.isNotBlank(macAddress)) {
-                        MainContext.INSTANCE.getLogger().info(this, macAddress + " " + vendorName);
-                        MainContext.INSTANCE.getDatabase().insert(macAddress, vendorName);
-                    }
+                RemoteResult remoteResult = new RemoteResult(result);
+                String macAddress = remoteResult.getMacAddress();
+                String vendorName = remoteResult.getVendorName();
+                if (StringUtils.isNotBlank(macAddress)) {
+                    MainContext.INSTANCE.getLogger().info(this, macAddress + " " + vendorName);
+                    MainContext.INSTANCE.getDatabase().insert(macAddress, vendorName);
                 }
             } catch (JSONException e) {
                 MainContext.INSTANCE.getLogger().error(this, result, e);
             }
-        }
-    }
-
-    private String getValue(@NonNull JSONObject jsonObject, @NonNull String key) {
-        try {
-            String result = jsonObject.getString(key);
-            return result == null ? StringUtils.EMPTY : result;
-        } catch (JSONException e) {
-            return StringUtils.EMPTY;
         }
     }
 }
