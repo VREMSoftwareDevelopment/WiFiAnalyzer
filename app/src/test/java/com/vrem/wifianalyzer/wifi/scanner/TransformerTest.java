@@ -20,7 +20,6 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -68,8 +67,6 @@ public class TransformerTest {
     private ScanResult scanResult2;
     @Mock
     private ScanResult scanResult3;
-    @Mock
-    private Configuration configuration;
 
     private List<CacheResult> cacheResults;
     private List<WifiConfiguration> wifiConfigurations;
@@ -78,7 +75,7 @@ public class TransformerTest {
     @Before
     public void setUp() throws Exception {
         wifiConfigurations = Arrays.asList(wifiConfiguration1, wifiConfiguration2, wifiConfiguration3);
-        fixture = new Transformer(configuration);
+        fixture = new Transformer();
     }
 
     @Test
@@ -137,18 +134,6 @@ public class TransformerTest {
         validateWiFiDetail(SSID_1, BSSID_1, actual.get(0));
         validateWiFiDetail(SSID_2, BSSID_2, actual.get(1));
         validateWiFiDetail(SSID_3, BSSID_3, actual.get(2));
-    }
-
-    @Test
-    public void testTransformScanResultsInDevelopmentMode() throws Exception {
-        // setup
-        when(configuration.isDevelopmentMode()).thenReturn(true);
-        withCacheResults();
-        // execute
-        List<WiFiDetail> actual = fixture.transformCacheResults(cacheResults);
-        // validate
-        verify(configuration).isDevelopmentMode();
-        assertEquals(cacheResults.size() + 5, actual.size());
     }
 
     private void validateWiFiDetail(String SSID, String BSSID, WiFiDetail wiFiDetail) {

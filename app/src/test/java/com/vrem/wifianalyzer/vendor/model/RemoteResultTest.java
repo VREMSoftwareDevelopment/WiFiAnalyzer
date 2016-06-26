@@ -61,6 +61,6 @@ public class RemoteResultTest {
 
     @Test(expected = JSONException.class)
     public void testFromJsonWithInvalidJson() throws Exception {
-        RemoteResult fixture = new RemoteResult("");
+        new RemoteResult("");
     }
 }

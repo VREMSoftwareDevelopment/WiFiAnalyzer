@@ -16,10 +16,10 @@
 
 package com.vrem.wifianalyzer.wifi;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -30,31 +30,47 @@ import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 import java.util.List;
 
 public class ConnectionView implements UpdateNotifier {
-    private final Activity activity;
+    private final MainActivity mainActivity;
     private AccessPointsDetail accessPointsDetail;
 
-    public ConnectionView(@NonNull Activity activity) {
-        this.activity = activity;
+    public ConnectionView(@NonNull MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
         setAccessPointsDetail(new AccessPointsDetail());
         MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
     }
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
-        MainContext mainContext = MainContext.INSTANCE;
-        WiFiDetail connection = wiFiData.getConnection();
+        setConnectionVisibility(wiFiData);
+        setNoDataVisibility(wiFiData);
+    }
 
-        View connectionView = activity.findViewById(R.id.connection);
+    private void setNoDataVisibility(@NonNull WiFiData wiFiData) {
+        int noDataVisibility = View.GONE;
+        int noDataGeoVisibility = View.GONE;
+        if (mainActivity.getNavigationMenuView().getCurrentNavigationMenu().isWiFiBandSwitchable()) {
+            Settings settings = MainContext.INSTANCE.getSettings();
+            List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy());
+            if (wiFiDetails.isEmpty()) {
+                noDataVisibility = View.VISIBLE;
+                if (wiFiData.getWiFiDetails().isEmpty()) {
+                    noDataGeoVisibility = View.VISIBLE;
+                }
+            }
+        }
+        mainActivity.findViewById(R.id.nodata).setVisibility(noDataVisibility);
+        mainActivity.findViewById(R.id.nodatageo).setVisibility(noDataGeoVisibility);
+    }
+
+    private void setConnectionVisibility(@NonNull WiFiData wiFiData) {
+        WiFiDetail connection = wiFiData.getConnection();
+        View connectionView = mainActivity.findViewById(R.id.connection);
         if (connection.getWiFiAdditional().isConnected()) {
             connectionView.setVisibility(View.VISIBLE);
-            accessPointsDetail.setView(activity.getResources(), connectionView, connection, false, mainContext.getConfiguration().isLargeScreenLayout());
+            accessPointsDetail.setView(mainActivity.getResources(), connectionView, connection, false, MainContext.INSTANCE.getConfiguration().isLargeScreenLayout());
         } else {
             connectionView.setVisibility(View.GONE);
         }
-
-        Settings settings = mainContext.getSettings();
-        List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy());
-        activity.findViewById(R.id.nodata).setVisibility(wiFiDetails.isEmpty() ? View.VISIBLE : View.GONE);
     }
 
     protected void setAccessPointsDetail(@NonNull AccessPointsDetail accessPointsDetail) {

@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         mainContext.setVendorService(new VendorService());
         mainContext.setLayoutInflater((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
         mainContext.setLogger(new Logger());
-        mainContext.setScanner(new Scanner(wifiManager, handler, settings, new Transformer(configuration)));
+        mainContext.setScanner(new Scanner(wifiManager, handler, settings, new Transformer()));
     }
 
     private boolean isDevelopment() {

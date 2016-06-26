@@ -24,6 +24,7 @@ import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
@@ -42,7 +43,6 @@ import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -81,6 +81,7 @@ public class ConnectionViewTest {
     @After
     public void tearDown() throws Exception {
         MainContextHelper.INSTANCE.restore();
+        mainActivity.getNavigationMenuView().setCurrentNavigationMenu(NavigationMenu.ACCESS_POINTS);
     }
 
     @Test
@@ -89,7 +90,7 @@ public class ConnectionViewTest {
     }
 
     @Test
-    public void testConnectionNotVisibleWithNoConnectionInformation() throws Exception {
+    public void testConnectionGoneWithNoConnectionInformation() throws Exception {
         // setup
         WiFiDetail connection = withConnection(WiFiAdditional.EMPTY);
         when(wiFiData.getConnection()).thenReturn(connection);
@@ -126,25 +127,42 @@ public class ConnectionViewTest {
     public void testNoDataIsVisibleWithNoWiFiDetails() throws Exception {
         // setup
         when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
-        when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(new ArrayList<WiFiDetail>());
         // execute
         fixture.update(wiFiData);
         // validate
         assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.nodata).getVisibility());
+        assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.nodatageo).getVisibility());
         verify(wiFiData).getWiFiDetails(settings.getWiFiBand(), settings.getSortBy());
+        verify(wiFiData).getWiFiDetails();
     }
 
     @Test
-    public void testNoDataIsNotVisibleWithWiFiDetails() throws Exception {
+    public void testNoDataIsGoneWithNonWiFiBandSwitchableNavigationMenu() throws Exception {
         // setup
-        List<WiFiDetail> wiFiDetails = Arrays.asList(withConnection(WiFiAdditional.EMPTY));
+        mainActivity.getNavigationMenuView().setCurrentNavigationMenu(NavigationMenu.VENDOR_LIST);
         when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
-        when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(wiFiDetails);
         // execute
         fixture.update(wiFiData);
         // validate
         assertEquals(View.GONE, mainActivity.findViewById(R.id.nodata).getVisibility());
+        assertEquals(View.GONE, mainActivity.findViewById(R.id.nodatageo).getVisibility());
+        verify(wiFiData, never()).getWiFiDetails(settings.getWiFiBand(), settings.getSortBy());
+        verify(wiFiData, never()).getWiFiDetails();
+    }
+
+    @Test
+    public void testNoDataIsGoneWithWiFiDetails() throws Exception {
+        // setup
+        WiFiDetail wiFiDetail = withConnection(WiFiAdditional.EMPTY);
+        when(wiFiData.getConnection()).thenReturn(wiFiDetail);
+        when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(Arrays.asList(wiFiDetail));
+        // execute
+        fixture.update(wiFiData);
+        // validate
+        assertEquals(View.GONE, mainActivity.findViewById(R.id.nodata).getVisibility());
+        assertEquals(View.GONE, mainActivity.findViewById(R.id.nodatageo).getVisibility());
         verify(wiFiData).getWiFiDetails(settings.getWiFiBand(), settings.getSortBy());
+        verify(wiFiData, never()).getWiFiDetails();
     }
 
     private WiFiDetail withConnection(WiFiAdditional wiFiAdditional) {
