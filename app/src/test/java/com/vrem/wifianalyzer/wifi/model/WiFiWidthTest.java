@@ -35,7 +35,7 @@ public class WiFiWidthTest {
         assertEquals(40, WiFiWidth.MHZ_40.getFrequencyWidth());
         assertEquals(80, WiFiWidth.MHZ_80.getFrequencyWidth());
         assertEquals(160, WiFiWidth.MHZ_160.getFrequencyWidth());
-        assertEquals(80, WiFiWidth.MHZ_80_80.getFrequencyWidth());
+        assertEquals(80, WiFiWidth.MHZ_80_PLUS.getFrequencyWidth());
     }
 
     @Test
@@ -44,7 +44,7 @@ public class WiFiWidthTest {
         assertEquals(20, WiFiWidth.MHZ_40.getFrequencyWidthHalf());
         assertEquals(40, WiFiWidth.MHZ_80.getFrequencyWidthHalf());
         assertEquals(80, WiFiWidth.MHZ_160.getFrequencyWidthHalf());
-        assertEquals(40, WiFiWidth.MHZ_80_80.getFrequencyWidthHalf());
+        assertEquals(40, WiFiWidth.MHZ_80_PLUS.getFrequencyWidthHalf());
     }
 
     @Test

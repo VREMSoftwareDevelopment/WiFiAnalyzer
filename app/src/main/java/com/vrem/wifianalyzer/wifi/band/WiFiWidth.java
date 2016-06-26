@@ -21,7 +21,7 @@ public enum WiFiWidth {
     MHZ_40(40),
     MHZ_80(80),
     MHZ_160(160),
-    MHZ_80_80(80); // should two 80 and 80 - feature support
+    MHZ_80_PLUS(80); // should two 80 and 80 - feature support
 
     private final int frequencyWidth;
     private final int frequencyWidthHalf;

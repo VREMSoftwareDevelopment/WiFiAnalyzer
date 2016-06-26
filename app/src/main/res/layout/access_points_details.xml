@@ -75,6 +75,56 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                android:text="@string/channel_short_name"
+                android:textColor="@color/channel"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/channel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                android:textColor="@color/channel_number"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/frequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                android:textColor="@color/channel"/>
+
+            <TextView
+                android:id="@+id/width"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                android:textColor="@color/channel"/>
+
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                android:textColor="@color/distance"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <!-- Row 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <!-- Column 1 -->
             <ImageView
                 android:id="@+id/levelImage"
@@ -88,50 +138,7 @@
                 android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
                 android:orientation="vertical">
 
-                <!-- Row 1 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/level"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
-                        android:text="@string/channel_short_name"
-                        android:textColor="@color/channel"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/channel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
-                        android:textColor="@color/channel_number"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/frequency"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
-                        android:textColor="@color/channel"/>
-
-                    <TextView
-                        android:id="@+id/distance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
-                        android:textColor="@color/distance"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-
-                <!-- Row 2 optional -->
+                <!-- Row 1 optional -->
                 <LinearLayout
                     android:id="@+id/channel_frequency_range_row"
                     android:layout_width="match_parent"
@@ -154,7 +161,7 @@
                         android:textColor="@color/channel"/>
                 </LinearLayout>
 
-                <!-- Row 3 -->
+                <!-- Row 2 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -174,7 +181,7 @@
                         android:textStyle="italic"/>
                 </LinearLayout>
 
-                <!-- Row 4 -->
+                <!-- Row 3 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

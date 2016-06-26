@@ -89,7 +89,7 @@ public class AccessPointsDetailTest {
     public void testSetViewWithWiFiDetailAsScanResult() throws Exception {
         // setup
         WiFiDetail wiFiDetail = new WiFiDetail(StringUtils.EMPTY, "BSSID", "capabilities",
-                new WiFiSignal(1, WiFiWidth.MHZ_20, 2),
+            new WiFiSignal(1, WiFiWidth.MHZ_40, 2),
                 new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
         fixture.setView(mainActivity.getResources(), view, wiFiDetail, true, true);
@@ -112,6 +112,7 @@ public class AccessPointsDetailTest {
         validateTextViewValue(String.format("%ddBm", wiFiSignal.getLevel()), R.id.level);
         validateTextViewValue(String.format("%d", wiFiSignal.getWiFiChannel().getChannel()), R.id.channel);
         validateTextViewValue(String.format("%d%s", wiFiSignal.getFrequency(), WifiInfo.FREQUENCY_UNITS), R.id.frequency);
+        validateTextViewValue(String.format("(%d%s)", wiFiSignal.getWiFiWidth().getFrequencyWidth(), WifiInfo.FREQUENCY_UNITS), R.id.width);
         validateTextViewValue(String.format("%.1fm", wiFiSignal.getDistance()), R.id.distance);
         validateTextViewValue(wiFiDetail.getCapabilities(), R.id.capabilities);
     }
