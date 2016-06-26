@@ -16,6 +16,8 @@
 
 package com.vrem.wifianalyzer;
 
+import com.vrem.wifianalyzer.navigation.NavigationMenu;
+import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 
@@ -43,6 +45,7 @@ public class MainActivityTest {
 
     @After
     public void tearDown() throws Exception {
+        fixture.getNavigationMenuView().setCurrentNavigationMenu(NavigationMenu.ACCESS_POINTS);
     }
 
     @Test
@@ -52,10 +55,22 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testOnSharedPreferenceChanged() throws Exception {
+    public void testClickingOnToolbarTogglesWiFiBand() throws Exception {
+        assertEquals(NavigationMenu.ACCESS_POINTS, fixture.getNavigationMenuView().getCurrentNavigationMenu());
+
         assertEquals(WiFiBand.GHZ2.getBand(), fixture.getSupportActionBar().getSubtitle());
         fixture.findViewById(R.id.toolbar).performClick();
         assertEquals(WiFiBand.GHZ5.getBand(), fixture.getSupportActionBar().getSubtitle());
+        fixture.findViewById(R.id.toolbar).performClick();
+        assertEquals(WiFiBand.GHZ2.getBand(), fixture.getSupportActionBar().getSubtitle());
+    }
+
+    @Test
+    public void testClickingOnToolbarDoesNotTogglesWiFiBand() throws Exception {
+        NavigationMenuView navigationMenuView = fixture.getNavigationMenuView();
+        navigationMenuView.setCurrentNavigationMenu(NavigationMenu.VENDOR_LIST);
+
+        assertEquals(WiFiBand.GHZ2.getBand(), fixture.getSupportActionBar().getSubtitle());
         fixture.findViewById(R.id.toolbar).performClick();
         assertEquals(WiFiBand.GHZ2.getBand(), fixture.getSupportActionBar().getSubtitle());
     }

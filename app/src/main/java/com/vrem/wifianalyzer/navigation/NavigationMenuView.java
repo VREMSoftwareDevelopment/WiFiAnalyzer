@@ -26,12 +26,13 @@ import com.vrem.wifianalyzer.R;
 
 public class NavigationMenuView {
     private final NavigationView navigationView;
+    private NavigationMenu currentNavigationMenu;
 
     public NavigationMenuView(@NonNull Activity activity) {
         navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
 
         populateNavigationMenu();
-
+        currentNavigationMenu = NavigationMenu.ACCESS_POINTS;
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) activity);
     }
 
@@ -45,13 +46,21 @@ public class NavigationMenuView {
         }
     }
 
-    public MenuItem defaultMenuItem() {
-        return navigationView.getMenu().getItem(NavigationMenu.ACCESS_POINTS.ordinal());
+    public MenuItem getCurrentMenuItem() {
+        return navigationView.getMenu().getItem(getCurrentNavigationMenu().ordinal());
     }
 
-    public NavigationMenu selectedMenuItem(int menuItemId) {
-        NavigationMenu result = NavigationMenu.find(menuItemId);
-        if (result.getFragment() != null) {
+    public NavigationMenu getCurrentNavigationMenu() {
+        return currentNavigationMenu;
+    }
+
+    public void setCurrentNavigationMenu(@NonNull NavigationMenu currentNavigationMenu) {
+        this.currentNavigationMenu = currentNavigationMenu;
+    }
+
+    public NavigationMenu findNavigationMenu(int menuItemId) {
+        NavigationMenu navigationMenu = NavigationMenu.find(menuItemId);
+        if (navigationMenu.getFragment() != null) {
             Menu menu = navigationView.getMenu();
             for (int i = 0; i < menu.size(); i++) {
                 MenuItem item = menu.getItem(i);
@@ -59,10 +68,11 @@ public class NavigationMenuView {
                 item.setChecked(menuItemId == i);
             }
         }
-        return result;
+        return navigationMenu;
     }
 
     protected NavigationView getNavigationView() {
         return navigationView;
     }
+
 }

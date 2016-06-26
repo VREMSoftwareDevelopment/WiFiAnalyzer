@@ -24,6 +24,7 @@ import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,6 +47,11 @@ public class NavigationMenuViewTest {
         navigationView = fixture.getNavigationView();
     }
 
+    @After
+    public void tearDown() throws Exception {
+        fixture.setCurrentNavigationMenu(NavigationMenu.ACCESS_POINTS);
+    }
+
     @Test
     public void testNavigationMenuView() throws Exception {
         // execute
@@ -65,21 +71,39 @@ public class NavigationMenuViewTest {
     }
 
     @Test
-    public void testDefaultMenuItem() throws Exception {
+    public void testGetCurrentMenuItem() throws Exception {
         // setup
         MenuItem expected = navigationView.getMenu().getItem(NavigationMenu.ACCESS_POINTS.ordinal());
         // execute
-        MenuItem actual = fixture.defaultMenuItem();
+        MenuItem actual = fixture.getCurrentMenuItem();
         // validate
         assertEquals(expected, actual);
     }
 
     @Test
-    public void testSelectedMenuItem() throws Exception {
+    public void testGetCurrentNavigationMenu() throws Exception {
+        // execute
+        NavigationMenu actual = fixture.getCurrentNavigationMenu();
+        // validate
+        assertEquals(NavigationMenu.ACCESS_POINTS, actual);
+    }
+
+    @Test
+    public void testSetCurrentNavigationMenu() throws Exception {
         // setup
         NavigationMenu expected = NavigationMenu.CHANNEL_GRAPH;
         // execute
-        NavigationMenu actual = fixture.selectedMenuItem(expected.ordinal());
+        fixture.setCurrentNavigationMenu(expected);
+        // validate
+        assertEquals(expected, fixture.getCurrentNavigationMenu());
+    }
+
+    @Test
+    public void testFindCurrentNavigationMenu() throws Exception {
+        // setup
+        NavigationMenu expected = NavigationMenu.CHANNEL_RATING;
+        // execute
+        NavigationMenu actual = fixture.findNavigationMenu(expected.ordinal());
         // validate
         assertEquals(expected, actual);
     }

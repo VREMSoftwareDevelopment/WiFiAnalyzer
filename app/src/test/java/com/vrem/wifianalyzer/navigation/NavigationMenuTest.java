@@ -87,14 +87,18 @@ public class NavigationMenuTest {
     }
 
     @Test
-    public void testIsSubTitle() throws Exception {
-        assertTrue(NavigationMenu.ACCESS_POINTS.isSubTitle());
-        assertTrue(NavigationMenu.CHANNEL_RATING.isSubTitle());
-        assertTrue(NavigationMenu.CHANNEL_GRAPH.isSubTitle());
-        assertTrue(NavigationMenu.TIME_GRAPH.isSubTitle());
-        assertFalse(NavigationMenu.VENDOR_LIST.isSubTitle());
-        assertFalse(NavigationMenu.SETTINGS.isSubTitle());
-        assertFalse(NavigationMenu.ABOUT.isSubTitle());
+    public void testIsWiFiBandSwitchableTrue() throws Exception {
+        assertTrue(NavigationMenu.ACCESS_POINTS.isWiFiBandSwitchable());
+        assertTrue(NavigationMenu.CHANNEL_RATING.isWiFiBandSwitchable());
+        assertTrue(NavigationMenu.CHANNEL_GRAPH.isWiFiBandSwitchable());
+        assertTrue(NavigationMenu.TIME_GRAPH.isWiFiBandSwitchable());
+    }
+
+    @Test
+    public void testIsWiFiBandSwitchableFalse() throws Exception {
+        assertFalse(NavigationMenu.VENDOR_LIST.isWiFiBandSwitchable());
+        assertFalse(NavigationMenu.SETTINGS.isWiFiBandSwitchable());
+        assertFalse(NavigationMenu.ABOUT.isWiFiBandSwitchable());
     }
 
     @Test

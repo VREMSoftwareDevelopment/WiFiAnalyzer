@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private MainContext mainContext = MainContext.INSTANCE;
     private ThemeStyle currentThemeStyle;
     private NavigationMenuView navigationMenuView;
-    private boolean subTitle;
     private String currentCountryCode;
 
     @Override
@@ -88,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         toggle.syncState();
 
         navigationMenuView = new NavigationMenuView(this);
-        onNavigationItemSelected(navigationMenuView.defaultMenuItem());
+        onNavigationItemSelected(navigationMenuView.getCurrentMenuItem());
 
         new ConnectionView(this);
     }
@@ -172,13 +171,13 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        NavigationMenu item = navigationMenuView.selectedMenuItem(menuItem.getItemId());
-        Fragment fragment = item.getFragment();
+        NavigationMenu navigationMenu = navigationMenuView.findNavigationMenu(menuItem.getItemId());
+        Fragment fragment = navigationMenu.getFragment();
         if (fragment == null) {
-            startActivity(new Intent(this, item.getActivity()));
+            startActivity(new Intent(this, navigationMenu.getActivity()));
         } else {
-            subTitle = item.isSubTitle();
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, item.getFragment()).commit();
+            navigationMenuView.setCurrentNavigationMenu(navigationMenu);
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, navigationMenu.getFragment()).commit();
             setTitle(menuItem.getTitle());
             updateSubTitle();
         }
@@ -200,7 +199,8 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private void updateSubTitle() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setSubtitle(subTitle ? mainContext.getSettings().getWiFiBand().getBand() : StringUtils.EMPTY);
+            NavigationMenu navigationMenu = navigationMenuView.getCurrentNavigationMenu();
+            actionBar.setSubtitle(navigationMenu.isWiFiBandSwitchable() ? mainContext.getSettings().getWiFiBand().getBand() : StringUtils.EMPTY);
         }
     }
 
@@ -211,7 +211,9 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private class WiFiBandToggle implements OnClickListener {
         @Override
         public void onClick(View view) {
-            mainContext.getSettings().toggleWiFiBand();
+            if (navigationMenuView.getCurrentNavigationMenu().isWiFiBandSwitchable()) {
+                mainContext.getSettings().toggleWiFiBand();
+            }
         }
     }
 

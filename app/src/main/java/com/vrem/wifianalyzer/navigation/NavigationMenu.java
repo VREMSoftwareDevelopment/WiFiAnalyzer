@@ -42,14 +42,14 @@ public enum NavigationMenu {
 
     private final int icon;
     private final int title;
-    private final boolean subTitle;
+    private final boolean wiFiBandSwitchable;
     private final Fragment fragment;
     private final Class<? extends Activity> activity;
 
-    NavigationMenu(int icon, int title, boolean subTitle, @NonNull Fragment fragment) {
+    NavigationMenu(int icon, int title, boolean wiFiBandSwitchable, @NonNull Fragment fragment) {
         this.icon = icon;
         this.title = title;
-        this.subTitle = subTitle;
+        this.wiFiBandSwitchable = wiFiBandSwitchable;
         this.fragment = fragment;
         this.activity = null;
     }
@@ -57,7 +57,7 @@ public enum NavigationMenu {
     NavigationMenu(int icon, int title, @NonNull Class<? extends Activity> activity) {
         this.icon = icon;
         this.title = title;
-        this.subTitle = false;
+        this.wiFiBandSwitchable = false;
         this.fragment = null;
         this.activity = activity;
     }
@@ -82,8 +82,8 @@ public enum NavigationMenu {
         return title;
     }
 
-    public boolean isSubTitle() {
-        return subTitle;
+    public boolean isWiFiBandSwitchable() {
+        return wiFiBandSwitchable;
     }
 
     int getIcon() {
