@@ -33,11 +33,11 @@ public class StrengthTest {
 
     @Test
     public void testImageResource() throws Exception {
-        assertEquals(R.drawable.ic_signal_wifi_0_bar_black_48dp, Strength.ZERO.imageResource());
-        assertEquals(R.drawable.ic_signal_wifi_1_bar_black_48dp, Strength.ONE.imageResource());
-        assertEquals(R.drawable.ic_signal_wifi_2_bar_black_48dp, Strength.TWO.imageResource());
-        assertEquals(R.drawable.ic_signal_wifi_3_bar_black_48dp, Strength.THREE.imageResource());
-        assertEquals(R.drawable.ic_signal_wifi_4_bar_black_48dp, Strength.FOUR.imageResource());
+        assertEquals(R.drawable.ic_signal_wifi_0_bar_black_36dp, Strength.ZERO.imageResource());
+        assertEquals(R.drawable.ic_signal_wifi_1_bar_black_36dp, Strength.ONE.imageResource());
+        assertEquals(R.drawable.ic_signal_wifi_2_bar_black_36dp, Strength.TWO.imageResource());
+        assertEquals(R.drawable.ic_signal_wifi_3_bar_black_36dp, Strength.THREE.imageResource());
+        assertEquals(R.drawable.ic_signal_wifi_4_bar_black_36dp, Strength.FOUR.imageResource());
     }
 
     @Test
