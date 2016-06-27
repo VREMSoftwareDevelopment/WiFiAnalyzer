@@ -28,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
@@ -44,6 +45,7 @@ public class AboutActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        setApplicationName();
         setPackageName();
         setVersionNumber();
 
@@ -73,6 +75,13 @@ public class AboutActivity extends AppCompatActivity {
             TextView textView = (TextView) findViewById(R.id.about_package_name);
             textView.setText(getPackageName());
             textView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setApplicationName() {
+        if (MainContext.INSTANCE.getConfiguration().isDevelopmentMode()) {
+            TextView textView = (TextView) findViewById(R.id.about_app_name);
+            textView.setText(textView.getText() + " " + MainActivity.WI_FI_ANALYZER_BETA);
         }
     }
 

@@ -41,15 +41,18 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@+id/app_name"
                 android:src="@drawable/ic_wifi_green_800_48dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:paddingRight="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_vertical_margin">
 
                 <TextView
+                    android:id="@+id/about_app_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_name"

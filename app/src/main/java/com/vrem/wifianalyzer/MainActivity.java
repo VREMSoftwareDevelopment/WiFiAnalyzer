@@ -54,7 +54,7 @@ import org.apache.commons.lang3.StringUtils;
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
 public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
-    private static final String WI_FI_ANALYZER_BETA = "BETA";
+    public static final String WI_FI_ANALYZER_BETA = "BETA";
 
     private MainContext mainContext = MainContext.INSTANCE;
     private ThemeStyle currentThemeStyle;

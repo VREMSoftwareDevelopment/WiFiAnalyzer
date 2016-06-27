@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.vrem.wifianalyzer.BuildConfig;
+import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
@@ -50,12 +51,15 @@ import static org.mockito.Mockito.when;
 public class AboutActivityTest {
 
     private AboutActivity fixture;
+    private boolean isDevelopmentMode;
 
     @Before
     public void setUp() throws Exception {
         RobolectricUtil.INSTANCE.getMainActivity();
 
         fixture = Robolectric.setupActivity(AboutActivity.class);
+
+        isDevelopmentMode = MainContext.INSTANCE.getConfiguration().isDevelopmentMode();
     }
 
     @Test
@@ -93,12 +97,12 @@ public class AboutActivityTest {
     }
 
     @Test
-    public void testSetVersionNumber() throws Exception {
+    public void testVersionNumber() throws Exception {
         // setup
         String packageName = fixture.getPackageName();
         PackageInfo packageInfo = fixture.getPackageManager().getPackageInfo(packageName, 0);
         String expected = packageInfo.versionName;
-        if (MainContext.INSTANCE.getConfiguration().isDevelopmentMode()) {
+        if (isDevelopmentMode) {
             expected += " - " + packageInfo.versionCode +  " SDK:" + Build.VERSION.SDK_INT;
         }
         // execute
@@ -109,16 +113,34 @@ public class AboutActivityTest {
     }
 
     @Test
-    public void testSetPackageName() throws Exception {
+    public void testPackageName() throws Exception {
         // setup
-        boolean isDevelopmentMode = MainContext.INSTANCE.getConfiguration().isDevelopmentMode();
-        String expectedName = isDevelopmentMode ? fixture.getPackageName() : StringUtils.EMPTY;
-        int expectedVisibility = isDevelopmentMode ? View.VISIBLE : View.GONE;
+        String expectedName = StringUtils.EMPTY;
+        int expectedVisibility = View.GONE;
+        if (isDevelopmentMode) {
+            expectedName = fixture.getPackageName();
+            expectedVisibility = View.VISIBLE;
+        }
         // execute
         TextView actual = (TextView) fixture.findViewById(R.id.about_package_name);
         // validate
         assertNotNull(actual);
         assertEquals(expectedVisibility, actual.getVisibility());
+        assertEquals(expectedName, actual.getText());
+    }
+
+    @Test
+    public void testApplicationName() throws Exception {
+        // setup
+        String expectedName = fixture.getString(R.string.app_name);
+        if (isDevelopmentMode) {
+            expectedName += " " + MainActivity.WI_FI_ANALYZER_BETA;
+        }
+        // execute
+        TextView actual = (TextView) fixture.findViewById(R.id.about_app_name);
+        // validate
+        assertNotNull(actual);
+        assertEquals(View.VISIBLE, actual.getVisibility());
         assertEquals(expectedName, actual.getText());
     }
 }
