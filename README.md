@@ -42,6 +42,8 @@ Codacy analysis/coverage [![Codacy Badge](https://api.codacy.com/project/badge/g
 
 Codecov [![codecov](https://codecov.io/gh/VREMSoftwareDevelopment/WiFiAnalyzer/branch/master/graph/badge.svg)](https://codecov.io/gh/VREMSoftwareDevelopment/WiFiAnalyzer)
 
+[![Dependency Status](https://www.versioneye.com/user/projects/5774046699ed290049b8bb59/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5774046699ed290049b8bb59)
+
 ### Fork project
 [How to fork project](https://help.github.com/articles/fork-a-repo)
 ### Build project
