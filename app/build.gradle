@@ -67,15 +67,15 @@ if (project.hasProperty('keyAlias')) {
 
 dependencies {
     // Compile Build Dependencies
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:design:22.2.1'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'com.jjoe64:graphview:4.0.1'
     // Unit Test Dependencies
     testCompile 'junit:junit:4.12'
-    testCompile 'org.powermock:powermock-module-junit4:1.6.4'
-    testCompile 'org.powermock:powermock-api-mockito:1.6.4'
+    testCompile 'org.powermock:powermock-module-junit4:1.6.5'
+    testCompile 'org.powermock:powermock-api-mockito:1.6.5'
     testCompile 'com.googlecode.junit-toolbox:junit-toolbox:2.2'
     testCompile 'org.robolectric:robolectric:3.1-rc1'
     testCompile 'org.robolectric:shadows-support-v4:3.1-rc1'
