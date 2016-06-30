@@ -67,6 +67,6 @@
     <string name="about_library_material">Desenho de material ícone</string>
     <string name="about_contributor_title">Colaboradores:</string>
     <string name="country_code_title">País</string>
-    <string name="no_data_geo_warning">Some users running Android OS 6 (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFi Analyzer does not explicitly require it. This appears to be attributed to a potential issue in Android OS 6 that requires location service in order to see WiFi networks.</string>
+    <string name="no_data_geo_warning">Alguns usuários do Android OS 6 (Marshmallow) relataram que o serviço de localização deve estar habilitado para ver as redes Wi-Fi. Usuários de Marshmallow podem ter que ligar o serviço de localização, apesar de WiFi Analyzer não exige explicitamente. Parece ser atribuída a um potencial problema do Android 6 que precisa o serviço de localização para ver as redes WiFi.</string>
     <!-- about end -->
 </resources>
