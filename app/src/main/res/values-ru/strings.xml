@@ -71,5 +71,6 @@
     <string name="about_library_graph_view">Просмотр Диаграммы</string>
     <string name="about_library_material">Материал Дизайн Иконки</string>
     <string name="about_contributor_title">Авторы:</string>
+    <string name="no_data_geo_warning">Некоторые пользователи, использующие Android OS 6 (Marshmallow) сообщили, что услуга определения местоположения должна быть включена, чтобы WiFi Анализатор увидел WiFi сетей. Пользователям, возможно, потребуется включить службы определения местоположения, даже если WiFi Анализатор не требует.</string>
     <!-- about end -->
 </resources>

@@ -73,26 +73,44 @@
     </string-array>
 
     <string-array name="graph_colors" translatable="false">
-        <item>#FFFB1554</item><item>#33FB1554</item>
-        <item>#FF74FF89</item><item>#3374FF89</item>
-        <item>#FF8B1EFC</item><item>#338B1EFC</item>
-        <item>#FF3B6D9D</item><item>#333B6D9D</item>
-        <item>#FF886D03</item><item>#33886D03</item>
-        <item>#FFFDD3CD</item><item>#33FDD3CD</item>
-        <item>#FFE077EA</item><item>#33E077EA</item>
-        <item>#FF6EFFE6</item><item>#336EFFE6</item>
-        <item>#FF034713</item><item>#33034713</item>
-        <item>#FF411457</item><item>#33411457</item>
-        <item>#7FF4230C</item><item>#3374230C</item>
-        <item>#FFA6D3F5</item><item>#33A6D3F5</item>
-        <item>#FFF98A96</item><item>#33F98A96</item>
-        <item>#FF2F944C</item><item>#332F944C</item>
-        <item>#FFEAA579</item><item>#33EAA579</item>
-        <item>#FF3C7172</item><item>#333C7172</item>
-        <item>#FFC55616</item><item>#33C55616</item>
-        <item>#FF94136D</item><item>#3394136D</item>
-        <item>#FF2ECF76</item><item>#332ECF76</item>
-        <item>#FF2196F3</item><item>#332196F3</item>
+        <!-- red_500 -->
+        <item>#FFF44336</item> <item>#33F44336</item>
+        <!-- pink 500 -->
+        <item>#FFE91E63</item> <item>#33E91E63</item>
+        <!-- deep_orange 500 -->
+        <item>#FFFF5722</item> <item>#33FF5722</item>
+        <!-- orange 500 -->
+        <item>#FFFF9800</item> <item>#33FF9800</item>
+        <!-- amber 500 -->
+        <item>#FFFFC107</item> <item>#33FFC107</item>
+        <!-- yellow 500 -->
+        <item>#FFFFEB3B</item> <item>#33FFEB3B</item>
+        <!-- brown 500 -->
+        <item>#FF795548</item> <item>#33795548</item>
+        <!-- blue_grey 500 -->
+        <item>#FF607D8B</item> <item>#33607D8B</item>
+        <!-- grey_500 -->
+        <item>#FF9E9E9E</item> <item>#339E9E9E</item>
+        <!-- deep_purple 500 -->
+        <item>#FF673AB7</item> <item>#33673AB7</item>
+        <!-- purple 500 -->
+        <item>#FF9C27B0</item> <item>#339C27B0</item>
+        <!-- indigo 500 -->
+        <item>#FF3F51B5</item> <item>#333F51B5</item>
+        <!-- teal 500 -->
+        <item>#FF009688</item> <item>#33009688</item>
+        <!-- lime 500 -->
+        <item>#FFCDDC39</item> <item>#33CDDC39</item>
+        <!-- light_green 500 -->
+        <item>#FF8BC34A</item> <item>#338BC34A</item>
+        <!-- green 500 -->
+        <item>#FF4CAF50</item> <item>#334CAF50</item>
+        <!-- cyan 500 -->
+        <item>#FF00BCD4</item> <item>#3300BCD4</item>
+        <!-- light_blue 500 -->
+        <item>#FF03A9F4</item> <item>#3303A9F4</item>
+        <!-- blue 500 -->
+        <item>#FF2196F3</item> <item>#332196F3</item>
     </string-array>
 
 </resources>

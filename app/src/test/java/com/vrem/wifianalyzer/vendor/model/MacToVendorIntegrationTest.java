@@ -18,7 +18,6 @@ package com.vrem.wifianalyzer.vendor.model;
 
 import android.support.annotation.NonNull;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -27,35 +26,22 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
+import static org.junit.Assert.assertEquals;
+
 public class MacToVendorIntegrationTest {
-    private static final String MAC_ADDRESS = "00:23:AB:8C:DF:10";
 
-    @Ignore
-    @Test
-    public void testMacVendorLookup() throws Exception {
-        String request = String.format("http://www.macvendorlookup.com/api/v2/%s", MAC_ADDRESS.replace(":", "-"));
-        System.out.println();
-        System.out.println(">>> Request:" + request);
-        String response = execute(request);
-        System.out.println(">>> Response:" + response);
-    }
-
-    @Ignore
     @Test
     public void testMacVendorsCom() throws Exception {
-        String request = String.format("http://api.macvendors.com/%s", MAC_ADDRESS);
-        System.out.println(">>> Request:" + request);
-        String response = execute(request);
-        System.out.println(">>> Response:" + response);
-    }
-
-    @Ignore
-    @Test
-    public void testMacVendorsCo() throws Exception {
-        String request = String.format("http://macvendors.co/api/%s", MAC_ADDRESS);
-        System.out.println(">>> Request:" + request);
-        String response = execute(request);
-        System.out.println(">>> Response:" + response);
+        // setup
+        String expected = "CISCO SYSTEMS, INC";
+        String macAddress = "00:23:AB:8C:DF:10";
+        String url = "http://api.macvendors.com/";
+        // execute
+        String actual = execute(url + macAddress);
+        // validate
+        System.out.println(">>> Request:" + url + macAddress);
+        System.out.println(">>> Response:" + actual);
+        assertEquals(expected, actual);
     }
 
     private String execute(@NonNull String request) throws IOException {
@@ -66,7 +52,7 @@ public class MacToVendorIntegrationTest {
             StringBuilder response = new StringBuilder();
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                response.append(line).append("\n");
+                response.append(line);
             }
             return response.toString();
         } finally {

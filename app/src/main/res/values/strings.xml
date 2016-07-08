@@ -38,7 +38,7 @@
     <string name="button_ok" translatable="false">OK</string>
     <string name="button_cancel">Cancel</string>
     <string name="no_data">No Data</string>
-    <string name="no_data_geo_warning" translatable="false">Some users running Android OS 6 (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFi Analyzer does not explicitly require it. This appears to be attributed to a potential issue in Android OS 6 that requires location service in order to see WiFi networks.</string>
+    <string name="no_data_geo_warning">Some users running Android OS 6 (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFi Analyzer does not explicitly require it. This appears to be attributed to a potential issue in Android OS 6 that requires location service in order to see WiFi networks.</string>
 
     <string name="channel_rating_best">Best Channels:</string>
     <string name="channel_rating_best_none">None</string>
@@ -111,6 +111,6 @@
     <string name="about_library_material">Material Design Icons</string>
     <string name="about_library_material_url" translatable="false">https://design.google.com/icons</string>
     <string name="about_contributor_title">Contributors:</string>
-    <string name="about_contributor_list" translatable="false">"Alex Orchard, Alexei Guevara, Caren DesBrisay, Dan Light, Gina Chaves, Graham Foster, Lee McCallum, Lukas Winkler, Michael Melo, Michael Pickard, Silviu Marcu, Vadim Karantayer, 'Akira, Genghis"</string>
+    <string name="about_contributor_list" translatable="false">"Alex Orchard, Alexei Guevara, Caren DesBrisay, Dan Light, Gina Chaves, Graham Foster, Lee McCallum, Lukas Winkler, Michael Melo, Michael Pickard, Silviu Marcu, Vadim Karantayer, Wei McCallum, 'Akira, Genghis"</string>
     <!-- about end -->
 </resources>

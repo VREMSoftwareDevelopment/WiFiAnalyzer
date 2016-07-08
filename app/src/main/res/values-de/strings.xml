@@ -67,5 +67,6 @@
     <string name="channel_rating_best_none">Keine</string>
     <string name="action_vendors">Hersteller</string>
     <string name="channel_rating_best_alternative">, versuche alternativ das WLAN Frequenzband</string>
+    <string name="no_data_geo_warning">Einige Benutzer mit Android OS 6 (Eibisch) berichtet dass der Standort-Dienst muss für die Anwendung aktiviert sein WLAN Tester zu sehen. Eibisch Benutzer kann auf dem Standortdienst zu wenden müssen, wenn auch WLAN Tester explizit nicht erfordert. Dies scheint ein potenzielles Problem in Android OS 6 zugeschrieben werden, die Standortbestimmungsdienst  benötigt, um WLAN Tester zu sehen.</string>
     <!-- about end -->
 </resources>
