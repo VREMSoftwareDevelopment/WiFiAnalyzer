@@ -25,6 +25,7 @@ This is the official repository of WiFi Analyzer (open-source).
 ## How-to:
 * [How to guide in Czech](http://www.svetandroida.cz/aplikace-wifi-analyzer-open-source-201605)
 * [Why Wi-Fi Stinks and How to Fix It](http://spectrum.ieee.org/telecom/wireless/why-wifi-stinksand-how-to-fix-it)
+* [Wikipedia WiFi channels list](https://en.wikipedia.org/wiki/List_of_WLAN_channels)
 
 ## Feedback:
 Bug reports and feature requests can be submitted [here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues).

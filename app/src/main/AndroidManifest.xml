@@ -40,7 +40,6 @@
         </activity>
         <activity
             android:name=".settings.SettingActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/action_settings"
             android:launchMode="singleTask"
             android:parentActivityName=".MainActivity">
@@ -50,7 +49,6 @@
         </activity>
         <activity
             android:name=".about.AboutActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/action_about"
             android:launchMode="singleTask"
             android:parentActivityName=".MainActivity">
