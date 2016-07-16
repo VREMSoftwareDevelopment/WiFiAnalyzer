@@ -53,20 +53,13 @@
 
     <!-- settings start -->
     <string name="country_code_title">מדינה</string>
-
     <string name="wifi_band_title">פס WiFi</string>
-
     <string name="scan_interval_title">תדירות סריקה</string>
     <string name="scan_interval_summary">%d שניות בין כל סריקה</string>
-
     <string name="sort_by_title">מיין נקודות גישה לפי</string>
-
     <string name="group_by_title">קבץ נקודות גישה לפי</string>
-
     <string name="channel_graph_legend_title">מקרא תצוגת תרשים ערוץ</string>
-
     <string name="time_graph_legend_title">מקרא תצוגת תרשים זמן</string>
-
     <string name="theme_title">ערכת נושא</string>
     <!-- settings end -->
 
