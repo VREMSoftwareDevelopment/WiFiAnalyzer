@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        navigationMenuView = new NavigationMenuView(this);
+        navigationMenuView = new NavigationMenuView(this, settings.getStartMenu());
         onNavigationItemSelected(navigationMenuView.getCurrentMenuItem());
 
         new ConnectionView(this);

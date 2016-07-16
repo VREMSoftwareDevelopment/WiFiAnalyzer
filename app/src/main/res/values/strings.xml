@@ -43,7 +43,6 @@
     <string name="channel_rating_best">Best Channels:</string>
     <string name="channel_rating_best_none">None</string>
     <string name="channel_rating_best_alternative">, try alternative WiFi Band</string>
-
     <string name="channel_rating_heading_rating">Channel Rating</string>
     <string name="channel_rating_heading_number">Channel Number</string>
     <string name="channel_rating_heading_count">Access Point Count</string>
@@ -55,6 +54,10 @@
     <string name="graph_axis_y">Signal Strength (dBm)</string>
 
     <!-- settings start -->
+    <string name="start_menu_title">Start</string>
+    <string name="start_menu_summary" translatable="false">%s</string>
+    <string name="start_menu_key" translatable="false">start_menu</string>
+
     <string name="country_code_title">Country</string>
     <string name="country_code_summary" translatable="false">%s</string>
     <string name="country_code_key" translatable="false">country_code</string>

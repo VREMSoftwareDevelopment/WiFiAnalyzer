@@ -36,11 +36,11 @@
 
     <string name="button_cancel">取消</string>
     <string name="no_data">没有数据</string>
+    <string name="no_data_geo_warning">運行Android OS 6（棉花糖）一些用戶報告說, 位置服務必須為應用程序看到WiFi網絡中啟用. 棉花糖用戶可根據需要打開定位服務, 即使無線網絡分析儀沒有明確要求它. 這似乎歸因於Android操作系統6, 需要位置服務才能看到WiFi網絡的潛在問題.</string>
 
     <string name="channel_rating_best">最佳信道:</string>
     <string name="channel_rating_best_none">没有</string>
     <string name="channel_rating_best_alternative">尝试另一种WiFi频段</string>
-
     <string name="channel_rating_heading_rating">信道评级</string>
     <string name="channel_rating_heading_number">信道数</string>
     <string name="channel_rating_heading_count">接入点计数</string>
@@ -52,6 +52,8 @@
     <string name="graph_axis_y">信号强度 (dBm)</string>
 
     <!-- settings start -->
+    <string name="start_menu_title">开始</string>
+    <string name="country_code_title">国家</string>
     <string name="wifi_band_title">WiFi频段</string>
     <string name="scan_interval_title">扫描间隔</string>
     <string name="scan_interval_summary">%d 每次扫描之间秒</string>
@@ -71,7 +73,5 @@
     <string name="about_library_graph_view">图表视图</string>
     <string name="about_library_material">材料设计图标</string>
     <string name="about_contributor_title">贡献者:</string>
-    <string name="country_code_title">国家</string>
-    <string name="no_data_geo_warning">運行Android OS 6（棉花糖）一些用戶報告說, 位置服務必須為應用程序看到WiFi網絡中啟用. 棉花糖用戶可根據需要打開定位服務, 即使無線網絡分析儀沒有明確要求它. 這似乎歸因於Android操作系統6, 需要位置服務才能看到WiFi網絡的潛在問題.</string>
     <!-- about end -->
 </resources>

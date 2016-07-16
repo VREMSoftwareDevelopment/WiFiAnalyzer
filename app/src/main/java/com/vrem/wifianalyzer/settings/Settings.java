@@ -20,6 +20,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
@@ -83,5 +84,9 @@ public class Settings {
     public String getCountryCode() {
         String countryCode = context.getResources().getConfiguration().locale.getCountry();
         return repository.getString(R.string.country_code_key, countryCode);
+    }
+
+    public NavigationMenu getStartMenu() {
+        return NavigationMenu.find(repository.getStringAsInteger(R.string.start_menu_key, NavigationMenu.ACCESS_POINTS.ordinal()));
     }
 }
