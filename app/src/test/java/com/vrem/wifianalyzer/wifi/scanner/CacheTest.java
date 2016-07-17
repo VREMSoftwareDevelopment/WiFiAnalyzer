@@ -92,20 +92,21 @@ public class CacheTest {
     @Test
     public void testAddCompliesToMaxCacheSize() throws Exception {
         // setup
-        when(settings.getScanInterval()).thenReturn(5);
-        int size = 5;
+        int scanInterval = 5;
+        int cacheSize = 2;
+        when(settings.getScanInterval()).thenReturn(scanInterval);
         List<List<ScanResult>> expected = new ArrayList<>();
         // execute
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < cacheSize; i++) {
             List<ScanResult> scanResults = new ArrayList<>();
             expected.add(scanResults);
             fixture.add(scanResults);
         }
         // validate
-        assertEquals(size, expected.size());
-        assertEquals(3, fixture.getCache().size());
-        assertEquals(expected.get(size - 1), fixture.getCache().getFirst());
-        assertEquals(expected.get(size - 2), fixture.getCache().getLast());
+        assertEquals(cacheSize, expected.size());
+        assertEquals(cacheSize, fixture.getCache().size());
+        assertEquals(expected.get(cacheSize - 1), fixture.getCache().getFirst());
+        assertEquals(expected.get(cacheSize - 2), fixture.getCache().getLast());
     }
 
     @Test
@@ -147,17 +148,12 @@ public class CacheTest {
     @Test
     public void testGetCacheSize() throws Exception {
         int values[] = new int[]{
-            -1, 3,
             0, 3,
-            1, 3,
-            5, 3,
-            9, 3,
-            10, 2,
-            19, 2,
-            20, 1,
-            25, 1,
-            30, 1,
-            60, 1
+            3, 3,
+            4, 2,
+            6, 2,
+            7, 1,
+            30, 1
         };
 
         for (int i = 0; i < values.length; i += 2) {
