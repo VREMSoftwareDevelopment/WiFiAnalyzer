@@ -62,7 +62,7 @@ public enum NavigationMenu {
         this.activity = activity;
     }
 
-    static NavigationMenu find(int index) {
+    public static NavigationMenu find(int index) {
         try {
             return values()[index];
         } catch (Exception e) {

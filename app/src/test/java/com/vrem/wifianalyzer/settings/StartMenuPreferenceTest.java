@@ -19,7 +19,8 @@ package com.vrem.wifianalyzer.settings;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
-import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
+import com.vrem.wifianalyzer.navigation.NavigationGroup;
+import com.vrem.wifianalyzer.navigation.NavigationMenu;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,46 +29,42 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class CountryPreferenceTest {
+public class StartMenuPreferenceTest {
 
     private MainActivity mainActivity;
-    private CountryPreference fixture;
+    private StartMenuPreference fixture;
 
     @Before
     public void setUp() throws Exception {
         mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
-        fixture = new CountryPreference(mainActivity, Robolectric.buildAttributeSet().build());
+        fixture = new StartMenuPreference(mainActivity, Robolectric.buildAttributeSet().build());
     }
 
     @Test
     public void testGetEntries() throws Exception {
         // setup
-        List<WiFiChannelCountry> expected = WiFiChannelCountry.getAll();
+        NavigationMenu[] expected = NavigationGroup.GROUP_FEATURE.navigationMenu();
         // execute
         CharSequence[] actual = fixture.getEntries();
         // validate
-        int expectedSize = expected.size();
-        assertEquals(expectedSize, actual.length);
-        assertEquals(expected.get(2).getCountryName(), actual[0]);
-        assertEquals(expected.get(expectedSize - 1).getCountryName(), actual[expectedSize - 1]);
+        assertEquals(expected.length, actual.length);
+        assertEquals(mainActivity.getResources().getString(expected[0].getTitle()), actual[0]);
+        assertEquals(mainActivity.getResources().getString(expected[expected.length - 1].getTitle()), actual[expected.length - 1]);
     }
 
     @Test
     public void testGetEntryValues() throws Exception {
         // setup
-        List<WiFiChannelCountry> expected = WiFiChannelCountry.getAll();
+        NavigationMenu[] expected = NavigationGroup.GROUP_FEATURE.navigationMenu();
         // execute
         CharSequence[] actual = fixture.getEntryValues();
         // validate
-        int expectedSize = expected.size();
-        assertEquals(expectedSize, actual.length);
-        assertEquals(expected.get(2).getCountryCode(), actual[0]);
-        assertEquals(expected.get(expectedSize - 1).getCountryCode(), actual[expectedSize - 1]);
+        assertEquals(expected.length, actual.length);
+        assertEquals("" + expected[0].ordinal(), actual[0]);
+        assertEquals("" + expected[expected.length - 1].ordinal(), actual[expected.length - 1]);
     }
 }

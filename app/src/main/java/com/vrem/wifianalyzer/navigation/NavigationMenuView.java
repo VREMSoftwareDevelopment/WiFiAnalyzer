@@ -28,11 +28,11 @@ public class NavigationMenuView {
     private final NavigationView navigationView;
     private NavigationMenu currentNavigationMenu;
 
-    public NavigationMenuView(@NonNull Activity activity) {
+    public NavigationMenuView(@NonNull Activity activity, @NonNull NavigationMenu currentNavigationMenu) {
         navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
 
         populateNavigationMenu();
-        currentNavigationMenu = NavigationMenu.ACCESS_POINTS;
+        setCurrentNavigationMenu(currentNavigationMenu);
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) activity);
     }
 

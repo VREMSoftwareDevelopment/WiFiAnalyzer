@@ -17,30 +17,35 @@
 package com.vrem.wifianalyzer.settings;
 
 import android.content.Context;
+import android.preference.ListPreference;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
-import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class CountryPreference extends CustomPreference {
-    public CountryPreference(@NonNull Context context, AttributeSet attrs) {
-        super(context, attrs, getData(), getDefault(context));
+class CustomPreference extends ListPreference {
+    CustomPreference(@NonNull Context context, AttributeSet attrs, List<Data> datas, String defaultValue) {
+        super(context, attrs);
+        setEntries(getNames(datas));
+        setEntryValues(getCodes(datas));
+        setDefaultValue(defaultValue);
     }
 
-    private static List<Data> getData() {
-        List<Data> result = new ArrayList<>();
-        for (WiFiChannelCountry wiFiChannelCountry : WiFiChannelCountry.getAll()) {
-            result.add(new Data(wiFiChannelCountry.getCountryCode(), wiFiChannelCountry.getCountryName()));
+    private CharSequence[] getCodes(List<Data> datas) {
+        List<String> entryValues = new ArrayList<>();
+        for (Data data : datas) {
+            entryValues.add(data.getCode());
         }
-        Collections.sort(result);
-        return result;
+        return entryValues.toArray(new CharSequence[]{});
     }
 
-    private static String getDefault(@NonNull Context context) {
-        return context.getResources().getConfiguration().locale.getCountry();
+    private CharSequence[] getNames(List<Data> datas) {
+        List<String> entries = new ArrayList<>();
+        for (Data data : datas) {
+            entries.add(data.getName());
+        }
+        return entries.toArray(new CharSequence[]{});
     }
+
 }

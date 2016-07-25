@@ -76,6 +76,12 @@
         android:summary="@string/theme_summary"
         android:title="@string/theme_title" />
 
+    <com.vrem.wifianalyzer.settings.StartMenuPreference
+        android:key="@string/start_menu_key"
+        android:persistent="true"
+        android:summary="@string/start_menu_summary"
+        android:title="@string/start_menu_title"/>
+
     <com.vrem.wifianalyzer.settings.CountryPreference
         android:key="@string/country_code_key"
         android:persistent="true"

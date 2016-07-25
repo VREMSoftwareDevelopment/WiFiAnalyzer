@@ -20,27 +20,27 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
-import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
+import com.vrem.wifianalyzer.navigation.NavigationGroup;
+import com.vrem.wifianalyzer.navigation.NavigationMenu;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class CountryPreference extends CustomPreference {
-    public CountryPreference(@NonNull Context context, AttributeSet attrs) {
-        super(context, attrs, getData(), getDefault(context));
+public class StartMenuPreference extends CustomPreference {
+    public StartMenuPreference(@NonNull Context context, AttributeSet attrs) {
+        super(context, attrs, getData(context), getDefault());
     }
 
-    private static List<Data> getData() {
+    private static List<Data> getData(@NonNull Context context) {
         List<Data> result = new ArrayList<>();
-        for (WiFiChannelCountry wiFiChannelCountry : WiFiChannelCountry.getAll()) {
-            result.add(new Data(wiFiChannelCountry.getCountryCode(), wiFiChannelCountry.getCountryName()));
+        for (NavigationMenu navigationMenu : NavigationGroup.GROUP_FEATURE.navigationMenu()) {
+            result.add(new Data("" + navigationMenu.ordinal(), context.getString(navigationMenu.getTitle())));
         }
-        Collections.sort(result);
         return result;
     }
 
-    private static String getDefault(@NonNull Context context) {
-        return context.getResources().getConfiguration().locale.getCountry();
+    private static String getDefault() {
+        return "" + NavigationGroup.GROUP_FEATURE.navigationMenu()[0].ordinal();
     }
+
 }

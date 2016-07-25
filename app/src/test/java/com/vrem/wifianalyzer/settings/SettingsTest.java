@@ -22,6 +22,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
@@ -172,15 +173,29 @@ public class SettingsTest {
         when(context.getResources()).thenReturn(resources);
         when(resources.getConfiguration()).thenReturn(configuration);
         configuration.locale = Locale.UK;
+        String defaultValue = Locale.UK.getCountry();
+        String expected = Locale.US.getCountry();
 
-        when(repository.getString(R.string.country_code_key, Locale.UK.getCountry())).thenReturn(Locale.US.getCountry());
+        when(repository.getString(R.string.country_code_key, defaultValue)).thenReturn(expected);
         // execute
         String actual = fixture.getCountryCode();
         // validate
-        assertEquals(Locale.US.getCountry(), actual);
+        assertEquals(expected, actual);
 
-        verify(repository).getString(R.string.country_code_key, Locale.UK.getCountry());
+        verify(repository).getString(R.string.country_code_key, defaultValue);
         verify(context).getResources();
         verify(resources).getConfiguration();
     }
+
+    @Test
+    public void testGetStartMenu() throws Exception {
+        // setup
+        when(repository.getStringAsInteger(R.string.start_menu_key, NavigationMenu.ACCESS_POINTS.ordinal())).thenReturn(NavigationMenu.CHANNEL_GRAPH.ordinal());
+        // execute
+        NavigationMenu actual = fixture.getStartMenu();
+        // validate
+        assertEquals(NavigationMenu.CHANNEL_GRAPH, actual);
+        verify(repository).getStringAsInteger(R.string.start_menu_key, NavigationMenu.ACCESS_POINTS.ordinal());
+    }
+
 }

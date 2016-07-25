@@ -14,22 +14,34 @@
  *    limitations under the License.
  */
 
-package com.vrem.wifianalyzer.navigation;
+package com.vrem.wifianalyzer.settings;
 
 import android.support.annotation.NonNull;
 
-public enum NavigationGroup {
-    GROUP_FEATURE(NavigationMenu.ACCESS_POINTS, NavigationMenu.CHANNEL_RATING, NavigationMenu.CHANNEL_GRAPH, NavigationMenu.TIME_GRAPH),
-    GROUP_OTHER(NavigationMenu.CHANNEL_AVAILABLE, NavigationMenu.VENDOR_LIST),
-    GROUP_SETTINGS(NavigationMenu.SETTINGS, NavigationMenu.ABOUT);
+import org.apache.commons.lang3.builder.CompareToBuilder;
 
-    private final NavigationMenu[] navigationMenu;
+class Data implements Comparable<Data> {
+    private final String code;
+    private final String name;
 
-    NavigationGroup(@NonNull NavigationMenu... navigationMenu) {
-        this.navigationMenu = navigationMenu;
+    Data(String code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
-    public NavigationMenu[] navigationMenu() {
-        return navigationMenu;
+    protected String getCode() {
+        return code;
+    }
+
+    protected String getName() {
+        return name;
+    }
+
+    @Override
+    public int compareTo(@NonNull Data another) {
+        return new CompareToBuilder()
+            .append(getName(), another.getName())
+            .append(getCode(), another.getCode())
+            .toComparison();
     }
 }

@@ -36,11 +36,11 @@
 
     <string name="button_cancel">Cancelar</string>
     <string name="no_data">Sin datos</string>
+    <string name="no_data_geo_warning">Algunos usuarios de Android OS 6 (Marshmallow) informaron que el servicio de localización debe estar habilitado para ver las redes Wi-Fi. Marshmallow usuarios pueden tener que activar el servicio de localización, aunque WiFi Analyzer no requiere explícitamente. Parece ser atribuido a un problema potencial de Android 6 que necesita el servicio de localización para las redes WiFi.</string>
 
     <string name="channel_rating_best">Canales Mejores:</string>
     <string name="channel_rating_best_none">Ninguno</string>
     <string name="channel_rating_best_alternative">, tratar Banda WiFi alternativa</string>
-
     <string name="channel_rating_heading_rating">Clasificación de Canal</string>
     <string name="channel_rating_heading_number">Número de Canal</string>
     <string name="channel_rating_heading_count">Cantidad de Puntos de Acceso</string>
@@ -52,6 +52,7 @@
     <string name="graph_axis_y">Intensidad de señal (dBm)</string>
 
     <!-- settings start -->
+    <string name="start_menu_title">Comienzo</string>
     <string name="country_code_title">País</string>
     <string name="wifi_band_title">Banda de WiFi</string>
     <string name="scan_interval_title">Intervalo de exploración</string>
@@ -72,6 +73,5 @@
     <string name="about_library_graph_view">Vista Gráfica</string>
     <string name="about_library_material">"Iconos de \'Diseño de Materiales\'"</string>
     <string name="about_contributor_title">Colaboradores:</string>
-    <string name="no_data_geo_warning">Algunos usuarios de Android OS 6 (Marshmallow) informaron que el servicio de localización debe estar habilitado para ver las redes Wi-Fi. Marshmallow usuarios pueden tener que activar el servicio de localización, aunque WiFi Analyzer no requiere explícitamente. Parece ser atribuido a un problema potencial de Android 6 que necesita el servicio de localización para las redes WiFi.</string>
     <!-- about end -->
 </resources>
