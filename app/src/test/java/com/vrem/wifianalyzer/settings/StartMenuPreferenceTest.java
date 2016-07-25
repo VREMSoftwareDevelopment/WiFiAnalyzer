@@ -16,8 +16,6 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import android.util.AttributeSet;
-
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
@@ -27,25 +25,23 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class StartMenuPreferenceTest {
 
     private MainActivity mainActivity;
     private StartMenuPreference fixture;
-    private AttributeSet attributeSet;
 
     @Before
     public void setUp() throws Exception {
         mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
-        attributeSet = mock(AttributeSet.class);
-        fixture = new StartMenuPreference(mainActivity, attributeSet);
+        fixture = new StartMenuPreference(mainActivity, Robolectric.buildAttributeSet().build());
     }
 
     @Test

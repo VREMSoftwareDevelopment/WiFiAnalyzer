@@ -16,8 +16,6 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import android.util.AttributeSet;
-
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
@@ -26,27 +24,25 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class CountryPreferenceTest {
 
     private MainActivity mainActivity;
     private CountryPreference fixture;
-    private AttributeSet attributeSet;
 
     @Before
     public void setUp() throws Exception {
         mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
-        attributeSet = mock(AttributeSet.class);
-        fixture = new CountryPreference(mainActivity, attributeSet);
+        fixture = new CountryPreference(mainActivity, Robolectric.buildAttributeSet().build());
     }
 
     @Test

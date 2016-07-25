@@ -17,7 +17,6 @@
 package com.vrem.wifianalyzer.settings;
 
 import android.content.res.TypedArray;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -29,7 +28,8 @@ import com.vrem.wifianalyzer.RobolectricUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
@@ -37,20 +37,18 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ScanIntervalPreferenceTest {
 
     private MainActivity mainActivity;
     private ScanIntervalPreference fixture;
-    private AttributeSet attributeSet;
     private int valueDefault;
 
     @Before
     public void setUp() throws Exception {
         mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
-        attributeSet = mock(AttributeSet.class);
-        fixture = new ScanIntervalPreference(mainActivity, attributeSet);
+        fixture = new ScanIntervalPreference(mainActivity, Robolectric.buildAttributeSet().build());
         valueDefault = mainActivity.getResources().getInteger(R.integer.scan_interval_default);
     }
 
