@@ -36,7 +36,7 @@
 
     <string name="button_cancel">Abbrechen</string>
     <string name="no_data">Keine Daten</string>
-    <string name="no_data_geo_warning">Einige Benutzer mit Android OS 6 (Eibisch) berichtet dass der Standort-Dienst muss für die Anwendung aktiviert sein WLAN Tester zu sehen. Eibisch Benutzer kann auf dem Standortdienst zu wenden müssen, wenn auch WLAN Tester explizit nicht erfordert. Dies scheint ein potenzielles Problem in Android OS 6 zugeschrieben werden, die Standortbestimmungsdienst  benötigt, um WLAN Tester zu sehen.</string>
+    <string name="no_data_geo_warning">Einige Benutzer mit Android 6 ("Marshmallow") haben berichtet, dass der Standort-Dienst aktiviert sein muss, damit WLAN-Netzerke erkannt werden können. Benutzer unter "Marshmallow" müssen möglicherweise Standortdienste aktivieren, auch wenn WLAN Tester sie nicht benötigt. Dies scheint ein Problem in Android 6 zu sein.</string>
 
     <string name="channel_rating_best">Beste Kanäle:</string>
     <string name="channel_rating_best_none">Keine</string>
@@ -52,7 +52,7 @@
     <string name="graph_axis_y">Signalstärke (dBm)</string>
 
     <!-- settings start -->
-    <string name="start_menu_title">Anfangen bei</string>
+    <string name="start_menu_title">Beim Start anzeigen</string>
     <string name="country_code_title">Land</string>
     <string name="wifi_band_title">WLAN Frequenzbänder</string>
     <string name="scan_interval_title">Scan Intervall</string>
