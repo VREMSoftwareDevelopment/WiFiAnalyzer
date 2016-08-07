@@ -28,7 +28,7 @@ This is the official repository of WiFi Analyzer (open-source).
 * [Wikipedia WiFi channels list](https://en.wikipedia.org/wiki/List_of_WLAN_channels)
 
 ## Feedback:
-Bug reports and feature requests can be submitted [here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues).
+Bug reports and feature requests can be submitted [here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues) or you can use [google discussion group](https://groups.google.com/forum/#!forum/wifi-analyzer-open-source) if you do not have GitHub account.
 
 ## License:
 WiFi Analyzer is licensed under the Apache License, Version 2.0.
