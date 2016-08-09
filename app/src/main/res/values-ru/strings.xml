@@ -42,7 +42,7 @@
     <string name="channel_rating_best_alternative">, попробуйте альтернативный WiFi Диапазон</string>
     <string name="channel_rating_heading_rating">Оценить Каналы</string>
     <string name="channel_rating_heading_number">Номер Канала</string>
-    <string name="channel_rating_heading_count">Число Точик Доступа</string>
+    <string name="channel_rating_heading_count">Число Точек Доступа</string>
     <string name="channel_short_name">CH</string>
     <string name="channel_frequency_range">Диапазон:</string>
 
