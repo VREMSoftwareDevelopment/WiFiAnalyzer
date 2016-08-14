@@ -42,6 +42,7 @@ public class NavigationMenuTest {
     @Test
     public void testFind() throws Exception {
         assertEquals(NavigationMenu.ACCESS_POINTS, NavigationMenu.find(-1));
+        assertEquals(NavigationMenu.ACCESS_POINTS, NavigationMenu.find(NavigationMenu.values().length));
 
         assertEquals(NavigationMenu.ACCESS_POINTS, NavigationMenu.find(NavigationMenu.ACCESS_POINTS.ordinal()));
         assertEquals(NavigationMenu.CHANNEL_RATING, NavigationMenu.find(NavigationMenu.CHANNEL_RATING.ordinal()));
