@@ -17,6 +17,7 @@
 package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.view.View;
@@ -28,9 +29,11 @@ import android.widget.LinearLayout;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,8 +70,9 @@ class ChannelGraphNavigation {
     }
 
     private List<NavigationItem> getVisibleNavigationItems() {
-        WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
-        String countryCode = MainContext.INSTANCE.getSettings().getCountryCode();
+        Settings settings = MainContext.INSTANCE.getSettings();
+        WiFiBand wiFiBand = settings.getWiFiBand();
+        String countryCode = settings.getCountryCode();
         WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
         List<NavigationItem> visible = new ArrayList<>();
         for (NavigationItem navigationItem : navigationItems) {
@@ -81,11 +85,12 @@ class ChannelGraphNavigation {
     }
 
     private void setSelectedButton(Button button, boolean selected) {
+        Resources resources = MainContext.INSTANCE.getResources();
         if (selected) {
-            button.setBackgroundColor(MainContext.INSTANCE.getResources().getColor(R.color.connected));
+            button.setBackgroundColor(resources.getColor(R.color.connected));
             button.setSelected(true);
         } else {
-            button.setBackgroundColor(MainContext.INSTANCE.getResources().getColor(R.color.connected_background));
+            button.setBackgroundColor(resources.getColor(R.color.connected_background));
             button.setSelected(false);
         }
     }
@@ -123,7 +128,8 @@ class ChannelGraphNavigation {
         @Override
         public void onClick(View view) {
             configuration.setWiFiChannelPair(wiFiChannelPair);
-            MainContext.INSTANCE.getScanner().update();
+            Scanner scanner = MainContext.INSTANCE.getScanner();
+            scanner.update();
         }
     }
 

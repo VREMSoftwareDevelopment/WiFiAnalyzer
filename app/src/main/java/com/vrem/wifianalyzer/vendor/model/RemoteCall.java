@@ -18,6 +18,7 @@ package com.vrem.wifianalyzer.vendor.model;
 
 import android.os.AsyncTask;
 
+import com.vrem.wifianalyzer.Logger;
 import com.vrem.wifianalyzer.MainContext;
 
 import org.apache.commons.lang3.StringUtils;
@@ -68,16 +69,18 @@ class RemoteCall extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         if (StringUtils.isNotBlank(result)) {
+            Logger logger = MainContext.INSTANCE.getLogger();
             try {
                 RemoteResult remoteResult = new RemoteResult(result);
                 String macAddress = remoteResult.getMacAddress();
                 String vendorName = remoteResult.getVendorName();
                 if (StringUtils.isNotBlank(macAddress)) {
-                    MainContext.INSTANCE.getLogger().info(this, macAddress + " " + vendorName);
-                    MainContext.INSTANCE.getDatabase().insert(macAddress, vendorName);
+                    logger.info(this, macAddress + " " + vendorName);
+                    Database database = MainContext.INSTANCE.getDatabase();
+                    database.insert(macAddress, vendorName);
                 }
             } catch (JSONException e) {
-                MainContext.INSTANCE.getLogger().error(this, result, e);
+                logger.error(this, result, e);
             }
         }
     }

@@ -28,15 +28,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.settings.ThemeStyle;
 
 public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(MainContext.INSTANCE.getSettings().getThemeStyle().themeAppCompatStyle());
+        Settings settings = MainContext.INSTANCE.getSettings();
+        ThemeStyle themeStyle = settings.getThemeStyle();
+        setTheme(themeStyle.themeAppCompatStyle());
 
         super.onCreate(savedInstanceState);
 
@@ -59,9 +64,11 @@ public class AboutActivity extends AppCompatActivity {
     private void setVersionNumber() {
         MainContext mainContext = MainContext.INSTANCE;
         try {
-            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            PackageManager packageManager = getPackageManager();
+            PackageInfo packageInfo = packageManager.getPackageInfo(getPackageName(), 0);
             String versionInfo = packageInfo.versionName;
-            if (mainContext.getConfiguration().isDevelopmentMode()) {
+            Configuration configuration = mainContext.getConfiguration();
+            if (configuration.isDevelopmentMode()) {
                 versionInfo += " - " + packageInfo.versionCode + " SDK:" + Build.VERSION.SDK_INT;
             }
             ((TextView) findViewById(R.id.about_version_info)).setText(versionInfo);
@@ -71,7 +78,8 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void setPackageName() {
-        if (MainContext.INSTANCE.getConfiguration().isDevelopmentMode()) {
+        Configuration configuration = MainContext.INSTANCE.getConfiguration();
+        if (configuration.isDevelopmentMode()) {
             TextView textView = (TextView) findViewById(R.id.about_package_name);
             textView.setText(getPackageName());
             textView.setVisibility(View.VISIBLE);
@@ -79,7 +87,8 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void setApplicationName() {
-        if (MainContext.INSTANCE.getConfiguration().isDevelopmentMode()) {
+        Configuration configuration = MainContext.INSTANCE.getConfiguration();
+        if (configuration.isDevelopmentMode()) {
             TextView textView = (TextView) findViewById(R.id.about_app_name);
             textView.setText(textView.getText() + " " + MainActivity.WI_FI_ANALYZER_BETA);
         }

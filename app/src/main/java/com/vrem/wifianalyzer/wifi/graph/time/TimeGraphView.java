@@ -16,6 +16,7 @@
 
 package com.vrem.wifianalyzer.wifi.graph.time;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -23,6 +24,7 @@ import android.view.View;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -89,7 +91,8 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     private int getNumX() {
-        return MainContext.INSTANCE.getConfiguration().isLargeScreenLayout() ? NUM_X_LARGE : NUM_X_SMALL;
+        Configuration configuration = MainContext.INSTANCE.getConfiguration();
+        return configuration.isLargeScreenLayout() ? NUM_X_LARGE : NUM_X_SMALL;
     }
 
     protected void setGraphViewWrapper(@NonNull GraphViewWrapper graphViewWrapper) {
@@ -98,7 +101,8 @@ class TimeGraphView implements GraphViewNotifier {
 
     private GraphView makeGraphView() {
         Resources resources = MainContext.INSTANCE.getResources();
-        return new GraphViewBuilder(MainContext.INSTANCE.getContext(), getNumX())
+        Context context = MainContext.INSTANCE.getContext();
+        return new GraphViewBuilder(context, getNumX())
                 .setLabelFormatter(new TimeAxisLabel())
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
@@ -106,7 +110,8 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     private GraphViewWrapper makeGraphViewWrapper() {
-        graphViewWrapper = new GraphViewWrapper(makeGraphView(), MainContext.INSTANCE.getSettings().getTimeGraphLegend());
+        Settings settings = MainContext.INSTANCE.getSettings();
+        graphViewWrapper = new GraphViewWrapper(makeGraphView(), settings.getTimeGraphLegend());
 
         graphViewWrapper.setViewport();
 

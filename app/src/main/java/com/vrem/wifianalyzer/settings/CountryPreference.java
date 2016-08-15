@@ -17,6 +17,8 @@
 package com.vrem.wifianalyzer.settings;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
@@ -41,6 +43,8 @@ public class CountryPreference extends CustomPreference {
     }
 
     private static String getDefault(@NonNull Context context) {
-        return context.getResources().getConfiguration().locale.getCountry();
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
+        return configuration.locale.getCountry();
     }
 }

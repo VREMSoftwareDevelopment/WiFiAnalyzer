@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.vendor.model.VendorService;
 
 public class VendorFragment extends ListFragment {
     private VendorAdapter vendorAdapter;
@@ -33,7 +34,8 @@ public class VendorFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.vendor_content, container, false);
-        vendorAdapter = new VendorAdapter(getActivity(), MainContext.INSTANCE.getVendorService().findAll());
+        VendorService vendorService = MainContext.INSTANCE.getVendorService();
+        vendorAdapter = new VendorAdapter(getActivity(), vendorService.findAll());
         setListAdapter(vendorAdapter);
         return view;
     }
@@ -41,7 +43,8 @@ public class VendorFragment extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
-        vendorAdapter.setVendors(MainContext.INSTANCE.getVendorService().findAll());
+        VendorService vendorService = MainContext.INSTANCE.getVendorService();
+        vendorAdapter.setVendors(vendorService.findAll());
     }
 
 }

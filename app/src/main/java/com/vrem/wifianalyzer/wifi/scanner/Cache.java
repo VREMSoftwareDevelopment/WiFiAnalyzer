@@ -19,6 +19,7 @@ package com.vrem.wifianalyzer.wifi.scanner;
 import android.net.wifi.ScanResult;
 
 import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.settings.Settings;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
@@ -77,7 +78,8 @@ class Cache {
     }
 
     protected int getCacheSize() {
-        int scanInterval = MainContext.INSTANCE.getSettings().getScanInterval();
+        Settings settings = MainContext.INSTANCE.getSettings();
+        int scanInterval = settings.getScanInterval();
         if (scanInterval < 5) {
             return 4;
         }

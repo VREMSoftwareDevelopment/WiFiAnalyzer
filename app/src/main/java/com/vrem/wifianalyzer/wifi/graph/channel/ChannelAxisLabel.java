@@ -22,6 +22,7 @@ import android.support.v4.util.Pair;
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
 import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
@@ -66,7 +67,8 @@ class ChannelAxisLabel implements LabelFormatter {
         }
 
         int channel = wiFiChannel.getChannel();
-        String countryCode = MainContext.INSTANCE.getSettings().getCountryCode();
+        Settings settings = MainContext.INSTANCE.getSettings();
+        String countryCode = settings.getCountryCode();
         if (!wiFiChannels.isChannelAvailable(countryCode, channel)) {
             return StringUtils.EMPTY;
         }

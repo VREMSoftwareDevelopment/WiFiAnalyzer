@@ -18,6 +18,7 @@ package com.vrem.wifianalyzer.vendor;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -42,7 +43,8 @@ class VendorAdapter extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.vendor_details, parent, false);
+            LayoutInflater layoutInflater = MainContext.INSTANCE.getLayoutInflater();
+            view = layoutInflater.inflate(R.layout.vendor_details, parent, false);
         }
         String name = getItem(position);
         ((TextView) view.findViewById(R.id.vendor_name)).setText(name);

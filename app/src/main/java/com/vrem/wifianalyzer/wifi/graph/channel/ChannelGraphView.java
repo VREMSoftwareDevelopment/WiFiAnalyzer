@@ -16,6 +16,7 @@
 
 package com.vrem.wifianalyzer.wifi.graph.channel;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
@@ -24,6 +25,7 @@ import android.view.View;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.TitleLineGraphSeries;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -80,8 +82,10 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     private boolean isSelected() {
-        WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
-        Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = MainContext.INSTANCE.getConfiguration().getWiFiChannelPair();
+        Settings settings = MainContext.INSTANCE.getSettings();
+        WiFiBand wiFiBand = settings.getWiFiBand();
+        Configuration configuration = MainContext.INSTANCE.getConfiguration();
+        Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = configuration.getWiFiChannelPair();
         return this.wiFiBand.equals(wiFiBand) && (WiFiBand.GHZ2.equals(this.wiFiBand) || this.wiFiChannelPair.equals(wiFiChannelPair));
     }
 
@@ -96,7 +100,8 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     private DataPoint[] createDataPoints(@NonNull WiFiDetail wiFiDetail) {
-        int frequencySpread = wiFiBand.getWiFiChannels().getFrequencySpread();
+        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
+        int frequencySpread = wiFiChannels.getFrequencySpread();
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         int frequency = wiFiSignal.getFrequency();
         int frequencyStart = wiFiSignal.getFrequencyStart();
@@ -118,17 +123,20 @@ class ChannelGraphView implements GraphViewNotifier {
 
     private int getNumX() {
         int numX = CNT_X_LARGE;
-        if (!MainContext.INSTANCE.getConfiguration().isLargeScreenLayout()) {
+        Configuration configuration = MainContext.INSTANCE.getConfiguration();
+        if (!configuration.isLargeScreenLayout()) {
             numX = WiFiBand.GHZ2.equals(wiFiBand) ? CNT_X_SMALL_2 : CNT_X_SMALL_5;
         }
-        int channelFirst = wiFiChannelPair.first.getChannel() - wiFiBand.getWiFiChannels().getChannelOffset();
-        int channelLast = wiFiChannelPair.second.getChannel() + wiFiBand.getWiFiChannels().getChannelOffset();
+        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
+        int channelFirst = wiFiChannelPair.first.getChannel() - wiFiChannels.getChannelOffset();
+        int channelLast = wiFiChannelPair.second.getChannel() + wiFiChannels.getChannelOffset();
         return Math.min(numX, channelLast - channelFirst + 1);
     }
 
     private GraphView makeGraphView() {
         Resources resources = MainContext.INSTANCE.getResources();
-        return new GraphViewBuilder(MainContext.INSTANCE.getContext(), getNumX())
+        Context context = MainContext.INSTANCE.getContext();
+        return new GraphViewBuilder(context, getNumX())
             .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair))
                 .setVerticalTitle(resources.getString(R.string.graph_axis_y))
                 .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
@@ -136,7 +144,8 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     private GraphViewWrapper makeGraphViewWrapper() {
-        graphViewWrapper = new GraphViewWrapper(makeGraphView(), MainContext.INSTANCE.getSettings().getChannelGraphLegend());
+        Settings settings = MainContext.INSTANCE.getSettings();
+        graphViewWrapper = new GraphViewWrapper(makeGraphView(), settings.getChannelGraphLegend());
 
         WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
         int frequencyOffset = wiFiChannels.getFrequencyOffset();

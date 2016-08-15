@@ -16,6 +16,8 @@
 
 package com.vrem.wifianalyzer.wifi.graph.tools;
 
+import android.content.res.Resources;
+
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
@@ -34,9 +36,11 @@ class GraphColors {
 
     private List<GraphColor> getAvailableGraphColors() {
         if (availableGraphColors.isEmpty()) {
-            String[] colorsAsStrings = MainContext.INSTANCE.getResources().getStringArray(R.array.graph_colors);
+            Resources resources = MainContext.INSTANCE.getResources();
+            String[] colorsAsStrings = resources.getStringArray(R.array.graph_colors);
             for (int i = 0; i < colorsAsStrings.length; i += 2) {
-                availableGraphColors.add(new GraphColor(Long.parseLong(colorsAsStrings[i].substring(1), 16), Long.parseLong(colorsAsStrings[i + 1].substring(1), 16)));
+                GraphColor graphColor = new GraphColor(Long.parseLong(colorsAsStrings[i].substring(1), 16), Long.parseLong(colorsAsStrings[i + 1].substring(1), 16));
+                availableGraphColors.add(graphColor);
             }
         }
         return availableGraphColors;

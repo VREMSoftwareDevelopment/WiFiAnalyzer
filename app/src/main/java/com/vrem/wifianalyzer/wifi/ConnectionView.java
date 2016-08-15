@@ -19,12 +19,14 @@ package com.vrem.wifianalyzer.wifi;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 import java.util.List;
@@ -36,7 +38,8 @@ public class ConnectionView implements UpdateNotifier {
     public ConnectionView(@NonNull MainActivity mainActivity) {
         this.mainActivity = mainActivity;
         setAccessPointsDetail(new AccessPointsDetail());
-        MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.addUpdateNotifier(this);
     }
 
     @Override
@@ -67,7 +70,8 @@ public class ConnectionView implements UpdateNotifier {
         View connectionView = mainActivity.findViewById(R.id.connection);
         if (connection.getWiFiAdditional().isConnected()) {
             connectionView.setVisibility(View.VISIBLE);
-            accessPointsDetail.setView(mainActivity.getResources(), connectionView, connection, false, MainContext.INSTANCE.getConfiguration().isLargeScreenLayout());
+            Configuration configuration = MainContext.INSTANCE.getConfiguration();
+            accessPointsDetail.setView(mainActivity.getResources(), connectionView, connection, false, configuration.isLargeScreenLayout());
         } else {
             connectionView.setVisibility(View.GONE);
         }

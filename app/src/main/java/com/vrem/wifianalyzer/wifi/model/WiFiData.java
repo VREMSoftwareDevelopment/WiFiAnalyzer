@@ -19,6 +19,7 @@ package com.vrem.wifianalyzer.wifi.model;
 import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 
 import java.util.ArrayList;
@@ -38,9 +39,11 @@ public class WiFiData {
 
     @NonNull
     public WiFiDetail getConnection() {
+        VendorService vendorService = MainContext.INSTANCE.getVendorService();
         for (WiFiDetail wiFiDetail : wiFiDetails) {
-            if (wiFiConnection.equals(new WiFiConnection(wiFiDetail.getSSID(), wiFiDetail.getBSSID()))) {
-                String vendorName = MainContext.INSTANCE.getVendorService().findVendorName(wiFiDetail.getBSSID());
+            WiFiConnection connection = new WiFiConnection(wiFiDetail.getSSID(), wiFiDetail.getBSSID());
+            if (wiFiConnection.equals(connection)) {
+                String vendorName = vendorService.findVendorName(wiFiDetail.getBSSID());
                 WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName, wiFiConnection.getIpAddress(), wiFiConnection.getLinkSpeed());
                 return new WiFiDetail(wiFiDetail, wiFiAdditional);
             }
@@ -90,12 +93,13 @@ public class WiFiData {
     private List<WiFiDetail> getWiFiDetails(@NonNull WiFiBand wiFiBand) {
         List<WiFiDetail> results = new ArrayList<>();
         WiFiDetail connection = getConnection();
+        VendorService vendorService = MainContext.INSTANCE.getVendorService();
         for (WiFiDetail wiFiDetail : wiFiDetails) {
             if (wiFiDetail.getWiFiSignal().getWiFiBand().equals(wiFiBand)) {
                 if (wiFiDetail.equals(connection)) {
                     results.add(connection);
                 } else {
-                    String vendorName = MainContext.INSTANCE.getVendorService().findVendorName(wiFiDetail.getBSSID());
+                    String vendorName = vendorService.findVendorName(wiFiDetail.getBSSID());
                     boolean contains = wiFiConfigurations.contains(wiFiDetail.getSSID());
                     WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName, contains);
                     results.add(new WiFiDetail(wiFiDetail, wiFiAdditional));
