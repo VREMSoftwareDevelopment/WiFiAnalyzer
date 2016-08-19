@@ -64,5 +64,14 @@
             android:textAlignment="center"
             android:textColor="@color/warning_color"/>
 
+        <TextView
+            android:id="@+id/nodatageourl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:autoLink="web"
+            android:text="@string/no_data_geo_url"/>
+
     </LinearLayout>
 </LinearLayout>

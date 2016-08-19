@@ -63,6 +63,7 @@ public class ConnectionView implements UpdateNotifier {
         }
         mainActivity.findViewById(R.id.nodata).setVisibility(noDataVisibility);
         mainActivity.findViewById(R.id.nodatageo).setVisibility(noDataGeoVisibility);
+        mainActivity.findViewById(R.id.nodatageourl).setVisibility(noDataGeoVisibility);
     }
 
     private void setConnectionVisibility(@NonNull WiFiData wiFiData) {
