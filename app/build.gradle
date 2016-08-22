@@ -47,6 +47,11 @@ android {
     }
 }
 
+jacoco {
+	/* gradle 2.14.+, robolectric junit, jacoco 0.7.2.201409121644 */
+    toolVersion = "0.7.2.201409121644"
+}
+
 jacocoAndroidUnitTestReport {
     excludes += ['**/com/jjoe64/*']
     html.enabled true
