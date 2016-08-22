@@ -34,11 +34,10 @@ public enum SortBy {
     }
 
     public static SortBy find(int index) {
-        try {
-            return values()[index];
-        } catch (Exception e) {
-            return SortBy.STRENGTH;
+        if (index < 0 || index >= values().length) {
+            return STRENGTH;
         }
+        return values()[index];
     }
 
     Comparator<WiFiDetail> comparator() {

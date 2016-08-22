@@ -31,11 +31,11 @@ public enum ThemeStyle {
     }
 
     public static ThemeStyle find(int index) {
-        try {
-            return values()[index];
-        } catch (Exception e) {
+        if (index < 0 || index >= values().length) {
             return DARK;
         }
+        return values()[index];
+
     }
 
     public int themeAppCompatStyle() {

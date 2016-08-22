@@ -31,7 +31,7 @@ public class WiFiBandGHZ2Test {
     @Test
     public void testFindByBand() throws Exception {
         assertEquals(WiFiBand.GHZ2, WiFiBand.find(-1));
-        assertEquals(WiFiBand.GHZ2, WiFiBand.find(2));
+        assertEquals(WiFiBand.GHZ2, WiFiBand.find(WiFiBand.values().length));
 
         assertEquals(WiFiBand.GHZ2, WiFiBand.find(WiFiBand.GHZ2.ordinal()));
     }

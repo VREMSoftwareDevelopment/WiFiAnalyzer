@@ -132,6 +132,7 @@ public class ConnectionViewTest {
         // validate
         assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.nodata).getVisibility());
         assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.nodatageo).getVisibility());
+        assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.nodatageourl).getVisibility());
         verify(wiFiData).getWiFiDetails(settings.getWiFiBand(), settings.getSortBy());
         verify(wiFiData).getWiFiDetails();
     }
@@ -146,6 +147,7 @@ public class ConnectionViewTest {
         // validate
         assertEquals(View.GONE, mainActivity.findViewById(R.id.nodata).getVisibility());
         assertEquals(View.GONE, mainActivity.findViewById(R.id.nodatageo).getVisibility());
+        assertEquals(View.GONE, mainActivity.findViewById(R.id.nodatageourl).getVisibility());
         verify(wiFiData, never()).getWiFiDetails(settings.getWiFiBand(), settings.getSortBy());
         verify(wiFiData, never()).getWiFiDetails();
     }
@@ -161,6 +163,7 @@ public class ConnectionViewTest {
         // validate
         assertEquals(View.GONE, mainActivity.findViewById(R.id.nodata).getVisibility());
         assertEquals(View.GONE, mainActivity.findViewById(R.id.nodatageo).getVisibility());
+        assertEquals(View.GONE, mainActivity.findViewById(R.id.nodatageourl).getVisibility());
         verify(wiFiData).getWiFiDetails(settings.getWiFiBand(), settings.getSortBy());
         verify(wiFiData, never()).getWiFiDetails();
     }

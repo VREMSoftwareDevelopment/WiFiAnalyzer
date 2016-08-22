@@ -63,11 +63,10 @@ public enum NavigationMenu {
     }
 
     public static NavigationMenu find(int index) {
-        try {
-            return values()[index];
-        } catch (Exception e) {
-            return NavigationMenu.ACCESS_POINTS;
+        if (index < 0 || index >= values().length) {
+            return ACCESS_POINTS;
         }
+        return values()[index];
     }
 
     public Fragment getFragment() {

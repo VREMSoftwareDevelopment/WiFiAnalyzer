@@ -34,11 +34,13 @@ public enum Strength {
     }
 
     public static Strength calculate(int level) {
-        return Strength.values()[WiFiUtils.calculateSignalLevel(level, values().length)];
+        int index = WiFiUtils.calculateSignalLevel(level, values().length);
+        return Strength.values()[index];
     }
 
     public static Strength reverse(Strength strength) {
-        return Strength.values()[Strength.values().length - strength.ordinal() - 1];
+        int index = Strength.values().length - strength.ordinal() - 1;
+        return Strength.values()[index];
     }
 
     public int colorResource() {

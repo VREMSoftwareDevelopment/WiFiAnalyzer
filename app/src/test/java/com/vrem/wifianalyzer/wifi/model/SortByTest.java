@@ -38,7 +38,7 @@ public class SortByTest {
     @Test
     public void testFind() throws Exception {
         assertEquals(SortBy.STRENGTH, SortBy.find(-1));
-        assertEquals(SortBy.STRENGTH, SortBy.find(3));
+        assertEquals(SortBy.STRENGTH, SortBy.find(SortBy.values().length));
 
         assertEquals(SortBy.STRENGTH, SortBy.find(SortBy.STRENGTH.ordinal()));
         assertEquals(SortBy.SSID, SortBy.find(SortBy.SSID.ordinal()));

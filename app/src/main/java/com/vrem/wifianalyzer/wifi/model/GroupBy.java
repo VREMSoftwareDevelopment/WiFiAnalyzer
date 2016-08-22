@@ -36,11 +36,10 @@ public enum GroupBy {
     }
 
     public static GroupBy find(int index) {
-        try {
-            return values()[index];
-        } catch (Exception e) {
-            return GroupBy.NONE;
+        if (index < 0 || index >= values().length) {
+            return NONE;
         }
+        return values()[index];
     }
 
     Comparator<WiFiDetail> sortOrder() {

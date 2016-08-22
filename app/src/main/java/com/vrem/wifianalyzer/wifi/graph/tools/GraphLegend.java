@@ -32,11 +32,10 @@ public enum GraphLegend {
     }
 
     public static GraphLegend find(int index, @NonNull GraphLegend defaultValue) {
-        try {
-            return values()[index];
-        } catch (Exception e) {
+        if (index < 0 || index >= values().length) {
             return defaultValue;
         }
+        return values()[index];
     }
 
     public void display(LegendRenderer legendRenderer) {

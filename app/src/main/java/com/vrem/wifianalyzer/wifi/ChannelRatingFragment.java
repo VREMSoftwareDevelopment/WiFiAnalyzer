@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class ChannelRatingFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -50,7 +51,8 @@ public class ChannelRatingFragment extends Fragment {
 
     private void refresh() {
         swipeRefreshLayout.setRefreshing(true);
-        MainContext.INSTANCE.getScanner().update();
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.update();
         swipeRefreshLayout.setRefreshing(false);
     }
 

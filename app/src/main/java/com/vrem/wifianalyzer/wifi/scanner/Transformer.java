@@ -27,6 +27,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import com.vrem.wifianalyzer.wifi.model.WiFiUtils;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -68,7 +69,8 @@ public class Transformer {
 
     private WiFiWidth getWiFiWidth(ScanResult scanResult) {
         try {
-            return WiFiWidth.find((int) scanResult.getClass().getDeclaredField(Fields.channelWidth.name()).get(scanResult));
+            Field declaredField = scanResult.getClass().getDeclaredField(Fields.channelWidth.name());
+            return WiFiWidth.find((int) declaredField.get(scanResult));
         } catch (Exception e) {
             return WiFiWidth.MHZ_20;
         }

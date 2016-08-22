@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -28,12 +29,14 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 import java.util.ArrayList;
@@ -51,7 +54,8 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         this.resources = context.getResources();
         this.bestChannels = bestChannels;
         setChannelRating(new ChannelRating());
-        MainContext.INSTANCE.getScanner().addUpdateNotifier(this);
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.addUpdateNotifier(this);
     }
 
     protected void setChannelRating(@NonNull ChannelRating channelRating) {
@@ -60,7 +64,8 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
-        WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
+        Settings settings = MainContext.INSTANCE.getSettings();
+        WiFiBand wiFiBand = settings.getWiFiBand();
         List<WiFiChannel> wiFiChannels = setWiFiChannels(wiFiBand);
         channelRating.setWiFiDetails(wiFiData.getWiFiDetails(wiFiBand, SortBy.STRENGTH));
         bestChannels(wiFiBand, wiFiChannels);
@@ -68,7 +73,8 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     }
 
     private List<WiFiChannel> setWiFiChannels(WiFiBand wiFiBand) {
-        String countryCode = MainContext.INSTANCE.getSettings().getCountryCode();
+        Settings settings = MainContext.INSTANCE.getSettings();
+        String countryCode = settings.getCountryCode();
         List<WiFiChannel> wiFiChannels = wiFiBand.getWiFiChannels().getAvailableChannels(countryCode);
         clear();
         addAll(wiFiChannels);
@@ -79,7 +85,8 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.channel_rating_details, parent, false);
+            LayoutInflater layoutInflater = MainContext.INSTANCE.getLayoutInflater();
+            view = layoutInflater.inflate(R.layout.channel_rating_details, parent, false);
         }
 
         WiFiChannel wiFiChannel = getItem(position);

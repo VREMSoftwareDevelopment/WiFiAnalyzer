@@ -47,7 +47,7 @@ public class GroupByTest {
     @Test
     public void testFind() throws Exception {
         Assert.assertEquals(GroupBy.NONE, GroupBy.find(-1));
-        assertEquals(GroupBy.NONE, GroupBy.find(3));
+        assertEquals(GroupBy.NONE, GroupBy.find(GroupBy.values().length));
 
         assertEquals(GroupBy.NONE, GroupBy.find(GroupBy.NONE.ordinal()));
         assertEquals(GroupBy.SSID, GroupBy.find(GroupBy.SSID.ordinal()));

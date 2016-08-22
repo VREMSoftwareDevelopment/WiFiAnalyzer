@@ -40,11 +40,10 @@ public enum WiFiBand {
     }
 
     public static WiFiBand find(int index) {
-        try {
-            return values()[index];
-        } catch (Exception e) {
-            return WiFiBand.GHZ2;
+        if (index < 0 || index >= values().length) {
+            return GHZ2;
         }
+        return values()[index];
     }
 
     public String getBand() {
