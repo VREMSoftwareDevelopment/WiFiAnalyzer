@@ -1,17 +1,18 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer.wifi.scanner;
@@ -21,7 +22,6 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.Logger;
@@ -36,9 +36,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -52,9 +50,7 @@ public class ScannerTest {
     @Mock
     private WifiManager wifiManager;
     @Mock
-    private UpdateNotifier updateNotifier1;
-    @Mock
-    private UpdateNotifier updateNotifier2;
+    private Broadcast broadcast;
     @Mock
     private WifiInfo wifiInfo;
     @Mock
@@ -84,34 +80,12 @@ public class ScannerTest {
 
         fixture = new Scanner(wifiManager, handler, settings, transformer);
         fixture.setCache(cache);
-        fixture.addUpdateNotifier(updateNotifier1);
+        fixture.setBroadcast(broadcast);
     }
 
     @Test
     public void testPeriodicScanIsSet() throws Exception {
         assertNotNull(fixture.getPeriodicScan());
-    }
-
-    @Test
-    public void testAddUpdateNotifierAllowsOnlyOneNotifierPerClass() throws Exception {
-        Map<String, UpdateNotifier> updateNotifiers = fixture.getUpdateNotifiers();
-        assertEquals(1, updateNotifiers.size());
-        assertEquals(updateNotifier1, updateNotifiers.get(updateNotifier1.getClass().getName()));
-
-        fixture.addUpdateNotifier(updateNotifier2);
-        assertEquals(1, updateNotifiers.size());
-        assertEquals(updateNotifier2, updateNotifiers.get(updateNotifier1.getClass().getName()));
-
-        UpdateNotifier myUpdateNotifier = new UpdateNotifier() {
-            @Override
-            public void update(@NonNull WiFiData wiFiData) {
-                // testing
-            }
-        };
-
-        fixture.addUpdateNotifier(myUpdateNotifier);
-        assertEquals(2, updateNotifiers.size());
-        assertEquals(myUpdateNotifier, updateNotifiers.get(myUpdateNotifier.getClass().getName()));
     }
 
     @Test
@@ -126,7 +100,7 @@ public class ScannerTest {
         verifyCache();
         verifyTransfomer();
         verifyWiFiManager();
-        verify(updateNotifier1).update(wiFiData);
+        verify(broadcast).send(wiFiData);
     }
 
     @Test

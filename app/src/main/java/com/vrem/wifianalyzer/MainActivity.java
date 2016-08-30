@@ -1,17 +1,18 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer;
@@ -47,6 +48,8 @@ import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.ConnectionView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.scanner.Broadcast;
+import com.vrem.wifianalyzer.wifi.scanner.Receiver;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 import com.vrem.wifianalyzer.wifi.scanner.Transformer;
 
@@ -61,6 +64,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private NavigationMenuView navigationMenuView;
     private String currentCountryCode;
 
+    private ConnectionView connectionView;
+    private Receiver receiver;
+    private Broadcast broadcast;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         initializeMainContext(this);
@@ -89,7 +96,11 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         navigationMenuView = new NavigationMenuView(this, settings.getStartMenu());
         onNavigationItemSelected(navigationMenuView.getCurrentMenuItem());
 
-        new ConnectionView(this);
+        connectionView = new ConnectionView(this);
+        receiver = new Receiver(connectionView);
+
+        broadcast = new Broadcast();
+        broadcast.register(this, receiver);
     }
 
     private void initializeMainContext(@NonNull Context context) {
@@ -194,14 +205,22 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     protected void onPause() {
         Scanner scanner = MainContext.INSTANCE.getScanner();
         scanner.pause();
+        broadcast.unregister(this, receiver);
         super.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        broadcast.register(this, receiver);
         Scanner scanner = MainContext.INSTANCE.getScanner();
         scanner.resume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        broadcast.unregister(this, receiver);
     }
 
     private void updateSubTitle() {
