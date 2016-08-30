@@ -39,9 +39,7 @@ public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Settings settings = MainContext.INSTANCE.getSettings();
-        ThemeStyle themeStyle = settings.getThemeStyle();
-        setTheme(themeStyle.themeAppCompatStyle());
+        setCustomTheme();
 
         super.onCreate(savedInstanceState);
 
@@ -58,6 +56,14 @@ public class AboutActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    private void setCustomTheme() {
+        Settings settings = MainContext.INSTANCE.getSettings();
+        if (settings != null) {
+            ThemeStyle themeStyle = settings.getThemeStyle();
+            setTheme(themeStyle.themeAppCompatStyle());
         }
     }
 

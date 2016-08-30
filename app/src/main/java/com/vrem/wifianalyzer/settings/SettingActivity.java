@@ -29,9 +29,7 @@ import com.vrem.wifianalyzer.R;
 public class SettingActivity extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Settings settings = MainContext.INSTANCE.getSettings();
-        ThemeStyle themeStyle = settings.getThemeStyle();
-        setTheme(themeStyle.themeDeviceDefaultStyle());
+        setCustomTheme();
 
         super.onCreate(savedInstanceState);
 
@@ -41,6 +39,14 @@ public class SettingActivity extends PreferenceActivity {
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    private void setCustomTheme() {
+        Settings settings = MainContext.INSTANCE.getSettings();
+        if (settings != null) {
+            ThemeStyle themeStyle = settings.getThemeStyle();
+            setTheme(themeStyle.themeDeviceDefaultStyle());
         }
     }
 
