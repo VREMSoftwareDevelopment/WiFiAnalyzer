@@ -28,14 +28,11 @@ import android.widget.ExpandableListView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.scanner.Broadcast;
-import com.vrem.wifianalyzer.wifi.scanner.Receiver;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class AccessPointsFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Receiver receiver;
-    private Broadcast broadcast;
+    private AccessPointsAdapter accessPointsAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,14 +43,13 @@ public class AccessPointsFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.accessPointsRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        AccessPointsAdapter accessPointsAdapter = new AccessPointsAdapter(activity);
+        accessPointsAdapter = new AccessPointsAdapter(activity);
         ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.accessPointsView);
         expandableListView.setAdapter(accessPointsAdapter);
 
-        receiver = new Receiver(accessPointsAdapter);
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.register(accessPointsAdapter);
 
-        broadcast = new Broadcast();
-        broadcast.register(getActivity(), receiver);
         return view;
     }
 
@@ -67,20 +63,14 @@ public class AccessPointsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        broadcast.register(getActivity(), receiver);
         refresh();
     }
 
     @Override
     public void onDestroy() {
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.unregister(accessPointsAdapter);
         super.onDestroy();
-        broadcast.unregister(getActivity(), receiver);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        broadcast.unregister(getActivity(), receiver);
     }
 
     private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {

@@ -31,14 +31,11 @@ import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.graph.channel.ChannelGraphNavigation.NavigationItem;
-import com.vrem.wifianalyzer.wifi.scanner.Broadcast;
-import com.vrem.wifianalyzer.wifi.scanner.Receiver;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class ChannelGraphFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Receiver receiver;
-    private Broadcast broadcast;
+    private ChannelGraphAdapter channelGraphAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,14 +46,12 @@ public class ChannelGraphFragment extends Fragment {
 
         Configuration configuration = MainContext.INSTANCE.getConfiguration();
         ChannelGraphNavigation channelGraphNavigation = new ChannelGraphNavigation(getActivity(), configuration);
-        ChannelGraphAdapter channelGraphAdapter = new ChannelGraphAdapter(channelGraphNavigation);
+        channelGraphAdapter = new ChannelGraphAdapter(channelGraphNavigation);
         addGraphViews(swipeRefreshLayout, channelGraphAdapter);
         addGraphNavigation(view, channelGraphNavigation);
 
-        receiver = new Receiver(channelGraphAdapter);
-
-        broadcast = new Broadcast();
-        broadcast.register(getActivity(), receiver);
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.register(channelGraphAdapter);
 
         return view;
     }
@@ -85,20 +80,14 @@ public class ChannelGraphFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        broadcast.register(getActivity(), receiver);
         refresh();
     }
 
     @Override
     public void onDestroy() {
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.unregister(channelGraphAdapter);
         super.onDestroy();
-        broadcast.unregister(getActivity(), receiver);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        broadcast.unregister(getActivity(), receiver);
     }
 
     private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {

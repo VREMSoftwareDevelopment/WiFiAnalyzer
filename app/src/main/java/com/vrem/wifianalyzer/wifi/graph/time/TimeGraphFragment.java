@@ -28,14 +28,11 @@ import android.widget.ViewFlipper;
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.scanner.Broadcast;
-import com.vrem.wifianalyzer.wifi.scanner.Receiver;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class TimeGraphFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Receiver receiver;
-    private Broadcast broadcast;
+    private TimeGraphAdapter timeGraphAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,13 +41,11 @@ public class TimeGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.graphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        TimeGraphAdapter timeGraphAdapter = new TimeGraphAdapter();
+        timeGraphAdapter = new TimeGraphAdapter();
         addGraphViews(swipeRefreshLayout, timeGraphAdapter);
 
-        receiver = new Receiver(timeGraphAdapter);
-
-        broadcast = new Broadcast();
-        broadcast.register(getActivity(), receiver);
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.register(timeGraphAdapter);
 
         return view;
     }
@@ -73,20 +68,14 @@ public class TimeGraphFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        broadcast.register(getActivity(), receiver);
         refresh();
     }
 
     @Override
     public void onDestroy() {
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.unregister(timeGraphAdapter);
         super.onDestroy();
-        broadcast.unregister(getActivity(), receiver);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        broadcast.unregister(getActivity(), receiver);
     }
 
     private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {

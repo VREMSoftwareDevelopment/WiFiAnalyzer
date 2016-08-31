@@ -37,6 +37,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -50,7 +51,11 @@ public class ScannerTest {
     @Mock
     private WifiManager wifiManager;
     @Mock
-    private Broadcast broadcast;
+    private UpdateNotifier updateNotifier1;
+    @Mock
+    private UpdateNotifier updateNotifier2;
+    @Mock
+    private UpdateNotifier updateNotifier3;
     @Mock
     private WifiInfo wifiInfo;
     @Mock
@@ -73,19 +78,42 @@ public class ScannerTest {
     private Scanner fixture;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         scanResults = new ArrayList<>();
         cacheResults = new ArrayList<>();
         configuredNetworks = new ArrayList<>();
 
         fixture = new Scanner(wifiManager, handler, settings, transformer);
         fixture.setCache(cache);
-        fixture.setBroadcast(broadcast);
+
+        fixture.register(updateNotifier1);
+        fixture.register(updateNotifier2);
+        fixture.register(updateNotifier3);
     }
 
     @Test
     public void testPeriodicScanIsSet() throws Exception {
         assertNotNull(fixture.getPeriodicScan());
+    }
+
+    @Test
+    public void testRegister() throws Exception {
+        // setup
+        assertEquals(3, fixture.getUpdateNotifiers().size());
+        // execute
+        fixture.register(updateNotifier2);
+        // validate
+        assertEquals(4, fixture.getUpdateNotifiers().size());
+    }
+
+    @Test
+    public void testUnregister() throws Exception {
+        // setup
+        assertEquals(3, fixture.getUpdateNotifiers().size());
+        // execute
+        fixture.unregister(updateNotifier2);
+        // validate
+        assertEquals(2, fixture.getUpdateNotifiers().size());
     }
 
     @Test
@@ -100,7 +128,9 @@ public class ScannerTest {
         verifyCache();
         verifyTransfomer();
         verifyWiFiManager();
-        verify(broadcast).send(wiFiData);
+        verify(updateNotifier1).update(wiFiData);
+        verify(updateNotifier2).update(wiFiData);
+        verify(updateNotifier3).update(wiFiData);
     }
 
     @Test

@@ -29,14 +29,11 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.scanner.Broadcast;
-import com.vrem.wifianalyzer.wifi.scanner.Receiver;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class ChannelRatingFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Broadcast broadcast;
-    private Receiver receiver;
+    private ChannelRatingAdapter channelRatingAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,13 +47,12 @@ public class ChannelRatingFragment extends Fragment {
         TextView bestChannels = (TextView) view.findViewById(R.id.channelRatingBestChannels);
         ListView listView = (ListView) view.findViewById(R.id.channelRatingView);
 
-        ChannelRatingAdapter channelRatingAdapter = new ChannelRatingAdapter(activity, bestChannels);
+        channelRatingAdapter = new ChannelRatingAdapter(activity, bestChannels);
         listView.setAdapter(channelRatingAdapter);
 
-        receiver = new Receiver(channelRatingAdapter);
-        broadcast = new Broadcast();
-        broadcast.register(getActivity(), receiver);
-        
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.register(channelRatingAdapter);
+
         return view;
     }
 
@@ -70,20 +66,14 @@ public class ChannelRatingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        broadcast.register(getActivity(), receiver);
         refresh();
     }
 
     @Override
     public void onDestroy() {
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.unregister(channelRatingAdapter);
         super.onDestroy();
-        broadcast.unregister(getActivity(), receiver);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        broadcast.unregister(getActivity(), receiver);
     }
 
     private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {

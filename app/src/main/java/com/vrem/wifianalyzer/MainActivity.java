@@ -48,8 +48,6 @@ import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.ConnectionView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
-import com.vrem.wifianalyzer.wifi.scanner.Broadcast;
-import com.vrem.wifianalyzer.wifi.scanner.Receiver;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 import com.vrem.wifianalyzer.wifi.scanner.Transformer;
 
@@ -63,10 +61,8 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private ThemeStyle currentThemeStyle;
     private NavigationMenuView navigationMenuView;
     private String currentCountryCode;
+    private ConnectionView connectionView;
 
-    private Receiver receiver;
-    private Broadcast broadcast;
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         initializeMainContext(this);
@@ -96,10 +92,8 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         onNavigationItemSelected(navigationMenuView.getCurrentMenuItem());
 
         ConnectionView connectionView = new ConnectionView(this);
-        receiver = new Receiver(connectionView);
-
-        broadcast = new Broadcast();
-        broadcast.register(this, receiver);
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.register(connectionView);
     }
 
     private void initializeMainContext(@NonNull Context context) {
@@ -204,22 +198,21 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     protected void onPause() {
         Scanner scanner = MainContext.INSTANCE.getScanner();
         scanner.pause();
-        broadcast.unregister(this, receiver);
         super.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        broadcast.register(this, receiver);
         Scanner scanner = MainContext.INSTANCE.getScanner();
         scanner.resume();
     }
 
     @Override
     protected void onDestroy() {
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.unregister(connectionView);
         super.onDestroy();
-        broadcast.unregister(this, receiver);
     }
 
     private void updateSubTitle() {

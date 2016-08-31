@@ -24,18 +24,21 @@ import android.support.annotation.NonNull;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Scanner {
+    private final List<UpdateNotifier> updateNotifiers;
     private final WifiManager wifiManager;
     private final Transformer transformer;
     private Cache cache;
-    private Broadcast broadcast;
     private PeriodicScan periodicScan;
 
     public Scanner(@NonNull WifiManager wifiManager, @NonNull Handler handler, @NonNull Settings settings, @NonNull Transformer transformer) {
+        this.updateNotifiers = new ArrayList<>();
         this.wifiManager = wifiManager;
         this.transformer = transformer;
         this.setCache(new Cache());
-        this.setBroadcast(new Broadcast());
         this.periodicScan = new PeriodicScan(this, handler, settings);
     }
 
@@ -46,8 +49,19 @@ public class Scanner {
         if (wifiManager.startScan()) {
             cache.add(wifiManager.getScanResults());
             WiFiData wiFiData = transformer.transformToWiFiData(cache.getScanResults(), wifiManager.getConnectionInfo(), wifiManager.getConfiguredNetworks());
-            broadcast.send(wiFiData);
+            for (UpdateNotifier updateNotifier : updateNotifiers) {
+                System.out.println(">>> " + updateNotifier.getClass().getSimpleName() + " calling update...");
+                updateNotifier.update(wiFiData);
+            }
         }
+    }
+
+    public void register(@NonNull UpdateNotifier updateNotifier) {
+        updateNotifiers.add(updateNotifier);
+    }
+
+    public void unregister(@NonNull UpdateNotifier updateNotifier) {
+        updateNotifiers.remove(updateNotifier);
     }
 
     public void pause() {
@@ -74,7 +88,7 @@ public class Scanner {
         this.cache = cache;
     }
 
-    void setBroadcast(@NonNull Broadcast broadcast) {
-        this.broadcast = broadcast;
+    List<UpdateNotifier> getUpdateNotifiers() {
+        return updateNotifiers;
     }
 }
