@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         }
     }
 
-    protected boolean shouldReload() {
+    boolean shouldReload() {
         Settings settings = MainContext.INSTANCE.getSettings();
         ThemeStyle settingThemeStyle = settings.getThemeStyle();
         boolean result = !getCurrentThemeStyle().equals(settingThemeStyle);
@@ -245,11 +245,11 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         }
     }
 
-    protected ThemeStyle getCurrentThemeStyle() {
+    ThemeStyle getCurrentThemeStyle() {
         return currentThemeStyle;
     }
 
-    protected void setCurrentThemeStyle(ThemeStyle currentThemeStyle) {
+    void setCurrentThemeStyle(ThemeStyle currentThemeStyle) {
         this.currentThemeStyle = currentThemeStyle;
     }
 }

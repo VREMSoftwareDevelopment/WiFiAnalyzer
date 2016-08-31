@@ -30,7 +30,7 @@ public class Broadcast {
 
     public static final String MESSAGE_WIFIDATA = "MESSAGE_WIFIDATA";
 
-    protected void send(@NonNull WiFiData wiFiData) {
+    void send(@NonNull WiFiData wiFiData) {
         Context context = MainContext.INSTANCE.getContext();
         Intent indent = new Intent(MESSAGE_WIFIDATA);
         indent.putExtra(MESSAGE_WIFIDATA, wiFiData);

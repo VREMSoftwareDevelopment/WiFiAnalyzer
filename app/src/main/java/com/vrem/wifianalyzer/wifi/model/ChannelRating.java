@@ -30,7 +30,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ChannelRating {
-    protected static final int LEVEL_RANGE_MIN = -5;
+    static final int LEVEL_RANGE_MIN = -5;
     private static final int LEVEL_RANGE_MAX = 5;
     private static final int BSSID_LENGTH = 17;
 
@@ -69,7 +69,7 @@ public class ChannelRating {
         return results;
     }
 
-    protected List<WiFiDetail> getWiFiDetails() {
+    List<WiFiDetail> getWiFiDetails() {
         return wiFiDetails;
     }
 

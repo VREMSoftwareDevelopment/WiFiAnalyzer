@@ -30,7 +30,7 @@ class GraphColors {
     private final List<GraphColor> availableGraphColors;
     private final Stack<GraphColor> graphColors;
 
-    protected GraphColors() {
+    GraphColors() {
         graphColors = new Stack<>();
         availableGraphColors = new ArrayList<>();
     }
@@ -47,14 +47,14 @@ class GraphColors {
         return availableGraphColors;
     }
 
-    protected GraphColor getColor() {
+    GraphColor getColor() {
         if (graphColors.isEmpty()) {
             graphColors.addAll(getAvailableGraphColors());
         }
         return graphColors.pop();
     }
 
-    protected void addColor(long primaryColor) {
+    void addColor(long primaryColor) {
         GraphColor graphColor = findColor(primaryColor);
         if (graphColor == null || graphColors.contains(graphColor)) {
             return;

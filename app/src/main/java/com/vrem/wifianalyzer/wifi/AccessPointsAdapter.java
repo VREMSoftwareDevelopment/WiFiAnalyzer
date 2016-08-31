@@ -45,11 +45,11 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         setAccessPointsDetail(new AccessPointsDetail());
     }
 
-    protected void setAccessPointsAdapterData(@NonNull AccessPointsAdapterData accessPointsAdapterData) {
+    void setAccessPointsAdapterData(@NonNull AccessPointsAdapterData accessPointsAdapterData) {
         this.accessPointsAdapterData = accessPointsAdapterData;
     }
 
-    protected void setAccessPointsDetail(@NonNull AccessPointsDetail accessPointsDetail) {
+    void setAccessPointsDetail(@NonNull AccessPointsDetail accessPointsDetail) {
         this.accessPointsDetail = accessPointsDetail;
     }
 

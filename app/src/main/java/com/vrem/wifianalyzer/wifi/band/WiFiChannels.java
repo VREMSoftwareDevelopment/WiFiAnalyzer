@@ -1,17 +1,18 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer.wifi.band;
@@ -30,7 +31,7 @@ public abstract class WiFiChannels {
     private final int frequencyOffset;
     private final int frequencySpread;
 
-    protected WiFiChannels(@NonNull Pair<Integer, Integer> wiFiRange, @NonNull List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs, int frequencyOffset, int frequencySpread) {
+    WiFiChannels(@NonNull Pair<Integer, Integer> wiFiRange, @NonNull List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs, int frequencyOffset, int frequencySpread) {
         this.wiFiRange = wiFiRange;
         this.wiFiChannelPairs = wiFiChannelPairs;
         this.frequencyOffset = frequencyOffset;
@@ -95,7 +96,7 @@ public abstract class WiFiChannels {
         return results;
     }
 
-    protected WiFiChannel getWiFiChannel(int frequency, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
+    WiFiChannel getWiFiChannel(int frequency, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         WiFiChannel first = wiFiChannelPair.first;
         WiFiChannel last = wiFiChannelPair.second;
         int channel = (int) (((double) (frequency - first.getFrequency()) / WiFiChannel.FREQUENCY_SPREAD) + first.getChannel() + 0.5);

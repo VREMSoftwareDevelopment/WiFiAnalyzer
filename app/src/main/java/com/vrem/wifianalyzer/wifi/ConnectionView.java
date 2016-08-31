@@ -76,7 +76,7 @@ public class ConnectionView implements UpdateNotifier {
         }
     }
 
-    protected void setAccessPointsDetail(@NonNull AccessPointsDetail accessPointsDetail) {
+    void setAccessPointsDetail(@NonNull AccessPointsDetail accessPointsDetail) {
         this.accessPointsDetail = accessPointsDetail;
     }
 }

@@ -62,19 +62,19 @@ public class Scanner {
         periodicScan.start();
     }
 
-    protected PeriodicScan getPeriodicScan() {
+    PeriodicScan getPeriodicScan() {
         return periodicScan;
     }
 
-    protected void setPeriodicScan(@NonNull PeriodicScan periodicScan) {
+    void setPeriodicScan(@NonNull PeriodicScan periodicScan) {
         this.periodicScan = periodicScan;
     }
 
-    protected void setCache(@NonNull Cache cache) {
+    void setCache(@NonNull Cache cache) {
         this.cache = cache;
     }
 
-    protected void setBroadcast(@NonNull Broadcast broadcast) {
+    void setBroadcast(@NonNull Broadcast broadcast) {
         this.broadcast = broadcast;
     }
 }

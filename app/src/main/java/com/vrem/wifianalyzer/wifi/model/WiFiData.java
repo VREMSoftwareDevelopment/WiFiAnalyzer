@@ -71,7 +71,7 @@ public class WiFiData implements Serializable {
     }
 
     @NonNull
-    protected List<WiFiDetail> getWiFiDetails(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
+    List<WiFiDetail> getWiFiDetails(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
         List<WiFiDetail> results = new ArrayList<>();
         Collections.sort(wiFiDetails, groupBy.sortOrder());
         WiFiDetail parent = null;

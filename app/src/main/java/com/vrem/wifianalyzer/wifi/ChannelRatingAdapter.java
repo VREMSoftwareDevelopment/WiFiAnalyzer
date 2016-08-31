@@ -56,7 +56,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         setChannelRating(new ChannelRating());
     }
 
-    protected void setChannelRating(@NonNull ChannelRating channelRating) {
+    void setChannelRating(@NonNull ChannelRating channelRating) {
         this.channelRating = channelRating;
     }
 
@@ -104,7 +104,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         return view;
     }
 
-    protected void bestChannels(@NonNull WiFiBand wiFiBand, @NonNull List<WiFiChannel> wiFiChannels) {
+    void bestChannels(@NonNull WiFiBand wiFiBand, @NonNull List<WiFiChannel> wiFiChannels) {
         List<ChannelRating.ChannelAPCount> channelAPCounts = channelRating.getBestChannels(wiFiChannels);
         int channelCount = 0;
         StringBuilder result = new StringBuilder();
