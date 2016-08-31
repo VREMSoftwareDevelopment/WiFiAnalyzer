@@ -71,7 +71,7 @@ public class WiFiDataTest {
     private WiFiData fixture;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         vendorService = MainContextHelper.INSTANCE.getVendorService();
 
         wiFiDetails = withWiFiDetails();
@@ -84,7 +84,7 @@ public class WiFiDataTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         MainContextHelper.INSTANCE.restore();
     }
 

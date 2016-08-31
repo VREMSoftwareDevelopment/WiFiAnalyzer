@@ -47,12 +47,12 @@ public class GraphAdapterTest {
     private GraphAdapter fixture;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         fixture = new GraphAdapter(Arrays.asList(graphViewNotifier));
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         MainContextHelper.INSTANCE.restore();
     }
 

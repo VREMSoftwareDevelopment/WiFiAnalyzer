@@ -63,7 +63,7 @@ public class ConnectionViewTest {
     private AccessPointsDetail accessPointsDetail;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
 
         accessPointsDetail = mock(AccessPointsDetail.class);
@@ -77,7 +77,7 @@ public class ConnectionViewTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         MainContextHelper.INSTANCE.restore();
         mainActivity.getNavigationMenuView().setCurrentNavigationMenu(NavigationMenu.ACCESS_POINTS);
     }

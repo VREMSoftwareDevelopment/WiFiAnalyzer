@@ -49,7 +49,7 @@ public class ChannelGraphAdapterTest {
     private ChannelGraphAdapter fixture;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         RobolectricUtil.INSTANCE.getMainActivity();
 
         channelGraphNavigation = mock(ChannelGraphNavigation.class);
@@ -58,7 +58,7 @@ public class ChannelGraphAdapterTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         MainContextHelper.INSTANCE.restore();
     }
 

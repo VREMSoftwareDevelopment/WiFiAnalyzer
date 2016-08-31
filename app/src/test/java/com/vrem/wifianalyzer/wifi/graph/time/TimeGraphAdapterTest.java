@@ -42,14 +42,14 @@ public class TimeGraphAdapterTest {
     private TimeGraphAdapter fixture;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         RobolectricUtil.INSTANCE.getMainActivity();
 
         fixture = new TimeGraphAdapter();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         MainContextHelper.INSTANCE.restore();
     }
 
