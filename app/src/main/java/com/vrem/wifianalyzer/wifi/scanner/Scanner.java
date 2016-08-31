@@ -50,7 +50,6 @@ public class Scanner {
             cache.add(wifiManager.getScanResults());
             WiFiData wiFiData = transformer.transformToWiFiData(cache.getScanResults(), wifiManager.getConnectionInfo(), wifiManager.getConfiguredNetworks());
             for (UpdateNotifier updateNotifier : updateNotifiers) {
-                System.out.println(">>> " + updateNotifier.getClass().getSimpleName() + " calling update...");
                 updateNotifier.update(wiFiData);
             }
         }

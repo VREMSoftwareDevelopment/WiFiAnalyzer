@@ -50,6 +50,7 @@ class ChannelGraphView implements GraphViewNotifier {
     private static final int CNT_X_SMALL_2 = 16;
     private static final int CNT_X_SMALL_5 = 18;
     private static final int CNT_X_LARGE = 24;
+    private static final int THICKNESS_INVISIBLE = 0;
 
     private final WiFiBand wiFiBand;
     private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
@@ -161,7 +162,7 @@ class ChannelGraphView implements GraphViewNotifier {
 
         TitleLineGraphSeries<DataPoint> series = new TitleLineGraphSeries<>(dataPoints);
         series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
-        series.zeroThickness();
+        series.setThickness(THICKNESS_INVISIBLE);
         graphViewWrapper.addSeries(series);
         return graphViewWrapper;
     }

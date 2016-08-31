@@ -44,6 +44,7 @@ class TimeGraphView implements GraphViewNotifier {
     private static final int MAX_SCAN_COUNT = 400;
     private static final int NUM_X_SMALL = 18;
     private static final int NUM_X_LARGE = 24;
+    private static final int THICKNESS_INVISIBLE = 0;
 
     private final WiFiBand wiFiBand;
     private GraphViewWrapper graphViewWrapper;
@@ -121,7 +122,7 @@ class TimeGraphView implements GraphViewNotifier {
                 new DataPoint(getNumX() - 1, GraphViewBuilder.MIN_Y)
         });
         series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
-        series.setThickness(0);
+        series.setThickness(THICKNESS_INVISIBLE);
         graphViewWrapper.addSeries(series);
 
         return graphViewWrapper;

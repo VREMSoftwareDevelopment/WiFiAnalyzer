@@ -28,8 +28,10 @@ import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.BaseSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
+import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
+import com.jjoe64.graphview.series.TitleLineGraphSeries;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.AccessPointsDetail;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
@@ -41,6 +43,9 @@ import java.util.Set;
 
 public class GraphViewWrapper {
     static final float TEXT_SIZE_ADJUSTMENT = 0.9f;
+    private static final int THICKNESS_REGULAR = 5;
+    private static final int THICKNESS_CONNECTED = THICKNESS_REGULAR * 2;
+
     private final GraphView graphView;
     private SeriesCache seriesCache;
     private GraphColors graphColors;
@@ -77,7 +82,16 @@ public class GraphViewWrapper {
         } else {
             current.appendData(data, true, count + 1);
         }
+        setThickness(wiFiDetail.getWiFiAdditional().isConnected() ? THICKNESS_CONNECTED : THICKNESS_REGULAR, current);
         return added;
+    }
+
+    private void setThickness(int thickness, @NonNull BaseSeries<DataPoint> series) {
+        if (series instanceof LineGraphSeries) {
+            ((LineGraphSeries) series).setThickness(thickness);
+        } else if (series instanceof TitleLineGraphSeries) {
+            ((TitleLineGraphSeries) series).setThickness(thickness);
+        }
     }
 
     private boolean isSameSeries(@NonNull BaseSeries<DataPoint> series, BaseSeries<DataPoint> current) {
@@ -108,6 +122,7 @@ public class GraphViewWrapper {
         } else {
             current.resetData(data);
         }
+        setThickness(wiFiDetail.getWiFiAdditional().isConnected() ? THICKNESS_CONNECTED : THICKNESS_REGULAR, current);
         return added;
     }
 
