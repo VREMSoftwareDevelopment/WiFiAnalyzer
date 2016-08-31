@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private NavigationMenuView navigationMenuView;
     private String currentCountryCode;
 
-    private ConnectionView connectionView;
     private Receiver receiver;
     private Broadcast broadcast;
     
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         navigationMenuView = new NavigationMenuView(this, settings.getStartMenu());
         onNavigationItemSelected(navigationMenuView.getCurrentMenuItem());
 
-        connectionView = new ConnectionView(this);
+        ConnectionView connectionView = new ConnectionView(this);
         receiver = new Receiver(connectionView);
 
         broadcast = new Broadcast();

@@ -35,7 +35,6 @@ import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class ChannelRatingFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ChannelRatingAdapter channelRatingAdapter;
     private Broadcast broadcast;
     private Receiver receiver;
 
@@ -51,7 +50,7 @@ public class ChannelRatingFragment extends Fragment {
         TextView bestChannels = (TextView) view.findViewById(R.id.channelRatingBestChannels);
         ListView listView = (ListView) view.findViewById(R.id.channelRatingView);
 
-        channelRatingAdapter = new ChannelRatingAdapter(activity, bestChannels);
+        ChannelRatingAdapter channelRatingAdapter = new ChannelRatingAdapter(activity, bestChannels);
         listView.setAdapter(channelRatingAdapter);
 
         receiver = new Receiver(channelRatingAdapter);

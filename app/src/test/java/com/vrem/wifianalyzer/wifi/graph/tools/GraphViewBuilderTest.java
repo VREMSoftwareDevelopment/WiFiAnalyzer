@@ -56,7 +56,7 @@ public class GraphViewBuilderTest {
     private GraphViewBuilder fixture;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         fixture = new GraphViewBuilder(content, NUM_HORIZONTAL_LABELS);
     }
 

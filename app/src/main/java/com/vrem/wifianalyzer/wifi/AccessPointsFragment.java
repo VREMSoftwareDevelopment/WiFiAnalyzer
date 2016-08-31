@@ -34,7 +34,6 @@ import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class AccessPointsFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
-    private AccessPointsAdapter accessPointsAdapter;
     private Receiver receiver;
     private Broadcast broadcast;
 
@@ -47,7 +46,7 @@ public class AccessPointsFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.accessPointsRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        accessPointsAdapter = new AccessPointsAdapter(activity);
+        AccessPointsAdapter accessPointsAdapter = new AccessPointsAdapter(activity);
         ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.accessPointsView);
         expandableListView.setAdapter(accessPointsAdapter);
 

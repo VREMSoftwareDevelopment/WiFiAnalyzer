@@ -34,7 +34,6 @@ import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class TimeGraphFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
-    private TimeGraphAdapter timeGraphAdapter;
     private Receiver receiver;
     private Broadcast broadcast;
 
@@ -45,7 +44,7 @@ public class TimeGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.graphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        timeGraphAdapter = new TimeGraphAdapter();
+        TimeGraphAdapter timeGraphAdapter = new TimeGraphAdapter();
         addGraphViews(swipeRefreshLayout, timeGraphAdapter);
 
         receiver = new Receiver(timeGraphAdapter);

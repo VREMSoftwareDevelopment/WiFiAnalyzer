@@ -37,7 +37,6 @@ import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class ChannelGraphFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ChannelGraphAdapter channelGraphAdapter;
     private Receiver receiver;
     private Broadcast broadcast;
 
