@@ -56,7 +56,7 @@ public class AccessPointsAdapterTest {
     private Configuration configuration;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
 
         accessPointsAdapterData = mock(AccessPointsAdapterData.class);
@@ -70,7 +70,7 @@ public class AccessPointsAdapterTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         MainContextHelper.INSTANCE.restore();
     }
 
