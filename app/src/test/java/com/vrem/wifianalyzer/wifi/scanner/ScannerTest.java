@@ -78,7 +78,7 @@ public class ScannerTest {
     private Scanner fixture;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         scanResults = new ArrayList<>();
         cacheResults = new ArrayList<>();
         configuredNetworks = new ArrayList<>();

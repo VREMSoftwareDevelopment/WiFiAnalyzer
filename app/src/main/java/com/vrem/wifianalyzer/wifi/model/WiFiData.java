@@ -23,14 +23,11 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class WiFiData implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class WiFiData {
     private final List<WiFiDetail> wiFiDetails;
     private final WiFiConnection wiFiConnection;
     private final List<String> wiFiConfigurations;

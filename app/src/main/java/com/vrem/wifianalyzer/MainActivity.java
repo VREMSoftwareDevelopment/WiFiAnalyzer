@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         navigationMenuView = new NavigationMenuView(this, settings.getStartMenu());
         onNavigationItemSelected(navigationMenuView.getCurrentMenuItem());
 
-        ConnectionView connectionView = new ConnectionView(this);
+        connectionView = new ConnectionView(this);
         Scanner scanner = MainContext.INSTANCE.getScanner();
         scanner.register(connectionView);
     }

@@ -25,13 +25,10 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WiFiDetail implements Comparable<WiFiDetail>, Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class WiFiDetail implements Comparable<WiFiDetail> {
     public static final WiFiDetail EMPTY = new WiFiDetail(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, WiFiSignal.EMPTY);
 
     private final List<WiFiDetail> children;

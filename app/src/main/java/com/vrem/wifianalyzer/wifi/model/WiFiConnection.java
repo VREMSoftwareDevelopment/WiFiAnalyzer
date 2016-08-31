@@ -24,11 +24,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.io.Serializable;
-
-public class WiFiConnection implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class WiFiConnection {
     public static final int LINK_SPEED_INVALID = -1;
     public static final WiFiConnection EMPTY = new WiFiConnection(StringUtils.EMPTY, StringUtils.EMPTY);
 

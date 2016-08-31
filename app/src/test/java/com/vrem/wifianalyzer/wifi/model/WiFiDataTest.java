@@ -175,8 +175,6 @@ public class WiFiDataTest {
     public void testGetWiFiDetails() throws Exception {
         // setup
         fixture = new WiFiData(wiFiDetails, wiFiConnection, wiFiConfigurations) {
-            private static final long serialVersionUID = 1L;
-
             @NonNull
             @Override
             protected List<WiFiDetail> getWiFiDetails(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
