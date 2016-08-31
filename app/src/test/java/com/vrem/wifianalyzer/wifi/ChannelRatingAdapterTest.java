@@ -62,7 +62,7 @@ public class ChannelRatingAdapterTest {
     private ChannelRating channelRating;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MainActivity mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
 
         channelRating = mock(ChannelRating.class);
@@ -75,7 +75,7 @@ public class ChannelRatingAdapterTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         MainContextHelper.INSTANCE.restore();
     }
 

@@ -36,7 +36,7 @@ public class TimeGraphFragmentTest {
     private TimeGraphFragment fixture;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         RobolectricUtil.INSTANCE.getMainActivity();
         fixture = new TimeGraphFragment();
     }

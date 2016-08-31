@@ -40,7 +40,7 @@ public class CountryPreferenceTest {
     private CountryPreference fixture;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MainActivity mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
         fixture = new CountryPreference(mainActivity, Robolectric.buildAttributeSet().build());
     }

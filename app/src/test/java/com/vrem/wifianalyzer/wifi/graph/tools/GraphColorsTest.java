@@ -42,14 +42,14 @@ public class GraphColorsTest {
     private GraphColors fixture;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         Resources resources = MainContextHelper.INSTANCE.getResources();
         when(resources.getStringArray(R.array.graph_colors)).thenReturn(colors);
         fixture = new GraphColors();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         MainContextHelper.INSTANCE.restore();
     }
 
