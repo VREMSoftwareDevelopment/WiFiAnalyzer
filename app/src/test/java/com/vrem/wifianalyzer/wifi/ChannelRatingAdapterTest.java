@@ -58,7 +58,6 @@ import static org.mockito.Mockito.when;
 public class ChannelRatingAdapterTest {
 
     private ChannelRatingAdapter fixture;
-    private TextView bestChannels;
     private Settings settings;
     private ChannelRating channelRating;
 
@@ -67,7 +66,7 @@ public class ChannelRatingAdapterTest {
         MainActivity mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
 
         channelRating = mock(ChannelRating.class);
-        bestChannels = mock(TextView.class);
+        TextView bestChannels = mock(TextView.class);
 
         settings = MainContextHelper.INSTANCE.getSettings();
 

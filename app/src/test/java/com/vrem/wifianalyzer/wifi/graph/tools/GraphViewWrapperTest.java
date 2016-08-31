@@ -73,7 +73,7 @@ public class GraphViewWrapperTest {
     private GraphViewWrapper fixture;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         wiFiDetail = WiFiDetail.EMPTY;
         dataPoint = new DataPoint(1, 2);
 
