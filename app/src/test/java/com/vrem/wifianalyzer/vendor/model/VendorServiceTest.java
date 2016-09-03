@@ -116,11 +116,11 @@ public class VendorServiceTest {
         verify(database).findAll();
 
         assertEquals(3, actual.size());
-        assertEquals(1, actual.get(vendorDatas.get(0).getName()).size());
-        assertEquals(3, actual.get(vendorDatas.get(1).getName()).size());
-        assertEquals(1, actual.get(vendorDatas.get(4).getName()).size());
+        assertEquals(1, actual.get(fixture.cleanVendorName(vendorDatas.get(0).getName())).size());
+        assertEquals(3, actual.get(fixture.cleanVendorName(vendorDatas.get(1).getName())).size());
+        assertEquals(1, actual.get(fixture.cleanVendorName(vendorDatas.get(4).getName())).size());
 
-        List<String> macs = actual.get(vendorDatas.get(1).getName());
+        List<String> macs = actual.get(fixture.cleanVendorName(vendorDatas.get(1).getName()));
         assertEquals(vendorDatas.get(3).getMac(), macs.get(0));
         assertEquals(vendorDatas.get(1).getMac(), macs.get(1));
         assertEquals(vendorDatas.get(2).getMac(), macs.get(2));
@@ -129,11 +129,33 @@ public class VendorServiceTest {
     @NonNull
     private List<VendorData> withVendorDatas() {
         return Arrays.asList(
-                new VendorData(3, "NAME3", "Mac3"),
-                new VendorData(4, "NAME1", "Mac1-2"),
-                new VendorData(1, "NAME1", "Mac1-3"),
-                new VendorData(2, "NAME1", "Mac1-1"),
-                new VendorData(5, "NAME2", "Mac2"));
+            new VendorData(3, VENDOR_NAME + " 3", "Mac3"),
+            new VendorData(4, VENDOR_NAME + " 1", "Mac1-2"),
+            new VendorData(1, VENDOR_NAME + " 1", "Mac1-3"),
+            new VendorData(2, VENDOR_NAME + " 1", "Mac1-1"),
+            new VendorData(5, VENDOR_NAME + " 2", "Mac2"));
+    }
+
+    @Test
+    public void testCleanVendorNameWithSpecialCharacters() throws Exception {
+        // setup
+        String input = "X.Y.Z   ABC  123       567  -  Z,Y,X";
+        String expected = "X Y Z ABC 123 567 - Z Y X";
+        // execute
+        String actual = fixture.cleanVendorName(input);
+        // validate
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testCleanVendorNameWithMaximumLength() throws Exception {
+        // setup
+        String input = "123456789012345678901234567890123456789012345678901234567890";
+        int expected = 50;
+        // execute
+        String actual = fixture.cleanVendorName(input);
+        // validate
+        assertEquals(expected, actual.length());
     }
 
 }

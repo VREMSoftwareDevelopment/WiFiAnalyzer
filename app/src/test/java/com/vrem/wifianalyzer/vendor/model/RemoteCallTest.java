@@ -48,6 +48,7 @@ import static org.mockito.Mockito.when;
 public class RemoteCallTest {
     private static final String MAC_ADDRESS = "00:23:AB:7B:58:99";
     private static final String VENDOR_NAME = "CISCO SYSTEMS, INC.";
+    private static final String LONG_VENDOR_NAME = "123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890";
 
     private Database database;
     private Logger logger;
@@ -66,7 +67,7 @@ public class RemoteCallTest {
         fixture = new RemoteCall() {
             @Override
             protected URLConnection getURLConnection(String request) throws IOException {
-                String expectedRequest = String.format(MAX_VENDOR_LOOKUP, MAC_ADDRESS);
+                String expectedRequest = String.format(MAC_VENDOR_LOOKUP, MAC_ADDRESS);
                 assertEquals(expectedRequest, request);
                 return urlConnection;
             }
@@ -109,6 +110,16 @@ public class RemoteCallTest {
     public void testDoInBackgroundWithException() throws Exception {
         // setup
         when(urlConnection.getInputStream()).thenThrow(new RuntimeException());
+        // execute
+        String actual = fixture.doInBackground(MAC_ADDRESS);
+        // validate
+        assertEquals(StringUtils.EMPTY, actual);
+    }
+
+    @Test
+    public void testDoInBackgroundWithVeryLongResponse() throws Exception {
+        // setup
+        when(urlConnection.getInputStream()).thenReturn(new StringInputStream(LONG_VENDOR_NAME));
         // execute
         String actual = fixture.doInBackground(MAC_ADDRESS);
         // validate

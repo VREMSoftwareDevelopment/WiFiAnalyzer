@@ -32,7 +32,8 @@ import java.net.URL;
 import java.net.URLConnection;
 
 class RemoteCall extends AsyncTask<String, Void, String> {
-    static final String MAX_VENDOR_LOOKUP = "http://api.macvendors.com/%s";
+    static final String MAC_VENDOR_LOOKUP = "http://api.macvendors.com/%s";
+    private static final int MAX_RESPONSE_LEN = 100;
 
     @Override
     protected String doInBackground(String... params) {
@@ -40,7 +41,7 @@ class RemoteCall extends AsyncTask<String, Void, String> {
             return StringUtils.EMPTY;
         }
         String macAddress = params[0];
-        String request = String.format(MAX_VENDOR_LOOKUP, macAddress);
+        String request = String.format(MAC_VENDOR_LOOKUP, macAddress);
         BufferedReader bufferedReader = null;
         try {
             URLConnection urlConnection = getURLConnection(request);
@@ -49,6 +50,9 @@ class RemoteCall extends AsyncTask<String, Void, String> {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 response.append(line);
+            }
+            if (response.length() > MAX_RESPONSE_LEN) {
+                return StringUtils.EMPTY;
             }
             return new RemoteResult(macAddress, response.toString()).toJson();
         } catch (Exception e) {

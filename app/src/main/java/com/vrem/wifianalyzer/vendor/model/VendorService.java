@@ -34,6 +34,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class VendorService {
+    private static final int VENDOR_NAME_MAX = 50;
     private final Set<String> remoteCalls = new TreeSet<>();
     private final Map<String, String> cache = new HashMap<>();
 
@@ -80,17 +81,17 @@ public class VendorService {
         return results;
     }
 
-    private String cleanVendorName(String name) {
+    String cleanVendorName(String name) {
         if (StringUtils.isEmpty(name)) {
             return StringUtils.EMPTY;
         }
-        return name
-                .replace(".", " ")
-                .replace(",", " ")
-                .replace("   ", " ")
-                .replace("  ", " ")
-                .trim()
-                .toUpperCase();
+        String result = name
+            .replace(".", " ")
+            .replace(",", " ")
+            .replaceAll(" +", " ")
+            .trim()
+            .toUpperCase();
+        return result.substring(0, Math.min(result.length(), VENDOR_NAME_MAX));
     }
 
     // injectors start
