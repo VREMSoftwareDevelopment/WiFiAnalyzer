@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        NavigationMenu navigationMenu = navigationMenuView.findNavigationMenu(menuItem.getItemId());
+        NavigationMenu navigationMenu = NavigationMenu.find(menuItem.getItemId());
         Fragment fragment = navigationMenu.getFragment();
         if (fragment == null) {
             startActivity(new Intent(this, navigationMenu.getActivity()));

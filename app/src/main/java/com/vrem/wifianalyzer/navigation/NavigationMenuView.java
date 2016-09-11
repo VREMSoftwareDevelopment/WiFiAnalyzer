@@ -55,21 +55,16 @@ public class NavigationMenuView {
         return currentNavigationMenu;
     }
 
-    public void setCurrentNavigationMenu(@NonNull NavigationMenu currentNavigationMenu) {
-        this.currentNavigationMenu = currentNavigationMenu;
-    }
-
-    public NavigationMenu findNavigationMenu(int menuItemId) {
-        NavigationMenu navigationMenu = NavigationMenu.find(menuItemId);
+    public void setCurrentNavigationMenu(@NonNull NavigationMenu navigationMenu) {
+        this.currentNavigationMenu = navigationMenu;
         if (navigationMenu.getFragment() != null) {
             Menu menu = navigationView.getMenu();
             for (int i = 0; i < menu.size(); i++) {
                 MenuItem item = menu.getItem(i);
-                item.setCheckable(menuItemId == i);
-                item.setChecked(menuItemId == i);
+                item.setCheckable(navigationMenu.ordinal() == i);
+                item.setChecked(navigationMenu.ordinal() == i);
             }
         }
-        return navigationMenu;
     }
 
     NavigationView getNavigationView() {

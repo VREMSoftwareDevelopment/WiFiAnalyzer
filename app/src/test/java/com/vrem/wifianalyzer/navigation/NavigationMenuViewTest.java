@@ -33,6 +33,8 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -74,11 +76,13 @@ public class NavigationMenuViewTest {
     @Test
     public void testGetCurrentMenuItem() throws Exception {
         // setup
-        MenuItem expected = navigationView.getMenu().getItem(NavigationMenu.ACCESS_POINTS.ordinal());
+        MenuItem expected = getMenuItem(NavigationMenu.ACCESS_POINTS);
         // execute
         MenuItem actual = fixture.getCurrentMenuItem();
         // validate
         assertEquals(expected, actual);
+        assertTrue(actual.isCheckable());
+        assertTrue(actual.isChecked());
     }
 
     @Test
@@ -97,16 +101,13 @@ public class NavigationMenuViewTest {
         fixture.setCurrentNavigationMenu(expected);
         // validate
         assertEquals(expected, fixture.getCurrentNavigationMenu());
+        assertTrue(getMenuItem(NavigationMenu.CHANNEL_GRAPH).isCheckable());
+        assertTrue(getMenuItem(NavigationMenu.CHANNEL_GRAPH).isChecked());
+        assertFalse(getMenuItem(NavigationMenu.ACCESS_POINTS).isCheckable());
+        assertFalse(getMenuItem(NavigationMenu.ACCESS_POINTS).isChecked());
     }
 
-    @Test
-    public void testFindCurrentNavigationMenu() throws Exception {
-        // setup
-        NavigationMenu expected = NavigationMenu.CHANNEL_RATING;
-        // execute
-        NavigationMenu actual = fixture.findNavigationMenu(expected.ordinal());
-        // validate
-        assertEquals(expected, actual);
+    private MenuItem getMenuItem(NavigationMenu navigationMenu) {
+        return navigationView.getMenu().getItem(navigationMenu.ordinal());
     }
-
 }
