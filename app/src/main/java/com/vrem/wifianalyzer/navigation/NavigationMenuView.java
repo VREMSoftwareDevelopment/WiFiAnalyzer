@@ -57,13 +57,11 @@ public class NavigationMenuView {
 
     public void setCurrentNavigationMenu(@NonNull NavigationMenu navigationMenu) {
         this.currentNavigationMenu = navigationMenu;
-        if (navigationMenu.getFragment() != null) {
-            Menu menu = navigationView.getMenu();
-            for (int i = 0; i < menu.size(); i++) {
-                MenuItem item = menu.getItem(i);
-                item.setCheckable(navigationMenu.ordinal() == i);
-                item.setChecked(navigationMenu.ordinal() == i);
-            }
+        Menu menu = navigationView.getMenu();
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.getItem(i);
+            item.setCheckable(navigationMenu.ordinal() == i);
+            item.setChecked(navigationMenu.ordinal() == i);
         }
     }
 
