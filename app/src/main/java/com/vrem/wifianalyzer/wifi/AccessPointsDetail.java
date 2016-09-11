@@ -1,17 +1,18 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer.wifi;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.Strength;
+import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
@@ -38,25 +40,28 @@ import org.apache.commons.lang3.StringUtils;
 
 public class AccessPointsDetail {
     public void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean child, boolean frequencyRange) {
-        ((TextView) view.findViewById(R.id.ssid)).setText(wiFiDetail.getTitle());
-
+        TextView textSSID = (TextView) view.findViewById(R.id.ssid);
         TextView textIPAddress = (TextView) view.findViewById(R.id.ipAddress);
         TextView textLinkSpeed = (TextView) view.findViewById(R.id.linkSpeed);
-        String ipAddress = wiFiDetail.getWiFiAdditional().getIPAddress();
-        if (StringUtils.isBlank(ipAddress)) {
-            textIPAddress.setVisibility(View.GONE);
-            textLinkSpeed.setVisibility(View.GONE);
-        } else {
+
+        textSSID.setText(wiFiDetail.getTitle());
+
+        WiFiAdditional wiFiAdditional = wiFiDetail.getWiFiAdditional();
+        if (wiFiAdditional.isConnected()) {
+            String ipAddress = wiFiAdditional.getIPAddress();
             textIPAddress.setVisibility(View.VISIBLE);
             textIPAddress.setText(ipAddress);
 
-            int linkSpeed = wiFiDetail.getWiFiAdditional().getLinkSpeed();
+            int linkSpeed = wiFiAdditional.getLinkSpeed();
             if (linkSpeed == WiFiConnection.LINK_SPEED_INVALID) {
                 textLinkSpeed.setVisibility(View.GONE);
             } else {
                 textLinkSpeed.setVisibility(View.VISIBLE);
                 textLinkSpeed.setText(String.format("%d%s", linkSpeed, WifiInfo.LINK_SPEED_UNITS));
             }
+        } else {
+            textIPAddress.setVisibility(View.GONE);
+            textLinkSpeed.setVisibility(View.GONE);
         }
 
         ImageView configuredImage = (ImageView) view.findViewById(R.id.configuredImage);
@@ -133,5 +138,4 @@ public class AccessPointsDetail {
             dialog.dismiss();
         }
     }
-
 }

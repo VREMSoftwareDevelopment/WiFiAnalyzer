@@ -61,7 +61,11 @@ public class WiFiDetail implements Comparable<WiFiDetail> {
     }
 
     public String getSSID() {
-        return StringUtils.isBlank(SSID) ? "***" : SSID;
+        return isHidden() ? "***" : SSID;
+    }
+
+    public boolean isHidden() {
+        return StringUtils.isBlank(SSID);
     }
 
     public String getBSSID() {

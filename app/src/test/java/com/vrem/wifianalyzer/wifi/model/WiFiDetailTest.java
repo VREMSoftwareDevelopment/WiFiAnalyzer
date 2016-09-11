@@ -24,7 +24,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 
 public class WiFiDetailTest {
     private static final int FREQUENCY = 2435;
@@ -55,6 +57,7 @@ public class WiFiDetailTest {
         assertEquals(WPA, fixture.getCapabilities());
         assertEquals(SSID + " (" + BSSID + ")", fixture.getTitle());
         assertEquals(Security.WPA, fixture.getSecurity());
+        assertFalse(fixture.isHidden());
     }
 
     @Test
@@ -90,4 +93,11 @@ public class WiFiDetailTest {
         assertEquals(0, fixture.compareTo(other));
     }
 
+    @Test
+    public void testIsHidden() throws Exception {
+        // setup
+        fixture = new WiFiDetail(StringUtils.EMPTY, BSSID, WPA, wiFiSignal);
+        // execute & validate
+        assertTrue(fixture.isHidden());
+    }
 }
