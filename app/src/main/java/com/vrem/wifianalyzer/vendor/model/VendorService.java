@@ -48,7 +48,7 @@ public class VendorService {
         Database database = MainContext.INSTANCE.getDatabase();
         String result = database.find(macAddress);
         if (result != null) {
-            result = cleanVendorName(result);
+            result = VendorNameUtils.cleanVendorName(result);
             cache.put(key, result);
             return result;
         }
@@ -69,7 +69,7 @@ public class VendorService {
         Database database = MainContext.INSTANCE.getDatabase();
         List<VendorData> vendorDatas = database.findAll();
         for (VendorData vendorData : vendorDatas) {
-            String key = cleanVendorName(vendorData.getName());
+            String key = VendorNameUtils.cleanVendorName(vendorData.getName());
             List<String> macs = results.get(key);
             if (macs == null) {
                 macs = new ArrayList<>();
@@ -79,19 +79,6 @@ public class VendorService {
             Collections.sort(macs);
         }
         return results;
-    }
-
-    String cleanVendorName(String name) {
-        if (StringUtils.isEmpty(name)) {
-            return StringUtils.EMPTY;
-        }
-        String result = name
-            .replace(".", " ")
-            .replace(",", " ")
-            .replaceAll(" +", " ")
-            .trim()
-            .toUpperCase();
-        return result.substring(0, Math.min(result.length(), VENDOR_NAME_MAX));
     }
 
     // injectors start

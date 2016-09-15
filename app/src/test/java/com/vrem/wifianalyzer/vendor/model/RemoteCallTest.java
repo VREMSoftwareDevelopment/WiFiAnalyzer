@@ -82,7 +82,7 @@ public class RemoteCallTest {
     @Test
     public void testDoInBackground() throws Exception {
         // setup
-        String expected = new RemoteResult(MAC_ADDRESS, VENDOR_NAME).toJson();
+        String expected = new RemoteResult(MAC_ADDRESS, VendorNameUtils.cleanVendorName(VENDOR_NAME)).toJson();
         when(urlConnection.getInputStream()).thenReturn(new StringInputStream(VENDOR_NAME));
         // execute
         String actual = fixture.doInBackground(MAC_ADDRESS);
@@ -119,11 +119,12 @@ public class RemoteCallTest {
     @Test
     public void testDoInBackgroundWithVeryLongResponse() throws Exception {
         // setup
+        String expected = new RemoteResult(MAC_ADDRESS, VendorNameUtils.cleanVendorName(LONG_VENDOR_NAME)).toJson();
         when(urlConnection.getInputStream()).thenReturn(new StringInputStream(LONG_VENDOR_NAME));
         // execute
         String actual = fixture.doInBackground(MAC_ADDRESS);
         // validate
-        assertEquals(StringUtils.EMPTY, actual);
+        assertEquals(expected, actual);
     }
 
     @Test

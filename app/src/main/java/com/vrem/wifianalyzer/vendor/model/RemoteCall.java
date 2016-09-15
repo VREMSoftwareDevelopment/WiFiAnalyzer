@@ -33,7 +33,6 @@ import java.net.URLConnection;
 
 class RemoteCall extends AsyncTask<String, Void, String> {
     static final String MAC_VENDOR_LOOKUP = "http://api.macvendors.com/%s";
-    private static final int MAX_RESPONSE_LEN = 100;
 
     @Override
     protected String doInBackground(String... params) {
@@ -51,10 +50,11 @@ class RemoteCall extends AsyncTask<String, Void, String> {
             while ((line = bufferedReader.readLine()) != null) {
                 response.append(line);
             }
-            if (response.length() > MAX_RESPONSE_LEN) {
-                return StringUtils.EMPTY;
+            String vendorName = VendorNameUtils.cleanVendorName(response.toString().trim());
+            if (StringUtils.isNotBlank(vendorName)) {
+                return new RemoteResult(macAddress, vendorName).toJson();
             }
-            return new RemoteResult(macAddress, response.toString()).toJson();
+            return StringUtils.EMPTY;
         } catch (Exception e) {
             return StringUtils.EMPTY;
         } finally {
@@ -80,7 +80,7 @@ class RemoteCall extends AsyncTask<String, Void, String> {
                 RemoteResult remoteResult = new RemoteResult(result);
                 String macAddress = remoteResult.getMacAddress();
                 String vendorName = remoteResult.getVendorName();
-                if (StringUtils.isNotBlank(macAddress)) {
+                if (StringUtils.isNotBlank(vendorName) && StringUtils.isNotBlank(macAddress)) {
                     logger.info(this, macAddress + " " + vendorName);
                     Database database = MainContext.INSTANCE.getDatabase();
                     database.insert(macAddress, vendorName);
