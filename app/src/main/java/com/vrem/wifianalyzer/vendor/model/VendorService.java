@@ -34,7 +34,6 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class VendorService {
-    private static final int VENDOR_NAME_MAX = 50;
     private final Set<String> remoteCalls = new TreeSet<>();
     private final Map<String, String> cache = new HashMap<>();
 
