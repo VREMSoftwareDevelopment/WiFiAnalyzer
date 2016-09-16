@@ -40,6 +40,7 @@ public class TitleLineGraphSeries<E extends DataPointInterface> extends BaseSeri
     private final Path path;
     private final Path pathBackground;
     private int thickness = 5;
+    private boolean textBold = false;
     private int backgroundColor = Color.argb(100, 172, 218, 255);
 
     public TitleLineGraphSeries(E[] data) {
@@ -182,6 +183,7 @@ public class TitleLineGraphSeries<E extends DataPointInterface> extends BaseSeri
 
             paintTitle.setColor(getColor());
             paintTitle.setTextSize(graphView.getLegendRenderer().getTextSize());
+            paintTitle.setFakeBoldText(textBold);
             canvas.drawText(getTitle(), x, y, paintTitle);
         }
     }
@@ -192,5 +194,9 @@ public class TitleLineGraphSeries<E extends DataPointInterface> extends BaseSeri
 
     public void setThickness(int thickness) {
         this.thickness = thickness;
+    }
+
+    public void setTextBold(boolean textBold) {
+        this.textBold = textBold;
     }
 }

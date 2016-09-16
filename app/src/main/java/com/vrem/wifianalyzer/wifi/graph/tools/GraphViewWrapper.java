@@ -82,15 +82,17 @@ public class GraphViewWrapper {
         } else {
             current.appendData(data, true, count + 1);
         }
-        setThickness(wiFiDetail.getWiFiAdditional().isConnected() ? THICKNESS_CONNECTED : THICKNESS_REGULAR, current);
+        highlightConnected(wiFiDetail.getWiFiAdditional().isConnected(), current);
         return added;
     }
 
-    private void setThickness(int thickness, @NonNull BaseSeries<DataPoint> series) {
+    private void highlightConnected(boolean isConnected, @NonNull BaseSeries<DataPoint> series) {
         if (series instanceof LineGraphSeries) {
-            ((LineGraphSeries) series).setThickness(thickness);
+            ((LineGraphSeries) series).setThickness(isConnected ? THICKNESS_CONNECTED : THICKNESS_REGULAR);
         } else if (series instanceof TitleLineGraphSeries) {
-            ((TitleLineGraphSeries) series).setThickness(thickness);
+            TitleLineGraphSeries titleLineGraphSeries = (TitleLineGraphSeries) series;
+            titleLineGraphSeries.setThickness(isConnected ? THICKNESS_CONNECTED : THICKNESS_REGULAR);
+            titleLineGraphSeries.setTextBold(isConnected);
         }
     }
 
@@ -122,7 +124,7 @@ public class GraphViewWrapper {
         } else {
             current.resetData(data);
         }
-        setThickness(wiFiDetail.getWiFiAdditional().isConnected() ? THICKNESS_CONNECTED : THICKNESS_REGULAR, current);
+        highlightConnected(wiFiDetail.getWiFiAdditional().isConnected(), current);
         return added;
     }
 
