@@ -1,17 +1,18 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer.vendor.model;
@@ -33,6 +34,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class VendorService {
+    private static final int VENDOR_NAME_MAX = 50;
     private final Set<String> remoteCalls = new TreeSet<>();
     private final Map<String, String> cache = new HashMap<>();
 
@@ -46,7 +48,7 @@ public class VendorService {
         Database database = MainContext.INSTANCE.getDatabase();
         String result = database.find(macAddress);
         if (result != null) {
-            result = cleanVendorName(result);
+            result = VendorNameUtils.cleanVendorName(result);
             cache.put(key, result);
             return result;
         }
@@ -57,7 +59,7 @@ public class VendorService {
         return StringUtils.EMPTY;
     }
 
-    protected void clear() {
+    void clear() {
         cache.clear();
         remoteCalls.clear();
     }
@@ -67,7 +69,7 @@ public class VendorService {
         Database database = MainContext.INSTANCE.getDatabase();
         List<VendorData> vendorDatas = database.findAll();
         for (VendorData vendorData : vendorDatas) {
-            String key = cleanVendorName(vendorData.getName());
+            String key = VendorNameUtils.cleanVendorName(vendorData.getName());
             List<String> macs = results.get(key);
             if (macs == null) {
                 macs = new ArrayList<>();
@@ -79,25 +81,12 @@ public class VendorService {
         return results;
     }
 
-    private String cleanVendorName(String name) {
-        if (StringUtils.isEmpty(name)) {
-            return StringUtils.EMPTY;
-        }
-        return name
-                .replace(".", " ")
-                .replace(",", " ")
-                .replace("   ", " ")
-                .replace("  ", " ")
-                .trim()
-                .toUpperCase();
-    }
-
     // injectors start
     private RemoteCall getRemoteCall() {
         return remoteCall == null ? new RemoteCall() : remoteCall;
     }
 
-    protected void setRemoteCall(@NonNull RemoteCall remoteCall) {
+    void setRemoteCall(@NonNull RemoteCall remoteCall) {
         this.remoteCall = remoteCall;
     }
     // injectors end

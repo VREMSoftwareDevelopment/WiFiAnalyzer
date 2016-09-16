@@ -1,17 +1,18 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer.vendor.model;
@@ -47,6 +48,7 @@ import static org.mockito.Mockito.when;
 public class RemoteCallTest {
     private static final String MAC_ADDRESS = "00:23:AB:7B:58:99";
     private static final String VENDOR_NAME = "CISCO SYSTEMS, INC.";
+    private static final String LONG_VENDOR_NAME = "123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890";
 
     private Database database;
     private Logger logger;
@@ -54,7 +56,7 @@ public class RemoteCallTest {
     private RemoteCall fixture;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         RobolectricUtil.INSTANCE.getMainActivity();
 
         database = MainContextHelper.INSTANCE.getDatabase();
@@ -65,7 +67,7 @@ public class RemoteCallTest {
         fixture = new RemoteCall() {
             @Override
             protected URLConnection getURLConnection(String request) throws IOException {
-                String expectedRequest = String.format(MAX_VENDOR_LOOKUP, MAC_ADDRESS);
+                String expectedRequest = String.format(MAC_VENDOR_LOOKUP, MAC_ADDRESS);
                 assertEquals(expectedRequest, request);
                 return urlConnection;
             }
@@ -73,14 +75,14 @@ public class RemoteCallTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         MainContextHelper.INSTANCE.restore();
     }
 
     @Test
     public void testDoInBackground() throws Exception {
         // setup
-        String expected = new RemoteResult(MAC_ADDRESS, VENDOR_NAME).toJson();
+        String expected = new RemoteResult(MAC_ADDRESS, VendorNameUtils.cleanVendorName(VENDOR_NAME)).toJson();
         when(urlConnection.getInputStream()).thenReturn(new StringInputStream(VENDOR_NAME));
         // execute
         String actual = fixture.doInBackground(MAC_ADDRESS);
@@ -112,6 +114,17 @@ public class RemoteCallTest {
         String actual = fixture.doInBackground(MAC_ADDRESS);
         // validate
         assertEquals(StringUtils.EMPTY, actual);
+    }
+
+    @Test
+    public void testDoInBackgroundWithVeryLongResponse() throws Exception {
+        // setup
+        String expected = new RemoteResult(MAC_ADDRESS, VendorNameUtils.cleanVendorName(LONG_VENDOR_NAME)).toJson();
+        when(urlConnection.getInputStream()).thenReturn(new StringInputStream(LONG_VENDOR_NAME));
+        // execute
+        String actual = fixture.doInBackground(MAC_ADDRESS);
+        // validate
+        assertEquals(expected, actual);
     }
 
     @Test

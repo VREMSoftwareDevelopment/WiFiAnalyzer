@@ -1,17 +1,18 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer.wifi;
@@ -32,6 +33,7 @@ import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class ChannelRatingFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ChannelRatingAdapter channelRatingAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,7 +46,12 @@ public class ChannelRatingFragment extends Fragment {
 
         TextView bestChannels = (TextView) view.findViewById(R.id.channelRatingBestChannels);
         ListView listView = (ListView) view.findViewById(R.id.channelRatingView);
-        listView.setAdapter(new ChannelRatingAdapter(activity, bestChannels));
+
+        channelRatingAdapter = new ChannelRatingAdapter(activity, bestChannels);
+        listView.setAdapter(channelRatingAdapter);
+
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.register(channelRatingAdapter);
 
         return view;
     }
@@ -60,6 +67,13 @@ public class ChannelRatingFragment extends Fragment {
     public void onResume() {
         super.onResume();
         refresh();
+    }
+
+    @Override
+    public void onDestroy() {
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.unregister(channelRatingAdapter);
+        super.onDestroy();
     }
 
     private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {

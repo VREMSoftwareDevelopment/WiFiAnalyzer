@@ -1,17 +1,18 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private ThemeStyle currentThemeStyle;
     private NavigationMenuView navigationMenuView;
     private String currentCountryCode;
+    private ConnectionView connectionView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +91,9 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         navigationMenuView = new NavigationMenuView(this, settings.getStartMenu());
         onNavigationItemSelected(navigationMenuView.getCurrentMenuItem());
 
-        new ConnectionView(this);
+        connectionView = new ConnectionView(this);
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.register(connectionView);
     }
 
     private void initializeMainContext(@NonNull Context context) {
@@ -145,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         }
     }
 
-    protected boolean shouldReload() {
+    boolean shouldReload() {
         Settings settings = MainContext.INSTANCE.getSettings();
         ThemeStyle settingThemeStyle = settings.getThemeStyle();
         boolean result = !getCurrentThemeStyle().equals(settingThemeStyle);
@@ -177,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        NavigationMenu navigationMenu = navigationMenuView.findNavigationMenu(menuItem.getItemId());
+        NavigationMenu navigationMenu = NavigationMenu.find(menuItem.getItemId());
         Fragment fragment = navigationMenu.getFragment();
         if (fragment == null) {
             startActivity(new Intent(this, navigationMenu.getActivity()));
@@ -204,6 +208,13 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         scanner.resume();
     }
 
+    @Override
+    protected void onDestroy() {
+        Scanner scanner = MainContext.INSTANCE.getScanner();
+        scanner.unregister(connectionView);
+        super.onDestroy();
+    }
+
     private void updateSubTitle() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -227,11 +238,11 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         }
     }
 
-    protected ThemeStyle getCurrentThemeStyle() {
+    ThemeStyle getCurrentThemeStyle() {
         return currentThemeStyle;
     }
 
-    protected void setCurrentThemeStyle(ThemeStyle currentThemeStyle) {
+    void setCurrentThemeStyle(ThemeStyle currentThemeStyle) {
         this.currentThemeStyle = currentThemeStyle;
     }
 }

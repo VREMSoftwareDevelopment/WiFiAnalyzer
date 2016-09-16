@@ -1,17 +1,18 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer.wifi.band;
@@ -26,8 +27,8 @@ import java.util.List;
 public class WiFiChannelCountry {
     public static final String UNKNOWN = "Unknown";
 
-    protected static final List<Integer> DEFAULT_CHANNELS_GHZ2 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
-    protected static final List<Integer> DEFAULT_CHANNELS_GHZ5 = Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64);
+    static final List<Integer> DEFAULT_CHANNELS_GHZ2 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+    static final List<Integer> DEFAULT_CHANNELS_GHZ5 = Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64);
 
     private static final WiFiChannelCountry[] COUNTRY_CHANNELS = new WiFiChannelCountry[]{
         new WiFiChannelCountry("AE",
@@ -680,11 +681,11 @@ public class WiFiChannelCountry {
         return Collections.unmodifiableList(channelsGHZ5);
     }
 
-    protected boolean isChannelAvailableGHZ2(int channel) {
+    boolean isChannelAvailableGHZ2(int channel) {
         return channelsGHZ2.contains(channel);
     }
 
-    protected boolean isChannelAvailableGHZ5(int channel) {
+    boolean isChannelAvailableGHZ5(int channel) {
         return channelsGHZ5.contains(channel);
     }
 }

@@ -1,17 +1,18 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer.wifi.scanner;
@@ -21,7 +22,6 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.Logger;
@@ -36,7 +36,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -55,6 +54,8 @@ public class ScannerTest {
     private UpdateNotifier updateNotifier1;
     @Mock
     private UpdateNotifier updateNotifier2;
+    @Mock
+    private UpdateNotifier updateNotifier3;
     @Mock
     private WifiInfo wifiInfo;
     @Mock
@@ -77,14 +78,17 @@ public class ScannerTest {
     private Scanner fixture;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         scanResults = new ArrayList<>();
         cacheResults = new ArrayList<>();
         configuredNetworks = new ArrayList<>();
 
         fixture = new Scanner(wifiManager, handler, settings, transformer);
         fixture.setCache(cache);
-        fixture.addUpdateNotifier(updateNotifier1);
+
+        fixture.register(updateNotifier1);
+        fixture.register(updateNotifier2);
+        fixture.register(updateNotifier3);
     }
 
     @Test
@@ -93,25 +97,23 @@ public class ScannerTest {
     }
 
     @Test
-    public void testAddUpdateNotifierAllowsOnlyOneNotifierPerClass() throws Exception {
-        Map<String, UpdateNotifier> updateNotifiers = fixture.getUpdateNotifiers();
-        assertEquals(1, updateNotifiers.size());
-        assertEquals(updateNotifier1, updateNotifiers.get(updateNotifier1.getClass().getName()));
+    public void testRegister() throws Exception {
+        // setup
+        assertEquals(3, fixture.getUpdateNotifiers().size());
+        // execute
+        fixture.register(updateNotifier2);
+        // validate
+        assertEquals(4, fixture.getUpdateNotifiers().size());
+    }
 
-        fixture.addUpdateNotifier(updateNotifier2);
-        assertEquals(1, updateNotifiers.size());
-        assertEquals(updateNotifier2, updateNotifiers.get(updateNotifier1.getClass().getName()));
-
-        UpdateNotifier myUpdateNotifier = new UpdateNotifier() {
-            @Override
-            public void update(@NonNull WiFiData wiFiData) {
-                // testing
-            }
-        };
-
-        fixture.addUpdateNotifier(myUpdateNotifier);
-        assertEquals(2, updateNotifiers.size());
-        assertEquals(myUpdateNotifier, updateNotifiers.get(myUpdateNotifier.getClass().getName()));
+    @Test
+    public void testUnregister() throws Exception {
+        // setup
+        assertEquals(3, fixture.getUpdateNotifiers().size());
+        // execute
+        fixture.unregister(updateNotifier2);
+        // validate
+        assertEquals(2, fixture.getUpdateNotifiers().size());
     }
 
     @Test
@@ -127,6 +129,8 @@ public class ScannerTest {
         verifyTransfomer();
         verifyWiFiManager();
         verify(updateNotifier1).update(wiFiData);
+        verify(updateNotifier2).update(wiFiData);
+        verify(updateNotifier3).update(wiFiData);
     }
 
     @Test

@@ -1,17 +1,18 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer.wifi.graph.tools;
@@ -67,16 +68,16 @@ public class GraphViewBuilder {
         return graphView;
     }
 
-    protected LayoutParams getLayoutParams() {
+    LayoutParams getLayoutParams() {
         return layoutParams;
     }
 
-    protected void setGraphView(@NonNull GraphView graphView) {
+    void setGraphView(@NonNull GraphView graphView) {
         graphView.setLayoutParams(layoutParams);
         graphView.setVisibility(View.GONE);
     }
 
-    protected void setViewPortY(@NonNull GraphView graphView) {
+    void setViewPortY(@NonNull GraphView graphView) {
         Viewport viewport = graphView.getViewport();
         viewport.setScrollable(true);
         viewport.setYAxisBoundsManual(true);
@@ -85,7 +86,7 @@ public class GraphViewBuilder {
         viewport.setXAxisBoundsManual(true);
     }
 
-    protected void setGridLabelRenderer(@NonNull GraphView graphView) {
+    void setGridLabelRenderer(@NonNull GraphView graphView) {
         GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
         gridLabelRenderer.setHighlightZeroLines(false);
         gridLabelRenderer.setNumVerticalLabels(NUM_Y);

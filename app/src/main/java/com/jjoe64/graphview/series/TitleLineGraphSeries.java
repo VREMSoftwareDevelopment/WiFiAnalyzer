@@ -1,17 +1,18 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.jjoe64.graphview.series;
@@ -39,6 +40,7 @@ public class TitleLineGraphSeries<E extends DataPointInterface> extends BaseSeri
     private final Path path;
     private final Path pathBackground;
     private int thickness = 5;
+    private boolean textBold = false;
     private int backgroundColor = Color.argb(100, 172, 218, 255);
 
     public TitleLineGraphSeries(E[] data) {
@@ -181,6 +183,7 @@ public class TitleLineGraphSeries<E extends DataPointInterface> extends BaseSeri
 
             paintTitle.setColor(getColor());
             paintTitle.setTextSize(graphView.getLegendRenderer().getTextSize());
+            paintTitle.setFakeBoldText(textBold);
             canvas.drawText(getTitle(), x, y, paintTitle);
         }
     }
@@ -189,7 +192,11 @@ public class TitleLineGraphSeries<E extends DataPointInterface> extends BaseSeri
         this.backgroundColor = backgroundColor;
     }
 
-    public void zeroThickness() {
-        this.thickness = 0;
+    public void setThickness(int thickness) {
+        this.thickness = thickness;
+    }
+
+    public void setTextBold(boolean textBold) {
+        this.textBold = textBold;
     }
 }

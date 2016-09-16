@@ -1,17 +1,18 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer.wifi.graph.tools;
@@ -32,18 +33,18 @@ import java.util.TreeMap;
 class SeriesCache {
     private final Map<WiFiDetail, BaseSeries<DataPoint>> cache;
 
-    protected SeriesCache() {
+    SeriesCache() {
         this.cache = new TreeMap<>();
     }
 
-    protected BaseSeries<DataPoint> add(@NonNull WiFiDetail wiFiDetail, @NonNull BaseSeries<DataPoint> series) {
+    BaseSeries<DataPoint> add(@NonNull WiFiDetail wiFiDetail, @NonNull BaseSeries<DataPoint> series) {
         if (!contains(wiFiDetail)) {
             cache.put(wiFiDetail, series);
         }
         return cache.get(wiFiDetail);
     }
 
-    protected List<BaseSeries<DataPoint>> remove(@NonNull Set<WiFiDetail> series) {
+    List<BaseSeries<DataPoint>> remove(@NonNull Set<WiFiDetail> series) {
         List<BaseSeries<DataPoint>> removeSeries = new ArrayList<>();
         List<WiFiDetail> removeFromCache = new ArrayList<>();
         for (WiFiDetail wiFiDetail : cache.keySet()) {
@@ -59,7 +60,7 @@ class SeriesCache {
         return removeSeries;
     }
 
-    protected WiFiDetail find(@NonNull Series series) {
+    WiFiDetail find(@NonNull Series series) {
         for (WiFiDetail wiFiDetail : cache.keySet()) {
             if (series.equals(cache.get(wiFiDetail))) {
                 return wiFiDetail;
@@ -68,7 +69,7 @@ class SeriesCache {
         return null;
     }
 
-    protected boolean contains(@NonNull WiFiDetail wiFiDetail) {
+    boolean contains(@NonNull WiFiDetail wiFiDetail) {
         return cache.containsKey(wiFiDetail);
     }
 }

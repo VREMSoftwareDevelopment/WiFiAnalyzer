@@ -1,17 +1,18 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer;
@@ -42,7 +43,7 @@ public enum MainContext {
         return settings;
     }
 
-    protected void setSettings(Settings settings) {
+    void setSettings(Settings settings) {
         this.settings = settings;
     }
 
@@ -50,7 +51,7 @@ public enum MainContext {
         return vendorService;
     }
 
-    protected void setVendorService(VendorService vendorService) {
+    void setVendorService(VendorService vendorService) {
         this.vendorService = vendorService;
     }
 
@@ -58,7 +59,7 @@ public enum MainContext {
         return scanner;
     }
 
-    protected void setScanner(Scanner scanner) {
+    void setScanner(Scanner scanner) {
         this.scanner = scanner;
     }
 
@@ -66,7 +67,7 @@ public enum MainContext {
         return layoutInflater;
     }
 
-    protected void setLayoutInflater(LayoutInflater layoutInflater) {
+    void setLayoutInflater(LayoutInflater layoutInflater) {
         this.layoutInflater = layoutInflater;
     }
 
@@ -74,7 +75,7 @@ public enum MainContext {
         return database;
     }
 
-    protected void setDatabase(Database database) {
+    void setDatabase(Database database) {
         this.database = database;
     }
 
@@ -82,7 +83,7 @@ public enum MainContext {
         return resources;
     }
 
-    protected void setResources(Resources resources) {
+    void setResources(Resources resources) {
         this.resources = resources;
     }
 
@@ -90,7 +91,7 @@ public enum MainContext {
         return context;
     }
 
-    protected void setContext(Context context) {
+    void setContext(Context context) {
         this.context = context;
     }
 
@@ -98,7 +99,7 @@ public enum MainContext {
         return logger;
     }
 
-    protected void setLogger(Logger logger) {
+    void setLogger(Logger logger) {
         this.logger = logger;
     }
 
@@ -106,7 +107,7 @@ public enum MainContext {
         return configuration;
     }
 
-    protected void setConfiguration(Configuration configuration) {
+    void setConfiguration(Configuration configuration) {
         this.configuration = configuration;
     }
 }

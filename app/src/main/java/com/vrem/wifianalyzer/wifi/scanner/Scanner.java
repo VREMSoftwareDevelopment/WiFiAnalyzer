@@ -1,21 +1,25 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer.wifi.scanner;
 
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -23,41 +27,53 @@ import android.support.annotation.NonNull;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Scanner {
-    private final Map<String, UpdateNotifier> updateNotifiers;
+    private final List<UpdateNotifier> updateNotifiers;
     private final WifiManager wifiManager;
     private final Transformer transformer;
     private Cache cache;
     private PeriodicScan periodicScan;
 
     public Scanner(@NonNull WifiManager wifiManager, @NonNull Handler handler, @NonNull Settings settings, @NonNull Transformer transformer) {
+        this.updateNotifiers = new ArrayList<>();
         this.wifiManager = wifiManager;
-        this.updateNotifiers = new TreeMap<>();
         this.transformer = transformer;
         this.setCache(new Cache());
         this.periodicScan = new PeriodicScan(this, handler, settings);
     }
 
     public void update() {
-        if (!wifiManager.isWifiEnabled()) {
-            wifiManager.setWifiEnabled(true);
-        }
-        if (wifiManager.startScan()) {
-            cache.add(wifiManager.getScanResults());
-            WiFiData wiFiData = transformer.transformToWiFiData(cache.getScanResults(), wifiManager.getConnectionInfo(), wifiManager.getConfiguredNetworks());
-            for (String key : updateNotifiers.keySet()) {
-                UpdateNotifier updateNotifier = updateNotifiers.get(key);
-                updateNotifier.update(wiFiData);
+        List<ScanResult> scanResults = new ArrayList<>();
+        WifiInfo connectionInfo = null;
+        List<WifiConfiguration> configuredNetworks = null;
+        try {
+            if (!wifiManager.isWifiEnabled()) {
+                wifiManager.setWifiEnabled(true);
             }
+            if (wifiManager.startScan()) {
+                scanResults = wifiManager.getScanResults();
+            }
+            connectionInfo = wifiManager.getConnectionInfo();
+            configuredNetworks = wifiManager.getConfiguredNetworks();
+        } catch (Exception e) {
+            // critical error: set to no results and do not die
+        }
+        cache.add(scanResults);
+        WiFiData wiFiData = transformer.transformToWiFiData(cache.getScanResults(), connectionInfo, configuredNetworks);
+        for (UpdateNotifier updateNotifier : updateNotifiers) {
+            updateNotifier.update(wiFiData);
         }
     }
 
-    public void addUpdateNotifier(@NonNull UpdateNotifier updateNotifier) {
-        String key = updateNotifier.getClass().getName();
-        updateNotifiers.put(key, updateNotifier);
+    public void register(@NonNull UpdateNotifier updateNotifier) {
+        updateNotifiers.add(updateNotifier);
+    }
+
+    public void unregister(@NonNull UpdateNotifier updateNotifier) {
+        updateNotifiers.remove(updateNotifier);
     }
 
     public void pause() {
@@ -72,20 +88,19 @@ public class Scanner {
         periodicScan.start();
     }
 
-    protected PeriodicScan getPeriodicScan() {
+    PeriodicScan getPeriodicScan() {
         return periodicScan;
     }
 
-    protected void setPeriodicScan(@NonNull PeriodicScan periodicScan) {
+    void setPeriodicScan(@NonNull PeriodicScan periodicScan) {
         this.periodicScan = periodicScan;
     }
 
-    protected void setCache(@NonNull Cache cache) {
+    void setCache(@NonNull Cache cache) {
         this.cache = cache;
     }
 
-    protected Map<String, UpdateNotifier> getUpdateNotifiers() {
+    List<UpdateNotifier> getUpdateNotifiers() {
         return updateNotifiers;
     }
-
 }

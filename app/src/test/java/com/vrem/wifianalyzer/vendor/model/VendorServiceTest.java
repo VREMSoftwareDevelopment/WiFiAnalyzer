@@ -1,17 +1,18 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer.vendor.model;
@@ -51,14 +52,14 @@ public class VendorServiceTest {
     private VendorService fixture;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         database = MainContextHelper.INSTANCE.getDatabase();
         fixture = new VendorService();
         fixture.setRemoteCall(remoteCall);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         fixture.clear();
         MainContextHelper.INSTANCE.restore();
     }
@@ -115,11 +116,11 @@ public class VendorServiceTest {
         verify(database).findAll();
 
         assertEquals(3, actual.size());
-        assertEquals(1, actual.get(vendorDatas.get(0).getName()).size());
-        assertEquals(3, actual.get(vendorDatas.get(1).getName()).size());
-        assertEquals(1, actual.get(vendorDatas.get(4).getName()).size());
+        assertEquals(1, actual.get(VendorNameUtils.cleanVendorName(vendorDatas.get(0).getName())).size());
+        assertEquals(3, actual.get(VendorNameUtils.cleanVendorName(vendorDatas.get(1).getName())).size());
+        assertEquals(1, actual.get(VendorNameUtils.cleanVendorName(vendorDatas.get(4).getName())).size());
 
-        List<String> macs = actual.get(vendorDatas.get(1).getName());
+        List<String> macs = actual.get(VendorNameUtils.cleanVendorName(vendorDatas.get(1).getName()));
         assertEquals(vendorDatas.get(3).getMac(), macs.get(0));
         assertEquals(vendorDatas.get(1).getMac(), macs.get(1));
         assertEquals(vendorDatas.get(2).getMac(), macs.get(2));
@@ -128,11 +129,11 @@ public class VendorServiceTest {
     @NonNull
     private List<VendorData> withVendorDatas() {
         return Arrays.asList(
-                new VendorData(3, "NAME3", "Mac3"),
-                new VendorData(4, "NAME1", "Mac1-2"),
-                new VendorData(1, "NAME1", "Mac1-3"),
-                new VendorData(2, "NAME1", "Mac1-1"),
-                new VendorData(5, "NAME2", "Mac2"));
+            new VendorData(3, VENDOR_NAME + " 3", "Mac3"),
+            new VendorData(4, VENDOR_NAME + " 1", "Mac1-2"),
+            new VendorData(1, VENDOR_NAME + " 1", "Mac1-3"),
+            new VendorData(2, VENDOR_NAME + " 1", "Mac1-1"),
+            new VendorData(5, VENDOR_NAME + " 2", "Mac2"));
     }
 
 }

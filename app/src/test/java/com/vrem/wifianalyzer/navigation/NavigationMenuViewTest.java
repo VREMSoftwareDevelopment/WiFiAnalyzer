@@ -1,17 +1,18 @@
 /*
- *    Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer.navigation;
@@ -32,6 +33,8 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -41,14 +44,14 @@ public class NavigationMenuViewTest {
     private NavigationView navigationView;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
         fixture = mainActivity.getNavigationMenuView();
         navigationView = fixture.getNavigationView();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         fixture.setCurrentNavigationMenu(NavigationMenu.ACCESS_POINTS);
     }
 
@@ -73,11 +76,13 @@ public class NavigationMenuViewTest {
     @Test
     public void testGetCurrentMenuItem() throws Exception {
         // setup
-        MenuItem expected = navigationView.getMenu().getItem(NavigationMenu.ACCESS_POINTS.ordinal());
+        MenuItem expected = getMenuItem(NavigationMenu.ACCESS_POINTS);
         // execute
         MenuItem actual = fixture.getCurrentMenuItem();
         // validate
         assertEquals(expected, actual);
+        assertTrue(actual.isCheckable());
+        assertTrue(actual.isChecked());
     }
 
     @Test
@@ -96,16 +101,13 @@ public class NavigationMenuViewTest {
         fixture.setCurrentNavigationMenu(expected);
         // validate
         assertEquals(expected, fixture.getCurrentNavigationMenu());
+        assertTrue(getMenuItem(NavigationMenu.CHANNEL_GRAPH).isCheckable());
+        assertTrue(getMenuItem(NavigationMenu.CHANNEL_GRAPH).isChecked());
+        assertFalse(getMenuItem(NavigationMenu.ACCESS_POINTS).isCheckable());
+        assertFalse(getMenuItem(NavigationMenu.ACCESS_POINTS).isChecked());
     }
 
-    @Test
-    public void testFindCurrentNavigationMenu() throws Exception {
-        // setup
-        NavigationMenu expected = NavigationMenu.CHANNEL_RATING;
-        // execute
-        NavigationMenu actual = fixture.findNavigationMenu(expected.ordinal());
-        // validate
-        assertEquals(expected, actual);
+    private MenuItem getMenuItem(NavigationMenu navigationMenu) {
+        return navigationView.getMenu().getItem(navigationMenu.ordinal());
     }
-
 }

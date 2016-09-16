@@ -17,17 +17,23 @@
 
 package com.vrem.wifianalyzer.vendor.model;
 
-import android.support.annotation.NonNull;
+import org.apache.commons.lang3.StringUtils;
 
-class MacAddress {
-    private static final int MAX_LEN = 6;
+class VendorNameUtils {
+    private static final int VENDOR_NAME_MAX = 50;
 
-    private MacAddress() {
+    static String cleanVendorName(String name) {
+        if (StringUtils.isNotBlank(name)) {
+            String result = name
+                .replaceAll("[._+:~^#$%!@`&*;,?|-]", " ")
+                .replaceAll(" +", " ")
+                .trim()
+                .toUpperCase();
+
+            if (StringUtils.isAlphanumericSpace(result)) {
+                return result.substring(0, Math.min(result.length(), VENDOR_NAME_MAX));
+            }
+        }
+        return StringUtils.EMPTY;
     }
-
-    static String clean(@NonNull String macAddress) {
-        String result = macAddress.replace(":", "");
-        return result.substring(0, Math.min(result.length(), MAX_LEN)).toUpperCase();
-    }
-
 }
