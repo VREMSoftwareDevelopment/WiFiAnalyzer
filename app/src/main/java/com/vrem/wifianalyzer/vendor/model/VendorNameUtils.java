@@ -23,17 +23,15 @@ class VendorNameUtils {
     private static final int VENDOR_NAME_MAX = 50;
 
     static String cleanVendorName(String name) {
-        if (StringUtils.isNotBlank(name)) {
-            String result = name
-                .replaceAll("[._+:~^#$%!@`&*;,?|-]", " ")
-                .replaceAll(" +", " ")
-                .trim()
-                .toUpperCase();
-
-            if (StringUtils.isAlphanumericSpace(result)) {
-                return result.substring(0, Math.min(result.length(), VENDOR_NAME_MAX));
-            }
+        if (StringUtils.isBlank(name) || name.contains("<") || name.contains(">")) {
+            return StringUtils.EMPTY;
         }
-        return StringUtils.EMPTY;
+        String result = name
+            .replaceAll("[^a-zA-Z0-9]", " ")
+            .replaceAll(" +", " ")
+            .trim()
+            .toUpperCase();
+
+        return result.substring(0, Math.min(result.length(), VENDOR_NAME_MAX));
     }
 }

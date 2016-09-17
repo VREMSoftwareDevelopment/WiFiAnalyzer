@@ -42,10 +42,28 @@ public class VendorNameUtilsTest {
     }
 
     @Test
+    public void testCleanVendorNameAsHTML() throws Exception {
+        // execute & validate
+        assertEquals(StringUtils.EMPTY, VendorNameUtils.cleanVendorName("X < Y Z"));
+        assertEquals(StringUtils.EMPTY, VendorNameUtils.cleanVendorName("X Y > Z"));
+    }
+
+    @Test
+    public void testCleanVendorNameTrimsBlanks() throws Exception {
+        // setup
+        String input = " X    Y    Z  ";
+        String expected = "X Y Z";
+        // execute
+        String actual = VendorNameUtils.cleanVendorName(input);
+        // validate
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void testCleanVendorNameWithSpecialCharacters() throws Exception {
         // setup
-        String input = "X.Y.Z _ ABC + 123 : ~ ^ # $ % ! @ `& * ; ? | 567  -  Z,Y,X";
-        String expected = "X Y Z ABC 123 567 Z Y X";
+        String input = "X ~`!@#$%^&*()_-+={[}]|\\:;\"',.?/Y";
+        String expected = "X Y";
         // execute
         String actual = VendorNameUtils.cleanVendorName(input);
         // validate
@@ -56,11 +74,10 @@ public class VendorNameUtilsTest {
     public void testCleanVendorNameWithMaximumLength() throws Exception {
         // setup
         String input = "123456789012345678901234567890123456789012345678901234567890";
-        int expected = 50;
         // execute
         String actual = VendorNameUtils.cleanVendorName(input);
         // validate
-        assertEquals(expected, actual.length());
+        assertEquals(input.substring(0, 50), actual);
     }
 
 }
