@@ -18,6 +18,8 @@
 
 package com.vrem.wifianalyzer;
 
+import android.text.Html;
+
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
@@ -52,29 +54,41 @@ public class MainActivityTest {
 
     @Test
     public void testMainActivity() throws Exception {
-        assertEquals(WiFiBand.GHZ2.getBand(), fixture.getSupportActionBar().getSubtitle());
+        // setup
+        WiFiBand currentWiFiBand = WiFiBand.GHZ2;
+        String expected = makeSubtitle(currentWiFiBand);
+        // execute
+        CharSequence actual = fixture.getSupportActionBar().getSubtitle();
+        // validate
+        assertEquals(expected, actual.toString());
         assertTrue(MainContext.INSTANCE.getScanner().isRunning());
     }
 
     @Test
     public void testClickingOnToolbarTogglesWiFiBand() throws Exception {
+        // setup
+        String expectedGHZ2 = makeSubtitle(WiFiBand.GHZ2);
+        String expectedGHZ5 = makeSubtitle(WiFiBand.GHZ5);
+        // execute & validate
         assertEquals(NavigationMenu.ACCESS_POINTS, fixture.getNavigationMenuView().getCurrentNavigationMenu());
 
-        assertEquals(WiFiBand.GHZ2.getBand(), fixture.getSupportActionBar().getSubtitle());
+        assertEquals(expectedGHZ2, fixture.getSupportActionBar().getSubtitle().toString());
         fixture.findViewById(R.id.toolbar).performClick();
-        assertEquals(WiFiBand.GHZ5.getBand(), fixture.getSupportActionBar().getSubtitle());
+        assertEquals(expectedGHZ5, fixture.getSupportActionBar().getSubtitle().toString());
         fixture.findViewById(R.id.toolbar).performClick();
-        assertEquals(WiFiBand.GHZ2.getBand(), fixture.getSupportActionBar().getSubtitle());
+        assertEquals(expectedGHZ2, fixture.getSupportActionBar().getSubtitle().toString());
     }
 
     @Test
     public void testClickingOnToolbarDoesNotTogglesWiFiBand() throws Exception {
+        // setup
         NavigationMenuView navigationMenuView = fixture.getNavigationMenuView();
         navigationMenuView.setCurrentNavigationMenu(NavigationMenu.VENDOR_LIST);
-
-        assertEquals(WiFiBand.GHZ2.getBand(), fixture.getSupportActionBar().getSubtitle());
+        String expectedGHZ2 = makeSubtitle(WiFiBand.GHZ2);
+        // execute and validate
+        assertEquals(expectedGHZ2, fixture.getSupportActionBar().getSubtitle().toString());
         fixture.findViewById(R.id.toolbar).performClick();
-        assertEquals(WiFiBand.GHZ2.getBand(), fixture.getSupportActionBar().getSubtitle());
+        assertEquals(expectedGHZ2, fixture.getSupportActionBar().getSubtitle().toString());
     }
 
     @Test
@@ -110,6 +124,11 @@ public class MainActivityTest {
         // execute && validate
         assertTrue(fixture.shouldReload());
         assertEquals(expected, fixture.getCurrentThemeStyle());
+    }
+
+    private String makeSubtitle(WiFiBand currentWiFiBand) {
+        WiFiBand nextWiFiBand = WiFiBand.GHZ2.equals(currentWiFiBand) ? WiFiBand.GHZ5 : WiFiBand.GHZ2;
+        return Html.fromHtml(currentWiFiBand.getBand() + "\t\t\t<small>(<a href=\"#\">" + nextWiFiBand.getBand() + "</a>)</small>").toString();
     }
 
 }
