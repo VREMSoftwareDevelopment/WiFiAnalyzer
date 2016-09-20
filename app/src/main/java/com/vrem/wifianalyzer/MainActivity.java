@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     private ThemeStyle currentThemeStyle;
     private NavigationMenuView navigationMenuView;
+    private NavigationMenu startNavigationMenu;
     private String currentCountryCode;
     private ConnectionView connectionView;
 
@@ -90,7 +91,8 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        navigationMenuView = new NavigationMenuView(this, settings.getStartMenu());
+        startNavigationMenu = settings.getStartMenu();
+        navigationMenuView = new NavigationMenuView(this, startNavigationMenu);
         onNavigationItemSelected(navigationMenuView.getCurrentMenuItem());
 
         connectionView = new ConnectionView(this);
@@ -175,7 +177,12 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (startNavigationMenu.equals(navigationMenuView.getCurrentNavigationMenu())) {
+                super.onBackPressed();
+            } else {
+                navigationMenuView.setCurrentNavigationMenu(startNavigationMenu);
+                onNavigationItemSelected(navigationMenuView.getCurrentMenuItem());
+            }
         }
     }
 
