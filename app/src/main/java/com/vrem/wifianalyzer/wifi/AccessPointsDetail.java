@@ -1,19 +1,18 @@
 /*
- * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.vrem.wifianalyzer.wifi;
@@ -40,7 +39,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import org.apache.commons.lang3.StringUtils;
 
 public class AccessPointsDetail {
-    public void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean child, boolean frequencyRange) {
+    public void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, AccessPointsDetailOptions options) {
         TextView textSSID = (TextView) view.findViewById(R.id.ssid);
         TextView textIPAddress = (TextView) view.findViewById(R.id.ipAddress);
         TextView textLinkSpeed = (TextView) view.findViewById(R.id.linkSpeed);
@@ -103,13 +102,13 @@ public class AccessPointsDetail {
             textVendor.setText(vendor);
         }
 
-        if (child) {
+        if (options.isChild()) {
             view.findViewById(R.id.tab).setVisibility(View.VISIBLE);
         } else {
             view.findViewById(R.id.tab).setVisibility(View.GONE);
         }
 
-        if (frequencyRange) {
+        if (options.isFrequencyRange()) {
             view.findViewById(R.id.channel_frequency_range_row).setVisibility(View.VISIBLE);
             ((TextView) view.findViewById(R.id.channel_frequency_range)).setText(String.format("%d - %d %s",
                     wiFiSignal.getFrequencyStart(), wiFiSignal.getFrequencyEnd(), WifiInfo.FREQUENCY_UNITS));
@@ -122,7 +121,8 @@ public class AccessPointsDetail {
         View view = inflater.inflate(R.layout.access_points_details_popup, null);
         Dialog dialog = new Dialog(context);
         dialog.setContentView(view);
-        setView(context.getResources(), view, wiFiDetail, false, true);
+        AccessPointsDetailOptions accessPointsDetailOptions = new AccessPointsDetailOptions(false, true);
+        setView(context.getResources(), view, wiFiDetail, accessPointsDetailOptions);
         dialog.findViewById(R.id.popupButton).setOnClickListener(new PopupDialogListener(dialog));
         return dialog;
     }
