@@ -236,11 +236,20 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         Settings settings = MainContext.INSTANCE.getSettings();
         CharSequence subtitle = StringUtils.EMPTY;
         if (navigationMenu.isWiFiBandSwitchable()) {
+            int color = getResources().getColor(R.color.connected);
             WiFiBand currentWiFiBand = settings.getWiFiBand();
-            WiFiBand nextWiFiBand = WiFiBand.GHZ2.equals(currentWiFiBand) ? WiFiBand.GHZ5 : WiFiBand.GHZ2;
-            subtitle = Html.fromHtml(currentWiFiBand.getBand() + "\t\t\t<small>(<a href=\"#\">" + nextWiFiBand.getBand() + "</a>)</small>");
+            String subtitleText = makeSubtitleText("<font color='" + color + "'><strong>", "</strong></font>", "<small>", "</small>");
+            if (WiFiBand.GHZ5.equals(currentWiFiBand)) {
+                subtitleText = makeSubtitleText("<small>", "</small>", "<font color='" + color + "'><strong>", "</strong></font>");
+            }
+            subtitle = Html.fromHtml(subtitleText);
         }
         return subtitle;
+    }
+
+    @NonNull
+    private String makeSubtitleText(@NonNull String tag1, @NonNull String tag2, @NonNull String tag3, @NonNull String tag4) {
+        return tag1 + WiFiBand.GHZ2.getBand() + tag2 + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + tag3 + WiFiBand.GHZ5.getBand() + tag4;
     }
 
     public NavigationMenuView getNavigationMenuView() {

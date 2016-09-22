@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer;
 
+import android.support.annotation.NonNull;
 import android.text.Html;
 
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
@@ -126,9 +127,19 @@ public class MainActivityTest {
         assertEquals(expected, fixture.getCurrentThemeStyle());
     }
 
-    private String makeSubtitle(WiFiBand currentWiFiBand) {
-        WiFiBand nextWiFiBand = WiFiBand.GHZ2.equals(currentWiFiBand) ? WiFiBand.GHZ5 : WiFiBand.GHZ2;
-        return Html.fromHtml(currentWiFiBand.getBand() + "\t\t\t<small>(<a href=\"#\">" + nextWiFiBand.getBand() + "</a>)</small>").toString();
+    @NonNull
+    private String makeSubtitle(@NonNull WiFiBand currentWiFiBand) {
+        int color = fixture.getResources().getColor(R.color.connected);
+        String subtitleText = makeSubtitleText("<font color='" + color + "'><strong>", "</strong></font>", "<small>", "</small>");
+        if (WiFiBand.GHZ5.equals(currentWiFiBand)) {
+            subtitleText = makeSubtitleText("<small>", "</small>", "<font color='" + color + "'><strong>", "</strong></font>");
+        }
+        return Html.fromHtml(subtitleText).toString();
+    }
+
+    @NonNull
+    private String makeSubtitleText(@NonNull String tag1, @NonNull String tag2, @NonNull String tag3, @NonNull String tag4) {
+        return tag1 + WiFiBand.GHZ2.getBand() + tag2 + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + tag3 + WiFiBand.GHZ5.getBand() + tag4;
     }
 
 }
