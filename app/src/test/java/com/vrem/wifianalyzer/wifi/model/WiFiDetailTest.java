@@ -101,4 +101,23 @@ public class WiFiDetailTest {
         // execute & validate
         assertTrue(fixture.isHidden());
     }
+
+    @Test
+    public void testWiFiDetailCopyConstructor() throws Exception {
+        // setup
+        WiFiDetail expected = new WiFiDetail(StringUtils.EMPTY, BSSID, WPA, wiFiSignal);
+        // execute
+        WiFiDetail actual = new WiFiDetail(expected, expected.getWiFiAdditional());
+        // validate
+        assertEquals(expected, actual);
+        assertEquals(expected.getSSID(), actual.getSSID());
+        assertEquals(expected.getBSSID(), actual.getBSSID());
+        assertEquals(expected.getCapabilities(), actual.getCapabilities());
+        assertEquals(expected.getTitle(), actual.getTitle());
+        assertEquals(expected.getSecurity(), actual.getSecurity());
+        assertEquals(expected.isHidden(), actual.isHidden());
+        assertEquals(expected.getWiFiAdditional(), actual.getWiFiAdditional());
+        assertEquals(expected.getWiFiSignal(), actual.getWiFiSignal());
+    }
+
 }

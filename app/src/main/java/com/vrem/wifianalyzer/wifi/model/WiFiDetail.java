@@ -54,7 +54,7 @@ public class WiFiDetail implements Comparable<WiFiDetail> {
     }
 
     public WiFiDetail(@NonNull WiFiDetail wiFiDetail, @NonNull WiFiAdditional wiFiAdditional) {
-        this(wiFiDetail.getSSID(), wiFiDetail.getBSSID(), wiFiDetail.getCapabilities(), wiFiDetail.getWiFiSignal(), wiFiAdditional);
+        this(wiFiDetail.SSID, wiFiDetail.BSSID, wiFiDetail.getCapabilities(), wiFiDetail.getWiFiSignal(), wiFiAdditional);
     }
 
     public Security getSecurity() {
