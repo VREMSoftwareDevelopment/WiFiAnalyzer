@@ -49,17 +49,17 @@ public class GraphColor {
 
         GraphColor otherDetail = (GraphColor) other;
         return new EqualsBuilder()
-                .append(getPrimary(), (otherDetail).getPrimary())
-                .append(getBackground(), (otherDetail).getBackground())
-                .isEquals();
+            .append(getPrimary(), (otherDetail).getPrimary())
+            .append(getBackground(), (otherDetail).getBackground())
+            .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(getPrimary())
-                .append(getBackground())
-                .toHashCode();
+            .append(getPrimary())
+            .append(getBackground())
+            .toHashCode();
     }
 
     @Override

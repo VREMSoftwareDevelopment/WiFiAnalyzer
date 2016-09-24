@@ -18,9 +18,9 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
 
     <!-- Column 1 -->
     <TextView
@@ -82,9 +82,9 @@
 
                 <ImageView
                     android:id="@+id/levelImage"
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
 
@@ -216,7 +216,7 @@
                         android:id="@+id/vendor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="gone" />
+                        android:visibility="gone"/>
 
                 </LinearLayout>
             </LinearLayout>

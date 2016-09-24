@@ -33,31 +33,31 @@ public class NavigationGroupTest {
     @Test
     public void testNavigationGroupOrder() throws Exception {
         assertArrayEquals(new NavigationGroup[]{
-                        NavigationGroup.GROUP_FEATURE,
-                        NavigationGroup.GROUP_OTHER,
-                        NavigationGroup.GROUP_SETTINGS,
-                },
-                NavigationGroup.values());
+                NavigationGroup.GROUP_FEATURE,
+                NavigationGroup.GROUP_OTHER,
+                NavigationGroup.GROUP_SETTINGS,
+            },
+            NavigationGroup.values());
     }
 
     @Test
     public void testNavigationGroupMenuItems() throws Exception {
         assertArrayEquals(new NavigationMenu[]{
-                        NavigationMenu.ACCESS_POINTS,
-                        NavigationMenu.CHANNEL_RATING,
-                        NavigationMenu.CHANNEL_GRAPH,
-                        NavigationMenu.TIME_GRAPH
-                },
-                NavigationGroup.GROUP_FEATURE.navigationMenu());
+                NavigationMenu.ACCESS_POINTS,
+                NavigationMenu.CHANNEL_RATING,
+                NavigationMenu.CHANNEL_GRAPH,
+                NavigationMenu.TIME_GRAPH
+            },
+            NavigationGroup.GROUP_FEATURE.navigationMenu());
         assertArrayEquals(new NavigationMenu[]{
-                        NavigationMenu.CHANNEL_AVAILABLE,
-                        NavigationMenu.VENDOR_LIST
-                },
-                NavigationGroup.GROUP_OTHER.navigationMenu());
+                NavigationMenu.CHANNEL_AVAILABLE,
+                NavigationMenu.VENDOR_LIST
+            },
+            NavigationGroup.GROUP_OTHER.navigationMenu());
         assertArrayEquals(new NavigationMenu[]{
-                        NavigationMenu.SETTINGS,
-                        NavigationMenu.ABOUT
-                },
-                NavigationGroup.GROUP_SETTINGS.navigationMenu());
+                NavigationMenu.SETTINGS,
+                NavigationMenu.ABOUT
+            },
+            NavigationGroup.GROUP_SETTINGS.navigationMenu());
     }
 }

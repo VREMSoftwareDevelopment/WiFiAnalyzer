@@ -70,17 +70,17 @@ public class WiFiConnection {
             return false;
         }
         return new EqualsBuilder()
-                .append(getSSID(), ((WiFiConnection) other).getSSID())
-                .append(getBSSID(), ((WiFiConnection) other).getBSSID())
-                .isEquals();
+            .append(getSSID(), ((WiFiConnection) other).getSSID())
+            .append(getBSSID(), ((WiFiConnection) other).getBSSID())
+            .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(getSSID())
-                .append(getBSSID())
-                .toHashCode();
+            .append(getSSID())
+            .append(getBSSID())
+            .toHashCode();
     }
 
     @Override

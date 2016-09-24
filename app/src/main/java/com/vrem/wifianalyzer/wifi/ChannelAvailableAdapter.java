@@ -49,15 +49,15 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
         }
         WiFiChannelCountry wiFiChannelCountry = getItem(position);
         ((TextView) view.findViewById(R.id.channel_available_country))
-                .setText(wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName());
+            .setText(wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName());
         ((TextView) view.findViewById(R.id.channel_available_title_ghz_2))
-                .setText(WiFiBand.GHZ2.getBand() + " : ");
+            .setText(WiFiBand.GHZ2.getBand() + " : ");
         ((TextView) view.findViewById(R.id.channel_available_ghz_2))
-                .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ2().toArray(), ","));
+            .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ2().toArray(), ","));
         ((TextView) view.findViewById(R.id.channel_available_title_ghz_5))
-                .setText(WiFiBand.GHZ5.getBand() + " : ");
+            .setText(WiFiBand.GHZ5.getBand() + " : ");
         ((TextView) view.findViewById(R.id.channel_available_ghz_5))
-                .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ5().toArray(), ","));
+            .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ5().toArray(), ","));
         return view;
     }
 

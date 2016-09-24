@@ -47,10 +47,14 @@ public class DatabaseTest {
     private static final long ID = 213L;
     private static final int INDEX = 2;
 
-    @Mock private SQLiteDatabase sqliteDatabase;
-    @Mock private Cursor cursor;
-    @Mock private ContentValues contentValues;
-    @Mock private Context context;
+    @Mock
+    private SQLiteDatabase sqliteDatabase;
+    @Mock
+    private Cursor cursor;
+    @Mock
+    private ContentValues contentValues;
+    @Mock
+    private Context context;
 
     private Database fixture;
 
@@ -124,9 +128,9 @@ public class DatabaseTest {
                 Database.TABLE_NAME,
                 new String[]{Database.COLUMN_NAME},
                 Database.COLUMN_MAC + "=?",
-                    new String[]{MacAddress.clean(MAC_ADDRESS)},
+                new String[]{MacAddress.clean(MAC_ADDRESS)},
                 null, null, null)
-            ).thenReturn(cursor);
+        ).thenReturn(cursor);
         when(cursor.moveToFirst()).thenReturn(moveToFirstReturn);
     }
 
@@ -135,7 +139,7 @@ public class DatabaseTest {
             .query(Database.TABLE_NAME,
                 new String[]{Database.COLUMN_NAME},
                 Database.COLUMN_MAC + "=?",
-                    new String[]{MacAddress.clean(MAC_ADDRESS)},
+                new String[]{MacAddress.clean(MAC_ADDRESS)},
                 null, null, null);
         verify(cursor).moveToFirst();
     }

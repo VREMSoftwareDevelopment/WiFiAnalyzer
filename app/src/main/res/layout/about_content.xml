@@ -18,12 +18,12 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
 
-    <include layout="@layout/main_toolbar" />
+    <include layout="@layout/main_toolbar"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,21 +44,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@+id/app_name"
-                android:src="@drawable/ic_wifi_green_800_48dp" />
+                android:src="@drawable/ic_wifi_green_800_48dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingRight="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_vertical_margin">
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:paddingRight="@dimen/activity_vertical_margin">
 
                 <TextView
                     android:id="@+id/about_app_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_name"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/about_package_name"
@@ -70,19 +70,19 @@
                     android:id="@+id/about_version_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_company_name"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_copyright"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -102,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autoLink="web"
-                    android:text="@string/app_url" />
+                    android:text="@string/app_url"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -110,18 +110,18 @@
                     android:paddingBottom="@dimen/activity_vertical_margin"
                     android:paddingTop="@dimen/activity_vertical_margin"
                     android:text="@string/about_license_title"
-                    android:textStyle="bold|italic" />
+                    android:textStyle="bold|italic"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/about_license_name" />
+                    android:text="@string/about_license_name"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autoLink="web"
-                    android:text="@string/about_license_url" />
+                    android:text="@string/about_license_url"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -129,12 +129,12 @@
                     android:paddingBottom="@dimen/activity_vertical_margin"
                     android:paddingTop="@dimen/activity_vertical_margin"
                     android:text="@string/about_description_title"
-                    android:textStyle="bold|italic" />
+                    android:textStyle="bold|italic"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/about_description_text" />
+                    android:text="@string/about_description_text"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -142,36 +142,40 @@
                     android:paddingBottom="@dimen/activity_vertical_margin"
                     android:paddingTop="@dimen/activity_vertical_margin"
                     android:text="@string/about_libraries_title"
-                    android:textStyle="bold|italic" />
+                    android:textStyle="bold|italic"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/about_library_apache" />
+                    android:text="@string/about_library_apache"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autoLink="web"
-                    android:text="@string/about_library_apache_url" />
+                    android:text="@string/about_library_apache_url"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/about_library_graph_view" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:autoLink="web"
-                    android:text="@string/about_library_graph_view_url" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/about_library_material" />
+                    android:text="@string/about_library_graph_view"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autoLink="web"
-                    android:text="@string/about_library_material_url" />
+                    android:text="@string/about_library_graph_view_url"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about_library_material"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoLink="web"
+                    android:text="@string/about_library_material_url"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -179,11 +183,12 @@
                     android:paddingBottom="@dimen/activity_vertical_margin"
                     android:paddingTop="@dimen/activity_vertical_margin"
                     android:text="@string/about_contributor_title"
-                    android:textStyle="bold|italic" />
+                    android:textStyle="bold|italic"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/about_contributor_list" />
+                    android:text="@string/about_contributor_list"/>
 
             </LinearLayout>
 

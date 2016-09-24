@@ -76,5 +76,5 @@ public class GraphAdapterTest {
         assertEquals(graphView, actual.get(0));
         verify(graphViewNotifier).getGraphView();
     }
-    
+
 }

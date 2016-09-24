@@ -57,9 +57,9 @@ class VendorAdapter extends ArrayAdapter<String> {
                 stringBuilder.append(", ");
             }
             String macAddress =
-                    mac.length() < 6
-                            ? "*" + mac + "*"
-                            : String.format("%s:%s:%s", mac.substring(0, 2), mac.substring(2, 4), mac.substring(4, 6));
+                mac.length() < 6
+                    ? "*" + mac + "*"
+                    : String.format("%s:%s:%s", mac.substring(0, 2), mac.substring(2, 4), mac.substring(4, 6));
             stringBuilder.append(macAddress);
         }
         ((TextView) view.findViewById(R.id.vendor_macs)).setText(stringBuilder.toString());

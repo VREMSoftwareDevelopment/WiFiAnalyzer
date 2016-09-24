@@ -103,8 +103,8 @@ public class ChannelRatingTest {
 
     private WiFiDetail makeCopy(WiFiDetail wiFiDetail) {
         return new WiFiDetail("SSID2-OTHER", "BSSID-OTHER", StringUtils.EMPTY,
-                new WiFiSignal(wiFiDetail.getWiFiSignal().getFrequency(), wiFiDetail.getWiFiSignal().getWiFiWidth(), -80),
-                WiFiAdditional.EMPTY);
+            new WiFiSignal(wiFiDetail.getWiFiSignal().getFrequency(), wiFiDetail.getWiFiSignal().getWiFiWidth(), -80),
+            WiFiAdditional.EMPTY);
     }
 
     @Test

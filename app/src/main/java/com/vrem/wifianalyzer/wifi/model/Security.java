@@ -43,7 +43,7 @@ public enum Security {
         Set<Security> results = new TreeSet<>();
         if (capabilities != null) {
             String[] values = capabilities.toUpperCase()
-                    .replace("][", "-").replace("]", "").replace("[", "").split("-");
+                .replace("][", "-").replace("]", "").replace("[", "").split("-");
             for (String value : values) {
                 try {
                     results.add(Security.valueOf(value));

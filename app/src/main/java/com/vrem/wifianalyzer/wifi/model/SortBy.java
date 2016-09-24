@@ -51,10 +51,10 @@ public enum SortBy {
         @Override
         public int compare(WiFiDetail lhs, WiFiDetail rhs) {
             return new CompareToBuilder()
-                    .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
-                    .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
-                    .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
-                    .toComparison();
+                .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
+                .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
+                .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
+                .toComparison();
         }
     }
 
@@ -63,10 +63,10 @@ public enum SortBy {
         @Override
         public int compare(WiFiDetail lhs, WiFiDetail rhs) {
             return new CompareToBuilder()
-                    .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
-                    .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
-                    .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
-                    .toComparison();
+                .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
+                .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
+                .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
+                .toComparison();
         }
     }
 
@@ -74,11 +74,11 @@ public enum SortBy {
         @Override
         public int compare(WiFiDetail lhs, WiFiDetail rhs) {
             return new CompareToBuilder()
-                    .append(lhs.getWiFiSignal().getWiFiChannel().getChannel(), rhs.getWiFiSignal().getWiFiChannel().getChannel())
-                    .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
-                    .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
-                    .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
-                    .toComparison();
+                .append(lhs.getWiFiSignal().getWiFiChannel().getChannel(), rhs.getWiFiSignal().getWiFiChannel().getChannel())
+                .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
+                .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
+                .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
+                .toComparison();
         }
     }
 

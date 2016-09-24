@@ -111,11 +111,11 @@ class ChannelGraphView implements GraphViewNotifier {
         int frequencyEnd = wiFiSignal.getFrequencyEnd();
         int level = wiFiSignal.getLevel();
         return new DataPoint[]{
-                new DataPoint(frequencyStart, GraphViewBuilder.MIN_Y),
-                new DataPoint(frequencyStart + frequencySpread, level),
-                new DataPoint(frequency, level),
-                new DataPoint(frequencyEnd - frequencySpread, level),
-                new DataPoint(frequencyEnd, GraphViewBuilder.MIN_Y)
+            new DataPoint(frequencyStart, GraphViewBuilder.MIN_Y),
+            new DataPoint(frequencyStart + frequencySpread, level),
+            new DataPoint(frequency, level),
+            new DataPoint(frequencyEnd - frequencySpread, level),
+            new DataPoint(frequencyEnd, GraphViewBuilder.MIN_Y)
         };
     }
 
@@ -141,9 +141,9 @@ class ChannelGraphView implements GraphViewNotifier {
         Context context = MainContext.INSTANCE.getContext();
         return new GraphViewBuilder(context, getNumX())
             .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair))
-                .setVerticalTitle(resources.getString(R.string.graph_axis_y))
-                .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
-                .build();
+            .setVerticalTitle(resources.getString(R.string.graph_axis_y))
+            .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
+            .build();
     }
 
     private GraphViewWrapper makeGraphViewWrapper() {
@@ -157,8 +157,8 @@ class ChannelGraphView implements GraphViewNotifier {
         graphViewWrapper.setViewport(minX, maxX);
 
         DataPoint[] dataPoints = new DataPoint[]{
-                new DataPoint(minX, GraphViewBuilder.MIN_Y),
-                new DataPoint(wiFiChannelPair.second.getFrequency() + frequencyOffset, GraphViewBuilder.MIN_Y)
+            new DataPoint(minX, GraphViewBuilder.MIN_Y),
+            new DataPoint(wiFiChannelPair.second.getFrequency() + frequencyOffset, GraphViewBuilder.MIN_Y)
         };
 
         TitleLineGraphSeries<DataPoint> series = new TitleLineGraphSeries<>(dataPoints);

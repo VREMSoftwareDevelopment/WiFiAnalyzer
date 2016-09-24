@@ -63,25 +63,25 @@ public class WiFiChannel implements Comparable<WiFiChannel> {
 
         WiFiChannel otherDetail = (WiFiChannel) other;
         return new EqualsBuilder()
-                .append(getChannel(), (otherDetail).getChannel())
-                .append(getFrequency(), (otherDetail).getFrequency())
-                .isEquals();
+            .append(getChannel(), (otherDetail).getChannel())
+            .append(getFrequency(), (otherDetail).getFrequency())
+            .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(getChannel())
-                .append(getFrequency())
-                .toHashCode();
+            .append(getChannel())
+            .append(getFrequency())
+            .toHashCode();
     }
 
     @Override
     public int compareTo(@NonNull WiFiChannel another) {
         return new CompareToBuilder()
-                .append(getChannel(), another.getChannel())
-                .append(getFrequency(), another.getFrequency())
-                .toComparison();
+            .append(getChannel(), another.getChannel())
+            .append(getFrequency(), another.getFrequency())
+            .toComparison();
     }
 
     @Override

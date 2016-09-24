@@ -70,8 +70,8 @@ public class VendorAdapterTest {
         // setup
         List<String> macs = vendors.get(VENDOR2);
         String expected = String.format("%s:%s:%s", macs.get(0).substring(0, 2), macs.get(0).substring(2, 4), macs.get(0).substring(4, 6)) +
-                ", *" + macs.get(1) + "*, " +
-                String.format("%s:%s:%s", macs.get(2).substring(0, 2), macs.get(2).substring(2, 4), macs.get(2).substring(4, 6));
+            ", *" + macs.get(1) + "*, " +
+            String.format("%s:%s:%s", macs.get(2).substring(0, 2), macs.get(2).substring(2, 4), macs.get(2).substring(4, 6));
         // execute
         View actual = fixture.getView(1, null, null);
         // validate

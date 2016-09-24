@@ -27,8 +27,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <include layout="@layout/channel_rating_best" />
-    <include layout="@layout/channel_rating_header" />
+    <include layout="@layout/channel_rating_best"/>
+
+    <include layout="@layout/channel_rating_header"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/channelRatingRefresh"
@@ -41,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@null"
-            android:dividerHeight="0dp" />
+            android:dividerHeight="0dp"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

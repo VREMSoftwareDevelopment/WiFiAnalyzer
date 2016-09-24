@@ -106,10 +106,10 @@ class TimeGraphView implements GraphViewNotifier {
         Resources resources = MainContext.INSTANCE.getResources();
         Context context = MainContext.INSTANCE.getContext();
         return new GraphViewBuilder(context, getNumX())
-                .setLabelFormatter(new TimeAxisLabel())
-                .setVerticalTitle(resources.getString(R.string.graph_axis_y))
-                .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
-                .build();
+            .setLabelFormatter(new TimeAxisLabel())
+            .setVerticalTitle(resources.getString(R.string.graph_axis_y))
+            .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
+            .build();
     }
 
     private GraphViewWrapper makeGraphViewWrapper() {
@@ -119,8 +119,8 @@ class TimeGraphView implements GraphViewNotifier {
         graphViewWrapper.setViewport();
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
-                new DataPoint(0, GraphViewBuilder.MIN_Y),
-                new DataPoint(getNumX() - 1, GraphViewBuilder.MIN_Y)
+            new DataPoint(0, GraphViewBuilder.MIN_Y),
+            new DataPoint(getNumX() - 1, GraphViewBuilder.MIN_Y)
         });
         series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
         series.setThickness(THICKNESS_INVISIBLE);

@@ -47,7 +47,8 @@ public class VendorServiceTest {
     private static final String VENDOR_NAME = "CISCO SYSTEMS, INC.";
     private static final String EXPECTED_VENDOR_NAME = "CISCO SYSTEMS INC";
 
-    @Mock private RemoteCall remoteCall;
+    @Mock
+    private RemoteCall remoteCall;
 
     private Database database;
     private VendorService fixture;

@@ -112,7 +112,7 @@ public class AccessPointsDetail {
         if (options.isFrequencyRange()) {
             view.findViewById(R.id.channel_frequency_range_row).setVisibility(View.VISIBLE);
             ((TextView) view.findViewById(R.id.channel_frequency_range)).setText(String.format("%d - %d %s",
-                    wiFiSignal.getFrequencyStart(), wiFiSignal.getFrequencyEnd(), WifiInfo.FREQUENCY_UNITS));
+                wiFiSignal.getFrequencyStart(), wiFiSignal.getFrequencyEnd(), WifiInfo.FREQUENCY_UNITS));
         } else {
             view.findViewById(R.id.channel_frequency_range_row).setVisibility(View.GONE);
         }

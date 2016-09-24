@@ -31,7 +31,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:paddingRight="@dimen/list_view_item_horizontal_spacer"
-        android:stepSize="1.0" />
+        android:stepSize="1.0"/>
 
     <TextView
         android:id="@+id/channelNumber"

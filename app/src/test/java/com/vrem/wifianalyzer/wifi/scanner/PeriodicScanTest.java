@@ -34,9 +34,12 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PeriodicScanTest {
-    @Mock private Handler handler;
-    @Mock private Settings settings;
-    @Mock private Scanner scanner;
+    @Mock
+    private Handler handler;
+    @Mock
+    private Settings settings;
+    @Mock
+    private Scanner scanner;
 
     private PeriodicScan fixture;
 

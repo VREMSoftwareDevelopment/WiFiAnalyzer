@@ -56,7 +56,7 @@ class ChannelGraphNavigation {
 
     void update() {
         List<NavigationItem> visible = getVisibleNavigationItems();
-        
+
         Pair<WiFiChannel, WiFiChannel> selectedWiFiChannelPair = configuration.getWiFiChannelPair();
         for (NavigationItem navigationItem : navigationItems) {
             Button button = navigationItem.getButton();

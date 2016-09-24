@@ -51,10 +51,6 @@ public class ChannelRating {
         return strength;
     }
 
-    public void setWiFiDetails(@NonNull List<WiFiDetail> wiFiDetails) {
-        this.wiFiDetails = removeGuest(new ArrayList<>(wiFiDetails));
-    }
-
     private List<WiFiDetail> removeGuest(@NonNull List<WiFiDetail> wiFiDetails) {
         List<WiFiDetail> results = new ArrayList<>();
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
@@ -74,16 +70,8 @@ public class ChannelRating {
         return wiFiDetails;
     }
 
-    private static class GuestSort implements Comparator<WiFiDetail> {
-        @Override
-        public int compare(@NonNull WiFiDetail lhs, @NonNull WiFiDetail rhs) {
-            return new CompareToBuilder()
-                .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
-                .append(lhs.getWiFiSignal().getFrequency(), rhs.getWiFiSignal().getFrequency())
-                .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
-                .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
-                .toComparison();
-        }
+    public void setWiFiDetails(@NonNull List<WiFiDetail> wiFiDetails) {
+        this.wiFiDetails = removeGuest(new ArrayList<>(wiFiDetails));
     }
 
     private boolean isGuest(@NonNull WiFiDetail lhs, @NonNull WiFiDetail rhs) {
@@ -129,6 +117,18 @@ public class ChannelRating {
         return results;
     }
 
+    private static class GuestSort implements Comparator<WiFiDetail> {
+        @Override
+        public int compare(@NonNull WiFiDetail lhs, @NonNull WiFiDetail rhs) {
+            return new CompareToBuilder()
+                .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
+                .append(lhs.getWiFiSignal().getFrequency(), rhs.getWiFiSignal().getFrequency())
+                .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
+                .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
+                .toComparison();
+        }
+    }
+
     public class ChannelAPCount implements Comparable<ChannelAPCount> {
         private final WiFiChannel wiFiChannel;
         private final int count;
@@ -149,9 +149,9 @@ public class ChannelRating {
         @Override
         public int compareTo(@NonNull ChannelAPCount another) {
             return new CompareToBuilder()
-                    .append(getCount(), another.getCount())
-                    .append(getWiFiChannel(), another.getWiFiChannel())
-                    .toComparison();
+                .append(getCount(), another.getCount())
+                .append(getWiFiChannel(), another.getWiFiChannel())
+                .toComparison();
         }
 
         @Override

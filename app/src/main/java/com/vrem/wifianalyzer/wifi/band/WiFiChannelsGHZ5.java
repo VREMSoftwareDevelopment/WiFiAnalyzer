@@ -31,11 +31,11 @@ import java.util.List;
 class WiFiChannelsGHZ5 extends WiFiChannels {
     private static final Pair<Integer, Integer> RANGE = new Pair<>(4900, 5899);
     private static final List<Pair<WiFiChannel, WiFiChannel>> SETS = Arrays.asList(
-            new Pair<>(new WiFiChannel(8, 5040), new WiFiChannel(16, 5080)),
-            new Pair<>(new WiFiChannel(36, 5180), new WiFiChannel(64, 5320)),
-            new Pair<>(new WiFiChannel(100, 5500), new WiFiChannel(140, 5700)),
-            new Pair<>(new WiFiChannel(149, 5745), new WiFiChannel(165, 5825)),
-            new Pair<>(new WiFiChannel(184, 4910), new WiFiChannel(196, 4980)));
+        new Pair<>(new WiFiChannel(8, 5040), new WiFiChannel(16, 5080)),
+        new Pair<>(new WiFiChannel(36, 5180), new WiFiChannel(64, 5320)),
+        new Pair<>(new WiFiChannel(100, 5500), new WiFiChannel(140, 5700)),
+        new Pair<>(new WiFiChannel(149, 5745), new WiFiChannel(165, 5825)),
+        new Pair<>(new WiFiChannel(184, 4910), new WiFiChannel(196, 4980)));
 
     private static final int FREQUENCY_OFFSET = WiFiChannel.FREQUENCY_SPREAD * 4;
     private static final int FREQUENCY_SPREAD = WiFiChannel.FREQUENCY_SPREAD;

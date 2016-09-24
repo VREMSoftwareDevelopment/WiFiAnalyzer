@@ -92,17 +92,17 @@ public class WiFiSignal {
             return false;
         }
         return new EqualsBuilder()
-                .append(getFrequency(), ((WiFiSignal) other).getFrequency())
-                .append(getWiFiWidth(), ((WiFiSignal) other).getWiFiWidth())
-                .isEquals();
+            .append(getFrequency(), ((WiFiSignal) other).getFrequency())
+            .append(getWiFiWidth(), ((WiFiSignal) other).getWiFiWidth())
+            .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(getFrequency())
-                .append(getWiFiWidth())
-                .toHashCode();
+            .append(getFrequency())
+            .append(getWiFiWidth())
+            .toHashCode();
     }
 
     @Override

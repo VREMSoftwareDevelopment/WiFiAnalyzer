@@ -67,8 +67,8 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         if (childrenCount > 0) {
             groupIndicator.setVisibility(View.VISIBLE);
             groupIndicator.setImageResource(isExpanded
-                    ? R.drawable.ic_expand_less_black_24dp
-                    : R.drawable.ic_expand_more_black_24dp);
+                ? R.drawable.ic_expand_less_black_24dp
+                : R.drawable.ic_expand_more_black_24dp);
             groupIndicator.setColorFilter(resources.getColor(R.color.icons_color));
         } else {
             groupIndicator.setVisibility(View.GONE);

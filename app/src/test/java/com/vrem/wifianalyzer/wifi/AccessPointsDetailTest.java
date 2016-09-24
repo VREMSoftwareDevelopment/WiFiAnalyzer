@@ -63,8 +63,8 @@ public class AccessPointsDetailTest {
     public void testSetViewWithWiFiDetailAsConnection() throws Exception {
         // setup
         WiFiDetail wiFiDetail = new WiFiDetail("SSID", "BSSID", "capabilities",
-                new WiFiSignal(1, WiFiWidth.MHZ_20, 2),
-                new WiFiAdditional("VendorName", "IPAddress", 22));
+            new WiFiSignal(1, WiFiWidth.MHZ_20, 2),
+            new WiFiAdditional("VendorName", "IPAddress", 22));
         AccessPointsDetailOptions accessPointsDetailOptions = new AccessPointsDetailOptions(false, false);
         // execute
         fixture.setView(mainActivity.getResources(), view, wiFiDetail, accessPointsDetailOptions);
@@ -93,7 +93,7 @@ public class AccessPointsDetailTest {
         // setup
         WiFiDetail wiFiDetail = new WiFiDetail(StringUtils.EMPTY, "BSSID", "capabilities",
             new WiFiSignal(1, WiFiWidth.MHZ_40, 2),
-                new WiFiAdditional(StringUtils.EMPTY, false));
+            new WiFiAdditional(StringUtils.EMPTY, false));
         AccessPointsDetailOptions accessPointsDetailOptions = new AccessPointsDetailOptions(true, true);
         // execute
         fixture.setView(mainActivity.getResources(), view, wiFiDetail, accessPointsDetailOptions);

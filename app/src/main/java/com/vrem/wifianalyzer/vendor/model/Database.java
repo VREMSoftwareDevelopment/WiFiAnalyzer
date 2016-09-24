@@ -37,9 +37,9 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
     static final String[] ALL_COLUMNS = new String[]{_ID, COLUMN_NAME, COLUMN_MAC};
     static final String SORT_ORDER = COLUMN_NAME + "," + COLUMN_MAC + "," + _ID;
     static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " ("
-            + _ID + " INTEGER PRIMARY KEY NOT NULL,"
-            + COLUMN_MAC + " TEXT UNIQUE NOT NULL,"
-            + COLUMN_NAME + " TEXT NOT NULL)";
+        + _ID + " INTEGER PRIMARY KEY NOT NULL,"
+        + COLUMN_MAC + " TEXT UNIQUE NOT NULL,"
+        + COLUMN_NAME + " TEXT NOT NULL)";
     static final String TABLE_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
     private static final int DATABASE_VERSION = 1;
@@ -78,11 +78,11 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor cursor = db.query(
-                TABLE_NAME,
-                new String[]{COLUMN_NAME},
-                COLUMN_MAC + "=?",
-                new String[]{MacAddress.clean(mac)},
-                null, null, null);
+            TABLE_NAME,
+            new String[]{COLUMN_NAME},
+            COLUMN_MAC + "=?",
+            new String[]{MacAddress.clean(mac)},
+            null, null, null);
         if (cursor.moveToFirst()) {
             result = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
         }
@@ -97,9 +97,9 @@ public class Database extends SQLiteOpenHelper implements BaseColumns {
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 VendorData vendorData = new VendorData(
-                        cursor.getLong(cursor.getColumnIndexOrThrow(_ID)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_MAC)));
+                    cursor.getLong(cursor.getColumnIndexOrThrow(_ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_MAC)));
                 results.add(vendorData);
                 cursor.moveToNext();
             }

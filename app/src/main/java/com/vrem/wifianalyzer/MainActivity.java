@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         finish();
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP |
-                Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
@@ -256,6 +256,14 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         return navigationMenuView;
     }
 
+    ThemeStyle getCurrentThemeStyle() {
+        return currentThemeStyle;
+    }
+
+    void setCurrentThemeStyle(ThemeStyle currentThemeStyle) {
+        this.currentThemeStyle = currentThemeStyle;
+    }
+
     private class WiFiBandToggle implements OnClickListener {
         @Override
         public void onClick(View view) {
@@ -264,13 +272,5 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
                 settings.toggleWiFiBand();
             }
         }
-    }
-
-    ThemeStyle getCurrentThemeStyle() {
-        return currentThemeStyle;
-    }
-
-    void setCurrentThemeStyle(ThemeStyle currentThemeStyle) {
-        this.currentThemeStyle = currentThemeStyle;
     }
 }

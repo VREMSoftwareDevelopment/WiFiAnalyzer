@@ -24,14 +24,14 @@
         android:key="@string/wifi_band_key"
         android:persistent="true"
         android:summary="@string/wifi_band_summary"
-        android:title="@string/wifi_band_title" />
+        android:title="@string/wifi_band_title"/>
 
     <com.vrem.wifianalyzer.settings.ScanIntervalPreference
         android:defaultValue="@integer/scan_interval_default"
         android:key="@string/scan_interval_key"
         android:persistent="true"
         android:summary="@string/scan_interval_summary"
-        android:title="@string/scan_interval_title" />
+        android:title="@string/scan_interval_title"/>
 
     <ListPreference
         android:defaultValue="@string/sort_by_default"
@@ -40,7 +40,7 @@
         android:key="@string/sort_by_key"
         android:persistent="true"
         android:summary="@string/sort_by_summary"
-        android:title="@string/sort_by_title" />
+        android:title="@string/sort_by_title"/>
 
     <ListPreference
         android:defaultValue="@string/group_by_default"
@@ -49,7 +49,7 @@
         android:key="@string/group_by_key"
         android:persistent="true"
         android:summary="@string/group_by_summary"
-        android:title="@string/group_by_title" />
+        android:title="@string/group_by_title"/>
 
     <ListPreference
         android:defaultValue="@string/channel_graph_legend_default"
@@ -58,7 +58,7 @@
         android:key="@string/channel_graph_legend_key"
         android:persistent="true"
         android:summary="@string/channel_graph_legend_summary"
-        android:title="@string/channel_graph_legend_title" />
+        android:title="@string/channel_graph_legend_title"/>
 
     <ListPreference
         android:defaultValue="@string/time_graph_legend_default"
@@ -67,7 +67,7 @@
         android:key="@string/time_graph_legend_key"
         android:persistent="true"
         android:summary="@string/time_graph_legend_summary"
-        android:title="@string/time_graph_legend_title" />
+        android:title="@string/time_graph_legend_title"/>
 
     <ListPreference
         android:defaultValue="@string/theme_default"
@@ -76,7 +76,7 @@
         android:key="@string/theme_key"
         android:persistent="true"
         android:summary="@string/theme_summary"
-        android:title="@string/theme_title" />
+        android:title="@string/theme_title"/>
 
     <com.vrem.wifianalyzer.settings.StartMenuPreference
         android:key="@string/start_menu_key"
@@ -88,6 +88,6 @@
         android:key="@string/country_code_key"
         android:persistent="true"
         android:summary="@string/country_code_summary"
-        android:title="@string/country_code_title" />
+        android:title="@string/country_code_title"/>
 
 </PreferenceScreen>
