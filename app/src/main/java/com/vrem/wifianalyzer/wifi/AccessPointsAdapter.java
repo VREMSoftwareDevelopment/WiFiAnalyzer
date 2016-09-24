@@ -59,7 +59,8 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         View view = getView(convertView, parent);
         WiFiDetail wiFiDetail = (WiFiDetail) getGroup(groupPosition);
         Configuration configuration = MainContext.INSTANCE.getConfiguration();
-        accessPointsDetail.setView(resources, view, wiFiDetail, false, configuration.isLargeScreenLayout());
+        AccessPointsDetailOptions accessPointsDetailOptions = new AccessPointsDetailOptions(false, configuration.isLargeScreenLayout());
+        accessPointsDetail.setView(resources, view, wiFiDetail, accessPointsDetailOptions);
 
         ImageView groupIndicator = (ImageView) view.findViewById(R.id.groupIndicator);
         int childrenCount = getChildrenCount(groupPosition);
@@ -81,7 +82,8 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         View view = getView(convertView, parent);
         WiFiDetail wiFiDetail = (WiFiDetail) getChild(groupPosition, childPosition);
         Configuration configuration = MainContext.INSTANCE.getConfiguration();
-        accessPointsDetail.setView(resources, view, wiFiDetail, true, configuration.isLargeScreenLayout());
+        AccessPointsDetailOptions accessPointsDetailOptions = new AccessPointsDetailOptions(true, configuration.isLargeScreenLayout());
+        accessPointsDetail.setView(resources, view, wiFiDetail, accessPointsDetailOptions);
         view.findViewById(R.id.groupIndicator).setVisibility(View.GONE);
         return view;
     }

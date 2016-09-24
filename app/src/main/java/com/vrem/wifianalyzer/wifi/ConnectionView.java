@@ -71,7 +71,8 @@ public class ConnectionView implements UpdateNotifier {
         if (connection.getWiFiAdditional().isConnected()) {
             connectionView.setVisibility(View.VISIBLE);
             Configuration configuration = MainContext.INSTANCE.getConfiguration();
-            accessPointsDetail.setView(mainActivity.getResources(), connectionView, connection, false, configuration.isLargeScreenLayout());
+            AccessPointsDetailOptions options = new AccessPointsDetailOptions(false, configuration.isLargeScreenLayout());
+            accessPointsDetail.setView(mainActivity.getResources(), connectionView, connection, options);
         } else {
             connectionView.setVisibility(View.GONE);
         }

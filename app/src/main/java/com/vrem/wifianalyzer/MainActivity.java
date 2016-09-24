@@ -35,6 +35,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     private ThemeStyle currentThemeStyle;
     private NavigationMenuView navigationMenuView;
+    private NavigationMenu startNavigationMenu;
     private String currentCountryCode;
     private ConnectionView connectionView;
 
@@ -89,7 +91,8 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        navigationMenuView = new NavigationMenuView(this, settings.getStartMenu());
+        startNavigationMenu = settings.getStartMenu();
+        navigationMenuView = new NavigationMenuView(this, startNavigationMenu);
         onNavigationItemSelected(navigationMenuView.getCurrentMenuItem());
 
         connectionView = new ConnectionView(this);
@@ -174,7 +177,12 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (startNavigationMenu.equals(navigationMenuView.getCurrentNavigationMenu())) {
+                super.onBackPressed();
+            } else {
+                navigationMenuView.setCurrentNavigationMenu(startNavigationMenu);
+                onNavigationItemSelected(navigationMenuView.getCurrentMenuItem());
+            }
         }
     }
 
@@ -188,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
             startActivity(new Intent(this, navigationMenu.getActivity()));
         } else {
             navigationMenuView.setCurrentNavigationMenu(navigationMenu);
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, navigationMenu.getFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, fragment).commit();
             setTitle(menuItem.getTitle());
             updateSubTitle();
         }
@@ -219,10 +227,29 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private void updateSubTitle() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            NavigationMenu navigationMenu = navigationMenuView.getCurrentNavigationMenu();
-            Settings settings = MainContext.INSTANCE.getSettings();
-            actionBar.setSubtitle(navigationMenu.isWiFiBandSwitchable() ? settings.getWiFiBand().getBand() : StringUtils.EMPTY);
+            actionBar.setSubtitle(makeSubtitle());
         }
+    }
+
+    private CharSequence makeSubtitle() {
+        NavigationMenu navigationMenu = navigationMenuView.getCurrentNavigationMenu();
+        Settings settings = MainContext.INSTANCE.getSettings();
+        CharSequence subtitle = StringUtils.EMPTY;
+        if (navigationMenu.isWiFiBandSwitchable()) {
+            int color = getResources().getColor(R.color.connected);
+            WiFiBand currentWiFiBand = settings.getWiFiBand();
+            String subtitleText = makeSubtitleText("<font color='" + color + "'><strong>", "</strong></font>", "<small>", "</small>");
+            if (WiFiBand.GHZ5.equals(currentWiFiBand)) {
+                subtitleText = makeSubtitleText("<small>", "</small>", "<font color='" + color + "'><strong>", "</strong></font>");
+            }
+            subtitle = Html.fromHtml(subtitleText);
+        }
+        return subtitle;
+    }
+
+    @NonNull
+    private String makeSubtitleText(@NonNull String tag1, @NonNull String tag2, @NonNull String tag3, @NonNull String tag4) {
+        return tag1 + WiFiBand.GHZ2.getBand() + tag2 + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + tag3 + WiFiBand.GHZ5.getBand() + tag4;
     }
 
     public NavigationMenuView getNavigationMenuView() {

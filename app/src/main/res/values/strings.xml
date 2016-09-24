@@ -106,7 +106,7 @@
     <!-- about start -->
     <string name="about_license_title">License:</string>
     <string name="about_license_name">Licensed under the GNU GPLv3</string>
-    <string name="about_license_url" translatable="false">http://www.gnu.org/licenses</string>
+    <string name="about_license_url" translatable="false">http://www.gnu.org/licenses/gpl-3.0.html</string>
     <string name="about_description_title">Description:</string>
     <string name="about_description_text">Optimize your WiFi network, by checking WiFi network status, signal strength and identifying crowded channels using an open-source WiFi Analyzer for Android</string>
     <string name="about_libraries_title">Libraries Used:</string>

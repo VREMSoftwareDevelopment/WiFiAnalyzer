@@ -40,7 +40,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import org.apache.commons.lang3.StringUtils;
 
 public class AccessPointsDetail {
-    public void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean child, boolean frequencyRange) {
+    public void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, AccessPointsDetailOptions options) {
         TextView textSSID = (TextView) view.findViewById(R.id.ssid);
         TextView textIPAddress = (TextView) view.findViewById(R.id.ipAddress);
         TextView textLinkSpeed = (TextView) view.findViewById(R.id.linkSpeed);
@@ -103,13 +103,13 @@ public class AccessPointsDetail {
             textVendor.setText(vendor);
         }
 
-        if (child) {
+        if (options.isChild()) {
             view.findViewById(R.id.tab).setVisibility(View.VISIBLE);
         } else {
             view.findViewById(R.id.tab).setVisibility(View.GONE);
         }
 
-        if (frequencyRange) {
+        if (options.isFrequencyRange()) {
             view.findViewById(R.id.channel_frequency_range_row).setVisibility(View.VISIBLE);
             ((TextView) view.findViewById(R.id.channel_frequency_range)).setText(String.format("%d - %d %s",
                     wiFiSignal.getFrequencyStart(), wiFiSignal.getFrequencyEnd(), WifiInfo.FREQUENCY_UNITS));
@@ -122,7 +122,8 @@ public class AccessPointsDetail {
         View view = inflater.inflate(R.layout.access_points_details_popup, null);
         Dialog dialog = new Dialog(context);
         dialog.setContentView(view);
-        setView(context.getResources(), view, wiFiDetail, false, true);
+        AccessPointsDetailOptions accessPointsDetailOptions = new AccessPointsDetailOptions(false, true);
+        setView(context.getResources(), view, wiFiDetail, accessPointsDetailOptions);
         dialog.findViewById(R.id.popupButton).setOnClickListener(new PopupDialogListener(dialog));
         return dialog;
     }

@@ -54,7 +54,7 @@ public class WiFiDetail implements Comparable<WiFiDetail> {
     }
 
     public WiFiDetail(@NonNull WiFiDetail wiFiDetail, @NonNull WiFiAdditional wiFiAdditional) {
-        this(wiFiDetail.getSSID(), wiFiDetail.getBSSID(), wiFiDetail.getCapabilities(), wiFiDetail.getWiFiSignal(), wiFiAdditional);
+        this(wiFiDetail.SSID, wiFiDetail.BSSID, wiFiDetail.getCapabilities(), wiFiDetail.getWiFiSignal(), wiFiAdditional);
     }
 
     public Security getSecurity() {
@@ -105,25 +105,25 @@ public class WiFiDetail implements Comparable<WiFiDetail> {
 
         WiFiDetail otherDetail = (WiFiDetail) other;
         return new EqualsBuilder()
-                .append(getSSID(), (otherDetail).getSSID())
-                .append(getBSSID(), (otherDetail).getBSSID())
-                .isEquals();
+            .append(getSSID(), otherDetail.getSSID())
+            .append(getBSSID(), otherDetail.getBSSID())
+            .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(getSSID())
-                .append(getBSSID())
-                .toHashCode();
+            .append(getSSID())
+            .append(getBSSID())
+            .toHashCode();
     }
 
     @Override
     public int compareTo(@NonNull WiFiDetail another) {
         return new CompareToBuilder()
-                .append(getSSID(), another.getSSID())
-                .append(getBSSID(), another.getBSSID())
-                .toComparison();
+            .append(getSSID(), another.getSSID())
+            .append(getBSSID(), another.getBSSID())
+            .toComparison();
     }
 
     @Override

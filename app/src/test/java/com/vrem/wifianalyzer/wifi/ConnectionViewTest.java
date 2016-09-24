@@ -87,6 +87,7 @@ public class ConnectionViewTest {
     public void testConnectionGoneWithNoConnectionInformation() throws Exception {
         // setup
         WiFiDetail connection = withConnection(WiFiAdditional.EMPTY);
+        AccessPointsDetailOptions accessPointsDetailOptions = new AccessPointsDetailOptions(false, false);
         when(wiFiData.getConnection()).thenReturn(connection);
         when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(new ArrayList<WiFiDetail>());
         // execute
@@ -97,13 +98,14 @@ public class ConnectionViewTest {
 
         verify(wiFiData).getConnection();
         verify(configuration, never()).isLargeScreenLayout();
-        verify(accessPointsDetail, never()).setView(mainActivity.getResources(), view, connection, false, false);
+        verify(accessPointsDetail, never()).setView(mainActivity.getResources(), view, connection, accessPointsDetailOptions);
     }
 
     @Test
     public void testConnectionVisibleWithConnectionInformation() throws Exception {
         // setup
         WiFiDetail connection = withConnection(new WiFiAdditional(StringUtils.EMPTY, "IPADDRESS", 11));
+        AccessPointsDetailOptions accessPointsDetailOptions = new AccessPointsDetailOptions(false, false);
         when(wiFiData.getConnection()).thenReturn(connection);
         when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(new ArrayList<WiFiDetail>());
         // execute
@@ -114,7 +116,7 @@ public class ConnectionViewTest {
 
         verify(wiFiData).getConnection();
         verify(configuration).isLargeScreenLayout();
-        verify(accessPointsDetail).setView(mainActivity.getResources(), view, connection, false, false);
+        verify(accessPointsDetail).setView(mainActivity.getResources(), view, connection, accessPointsDetailOptions);
     }
 
     @Test
