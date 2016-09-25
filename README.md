@@ -10,7 +10,7 @@ Some users running Android OS 6 (Marshmallow) have reported that the location se
 
 This is the official repository of WiFi Analyzer (open-source).
 
-[<img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/feature-graphic.png" alt="Feature Graphic" height="300">]
+<img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/feature-graphic.png" alt="Feature Graphic" height="300">
 
 ## Features:
 * Identify nearby Access Points
