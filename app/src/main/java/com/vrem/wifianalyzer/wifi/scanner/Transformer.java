@@ -61,7 +61,7 @@ public class Transformer {
         if (cacheResults != null) {
             for (CacheResult cacheResult : cacheResults) {
                 ScanResult scanResult = cacheResult.getScanResult();
-                WiFiSignal wiFiSignal = new WiFiSignal(scanResult.frequency, getWiFiWidth(scanResult), cacheResult.getLevelAverage());
+                WiFiSignal wiFiSignal = new WiFiSignal(scanResult.frequency, getWiFiWidth(scanResult), cacheResult.getLevelAverage(), getCenterFrequency(scanResult));
                 WiFiDetail wiFiDetail = new WiFiDetail(scanResult.SSID, scanResult.BSSID, scanResult.capabilities, wiFiSignal);
                 results.add(wiFiDetail);
             }
@@ -78,6 +78,16 @@ public class Transformer {
         }
     }
 
+    private int getCenterFrequency(ScanResult scanResult) {
+        try {
+            Field declaredField = scanResult.getClass().getDeclaredField(Fields.centerFreq0.name());
+            int centerFrequency = (int) declaredField.get(scanResult);
+            return centerFrequency == 0 ? scanResult.frequency : centerFrequency;
+        } catch (Exception e) {
+            return scanResult.frequency;
+        }
+    }
+
     public WiFiData transformToWiFiData(List<CacheResult> cacheResults, WifiInfo wifiInfo, List<WifiConfiguration> configuredNetworks) {
         List<WiFiDetail> wiFiDetails = transformCacheResults(cacheResults);
         WiFiConnection wiFiConnection = transformWifiInfo(wifiInfo);
@@ -86,8 +96,8 @@ public class Transformer {
     }
 
     private enum Fields {
+        centerFreq0,
         /*
-                centerFreq0,
                 centerFreq1,
         */
         channelWidth

@@ -117,7 +117,7 @@
                         android:textStyle="bold"/>
 
                     <TextView
-                        android:id="@+id/frequency"
+                        android:id="@+id/primaryFrequency"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"

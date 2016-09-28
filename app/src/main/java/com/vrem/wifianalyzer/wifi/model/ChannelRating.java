@@ -78,7 +78,7 @@ public class ChannelRating {
         if (!isGuestBSSID(lhs.getBSSID(), rhs.getBSSID())) {
             return false;
         }
-        int result = lhs.getWiFiSignal().getFrequency() - rhs.getWiFiSignal().getFrequency();
+        int result = lhs.getWiFiSignal().getPrimaryFrequency() - rhs.getWiFiSignal().getPrimaryFrequency();
         if (result == 0) {
             result = rhs.getWiFiSignal().getLevel() - lhs.getWiFiSignal().getLevel();
             if (result > LEVEL_RANGE_MIN || result < LEVEL_RANGE_MAX) {
@@ -122,7 +122,7 @@ public class ChannelRating {
         public int compare(@NonNull WiFiDetail lhs, @NonNull WiFiDetail rhs) {
             return new CompareToBuilder()
                 .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
-                .append(lhs.getWiFiSignal().getFrequency(), rhs.getWiFiSignal().getFrequency())
+                .append(lhs.getWiFiSignal().getPrimaryFrequency(), rhs.getWiFiSignal().getPrimaryFrequency())
                 .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
                 .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
                 .toComparison();

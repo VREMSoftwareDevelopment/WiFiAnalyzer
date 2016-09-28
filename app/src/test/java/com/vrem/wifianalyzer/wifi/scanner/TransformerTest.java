@@ -143,7 +143,7 @@ public class TransformerTest {
         assertEquals(BSSID, wiFiDetail.getBSSID());
         assertEquals(WPA, wiFiDetail.getCapabilities());
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        assertEquals(FREQUENCY, wiFiSignal.getFrequency());
+        assertEquals(FREQUENCY, wiFiSignal.getPrimaryFrequency());
         assertEquals(LEVEL, wiFiSignal.getLevel());
     }
 

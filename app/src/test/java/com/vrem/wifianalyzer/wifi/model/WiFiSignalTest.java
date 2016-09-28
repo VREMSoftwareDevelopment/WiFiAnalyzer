@@ -38,7 +38,7 @@ public class WiFiSignalTest {
 
     @Before
     public void setUp() {
-        fixture = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_20, LEVEL);
+        fixture = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_20, LEVEL, FREQUENCY);
     }
 
     @Test
@@ -52,9 +52,9 @@ public class WiFiSignalTest {
     @Test
     public void testWiFiFrequencyWithFrequencyAndWiFiWidth() throws Exception {
         // execute
-        fixture = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_80, LEVEL);
+        fixture = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_80, LEVEL, FREQUENCY);
         // validate
-        assertEquals(FREQUENCY, fixture.getFrequency());
+        assertEquals(FREQUENCY, fixture.getPrimaryFrequency());
         assertEquals(CHANNEL, fixture.getWiFiChannel().getChannel());
         assertEquals(LEVEL, fixture.getLevel());
         assertEquals(WiFiBand.GHZ2, fixture.getWiFiBand());
@@ -63,7 +63,7 @@ public class WiFiSignalTest {
 
     @Test
     public void testGetFrequency() throws Exception {
-        assertEquals(FREQUENCY, fixture.getFrequency());
+        assertEquals(FREQUENCY, fixture.getPrimaryFrequency());
         assertEquals(FREQUENCY - WiFiWidth.MHZ_20.getFrequencyWidthHalf(), fixture.getFrequencyStart());
         assertEquals(FREQUENCY + WiFiWidth.MHZ_20.getFrequencyWidthHalf(), fixture.getFrequencyEnd());
     }
@@ -96,7 +96,7 @@ public class WiFiSignalTest {
     @Test
     public void testEquals() throws Exception {
         // setup
-        WiFiSignal other = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_20, LEVEL);
+        WiFiSignal other = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_20, LEVEL, FREQUENCY);
         // execute & validate
         assertEquals(fixture, other);
         assertNotSame(fixture, other);
@@ -105,7 +105,7 @@ public class WiFiSignalTest {
     @Test
     public void testHashCode() throws Exception {
         // setup
-        WiFiSignal other = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_20, LEVEL);
+        WiFiSignal other = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_20, LEVEL, FREQUENCY);
         // execute & validate
         assertEquals(fixture.hashCode(), other.hashCode());
     }
