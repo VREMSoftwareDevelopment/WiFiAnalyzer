@@ -63,7 +63,7 @@ public class AccessPointsDetailTest {
     public void testSetViewWithWiFiDetailAsConnection() throws Exception {
         // setup
         WiFiDetail wiFiDetail = new WiFiDetail("SSID", "BSSID", "capabilities",
-            new WiFiSignal(1, WiFiWidth.MHZ_20, 2, 1),
+            new WiFiSignal(1, 1, WiFiWidth.MHZ_20, 2),
             new WiFiAdditional("VendorName", "IPAddress", 22));
         AccessPointsDetailOptions accessPointsDetailOptions = new AccessPointsDetailOptions(false, false);
         // execute
@@ -92,7 +92,7 @@ public class AccessPointsDetailTest {
     public void testSetViewWithWiFiDetailAsScanResult() throws Exception {
         // setup
         WiFiDetail wiFiDetail = new WiFiDetail(StringUtils.EMPTY, "BSSID", "capabilities",
-            new WiFiSignal(1, WiFiWidth.MHZ_40, 2, 1),
+            new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2),
             new WiFiAdditional(StringUtils.EMPTY, false));
         AccessPointsDetailOptions accessPointsDetailOptions = new AccessPointsDetailOptions(true, true);
         // execute
@@ -114,7 +114,7 @@ public class AccessPointsDetailTest {
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         validateTextViewValue(ssid + " (" + wiFiDetail.getBSSID() + ")", R.id.ssid);
         validateTextViewValue(String.format("%ddBm", wiFiSignal.getLevel()), R.id.level);
-        validateTextViewValue(String.format("%d", wiFiSignal.getWiFiChannel().getChannel()), R.id.channel);
+        validateTextViewValue(wiFiSignal.getChannel(), R.id.channel);
         validateTextViewValue(String.format("%d%s", wiFiSignal.getPrimaryFrequency(), WifiInfo.FREQUENCY_UNITS), R.id.primaryFrequency);
         validateTextViewValue(String.format("(%d%s)", wiFiSignal.getWiFiWidth().getFrequencyWidth(), WifiInfo.FREQUENCY_UNITS), R.id.width);
         validateTextViewValue(String.format("%.1fm", wiFiSignal.getDistance()), R.id.distance);

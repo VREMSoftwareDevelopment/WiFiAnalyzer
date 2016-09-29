@@ -30,57 +30,68 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 public class WiFiSignalTest {
-    private static final int FREQUENCY = 2432;
-    private static final int CHANNEL = 5;
+    private static final int PRIMARY_FREQUENCY = 2432;
+    private static final int PRIMARY_CHANNEL = 5;
+    private static final int CENTER_FREQUENCY = 2437;
+    private static final int CENTER_CHANNEL = 6;
     private static final int LEVEL = -65;
 
     private WiFiSignal fixture;
 
     @Before
     public void setUp() {
-        fixture = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_20, LEVEL, FREQUENCY);
+        fixture = new WiFiSignal(PRIMARY_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_40, LEVEL);
     }
 
     @Test
     public void testWiFiFrequency() throws Exception {
         // validate
+        assertEquals(PRIMARY_FREQUENCY, fixture.getPrimaryFrequency());
+        assertEquals(CENTER_FREQUENCY, fixture.getCenterFrequency());
         assertEquals(LEVEL, fixture.getLevel());
         assertEquals(WiFiBand.GHZ2, fixture.getWiFiBand());
-        assertEquals(WiFiWidth.MHZ_20, fixture.getWiFiWidth());
+        assertEquals(WiFiWidth.MHZ_40, fixture.getWiFiWidth());
     }
 
     @Test
     public void testWiFiFrequencyWithFrequencyAndWiFiWidth() throws Exception {
         // execute
-        fixture = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_80, LEVEL, FREQUENCY);
+        fixture = new WiFiSignal(PRIMARY_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_80, LEVEL);
         // validate
-        assertEquals(FREQUENCY, fixture.getPrimaryFrequency());
-        assertEquals(CHANNEL, fixture.getWiFiChannel().getChannel());
+        assertEquals(PRIMARY_FREQUENCY, fixture.getPrimaryFrequency());
+        assertEquals(PRIMARY_CHANNEL, fixture.getPrimaryWiFiChannel().getChannel());
+        assertEquals(CENTER_FREQUENCY, fixture.getCenterFrequency());
+        assertEquals(CENTER_CHANNEL, fixture.getCenterWiFiChannel().getChannel());
         assertEquals(LEVEL, fixture.getLevel());
         assertEquals(WiFiBand.GHZ2, fixture.getWiFiBand());
         assertEquals(WiFiWidth.MHZ_80, fixture.getWiFiWidth());
     }
 
     @Test
-    public void testGetFrequency() throws Exception {
-        assertEquals(FREQUENCY, fixture.getPrimaryFrequency());
-        assertEquals(FREQUENCY - WiFiWidth.MHZ_20.getFrequencyWidthHalf(), fixture.getFrequencyStart());
-        assertEquals(FREQUENCY + WiFiWidth.MHZ_20.getFrequencyWidthHalf(), fixture.getFrequencyEnd());
+    public void testGetCenterFrequency() throws Exception {
+        assertEquals(CENTER_FREQUENCY, fixture.getCenterFrequency());
+        assertEquals(CENTER_FREQUENCY - WiFiWidth.MHZ_40.getFrequencyWidthHalf(), fixture.getFrequencyStart());
+        assertEquals(CENTER_FREQUENCY + WiFiWidth.MHZ_40.getFrequencyWidthHalf(), fixture.getFrequencyEnd());
     }
 
     @Test
     public void testGetInRange() throws Exception {
-        assertTrue(fixture.isInRange(FREQUENCY));
-        assertTrue(fixture.isInRange(FREQUENCY - WiFiWidth.MHZ_20.getFrequencyWidthHalf()));
-        assertTrue(fixture.isInRange(FREQUENCY + WiFiWidth.MHZ_20.getFrequencyWidthHalf()));
+        assertTrue(fixture.isInRange(CENTER_FREQUENCY));
+        assertTrue(fixture.isInRange(CENTER_FREQUENCY - WiFiWidth.MHZ_40.getFrequencyWidthHalf()));
+        assertTrue(fixture.isInRange(CENTER_FREQUENCY + WiFiWidth.MHZ_40.getFrequencyWidthHalf()));
 
-        assertFalse(fixture.isInRange(FREQUENCY - WiFiWidth.MHZ_20.getFrequencyWidthHalf() - 1));
-        assertFalse(fixture.isInRange(FREQUENCY + WiFiWidth.MHZ_20.getFrequencyWidthHalf() + 1));
+        assertFalse(fixture.isInRange(CENTER_FREQUENCY - WiFiWidth.MHZ_40.getFrequencyWidthHalf() - 1));
+        assertFalse(fixture.isInRange(CENTER_FREQUENCY + WiFiWidth.MHZ_40.getFrequencyWidthHalf() + 1));
     }
 
     @Test
-    public void testGetWiFiChannel() throws Exception {
-        assertEquals(CHANNEL, fixture.getWiFiChannel().getChannel());
+    public void testGetPrimaryWiFiChannel() throws Exception {
+        assertEquals(PRIMARY_CHANNEL, fixture.getPrimaryWiFiChannel().getChannel());
+    }
+
+    @Test
+    public void testGetCenterWiFiChannel() throws Exception {
+        assertEquals(CENTER_CHANNEL, fixture.getCenterWiFiChannel().getChannel());
     }
 
     @Test
@@ -90,13 +101,13 @@ public class WiFiSignalTest {
 
     @Test
     public void testGetDistance() throws Exception {
-        assertEquals(WiFiUtils.calculateDistance(FREQUENCY, LEVEL), fixture.getDistance(), 0.0);
+        assertEquals(WiFiUtils.calculateDistance(PRIMARY_FREQUENCY, LEVEL), fixture.getDistance(), 0.0);
     }
 
     @Test
     public void testEquals() throws Exception {
         // setup
-        WiFiSignal other = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_20, LEVEL, FREQUENCY);
+        WiFiSignal other = new WiFiSignal(PRIMARY_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_40, LEVEL);
         // execute & validate
         assertEquals(fixture, other);
         assertNotSame(fixture, other);
@@ -105,8 +116,28 @@ public class WiFiSignalTest {
     @Test
     public void testHashCode() throws Exception {
         // setup
-        WiFiSignal other = new WiFiSignal(FREQUENCY, WiFiWidth.MHZ_20, LEVEL, FREQUENCY);
+        WiFiSignal other = new WiFiSignal(PRIMARY_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_40, LEVEL);
         // execute & validate
         assertEquals(fixture.hashCode(), other.hashCode());
+    }
+
+    @Test
+    public void testGetChannelWhenPrimaryAndCenterAreDifferent() throws Exception {
+        // setup
+        String expected = PRIMARY_CHANNEL + " (" + CENTER_CHANNEL + ")";
+        // execute
+        String actual = fixture.getChannel();
+        // validate
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGetChannelWhenPrimaryAndCenterAreSame() throws Exception {
+        // setup
+        WiFiSignal fixture = new WiFiSignal(CENTER_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_40, LEVEL);
+        // execute
+        String actual = fixture.getChannel();
+        // validate
+        assertEquals("" + CENTER_CHANNEL, actual);
     }
 }

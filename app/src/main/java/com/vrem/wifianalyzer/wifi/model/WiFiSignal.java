@@ -29,15 +29,15 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class WiFiSignal {
-    public static final WiFiSignal EMPTY = new WiFiSignal(0, WiFiWidth.MHZ_20, 0, 0);
+    public static final WiFiSignal EMPTY = new WiFiSignal(0, 0, WiFiWidth.MHZ_20, 0);
 
     private final int primaryFrequency;
+    private final int centerFrequency;
     private final WiFiWidth wiFiWidth;
     private final WiFiBand wiFiBand;
     private final int level;
-    private final int centerFrequency;
 
-    public WiFiSignal(int primaryFrequency, @NonNull WiFiWidth wiFiWidth, int level, int centerFrequency) {
+    public WiFiSignal(int primaryFrequency, int centerFrequency, @NonNull WiFiWidth wiFiWidth, int level) {
         this.primaryFrequency = primaryFrequency;
         this.centerFrequency = centerFrequency;
         this.wiFiWidth = wiFiWidth;
@@ -54,11 +54,11 @@ public class WiFiSignal {
     }
 
     public int getFrequencyStart() {
-        return getPrimaryFrequency() - getWiFiWidth().getFrequencyWidthHalf();
+        return getCenterFrequency() - getWiFiWidth().getFrequencyWidthHalf();
     }
 
     public int getFrequencyEnd() {
-        return getPrimaryFrequency() + getWiFiWidth().getFrequencyWidthHalf();
+        return getCenterFrequency() + getWiFiWidth().getFrequencyWidthHalf();
     }
 
     public WiFiBand getWiFiBand() {
@@ -69,8 +69,22 @@ public class WiFiSignal {
         return wiFiWidth;
     }
 
-    public WiFiChannel getWiFiChannel() {
+    public WiFiChannel getPrimaryWiFiChannel() {
         return getWiFiBand().getWiFiChannels().getWiFiChannelByFrequency(getPrimaryFrequency());
+    }
+
+    public WiFiChannel getCenterWiFiChannel() {
+        return getWiFiBand().getWiFiChannels().getWiFiChannelByFrequency(getCenterFrequency());
+    }
+
+    public String getChannel() {
+        int primaryChannel = getPrimaryWiFiChannel().getChannel();
+        int centerChannel = getCenterWiFiChannel().getChannel();
+        String result = "" + primaryChannel;
+        if (primaryChannel != centerChannel) {
+            result += " (" + centerChannel + ")";
+        }
+        return result;
     }
 
     public int getLevel() {

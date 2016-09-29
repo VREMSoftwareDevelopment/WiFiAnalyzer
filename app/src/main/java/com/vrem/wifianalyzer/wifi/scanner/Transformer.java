@@ -61,7 +61,7 @@ public class Transformer {
         if (cacheResults != null) {
             for (CacheResult cacheResult : cacheResults) {
                 ScanResult scanResult = cacheResult.getScanResult();
-                WiFiSignal wiFiSignal = new WiFiSignal(scanResult.frequency, getWiFiWidth(scanResult), cacheResult.getLevelAverage(), getCenterFrequency(scanResult));
+                WiFiSignal wiFiSignal = new WiFiSignal(scanResult.frequency, getCenterFrequency(scanResult), getWiFiWidth(scanResult), cacheResult.getLevelAverage());
                 WiFiDetail wiFiDetail = new WiFiDetail(scanResult.SSID, scanResult.BSSID, scanResult.capabilities, wiFiSignal);
                 results.add(wiFiDetail);
             }

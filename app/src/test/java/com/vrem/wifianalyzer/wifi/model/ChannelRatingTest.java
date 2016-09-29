@@ -44,20 +44,20 @@ public class ChannelRatingTest {
     @Before
     public void setUp() {
         wiFiDetail1 = new WiFiDetail("SSID1", "20:cf:30:ce:1d:71", StringUtils.EMPTY,
-            new WiFiSignal(2432, WiFiWidth.MHZ_20, -50, 2432), new WiFiAdditional(StringUtils.EMPTY, "192.168.1.1", 11));
+            new WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50), new WiFiAdditional(StringUtils.EMPTY, "192.168.1.1", 11));
         wiFiDetail2 = new WiFiDetail("SSID2", "58:6d:8f:fa:ae:c0", StringUtils.EMPTY,
-            new WiFiSignal(2442, WiFiWidth.MHZ_20, -70, 2442), WiFiAdditional.EMPTY);
+            new WiFiSignal(2442, 2442, WiFiWidth.MHZ_20, -70), WiFiAdditional.EMPTY);
         wiFiDetail3 = new WiFiDetail("SSID3", "84:94:8c:9d:40:68", StringUtils.EMPTY,
-            new WiFiSignal(2452, WiFiWidth.MHZ_20, -60, 2452), WiFiAdditional.EMPTY);
+            new WiFiSignal(2452, 2452, WiFiWidth.MHZ_20, -60), WiFiAdditional.EMPTY);
         wiFiDetail4 = new WiFiDetail("SSID3", "64:A4:8c:90:10:12", StringUtils.EMPTY,
-            new WiFiSignal(2452, WiFiWidth.MHZ_20, -80, 2452), WiFiAdditional.EMPTY);
+            new WiFiSignal(2452, 2452, WiFiWidth.MHZ_20, -80), WiFiAdditional.EMPTY);
         fixture = new ChannelRating();
     }
 
     @Test
     public void testChannelRating() throws Exception {
         // setup
-        WiFiChannel wiFiChannel = wiFiDetail1.getWiFiSignal().getWiFiChannel();
+        WiFiChannel wiFiChannel = wiFiDetail1.getWiFiSignal().getCenterWiFiChannel();
         // execute & validate
         assertEquals(0, fixture.getCount(wiFiChannel));
         assertEquals(Strength.ZERO, fixture.getStrength(wiFiChannel));
@@ -68,9 +68,9 @@ public class ChannelRatingTest {
         // setup
         fixture.setWiFiDetails(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4));
         // execute and validate
-        validateCount(2, wiFiDetail1.getWiFiSignal().getWiFiChannel());
-        validateCount(4, wiFiDetail2.getWiFiSignal().getWiFiChannel());
-        validateCount(3, wiFiDetail3.getWiFiSignal().getWiFiChannel());
+        validateCount(2, wiFiDetail1.getWiFiSignal().getCenterWiFiChannel());
+        validateCount(4, wiFiDetail2.getWiFiSignal().getCenterWiFiChannel());
+        validateCount(3, wiFiDetail3.getWiFiSignal().getCenterWiFiChannel());
     }
 
     private void validateCount(int expected, @NonNull WiFiChannel wiFiChannel) {
@@ -84,7 +84,7 @@ public class ChannelRatingTest {
         fixture.setWiFiDetails(Arrays.asList(other, wiFiDetail3));
         Strength expected = wiFiDetail3.getWiFiSignal().getStrength();
         // execute
-        Strength actual = fixture.getStrength(wiFiDetail3.getWiFiSignal().getWiFiChannel());
+        Strength actual = fixture.getStrength(wiFiDetail3.getWiFiSignal().getCenterWiFiChannel());
         // execute and validate
         assertEquals(expected, actual);
     }
@@ -96,7 +96,7 @@ public class ChannelRatingTest {
         fixture.setWiFiDetails(Arrays.asList(other, wiFiDetail1));
         Strength expected = other.getWiFiSignal().getStrength();
         // execute
-        Strength actual = fixture.getStrength(wiFiDetail1.getWiFiSignal().getWiFiChannel());
+        Strength actual = fixture.getStrength(wiFiDetail1.getWiFiSignal().getCenterWiFiChannel());
         // execute and validate
         assertEquals(expected, actual);
     }
@@ -104,7 +104,7 @@ public class ChannelRatingTest {
     private WiFiDetail makeCopy(WiFiDetail wiFiDetail) {
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         return new WiFiDetail("SSID2-OTHER", "BSSID-OTHER", StringUtils.EMPTY,
-            new WiFiSignal(wiFiSignal.getPrimaryFrequency(), wiFiSignal.getWiFiWidth(), -80, wiFiSignal.getCenterFrequency()),
+            new WiFiSignal(wiFiSignal.getPrimaryFrequency(), wiFiSignal.getCenterFrequency(), wiFiSignal.getWiFiWidth(), -80),
             WiFiAdditional.EMPTY);
     }
 
@@ -135,7 +135,7 @@ public class ChannelRatingTest {
     public void testSetWiFiChannelsRemovesGuestAccessPoint() throws Exception {
         // setup
         WiFiDetail wiFiDetailGuest = new WiFiDetail("SSID2", "22:cf:30:ce:1d:72", StringUtils.EMPTY,
-            new WiFiSignal(2432, WiFiWidth.MHZ_20, -50 + ChannelRating.LEVEL_RANGE_MIN, 2432), WiFiAdditional.EMPTY);
+            new WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50 + ChannelRating.LEVEL_RANGE_MIN), WiFiAdditional.EMPTY);
         // execute
         fixture.setWiFiDetails(Collections.unmodifiableList(Arrays.asList(wiFiDetail1, wiFiDetailGuest)));
         // validate

@@ -106,7 +106,7 @@ class ChannelGraphView implements GraphViewNotifier {
         WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
         int frequencySpread = wiFiChannels.getFrequencySpread();
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        int frequency = wiFiSignal.getPrimaryFrequency();
+        int frequency = wiFiSignal.getCenterFrequency();
         int frequencyStart = wiFiSignal.getFrequencyStart();
         int frequencyEnd = wiFiSignal.getFrequencyEnd();
         int level = wiFiSignal.getLevel();

@@ -90,14 +90,14 @@ public class WiFiDataTest {
     }
 
     private List<WiFiDetail> withWiFiDetails() {
-        WiFiDetail wiFiDetail1 = new WiFiDetail(SSID_1, BSSID_1, StringUtils.EMPTY, new WiFiSignal(FREQUENCY1, WiFiWidth.MHZ_20, LEVEL1, FREQUENCY1));
-        WiFiDetail wiFiDetail2 = new WiFiDetail(SSID_2, BSSID_2, StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2, FREQUENCY2));
-        WiFiDetail wiFiDetail3 = new WiFiDetail(SSID_3, BSSID_3, StringUtils.EMPTY, new WiFiSignal(FREQUENCY3, WiFiWidth.MHZ_20, LEVEL0, FREQUENCY3));
-        WiFiDetail wiFiDetail4 = new WiFiDetail(SSID_4, BSSID_4, StringUtils.EMPTY, new WiFiSignal(FREQUENCY4, WiFiWidth.MHZ_20, LEVEL2, FREQUENCY4));
+        WiFiDetail wiFiDetail1 = new WiFiDetail(SSID_1, BSSID_1, StringUtils.EMPTY, new WiFiSignal(FREQUENCY1, FREQUENCY1, WiFiWidth.MHZ_20, LEVEL1));
+        WiFiDetail wiFiDetail2 = new WiFiDetail(SSID_2, BSSID_2, StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2));
+        WiFiDetail wiFiDetail3 = new WiFiDetail(SSID_3, BSSID_3, StringUtils.EMPTY, new WiFiSignal(FREQUENCY3, FREQUENCY3, WiFiWidth.MHZ_20, LEVEL0));
+        WiFiDetail wiFiDetail4 = new WiFiDetail(SSID_4, BSSID_4, StringUtils.EMPTY, new WiFiSignal(FREQUENCY4, FREQUENCY4, WiFiWidth.MHZ_20, LEVEL2));
 
-        WiFiDetail wiFiDetail_1 = new WiFiDetail(SSID_2, BSSID_2 + "_1", StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 3, FREQUENCY2));
-        WiFiDetail wiFiDetail_2 = new WiFiDetail(SSID_2, BSSID_2 + "_2", StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 1, FREQUENCY2));
-        WiFiDetail wiFiDetail_3 = new WiFiDetail(SSID_2, BSSID_2 + "_3", StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 2, FREQUENCY2));
+        WiFiDetail wiFiDetail_1 = new WiFiDetail(SSID_2, BSSID_2 + "_1", StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 3));
+        WiFiDetail wiFiDetail_2 = new WiFiDetail(SSID_2, BSSID_2 + "_2", StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 1));
+        WiFiDetail wiFiDetail_3 = new WiFiDetail(SSID_2, BSSID_2 + "_3", StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 2));
 
         return Arrays.asList(wiFiDetail_3, wiFiDetail3, wiFiDetail_2, wiFiDetail1, wiFiDetail_1, wiFiDetail2, wiFiDetail4);
     }
