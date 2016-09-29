@@ -22,6 +22,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 
+import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -36,8 +37,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.Arrays;
 import java.util.List;
 
-import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -51,6 +52,7 @@ public class TransformerTest {
     private static final String BSSID_3 = "BSSID_3-123";
     private static final String WPA = "WPA";
     private static final int FREQUENCY = 2435;
+    private static final int FREQUENCY2 = FREQUENCY + 10;
     private static final int LEVEL = -40;
     private static final String IP_ADDRESS = "21.205.91.7";
     private static final int LINK_SPEED = 21;
@@ -144,6 +146,7 @@ public class TransformerTest {
         assertEquals(WPA, wiFiDetail.getCapabilities());
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         assertEquals(FREQUENCY, wiFiSignal.getPrimaryFrequency());
+        assertEquals(FREQUENCY, wiFiSignal.getCenterFrequency());
         assertEquals(LEVEL, wiFiSignal.getLevel());
     }
 
@@ -160,6 +163,57 @@ public class TransformerTest {
         assertEquals(expectedWiFiConnection, actual.getWiFiConnection());
         assertEquals(cacheResults.size(), actual.getWiFiDetails().size());
         assertEquals(wifiConfigurations.size(), actual.getWiFiConfigurations().size());
+    }
+
+    @Test
+    public void testGetWiFiWidth() throws Exception {
+        // execute
+        WiFiWidth actual = fixture.getWiFiWidth(scanResult1);
+        // validate
+        assertEquals(WiFiWidth.MHZ_20, actual);
+    }
+
+    @Test
+    public void testGetWiFiWidthWithWiFiWidth() throws Exception {
+        // setup
+        fixture = new Transformer() {
+            @Override
+            int getFieldValue(ScanResult scanResult, Fields field) throws NoSuchFieldException, IllegalAccessException {
+                assertEquals(Fields.channelWidth, field);
+                return WiFiWidth.MHZ_160.ordinal();
+            }
+        };
+        // execute
+        WiFiWidth actual = fixture.getWiFiWidth(scanResult1);
+        // validate
+        assertEquals(WiFiWidth.MHZ_160, actual);
+    }
+
+    @Test
+    public void testGetCenterFrequency() throws Exception {
+        // setup
+        scanResult1.frequency = FREQUENCY;
+        // execute
+        int actual = fixture.getCenterFrequency(scanResult1);
+        // validate
+        assertEquals(FREQUENCY, actual);
+    }
+
+    @Test
+    public void testGetCenterFrequencyWithFrequency() throws Exception {
+        // setup
+        fixture = new Transformer() {
+            @Override
+            int getFieldValue(ScanResult scanResult, Fields field) throws NoSuchFieldException, IllegalAccessException {
+                assertEquals(Fields.centerFreq0, field);
+                return FREQUENCY2;
+            }
+        };
+        scanResult1.frequency = FREQUENCY;
+        // execute
+        int actual = fixture.getCenterFrequency(scanResult1);
+        // validate
+        assertEquals(FREQUENCY2, actual);
     }
 
     private void withCacheResults() {

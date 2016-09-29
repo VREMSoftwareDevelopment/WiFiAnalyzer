@@ -69,37 +69,38 @@ public class Transformer {
         return Collections.unmodifiableList(results);
     }
 
-    private WiFiWidth getWiFiWidth(ScanResult scanResult) {
+    WiFiWidth getWiFiWidth(ScanResult scanResult) {
         try {
-            Field declaredField = scanResult.getClass().getDeclaredField(Fields.channelWidth.name());
-            return WiFiWidth.find((int) declaredField.get(scanResult));
+            return WiFiWidth.find(getFieldValue(scanResult, Fields.channelWidth));
         } catch (Exception e) {
             return WiFiWidth.MHZ_20;
         }
     }
 
-    private int getCenterFrequency(ScanResult scanResult) {
+    int getCenterFrequency(ScanResult scanResult) {
         try {
-            Field declaredField = scanResult.getClass().getDeclaredField(Fields.centerFreq0.name());
-            int centerFrequency = (int) declaredField.get(scanResult);
+            int centerFrequency = getFieldValue(scanResult, Fields.centerFreq0);
             return centerFrequency == 0 ? scanResult.frequency : centerFrequency;
         } catch (Exception e) {
             return scanResult.frequency;
         }
     }
 
-    public WiFiData transformToWiFiData(List<CacheResult> cacheResults, WifiInfo wifiInfo, List<WifiConfiguration> configuredNetworks) {
+    int getFieldValue(ScanResult scanResult, Fields field) throws NoSuchFieldException, IllegalAccessException {
+        Field declaredField = scanResult.getClass().getDeclaredField(field.name());
+        return (int) declaredField.get(scanResult);
+    }
+
+    WiFiData transformToWiFiData(List<CacheResult> cacheResults, WifiInfo wifiInfo, List<WifiConfiguration> configuredNetworks) {
         List<WiFiDetail> wiFiDetails = transformCacheResults(cacheResults);
         WiFiConnection wiFiConnection = transformWifiInfo(wifiInfo);
         List<String> wifiConfigurations = transformWifiConfigurations(configuredNetworks);
         return new WiFiData(wiFiDetails, wiFiConnection, wifiConfigurations);
     }
 
-    private enum Fields {
+    enum Fields {
         centerFreq0,
-        /*
-                centerFreq1,
-        */
+        centerFreq1,
         channelWidth
     }
 
