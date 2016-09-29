@@ -77,16 +77,6 @@ public class WiFiSignal {
         return getWiFiBand().getWiFiChannels().getWiFiChannelByFrequency(getCenterFrequency());
     }
 
-    public String getChannel() {
-        int primaryChannel = getPrimaryWiFiChannel().getChannel();
-        int centerChannel = getCenterWiFiChannel().getChannel();
-        String result = "" + primaryChannel;
-        if (primaryChannel != centerChannel) {
-            result += " (" + centerChannel + ")";
-        }
-        return result;
-    }
-
     public int getLevel() {
         return level;
     }

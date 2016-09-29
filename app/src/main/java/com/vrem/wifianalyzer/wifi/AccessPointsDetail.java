@@ -58,7 +58,7 @@ public class AccessPointsDetail {
                 textLinkSpeed.setVisibility(View.GONE);
             } else {
                 textLinkSpeed.setVisibility(View.VISIBLE);
-                textLinkSpeed.setText(String.format("%d%s", linkSpeed, WifiInfo.LINK_SPEED_UNITS));
+                textLinkSpeed.setText(linkSpeed + WifiInfo.LINK_SPEED_UNITS);
             }
         } else {
             textIPAddress.setVisibility(View.GONE);
@@ -85,12 +85,12 @@ public class AccessPointsDetail {
         securityImage.setColorFilter(resources.getColor(R.color.icons_color));
 
         TextView textLevel = (TextView) view.findViewById(R.id.level);
-        textLevel.setText(String.format("%ddBm", wiFiSignal.getLevel()));
+        textLevel.setText(wiFiSignal.getLevel() + "dBm");
         textLevel.setTextColor(resources.getColor(strength.colorResource()));
 
-        ((TextView) view.findViewById(R.id.channel)).setText(wiFiSignal.getChannel());
-        ((TextView) view.findViewById(R.id.primaryFrequency)).setText(String.format("%d%s", wiFiSignal.getPrimaryFrequency(), WifiInfo.FREQUENCY_UNITS));
-        ((TextView) view.findViewById(R.id.width)).setText(String.format("(%d%s)", wiFiSignal.getWiFiWidth().getFrequencyWidth(), WifiInfo.FREQUENCY_UNITS));
+        ((TextView) view.findViewById(R.id.channel)).setText("" + wiFiSignal.getPrimaryWiFiChannel().getChannel());
+        ((TextView) view.findViewById(R.id.primaryFrequency)).setText(wiFiSignal.getPrimaryFrequency() + WifiInfo.FREQUENCY_UNITS);
+        ((TextView) view.findViewById(R.id.width)).setText("(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WifiInfo.FREQUENCY_UNITS + ")");
         ((TextView) view.findViewById(R.id.distance)).setText(String.format("%.1fm", wiFiSignal.getDistance()));
         ((TextView) view.findViewById(R.id.capabilities)).setText(wiFiDetail.getCapabilities());
 
@@ -111,8 +111,8 @@ public class AccessPointsDetail {
 
         if (options.isFrequencyRange()) {
             view.findViewById(R.id.channel_frequency_range_row).setVisibility(View.VISIBLE);
-            ((TextView) view.findViewById(R.id.channel_frequency_range)).setText(String.format("%d - %d %s",
-                wiFiSignal.getFrequencyStart(), wiFiSignal.getFrequencyEnd(), WifiInfo.FREQUENCY_UNITS));
+            ((TextView) view.findViewById(R.id.channel_frequency_range)).setText(
+                wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd() + " " + WifiInfo.FREQUENCY_UNITS);
         } else {
             view.findViewById(R.id.channel_frequency_range_row).setVisibility(View.GONE);
         }

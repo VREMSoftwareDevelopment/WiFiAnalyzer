@@ -121,23 +121,4 @@ public class WiFiSignalTest {
         assertEquals(fixture.hashCode(), other.hashCode());
     }
 
-    @Test
-    public void testGetChannelWhenPrimaryAndCenterAreDifferent() throws Exception {
-        // setup
-        String expected = PRIMARY_CHANNEL + " (" + CENTER_CHANNEL + ")";
-        // execute
-        String actual = fixture.getChannel();
-        // validate
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testGetChannelWhenPrimaryAndCenterAreSame() throws Exception {
-        // setup
-        WiFiSignal fixture = new WiFiSignal(CENTER_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_40, LEVEL);
-        // execute
-        String actual = fixture.getChannel();
-        // validate
-        assertEquals("" + CENTER_CHANNEL, actual);
-    }
 }

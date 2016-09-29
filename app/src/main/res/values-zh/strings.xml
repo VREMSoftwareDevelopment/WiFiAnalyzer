@@ -47,7 +47,6 @@
     <string name="channel_rating_heading_number">信道数</string>
     <string name="channel_rating_heading_count">接入点计数</string>
     <string name="channel_short_name">信道</string>
-    <string name="channel_frequency_range">范围:</string>
 
     <string name="graph_channel_axis_x">WiFi信道</string>
     <string name="graph_time_axis_x">扫描计数</string>

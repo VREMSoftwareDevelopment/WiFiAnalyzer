@@ -47,7 +47,6 @@
     <string name="channel_rating_heading_number">Número de Canal</string>
     <string name="channel_rating_heading_count">Cantidad de Puntos de Acceso</string>
     <string name="channel_short_name">CH</string>
-    <string name="channel_frequency_range">Rango:</string>
 
     <string name="graph_channel_axis_x">Canales WiFi</string>
     <string name="graph_time_axis_x">Cantidad de Exploraciones</string>

@@ -46,7 +46,6 @@
     <string name="channel_rating_heading_number">Номер Канала</string>
     <string name="channel_rating_heading_count">Число Точек Доступа</string>
     <string name="channel_short_name">CH</string>
-    <string name="channel_frequency_range">Диапазон:</string>
 
     <string name="graph_channel_axis_x">WiFi Каналы</string>
     <string name="graph_time_axis_x">Число Сканирование</string>

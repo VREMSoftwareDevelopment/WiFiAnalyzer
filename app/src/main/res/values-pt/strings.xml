@@ -47,7 +47,6 @@
     <string name="channel_rating_heading_number">Número do Canal</string>
     <string name="channel_rating_heading_count">Número de Pontos de Acesso</string>
     <string name="channel_short_name">CH</string>
-    <string name="channel_frequency_range">Alcance:</string>
 
     <string name="graph_channel_axis_x">Canais WiFi</string>
     <string name="graph_time_axis_x">Número de Escaneamentos</string>

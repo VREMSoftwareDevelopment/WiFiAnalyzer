@@ -50,7 +50,6 @@
     <string name="channel_rating_heading_number">Channel Number</string>
     <string name="channel_rating_heading_count">Access Point Count</string>
     <string name="channel_short_name">CH</string>
-    <string name="channel_frequency_range">Range:</string>
 
     <string name="graph_channel_axis_x">WiFi Channels</string>
     <string name="graph_time_axis_x">Scan Count</string>

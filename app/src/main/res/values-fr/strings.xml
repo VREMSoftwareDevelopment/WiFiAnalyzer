@@ -47,7 +47,6 @@
     <string name="channel_rating_heading_number">Canal</string>
     <string name="channel_rating_heading_count">Nombre de points d\'accès</string>
     <string name="channel_short_name">CH</string>
-    <string name="channel_frequency_range">Fréquence:</string>
 
     <string name="graph_channel_axis_x">Canaux Wi-Fi</string>
     <string name="graph_time_axis_x">Nombre d\'analyses</string>
