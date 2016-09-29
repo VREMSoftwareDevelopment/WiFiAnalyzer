@@ -134,7 +134,6 @@
 
                 <!-- Row 2 optional -->
                 <LinearLayout
-                    android:id="@+id/channel_frequency_range_row"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -173,20 +172,6 @@
                         android:textColor="@color/security"
                         android:textStyle="italic"/>
                 </LinearLayout>
-
-                <!-- Row 4 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/vendor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"/>
-
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
@@ -211,7 +196,19 @@
                 android:textColor="@color/connected"
                 android:textStyle="bold"
                 android:visibility="gone"/>
+        </LinearLayout>
 
+        <!-- Row 4 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/vendor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

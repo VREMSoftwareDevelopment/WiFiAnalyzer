@@ -18,7 +18,9 @@
 
 package com.vrem.wifianalyzer.wifi;
 
+import android.net.wifi.WifiInfo;
 import android.view.View;
+import android.widget.TextView;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
@@ -87,7 +89,6 @@ public class ConnectionViewTest {
     public void testConnectionGoneWithNoConnectionInformation() throws Exception {
         // setup
         WiFiDetail connection = withConnection(WiFiAdditional.EMPTY);
-        AccessPointsDetailOptions accessPointsDetailOptions = new AccessPointsDetailOptions(false, false);
         when(wiFiData.getConnection()).thenReturn(connection);
         when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(new ArrayList<WiFiDetail>());
         // execute
@@ -98,14 +99,14 @@ public class ConnectionViewTest {
 
         verify(wiFiData).getConnection();
         verify(configuration, never()).isLargeScreenLayout();
-        verify(accessPointsDetail, never()).setView(mainActivity.getResources(), view, connection, accessPointsDetailOptions);
+        verify(accessPointsDetail, never()).setView(mainActivity.getResources(), view, connection, false);
     }
 
     @Test
     public void testConnectionVisibleWithConnectionInformation() throws Exception {
         // setup
-        WiFiDetail connection = withConnection(new WiFiAdditional(StringUtils.EMPTY, "IPADDRESS", 11));
-        AccessPointsDetailOptions accessPointsDetailOptions = new AccessPointsDetailOptions(false, false);
+        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, "IPADDRESS", 11);
+        WiFiDetail connection = withConnection(wiFiAdditional);
         when(wiFiData.getConnection()).thenReturn(connection);
         when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(new ArrayList<WiFiDetail>());
         // execute
@@ -114,9 +115,16 @@ public class ConnectionViewTest {
         View view = mainActivity.findViewById(R.id.connection);
         assertEquals(View.VISIBLE, view.getVisibility());
 
+        TextView ipAddressView = (TextView) view.findViewById(R.id.ipAddress);
+        assertEquals(View.VISIBLE, ipAddressView.getVisibility());
+        assertEquals(wiFiAdditional.getIPAddress(), ipAddressView.getText().toString());
+
+        TextView linkSpeedView = (TextView) view.findViewById(R.id.linkSpeed);
+        assertEquals(View.VISIBLE, linkSpeedView.getVisibility());
+        assertEquals(wiFiAdditional.getLinkSpeed() + WifiInfo.LINK_SPEED_UNITS, linkSpeedView.getText().toString());
+
         verify(wiFiData).getConnection();
-        verify(configuration).isLargeScreenLayout();
-        verify(accessPointsDetail).setView(mainActivity.getResources(), view, connection, accessPointsDetailOptions);
+        verify(accessPointsDetail).setView(mainActivity.getResources(), view, connection, false);
     }
 
     @Test

@@ -32,38 +32,19 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.Strength;
-import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
-import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.apache.commons.lang3.StringUtils;
 
 public class AccessPointsDetail {
-    public void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, AccessPointsDetailOptions options) {
+    public void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
         TextView textSSID = (TextView) view.findViewById(R.id.ssid);
-        TextView textIPAddress = (TextView) view.findViewById(R.id.ipAddress);
-        TextView textLinkSpeed = (TextView) view.findViewById(R.id.linkSpeed);
 
         textSSID.setText(wiFiDetail.getTitle());
 
-        WiFiAdditional wiFiAdditional = wiFiDetail.getWiFiAdditional();
-        if (wiFiAdditional.isConnected()) {
-            String ipAddress = wiFiAdditional.getIPAddress();
-            textIPAddress.setVisibility(View.VISIBLE);
-            textIPAddress.setText(ipAddress);
-
-            int linkSpeed = wiFiAdditional.getLinkSpeed();
-            if (linkSpeed == WiFiConnection.LINK_SPEED_INVALID) {
-                textLinkSpeed.setVisibility(View.GONE);
-            } else {
-                textLinkSpeed.setVisibility(View.VISIBLE);
-                textLinkSpeed.setText(linkSpeed + WifiInfo.LINK_SPEED_UNITS);
-            }
-        } else {
-            textIPAddress.setVisibility(View.GONE);
-            textLinkSpeed.setVisibility(View.GONE);
-        }
+        view.findViewById(R.id.ipAddress).setVisibility(View.GONE);
+        view.findViewById(R.id.linkSpeed).setVisibility(View.GONE);
 
         ImageView configuredImage = (ImageView) view.findViewById(R.id.configuredImage);
         if (wiFiDetail.getWiFiAdditional().isConfiguredNetwork()) {
@@ -88,11 +69,18 @@ public class AccessPointsDetail {
         textLevel.setText(wiFiSignal.getLevel() + "dBm");
         textLevel.setTextColor(resources.getColor(strength.colorResource()));
 
-        ((TextView) view.findViewById(R.id.channel)).setText("" + wiFiSignal.getPrimaryWiFiChannel().getChannel());
-        ((TextView) view.findViewById(R.id.primaryFrequency)).setText(wiFiSignal.getPrimaryFrequency() + WifiInfo.FREQUENCY_UNITS);
-        ((TextView) view.findViewById(R.id.width)).setText("(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WifiInfo.FREQUENCY_UNITS + ")");
-        ((TextView) view.findViewById(R.id.distance)).setText(String.format("%.1fm", wiFiSignal.getDistance()));
-        ((TextView) view.findViewById(R.id.capabilities)).setText(wiFiDetail.getCapabilities());
+        ((TextView) view.findViewById(R.id.channel))
+            .setText("" + wiFiSignal.getPrimaryWiFiChannel().getChannel());
+        ((TextView) view.findViewById(R.id.primaryFrequency))
+            .setText(wiFiSignal.getPrimaryFrequency() + WifiInfo.FREQUENCY_UNITS);
+        ((TextView) view.findViewById(R.id.distance))
+            .setText(String.format("%.1fm", wiFiSignal.getDistance()));
+        ((TextView) view.findViewById(R.id.channel_frequency_range))
+            .setText(wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd() + " " + WifiInfo.FREQUENCY_UNITS);
+        ((TextView) view.findViewById(R.id.width))
+            .setText("(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WifiInfo.FREQUENCY_UNITS + ")");
+        ((TextView) view.findViewById(R.id.capabilities))
+            .setText(wiFiDetail.getCapabilities());
 
         TextView textVendor = ((TextView) view.findViewById(R.id.vendor));
         String vendor = wiFiDetail.getWiFiAdditional().getVendorName();
@@ -103,27 +91,19 @@ public class AccessPointsDetail {
             textVendor.setText(vendor);
         }
 
-        if (options.isChild()) {
+        if (isChild) {
             view.findViewById(R.id.tab).setVisibility(View.VISIBLE);
         } else {
             view.findViewById(R.id.tab).setVisibility(View.GONE);
         }
 
-        if (options.isFrequencyRange()) {
-            view.findViewById(R.id.channel_frequency_range_row).setVisibility(View.VISIBLE);
-            ((TextView) view.findViewById(R.id.channel_frequency_range)).setText(
-                wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd() + " " + WifiInfo.FREQUENCY_UNITS);
-        } else {
-            view.findViewById(R.id.channel_frequency_range_row).setVisibility(View.GONE);
-        }
     }
 
     public Dialog popupDialog(@NonNull Context context, @NonNull LayoutInflater inflater, @NonNull WiFiDetail wiFiDetail) {
         View view = inflater.inflate(R.layout.access_points_details_popup, null);
         Dialog dialog = new Dialog(context);
         dialog.setContentView(view);
-        AccessPointsDetailOptions accessPointsDetailOptions = new AccessPointsDetailOptions(false, true);
-        setView(context.getResources(), view, wiFiDetail, accessPointsDetailOptions);
+        setView(context.getResources(), view, wiFiDetail, false);
         dialog.findViewById(R.id.popupButton).setOnClickListener(new PopupDialogListener(dialog));
         return dialog;
     }

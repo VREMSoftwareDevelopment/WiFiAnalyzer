@@ -65,27 +65,21 @@ public class AccessPointsDetailTest {
         WiFiDetail wiFiDetail = new WiFiDetail("SSID", "BSSID", "capabilities",
             new WiFiSignal(1, 1, WiFiWidth.MHZ_20, 2),
             new WiFiAdditional("VendorName", "IPAddress", 22));
-        AccessPointsDetailOptions accessPointsDetailOptions = new AccessPointsDetailOptions(false, false);
         // execute
-        fixture.setView(mainActivity.getResources(), view, wiFiDetail, accessPointsDetailOptions);
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         validateTextViewValues(wiFiDetail, "SSID");
 
-        validateTextViewValue(wiFiDetail.getWiFiAdditional().getIPAddress(), R.id.ipAddress);
-        assertEquals(View.VISIBLE, view.findViewById(R.id.ipAddress).getVisibility());
+        assertEquals(View.GONE, view.findViewById(R.id.ipAddress).getVisibility());
+        assertEquals(View.GONE, view.findViewById(R.id.linkSpeed).getVisibility());
 
         assertEquals(View.VISIBLE, view.findViewById(R.id.configuredImage).getVisibility());
-
-        validateTextViewValue(String.format("%d%s", wiFiDetail.getWiFiAdditional().getLinkSpeed(), WifiInfo.LINK_SPEED_UNITS), R.id.linkSpeed);
-        assertEquals(View.VISIBLE, view.findViewById(R.id.linkSpeed).getVisibility());
 
         validateTextViewValue(wiFiDetail.getWiFiAdditional().getVendorName(), R.id.vendor);
         assertEquals(View.VISIBLE, view.findViewById(R.id.vendor).getVisibility());
 
         assertEquals(View.GONE, view.findViewById(R.id.tab).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.groupIndicator).getVisibility());
-
-        assertEquals(View.GONE, view.findViewById(R.id.channel_frequency_range_row).getVisibility());
     }
 
     @Test
@@ -94,21 +88,17 @@ public class AccessPointsDetailTest {
         WiFiDetail wiFiDetail = new WiFiDetail(StringUtils.EMPTY, "BSSID", "capabilities",
             new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2),
             new WiFiAdditional(StringUtils.EMPTY, false));
-        AccessPointsDetailOptions accessPointsDetailOptions = new AccessPointsDetailOptions(true, true);
         // execute
-        fixture.setView(mainActivity.getResources(), view, wiFiDetail, accessPointsDetailOptions);
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, true);
         // validate
         validateTextViewValues(wiFiDetail, "***");
-        WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        validateTextViewValue(wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd() + " " + WifiInfo.FREQUENCY_UNITS,
-            R.id.channel_frequency_range);
 
         assertEquals(View.GONE, view.findViewById(R.id.ipAddress).getVisibility());
+        assertEquals(View.GONE, view.findViewById(R.id.linkSpeed).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.configuredImage).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.vendor).getVisibility());
         assertEquals(View.VISIBLE, view.findViewById(R.id.tab).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.groupIndicator).getVisibility());
-        assertEquals(View.VISIBLE, view.findViewById(R.id.channel_frequency_range_row).getVisibility());
     }
 
     private void validateTextViewValues(@NonNull WiFiDetail wiFiDetail, @NonNull String ssid) {
@@ -117,6 +107,8 @@ public class AccessPointsDetailTest {
         validateTextViewValue(wiFiSignal.getLevel() + "dBm", R.id.level);
         validateTextViewValue("" + wiFiSignal.getPrimaryWiFiChannel().getChannel(), R.id.channel);
         validateTextViewValue(wiFiSignal.getPrimaryFrequency() + WifiInfo.FREQUENCY_UNITS, R.id.primaryFrequency);
+        validateTextViewValue(wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd() + " " + WifiInfo.FREQUENCY_UNITS,
+            R.id.channel_frequency_range);
         validateTextViewValue("(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WifiInfo.FREQUENCY_UNITS + ")", R.id.width);
         validateTextViewValue(String.format("%.1fm", wiFiSignal.getDistance()), R.id.distance);
         validateTextViewValue(wiFiDetail.getCapabilities(), R.id.capabilities);
