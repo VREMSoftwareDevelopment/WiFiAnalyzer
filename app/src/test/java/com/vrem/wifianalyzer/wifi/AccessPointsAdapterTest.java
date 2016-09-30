@@ -21,7 +21,6 @@ package com.vrem.wifianalyzer.wifi;
 import android.view.View;
 
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
@@ -54,7 +53,6 @@ public class AccessPointsAdapterTest {
     private AccessPointsAdapter fixture;
     private AccessPointsAdapterData accessPointsAdapterData;
     private AccessPointsDetail accessPointsDetail;
-    private Configuration configuration;
 
     @Before
     public void setUp() {
@@ -62,8 +60,6 @@ public class AccessPointsAdapterTest {
 
         accessPointsAdapterData = mock(AccessPointsAdapterData.class);
         accessPointsDetail = mock(AccessPointsDetail.class);
-
-        configuration = MainContextHelper.INSTANCE.getConfiguration();
 
         fixture = new AccessPointsAdapter(mainActivity);
         fixture.setAccessPointsAdapterData(accessPointsAdapterData);

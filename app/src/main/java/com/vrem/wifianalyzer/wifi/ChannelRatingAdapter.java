@@ -91,8 +91,8 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         WiFiChannel wiFiChannel = getItem(position);
         int count = channelRating.getCount(wiFiChannel);
 
-        ((TextView) view.findViewById(R.id.channelNumber)).setText(String.format("%d", wiFiChannel.getChannel()));
-        ((TextView) view.findViewById(R.id.accessPointCount)).setText(String.format("%d", count));
+        ((TextView) view.findViewById(R.id.channelNumber)).setText("" + wiFiChannel.getChannel());
+        ((TextView) view.findViewById(R.id.accessPointCount)).setText("" + count);
 
         Strength strength = Strength.reverse(channelRating.getStrength(wiFiChannel));
         RatingBar ratingBar = (RatingBar) view.findViewById(R.id.channelRating);

@@ -145,13 +145,24 @@ public class AccessPointsDetailTest {
     }
 
     @Test
-    public void testSetViewWithWiFiDetail() throws Exception {
+    public void testSetViewWithWiFiDetailAndEmptySSID() throws Exception {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
         fixture.setView(mainActivity.getResources(), view, wiFiDetail, false, false);
         // validate
         validateTextViewValues(wiFiDetail, "***");
+    }
+
+    @Test
+    public void testSetViewWithWiFiDetail() throws Exception {
+        // setup
+        String ssid = "SSID";
+        WiFiDetail wiFiDetail = withWiFiDetail(ssid, new WiFiAdditional(StringUtils.EMPTY, false));
+        // execute
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false, false);
+        // validate
+        validateTextViewValues(wiFiDetail, ssid);
     }
 
     private WiFiDetail withWiFiDetail(String SSID, WiFiAdditional wiFiAdditional) {
