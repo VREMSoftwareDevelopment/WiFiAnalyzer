@@ -60,45 +60,102 @@ public class AccessPointsDetailTest {
     }
 
     @Test
-    public void testSetViewWithWiFiDetailAsConnection() throws Exception {
+    public void testSetViewWithIpAddressAndLinkSpeedGone() throws Exception {
         // setup
-        WiFiDetail wiFiDetail = new WiFiDetail("SSID", "BSSID", "capabilities",
-            new WiFiSignal(1, 1, WiFiWidth.MHZ_20, 2),
-            new WiFiAdditional("VendorName", "IPAddress", 22));
+        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, "IPAddress", 22);
+        WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
         // execute
-        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false, false);
         // validate
-        validateTextViewValues(wiFiDetail, "SSID");
-
         assertEquals(View.GONE, view.findViewById(R.id.ipAddress).getVisibility());
         assertEquals(View.GONE, view.findViewById(R.id.linkSpeed).getVisibility());
+    }
 
+    @Test
+    public void testSetViewWithConfiguredImageVisible() throws Exception {
+        // setup
+        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, "IPAddress", 22);
+        WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
+        // execute
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false, false);
+        // validate
         assertEquals(View.VISIBLE, view.findViewById(R.id.configuredImage).getVisibility());
+    }
 
-        validateTextViewValue(wiFiDetail.getWiFiAdditional().getVendorName(), R.id.vendor);
-        assertEquals(View.VISIBLE, view.findViewById(R.id.vendor).getVisibility());
-
+    @Test
+    public void testSetViewWithTabGone() throws Exception {
+        // setup
+        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, "IPAddress", 22);
+        WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
+        // execute
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false, false);
+        // validate
         assertEquals(View.GONE, view.findViewById(R.id.tab).getVisibility());
+    }
+
+    @Test
+    public void testSetViewWithGroupIndicatorGone() throws Exception {
+        // setup
+        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, "IPAddress", 22);
+        WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
+        // execute
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false, false);
+        // validate
         assertEquals(View.GONE, view.findViewById(R.id.groupIndicator).getVisibility());
     }
 
     @Test
-    public void testSetViewWithWiFiDetailAsScanResult() throws Exception {
+    public void testSetViewWithVendorNameVisible() throws Exception {
         // setup
-        WiFiDetail wiFiDetail = new WiFiDetail(StringUtils.EMPTY, "BSSID", "capabilities",
-            new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2),
-            new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = withWiFiDetail("SSID", new WiFiAdditional("VendorName", false));
         // execute
-        fixture.setView(mainActivity.getResources(), view, wiFiDetail, true);
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false, true);
+        // validate
+        assertEquals(View.VISIBLE, view.findViewById(R.id.vendor).getVisibility());
+    }
+
+    @Test
+    public void testSetViewWithVendorNameMaximumSize() throws Exception {
+        // setup
+        WiFiDetail wiFiDetail = withWiFiDetail("SSID", new WiFiAdditional("VendorName-VendorName", false));
+        // execute
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false, true);
+        // validate
+        validateTextViewValue("VendorName-Vend", R.id.vendor);
+    }
+
+    @Test
+    public void testSetViewWithVendorNameFirstWord() throws Exception {
+        // setup
+        WiFiDetail wiFiDetail = withWiFiDetail("SSID", new WiFiAdditional("VendorName1 VendorName2", false));
+        // execute
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false, true);
+        // validate
+        validateTextViewValue("VendorName1", R.id.vendor);
+    }
+
+    @Test
+    public void testSetViewWithTabVisible() throws Exception {
+        // setup
+        WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
+        // execute
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, true, false);
+        // validate
+        assertEquals(View.VISIBLE, view.findViewById(R.id.tab).getVisibility());
+    }
+
+    @Test
+    public void testSetViewWithWiFiDetail() throws Exception {
+        // setup
+        WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
+        // execute
+        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false, false);
         // validate
         validateTextViewValues(wiFiDetail, "***");
+    }
 
-        assertEquals(View.GONE, view.findViewById(R.id.ipAddress).getVisibility());
-        assertEquals(View.GONE, view.findViewById(R.id.linkSpeed).getVisibility());
-        assertEquals(View.GONE, view.findViewById(R.id.configuredImage).getVisibility());
-        assertEquals(View.GONE, view.findViewById(R.id.vendor).getVisibility());
-        assertEquals(View.VISIBLE, view.findViewById(R.id.tab).getVisibility());
-        assertEquals(View.GONE, view.findViewById(R.id.groupIndicator).getVisibility());
+    private WiFiDetail withWiFiDetail(String SSID, WiFiAdditional wiFiAdditional) {
+        return new WiFiDetail(SSID, "BSSID", "capabilities", new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2), wiFiAdditional);
     }
 
     private void validateTextViewValues(@NonNull WiFiDetail wiFiDetail, @NonNull String ssid) {

@@ -32,13 +32,16 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.Strength;
+import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.apache.commons.lang3.StringUtils;
 
 public class AccessPointsDetail {
-    public void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
+    private static final int VENDOR_NAME_MAX = 15;
+
+    public void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild, boolean shortVendorName) {
         TextView textSSID = (TextView) view.findViewById(R.id.ssid);
 
         textSSID.setText(wiFiDetail.getTitle());
@@ -47,7 +50,8 @@ public class AccessPointsDetail {
         view.findViewById(R.id.linkSpeed).setVisibility(View.GONE);
 
         ImageView configuredImage = (ImageView) view.findViewById(R.id.configuredImage);
-        if (wiFiDetail.getWiFiAdditional().isConfiguredNetwork()) {
+        WiFiAdditional wiFiAdditional = wiFiDetail.getWiFiAdditional();
+        if (wiFiAdditional.isConfiguredNetwork()) {
             configuredImage.setVisibility(View.VISIBLE);
             configuredImage.setColorFilter(resources.getColor(R.color.connected));
         } else {
@@ -83,11 +87,15 @@ public class AccessPointsDetail {
             .setText(wiFiDetail.getCapabilities());
 
         TextView textVendor = ((TextView) view.findViewById(R.id.vendor));
-        String vendor = wiFiDetail.getWiFiAdditional().getVendorName();
+        String vendor = wiFiAdditional.getVendorName();
         if (StringUtils.isBlank(vendor)) {
             textVendor.setVisibility(View.GONE);
         } else {
             textVendor.setVisibility(View.VISIBLE);
+            if (shortVendorName) {
+                vendor = vendor.split(" ")[0];
+                vendor = vendor.substring(0, Math.min(VENDOR_NAME_MAX, vendor.length()));
+            }
             textVendor.setText(vendor);
         }
 
@@ -103,7 +111,7 @@ public class AccessPointsDetail {
         View view = inflater.inflate(R.layout.access_points_details_popup, null);
         Dialog dialog = new Dialog(context);
         dialog.setContentView(view);
-        setView(context.getResources(), view, wiFiDetail, false);
+        setView(context.getResources(), view, wiFiDetail, false, false);
         dialog.findViewById(R.id.popupButton).setOnClickListener(new PopupDialogListener(dialog));
         return dialog;
     }

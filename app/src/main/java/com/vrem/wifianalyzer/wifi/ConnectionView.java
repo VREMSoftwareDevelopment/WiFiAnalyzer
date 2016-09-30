@@ -23,7 +23,6 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
@@ -75,8 +74,7 @@ public class ConnectionView implements UpdateNotifier {
         WiFiAdditional wiFiAdditional = connection.getWiFiAdditional();
         if (wiFiAdditional.isConnected()) {
             connectionView.setVisibility(View.VISIBLE);
-            Configuration configuration = MainContext.INSTANCE.getConfiguration();
-            accessPointsDetail.setView(mainActivity.getResources(), connectionView, connection, false);
+            accessPointsDetail.setView(mainActivity.getResources(), connectionView, connection, false, true);
 
             String ipAddress = wiFiAdditional.getIPAddress();
             int linkSpeed = wiFiAdditional.getLinkSpeed();

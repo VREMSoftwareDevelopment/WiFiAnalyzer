@@ -193,16 +193,10 @@
                 android:id="@+id/ipAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                 android:textColor="@color/connected"
                 android:textStyle="bold"
                 android:visibility="gone"/>
-        </LinearLayout>
-
-        <!-- Row 4 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/vendor"
