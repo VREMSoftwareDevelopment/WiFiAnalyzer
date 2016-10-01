@@ -73,6 +73,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                 android:orientation="vertical">
 
                 <TextView
@@ -92,7 +93,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
                 android:orientation="vertical">
 
                 <!-- Row 2 -->
@@ -104,6 +104,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                         android:text="@string/channel_short_name"
                         android:textColor="@color/channel"
                         android:textStyle="bold"/>
@@ -112,7 +113,7 @@
                         android:id="@+id/channel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                         android:textColor="@color/channel_number"
                         android:textStyle="bold"/>
 
@@ -120,14 +121,13 @@
                         android:id="@+id/primaryFrequency"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                         android:textColor="@color/channel"/>
 
                     <TextView
                         android:id="@+id/distance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
                         android:textColor="@color/distance"
                         android:textStyle="bold"/>
                 </LinearLayout>
@@ -142,14 +142,13 @@
                         android:id="@+id/channel_frequency_range"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
+                        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                         android:textColor="@color/channel"/>
 
                     <TextView
                         android:id="@+id/width"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
                         android:textColor="@color/channel"/>
                 </LinearLayout>
 
@@ -162,13 +161,13 @@
                     <ImageView
                         android:id="@+id/securityImage"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"/>
 
                     <TextView
                         android:id="@+id/capabilities"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/list_view_item_horizontal_spacer"
                         android:textColor="@color/security"
                         android:textStyle="italic"/>
                 </LinearLayout>

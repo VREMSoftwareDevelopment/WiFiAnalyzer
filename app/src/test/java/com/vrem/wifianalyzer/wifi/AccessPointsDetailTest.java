@@ -175,8 +175,7 @@ public class AccessPointsDetailTest {
         validateTextViewValue(wiFiSignal.getLevel() + "dBm", R.id.level);
         validateTextViewValue("" + wiFiSignal.getPrimaryWiFiChannel().getChannel(), R.id.channel);
         validateTextViewValue(wiFiSignal.getPrimaryFrequency() + WifiInfo.FREQUENCY_UNITS, R.id.primaryFrequency);
-        validateTextViewValue(wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd() + " " + WifiInfo.FREQUENCY_UNITS,
-            R.id.channel_frequency_range);
+        validateTextViewValue(wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd(), R.id.channel_frequency_range);
         validateTextViewValue("(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WifiInfo.FREQUENCY_UNITS + ")", R.id.width);
         validateTextViewValue(String.format("%.1fm", wiFiSignal.getDistance()), R.id.distance);
         validateTextViewValue(wiFiDetail.getCapabilities(), R.id.capabilities);

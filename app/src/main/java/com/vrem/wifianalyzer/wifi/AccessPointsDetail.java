@@ -80,7 +80,7 @@ public class AccessPointsDetail {
         ((TextView) view.findViewById(R.id.distance))
             .setText(String.format("%.1fm", wiFiSignal.getDistance()));
         ((TextView) view.findViewById(R.id.channel_frequency_range))
-            .setText(wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd() + " " + WifiInfo.FREQUENCY_UNITS);
+            .setText(wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd());
         ((TextView) view.findViewById(R.id.width))
             .setText("(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WifiInfo.FREQUENCY_UNITS + ")");
         ((TextView) view.findViewById(R.id.capabilities))
