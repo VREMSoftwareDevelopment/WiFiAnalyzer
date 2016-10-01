@@ -76,7 +76,7 @@ public class AboutActivity extends AppCompatActivity {
             PackageInfo packageInfo = packageManager.getPackageInfo(getPackageName(), 0);
             String versionInfo = packageInfo.versionName;
             Configuration configuration = mainContext.getConfiguration();
-            if (configuration.isDevelopmentMode()) {
+            if (configuration != null && configuration.isDevelopmentMode()) {
                 versionInfo += " - " + packageInfo.versionCode + " SDK:" + Build.VERSION.SDK_INT;
             }
             ((TextView) findViewById(R.id.about_version_info)).setText(versionInfo);
@@ -87,7 +87,7 @@ public class AboutActivity extends AppCompatActivity {
 
     private void setPackageName() {
         Configuration configuration = MainContext.INSTANCE.getConfiguration();
-        if (configuration.isDevelopmentMode()) {
+        if (configuration != null && configuration.isDevelopmentMode()) {
             TextView textView = (TextView) findViewById(R.id.about_package_name);
             textView.setText(getPackageName());
             textView.setVisibility(View.VISIBLE);
@@ -96,7 +96,7 @@ public class AboutActivity extends AppCompatActivity {
 
     private void setApplicationName() {
         Configuration configuration = MainContext.INSTANCE.getConfiguration();
-        if (configuration.isDevelopmentMode()) {
+        if (configuration != null && configuration.isDevelopmentMode()) {
             TextView textView = (TextView) findViewById(R.id.about_app_name);
             textView.setText(textView.getText() + " " + MainActivity.WI_FI_ANALYZER_BETA);
         }

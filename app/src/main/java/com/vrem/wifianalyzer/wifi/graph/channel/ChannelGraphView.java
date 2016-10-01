@@ -70,7 +70,7 @@ class ChannelGraphView implements GraphViewNotifier {
         SortBy sortBy = settings.getSortBy();
         Set<WiFiDetail> newSeries = new TreeSet<>();
         for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, sortBy)) {
-            if (isInRange(wiFiDetail.getWiFiSignal().getPrimaryFrequency(), wiFiChannelPair)) {
+            if (isInRange(wiFiDetail.getWiFiSignal().getCenterFrequency(), wiFiChannelPair)) {
                 newSeries.add(wiFiDetail);
                 addData(wiFiDetail);
             }
