@@ -82,7 +82,7 @@ public class AccessPointsAdapterTest {
         // validate
         assertNotNull(actual);
         assertEquals(View.GONE, actual.findViewById(R.id.groupIndicator).getVisibility());
-        verify(accessPointsDetail).setView(mainActivity.getResources(), actual, wiFiDetail, false, false);
+        verify(accessPointsDetail).setView(mainActivity.getResources(), actual, wiFiDetail, false);
         verify(accessPointsAdapterData).parent(1);
         verify(accessPointsAdapterData).childrenCount(1);
     }
@@ -98,7 +98,7 @@ public class AccessPointsAdapterTest {
         // validate
         assertNotNull(actual);
         assertEquals(View.VISIBLE, actual.findViewById(R.id.groupIndicator).getVisibility());
-        verify(accessPointsDetail).setView(mainActivity.getResources(), actual, wiFiDetail, false, false);
+        verify(accessPointsDetail).setView(mainActivity.getResources(), actual, wiFiDetail, false);
         verify(accessPointsAdapterData).parent(1);
         verify(accessPointsAdapterData).childrenCount(1);
     }
@@ -113,7 +113,7 @@ public class AccessPointsAdapterTest {
         // validate
         assertNotNull(actual);
         assertEquals(View.GONE, actual.findViewById(R.id.groupIndicator).getVisibility());
-        verify(accessPointsDetail).setView(mainActivity.getResources(), actual, wiFiDetail, true, false);
+        verify(accessPointsDetail).setView(mainActivity.getResources(), actual, wiFiDetail, true);
         verify(accessPointsAdapterData).child(0, 0);
     }
 

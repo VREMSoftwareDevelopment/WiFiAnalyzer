@@ -74,7 +74,7 @@ public class ConnectionView implements UpdateNotifier {
         WiFiAdditional wiFiAdditional = connection.getWiFiAdditional();
         if (wiFiAdditional.isConnected()) {
             connectionView.setVisibility(View.VISIBLE);
-            accessPointsDetail.setView(mainActivity.getResources(), connectionView, connection, false, true);
+            accessPointsDetail.setView(mainActivity.getResources(), connectionView, connection, false);
 
             String ipAddress = wiFiAdditional.getIPAddress();
             int linkSpeed = wiFiAdditional.getLinkSpeed();

@@ -149,7 +149,14 @@
                         android:id="@+id/width"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                         android:textColor="@color/channel"/>
+
+                    <TextView
+                        android:id="@+id/vendor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
                 </LinearLayout>
 
                 <!-- Row 3 -->
@@ -195,12 +202,6 @@
                 android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                 android:textColor="@color/connected"
                 android:textStyle="bold"
-                android:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/vendor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:visibility="gone"/>
         </LinearLayout>
     </LinearLayout>

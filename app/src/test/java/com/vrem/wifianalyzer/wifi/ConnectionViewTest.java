@@ -99,7 +99,7 @@ public class ConnectionViewTest {
 
         verify(wiFiData).getConnection();
         verify(configuration, never()).isLargeScreenLayout();
-        verify(accessPointsDetail, never()).setView(mainActivity.getResources(), view, connection, false, true);
+        verify(accessPointsDetail, never()).setView(mainActivity.getResources(), view, connection, false);
     }
 
     @Test
@@ -124,7 +124,7 @@ public class ConnectionViewTest {
         assertEquals(wiFiAdditional.getLinkSpeed() + WifiInfo.LINK_SPEED_UNITS, linkSpeedView.getText().toString());
 
         verify(wiFiData).getConnection();
-        verify(accessPointsDetail).setView(mainActivity.getResources(), view, connection, false, true);
+        verify(accessPointsDetail).setView(mainActivity.getResources(), view, connection, false);
     }
 
     @Test

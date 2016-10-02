@@ -57,7 +57,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         View view = getView(convertView, parent);
         WiFiDetail wiFiDetail = (WiFiDetail) getGroup(groupPosition);
-        accessPointsDetail.setView(resources, view, wiFiDetail, false, false);
+        accessPointsDetail.setView(resources, view, wiFiDetail, false);
 
         ImageView groupIndicator = (ImageView) view.findViewById(R.id.groupIndicator);
         int childrenCount = getChildrenCount(groupPosition);
@@ -78,7 +78,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         View view = getView(convertView, parent);
         WiFiDetail wiFiDetail = (WiFiDetail) getChild(groupPosition, childPosition);
-        accessPointsDetail.setView(resources, view, wiFiDetail, true, false);
+        accessPointsDetail.setView(resources, view, wiFiDetail, true);
         view.findViewById(R.id.groupIndicator).setVisibility(View.GONE);
         return view;
     }

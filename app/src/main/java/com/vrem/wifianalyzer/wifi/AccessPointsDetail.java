@@ -39,9 +39,9 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import org.apache.commons.lang3.StringUtils;
 
 public class AccessPointsDetail {
-    private static final int VENDOR_NAME_MAX = 15;
+    private static final int VENDOR_NAME_MAX = 12;
 
-    public void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild, boolean shortVendorName) {
+    public void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
         TextView textSSID = (TextView) view.findViewById(R.id.ssid);
 
         textSSID.setText(wiFiDetail.getTitle());
@@ -92,11 +92,7 @@ public class AccessPointsDetail {
             textVendor.setVisibility(View.GONE);
         } else {
             textVendor.setVisibility(View.VISIBLE);
-            if (shortVendorName) {
-                vendor = vendor.split(" ")[0];
-                vendor = vendor.substring(0, Math.min(VENDOR_NAME_MAX, vendor.length()));
-            }
-            textVendor.setText(vendor);
+            textVendor.setText(vendor.substring(0, Math.min(VENDOR_NAME_MAX, vendor.length())));
         }
 
         if (isChild) {
@@ -111,7 +107,7 @@ public class AccessPointsDetail {
         View view = inflater.inflate(R.layout.access_points_details_popup, null);
         Dialog dialog = new Dialog(context);
         dialog.setContentView(view);
-        setView(context.getResources(), view, wiFiDetail, false, false);
+        setView(context.getResources(), view, wiFiDetail, false);
         dialog.findViewById(R.id.popupButton).setOnClickListener(new PopupDialogListener(dialog));
         return dialog;
     }
