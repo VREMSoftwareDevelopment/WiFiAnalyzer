@@ -41,6 +41,7 @@ class VendorAdapter extends ArrayAdapter<String> {
         this.vendors = vendors;
     }
 
+    @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
