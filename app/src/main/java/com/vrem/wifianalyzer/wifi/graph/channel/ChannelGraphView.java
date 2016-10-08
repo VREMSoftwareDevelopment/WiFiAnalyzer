@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.graph.channel;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
@@ -28,6 +27,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.TitleLineGraphSeries;
 import com.vrem.wifianalyzer.Configuration;
+import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -138,8 +138,8 @@ class ChannelGraphView implements GraphViewNotifier {
 
     private GraphView makeGraphView() {
         Resources resources = MainContext.INSTANCE.getResources();
-        Context context = MainContext.INSTANCE.getContext();
-        return new GraphViewBuilder(context, getNumX())
+        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
+        return new GraphViewBuilder(mainActivity, getNumX())
             .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair))
             .setVerticalTitle(resources.getString(R.string.graph_axis_y))
             .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))

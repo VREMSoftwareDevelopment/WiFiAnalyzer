@@ -19,9 +19,12 @@
 package com.vrem.wifianalyzer.navigation;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.view.MenuItem;
 
+import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.about.AboutActivity;
 import com.vrem.wifianalyzer.settings.SettingActivity;
@@ -90,4 +93,17 @@ public enum NavigationMenu {
     int getIcon() {
         return icon;
     }
+
+    public void activateNavigationMenu(@NonNull MainActivity mainActivity, MenuItem menuItem) {
+        Fragment fragment = getFragment();
+        if (fragment == null) {
+            mainActivity.startActivity(new Intent(mainActivity, getActivity()));
+        } else {
+            mainActivity.getNavigationMenuView().setCurrentNavigationMenu(this);
+            mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, fragment).commit();
+            mainActivity.setTitle(menuItem.getTitle());
+            mainActivity.updateSubTitle();
+        }
+    }
+
 }

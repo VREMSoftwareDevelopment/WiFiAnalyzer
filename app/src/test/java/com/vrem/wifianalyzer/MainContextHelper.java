@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 
@@ -84,9 +83,9 @@ public enum MainContextHelper {
         return result;
     }
 
-    public Context getContext() {
-        Context result = (Context) save(Context.class, mainContext.getContext());
-        mainContext.setContext(result);
+    public MainActivity getMainActivity() {
+        MainActivity result = (MainActivity) save(MainActivity.class, mainContext.getMainActivity());
+        mainContext.setMainActivity(result);
         return result;
     }
 
@@ -111,8 +110,8 @@ public enum MainContextHelper {
                 mainContext.setVendorService((VendorService) result);
             } else if (clazz.equals(Scanner.class)) {
                 mainContext.setScanner((Scanner) result);
-            } else if (clazz.equals(Context.class)) {
-                mainContext.setContext((Context) result);
+            } else if (clazz.equals(MainActivity.class)) {
+                mainContext.setMainActivity((MainActivity) result);
             } else if (clazz.equals(Resources.class)) {
                 mainContext.setResources((Resources) result);
             } else if (clazz.equals(LayoutInflater.class)) {

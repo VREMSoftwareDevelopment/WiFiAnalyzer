@@ -20,18 +20,22 @@ package com.vrem.wifianalyzer;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.net.wifi.WifiManager;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
+import com.vrem.wifianalyzer.wifi.scanner.Transformer;
 
 public enum MainContext {
     INSTANCE;
 
     private Settings settings;
-    private Context context;
+    private MainActivity mainActivity;
     private Resources resources;
     private Scanner scanner;
     private VendorService vendorService;
@@ -88,12 +92,12 @@ public enum MainContext {
         this.resources = resources;
     }
 
-    public Context getContext() {
-        return context;
+    public MainActivity getMainActivity() {
+        return mainActivity;
     }
 
-    void setContext(Context context) {
-        this.context = context;
+    void setMainActivity(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
     }
 
     public Logger getLogger() {
@@ -110,5 +114,22 @@ public enum MainContext {
 
     void setConfiguration(Configuration configuration) {
         this.configuration = configuration;
+    }
+
+    void initialize(@NonNull MainActivity mainActivity, boolean isLargeScreenLayout, boolean isDevelopment) {
+        WifiManager wifiManager = (WifiManager) mainActivity.getSystemService(Context.WIFI_SERVICE);
+        Handler handler = new Handler();
+        Settings settings = new Settings(mainActivity);
+        Configuration configuration = new Configuration(isLargeScreenLayout, isDevelopment);
+
+        setMainActivity(mainActivity);
+        setConfiguration(configuration);
+        setResources(mainActivity.getResources());
+        setDatabase(new Database(mainActivity));
+        setSettings(settings);
+        setVendorService(new VendorService());
+        setLayoutInflater((LayoutInflater) mainActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+        setLogger(new Logger());
+        setScanner(new Scanner(wifiManager, handler, settings, new Transformer()));
     }
 }
