@@ -38,7 +38,7 @@ public class NavigationMenuTest {
 
     @Test
     public void testNavigationMenu() throws Exception {
-        assertEquals(8, NavigationMenu.values().length);
+        assertEquals(9, NavigationMenu.values().length);
     }
 
     @Test
@@ -50,6 +50,7 @@ public class NavigationMenuTest {
         assertEquals(NavigationMenu.CHANNEL_RATING, NavigationMenu.find(NavigationMenu.CHANNEL_RATING.ordinal()));
         assertEquals(NavigationMenu.CHANNEL_GRAPH, NavigationMenu.find(NavigationMenu.CHANNEL_GRAPH.ordinal()));
         assertEquals(NavigationMenu.TIME_GRAPH, NavigationMenu.find(NavigationMenu.TIME_GRAPH.ordinal()));
+        assertEquals(NavigationMenu.EXPORT, NavigationMenu.find(NavigationMenu.EXPORT.ordinal()));
         assertEquals(NavigationMenu.CHANNEL_AVAILABLE, NavigationMenu.find(NavigationMenu.CHANNEL_AVAILABLE.ordinal()));
         assertEquals(NavigationMenu.VENDOR_LIST, NavigationMenu.find(NavigationMenu.VENDOR_LIST.ordinal()));
         assertEquals(NavigationMenu.SETTINGS, NavigationMenu.find(NavigationMenu.SETTINGS.ordinal()));
@@ -64,6 +65,9 @@ public class NavigationMenuTest {
         assertTrue(NavigationMenu.TIME_GRAPH.getItem() instanceof FragmentItem);
         assertTrue(NavigationMenu.CHANNEL_AVAILABLE.getItem() instanceof FragmentItem);
         assertTrue(NavigationMenu.VENDOR_LIST.getItem() instanceof FragmentItem);
+
+        assertTrue(NavigationMenu.EXPORT.getItem() instanceof ExportItem);
+
         assertTrue(NavigationMenu.SETTINGS.getItem() instanceof ActivityItem);
         assertTrue(NavigationMenu.ABOUT.getItem() instanceof ActivityItem);
     }
@@ -90,6 +94,7 @@ public class NavigationMenuTest {
         assertEquals(R.string.action_channel_rating, NavigationMenu.CHANNEL_RATING.getTitle());
         assertEquals(R.string.action_channel_graph, NavigationMenu.CHANNEL_GRAPH.getTitle());
         assertEquals(R.string.action_time_graph, NavigationMenu.TIME_GRAPH.getTitle());
+        assertEquals(R.string.action_export, NavigationMenu.EXPORT.getTitle());
         assertEquals(R.string.action_channel_available, NavigationMenu.CHANNEL_AVAILABLE.getTitle());
         assertEquals(R.string.action_vendors, NavigationMenu.VENDOR_LIST.getTitle());
         assertEquals(R.string.action_settings, NavigationMenu.SETTINGS.getTitle());
@@ -118,6 +123,7 @@ public class NavigationMenuTest {
         assertEquals(R.drawable.ic_wifi_tethering_grey_500_48dp, NavigationMenu.CHANNEL_RATING.getIcon());
         assertEquals(R.drawable.ic_insert_chart_grey_500_48dp, NavigationMenu.CHANNEL_GRAPH.getIcon());
         assertEquals(R.drawable.ic_show_chart_grey_500_48dp, NavigationMenu.TIME_GRAPH.getIcon());
+        assertEquals(R.drawable.ic_import_export_grey_500_48dp, NavigationMenu.EXPORT.getIcon());
         assertEquals(R.drawable.ic_location_on_grey_500_48dp, NavigationMenu.CHANNEL_AVAILABLE.getIcon());
         assertEquals(R.drawable.ic_list_grey_500_48dp, NavigationMenu.VENDOR_LIST.getIcon());
         assertEquals(R.drawable.ic_settings_grey_500_48dp, NavigationMenu.SETTINGS.getIcon());

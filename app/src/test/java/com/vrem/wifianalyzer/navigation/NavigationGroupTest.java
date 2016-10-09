@@ -50,6 +50,7 @@ public class NavigationGroupTest {
             },
             NavigationGroup.GROUP_FEATURE.navigationMenu());
         assertArrayEquals(new NavigationMenu[]{
+                NavigationMenu.EXPORT,
                 NavigationMenu.CHANNEL_AVAILABLE,
                 NavigationMenu.VENDOR_LIST
             },
