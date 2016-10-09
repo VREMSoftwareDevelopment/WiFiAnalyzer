@@ -29,7 +29,6 @@ import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
-import com.vrem.wifianalyzer.wifi.scanner.Transformer;
 
 public enum MainContext {
     INSTANCE;
@@ -130,6 +129,6 @@ public enum MainContext {
         setVendorService(new VendorService());
         setLayoutInflater((LayoutInflater) mainActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
         setLogger(new Logger());
-        setScanner(new Scanner(wifiManager, handler, settings, new Transformer()));
+        setScanner(new Scanner(wifiManager, handler, settings));
     }
 }

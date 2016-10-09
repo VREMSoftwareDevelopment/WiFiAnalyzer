@@ -29,6 +29,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class WiFiData {
+    public static final WiFiData EMPTY = new WiFiData(new ArrayList<WiFiDetail>(), WiFiConnection.EMPTY, new ArrayList<String>());
+
     private final List<WiFiDetail> wiFiDetails;
     private final WiFiConnection wiFiConnection;
     private final List<String> wiFiConfigurations;

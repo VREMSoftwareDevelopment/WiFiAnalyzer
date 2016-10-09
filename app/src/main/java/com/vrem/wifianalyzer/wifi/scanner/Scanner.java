@@ -34,19 +34,28 @@ import java.util.List;
 public class Scanner {
     private final List<UpdateNotifier> updateNotifiers;
     private final WifiManager wifiManager;
-    private final Transformer transformer;
+    private Transformer transformer;
+    private WiFiData wiFiData;
     private Cache cache;
     private PeriodicScan periodicScan;
 
-    public Scanner(@NonNull WifiManager wifiManager, @NonNull Handler handler, @NonNull Settings settings, @NonNull Transformer transformer) {
+    public Scanner(@NonNull WifiManager wifiManager, @NonNull Handler handler, @NonNull Settings settings) {
         this.updateNotifiers = new ArrayList<>();
         this.wifiManager = wifiManager;
-        this.transformer = transformer;
+        this.wiFiData = WiFiData.EMPTY;
+        this.setTransformer(new Transformer());
         this.setCache(new Cache());
         this.periodicScan = new PeriodicScan(this, handler, settings);
     }
 
     public void update() {
+        performWiFiScan();
+        for (UpdateNotifier updateNotifier : updateNotifiers) {
+            updateNotifier.update(wiFiData);
+        }
+    }
+
+    private void performWiFiScan() {
         List<ScanResult> scanResults = new ArrayList<>();
         WifiInfo connectionInfo = null;
         List<WifiConfiguration> configuredNetworks = null;
@@ -63,10 +72,11 @@ public class Scanner {
             // critical error: set to no results and do not die
         }
         cache.add(scanResults);
-        WiFiData wiFiData = transformer.transformToWiFiData(cache.getScanResults(), connectionInfo, configuredNetworks);
-        for (UpdateNotifier updateNotifier : updateNotifiers) {
-            updateNotifier.update(wiFiData);
-        }
+        wiFiData = transformer.transformToWiFiData(cache.getScanResults(), connectionInfo, configuredNetworks);
+    }
+
+    public WiFiData getWiFiData() {
+        return wiFiData;
     }
 
     public void register(@NonNull UpdateNotifier updateNotifier) {
@@ -99,6 +109,10 @@ public class Scanner {
 
     void setCache(@NonNull Cache cache) {
         this.cache = cache;
+    }
+
+    void setTransformer(@NonNull Transformer transformer) {
+        this.transformer = transformer;
     }
 
     List<UpdateNotifier> getUpdateNotifiers() {

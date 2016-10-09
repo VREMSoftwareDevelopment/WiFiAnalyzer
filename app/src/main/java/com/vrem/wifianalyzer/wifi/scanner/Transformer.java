@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Transformer {
+class Transformer {
     WiFiConnection transformWifiInfo(WifiInfo wifiInfo) {
         if (wifiInfo == null || wifiInfo.getNetworkId() == -1) {
             return WiFiConnection.EMPTY;
