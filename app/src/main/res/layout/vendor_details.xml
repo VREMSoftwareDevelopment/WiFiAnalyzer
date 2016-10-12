@@ -32,7 +32,7 @@
         android:id="@+id/vendor_macs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/list_view_item_horizontal_tab"
         android:textColor="@color/channel"/>
 
 </LinearLayout>
