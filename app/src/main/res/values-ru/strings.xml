@@ -30,6 +30,7 @@
     <string name="action_channel_rating">Оценить Каналы</string>
     <string name="action_channel_graph">График Каналов</string>
     <string name="action_time_graph">График Времени</string>
+    <string name="action_export">Экспорт</string>
     <string name="action_channel_available">Доступные Каналы</string>
     <string name="action_vendors">Поставщики</string>
     <string name="action_settings">Настройки</string>
@@ -38,6 +39,8 @@
     <string name="button_cancel">Отставить</string>
     <string name="no_data">Нет Данных</string>
     <string name="no_data_geo_warning">Некоторые пользователи, использующие Android OS 6 (Marshmallow) сообщили, что услуга определения местоположения должна быть включена, чтобы WiFi Анализатор увидел WiFi сетей. Пользователям, возможно, потребуется включить службы определения местоположения, даже если WiFi Анализатор не требует.</string>
+
+    <string name="export_not_available">Экспорт не доступен</string>
 
     <string name="channel_rating_best">Лучшие Каналы:</string>
     <string name="channel_rating_best_none">Ничем</string>

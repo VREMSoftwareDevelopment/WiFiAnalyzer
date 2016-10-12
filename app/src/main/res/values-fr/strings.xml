@@ -31,6 +31,7 @@
     <string name="action_channel_rating">Qualité de réception</string>
     <string name="action_channel_graph">Graphique par canal</string>
     <string name="action_time_graph">Graphique temporel</string>
+    <string name="action_export">Exportation</string>
     <string name="action_channel_available">Canaux disponibles</string>
     <string name="action_vendors">Vendeurs</string>
     <string name="action_settings">Configuration</string>
@@ -39,6 +40,8 @@
     <string name="button_cancel">Annuler</string>
     <string name="no_data">Aucune donnée</string>
     <string name="no_data_geo_warning">Certains utilisateurs fonctionnant sous Android OS 6 (Marshmallow) ont indiqué que le service de géolocalisation devait être activé pour que l\'application puisse fonctionner correctement. Si vous utilisez Marshmallow, activer le service de géolocalisation pourrait résoudre le problème, même si l\'analyseur Wi-Fi ne le demande pas explicitement. Ceci semble être dû à un problème avec Android OS 6 qui requiert le service de géolocalisation d\'être actif afin d\'accéder aux réseaux Wi-Fi.</string>
+
+    <string name="export_not_available">Export non disponible</string>
 
     <string name="channel_rating_best">Meilleurs canaux:</string>
     <string name="channel_rating_best_none">Aucun</string>
