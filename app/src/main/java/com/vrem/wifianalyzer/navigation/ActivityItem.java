@@ -18,20 +18,30 @@
 
 package com.vrem.wifianalyzer.navigation;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.view.MenuItem;
 
-public enum NavigationGroup {
-    GROUP_FEATURE(NavigationMenu.ACCESS_POINTS, NavigationMenu.CHANNEL_RATING, NavigationMenu.CHANNEL_GRAPH, NavigationMenu.TIME_GRAPH),
-    GROUP_OTHER(NavigationMenu.EXPORT, NavigationMenu.CHANNEL_AVAILABLE, NavigationMenu.VENDOR_LIST),
-    GROUP_SETTINGS(NavigationMenu.SETTINGS, NavigationMenu.ABOUT);
+import com.vrem.wifianalyzer.MainActivity;
 
-    private final NavigationMenu[] navigationMenu;
+class ActivityItem implements NavigationMenuItem {
+    private final Class<? extends Activity> activity;
 
-    NavigationGroup(@NonNull NavigationMenu... navigationMenu) {
-        this.navigationMenu = navigationMenu;
+    ActivityItem(@NonNull Class<? extends Activity> activity) {
+        this.activity = activity;
     }
 
-    public NavigationMenu[] navigationMenu() {
-        return navigationMenu;
+    @Override
+    public void activate(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, @NonNull NavigationMenu navigationMenu) {
+        mainActivity.startActivity(createIntent(mainActivity));
+    }
+
+    Intent createIntent(@NonNull MainActivity mainActivity) {
+        return new Intent(mainActivity, activity);
+    }
+
+    Class<? extends Activity> getActivity() {
+        return activity;
     }
 }

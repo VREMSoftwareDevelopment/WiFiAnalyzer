@@ -29,17 +29,17 @@
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
         android:layout_weight="1"
-        android:paddingRight="@dimen/list_view_item_horizontal_spacer"
         android:stepSize="1.0"/>
 
     <TextView
         android:id="@+id/channelNumber"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
+        android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
         android:layout_weight="1.75"
-        android:paddingLeft="@dimen/list_view_item_horizontal_spacer"
-        android:paddingRight="@dimen/list_view_item_horizontal_spacer"
         android:textColor="@color/channel_number"
         android:textStyle="bold"/>
 
@@ -48,7 +48,6 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.75"
-        android:paddingLeft="@dimen/list_view_item_horizontal_spacer"
         android:textColor="@color/connected"
         android:textStyle="bold"/>
 

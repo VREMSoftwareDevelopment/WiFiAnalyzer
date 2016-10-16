@@ -63,7 +63,7 @@ public class RepositoryTest {
 
         keyValue = "xyz";
 
-        context = MainContextHelper.INSTANCE.getContext();
+        context = MainContextHelper.INSTANCE.getMainActivity();
         resources = MainContextHelper.INSTANCE.getResources();
 
         when(PreferenceManager.getDefaultSharedPreferences(context)).thenReturn(sharedPreferences);

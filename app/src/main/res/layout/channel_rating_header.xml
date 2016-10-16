@@ -25,17 +25,17 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
         android:layout_weight="1"
-        android:paddingRight="@dimen/list_view_item_horizontal_spacer"
         android:text="@string/channel_rating_heading_rating"
         android:textStyle="bold"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
+        android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
         android:layout_weight="1.75"
-        android:paddingLeft="@dimen/list_view_item_horizontal_spacer"
-        android:paddingRight="@dimen/list_view_item_horizontal_spacer"
         android:text="@string/channel_rating_heading_number"
         android:textStyle="bold"/>
 
@@ -43,7 +43,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.75"
-        android:paddingLeft="@dimen/list_view_item_horizontal_spacer"
         android:text="@string/channel_rating_heading_count"
         android:textStyle="bold"/>
 

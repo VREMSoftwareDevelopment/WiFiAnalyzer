@@ -31,6 +31,7 @@
     <string name="action_channel_rating">Kanalbewertung</string>
     <string name="action_channel_graph">Kanalübersicht</string>
     <string name="action_time_graph">Signalverlauf</string>
+    <string name="action_export">Export</string>
     <string name="action_channel_available">Verfügbare Kanäle</string>
     <string name="action_vendors">Hersteller</string>
     <string name="action_settings">Einstellungen</string>
@@ -39,6 +40,8 @@
     <string name="button_cancel">Abbrechen</string>
     <string name="no_data">Keine Daten</string>
     <string name="no_data_geo_warning">Einige Benutzer mit Android 6 ("Marshmallow") haben berichtet, dass der Standort-Dienst aktiviert sein muss, damit WLAN-Netzerke erkannt werden können. Benutzer unter "Marshmallow" müssen möglicherweise Standortdienste aktivieren, auch wenn WLAN Tester sie nicht benötigt. Dies scheint ein Problem in Android 6 zu sein.</string>
+
+    <string name="export_not_available">Export nicht verfügbar</string>
 
     <string name="channel_rating_best">Beste Kanäle:</string>
     <string name="channel_rating_best_none">Keine</string>

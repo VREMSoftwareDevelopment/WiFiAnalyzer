@@ -23,6 +23,7 @@ import com.vrem.wifianalyzer.about.AboutActivity;
 import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.vendor.VendorFragment;
 import com.vrem.wifianalyzer.wifi.AccessPointsFragment;
+import com.vrem.wifianalyzer.wifi.ChannelAvailableFragment;
 import com.vrem.wifianalyzer.wifi.ChannelRatingFragment;
 import com.vrem.wifianalyzer.wifi.graph.channel.ChannelGraphFragment;
 import com.vrem.wifianalyzer.wifi.graph.time.TimeGraphFragment;
@@ -31,14 +32,13 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class NavigationMenuTest {
 
     @Test
     public void testNavigationMenu() throws Exception {
-        assertEquals(8, NavigationMenu.values().length);
+        assertEquals(9, NavigationMenu.values().length);
     }
 
     @Test
@@ -50,6 +50,7 @@ public class NavigationMenuTest {
         assertEquals(NavigationMenu.CHANNEL_RATING, NavigationMenu.find(NavigationMenu.CHANNEL_RATING.ordinal()));
         assertEquals(NavigationMenu.CHANNEL_GRAPH, NavigationMenu.find(NavigationMenu.CHANNEL_GRAPH.ordinal()));
         assertEquals(NavigationMenu.TIME_GRAPH, NavigationMenu.find(NavigationMenu.TIME_GRAPH.ordinal()));
+        assertEquals(NavigationMenu.EXPORT, NavigationMenu.find(NavigationMenu.EXPORT.ordinal()));
         assertEquals(NavigationMenu.CHANNEL_AVAILABLE, NavigationMenu.find(NavigationMenu.CHANNEL_AVAILABLE.ordinal()));
         assertEquals(NavigationMenu.VENDOR_LIST, NavigationMenu.find(NavigationMenu.VENDOR_LIST.ordinal()));
         assertEquals(NavigationMenu.SETTINGS, NavigationMenu.find(NavigationMenu.SETTINGS.ordinal()));
@@ -57,25 +58,34 @@ public class NavigationMenuTest {
     }
 
     @Test
-    public void testGetFragment() throws Exception {
-        assertTrue(NavigationMenu.ACCESS_POINTS.getFragment() instanceof AccessPointsFragment);
-        assertTrue(NavigationMenu.CHANNEL_RATING.getFragment() instanceof ChannelRatingFragment);
-        assertTrue(NavigationMenu.CHANNEL_GRAPH.getFragment() instanceof ChannelGraphFragment);
-        assertTrue(NavigationMenu.TIME_GRAPH.getFragment() instanceof TimeGraphFragment);
-        assertTrue(NavigationMenu.VENDOR_LIST.getFragment() instanceof VendorFragment);
-        assertNull(NavigationMenu.SETTINGS.getFragment());
-        assertNull(NavigationMenu.ABOUT.getFragment());
+    public void testGetItem() throws Exception {
+        assertTrue(NavigationMenu.ACCESS_POINTS.getItem() instanceof FragmentItem);
+        assertTrue(NavigationMenu.CHANNEL_RATING.getItem() instanceof FragmentItem);
+        assertTrue(NavigationMenu.CHANNEL_GRAPH.getItem() instanceof FragmentItem);
+        assertTrue(NavigationMenu.TIME_GRAPH.getItem() instanceof FragmentItem);
+        assertTrue(NavigationMenu.CHANNEL_AVAILABLE.getItem() instanceof FragmentItem);
+        assertTrue(NavigationMenu.VENDOR_LIST.getItem() instanceof FragmentItem);
+
+        assertTrue(NavigationMenu.EXPORT.getItem() instanceof ExportItem);
+
+        assertTrue(NavigationMenu.SETTINGS.getItem() instanceof ActivityItem);
+        assertTrue(NavigationMenu.ABOUT.getItem() instanceof ActivityItem);
     }
 
     @Test
-    public void testGetActivity() throws Exception {
-        assertNull(NavigationMenu.ACCESS_POINTS.getActivity());
-        assertNull(NavigationMenu.CHANNEL_RATING.getActivity());
-        assertNull(NavigationMenu.CHANNEL_GRAPH.getActivity());
-        assertNull(NavigationMenu.TIME_GRAPH.getActivity());
-        assertNull(NavigationMenu.VENDOR_LIST.getActivity());
-        assertEquals(SettingActivity.class, NavigationMenu.SETTINGS.getActivity());
-        assertEquals(AboutActivity.class, NavigationMenu.ABOUT.getActivity());
+    public void testFragmentItemContainsCorrectFragment() throws Exception {
+        assertTrue(((FragmentItem) NavigationMenu.ACCESS_POINTS.getItem()).getFragment() instanceof AccessPointsFragment);
+        assertTrue(((FragmentItem) NavigationMenu.CHANNEL_RATING.getItem()).getFragment() instanceof ChannelRatingFragment);
+        assertTrue(((FragmentItem) NavigationMenu.CHANNEL_GRAPH.getItem()).getFragment() instanceof ChannelGraphFragment);
+        assertTrue(((FragmentItem) NavigationMenu.TIME_GRAPH.getItem()).getFragment() instanceof TimeGraphFragment);
+        assertTrue(((FragmentItem) NavigationMenu.CHANNEL_AVAILABLE.getItem()).getFragment() instanceof ChannelAvailableFragment);
+        assertTrue(((FragmentItem) NavigationMenu.VENDOR_LIST.getItem()).getFragment() instanceof VendorFragment);
+    }
+
+    @Test
+    public void testActivityItemContainsCorrectActivity() throws Exception {
+        assertEquals(SettingActivity.class, ((ActivityItem) NavigationMenu.SETTINGS.getItem()).getActivity());
+        assertEquals(AboutActivity.class, ((ActivityItem) NavigationMenu.ABOUT.getItem()).getActivity());
     }
 
     @Test
@@ -84,6 +94,8 @@ public class NavigationMenuTest {
         assertEquals(R.string.action_channel_rating, NavigationMenu.CHANNEL_RATING.getTitle());
         assertEquals(R.string.action_channel_graph, NavigationMenu.CHANNEL_GRAPH.getTitle());
         assertEquals(R.string.action_time_graph, NavigationMenu.TIME_GRAPH.getTitle());
+        assertEquals(R.string.action_export, NavigationMenu.EXPORT.getTitle());
+        assertEquals(R.string.action_channel_available, NavigationMenu.CHANNEL_AVAILABLE.getTitle());
         assertEquals(R.string.action_vendors, NavigationMenu.VENDOR_LIST.getTitle());
         assertEquals(R.string.action_settings, NavigationMenu.SETTINGS.getTitle());
         assertEquals(R.string.action_about, NavigationMenu.ABOUT.getTitle());
@@ -99,6 +111,7 @@ public class NavigationMenuTest {
 
     @Test
     public void testIsWiFiBandSwitchableFalse() throws Exception {
+        assertFalse(NavigationMenu.CHANNEL_AVAILABLE.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.VENDOR_LIST.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.SETTINGS.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.ABOUT.isWiFiBandSwitchable());
@@ -110,6 +123,8 @@ public class NavigationMenuTest {
         assertEquals(R.drawable.ic_wifi_tethering_grey_500_48dp, NavigationMenu.CHANNEL_RATING.getIcon());
         assertEquals(R.drawable.ic_insert_chart_grey_500_48dp, NavigationMenu.CHANNEL_GRAPH.getIcon());
         assertEquals(R.drawable.ic_show_chart_grey_500_48dp, NavigationMenu.TIME_GRAPH.getIcon());
+        assertEquals(R.drawable.ic_import_export_grey_500_48dp, NavigationMenu.EXPORT.getIcon());
+        assertEquals(R.drawable.ic_location_on_grey_500_48dp, NavigationMenu.CHANNEL_AVAILABLE.getIcon());
         assertEquals(R.drawable.ic_list_grey_500_48dp, NavigationMenu.VENDOR_LIST.getIcon());
         assertEquals(R.drawable.ic_settings_grey_500_48dp, NavigationMenu.SETTINGS.getIcon());
         assertEquals(R.drawable.ic_info_outline_grey_500_48dp, NavigationMenu.ABOUT.getIcon());

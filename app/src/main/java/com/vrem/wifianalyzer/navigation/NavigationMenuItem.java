@@ -16,25 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package com.vrem.wifianalyzer.navigation;
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.1'
-        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.1'
-    }
-}
+import android.support.annotation.NonNull;
+import android.view.MenuItem;
 
-allprojects {
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-}
+import com.vrem.wifianalyzer.MainActivity;
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+interface NavigationMenuItem {
+    void activate(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, @NonNull NavigationMenu navigationMenu);
 }

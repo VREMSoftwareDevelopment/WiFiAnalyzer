@@ -18,10 +18,10 @@
 
 package com.vrem.wifianalyzer.navigation;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import android.view.MenuItem;
 
+import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.about.AboutActivity;
 import com.vrem.wifianalyzer.settings.SettingActivity;
@@ -33,35 +33,33 @@ import com.vrem.wifianalyzer.wifi.graph.channel.ChannelGraphFragment;
 import com.vrem.wifianalyzer.wifi.graph.time.TimeGraphFragment;
 
 public enum NavigationMenu {
-    ACCESS_POINTS(R.drawable.ic_network_wifi_grey_500_48dp, R.string.action_access_points, true, new AccessPointsFragment()),
-    CHANNEL_RATING(R.drawable.ic_wifi_tethering_grey_500_48dp, R.string.action_channel_rating, true, new ChannelRatingFragment()),
-    CHANNEL_GRAPH(R.drawable.ic_insert_chart_grey_500_48dp, R.string.action_channel_graph, true, new ChannelGraphFragment()),
-    TIME_GRAPH(R.drawable.ic_show_chart_grey_500_48dp, R.string.action_time_graph, true, new TimeGraphFragment()),
-    CHANNEL_AVAILABLE(R.drawable.ic_location_on_grey_500_48dp, R.string.action_channel_available, false, new ChannelAvailableFragment()),
-    VENDOR_LIST(R.drawable.ic_list_grey_500_48dp, R.string.action_vendors, false, new VendorFragment()),
-    SETTINGS(R.drawable.ic_settings_grey_500_48dp, R.string.action_settings, SettingActivity.class),
-    ABOUT(R.drawable.ic_info_outline_grey_500_48dp, R.string.action_about, AboutActivity.class);
+    ACCESS_POINTS(R.drawable.ic_network_wifi_grey_500_48dp, R.string.action_access_points, true, new FragmentItem(new AccessPointsFragment())),
+    CHANNEL_RATING(R.drawable.ic_wifi_tethering_grey_500_48dp, R.string.action_channel_rating, true, new FragmentItem(new ChannelRatingFragment())),
+    CHANNEL_GRAPH(R.drawable.ic_insert_chart_grey_500_48dp, R.string.action_channel_graph, true, new FragmentItem(new ChannelGraphFragment())),
+    TIME_GRAPH(R.drawable.ic_show_chart_grey_500_48dp, R.string.action_time_graph, true, new FragmentItem(new TimeGraphFragment())),
+    EXPORT(R.drawable.ic_import_export_grey_500_48dp, R.string.action_export, new ExportItem()),
+    CHANNEL_AVAILABLE(R.drawable.ic_location_on_grey_500_48dp, R.string.action_channel_available, new FragmentItem(new ChannelAvailableFragment())),
+    VENDOR_LIST(R.drawable.ic_list_grey_500_48dp, R.string.action_vendors, new FragmentItem(new VendorFragment())),
+    SETTINGS(R.drawable.ic_settings_grey_500_48dp, R.string.action_settings, new ActivityItem(SettingActivity.class)),
+    ABOUT(R.drawable.ic_info_outline_grey_500_48dp, R.string.action_about, new ActivityItem(AboutActivity.class));
 
     private final int icon;
     private final int title;
     private final boolean wiFiBandSwitchable;
-    private final Fragment fragment;
-    private final Class<? extends Activity> activity;
+    private final NavigationMenuItem item;
 
-    NavigationMenu(int icon, int title, boolean wiFiBandSwitchable, @NonNull Fragment fragment) {
+    NavigationMenu(int icon, int title, boolean wiFiBandSwitchable, @NonNull NavigationMenuItem item) {
         this.icon = icon;
         this.title = title;
         this.wiFiBandSwitchable = wiFiBandSwitchable;
-        this.fragment = fragment;
-        this.activity = null;
+        this.item = item;
     }
 
-    NavigationMenu(int icon, int title, @NonNull Class<? extends Activity> activity) {
+    NavigationMenu(int icon, int title, @NonNull NavigationMenuItem item) {
         this.icon = icon;
         this.title = title;
         this.wiFiBandSwitchable = false;
-        this.fragment = null;
-        this.activity = activity;
+        this.item = item;
     }
 
     public static NavigationMenu find(int index) {
@@ -69,14 +67,6 @@ public enum NavigationMenu {
             return ACCESS_POINTS;
         }
         return values()[index];
-    }
-
-    public Fragment getFragment() {
-        return fragment;
-    }
-
-    public Class<? extends Activity> getActivity() {
-        return activity;
     }
 
     public int getTitle() {
@@ -89,5 +79,13 @@ public enum NavigationMenu {
 
     int getIcon() {
         return icon;
+    }
+
+    public void activateNavigationMenu(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem) {
+        item.activate(mainActivity, menuItem, this);
+    }
+
+    NavigationMenuItem getItem() {
+        return item;
     }
 }

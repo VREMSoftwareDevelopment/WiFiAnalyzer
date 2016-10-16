@@ -84,8 +84,9 @@ public class ScannerTest {
         cacheResults = new ArrayList<>();
         configuredNetworks = new ArrayList<>();
 
-        fixture = new Scanner(wifiManager, handler, settings, transformer);
+        fixture = new Scanner(wifiManager, handler, settings);
         fixture.setCache(cache);
+        fixture.setTransformer(transformer);
 
         fixture.register(updateNotifier1);
         fixture.register(updateNotifier2);
@@ -126,6 +127,7 @@ public class ScannerTest {
         // execute
         fixture.update();
         // validate
+        assertEquals(wiFiData, fixture.getWiFiData());
         verifyCache();
         verifyTransfomer();
         verifyWiFiManager();

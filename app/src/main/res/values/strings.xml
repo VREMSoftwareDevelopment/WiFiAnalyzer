@@ -32,6 +32,7 @@
     <string name="action_channel_rating">Channel Rating</string>
     <string name="action_channel_graph">Channel Graph</string>
     <string name="action_time_graph">Time Graph</string>
+    <string name="action_export">Export</string>
     <string name="action_channel_available">Available Channels</string>
     <string name="action_vendors">Vendors</string>
     <string name="action_settings">Settings</string>
@@ -42,6 +43,8 @@
     <string name="no_data">No Data</string>
     <string name="no_data_geo_warning">Some users running Android OS 6 (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFi Analyzer does not explicitly require it. This appears to be attributed to a potential issue in Android OS 6 that requires location service in order to see WiFi networks.</string>
     <string name="no_data_geo_url" translatable="false">https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23</string>
+
+    <string name="export_not_available">Export not available</string>
 
     <string name="channel_rating_best">Best Channels:</string>
     <string name="channel_rating_best_none">None</string>
@@ -116,6 +119,6 @@
     <string name="about_library_material">Material Design Icons</string>
     <string name="about_library_material_url" translatable="false">https://design.google.com/icons</string>
     <string name="about_contributor_title">Contributors:</string>
-    <string name="about_contributor_list" translatable="false">"Alex Orchard, Alexei Guevara, Caren DesBrisay, Dan Light, David Jones, Gina Chaves, Graham Foster, Jean Bourgeois, Lee McCallum, Lukas Winkler, Michael Melo, Michael Pickard, Silviu Marcu, Vadim Karantayer, Wei McCallum, William Gathoye, 'Akira, Genghis"</string>
+    <string name="about_contributor_list" translatable="false">"Abuzer Rafey, Alex Orchard, Alexei Guevara, Caren DesBrisay, Dan Light, David Jones, Gina Chaves, Graham Foster, Jean Bourgeois, Lee McCallum, Lukas Winkler, Michael Melo, Michael Pickard, Silviu Marcu, Vadim Karantayer, Wei McCallum, William Gathoye, 'Akira, Genghis"</string>
     <!-- about end -->
 </resources>

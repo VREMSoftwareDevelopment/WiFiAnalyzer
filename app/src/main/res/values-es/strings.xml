@@ -31,6 +31,7 @@
     <string name="action_channel_rating">Clasificación de Canal</string>
     <string name="action_channel_graph">Gráfico de Canal</string>
     <string name="action_time_graph">Gráfico de Tiempo</string>
+    <string name="action_export">Exportar</string>
     <string name="action_channel_available">Canales Disponibles</string>
     <string name="action_vendors">Vendedores</string>
     <string name="action_settings">Ajustes</string>
@@ -39,6 +40,8 @@
     <string name="button_cancel">Cancelar</string>
     <string name="no_data">Sin datos</string>
     <string name="no_data_geo_warning">Algunos usuarios de Android OS 6 (Marshmallow) informaron que el servicio de localización debe estar habilitado para ver las redes Wi-Fi. Marshmallow usuarios pueden tener que activar el servicio de localización, aunque WiFi Analyzer no requiere explícitamente. Parece ser atribuido a un problema potencial de Android 6 que necesita el servicio de localización para las redes WiFi.</string>
+
+    <string name="export_not_available">Exportar no disponible</string>
 
     <string name="channel_rating_best">Canales Mejores:</string>
     <string name="channel_rating_best_none">Ninguno</string>

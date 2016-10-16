@@ -40,6 +40,7 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
         super(context, R.layout.channel_available_details, wiFiChannelCountries);
     }
 
+    @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
