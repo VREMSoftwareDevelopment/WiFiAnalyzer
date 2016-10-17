@@ -12,6 +12,10 @@ This is the official repository of WiFi Analyzer (open-source).
 
 <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/feature-graphic.png" alt="Feature Graphic" height="300">
 
+### The open-source app was created using Agile methodologies, [click here](http://i-proving.com/2016/10/13/using-agile-methodologies-develop-open-source-android-app) to learn more about it.
+
+[<img src="https://i-proving.com/wp-content/uploads/2016/07/cropped-i-proving-logo.png" alt="i-proving" height="40">](http://i-proving.com)
+
 ## Features:
 * Identify nearby Access Points
 * Graph channels signal strength
