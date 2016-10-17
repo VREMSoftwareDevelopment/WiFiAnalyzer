@@ -8,10 +8,6 @@ Some users running Android OS 6 (Marshmallow) have reported that the location se
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="100">](https://play.google.com/store/apps/details?id=com.vrem.wifianalyzer)
 [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="100">](https://f-droid.org/repository/browse/?fdid=com.vrem.wifianalyzer)
 
-[<img src="https://i-proving.com/wp-content/uploads/2016/07/cropped-i-proving-logo.png" alt="i-proving" height="40">](http://i-proving.com)
-
-[Using Agile Methodologies to develop this application.](http://i-proving.com/2016/10/13/using-agile-methodologies-develop-open-source-android-app)
-
 This is the official repository of WiFi Analyzer (open-source).
 
 <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/feature-graphic.png" alt="Feature Graphic" height="300">
