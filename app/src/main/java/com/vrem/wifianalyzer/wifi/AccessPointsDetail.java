@@ -41,7 +41,7 @@ import org.apache.commons.lang3.StringUtils;
 public class AccessPointsDetail {
     private static final int VENDOR_NAME_MAX = 12;
 
-    public void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
+    void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
         TextView textSSID = (TextView) view.findViewById(R.id.ssid);
 
         textSSID.setText(wiFiDetail.getTitle());
@@ -74,7 +74,7 @@ public class AccessPointsDetail {
         textLevel.setTextColor(resources.getColor(strength.colorResource()));
 
         ((TextView) view.findViewById(R.id.channel))
-            .setText("" + wiFiSignal.getPrimaryWiFiChannel().getChannel());
+            .setText(wiFiSignal.getChannelDisplay());
         ((TextView) view.findViewById(R.id.primaryFrequency))
             .setText(wiFiSignal.getPrimaryFrequency() + WifiInfo.FREQUENCY_UNITS);
         ((TextView) view.findViewById(R.id.distance))
@@ -103,6 +103,7 @@ public class AccessPointsDetail {
 
     }
 
+    @NonNull
     public Dialog popupDialog(@NonNull Context context, @NonNull LayoutInflater inflater, @NonNull WiFiDetail wiFiDetail) {
         View view = inflater.inflate(R.layout.access_points_details_popup, null);
         Dialog dialog = new Dialog(context);

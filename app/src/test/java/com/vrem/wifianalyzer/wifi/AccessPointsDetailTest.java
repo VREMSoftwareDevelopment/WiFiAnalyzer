@@ -164,7 +164,7 @@ public class AccessPointsDetailTest {
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         validateTextViewValue(ssid + " (" + wiFiDetail.getBSSID() + ")", R.id.ssid);
         validateTextViewValue(wiFiSignal.getLevel() + "dBm", R.id.level);
-        validateTextViewValue("" + wiFiSignal.getPrimaryWiFiChannel().getChannel(), R.id.channel);
+        validateTextViewValue(wiFiSignal.getChannelDisplay(), R.id.channel);
         validateTextViewValue(wiFiSignal.getPrimaryFrequency() + WifiInfo.FREQUENCY_UNITS, R.id.primaryFrequency);
         validateTextViewValue(wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd(), R.id.channel_frequency_range);
         validateTextViewValue("(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WifiInfo.FREQUENCY_UNITS + ")", R.id.width);

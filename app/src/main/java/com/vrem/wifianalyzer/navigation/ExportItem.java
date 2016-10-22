@@ -66,12 +66,15 @@ class ExportItem implements NavigationMenuItem {
         StringBuilder result = new StringBuilder();
         for (WiFiDetail wiFiDetail : wiFiDetails) {
             WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-            result.append(String.format("%s|%s|%ddBm|%d|%d%s|%d%s (%d - %d)|%.1fm|%s%s",
+            result.append(String.format("%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%.1fm|%s%s",
                 wiFiDetail.getSSID(),
                 wiFiDetail.getBSSID(),
                 wiFiSignal.getLevel(),
                 wiFiSignal.getPrimaryWiFiChannel().getChannel(),
                 wiFiSignal.getPrimaryFrequency(),
+                WifiInfo.FREQUENCY_UNITS,
+                wiFiSignal.getCenterWiFiChannel().getChannel(),
+                wiFiSignal.getCenterFrequency(),
                 WifiInfo.FREQUENCY_UNITS,
                 wiFiSignal.getWiFiWidth().getFrequencyWidth(),
                 WifiInfo.FREQUENCY_UNITS,

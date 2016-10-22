@@ -93,6 +93,17 @@ public class WiFiSignal {
         return frequency >= getFrequencyStart() && frequency <= getFrequencyEnd();
     }
 
+    @NonNull
+    public String getChannelDisplay() {
+        int primaryChannel = getPrimaryWiFiChannel().getChannel();
+        int centerChannel = getCenterWiFiChannel().getChannel();
+        String channel = "" + primaryChannel;
+        if (primaryChannel != centerChannel) {
+            channel += "(" + centerChannel + ")";
+        }
+        return channel;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {
