@@ -131,7 +131,7 @@ public class GraphViewWrapper {
     private void addNewSeries(@NonNull WiFiDetail wiFiDetail, BaseSeries<DataPoint> series) {
         addSeries(series);
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        series.setTitle(wiFiDetail.getSSID() + " " + wiFiSignal.getPrimaryWiFiChannel().getChannel());
+        series.setTitle(wiFiDetail.getSSID() + " " + wiFiSignal.getChannelDisplay());
         series.setOnDataPointTapListener(new GraphTapListener());
     }
 

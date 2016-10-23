@@ -22,6 +22,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -35,6 +36,7 @@ import java.util.Collections;
 import java.util.List;
 
 class Transformer {
+
     WiFiConnection transformWifiInfo(WifiInfo wifiInfo) {
         if (wifiInfo == null || wifiInfo.getNetworkId() == -1) {
             return WiFiConnection.EMPTY;
@@ -61,7 +63,9 @@ class Transformer {
         if (cacheResults != null) {
             for (CacheResult cacheResult : cacheResults) {
                 ScanResult scanResult = cacheResult.getScanResult();
-                WiFiSignal wiFiSignal = new WiFiSignal(scanResult.frequency, getCenterFrequency(scanResult), getWiFiWidth(scanResult), cacheResult.getLevelAverage());
+                WiFiWidth wiFiWidth = getWiFiWidth(scanResult);
+                int centerFrequency = getCenterFrequency(scanResult, wiFiWidth);
+                WiFiSignal wiFiSignal = new WiFiSignal(scanResult.frequency, centerFrequency, wiFiWidth, cacheResult.getLevelAverage());
                 WiFiDetail wiFiDetail = new WiFiDetail(scanResult.SSID, scanResult.BSSID, scanResult.capabilities, wiFiSignal);
                 results.add(wiFiDetail);
             }
@@ -77,13 +81,24 @@ class Transformer {
         }
     }
 
-    int getCenterFrequency(ScanResult scanResult) {
+    int getCenterFrequency(ScanResult scanResult, WiFiWidth wiFiWidth) {
         try {
             int centerFrequency = getFieldValue(scanResult, Fields.centerFreq0);
-            return centerFrequency == 0 ? scanResult.frequency : centerFrequency;
+            if (centerFrequency == 0) {
+                centerFrequency = scanResult.frequency;
+            } else if (isExtentionFrequency(scanResult, wiFiWidth, centerFrequency)) {
+                centerFrequency = (centerFrequency + scanResult.frequency) / 2;
+            }
+            return centerFrequency;
         } catch (Exception e) {
             return scanResult.frequency;
         }
+    }
+
+    boolean isExtentionFrequency(ScanResult scanResult, WiFiWidth wiFiWidth, int centerFrequency) {
+        return WiFiWidth.MHZ_40.equals(wiFiWidth) &&
+            WiFiBand.GHZ2.equals(WiFiBand.findByFrequency(scanResult.frequency)) &&
+            Math.abs(scanResult.frequency - centerFrequency) >= WiFiWidth.MHZ_40.getFrequencyWidthHalf();
     }
 
     int getFieldValue(ScanResult scanResult, Fields field) throws NoSuchFieldException, IllegalAccessException {

@@ -125,7 +125,7 @@ public class GraphViewWrapperTest {
     @Test
     public void testAppendSeriesNew() throws Exception {
         // setup
-        String expectedTitle = wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getPrimaryWiFiChannel().getChannel();
+        String expectedTitle = wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getChannelDisplay();
         when(seriesCache.add(wiFiDetail, baseSeries)).thenReturn(baseSeries);
         // execute
         boolean actual = fixture.appendSeries(wiFiDetail, baseSeries, dataPoint, 10);
@@ -153,7 +153,7 @@ public class GraphViewWrapperTest {
     @Test
     public void testAddSeriesNew() throws Exception {
         // setup
-        String expectedTitle = wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getPrimaryWiFiChannel().getChannel();
+        String expectedTitle = wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getChannelDisplay();
         DataPoint[] dataPoints = {dataPoint};
         when(seriesCache.add(wiFiDetail, baseSeries)).thenReturn(baseSeries);
         // execute

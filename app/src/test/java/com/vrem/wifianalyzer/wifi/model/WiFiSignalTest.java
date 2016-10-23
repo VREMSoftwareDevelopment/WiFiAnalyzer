@@ -121,4 +121,20 @@ public class WiFiSignalTest {
         assertEquals(fixture.hashCode(), other.hashCode());
     }
 
+    @Test
+    public void testGetChannelDisplayWhenPrimaryAndCenterSame() throws Exception {
+        // setup
+        fixture = new WiFiSignal(PRIMARY_FREQUENCY, PRIMARY_FREQUENCY, WiFiWidth.MHZ_40, LEVEL);
+        // execute & validate
+        assertEquals("5", fixture.getChannelDisplay());
+    }
+
+    @Test
+    public void testGetChannelDisplayWhenPrimaryAndCenterDifferent() throws Exception {
+        // setup
+        fixture = new WiFiSignal(PRIMARY_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_40, LEVEL);
+        // execute & validate
+        assertEquals("5(6)", fixture.getChannelDisplay());
+    }
+
 }
