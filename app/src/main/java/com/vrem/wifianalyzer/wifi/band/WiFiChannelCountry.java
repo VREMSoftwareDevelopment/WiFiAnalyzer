@@ -330,7 +330,7 @@ public class WiFiChannelCountry {
         ),
         new WiFiChannelCountry("JP",
             Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14),
-            Arrays.asList(8, 12, 16, 34, 36, 38, 40, 42, 44, 46, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 184, 188, 192, 196)
+            Arrays.asList(36, 38, 40, 42, 44, 46, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140)
         ),
         new WiFiChannelCountry("KE",
             Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),

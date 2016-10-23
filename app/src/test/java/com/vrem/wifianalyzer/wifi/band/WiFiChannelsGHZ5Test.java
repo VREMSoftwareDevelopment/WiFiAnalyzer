@@ -38,8 +38,17 @@ public class WiFiChannelsGHZ5Test {
 
     @Test
     public void testGetWiFiChannelByFrequency() throws Exception {
-        assertEquals(36, fixture.getWiFiChannelByFrequency(5180).getChannel());
-        assertEquals(165, fixture.getWiFiChannelByFrequency(5825).getChannel());
+        validateFrequencyToChannel(5180, 5320, 10, 36, 2);
+        validateFrequencyToChannel(5500, 5720, 10, 100, 2);
+        validateFrequencyToChannel(5745, 5825, 10, 149, 2);
+    }
+
+    private void validateFrequencyToChannel(int frequencyStart, int frequencyEnd, int frequencyIncrement, int channelStart, int channelIncrement) {
+        int channel = channelStart;
+        for (int frequency = frequencyStart; frequency <= frequencyEnd; frequency += frequencyIncrement) {
+            assertEquals(channel, fixture.getWiFiChannelByFrequency(frequency).getChannel());
+            channel += channelIncrement;
+        }
     }
 
     @Test
@@ -50,12 +59,12 @@ public class WiFiChannelsGHZ5Test {
 
     @Test
     public void testGetWiFiChannelFirst() throws Exception {
-        assertEquals(8, fixture.getWiFiChannelFirst().getChannel());
+        assertEquals(36, fixture.getWiFiChannelFirst().getChannel());
     }
 
     @Test
     public void testGetWiFiChannelLast() throws Exception {
-        assertEquals(196, fixture.getWiFiChannelLast().getChannel());
+        assertEquals(165, fixture.getWiFiChannelLast().getChannel());
     }
 
     @Test
@@ -76,7 +85,7 @@ public class WiFiChannelsGHZ5Test {
     @Test
     public void testGetWiFiChannelPair() throws Exception {
         Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = fixture.getWiFiChannelPairFirst(Locale.JAPAN.getCountry());
-        validatePair(8, 16, wiFiChannelPair);
+        validatePair(36, 64, wiFiChannelPair);
     }
 
     @Test
@@ -88,12 +97,10 @@ public class WiFiChannelsGHZ5Test {
     @Test
     public void testGetWiFiChannelPairs() throws Exception {
         List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = fixture.getWiFiChannelPairs();
-        assertEquals(5, wiFiChannelPairs.size());
-        validatePair(8, 16, wiFiChannelPairs.get(0));
-        validatePair(36, 64, wiFiChannelPairs.get(1));
-        validatePair(100, 140, wiFiChannelPairs.get(2));
-        validatePair(149, 165, wiFiChannelPairs.get(3));
-        validatePair(184, 196, wiFiChannelPairs.get(4));
+        assertEquals(3, wiFiChannelPairs.size());
+        validatePair(36, 64, wiFiChannelPairs.get(0));
+        validatePair(100, 144, wiFiChannelPairs.get(1));
+        validatePair(149, 165, wiFiChannelPairs.get(2));
     }
 
     private void validatePair(int expectedFirst, int expectedSecond, Pair<WiFiChannel, WiFiChannel> pair) {
@@ -105,7 +112,7 @@ public class WiFiChannelsGHZ5Test {
     public void testGetAvailableChannels() throws Exception {
         assertEquals(24, fixture.getAvailableChannels(Locale.US.getCountry()).size());
         assertEquals(19, fixture.getAvailableChannels(Locale.UK.getCountry()).size());
-        assertEquals(30, fixture.getAvailableChannels(Locale.JAPAN.getCountry()).size());
+        assertEquals(22, fixture.getAvailableChannels(Locale.JAPAN.getCountry()).size());
     }
 
     @Test

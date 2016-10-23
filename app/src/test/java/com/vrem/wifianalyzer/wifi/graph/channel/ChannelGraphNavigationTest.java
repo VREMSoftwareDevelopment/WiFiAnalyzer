@@ -76,7 +76,7 @@ public class ChannelGraphNavigationTest {
 
     @Test
     public void testChannelGraphNavigation() throws Exception {
-        verify(configuration, times(5)).isLargeScreenLayout();
+        verify(configuration, times(3)).isLargeScreenLayout();
     }
 
     @Test
@@ -84,7 +84,7 @@ public class ChannelGraphNavigationTest {
         // execute
         List<NavigationItem> actual = fixture.getNavigationItems();
         // validate
-        assertEquals(5, actual.size());
+        assertEquals(3, actual.size());
     }
 
     @Test
@@ -94,8 +94,8 @@ public class ChannelGraphNavigationTest {
         // execute
         List<NavigationItem> actual = fixture.getNavigationItems();
         // validate
-        assertEquals(5, actual.size());
-        verify(configuration, times(5)).isLargeScreenLayout();
+        assertEquals(3, actual.size());
+        verify(configuration, times(3)).isLargeScreenLayout();
     }
 
     @Test
@@ -119,7 +119,7 @@ public class ChannelGraphNavigationTest {
     @Test
     public void testUpdateWithGHZ5AndUS() throws Exception {
         // setup
-        when(configuration.getWiFiChannelPair()).thenReturn(WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs().get(1));
+        when(configuration.getWiFiChannelPair()).thenReturn(WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs().get(0));
         when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
         // execute
@@ -128,23 +128,15 @@ public class ChannelGraphNavigationTest {
         List<NavigationItem> navigationItems = fixture.getNavigationItems();
 
         Button button = navigationItems.get(0).getButton();
-        assertEquals(View.GONE, button.getVisibility());
-        assertFalse(button.isSelected());
-
-        button = navigationItems.get(1).getButton();
         assertEquals(View.VISIBLE, button.getVisibility());
         assertTrue(button.isSelected());
 
+        button = navigationItems.get(1).getButton();
+        assertEquals(View.VISIBLE, button.getVisibility());
+        assertFalse(button.isSelected());
+
         button = navigationItems.get(2).getButton();
         assertEquals(View.VISIBLE, button.getVisibility());
-        assertFalse(button.isSelected());
-
-        button = navigationItems.get(3).getButton();
-        assertEquals(View.VISIBLE, button.getVisibility());
-        assertFalse(button.isSelected());
-
-        button = navigationItems.get(4).getButton();
-        assertEquals(View.GONE, button.getVisibility());
         assertFalse(button.isSelected());
 
         verify(settings).getCountryCode();
@@ -163,9 +155,7 @@ public class ChannelGraphNavigationTest {
         List<NavigationItem> navigationItems = fixture.getNavigationItems();
         assertEquals(View.VISIBLE, navigationItems.get(0).getButton().getVisibility());
         assertEquals(View.VISIBLE, navigationItems.get(1).getButton().getVisibility());
-        assertEquals(View.VISIBLE, navigationItems.get(2).getButton().getVisibility());
-        assertEquals(View.GONE, navigationItems.get(3).getButton().getVisibility());
-        assertEquals(View.VISIBLE, navigationItems.get(4).getButton().getVisibility());
+        assertEquals(View.GONE, navigationItems.get(2).getButton().getVisibility());
         verify(settings).getCountryCode();
         verify(settings).getWiFiBand();
     }
@@ -182,8 +172,6 @@ public class ChannelGraphNavigationTest {
         assertEquals(View.GONE, navigationItems.get(0).getButton().getVisibility());
         assertEquals(View.GONE, navigationItems.get(1).getButton().getVisibility());
         assertEquals(View.GONE, navigationItems.get(2).getButton().getVisibility());
-        assertEquals(View.GONE, navigationItems.get(3).getButton().getVisibility());
-        assertEquals(View.GONE, navigationItems.get(4).getButton().getVisibility());
         verify(settings).getCountryCode();
         verify(settings).getWiFiBand();
     }
