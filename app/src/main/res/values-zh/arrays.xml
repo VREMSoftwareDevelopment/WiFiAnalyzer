@@ -20,7 +20,7 @@
 <resources>
 
     <string-array name="group_by_array">
-        <item>没有</item>
+        <item>无</item>
         <item>SSID</item>
         <item>信道</item>
     </string-array>
@@ -32,7 +32,7 @@
     </string-array>
 
     <string-array name="graph_legend_array">
-        <item>转</item>
+        <item>左</item>
         <item>右</item>
         <item>隐藏</item>
     </string-array>
