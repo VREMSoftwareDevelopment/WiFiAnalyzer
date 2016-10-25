@@ -26,10 +26,10 @@
     <string name="navigation_drawer_open">Открыть панель навигации</string>
     <string name="navigation_drawer_close">Закрыть панель навигации</string>
 
-    <string name="action_access_points">Точки Доступа</string>
-    <string name="action_channel_rating">Оценить Каналы</string>
+    <string name="action_access_points">Точки доступа</string>
+    <string name="action_channel_rating">Оценка каналов</string>
     <string name="action_channel_graph">График каналов</string>
-    <string name="action_time_graph">График времени</string>
+    <string name="action_time_graph">Временной график</string>
     <string name="action_export">Экспорт</string>
     <string name="action_channel_available">Доступные каналы</string>
     <string name="action_vendors">Поставщики</string>
@@ -45,7 +45,7 @@
     <string name="channel_rating_best">Лучшие каналы:</string>
     <string name="channel_rating_best_none">Нет</string>
     <string name="channel_rating_best_alternative">, попробуйте альтернативный WiFi диапазон</string>
-    <string name="channel_rating_heading_rating">Оценить каналы</string>
+    <string name="channel_rating_heading_rating">Оценка каналов</string>
     <string name="channel_rating_heading_number">Номер канала</string>
     <string name="channel_rating_heading_count">Число точек доступа</string>
     <string name="channel_short_name">CH</string>
@@ -69,7 +69,7 @@
 
     <!-- about start -->
     <string name="about_license_title">Лицензия:</string>
-    <string name="about_license_name">Лицензия зарегистрирована под GNU GPLv3</string>
+    <string name="about_license_name">Лицензия GNU GPLv3</string>
     <string name="about_description_title">Описание:</string>
     <string name="about_description_text">Оптимизация сети WiFi путем проверки состояния Wi-Fi, уровня сигнала и определения переполненных каналов используя WiFi Анализатор для Android</string>
     <string name="about_libraries_title">Использованные библиотеки:</string>
