@@ -110,9 +110,9 @@ public class WiFiChannelsGHZ5Test {
 
     @Test
     public void testGetAvailableChannels() throws Exception {
-        assertEquals(24, fixture.getAvailableChannels(Locale.US.getCountry()).size());
-        assertEquals(19, fixture.getAvailableChannels(Locale.UK.getCountry()).size());
-        assertEquals(22, fixture.getAvailableChannels(Locale.JAPAN.getCountry()).size());
+        assertEquals(25, fixture.getAvailableChannels(Locale.US.getCountry()).size());
+        assertEquals(20, fixture.getAvailableChannels(Locale.UK.getCountry()).size());
+        assertEquals(23, fixture.getAvailableChannels(Locale.JAPAN.getCountry()).size());
     }
 
     @Test
