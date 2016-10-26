@@ -18,13 +18,13 @@
 
 <resources>
     <string-array name="group_by_array">
-        <item>Ничем</item>
+        <item>Нет</item>
         <item>SSID</item>
         <item>Канал</item>
     </string-array>
 
     <string-array name="sort_by_array">
-        <item>Сила Сигнала</item>
+        <item>Уровень сигнала</item>
         <item>SSID</item>
         <item>Канал</item>
     </string-array>
@@ -32,7 +32,7 @@
     <string-array name="graph_legend_array">
         <item>Слева</item>
         <item>Справа</item>
-        <item>Спрятать</item>
+        <item>Скрыть</item>
     </string-array>
 
     <string-array name="theme_array">
