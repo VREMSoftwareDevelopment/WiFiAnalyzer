@@ -53,11 +53,11 @@ public final class WiFiUtils {
     }
 
     public static String convertIpAddress(int ipAddress) {
-        byte[] bytes = BigInteger.valueOf(ipAddress).toByteArray();
-        ArrayUtils.reverse(bytes);
         try {
+            byte[] bytes = BigInteger.valueOf(ipAddress).toByteArray();
+            ArrayUtils.reverse(bytes);
             return InetAddress.getByAddress(bytes).getHostAddress();
-        } catch (UnknownHostException e) {
+        } catch (Exception e) {
             return StringUtils.EMPTY;
         }
     }
