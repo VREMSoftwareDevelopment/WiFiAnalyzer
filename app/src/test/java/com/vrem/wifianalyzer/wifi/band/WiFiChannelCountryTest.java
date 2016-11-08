@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi.band;
 
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Locale;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -74,13 +75,15 @@ public class WiFiChannelCountryTest {
     public void testFindFailes() throws Exception {
         // setup
         String countryCode = "11";
+        List<Integer> expectedGHZ2 = WiFiChannelCountryGHZ2.INSTANCE.findChannels(countryCode);
+        List<Integer> expectedGHZ5 = WiFiChannelCountryGHZ5.INSTANCE.findChannels(countryCode);
         // execute
         WiFiChannelCountry actual = WiFiChannelCountry.find(countryCode);
         // validate
         assertEquals(countryCode, actual.getCountryCode());
         assertEquals(WiFiChannelCountry.UNKNOWN, actual.getCountryName());
-        assertArrayEquals(WiFiChannelCountry.DEFAULT_CHANNELS_GHZ2.toArray(), actual.getChannelsGHZ2().toArray());
-        assertArrayEquals(WiFiChannelCountry.DEFAULT_CHANNELS_GHZ5.toArray(), actual.getChannelsGHZ5().toArray());
+        assertArrayEquals(expectedGHZ2.toArray(), actual.getChannelsGHZ2().toArray());
+        assertArrayEquals(expectedGHZ5.toArray(), actual.getChannelsGHZ5().toArray());
     }
 
 }

@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.wifi.band;
 
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -28,614 +27,158 @@ import java.util.List;
 public class WiFiChannelCountry {
     public static final String UNKNOWN = "Unknown";
 
-    static final List<Integer> DEFAULT_CHANNELS_GHZ2 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
-    static final List<Integer> DEFAULT_CHANNELS_GHZ5 = Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64);
-
     private static final WiFiChannelCountry[] COUNTRY_CHANNELS = new WiFiChannelCountry[]{
-        new WiFiChannelCountry("AE",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            new ArrayList<Integer>()
-        ),
-        new WiFiChannelCountry("AG",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("AL",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            new ArrayList<Integer>()
-        ),
-        new WiFiChannelCountry("AM",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64)
-        ),
-        new WiFiChannelCountry("AN",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("AR",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("AS",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("AT",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("AU",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("AW",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("AZ",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("BA",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("BB",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("BD",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("BE",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("BG",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("BH",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("BM",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("BN",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("BO",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("BR",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("BS",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("BT",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            new ArrayList<Integer>()
-        ),
-        new WiFiChannelCountry("BY",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("BZ",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("CA",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("CH",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("CL",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("CN",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("CO",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("CR",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("CU",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(149, 153, 157, 161)
-        ),
-        new WiFiChannelCountry("CV",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            new ArrayList<Integer>()
-        ),
-        new WiFiChannelCountry("CS",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            new ArrayList<Integer>()
-        ),
-        new WiFiChannelCountry("CY",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("CZ",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("DE",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("DK",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("DM",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("DO",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("DZ",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            new ArrayList<Integer>()
-        ),
-        new WiFiChannelCountry("EC",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("EE",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("EG",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("ES",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("FI",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("FK",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("FM",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("FR",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("GB",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("GE",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("GF",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("GG",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("GI",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("GP",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("GR",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("GT",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("GU",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("HK",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("HN",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("HR",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("HT",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("HU",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("ID",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(149, 153, 157, 161)
-        ),
-        new WiFiChannelCountry("IE",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("IL",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64)
-        ),
-        new WiFiChannelCountry("IM",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("IN",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("IR",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("IS",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("IT",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("JE",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("JM",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("JO",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("JP",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14),
-            Arrays.asList(36, 38, 40, 42, 44, 46, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("KE",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48)
-        ),
-        new WiFiChannelCountry("KI",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("KP",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(149, 153, 157, 161)
-        ),
-        new WiFiChannelCountry("KR",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("KW",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            new ArrayList<Integer>()
-        ),
-        new WiFiChannelCountry("KY",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("KZ",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            new ArrayList<Integer>()
-        ),
-        new WiFiChannelCountry("LA",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("LB",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("LI",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("LK",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("LS",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("LT",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("LU",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("LV",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("MA",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48)
-        ),
-        new WiFiChannelCountry("MC",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64)
-        ),
-        new WiFiChannelCountry("MK",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("MO",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("MP",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("MQ",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("MR",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("MT",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("MU",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("MV",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("MW",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("MX",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("MY",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("NG",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            new ArrayList<Integer>()
-        ),
-        new WiFiChannelCountry("NI",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("NL",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("NO",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("NZ",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("OM",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("PA",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("PE",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("PG",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("PH",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("PK",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("PL",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("PM",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("PR",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("PT",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("QA",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            new ArrayList<Integer>()
-        ),
-        new WiFiChannelCountry("RE",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("RO",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("RU",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("SA",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161)
-        ),
-        new WiFiChannelCountry("SE",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("SG",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("SI",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("SK",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("SV",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("SY",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(149, 153, 157, 161)
-        ),
-        new WiFiChannelCountry("TH",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("TJ",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            new ArrayList<Integer>()
-        ),
-        new WiFiChannelCountry("TN",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64)
-        ),
-        new WiFiChannelCountry("TR",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("TT",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("TW",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
-            Arrays.asList(52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("TZ",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(149, 153, 157, 161)
-        ),
-        new WiFiChannelCountry("UA",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            new ArrayList<Integer>()
-        ),
-        new WiFiChannelCountry("UM",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("US",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("UY",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("UZ",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            new ArrayList<Integer>()
-        ),
-        new WiFiChannelCountry("VA",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            new ArrayList<Integer>()
-        ),
-        new WiFiChannelCountry("VE",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("VG",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("VI",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("VN",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("YE",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            new ArrayList<Integer>()
-        ),
-        new WiFiChannelCountry("YT",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("ZA",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165)
-        ),
-        new WiFiChannelCountry("ZM",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-        ),
-        new WiFiChannelCountry("ZW",
-            Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
-            new ArrayList<Integer>()
-        ),
+        new WiFiChannelCountry("AE"),
+        new WiFiChannelCountry("AG"),
+        new WiFiChannelCountry("AL"),
+        new WiFiChannelCountry("AM"),
+        new WiFiChannelCountry("AN"),
+        new WiFiChannelCountry("AR"),
+        new WiFiChannelCountry("AS"),
+        new WiFiChannelCountry("AT"),
+        new WiFiChannelCountry("AU"),
+        new WiFiChannelCountry("AW"),
+        new WiFiChannelCountry("AZ"),
+        new WiFiChannelCountry("BA"),
+        new WiFiChannelCountry("BB"),
+        new WiFiChannelCountry("BD"),
+        new WiFiChannelCountry("BE"),
+        new WiFiChannelCountry("BG"),
+        new WiFiChannelCountry("BH"),
+        new WiFiChannelCountry("BM"),
+        new WiFiChannelCountry("BN"),
+        new WiFiChannelCountry("BO"),
+        new WiFiChannelCountry("BR"),
+        new WiFiChannelCountry("BS"),
+        new WiFiChannelCountry("BT"),
+        new WiFiChannelCountry("BY"),
+        new WiFiChannelCountry("BZ"),
+        new WiFiChannelCountry("CA"),
+        new WiFiChannelCountry("CH"),
+        new WiFiChannelCountry("CL"),
+        new WiFiChannelCountry("CN"),
+        new WiFiChannelCountry("CO"),
+        new WiFiChannelCountry("CR"),
+        new WiFiChannelCountry("CU"),
+        new WiFiChannelCountry("CV"),
+        new WiFiChannelCountry("CS"),
+        new WiFiChannelCountry("CY"),
+        new WiFiChannelCountry("CZ"),
+        new WiFiChannelCountry("DE"),
+        new WiFiChannelCountry("DK"),
+        new WiFiChannelCountry("DM"),
+        new WiFiChannelCountry("DO"),
+        new WiFiChannelCountry("DZ"),
+        new WiFiChannelCountry("EC"),
+        new WiFiChannelCountry("EE"),
+        new WiFiChannelCountry("EG"),
+        new WiFiChannelCountry("ES"),
+        new WiFiChannelCountry("FI"),
+        new WiFiChannelCountry("FK"),
+        new WiFiChannelCountry("FM"),
+        new WiFiChannelCountry("FR"),
+        new WiFiChannelCountry("GB"),
+        new WiFiChannelCountry("GE"),
+        new WiFiChannelCountry("GF"),
+        new WiFiChannelCountry("GG"),
+        new WiFiChannelCountry("GI"),
+        new WiFiChannelCountry("GP"),
+        new WiFiChannelCountry("GR"),
+        new WiFiChannelCountry("GT"),
+        new WiFiChannelCountry("GU"),
+        new WiFiChannelCountry("HK"),
+        new WiFiChannelCountry("HN"),
+        new WiFiChannelCountry("HR"),
+        new WiFiChannelCountry("HT"),
+        new WiFiChannelCountry("HU"),
+        new WiFiChannelCountry("ID"),
+        new WiFiChannelCountry("IE"),
+        new WiFiChannelCountry("IL"),
+        new WiFiChannelCountry("IM"),
+        new WiFiChannelCountry("IN"),
+        new WiFiChannelCountry("IR"),
+        new WiFiChannelCountry("IS"),
+        new WiFiChannelCountry("IT"),
+        new WiFiChannelCountry("JE"),
+        new WiFiChannelCountry("JM"),
+        new WiFiChannelCountry("JO"),
+        new WiFiChannelCountry("JP"),
+        new WiFiChannelCountry("KE"),
+        new WiFiChannelCountry("KI"),
+        new WiFiChannelCountry("KP"),
+        new WiFiChannelCountry("KR"),
+        new WiFiChannelCountry("KW"),
+        new WiFiChannelCountry("KY"),
+        new WiFiChannelCountry("KZ"),
+        new WiFiChannelCountry("LA"),
+        new WiFiChannelCountry("LB"),
+        new WiFiChannelCountry("LI"),
+        new WiFiChannelCountry("LK"),
+        new WiFiChannelCountry("LS"),
+        new WiFiChannelCountry("LT"),
+        new WiFiChannelCountry("LU"),
+        new WiFiChannelCountry("LV"),
+        new WiFiChannelCountry("MA"),
+        new WiFiChannelCountry("MC"),
+        new WiFiChannelCountry("MK"),
+        new WiFiChannelCountry("MO"),
+        new WiFiChannelCountry("MP"),
+        new WiFiChannelCountry("MQ"),
+        new WiFiChannelCountry("MR"),
+        new WiFiChannelCountry("MT"),
+        new WiFiChannelCountry("MU"),
+        new WiFiChannelCountry("MV"),
+        new WiFiChannelCountry("MW"),
+        new WiFiChannelCountry("MX"),
+        new WiFiChannelCountry("MY"),
+        new WiFiChannelCountry("NG"),
+        new WiFiChannelCountry("NI"),
+        new WiFiChannelCountry("NL"),
+        new WiFiChannelCountry("NO"),
+        new WiFiChannelCountry("NZ"),
+        new WiFiChannelCountry("OM"),
+        new WiFiChannelCountry("PA"),
+        new WiFiChannelCountry("PE"),
+        new WiFiChannelCountry("PG"),
+        new WiFiChannelCountry("PH"),
+        new WiFiChannelCountry("PK"),
+        new WiFiChannelCountry("PL"),
+        new WiFiChannelCountry("PM"),
+        new WiFiChannelCountry("PR"),
+        new WiFiChannelCountry("PT"),
+        new WiFiChannelCountry("QA"),
+        new WiFiChannelCountry("RE"),
+        new WiFiChannelCountry("RO"),
+        new WiFiChannelCountry("RU"),
+        new WiFiChannelCountry("SA"),
+        new WiFiChannelCountry("SE"),
+        new WiFiChannelCountry("SG"),
+        new WiFiChannelCountry("SI"),
+        new WiFiChannelCountry("SK"),
+        new WiFiChannelCountry("SV"),
+        new WiFiChannelCountry("SY"),
+        new WiFiChannelCountry("TH"),
+        new WiFiChannelCountry("TJ"),
+        new WiFiChannelCountry("TN"),
+        new WiFiChannelCountry("TR"),
+        new WiFiChannelCountry("TT"),
+        new WiFiChannelCountry("TW"),
+        new WiFiChannelCountry("TZ"),
+        new WiFiChannelCountry("UA"),
+        new WiFiChannelCountry("UM"),
+        new WiFiChannelCountry("US"),
+        new WiFiChannelCountry("UY"),
+        new WiFiChannelCountry("UZ"),
+        new WiFiChannelCountry("VA"),
+        new WiFiChannelCountry("VE"),
+        new WiFiChannelCountry("VG"),
+        new WiFiChannelCountry("VI"),
+        new WiFiChannelCountry("VN"),
+        new WiFiChannelCountry("YE"),
+        new WiFiChannelCountry("YT"),
+        new WiFiChannelCountry("ZA"),
+        new WiFiChannelCountry("ZM"),
+        new WiFiChannelCountry("ZW"),
     };
 
     private final String countryCode;
@@ -643,13 +186,9 @@ public class WiFiChannelCountry {
     private final List<Integer> channelsGHZ5;
 
     public WiFiChannelCountry(@NonNull String countryCode) {
-        this(countryCode, DEFAULT_CHANNELS_GHZ2, DEFAULT_CHANNELS_GHZ5);
-    }
-
-    private WiFiChannelCountry(@NonNull String countryCode, @NonNull List<Integer> channelsGHZ2, List<Integer> channelsGHZ5) {
         this.countryCode = countryCode;
-        this.channelsGHZ2 = channelsGHZ2;
-        this.channelsGHZ5 = channelsGHZ5.isEmpty() ? DEFAULT_CHANNELS_GHZ5 : channelsGHZ5;
+        this.channelsGHZ2 = WiFiChannelCountryGHZ2.INSTANCE.findChannels(countryCode);
+        this.channelsGHZ5 = WiFiChannelCountryGHZ5.INSTANCE.findChannels(countryCode);
     }
 
     public static WiFiChannelCountry find(String countryCode) {
@@ -675,11 +214,11 @@ public class WiFiChannelCountry {
     }
 
     public List<Integer> getChannelsGHZ2() {
-        return Collections.unmodifiableList(channelsGHZ2);
+        return channelsGHZ2;
     }
 
     public List<Integer> getChannelsGHZ5() {
-        return Collections.unmodifiableList(channelsGHZ5);
+        return channelsGHZ5;
     }
 
     boolean isChannelAvailableGHZ2(int channel) {
