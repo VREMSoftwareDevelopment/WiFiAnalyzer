@@ -20,188 +20,187 @@ package com.vrem.wifianalyzer.wifi.band;
 
 import android.support.annotation.NonNull;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class WiFiChannelCountry {
     public static final String UNKNOWN = "Unknown";
 
-    private static final WiFiChannelCountry[] COUNTRY_CHANNELS = new WiFiChannelCountry[]{
-        new WiFiChannelCountry("AE"),
-        new WiFiChannelCountry("AG"),
-        new WiFiChannelCountry("AL"),
-        new WiFiChannelCountry("AM"),
-        new WiFiChannelCountry("AN"),
-        new WiFiChannelCountry("AR"),
-        new WiFiChannelCountry("AS"),
-        new WiFiChannelCountry("AT"),
-        new WiFiChannelCountry("AU"),
-        new WiFiChannelCountry("AW"),
-        new WiFiChannelCountry("AZ"),
-        new WiFiChannelCountry("BA"),
-        new WiFiChannelCountry("BB"),
-        new WiFiChannelCountry("BD"),
-        new WiFiChannelCountry("BE"),
-        new WiFiChannelCountry("BG"),
-        new WiFiChannelCountry("BH"),
-        new WiFiChannelCountry("BM"),
-        new WiFiChannelCountry("BN"),
-        new WiFiChannelCountry("BO"),
-        new WiFiChannelCountry("BR"),
-        new WiFiChannelCountry("BS"),
-        new WiFiChannelCountry("BT"),
-        new WiFiChannelCountry("BY"),
-        new WiFiChannelCountry("BZ"),
-        new WiFiChannelCountry("CA"),
-        new WiFiChannelCountry("CH"),
-        new WiFiChannelCountry("CL"),
-        new WiFiChannelCountry("CN"),
-        new WiFiChannelCountry("CO"),
-        new WiFiChannelCountry("CR"),
-        new WiFiChannelCountry("CU"),
-        new WiFiChannelCountry("CV"),
-        new WiFiChannelCountry("CS"),
-        new WiFiChannelCountry("CY"),
-        new WiFiChannelCountry("CZ"),
-        new WiFiChannelCountry("DE"),
-        new WiFiChannelCountry("DK"),
-        new WiFiChannelCountry("DM"),
-        new WiFiChannelCountry("DO"),
-        new WiFiChannelCountry("DZ"),
-        new WiFiChannelCountry("EC"),
-        new WiFiChannelCountry("EE"),
-        new WiFiChannelCountry("EG"),
-        new WiFiChannelCountry("ES"),
-        new WiFiChannelCountry("FI"),
-        new WiFiChannelCountry("FK"),
-        new WiFiChannelCountry("FM"),
-        new WiFiChannelCountry("FR"),
-        new WiFiChannelCountry("GB"),
-        new WiFiChannelCountry("GE"),
-        new WiFiChannelCountry("GF"),
-        new WiFiChannelCountry("GG"),
-        new WiFiChannelCountry("GI"),
-        new WiFiChannelCountry("GP"),
-        new WiFiChannelCountry("GR"),
-        new WiFiChannelCountry("GT"),
-        new WiFiChannelCountry("GU"),
-        new WiFiChannelCountry("HK"),
-        new WiFiChannelCountry("HN"),
-        new WiFiChannelCountry("HR"),
-        new WiFiChannelCountry("HT"),
-        new WiFiChannelCountry("HU"),
-        new WiFiChannelCountry("ID"),
-        new WiFiChannelCountry("IE"),
-        new WiFiChannelCountry("IL"),
-        new WiFiChannelCountry("IM"),
-        new WiFiChannelCountry("IN"),
-        new WiFiChannelCountry("IR"),
-        new WiFiChannelCountry("IS"),
-        new WiFiChannelCountry("IT"),
-        new WiFiChannelCountry("JE"),
-        new WiFiChannelCountry("JM"),
-        new WiFiChannelCountry("JO"),
-        new WiFiChannelCountry("JP"),
-        new WiFiChannelCountry("KE"),
-        new WiFiChannelCountry("KI"),
-        new WiFiChannelCountry("KP"),
-        new WiFiChannelCountry("KR"),
-        new WiFiChannelCountry("KW"),
-        new WiFiChannelCountry("KY"),
-        new WiFiChannelCountry("KZ"),
-        new WiFiChannelCountry("LA"),
-        new WiFiChannelCountry("LB"),
-        new WiFiChannelCountry("LI"),
-        new WiFiChannelCountry("LK"),
-        new WiFiChannelCountry("LS"),
-        new WiFiChannelCountry("LT"),
-        new WiFiChannelCountry("LU"),
-        new WiFiChannelCountry("LV"),
-        new WiFiChannelCountry("MA"),
-        new WiFiChannelCountry("MC"),
-        new WiFiChannelCountry("MK"),
-        new WiFiChannelCountry("MO"),
-        new WiFiChannelCountry("MP"),
-        new WiFiChannelCountry("MQ"),
-        new WiFiChannelCountry("MR"),
-        new WiFiChannelCountry("MT"),
-        new WiFiChannelCountry("MU"),
-        new WiFiChannelCountry("MV"),
-        new WiFiChannelCountry("MW"),
-        new WiFiChannelCountry("MX"),
-        new WiFiChannelCountry("MY"),
-        new WiFiChannelCountry("NG"),
-        new WiFiChannelCountry("NI"),
-        new WiFiChannelCountry("NL"),
-        new WiFiChannelCountry("NO"),
-        new WiFiChannelCountry("NZ"),
-        new WiFiChannelCountry("OM"),
-        new WiFiChannelCountry("PA"),
-        new WiFiChannelCountry("PE"),
-        new WiFiChannelCountry("PG"),
-        new WiFiChannelCountry("PH"),
-        new WiFiChannelCountry("PK"),
-        new WiFiChannelCountry("PL"),
-        new WiFiChannelCountry("PM"),
-        new WiFiChannelCountry("PR"),
-        new WiFiChannelCountry("PT"),
-        new WiFiChannelCountry("QA"),
-        new WiFiChannelCountry("RE"),
-        new WiFiChannelCountry("RO"),
-        new WiFiChannelCountry("RU"),
-        new WiFiChannelCountry("SA"),
-        new WiFiChannelCountry("SE"),
-        new WiFiChannelCountry("SG"),
-        new WiFiChannelCountry("SI"),
-        new WiFiChannelCountry("SK"),
-        new WiFiChannelCountry("SV"),
-        new WiFiChannelCountry("SY"),
-        new WiFiChannelCountry("TH"),
-        new WiFiChannelCountry("TJ"),
-        new WiFiChannelCountry("TN"),
-        new WiFiChannelCountry("TR"),
-        new WiFiChannelCountry("TT"),
-        new WiFiChannelCountry("TW"),
-        new WiFiChannelCountry("TZ"),
-        new WiFiChannelCountry("UA"),
-        new WiFiChannelCountry("UM"),
-        new WiFiChannelCountry("US"),
-        new WiFiChannelCountry("UY"),
-        new WiFiChannelCountry("UZ"),
-        new WiFiChannelCountry("VA"),
-        new WiFiChannelCountry("VE"),
-        new WiFiChannelCountry("VG"),
-        new WiFiChannelCountry("VI"),
-        new WiFiChannelCountry("VN"),
-        new WiFiChannelCountry("YE"),
-        new WiFiChannelCountry("YT"),
-        new WiFiChannelCountry("ZA"),
-        new WiFiChannelCountry("ZM"),
-        new WiFiChannelCountry("ZW"),
-    };
+    private static final SortedSet<String> COUNTRY_CODES = new TreeSet<>(Arrays.asList(
+        "AE",
+        "AG",
+        "AL",
+        "AM",
+        "AN",
+        "AR",
+        "AS",
+        "AT",
+        "AU",
+        "AW",
+        "AZ",
+        "BA",
+        "BB",
+        "BD",
+        "BE",
+        "BG",
+        "BH",
+        "BM",
+        "BN",
+        "BO",
+        "BR",
+        "BS",
+        "BT",
+        "BY",
+        "BZ",
+        "CA",
+        "CH",
+        "CL",
+        "CN",
+        "CO",
+        "CR",
+        "CU",
+        "CV",
+        "CS",
+        "CY",
+        "CZ",
+        "DE",
+        "DK",
+        "DM",
+        "DO",
+        "DZ",
+        "EC",
+        "EE",
+        "EG",
+        "ES",
+        "FI",
+        "FK",
+        "FM",
+        "FR",
+        "GB",
+        "GE",
+        "GF",
+        "GG",
+        "GI",
+        "GP",
+        "GR",
+        "GT",
+        "GU",
+        "HK",
+        "HN",
+        "HR",
+        "HT",
+        "HU",
+        "ID",
+        "IE",
+        "IL",
+        "IM",
+        "IN",
+        "IR",
+        "IS",
+        "IT",
+        "JE",
+        "JM",
+        "JO",
+        "JP",
+        "KE",
+        "KI",
+        "KP",
+        "KR",
+        "KW",
+        "KY",
+        "KZ",
+        "LA",
+        "LB",
+        "LI",
+        "LK",
+        "LS",
+        "LT",
+        "LU",
+        "LV",
+        "MA",
+        "MC",
+        "MK",
+        "MO",
+        "MP",
+        "MQ",
+        "MR",
+        "MT",
+        "MU",
+        "MV",
+        "MW",
+        "MX",
+        "MY",
+        "NG",
+        "NI",
+        "NL",
+        "NO",
+        "NZ",
+        "OM",
+        "PA",
+        "PE",
+        "PG",
+        "PH",
+        "PK",
+        "PL",
+        "PM",
+        "PR",
+        "PT",
+        "QA",
+        "RE",
+        "RO",
+        "RU",
+        "SA",
+        "SE",
+        "SG",
+        "SI",
+        "SK",
+        "SV",
+        "SY",
+        "TH",
+        "TJ",
+        "TN",
+        "TR",
+        "TT",
+        "TW",
+        "TZ",
+        "UA",
+        "UM",
+        "US",
+        "UY",
+        "UZ",
+        "VA",
+        "VE",
+        "VG",
+        "VI",
+        "VN",
+        "YE",
+        "YT",
+        "ZA",
+        "ZM",
+        "ZW"
+    ));
 
     private final String countryCode;
-    private final List<Integer> channelsGHZ2;
-    private final List<Integer> channelsGHZ5;
 
-    public WiFiChannelCountry(@NonNull String countryCode) {
-        this.countryCode = countryCode;
-        this.channelsGHZ2 = WiFiChannelCountryGHZ2.INSTANCE.findChannels(countryCode);
-        this.channelsGHZ5 = WiFiChannelCountryGHZ5.INSTANCE.findChannels(countryCode);
+    private WiFiChannelCountry(@NonNull String countryCode) {
+        this.countryCode = StringUtils.capitalize(countryCode);
     }
 
     public static WiFiChannelCountry find(String countryCode) {
-        for (WiFiChannelCountry wiFiChannelCountry : COUNTRY_CHANNELS) {
-            if (wiFiChannelCountry.getCountryCode().equalsIgnoreCase(countryCode)) {
-                return wiFiChannelCountry;
-            }
-        }
         return new WiFiChannelCountry(countryCode);
     }
 
     public static List<WiFiChannelCountry> getAll() {
-        return Collections.unmodifiableList(Arrays.asList(COUNTRY_CHANNELS));
+        List<WiFiChannelCountry> results = new ArrayList<>();
+        for (String countryCode : COUNTRY_CODES) {
+            results.add(find(countryCode));
+        }
+        return results;
     }
 
     public String getCountryCode() {
@@ -213,19 +212,19 @@ public class WiFiChannelCountry {
         return countryCode.equals(countryName) ? UNKNOWN : countryName;
     }
 
-    public List<Integer> getChannelsGHZ2() {
-        return channelsGHZ2;
+    public SortedSet<Integer> getChannelsGHZ2() {
+        return WiFiChannelCountryGHZ2.INSTANCE.findChannels(countryCode);
     }
 
-    public List<Integer> getChannelsGHZ5() {
-        return channelsGHZ5;
+    public SortedSet<Integer> getChannelsGHZ5() {
+        return WiFiChannelCountryGHZ5.INSTANCE.findChannels(countryCode);
     }
 
     boolean isChannelAvailableGHZ2(int channel) {
-        return channelsGHZ2.contains(channel);
+        return getChannelsGHZ2().contains(channel);
     }
 
     boolean isChannelAvailableGHZ5(int channel) {
-        return channelsGHZ5.contains(channel);
+        return getChannelsGHZ5().contains(channel);
     }
 }

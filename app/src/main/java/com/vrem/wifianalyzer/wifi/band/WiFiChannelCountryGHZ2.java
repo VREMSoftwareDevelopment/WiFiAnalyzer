@@ -22,38 +22,40 @@ import android.support.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 enum WiFiChannelCountryGHZ2 {
     INSTANCE;
 
-    private final List<String> countries;
-    private final List<Integer> channels;
-    private final List<Integer> world;
-    private final List<Integer> japan;
+    private final Set<String> countries;
+    private final SortedSet<Integer> channels;
+    private final SortedSet<Integer> world;
+    private final SortedSet<Integer> japan;
 
     WiFiChannelCountryGHZ2() {
-        countries = Arrays.asList("AS", "AU", "CA", "FM", "GU", "MP", "PA", "PR", "TW", "UM", "US", "VI");
-        channels = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
-        world = new ArrayList<>(channels);
+        countries = new HashSet<>(Arrays.asList("AS", "AU", "CA", "FM", "GU", "MP", "PA", "PR", "TW", "UM", "US", "VI"));
+        channels = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
+        world = new TreeSet<>(channels);
         world.add(12);
         world.add(13);
-        japan = new ArrayList<>(world);
+        japan = new TreeSet<>(world);
         japan.add(14);
     }
 
-    List<Integer> findChannels(@NonNull String countryCode) {
-        List<Integer> result = world;
+    SortedSet<Integer> findChannels(@NonNull String countryCode) {
+        SortedSet<Integer> result = world;
         String code = StringUtils.capitalize(countryCode);
         if ("JP".equals(code)) {
             result = japan;
         } else if (countries.contains(code)) {
             result = channels;
         }
-        return Collections.unmodifiableList(result);
+        return Collections.unmodifiableSortedSet(result);
     }
 
 }

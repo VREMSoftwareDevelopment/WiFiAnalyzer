@@ -20,24 +20,31 @@ package com.vrem.wifianalyzer.wifi.band;
 
 import org.junit.Test;
 
-import java.util.List;
+import java.util.Arrays;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class WiFiChannelCountryGHZ2Test {
 
+    private SortedSet<Integer> channelsSet1 = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
+    private SortedSet<Integer> channelsSet2 = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13));
+    private SortedSet<Integer> channelsSet3 = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14));
+
     @Test
     public void testChannelsForJapan() throws Exception {
-        List<Integer> actual = WiFiChannelCountryGHZ2.INSTANCE.findChannels("JP");
-        assertEquals(14, actual.size());
+        SortedSet<Integer> channels = WiFiChannelCountryGHZ2.INSTANCE.findChannels("JP");
+        validateChannels(channelsSet3, channels);
     }
 
     @Test
     public void testChannelsForUSAndSimilar() throws Exception {
         String[] countries = new String[]{"AS", "AU", "CA", "FM", "GU", "MP", "PA", "PR", "TW", "UM", "US", "VI"};
         for (String country : countries) {
-            List<Integer> actual = WiFiChannelCountryGHZ2.INSTANCE.findChannels(country);
-            assertEquals(11, actual.size());
+            SortedSet<Integer> channels = WiFiChannelCountryGHZ2.INSTANCE.findChannels(country);
+            validateChannels(channelsSet1, channels);
         }
     }
 
@@ -45,8 +52,16 @@ public class WiFiChannelCountryGHZ2Test {
     public void testChannelsForWorld() throws Exception {
         String[] countries = new String[]{null, "GB", "XYZ", "MX", "AE"};
         for (String country : countries) {
-            List<Integer> actual = WiFiChannelCountryGHZ2.INSTANCE.findChannels(country);
-            assertEquals(13, actual.size());
+            SortedSet<Integer> channels = WiFiChannelCountryGHZ2.INSTANCE.findChannels(country);
+            validateChannels(channelsSet2, channels);
         }
     }
+
+    private void validateChannels(SortedSet<Integer> expected, SortedSet<Integer> actual) {
+        assertEquals(expected.size(), actual.size());
+        assertTrue(actual.containsAll(expected));
+    }
+
+
+
 }

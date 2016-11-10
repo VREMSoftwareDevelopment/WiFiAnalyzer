@@ -20,8 +20,8 @@ package com.vrem.wifianalyzer.wifi.band;
 
 import org.junit.Test;
 
-import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -75,8 +75,8 @@ public class WiFiChannelCountryTest {
     public void testFindFailes() throws Exception {
         // setup
         String countryCode = "11";
-        List<Integer> expectedGHZ2 = WiFiChannelCountryGHZ2.INSTANCE.findChannels(countryCode);
-        List<Integer> expectedGHZ5 = WiFiChannelCountryGHZ5.INSTANCE.findChannels(countryCode);
+        Set<Integer> expectedGHZ2 = WiFiChannelCountryGHZ2.INSTANCE.findChannels(countryCode);
+        Set<Integer> expectedGHZ5 = WiFiChannelCountryGHZ5.INSTANCE.findChannels(countryCode);
         // execute
         WiFiChannelCountry actual = WiFiChannelCountry.find(countryCode);
         // validate
