@@ -64,6 +64,8 @@ class ExportItem implements NavigationMenuItem {
 
     String getData(@NonNull List<WiFiDetail> wiFiDetails) {
         StringBuilder result = new StringBuilder();
+        result.append("SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security"
+            + System.lineSeparator());
         for (WiFiDetail wiFiDetail : wiFiDetails) {
             WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
             result.append(String.format("%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%.1fm|%s%s",
