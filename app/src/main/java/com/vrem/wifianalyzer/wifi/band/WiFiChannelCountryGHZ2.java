@@ -29,9 +29,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-enum WiFiChannelCountryGHZ2 {
-    INSTANCE;
-
+class WiFiChannelCountryGHZ2 {
     private final Set<String> countries;
     private final SortedSet<Integer> channels;
     private final SortedSet<Integer> world;

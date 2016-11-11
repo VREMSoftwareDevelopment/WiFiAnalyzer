@@ -29,9 +29,7 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-enum WiFiChannelCountryGHZ5 {
-    INSTANCE;
-
+class WiFiChannelCountryGHZ5 {
     private final SortedSet<Integer> channels;
     private final Map<String, SortedSet<Integer>> channelsToExclude;
 

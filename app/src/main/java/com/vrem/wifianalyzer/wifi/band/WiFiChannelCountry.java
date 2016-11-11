@@ -20,204 +20,51 @@ package com.vrem.wifianalyzer.wifi.band;
 
 import android.support.annotation.NonNull;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.SortedSet;
-import java.util.TreeSet;
 
 public class WiFiChannelCountry {
-    public static final String UNKNOWN = "Unknown";
+    public static final String UNKNOWN = "-Unknown";
 
-    private static final SortedSet<String> COUNTRY_CODES = new TreeSet<>(Arrays.asList(
-        "AE",
-        "AG",
-        "AL",
-        "AM",
-        "AN",
-        "AR",
-        "AS",
-        "AT",
-        "AU",
-        "AW",
-        "AZ",
-        "BA",
-        "BB",
-        "BD",
-        "BE",
-        "BG",
-        "BH",
-        "BM",
-        "BN",
-        "BO",
-        "BR",
-        "BS",
-        "BT",
-        "BY",
-        "BZ",
-        "CA",
-        "CH",
-        "CL",
-        "CN",
-        "CO",
-        "CR",
-        "CU",
-        "CV",
-        "CS",
-        "CY",
-        "CZ",
-        "DE",
-        "DK",
-        "DM",
-        "DO",
-        "DZ",
-        "EC",
-        "EE",
-        "EG",
-        "ES",
-        "FI",
-        "FK",
-        "FM",
-        "FR",
-        "GB",
-        "GE",
-        "GF",
-        "GG",
-        "GI",
-        "GP",
-        "GR",
-        "GT",
-        "GU",
-        "HK",
-        "HN",
-        "HR",
-        "HT",
-        "HU",
-        "ID",
-        "IE",
-        "IL",
-        "IM",
-        "IN",
-        "IR",
-        "IS",
-        "IT",
-        "JE",
-        "JM",
-        "JO",
-        "JP",
-        "KE",
-        "KI",
-        "KP",
-        "KR",
-        "KW",
-        "KY",
-        "KZ",
-        "LA",
-        "LB",
-        "LI",
-        "LK",
-        "LS",
-        "LT",
-        "LU",
-        "LV",
-        "MA",
-        "MC",
-        "MK",
-        "MO",
-        "MP",
-        "MQ",
-        "MR",
-        "MT",
-        "MU",
-        "MV",
-        "MW",
-        "MX",
-        "MY",
-        "NG",
-        "NI",
-        "NL",
-        "NO",
-        "NZ",
-        "OM",
-        "PA",
-        "PE",
-        "PG",
-        "PH",
-        "PK",
-        "PL",
-        "PM",
-        "PR",
-        "PT",
-        "QA",
-        "RE",
-        "RO",
-        "RU",
-        "SA",
-        "SE",
-        "SG",
-        "SI",
-        "SK",
-        "SV",
-        "SY",
-        "TH",
-        "TJ",
-        "TN",
-        "TR",
-        "TT",
-        "TW",
-        "TZ",
-        "UA",
-        "UM",
-        "US",
-        "UY",
-        "UZ",
-        "VA",
-        "VE",
-        "VG",
-        "VI",
-        "VN",
-        "YE",
-        "YT",
-        "ZA",
-        "ZM",
-        "ZW"
-    ));
+    private static final Country COUNTRY = new Country();
+    private static final WiFiChannelCountryGHZ2 WIFI_CHANNEL_GHZ2 = new WiFiChannelCountryGHZ2();
+    private static final WiFiChannelCountryGHZ5 WIFI_CHANNEL_GHZ5 = new WiFiChannelCountryGHZ5();
 
-    private final String countryCode;
+    private final Locale country;
 
-    private WiFiChannelCountry(@NonNull String countryCode) {
-        this.countryCode = StringUtils.capitalize(countryCode);
+    private WiFiChannelCountry(@NonNull Locale country) {
+        this.country = country;
     }
 
-    public static WiFiChannelCountry find(String countryCode) {
-        return new WiFiChannelCountry(countryCode);
+    public static WiFiChannelCountry get(String countryCode) {
+        return new WiFiChannelCountry(COUNTRY.getCountry(countryCode));
     }
 
     public static List<WiFiChannelCountry> getAll() {
         List<WiFiChannelCountry> results = new ArrayList<>();
-        for (String countryCode : COUNTRY_CODES) {
-            results.add(find(countryCode));
+        for (Locale locale : COUNTRY.getCountries()) {
+            results.add(new WiFiChannelCountry(locale));
         }
         return results;
     }
 
     public String getCountryCode() {
-        return countryCode;
+        return country.getCountry();
     }
 
     public String getCountryName() {
-        String countryName = new Country().getCountry(countryCode).getDisplayCountry();
-        return countryCode.equals(countryName) ? UNKNOWN : countryName;
+        String countryName = country.getDisplayCountry();
+        return country.getCountry().equals(countryName) ? countryName + UNKNOWN : countryName;
     }
 
     public SortedSet<Integer> getChannelsGHZ2() {
-        return WiFiChannelCountryGHZ2.INSTANCE.findChannels(countryCode);
+        return WIFI_CHANNEL_GHZ2.findChannels(country.getCountry());
     }
 
     public SortedSet<Integer> getChannelsGHZ5() {
-        return WiFiChannelCountryGHZ5.INSTANCE.findChannels(countryCode);
+        return WIFI_CHANNEL_GHZ5.findChannels(country.getCountry());
     }
 
     boolean isChannelAvailableGHZ2(int channel) {

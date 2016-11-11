@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -35,13 +36,20 @@ public class WiFiChannelCountryGHZ5Test {
     private SortedSet<Integer> channelsSet2 = new TreeSet<>(Arrays.asList(100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140));
     private SortedSet<Integer> channelsSet3 = new TreeSet<>(Arrays.asList(149, 153, 157, 161, 165));
 
+    private WiFiChannelCountryGHZ5 fixture;
+
+    @Before
+    public void setUp() {
+        fixture = new WiFiChannelCountryGHZ5();
+    }
+    
     @Test
     public void testChannelsAustraliaCanada() throws Exception {
         SortedSet<Integer> exclude = new TreeSet<>(Arrays.asList(120, 124, 128));
         int expectedSize = channelsSet1.size() + channelsSet2.size() + channelsSet3.size() - exclude.size();
         String[] countries = new String[]{"AU", "CA"};
         for (String country : countries) {
-            Set<Integer> actual = WiFiChannelCountryGHZ5.INSTANCE.findChannels(country);
+            Set<Integer> actual = fixture.findChannels(country);
             assertEquals(expectedSize, actual.size());
             assertTrue(actual.containsAll(channelsSet1));
             assertTrue(actual.containsAll(channelsSet3));
@@ -54,7 +62,7 @@ public class WiFiChannelCountryGHZ5Test {
         int expectedSize = channelsSet1.size() + channelsSet3.size();
         String[] countries = new String[]{"CN", "KR"};
         for (String country : countries) {
-            Set<Integer> actual = WiFiChannelCountryGHZ5.INSTANCE.findChannels(country);
+            Set<Integer> actual = fixture.findChannels(country);
             assertEquals(expectedSize, actual.size());
             assertTrue(actual.containsAll(channelsSet1));
             assertTrue(actual.containsAll(channelsSet3));
@@ -67,7 +75,7 @@ public class WiFiChannelCountryGHZ5Test {
         int expectedSize = channelsSet1.size() + channelsSet2.size();
         String[] countries = new String[]{"JP", "TR", "ZA"};
         for (String country : countries) {
-            Set<Integer> actual = WiFiChannelCountryGHZ5.INSTANCE.findChannels(country);
+            Set<Integer> actual = fixture.findChannels(country);
             assertEquals(expectedSize, actual.size());
             assertTrue(actual.containsAll(channelsSet1));
             assertTrue(actual.containsAll(channelsSet2));
@@ -78,7 +86,7 @@ public class WiFiChannelCountryGHZ5Test {
     @Test
     public void testChannelsIsrael() throws Exception {
         int expectedSize = channelsSet1.size();
-        Set<Integer> actual = WiFiChannelCountryGHZ5.INSTANCE.findChannels("IL");
+        Set<Integer> actual = fixture.findChannels("IL");
         assertEquals(expectedSize, actual.size());
         assertTrue(actual.containsAll(channelsSet1));
         assertFalse(actual.containsAll(channelsSet2));
@@ -90,7 +98,7 @@ public class WiFiChannelCountryGHZ5Test {
         int expectedSize = channelsSet1.size() + channelsSet2.size() + channelsSet3.size();
         String[] countries = new String[]{"US", "RU", "XYZ"};
         for (String country : countries) {
-            Set<Integer> actual = WiFiChannelCountryGHZ5.INSTANCE.findChannels(country);
+            Set<Integer> actual = fixture.findChannels(country);
             assertEquals(expectedSize, actual.size());
             assertTrue(actual.containsAll(channelsSet1));
             assertTrue(actual.containsAll(channelsSet2));

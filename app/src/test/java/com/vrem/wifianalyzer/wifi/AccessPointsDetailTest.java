@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi;
 
+import android.app.Dialog;
 import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -174,5 +175,16 @@ public class AccessPointsDetailTest {
 
     private void validateTextViewValue(@NonNull String expected, int id) {
         assertEquals(expected, ((TextView) view.findViewById(id)).getText().toString());
+    }
+
+    @Test
+    public void testPopupDialog() throws Exception {
+        // setup
+        String ssid = "SSID";
+        WiFiDetail wiFiDetail = withWiFiDetail(ssid, new WiFiAdditional(StringUtils.EMPTY, false));
+        // execute
+        Dialog dialog = fixture.popupDialog(mainActivity, MainContext.INSTANCE.getLayoutInflater(), wiFiDetail);
+        // validate
+        assertNotNull(dialog);
     }
 }

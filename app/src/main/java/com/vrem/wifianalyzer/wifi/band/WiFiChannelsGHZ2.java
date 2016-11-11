@@ -51,7 +51,7 @@ class WiFiChannelsGHZ2 extends WiFiChannels {
     @Override
     public List<WiFiChannel> getAvailableChannels(String countryCode) {
         List<WiFiChannel> wiFiChannels = new ArrayList<>();
-        for (int channel : WiFiChannelCountry.find(countryCode).getChannelsGHZ2()) {
+        for (int channel : WiFiChannelCountry.get(countryCode).getChannelsGHZ2()) {
             wiFiChannels.add(getWiFiChannelByChannel(channel));
         }
         return wiFiChannels;
@@ -59,7 +59,7 @@ class WiFiChannelsGHZ2 extends WiFiChannels {
 
     @Override
     public boolean isChannelAvailable(String countryCode, int channel) {
-        return WiFiChannelCountry.find(countryCode).isChannelAvailableGHZ2(channel);
+        return WiFiChannelCountry.get(countryCode).isChannelAvailableGHZ2(channel);
     }
 
     @Override

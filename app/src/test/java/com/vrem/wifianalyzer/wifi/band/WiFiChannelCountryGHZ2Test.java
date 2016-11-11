@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -33,9 +34,16 @@ public class WiFiChannelCountryGHZ2Test {
     private SortedSet<Integer> channelsSet2 = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13));
     private SortedSet<Integer> channelsSet3 = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14));
 
+    private WiFiChannelCountryGHZ2 fixture;
+
+    @Before
+    public void setUp() {
+        fixture = new WiFiChannelCountryGHZ2();
+    }
+
     @Test
     public void testChannelsForJapan() throws Exception {
-        SortedSet<Integer> channels = WiFiChannelCountryGHZ2.INSTANCE.findChannels("JP");
+        SortedSet<Integer> channels = fixture.findChannels("JP");
         validateChannels(channelsSet3, channels);
     }
 
@@ -43,7 +51,7 @@ public class WiFiChannelCountryGHZ2Test {
     public void testChannelsForUSAndSimilar() throws Exception {
         String[] countries = new String[]{"AS", "AU", "CA", "FM", "GU", "MP", "PA", "PR", "TW", "UM", "US", "VI"};
         for (String country : countries) {
-            SortedSet<Integer> channels = WiFiChannelCountryGHZ2.INSTANCE.findChannels(country);
+            SortedSet<Integer> channels = fixture.findChannels(country);
             validateChannels(channelsSet1, channels);
         }
     }
@@ -52,7 +60,7 @@ public class WiFiChannelCountryGHZ2Test {
     public void testChannelsForWorld() throws Exception {
         String[] countries = new String[]{null, "GB", "XYZ", "MX", "AE"};
         for (String country : countries) {
-            SortedSet<Integer> channels = WiFiChannelCountryGHZ2.INSTANCE.findChannels(country);
+            SortedSet<Integer> channels = fixture.findChannels(country);
             validateChannels(channelsSet2, channels);
         }
     }
