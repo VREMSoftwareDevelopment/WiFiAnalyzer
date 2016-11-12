@@ -21,7 +21,7 @@ This is the official repository of WiFi Analyzer (open-source).
 * Graph channels signal strength
 * Graph Access Point signal strength over time
 * Analyze WiFi networks to rate channels
-* HT/VHT Detection
+* HT/VHT Detection (Requires Android OS 6+)
  
 ## Usage Tips:
 * Tap the title bar to switch between 2.4 and 5 GHz WiFi band.
