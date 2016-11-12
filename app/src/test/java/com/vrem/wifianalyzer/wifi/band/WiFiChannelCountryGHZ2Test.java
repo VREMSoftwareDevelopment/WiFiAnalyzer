@@ -70,6 +70,4 @@ public class WiFiChannelCountryGHZ2Test {
         assertTrue(actual.containsAll(expected));
     }
 
-
-
 }

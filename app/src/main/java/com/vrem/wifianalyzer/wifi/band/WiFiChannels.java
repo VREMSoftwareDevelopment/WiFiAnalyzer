@@ -30,13 +30,11 @@ public abstract class WiFiChannels {
     private final Pair<Integer, Integer> wiFiRange;
     private final List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs;
     private final int frequencyOffset;
-    private final int frequencySpread;
 
-    WiFiChannels(@NonNull Pair<Integer, Integer> wiFiRange, @NonNull List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs, int frequencyOffset, int frequencySpread) {
+    WiFiChannels(@NonNull Pair<Integer, Integer> wiFiRange, @NonNull List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs, int frequencyOffset) {
         this.wiFiRange = wiFiRange;
         this.wiFiChannelPairs = wiFiChannelPairs;
         this.frequencyOffset = frequencyOffset;
-        this.frequencySpread = frequencySpread;
     }
 
     public boolean isInRange(int frequency) {
@@ -84,7 +82,7 @@ public abstract class WiFiChannels {
     }
 
     public int getFrequencySpread() {
-        return frequencySpread;
+        return WiFiChannel.FREQUENCY_SPREAD;
     }
 
     public List<WiFiChannel> getWiFiChannels() {

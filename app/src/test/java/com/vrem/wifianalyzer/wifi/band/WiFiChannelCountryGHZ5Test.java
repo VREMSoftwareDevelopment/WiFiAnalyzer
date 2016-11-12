@@ -42,7 +42,7 @@ public class WiFiChannelCountryGHZ5Test {
     public void setUp() {
         fixture = new WiFiChannelCountryGHZ5();
     }
-    
+
     @Test
     public void testChannelsAustraliaCanada() throws Exception {
         SortedSet<Integer> exclude = new TreeSet<>(Arrays.asList(120, 124, 128));
@@ -105,6 +105,5 @@ public class WiFiChannelCountryGHZ5Test {
             assertTrue(actual.containsAll(channelsSet3));
         }
     }
-
 
 }
