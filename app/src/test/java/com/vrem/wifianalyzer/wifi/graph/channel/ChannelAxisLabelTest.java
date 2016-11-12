@@ -102,7 +102,7 @@ public class ChannelAxisLabelTest {
         WiFiChannels wiFiChannels = WiFiBand.GHZ2.getWiFiChannels();
         WiFiChannel wiFiChannel = wiFiChannels.getWiFiChannelFirst();
         // execute
-        String actual = fixture.formatLabel(wiFiChannel.getFrequency() - wiFiChannels.getFrequencyOffset(), true);
+        String actual = fixture.formatLabel(wiFiChannel.getFrequency() - WiFiChannels.FREQUENCY_OFFSET, true);
         // validate
         assertEquals(StringUtils.EMPTY, actual);
     }

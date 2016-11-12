@@ -31,10 +31,9 @@ class WiFiChannelsGHZ2 extends WiFiChannels {
         new Pair<>(new WiFiChannel(1, 2412), new WiFiChannel(13, 2472)),
         new Pair<>(new WiFiChannel(14, 2484), new WiFiChannel(14, 2484)));
     private static final Pair<WiFiChannel, WiFiChannel> SET = new Pair<>(SETS.get(0).first, SETS.get(SETS.size() - 1).second);
-    private static final int FREQUENCY_OFFSET = WiFiChannel.FREQUENCY_SPREAD * 2;
 
     WiFiChannelsGHZ2() {
-        super(RANGE, SETS, FREQUENCY_OFFSET);
+        super(RANGE, SETS);
     }
 
     @Override

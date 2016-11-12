@@ -35,11 +35,10 @@ class WiFiChannelsGHZ5 extends WiFiChannels {
         new Pair<>(new WiFiChannel(100, 5500), new WiFiChannel(144, 5720)),
         new Pair<>(new WiFiChannel(149, 5745), new WiFiChannel(165, 5825)));
 
-    private static final int FREQUENCY_OFFSET = WiFiChannel.FREQUENCY_SPREAD * 4;
     private static final int DEFAULT_PAIR = 0;
 
     WiFiChannelsGHZ5() {
-        super(RANGE, SETS, FREQUENCY_OFFSET);
+        super(RANGE, SETS);
     }
 
     @Override

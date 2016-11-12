@@ -26,15 +26,16 @@ import java.util.List;
 
 public abstract class WiFiChannels {
     public static final Pair<WiFiChannel, WiFiChannel> UNKNOWN = new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN);
+    public static final int FREQUENCY_SPREAD = 5;
+    public static final int CHANNEL_OFFSET = 2;
+    public static final int FREQUENCY_OFFSET = FREQUENCY_SPREAD * CHANNEL_OFFSET;
 
     private final Pair<Integer, Integer> wiFiRange;
     private final List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs;
-    private final int frequencyOffset;
 
-    WiFiChannels(@NonNull Pair<Integer, Integer> wiFiRange, @NonNull List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs, int frequencyOffset) {
+    WiFiChannels(@NonNull Pair<Integer, Integer> wiFiRange, @NonNull List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs) {
         this.wiFiRange = wiFiRange;
         this.wiFiChannelPairs = wiFiChannelPairs;
-        this.frequencyOffset = frequencyOffset;
     }
 
     public boolean isInRange(int frequency) {
@@ -53,12 +54,12 @@ public abstract class WiFiChannels {
         return WiFiChannel.UNKNOWN;
     }
 
-    public WiFiChannel getWiFiChannelByChannel(int channel) {
+    WiFiChannel getWiFiChannelByChannel(int channel) {
         for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiChannelPairs) {
             WiFiChannel first = wiFiChannelPair.first;
             WiFiChannel last = wiFiChannelPair.second;
             if (channel >= first.getChannel() && channel <= last.getChannel()) {
-                int frequency = first.getFrequency() + ((channel - first.getChannel()) * WiFiChannel.FREQUENCY_SPREAD);
+                int frequency = first.getFrequency() + ((channel - first.getChannel()) * FREQUENCY_SPREAD);
                 return new WiFiChannel(channel, frequency);
             }
         }
@@ -71,18 +72,6 @@ public abstract class WiFiChannels {
 
     public WiFiChannel getWiFiChannelLast() {
         return wiFiChannelPairs.get(wiFiChannelPairs.size() - 1).second;
-    }
-
-    public int getFrequencyOffset() {
-        return frequencyOffset;
-    }
-
-    public int getChannelOffset() {
-        return frequencyOffset / WiFiChannel.FREQUENCY_SPREAD;
-    }
-
-    public int getFrequencySpread() {
-        return WiFiChannel.FREQUENCY_SPREAD;
     }
 
     public List<WiFiChannel> getWiFiChannels() {
@@ -98,7 +87,7 @@ public abstract class WiFiChannels {
     WiFiChannel getWiFiChannel(int frequency, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         WiFiChannel first = wiFiChannelPair.first;
         WiFiChannel last = wiFiChannelPair.second;
-        int channel = (int) (((double) (frequency - first.getFrequency()) / WiFiChannel.FREQUENCY_SPREAD) + first.getChannel() + 0.5);
+        int channel = (int) (((double) (frequency - first.getFrequency()) / FREQUENCY_SPREAD) + first.getChannel() + 0.5);
         if (channel >= first.getChannel() && channel <= last.getChannel()) {
             return new WiFiChannel(channel, frequency);
         }

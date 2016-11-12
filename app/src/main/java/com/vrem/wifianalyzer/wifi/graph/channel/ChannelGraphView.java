@@ -104,17 +104,16 @@ class ChannelGraphView implements GraphViewNotifier {
 
     private DataPoint[] createDataPoints(@NonNull WiFiDetail wiFiDetail) {
         WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
-        int frequencySpread = wiFiChannels.getFrequencySpread();
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        int frequency = wiFiSignal.getCenterFrequency();
-        int frequencyStart = wiFiSignal.getFrequencyStart();
-        int frequencyEnd = wiFiSignal.getFrequencyEnd();
+        int frequency = frequencyAdjusment(wiFiSignal.getCenterFrequency());
+        int frequencyStart = frequencyAdjusment(wiFiSignal.getFrequencyStart());
+        int frequencyEnd = frequencyAdjusment(wiFiSignal.getFrequencyEnd());
         int level = wiFiSignal.getLevel();
         return new DataPoint[]{
             new DataPoint(frequencyStart, GraphViewBuilder.MIN_Y),
-            new DataPoint(frequencyStart + frequencySpread, level),
+            new DataPoint(frequencyStart + WiFiChannels.FREQUENCY_SPREAD, level),
             new DataPoint(frequency, level),
-            new DataPoint(frequencyEnd - frequencySpread, level),
+            new DataPoint(frequencyEnd - WiFiChannels.FREQUENCY_SPREAD, level),
             new DataPoint(frequencyEnd, GraphViewBuilder.MIN_Y)
         };
     }
@@ -131,8 +130,8 @@ class ChannelGraphView implements GraphViewNotifier {
             numX = WiFiBand.GHZ2.equals(wiFiBand) ? CNT_X_SMALL_2 : CNT_X_SMALL_5;
         }
         WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
-        int channelFirst = wiFiChannelPair.first.getChannel() - wiFiChannels.getChannelOffset();
-        int channelLast = wiFiChannelPair.second.getChannel() + wiFiChannels.getChannelOffset();
+        int channelFirst = wiFiChannelPair.first.getChannel() - WiFiChannels.CHANNEL_OFFSET;
+        int channelLast = wiFiChannelPair.second.getChannel() + WiFiChannels.CHANNEL_OFFSET;
         return Math.min(numX, channelLast - channelFirst + 1);
     }
 
@@ -151,14 +150,15 @@ class ChannelGraphView implements GraphViewNotifier {
         graphViewWrapper = new GraphViewWrapper(makeGraphView(), settings.getChannelGraphLegend());
 
         WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
-        int frequencyOffset = wiFiChannels.getFrequencyOffset();
-        int minX = wiFiChannelPair.first.getFrequency() - frequencyOffset;
-        int maxX = minX + (graphViewWrapper.getViewportCntX() * wiFiChannels.getFrequencySpread());
+        int frequencyStart = frequencyAdjusment(wiFiChannelPair.first.getFrequency());
+        int frequencyEnd = frequencyAdjusment(wiFiChannelPair.second.getFrequency());
+        int minX = frequencyStart - WiFiChannels.FREQUENCY_OFFSET;
+        int maxX = minX + (graphViewWrapper.getViewportCntX() * WiFiChannels.FREQUENCY_SPREAD);
         graphViewWrapper.setViewport(minX, maxX);
 
         DataPoint[] dataPoints = new DataPoint[]{
             new DataPoint(minX, GraphViewBuilder.MIN_Y),
-            new DataPoint(wiFiChannelPair.second.getFrequency() + frequencyOffset, GraphViewBuilder.MIN_Y)
+            new DataPoint(frequencyEnd + WiFiChannels.FREQUENCY_OFFSET, GraphViewBuilder.MIN_Y)
         };
 
         TitleLineGraphSeries<DataPoint> series = new TitleLineGraphSeries<>(dataPoints);
@@ -172,4 +172,7 @@ class ChannelGraphView implements GraphViewNotifier {
         this.graphViewWrapper = graphViewWrapper;
     }
 
+    private int frequencyAdjusment(int frequency) {
+        return frequency - (frequency % 5);
+    }
 }
