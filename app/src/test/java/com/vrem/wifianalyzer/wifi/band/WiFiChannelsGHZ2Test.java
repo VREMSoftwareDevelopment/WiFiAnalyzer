@@ -141,7 +141,6 @@ public class WiFiChannelsGHZ2Test {
     public void testGetAvailableChannels() throws Exception {
         assertEquals(11, fixture.getAvailableChannels(Locale.US.getCountry()).size());
         assertEquals(13, fixture.getAvailableChannels(Locale.UK.getCountry()).size());
-        assertEquals(14, fixture.getAvailableChannels(Locale.JAPAN.getCountry()).size());
     }
 
     @Test

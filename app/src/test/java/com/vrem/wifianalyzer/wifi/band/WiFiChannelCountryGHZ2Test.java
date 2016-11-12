@@ -32,19 +32,12 @@ public class WiFiChannelCountryGHZ2Test {
 
     private SortedSet<Integer> channelsSet1 = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
     private SortedSet<Integer> channelsSet2 = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13));
-    private SortedSet<Integer> channelsSet3 = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14));
 
     private WiFiChannelCountryGHZ2 fixture;
 
     @Before
     public void setUp() {
         fixture = new WiFiChannelCountryGHZ2();
-    }
-
-    @Test
-    public void testChannelsForJapan() throws Exception {
-        SortedSet<Integer> channels = fixture.findChannels("JP");
-        validateChannels(channelsSet3, channels);
     }
 
     @Test

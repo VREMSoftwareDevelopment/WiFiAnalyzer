@@ -33,7 +33,6 @@ class WiFiChannelCountryGHZ2 {
     private final Set<String> countries;
     private final SortedSet<Integer> channels;
     private final SortedSet<Integer> world;
-    private final SortedSet<Integer> japan;
 
     WiFiChannelCountryGHZ2() {
         countries = new HashSet<>(Arrays.asList("AS", "AU", "CA", "FM", "GU", "MP", "PA", "PR", "TW", "UM", "US", "VI"));
@@ -41,16 +40,12 @@ class WiFiChannelCountryGHZ2 {
         world = new TreeSet<>(channels);
         world.add(12);
         world.add(13);
-        japan = new TreeSet<>(world);
-        japan.add(14);
     }
 
     SortedSet<Integer> findChannels(@NonNull String countryCode) {
         SortedSet<Integer> result = world;
         String code = StringUtils.capitalize(countryCode);
-        if ("JP".equals(code)) {
-            result = japan;
-        } else if (countries.contains(code)) {
+        if (countries.contains(code)) {
             result = channels;
         }
         return Collections.unmodifiableSortedSet(result);
