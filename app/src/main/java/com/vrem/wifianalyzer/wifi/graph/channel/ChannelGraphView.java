@@ -105,9 +105,9 @@ class ChannelGraphView implements GraphViewNotifier {
     private DataPoint[] createDataPoints(@NonNull WiFiDetail wiFiDetail) {
         WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        int frequency = frequencyAdjusment(wiFiSignal.getCenterFrequency());
-        int frequencyStart = frequencyAdjusment(wiFiSignal.getFrequencyStart());
-        int frequencyEnd = frequencyAdjusment(wiFiSignal.getFrequencyEnd());
+        int frequency = frequencyAdjustment(wiFiSignal.getCenterFrequency());
+        int frequencyStart = frequencyAdjustment(wiFiSignal.getFrequencyStart());
+        int frequencyEnd = frequencyAdjustment(wiFiSignal.getFrequencyEnd());
         int level = wiFiSignal.getLevel();
         return new DataPoint[]{
             new DataPoint(frequencyStart, GraphViewBuilder.MIN_Y),
@@ -149,9 +149,8 @@ class ChannelGraphView implements GraphViewNotifier {
         Settings settings = MainContext.INSTANCE.getSettings();
         graphViewWrapper = new GraphViewWrapper(makeGraphView(), settings.getChannelGraphLegend());
 
-        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
-        int frequencyStart = frequencyAdjusment(wiFiChannelPair.first.getFrequency());
-        int frequencyEnd = frequencyAdjusment(wiFiChannelPair.second.getFrequency());
+        int frequencyStart = frequencyAdjustment(wiFiChannelPair.first.getFrequency());
+        int frequencyEnd = frequencyAdjustment(wiFiChannelPair.second.getFrequency());
         int minX = frequencyStart - WiFiChannels.FREQUENCY_OFFSET;
         int maxX = minX + (graphViewWrapper.getViewportCntX() * WiFiChannels.FREQUENCY_SPREAD);
         graphViewWrapper.setViewport(minX, maxX);
@@ -172,7 +171,7 @@ class ChannelGraphView implements GraphViewNotifier {
         this.graphViewWrapper = graphViewWrapper;
     }
 
-    private int frequencyAdjusment(int frequency) {
+    private int frequencyAdjustment(int frequency) {
         return frequency - (frequency % 5);
     }
 }
