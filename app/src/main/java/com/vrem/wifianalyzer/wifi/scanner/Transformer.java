@@ -21,8 +21,8 @@ package com.vrem.wifianalyzer.wifi.scanner;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
+import android.support.annotation.NonNull;
 
-import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -73,7 +73,7 @@ class Transformer {
         return Collections.unmodifiableList(results);
     }
 
-    WiFiWidth getWiFiWidth(ScanResult scanResult) {
+    WiFiWidth getWiFiWidth(@NonNull ScanResult scanResult) {
         try {
             return WiFiWidth.find(getFieldValue(scanResult, Fields.channelWidth));
         } catch (Exception e) {
@@ -81,12 +81,12 @@ class Transformer {
         }
     }
 
-    int getCenterFrequency(ScanResult scanResult, WiFiWidth wiFiWidth) {
+    int getCenterFrequency(@NonNull ScanResult scanResult, @NonNull WiFiWidth wiFiWidth) {
         try {
             int centerFrequency = getFieldValue(scanResult, Fields.centerFreq0);
             if (centerFrequency == 0) {
                 centerFrequency = scanResult.frequency;
-            } else if (isExtentionFrequency(scanResult, wiFiWidth, centerFrequency)) {
+            } else if (isExtensionFrequency(scanResult, wiFiWidth, centerFrequency)) {
                 centerFrequency = (centerFrequency + scanResult.frequency) / 2;
             }
             return centerFrequency;
@@ -95,13 +95,11 @@ class Transformer {
         }
     }
 
-    boolean isExtentionFrequency(ScanResult scanResult, WiFiWidth wiFiWidth, int centerFrequency) {
-        return WiFiWidth.MHZ_40.equals(wiFiWidth) &&
-            WiFiBand.GHZ2.equals(WiFiBand.findByFrequency(scanResult.frequency)) &&
-            Math.abs(scanResult.frequency - centerFrequency) >= WiFiWidth.MHZ_40.getFrequencyWidthHalf();
+    boolean isExtensionFrequency(@NonNull ScanResult scanResult, @NonNull WiFiWidth wiFiWidth, int centerFrequency) {
+        return WiFiWidth.MHZ_40.equals(wiFiWidth) && Math.abs(scanResult.frequency - centerFrequency) >= WiFiWidth.MHZ_40.getFrequencyWidthHalf();
     }
 
-    int getFieldValue(ScanResult scanResult, Fields field) throws NoSuchFieldException, IllegalAccessException {
+    int getFieldValue(@NonNull ScanResult scanResult, @NonNull Fields field) throws NoSuchFieldException, IllegalAccessException {
         Field declaredField = scanResult.getClass().getDeclaredField(field.name());
         return (int) declaredField.get(scanResult);
     }

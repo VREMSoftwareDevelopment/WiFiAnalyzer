@@ -22,36 +22,33 @@ import android.support.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
-class Country {
-    private final SortedMap<String, Locale> countries;
+class WiFiChannelCountryGHZ2 {
+    private final Set<String> countries;
+    private final SortedSet<Integer> channels;
+    private final SortedSet<Integer> world;
 
-    Country() {
-        countries = new TreeMap<>();
-        for (Locale locale : Locale.getAvailableLocales()) {
-            String countryCode = locale.getCountry();
-            if (StringUtils.isNotEmpty(countryCode) && StringUtils.isAlpha(countryCode) && countryCode.length() == 2) {
-                countries.put(StringUtils.capitalize(countryCode), locale);
-            }
-        }
+    WiFiChannelCountryGHZ2() {
+        countries = new HashSet<>(Arrays.asList("AS", "AU", "CA", "FM", "GU", "MP", "PA", "PR", "TW", "UM", "US", "VI"));
+        channels = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
+        world = new TreeSet<>(channels);
+        world.add(12);
+        world.add(13);
     }
 
-    Locale getCountry(@NonNull String countryCode) {
+    SortedSet<Integer> findChannels(@NonNull String countryCode) {
+        SortedSet<Integer> result = world;
         String code = StringUtils.capitalize(countryCode);
-        Locale country = countries.get(code);
-        if (country == null) {
-            country = new Locale("", code);
+        if (countries.contains(code)) {
+            result = channels;
         }
-        return country;
-    }
-
-    List<Locale> getCountries() {
-        return new ArrayList<>(countries.values());
+        return Collections.unmodifiableSortedSet(result);
     }
 
 }

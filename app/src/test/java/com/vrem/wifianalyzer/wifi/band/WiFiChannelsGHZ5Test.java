@@ -68,21 +68,6 @@ public class WiFiChannelsGHZ5Test {
     }
 
     @Test
-    public void testGetFrequencySpread() throws Exception {
-        assertEquals(5, fixture.getFrequencySpread());
-    }
-
-    @Test
-    public void testGetFrequencyOffset() throws Exception {
-        assertEquals(20, fixture.getFrequencyOffset());
-    }
-
-    @Test
-    public void testGetChannelOffset() throws Exception {
-        assertEquals(4, fixture.getChannelOffset());
-    }
-
-    @Test
     public void testGetWiFiChannelPair() throws Exception {
         Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = fixture.getWiFiChannelPairFirst(Locale.JAPAN.getCountry());
         validatePair(36, 64, wiFiChannelPair);
@@ -106,13 +91,6 @@ public class WiFiChannelsGHZ5Test {
     private void validatePair(int expectedFirst, int expectedSecond, Pair<WiFiChannel, WiFiChannel> pair) {
         assertEquals(expectedFirst, pair.first.getChannel());
         assertEquals(expectedSecond, pair.second.getChannel());
-    }
-
-    @Test
-    public void testGetAvailableChannels() throws Exception {
-        assertEquals(24, fixture.getAvailableChannels(Locale.US.getCountry()).size());
-        assertEquals(19, fixture.getAvailableChannels(Locale.UK.getCountry()).size());
-        assertEquals(22, fixture.getAvailableChannels(Locale.JAPAN.getCountry()).size());
     }
 
     @Test

@@ -25,7 +25,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigInteger;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 public final class WiFiUtils {
 

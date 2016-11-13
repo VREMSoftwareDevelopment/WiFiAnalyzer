@@ -69,7 +69,7 @@
 
     <!-- about start -->
     <string name="about_license_title">License:</string>
-    <string name="about_license_name">GNU GPLv3的许可</string>
+    <string name="about_license_name">GPLv3的许可</string>
     <string name="about_description_title">描述:</string>
     <string name="about_description_text">使用此开源的Android WiFi分析仪来检查WiFi状态,信号强度并识别拥挤的信道从而优化您的WiFi网络</string>
     <string name="about_libraries_title">使用的库:</string>

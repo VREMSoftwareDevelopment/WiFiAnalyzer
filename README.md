@@ -38,7 +38,7 @@ This is the official repository of WiFi Analyzer (open-source).
 Bug reports and feature requests can be submitted [here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues) or use [google groups](https://groups.google.com/forum/#!forum/wifi-analyzer-open-source) to discuss application features if you do not have GitHub account.
 
 ## License:
-WiFi Analyzer is licensed under the GNU General Public License v3.0 (GNU GPLv3).
+WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 
 You can find the license text [here](http://www.gnu.org/licenses/gpl-3.0.html).
 

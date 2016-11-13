@@ -163,7 +163,7 @@ public class ChannelGraphNavigationTest {
     @Test
     public void testUpdateGHZ5WithCountryThatHasOnlyOneSet() throws Exception {
         // setup
-        when(settings.getCountryCode()).thenReturn("XY");
+        when(settings.getCountryCode()).thenReturn("IL");
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
         // execute
         fixture.update();

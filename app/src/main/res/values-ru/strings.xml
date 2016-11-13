@@ -68,7 +68,7 @@
 
     <!-- about start -->
     <string name="about_license_title">Лицензия:</string>
-    <string name="about_license_name">Лицензия GNU GPLv3</string>
+    <string name="about_license_name">Лицензия GPLv3</string>
     <string name="about_description_title">Описание:</string>
     <string name="about_description_text">Оптимизация сети WiFi путем проверки состояния Wi-Fi, уровня сигнала и определения переполненных каналов используя WiFi Анализатор для Android</string>
     <string name="about_libraries_title">Использованные библиотеки:</string>

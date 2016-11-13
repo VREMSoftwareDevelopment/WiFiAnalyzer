@@ -69,7 +69,7 @@
 
     <!-- about start -->
     <string name="about_license_title">Lizenz:</string>
-    <string name="about_license_name">Lizenziert unter der GNU GPLv3</string>
+    <string name="about_license_name">Lizenziert unter der GPLv3</string>
     <string name="about_description_title">Beschreibung:</string>
     <string name="about_description_text">Verbessere dein WLAN Netwerk, indem du den Zustand und die Stärke des Signals misst und überlastete Kanäle mit einem freien WLAN Analyzer für Android erkennst</string>
     <string name="about_libraries_title">Benutzte Bibliotheken:</string>

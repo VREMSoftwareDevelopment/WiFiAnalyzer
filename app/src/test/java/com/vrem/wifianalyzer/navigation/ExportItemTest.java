@@ -121,7 +121,11 @@ public class ExportItemTest {
     public void testGetData() throws Exception {
         // setup
         WiFiData wiFiData = withWiFiData();
-        String expected = "SSID|BSSID|-40dBm|1|2412MHz|3|2422MHz|40MHz (2402 - 2442)|1.0m|capabilities" + System.lineSeparator();
+        String expected =
+            "SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security"
+                + System.lineSeparator()
+                + "SSID|BSSID|-40dBm|1|2412MHz|3|2422MHz|40MHz (2402 - 2442)|1.0m|capabilities"
+                + System.lineSeparator();
         // execute
         String actual = fixture.getData(wiFiData.getWiFiDetails());
         // validate

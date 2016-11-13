@@ -37,8 +37,8 @@
         android:id="@+id/channelNumber"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+        android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:layout_weight="1.75"
         android:textColor="@color/channel_number"
         android:textStyle="bold"/>

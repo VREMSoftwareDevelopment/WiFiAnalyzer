@@ -31,11 +31,9 @@ class WiFiChannelsGHZ2 extends WiFiChannels {
         new Pair<>(new WiFiChannel(1, 2412), new WiFiChannel(13, 2472)),
         new Pair<>(new WiFiChannel(14, 2484), new WiFiChannel(14, 2484)));
     private static final Pair<WiFiChannel, WiFiChannel> SET = new Pair<>(SETS.get(0).first, SETS.get(SETS.size() - 1).second);
-    private static final int FREQUENCY_OFFSET = WiFiChannel.FREQUENCY_SPREAD * 2;
-    private static final int FREQUENCY_SPREAD = WiFiChannel.FREQUENCY_SPREAD;
 
     WiFiChannelsGHZ2() {
-        super(RANGE, SETS, FREQUENCY_OFFSET, FREQUENCY_SPREAD);
+        super(RANGE, SETS);
     }
 
     @Override
@@ -51,7 +49,7 @@ class WiFiChannelsGHZ2 extends WiFiChannels {
     @Override
     public List<WiFiChannel> getAvailableChannels(String countryCode) {
         List<WiFiChannel> wiFiChannels = new ArrayList<>();
-        for (int channel : WiFiChannelCountry.find(countryCode).getChannelsGHZ2()) {
+        for (int channel : WiFiChannelCountry.get(countryCode).getChannelsGHZ2()) {
             wiFiChannels.add(getWiFiChannelByChannel(channel));
         }
         return wiFiChannels;
@@ -59,7 +57,7 @@ class WiFiChannelsGHZ2 extends WiFiChannels {
 
     @Override
     public boolean isChannelAvailable(String countryCode, int channel) {
-        return WiFiChannelCountry.find(countryCode).isChannelAvailableGHZ2(channel);
+        return WiFiChannelCountry.get(countryCode).isChannelAvailableGHZ2(channel);
     }
 
     @Override

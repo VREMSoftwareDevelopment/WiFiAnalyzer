@@ -77,7 +77,7 @@
     <string name="scan_interval_key" translatable="false">scan_interval</string>
     <integer name="scan_interval_min" translatable="false">1</integer>
     <integer name="scan_interval_max" translatable="false">30</integer>
-    <integer name="scan_interval_default" translatable="false">10</integer>
+    <integer name="scan_interval_default" translatable="false">5</integer>
 
     <string name="sort_by_title">Sort Access Points By</string>
     <string name="sort_by_summary" translatable="false">%s</string>
@@ -107,7 +107,7 @@
 
     <!-- about start -->
     <string name="about_license_title">License:</string>
-    <string name="about_license_name">Licensed under the GNU GPLv3</string>
+    <string name="about_license_name">Licensed under the GPLv3</string>
     <string name="about_license_url" translatable="false">http://www.gnu.org/licenses/gpl-3.0.html</string>
     <string name="about_description_title">Description:</string>
     <string name="about_description_text">Optimize your WiFi network, by checking WiFi network status, signal strength and identifying crowded channels using an open-source WiFi Analyzer for Android</string>
@@ -119,6 +119,6 @@
     <string name="about_library_material">Material Design Icons</string>
     <string name="about_library_material_url" translatable="false">https://design.google.com/icons</string>
     <string name="about_contributor_title">Contributors:</string>
-    <string name="about_contributor_list" translatable="false">"Abuzer Rafey, Alex Orchard, Alexei Guevara, Caren DesBrisay, Dan Light, David Jones, Gina Chaves, Graham Foster, Jean Bourgeois, Kevin Jiang, Lee McCallum, Lukas Winkler, Marco Santinelli, Michael Melo, Michael Pickard, Silviu Marcu, Vadim Karantayer, Wei McCallum, William Gathoye, 'Akira, Genghis"</string>
+    <string name="about_contributor_list" translatable="false">"Abuzer Rafey, Alex Orchard, Alexei Guevara, Caren DesBrisay, Dan Light, David Jones, Gina Chaves, Graham Foster, Jean Bourgeois, Kevin Jiang, Lee McCallum, Lukas Winkler, Marco Santinelli, Michael Melo, Michael Pickard, Silviu Marcu, Vadim Karantayer, Wei McCallum, William Gathoye, Yuriy Timofeev, 'Akira, Genghis"</string>
     <!-- about end -->
 </resources>

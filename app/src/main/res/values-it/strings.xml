@@ -69,7 +69,7 @@
 
     <!-- about start -->
     <string name="about_license_title">Licenza:</string>
-    <string name="about_license_name">Distribuito sotto licenza GNU GPLv3</string>
+    <string name="about_license_name">Distribuito sotto licenza GPLv3</string>
     <string name="about_description_title">Descrizione:</string>
     <string name="about_description_text">Ottimizza la tua rete WiFi, controllandone lo stato, la potenza del segnale e identificando i canali affollati, usando un analizzatore WiFi open-source per Android</string>
     <string name="about_libraries_title">Librarie Usate:</string>

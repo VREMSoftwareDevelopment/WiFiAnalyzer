@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.wifi.band;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -71,4 +72,13 @@ public class CountryTest {
         assertEquals(countryCode, actual.getDisplayCountry());
     }
 
+    @Ignore
+    @Test
+    public void testDisplayAllCountries() throws Exception {
+        List<Locale> countries = fixture.getCountries();
+        System.out.println(countries.size());
+        for (Locale locale : countries) {
+            System.out.println(locale.getCountry() + " " + locale.getDisplayCountry());
+        }
+    }
 }

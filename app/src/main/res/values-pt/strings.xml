@@ -69,7 +69,7 @@
 
     <!-- about start -->
     <string name="about_license_title">Licença:</string>
-    <string name="about_license_name">Sob a Licença GNU GPLv3</string>
+    <string name="about_license_name">Sob a Licença GPLv3</string>
     <string name="about_description_title">Descrição:</string>
     <string name="about_description_text">Optimize sua rede WiFi, verificando o estado da rede Wi-Fi, a força do sinal e identificando canais congestionados usando um Analizador WiFi de código aberto para Android</string>
     <string name="about_libraries_title">Livrarias Utilizadas:</string>
