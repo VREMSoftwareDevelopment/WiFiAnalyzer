@@ -103,7 +103,6 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     private DataPoint[] createDataPoints(@NonNull WiFiDetail wiFiDetail) {
-        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         int frequency = frequencyAdjustment(wiFiSignal.getCenterFrequency());
         int frequencyStart = frequencyAdjustment(wiFiSignal.getFrequencyStart());
@@ -129,7 +128,6 @@ class ChannelGraphView implements GraphViewNotifier {
         if (!configuration.isLargeScreenLayout()) {
             numX = WiFiBand.GHZ2.equals(wiFiBand) ? CNT_X_SMALL_2 : CNT_X_SMALL_5;
         }
-        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
         int channelFirst = wiFiChannelPair.first.getChannel() - WiFiChannels.CHANNEL_OFFSET;
         int channelLast = wiFiChannelPair.second.getChannel() + WiFiChannels.CHANNEL_OFFSET;
         return Math.min(numX, channelLast - channelFirst + 1);
