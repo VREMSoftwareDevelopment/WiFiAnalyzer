@@ -19,13 +19,11 @@
 package com.vrem.wifianalyzer.vendor.model;
 
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.Logger;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tools.ant.filters.StringInputStream;
-import org.json.JSONException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +36,6 @@ import java.net.URLConnection;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -52,7 +49,6 @@ public class RemoteCallTest {
     private static final String LONG_VENDOR_NAME = "123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890";
 
     private Database database;
-    private Logger logger;
     private URLConnection urlConnection;
     private RemoteCall fixture;
 
@@ -61,7 +57,6 @@ public class RemoteCallTest {
         RobolectricUtil.INSTANCE.getMainActivity();
 
         database = MainContextHelper.INSTANCE.getDatabase();
-        logger = MainContextHelper.INSTANCE.getLogger();
 
         urlConnection = mock(URLConnection.class);
 
@@ -83,10 +78,10 @@ public class RemoteCallTest {
     @Test
     public void testDoInBackground() throws Exception {
         // setup
-        String expected = new RemoteResult(MAC_ADDRESS, VendorNameUtils.cleanVendorName(VENDOR_NAME)).toJson();
+        RemoteResult expected = new RemoteResult(MAC_ADDRESS, VendorNameUtils.cleanVendorName(VENDOR_NAME));
         when(urlConnection.getInputStream()).thenReturn(new StringInputStream(VENDOR_NAME));
         // execute
-        String actual = fixture.doInBackground(MAC_ADDRESS);
+        RemoteResult actual = fixture.doInBackground(MAC_ADDRESS);
         // validate
         assertEquals(expected, actual);
     }
@@ -94,17 +89,17 @@ public class RemoteCallTest {
     @Test
     public void testDoInBackgroundWithNull() throws Exception {
         // execute
-        String actual = fixture.doInBackground((String) null);
+        RemoteResult actual = fixture.doInBackground((String) null);
         // validate
-        assertEquals(StringUtils.EMPTY, actual);
+        assertEquals(RemoteResult.EMPTY, actual);
     }
 
     @Test
     public void testDoInBackgroundWithEmpty() throws Exception {
         // execute
-        String actual = fixture.doInBackground(StringUtils.EMPTY);
+        RemoteResult actual = fixture.doInBackground(StringUtils.EMPTY);
         // validate
-        assertEquals(StringUtils.EMPTY, actual);
+        assertEquals(RemoteResult.EMPTY, actual);
     }
 
     @Test
@@ -112,18 +107,18 @@ public class RemoteCallTest {
         // setup
         when(urlConnection.getInputStream()).thenThrow(new RuntimeException());
         // execute
-        String actual = fixture.doInBackground(MAC_ADDRESS);
+        RemoteResult actual = fixture.doInBackground(MAC_ADDRESS);
         // validate
-        assertEquals(StringUtils.EMPTY, actual);
+        assertEquals(RemoteResult.EMPTY, actual);
     }
 
     @Test
     public void testDoInBackgroundWithVeryLongResponse() throws Exception {
         // setup
-        String expected = new RemoteResult(MAC_ADDRESS, VendorNameUtils.cleanVendorName(LONG_VENDOR_NAME)).toJson();
+        RemoteResult expected = new RemoteResult(MAC_ADDRESS, VendorNameUtils.cleanVendorName(LONG_VENDOR_NAME));
         when(urlConnection.getInputStream()).thenReturn(new StringInputStream(LONG_VENDOR_NAME));
         // execute
-        String actual = fixture.doInBackground(MAC_ADDRESS);
+        RemoteResult actual = fixture.doInBackground(MAC_ADDRESS);
         // validate
         assertEquals(expected, actual);
     }
@@ -131,41 +126,29 @@ public class RemoteCallTest {
     @Test
     public void testOnPostExecute() throws Exception {
         // setup
-        String result = new RemoteResult(MAC_ADDRESS, VENDOR_NAME).toJson();
+        RemoteResult result = new RemoteResult(MAC_ADDRESS, VENDOR_NAME);
         // execute
         fixture.onPostExecute(result);
         // validate
-        verify(logger).info(fixture, MAC_ADDRESS + " " + VENDOR_NAME);
         verify(database).insert(MAC_ADDRESS, VENDOR_NAME);
     }
 
     @Test
     public void testOnPostExecuteWithEmptyMacAddress() throws Exception {
         // setup
-        String result = new RemoteResult(StringUtils.EMPTY, VENDOR_NAME).toJson();
+        RemoteResult result = new RemoteResult(StringUtils.EMPTY, VENDOR_NAME);
         // execute
         fixture.onPostExecute(result);
         // validate
-        verify(logger, never()).info(fixture, StringUtils.EMPTY + " " + VENDOR_NAME);
         verify(database, never()).insert(StringUtils.EMPTY, VENDOR_NAME);
     }
 
     @Test
     public void testOnPostExecuteWithEmptyResult() throws Exception {
         // execute
-        fixture.onPostExecute(StringUtils.EMPTY);
+        fixture.onPostExecute(RemoteResult.EMPTY);
         // validate
         verify(database, never()).insert(any(String.class), any(String.class));
     }
 
-    @Test
-    public void testOnPostExecuteWithJSONException() throws Exception {
-        // setup
-        String result = "Not a JSON";
-        // execute
-        fixture.onPostExecute(result);
-        // validate
-        verify(logger).error(eq(fixture), eq(result), any(JSONException.class));
-        verify(database, never()).insert(any(String.class), any(String.class));
-    }
 }

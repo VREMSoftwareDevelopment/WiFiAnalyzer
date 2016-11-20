@@ -18,51 +18,53 @@
 
 package com.vrem.wifianalyzer.vendor.model;
 
-import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.RobolectricUtil;
-
-import org.json.JSONException;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
-@RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class RemoteResultTest {
     private static final String MAC_ADDRESS = "00:23:AB:7B:58:99";
     private static final String VENDOR_NAME = "CISCO SYSTEMS, INC.";
-    private static final String JSON = "{\"mac_address\":\"" + MAC_ADDRESS + "\",\"vendor_name\":\"" + VENDOR_NAME + "\"}";
+
+    private RemoteResult fixture;
 
     @Before
     public void setUp() {
-        RobolectricUtil.INSTANCE.getMainActivity();
+        fixture = new RemoteResult(MAC_ADDRESS, VENDOR_NAME);
     }
 
     @Test
-    public void testToJson() throws Exception {
-        // setup
-        RemoteResult fixture = new RemoteResult(MAC_ADDRESS, VENDOR_NAME);
-        // execute
-        String actual = fixture.toJson();
+    public void testRemoteResultEmpty() throws Exception {
         // validate
-        assertEquals(JSON, actual);
+        assertEquals(StringUtils.EMPTY, RemoteResult.EMPTY.getMacAddress());
+        assertEquals(StringUtils.EMPTY, RemoteResult.EMPTY.getVendorName());
     }
 
     @Test
-    public void testFromJson() throws Exception {
-        // execute
-        RemoteResult fixture = new RemoteResult(JSON);
+    public void testRemoteResult() throws Exception {
         // validate
         assertEquals(MAC_ADDRESS, fixture.getMacAddress());
         assertEquals(VENDOR_NAME, fixture.getVendorName());
     }
 
-    @Test(expected = JSONException.class)
-    public void testFromJsonWithInvalidJson() throws Exception {
-        new RemoteResult("");
+    @Test
+    public void testEquals() throws Exception {
+        // setup
+        RemoteResult other = new RemoteResult(MAC_ADDRESS, VENDOR_NAME);
+        // execute & validate
+        assertEquals(fixture, other);
+        assertNotSame(fixture, other);
     }
+
+    @Test
+    public void testHashCode() throws Exception {
+        // setup
+        RemoteResult other = new RemoteResult(MAC_ADDRESS, VENDOR_NAME);
+        // execute & validate
+        assertEquals(fixture.hashCode(), other.hashCode());
+    }
+
 }

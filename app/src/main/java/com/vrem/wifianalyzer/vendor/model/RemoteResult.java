@@ -21,13 +21,12 @@ package com.vrem.wifianalyzer.vendor.model;
 import android.support.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 class RemoteResult {
-    private static final String MAC_ADDRESS = "mac_address";
-    private static final String VENDOR_NAME = "vendor_name";
+    public static final RemoteResult EMPTY = new RemoteResult(StringUtils.EMPTY, StringUtils.EMPTY);
 
     private final String macAddress;
     private final String vendorName;
@@ -35,12 +34,6 @@ class RemoteResult {
     RemoteResult(@NonNull String macAddress, @NonNull String vendorName) {
         this.macAddress = macAddress;
         this.vendorName = vendorName;
-    }
-
-    RemoteResult(@NonNull String json) throws JSONException {
-        JSONObject jsonObject = new JSONObject(json);
-        macAddress = getValue(jsonObject, MAC_ADDRESS);
-        vendorName = getValue(jsonObject, VENDOR_NAME);
     }
 
     String getMacAddress() {
@@ -51,20 +44,26 @@ class RemoteResult {
         return vendorName;
     }
 
-    String toJson() throws JSONException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put(MAC_ADDRESS, macAddress);
-        jsonObject.put(VENDOR_NAME, vendorName);
-        return jsonObject.toString();
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        return new EqualsBuilder()
+            .append(getMacAddress(), ((RemoteResult) other).getMacAddress())
+            .append(getVendorName(), ((RemoteResult) other).getVendorName())
+            .isEquals();
     }
 
-    private String getValue(@NonNull JSONObject jsonObject, @NonNull String key) {
-        try {
-            String result = jsonObject.getString(key);
-            return result == null ? StringUtils.EMPTY : result;
-        } catch (JSONException e) {
-            return StringUtils.EMPTY;
-        }
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .append(getMacAddress())
+            .append(getVendorName())
+            .toHashCode();
     }
 
     @Override
