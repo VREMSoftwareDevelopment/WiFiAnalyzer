@@ -111,11 +111,7 @@ public class ConnectionViewTest {
     @Test
     public void testConnectionVisibleWithConnectionInformation() throws Exception {
         // setup
-        WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, IP_ADDRESS, 11);
-        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, wiFiConnection);
-        WiFiDetail connection = withConnection(wiFiAdditional);
-        when(wiFiData.getConnection()).thenReturn(connection);
-        when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(new ArrayList<WiFiDetail>());
+        withWiFiDetail(11);
         // execute
         fixture.update(wiFiData);
         // validate
@@ -236,6 +232,41 @@ public class ConnectionViewTest {
     private WiFiDetail withConnection(WiFiAdditional wiFiAdditional) {
         return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY,
             new WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55), wiFiAdditional);
+    }
+
+    @Test
+    public void testUpdateLatency() throws Exception {
+        // setup
+        long latency = 22L;
+        withWiFiDetail(WiFiConnection.LINK_SPEED_INVALID);
+        fixture.update(wiFiData);
+        // execute
+        fixture.updateLatency(latency);
+        // validate
+        View view = mainActivity.findViewById(R.id.connection);
+        TextView latencyView = (TextView) view.findViewById(R.id.latency);
+        assertEquals("22ms", latencyView.getText().toString());
+    }
+
+    @Test
+    public void testUpdateLatencyWithEmptyString() throws Exception {
+        // setup
+        withWiFiDetail(WiFiConnection.LINK_SPEED_INVALID);
+        fixture.update(wiFiData);
+        // execute
+        fixture.updateLatency(-1);
+        // validate
+        View view = mainActivity.findViewById(R.id.connection);
+        TextView latencyView = (TextView) view.findViewById(R.id.latency);
+        assertEquals(StringUtils.EMPTY, latencyView.getText().toString());
+    }
+
+    private void withWiFiDetail(int linkSpeedInvalid) {
+        WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, IP_ADDRESS, linkSpeedInvalid);
+        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, wiFiConnection);
+        WiFiDetail connection = withConnection(wiFiAdditional);
+        when(wiFiData.getConnection()).thenReturn(connection);
+        when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(new ArrayList<WiFiDetail>());
     }
 
 }

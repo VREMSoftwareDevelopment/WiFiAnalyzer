@@ -92,6 +92,8 @@ public class ConnectionView implements UpdateNotifier {
                 textLinkSpeed.setVisibility(View.VISIBLE);
                 textLinkSpeed.setText(linkSpeed + WifiInfo.LINK_SPEED_UNITS);
             }
+
+            new CalculateLatency(this).execute(gateway);
         } else {
             connectionView.setVisibility(View.GONE);
         }
@@ -99,5 +101,13 @@ public class ConnectionView implements UpdateNotifier {
 
     void setAccessPointsDetail(@NonNull AccessPointsDetail accessPointsDetail) {
         this.accessPointsDetail = accessPointsDetail;
+    }
+
+    void updateLatency(long latency) {
+        View connectionView = mainActivity.findViewById(R.id.connection);
+        if (View.VISIBLE == connectionView.getVisibility()) {
+            String value = latency < 0 ? StringUtils.EMPTY : (latency + "ms");
+            ((TextView) connectionView.findViewById(R.id.latency)).setText(value);
+        }
     }
 }
