@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi.scanner;
 
+import android.net.DhcpInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
@@ -28,7 +29,9 @@ import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
+import com.vrem.wifianalyzer.wifi.model.WiFiUtils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,11 +58,13 @@ public class TransformerTest {
     private static final String WPA = "WPA";
     private static final int FREQUENCY = 2435;
     private static final int LEVEL = -40;
-    private static final String IP_ADDRESS = "21.205.91.7";
+    private static final int IP_ADDRESS = 123456789;
     private static final int LINK_SPEED = 21;
 
     @Mock
     private WifiInfo wifiInfo;
+    @Mock
+    private DhcpInfo dhcpInfo;
     @Mock
     private WifiConfiguration wifiConfiguration1;
     @Mock
@@ -86,20 +91,38 @@ public class TransformerTest {
     @Test
     public void testTransformWithNulls() throws Exception {
         assertTrue(fixture.transformCacheResults(null).isEmpty());
-        assertEquals(WiFiConnection.EMPTY, fixture.transformWifiInfo(null));
+        assertEquals(WiFiConnection.EMPTY, fixture.transformWifiInfo(null, dhcpInfo));
         assertTrue(fixture.transformWifiConfigurations(null).isEmpty());
     }
 
     @Test
-    public void testTransformWiFiInfo() throws Exception {
+    public void testTransformWiFiInfoWithNullDchpInfo() throws Exception {
         // setup
         withWiFiInfo();
         // execute
-        WiFiConnection actual = fixture.transformWifiInfo(wifiInfo);
+        WiFiConnection actual = fixture.transformWifiInfo(wifiInfo, null);
         // validate
+        verifyWiFiInfo(actual);
+        assertEquals(StringUtils.EMPTY, actual.getGateway());
+    }
+
+    @Test
+    public void testTransformWiFiInfoWithDchpInfo() throws Exception {
+        // setup
+        withWiFiInfo();
+        dhcpInfo.gateway = 223456789;
+        String expected = WiFiUtils.convertIpAddress(dhcpInfo.gateway);
+        // execute
+        WiFiConnection actual = fixture.transformWifiInfo(wifiInfo, dhcpInfo);
+        // validate
+        verifyWiFiInfo(actual);
+        assertEquals(expected, actual.getGateway());
+    }
+
+    private void verifyWiFiInfo(WiFiConnection actual) {
         assertEquals(SSID_1, actual.getSSID());
         assertEquals(BSSID_1, actual.getBSSID());
-        assertEquals(IP_ADDRESS, actual.getIpAddress());
+        assertEquals(WiFiUtils.convertIpAddress(IP_ADDRESS), actual.getIpAddress());
         assertEquals(LINK_SPEED, actual.getLinkSpeed());
 
         verify(wifiInfo).getNetworkId();
@@ -111,7 +134,7 @@ public class TransformerTest {
     @Test
     public void testTransformWifiInfoNotConnected() throws Exception {
         when(wifiInfo.getNetworkId()).thenReturn(-1);
-        assertEquals(WiFiConnection.EMPTY, fixture.transformWifiInfo(wifiInfo));
+        assertEquals(WiFiConnection.EMPTY, fixture.transformWifiInfo(wifiInfo, dhcpInfo));
         verify(wifiInfo).getNetworkId();
     }
 
@@ -159,7 +182,7 @@ public class TransformerTest {
         withWiFiConfiguration();
         withWiFiInfo();
         // execute
-        WiFiData actual = fixture.transformToWiFiData(cacheResults, wifiInfo, wifiConfigurations);
+        WiFiData actual = fixture.transformToWiFiData(cacheResults, wifiInfo, dhcpInfo, wifiConfigurations);
         // validate
         assertEquals(expectedWiFiConnection, actual.getWiFiConnection());
         assertEquals(cacheResults.size(), actual.getWiFiDetails().size());
@@ -324,7 +347,7 @@ public class TransformerTest {
         when(wifiInfo.getNetworkId()).thenReturn(0);
         when(wifiInfo.getSSID()).thenReturn(SSID_1);
         when(wifiInfo.getBSSID()).thenReturn(BSSID_1);
-        when(wifiInfo.getIpAddress()).thenReturn(123456789);
+        when(wifiInfo.getIpAddress()).thenReturn(IP_ADDRESS);
         when(wifiInfo.getLinkSpeed()).thenReturn(LINK_SPEED);
     }
 

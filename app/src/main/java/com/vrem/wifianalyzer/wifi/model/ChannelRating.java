@@ -44,7 +44,7 @@ public class ChannelRating {
     public Strength getStrength(@NonNull WiFiChannel wiFiChannel) {
         Strength strength = Strength.ZERO;
         for (WiFiDetail wiFiDetail : collectOverlapping(wiFiChannel)) {
-            if (!wiFiDetail.getWiFiAdditional().isConnected()) {
+            if (!wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected()) {
                 strength = Strength.values()[Math.max(strength.ordinal(), wiFiDetail.getWiFiSignal().getStrength().ordinal())];
             }
         }

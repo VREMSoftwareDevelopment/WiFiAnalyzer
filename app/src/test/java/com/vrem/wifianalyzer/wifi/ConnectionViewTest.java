@@ -32,6 +32,7 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
+import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
@@ -56,6 +57,11 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ConnectionViewTest {
+    private static final String SSID = "SSID";
+    private static final String BSSID = "BSSID";
+    private static final String IP_ADDRESS = "IPADDRESS";
+    private static final String GATEWAY = "GATEWAY";
+
     private MainActivity mainActivity;
     private ConnectionView fixture;
 
@@ -105,7 +111,8 @@ public class ConnectionViewTest {
     @Test
     public void testConnectionVisibleWithConnectionInformation() throws Exception {
         // setup
-        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, "IPADDRESS", 11);
+        WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, IP_ADDRESS, 11);
+        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, wiFiConnection);
         WiFiDetail connection = withConnection(wiFiAdditional);
         when(wiFiData.getConnection()).thenReturn(connection);
         when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(new ArrayList<WiFiDetail>());
@@ -114,14 +121,68 @@ public class ConnectionViewTest {
         // validate
         View view = mainActivity.findViewById(R.id.connection);
         assertEquals(View.VISIBLE, view.getVisibility());
+    }
+
+    @Test
+    public void testConnectionWithConnectionInformation() throws Exception {
+        // setup
+        WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, IP_ADDRESS, 11);
+        wiFiConnection.setGateway(GATEWAY);
+        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, wiFiConnection);
+        WiFiDetail connection = withConnection(wiFiAdditional);
+        when(wiFiData.getConnection()).thenReturn(connection);
+        when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(new ArrayList<WiFiDetail>());
+        // execute
+        fixture.update(wiFiData);
+        // validate
+        View view = mainActivity.findViewById(R.id.connection);
 
         TextView ipAddressView = (TextView) view.findViewById(R.id.ipAddress);
-        assertEquals(View.VISIBLE, ipAddressView.getVisibility());
-        assertEquals(wiFiAdditional.getIPAddress(), ipAddressView.getText().toString());
+        assertEquals(IP_ADDRESS + "/" + GATEWAY, ipAddressView.getText().toString());
 
         TextView linkSpeedView = (TextView) view.findViewById(R.id.linkSpeed);
         assertEquals(View.VISIBLE, linkSpeedView.getVisibility());
-        assertEquals(wiFiAdditional.getLinkSpeed() + WifiInfo.LINK_SPEED_UNITS, linkSpeedView.getText().toString());
+        assertEquals(wiFiConnection.getLinkSpeed() + WifiInfo.LINK_SPEED_UNITS, linkSpeedView.getText().toString());
+
+        verify(wiFiData).getConnection();
+        verify(accessPointsDetail).setView(mainActivity.getResources(), view, connection, false);
+    }
+
+    @Test
+    public void testConnectionWithEmptyGateway() throws Exception {
+        // setup
+        WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, IP_ADDRESS, 11);
+        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, wiFiConnection);
+        WiFiDetail connection = withConnection(wiFiAdditional);
+        when(wiFiData.getConnection()).thenReturn(connection);
+        when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(new ArrayList<WiFiDetail>());
+        // execute
+        fixture.update(wiFiData);
+        // validate
+        View view = mainActivity.findViewById(R.id.connection);
+
+        TextView ipAddressView = (TextView) view.findViewById(R.id.ipAddress);
+        assertEquals(IP_ADDRESS, ipAddressView.getText().toString());
+
+        verify(wiFiData).getConnection();
+        verify(accessPointsDetail).setView(mainActivity.getResources(), view, connection, false);
+    }
+
+    @Test
+    public void testConnectionWithInvalidLinkSpeed() throws Exception {
+        // setup
+        WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, IP_ADDRESS, WiFiConnection.LINK_SPEED_INVALID);
+        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, wiFiConnection);
+        WiFiDetail connection = withConnection(wiFiAdditional);
+        when(wiFiData.getConnection()).thenReturn(connection);
+        when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(new ArrayList<WiFiDetail>());
+        // execute
+        fixture.update(wiFiData);
+        // validate
+        View view = mainActivity.findViewById(R.id.connection);
+
+        TextView linkSpeedView = (TextView) view.findViewById(R.id.linkSpeed);
+        assertEquals(View.GONE, linkSpeedView.getVisibility());
 
         verify(wiFiData).getConnection();
         verify(accessPointsDetail).setView(mainActivity.getResources(), view, connection, false);
@@ -173,7 +234,7 @@ public class ConnectionViewTest {
     }
 
     private WiFiDetail withConnection(WiFiAdditional wiFiAdditional) {
-        return new WiFiDetail("SSID", "BSSID", StringUtils.EMPTY,
+        return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY,
             new WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55), wiFiAdditional);
     }
 

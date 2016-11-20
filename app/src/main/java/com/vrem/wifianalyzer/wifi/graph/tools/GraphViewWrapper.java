@@ -82,7 +82,7 @@ public class GraphViewWrapper {
         } else {
             current.appendData(data, true, count + 1);
         }
-        highlightConnected(wiFiDetail.getWiFiAdditional().isConnected(), current);
+        highlightConnected(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected(), current);
         return added;
     }
 
@@ -124,7 +124,7 @@ public class GraphViewWrapper {
         } else {
             current.resetData(data);
         }
-        highlightConnected(wiFiDetail.getWiFiAdditional().isConnected(), current);
+        highlightConnected(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected(), current);
         return added;
     }
 

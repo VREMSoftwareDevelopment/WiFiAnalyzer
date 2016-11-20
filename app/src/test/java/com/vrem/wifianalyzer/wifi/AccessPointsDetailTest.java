@@ -61,21 +61,9 @@ public class AccessPointsDetailTest {
     }
 
     @Test
-    public void testSetViewWithIpAddressAndLinkSpeedGone() throws Exception {
-        // setup
-        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, "IPAddress", 22);
-        WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
-        // execute
-        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false);
-        // validate
-        assertEquals(View.GONE, view.findViewById(R.id.ipAddress).getVisibility());
-        assertEquals(View.GONE, view.findViewById(R.id.linkSpeed).getVisibility());
-    }
-
-    @Test
     public void testSetViewWithConfiguredImageVisible() throws Exception {
         // setup
-        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, "IPAddress", 22);
+        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, true);
         WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
         // execute
         fixture.setView(mainActivity.getResources(), view, wiFiDetail, false);
@@ -86,7 +74,7 @@ public class AccessPointsDetailTest {
     @Test
     public void testSetViewWithTabGone() throws Exception {
         // setup
-        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, "IPAddress", 22);
+        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
         WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
         // execute
         fixture.setView(mainActivity.getResources(), view, wiFiDetail, false);
@@ -97,7 +85,7 @@ public class AccessPointsDetailTest {
     @Test
     public void testSetViewWithGroupIndicatorGone() throws Exception {
         // setup
-        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, "IPAddress", 22);
+        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
         WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
         // execute
         fixture.setView(mainActivity.getResources(), view, wiFiDetail, false);

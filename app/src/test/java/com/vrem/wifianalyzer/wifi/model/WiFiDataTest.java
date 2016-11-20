@@ -153,7 +153,7 @@ public class WiFiDataTest {
         // validate
         assertEquals(SSID_1, actual.getSSID());
         assertEquals(BSSID_1, actual.getBSSID());
-        assertEquals(IP_ADDRESS, actual.getWiFiAdditional().getIPAddress());
+        assertEquals(IP_ADDRESS, actual.getWiFiAdditional().getWiFiConnection().getIpAddress());
     }
 
     @Test

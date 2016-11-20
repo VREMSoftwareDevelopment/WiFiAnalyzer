@@ -33,12 +33,14 @@ public class WiFiConnection {
     private final String BSSID;
     private final String ipAddress;
     private final int linkSpeed;
+    private String gateway;
 
     public WiFiConnection(@NonNull String SSID, @NonNull String BSSID, @NonNull String ipAddress, int linkSpeed) {
         this.SSID = SSID;
         this.BSSID = BSSID;
         this.ipAddress = ipAddress;
         this.linkSpeed = linkSpeed;
+        this.gateway = StringUtils.EMPTY;
     }
 
     public WiFiConnection(@NonNull String SSID, @NonNull String BSSID) {
@@ -59,6 +61,18 @@ public class WiFiConnection {
 
     public int getLinkSpeed() {
         return linkSpeed;
+    }
+
+    public String getGateway() {
+        return gateway;
+    }
+
+    public void setGateway(@NonNull String gateway) {
+        this.gateway = gateway;
+    }
+
+    public boolean isConnected() {
+        return StringUtils.isNotBlank(getIpAddress());
     }
 
     @Override
@@ -87,4 +101,5 @@ public class WiFiConnection {
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
     }
+
 }

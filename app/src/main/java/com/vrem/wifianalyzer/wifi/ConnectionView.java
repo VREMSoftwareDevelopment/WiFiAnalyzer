@@ -27,11 +27,12 @@ import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -71,18 +72,20 @@ public class ConnectionView implements UpdateNotifier {
     private void setConnectionVisibility(@NonNull WiFiData wiFiData) {
         WiFiDetail connection = wiFiData.getConnection();
         View connectionView = mainActivity.findViewById(R.id.connection);
-        WiFiAdditional wiFiAdditional = connection.getWiFiAdditional();
-        if (wiFiAdditional.isConnected()) {
+        WiFiConnection wiFiConnection = connection.getWiFiAdditional().getWiFiConnection();
+        if (wiFiConnection.isConnected()) {
             connectionView.setVisibility(View.VISIBLE);
             accessPointsDetail.setView(mainActivity.getResources(), connectionView, connection, false);
 
-            String ipAddress = wiFiAdditional.getIPAddress();
-            int linkSpeed = wiFiAdditional.getLinkSpeed();
+            String ipAddress = wiFiConnection.getIpAddress();
+            String gateway = wiFiConnection.getGateway();
+            if (StringUtils.isNotEmpty(gateway)) {
+                ipAddress += "/" + gateway;
+            }
+            ((TextView) connectionView.findViewById(R.id.ipAddress)).setText(ipAddress);
 
-            TextView textIPAddress = (TextView) connectionView.findViewById(R.id.ipAddress);
             TextView textLinkSpeed = (TextView) connectionView.findViewById(R.id.linkSpeed);
-            textIPAddress.setVisibility(View.VISIBLE);
-            textIPAddress.setText(ipAddress);
+            int linkSpeed = wiFiConnection.getLinkSpeed();
             if (linkSpeed == WiFiConnection.LINK_SPEED_INVALID) {
                 textLinkSpeed.setVisibility(View.GONE);
             } else {

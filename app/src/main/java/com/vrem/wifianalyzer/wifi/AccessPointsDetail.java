@@ -46,9 +46,6 @@ public class AccessPointsDetail {
 
         textSSID.setText(wiFiDetail.getTitle());
 
-        view.findViewById(R.id.ipAddress).setVisibility(View.GONE);
-        view.findViewById(R.id.linkSpeed).setVisibility(View.GONE);
-
         ImageView configuredImage = (ImageView) view.findViewById(R.id.configuredImage);
         WiFiAdditional wiFiAdditional = wiFiDetail.getWiFiAdditional();
         if (wiFiAdditional.isConfiguredNetwork()) {

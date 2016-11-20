@@ -23,12 +23,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 
 public class WiFiConnectionTest {
     private static final String SSID = "SSID-123";
     private static final String BSSID = "BSSID-123";
     private static final String IP_ADDRESS = "21.205.91.7";
+    private static final String GATEWAY = "21.205.1.1";
     private static final int LINK_SPEED = 21;
 
     private WiFiConnection fixture;
@@ -44,7 +47,9 @@ public class WiFiConnectionTest {
         assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getSSID());
         assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getBSSID());
         assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getIpAddress());
+        assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getGateway());
         assertEquals(WiFiConnection.LINK_SPEED_INVALID, WiFiConnection.EMPTY.getLinkSpeed());
+        assertFalse(WiFiConnection.EMPTY.isConnected());
     }
 
     @Test
@@ -54,6 +59,18 @@ public class WiFiConnectionTest {
         assertEquals(BSSID, fixture.getBSSID());
         assertEquals(IP_ADDRESS, fixture.getIpAddress());
         assertEquals(LINK_SPEED, fixture.getLinkSpeed());
+        assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getGateway());
+        assertTrue(fixture.isConnected());
+    }
+
+    @Test
+    public void testGetGateway() throws Exception {
+        // setup
+        fixture.setGateway(GATEWAY);
+        // execute
+        String actual = fixture.getGateway();
+        // validate
+        assertEquals(GATEWAY, actual);
     }
 
     @Test
