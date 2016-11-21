@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.scanner;
 
-import android.net.DhcpInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
@@ -38,19 +37,15 @@ import java.util.List;
 
 class Transformer {
 
-    WiFiConnection transformWifiInfo(WifiInfo wifiInfo, DhcpInfo dhcpInfo) {
+    WiFiConnection transformWifiInfo(WifiInfo wifiInfo) {
         if (wifiInfo == null || wifiInfo.getNetworkId() == -1) {
             return WiFiConnection.EMPTY;
         }
-        WiFiConnection wiFiConnection = new WiFiConnection(
+        return new WiFiConnection(
             WiFiUtils.convertSSID(wifiInfo.getSSID()),
             wifiInfo.getBSSID(),
             WiFiUtils.convertIpAddress(wifiInfo.getIpAddress()),
             wifiInfo.getLinkSpeed());
-        if (dhcpInfo != null) {
-            wiFiConnection.setGateway(WiFiUtils.convertIpAddress(dhcpInfo.gateway));
-        }
-        return wiFiConnection;
     }
 
     List<String> transformWifiConfigurations(List<WifiConfiguration> configuredNetworks) {
@@ -109,9 +104,9 @@ class Transformer {
         return (int) declaredField.get(scanResult);
     }
 
-    WiFiData transformToWiFiData(List<CacheResult> cacheResults, WifiInfo wifiInfo, DhcpInfo dhcpInfo, List<WifiConfiguration> configuredNetworks) {
+    WiFiData transformToWiFiData(List<CacheResult> cacheResults, WifiInfo wifiInfo, List<WifiConfiguration> configuredNetworks) {
         List<WiFiDetail> wiFiDetails = transformCacheResults(cacheResults);
-        WiFiConnection wiFiConnection = transformWifiInfo(wifiInfo, dhcpInfo);
+        WiFiConnection wiFiConnection = transformWifiInfo(wifiInfo);
         List<String> wifiConfigurations = transformWifiConfigurations(configuredNetworks);
         return new WiFiData(wiFiDetails, wiFiConnection, wifiConfigurations);
     }

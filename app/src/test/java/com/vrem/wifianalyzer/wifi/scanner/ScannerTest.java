@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.scanner;
 
-import android.net.DhcpInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
@@ -60,8 +59,6 @@ public class ScannerTest {
     private UpdateNotifier updateNotifier3;
     @Mock
     private WifiInfo wifiInfo;
-    @Mock
-    private DhcpInfo dhcpInfo;
     @Mock
     private Cache cache;
     @Mock
@@ -166,7 +163,7 @@ public class ScannerTest {
     }
 
     private void withTransformer() {
-        when(transformer.transformToWiFiData(cacheResults, wifiInfo, dhcpInfo, configuredNetworks)).thenReturn(wiFiData);
+        when(transformer.transformToWiFiData(cacheResults, wifiInfo, configuredNetworks)).thenReturn(wiFiData);
     }
 
     private void verifyCache() {
@@ -180,7 +177,6 @@ public class ScannerTest {
         verify(wifiManager).startScan();
         verify(wifiManager).getScanResults();
         verify(wifiManager).getConnectionInfo();
-        verify(wifiManager).getDhcpInfo();
         verify(wifiManager).getConfiguredNetworks();
     }
 
@@ -189,12 +185,11 @@ public class ScannerTest {
         when(wifiManager.startScan()).thenReturn(true);
         when(wifiManager.getScanResults()).thenReturn(scanResults);
         when(wifiManager.getConnectionInfo()).thenReturn(wifiInfo);
-        when(wifiManager.getDhcpInfo()).thenReturn(dhcpInfo);
         when(wifiManager.getConfiguredNetworks()).thenReturn(configuredNetworks);
     }
 
     private void verifyTransfomer() {
-        verify(transformer).transformToWiFiData(cacheResults, wifiInfo, dhcpInfo, configuredNetworks);
+        verify(transformer).transformToWiFiData(cacheResults, wifiInfo, configuredNetworks);
     }
 
     @Test

@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.scanner;
 
-import android.net.DhcpInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
@@ -31,7 +30,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import com.vrem.wifianalyzer.wifi.model.WiFiUtils;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -64,8 +62,6 @@ public class TransformerTest {
     @Mock
     private WifiInfo wifiInfo;
     @Mock
-    private DhcpInfo dhcpInfo;
-    @Mock
     private WifiConfiguration wifiConfiguration1;
     @Mock
     private WifiConfiguration wifiConfiguration2;
@@ -91,32 +87,8 @@ public class TransformerTest {
     @Test
     public void testTransformWithNulls() throws Exception {
         assertTrue(fixture.transformCacheResults(null).isEmpty());
-        assertEquals(WiFiConnection.EMPTY, fixture.transformWifiInfo(null, dhcpInfo));
+        assertEquals(WiFiConnection.EMPTY, fixture.transformWifiInfo(null));
         assertTrue(fixture.transformWifiConfigurations(null).isEmpty());
-    }
-
-    @Test
-    public void testTransformWiFiInfoWithNullDchpInfo() throws Exception {
-        // setup
-        withWiFiInfo();
-        // execute
-        WiFiConnection actual = fixture.transformWifiInfo(wifiInfo, null);
-        // validate
-        verifyWiFiInfo(actual);
-        assertEquals(StringUtils.EMPTY, actual.getGateway());
-    }
-
-    @Test
-    public void testTransformWiFiInfoWithDchpInfo() throws Exception {
-        // setup
-        withWiFiInfo();
-        dhcpInfo.gateway = 223456789;
-        String expected = WiFiUtils.convertIpAddress(dhcpInfo.gateway);
-        // execute
-        WiFiConnection actual = fixture.transformWifiInfo(wifiInfo, dhcpInfo);
-        // validate
-        verifyWiFiInfo(actual);
-        assertEquals(expected, actual.getGateway());
     }
 
     private void verifyWiFiInfo(WiFiConnection actual) {
@@ -134,7 +106,7 @@ public class TransformerTest {
     @Test
     public void testTransformWifiInfoNotConnected() throws Exception {
         when(wifiInfo.getNetworkId()).thenReturn(-1);
-        assertEquals(WiFiConnection.EMPTY, fixture.transformWifiInfo(wifiInfo, dhcpInfo));
+        assertEquals(WiFiConnection.EMPTY, fixture.transformWifiInfo(wifiInfo));
         verify(wifiInfo).getNetworkId();
     }
 
@@ -182,7 +154,7 @@ public class TransformerTest {
         withWiFiConfiguration();
         withWiFiInfo();
         // execute
-        WiFiData actual = fixture.transformToWiFiData(cacheResults, wifiInfo, dhcpInfo, wifiConfigurations);
+        WiFiData actual = fixture.transformToWiFiData(cacheResults, wifiInfo, wifiConfigurations);
         // validate
         assertEquals(expectedWiFiConnection, actual.getWiFiConnection());
         assertEquals(cacheResults.size(), actual.getWiFiDetails().size());

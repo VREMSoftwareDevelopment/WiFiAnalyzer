@@ -190,9 +190,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         super.onDestroy();
     }
 
-    public ConnectionView getConnectionView() {
-        return connectionView;
-    }
 
     public void updateSubTitle() {
         ActionBar actionBar = getSupportActionBar();

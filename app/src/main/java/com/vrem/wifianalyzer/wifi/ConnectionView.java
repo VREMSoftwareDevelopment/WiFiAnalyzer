@@ -32,8 +32,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.List;
 
 public class ConnectionView implements UpdateNotifier {
@@ -78,10 +76,6 @@ public class ConnectionView implements UpdateNotifier {
             accessPointsDetail.setView(mainActivity.getResources(), connectionView, connection, false);
 
             String ipAddress = wiFiConnection.getIpAddress();
-            String gateway = wiFiConnection.getGateway();
-            if (StringUtils.isNotEmpty(gateway)) {
-                ipAddress += "/" + gateway;
-            }
             ((TextView) connectionView.findViewById(R.id.ipAddress)).setText(ipAddress);
 
             TextView textLinkSpeed = (TextView) connectionView.findViewById(R.id.linkSpeed);
@@ -92,8 +86,6 @@ public class ConnectionView implements UpdateNotifier {
                 textLinkSpeed.setVisibility(View.VISIBLE);
                 textLinkSpeed.setText(linkSpeed + WifiInfo.LINK_SPEED_UNITS);
             }
-
-            new CalculateLatency(this).execute(gateway);
         } else {
             connectionView.setVisibility(View.GONE);
         }
@@ -101,13 +93,5 @@ public class ConnectionView implements UpdateNotifier {
 
     void setAccessPointsDetail(@NonNull AccessPointsDetail accessPointsDetail) {
         this.accessPointsDetail = accessPointsDetail;
-    }
-
-    void updateLatency(long latency) {
-        View connectionView = mainActivity.findViewById(R.id.connection);
-        if (View.VISIBLE == connectionView.getVisibility()) {
-            String value = latency < 0 ? StringUtils.EMPTY : (latency + "ms");
-            ((TextView) connectionView.findViewById(R.id.latency)).setText(value);
-        }
     }
 }

@@ -123,31 +123,6 @@ public class ConnectionViewTest {
     public void testConnectionWithConnectionInformation() throws Exception {
         // setup
         WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, IP_ADDRESS, 11);
-        wiFiConnection.setGateway(GATEWAY);
-        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, wiFiConnection);
-        WiFiDetail connection = withConnection(wiFiAdditional);
-        when(wiFiData.getConnection()).thenReturn(connection);
-        when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(new ArrayList<WiFiDetail>());
-        // execute
-        fixture.update(wiFiData);
-        // validate
-        View view = mainActivity.findViewById(R.id.connection);
-
-        TextView ipAddressView = (TextView) view.findViewById(R.id.ipAddress);
-        assertEquals(IP_ADDRESS + "/" + GATEWAY, ipAddressView.getText().toString());
-
-        TextView linkSpeedView = (TextView) view.findViewById(R.id.linkSpeed);
-        assertEquals(View.VISIBLE, linkSpeedView.getVisibility());
-        assertEquals(wiFiConnection.getLinkSpeed() + WifiInfo.LINK_SPEED_UNITS, linkSpeedView.getText().toString());
-
-        verify(wiFiData).getConnection();
-        verify(accessPointsDetail).setView(mainActivity.getResources(), view, connection, false);
-    }
-
-    @Test
-    public void testConnectionWithEmptyGateway() throws Exception {
-        // setup
-        WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, IP_ADDRESS, 11);
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, wiFiConnection);
         WiFiDetail connection = withConnection(wiFiAdditional);
         when(wiFiData.getConnection()).thenReturn(connection);
@@ -159,6 +134,10 @@ public class ConnectionViewTest {
 
         TextView ipAddressView = (TextView) view.findViewById(R.id.ipAddress);
         assertEquals(IP_ADDRESS, ipAddressView.getText().toString());
+
+        TextView linkSpeedView = (TextView) view.findViewById(R.id.linkSpeed);
+        assertEquals(View.VISIBLE, linkSpeedView.getVisibility());
+        assertEquals(wiFiConnection.getLinkSpeed() + WifiInfo.LINK_SPEED_UNITS, linkSpeedView.getText().toString());
 
         verify(wiFiData).getConnection();
         verify(accessPointsDetail).setView(mainActivity.getResources(), view, connection, false);
@@ -232,33 +211,6 @@ public class ConnectionViewTest {
     private WiFiDetail withConnection(WiFiAdditional wiFiAdditional) {
         return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY,
             new WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55), wiFiAdditional);
-    }
-
-    @Test
-    public void testUpdateLatency() throws Exception {
-        // setup
-        long latency = 22L;
-        withWiFiDetail(WiFiConnection.LINK_SPEED_INVALID);
-        fixture.update(wiFiData);
-        // execute
-        fixture.updateLatency(latency);
-        // validate
-        View view = mainActivity.findViewById(R.id.connection);
-        TextView latencyView = (TextView) view.findViewById(R.id.latency);
-        assertEquals("22ms", latencyView.getText().toString());
-    }
-
-    @Test
-    public void testUpdateLatencyWithEmptyString() throws Exception {
-        // setup
-        withWiFiDetail(WiFiConnection.LINK_SPEED_INVALID);
-        fixture.update(wiFiData);
-        // execute
-        fixture.updateLatency(-1);
-        // validate
-        View view = mainActivity.findViewById(R.id.connection);
-        TextView latencyView = (TextView) view.findViewById(R.id.latency);
-        assertEquals(StringUtils.EMPTY, latencyView.getText().toString());
     }
 
     private void withWiFiDetail(int linkSpeedInvalid) {

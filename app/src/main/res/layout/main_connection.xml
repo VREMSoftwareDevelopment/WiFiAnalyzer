@@ -51,13 +51,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-                android:textColor="@color/connected"/>
-
-            <TextView
-                android:id="@+id/latency"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/connected"/>
+                android:textColor="@color/connected"
+                android:textStyle="bold"/>
         </LinearLayout>
     </LinearLayout>
 
