@@ -89,6 +89,11 @@
     <string name="group_by_key" translatable="false">group_by</string>
     <string name="group_by_default" translatable="false">0</string>
 
+    <string name="ap_view_title" translatable="false">Access Point Display</string>
+    <string name="ap_view_summary" translatable="false">%s</string>
+    <string name="ap_view_key" translatable="false">view</string>
+    <string name="ap_view_default" translatable="false">0</string>
+
     <string name="channel_graph_legend_title">Channel Graph Legend Display</string>
     <string name="channel_graph_legend_summary" translatable="false">%s</string>
     <string name="channel_graph_legend_key" translatable="false">channel_graph_legend</string>
