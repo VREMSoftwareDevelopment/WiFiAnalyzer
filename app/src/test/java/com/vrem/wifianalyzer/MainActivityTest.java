@@ -24,6 +24,7 @@ import android.text.Html;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
+import com.vrem.wifianalyzer.wifi.APView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 
 import org.junit.After;
@@ -109,12 +110,12 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testShouldNotReloadWithNoChanges() throws Exception {
+    public void testShouldNotReloadWithNoThemeChanges() throws Exception {
         // setup
-        ThemeStyle currentThemeStyle = fixture.getCurrentThemeStyle();
+        ThemeStyle expected = fixture.getCurrentThemeStyle();
         // execute && validate
         assertFalse(fixture.shouldReload());
-        assertEquals(currentThemeStyle, fixture.getCurrentThemeStyle());
+        assertEquals(expected, fixture.getCurrentThemeStyle());
     }
 
     @Test
@@ -125,6 +126,25 @@ public class MainActivityTest {
         // execute && validate
         assertTrue(fixture.shouldReload());
         assertEquals(expected, fixture.getCurrentThemeStyle());
+    }
+
+    @Test
+    public void testShouldNotReloadWithNoAPViewChanges() throws Exception {
+        // setup
+        APView expected = fixture.getCurrentAPView();
+        // execute && validate
+        assertFalse(fixture.shouldReload());
+        assertEquals(expected, fixture.getCurrentAPView());
+    }
+
+    @Test
+    public void testShouldReloadWithAPViewChange() throws Exception {
+        // setup
+        APView expected = fixture.getCurrentAPView();
+        fixture.setCurrentAPView(APView.FULL.equals(expected) ? APView.COMPACT : APView.FULL);
+        // execute && validate
+        assertTrue(fixture.shouldReload());
+        assertEquals(expected, fixture.getCurrentAPView());
     }
 
     @NonNull

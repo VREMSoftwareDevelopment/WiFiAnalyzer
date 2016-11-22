@@ -29,6 +29,7 @@ import android.widget.ImageView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
@@ -36,28 +37,27 @@ import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
     private final Resources resources;
     private AccessPointsAdapterData accessPointsAdapterData;
-    private AccessPointsDetail accessPointsDetail;
+    private AccessPointDetail accessPointDetail;
 
     AccessPointsAdapter(@NonNull Context context) {
         super();
         this.resources = context.getResources();
         setAccessPointsAdapterData(new AccessPointsAdapterData());
-        setAccessPointsDetail(new AccessPointsDetail());
+        setAccessPointDetail(new AccessPointDetail());
     }
 
     void setAccessPointsAdapterData(@NonNull AccessPointsAdapterData accessPointsAdapterData) {
         this.accessPointsAdapterData = accessPointsAdapterData;
     }
 
-    void setAccessPointsDetail(@NonNull AccessPointsDetail accessPointsDetail) {
-        this.accessPointsDetail = accessPointsDetail;
+    void setAccessPointDetail(@NonNull AccessPointDetail accessPointDetail) {
+        this.accessPointDetail = accessPointDetail;
     }
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        View view = getView(convertView, parent);
         WiFiDetail wiFiDetail = (WiFiDetail) getGroup(groupPosition);
-        accessPointsDetail.setView(resources, view, wiFiDetail, false);
+        View view = getView(convertView, parent, wiFiDetail, false);
 
         ImageView groupIndicator = (ImageView) view.findViewById(R.id.groupIndicator);
         int childrenCount = getChildrenCount(groupPosition);
@@ -76,9 +76,8 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        View view = getView(convertView, parent);
         WiFiDetail wiFiDetail = (WiFiDetail) getChild(groupPosition, childPosition);
-        accessPointsDetail.setView(resources, view, wiFiDetail, true);
+        View view = getView(convertView, parent, wiFiDetail, true);
         view.findViewById(R.id.groupIndicator).setVisibility(View.GONE);
         return view;
     }
@@ -129,11 +128,20 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         return true;
     }
 
-    private View getView(View convertView, ViewGroup parent) {
+    private View getView(View convertView, ViewGroup parent, WiFiDetail wiFiDetail, boolean isChild) {
+        MainContext mainContext = MainContext.INSTANCE;
+        Settings settings = mainContext.getSettings();
+        APView apView = settings.getAPView();
+
         View view = convertView;
         if (view == null) {
-            LayoutInflater layoutInflater = MainContext.INSTANCE.getLayoutInflater();
-            view = layoutInflater.inflate(R.layout.access_points_details, parent, false);
+            LayoutInflater layoutInflater = mainContext.getLayoutInflater();
+            view = layoutInflater.inflate(apView.getLayout(), parent, false);
+        }
+        if (APView.FULL.equals(apView)) {
+            accessPointDetail.setViewFull(resources, view, wiFiDetail, isChild);
+        } else {
+            accessPointDetail.setViewCompact(resources, view, wiFiDetail, isChild);
         }
         return view;
     }

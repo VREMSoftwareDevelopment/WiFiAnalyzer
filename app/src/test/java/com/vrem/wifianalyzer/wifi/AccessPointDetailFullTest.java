@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi;
 
-import android.app.Dialog;
 import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -46,101 +45,101 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class AccessPointsDetailTest {
+public class AccessPointDetailFullTest {
     private MainActivity mainActivity;
 
     private View view;
-    private AccessPointsDetail fixture;
+    private AccessPointDetail fixture;
 
     @Before
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
-        view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.access_points_details, null);
+        view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.access_point_view_full, null);
         assertNotNull(view);
-        fixture = new AccessPointsDetail();
+        fixture = new AccessPointDetail();
     }
 
     @Test
-    public void testSetViewWithConfiguredImageVisible() throws Exception {
+    public void testSetViewFullWithConfiguredImageVisible() throws Exception {
         // setup
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, true);
         WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
         // execute
-        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setViewFull(mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         assertEquals(View.VISIBLE, view.findViewById(R.id.configuredImage).getVisibility());
     }
 
     @Test
-    public void testSetViewWithTabGone() throws Exception {
+    public void testSetViewFullWithTabGone() throws Exception {
         // setup
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
         WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
         // execute
-        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setViewFull(mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         assertEquals(View.GONE, view.findViewById(R.id.tab).getVisibility());
     }
 
     @Test
-    public void testSetViewWithGroupIndicatorGone() throws Exception {
+    public void testSetViewFullWithGroupIndicatorGone() throws Exception {
         // setup
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
         WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
         // execute
-        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setViewFull(mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         assertEquals(View.GONE, view.findViewById(R.id.groupIndicator).getVisibility());
     }
 
     @Test
-    public void testSetViewWithVendorNameVisible() throws Exception {
+    public void testSetViewFullWithVendorNameVisible() throws Exception {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail("SSID", new WiFiAdditional("VendorName", false));
         // execute
-        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setViewFull(mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         assertEquals(View.VISIBLE, view.findViewById(R.id.vendor).getVisibility());
     }
 
     @Test
-    public void testSetViewWithVendorNameMaximumSize() throws Exception {
+    public void testSetViewFullWithVendorNameMaximumSize() throws Exception {
         // setup
         String vendorName = "VendorName-VendorName";
         WiFiDetail wiFiDetail = withWiFiDetail("SSID", new WiFiAdditional(vendorName, false));
         // execute
-        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setViewFull(mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         validateTextViewValue(vendorName.substring(0, 12), R.id.vendor);
     }
 
     @Test
-    public void testSetViewWithTabVisible() throws Exception {
+    public void testSetViewFullWithTabVisible() throws Exception {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        fixture.setView(mainActivity.getResources(), view, wiFiDetail, true);
+        fixture.setViewFull(mainActivity.getResources(), view, wiFiDetail, true);
         // validate
         assertEquals(View.VISIBLE, view.findViewById(R.id.tab).getVisibility());
     }
 
     @Test
-    public void testSetViewWithWiFiDetailAndEmptySSID() throws Exception {
+    public void testSetViewFullWithWiFiDetailAndEmptySSID() throws Exception {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setViewFull(mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         validateTextViewValues(wiFiDetail, "***");
     }
 
     @Test
-    public void testSetViewWithWiFiDetail() throws Exception {
+    public void testSetViewFullWithWiFiDetail() throws Exception {
         // setup
         String ssid = "SSID";
         WiFiDetail wiFiDetail = withWiFiDetail(ssid, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        fixture.setView(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setViewFull(mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         validateTextViewValues(wiFiDetail, ssid);
     }
@@ -163,16 +162,5 @@ public class AccessPointsDetailTest {
 
     private void validateTextViewValue(@NonNull String expected, int id) {
         assertEquals(expected, ((TextView) view.findViewById(id)).getText().toString());
-    }
-
-    @Test
-    public void testPopupDialog() throws Exception {
-        // setup
-        String ssid = "SSID";
-        WiFiDetail wiFiDetail = withWiFiDetail(ssid, new WiFiAdditional(StringUtils.EMPTY, false));
-        // execute
-        Dialog dialog = fixture.popupDialog(mainActivity, MainContext.INSTANCE.getLayoutInflater(), wiFiDetail);
-        // validate
-        assertNotNull(dialog);
     }
 }

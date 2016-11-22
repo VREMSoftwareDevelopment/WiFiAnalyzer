@@ -18,12 +18,13 @@
 
 package com.vrem.wifianalyzer.wifi;
 
+import com.vrem.wifianalyzer.R;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class APViewTest {
-
     @Test
     public void testAPViewNumber() throws Exception {
         assertEquals(2, APView.values().length);
@@ -36,6 +37,12 @@ public class APViewTest {
 
         assertEquals(APView.FULL, APView.find(APView.FULL.ordinal()));
         assertEquals(APView.COMPACT, APView.find(APView.COMPACT.ordinal()));
+    }
+
+    @Test
+    public void getLayout() throws Exception {
+        assertEquals(R.layout.access_point_view_full, APView.FULL.getLayout());
+        assertEquals(R.layout.access_point_view_compact, APView.COMPACT.getLayout());
     }
 
 }

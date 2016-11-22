@@ -69,20 +69,20 @@ public class ConnectionViewTest {
     private Settings settings;
 
     private WiFiData wiFiData;
-    private AccessPointsDetail accessPointsDetail;
+    private AccessPointDetail accessPointDetail;
 
     @Before
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
 
-        accessPointsDetail = mock(AccessPointsDetail.class);
+        accessPointDetail = mock(AccessPointDetail.class);
         wiFiData = mock(WiFiData.class);
 
         configuration = MainContextHelper.INSTANCE.getConfiguration();
         settings = MainContextHelper.INSTANCE.getSettings();
 
         fixture = new ConnectionView(mainActivity);
-        fixture.setAccessPointsDetail(accessPointsDetail);
+        fixture.setAccessPointDetail(accessPointDetail);
     }
 
     @After
@@ -105,7 +105,7 @@ public class ConnectionViewTest {
 
         verify(wiFiData).getConnection();
         verify(configuration, never()).isLargeScreenLayout();
-        verify(accessPointsDetail, never()).setView(mainActivity.getResources(), view, connection, false);
+        verify(accessPointDetail, never()).setViewFull(mainActivity.getResources(), view, connection, false);
     }
 
     @Test
@@ -140,7 +140,7 @@ public class ConnectionViewTest {
         assertEquals(wiFiConnection.getLinkSpeed() + WifiInfo.LINK_SPEED_UNITS, linkSpeedView.getText().toString());
 
         verify(wiFiData).getConnection();
-        verify(accessPointsDetail).setView(mainActivity.getResources(), view, connection, false);
+        verify(accessPointDetail).setViewFull(mainActivity.getResources(), view, connection, false);
     }
 
     @Test
@@ -160,7 +160,7 @@ public class ConnectionViewTest {
         assertEquals(View.GONE, linkSpeedView.getVisibility());
 
         verify(wiFiData).getConnection();
-        verify(accessPointsDetail).setView(mainActivity.getResources(), view, connection, false);
+        verify(accessPointDetail).setViewFull(mainActivity.getResources(), view, connection, false);
     }
 
     @Test

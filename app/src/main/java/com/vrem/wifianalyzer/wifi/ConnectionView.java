@@ -36,11 +36,11 @@ import java.util.List;
 
 public class ConnectionView implements UpdateNotifier {
     private final MainActivity mainActivity;
-    private AccessPointsDetail accessPointsDetail;
+    private AccessPointDetail accessPointDetail;
 
     public ConnectionView(@NonNull MainActivity mainActivity) {
         this.mainActivity = mainActivity;
-        setAccessPointsDetail(new AccessPointsDetail());
+        setAccessPointDetail(new AccessPointDetail());
     }
 
     @Override
@@ -73,7 +73,7 @@ public class ConnectionView implements UpdateNotifier {
         WiFiConnection wiFiConnection = connection.getWiFiAdditional().getWiFiConnection();
         if (wiFiConnection.isConnected()) {
             connectionView.setVisibility(View.VISIBLE);
-            accessPointsDetail.setView(mainActivity.getResources(), connectionView, connection, false);
+            accessPointDetail.setViewFull(mainActivity.getResources(), connectionView, connection, false);
 
             String ipAddress = wiFiConnection.getIpAddress();
             ((TextView) connectionView.findViewById(R.id.ipAddress)).setText(ipAddress);
@@ -91,7 +91,7 @@ public class ConnectionView implements UpdateNotifier {
         }
     }
 
-    void setAccessPointsDetail(@NonNull AccessPointsDetail accessPointsDetail) {
-        this.accessPointsDetail = accessPointsDetail;
+    void setAccessPointDetail(@NonNull AccessPointDetail accessPointDetail) {
+        this.accessPointDetail = accessPointDetail;
     }
 }

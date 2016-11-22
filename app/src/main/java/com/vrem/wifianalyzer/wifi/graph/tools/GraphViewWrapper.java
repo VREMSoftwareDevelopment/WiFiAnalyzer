@@ -34,7 +34,7 @@ import com.jjoe64.graphview.series.Series;
 import com.jjoe64.graphview.series.TitleLineGraphSeries;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.wifi.AccessPointsDetail;
+import com.vrem.wifianalyzer.wifi.AccessPointDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
@@ -183,7 +183,7 @@ public class GraphViewWrapper {
                 MainContext mainContext = MainContext.INSTANCE;
                 LayoutInflater layoutInflater = mainContext.getLayoutInflater();
                 MainActivity mainActivity = mainContext.getMainActivity();
-                Dialog dialog = new AccessPointsDetail().popupDialog(mainActivity, layoutInflater, wiFiDetail);
+                Dialog dialog = new AccessPointDetail().popupDialog(mainActivity, layoutInflater, wiFiDetail);
                 dialog.show();
             }
         }

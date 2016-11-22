@@ -40,6 +40,7 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
+import com.vrem.wifianalyzer.wifi.APView;
 import com.vrem.wifianalyzer.wifi.ConnectionView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     public static final String WI_FI_ANALYZER_BETA = "BETA";
 
     private ThemeStyle currentThemeStyle;
+    private APView currentAPView;
     private NavigationMenuView navigationMenuView;
     private NavigationMenu startNavigationMenu;
     private String currentCountryCode;
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         Settings settings = mainContext.getSettings();
         settings.initializeDefaultValues();
         setCurrentThemeStyle(settings.getThemeStyle());
+        setCurrentAPView(settings.getAPView());
         setTheme(getCurrentThemeStyle().themeAppCompatStyle());
         setWiFiChannelPairs();
 
@@ -130,12 +133,25 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     boolean shouldReload() {
         Settings settings = MainContext.INSTANCE.getSettings();
+        return isThemeChanged(settings) || isAPViewChanged(settings);
+    }
+
+    private boolean isAPViewChanged(Settings settings) {
+        APView settingAPView = settings.getAPView();
+        boolean apViewChanged = !getCurrentAPView().equals(settingAPView);
+        if (apViewChanged) {
+            setCurrentAPView(settingAPView);
+        }
+        return apViewChanged;
+    }
+
+    private boolean isThemeChanged(Settings settings) {
         ThemeStyle settingThemeStyle = settings.getThemeStyle();
-        boolean result = !getCurrentThemeStyle().equals(settingThemeStyle);
-        if (result) {
+        boolean themeChanged = !getCurrentThemeStyle().equals(settingThemeStyle);
+        if (themeChanged) {
             setCurrentThemeStyle(settingThemeStyle);
         }
-        return result;
+        return themeChanged;
     }
 
     private void reloadActivity() {
@@ -227,8 +243,16 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         return currentThemeStyle;
     }
 
-    void setCurrentThemeStyle(ThemeStyle currentThemeStyle) {
+    void setCurrentThemeStyle(@NonNull ThemeStyle currentThemeStyle) {
         this.currentThemeStyle = currentThemeStyle;
+    }
+
+    public APView getCurrentAPView() {
+        return currentAPView;
+    }
+
+    public void setCurrentAPView(@NonNull APView currentAPView) {
+        this.currentAPView = currentAPView;
     }
 
     private class WiFiBandToggle implements OnClickListener {
