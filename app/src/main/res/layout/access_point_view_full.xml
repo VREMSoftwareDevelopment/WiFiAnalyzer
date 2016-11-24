@@ -152,7 +152,7 @@
                         android:textColor="@color/channel"/>
 
                     <TextView
-                        android:id="@+id/vendor"
+                        android:id="@+id/vendorShort"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="gone"/>

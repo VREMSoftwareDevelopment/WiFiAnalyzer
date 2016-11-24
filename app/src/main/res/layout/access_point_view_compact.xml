@@ -47,12 +47,6 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"/>
 
-            <ImageView
-                android:id="@+id/securityImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"/>
-
             <TextView
                 android:id="@+id/ssid"
                 android:layout_width="wrap_content"
@@ -70,7 +64,8 @@
                 android:id="@+id/level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"/>
+                android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                android:layout_marginStart="@dimen/list_view_item_horizontal_tab"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -95,12 +90,11 @@
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                 android:textColor="@color/channel"/>
 
-            <TextView
-                android:id="@+id/width"
+            <ImageView
+                android:id="@+id/securityImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-                android:textColor="@color/channel"/>
+                android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"/>
 
             <TextView
                 android:id="@+id/distance"

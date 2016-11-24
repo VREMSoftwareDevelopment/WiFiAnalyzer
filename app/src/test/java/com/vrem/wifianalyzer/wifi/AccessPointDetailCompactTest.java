@@ -65,7 +65,7 @@ public class AccessPointDetailCompactTest {
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
         WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
         // execute
-        fixture.setViewCompact(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setView(true, mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         assertEquals(View.GONE, view.findViewById(R.id.tab).getVisibility());
     }
@@ -76,7 +76,7 @@ public class AccessPointDetailCompactTest {
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
         WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
         // execute
-        fixture.setViewCompact(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setView(true, mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         assertEquals(View.GONE, view.findViewById(R.id.groupIndicator).getVisibility());
     }
@@ -86,7 +86,7 @@ public class AccessPointDetailCompactTest {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        fixture.setViewCompact(mainActivity.getResources(), view, wiFiDetail, true);
+        fixture.setView(true, mainActivity.getResources(), view, wiFiDetail, true);
         // validate
         assertEquals(View.VISIBLE, view.findViewById(R.id.tab).getVisibility());
     }
@@ -96,7 +96,7 @@ public class AccessPointDetailCompactTest {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        fixture.setViewCompact(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setView(true, mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         validateTextViewValues(wiFiDetail, "***");
     }
@@ -107,7 +107,7 @@ public class AccessPointDetailCompactTest {
         String ssid = "SSID";
         WiFiDetail wiFiDetail = withWiFiDetail(ssid, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        fixture.setViewCompact(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setView(true, mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         validateTextViewValues(wiFiDetail, ssid);
     }
@@ -122,7 +122,6 @@ public class AccessPointDetailCompactTest {
         validateTextViewValue(wiFiSignal.getLevel() + "dBm", R.id.level);
         validateTextViewValue(wiFiSignal.getChannelDisplay(), R.id.channel);
         validateTextViewValue(wiFiSignal.getPrimaryFrequency() + WifiInfo.FREQUENCY_UNITS, R.id.primaryFrequency);
-        validateTextViewValue("(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WifiInfo.FREQUENCY_UNITS + ")", R.id.width);
         validateTextViewValue(String.format("%.1fm", wiFiSignal.getDistance()), R.id.distance);
     }
 

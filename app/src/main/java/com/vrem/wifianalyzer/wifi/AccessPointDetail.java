@@ -39,13 +39,70 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import org.apache.commons.lang3.StringUtils;
 
 public class AccessPointDetail {
-    private static final int VENDOR_NAME_MAX = 12;
+    private static final int VENDOR_SHORT_MAX = 12;
+    private static final int VENDOR_LONG_MAX = 30;
 
-    void setViewFull(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
+    void setView(boolean compact, @NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
+        if (compact) {
+            setViewCompact(resources, view, wiFiDetail, isChild);
+        } else {
+            setViewFull(resources, view, wiFiDetail, isChild);
+        }
+    }
+
+    @NonNull
+    public Dialog popupDialog(@NonNull Context context, @NonNull LayoutInflater inflater, @NonNull WiFiDetail wiFiDetail) {
+        View view = inflater.inflate(R.layout.access_point_view_popup, null);
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(view);
+        setViewPopup(context.getResources(), view, wiFiDetail);
+        dialog.findViewById(R.id.popupButton).setOnClickListener(new PopupDialogListener(dialog));
+        return dialog;
+    }
+
+    private void setViewFull(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
+        setViewCompact(resources, view, wiFiDetail, isChild);
+        setViewExtra(resources, view, wiFiDetail);
+        setViewVendorShort(view, wiFiDetail.getWiFiAdditional());
+    }
+
+    private void setViewCompact(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
         TextView textSSID = (TextView) view.findViewById(R.id.ssid);
-
         textSSID.setText(wiFiDetail.getTitle());
 
+        WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
+        Strength strength = wiFiSignal.getStrength();
+
+        Security security = wiFiDetail.getSecurity();
+        ImageView securityImage = (ImageView) view.findViewById(R.id.securityImage);
+        securityImage.setImageResource(security.imageResource());
+        securityImage.setColorFilter(resources.getColor(R.color.icons_color));
+
+        TextView textLevel = (TextView) view.findViewById(R.id.level);
+        textLevel.setText(wiFiSignal.getLevel() + "dBm");
+        textLevel.setTextColor(resources.getColor(strength.colorResource()));
+
+        ((TextView) view.findViewById(R.id.channel))
+            .setText(wiFiSignal.getChannelDisplay());
+        ((TextView) view.findViewById(R.id.primaryFrequency))
+            .setText(wiFiSignal.getPrimaryFrequency() + WifiInfo.FREQUENCY_UNITS);
+        ((TextView) view.findViewById(R.id.distance))
+            .setText(String.format("%.1fm", wiFiSignal.getDistance()));
+
+        if (isChild) {
+            view.findViewById(R.id.tab).setVisibility(View.VISIBLE);
+        } else {
+            view.findViewById(R.id.tab).setVisibility(View.GONE);
+        }
+    }
+
+    private void setViewPopup(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail) {
+        setViewCompact(resources, view, wiFiDetail, false);
+        setViewExtra(resources, view, wiFiDetail);
+        setViewVendorLong(view, wiFiDetail.getWiFiAdditional());
+    }
+
+    private void setViewExtra(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail) {
         ImageView configuredImage = (ImageView) view.findViewById(R.id.configuredImage);
         WiFiAdditional wiFiAdditional = wiFiDetail.getWiFiAdditional();
         if (wiFiAdditional.isConfiguredNetwork()) {
@@ -61,86 +118,34 @@ public class AccessPointDetail {
         imageView.setImageResource(strength.imageResource());
         imageView.setColorFilter(resources.getColor(strength.colorResource()));
 
-        Security security = wiFiDetail.getSecurity();
-        ImageView securityImage = (ImageView) view.findViewById(R.id.securityImage);
-        securityImage.setImageResource(security.imageResource());
-        securityImage.setColorFilter(resources.getColor(R.color.icons_color));
-
-        TextView textLevel = (TextView) view.findViewById(R.id.level);
-        textLevel.setText(wiFiSignal.getLevel() + "dBm");
-        textLevel.setTextColor(resources.getColor(strength.colorResource()));
-
-        ((TextView) view.findViewById(R.id.channel))
-            .setText(wiFiSignal.getChannelDisplay());
-        ((TextView) view.findViewById(R.id.primaryFrequency))
-            .setText(wiFiSignal.getPrimaryFrequency() + WifiInfo.FREQUENCY_UNITS);
-        ((TextView) view.findViewById(R.id.distance))
-            .setText(String.format("%.1fm", wiFiSignal.getDistance()));
         ((TextView) view.findViewById(R.id.channel_frequency_range))
             .setText(wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd());
         ((TextView) view.findViewById(R.id.width))
             .setText("(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WifiInfo.FREQUENCY_UNITS + ")");
         ((TextView) view.findViewById(R.id.capabilities))
             .setText(wiFiDetail.getCapabilities());
+    }
 
-        TextView textVendor = ((TextView) view.findViewById(R.id.vendor));
+    private void setViewVendorShort(@NonNull View view, @NonNull WiFiAdditional wiFiAdditional) {
+        TextView textVendorShort = ((TextView) view.findViewById(R.id.vendorShort));
+        String vendor = wiFiAdditional.getVendorName();
+        if (StringUtils.isBlank(vendor)) {
+            textVendorShort.setVisibility(View.GONE);
+        } else {
+            textVendorShort.setVisibility(View.VISIBLE);
+            textVendorShort.setText(vendor.substring(0, Math.min(VENDOR_SHORT_MAX, vendor.length())));
+        }
+    }
+
+    private void setViewVendorLong(@NonNull View view, @NonNull WiFiAdditional wiFiAdditional) {
+        TextView textVendor = ((TextView) view.findViewById(R.id.vendorLong));
         String vendor = wiFiAdditional.getVendorName();
         if (StringUtils.isBlank(vendor)) {
             textVendor.setVisibility(View.GONE);
         } else {
             textVendor.setVisibility(View.VISIBLE);
-            textVendor.setText(vendor.substring(0, Math.min(VENDOR_NAME_MAX, vendor.length())));
+            textVendor.setText(vendor.substring(0, Math.min(VENDOR_LONG_MAX, vendor.length())));
         }
-
-        if (isChild) {
-            view.findViewById(R.id.tab).setVisibility(View.VISIBLE);
-        } else {
-            view.findViewById(R.id.tab).setVisibility(View.GONE);
-        }
-
-    }
-
-    void setViewCompact(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
-        TextView textSSID = (TextView) view.findViewById(R.id.ssid);
-        textSSID.setText(wiFiDetail.getTitle());
-
-        WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        Strength strength = wiFiSignal.getStrength();
-
-        Security security = wiFiDetail.getSecurity();
-        ImageView securityImage = (ImageView) view.findViewById(R.id.securityImage);
-        securityImage.setImageResource(security.imageResource());
-        securityImage.setColorFilter(resources.getColor(R.color.icons_color));
-
-        TextView textLevel = (TextView) view.findViewById(R.id.level);
-        textLevel.setText(wiFiSignal.getLevel() + "dBm");
-        textLevel.setTextColor(resources.getColor(strength.colorResource()));
-
-        ((TextView) view.findViewById(R.id.channel))
-            .setText(wiFiSignal.getChannelDisplay());
-        ((TextView) view.findViewById(R.id.primaryFrequency))
-            .setText(wiFiSignal.getPrimaryFrequency() + WifiInfo.FREQUENCY_UNITS);
-        ((TextView) view.findViewById(R.id.distance))
-            .setText(String.format("%.1fm", wiFiSignal.getDistance()));
-        ((TextView) view.findViewById(R.id.width))
-            .setText("(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WifiInfo.FREQUENCY_UNITS + ")");
-
-        if (isChild) {
-            view.findViewById(R.id.tab).setVisibility(View.VISIBLE);
-        } else {
-            view.findViewById(R.id.tab).setVisibility(View.GONE);
-        }
-
-    }
-
-    @NonNull
-    public Dialog popupDialog(@NonNull Context context, @NonNull LayoutInflater inflater, @NonNull WiFiDetail wiFiDetail) {
-        View view = inflater.inflate(R.layout.access_point_view_popup, null);
-        Dialog dialog = new Dialog(context);
-        dialog.setContentView(view);
-        setViewFull(context.getResources(), view, wiFiDetail, false);
-        dialog.findViewById(R.id.popupButton).setOnClickListener(new PopupDialogListener(dialog));
-        return dialog;
     }
 
     private class PopupDialogListener implements OnClickListener {

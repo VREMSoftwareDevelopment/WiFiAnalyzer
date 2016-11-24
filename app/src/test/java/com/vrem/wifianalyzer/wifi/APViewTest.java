@@ -23,6 +23,8 @@ import com.vrem.wifianalyzer.R;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class APViewTest {
     @Test
@@ -40,9 +42,21 @@ public class APViewTest {
     }
 
     @Test
-    public void getLayout() throws Exception {
+    public void testGetLayout() throws Exception {
         assertEquals(R.layout.access_point_view_full, APView.FULL.getLayout());
         assertEquals(R.layout.access_point_view_compact, APView.COMPACT.getLayout());
+    }
+
+    @Test
+    public void testIsFull() throws Exception {
+        assertTrue(APView.FULL.isFull());
+        assertFalse(APView.COMPACT.isFull());
+    }
+
+    @Test
+    public void testIsCompact() throws Exception {
+        assertFalse(APView.FULL.isCompact());
+        assertTrue(APView.COMPACT.isCompact());
     }
 
 }

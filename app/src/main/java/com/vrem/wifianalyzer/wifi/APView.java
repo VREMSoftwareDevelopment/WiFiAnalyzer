@@ -40,4 +40,12 @@ public enum APView {
     int getLayout() {
         return layout;
     }
+
+    boolean isCompact() {
+        return COMPACT.equals(this);
+    }
+
+    boolean isFull() {
+        return FULL.equals(this);
+    }
 }

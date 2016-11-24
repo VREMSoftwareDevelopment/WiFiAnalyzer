@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi;
 
 import android.net.wifi.WifiInfo;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.vrem.wifianalyzer.BuildConfig;
@@ -49,6 +50,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -67,7 +69,7 @@ public class ConnectionViewTest {
 
     private Configuration configuration;
     private Settings settings;
-
+    private View view;
     private WiFiData wiFiData;
     private AccessPointDetail accessPointDetail;
 
@@ -77,9 +79,13 @@ public class ConnectionViewTest {
 
         accessPointDetail = mock(AccessPointDetail.class);
         wiFiData = mock(WiFiData.class);
+        view = mock(View.class);
 
-        configuration = MainContextHelper.INSTANCE.getConfiguration();
-        settings = MainContextHelper.INSTANCE.getSettings();
+        MainContextHelper mainContextHelper = MainContextHelper.INSTANCE;
+        configuration = mainContextHelper.getConfiguration();
+        settings = mainContextHelper.getSettings();
+
+        when(settings.getAPView()).thenReturn(APView.FULL);
 
         fixture = new ConnectionView(mainActivity);
         fixture.setAccessPointDetail(accessPointDetail);
@@ -105,7 +111,7 @@ public class ConnectionViewTest {
 
         verify(wiFiData).getConnection();
         verify(configuration, never()).isLargeScreenLayout();
-        verify(accessPointDetail, never()).setViewFull(mainActivity.getResources(), view, connection, false);
+        verify(accessPointDetail, never()).setView(APView.FULL.isCompact(), mainActivity.getResources(), view, connection, false);
     }
 
     @Test
@@ -117,6 +123,23 @@ public class ConnectionViewTest {
         // validate
         View view = mainActivity.findViewById(R.id.connection);
         assertEquals(View.VISIBLE, view.getVisibility());
+    }
+
+    @Test
+    public void testConnectionDetails() throws Exception {
+        // setup
+        WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, IP_ADDRESS, 11);
+        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, wiFiConnection);
+        WiFiDetail connection = withConnection(wiFiAdditional);
+        ViewGroup connectionView = (ViewGroup) mainActivity.findViewById(R.id.connection);
+        when(wiFiData.getConnection()).thenReturn(connection);
+        when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(new ArrayList<WiFiDetail>());
+        // execute
+        fixture.update(wiFiData);
+        // validate
+        verify(wiFiData).getConnection();
+        verify(accessPointDetail).setView(APView.FULL.isCompact(), mainActivity.getResources(), connectionView, connection, false);
+        verify(settings, atLeastOnce()).getAPView();
     }
 
     @Test
@@ -140,7 +163,6 @@ public class ConnectionViewTest {
         assertEquals(wiFiConnection.getLinkSpeed() + WifiInfo.LINK_SPEED_UNITS, linkSpeedView.getText().toString());
 
         verify(wiFiData).getConnection();
-        verify(accessPointDetail).setViewFull(mainActivity.getResources(), view, connection, false);
     }
 
     @Test
@@ -160,7 +182,6 @@ public class ConnectionViewTest {
         assertEquals(View.GONE, linkSpeedView.getVisibility());
 
         verify(wiFiData).getConnection();
-        verify(accessPointDetail).setViewFull(mainActivity.getResources(), view, connection, false);
     }
 
     @Test

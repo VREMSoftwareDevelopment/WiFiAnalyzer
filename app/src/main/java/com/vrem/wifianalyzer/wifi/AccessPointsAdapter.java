@@ -29,7 +29,6 @@ import android.widget.ImageView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
@@ -130,19 +129,14 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
 
     private View getView(View convertView, ViewGroup parent, WiFiDetail wiFiDetail, boolean isChild) {
         MainContext mainContext = MainContext.INSTANCE;
-        Settings settings = mainContext.getSettings();
-        APView apView = settings.getAPView();
+        APView apView = mainContext.getSettings().getAPView();
 
         View view = convertView;
         if (view == null) {
             LayoutInflater layoutInflater = mainContext.getLayoutInflater();
             view = layoutInflater.inflate(apView.getLayout(), parent, false);
         }
-        if (APView.FULL.equals(apView)) {
-            accessPointDetail.setViewFull(resources, view, wiFiDetail, isChild);
-        } else {
-            accessPointDetail.setViewCompact(resources, view, wiFiDetail, isChild);
-        }
+        accessPointDetail.setView(apView.isCompact(), resources, view, wiFiDetail, isChild);
         return view;
     }
 }

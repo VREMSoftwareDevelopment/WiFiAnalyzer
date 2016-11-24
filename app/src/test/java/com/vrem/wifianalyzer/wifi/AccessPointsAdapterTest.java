@@ -25,6 +25,7 @@ import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -58,6 +59,9 @@ public class AccessPointsAdapterTest {
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
 
+        Settings settings = MainContextHelper.INSTANCE.getSettings();
+        when(settings.getAPView()).thenReturn(APView.FULL);
+
         accessPointsAdapterData = mock(AccessPointsAdapterData.class);
         accessPointDetail = mock(AccessPointDetail.class);
 
@@ -82,7 +86,7 @@ public class AccessPointsAdapterTest {
         // validate
         assertNotNull(actual);
         assertEquals(View.GONE, actual.findViewById(R.id.groupIndicator).getVisibility());
-        verify(accessPointDetail).setViewFull(mainActivity.getResources(), actual, wiFiDetail, false);
+        verify(accessPointDetail).setView(APView.FULL.isCompact(), mainActivity.getResources(), actual, wiFiDetail, false);
         verify(accessPointsAdapterData).parent(1);
         verify(accessPointsAdapterData).childrenCount(1);
     }
@@ -98,7 +102,7 @@ public class AccessPointsAdapterTest {
         // validate
         assertNotNull(actual);
         assertEquals(View.VISIBLE, actual.findViewById(R.id.groupIndicator).getVisibility());
-        verify(accessPointDetail).setViewFull(mainActivity.getResources(), actual, wiFiDetail, false);
+        verify(accessPointDetail).setView(APView.FULL.isCompact(), mainActivity.getResources(), actual, wiFiDetail, false);
         verify(accessPointsAdapterData).parent(1);
         verify(accessPointsAdapterData).childrenCount(1);
     }
@@ -113,7 +117,7 @@ public class AccessPointsAdapterTest {
         // validate
         assertNotNull(actual);
         assertEquals(View.GONE, actual.findViewById(R.id.groupIndicator).getVisibility());
-        verify(accessPointDetail).setViewFull(mainActivity.getResources(), actual, wiFiDetail, true);
+        verify(accessPointDetail).setView(APView.FULL.isCompact(), mainActivity.getResources(), actual, wiFiDetail, true);
         verify(accessPointsAdapterData).child(0, 0);
     }
 

@@ -46,6 +46,8 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class AccessPointDetailFullTest {
+    private static final String SSID = "SSID";
+    private static final String VENDOR_NAME = "VendorName-VendorName";
     private MainActivity mainActivity;
 
     private View view;
@@ -63,9 +65,9 @@ public class AccessPointDetailFullTest {
     public void testSetViewFullWithConfiguredImageVisible() throws Exception {
         // setup
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, true);
-        WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, wiFiAdditional);
         // execute
-        fixture.setViewFull(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setView(false, mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         assertEquals(View.VISIBLE, view.findViewById(R.id.configuredImage).getVisibility());
     }
@@ -74,9 +76,9 @@ public class AccessPointDetailFullTest {
     public void testSetViewFullWithTabGone() throws Exception {
         // setup
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
-        WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, wiFiAdditional);
         // execute
-        fixture.setViewFull(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setView(false, mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         assertEquals(View.GONE, view.findViewById(R.id.tab).getVisibility());
     }
@@ -85,32 +87,42 @@ public class AccessPointDetailFullTest {
     public void testSetViewFullWithGroupIndicatorGone() throws Exception {
         // setup
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
-        WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, wiFiAdditional);
         // execute
-        fixture.setViewFull(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setView(false, mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         assertEquals(View.GONE, view.findViewById(R.id.groupIndicator).getVisibility());
+
     }
 
     @Test
-    public void testSetViewFullWithVendorNameVisible() throws Exception {
+    public void testSetViewFullWithVendorShortNotVisible() throws Exception {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail("SSID", new WiFiAdditional("VendorName", false));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        fixture.setViewFull(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setView(false, mainActivity.getResources(), view, wiFiDetail, false);
         // validate
-        assertEquals(View.VISIBLE, view.findViewById(R.id.vendor).getVisibility());
+        assertEquals(View.GONE, view.findViewById(R.id.vendorShort).getVisibility());
     }
 
     @Test
-    public void testSetViewFullWithVendorNameMaximumSize() throws Exception {
+    public void testSetViewFullWithVendorShortVisible() throws Exception {
         // setup
-        String vendorName = "VendorName-VendorName";
-        WiFiDetail wiFiDetail = withWiFiDetail("SSID", new WiFiAdditional(vendorName, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME, false));
         // execute
-        fixture.setViewFull(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setView(false, mainActivity.getResources(), view, wiFiDetail, false);
         // validate
-        validateTextViewValue(vendorName.substring(0, 12), R.id.vendor);
+        assertEquals(View.VISIBLE, view.findViewById(R.id.vendorShort).getVisibility());
+    }
+
+    @Test
+    public void testSetViewFullWithVendorShortMaximumSize() throws Exception {
+        // setup
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME, false));
+        // execute
+        fixture.setView(false, mainActivity.getResources(), view, wiFiDetail, false);
+        // validate
+        validateTextViewValue(VENDOR_NAME.substring(0, 12), R.id.vendorShort);
     }
 
     @Test
@@ -118,7 +130,7 @@ public class AccessPointDetailFullTest {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        fixture.setViewFull(mainActivity.getResources(), view, wiFiDetail, true);
+        fixture.setView(false, mainActivity.getResources(), view, wiFiDetail, true);
         // validate
         assertEquals(View.VISIBLE, view.findViewById(R.id.tab).getVisibility());
     }
@@ -128,7 +140,7 @@ public class AccessPointDetailFullTest {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        fixture.setViewFull(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setView(false, mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         validateTextViewValues(wiFiDetail, "***");
     }
@@ -136,10 +148,10 @@ public class AccessPointDetailFullTest {
     @Test
     public void testSetViewFullWithWiFiDetail() throws Exception {
         // setup
-        String ssid = "SSID";
+        String ssid = SSID;
         WiFiDetail wiFiDetail = withWiFiDetail(ssid, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        fixture.setViewFull(mainActivity.getResources(), view, wiFiDetail, false);
+        fixture.setView(false, mainActivity.getResources(), view, wiFiDetail, false);
         // validate
         validateTextViewValues(wiFiDetail, ssid);
     }
