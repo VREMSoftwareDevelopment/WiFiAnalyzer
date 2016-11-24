@@ -33,10 +33,18 @@ import static org.junit.Assert.assertEquals;
 public class MacToVendorIntegrationTest {
 
     @Test
-    public void testMacVendorsCom() throws Exception {
+    public void testMacVendorsComLong() throws Exception {
+        validateMacVendorsCom("00:23:AB:8C:DF:10");
+    }
+
+    @Test
+    public void testMacVendorsComShort() throws Exception {
+        validateMacVendorsCom("00:23:AB");
+    }
+
+    private void validateMacVendorsCom(String macAddress) throws Exception {
         // setup
         String expected = "CISCO SYSTEMS, INC";
-        String macAddress = "00:23:AB:8C:DF:10";
         String url = "http://api.macvendors.com/";
         // execute
         String actual = execute(url + macAddress);

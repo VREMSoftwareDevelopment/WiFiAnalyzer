@@ -63,7 +63,7 @@ public class RemoteCallTest {
         fixture = new RemoteCall() {
             @Override
             protected URLConnection getURLConnection(String request) throws IOException {
-                String expectedRequest = String.format(MAC_VENDOR_LOOKUP, MAC_ADDRESS);
+                String expectedRequest = String.format(MAC_VENDOR_LOOKUP, MAC_ADDRESS.substring(0, MAC_ADDRESS.length() / 2));
                 assertEquals(expectedRequest, request);
                 return urlConnection;
             }

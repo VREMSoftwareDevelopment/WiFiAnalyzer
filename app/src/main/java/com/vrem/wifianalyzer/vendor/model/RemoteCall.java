@@ -39,7 +39,7 @@ class RemoteCall extends AsyncTask<String, Void, RemoteResult> {
             return RemoteResult.EMPTY;
         }
         String macAddress = params[0];
-        String request = String.format(MAC_VENDOR_LOOKUP, macAddress);
+        String request = String.format(MAC_VENDOR_LOOKUP, macAddress.substring(0, macAddress.length() / 2));
         BufferedReader bufferedReader = null;
         try {
             URLConnection urlConnection = getURLConnection(request);
