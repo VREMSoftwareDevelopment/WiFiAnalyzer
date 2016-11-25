@@ -111,7 +111,7 @@ public class ConnectionViewTest {
 
         verify(wiFiData).getConnection();
         verify(configuration, never()).isLargeScreenLayout();
-        verify(accessPointDetail, never()).setView(APView.FULL.isCompact(), mainActivity.getResources(), view, connection, false);
+        verify(accessPointDetail, never()).setView(mainActivity.getResources(), view, connection, false);
     }
 
     @Test
@@ -138,7 +138,7 @@ public class ConnectionViewTest {
         fixture.update(wiFiData);
         // validate
         verify(wiFiData).getConnection();
-        verify(accessPointDetail).setView(APView.FULL.isCompact(), mainActivity.getResources(), connectionView, connection, false);
+        verify(accessPointDetail).setView(mainActivity.getResources(), connectionView, connection, false);
         verify(settings, atLeastOnce()).getAPView();
     }
 

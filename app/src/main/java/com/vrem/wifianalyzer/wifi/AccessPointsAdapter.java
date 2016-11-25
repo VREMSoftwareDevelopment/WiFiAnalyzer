@@ -136,7 +136,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
             LayoutInflater layoutInflater = mainContext.getLayoutInflater();
             view = layoutInflater.inflate(apView.getLayout(), parent, false);
         }
-        accessPointDetail.setView(apView.isCompact(), resources, view, wiFiDetail, isChild);
+        accessPointDetail.setView(resources, view, wiFiDetail, isChild);
         return view;
     }
 }

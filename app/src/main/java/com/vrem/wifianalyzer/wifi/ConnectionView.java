@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi;
 
-import android.content.res.Resources;
 import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -85,10 +84,7 @@ public class ConnectionView implements UpdateNotifier {
     }
 
     private void setViewDetails(WiFiDetail connection, ViewGroup connectionView) {
-        MainContext mainContext = MainContext.INSTANCE;
-        APView apView = mainContext.getSettings().getAPView();
-        Resources resources = mainContext.getResources();
-        accessPointDetail.setView(apView.isCompact(), resources, connectionView, connection, false);
+        accessPointDetail.setView(MainContext.INSTANCE.getResources(), connectionView, connection, false);
     }
 
     private void setDetailView(ViewGroup connectionView) {
