@@ -64,7 +64,7 @@ public class MacToVendorIntegrationTest {
             while ((line = bufferedReader.readLine()) != null) {
                 response.append(line);
             }
-            return response.toString();
+            return response.toString().toUpperCase();
         } finally {
             if (bufferedReader != null) {
                 try {
