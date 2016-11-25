@@ -41,11 +41,15 @@ public class AccessPointDetail {
 
     void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
         setViewCompact(resources, view, wiFiDetail, isChild);
-        if (view.findViewById(R.id.capabilities) == null) {
-            view.findViewById(R.id.ssid).setOnClickListener(new PopupDialogOpenListener(wiFiDetail));
-        } else {
+        if (view.findViewById(R.id.capabilities) != null) {
             setViewExtra(resources, view, wiFiDetail);
             setViewVendorShort(view, wiFiDetail.getWiFiAdditional());
+        }
+        View popupView = view.findViewById(R.id.attachPopup);
+        if (popupView != null) {
+            PopupDialogOpenListener popupDialogOpenListener = new PopupDialogOpenListener(wiFiDetail);
+            popupView.setOnClickListener(popupDialogOpenListener);
+            view.findViewById(R.id.ssid).setOnClickListener(popupDialogOpenListener);
         }
     }
 
