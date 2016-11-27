@@ -18,6 +18,8 @@
 
 package com.vrem.wifianalyzer.wifi;
 
+import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -30,6 +32,7 @@ import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.model.ChannelAPCount;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
@@ -61,14 +64,15 @@ public class ChannelRatingAdapterTest {
     private ChannelRatingAdapter fixture;
     private Settings settings;
     private ChannelRating channelRating;
+    private TextView bestChannels;
+    private MainActivity mainActivity;
 
     @Before
     public void setUp() {
-        MainActivity mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
+        mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
 
         channelRating = mock(ChannelRating.class);
-        TextView bestChannels = mock(TextView.class);
-
+        bestChannels = new TextView(mainActivity);
         settings = MainContextHelper.INSTANCE.getSettings();
 
         fixture = new ChannelRatingAdapter(mainActivity, bestChannels);
@@ -102,6 +106,8 @@ public class ChannelRatingAdapterTest {
         assertEquals(expectedSize, ratingBar.getNumStars());
         assertEquals(expectedStrength.ordinal() + 1, (int) ratingBar.getRating());
 
+        assertEquals("", bestChannels.getText());
+
         verify(channelRating).getCount(wiFiChannel);
         verify(channelRating).getStrength(wiFiChannel);
     }
@@ -109,6 +115,7 @@ public class ChannelRatingAdapterTest {
     @Test
     public void testUpdate() throws Exception {
         // setup
+        String expected = mainActivity.getResources().getText(R.string.channel_rating_best_none).toString();
         WiFiData wiFiData = new WiFiData(new ArrayList<WiFiDetail>(), WiFiConnection.EMPTY, new ArrayList<String>());
         List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(WiFiBand.GHZ5, SortBy.STRENGTH);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
@@ -116,33 +123,63 @@ public class ChannelRatingAdapterTest {
         // execute
         fixture.update(wiFiData);
         // validate
+        assertEquals(expected, bestChannels.getText());
         verify(channelRating).setWiFiDetails(wiFiDetails);
         verify(settings).getWiFiBand();
         verify(settings).getCountryCode();
     }
 
     @Test
-    public void testBestChannelsGHZ2() throws Exception {
+    public void testBestChannelsGHZ2ErrorMessage() throws Exception {
         // setup
+        Resources resources = mainActivity.getResources();
+        String expected = resources.getText(R.string.channel_rating_best_none).toString()
+            + resources.getText(R.string.channel_rating_best_alternative)
+            + " " + WiFiBand.GHZ5.getBand();
         List<WiFiChannel> wiFiChannels = new ArrayList<>();
-        List<ChannelRating.ChannelAPCount> channelAPCounts = new ArrayList<>();
+        List<ChannelAPCount> channelAPCounts = new ArrayList<>();
         when(channelRating.getBestChannels(wiFiChannels)).thenReturn(channelAPCounts);
         // execute
         fixture.bestChannels(WiFiBand.GHZ2, wiFiChannels);
         // validate
+        assertEquals(expected, bestChannels.getText());
         verify(channelRating).getBestChannels(wiFiChannels);
     }
 
     @Test
-    public void testBestChannelsGHZ5() throws Exception {
+    public void testBestChannelsGHZ5WithErrorMessage() throws Exception {
         // setup
+        String expected = mainActivity.getResources().getText(R.string.channel_rating_best_none).toString();
         List<WiFiChannel> wiFiChannels = new ArrayList<>();
-        List<ChannelRating.ChannelAPCount> channelAPCounts = new ArrayList<>();
+        List<ChannelAPCount> channelAPCounts = new ArrayList<>();
         when(channelRating.getBestChannels(wiFiChannels)).thenReturn(channelAPCounts);
         // execute
         fixture.bestChannels(WiFiBand.GHZ5, wiFiChannels);
         // validate
+        assertEquals(expected, bestChannels.getText());
         verify(channelRating).getBestChannels(wiFiChannels);
     }
 
+    @Test
+    public void testBestChannelsGHZ5WithChannels() throws Exception {
+        // setup
+        String expected = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11...";
+        List<WiFiChannel> wiFiChannels = new ArrayList<>();
+        List<ChannelAPCount> channelAPCounts = withChannelAPCounts();
+        when(channelRating.getBestChannels(wiFiChannels)).thenReturn(channelAPCounts);
+        // execute
+        fixture.bestChannels(WiFiBand.GHZ5, wiFiChannels);
+        // validate
+        assertEquals(expected, bestChannels.getText());
+        verify(channelRating).getBestChannels(wiFiChannels);
+    }
+
+    @NonNull
+    private List<ChannelAPCount> withChannelAPCounts() {
+        List<ChannelAPCount> channelAPCounts = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+            channelAPCounts.add(new ChannelAPCount(new WiFiChannel(i + 1, i + 100), 0));
+        }
+        return channelAPCounts;
+    }
 }

@@ -115,7 +115,7 @@ public class ChannelRatingTest {
         List<WiFiChannel> channels = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannels();
         fixture.setWiFiDetails(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4));
         // execute
-        List<ChannelRating.ChannelAPCount> actual = fixture.getBestChannels(channels);
+        List<ChannelAPCount> actual = fixture.getBestChannels(channels);
         // validate
         assertEquals(7, actual.size());
         validateChannelAPCount(1, 0, actual.get(0));
@@ -127,7 +127,7 @@ public class ChannelRatingTest {
         validateChannelAPCount(4, 1, actual.get(6));
     }
 
-    private void validateChannelAPCount(int expectedChannel, int expectedCount, ChannelRating.ChannelAPCount channelAPCount) {
+    private void validateChannelAPCount(int expectedChannel, int expectedCount, ChannelAPCount channelAPCount) {
         assertEquals(expectedChannel, channelAPCount.getWiFiChannel().getChannel());
         assertEquals(expectedCount, channelAPCount.getCount());
     }

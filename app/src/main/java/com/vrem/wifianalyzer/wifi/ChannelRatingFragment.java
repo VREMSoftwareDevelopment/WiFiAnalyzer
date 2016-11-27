@@ -77,6 +77,10 @@ public class ChannelRatingFragment extends Fragment {
         super.onDestroy();
     }
 
+    ChannelRatingAdapter getChannelRatingAdapter() {
+        return channelRatingAdapter;
+    }
+
     private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
         @Override
         public void onRefresh() {
