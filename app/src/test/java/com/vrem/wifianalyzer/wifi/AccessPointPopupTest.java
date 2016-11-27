@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.app.Dialog;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.vrem.wifianalyzer.BuildConfig;
@@ -30,7 +31,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,8 +40,6 @@ import org.robolectric.annotation.Config;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 
 @RunWith(RobolectricTestRunner.class)
@@ -49,46 +47,51 @@ import static org.mockito.Mockito.verify;
 public class AccessPointPopupTest {
     private MainActivity mainActivity;
 
-    private AccessPointDetail accessPointDetail;
     private AccessPointPopup fixture;
 
     @Before
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
-
-        accessPointDetail = mock(AccessPointDetail.class);
-
-        fixture = new AccessPointPopup(accessPointDetail);
+        fixture = new AccessPointPopup();
     }
 
     @Test
-    public void testShowWithViewPopupAccessPointDetail() throws Exception {
+    public void testShowOpensPopup() throws Exception {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(new WiFiAdditional(StringUtils.EMPTY, false));
-        View popupView = fixture.getPopupView();
+        View view = mainActivity.getLayoutInflater().inflate(R.layout.access_point_view_popup, null);
         // execute
-        Dialog actual = fixture.show(wiFiDetail);
+        Dialog actual = fixture.show(view);
         // validate
         assertNotNull(actual);
         assertTrue(actual.isShowing());
-        verify(accessPointDetail).setViewPopup(mainActivity.getResources(), popupView, wiFiDetail);
     }
 
     @Test
-    public void testShowWithAttachedOnClickListener() throws Exception {
+    public void testPopupIsClosedOnCloseButtonClick() throws Exception {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(new WiFiAdditional(StringUtils.EMPTY, false));
-        Dialog dialog = fixture.show(wiFiDetail);
-        View view = dialog.findViewById(R.id.popupButton);
+        View view = mainActivity.getLayoutInflater().inflate(R.layout.access_point_view_popup, null);
+        Dialog dialog = fixture.show(view);
+        View closeButton = dialog.findViewById(R.id.popupButtonClose);
         // execute
-        view.performClick();
+        closeButton.performClick();
         // validate
         assertFalse(dialog.isShowing());
-
     }
 
-    private WiFiDetail withWiFiDetail(WiFiAdditional wiFiAdditional) {
-        return new WiFiDetail("SSID", "BSSID", "capabilities", new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2), wiFiAdditional);
+    @Test
+    public void testAttach() throws Exception {
+        // setup
+        WiFiDetail wiFiDetail = withWiFiDetail();
+        View view = mainActivity.getLayoutInflater().inflate(R.layout.access_point_view_compact, null);
+        // execute
+        fixture.attach(view, wiFiDetail);
+        // validate
+        assertTrue(view.performClick());
+    }
+
+    @NonNull
+    private WiFiDetail withWiFiDetail() {
+        return new WiFiDetail("SSID", "BSSID", "capabilities", new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2), WiFiAdditional.EMPTY);
     }
 
 }

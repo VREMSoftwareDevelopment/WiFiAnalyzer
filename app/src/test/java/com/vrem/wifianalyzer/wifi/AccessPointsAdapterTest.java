@@ -19,18 +19,16 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
-import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,13 +52,14 @@ public class AccessPointsAdapterTest {
     private AccessPointsAdapter fixture;
     private AccessPointsAdapterData accessPointsAdapterData;
     private AccessPointDetail accessPointDetail;
+    private View view;
+    private ViewGroup viewGroup;
 
     @Before
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
-
-        Settings settings = MainContextHelper.INSTANCE.getSettings();
-        when(settings.getAPView()).thenReturn(APView.FULL);
+        viewGroup = null;
+        view = mainActivity.getLayoutInflater().inflate(APView.FULL.getLayout(), viewGroup, false);
 
         accessPointsAdapterData = mock(AccessPointsAdapterData.class);
         accessPointDetail = mock(AccessPointDetail.class);
@@ -70,10 +69,6 @@ public class AccessPointsAdapterTest {
         fixture.setAccessPointDetail(accessPointDetail);
     }
 
-    @After
-    public void tearDown() {
-        MainContextHelper.INSTANCE.restore();
-    }
 
     @Test
     public void testGetGroupViewWithNoChildren() throws Exception {
@@ -81,12 +76,13 @@ public class AccessPointsAdapterTest {
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.parent(1)).thenReturn(wiFiDetail);
         when(accessPointsAdapterData.childrenCount(1)).thenReturn(0);
+        when(accessPointDetail.makeView(view, viewGroup, wiFiDetail, false)).thenReturn(view);
         // execute
-        View actual = fixture.getGroupView(1, false, null, null);
+        View actual = fixture.getGroupView(1, false, view, viewGroup);
         // validate
         assertNotNull(actual);
         assertEquals(View.GONE, actual.findViewById(R.id.groupIndicator).getVisibility());
-        verify(accessPointDetail).setView(mainActivity.getResources(), actual, wiFiDetail, false);
+        verify(accessPointDetail).makeView(view, viewGroup, wiFiDetail, false);
         verify(accessPointsAdapterData).parent(1);
         verify(accessPointsAdapterData).childrenCount(1);
     }
@@ -97,12 +93,13 @@ public class AccessPointsAdapterTest {
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.parent(1)).thenReturn(wiFiDetail);
         when(accessPointsAdapterData.childrenCount(1)).thenReturn(5);
+        when(accessPointDetail.makeView(view, viewGroup, wiFiDetail, false)).thenReturn(view);
         // execute
-        View actual = fixture.getGroupView(1, false, null, null);
+        View actual = fixture.getGroupView(1, false, view, viewGroup);
         // validate
         assertNotNull(actual);
         assertEquals(View.VISIBLE, actual.findViewById(R.id.groupIndicator).getVisibility());
-        verify(accessPointDetail).setView(mainActivity.getResources(), actual, wiFiDetail, false);
+        verify(accessPointDetail).makeView(view, viewGroup, wiFiDetail, false);
         verify(accessPointsAdapterData).parent(1);
         verify(accessPointsAdapterData).childrenCount(1);
     }
@@ -112,12 +109,13 @@ public class AccessPointsAdapterTest {
         // setup
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.child(0, 0)).thenReturn(wiFiDetail);
+        when(accessPointDetail.makeView(view, viewGroup, wiFiDetail, true)).thenReturn(view);
         // execute
-        View actual = fixture.getChildView(0, 0, false, null, null);
+        View actual = fixture.getChildView(0, 0, false, view, viewGroup);
         // validate
         assertNotNull(actual);
         assertEquals(View.GONE, actual.findViewById(R.id.groupIndicator).getVisibility());
-        verify(accessPointDetail).setView(mainActivity.getResources(), actual, wiFiDetail, true);
+        verify(accessPointDetail).makeView(view, viewGroup, wiFiDetail, true);
         verify(accessPointsAdapterData).child(0, 0);
     }
 
@@ -198,4 +196,5 @@ public class AccessPointsAdapterTest {
     public void testIsChildSelectable() throws Exception {
         assertTrue(fixture.isChildSelectable(0, 0));
     }
+
 }

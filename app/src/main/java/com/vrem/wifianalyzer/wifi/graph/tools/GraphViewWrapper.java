@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.wifi.graph.tools;
 
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
@@ -177,11 +178,21 @@ public class GraphViewWrapper {
         public void onTap(@NonNull Series series, @NonNull DataPointInterface dataPoint) {
             WiFiDetail wiFiDetail = seriesCache.find(series);
             if (wiFiDetail != null) {
-                AccessPointDetail accessPointDetail = new AccessPointDetail();
-                AccessPointPopup accessPointPopup = new AccessPointPopup(accessPointDetail);
-                accessPointPopup.show(wiFiDetail);
+                View popupView = getAccessPointDetail().makeViewPopup(wiFiDetail);
+                getAccessPointPopup().show(popupView);
             }
         }
+
+        @NonNull
+        private AccessPointPopup getAccessPointPopup() {
+            return new AccessPointPopup();
+        }
+
+        @NonNull
+        private AccessPointDetail getAccessPointDetail() {
+            return new AccessPointDetail();
+        }
+
     }
 
 }

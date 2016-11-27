@@ -21,13 +21,11 @@ package com.vrem.wifianalyzer.wifi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 
-import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -56,7 +54,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         WiFiDetail wiFiDetail = (WiFiDetail) getGroup(groupPosition);
-        View view = getView(convertView, parent, wiFiDetail, false);
+        View view = accessPointDetail.makeView(convertView, parent, wiFiDetail, false);
 
         ImageView groupIndicator = (ImageView) view.findViewById(R.id.groupIndicator);
         int childrenCount = getChildrenCount(groupPosition);
@@ -76,7 +74,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         WiFiDetail wiFiDetail = (WiFiDetail) getChild(groupPosition, childPosition);
-        View view = getView(convertView, parent, wiFiDetail, true);
+        View view = accessPointDetail.makeView(convertView, parent, wiFiDetail, true);
         view.findViewById(R.id.groupIndicator).setVisibility(View.GONE);
         return view;
     }
@@ -127,16 +125,4 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         return true;
     }
 
-    private View getView(View convertView, ViewGroup parent, WiFiDetail wiFiDetail, boolean isChild) {
-        MainContext mainContext = MainContext.INSTANCE;
-        APView apView = mainContext.getSettings().getAPView();
-
-        View view = convertView;
-        if (view == null) {
-            LayoutInflater layoutInflater = mainContext.getLayoutInflater();
-            view = layoutInflater.inflate(apView.getLayout(), parent, false);
-        }
-        accessPointDetail.setView(resources, view, wiFiDetail, isChild);
-        return view;
-    }
 }

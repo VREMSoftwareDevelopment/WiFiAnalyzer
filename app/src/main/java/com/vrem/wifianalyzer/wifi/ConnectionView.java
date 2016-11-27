@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.wifi;
 
 import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -71,34 +70,18 @@ public class ConnectionView implements UpdateNotifier {
 
     private void setConnectionVisibility(@NonNull WiFiData wiFiData) {
         WiFiDetail connection = wiFiData.getConnection();
-        ViewGroup connectionView = (ViewGroup) mainActivity.findViewById(R.id.connection);
+        View connectionView = mainActivity.findViewById(R.id.connection);
         WiFiConnection wiFiConnection = connection.getWiFiAdditional().getWiFiConnection();
         if (wiFiConnection.isConnected()) {
             connectionView.setVisibility(View.VISIBLE);
-            setDetailView(connectionView);
-            setViewDetails(connection, connectionView);
+            ViewGroup parent = (ViewGroup) connectionView.findViewById(R.id.connectionDetail);
+            View child = accessPointDetail.makeView(parent.getChildAt(0), parent, connection, false);
+            if (parent.getChildCount() == 0) {
+                parent.addView(child);
+            }
             setViewConnection(connectionView, wiFiConnection);
         } else {
             connectionView.setVisibility(View.GONE);
-        }
-    }
-
-    private void setViewDetails(WiFiDetail connection, ViewGroup connectionView) {
-        accessPointDetail.setView(MainContext.INSTANCE.getResources(), connectionView, connection, false);
-    }
-
-    private void setDetailView(ViewGroup connectionView) {
-        View view = connectionView.findViewById(R.id.connectionDetail);
-        if (view != null) {
-            MainContext mainContext = MainContext.INSTANCE;
-            LayoutInflater layoutInflater = mainContext.getLayoutInflater();
-            APView apView = mainContext.getSettings().getAPView();
-            View newView = layoutInflater.inflate(apView.getLayout(), connectionView, false);
-            int index = connectionView.indexOfChild(view);
-            if (index > -1) {
-                connectionView.removeView(view);
-                connectionView.addView(newView, index);
-            }
         }
     }
 

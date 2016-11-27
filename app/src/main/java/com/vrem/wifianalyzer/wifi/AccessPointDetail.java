@@ -21,11 +21,13 @@ package com.vrem.wifianalyzer.wifi;
 import android.content.res.Resources;
 import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.Strength;
@@ -39,18 +41,43 @@ public class AccessPointDetail {
     private static final int VENDOR_SHORT_MAX = 12;
     private static final int VENDOR_LONG_MAX = 30;
 
-    void setView(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
+    View makeView(View convertView, ViewGroup parent, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
+        MainContext mainContext = MainContext.INSTANCE;
+
+        View view = convertView;
+        if (view == null) {
+            LayoutInflater layoutInflater = mainContext.getLayoutInflater();
+            APView apView = mainContext.getMainActivity().getCurrentAPView();
+            view = layoutInflater.inflate(apView.getLayout(), parent, false);
+        }
+
+        Resources resources = mainContext.getResources();
         setViewCompact(resources, view, wiFiDetail, isChild);
         if (view.findViewById(R.id.capabilities) != null) {
             setViewExtra(resources, view, wiFiDetail);
             setViewVendorShort(view, wiFiDetail.getWiFiAdditional());
         }
+
         View popupView = view.findViewById(R.id.attachPopup);
         if (popupView != null) {
-            PopupDialogOpenListener popupDialogOpenListener = new PopupDialogOpenListener(wiFiDetail);
-            popupView.setOnClickListener(popupDialogOpenListener);
-            view.findViewById(R.id.ssid).setOnClickListener(popupDialogOpenListener);
+            AccessPointPopup accessPointPopup = new AccessPointPopup();
+            accessPointPopup.attach(popupView, wiFiDetail);
+            accessPointPopup.attach(view.findViewById(R.id.ssid), wiFiDetail);
         }
+
+        return view;
+    }
+
+    public View makeViewPopup(@NonNull WiFiDetail wiFiDetail) {
+        MainContext mainContext = MainContext.INSTANCE;
+        View view = mainContext.getLayoutInflater().inflate(R.layout.access_point_view_popup, null);
+
+        Resources resources = mainContext.getResources();
+        setViewCompact(resources, view, wiFiDetail, false);
+        setViewExtra(resources, view, wiFiDetail);
+        setViewVendorLong(view, wiFiDetail.getWiFiAdditional());
+
+        return view;
     }
 
     private void setViewCompact(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
@@ -73,19 +100,13 @@ public class AccessPointDetail {
         ((TextView) view.findViewById(R.id.primaryFrequency))
             .setText(wiFiSignal.getPrimaryFrequency() + WifiInfo.FREQUENCY_UNITS);
         ((TextView) view.findViewById(R.id.distance))
-            .setText(String.format("%.1fm", wiFiSignal.getDistance()));
+            .setText(String.format("%5.1fm", wiFiSignal.getDistance()));
 
         if (isChild) {
             view.findViewById(R.id.tab).setVisibility(View.VISIBLE);
         } else {
             view.findViewById(R.id.tab).setVisibility(View.GONE);
         }
-    }
-
-    void setViewPopup(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail) {
-        setViewCompact(resources, view, wiFiDetail, false);
-        setViewExtra(resources, view, wiFiDetail);
-        setViewVendorLong(view, wiFiDetail.getWiFiAdditional());
     }
 
     private void setViewExtra(@NonNull Resources resources, @NonNull View view, @NonNull WiFiDetail wiFiDetail) {
@@ -134,17 +155,4 @@ public class AccessPointDetail {
         }
     }
 
-    private class PopupDialogOpenListener implements OnClickListener {
-        private final WiFiDetail wiFiDetail;
-
-        PopupDialogOpenListener(@NonNull WiFiDetail wiFiDetail) {
-            this.wiFiDetail = wiFiDetail;
-        }
-
-        @Override
-        public void onClick(View view) {
-            AccessPointPopup accessPointPopup = new AccessPointPopup(AccessPointDetail.this);
-            accessPointPopup.show(wiFiDetail);
-        }
-    }
 }

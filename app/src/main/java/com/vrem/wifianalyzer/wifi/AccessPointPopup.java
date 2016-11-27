@@ -23,34 +23,22 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 public class AccessPointPopup {
-    private final AccessPointDetail accessPointDetail;
-    private MainActivity mainActivity;
-    private View popupView;
 
-    public AccessPointPopup(@NonNull AccessPointDetail accessPointDetail) {
-        this.accessPointDetail = accessPointDetail;
-        MainContext mainContext = MainContext.INSTANCE;
-        mainActivity = mainContext.getMainActivity();
-        popupView = mainContext.getLayoutInflater().inflate(R.layout.access_point_view_popup, null);
-    }
-
-    public Dialog show(WiFiDetail wiFiDetail) {
-        Dialog dialog = new Dialog(mainActivity);
-        dialog.setContentView(popupView);
-        accessPointDetail.setViewPopup(mainActivity.getResources(), popupView, wiFiDetail);
-        dialog.findViewById(R.id.popupButton).setOnClickListener(new PopupDialogCloseListener(dialog));
+    public Dialog show(@NonNull View view) {
+        Dialog dialog = new Dialog(MainContext.INSTANCE.getMainActivity());
+        dialog.setContentView(view);
+        dialog.findViewById(R.id.popupButtonClose).setOnClickListener(new PopupDialogCloseListener(dialog));
         dialog.show();
         return dialog;
     }
 
-    View getPopupView() {
-        return popupView;
+    void attach(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {
+        view.setOnClickListener(new PopupDialogOpenListener(wiFiDetail));
     }
 
     private class PopupDialogCloseListener implements OnClickListener {
@@ -65,4 +53,18 @@ public class AccessPointPopup {
             dialog.dismiss();
         }
     }
+
+    private class PopupDialogOpenListener implements OnClickListener {
+        private final WiFiDetail wiFiDetail;
+
+        PopupDialogOpenListener(@NonNull WiFiDetail wiFiDetail) {
+            this.wiFiDetail = wiFiDetail;
+        }
+
+        @Override
+        public void onClick(View view) {
+            show(new AccessPointDetail().makeViewPopup(wiFiDetail));
+        }
+    }
+
 }
