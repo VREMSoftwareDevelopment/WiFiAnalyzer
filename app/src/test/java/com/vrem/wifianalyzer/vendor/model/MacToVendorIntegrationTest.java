@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.vendor.model;
 
 import android.support.annotation.NonNull;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -32,6 +33,7 @@ import static org.junit.Assert.assertEquals;
 
 public class MacToVendorIntegrationTest {
 
+    @Ignore
     @Test
     public void testMacVendorsComLong() throws Exception {
         validateMacVendorsCom("00:23:AB:8C:DF:10");
