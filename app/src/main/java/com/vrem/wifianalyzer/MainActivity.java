@@ -40,7 +40,7 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
-import com.vrem.wifianalyzer.wifi.APView;
+import com.vrem.wifianalyzer.wifi.AccessPointView;
 import com.vrem.wifianalyzer.wifi.ConnectionView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     public static final String WI_FI_ANALYZER_BETA = "BETA";
 
     private ThemeStyle currentThemeStyle;
-    private APView currentAPView;
+    private AccessPointView currentAccessPointView;
     private NavigationMenuView navigationMenuView;
     private NavigationMenu startNavigationMenu;
     private String currentCountryCode;
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         Settings settings = mainContext.getSettings();
         settings.initializeDefaultValues();
         setCurrentThemeStyle(settings.getThemeStyle());
-        setCurrentAPView(settings.getAPView());
+        setCurrentAccessPointView(settings.getAPView());
         setTheme(getCurrentThemeStyle().themeAppCompatStyle());
         setWiFiChannelPairs();
 
@@ -137,10 +137,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     private boolean isAPViewChanged(Settings settings) {
-        APView settingAPView = settings.getAPView();
-        boolean apViewChanged = !getCurrentAPView().equals(settingAPView);
+        AccessPointView settingAccessPointView = settings.getAPView();
+        boolean apViewChanged = !getCurrentAccessPointView().equals(settingAccessPointView);
         if (apViewChanged) {
-            setCurrentAPView(settingAPView);
+            setCurrentAccessPointView(settingAccessPointView);
         }
         return apViewChanged;
     }
@@ -247,12 +247,12 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         this.currentThemeStyle = currentThemeStyle;
     }
 
-    public APView getCurrentAPView() {
-        return currentAPView;
+    public AccessPointView getCurrentAccessPointView() {
+        return currentAccessPointView;
     }
 
-    public void setCurrentAPView(@NonNull APView currentAPView) {
-        this.currentAPView = currentAPView;
+    public void setCurrentAccessPointView(@NonNull AccessPointView currentAccessPointView) {
+        this.currentAccessPointView = currentAccessPointView;
     }
 
     private class WiFiBandToggle implements OnClickListener {

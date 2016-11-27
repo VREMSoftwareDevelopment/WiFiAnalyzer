@@ -23,7 +23,7 @@ import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
-import com.vrem.wifianalyzer.wifi.APView;
+import com.vrem.wifianalyzer.wifi.AccessPointView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
@@ -64,8 +64,8 @@ public class Settings {
         return GroupBy.find(repository.getStringAsInteger(R.string.group_by_key, GroupBy.NONE.ordinal()));
     }
 
-    public APView getAPView() {
-        return APView.find(repository.getStringAsInteger(R.string.ap_view_key, APView.FULL.ordinal()));
+    public AccessPointView getAPView() {
+        return AccessPointView.find(repository.getStringAsInteger(R.string.ap_view_key, AccessPointView.FULL.ordinal()));
     }
 
     public GraphLegend getChannelGraphLegend() {

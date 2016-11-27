@@ -20,17 +20,17 @@ package com.vrem.wifianalyzer.wifi;
 
 import com.vrem.wifianalyzer.R;
 
-public enum APView {
+public enum AccessPointView {
     FULL(R.layout.access_point_view_full),
     COMPACT(R.layout.access_point_view_compact);
 
     private final int layout;
 
-    APView(int layout) {
+    AccessPointView(int layout) {
         this.layout = layout;
     }
 
-    public static APView find(int index) {
+    public static AccessPointView find(int index) {
         if (index < 0 || index >= values().length) {
             return FULL;
         }

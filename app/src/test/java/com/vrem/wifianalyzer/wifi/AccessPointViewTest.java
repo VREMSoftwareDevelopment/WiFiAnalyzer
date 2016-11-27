@@ -26,37 +26,37 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class APViewTest {
+public class AccessPointViewTest {
     @Test
     public void testAPViewNumber() throws Exception {
-        assertEquals(2, APView.values().length);
+        assertEquals(2, AccessPointView.values().length);
     }
 
     @Test
     public void testFind() throws Exception {
-        assertEquals(APView.FULL, APView.find(-1));
-        assertEquals(APView.FULL, APView.find(APView.values().length));
+        assertEquals(AccessPointView.FULL, AccessPointView.find(-1));
+        assertEquals(AccessPointView.FULL, AccessPointView.find(AccessPointView.values().length));
 
-        assertEquals(APView.FULL, APView.find(APView.FULL.ordinal()));
-        assertEquals(APView.COMPACT, APView.find(APView.COMPACT.ordinal()));
+        assertEquals(AccessPointView.FULL, AccessPointView.find(AccessPointView.FULL.ordinal()));
+        assertEquals(AccessPointView.COMPACT, AccessPointView.find(AccessPointView.COMPACT.ordinal()));
     }
 
     @Test
     public void testGetLayout() throws Exception {
-        assertEquals(R.layout.access_point_view_full, APView.FULL.getLayout());
-        assertEquals(R.layout.access_point_view_compact, APView.COMPACT.getLayout());
+        assertEquals(R.layout.access_point_view_full, AccessPointView.FULL.getLayout());
+        assertEquals(R.layout.access_point_view_compact, AccessPointView.COMPACT.getLayout());
     }
 
     @Test
     public void testIsFull() throws Exception {
-        assertTrue(APView.FULL.isFull());
-        assertFalse(APView.COMPACT.isFull());
+        assertTrue(AccessPointView.FULL.isFull());
+        assertFalse(AccessPointView.COMPACT.isFull());
     }
 
     @Test
     public void testIsCompact() throws Exception {
-        assertFalse(APView.FULL.isCompact());
-        assertTrue(APView.COMPACT.isCompact());
+        assertFalse(AccessPointView.FULL.isCompact());
+        assertTrue(AccessPointView.COMPACT.isCompact());
     }
 
 }

@@ -24,7 +24,7 @@ import android.text.Html;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
-import com.vrem.wifianalyzer.wifi.APView;
+import com.vrem.wifianalyzer.wifi.AccessPointView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 
 import org.junit.After;
@@ -131,20 +131,20 @@ public class MainActivityTest {
     @Test
     public void testShouldNotReloadWithNoAPViewChanges() throws Exception {
         // setup
-        APView expected = fixture.getCurrentAPView();
+        AccessPointView expected = fixture.getCurrentAccessPointView();
         // execute && validate
         assertFalse(fixture.shouldReload());
-        assertEquals(expected, fixture.getCurrentAPView());
+        assertEquals(expected, fixture.getCurrentAccessPointView());
     }
 
     @Test
     public void testShouldReloadWithAPViewChange() throws Exception {
         // setup
-        APView expected = fixture.getCurrentAPView();
-        fixture.setCurrentAPView(APView.FULL.equals(expected) ? APView.COMPACT : APView.FULL);
+        AccessPointView expected = fixture.getCurrentAccessPointView();
+        fixture.setCurrentAccessPointView(AccessPointView.FULL.equals(expected) ? AccessPointView.COMPACT : AccessPointView.FULL);
         // execute && validate
         assertTrue(fixture.shouldReload());
-        assertEquals(expected, fixture.getCurrentAPView());
+        assertEquals(expected, fixture.getCurrentAccessPointView());
     }
 
     @NonNull

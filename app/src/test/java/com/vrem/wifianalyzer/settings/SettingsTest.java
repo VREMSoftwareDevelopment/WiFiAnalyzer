@@ -25,7 +25,7 @@ import android.content.res.Resources;
 
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
-import com.vrem.wifianalyzer.wifi.APView;
+import com.vrem.wifianalyzer.wifi.AccessPointView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
@@ -118,12 +118,12 @@ public class SettingsTest {
     @Test
     public void testAPView() throws Exception {
         // setup
-        when(repository.getStringAsInteger(R.string.ap_view_key, APView.FULL.ordinal())).thenReturn(APView.COMPACT.ordinal());
+        when(repository.getStringAsInteger(R.string.ap_view_key, AccessPointView.FULL.ordinal())).thenReturn(AccessPointView.COMPACT.ordinal());
         // execute
-        APView actual = fixture.getAPView();
+        AccessPointView actual = fixture.getAPView();
         // validate
-        assertEquals(APView.COMPACT, actual);
-        verify(repository).getStringAsInteger(R.string.ap_view_key, APView.FULL.ordinal());
+        assertEquals(AccessPointView.COMPACT, actual);
+        verify(repository).getStringAsInteger(R.string.ap_view_key, AccessPointView.FULL.ordinal());
     }
 
     @Test

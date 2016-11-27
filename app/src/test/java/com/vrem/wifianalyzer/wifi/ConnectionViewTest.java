@@ -76,7 +76,7 @@ public class ConnectionViewTest {
         mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
         View view = mainActivity.findViewById(R.id.connection);
         ViewGroup parent = (ViewGroup) view.findViewById(R.id.connectionDetail);
-        childView = mainActivity.getLayoutInflater().inflate(APView.FULL.getLayout(), parent, false);
+        childView = mainActivity.getLayoutInflater().inflate(AccessPointView.FULL.getLayout(), parent, false);
 
         accessPointDetail = mock(AccessPointDetail.class);
         wiFiData = mock(WiFiData.class);

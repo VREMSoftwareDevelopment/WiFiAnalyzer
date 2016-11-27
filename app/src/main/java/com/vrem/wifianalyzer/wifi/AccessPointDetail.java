@@ -47,8 +47,8 @@ public class AccessPointDetail {
         View view = convertView;
         if (view == null) {
             LayoutInflater layoutInflater = mainContext.getLayoutInflater();
-            APView apView = mainContext.getMainActivity().getCurrentAPView();
-            view = layoutInflater.inflate(apView.getLayout(), parent, false);
+            AccessPointView accessPointView = mainContext.getMainActivity().getCurrentAccessPointView();
+            view = layoutInflater.inflate(accessPointView.getLayout(), parent, false);
         }
 
         Resources resources = mainContext.getResources();
