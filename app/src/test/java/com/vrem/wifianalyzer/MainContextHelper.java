@@ -18,9 +18,6 @@
 
 package com.vrem.wifianalyzer;
 
-import android.content.res.Resources;
-import android.view.LayoutInflater;
-
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
@@ -65,33 +62,15 @@ public enum MainContextHelper {
         return result;
     }
 
-    public LayoutInflater getLayoutInflater() {
-        LayoutInflater result = (LayoutInflater) save(LayoutInflater.class, mainContext.getLayoutInflater());
-        mainContext.setLayoutInflater(result);
-        return result;
-    }
-
     public Database getDatabase() {
         Database result = (Database) save(Database.class, mainContext.getDatabase());
         mainContext.setDatabase(result);
         return result;
     }
 
-    public Resources getResources() {
-        Resources result = (Resources) save(Resources.class, mainContext.getResources());
-        mainContext.setResources(result);
-        return result;
-    }
-
     public MainActivity getMainActivity() {
         MainActivity result = (MainActivity) save(MainActivity.class, mainContext.getMainActivity());
         mainContext.setMainActivity(result);
-        return result;
-    }
-
-    public Logger getLogger() {
-        Logger result = (Logger) save(Logger.class, mainContext.getLogger());
-        mainContext.setLogger(result);
         return result;
     }
 
@@ -112,14 +91,8 @@ public enum MainContextHelper {
                 mainContext.setScanner((Scanner) result);
             } else if (clazz.equals(MainActivity.class)) {
                 mainContext.setMainActivity((MainActivity) result);
-            } else if (clazz.equals(Resources.class)) {
-                mainContext.setResources((Resources) result);
-            } else if (clazz.equals(LayoutInflater.class)) {
-                mainContext.setLayoutInflater((LayoutInflater) result);
             } else if (clazz.equals(Database.class)) {
                 mainContext.setDatabase((Database) result);
-            } else if (clazz.equals(Logger.class)) {
-                mainContext.setLogger((Logger) result);
             } else if (clazz.equals(Configuration.class)) {
                 mainContext.setConfiguration((Configuration) result);
             } else {

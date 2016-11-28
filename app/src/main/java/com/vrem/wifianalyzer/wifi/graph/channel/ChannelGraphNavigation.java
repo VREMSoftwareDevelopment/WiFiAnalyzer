@@ -87,7 +87,7 @@ class ChannelGraphNavigation {
     }
 
     private void setSelectedButton(Button button, boolean selected) {
-        Resources resources = MainContext.INSTANCE.getResources();
+        Resources resources = MainContext.INSTANCE.getMainActivity().getResources();
         if (selected) {
             button.setBackgroundColor(resources.getColor(R.color.connected));
             button.setSelected(true);

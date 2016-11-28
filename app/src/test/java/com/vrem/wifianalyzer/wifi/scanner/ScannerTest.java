@@ -25,7 +25,6 @@ import android.net.wifi.WifiManager;
 import android.os.Handler;
 
 import com.vrem.wifianalyzer.Configuration;
-import com.vrem.wifianalyzer.Logger;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
@@ -63,8 +62,6 @@ public class ScannerTest {
     private Cache cache;
     @Mock
     private Transformer transformer;
-    @Mock
-    private Logger logger;
     @Mock
     private WiFiData wiFiData;
     @Mock

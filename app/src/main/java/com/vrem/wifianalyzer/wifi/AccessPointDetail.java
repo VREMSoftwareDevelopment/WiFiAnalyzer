@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.Security;
@@ -42,16 +43,16 @@ public class AccessPointDetail {
     private static final int VENDOR_LONG_MAX = 30;
 
     View makeView(View convertView, ViewGroup parent, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
-        MainContext mainContext = MainContext.INSTANCE;
+        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
 
         View view = convertView;
         if (view == null) {
-            LayoutInflater layoutInflater = mainContext.getLayoutInflater();
-            AccessPointView accessPointView = mainContext.getMainActivity().getCurrentAccessPointView();
+            LayoutInflater layoutInflater = mainActivity.getLayoutInflater();
+            AccessPointView accessPointView = mainActivity.getCurrentAccessPointView();
             view = layoutInflater.inflate(accessPointView.getLayout(), parent, false);
         }
 
-        Resources resources = mainContext.getResources();
+        Resources resources = mainActivity.getResources();
         setViewCompact(resources, view, wiFiDetail, isChild);
         if (view.findViewById(R.id.capabilities) != null) {
             setViewExtra(resources, view, wiFiDetail);
@@ -62,10 +63,10 @@ public class AccessPointDetail {
     }
 
     public View makeViewPopup(@NonNull WiFiDetail wiFiDetail) {
-        MainContext mainContext = MainContext.INSTANCE;
-        View view = mainContext.getLayoutInflater().inflate(R.layout.access_point_view_popup, null);
+        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
+        View view = mainActivity.getLayoutInflater().inflate(R.layout.access_point_view_popup, null);
 
-        Resources resources = mainContext.getResources();
+        Resources resources = mainActivity.getResources();
         setViewCompact(resources, view, wiFiDetail, false);
         setViewExtra(resources, view, wiFiDetail);
         setViewVendorLong(view, wiFiDetail.getWiFiAdditional());

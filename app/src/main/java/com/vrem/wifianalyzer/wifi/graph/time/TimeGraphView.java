@@ -103,8 +103,8 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     private GraphView makeGraphView() {
-        Resources resources = MainContext.INSTANCE.getResources();
         MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
+        Resources resources = mainActivity.getResources();
         return new GraphViewBuilder(mainActivity, getNumX())
             .setLabelFormatter(new TimeAxisLabel())
             .setVerticalTitle(resources.getString(R.string.graph_axis_y))

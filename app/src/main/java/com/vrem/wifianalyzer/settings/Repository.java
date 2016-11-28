@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.settings;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
 import com.vrem.wifianalyzer.MainActivity;
@@ -68,13 +67,11 @@ class Repository {
     }
 
     int getResourceInteger(int key) {
-        Resources resources = MainContext.INSTANCE.getResources();
-        return resources.getInteger(key);
+        return MainContext.INSTANCE.getMainActivity().getResources().getInteger(key);
     }
 
     int getInteger(int key, int defaultValue) {
-        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
-        String keyValue = mainActivity.getString(key);
+        String keyValue = MainContext.INSTANCE.getMainActivity().getString(key);
         try {
             return getSharedPreferences().getInt(keyValue, defaultValue);
         } catch (Exception e) {
