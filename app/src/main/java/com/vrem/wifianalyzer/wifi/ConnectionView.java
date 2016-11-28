@@ -38,16 +38,26 @@ import java.util.List;
 public class ConnectionView implements UpdateNotifier {
     private final MainActivity mainActivity;
     private AccessPointDetail accessPointDetail;
+    private AccessPointPopup accessPointPopup;
 
     public ConnectionView(@NonNull MainActivity mainActivity) {
         this.mainActivity = mainActivity;
         setAccessPointDetail(new AccessPointDetail());
+        setAccessPointPopup(new AccessPointPopup());
     }
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         setConnectionVisibility(wiFiData);
         setNoDataVisibility(wiFiData);
+    }
+
+    void setAccessPointDetail(@NonNull AccessPointDetail accessPointDetail) {
+        this.accessPointDetail = accessPointDetail;
+    }
+
+    void setAccessPointPopup(@NonNull AccessPointPopup accessPointPopup) {
+        this.accessPointPopup = accessPointPopup;
     }
 
     private void setNoDataVisibility(@NonNull WiFiData wiFiData) {
@@ -75,11 +85,12 @@ public class ConnectionView implements UpdateNotifier {
         if (wiFiConnection.isConnected()) {
             connectionView.setVisibility(View.VISIBLE);
             ViewGroup parent = (ViewGroup) connectionView.findViewById(R.id.connectionDetail);
-            View child = accessPointDetail.makeView(parent.getChildAt(0), parent, connection, false);
+            View view = accessPointDetail.makeView(parent.getChildAt(0), parent, connection, false);
             if (parent.getChildCount() == 0) {
-                parent.addView(child);
+                parent.addView(view);
             }
             setViewConnection(connectionView, wiFiConnection);
+            attachPopup(view, connection);
         } else {
             connectionView.setVisibility(View.GONE);
         }
@@ -99,7 +110,12 @@ public class ConnectionView implements UpdateNotifier {
         }
     }
 
-    void setAccessPointDetail(@NonNull AccessPointDetail accessPointDetail) {
-        this.accessPointDetail = accessPointDetail;
+    private void attachPopup(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {
+        View popupView = view.findViewById(R.id.attachPopup);
+        if (popupView != null) {
+            accessPointPopup.attach(popupView, wiFiDetail);
+            accessPointPopup.attach(view.findViewById(R.id.ssid), wiFiDetail);
+        }
     }
+
 }

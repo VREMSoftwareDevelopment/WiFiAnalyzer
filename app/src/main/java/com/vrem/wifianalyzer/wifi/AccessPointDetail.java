@@ -58,13 +58,6 @@ public class AccessPointDetail {
             setViewVendorShort(view, wiFiDetail.getWiFiAdditional());
         }
 
-        View popupView = view.findViewById(R.id.attachPopup);
-        if (popupView != null) {
-            AccessPointPopup accessPointPopup = new AccessPointPopup();
-            accessPointPopup.attach(popupView, wiFiDetail);
-            accessPointPopup.attach(view.findViewById(R.id.ssid), wiFiDetail);
-        }
-
         return view;
     }
 

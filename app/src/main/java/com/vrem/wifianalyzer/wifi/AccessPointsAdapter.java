@@ -35,26 +35,21 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     private final Resources resources;
     private AccessPointsAdapterData accessPointsAdapterData;
     private AccessPointDetail accessPointDetail;
+    private AccessPointPopup accessPointPopup;
 
     AccessPointsAdapter(@NonNull Context context) {
         super();
         this.resources = context.getResources();
         setAccessPointsAdapterData(new AccessPointsAdapterData());
         setAccessPointDetail(new AccessPointDetail());
-    }
-
-    void setAccessPointsAdapterData(@NonNull AccessPointsAdapterData accessPointsAdapterData) {
-        this.accessPointsAdapterData = accessPointsAdapterData;
-    }
-
-    void setAccessPointDetail(@NonNull AccessPointDetail accessPointDetail) {
-        this.accessPointDetail = accessPointDetail;
+        setAccessPointPopup(new AccessPointPopup());
     }
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         WiFiDetail wiFiDetail = (WiFiDetail) getGroup(groupPosition);
         View view = accessPointDetail.makeView(convertView, parent, wiFiDetail, false);
+        attachPopup(view, wiFiDetail);
 
         ImageView groupIndicator = (ImageView) view.findViewById(R.id.groupIndicator);
         int childrenCount = getChildrenCount(groupPosition);
@@ -67,7 +62,6 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         } else {
             groupIndicator.setVisibility(View.GONE);
         }
-
         return view;
     }
 
@@ -75,6 +69,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         WiFiDetail wiFiDetail = (WiFiDetail) getChild(groupPosition, childPosition);
         View view = accessPointDetail.makeView(convertView, parent, wiFiDetail, true);
+        attachPopup(view, wiFiDetail);
         view.findViewById(R.id.groupIndicator).setVisibility(View.GONE);
         return view;
     }
@@ -125,4 +120,23 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         return true;
     }
 
+    void setAccessPointsAdapterData(@NonNull AccessPointsAdapterData accessPointsAdapterData) {
+        this.accessPointsAdapterData = accessPointsAdapterData;
+    }
+
+    void setAccessPointDetail(@NonNull AccessPointDetail accessPointDetail) {
+        this.accessPointDetail = accessPointDetail;
+    }
+
+    void setAccessPointPopup(@NonNull AccessPointPopup accessPointPopup) {
+        this.accessPointPopup = accessPointPopup;
+    }
+
+    private void attachPopup(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {
+        View popupView = view.findViewById(R.id.attachPopup);
+        if (popupView != null) {
+            accessPointPopup.attach(popupView, wiFiDetail);
+            accessPointPopup.attach(view.findViewById(R.id.ssid), wiFiDetail);
+        }
+    }
 }

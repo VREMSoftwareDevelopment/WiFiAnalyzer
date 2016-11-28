@@ -64,32 +64,36 @@ public class ConnectionViewTest {
     private static final String GATEWAY = "GATEWAY";
 
     private MainActivity mainActivity;
+    private AccessPointView currentAccessPointView;
     private ConnectionView fixture;
 
     private Settings settings;
-    private View childView;
     private WiFiData wiFiData;
     private AccessPointDetail accessPointDetail;
+    private AccessPointPopup accessPointPopup;
 
     @Before
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
-        View view = mainActivity.findViewById(R.id.connection);
-        ViewGroup parent = (ViewGroup) view.findViewById(R.id.connectionDetail);
-        childView = mainActivity.getLayoutInflater().inflate(AccessPointView.FULL.getLayout(), parent, false);
+        currentAccessPointView = mainActivity.getCurrentAccessPointView();
+        mainActivity.setCurrentAccessPointView(AccessPointView.FULL);
 
         accessPointDetail = mock(AccessPointDetail.class);
+        accessPointPopup = mock(AccessPointPopup.class);
+
         wiFiData = mock(WiFiData.class);
         settings = MainContextHelper.INSTANCE.getSettings();
 
         fixture = new ConnectionView(mainActivity);
         fixture.setAccessPointDetail(accessPointDetail);
+        fixture.setAccessPointPopup(accessPointPopup);
     }
 
     @After
     public void tearDown() {
         MainContextHelper.INSTANCE.restore();
         mainActivity.getNavigationMenuView().setCurrentNavigationMenu(NavigationMenu.ACCESS_POINTS);
+        mainActivity.setCurrentAccessPointView(currentAccessPointView);
     }
 
     @Test
@@ -206,27 +210,40 @@ public class ConnectionViewTest {
         verify(wiFiData, never()).getWiFiDetails();
     }
 
-    @NonNull
+    @Test
+    public void testViewCompactAddsPopup() throws Exception {
+        // setup
+        mainActivity.setCurrentAccessPointView(AccessPointView.COMPACT);
+        WiFiDetail connection = withConnection(withWiFiAdditional());
+        withConnectionInformation(connection);
+        View view = withAccessPointDetailView(connection);
+        // execute
+        fixture.update(wiFiData);
+        // validate
+        verify(accessPointPopup).attach(view.findViewById(R.id.attachPopup), connection);
+        verify(accessPointPopup).attach(view.findViewById(R.id.ssid), connection);
+    }
+
     private WiFiDetail withConnection(@NonNull WiFiAdditional wiFiAdditional) {
         return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY,
             new WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55), wiFiAdditional);
     }
 
-    @NonNull
     private WiFiAdditional withWiFiAdditional() {
         WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, IP_ADDRESS, 11);
         return new WiFiAdditional(StringUtils.EMPTY, wiFiConnection);
     }
 
-    private void withAccessPointDetailView(@NonNull WiFiDetail connection) {
-        View view = mainActivity.findViewById(R.id.connection);
-        ViewGroup parent = (ViewGroup) view.findViewById(R.id.connectionDetail);
-        when(accessPointDetail.makeView(parent.getChildAt(0), parent, connection, false)).thenReturn(childView);
+    private View withAccessPointDetailView(@NonNull WiFiDetail connection) {
+        int layout = mainActivity.getCurrentAccessPointView().getLayout();
+        ViewGroup parent = (ViewGroup) mainActivity.findViewById(R.id.connection).findViewById(R.id.connectionDetail);
+        View view = mainActivity.getLayoutInflater().inflate(layout, parent, false);
+        when(accessPointDetail.makeView(parent.getChildAt(0), parent, connection, false)).thenReturn(view);
+        return view;
     }
 
     private void verifyAccessPointDetailView(@NonNull WiFiDetail connection) {
-        View view = mainActivity.findViewById(R.id.connection);
-        ViewGroup parent = (ViewGroup) view.findViewById(R.id.connectionDetail);
+        ViewGroup parent = (ViewGroup) mainActivity.findViewById(R.id.connection).findViewById(R.id.connectionDetail);
         verify(accessPointDetail).makeView(parent.getChildAt(0), parent, connection, false);
     }
 

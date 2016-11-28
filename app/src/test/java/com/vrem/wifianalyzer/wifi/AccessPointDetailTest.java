@@ -43,7 +43,6 @@ import org.robolectric.annotation.Config;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -250,30 +249,6 @@ public class AccessPointDetailTest {
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
         assertNotNull(actual.findViewById(R.id.attachPopup));
-    }
-
-    @Test
-    public void testMakeViewCompactAddsPopupToAttachPopup() throws Exception {
-        // setup
-        mainActivity.setCurrentAccessPointView(AccessPointView.COMPACT);
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
-        View view = fixture.makeView(null, null, wiFiDetail, false);
-        // execute
-        boolean actual = view.findViewById(R.id.attachPopup).performClick();
-        // validate
-        assertTrue(actual);
-    }
-
-    @Test
-    public void testMakeViewCompactAddsPopupToSSID() throws Exception {
-        // setup
-        mainActivity.setCurrentAccessPointView(AccessPointView.COMPACT);
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
-        View view = fixture.makeView(null, null, wiFiDetail, false);
-        // execute
-        boolean actual = view.findViewById(R.id.ssid).performClick();
-        // validate
-        assertTrue(actual);
     }
 
     @Test
