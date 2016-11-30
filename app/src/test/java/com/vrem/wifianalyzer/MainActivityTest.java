@@ -26,17 +26,20 @@ import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.AccessPointView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -46,12 +49,13 @@ public class MainActivityTest {
 
     @Before
     public void setUp() {
-        fixture = RobolectricUtil.INSTANCE.getMainActivity();
+        fixture = Robolectric.setupActivity(MainActivity.class);
     }
 
     @After
     public void tearDown() {
         fixture.getNavigationMenuView().setCurrentNavigationMenu(NavigationMenu.ACCESS_POINTS);
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test
@@ -95,18 +99,43 @@ public class MainActivityTest {
 
     @Test
     public void testOnPause() throws Exception {
+        // setup
+        Scanner scanner = MainContextHelper.INSTANCE.getScanner();
+        // execute
         fixture.onPause();
-        assertFalse(MainContext.INSTANCE.getScanner().isRunning());
+        // validate
+        verify(scanner).pause();
+    }
+
+    @Test
+    public void testOnResume() throws Exception {
+        // setup
+        Scanner scanner = MainContextHelper.INSTANCE.getScanner();
+        // execute
         fixture.onResume();
-        assertTrue(MainContext.INSTANCE.getScanner().isRunning());
+        // validate
+        verify(scanner).resume();
+    }
+
+    @Test
+    public void testOnDestroy() throws Exception {
+        // setup
+        Scanner scanner = MainContextHelper.INSTANCE.getScanner();
+        // execute
+        fixture.onDestroy();
+        // validate
+        verify(scanner).unregister(fixture.getConnectionView());
     }
 
     @Test
     public void testOnBackPressed() throws Exception {
         // setup
+        fixture = Robolectric.setupActivity(MainActivity.class);
+        fixture.getNavigationMenuView().setCurrentNavigationMenu(NavigationMenu.CHANNEL_RATING);
         // execute
         fixture.onBackPressed();
         // validate
+        assertEquals(NavigationMenu.ACCESS_POINTS, fixture.getNavigationMenuView().getCurrentNavigationMenu());
     }
 
     @Test
@@ -147,7 +176,6 @@ public class MainActivityTest {
         assertEquals(expected, fixture.getCurrentAccessPointView());
     }
 
-    @NonNull
     private String makeSubtitle(@NonNull WiFiBand currentWiFiBand) {
         int color = fixture.getResources().getColor(R.color.connected);
         String subtitleText = makeSubtitleText("<font color='" + color + "'><strong>", "</strong></font>", "<small>", "</small>");
@@ -157,7 +185,6 @@ public class MainActivityTest {
         return Html.fromHtml(subtitleText).toString();
     }
 
-    @NonNull
     private String makeSubtitleText(@NonNull String tag1, @NonNull String tag2, @NonNull String tag3, @NonNull String tag4) {
         return tag1 + WiFiBand.GHZ2.getBand() + tag2 + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + tag3 + WiFiBand.GHZ5.getBand() + tag4;
     }

@@ -28,7 +28,6 @@ import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
@@ -43,6 +42,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -74,7 +74,7 @@ public class ConnectionViewTest {
 
     @Before
     public void setUp() {
-        mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
+        mainActivity = Robolectric.setupActivity(MainActivity.class);
         currentAccessPointView = mainActivity.getCurrentAccessPointView();
         mainActivity.setCurrentAccessPointView(AccessPointView.FULL);
 
@@ -238,13 +238,13 @@ public class ConnectionViewTest {
         int layout = mainActivity.getCurrentAccessPointView().getLayout();
         ViewGroup parent = (ViewGroup) mainActivity.findViewById(R.id.connection).findViewById(R.id.connectionDetail);
         View view = mainActivity.getLayoutInflater().inflate(layout, parent, false);
-        when(accessPointDetail.makeView(parent.getChildAt(0), parent, connection, false)).thenReturn(view);
+        when(accessPointDetail.makeView(null, parent, connection, false)).thenReturn(view);
         return view;
     }
 
     private void verifyAccessPointDetailView(@NonNull WiFiDetail connection) {
         ViewGroup parent = (ViewGroup) mainActivity.findViewById(R.id.connection).findViewById(R.id.connectionDetail);
-        verify(accessPointDetail).makeView(parent.getChildAt(0), parent, connection, false);
+        verify(accessPointDetail).makeView(null, parent, connection, false);
     }
 
     private void withConnectionInformation(@NonNull WiFiDetail connection) {

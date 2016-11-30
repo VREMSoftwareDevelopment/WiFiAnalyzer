@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.settings;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
@@ -46,7 +45,7 @@ public class CountryPreferenceTest {
 
     @Before
     public void setUp() {
-        MainActivity mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
+        MainActivity mainActivity = Robolectric.setupActivity(MainActivity.class);
         fixture = new CountryPreference(mainActivity, Robolectric.buildAttributeSet().build());
 
         countries = WiFiChannelCountry.getAll();

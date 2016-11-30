@@ -100,6 +100,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         return getPackageName().contains(WI_FI_ANALYZER_BETA);
     }
 
+    ConnectionView getConnectionView() {
+        return connectionView;
+    }
+
     private void setWiFiChannelPairs() {
         Settings settings = MainContext.INSTANCE.getSettings();
         String countryCode = settings.getCountryCode();
@@ -205,7 +209,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         scanner.unregister(connectionView);
         super.onDestroy();
     }
-
 
     public void updateSubTitle() {
         ActionBar actionBar = getSupportActionBar();

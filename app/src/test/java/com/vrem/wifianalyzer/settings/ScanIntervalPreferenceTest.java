@@ -25,7 +25,6 @@ import android.view.View;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +48,7 @@ public class ScanIntervalPreferenceTest {
 
     @Before
     public void setUp() {
-        mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
+        mainActivity = Robolectric.setupActivity(MainActivity.class);
         fixture = new ScanIntervalPreference(mainActivity, Robolectric.buildAttributeSet().build());
         valueDefault = mainActivity.getResources().getInteger(R.integer.scan_interval_default);
     }
