@@ -25,11 +25,11 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -53,7 +53,7 @@ public class VendorAdapterTest {
 
     @Before
     public void setUp() {
-        MainActivity mainActivity = Robolectric.setupActivity(MainActivity.class);
+        MainActivity mainActivity = RobolectricUtil.INSTANCE.setupActivity();
         vendors = withVendors();
         fixture = new VendorAdapter(mainActivity, vendors);
 

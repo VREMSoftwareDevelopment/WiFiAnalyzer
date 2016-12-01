@@ -29,6 +29,7 @@ import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
@@ -56,7 +57,7 @@ public class AboutActivityTest {
 
     @Before
     public void setUp() {
-        Robolectric.setupActivity(MainActivity.class);
+        RobolectricUtil.INSTANCE.setupActivity();
 
         fixture = Robolectric.setupActivity(AboutActivity.class);
 

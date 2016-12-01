@@ -22,8 +22,8 @@ import android.app.ActionBar;
 import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -48,7 +48,7 @@ public class SettingActivityTest {
 
     @Before
     public void setUp() {
-        Robolectric.setupActivity(MainActivity.class);
+        RobolectricUtil.INSTANCE.setupActivity();
         fixture = Robolectric.setupActivity(SettingActivity.class);
     }
 

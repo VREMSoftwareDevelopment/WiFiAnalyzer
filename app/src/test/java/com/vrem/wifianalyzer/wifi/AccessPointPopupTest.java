@@ -25,6 +25,7 @@ import android.view.View;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -33,7 +34,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -51,7 +51,7 @@ public class AccessPointPopupTest {
 
     @Before
     public void setUp() {
-        mainActivity = Robolectric.setupActivity(MainActivity.class);
+        mainActivity = RobolectricUtil.INSTANCE.setupActivity();
         fixture = new AccessPointPopup();
     }
 

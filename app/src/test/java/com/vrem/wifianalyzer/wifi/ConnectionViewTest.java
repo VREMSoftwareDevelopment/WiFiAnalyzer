@@ -28,6 +28,7 @@ import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
@@ -42,7 +43,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -74,7 +74,7 @@ public class ConnectionViewTest {
 
     @Before
     public void setUp() {
-        mainActivity = Robolectric.setupActivity(MainActivity.class);
+        mainActivity = RobolectricUtil.INSTANCE.setupActivity();
         currentAccessPointView = mainActivity.getCurrentAccessPointView();
         mainActivity.setCurrentAccessPointView(AccessPointView.FULL);
 
@@ -118,18 +118,6 @@ public class ConnectionViewTest {
         // validate
         assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.connection).getVisibility());
         verifyConnectionInformation();
-    }
-
-    @Test
-    public void testConnectionWithAccessPointDetailView() throws Exception {
-        // setup
-        WiFiDetail connection = withConnection(withWiFiAdditional());
-        withConnectionInformation(connection);
-        withAccessPointDetailView(connection);
-        // execute
-        fixture.update(wiFiData);
-        // validate
-        verifyAccessPointDetailView(connection);
     }
 
     @Test
@@ -239,12 +227,8 @@ public class ConnectionViewTest {
         ViewGroup parent = (ViewGroup) mainActivity.findViewById(R.id.connection).findViewById(R.id.connectionDetail);
         View view = mainActivity.getLayoutInflater().inflate(layout, parent, false);
         when(accessPointDetail.makeView(null, parent, connection, false)).thenReturn(view);
+        when(accessPointDetail.makeView(parent.getChildAt(0), parent, connection, false)).thenReturn(view);
         return view;
-    }
-
-    private void verifyAccessPointDetailView(@NonNull WiFiDetail connection) {
-        ViewGroup parent = (ViewGroup) mainActivity.findViewById(R.id.connection).findViewById(R.id.connectionDetail);
-        verify(accessPointDetail).makeView(null, parent, connection, false);
     }
 
     private void withConnectionInformation(@NonNull WiFiDetail connection) {

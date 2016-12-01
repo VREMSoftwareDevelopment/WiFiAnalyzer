@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -36,7 +37,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -57,7 +57,7 @@ public class AccessPointDetailTest {
 
     @Before
     public void setUp() {
-        mainActivity = Robolectric.setupActivity(MainActivity.class);
+        mainActivity = RobolectricUtil.INSTANCE.setupActivity();
         currentAccessPointView = mainActivity.getCurrentAccessPointView();
 
         fixture = new AccessPointDetail();

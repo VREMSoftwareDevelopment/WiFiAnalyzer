@@ -32,7 +32,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -49,7 +48,7 @@ public class MainActivityTest {
 
     @Before
     public void setUp() {
-        fixture = Robolectric.setupActivity(MainActivity.class);
+        fixture = RobolectricUtil.INSTANCE.setupActivity();
     }
 
     @After
@@ -125,17 +124,6 @@ public class MainActivityTest {
         fixture.onDestroy();
         // validate
         verify(scanner).unregister(fixture.getConnectionView());
-    }
-
-    @Test
-    public void testOnBackPressed() throws Exception {
-        // setup
-        fixture = Robolectric.setupActivity(MainActivity.class);
-        fixture.getNavigationMenuView().setCurrentNavigationMenu(NavigationMenu.CHANNEL_RATING);
-        // execute
-        fixture.onBackPressed();
-        // validate
-        assertEquals(NavigationMenu.ACCESS_POINTS, fixture.getNavigationMenuView().getCurrentNavigationMenu());
     }
 
     @Test

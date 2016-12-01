@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.settings;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.navigation.NavigationGroup;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 
@@ -41,7 +42,7 @@ public class StartMenuPreferenceTest {
 
     @Before
     public void setUp() {
-        mainActivity = Robolectric.setupActivity(MainActivity.class);
+        mainActivity = RobolectricUtil.INSTANCE.setupActivity();
         fixture = new StartMenuPreference(mainActivity, Robolectric.buildAttributeSet().build());
     }
 

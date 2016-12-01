@@ -24,12 +24,12 @@ import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -46,7 +46,7 @@ public class NavigationMenuViewTest {
 
     @Before
     public void setUp() {
-        mainActivity = Robolectric.setupActivity(MainActivity.class);
+        mainActivity = RobolectricUtil.INSTANCE.setupActivity();
         fixture = mainActivity.getNavigationMenuView();
         navigationView = fixture.getNavigationView();
     }

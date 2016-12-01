@@ -19,15 +19,14 @@
 package com.vrem.wifianalyzer.vendor;
 
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
+import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
@@ -50,7 +49,7 @@ public class VendorFragmentTest {
 
     @Before
     public void setUp() {
-        Robolectric.setupActivity(MainActivity.class);
+        RobolectricUtil.INSTANCE.setupActivity();
 
         vendorService = MainContextHelper.INSTANCE.getVendorService();
 
