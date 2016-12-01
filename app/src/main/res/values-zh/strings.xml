@@ -76,5 +76,6 @@
     <string name="about_library_graph_view">图表视图</string>
     <string name="about_library_material">质感设计图标</string>
     <string name="about_contributor_title">贡献者:</string>
+    <string name="ap_view_title">Access Point Display</string>
     <!-- about end -->
 </resources>
