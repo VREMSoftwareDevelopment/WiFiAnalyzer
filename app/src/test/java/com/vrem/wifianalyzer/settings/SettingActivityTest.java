@@ -48,7 +48,7 @@ public class SettingActivityTest {
 
     @Before
     public void setUp() {
-        RobolectricUtil.INSTANCE.setupActivity();
+        RobolectricUtil.INSTANCE.getActivity();
         fixture = Robolectric.setupActivity(SettingActivity.class);
     }
 

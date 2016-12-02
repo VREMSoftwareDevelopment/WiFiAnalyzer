@@ -46,7 +46,7 @@ public class NavigationMenuViewTest {
 
     @Before
     public void setUp() {
-        mainActivity = RobolectricUtil.INSTANCE.setupActivity();
+        mainActivity = RobolectricUtil.INSTANCE.getActivity();
         fixture = mainActivity.getNavigationMenuView();
         navigationView = fixture.getNavigationView();
     }

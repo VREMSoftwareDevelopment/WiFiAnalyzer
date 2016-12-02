@@ -44,7 +44,7 @@ public class ChannelGraphFragmentTest {
 
     @Before
     public void setUp() {
-        RobolectricUtil.INSTANCE.setupActivity();
+        RobolectricUtil.INSTANCE.getActivity();
 
         scanner = MainContextHelper.INSTANCE.getScanner();
 

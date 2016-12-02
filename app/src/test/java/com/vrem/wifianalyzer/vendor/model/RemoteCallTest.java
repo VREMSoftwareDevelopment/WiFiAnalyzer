@@ -54,7 +54,7 @@ public class RemoteCallTest {
 
     @Before
     public void setUp() {
-        RobolectricUtil.INSTANCE.setupActivity();
+        RobolectricUtil.INSTANCE.getActivity();
 
         database = MainContextHelper.INSTANCE.getDatabase();
 

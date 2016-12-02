@@ -51,7 +51,7 @@ public class ChannelGraphAdapterTest {
 
     @Before
     public void setUp() {
-        RobolectricUtil.INSTANCE.setupActivity();
+        RobolectricUtil.INSTANCE.getActivity();
 
         channelGraphNavigation = mock(ChannelGraphNavigation.class);
 

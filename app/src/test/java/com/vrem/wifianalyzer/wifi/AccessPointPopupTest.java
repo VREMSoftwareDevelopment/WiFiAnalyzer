@@ -51,7 +51,7 @@ public class AccessPointPopupTest {
 
     @Before
     public void setUp() {
-        mainActivity = RobolectricUtil.INSTANCE.setupActivity();
+        mainActivity = RobolectricUtil.INSTANCE.getActivity();
         fixture = new AccessPointPopup();
     }
 

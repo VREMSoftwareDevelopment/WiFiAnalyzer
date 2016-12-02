@@ -53,7 +53,7 @@ public class VendorAdapterTest {
 
     @Before
     public void setUp() {
-        MainActivity mainActivity = RobolectricUtil.INSTANCE.setupActivity();
+        MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
         vendors = withVendors();
         fixture = new VendorAdapter(mainActivity, vendors);
 

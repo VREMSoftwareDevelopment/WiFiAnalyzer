@@ -59,7 +59,7 @@ public class TimeGraphViewTest {
 
     @Before
     public void setUp() {
-        RobolectricUtil.INSTANCE.setupActivity();
+        RobolectricUtil.INSTANCE.getActivity();
 
         graphViewWrapper = mock(GraphViewWrapper.class);
 

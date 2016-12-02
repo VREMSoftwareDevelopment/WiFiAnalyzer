@@ -57,7 +57,7 @@ public class AccessPointDetailTest {
 
     @Before
     public void setUp() {
-        mainActivity = RobolectricUtil.INSTANCE.setupActivity();
+        mainActivity = RobolectricUtil.INSTANCE.getActivity();
         currentAccessPointView = mainActivity.getCurrentAccessPointView();
 
         fixture = new AccessPointDetail();

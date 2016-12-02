@@ -69,7 +69,7 @@ public class ChannelRatingAdapterTest {
 
     @Before
     public void setUp() {
-        mainActivity = RobolectricUtil.INSTANCE.setupActivity();
+        mainActivity = RobolectricUtil.INSTANCE.getActivity();
 
         channelRating = mock(ChannelRating.class);
         bestChannels = new TextView(mainActivity);

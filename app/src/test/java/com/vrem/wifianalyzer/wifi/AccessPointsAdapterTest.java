@@ -60,7 +60,7 @@ public class AccessPointsAdapterTest {
 
     @Before
     public void setUp() {
-        mainActivity = RobolectricUtil.INSTANCE.setupActivity();
+        mainActivity = RobolectricUtil.INSTANCE.getActivity();
         currentAccessPointView = mainActivity.getCurrentAccessPointView();
         mainActivity.setCurrentAccessPointView(AccessPointView.FULL);
 

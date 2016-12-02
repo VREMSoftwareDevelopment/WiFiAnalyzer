@@ -49,7 +49,7 @@ public class ChannelAvailableFragmentTest {
 
     @Before
     public void setUp() {
-        RobolectricUtil.INSTANCE.setupActivity();
+        RobolectricUtil.INSTANCE.getActivity();
 
         configuration = MainContextHelper.INSTANCE.getConfiguration();
         settings = MainContextHelper.INSTANCE.getSettings();

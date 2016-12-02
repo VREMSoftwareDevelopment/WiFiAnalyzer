@@ -44,7 +44,7 @@ public class TimeGraphFragmentTest {
 
     @Before
     public void setUp() {
-        RobolectricUtil.INSTANCE.setupActivity();
+        RobolectricUtil.INSTANCE.getActivity();
         scanner = MainContextHelper.INSTANCE.getScanner();
         fixture = new TimeGraphFragment();
     }

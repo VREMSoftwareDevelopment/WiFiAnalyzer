@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         Settings settings = mainContext.getSettings();
         settings.initializeDefaultValues();
         setCurrentThemeStyle(settings.getThemeStyle());
-        setCurrentAccessPointView(settings.getAPView());
+        setCurrentAccessPointView(settings.getAccessPointView());
         setTheme(getCurrentThemeStyle().themeAppCompatStyle());
         setWiFiChannelPairs();
 
@@ -137,16 +137,16 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     boolean shouldReload() {
         Settings settings = MainContext.INSTANCE.getSettings();
-        return isThemeChanged(settings) || isAPViewChanged(settings);
+        return isThemeChanged(settings) || isAccessPointViewChanged(settings);
     }
 
-    private boolean isAPViewChanged(Settings settings) {
-        AccessPointView settingAccessPointView = settings.getAPView();
-        boolean apViewChanged = !getCurrentAccessPointView().equals(settingAccessPointView);
-        if (apViewChanged) {
+    private boolean isAccessPointViewChanged(Settings settings) {
+        AccessPointView settingAccessPointView = settings.getAccessPointView();
+        boolean accessPointViewChanged = !getCurrentAccessPointView().equals(settingAccessPointView);
+        if (accessPointViewChanged) {
             setCurrentAccessPointView(settingAccessPointView);
         }
-        return apViewChanged;
+        return accessPointViewChanged;
     }
 
     private boolean isThemeChanged(Settings settings) {

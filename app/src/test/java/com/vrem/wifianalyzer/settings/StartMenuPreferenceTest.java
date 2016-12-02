@@ -42,7 +42,7 @@ public class StartMenuPreferenceTest {
 
     @Before
     public void setUp() {
-        mainActivity = RobolectricUtil.INSTANCE.setupActivity();
+        mainActivity = RobolectricUtil.INSTANCE.getActivity();
         fixture = new StartMenuPreference(mainActivity, Robolectric.buildAttributeSet().build());
     }
 

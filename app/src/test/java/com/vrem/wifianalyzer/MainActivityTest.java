@@ -48,7 +48,7 @@ public class MainActivityTest {
 
     @Before
     public void setUp() {
-        fixture = RobolectricUtil.INSTANCE.setupActivity();
+        fixture = RobolectricUtil.INSTANCE.getActivity();
     }
 
     @After
@@ -104,6 +104,7 @@ public class MainActivityTest {
         fixture.onPause();
         // validate
         verify(scanner).pause();
+        fixture.onResume();
     }
 
     @Test
@@ -146,7 +147,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testShouldNotReloadWithNoAPViewChanges() throws Exception {
+    public void testShouldNotReloadWithNoAccessPointViewChanges() throws Exception {
         // setup
         AccessPointView expected = fixture.getCurrentAccessPointView();
         // execute && validate
@@ -155,7 +156,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testShouldReloadWithAPViewChange() throws Exception {
+    public void testShouldReloadWithAccessPointViewChange() throws Exception {
         // setup
         AccessPointView expected = fixture.getCurrentAccessPointView();
         fixture.setCurrentAccessPointView(AccessPointView.FULL.equals(expected) ? AccessPointView.COMPACT : AccessPointView.FULL);

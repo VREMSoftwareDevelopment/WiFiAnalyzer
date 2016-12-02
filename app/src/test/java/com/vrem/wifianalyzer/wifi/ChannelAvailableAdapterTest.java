@@ -48,7 +48,7 @@ public class ChannelAvailableAdapterTest {
 
     @Before
     public void setUp() {
-        MainActivity mainActivity = RobolectricUtil.INSTANCE.setupActivity();
+        MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
 
         wiFiChannelCountry = WiFiChannelCountry.get("US");
         fixture = new ChannelAvailableAdapter(mainActivity, Arrays.asList(wiFiChannelCountry));

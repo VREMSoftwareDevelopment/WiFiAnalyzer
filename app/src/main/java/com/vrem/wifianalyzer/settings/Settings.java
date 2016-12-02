@@ -64,7 +64,7 @@ public class Settings {
         return GroupBy.find(repository.getStringAsInteger(R.string.group_by_key, GroupBy.NONE.ordinal()));
     }
 
-    public AccessPointView getAPView() {
+    public AccessPointView getAccessPointView() {
         return AccessPointView.find(repository.getStringAsInteger(R.string.ap_view_key, AccessPointView.FULL.ordinal()));
     }
 

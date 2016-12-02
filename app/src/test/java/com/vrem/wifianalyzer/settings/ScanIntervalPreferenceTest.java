@@ -49,7 +49,7 @@ public class ScanIntervalPreferenceTest {
 
     @Before
     public void setUp() {
-        mainActivity = RobolectricUtil.INSTANCE.setupActivity();
+        mainActivity = RobolectricUtil.INSTANCE.getActivity();
         fixture = new ScanIntervalPreference(mainActivity, Robolectric.buildAttributeSet().build());
         valueDefault = mainActivity.getResources().getInteger(R.integer.scan_interval_default);
     }

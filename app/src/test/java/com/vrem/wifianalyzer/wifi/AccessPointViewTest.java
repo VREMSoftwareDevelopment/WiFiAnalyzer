@@ -28,7 +28,7 @@ import static org.junit.Assert.assertTrue;
 
 public class AccessPointViewTest {
     @Test
-    public void testAPViewNumber() throws Exception {
+    public void testAccessPointViewNumber() throws Exception {
         assertEquals(2, AccessPointView.values().length);
     }
 
