@@ -76,7 +76,7 @@ public class ConnectionViewTest {
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getActivity();
         currentAccessPointView = mainActivity.getCurrentAccessPointView();
-        mainActivity.setCurrentAccessPointView(AccessPointView.FULL);
+        mainActivity.setCurrentAccessPointView(AccessPointView.COMPLETE);
 
         accessPointDetail = mock(AccessPointDetail.class);
         accessPointPopup = mock(AccessPointPopup.class);

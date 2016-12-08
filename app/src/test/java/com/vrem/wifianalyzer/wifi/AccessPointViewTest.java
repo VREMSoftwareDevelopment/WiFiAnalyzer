@@ -34,28 +34,28 @@ public class AccessPointViewTest {
 
     @Test
     public void testFind() throws Exception {
-        assertEquals(AccessPointView.FULL, AccessPointView.find(-1));
-        assertEquals(AccessPointView.FULL, AccessPointView.find(AccessPointView.values().length));
+        assertEquals(AccessPointView.COMPLETE, AccessPointView.find(-1));
+        assertEquals(AccessPointView.COMPLETE, AccessPointView.find(AccessPointView.values().length));
 
-        assertEquals(AccessPointView.FULL, AccessPointView.find(AccessPointView.FULL.ordinal()));
+        assertEquals(AccessPointView.COMPLETE, AccessPointView.find(AccessPointView.COMPLETE.ordinal()));
         assertEquals(AccessPointView.COMPACT, AccessPointView.find(AccessPointView.COMPACT.ordinal()));
     }
 
     @Test
     public void testGetLayout() throws Exception {
-        assertEquals(R.layout.access_point_view_full, AccessPointView.FULL.getLayout());
+        assertEquals(R.layout.access_point_view_complete, AccessPointView.COMPLETE.getLayout());
         assertEquals(R.layout.access_point_view_compact, AccessPointView.COMPACT.getLayout());
     }
 
     @Test
     public void testIsFull() throws Exception {
-        assertTrue(AccessPointView.FULL.isFull());
+        assertTrue(AccessPointView.COMPLETE.isFull());
         assertFalse(AccessPointView.COMPACT.isFull());
     }
 
     @Test
     public void testIsCompact() throws Exception {
-        assertFalse(AccessPointView.FULL.isCompact());
+        assertFalse(AccessPointView.COMPLETE.isCompact());
         assertTrue(AccessPointView.COMPACT.isCompact());
     }
 

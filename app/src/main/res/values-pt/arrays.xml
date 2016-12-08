@@ -31,8 +31,8 @@
     </string-array>
 
     <string-array name="ap_view_array">
-        <item>Full</item>
-        <item>Compact</item>
+        <item>Completo</item>
+        <item>Compactar</item>
     </string-array>
 
     <string-array name="graph_legend_array">

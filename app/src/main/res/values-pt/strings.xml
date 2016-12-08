@@ -76,6 +76,6 @@
     <string name="about_library_graph_view">Vista de Gráfico</string>
     <string name="about_library_material">Desenho de material ícone</string>
     <string name="about_contributor_title">Colaboradores:</string>
-    <string name="ap_view_title">Access Point Display</string>
+    <string name="ap_view_title">Exibição do ponto de acesso</string>
     <!-- about end -->
 </resources>

@@ -76,6 +76,6 @@
     <string name="about_library_graph_view">Graph View</string>
     <string name="about_library_material">Icone Material Design</string>
     <string name="about_contributor_title">Contributori:</string>
-    <string name="ap_view_title">Access Point Display</string>
+    <string name="ap_view_title">Access Point di visualizzazione</string>
     <!-- about end -->
 </resources>

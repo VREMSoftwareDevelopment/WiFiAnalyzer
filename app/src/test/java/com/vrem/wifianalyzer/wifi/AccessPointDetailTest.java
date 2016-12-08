@@ -81,7 +81,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewShouldUseGivenView() throws Exception {
         // setup
-        View expected = mainActivity.getLayoutInflater().inflate(AccessPointView.FULL.getLayout(), null, false);
+        View expected = mainActivity.getLayoutInflater().inflate(AccessPointView.COMPLETE.getLayout(), null, false);
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, true));
         // execute
         View actual = fixture.makeView(expected, null, wiFiDetail, false);

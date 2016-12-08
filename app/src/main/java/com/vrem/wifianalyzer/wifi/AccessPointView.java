@@ -21,7 +21,7 @@ package com.vrem.wifianalyzer.wifi;
 import com.vrem.wifianalyzer.R;
 
 public enum AccessPointView {
-    FULL(R.layout.access_point_view_full),
+    COMPLETE(R.layout.access_point_view_complete),
     COMPACT(R.layout.access_point_view_compact);
 
     private final int layout;
@@ -32,7 +32,7 @@ public enum AccessPointView {
 
     public static AccessPointView find(int index) {
         if (index < 0 || index >= values().length) {
-            return FULL;
+            return COMPLETE;
         }
         return values()[index];
     }
@@ -46,6 +46,6 @@ public enum AccessPointView {
     }
 
     boolean isFull() {
-        return FULL.equals(this);
+        return COMPLETE.equals(this);
     }
 }

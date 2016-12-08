@@ -65,7 +65,7 @@ public class Settings {
     }
 
     public AccessPointView getAccessPointView() {
-        return AccessPointView.find(repository.getStringAsInteger(R.string.ap_view_key, AccessPointView.FULL.ordinal()));
+        return AccessPointView.find(repository.getStringAsInteger(R.string.ap_view_key, AccessPointView.COMPLETE.ordinal()));
     }
 
     public GraphLegend getChannelGraphLegend() {

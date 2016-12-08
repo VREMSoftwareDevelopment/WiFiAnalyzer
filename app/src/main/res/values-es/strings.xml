@@ -76,6 +76,6 @@
     <string name="about_library_graph_view">Vista Gráfica</string>
     <string name="about_library_material">"Iconos de \'Diseño de Materiales\'"</string>
     <string name="about_contributor_title">Colaboradores:</string>
-    <string name="ap_view_title">Access Point Display</string>
+    <string name="ap_view_title">Pantalla del punto de acceso</string>
     <!-- about end -->
 </resources>

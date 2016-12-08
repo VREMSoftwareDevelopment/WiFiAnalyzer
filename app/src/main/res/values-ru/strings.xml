@@ -75,6 +75,6 @@
     <string name="about_library_graph_view">Просмотр диаграммы</string>
     <string name="about_library_material">Материальный дизайн иконок</string>
     <string name="about_contributor_title">Авторы:</string>
-    <string name="ap_view_title">Access Point Display</string>
+    <string name="ap_view_title">Точка доступа</string>
     <!-- about end -->
 </resources>

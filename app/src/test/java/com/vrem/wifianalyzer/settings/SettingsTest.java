@@ -118,12 +118,12 @@ public class SettingsTest {
     @Test
     public void testAccessPointView() throws Exception {
         // setup
-        when(repository.getStringAsInteger(R.string.ap_view_key, AccessPointView.FULL.ordinal())).thenReturn(AccessPointView.COMPACT.ordinal());
+        when(repository.getStringAsInteger(R.string.ap_view_key, AccessPointView.COMPLETE.ordinal())).thenReturn(AccessPointView.COMPACT.ordinal());
         // execute
         AccessPointView actual = fixture.getAccessPointView();
         // validate
         assertEquals(AccessPointView.COMPACT, actual);
-        verify(repository).getStringAsInteger(R.string.ap_view_key, AccessPointView.FULL.ordinal());
+        verify(repository).getStringAsInteger(R.string.ap_view_key, AccessPointView.COMPLETE.ordinal());
     }
 
     @Test

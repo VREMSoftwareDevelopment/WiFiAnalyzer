@@ -62,7 +62,7 @@ public class AccessPointsAdapterTest {
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getActivity();
         currentAccessPointView = mainActivity.getCurrentAccessPointView();
-        mainActivity.setCurrentAccessPointView(AccessPointView.FULL);
+        mainActivity.setCurrentAccessPointView(AccessPointView.COMPLETE);
 
         accessPointsAdapterData = mock(AccessPointsAdapterData.class);
         accessPointDetail = mock(AccessPointDetail.class);

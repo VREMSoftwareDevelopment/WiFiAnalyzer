@@ -159,7 +159,7 @@ public class MainActivityTest {
     public void testShouldReloadWithAccessPointViewChange() throws Exception {
         // setup
         AccessPointView expected = fixture.getCurrentAccessPointView();
-        fixture.setCurrentAccessPointView(AccessPointView.FULL.equals(expected) ? AccessPointView.COMPACT : AccessPointView.FULL);
+        fixture.setCurrentAccessPointView(AccessPointView.COMPLETE.equals(expected) ? AccessPointView.COMPACT : AccessPointView.COMPLETE);
         // execute && validate
         assertTrue(fixture.shouldReload());
         assertEquals(expected, fixture.getCurrentAccessPointView());
