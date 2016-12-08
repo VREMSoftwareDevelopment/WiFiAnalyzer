@@ -105,7 +105,8 @@ public class AboutActivityTest {
         PackageInfo packageInfo = fixture.getPackageManager().getPackageInfo(packageName, 0);
         String expected = packageInfo.versionName;
         if (isDevelopmentMode) {
-            expected += " - " + packageInfo.versionCode + " SDK:" + Build.VERSION.SDK_INT;
+            expected += " - " + packageInfo.versionCode
+                + " SDK:" + Build.VERSION.SDK_INT + "/" + Build.VERSION.RELEASE;
         }
         // execute
         TextView actual = (TextView) fixture.findViewById(R.id.about_version_info);

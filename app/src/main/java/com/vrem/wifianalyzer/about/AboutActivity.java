@@ -77,7 +77,8 @@ public class AboutActivity extends AppCompatActivity {
             String versionInfo = packageInfo.versionName;
             Configuration configuration = mainContext.getConfiguration();
             if (configuration != null && configuration.isDevelopmentMode()) {
-                versionInfo += " - " + packageInfo.versionCode + " SDK:" + Build.VERSION.SDK_INT;
+                versionInfo += " - " + packageInfo.versionCode
+                    + " SDK:" + Build.VERSION.SDK_INT + "/" + Build.VERSION.RELEASE;
             }
             ((TextView) findViewById(R.id.about_version_info)).setText(versionInfo);
         } catch (PackageManager.NameNotFoundException e) {
