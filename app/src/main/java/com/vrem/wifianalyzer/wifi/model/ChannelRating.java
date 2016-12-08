@@ -23,7 +23,6 @@ import android.support.annotation.NonNull;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,7 +43,7 @@ public class ChannelRating {
     public Strength getStrength(@NonNull WiFiChannel wiFiChannel) {
         Strength strength = Strength.ZERO;
         for (WiFiDetail wiFiDetail : collectOverlapping(wiFiChannel)) {
-            if (!wiFiDetail.getWiFiAdditional().isConnected()) {
+            if (!wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected()) {
                 strength = Strength.values()[Math.max(strength.ordinal(), wiFiDetail.getWiFiSignal().getStrength().ordinal())];
             }
         }
@@ -128,36 +127,4 @@ public class ChannelRating {
                 .toComparison();
         }
     }
-
-    public class ChannelAPCount implements Comparable<ChannelAPCount> {
-        private final WiFiChannel wiFiChannel;
-        private final int count;
-
-        public ChannelAPCount(@NonNull WiFiChannel wiFiChannel, int count) {
-            this.wiFiChannel = wiFiChannel;
-            this.count = count;
-        }
-
-        public WiFiChannel getWiFiChannel() {
-            return wiFiChannel;
-        }
-
-        public int getCount() {
-            return count;
-        }
-
-        @Override
-        public int compareTo(@NonNull ChannelAPCount another) {
-            return new CompareToBuilder()
-                .append(getCount(), another.getCount())
-                .append(getWiFiChannel(), another.getWiFiChannel())
-                .toComparison();
-        }
-
-        @Override
-        public String toString() {
-            return ToStringBuilder.reflectionToString(this);
-        }
-    }
-
 }

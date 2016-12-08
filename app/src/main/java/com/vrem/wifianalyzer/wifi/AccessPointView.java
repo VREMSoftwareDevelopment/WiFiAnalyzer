@@ -16,19 +16,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer;
+package com.vrem.wifianalyzer.wifi;
 
-import android.support.annotation.NonNull;
-import android.util.Log;
+import com.vrem.wifianalyzer.R;
 
-public class Logger {
+public enum AccessPointView {
+    COMPLETE(R.layout.access_point_view_complete),
+    COMPACT(R.layout.access_point_view_compact);
 
-    public void error(@NonNull Object object, @NonNull String msg, @NonNull Throwable e) {
-        Log.e(object.getClass().getSimpleName() + " ", msg, e);
+    private final int layout;
+
+    AccessPointView(int layout) {
+        this.layout = layout;
     }
 
-    public void info(@NonNull Object object, @NonNull String msg) {
-        Log.i(object.getClass().getSimpleName() + " ", msg);
+    public static AccessPointView find(int index) {
+        if (index < 0 || index >= values().length) {
+            return COMPLETE;
+        }
+        return values()[index];
     }
 
+    int getLayout() {
+        return layout;
+    }
+
+    boolean isCompact() {
+        return COMPACT.equals(this);
+    }
+
+    boolean isFull() {
+        return COMPLETE.equals(this);
+    }
 }

@@ -52,6 +52,16 @@
         <item>Channel</item>
     </string-array>
 
+    <string-array name="ap_view_index_array" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="ap_view_array">
+        <item>Complete</item>
+        <item>Compact</item>
+    </string-array>
+
     <string-array name="graph_legend_index_array" translatable="false">
         <item>0</item>
         <item>1</item>

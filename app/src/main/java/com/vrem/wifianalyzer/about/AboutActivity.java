@@ -81,7 +81,7 @@ public class AboutActivity extends AppCompatActivity {
             }
             ((TextView) findViewById(R.id.about_version_info)).setText(versionInfo);
         } catch (PackageManager.NameNotFoundException e) {
-            mainContext.getLogger().error(this, "Version Information", e);
+            // ignore
         }
     }
 

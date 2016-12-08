@@ -28,6 +28,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
+import com.vrem.wifianalyzer.wifi.model.WiFiUtils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -55,7 +56,7 @@ public class TransformerTest {
     private static final String WPA = "WPA";
     private static final int FREQUENCY = 2435;
     private static final int LEVEL = -40;
-    private static final String IP_ADDRESS = "21.205.91.7";
+    private static final int IP_ADDRESS = 123456789;
     private static final int LINK_SPEED = 21;
 
     @Mock
@@ -90,16 +91,10 @@ public class TransformerTest {
         assertTrue(fixture.transformWifiConfigurations(null).isEmpty());
     }
 
-    @Test
-    public void testTransformWiFiInfo() throws Exception {
-        // setup
-        withWiFiInfo();
-        // execute
-        WiFiConnection actual = fixture.transformWifiInfo(wifiInfo);
-        // validate
+    private void verifyWiFiInfo(WiFiConnection actual) {
         assertEquals(SSID_1, actual.getSSID());
         assertEquals(BSSID_1, actual.getBSSID());
-        assertEquals(IP_ADDRESS, actual.getIpAddress());
+        assertEquals(WiFiUtils.convertIpAddress(IP_ADDRESS), actual.getIpAddress());
         assertEquals(LINK_SPEED, actual.getLinkSpeed());
 
         verify(wifiInfo).getNetworkId();
@@ -324,7 +319,7 @@ public class TransformerTest {
         when(wifiInfo.getNetworkId()).thenReturn(0);
         when(wifiInfo.getSSID()).thenReturn(SSID_1);
         when(wifiInfo.getBSSID()).thenReturn(BSSID_1);
-        when(wifiInfo.getIpAddress()).thenReturn(123456789);
+        when(wifiInfo.getIpAddress()).thenReturn(IP_ADDRESS);
         when(wifiInfo.getLinkSpeed()).thenReturn(LINK_SPEED);
     }
 

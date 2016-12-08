@@ -30,6 +30,11 @@
         <item>Canal</item>
     </string-array>
 
+    <string-array name="ap_view_array">
+        <item>Completar</item>
+        <item>Compacto</item>
+    </string-array>
+
     <string-array name="graph_legend_array">
         <item>Izquierda</item>
         <item>Derecha</item>

@@ -18,11 +18,12 @@
 
 package com.vrem.wifianalyzer.wifi;
 
+import android.support.annotation.NonNull;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
@@ -52,23 +53,31 @@ public class AccessPointsAdapterTest {
     private MainActivity mainActivity;
     private AccessPointsAdapter fixture;
     private AccessPointsAdapterData accessPointsAdapterData;
-    private AccessPointsDetail accessPointsDetail;
+    private AccessPointDetail accessPointDetail;
+    private AccessPointPopup accessPointPopup;
+    private AccessPointView currentAccessPointView;
+    private ViewGroup viewGroup;
 
     @Before
     public void setUp() {
-        mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
+        mainActivity = RobolectricUtil.INSTANCE.getActivity();
+        currentAccessPointView = mainActivity.getCurrentAccessPointView();
+        mainActivity.setCurrentAccessPointView(AccessPointView.COMPLETE);
 
         accessPointsAdapterData = mock(AccessPointsAdapterData.class);
-        accessPointsDetail = mock(AccessPointsDetail.class);
+        accessPointDetail = mock(AccessPointDetail.class);
+        accessPointPopup = mock(AccessPointPopup.class);
+        viewGroup = mock(ViewGroup.class);
 
         fixture = new AccessPointsAdapter(mainActivity);
         fixture.setAccessPointsAdapterData(accessPointsAdapterData);
-        fixture.setAccessPointsDetail(accessPointsDetail);
+        fixture.setAccessPointDetail(accessPointDetail);
+        fixture.setAccessPointPopup(accessPointPopup);
     }
 
     @After
     public void tearDown() {
-        MainContextHelper.INSTANCE.restore();
+        mainActivity.setCurrentAccessPointView(currentAccessPointView);
     }
 
     @Test
@@ -77,14 +86,35 @@ public class AccessPointsAdapterTest {
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.parent(1)).thenReturn(wiFiDetail);
         when(accessPointsAdapterData.childrenCount(1)).thenReturn(0);
+        View view = withView(wiFiDetail, false);
         // execute
-        View actual = fixture.getGroupView(1, false, null, null);
+        View actual = fixture.getGroupView(1, false, view, viewGroup);
         // validate
         assertNotNull(actual);
         assertEquals(View.GONE, actual.findViewById(R.id.groupIndicator).getVisibility());
-        verify(accessPointsDetail).setView(mainActivity.getResources(), actual, wiFiDetail, false);
         verify(accessPointsAdapterData).parent(1);
         verify(accessPointsAdapterData).childrenCount(1);
+        verifyView(view, wiFiDetail, false);
+    }
+
+    @Test
+    public void testGetGroupViewCompactAddsPopup() throws Exception {
+        // setup
+        mainActivity.setCurrentAccessPointView(AccessPointView.COMPACT);
+        WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
+        when(accessPointsAdapterData.parent(1)).thenReturn(wiFiDetail);
+        when(accessPointsAdapterData.childrenCount(1)).thenReturn(0);
+        View view = withView(wiFiDetail, false);
+        // execute
+        View actual = fixture.getGroupView(1, false, view, viewGroup);
+        // validate
+        assertNotNull(actual);
+        assertEquals(View.GONE, actual.findViewById(R.id.groupIndicator).getVisibility());
+        verify(accessPointsAdapterData).parent(1);
+        verify(accessPointsAdapterData).childrenCount(1);
+        verifyView(view, wiFiDetail, false);
+        verify(accessPointPopup).attach(view.findViewById(R.id.attachPopup), wiFiDetail);
+        verify(accessPointPopup).attach(view.findViewById(R.id.ssid), wiFiDetail);
     }
 
     @Test
@@ -93,14 +123,15 @@ public class AccessPointsAdapterTest {
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.parent(1)).thenReturn(wiFiDetail);
         when(accessPointsAdapterData.childrenCount(1)).thenReturn(5);
+        View view = withView(wiFiDetail, false);
         // execute
-        View actual = fixture.getGroupView(1, false, null, null);
+        View actual = fixture.getGroupView(1, false, view, viewGroup);
         // validate
         assertNotNull(actual);
         assertEquals(View.VISIBLE, actual.findViewById(R.id.groupIndicator).getVisibility());
-        verify(accessPointsDetail).setView(mainActivity.getResources(), actual, wiFiDetail, false);
         verify(accessPointsAdapterData).parent(1);
         verify(accessPointsAdapterData).childrenCount(1);
+        verifyView(view, wiFiDetail, false);
     }
 
     @Test
@@ -108,13 +139,32 @@ public class AccessPointsAdapterTest {
         // setup
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.child(0, 0)).thenReturn(wiFiDetail);
+        View view = withView(wiFiDetail, true);
         // execute
-        View actual = fixture.getChildView(0, 0, false, null, null);
+        View actual = fixture.getChildView(0, 0, false, view, viewGroup);
         // validate
         assertNotNull(actual);
         assertEquals(View.GONE, actual.findViewById(R.id.groupIndicator).getVisibility());
-        verify(accessPointsDetail).setView(mainActivity.getResources(), actual, wiFiDetail, true);
         verify(accessPointsAdapterData).child(0, 0);
+        verifyView(view, wiFiDetail, true);
+    }
+
+    @Test
+    public void testGetChildViewCompactAddsPopup() throws Exception {
+        // setup
+        mainActivity.setCurrentAccessPointView(AccessPointView.COMPACT);
+        WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
+        when(accessPointsAdapterData.child(0, 0)).thenReturn(wiFiDetail);
+        View view = withView(wiFiDetail, true);
+        // execute
+        View actual = fixture.getChildView(0, 0, false, view, viewGroup);
+        // validate
+        assertNotNull(actual);
+        assertEquals(View.GONE, actual.findViewById(R.id.groupIndicator).getVisibility());
+        verify(accessPointsAdapterData).child(0, 0);
+        verifyView(view, wiFiDetail, true);
+        verify(accessPointPopup).attach(view.findViewById(R.id.attachPopup), wiFiDetail);
+        verify(accessPointPopup).attach(view.findViewById(R.id.ssid), wiFiDetail);
     }
 
     @Test
@@ -194,4 +244,15 @@ public class AccessPointsAdapterTest {
     public void testIsChildSelectable() throws Exception {
         assertTrue(fixture.isChildSelectable(0, 0));
     }
+
+    private View withView(@NonNull WiFiDetail wiFiDetail, boolean isChild) {
+        View view = mainActivity.getLayoutInflater().inflate(mainActivity.getCurrentAccessPointView().getLayout(), null, isChild);
+        when(accessPointDetail.makeView(view, viewGroup, wiFiDetail, isChild)).thenReturn(view);
+        return view;
+    }
+
+    private void verifyView(View view, WiFiDetail wiFiDetail, boolean isChild) {
+        verify(accessPointDetail).makeView(view, viewGroup, wiFiDetail, isChild);
+    }
+
 }

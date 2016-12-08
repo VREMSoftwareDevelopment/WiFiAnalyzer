@@ -43,8 +43,9 @@ public class ChannelRatingTest {
 
     @Before
     public void setUp() {
+        WiFiConnection wiFiConnection = new WiFiConnection("SSID1", "20:cf:30:ce:1d:71", "192.168.1.15", 11);
         wiFiDetail1 = new WiFiDetail("SSID1", "20:cf:30:ce:1d:71", StringUtils.EMPTY,
-            new WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50), new WiFiAdditional(StringUtils.EMPTY, "192.168.1.1", 11));
+            new WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50), new WiFiAdditional(StringUtils.EMPTY, wiFiConnection));
         wiFiDetail2 = new WiFiDetail("SSID2", "58:6d:8f:fa:ae:c0", StringUtils.EMPTY,
             new WiFiSignal(2442, 2442, WiFiWidth.MHZ_20, -70), WiFiAdditional.EMPTY);
         wiFiDetail3 = new WiFiDetail("SSID3", "84:94:8c:9d:40:68", StringUtils.EMPTY,
@@ -114,7 +115,7 @@ public class ChannelRatingTest {
         List<WiFiChannel> channels = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannels();
         fixture.setWiFiDetails(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4));
         // execute
-        List<ChannelRating.ChannelAPCount> actual = fixture.getBestChannels(channels);
+        List<ChannelAPCount> actual = fixture.getBestChannels(channels);
         // validate
         assertEquals(7, actual.size());
         validateChannelAPCount(1, 0, actual.get(0));
@@ -126,7 +127,7 @@ public class ChannelRatingTest {
         validateChannelAPCount(4, 1, actual.get(6));
     }
 
-    private void validateChannelAPCount(int expectedChannel, int expectedCount, ChannelRating.ChannelAPCount channelAPCount) {
+    private void validateChannelAPCount(int expectedChannel, int expectedCount, ChannelAPCount channelAPCount) {
         assertEquals(expectedChannel, channelAPCount.getWiFiChannel().getChannel());
         assertEquals(expectedCount, channelAPCount.getCount());
     }

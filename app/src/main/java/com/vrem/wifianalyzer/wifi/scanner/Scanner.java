@@ -57,7 +57,7 @@ public class Scanner {
 
     private void performWiFiScan() {
         List<ScanResult> scanResults = new ArrayList<>();
-        WifiInfo connectionInfo = null;
+        WifiInfo wifiInfo = null;
         List<WifiConfiguration> configuredNetworks = null;
         try {
             if (!wifiManager.isWifiEnabled()) {
@@ -66,13 +66,13 @@ public class Scanner {
             if (wifiManager.startScan()) {
                 scanResults = wifiManager.getScanResults();
             }
-            connectionInfo = wifiManager.getConnectionInfo();
+            wifiInfo = wifiManager.getConnectionInfo();
             configuredNetworks = wifiManager.getConfiguredNetworks();
         } catch (Exception e) {
             // critical error: set to no results and do not die
         }
         cache.add(scanResults);
-        wiFiData = transformer.transformToWiFiData(cache.getScanResults(), connectionInfo, configuredNetworks);
+        wiFiData = transformer.transformToWiFiData(cache.getScanResults(), wifiInfo, configuredNetworks);
     }
 
     public WiFiData getWiFiData() {

@@ -23,6 +23,7 @@ import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
+import com.vrem.wifianalyzer.wifi.AccessPointView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
@@ -61,6 +62,10 @@ public class Settings {
 
     public GroupBy getGroupBy() {
         return GroupBy.find(repository.getStringAsInteger(R.string.group_by_key, GroupBy.NONE.ordinal()));
+    }
+
+    public AccessPointView getAccessPointView() {
+        return AccessPointView.find(repository.getStringAsInteger(R.string.ap_view_key, AccessPointView.COMPLETE.ordinal()));
     }
 
     public GraphLegend getChannelGraphLegend() {

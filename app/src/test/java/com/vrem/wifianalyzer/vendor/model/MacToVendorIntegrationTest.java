@@ -33,16 +33,21 @@ import static org.junit.Assert.assertEquals;
 public class MacToVendorIntegrationTest {
 
     @Test
-    public void testMacVendorsCom() throws Exception {
+    public void testMacVendorsComShort() throws Exception {
+        validateMacVendorsCom("00:23:AB");
+    }
+
+    private void validateMacVendorsCom(String macAddress) throws Exception {
         // setup
         String expected = "CISCO SYSTEMS, INC";
-        String macAddress = "00:23:AB:8C:DF:10";
         String url = "http://api.macvendors.com/";
         // execute
         String actual = execute(url + macAddress);
         // validate
+/*
         System.out.println(">>> Request:" + url + macAddress);
         System.out.println(">>> Response:" + actual);
+*/
         assertEquals(expected, actual);
     }
 
@@ -56,7 +61,7 @@ public class MacToVendorIntegrationTest {
             while ((line = bufferedReader.readLine()) != null) {
                 response.append(line);
             }
-            return response.toString();
+            return response.toString().toUpperCase();
         } finally {
             if (bufferedReader != null) {
                 try {

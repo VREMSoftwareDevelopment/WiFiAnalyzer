@@ -91,6 +91,10 @@ public class ChannelGraphFragment extends Fragment {
         super.onDestroy();
     }
 
+    ChannelGraphAdapter getChannelGraphAdapter() {
+        return channelGraphAdapter;
+    }
+
     private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
         @Override
         public void onRefresh() {

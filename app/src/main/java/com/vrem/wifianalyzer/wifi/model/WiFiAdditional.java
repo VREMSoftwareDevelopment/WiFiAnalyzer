@@ -27,39 +27,29 @@ public class WiFiAdditional {
     public static final WiFiAdditional EMPTY = new WiFiAdditional(StringUtils.EMPTY, false);
 
     private final String vendorName;
-    private final String ipAddress;
-    private final int linkSpeed;
     private final boolean configuredNetwork;
+    private final WiFiConnection wiFiConnection;
 
-    private WiFiAdditional(@NonNull String vendorName, @NonNull String ipAddress, int linkSpeed, boolean configuredNetwork) {
+    private WiFiAdditional(@NonNull String vendorName, @NonNull WiFiConnection wiFiConnection, boolean configuredNetwork) {
         this.vendorName = vendorName;
-        this.ipAddress = ipAddress;
+        this.wiFiConnection = wiFiConnection;
         this.configuredNetwork = configuredNetwork;
-        this.linkSpeed = linkSpeed;
     }
 
     public WiFiAdditional(@NonNull String vendorName, boolean configuredNetwork) {
-        this(vendorName, StringUtils.EMPTY, WiFiConnection.LINK_SPEED_INVALID, configuredNetwork);
+        this(vendorName, WiFiConnection.EMPTY, configuredNetwork);
     }
 
-    public WiFiAdditional(@NonNull String vendorName, @NonNull String ipAddress, int linkSpeed) {
-        this(vendorName, ipAddress, linkSpeed, true);
+    public WiFiAdditional(@NonNull String vendorName, @NonNull WiFiConnection wiFiConnection) {
+        this(vendorName, wiFiConnection, true);
     }
 
     public String getVendorName() {
         return vendorName;
     }
 
-    public String getIPAddress() {
-        return ipAddress;
-    }
-
-    public int getLinkSpeed() {
-        return linkSpeed;
-    }
-
-    public boolean isConnected() {
-        return StringUtils.isNotBlank(getIPAddress());
+    public WiFiConnection getWiFiConnection() {
+        return wiFiConnection;
     }
 
     public boolean isConfiguredNetwork() {

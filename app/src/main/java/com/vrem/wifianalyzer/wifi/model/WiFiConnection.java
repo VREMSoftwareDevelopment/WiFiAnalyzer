@@ -61,6 +61,10 @@ public class WiFiConnection {
         return linkSpeed;
     }
 
+    public boolean isConnected() {
+        return StringUtils.isNotBlank(getIpAddress());
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {
@@ -87,4 +91,5 @@ public class WiFiConnection {
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
     }
+
 }

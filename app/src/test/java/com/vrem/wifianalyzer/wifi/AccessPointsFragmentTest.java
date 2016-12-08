@@ -32,6 +32,7 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
@@ -43,7 +44,7 @@ public class AccessPointsFragmentTest {
 
     @Before
     public void setUp() {
-        RobolectricUtil.INSTANCE.getMainActivity();
+        RobolectricUtil.INSTANCE.getActivity();
         scanner = MainContextHelper.INSTANCE.getScanner();
         fixture = new AccessPointsFragment();
     }
@@ -60,5 +61,27 @@ public class AccessPointsFragmentTest {
         // validate
         assertNotNull(fixture);
         verify(scanner).update();
+        verify(scanner).register(fixture.getAccessPointsAdapter());
     }
+
+    @Test
+    public void testOnResume() throws Exception {
+        // setup
+        SupportFragmentTestUtil.startFragment(fixture);
+        // execute
+        fixture.onResume();
+        // validate
+        verify(scanner, times(2)).update();
+    }
+
+    @Test
+    public void testOnDestroy() throws Exception {
+        // setup
+        SupportFragmentTestUtil.startFragment(fixture);
+        // execute
+        fixture.onDestroy();
+        // validate
+        verify(scanner).unregister(fixture.getAccessPointsAdapter());
+    }
+
 }

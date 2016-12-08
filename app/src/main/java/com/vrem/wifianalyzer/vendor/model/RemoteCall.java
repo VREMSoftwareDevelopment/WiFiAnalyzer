@@ -20,11 +20,9 @@ package com.vrem.wifianalyzer.vendor.model;
 
 import android.os.AsyncTask;
 
-import com.vrem.wifianalyzer.Logger;
 import com.vrem.wifianalyzer.MainContext;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,16 +30,16 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-class RemoteCall extends AsyncTask<String, Void, String> {
+class RemoteCall extends AsyncTask<String, Void, RemoteResult> {
     static final String MAC_VENDOR_LOOKUP = "http://api.macvendors.com/%s";
 
     @Override
-    protected String doInBackground(String... params) {
+    protected RemoteResult doInBackground(String... params) {
         if (params == null || params.length < 1 || StringUtils.isBlank(params[0])) {
-            return StringUtils.EMPTY;
+            return RemoteResult.EMPTY;
         }
         String macAddress = params[0];
-        String request = String.format(MAC_VENDOR_LOOKUP, macAddress);
+        String request = String.format(MAC_VENDOR_LOOKUP, macAddress.substring(0, macAddress.length() / 2));
         BufferedReader bufferedReader = null;
         try {
             URLConnection urlConnection = getURLConnection(request);
@@ -53,11 +51,11 @@ class RemoteCall extends AsyncTask<String, Void, String> {
             }
             String vendorName = VendorNameUtils.cleanVendorName(response.toString().trim());
             if (StringUtils.isNotBlank(vendorName)) {
-                return new RemoteResult(macAddress, vendorName).toJson();
+                return new RemoteResult(macAddress, vendorName);
             }
-            return StringUtils.EMPTY;
+            return RemoteResult.EMPTY;
         } catch (Exception e) {
-            return StringUtils.EMPTY;
+            return RemoteResult.EMPTY;
         } finally {
             if (bufferedReader != null) {
                 try {
@@ -74,21 +72,12 @@ class RemoteCall extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        if (StringUtils.isNotBlank(result)) {
-            Logger logger = MainContext.INSTANCE.getLogger();
-            try {
-                RemoteResult remoteResult = new RemoteResult(result);
-                String macAddress = remoteResult.getMacAddress();
-                String vendorName = remoteResult.getVendorName();
-                if (StringUtils.isNotBlank(vendorName) && StringUtils.isNotBlank(macAddress)) {
-                    logger.info(this, macAddress + " " + vendorName);
-                    Database database = MainContext.INSTANCE.getDatabase();
-                    database.insert(macAddress, vendorName);
-                }
-            } catch (JSONException e) {
-                logger.error(this, result, e);
-            }
+    protected void onPostExecute(RemoteResult result) {
+        String macAddress = result.getMacAddress();
+        String vendorName = result.getVendorName();
+        if (StringUtils.isNotBlank(vendorName) && StringUtils.isNotBlank(macAddress)) {
+            Database database = MainContext.INSTANCE.getDatabase();
+            database.insert(macAddress, vendorName);
         }
     }
 }

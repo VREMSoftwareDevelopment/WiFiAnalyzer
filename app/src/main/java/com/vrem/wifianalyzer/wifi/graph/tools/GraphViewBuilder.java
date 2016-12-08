@@ -30,8 +30,8 @@ import com.jjoe64.graphview.Viewport;
 
 public class GraphViewBuilder {
     public static final int MIN_Y = -100;
-    public static final int MAX_Y = -10;
-    public static final int NUM_Y = (MAX_Y - MIN_Y) / 10 + 1;
+    public static final int MAX_Y = -20;
+    static final int NUM_Y = (MAX_Y - MIN_Y) / 10 + 1;
 
     private final Context content;
     private final int numHorizontalLabels;

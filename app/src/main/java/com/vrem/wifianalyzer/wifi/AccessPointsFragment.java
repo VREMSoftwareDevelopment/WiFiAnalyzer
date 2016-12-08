@@ -74,6 +74,10 @@ public class AccessPointsFragment extends Fragment {
         super.onDestroy();
     }
 
+    AccessPointsAdapter getAccessPointsAdapter() {
+        return accessPointsAdapter;
+    }
+
     private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
         @Override
         public void onRefresh() {

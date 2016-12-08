@@ -60,7 +60,7 @@ public class ChannelGraphNavigationTest {
 
     @Before
     public void setUp() {
-        MainActivity mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
+        MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
 
         scanner = MainContextHelper.INSTANCE.getScanner();
         settings = MainContextHelper.INSTANCE.getSettings();

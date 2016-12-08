@@ -21,13 +21,13 @@ package com.vrem.wifianalyzer.wifi;
 import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -37,17 +37,27 @@ import java.util.List;
 
 public class ConnectionView implements UpdateNotifier {
     private final MainActivity mainActivity;
-    private AccessPointsDetail accessPointsDetail;
+    private AccessPointDetail accessPointDetail;
+    private AccessPointPopup accessPointPopup;
 
     public ConnectionView(@NonNull MainActivity mainActivity) {
         this.mainActivity = mainActivity;
-        setAccessPointsDetail(new AccessPointsDetail());
+        setAccessPointDetail(new AccessPointDetail());
+        setAccessPointPopup(new AccessPointPopup());
     }
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         setConnectionVisibility(wiFiData);
         setNoDataVisibility(wiFiData);
+    }
+
+    void setAccessPointDetail(@NonNull AccessPointDetail accessPointDetail) {
+        this.accessPointDetail = accessPointDetail;
+    }
+
+    void setAccessPointPopup(@NonNull AccessPointPopup accessPointPopup) {
+        this.accessPointPopup = accessPointPopup;
     }
 
     private void setNoDataVisibility(@NonNull WiFiData wiFiData) {
@@ -71,30 +81,41 @@ public class ConnectionView implements UpdateNotifier {
     private void setConnectionVisibility(@NonNull WiFiData wiFiData) {
         WiFiDetail connection = wiFiData.getConnection();
         View connectionView = mainActivity.findViewById(R.id.connection);
-        WiFiAdditional wiFiAdditional = connection.getWiFiAdditional();
-        if (wiFiAdditional.isConnected()) {
+        WiFiConnection wiFiConnection = connection.getWiFiAdditional().getWiFiConnection();
+        if (wiFiConnection.isConnected()) {
             connectionView.setVisibility(View.VISIBLE);
-            accessPointsDetail.setView(mainActivity.getResources(), connectionView, connection, false);
-
-            String ipAddress = wiFiAdditional.getIPAddress();
-            int linkSpeed = wiFiAdditional.getLinkSpeed();
-
-            TextView textIPAddress = (TextView) connectionView.findViewById(R.id.ipAddress);
-            TextView textLinkSpeed = (TextView) connectionView.findViewById(R.id.linkSpeed);
-            textIPAddress.setVisibility(View.VISIBLE);
-            textIPAddress.setText(ipAddress);
-            if (linkSpeed == WiFiConnection.LINK_SPEED_INVALID) {
-                textLinkSpeed.setVisibility(View.GONE);
-            } else {
-                textLinkSpeed.setVisibility(View.VISIBLE);
-                textLinkSpeed.setText(linkSpeed + WifiInfo.LINK_SPEED_UNITS);
+            ViewGroup parent = (ViewGroup) connectionView.findViewById(R.id.connectionDetail);
+            View view = accessPointDetail.makeView(parent.getChildAt(0), parent, connection, false);
+            if (parent.getChildCount() == 0) {
+                parent.addView(view);
             }
+            setViewConnection(connectionView, wiFiConnection);
+            attachPopup(view, connection);
         } else {
             connectionView.setVisibility(View.GONE);
         }
     }
 
-    void setAccessPointsDetail(@NonNull AccessPointsDetail accessPointsDetail) {
-        this.accessPointsDetail = accessPointsDetail;
+    private void setViewConnection(View connectionView, WiFiConnection wiFiConnection) {
+        String ipAddress = wiFiConnection.getIpAddress();
+        ((TextView) connectionView.findViewById(R.id.ipAddress)).setText(ipAddress);
+
+        TextView textLinkSpeed = (TextView) connectionView.findViewById(R.id.linkSpeed);
+        int linkSpeed = wiFiConnection.getLinkSpeed();
+        if (linkSpeed == WiFiConnection.LINK_SPEED_INVALID) {
+            textLinkSpeed.setVisibility(View.GONE);
+        } else {
+            textLinkSpeed.setVisibility(View.VISIBLE);
+            textLinkSpeed.setText(linkSpeed + WifiInfo.LINK_SPEED_UNITS);
+        }
     }
+
+    private void attachPopup(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {
+        View popupView = view.findViewById(R.id.attachPopup);
+        if (popupView != null) {
+            accessPointPopup.attach(popupView, wiFiDetail);
+            accessPointPopup.attach(view.findViewById(R.id.ssid), wiFiDetail);
+        }
+    }
+
 }

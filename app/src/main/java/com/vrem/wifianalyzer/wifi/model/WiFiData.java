@@ -48,7 +48,7 @@ public class WiFiData {
             WiFiConnection connection = new WiFiConnection(wiFiDetail.getSSID(), wiFiDetail.getBSSID());
             if (wiFiConnection.equals(connection)) {
                 String vendorName = vendorService.findVendorName(wiFiDetail.getBSSID());
-                WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName, wiFiConnection.getIpAddress(), wiFiConnection.getLinkSpeed());
+                WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName, wiFiConnection);
                 return new WiFiDetail(wiFiDetail, wiFiAdditional);
             }
         }

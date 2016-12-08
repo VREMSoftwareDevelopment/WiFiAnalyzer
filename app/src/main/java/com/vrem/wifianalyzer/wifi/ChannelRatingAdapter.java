@@ -34,6 +34,7 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.model.ChannelAPCount;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
@@ -50,7 +51,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     private final TextView bestChannels;
     private ChannelRating channelRating;
 
-    public ChannelRatingAdapter(@NonNull Context context, @NonNull TextView bestChannels) {
+    ChannelRatingAdapter(@NonNull Context context, @NonNull TextView bestChannels) {
         super(context, R.layout.channel_rating_details, new ArrayList<WiFiChannel>());
         this.resources = context.getResources();
         this.bestChannels = bestChannels;
@@ -85,16 +86,17 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            LayoutInflater layoutInflater = MainContext.INSTANCE.getLayoutInflater();
+            LayoutInflater layoutInflater = MainContext.INSTANCE.getMainActivity().getLayoutInflater();
             view = layoutInflater.inflate(R.layout.channel_rating_details, parent, false);
         }
 
         WiFiChannel wiFiChannel = getItem(position);
-        int count = channelRating.getCount(wiFiChannel);
+        if (wiFiChannel == null) {
+            return view;
+        }
 
         ((TextView) view.findViewById(R.id.channelNumber)).setText("" + wiFiChannel.getChannel());
-        ((TextView) view.findViewById(R.id.accessPointCount)).setText("" + count);
-
+        ((TextView) view.findViewById(R.id.accessPointCount)).setText("" + channelRating.getCount(wiFiChannel));
         Strength strength = Strength.reverse(channelRating.getStrength(wiFiChannel));
         RatingBar ratingBar = (RatingBar) view.findViewById(R.id.channelRating);
         int size = Strength.values().length;
@@ -107,10 +109,10 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     }
 
     void bestChannels(@NonNull WiFiBand wiFiBand, @NonNull List<WiFiChannel> wiFiChannels) {
-        List<ChannelRating.ChannelAPCount> channelAPCounts = channelRating.getBestChannels(wiFiChannels);
+        List<ChannelAPCount> channelAPCounts = channelRating.getBestChannels(wiFiChannels);
         int channelCount = 0;
         StringBuilder result = new StringBuilder();
-        for (ChannelRating.ChannelAPCount channelAPCount : channelAPCounts) {
+        for (ChannelAPCount channelAPCount : channelAPCounts) {
             if (channelCount > MAX_CHANNELS_TO_DISPLAY) {
                 result.append("...");
                 break;

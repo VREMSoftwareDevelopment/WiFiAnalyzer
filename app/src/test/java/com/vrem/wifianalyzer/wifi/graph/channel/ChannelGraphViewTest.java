@@ -62,7 +62,7 @@ public class ChannelGraphViewTest {
 
     @Before
     public void setUp() {
-        RobolectricUtil.INSTANCE.getMainActivity();
+        RobolectricUtil.INSTANCE.getActivity();
 
         graphViewWrapper = mock(GraphViewWrapper.class);
 

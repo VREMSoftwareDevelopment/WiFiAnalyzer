@@ -18,9 +18,8 @@
 
 package com.vrem.wifianalyzer.wifi.graph.tools;
 
-import android.app.Dialog;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
+import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
@@ -32,9 +31,8 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 import com.jjoe64.graphview.series.TitleLineGraphSeries;
-import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.wifi.AccessPointsDetail;
+import com.vrem.wifianalyzer.wifi.AccessPointDetail;
+import com.vrem.wifianalyzer.wifi.AccessPointPopup;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
@@ -82,7 +80,7 @@ public class GraphViewWrapper {
         } else {
             current.appendData(data, true, count + 1);
         }
-        highlightConnected(wiFiDetail.getWiFiAdditional().isConnected(), current);
+        highlightConnected(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected(), current);
         return added;
     }
 
@@ -124,7 +122,7 @@ public class GraphViewWrapper {
         } else {
             current.resetData(data);
         }
-        highlightConnected(wiFiDetail.getWiFiAdditional().isConnected(), current);
+        highlightConnected(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected(), current);
         return added;
     }
 
@@ -180,13 +178,21 @@ public class GraphViewWrapper {
         public void onTap(@NonNull Series series, @NonNull DataPointInterface dataPoint) {
             WiFiDetail wiFiDetail = seriesCache.find(series);
             if (wiFiDetail != null) {
-                MainContext mainContext = MainContext.INSTANCE;
-                LayoutInflater layoutInflater = mainContext.getLayoutInflater();
-                MainActivity mainActivity = mainContext.getMainActivity();
-                Dialog dialog = new AccessPointsDetail().popupDialog(mainActivity, layoutInflater, wiFiDetail);
-                dialog.show();
+                View popupView = getAccessPointDetail().makeViewPopup(wiFiDetail);
+                getAccessPointPopup().show(popupView);
             }
         }
+
+        @NonNull
+        private AccessPointPopup getAccessPointPopup() {
+            return new AccessPointPopup();
+        }
+
+        @NonNull
+        private AccessPointDetail getAccessPointDetail() {
+            return new AccessPointDetail();
+        }
+
     }
 
 }

@@ -58,7 +58,6 @@ public class TimeGraphFragment extends Fragment {
         }
     }
 
-
     private void refresh() {
         swipeRefreshLayout.setRefreshing(true);
         Scanner scanner = MainContext.INSTANCE.getScanner();
@@ -77,6 +76,10 @@ public class TimeGraphFragment extends Fragment {
         Scanner scanner = MainContext.INSTANCE.getScanner();
         scanner.unregister(timeGraphAdapter);
         super.onDestroy();
+    }
+
+    TimeGraphAdapter getTimeGraphAdapter() {
+        return timeGraphAdapter;
     }
 
     private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {

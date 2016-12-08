@@ -18,11 +18,11 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
+import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 
@@ -38,6 +38,7 @@ import static android.content.SharedPreferences.Editor;
 import static android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
+import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
@@ -53,20 +54,20 @@ public class RepositoryTest {
     private Editor editor;
 
     private String keyValue;
-    private Context context;
+    private MainActivity mainActivity;
     private Resources resources;
     private Repository fixture;
 
     @Before
     public void setUp() {
         mockStatic(PreferenceManager.class);
+        resources = mock(Resources.class);
 
         keyValue = "xyz";
 
-        context = MainContextHelper.INSTANCE.getMainActivity();
-        resources = MainContextHelper.INSTANCE.getResources();
-
-        when(PreferenceManager.getDefaultSharedPreferences(context)).thenReturn(sharedPreferences);
+        mainActivity = MainContextHelper.INSTANCE.getMainActivity();
+        when(PreferenceManager.getDefaultSharedPreferences(mainActivity)).thenReturn(sharedPreferences);
+        when(mainActivity.getResources()).thenReturn(resources);
 
         fixture = new Repository();
     }
@@ -95,13 +96,13 @@ public class RepositoryTest {
     }
 
     private void verifySave(int keyIndex, int value) {
-        verify(context).getString(keyIndex);
+        verify(mainActivity).getString(keyIndex);
         verify(editor).putString(keyValue, "" + value);
         verify(editor).apply();
     }
 
     private void withSave(int keyIndex) {
-        when(context.getString(keyIndex)).thenReturn(keyValue);
+        when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
         when(sharedPreferences.edit()).thenReturn(editor);
     }
 
@@ -111,13 +112,13 @@ public class RepositoryTest {
         int keyIndex = R.string.app_name;
         String value = "1111";
         String defaultValue = "2222";
-        when(context.getString(keyIndex)).thenReturn(keyValue);
+        when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
         when(sharedPreferences.getString(keyValue, defaultValue)).thenReturn(value);
         // execute
         String actual = fixture.getString(keyIndex, defaultValue);
         // validate
         assertEquals(value, actual);
-        verify(context).getString(keyIndex);
+        verify(mainActivity).getString(keyIndex);
         verify(sharedPreferences).getString(keyValue, "" + defaultValue);
     }
 
@@ -127,13 +128,13 @@ public class RepositoryTest {
         int keyIndex = R.string.app_name;
         int value = 1111;
         int defaultValue = 2222;
-        when(context.getString(keyIndex)).thenReturn(keyValue);
+        when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
         when(sharedPreferences.getString(keyValue, "" + defaultValue)).thenReturn("" + value);
         // execute
         int actual = fixture.getStringAsInteger(keyIndex, defaultValue);
         // validate
         assertEquals(value, actual);
-        verify(context).getString(keyIndex);
+        verify(mainActivity).getString(keyIndex);
         verify(sharedPreferences).getString(keyValue, "" + defaultValue);
     }
 
@@ -142,14 +143,14 @@ public class RepositoryTest {
         // setup
         int keyIndex = R.string.app_name;
         int defaultValue = 2222;
-        when(context.getString(keyIndex)).thenReturn(keyValue);
+        when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
         when(sharedPreferences.getString(keyValue, "" + defaultValue)).thenThrow(new RuntimeException());
         withSave(keyIndex);
         // execute
         int actual = fixture.getStringAsInteger(keyIndex, defaultValue);
         // validate
         assertEquals(defaultValue, actual);
-        verify(context).getString(keyIndex);
+        verify(mainActivity).getString(keyIndex);
         verify(sharedPreferences).getString(keyValue, "" + defaultValue);
         verifySave(keyIndex, defaultValue);
     }
@@ -173,13 +174,13 @@ public class RepositoryTest {
         int keyIndex = R.string.app_name;
         int value = 1111;
         int defaultValue = 2222;
-        when(context.getString(keyIndex)).thenReturn(keyValue);
+        when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
         when(sharedPreferences.getInt(keyValue, defaultValue)).thenReturn(value);
         // execute
         int actual = fixture.getInteger(keyIndex, defaultValue);
         // validate
         assertEquals(value, actual);
-        verify(context).getString(keyIndex);
+        verify(mainActivity).getString(keyIndex);
         verify(sharedPreferences).getInt(keyValue, defaultValue);
     }
 
@@ -188,14 +189,14 @@ public class RepositoryTest {
         // setup
         int keyIndex = R.string.app_name;
         int defaultValue = 2222;
-        when(context.getString(keyIndex)).thenReturn(keyValue);
+        when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
         when(sharedPreferences.getInt(keyValue, defaultValue)).thenThrow(new RuntimeException());
         withSave(keyIndex);
         // execute
         int actual = fixture.getInteger(keyIndex, defaultValue);
         // validate
         assertEquals(defaultValue, actual);
-        verify(context).getString(keyIndex);
+        verify(mainActivity).getString(keyIndex);
         verify(sharedPreferences).getInt(keyValue, defaultValue);
         verifySave(keyIndex, defaultValue);
     }

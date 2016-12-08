@@ -52,6 +52,15 @@
         android:title="@string/group_by_title"/>
 
     <ListPreference
+        android:defaultValue="@string/ap_view_default"
+        android:entries="@array/ap_view_array"
+        android:entryValues="@array/ap_view_index_array"
+        android:key="@string/ap_view_key"
+        android:persistent="true"
+        android:summary="@string/ap_view_summary"
+        android:title="@string/ap_view_title"/>
+
+    <ListPreference
         android:defaultValue="@string/channel_graph_legend_default"
         android:entries="@array/graph_legend_array"
         android:entryValues="@array/graph_legend_index_array"

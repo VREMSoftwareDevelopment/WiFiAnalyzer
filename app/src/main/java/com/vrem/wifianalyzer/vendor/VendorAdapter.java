@@ -46,7 +46,7 @@ class VendorAdapter extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            LayoutInflater layoutInflater = MainContext.INSTANCE.getLayoutInflater();
+            LayoutInflater layoutInflater = MainContext.INSTANCE.getMainActivity().getLayoutInflater();
             view = layoutInflater.inflate(R.layout.vendor_details, parent, false);
         }
         String name = getItem(position);

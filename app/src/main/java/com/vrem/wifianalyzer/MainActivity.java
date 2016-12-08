@@ -40,6 +40,7 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
+import com.vrem.wifianalyzer.wifi.AccessPointView;
 import com.vrem.wifianalyzer.wifi.ConnectionView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     public static final String WI_FI_ANALYZER_BETA = "BETA";
 
     private ThemeStyle currentThemeStyle;
+    private AccessPointView currentAccessPointView;
     private NavigationMenuView navigationMenuView;
     private NavigationMenu startNavigationMenu;
     private String currentCountryCode;
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         Settings settings = mainContext.getSettings();
         settings.initializeDefaultValues();
         setCurrentThemeStyle(settings.getThemeStyle());
+        setCurrentAccessPointView(settings.getAccessPointView());
         setTheme(getCurrentThemeStyle().themeAppCompatStyle());
         setWiFiChannelPairs();
 
@@ -95,6 +98,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     private boolean isDevelopment() {
         return getPackageName().contains(WI_FI_ANALYZER_BETA);
+    }
+
+    ConnectionView getConnectionView() {
+        return connectionView;
     }
 
     private void setWiFiChannelPairs() {
@@ -130,12 +137,25 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     boolean shouldReload() {
         Settings settings = MainContext.INSTANCE.getSettings();
+        return isThemeChanged(settings) || isAccessPointViewChanged(settings);
+    }
+
+    private boolean isAccessPointViewChanged(Settings settings) {
+        AccessPointView settingAccessPointView = settings.getAccessPointView();
+        boolean accessPointViewChanged = !getCurrentAccessPointView().equals(settingAccessPointView);
+        if (accessPointViewChanged) {
+            setCurrentAccessPointView(settingAccessPointView);
+        }
+        return accessPointViewChanged;
+    }
+
+    private boolean isThemeChanged(Settings settings) {
         ThemeStyle settingThemeStyle = settings.getThemeStyle();
-        boolean result = !getCurrentThemeStyle().equals(settingThemeStyle);
-        if (result) {
+        boolean themeChanged = !getCurrentThemeStyle().equals(settingThemeStyle);
+        if (themeChanged) {
             setCurrentThemeStyle(settingThemeStyle);
         }
-        return result;
+        return themeChanged;
     }
 
     private void reloadActivity() {
@@ -148,10 +168,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
+        if (!closeDrawer()) {
             if (startNavigationMenu.equals(navigationMenuView.getCurrentNavigationMenu())) {
                 super.onBackPressed();
             } else {
@@ -163,10 +180,18 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        closeDrawer();
         NavigationMenu.find(menuItem.getItemId()).activateNavigationMenu(this, menuItem);
         return true;
+    }
+
+    private boolean closeDrawer() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -226,8 +251,16 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         return currentThemeStyle;
     }
 
-    void setCurrentThemeStyle(ThemeStyle currentThemeStyle) {
+    void setCurrentThemeStyle(@NonNull ThemeStyle currentThemeStyle) {
         this.currentThemeStyle = currentThemeStyle;
+    }
+
+    public AccessPointView getCurrentAccessPointView() {
+        return currentAccessPointView;
+    }
+
+    public void setCurrentAccessPointView(@NonNull AccessPointView currentAccessPointView) {
+        this.currentAccessPointView = currentAccessPointView;
     }
 
     private class WiFiBandToggle implements OnClickListener {

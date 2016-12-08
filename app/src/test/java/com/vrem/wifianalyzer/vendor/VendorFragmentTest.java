@@ -49,7 +49,7 @@ public class VendorFragmentTest {
 
     @Before
     public void setUp() {
-        RobolectricUtil.INSTANCE.getMainActivity();
+        RobolectricUtil.INSTANCE.getActivity();
 
         vendorService = MainContextHelper.INSTANCE.getVendorService();
 

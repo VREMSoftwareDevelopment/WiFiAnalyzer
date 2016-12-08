@@ -46,7 +46,7 @@ public class CountryPreferenceTest {
 
     @Before
     public void setUp() {
-        MainActivity mainActivity = RobolectricUtil.INSTANCE.getMainActivity();
+        MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
         fixture = new CountryPreference(mainActivity, Robolectric.buildAttributeSet().build());
 
         countries = WiFiChannelCountry.getAll();

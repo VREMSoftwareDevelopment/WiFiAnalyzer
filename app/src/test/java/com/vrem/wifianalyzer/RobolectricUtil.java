@@ -25,10 +25,11 @@ public enum RobolectricUtil {
 
     private MainActivity mainActivity;
 
-    public MainActivity getMainActivity() {
-        if (mainActivity == null) {
-            mainActivity = Robolectric.setupActivity(MainActivity.class);
-        }
+    RobolectricUtil() {
+        mainActivity = Robolectric.setupActivity(MainActivity.class);
+    }
+
+    public MainActivity getActivity() {
         return mainActivity;
     }
 }

@@ -31,6 +31,11 @@
         <item>信道</item>
     </string-array>
 
+    <string-array name="ap_view_array">
+        <item>完整</item>
+        <item>紧凑</item>
+    </string-array>
+
     <string-array name="graph_legend_array">
         <item>左</item>
         <item>右</item>

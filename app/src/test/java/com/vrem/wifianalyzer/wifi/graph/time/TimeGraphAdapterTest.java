@@ -44,7 +44,7 @@ public class TimeGraphAdapterTest {
 
     @Before
     public void setUp() {
-        RobolectricUtil.INSTANCE.getMainActivity();
+        RobolectricUtil.INSTANCE.getActivity();
 
         fixture = new TimeGraphAdapter();
     }

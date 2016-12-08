@@ -24,7 +24,9 @@ import android.text.Html;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
+import com.vrem.wifianalyzer.wifi.AccessPointView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import org.junit.After;
 import org.junit.Before;
@@ -36,6 +38,7 @@ import org.robolectric.annotation.Config;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -45,12 +48,13 @@ public class MainActivityTest {
 
     @Before
     public void setUp() {
-        fixture = RobolectricUtil.INSTANCE.getMainActivity();
+        fixture = RobolectricUtil.INSTANCE.getActivity();
     }
 
     @After
     public void tearDown() {
         fixture.getNavigationMenuView().setCurrentNavigationMenu(NavigationMenu.ACCESS_POINTS);
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test
@@ -94,27 +98,42 @@ public class MainActivityTest {
 
     @Test
     public void testOnPause() throws Exception {
-        fixture.onPause();
-        assertFalse(MainContext.INSTANCE.getScanner().isRunning());
-        fixture.onResume();
-        assertTrue(MainContext.INSTANCE.getScanner().isRunning());
-    }
-
-    @Test
-    public void testOnBackPressed() throws Exception {
         // setup
+        Scanner scanner = MainContextHelper.INSTANCE.getScanner();
         // execute
-        fixture.onBackPressed();
+        fixture.onPause();
         // validate
+        verify(scanner).pause();
+        fixture.onResume();
     }
 
     @Test
-    public void testShouldNotReloadWithNoChanges() throws Exception {
+    public void testOnResume() throws Exception {
         // setup
-        ThemeStyle currentThemeStyle = fixture.getCurrentThemeStyle();
+        Scanner scanner = MainContextHelper.INSTANCE.getScanner();
+        // execute
+        fixture.onResume();
+        // validate
+        verify(scanner).resume();
+    }
+
+    @Test
+    public void testOnDestroy() throws Exception {
+        // setup
+        Scanner scanner = MainContextHelper.INSTANCE.getScanner();
+        // execute
+        fixture.onDestroy();
+        // validate
+        verify(scanner).unregister(fixture.getConnectionView());
+    }
+
+    @Test
+    public void testShouldNotReloadWithNoThemeChanges() throws Exception {
+        // setup
+        ThemeStyle expected = fixture.getCurrentThemeStyle();
         // execute && validate
         assertFalse(fixture.shouldReload());
-        assertEquals(currentThemeStyle, fixture.getCurrentThemeStyle());
+        assertEquals(expected, fixture.getCurrentThemeStyle());
     }
 
     @Test
@@ -127,7 +146,25 @@ public class MainActivityTest {
         assertEquals(expected, fixture.getCurrentThemeStyle());
     }
 
-    @NonNull
+    @Test
+    public void testShouldNotReloadWithNoAccessPointViewChanges() throws Exception {
+        // setup
+        AccessPointView expected = fixture.getCurrentAccessPointView();
+        // execute && validate
+        assertFalse(fixture.shouldReload());
+        assertEquals(expected, fixture.getCurrentAccessPointView());
+    }
+
+    @Test
+    public void testShouldReloadWithAccessPointViewChange() throws Exception {
+        // setup
+        AccessPointView expected = fixture.getCurrentAccessPointView();
+        fixture.setCurrentAccessPointView(AccessPointView.COMPLETE.equals(expected) ? AccessPointView.COMPACT : AccessPointView.COMPLETE);
+        // execute && validate
+        assertTrue(fixture.shouldReload());
+        assertEquals(expected, fixture.getCurrentAccessPointView());
+    }
+
     private String makeSubtitle(@NonNull WiFiBand currentWiFiBand) {
         int color = fixture.getResources().getColor(R.color.connected);
         String subtitleText = makeSubtitleText("<font color='" + color + "'><strong>", "</strong></font>", "<small>", "</small>");
@@ -137,7 +174,6 @@ public class MainActivityTest {
         return Html.fromHtml(subtitleText).toString();
     }
 
-    @NonNull
     private String makeSubtitleText(@NonNull String tag1, @NonNull String tag2, @NonNull String tag3, @NonNull String tag4) {
         return tag1 + WiFiBand.GHZ2.getBand() + tag2 + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + tag3 + WiFiBand.GHZ5.getBand() + tag4;
     }

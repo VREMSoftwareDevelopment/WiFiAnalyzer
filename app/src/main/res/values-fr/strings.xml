@@ -76,5 +76,6 @@
     <string name="about_library_graph_view">Visualisation graphique</string>
     <string name="about_library_material">"Icones de \'Material Design\'"</string>
     <string name="about_contributor_title">Contributeurs :</string>
+    <string name="ap_view_title">Affichage des point d\'accès</string>
     <!-- about end -->
 </resources>

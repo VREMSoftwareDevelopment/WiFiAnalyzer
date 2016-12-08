@@ -76,5 +76,6 @@
     <string name="about_library_graph_view">Graphansicht</string>
     <string name="about_library_material">Material Design Ikonen</string>
     <string name="about_contributor_title">Beitragende:</string>
+    <string name="ap_view_title">Access Point Anzeigen</string>
     <!-- about end -->
 </resources>
