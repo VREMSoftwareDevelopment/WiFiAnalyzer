@@ -19,7 +19,6 @@
 package com.vrem.wifianalyzer.wifi;
 
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -43,7 +42,6 @@ import static org.mockito.Mockito.when;
 @Config(constants = BuildConfig.class)
 public class ChannelAvailableFragmentTest {
 
-    private Configuration configuration;
     private Settings settings;
     private ChannelAvailableFragment fixture;
 
@@ -51,9 +49,7 @@ public class ChannelAvailableFragmentTest {
     public void setUp() {
         RobolectricUtil.INSTANCE.getActivity();
 
-        configuration = MainContextHelper.INSTANCE.getConfiguration();
         settings = MainContextHelper.INSTANCE.getSettings();
-
         when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
 
         fixture = new ChannelAvailableFragment();
@@ -61,25 +57,12 @@ public class ChannelAvailableFragmentTest {
 
     @After
     public void tearDown() {
-        verify(configuration, atLeastOnce()).isDevelopmentMode();
         verify(settings, atLeastOnce()).getCountryCode();
         MainContextHelper.INSTANCE.restore();
     }
 
     @Test
     public void testOnCreateView() throws Exception {
-        // setup
-        when(configuration.isDevelopmentMode()).thenReturn(false);
-        // execute
-        SupportFragmentTestUtil.startFragment(fixture);
-        // validate
-        assertNotNull(fixture);
-    }
-
-    @Test
-    public void testOnCreateViewInDevelopmentMode() throws Exception {
-        // setup
-        when(configuration.isDevelopmentMode()).thenReturn(true);
         // execute
         SupportFragmentTestUtil.startFragment(fixture);
         // validate
