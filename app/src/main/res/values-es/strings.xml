@@ -62,6 +62,7 @@
     <string name="scan_interval_summary">%d segundos entre cada Exploracion</string>
     <string name="sort_by_title">Ordenar Puntos de Accesso por:</string>
     <string name="group_by_title">Agrupar Puntos de Acceso por:</string>
+    <string name="ap_view_title">Pantalla del punto de acceso</string>
     <string name="channel_graph_legend_title">Leyenda de Visualización de Gráfico de Canales</string>
     <string name="time_graph_legend_title">Leyenda de Visualización de Gráfico de Tiempo</string>
     <string name="theme_title">Tema</string>
@@ -76,6 +77,5 @@
     <string name="about_library_graph_view">Vista Gráfica</string>
     <string name="about_library_material">"Iconos de \'Diseño de Materiales\'"</string>
     <string name="about_contributor_title">Colaboradores:</string>
-    <string name="ap_view_title">Pantalla del punto de acceso</string>
     <!-- about end -->
 </resources>

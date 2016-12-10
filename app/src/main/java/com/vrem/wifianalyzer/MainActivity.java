@@ -51,8 +51,6 @@ import org.apache.commons.lang3.StringUtils;
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
 public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
-    public static final String WI_FI_ANALYZER_BETA = "BETA";
-
     private ThemeStyle currentThemeStyle;
     private AccessPointView currentAccessPointView;
     private NavigationMenuView navigationMenuView;
@@ -63,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         MainContext mainContext = MainContext.INSTANCE;
-        mainContext.initialize(this, isLargeScreenLayout(), isDevelopment());
+        mainContext.initialize(this, isLargeScreenLayout());
 
         Settings settings = mainContext.getSettings();
         settings.initializeDefaultValues();
@@ -94,10 +92,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         connectionView = new ConnectionView(this);
         Scanner scanner = mainContext.getScanner();
         scanner.register(connectionView);
-    }
-
-    private boolean isDevelopment() {
-        return getPackageName().contains(WI_FI_ANALYZER_BETA);
     }
 
     ConnectionView getConnectionView() {

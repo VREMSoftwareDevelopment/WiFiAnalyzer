@@ -62,6 +62,7 @@
     <string name="scan_interval_summary">%d Sekunden zwischen den Scans</string>
     <string name="sort_by_title">Sortiere Access Points nach</string>
     <string name="group_by_title">Gruppiere Access Points nach</string>
+    <string name="ap_view_title">Access Point Anzeigen</string>
     <string name="channel_graph_legend_title">Legende in Kanalübersicht anzeige</string>
     <string name="time_graph_legend_title">Legende in Signalverlauf anzeigen</string>
     <string name="theme_title">Thema</string>
@@ -76,6 +77,5 @@
     <string name="about_library_graph_view">Graphansicht</string>
     <string name="about_library_material">Material Design Ikonen</string>
     <string name="about_contributor_title">Beitragende:</string>
-    <string name="ap_view_title">Access Point Anzeigen</string>
     <!-- about end -->
 </resources>

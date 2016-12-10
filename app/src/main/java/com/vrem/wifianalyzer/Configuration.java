@@ -25,13 +25,11 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 
 public class Configuration {
-    private final boolean developmentMode;
     private final boolean largeScreenLayout;
     private Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
 
-    public Configuration(boolean largeScreenLayout, boolean developmentMode) {
+    public Configuration(boolean largeScreenLayout) {
         this.largeScreenLayout = largeScreenLayout;
-        this.developmentMode = developmentMode;
         setWiFiChannelPair(WiFiChannels.UNKNOWN);
     }
 
@@ -45,9 +43,5 @@ public class Configuration {
 
     public void setWiFiChannelPair(@NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         this.wiFiChannelPair = wiFiChannelPair;
-    }
-
-    public boolean isDevelopmentMode() {
-        return developmentMode;
     }
 }

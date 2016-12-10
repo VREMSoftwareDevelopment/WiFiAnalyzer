@@ -61,6 +61,7 @@
     <string name="scan_interval_summary">%d секунд между каждым сканированием</string>
     <string name="sort_by_title">Сортировка</string>
     <string name="group_by_title">Группировка</string>
+    <string name="ap_view_title">Точка доступа</string>
     <string name="channel_graph_legend_title">Показать легенду графика каналa</string>
     <string name="time_graph_legend_title">Показать легенду графика времени</string>
     <string name="theme_title">Цветовая тема</string>
@@ -75,6 +76,5 @@
     <string name="about_library_graph_view">Просмотр диаграммы</string>
     <string name="about_library_material">Материальный дизайн иконок</string>
     <string name="about_contributor_title">Авторы:</string>
-    <string name="ap_view_title">Точка доступа</string>
     <!-- about end -->
 </resources>
