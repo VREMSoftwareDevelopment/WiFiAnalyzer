@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.about;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -27,11 +25,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
-import com.vrem.wifianalyzer.Configuration;
-import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -50,9 +46,7 @@ public class AboutActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        setApplicationName();
-        setPackageName();
-        setVersionNumber();
+        setExtraInformation();
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -69,38 +63,10 @@ public class AboutActivity extends AppCompatActivity {
         }
     }
 
-    private void setVersionNumber() {
-        MainContext mainContext = MainContext.INSTANCE;
-        try {
-            PackageManager packageManager = getPackageManager();
-            PackageInfo packageInfo = packageManager.getPackageInfo(getPackageName(), 0);
-            String versionInfo = packageInfo.versionName;
-            Configuration configuration = mainContext.getConfiguration();
-            if (configuration != null && configuration.isDevelopmentMode()) {
-                versionInfo += " - " + packageInfo.versionCode
-                    + " SDK:" + Build.VERSION.SDK_INT + "/" + Build.VERSION.RELEASE;
-            }
-            ((TextView) findViewById(R.id.about_version_info)).setText(versionInfo);
-        } catch (PackageManager.NameNotFoundException e) {
-            // ignore
-        }
-    }
-
-    private void setPackageName() {
-        Configuration configuration = MainContext.INSTANCE.getConfiguration();
-        if (configuration != null && configuration.isDevelopmentMode()) {
-            TextView textView = (TextView) findViewById(R.id.about_package_name);
-            textView.setText(getPackageName());
-            textView.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private void setApplicationName() {
-        Configuration configuration = MainContext.INSTANCE.getConfiguration();
-        if (configuration != null && configuration.isDevelopmentMode()) {
-            TextView textView = (TextView) findViewById(R.id.about_app_name);
-            textView.setText(textView.getText() + " " + MainActivity.WI_FI_ANALYZER_BETA);
-        }
+    private void setExtraInformation() {
+        ((TextView) findViewById(R.id.about_version_info)).setText(
+            BuildConfig.VERSION_NAME + " - " + BuildConfig.VERSION_CODE + " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")");
+        ((TextView) findViewById(R.id.about_package_name)).setText(BuildConfig.APPLICATION_ID);
     }
 
     @Override
