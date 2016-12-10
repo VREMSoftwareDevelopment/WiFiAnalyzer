@@ -62,6 +62,7 @@
     <string name="scan_interval_summary">%d segundos entre cada escaneamento</string>
     <string name="sort_by_title">Ordenar Pontos de Acesso Por</string>
     <string name="group_by_title">Agrupar Pontos de Acesso Por</string>
+    <string name="ap_view_title">Exibição do ponto de acesso</string>
     <string name="channel_graph_legend_title">Legenda do Gráfico de Canais</string>
     <string name="time_graph_legend_title">Legenda do Gráfico de Tempo</string>
     <string name="theme_title">Tema</string>
@@ -76,6 +77,5 @@
     <string name="about_library_graph_view">Vista de Gráfico</string>
     <string name="about_library_material">Desenho de material ícone</string>
     <string name="about_contributor_title">Colaboradores:</string>
-    <string name="ap_view_title">Exibição do ponto de acesso</string>
     <!-- about end -->
 </resources>

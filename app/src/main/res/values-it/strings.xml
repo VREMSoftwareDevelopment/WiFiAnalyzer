@@ -62,6 +62,7 @@
     <string name="scan_interval_summary">%d secondi tra ogni scansione</string>
     <string name="sort_by_title">Ordina Access Points Per</string>
     <string name="group_by_title">Raggruppa Access Points Per</string>
+    <string name="ap_view_title">Access Point di visualizzazione</string>
     <string name="channel_graph_legend_title">Mostra Legenda Grafico Canali</string>
     <string name="time_graph_legend_title">Mostra Legenda Grafico Temporale</string>
     <string name="theme_title">Tema</string>
@@ -76,6 +77,5 @@
     <string name="about_library_graph_view">Graph View</string>
     <string name="about_library_material">Icone Material Design</string>
     <string name="about_contributor_title">Contributori:</string>
-    <string name="ap_view_title">Access Point di visualizzazione</string>
     <!-- about end -->
 </resources>

@@ -62,6 +62,7 @@
     <string name="scan_interval_summary">每次扫描间隔%d秒</string>
     <string name="sort_by_title">接入点排序依据</string>
     <string name="group_by_title">接入点分组依据</string>
+    <string name="ap_view_title">接入点显示</string>
     <string name="channel_graph_legend_title">信道图例显示位置</string>
     <string name="time_graph_legend_title">时间图例显示位置</string>
     <string name="theme_title">主题</string>
@@ -76,6 +77,5 @@
     <string name="about_library_graph_view">图表视图</string>
     <string name="about_library_material">质感设计图标</string>
     <string name="about_contributor_title">贡献者:</string>
-    <string name="ap_view_title">接入点显示</string>
     <!-- about end -->
 </resources>

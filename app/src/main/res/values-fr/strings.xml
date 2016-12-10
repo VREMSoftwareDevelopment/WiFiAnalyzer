@@ -62,6 +62,7 @@
     <string name="scan_interval_summary">%d secondes entre chaque analyse</string>
     <string name="sort_by_title">Trier les points d\'accès par :</string>
     <string name="group_by_title">Grouper les points d\'accès par :</string>
+    <string name="ap_view_title">Affichage des point d\'accès</string>
     <string name="channel_graph_legend_title">Légende pour le graphique des canaux</string>
     <string name="time_graph_legend_title">Légende pour le graphique temporel</string>
     <string name="theme_title">Thème</string>
@@ -76,6 +77,5 @@
     <string name="about_library_graph_view">Visualisation graphique</string>
     <string name="about_library_material">"Icones de \'Material Design\'"</string>
     <string name="about_contributor_title">Contributeurs :</string>
-    <string name="ap_view_title">Affichage des point d\'accès</string>
     <!-- about end -->
 </resources>
