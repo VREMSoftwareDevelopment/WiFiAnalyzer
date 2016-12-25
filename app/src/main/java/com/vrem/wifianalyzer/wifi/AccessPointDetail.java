@@ -38,6 +38,8 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Locale;
+
 public class AccessPointDetail {
     private static final int VENDOR_SHORT_MAX = 12;
     private static final int VENDOR_LONG_MAX = 30;
@@ -84,15 +86,16 @@ public class AccessPointDetail {
         securityImage.setColorFilter(ContextCompat.getColor(context, R.color.icons_color));
 
         TextView textLevel = (TextView) view.findViewById(R.id.level);
-        textLevel.setText(wiFiSignal.getLevel() + "dBm");
+        textLevel.setText(String.format(Locale.ENGLISH, "%ddBm", wiFiSignal.getLevel()));
         textLevel.setTextColor(ContextCompat.getColor(context, strength.colorResource()));
 
         ((TextView) view.findViewById(R.id.channel))
             .setText(wiFiSignal.getChannelDisplay());
         ((TextView) view.findViewById(R.id.primaryFrequency))
-            .setText(wiFiSignal.getPrimaryFrequency() + WiFiSignal.FREQUENCY_UNITS);
+            .setText(String.format(Locale.ENGLISH, "%d%s",
+                wiFiSignal.getPrimaryFrequency(), WiFiSignal.FREQUENCY_UNITS));
         ((TextView) view.findViewById(R.id.distance))
-            .setText(String.format("%5.1fm", wiFiSignal.getDistance()));
+            .setText(String.format(Locale.ENGLISH, "%5.1fm", wiFiSignal.getDistance()));
 
         if (isChild) {
             view.findViewById(R.id.tab).setVisibility(View.VISIBLE);

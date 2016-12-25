@@ -39,6 +39,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.util.Locale;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -312,10 +314,10 @@ public class AccessPointDetailTest {
     private void validateTextViewValuesCompactView(@NonNull View view, @NonNull WiFiDetail wiFiDetail, @NonNull String ssid) {
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         validateTextViewValue(view, ssid + " (" + wiFiDetail.getBSSID() + ")", R.id.ssid);
-        validateTextViewValue(view, wiFiSignal.getLevel() + "dBm", R.id.level);
+        validateTextViewValue(view, String.format(Locale.ENGLISH, "%ddBm", wiFiSignal.getLevel()), R.id.level);
         validateTextViewValue(view, wiFiSignal.getChannelDisplay(), R.id.channel);
-        validateTextViewValue(view, wiFiSignal.getPrimaryFrequency() + WiFiSignal.FREQUENCY_UNITS, R.id.primaryFrequency);
-        validateTextViewValue(view, String.format("%5.1fm", wiFiSignal.getDistance()), R.id.distance);
+        validateTextViewValue(view, String.format(Locale.ENGLISH, "%d%s", wiFiSignal.getPrimaryFrequency(), WiFiSignal.FREQUENCY_UNITS), R.id.primaryFrequency);
+        validateTextViewValue(view, String.format(Locale.ENGLISH, "%5.1fm", wiFiSignal.getDistance()), R.id.distance);
     }
 
     private void validateTextViewValue(@NonNull View view, @NonNull String expected, int id) {

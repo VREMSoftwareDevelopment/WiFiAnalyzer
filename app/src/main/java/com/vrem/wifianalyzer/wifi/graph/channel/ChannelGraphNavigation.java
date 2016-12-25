@@ -105,23 +105,28 @@ class ChannelGraphNavigation {
     }
 
     private NavigationItem makeNavigationItem(Pair<WiFiChannel, WiFiChannel> pair) {
+        Button button = new Button(context);
+        String text = pair.first.getChannel() + " - " + pair.second.getChannel();
+        button.setLayoutParams(getLayoutParams());
+        button.setVisibility(View.GONE);
+        button.setText(text);
+        button.setOnClickListener(new ButtonOnClickListener(pair));
+        return new NavigationItem(button, pair);
+    }
+
+    @SuppressWarnings("ResourceType")
+    @NonNull
+    private LinearLayout.LayoutParams getLayoutParams() {
         int left = 5;
         int top = -30;
         if (configuration.isLargeScreenLayout()) {
             left = 10;
             top = -10;
         }
-
-        Button button = new Button(context);
-        String text = pair.first.getChannel() + " - " + pair.second.getChannel();
         LinearLayout.LayoutParams params =
             new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, TEXT_SIZE_ADJUSTMENT);
         params.setMargins(left, top, left, top);
-        button.setLayoutParams(params);
-        button.setVisibility(View.GONE);
-        button.setText(text);
-        button.setOnClickListener(new ButtonOnClickListener(pair));
-        return new NavigationItem(button, pair);
+        return params;
     }
 
     private class ButtonOnClickListener implements OnClickListener {

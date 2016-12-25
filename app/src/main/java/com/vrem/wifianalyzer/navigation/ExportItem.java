@@ -31,6 +31,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import java.util.List;
+import java.util.Locale;
 
 class ExportItem implements NavigationMenuItem {
 
@@ -66,7 +67,7 @@ class ExportItem implements NavigationMenuItem {
         result.append("SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security\n");
         for (WiFiDetail wiFiDetail : wiFiDetails) {
             WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-            result.append(String.format("%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%.1fm|%s\n",
+            result.append(String.format(Locale.ENGLISH, "%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%.1fm|%s\n",
                 wiFiDetail.getSSID(),
                 wiFiDetail.getBSSID(),
                 wiFiSignal.getLevel(),
