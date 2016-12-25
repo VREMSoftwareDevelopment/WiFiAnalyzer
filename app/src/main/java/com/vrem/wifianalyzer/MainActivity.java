@@ -22,8 +22,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -32,6 +34,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.Spanned;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         startNavigationMenu = settings.getStartMenu();
@@ -173,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem menuItem) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         closeDrawer();
         NavigationMenu.find(menuItem.getItemId()).activateNavigationMenu(this, menuItem);
         return true;
@@ -221,15 +224,24 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         Settings settings = MainContext.INSTANCE.getSettings();
         CharSequence subtitle = StringUtils.EMPTY;
         if (navigationMenu.isWiFiBandSwitchable()) {
-            int color = getResources().getColor(R.color.connected);
+            int color = ContextCompat.getColor(this, R.color.connected);
             WiFiBand currentWiFiBand = settings.getWiFiBand();
             String subtitleText = makeSubtitleText("<font color='" + color + "'><strong>", "</strong></font>", "<small>", "</small>");
             if (WiFiBand.GHZ5.equals(currentWiFiBand)) {
                 subtitleText = makeSubtitleText("<small>", "</small>", "<font color='" + color + "'><strong>", "</strong></font>");
             }
-            subtitle = Html.fromHtml(subtitleText);
+            subtitle = fromHtml(subtitleText);
         }
         return subtitle;
+    }
+
+    @SuppressWarnings("deprecation")
+    @NonNull
+    Spanned fromHtml(@NonNull String subtitleText) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(subtitleText, Html.FROM_HTML_MODE_LEGACY);
+        }
+        return Html.fromHtml(subtitleText);
     }
 
     @NonNull

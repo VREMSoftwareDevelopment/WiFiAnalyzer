@@ -19,8 +19,8 @@
 package com.vrem.wifianalyzer.wifi;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -32,14 +32,14 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
-    private final Resources resources;
+    private final Context context;
     private AccessPointsAdapterData accessPointsAdapterData;
     private AccessPointDetail accessPointDetail;
     private AccessPointPopup accessPointPopup;
 
     AccessPointsAdapter(@NonNull Context context) {
         super();
-        this.resources = context.getResources();
+        this.context = context;
         setAccessPointsAdapterData(new AccessPointsAdapterData());
         setAccessPointDetail(new AccessPointDetail());
         setAccessPointPopup(new AccessPointPopup());
@@ -58,7 +58,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
             groupIndicator.setImageResource(isExpanded
                 ? R.drawable.ic_expand_less_black_24dp
                 : R.drawable.ic_expand_more_black_24dp);
-            groupIndicator.setColorFilter(resources.getColor(R.color.icons_color));
+            groupIndicator.setColorFilter(ContextCompat.getColor(context, R.color.icons_color));
         } else {
             groupIndicator.setVisibility(View.GONE);
         }

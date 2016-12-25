@@ -22,6 +22,8 @@ import android.content.Context;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
+import android.os.LocaleList;
 
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
@@ -186,7 +188,7 @@ public class SettingsTest {
         // setup
         when(context.getResources()).thenReturn(resources);
         when(resources.getConfiguration()).thenReturn(configuration);
-        configuration.locale = Locale.UK;
+        withConfigurationLocale(Locale.UK);
         String defaultValue = Locale.UK.getCountry();
         String expected = Locale.US.getCountry();
 
@@ -199,6 +201,22 @@ public class SettingsTest {
         verify(repository).getString(R.string.country_code_key, defaultValue);
         verify(context).getResources();
         verify(resources).getConfiguration();
+        verifyConfigurationLocale();
+    }
+
+    @SuppressWarnings("deprecation")
+    private void withConfigurationLocale(Locale locale) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            when(configuration.getLocales()).thenReturn(new LocaleList(locale));
+        } else {
+            configuration.locale = locale;
+        }
+    }
+
+    private void verifyConfigurationLocale() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            verify(configuration).getLocales();
+        }
     }
 
     @Test

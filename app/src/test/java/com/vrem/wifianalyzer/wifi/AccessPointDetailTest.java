@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi;
 
-import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
@@ -306,7 +305,7 @@ public class AccessPointDetailTest {
 
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         validateTextViewValue(view, wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd(), R.id.channel_frequency_range);
-        validateTextViewValue(view, "(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WifiInfo.FREQUENCY_UNITS + ")", R.id.width);
+        validateTextViewValue(view, "(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WiFiSignal.FREQUENCY_UNITS + ")", R.id.width);
         validateTextViewValue(view, wiFiDetail.getCapabilities(), R.id.capabilities);
     }
 
@@ -315,7 +314,7 @@ public class AccessPointDetailTest {
         validateTextViewValue(view, ssid + " (" + wiFiDetail.getBSSID() + ")", R.id.ssid);
         validateTextViewValue(view, wiFiSignal.getLevel() + "dBm", R.id.level);
         validateTextViewValue(view, wiFiSignal.getChannelDisplay(), R.id.channel);
-        validateTextViewValue(view, wiFiSignal.getPrimaryFrequency() + WifiInfo.FREQUENCY_UNITS, R.id.primaryFrequency);
+        validateTextViewValue(view, wiFiSignal.getPrimaryFrequency() + WiFiSignal.FREQUENCY_UNITS, R.id.primaryFrequency);
         validateTextViewValue(view, String.format("%5.1fm", wiFiSignal.getDistance()), R.id.distance);
     }
 

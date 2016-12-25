@@ -61,7 +61,6 @@ public class ConnectionViewTest {
     private static final String SSID = "SSID";
     private static final String BSSID = "BSSID";
     private static final String IP_ADDRESS = "IPADDRESS";
-    private static final String GATEWAY = "GATEWAY";
 
     private MainActivity mainActivity;
     private AccessPointView currentAccessPointView;

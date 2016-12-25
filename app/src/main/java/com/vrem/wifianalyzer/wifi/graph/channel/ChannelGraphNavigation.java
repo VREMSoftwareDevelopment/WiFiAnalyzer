@@ -19,8 +19,8 @@
 package com.vrem.wifianalyzer.wifi.graph.channel;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,10 +44,12 @@ class ChannelGraphNavigation {
     private static final float TEXT_SIZE_ADJUSTMENT = 0.8f;
     private final List<NavigationItem> navigationItems = new ArrayList<>();
     private final Configuration configuration;
+    private final Context context;
 
     ChannelGraphNavigation(@NonNull Context context, @NonNull Configuration configuration) {
+        this.context = context;
         this.configuration = configuration;
-        makeNavigationItems(context);
+        makeNavigationItems();
     }
 
     List<NavigationItem> getNavigationItems() {
@@ -87,32 +89,34 @@ class ChannelGraphNavigation {
     }
 
     private void setSelectedButton(Button button, boolean selected) {
-        Resources resources = MainContext.INSTANCE.getMainActivity().getResources();
         if (selected) {
-            button.setBackgroundColor(resources.getColor(R.color.connected));
+            button.setBackgroundColor(ContextCompat.getColor(context, R.color.connected));
             button.setSelected(true);
         } else {
-            button.setBackgroundColor(resources.getColor(R.color.connected_background));
+            button.setBackgroundColor(ContextCompat.getColor(context, R.color.connected_background));
             button.setSelected(false);
         }
     }
 
-    private void makeNavigationItems(@NonNull Context context) {
+    private void makeNavigationItems() {
         for (Pair<WiFiChannel, WiFiChannel> pair : WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs()) {
-            navigationItems.add(makeNavigationItem(context, pair));
+            navigationItems.add(makeNavigationItem(pair));
         }
     }
 
-    private NavigationItem makeNavigationItem(@NonNull Context context, Pair<WiFiChannel, WiFiChannel> pair) {
+    private NavigationItem makeNavigationItem(Pair<WiFiChannel, WiFiChannel> pair) {
+        int left = 5;
+        int top = -30;
+        if (configuration.isLargeScreenLayout()) {
+            left = 10;
+            top = -10;
+        }
+
         Button button = new Button(context);
         String text = pair.first.getChannel() + " - " + pair.second.getChannel();
         LinearLayout.LayoutParams params =
             new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, TEXT_SIZE_ADJUSTMENT);
-        if (configuration.isLargeScreenLayout()) {
-            params.setMargins(10, -10, 10, -10);
-        } else {
-            params.setMargins(5, -30, 5, -30);
-        }
+        params.setMargins(left, top, left, top);
         button.setLayoutParams(params);
         button.setVisibility(View.GONE);
         button.setText(text);

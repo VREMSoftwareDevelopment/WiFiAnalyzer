@@ -19,7 +19,7 @@
 package com.vrem.wifianalyzer;
 
 import android.support.annotation.NonNull;
-import android.text.Html;
+import android.support.v4.content.ContextCompat;
 
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
@@ -166,12 +166,12 @@ public class MainActivityTest {
     }
 
     private String makeSubtitle(@NonNull WiFiBand currentWiFiBand) {
-        int color = fixture.getResources().getColor(R.color.connected);
+        int color = ContextCompat.getColor(fixture, R.color.connected);
         String subtitleText = makeSubtitleText("<font color='" + color + "'><strong>", "</strong></font>", "<small>", "</small>");
         if (WiFiBand.GHZ5.equals(currentWiFiBand)) {
             subtitleText = makeSubtitleText("<small>", "</small>", "<font color='" + color + "'><strong>", "</strong></font>");
         }
-        return Html.fromHtml(subtitleText).toString();
+        return fixture.fromHtml(subtitleText).toString();
     }
 
     private String makeSubtitleText(@NonNull String tag1, @NonNull String tag2, @NonNull String tag3, @NonNull String tag4) {

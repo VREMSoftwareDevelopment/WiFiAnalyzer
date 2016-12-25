@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.navigation;
 
 import android.content.Intent;
 import android.content.res.Resources;
-import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -64,8 +63,8 @@ class ExportItem implements NavigationMenuItem {
 
     String getData(@NonNull List<WiFiDetail> wiFiDetails) {
         StringBuilder result = new StringBuilder();
-        result.append("SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security"
-            + System.lineSeparator());
+        result.append(String.format("SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security%s",
+            System.lineSeparator()));
         for (WiFiDetail wiFiDetail : wiFiDetails) {
             WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
             result.append(String.format("%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%.1fm|%s%s",
@@ -74,12 +73,12 @@ class ExportItem implements NavigationMenuItem {
                 wiFiSignal.getLevel(),
                 wiFiSignal.getPrimaryWiFiChannel().getChannel(),
                 wiFiSignal.getPrimaryFrequency(),
-                WifiInfo.FREQUENCY_UNITS,
+                WiFiSignal.FREQUENCY_UNITS,
                 wiFiSignal.getCenterWiFiChannel().getChannel(),
                 wiFiSignal.getCenterFrequency(),
-                WifiInfo.FREQUENCY_UNITS,
+                WiFiSignal.FREQUENCY_UNITS,
                 wiFiSignal.getWiFiWidth().getFrequencyWidth(),
-                WifiInfo.FREQUENCY_UNITS,
+                WiFiSignal.FREQUENCY_UNITS,
                 wiFiSignal.getFrequencyStart(),
                 wiFiSignal.getFrequencyEnd(),
                 wiFiSignal.getDistance(),

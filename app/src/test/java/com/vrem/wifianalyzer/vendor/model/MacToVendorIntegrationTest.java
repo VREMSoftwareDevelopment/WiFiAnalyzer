@@ -34,11 +34,8 @@ public class MacToVendorIntegrationTest {
 
     @Test
     public void testMacVendorsComShort() throws Exception {
-        validateMacVendorsCom("00:23:AB");
-    }
-
-    private void validateMacVendorsCom(String macAddress) throws Exception {
         // setup
+        String macAddress = "00:23:AB";
         String expected = "CISCO SYSTEMS, INC";
         String url = "http://api.macvendors.com/";
         // execute

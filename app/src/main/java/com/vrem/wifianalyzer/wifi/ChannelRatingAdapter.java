@@ -21,7 +21,11 @@ package com.vrem.wifianalyzer.wifi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.PorterDuff;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,13 +51,11 @@ import java.util.List;
 class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNotifier {
     private static final int MAX_CHANNELS_TO_DISPLAY = 10;
 
-    private final Resources resources;
     private final TextView bestChannels;
     private ChannelRating channelRating;
 
     ChannelRatingAdapter(@NonNull Context context, @NonNull TextView bestChannels) {
         super(context, R.layout.channel_rating_details, new ArrayList<WiFiChannel>());
-        this.resources = context.getResources();
         this.bestChannels = bestChannels;
         setChannelRating(new ChannelRating());
     }
@@ -83,7 +85,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if (view == null) {
             LayoutInflater layoutInflater = MainContext.INSTANCE.getMainActivity().getLayoutInflater();
@@ -103,7 +105,11 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         ratingBar.setMax(size);
         ratingBar.setNumStars(size);
         ratingBar.setRating(strength.ordinal() + 1);
-        ratingBar.setProgressTintList(ColorStateList.valueOf(resources.getColor(strength.colorResource())));
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            ratingBar.getProgressDrawable().setColorFilter(ContextCompat.getColor(getContext(), R.color.success_color), PorterDuff.Mode.SRC_ATOP);
+        } else {
+            ratingBar.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), strength.colorResource())));
+        }
 
         return view;
     }
@@ -125,8 +131,9 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         }
         if (result.length() > 0) {
             bestChannels.setText(result.toString());
-            bestChannels.setTextColor(resources.getColor(R.color.success_color));
+            bestChannels.setTextColor(ContextCompat.getColor(getContext(), R.color.success_color));
         } else {
+            Resources resources = getContext().getResources();
             StringBuilder message = new StringBuilder(resources.getText(R.string.channel_rating_best_none));
             if (WiFiBand.GHZ2.equals(wiFiBand)) {
                 message.append(resources.getText(R.string.channel_rating_best_alternative));
@@ -134,7 +141,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
                 message.append(WiFiBand.GHZ5.getBand());
             }
             bestChannels.setText(message);
-            bestChannels.setTextColor(resources.getColor(R.color.error_color));
+            bestChannels.setTextColor(ContextCompat.getColor(getContext(), R.color.error_color));
         }
     }
 

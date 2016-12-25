@@ -72,7 +72,7 @@ public class ExportItemTest {
     private WiFiDetail wiFiDetail;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         scanner = MainContextHelper.INSTANCE.getScanner();
 
         sendTitle = "title";
