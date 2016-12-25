@@ -45,6 +45,7 @@
                 android:id="@+id/groupIndicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@null"
                 android:visibility="gone"/>
 
             <ImageView
@@ -53,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                 android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_tag_faces_black_18dp"
                 android:visibility="gone"/>
 
@@ -86,7 +88,8 @@
                     android:id="@+id/levelImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"/>
 
             </LinearLayout>
 
@@ -176,7 +179,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-                        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"/>
+                        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
+                        android:contentDescription="@null"/>
 
                     <TextView
                         android:id="@+id/capabilities"
