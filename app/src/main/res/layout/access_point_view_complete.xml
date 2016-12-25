@@ -52,6 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                 android:src="@drawable/ic_tag_faces_black_18dp"
                 android:visibility="gone"/>
 
@@ -73,6 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                 android:orientation="vertical">
 
                 <TextView
@@ -104,6 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                         android:text="@string/channel_short_name"
                         android:textColor="@color/channel"
                         android:textStyle="bold"/>
@@ -113,6 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                         android:textColor="@color/channel_number"
                         android:textStyle="bold"/>
 
@@ -121,6 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                         android:textColor="@color/channel"/>
 
                     <TextView
@@ -142,6 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                         android:textColor="@color/channel"/>
 
                     <TextView
@@ -149,6 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                         android:textColor="@color/channel"/>
 
                     <TextView
@@ -168,7 +175,8 @@
                         android:id="@+id/securityImage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"/>
+                        android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"/>
 
                     <TextView
                         android:id="@+id/capabilities"

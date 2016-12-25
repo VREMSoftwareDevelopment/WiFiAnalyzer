@@ -63,11 +63,10 @@ class ExportItem implements NavigationMenuItem {
 
     String getData(@NonNull List<WiFiDetail> wiFiDetails) {
         StringBuilder result = new StringBuilder();
-        result.append(String.format("SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security%s",
-            System.lineSeparator()));
+        result.append("SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security\n");
         for (WiFiDetail wiFiDetail : wiFiDetails) {
             WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-            result.append(String.format("%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%.1fm|%s%s",
+            result.append(String.format("%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%.1fm|%s\n",
                 wiFiDetail.getSSID(),
                 wiFiDetail.getBSSID(),
                 wiFiSignal.getLevel(),
@@ -82,8 +81,7 @@ class ExportItem implements NavigationMenuItem {
                 wiFiSignal.getFrequencyStart(),
                 wiFiSignal.getFrequencyEnd(),
                 wiFiSignal.getDistance(),
-                wiFiDetail.getCapabilities(),
-                System.lineSeparator()));
+                wiFiDetail.getCapabilities()));
         }
         return result.toString();
     }

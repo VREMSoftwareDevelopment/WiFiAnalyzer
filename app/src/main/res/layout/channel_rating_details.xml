@@ -30,6 +30,7 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
         android:layout_weight="1"
         android:stepSize="1.0"/>
 

@@ -32,6 +32,7 @@
         android:id="@+id/vendor_macs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/list_view_item_horizontal_tab"
         android:layout_marginStart="@dimen/list_view_item_horizontal_tab"
         android:textColor="@color/channel"/>
 

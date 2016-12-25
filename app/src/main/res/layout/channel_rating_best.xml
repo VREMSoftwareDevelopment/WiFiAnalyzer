@@ -27,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+        android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
         android:text="@string/channel_rating_best"
         android:textColor="@color/channel"
         android:textStyle="bold"/>
