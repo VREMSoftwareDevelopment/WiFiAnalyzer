@@ -186,6 +186,7 @@ public class ConnectionViewTest {
         // setup
         WiFiDetail wiFiDetail = withConnection(WiFiAdditional.EMPTY);
         when(wiFiData.getConnection()).thenReturn(wiFiDetail);
+        //noinspection ArraysAsListWithZeroOrOneArgument
         when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(Arrays.asList(wiFiDetail));
         // execute
         fixture.update(wiFiData);

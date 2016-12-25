@@ -47,6 +47,7 @@ import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNotifier {
     private static final int MAX_CHANNELS_TO_DISPLAY = 10;
@@ -97,8 +98,10 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
             return view;
         }
 
-        ((TextView) view.findViewById(R.id.channelNumber)).setText("" + wiFiChannel.getChannel());
-        ((TextView) view.findViewById(R.id.accessPointCount)).setText("" + channelRating.getCount(wiFiChannel));
+        ((TextView) view.findViewById(R.id.channelNumber))
+            .setText(String.format(Locale.ENGLISH, "%d", wiFiChannel.getChannel()));
+        ((TextView) view.findViewById(R.id.accessPointCount))
+            .setText(String.format(Locale.ENGLISH, "%d", channelRating.getCount(wiFiChannel)));
         Strength strength = Strength.reverse(channelRating.getStrength(wiFiChannel));
         RatingBar ratingBar = (RatingBar) view.findViewById(R.id.channelRating);
         int size = Strength.values().length;

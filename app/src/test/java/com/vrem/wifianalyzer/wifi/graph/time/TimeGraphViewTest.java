@@ -82,6 +82,7 @@ public class TimeGraphViewTest {
         // execute
         fixture.update(wiFiData);
         // validate
+        //noinspection unchecked
         verify(graphViewWrapper).removeSeries(any(Set.class));
         verify(graphViewWrapper).updateLegend(GraphLegend.LEFT);
         verify(graphViewWrapper).setVisibility(View.VISIBLE);

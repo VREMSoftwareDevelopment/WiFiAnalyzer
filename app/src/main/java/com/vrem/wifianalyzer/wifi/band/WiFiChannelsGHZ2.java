@@ -38,6 +38,7 @@ class WiFiChannelsGHZ2 extends WiFiChannels {
 
     @Override
     public List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs() {
+        //noinspection ArraysAsListWithZeroOrOneArgument
         return Arrays.asList(SET);
     }
 

@@ -49,6 +49,7 @@ public class GraphAdapterTest {
 
     @Before
     public void setUp() {
+        //noinspection ArraysAsListWithZeroOrOneArgument
         fixture = new GraphAdapter(Arrays.asList(graphViewNotifier));
     }
 

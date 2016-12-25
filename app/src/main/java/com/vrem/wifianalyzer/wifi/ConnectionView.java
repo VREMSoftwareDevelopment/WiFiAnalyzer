@@ -34,6 +34,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 import java.util.List;
+import java.util.Locale;
 
 public class ConnectionView implements UpdateNotifier {
     private final MainActivity mainActivity;
@@ -106,7 +107,7 @@ public class ConnectionView implements UpdateNotifier {
             textLinkSpeed.setVisibility(View.GONE);
         } else {
             textLinkSpeed.setVisibility(View.VISIBLE);
-            textLinkSpeed.setText(linkSpeed + WifiInfo.LINK_SPEED_UNITS);
+            textLinkSpeed.setText(String.format(Locale.ENGLISH, "%d%s", linkSpeed, WifiInfo.LINK_SPEED_UNITS));
         }
     }
 

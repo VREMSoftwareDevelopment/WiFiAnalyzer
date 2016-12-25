@@ -132,6 +132,7 @@ public class ExportItemTest {
 
     @NonNull
     private WiFiData withWiFiData() {
+        //noinspection ArraysAsListWithZeroOrOneArgument
         return new WiFiData(Arrays.asList(wiFiDetail), WiFiConnection.EMPTY, new ArrayList<String>());
     }
 

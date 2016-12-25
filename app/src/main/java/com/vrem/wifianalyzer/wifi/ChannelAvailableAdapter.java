@@ -35,6 +35,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import java.util.Locale;
 
 class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
     ChannelAvailableAdapter(@NonNull Context context, @NonNull List<WiFiChannelCountry> wiFiChannelCountries) {
@@ -53,11 +54,11 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
         ((TextView) view.findViewById(R.id.channel_available_country))
             .setText(wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName());
         ((TextView) view.findViewById(R.id.channel_available_title_ghz_2))
-            .setText(WiFiBand.GHZ2.getBand() + " : ");
+            .setText(String.format(Locale.ENGLISH, "%s : ", WiFiBand.GHZ2.getBand()));
         ((TextView) view.findViewById(R.id.channel_available_ghz_2))
             .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ2().toArray(), ","));
         ((TextView) view.findViewById(R.id.channel_available_title_ghz_5))
-            .setText(WiFiBand.GHZ5.getBand() + " : ");
+            .setText(String.format(Locale.ENGLISH, "%s : ", WiFiBand.GHZ5.getBand()));
         ((TextView) view.findViewById(R.id.channel_available_ghz_5))
             .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ5().toArray(), ","));
         return view;
