@@ -2,7 +2,7 @@
 
 Optimize your WiFi network using WiFi Analyzer (open-source) by examining surrounding WiFi networks, measuring their signal strength as well as identifying crowded channels.
 
-### Android OS Requirements:
+### Android OS Requirements
 * Minimum: Jelly Bean (Version 4.1 - API 16)
 * Recommended: Marshmallow (Version 6.0 - API 23)
 
