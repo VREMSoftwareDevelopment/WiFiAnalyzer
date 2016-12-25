@@ -125,6 +125,6 @@
     <string name="about_library_material">Material Design Icons</string>
     <string name="about_library_material_url" translatable="false">https://design.google.com/icons</string>
     <string name="about_contributor_title">Contributors:</string>
-    <string name="about_contributor_list" translatable="false">"Abuzer Rafey, Alex Orchard, Alexei Guevara, Caren DesBrisay, Dan Light, David Jones, Gina Chaves, Graham Foster, Jean Bourgeois, Kevin Jiang, Lee McCallum, Lukas Winkler, Marco Santinelli, Michael Melo, Michael Pickard, Silviu Marcu, Vadim Karantayer, Wei McCallum, William Gathoye, Yuriy Timofeev, 'Akira, Genghis"</string>
+    <string name="about_contributor_list" translatable="false">"Abuzer Rafey, Alex Orchard, Alexei Guevara, Caren DesBrisay, Dan Light, David Jones, Gina Chaves, Graham Foster, Jean Bourgeois, Kevin Jiang, Lee McCallum, Lukas Winkler, Marco Santinelli, Michael Melo, Michael Pickard, Silviu Marcu, Vadim Karantayer, Wei McCallum, William Gathoye, Yuriy Timofeev, 'Akira, Genghis, TaiXiong"</string>
     <!-- about end -->
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ WiFi Analyzer
-  ~ Copyright (C) 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -10,11 +10,11 @@
   ~
   ~ This program is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with this program. If not, see <http://www.gnu.org/licenses/>
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
   -->
 
 <resources>
@@ -29,6 +29,11 @@
         <item>訊號強度</item>
         <item>SSID</item>
         <item>頻道</item>
+    </string-array>
+
+    <string-array name="ap_view_array">
+        <item>完成</item>
+        <item>緊湊</item>
     </string-array>
 
     <string-array name="graph_legend_array">
