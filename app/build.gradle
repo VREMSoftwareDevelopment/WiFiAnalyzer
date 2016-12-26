@@ -20,13 +20,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'jacoco-android'
 
 android {
-    compileSdkVersion 22
+    compileSdkVersion 25
     buildToolsVersion "25.0.1"
 
     defaultConfig {
         applicationId "com.vrem.wifianalyzer"
         minSdkVersion 22
-        targetSdkVersion 22
+        targetSdkVersion 25
         versionCode
         versionName
     }
@@ -77,8 +77,8 @@ if (project.hasProperty('keyAlias')) {
 dependencies {
     // Compile Build Dependencies
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.android.support:design:22.2.1'
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:design:25.1.0'
     compile 'org.apache.commons:commons-lang3:3.5'
     compile 'com.jjoe64:graphview:4.2.1'
     // Unit Test Dependencies
