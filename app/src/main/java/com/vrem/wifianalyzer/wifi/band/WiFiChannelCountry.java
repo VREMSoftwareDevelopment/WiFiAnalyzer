@@ -20,6 +20,8 @@ package com.vrem.wifianalyzer.wifi.band;
 
 import android.support.annotation.NonNull;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -50,12 +52,21 @@ public class WiFiChannelCountry {
         return results;
     }
 
+    @NonNull
     public String getCountryCode() {
-        return country.getCountry();
+        String countryCode = this.country.getCountry();
+        if (countryCode == null) {
+            countryCode = StringUtils.EMPTY;
+        }
+        return countryCode;
     }
 
+    @NonNull
     public String getCountryName() {
         String countryName = country.getDisplayCountry();
+        if (countryName == null) {
+            countryName = StringUtils.EMPTY;
+        }
         return country.getCountry().equals(countryName) ? countryName + UNKNOWN : countryName;
     }
 

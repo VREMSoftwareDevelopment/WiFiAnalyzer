@@ -113,7 +113,7 @@ class Transformer {
 
     enum Fields {
         centerFreq0,
-        centerFreq1,
+        //        centerFreq1,
         channelWidth
     }
 

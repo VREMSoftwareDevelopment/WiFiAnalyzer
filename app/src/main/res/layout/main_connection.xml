@@ -48,6 +48,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                android:layout_marginLeft="@dimen/list_view_item_horizontal_tab"
+                android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                 android:layout_marginStart="@dimen/list_view_item_horizontal_tab"
                 android:textColor="@color/connected"
                 android:textStyle="bold"/>
@@ -57,6 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                 android:textColor="@color/connected"
                 android:textStyle="bold"/>
         </LinearLayout>

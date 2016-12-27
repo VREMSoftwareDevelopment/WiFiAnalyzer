@@ -28,7 +28,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
-import com.vrem.wifianalyzer.wifi.model.WiFiUtils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -89,18 +88,6 @@ public class TransformerTest {
         assertTrue(fixture.transformCacheResults(null).isEmpty());
         assertEquals(WiFiConnection.EMPTY, fixture.transformWifiInfo(null));
         assertTrue(fixture.transformWifiConfigurations(null).isEmpty());
-    }
-
-    private void verifyWiFiInfo(WiFiConnection actual) {
-        assertEquals(SSID_1, actual.getSSID());
-        assertEquals(BSSID_1, actual.getBSSID());
-        assertEquals(WiFiUtils.convertIpAddress(IP_ADDRESS), actual.getIpAddress());
-        assertEquals(LINK_SPEED, actual.getLinkSpeed());
-
-        verify(wifiInfo).getNetworkId();
-        verify(wifiInfo).getSSID();
-        verify(wifiInfo).getBSSID();
-        verify(wifiInfo).getIpAddress();
     }
 
     @Test

@@ -21,6 +21,7 @@ package com.vrem.wifianalyzer.settings;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
@@ -29,6 +30,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class CountryPreference extends CustomPreference {
     public CountryPreference(@NonNull Context context, AttributeSet attrs) {
@@ -44,9 +46,20 @@ public class CountryPreference extends CustomPreference {
         return result;
     }
 
-    private static String getDefault(@NonNull Context context) {
+    @NonNull
+    public static String getDefault(@NonNull Context context) {
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();
-        return configuration.locale.getCountry();
+        return getLocale(configuration).getCountry();
     }
+
+    @NonNull
+    @SuppressWarnings("deprecation")
+    private static Locale getLocale(Configuration config) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return config.getLocales().get(0);
+        }
+        return config.locale;
+    }
+
 }

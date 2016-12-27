@@ -89,7 +89,7 @@ public class Settings {
     }
 
     public String getCountryCode() {
-        String countryCode = context.getResources().getConfiguration().locale.getCountry();
+        String countryCode = CountryPreference.getDefault(context);
         return repository.getString(R.string.country_code_key, countryCode);
     }
 

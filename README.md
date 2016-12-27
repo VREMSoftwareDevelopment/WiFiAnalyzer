@@ -1,6 +1,10 @@
-# WiFi Analyzer (open-source) for Android 5.1+
+# WiFi Analyzer (open-source)
 
 Optimize your WiFi network using WiFi Analyzer (open-source) by examining surrounding WiFi networks, measuring their signal strength as well as identifying crowded channels.
+
+### Android OS Requirements
+* Minimum: Jelly Bean (Version 4.1 - API 16)
+* Recommended: Marshmallow (Version 6.0 - API 23)
 
 ### Note for Android OS 6 Users
 Some users running Android OS 6 (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFi Analyzer does not explicitly require it. [This appears to be attributed to Android OS 6 that requires location service in order to see WiFi networks](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23).

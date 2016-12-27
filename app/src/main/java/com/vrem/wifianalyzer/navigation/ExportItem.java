@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.navigation;
 
 import android.content.Intent;
 import android.content.res.Resources;
-import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -32,6 +31,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import java.util.List;
+import java.util.Locale;
 
 class ExportItem implements NavigationMenuItem {
 
@@ -64,27 +64,25 @@ class ExportItem implements NavigationMenuItem {
 
     String getData(@NonNull List<WiFiDetail> wiFiDetails) {
         StringBuilder result = new StringBuilder();
-        result.append("SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security"
-            + System.lineSeparator());
+        result.append("SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security\n");
         for (WiFiDetail wiFiDetail : wiFiDetails) {
             WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-            result.append(String.format("%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%.1fm|%s%s",
+            result.append(String.format(Locale.ENGLISH, "%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%.1fm|%s\n",
                 wiFiDetail.getSSID(),
                 wiFiDetail.getBSSID(),
                 wiFiSignal.getLevel(),
                 wiFiSignal.getPrimaryWiFiChannel().getChannel(),
                 wiFiSignal.getPrimaryFrequency(),
-                WifiInfo.FREQUENCY_UNITS,
+                WiFiSignal.FREQUENCY_UNITS,
                 wiFiSignal.getCenterWiFiChannel().getChannel(),
                 wiFiSignal.getCenterFrequency(),
-                WifiInfo.FREQUENCY_UNITS,
+                WiFiSignal.FREQUENCY_UNITS,
                 wiFiSignal.getWiFiWidth().getFrequencyWidth(),
-                WifiInfo.FREQUENCY_UNITS,
+                WiFiSignal.FREQUENCY_UNITS,
                 wiFiSignal.getFrequencyStart(),
                 wiFiSignal.getFrequencyEnd(),
                 wiFiSignal.getDistance(),
-                wiFiDetail.getCapabilities(),
-                System.lineSeparator()));
+                wiFiDetail.getCapabilities()));
         }
         return result.toString();
     }

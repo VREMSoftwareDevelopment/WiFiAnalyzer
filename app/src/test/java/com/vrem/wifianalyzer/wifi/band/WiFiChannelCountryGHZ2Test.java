@@ -30,8 +30,8 @@ import static org.junit.Assert.assertTrue;
 
 public class WiFiChannelCountryGHZ2Test {
 
-    private SortedSet<Integer> channelsSet1 = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
-    private SortedSet<Integer> channelsSet2 = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13));
+    private final static SortedSet<Integer> CHANNELS_SET1 = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
+    private final static SortedSet<Integer> CHANNELS_SET2 = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13));
 
     private WiFiChannelCountryGHZ2 fixture;
 
@@ -45,7 +45,7 @@ public class WiFiChannelCountryGHZ2Test {
         String[] countries = new String[]{"AS", "AU", "CA", "FM", "GU", "MP", "PA", "PR", "TW", "UM", "US", "VI"};
         for (String country : countries) {
             SortedSet<Integer> channels = fixture.findChannels(country);
-            validateChannels(channelsSet1, channels);
+            validateChannels(CHANNELS_SET1, channels);
         }
     }
 
@@ -54,7 +54,7 @@ public class WiFiChannelCountryGHZ2Test {
         String[] countries = new String[]{null, "GB", "XYZ", "MX", "AE"};
         for (String country : countries) {
             SortedSet<Integer> channels = fixture.findChannels(country);
-            validateChannels(channelsSet2, channels);
+            validateChannels(CHANNELS_SET2, channels);
         }
     }
 

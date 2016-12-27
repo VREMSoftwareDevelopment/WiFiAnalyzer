@@ -20,7 +20,7 @@
 <resources>
     <!-- application start -->
     <string name="app_name">Analizador de WiFi</string>
-    <string name="app_copyright">Derechos de autor \u00A9 2015 \u002D 2016</string>
+    <string name="app_copyright">Derechos de autor \u00A9 2015 \u002D 2017</string>
     <!-- application end -->
 
     <string name="navigation_drawer_open">Abrir panel de navegación</string>

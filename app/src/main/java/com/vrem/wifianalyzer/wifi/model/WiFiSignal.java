@@ -30,6 +30,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class WiFiSignal {
     public static final WiFiSignal EMPTY = new WiFiSignal(0, 0, WiFiWidth.MHZ_20, 0);
+    public static final String FREQUENCY_UNITS = "MHz";
 
     private final int primaryFrequency;
     private final int centerFrequency;

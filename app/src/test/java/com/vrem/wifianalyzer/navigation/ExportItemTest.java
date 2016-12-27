@@ -72,7 +72,7 @@ public class ExportItemTest {
     private WiFiDetail wiFiDetail;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         scanner = MainContextHelper.INSTANCE.getScanner();
 
         sendTitle = "title";
@@ -122,10 +122,8 @@ public class ExportItemTest {
         // setup
         WiFiData wiFiData = withWiFiData();
         String expected =
-            "SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security"
-                + System.lineSeparator()
-                + "SSID|BSSID|-40dBm|1|2412MHz|3|2422MHz|40MHz (2402 - 2442)|1.0m|capabilities"
-                + System.lineSeparator();
+            "SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security\n"
+                + "SSID|BSSID|-40dBm|1|2412MHz|3|2422MHz|40MHz (2402 - 2442)|1.0m|capabilities\n";
         // execute
         String actual = fixture.getData(wiFiData.getWiFiDetails());
         // validate
@@ -134,6 +132,7 @@ public class ExportItemTest {
 
     @NonNull
     private WiFiData withWiFiData() {
+        //noinspection ArraysAsListWithZeroOrOneArgument
         return new WiFiData(Arrays.asList(wiFiDetail), WiFiConnection.EMPTY, new ArrayList<String>());
     }
 

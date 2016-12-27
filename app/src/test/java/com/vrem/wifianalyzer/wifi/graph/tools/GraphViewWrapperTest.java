@@ -97,6 +97,7 @@ public class GraphViewWrapperTest {
     public void testRemoveSeries() throws Exception {
         // setup
         Set<WiFiDetail> newSeries = new TreeSet<>();
+        //noinspection ArraysAsListWithZeroOrOneArgument
         List<BaseSeries<DataPoint>> removed = Arrays.asList(baseSeries);
         int color = 10;
         when(seriesCache.remove(newSeries)).thenReturn(removed);

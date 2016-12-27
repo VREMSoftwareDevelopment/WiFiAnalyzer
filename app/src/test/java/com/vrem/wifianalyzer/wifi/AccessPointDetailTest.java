@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi;
 
-import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
@@ -39,6 +38,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -306,17 +307,17 @@ public class AccessPointDetailTest {
 
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         validateTextViewValue(view, wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd(), R.id.channel_frequency_range);
-        validateTextViewValue(view, "(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WifiInfo.FREQUENCY_UNITS + ")", R.id.width);
+        validateTextViewValue(view, "(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WiFiSignal.FREQUENCY_UNITS + ")", R.id.width);
         validateTextViewValue(view, wiFiDetail.getCapabilities(), R.id.capabilities);
     }
 
     private void validateTextViewValuesCompactView(@NonNull View view, @NonNull WiFiDetail wiFiDetail, @NonNull String ssid) {
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         validateTextViewValue(view, ssid + " (" + wiFiDetail.getBSSID() + ")", R.id.ssid);
-        validateTextViewValue(view, wiFiSignal.getLevel() + "dBm", R.id.level);
+        validateTextViewValue(view, String.format(Locale.ENGLISH, "%ddBm", wiFiSignal.getLevel()), R.id.level);
         validateTextViewValue(view, wiFiSignal.getChannelDisplay(), R.id.channel);
-        validateTextViewValue(view, wiFiSignal.getPrimaryFrequency() + WifiInfo.FREQUENCY_UNITS, R.id.primaryFrequency);
-        validateTextViewValue(view, String.format("%5.1fm", wiFiSignal.getDistance()), R.id.distance);
+        validateTextViewValue(view, String.format(Locale.ENGLISH, "%d%s", wiFiSignal.getPrimaryFrequency(), WiFiSignal.FREQUENCY_UNITS), R.id.primaryFrequency);
+        validateTextViewValue(view, String.format(Locale.ENGLISH, "%5.1fm", wiFiSignal.getDistance()), R.id.distance);
     }
 
     private void validateTextViewValue(@NonNull View view, @NonNull String expected, int id) {

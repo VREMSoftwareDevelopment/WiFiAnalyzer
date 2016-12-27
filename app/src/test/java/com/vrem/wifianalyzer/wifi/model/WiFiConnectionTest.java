@@ -31,7 +31,6 @@ public class WiFiConnectionTest {
     private static final String SSID = "SSID-123";
     private static final String BSSID = "BSSID-123";
     private static final String IP_ADDRESS = "21.205.91.7";
-    private static final String GATEWAY = "21.205.1.1";
     private static final int LINK_SPEED = 21;
 
     private WiFiConnection fixture;

@@ -51,6 +51,7 @@ public class ChannelAvailableAdapterTest {
         MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
 
         wiFiChannelCountry = WiFiChannelCountry.get("US");
+        //noinspection ArraysAsListWithZeroOrOneArgument
         fixture = new ChannelAvailableAdapter(mainActivity, Arrays.asList(wiFiChannelCountry));
     }
 
@@ -71,6 +72,5 @@ public class ChannelAvailableAdapterTest {
         assertEquals(WiFiBand.GHZ5.getBand() + " : ", ((TextView) actual.findViewById(R.id.channel_available_title_ghz_5)).getText());
         assertEquals(expected_GHZ_5, ((TextView) actual.findViewById(R.id.channel_available_ghz_5)).getText());
     }
-
 
 }

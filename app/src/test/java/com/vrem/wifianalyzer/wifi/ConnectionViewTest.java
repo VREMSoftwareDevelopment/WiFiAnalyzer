@@ -61,7 +61,6 @@ public class ConnectionViewTest {
     private static final String SSID = "SSID";
     private static final String BSSID = "BSSID";
     private static final String IP_ADDRESS = "IPADDRESS";
-    private static final String GATEWAY = "GATEWAY";
 
     private MainActivity mainActivity;
     private AccessPointView currentAccessPointView;
@@ -187,6 +186,7 @@ public class ConnectionViewTest {
         // setup
         WiFiDetail wiFiDetail = withConnection(WiFiAdditional.EMPTY);
         when(wiFiData.getConnection()).thenReturn(wiFiDetail);
+        //noinspection ArraysAsListWithZeroOrOneArgument
         when(wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy())).thenReturn(Arrays.asList(wiFiDetail));
         // execute
         fixture.update(wiFiData);

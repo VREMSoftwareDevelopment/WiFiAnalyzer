@@ -85,6 +85,7 @@ public class ChannelGraphViewTest {
         // execute
         fixture.update(wiFiData);
         // validate
+        //noinspection unchecked
         verify(graphViewWrapper).removeSeries(any(Set.class));
         verify(graphViewWrapper).updateLegend(GraphLegend.RIGHT);
         verify(graphViewWrapper).setVisibility(View.VISIBLE);

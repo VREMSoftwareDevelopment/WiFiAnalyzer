@@ -23,7 +23,7 @@ import org.robolectric.Robolectric;
 public enum RobolectricUtil {
     INSTANCE;
 
-    private MainActivity mainActivity;
+    private final MainActivity mainActivity;
 
     RobolectricUtil() {
         mainActivity = Robolectric.setupActivity(MainActivity.class);

@@ -32,6 +32,7 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@null"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@drawable/ic_wifi_green_800_48dp"/>
 

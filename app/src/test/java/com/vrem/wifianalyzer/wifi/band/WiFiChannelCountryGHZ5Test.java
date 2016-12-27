@@ -32,9 +32,9 @@ import static org.junit.Assert.assertTrue;
 
 public class WiFiChannelCountryGHZ5Test {
 
-    private SortedSet<Integer> channelsSet1 = new TreeSet<>(Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64));
-    private SortedSet<Integer> channelsSet2 = new TreeSet<>(Arrays.asList(100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140));
-    private SortedSet<Integer> channelsSet3 = new TreeSet<>(Arrays.asList(149, 153, 157, 161, 165));
+    private final static SortedSet<Integer> CHANNELS_SET1 = new TreeSet<>(Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64));
+    private final static SortedSet<Integer> CHANNELS_SET2 = new TreeSet<>(Arrays.asList(100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140));
+    private final static SortedSet<Integer> CHANNELS_SET3 = new TreeSet<>(Arrays.asList(149, 153, 157, 161, 165));
 
     private WiFiChannelCountryGHZ5 fixture;
 
@@ -46,63 +46,63 @@ public class WiFiChannelCountryGHZ5Test {
     @Test
     public void testChannelsAustraliaCanada() throws Exception {
         SortedSet<Integer> exclude = new TreeSet<>(Arrays.asList(120, 124, 128));
-        int expectedSize = channelsSet1.size() + channelsSet2.size() + channelsSet3.size() - exclude.size();
+        int expectedSize = CHANNELS_SET1.size() + CHANNELS_SET2.size() + CHANNELS_SET3.size() - exclude.size();
         String[] countries = new String[]{"AU", "CA"};
         for (String country : countries) {
             Set<Integer> actual = fixture.findChannels(country);
             assertEquals(expectedSize, actual.size());
-            assertTrue(actual.containsAll(channelsSet1));
-            assertTrue(actual.containsAll(channelsSet3));
+            assertTrue(actual.containsAll(CHANNELS_SET1));
+            assertTrue(actual.containsAll(CHANNELS_SET3));
             assertFalse(actual.containsAll(exclude));
         }
     }
 
     @Test
     public void testChannelsChinaSouthKorea() throws Exception {
-        int expectedSize = channelsSet1.size() + channelsSet3.size();
+        int expectedSize = CHANNELS_SET1.size() + CHANNELS_SET3.size();
         String[] countries = new String[]{"CN", "KR"};
         for (String country : countries) {
             Set<Integer> actual = fixture.findChannels(country);
             assertEquals(expectedSize, actual.size());
-            assertTrue(actual.containsAll(channelsSet1));
-            assertTrue(actual.containsAll(channelsSet3));
-            assertFalse(actual.containsAll(channelsSet2));
+            assertTrue(actual.containsAll(CHANNELS_SET1));
+            assertTrue(actual.containsAll(CHANNELS_SET3));
+            assertFalse(actual.containsAll(CHANNELS_SET2));
         }
     }
 
     @Test
     public void testChannelsJapanTurkeySouthAfrica() throws Exception {
-        int expectedSize = channelsSet1.size() + channelsSet2.size();
+        int expectedSize = CHANNELS_SET1.size() + CHANNELS_SET2.size();
         String[] countries = new String[]{"JP", "TR", "ZA"};
         for (String country : countries) {
             Set<Integer> actual = fixture.findChannels(country);
             assertEquals(expectedSize, actual.size());
-            assertTrue(actual.containsAll(channelsSet1));
-            assertTrue(actual.containsAll(channelsSet2));
-            assertFalse(actual.containsAll(channelsSet3));
+            assertTrue(actual.containsAll(CHANNELS_SET1));
+            assertTrue(actual.containsAll(CHANNELS_SET2));
+            assertFalse(actual.containsAll(CHANNELS_SET3));
         }
     }
 
     @Test
     public void testChannelsIsrael() throws Exception {
-        int expectedSize = channelsSet1.size();
+        int expectedSize = CHANNELS_SET1.size();
         Set<Integer> actual = fixture.findChannels("IL");
         assertEquals(expectedSize, actual.size());
-        assertTrue(actual.containsAll(channelsSet1));
-        assertFalse(actual.containsAll(channelsSet2));
-        assertFalse(actual.containsAll(channelsSet3));
+        assertTrue(actual.containsAll(CHANNELS_SET1));
+        assertFalse(actual.containsAll(CHANNELS_SET2));
+        assertFalse(actual.containsAll(CHANNELS_SET3));
     }
 
     @Test
     public void testChannelsOther() throws Exception {
-        int expectedSize = channelsSet1.size() + channelsSet2.size() + channelsSet3.size();
+        int expectedSize = CHANNELS_SET1.size() + CHANNELS_SET2.size() + CHANNELS_SET3.size();
         String[] countries = new String[]{"US", "RU", "XYZ"};
         for (String country : countries) {
             Set<Integer> actual = fixture.findChannels(country);
             assertEquals(expectedSize, actual.size());
-            assertTrue(actual.containsAll(channelsSet1));
-            assertTrue(actual.containsAll(channelsSet2));
-            assertTrue(actual.containsAll(channelsSet3));
+            assertTrue(actual.containsAll(CHANNELS_SET1));
+            assertTrue(actual.containsAll(CHANNELS_SET2));
+            assertTrue(actual.containsAll(CHANNELS_SET3));
         }
     }
 
