@@ -69,6 +69,9 @@ Feel free to fork the project and submit your changes back.
       * Select the root directory of the WiFi Analyzer repository and click "OK".
       * WiFi Analyzer will build automatically
 
+### Running unit tests and jacoco coverage report
+./gradlew testDebugUnitTest jacocoTestDebugUnitTestReport --info
+
 ## Special Thanks
 
 We want to express our gratitude to all people for contributed with patches, bug solving and updates to WiFi Analyzer.
