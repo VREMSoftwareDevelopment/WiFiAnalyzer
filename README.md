@@ -70,7 +70,9 @@ Feel free to fork the project and submit your changes back.
       * WiFi Analyzer will build automatically
 
 ### Running unit tests and jacoco coverage report
+```
 ./gradlew testDebugUnitTest jacocoTestDebugUnitTestReport --info
+```
 
 ## Special Thanks
 
