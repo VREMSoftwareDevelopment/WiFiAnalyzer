@@ -25,6 +25,7 @@
     <string name="navigation_drawer_open">Открыть панель навигации</string>
     <string name="navigation_drawer_close">Закрыть панель навигации</string>
 
+    <!-- action start -->
     <string name="action_access_points">Точки доступа</string>
     <string name="action_channel_rating">Оценка каналов</string>
     <string name="action_channel_graph">График каналов</string>
@@ -34,6 +35,8 @@
     <string name="action_vendors">Поставщики</string>
     <string name="action_settings">Настройки</string>
     <string name="action_about">О Программе</string>
+    <string name="action_write_review">Написать отзыв</string>
+    <!-- action end -->
 
     <string name="button_cancel">Отмена</string>
     <string name="no_data">Нет данных</string>

@@ -26,6 +26,7 @@
     <string name="navigation_drawer_open">Abrir panel de navegación</string>
     <string name="navigation_drawer_close">Cierre el panel de navegación</string>
 
+    <!-- action start -->
     <string name="action_access_points">Puntos de acceso</string>
     <string name="action_channel_rating">Clasificación de Canal</string>
     <string name="action_channel_graph">Gráfico de Canal</string>
@@ -35,6 +36,8 @@
     <string name="action_vendors">Vendedores</string>
     <string name="action_settings">Ajustes</string>
     <string name="action_about">Acerca de</string>
+    <string name="action_write_review">Escribir una opinión</string>
+    <!-- action end -->
 
     <string name="button_cancel">Cancelar</string>
     <string name="no_data">Sin datos</string>

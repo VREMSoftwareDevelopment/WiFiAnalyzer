@@ -26,6 +26,7 @@
     <string name="navigation_drawer_open">Apri pannello laterale</string>
     <string name="navigation_drawer_close">Chiudi pannello laterale</string>
 
+    <!-- action start -->
     <string name="action_access_points">Access Points</string>
     <string name="action_channel_rating">Qualità canali</string>
     <string name="action_channel_graph">Grafico Canali</string>
@@ -35,6 +36,8 @@
     <string name="action_vendors">Fornitori</string>
     <string name="action_settings">Impostazioni</string>
     <string name="action_about">Altro</string>
+    <string name="action_write_review">Scrivi una recensione</string>
+    <!-- action end -->
 
     <string name="button_cancel">Annulla</string>
     <string name="no_data">Nessun Dato</string>

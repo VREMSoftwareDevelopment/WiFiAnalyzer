@@ -41,7 +41,8 @@ public enum NavigationMenu {
     CHANNEL_AVAILABLE(R.drawable.ic_location_on_grey_500_48dp, R.string.action_channel_available, new FragmentItem(new ChannelAvailableFragment())),
     VENDOR_LIST(R.drawable.ic_list_grey_500_48dp, R.string.action_vendors, new FragmentItem(new VendorFragment())),
     SETTINGS(R.drawable.ic_settings_grey_500_48dp, R.string.action_settings, new ActivityItem(SettingActivity.class)),
-    ABOUT(R.drawable.ic_info_outline_grey_500_48dp, R.string.action_about, new ActivityItem(AboutActivity.class));
+    ABOUT(R.drawable.ic_info_outline_grey_500_48dp, R.string.action_about, new ActivityItem(AboutActivity.class)),
+    WRITE_REVIEW(R.drawable.ic_rate_review_grey_500_48dp, R.string.action_write_review, new WriteReviewItem());
 
     private final int icon;
     private final int title;

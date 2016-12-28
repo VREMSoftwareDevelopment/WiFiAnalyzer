@@ -26,6 +26,7 @@
     <string name="navigation_drawer_open">打开式导览</string>
     <string name="navigation_drawer_close">关闭导览</string>
 
+    <!-- action start -->
     <string name="action_access_points">接入点</string>
     <string name="action_channel_rating">信道评级</string>
     <string name="action_channel_graph">信道图</string>
@@ -35,6 +36,8 @@
     <string name="action_vendors">制造商</string>
     <string name="action_settings">设置</string>
     <string name="action_about">关于</string>
+    <string name="action_write_review">我要评价</string>
+    <!-- action end -->
 
     <string name="button_cancel">取消</string>
     <string name="no_data">无数据</string>

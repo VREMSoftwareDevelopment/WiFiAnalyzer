@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.navigation;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
@@ -50,8 +51,11 @@ class ExportItem implements NavigationMenuItem {
             Toast.makeText(mainActivity, R.string.export_not_available, Toast.LENGTH_LONG).show();
             return;
         }
-
-        mainActivity.startActivity(chooser);
+        try {
+            mainActivity.startActivity(chooser);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(mainActivity, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     private boolean exportAvailable(@NonNull MainActivity mainActivity, @NonNull Intent chooser) {

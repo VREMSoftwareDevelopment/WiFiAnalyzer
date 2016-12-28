@@ -57,7 +57,8 @@ public class NavigationGroupTest {
             NavigationGroup.GROUP_OTHER.navigationMenu());
         assertArrayEquals(new NavigationMenu[]{
                 NavigationMenu.SETTINGS,
-                NavigationMenu.ABOUT
+                NavigationMenu.ABOUT,
+                NavigationMenu.WRITE_REVIEW
             },
             NavigationGroup.GROUP_SETTINGS.navigationMenu());
     }

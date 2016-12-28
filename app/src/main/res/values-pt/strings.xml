@@ -26,6 +26,7 @@
     <string name="navigation_drawer_open">Abrir gaveta de notificações</string>
     <string name="navigation_drawer_close">Fechar gaveta de notificações</string>
 
+    <!-- action start -->
     <string name="action_access_points">Pontos de Acesso</string>
     <string name="action_channel_rating">Avaliação dos Canais</string>
     <string name="action_channel_graph">Gráfico de Canais</string>
@@ -35,6 +36,8 @@
     <string name="action_vendors">Vendedores</string>
     <string name="action_settings">Configurações</string>
     <string name="action_about">Sobre</string>
+    <string name="action_write_review">Escrever uma resenha</string>
+    <!-- action end -->
 
     <string name="button_cancel">Cancelar</string>
     <string name="no_data">Sem Dados</string>

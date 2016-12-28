@@ -38,7 +38,7 @@ public class NavigationMenuTest {
 
     @Test
     public void testNavigationMenu() throws Exception {
-        assertEquals(9, NavigationMenu.values().length);
+        assertEquals(10, NavigationMenu.values().length);
     }
 
     @Test
@@ -55,6 +55,7 @@ public class NavigationMenuTest {
         assertEquals(NavigationMenu.VENDOR_LIST, NavigationMenu.find(NavigationMenu.VENDOR_LIST.ordinal()));
         assertEquals(NavigationMenu.SETTINGS, NavigationMenu.find(NavigationMenu.SETTINGS.ordinal()));
         assertEquals(NavigationMenu.ABOUT, NavigationMenu.find(NavigationMenu.ABOUT.ordinal()));
+        assertEquals(NavigationMenu.WRITE_REVIEW, NavigationMenu.find(NavigationMenu.WRITE_REVIEW.ordinal()));
     }
 
     @Test
@@ -70,6 +71,8 @@ public class NavigationMenuTest {
 
         assertTrue(NavigationMenu.SETTINGS.getItem() instanceof ActivityItem);
         assertTrue(NavigationMenu.ABOUT.getItem() instanceof ActivityItem);
+
+        assertTrue(NavigationMenu.WRITE_REVIEW.getItem() instanceof WriteReviewItem);
     }
 
     @Test
@@ -99,6 +102,7 @@ public class NavigationMenuTest {
         assertEquals(R.string.action_vendors, NavigationMenu.VENDOR_LIST.getTitle());
         assertEquals(R.string.action_settings, NavigationMenu.SETTINGS.getTitle());
         assertEquals(R.string.action_about, NavigationMenu.ABOUT.getTitle());
+        assertEquals(R.string.action_write_review, NavigationMenu.WRITE_REVIEW.getTitle());
     }
 
     @Test
@@ -112,9 +116,11 @@ public class NavigationMenuTest {
     @Test
     public void testIsWiFiBandSwitchableFalse() throws Exception {
         assertFalse(NavigationMenu.CHANNEL_AVAILABLE.isWiFiBandSwitchable());
+        assertFalse(NavigationMenu.EXPORT.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.VENDOR_LIST.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.SETTINGS.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.ABOUT.isWiFiBandSwitchable());
+        assertFalse(NavigationMenu.WRITE_REVIEW.isWiFiBandSwitchable());
     }
 
     @Test
@@ -128,5 +134,6 @@ public class NavigationMenuTest {
         assertEquals(R.drawable.ic_list_grey_500_48dp, NavigationMenu.VENDOR_LIST.getIcon());
         assertEquals(R.drawable.ic_settings_grey_500_48dp, NavigationMenu.SETTINGS.getIcon());
         assertEquals(R.drawable.ic_info_outline_grey_500_48dp, NavigationMenu.ABOUT.getIcon());
+        assertEquals(R.drawable.ic_rate_review_grey_500_48dp, NavigationMenu.WRITE_REVIEW.getIcon());
     }
 }

@@ -26,6 +26,7 @@
     <string name="navigation_drawer_open">Afficher le volet de navigation</string>
     <string name="navigation_drawer_close">Masquer le volet de navigation</string>
 
+    <!-- action start -->
     <string name="action_access_points">Points d\'acccès</string>
     <string name="action_channel_rating">Qualité de réception</string>
     <string name="action_channel_graph">Graphique par canal</string>
@@ -35,6 +36,8 @@
     <string name="action_vendors">Vendeurs</string>
     <string name="action_settings">Configuration</string>
     <string name="action_about">À propos</string>
+    <string name="action_write_review">Donner votre avis</string>
+    <!-- action end -->
 
     <string name="button_cancel">Annuler</string>
     <string name="no_data">Aucune donnée</string>

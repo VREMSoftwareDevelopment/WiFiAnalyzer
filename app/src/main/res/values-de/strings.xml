@@ -26,6 +26,7 @@
     <string name="navigation_drawer_open">Navigationsleiste öffnen</string>
     <string name="navigation_drawer_close">Navigationsleiste schließen</string>
 
+    <!-- action start -->
     <string name="action_access_points">Access Points</string>
     <string name="action_channel_rating">Kanalbewertung</string>
     <string name="action_channel_graph">Kanalübersicht</string>
@@ -35,6 +36,8 @@
     <string name="action_vendors">Hersteller</string>
     <string name="action_settings">Einstellungen</string>
     <string name="action_about">Über</string>
+    <string name="action_write_review">Rezension schreiben</string>
+    <!-- action end -->
 
     <string name="button_cancel">Abbrechen</string>
     <string name="no_data">Keine Daten</string>
