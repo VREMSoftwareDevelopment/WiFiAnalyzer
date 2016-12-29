@@ -86,7 +86,7 @@ public class AboutActivity extends AppCompatActivity {
 
     public void writeReview(@NonNull View view) {
         String url = "market://details?id=" + BuildConfig.APPLICATION_ID;
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url.replace("BETA", "")));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         try {
             startActivity(intent);
         } catch (ActivityNotFoundException e) {
