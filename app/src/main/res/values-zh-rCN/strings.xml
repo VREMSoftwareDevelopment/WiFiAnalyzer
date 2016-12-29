@@ -36,7 +36,6 @@
     <string name="action_vendors">制造商</string>
     <string name="action_settings">设置</string>
     <string name="action_about">关于</string>
-    <string name="action_write_review">我要评价</string>
     <!-- action end -->
 
     <string name="button_cancel">取消</string>
@@ -80,5 +79,6 @@
     <string name="about_library_graph_view">图表视图</string>
     <string name="about_library_material">质感设计图标</string>
     <string name="about_contributor_title">贡献者:</string>
+    <string name="about_write_review">我要评价</string>
     <!-- about end -->
 </resources>

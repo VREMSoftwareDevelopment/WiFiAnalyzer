@@ -21,6 +21,7 @@ package com.vrem.wifianalyzer.about;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.vrem.wifianalyzer.BuildConfig;
@@ -119,5 +120,14 @@ public class AboutActivityTest {
         // validate
         assertNotNull(actual);
         assertEquals(expectedName, actual.getText());
+    }
+
+    @Test
+    public void testWriteReview() throws Exception {
+        // setup
+        View view = fixture.findViewById(R.id.writeReview);
+        // execute
+        fixture.writeReview(view);
+        // validate
     }
 }

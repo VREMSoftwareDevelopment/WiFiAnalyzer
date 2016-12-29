@@ -188,6 +188,16 @@
                     android:layout_height="wrap_content"
                     android:text="@string/about_contributor_list"/>
 
+                <Button
+                    android:id="@+id/writeReview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:onClick="writeReview"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:text="@string/about_write_review"/>
+
             </LinearLayout>
 
         </ScrollView>

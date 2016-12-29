@@ -36,7 +36,6 @@
     <string name="action_vendors">Vendedores</string>
     <string name="action_settings">Ajustes</string>
     <string name="action_about">Acerca de</string>
-    <string name="action_write_review">Escribir una opinión</string>
     <!-- action end -->
 
     <string name="button_cancel">Cancelar</string>
@@ -80,5 +79,6 @@
     <string name="about_library_graph_view">Vista Gráfica</string>
     <string name="about_library_material">"Iconos de \'Diseño de Materiales\'"</string>
     <string name="about_contributor_title">Colaboradores:</string>
+    <string name="about_write_review">Escribir una opinión</string>
     <!-- about end -->
 </resources>

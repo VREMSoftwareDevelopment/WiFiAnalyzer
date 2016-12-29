@@ -36,7 +36,6 @@
     <string name="action_vendors">Fornitori</string>
     <string name="action_settings">Impostazioni</string>
     <string name="action_about">Altro</string>
-    <string name="action_write_review">Scrivi una recensione</string>
     <!-- action end -->
 
     <string name="button_cancel">Annulla</string>
@@ -80,5 +79,6 @@
     <string name="about_library_graph_view">Graph View</string>
     <string name="about_library_material">Icone Material Design</string>
     <string name="about_contributor_title">Contributori:</string>
+    <string name="about_write_review">Scrivi una recensione</string>
     <!-- about end -->
 </resources>

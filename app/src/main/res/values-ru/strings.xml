@@ -35,7 +35,6 @@
     <string name="action_vendors">Поставщики</string>
     <string name="action_settings">Настройки</string>
     <string name="action_about">О Программе</string>
-    <string name="action_write_review">Написать отзыв</string>
     <!-- action end -->
 
     <string name="button_cancel">Отмена</string>
@@ -79,5 +78,6 @@
     <string name="about_library_graph_view">Просмотр диаграммы</string>
     <string name="about_library_material">Материальный дизайн иконок</string>
     <string name="about_contributor_title">Авторы:</string>
+    <string name="about_write_review">Написать отзыв</string>
     <!-- about end -->
 </resources>

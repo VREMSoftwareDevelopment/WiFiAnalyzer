@@ -36,7 +36,6 @@
     <string name="action_vendors">Hersteller</string>
     <string name="action_settings">Einstellungen</string>
     <string name="action_about">Über</string>
-    <string name="action_write_review">Rezension schreiben</string>
     <!-- action end -->
 
     <string name="button_cancel">Abbrechen</string>
@@ -80,5 +79,6 @@
     <string name="about_library_graph_view">Graphansicht</string>
     <string name="about_library_material">Material Design Ikonen</string>
     <string name="about_contributor_title">Beitragende:</string>
+    <string name="about_write_review">Rezension schreiben</string>
     <!-- about end -->
 </resources>

@@ -36,7 +36,6 @@
     <string name="action_vendors">製造商</string>
     <string name="action_settings">設置</string>
     <string name="action_about">關於</string>
-    <string name="action_write_review">撰寫評論</string>
     <!-- action end -->
 
     <string name="button_cancel">取消</string>
@@ -79,5 +78,6 @@
     <string name="about_library_graph_view">圖表視圖</string>
     <string name="about_library_material">Material Design圖標</string>
     <string name="about_contributor_title">貢獻者：</string>
+    <string name="about_write_review">撰寫評論</string>
     <!-- about end -->
 </resources>
