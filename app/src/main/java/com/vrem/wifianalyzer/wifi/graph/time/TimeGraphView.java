@@ -103,9 +103,11 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     private GraphView makeGraphView() {
-        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
+        MainContext mainContext = MainContext.INSTANCE;
+        MainActivity mainActivity = mainContext.getMainActivity();
         Resources resources = mainActivity.getResources();
-        return new GraphViewBuilder(mainActivity, getNumX())
+        int maximumY = mainContext.getSettings().getGraphMaximumY();
+        return new GraphViewBuilder(mainActivity, getNumX(), maximumY)
             .setLabelFormatter(new TimeAxisLabel())
             .setVerticalTitle(resources.getString(R.string.graph_axis_y))
             .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))

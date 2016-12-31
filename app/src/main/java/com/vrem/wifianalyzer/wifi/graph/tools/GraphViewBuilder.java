@@ -30,19 +30,21 @@ import com.jjoe64.graphview.Viewport;
 
 public class GraphViewBuilder {
     public static final int MIN_Y = -100;
-    public static final int MAX_Y = -20;
-    static final int NUM_Y = (MAX_Y - MIN_Y) / 10 + 1;
-
+    public static final int MAX_Y = 0;
+    static final int MAX_Y_DEFAULT = -20;
+    private static final int MIN_Y_HALF = MIN_Y / 2;
     private final Context content;
     private final int numHorizontalLabels;
+    private final int maximumY;
     private final LayoutParams layoutParams;
     private LabelFormatter labelFormatter;
     private String verticalTitle;
     private String horizontalTitle;
 
-    public GraphViewBuilder(@NonNull Context content, int numHorizontalLabels) {
+    public GraphViewBuilder(@NonNull Context content, int numHorizontalLabels, int maximumY) {
         this.content = content;
         this.numHorizontalLabels = numHorizontalLabels;
+        this.maximumY = (maximumY > MAX_Y || maximumY < MIN_Y_HALF) ? MAX_Y_DEFAULT : maximumY;
         this.layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
     }
 
@@ -83,14 +85,14 @@ public class GraphViewBuilder {
         viewport.setScrollable(true);
         viewport.setYAxisBoundsManual(true);
         viewport.setMinY(MIN_Y);
-        viewport.setMaxY(MAX_Y);
+        viewport.setMaxY(getMaximumY());
         viewport.setXAxisBoundsManual(true);
     }
 
     void setGridLabelRenderer(@NonNull GraphView graphView) {
         GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
         gridLabelRenderer.setHighlightZeroLines(false);
-        gridLabelRenderer.setNumVerticalLabels(NUM_Y);
+        gridLabelRenderer.setNumVerticalLabels(getNumVerticalLabels());
         gridLabelRenderer.setNumHorizontalLabels(numHorizontalLabels);
 
         if (labelFormatter != null) {
@@ -111,4 +113,13 @@ public class GraphViewBuilder {
             gridLabelRenderer.setHorizontalLabelsVisible(false);
         }
     }
+
+    int getNumVerticalLabels() {
+        return (getMaximumY() - MIN_Y) / 10 + 1;
+    }
+
+    int getMaximumY() {
+        return maximumY;
+    }
+
 }
