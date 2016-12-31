@@ -61,6 +61,15 @@
         android:title="@string/ap_view_title"/>
 
     <ListPreference
+        android:defaultValue="@string/graph_maximum_y_default"
+        android:entries="@array/graph_maximum_y_array"
+        android:entryValues="@array/graph_maximum_y_index_array"
+        android:key="@string/graph_maximum_y_key"
+        android:persistent="true"
+        android:summary="@string/graph_maximum_y_summary"
+        android:title="@string/graph_maximum_y_title"/>
+
+    <ListPreference
         android:defaultValue="@string/channel_graph_legend_default"
         android:entries="@array/graph_legend_array"
         android:entryValues="@array/graph_legend_index_array"

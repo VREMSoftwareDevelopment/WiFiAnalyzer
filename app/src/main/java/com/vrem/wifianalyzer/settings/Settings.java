@@ -32,6 +32,8 @@ import com.vrem.wifianalyzer.wifi.model.SortBy;
 import static android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
 public class Settings {
+    static final int GRAPH_Y_MULTIPLIER = -10;
+
     private final Context context;
     private Repository repository;
 
@@ -66,6 +68,12 @@ public class Settings {
 
     public AccessPointView getAccessPointView() {
         return AccessPointView.find(repository.getStringAsInteger(R.string.ap_view_key, AccessPointView.COMPLETE.ordinal()));
+    }
+
+    public int getGraphMaximumY() {
+        int defaultValue = repository.getStringAsInteger(R.string.graph_maximum_y_default, 0);
+        int result = repository.getStringAsInteger(R.string.graph_maximum_y_key, defaultValue);
+        return result * GRAPH_Y_MULTIPLIER;
     }
 
     public GraphLegend getChannelGraphLegend() {

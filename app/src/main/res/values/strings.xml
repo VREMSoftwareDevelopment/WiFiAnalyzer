@@ -97,6 +97,11 @@
     <string name="ap_view_key" translatable="false">view</string>
     <string name="ap_view_default" translatable="false">0</string>
 
+    <string name="graph_maximum_y_title">Graph Maximum Signal Strength</string>
+    <string name="graph_maximum_y_summary" translatable="false">%s</string>
+    <string name="graph_maximum_y_key" translatable="false">graph_maximum_y</string>
+    <string name="graph_maximum_y_default" translatable="false">2</string>
+
     <string name="channel_graph_legend_title">Channel Graph Legend Display</string>
     <string name="channel_graph_legend_summary" translatable="false">%s</string>
     <string name="channel_graph_legend_key" translatable="false">channel_graph_legend</string>

@@ -62,6 +62,24 @@
         <item>Compact</item>
     </string-array>
 
+    <string-array name="graph_maximum_y_index_array" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="graph_maximum_y_array" translatable="false">
+        <item>0dBm</item>
+        <item>-10dBm</item>
+        <item>-20dBm</item>
+        <item>-30dBm</item>
+        <item>-40dBm</item>
+        <item>-50dBm</item>
+    </string-array>
+
     <string-array name="graph_legend_index_array" translatable="false">
         <item>0</item>
         <item>1</item>

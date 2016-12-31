@@ -81,7 +81,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testScanInterval() throws Exception {
+    public void testGetScanInterval() throws Exception {
         // setup
         int defaultValue = 10;
         int expected = 11;
@@ -96,7 +96,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGroupBy() throws Exception {
+    public void testGetGroupBy() throws Exception {
         // setup
         when(repository.getStringAsInteger(R.string.group_by_key, GroupBy.NONE.ordinal())).thenReturn(GroupBy.CHANNEL.ordinal());
         // execute
@@ -107,7 +107,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testSortBy() throws Exception {
+    public void testGetSortBy() throws Exception {
         // setup
         when(repository.getStringAsInteger(R.string.sort_by_key, SortBy.STRENGTH.ordinal())).thenReturn(SortBy.SSID.ordinal());
         // execute
@@ -118,7 +118,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testAccessPointView() throws Exception {
+    public void testGetAccessPointView() throws Exception {
         // setup
         when(repository.getStringAsInteger(R.string.ap_view_key, AccessPointView.COMPLETE.ordinal())).thenReturn(AccessPointView.COMPACT.ordinal());
         // execute
@@ -129,7 +129,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testThemeStyle() throws Exception {
+    public void testGetThemeStyle() throws Exception {
         // setup
         when(repository.getStringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal())).thenReturn(ThemeStyle.LIGHT.ordinal());
         // execute
@@ -140,7 +140,23 @@ public class SettingsTest {
     }
 
     @Test
-    public void testChannelGraphLegend() throws Exception {
+    public void testGetGraphMaximumY() throws Exception {
+        // setup
+        int defaultValue = 1;
+        int value = 2;
+        int expected = value * Settings.GRAPH_Y_MULTIPLIER;
+        when(repository.getStringAsInteger(R.string.graph_maximum_y_default, 0)).thenReturn(defaultValue);
+        when(repository.getStringAsInteger(R.string.graph_maximum_y_key, defaultValue)).thenReturn(value);
+        // execute
+        int actual = fixture.getGraphMaximumY();
+        // validate
+        assertEquals(expected, actual);
+        verify(repository).getStringAsInteger(R.string.graph_maximum_y_default, 0);
+        verify(repository).getStringAsInteger(R.string.graph_maximum_y_key, defaultValue);
+    }
+
+    @Test
+    public void testGetChannelGraphLegend() throws Exception {
         // setup
         when(repository.getStringAsInteger(R.string.channel_graph_legend_key, GraphLegend.HIDE.ordinal())).thenReturn(GraphLegend.RIGHT.ordinal());
         // execute
@@ -151,7 +167,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testTimeGraphLegend() throws Exception {
+    public void testGetTimeGraphLegend() throws Exception {
         // setup
         when(repository.getStringAsInteger(R.string.time_graph_legend_key, GraphLegend.LEFT.ordinal())).thenReturn(GraphLegend.RIGHT.ordinal());
         // execute
@@ -162,7 +178,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testWiFiBand() throws Exception {
+    public void testGetWiFiBand() throws Exception {
         // setup
         when(repository.getStringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal())).thenReturn(WiFiBand.GHZ5.ordinal());
         // execute

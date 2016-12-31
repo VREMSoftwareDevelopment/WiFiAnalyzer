@@ -37,6 +37,7 @@ public class CountryPreference extends CustomPreference {
         super(context, attrs, getData(), getDefault(context));
     }
 
+    @NonNull
     private static List<Data> getData() {
         List<Data> result = new ArrayList<>();
         for (WiFiChannelCountry wiFiChannelCountry : WiFiChannelCountry.getAll()) {
@@ -55,7 +56,7 @@ public class CountryPreference extends CustomPreference {
 
     @NonNull
     @SuppressWarnings("deprecation")
-    private static Locale getLocale(Configuration config) {
+    private static Locale getLocale(@NonNull Configuration config) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return config.getLocales().get(0);
         }

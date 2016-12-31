@@ -26,7 +26,7 @@ class Data implements Comparable<Data> {
     private final String code;
     private final String name;
 
-    Data(String code, String name) {
+    Data(@NonNull String code, @NonNull String name) {
         this.code = code;
         this.name = name;
     }
