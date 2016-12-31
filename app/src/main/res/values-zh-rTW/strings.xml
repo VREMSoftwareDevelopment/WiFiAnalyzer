@@ -64,6 +64,7 @@
     <string name="sort_by_title">接入點排序依據</string>
     <string name="group_by_title">接入點分組依據</string>
     <string name="ap_view_title">顯示AP</string>
+    <string name="graph_maximum_y_title">圖形最大信號強度</string>
     <string name="channel_graph_legend_title">頻道圖例顯示位置</string>
     <string name="time_graph_legend_title">時間圖例顯示位置</string>
     <string name="theme_title">主題</string>

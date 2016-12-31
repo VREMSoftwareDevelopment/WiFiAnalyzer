@@ -64,6 +64,7 @@
     <string name="sort_by_title">Сортировка</string>
     <string name="group_by_title">Группировка</string>
     <string name="ap_view_title">Точка доступа</string>
+    <string name="graph_maximum_y_title">Максимальная сила сигнала графика</string>
     <string name="channel_graph_legend_title">Показать легенду графика каналa</string>
     <string name="time_graph_legend_title">Показать легенду графика времени</string>
     <string name="theme_title">Цветовая тема</string>

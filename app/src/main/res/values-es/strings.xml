@@ -65,6 +65,7 @@
     <string name="sort_by_title">Ordenar Puntos de Accesso por:</string>
     <string name="group_by_title">Agrupar Puntos de Acceso por:</string>
     <string name="ap_view_title">Pantalla del punto de acceso</string>
+    <string name="graph_maximum_y_title">Gráfico de la intensidad máxima de la señal</string>
     <string name="channel_graph_legend_title">Leyenda de Visualización de Gráfico de Canales</string>
     <string name="time_graph_legend_title">Leyenda de Visualización de Gráfico de Tiempo</string>
     <string name="theme_title">Tema</string>

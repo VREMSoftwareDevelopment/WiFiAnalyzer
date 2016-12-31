@@ -65,6 +65,7 @@
     <string name="sort_by_title">Ordina Access Points Per</string>
     <string name="group_by_title">Raggruppa Access Points Per</string>
     <string name="ap_view_title">Access Point di visualizzazione</string>
+    <string name="graph_maximum_y_title">Forza Grafico segnale massimo</string>
     <string name="channel_graph_legend_title">Mostra Legenda Grafico Canali</string>
     <string name="time_graph_legend_title">Mostra Legenda Grafico Temporale</string>
     <string name="theme_title">Tema</string>
