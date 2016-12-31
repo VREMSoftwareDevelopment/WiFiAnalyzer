@@ -133,12 +133,9 @@ class ChannelGraphView implements GraphViewNotifier {
         return Math.min(numX, channelLast - channelFirst + 1);
     }
 
-    private GraphView makeGraphView() {
-        MainContext mainContext = MainContext.INSTANCE;
-        MainActivity mainActivity = mainContext.getMainActivity();
+    private GraphView makeGraphView(@NonNull MainActivity mainActivity, int graphMaximumY) {
         Resources resources = mainActivity.getResources();
-        int maximumY = mainContext.getSettings().getGraphMaximumY();
-        return new GraphViewBuilder(mainActivity, getNumX(), maximumY)
+        return new GraphViewBuilder(mainActivity, getNumX(), graphMaximumY)
             .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair))
             .setVerticalTitle(resources.getString(R.string.graph_axis_y))
             .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
@@ -146,8 +143,11 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     private GraphViewWrapper makeGraphViewWrapper() {
-        Settings settings = MainContext.INSTANCE.getSettings();
-        graphViewWrapper = new GraphViewWrapper(makeGraphView(), settings.getChannelGraphLegend());
+        MainContext mainContext = MainContext.INSTANCE;
+        MainActivity mainActivity = mainContext.getMainActivity();
+        Settings settings = mainContext.getSettings();
+        GraphView graphView = makeGraphView(mainActivity, settings.getGraphMaximumY());
+        graphViewWrapper = new GraphViewWrapper(graphView, settings.getChannelGraphLegend());
 
         int frequencyStart = frequencyAdjustment(wiFiChannelPair.first.getFrequency());
         int frequencyEnd = frequencyAdjustment(wiFiChannelPair.second.getFrequency());
