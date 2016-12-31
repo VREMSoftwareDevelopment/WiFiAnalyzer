@@ -53,7 +53,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -63,7 +63,6 @@ public class ConnectionViewTest {
     private static final String IP_ADDRESS = "IPADDRESS";
 
     private MainActivity mainActivity;
-    private AccessPointView currentAccessPointView;
     private ConnectionView fixture;
 
     private Settings settings;
@@ -74,8 +73,6 @@ public class ConnectionViewTest {
     @Before
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getActivity();
-        currentAccessPointView = mainActivity.getCurrentAccessPointView();
-        mainActivity.setCurrentAccessPointView(AccessPointView.COMPLETE);
 
         accessPointDetail = mock(AccessPointDetail.class);
         accessPointPopup = mock(AccessPointPopup.class);
@@ -92,7 +89,6 @@ public class ConnectionViewTest {
     public void tearDown() {
         MainContextHelper.INSTANCE.restore();
         mainActivity.getNavigationMenuView().setCurrentNavigationMenu(NavigationMenu.ACCESS_POINTS);
-        mainActivity.setCurrentAccessPointView(currentAccessPointView);
     }
 
     @Test
@@ -111,7 +107,7 @@ public class ConnectionViewTest {
         // setup
         WiFiDetail connection = withConnection(withWiFiAdditional());
         withConnectionInformation(connection);
-        withAccessPointDetailView(connection);
+        withAccessPointDetailView(connection, AccessPointView.COMPLETE);
         // execute
         fixture.update(wiFiData);
         // validate
@@ -125,7 +121,7 @@ public class ConnectionViewTest {
         WiFiAdditional wiFiAdditional = withWiFiAdditional();
         WiFiDetail connection = withConnection(wiFiAdditional);
         withConnectionInformation(connection);
-        withAccessPointDetailView(connection);
+        withAccessPointDetailView(connection, AccessPointView.COMPLETE);
         // execute
         fixture.update(wiFiData);
         // validate
@@ -143,7 +139,7 @@ public class ConnectionViewTest {
         WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, IP_ADDRESS, WiFiConnection.LINK_SPEED_INVALID);
         WiFiDetail connection = withConnection(new WiFiAdditional(StringUtils.EMPTY, wiFiConnection));
         withConnectionInformation(connection);
-        withAccessPointDetailView(connection);
+        withAccessPointDetailView(connection, AccessPointView.COMPLETE);
         // execute
         fixture.update(wiFiData);
         // validate
@@ -201,10 +197,9 @@ public class ConnectionViewTest {
     @Test
     public void testViewCompactAddsPopup() throws Exception {
         // setup
-        mainActivity.setCurrentAccessPointView(AccessPointView.COMPACT);
         WiFiDetail connection = withConnection(withWiFiAdditional());
         withConnectionInformation(connection);
-        View view = withAccessPointDetailView(connection);
+        View view = withAccessPointDetailView(connection, AccessPointView.COMPACT);
         // execute
         fixture.update(wiFiData);
         // validate
@@ -222,10 +217,10 @@ public class ConnectionViewTest {
         return new WiFiAdditional(StringUtils.EMPTY, wiFiConnection);
     }
 
-    private View withAccessPointDetailView(@NonNull WiFiDetail connection) {
-        int layout = mainActivity.getCurrentAccessPointView().getLayout();
+    private View withAccessPointDetailView(@NonNull WiFiDetail connection, @NonNull AccessPointView accessPointView) {
         ViewGroup parent = (ViewGroup) mainActivity.findViewById(R.id.connection).findViewById(R.id.connectionDetail);
-        View view = mainActivity.getLayoutInflater().inflate(layout, parent, false);
+        View view = mainActivity.getLayoutInflater().inflate(accessPointView.getLayout(), parent, false);
+        when(settings.getAccessPointView()).thenReturn(accessPointView);
         when(accessPointDetail.makeView(null, parent, connection, false)).thenReturn(view);
         when(accessPointDetail.makeView(parent.getChildAt(0), parent, connection, false)).thenReturn(view);
         return view;

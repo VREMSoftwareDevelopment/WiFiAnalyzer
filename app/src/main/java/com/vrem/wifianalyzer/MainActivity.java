@@ -42,8 +42,6 @@ import android.view.View.OnClickListener;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.settings.ThemeStyle;
-import com.vrem.wifianalyzer.wifi.AccessPointView;
 import com.vrem.wifianalyzer.wifi.ConnectionView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
@@ -54,8 +52,7 @@ import org.apache.commons.lang3.StringUtils;
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
 public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
-    private ThemeStyle currentThemeStyle;
-    private AccessPointView currentAccessPointView;
+    private MainReload mainReload;
     private NavigationMenuView navigationMenuView;
     private NavigationMenu startNavigationMenu;
     private String currentCountryCode;
@@ -68,10 +65,11 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
         Settings settings = mainContext.getSettings();
         settings.initializeDefaultValues();
-        setCurrentThemeStyle(settings.getThemeStyle());
-        setCurrentAccessPointView(settings.getAccessPointView());
-        setTheme(getCurrentThemeStyle().themeAppCompatStyle());
-        setWiFiChannelPairs();
+
+        setTheme(settings.getThemeStyle().themeAppCompatStyle());
+        setWiFiChannelPairs(mainContext);
+
+        mainReload = new MainReload(settings);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
@@ -101,12 +99,12 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         return connectionView;
     }
 
-    private void setWiFiChannelPairs() {
-        Settings settings = MainContext.INSTANCE.getSettings();
+    private void setWiFiChannelPairs(MainContext mainContext) {
+        Settings settings = mainContext.getSettings();
         String countryCode = settings.getCountryCode();
         if (!countryCode.equals(currentCountryCode)) {
             Pair<WiFiChannel, WiFiChannel> pair = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairFirst(countryCode);
-            Configuration configuration = MainContext.INSTANCE.getConfiguration();
+            Configuration configuration = mainContext.getConfiguration();
             configuration.setWiFiChannelPair(pair);
             currentCountryCode = countryCode;
         }
@@ -122,37 +120,16 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (shouldReload()) {
+        MainContext mainContext = MainContext.INSTANCE;
+        Settings settings = mainContext.getSettings();
+        if (mainReload.shouldReload(settings)) {
             reloadActivity();
         } else {
-            setWiFiChannelPairs();
-            Scanner scanner = MainContext.INSTANCE.getScanner();
+            setWiFiChannelPairs(mainContext);
+            Scanner scanner = mainContext.getScanner();
             scanner.update();
             updateSubTitle();
         }
-    }
-
-    boolean shouldReload() {
-        Settings settings = MainContext.INSTANCE.getSettings();
-        return isThemeChanged(settings) || isAccessPointViewChanged(settings);
-    }
-
-    private boolean isAccessPointViewChanged(Settings settings) {
-        AccessPointView settingAccessPointView = settings.getAccessPointView();
-        boolean accessPointViewChanged = !getCurrentAccessPointView().equals(settingAccessPointView);
-        if (accessPointViewChanged) {
-            setCurrentAccessPointView(settingAccessPointView);
-        }
-        return accessPointViewChanged;
-    }
-
-    private boolean isThemeChanged(Settings settings) {
-        ThemeStyle settingThemeStyle = settings.getThemeStyle();
-        boolean themeChanged = !getCurrentThemeStyle().equals(settingThemeStyle);
-        if (themeChanged) {
-            setCurrentThemeStyle(settingThemeStyle);
-        }
-        return themeChanged;
     }
 
     private void reloadActivity() {
@@ -221,11 +198,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     private CharSequence makeSubtitle() {
         NavigationMenu navigationMenu = navigationMenuView.getCurrentNavigationMenu();
-        Settings settings = MainContext.INSTANCE.getSettings();
         CharSequence subtitle = StringUtils.EMPTY;
         if (navigationMenu.isWiFiBandSwitchable()) {
             int color = ContextCompat.getColor(this, R.color.connected);
-            WiFiBand currentWiFiBand = settings.getWiFiBand();
+            WiFiBand currentWiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
             String subtitleText = makeSubtitleText("<font color='" + color + "'><strong>", "</strong></font>", "<small>", "</small>");
             if (WiFiBand.GHZ5.equals(currentWiFiBand)) {
                 subtitleText = makeSubtitleText("<small>", "</small>", "<font color='" + color + "'><strong>", "</strong></font>");
@@ -251,22 +227,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     public NavigationMenuView getNavigationMenuView() {
         return navigationMenuView;
-    }
-
-    ThemeStyle getCurrentThemeStyle() {
-        return currentThemeStyle;
-    }
-
-    void setCurrentThemeStyle(@NonNull ThemeStyle currentThemeStyle) {
-        this.currentThemeStyle = currentThemeStyle;
-    }
-
-    public AccessPointView getCurrentAccessPointView() {
-        return currentAccessPointView;
-    }
-
-    public void setCurrentAccessPointView(@NonNull AccessPointView currentAccessPointView) {
-        this.currentAccessPointView = currentAccessPointView;
     }
 
     private class WiFiBandToggle implements OnClickListener {

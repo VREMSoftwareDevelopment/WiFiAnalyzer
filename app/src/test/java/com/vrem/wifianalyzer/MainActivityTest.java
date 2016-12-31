@@ -23,8 +23,6 @@ import android.support.v4.content.ContextCompat;
 
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
-import com.vrem.wifianalyzer.settings.ThemeStyle;
-import com.vrem.wifianalyzer.wifi.AccessPointView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
@@ -36,7 +34,6 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
@@ -125,44 +122,6 @@ public class MainActivityTest {
         fixture.onDestroy();
         // validate
         verify(scanner).unregister(fixture.getConnectionView());
-    }
-
-    @Test
-    public void testShouldNotReloadWithNoThemeChanges() throws Exception {
-        // setup
-        ThemeStyle expected = fixture.getCurrentThemeStyle();
-        // execute && validate
-        assertFalse(fixture.shouldReload());
-        assertEquals(expected, fixture.getCurrentThemeStyle());
-    }
-
-    @Test
-    public void testShouldReloadWithThemeChange() throws Exception {
-        // setup
-        ThemeStyle expected = fixture.getCurrentThemeStyle();
-        fixture.setCurrentThemeStyle(ThemeStyle.LIGHT.equals(expected) ? ThemeStyle.DARK : ThemeStyle.LIGHT);
-        // execute && validate
-        assertTrue(fixture.shouldReload());
-        assertEquals(expected, fixture.getCurrentThemeStyle());
-    }
-
-    @Test
-    public void testShouldNotReloadWithNoAccessPointViewChanges() throws Exception {
-        // setup
-        AccessPointView expected = fixture.getCurrentAccessPointView();
-        // execute && validate
-        assertFalse(fixture.shouldReload());
-        assertEquals(expected, fixture.getCurrentAccessPointView());
-    }
-
-    @Test
-    public void testShouldReloadWithAccessPointViewChange() throws Exception {
-        // setup
-        AccessPointView expected = fixture.getCurrentAccessPointView();
-        fixture.setCurrentAccessPointView(AccessPointView.COMPLETE.equals(expected) ? AccessPointView.COMPACT : AccessPointView.COMPLETE);
-        // execute && validate
-        assertTrue(fixture.shouldReload());
-        assertEquals(expected, fixture.getCurrentAccessPointView());
     }
 
     private String makeSubtitle(@NonNull WiFiBand currentWiFiBand) {

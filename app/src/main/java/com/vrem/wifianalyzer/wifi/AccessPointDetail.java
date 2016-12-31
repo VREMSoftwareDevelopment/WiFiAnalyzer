@@ -45,12 +45,13 @@ public class AccessPointDetail {
     private static final int VENDOR_LONG_MAX = 30;
 
     View makeView(View convertView, ViewGroup parent, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
-        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
+        MainContext mainContext = MainContext.INSTANCE;
+        MainActivity mainActivity = mainContext.getMainActivity();
 
         View view = convertView;
         if (view == null) {
+            AccessPointView accessPointView = mainContext.getSettings().getAccessPointView();
             LayoutInflater layoutInflater = mainActivity.getLayoutInflater();
-            AccessPointView accessPointView = mainActivity.getCurrentAccessPointView();
             view = layoutInflater.inflate(accessPointView.getLayout(), parent, false);
         }
 
