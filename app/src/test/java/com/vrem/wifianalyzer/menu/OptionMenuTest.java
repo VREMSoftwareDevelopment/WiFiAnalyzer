@@ -155,12 +155,10 @@ public class OptionMenuTest {
     public void testUpdate() throws Exception {
         // setup
         fixture.setMenu(menu);
-        when(menu.findItem(R.id.option_menu)).thenReturn(menuItem);
         // execute
         fixture.update(true);
         // validate
-        verify(menu).findItem(R.id.option_menu);
-        verify(menuItem).setVisible(true);
+        verify(menu).setGroupVisible(R.id.option_menu, true);
     }
 
     @Test
@@ -168,7 +166,7 @@ public class OptionMenuTest {
         // execute
         fixture.update(true);
         // validate
-        verify(menu, never()).findItem(R.id.option_menu);
+        verify(menu, never()).setGroupVisible(R.id.option_menu, true);
     }
 
     @Test
