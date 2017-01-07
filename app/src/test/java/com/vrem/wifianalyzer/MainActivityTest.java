@@ -20,7 +20,10 @@ package com.vrem.wifianalyzer;
 
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import com.vrem.wifianalyzer.menu.OptionMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
@@ -30,12 +33,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
+import static org.powermock.api.mockito.PowerMockito.mock;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -45,12 +50,11 @@ public class MainActivityTest {
 
     @Before
     public void setUp() {
-        fixture = RobolectricUtil.INSTANCE.getActivity();
+        fixture = Robolectric.setupActivity(MainActivity.class);
     }
 
     @After
     public void tearDown() {
-        fixture.getNavigationMenuView().setCurrentNavigationMenu(NavigationMenu.ACCESS_POINTS);
         MainContextHelper.INSTANCE.restore();
     }
 
@@ -94,24 +98,63 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testOnPause() throws Exception {
+    public void testUpdateActionBarCallsOptionMenuUpdate() throws Exception {
         // setup
-        Scanner scanner = MainContextHelper.INSTANCE.getScanner();
+        boolean isOptionMenu = fixture.getNavigationMenuView().getCurrentNavigationMenu().isOptionMenu();
+        OptionMenu optionMenu = mock(OptionMenu.class);
+        fixture.setOptionMenu(optionMenu);
         // execute
-        fixture.onPause();
+        fixture.updateActionBar();
         // validate
-        verify(scanner).pause();
-        fixture.onResume();
+        verify(optionMenu).update(isOptionMenu);
     }
 
     @Test
-    public void testOnResume() throws Exception {
+    public void testOnPauseCallsOptionMenuPause() throws Exception {
         // setup
-        Scanner scanner = MainContextHelper.INSTANCE.getScanner();
+        OptionMenu optionMenu = mock(OptionMenu.class);
+        fixture.setOptionMenu(optionMenu);
+        // execute
+        fixture.onPause();
+        // validate
+        verify(optionMenu).pause();
+    }
+
+    @Test
+    public void testOnResumeCallsOptionMenuResume() throws Exception {
+        // setup
+        OptionMenu optionMenu = mock(OptionMenu.class);
+        fixture.setOptionMenu(optionMenu);
         // execute
         fixture.onResume();
         // validate
-        verify(scanner).resume();
+        verify(optionMenu).resume();
+    }
+
+    @Test
+    public void testOnCreateOptionsMenu() throws Exception {
+        // setup
+        Menu menu = mock(Menu.class);
+        OptionMenu optionMenu = mock(OptionMenu.class);
+        fixture.setOptionMenu(optionMenu);
+        // execute
+        boolean actual = fixture.onCreateOptionsMenu(menu);
+        // validate
+        assertTrue(actual);
+        verify(optionMenu).create(fixture, menu);
+    }
+
+    @Test
+    public void testOnOptionsItemSelected() throws Exception {
+        // setup
+        MenuItem menuItem = mock(MenuItem.class);
+        OptionMenu optionMenu = mock(OptionMenu.class);
+        fixture.setOptionMenu(optionMenu);
+        // execute
+        boolean actual = fixture.onOptionsItemSelected(menuItem);
+        // validate
+        assertTrue(actual);
+        verify(optionMenu).select(menuItem);
     }
 
     @Test

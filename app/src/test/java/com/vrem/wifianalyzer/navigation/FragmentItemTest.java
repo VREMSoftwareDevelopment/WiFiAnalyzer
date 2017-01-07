@@ -65,7 +65,7 @@ public class FragmentItemTest {
         verifyFragmentTransaction();
         verify(navigationMenuView).setCurrentNavigationMenu(navigationMenu);
         verify(mainActivity).setTitle(title);
-        verify(mainActivity).updateSubTitle();
+        verify(mainActivity).updateActionBar();
     }
 
     private void withFragmentTransaction() {

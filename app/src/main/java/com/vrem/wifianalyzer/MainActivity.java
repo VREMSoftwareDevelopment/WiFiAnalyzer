@@ -35,10 +35,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.vrem.wifianalyzer.menu.OptionMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private MainReload mainReload;
     private NavigationMenuView navigationMenuView;
     private NavigationMenu startNavigationMenu;
+    private OptionMenu optionMenu;
     private String currentCountryCode;
     private ConnectionView connectionView;
 
@@ -75,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         setContentView(R.layout.main_activity);
 
         settings.registerOnSharedPreferenceChangeListener(this);
+
+        setOptionMenu(new OptionMenu());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setOnClickListener(new WiFiBandToggle());
@@ -128,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
             setWiFiChannelPairs(mainContext);
             Scanner scanner = mainContext.getScanner();
             scanner.update();
-            updateSubTitle();
+            updateActionBar();
         }
     }
 
@@ -170,16 +175,26 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     protected void onPause() {
-        Scanner scanner = MainContext.INSTANCE.getScanner();
-        scanner.pause();
+        optionMenu.pause();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Scanner scanner = MainContext.INSTANCE.getScanner();
-        scanner.resume();
+        optionMenu.resume();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        optionMenu.create(this, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        optionMenu.select(item);
+        return true;
     }
 
     @Override
@@ -189,17 +204,19 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         super.onDestroy();
     }
 
-    public void updateSubTitle() {
+    public void updateActionBar() {
+        NavigationMenu navigationMenu = navigationMenuView.getCurrentNavigationMenu();
+        boolean isOptionMenu = navigationMenu.isOptionMenu();
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setSubtitle(makeSubtitle());
+            actionBar.setSubtitle(makeSubtitle(isOptionMenu));
         }
+        optionMenu.update(isOptionMenu);
     }
 
-    private CharSequence makeSubtitle() {
-        NavigationMenu navigationMenu = navigationMenuView.getCurrentNavigationMenu();
+    private CharSequence makeSubtitle(boolean isOptionMenu) {
         CharSequence subtitle = StringUtils.EMPTY;
-        if (navigationMenu.isOptionMenu()) {
+        if (isOptionMenu) {
             int color = ContextCompat.getColor(this, R.color.connected);
             WiFiBand currentWiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
             String subtitleText = makeSubtitleText("<font color='" + color + "'><strong>", "</strong></font>", "<small>", "</small>");
@@ -227,6 +244,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     public NavigationMenuView getNavigationMenuView() {
         return navigationMenuView;
+    }
+
+    void setOptionMenu(@NonNull OptionMenu optionMenu) {
+        this.optionMenu = optionMenu;
     }
 
     private class WiFiBandToggle implements OnClickListener {

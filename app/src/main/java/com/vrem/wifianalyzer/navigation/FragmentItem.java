@@ -40,7 +40,7 @@ class FragmentItem implements NavigationMenuItem {
         navigationMenuView.setCurrentNavigationMenu(navigationMenu);
         startFragment(mainActivity);
         mainActivity.setTitle(menuItem.getTitle());
-        mainActivity.updateSubTitle();
+        mainActivity.updateActionBar();
     }
 
     private void startFragment(@NonNull MainActivity mainActivity) {
