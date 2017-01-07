@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private CharSequence makeSubtitle() {
         NavigationMenu navigationMenu = navigationMenuView.getCurrentNavigationMenu();
         CharSequence subtitle = StringUtils.EMPTY;
-        if (navigationMenu.isWiFiBandSwitchable()) {
+        if (navigationMenu.isOptionMenu()) {
             int color = ContextCompat.getColor(this, R.color.connected);
             WiFiBand currentWiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
             String subtitleText = makeSubtitleText("<font color='" + color + "'><strong>", "</strong></font>", "<small>", "</small>");
@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private class WiFiBandToggle implements OnClickListener {
         @Override
         public void onClick(View view) {
-            if (navigationMenuView.getCurrentNavigationMenu().isWiFiBandSwitchable()) {
+            if (navigationMenuView.getCurrentNavigationMenu().isOptionMenu()) {
                 Settings settings = MainContext.INSTANCE.getSettings();
                 settings.toggleWiFiBand();
             }

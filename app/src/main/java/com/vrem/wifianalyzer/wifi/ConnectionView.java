@@ -64,7 +64,7 @@ public class ConnectionView implements UpdateNotifier {
     private void setNoDataVisibility(@NonNull WiFiData wiFiData) {
         int noDataVisibility = View.GONE;
         int noDataGeoVisibility = View.GONE;
-        if (mainActivity.getNavigationMenuView().getCurrentNavigationMenu().isWiFiBandSwitchable()) {
+        if (mainActivity.getNavigationMenuView().getCurrentNavigationMenu().isOptionMenu()) {
             Settings settings = MainContext.INSTANCE.getSettings();
             List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy());
             if (wiFiDetails.isEmpty()) {

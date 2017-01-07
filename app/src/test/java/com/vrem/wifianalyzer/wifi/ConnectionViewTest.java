@@ -163,7 +163,7 @@ public class ConnectionViewTest {
     }
 
     @Test
-    public void testNoDataIsGoneWithNonWiFiBandSwitchableNavigationMenu() throws Exception {
+    public void testNoDataIsGoneWithNavigationMenuThatDoesNotHaveOptionMenu() throws Exception {
         // setup
         mainActivity.getNavigationMenuView().setCurrentNavigationMenu(NavigationMenu.VENDOR_LIST);
         when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.EMPTY));

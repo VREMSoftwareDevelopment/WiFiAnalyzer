@@ -102,20 +102,20 @@ public class NavigationMenuTest {
     }
 
     @Test
-    public void testIsWiFiBandSwitchableTrue() throws Exception {
-        assertTrue(NavigationMenu.ACCESS_POINTS.isWiFiBandSwitchable());
-        assertTrue(NavigationMenu.CHANNEL_RATING.isWiFiBandSwitchable());
-        assertTrue(NavigationMenu.CHANNEL_GRAPH.isWiFiBandSwitchable());
-        assertTrue(NavigationMenu.TIME_GRAPH.isWiFiBandSwitchable());
+    public void testIsOptionMenuAvailable() throws Exception {
+        assertTrue(NavigationMenu.ACCESS_POINTS.isOptionMenu());
+        assertTrue(NavigationMenu.CHANNEL_RATING.isOptionMenu());
+        assertTrue(NavigationMenu.CHANNEL_GRAPH.isOptionMenu());
+        assertTrue(NavigationMenu.TIME_GRAPH.isOptionMenu());
     }
 
     @Test
-    public void testIsWiFiBandSwitchableFalse() throws Exception {
-        assertFalse(NavigationMenu.CHANNEL_AVAILABLE.isWiFiBandSwitchable());
-        assertFalse(NavigationMenu.EXPORT.isWiFiBandSwitchable());
-        assertFalse(NavigationMenu.VENDOR_LIST.isWiFiBandSwitchable());
-        assertFalse(NavigationMenu.SETTINGS.isWiFiBandSwitchable());
-        assertFalse(NavigationMenu.ABOUT.isWiFiBandSwitchable());
+    public void testIsOptionMenuNotAvailable() throws Exception {
+        assertFalse(NavigationMenu.CHANNEL_AVAILABLE.isOptionMenu());
+        assertFalse(NavigationMenu.EXPORT.isOptionMenu());
+        assertFalse(NavigationMenu.VENDOR_LIST.isOptionMenu());
+        assertFalse(NavigationMenu.SETTINGS.isOptionMenu());
+        assertFalse(NavigationMenu.ABOUT.isOptionMenu());
     }
 
     @Test

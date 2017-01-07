@@ -45,20 +45,20 @@ public enum NavigationMenu {
 
     private final int icon;
     private final int title;
-    private final boolean wiFiBandSwitchable;
+    private final boolean optionMenu;
     private final NavigationMenuItem item;
 
-    NavigationMenu(int icon, int title, boolean wiFiBandSwitchable, @NonNull NavigationMenuItem item) {
+    NavigationMenu(int icon, int title, boolean optionMenu, @NonNull NavigationMenuItem item) {
         this.icon = icon;
         this.title = title;
-        this.wiFiBandSwitchable = wiFiBandSwitchable;
+        this.optionMenu = optionMenu;
         this.item = item;
     }
 
     NavigationMenu(int icon, int title, @NonNull NavigationMenuItem item) {
         this.icon = icon;
         this.title = title;
-        this.wiFiBandSwitchable = false;
+        this.optionMenu = false;
         this.item = item;
     }
 
@@ -73,8 +73,8 @@ public enum NavigationMenu {
         return title;
     }
 
-    public boolean isWiFiBandSwitchable() {
-        return wiFiBandSwitchable;
+    public boolean isOptionMenu() {
+        return optionMenu;
     }
 
     int getIcon() {
