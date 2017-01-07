@@ -42,7 +42,6 @@ import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.ConnectionView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
@@ -166,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     @Override
     protected void onPause() {
         optionMenu.pause();
+        updateActionBar();
         super.onPause();
     }
 
@@ -173,17 +173,20 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     protected void onResume() {
         super.onResume();
         optionMenu.resume();
+        updateActionBar();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         optionMenu.create(this, menu);
+        updateActionBar();
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         optionMenu.select(item);
+        updateActionBar();
         return true;
     }
 
@@ -199,6 +202,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     public NavigationMenuView getNavigationMenuView() {
         return navigationMenuView;
+    }
+
+    public OptionMenu getOptionMenu() {
+        return optionMenu;
     }
 
     void setOptionMenu(@NonNull OptionMenu optionMenu) {

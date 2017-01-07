@@ -55,7 +55,7 @@ public class OptionWiFiSwitchOnTest {
     }
 
     @Test
-    public void testApply() throws Exception {
+    public void testApplySetSubtitle() throws Exception {
         // setup
         WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
         int color = ContextCompat.getColor(mainActivity, R.color.connected);
@@ -73,7 +73,7 @@ public class OptionWiFiSwitchOnTest {
     }
 
     @Test
-    public void testApplyNoActionBar() throws Exception {
+    public void testApplyWithNoActionBarDoesNotSetSubtitle() throws Exception {
         // setup
         MainActivity mainActivity = mock(MainActivity.class);
         ActionBar actionBar = mock(ActionBar.class);

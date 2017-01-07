@@ -18,57 +18,69 @@
 
 package com.vrem.wifianalyzer.navigation;
 
-import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.menu.OptionMenu;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class OptionWiFiSwitchOffTest {
+public class OptionScannerSwitchOffTest {
 
     @Mock
     private MainActivity mainActivity;
     @Mock
-    private ActionBar actionBar;
+    private OptionMenu optionMenu;
+    @Mock
+    private Menu menu;
+    @Mock
+    private MenuItem menuItem;
 
-    private OptionWiFiSwitchOff fixture;
+    private OptionScannerSwitchOff fixture;
 
     @Before
     public void setUp() {
-        fixture = new OptionWiFiSwitchOff();
+        fixture = new OptionScannerSwitchOff();
     }
 
     @Test
-    public void testApplySetEmptySubtitle() throws Exception {
+    public void testApplySetVisibleFalse() throws Exception {
         // setup
-        when(mainActivity.getSupportActionBar()).thenReturn(actionBar);
+        when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
+        when(optionMenu.getMenu()).thenReturn(menu);
+        when(menu.findItem(R.id.action_scanner)).thenReturn(menuItem);
         // execute
         fixture.apply(mainActivity);
         // validate
-        verify(mainActivity).getSupportActionBar();
-        verify(actionBar).setSubtitle(StringUtils.EMPTY);
+        verify(mainActivity).getOptionMenu();
+        verify(optionMenu).getMenu();
+        verify(menu).findItem(R.id.action_scanner);
+        verify(menuItem).setVisible(false);
     }
 
     @Test
-    public void testApplyWithNoActionBarDoesNotSetSubtitle() throws Exception {
+    public void testApplyWithNoMenuDoesNotSetVisibleFalse() throws Exception {
         // setup
-        when(mainActivity.getSupportActionBar()).thenReturn(null);
+        when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
+        when(optionMenu.getMenu()).thenReturn(null);
         // execute
         fixture.apply(mainActivity);
         // validate
-        verify(mainActivity).getSupportActionBar();
-        verify(actionBar, never()).setSubtitle(anyString());
+        verify(mainActivity).getOptionMenu();
+        verify(optionMenu).getMenu();
+        verify(menu, never()).findItem(R.id.action_scanner);
+        verify(menuItem, never()).setVisible(false);
     }
 
 }

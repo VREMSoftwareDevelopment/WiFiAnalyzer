@@ -34,7 +34,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.anyInt;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -50,8 +50,6 @@ public class OptionMenuTest {
     private Activity activity;
     @Mock
     private MenuInflater menuInflater;
-    @Mock
-    private ScannerItem scannerItem;
 
     private OptionMenu fixture;
     private Scanner scanner;
@@ -60,7 +58,6 @@ public class OptionMenuTest {
     public void setUp() {
         scanner = MainContextHelper.INSTANCE.getScanner();
         fixture = new OptionMenu();
-        fixture.setScannerItem(scannerItem);
     }
 
     @After
@@ -75,7 +72,18 @@ public class OptionMenuTest {
         // execute
         fixture.create(activity, menu);
         // validate
+        assertEquals(menu, fixture.getMenu());
         verify(menuInflater).inflate(R.menu.optionmenu, menu);
+    }
+
+    @Test
+    public void testGetMenu() throws Exception {
+        // setup
+        when(activity.getMenuInflater()).thenReturn(menuInflater);
+        // execute
+        fixture.create(activity, menu);
+        // validate
+        assertEquals(menu, fixture.getMenu());
     }
 
     @Test
@@ -88,7 +96,7 @@ public class OptionMenuTest {
         // validate
         verify(menuItem).getItemId();
         verify(scanner).isRunning();
-        verify(scannerItem).pause(fixture);
+        verify(scanner).pause();
     }
 
     @Test
@@ -101,7 +109,7 @@ public class OptionMenuTest {
         // validate
         verify(menuItem).getItemId();
         verify(scanner).isRunning();
-        verify(scannerItem).resume(fixture);
+        verify(scanner).resume();
     }
 
     @Test
@@ -110,66 +118,9 @@ public class OptionMenuTest {
         fixture.select(menuItem);
         // validate
         verify(menuItem).getItemId();
-        verify(scannerItem, never()).resume(fixture);
-        verify(scannerItem, never()).pause(fixture);
+        verify(scanner, never()).resume();
+        verify(scanner, never()).pause();
         verify(scanner, never()).isRunning();
-    }
-
-    @Test
-    public void testUpdateItemWithIsRunning() throws Exception {
-        // setup
-        fixture.setMenu(menu);
-        when(menu.findItem(R.id.action_scanner)).thenReturn(menuItem);
-        // execute
-        fixture.updateItem(true);
-        // validate
-        verify(menu).findItem(R.id.action_scanner);
-        verify(menuItem).setTitle(R.string.action_pause);
-        verify(menuItem).setIcon(R.drawable.ic_pause_grey_500_48dp);
-    }
-
-    @Test
-    public void testUpdateItemWithNotIsRunning() throws Exception {
-        // setup
-        fixture.setMenu(menu);
-        when(menu.findItem(R.id.action_scanner)).thenReturn(menuItem);
-        // execute
-        fixture.updateItem(false);
-        // validate
-        verify(menu).findItem(R.id.action_scanner);
-        verify(menuItem).setTitle(R.string.action_play);
-        verify(menuItem).setIcon(R.drawable.ic_play_arrow_grey_500_48dp);
-    }
-
-    @Test
-    public void testUpdateItemNoMenu() throws Exception {
-        // execute
-        fixture.updateItem(true);
-        // validate
-        verify(menu, never()).findItem(R.id.action_scanner);
-        verify(menuItem, never()).setTitle(anyInt());
-        verify(menuItem, never()).setIcon(anyInt());
-    }
-
-    @Test
-    public void testUpdate() throws Exception {
-        // setup
-        fixture.setMenu(menu);
-        when(menu.findItem(R.id.action_scanner)).thenReturn(menuItem);
-        // execute
-        fixture.update(true);
-        // validate
-        verify(menu).findItem(R.id.action_scanner);
-        verify(menuItem).setVisible(true);
-    }
-
-    @Test
-    public void testUpdateNoMenu() throws Exception {
-        // execute
-        fixture.update(true);
-        // validate
-        verify(menu, never()).findItem(R.id.action_scanner);
-        verify(menuItem, never()).setVisible(true);
     }
 
     @Test
@@ -177,7 +128,7 @@ public class OptionMenuTest {
         // execute
         fixture.pause();
         // validate
-        verify(scannerItem).pause(fixture);
+        verify(scanner).pause();
     }
 
     @Test
@@ -185,7 +136,7 @@ public class OptionMenuTest {
         // execute
         fixture.resume();
         // validate
-        verify(scannerItem).resume(fixture);
+        verify(scanner).resume();
     }
 
 }

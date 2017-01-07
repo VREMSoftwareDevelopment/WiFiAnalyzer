@@ -130,4 +130,6 @@ public class NavigationMenuTest {
         assertEquals(R.drawable.ic_settings_grey_500_48dp, NavigationMenu.SETTINGS.getIcon());
         assertEquals(R.drawable.ic_info_outline_grey_500_48dp, NavigationMenu.ABOUT.getIcon());
     }
+
+    // TODO add more options test
 }

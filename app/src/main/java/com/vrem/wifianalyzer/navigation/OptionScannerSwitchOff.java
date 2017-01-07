@@ -16,25 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.menu;
+package com.vrem.wifianalyzer.navigation;
 
 import android.support.annotation.NonNull;
+import android.view.Menu;
 
-import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
+import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.R;
 
-class ScannerItem {
+class OptionScannerSwitchOff implements Option {
 
-    void pause(@NonNull OptionMenu optionMenu) {
-        Scanner scanner = MainContext.INSTANCE.getScanner();
-        scanner.pause();
-        optionMenu.updateItem(scanner.isRunning());
+    @Override
+    public void apply(@NonNull MainActivity mainActivity) {
+        Menu menu = mainActivity.getOptionMenu().getMenu();
+        if (menu != null) {
+            menu.findItem(R.id.action_scanner).setVisible(false);
+        }
     }
-
-    void resume(@NonNull OptionMenu optionMenu) {
-        Scanner scanner = MainContext.INSTANCE.getScanner();
-        scanner.resume();
-        optionMenu.updateItem(scanner.isRunning());
-    }
-
 }
