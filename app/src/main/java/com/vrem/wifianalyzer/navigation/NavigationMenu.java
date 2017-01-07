@@ -36,10 +36,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum NavigationMenu {
-    ACCESS_POINTS(R.drawable.ic_network_wifi_grey_500_48dp, R.string.action_access_points, new FragmentItem(new AccessPointsFragment()), Options.values()),
-    CHANNEL_RATING(R.drawable.ic_wifi_tethering_grey_500_48dp, R.string.action_channel_rating, new FragmentItem(new ChannelRatingFragment()), Options.values()),
-    CHANNEL_GRAPH(R.drawable.ic_insert_chart_grey_500_48dp, R.string.action_channel_graph, new FragmentItem(new ChannelGraphFragment()), Options.values()),
-    TIME_GRAPH(R.drawable.ic_show_chart_grey_500_48dp, R.string.action_time_graph, new FragmentItem(new TimeGraphFragment()), Options.values()),
+    ACCESS_POINTS(R.drawable.ic_network_wifi_grey_500_48dp, R.string.action_access_points, new FragmentItem(new AccessPointsFragment()), new OptionWiFiSwitchOn()),
+    CHANNEL_RATING(R.drawable.ic_wifi_tethering_grey_500_48dp, R.string.action_channel_rating, new FragmentItem(new ChannelRatingFragment()), new OptionWiFiSwitchOn()),
+    CHANNEL_GRAPH(R.drawable.ic_insert_chart_grey_500_48dp, R.string.action_channel_graph, new FragmentItem(new ChannelGraphFragment()), new OptionWiFiSwitchOn()),
+    TIME_GRAPH(R.drawable.ic_show_chart_grey_500_48dp, R.string.action_time_graph, new FragmentItem(new TimeGraphFragment()), new OptionWiFiSwitchOn()),
     EXPORT(R.drawable.ic_import_export_grey_500_48dp, R.string.action_export, new ExportItem()),
     CHANNEL_AVAILABLE(R.drawable.ic_location_on_grey_500_48dp, R.string.action_channel_available, new FragmentItem(new ChannelAvailableFragment())),
     VENDOR_LIST(R.drawable.ic_list_grey_500_48dp, R.string.action_vendors, new FragmentItem(new VendorFragment())),
@@ -48,18 +48,20 @@ public enum NavigationMenu {
 
     private final int icon;
     private final int title;
-    private final List<Options> options;
+    private final List<Option> options;
     private final NavigationMenuItem item;
+    private final boolean wiFiBandSwitchable;
 
-    NavigationMenu(int icon, int title, @NonNull NavigationMenuItem item, Options... options) {
+    NavigationMenu(int icon, int title, @NonNull NavigationMenuItem item, @NonNull Option... options) {
         this.icon = icon;
         this.title = title;
         this.item = item;
         this.options = Arrays.asList(options);
+        this.wiFiBandSwitchable = isOptionWiFiSwitchOn(options);
     }
 
     NavigationMenu(int icon, int title, @NonNull NavigationMenuItem item) {
-        this(icon, title, item, new Options[]{});
+        this(icon, title, item, new OptionWiFiSwitchOff());
     }
 
     public static NavigationMenu find(int index) {
@@ -69,20 +71,35 @@ public enum NavigationMenu {
         return values()[index];
     }
 
+    private boolean isOptionWiFiSwitchOn(@NonNull Option... options) {
+        for (Option option : this.options) {
+            if (option instanceof OptionWiFiSwitchOn) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int getTitle() {
         return title;
     }
 
-    public List<Options> getOptions() {
-        return options;
+    public void activateNavigationMenu(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem) {
+        item.activate(mainActivity, menuItem, this);
+    }
+
+    public void activateOptions(@NonNull MainActivity mainActivity) {
+        for (Option option : options) {
+            option.apply(mainActivity);
+        }
+    }
+
+    public boolean isWiFiBandSwitchable() {
+        return wiFiBandSwitchable;
     }
 
     int getIcon() {
         return icon;
-    }
-
-    public void activateNavigationMenu(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem) {
-        item.activate(mainActivity, menuItem, this);
     }
 
     NavigationMenuItem getItem() {

@@ -31,6 +31,7 @@ import com.vrem.wifianalyzer.wifi.graph.time.TimeGraphFragment;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class NavigationMenuTest {
@@ -101,28 +102,20 @@ public class NavigationMenuTest {
     }
 
     @Test
-    public void testOptionsWiFiSwitchAvailable() throws Exception {
-        assertTrue(NavigationMenu.ACCESS_POINTS.getOptions().contains(Options.WiFiSwitch));
-        assertTrue(NavigationMenu.CHANNEL_RATING.getOptions().contains(Options.WiFiSwitch));
-        assertTrue(NavigationMenu.CHANNEL_GRAPH.getOptions().contains(Options.WiFiSwitch));
-        assertTrue(NavigationMenu.TIME_GRAPH.getOptions().contains(Options.WiFiSwitch));
+    public void testIsWiFiBandSwitchableTrue() throws Exception {
+        assertTrue(NavigationMenu.ACCESS_POINTS.isWiFiBandSwitchable());
+        assertTrue(NavigationMenu.CHANNEL_RATING.isWiFiBandSwitchable());
+        assertTrue(NavigationMenu.CHANNEL_GRAPH.isWiFiBandSwitchable());
+        assertTrue(NavigationMenu.TIME_GRAPH.isWiFiBandSwitchable());
     }
 
     @Test
-    public void testOptionsScannerSwitchAvailable() throws Exception {
-        assertTrue(NavigationMenu.ACCESS_POINTS.getOptions().contains(Options.ScannerSwitch));
-        assertTrue(NavigationMenu.CHANNEL_RATING.getOptions().contains(Options.ScannerSwitch));
-        assertTrue(NavigationMenu.CHANNEL_GRAPH.getOptions().contains(Options.ScannerSwitch));
-        assertTrue(NavigationMenu.TIME_GRAPH.getOptions().contains(Options.ScannerSwitch));
-    }
-
-    @Test
-    public void testOptionsNotAvailable() throws Exception {
-        assertTrue(NavigationMenu.CHANNEL_AVAILABLE.getOptions().isEmpty());
-        assertTrue(NavigationMenu.EXPORT.getOptions().isEmpty());
-        assertTrue(NavigationMenu.VENDOR_LIST.getOptions().isEmpty());
-        assertTrue(NavigationMenu.SETTINGS.getOptions().isEmpty());
-        assertTrue(NavigationMenu.ABOUT.getOptions().isEmpty());
+    public void testIsWiFiBandSwitchableFalse() throws Exception {
+        assertFalse(NavigationMenu.CHANNEL_AVAILABLE.isWiFiBandSwitchable());
+        assertFalse(NavigationMenu.EXPORT.isWiFiBandSwitchable());
+        assertFalse(NavigationMenu.VENDOR_LIST.isWiFiBandSwitchable());
+        assertFalse(NavigationMenu.SETTINGS.isWiFiBandSwitchable());
+        assertFalse(NavigationMenu.ABOUT.isWiFiBandSwitchable());
     }
 
     @Test

@@ -27,7 +27,6 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.navigation.Options;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -65,7 +64,7 @@ public class ConnectionView implements UpdateNotifier {
     private void setNoDataVisibility(@NonNull WiFiData wiFiData) {
         int noDataVisibility = View.GONE;
         int noDataGeoVisibility = View.GONE;
-        if (mainActivity.getNavigationMenuView().getCurrentNavigationMenu().getOptions().contains(Options.WiFiSwitch)) {
+        if (mainActivity.getNavigationMenuView().getCurrentNavigationMenu().isWiFiBandSwitchable()) {
             Settings settings = MainContext.INSTANCE.getSettings();
             List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy());
             if (wiFiDetails.isEmpty()) {
