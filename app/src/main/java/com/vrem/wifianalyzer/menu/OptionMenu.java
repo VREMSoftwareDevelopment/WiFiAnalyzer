@@ -51,7 +51,7 @@ public class OptionMenu {
 
     public void update(boolean hasOptions) {
         if (menu != null) {
-            menu.setGroupVisible(R.id.option_menu, hasOptions);
+            menu.findItem(R.id.action_scanner).setVisible(hasOptions);
         }
     }
 

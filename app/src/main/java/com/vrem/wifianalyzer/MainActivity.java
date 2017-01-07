@@ -43,6 +43,7 @@ import android.view.View.OnClickListener;
 import com.vrem.wifianalyzer.menu.OptionMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
+import com.vrem.wifianalyzer.navigation.Options;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.ConnectionView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
@@ -50,6 +51,8 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
 
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
@@ -206,12 +209,12 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     public void updateActionBar() {
         NavigationMenu navigationMenu = navigationMenuView.getCurrentNavigationMenu();
-        boolean isOptionMenu = navigationMenu.isOptionMenu();
+        List<Options> options = navigationMenu.getOptions();
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setSubtitle(makeSubtitle(isOptionMenu));
+            actionBar.setSubtitle(makeSubtitle(options.contains(Options.WiFiSwitch)));
         }
-        optionMenu.update(isOptionMenu);
+        optionMenu.update(options.contains(Options.ScannerSwitch));
     }
 
     private CharSequence makeSubtitle(boolean isOptionMenu) {
@@ -253,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private class WiFiBandToggle implements OnClickListener {
         @Override
         public void onClick(View view) {
-            if (navigationMenuView.getCurrentNavigationMenu().isOptionMenu()) {
+            if (navigationMenuView.getCurrentNavigationMenu().getOptions().contains(Options.WiFiSwitch)) {
                 Settings settings = MainContext.INSTANCE.getSettings();
                 settings.toggleWiFiBand();
             }

@@ -32,11 +32,14 @@ import com.vrem.wifianalyzer.wifi.ChannelRatingFragment;
 import com.vrem.wifianalyzer.wifi.graph.channel.ChannelGraphFragment;
 import com.vrem.wifianalyzer.wifi.graph.time.TimeGraphFragment;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum NavigationMenu {
-    ACCESS_POINTS(R.drawable.ic_network_wifi_grey_500_48dp, R.string.action_access_points, true, new FragmentItem(new AccessPointsFragment())),
-    CHANNEL_RATING(R.drawable.ic_wifi_tethering_grey_500_48dp, R.string.action_channel_rating, true, new FragmentItem(new ChannelRatingFragment())),
-    CHANNEL_GRAPH(R.drawable.ic_insert_chart_grey_500_48dp, R.string.action_channel_graph, true, new FragmentItem(new ChannelGraphFragment())),
-    TIME_GRAPH(R.drawable.ic_show_chart_grey_500_48dp, R.string.action_time_graph, true, new FragmentItem(new TimeGraphFragment())),
+    ACCESS_POINTS(R.drawable.ic_network_wifi_grey_500_48dp, R.string.action_access_points, new FragmentItem(new AccessPointsFragment()), Options.values()),
+    CHANNEL_RATING(R.drawable.ic_wifi_tethering_grey_500_48dp, R.string.action_channel_rating, new FragmentItem(new ChannelRatingFragment()), Options.values()),
+    CHANNEL_GRAPH(R.drawable.ic_insert_chart_grey_500_48dp, R.string.action_channel_graph, new FragmentItem(new ChannelGraphFragment()), Options.values()),
+    TIME_GRAPH(R.drawable.ic_show_chart_grey_500_48dp, R.string.action_time_graph, new FragmentItem(new TimeGraphFragment()), Options.values()),
     EXPORT(R.drawable.ic_import_export_grey_500_48dp, R.string.action_export, new ExportItem()),
     CHANNEL_AVAILABLE(R.drawable.ic_location_on_grey_500_48dp, R.string.action_channel_available, new FragmentItem(new ChannelAvailableFragment())),
     VENDOR_LIST(R.drawable.ic_list_grey_500_48dp, R.string.action_vendors, new FragmentItem(new VendorFragment())),
@@ -45,21 +48,18 @@ public enum NavigationMenu {
 
     private final int icon;
     private final int title;
-    private final boolean optionMenu;
+    private final List<Options> options;
     private final NavigationMenuItem item;
 
-    NavigationMenu(int icon, int title, boolean optionMenu, @NonNull NavigationMenuItem item) {
+    NavigationMenu(int icon, int title, @NonNull NavigationMenuItem item, Options... options) {
         this.icon = icon;
         this.title = title;
-        this.optionMenu = optionMenu;
         this.item = item;
+        this.options = Arrays.asList(options);
     }
 
     NavigationMenu(int icon, int title, @NonNull NavigationMenuItem item) {
-        this.icon = icon;
-        this.title = title;
-        this.optionMenu = false;
-        this.item = item;
+        this(icon, title, item, new Options[]{});
     }
 
     public static NavigationMenu find(int index) {
@@ -73,8 +73,8 @@ public enum NavigationMenu {
         return title;
     }
 
-    public boolean isOptionMenu() {
-        return optionMenu;
+    public List<Options> getOptions() {
+        return options;
     }
 
     int getIcon() {

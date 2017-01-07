@@ -31,7 +31,6 @@ import com.vrem.wifianalyzer.wifi.graph.time.TimeGraphFragment;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class NavigationMenuTest {
@@ -102,20 +101,28 @@ public class NavigationMenuTest {
     }
 
     @Test
-    public void testIsOptionMenuAvailable() throws Exception {
-        assertTrue(NavigationMenu.ACCESS_POINTS.isOptionMenu());
-        assertTrue(NavigationMenu.CHANNEL_RATING.isOptionMenu());
-        assertTrue(NavigationMenu.CHANNEL_GRAPH.isOptionMenu());
-        assertTrue(NavigationMenu.TIME_GRAPH.isOptionMenu());
+    public void testOptionsWiFiSwitchAvailable() throws Exception {
+        assertTrue(NavigationMenu.ACCESS_POINTS.getOptions().contains(Options.WiFiSwitch));
+        assertTrue(NavigationMenu.CHANNEL_RATING.getOptions().contains(Options.WiFiSwitch));
+        assertTrue(NavigationMenu.CHANNEL_GRAPH.getOptions().contains(Options.WiFiSwitch));
+        assertTrue(NavigationMenu.TIME_GRAPH.getOptions().contains(Options.WiFiSwitch));
     }
 
     @Test
-    public void testIsOptionMenuNotAvailable() throws Exception {
-        assertFalse(NavigationMenu.CHANNEL_AVAILABLE.isOptionMenu());
-        assertFalse(NavigationMenu.EXPORT.isOptionMenu());
-        assertFalse(NavigationMenu.VENDOR_LIST.isOptionMenu());
-        assertFalse(NavigationMenu.SETTINGS.isOptionMenu());
-        assertFalse(NavigationMenu.ABOUT.isOptionMenu());
+    public void testOptionsScannerSwitchAvailable() throws Exception {
+        assertTrue(NavigationMenu.ACCESS_POINTS.getOptions().contains(Options.ScannerSwitch));
+        assertTrue(NavigationMenu.CHANNEL_RATING.getOptions().contains(Options.ScannerSwitch));
+        assertTrue(NavigationMenu.CHANNEL_GRAPH.getOptions().contains(Options.ScannerSwitch));
+        assertTrue(NavigationMenu.TIME_GRAPH.getOptions().contains(Options.ScannerSwitch));
+    }
+
+    @Test
+    public void testOptionsNotAvailable() throws Exception {
+        assertTrue(NavigationMenu.CHANNEL_AVAILABLE.getOptions().isEmpty());
+        assertTrue(NavigationMenu.EXPORT.getOptions().isEmpty());
+        assertTrue(NavigationMenu.VENDOR_LIST.getOptions().isEmpty());
+        assertTrue(NavigationMenu.SETTINGS.getOptions().isEmpty());
+        assertTrue(NavigationMenu.ABOUT.getOptions().isEmpty());
     }
 
     @Test

@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import com.vrem.wifianalyzer.menu.OptionMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
+import com.vrem.wifianalyzer.navigation.Options;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
@@ -100,13 +101,13 @@ public class MainActivityTest {
     @Test
     public void testUpdateActionBarCallsOptionMenuUpdate() throws Exception {
         // setup
-        boolean isOptionMenu = fixture.getNavigationMenuView().getCurrentNavigationMenu().isOptionMenu();
+        boolean isScannerSwitch = fixture.getNavigationMenuView().getCurrentNavigationMenu().getOptions().contains(Options.ScannerSwitch);
         OptionMenu optionMenu = mock(OptionMenu.class);
         fixture.setOptionMenu(optionMenu);
         // execute
         fixture.updateActionBar();
         // validate
-        verify(optionMenu).update(isOptionMenu);
+        verify(optionMenu).update(isScannerSwitch);
     }
 
     @Test

@@ -20,12 +20,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <group android:id="@+id/option_menu">
-        <item
-            android:id="@+id/action_scanner"
-            android:icon="@drawable/ic_pause_grey_500_48dp"
-            android:title="@string/action_pause"
-            app:showAsAction="always"/>
-    </group>
+    <item
+        android:id="@+id/action_scanner"
+        android:icon="@drawable/ic_pause_grey_500_48dp"
+        android:title="@string/action_pause"
+        app:showAsAction="always"/>
 
 </menu>
