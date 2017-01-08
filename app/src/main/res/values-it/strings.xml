@@ -36,6 +36,8 @@
     <string name="action_vendors">Fornitori</string>
     <string name="action_settings">Impostazioni</string>
     <string name="action_about">Altro</string>
+    <string name="action_pause">Pausa</string>
+    <string name="action_resume">Curriculum vitae</string>
     <!-- action end -->
 
     <string name="button_cancel">Annulla</string>

@@ -100,7 +100,7 @@ public class ScannerSwitchOnTest {
         // validate
         verifyMenuItem();
         verify(scanner).isRunning();
-        verify(menuItem).setTitle(R.string.action_play);
+        verify(menuItem).setTitle(R.string.action_resume);
         verify(menuItem).setIcon(R.drawable.ic_play_arrow_grey_500_48dp);
     }
 

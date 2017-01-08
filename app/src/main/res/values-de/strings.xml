@@ -36,6 +36,8 @@
     <string name="action_vendors">Hersteller</string>
     <string name="action_settings">Einstellungen</string>
     <string name="action_about">Über</string>
+    <string name="action_pause">Pause</string>
+    <string name="action_resume">Fortsetzen</string>
     <!-- action end -->
 
     <string name="button_cancel">Abbrechen</string>

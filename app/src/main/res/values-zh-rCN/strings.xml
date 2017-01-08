@@ -36,6 +36,8 @@
     <string name="action_vendors">制造商</string>
     <string name="action_settings">设置</string>
     <string name="action_about">关于</string>
+    <string name="action_pause">暂停</string>
+    <string name="action_resume">简历</string>
     <!-- action end -->
 
     <string name="button_cancel">取消</string>

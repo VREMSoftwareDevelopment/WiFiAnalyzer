@@ -38,7 +38,7 @@ class ScannerSwitchOn implements NavigationOption {
                 menuItem.setTitle(R.string.action_pause);
                 menuItem.setIcon(R.drawable.ic_pause_grey_500_48dp);
             } else {
-                menuItem.setTitle(R.string.action_play);
+                menuItem.setTitle(R.string.action_resume);
                 menuItem.setIcon(R.drawable.ic_play_arrow_grey_500_48dp);
             }
         }

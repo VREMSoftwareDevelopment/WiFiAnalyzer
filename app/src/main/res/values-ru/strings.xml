@@ -35,6 +35,8 @@
     <string name="action_vendors">Поставщики</string>
     <string name="action_settings">Настройки</string>
     <string name="action_about">О Программе</string>
+    <string name="action_pause">Пауза</string>
+    <string name="action_resume">Продолжить</string>
     <!-- action end -->
 
     <string name="button_cancel">Отмена</string>
