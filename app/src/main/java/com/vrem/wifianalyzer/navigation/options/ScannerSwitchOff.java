@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation;
+package com.vrem.wifianalyzer.navigation.options;
 
 import android.support.annotation.NonNull;
 import android.view.Menu;
@@ -24,7 +24,7 @@ import android.view.Menu;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 
-class OptionScannerSwitchOff implements Option {
+class ScannerSwitchOff implements NavigationOption {
 
     @Override
     public void apply(@NonNull MainActivity mainActivity) {

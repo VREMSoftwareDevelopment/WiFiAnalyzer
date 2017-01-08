@@ -16,15 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation;
+package com.vrem.wifianalyzer.navigation.options;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.menu.OptionMenu;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +39,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class OptionScannerSwitchOffTest {
+public class ScannerSwitchOnTest {
 
     @Mock
     private MainActivity mainActivity;
@@ -47,30 +50,74 @@ public class OptionScannerSwitchOffTest {
     @Mock
     private MenuItem menuItem;
 
-    private OptionScannerSwitchOff fixture;
+    private Scanner scanner;
+    private ScannerSwitchOn fixture;
 
     @Before
     public void setUp() {
-        fixture = new OptionScannerSwitchOff();
+        scanner = MainContextHelper.INSTANCE.getScanner();
+        fixture = new ScannerSwitchOn();
     }
 
+    @After
+    public void tearDown() {
+        MainContextHelper.INSTANCE.restore();
+    }
+
+
     @Test
-    public void testApplySetVisibleFalse() throws Exception {
+    public void testApplySetMenuItemVisibleTrue() throws Exception {
         // setup
-        when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
-        when(optionMenu.getMenu()).thenReturn(menu);
-        when(menu.findItem(R.id.action_scanner)).thenReturn(menuItem);
+        withMenuItem();
         // execute
         fixture.apply(mainActivity);
         // validate
-        verify(mainActivity).getOptionMenu();
-        verify(optionMenu).getMenu();
-        verify(menu).findItem(R.id.action_scanner);
-        verify(menuItem).setVisible(false);
+        verifyMenuItem();
+        verify(menuItem).setVisible(true);
     }
 
     @Test
-    public void testApplyWithNoMenuDoesNotSetVisibleFalse() throws Exception {
+    public void testApplyWithScannerRunningUpdateMenuItemIconAndTitle() throws Exception {
+        // setup
+        when(scanner.isRunning()).thenReturn(true);
+        withMenuItem();
+        // execute
+        fixture.apply(mainActivity);
+        // validate
+        verifyMenuItem();
+        verify(scanner).isRunning();
+        verify(menuItem).setTitle(R.string.action_pause);
+        verify(menuItem).setIcon(R.drawable.ic_pause_grey_500_48dp);
+    }
+
+    @Test
+    public void testApplyWithScannerNotRunningUpdateMenuItemIconAndTitle() throws Exception {
+        // setup
+        when(scanner.isRunning()).thenReturn(false);
+        withMenuItem();
+        // execute
+        fixture.apply(mainActivity);
+        // validate
+        verifyMenuItem();
+        verify(scanner).isRunning();
+        verify(menuItem).setTitle(R.string.action_play);
+        verify(menuItem).setIcon(R.drawable.ic_play_arrow_grey_500_48dp);
+    }
+
+    private void verifyMenuItem() {
+        verify(mainActivity).getOptionMenu();
+        verify(optionMenu).getMenu();
+        verify(menu).findItem(R.id.action_scanner);
+    }
+
+    private void withMenuItem() {
+        when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
+        when(optionMenu.getMenu()).thenReturn(menu);
+        when(menu.findItem(R.id.action_scanner)).thenReturn(menuItem);
+    }
+
+    @Test
+    public void testApplyWithNoMenuDoesNotSetVisibleTrue() throws Exception {
         // setup
         when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
         when(optionMenu.getMenu()).thenReturn(null);
@@ -80,7 +127,7 @@ public class OptionScannerSwitchOffTest {
         verify(mainActivity).getOptionMenu();
         verify(optionMenu).getMenu();
         verify(menu, never()).findItem(R.id.action_scanner);
-        verify(menuItem, never()).setVisible(false);
+        verify(menuItem, never()).setVisible(true);
     }
 
 }

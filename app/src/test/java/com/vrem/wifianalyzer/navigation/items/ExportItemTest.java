@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation;
+package com.vrem.wifianalyzer.navigation.items;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -28,6 +28,7 @@ import android.view.MenuItem;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;

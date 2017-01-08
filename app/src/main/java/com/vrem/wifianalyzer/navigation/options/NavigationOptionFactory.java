@@ -16,12 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation;
+package com.vrem.wifianalyzer.navigation.options;
 
-import android.support.annotation.NonNull;
+import java.util.Arrays;
+import java.util.List;
 
-import com.vrem.wifianalyzer.MainActivity;
+public class NavigationOptionFactory {
+    public final static NavigationOption WIFI_SWITCH_ON = new WiFiSwitchOn();
+    public final static NavigationOption SCANNER_SWITCH_ON = new ScannerSwitchOn();
 
-interface Option {
-    void apply(@NonNull MainActivity mainActivity);
+    public final static NavigationOption WIFI_SWITCH_OFF = new WiFiSwitchOff();
+    public final static NavigationOption SCANNER_SWITCH_OFF = new ScannerSwitchOff();
+
+    public final static List<NavigationOption> ALL_ON = Arrays.asList(WIFI_SWITCH_ON, SCANNER_SWITCH_ON);
+    public final static List<NavigationOption> ALL_OFF = Arrays.asList(WIFI_SWITCH_OFF, SCANNER_SWITCH_OFF);
 }

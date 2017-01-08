@@ -16,44 +16,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.menu;
+package com.vrem.wifianalyzer.navigation.items;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.view.Menu;
 import android.view.MenuItem;
 
-import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.navigation.NavigationMenu;
 
-public class OptionMenu {
-    private Menu menu;
+class ActivityItem implements NavigationItem {
+    private final Class<? extends Activity> activity;
 
-    public void create(@NonNull Activity activity, Menu menu) {
-        activity.getMenuInflater().inflate(R.menu.optionmenu, menu);
-        this.menu = menu;
+    ActivityItem(@NonNull Class<? extends Activity> activity) {
+        this.activity = activity;
     }
 
-    public void select(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_scanner) {
-            if (MainContext.INSTANCE.getScanner().isRunning()) {
-                pause();
-            } else {
-                resume();
-            }
-        }
+    @Override
+    public void activate(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, @NonNull NavigationMenu navigationMenu) {
+        mainActivity.startActivity(createIntent(mainActivity));
     }
 
-    public void pause() {
-        MainContext.INSTANCE.getScanner().pause();
+    Intent createIntent(@NonNull MainActivity mainActivity) {
+        return new Intent(mainActivity, activity);
     }
 
-    public void resume() {
-        MainContext.INSTANCE.getScanner().resume();
+    Class<? extends Activity> getActivity() {
+        return activity;
     }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
 }

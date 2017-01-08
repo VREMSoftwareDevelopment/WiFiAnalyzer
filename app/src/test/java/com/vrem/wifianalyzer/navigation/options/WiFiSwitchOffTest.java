@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation;
+package com.vrem.wifianalyzer.navigation.options;
 
 import android.support.v7.app.ActionBar;
 
@@ -35,18 +35,18 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class OptionWiFiSwitchOffTest {
+public class WiFiSwitchOffTest {
 
     @Mock
     private MainActivity mainActivity;
     @Mock
     private ActionBar actionBar;
 
-    private OptionWiFiSwitchOff fixture;
+    private WiFiSwitchOff fixture;
 
     @Before
     public void setUp() {
-        fixture = new OptionWiFiSwitchOff();
+        fixture = new WiFiSwitchOff();
     }
 
     @Test

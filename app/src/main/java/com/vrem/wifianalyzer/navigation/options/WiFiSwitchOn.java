@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation;
+package com.vrem.wifianalyzer.navigation.options;
 
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -30,7 +30,7 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 
-class OptionWiFiSwitchOn implements Option {
+class WiFiSwitchOn implements NavigationOption {
 
     @Override
     public void apply(@NonNull MainActivity mainActivity) {

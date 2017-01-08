@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation;
+package com.vrem.wifianalyzer.navigation.options;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -44,14 +44,14 @@ import static org.powermock.api.mockito.PowerMockito.mock;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class OptionWiFiSwitchOnTest {
+public class WiFiSwitchOnTest {
     private MainActivity mainActivity;
-    private OptionWiFiSwitchOn fixture;
+    private WiFiSwitchOn fixture;
 
     @Before
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getActivity();
-        fixture = new OptionWiFiSwitchOn();
+        fixture = new WiFiSwitchOn();
     }
 
     @Test

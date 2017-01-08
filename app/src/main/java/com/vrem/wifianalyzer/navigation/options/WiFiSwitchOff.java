@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation;
+package com.vrem.wifianalyzer.navigation.options;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -25,7 +25,7 @@ import com.vrem.wifianalyzer.MainActivity;
 
 import org.apache.commons.lang3.StringUtils;
 
-class OptionWiFiSwitchOff implements Option {
+class WiFiSwitchOff implements NavigationOption {
 
     @Override
     public void apply(@NonNull MainActivity mainActivity) {

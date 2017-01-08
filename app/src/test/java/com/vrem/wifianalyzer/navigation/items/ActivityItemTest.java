@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation;
+package com.vrem.wifianalyzer.navigation.items;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -24,6 +24,7 @@ import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.about.AboutActivity;
+import com.vrem.wifianalyzer.navigation.NavigationMenu;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

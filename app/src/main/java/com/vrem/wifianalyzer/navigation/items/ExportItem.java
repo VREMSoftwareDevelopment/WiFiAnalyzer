@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation;
+package com.vrem.wifianalyzer.navigation.items;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -28,13 +28,14 @@ import android.widget.Toast;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import java.util.List;
 import java.util.Locale;
 
-class ExportItem implements NavigationMenuItem {
+class ExportItem implements NavigationItem {
 
     @Override
     public void activate(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, @NonNull NavigationMenu navigationMenu) {
