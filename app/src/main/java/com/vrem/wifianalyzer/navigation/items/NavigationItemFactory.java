@@ -28,13 +28,13 @@ import com.vrem.wifianalyzer.wifi.graph.channel.ChannelGraphFragment;
 import com.vrem.wifianalyzer.wifi.graph.time.TimeGraphFragment;
 
 public class NavigationItemFactory {
-    public final static FragmentItem ACCESS_POINTS = new FragmentItem(new AccessPointsFragment());
-    public final static FragmentItem CHANNEL_RATING = new FragmentItem(new ChannelRatingFragment());
-    public final static FragmentItem CHANNEL_GRAPH = new FragmentItem(new ChannelGraphFragment());
-    public final static FragmentItem TIME_GRAPH = new FragmentItem(new TimeGraphFragment());
-    public final static ExportItem EXPORT = new ExportItem();
-    public final static FragmentItem CHANNEL_AVAILABLE = new FragmentItem(new ChannelAvailableFragment());
-    public final static FragmentItem VENDOR_LIST = new FragmentItem(new VendorFragment());
-    public final static ActivityItem SETTINGS = new ActivityItem(SettingActivity.class);
-    public final static ActivityItem ABOUT = new ActivityItem(AboutActivity.class);
+    public final static NavigationItem ACCESS_POINTS = new FragmentItem(new AccessPointsFragment());
+    public final static NavigationItem CHANNEL_RATING = new FragmentItem(new ChannelRatingFragment());
+    public final static NavigationItem CHANNEL_GRAPH = new FragmentItem(new ChannelGraphFragment());
+    public final static NavigationItem TIME_GRAPH = new FragmentItem(new TimeGraphFragment());
+    public final static NavigationItem EXPORT = new ExportItem();
+    public final static NavigationItem CHANNEL_AVAILABLE = new FragmentItem(new ChannelAvailableFragment());
+    public final static NavigationItem VENDOR_LIST = new FragmentItem(new VendorFragment());
+    public final static NavigationItem SETTINGS = new ActivityItem(SettingActivity.class);
+    public final static NavigationItem ABOUT = new ActivityItem(AboutActivity.class);
 }
