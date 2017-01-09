@@ -29,6 +29,9 @@ This is the official repository of WiFi Analyzer (open-source).
 * Access Point view complete or compact
 * Export access points details
 * Dark or Light theme available
+
+**Please note WiFi Analyzer is not a WiFi password cracking or phishing tool.**
+
  
 ## Usage Tips
 * Tap the title bar to switch between 2.4 and 5 GHz WiFi band.
