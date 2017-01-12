@@ -56,9 +56,9 @@ GPLv3 License key requirements:
 * Same License
 * State Changes
 
-[GNU General Public License v3 (GPLv3) Explained in Plain English](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3))
+[GNU General Public License v3.0 (GPLv3) Explained in Plain English](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3))
 
-[General Public License v3.0 (GPLv3)](http://www.gnu.org/licenses/gpl-3.0.html).
+[GNU General Public License v3.0 (GPLv3)](http://www.gnu.org/licenses/gpl-3.0.html).
 
 ## WiFi Analyzer Build
 
