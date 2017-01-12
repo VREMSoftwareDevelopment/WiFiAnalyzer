@@ -50,7 +50,15 @@ Bug reports and feature requests can be submitted [here](https://github.com/VREM
 ## License
 WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 
-You can find the license text [here](http://www.gnu.org/licenses/gpl-3.0.html).
+GPLv3 License key requirements: 
+* Disclose Source
+* License and Copyright Notice
+* Same License
+* State Changes
+
+[GNU General Public License v3 (GPLv3) Explained in Plain English](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3))
+
+[General Public License v3.0 (GPLv3)](http://www.gnu.org/licenses/gpl-3.0.html).
 
 ## WiFi Analyzer Build
 
