@@ -125,7 +125,7 @@ class ChannelGraphView implements GraphViewNotifier {
     private int getNumX() {
         int numX = CNT_X_LARGE;
         Configuration configuration = MainContext.INSTANCE.getConfiguration();
-        if (!configuration.isLargeScreenLayout()) {
+        if (!configuration.isLargeScreen()) {
             numX = WiFiBand.GHZ2.equals(wiFiBand) ? CNT_X_SMALL_2 : CNT_X_SMALL_5;
         }
         int channelFirst = wiFiChannelPair.first.getChannel() - WiFiChannels.CHANNEL_OFFSET;

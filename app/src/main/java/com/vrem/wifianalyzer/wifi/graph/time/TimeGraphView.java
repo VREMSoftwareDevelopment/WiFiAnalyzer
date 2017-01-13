@@ -95,7 +95,7 @@ class TimeGraphView implements GraphViewNotifier {
 
     private int getNumX() {
         Configuration configuration = MainContext.INSTANCE.getConfiguration();
-        return configuration.isLargeScreenLayout() ? NUM_X_LARGE : NUM_X_SMALL;
+        return configuration.isLargeScreen() ? NUM_X_LARGE : NUM_X_SMALL;
     }
 
     void setGraphViewWrapper(@NonNull GraphViewWrapper graphViewWrapper) {

@@ -19,7 +19,9 @@
 package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.net.wifi.ScanResult;
+import android.support.annotation.NonNull;
 
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.Settings;
 
@@ -33,6 +35,7 @@ import java.util.Deque;
 import java.util.List;
 
 class Cache {
+    private static final int ADJUST = 10;
     private final Deque<List<ScanResult>> cache = new ArrayDeque<>();
 
     List<CacheResult> getScanResults() {
@@ -42,7 +45,8 @@ class Cache {
         List<CacheResult> results = new ArrayList<>();
         for (ScanResult scanResult : combineCache()) {
             if (current != null && !scanResult.BSSID.equals(current.BSSID)) {
-                results.add(new CacheResult(current, levelTotal / count));
+                CacheResult cacheResult = getCacheResult(current, levelTotal, count);
+                results.add(cacheResult);
                 count = 0;
                 levelTotal = 0;
             }
@@ -51,9 +55,20 @@ class Cache {
             levelTotal += scanResult.level;
         }
         if (current != null) {
-            results.add(new CacheResult(current, levelTotal / count));
+            results.add(getCacheResult(current, levelTotal, count));
         }
         return results;
+    }
+
+    @NonNull
+    private CacheResult getCacheResult(ScanResult current, int level, int count) {
+        CacheResult cacheResult;
+        if (MainContext.INSTANCE.getConfiguration().isSizeAvailable()) {
+            cacheResult = new CacheResult(current, level / count);
+        } else {
+            cacheResult = new CacheResult(current, (level - ADJUST) / count);
+        }
+        return cacheResult;
     }
 
     private List<ScanResult> combineCache() {
@@ -80,16 +95,20 @@ class Cache {
     }
 
     int getCacheSize() {
-        Settings settings = MainContext.INSTANCE.getSettings();
-        int scanInterval = settings.getScanInterval();
-        if (scanInterval < 5) {
-            return 4;
-        }
-        if (scanInterval < 10) {
-            return 3;
-        }
-        if (scanInterval < 20) {
-            return 2;
+        MainContext mainContext = MainContext.INSTANCE;
+        Configuration configuration = mainContext.getConfiguration();
+        if (configuration.isSizeAvailable()) {
+            Settings settings = mainContext.getSettings();
+            int scanInterval = settings.getScanInterval();
+            if (scanInterval < 5) {
+                return 4;
+            }
+            if (scanInterval < 10) {
+                return 3;
+            }
+            if (scanInterval < 20) {
+                return 2;
+            }
         }
         return 1;
     }

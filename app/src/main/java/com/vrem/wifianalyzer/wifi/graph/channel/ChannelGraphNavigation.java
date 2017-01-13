@@ -119,7 +119,7 @@ class ChannelGraphNavigation {
     private LinearLayout.LayoutParams getLayoutParams() {
         int left = 5;
         int top = -30;
-        if (configuration.isLargeScreenLayout()) {
+        if (configuration.isLargeScreen()) {
             left = 10;
             top = -10;
         }

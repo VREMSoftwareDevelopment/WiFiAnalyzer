@@ -86,11 +86,11 @@ public enum MainContext {
         this.configuration = configuration;
     }
 
-    void initialize(@NonNull MainActivity mainActivity, boolean isLargeScreenLayout) {
+    void initialize(@NonNull MainActivity mainActivity, boolean largeScreen, int size) {
         WifiManager wifiManager = (WifiManager) mainActivity.getSystemService(Context.WIFI_SERVICE);
         Handler handler = new Handler();
         Settings settings = new Settings(mainActivity);
-        Configuration configuration = new Configuration(isLargeScreenLayout);
+        Configuration configuration = new Configuration(largeScreen, size);
 
         setMainActivity(mainActivity);
         setConfiguration(configuration);
