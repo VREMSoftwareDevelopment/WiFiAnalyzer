@@ -38,6 +38,8 @@ This is the official repository of WiFi Analyzer (open-source).
 * Swipe to manually refresh screen content.
 * SSID with (***) means it is hidden.
 * Distance to the Access Point is estimated.
+* Access Point security: <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20"> WPA2/WPA; <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_lock_outline_black_18dp.png" alt="WEP/WPS" height="20"> WEP/WPS; <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_lock_open_black_18dp.png" alt="Disabled" height="20"> Disabled
+* Saved networks <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_tag_faces_black_18dp.png" alt="Saved Networks" height="20">
 
 ## How-to
 * [How to guide](http://translate.google.com/translate?js=n&sl=auto&tl=en&u=http://www.svetandroida.cz/aplikace-wifi-analyzer-open-source-201605)
