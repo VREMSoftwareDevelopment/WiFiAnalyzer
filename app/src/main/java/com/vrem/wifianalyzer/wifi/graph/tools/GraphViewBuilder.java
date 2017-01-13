@@ -31,8 +31,13 @@ import com.jjoe64.graphview.Viewport;
 public class GraphViewBuilder {
     public static final int MIN_Y = -100;
     public static final int MAX_Y = 0;
+
     static final int MAX_Y_DEFAULT = -20;
+    static final float TEXT_SIZE_ADJUSTMENT = 0.80f;
+    static final float AXIS_TEXT_SIZE_ADJUSMENT = 0.90f;
+
     private static final int MIN_Y_HALF = MIN_Y / 2;
+
     private final Context content;
     private final int numHorizontalLabels;
     private final int maximumY;
@@ -94,6 +99,8 @@ public class GraphViewBuilder {
         gridLabelRenderer.setHighlightZeroLines(false);
         gridLabelRenderer.setNumVerticalLabels(getNumVerticalLabels());
         gridLabelRenderer.setNumHorizontalLabels(numHorizontalLabels);
+        gridLabelRenderer.setTextSize(gridLabelRenderer.getTextSize() * TEXT_SIZE_ADJUSTMENT);
+        gridLabelRenderer.reloadStyles();
 
         if (labelFormatter != null) {
             gridLabelRenderer.setLabelFormatter(labelFormatter);
@@ -101,6 +108,7 @@ public class GraphViewBuilder {
 
         if (verticalTitle != null) {
             gridLabelRenderer.setVerticalAxisTitle(verticalTitle);
+            gridLabelRenderer.setVerticalAxisTitleTextSize(gridLabelRenderer.getVerticalAxisTitleTextSize() * AXIS_TEXT_SIZE_ADJUSMENT);
             gridLabelRenderer.setVerticalLabelsVisible(true);
         } else {
             gridLabelRenderer.setVerticalLabelsVisible(false);
@@ -108,6 +116,7 @@ public class GraphViewBuilder {
 
         if (horizontalTitle != null) {
             gridLabelRenderer.setHorizontalAxisTitle(horizontalTitle);
+            gridLabelRenderer.setHorizontalAxisTitleTextSize(gridLabelRenderer.getHorizontalAxisTitleTextSize() * AXIS_TEXT_SIZE_ADJUSMENT);
             gridLabelRenderer.setHorizontalLabelsVisible(true);
         } else {
             gridLabelRenderer.setHorizontalLabelsVisible(false);

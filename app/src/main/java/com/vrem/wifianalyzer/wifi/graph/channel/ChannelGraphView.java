@@ -48,9 +48,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 class ChannelGraphView implements GraphViewNotifier {
-    private static final int CNT_X_SMALL_2 = 16;
-    private static final int CNT_X_SMALL_5 = 18;
-    private static final int CNT_X_LARGE = 24;
+    private static final int CNT_X = 21;
     private static final int THICKNESS_INVISIBLE = 0;
 
     private final WiFiBand wiFiBand;
@@ -123,14 +121,9 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     private int getNumX() {
-        int numX = CNT_X_LARGE;
-        Configuration configuration = MainContext.INSTANCE.getConfiguration();
-        if (!configuration.isLargeScreen()) {
-            numX = WiFiBand.GHZ2.equals(wiFiBand) ? CNT_X_SMALL_2 : CNT_X_SMALL_5;
-        }
         int channelFirst = wiFiChannelPair.first.getChannel() - WiFiChannels.CHANNEL_OFFSET;
         int channelLast = wiFiChannelPair.second.getChannel() + WiFiChannels.CHANNEL_OFFSET;
-        return Math.min(numX, channelLast - channelFirst + 1);
+        return Math.min(CNT_X, channelLast - channelFirst + 1);
     }
 
     private GraphView makeGraphView(@NonNull MainActivity mainActivity, int graphMaximumY) {

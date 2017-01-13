@@ -183,7 +183,7 @@ public class TitleLineGraphSeries<E extends DataPointInterface> extends BaseSeri
             float y = (float) (graphTop - titleY) + graphHeight - 10;
 
             paintTitle.setColor(getColor());
-            paintTitle.setTextSize(graphView.getLegendRenderer().getTextSize());
+            paintTitle.setTextSize(graphView.getTitleTextSize());
             paintTitle.setFakeBoldText(textBold);
             canvas.drawText(getTitle(), x, y, paintTitle);
         }

@@ -40,7 +40,6 @@ import java.util.List;
 import java.util.Set;
 
 public class GraphViewWrapper {
-    static final float TEXT_SIZE_ADJUSTMENT = 0.9f;
     private static final int THICKNESS_REGULAR = 5;
     private static final int THICKNESS_CONNECTED = THICKNESS_REGULAR * 2;
 
@@ -142,7 +141,7 @@ public class GraphViewWrapper {
         LegendRenderer legendRenderer = graphView.getLegendRenderer();
         legendRenderer.resetStyles();
         legendRenderer.setWidth(0);
-        legendRenderer.setTextSize(legendRenderer.getTextSize() * TEXT_SIZE_ADJUSTMENT);
+        legendRenderer.setTextSize(graphView.getTitleTextSize());
         graphLegend.display(legendRenderer);
     }
 

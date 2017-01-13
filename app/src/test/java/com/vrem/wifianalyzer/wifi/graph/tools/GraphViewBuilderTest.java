@@ -34,14 +34,15 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyFloat;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GraphViewBuilderTest {
-    private static final String HORIZONTAL_TITLE = "horizontalTitle";
-    private static final String VERTICAL_TITLE = "verticalTitle";
     private static final int NUM_HORIZONTAL_LABELS = 5;
 
     @Mock
@@ -91,11 +92,10 @@ public class GraphViewBuilderTest {
     @Test
     public void testSetGridLabelRenderer() throws Exception {
         // setup
+        float textSize = 11f;
         int numVerticalLabels = fixture.getNumVerticalLabels();
-        fixture.setLabelFormatter(labelFormatter);
-        fixture.setHorizontalTitle(HORIZONTAL_TITLE);
-        fixture.setVerticalTitle(VERTICAL_TITLE);
         when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
+        when(gridLabelRenderer.getTextSize()).thenReturn(textSize);
         // execute
         fixture.setGridLabelRenderer(graphView);
         // validate
@@ -103,29 +103,84 @@ public class GraphViewBuilderTest {
         verify(gridLabelRenderer).setHighlightZeroLines(false);
         verify(gridLabelRenderer).setNumVerticalLabels(numVerticalLabels);
         verify(gridLabelRenderer).setNumHorizontalLabels(NUM_HORIZONTAL_LABELS);
-        verify(gridLabelRenderer).setLabelFormatter(labelFormatter);
-        verify(gridLabelRenderer).setVerticalAxisTitle(VERTICAL_TITLE);
-        verify(gridLabelRenderer).setVerticalLabelsVisible(true);
-        verify(gridLabelRenderer).setHorizontalAxisTitle(HORIZONTAL_TITLE);
-        verify(gridLabelRenderer).setHorizontalLabelsVisible(true);
+        verify(gridLabelRenderer).setTextSize(textSize * GraphViewBuilder.TEXT_SIZE_ADJUSTMENT);
+        verify(gridLabelRenderer).reloadStyles();
     }
 
     @Test
-    public void testSetGridLabelRendererWithoutTitles() throws Exception {
+    public void testSetGridLabelRendererWithLabelFormater() throws Exception {
         // setup
-        int numVerticalLabels = fixture.getNumVerticalLabels();
+        fixture.setLabelFormatter(labelFormatter);
         when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
         // execute
         fixture.setGridLabelRenderer(graphView);
         // validate
-        verify(graphView).getGridLabelRenderer();
-        verify(gridLabelRenderer).setHighlightZeroLines(false);
-        verify(gridLabelRenderer).setNumVerticalLabels(numVerticalLabels);
-        verify(gridLabelRenderer).setNumHorizontalLabels(NUM_HORIZONTAL_LABELS);
-        verify(gridLabelRenderer, never()).setLabelFormatter(labelFormatter);
-        verify(gridLabelRenderer, never()).setVerticalAxisTitle(VERTICAL_TITLE);
+        verify(gridLabelRenderer).setLabelFormatter(labelFormatter);
+    }
+
+    @Test
+    public void testSetGridLabelRendererWithNoLabelFormater() throws Exception {
+        // setup
+        when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
+        // execute
+        fixture.setGridLabelRenderer(graphView);
+        // validate
+        verify(gridLabelRenderer, never()).setLabelFormatter(any(LabelFormatter.class));
+    }
+
+    @Test
+    public void testSetGridLabelRendererWithVerticalAxisTitle() throws Exception {
+        // setup
+        float textSize = 11f;
+        String verticalTitle = "verticalTitle";
+        fixture.setVerticalTitle(verticalTitle);
+        when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
+        when(gridLabelRenderer.getVerticalAxisTitleTextSize()).thenReturn(textSize);
+        // execute
+        fixture.setGridLabelRenderer(graphView);
+        // validate
+        verify(gridLabelRenderer).setVerticalAxisTitle(verticalTitle);
+        verify(gridLabelRenderer).setVerticalLabelsVisible(true);
+        verify(gridLabelRenderer).setVerticalAxisTitleTextSize(textSize * GraphViewBuilder.AXIS_TEXT_SIZE_ADJUSMENT);
+    }
+
+    @Test
+    public void testSetGridLabelRendererNoVerticalAxisTitle() throws Exception {
+        // setup
+        when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
+        // execute
+        fixture.setGridLabelRenderer(graphView);
+        // validate
+        verify(gridLabelRenderer, never()).setVerticalAxisTitle(anyString());
+        verify(gridLabelRenderer, never()).setVerticalAxisTitleTextSize(anyFloat());
         verify(gridLabelRenderer).setVerticalLabelsVisible(false);
-        verify(gridLabelRenderer, never()).setHorizontalAxisTitle(HORIZONTAL_TITLE);
+    }
+
+    @Test
+    public void testSetGridLabelRendererWithHorizontalAxisTitle() throws Exception {
+        // setup
+        float textSize = 11f;
+        String horizontalTitle = "horizontalTitle";
+        fixture.setHorizontalTitle(horizontalTitle);
+        when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
+        when(gridLabelRenderer.getHorizontalAxisTitleTextSize()).thenReturn(textSize);
+        // execute
+        fixture.setGridLabelRenderer(graphView);
+        // validate
+        verify(gridLabelRenderer).setHorizontalAxisTitle(horizontalTitle);
+        verify(gridLabelRenderer).setHorizontalLabelsVisible(true);
+        verify(gridLabelRenderer).setHorizontalAxisTitleTextSize(textSize * GraphViewBuilder.AXIS_TEXT_SIZE_ADJUSMENT);
+    }
+
+    @Test
+    public void testSetGridLabelRendererNoHorizontalAxisTitle() throws Exception {
+        // setup
+        when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
+        // execute
+        fixture.setGridLabelRenderer(graphView);
+        // validate
+        verify(gridLabelRenderer, never()).setHorizontalAxisTitle(anyString());
+        verify(gridLabelRenderer, never()).setHorizontalAxisTitleTextSize(anyFloat());
         verify(gridLabelRenderer).setHorizontalLabelsVisible(false);
     }
 

@@ -49,7 +49,6 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GraphViewWrapperTest {
-    private static final float VALUE = 10.0f;
     @Mock
     private GraphView graphView;
     @Mock
@@ -79,7 +78,6 @@ public class GraphViewWrapperTest {
         dataPoint = new DataPoint(1, 2);
 
         when(graphView.getLegendRenderer()).thenReturn(legendRenderer);
-        when(legendRenderer.getTextSize()).thenReturn(VALUE);
 
         fixture = new GraphViewWrapper(graphView, GraphLegend.HIDE) {
             @Override
@@ -169,6 +167,9 @@ public class GraphViewWrapperTest {
 
     @Test
     public void testUpdateLegend() throws Exception {
+        // setup
+        float textSize = 10f;
+        when(graphView.getTitleTextSize()).thenReturn(textSize);
         // execute
         fixture.updateLegend(GraphLegend.RIGHT);
         // validate
@@ -176,7 +177,7 @@ public class GraphViewWrapperTest {
         verify(graphView).setLegendRenderer(legendRenderer);
         verify(legendRenderer).resetStyles();
         verify(legendRenderer).setWidth(0);
-        verify(legendRenderer).setTextSize(VALUE * GraphViewWrapper.TEXT_SIZE_ADJUSTMENT);
+        verify(legendRenderer).setTextSize(textSize);
     }
 
     @Test

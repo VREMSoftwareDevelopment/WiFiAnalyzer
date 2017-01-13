@@ -25,7 +25,6 @@ import android.view.View;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
@@ -43,8 +42,7 @@ import java.util.TreeSet;
 
 class TimeGraphView implements GraphViewNotifier {
     private static final int MAX_SCAN_COUNT = 400;
-    private static final int NUM_X_SMALL = 18;
-    private static final int NUM_X_LARGE = 24;
+    private static final int NUM_X = 21;
     private static final int THICKNESS_INVISIBLE = 0;
 
     private final WiFiBand wiFiBand;
@@ -94,8 +92,7 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     private int getNumX() {
-        Configuration configuration = MainContext.INSTANCE.getConfiguration();
-        return configuration.isLargeScreen() ? NUM_X_LARGE : NUM_X_SMALL;
+        return NUM_X;
     }
 
     void setGraphViewWrapper(@NonNull GraphViewWrapper graphViewWrapper) {
