@@ -31,12 +31,14 @@ import static android.view.View.OnClickListener;
 
 public class NavigationMenuView {
     private final NavigationView navigationView;
+    private final MainActivity mainActivity;
     private NavigationMenu currentNavigationMenu;
 
     public NavigationMenuView(@NonNull MainActivity mainActivity, @NonNull NavigationMenu currentNavigationMenu) {
+        this.mainActivity = mainActivity;
         navigationView = (NavigationView) mainActivity.findViewById(R.id.nav_view);
-        mainActivity.findViewById(R.id.action_next).setOnClickListener(new NextOnClickListener(mainActivity));
-        mainActivity.findViewById(R.id.action_prev).setOnClickListener(new PrevOnClickListener(mainActivity));
+        mainActivity.findViewById(R.id.action_next).setOnClickListener(new NextOnClickListener());
+        mainActivity.findViewById(R.id.action_prev).setOnClickListener(new PrevOnClickListener());
         populateNavigationMenu();
         setCurrentNavigationMenu(currentNavigationMenu);
         navigationView.setNavigationItemSelectedListener(mainActivity);
@@ -56,16 +58,20 @@ public class NavigationMenuView {
         return navigationView.getMenu().getItem(getCurrentNavigationMenu().ordinal());
     }
 
-    private MenuItem getNextMenuItem() {
-        NavigationGroup navigationGroup = NavigationGroup.find(getCurrentNavigationMenu());
-        NavigationMenu next = navigationGroup.next(getCurrentNavigationMenu());
-        return navigationView.getMenu().findItem(next.ordinal());
+    private NavigationMenu getNextNavigationMenu() {
+        return NavigationGroup.find(getCurrentNavigationMenu()).next(getCurrentNavigationMenu());
     }
 
-    private MenuItem getPreviousMenuItem() {
-        NavigationGroup navigationGroup = NavigationGroup.find(getCurrentNavigationMenu());
-        NavigationMenu next = navigationGroup.previous(getCurrentNavigationMenu());
-        return navigationView.getMenu().findItem(next.ordinal());
+    private NavigationMenu getPreviousNavigationMenu() {
+        return NavigationGroup.find(getCurrentNavigationMenu()).previous(getCurrentNavigationMenu());
+    }
+
+    private void activateNewMenuItem(@NonNull NavigationMenu navigationMenu) {
+        MenuItem newMenuItem = navigationView.getMenu().findItem(navigationMenu.ordinal());
+        MenuItem currentMenuItem = getCurrentMenuItem();
+        if (!currentMenuItem.equals(newMenuItem)) {
+            mainActivity.onNavigationItemSelected(newMenuItem);
+        }
     }
 
     public NavigationMenu getCurrentNavigationMenu() {
@@ -87,37 +93,16 @@ public class NavigationMenuView {
     }
 
     private class NextOnClickListener implements OnClickListener {
-        private final MainActivity mainActivity;
-
-        NextOnClickListener(@NonNull MainActivity mainActivity) {
-            this.mainActivity = mainActivity;
-        }
-
         @Override
         public void onClick(View view) {
-            MenuItem currentMenuItem = getCurrentMenuItem();
-            MenuItem menuItem = getNextMenuItem();
-            if (currentMenuItem != menuItem) {
-                mainActivity.onNavigationItemSelected(menuItem);
-            }
+            activateNewMenuItem(getNextNavigationMenu());
         }
     }
 
     private class PrevOnClickListener implements OnClickListener {
-        private final MainActivity mainActivity;
-
-        PrevOnClickListener(@NonNull MainActivity mainActivity) {
-            this.mainActivity = mainActivity;
-
-        }
-
         @Override
         public void onClick(View view) {
-            MenuItem currentMenuItem = getCurrentMenuItem();
-            MenuItem menuItem = getPreviousMenuItem();
-            if (currentMenuItem != menuItem) {
-                mainActivity.onNavigationItemSelected(menuItem);
-            }
+            activateNewMenuItem(getPreviousNavigationMenu());
         }
     }
 }
