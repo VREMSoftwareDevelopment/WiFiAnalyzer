@@ -64,7 +64,7 @@ public class NavigationMenuViewTest {
         assertEquals(NavigationMenu.values().length, menu.size());
 
         for (NavigationGroup navigationGroup : NavigationGroup.values()) {
-            for (NavigationMenu navigationMenu : navigationGroup.navigationMenu()) {
+            for (NavigationMenu navigationMenu : navigationGroup.getNavigationMenus()) {
                 MenuItem actual = menu.getItem(navigationMenu.ordinal());
                 assertEquals(navigationGroup.ordinal(), actual.getGroupId());
                 assertEquals(mainActivity.getResources().getString(navigationMenu.getTitle()), actual.getTitle());

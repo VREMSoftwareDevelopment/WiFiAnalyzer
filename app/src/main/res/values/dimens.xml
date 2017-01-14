@@ -23,6 +23,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="floating_action_button_margin">-16dp</dimen>
+
     <dimen name="list_view_item_horizontal_spacer">4dp</dimen>
     <dimen name="list_view_item_horizontal_tab">24dp</dimen>
 

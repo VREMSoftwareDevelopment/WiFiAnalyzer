@@ -26,21 +26,57 @@
                                         android:fitsSystemWindows="true"
                                         tools:openDrawer="start">
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <include layout="@layout/main_toolbar"/>
-
-        <include layout="@layout/main_connection"/>
-
-        <FrameLayout
-            android:id="@+id/main_fragment"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <include layout="@layout/main_toolbar"/>
+
+            <include layout="@layout/main_connection"/>
+
+            <FrameLayout
+                android:id="@+id/main_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/action_prev"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_gravity="bottom|start"
+            android:layout_marginBottom="@dimen/floating_action_button_margin"
+            android:layout_marginLeft="@dimen/floating_action_button_margin"
+            android:layout_marginStart="@dimen/floating_action_button_margin"
+            android:src="@drawable/ic_navigate_before_grey_500_48dp"
+            app:backgroundTint="@android:color/transparent"
+            app:borderWidth="0dp"
+            app:elevation="0dp"
+            app:fabSize="normal"
+            app:layout_anchorGravity="bottom|left|end"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/action_next"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="@dimen/floating_action_button_margin"
+            android:layout_marginEnd="@dimen/floating_action_button_margin"
+            android:layout_marginRight="@dimen/floating_action_button_margin"
+            android:src="@drawable/ic_navigate_next_grey_500_48dp"
+            app:backgroundTint="@android:color/transparent"
+            app:borderWidth="0dp"
+            app:elevation="0dp"
+            app:fabSize="normal"
+            app:layout_anchorGravity="bottom|right|end"/>
+
+    </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

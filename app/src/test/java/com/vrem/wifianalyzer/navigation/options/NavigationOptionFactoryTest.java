@@ -29,17 +29,21 @@ public class NavigationOptionFactoryTest {
     public void testAllOn() throws Exception {
         assertTrue(NavigationOptionFactory.ALL_ON.contains(NavigationOptionFactory.WIFI_SWITCH_ON));
         assertTrue(NavigationOptionFactory.ALL_ON.contains(NavigationOptionFactory.SCANNER_SWITCH_ON));
+        assertTrue(NavigationOptionFactory.ALL_ON.contains(NavigationOptionFactory.NEXT_PREV_ON));
 
         assertFalse(NavigationOptionFactory.ALL_ON.contains(NavigationOptionFactory.WIFI_SWITCH_OFF));
         assertFalse(NavigationOptionFactory.ALL_ON.contains(NavigationOptionFactory.SCANNER_SWITCH_OFF));
+        assertFalse(NavigationOptionFactory.ALL_ON.contains(NavigationOptionFactory.NEXT_PREV_OFF));
     }
 
     @Test
     public void testAllOff() throws Exception {
         assertTrue(NavigationOptionFactory.ALL_OFF.contains(NavigationOptionFactory.WIFI_SWITCH_OFF));
         assertTrue(NavigationOptionFactory.ALL_OFF.contains(NavigationOptionFactory.SCANNER_SWITCH_OFF));
+        assertTrue(NavigationOptionFactory.ALL_OFF.contains(NavigationOptionFactory.NEXT_PREV_OFF));
 
         assertFalse(NavigationOptionFactory.ALL_OFF.contains(NavigationOptionFactory.WIFI_SWITCH_ON));
         assertFalse(NavigationOptionFactory.ALL_OFF.contains(NavigationOptionFactory.SCANNER_SWITCH_ON));
+        assertFalse(NavigationOptionFactory.ALL_OFF.contains(NavigationOptionFactory.NEXT_PREV_ON));
     }
 }

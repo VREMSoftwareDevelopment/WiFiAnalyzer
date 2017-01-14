@@ -35,14 +35,14 @@ public class StartMenuPreference extends CustomPreference {
 
     private static List<Data> getData(@NonNull Context context) {
         List<Data> result = new ArrayList<>();
-        for (NavigationMenu navigationMenu : NavigationGroup.GROUP_FEATURE.navigationMenu()) {
+        for (NavigationMenu navigationMenu : NavigationGroup.GROUP_FEATURE.getNavigationMenus()) {
             result.add(new Data("" + navigationMenu.ordinal(), context.getString(navigationMenu.getTitle())));
         }
         return result;
     }
 
     private static String getDefault() {
-        return "" + NavigationGroup.GROUP_FEATURE.navigationMenu()[0].ordinal();
+        return "" + NavigationGroup.GROUP_FEATURE.getNavigationMenus().get(0).ordinal();
     }
 
 }

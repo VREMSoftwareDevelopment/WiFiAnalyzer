@@ -24,6 +24,6 @@
         android:id="@+id/action_scanner"
         android:icon="@drawable/ic_pause_grey_500_48dp"
         android:title="@string/action_pause"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 
 </menu>

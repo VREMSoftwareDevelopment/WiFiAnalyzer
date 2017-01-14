@@ -18,30 +18,34 @@
 
 package com.vrem.wifianalyzer.navigation;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
+
+import static android.view.View.OnClickListener;
 
 public class NavigationMenuView {
     private final NavigationView navigationView;
     private NavigationMenu currentNavigationMenu;
 
-    public NavigationMenuView(@NonNull Activity activity, @NonNull NavigationMenu currentNavigationMenu) {
-        navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
-
+    public NavigationMenuView(@NonNull MainActivity mainActivity, @NonNull NavigationMenu currentNavigationMenu) {
+        navigationView = (NavigationView) mainActivity.findViewById(R.id.nav_view);
+        mainActivity.findViewById(R.id.action_next).setOnClickListener(new NextOnClickListener(mainActivity));
+        mainActivity.findViewById(R.id.action_prev).setOnClickListener(new PrevOnClickListener(mainActivity));
         populateNavigationMenu();
         setCurrentNavigationMenu(currentNavigationMenu);
-        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) activity);
+        navigationView.setNavigationItemSelectedListener(mainActivity);
     }
 
     private void populateNavigationMenu() {
         Menu menu = navigationView.getMenu();
         for (NavigationGroup navigationGroup : NavigationGroup.values()) {
-            for (NavigationMenu navigationMenu : navigationGroup.navigationMenu()) {
+            for (NavigationMenu navigationMenu : navigationGroup.getNavigationMenus()) {
                 MenuItem menuItem = menu.add(navigationGroup.ordinal(), navigationMenu.ordinal(), navigationMenu.ordinal(), navigationMenu.getTitle());
                 menuItem.setIcon(navigationMenu.getIcon());
             }
@@ -50,6 +54,18 @@ public class NavigationMenuView {
 
     public MenuItem getCurrentMenuItem() {
         return navigationView.getMenu().getItem(getCurrentNavigationMenu().ordinal());
+    }
+
+    private MenuItem getNextMenuItem() {
+        NavigationGroup navigationGroup = NavigationGroup.find(getCurrentNavigationMenu());
+        NavigationMenu next = navigationGroup.next(getCurrentNavigationMenu());
+        return navigationView.getMenu().findItem(next.ordinal());
+    }
+
+    private MenuItem getPreviousMenuItem() {
+        NavigationGroup navigationGroup = NavigationGroup.find(getCurrentNavigationMenu());
+        NavigationMenu next = navigationGroup.previous(getCurrentNavigationMenu());
+        return navigationView.getMenu().findItem(next.ordinal());
     }
 
     public NavigationMenu getCurrentNavigationMenu() {
@@ -70,4 +86,38 @@ public class NavigationMenuView {
         return navigationView;
     }
 
+    private class NextOnClickListener implements OnClickListener {
+        private final MainActivity mainActivity;
+
+        NextOnClickListener(@NonNull MainActivity mainActivity) {
+            this.mainActivity = mainActivity;
+        }
+
+        @Override
+        public void onClick(View view) {
+            MenuItem currentMenuItem = getCurrentMenuItem();
+            MenuItem menuItem = getNextMenuItem();
+            if (currentMenuItem != menuItem) {
+                mainActivity.onNavigationItemSelected(menuItem);
+            }
+        }
+    }
+
+    private class PrevOnClickListener implements OnClickListener {
+        private final MainActivity mainActivity;
+
+        PrevOnClickListener(@NonNull MainActivity mainActivity) {
+            this.mainActivity = mainActivity;
+
+        }
+
+        @Override
+        public void onClick(View view) {
+            MenuItem currentMenuItem = getCurrentMenuItem();
+            MenuItem menuItem = getPreviousMenuItem();
+            if (currentMenuItem != menuItem) {
+                mainActivity.onNavigationItemSelected(menuItem);
+            }
+        }
+    }
 }
