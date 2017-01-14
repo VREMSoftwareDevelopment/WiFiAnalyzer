@@ -25,7 +25,7 @@ This is the official repository of WiFi Analyzer (open-source).
 * Graph channels signal strength
 * Graph Access Point signal strength over time
 * Analyze WiFi networks to rate channels
-* HT/VHT Detection (Requires Android OS 6+)
+* HT/VHT Detection - 40/80/160MHz (Requires Android OS 6+)
 * Access Point view complete or compact
 * Export access points details
 * Dark or Light theme available
