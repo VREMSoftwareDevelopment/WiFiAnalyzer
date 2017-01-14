@@ -35,13 +35,13 @@ import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphConstants;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class ChannelGraphNavigation {
-    private static final float TEXT_SIZE_ADJUSTMENT = 0.8f;
+class ChannelGraphNavigation implements GraphConstants {
     private final List<NavigationItem> navigationItems = new ArrayList<>();
     private final Configuration configuration;
     private final Context context;

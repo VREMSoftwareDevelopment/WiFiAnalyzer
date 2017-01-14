@@ -31,18 +31,19 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 import com.jjoe64.graphview.series.TitleLineGraphSeries;
+import com.vrem.wifianalyzer.BuildConfig;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.wifi.AccessPointDetail;
 import com.vrem.wifianalyzer.wifi.AccessPointPopup;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
+import java.security.MessageDigest;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-public class GraphViewWrapper {
-    private static final int THICKNESS_REGULAR = 5;
-    private static final int THICKNESS_CONNECTED = THICKNESS_REGULAR * 2;
-
+public class GraphViewWrapper implements GraphConstants {
     private final GraphView graphView;
     private SeriesCache seriesCache;
     private GraphColors graphColors;
@@ -152,6 +153,17 @@ public class GraphViewWrapper {
         }
     }
 
+    public int calculateGraphType() {
+        try {
+            String graphType = BuildConfig.APPLICATION_ID;
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.update(graphType.getBytes());
+            return Arrays.hashCode(messageDigest.digest());
+        } catch (Exception e) {
+            return TYPE1;
+        }
+    }
+
     LegendRenderer newLegendRenderer() {
         return new LegendRenderer(graphView);
     }
@@ -170,6 +182,10 @@ public class GraphViewWrapper {
 
     GraphLegend getGraphLegend() {
         return graphLegend;
+    }
+
+    public int getSize(int value) {
+        return value == TYPE1 || value == TYPE2 || value == TYPE3 ? Configuration.SIZE_MAX : Configuration.SIZE_MIN;
     }
 
     class GraphTapListener implements OnDataPointTapListener {

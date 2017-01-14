@@ -25,12 +25,14 @@ import android.view.View;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphColor;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewBuilder;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
@@ -40,11 +42,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import java.util.Set;
 import java.util.TreeSet;
 
-class TimeGraphView implements GraphViewNotifier {
-    private static final int MAX_SCAN_COUNT = 400;
-    private static final int NUM_X = 21;
-    private static final int THICKNESS_INVISIBLE = 0;
-
+class TimeGraphView implements GraphViewNotifier, GraphConstants {
     private final WiFiBand wiFiBand;
     private GraphViewWrapper graphViewWrapper;
     private int scanCount;
@@ -92,7 +90,7 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     private int getNumX() {
-        return NUM_X;
+        return NUM_X_TIME;
     }
 
     void setGraphViewWrapper(@NonNull GraphViewWrapper graphViewWrapper) {
@@ -112,14 +110,15 @@ class TimeGraphView implements GraphViewNotifier {
         MainContext mainContext = MainContext.INSTANCE;
         MainActivity mainActivity = mainContext.getMainActivity();
         Settings settings = mainContext.getSettings();
+        Configuration configuration = mainContext.getConfiguration();
         GraphView graphView = makeGraphView(mainActivity, settings.getGraphMaximumY());
         graphViewWrapper = new GraphViewWrapper(graphView, settings.getTimeGraphLegend());
-
+        configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
         graphViewWrapper.setViewport();
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
-            new DataPoint(0, GraphViewBuilder.MIN_Y),
-            new DataPoint(getNumX() - 1, GraphViewBuilder.MIN_Y)
+            new DataPoint(0, MIN_Y),
+            new DataPoint(getNumX() - 1, MIN_Y)
         });
         series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
         series.setThickness(THICKNESS_INVISIBLE);

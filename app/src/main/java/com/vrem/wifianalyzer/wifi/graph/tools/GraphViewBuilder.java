@@ -28,16 +28,7 @@ import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
 
-public class GraphViewBuilder {
-    public static final int MIN_Y = -100;
-    public static final int MAX_Y = 0;
-
-    static final int MAX_Y_DEFAULT = -20;
-    static final float TEXT_SIZE_ADJUSTMENT = 0.80f;
-    static final float AXIS_TEXT_SIZE_ADJUSMENT = 0.90f;
-
-    private static final int MIN_Y_HALF = MIN_Y / 2;
-
+public class GraphViewBuilder implements GraphConstants {
     private final Context content;
     private final int numHorizontalLabels;
     private final int maximumY;

@@ -207,15 +207,4 @@ public class GraphViewBuilderTest {
         assertEquals(expected, fixture.getMaximumY());
     }
 
-
-/*
-         fixture = new GraphViewBuilder(content, NUM_HORIZONTAL_LABELS, MAXIMUM_Y);
-   public GraphViewBuilder(@NonNull Context content, int numHorizontalLabels, int maximumY) {
-        this.content = content;
-        this.numHorizontalLabels = numHorizontalLabels;
-        this.maximumY = (maximumY > MAX_Y || maximumY < MIN_Y_HALF) ? MAX_Y_DEFAULT : maximumY;
-        this.layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-    }
-*/
-
 }

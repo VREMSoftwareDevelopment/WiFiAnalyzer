@@ -28,11 +28,11 @@ import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
-import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewBuilder;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphConstants;
 
 import org.apache.commons.lang3.StringUtils;
 
-class ChannelAxisLabel implements LabelFormatter {
+class ChannelAxisLabel implements LabelFormatter, GraphConstants {
     private final WiFiBand wiFiBand;
     private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
 
@@ -49,7 +49,7 @@ class ChannelAxisLabel implements LabelFormatter {
         if (isValueX) {
             result += findChannel(valueAsInt);
         } else {
-            if (valueAsInt <= GraphViewBuilder.MAX_Y && valueAsInt > GraphViewBuilder.MIN_Y) {
+            if (valueAsInt <= MAX_Y && valueAsInt > MIN_Y) {
                 result += valueAsInt;
             }
         }

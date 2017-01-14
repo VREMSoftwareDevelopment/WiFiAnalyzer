@@ -27,6 +27,7 @@ import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.BaseSeries;
 import com.jjoe64.graphview.series.DataPoint;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import org.junit.Before;
@@ -189,6 +190,12 @@ public class GraphViewWrapperTest {
     }
 
     @Test
+    public void testCalculateGraphType() throws Exception {
+        // execute & validate
+        assertTrue(fixture.calculateGraphType() > 0);
+    }
+
+    @Test
     public void testSetViewport() throws Exception {
         // setup
         when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
@@ -202,6 +209,15 @@ public class GraphViewWrapperTest {
         verify(graphView).getViewport();
         verify(viewport).setMinX(0);
         verify(viewport).setMaxX(9);
+    }
+
+    @Test
+    public void testGetSize() throws Exception {
+        // execute & validate
+        assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphViewWrapper.TYPE1));
+        assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphViewWrapper.TYPE2));
+        assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphViewWrapper.TYPE3));
+        assertEquals(Configuration.SIZE_MIN, fixture.getSize(GraphViewWrapper.TYPE4));
     }
 
     @Test

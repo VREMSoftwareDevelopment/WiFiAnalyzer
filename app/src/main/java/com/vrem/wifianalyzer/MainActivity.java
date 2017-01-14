@@ -21,8 +21,6 @@ package com.vrem.wifianalyzer;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -58,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         MainContext mainContext = MainContext.INSTANCE;
-        mainContext.initialize(this, isLargeScreen(), getSize());
+        mainContext.initialize(this, isLargeScreen());
 
         Settings settings = mainContext.getSettings();
         settings.initializeDefaultValues();
@@ -114,18 +112,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         int screenLayoutSize = configuration.screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK;
         return screenLayoutSize == android.content.res.Configuration.SCREENLAYOUT_SIZE_LARGE ||
             screenLayoutSize == android.content.res.Configuration.SCREENLAYOUT_SIZE_XLARGE;
-    }
-
-    private int getSize() {
-        try {
-            String packageName = getPackageName();
-            PackageManager packageManager = getPackageManager();
-            PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
-            int size = packageInfo.packageName.indexOf(packageName) + BuildConfig.APPLICATION_ID.indexOf(packageName);
-            return (size + 2) << 11;
-        } catch (Exception e) {
-            return 1024;
-        }
     }
 
     @Override

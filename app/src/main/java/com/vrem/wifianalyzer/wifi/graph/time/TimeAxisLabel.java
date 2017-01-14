@@ -20,11 +20,11 @@ package com.vrem.wifianalyzer.wifi.graph.time;
 
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
-import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewBuilder;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphConstants;
 
 import org.apache.commons.lang3.StringUtils;
 
-class TimeAxisLabel implements LabelFormatter {
+class TimeAxisLabel implements LabelFormatter, GraphConstants {
     @Override
     public String formatLabel(double value, boolean isValueX) {
         String result = StringUtils.EMPTY;
@@ -34,7 +34,7 @@ class TimeAxisLabel implements LabelFormatter {
                 result += valueAsInt;
             }
         } else {
-            if (valueAsInt <= GraphViewBuilder.MAX_Y && valueAsInt > GraphViewBuilder.MIN_Y) {
+            if (valueAsInt <= MAX_Y && valueAsInt > MIN_Y) {
                 result += valueAsInt;
             }
         }

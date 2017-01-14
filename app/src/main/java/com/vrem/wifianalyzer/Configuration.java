@@ -25,15 +25,16 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 
 public class Configuration {
-    private static final int FOUR_KB = 4096;
+    public static final int SIZE_MIN = 1024;
+    public static final int SIZE_MAX = 4096;
 
     private final boolean largeScreen;
-    private final int size;
+    private int size;
     private Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
 
-    public Configuration(boolean largeScreen, int size) {
+    public Configuration(boolean largeScreen) {
         this.largeScreen = largeScreen;
-        this.size = size;
+        setSize(SIZE_MAX);
         setWiFiChannelPair(WiFiChannels.UNKNOWN);
     }
 
@@ -50,6 +51,10 @@ public class Configuration {
     }
 
     public boolean isSizeAvailable() {
-        return size == FOUR_KB;
+        return size == SIZE_MAX;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }
