@@ -36,8 +36,6 @@
     <string name="action_vendors">製造商</string>
     <string name="action_settings">設置</string>
     <string name="action_about">關於</string>
-    <string name="action_pause">暫停</string>
-    <string name="action_resume">簡歷</string>
     <!-- action end -->
 
     <string name="button_cancel">取消</string>

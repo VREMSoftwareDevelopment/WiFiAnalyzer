@@ -36,8 +36,6 @@
     <string name="action_vendors">Vendedores</string>
     <string name="action_settings">Configurações</string>
     <string name="action_about">Sobre</string>
-    <string name="action_pause">Pausa</string>
-    <string name="action_resume">Currículo</string>
     <!-- action end -->
 
     <string name="button_cancel">Cancelar</string>
