@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 class SeriesCache {
     private final Map<WiFiDetail, BaseSeries<DataPoint>> cache;
@@ -45,18 +46,19 @@ class SeriesCache {
         return cache.get(wiFiDetail);
     }
 
-    List<BaseSeries<DataPoint>> remove(@NonNull Set<WiFiDetail> series) {
+    List<WiFiDetail> difference(@NonNull Set<WiFiDetail> series) {
+        Set<WiFiDetail> difference = new TreeSet<>(cache.keySet());
+        difference.removeAll(series);
+        return new ArrayList<>(difference);
+    }
+
+    List<BaseSeries<DataPoint>> remove(@NonNull List<WiFiDetail> series) {
         List<BaseSeries<DataPoint>> removeSeries = new ArrayList<>();
-        List<WiFiDetail> removeFromCache = new ArrayList<>();
-        for (WiFiDetail wiFiDetail : cache.keySet()) {
-            if (series.contains(wiFiDetail)) {
-                continue;
+        for (WiFiDetail wiFiDetail : series) {
+            if (cache.containsKey(wiFiDetail)) {
+                removeSeries.add(cache.get(wiFiDetail));
+                cache.remove(wiFiDetail);
             }
-            removeSeries.add(cache.get(wiFiDetail));
-            removeFromCache.add(wiFiDetail);
-        }
-        for (WiFiDetail wiFiDetail : removeFromCache) {
-            cache.remove(wiFiDetail);
         }
         return removeSeries;
     }

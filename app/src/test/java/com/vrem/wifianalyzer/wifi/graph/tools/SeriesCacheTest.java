@@ -43,11 +43,11 @@ import static org.junit.Assert.assertTrue;
 @RunWith(MockitoJUnitRunner.class)
 public class SeriesCacheTest {
     @Mock
-    private BaseSeries<DataPoint> series0;
-    @Mock
     private BaseSeries<DataPoint> series1;
     @Mock
     private BaseSeries<DataPoint> series2;
+    @Mock
+    private BaseSeries<DataPoint> series3;
 
     private List<BaseSeries<DataPoint>> series;
 
@@ -55,7 +55,7 @@ public class SeriesCacheTest {
 
     @Before
     public void setUp() {
-        series = Arrays.asList(series0, series1, series2);
+        series = Arrays.asList(series1, series2, series3);
         fixture = new SeriesCache();
     }
 
@@ -74,46 +74,116 @@ public class SeriesCacheTest {
         // setup
         List<WiFiDetail> wiFiDetails = withData();
         // execute
-        BaseSeries<DataPoint> actual = fixture.add(wiFiDetails.get(0), series1);
+        BaseSeries<DataPoint> actual = fixture.add(wiFiDetails.get(0), series2);
         // validate
-        assertEquals(series0, actual);
+        assertEquals(series1, actual);
     }
 
     @Test
-    public void testRemoveAll() throws Exception {
+    public void tesDifferenceExpectOneLess() throws Exception {
         // setup
-        List<WiFiDetail> wiFiDetails = withData();
+        List<WiFiDetail> expected = withData();
         // execute
-        List<BaseSeries<DataPoint>> actual = fixture.remove(new TreeSet<WiFiDetail>());
+        List<WiFiDetail> actual = fixture.difference(new TreeSet<>(expected.subList(0, 1)));
         // validate
-        assertEquals(series.size(), actual.size());
-        for (int i = 0; i < series.size(); i++) {
-            assertEquals(series.get(i), actual.get(i));
-            assertFalse(fixture.contains(wiFiDetails.get(i)));
+        assertEquals(expected.size() - 1, actual.size());
+        for (int i = 1; i < expected.size(); i++) {
+            assertEquals(expected.get(i), actual.get(i - 1));
         }
     }
 
     @Test
-    public void testRemoveNone() throws Exception {
+    public void tesDifferenceExpectEverything() throws Exception {
         // setup
-        List<WiFiDetail> wiFiDetails = withData();
+        List<WiFiDetail> expected = withData();
         // execute
-        List<BaseSeries<DataPoint>> actual = fixture.remove(new TreeSet<>(wiFiDetails));
+        List<WiFiDetail> actual = fixture.difference(new TreeSet<WiFiDetail>());
+        // validate
+        assertEquals(expected.size(), actual.size());
+        for (int i = 0; i < expected.size(); i++) {
+            assertEquals(expected.get(i), actual.get(i));
+        }
+    }
+
+    @Test
+    public void tesDifferenceExpectNone() throws Exception {
+        // setup
+        List<WiFiDetail> expected = withData();
+        // execute
+        List<WiFiDetail> actual = fixture.difference(new TreeSet<>(expected));
         // validate
         assertTrue(actual.isEmpty());
     }
 
     @Test
-    public void testRemoveOne() throws Exception {
+    public void testRemoveExpectedAllLeft() throws Exception {
         // setup
-        int index = 1;
         List<WiFiDetail> wiFiDetails = withData();
         // execute
-        List<BaseSeries<DataPoint>> actual = fixture.remove(new TreeSet<>(Arrays.asList(wiFiDetails.get(0), wiFiDetails.get(2))));
+        List<BaseSeries<DataPoint>> actual = fixture.remove(new ArrayList<WiFiDetail>());
         // validate
-        assertEquals(index, actual.size());
-        assertEquals(series.get(index), actual.get(0));
-        assertFalse(fixture.contains(wiFiDetails.get(index)));
+        assertTrue(actual.isEmpty());
+        for (WiFiDetail wiFiDetail : wiFiDetails) {
+            assertTrue(fixture.contains(wiFiDetail));
+        }
+    }
+
+    @Test
+    public void testRemoveExpectNoneLeft() throws Exception {
+        // setup
+        List<WiFiDetail> expected = withData();
+        // execute
+        List<BaseSeries<DataPoint>> actual = fixture.remove(expected);
+        // validate
+        assertEquals(expected.size(), actual.size());
+        for (WiFiDetail wiFiDetail : expected) {
+            assertFalse(fixture.contains(wiFiDetail));
+        }
+    }
+
+    @Test
+    public void testRemoveExpectOneLeft() throws Exception {
+        // setup
+        List<WiFiDetail> expected = withData();
+        // execute
+        List<BaseSeries<DataPoint>> actual = fixture.remove(expected.subList(1, expected.size()));
+        // validate
+        assertEquals(2, actual.size());
+        for (int i = 1; i < expected.size(); i++) {
+            assertTrue(series.contains(actual.get(i - 1)));
+            assertFalse(fixture.contains(expected.get(i)));
+        }
+        assertTrue(fixture.contains(expected.get(0)));
+    }
+
+    @Test
+    public void testRemoveNonExistingOne() throws Exception {
+        // setup
+        List<WiFiDetail> expected = withData();
+        //noinspection ArraysAsListWithZeroOrOneArgument
+        List<WiFiDetail> toRemove = Arrays.asList(makeWiFiDetail("SSID-999"));
+        // execute
+        List<BaseSeries<DataPoint>> actual = fixture.remove(toRemove);
+        // validate
+        assertTrue(actual.isEmpty());
+        for (WiFiDetail wiFiDetail : expected) {
+            assertTrue(fixture.contains(wiFiDetail));
+        }
+    }
+
+    @Test
+    public void testRemoveExpectMoreThanOneLeft() throws Exception {
+        // setup
+        List<WiFiDetail> expected = withData();
+        // execute
+        List<BaseSeries<DataPoint>> actual = fixture.remove(expected.subList(0, 1));
+        // validate
+        assertEquals(1, actual.size());
+        assertTrue(series.contains(actual.get(0)));
+        for (int i = 1; i < expected.size(); i++) {
+            assertTrue(fixture.contains(expected.get(i)));
+        }
+        assertFalse(fixture.contains(expected.get(0)));
     }
 
     @Test
@@ -121,7 +191,7 @@ public class SeriesCacheTest {
         // setup
         List<WiFiDetail> wiFiDetails = withData();
         // execute
-        WiFiDetail actual = fixture.find(series1);
+        WiFiDetail actual = fixture.find(series2);
         // validate
         assertEquals(wiFiDetails.get(1), actual);
     }

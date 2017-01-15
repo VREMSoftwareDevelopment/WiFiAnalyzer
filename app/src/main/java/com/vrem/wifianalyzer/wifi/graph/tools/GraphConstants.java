@@ -22,7 +22,7 @@ public interface GraphConstants {
     float AXIS_TEXT_SIZE_ADJUSMENT = 0.90f;
     float TEXT_SIZE_ADJUSTMENT = 0.80f;
 
-    int MAX_SCAN_COUNT = 400;
+    int MAX_SCAN_COUNT = 300;
     int MAX_Y = 0;
     int MAX_Y_DEFAULT = -20;
     int MIN_Y = -100;

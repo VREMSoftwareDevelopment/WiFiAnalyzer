@@ -36,6 +36,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -96,15 +97,18 @@ public class GraphViewWrapperTest {
     public void testRemoveSeries() throws Exception {
         // setup
         Set<WiFiDetail> newSeries = new TreeSet<>();
+        List<WiFiDetail> difference = new ArrayList<>();
         //noinspection ArraysAsListWithZeroOrOneArgument
         List<BaseSeries<DataPoint>> removed = Arrays.asList(baseSeries);
         int color = 10;
-        when(seriesCache.remove(newSeries)).thenReturn(removed);
+        when(seriesCache.difference(newSeries)).thenReturn(difference);
+        when(seriesCache.remove(difference)).thenReturn(removed);
         when(baseSeries.getColor()).thenReturn(color);
         // execute
         fixture.removeSeries(newSeries);
         // validate
-        verify(seriesCache).remove(newSeries);
+        verify(seriesCache).difference(newSeries);
+        verify(seriesCache).remove(difference);
         verify(baseSeries).getColor();
         verify(graphColors).addColor(color);
         verify(graphView).removeSeries(baseSeries);
