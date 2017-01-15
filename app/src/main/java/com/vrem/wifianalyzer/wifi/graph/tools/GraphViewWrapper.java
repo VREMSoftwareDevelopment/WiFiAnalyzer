@@ -65,12 +65,15 @@ public class GraphViewWrapper implements GraphConstants {
     }
 
     public void removeSeries(@NonNull Set<WiFiDetail> newSeries) {
-        List<WiFiDetail> difference = seriesCache.difference(newSeries);
-        List<BaseSeries<DataPoint>> removed = seriesCache.remove(difference);
+        List<BaseSeries<DataPoint>> removed = seriesCache.remove(differenceSeries(newSeries));
         for (Series series : removed) {
             graphColors.addColor(series.getColor());
             graphView.removeSeries(series);
         }
+    }
+
+    public List<WiFiDetail> differenceSeries(Set<WiFiDetail> newSeries) {
+        return seriesCache.difference(newSeries);
     }
 
     public boolean appendSeries(@NonNull WiFiDetail wiFiDetail, @NonNull BaseSeries<DataPoint> series, DataPoint data, int count) {

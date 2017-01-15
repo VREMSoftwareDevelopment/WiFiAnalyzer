@@ -54,6 +54,7 @@ import static org.mockito.Mockito.when;
 @Config(constants = BuildConfig.class)
 public class TimeGraphViewTest {
     private GraphViewWrapper graphViewWrapper;
+    private TimeGraphCache timeGraphCache;
     private Settings settings;
     private TimeGraphView fixture;
 
@@ -62,11 +63,13 @@ public class TimeGraphViewTest {
         RobolectricUtil.INSTANCE.getActivity();
 
         graphViewWrapper = mock(GraphViewWrapper.class);
+        timeGraphCache = mock(TimeGraphCache.class);
 
         settings = MainContextHelper.INSTANCE.getSettings();
 
         fixture = new TimeGraphView(WiFiBand.GHZ2);
         fixture.setGraphViewWrapper(graphViewWrapper);
+        fixture.setTimeGraphCache(timeGraphCache);
     }
 
     @After
@@ -84,9 +87,15 @@ public class TimeGraphViewTest {
         // validate
         //noinspection unchecked
         verify(graphViewWrapper).removeSeries(any(Set.class));
+        //noinspection unchecked
+        verify(graphViewWrapper).differenceSeries(any(Set.class));
         verify(graphViewWrapper).updateLegend(GraphLegend.LEFT);
         verify(graphViewWrapper).setVisibility(View.VISIBLE);
+
         verifySettings();
+
+        verify(timeGraphCache).clear();
+        verify(timeGraphCache).active();
     }
 
     private void verifySettings() {

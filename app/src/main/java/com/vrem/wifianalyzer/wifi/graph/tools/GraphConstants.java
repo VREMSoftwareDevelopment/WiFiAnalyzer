@@ -26,9 +26,11 @@ public interface GraphConstants {
     int MAX_Y = 0;
     int MAX_Y_DEFAULT = -20;
     int MIN_Y = -100;
+    int MIN_Y_OFFSET = -1;
     int MIN_Y_HALF = MIN_Y / 2;
     int NUM_X_CHANNEL = 18;
     int NUM_X_TIME = 21;
+    int MAX_NONSEEN_COUNT = 30;
     int THICKNESS_INVISIBLE = 0;
     int THICKNESS_REGULAR = 5;
     int THICKNESS_CONNECTED = THICKNESS_REGULAR * 2;

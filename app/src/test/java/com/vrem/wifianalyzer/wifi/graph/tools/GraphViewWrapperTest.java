@@ -115,6 +115,19 @@ public class GraphViewWrapperTest {
     }
 
     @Test
+    public void testDifferenceSeries() throws Exception {
+        // setup
+        Set<WiFiDetail> newSeries = new TreeSet<>();
+        List<WiFiDetail> expected = new ArrayList<>();
+        when(seriesCache.difference(newSeries)).thenReturn(expected);
+        // execute
+        List<WiFiDetail> actual = fixture.differenceSeries(newSeries);
+        // validate
+        assertEquals(expected, actual);
+        verify(seriesCache).difference(newSeries);
+    }
+
+    @Test
     public void testAppendSeries() throws Exception {
         // setup
         when(seriesCache.add(wiFiDetail, baseSeries)).thenReturn(currentSeries);

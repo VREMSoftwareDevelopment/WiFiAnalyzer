@@ -39,36 +39,52 @@ import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 class TimeGraphView implements GraphViewNotifier, GraphConstants {
     private final WiFiBand wiFiBand;
+    private TimeGraphCache timeGraphCache;
     private GraphViewWrapper graphViewWrapper;
     private int scanCount;
     private int xValue;
 
     TimeGraphView(@NonNull WiFiBand wiFiBand) {
         this.wiFiBand = wiFiBand;
-        this.scanCount = this.xValue = 0;
+        this.scanCount = 0;
+        this.xValue = 0;
+        this.timeGraphCache = new TimeGraphCache();
         this.graphViewWrapper = makeGraphViewWrapper();
     }
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         Settings settings = MainContext.INSTANCE.getSettings();
-        Set<WiFiDetail> newSeries = new TreeSet<>();
+        Set<WiFiDetail> newSeries = new HashSet<>();
         for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, settings.getSortBy())) {
             newSeries.add(wiFiDetail);
             addData(wiFiDetail);
         }
-        graphViewWrapper.removeSeries(newSeries);
+        graphViewWrapper.removeSeries(adjustData(newSeries));
         graphViewWrapper.updateLegend(settings.getTimeGraphLegend());
         graphViewWrapper.setVisibility(isSelected() ? View.VISIBLE : View.GONE);
         xValue++;
         if (scanCount < MAX_SCAN_COUNT) {
             scanCount++;
         }
+    }
+
+    private Set<WiFiDetail> adjustData(@NonNull Set<WiFiDetail> newSeries) {
+        for (WiFiDetail wiFiDetail : graphViewWrapper.differenceSeries(newSeries)) {
+            DataPoint dataPoint = new DataPoint(xValue, MIN_Y + MIN_Y_OFFSET);
+            LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{dataPoint});
+            graphViewWrapper.appendSeries(wiFiDetail, series, dataPoint, scanCount);
+            timeGraphCache.add(wiFiDetail);
+        }
+        timeGraphCache.clear();
+        Set<WiFiDetail> results = new HashSet<>(newSeries);
+        results.addAll(timeGraphCache.active());
+        return results;
     }
 
     private boolean isSelected() {
@@ -82,6 +98,7 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
             series.setColor((int) graphViewWrapper.getColor().getPrimary());
             series.setDrawBackground(false);
         }
+        timeGraphCache.reset(wiFiDetail);
     }
 
     @Override
@@ -95,6 +112,10 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
 
     void setGraphViewWrapper(@NonNull GraphViewWrapper graphViewWrapper) {
         this.graphViewWrapper = graphViewWrapper;
+    }
+
+    void setTimeGraphCache(@NonNull TimeGraphCache timeGraphCache) {
+        this.timeGraphCache = timeGraphCache;
     }
 
     private GraphView makeGraphView(@NonNull MainActivity mainActivity, int graphMaximumY) {
