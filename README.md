@@ -1,6 +1,6 @@
 # WiFi Analyzer (open-source)
 
-<img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/blob/master/app/src/main/ic_launcher-web.png" alt="Laucher Icon" height="50"> Optimize your WiFi network using WiFi Analyzer (open-source) by examining surrounding WiFi networks, measuring their signal strength as well as identifying crowded channels.
+<img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/ic_launcher-web.png" alt="Laucher Icon" height="50"> Optimize your WiFi network using WiFi Analyzer (open-source) by examining surrounding WiFi networks, measuring their signal strength as well as identifying crowded channels.
 
 ### Android OS Requirements
 * Minimum: Jelly Bean (Version 4.1 - API 16)
