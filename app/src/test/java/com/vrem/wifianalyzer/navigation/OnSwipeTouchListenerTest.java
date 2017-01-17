@@ -133,79 +133,12 @@ public class OnSwipeTouchListenerTest {
         assertTrue(onSwipe);
     }
 
-}
-
-/*
-public class OnSwipeTouchListener implements OnTouchListener {
-
-    private final GestureDetector gestureDetector;
-    private final GestureListener gestureListener;
-    private final MainActivity mainActivity;
-
-    public OnSwipeTouchListener(@NonNull MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
-        this.gestureListener = new GestureListener();
-        this.gestureDetector = new GestureDetector(mainActivity, gestureListener);
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        return gestureDetector.onTouchEvent(event);
-    }
-
-    public void onSwipeRight(@NonNull MainActivity mainActivity) {
-    }
-
-    public void onSwipeLeft(@NonNull MainActivity mainActivity) {
-    }
-
-    public void onSwipeTop(@NonNull MainActivity mainActivity) {
-    }
-
-    public void onSwipeBottom(@NonNull MainActivity mainActivity) {
-    }
-
-    private final class GestureListener extends SimpleOnGestureListener {
-
-        private static final int SWIPE_THRESHOLD = 100;
-        private static final int SWIPE_VELOCITY_THRESHOLD = 100;
-
-        @Override
-        public boolean onDown(MotionEvent e) {
-            return true;
-        }
-
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            try {
-                float diffY = e2.getY() - e1.getY();
-                float diffX = e2.getX() - e1.getX();
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                        if (diffX > 0) {
-                            onSwipeRight(mainActivity);
-                        } else {
-                            onSwipeLeft(mainActivity);
-                        }
-                    }
-                } else {
-                    if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-                        if (diffY > 0) {
-                            onSwipeBottom(mainActivity);
-                        } else {
-                            onSwipeTop(mainActivity);
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                // do not perform any swipe events
-            }
-            return false;
-        }
-    }
-
-    GestureListener getGestureListener() {
-        return gestureListener;
+    @Test
+    public void testOnDown() throws Exception {
+        // setup
+        fixture = new OnSwipeTouchListener(mainActivity);
+        OnSwipeTouchListener.GestureListener gestureListener = fixture.getGestureListener();
+        // execute & validate
+        assertTrue(gestureListener.onDown(e1));
     }
 }
-*/
