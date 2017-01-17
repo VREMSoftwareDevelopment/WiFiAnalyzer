@@ -26,6 +26,7 @@ import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.navigation.NavigationGroup;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
+import com.vrem.wifianalyzer.navigation.OnSwipeTouchListener;
 
 class LeftRightSwipeOnTouchListener extends OnSwipeTouchListener {
     LeftRightSwipeOnTouchListener(@NonNull MainActivity mainActivity) {

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation.options;
+package com.vrem.wifianalyzer.navigation;
 
 
 import android.support.annotation.NonNull;
@@ -29,14 +29,18 @@ import com.vrem.wifianalyzer.MainActivity;
 import static android.view.GestureDetector.SimpleOnGestureListener;
 import static android.view.View.OnTouchListener;
 
-class OnSwipeTouchListener implements OnTouchListener {
+public class OnSwipeTouchListener implements OnTouchListener {
+    static final int SWIPE_THRESHOLD = 100;
+    static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
     private final GestureDetector gestureDetector;
+    private final GestureListener gestureListener;
     private final MainActivity mainActivity;
 
-    OnSwipeTouchListener(@NonNull MainActivity mainActivity) {
+    public OnSwipeTouchListener(@NonNull MainActivity mainActivity) {
         this.mainActivity = mainActivity;
-        this.gestureDetector = new GestureDetector(mainActivity, new GestureListener());
+        this.gestureListener = new GestureListener();
+        this.gestureDetector = new GestureDetector(mainActivity, gestureListener);
     }
 
     @Override
@@ -44,22 +48,27 @@ class OnSwipeTouchListener implements OnTouchListener {
         return gestureDetector.onTouchEvent(event);
     }
 
-    void onSwipeRight(@NonNull MainActivity mainActivity) {
+    public void onSwipeRight(@NonNull MainActivity mainActivity) {
+        // method to override
     }
 
-    void onSwipeLeft(@NonNull MainActivity mainActivity) {
+    public void onSwipeLeft(@NonNull MainActivity mainActivity) {
+        // method to override
     }
 
-    void onSwipeTop(@NonNull MainActivity mainActivity) {
+    public void onSwipeTop(@NonNull MainActivity mainActivity) {
+        // method to override
     }
 
-    void onSwipeBottom(@NonNull MainActivity mainActivity) {
+    public void onSwipeBottom(@NonNull MainActivity mainActivity) {
+        // method to override
     }
 
-    private final class GestureListener extends SimpleOnGestureListener {
+    GestureListener getGestureListener() {
+        return gestureListener;
+    }
 
-        private static final int SWIPE_THRESHOLD = 100;
-        private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+    final class GestureListener extends SimpleOnGestureListener {
 
         @Override
         public boolean onDown(MotionEvent e) {
@@ -72,7 +81,7 @@ class OnSwipeTouchListener implements OnTouchListener {
                 float diffY = e2.getY() - e1.getY();
                 float diffX = e2.getX() - e1.getX();
                 if (Math.abs(diffX) > Math.abs(diffY)) {
-                    if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (Math.abs(diffX) >= SWIPE_THRESHOLD && Math.abs(velocityX) >= SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0) {
                             onSwipeRight(mainActivity);
                         } else {
@@ -80,7 +89,7 @@ class OnSwipeTouchListener implements OnTouchListener {
                         }
                     }
                 } else {
-                    if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (Math.abs(diffY) >= SWIPE_THRESHOLD && Math.abs(velocityY) >= SWIPE_VELOCITY_THRESHOLD) {
                         if (diffY > 0) {
                             onSwipeBottom(mainActivity);
                         } else {
