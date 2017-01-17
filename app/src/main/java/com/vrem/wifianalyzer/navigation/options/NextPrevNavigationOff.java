@@ -19,20 +19,23 @@
 package com.vrem.wifianalyzer.navigation.options;
 
 import android.support.annotation.NonNull;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 
-class NextPrevNavigation implements NavigationOption {
-    private final int visibility;
-
-    NextPrevNavigation(int visibility) {
-        this.visibility = visibility;
-    }
-
+class NextPrevNavigationOff implements NavigationOption {
     @Override
     public void apply(@NonNull MainActivity mainActivity) {
-        mainActivity.findViewById(R.id.action_prev).setVisibility(visibility);
-        mainActivity.findViewById(R.id.action_next).setVisibility(visibility);
+        mainActivity.findViewById(R.id.main_fragment_layout).setOnTouchListener(new SwitchOffOnTouchListener());
+    }
+
+    class SwitchOffOnTouchListener implements OnTouchListener {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return false;
+        }
     }
 }

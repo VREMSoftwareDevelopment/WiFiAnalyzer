@@ -21,11 +21,9 @@ package com.vrem.wifianalyzer.navigation;
 import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.After;
@@ -108,32 +106,6 @@ public class NavigationMenuViewTest {
         assertTrue(getMenuItem(NavigationMenu.CHANNEL_GRAPH).isChecked());
         assertFalse(getMenuItem(NavigationMenu.ACCESS_POINTS).isCheckable());
         assertFalse(getMenuItem(NavigationMenu.ACCESS_POINTS).isChecked());
-    }
-
-    @Test
-    public void testActionNext() throws Exception {
-        // setup
-        NavigationMenu expected = NavigationMenu.CHANNEL_RATING;
-        View view = mainActivity.findViewById(R.id.action_next);
-        // execute
-        view.callOnClick();
-        // validate
-        assertTrue(view.hasOnClickListeners());
-        assertEquals(expected, fixture.getCurrentNavigationMenu());
-        assertEquals(expected.ordinal(), fixture.getCurrentMenuItem().getItemId());
-    }
-
-    @Test
-    public void testActionPrevious() throws Exception {
-        // setup
-        NavigationMenu expected = NavigationMenu.TIME_GRAPH;
-        View view = mainActivity.findViewById(R.id.action_prev);
-        // execute
-        view.callOnClick();
-        // validate
-        assertTrue(view.hasOnClickListeners());
-        assertEquals(expected, fixture.getCurrentNavigationMenu());
-        assertEquals(expected.ordinal(), fixture.getCurrentMenuItem().getItemId());
     }
 
     private MenuItem getMenuItem(NavigationMenu navigationMenu) {

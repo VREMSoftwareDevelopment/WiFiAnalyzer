@@ -22,23 +22,16 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 
-import static android.view.View.OnClickListener;
-
 public class NavigationMenuView {
     private final NavigationView navigationView;
-    private final MainActivity mainActivity;
     private NavigationMenu currentNavigationMenu;
 
     public NavigationMenuView(@NonNull MainActivity mainActivity, @NonNull NavigationMenu currentNavigationMenu) {
-        this.mainActivity = mainActivity;
         navigationView = (NavigationView) mainActivity.findViewById(R.id.nav_view);
-        mainActivity.findViewById(R.id.action_next).setOnClickListener(new NextOnClickListener());
-        mainActivity.findViewById(R.id.action_prev).setOnClickListener(new PrevOnClickListener());
         populateNavigationMenu();
         setCurrentNavigationMenu(currentNavigationMenu);
         navigationView.setNavigationItemSelectedListener(mainActivity);
@@ -58,22 +51,6 @@ public class NavigationMenuView {
         return navigationView.getMenu().getItem(getCurrentNavigationMenu().ordinal());
     }
 
-    private NavigationMenu getNextNavigationMenu() {
-        return NavigationGroup.find(getCurrentNavigationMenu()).next(getCurrentNavigationMenu());
-    }
-
-    private NavigationMenu getPreviousNavigationMenu() {
-        return NavigationGroup.find(getCurrentNavigationMenu()).previous(getCurrentNavigationMenu());
-    }
-
-    private void activateNewMenuItem(@NonNull NavigationMenu navigationMenu) {
-        MenuItem newMenuItem = navigationView.getMenu().findItem(navigationMenu.ordinal());
-        MenuItem currentMenuItem = getCurrentMenuItem();
-        if (!currentMenuItem.equals(newMenuItem)) {
-            mainActivity.onNavigationItemSelected(newMenuItem);
-        }
-    }
-
     public NavigationMenu getCurrentNavigationMenu() {
         return currentNavigationMenu;
     }
@@ -88,21 +65,7 @@ public class NavigationMenuView {
         }
     }
 
-    NavigationView getNavigationView() {
+    public NavigationView getNavigationView() {
         return navigationView;
-    }
-
-    private class NextOnClickListener implements OnClickListener {
-        @Override
-        public void onClick(View view) {
-            activateNewMenuItem(getNextNavigationMenu());
-        }
-    }
-
-    private class PrevOnClickListener implements OnClickListener {
-        @Override
-        public void onClick(View view) {
-            activateNewMenuItem(getPreviousNavigationMenu());
-        }
     }
 }

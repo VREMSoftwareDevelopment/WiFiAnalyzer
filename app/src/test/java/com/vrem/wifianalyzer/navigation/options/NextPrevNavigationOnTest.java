@@ -28,35 +28,27 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class NextPrevNavigationTest {
-
+public class NextPrevNavigationOnTest {
     @Mock
     private MainActivity mainActivity;
     @Mock
-    private View viewNext;
-    @Mock
-    private View viewPrev;
-
-    private NextPrevNavigation fixture;
+    private View view;
 
     @Test
-    public void testApplySetsVisibilityOption() throws Exception {
+    public void testApplySetsSwipeOnTouchListener() throws Exception {
         // setup
-        int visibility = View.INVISIBLE;
-        fixture = new NextPrevNavigation(visibility);
-        when(mainActivity.findViewById(R.id.action_next)).thenReturn(viewNext);
-        when(mainActivity.findViewById(R.id.action_prev)).thenReturn(viewPrev);
+        NextPrevNavigationOn fixture = new NextPrevNavigationOn();
+        when(mainActivity.findViewById(R.id.main_fragment_layout)).thenReturn(view);
         // execute
         fixture.apply(mainActivity);
         // validate
-        verify(mainActivity).findViewById(R.id.action_next);
-        verify(mainActivity).findViewById(R.id.action_prev);
-        verify(viewNext).setVisibility(visibility);
-        verify(viewPrev).setVisibility(visibility);
+        verify(mainActivity).findViewById(R.id.main_fragment_layout);
+        verify(view).setOnTouchListener(any(LeftRightSwipeOnTouchListener.class));
     }
 
 }

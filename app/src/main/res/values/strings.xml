@@ -40,8 +40,6 @@
     <string name="action_about">About</string>
     <string name="action_pause" translatable="false">Pause</string>
     <string name="action_resume" translatable="false">Resume</string>
-    <string name="action_previous" translatable="false">Previous</string>
-    <string name="action_next" translatable="false">Next</string>
     <!-- action end -->
 
     <string name="button_ok" translatable="false">OK</string>
