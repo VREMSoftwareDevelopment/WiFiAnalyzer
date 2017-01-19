@@ -22,10 +22,11 @@ import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.navigation.NavigationSwipeOnTouchListener;
 
 class NextPrevNavigationOn implements NavigationOption {
     @Override
     public void apply(@NonNull MainActivity mainActivity) {
-        mainActivity.findViewById(R.id.main_fragment_layout).setOnTouchListener(new LeftRightSwipeOnTouchListener(mainActivity));
+        mainActivity.findViewById(R.id.main_fragment_layout).setOnTouchListener(new NavigationSwipeOnTouchListener(mainActivity));
     }
 }

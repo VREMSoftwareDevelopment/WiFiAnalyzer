@@ -16,27 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation.options;
+package com.vrem.wifianalyzer.gestures;
 
-import android.support.annotation.NonNull;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
-
-import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.R;
-
-class NextPrevNavigationOff implements NavigationOption {
-    final static OnTouchListener ON_TOUCH_LISTENER_EMPTY = new OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            return false;
-        }
-    };
-
-    @Override
-    public void apply(@NonNull MainActivity mainActivity) {
-        mainActivity.findViewById(R.id.main_fragment_layout).setOnTouchListener(ON_TOUCH_LISTENER_EMPTY);
-    }
-
+public enum SwipeDirection {
+    DOWN,
+    LEFT,
+    RIGHT,
+    UP
 }

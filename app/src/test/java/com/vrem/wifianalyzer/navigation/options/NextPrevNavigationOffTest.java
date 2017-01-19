@@ -28,7 +28,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -48,7 +47,7 @@ public class NextPrevNavigationOffTest {
         fixture.apply(mainActivity);
         // validate
         verify(mainActivity).findViewById(R.id.main_fragment_layout);
-        verify(view).setOnTouchListener(any(NextPrevNavigationOff.SwitchOffOnTouchListener.class));
+        verify(view).setOnTouchListener(NextPrevNavigationOff.ON_TOUCH_LISTENER_EMPTY);
     }
 
 }

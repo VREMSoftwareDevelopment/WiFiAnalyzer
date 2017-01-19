@@ -16,46 +16,46 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation.options;
+package com.vrem.wifianalyzer.navigation;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.navigation.NavigationGroup;
-import com.vrem.wifianalyzer.navigation.NavigationMenu;
-import com.vrem.wifianalyzer.navigation.NavigationMenuView;
-import com.vrem.wifianalyzer.navigation.OnSwipeTouchListener;
+import com.vrem.wifianalyzer.gestures.SwipeAction;
+import com.vrem.wifianalyzer.gestures.SwipeDirection;
 
-class LeftRightSwipeOnTouchListener extends OnSwipeTouchListener {
-    LeftRightSwipeOnTouchListener(@NonNull MainActivity mainActivity) {
-        super(mainActivity);
+class NavigationSwipe implements SwipeAction {
+
+    private final MainActivity mainActivity;
+
+    NavigationSwipe(@NonNull MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
     }
 
     @Override
-    public void onSwipeRight(@NonNull MainActivity mainActivity) {
-        NavigationMenu previousNavigationMenu = getPreviousNavigationMenu(mainActivity);
-        activateNewMenuItem(mainActivity, previousNavigationMenu);
+    public void swipe(@NonNull SwipeDirection swipeDirection) {
+        if (SwipeDirection.LEFT.equals(swipeDirection)) {
+            NavigationMenu nextNavigationMenu = getNextNavigationMenu();
+            activateNewMenuItem(nextNavigationMenu);
+        } else if (SwipeDirection.RIGHT.equals(swipeDirection)) {
+            NavigationMenu previousNavigationMenu = getPreviousNavigationMenu();
+            activateNewMenuItem(previousNavigationMenu);
+        }
     }
 
-    @Override
-    public void onSwipeLeft(@NonNull MainActivity mainActivity) {
-        NavigationMenu nextNavigationMenu = getNextNavigationMenu(mainActivity);
-        activateNewMenuItem(mainActivity, nextNavigationMenu);
-    }
-
-    private NavigationMenu getNextNavigationMenu(@NonNull MainActivity mainActivity) {
+    private NavigationMenu getNextNavigationMenu() {
         NavigationMenu currentNavigationMenu = mainActivity.getNavigationMenuView().getCurrentNavigationMenu();
         return NavigationGroup.find(currentNavigationMenu).next(currentNavigationMenu);
     }
 
-    private NavigationMenu getPreviousNavigationMenu(@NonNull MainActivity mainActivity) {
+    private NavigationMenu getPreviousNavigationMenu() {
         NavigationMenu currentNavigationMenu = mainActivity.getNavigationMenuView().getCurrentNavigationMenu();
         return NavigationGroup.find(currentNavigationMenu).previous(currentNavigationMenu);
     }
 
-    private void activateNewMenuItem(@NonNull MainActivity mainActivity, @NonNull NavigationMenu navigationMenu) {
+    private void activateNewMenuItem(@NonNull NavigationMenu navigationMenu) {
         NavigationMenuView navigationMenuView = mainActivity.getNavigationMenuView();
         NavigationView navigationView = navigationMenuView.getNavigationView();
         MenuItem newMenuItem = navigationView.getMenu().findItem(navigationMenu.ordinal());
@@ -64,4 +64,6 @@ class LeftRightSwipeOnTouchListener extends OnSwipeTouchListener {
             mainActivity.onNavigationItemSelected(newMenuItem);
         }
     }
+
+
 }

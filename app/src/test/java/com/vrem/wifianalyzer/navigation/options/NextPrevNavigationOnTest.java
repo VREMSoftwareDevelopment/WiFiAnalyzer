@@ -22,6 +22,7 @@ import android.view.View;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.navigation.NavigationSwipeOnTouchListener;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +49,7 @@ public class NextPrevNavigationOnTest {
         fixture.apply(mainActivity);
         // validate
         verify(mainActivity).findViewById(R.id.main_fragment_layout);
-        verify(view).setOnTouchListener(any(LeftRightSwipeOnTouchListener.class));
+        verify(view).setOnTouchListener(any(NavigationSwipeOnTouchListener.class));
     }
 
 }

@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation.options;
+package com.vrem.wifianalyzer.navigation;
 
 import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
-import com.vrem.wifianalyzer.navigation.NavigationMenu;
+import com.vrem.wifianalyzer.gestures.SwipeDirection;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -35,23 +35,23 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class LeftRightSwipeOnTouchListenerTest {
+public class NavigationSwipeTest {
     private MainActivity mainActivity;
-    private LeftRightSwipeOnTouchListener fixture;
+    private NavigationSwipe fixture;
 
     @Before
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getActivity();
-        fixture = new LeftRightSwipeOnTouchListener(mainActivity);
+        fixture = new NavigationSwipe(mainActivity);
     }
 
     @Test
-    public void testOnSwipeLeftAndRight() throws Exception {
-        // execute & validate
-        fixture.onSwipeLeft(mainActivity);
+    public void testSwipe() throws Exception {
+        // swipe left expect channel rating
+        fixture.swipe(SwipeDirection.LEFT);
         validateSwipeRight(NavigationMenu.CHANNEL_RATING);
-        // execute & validate
-        fixture.onSwipeRight(mainActivity);
+        // swipe right expect access point
+        fixture.swipe(SwipeDirection.RIGHT);
         validateSwipeRight(NavigationMenu.ACCESS_POINTS);
     }
 
