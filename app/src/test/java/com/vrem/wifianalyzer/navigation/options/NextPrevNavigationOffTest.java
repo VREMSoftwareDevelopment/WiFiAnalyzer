@@ -28,6 +28,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -50,4 +51,9 @@ public class NextPrevNavigationOffTest {
         verify(view).setOnTouchListener(NextPrevNavigationOff.ON_TOUCH_LISTENER_EMPTY);
     }
 
+
+    @Test
+    public void testOnTouchListenerEmptyDoesNotDoAnyEvents() throws Exception {
+        assertFalse(NextPrevNavigationOff.ON_TOUCH_LISTENER_EMPTY.onTouch(null, null));
+    }
 }
