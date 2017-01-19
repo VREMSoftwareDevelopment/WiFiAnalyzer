@@ -55,7 +55,7 @@ public class NavigationSwipeTest {
         validateSwipeRight(NavigationMenu.ACCESS_POINTS);
     }
 
-    private void validateSwipeRight(@NonNull NavigationMenu expected) throws Exception {
+    private void validateSwipeRight(@NonNull NavigationMenu expected) {
         assertEquals(expected, mainActivity.getNavigationMenuView().getCurrentNavigationMenu());
         assertEquals(expected.ordinal(), mainActivity.getNavigationMenuView().getCurrentMenuItem().getItemId());
     }
