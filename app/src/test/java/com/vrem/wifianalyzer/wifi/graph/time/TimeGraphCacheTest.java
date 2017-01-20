@@ -27,7 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -94,14 +94,8 @@ public class TimeGraphCacheTest {
     }
 
     private List<WiFiDetail> withWiFiDetails() {
-        List<WiFiDetail> results = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            WiFiDetail wiFiDetail = withWiFiDetail("SSID" + i);
-            results.add(wiFiDetail);
-        }
-        for (WiFiDetail wiFiDetail : results) {
-            fixture.add(wiFiDetail);
-        }
+        List<WiFiDetail> results = Arrays.asList(withWiFiDetail("SSID1"), withWiFiDetail("SSID2"), withWiFiDetail("SSID3"));
+        fixture.addAll(results);
         for (int i = 0; i < GraphConstants.MAX_NONSEEN_COUNT; i++) {
             fixture.add(results.get(0));
         }

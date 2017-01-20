@@ -25,6 +25,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -79,4 +80,9 @@ class TimeGraphCache implements GraphConstants {
         return notSeen.keySet();
     }
 
+    void addAll(List<WiFiDetail> wiFiDetails) {
+        for (WiFiDetail wiFiDetail : wiFiDetails) {
+            add(wiFiDetail);
+        }
+    }
 }
