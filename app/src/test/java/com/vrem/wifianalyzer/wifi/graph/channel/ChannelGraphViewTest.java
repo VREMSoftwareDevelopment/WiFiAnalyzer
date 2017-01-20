@@ -43,6 +43,8 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -55,9 +57,10 @@ import static org.mockito.Mockito.when;
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ChannelGraphViewTest {
+    private Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
     private Settings settings;
     private GraphViewWrapper graphViewWrapper;
-
+    private DataManager dataManager;
     private ChannelGraphView fixture;
 
     @Before
@@ -65,11 +68,14 @@ public class ChannelGraphViewTest {
         RobolectricUtil.INSTANCE.getActivity();
 
         graphViewWrapper = mock(GraphViewWrapper.class);
+        dataManager = mock(DataManager.class);
 
         settings = MainContextHelper.INSTANCE.getSettings();
 
-        fixture = new ChannelGraphView(WiFiBand.GHZ2, new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN));
+        wiFiChannelPair = new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN);
+        fixture = new ChannelGraphView(WiFiBand.GHZ2, wiFiChannelPair);
         fixture.setGraphViewWrapper(graphViewWrapper);
+        fixture.setDataManager(dataManager);
     }
 
     @After
@@ -80,11 +86,15 @@ public class ChannelGraphViewTest {
     @Test
     public void testUpdate() throws Exception {
         // setup
-        WiFiData wiFiData = new WiFiData(new ArrayList<WiFiDetail>(), WiFiConnection.EMPTY, new ArrayList<String>());
+        Set<WiFiDetail> newSeries = new HashSet<>();
+        List<WiFiDetail> wiFiDetails = new ArrayList<>();
+        WiFiData wiFiData = new WiFiData(wiFiDetails, WiFiConnection.EMPTY, new ArrayList<String>());
+        when(dataManager.getNewSeries(wiFiDetails, wiFiChannelPair)).thenReturn(newSeries);
         withSettings();
         // execute
         fixture.update(wiFiData);
         // validate
+        verify(dataManager).getNewSeries(wiFiDetails, wiFiChannelPair);
         //noinspection unchecked
         verify(graphViewWrapper).removeSeries(any(Set.class));
         verify(graphViewWrapper).updateLegend(GraphLegend.RIGHT);
