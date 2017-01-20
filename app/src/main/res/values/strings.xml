@@ -121,6 +121,7 @@
     <!-- settings end -->
 
     <!-- about start -->
+    <string name="about_application_name" translatable="false">WiFiAnalyzer (open-source)</string>
     <string name="about_license_title">License:</string>
     <string name="about_license_name">Licensed under the GPLv3</string>
     <string name="about_license_url" translatable="false">http://www.gnu.org/licenses/gpl-3.0.html</string>

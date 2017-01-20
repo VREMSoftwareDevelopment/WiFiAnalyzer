@@ -147,9 +147,9 @@ public class AboutActivityTest {
     public void testApplicationName() throws Exception {
         // setup
         fixture = Robolectric.setupActivity(AboutActivity.class);
-        String expectedName = fixture.getString(R.string.app_name);
+        String expectedName = fixture.getString(R.string.about_application_name);
         // execute
-        TextView actual = (TextView) fixture.findViewById(R.id.about_app_name);
+        TextView actual = (TextView) fixture.findViewById(R.id.about_application_name);
         // validate
         assertNotNull(actual);
         assertEquals(expectedName, actual.getText());
