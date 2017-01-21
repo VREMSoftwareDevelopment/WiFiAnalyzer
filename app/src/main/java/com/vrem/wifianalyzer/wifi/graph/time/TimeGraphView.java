@@ -40,7 +40,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 class TimeGraphView implements GraphViewNotifier, GraphConstants {
@@ -61,12 +60,12 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         Settings settings = MainContext.INSTANCE.getSettings();
-        Set<WiFiDetail> newSeries = new HashSet<>(wiFiData.getWiFiDetails(wiFiBand, settings.getSortBy()));
-        addSeriesData(newSeries);
-        List<WiFiDetail> difference = graphViewWrapper.differenceSeries(newSeries);
-        appendSeriesData(difference);
-        Set<WiFiDetail> adjustedNewSeries = adjustNewSeries(difference);
-        graphViewWrapper.removeSeries(adjustedNewSeries);
+        Set<WiFiDetail> newSeries = new HashSet<>();
+        for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, settings.getSortBy())) {
+            newSeries.add(wiFiDetail);
+            addData(wiFiDetail);
+        }
+        graphViewWrapper.removeSeries(adjustData(newSeries));
         graphViewWrapper.updateLegend(settings.getTimeGraphLegend());
         graphViewWrapper.setVisibility(isSelected() ? View.VISIBLE : View.GONE);
         xValue++;
@@ -75,36 +74,31 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
         }
     }
 
-    private void addSeriesData(Set<WiFiDetail> wiFiDetails) {
-        for (WiFiDetail wiFiDetail : wiFiDetails) {
-            DataPoint dataPoint = new DataPoint(xValue, wiFiDetail.getWiFiSignal().getLevel());
+    private Set<WiFiDetail> adjustData(@NonNull Set<WiFiDetail> newSeries) {
+        for (WiFiDetail wiFiDetail : graphViewWrapper.differenceSeries(newSeries)) {
+            DataPoint dataPoint = new DataPoint(xValue, MIN_Y + MIN_Y_OFFSET);
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{dataPoint});
-            if (graphViewWrapper.appendSeries(wiFiDetail, series, dataPoint, scanCount)) {
-                series.setColor((int) graphViewWrapper.getColor().getPrimary());
-                series.setDrawBackground(false);
-            }
-            timeGraphCache.reset(wiFiDetail);
+            graphViewWrapper.appendSeries(wiFiDetail, series, dataPoint, scanCount);
+            timeGraphCache.add(wiFiDetail);
         }
-    }
-
-    private Set<WiFiDetail> adjustNewSeries(@NonNull List<WiFiDetail> wiFiDetails) {
-        timeGraphCache.addAll(wiFiDetails);
         timeGraphCache.clear();
-        Set<WiFiDetail> results = new HashSet<>(wiFiDetails);
+        Set<WiFiDetail> results = new HashSet<>(newSeries);
         results.addAll(timeGraphCache.active());
         return results;
     }
 
-    private void appendSeriesData(@NonNull List<WiFiDetail> wiFiDetails) {
-        for (WiFiDetail wiFiDetail : wiFiDetails) {
-            DataPoint dataPoint = new DataPoint(xValue, MIN_Y + MIN_Y_OFFSET);
-            LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{dataPoint});
-            graphViewWrapper.appendSeries(wiFiDetail, series, dataPoint, scanCount);
-        }
-    }
-
     private boolean isSelected() {
         return wiFiBand.equals(MainContext.INSTANCE.getSettings().getWiFiBand());
+    }
+
+    private void addData(@NonNull WiFiDetail wiFiDetail) {
+        DataPoint dataPoint = new DataPoint(xValue, wiFiDetail.getWiFiSignal().getLevel());
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{dataPoint});
+        if (graphViewWrapper.appendSeries(wiFiDetail, series, dataPoint, scanCount)) {
+            series.setColor((int) graphViewWrapper.getColor().getPrimary());
+            series.setDrawBackground(false);
+        }
+        timeGraphCache.reset(wiFiDetail);
     }
 
     @Override
