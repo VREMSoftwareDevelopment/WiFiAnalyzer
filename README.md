@@ -29,6 +29,7 @@ This is the official repository of WiFi Analyzer (open-source).
 * Access Point view complete or compact
 * Export access points details
 * Dark or Light theme available
+* Pause/Resume scanning
 
 **Please note WiFi Analyzer is not a WiFi password cracking or phishing tool.**
 
