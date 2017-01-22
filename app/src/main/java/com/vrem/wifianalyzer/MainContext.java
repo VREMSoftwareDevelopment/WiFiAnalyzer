@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -86,11 +86,11 @@ public enum MainContext {
         this.configuration = configuration;
     }
 
-    void initialize(@NonNull MainActivity mainActivity, boolean isLargeScreenLayout) {
+    void initialize(@NonNull MainActivity mainActivity, boolean largeScreen) {
         WifiManager wifiManager = (WifiManager) mainActivity.getSystemService(Context.WIFI_SERVICE);
         Handler handler = new Handler();
         Settings settings = new Settings(mainActivity);
-        Configuration configuration = new Configuration(isLargeScreenLayout);
+        Configuration configuration = new Configuration(largeScreen);
 
         setMainActivity(mainActivity);
         setConfiguration(configuration);

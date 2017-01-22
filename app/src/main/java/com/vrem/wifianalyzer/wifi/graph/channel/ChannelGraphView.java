@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,53 +35,38 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphColor;
-import com.vrem.wifianalyzer.wifi.graph.tools.GraphLegend;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewBuilder;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
-import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
+import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
-class ChannelGraphView implements GraphViewNotifier {
-    private static final int CNT_X_SMALL_2 = 16;
-    private static final int CNT_X_SMALL_5 = 18;
-    private static final int CNT_X_LARGE = 24;
-    private static final int THICKNESS_INVISIBLE = 0;
-
+class ChannelGraphView implements GraphViewNotifier, GraphConstants {
     private final WiFiBand wiFiBand;
     private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
     private GraphViewWrapper graphViewWrapper;
+    private DataManager dataManager;
 
     ChannelGraphView(@NonNull WiFiBand wiFiBand, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         this.wiFiBand = wiFiBand;
         this.wiFiChannelPair = wiFiChannelPair;
         this.graphViewWrapper = makeGraphViewWrapper();
+        this.dataManager = new DataManager();
     }
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         Settings settings = MainContext.INSTANCE.getSettings();
-        GraphLegend channelGraphLegend = settings.getChannelGraphLegend();
-        SortBy sortBy = settings.getSortBy();
-        Set<WiFiDetail> newSeries = new TreeSet<>();
-        for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, sortBy)) {
-            if (isInRange(wiFiDetail.getWiFiSignal().getCenterFrequency(), wiFiChannelPair)) {
-                newSeries.add(wiFiDetail);
-                addData(wiFiDetail);
-            }
-        }
+        List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(wiFiBand, settings.getSortBy());
+        Set<WiFiDetail> newSeries = dataManager.getNewSeries(wiFiDetails, wiFiChannelPair);
+        dataManager.addSeriesData(graphViewWrapper, newSeries);
         graphViewWrapper.removeSeries(newSeries);
-        graphViewWrapper.updateLegend(channelGraphLegend);
+        graphViewWrapper.updateLegend(settings.getChannelGraphLegend());
         graphViewWrapper.setVisibility(isSelected() ? View.VISIBLE : View.GONE);
-    }
-
-    private boolean isInRange(int frequency, Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
-        return frequency >= wiFiChannelPair.first.getFrequency() && frequency <= wiFiChannelPair.second.getFrequency();
     }
 
     private boolean isSelected() {
@@ -92,51 +77,20 @@ class ChannelGraphView implements GraphViewNotifier {
         return this.wiFiBand.equals(wiFiBand) && (WiFiBand.GHZ2.equals(this.wiFiBand) || this.wiFiChannelPair.equals(wiFiChannelPair));
     }
 
-    private void addData(@NonNull WiFiDetail wiFiDetail) {
-        DataPoint[] dataPoints = createDataPoints(wiFiDetail);
-        TitleLineGraphSeries<DataPoint> series = new TitleLineGraphSeries<>(dataPoints);
-        if (graphViewWrapper.addSeries(wiFiDetail, series, dataPoints)) {
-            GraphColor graphColor = graphViewWrapper.getColor();
-            series.setColor((int) graphColor.getPrimary());
-            series.setBackgroundColor((int) graphColor.getBackground());
-        }
-    }
-
-    private DataPoint[] createDataPoints(@NonNull WiFiDetail wiFiDetail) {
-        WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        int frequency = frequencyAdjustment(wiFiSignal.getCenterFrequency());
-        int frequencyStart = frequencyAdjustment(wiFiSignal.getFrequencyStart());
-        int frequencyEnd = frequencyAdjustment(wiFiSignal.getFrequencyEnd());
-        int level = wiFiSignal.getLevel();
-        return new DataPoint[]{
-            new DataPoint(frequencyStart, GraphViewBuilder.MIN_Y),
-            new DataPoint(frequencyStart + WiFiChannels.FREQUENCY_SPREAD, level),
-            new DataPoint(frequency, level),
-            new DataPoint(frequencyEnd - WiFiChannels.FREQUENCY_SPREAD, level),
-            new DataPoint(frequencyEnd, GraphViewBuilder.MIN_Y)
-        };
-    }
-
     @Override
     public GraphView getGraphView() {
         return graphViewWrapper.getGraphView();
     }
 
     private int getNumX() {
-        int numX = CNT_X_LARGE;
-        Configuration configuration = MainContext.INSTANCE.getConfiguration();
-        if (!configuration.isLargeScreenLayout()) {
-            numX = WiFiBand.GHZ2.equals(wiFiBand) ? CNT_X_SMALL_2 : CNT_X_SMALL_5;
-        }
         int channelFirst = wiFiChannelPair.first.getChannel() - WiFiChannels.CHANNEL_OFFSET;
         int channelLast = wiFiChannelPair.second.getChannel() + WiFiChannels.CHANNEL_OFFSET;
-        return Math.min(numX, channelLast - channelFirst + 1);
+        return Math.min(NUM_X_CHANNEL, channelLast - channelFirst + 1);
     }
 
-    private GraphView makeGraphView() {
-        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
+    private GraphView makeGraphView(@NonNull MainActivity mainActivity, int graphMaximumY) {
         Resources resources = mainActivity.getResources();
-        return new GraphViewBuilder(mainActivity, getNumX())
+        return new GraphViewBuilder(mainActivity, getNumX(), graphMaximumY)
             .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair))
             .setVerticalTitle(resources.getString(R.string.graph_axis_y))
             .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
@@ -144,32 +98,40 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     private GraphViewWrapper makeGraphViewWrapper() {
-        Settings settings = MainContext.INSTANCE.getSettings();
-        graphViewWrapper = new GraphViewWrapper(makeGraphView(), settings.getChannelGraphLegend());
-
-        int frequencyStart = frequencyAdjustment(wiFiChannelPair.first.getFrequency());
-        int frequencyEnd = frequencyAdjustment(wiFiChannelPair.second.getFrequency());
+        MainContext mainContext = MainContext.INSTANCE;
+        MainActivity mainActivity = mainContext.getMainActivity();
+        Settings settings = mainContext.getSettings();
+        Configuration configuration = mainContext.getConfiguration();
+        GraphView graphView = makeGraphView(mainActivity, settings.getGraphMaximumY());
+        graphViewWrapper = new GraphViewWrapper(graphView, settings.getChannelGraphLegend());
+        configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
+        int frequencyStart = DataManager.frequencyAdjustment(wiFiChannelPair.first.getFrequency());
+        int frequencyEnd = DataManager.frequencyAdjustment(wiFiChannelPair.second.getFrequency());
         int minX = frequencyStart - WiFiChannels.FREQUENCY_OFFSET;
         int maxX = minX + (graphViewWrapper.getViewportCntX() * WiFiChannels.FREQUENCY_SPREAD);
         graphViewWrapper.setViewport(minX, maxX);
+        graphViewWrapper.addSeries(makeDefaultSeries(frequencyEnd, minX));
+        return graphViewWrapper;
+    }
 
+    private TitleLineGraphSeries<DataPoint> makeDefaultSeries(int frequencyEnd, int minX) {
         DataPoint[] dataPoints = new DataPoint[]{
-            new DataPoint(minX, GraphViewBuilder.MIN_Y),
-            new DataPoint(frequencyEnd + WiFiChannels.FREQUENCY_OFFSET, GraphViewBuilder.MIN_Y)
+            new DataPoint(minX, MIN_Y),
+            new DataPoint(frequencyEnd + WiFiChannels.FREQUENCY_OFFSET, MIN_Y)
         };
 
         TitleLineGraphSeries<DataPoint> series = new TitleLineGraphSeries<>(dataPoints);
         series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
         series.setThickness(THICKNESS_INVISIBLE);
-        graphViewWrapper.addSeries(series);
-        return graphViewWrapper;
+        return series;
     }
 
     void setGraphViewWrapper(@NonNull GraphViewWrapper graphViewWrapper) {
         this.graphViewWrapper = graphViewWrapper;
     }
 
-    private int frequencyAdjustment(int frequency) {
-        return frequency - (frequency % 5);
+    void setDataManager(@NonNull DataManager dataManager) {
+        this.dataManager = dataManager;
     }
+
 }

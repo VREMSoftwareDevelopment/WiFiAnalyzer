@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ WiFi Analyzer
-  ~ Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@
     <string name="navigation_drawer_open">Abrir gaveta de notificações</string>
     <string name="navigation_drawer_close">Fechar gaveta de notificações</string>
 
+    <!-- action start -->
     <string name="action_access_points">Pontos de Acesso</string>
     <string name="action_channel_rating">Avaliação dos Canais</string>
     <string name="action_channel_graph">Gráfico de Canais</string>
@@ -35,6 +36,7 @@
     <string name="action_vendors">Vendedores</string>
     <string name="action_settings">Configurações</string>
     <string name="action_about">Sobre</string>
+    <!-- action end -->
 
     <string name="button_cancel">Cancelar</string>
     <string name="no_data">Sem Dados</string>
@@ -63,6 +65,7 @@
     <string name="sort_by_title">Ordenar Pontos de Acesso Por</string>
     <string name="group_by_title">Agrupar Pontos de Acesso Por</string>
     <string name="ap_view_title">Exibição do ponto de acesso</string>
+    <string name="graph_maximum_y_title">Gráfico Máxima Força do Sinal</string>
     <string name="channel_graph_legend_title">Legenda do Gráfico de Canais</string>
     <string name="time_graph_legend_title">Legenda do Gráfico de Tempo</string>
     <string name="theme_title">Tema</string>
@@ -77,5 +80,6 @@
     <string name="about_library_graph_view">Vista de Gráfico</string>
     <string name="about_library_material">Desenho de material ícone</string>
     <string name="about_contributor_title">Colaboradores:</string>
+    <string name="about_write_review">Escrever uma resenha</string>
     <!-- about end -->
 </resources>

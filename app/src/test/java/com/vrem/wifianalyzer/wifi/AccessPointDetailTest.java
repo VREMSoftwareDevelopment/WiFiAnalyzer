@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,8 +24,10 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -44,6 +46,7 @@ import java.util.Locale;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -52,21 +55,21 @@ public class AccessPointDetailTest {
     private static final String VENDOR_NAME = "VendorName-VendorName-VendorName-VendorName-VendorName-VendorName";
 
     private MainActivity mainActivity;
-    private AccessPointView currentAccessPointView;
+    private Settings settings;
 
     private AccessPointDetail fixture;
 
     @Before
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getActivity();
-        currentAccessPointView = mainActivity.getCurrentAccessPointView();
-
+        settings = MainContextHelper.INSTANCE.getSettings();
+        when(settings.getAccessPointView()).thenReturn(AccessPointView.COMPLETE);
         fixture = new AccessPointDetail();
     }
 
     @After
     public void tearDown() {
-        mainActivity.setCurrentAccessPointView(currentAccessPointView);
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test
@@ -187,9 +190,9 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompactWithTabGone() throws Exception {
         // setup
-        mainActivity.setCurrentAccessPointView(AccessPointView.COMPACT);
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, wiFiAdditional);
+        when(settings.getAccessPointView()).thenReturn(AccessPointView.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -199,9 +202,9 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompactWithGroupIndicatorGone() throws Exception {
         // setup
-        mainActivity.setCurrentAccessPointView(AccessPointView.COMPACT);
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
         WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
+        when(settings.getAccessPointView()).thenReturn(AccessPointView.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -211,8 +214,8 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompactWithTabVisible() throws Exception {
         // setup
-        mainActivity.setCurrentAccessPointView(AccessPointView.COMPACT);
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
+        when(settings.getAccessPointView()).thenReturn(AccessPointView.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, true);
         // validate
@@ -222,8 +225,8 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompactWithWiFiDetailAndEmptySSID() throws Exception {
         // setup
-        mainActivity.setCurrentAccessPointView(AccessPointView.COMPACT);
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
+        when(settings.getAccessPointView()).thenReturn(AccessPointView.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -233,8 +236,8 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompactWithWiFiDetail() throws Exception {
         // setup
-        mainActivity.setCurrentAccessPointView(AccessPointView.COMPACT);
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        when(settings.getAccessPointView()).thenReturn(AccessPointView.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -244,8 +247,8 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompactWithAttachPopup() throws Exception {
         // setup
-        mainActivity.setCurrentAccessPointView(AccessPointView.COMPACT);
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        when(settings.getAccessPointView()).thenReturn(AccessPointView.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -255,8 +258,8 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompactDoesNotHaveFullDetails() throws Exception {
         // setup
-        mainActivity.setCurrentAccessPointView(AccessPointView.COMPACT);
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        when(settings.getAccessPointView()).thenReturn(AccessPointView.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate

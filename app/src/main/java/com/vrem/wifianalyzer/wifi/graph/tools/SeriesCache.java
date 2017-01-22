@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 class SeriesCache {
     private final Map<WiFiDetail, BaseSeries<DataPoint>> cache;
@@ -38,25 +39,19 @@ class SeriesCache {
         this.cache = new TreeMap<>();
     }
 
-    BaseSeries<DataPoint> add(@NonNull WiFiDetail wiFiDetail, @NonNull BaseSeries<DataPoint> series) {
-        if (!contains(wiFiDetail)) {
-            cache.put(wiFiDetail, series);
-        }
-        return cache.get(wiFiDetail);
+    List<WiFiDetail> difference(@NonNull Set<WiFiDetail> series) {
+        Set<WiFiDetail> difference = new TreeSet<>(cache.keySet());
+        difference.removeAll(series);
+        return new ArrayList<>(difference);
     }
 
-    List<BaseSeries<DataPoint>> remove(@NonNull Set<WiFiDetail> series) {
+    List<BaseSeries<DataPoint>> remove(@NonNull List<WiFiDetail> series) {
         List<BaseSeries<DataPoint>> removeSeries = new ArrayList<>();
-        List<WiFiDetail> removeFromCache = new ArrayList<>();
-        for (WiFiDetail wiFiDetail : cache.keySet()) {
-            if (series.contains(wiFiDetail)) {
-                continue;
+        for (WiFiDetail wiFiDetail : series) {
+            if (cache.containsKey(wiFiDetail)) {
+                removeSeries.add(cache.get(wiFiDetail));
+                cache.remove(wiFiDetail);
             }
-            removeSeries.add(cache.get(wiFiDetail));
-            removeFromCache.add(wiFiDetail);
-        }
-        for (WiFiDetail wiFiDetail : removeFromCache) {
-            cache.remove(wiFiDetail);
         }
         return removeSeries;
     }
@@ -72,5 +67,13 @@ class SeriesCache {
 
     boolean contains(@NonNull WiFiDetail wiFiDetail) {
         return cache.containsKey(wiFiDetail);
+    }
+
+    BaseSeries<DataPoint> get(@NonNull WiFiDetail wiFiDetail) {
+        return cache.get(wiFiDetail);
+    }
+
+    BaseSeries<DataPoint> put(WiFiDetail wiFiDetail, BaseSeries<DataPoint> series) {
+        return cache.put(wiFiDetail, series);
     }
 }

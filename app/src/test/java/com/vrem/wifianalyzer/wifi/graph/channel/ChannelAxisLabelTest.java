@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,7 +61,7 @@ public class ChannelAxisLabelTest {
     public void testYAxis() throws Exception {
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(GraphViewBuilder.MIN_Y, false));
         assertEquals("-99", fixture.formatLabel(GraphViewBuilder.MIN_Y + 1, false));
-        assertEquals("-20", fixture.formatLabel(GraphViewBuilder.MAX_Y, false));
+        assertEquals("0", fixture.formatLabel(GraphViewBuilder.MAX_Y, false));
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(GraphViewBuilder.MAX_Y + 1, false));
     }
 

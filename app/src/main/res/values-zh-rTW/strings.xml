@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ WiFi Analyzer
-  ~ Copyright (C) 2016 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -10,22 +10,23 @@
   ~
   ~ This program is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with this program. If not, see <http://www.gnu.org/licenses/>
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
   -->
 
 <resources>
     <!-- application start -->
     <string name="app_name">WiFi分析儀</string>
-    <string name="app_copyright">版權 \u00A9 2015 \u002D 2016</string>
+    <string name="app_copyright">版權 \u00A9 2015 \u002D 2017</string>
     <!-- application end -->
 
     <string name="navigation_drawer_open">開啟導覽欄</string>
     <string name="navigation_drawer_close">關閉導覽欄</string>
 
+    <!-- action start -->
     <string name="action_access_points">接入點</string>
     <string name="action_channel_rating">頻道評分</string>
     <string name="action_channel_graph">頻道圖</string>
@@ -35,6 +36,7 @@
     <string name="action_vendors">製造商</string>
     <string name="action_settings">設置</string>
     <string name="action_about">關於</string>
+    <!-- action end -->
 
     <string name="button_cancel">取消</string>
     <string name="no_data">無資料</string>
@@ -62,6 +64,7 @@
     <string name="sort_by_title">接入點排序依據</string>
     <string name="group_by_title">接入點分組依據</string>
     <string name="ap_view_title">顯示AP</string>
+    <string name="graph_maximum_y_title">圖形最大信號強度</string>
     <string name="channel_graph_legend_title">頻道圖例顯示位置</string>
     <string name="time_graph_legend_title">時間圖例顯示位置</string>
     <string name="theme_title">主題</string>
@@ -76,5 +79,6 @@
     <string name="about_library_graph_view">圖表視圖</string>
     <string name="about_library_material">Material Design圖標</string>
     <string name="about_contributor_title">貢獻者：</string>
+    <string name="about_write_review">撰寫評論</string>
     <!-- about end -->
 </resources>

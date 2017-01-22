@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,22 +28,22 @@ import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
 
-public class GraphViewBuilder {
-    public static final int MIN_Y = -100;
-    public static final int MAX_Y = -20;
-    static final int NUM_Y = (MAX_Y - MIN_Y) / 10 + 1;
-
+public class GraphViewBuilder implements GraphConstants {
     private final Context content;
     private final int numHorizontalLabels;
+    private final int maximumY;
     private final LayoutParams layoutParams;
     private LabelFormatter labelFormatter;
     private String verticalTitle;
     private String horizontalTitle;
+    private boolean horizontalLabelsVisible = true;
 
-    public GraphViewBuilder(@NonNull Context content, int numHorizontalLabels) {
+    public GraphViewBuilder(@NonNull Context content, int numHorizontalLabels, int maximumY) {
         this.content = content;
         this.numHorizontalLabels = numHorizontalLabels;
+        this.maximumY = (maximumY > MAX_Y || maximumY < MIN_Y_HALF) ? MAX_Y_DEFAULT : maximumY;
         this.layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        this.horizontalLabelsVisible = true;
     }
 
     public GraphViewBuilder setLabelFormatter(@NonNull LabelFormatter labelFormatter) {
@@ -58,6 +58,11 @@ public class GraphViewBuilder {
 
     public GraphViewBuilder setHorizontalTitle(@NonNull String horizontalTitle) {
         this.horizontalTitle = horizontalTitle;
+        return this;
+    }
+
+    public GraphViewBuilder setHorizontalLabelsVisible(boolean horizontalLabelsVisible) {
+        this.horizontalLabelsVisible = horizontalLabelsVisible;
         return this;
     }
 
@@ -83,32 +88,38 @@ public class GraphViewBuilder {
         viewport.setScrollable(true);
         viewport.setYAxisBoundsManual(true);
         viewport.setMinY(MIN_Y);
-        viewport.setMaxY(MAX_Y);
+        viewport.setMaxY(getMaximumY());
         viewport.setXAxisBoundsManual(true);
     }
 
     void setGridLabelRenderer(@NonNull GraphView graphView) {
         GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
         gridLabelRenderer.setHighlightZeroLines(false);
-        gridLabelRenderer.setNumVerticalLabels(NUM_Y);
+        gridLabelRenderer.setNumVerticalLabels(getNumVerticalLabels());
         gridLabelRenderer.setNumHorizontalLabels(numHorizontalLabels);
-
+        gridLabelRenderer.setVerticalLabelsVisible(true);
+        gridLabelRenderer.setHorizontalLabelsVisible(horizontalLabelsVisible);
+        gridLabelRenderer.setTextSize(gridLabelRenderer.getTextSize() * TEXT_SIZE_ADJUSTMENT);
+        gridLabelRenderer.reloadStyles();
         if (labelFormatter != null) {
             gridLabelRenderer.setLabelFormatter(labelFormatter);
         }
-
         if (verticalTitle != null) {
             gridLabelRenderer.setVerticalAxisTitle(verticalTitle);
-            gridLabelRenderer.setVerticalLabelsVisible(true);
-        } else {
-            gridLabelRenderer.setVerticalLabelsVisible(false);
+            gridLabelRenderer.setVerticalAxisTitleTextSize(gridLabelRenderer.getVerticalAxisTitleTextSize() * AXIS_TEXT_SIZE_ADJUSMENT);
         }
-
         if (horizontalTitle != null) {
             gridLabelRenderer.setHorizontalAxisTitle(horizontalTitle);
-            gridLabelRenderer.setHorizontalLabelsVisible(true);
-        } else {
-            gridLabelRenderer.setHorizontalLabelsVisible(false);
+            gridLabelRenderer.setHorizontalAxisTitleTextSize(gridLabelRenderer.getHorizontalAxisTitleTextSize() * AXIS_TEXT_SIZE_ADJUSMENT);
         }
     }
+
+    int getNumVerticalLabels() {
+        return (getMaximumY() - MIN_Y) / 10 + 1;
+    }
+
+    int getMaximumY() {
+        return maximumY;
+    }
+
 }

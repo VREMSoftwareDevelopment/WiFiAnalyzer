@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ class Data implements Comparable<Data> {
     private final String code;
     private final String name;
 
-    Data(String code, String name) {
+    Data(@NonNull String code, @NonNull String name) {
         this.code = code;
         this.name = name;
     }

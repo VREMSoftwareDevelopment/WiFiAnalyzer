@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation;
+package com.vrem.wifianalyzer.navigation.items;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
@@ -27,13 +28,14 @@ import android.widget.Toast;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import java.util.List;
 import java.util.Locale;
 
-class ExportItem implements NavigationMenuItem {
+class ExportItem implements NavigationItem {
 
     @Override
     public void activate(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, @NonNull NavigationMenu navigationMenu) {
@@ -50,8 +52,11 @@ class ExportItem implements NavigationMenuItem {
             Toast.makeText(mainActivity, R.string.export_not_available, Toast.LENGTH_LONG).show();
             return;
         }
-
-        mainActivity.startActivity(chooser);
+        try {
+            mainActivity.startActivity(chooser);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(mainActivity, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     private boolean exportAvailable(@NonNull MainActivity mainActivity, @NonNull Intent chooser) {

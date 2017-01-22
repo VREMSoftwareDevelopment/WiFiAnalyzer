@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,16 +25,21 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 
 public class Configuration {
-    private final boolean largeScreenLayout;
+    public static final int SIZE_MIN = 1024;
+    public static final int SIZE_MAX = 4096;
+
+    private final boolean largeScreen;
+    private int size;
     private Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
 
-    public Configuration(boolean largeScreenLayout) {
-        this.largeScreenLayout = largeScreenLayout;
+    public Configuration(boolean largeScreen) {
+        this.largeScreen = largeScreen;
+        setSize(SIZE_MAX);
         setWiFiChannelPair(WiFiChannels.UNKNOWN);
     }
 
-    public boolean isLargeScreenLayout() {
-        return largeScreenLayout;
+    public boolean isLargeScreen() {
+        return largeScreen;
     }
 
     public Pair<WiFiChannel, WiFiChannel> getWiFiChannelPair() {
@@ -43,5 +48,13 @@ public class Configuration {
 
     public void setWiFiChannelPair(@NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         this.wiFiChannelPair = wiFiChannelPair;
+    }
+
+    public boolean isSizeAvailable() {
+        return size == SIZE_MAX;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }

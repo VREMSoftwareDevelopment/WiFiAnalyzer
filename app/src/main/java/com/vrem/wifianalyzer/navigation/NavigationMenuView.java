@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,30 +18,29 @@
 
 package com.vrem.wifianalyzer.navigation;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 
 public class NavigationMenuView {
     private final NavigationView navigationView;
     private NavigationMenu currentNavigationMenu;
 
-    public NavigationMenuView(@NonNull Activity activity, @NonNull NavigationMenu currentNavigationMenu) {
-        navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
-
+    public NavigationMenuView(@NonNull MainActivity mainActivity, @NonNull NavigationMenu currentNavigationMenu) {
+        navigationView = (NavigationView) mainActivity.findViewById(R.id.nav_view);
         populateNavigationMenu();
         setCurrentNavigationMenu(currentNavigationMenu);
-        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) activity);
+        navigationView.setNavigationItemSelectedListener(mainActivity);
     }
 
     private void populateNavigationMenu() {
         Menu menu = navigationView.getMenu();
         for (NavigationGroup navigationGroup : NavigationGroup.values()) {
-            for (NavigationMenu navigationMenu : navigationGroup.navigationMenu()) {
+            for (NavigationMenu navigationMenu : navigationGroup.getNavigationMenus()) {
                 MenuItem menuItem = menu.add(navigationGroup.ordinal(), navigationMenu.ordinal(), navigationMenu.ordinal(), navigationMenu.getTitle());
                 menuItem.setIcon(navigationMenu.getIcon());
             }
@@ -66,8 +65,7 @@ public class NavigationMenuView {
         }
     }
 
-    NavigationView getNavigationView() {
+    public NavigationView getNavigationView() {
         return navigationView;
     }
-
 }

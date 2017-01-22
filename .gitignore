@@ -8,3 +8,4 @@ build
 coverage
 libs
 release
+*IntegrationTest.java

@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -76,7 +76,7 @@ public class ChannelGraphNavigationTest {
 
     @Test
     public void testChannelGraphNavigation() throws Exception {
-        verify(configuration, times(3)).isLargeScreenLayout();
+        verify(configuration, times(3)).isLargeScreen();
     }
 
     @Test
@@ -90,12 +90,12 @@ public class ChannelGraphNavigationTest {
     @Test
     public void testLargeScreen() throws Exception {
         // setup
-        when(configuration.isLargeScreenLayout()).thenReturn(true);
+        when(configuration.isLargeScreen()).thenReturn(true);
         // execute
         List<NavigationItem> actual = fixture.getNavigationItems();
         // validate
         assertEquals(3, actual.size());
-        verify(configuration, times(3)).isLargeScreenLayout();
+        verify(configuration, times(3)).isLargeScreen();
     }
 
     @Test

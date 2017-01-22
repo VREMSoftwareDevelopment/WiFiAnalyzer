@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,14 +35,14 @@ public class StartMenuPreference extends CustomPreference {
 
     private static List<Data> getData(@NonNull Context context) {
         List<Data> result = new ArrayList<>();
-        for (NavigationMenu navigationMenu : NavigationGroup.GROUP_FEATURE.navigationMenu()) {
+        for (NavigationMenu navigationMenu : NavigationGroup.GROUP_FEATURE.getNavigationMenus()) {
             result.add(new Data("" + navigationMenu.ordinal(), context.getString(navigationMenu.getTitle())));
         }
         return result;
     }
 
     private static String getDefault() {
-        return "" + NavigationGroup.GROUP_FEATURE.navigationMenu()[0].ordinal();
+        return "" + NavigationGroup.GROUP_FEATURE.getNavigationMenus().get(0).ordinal();
     }
 
 }

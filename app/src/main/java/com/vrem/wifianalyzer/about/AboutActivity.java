@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,20 +18,29 @@
 
 package com.vrem.wifianalyzer.about;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vrem.wifianalyzer.BuildConfig;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -64,8 +73,17 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void setExtraInformation() {
+        String config = StringUtils.EMPTY;
+        Configuration configuration = MainContext.INSTANCE.getConfiguration();
+        if (configuration.isSizeAvailable()) {
+            config += "S";
+        }
+        if (configuration.isLargeScreen()) {
+            config += "L";
+        }
         ((TextView) findViewById(R.id.about_version_info)).setText(
-            BuildConfig.VERSION_NAME + " - " + BuildConfig.VERSION_CODE + " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")");
+            BuildConfig.VERSION_NAME + " - " + BuildConfig.VERSION_CODE + config
+                + " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")");
         ((TextView) findViewById(R.id.about_package_name)).setText(BuildConfig.APPLICATION_ID);
     }
 
@@ -77,4 +95,15 @@ public class AboutActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void writeReview(@NonNull View view) {
+        String url = "market://details?id=" + BuildConfig.APPLICATION_ID;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
 }

@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -183,7 +183,7 @@ public class TitleLineGraphSeries<E extends DataPointInterface> extends BaseSeri
             float y = (float) (graphTop - titleY) + graphHeight - 10;
 
             paintTitle.setColor(getColor());
-            paintTitle.setTextSize(graphView.getLegendRenderer().getTextSize());
+            paintTitle.setTextSize(graphView.getTitleTextSize());
             paintTitle.setFakeBoldText(textBold);
             canvas.drawText(getTitle(), x, y, paintTitle);
         }

@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,46 +16,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation;
+package com.vrem.wifianalyzer.navigation.options;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.view.MenuItem;
+import android.view.View;
 
 import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.about.AboutActivity;
+import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.navigation.NavigationSwipeOnTouchListener;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ActivityItemTest {
-
+public class NextPrevNavigationOnTest {
     @Mock
-    private MainActivity mockMainActivity;
+    private MainActivity mainActivity;
     @Mock
-    private MenuItem mockMenuItem;
-    @Mock
-    private Intent mockIntent;
+    private View view;
 
     @Test
-    public void testActivate() throws Exception {
+    public void testApplySetsSwipeOnTouchListener() throws Exception {
         // setup
-        ActivityItem fixture = new ActivityItem(AboutActivity.class) {
-            @Override
-            Intent createIntent(@NonNull MainActivity mainActivity) {
-                assertEquals(mockMainActivity, mainActivity);
-                return mockIntent;
-            }
-        };
+        NextPrevNavigationOn fixture = new NextPrevNavigationOn();
+        when(mainActivity.findViewById(R.id.main_fragment_layout)).thenReturn(view);
         // execute
-        fixture.activate(mockMainActivity, mockMenuItem, NavigationMenu.ABOUT);
+        fixture.apply(mainActivity);
         // validate
-        verify(mockMainActivity).startActivity(mockIntent);
+        verify(mainActivity).findViewById(R.id.main_fragment_layout);
+        verify(view).setOnTouchListener(any(NavigationSwipeOnTouchListener.class));
     }
+
 }

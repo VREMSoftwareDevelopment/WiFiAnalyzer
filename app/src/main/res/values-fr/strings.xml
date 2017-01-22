@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ WiFi Analyzer
-  ~ Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@
     <string name="navigation_drawer_open">Afficher le volet de navigation</string>
     <string name="navigation_drawer_close">Masquer le volet de navigation</string>
 
+    <!-- action start -->
     <string name="action_access_points">Points d\'acccès</string>
     <string name="action_channel_rating">Qualité de réception</string>
     <string name="action_channel_graph">Graphique par canal</string>
@@ -35,6 +36,7 @@
     <string name="action_vendors">Vendeurs</string>
     <string name="action_settings">Configuration</string>
     <string name="action_about">À propos</string>
+    <!-- action end -->
 
     <string name="button_cancel">Annuler</string>
     <string name="no_data">Aucune donnée</string>
@@ -63,6 +65,7 @@
     <string name="sort_by_title">Trier les points d\'accès par :</string>
     <string name="group_by_title">Grouper les points d\'accès par :</string>
     <string name="ap_view_title">Affichage des point d\'accès</string>
+    <string name="graph_maximum_y_title">Graphique Puissance maximale du signal</string>
     <string name="channel_graph_legend_title">Légende pour le graphique des canaux</string>
     <string name="time_graph_legend_title">Légende pour le graphique temporel</string>
     <string name="theme_title">Thème</string>
@@ -77,5 +80,6 @@
     <string name="about_library_graph_view">Visualisation graphique</string>
     <string name="about_library_material">"Icones de \'Material Design\'"</string>
     <string name="about_contributor_title">Contributeurs :</string>
+    <string name="about_write_review">Donner votre avis</string>
     <!-- about end -->
 </resources>

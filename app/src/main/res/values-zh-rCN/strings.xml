@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ WiFi Analyzer
-  ~ Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@
     <string name="navigation_drawer_open">打开式导览</string>
     <string name="navigation_drawer_close">关闭导览</string>
 
+    <!-- action start -->
     <string name="action_access_points">接入点</string>
     <string name="action_channel_rating">信道评级</string>
     <string name="action_channel_graph">信道图</string>
@@ -35,6 +36,7 @@
     <string name="action_vendors">制造商</string>
     <string name="action_settings">设置</string>
     <string name="action_about">关于</string>
+    <!-- action end -->
 
     <string name="button_cancel">取消</string>
     <string name="no_data">无数据</string>
@@ -63,6 +65,7 @@
     <string name="sort_by_title">接入点排序依据</string>
     <string name="group_by_title">接入点分组依据</string>
     <string name="ap_view_title">接入点显示</string>
+    <string name="graph_maximum_y_title">图形最大信号强度</string>
     <string name="channel_graph_legend_title">信道图例显示位置</string>
     <string name="time_graph_legend_title">时间图例显示位置</string>
     <string name="theme_title">主题</string>
@@ -77,5 +80,6 @@
     <string name="about_library_graph_view">图表视图</string>
     <string name="about_library_material">质感设计图标</string>
     <string name="about_contributor_title">贡献者:</string>
+    <string name="about_write_review">我要评价</string>
     <!-- about end -->
 </resources>

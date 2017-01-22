@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ WiFi Analyzer
-  ~ Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- action start -->
     <string name="action_access_points">Access Points</string>
     <string name="action_channel_rating">Channel Rating</string>
     <string name="action_channel_graph">Channel Graph</string>
@@ -37,6 +38,9 @@
     <string name="action_vendors">Vendors</string>
     <string name="action_settings">Settings</string>
     <string name="action_about">About</string>
+    <string name="action_pause" translatable="false">Pause</string>
+    <string name="action_resume" translatable="false">Resume</string>
+    <!-- action end -->
 
     <string name="button_ok" translatable="false">OK</string>
     <string name="button_cancel">Cancel</string>
@@ -95,6 +99,11 @@
     <string name="ap_view_key" translatable="false">view</string>
     <string name="ap_view_default" translatable="false">0</string>
 
+    <string name="graph_maximum_y_title">Graph Maximum Signal Strength</string>
+    <string name="graph_maximum_y_summary" translatable="false">%s</string>
+    <string name="graph_maximum_y_key" translatable="false">graph_maximum_y</string>
+    <string name="graph_maximum_y_default" translatable="false">2</string>
+
     <string name="channel_graph_legend_title">Channel Graph Legend Display</string>
     <string name="channel_graph_legend_summary" translatable="false">%s</string>
     <string name="channel_graph_legend_key" translatable="false">channel_graph_legend</string>
@@ -112,6 +121,7 @@
     <!-- settings end -->
 
     <!-- about start -->
+    <string name="about_application_name" translatable="false">WiFiAnalyzer (open-source)</string>
     <string name="about_license_title">License:</string>
     <string name="about_license_name">Licensed under the GPLv3</string>
     <string name="about_license_url" translatable="false">http://www.gnu.org/licenses/gpl-3.0.html</string>
@@ -126,5 +136,6 @@
     <string name="about_library_material_url" translatable="false">https://design.google.com/icons</string>
     <string name="about_contributor_title">Contributors:</string>
     <string name="about_contributor_list" translatable="false">"Abuzer Rafey, Alex Orchard, Alexei Guevara, Caren DesBrisay, Dan Light, David Jones, Gina Chaves, Graham Foster, Jean Bourgeois, Kevin Jiang, Lee McCallum, Lukas Winkler, Marco Santinelli, Michael Melo, Michael Pickard, Silviu Marcu, Vadim Karantayer, Wei McCallum, William Gathoye, Yuriy Timofeev, 'Akira, Genghis, TaiXiong"</string>
+    <string name="about_write_review">Write a Review</string>
     <!-- about end -->
 </resources>

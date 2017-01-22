@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ WiFi Analyzer
-  ~ Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@
     <string name="navigation_drawer_open">Открыть панель навигации</string>
     <string name="navigation_drawer_close">Закрыть панель навигации</string>
 
+    <!-- action start -->
     <string name="action_access_points">Точки доступа</string>
     <string name="action_channel_rating">Оценка каналов</string>
     <string name="action_channel_graph">График каналов</string>
@@ -34,6 +35,7 @@
     <string name="action_vendors">Поставщики</string>
     <string name="action_settings">Настройки</string>
     <string name="action_about">О Программе</string>
+    <!-- action end -->
 
     <string name="button_cancel">Отмена</string>
     <string name="no_data">Нет данных</string>
@@ -62,6 +64,7 @@
     <string name="sort_by_title">Сортировка</string>
     <string name="group_by_title">Группировка</string>
     <string name="ap_view_title">Точка доступа</string>
+    <string name="graph_maximum_y_title">Максимальная сила сигнала графика</string>
     <string name="channel_graph_legend_title">Показать легенду графика каналa</string>
     <string name="time_graph_legend_title">Показать легенду графика времени</string>
     <string name="theme_title">Цветовая тема</string>
@@ -76,5 +79,6 @@
     <string name="about_library_graph_view">Просмотр диаграммы</string>
     <string name="about_library_material">Материальный дизайн иконок</string>
     <string name="about_contributor_title">Авторы:</string>
+    <string name="about_write_review">Написать отзыв</string>
     <!-- about end -->
 </resources>

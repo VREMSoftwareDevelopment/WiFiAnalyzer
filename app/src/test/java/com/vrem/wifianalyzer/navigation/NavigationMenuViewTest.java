@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,7 +64,7 @@ public class NavigationMenuViewTest {
         assertEquals(NavigationMenu.values().length, menu.size());
 
         for (NavigationGroup navigationGroup : NavigationGroup.values()) {
-            for (NavigationMenu navigationMenu : navigationGroup.navigationMenu()) {
+            for (NavigationMenu navigationMenu : navigationGroup.getNavigationMenus()) {
                 MenuItem actual = menu.getItem(navigationMenu.ordinal());
                 assertEquals(navigationGroup.ordinal(), actual.getGroupId());
                 assertEquals(mainActivity.getResources().getString(navigationMenu.getTitle()), actual.getTitle());

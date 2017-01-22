@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation;
+package com.vrem.wifianalyzer.navigation.items;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,6 +25,8 @@ import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.navigation.NavigationMenu;
+import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,7 +67,7 @@ public class FragmentItemTest {
         verifyFragmentTransaction();
         verify(navigationMenuView).setCurrentNavigationMenu(navigationMenu);
         verify(mainActivity).setTitle(title);
-        verify(mainActivity).updateSubTitle();
+        verify(mainActivity).updateActionBar();
     }
 
     private void withFragmentTransaction() {

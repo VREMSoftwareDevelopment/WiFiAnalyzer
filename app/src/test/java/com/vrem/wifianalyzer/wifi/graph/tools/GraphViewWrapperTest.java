@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@ import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.BaseSeries;
 import com.jjoe64.graphview.series.DataPoint;
+import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import org.junit.Before;
@@ -35,6 +36,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -44,12 +46,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GraphViewWrapperTest {
-    private static final float VALUE = 10.0f;
     @Mock
     private GraphView graphView;
     @Mock
@@ -63,13 +65,14 @@ public class GraphViewWrapperTest {
     @Mock
     private SeriesCache seriesCache;
     @Mock
-    private GraphColors graphColors;
+    private SeriesOptions seriesOptions;
     @Mock
     private BaseSeries<DataPoint> baseSeries;
     @Mock
     private BaseSeries<DataPoint> currentSeries;
 
     private DataPoint dataPoint;
+    private DataPoint[] dataPoints;
     private WiFiDetail wiFiDetail;
     private GraphViewWrapper fixture;
 
@@ -77,9 +80,9 @@ public class GraphViewWrapperTest {
     public void setUp() {
         wiFiDetail = WiFiDetail.EMPTY;
         dataPoint = new DataPoint(1, 2);
+        dataPoints = new DataPoint[]{dataPoint};
 
         when(graphView.getLegendRenderer()).thenReturn(legendRenderer);
-        when(legendRenderer.getTextSize()).thenReturn(VALUE);
 
         fixture = new GraphViewWrapper(graphView, GraphLegend.HIDE) {
             @Override
@@ -87,8 +90,8 @@ public class GraphViewWrapperTest {
                 return legendRenderer;
             }
         };
-        fixture.setGraphColors(graphColors);
         fixture.setSeriesCache(seriesCache);
+        fixture.setSeriesOptions(seriesOptions);
 
         assertEquals(GraphLegend.HIDE, fixture.getGraphLegend());
     }
@@ -97,78 +100,137 @@ public class GraphViewWrapperTest {
     public void testRemoveSeries() throws Exception {
         // setup
         Set<WiFiDetail> newSeries = new TreeSet<>();
+        List<WiFiDetail> difference = new ArrayList<>();
         //noinspection ArraysAsListWithZeroOrOneArgument
         List<BaseSeries<DataPoint>> removed = Arrays.asList(baseSeries);
         int color = 10;
-        when(seriesCache.remove(newSeries)).thenReturn(removed);
+        when(seriesCache.difference(newSeries)).thenReturn(difference);
+        when(seriesCache.remove(difference)).thenReturn(removed);
         when(baseSeries.getColor()).thenReturn(color);
         // execute
         fixture.removeSeries(newSeries);
         // validate
-        verify(seriesCache).remove(newSeries);
-        verify(baseSeries).getColor();
-        verify(graphColors).addColor(color);
+        verify(seriesCache).difference(newSeries);
+        verify(seriesCache).remove(difference);
+        verify(seriesOptions).removeSeriesColor(baseSeries);
         verify(graphView).removeSeries(baseSeries);
     }
 
     @Test
-    public void testAppendSeries() throws Exception {
+    public void testDifferenceSeries() throws Exception {
         // setup
-        when(seriesCache.add(wiFiDetail, baseSeries)).thenReturn(currentSeries);
+        Set<WiFiDetail> newSeries = new TreeSet<>();
+        List<WiFiDetail> expected = new ArrayList<>();
+        when(seriesCache.difference(newSeries)).thenReturn(expected);
         // execute
-        boolean actual = fixture.appendSeries(wiFiDetail, baseSeries, dataPoint, 10);
+        List<WiFiDetail> actual = fixture.differenceSeries(newSeries);
+        // validate
+        assertEquals(expected, actual);
+        verify(seriesCache).difference(newSeries);
+    }
+
+    @Test
+    public void testAddSeriesDirectly() throws Exception {
+        // execute
+        fixture.addSeries(baseSeries);
+        // validate
+        verify(graphView).addSeries(baseSeries);
+    }
+
+    @Test
+    public void testAddSeriesWhenSeriesExistsDoesNotAddSeries() throws Exception {
+        // setup
+        when(seriesCache.contains(wiFiDetail)).thenReturn(true);
+        // execute
+        boolean actual = fixture.addSeries(wiFiDetail, baseSeries, false);
         // validate
         assertFalse(actual);
-        verify(seriesCache).add(wiFiDetail, baseSeries);
-        verify(currentSeries).appendData(dataPoint, true, 11);
+        verify(seriesCache).contains(wiFiDetail);
+        verify(seriesCache, never()).put(wiFiDetail, baseSeries);
     }
 
     @Test
-    public void testAppendSeriesNew() throws Exception {
+    public void testAddSeriesAddsSeries() throws Exception {
         // setup
         String expectedTitle = wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getChannelDisplay();
-        when(seriesCache.add(wiFiDetail, baseSeries)).thenReturn(baseSeries);
+        boolean connected = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
+        when(seriesCache.contains(wiFiDetail)).thenReturn(false);
         // execute
-        boolean actual = fixture.appendSeries(wiFiDetail, baseSeries, dataPoint, 10);
+        boolean actual = fixture.addSeries(wiFiDetail, baseSeries, true);
         // validate
         assertTrue(actual);
-        verify(seriesCache).add(wiFiDetail, baseSeries);
-        verify(graphView).addSeries(baseSeries);
+        verify(seriesCache).contains(wiFiDetail);
+        verify(seriesCache).put(wiFiDetail, baseSeries);
         verify(baseSeries).setTitle(expectedTitle);
         verify(baseSeries).setOnDataPointTapListener(any(GraphViewWrapper.GraphTapListener.class));
+        verify(seriesOptions).highlightConnected(baseSeries, connected);
+        verify(seriesOptions).setSeriesColor(baseSeries, true);
+        verify(graphView).addSeries(baseSeries);
     }
 
     @Test
-    public void testAddSeries() throws Exception {
+    public void testUpdateSeriesWhenSeriesDoesNotExistsDoesNotUpdateSeries() throws Exception {
         // setup
-        DataPoint[] dataPoints = {dataPoint};
-        when(seriesCache.add(wiFiDetail, baseSeries)).thenReturn(currentSeries);
+        when(seriesCache.contains(wiFiDetail)).thenReturn(false);
         // execute
-        boolean actual = fixture.addSeries(wiFiDetail, baseSeries, dataPoints);
+        boolean actual = fixture.updateSeries(wiFiDetail, dataPoints);
         // validate
         assertFalse(actual);
-        verify(seriesCache).add(wiFiDetail, baseSeries);
-        verify(currentSeries).resetData(dataPoints);
+        verify(seriesCache).contains(wiFiDetail);
+        verify(seriesCache, never()).get(wiFiDetail);
     }
 
     @Test
-    public void testAddSeriesNew() throws Exception {
+    public void testUpdateSeriesWhenSeriesDoesExists() throws Exception {
         // setup
-        String expectedTitle = wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getChannelDisplay();
-        DataPoint[] dataPoints = {dataPoint};
-        when(seriesCache.add(wiFiDetail, baseSeries)).thenReturn(baseSeries);
+        boolean connected = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
+        when(seriesCache.contains(wiFiDetail)).thenReturn(true);
+        when(seriesCache.get(wiFiDetail)).thenReturn(baseSeries);
         // execute
-        boolean actual = fixture.addSeries(wiFiDetail, baseSeries, dataPoints);
+        boolean actual = fixture.updateSeries(wiFiDetail, dataPoints);
         // validate
         assertTrue(actual);
-        verify(seriesCache).add(wiFiDetail, baseSeries);
-        verify(graphView).addSeries(baseSeries);
-        verify(baseSeries).setTitle(expectedTitle);
-        verify(baseSeries).setOnDataPointTapListener(any(GraphViewWrapper.GraphTapListener.class));
+        verify(seriesCache).contains(wiFiDetail);
+        verify(seriesCache).get(wiFiDetail);
+        verify(baseSeries).resetData(dataPoints);
+        verify(seriesOptions).highlightConnected(baseSeries, connected);
+    }
+
+    @Test
+    public void testAppendSeriesWhenSeriesDoesNotExistsDoesNotUpdateSeries() throws Exception {
+        // setup
+        int count = 10;
+        when(seriesCache.contains(wiFiDetail)).thenReturn(false);
+        // execute
+        boolean actual = fixture.appendToSeries(wiFiDetail, dataPoint, count);
+        // validate
+        assertFalse(actual);
+        verify(seriesCache).contains(wiFiDetail);
+        verify(seriesCache, never()).get(wiFiDetail);
+    }
+
+    @Test
+    public void testAppendSeriesWhenSeriesDoesExists() throws Exception {
+        // setup
+        int count = 10;
+        boolean connected = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
+        when(seriesCache.contains(wiFiDetail)).thenReturn(true);
+        when(seriesCache.get(wiFiDetail)).thenReturn(baseSeries);
+        // execute
+        boolean actual = fixture.appendToSeries(wiFiDetail, dataPoint, count);
+        // validate
+        assertTrue(actual);
+        verify(seriesCache).contains(wiFiDetail);
+        verify(seriesCache).get(wiFiDetail);
+        verify(baseSeries).appendData(dataPoint, true, count + 1);
+        verify(seriesOptions).highlightConnected(baseSeries, connected);
     }
 
     @Test
     public void testUpdateLegend() throws Exception {
+        // setup
+        float textSize = 10f;
+        when(graphView.getTitleTextSize()).thenReturn(textSize);
         // execute
         fixture.updateLegend(GraphLegend.RIGHT);
         // validate
@@ -176,7 +238,7 @@ public class GraphViewWrapperTest {
         verify(graphView).setLegendRenderer(legendRenderer);
         verify(legendRenderer).resetStyles();
         verify(legendRenderer).setWidth(0);
-        verify(legendRenderer).setTextSize(VALUE * GraphViewWrapper.TEXT_SIZE_ADJUSTMENT);
+        verify(legendRenderer).setTextSize(textSize);
     }
 
     @Test
@@ -185,6 +247,12 @@ public class GraphViewWrapperTest {
         fixture.setVisibility(View.VISIBLE);
         // validate
         verify(graphView).setVisibility(View.VISIBLE);
+    }
+
+    @Test
+    public void testCalculateGraphType() throws Exception {
+        // execute & validate
+        assertTrue(fixture.calculateGraphType() > 0);
     }
 
     @Test
@@ -204,6 +272,15 @@ public class GraphViewWrapperTest {
     }
 
     @Test
+    public void testGetSize() throws Exception {
+        // execute & validate
+        assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphViewWrapper.TYPE1));
+        assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphViewWrapper.TYPE2));
+        assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphViewWrapper.TYPE3));
+        assertEquals(Configuration.SIZE_MIN, fixture.getSize(GraphViewWrapper.TYPE4));
+    }
+
+    @Test
     public void testSetViewportWithMinAndMax() throws Exception {
         // setup
         when(graphView.getViewport()).thenReturn(viewport);
@@ -215,4 +292,14 @@ public class GraphViewWrapperTest {
         verify(viewport).setMaxX(2);
     }
 
+    @Test
+    public void testIsNewSeries() throws Exception {
+        // setup
+        when(seriesCache.contains(wiFiDetail)).thenReturn(false);
+        // execute
+        boolean actual = fixture.isNewSeries(wiFiDetail);
+        // validate
+        assertTrue(actual);
+        verify(seriesCache).contains(wiFiDetail);
+    }
 }

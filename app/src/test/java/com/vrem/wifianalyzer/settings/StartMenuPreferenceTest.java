@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,6 +31,8 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
@@ -49,24 +51,26 @@ public class StartMenuPreferenceTest {
     @Test
     public void testGetEntries() throws Exception {
         // setup
-        NavigationMenu[] expected = NavigationGroup.GROUP_FEATURE.navigationMenu();
+        List<NavigationMenu> expected = NavigationGroup.GROUP_FEATURE.getNavigationMenus();
         // execute
         CharSequence[] actual = fixture.getEntries();
         // validate
-        assertEquals(expected.length, actual.length);
-        assertEquals(mainActivity.getResources().getString(expected[0].getTitle()), actual[0]);
-        assertEquals(mainActivity.getResources().getString(expected[expected.length - 1].getTitle()), actual[expected.length - 1]);
+        assertEquals(expected.size(), actual.length);
+        assertEquals(mainActivity.getResources().getString(expected.get(0).getTitle()), actual[0]);
+        int index = expected.size() - 1;
+        assertEquals(mainActivity.getResources().getString(expected.get(index).getTitle()), actual[index]);
     }
 
     @Test
     public void testGetEntryValues() throws Exception {
         // setup
-        NavigationMenu[] expected = NavigationGroup.GROUP_FEATURE.navigationMenu();
+        List<NavigationMenu> expected = NavigationGroup.GROUP_FEATURE.getNavigationMenus();
         // execute
         CharSequence[] actual = fixture.getEntryValues();
         // validate
-        assertEquals(expected.length, actual.length);
-        assertEquals("" + expected[0].ordinal(), actual[0]);
-        assertEquals("" + expected[expected.length - 1].ordinal(), actual[expected.length - 1]);
+        assertEquals(expected.size(), actual.length);
+        assertEquals("" + expected.get(0).ordinal(), actual[0]);
+        int index = expected.size() - 1;
+        assertEquals("" + expected.get(index).ordinal(), actual[index]);
     }
 }

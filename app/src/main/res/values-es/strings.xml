@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ WiFi Analyzer
-  ~ Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@
     <string name="navigation_drawer_open">Abrir panel de navegación</string>
     <string name="navigation_drawer_close">Cierre el panel de navegación</string>
 
+    <!-- action start -->
     <string name="action_access_points">Puntos de acceso</string>
     <string name="action_channel_rating">Clasificación de Canal</string>
     <string name="action_channel_graph">Gráfico de Canal</string>
@@ -35,6 +36,7 @@
     <string name="action_vendors">Vendedores</string>
     <string name="action_settings">Ajustes</string>
     <string name="action_about">Acerca de</string>
+    <!-- action end -->
 
     <string name="button_cancel">Cancelar</string>
     <string name="no_data">Sin datos</string>
@@ -63,6 +65,7 @@
     <string name="sort_by_title">Ordenar Puntos de Accesso por:</string>
     <string name="group_by_title">Agrupar Puntos de Acceso por:</string>
     <string name="ap_view_title">Pantalla del punto de acceso</string>
+    <string name="graph_maximum_y_title">Gráfico de la intensidad máxima de la señal</string>
     <string name="channel_graph_legend_title">Leyenda de Visualización de Gráfico de Canales</string>
     <string name="time_graph_legend_title">Leyenda de Visualización de Gráfico de Tiempo</string>
     <string name="theme_title">Tema</string>
@@ -77,5 +80,6 @@
     <string name="about_library_graph_view">Vista Gráfica</string>
     <string name="about_library_material">"Iconos de \'Diseño de Materiales\'"</string>
     <string name="about_contributor_title">Colaboradores:</string>
+    <string name="about_write_review">Escribir una opinión</string>
     <!-- about end -->
 </resources>

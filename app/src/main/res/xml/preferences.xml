@@ -1,6 +1,6 @@
 <!--
   ~ WiFi Analyzer
-  ~ Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -59,6 +59,15 @@
         android:persistent="true"
         android:summary="@string/ap_view_summary"
         android:title="@string/ap_view_title"/>
+
+    <ListPreference
+        android:defaultValue="@string/graph_maximum_y_default"
+        android:entries="@array/graph_maximum_y_array"
+        android:entryValues="@array/graph_maximum_y_index_array"
+        android:key="@string/graph_maximum_y_key"
+        android:persistent="true"
+        android:summary="@string/graph_maximum_y_summary"
+        android:title="@string/graph_maximum_y_title"/>
 
     <ListPreference
         android:defaultValue="@string/channel_graph_legend_default"

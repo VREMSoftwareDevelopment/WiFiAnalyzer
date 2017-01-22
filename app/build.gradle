@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -86,8 +86,8 @@ dependencies {
     testCompile 'org.powermock:powermock-module-junit4:1.6.6'
     testCompile 'org.powermock:powermock-api-mockito:1.6.6'
     testCompile 'com.googlecode.junit-toolbox:junit-toolbox:2.2'
-    testCompile 'org.robolectric:robolectric:3.1.4'
-    testCompile 'org.robolectric:shadows-support-v4:3.1.4'
+    testCompile 'org.robolectric:robolectric:3.2.2'
+    testCompile 'org.robolectric:shadows-support-v4:3.2.2'
 }
 
 updateVersion()

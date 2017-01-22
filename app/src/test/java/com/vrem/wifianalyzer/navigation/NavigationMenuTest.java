@@ -1,6 +1,6 @@
 /*
  * WiFi Analyzer
- * Copyright (C) 2016  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,14 +19,8 @@
 package com.vrem.wifianalyzer.navigation;
 
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.about.AboutActivity;
-import com.vrem.wifianalyzer.settings.SettingActivity;
-import com.vrem.wifianalyzer.vendor.VendorFragment;
-import com.vrem.wifianalyzer.wifi.AccessPointsFragment;
-import com.vrem.wifianalyzer.wifi.ChannelAvailableFragment;
-import com.vrem.wifianalyzer.wifi.ChannelRatingFragment;
-import com.vrem.wifianalyzer.wifi.graph.channel.ChannelGraphFragment;
-import com.vrem.wifianalyzer.wifi.graph.time.TimeGraphFragment;
+import com.vrem.wifianalyzer.navigation.items.NavigationItemFactory;
+import com.vrem.wifianalyzer.navigation.options.NavigationOptionFactory;
 
 import org.junit.Test;
 
@@ -58,34 +52,16 @@ public class NavigationMenuTest {
     }
 
     @Test
-    public void testGetItem() throws Exception {
-        assertTrue(NavigationMenu.ACCESS_POINTS.getItem() instanceof FragmentItem);
-        assertTrue(NavigationMenu.CHANNEL_RATING.getItem() instanceof FragmentItem);
-        assertTrue(NavigationMenu.CHANNEL_GRAPH.getItem() instanceof FragmentItem);
-        assertTrue(NavigationMenu.TIME_GRAPH.getItem() instanceof FragmentItem);
-        assertTrue(NavigationMenu.CHANNEL_AVAILABLE.getItem() instanceof FragmentItem);
-        assertTrue(NavigationMenu.VENDOR_LIST.getItem() instanceof FragmentItem);
-
-        assertTrue(NavigationMenu.EXPORT.getItem() instanceof ExportItem);
-
-        assertTrue(NavigationMenu.SETTINGS.getItem() instanceof ActivityItem);
-        assertTrue(NavigationMenu.ABOUT.getItem() instanceof ActivityItem);
-    }
-
-    @Test
-    public void testFragmentItemContainsCorrectFragment() throws Exception {
-        assertTrue(((FragmentItem) NavigationMenu.ACCESS_POINTS.getItem()).getFragment() instanceof AccessPointsFragment);
-        assertTrue(((FragmentItem) NavigationMenu.CHANNEL_RATING.getItem()).getFragment() instanceof ChannelRatingFragment);
-        assertTrue(((FragmentItem) NavigationMenu.CHANNEL_GRAPH.getItem()).getFragment() instanceof ChannelGraphFragment);
-        assertTrue(((FragmentItem) NavigationMenu.TIME_GRAPH.getItem()).getFragment() instanceof TimeGraphFragment);
-        assertTrue(((FragmentItem) NavigationMenu.CHANNEL_AVAILABLE.getItem()).getFragment() instanceof ChannelAvailableFragment);
-        assertTrue(((FragmentItem) NavigationMenu.VENDOR_LIST.getItem()).getFragment() instanceof VendorFragment);
-    }
-
-    @Test
-    public void testActivityItemContainsCorrectActivity() throws Exception {
-        assertEquals(SettingActivity.class, ((ActivityItem) NavigationMenu.SETTINGS.getItem()).getActivity());
-        assertEquals(AboutActivity.class, ((ActivityItem) NavigationMenu.ABOUT.getItem()).getActivity());
+    public void testGetNavigationItem() throws Exception {
+        assertEquals(NavigationItemFactory.ACCESS_POINTS, NavigationMenu.ACCESS_POINTS.getNavigationItem());
+        assertEquals(NavigationItemFactory.CHANNEL_RATING, NavigationMenu.CHANNEL_RATING.getNavigationItem());
+        assertEquals(NavigationItemFactory.CHANNEL_GRAPH, NavigationMenu.CHANNEL_GRAPH.getNavigationItem());
+        assertEquals(NavigationItemFactory.TIME_GRAPH, NavigationMenu.TIME_GRAPH.getNavigationItem());
+        assertEquals(NavigationItemFactory.CHANNEL_AVAILABLE, NavigationMenu.CHANNEL_AVAILABLE.getNavigationItem());
+        assertEquals(NavigationItemFactory.VENDOR_LIST, NavigationMenu.VENDOR_LIST.getNavigationItem());
+        assertEquals(NavigationItemFactory.EXPORT, NavigationMenu.EXPORT.getNavigationItem());
+        assertEquals(NavigationItemFactory.SETTINGS, NavigationMenu.SETTINGS.getNavigationItem());
+        assertEquals(NavigationItemFactory.ABOUT, NavigationMenu.ABOUT.getNavigationItem());
     }
 
     @Test
@@ -112,6 +88,7 @@ public class NavigationMenuTest {
     @Test
     public void testIsWiFiBandSwitchableFalse() throws Exception {
         assertFalse(NavigationMenu.CHANNEL_AVAILABLE.isWiFiBandSwitchable());
+        assertFalse(NavigationMenu.EXPORT.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.VENDOR_LIST.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.SETTINGS.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.ABOUT.isWiFiBandSwitchable());
@@ -128,5 +105,19 @@ public class NavigationMenuTest {
         assertEquals(R.drawable.ic_list_grey_500_48dp, NavigationMenu.VENDOR_LIST.getIcon());
         assertEquals(R.drawable.ic_settings_grey_500_48dp, NavigationMenu.SETTINGS.getIcon());
         assertEquals(R.drawable.ic_info_outline_grey_500_48dp, NavigationMenu.ABOUT.getIcon());
+    }
+
+    @Test
+    public void testGetNavigationOptions() throws Exception {
+        assertEquals(NavigationOptionFactory.ALL_ON, NavigationMenu.ACCESS_POINTS.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.ALL_ON, NavigationMenu.CHANNEL_RATING.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.ALL_ON, NavigationMenu.CHANNEL_GRAPH.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.ALL_ON, NavigationMenu.TIME_GRAPH.getNavigationOptions());
+
+        assertEquals(NavigationOptionFactory.ALL_OFF, NavigationMenu.CHANNEL_AVAILABLE.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.ALL_OFF, NavigationMenu.VENDOR_LIST.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.ALL_OFF, NavigationMenu.EXPORT.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.ALL_OFF, NavigationMenu.SETTINGS.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.ALL_OFF, NavigationMenu.ABOUT.getNavigationOptions());
     }
 }
