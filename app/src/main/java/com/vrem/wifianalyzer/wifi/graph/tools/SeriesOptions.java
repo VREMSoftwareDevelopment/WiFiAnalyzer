@@ -38,10 +38,10 @@ class SeriesOptions implements GraphConstants {
 
     void highlightConnected(@NonNull BaseSeries<DataPoint> series, boolean connected) {
         if (series instanceof LineGraphSeries) {
-            ((LineGraphSeries<DataPoint>) (LineGraphSeries) series).setThickness(connected ? THICKNESS_CONNECTED : THICKNESS_REGULAR);
+            ((LineGraphSeries<DataPoint>) series).setThickness(connected ? THICKNESS_CONNECTED : THICKNESS_REGULAR);
         } else if (series instanceof TitleLineGraphSeries) {
-            ((TitleLineGraphSeries<DataPoint>) (TitleLineGraphSeries) series).setThickness(connected ? THICKNESS_CONNECTED : THICKNESS_REGULAR);
-            ((TitleLineGraphSeries<DataPoint>) (TitleLineGraphSeries) series).setTextBold(connected);
+            ((TitleLineGraphSeries<DataPoint>) series).setThickness(connected ? THICKNESS_CONNECTED : THICKNESS_REGULAR);
+            ((TitleLineGraphSeries<DataPoint>) series).setTextBold(connected);
         }
     }
 
@@ -49,9 +49,9 @@ class SeriesOptions implements GraphConstants {
         GraphColor graphColor = graphColors.getColor();
         series.setColor((int) graphColor.getPrimary());
         if (series instanceof LineGraphSeries) {
-            ((LineGraphSeries<DataPoint>) (LineGraphSeries) series).setDrawBackground(drawBackground);
+            ((LineGraphSeries<DataPoint>) series).setDrawBackground(drawBackground);
         } else if (series instanceof TitleLineGraphSeries) {
-            ((TitleLineGraphSeries<DataPoint>) (TitleLineGraphSeries) series).setBackgroundColor((int) graphColor.getBackground());
+            ((TitleLineGraphSeries<DataPoint>) series).setBackgroundColor((int) graphColor.getBackground());
         }
     }
 

@@ -136,10 +136,8 @@ public class DataManagerTest {
         fixture.addSeriesData(graphViewWrapper, wiFiDetails);
         // validate
         verify(graphViewWrapper).isNewSeries(wiFiDetail);
-        verify(graphViewWrapper).addSeries(
-            argThat(equalTo(wiFiDetail)),
-            any(TitleLineGraphSeries.class),
-            argThat(equalTo(Boolean.TRUE)));
+        //noinspection unchecked
+        verify(graphViewWrapper).addSeries(argThat(equalTo(wiFiDetail)), any(TitleLineGraphSeries.class), argThat(equalTo(Boolean.TRUE)));
     }
 
     private WiFiDetail makeWiFiDetail(@NonNull String SSID, int frequency) {

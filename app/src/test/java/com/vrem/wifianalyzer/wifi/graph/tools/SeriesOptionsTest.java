@@ -100,7 +100,6 @@ public class SeriesOptionsTest {
     public void testSetSeriesColorForLineGraphSeries() throws Exception {
         // setup
         int primaryColor = 22;
-        int backgroundColor = 11;
         when(graphColors.getColor()).thenReturn(graphColor);
         when(graphColor.getPrimary()).thenReturn((long) primaryColor);
         // execute
