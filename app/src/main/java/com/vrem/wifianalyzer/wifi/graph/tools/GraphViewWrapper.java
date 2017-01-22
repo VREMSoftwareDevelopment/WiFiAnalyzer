@@ -157,8 +157,8 @@ public class GraphViewWrapper implements GraphConstants {
         }
     }
 
-    LegendRenderer newLegendRenderer() {
-        return new LegendRenderer(graphView);
+    public void setHorizontalLabelsVisible(boolean horizontalLabelsVisible) {
+        getGraphView().getGridLabelRenderer().setHorizontalLabelsVisible(horizontalLabelsVisible);
     }
 
     public void setVisibility(int visibility) {
@@ -169,12 +169,16 @@ public class GraphViewWrapper implements GraphConstants {
         return graphView;
     }
 
-    GraphLegend getGraphLegend() {
-        return graphLegend;
-    }
-
     public int getSize(int value) {
         return value == TYPE1 || value == TYPE2 || value == TYPE3 ? Configuration.SIZE_MAX : Configuration.SIZE_MIN;
+    }
+
+    LegendRenderer newLegendRenderer() {
+        return new LegendRenderer(graphView);
+    }
+
+    GraphLegend getGraphLegend() {
+        return graphLegend;
     }
 
     class GraphTapListener implements OnDataPointTapListener {

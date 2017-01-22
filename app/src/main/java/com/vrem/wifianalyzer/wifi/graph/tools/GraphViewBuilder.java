@@ -36,12 +36,14 @@ public class GraphViewBuilder implements GraphConstants {
     private LabelFormatter labelFormatter;
     private String verticalTitle;
     private String horizontalTitle;
+    private boolean horizontalLabelsVisible = true;
 
     public GraphViewBuilder(@NonNull Context content, int numHorizontalLabels, int maximumY) {
         this.content = content;
         this.numHorizontalLabels = numHorizontalLabels;
         this.maximumY = (maximumY > MAX_Y || maximumY < MIN_Y_HALF) ? MAX_Y_DEFAULT : maximumY;
         this.layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        this.horizontalLabelsVisible = true;
     }
 
     public GraphViewBuilder setLabelFormatter(@NonNull LabelFormatter labelFormatter) {
@@ -56,6 +58,11 @@ public class GraphViewBuilder implements GraphConstants {
 
     public GraphViewBuilder setHorizontalTitle(@NonNull String horizontalTitle) {
         this.horizontalTitle = horizontalTitle;
+        return this;
+    }
+
+    public GraphViewBuilder setHorizontalLabelsVisible(boolean horizontalLabelsVisible) {
+        this.horizontalLabelsVisible = horizontalLabelsVisible;
         return this;
     }
 
@@ -90,27 +97,20 @@ public class GraphViewBuilder implements GraphConstants {
         gridLabelRenderer.setHighlightZeroLines(false);
         gridLabelRenderer.setNumVerticalLabels(getNumVerticalLabels());
         gridLabelRenderer.setNumHorizontalLabels(numHorizontalLabels);
+        gridLabelRenderer.setVerticalLabelsVisible(true);
+        gridLabelRenderer.setHorizontalLabelsVisible(horizontalLabelsVisible);
         gridLabelRenderer.setTextSize(gridLabelRenderer.getTextSize() * TEXT_SIZE_ADJUSTMENT);
         gridLabelRenderer.reloadStyles();
-
         if (labelFormatter != null) {
             gridLabelRenderer.setLabelFormatter(labelFormatter);
         }
-
         if (verticalTitle != null) {
             gridLabelRenderer.setVerticalAxisTitle(verticalTitle);
             gridLabelRenderer.setVerticalAxisTitleTextSize(gridLabelRenderer.getVerticalAxisTitleTextSize() * AXIS_TEXT_SIZE_ADJUSMENT);
-            gridLabelRenderer.setVerticalLabelsVisible(true);
-        } else {
-            gridLabelRenderer.setVerticalLabelsVisible(false);
         }
-
         if (horizontalTitle != null) {
             gridLabelRenderer.setHorizontalAxisTitle(horizontalTitle);
             gridLabelRenderer.setHorizontalAxisTitleTextSize(gridLabelRenderer.getHorizontalAxisTitleTextSize() * AXIS_TEXT_SIZE_ADJUSMENT);
-            gridLabelRenderer.setHorizontalLabelsVisible(true);
-        } else {
-            gridLabelRenderer.setHorizontalLabelsVisible(false);
         }
     }
 

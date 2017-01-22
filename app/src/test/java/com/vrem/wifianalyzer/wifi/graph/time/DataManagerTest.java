@@ -50,6 +50,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -74,26 +75,58 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testCountsAreIncreased() throws Exception {
+    public void testAddSeriesDataIncreaseXValue() throws Exception {
         // setup
         List<WiFiDetail> wiFiDetails = new ArrayList<>();
+        assertEquals(0, fixture.getXValue());
         // execute
         fixture.addSeriesData(graphViewWrapper, wiFiDetails);
         // validate
         assertEquals(1, fixture.getXValue());
+    }
+
+    @Test
+    public void testAddSeriesDataIncreaseCounts() throws Exception {
+        // setup
+        List<WiFiDetail> wiFiDetails = new ArrayList<>();
+        assertEquals(0, fixture.getScanCount());
+        // execute
+        fixture.addSeriesData(graphViewWrapper, wiFiDetails);
+        // validate
         assertEquals(1, fixture.getScanCount());
     }
 
     @Test
-    public void testScanCountIsNotIncreasedWhenReachedTheLimit() throws Exception {
+    public void testAddSeriesDoesNotIncreasesScanCountWhenLimitIsReached() throws Exception {
         // setup
         List<WiFiDetail> wiFiDetails = new ArrayList<>();
         fixture.setScanCount(DataManager.MAX_SCAN_COUNT);
         // execute
         fixture.addSeriesData(graphViewWrapper, wiFiDetails);
         // validate
-        assertEquals(1, fixture.getXValue());
         assertEquals(DataManager.MAX_SCAN_COUNT, fixture.getScanCount());
+    }
+
+    @Test
+    public void testAddSeriesSetHorizontalLabelsVisible() throws Exception {
+        // setup
+        List<WiFiDetail> wiFiDetails = new ArrayList<>();
+        fixture.setScanCount(1);
+        // execute
+        fixture.addSeriesData(graphViewWrapper, wiFiDetails);
+        // validate
+        assertEquals(2, fixture.getScanCount());
+        verify(graphViewWrapper).setHorizontalLabelsVisible(true);
+    }
+
+    @Test
+    public void testAddSeriesDoesNotSetHorizontalLabelsVisible() throws Exception {
+        // setup
+        List<WiFiDetail> wiFiDetails = new ArrayList<>();
+        // execute
+        fixture.addSeriesData(graphViewWrapper, wiFiDetails);
+        // validate
+        verify(graphViewWrapper, never()).setHorizontalLabelsVisible(true);
     }
 
     @Test

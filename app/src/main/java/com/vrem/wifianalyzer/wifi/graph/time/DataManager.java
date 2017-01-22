@@ -53,6 +53,9 @@ class DataManager implements GraphConstants {
         if (scanCount < MAX_SCAN_COUNT) {
             scanCount++;
         }
+        if (scanCount == 2) {
+            graphViewWrapper.setHorizontalLabelsVisible(true);
+        }
         return result;
     }
 

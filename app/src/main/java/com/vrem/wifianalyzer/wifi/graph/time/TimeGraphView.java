@@ -23,15 +23,12 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.graph.tools.GraphColor;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewBuilder;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
@@ -90,6 +87,7 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
             .setLabelFormatter(new TimeAxisLabel())
             .setVerticalTitle(resources.getString(R.string.graph_axis_y))
             .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
+            .setHorizontalLabelsVisible(false)
             .build();
     }
 
@@ -102,18 +100,6 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
         graphViewWrapper = new GraphViewWrapper(graphView, settings.getTimeGraphLegend());
         configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
         graphViewWrapper.setViewport();
-        graphViewWrapper.addSeries(makeDefaultSeries());
         return graphViewWrapper;
     }
-
-    private LineGraphSeries<DataPoint> makeDefaultSeries() {
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
-            new DataPoint(0, MIN_Y),
-            new DataPoint(getNumX() - 1, MIN_Y)
-        });
-        series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
-        series.setThickness(THICKNESS_INVISIBLE);
-        return series;
-    }
-
 }
