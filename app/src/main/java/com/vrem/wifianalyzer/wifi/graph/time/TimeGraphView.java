@@ -39,66 +39,32 @@ import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 class TimeGraphView implements GraphViewNotifier, GraphConstants {
     private final WiFiBand wiFiBand;
-    private TimeGraphCache timeGraphCache;
+    private DataManager dataManager;
     private GraphViewWrapper graphViewWrapper;
-    private int scanCount;
-    private int xValue;
 
     TimeGraphView(@NonNull WiFiBand wiFiBand) {
         this.wiFiBand = wiFiBand;
-        this.scanCount = 0;
-        this.xValue = 0;
-        this.timeGraphCache = new TimeGraphCache();
         this.graphViewWrapper = makeGraphViewWrapper();
+        this.dataManager = new DataManager();
     }
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         Settings settings = MainContext.INSTANCE.getSettings();
-        Set<WiFiDetail> newSeries = new HashSet<>();
-        for (WiFiDetail wiFiDetail : wiFiData.getWiFiDetails(wiFiBand, settings.getSortBy())) {
-            newSeries.add(wiFiDetail);
-            addData(wiFiDetail);
-        }
-        graphViewWrapper.removeSeries(adjustData(newSeries));
+        List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(wiFiBand, settings.getSortBy());
+        Set<WiFiDetail> newSeries = dataManager.addSeriesData(graphViewWrapper, wiFiDetails);
+        graphViewWrapper.removeSeries(newSeries);
         graphViewWrapper.updateLegend(settings.getTimeGraphLegend());
         graphViewWrapper.setVisibility(isSelected() ? View.VISIBLE : View.GONE);
-        xValue++;
-        if (scanCount < MAX_SCAN_COUNT) {
-            scanCount++;
-        }
-    }
-
-    private Set<WiFiDetail> adjustData(@NonNull Set<WiFiDetail> newSeries) {
-        for (WiFiDetail wiFiDetail : graphViewWrapper.differenceSeries(newSeries)) {
-            DataPoint dataPoint = new DataPoint(xValue, MIN_Y + MIN_Y_OFFSET);
-            LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{dataPoint});
-            graphViewWrapper.appendSeries(wiFiDetail, series, dataPoint, scanCount);
-            timeGraphCache.add(wiFiDetail);
-        }
-        timeGraphCache.clear();
-        Set<WiFiDetail> results = new HashSet<>(newSeries);
-        results.addAll(timeGraphCache.active());
-        return results;
     }
 
     private boolean isSelected() {
         return wiFiBand.equals(MainContext.INSTANCE.getSettings().getWiFiBand());
-    }
-
-    private void addData(@NonNull WiFiDetail wiFiDetail) {
-        DataPoint dataPoint = new DataPoint(xValue, wiFiDetail.getWiFiSignal().getLevel());
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{dataPoint});
-        if (graphViewWrapper.appendSeries(wiFiDetail, series, dataPoint, scanCount)) {
-            series.setColor((int) graphViewWrapper.getColor().getPrimary());
-            series.setDrawBackground(false);
-        }
-        timeGraphCache.reset(wiFiDetail);
     }
 
     @Override
@@ -114,8 +80,8 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
         this.graphViewWrapper = graphViewWrapper;
     }
 
-    void setTimeGraphCache(@NonNull TimeGraphCache timeGraphCache) {
-        this.timeGraphCache = timeGraphCache;
+    void setDataManager(@NonNull DataManager dataManager) {
+        this.dataManager = dataManager;
     }
 
     private GraphView makeGraphView(@NonNull MainActivity mainActivity, int graphMaximumY) {
@@ -136,16 +102,18 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
         graphViewWrapper = new GraphViewWrapper(graphView, settings.getTimeGraphLegend());
         configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
         graphViewWrapper.setViewport();
+        graphViewWrapper.addSeries(makeDefaultSeries());
+        return graphViewWrapper;
+    }
 
+    private LineGraphSeries<DataPoint> makeDefaultSeries() {
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
             new DataPoint(0, MIN_Y),
             new DataPoint(getNumX() - 1, MIN_Y)
         });
         series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
         series.setThickness(THICKNESS_INVISIBLE);
-        graphViewWrapper.addSeries(series);
-
-        return graphViewWrapper;
+        return series;
     }
 
 }

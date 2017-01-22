@@ -41,10 +41,11 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -54,7 +55,7 @@ import static org.mockito.Mockito.when;
 @Config(constants = BuildConfig.class)
 public class TimeGraphViewTest {
     private GraphViewWrapper graphViewWrapper;
-    private TimeGraphCache timeGraphCache;
+    private DataManager dataManager;
     private Settings settings;
     private TimeGraphView fixture;
 
@@ -63,13 +64,13 @@ public class TimeGraphViewTest {
         RobolectricUtil.INSTANCE.getActivity();
 
         graphViewWrapper = mock(GraphViewWrapper.class);
-        timeGraphCache = mock(TimeGraphCache.class);
+        dataManager = mock(DataManager.class);
 
         settings = MainContextHelper.INSTANCE.getSettings();
 
         fixture = new TimeGraphView(WiFiBand.GHZ2);
         fixture.setGraphViewWrapper(graphViewWrapper);
-        fixture.setTimeGraphCache(timeGraphCache);
+        fixture.setDataManager(dataManager);
     }
 
     @After
@@ -80,22 +81,18 @@ public class TimeGraphViewTest {
     @Test
     public void testUpdate() throws Exception {
         // setup
-        WiFiData wiFiData = new WiFiData(new ArrayList<WiFiDetail>(), WiFiConnection.EMPTY, new ArrayList<String>());
+        List<WiFiDetail> wiFiDetails = new ArrayList<>();
+        Set<WiFiDetail> newSeries = new TreeSet<>();
+        WiFiData wiFiData = new WiFiData(wiFiDetails, WiFiConnection.EMPTY, new ArrayList<String>());
         withSettings();
+        when(dataManager.addSeriesData(graphViewWrapper, wiFiDetails)).thenReturn(newSeries);
         // execute
         fixture.update(wiFiData);
         // validate
-        //noinspection unchecked
-        verify(graphViewWrapper).removeSeries(any(Set.class));
-        //noinspection unchecked
-        verify(graphViewWrapper).differenceSeries(any(Set.class));
+        verify(graphViewWrapper).removeSeries(newSeries);
         verify(graphViewWrapper).updateLegend(GraphLegend.LEFT);
         verify(graphViewWrapper).setVisibility(View.VISIBLE);
-
         verifySettings();
-
-        verify(timeGraphCache).clear();
-        verify(timeGraphCache).active();
     }
 
     private void verifySettings() {

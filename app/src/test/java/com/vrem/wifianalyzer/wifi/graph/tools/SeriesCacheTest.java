@@ -60,12 +60,23 @@ public class SeriesCacheTest {
     }
 
     @Test
-    public void testAddNewSeries() throws Exception {
+    public void testContains() throws Exception {
         // setup
         List<WiFiDetail> wiFiDetails = withData();
+        // execute
+        boolean actual = fixture.contains(wiFiDetails.get(0));
         // validate
-        for (WiFiDetail wiFiDetail : wiFiDetails) {
-            assertTrue(fixture.contains(wiFiDetail));
+        assertTrue(actual);
+    }
+
+    @Test
+    public void testGet() throws Exception {
+        // setup
+        List<WiFiDetail> wiFiDetails = withData();
+        // execute & validate
+        for (int i = 0; i < series.size(); i++) {
+            WiFiDetail wiFiDetail = wiFiDetails.get(i);
+            assertEquals(series.get(i), fixture.get(wiFiDetail));
         }
     }
 
@@ -74,9 +85,10 @@ public class SeriesCacheTest {
         // setup
         List<WiFiDetail> wiFiDetails = withData();
         // execute
-        BaseSeries<DataPoint> actual = fixture.add(wiFiDetails.get(0), series2);
+        BaseSeries<DataPoint> actual = fixture.put(wiFiDetails.get(0), series2);
         // validate
         assertEquals(series1, actual);
+        assertEquals(series2, fixture.get(wiFiDetails.get(0)));
     }
 
     @Test
@@ -205,7 +217,7 @@ public class SeriesCacheTest {
         for (int i = 0; i < series.size(); i++) {
             WiFiDetail wiFiDetail = makeWiFiDetail("SSID" + i);
             results.add(wiFiDetail);
-            assertEquals(series.get(i), fixture.add(wiFiDetail, series.get(i)));
+            fixture.put(wiFiDetail, series.get(i));
         }
         return results;
     }

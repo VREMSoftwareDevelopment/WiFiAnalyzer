@@ -22,9 +22,14 @@ import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.TitleLineGraphSeries;
+import com.vrem.wifianalyzer.BuildConfig;
+import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
+import com.vrem.wifianalyzer.wifi.graph.tools.DataPointsEquals;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
@@ -33,25 +38,34 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.argThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class DataManagerTest {
-
     private static final int LEVEL = -40;
 
     private DataManager fixture;
 
     @Before
     public void setUp() {
+        RobolectricUtil.INSTANCE.getActivity();
         fixture = new DataManager();
     }
 
@@ -92,6 +106,40 @@ public class DataManagerTest {
         assertEquals(new DataPoint(2455, LEVEL).toString(), actual[2].toString());
         assertEquals(new DataPoint(2460, LEVEL).toString(), actual[3].toString());
         assertEquals(new DataPoint(2465, -100).toString(), actual[4].toString());
+    }
+
+    @Test
+    public void testAddSeriesDataWithExistingWiFiDetails() throws Exception {
+        // setup
+        GraphViewWrapper graphViewWrapper = mock(GraphViewWrapper.class);
+        WiFiDetail wiFiDetail = makeWiFiDetail("SSID", 2455);
+        //noinspection ArraysAsListWithZeroOrOneArgument
+        Set<WiFiDetail> wiFiDetails = new HashSet<>(Arrays.asList(wiFiDetail));
+        DataPoint[] dataPoints = fixture.getDataPoints(wiFiDetail);
+        when(graphViewWrapper.isNewSeries(wiFiDetail)).thenReturn(false);
+        // execute
+        fixture.addSeriesData(graphViewWrapper, wiFiDetails);
+        // validate
+        verify(graphViewWrapper).isNewSeries(wiFiDetail);
+        verify(graphViewWrapper).updateSeries(argThat(equalTo(wiFiDetail)), argThat(new DataPointsEquals(dataPoints)));
+    }
+
+    @Test
+    public void testAddSeriesDataNewWiFiDetails() throws Exception {
+        // setup
+        GraphViewWrapper graphViewWrapper = mock(GraphViewWrapper.class);
+        WiFiDetail wiFiDetail = makeWiFiDetail("SSID", 2455);
+        //noinspection ArraysAsListWithZeroOrOneArgument
+        Set<WiFiDetail> wiFiDetails = new HashSet<>(Arrays.asList(wiFiDetail));
+        when(graphViewWrapper.isNewSeries(wiFiDetail)).thenReturn(true);
+        // execute
+        fixture.addSeriesData(graphViewWrapper, wiFiDetails);
+        // validate
+        verify(graphViewWrapper).isNewSeries(wiFiDetail);
+        verify(graphViewWrapper).addSeries(
+            argThat(equalTo(wiFiDetail)),
+            any(TitleLineGraphSeries.class),
+            argThat(equalTo(Boolean.TRUE)));
     }
 
     private WiFiDetail makeWiFiDetail(@NonNull String SSID, int frequency) {

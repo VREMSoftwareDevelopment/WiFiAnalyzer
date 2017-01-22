@@ -27,16 +27,13 @@ import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.BaseSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
-import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
-import com.jjoe64.graphview.series.TitleLineGraphSeries;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.wifi.AccessPointDetail;
 import com.vrem.wifianalyzer.wifi.AccessPointPopup;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import java.security.MessageDigest;
 import java.util.Arrays;
@@ -45,61 +42,72 @@ import java.util.Set;
 
 public class GraphViewWrapper implements GraphConstants {
     private final GraphView graphView;
-    private SeriesCache seriesCache;
-    private GraphColors graphColors;
     private GraphLegend graphLegend;
+    private SeriesCache seriesCache;
+    private SeriesOptions seriesOptions;
 
     public GraphViewWrapper(@NonNull GraphView graphView, @NonNull GraphLegend graphLegend) {
         this.graphView = graphView;
         this.graphLegend = graphLegend;
         setSeriesCache(new SeriesCache());
-        setGraphColors(new GraphColors());
+        setSeriesOptions(new SeriesOptions());
     }
 
     void setSeriesCache(@NonNull SeriesCache seriesCache) {
         this.seriesCache = seriesCache;
     }
 
-    void setGraphColors(@NonNull GraphColors graphColors) {
-        this.graphColors = graphColors;
+    void setSeriesOptions(@NonNull SeriesOptions seriesOptions) {
+        this.seriesOptions = seriesOptions;
     }
 
     public void removeSeries(@NonNull Set<WiFiDetail> newSeries) {
         List<BaseSeries<DataPoint>> removed = seriesCache.remove(differenceSeries(newSeries));
-        for (Series series : removed) {
-            graphColors.addColor(series.getColor());
+        for (BaseSeries<DataPoint> series : removed) {
+            seriesOptions.removeSeriesColor(series);
             graphView.removeSeries(series);
         }
     }
 
-    public List<WiFiDetail> differenceSeries(Set<WiFiDetail> newSeries) {
+    public List<WiFiDetail> differenceSeries(@NonNull Set<WiFiDetail> newSeries) {
         return seriesCache.difference(newSeries);
     }
 
-    public boolean appendSeries(@NonNull WiFiDetail wiFiDetail, @NonNull BaseSeries<DataPoint> series, DataPoint data, int count) {
-        BaseSeries<DataPoint> current = seriesCache.add(wiFiDetail, series);
-        boolean added = isSameSeries(series, current);
-        if (added) {
-            addNewSeries(wiFiDetail, current);
-        } else {
-            current.appendData(data, true, count + 1);
+    public boolean addSeries(@NonNull WiFiDetail wiFiDetail, @NonNull BaseSeries<DataPoint> series, @NonNull Boolean drawBackground) {
+        if (seriesCache.contains(wiFiDetail)) {
+            return false;
         }
-        highlightConnected(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected(), current);
-        return added;
+        seriesCache.put(wiFiDetail, series);
+        series.setTitle(wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getChannelDisplay());
+        series.setOnDataPointTapListener(new GraphTapListener());
+        seriesOptions.highlightConnected(series, wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected());
+        seriesOptions.setSeriesColor(series, drawBackground);
+        graphView.addSeries(series);
+        return true;
     }
 
-    private void highlightConnected(boolean isConnected, @NonNull BaseSeries<DataPoint> series) {
-        if (series instanceof LineGraphSeries) {
-            ((LineGraphSeries) series).setThickness(isConnected ? THICKNESS_CONNECTED : THICKNESS_REGULAR);
-        } else if (series instanceof TitleLineGraphSeries) {
-            TitleLineGraphSeries titleLineGraphSeries = (TitleLineGraphSeries) series;
-            titleLineGraphSeries.setThickness(isConnected ? THICKNESS_CONNECTED : THICKNESS_REGULAR);
-            titleLineGraphSeries.setTextBold(isConnected);
+    public boolean updateSeries(@NonNull WiFiDetail wiFiDetail, @NonNull DataPoint[] data) {
+        if (!seriesCache.contains(wiFiDetail)) {
+            return false;
         }
+        BaseSeries<DataPoint> series = seriesCache.get(wiFiDetail);
+        series.resetData(data);
+        seriesOptions.highlightConnected(series, wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected());
+        return true;
     }
 
-    private boolean isSameSeries(@NonNull BaseSeries<DataPoint> series, BaseSeries<DataPoint> current) {
-        return current.equals(series);
+    public boolean appendToSeries(@NonNull WiFiDetail wiFiDetail, @NonNull DataPoint data, @NonNull Integer count) {
+        if (!seriesCache.contains(wiFiDetail)) {
+            return false;
+        }
+        BaseSeries<DataPoint> series = seriesCache.get(wiFiDetail);
+        series.appendData(data, true, count + 1);
+        seriesOptions.highlightConnected(series, wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected());
+        return true;
+    }
+
+    public boolean isNewSeries(@NonNull WiFiDetail wiFiDetail) {
+        return !seriesCache.contains(wiFiDetail);
     }
 
     public void setViewport() {
@@ -116,25 +124,6 @@ public class GraphViewWrapper implements GraphConstants {
 
     public int getViewportCntX() {
         return graphView.getGridLabelRenderer().getNumHorizontalLabels() - 1;
-    }
-
-    public boolean addSeries(@NonNull WiFiDetail wiFiDetail, @NonNull BaseSeries<DataPoint> series, DataPoint[] data) {
-        BaseSeries<DataPoint> current = seriesCache.add(wiFiDetail, series);
-        boolean added = isSameSeries(series, current);
-        if (added) {
-            addNewSeries(wiFiDetail, current);
-        } else {
-            current.resetData(data);
-        }
-        highlightConnected(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected(), current);
-        return added;
-    }
-
-    private void addNewSeries(@NonNull WiFiDetail wiFiDetail, BaseSeries<DataPoint> series) {
-        addSeries(series);
-        WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        series.setTitle(wiFiDetail.getSSID() + " " + wiFiSignal.getChannelDisplay());
-        series.setOnDataPointTapListener(new GraphTapListener());
     }
 
     public void addSeries(@NonNull BaseSeries series) {
@@ -176,10 +165,6 @@ public class GraphViewWrapper implements GraphConstants {
         graphView.setVisibility(visibility);
     }
 
-    public GraphColor getColor() {
-        return graphColors.getColor();
-    }
-
     public GraphView getGraphView() {
         return graphView;
     }
@@ -211,7 +196,5 @@ public class GraphViewWrapper implements GraphConstants {
         private AccessPointDetail getAccessPointDetail() {
             return new AccessPointDetail();
         }
-
     }
-
 }

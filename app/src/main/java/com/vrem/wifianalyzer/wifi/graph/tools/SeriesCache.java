@@ -39,13 +39,6 @@ class SeriesCache {
         this.cache = new TreeMap<>();
     }
 
-    BaseSeries<DataPoint> add(@NonNull WiFiDetail wiFiDetail, @NonNull BaseSeries<DataPoint> series) {
-        if (!contains(wiFiDetail)) {
-            cache.put(wiFiDetail, series);
-        }
-        return cache.get(wiFiDetail);
-    }
-
     List<WiFiDetail> difference(@NonNull Set<WiFiDetail> series) {
         Set<WiFiDetail> difference = new TreeSet<>(cache.keySet());
         difference.removeAll(series);
@@ -74,5 +67,13 @@ class SeriesCache {
 
     boolean contains(@NonNull WiFiDetail wiFiDetail) {
         return cache.containsKey(wiFiDetail);
+    }
+
+    BaseSeries<DataPoint> get(@NonNull WiFiDetail wiFiDetail) {
+        return cache.get(wiFiDetail);
+    }
+
+    BaseSeries<DataPoint> put(WiFiDetail wiFiDetail, BaseSeries<DataPoint> series) {
+        return cache.put(wiFiDetail, series);
     }
 }

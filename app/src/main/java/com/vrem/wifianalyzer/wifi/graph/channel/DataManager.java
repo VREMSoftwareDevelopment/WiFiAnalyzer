@@ -22,9 +22,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.TitleLineGraphSeries;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphConstants;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
@@ -60,6 +62,17 @@ class DataManager implements GraphConstants {
             new DataPoint(frequencyEnd - WiFiChannels.FREQUENCY_SPREAD, level),
             new DataPoint(frequencyEnd, MIN_Y)
         };
+    }
+
+    void addSeriesData(@NonNull GraphViewWrapper graphViewWrapper, @NonNull Set<WiFiDetail> wiFiDetails) {
+        for (WiFiDetail wiFiDetail : wiFiDetails) {
+            DataPoint[] dataPoints = getDataPoints(wiFiDetail);
+            if (graphViewWrapper.isNewSeries(wiFiDetail)) {
+                graphViewWrapper.addSeries(wiFiDetail, new TitleLineGraphSeries<>(dataPoints), true);
+            } else {
+                graphViewWrapper.updateSeries(wiFiDetail, dataPoints);
+            }
+        }
     }
 
     private boolean isInRange(int frequency, Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
