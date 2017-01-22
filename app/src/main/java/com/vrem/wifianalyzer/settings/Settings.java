@@ -33,6 +33,7 @@ import static android.content.SharedPreferences.OnSharedPreferenceChangeListener
 
 public class Settings {
     static final int GRAPH_Y_MULTIPLIER = -10;
+    static final int GRAPH_Y_DEFAULT = 2;
 
     private final Context context;
     private Repository repository;
@@ -71,7 +72,7 @@ public class Settings {
     }
 
     public int getGraphMaximumY() {
-        int defaultValue = repository.getStringAsInteger(R.string.graph_maximum_y_default, 0);
+        int defaultValue = repository.getStringAsInteger(R.string.graph_maximum_y_default, GRAPH_Y_DEFAULT);
         int result = repository.getStringAsInteger(R.string.graph_maximum_y_key, defaultValue);
         return result * GRAPH_Y_MULTIPLIER;
     }

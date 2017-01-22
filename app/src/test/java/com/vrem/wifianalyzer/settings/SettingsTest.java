@@ -145,13 +145,13 @@ public class SettingsTest {
         int defaultValue = 1;
         int value = 2;
         int expected = value * Settings.GRAPH_Y_MULTIPLIER;
-        when(repository.getStringAsInteger(R.string.graph_maximum_y_default, 0)).thenReturn(defaultValue);
+        when(repository.getStringAsInteger(R.string.graph_maximum_y_default, Settings.GRAPH_Y_DEFAULT)).thenReturn(defaultValue);
         when(repository.getStringAsInteger(R.string.graph_maximum_y_key, defaultValue)).thenReturn(value);
         // execute
         int actual = fixture.getGraphMaximumY();
         // validate
         assertEquals(expected, actual);
-        verify(repository).getStringAsInteger(R.string.graph_maximum_y_default, 0);
+        verify(repository).getStringAsInteger(R.string.graph_maximum_y_default, Settings.GRAPH_Y_DEFAULT);
         verify(repository).getStringAsInteger(R.string.graph_maximum_y_key, defaultValue);
     }
 
