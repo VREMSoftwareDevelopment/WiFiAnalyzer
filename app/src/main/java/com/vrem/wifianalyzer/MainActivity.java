@@ -148,8 +148,12 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        closeDrawer();
-        NavigationMenu.find(menuItem.getItemId()).activateNavigationMenu(this, menuItem);
+        try {
+            closeDrawer();
+            NavigationMenu.find(menuItem.getItemId()).activateNavigationMenu(this, menuItem);
+        } catch (Exception e) {
+            reloadActivity();
+        }
         return true;
     }
 
