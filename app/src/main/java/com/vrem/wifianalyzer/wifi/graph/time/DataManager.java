@@ -62,7 +62,8 @@ class DataManager implements GraphConstants {
     void adjustData(@NonNull GraphViewWrapper graphViewWrapper, @NonNull Set<WiFiDetail> wiFiDetails) {
         for (WiFiDetail wiFiDetail : graphViewWrapper.differenceSeries(wiFiDetails)) {
             DataPoint dataPoint = new DataPoint(xValue, MIN_Y + MIN_Y_OFFSET);
-            graphViewWrapper.appendToSeries(wiFiDetail, dataPoint, scanCount, false);
+            boolean drawBackground = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
+            graphViewWrapper.appendToSeries(wiFiDetail, dataPoint, scanCount, drawBackground);
             timeGraphCache.add(wiFiDetail);
         }
         timeGraphCache.clear();
@@ -75,13 +76,14 @@ class DataManager implements GraphConstants {
     }
 
     void addData(@NonNull GraphViewWrapper graphViewWrapper, @NonNull WiFiDetail wiFiDetail) {
+        boolean drawBackground = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
         if (graphViewWrapper.isNewSeries(wiFiDetail)) {
             DataPoint dataPoint = new DataPoint(xValue, scanCount > 0 ? MIN_Y + MIN_Y_OFFSET : wiFiDetail.getWiFiSignal().getLevel());
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{dataPoint});
-            graphViewWrapper.addSeries(wiFiDetail, series, false);
+            graphViewWrapper.addSeries(wiFiDetail, series, drawBackground);
         } else {
             DataPoint dataPoint = new DataPoint(xValue, wiFiDetail.getWiFiSignal().getLevel());
-            graphViewWrapper.appendToSeries(wiFiDetail, dataPoint, scanCount, false);
+            graphViewWrapper.appendToSeries(wiFiDetail, dataPoint, scanCount, drawBackground);
         }
         timeGraphCache.reset(wiFiDetail);
     }

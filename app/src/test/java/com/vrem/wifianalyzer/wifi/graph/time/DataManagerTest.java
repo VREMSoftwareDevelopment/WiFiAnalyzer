@@ -28,6 +28,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.graph.tools.DataPointEquals;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
+import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
@@ -57,8 +58,8 @@ import static org.mockito.Mockito.when;
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class DataManagerTest {
+    public static final String BSSID = "BSSID";
     private static final int LEVEL = -40;
-
     private GraphViewWrapper graphViewWrapper;
     private TimeGraphCache timeGraphCache;
     private DataManager fixture;
@@ -143,8 +144,10 @@ public class DataManagerTest {
         // validate
         for (WiFiDetail wiFiDetail : difference) {
             verify(graphViewWrapper).appendToSeries(
-                argThat(equalTo(wiFiDetail)), argThat(new DataPointEquals(dataPoint)),
-                argThat(equalTo(scanCount)), argThat(equalTo(false)));
+                argThat(equalTo(wiFiDetail)),
+                argThat(new DataPointEquals(dataPoint)),
+                argThat(equalTo(scanCount)),
+                argThat(equalTo(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected())));
             verify(timeGraphCache).add(wiFiDetail);
         }
         verify(timeGraphCache).clear();
@@ -177,15 +180,17 @@ public class DataManagerTest {
         // validate
         verify(graphViewWrapper).isNewSeries(wiFiDetail);
         verify(graphViewWrapper).appendToSeries(
-            argThat(equalTo(wiFiDetail)), argThat(new DataPointEquals(dataPoint)),
-            argThat(equalTo(scanCount)), argThat(equalTo(false)));
+            argThat(equalTo(wiFiDetail)),
+            argThat(new DataPointEquals(dataPoint)),
+            argThat(equalTo(scanCount)),
+            argThat(equalTo(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected())));
         verify(timeGraphCache).reset(wiFiDetail);
     }
 
     @Test
     public void testAddDataNewSeries() throws Exception {
         // setup
-        WiFiDetail wiFiDetail = makeWiFiDetail("SSID");
+        WiFiDetail wiFiDetail = makeWiFiDetailConnected("SSID");
         when(graphViewWrapper.isNewSeries(wiFiDetail)).thenReturn(true);
         // execute
         fixture.addData(graphViewWrapper, wiFiDetail);
@@ -193,16 +198,28 @@ public class DataManagerTest {
         verify(graphViewWrapper).isNewSeries(wiFiDetail);
         verify(timeGraphCache).reset(wiFiDetail);
         //noinspection unchecked
-        verify(graphViewWrapper).addSeries(argThat(equalTo(wiFiDetail)), argThat(any(LineGraphSeries.class)), argThat(equalTo(Boolean.FALSE)));
+        verify(graphViewWrapper).addSeries(
+            argThat(equalTo(wiFiDetail)),
+            argThat(any(LineGraphSeries.class)),
+            argThat(equalTo(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected())));
+    }
+
+    private WiFiDetail makeWiFiDetailConnected(@NonNull String SSID) {
+        WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, "IPADDRESS", 11);
+        WiFiAdditional wiFiAdditional = new WiFiAdditional("VendorName", wiFiConnection);
+        return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY, makeWiFiSignal(), wiFiAdditional);
+    }
+
+    private WiFiSignal makeWiFiSignal() {
+        return new WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, LEVEL);
     }
 
     private WiFiDetail makeWiFiDetail(@NonNull String SSID) {
-        WiFiSignal wiFiSignal = new WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, LEVEL);
-        return new WiFiDetail(SSID, "BSSID", StringUtils.EMPTY, wiFiSignal, WiFiAdditional.EMPTY);
+        return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY, makeWiFiSignal(), WiFiAdditional.EMPTY);
     }
 
     private List<WiFiDetail> makeWiFiDetails() {
-        return Arrays.asList(makeWiFiDetail("SSID1"), makeWiFiDetail("SSID2"), makeWiFiDetail("SSID3"));
+        return Arrays.asList(makeWiFiDetailConnected("SSID1"), makeWiFiDetail("SSID2"), makeWiFiDetail("SSID3"));
     }
 
     private List<WiFiDetail> makeMoreWiFiDetails() {
