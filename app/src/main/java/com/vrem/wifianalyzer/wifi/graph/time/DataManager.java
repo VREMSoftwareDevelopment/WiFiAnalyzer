@@ -62,7 +62,7 @@ class DataManager implements GraphConstants {
     void adjustData(@NonNull GraphViewWrapper graphViewWrapper, @NonNull Set<WiFiDetail> wiFiDetails) {
         for (WiFiDetail wiFiDetail : graphViewWrapper.differenceSeries(wiFiDetails)) {
             DataPoint dataPoint = new DataPoint(xValue, MIN_Y + MIN_Y_OFFSET);
-            graphViewWrapper.appendToSeries(wiFiDetail, dataPoint, scanCount);
+            graphViewWrapper.appendToSeries(wiFiDetail, dataPoint, scanCount, false);
             timeGraphCache.add(wiFiDetail);
         }
         timeGraphCache.clear();
@@ -81,7 +81,7 @@ class DataManager implements GraphConstants {
             graphViewWrapper.addSeries(wiFiDetail, series, false);
         } else {
             DataPoint dataPoint = new DataPoint(xValue, wiFiDetail.getWiFiSignal().getLevel());
-            graphViewWrapper.appendToSeries(wiFiDetail, dataPoint, scanCount);
+            graphViewWrapper.appendToSeries(wiFiDetail, dataPoint, scanCount, false);
         }
         timeGraphCache.reset(wiFiDetail);
     }

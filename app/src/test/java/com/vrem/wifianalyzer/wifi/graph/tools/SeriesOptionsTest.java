@@ -28,7 +28,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -100,16 +99,18 @@ public class SeriesOptionsTest {
     public void testSetSeriesColorForLineGraphSeries() throws Exception {
         // setup
         int primaryColor = 22;
+        int backgroundColor = 11;
         when(graphColors.getColor()).thenReturn(graphColor);
         when(graphColor.getPrimary()).thenReturn((long) primaryColor);
+        when(graphColor.getBackground()).thenReturn((long) backgroundColor);
         // execute
-        fixture.setSeriesColor(lineGraphSeries, true);
+        fixture.setSeriesColor(lineGraphSeries);
         // validate
         verify(graphColors).getColor();
         verify(graphColor).getPrimary();
-        verify(graphColor, never()).getBackground();
+        verify(graphColor).getBackground();
         verify(lineGraphSeries).setColor(primaryColor);
-        verify(lineGraphSeries).setDrawBackground(true);
+        verify(lineGraphSeries).setBackgroundColor(backgroundColor);
     }
 
     @Test
@@ -121,13 +122,20 @@ public class SeriesOptionsTest {
         when(graphColor.getPrimary()).thenReturn((long) primaryColor);
         when(graphColor.getBackground()).thenReturn((long) backgroundColor);
         // execute
-        fixture.setSeriesColor(titleLineGraphSeries, true);
+        fixture.setSeriesColor(titleLineGraphSeries);
         // validate
         verify(graphColors).getColor();
         verify(graphColor).getPrimary();
         verify(graphColor).getBackground();
         verify(titleLineGraphSeries).setColor(primaryColor);
-        verify(titleLineGraphSeries).setBackgroundColor(backgroundColor);
+    }
+
+    @Test
+    public void testDrawBackgroundForLineGraphSeries() throws Exception {
+        // execute
+        fixture.drawBackground(lineGraphSeries, true);
+        // validate
+        verify(lineGraphSeries).setDrawBackground(true);
     }
 
 }

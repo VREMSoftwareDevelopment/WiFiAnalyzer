@@ -81,28 +81,31 @@ public class GraphViewWrapper implements GraphConstants {
         series.setTitle(wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getChannelDisplay());
         series.setOnDataPointTapListener(new GraphTapListener());
         seriesOptions.highlightConnected(series, wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected());
-        seriesOptions.setSeriesColor(series, drawBackground);
+        seriesOptions.setSeriesColor(series);
+        seriesOptions.drawBackground(series, drawBackground);
         graphView.addSeries(series);
         return true;
     }
 
-    public boolean updateSeries(@NonNull WiFiDetail wiFiDetail, @NonNull DataPoint[] data) {
+    public boolean updateSeries(@NonNull WiFiDetail wiFiDetail, @NonNull DataPoint[] data, @NonNull Boolean drawBackground) {
         if (!seriesCache.contains(wiFiDetail)) {
             return false;
         }
         BaseSeries<DataPoint> series = seriesCache.get(wiFiDetail);
         series.resetData(data);
         seriesOptions.highlightConnected(series, wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected());
+        seriesOptions.drawBackground(series, drawBackground);
         return true;
     }
 
-    public boolean appendToSeries(@NonNull WiFiDetail wiFiDetail, @NonNull DataPoint data, @NonNull Integer count) {
+    public boolean appendToSeries(@NonNull WiFiDetail wiFiDetail, @NonNull DataPoint data, @NonNull Integer count, @NonNull Boolean drawBackground) {
         if (!seriesCache.contains(wiFiDetail)) {
             return false;
         }
         BaseSeries<DataPoint> series = seriesCache.get(wiFiDetail);
         series.appendData(data, true, count + 1);
         seriesOptions.highlightConnected(series, wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected());
+        seriesOptions.drawBackground(series, drawBackground);
         return true;
     }
 

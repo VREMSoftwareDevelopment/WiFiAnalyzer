@@ -70,7 +70,7 @@ class DataManager implements GraphConstants {
             if (graphViewWrapper.isNewSeries(wiFiDetail)) {
                 graphViewWrapper.addSeries(wiFiDetail, new TitleLineGraphSeries<>(dataPoints), true);
             } else {
-                graphViewWrapper.updateSeries(wiFiDetail, dataPoints);
+                graphViewWrapper.updateSeries(wiFiDetail, dataPoints, true);
             }
         }
     }

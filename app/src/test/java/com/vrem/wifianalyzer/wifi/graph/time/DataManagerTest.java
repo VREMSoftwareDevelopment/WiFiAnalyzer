@@ -142,7 +142,9 @@ public class DataManagerTest {
         fixture.adjustData(graphViewWrapper, wiFiDetails);
         // validate
         for (WiFiDetail wiFiDetail : difference) {
-            verify(graphViewWrapper).appendToSeries(argThat(equalTo(wiFiDetail)), argThat(new DataPointEquals(dataPoint)), argThat(equalTo(scanCount)));
+            verify(graphViewWrapper).appendToSeries(
+                argThat(equalTo(wiFiDetail)), argThat(new DataPointEquals(dataPoint)),
+                argThat(equalTo(scanCount)), argThat(equalTo(false)));
             verify(timeGraphCache).add(wiFiDetail);
         }
         verify(timeGraphCache).clear();
@@ -174,7 +176,9 @@ public class DataManagerTest {
         fixture.addData(graphViewWrapper, wiFiDetail);
         // validate
         verify(graphViewWrapper).isNewSeries(wiFiDetail);
-        verify(graphViewWrapper).appendToSeries(argThat(equalTo(wiFiDetail)), argThat(new DataPointEquals(dataPoint)), argThat(equalTo(scanCount)));
+        verify(graphViewWrapper).appendToSeries(
+            argThat(equalTo(wiFiDetail)), argThat(new DataPointEquals(dataPoint)),
+            argThat(equalTo(scanCount)), argThat(equalTo(false)));
         verify(timeGraphCache).reset(wiFiDetail);
     }
 

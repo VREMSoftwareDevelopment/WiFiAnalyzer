@@ -164,7 +164,8 @@ public class GraphViewWrapperTest {
         verify(baseSeries).setTitle(expectedTitle);
         verify(baseSeries).setOnDataPointTapListener(any(GraphViewWrapper.GraphTapListener.class));
         verify(seriesOptions).highlightConnected(baseSeries, connected);
-        verify(seriesOptions).setSeriesColor(baseSeries, true);
+        verify(seriesOptions).setSeriesColor(baseSeries);
+        verify(seriesOptions).drawBackground(baseSeries, true);
         verify(graphView).addSeries(baseSeries);
     }
 
@@ -173,7 +174,7 @@ public class GraphViewWrapperTest {
         // setup
         when(seriesCache.contains(wiFiDetail)).thenReturn(false);
         // execute
-        boolean actual = fixture.updateSeries(wiFiDetail, dataPoints);
+        boolean actual = fixture.updateSeries(wiFiDetail, dataPoints, true);
         // validate
         assertFalse(actual);
         verify(seriesCache).contains(wiFiDetail);
@@ -187,13 +188,14 @@ public class GraphViewWrapperTest {
         when(seriesCache.contains(wiFiDetail)).thenReturn(true);
         when(seriesCache.get(wiFiDetail)).thenReturn(baseSeries);
         // execute
-        boolean actual = fixture.updateSeries(wiFiDetail, dataPoints);
+        boolean actual = fixture.updateSeries(wiFiDetail, dataPoints, true);
         // validate
         assertTrue(actual);
         verify(seriesCache).contains(wiFiDetail);
         verify(seriesCache).get(wiFiDetail);
         verify(baseSeries).resetData(dataPoints);
         verify(seriesOptions).highlightConnected(baseSeries, connected);
+        verify(seriesOptions).drawBackground(baseSeries, true);
     }
 
     @Test
@@ -202,7 +204,7 @@ public class GraphViewWrapperTest {
         int count = 10;
         when(seriesCache.contains(wiFiDetail)).thenReturn(false);
         // execute
-        boolean actual = fixture.appendToSeries(wiFiDetail, dataPoint, count);
+        boolean actual = fixture.appendToSeries(wiFiDetail, dataPoint, count, true);
         // validate
         assertFalse(actual);
         verify(seriesCache).contains(wiFiDetail);
@@ -217,13 +219,14 @@ public class GraphViewWrapperTest {
         when(seriesCache.contains(wiFiDetail)).thenReturn(true);
         when(seriesCache.get(wiFiDetail)).thenReturn(baseSeries);
         // execute
-        boolean actual = fixture.appendToSeries(wiFiDetail, dataPoint, count);
+        boolean actual = fixture.appendToSeries(wiFiDetail, dataPoint, count, true);
         // validate
         assertTrue(actual);
         verify(seriesCache).contains(wiFiDetail);
         verify(seriesCache).get(wiFiDetail);
         verify(baseSeries).appendData(dataPoint, true, count + 1);
         verify(seriesOptions).highlightConnected(baseSeries, connected);
+        verify(seriesOptions).drawBackground(baseSeries, true);
     }
 
     @Test

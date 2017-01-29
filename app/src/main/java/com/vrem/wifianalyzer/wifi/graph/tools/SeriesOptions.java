@@ -45,13 +45,19 @@ class SeriesOptions implements GraphConstants {
         }
     }
 
-    void setSeriesColor(@NonNull BaseSeries<DataPoint> series, boolean drawBackground) {
+    void setSeriesColor(@NonNull BaseSeries<DataPoint> series) {
         GraphColor graphColor = graphColors.getColor();
         series.setColor((int) graphColor.getPrimary());
         if (series instanceof LineGraphSeries) {
-            ((LineGraphSeries<DataPoint>) series).setDrawBackground(drawBackground);
+            ((LineGraphSeries<DataPoint>) series).setBackgroundColor((int) graphColor.getBackground());
         } else if (series instanceof TitleLineGraphSeries) {
             ((TitleLineGraphSeries<DataPoint>) series).setBackgroundColor((int) graphColor.getBackground());
+        }
+    }
+
+    void drawBackground(@NonNull BaseSeries<DataPoint> series, boolean drawBackground) {
+        if (series instanceof LineGraphSeries) {
+            ((LineGraphSeries<DataPoint>) series).setDrawBackground(drawBackground);
         }
     }
 
