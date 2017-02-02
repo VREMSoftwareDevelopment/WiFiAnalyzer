@@ -22,6 +22,8 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -108,13 +110,26 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         ratingBar.setMax(size);
         ratingBar.setNumStars(size);
         ratingBar.setRating(strength.ordinal() + 1);
+        int color = ContextCompat.getColor(getContext(), strength.colorResource());
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            ratingBar.getProgressDrawable().setColorFilter(ContextCompat.getColor(getContext(), R.color.success_color), PorterDuff.Mode.SRC_ATOP);
+            setRatingBarColor(ratingBar.getProgressDrawable(), color);
         } else {
-            ratingBar.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), strength.colorResource())));
+            ratingBar.setProgressTintList(ColorStateList.valueOf(color));
         }
 
         return view;
+    }
+
+    private void setRatingBarColor(Drawable drawable, int color) {
+        try {
+            int background = ContextCompat.getColor(getContext(), R.color.connected_background);
+            LayerDrawable layerDrawable = (LayerDrawable) drawable;
+            layerDrawable.getDrawable(0).setColorFilter(background, PorterDuff.Mode.SRC_ATOP);
+            layerDrawable.getDrawable(1).setColorFilter(background, PorterDuff.Mode.SRC_ATOP);
+            layerDrawable.getDrawable(2).setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+        } catch (Exception e) {
+            drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+        }
     }
 
     void bestChannels(@NonNull WiFiBand wiFiBand, @NonNull List<WiFiChannel> wiFiChannels) {
