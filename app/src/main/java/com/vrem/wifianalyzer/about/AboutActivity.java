@@ -40,8 +40,6 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
 
-import org.apache.commons.lang3.StringUtils;
-
 public class AboutActivity extends AppCompatActivity {
 
     @Override
@@ -73,18 +71,26 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void setExtraInformation() {
-        String config = StringUtils.EMPTY;
+        String text = BuildConfig.VERSION_NAME + " - " + BuildConfig.VERSION_CODE;
         Configuration configuration = MainContext.INSTANCE.getConfiguration();
-        if (configuration.isSizeAvailable()) {
-            config += "S";
+        if (configuration != null) {
+            if (configuration.isSizeAvailable()) {
+                text += "S";
+            }
+            if (configuration.isLargeScreen()) {
+                text += "L";
+            }
         }
-        if (configuration.isLargeScreen()) {
-            config += "L";
+        text += " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")";
+        setText(R.id.about_version_info, text);
+        setText(R.id.about_package_name, BuildConfig.APPLICATION_ID);
+    }
+
+    private void setText(int id, String text) {
+        TextView version = (TextView) findViewById(id);
+        if (version != null) {
+            version.setText(text);
         }
-        ((TextView) findViewById(R.id.about_version_info)).setText(
-            BuildConfig.VERSION_NAME + " - " + BuildConfig.VERSION_CODE + config
-                + " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")");
-        ((TextView) findViewById(R.id.about_package_name)).setText(BuildConfig.APPLICATION_ID);
     }
 
     @Override
