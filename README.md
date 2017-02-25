@@ -30,6 +30,8 @@ This is the official repository of WiFi Analyzer (open-source).
 * Export access points details
 * Dark or Light theme available
 * Pause/Resume scanning
+* Swipe left/right at the bottom of the screen to navigate to the next/previous screen
+
 
 **Please note WiFi Analyzer is not a WiFi password cracking or phishing tool.**
 
