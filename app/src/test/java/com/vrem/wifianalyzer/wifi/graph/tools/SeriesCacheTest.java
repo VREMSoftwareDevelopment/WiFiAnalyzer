@@ -33,6 +33,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -92,7 +93,7 @@ public class SeriesCacheTest {
     }
 
     @Test
-    public void tesDifferenceExpectOneLess() throws Exception {
+    public void tesDifferenceExpectOneLess() {
         // setup
         List<WiFiDetail> expected = withData();
         // execute
@@ -105,7 +106,7 @@ public class SeriesCacheTest {
     }
 
     @Test
-    public void tesDifferenceExpectEverything() throws Exception {
+    public void tesDifferenceExpectEverything() {
         // setup
         List<WiFiDetail> expected = withData();
         // execute
@@ -118,7 +119,7 @@ public class SeriesCacheTest {
     }
 
     @Test
-    public void tesDifferenceExpectNone() throws Exception {
+    public void tesDifferenceExpectNone() {
         // setup
         List<WiFiDetail> expected = withData();
         // execute
@@ -172,8 +173,7 @@ public class SeriesCacheTest {
     public void testRemoveNonExistingOne() throws Exception {
         // setup
         List<WiFiDetail> expected = withData();
-        //noinspection ArraysAsListWithZeroOrOneArgument
-        List<WiFiDetail> toRemove = Arrays.asList(makeWiFiDetail("SSID-999"));
+        List<WiFiDetail> toRemove = Collections.singletonList(makeWiFiDetail("SSID-999"));
         // execute
         List<BaseSeries<DataPoint>> actual = fixture.remove(toRemove);
         // validate

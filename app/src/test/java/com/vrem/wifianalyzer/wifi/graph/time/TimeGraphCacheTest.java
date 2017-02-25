@@ -49,7 +49,7 @@ public class TimeGraphCacheTest {
         // setup
         List<WiFiDetail> expected = withWiFiDetails();
         // execute
-        Set<WiFiDetail> actual = fixture.all();
+        Set<WiFiDetail> actual = fixture.getWiFiDetails();
         // validate
         assertEquals(expected.size(), actual.size());
     }
@@ -72,7 +72,7 @@ public class TimeGraphCacheTest {
         // execute
         fixture.clear();
         // validate
-        Set<WiFiDetail> actual = fixture.all();
+        Set<WiFiDetail> actual = fixture.getWiFiDetails();
         assertEquals(expected.size() - 1, actual.size());
         assertFalse(actual.contains(expected.get(0)));
     }
@@ -84,7 +84,7 @@ public class TimeGraphCacheTest {
         // execute
         fixture.reset(expected.get(0));
         // validate
-        Set<WiFiDetail> actual = fixture.all();
+        Set<WiFiDetail> actual = fixture.getWiFiDetails();
         assertEquals(expected.size(), actual.size());
         assertTrue(actual.contains(expected.get(0)));
     }

@@ -31,6 +31,12 @@
         <item>頻道</item>
     </string-array>
 
+    <string-array name="connection_view_array">
+        <item>完成</item>
+        <item>緊湊</item>
+        <item>隱藏</item>
+    </string-array>
+
     <string-array name="ap_view_array">
         <item>完成</item>
         <item>緊湊</item>

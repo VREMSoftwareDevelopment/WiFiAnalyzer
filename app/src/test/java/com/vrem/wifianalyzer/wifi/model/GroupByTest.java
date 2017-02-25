@@ -21,7 +21,6 @@ package com.vrem.wifianalyzer.wifi.model;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,16 +43,6 @@ public class GroupByTest {
     @Test
     public void testGroupByNumber() throws Exception {
         assertEquals(3, GroupBy.values().length);
-    }
-
-    @Test
-    public void testFind() throws Exception {
-        Assert.assertEquals(GroupBy.NONE, GroupBy.find(-1));
-        assertEquals(GroupBy.NONE, GroupBy.find(GroupBy.values().length));
-
-        assertEquals(GroupBy.NONE, GroupBy.find(GroupBy.NONE.ordinal()));
-        assertEquals(GroupBy.SSID, GroupBy.find(GroupBy.SSID.ordinal()));
-        assertEquals(GroupBy.CHANNEL, GroupBy.find(GroupBy.CHANNEL.ordinal()));
     }
 
     @Test

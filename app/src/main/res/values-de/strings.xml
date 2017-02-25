@@ -59,11 +59,11 @@
     <!-- settings start -->
     <string name="start_menu_title">Beim Start anzeigen</string>
     <string name="country_code_title">Land</string>
-    <string name="wifi_band_title">WLAN Frequenzbänder</string>
     <string name="scan_interval_title">Scan Intervall</string>
     <string name="scan_interval_summary">%d Sekunden zwischen den Scans</string>
     <string name="sort_by_title">Sortiere Access Points nach</string>
     <string name="group_by_title">Gruppiere Access Points nach</string>
+    <string name="connection_view_title">Verbindung Anzeigen</string>
     <string name="ap_view_title">Access Point Anzeigen</string>
     <string name="graph_maximum_y_title">Grafik Maximale Signalstärke</string>
     <string name="channel_graph_legend_title">Legende in Kanalübersicht anzeige</string>
@@ -82,4 +82,18 @@
     <string name="about_contributor_title">Beitragende:</string>
     <string name="about_write_review">Rezension schreiben</string>
     <!-- about end -->
+
+    <!-- security start -->
+    <string name="security_none">Keiner</string>
+    <!-- security end -->
+
+    <!-- filter start -->
+    <string name="filter_title">Filter</string>
+    <string name="filter_close">Schließen</string>
+    <string name="filter_reset">Zurücksetzen</string>
+    <string name="filter_apply">Anwenden</string>
+    <string name="filter_wifi_band_title">WLAN Frequenzbänder</string>
+    <string name="filter_strength_title">Signalstärke</string>
+    <string name="filter_security_title">Sicherheit</string>
+    <!-- filter end -->
 </resources>

@@ -26,7 +26,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public enum Security {
-    // weak getSecurity first - keep this order
     NONE(R.drawable.ic_lock_open_black_18dp),
     WPS(R.drawable.ic_lock_outline_black_18dp),
     WEP(R.drawable.ic_lock_outline_black_18dp),
@@ -65,7 +64,7 @@ public enum Security {
         return Security.NONE;
     }
 
-    public int imageResource() {
+    public int getImageResource() {
         return imageResource;
     }
 

@@ -20,36 +20,22 @@ package com.vrem.wifianalyzer.wifi.band;
 
 import android.support.annotation.NonNull;
 
-public enum WiFiBand {
-    GHZ2("2.4 GHz", new WiFiChannelsGHZ2()),
-    GHZ5("5 GHz", new WiFiChannelsGHZ5());
+import com.vrem.wifianalyzer.R;
 
-    private final String band;
+public enum WiFiBand {
+    GHZ2(R.string.wifi_band_2ghz, new WiFiChannelsGHZ2()),
+    GHZ5(R.string.wifi_band_5ghz, new WiFiChannelsGHZ5());
+
+    private final int textResource;
     private final WiFiChannels wiFiChannels;
 
-    WiFiBand(@NonNull String band, @NonNull WiFiChannels wiFiChannels) {
-        this.band = band;
+    WiFiBand(int textResource, @NonNull WiFiChannels wiFiChannels) {
+        this.textResource = textResource;
         this.wiFiChannels = wiFiChannels;
     }
 
-    public static WiFiBand findByFrequency(int frequency) {
-        for (WiFiBand wiFiBand : WiFiBand.values()) {
-            if (wiFiBand.getWiFiChannels().isInRange(frequency)) {
-                return wiFiBand;
-            }
-        }
-        return WiFiBand.GHZ2;
-    }
-
-    public static WiFiBand find(int index) {
-        if (index < 0 || index >= values().length) {
-            return GHZ2;
-        }
-        return values()[index];
-    }
-
-    public String getBand() {
-        return band;
+    public int getTextResource() {
+        return textResource;
     }
 
     public WiFiBand toggle() {

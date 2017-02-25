@@ -31,6 +31,12 @@
         <item>Kanal</item>
     </string-array>
 
+    <string-array name="connection_view_array">
+        <item>Komplett</item>
+        <item>Kompakt</item>
+        <item>Verstecken</item>
+    </string-array>
+
     <string-array name="ap_view_array">
         <item>Komplett</item>
         <item>Kompakt</item>

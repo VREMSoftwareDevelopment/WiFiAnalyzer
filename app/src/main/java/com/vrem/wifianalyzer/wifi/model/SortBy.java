@@ -35,13 +35,6 @@ public enum SortBy {
         this.comparator = comparator;
     }
 
-    public static SortBy find(int index) {
-        if (index < 0 || index >= values().length) {
-            return STRENGTH;
-        }
-        return values()[index];
-    }
-
     Comparator<WiFiDetail> comparator() {
         return comparator;
     }

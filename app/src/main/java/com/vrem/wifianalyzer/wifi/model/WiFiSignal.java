@@ -20,6 +20,8 @@ package com.vrem.wifianalyzer.wifi.model;
 
 import android.support.annotation.NonNull;
 
+import com.vrem.util.EnumUtils;
+import com.vrem.wifianalyzer.wifi.band.FrequencyPredicate;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
@@ -43,7 +45,7 @@ public class WiFiSignal {
         this.centerFrequency = centerFrequency;
         this.wiFiWidth = wiFiWidth;
         this.level = level;
-        this.wiFiBand = WiFiBand.findByFrequency(primaryFrequency);
+        this.wiFiBand = EnumUtils.find(WiFiBand.class, new FrequencyPredicate(primaryFrequency), WiFiBand.GHZ2);
     }
 
     public int getPrimaryFrequency() {

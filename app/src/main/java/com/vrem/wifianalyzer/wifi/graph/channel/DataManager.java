@@ -30,6 +30,9 @@ import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Predicate;
+
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -40,21 +43,15 @@ class DataManager implements GraphConstants {
     }
 
     Set<WiFiDetail> getNewSeries(@NonNull List<WiFiDetail> wiFiDetails, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
-        Set<WiFiDetail> results = new TreeSet<>();
-        for (WiFiDetail wiFiDetail : wiFiDetails) {
-            if (isInRange(wiFiDetail.getWiFiSignal().getCenterFrequency(), wiFiChannelPair)) {
-                results.add(wiFiDetail);
-            }
-        }
-        return results;
+        return new TreeSet<>(CollectionUtils.select(wiFiDetails, new InRangePredicate(wiFiChannelPair)));
     }
 
-    DataPoint[] getDataPoints(@NonNull WiFiDetail wiFiDetail) {
+    DataPoint[] getDataPoints(@NonNull WiFiDetail wiFiDetail, int levelMax) {
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         int frequency = frequencyAdjustment(wiFiSignal.getCenterFrequency());
         int frequencyStart = frequencyAdjustment(wiFiSignal.getFrequencyStart());
         int frequencyEnd = frequencyAdjustment(wiFiSignal.getFrequencyEnd());
-        int level = wiFiSignal.getLevel();
+        int level = Math.min(wiFiSignal.getLevel(), levelMax);
         return new DataPoint[]{
             new DataPoint(frequencyStart, MIN_Y),
             new DataPoint(frequencyStart + WiFiChannels.FREQUENCY_SPREAD, level),
@@ -64,9 +61,9 @@ class DataManager implements GraphConstants {
         };
     }
 
-    void addSeriesData(@NonNull GraphViewWrapper graphViewWrapper, @NonNull Set<WiFiDetail> wiFiDetails) {
+    void addSeriesData(@NonNull GraphViewWrapper graphViewWrapper, @NonNull Set<WiFiDetail> wiFiDetails, int levelMax) {
         for (WiFiDetail wiFiDetail : wiFiDetails) {
-            DataPoint[] dataPoints = getDataPoints(wiFiDetail);
+            DataPoint[] dataPoints = getDataPoints(wiFiDetail, levelMax);
             if (graphViewWrapper.isNewSeries(wiFiDetail)) {
                 graphViewWrapper.addSeries(wiFiDetail, new TitleLineGraphSeries<>(dataPoints), true);
             } else {
@@ -75,8 +72,18 @@ class DataManager implements GraphConstants {
         }
     }
 
-    private boolean isInRange(int frequency, Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
-        return frequency >= wiFiChannelPair.first.getFrequency() && frequency <= wiFiChannelPair.second.getFrequency();
+    private class InRangePredicate implements Predicate<WiFiDetail> {
+        private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
+
+        private InRangePredicate(@NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
+            this.wiFiChannelPair = wiFiChannelPair;
+        }
+
+        @Override
+        public boolean evaluate(WiFiDetail object) {
+            int frequency = object.getWiFiSignal().getCenterFrequency();
+            return frequency >= wiFiChannelPair.first.getFrequency() && frequency <= wiFiChannelPair.second.getFrequency();
+        }
     }
 
 }

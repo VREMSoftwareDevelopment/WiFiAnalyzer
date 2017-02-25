@@ -30,7 +30,7 @@ import java.net.URLConnection;
 
 import static org.junit.Assert.assertEquals;
 
-public class MacToVendorIntegrationTest {
+public class MacToVendorITest {
 
     @Test
     public void testMacVendorsComShort() throws Exception {

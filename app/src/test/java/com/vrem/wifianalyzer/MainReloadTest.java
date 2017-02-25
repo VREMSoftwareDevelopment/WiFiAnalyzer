@@ -21,6 +21,7 @@ package com.vrem.wifianalyzer;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.AccessPointView;
+import com.vrem.wifianalyzer.wifi.ConnectionViewType;
 
 import org.junit.After;
 import org.junit.Before;
@@ -47,6 +48,7 @@ public class MainReloadTest {
 
         when(settings.getThemeStyle()).thenReturn(ThemeStyle.DARK);
         when(settings.getAccessPointView()).thenReturn(AccessPointView.COMPLETE);
+        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(settings.getGraphMaximumY()).thenReturn(GRAPH_MAXIMUM_Y);
 
         fixture = new MainReload(settings);
@@ -56,6 +58,7 @@ public class MainReloadTest {
     public void tearDown() {
         verify(settings, atLeastOnce()).getThemeStyle();
         verify(settings, atLeastOnce()).getAccessPointView();
+        verify(settings, atLeastOnce()).getConnectionViewType();
         verify(settings, atLeastOnce()).getGraphMaximumY();
 
         MainContextHelper.INSTANCE.restore();
@@ -101,6 +104,27 @@ public class MainReloadTest {
         // validate
         assertTrue(actual);
         assertEquals(expected, fixture.getAccessPointView());
+    }
+
+    @Test
+    public void testShouldNotReloadWithNoConnectionViewTypeChanges() throws Exception {
+        // execute
+        boolean actual = fixture.shouldReload(settings);
+        // validate
+        assertFalse(actual);
+        assertEquals(ConnectionViewType.COMPLETE, fixture.getConnectionViewType());
+    }
+
+    @Test
+    public void testShouldReloadWithConnectionViewTypeChange() throws Exception {
+        // setup
+        ConnectionViewType expected = ConnectionViewType.COMPACT;
+        when(settings.getConnectionViewType()).thenReturn(expected);
+        // execute
+        boolean actual = fixture.shouldReload(settings);
+        // validate
+        assertTrue(actual);
+        assertEquals(expected, fixture.getConnectionViewType());
     }
 
     @Test

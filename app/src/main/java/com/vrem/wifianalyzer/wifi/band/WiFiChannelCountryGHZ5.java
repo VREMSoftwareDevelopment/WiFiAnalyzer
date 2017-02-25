@@ -23,7 +23,6 @@ import android.support.annotation.NonNull;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedSet;
@@ -63,7 +62,7 @@ class WiFiChannelCountryGHZ5 {
         if (exclude != null) {
             results.removeAll(exclude);
         }
-        return Collections.unmodifiableSortedSet(results);
+        return results;
     }
 
 }

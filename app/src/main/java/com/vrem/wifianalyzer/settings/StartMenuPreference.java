@@ -25,6 +25,9 @@ import android.util.AttributeSet;
 import com.vrem.wifianalyzer.navigation.NavigationGroup;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Transformer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,15 +37,24 @@ public class StartMenuPreference extends CustomPreference {
     }
 
     private static List<Data> getData(@NonNull Context context) {
-        List<Data> result = new ArrayList<>();
-        for (NavigationMenu navigationMenu : NavigationGroup.GROUP_FEATURE.getNavigationMenus()) {
-            result.add(new Data("" + navigationMenu.ordinal(), context.getString(navigationMenu.getTitle())));
-        }
-        return result;
+        return new ArrayList<>(CollectionUtils.collect(NavigationGroup.GROUP_FEATURE.getNavigationMenus(), new ToData(context)));
     }
 
     private static String getDefault() {
         return "" + NavigationGroup.GROUP_FEATURE.getNavigationMenus().get(0).ordinal();
+    }
+
+    private static class ToData implements Transformer<NavigationMenu, Data> {
+        private final Context context;
+
+        ToData(@NonNull Context context) {
+            this.context = context;
+        }
+
+        @Override
+        public Data transform(NavigationMenu input) {
+            return new Data("" + input.ordinal(), context.getString(input.getTitle()));
+        }
     }
 
 }

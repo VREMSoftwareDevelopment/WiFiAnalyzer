@@ -41,13 +41,6 @@ public class NavigationGroupTest {
     }
 
     @Test
-    public void testFind() throws Exception {
-        assertEquals(NavigationGroup.GROUP_FEATURE, NavigationGroup.find(NavigationMenu.CHANNEL_RATING));
-        assertEquals(NavigationGroup.GROUP_OTHER, NavigationGroup.find(NavigationMenu.EXPORT));
-        assertEquals(NavigationGroup.GROUP_SETTINGS, NavigationGroup.find(NavigationMenu.ABOUT));
-    }
-
-    @Test
     public void testGetNavigationMenus() throws Exception {
         assertArrayEquals(new NavigationMenu[]{
                 NavigationMenu.ACCESS_POINTS,

@@ -40,6 +40,7 @@
     <string name="action_about">About</string>
     <string name="action_pause" translatable="false">Pause</string>
     <string name="action_resume" translatable="false">Resume</string>
+    <string name="action_filter" translatable="false">Filter</string>
     <!-- action end -->
 
     <string name="button_ok" translatable="false">OK</string>
@@ -72,10 +73,7 @@
     <string name="country_code_summary" translatable="false">%s</string>
     <string name="country_code_key" translatable="false">country_code</string>
 
-    <string name="wifi_band_title">WiFi Band</string>
-    <string name="wifi_band_summary" translatable="false">%s</string>
     <string name="wifi_band_key" translatable="false">wifi_band</string>
-    <string name="wifi_band_default" translatable="false">0</string>
 
     <string name="scan_interval_title">Scan Interval</string>
     <string name="scan_interval_summary">%d seconds between each scan</string>
@@ -98,6 +96,11 @@
     <string name="ap_view_summary" translatable="false">%s</string>
     <string name="ap_view_key" translatable="false">view</string>
     <string name="ap_view_default" translatable="false">0</string>
+
+    <string name="connection_view_title">Connection Display</string>
+    <string name="connection_view_summary" translatable="false">%s</string>
+    <string name="connection_view_key" translatable="false">connection</string>
+    <string name="connection_view_default" translatable="false">0</string>
 
     <string name="graph_maximum_y_title">Graph Maximum Signal Strength</string>
     <string name="graph_maximum_y_summary" translatable="false">%s</string>
@@ -138,4 +141,28 @@
     <string name="about_contributor_list" translatable="false">"Abuzer Rafey, Alex Orchard, Alexei Guevara, Caren DesBrisay, Dan Light, David Jones, Gina Chaves, Graham Foster, Jean Bourgeois, Kevin Jiang, Lee McCallum, Lukas Winkler, Marco Santinelli, Michael Melo, Michael Pickard, Silviu Marcu, Vadim Karantayer, Wei McCallum, William Gathoye, Yuriy Timofeev, 'Akira, Genghis, TaiXiong"</string>
     <string name="about_write_review">Write a Review</string>
     <!-- about end -->
+
+    <string name="wifi_band_2ghz" translatable="false">2.4 GHz</string>
+    <string name="wifi_band_5ghz" translatable="false">5 GHz</string>
+
+    <!-- security start -->
+    <string name="security_none">None</string>
+    <string name="security_wps" translatable="false">WPS</string>
+    <string name="security_wep" translatable="false">WEP</string>
+    <string name="security_wpa" translatable="false">WPA</string>
+    <string name="security_wpa2" translatable="false">WPA2</string>
+    <!-- security end -->
+
+    <!-- filter start -->
+    <string name="filter_title">Filter</string>
+    <string name="filter_close">Close</string>
+    <string name="filter_reset">Reset</string>
+    <string name="filter_apply">Apply</string>
+    <string name="filter_wifi_band_title">WiFi Band</string>
+    <string name="filter_wifi_band_key" translatable="false">filter_wifi_band</string>
+    <string name="filter_strength_title">Signal Strength</string>
+    <string name="filter_strength_key" translatable="false">filter_strength</string>
+    <string name="filter_security_title">Security</string>
+    <string name="filter_security_key" translatable="false">filter_security</string>
+    <!-- filter end -->
 </resources>

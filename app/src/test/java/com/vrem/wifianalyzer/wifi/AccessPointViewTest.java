@@ -28,17 +28,8 @@ import static org.junit.Assert.assertTrue;
 
 public class AccessPointViewTest {
     @Test
-    public void testAccessPointViewNumber() throws Exception {
+    public void testAccessPointViewCount() throws Exception {
         assertEquals(2, AccessPointView.values().length);
-    }
-
-    @Test
-    public void testFind() throws Exception {
-        assertEquals(AccessPointView.COMPLETE, AccessPointView.find(-1));
-        assertEquals(AccessPointView.COMPLETE, AccessPointView.find(AccessPointView.values().length));
-
-        assertEquals(AccessPointView.COMPLETE, AccessPointView.find(AccessPointView.COMPLETE.ordinal()));
-        assertEquals(AccessPointView.COMPACT, AccessPointView.find(AccessPointView.COMPACT.ordinal()));
     }
 
     @Test

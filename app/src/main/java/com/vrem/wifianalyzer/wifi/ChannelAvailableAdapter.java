@@ -50,15 +50,18 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
             LayoutInflater layoutInflater = MainContext.INSTANCE.getMainActivity().getLayoutInflater();
             view = layoutInflater.inflate(R.layout.channel_available_details, parent, false);
         }
+
         WiFiChannelCountry wiFiChannelCountry = getItem(position);
         ((TextView) view.findViewById(R.id.channel_available_country))
             .setText(wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName());
         ((TextView) view.findViewById(R.id.channel_available_title_ghz_2))
-            .setText(String.format(Locale.ENGLISH, "%s : ", WiFiBand.GHZ2.getBand()));
+            .setText(String.format(Locale.ENGLISH, "%s : ",
+                view.getResources().getString(WiFiBand.GHZ2.getTextResource())));
         ((TextView) view.findViewById(R.id.channel_available_ghz_2))
             .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ2().toArray(), ","));
         ((TextView) view.findViewById(R.id.channel_available_title_ghz_5))
-            .setText(String.format(Locale.ENGLISH, "%s : ", WiFiBand.GHZ5.getBand()));
+            .setText(String.format(Locale.ENGLISH, "%s : ",
+                view.getResources().getString(WiFiBand.GHZ5.getTextResource())));
         ((TextView) view.findViewById(R.id.channel_available_ghz_5))
             .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ5().toArray(), ","));
         return view;

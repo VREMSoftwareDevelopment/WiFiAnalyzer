@@ -36,6 +36,7 @@ import com.vrem.wifianalyzer.wifi.model.ChannelAPCount;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
+import com.vrem.wifianalyzer.wifi.model.WiFiBandPredicate;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -117,7 +118,8 @@ public class ChannelRatingAdapterTest {
         // setup
         String expected = mainActivity.getResources().getText(R.string.channel_rating_best_none).toString();
         WiFiData wiFiData = new WiFiData(new ArrayList<WiFiDetail>(), WiFiConnection.EMPTY, new ArrayList<String>());
-        List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(WiFiBand.GHZ5, SortBy.STRENGTH);
+        WiFiBandPredicate predicate = new WiFiBandPredicate(WiFiBand.GHZ5);
+        List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(predicate, SortBy.STRENGTH);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
         when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
         // execute
@@ -135,7 +137,7 @@ public class ChannelRatingAdapterTest {
         Resources resources = mainActivity.getResources();
         String expected = resources.getText(R.string.channel_rating_best_none).toString()
             + resources.getText(R.string.channel_rating_best_alternative)
-            + " " + WiFiBand.GHZ5.getBand();
+            + " " + resources.getString(WiFiBand.GHZ5.getTextResource());
         List<WiFiChannel> wiFiChannels = new ArrayList<>();
         List<ChannelAPCount> channelAPCounts = new ArrayList<>();
         when(channelRating.getBestChannels(wiFiChannels)).thenReturn(channelAPCounts);

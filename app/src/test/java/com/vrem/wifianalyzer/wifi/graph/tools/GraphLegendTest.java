@@ -47,25 +47,6 @@ public class GraphLegendTest {
     }
 
     @Test
-    public void testFind() throws Exception {
-        assertEquals(GraphLegend.HIDE, GraphLegend.find(GraphLegend.HIDE.ordinal(), GraphLegend.LEFT));
-        assertEquals(GraphLegend.LEFT, GraphLegend.find(GraphLegend.LEFT.ordinal(), GraphLegend.RIGHT));
-        assertEquals(GraphLegend.RIGHT, GraphLegend.find(GraphLegend.RIGHT.ordinal(), GraphLegend.LEFT));
-    }
-
-    @Test
-    public void testFindWithInvalidIndex() throws Exception {
-        assertEquals(GraphLegend.HIDE, GraphLegend.find(-1, GraphLegend.HIDE));
-        assertEquals(GraphLegend.HIDE, GraphLegend.find(GraphLegend.values().length, GraphLegend.HIDE));
-
-        assertEquals(GraphLegend.RIGHT, GraphLegend.find(-1, GraphLegend.RIGHT));
-        assertEquals(GraphLegend.RIGHT, GraphLegend.find(GraphLegend.values().length, GraphLegend.RIGHT));
-
-        assertEquals(GraphLegend.LEFT, GraphLegend.find(-1, GraphLegend.LEFT));
-        assertEquals(GraphLegend.LEFT, GraphLegend.find(GraphLegend.values().length, GraphLegend.LEFT));
-    }
-
-    @Test
     public void testDisplayHide() throws Exception {
         // execute
         GraphLegend.HIDE.display(legendRenderer);

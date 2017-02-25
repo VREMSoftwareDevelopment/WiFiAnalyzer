@@ -44,7 +44,9 @@ import com.vrem.wifianalyzer.wifi.model.ChannelAPCount;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
+import com.vrem.wifianalyzer.wifi.model.WiFiBandPredicate;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 import java.util.ArrayList;
@@ -72,7 +74,9 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         Settings settings = MainContext.INSTANCE.getSettings();
         WiFiBand wiFiBand = settings.getWiFiBand();
         List<WiFiChannel> wiFiChannels = setWiFiChannels(wiFiBand);
-        channelRating.setWiFiDetails(wiFiData.getWiFiDetails(wiFiBand, SortBy.STRENGTH));
+        WiFiBandPredicate predicate = new WiFiBandPredicate(wiFiBand);
+        List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(predicate, SortBy.STRENGTH);
+        channelRating.setWiFiDetails(wiFiDetails);
         bestChannels(wiFiBand, wiFiChannels);
         notifyDataSetChanged();
     }
@@ -156,7 +160,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
             if (WiFiBand.GHZ2.equals(wiFiBand)) {
                 message.append(resources.getText(R.string.channel_rating_best_alternative));
                 message.append(" ");
-                message.append(WiFiBand.GHZ5.getBand());
+                message.append(getContext().getResources().getString(WiFiBand.GHZ5.getTextResource()));
             }
             bestChannels.setText(message);
             bestChannels.setTextColor(ContextCompat.getColor(getContext(), R.color.error_color));

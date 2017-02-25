@@ -18,11 +18,14 @@
 
 package com.vrem.wifianalyzer.wifi;
 
+import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
+import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
+import com.vrem.wifianalyzer.wifi.model.Strength;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
@@ -39,6 +42,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -76,11 +81,11 @@ public class AccessPointsAdapterDataTest {
         // setup
         withSettings();
         List<WiFiDetail> wiFiDetails = withWiFiDetails();
-        when(wiFiData.getWiFiDetails(WiFiBand.GHZ5, SortBy.SSID, GroupBy.CHANNEL)).thenReturn(wiFiDetails);
+        when(wiFiData.getWiFiDetails(any(AccessPointsPredicate.class), eq(SortBy.SSID), eq(GroupBy.CHANNEL))).thenReturn(wiFiDetails);
         // execute
         fixture.update(wiFiData);
         // validate
-        verify(wiFiData).getWiFiDetails(WiFiBand.GHZ5, SortBy.SSID, GroupBy.CHANNEL);
+        verify(wiFiData).getWiFiDetails(any(AccessPointsPredicate.class), eq(SortBy.SSID), eq(GroupBy.CHANNEL));
         verifySettings();
 
         assertEquals(wiFiDetails.size(), fixture.parentsCount());
@@ -105,14 +110,18 @@ public class AccessPointsAdapterDataTest {
     }
 
     private void verifySettings() {
-        verify(settings).getWiFiBand();
         verify(settings).getSortBy();
         verify(settings).getGroupBy();
+        verify(settings).getWiFiBandFilter();
+        verify(settings).getStrengthFilter();
+        verify(settings).getSecurityFilter();
     }
 
     private void withSettings() {
-        when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
         when(settings.getSortBy()).thenReturn(SortBy.SSID);
         when(settings.getGroupBy()).thenReturn(GroupBy.CHANNEL);
+        when(settings.getWiFiBandFilter()).thenReturn(EnumUtils.values(WiFiBand.class));
+        when(settings.getStrengthFilter()).thenReturn(EnumUtils.values(Strength.class));
+        when(settings.getSecurityFilter()).thenReturn(EnumUtils.values(Security.class));
     }
 }

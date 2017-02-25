@@ -25,7 +25,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 class WiFiChannelsGHZ5 extends WiFiChannels {
@@ -43,7 +42,7 @@ class WiFiChannelsGHZ5 extends WiFiChannels {
 
     @Override
     public List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs() {
-        return Collections.unmodifiableList(SETS);
+        return new ArrayList<>(SETS);
     }
 
     @Override
@@ -61,11 +60,7 @@ class WiFiChannelsGHZ5 extends WiFiChannels {
 
     @Override
     public List<WiFiChannel> getAvailableChannels(String countryCode) {
-        List<WiFiChannel> wiFiChannels = new ArrayList<>();
-        for (int channel : WiFiChannelCountry.get(countryCode).getChannelsGHZ5()) {
-            wiFiChannels.add(getWiFiChannelByChannel(channel));
-        }
-        return wiFiChannels;
+        return getAvailableChannels(WiFiChannelCountry.get(countryCode).getChannelsGHZ5());
     }
 
     @Override

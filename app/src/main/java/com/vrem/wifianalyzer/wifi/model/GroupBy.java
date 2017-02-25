@@ -37,13 +37,6 @@ public enum GroupBy {
         this.groupBy = groupBy;
     }
 
-    public static GroupBy find(int index) {
-        if (index < 0 || index >= values().length) {
-            return NONE;
-        }
-        return values()[index];
-    }
-
     Comparator<WiFiDetail> sortOrder() {
         return sortOrder;
     }

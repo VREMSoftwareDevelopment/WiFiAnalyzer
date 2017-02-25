@@ -18,9 +18,11 @@
 
 package com.vrem.wifianalyzer.navigation.options;
 
+import android.content.res.Resources;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 
+import com.vrem.util.TextUtils;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
@@ -58,9 +60,13 @@ public class WiFiSwitchOnTest {
     public void testApplySetSubtitle() throws Exception {
         // setup
         WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
-        int color = ContextCompat.getColor(mainActivity, R.color.connected);
-        String subtitle = fixture.makeSubtitle(mainActivity, wiFiBand, color);
-        CharSequence expected = fixture.fromHtml(subtitle);
+        Resources resources = mainActivity.getResources();
+        String wiFiBand2 = resources.getString(WiFiBand.GHZ2.getTextResource());
+        String wiFiBand5 = resources.getString(WiFiBand.GHZ5.getTextResource());
+        int colorSelected = ContextCompat.getColor(mainActivity, R.color.connected);
+        int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.icons_color);
+        String subtitle = fixture.makeSubtitle(WiFiBand.GHZ2.equals(wiFiBand), wiFiBand2, wiFiBand5, colorSelected, colorNotSelected);
+        CharSequence expected = TextUtils.fromHtml(subtitle);
         // execute
         fixture.apply(mainActivity);
         // validate
@@ -88,11 +94,15 @@ public class WiFiSwitchOnTest {
     @Test
     public void testMakeSubtitleGHZ2() throws Exception {
         // setup
-        int color = 10;
-        String expected = "<font color='" + color + "'><strong>" + WiFiBand.GHZ2.getBand()
-            + "</strong></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>" + WiFiBand.GHZ5.getBand() + "</small>";
+        int color1 = 10;
+        int color2 = 20;
+        String text1 = "text1";
+        String text2 = "text2";
+        String expected = "<font color='" + color1 + "'><strong>" + text1
+            + "</strong></font>" + WiFiSwitchOn.SPACER
+            + "<font color='" + color2 + "'><small>" + text2 + "</small></font>";
         // execute
-        String actual = fixture.makeSubtitle(mainActivity, WiFiBand.GHZ2, color);
+        String actual = fixture.makeSubtitle(true, text1, text2, color1, color2);
         // validate
         assertEquals(expected, actual);
     }
@@ -100,11 +110,15 @@ public class WiFiSwitchOnTest {
     @Test
     public void testMakeSubtitleGHZ5() throws Exception {
         // setup
-        int color = 10;
-        String expected = "<small>" + WiFiBand.GHZ2.getBand() + "</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-            + "<font color='" + color + "'><strong>" + WiFiBand.GHZ5.getBand() + "</strong></font>";
+        int color1 = 10;
+        int color2 = 20;
+        String text1 = "text1";
+        String text2 = "text2";
+        String expected = "<font color='" + color2 + "'><small>" + text1
+            + "</small></font>" + WiFiSwitchOn.SPACER
+            + "<font color='" + color1 + "'><strong>" + text2 + "</strong></font>";
         // execute
-        String actual = fixture.makeSubtitle(mainActivity, WiFiBand.GHZ5, color);
+        String actual = fixture.makeSubtitle(false, text1, text2, color1, color2);
         // validate
         assertEquals(expected, actual);
     }

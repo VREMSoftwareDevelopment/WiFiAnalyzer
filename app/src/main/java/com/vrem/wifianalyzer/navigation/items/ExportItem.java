@@ -59,6 +59,11 @@ class ExportItem implements NavigationItem {
         }
     }
 
+    @Override
+    public boolean isRegistered() {
+        return false;
+    }
+
     private boolean exportAvailable(@NonNull MainActivity mainActivity, @NonNull Intent chooser) {
         return chooser.resolveActivity(mainActivity.getPackageManager()) != null;
     }

@@ -38,6 +38,9 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphConstants;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Predicate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +61,6 @@ class ChannelGraphNavigation implements GraphConstants {
 
     void update() {
         List<NavigationItem> visible = getVisibleNavigationItems();
-
         Pair<WiFiChannel, WiFiChannel> selectedWiFiChannelPair = configuration.getWiFiChannelPair();
         for (NavigationItem navigationItem : navigationItems) {
             Button button = navigationItem.getButton();
@@ -74,18 +76,7 @@ class ChannelGraphNavigation implements GraphConstants {
     }
 
     private List<NavigationItem> getVisibleNavigationItems() {
-        Settings settings = MainContext.INSTANCE.getSettings();
-        WiFiBand wiFiBand = settings.getWiFiBand();
-        String countryCode = settings.getCountryCode();
-        WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
-        List<NavigationItem> visible = new ArrayList<>();
-        for (NavigationItem navigationItem : navigationItems) {
-            Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = navigationItem.getWiFiChannelPair();
-            if (wiFiBand.isGHZ5() && wiFiChannels.isChannelAvailable(countryCode, wiFiChannelPair.first.getChannel())) {
-                visible.add(navigationItem);
-            }
-        }
-        return visible;
+        return new ArrayList<>(CollectionUtils.select(navigationItems, new NavigationItemPredicate()));
     }
 
     private void setSelectedButton(Button button, boolean selected) {
@@ -127,6 +118,25 @@ class ChannelGraphNavigation implements GraphConstants {
             new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, TEXT_SIZE_ADJUSTMENT);
         params.setMargins(left, top, left, top);
         return params;
+    }
+
+    private class NavigationItemPredicate implements Predicate<NavigationItem> {
+        private final WiFiBand wiFiBand;
+        private final String countryCode;
+        private final WiFiChannels wiFiChannels;
+
+        private NavigationItemPredicate() {
+            Settings settings = MainContext.INSTANCE.getSettings();
+            wiFiBand = settings.getWiFiBand();
+            countryCode = settings.getCountryCode();
+            wiFiChannels = wiFiBand.getWiFiChannels();
+        }
+
+        @Override
+        public boolean evaluate(NavigationItem object) {
+            Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = object.getWiFiChannelPair();
+            return wiFiBand.isGHZ5() && wiFiChannels.isChannelAvailable(countryCode, wiFiChannelPair.first.getChannel());
+        }
     }
 
     private class ButtonOnClickListener implements OnClickListener {

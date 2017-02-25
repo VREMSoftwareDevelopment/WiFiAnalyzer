@@ -20,6 +20,8 @@ package com.vrem.wifianalyzer.wifi.band;
 
 import android.support.annotation.NonNull;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Transformer;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -45,16 +47,12 @@ public class WiFiChannelCountry {
     }
 
     public static List<WiFiChannelCountry> getAll() {
-        List<WiFiChannelCountry> results = new ArrayList<>();
-        for (Locale locale : COUNTRY.getCountries()) {
-            results.add(new WiFiChannelCountry(locale));
-        }
-        return results;
+        return new ArrayList<>(CollectionUtils.collect(COUNTRY.getCountries(), new ToCountry()));
     }
 
     @NonNull
     public String getCountryCode() {
-        String countryCode = this.country.getCountry();
+        String countryCode = country.getCountry();
         if (countryCode == null) {
             countryCode = StringUtils.EMPTY;
         }
@@ -84,5 +82,12 @@ public class WiFiChannelCountry {
 
     boolean isChannelAvailableGHZ5(int channel) {
         return getChannelsGHZ5().contains(channel);
+    }
+
+    private static class ToCountry implements Transformer<Locale, WiFiChannelCountry> {
+        @Override
+        public WiFiChannelCountry transform(Locale input) {
+            return new WiFiChannelCountry(input);
+        }
     }
 }

@@ -21,8 +21,12 @@ package com.vrem.wifianalyzer.wifi.band;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Transformer;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
 
 public abstract class WiFiChannels {
     public static final Pair<WiFiChannel, WiFiChannel> UNKNOWN = new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN);
@@ -103,4 +107,22 @@ public abstract class WiFiChannels {
     public abstract Pair<WiFiChannel, WiFiChannel> getWiFiChannelPairFirst(String countryCode);
 
     public abstract WiFiChannel getWiFiChannelByFrequency(int frequency, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair);
+
+    List<WiFiChannel> getAvailableChannels(SortedSet<Integer> channels) {
+        return new ArrayList<>(CollectionUtils.collect(channels, new ToWiFiChannel(this)));
+    }
+
+    private static class ToWiFiChannel implements Transformer<Integer, WiFiChannel> {
+        private final WiFiChannels wiFiChannels;
+
+        private ToWiFiChannel(@NonNull WiFiChannels wiFiChannels) {
+            this.wiFiChannels = wiFiChannels;
+        }
+
+        @Override
+        public WiFiChannel transform(Integer input) {
+            return wiFiChannels.getWiFiChannelByChannel(input);
+        }
+    }
+
 }

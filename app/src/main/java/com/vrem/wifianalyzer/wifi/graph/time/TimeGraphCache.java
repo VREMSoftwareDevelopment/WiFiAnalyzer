@@ -23,6 +23,9 @@ import android.support.annotation.NonNull;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphConstants;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Predicate;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -36,22 +39,11 @@ class TimeGraphCache implements GraphConstants {
     }
 
     Set<WiFiDetail> active() {
-        Set<WiFiDetail> active = new HashSet<>();
-        for (WiFiDetail wiFiDetail : this.notSeen.keySet()) {
-            if (notSeen.get(wiFiDetail) <= MAX_NONSEEN_COUNT) {
-                active.add(wiFiDetail);
-            }
-        }
-        return active;
+        return new HashSet<>(CollectionUtils.select(notSeen.keySet(), new SeenPredicate()));
     }
 
     void clear() {
-        Set<WiFiDetail> toClear = new HashSet<>();
-        for (WiFiDetail wiFiDetail : notSeen.keySet()) {
-            if (notSeen.get(wiFiDetail) > MAX_NONSEEN_COUNT) {
-                toClear.add(wiFiDetail);
-            }
-        }
+        Set<WiFiDetail> toClear = new HashSet<>(CollectionUtils.select(notSeen.keySet(), new NotSeenPredicate()));
         for (WiFiDetail wiFiDetail : toClear) {
             if (notSeen.containsKey(wiFiDetail)) {
                 notSeen.remove(wiFiDetail);
@@ -75,8 +67,22 @@ class TimeGraphCache implements GraphConstants {
         }
     }
 
-    Set<WiFiDetail> all() {
+    Set<WiFiDetail> getWiFiDetails() {
         return notSeen.keySet();
+    }
+
+    private class SeenPredicate implements Predicate<WiFiDetail> {
+        @Override
+        public boolean evaluate(WiFiDetail object) {
+            return notSeen.get(object) <= MAX_NONSEEN_COUNT;
+        }
+    }
+
+    private class NotSeenPredicate implements Predicate<WiFiDetail> {
+        @Override
+        public boolean evaluate(WiFiDetail object) {
+            return notSeen.get(object) > MAX_NONSEEN_COUNT;
+        }
     }
 
 }

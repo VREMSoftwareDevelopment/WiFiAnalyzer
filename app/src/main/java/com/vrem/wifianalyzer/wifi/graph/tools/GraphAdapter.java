@@ -24,6 +24,9 @@ import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Transformer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,11 +38,7 @@ public class GraphAdapter implements UpdateNotifier {
     }
 
     public List<GraphView> getGraphViews() {
-        List<GraphView> graphViews = new ArrayList<>();
-        for (GraphViewNotifier graphViewNotifier : graphViewNotifiers) {
-            graphViews.add(graphViewNotifier.getGraphView());
-        }
-        return graphViews;
+        return new ArrayList<>(CollectionUtils.collect(graphViewNotifiers, new ToGraphView()));
     }
 
     @Override
@@ -51,5 +50,12 @@ public class GraphAdapter implements UpdateNotifier {
 
     public List<GraphViewNotifier> getGraphViewNotifiers() {
         return graphViewNotifiers;
+    }
+
+    private static class ToGraphView implements Transformer<GraphViewNotifier, GraphView> {
+        @Override
+        public GraphView transform(GraphViewNotifier input) {
+            return input.getGraphView();
+        }
     }
 }

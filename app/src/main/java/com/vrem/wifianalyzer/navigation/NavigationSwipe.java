@@ -22,9 +22,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.view.MenuItem;
 
+import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.gestures.SwipeAction;
 import com.vrem.wifianalyzer.gestures.SwipeDirection;
+import com.vrem.wifianalyzer.navigation.NavigationGroup.NavigationPredicate;
 
 class NavigationSwipe implements SwipeAction {
 
@@ -47,12 +49,17 @@ class NavigationSwipe implements SwipeAction {
 
     private NavigationMenu getNextNavigationMenu() {
         NavigationMenu currentNavigationMenu = mainActivity.getNavigationMenuView().getCurrentNavigationMenu();
-        return NavigationGroup.find(currentNavigationMenu).next(currentNavigationMenu);
+        return getNavigationGroup(currentNavigationMenu).next(currentNavigationMenu);
     }
 
     private NavigationMenu getPreviousNavigationMenu() {
         NavigationMenu currentNavigationMenu = mainActivity.getNavigationMenuView().getCurrentNavigationMenu();
-        return NavigationGroup.find(currentNavigationMenu).previous(currentNavigationMenu);
+        return getNavigationGroup(currentNavigationMenu).previous(currentNavigationMenu);
+    }
+
+    private NavigationGroup getNavigationGroup(NavigationMenu currentNavigationMenu) {
+        NavigationPredicate navigationPredicate = new NavigationPredicate(currentNavigationMenu);
+        return EnumUtils.find(NavigationGroup.class, navigationPredicate, NavigationGroup.GROUP_FEATURE);
     }
 
     private void activateNewMenuItem(@NonNull NavigationMenu navigationMenu) {

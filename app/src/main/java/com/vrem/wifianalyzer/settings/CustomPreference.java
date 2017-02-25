@@ -23,6 +23,9 @@ import android.preference.ListPreference;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Transformer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,20 +39,25 @@ class CustomPreference extends ListPreference {
 
     @NonNull
     private CharSequence[] getCodes(@NonNull List<Data> datas) {
-        List<String> entryValues = new ArrayList<>();
-        for (Data data : datas) {
-            entryValues.add(data.getCode());
-        }
-        return entryValues.toArray(new CharSequence[]{});
+        return new ArrayList<>(CollectionUtils.collect(datas, new ToCode())).toArray(new CharSequence[]{});
     }
 
     @NonNull
     private CharSequence[] getNames(@NonNull List<Data> datas) {
-        List<String> entries = new ArrayList<>();
-        for (Data data : datas) {
-            entries.add(data.getName());
-        }
-        return entries.toArray(new CharSequence[]{});
+        return new ArrayList<>(CollectionUtils.collect(datas, new ToName())).toArray(new CharSequence[]{});
     }
 
+    private static class ToCode implements Transformer<Data, String> {
+        @Override
+        public String transform(Data input) {
+            return input.getCode();
+        }
+    }
+
+    private static class ToName implements Transformer<Data, String> {
+        @Override
+        public String transform(Data input) {
+            return input.getName();
+        }
+    }
 }

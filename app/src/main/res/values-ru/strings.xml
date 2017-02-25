@@ -58,11 +58,11 @@
     <!-- settings start -->
     <string name="start_menu_title">Начать</string>
     <string name="country_code_title">Страна</string>
-    <string name="wifi_band_title">WiFi диапазон</string>
     <string name="scan_interval_title">Интервал сканирования</string>
     <string name="scan_interval_summary">%d секунд между каждым сканированием</string>
     <string name="sort_by_title">Сортировка</string>
     <string name="group_by_title">Группировка</string>
+    <string name="connection_view_title">Дисплей соединение</string>
     <string name="ap_view_title">Точка доступа</string>
     <string name="graph_maximum_y_title">Максимальная сила сигнала графика</string>
     <string name="channel_graph_legend_title">Показать легенду графика каналa</string>
@@ -81,4 +81,18 @@
     <string name="about_contributor_title">Авторы:</string>
     <string name="about_write_review">Написать отзыв</string>
     <!-- about end -->
+
+    <!-- security start -->
+    <string name="security_none">Нет</string>
+    <!-- security end -->
+
+    <!-- filter start -->
+    <string name="filter_title">Фильтр</string>
+    <string name="filter_close">Закрыть</string>
+    <string name="filter_reset">Сброс</string>
+    <string name="filter_apply">Применять</string>
+    <string name="filter_wifi_band_title">WiFi диапазон</string>
+    <string name="filter_strength_title">Уровень сигнала</string>
+    <string name="filter_security_title">Безопасность</string>
+    <!-- filter end -->
 </resources>

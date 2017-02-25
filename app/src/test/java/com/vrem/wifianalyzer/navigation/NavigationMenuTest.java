@@ -36,22 +36,6 @@ public class NavigationMenuTest {
     }
 
     @Test
-    public void testFind() throws Exception {
-        assertEquals(NavigationMenu.ACCESS_POINTS, NavigationMenu.find(-1));
-        assertEquals(NavigationMenu.ACCESS_POINTS, NavigationMenu.find(NavigationMenu.values().length));
-
-        assertEquals(NavigationMenu.ACCESS_POINTS, NavigationMenu.find(NavigationMenu.ACCESS_POINTS.ordinal()));
-        assertEquals(NavigationMenu.CHANNEL_RATING, NavigationMenu.find(NavigationMenu.CHANNEL_RATING.ordinal()));
-        assertEquals(NavigationMenu.CHANNEL_GRAPH, NavigationMenu.find(NavigationMenu.CHANNEL_GRAPH.ordinal()));
-        assertEquals(NavigationMenu.TIME_GRAPH, NavigationMenu.find(NavigationMenu.TIME_GRAPH.ordinal()));
-        assertEquals(NavigationMenu.EXPORT, NavigationMenu.find(NavigationMenu.EXPORT.ordinal()));
-        assertEquals(NavigationMenu.CHANNEL_AVAILABLE, NavigationMenu.find(NavigationMenu.CHANNEL_AVAILABLE.ordinal()));
-        assertEquals(NavigationMenu.VENDOR_LIST, NavigationMenu.find(NavigationMenu.VENDOR_LIST.ordinal()));
-        assertEquals(NavigationMenu.SETTINGS, NavigationMenu.find(NavigationMenu.SETTINGS.ordinal()));
-        assertEquals(NavigationMenu.ABOUT, NavigationMenu.find(NavigationMenu.ABOUT.ordinal()));
-    }
-
-    @Test
     public void testGetNavigationItem() throws Exception {
         assertEquals(NavigationItemFactory.ACCESS_POINTS, NavigationMenu.ACCESS_POINTS.getNavigationItem());
         assertEquals(NavigationItemFactory.CHANNEL_RATING, NavigationMenu.CHANNEL_RATING.getNavigationItem());
@@ -79,7 +63,6 @@ public class NavigationMenuTest {
 
     @Test
     public void testIsWiFiBandSwitchableTrue() throws Exception {
-        assertTrue(NavigationMenu.ACCESS_POINTS.isWiFiBandSwitchable());
         assertTrue(NavigationMenu.CHANNEL_RATING.isWiFiBandSwitchable());
         assertTrue(NavigationMenu.CHANNEL_GRAPH.isWiFiBandSwitchable());
         assertTrue(NavigationMenu.TIME_GRAPH.isWiFiBandSwitchable());
@@ -87,11 +70,29 @@ public class NavigationMenuTest {
 
     @Test
     public void testIsWiFiBandSwitchableFalse() throws Exception {
+        assertFalse(NavigationMenu.ACCESS_POINTS.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.CHANNEL_AVAILABLE.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.EXPORT.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.VENDOR_LIST.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.SETTINGS.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.ABOUT.isWiFiBandSwitchable());
+    }
+
+    @Test
+    public void testIsRegisteredTrue() throws Exception {
+        assertTrue(NavigationMenu.ACCESS_POINTS.isRegistered());
+        assertTrue(NavigationMenu.CHANNEL_RATING.isRegistered());
+        assertTrue(NavigationMenu.CHANNEL_GRAPH.isRegistered());
+        assertTrue(NavigationMenu.TIME_GRAPH.isRegistered());
+    }
+
+    @Test
+    public void testIsRegisteredFalse() throws Exception {
+        assertFalse(NavigationMenu.CHANNEL_AVAILABLE.isRegistered());
+        assertFalse(NavigationMenu.EXPORT.isRegistered());
+        assertFalse(NavigationMenu.VENDOR_LIST.isRegistered());
+        assertFalse(NavigationMenu.SETTINGS.isRegistered());
+        assertFalse(NavigationMenu.ABOUT.isRegistered());
     }
 
     @Test
@@ -109,15 +110,15 @@ public class NavigationMenuTest {
 
     @Test
     public void testGetNavigationOptions() throws Exception {
-        assertEquals(NavigationOptionFactory.ALL_ON, NavigationMenu.ACCESS_POINTS.getNavigationOptions());
-        assertEquals(NavigationOptionFactory.ALL_ON, NavigationMenu.CHANNEL_RATING.getNavigationOptions());
-        assertEquals(NavigationOptionFactory.ALL_ON, NavigationMenu.CHANNEL_GRAPH.getNavigationOptions());
-        assertEquals(NavigationOptionFactory.ALL_ON, NavigationMenu.TIME_GRAPH.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.AP, NavigationMenu.ACCESS_POINTS.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.OTHER, NavigationMenu.CHANNEL_RATING.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.OTHER, NavigationMenu.CHANNEL_GRAPH.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.OTHER, NavigationMenu.TIME_GRAPH.getNavigationOptions());
 
-        assertEquals(NavigationOptionFactory.ALL_OFF, NavigationMenu.CHANNEL_AVAILABLE.getNavigationOptions());
-        assertEquals(NavigationOptionFactory.ALL_OFF, NavigationMenu.VENDOR_LIST.getNavigationOptions());
-        assertEquals(NavigationOptionFactory.ALL_OFF, NavigationMenu.EXPORT.getNavigationOptions());
-        assertEquals(NavigationOptionFactory.ALL_OFF, NavigationMenu.SETTINGS.getNavigationOptions());
-        assertEquals(NavigationOptionFactory.ALL_OFF, NavigationMenu.ABOUT.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.OFF, NavigationMenu.CHANNEL_AVAILABLE.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.OFF, NavigationMenu.VENDOR_LIST.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.OFF, NavigationMenu.EXPORT.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.OFF, NavigationMenu.SETTINGS.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.OFF, NavigationMenu.ABOUT.getNavigationOptions());
     }
 }

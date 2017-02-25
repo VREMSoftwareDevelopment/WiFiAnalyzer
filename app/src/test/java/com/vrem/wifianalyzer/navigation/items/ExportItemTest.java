@@ -47,6 +47,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.when;
 
@@ -129,6 +130,12 @@ public class ExportItemTest {
         String actual = fixture.getData(wiFiData.getWiFiDetails());
         // validate
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testIsRegistered() throws Exception {
+        // execute & validate
+        assertFalse(fixture.isRegistered());
     }
 
     @NonNull

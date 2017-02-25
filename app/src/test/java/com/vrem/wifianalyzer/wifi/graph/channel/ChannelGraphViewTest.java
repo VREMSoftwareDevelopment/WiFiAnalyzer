@@ -28,6 +28,7 @@ import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphLegend;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
@@ -95,6 +96,7 @@ public class ChannelGraphViewTest {
         fixture.update(wiFiData);
         // validate
         verify(dataManager).getNewSeries(wiFiDetails, wiFiChannelPair);
+        verify(dataManager).addSeriesData(graphViewWrapper, newSeries, GraphConstants.MAX_Y);
         //noinspection unchecked
         verify(graphViewWrapper).removeSeries(any(Set.class));
         verify(graphViewWrapper).updateLegend(GraphLegend.RIGHT);
@@ -103,15 +105,17 @@ public class ChannelGraphViewTest {
     }
 
     private void verifySettings() {
-        verify(settings, times(2)).getChannelGraphLegend();
         verify(settings).getSortBy();
-        verify(settings).getWiFiBand();
+        verify(settings, times(2)).getChannelGraphLegend();
+        verify(settings, times(2)).getWiFiBand();
+        verify(settings, times(2)).getGraphMaximumY();
     }
 
     private void withSettings() {
         when(settings.getChannelGraphLegend()).thenReturn(GraphLegend.RIGHT);
         when(settings.getSortBy()).thenReturn(SortBy.CHANNEL);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ2);
+        when(settings.getGraphMaximumY()).thenReturn(GraphConstants.MAX_Y);
     }
 
     @Test

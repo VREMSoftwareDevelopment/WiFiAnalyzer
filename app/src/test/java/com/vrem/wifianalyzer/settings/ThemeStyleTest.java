@@ -32,15 +32,6 @@ public class ThemeStyleTest {
     }
 
     @Test
-    public void testFind() throws Exception {
-        assertEquals(ThemeStyle.DARK, ThemeStyle.find(-1));
-        assertEquals(ThemeStyle.DARK, ThemeStyle.find(ThemeStyle.values().length));
-
-        assertEquals(ThemeStyle.LIGHT, ThemeStyle.find(ThemeStyle.LIGHT.ordinal()));
-        assertEquals(ThemeStyle.DARK, ThemeStyle.find(ThemeStyle.DARK.ordinal()));
-    }
-
-    @Test
     public void testThemeAppCompatStyle() throws Exception {
         assertEquals(R.style.ThemeAppCompatLight, ThemeStyle.LIGHT.themeAppCompatStyle());
         assertEquals(R.style.ThemeAppCompatDark, ThemeStyle.DARK.themeAppCompatStyle());

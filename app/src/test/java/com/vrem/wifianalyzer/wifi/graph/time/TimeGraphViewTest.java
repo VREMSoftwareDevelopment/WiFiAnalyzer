@@ -26,6 +26,7 @@ import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphLegend;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
@@ -85,7 +86,7 @@ public class TimeGraphViewTest {
         Set<WiFiDetail> newSeries = new TreeSet<>();
         WiFiData wiFiData = new WiFiData(wiFiDetails, WiFiConnection.EMPTY, new ArrayList<String>());
         withSettings();
-        when(dataManager.addSeriesData(graphViewWrapper, wiFiDetails)).thenReturn(newSeries);
+        when(dataManager.addSeriesData(graphViewWrapper, wiFiDetails, GraphConstants.MAX_Y)).thenReturn(newSeries);
         // execute
         fixture.update(wiFiData);
         // validate
@@ -98,13 +99,15 @@ public class TimeGraphViewTest {
     private void verifySettings() {
         verify(settings).getSortBy();
         verify(settings, times(2)).getTimeGraphLegend();
-        verify(settings).getWiFiBand();
+        verify(settings, times(2)).getWiFiBand();
+        verify(settings, times(2)).getGraphMaximumY();
     }
 
     private void withSettings() {
         when(settings.getSortBy()).thenReturn(SortBy.SSID);
         when(settings.getTimeGraphLegend()).thenReturn(GraphLegend.LEFT);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ2);
+        when(settings.getGraphMaximumY()).thenReturn(GraphConstants.MAX_Y);
     }
 
     @Test

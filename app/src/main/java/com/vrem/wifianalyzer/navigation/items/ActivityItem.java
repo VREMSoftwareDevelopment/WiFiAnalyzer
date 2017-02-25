@@ -38,6 +38,11 @@ class ActivityItem implements NavigationItem {
         mainActivity.startActivity(createIntent(mainActivity));
     }
 
+    @Override
+    public boolean isRegistered() {
+        return false;
+    }
+
     Intent createIntent(@NonNull MainActivity mainActivity) {
         return new Intent(mainActivity, activity);
     }

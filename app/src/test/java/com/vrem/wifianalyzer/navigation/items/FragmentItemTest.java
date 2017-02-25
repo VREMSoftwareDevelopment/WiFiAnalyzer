@@ -33,6 +33,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -68,6 +70,22 @@ public class FragmentItemTest {
         verify(navigationMenuView).setCurrentNavigationMenu(navigationMenu);
         verify(mainActivity).setTitle(title);
         verify(mainActivity).updateActionBar();
+    }
+
+    @Test
+    public void testIsRegisteredFalse() throws Exception {
+        // setup
+        FragmentItem fixture = new FragmentItem(fragment);
+        // execute & validate
+        assertFalse(fixture.isRegistered());
+    }
+
+    @Test
+    public void testIsRegisteredTrue() throws Exception {
+        // setup
+        FragmentItem fixture = new FragmentItem(fragment, true);
+        // execute & validate
+        assertTrue(fixture.isRegistered());
     }
 
     private void withFragmentTransaction() {

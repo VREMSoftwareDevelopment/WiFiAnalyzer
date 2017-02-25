@@ -21,8 +21,8 @@ package com.vrem.wifianalyzer.wifi.band;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 class WiFiChannelsGHZ2 extends WiFiChannels {
@@ -38,8 +38,7 @@ class WiFiChannelsGHZ2 extends WiFiChannels {
 
     @Override
     public List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs() {
-        //noinspection ArraysAsListWithZeroOrOneArgument
-        return Arrays.asList(SET);
+        return Collections.singletonList(SET);
     }
 
     @Override
@@ -49,11 +48,7 @@ class WiFiChannelsGHZ2 extends WiFiChannels {
 
     @Override
     public List<WiFiChannel> getAvailableChannels(String countryCode) {
-        List<WiFiChannel> wiFiChannels = new ArrayList<>();
-        for (int channel : WiFiChannelCountry.get(countryCode).getChannelsGHZ2()) {
-            wiFiChannels.add(getWiFiChannelByChannel(channel));
-        }
-        return wiFiChannels;
+        return getAvailableChannels(WiFiChannelCountry.get(countryCode).getChannelsGHZ2());
     }
 
     @Override

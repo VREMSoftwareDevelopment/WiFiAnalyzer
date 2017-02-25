@@ -45,16 +45,17 @@ public class AccessPointDetail {
     private static final int VENDOR_LONG_MAX = 30;
 
     View makeView(View convertView, ViewGroup parent, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
-        MainContext mainContext = MainContext.INSTANCE;
-        MainActivity mainActivity = mainContext.getMainActivity();
+        AccessPointView accessPointView = MainContext.INSTANCE.getSettings().getAccessPointView();
+        return makeView(convertView, parent, wiFiDetail, isChild, accessPointView);
+    }
 
+    View makeView(View convertView, ViewGroup parent, @NonNull WiFiDetail wiFiDetail, boolean isChild, @NonNull AccessPointView accessPointView) {
+        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
         View view = convertView;
         if (view == null) {
-            AccessPointView accessPointView = mainContext.getSettings().getAccessPointView();
             LayoutInflater layoutInflater = mainActivity.getLayoutInflater();
             view = layoutInflater.inflate(accessPointView.getLayout(), parent, false);
         }
-
         setViewCompact(mainActivity, view, wiFiDetail, isChild);
         if (view.findViewById(R.id.capabilities) != null) {
             setViewExtra(mainActivity, view, wiFiDetail);
@@ -83,7 +84,7 @@ public class AccessPointDetail {
 
         Security security = wiFiDetail.getSecurity();
         ImageView securityImage = (ImageView) view.findViewById(R.id.securityImage);
-        securityImage.setImageResource(security.imageResource());
+        securityImage.setImageResource(security.getImageResource());
         securityImage.setColorFilter(ContextCompat.getColor(context, R.color.icons_color));
 
         TextView textLevel = (TextView) view.findViewById(R.id.level);

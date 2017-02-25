@@ -30,6 +30,7 @@ import com.vrem.wifianalyzer.wifi.graph.time.TimeGraphFragment;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class NavigationItemFactoryTest {
@@ -42,6 +43,23 @@ public class NavigationItemFactoryTest {
         assertTrue(((FragmentItem) NavigationItemFactory.TIME_GRAPH).getFragment() instanceof TimeGraphFragment);
         assertTrue(((FragmentItem) NavigationItemFactory.CHANNEL_AVAILABLE).getFragment() instanceof ChannelAvailableFragment);
         assertTrue(((FragmentItem) NavigationItemFactory.VENDOR_LIST).getFragment() instanceof VendorFragment);
+    }
+
+    @Test
+    public void testIsRegisteredTrue() throws Exception {
+        assertTrue(NavigationItemFactory.ACCESS_POINTS.isRegistered());
+        assertTrue(NavigationItemFactory.CHANNEL_RATING.isRegistered());
+        assertTrue(NavigationItemFactory.CHANNEL_GRAPH.isRegistered());
+        assertTrue(NavigationItemFactory.TIME_GRAPH.isRegistered());
+    }
+
+    @Test
+    public void testIsRegisteredFalse() throws Exception {
+        assertFalse(NavigationItemFactory.EXPORT.isRegistered());
+        assertFalse(NavigationItemFactory.CHANNEL_AVAILABLE.isRegistered());
+        assertFalse(NavigationItemFactory.VENDOR_LIST.isRegistered());
+        assertFalse(NavigationItemFactory.SETTINGS.isRegistered());
+        assertFalse(NavigationItemFactory.ABOUT.isRegistered());
     }
 
     @Test

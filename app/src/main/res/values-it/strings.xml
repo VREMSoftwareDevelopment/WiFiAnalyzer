@@ -59,11 +59,11 @@
     <!-- settings start -->
     <string name="start_menu_title">Avvio</string>
     <string name="country_code_title">Paese</string>
-    <string name="wifi_band_title">Banda WiFi</string>
     <string name="scan_interval_title">Intervallo Scansioni</string>
     <string name="scan_interval_summary">%d secondi tra ogni scansione</string>
     <string name="sort_by_title">Ordina Access Points Per</string>
     <string name="group_by_title">Raggruppa Access Points Per</string>
+    <string name="connection_view_title">Connessione di visualizzazione</string>
     <string name="ap_view_title">Access Point di visualizzazione</string>
     <string name="graph_maximum_y_title">Forza Grafico segnale massimo</string>
     <string name="channel_graph_legend_title">Mostra Legenda Grafico Canali</string>
@@ -82,4 +82,18 @@
     <string name="about_contributor_title">Contributori:</string>
     <string name="about_write_review">Scrivi una recensione</string>
     <!-- about end -->
+
+    <!-- security start -->
+    <string name="security_none">Nessuna</string>
+    <!-- security end -->
+
+    <!-- filter start -->
+    <string name="filter_title">Filtro</string>
+    <string name="filter_close">Chiudere</string>
+    <string name="filter_reset">Reset</string>
+    <string name="filter_apply">Azzerare</string>
+    <string name="filter_wifi_band_title">Banda WiFi</string>
+    <string name="filter_strength_title">Potenza Segnale</string>
+    <string name="filter_security_title">Sicurezza</string>
+    <!-- filter end -->
 </resources>

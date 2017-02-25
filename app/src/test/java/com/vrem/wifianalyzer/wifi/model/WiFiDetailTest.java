@@ -50,13 +50,15 @@ public class WiFiDetailTest {
 
     @Test
     public void testWiFiDetail() throws Exception {
+        // setup
+        String expectedTitle = SSID + " (" + BSSID + ")";
         // validate
         assertEquals(wiFiSignal, fixture.getWiFiSignal());
         assertEquals(wiFiAdditional, fixture.getWiFiAdditional());
         assertEquals(SSID, fixture.getSSID());
         assertEquals(BSSID, fixture.getBSSID());
         assertEquals(WPA, fixture.getCapabilities());
-        assertEquals(SSID + " (" + BSSID + ")", fixture.getTitle());
+        assertEquals(expectedTitle, fixture.getTitle());
         assertEquals(Security.WPA, fixture.getSecurity());
         assertFalse(fixture.isHidden());
     }
@@ -64,9 +66,10 @@ public class WiFiDetailTest {
     @Test
     public void testGetTitleWithEmptySSID() throws Exception {
         // setup
+        String expectedTitle = "*** (" + BSSID + ")";
         fixture = new WiFiDetail(StringUtils.EMPTY, BSSID, WPA, wiFiSignal);
         // validate
-        assertEquals("*** (" + BSSID + ")", fixture.getTitle());
+        assertEquals(expectedTitle, fixture.getTitle());
     }
 
     @Test
