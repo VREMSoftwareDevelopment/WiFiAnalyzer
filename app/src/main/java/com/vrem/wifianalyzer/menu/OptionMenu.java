@@ -47,6 +47,9 @@ public class OptionMenu {
             case R.id.action_filter:
                 FilterView.build().show();
                 break;
+            default:
+                // do nothing
+                break;
         }
     }
 

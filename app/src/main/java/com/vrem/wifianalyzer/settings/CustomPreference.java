@@ -30,21 +30,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 class CustomPreference extends ListPreference {
-    CustomPreference(@NonNull Context context, AttributeSet attrs, @NonNull List<Data> datas, @NonNull String defaultValue) {
+    CustomPreference(@NonNull Context context, AttributeSet attrs, @NonNull List<Data> data, @NonNull String defaultValue) {
         super(context, attrs);
-        setEntries(getNames(datas));
-        setEntryValues(getCodes(datas));
+        setEntries(getNames(data));
+        setEntryValues(getCodes(data));
         setDefaultValue(defaultValue);
     }
 
     @NonNull
-    private CharSequence[] getCodes(@NonNull List<Data> datas) {
-        return new ArrayList<>(CollectionUtils.collect(datas, new ToCode())).toArray(new CharSequence[]{});
+    private CharSequence[] getCodes(@NonNull List<Data> data) {
+        return new ArrayList<>(CollectionUtils.collect(data, new ToCode())).toArray(new CharSequence[]{});
     }
 
     @NonNull
-    private CharSequence[] getNames(@NonNull List<Data> datas) {
-        return new ArrayList<>(CollectionUtils.collect(datas, new ToName())).toArray(new CharSequence[]{});
+    private CharSequence[] getNames(@NonNull List<Data> data) {
+        return new ArrayList<>(CollectionUtils.collect(data, new ToName())).toArray(new CharSequence[]{});
     }
 
     private static class ToCode implements Transformer<Data, String> {

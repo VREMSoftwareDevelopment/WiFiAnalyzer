@@ -106,11 +106,11 @@ public class GraphViewBuilder implements GraphConstants {
         }
         if (verticalTitle != null) {
             gridLabelRenderer.setVerticalAxisTitle(verticalTitle);
-            gridLabelRenderer.setVerticalAxisTitleTextSize(gridLabelRenderer.getVerticalAxisTitleTextSize() * AXIS_TEXT_SIZE_ADJUSMENT);
+            gridLabelRenderer.setVerticalAxisTitleTextSize(gridLabelRenderer.getVerticalAxisTitleTextSize() * AXIS_TEXT_SIZE_ADJUSTMENT);
         }
         if (horizontalTitle != null) {
             gridLabelRenderer.setHorizontalAxisTitle(horizontalTitle);
-            gridLabelRenderer.setHorizontalAxisTitleTextSize(gridLabelRenderer.getHorizontalAxisTitleTextSize() * AXIS_TEXT_SIZE_ADJUSMENT);
+            gridLabelRenderer.setHorizontalAxisTitleTextSize(gridLabelRenderer.getHorizontalAxisTitleTextSize() * AXIS_TEXT_SIZE_ADJUSTMENT);
         }
     }
 

@@ -102,7 +102,7 @@ public class TimeGraphCacheTest {
         for (WiFiDetail wiFiDetail : results) {
             fixture.add(wiFiDetail);
         }
-        for (int i = 0; i < GraphConstants.MAX_NONSEEN_COUNT; i++) {
+        for (int i = 0; i < GraphConstants.MAX_NOTSEEN_COUNT; i++) {
             fixture.add(results.get(0));
         }
         return results;

@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 class SecurityFilterView extends EnumFilterView<Security, SecurityFilter> {
-    private static Map<Security, Integer> ids = new HashMap<>();
+    private static final Map<Security, Integer> ids = new HashMap<>();
 
     static {
         ids.put(Security.NONE, R.id.filterSecurityNone);

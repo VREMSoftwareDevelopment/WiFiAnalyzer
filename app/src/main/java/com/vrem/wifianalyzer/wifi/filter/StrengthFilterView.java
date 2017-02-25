@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 class StrengthFilterView extends EnumFilterView<Strength, StrengthFilter> {
-    private static Map<Strength, Integer> ids = new HashMap<>();
+    private static final Map<Strength, Integer> ids = new HashMap<>();
 
     static {
         ids.put(Strength.ZERO, R.id.filterStrength0);

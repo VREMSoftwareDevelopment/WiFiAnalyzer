@@ -74,14 +74,14 @@ class TimeGraphCache implements GraphConstants {
     private class SeenPredicate implements Predicate<WiFiDetail> {
         @Override
         public boolean evaluate(WiFiDetail object) {
-            return notSeen.get(object) <= MAX_NONSEEN_COUNT;
+            return notSeen.get(object) <= MAX_NOTSEEN_COUNT;
         }
     }
 
     private class NotSeenPredicate implements Predicate<WiFiDetail> {
         @Override
         public boolean evaluate(WiFiDetail object) {
-            return notSeen.get(object) > MAX_NONSEEN_COUNT;
+            return notSeen.get(object) > MAX_NOTSEEN_COUNT;
         }
     }
 

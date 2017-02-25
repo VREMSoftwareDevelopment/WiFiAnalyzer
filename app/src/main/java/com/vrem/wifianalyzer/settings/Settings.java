@@ -121,7 +121,7 @@ public class Settings {
     }
 
     public void saveWiFiBandFilter(@NonNull Set<WiFiBand> values) {
-        saveSet(WiFiBand.class, R.string.filter_wifi_band_key, values);
+        saveSet(R.string.filter_wifi_band_key, values);
     }
 
     public Set<Strength> getStrengthFilter() {
@@ -129,7 +129,7 @@ public class Settings {
     }
 
     public void saveStrengthFilter(@NonNull Set<Strength> values) {
-        saveSet(Strength.class, R.string.filter_strength_key, values);
+        saveSet(R.string.filter_strength_key, values);
     }
 
     public Set<Security> getSecurityFilter() {
@@ -137,7 +137,7 @@ public class Settings {
     }
 
     public void saveSecurityFilter(@NonNull Set<Security> values) {
-        saveSet(Security.class, R.string.filter_security_key, values);
+        saveSet(R.string.filter_security_key, values);
     }
 
     private <T extends Enum> T find(@NonNull Class<T> enumType, int key, @NonNull T defaultValue) {
@@ -151,7 +151,7 @@ public class Settings {
         return EnumUtils.find(enumType, values, defaultValue);
     }
 
-    private <T extends Enum> void saveSet(@NonNull Class<T> enumType, int key, @NonNull Set<T> values) {
+    private <T extends Enum> void saveSet(int key, @NonNull Set<T> values) {
         repository.saveStringSet(key, EnumUtils.find(values));
     }
 }

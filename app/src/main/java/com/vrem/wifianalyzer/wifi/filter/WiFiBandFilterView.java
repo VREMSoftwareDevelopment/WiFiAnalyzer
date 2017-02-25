@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 class WiFiBandFilterView extends EnumFilterView<WiFiBand, WiFiBandFilter> {
-    private static Map<WiFiBand, Integer> ids = new HashMap<>();
+    private static final Map<WiFiBand, Integer> ids = new HashMap<>();
 
     static {
         ids.put(WiFiBand.GHZ2, R.id.filterWifiBand2);

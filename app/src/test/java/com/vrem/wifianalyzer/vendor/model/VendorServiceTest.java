@@ -110,26 +110,26 @@ public class VendorServiceTest {
     @Test
     public void testFindAll() throws Exception {
         // setup
-        List<VendorData> vendorDatas = withVendorDatas();
-        when(database.findAll()).thenReturn(vendorDatas);
+        List<VendorData> vendorData = withVendorData();
+        when(database.findAll()).thenReturn(vendorData);
         // execute
         SortedMap<String, List<String>> actual = fixture.findAll();
         // validate
         verify(database).findAll();
 
         assertEquals(3, actual.size());
-        assertEquals(1, actual.get(VendorNameUtils.cleanVendorName(vendorDatas.get(0).getName())).size());
-        assertEquals(3, actual.get(VendorNameUtils.cleanVendorName(vendorDatas.get(1).getName())).size());
-        assertEquals(1, actual.get(VendorNameUtils.cleanVendorName(vendorDatas.get(4).getName())).size());
+        assertEquals(1, actual.get(VendorNameUtils.cleanVendorName(vendorData.get(0).getName())).size());
+        assertEquals(3, actual.get(VendorNameUtils.cleanVendorName(vendorData.get(1).getName())).size());
+        assertEquals(1, actual.get(VendorNameUtils.cleanVendorName(vendorData.get(4).getName())).size());
 
-        List<String> macs = actual.get(VendorNameUtils.cleanVendorName(vendorDatas.get(1).getName()));
-        assertEquals(vendorDatas.get(3).getMac(), macs.get(0));
-        assertEquals(vendorDatas.get(1).getMac(), macs.get(1));
-        assertEquals(vendorDatas.get(2).getMac(), macs.get(2));
+        List<String> macs = actual.get(VendorNameUtils.cleanVendorName(vendorData.get(1).getName()));
+        assertEquals(vendorData.get(3).getMac(), macs.get(0));
+        assertEquals(vendorData.get(1).getMac(), macs.get(1));
+        assertEquals(vendorData.get(2).getMac(), macs.get(2));
     }
 
     @NonNull
-    private List<VendorData> withVendorDatas() {
+    private List<VendorData> withVendorData() {
         return Arrays.asList(
             new VendorData(3, VENDOR_NAME + " 3", "Mac3"),
             new VendorData(4, VENDOR_NAME + " 1", "Mac1-2"),
