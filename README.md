@@ -6,8 +6,10 @@
 * Minimum: Jelly Bean (Version 4.1 - API 16)
 * Recommended: Marshmallow (Version 6.0 - API 23)
 
-### Note for Android OS 6 Users
-Some users running Android OS 6 (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFi Analyzer does not explicitly require it. [This appears to be attributed to Android OS 6 that requires location service in order to see WiFi networks](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23).
+### Note for Location Permission
+Users running newer Android OS 6 (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. 
+Due to permission model changes since Android Marshmallow, the knowledge of nearby WiFi access points is regarded as containing location information and is protected by location permission, thus the users need turn on location service and grant location permission to the app, even though WiFi Analyzer does not explicitly require it to run.(https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23).
+
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="100">](https://play.google.com/store/apps/details?id=com.vrem.wifianalyzer)
 [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="100">](https://f-droid.org/repository/browse/?fdid=com.vrem.wifianalyzer)
