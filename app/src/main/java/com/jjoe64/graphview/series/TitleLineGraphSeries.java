@@ -18,8 +18,8 @@
 
 package com.jjoe64.graphview.series;
 
-/**
- * modified version of com.jjoe64.graphview.series.LineGraphSeries
+/*
+  modified version of com.jjoe64.graphview.series.LineGraphSeries
  */
 
 import android.graphics.Canvas;

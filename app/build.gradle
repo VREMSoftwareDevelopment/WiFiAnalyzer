@@ -24,7 +24,7 @@ android {
     buildToolsVersion '25.0.2'
 
     defaultConfig {
-        applicationId "com.vrem.wifianalyzer.BETA"
+        applicationId "com.vrem.wifianalyzer"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode
@@ -77,8 +77,8 @@ if (project.hasProperty('keyAlias')) {
 dependencies {
     // Compile Build Dependencies
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.android.support:design:25.1.1'
+    compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.android.support:design:25.2.0'
     compile 'org.apache.commons:commons-lang3:3.5'
     compile 'org.apache.commons:commons-collections4:4.1'
     compile 'com.jjoe64:graphview:4.2.1'
@@ -140,7 +140,7 @@ def isReleaseTask() {
     return ':app:assembleRelease' in tasks || 'assembleRelease' in tasks
 }
 
-def Properties readProperties(propertiesFile) {
+def static Properties readProperties(propertiesFile) {
     if (propertiesFile.canRead()) {
         def Properties properties = new Properties()
         def inputStream = new FileInputStream(propertiesFile)
@@ -154,7 +154,7 @@ def Properties readProperties(propertiesFile) {
     }
 }
 
-def writeProperties(propertiesFile, properties) {
+def static writeProperties(propertiesFile, properties) {
     def writer = propertiesFile.newWriter()
     properties.store(writer, "Build Properties")
     writer.close()
