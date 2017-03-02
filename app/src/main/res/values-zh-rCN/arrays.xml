@@ -31,6 +31,12 @@
         <item>信道</item>
     </string-array>
 
+    <string-array name="connection_view_array">
+        <item>完整</item>
+        <item>紧凑</item>
+        <item>隐藏</item>
+    </string-array>
+
     <string-array name="ap_view_array">
         <item>完整</item>
         <item>紧凑</item>

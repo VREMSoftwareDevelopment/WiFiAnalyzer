@@ -31,9 +31,15 @@ import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 
 class FragmentItem implements NavigationItem {
     private final Fragment fragment;
+    private final boolean registered;
+
+    FragmentItem(@NonNull Fragment fragment, boolean registered) {
+        this.fragment = fragment;
+        this.registered = registered;
+    }
 
     FragmentItem(@NonNull Fragment fragment) {
-        this.fragment = fragment;
+        this(fragment, false);
     }
 
     @Override
@@ -43,6 +49,11 @@ class FragmentItem implements NavigationItem {
         startFragment(mainActivity);
         mainActivity.setTitle(menuItem.getTitle());
         mainActivity.updateActionBar();
+    }
+
+    @Override
+    public boolean isRegistered() {
+        return registered;
     }
 
     private void startFragment(@NonNull MainActivity mainActivity) {

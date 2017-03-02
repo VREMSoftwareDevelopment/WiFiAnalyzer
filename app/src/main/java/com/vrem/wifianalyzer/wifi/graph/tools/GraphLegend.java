@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.graph.tools;
 
-import android.support.annotation.NonNull;
-
 import com.jjoe64.graphview.LegendRenderer;
 
 public enum GraphLegend {
@@ -31,13 +29,6 @@ public enum GraphLegend {
 
     GraphLegend(Display display) {
         this.display = display;
-    }
-
-    public static GraphLegend find(int index, @NonNull GraphLegend defaultValue) {
-        if (index < 0 || index >= values().length) {
-            return defaultValue;
-        }
-        return values()[index];
     }
 
     public void display(LegendRenderer legendRenderer) {

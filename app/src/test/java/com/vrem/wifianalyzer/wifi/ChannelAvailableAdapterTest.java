@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi;
 
+import android.content.res.Resources;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,7 +36,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -43,21 +44,23 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ChannelAvailableAdapterTest {
-    private ChannelAvailableAdapter fixture;
+    private MainActivity mainActivity;
     private WiFiChannelCountry wiFiChannelCountry;
+    private ChannelAvailableAdapter fixture;
 
     @Before
     public void setUp() {
-        MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
-
+        mainActivity = RobolectricUtil.INSTANCE.getActivity();
         wiFiChannelCountry = WiFiChannelCountry.get("US");
-        //noinspection ArraysAsListWithZeroOrOneArgument
-        fixture = new ChannelAvailableAdapter(mainActivity, Arrays.asList(wiFiChannelCountry));
+        fixture = new ChannelAvailableAdapter(mainActivity, Collections.singletonList(wiFiChannelCountry));
     }
 
     @Test
     public void testGetView() throws Exception {
         // setup
+        Resources resources = mainActivity.getResources();
+        String wiFiBand2 = resources.getString(WiFiBand.GHZ2.getTextResource());
+        String wiFiBand5 = resources.getString(WiFiBand.GHZ5.getTextResource());
         String expected = wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName();
         String expected_GHZ_2 = StringUtils.join(wiFiChannelCountry.getChannelsGHZ2().toArray(), ",");
         String expected_GHZ_5 = StringUtils.join(wiFiChannelCountry.getChannelsGHZ5().toArray(), ",");
@@ -67,9 +70,9 @@ public class ChannelAvailableAdapterTest {
         assertNotNull(actual);
 
         assertEquals(expected, ((TextView) actual.findViewById(R.id.channel_available_country)).getText());
-        assertEquals(WiFiBand.GHZ2.getBand() + " : ", ((TextView) actual.findViewById(R.id.channel_available_title_ghz_2)).getText());
+        assertEquals(wiFiBand2 + " : ", ((TextView) actual.findViewById(R.id.channel_available_title_ghz_2)).getText());
         assertEquals(expected_GHZ_2, ((TextView) actual.findViewById(R.id.channel_available_ghz_2)).getText());
-        assertEquals(WiFiBand.GHZ5.getBand() + " : ", ((TextView) actual.findViewById(R.id.channel_available_title_ghz_5)).getText());
+        assertEquals(wiFiBand5 + " : ", ((TextView) actual.findViewById(R.id.channel_available_title_ghz_5)).getText());
         assertEquals(expected_GHZ_5, ((TextView) actual.findViewById(R.id.channel_available_ghz_5)).getText());
     }
 

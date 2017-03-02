@@ -23,7 +23,6 @@ import android.support.annotation.NonNull;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedSet;
@@ -43,12 +42,12 @@ class WiFiChannelCountryGHZ2 {
     }
 
     SortedSet<Integer> findChannels(@NonNull String countryCode) {
-        SortedSet<Integer> result = world;
+        SortedSet<Integer> results = new TreeSet<>(world);
         String code = StringUtils.capitalize(countryCode);
         if (countries.contains(code)) {
-            result = channels;
+            results = new TreeSet<>(channels);
         }
-        return Collections.unmodifiableSortedSet(result);
+        return results;
     }
 
 }

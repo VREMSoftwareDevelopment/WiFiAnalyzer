@@ -36,6 +36,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
@@ -63,6 +64,9 @@ public class MainActivityTest {
 
     @Test
     public void testClickingOnToolbarTogglesWiFiBand() throws Exception {
+        // setup
+        NavigationMenuView navigationMenuView = fixture.getNavigationMenuView();
+        navigationMenuView.setCurrentNavigationMenu(NavigationMenu.CHANNEL_RATING);
         // execute and validate
         assertEquals(WiFiBand.GHZ2, MainContext.INSTANCE.getSettings().getWiFiBand());
         fixture.findViewById(R.id.toolbar).performClick();
@@ -138,6 +142,17 @@ public class MainActivityTest {
         fixture.onDestroy();
         // validate
         verify(scanner).unregister(fixture.getConnectionView());
+    }
+
+    @Test
+    public void testOptionMenu() throws Exception {
+        // setup
+        OptionMenu optionMenu = fixture.getOptionMenu();
+        // execute
+        Menu actual = optionMenu.getMenu();
+        // validate
+        assertNotNull(actual.findItem(R.id.action_filter));
+        assertNotNull(actual.findItem(R.id.action_scanner));
     }
 
 }

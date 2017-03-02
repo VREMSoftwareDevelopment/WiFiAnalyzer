@@ -26,6 +26,7 @@ import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.graph.tools.DataPointEquals;
+import com.vrem.wifianalyzer.wifi.graph.tools.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
@@ -58,7 +59,7 @@ import static org.mockito.Mockito.when;
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class DataManagerTest {
-    public static final String BSSID = "BSSID";
+    private static final String BSSID = "BSSID";
     private static final int LEVEL = -40;
     private GraphViewWrapper graphViewWrapper;
     private TimeGraphCache timeGraphCache;
@@ -81,7 +82,7 @@ public class DataManagerTest {
         List<WiFiDetail> wiFiDetails = new ArrayList<>();
         assertEquals(0, fixture.getXValue());
         // execute
-        fixture.addSeriesData(graphViewWrapper, wiFiDetails);
+        fixture.addSeriesData(graphViewWrapper, wiFiDetails, GraphConstants.MAX_Y);
         // validate
         assertEquals(1, fixture.getXValue());
     }
@@ -92,7 +93,7 @@ public class DataManagerTest {
         List<WiFiDetail> wiFiDetails = new ArrayList<>();
         assertEquals(0, fixture.getScanCount());
         // execute
-        fixture.addSeriesData(graphViewWrapper, wiFiDetails);
+        fixture.addSeriesData(graphViewWrapper, wiFiDetails, GraphConstants.MAX_Y);
         // validate
         assertEquals(1, fixture.getScanCount());
     }
@@ -103,7 +104,7 @@ public class DataManagerTest {
         List<WiFiDetail> wiFiDetails = new ArrayList<>();
         fixture.setScanCount(DataManager.MAX_SCAN_COUNT);
         // execute
-        fixture.addSeriesData(graphViewWrapper, wiFiDetails);
+        fixture.addSeriesData(graphViewWrapper, wiFiDetails, GraphConstants.MAX_Y);
         // validate
         assertEquals(DataManager.MAX_SCAN_COUNT, fixture.getScanCount());
     }
@@ -114,7 +115,7 @@ public class DataManagerTest {
         List<WiFiDetail> wiFiDetails = new ArrayList<>();
         fixture.setScanCount(1);
         // execute
-        fixture.addSeriesData(graphViewWrapper, wiFiDetails);
+        fixture.addSeriesData(graphViewWrapper, wiFiDetails, GraphConstants.MAX_Y);
         // validate
         assertEquals(2, fixture.getScanCount());
         verify(graphViewWrapper).setHorizontalLabelsVisible(true);
@@ -125,7 +126,7 @@ public class DataManagerTest {
         // setup
         List<WiFiDetail> wiFiDetails = new ArrayList<>();
         // execute
-        fixture.addSeriesData(graphViewWrapper, wiFiDetails);
+        fixture.addSeriesData(graphViewWrapper, wiFiDetails, GraphConstants.MAX_Y);
         // validate
         verify(graphViewWrapper, never()).setHorizontalLabelsVisible(true);
     }
@@ -173,10 +174,10 @@ public class DataManagerTest {
         Integer scanCount = fixture.getScanCount();
         int xValue = fixture.getXValue();
         WiFiDetail wiFiDetail = makeWiFiDetail("SSID");
-        DataPoint dataPoint = new DataPoint(xValue, wiFiDetail.getWiFiSignal().getLevel());
+        DataPoint dataPoint = new DataPoint(xValue, LEVEL);
         when(graphViewWrapper.isNewSeries(wiFiDetail)).thenReturn(false);
         // execute
-        fixture.addData(graphViewWrapper, wiFiDetail);
+        fixture.addData(graphViewWrapper, wiFiDetail, GraphConstants.MAX_Y);
         // validate
         verify(graphViewWrapper).isNewSeries(wiFiDetail);
         verify(graphViewWrapper).appendToSeries(
@@ -188,12 +189,32 @@ public class DataManagerTest {
     }
 
     @Test
+    public void testAddDataToExistingSeriesExpectLevelToEqualToLevelMax() throws Exception {
+        // setup
+        int expectedLevel = LEVEL - 10;
+        Integer scanCount = fixture.getScanCount();
+        int xValue = fixture.getXValue();
+        WiFiDetail wiFiDetail = makeWiFiDetail("SSID");
+        DataPoint dataPoint = new DataPoint(xValue, expectedLevel);
+        when(graphViewWrapper.isNewSeries(wiFiDetail)).thenReturn(false);
+        // execute
+        fixture.addData(graphViewWrapper, wiFiDetail, expectedLevel);
+        // validate
+        verify(graphViewWrapper).appendToSeries(
+            argThat(equalTo(wiFiDetail)),
+            argThat(new DataPointEquals(dataPoint)),
+            argThat(equalTo(scanCount)),
+            argThat(equalTo(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected())));
+    }
+
+
+    @Test
     public void testAddDataNewSeries() throws Exception {
         // setup
         WiFiDetail wiFiDetail = makeWiFiDetailConnected("SSID");
         when(graphViewWrapper.isNewSeries(wiFiDetail)).thenReturn(true);
         // execute
-        fixture.addData(graphViewWrapper, wiFiDetail);
+        fixture.addData(graphViewWrapper, wiFiDetail, GraphConstants.MAX_Y);
         // validate
         verify(graphViewWrapper).isNewSeries(wiFiDetail);
         verify(timeGraphCache).reset(wiFiDetail);

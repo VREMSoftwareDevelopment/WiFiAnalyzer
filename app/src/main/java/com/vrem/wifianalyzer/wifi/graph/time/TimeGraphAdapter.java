@@ -18,9 +18,13 @@
 
 package com.vrem.wifianalyzer.wifi.graph.time;
 
+import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphAdapter;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
+
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +35,14 @@ class TimeGraphAdapter extends GraphAdapter {
     }
 
     private static List<GraphViewNotifier> makeGraphViewNotifiers() {
-        List<GraphViewNotifier> graphViewNotifiers = new ArrayList<>();
-        for (WiFiBand wiFiBand : WiFiBand.values()) {
-            graphViewNotifiers.add(new TimeGraphView(wiFiBand));
-        }
-        return graphViewNotifiers;
+        return new ArrayList<>(CollectionUtils.collect(EnumUtils.values(WiFiBand.class), new ToGraphViewNotifier()));
     }
+
+    private static class ToGraphViewNotifier implements Transformer<WiFiBand, GraphViewNotifier> {
+        @Override
+        public GraphViewNotifier transform(WiFiBand input) {
+            return new TimeGraphView(input);
+        }
+    }
+
 }

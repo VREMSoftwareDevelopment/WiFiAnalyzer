@@ -25,13 +25,17 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.LocaleList;
 
+import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.wifi.AccessPointView;
+import com.vrem.wifianalyzer.wifi.ConnectionViewType;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
+import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
+import com.vrem.wifianalyzer.wifi.model.Strength;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -39,9 +43,12 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.Collections;
 import java.util.Locale;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -129,6 +136,17 @@ public class SettingsTest {
     }
 
     @Test
+    public void testGetConnectionViewType() throws Exception {
+        // setup
+        when(repository.getStringAsInteger(R.string.connection_view_key, ConnectionViewType.COMPLETE.ordinal())).thenReturn(ConnectionViewType.COMPACT.ordinal());
+        // execute
+        ConnectionViewType actual = fixture.getConnectionViewType();
+        // validate
+        assertEquals(ConnectionViewType.COMPACT, actual);
+        verify(repository).getStringAsInteger(R.string.connection_view_key, ConnectionViewType.COMPLETE.ordinal());
+    }
+
+    @Test
     public void testGetThemeStyle() throws Exception {
         // setup
         when(repository.getStringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal())).thenReturn(ThemeStyle.LIGHT.ordinal());
@@ -186,6 +204,84 @@ public class SettingsTest {
         // validate
         assertEquals(WiFiBand.GHZ5, actual);
         verify(repository).getStringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal());
+    }
+
+    @Test
+    public void testGetWiFiBandFilter() throws Exception {
+        // setup
+        WiFiBand expected = WiFiBand.GHZ5;
+        Set<String> values = Collections.singleton("" + expected.ordinal());
+        Set<String> defaultValues = EnumUtils.ordinals(WiFiBand.class);
+        when(repository.getStringSet(R.string.filter_wifi_band_key, defaultValues)).thenReturn(values);
+        // execute
+        Set<WiFiBand> actual = fixture.getWiFiBandFilter();
+        // validate
+        assertEquals(1, actual.size());
+        assertTrue(actual.contains(expected));
+        verify(repository).getStringSet(R.string.filter_wifi_band_key, defaultValues);
+    }
+
+    @Test
+    public void testSaveWiFiBandFilter() throws Exception {
+        // setup
+        Set<WiFiBand> values = Collections.singleton(WiFiBand.GHZ5);
+        Set<String> expected = Collections.singleton("" + WiFiBand.GHZ5.ordinal());
+        // execute
+        fixture.saveWiFiBandFilter(values);
+        // validate
+        verify(repository).saveStringSet(R.string.filter_wifi_band_key, expected);
+    }
+
+    @Test
+    public void testGetStrengthFilter() throws Exception {
+        // setup
+        Strength expected = Strength.THREE;
+        Set<String> values = Collections.singleton("" + expected.ordinal());
+        Set<String> defaultValues = EnumUtils.ordinals(Strength.class);
+        when(repository.getStringSet(R.string.filter_strength_key, defaultValues)).thenReturn(values);
+        // execute
+        Set<Strength> actual = fixture.getStrengthFilter();
+        // validate
+        assertEquals(1, actual.size());
+        assertTrue(actual.contains(expected));
+        verify(repository).getStringSet(R.string.filter_strength_key, defaultValues);
+    }
+
+    @Test
+    public void testSaveStrengthFilter() throws Exception {
+        // setup
+        Set<Strength> values = Collections.singleton(Strength.TWO);
+        Set<String> expected = Collections.singleton("" + Strength.TWO.ordinal());
+        // execute
+        fixture.saveStrengthFilter(values);
+        // validate
+        verify(repository).saveStringSet(R.string.filter_strength_key, expected);
+    }
+
+    @Test
+    public void testGetSecurityFilter() throws Exception {
+        // setup
+        Security expected = Security.WPA;
+        Set<String> values = Collections.singleton("" + expected.ordinal());
+        Set<String> defaultValues = EnumUtils.ordinals(Security.class);
+        when(repository.getStringSet(R.string.filter_security_key, defaultValues)).thenReturn(values);
+        // execute
+        Set<Security> actual = fixture.getSecurityFilter();
+        // validate
+        assertEquals(1, actual.size());
+        assertTrue(actual.contains(expected));
+        verify(repository).getStringSet(R.string.filter_security_key, defaultValues);
+    }
+
+    @Test
+    public void testSaveSecurityFilter() throws Exception {
+        // setup
+        Set<Security> values = Collections.singleton(Security.WEP);
+        Set<String> expected = Collections.singleton("" + Security.WEP.ordinal());
+        // execute
+        fixture.saveSecurityFilter(values);
+        // validate
+        verify(repository).saveStringSet(R.string.filter_security_key, expected);
     }
 
     @Test

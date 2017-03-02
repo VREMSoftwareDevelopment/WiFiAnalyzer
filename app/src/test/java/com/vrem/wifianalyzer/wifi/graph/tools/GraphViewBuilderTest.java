@@ -154,7 +154,7 @@ public class GraphViewBuilderTest {
         // validate
         verify(gridLabelRenderer).setVerticalAxisTitle(verticalTitle);
         verify(gridLabelRenderer).setVerticalLabelsVisible(true);
-        verify(gridLabelRenderer).setVerticalAxisTitleTextSize(textSize * GraphViewBuilder.AXIS_TEXT_SIZE_ADJUSMENT);
+        verify(gridLabelRenderer).setVerticalAxisTitleTextSize(textSize * GraphViewBuilder.AXIS_TEXT_SIZE_ADJUSTMENT);
     }
 
     @Test
@@ -181,7 +181,7 @@ public class GraphViewBuilderTest {
         // validate
         verify(gridLabelRenderer).setHorizontalAxisTitle(horizontalTitle);
         verify(gridLabelRenderer).setHorizontalLabelsVisible(true);
-        verify(gridLabelRenderer).setHorizontalAxisTitleTextSize(textSize * GraphViewBuilder.AXIS_TEXT_SIZE_ADJUSMENT);
+        verify(gridLabelRenderer).setHorizontalAxisTitleTextSize(textSize * GraphViewBuilder.AXIS_TEXT_SIZE_ADJUSTMENT);
     }
 
     @Test

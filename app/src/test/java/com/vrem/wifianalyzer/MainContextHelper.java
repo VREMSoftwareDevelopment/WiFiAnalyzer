@@ -21,6 +21,7 @@ package com.vrem.wifianalyzer;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
+import com.vrem.wifianalyzer.wifi.filter.Filters;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import java.util.HashMap;
@@ -80,6 +81,12 @@ public enum MainContextHelper {
         return result;
     }
 
+    public Filters getFilters() {
+        Filters result = (Filters) save(Filters.class, mainContext.getFilters());
+        mainContext.setFilters(result);
+        return result;
+    }
+
     public void restore() {
         for (Class clazz : saved.keySet()) {
             Object result = saved.get(clazz);
@@ -95,6 +102,8 @@ public enum MainContextHelper {
                 mainContext.setDatabase((Database) result);
             } else if (clazz.equals(Configuration.class)) {
                 mainContext.setConfiguration((Configuration) result);
+            } else if (clazz.equals(Filters.class)) {
+                mainContext.setFilters((Filters) result);
             } else {
                 throw new IllegalArgumentException(clazz.getName());
             }

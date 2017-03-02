@@ -24,12 +24,15 @@ import java.util.List;
 public class NavigationOptionFactory {
     public final static NavigationOption WIFI_SWITCH_ON = new WiFiSwitchOn();
     public final static NavigationOption SCANNER_SWITCH_ON = new ScannerSwitchOn();
+    public final static NavigationOption FILTER_ON = new FilterOn();
     public final static NavigationOption NEXT_PREV_ON = new NextPrevNavigationOn();
 
     public final static NavigationOption WIFI_SWITCH_OFF = new WiFiSwitchOff();
     public final static NavigationOption SCANNER_SWITCH_OFF = new ScannerSwitchOff();
+    public final static NavigationOption FILTER_OFF = new FilterOff();
     public final static NavigationOption NEXT_PREV_OFF = new NextPrevNavigationOff();
 
-    public final static List<NavigationOption> ALL_ON = Arrays.asList(WIFI_SWITCH_ON, SCANNER_SWITCH_ON, NEXT_PREV_ON);
-    public final static List<NavigationOption> ALL_OFF = Arrays.asList(WIFI_SWITCH_OFF, SCANNER_SWITCH_OFF, NEXT_PREV_OFF);
+    public final static List<NavigationOption> AP = Arrays.asList(WIFI_SWITCH_OFF, SCANNER_SWITCH_ON, FILTER_ON, NEXT_PREV_ON);
+    public final static List<NavigationOption> OTHER = Arrays.asList(WIFI_SWITCH_ON, SCANNER_SWITCH_ON, FILTER_OFF, NEXT_PREV_ON);
+    public final static List<NavigationOption> OFF = Arrays.asList(WIFI_SWITCH_OFF, SCANNER_SWITCH_OFF, FILTER_OFF, NEXT_PREV_OFF);
 }

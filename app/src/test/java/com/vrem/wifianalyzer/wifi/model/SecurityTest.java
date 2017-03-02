@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.wifi.model;
 
 import com.vrem.wifianalyzer.R;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -37,12 +36,12 @@ public class SecurityTest {
     }
 
     @Test
-    public void testImageResource() throws Exception {
-        Assert.assertEquals(R.drawable.ic_lock_open_black_18dp, Security.NONE.imageResource());
-        assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WPS.imageResource());
-        assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WEP.imageResource());
-        assertEquals(R.drawable.ic_lock_black_18dp, Security.WPA.imageResource());
-        assertEquals(R.drawable.ic_lock_black_18dp, Security.WPA2.imageResource());
+    public void testGetImageResource() throws Exception {
+        assertEquals(R.drawable.ic_lock_open_black_18dp, Security.NONE.getImageResource());
+        assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WPS.getImageResource());
+        assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WEP.getImageResource());
+        assertEquals(R.drawable.ic_lock_black_18dp, Security.WPA.getImageResource());
+        assertEquals(R.drawable.ic_lock_black_18dp, Security.WPA2.getImageResource());
     }
 
     @Test

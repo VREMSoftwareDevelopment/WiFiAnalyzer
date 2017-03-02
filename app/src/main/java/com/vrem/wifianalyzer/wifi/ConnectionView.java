@@ -27,13 +27,11 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
-import java.util.List;
 import java.util.Locale;
 
 public class ConnectionView implements UpdateNotifier {
@@ -49,7 +47,8 @@ public class ConnectionView implements UpdateNotifier {
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
-        setConnectionVisibility(wiFiData);
+        ConnectionViewType connectionViewType = MainContext.INSTANCE.getSettings().getConnectionViewType();
+        setConnectionVisibility(wiFiData, connectionViewType);
         setNoDataVisibility(wiFiData);
     }
 
@@ -62,38 +61,28 @@ public class ConnectionView implements UpdateNotifier {
     }
 
     private void setNoDataVisibility(@NonNull WiFiData wiFiData) {
-        int noDataVisibility = View.GONE;
-        int noDataGeoVisibility = View.GONE;
-        if (mainActivity.getNavigationMenuView().getCurrentNavigationMenu().isWiFiBandSwitchable()) {
-            Settings settings = MainContext.INSTANCE.getSettings();
-            List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy());
-            if (wiFiDetails.isEmpty()) {
-                noDataVisibility = View.VISIBLE;
-                if (wiFiData.getWiFiDetails().isEmpty()) {
-                    noDataGeoVisibility = View.VISIBLE;
-                }
-            }
-        }
-        mainActivity.findViewById(R.id.nodata).setVisibility(noDataVisibility);
-        mainActivity.findViewById(R.id.nodatageo).setVisibility(noDataGeoVisibility);
-        mainActivity.findViewById(R.id.nodatageourl).setVisibility(noDataGeoVisibility);
+        mainActivity.findViewById(R.id.nodata).setVisibility(isDataAvailable(wiFiData) ? View.GONE : View.VISIBLE);
     }
 
-    private void setConnectionVisibility(@NonNull WiFiData wiFiData) {
+    private boolean isDataAvailable(@NonNull WiFiData wiFiData) {
+        return !mainActivity.getNavigationMenuView().getCurrentNavigationMenu().isRegistered() || !wiFiData.getWiFiDetails().isEmpty();
+    }
+
+    private void setConnectionVisibility(@NonNull WiFiData wiFiData, @NonNull ConnectionViewType connectionViewType) {
         WiFiDetail connection = wiFiData.getConnection();
         View connectionView = mainActivity.findViewById(R.id.connection);
         WiFiConnection wiFiConnection = connection.getWiFiAdditional().getWiFiConnection();
-        if (wiFiConnection.isConnected()) {
+        if (connectionViewType.isHide() || !wiFiConnection.isConnected()) {
+            connectionView.setVisibility(View.GONE);
+        } else {
             connectionView.setVisibility(View.VISIBLE);
             ViewGroup parent = (ViewGroup) connectionView.findViewById(R.id.connectionDetail);
-            View view = accessPointDetail.makeView(parent.getChildAt(0), parent, connection, false);
+            View view = accessPointDetail.makeView(parent.getChildAt(0), parent, connection, false, connectionViewType.getAccessPointView());
             if (parent.getChildCount() == 0) {
                 parent.addView(view);
             }
             setViewConnection(connectionView, wiFiConnection);
             attachPopup(view, connection);
-        } else {
-            connectionView.setVisibility(View.GONE);
         }
     }
 

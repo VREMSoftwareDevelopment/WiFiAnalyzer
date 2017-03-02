@@ -32,14 +32,6 @@ public enum ThemeStyle {
         this.themeDeviceDefaultStyle = themeDeviceDefaultStyle;
     }
 
-    public static ThemeStyle find(int index) {
-        if (index < 0 || index >= values().length) {
-            return DARK;
-        }
-        return values()[index];
-
-    }
-
     public int themeAppCompatStyle() {
         return themeAppCompatStyle;
     }

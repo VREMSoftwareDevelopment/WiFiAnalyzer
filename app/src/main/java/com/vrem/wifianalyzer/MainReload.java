@@ -23,20 +23,24 @@ import android.support.annotation.NonNull;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.AccessPointView;
+import com.vrem.wifianalyzer.wifi.ConnectionViewType;
 
 class MainReload {
     private ThemeStyle themeStyle;
     private AccessPointView accessPointView;
+    private ConnectionViewType connectionViewType;
     private int graphMaximumY;
 
     MainReload(@NonNull Settings settings) {
         setThemeStyle(settings.getThemeStyle());
         setAccessPointView(settings.getAccessPointView());
+        setConnectionViewType(settings.getConnectionViewType());
         setGraphMaximumY(settings.getGraphMaximumY());
     }
 
     boolean shouldReload(@NonNull Settings settings) {
-        return isThemeChanged(settings) || isAccessPointViewChanged(settings) || isGraphMaximumYChanged(settings);
+        return isThemeChanged(settings) || isAccessPointViewChanged(settings)
+            || isConnectionViewTypeChanged(settings) || isGraphMaximumYChanged(settings);
     }
 
     private boolean isAccessPointViewChanged(Settings settings) {
@@ -46,6 +50,15 @@ class MainReload {
             setAccessPointView(settingAccessPointView);
         }
         return accessPointViewChanged;
+    }
+
+    private boolean isConnectionViewTypeChanged(Settings settings) {
+        ConnectionViewType connectionViewType = settings.getConnectionViewType();
+        boolean connectionViewTypeChanged = !getConnectionViewType().equals(connectionViewType);
+        if (connectionViewTypeChanged) {
+            setConnectionViewType(connectionViewType);
+        }
+        return connectionViewTypeChanged;
     }
 
     private boolean isThemeChanged(Settings settings) {
@@ -80,6 +93,14 @@ class MainReload {
 
     private void setAccessPointView(@NonNull AccessPointView accessPointView) {
         this.accessPointView = accessPointView;
+    }
+
+    ConnectionViewType getConnectionViewType() {
+        return connectionViewType;
+    }
+
+    private void setConnectionViewType(@NonNull ConnectionViewType connectionViewType) {
+        this.connectionViewType = connectionViewType;
     }
 
     int getGraphMaximumY() {

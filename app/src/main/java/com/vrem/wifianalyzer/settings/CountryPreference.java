@@ -27,6 +27,9 @@ import android.util.AttributeSet;
 
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Transformer;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,12 +42,9 @@ public class CountryPreference extends CustomPreference {
 
     @NonNull
     private static List<Data> getData() {
-        List<Data> result = new ArrayList<>();
-        for (WiFiChannelCountry wiFiChannelCountry : WiFiChannelCountry.getAll()) {
-            result.add(new Data(wiFiChannelCountry.getCountryCode(), wiFiChannelCountry.getCountryName()));
-        }
-        Collections.sort(result);
-        return result;
+        List<Data> results = new ArrayList<>(CollectionUtils.collect(WiFiChannelCountry.getAll(), new ToData()));
+        Collections.sort(results);
+        return results;
     }
 
     @NonNull
@@ -61,6 +61,13 @@ public class CountryPreference extends CustomPreference {
             return config.getLocales().get(0);
         }
         return config.locale;
+    }
+
+    private static class ToData implements Transformer<WiFiChannelCountry, Data> {
+        @Override
+        public Data transform(WiFiChannelCountry input) {
+            return new Data(input.getCountryCode(), input.getCountryName());
+        }
     }
 
 }

@@ -26,4 +26,6 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu;
 
 public interface NavigationItem {
     void activate(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, @NonNull NavigationMenu navigationMenu);
+
+    boolean isRegistered();
 }

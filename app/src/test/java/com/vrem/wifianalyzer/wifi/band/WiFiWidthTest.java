@@ -16,9 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.wifi.model;
-
-import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
+package com.vrem.wifianalyzer.wifi.band;
 
 import org.junit.Test;
 
@@ -47,15 +45,6 @@ public class WiFiWidthTest {
         assertEquals(40, WiFiWidth.MHZ_80.getFrequencyWidthHalf());
         assertEquals(80, WiFiWidth.MHZ_160.getFrequencyWidthHalf());
         assertEquals(40, WiFiWidth.MHZ_80_PLUS.getFrequencyWidthHalf());
-    }
-
-    @Test
-    public void testFind() throws Exception {
-        for (WiFiWidth wiFiWidth : WiFiWidth.values()) {
-            assertEquals(wiFiWidth, WiFiWidth.find(wiFiWidth.ordinal()));
-        }
-        assertEquals(WiFiWidth.MHZ_20, WiFiWidth.find(-1));
-        assertEquals(WiFiWidth.MHZ_20, WiFiWidth.find(WiFiWidth.values().length));
     }
 
 }

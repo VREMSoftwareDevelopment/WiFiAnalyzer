@@ -22,6 +22,9 @@ import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Predicate;
+import org.apache.commons.collections4.Transformer;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
 import java.util.ArrayList;
@@ -105,18 +108,15 @@ public class ChannelRating {
     }
 
     public List<ChannelAPCount> getBestChannels(@NonNull final List<WiFiChannel> wiFiChannels) {
-        List<ChannelAPCount> results = new ArrayList<>();
-        for (WiFiChannel wiFiChannel : wiFiChannels) {
-            Strength strength = getStrength(wiFiChannel);
-            if (Strength.ZERO.equals(strength) || Strength.ONE.equals(strength)) {
-                results.add(new ChannelAPCount(wiFiChannel, getCount(wiFiChannel)));
-            }
-        }
+        List<ChannelAPCount> results = new ArrayList<>(
+            CollectionUtils.collect(
+                CollectionUtils.select(wiFiChannels, new BestChannelPredicate())
+                , new ToChannelAPCount()));
         Collections.sort(results);
         return results;
     }
 
-    private static class GuestSort implements Comparator<WiFiDetail> {
+    private class GuestSort implements Comparator<WiFiDetail> {
         @Override
         public int compare(@NonNull WiFiDetail lhs, @NonNull WiFiDetail rhs) {
             return new CompareToBuilder()
@@ -125,6 +125,21 @@ public class ChannelRating {
                 .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
                 .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
                 .toComparison();
+        }
+    }
+
+    private class BestChannelPredicate implements Predicate<WiFiChannel> {
+        @Override
+        public boolean evaluate(WiFiChannel object) {
+            Strength strength = getStrength(object);
+            return Strength.ZERO.equals(strength) || Strength.ONE.equals(strength);
+        }
+    }
+
+    private class ToChannelAPCount implements Transformer<WiFiChannel, ChannelAPCount> {
+        @Override
+        public ChannelAPCount transform(WiFiChannel input) {
+            return new ChannelAPCount(input, getCount(input));
         }
     }
 }

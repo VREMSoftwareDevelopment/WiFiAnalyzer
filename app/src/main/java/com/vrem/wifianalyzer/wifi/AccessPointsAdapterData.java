@@ -31,7 +31,8 @@ class AccessPointsAdapterData {
 
     void update(WiFiData wiFiData) {
         Settings settings = MainContext.INSTANCE.getSettings();
-        wiFiDetails = wiFiData.getWiFiDetails(settings.getWiFiBand(), settings.getSortBy(), settings.getGroupBy());
+        AccessPointsPredicate predicate = new AccessPointsPredicate(settings);
+        wiFiDetails = wiFiData.getWiFiDetails(predicate, settings.getSortBy(), settings.getGroupBy());
     }
 
     int parentsCount() {

@@ -30,13 +30,6 @@ public enum AccessPointView {
         this.layout = layout;
     }
 
-    public static AccessPointView find(int index) {
-        if (index < 0 || index >= values().length) {
-            return COMPLETE;
-        }
-        return values()[index];
-    }
-
     int getLayout() {
         return layout;
     }

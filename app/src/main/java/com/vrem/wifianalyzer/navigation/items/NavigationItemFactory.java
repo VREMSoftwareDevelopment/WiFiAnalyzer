@@ -28,10 +28,10 @@ import com.vrem.wifianalyzer.wifi.graph.channel.ChannelGraphFragment;
 import com.vrem.wifianalyzer.wifi.graph.time.TimeGraphFragment;
 
 public class NavigationItemFactory {
-    public final static NavigationItem ACCESS_POINTS = new FragmentItem(new AccessPointsFragment());
-    public final static NavigationItem CHANNEL_RATING = new FragmentItem(new ChannelRatingFragment());
-    public final static NavigationItem CHANNEL_GRAPH = new FragmentItem(new ChannelGraphFragment());
-    public final static NavigationItem TIME_GRAPH = new FragmentItem(new TimeGraphFragment());
+    public final static NavigationItem ACCESS_POINTS = new FragmentItem(new AccessPointsFragment(), true);
+    public final static NavigationItem CHANNEL_RATING = new FragmentItem(new ChannelRatingFragment(), true);
+    public final static NavigationItem CHANNEL_GRAPH = new FragmentItem(new ChannelGraphFragment(), true);
+    public final static NavigationItem TIME_GRAPH = new FragmentItem(new TimeGraphFragment(), true);
     public final static NavigationItem EXPORT = new ExportItem();
     public final static NavigationItem CHANNEL_AVAILABLE = new FragmentItem(new ChannelAvailableFragment());
     public final static NavigationItem VENDOR_LIST = new FragmentItem(new VendorFragment());

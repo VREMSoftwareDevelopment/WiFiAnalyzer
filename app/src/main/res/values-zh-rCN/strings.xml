@@ -59,11 +59,11 @@
     <!-- settings start -->
     <string name="start_menu_title">开始</string>
     <string name="country_code_title">国家</string>
-    <string name="wifi_band_title">WiFi频段</string>
     <string name="scan_interval_title">扫描间隔</string>
     <string name="scan_interval_summary">每次扫描间隔%d秒</string>
     <string name="sort_by_title">接入点排序依据</string>
     <string name="group_by_title">接入点分组依据</string>
+    <string name="connection_view_title">连接显示</string>
     <string name="ap_view_title">接入点显示</string>
     <string name="graph_maximum_y_title">图形最大信号强度</string>
     <string name="channel_graph_legend_title">信道图例显示位置</string>
@@ -82,4 +82,18 @@
     <string name="about_contributor_title">贡献者:</string>
     <string name="about_write_review">我要评价</string>
     <!-- about end -->
+
+    <!-- security start -->
+    <string name="security_none">没有</string>
+    <!-- security end -->
+
+    <!-- filter start -->
+    <string name="filter_title">滤波器</string>
+    <string name="filter_close">关</string>
+    <string name="filter_reset">重启</string>
+    <string name="filter_apply">应用</string>
+    <string name="filter_wifi_band_title">WiFi频段</string>
+    <string name="filter_strength_title">信号强度</string>
+    <string name="filter_security_title">安全</string>
+    <!-- filter end -->
 </resources>

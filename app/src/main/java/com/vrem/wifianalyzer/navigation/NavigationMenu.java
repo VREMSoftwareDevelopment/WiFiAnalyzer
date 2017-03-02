@@ -31,10 +31,10 @@ import com.vrem.wifianalyzer.navigation.options.NavigationOptionFactory;
 import java.util.List;
 
 public enum NavigationMenu {
-    ACCESS_POINTS(R.drawable.ic_network_wifi_grey_500_48dp, R.string.action_access_points, NavigationItemFactory.ACCESS_POINTS, NavigationOptionFactory.ALL_ON),
-    CHANNEL_RATING(R.drawable.ic_wifi_tethering_grey_500_48dp, R.string.action_channel_rating, NavigationItemFactory.CHANNEL_RATING, NavigationOptionFactory.ALL_ON),
-    CHANNEL_GRAPH(R.drawable.ic_insert_chart_grey_500_48dp, R.string.action_channel_graph, NavigationItemFactory.CHANNEL_GRAPH, NavigationOptionFactory.ALL_ON),
-    TIME_GRAPH(R.drawable.ic_show_chart_grey_500_48dp, R.string.action_time_graph, NavigationItemFactory.TIME_GRAPH, NavigationOptionFactory.ALL_ON),
+    ACCESS_POINTS(R.drawable.ic_network_wifi_grey_500_48dp, R.string.action_access_points, NavigationItemFactory.ACCESS_POINTS, NavigationOptionFactory.AP),
+    CHANNEL_RATING(R.drawable.ic_wifi_tethering_grey_500_48dp, R.string.action_channel_rating, NavigationItemFactory.CHANNEL_RATING, NavigationOptionFactory.OTHER),
+    CHANNEL_GRAPH(R.drawable.ic_insert_chart_grey_500_48dp, R.string.action_channel_graph, NavigationItemFactory.CHANNEL_GRAPH, NavigationOptionFactory.OTHER),
+    TIME_GRAPH(R.drawable.ic_show_chart_grey_500_48dp, R.string.action_time_graph, NavigationItemFactory.TIME_GRAPH, NavigationOptionFactory.OTHER),
     EXPORT(R.drawable.ic_import_export_grey_500_48dp, R.string.action_export, NavigationItemFactory.EXPORT),
     CHANNEL_AVAILABLE(R.drawable.ic_location_on_grey_500_48dp, R.string.action_channel_available, NavigationItemFactory.CHANNEL_AVAILABLE),
     VENDOR_LIST(R.drawable.ic_list_grey_500_48dp, R.string.action_vendors, NavigationItemFactory.VENDOR_LIST),
@@ -54,14 +54,7 @@ public enum NavigationMenu {
     }
 
     NavigationMenu(int icon, int title, @NonNull NavigationItem navigationItem) {
-        this(icon, title, navigationItem, NavigationOptionFactory.ALL_OFF);
-    }
-
-    public static NavigationMenu find(int index) {
-        if (index < 0 || index >= values().length) {
-            return ACCESS_POINTS;
-        }
-        return values()[index];
+        this(icon, title, navigationItem, NavigationOptionFactory.OFF);
     }
 
     public int getTitle() {
@@ -80,6 +73,10 @@ public enum NavigationMenu {
 
     public boolean isWiFiBandSwitchable() {
         return navigationOptions.contains(NavigationOptionFactory.WIFI_SWITCH_ON);
+    }
+
+    public boolean isRegistered() {
+        return navigationItem.isRegistered();
     }
 
     int getIcon() {

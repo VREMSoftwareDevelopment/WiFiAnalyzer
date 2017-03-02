@@ -31,6 +31,7 @@ import java.util.List;
 
 public class WiFiDetail implements Comparable<WiFiDetail> {
     public static final WiFiDetail EMPTY = new WiFiDetail(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, WiFiSignal.EMPTY);
+    private static final String SSID_EMPTY = "***";
 
     private final List<WiFiDetail> children;
     private final String SSID;
@@ -62,10 +63,10 @@ public class WiFiDetail implements Comparable<WiFiDetail> {
     }
 
     public String getSSID() {
-        return isHidden() ? "***" : SSID;
+        return isHidden() ? SSID_EMPTY : SSID;
     }
 
-    public boolean isHidden() {
+    boolean isHidden() {
         return StringUtils.isBlank(SSID);
     }
 
@@ -90,7 +91,7 @@ public class WiFiDetail implements Comparable<WiFiDetail> {
     }
 
     public String getTitle() {
-        return String.format("%s (%s)", getSSID(), getBSSID());
+        return String.format("%s (%s)", getSSID(), BSSID);
     }
 
     public void addChild(@NonNull WiFiDetail wiFiDetail) {

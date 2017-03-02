@@ -52,6 +52,15 @@ public class StrengthTest {
     }
 
     @Test
+    public void testColorResourceDefault() throws Exception {
+        assertEquals(R.color.icons_color, Strength.ZERO.colorResourceDefault());
+        assertEquals(R.color.icons_color, Strength.ONE.colorResourceDefault());
+        assertEquals(R.color.icons_color, Strength.TWO.colorResourceDefault());
+        assertEquals(R.color.icons_color, Strength.THREE.colorResourceDefault());
+        assertEquals(R.color.icons_color, Strength.FOUR.colorResourceDefault());
+    }
+
+    @Test
     public void testWeak() throws Exception {
         assertTrue(Strength.ZERO.weak());
         assertFalse(Strength.ONE.weak());

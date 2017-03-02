@@ -22,9 +22,13 @@ import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
-import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Predicate;
+import org.apache.commons.collections4.Transformer;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -56,22 +60,22 @@ public class WiFiData {
     }
 
     @NonNull
-    public List<WiFiDetail> getWiFiDetails(@NonNull WiFiBand wiFiBand, @NonNull SortBy sortBy) {
-        return getWiFiDetails(wiFiBand, sortBy, GroupBy.NONE);
+    public List<WiFiDetail> getWiFiDetails(@NonNull Predicate<WiFiDetail> predicate, @NonNull SortBy sortBy) {
+        return getWiFiDetails(predicate, sortBy, GroupBy.NONE);
     }
 
     @NonNull
-    public List<WiFiDetail> getWiFiDetails(@NonNull WiFiBand wiFiBand, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
-        List<WiFiDetail> results = getWiFiDetails(wiFiBand);
+    public List<WiFiDetail> getWiFiDetails(@NonNull Predicate<WiFiDetail> predicate, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
+        List<WiFiDetail> results = getWiFiDetails(predicate);
         if (!results.isEmpty() && !GroupBy.NONE.equals(groupBy)) {
-            results = getWiFiDetails(results, sortBy, groupBy);
+            results = sortAndGroup(results, sortBy, groupBy);
         }
         Collections.sort(results, sortBy.comparator());
-        return Collections.unmodifiableList(results);
+        return results;
     }
 
     @NonNull
-    List<WiFiDetail> getWiFiDetails(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
+    List<WiFiDetail> sortAndGroup(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
         List<WiFiDetail> results = new ArrayList<>();
         Collections.sort(wiFiDetails, groupBy.sortOrder());
         WiFiDetail parent = null;
@@ -94,23 +98,10 @@ public class WiFiData {
     }
 
     @NonNull
-    private List<WiFiDetail> getWiFiDetails(@NonNull WiFiBand wiFiBand) {
-        List<WiFiDetail> results = new ArrayList<>();
-        WiFiDetail connection = getConnection();
-        VendorService vendorService = MainContext.INSTANCE.getVendorService();
-        for (WiFiDetail wiFiDetail : wiFiDetails) {
-            if (wiFiDetail.getWiFiSignal().getWiFiBand().equals(wiFiBand)) {
-                if (wiFiDetail.equals(connection)) {
-                    results.add(connection);
-                } else {
-                    String vendorName = vendorService.findVendorName(wiFiDetail.getBSSID());
-                    boolean contains = wiFiConfigurations.contains(wiFiDetail.getSSID());
-                    WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName, contains);
-                    results.add(new WiFiDetail(wiFiDetail, wiFiAdditional));
-                }
-            }
-        }
-        return results;
+    private List<WiFiDetail> getWiFiDetails(@NonNull Predicate<WiFiDetail> predicate) {
+        Collection<WiFiDetail> selected = CollectionUtils.select(wiFiDetails, predicate);
+        Collection<WiFiDetail> collected = CollectionUtils.collect(selected, new Transform());
+        return new ArrayList<>(collected);
     }
 
     @NonNull
@@ -126,6 +117,27 @@ public class WiFiData {
     @NonNull
     public WiFiConnection getWiFiConnection() {
         return wiFiConnection;
+    }
+
+    private class Transform implements Transformer<WiFiDetail, WiFiDetail> {
+        private final WiFiDetail connection;
+        private final VendorService vendorService;
+
+        private Transform() {
+            this.connection = getConnection();
+            this.vendorService = MainContext.INSTANCE.getVendorService();
+        }
+
+        @Override
+        public WiFiDetail transform(WiFiDetail input) {
+            if (input.equals(connection)) {
+                return connection;
+            }
+            String vendorName = vendorService.findVendorName(input.getBSSID());
+            boolean contains = wiFiConfigurations.contains(input.getSSID());
+            WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName, contains);
+            return new WiFiDetail(input, wiFiAdditional);
+        }
     }
 
 }

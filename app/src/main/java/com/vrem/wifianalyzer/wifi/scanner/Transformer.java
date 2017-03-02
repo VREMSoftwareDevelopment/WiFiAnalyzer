@@ -23,6 +23,7 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 
+import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -30,9 +31,10 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import com.vrem.wifianalyzer.wifi.model.WiFiUtils;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 class Transformer {
@@ -49,33 +51,16 @@ class Transformer {
     }
 
     List<String> transformWifiConfigurations(List<WifiConfiguration> configuredNetworks) {
-        List<String> results = new ArrayList<>();
-        if (configuredNetworks != null) {
-            for (WifiConfiguration wifiConfiguration : configuredNetworks) {
-                results.add(WiFiUtils.convertSSID(wifiConfiguration.SSID));
-            }
-        }
-        return Collections.unmodifiableList(results);
+        return new ArrayList<>(CollectionUtils.collect(configuredNetworks, new ToString()));
     }
 
     List<WiFiDetail> transformCacheResults(List<CacheResult> cacheResults) {
-        List<WiFiDetail> results = new ArrayList<>();
-        if (cacheResults != null) {
-            for (CacheResult cacheResult : cacheResults) {
-                ScanResult scanResult = cacheResult.getScanResult();
-                WiFiWidth wiFiWidth = getWiFiWidth(scanResult);
-                int centerFrequency = getCenterFrequency(scanResult, wiFiWidth);
-                WiFiSignal wiFiSignal = new WiFiSignal(scanResult.frequency, centerFrequency, wiFiWidth, cacheResult.getLevelAverage());
-                WiFiDetail wiFiDetail = new WiFiDetail(scanResult.SSID, scanResult.BSSID, scanResult.capabilities, wiFiSignal);
-                results.add(wiFiDetail);
-            }
-        }
-        return Collections.unmodifiableList(results);
+        return new ArrayList<>(CollectionUtils.collect(cacheResults, new ToWiFiDetail()));
     }
 
     WiFiWidth getWiFiWidth(@NonNull ScanResult scanResult) {
         try {
-            return WiFiWidth.find(getFieldValue(scanResult, Fields.channelWidth));
+            return EnumUtils.find(WiFiWidth.class, getFieldValue(scanResult, Fields.channelWidth), WiFiWidth.MHZ_20);
         } catch (Exception e) {
             return WiFiWidth.MHZ_20;
         }
@@ -117,4 +102,21 @@ class Transformer {
         channelWidth
     }
 
+    private class ToWiFiDetail implements org.apache.commons.collections4.Transformer<CacheResult, WiFiDetail> {
+        @Override
+        public WiFiDetail transform(CacheResult input) {
+            ScanResult scanResult = input.getScanResult();
+            WiFiWidth wiFiWidth = getWiFiWidth(scanResult);
+            int centerFrequency = getCenterFrequency(scanResult, wiFiWidth);
+            WiFiSignal wiFiSignal = new WiFiSignal(scanResult.frequency, centerFrequency, wiFiWidth, input.getLevelAverage());
+            return new WiFiDetail(scanResult.SSID, scanResult.BSSID, scanResult.capabilities, wiFiSignal);
+        }
+    }
+
+    private class ToString implements org.apache.commons.collections4.Transformer<WifiConfiguration, String> {
+        @Override
+        public String transform(WifiConfiguration input) {
+            return WiFiUtils.convertSSID(input.SSID);
+        }
+    }
 }

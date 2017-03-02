@@ -37,13 +37,4 @@ public class SortByTest {
         assertTrue(SortBy.CHANNEL.comparator() instanceof SortBy.ChannelComparator);
     }
 
-    @Test
-    public void testFind() throws Exception {
-        assertEquals(SortBy.STRENGTH, SortBy.find(-1));
-        assertEquals(SortBy.STRENGTH, SortBy.find(SortBy.values().length));
-
-        assertEquals(SortBy.STRENGTH, SortBy.find(SortBy.STRENGTH.ordinal()));
-        assertEquals(SortBy.SSID, SortBy.find(SortBy.SSID.ordinal()));
-        assertEquals(SortBy.CHANNEL, SortBy.find(SortBy.CHANNEL.ordinal()));
-    }
 }

@@ -32,6 +32,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -59,4 +60,13 @@ public class ActivityItemTest {
         // validate
         verify(mockMainActivity).startActivity(mockIntent);
     }
+
+    @Test
+    public void testIsRegistered() throws Exception {
+        // setup
+        ActivityItem fixture = new ActivityItem(AboutActivity.class);
+        // execute & validate
+        assertFalse(fixture.isRegistered());
+    }
+
 }

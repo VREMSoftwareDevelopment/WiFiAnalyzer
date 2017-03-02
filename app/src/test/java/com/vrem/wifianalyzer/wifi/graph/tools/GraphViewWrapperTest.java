@@ -37,7 +37,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -101,8 +101,7 @@ public class GraphViewWrapperTest {
         // setup
         Set<WiFiDetail> newSeries = new TreeSet<>();
         List<WiFiDetail> difference = new ArrayList<>();
-        //noinspection ArraysAsListWithZeroOrOneArgument
-        List<BaseSeries<DataPoint>> removed = Arrays.asList(baseSeries);
+        List<BaseSeries<DataPoint>> removed = Collections.singletonList(baseSeries);
         int color = 10;
         when(seriesCache.difference(newSeries)).thenReturn(difference);
         when(seriesCache.remove(difference)).thenReturn(removed);

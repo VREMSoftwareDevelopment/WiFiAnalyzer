@@ -18,16 +18,6 @@
   -->
 
 <resources>
-    <string-array name="wifi_band_index_array" translatable="false">
-        <item>0</item>
-        <item>1</item>
-    </string-array>
-
-    <string-array name="wifi_band_array" translatable="false">
-        <item>2.4 GHz</item>
-        <item>5 GHz</item>
-    </string-array>
-
     <string-array name="group_by_index_array" translatable="false">
         <item>0</item>
         <item>1</item>
@@ -50,6 +40,18 @@
         <item>Signal Strength</item>
         <item>SSID</item>
         <item>Channel</item>
+    </string-array>
+
+    <string-array name="connection_view_index_array" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="connection_view_array">
+        <item>Complete</item>
+        <item>Compact</item>
+        <item>Hide</item>
     </string-array>
 
     <string-array name="ap_view_index_array" translatable="false">

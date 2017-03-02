@@ -49,6 +49,10 @@ public enum Strength {
         return colorResource;
     }
 
+    public int colorResourceDefault() {
+        return R.color.icons_color;
+    }
+
     public int imageResource() {
         return imageResource;
     }

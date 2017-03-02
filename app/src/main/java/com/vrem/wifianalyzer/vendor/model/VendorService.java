@@ -67,8 +67,7 @@ public class VendorService {
     public SortedMap<String, List<String>> findAll() {
         SortedMap<String, List<String>> results = new TreeMap<>();
         Database database = MainContext.INSTANCE.getDatabase();
-        List<VendorData> vendorDatas = database.findAll();
-        for (VendorData vendorData : vendorDatas) {
+        for (VendorData vendorData : database.findAll()) {
             String key = VendorNameUtils.cleanVendorName(vendorData.getName());
             List<String> macs = results.get(key);
             if (macs == null) {

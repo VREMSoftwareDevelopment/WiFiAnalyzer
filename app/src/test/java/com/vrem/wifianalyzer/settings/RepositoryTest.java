@@ -34,6 +34,9 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.util.Collections;
+import java.util.Set;
+
 import static android.content.SharedPreferences.Editor;
 import static android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import static org.junit.Assert.assertEquals;
@@ -207,6 +210,57 @@ public class RepositoryTest {
         fixture.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
         // verify
         verify(sharedPreferences).registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
+    }
+
+    @Test
+    public void testGetStringSet() throws Exception {
+        // setup
+        int keyIndex = R.string.app_name;
+        Set<String> expected = Collections.singleton("123");
+        Set<String> defaultValues = Collections.singleton("567");
+        when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
+        when(sharedPreferences.getStringSet(keyValue, defaultValues)).thenReturn(expected);
+        // execute
+        Set<String> actual = fixture.getStringSet(keyIndex, defaultValues);
+        // validate
+        verify(mainActivity).getString(keyIndex);
+        verify(sharedPreferences).getStringSet(keyValue, defaultValues);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGetStringSetThrowsException() throws Exception {
+        // setup
+        int keyIndex = R.string.app_name;
+        Set<String> expected = Collections.singleton("567");
+        when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
+        when(sharedPreferences.getStringSet(keyValue, expected)).thenThrow(new RuntimeException());
+        when(sharedPreferences.edit()).thenReturn(editor);
+        // execute
+        Set<String> actual = fixture.getStringSet(keyIndex, expected);
+        // validate
+        verify(mainActivity).getString(keyIndex);
+        verify(sharedPreferences).getStringSet(keyValue, expected);
+        verify(sharedPreferences).edit();
+        verify(editor).putStringSet(keyValue, expected);
+        verify(editor).apply();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testSaveStringSet() throws Exception {
+        // setup
+        int keyIndex = R.string.app_name;
+        Set<String> values = Collections.singleton("123");
+        when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
+        when(sharedPreferences.edit()).thenReturn(editor);
+        // execute
+        fixture.saveStringSet(keyIndex, values);
+        // validate
+        verify(mainActivity).getString(keyIndex);
+        verify(sharedPreferences).edit();
+        verify(editor).putStringSet(keyValue, values);
+        verify(editor).apply();
     }
 
 }

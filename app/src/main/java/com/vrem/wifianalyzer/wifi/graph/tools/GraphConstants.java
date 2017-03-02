@@ -19,7 +19,7 @@
 package com.vrem.wifianalyzer.wifi.graph.tools;
 
 public interface GraphConstants {
-    float AXIS_TEXT_SIZE_ADJUSMENT = 0.90f;
+    float AXIS_TEXT_SIZE_ADJUSTMENT = 0.90f;
     float TEXT_SIZE_ADJUSTMENT = 0.80f;
 
     int MAX_SCAN_COUNT = 300;
@@ -30,7 +30,7 @@ public interface GraphConstants {
     int MIN_Y_HALF = MIN_Y / 2;
     int NUM_X_CHANNEL = 18;
     int NUM_X_TIME = 21;
-    int MAX_NONSEEN_COUNT = 30;
+    int MAX_NOTSEEN_COUNT = 20;
     int THICKNESS_INVISIBLE = 0;
     int THICKNESS_REGULAR = 5;
     int THICKNESS_CONNECTED = THICKNESS_REGULAR * 2;

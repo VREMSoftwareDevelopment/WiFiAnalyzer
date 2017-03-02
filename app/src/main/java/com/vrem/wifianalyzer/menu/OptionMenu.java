@@ -25,6 +25,7 @@ import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.filter.FilterView;
 
 public class OptionMenu {
     private Menu menu;
@@ -35,12 +36,20 @@ public class OptionMenu {
     }
 
     public void select(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_scanner) {
-            if (MainContext.INSTANCE.getScanner().isRunning()) {
-                pause();
-            } else {
-                resume();
-            }
+        switch (item.getItemId()) {
+            case R.id.action_scanner:
+                if (MainContext.INSTANCE.getScanner().isRunning()) {
+                    pause();
+                } else {
+                    resume();
+                }
+                break;
+            case R.id.action_filter:
+                FilterView.build().show();
+                break;
+            default:
+                // do nothing
+                break;
         }
     }
 

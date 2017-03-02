@@ -29,7 +29,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -49,8 +49,7 @@ public class GraphAdapterTest {
 
     @Before
     public void setUp() {
-        //noinspection ArraysAsListWithZeroOrOneArgument
-        fixture = new GraphAdapter(Arrays.asList(graphViewNotifier));
+        fixture = new GraphAdapter(Collections.singletonList(graphViewNotifier));
     }
 
     @After

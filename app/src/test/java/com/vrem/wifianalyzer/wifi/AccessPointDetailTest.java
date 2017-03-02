@@ -174,7 +174,7 @@ public class AccessPointDetailTest {
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
-        validateTextViewValuesFullView(actual, wiFiDetail, "***");
+        validateTextViewValuesFullView(actual, wiFiDetail);
     }
 
     @Test
@@ -184,7 +184,7 @@ public class AccessPointDetailTest {
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
-        validateTextViewValuesFullView(actual, wiFiDetail, SSID);
+        validateTextViewValuesFullView(actual, wiFiDetail);
     }
 
     @Test
@@ -230,7 +230,7 @@ public class AccessPointDetailTest {
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
-        validateTextViewValuesCompactView(actual, wiFiDetail, "***");
+        validateTextViewValuesCompactView(actual, wiFiDetail);
     }
 
     @Test
@@ -241,7 +241,7 @@ public class AccessPointDetailTest {
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
-        validateTextViewValuesCompactView(actual, wiFiDetail, SSID);
+        validateTextViewValuesCompactView(actual, wiFiDetail);
     }
 
     @Test
@@ -276,7 +276,7 @@ public class AccessPointDetailTest {
         // execute
         View actual = fixture.makeViewPopup(wiFiDetail);
         // validate
-        validateTextViewValuesFullView(actual, wiFiDetail, SSID);
+        validateTextViewValuesFullView(actual, wiFiDetail);
     }
 
     @Test
@@ -305,8 +305,8 @@ public class AccessPointDetailTest {
         return new WiFiDetail(SSID, "BSSID", "capabilities", new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2), wiFiAdditional);
     }
 
-    private void validateTextViewValuesFullView(@NonNull View view, @NonNull WiFiDetail wiFiDetail, @NonNull String ssid) {
-        validateTextViewValuesCompactView(view, wiFiDetail, ssid);
+    private void validateTextViewValuesFullView(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {
+        validateTextViewValuesCompactView(view, wiFiDetail);
 
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         validateTextViewValue(view, wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd(), R.id.channel_frequency_range);
@@ -314,9 +314,9 @@ public class AccessPointDetailTest {
         validateTextViewValue(view, wiFiDetail.getCapabilities(), R.id.capabilities);
     }
 
-    private void validateTextViewValuesCompactView(@NonNull View view, @NonNull WiFiDetail wiFiDetail, @NonNull String ssid) {
+    private void validateTextViewValuesCompactView(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        validateTextViewValue(view, ssid + " (" + wiFiDetail.getBSSID() + ")", R.id.ssid);
+        validateTextViewValue(view, wiFiDetail.getTitle(), R.id.ssid);
         validateTextViewValue(view, String.format(Locale.ENGLISH, "%ddBm", wiFiSignal.getLevel()), R.id.level);
         validateTextViewValue(view, wiFiSignal.getChannelDisplay(), R.id.channel);
         validateTextViewValue(view, String.format(Locale.ENGLISH, "%d%s", wiFiSignal.getPrimaryFrequency(), WiFiSignal.FREQUENCY_UNITS), R.id.primaryFrequency);

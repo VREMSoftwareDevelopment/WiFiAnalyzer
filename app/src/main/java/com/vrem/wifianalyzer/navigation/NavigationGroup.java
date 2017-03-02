@@ -20,6 +20,8 @@ package com.vrem.wifianalyzer.navigation;
 
 import android.support.annotation.NonNull;
 
+import org.apache.commons.collections4.Predicate;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,15 +34,6 @@ public enum NavigationGroup {
 
     NavigationGroup(@NonNull NavigationMenu... navigationMenus) {
         this.navigationMenus = Arrays.asList(navigationMenus);
-    }
-
-    public static NavigationGroup find(@NonNull NavigationMenu navigationMenu) {
-        for (NavigationGroup navigationGroup : values()) {
-            if (navigationGroup.getNavigationMenus().contains(navigationMenu)) {
-                return navigationGroup;
-            }
-        }
-        return GROUP_FEATURE;
     }
 
     @NonNull
@@ -72,6 +65,19 @@ public enum NavigationGroup {
             index = navigationMenus.size() - 1;
         }
         return navigationMenus.get(index);
+    }
+
+    static class NavigationPredicate implements Predicate<NavigationGroup> {
+        public final NavigationMenu navigationMenu;
+
+        NavigationPredicate(@NonNull NavigationMenu navigationMenu) {
+            this.navigationMenu = navigationMenu;
+        }
+
+        @Override
+        public boolean evaluate(NavigationGroup object) {
+            return object.getNavigationMenus().contains(navigationMenu);
+        }
     }
 
 }

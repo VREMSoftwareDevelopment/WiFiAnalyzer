@@ -24,7 +24,7 @@ android {
     buildToolsVersion '25.0.2'
 
     defaultConfig {
-        applicationId "com.vrem.wifianalyzer"
+        applicationId "com.vrem.wifianalyzer.BETA"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode
@@ -80,6 +80,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:design:25.1.1'
     compile 'org.apache.commons:commons-lang3:3.5'
+    compile 'org.apache.commons:commons-collections4:4.1'
     compile 'com.jjoe64:graphview:4.2.1'
     // Unit Test Dependencies
     testCompile 'junit:junit:4.12'

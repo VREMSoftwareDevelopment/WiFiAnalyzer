@@ -21,15 +21,17 @@ package com.vrem.wifianalyzer.settings;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
+import java.util.Set;
+
 class Repository {
     void initializeDefaultValues() {
-        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
-        PreferenceManager.setDefaultValues(mainActivity, R.xml.preferences, false);
+        PreferenceManager.setDefaultValues(MainContext.INSTANCE.getMainActivity(), R.xml.preferences, false);
     }
 
     void registerOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener onSharedPreferenceChangeListener) {
@@ -37,14 +39,7 @@ class Repository {
     }
 
     void save(int key, int value) {
-        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
-        save(mainActivity.getString(key), "" + value);
-    }
-
-    private void save(String key, String value) {
-        SharedPreferences.Editor editor = getSharedPreferences().edit();
-        editor.putString(key, value);
-        editor.apply();
+        save(MainContext.INSTANCE.getMainActivity().getString(key), "" + value);
     }
 
     int getStringAsInteger(int key, int defaultValue) {
@@ -55,9 +50,8 @@ class Repository {
         }
     }
 
-    String getString(int key, String defaultValue) {
-        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
-        String keyValue = mainActivity.getString(key);
+    String getString(int key, @NonNull String defaultValue) {
+        String keyValue = MainContext.INSTANCE.getMainActivity().getString(key);
         try {
             return getSharedPreferences().getString(keyValue, defaultValue);
         } catch (Exception e) {
@@ -80,8 +74,35 @@ class Repository {
         }
     }
 
+    Set<String> getStringSet(int key, @NonNull Set<String> defaultValues) {
+        String keyValue = MainContext.INSTANCE.getMainActivity().getString(key);
+        try {
+            return getSharedPreferences().getStringSet(keyValue, defaultValues);
+        } catch (Exception e) {
+            save(keyValue, defaultValues);
+            return defaultValues;
+        }
+    }
+
+    void saveStringSet(int key, @NonNull Set<String> values) {
+        save(MainContext.INSTANCE.getMainActivity().getString(key), values);
+    }
+
     private SharedPreferences getSharedPreferences() {
         MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
         return PreferenceManager.getDefaultSharedPreferences(mainActivity);
     }
+
+    private void save(@NonNull String key, @NonNull String value) {
+        SharedPreferences.Editor editor = getSharedPreferences().edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    private void save(@NonNull String key, @NonNull Set<String> values) {
+        SharedPreferences.Editor editor = getSharedPreferences().edit();
+        editor.putStringSet(key, values);
+        editor.apply();
+    }
+
 }
