@@ -1,6 +1,6 @@
-# WiFiAnalyzer
+<h1>WiFiAnalyzer <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-mdpi/ic_wifi_green_800_48dp.png" alt="Application Icon"></h1>
 
-<img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/ic_launcher-web.png" alt="Laucher Icon" height="50"> Optimize your WiFi network using WiFiAnalyzer by examining surrounding WiFi networks, measuring their signal strength as well as identifying crowded channels.
+Optimize your WiFi network using WiFiAnalyzer by examining surrounding WiFi networks, measuring their signal strength as well as identifying crowded channels.
 
 ### Android OS Requirements
 * Minimum: Jelly Bean (Version 4.1 - API 16)
