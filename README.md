@@ -1,18 +1,18 @@
-# WiFi Analyzer (open-source)
+# WiFiAnalyzer
 
-<img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/ic_launcher-web.png" alt="Laucher Icon" height="50"> Optimize your WiFi network using WiFi Analyzer (open-source) by examining surrounding WiFi networks, measuring their signal strength as well as identifying crowded channels.
+<img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/ic_launcher-web.png" alt="Laucher Icon" height="50"> Optimize your WiFi network using WiFiAnalyzer by examining surrounding WiFi networks, measuring their signal strength as well as identifying crowded channels.
 
 ### Android OS Requirements
 * Minimum: Jelly Bean (Version 4.1 - API 16)
 * Recommended: Marshmallow (Version 6.0 - API 23)
 
 ### Note for Android OS 6 Users
-Some users running Android OS 6 (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFi Analyzer does not explicitly require it. This appears to be attributed to Android OS 6 that requires location service in order to see WiFi networks. [Click here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23) to learn more about it.
+Some users running Android OS 6 (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFiAnalyzer does not explicitly require it. This appears to be attributed to Android OS 6 that requires location service in order to see WiFi networks. [Click here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23) to learn more about it.
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="100">](https://play.google.com/store/apps/details?id=com.vrem.wifianalyzer)
 [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="100">](https://f-droid.org/repository/browse/?fdid=com.vrem.wifianalyzer)
 
-This is the official repository of WiFi Analyzer (open-source).
+This is the official repository of WiFiAnalyzer.
 
 <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/feature-graphic.png" alt="Feature Graphic" height="300">
 
@@ -33,7 +33,7 @@ This is the official repository of WiFi Analyzer (open-source).
 * Swipe left/right at the bottom of the screen to navigate to the next/previous screen
 
 
-**Please note WiFi Analyzer is not a WiFi password cracking or phishing tool.**
+**Please note WiFiAnalyzer is not a WiFi password cracking or phishing tool.**
 
  
 ## Usage Tips
@@ -53,7 +53,7 @@ This is the official repository of WiFi Analyzer (open-source).
 Bug reports and feature requests can be submitted [here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues) or use [google groups](https://groups.google.com/forum/#!forum/wifi-analyzer-open-source) to discuss application features if you do not have GitHub account.
 
 ## License
-WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
+WiFiAnalyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 
 ### GPLv3 License key requirements:
 * Disclose Source
@@ -65,7 +65,7 @@ WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 
 [GNU General Public License v3.0 (GPLv3)](http://www.gnu.org/licenses/gpl-3.0.html).
 
-## WiFi Analyzer Build
+## WiFiAnalyzer Build
 
 [![Build Status](https://travis-ci.org/VREMSoftwareDevelopment/WiFiAnalyzer.svg?branch=master)](https://travis-ci.org/VREMSoftwareDevelopment/WiFiAnalyzer)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/203eaa0583694bcca6554190513179ba)](https://www.codacy.com/app/vremsoftwaredevelopment/WiFiAnalyzer)
@@ -86,8 +86,8 @@ Feel free to fork the project and submit your changes back.
   1. Install Android Studio
   2. Import project into Android Studio
       * In Welcome to Android Studio Screen select Import project ...
-      * Select the root directory of the WiFi Analyzer repository and click "OK".
-      * WiFi Analyzer will build automatically
+      * Select the root directory of the WiFiAnalyzer repository and click "OK".
+      * WiFiAnalyzer will build automatically
 
 ### Running unit tests and jacoco coverage report
 ```
@@ -96,7 +96,7 @@ Feel free to fork the project and submit your changes back.
 
 ## Special Thanks
 
-We want to express our gratitude to all people for contributed with patches, bug solving and updates to WiFi Analyzer.
+We want to express our gratitude to all people for contributed with patches, bug solving and updates to WiFiAnalyzer.
 
 ## Donations
 
