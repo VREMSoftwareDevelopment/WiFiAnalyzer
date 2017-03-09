@@ -28,7 +28,49 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/no_margin"
         android:orientation="horizontal"
-        android:padding="@dimen/no_margin"/>
+        android:padding="@dimen/no_margin">
+
+        <Button
+            android:id="@+id/graphNavigationSet1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_weight="1"
+            android:background="@null"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text="@string/wifi_band_5ghz_set1"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/graphNavigationSet2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text="@string/wifi_band_5ghz_set2"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/graphNavigationSet3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_weight="1"
+            android:background="@null"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text="@string/wifi_band_5ghz_set3"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+    </LinearLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/graphRefresh"

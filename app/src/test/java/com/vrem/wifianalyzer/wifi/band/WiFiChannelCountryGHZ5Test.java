@@ -33,7 +33,7 @@ import static org.junit.Assert.assertTrue;
 public class WiFiChannelCountryGHZ5Test {
 
     private final static SortedSet<Integer> CHANNELS_SET1 = new TreeSet<>(Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64));
-    private final static SortedSet<Integer> CHANNELS_SET2 = new TreeSet<>(Arrays.asList(100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140));
+    private final static SortedSet<Integer> CHANNELS_SET2 = new TreeSet<>(Arrays.asList(100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144));
     private final static SortedSet<Integer> CHANNELS_SET3 = new TreeSet<>(Arrays.asList(149, 153, 157, 161, 165));
 
     private WiFiChannelCountryGHZ5 fixture;

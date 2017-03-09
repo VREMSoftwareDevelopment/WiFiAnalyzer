@@ -27,14 +27,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class WiFiChannelsGHZ5 extends WiFiChannels {
+public class WiFiChannelsGHZ5 extends WiFiChannels {
+    public static final Pair<WiFiChannel, WiFiChannel> SET1 = new Pair<>(new WiFiChannel(36, 5180), new WiFiChannel(64, 5320));
+    public static final Pair<WiFiChannel, WiFiChannel> SET2 = new Pair<>(new WiFiChannel(100, 5500), new WiFiChannel(144, 5720));
+    public static final Pair<WiFiChannel, WiFiChannel> SET3 = new Pair<>(new WiFiChannel(149, 5745), new WiFiChannel(165, 5825));
+    private static final List<Pair<WiFiChannel, WiFiChannel>> SETS = Arrays.asList(SET1, SET2, SET3);
     private static final Pair<Integer, Integer> RANGE = new Pair<>(4900, 5899);
-    private static final List<Pair<WiFiChannel, WiFiChannel>> SETS = Arrays.asList(
-        new Pair<>(new WiFiChannel(36, 5180), new WiFiChannel(64, 5320)),
-        new Pair<>(new WiFiChannel(100, 5500), new WiFiChannel(144, 5720)),
-        new Pair<>(new WiFiChannel(149, 5745), new WiFiChannel(165, 5825)));
-
-    private static final int DEFAULT_PAIR = 0;
 
     WiFiChannelsGHZ5() {
         super(RANGE, SETS);
@@ -55,7 +53,7 @@ class WiFiChannelsGHZ5 extends WiFiChannels {
                 }
             }
         }
-        return wiFiChannelPairs.get(DEFAULT_PAIR);
+        return SET1;
     }
 
     @Override
