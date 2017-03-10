@@ -31,7 +31,7 @@ public class WiFiChannelsGHZ5 extends WiFiChannels {
     public static final Pair<WiFiChannel, WiFiChannel> SET1 = new Pair<>(new WiFiChannel(36, 5180), new WiFiChannel(64, 5320));
     public static final Pair<WiFiChannel, WiFiChannel> SET2 = new Pair<>(new WiFiChannel(100, 5500), new WiFiChannel(144, 5720));
     public static final Pair<WiFiChannel, WiFiChannel> SET3 = new Pair<>(new WiFiChannel(149, 5745), new WiFiChannel(165, 5825));
-    private static final List<Pair<WiFiChannel, WiFiChannel>> SETS = Arrays.asList(SET1, SET2, SET3);
+    public static final List<Pair<WiFiChannel, WiFiChannel>> SETS = Arrays.asList(SET1, SET2, SET3);
     private static final Pair<Integer, Integer> RANGE = new Pair<>(4900, 5899);
 
     WiFiChannelsGHZ5() {

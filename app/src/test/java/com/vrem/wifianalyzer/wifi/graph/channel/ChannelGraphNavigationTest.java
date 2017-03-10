@@ -18,33 +18,72 @@
 
 package com.vrem.wifianalyzer.wifi.graph.channel;
 
-import com.vrem.wifianalyzer.BuildConfig;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
+import android.view.View;
 
-import org.junit.Ignore;
+import com.vrem.wifianalyzer.BuildConfig;
+import com.vrem.wifianalyzer.Configuration;
+import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.MainContextHelper;
+import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannelsGHZ5;
+import com.vrem.wifianalyzer.wifi.scanner.Scanner;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-@Ignore
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.when;
+
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ChannelGraphNavigationTest {
-/*
+
     private Scanner scanner;
     private Settings settings;
     private Configuration configuration;
-    private ChannelGraphNavigation fixture;
+    private View layout;
+    private Map<Pair<WiFiChannel, WiFiChannel>, View> views;
 
+    private MainActivity mainActivity;
+    private ChannelGraphNavigation fixture;
 
     @Before
     public void setUp() {
-        MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
+        mainActivity = RobolectricUtil.INSTANCE.getActivity();
 
         scanner = MainContextHelper.INSTANCE.getScanner();
         settings = MainContextHelper.INSTANCE.getSettings();
         configuration = MainContextHelper.INSTANCE.getConfiguration();
 
-        fixture = new ChannelGraphNavigation(mainActivity, configuration);
+        layout = mock(View.class);
+        views = new HashMap<>();
+        for (Pair<WiFiChannel, WiFiChannel> key : ChannelGraphNavigation.ids.keySet()) {
+            Integer id = ChannelGraphNavigation.ids.get(key);
+            View view = mock(View.class);
+            views.put(key, view);
+            when(layout.findViewById(id)).thenReturn(view);
+        }
+
+        fixture = new ChannelGraphNavigation(layout, mainActivity);
     }
 
     @After
@@ -53,8 +92,22 @@ public class ChannelGraphNavigationTest {
     }
 
     @Test
-    public void testChannelGraphNavigation() throws Exception {
-        verify(configuration, times(3)).isLargeScreen();
+    public void testMapping() throws Exception {
+        assertEquals(WiFiChannelsGHZ5.SETS.size(), ChannelGraphNavigation.ids.size());
+        for (Pair<WiFiChannel, WiFiChannel> set : WiFiChannelsGHZ5.SETS) {
+            assertNotNull(ChannelGraphNavigation.ids.get(set));
+        }
+    }
+
+    @Test
+    public void testConstructor() throws Exception {
+        verify(layout).setVisibility(View.GONE);
+        for (Integer id : ChannelGraphNavigation.ids.values()) {
+            verify(layout).findViewById(id);
+        }
+        for (View view : views.values()) {
+            verify(view).setOnClickListener(any(ChannelGraphNavigation.SetOnClickListener.class));
+        }
     }
 
     @Test
@@ -65,39 +118,34 @@ public class ChannelGraphNavigationTest {
         // execute
         fixture.update();
         // validate
-        List<NavigationItem> navigationItems = fixture.getNavigationItems();
-        for (NavigationItem navigationItem : navigationItems) {
-            Button button = navigationItem.getButton();
-            assertEquals(View.GONE, button.getVisibility());
-            assertFalse(button.isSelected());
-        }
+        verify(layout, times(2)).setVisibility(View.GONE);
         verify(settings).getCountryCode();
         verify(settings).getWiFiBand();
     }
 
+
     @Test
     public void testUpdateWithGHZ5AndUS() throws Exception {
         // setup
-        when(configuration.getWiFiChannelPair()).thenReturn(WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs().get(0));
+        int colorSelected = ContextCompat.getColor(mainActivity, R.color.connected);
+        int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.connected_background);
+        Pair<WiFiChannel, WiFiChannel> selectedKey = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs().get(0);
+        when(configuration.getWiFiChannelPair()).thenReturn(selectedKey);
         when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
         // execute
         fixture.update();
         // validate
-        List<NavigationItem> navigationItems = fixture.getNavigationItems();
-
-        Button button = navigationItems.get(0).getButton();
-        assertEquals(View.VISIBLE, button.getVisibility());
-        assertTrue(button.isSelected());
-
-        button = navigationItems.get(1).getButton();
-        assertEquals(View.VISIBLE, button.getVisibility());
-        assertFalse(button.isSelected());
-
-        button = navigationItems.get(2).getButton();
-        assertEquals(View.VISIBLE, button.getVisibility());
-        assertFalse(button.isSelected());
-
+        verify(layout).setVisibility(View.VISIBLE);
+        for (Pair<WiFiChannel, WiFiChannel> key : views.keySet()) {
+            View view = views.get(key);
+            verify(view).setVisibility(View.VISIBLE);
+            verify(view).setBackgroundColor(selectedKey.equals(key) ? colorSelected : colorNotSelected);
+            verify(view).setSelected(selectedKey.equals(key));
+        }
+        for (Integer id : ChannelGraphNavigation.ids.values()) {
+            verify(layout, times(2)).findViewById(id);
+        }
         verify(settings).getCountryCode();
         verify(settings).getWiFiBand();
         verify(configuration).getWiFiChannelPair();
@@ -111,10 +159,10 @@ public class ChannelGraphNavigationTest {
         // execute
         fixture.update();
         // validate
-        List<NavigationItem> navigationItems = fixture.getNavigationItems();
-        assertEquals(View.VISIBLE, navigationItems.get(0).getButton().getVisibility());
-        assertEquals(View.VISIBLE, navigationItems.get(1).getButton().getVisibility());
-        assertEquals(View.GONE, navigationItems.get(2).getButton().getVisibility());
+        verify(layout).setVisibility(View.VISIBLE);
+        for (Pair<WiFiChannel, WiFiChannel> key : views.keySet()) {
+            verify(views.get(key)).setVisibility(WiFiChannelsGHZ5.SET3.equals(key) ? View.GONE : View.VISIBLE);
+        }
         verify(settings).getCountryCode();
         verify(settings).getWiFiBand();
     }
@@ -127,24 +175,21 @@ public class ChannelGraphNavigationTest {
         // execute
         fixture.update();
         // validate
-        List<NavigationItem> navigationItems = fixture.getNavigationItems();
-        assertEquals(View.GONE, navigationItems.get(0).getButton().getVisibility());
-        assertEquals(View.GONE, navigationItems.get(1).getButton().getVisibility());
-        assertEquals(View.GONE, navigationItems.get(2).getButton().getVisibility());
+        verify(layout, times(2)).setVisibility(View.GONE);
         verify(settings).getCountryCode();
         verify(settings).getWiFiBand();
     }
 
     @Test
-    public void testSelectNavigationUpdatesConfigurationAndScans() throws Exception {
+    public void testSetOnClickListener() throws Exception {
         // setup
-        Pair<WiFiChannel, WiFiChannel> expected = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs().get(0);
-        NavigationItem navigationItem = fixture.getNavigationItems().get(0);
+        Pair<WiFiChannel, WiFiChannel> expected = WiFiChannelsGHZ5.SET3;
+        ChannelGraphNavigation.SetOnClickListener fixture = new ChannelGraphNavigation.SetOnClickListener(expected);
         // execute
-        navigationItem.getButton().callOnClick();
+        fixture.onClick(layout);
         // validate
         verify(configuration).setWiFiChannelPair(expected);
         verify(scanner).update();
     }
-*/
+
 }

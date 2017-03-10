@@ -22,7 +22,7 @@
               android:layout_height="wrap_content"
               android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.v7.widget.ButtonBarLayout
         android:id="@+id/graphNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,8 +41,7 @@
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:text="@string/wifi_band_5ghz_set1"
-            android:textStyle="bold"
-            android:visibility="gone"/>
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/graphNavigationSet2"
@@ -53,8 +52,7 @@
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:text="@string/wifi_band_5ghz_set2"
-            android:textStyle="bold"
-            android:visibility="gone"/>
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/graphNavigationSet3"
@@ -67,10 +65,9 @@
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:text="@string/wifi_band_5ghz_set3"
-            android:textStyle="bold"
-            android:visibility="gone"/>
+            android:textStyle="bold"/>
 
-    </LinearLayout>
+    </android.support.v7.widget.ButtonBarLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/graphRefresh"

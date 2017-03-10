@@ -28,7 +28,6 @@ import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
 
 import com.jjoe64.graphview.GraphView;
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
@@ -44,10 +43,8 @@ public class ChannelGraphFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.graphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        Configuration configuration = MainContext.INSTANCE.getConfiguration();
-
         LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.graphNavigation);
-        ChannelGraphNavigation channelGraphNavigation = new ChannelGraphNavigation(linearLayout, getActivity(), configuration);
+        ChannelGraphNavigation channelGraphNavigation = new ChannelGraphNavigation(linearLayout, getActivity());
         channelGraphAdapter = new ChannelGraphAdapter(channelGraphNavigation);
         addGraphViews(swipeRefreshLayout, channelGraphAdapter);
 
