@@ -18,10 +18,7 @@
   -->
 
 <resources>
-    <!-- application start -->
-    <string name="app_name">Analizzatore WiFi</string>
     <string name="app_copyright">Copyright \u00A9 2015 \u002D 2017</string>
-    <!-- application end -->
 
     <string name="navigation_drawer_open">Apri pannello laterale</string>
     <string name="navigation_drawer_close">Chiudi pannello laterale</string>
@@ -75,7 +72,7 @@
     <string name="about_license_title">Licenza:</string>
     <string name="about_license_name">Distribuito sotto licenza GPLv3</string>
     <string name="about_description_title">Descrizione:</string>
-    <string name="about_description_text">Ottimizza la tua rete WiFi, controllandone lo stato, la potenza del segnale e identificando i canali affollati, usando un analizzatore WiFi open-source per Android</string>
+    <string name="about_description_text">Ottimizza la tua rete WiFi, controllandone lo stato, la potenza del segnale e identificando i canali affollati, usando un WiFiAnalyzer per Android</string>
     <string name="about_libraries_title">Librarie Usate:</string>
     <string name="about_library_graph_view">Graph View</string>
     <string name="about_library_material">Icone Material Design</string>

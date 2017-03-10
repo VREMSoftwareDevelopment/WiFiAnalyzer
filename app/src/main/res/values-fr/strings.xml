@@ -18,10 +18,7 @@
   -->
 
 <resources>
-    <!-- application start -->
-    <string name="app_name">Analyseur Wi-Fi</string>
     <string name="app_copyright">Tous droits réservés \u00A9 2015 \u002D 2017</string>
-    <!-- application end -->
 
     <string name="navigation_drawer_open">Afficher le volet de navigation</string>
     <string name="navigation_drawer_close">Masquer le volet de navigation</string>
@@ -40,7 +37,7 @@
 
     <string name="button_cancel">Annuler</string>
     <string name="no_data">Aucune donnée</string>
-    <string name="no_data_geo_warning">Certains utilisateurs fonctionnant sous Android OS 6 (Marshmallow) ont indiqué que le service de géolocalisation devait être activé pour que l\'application puisse fonctionner correctement. Si vous utilisez Marshmallow, activer le service de géolocalisation pourrait résoudre le problème, même si l\'analyseur Wi-Fi ne le demande pas explicitement. Ceci semble être dû à un problème avec Android OS 6 qui requiert le service de géolocalisation d\'être actif afin d\'accéder aux réseaux Wi-Fi.</string>
+    <string name="no_data_geo_warning">Certains utilisateurs fonctionnant sous Android OS 6 (Marshmallow) ont indiqué que le service de géolocalisation devait être activé pour que l\'application puisse fonctionner correctement. Si vous utilisez Marshmallow, activer le service de géolocalisation pourrait résoudre le problème, même si WiFiAnalyzer ne le demande pas explicitement. Ceci semble être dû à un problème avec Android OS 6 qui requiert le service de géolocalisation d\'être actif afin d\'accéder aux réseaux Wi-Fi.</string>
 
     <string name="export_not_available">Export non disponible</string>
 
@@ -75,7 +72,7 @@
     <string name="about_license_title">Licence :</string>
     <string name="about_license_name">Logiciel sous licence GPLv3</string>
     <string name="about_description_title">Description :</string>
-    <string name="about_description_text">Optimisez vos réseaux Wi-Fi, en vérifiant l\'état du réseau, la force du signal et en identifiant les canaux surchargés grâce à l\'analyseur Wi-Fi open-source pour Android.</string>
+    <string name="about_description_text">Optimisez vos réseaux Wi-Fi, en vérifiant l\'état du réseau, la force du signal et en identifiant les canaux surchargés grâce à WiFiAnalyzer pour Android.</string>
     <string name="about_libraries_title">Bibliothèques utilisées :</string>
     <string name="about_library_graph_view">Visualisation graphique</string>
     <string name="about_library_material">"Icones de \'Material Design\'"</string>

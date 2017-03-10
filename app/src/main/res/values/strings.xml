@@ -19,7 +19,7 @@
 
 <resources>
     <!-- application start -->
-    <string name="app_name">WiFiAnalyzer</string>
+    <string name="app_name" translatable="false">WiFiAnalyzer</string>
     <string name="app_company_name" translatable="false">VREM Software Development</string>
     <string name="app_copyright">Copyright \u00A9 2015 \u002D 2017</string>
     <string name="app_url" translatable="false">https://vremsoftwaredevelopment.github.io/WiFiAnalyzer</string>
@@ -46,7 +46,7 @@
     <string name="button_ok" translatable="false">OK</string>
     <string name="button_cancel">Cancel</string>
     <string name="no_data">No Data</string>
-    <string name="no_data_geo_warning">Some users running Android OS 6 (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFi Analyzer does not explicitly require it. This appears to be attributed to a potential issue in Android OS 6 that requires location service in order to see WiFi networks.</string>
+    <string name="no_data_geo_warning">Some users running Android OS 6 (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFiAnalyzer does not explicitly require it. This appears to be attributed to a potential issue in Android OS 6 that requires location service in order to see WiFi networks.</string>
     <string name="no_data_geo_url" translatable="false">https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23</string>
     <string name="wifi_channels_list_url" translatable="false">https://en.wikipedia.org/wiki/List_of_WLAN_channels</string>
 
@@ -129,7 +129,7 @@
     <string name="about_license_name">Licensed under the GPLv3</string>
     <string name="about_license_url" translatable="false">http://www.gnu.org/licenses/gpl-3.0.html</string>
     <string name="about_description_title">Description:</string>
-    <string name="about_description_text">Optimize your WiFi network, by checking WiFi network status, signal strength and identifying crowded channels using an open-source WiFi Analyzer for Android</string>
+    <string name="about_description_text">Optimize your WiFi network, by checking WiFi network status, signal strength and identifying crowded channels using an open-source WiFiAnalyzer for Android</string>
     <string name="about_libraries_title">Libraries Used:</string>
     <string name="about_library_apache" translatable="false">Apache Commons</string>
     <string name="about_library_apache_url" translatable="false">https://commons.apache.org</string>

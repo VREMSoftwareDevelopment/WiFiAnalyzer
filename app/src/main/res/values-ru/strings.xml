@@ -17,10 +17,7 @@
   -->
 
 <resources>
-    <!-- application start -->
-    <string name="app_name">WiFi Анализатор</string>
     <string name="app_copyright">Авторские права \u00A9 2015 \u002D 2017</string>
-    <!-- application end -->
 
     <string name="navigation_drawer_open">Открыть панель навигации</string>
     <string name="navigation_drawer_close">Закрыть панель навигации</string>
@@ -39,7 +36,7 @@
 
     <string name="button_cancel">Отмена</string>
     <string name="no_data">Нет данных</string>
-    <string name="no_data_geo_warning">Некоторые пользователи Android OS 6 (Marshmallow) сообщили, что услуга определения местоположения должна быть включена для того, чтобы WiFi Анализатор увидел WiFi сети. Поэтому Вам, возможно, понадобится включить службу определения местоположения, даже если WiFi Анализатор этого явно не требует.</string>
+    <string name="no_data_geo_warning">Некоторые пользователи Android OS 6 (Marshmallow) сообщили, что услуга определения местоположения должна быть включена для того, чтобы WiFiAnalyzer увидел WiFi сети. Поэтому Вам, возможно, понадобится включить службу определения местоположения, даже если WiFiAnalyzer этого явно не требует.</string>
 
     <string name="export_not_available">Экспорт не доступен</string>
 
@@ -74,7 +71,7 @@
     <string name="about_license_title">Лицензия:</string>
     <string name="about_license_name">Лицензия GPLv3</string>
     <string name="about_description_title">Описание:</string>
-    <string name="about_description_text">Оптимизация сети WiFi путем проверки состояния Wi-Fi, уровня сигнала и определения переполненных каналов используя WiFi Анализатор для Android</string>
+    <string name="about_description_text">Оптимизация сети WiFi путем проверки состояния Wi-Fi, уровня сигнала и определения переполненных каналов используя WiFiAnalyzer для Android</string>
     <string name="about_libraries_title">Использованные библиотеки:</string>
     <string name="about_library_graph_view">Просмотр диаграммы</string>
     <string name="about_library_material">Материальный дизайн иконок</string>
