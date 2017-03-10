@@ -18,27 +18,22 @@
 
 package com.vrem.wifianalyzer.wifi.filter;
 
-import android.app.Dialog;
-import android.support.annotation.NonNull;
-
-import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.junit.Test;
 
-class StrengthFilterView extends EnumFilterView<Strength, StrengthFilter> {
-    static final Map<Strength, Integer> ids = new HashMap<>();
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-    static {
-        ids.put(Strength.ZERO, R.id.filterStrength0);
-        ids.put(Strength.ONE, R.id.filterStrength1);
-        ids.put(Strength.TWO, R.id.filterStrength2);
-        ids.put(Strength.THREE, R.id.filterStrength3);
-        ids.put(Strength.FOUR, R.id.filterStrength4);
+public class StrengthFilterViewTest {
+
+    @Test
+    public void testMapping() throws Exception {
+        Strength[] strengths = Strength.values();
+        assertEquals(strengths.length, StrengthFilterView.ids.size());
+        for (Strength strength : strengths) {
+            assertNotNull(StrengthFilterView.ids.get(strength));
+        }
     }
 
-    StrengthFilterView(@NonNull StrengthFilter strengthFilter, @NonNull Dialog dialog) {
-        super(ids, strengthFilter, dialog, R.id.filterStrength);
-    }
 }
