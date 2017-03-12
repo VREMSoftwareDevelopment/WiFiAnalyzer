@@ -32,14 +32,18 @@ public class WiFiBandPredicateTest {
 
     @Test
     public void testWiFiBandPredicateWith2GHzFrequency() throws Exception {
+        // setup
         WiFiDetail wiFiDetail = makeWiFiDetail(2455);
+        // execute & validate
         assertTrue(new WiFiBandPredicate(WiFiBand.GHZ2).evaluate(wiFiDetail));
         assertFalse(new WiFiBandPredicate(WiFiBand.GHZ5).evaluate(wiFiDetail));
     }
 
     @Test
     public void testWiFiBandPredicateWith5GHzFrequency() throws Exception {
+        // setup
         WiFiDetail wiFiDetail = makeWiFiDetail(5455);
+        // execute & validate
         assertFalse(new WiFiBandPredicate(WiFiBand.GHZ2).evaluate(wiFiDetail));
         assertTrue(new WiFiBandPredicate(WiFiBand.GHZ5).evaluate(wiFiDetail));
     }

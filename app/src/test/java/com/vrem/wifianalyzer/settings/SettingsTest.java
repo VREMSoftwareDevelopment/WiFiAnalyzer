@@ -37,6 +37,7 @@ import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -204,6 +205,28 @@ public class SettingsTest {
         // validate
         assertEquals(WiFiBand.GHZ5, actual);
         verify(repository).getStringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal());
+    }
+
+    @Test
+    public void testGetSSIDFilter() throws Exception {
+        // setup
+        String expected = "value";
+        when(repository.getString(R.string.filter_ssid_key, StringUtils.EMPTY)).thenReturn(expected);
+        // execute
+        String actual = fixture.getSSIDFilter();
+        // validate
+        assertEquals(expected, actual);
+        verify(repository).getString(R.string.filter_ssid_key, StringUtils.EMPTY);
+    }
+
+    @Test
+    public void testSaveSSIDFilter() throws Exception {
+        // setup
+        String value = "value";
+        // execute
+        fixture.saveSSIDFilter(value);
+        // validate
+        verify(repository).save(R.string.filter_ssid_key, value);
     }
 
     @Test

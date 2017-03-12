@@ -57,6 +57,7 @@ public class FilterView {
     public void show() {
         if (!alertDialog.isShowing()) {
             alertDialog.show();
+            addSSIDFilter();
             addWiFiBandFilter();
             addStrengthFilter();
             addSecurityFilter();
@@ -65,6 +66,10 @@ public class FilterView {
 
     AlertDialog getAlertDialog() {
         return alertDialog;
+    }
+
+    private void addSSIDFilter() {
+        new SSIDFilterView(MainContext.INSTANCE.getFilters().getSSIDFilter(), alertDialog);
     }
 
     private void addWiFiBandFilter() {

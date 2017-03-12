@@ -31,6 +31,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.collections4.functors.AllPredicate;
 import org.apache.commons.collections4.functors.TruePredicate;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -48,6 +49,9 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class AccessPointsPredicateTest {
 
+    private static final String SSID = "SSID";
+    private static final String WPA2 = "WPA2";
+
     @Mock
     private Settings settings;
 
@@ -58,7 +62,7 @@ public class AccessPointsPredicateTest {
         // setup
         withSettings();
         fixture = new AccessPointsPredicate(settings);
-        WiFiDetail wiFiDetail = makeWiFiDetail("WPA2");
+        WiFiDetail wiFiDetail = makeWiFiDetail(SSID, WPA2);
         // execute
         boolean actual = fixture.evaluate(wiFiDetail);
         // validate
@@ -67,11 +71,24 @@ public class AccessPointsPredicateTest {
     }
 
     @Test
-    public void testEvaluateToFalse() throws Exception {
+    public void testEvaluateWithSecurityToFalse() throws Exception {
         // setup
         withSettings();
         fixture = new AccessPointsPredicate(settings);
-        WiFiDetail wiFiDetail = makeWiFiDetail("WPA");
+        WiFiDetail wiFiDetail = makeWiFiDetail(SSID, "WPA");
+        // execute
+        boolean actual = fixture.evaluate(wiFiDetail);
+        // validate
+        assertFalse(actual);
+        verifySettings();
+    }
+
+    @Test
+    public void testEvaluateWithSSIDToFalse() throws Exception {
+        // setup
+        withSettings();
+        fixture = new AccessPointsPredicate(settings);
+        WiFiDetail wiFiDetail = makeWiFiDetail("WIFI", WPA2);
         // execute
         boolean actual = fixture.evaluate(wiFiDetail);
         // validate
@@ -94,6 +111,7 @@ public class AccessPointsPredicateTest {
     @Test
     public void testGetPredicateWithAllValuesIsTruePredicate() throws Exception {
         // setup
+        when(settings.getSSIDFilter()).thenReturn(StringUtils.EMPTY);
         when(settings.getWiFiBandFilter()).thenReturn(EnumUtils.values(WiFiBand.class));
         when(settings.getStrengthFilter()).thenReturn(EnumUtils.values(Strength.class));
         when(settings.getSecurityFilter()).thenReturn(EnumUtils.values(Security.class));
@@ -106,20 +124,22 @@ public class AccessPointsPredicateTest {
     }
 
     private void withSettings() {
+        when(settings.getSSIDFilter()).thenReturn(SSID);
         when(settings.getWiFiBandFilter()).thenReturn(Collections.singleton(WiFiBand.GHZ2));
         when(settings.getStrengthFilter()).thenReturn(new HashSet<>(Arrays.asList(Strength.TWO, Strength.FOUR)));
         when(settings.getSecurityFilter()).thenReturn(new HashSet<>(Arrays.asList(Security.WEP, Security.WPA2)));
     }
 
     private void verifySettings() {
+        verify(settings).getSSIDFilter();
         verify(settings).getWiFiBandFilter();
         verify(settings).getStrengthFilter();
         verify(settings).getSecurityFilter();
     }
 
-    private WiFiDetail makeWiFiDetail(String security) {
+    private WiFiDetail makeWiFiDetail(String ssid, String security) {
         WiFiSignal wiFiSignal = new WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, -40);
-        return new WiFiDetail("SSID", "BSSID", security, wiFiSignal, WiFiAdditional.EMPTY);
+        return new WiFiDetail(ssid, "BSSID", security, wiFiSignal, WiFiAdditional.EMPTY);
     }
 
 }

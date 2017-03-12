@@ -39,7 +39,11 @@ class Repository {
     }
 
     void save(int key, int value) {
-        save(MainContext.INSTANCE.getMainActivity().getString(key), "" + value);
+        save(key, "" + value);
+    }
+
+    void save(int key, String value) {
+        save(MainContext.INSTANCE.getMainActivity().getString(key), value);
     }
 
     int getStringAsInteger(int key, int defaultValue) {

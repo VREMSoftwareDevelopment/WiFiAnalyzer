@@ -16,32 +16,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.wifi.model;
+package com.vrem.wifianalyzer.wifi.filter;
 
 import android.support.annotation.NonNull;
 
-import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
+import com.vrem.wifianalyzer.settings.Settings;
 
-import org.junit.Test;
+import org.apache.commons.lang3.StringUtils;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+class SSIDFilter implements Filter {
+    private String value;
 
-public class StrengthPredicateTest {
-
-    @Test
-    public void testStrengthPredicate() throws Exception {
-        // setup
-        WiFiDetail wiFiDetail = makeWiFiDetail(-60);
-        // execute & validate
-        assertTrue(new StrengthPredicate(Strength.THREE).evaluate(wiFiDetail));
-        assertFalse(new StrengthPredicate(Strength.FOUR).evaluate(wiFiDetail));
+    SSIDFilter(@NonNull String value) {
+        setValue(value);
     }
 
-    @NonNull
-    private WiFiDetail makeWiFiDetail(int level) {
-        WiFiSignal wiFiSignal = new WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, level);
-        return new WiFiDetail("SSID", "BSSID", "WPA", wiFiSignal, WiFiAdditional.EMPTY);
+    @Override
+    public boolean isActive() {
+        return StringUtils.isNotBlank(value);
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(@NonNull String value) {
+        this.value = value;
+    }
+
+    @Override
+    public void reset() {
+        setValue(StringUtils.EMPTY);
+    }
+
+    @Override
+    public void save(@NonNull Settings settings) {
+        settings.saveSSIDFilter(value);
+    }
 }

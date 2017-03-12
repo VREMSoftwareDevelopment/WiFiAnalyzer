@@ -24,6 +24,7 @@ import com.vrem.wifianalyzer.settings.Settings;
 
 public class Filters implements Filter {
     private final Settings settings;
+    private SSIDFilter SSIDFilter;
     private WiFiBandFilter wiFiBandFilter;
     private StrengthFilter strengthFilter;
     private SecurityFilter securityFilter;
@@ -62,17 +63,20 @@ public class Filters implements Filter {
         save(settings);
     }
 
-
     private Filter[] getFilters() {
-        return new Filter[]{wiFiBandFilter, strengthFilter, securityFilter};
+        return new Filter[]{SSIDFilter, wiFiBandFilter, strengthFilter, securityFilter};
     }
 
-    StrengthFilter getStrengthFilter() {
-        return strengthFilter;
+    SSIDFilter getSSIDFilter() {
+        return SSIDFilter;
     }
 
     WiFiBandFilter getWiFiBandFilter() {
         return wiFiBandFilter;
+    }
+
+    StrengthFilter getStrengthFilter() {
+        return strengthFilter;
     }
 
     SecurityFilter getSecurityFilter() {
@@ -80,6 +84,7 @@ public class Filters implements Filter {
     }
 
     void reload() {
+        this.SSIDFilter = new SSIDFilter(settings.getSSIDFilter());
         this.wiFiBandFilter = new WiFiBandFilter(settings.getWiFiBandFilter());
         this.strengthFilter = new StrengthFilter(settings.getStrengthFilter());
         this.securityFilter = new SecurityFilter(settings.getSecurityFilter());

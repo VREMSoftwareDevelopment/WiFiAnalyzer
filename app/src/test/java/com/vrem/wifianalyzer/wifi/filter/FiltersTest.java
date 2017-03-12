@@ -24,6 +24,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,6 +44,7 @@ public class FiltersTest {
     @Mock
     private Settings settings;
 
+    private String ssid;
     private Set<WiFiBand> wiFiBands;
     private Set<Strength> strengths;
     private Set<Security> securities;
@@ -51,16 +53,19 @@ public class FiltersTest {
 
     @Before
     public void setUp() {
+        ssid = StringUtils.EMPTY;
         wiFiBands = EnumUtils.values(WiFiBand.class);
         strengths = EnumUtils.values(Strength.class);
         securities = EnumUtils.values(Security.class);
 
+        when(settings.getSSIDFilter()).thenReturn(ssid);
         when(settings.getWiFiBandFilter()).thenReturn(wiFiBands);
         when(settings.getStrengthFilter()).thenReturn(strengths);
         when(settings.getSecurityFilter()).thenReturn(securities);
 
         fixture = new Filters(settings);
 
+        verify(settings).getSSIDFilter();
         verify(settings).getWiFiBandFilter();
         verify(settings).getStrengthFilter();
         verify(settings).getSecurityFilter();
@@ -93,6 +98,7 @@ public class FiltersTest {
         // execute
         fixture.reset();
         // validate
+        verify(settings).saveSSIDFilter(ssid);
         verify(settings).saveWiFiBandFilter(wiFiBands);
         verify(settings).saveStrengthFilter(strengths);
         verify(settings).saveSecurityFilter(securities);
@@ -103,6 +109,7 @@ public class FiltersTest {
         // execute
         fixture.reload();
         // validate
+        verify(settings, times(2)).getSSIDFilter();
         verify(settings, times(2)).getWiFiBandFilter();
         verify(settings, times(2)).getStrengthFilter();
         verify(settings, times(2)).getSecurityFilter();
@@ -113,6 +120,7 @@ public class FiltersTest {
         // execute
         fixture.save();
         // validate
+        verify(settings).saveSSIDFilter(ssid);
         verify(settings).saveWiFiBandFilter(wiFiBands);
         verify(settings).saveStrengthFilter(strengths);
         verify(settings).saveSecurityFilter(securities);

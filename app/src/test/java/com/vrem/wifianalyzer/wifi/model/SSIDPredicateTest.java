@@ -18,30 +18,29 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.support.annotation.NonNull;
-
-import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
-
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class StrengthPredicateTest {
+public class SSIDPredicateTest {
+
+    public static final String SSID = "SSID";
 
     @Test
-    public void testStrengthPredicate() throws Exception {
+    public void testSSIDPredicate() throws Exception {
         // setup
-        WiFiDetail wiFiDetail = makeWiFiDetail(-60);
+        WiFiDetail wiFiDetail = new WiFiDetail(SSID, "BSSID", "WPA", WiFiSignal.EMPTY, WiFiAdditional.EMPTY);
         // execute & validate
-        assertTrue(new StrengthPredicate(Strength.THREE).evaluate(wiFiDetail));
-        assertFalse(new StrengthPredicate(Strength.FOUR).evaluate(wiFiDetail));
-    }
+        assertTrue(new SSIDPredicate(SSID).evaluate(wiFiDetail));
+        assertTrue(new SSIDPredicate("ID").evaluate(wiFiDetail));
+        assertTrue(new SSIDPredicate("SS").evaluate(wiFiDetail));
+        assertTrue(new SSIDPredicate("S").evaluate(wiFiDetail));
+        assertTrue(new SSIDPredicate(StringUtils.EMPTY).evaluate(wiFiDetail));
 
-    @NonNull
-    private WiFiDetail makeWiFiDetail(int level) {
-        WiFiSignal wiFiSignal = new WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, level);
-        return new WiFiDetail("SSID", "BSSID", "WPA", wiFiSignal, WiFiAdditional.EMPTY);
+        assertFalse(new SSIDPredicate(SSID + "1").evaluate(wiFiDetail));
+        assertFalse(new SSIDPredicate("L").evaluate(wiFiDetail));
     }
 
 }

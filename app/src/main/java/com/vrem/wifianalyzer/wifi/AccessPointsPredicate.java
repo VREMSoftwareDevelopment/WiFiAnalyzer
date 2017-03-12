@@ -23,6 +23,7 @@ import android.support.annotation.NonNull;
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.model.SSIDPredicate;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.SecurityPredicate;
 import com.vrem.wifianalyzer.wifi.model.Strength;
@@ -34,6 +35,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.collections4.PredicateUtils;
 import org.apache.commons.collections4.Transformer;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -56,11 +58,16 @@ class AccessPointsPredicate implements Predicate<WiFiDetail> {
     }
 
     private Predicate<WiFiDetail> buildPredicate(@NonNull Settings settings) {
+        Predicate<WiFiDetail> ssidPredicate = makeSSIDPredicate(settings.getSSIDFilter());
         Predicate<WiFiDetail> wiFiBandPredicate = EnumUtils.predicate(settings.getWiFiBandFilter(), WiFiBand.values(), new WiFiBandTransformer());
         Predicate<WiFiDetail> strengthPredicate = EnumUtils.predicate(settings.getStrengthFilter(), Strength.values(), new StrengthTransformer());
         Predicate<WiFiDetail> securityPredicate = EnumUtils.predicate(settings.getSecurityFilter(), Security.values(), new SecurityTransformer());
-        List<Predicate<WiFiDetail>> predicates = Arrays.asList(wiFiBandPredicate, strengthPredicate, securityPredicate);
+        List<Predicate<WiFiDetail>> predicates = Arrays.asList(ssidPredicate, wiFiBandPredicate, strengthPredicate, securityPredicate);
         return PredicateUtils.allPredicate(CollectionUtils.select(predicates, new NoTruePredicate()));
+    }
+
+    private Predicate<WiFiDetail> makeSSIDPredicate(String ssid) {
+        return StringUtils.isBlank(ssid) ? PredicateUtils.<WiFiDetail>truePredicate() : new SSIDPredicate(ssid);
     }
 
     private class WiFiBandTransformer implements Transformer<WiFiBand, Predicate<WiFiDetail>> {

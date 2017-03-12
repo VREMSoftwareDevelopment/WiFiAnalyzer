@@ -87,7 +87,19 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testSave() throws Exception {
+    public void testSaveString() throws Exception {
+        // setup
+        int keyIndex = R.string.app_name;
+        String value = "1111";
+        withSave(keyIndex);
+        // execute
+        fixture.save(keyIndex, value);
+        // validate
+        verifySave(keyIndex, value);
+    }
+
+    @Test
+    public void testSaveInteger() throws Exception {
         // setup
         int keyIndex = R.string.app_name;
         int value = 1111;
@@ -96,17 +108,6 @@ public class RepositoryTest {
         fixture.save(keyIndex, value);
         // validate
         verifySave(keyIndex, value);
-    }
-
-    private void verifySave(int keyIndex, int value) {
-        verify(mainActivity).getString(keyIndex);
-        verify(editor).putString(keyValue, "" + value);
-        verify(editor).apply();
-    }
-
-    private void withSave(int keyIndex) {
-        when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
-        when(sharedPreferences.edit()).thenReturn(editor);
     }
 
     @Test
@@ -261,6 +262,23 @@ public class RepositoryTest {
         verify(sharedPreferences).edit();
         verify(editor).putStringSet(keyValue, values);
         verify(editor).apply();
+    }
+
+    private void verifySave(int keyIndex, String value) {
+        verify(mainActivity).getString(keyIndex);
+        verify(editor).putString(keyValue, value);
+        verify(editor).apply();
+    }
+
+    private void verifySave(int keyIndex, int value) {
+        verify(mainActivity).getString(keyIndex);
+        verify(editor).putString(keyValue, "" + value);
+        verify(editor).apply();
+    }
+
+    private void withSave(int keyIndex) {
+        when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
+        when(sharedPreferences.edit()).thenReturn(editor);
     }
 
 }
