@@ -19,12 +19,10 @@
 package com.vrem.wifianalyzer.wifi.filter;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.vrem.wifianalyzer.R;
@@ -38,15 +36,8 @@ class SSIDFilterView {
         EditText editText = (EditText) dialog.findViewById(R.id.filterSSIDtext);
         editText.setText(ssidFilter.getValue());
         editText.addTextChangedListener(new onChange());
-        addSoftKeyboard(dialog.getContext(), editText);
 
         dialog.findViewById(R.id.filterSSID).setVisibility(View.VISIBLE);
-    }
-
-    private void addSoftKeyboard(@NonNull Context context, @NonNull EditText editText) {
-        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-        inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
     }
 
     private class onChange implements TextWatcher {
