@@ -26,7 +26,7 @@ public class SSIDPredicate implements Predicate<WiFiDetail> {
     private final String ssid;
 
     public SSIDPredicate(@NonNull String ssid) {
-        this.ssid = ssid.toUpperCase();
+        this.ssid = ssid;
     }
 
     @Override

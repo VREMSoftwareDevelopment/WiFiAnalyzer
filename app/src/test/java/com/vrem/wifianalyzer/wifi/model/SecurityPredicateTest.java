@@ -32,7 +32,7 @@ public class SecurityPredicateTest {
     @Test
     public void testSecurityPredicateWithFoundValue() throws Exception {
         // setup
-        WiFiDetail wiFiDetail = makeWiFiDetail("WPA");
+        WiFiDetail wiFiDetail = makeWiFiDetail("wpa");
         SecurityPredicate fixture = new SecurityPredicate(Security.WPA);
         // execute
         boolean actual = fixture.evaluate(wiFiDetail);
@@ -44,7 +44,7 @@ public class SecurityPredicateTest {
     @Test
     public void testSecurityPredicateWithNotFoundValue() throws Exception {
         // setup
-        WiFiDetail wiFiDetail = makeWiFiDetail("WEP");
+        WiFiDetail wiFiDetail = makeWiFiDetail("wep");
         SecurityPredicate fixture = new SecurityPredicate(Security.WPA);
         // execute
         boolean actual = fixture.evaluate(wiFiDetail);
@@ -55,7 +55,7 @@ public class SecurityPredicateTest {
     @NonNull
     private WiFiDetail makeWiFiDetail(String security) {
         WiFiSignal wiFiSignal = new WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1);
-        return new WiFiDetail("SSID", "BSSID", security, wiFiSignal, WiFiAdditional.EMPTY);
+        return new WiFiDetail("ssid", "bssid", security, wiFiSignal, WiFiAdditional.EMPTY);
     }
 
 }

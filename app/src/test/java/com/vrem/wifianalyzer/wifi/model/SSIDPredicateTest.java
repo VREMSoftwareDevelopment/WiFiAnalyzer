@@ -26,21 +26,21 @@ import static org.junit.Assert.assertTrue;
 
 public class SSIDPredicateTest {
 
-    public static final String SSID = "SSID";
+    public static final String SSID = "ssid";
 
     @Test
     public void testSSIDPredicate() throws Exception {
         // setup
-        WiFiDetail wiFiDetail = new WiFiDetail(SSID, "BSSID", "WPA", WiFiSignal.EMPTY, WiFiAdditional.EMPTY);
+        WiFiDetail wiFiDetail = new WiFiDetail(SSID, "bssid", "wpa", WiFiSignal.EMPTY, WiFiAdditional.EMPTY);
         // execute & validate
         assertTrue(new SSIDPredicate(SSID).evaluate(wiFiDetail));
-        assertTrue(new SSIDPredicate("ID").evaluate(wiFiDetail));
-        assertTrue(new SSIDPredicate("SS").evaluate(wiFiDetail));
-        assertTrue(new SSIDPredicate("S").evaluate(wiFiDetail));
+        assertTrue(new SSIDPredicate("id").evaluate(wiFiDetail));
+        assertTrue(new SSIDPredicate("ss").evaluate(wiFiDetail));
+        assertTrue(new SSIDPredicate("s").evaluate(wiFiDetail));
         assertTrue(new SSIDPredicate(StringUtils.EMPTY).evaluate(wiFiDetail));
 
-        assertFalse(new SSIDPredicate(SSID + "1").evaluate(wiFiDetail));
-        assertFalse(new SSIDPredicate("L").evaluate(wiFiDetail));
+        assertFalse(new SSIDPredicate("SSID").evaluate(wiFiDetail));
+        assertFalse(new SSIDPredicate("B").evaluate(wiFiDetail));
     }
 
 }
