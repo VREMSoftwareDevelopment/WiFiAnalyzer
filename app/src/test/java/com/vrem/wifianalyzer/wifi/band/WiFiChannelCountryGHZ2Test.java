@@ -42,7 +42,7 @@ public class WiFiChannelCountryGHZ2Test {
 
     @Test
     public void testChannelsForUSAndSimilar() throws Exception {
-        String[] countries = new String[]{"AS", "AU", "CA", "FM", "GU", "MP", "PA", "PR", "TW", "UM", "US", "VI"};
+        String[] countries = new String[]{"AS", "AU", "CA", "FM", "GU", "MP", "PA", "PR", "UM", "US", "VI"};
         for (String country : countries) {
             SortedSet<Integer> channels = fixture.findChannels(country);
             validateChannels(CHANNELS_SET1, channels);
