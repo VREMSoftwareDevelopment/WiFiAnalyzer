@@ -24,33 +24,42 @@ import com.vrem.wifianalyzer.settings.Settings;
 
 import org.apache.commons.lang3.StringUtils;
 
-class SSIDFilter implements Filter {
-    private String value;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
-    SSIDFilter(@NonNull String value) {
-        setValue(value);
+class SSIDFilter implements Filter {
+    private static final char SEPARATOR_CHAR = ' ';
+    private Set<String> values;
+
+    SSIDFilter(@NonNull Set<String> values) {
+        setValues(values);
     }
 
     @Override
     public boolean isActive() {
-        return StringUtils.isNotBlank(value);
+        return !values.isEmpty();
     }
 
     public String getValue() {
-        return value;
+        return StringUtils.join(values, SEPARATOR_CHAR);
     }
 
     public void setValue(@NonNull String value) {
-        this.value = value;
+        this.values = new HashSet<>(Arrays.asList(StringUtils.split(value, SEPARATOR_CHAR)));
+    }
+
+    public void setValues(@NonNull Set<String> values) {
+        this.values = values;
     }
 
     @Override
     public void reset() {
-        setValue(StringUtils.EMPTY);
+        setValues(new HashSet<String>());
     }
 
     @Override
     public void save(@NonNull Settings settings) {
-        settings.saveSSIDFilter(value);
+        settings.saveSSIDFilter(values);
     }
 }

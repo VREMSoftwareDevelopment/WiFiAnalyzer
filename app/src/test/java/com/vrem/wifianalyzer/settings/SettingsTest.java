@@ -37,14 +37,15 @@ import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
@@ -210,23 +211,23 @@ public class SettingsTest {
     @Test
     public void testGetSSIDFilter() throws Exception {
         // setup
-        String expected = "value";
-        when(repository.getString(R.string.filter_ssid_key, StringUtils.EMPTY)).thenReturn(expected);
+        Set<String> expected = new HashSet<>(Arrays.asList("value1", "value2", "value3"));
+        when(repository.getStringSet(R.string.filter_ssid_key, new HashSet<String>())).thenReturn(expected);
         // execute
-        String actual = fixture.getSSIDFilter();
+        Set<String> actual = fixture.getSSIDFilter();
         // validate
         assertEquals(expected, actual);
-        verify(repository).getString(R.string.filter_ssid_key, StringUtils.EMPTY);
+        verify(repository).getStringSet(R.string.filter_ssid_key, new HashSet<String>());
     }
 
     @Test
     public void testSaveSSIDFilter() throws Exception {
         // setup
-        String value = "value";
+        Set<String> values = new HashSet<>(Arrays.asList("value1", "value2", "value3"));
         // execute
-        fixture.saveSSIDFilter(value);
+        fixture.saveSSIDFilter(values);
         // validate
-        verify(repository).save(R.string.filter_ssid_key, value);
+        verify(repository).saveStringSet(R.string.filter_ssid_key, values);
     }
 
     @Test

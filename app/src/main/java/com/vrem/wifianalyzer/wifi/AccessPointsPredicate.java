@@ -35,10 +35,10 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.collections4.PredicateUtils;
 import org.apache.commons.collections4.Transformer;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 class AccessPointsPredicate implements Predicate<WiFiDetail> {
 
@@ -66,8 +66,18 @@ class AccessPointsPredicate implements Predicate<WiFiDetail> {
         return PredicateUtils.allPredicate(CollectionUtils.select(predicates, new NoTruePredicate()));
     }
 
-    private Predicate<WiFiDetail> makeSSIDPredicate(String ssid) {
-        return StringUtils.isBlank(ssid) ? PredicateUtils.<WiFiDetail>truePredicate() : new SSIDPredicate(ssid);
+    private Predicate<WiFiDetail> makeSSIDPredicate(Set<String> ssids) {
+        if (ssids.isEmpty()) {
+            return PredicateUtils.truePredicate();
+        }
+        return PredicateUtils.anyPredicate(CollectionUtils.collect(ssids, new SSIDTransformer()));
+    }
+
+    private class SSIDTransformer implements Transformer<String, Predicate<WiFiDetail>> {
+        @Override
+        public Predicate<WiFiDetail> transform(String input) {
+            return new SSIDPredicate(input);
+        }
     }
 
     private class WiFiBandTransformer implements Transformer<WiFiBand, Predicate<WiFiDetail>> {

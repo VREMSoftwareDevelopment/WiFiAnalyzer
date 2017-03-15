@@ -24,13 +24,13 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertFalse;
@@ -44,7 +44,7 @@ public class FiltersTest {
     @Mock
     private Settings settings;
 
-    private String ssid;
+    private Set<String> ssids;
     private Set<WiFiBand> wiFiBands;
     private Set<Strength> strengths;
     private Set<Security> securities;
@@ -53,12 +53,12 @@ public class FiltersTest {
 
     @Before
     public void setUp() {
-        ssid = StringUtils.EMPTY;
+        ssids = new HashSet<>();
         wiFiBands = EnumUtils.values(WiFiBand.class);
         strengths = EnumUtils.values(Strength.class);
         securities = EnumUtils.values(Security.class);
 
-        when(settings.getSSIDFilter()).thenReturn(ssid);
+        when(settings.getSSIDFilter()).thenReturn(ssids);
         when(settings.getWiFiBandFilter()).thenReturn(wiFiBands);
         when(settings.getStrengthFilter()).thenReturn(strengths);
         when(settings.getSecurityFilter()).thenReturn(securities);
@@ -98,7 +98,7 @@ public class FiltersTest {
         // execute
         fixture.reset();
         // validate
-        verify(settings).saveSSIDFilter(ssid);
+        verify(settings).saveSSIDFilter(ssids);
         verify(settings).saveWiFiBandFilter(wiFiBands);
         verify(settings).saveStrengthFilter(strengths);
         verify(settings).saveSecurityFilter(securities);
@@ -120,7 +120,7 @@ public class FiltersTest {
         // execute
         fixture.save();
         // validate
-        verify(settings).saveSSIDFilter(ssid);
+        verify(settings).saveSSIDFilter(ssids);
         verify(settings).saveWiFiBandFilter(wiFiBands);
         verify(settings).saveStrengthFilter(strengths);
         verify(settings).saveSecurityFilter(securities);

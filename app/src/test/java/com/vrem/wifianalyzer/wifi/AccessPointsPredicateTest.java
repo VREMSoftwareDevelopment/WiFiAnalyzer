@@ -31,7 +31,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.collections4.functors.AllPredicate;
 import org.apache.commons.collections4.functors.TruePredicate;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -111,7 +110,7 @@ public class AccessPointsPredicateTest {
     @Test
     public void testGetPredicateWithAllValuesIsTruePredicate() throws Exception {
         // setup
-        when(settings.getSSIDFilter()).thenReturn(StringUtils.EMPTY);
+        when(settings.getSSIDFilter()).thenReturn(new HashSet<String>());
         when(settings.getWiFiBandFilter()).thenReturn(EnumUtils.values(WiFiBand.class));
         when(settings.getStrengthFilter()).thenReturn(EnumUtils.values(Strength.class));
         when(settings.getSecurityFilter()).thenReturn(EnumUtils.values(Security.class));
@@ -124,7 +123,7 @@ public class AccessPointsPredicateTest {
     }
 
     private void withSettings() {
-        when(settings.getSSIDFilter()).thenReturn(SSID);
+        when(settings.getSSIDFilter()).thenReturn(new HashSet<>(Arrays.asList(SSID, SSID)));
         when(settings.getWiFiBandFilter()).thenReturn(Collections.singleton(WiFiBand.GHZ2));
         when(settings.getStrengthFilter()).thenReturn(new HashSet<>(Arrays.asList(Strength.TWO, Strength.FOUR)));
         when(settings.getSecurityFilter()).thenReturn(new HashSet<>(Arrays.asList(Security.WEP, Security.WPA2)));

@@ -33,8 +33,7 @@ import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 
-import org.apache.commons.lang3.StringUtils;
-
+import java.util.HashSet;
 import java.util.Set;
 
 import static android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -118,12 +117,12 @@ public class Settings {
         return find(NavigationMenu.class, R.string.start_menu_key, NavigationMenu.ACCESS_POINTS);
     }
 
-    public String getSSIDFilter() {
-        return repository.getString(R.string.filter_ssid_key, StringUtils.EMPTY);
+    public Set<String> getSSIDFilter() {
+        return repository.getStringSet(R.string.filter_ssid_key, new HashSet<String>());
     }
 
-    public void saveSSIDFilter(@NonNull String value) {
-        repository.save(R.string.filter_ssid_key, value);
+    public void saveSSIDFilter(@NonNull Set<String> values) {
+        repository.saveStringSet(R.string.filter_ssid_key, values);
     }
 
     public Set<WiFiBand> getWiFiBandFilter() {
