@@ -34,6 +34,7 @@
         android:id="@+id/filterSSIDtext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/filter_ssid_hint"
         android:inputType="text"
         android:maxLength="25"
         android:maxLines="1"/>
