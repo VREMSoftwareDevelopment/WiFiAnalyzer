@@ -28,7 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/no_margin"
         android:orientation="horizontal"
-        android:padding="@dimen/no_margin">
+        android:padding="@dimen/no_margin"
+        android:visibility="gone">
 
         <Button
             android:id="@+id/graphNavigationSet1"

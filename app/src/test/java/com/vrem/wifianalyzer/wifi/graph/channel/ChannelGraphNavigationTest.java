@@ -101,7 +101,6 @@ public class ChannelGraphNavigationTest {
 
     @Test
     public void testConstructor() throws Exception {
-        verify(layout).setVisibility(View.GONE);
         for (Integer id : ChannelGraphNavigation.ids.values()) {
             verify(layout).findViewById(id);
         }
@@ -118,7 +117,7 @@ public class ChannelGraphNavigationTest {
         // execute
         fixture.update();
         // validate
-        verify(layout, times(2)).setVisibility(View.GONE);
+        verify(layout).setVisibility(View.GONE);
         verify(settings).getCountryCode();
         verify(settings).getWiFiBand();
     }
@@ -175,7 +174,7 @@ public class ChannelGraphNavigationTest {
         // execute
         fixture.update();
         // validate
-        verify(layout, times(2)).setVisibility(View.GONE);
+        verify(layout).setVisibility(View.GONE);
         verify(settings).getCountryCode();
         verify(settings).getWiFiBand();
     }

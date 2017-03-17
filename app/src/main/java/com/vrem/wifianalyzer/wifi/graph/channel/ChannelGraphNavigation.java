@@ -58,7 +58,6 @@ class ChannelGraphNavigation implements GraphConstants {
     ChannelGraphNavigation(@NonNull View view, @NonNull Context context) {
         this.view = view;
         this.context = context;
-        this.view.setVisibility(View.GONE);
         for (Pair<WiFiChannel, WiFiChannel> pair : ids.keySet()) {
             view.findViewById(ids.get(pair)).setOnClickListener(new SetOnClickListener(pair));
         }
