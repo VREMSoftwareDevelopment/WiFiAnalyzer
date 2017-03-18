@@ -1,0 +1,132 @@
+/*
+ * WiFiAnalyzer
+ * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
+
+package com.vrem.wifianalyzer.wifi.channelgraph;
+
+import android.support.v4.util.Pair;
+import android.view.View;
+
+import com.jjoe64.graphview.GraphView;
+import com.vrem.wifianalyzer.BuildConfig;
+import com.vrem.wifianalyzer.MainContextHelper;
+import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
+import com.vrem.wifianalyzer.wifi.graphutils.GraphLegend;
+import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper;
+import com.vrem.wifianalyzer.wifi.model.SortBy;
+import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
+import com.vrem.wifianalyzer.wifi.model.WiFiData;
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
+public class ChannelGraphViewTest {
+    private Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
+    private Settings settings;
+    private GraphViewWrapper graphViewWrapper;
+    private DataManager dataManager;
+    private ChannelGraphView fixture;
+
+    @Before
+    public void setUp() {
+        RobolectricUtil.INSTANCE.getActivity();
+
+        graphViewWrapper = mock(GraphViewWrapper.class);
+        dataManager = mock(DataManager.class);
+
+        settings = MainContextHelper.INSTANCE.getSettings();
+
+        wiFiChannelPair = new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN);
+        fixture = new ChannelGraphView(WiFiBand.GHZ2, wiFiChannelPair);
+        fixture.setGraphViewWrapper(graphViewWrapper);
+        fixture.setDataManager(dataManager);
+    }
+
+    @After
+    public void tearDown() {
+        MainContextHelper.INSTANCE.restore();
+    }
+
+    @Test
+    public void testUpdate() throws Exception {
+        // setup
+        Set<WiFiDetail> newSeries = new HashSet<>();
+        List<WiFiDetail> wiFiDetails = new ArrayList<>();
+        WiFiData wiFiData = new WiFiData(wiFiDetails, WiFiConnection.EMPTY, new ArrayList<String>());
+        when(dataManager.getNewSeries(wiFiDetails, wiFiChannelPair)).thenReturn(newSeries);
+        withSettings();
+        // execute
+        fixture.update(wiFiData);
+        // validate
+        verify(dataManager).getNewSeries(wiFiDetails, wiFiChannelPair);
+        verify(dataManager).addSeriesData(graphViewWrapper, newSeries, GraphConstants.MAX_Y);
+        //noinspection unchecked
+        verify(graphViewWrapper).removeSeries(any(Set.class));
+        verify(graphViewWrapper).updateLegend(GraphLegend.RIGHT);
+        verify(graphViewWrapper).setVisibility(View.VISIBLE);
+        verifySettings();
+    }
+
+    private void verifySettings() {
+        verify(settings).getSortBy();
+        verify(settings, times(2)).getChannelGraphLegend();
+        verify(settings, times(2)).getWiFiBand();
+        verify(settings, times(2)).getGraphMaximumY();
+    }
+
+    private void withSettings() {
+        when(settings.getChannelGraphLegend()).thenReturn(GraphLegend.RIGHT);
+        when(settings.getSortBy()).thenReturn(SortBy.CHANNEL);
+        when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ2);
+        when(settings.getGraphMaximumY()).thenReturn(GraphConstants.MAX_Y);
+    }
+
+    @Test
+    public void testGetGraphView() throws Exception {
+        // setup
+        GraphView expected = mock(GraphView.class);
+        when(graphViewWrapper.getGraphView()).thenReturn(expected);
+        // execute
+        GraphView actual = fixture.getGraphView();
+        // validate
+        assertEquals(expected, actual);
+        verify(graphViewWrapper).getGraphView();
+    }
+}

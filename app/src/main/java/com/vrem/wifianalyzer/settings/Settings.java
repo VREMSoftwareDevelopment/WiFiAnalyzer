@@ -27,7 +27,7 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointView;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.graph.tools.GraphLegend;
+import com.vrem.wifianalyzer.wifi.graphutils.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.SortBy;

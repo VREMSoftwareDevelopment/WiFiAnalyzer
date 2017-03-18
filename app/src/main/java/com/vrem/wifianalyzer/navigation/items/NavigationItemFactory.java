@@ -23,9 +23,9 @@ import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.vendor.VendorFragment;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointsFragment;
 import com.vrem.wifianalyzer.wifi.channelavailable.ChannelAvailableFragment;
+import com.vrem.wifianalyzer.wifi.channelgraph.ChannelGraphFragment;
 import com.vrem.wifianalyzer.wifi.channelrating.ChannelRatingFragment;
-import com.vrem.wifianalyzer.wifi.graph.channel.ChannelGraphFragment;
-import com.vrem.wifianalyzer.wifi.graph.time.TimeGraphFragment;
+import com.vrem.wifianalyzer.wifi.timegraph.TimeGraphFragment;
 
 public class NavigationItemFactory {
     public final static NavigationItem ACCESS_POINTS = new FragmentItem(new AccessPointsFragment(), true);
