@@ -26,7 +26,7 @@ import android.support.annotation.NonNull;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
-import com.vrem.wifianalyzer.wifi.filter.Filters;
+import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public enum MainContext {
@@ -38,7 +38,7 @@ public enum MainContext {
     private VendorService vendorService;
     private Database database;
     private Configuration configuration;
-    private Filters filters;
+    private FilterAdapter filterAdapter;
 
     public Settings getSettings() {
         return settings;
@@ -88,12 +88,12 @@ public enum MainContext {
         this.configuration = configuration;
     }
 
-    public Filters getFilters() {
-        return filters;
+    public FilterAdapter getFilterAdapter() {
+        return filterAdapter;
     }
 
-    void setFilters(Filters filters) {
-        this.filters = filters;
+    void setFilterAdapter(FilterAdapter filterAdapter) {
+        this.filterAdapter = filterAdapter;
     }
 
     void initialize(@NonNull MainActivity mainActivity, boolean largeScreen) {
@@ -108,7 +108,7 @@ public enum MainContext {
         setSettings(settings);
         setVendorService(new VendorService());
         setScanner(new Scanner(wifiManager, handler, settings));
-        setFilters(new Filters(settings));
+        setFilterAdapter(new FilterAdapter(settings));
     }
 
 }

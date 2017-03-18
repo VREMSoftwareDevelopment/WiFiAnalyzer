@@ -24,7 +24,9 @@ import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
+import com.vrem.wifianalyzer.wifi.predicate.WiFiBandPredicate;
 
+import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -111,7 +113,7 @@ public class WiFiDataTest {
     @Test
     public void testGetWiFiDetailsWithSSID() throws Exception {
         // setup
-        WiFiBandPredicate predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
+        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
         // execute
         List<WiFiDetail> actual = fixture.getWiFiDetails(predicate, SortBy.STRENGTH, GroupBy.SSID);
         // validate
@@ -125,7 +127,7 @@ public class WiFiDataTest {
     @Test
     public void testGetWiFiDetailsWithVendorName() throws Exception {
         // setup
-        WiFiBandPredicate predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
+        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
         // execute
         List<WiFiDetail> actual = fixture.getWiFiDetails(predicate, SortBy.STRENGTH, GroupBy.SSID);
         // validate
@@ -140,7 +142,7 @@ public class WiFiDataTest {
     @Test
     public void testGetWiFiDetailsWithChildren() throws Exception {
         // setup
-        WiFiBandPredicate predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
+        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
         // execute
         List<WiFiDetail> actual = fixture.getWiFiDetails(predicate, SortBy.STRENGTH, GroupBy.SSID);
         // validate
@@ -165,7 +167,7 @@ public class WiFiDataTest {
     @Test
     public void testIsConfiguredNetwork() throws Exception {
         // setup
-        WiFiBandPredicate predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
+        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
         // execute
         List<WiFiDetail> actual = fixture.getWiFiDetails(predicate, SortBy.STRENGTH, GroupBy.SSID);
         // validate
@@ -191,7 +193,7 @@ public class WiFiDataTest {
                 return null;
             }
         };
-        WiFiBandPredicate predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
+        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
         // execute
         List<WiFiDetail> actual = fixture.getWiFiDetails(predicate, SortBy.SSID);
         // validate

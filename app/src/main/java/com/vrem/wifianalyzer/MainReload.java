@@ -22,8 +22,8 @@ import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
-import com.vrem.wifianalyzer.wifi.AccessPointView;
-import com.vrem.wifianalyzer.wifi.ConnectionViewType;
+import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointView;
+import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType;
 
 class MainReload {
     private ThemeStyle themeStyle;

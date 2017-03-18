@@ -28,8 +28,8 @@ import android.os.LocaleList;
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
-import com.vrem.wifianalyzer.wifi.AccessPointView;
-import com.vrem.wifianalyzer.wifi.ConnectionViewType;
+import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointView;
+import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
@@ -214,7 +214,7 @@ public class SettingsTest {
         Set<String> expected = new HashSet<>(Arrays.asList("value1", "value2", "value3"));
         when(repository.getStringSet(R.string.filter_ssid_key, new HashSet<String>())).thenReturn(expected);
         // execute
-        Set<String> actual = fixture.getSSIDFilter();
+        Set<String> actual = fixture.getSSIDs();
         // validate
         assertEquals(expected, actual);
         verify(repository).getStringSet(R.string.filter_ssid_key, new HashSet<String>());
@@ -225,7 +225,7 @@ public class SettingsTest {
         // setup
         Set<String> values = new HashSet<>(Arrays.asList("value1", "value2", "value3"));
         // execute
-        fixture.saveSSIDFilter(values);
+        fixture.saveSSIDs(values);
         // validate
         verify(repository).saveStringSet(R.string.filter_ssid_key, values);
     }
@@ -238,7 +238,7 @@ public class SettingsTest {
         Set<String> defaultValues = EnumUtils.ordinals(WiFiBand.class);
         when(repository.getStringSet(R.string.filter_wifi_band_key, defaultValues)).thenReturn(values);
         // execute
-        Set<WiFiBand> actual = fixture.getWiFiBandFilter();
+        Set<WiFiBand> actual = fixture.getWiFiBands();
         // validate
         assertEquals(1, actual.size());
         assertTrue(actual.contains(expected));
@@ -251,7 +251,7 @@ public class SettingsTest {
         Set<WiFiBand> values = Collections.singleton(WiFiBand.GHZ5);
         Set<String> expected = Collections.singleton("" + WiFiBand.GHZ5.ordinal());
         // execute
-        fixture.saveWiFiBandFilter(values);
+        fixture.saveWiFiBands(values);
         // validate
         verify(repository).saveStringSet(R.string.filter_wifi_band_key, expected);
     }
@@ -264,7 +264,7 @@ public class SettingsTest {
         Set<String> defaultValues = EnumUtils.ordinals(Strength.class);
         when(repository.getStringSet(R.string.filter_strength_key, defaultValues)).thenReturn(values);
         // execute
-        Set<Strength> actual = fixture.getStrengthFilter();
+        Set<Strength> actual = fixture.getStrengths();
         // validate
         assertEquals(1, actual.size());
         assertTrue(actual.contains(expected));
@@ -277,7 +277,7 @@ public class SettingsTest {
         Set<Strength> values = Collections.singleton(Strength.TWO);
         Set<String> expected = Collections.singleton("" + Strength.TWO.ordinal());
         // execute
-        fixture.saveStrengthFilter(values);
+        fixture.saveStrengths(values);
         // validate
         verify(repository).saveStringSet(R.string.filter_strength_key, expected);
     }
@@ -290,7 +290,7 @@ public class SettingsTest {
         Set<String> defaultValues = EnumUtils.ordinals(Security.class);
         when(repository.getStringSet(R.string.filter_security_key, defaultValues)).thenReturn(values);
         // execute
-        Set<Security> actual = fixture.getSecurityFilter();
+        Set<Security> actual = fixture.getSecurities();
         // validate
         assertEquals(1, actual.size());
         assertTrue(actual.contains(expected));
@@ -303,7 +303,7 @@ public class SettingsTest {
         Set<Security> values = Collections.singleton(Security.WEP);
         Set<String> expected = Collections.singleton("" + Security.WEP.ordinal());
         // execute
-        fixture.saveSecurityFilter(values);
+        fixture.saveSecurities(values);
         // validate
         verify(repository).saveStringSet(R.string.filter_security_key, expected);
     }

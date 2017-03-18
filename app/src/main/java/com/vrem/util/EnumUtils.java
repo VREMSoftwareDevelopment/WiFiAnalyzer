@@ -63,8 +63,8 @@ public class EnumUtils {
         return new HashSet<>(Arrays.asList(enumType.getEnumConstants()));
     }
 
-    public static <T extends Enum, U> Predicate<U> predicate(@NonNull Collection<T> input, T[] values, @NonNull Transformer<T, Predicate<U>> transformer) {
-        if (input.size() >= values.length) {
+    public static <T extends Enum, U> Predicate<U> predicate(@NonNull Class<T> enumType, @NonNull Collection<T> input, @NonNull Transformer<T, Predicate<U>> transformer) {
+        if (input.size() >= values(enumType).size()) {
             return PredicateUtils.truePredicate();
         }
         return PredicateUtils.anyPredicate(CollectionUtils.collect(input, transformer));

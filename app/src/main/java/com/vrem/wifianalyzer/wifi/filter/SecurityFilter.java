@@ -1,7 +1,7 @@
 /*
  * WiFiAnalyzer
  * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
- *
+ *  
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -18,28 +18,28 @@
 
 package com.vrem.wifianalyzer.wifi.filter;
 
+import android.app.Dialog;
 import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.wifi.filter.adapter.EnumFilterAdapter;
 import com.vrem.wifianalyzer.wifi.model.Security;
 
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
-class SecurityFilter extends EnumFilter<Security> {
+class SecurityFilter extends EnumFilter<Security, EnumFilterAdapter<Security>> {
+    static final Map<Security, Integer> ids = new HashMap<>();
 
-    SecurityFilter(@NonNull Set<Security> values) {
-        super(Security.class, values);
+    static {
+        ids.put(Security.NONE, R.id.filterSecurityNone);
+        ids.put(Security.WPS, R.id.filterSecurityWPS);
+        ids.put(Security.WEP, R.id.filterSecurityWEP);
+        ids.put(Security.WPA, R.id.filterSecurityWPA);
+        ids.put(Security.WPA2, R.id.filterSecurityWPA2);
     }
 
-    @Override
-    int getColor(@NonNull Security object) {
-        return contains(object) ? R.color.connected : R.color.icons_color;
+    SecurityFilter(@NonNull EnumFilterAdapter<Security> filterAdapter, @NonNull Dialog dialog) {
+        super(ids, filterAdapter, dialog, R.id.filterSecurity);
     }
-
-    @Override
-    public void save(@NonNull Settings settings) {
-        settings.saveSecurityFilter(getValues());
-    }
-
 }

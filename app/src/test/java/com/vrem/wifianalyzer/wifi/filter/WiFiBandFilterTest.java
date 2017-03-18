@@ -18,113 +18,21 @@
 
 package com.vrem.wifianalyzer.wifi.filter;
 
-import com.vrem.util.EnumUtils;
-import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertNotNull;
 
-@RunWith(MockitoJUnitRunner.class)
 public class WiFiBandFilterTest {
-    @Mock
-    private Settings settings;
-
-    private WiFiBandFilter fixture;
-
-    @Before
-    public void setUp() {
-        fixture = new WiFiBandFilter(EnumUtils.values(WiFiBand.class));
-    }
 
     @Test
-    public void testIsActive() throws Exception {
-        assertFalse(fixture.isActive());
-    }
-
-    @Test
-    public void testIsActivateWithChanges() throws Exception {
-        // setup
-        fixture.toggle(WiFiBand.GHZ2);
-        // execute & validate
-        assertTrue(fixture.isActive());
-    }
-
-    @Test
-    public void testContains() throws Exception {
-        for (WiFiBand wiFiBand : WiFiBand.values()) {
-            assertTrue(fixture.contains(wiFiBand));
+    public void testMapping() throws Exception {
+        WiFiBand[] wiFiBands = WiFiBand.values();
+        assertEquals(wiFiBands.length, WiFiBandFilter.ids.size());
+        for (WiFiBand wiFiBand : wiFiBands) {
+            assertNotNull(WiFiBandFilter.ids.get(wiFiBand));
         }
-    }
-
-    @Test
-    public void testToggleRemoves() throws Exception {
-        // execute
-        boolean actual = fixture.toggle(WiFiBand.GHZ2);
-        // validate
-        assertTrue(actual);
-        assertFalse(fixture.contains(WiFiBand.GHZ2));
-    }
-
-    @Test
-    public void testToggleAdds() throws Exception {
-        // setup
-        fixture.toggle(WiFiBand.GHZ5);
-        // execute
-        boolean actual = fixture.toggle(WiFiBand.GHZ5);
-        // validate
-        assertTrue(actual);
-        assertTrue(fixture.contains(WiFiBand.GHZ5));
-    }
-
-    @Test
-    public void testRemovingAllWillNotRemoveLast() throws Exception {
-        // setup
-        WiFiBand[] values = WiFiBand.values();
-        // execute
-        for (WiFiBand wiFiBand : values) {
-            fixture.toggle(wiFiBand);
-        }
-        // validate
-        int index = values.length - 1;
-        for (int i = 0; i < index; i++) {
-            assertFalse(fixture.contains(values[i]));
-        }
-        assertTrue(fixture.contains(WiFiBand.values()[index]));
-    }
-
-    @Test
-    public void testGetColorWithExisting() throws Exception {
-        // execute & validate
-        assertEquals(R.color.connected, fixture.getColor(WiFiBand.GHZ2));
-    }
-
-    @Test
-    public void testGetColorWithNonExisting() throws Exception {
-        // setup
-        fixture.toggle(WiFiBand.GHZ2);
-        // execute & validate
-        assertEquals(R.color.icons_color, fixture.getColor(WiFiBand.GHZ2));
-    }
-
-    @Test
-    public void testSave() throws Exception {
-        // setup
-        Set<WiFiBand> expected = fixture.getValues();
-        // execute
-        fixture.save(settings);
-        // execute
-        verify(settings).saveWiFiBandFilter(expected);
     }
 }

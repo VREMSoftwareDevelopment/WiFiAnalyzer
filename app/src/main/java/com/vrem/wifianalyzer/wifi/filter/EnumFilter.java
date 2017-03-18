@@ -1,7 +1,7 @@
 /*
  * WiFiAnalyzer
  * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
- *
+ *  
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -18,50 +18,55 @@
 
 package com.vrem.wifianalyzer.wifi.filter;
 
+import android.app.Dialog;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.vrem.util.EnumUtils;
+import com.vrem.wifianalyzer.wifi.filter.adapter.EnumFilterAdapter;
 
-import java.util.Set;
+import java.util.Map;
 
-abstract class EnumFilter<T extends Enum> implements Filter {
-    private final Class<T> enumType;
-    private Set<T> values;
+abstract class EnumFilter<T extends Enum, U extends EnumFilterAdapter<T>> {
+    private final U filter;
 
-    EnumFilter(@NonNull Class<T> enumType, @NonNull Set<T> values) {
-        this.enumType = enumType;
-        this.values = values;
-    }
-
-    @Override
-    public boolean isActive() {
-        return values.size() != EnumUtils.values(enumType).size();
-    }
-
-    boolean toggle(@NonNull T object) {
-        boolean toggle = false;
-        if (contains(object)) {
-            if (values.size() > 1) {
-                toggle = values.remove(object);
-            }
-        } else {
-            toggle = values.add(object);
+    EnumFilter(@NonNull Map<T, Integer> ids, @NonNull U filter, @NonNull Dialog dialog, int id) {
+        this.filter = filter;
+        for (T object : ids.keySet()) {
+            setInformation(dialog, ids.get(object), object);
         }
-        return toggle;
+        dialog.findViewById(id).setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void reset() {
-        values = EnumUtils.values(enumType);
+    private void setInformation(@NonNull Dialog dialog, int id, @NonNull T object) {
+        View view = dialog.findViewById(id);
+        view.setOnClickListener(new OnClickListener(object));
+        setColor(view, object);
     }
 
-    abstract int getColor(@NonNull T object);
-
-    boolean contains(@NonNull T object) {
-        return values.contains(object);
+    private void setColor(@NonNull View view, @NonNull T object) {
+        int colorId = filter.getColor(object);
+        int color = ContextCompat.getColor(view.getContext(), colorId);
+        if (view instanceof TextView) {
+            ((TextView) view).setTextColor(color);
+        } else if (view instanceof ImageView) {
+            ((ImageView) view).setColorFilter(color);
+        }
     }
 
-    Set<T> getValues() {
-        return values;
+    private class OnClickListener implements View.OnClickListener {
+        private final T object;
+
+        OnClickListener(@NonNull T object) {
+            this.object = object;
+        }
+
+        @Override
+        public void onClick(View view) {
+            filter.toggle(object);
+            setColor(view, object);
+        }
     }
 }

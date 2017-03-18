@@ -25,7 +25,7 @@ import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.filter.FilterView;
+import com.vrem.wifianalyzer.wifi.filter.Filter;
 
 public class OptionMenu {
     private Menu menu;
@@ -45,7 +45,7 @@ public class OptionMenu {
                 }
                 break;
             case R.id.action_filter:
-                FilterView.build().show();
+                Filter.build().show();
                 break;
             default:
                 // do nothing

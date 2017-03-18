@@ -24,8 +24,8 @@ import android.support.annotation.NonNull;
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
-import com.vrem.wifianalyzer.wifi.AccessPointView;
-import com.vrem.wifianalyzer.wifi.ConnectionViewType;
+import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointView;
+import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphLegend;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
@@ -117,35 +117,35 @@ public class Settings {
         return find(NavigationMenu.class, R.string.start_menu_key, NavigationMenu.ACCESS_POINTS);
     }
 
-    public Set<String> getSSIDFilter() {
+    public Set<String> getSSIDs() {
         return repository.getStringSet(R.string.filter_ssid_key, new HashSet<String>());
     }
 
-    public void saveSSIDFilter(@NonNull Set<String> values) {
+    public void saveSSIDs(@NonNull Set<String> values) {
         repository.saveStringSet(R.string.filter_ssid_key, values);
     }
 
-    public Set<WiFiBand> getWiFiBandFilter() {
+    public Set<WiFiBand> getWiFiBands() {
         return findSet(WiFiBand.class, R.string.filter_wifi_band_key, WiFiBand.GHZ2);
     }
 
-    public void saveWiFiBandFilter(@NonNull Set<WiFiBand> values) {
+    public void saveWiFiBands(@NonNull Set<WiFiBand> values) {
         saveSet(R.string.filter_wifi_band_key, values);
     }
 
-    public Set<Strength> getStrengthFilter() {
+    public Set<Strength> getStrengths() {
         return findSet(Strength.class, R.string.filter_strength_key, Strength.FOUR);
     }
 
-    public void saveStrengthFilter(@NonNull Set<Strength> values) {
+    public void saveStrengths(@NonNull Set<Strength> values) {
         saveSet(R.string.filter_strength_key, values);
     }
 
-    public Set<Security> getSecurityFilter() {
+    public Set<Security> getSecurities() {
         return findSet(Security.class, R.string.filter_security_key, Security.NONE);
     }
 
-    public void saveSecurityFilter(@NonNull Set<Security> values) {
+    public void saveSecurities(@NonNull Set<Security> values) {
         saveSet(R.string.filter_security_key, values);
     }
 

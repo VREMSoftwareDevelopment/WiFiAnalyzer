@@ -21,9 +21,9 @@ package com.vrem.wifianalyzer.navigation.items;
 import com.vrem.wifianalyzer.about.AboutActivity;
 import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.vendor.VendorFragment;
-import com.vrem.wifianalyzer.wifi.AccessPointsFragment;
-import com.vrem.wifianalyzer.wifi.ChannelAvailableFragment;
-import com.vrem.wifianalyzer.wifi.ChannelRatingFragment;
+import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointsFragment;
+import com.vrem.wifianalyzer.wifi.channelavailable.ChannelAvailableFragment;
+import com.vrem.wifianalyzer.wifi.channelrating.ChannelRatingFragment;
 import com.vrem.wifianalyzer.wifi.graph.channel.ChannelGraphFragment;
 import com.vrem.wifianalyzer.wifi.graph.time.TimeGraphFragment;
 

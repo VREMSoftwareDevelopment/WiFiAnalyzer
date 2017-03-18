@@ -34,7 +34,7 @@ class FilterOn implements NavigationOption {
         if (menu != null) {
             MenuItem menuItem = menu.findItem(R.id.action_filter);
             menuItem.setVisible(true);
-            menuItem.setIcon(MainContext.INSTANCE.getFilters().isActive()
+            menuItem.setIcon(MainContext.INSTANCE.getFilterAdapter().isActive()
                 ? R.drawable.ic_filter_list_blue_500_48dp
                 : R.drawable.ic_filter_list_grey_500_48dp);
         }

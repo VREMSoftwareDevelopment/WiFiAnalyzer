@@ -160,10 +160,9 @@ public class EnumUtilsTest {
     @Test
     public void testPredicateExpectsTruePredicateWithAllValues() throws Exception {
         // setup
-        TestObject[] values = TestObject.values();
         Set<TestObject> inputs = EnumUtils.values(TestObject.class);
         // execute
-        Predicate<TestObject> actual = EnumUtils.predicate(inputs, values, new TestObjectTransformer());
+        Predicate<TestObject> actual = EnumUtils.predicate(TestObject.class, inputs, new TestObjectTransformer());
         // validate
         assertTrue(actual instanceof TruePredicate);
     }
@@ -171,10 +170,9 @@ public class EnumUtilsTest {
     @Test
     public void testPredicateExpectsAnyPredicateWithSomeValues() throws Exception {
         // setup
-        TestObject[] values = TestObject.values();
         List<TestObject> inputs = Arrays.asList(TestObject.VALUE1, TestObject.VALUE3);
         // execute
-        Predicate<TestObject> actual = EnumUtils.predicate(inputs, values, new TestObjectTransformer());
+        Predicate<TestObject> actual = EnumUtils.predicate(TestObject.class, inputs, new TestObjectTransformer());
         // validate
         assertTrue(actual instanceof AnyPredicate);
     }

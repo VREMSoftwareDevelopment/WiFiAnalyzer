@@ -20,8 +20,8 @@ package com.vrem.wifianalyzer;
 
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
-import com.vrem.wifianalyzer.wifi.AccessPointView;
-import com.vrem.wifianalyzer.wifi.ConnectionViewType;
+import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointView;
+import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType;
 
 import org.junit.After;
 import org.junit.Before;

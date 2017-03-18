@@ -26,7 +26,7 @@ import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.menu.OptionMenu;
-import com.vrem.wifianalyzer.wifi.filter.Filters;
+import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
 
 import org.junit.After;
 import org.junit.Before;
@@ -53,12 +53,12 @@ public class FilterOnTest {
     @Mock
     private Resources resources;
 
-    private Filters filters;
+    private FilterAdapter filterAdapter;
     private FilterOn fixture;
 
     @Before
     public void setUp() {
-        filters = MainContextHelper.INSTANCE.getFilters();
+        filterAdapter = MainContextHelper.INSTANCE.getFilterAdapter();
         fixture = new FilterOn();
     }
 
@@ -82,26 +82,26 @@ public class FilterOnTest {
     @Test
     public void testApplyWithFilterInactive() throws Exception {
         // setup
-        when(filters.isActive()).thenReturn(false);
+        when(filterAdapter.isActive()).thenReturn(false);
         withMenuItem();
         // execute
         fixture.apply(mainActivity);
         // validate
         verifyMenuItem();
-        verify(filters).isActive();
+        verify(filterAdapter).isActive();
         verify(menuItem).setIcon(R.drawable.ic_filter_list_grey_500_48dp);
     }
 
     @Test
     public void testApplyWithFilterActive() throws Exception {
         // setup
-        when(filters.isActive()).thenReturn(true);
+        when(filterAdapter.isActive()).thenReturn(true);
         withMenuItem();
         // execute
         fixture.apply(mainActivity);
         // validate
         verifyMenuItem();
-        verify(filters).isActive();
+        verify(filterAdapter).isActive();
         verify(menuItem).setIcon(R.drawable.ic_filter_list_blue_500_48dp);
     }
 

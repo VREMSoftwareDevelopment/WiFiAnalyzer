@@ -31,8 +31,8 @@ import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
-import com.vrem.wifianalyzer.wifi.AccessPointDetail;
-import com.vrem.wifianalyzer.wifi.AccessPointPopup;
+import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointDetail;
+import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointPopup;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import java.security.MessageDigest;

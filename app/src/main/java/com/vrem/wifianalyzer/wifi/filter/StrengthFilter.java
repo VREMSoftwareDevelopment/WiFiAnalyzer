@@ -18,25 +18,28 @@
 
 package com.vrem.wifianalyzer.wifi.filter;
 
+import android.app.Dialog;
 import android.support.annotation.NonNull;
 
-import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.filter.adapter.EnumFilterAdapter;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
-class StrengthFilter extends EnumFilter<Strength> {
-    StrengthFilter(@NonNull Set<Strength> values) {
-        super(Strength.class, values);
+class StrengthFilter extends EnumFilter<Strength, EnumFilterAdapter<Strength>> {
+    static final Map<Strength, Integer> ids = new HashMap<>();
+
+    static {
+        ids.put(Strength.ZERO, R.id.filterStrength0);
+        ids.put(Strength.ONE, R.id.filterStrength1);
+        ids.put(Strength.TWO, R.id.filterStrength2);
+        ids.put(Strength.THREE, R.id.filterStrength3);
+        ids.put(Strength.FOUR, R.id.filterStrength4);
     }
 
-    @Override
-    int getColor(@NonNull Strength object) {
-        return contains(object) ? object.colorResource() : object.colorResourceDefault();
-    }
-
-    @Override
-    public void save(@NonNull Settings settings) {
-        settings.saveStrengthFilter(getValues());
+    StrengthFilter(@NonNull EnumFilterAdapter<Strength> filterAdapter, @NonNull Dialog dialog) {
+        super(ids, filterAdapter, dialog, R.id.filterStrength);
     }
 }

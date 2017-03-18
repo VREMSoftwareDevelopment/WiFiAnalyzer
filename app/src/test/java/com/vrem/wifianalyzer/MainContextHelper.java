@@ -21,7 +21,7 @@ package com.vrem.wifianalyzer;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
-import com.vrem.wifianalyzer.wifi.filter.Filters;
+import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import java.util.HashMap;
@@ -81,9 +81,9 @@ public enum MainContextHelper {
         return result;
     }
 
-    public Filters getFilters() {
-        Filters result = (Filters) save(Filters.class, mainContext.getFilters());
-        mainContext.setFilters(result);
+    public FilterAdapter getFilterAdapter() {
+        FilterAdapter result = (FilterAdapter) save(FilterAdapter.class, mainContext.getFilterAdapter());
+        mainContext.setFilterAdapter(result);
         return result;
     }
 
@@ -102,8 +102,8 @@ public enum MainContextHelper {
                 mainContext.setDatabase((Database) result);
             } else if (clazz.equals(Configuration.class)) {
                 mainContext.setConfiguration((Configuration) result);
-            } else if (clazz.equals(Filters.class)) {
-                mainContext.setFilters((Filters) result);
+            } else if (clazz.equals(FilterAdapter.class)) {
+                mainContext.setFilterAdapter((FilterAdapter) result);
             } else {
                 throw new IllegalArgumentException(clazz.getName());
             }
