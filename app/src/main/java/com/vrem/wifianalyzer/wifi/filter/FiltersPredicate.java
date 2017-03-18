@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.wifi;
+package com.vrem.wifianalyzer.wifi.filter;
 
 import android.support.annotation.NonNull;
 
@@ -37,15 +37,29 @@ import org.apache.commons.collections4.PredicateUtils;
 import org.apache.commons.collections4.Transformer;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-class AccessPointsPredicate implements Predicate<WiFiDetail> {
+public class FiltersPredicate implements Predicate<WiFiDetail> {
 
     private final Predicate<WiFiDetail> predicate;
 
-    AccessPointsPredicate(@NonNull Settings settings) {
-        predicate = buildPredicate(settings);
+    private FiltersPredicate(Settings settings, Set<WiFiBand> wiFiBands) {
+        Predicate<WiFiDetail> ssidPredicate = makeSSIDPredicate(settings.getSSIDFilter());
+        Predicate<WiFiDetail> wiFiBandPredicate = EnumUtils.predicate(wiFiBands, WiFiBand.values(), new WiFiBandTransformer());
+        Predicate<WiFiDetail> strengthPredicate = EnumUtils.predicate(settings.getStrengthFilter(), Strength.values(), new StrengthTransformer());
+        Predicate<WiFiDetail> securityPredicate = EnumUtils.predicate(settings.getSecurityFilter(), Security.values(), new SecurityTransformer());
+        List<Predicate<WiFiDetail>> predicates = Arrays.asList(ssidPredicate, wiFiBandPredicate, strengthPredicate, securityPredicate);
+        this.predicate = PredicateUtils.allPredicate(CollectionUtils.select(predicates, new NoTruePredicate()));
+    }
+
+    public static FiltersPredicate makeAccessPointsPredicate(@NonNull Settings settings) {
+        return new FiltersPredicate(settings, settings.getWiFiBandFilter());
+    }
+
+    public static FiltersPredicate makeOtherPredicate(Settings settings) {
+        return new FiltersPredicate(settings, Collections.singleton(settings.getWiFiBand()));
     }
 
     @Override
@@ -55,15 +69,6 @@ class AccessPointsPredicate implements Predicate<WiFiDetail> {
 
     Predicate<WiFiDetail> getPredicate() {
         return predicate;
-    }
-
-    private Predicate<WiFiDetail> buildPredicate(@NonNull Settings settings) {
-        Predicate<WiFiDetail> ssidPredicate = makeSSIDPredicate(settings.getSSIDFilter());
-        Predicate<WiFiDetail> wiFiBandPredicate = EnumUtils.predicate(settings.getWiFiBandFilter(), WiFiBand.values(), new WiFiBandTransformer());
-        Predicate<WiFiDetail> strengthPredicate = EnumUtils.predicate(settings.getStrengthFilter(), Strength.values(), new StrengthTransformer());
-        Predicate<WiFiDetail> securityPredicate = EnumUtils.predicate(settings.getSecurityFilter(), Security.values(), new SecurityTransformer());
-        List<Predicate<WiFiDetail>> predicates = Arrays.asList(ssidPredicate, wiFiBandPredicate, strengthPredicate, securityPredicate);
-        return PredicateUtils.allPredicate(CollectionUtils.select(predicates, new NoTruePredicate()));
     }
 
     private Predicate<WiFiDetail> makeSSIDPredicate(Set<String> ssids) {

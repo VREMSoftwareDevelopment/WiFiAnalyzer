@@ -111,7 +111,7 @@ public class NavigationMenuTest {
     @Test
     public void testGetNavigationOptions() throws Exception {
         assertEquals(NavigationOptionFactory.AP, NavigationMenu.ACCESS_POINTS.getNavigationOptions());
-        assertEquals(NavigationOptionFactory.OTHER, NavigationMenu.CHANNEL_RATING.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.RATING, NavigationMenu.CHANNEL_RATING.getNavigationOptions());
         assertEquals(NavigationOptionFactory.OTHER, NavigationMenu.CHANNEL_GRAPH.getNavigationOptions());
         assertEquals(NavigationOptionFactory.OTHER, NavigationMenu.TIME_GRAPH.getNavigationOptions());
 

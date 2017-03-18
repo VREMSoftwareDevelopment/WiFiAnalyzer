@@ -22,6 +22,7 @@ import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.filter.FiltersPredicate;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
@@ -81,11 +82,11 @@ public class AccessPointsAdapterDataTest {
         // setup
         withSettings();
         List<WiFiDetail> wiFiDetails = withWiFiDetails();
-        when(wiFiData.getWiFiDetails(any(AccessPointsPredicate.class), eq(SortBy.SSID), eq(GroupBy.CHANNEL))).thenReturn(wiFiDetails);
+        when(wiFiData.getWiFiDetails(any(FiltersPredicate.class), eq(SortBy.SSID), eq(GroupBy.CHANNEL))).thenReturn(wiFiDetails);
         // execute
         fixture.update(wiFiData);
         // validate
-        verify(wiFiData).getWiFiDetails(any(AccessPointsPredicate.class), eq(SortBy.SSID), eq(GroupBy.CHANNEL));
+        verify(wiFiData).getWiFiDetails(any(FiltersPredicate.class), eq(SortBy.SSID), eq(GroupBy.CHANNEL));
         verifySettings();
 
         assertEquals(wiFiDetails.size(), fixture.parentsCount());

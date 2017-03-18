@@ -33,6 +33,7 @@ public class NavigationOptionFactory {
     public final static NavigationOption NEXT_PREV_OFF = new NextPrevNavigationOff();
 
     public final static List<NavigationOption> AP = Arrays.asList(WIFI_SWITCH_OFF, SCANNER_SWITCH_ON, FILTER_ON, NEXT_PREV_ON);
-    public final static List<NavigationOption> OTHER = Arrays.asList(WIFI_SWITCH_ON, SCANNER_SWITCH_ON, FILTER_OFF, NEXT_PREV_ON);
+    public final static List<NavigationOption> RATING = Arrays.asList(WIFI_SWITCH_ON, SCANNER_SWITCH_ON, FILTER_OFF, NEXT_PREV_ON);
+    public final static List<NavigationOption> OTHER = Arrays.asList(WIFI_SWITCH_ON, SCANNER_SWITCH_ON, FILTER_ON, NEXT_PREV_ON);
     public final static List<NavigationOption> OFF = Arrays.asList(WIFI_SWITCH_OFF, SCANNER_SWITCH_OFF, FILTER_OFF, NEXT_PREV_OFF);
 }

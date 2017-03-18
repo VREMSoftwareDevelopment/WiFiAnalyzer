@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.wifi.filter.FiltersPredicate;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
@@ -31,7 +32,7 @@ class AccessPointsAdapterData {
 
     void update(WiFiData wiFiData) {
         Settings settings = MainContext.INSTANCE.getSettings();
-        AccessPointsPredicate predicate = new AccessPointsPredicate(settings);
+        FiltersPredicate predicate = FiltersPredicate.makeAccessPointsPredicate(settings);
         wiFiDetails = wiFiData.getWiFiDetails(predicate, settings.getSortBy(), settings.getGroupBy());
     }
 

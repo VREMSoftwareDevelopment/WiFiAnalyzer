@@ -29,11 +29,11 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.filter.FiltersPredicate;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewBuilder;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewNotifier;
 import com.vrem.wifianalyzer.wifi.graph.tools.GraphViewWrapper;
-import com.vrem.wifianalyzer.wifi.model.WiFiBandPredicate;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
@@ -54,7 +54,7 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         Settings settings = MainContext.INSTANCE.getSettings();
-        WiFiBandPredicate predicate = new WiFiBandPredicate(settings.getWiFiBand());
+        FiltersPredicate predicate = FiltersPredicate.makeOtherPredicate(settings);
         List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(predicate, settings.getSortBy());
         Set<WiFiDetail> newSeries = dataManager.addSeriesData(graphViewWrapper, wiFiDetails, settings.getGraphMaximumY());
         graphViewWrapper.removeSeries(newSeries);

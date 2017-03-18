@@ -27,6 +27,7 @@ import android.view.View;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.navigation.NavigationMenu;
 
 public class FilterView {
 
@@ -57,8 +58,8 @@ public class FilterView {
     public void show() {
         if (!alertDialog.isShowing()) {
             alertDialog.show();
-            addSSIDFilter();
             addWiFiBandFilter();
+            addSSIDFilter();
             addStrengthFilter();
             addSecurityFilter();
         }
@@ -73,7 +74,9 @@ public class FilterView {
     }
 
     private void addWiFiBandFilter() {
-        new WiFiBandFilterView(MainContext.INSTANCE.getFilters().getWiFiBandFilter(), alertDialog);
+        if (NavigationMenu.ACCESS_POINTS.equals(MainContext.INSTANCE.getMainActivity().getNavigationMenuView().getCurrentNavigationMenu())) {
+            new WiFiBandFilterView(MainContext.INSTANCE.getFilters().getWiFiBandFilter(), alertDialog);
+        }
     }
 
     private void addStrengthFilter() {

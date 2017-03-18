@@ -29,8 +29,8 @@ import static org.junit.Assert.assertTrue;
 public class NavigationOptionFactoryTest {
 
     @Test
-    public void testOther() throws Exception {
-        List<NavigationOption> options = NavigationOptionFactory.OTHER;
+    public void testRating() throws Exception {
+        List<NavigationOption> options = NavigationOptionFactory.RATING;
         assertEquals(4, options.size());
 
         assertTrue(options.contains(NavigationOptionFactory.WIFI_SWITCH_ON));
@@ -41,6 +41,22 @@ public class NavigationOptionFactoryTest {
         assertFalse(options.contains(NavigationOptionFactory.WIFI_SWITCH_OFF));
         assertFalse(options.contains(NavigationOptionFactory.SCANNER_SWITCH_OFF));
         assertFalse(options.contains(NavigationOptionFactory.FILTER_ON));
+        assertFalse(options.contains(NavigationOptionFactory.NEXT_PREV_OFF));
+    }
+
+    @Test
+    public void testOther() throws Exception {
+        List<NavigationOption> options = NavigationOptionFactory.OTHER;
+        assertEquals(4, options.size());
+
+        assertTrue(options.contains(NavigationOptionFactory.WIFI_SWITCH_ON));
+        assertTrue(options.contains(NavigationOptionFactory.SCANNER_SWITCH_ON));
+        assertTrue(options.contains(NavigationOptionFactory.FILTER_ON));
+        assertTrue(options.contains(NavigationOptionFactory.NEXT_PREV_ON));
+
+        assertFalse(options.contains(NavigationOptionFactory.WIFI_SWITCH_OFF));
+        assertFalse(options.contains(NavigationOptionFactory.SCANNER_SWITCH_OFF));
+        assertFalse(options.contains(NavigationOptionFactory.FILTER_OFF));
         assertFalse(options.contains(NavigationOptionFactory.NEXT_PREV_OFF));
     }
 

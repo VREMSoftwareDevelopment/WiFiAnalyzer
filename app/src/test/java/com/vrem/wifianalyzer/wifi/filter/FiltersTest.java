@@ -19,16 +19,21 @@
 package com.vrem.wifianalyzer.wifi.filter;
 
 import com.vrem.util.EnumUtils;
+import com.vrem.wifianalyzer.BuildConfig;
+import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.MainContextHelper;
+import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -39,16 +44,16 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class FiltersTest {
-    @Mock
-    private Settings settings;
-
     private Set<String> ssids;
     private Set<WiFiBand> wiFiBands;
     private Set<Strength> strengths;
     private Set<Security> securities;
 
+    private Settings settings;
+    private MainActivity mainActivity;
     private Filters fixture;
 
     @Before
@@ -58,6 +63,8 @@ public class FiltersTest {
         strengths = EnumUtils.values(Strength.class);
         securities = EnumUtils.values(Security.class);
 
+        mainActivity = RobolectricUtil.INSTANCE.getActivity();
+        settings = MainContextHelper.INSTANCE.getSettings();
         when(settings.getSSIDFilter()).thenReturn(ssids);
         when(settings.getWiFiBandFilter()).thenReturn(wiFiBands);
         when(settings.getStrengthFilter()).thenReturn(strengths);
@@ -69,6 +76,11 @@ public class FiltersTest {
         verify(settings).getWiFiBandFilter();
         verify(settings).getStrengthFilter();
         verify(settings).getSecurityFilter();
+    }
+
+    @After
+    public void tearDown() {
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test

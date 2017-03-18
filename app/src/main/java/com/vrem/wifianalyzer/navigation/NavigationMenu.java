@@ -32,7 +32,7 @@ import java.util.List;
 
 public enum NavigationMenu {
     ACCESS_POINTS(R.drawable.ic_network_wifi_grey_500_48dp, R.string.action_access_points, NavigationItemFactory.ACCESS_POINTS, NavigationOptionFactory.AP),
-    CHANNEL_RATING(R.drawable.ic_wifi_tethering_grey_500_48dp, R.string.action_channel_rating, NavigationItemFactory.CHANNEL_RATING, NavigationOptionFactory.OTHER),
+    CHANNEL_RATING(R.drawable.ic_wifi_tethering_grey_500_48dp, R.string.action_channel_rating, NavigationItemFactory.CHANNEL_RATING, NavigationOptionFactory.RATING),
     CHANNEL_GRAPH(R.drawable.ic_insert_chart_grey_500_48dp, R.string.action_channel_graph, NavigationItemFactory.CHANNEL_GRAPH, NavigationOptionFactory.OTHER),
     TIME_GRAPH(R.drawable.ic_show_chart_grey_500_48dp, R.string.action_time_graph, NavigationItemFactory.TIME_GRAPH, NavigationOptionFactory.OTHER),
     EXPORT(R.drawable.ic_import_export_grey_500_48dp, R.string.action_export, NavigationItemFactory.EXPORT),

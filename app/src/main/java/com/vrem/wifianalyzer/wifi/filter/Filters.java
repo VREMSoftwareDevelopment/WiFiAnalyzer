@@ -20,7 +20,13 @@ package com.vrem.wifianalyzer.wifi.filter;
 
 import android.support.annotation.NonNull;
 
+import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.settings.Settings;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Filters implements Filter {
     private final Settings settings;
@@ -63,8 +69,12 @@ public class Filters implements Filter {
         save(settings);
     }
 
-    private Filter[] getFilters() {
-        return new Filter[]{SSIDFilter, wiFiBandFilter, strengthFilter, securityFilter};
+    private List<Filter> getFilters() {
+        List<Filter> filters = new ArrayList<>(Arrays.asList(SSIDFilter, strengthFilter, securityFilter));
+        if (isAccessPoints()) {
+            filters.add(wiFiBandFilter);
+        }
+        return filters;
     }
 
     SSIDFilter getSSIDFilter() {
@@ -84,9 +94,14 @@ public class Filters implements Filter {
     }
 
     void reload() {
-        this.SSIDFilter = new SSIDFilter(settings.getSSIDFilter());
         this.wiFiBandFilter = new WiFiBandFilter(settings.getWiFiBandFilter());
+        this.SSIDFilter = new SSIDFilter(settings.getSSIDFilter());
         this.strengthFilter = new StrengthFilter(settings.getStrengthFilter());
         this.securityFilter = new SecurityFilter(settings.getSecurityFilter());
     }
+
+    private boolean isAccessPoints() {
+        return NavigationMenu.ACCESS_POINTS.equals(MainContext.INSTANCE.getMainActivity().getNavigationMenuView().getCurrentNavigationMenu());
+    }
+
 }
