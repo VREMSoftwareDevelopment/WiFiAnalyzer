@@ -23,12 +23,15 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.graphutils.GraphColor;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewBuilder;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewNotifier;
@@ -104,6 +107,17 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
         graphViewWrapper = new GraphViewWrapper(graphView, settings.getTimeGraphLegend());
         configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
         graphViewWrapper.setViewport();
+        graphViewWrapper.addSeries(getDefaultSeries());
         return graphViewWrapper;
+    }
+
+    private LineGraphSeries<DataPoint> getDefaultSeries() {
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
+            new DataPoint(0, GraphViewBuilder.MIN_Y),
+            new DataPoint(1, GraphViewBuilder.MIN_Y)
+        });
+        series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
+        series.setThickness(0);
+        return series;
     }
 }
