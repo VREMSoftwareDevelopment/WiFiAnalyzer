@@ -23,7 +23,6 @@ import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
-import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.Security;
@@ -36,6 +35,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -84,7 +84,6 @@ public class FilterAdapterTest {
     @After
     public void tearDown() {
         MainContextHelper.INSTANCE.restore();
-        mainActivity.getNavigationMenuView().setCurrentNavigationMenu(NavigationMenu.ACCESS_POINTS);
     }
 
     @Test
@@ -94,19 +93,17 @@ public class FilterAdapterTest {
     }
 
     @Test
-    public void testGetFilterAdaptersWithAccessPoints() throws Exception {
+    public void testGetFilterAdapters() throws Exception {
         // execute
-        List<? extends BasicFilterAdapter> actual = fixture.getFilterAdapters();
+        List<? extends BasicFilterAdapter<? extends Serializable>> actual = fixture.getFilterAdapters(true);
         // validate
         assertEquals(4, actual.size());
     }
 
     @Test
-    public void testGetFilterAdaptersWithNotAccessPoints() throws Exception {
-        // setup
-        mainActivity.getNavigationMenuView().setCurrentNavigationMenu(NavigationMenu.CHANNEL_GRAPH);
+    public void testGetFilterAdaptersWithNptAccessPoints() throws Exception {
         // execute
-        List<? extends BasicFilterAdapter> actual = fixture.getFilterAdapters();
+        List<? extends BasicFilterAdapter<? extends Serializable>> actual = fixture.getFilterAdapters(false);
         // validate
         assertEquals(3, actual.size());
     }

@@ -27,7 +27,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class FilterAdapter {
     }
 
     public boolean isActive() {
-        for (BasicFilterAdapter adapter : getFilterAdapters()) {
+        for (BasicFilterAdapter<? extends Serializable> adapter : getFilterAdapters(isAccessPoints())) {
             if (adapter.isActive()) {
                 return true;
             }
@@ -53,24 +53,23 @@ public class FilterAdapter {
     }
 
     public void reset() {
-        for (BasicFilterAdapter adapter : getFilterAdapters()) {
+        for (BasicFilterAdapter<? extends Serializable> adapter : getFilterAdapters(isAccessPoints())) {
             adapter.reset();
             adapter.save(settings);
         }
     }
 
     public void save() {
-        for (BasicFilterAdapter adapter : getFilterAdapters()) {
+        for (BasicFilterAdapter<? extends Serializable> adapter : getFilterAdapters(isAccessPoints())) {
             adapter.save(settings);
         }
     }
 
-    List<? extends BasicFilterAdapter> getFilterAdapters() {
-        List<? extends BasicFilterAdapter> adapters = new ArrayList<>(Arrays.asList(ssidAdapter, strengthAdapter, securityAdapter, wiFiBandAdapter));
-        if (!isAccessPoints()) {
-            adapters.remove(wiFiBandAdapter);
+    List<? extends BasicFilterAdapter<? extends Serializable>> getFilterAdapters(boolean accessPoints) {
+        if (accessPoints) {
+            return Arrays.asList(ssidAdapter, strengthAdapter, securityAdapter, wiFiBandAdapter);
         }
-        return adapters;
+        return Arrays.asList(ssidAdapter, strengthAdapter, securityAdapter);
     }
 
     public BasicFilterAdapter<String> getSSIDAdapter() {
