@@ -1,4 +1,4 @@
-<h1>WiFiAnalyzer <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-mdpi/ic_wifi_green_800_48dp.png" alt="Application Icon"></h1>
+<h1>WiFiAnalyzer <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/ic_launcher-web.png" alt="Application Icon" width="45" height="45"></h1>
 
 Optimize your WiFi network using WiFiAnalyzer by examining surrounding WiFi networks, measuring their signal strength as well as identifying crowded channels.
 
@@ -9,8 +9,9 @@ Optimize your WiFi network using WiFiAnalyzer by examining surrounding WiFi netw
 ### Note for Android OS 6 Users
 Some users running Android OS 6 (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFiAnalyzer does not explicitly require it. This appears to be attributed to Android OS 6 that requires location service in order to see WiFi networks. [Click here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23) to learn more about it.
 
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="100">](https://play.google.com/store/apps/details?id=com.vrem.wifianalyzer)
-[<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="100">](https://f-droid.org/repository/browse/?fdid=com.vrem.wifianalyzer)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" width="200" height="80">](https://play.google.com/store/apps/details?id=com.vrem.wifianalyzer)
+[<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" width="200" height="80">](https://f-droid.org/repository/browse/?fdid=com.vrem.wifianalyzer)
+[<img src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-underground-app-us-black.png" alt="Get it at Amazon Store" width="180" height="55" style="padding: .7em;">](https://www.amazon.com/VREM-Software-Development-WiFiAnalyzer-open-source/dp/B06XZT7RYD)
 
 This is the official repository of WiFiAnalyzer.
 
@@ -53,6 +54,8 @@ This is the official repository of WiFiAnalyzer.
 Bug reports and feature requests can be submitted [here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues) or use [google groups](https://groups.google.com/forum/#!forum/wifi-analyzer-open-source) to discuss application features if you do not have GitHub account.
 
 ## License
+[<img src="https://www.gnu.org/graphics/gplv3-127x51.png" alt="GPLv3" >](http://www.gnu.org/licenses/gpl-3.0.html)
+
 WiFiAnalyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 
 ### GPLv3 License key requirements:
