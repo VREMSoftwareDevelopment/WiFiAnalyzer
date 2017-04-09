@@ -9,9 +9,10 @@ Optimize your WiFi network using WiFiAnalyzer by examining surrounding WiFi netw
 ### Note for Android OS 6 Users
 Some users running Android OS 6 (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFiAnalyzer does not explicitly require it. This appears to be attributed to Android OS 6 that requires location service in order to see WiFi networks. [Click here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23) to learn more about it.
 
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" width="200" height="80">](https://play.google.com/store/apps/details?id=com.vrem.wifianalyzer)
-[<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" width="200" height="80">](https://f-droid.org/repository/browse/?fdid=com.vrem.wifianalyzer)
-[<img src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-underground-app-us-black.png" alt="Get it at Amazon Store" width="180" height="55" style="padding: .7em;">](https://www.amazon.com/VREM-Software-Development-WiFiAnalyzer-open-source/dp/B06XZT7RYD)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=com.vrem.wifianalyzer)
+[<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/repository/browse/?fdid=com.vrem.wifianalyzer)
+[<img src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-underground-app-us-white.png" alt="Get it at Amazon Store" height="70">
+](https://www.amazon.com/VREM-Software-Development-WiFiAnalyzer-open-source/dp/B06XZT7RYD)
 
 This is the official repository of WiFiAnalyzer.
 
