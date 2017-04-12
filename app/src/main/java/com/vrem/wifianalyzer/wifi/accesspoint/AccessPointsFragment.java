@@ -47,6 +47,7 @@ public class AccessPointsFragment extends Fragment {
         accessPointsAdapter = new AccessPointsAdapter(activity);
         ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.accessPointsView);
         expandableListView.setAdapter(accessPointsAdapter);
+        accessPointsAdapter.setExpandableListView(expandableListView);
 
         Scanner scanner = MainContext.INSTANCE.getScanner();
         scanner.register(accessPointsAdapter);
