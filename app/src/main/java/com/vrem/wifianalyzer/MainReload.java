@@ -22,18 +22,18 @@ import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
-import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointView;
+import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointViewType;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType;
 
 class MainReload {
     private ThemeStyle themeStyle;
-    private AccessPointView accessPointView;
+    private AccessPointViewType accessPointViewType;
     private ConnectionViewType connectionViewType;
     private int graphMaximumY;
 
     MainReload(@NonNull Settings settings) {
         setThemeStyle(settings.getThemeStyle());
-        setAccessPointView(settings.getAccessPointView());
+        setAccessPointViewType(settings.getAccessPointView());
         setConnectionViewType(settings.getConnectionViewType());
         setGraphMaximumY(settings.getGraphMaximumY());
     }
@@ -44,10 +44,10 @@ class MainReload {
     }
 
     private boolean isAccessPointViewChanged(Settings settings) {
-        AccessPointView settingAccessPointView = settings.getAccessPointView();
-        boolean accessPointViewChanged = !getAccessPointView().equals(settingAccessPointView);
+        AccessPointViewType settingAccessPointViewType = settings.getAccessPointView();
+        boolean accessPointViewChanged = !getAccessPointViewType().equals(settingAccessPointViewType);
         if (accessPointViewChanged) {
-            setAccessPointView(settingAccessPointView);
+            setAccessPointViewType(settingAccessPointViewType);
         }
         return accessPointViewChanged;
     }
@@ -87,12 +87,12 @@ class MainReload {
         this.themeStyle = themeStyle;
     }
 
-    AccessPointView getAccessPointView() {
-        return accessPointView;
+    AccessPointViewType getAccessPointViewType() {
+        return accessPointViewType;
     }
 
-    private void setAccessPointView(@NonNull AccessPointView accessPointView) {
-        this.accessPointView = accessPointView;
+    private void setAccessPointViewType(@NonNull AccessPointViewType accessPointViewType) {
+        this.accessPointViewType = accessPointViewType;
     }
 
     ConnectionViewType getConnectionViewType() {

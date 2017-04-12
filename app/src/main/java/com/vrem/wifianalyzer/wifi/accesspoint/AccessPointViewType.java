@@ -20,13 +20,13 @@ package com.vrem.wifianalyzer.wifi.accesspoint;
 
 import com.vrem.wifianalyzer.R;
 
-public enum AccessPointView {
+public enum AccessPointViewType {
     COMPLETE(R.layout.access_point_view_complete),
     COMPACT(R.layout.access_point_view_compact);
 
     private final int layout;
 
-    AccessPointView(int layout) {
+    AccessPointViewType(int layout) {
         this.layout = layout;
     }
 

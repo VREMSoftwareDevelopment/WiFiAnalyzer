@@ -87,7 +87,7 @@ public class AccessPointsAdapterTest {
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.parent(1)).thenReturn(wiFiDetail);
         when(accessPointsAdapterData.childrenCount(1)).thenReturn(0);
-        View view = withView(wiFiDetail, AccessPointView.COMPLETE, false);
+        View view = withView(wiFiDetail, AccessPointViewType.COMPLETE, false);
         // execute
         View actual = fixture.getGroupView(1, false, view, viewGroup);
         // validate
@@ -104,7 +104,7 @@ public class AccessPointsAdapterTest {
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.parent(1)).thenReturn(wiFiDetail);
         when(accessPointsAdapterData.childrenCount(1)).thenReturn(0);
-        View view = withView(wiFiDetail, AccessPointView.COMPACT, false);
+        View view = withView(wiFiDetail, AccessPointViewType.COMPACT, false);
         // execute
         View actual = fixture.getGroupView(1, false, view, viewGroup);
         // validate
@@ -123,7 +123,7 @@ public class AccessPointsAdapterTest {
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.parent(1)).thenReturn(wiFiDetail);
         when(accessPointsAdapterData.childrenCount(1)).thenReturn(5);
-        View view = withView(wiFiDetail, AccessPointView.COMPACT, false);
+        View view = withView(wiFiDetail, AccessPointViewType.COMPACT, false);
         // execute
         View actual = fixture.getGroupView(1, false, view, viewGroup);
         // validate
@@ -139,7 +139,7 @@ public class AccessPointsAdapterTest {
         // setup
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.child(0, 0)).thenReturn(wiFiDetail);
-        View view = withView(wiFiDetail, AccessPointView.COMPLETE, true);
+        View view = withView(wiFiDetail, AccessPointViewType.COMPLETE, true);
         // execute
         View actual = fixture.getChildView(0, 0, false, view, viewGroup);
         // validate
@@ -154,7 +154,7 @@ public class AccessPointsAdapterTest {
         // setup
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.child(0, 0)).thenReturn(wiFiDetail);
-        View view = withView(wiFiDetail, AccessPointView.COMPACT, true);
+        View view = withView(wiFiDetail, AccessPointViewType.COMPACT, true);
         // execute
         View actual = fixture.getChildView(0, 0, false, view, viewGroup);
         // validate
@@ -244,9 +244,9 @@ public class AccessPointsAdapterTest {
         assertTrue(fixture.isChildSelectable(0, 0));
     }
 
-    private View withView(@NonNull WiFiDetail wiFiDetail, @NonNull AccessPointView accessPointView, boolean isChild) {
-        View view = mainActivity.getLayoutInflater().inflate(accessPointView.getLayout(), null, isChild);
-        when(settings.getAccessPointView()).thenReturn(accessPointView);
+    private View withView(@NonNull WiFiDetail wiFiDetail, @NonNull AccessPointViewType accessPointViewType, boolean isChild) {
+        View view = mainActivity.getLayoutInflater().inflate(accessPointViewType.getLayout(), null, isChild);
+        when(settings.getAccessPointView()).thenReturn(accessPointViewType);
         when(accessPointDetail.makeView(view, viewGroup, wiFiDetail, isChild)).thenReturn(view);
         return view;
     }

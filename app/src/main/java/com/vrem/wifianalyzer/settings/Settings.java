@@ -24,7 +24,7 @@ import android.support.annotation.NonNull;
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
-import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointView;
+import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointViewType;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphLegend;
@@ -89,8 +89,8 @@ public class Settings {
         return find(GroupBy.class, R.string.group_by_key, GroupBy.NONE);
     }
 
-    public AccessPointView getAccessPointView() {
-        return find(AccessPointView.class, R.string.ap_view_key, AccessPointView.COMPLETE);
+    public AccessPointViewType getAccessPointView() {
+        return find(AccessPointViewType.class, R.string.ap_view_key, AccessPointViewType.COMPLETE);
     }
 
     public ConnectionViewType getConnectionViewType() {

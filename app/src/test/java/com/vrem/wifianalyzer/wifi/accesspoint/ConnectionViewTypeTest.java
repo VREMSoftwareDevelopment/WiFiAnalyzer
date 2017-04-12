@@ -33,9 +33,9 @@ public class ConnectionViewTypeTest {
 
     @Test
     public void testGetLayout() throws Exception {
-        assertEquals(AccessPointView.COMPLETE, ConnectionViewType.COMPLETE.getAccessPointView());
-        assertEquals(AccessPointView.COMPACT, ConnectionViewType.COMPACT.getAccessPointView());
-        assertNull(ConnectionViewType.HIDE.getAccessPointView());
+        assertEquals(AccessPointViewType.COMPLETE, ConnectionViewType.COMPLETE.getAccessPointViewType());
+        assertEquals(AccessPointViewType.COMPACT, ConnectionViewType.COMPACT.getAccessPointViewType());
+        assertNull(ConnectionViewType.HIDE.getAccessPointViewType());
     }
 
     @Test

@@ -28,7 +28,7 @@ import android.os.LocaleList;
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
-import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointView;
+import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointViewType;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphLegend;
@@ -129,12 +129,12 @@ public class SettingsTest {
     @Test
     public void testGetAccessPointView() throws Exception {
         // setup
-        when(repository.getStringAsInteger(R.string.ap_view_key, AccessPointView.COMPLETE.ordinal())).thenReturn(AccessPointView.COMPACT.ordinal());
+        when(repository.getStringAsInteger(R.string.ap_view_key, AccessPointViewType.COMPLETE.ordinal())).thenReturn(AccessPointViewType.COMPACT.ordinal());
         // execute
-        AccessPointView actual = fixture.getAccessPointView();
+        AccessPointViewType actual = fixture.getAccessPointView();
         // validate
-        assertEquals(AccessPointView.COMPACT, actual);
-        verify(repository).getStringAsInteger(R.string.ap_view_key, AccessPointView.COMPLETE.ordinal());
+        assertEquals(AccessPointViewType.COMPACT, actual);
+        verify(repository).getStringAsInteger(R.string.ap_view_key, AccessPointViewType.COMPLETE.ordinal());
     }
 
     @Test

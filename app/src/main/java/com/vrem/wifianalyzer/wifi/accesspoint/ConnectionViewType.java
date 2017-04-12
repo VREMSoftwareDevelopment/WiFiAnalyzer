@@ -19,18 +19,18 @@
 package com.vrem.wifianalyzer.wifi.accesspoint;
 
 public enum ConnectionViewType {
-    COMPLETE(AccessPointView.COMPLETE),
-    COMPACT(AccessPointView.COMPACT),
+    COMPLETE(AccessPointViewType.COMPLETE),
+    COMPACT(AccessPointViewType.COMPACT),
     HIDE(null);
 
-    private final AccessPointView accessPointView;
+    private final AccessPointViewType accessPointViewType;
 
-    ConnectionViewType(AccessPointView accessPointView) {
-        this.accessPointView = accessPointView;
+    ConnectionViewType(AccessPointViewType accessPointViewType) {
+        this.accessPointViewType = accessPointViewType;
     }
 
-    AccessPointView getAccessPointView() {
-        return accessPointView;
+    AccessPointViewType getAccessPointViewType() {
+        return accessPointViewType;
     }
 
     public boolean isHide() {

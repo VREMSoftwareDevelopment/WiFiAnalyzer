@@ -77,7 +77,7 @@ public class ConnectionView implements UpdateNotifier {
         } else {
             connectionView.setVisibility(View.VISIBLE);
             ViewGroup parent = (ViewGroup) connectionView.findViewById(R.id.connectionDetail);
-            View view = accessPointDetail.makeView(parent.getChildAt(0), parent, connection, false, connectionViewType.getAccessPointView());
+            View view = accessPointDetail.makeView(parent.getChildAt(0), parent, connection, false, connectionViewType.getAccessPointViewType());
             if (parent.getChildCount() == 0) {
                 parent.addView(view);
             }

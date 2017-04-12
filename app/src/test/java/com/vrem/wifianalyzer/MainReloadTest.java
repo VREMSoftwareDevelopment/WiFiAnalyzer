@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer;
 
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
-import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointView;
+import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointViewType;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType;
 
 import org.junit.After;
@@ -47,7 +47,7 @@ public class MainReloadTest {
         settings = MainContextHelper.INSTANCE.getSettings();
 
         when(settings.getThemeStyle()).thenReturn(ThemeStyle.DARK);
-        when(settings.getAccessPointView()).thenReturn(AccessPointView.COMPLETE);
+        when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPLETE);
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(settings.getGraphMaximumY()).thenReturn(GRAPH_MAXIMUM_Y);
 
@@ -91,19 +91,19 @@ public class MainReloadTest {
         boolean actual = fixture.shouldReload(settings);
         // validate
         assertFalse(actual);
-        assertEquals(AccessPointView.COMPLETE, fixture.getAccessPointView());
+        assertEquals(AccessPointViewType.COMPLETE, fixture.getAccessPointViewType());
     }
 
     @Test
     public void testShouldReloadWithAccessPointViewChange() throws Exception {
         // setup
-        AccessPointView expected = AccessPointView.COMPACT;
+        AccessPointViewType expected = AccessPointViewType.COMPACT;
         when(settings.getAccessPointView()).thenReturn(expected);
         // execute
         boolean actual = fixture.shouldReload(settings);
         // validate
         assertTrue(actual);
-        assertEquals(expected, fixture.getAccessPointView());
+        assertEquals(expected, fixture.getAccessPointViewType());
     }
 
     @Test
