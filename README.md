@@ -33,13 +33,12 @@ This is the official repository of WiFiAnalyzer.
 * Dark or Light theme available
 * Pause/Resume scanning
 * Swipe left/right at the bottom of the screen to navigate to the next/previous screen
-
+* Available filters: WiFi band, Signal strength, Security and SSID
 
 **Please note WiFiAnalyzer is not a WiFi password cracking or phishing tool.**
 
  
 ## Usage Tips
-* Tap the title bar to switch between 2.4 and 5 GHz WiFi band.
 * Swipe to manually refresh screen content.
 * SSID with (***) means it is hidden.
 * Distance to the Access Point is estimated.
