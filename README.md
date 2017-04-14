@@ -50,6 +50,11 @@ This is the official repository of WiFiAnalyzer.
 * [Why Wi-Fi Stinks and How to Fix It](http://spectrum.ieee.org/telecom/wireless/why-wifi-stinksand-how-to-fix-it)
 * [Wikipedia WiFi channels list](https://en.wikipedia.org/wiki/List_of_WLAN_channels)
 
+## FAQ
+* [Android OS 6.0.0 - Location Service ON](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23)
+* [How channel graph displays 20/40/80/160 MHz channel width?](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/64)
+* [WiFiAnalyzer equivalent on iOS](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/69)
+
 ## Feedback
 Bug reports and feature requests can be submitted [here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues) or use [google groups](https://groups.google.com/forum/#!forum/wifi-analyzer-open-source) to discuss application features if you do not have GitHub account.
 
