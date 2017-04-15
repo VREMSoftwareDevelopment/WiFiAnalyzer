@@ -39,6 +39,7 @@ This is the official repository of WiFiAnalyzer.
 
  
 ## Usage Tips
+* Tap the title bar to switch between 2.4 and 5 GHz WiFi band.
 * Swipe to manually refresh screen content.
 * SSID with (***) means it is hidden.
 * Distance to the Access Point is estimated.
