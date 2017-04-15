@@ -51,6 +51,6 @@ class ChannelGraphAdapter extends GraphAdapter {
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         super.update(wiFiData);
-        channelGraphNavigation.update();
+        channelGraphNavigation.update(wiFiData);
     }
 }

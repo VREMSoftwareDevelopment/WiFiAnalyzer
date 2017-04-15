@@ -31,7 +31,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.Predicate;
 
 import java.util.List;
 import java.util.Set;
@@ -69,20 +68,6 @@ class DataManager implements GraphConstants {
             } else {
                 graphViewWrapper.updateSeries(wiFiDetail, dataPoints, true);
             }
-        }
-    }
-
-    private class InRangePredicate implements Predicate<WiFiDetail> {
-        private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
-
-        private InRangePredicate(@NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
-            this.wiFiChannelPair = wiFiChannelPair;
-        }
-
-        @Override
-        public boolean evaluate(WiFiDetail object) {
-            int frequency = object.getWiFiSignal().getCenterFrequency();
-            return frequency >= wiFiChannelPair.first.getFrequency() && frequency <= wiFiChannelPair.second.getFrequency();
         }
     }
 
