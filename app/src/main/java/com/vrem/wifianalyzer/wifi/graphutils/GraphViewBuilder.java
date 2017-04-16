@@ -94,6 +94,7 @@ public class GraphViewBuilder implements GraphConstants {
 
     void setGridLabelRenderer(@NonNull GraphView graphView) {
         GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
+        gridLabelRenderer.setHumanRounding(false);
         gridLabelRenderer.setHighlightZeroLines(false);
         gridLabelRenderer.setNumVerticalLabels(getNumVerticalLabels());
         gridLabelRenderer.setNumHorizontalLabels(numHorizontalLabels);

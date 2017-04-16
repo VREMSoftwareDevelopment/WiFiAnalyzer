@@ -37,24 +37,19 @@ import java.util.Set;
 import java.util.TreeSet;
 
 class DataManager implements GraphConstants {
-    static int frequencyAdjustment(int frequency) {
-        return frequency - (frequency % 5);
-    }
-
     Set<WiFiDetail> getNewSeries(@NonNull List<WiFiDetail> wiFiDetails, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         return new TreeSet<>(CollectionUtils.select(wiFiDetails, new InRangePredicate(wiFiChannelPair)));
     }
 
     DataPoint[] getDataPoints(@NonNull WiFiDetail wiFiDetail, int levelMax) {
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        int frequency = frequencyAdjustment(wiFiSignal.getCenterFrequency());
-        int frequencyStart = frequencyAdjustment(wiFiSignal.getFrequencyStart());
-        int frequencyEnd = frequencyAdjustment(wiFiSignal.getFrequencyEnd());
+        int frequencyStart = wiFiSignal.getFrequencyStart();
+        int frequencyEnd = wiFiSignal.getFrequencyEnd();
         int level = Math.min(wiFiSignal.getLevel(), levelMax);
         return new DataPoint[]{
             new DataPoint(frequencyStart, MIN_Y),
             new DataPoint(frequencyStart + WiFiChannels.FREQUENCY_SPREAD, level),
-            new DataPoint(frequency, level),
+            new DataPoint(wiFiSignal.getCenterFrequency(), level),
             new DataPoint(frequencyEnd - WiFiChannels.FREQUENCY_SPREAD, level),
             new DataPoint(frequencyEnd, MIN_Y)
         };
