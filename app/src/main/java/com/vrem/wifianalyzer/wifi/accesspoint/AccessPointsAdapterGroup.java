@@ -71,7 +71,7 @@ class AccessPointsAdapterGroup {
     void onGroupCollapsed(@NonNull List<WiFiDetail> wiFiDetails, int groupPosition) {
         if (isGroupExpandable()) {
             WiFiDetail wiFiDetail = getWiFiDetail(wiFiDetails, groupPosition);
-            if (!wiFiDetail.hasChildren()) {
+            if (wiFiDetail.noChildren()) {
                 expanded.remove(getGroupExpandKey(wiFiDetail));
             }
         }
@@ -80,7 +80,7 @@ class AccessPointsAdapterGroup {
     void onGroupExpanded(@NonNull List<WiFiDetail> wiFiDetails, int groupPosition) {
         if (isGroupExpandable()) {
             WiFiDetail wiFiDetail = getWiFiDetail(wiFiDetails, groupPosition);
-            if (!wiFiDetail.hasChildren()) {
+            if (wiFiDetail.noChildren()) {
                 expanded.add(getGroupExpandKey(wiFiDetail));
             }
         }

@@ -48,6 +48,7 @@ import org.apache.commons.collections4.Predicate;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 class ChannelGraphNavigation implements GraphConstants {
@@ -112,7 +113,7 @@ class ChannelGraphNavigation implements GraphConstants {
     }
 
     private void setActivity(Button button, Pair<WiFiChannel, WiFiChannel> pair, boolean activity) {
-        button.setText(TextUtils.fromHtml(String.format("<strong>%d %s %d</strong>",
+        button.setText(TextUtils.fromHtml(String.format(Locale.ENGLISH, "<strong>%d %s %d</strong>",
             pair.first.getChannel(),
             activity ? ACTIVITY_ON : ACTIVITY_NONE,
             pair.second.getChannel())));

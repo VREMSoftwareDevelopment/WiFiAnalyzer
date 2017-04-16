@@ -90,8 +90,8 @@ public class WiFiDetail implements Comparable<WiFiDetail> {
         return children;
     }
 
-    public boolean hasChildren() {
-        return getChildren().isEmpty();
+    public boolean noChildren() {
+        return !getChildren().isEmpty();
     }
 
     public String getTitle() {
