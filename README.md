@@ -48,8 +48,9 @@ This is the official repository of WiFiAnalyzer.
 
 ## How-to
 * [How to guide](http://translate.google.com/translate?js=n&sl=auto&tl=en&u=http://www.svetandroida.cz/aplikace-wifi-analyzer-open-source-201605)
-* [Why Wi-Fi Stinks and How to Fix It](http://spectrum.ieee.org/telecom/wireless/why-wifi-stinksand-how-to-fix-it)
-* [Wikipedia WiFi channels list](https://en.wikipedia.org/wiki/List_of_WLAN_channels)
+* [Why Wi-Fi stinks and how to fix it](http://spectrum.ieee.org/telecom/wireless/why-wifi-stinksand-how-to-fix-it)
+* [Wi-Fi channels list](https://en.wikipedia.org/wiki/List_of_WLAN_channels)
+* [How is distance calculated to Access Point](https://en.wikipedia.org/wiki/Free-space_path_loss)
 
 ## FAQ
 * [Android OS 6.0.0 - Location Service ON](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23)
