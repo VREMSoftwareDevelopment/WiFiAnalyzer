@@ -27,6 +27,9 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.wifi.filter.adapter.EnumFilterAdapter;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
+
 import java.util.Map;
 
 abstract class EnumFilter<T extends Enum, U extends EnumFilterAdapter<T>> {
@@ -34,9 +37,7 @@ abstract class EnumFilter<T extends Enum, U extends EnumFilterAdapter<T>> {
 
     EnumFilter(@NonNull Map<T, Integer> ids, @NonNull U filter, @NonNull Dialog dialog, int id) {
         this.filter = filter;
-        for (T object : ids.keySet()) {
-            setInformation(dialog, ids.get(object), object);
-        }
+        IterableUtils.forEach(ids.keySet(), new EnumFilterClosure(ids, dialog));
         dialog.findViewById(id).setVisibility(View.VISIBLE);
     }
 
@@ -53,6 +54,21 @@ abstract class EnumFilter<T extends Enum, U extends EnumFilterAdapter<T>> {
             ((TextView) view).setTextColor(color);
         } else if (view instanceof ImageView) {
             ((ImageView) view).setColorFilter(color);
+        }
+    }
+
+    private class EnumFilterClosure implements Closure<T> {
+        private final Map<T, Integer> ids;
+        private final Dialog dialog;
+
+        private EnumFilterClosure(@NonNull Map<T, Integer> ids, @NonNull Dialog dialog) {
+            this.ids = ids;
+            this.dialog = dialog;
+        }
+
+        @Override
+        public void execute(T input) {
+            setInformation(dialog, ids.get(input), input);
         }
     }
 

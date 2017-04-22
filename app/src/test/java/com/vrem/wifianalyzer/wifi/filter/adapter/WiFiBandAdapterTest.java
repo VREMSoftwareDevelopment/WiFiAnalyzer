@@ -23,6 +23,8 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +38,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
+@SuppressWarnings("AnonymousInnerClass")
 @RunWith(MockitoJUnitRunner.class)
 public class WiFiBandAdapterTest {
     @Mock
@@ -63,9 +66,12 @@ public class WiFiBandAdapterTest {
 
     @Test
     public void testContains() throws Exception {
-        for (WiFiBand wiFiBand : WiFiBand.values()) {
-            assertTrue(fixture.contains(wiFiBand));
-        }
+        IterableUtils.forEach(EnumUtils.values(WiFiBand.class), new Closure<WiFiBand>() {
+            @Override
+            public void execute(WiFiBand wiFiBand) {
+                assertTrue(fixture.contains(wiFiBand));
+            }
+        });
     }
 
     @Test
@@ -91,17 +97,22 @@ public class WiFiBandAdapterTest {
     @Test
     public void testRemovingAllWillNotRemoveLast() throws Exception {
         // setup
-        WiFiBand[] values = WiFiBand.values();
+        Set<WiFiBand> values = EnumUtils.values(WiFiBand.class);
         // execute
-        for (WiFiBand wiFiBand : values) {
-            fixture.toggle(wiFiBand);
-        }
+        IterableUtils.forEach(values, new Closure<WiFiBand>() {
+            @Override
+            public void execute(WiFiBand input) {
+                fixture.toggle(input);
+            }
+        });
         // validate
-        int index = values.length - 1;
-        for (int i = 0; i < index; i++) {
-            assertFalse(fixture.contains(values[i]));
-        }
-        assertTrue(fixture.contains(WiFiBand.values()[index]));
+        IterableUtils.forEachButLast(values, new Closure<WiFiBand>() {
+            @Override
+            public void execute(WiFiBand input) {
+                assertFalse(fixture.contains(input));
+            }
+        });
+        assertTrue(fixture.contains(IterableUtils.get(values, values.size() - 1)));
     }
 
     @Test

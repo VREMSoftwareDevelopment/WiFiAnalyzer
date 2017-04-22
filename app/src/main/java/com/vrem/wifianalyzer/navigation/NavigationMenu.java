@@ -28,6 +28,9 @@ import com.vrem.wifianalyzer.navigation.items.NavigationItemFactory;
 import com.vrem.wifianalyzer.navigation.options.NavigationOption;
 import com.vrem.wifianalyzer.navigation.options.NavigationOptionFactory;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
+
 import java.util.List;
 
 public enum NavigationMenu {
@@ -66,9 +69,7 @@ public enum NavigationMenu {
     }
 
     public void activateOptions(@NonNull MainActivity mainActivity) {
-        for (NavigationOption navigationOption : navigationOptions) {
-            navigationOption.apply(mainActivity);
-        }
+        IterableUtils.forEach(navigationOptions, new ActivateClosure(mainActivity));
     }
 
     public boolean isWiFiBandSwitchable() {
@@ -89,5 +90,18 @@ public enum NavigationMenu {
 
     List<NavigationOption> getNavigationOptions() {
         return navigationOptions;
+    }
+
+    private class ActivateClosure implements Closure<NavigationOption> {
+        private final MainActivity mainActivity;
+
+        private ActivateClosure(@NonNull MainActivity mainActivity) {
+            this.mainActivity = mainActivity;
+        }
+
+        @Override
+        public void execute(NavigationOption input) {
+            input.apply(mainActivity);
+        }
     }
 }

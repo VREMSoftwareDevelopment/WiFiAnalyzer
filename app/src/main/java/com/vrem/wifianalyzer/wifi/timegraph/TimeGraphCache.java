@@ -23,7 +23,9 @@ import android.support.annotation.NonNull;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
+import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Predicate;
 
 import java.util.HashMap;
@@ -43,12 +45,7 @@ class TimeGraphCache implements GraphConstants {
     }
 
     void clear() {
-        Set<WiFiDetail> toClear = new HashSet<>(CollectionUtils.select(notSeen.keySet(), new NotSeenPredicate()));
-        for (WiFiDetail wiFiDetail : toClear) {
-            if (notSeen.containsKey(wiFiDetail)) {
-                notSeen.remove(wiFiDetail);
-            }
-        }
+        IterableUtils.forEach(CollectionUtils.select(notSeen.keySet(), new NotSeenPredicate()), new RemoveClosure());
     }
 
     void add(@NonNull WiFiDetail wiFiDetail) {
@@ -69,6 +66,13 @@ class TimeGraphCache implements GraphConstants {
 
     Set<WiFiDetail> getWiFiDetails() {
         return notSeen.keySet();
+    }
+
+    private class RemoveClosure implements Closure<WiFiDetail> {
+        @Override
+        public void execute(WiFiDetail wiFiDetail) {
+            notSeen.remove(wiFiDetail);
+        }
     }
 
     private class SeenPredicate implements Predicate<WiFiDetail> {

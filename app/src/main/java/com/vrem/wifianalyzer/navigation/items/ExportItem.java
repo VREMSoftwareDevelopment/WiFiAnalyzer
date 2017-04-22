@@ -32,6 +32,9 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -73,30 +76,11 @@ class ExportItem implements NavigationItem {
     }
 
     String getData(@NonNull List<WiFiDetail> wiFiDetails) {
-        StringBuilder result = new StringBuilder();
+        final StringBuilder result = new StringBuilder();
         result.append("SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security\n");
-        for (WiFiDetail wiFiDetail : wiFiDetails) {
-            WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-            result.append(String.format(Locale.ENGLISH, "%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%.1fm|%s\n",
-                wiFiDetail.getSSID(),
-                wiFiDetail.getBSSID(),
-                wiFiSignal.getLevel(),
-                wiFiSignal.getPrimaryWiFiChannel().getChannel(),
-                wiFiSignal.getPrimaryFrequency(),
-                WiFiSignal.FREQUENCY_UNITS,
-                wiFiSignal.getCenterWiFiChannel().getChannel(),
-                wiFiSignal.getCenterFrequency(),
-                WiFiSignal.FREQUENCY_UNITS,
-                wiFiSignal.getWiFiWidth().getFrequencyWidth(),
-                WiFiSignal.FREQUENCY_UNITS,
-                wiFiSignal.getFrequencyStart(),
-                wiFiSignal.getFrequencyEnd(),
-                wiFiSignal.getDistance(),
-                wiFiDetail.getCapabilities()));
-        }
+        IterableUtils.forEach(wiFiDetails, new WiFiDetailClosure(result));
         return result.toString();
     }
-
 
     private List<WiFiDetail> getWiFiDetails() {
         return MainContext.INSTANCE.getScanner().getWiFiData().getWiFiDetails();
@@ -124,6 +108,35 @@ class ExportItem implements NavigationItem {
 
     Intent createChooserIntent(@NonNull Intent intent, @NonNull String title) {
         return Intent.createChooser(intent, title);
+    }
+
+    private class WiFiDetailClosure implements Closure<WiFiDetail> {
+        private final StringBuilder result;
+
+        private WiFiDetailClosure(@NonNull StringBuilder result) {
+            this.result = result;
+        }
+
+        @Override
+        public void execute(WiFiDetail wiFiDetail) {
+            WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
+            result.append(String.format(Locale.ENGLISH, "%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%.1fm|%s\n",
+                wiFiDetail.getSSID(),
+                wiFiDetail.getBSSID(),
+                wiFiSignal.getLevel(),
+                wiFiSignal.getPrimaryWiFiChannel().getChannel(),
+                wiFiSignal.getPrimaryFrequency(),
+                WiFiSignal.FREQUENCY_UNITS,
+                wiFiSignal.getCenterWiFiChannel().getChannel(),
+                wiFiSignal.getCenterFrequency(),
+                WiFiSignal.FREQUENCY_UNITS,
+                wiFiSignal.getWiFiWidth().getFrequencyWidth(),
+                WiFiSignal.FREQUENCY_UNITS,
+                wiFiSignal.getFrequencyStart(),
+                wiFiSignal.getFrequencyEnd(),
+                wiFiSignal.getDistance(),
+                wiFiDetail.getCapabilities()));
+        }
     }
 
 }

@@ -23,6 +23,9 @@ import android.content.res.Resources;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
+import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.collections4.Predicate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -64,12 +67,20 @@ class GraphColors {
     }
 
     private GraphColor findColor(long primaryColor) {
-        for (GraphColor graphColor : getAvailableGraphColors()) {
-            if (primaryColor == graphColor.getPrimary()) {
-                return graphColor;
-            }
+        return IterableUtils.find(getAvailableGraphColors(), new ColorPredicate(primaryColor));
+    }
+
+    private class ColorPredicate implements Predicate<GraphColor> {
+        private final long primaryColor;
+
+        private ColorPredicate(long primaryColor) {
+            this.primaryColor = primaryColor;
         }
-        return null;
+
+        @Override
+        public boolean evaluate(GraphColor graphColor) {
+            return primaryColor == graphColor.getPrimary();
+        }
     }
 
 }

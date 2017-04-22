@@ -37,6 +37,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings("AnonymousInnerClass")
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class CountryPreferenceTest {

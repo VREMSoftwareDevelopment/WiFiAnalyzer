@@ -22,6 +22,8 @@ import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +37,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
+@SuppressWarnings("AnonymousInnerClass")
 @RunWith(MockitoJUnitRunner.class)
 public class StrengthAdapterTest {
     @Mock
@@ -62,9 +65,12 @@ public class StrengthAdapterTest {
 
     @Test
     public void testContains() throws Exception {
-        for (Strength strength : Strength.values()) {
-            assertTrue(fixture.contains(strength));
-        }
+        IterableUtils.forEach(EnumUtils.values(Strength.class), new Closure<Strength>() {
+            @Override
+            public void execute(Strength strength) {
+                assertTrue(fixture.contains(strength));
+            }
+        });
     }
 
     @Test
@@ -90,17 +96,22 @@ public class StrengthAdapterTest {
     @Test
     public void testRemovingAllWillNotRemoveLast() throws Exception {
         // setup
-        Strength[] values = Strength.values();
+        Set<Strength> values = EnumUtils.values(Strength.class);
         // execute
-        for (Strength strength : values) {
-            fixture.toggle(strength);
-        }
+        IterableUtils.forEach(values, new Closure<Strength>() {
+            @Override
+            public void execute(Strength input) {
+                fixture.toggle(input);
+            }
+        });
         // validate
-        int index = values.length - 1;
-        for (int i = 0; i < index; i++) {
-            assertFalse(fixture.contains(values[i]));
-        }
-        assertTrue(fixture.contains(Strength.values()[index]));
+        IterableUtils.forEachButLast(values, new Closure<Strength>() {
+            @Override
+            public void execute(Strength input) {
+                assertFalse(fixture.contains(input));
+            }
+        });
+        assertTrue(fixture.contains(IterableUtils.get(values, values.size() - 1)));
     }
 
     @Test

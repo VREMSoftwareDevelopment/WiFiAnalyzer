@@ -18,24 +18,23 @@
 
 package com.vrem.wifianalyzer.wifi.graphutils;
 
-public interface GraphConstants {
-    float AXIS_TEXT_SIZE_ADJUSTMENT = 0.90f;
-    float TEXT_SIZE_ADJUSTMENT = 0.80f;
+import android.support.annotation.NonNull;
+import android.view.ViewGroup;
 
-    int MAX_SCAN_COUNT = 200;
-    int MAX_Y = 0;
-    int MAX_Y_DEFAULT = -20;
-    int MIN_Y = -100;
-    int MIN_Y_OFFSET = -1;
-    int MIN_Y_HALF = MIN_Y / 2;
-    int NUM_X_CHANNEL = 18;
-    int NUM_X_TIME = 21;
-    int MAX_NOTSEEN_COUNT = 20;
-    int THICKNESS_INVISIBLE = 0;
-    int THICKNESS_REGULAR = 5;
-    int THICKNESS_CONNECTED = THICKNESS_REGULAR * 2;
-    int TYPE1 = 1147798476;
-    int TYPE2 = 535509942;
-    int TYPE3 = 1256180258;
-    int TYPE4 = 1546740952;
+import com.jjoe64.graphview.GraphView;
+
+import org.apache.commons.collections4.Closure;
+
+public class GraphViewAdd implements Closure<GraphView> {
+    private final ViewGroup viewGroup;
+
+    public GraphViewAdd(@NonNull ViewGroup viewGroup) {
+        this.viewGroup = viewGroup;
+    }
+
+    @Override
+    public void execute(GraphView graphView) {
+        viewGroup.addView(graphView);
+    }
 }
+

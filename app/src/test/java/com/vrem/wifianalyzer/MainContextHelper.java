@@ -24,11 +24,15 @@ import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.powermock.api.mockito.PowerMockito.mock;
 
+@SuppressWarnings("AnonymousInnerClass")
 public enum MainContextHelper {
     INSTANCE;
 
@@ -88,26 +92,29 @@ public enum MainContextHelper {
     }
 
     public void restore() {
-        for (Class clazz : saved.keySet()) {
-            Object result = saved.get(clazz);
-            if (clazz.equals(Settings.class)) {
-                mainContext.setSettings((Settings) result);
-            } else if (clazz.equals(VendorService.class)) {
-                mainContext.setVendorService((VendorService) result);
-            } else if (clazz.equals(Scanner.class)) {
-                mainContext.setScanner((Scanner) result);
-            } else if (clazz.equals(MainActivity.class)) {
-                mainContext.setMainActivity((MainActivity) result);
-            } else if (clazz.equals(Database.class)) {
-                mainContext.setDatabase((Database) result);
-            } else if (clazz.equals(Configuration.class)) {
-                mainContext.setConfiguration((Configuration) result);
-            } else if (clazz.equals(FilterAdapter.class)) {
-                mainContext.setFilterAdapter((FilterAdapter) result);
-            } else {
-                throw new IllegalArgumentException(clazz.getName());
+        IterableUtils.forEach(saved.keySet(), new Closure<Class>() {
+            @Override
+            public void execute(Class input) {
+                Object result = saved.get(input);
+                if (input.equals(Settings.class)) {
+                    mainContext.setSettings((Settings) result);
+                } else if (input.equals(VendorService.class)) {
+                    mainContext.setVendorService((VendorService) result);
+                } else if (input.equals(Scanner.class)) {
+                    mainContext.setScanner((Scanner) result);
+                } else if (input.equals(MainActivity.class)) {
+                    mainContext.setMainActivity((MainActivity) result);
+                } else if (input.equals(Database.class)) {
+                    mainContext.setDatabase((Database) result);
+                } else if (input.equals(Configuration.class)) {
+                    mainContext.setConfiguration((Configuration) result);
+                } else if (input.equals(FilterAdapter.class)) {
+                    mainContext.setFilterAdapter((FilterAdapter) result);
+                } else {
+                    throw new IllegalArgumentException(input.getName());
+                }
             }
-        }
+        });
         saved.clear();
     }
 }

@@ -21,6 +21,8 @@ package com.vrem.wifianalyzer.wifi.band;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
+import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -45,29 +47,38 @@ public class WiFiChannelsGHZ5 extends WiFiChannels {
 
     @Override
     public Pair<WiFiChannel, WiFiChannel> getWiFiChannelPairFirst(String countryCode) {
-        List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = getWiFiChannelPairs();
-        if (!StringUtils.isBlank(countryCode)) {
-            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiChannelPairs) {
-                if (isChannelAvailable(countryCode, wiFiChannelPair.first.getChannel())) {
-                    return wiFiChannelPair;
-                }
-            }
+        Pair<WiFiChannel, WiFiChannel> found = null;
+        if (StringUtils.isNotBlank(countryCode)) {
+            found = IterableUtils.find(getWiFiChannelPairs(), new WiFiChannelPredicate(countryCode));
         }
-        return SET1;
+        return found == null ? SET1 : found;
     }
 
     @Override
-    public List<WiFiChannel> getAvailableChannels(String countryCode) {
+    public List<WiFiChannel> getAvailableChannels(@NonNull String countryCode) {
         return getAvailableChannels(WiFiChannelCountry.get(countryCode).getChannelsGHZ5());
     }
 
     @Override
-    public boolean isChannelAvailable(String countryCode, int channel) {
+    public boolean isChannelAvailable(@NonNull String countryCode, int channel) {
         return WiFiChannelCountry.get(countryCode).isChannelAvailableGHZ5(channel);
     }
 
     @Override
     public WiFiChannel getWiFiChannelByFrequency(int frequency, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         return isInRange(frequency) ? getWiFiChannel(frequency, wiFiChannelPair) : WiFiChannel.UNKNOWN;
+    }
+
+    private class WiFiChannelPredicate implements Predicate<Pair<WiFiChannel, WiFiChannel>> {
+        private final String countryCode;
+
+        private WiFiChannelPredicate(@NonNull String countryCode) {
+            this.countryCode = countryCode;
+        }
+
+        @Override
+        public boolean evaluate(Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
+            return isChannelAvailable(countryCode, wiFiChannelPair.first.getChannel());
+        }
     }
 }

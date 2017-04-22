@@ -30,7 +30,9 @@ import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
+import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.IterableUtils;
 
 import java.util.List;
 import java.util.Set;
@@ -56,7 +58,20 @@ class DataManager implements GraphConstants {
     }
 
     void addSeriesData(@NonNull GraphViewWrapper graphViewWrapper, @NonNull Set<WiFiDetail> wiFiDetails, int levelMax) {
-        for (WiFiDetail wiFiDetail : wiFiDetails) {
+        IterableUtils.forEach(wiFiDetails, new SeriesClosure(graphViewWrapper, levelMax));
+    }
+
+    private class SeriesClosure implements Closure<WiFiDetail> {
+        private final GraphViewWrapper graphViewWrapper;
+        private final int levelMax;
+
+        private SeriesClosure(GraphViewWrapper graphViewWrapper, int levelMax) {
+            this.graphViewWrapper = graphViewWrapper;
+            this.levelMax = levelMax;
+        }
+
+        @Override
+        public void execute(WiFiDetail wiFiDetail) {
             DataPoint[] dataPoints = getDataPoints(wiFiDetail, levelMax);
             if (graphViewWrapper.isNewSeries(wiFiDetail)) {
                 graphViewWrapper.addSeries(wiFiDetail, new TitleLineGraphSeries<>(dataPoints), true);

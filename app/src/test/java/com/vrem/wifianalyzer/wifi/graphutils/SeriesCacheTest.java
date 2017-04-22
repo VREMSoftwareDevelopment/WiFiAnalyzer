@@ -24,6 +24,8 @@ import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,6 +43,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("AnonymousInnerClass")
 @RunWith(MockitoJUnitRunner.class)
 public class SeriesCacheTest {
     @Mock
@@ -131,14 +134,17 @@ public class SeriesCacheTest {
     @Test
     public void testRemoveExpectedAllLeft() throws Exception {
         // setup
-        List<WiFiDetail> wiFiDetails = withData();
+        List<WiFiDetail> expected = withData();
         // execute
         List<BaseSeries<DataPoint>> actual = fixture.remove(new ArrayList<WiFiDetail>());
         // validate
         assertTrue(actual.isEmpty());
-        for (WiFiDetail wiFiDetail : wiFiDetails) {
-            assertTrue(fixture.contains(wiFiDetail));
-        }
+        IterableUtils.forEach(expected, new Closure<WiFiDetail>() {
+            @Override
+            public void execute(WiFiDetail wiFiDetail) {
+                assertTrue(fixture.contains(wiFiDetail));
+            }
+        });
     }
 
     @Test
@@ -149,9 +155,12 @@ public class SeriesCacheTest {
         List<BaseSeries<DataPoint>> actual = fixture.remove(expected);
         // validate
         assertEquals(expected.size(), actual.size());
-        for (WiFiDetail wiFiDetail : expected) {
-            assertFalse(fixture.contains(wiFiDetail));
-        }
+        IterableUtils.forEach(expected, new Closure<WiFiDetail>() {
+            @Override
+            public void execute(WiFiDetail wiFiDetail) {
+                assertFalse(fixture.contains(wiFiDetail));
+            }
+        });
     }
 
     @Test
@@ -178,9 +187,12 @@ public class SeriesCacheTest {
         List<BaseSeries<DataPoint>> actual = fixture.remove(toRemove);
         // validate
         assertTrue(actual.isEmpty());
-        for (WiFiDetail wiFiDetail : expected) {
-            assertTrue(fixture.contains(wiFiDetail));
-        }
+        IterableUtils.forEach(expected, new Closure<WiFiDetail>() {
+            @Override
+            public void execute(WiFiDetail wiFiDetail) {
+                assertTrue(fixture.contains(wiFiDetail));
+            }
+        });
     }
 
     @Test

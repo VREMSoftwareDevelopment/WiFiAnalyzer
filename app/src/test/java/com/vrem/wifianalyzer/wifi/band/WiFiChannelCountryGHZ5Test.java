@@ -18,10 +18,13 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -30,6 +33,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("AnonymousInnerClass")
 public class WiFiChannelCountryGHZ5Test {
 
     private final static SortedSet<Integer> CHANNELS_SET1 = new TreeSet<>(Arrays.asList(36, 40, 44, 48, 52, 56, 60, 64));
@@ -45,42 +49,51 @@ public class WiFiChannelCountryGHZ5Test {
 
     @Test
     public void testChannelsAustraliaCanada() throws Exception {
-        SortedSet<Integer> exclude = new TreeSet<>(Arrays.asList(120, 124, 128));
-        int expectedSize = CHANNELS_SET1.size() + CHANNELS_SET2.size() + CHANNELS_SET3.size() - exclude.size();
-        String[] countries = new String[]{"AU", "CA"};
-        for (String country : countries) {
-            Set<Integer> actual = fixture.findChannels(country);
-            assertEquals(expectedSize, actual.size());
-            assertTrue(actual.containsAll(CHANNELS_SET1));
-            assertTrue(actual.containsAll(CHANNELS_SET3));
-            assertFalse(actual.containsAll(exclude));
-        }
+        final SortedSet<Integer> exclude = new TreeSet<>(Arrays.asList(120, 124, 128));
+        final int expectedSize = CHANNELS_SET1.size() + CHANNELS_SET2.size() + CHANNELS_SET3.size() - exclude.size();
+        List<String> countries = Arrays.asList("AU", "CA");
+        IterableUtils.forEach(countries, new Closure<String>() {
+            @Override
+            public void execute(String country) {
+                Set<Integer> actual = fixture.findChannels(country);
+                assertEquals(expectedSize, actual.size());
+                assertTrue(actual.containsAll(CHANNELS_SET1));
+                assertTrue(actual.containsAll(CHANNELS_SET3));
+                assertFalse(actual.containsAll(exclude));
+            }
+        });
     }
 
     @Test
     public void testChannelsChinaSouthKorea() throws Exception {
-        int expectedSize = CHANNELS_SET1.size() + CHANNELS_SET3.size();
-        String[] countries = new String[]{"CN", "KR"};
-        for (String country : countries) {
-            Set<Integer> actual = fixture.findChannels(country);
-            assertEquals(expectedSize, actual.size());
-            assertTrue(actual.containsAll(CHANNELS_SET1));
-            assertTrue(actual.containsAll(CHANNELS_SET3));
-            assertFalse(actual.containsAll(CHANNELS_SET2));
-        }
+        final int expectedSize = CHANNELS_SET1.size() + CHANNELS_SET3.size();
+        List<String> countries = Arrays.asList("CN", "KR");
+        IterableUtils.forEach(countries, new Closure<String>() {
+            @Override
+            public void execute(String country) {
+                Set<Integer> actual = fixture.findChannels(country);
+                assertEquals(expectedSize, actual.size());
+                assertTrue(actual.containsAll(CHANNELS_SET1));
+                assertTrue(actual.containsAll(CHANNELS_SET3));
+                assertFalse(actual.containsAll(CHANNELS_SET2));
+            }
+        });
     }
 
     @Test
     public void testChannelsJapanTurkeySouthAfrica() throws Exception {
-        int expectedSize = CHANNELS_SET1.size() + CHANNELS_SET2.size();
-        String[] countries = new String[]{"JP", "TR", "ZA"};
-        for (String country : countries) {
-            Set<Integer> actual = fixture.findChannels(country);
-            assertEquals(expectedSize, actual.size());
-            assertTrue(actual.containsAll(CHANNELS_SET1));
-            assertTrue(actual.containsAll(CHANNELS_SET2));
-            assertFalse(actual.containsAll(CHANNELS_SET3));
-        }
+        final int expectedSize = CHANNELS_SET1.size() + CHANNELS_SET2.size();
+        List<String> countries = Arrays.asList("JP", "TR", "ZA");
+        IterableUtils.forEach(countries, new Closure<String>() {
+            @Override
+            public void execute(String country) {
+                Set<Integer> actual = fixture.findChannels(country);
+                assertEquals(expectedSize, actual.size());
+                assertTrue(actual.containsAll(CHANNELS_SET1));
+                assertTrue(actual.containsAll(CHANNELS_SET2));
+                assertFalse(actual.containsAll(CHANNELS_SET3));
+            }
+        });
     }
 
     @Test
@@ -95,15 +108,18 @@ public class WiFiChannelCountryGHZ5Test {
 
     @Test
     public void testChannelsOther() throws Exception {
-        int expectedSize = CHANNELS_SET1.size() + CHANNELS_SET2.size() + CHANNELS_SET3.size();
-        String[] countries = new String[]{"US", "RU", "XYZ"};
-        for (String country : countries) {
-            Set<Integer> actual = fixture.findChannels(country);
-            assertEquals(expectedSize, actual.size());
-            assertTrue(actual.containsAll(CHANNELS_SET1));
-            assertTrue(actual.containsAll(CHANNELS_SET2));
-            assertTrue(actual.containsAll(CHANNELS_SET3));
-        }
+        final int expectedSize = CHANNELS_SET1.size() + CHANNELS_SET2.size() + CHANNELS_SET3.size();
+        List<String> countries = Arrays.asList("US", "RU", "XYZ");
+        IterableUtils.forEach(countries, new Closure<String>() {
+            @Override
+            public void execute(String country) {
+                Set<Integer> actual = fixture.findChannels(country);
+                assertEquals(expectedSize, actual.size());
+                assertTrue(actual.containsAll(CHANNELS_SET1));
+                assertTrue(actual.containsAll(CHANNELS_SET2));
+                assertTrue(actual.containsAll(CHANNELS_SET3));
+            }
+        });
     }
 
 }

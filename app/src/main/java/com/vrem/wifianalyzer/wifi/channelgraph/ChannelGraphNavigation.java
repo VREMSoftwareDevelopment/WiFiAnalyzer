@@ -41,6 +41,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.predicate.FilterPredicate;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
+import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Predicate;
@@ -65,12 +66,10 @@ class ChannelGraphNavigation implements GraphConstants {
     private final Context context;
     private final View view;
 
-    ChannelGraphNavigation(@NonNull View view, @NonNull Context context) {
-        this.view = view;
+    ChannelGraphNavigation(@NonNull View inputView, @NonNull Context context) {
+        this.view = inputView;
         this.context = context;
-        for (Pair<WiFiChannel, WiFiChannel> pair : ids.keySet()) {
-            view.findViewById(ids.get(pair)).setOnClickListener(new SetOnClickListener(pair));
-        }
+        IterableUtils.forEach(ids.keySet(), new OnClickListenerClosure());
     }
 
     void update(@NonNull WiFiData wiFiData) {
@@ -83,22 +82,11 @@ class ChannelGraphNavigation implements GraphConstants {
         if (visible.size() > 1) {
             MainContext mainContext = MainContext.INSTANCE;
             Configuration configuration = mainContext.getConfiguration();
-            Pair<WiFiChannel, WiFiChannel> selectedWiFiChannelPair = configuration.getWiFiChannelPair();
-
             Settings settings = mainContext.getSettings();
             Predicate<WiFiDetail> predicate = FilterPredicate.makeOtherPredicate(settings);
+            Pair<WiFiChannel, WiFiChannel> selectedWiFiChannelPair = configuration.getWiFiChannelPair();
             List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(predicate, settings.getSortBy());
-            for (Pair<WiFiChannel, WiFiChannel> pair : ids.keySet()) {
-                Button button = (Button) view.findViewById(ids.get(pair));
-                if (visible.contains(pair)) {
-                    button.setVisibility(View.VISIBLE);
-                    setSelected(button, pair.equals(selectedWiFiChannelPair));
-                    setActivity(button, pair, IterableUtils.matchesAny(wiFiDetails, new InRangePredicate(pair)));
-                } else {
-                    button.setVisibility(View.GONE);
-                    setSelected(button, false);
-                }
-            }
+            IterableUtils.forEach(ids.keySet(), new ButtonClosure(visible, selectedWiFiChannelPair, wiFiDetails));
         }
     }
 
@@ -132,6 +120,39 @@ class ChannelGraphNavigation implements GraphConstants {
             mainContext.getConfiguration().setWiFiChannelPair(wiFiChannelPair);
             Scanner scanner = mainContext.getScanner();
             scanner.update();
+        }
+    }
+
+    private class OnClickListenerClosure implements Closure<Pair<WiFiChannel, WiFiChannel>> {
+        public void execute(Pair<WiFiChannel, WiFiChannel> input) {
+            view.findViewById(ids.get(input)).setOnClickListener(new SetOnClickListener(input));
+        }
+    }
+
+    private class ButtonClosure implements Closure<Pair<WiFiChannel, WiFiChannel>> {
+        private final Collection<Pair<WiFiChannel, WiFiChannel>> visible;
+        private final Pair<WiFiChannel, WiFiChannel> selectedWiFiChannelPair;
+        private final List<WiFiDetail> wiFiDetails;
+
+        private ButtonClosure(@NonNull Collection<Pair<WiFiChannel, WiFiChannel>> visible,
+                              @NonNull Pair<WiFiChannel, WiFiChannel> selectedWiFiChannelPair,
+                              @NonNull List<WiFiDetail> wiFiDetails) {
+            this.visible = visible;
+            this.selectedWiFiChannelPair = selectedWiFiChannelPair;
+            this.wiFiDetails = wiFiDetails;
+        }
+
+        @Override
+        public void execute(Pair<WiFiChannel, WiFiChannel> input) {
+            Button button = (Button) view.findViewById(ids.get(input));
+            if (visible.contains(input)) {
+                button.setVisibility(View.VISIBLE);
+                setSelected(button, input.equals(selectedWiFiChannelPair));
+                setActivity(button, input, IterableUtils.matchesAny(wiFiDetails, new InRangePredicate(input)));
+            } else {
+                button.setVisibility(View.GONE);
+                setSelected(button, false);
+            }
         }
     }
 

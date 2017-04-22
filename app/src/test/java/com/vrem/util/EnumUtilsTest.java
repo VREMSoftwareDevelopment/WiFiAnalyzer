@@ -18,6 +18,8 @@
 
 package com.vrem.util;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.collections4.PredicateUtils;
 import org.apache.commons.collections4.Transformer;
@@ -26,6 +28,7 @@ import org.apache.commons.collections4.functors.TruePredicate;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -34,32 +37,34 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("AnonymousInnerClass")
 public class EnumUtilsTest {
 
     @Test
     public void testOrdinals() throws Exception {
         // setup
-        TestObject[] expected = TestObject.values();
+        Set<TestObject> expected = EnumUtils.values(TestObject.class);
         // execute
-        Set<String> actual = EnumUtils.ordinals(TestObject.class);
+        final Set<String> actual = EnumUtils.ordinals(TestObject.class);
         // validate
-        assertEquals(expected.length, actual.size());
-        for (TestObject testObject : expected) {
-            assertTrue(actual.contains("" + testObject.ordinal()));
-        }
+        assertEquals(expected.size(), actual.size());
+        IterableUtils.forEach(expected, new Closure<TestObject>() {
+            @Override
+            public void execute(TestObject input) {
+                assertTrue(actual.contains("" + input.ordinal()));
+            }
+        });
+
     }
 
     @Test
     public void testValues() throws Exception {
         // setup
-        TestObject[] expected = TestObject.values();
+        List<TestObject> expected = Arrays.asList(TestObject.values());
         // execute
         Set<TestObject> actual = EnumUtils.values(TestObject.class);
         // validate
-        assertEquals(expected.length, actual.size());
-        for (TestObject testObject : expected) {
-            assertTrue(actual.contains(testObject));
-        }
+        validate(expected, actual);
     }
 
     @Test
@@ -77,29 +82,23 @@ public class EnumUtilsTest {
     @Test
     public void testFindUsingOrdinals() throws Exception {
         // setup
-        TestObject[] expected = TestObject.values();
+        Set<TestObject> expected = EnumUtils.values(TestObject.class);
         Set<String> ordinals = new HashSet<>(
             Arrays.asList("" + TestObject.VALUE1.ordinal(), "" + TestObject.VALUE2.ordinal(), "" + TestObject.VALUE3.ordinal()));
         // execute
         Set<TestObject> actual = EnumUtils.find(TestObject.class, ordinals, TestObject.VALUE2);
         // validate
-        assertEquals(expected.length, actual.size());
-        for (TestObject testObject : expected) {
-            assertTrue(actual.contains(testObject));
-        }
+        validate(expected, actual);
     }
 
     @Test
     public void testFindUsingOrdinalsWithEmptyInput() throws Exception {
         // setup
-        TestObject[] expected = TestObject.values();
+        Set<TestObject> expected = EnumUtils.values(TestObject.class);
         // execute
         Set<TestObject> actual = EnumUtils.find(TestObject.class, new HashSet<String>(), TestObject.VALUE2);
         // validate
-        assertEquals(expected.length, actual.size());
-        for (TestObject testObject : expected) {
-            assertTrue(actual.contains(testObject));
-        }
+        validate(expected, actual);
     }
 
     @Test
@@ -175,6 +174,16 @@ public class EnumUtilsTest {
         Predicate<TestObject> actual = EnumUtils.predicate(TestObject.class, inputs, new TestObjectTransformer());
         // validate
         assertTrue(actual instanceof AnyPredicate);
+    }
+
+    private void validate(Collection<TestObject> expected, final Collection<TestObject> actual) {
+        assertEquals(expected.size(), actual.size());
+        IterableUtils.forEach(expected, new Closure<TestObject>() {
+            @Override
+            public void execute(TestObject input) {
+                assertTrue(actual.contains(input));
+            }
+        });
     }
 
     private enum TestObject {

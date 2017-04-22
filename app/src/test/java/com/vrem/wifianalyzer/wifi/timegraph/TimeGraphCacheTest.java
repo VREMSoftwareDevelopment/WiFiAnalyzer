@@ -23,6 +23,8 @@ import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,6 +37,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("AnonymousInnerClass")
 public class TimeGraphCacheTest {
 
     private TimeGraphCache fixture;
@@ -99,9 +102,12 @@ public class TimeGraphCacheTest {
             WiFiDetail wiFiDetail = withWiFiDetail("SSID" + i);
             results.add(wiFiDetail);
         }
-        for (WiFiDetail wiFiDetail : results) {
-            fixture.add(wiFiDetail);
-        }
+        IterableUtils.forEach(results, new Closure<WiFiDetail>() {
+            @Override
+            public void execute(WiFiDetail wiFiDetail) {
+                fixture.add(wiFiDetail);
+            }
+        });
         for (int i = 0; i < GraphConstants.MAX_NOTSEEN_COUNT; i++) {
             fixture.add(results.get(0));
         }

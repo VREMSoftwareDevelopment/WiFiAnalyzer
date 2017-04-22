@@ -35,6 +35,9 @@ import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointDetail;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointPopup;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
+
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.List;
@@ -62,11 +65,7 @@ public class GraphViewWrapper implements GraphConstants {
     }
 
     public void removeSeries(@NonNull Set<WiFiDetail> newSeries) {
-        List<BaseSeries<DataPoint>> removed = seriesCache.remove(differenceSeries(newSeries));
-        for (BaseSeries<DataPoint> series : removed) {
-            seriesOptions.removeSeriesColor(series);
-            graphView.removeSeries(series);
-        }
+        IterableUtils.forEach(seriesCache.remove(differenceSeries(newSeries)), new RemoveClouser());
     }
 
     public List<WiFiDetail> differenceSeries(@NonNull Set<WiFiDetail> newSeries) {
@@ -182,6 +181,14 @@ public class GraphViewWrapper implements GraphConstants {
 
     GraphLegend getGraphLegend() {
         return graphLegend;
+    }
+
+    private class RemoveClouser implements Closure<BaseSeries<DataPoint>> {
+        @Override
+        public void execute(BaseSeries<DataPoint> series) {
+            seriesOptions.removeSeriesColor(series);
+            graphView.removeSeries(series);
+        }
     }
 
     class GraphTapListener implements OnDataPointTapListener {

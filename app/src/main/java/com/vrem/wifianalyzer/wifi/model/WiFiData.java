@@ -24,6 +24,7 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.collections4.Transformer;
 
@@ -47,16 +48,8 @@ public class WiFiData {
 
     @NonNull
     public WiFiDetail getConnection() {
-        VendorService vendorService = MainContext.INSTANCE.getVendorService();
-        for (WiFiDetail wiFiDetail : wiFiDetails) {
-            WiFiConnection connection = new WiFiConnection(wiFiDetail.getSSID(), wiFiDetail.getBSSID());
-            if (wiFiConnection.equals(connection)) {
-                String vendorName = vendorService.findVendorName(wiFiDetail.getBSSID());
-                WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName, wiFiConnection);
-                return new WiFiDetail(wiFiDetail, wiFiAdditional);
-            }
-        }
-        return WiFiDetail.EMPTY;
+        WiFiDetail wiFiDetail = IterableUtils.find(wiFiDetails, new ConnectionPredicate());
+        return wiFiDetail == null ? WiFiDetail.EMPTY : copyWiFiDetail(wiFiDetail);
     }
 
     @NonNull
@@ -117,6 +110,21 @@ public class WiFiData {
     @NonNull
     public WiFiConnection getWiFiConnection() {
         return wiFiConnection;
+    }
+
+    @NonNull
+    private WiFiDetail copyWiFiDetail(WiFiDetail wiFiDetail) {
+        VendorService vendorService = MainContext.INSTANCE.getVendorService();
+        String vendorName = vendorService.findVendorName(wiFiDetail.getBSSID());
+        WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName, wiFiConnection);
+        return new WiFiDetail(wiFiDetail, wiFiAdditional);
+    }
+
+    private class ConnectionPredicate implements Predicate<WiFiDetail> {
+        @Override
+        public boolean evaluate(WiFiDetail wiFiDetail) {
+            return wiFiConnection.equals(new WiFiConnection(wiFiDetail.getSSID(), wiFiDetail.getBSSID()));
+        }
     }
 
     private class Transform implements Transformer<WiFiDetail, WiFiDetail> {

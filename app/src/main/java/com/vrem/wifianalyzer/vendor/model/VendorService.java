@@ -22,6 +22,8 @@ import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainContext;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -66,17 +68,7 @@ public class VendorService {
 
     public SortedMap<String, List<String>> findAll() {
         SortedMap<String, List<String>> results = new TreeMap<>();
-        Database database = MainContext.INSTANCE.getDatabase();
-        for (VendorData vendorData : database.findAll()) {
-            String key = VendorNameUtils.cleanVendorName(vendorData.getName());
-            List<String> macs = results.get(key);
-            if (macs == null) {
-                macs = new ArrayList<>();
-                results.put(key, macs);
-            }
-            macs.add(vendorData.getMac());
-            Collections.sort(macs);
-        }
+        IterableUtils.forEach(MainContext.INSTANCE.getDatabase().findAll(), new VendorClosure(results));
         return results;
     }
 
@@ -89,4 +81,24 @@ public class VendorService {
         this.remoteCall = remoteCall;
     }
     // injectors end
+
+    private class VendorClosure implements Closure<VendorData> {
+        private final SortedMap<String, List<String>> vendorDatas;
+
+        private VendorClosure(@NonNull SortedMap<String, List<String>> vendorDatas) {
+            this.vendorDatas = vendorDatas;
+        }
+
+        @Override
+        public void execute(VendorData vendorData) {
+            String key = VendorNameUtils.cleanVendorName(vendorData.getName());
+            List<String> macs = vendorDatas.get(key);
+            if (macs == null) {
+                macs = new ArrayList<>();
+                vendorDatas.put(key, macs);
+            }
+            macs.add(vendorData.getMac());
+            Collections.sort(macs);
+        }
+    }
 }

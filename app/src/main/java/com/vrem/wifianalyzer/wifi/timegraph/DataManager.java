@@ -26,6 +26,9 @@ import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,9 +47,7 @@ class DataManager implements GraphConstants {
 
     Set<WiFiDetail> addSeriesData(@NonNull GraphViewWrapper graphViewWrapper, @NonNull List<WiFiDetail> wiFiDetails, int levelMax) {
         Set<WiFiDetail> inOrder = new TreeSet<>(wiFiDetails);
-        for (WiFiDetail wiFiDetail : inOrder) {
-            addData(graphViewWrapper, wiFiDetail, levelMax);
-        }
+        IterableUtils.forEach(inOrder, new AddDataClosure(graphViewWrapper, levelMax));
         adjustData(graphViewWrapper, inOrder);
         Set<WiFiDetail> result = getNewSeries(inOrder);
         xValue++;
@@ -60,12 +61,7 @@ class DataManager implements GraphConstants {
     }
 
     void adjustData(@NonNull GraphViewWrapper graphViewWrapper, @NonNull Set<WiFiDetail> wiFiDetails) {
-        for (WiFiDetail wiFiDetail : graphViewWrapper.differenceSeries(wiFiDetails)) {
-            DataPoint dataPoint = new DataPoint(xValue, MIN_Y + MIN_Y_OFFSET);
-            boolean drawBackground = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
-            graphViewWrapper.appendToSeries(wiFiDetail, dataPoint, scanCount, drawBackground);
-            timeGraphCache.add(wiFiDetail);
-        }
+        IterableUtils.forEach(graphViewWrapper.differenceSeries(wiFiDetails), new AdjustDataClosure(graphViewWrapper));
         timeGraphCache.clear();
     }
 
@@ -103,5 +99,36 @@ class DataManager implements GraphConstants {
 
     void setScanCount(int scanCount) {
         this.scanCount = scanCount;
+    }
+
+    private class AddDataClosure implements Closure<WiFiDetail> {
+        private final GraphViewWrapper graphViewWrapper;
+        private final int levelMax;
+
+        private AddDataClosure(GraphViewWrapper graphViewWrapper, int levelMax) {
+            this.graphViewWrapper = graphViewWrapper;
+            this.levelMax = levelMax;
+        }
+
+        @Override
+        public void execute(WiFiDetail wiFiDetail) {
+            addData(graphViewWrapper, wiFiDetail, levelMax);
+        }
+    }
+
+    private class AdjustDataClosure implements Closure<WiFiDetail> {
+        private final GraphViewWrapper graphViewWrapper;
+
+        private AdjustDataClosure(GraphViewWrapper graphViewWrapper) {
+            this.graphViewWrapper = graphViewWrapper;
+        }
+
+        @Override
+        public void execute(WiFiDetail wiFiDetail) {
+            DataPoint dataPoint = new DataPoint(xValue, MIN_Y + MIN_Y_OFFSET);
+            boolean drawBackground = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
+            graphViewWrapper.appendToSeries(wiFiDetail, dataPoint, scanCount, drawBackground);
+            timeGraphCache.add(wiFiDetail);
+        }
     }
 }

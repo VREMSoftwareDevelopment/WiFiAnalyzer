@@ -28,6 +28,9 @@ import android.support.annotation.NonNull;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,9 +53,7 @@ public class Scanner {
 
     public void update() {
         performWiFiScan();
-        for (UpdateNotifier updateNotifier : updateNotifiers) {
-            updateNotifier.update(wiFiData);
-        }
+        IterableUtils.forEach(updateNotifiers, new UpdateClosure());
     }
 
     private void performWiFiScan() {
@@ -117,5 +118,12 @@ public class Scanner {
 
     List<UpdateNotifier> getUpdateNotifiers() {
         return updateNotifiers;
+    }
+
+    private class UpdateClosure implements Closure<UpdateNotifier> {
+        @Override
+        public void execute(UpdateNotifier updateNotifier) {
+            updateNotifier.update(wiFiData);
+        }
     }
 }

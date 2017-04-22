@@ -27,6 +27,10 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.collections4.Predicate;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -44,25 +48,15 @@ public class FilterAdapter {
     }
 
     public boolean isActive() {
-        for (BasicFilterAdapter<? extends Serializable> adapter : getFilterAdapters(isAccessPoints())) {
-            if (adapter.isActive()) {
-                return true;
-            }
-        }
-        return false;
+        return IterableUtils.find(getFilterAdapters(isAccessPoints()), new ActivePredicate()) != null;
     }
 
     public void reset() {
-        for (BasicFilterAdapter<? extends Serializable> adapter : getFilterAdapters(isAccessPoints())) {
-            adapter.reset();
-            adapter.save(settings);
-        }
+        IterableUtils.forEach(getFilterAdapters(isAccessPoints()), new ResetClosure());
     }
 
     public void save() {
-        for (BasicFilterAdapter<? extends Serializable> adapter : getFilterAdapters(isAccessPoints())) {
-            adapter.save(settings);
-        }
+        IterableUtils.forEach(getFilterAdapters(isAccessPoints()), new SaveClosure());
     }
 
     List<? extends BasicFilterAdapter<? extends Serializable>> getFilterAdapters(boolean accessPoints) {
@@ -97,6 +91,28 @@ public class FilterAdapter {
 
     private boolean isAccessPoints() {
         return NavigationMenu.ACCESS_POINTS.equals(MainContext.INSTANCE.getMainActivity().getNavigationMenuView().getCurrentNavigationMenu());
+    }
+
+    private class ActivePredicate implements Predicate<BasicFilterAdapter<? extends Serializable>> {
+        @Override
+        public boolean evaluate(BasicFilterAdapter<? extends Serializable> adapter) {
+            return adapter.isActive();
+        }
+    }
+
+    private class ResetClosure implements Closure<BasicFilterAdapter<? extends Serializable>> {
+        @Override
+        public void execute(BasicFilterAdapter<? extends Serializable> adapter) {
+            adapter.reset();
+            adapter.save(settings);
+        }
+    }
+
+    private class SaveClosure implements Closure<BasicFilterAdapter<? extends Serializable>> {
+        @Override
+        public void execute(BasicFilterAdapter<? extends Serializable> adapter) {
+            adapter.save(settings);
+        }
     }
 
 }

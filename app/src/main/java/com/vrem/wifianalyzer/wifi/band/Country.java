@@ -20,9 +20,14 @@ package com.vrem.wifianalyzer.wifi.band;
 
 import android.support.annotation.NonNull;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.SortedMap;
@@ -33,12 +38,9 @@ class Country {
 
     Country() {
         countries = new TreeMap<>();
-        for (Locale locale : Locale.getAvailableLocales()) {
-            String countryCode = locale.getCountry();
-            if (StringUtils.isNotEmpty(countryCode) && StringUtils.isAlpha(countryCode) && countryCode.length() == 2) {
-                countries.put(StringUtils.capitalize(countryCode), locale);
-            }
-        }
+        IterableUtils.forEach(
+            CollectionUtils.select(
+                Arrays.asList(Locale.getAvailableLocales()), new CountryPredicate()), new CountryClosure());
     }
 
     Locale getCountry(@NonNull String countryCode) {
@@ -54,4 +56,19 @@ class Country {
         return new ArrayList<>(countries.values());
     }
 
+    private class CountryClosure implements Closure<Locale> {
+        @Override
+        public void execute(Locale locale) {
+            String countryCode = locale.getCountry();
+            countries.put(StringUtils.capitalize(countryCode), locale);
+        }
+    }
+
+    private class CountryPredicate implements Predicate<Locale> {
+        @Override
+        public boolean evaluate(Locale locale) {
+            String countryCode = locale.getCountry();
+            return StringUtils.isNotEmpty(countryCode) && StringUtils.isAlpha(countryCode) && countryCode.length() == 2;
+        }
+    }
 }
