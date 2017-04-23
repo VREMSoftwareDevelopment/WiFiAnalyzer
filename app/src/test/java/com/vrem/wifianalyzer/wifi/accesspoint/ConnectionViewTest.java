@@ -108,7 +108,7 @@ public class ConnectionViewTest {
         WiFiDetail connection = withConnection(withWiFiAdditional());
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.HIDE);
         withConnectionInformation(connection);
-        withAccessPointDetailView(connection, ConnectionViewType.COMPLETE.getAccessPointView());
+        withAccessPointDetailView(connection, ConnectionViewType.COMPLETE.getAccessPointViewType());
         // execute
         fixture.update(wiFiData);
         // validate
@@ -122,7 +122,7 @@ public class ConnectionViewTest {
         WiFiDetail connection = withConnection(withWiFiAdditional());
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         withConnectionInformation(connection);
-        withAccessPointDetailView(connection, ConnectionViewType.COMPLETE.getAccessPointView());
+        withAccessPointDetailView(connection, ConnectionViewType.COMPLETE.getAccessPointViewType());
         // execute
         fixture.update(wiFiData);
         // validate
@@ -137,7 +137,7 @@ public class ConnectionViewTest {
         WiFiDetail connection = withConnection(wiFiAdditional);
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         withConnectionInformation(connection);
-        withAccessPointDetailView(connection, ConnectionViewType.COMPLETE.getAccessPointView());
+        withAccessPointDetailView(connection, ConnectionViewType.COMPLETE.getAccessPointViewType());
         // execute
         fixture.update(wiFiData);
         // validate
@@ -156,7 +156,7 @@ public class ConnectionViewTest {
         WiFiDetail connection = withConnection(new WiFiAdditional(StringUtils.EMPTY, wiFiConnection));
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         withConnectionInformation(connection);
-        withAccessPointDetailView(connection, ConnectionViewType.COMPLETE.getAccessPointView());
+        withAccessPointDetailView(connection, ConnectionViewType.COMPLETE.getAccessPointViewType());
         // execute
         fixture.update(wiFiData);
         // validate
@@ -210,7 +210,7 @@ public class ConnectionViewTest {
         WiFiDetail connection = withConnection(withWiFiAdditional());
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPACT);
         withConnectionInformation(connection);
-        View view = withAccessPointDetailView(connection, ConnectionViewType.COMPACT.getAccessPointView());
+        View view = withAccessPointDetailView(connection, ConnectionViewType.COMPACT.getAccessPointViewType());
         // execute
         fixture.update(wiFiData);
         // validate
@@ -228,11 +228,11 @@ public class ConnectionViewTest {
         return new WiFiAdditional(StringUtils.EMPTY, wiFiConnection);
     }
 
-    private View withAccessPointDetailView(@NonNull WiFiDetail connection, @NonNull AccessPointView accessPointView) {
+    private View withAccessPointDetailView(@NonNull WiFiDetail connection, @NonNull AccessPointViewType accessPointViewType) {
         ViewGroup parent = (ViewGroup) mainActivity.findViewById(R.id.connection).findViewById(R.id.connectionDetail);
-        View view = mainActivity.getLayoutInflater().inflate(accessPointView.getLayout(), parent, false);
-        when(accessPointDetail.makeView(null, parent, connection, false, accessPointView)).thenReturn(view);
-        when(accessPointDetail.makeView(parent.getChildAt(0), parent, connection, false, accessPointView)).thenReturn(view);
+        View view = mainActivity.getLayoutInflater().inflate(accessPointViewType.getLayout(), parent, false);
+        when(accessPointDetail.makeView(null, parent, connection, false, accessPointViewType)).thenReturn(view);
+        when(accessPointDetail.makeView(parent.getChildAt(0), parent, connection, false, accessPointViewType)).thenReturn(view);
         return view;
     }
 

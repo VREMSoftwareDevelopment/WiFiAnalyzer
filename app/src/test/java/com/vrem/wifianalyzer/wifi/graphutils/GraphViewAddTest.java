@@ -16,24 +16,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.wifi.accesspoint;
+package com.vrem.wifianalyzer.wifi.graphutils;
 
-public enum ConnectionViewType {
-    COMPLETE(AccessPointViewType.COMPLETE),
-    COMPACT(AccessPointViewType.COMPACT),
-    HIDE(null);
+import android.view.ViewGroup;
 
-    private final AccessPointViewType accessPointViewType;
+import com.jjoe64.graphview.GraphView;
 
-    ConnectionViewType(AccessPointViewType accessPointViewType) {
-        this.accessPointViewType = accessPointViewType;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import static org.mockito.Mockito.verify;
+
+@RunWith(MockitoJUnitRunner.class)
+public class GraphViewAddTest {
+
+    @Mock
+    private GraphView graphView;
+    @Mock
+    private ViewGroup viewGroup;
+
+    private GraphViewAdd fixture;
+
+    @Test
+    public void testSetGraphView() throws Exception {
+        // setup
+        GraphViewAdd fixture = new GraphViewAdd(viewGroup);
+        // execute
+        fixture.execute(graphView);
+        // validate
+        verify(viewGroup).addView(graphView);
     }
 
-    AccessPointViewType getAccessPointViewType() {
-        return accessPointViewType;
-    }
-
-    public boolean isHide() {
-        return HIDE.equals(this);
-    }
 }

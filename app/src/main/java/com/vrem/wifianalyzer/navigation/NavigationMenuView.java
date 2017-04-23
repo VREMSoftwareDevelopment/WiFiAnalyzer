@@ -23,8 +23,12 @@ import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
+
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 
 public class NavigationMenuView {
     private final NavigationView navigationView;
@@ -38,13 +42,7 @@ public class NavigationMenuView {
     }
 
     private void populateNavigationMenu() {
-        Menu menu = navigationView.getMenu();
-        for (NavigationGroup navigationGroup : NavigationGroup.values()) {
-            for (NavigationMenu navigationMenu : navigationGroup.getNavigationMenus()) {
-                MenuItem menuItem = menu.add(navigationGroup.ordinal(), navigationMenu.ordinal(), navigationMenu.ordinal(), navigationMenu.getTitle());
-                menuItem.setIcon(navigationMenu.getIcon());
-            }
-        }
+        IterableUtils.forEach(EnumUtils.values(NavigationGroup.class), new NavigationGroupClosure(navigationView.getMenu()));
     }
 
     public MenuItem getCurrentMenuItem() {
@@ -65,7 +63,36 @@ public class NavigationMenuView {
         }
     }
 
-    public NavigationView getNavigationView() {
+    NavigationView getNavigationView() {
         return navigationView;
+    }
+
+    private class NavigationGroupClosure implements Closure<NavigationGroup> {
+        private final Menu menu;
+
+        private NavigationGroupClosure(@NonNull Menu menu) {
+            this.menu = menu;
+        }
+
+        @Override
+        public void execute(final NavigationGroup navigationGroup) {
+            IterableUtils.forEach(navigationGroup.getNavigationMenus(), new NavigationMenuClosure(menu, navigationGroup));
+        }
+    }
+
+    private class NavigationMenuClosure implements Closure<NavigationMenu> {
+        private final Menu menu;
+        private final NavigationGroup navigationGroup;
+
+        private NavigationMenuClosure(@NonNull Menu menu, @NonNull NavigationGroup navigationGroup) {
+            this.menu = menu;
+            this.navigationGroup = navigationGroup;
+        }
+
+        @Override
+        public void execute(NavigationMenu navigationMenu) {
+            MenuItem menuItem = menu.add(navigationGroup.ordinal(), navigationMenu.ordinal(), navigationMenu.ordinal(), navigationMenu.getTitle());
+            menuItem.setIcon(navigationMenu.getIcon());
+        }
     }
 }

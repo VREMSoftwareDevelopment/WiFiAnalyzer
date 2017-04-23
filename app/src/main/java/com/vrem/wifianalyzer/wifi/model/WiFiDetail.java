@@ -90,6 +90,10 @@ public class WiFiDetail implements Comparable<WiFiDetail> {
         return children;
     }
 
+    public boolean noChildren() {
+        return !getChildren().isEmpty();
+    }
+
     public String getTitle() {
         return String.format("%s (%s)", getSSID(), BSSID);
     }

@@ -23,6 +23,8 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.Security;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +38,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
+@SuppressWarnings("AnonymousInnerClass")
 @RunWith(MockitoJUnitRunner.class)
 public class SecurityAdapterTest {
     @Mock
@@ -63,9 +66,12 @@ public class SecurityAdapterTest {
 
     @Test
     public void testContains() throws Exception {
-        for (Security security : Security.values()) {
-            assertTrue(fixture.contains(security));
-        }
+        IterableUtils.forEach(EnumUtils.values(Security.class), new Closure<Security>() {
+            @Override
+            public void execute(Security security) {
+                assertTrue(fixture.contains(security));
+            }
+        });
     }
 
     @Test
@@ -91,17 +97,22 @@ public class SecurityAdapterTest {
     @Test
     public void testRemovingAllWillNotRemoveLast() throws Exception {
         // setup
-        Security[] values = Security.values();
+        Set<Security> values = EnumUtils.values(Security.class);
         // execute
-        for (Security security : values) {
-            fixture.toggle(security);
-        }
+        IterableUtils.forEach(values, new Closure<Security>() {
+            @Override
+            public void execute(Security input) {
+                fixture.toggle(input);
+            }
+        });
         // validate
-        int index = values.length - 1;
-        for (int i = 0; i < index; i++) {
-            assertFalse(fixture.contains(values[i]));
-        }
-        assertTrue(fixture.contains(Security.values()[index]));
+        IterableUtils.forEachButLast(values, new Closure<Security>() {
+            @Override
+            public void execute(Security input) {
+                assertFalse(fixture.contains(input));
+            }
+        });
+        assertTrue(fixture.contains(IterableUtils.get(values, values.size() - 1)));
     }
 
     @Test

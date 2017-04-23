@@ -42,7 +42,7 @@ public class WiFiChannelCountry {
         this.country = country;
     }
 
-    public static WiFiChannelCountry get(String countryCode) {
+    public static WiFiChannelCountry get(@NonNull String countryCode) {
         return new WiFiChannelCountry(COUNTRY.getCountry(countryCode));
     }
 

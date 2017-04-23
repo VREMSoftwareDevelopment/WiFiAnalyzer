@@ -40,9 +40,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:text="@string/wifi_band_5ghz_set1"
-            android:textStyle="bold"/>
+            android:minWidth="0dp"/>
 
         <Button
             android:id="@+id/graphNavigationSet2"
@@ -51,9 +49,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:text="@string/wifi_band_5ghz_set2"
-            android:textStyle="bold"/>
+            android:minWidth="0dp"/>
 
         <Button
             android:id="@+id/graphNavigationSet3"
@@ -64,9 +60,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:text="@string/wifi_band_5ghz_set3"
-            android:textStyle="bold"/>
+            android:minWidth="0dp"/>
 
     </android.support.v7.widget.ButtonBarLayout>
 

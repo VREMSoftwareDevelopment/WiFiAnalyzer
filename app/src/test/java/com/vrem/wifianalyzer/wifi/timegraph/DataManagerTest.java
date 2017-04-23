@@ -33,6 +33,8 @@ import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,6 +58,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@SuppressWarnings("AnonymousInnerClass")
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class DataManagerTest {
@@ -137,20 +140,23 @@ public class DataManagerTest {
         Set<WiFiDetail> wiFiDetails = new TreeSet<>();
         List<WiFiDetail> difference = makeWiFiDetails();
         int xValue = fixture.getXValue();
-        Integer scanCount = fixture.getScanCount();
-        DataPoint dataPoint = new DataPoint(xValue, DataManager.MIN_Y + DataManager.MIN_Y_OFFSET);
+        final Integer scanCount = fixture.getScanCount();
+        final DataPoint dataPoint = new DataPoint(xValue, DataManager.MIN_Y + DataManager.MIN_Y_OFFSET);
         when(graphViewWrapper.differenceSeries(wiFiDetails)).thenReturn(difference);
         // execute
         fixture.adjustData(graphViewWrapper, wiFiDetails);
         // validate
-        for (WiFiDetail wiFiDetail : difference) {
-            verify(graphViewWrapper).appendToSeries(
-                argThat(equalTo(wiFiDetail)),
-                argThat(new DataPointEquals(dataPoint)),
-                argThat(equalTo(scanCount)),
-                argThat(equalTo(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected())));
-            verify(timeGraphCache).add(wiFiDetail);
-        }
+        IterableUtils.forEach(difference, new Closure<WiFiDetail>() {
+            @Override
+            public void execute(WiFiDetail wiFiDetail) {
+                verify(graphViewWrapper).appendToSeries(
+                    argThat(equalTo(wiFiDetail)),
+                    argThat(new DataPointEquals(dataPoint)),
+                    argThat(equalTo(scanCount)),
+                    argThat(equalTo(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected())));
+                verify(timeGraphCache).add(wiFiDetail);
+            }
+        });
         verify(timeGraphCache).clear();
     }
 

@@ -144,9 +144,6 @@
 
     <string name="wifi_band_2ghz" translatable="false">2.4 GHz</string>
     <string name="wifi_band_5ghz" translatable="false">5 GHz</string>
-    <string name="wifi_band_5ghz_set1" translatable="false">36 - 64</string>
-    <string name="wifi_band_5ghz_set2" translatable="false">100 - 144</string>
-    <string name="wifi_band_5ghz_set3" translatable="false">149 - 165</string>
 
     <!-- security start -->
     <string name="security_none">None</string>

@@ -24,6 +24,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
 import com.vrem.wifianalyzer.R;
@@ -36,6 +37,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
     private AccessPointsAdapterData accessPointsAdapterData;
     private AccessPointDetail accessPointDetail;
     private AccessPointPopup accessPointPopup;
+    private ExpandableListView expandableListView;
 
     AccessPointsAdapter(@NonNull Context context) {
         super();
@@ -43,6 +45,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         setAccessPointsAdapterData(new AccessPointsAdapterData());
         setAccessPointDetail(new AccessPointDetail());
         setAccessPointPopup(new AccessPointPopup());
+        expandableListView = null;
     }
 
     @Override
@@ -76,7 +79,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
-        accessPointsAdapterData.update(wiFiData);
+        accessPointsAdapterData.update(wiFiData, expandableListView);
         notifyDataSetChanged();
     }
 
@@ -120,6 +123,16 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         return true;
     }
 
+    @Override
+    public void onGroupCollapsed(int groupPosition) {
+        accessPointsAdapterData.onGroupCollapsed(groupPosition);
+    }
+
+    @Override
+    public void onGroupExpanded(int groupPosition) {
+        accessPointsAdapterData.onGroupExpanded(groupPosition);
+    }
+
     void setAccessPointsAdapterData(@NonNull AccessPointsAdapterData accessPointsAdapterData) {
         this.accessPointsAdapterData = accessPointsAdapterData;
     }
@@ -132,6 +145,10 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         this.accessPointPopup = accessPointPopup;
     }
 
+    void setExpandableListView(ExpandableListView expandableListView) {
+        this.expandableListView = expandableListView;
+    }
+
     private void attachPopup(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {
         View popupView = view.findViewById(R.id.attachPopup);
         if (popupView != null) {
@@ -139,4 +156,5 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
             accessPointPopup.attach(view.findViewById(R.id.ssid), wiFiDetail);
         }
     }
+
 }

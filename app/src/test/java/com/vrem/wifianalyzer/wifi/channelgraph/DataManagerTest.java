@@ -71,16 +71,6 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testFrequencyAdjustment() throws Exception {
-        assertEquals(10, DataManager.frequencyAdjustment(10));
-        assertEquals(10, DataManager.frequencyAdjustment(11));
-        assertEquals(10, DataManager.frequencyAdjustment(12));
-        assertEquals(10, DataManager.frequencyAdjustment(13));
-        assertEquals(10, DataManager.frequencyAdjustment(14));
-        assertEquals(15, DataManager.frequencyAdjustment(15));
-    }
-
-    @Test
     public void testGetNewSeries() throws Exception {
         // setup
         Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelPairs().get(0);

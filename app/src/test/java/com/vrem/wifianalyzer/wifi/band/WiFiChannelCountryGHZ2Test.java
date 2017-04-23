@@ -18,16 +18,20 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("AnonymousInnerClass")
 public class WiFiChannelCountryGHZ2Test {
 
     private final static SortedSet<Integer> CHANNELS_SET1 = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
@@ -42,20 +46,24 @@ public class WiFiChannelCountryGHZ2Test {
 
     @Test
     public void testChannelsForUSAndSimilar() throws Exception {
-        String[] countries = new String[]{"AS", "AU", "CA", "FM", "GU", "MP", "PA", "PR", "UM", "US", "VI"};
-        for (String country : countries) {
-            SortedSet<Integer> channels = fixture.findChannels(country);
-            validateChannels(CHANNELS_SET1, channels);
-        }
+        List<String> countries = Arrays.asList("AS", "AU", "CA", "FM", "GU", "MP", "PA", "PR", "UM", "US", "VI");
+        IterableUtils.forEach(countries, new Closure<String>() {
+            @Override
+            public void execute(String country) {
+                validateChannels(CHANNELS_SET1, fixture.findChannels(country));
+            }
+        });
     }
 
     @Test
     public void testChannelsForWorld() throws Exception {
-        String[] countries = new String[]{null, "GB", "XYZ", "MX", "AE"};
-        for (String country : countries) {
-            SortedSet<Integer> channels = fixture.findChannels(country);
-            validateChannels(CHANNELS_SET2, channels);
-        }
+        List<String> countries = Arrays.asList(null, "GB", "XYZ", "MX", "AE");
+        IterableUtils.forEach(countries, new Closure<String>() {
+            @Override
+            public void execute(String country) {
+                validateChannels(CHANNELS_SET2, fixture.findChannels(country));
+            }
+        });
     }
 
     private void validateChannels(SortedSet<Integer> expected, SortedSet<Integer> actual) {

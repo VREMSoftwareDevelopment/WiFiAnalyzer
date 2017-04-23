@@ -109,12 +109,10 @@ class ChannelGraphView implements GraphViewNotifier, GraphConstants {
         GraphView graphView = makeGraphView(mainActivity, settings.getGraphMaximumY());
         graphViewWrapper = new GraphViewWrapper(graphView, settings.getChannelGraphLegend());
         configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
-        int frequencyStart = DataManager.frequencyAdjustment(wiFiChannelPair.first.getFrequency());
-        int frequencyEnd = DataManager.frequencyAdjustment(wiFiChannelPair.second.getFrequency());
-        int minX = frequencyStart - WiFiChannels.FREQUENCY_OFFSET;
+        int minX = wiFiChannelPair.first.getFrequency() - WiFiChannels.FREQUENCY_OFFSET;
         int maxX = minX + (graphViewWrapper.getViewportCntX() * WiFiChannels.FREQUENCY_SPREAD);
         graphViewWrapper.setViewport(minX, maxX);
-        graphViewWrapper.addSeries(makeDefaultSeries(frequencyEnd, minX));
+        graphViewWrapper.addSeries(makeDefaultSeries(wiFiChannelPair.second.getFrequency(), minX));
         return graphViewWrapper;
     }
 

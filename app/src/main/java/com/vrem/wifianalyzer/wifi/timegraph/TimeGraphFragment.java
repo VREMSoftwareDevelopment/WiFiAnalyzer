@@ -24,12 +24,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ViewFlipper;
 
-import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.graphutils.GraphViewAdd;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
+
+import org.apache.commons.collections4.IterableUtils;
 
 public class TimeGraphFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -52,10 +53,8 @@ public class TimeGraphFragment extends Fragment {
     }
 
     private void addGraphViews(View view, TimeGraphAdapter timeGraphAdapter) {
-        ViewFlipper viewFlipper = (ViewFlipper) view.findViewById(R.id.graphFlipper);
-        for (GraphView graphView : timeGraphAdapter.getGraphViews()) {
-            viewFlipper.addView(graphView);
-        }
+        IterableUtils.forEach(timeGraphAdapter.getGraphViews(),
+            new GraphViewAdd((ViewGroup) view.findViewById(R.id.graphFlipper)));
     }
 
     private void refresh() {

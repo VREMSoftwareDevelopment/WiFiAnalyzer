@@ -18,6 +18,9 @@
 
 package com.vrem.wifianalyzer.wifi.accesspoint;
 
+import android.support.annotation.NonNull;
+import android.widget.ExpandableListView;
+
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -30,12 +33,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 class AccessPointsAdapterData {
-    private List<WiFiDetail> wiFiDetails = new ArrayList<>();
+    private AccessPointsAdapterGroup accessPointsAdapterGroup;
+    private List<WiFiDetail> wiFiDetails;
 
-    void update(WiFiData wiFiData) {
+    AccessPointsAdapterData() {
+        wiFiDetails = new ArrayList<>();
+        setAccessPointsAdapterGroup(new AccessPointsAdapterGroup());
+    }
+
+    void update(@NonNull WiFiData wiFiData, ExpandableListView expandableListView) {
         Settings settings = MainContext.INSTANCE.getSettings();
         Predicate<WiFiDetail> predicate = FilterPredicate.makeAccessPointsPredicate(settings);
         wiFiDetails = wiFiData.getWiFiDetails(predicate, settings.getSortBy(), settings.getGroupBy());
+        accessPointsAdapterGroup.update(wiFiDetails, expandableListView);
     }
 
     int parentsCount() {
@@ -62,4 +72,19 @@ class AccessPointsAdapterData {
         return validChildrenIndex(indexParent, indexChild) ? wiFiDetails.get(indexParent).getChildren().get(indexChild) : WiFiDetail.EMPTY;
     }
 
+    void onGroupCollapsed(int groupPosition) {
+        accessPointsAdapterGroup.onGroupCollapsed(wiFiDetails, groupPosition);
+    }
+
+    void onGroupExpanded(int groupPosition) {
+        accessPointsAdapterGroup.onGroupExpanded(wiFiDetails, groupPosition);
+    }
+
+    void setAccessPointsAdapterGroup(@NonNull AccessPointsAdapterGroup accessPointsAdapterGroup) {
+        this.accessPointsAdapterGroup = accessPointsAdapterGroup;
+    }
+
+    List<WiFiDetail> getWiFiDetails() {
+        return wiFiDetails;
+    }
 }

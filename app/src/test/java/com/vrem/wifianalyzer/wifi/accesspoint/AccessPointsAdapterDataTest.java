@@ -18,10 +18,13 @@
 
 package com.vrem.wifianalyzer.wifi.accesspoint;
 
+import android.widget.ExpandableListView;
+
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
@@ -52,6 +55,10 @@ import static org.mockito.Mockito.when;
 public class AccessPointsAdapterDataTest {
     @Mock
     private WiFiData wiFiData;
+    @Mock
+    private AccessPointsAdapterGroup accessPointsAdapterGroup;
+    @Mock
+    private ExpandableListView expandableListView;
 
     private Settings settings;
     private AccessPointsAdapterData fixture;
@@ -59,7 +66,9 @@ public class AccessPointsAdapterDataTest {
     @Before
     public void setUp() {
         settings = MainContextHelper.INSTANCE.getSettings();
+
         fixture = new AccessPointsAdapterData();
+        fixture.setAccessPointsAdapterGroup(accessPointsAdapterGroup);
     }
 
     @After
@@ -78,15 +87,16 @@ public class AccessPointsAdapterDataTest {
     }
 
     @Test
-    public void testAfterUpdate() throws Exception {
+    public void testAfterUpdateWithGroupByChannel() throws Exception {
         // setup
-        withSettings();
         List<WiFiDetail> wiFiDetails = withWiFiDetails();
+        withSettings();
         when(wiFiData.getWiFiDetails(any(FilterPredicate.class), eq(SortBy.SSID), eq(GroupBy.CHANNEL))).thenReturn(wiFiDetails);
         // execute
-        fixture.update(wiFiData);
+        fixture.update(wiFiData, expandableListView);
         // validate
         verify(wiFiData).getWiFiDetails(any(FilterPredicate.class), eq(SortBy.SSID), eq(GroupBy.CHANNEL));
+        verify(accessPointsAdapterGroup).update(wiFiDetails, expandableListView);
         verifySettings();
 
         assertEquals(wiFiDetails.size(), fixture.parentsCount());
@@ -100,12 +110,38 @@ public class AccessPointsAdapterDataTest {
         assertEquals(WiFiDetail.EMPTY, fixture.child(0, wiFiDetails.get(0).getChildren().size()));
     }
 
+    @Test
+    public void testOnGroupCollapsed() throws Exception {
+        // setup
+        int index = 11;
+        List<WiFiDetail> wiFiDetails = fixture.getWiFiDetails();
+        // execute
+        fixture.onGroupCollapsed(index);
+        // validate
+        verify(accessPointsAdapterGroup).onGroupCollapsed(wiFiDetails, index);
+    }
+
+    @Test
+    public void testOnGroupExpanded() throws Exception {
+        // setup
+        int index = 22;
+        List<WiFiDetail> wiFiDetails = fixture.getWiFiDetails();
+        // execute
+        fixture.onGroupExpanded(index);
+        // validate
+        verify(accessPointsAdapterGroup).onGroupExpanded(wiFiDetails, index);
+    }
+
+    private WiFiDetail withWiFiDetail() {
+        WiFiDetail wiFiDetail = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY, new WiFiSignal(2255, 2255, WiFiWidth.MHZ_20, -40));
+        wiFiDetail.addChild(new WiFiDetail("SSID1-1", "BSSID1-1", StringUtils.EMPTY, WiFiSignal.EMPTY));
+        wiFiDetail.addChild(new WiFiDetail("SSID1-2", "BSSID1-2", StringUtils.EMPTY, WiFiSignal.EMPTY));
+        wiFiDetail.addChild(new WiFiDetail("SSID1-3", "BSSID1-3", StringUtils.EMPTY, WiFiSignal.EMPTY));
+        return wiFiDetail;
+    }
+
     private List<WiFiDetail> withWiFiDetails() {
-        WiFiDetail wiFiDetail1 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY, WiFiSignal.EMPTY);
-        wiFiDetail1.addChild(new WiFiDetail("SSID1-1", "BSSID1-1", StringUtils.EMPTY, WiFiSignal.EMPTY));
-        wiFiDetail1.addChild(new WiFiDetail("SSID1-2", "BSSID1-2", StringUtils.EMPTY, WiFiSignal.EMPTY));
-        wiFiDetail1.addChild(new WiFiDetail("SSID1-3", "BSSID1-3", StringUtils.EMPTY, WiFiSignal.EMPTY));
-        return Arrays.asList(wiFiDetail1,
+        return Arrays.asList(withWiFiDetail(),
             new WiFiDetail("SSID2", "BSSID2", StringUtils.EMPTY, WiFiSignal.EMPTY),
             new WiFiDetail("SSID3", "BSSID3", StringUtils.EMPTY, WiFiSignal.EMPTY));
     }

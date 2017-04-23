@@ -18,21 +18,30 @@
 
 package com.vrem.wifianalyzer.wifi.filter;
 
+import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.junit.Test;
+
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+@SuppressWarnings("AnonymousInnerClass")
 public class WiFiBandFilterTest {
 
     @Test
     public void testMapping() throws Exception {
-        WiFiBand[] wiFiBands = WiFiBand.values();
-        assertEquals(wiFiBands.length, WiFiBandFilter.ids.size());
-        for (WiFiBand wiFiBand : wiFiBands) {
-            assertNotNull(WiFiBandFilter.ids.get(wiFiBand));
-        }
+        Set<WiFiBand> wiFiBands = EnumUtils.values(WiFiBand.class);
+        assertEquals(wiFiBands.size(), WiFiBandFilter.ids.size());
+        IterableUtils.forEach(wiFiBands, new Closure<WiFiBand>() {
+            @Override
+            public void execute(WiFiBand wiFiBand) {
+                assertNotNull(WiFiBandFilter.ids.get(wiFiBand));
+            }
+        });
     }
 }

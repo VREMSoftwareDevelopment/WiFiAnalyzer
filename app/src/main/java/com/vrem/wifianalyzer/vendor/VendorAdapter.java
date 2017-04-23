@@ -30,6 +30,9 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedMap;
@@ -54,16 +57,7 @@ class VendorAdapter extends ArrayAdapter<String> {
         ((TextView) view.findViewById(R.id.vendor_name)).setText(name);
 
         StringBuilder stringBuilder = new StringBuilder();
-        for (String mac : vendors.get(name)) {
-            if (stringBuilder.length() > 0) {
-                stringBuilder.append(", ");
-            }
-            String macAddress =
-                mac.length() < 6
-                    ? "*" + mac + "*"
-                    : String.format("%s:%s:%s", mac.substring(0, 2), mac.substring(2, 4), mac.substring(4, 6));
-            stringBuilder.append(macAddress);
-        }
+        IterableUtils.forEach(vendors.get(name), new MacsClosure(stringBuilder));
         ((TextView) view.findViewById(R.id.vendor_macs)).setText(stringBuilder.toString());
         return view;
     }
@@ -72,9 +66,29 @@ class VendorAdapter extends ArrayAdapter<String> {
         return vendors;
     }
 
-    public void setVendors(@NonNull SortedMap<String, List<String>> vendors) {
+    void setVendors(@NonNull SortedMap<String, List<String>> vendors) {
         this.vendors = vendors;
         clear();
         addAll(new ArrayList<>(vendors.keySet()));
+    }
+
+    private class MacsClosure implements Closure<String> {
+        private final StringBuilder stringBuilder;
+
+        private MacsClosure(@NonNull StringBuilder stringBuilder) {
+            this.stringBuilder = stringBuilder;
+        }
+
+        @Override
+        public void execute(String input) {
+            if (stringBuilder.length() > 0) {
+                stringBuilder.append(", ");
+            }
+            String macAddress =
+                input.length() < 6
+                    ? "*" + input + "*"
+                    : String.format("%s:%s:%s", input.substring(0, 2), input.substring(2, 4), input.substring(4, 6));
+            stringBuilder.append(macAddress);
+        }
     }
 }

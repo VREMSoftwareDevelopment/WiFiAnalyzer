@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.wifi.filter.adapter;
 
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -55,7 +54,6 @@ public class FilterAdapterTest {
     private Set<Strength> strengths;
     private Set<Security> securities;
 
-    private MainActivity mainActivity;
     private Settings settings;
     private FilterAdapter fixture;
 
@@ -66,7 +64,7 @@ public class FilterAdapterTest {
         strengths = EnumUtils.values(Strength.class);
         securities = EnumUtils.values(Security.class);
 
-        mainActivity = RobolectricUtil.INSTANCE.getActivity();
+        RobolectricUtil.INSTANCE.getActivity();
         settings = MainContextHelper.INSTANCE.getSettings();
         when(settings.getSSIDs()).thenReturn(ssids);
         when(settings.getWiFiBands()).thenReturn(wiFiBands);

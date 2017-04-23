@@ -27,16 +27,24 @@ import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 
 class NextPrevNavigationOff implements NavigationOption {
-    final static OnTouchListener ON_TOUCH_LISTENER_EMPTY = new OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            return false;
-        }
-    };
+    final static OnTouchListener ON_TOUCH_LISTENER_EMPTY = new NavigationOnTouchListener(false);
 
     @Override
     public void apply(@NonNull MainActivity mainActivity) {
         mainActivity.findViewById(R.id.main_fragment_layout).setOnTouchListener(ON_TOUCH_LISTENER_EMPTY);
+    }
+
+    private static class NavigationOnTouchListener implements OnTouchListener {
+        private final boolean result;
+
+        private NavigationOnTouchListener(boolean result) {
+            this.result = result;
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return result;
+        }
     }
 
 }

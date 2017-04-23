@@ -25,6 +25,8 @@ import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.Settings;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
 import java.util.ArrayDeque;
@@ -73,9 +75,7 @@ class Cache {
 
     private List<ScanResult> combineCache() {
         List<ScanResult> scanResults = new ArrayList<>();
-        for (List<ScanResult> cachedScanResults : cache) {
-            scanResults.addAll(cachedScanResults);
-        }
+        IterableUtils.forEach(cache, new CacheClosure(scanResults));
         Collections.sort(scanResults, new ScanResultComparator());
         return scanResults;
     }
@@ -120,6 +120,19 @@ class Cache {
                 .append(lhs.BSSID, rhs.BSSID)
                 .append(lhs.level, rhs.level)
                 .toComparison();
+        }
+    }
+
+    private class CacheClosure implements Closure<List<ScanResult>> {
+        private final List<ScanResult> scanResults;
+
+        private CacheClosure(@NonNull List<ScanResult> scanResults) {
+            this.scanResults = scanResults;
+        }
+
+        @Override
+        public void execute(List<ScanResult> cachedScanResults) {
+            scanResults.addAll(cachedScanResults);
         }
     }
 }

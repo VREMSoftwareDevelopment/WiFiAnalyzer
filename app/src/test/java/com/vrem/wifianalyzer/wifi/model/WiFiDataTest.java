@@ -26,6 +26,8 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.predicate.WiFiBandPredicate;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
@@ -46,6 +48,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@SuppressWarnings("AnonymousInnerClass")
 @RunWith(MockitoJUnitRunner.class)
 public class WiFiDataTest {
     private static final String IP_ADDRESS = "21.205.91.7";
@@ -105,9 +108,12 @@ public class WiFiDataTest {
     }
 
     private void withVendorNames() {
-        for (WiFiDetail wiFiDetail : wiFiDetails) {
-            when(vendorService.findVendorName(wiFiDetail.getBSSID())).thenReturn(VENDOR_NAME + wiFiDetail.getBSSID());
-        }
+        IterableUtils.forEach(wiFiDetails, new Closure<WiFiDetail>() {
+            @Override
+            public void execute(WiFiDetail wiFiDetail) {
+                when(vendorService.findVendorName(wiFiDetail.getBSSID())).thenReturn(VENDOR_NAME + wiFiDetail.getBSSID());
+            }
+        });
     }
 
     @Test

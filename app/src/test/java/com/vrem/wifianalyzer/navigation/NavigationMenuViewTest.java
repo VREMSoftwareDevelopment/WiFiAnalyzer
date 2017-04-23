@@ -22,10 +22,13 @@ import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,6 +40,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("AnonymousInnerClass")
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class NavigationMenuViewTest {
@@ -59,19 +63,24 @@ public class NavigationMenuViewTest {
     @Test
     public void testNavigationMenuView() throws Exception {
         // execute
-        Menu menu = navigationView.getMenu();
+        final Menu menu = navigationView.getMenu();
         // validate
         assertEquals(NavigationMenu.values().length, menu.size());
-
-        for (NavigationGroup navigationGroup : NavigationGroup.values()) {
-            for (NavigationMenu navigationMenu : navigationGroup.getNavigationMenus()) {
-                MenuItem actual = menu.getItem(navigationMenu.ordinal());
-                assertEquals(navigationGroup.ordinal(), actual.getGroupId());
-                assertEquals(mainActivity.getResources().getString(navigationMenu.getTitle()), actual.getTitle());
-                assertEquals(navigationMenu.ordinal(), actual.getItemId());
-                assertEquals(navigationMenu.ordinal(), actual.getOrder());
+        IterableUtils.forEach(EnumUtils.values(NavigationGroup.class), new Closure<NavigationGroup>() {
+            @Override
+            public void execute(final NavigationGroup navigationGroup) {
+                IterableUtils.forEach(navigationGroup.getNavigationMenus(), new Closure<NavigationMenu>() {
+                    @Override
+                    public void execute(NavigationMenu navigationMenu) {
+                        MenuItem actual = menu.getItem(navigationMenu.ordinal());
+                        assertEquals(navigationGroup.ordinal(), actual.getGroupId());
+                        assertEquals(mainActivity.getResources().getString(navigationMenu.getTitle()), actual.getTitle());
+                        assertEquals(navigationMenu.ordinal(), actual.getItemId());
+                        assertEquals(navigationMenu.ordinal(), actual.getOrder());
+                    }
+                });
             }
-        }
+        });
     }
 
     @Test

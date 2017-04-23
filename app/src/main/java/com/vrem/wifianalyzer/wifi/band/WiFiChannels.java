@@ -21,7 +21,10 @@ package com.vrem.wifianalyzer.wifi.band;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
+import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.collections4.Predicate;
 import org.apache.commons.collections4.Transformer;
 
 import java.util.ArrayList;
@@ -47,27 +50,18 @@ public abstract class WiFiChannels {
     }
 
     public WiFiChannel getWiFiChannelByFrequency(int frequency) {
+        Pair<WiFiChannel, WiFiChannel> found = null;
         if (isInRange(frequency)) {
-            for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiChannelPairs) {
-                WiFiChannel wiFiChannel = getWiFiChannel(frequency, wiFiChannelPair);
-                if (!WiFiChannel.UNKNOWN.equals(wiFiChannel)) {
-                    return wiFiChannel;
-                }
-            }
+            found = IterableUtils.find(wiFiChannelPairs, new FrequencyPredicate(frequency));
         }
-        return WiFiChannel.UNKNOWN;
+        return found == null ? WiFiChannel.UNKNOWN : getWiFiChannel(frequency, found);
     }
 
     WiFiChannel getWiFiChannelByChannel(int channel) {
-        for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiChannelPairs) {
-            WiFiChannel first = wiFiChannelPair.first;
-            WiFiChannel last = wiFiChannelPair.second;
-            if (channel >= first.getChannel() && channel <= last.getChannel()) {
-                int frequency = first.getFrequency() + ((channel - first.getChannel()) * FREQUENCY_SPREAD);
-                return new WiFiChannel(channel, frequency);
-            }
-        }
-        return WiFiChannel.UNKNOWN;
+        Pair<WiFiChannel, WiFiChannel> found = IterableUtils.find(wiFiChannelPairs, new ChannelPredicate(channel));
+        return found == null
+            ? WiFiChannel.UNKNOWN
+            : new WiFiChannel(channel, found.first.getFrequency() + ((channel - found.first.getChannel()) * FREQUENCY_SPREAD));
     }
 
     public WiFiChannel getWiFiChannelFirst() {
@@ -80,11 +74,7 @@ public abstract class WiFiChannels {
 
     public List<WiFiChannel> getWiFiChannels() {
         List<WiFiChannel> results = new ArrayList<>();
-        for (Pair<WiFiChannel, WiFiChannel> wiFiChannelPair : wiFiChannelPairs) {
-            for (int channel = wiFiChannelPair.first.getChannel(); channel <= wiFiChannelPair.second.getChannel(); channel++) {
-                results.add(getWiFiChannelByChannel(channel));
-            }
-        }
+        IterableUtils.forEach(wiFiChannelPairs, new WiFiChannelClosure(results));
         return results;
     }
 
@@ -122,6 +112,47 @@ public abstract class WiFiChannels {
         @Override
         public WiFiChannel transform(Integer input) {
             return wiFiChannels.getWiFiChannelByChannel(input);
+        }
+    }
+
+    private class FrequencyPredicate implements Predicate<Pair<WiFiChannel, WiFiChannel>> {
+        private final int frequency;
+
+        private FrequencyPredicate(int frequency) {
+            this.frequency = frequency;
+        }
+
+        @Override
+        public boolean evaluate(Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
+            return !WiFiChannel.UNKNOWN.equals(getWiFiChannel(frequency, wiFiChannelPair));
+        }
+    }
+
+    private class ChannelPredicate implements Predicate<Pair<WiFiChannel, WiFiChannel>> {
+        private final int channel;
+
+        private ChannelPredicate(int channel) {
+            this.channel = channel;
+        }
+
+        @Override
+        public boolean evaluate(Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
+            return channel >= wiFiChannelPair.first.getChannel() && channel <= wiFiChannelPair.second.getChannel();
+        }
+    }
+
+    private class WiFiChannelClosure implements Closure<Pair<WiFiChannel, WiFiChannel>> {
+        private final List<WiFiChannel> wiFiChannels;
+
+        private WiFiChannelClosure(@NonNull List<WiFiChannel> wiFiChannels) {
+            this.wiFiChannels = wiFiChannels;
+        }
+
+        @Override
+        public void execute(Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
+            for (int channel = wiFiChannelPair.first.getChannel(); channel <= wiFiChannelPair.second.getChannel(); channel++) {
+                wiFiChannels.add(getWiFiChannelByChannel(channel));
+            }
         }
     }
 

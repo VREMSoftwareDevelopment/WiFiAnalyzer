@@ -26,28 +26,28 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class AccessPointViewTest {
+public class AccessPointViewTypeTest {
     @Test
     public void testAccessPointViewCount() throws Exception {
-        assertEquals(2, AccessPointView.values().length);
+        assertEquals(2, AccessPointViewType.values().length);
     }
 
     @Test
     public void testGetLayout() throws Exception {
-        assertEquals(R.layout.access_point_view_complete, AccessPointView.COMPLETE.getLayout());
-        assertEquals(R.layout.access_point_view_compact, AccessPointView.COMPACT.getLayout());
+        assertEquals(R.layout.access_point_view_complete, AccessPointViewType.COMPLETE.getLayout());
+        assertEquals(R.layout.access_point_view_compact, AccessPointViewType.COMPACT.getLayout());
     }
 
     @Test
     public void testIsFull() throws Exception {
-        assertTrue(AccessPointView.COMPLETE.isFull());
-        assertFalse(AccessPointView.COMPACT.isFull());
+        assertTrue(AccessPointViewType.COMPLETE.isFull());
+        assertFalse(AccessPointViewType.COMPACT.isFull());
     }
 
     @Test
     public void testIsCompact() throws Exception {
-        assertFalse(AccessPointView.COMPLETE.isCompact());
-        assertTrue(AccessPointView.COMPACT.isCompact());
+        assertFalse(AccessPointViewType.COMPLETE.isCompact());
+        assertTrue(AccessPointViewType.COMPACT.isCompact());
     }
 
 }

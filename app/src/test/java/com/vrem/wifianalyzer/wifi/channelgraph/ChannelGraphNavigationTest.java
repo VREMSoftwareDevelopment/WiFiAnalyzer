@@ -21,6 +21,7 @@ package com.vrem.wifianalyzer.wifi.channelgraph;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.view.View;
+import android.widget.Button;
 
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
@@ -32,8 +33,12 @@ import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelsGHZ5;
+import com.vrem.wifianalyzer.wifi.model.SortBy;
+import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,6 +58,7 @@ import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
 
+@SuppressWarnings("AnonymousInnerClass")
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ChannelGraphNavigationTest {
@@ -76,12 +82,16 @@ public class ChannelGraphNavigationTest {
 
         layout = mock(View.class);
         views = new HashMap<>();
-        for (Pair<WiFiChannel, WiFiChannel> key : ChannelGraphNavigation.ids.keySet()) {
-            Integer id = ChannelGraphNavigation.ids.get(key);
-            View view = mock(View.class);
-            views.put(key, view);
-            when(layout.findViewById(id)).thenReturn(view);
-        }
+        IterableUtils.forEach(ChannelGraphNavigation.ids.keySet(), new Closure<Pair<WiFiChannel, WiFiChannel>>() {
+            @Override
+            public void execute(Pair<WiFiChannel, WiFiChannel> key) {
+                Integer id = ChannelGraphNavigation.ids.get(key);
+                Button button = mock(Button.class);
+                views.put(key, button);
+                when(layout.findViewById(id)).thenReturn(button);
+                when(button.getText()).thenReturn("ButtonName");
+            }
+        });
 
         fixture = new ChannelGraphNavigation(layout, mainActivity);
     }
@@ -94,19 +104,28 @@ public class ChannelGraphNavigationTest {
     @Test
     public void testMapping() throws Exception {
         assertEquals(WiFiChannelsGHZ5.SETS.size(), ChannelGraphNavigation.ids.size());
-        for (Pair<WiFiChannel, WiFiChannel> set : WiFiChannelsGHZ5.SETS) {
-            assertNotNull(ChannelGraphNavigation.ids.get(set));
-        }
+        IterableUtils.forEach(WiFiChannelsGHZ5.SETS, new Closure<Pair<WiFiChannel, WiFiChannel>>() {
+            @Override
+            public void execute(Pair<WiFiChannel, WiFiChannel> set) {
+                assertNotNull(ChannelGraphNavigation.ids.get(set));
+            }
+        });
     }
 
     @Test
     public void testConstructor() throws Exception {
-        for (Integer id : ChannelGraphNavigation.ids.values()) {
-            verify(layout).findViewById(id);
-        }
-        for (View view : views.values()) {
-            verify(view).setOnClickListener(any(ChannelGraphNavigation.SetOnClickListener.class));
-        }
+        IterableUtils.forEach(ChannelGraphNavigation.ids.values(), new Closure<Integer>() {
+            @Override
+            public void execute(Integer input) {
+                verify(layout).findViewById(input);
+            }
+        });
+        IterableUtils.forEach(views.values(), new Closure<View>() {
+            @Override
+            public void execute(View view) {
+                verify(view).setOnClickListener(any(ChannelGraphNavigation.SetOnClickListener.class));
+            }
+        });
     }
 
     @Test
@@ -115,7 +134,7 @@ public class ChannelGraphNavigationTest {
         when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ2);
         // execute
-        fixture.update();
+        fixture.update(WiFiData.EMPTY);
         // validate
         verify(layout).setVisibility(View.GONE);
         verify(settings).getCountryCode();
@@ -126,27 +145,35 @@ public class ChannelGraphNavigationTest {
     @Test
     public void testUpdateWithGHZ5AndUS() throws Exception {
         // setup
-        int colorSelected = ContextCompat.getColor(mainActivity, R.color.connected);
-        int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.connected_background);
-        Pair<WiFiChannel, WiFiChannel> selectedKey = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs().get(0);
+        final int colorSelected = ContextCompat.getColor(mainActivity, R.color.connected);
+        final int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.connected_background);
+        final Pair<WiFiChannel, WiFiChannel> selectedKey = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs().get(0);
         when(configuration.getWiFiChannelPair()).thenReturn(selectedKey);
         when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
+        when(settings.getSortBy()).thenReturn(SortBy.CHANNEL);
         // execute
-        fixture.update();
+        fixture.update(WiFiData.EMPTY);
         // validate
         verify(layout).setVisibility(View.VISIBLE);
-        for (Pair<WiFiChannel, WiFiChannel> key : views.keySet()) {
-            View view = views.get(key);
-            verify(view).setVisibility(View.VISIBLE);
-            verify(view).setBackgroundColor(selectedKey.equals(key) ? colorSelected : colorNotSelected);
-            verify(view).setSelected(selectedKey.equals(key));
-        }
-        for (Integer id : ChannelGraphNavigation.ids.values()) {
-            verify(layout, times(2)).findViewById(id);
-        }
+        IterableUtils.forEach(views.keySet(), new Closure<Pair<WiFiChannel, WiFiChannel>>() {
+            @Override
+            public void execute(Pair<WiFiChannel, WiFiChannel> key) {
+                Button button = (Button) views.get(key);
+                verify(button).setVisibility(View.VISIBLE);
+                verify(button).setBackgroundColor(selectedKey.equals(key) ? colorSelected : colorNotSelected);
+                verify(button).setSelected(selectedKey.equals(key));
+            }
+        });
+        IterableUtils.forEach(ChannelGraphNavigation.ids.values(), new Closure<Integer>() {
+            @Override
+            public void execute(Integer id) {
+                verify(layout, times(2)).findViewById(id);
+            }
+        });
         verify(settings).getCountryCode();
-        verify(settings).getWiFiBand();
+        verify(settings, times(2)).getWiFiBand();
+        verify(settings).getSortBy();
         verify(configuration).getWiFiChannelPair();
     }
 
@@ -155,15 +182,20 @@ public class ChannelGraphNavigationTest {
         // setup
         when(settings.getCountryCode()).thenReturn(Locale.JAPAN.getCountry());
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
+        when(settings.getSortBy()).thenReturn(SortBy.CHANNEL);
         // execute
-        fixture.update();
+        fixture.update(WiFiData.EMPTY);
         // validate
         verify(layout).setVisibility(View.VISIBLE);
-        for (Pair<WiFiChannel, WiFiChannel> key : views.keySet()) {
-            verify(views.get(key)).setVisibility(WiFiChannelsGHZ5.SET3.equals(key) ? View.GONE : View.VISIBLE);
-        }
+        IterableUtils.forEach(views.keySet(), new Closure<Pair<WiFiChannel, WiFiChannel>>() {
+            @Override
+            public void execute(Pair<WiFiChannel, WiFiChannel> key) {
+                verify(views.get(key)).setVisibility(WiFiChannelsGHZ5.SET3.equals(key) ? View.GONE : View.VISIBLE);
+            }
+        });
         verify(settings).getCountryCode();
-        verify(settings).getWiFiBand();
+        verify(settings, times(2)).getWiFiBand();
+        verify(settings).getSortBy();
     }
 
     @Test
@@ -172,7 +204,7 @@ public class ChannelGraphNavigationTest {
         when(settings.getCountryCode()).thenReturn("IL");
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
         // execute
-        fixture.update();
+        fixture.update(WiFiData.EMPTY);
         // validate
         verify(layout).setVisibility(View.GONE);
         verify(settings).getCountryCode();

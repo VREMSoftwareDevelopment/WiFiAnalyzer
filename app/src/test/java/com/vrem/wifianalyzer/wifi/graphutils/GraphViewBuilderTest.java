@@ -100,6 +100,7 @@ public class GraphViewBuilderTest {
         fixture.setGridLabelRenderer(graphView);
         // validate
         verify(graphView).getGridLabelRenderer();
+        verify(gridLabelRenderer).setHumanRounding(false);
         verify(gridLabelRenderer).setHighlightZeroLines(false);
         verify(gridLabelRenderer).setNumVerticalLabels(numVerticalLabels);
         verify(gridLabelRenderer).setNumHorizontalLabels(NUM_HORIZONTAL_LABELS);

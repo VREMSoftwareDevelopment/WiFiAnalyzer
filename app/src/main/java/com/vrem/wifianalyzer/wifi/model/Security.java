@@ -18,7 +18,13 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
+import android.support.annotation.NonNull;
+
+import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.R;
+
+import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.collections4.Predicate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,17 +61,25 @@ public enum Security {
     }
 
     public static Security findOne(String capabilities) {
-        List<Security> securities = findAll(capabilities);
-        for (Security security : Security.values()) {
-            if (securities.contains(security)) {
-                return security;
-            }
-        }
-        return Security.NONE;
+        Security result = IterableUtils.find(EnumUtils.values(Security.class), new SecurityPredicate(findAll(capabilities)));
+        return result == null ? Security.NONE : result;
     }
 
     public int getImageResource() {
         return imageResource;
+    }
+
+    private static class SecurityPredicate implements Predicate<Security> {
+        private final List<Security> securities;
+
+        private SecurityPredicate(@NonNull List<Security> securities) {
+            this.securities = securities;
+        }
+
+        @Override
+        public boolean evaluate(Security security) {
+            return securities.contains(security);
+        }
     }
 
 }

@@ -98,7 +98,7 @@ public class ChannelGraphAdapterTest {
         // execute
         fixture.update(wiFiData);
         // validate
-        verify(channelGraphNavigation).update();
+        verify(channelGraphNavigation).update(wiFiData);
     }
 
 }

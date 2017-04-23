@@ -18,21 +18,30 @@
 
 package com.vrem.wifianalyzer.wifi.filter;
 
+import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.wifi.model.Security;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.junit.Test;
+
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+@SuppressWarnings("AnonymousInnerClass")
 public class SecurityFilterTest {
 
     @Test
     public void testMapping() throws Exception {
-        Security[] securities = Security.values();
-        assertEquals(securities.length, SecurityFilter.ids.size());
-        for (Security strength : securities) {
-            assertNotNull(SecurityFilter.ids.get(strength));
-        }
+        Set<Security> securities = EnumUtils.values(Security.class);
+        assertEquals(securities.size(), SecurityFilter.ids.size());
+        IterableUtils.forEach(securities, new Closure<Security>() {
+            @Override
+            public void execute(Security security) {
+                assertNotNull(SecurityFilter.ids.get(security));
+            }
+        });
     }
 }

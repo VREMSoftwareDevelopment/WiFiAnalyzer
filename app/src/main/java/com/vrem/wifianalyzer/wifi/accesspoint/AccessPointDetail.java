@@ -45,16 +45,16 @@ public class AccessPointDetail {
     private static final int VENDOR_LONG_MAX = 30;
 
     View makeView(View convertView, ViewGroup parent, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
-        AccessPointView accessPointView = MainContext.INSTANCE.getSettings().getAccessPointView();
-        return makeView(convertView, parent, wiFiDetail, isChild, accessPointView);
+        AccessPointViewType accessPointViewType = MainContext.INSTANCE.getSettings().getAccessPointView();
+        return makeView(convertView, parent, wiFiDetail, isChild, accessPointViewType);
     }
 
-    View makeView(View convertView, ViewGroup parent, @NonNull WiFiDetail wiFiDetail, boolean isChild, @NonNull AccessPointView accessPointView) {
+    View makeView(View convertView, ViewGroup parent, @NonNull WiFiDetail wiFiDetail, boolean isChild, @NonNull AccessPointViewType accessPointViewType) {
         MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
         View view = convertView;
         if (view == null) {
             LayoutInflater layoutInflater = mainActivity.getLayoutInflater();
-            view = layoutInflater.inflate(accessPointView.getLayout(), parent, false);
+            view = layoutInflater.inflate(accessPointViewType.getLayout(), parent, false);
         }
         setViewCompact(mainActivity, view, wiFiDetail, isChild);
         if (view.findViewById(R.id.capabilities) != null) {

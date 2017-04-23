@@ -98,13 +98,7 @@ public class ChannelRating {
     }
 
     private List<WiFiDetail> collectOverlapping(@NonNull WiFiChannel wiFiChannel) {
-        List<WiFiDetail> result = new ArrayList<>();
-        for (WiFiDetail wiFiDetail : wiFiDetails) {
-            if (wiFiDetail.getWiFiSignal().isInRange(wiFiChannel.getFrequency())) {
-                result.add(wiFiDetail);
-            }
-        }
-        return result;
+        return new ArrayList<>(CollectionUtils.select(wiFiDetails, new InRangePredicate(wiFiChannel)));
     }
 
     public List<ChannelAPCount> getBestChannels(@NonNull final List<WiFiChannel> wiFiChannels) {
@@ -140,6 +134,19 @@ public class ChannelRating {
         @Override
         public ChannelAPCount transform(WiFiChannel input) {
             return new ChannelAPCount(input, getCount(input));
+        }
+    }
+
+    private class InRangePredicate implements Predicate<WiFiDetail> {
+        private final WiFiChannel wiFiChannel;
+
+        private InRangePredicate(WiFiChannel wiFiChannel) {
+            this.wiFiChannel = wiFiChannel;
+        }
+
+        @Override
+        public boolean evaluate(WiFiDetail wiFiDetail) {
+            return wiFiDetail.getWiFiSignal().isInRange(wiFiChannel.getFrequency());
         }
     }
 }

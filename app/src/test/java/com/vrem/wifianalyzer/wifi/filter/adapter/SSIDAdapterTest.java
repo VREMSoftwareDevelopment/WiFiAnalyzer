@@ -20,6 +20,8 @@ package com.vrem.wifianalyzer.wifi.filter.adapter;
 
 import com.vrem.wifianalyzer.settings.Settings;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +37,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
+@SuppressWarnings("AnonymousInnerClass")
 @RunWith(MockitoJUnitRunner.class)
 public class SSIDAdapterTest {
 
@@ -53,9 +56,12 @@ public class SSIDAdapterTest {
     @Test
     public void testGetValue() throws Exception {
         assertEquals(SSID_VALUES.size(), fixture.getValues().size());
-        for (String value : SSID_VALUES) {
-            assertTrue(fixture.getValues().contains(value));
-        }
+        IterableUtils.forEach(SSID_VALUES, new Closure<String>() {
+            @Override
+            public void execute(String input) {
+                assertTrue(fixture.getValues().contains(input));
+            }
+        });
     }
 
     @Test

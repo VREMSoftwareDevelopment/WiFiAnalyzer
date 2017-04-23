@@ -16,24 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.wifi.accesspoint;
+package com.vrem.wifianalyzer.wifi.graphutils;
 
-public enum ConnectionViewType {
-    COMPLETE(AccessPointViewType.COMPLETE),
-    COMPACT(AccessPointViewType.COMPACT),
-    HIDE(null);
+import android.support.annotation.NonNull;
+import android.view.ViewGroup;
 
-    private final AccessPointViewType accessPointViewType;
+import com.jjoe64.graphview.GraphView;
 
-    ConnectionViewType(AccessPointViewType accessPointViewType) {
-        this.accessPointViewType = accessPointViewType;
+import org.apache.commons.collections4.Closure;
+
+public class GraphViewAdd implements Closure<GraphView> {
+    private final ViewGroup viewGroup;
+
+    public GraphViewAdd(@NonNull ViewGroup viewGroup) {
+        this.viewGroup = viewGroup;
     }
 
-    AccessPointViewType getAccessPointViewType() {
-        return accessPointViewType;
-    }
-
-    public boolean isHide() {
-        return HIDE.equals(this);
+    @Override
+    public void execute(GraphView graphView) {
+        viewGroup.addView(graphView);
     }
 }
+
