@@ -6,8 +6,8 @@ Optimize your WiFi network using WiFiAnalyzer by examining surrounding WiFi netw
 * Minimum: Jelly Bean (Version 4.1 - API 16)
 * Recommended: Marshmallow (Version 6.0 - API 23)
 
-### Note for Android OS 6 Users
-Some users running Android OS 6 (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFiAnalyzer does not explicitly require it. This appears to be attributed to Android OS 6 that requires location service in order to see WiFi networks. [Click here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23) to learn more about it.
+### Note for Android OS 6+ Users
+Some users running Android OS 6+ (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFiAnalyzer does not explicitly require it. This appears to be attributed to Android OS 6+ that requires location service in order to see WiFi networks. [Click here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23) to learn more about it.
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=com.vrem.wifianalyzer)
 [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/repository/browse/?fdid=com.vrem.wifianalyzer)
@@ -53,7 +53,7 @@ This is the official repository of WiFiAnalyzer.
 * [How is distance calculated to Access Point](https://en.wikipedia.org/wiki/Free-space_path_loss)
 
 ## FAQ
-* [Android OS 6.0.0 - Location Service ON](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23)
+* [Android OS 6+ - Location Service ON](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23)
 * [How channel graph displays 20/40/80/160 MHz channel width?](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/64)
 * [WiFiAnalyzer equivalent on iOS](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/69)
 
