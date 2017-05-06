@@ -187,6 +187,12 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     @Override
+    protected void onStop() {
+        MainContext.INSTANCE.getScanner().setWiFiOnExit();
+        super.onStop();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         optionMenu.create(this, menu);
         updateActionBar();
@@ -198,12 +204,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         optionMenu.select(item);
         updateActionBar();
         return true;
-    }
-
-    @Override
-    protected void onDestroy() {
-        MainContext.INSTANCE.getScanner().unregister(connectionView);
-        super.onDestroy();
     }
 
     public void updateActionBar() {

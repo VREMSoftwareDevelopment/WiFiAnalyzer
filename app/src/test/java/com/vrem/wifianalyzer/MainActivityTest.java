@@ -135,13 +135,13 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testOnDestroy() throws Exception {
+    public void testOnStop() throws Exception {
         // setup
         Scanner scanner = MainContextHelper.INSTANCE.getScanner();
         // execute
-        fixture.onDestroy();
+        fixture.onStop();
         // validate
-        verify(scanner).unregister(fixture.getConnectionView());
+        verify(scanner).setWiFiOnExit();
     }
 
     @Test

@@ -340,6 +340,33 @@ public class SettingsTest {
         verifyConfigurationLocale();
     }
 
+    @Test
+    public void testGetStartMenu() throws Exception {
+        // setup
+        when(repository.getStringAsInteger(R.string.start_menu_key, NavigationMenu.ACCESS_POINTS.ordinal())).thenReturn(NavigationMenu.CHANNEL_GRAPH.ordinal());
+        // execute
+        NavigationMenu actual = fixture.getStartMenu();
+        // validate
+        assertEquals(NavigationMenu.CHANNEL_GRAPH, actual);
+        verify(repository).getStringAsInteger(R.string.start_menu_key, NavigationMenu.ACCESS_POINTS.ordinal());
+    }
+
+    @Test
+    public void testIsWiFiOffOnExit() throws Exception {
+        // setup
+        when(repository.getResourceBoolean(R.bool.wifi_off_on_exit_default)).thenReturn(true);
+        when(repository.getBoolean(R.string.wifi_off_on_exit_key, true)).thenReturn(true);
+        // execute
+        boolean actual = fixture.isWiFiOffOnExit();
+        // validate
+        assertTrue(actual);
+        verify(repository).getBoolean(R.string.wifi_off_on_exit_key, true);
+    }
+
+    public boolean isWiFiOffOnExit() {
+        return repository.getBoolean(R.string.wifi_off_on_exit_key, repository.getResourceBoolean(R.bool.wifi_off_on_exit_default));
+    }
+
     @SuppressWarnings("deprecation")
     private void withConfigurationLocale(Locale locale) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -353,17 +380,6 @@ public class SettingsTest {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             verify(configuration).getLocales();
         }
-    }
-
-    @Test
-    public void testGetStartMenu() throws Exception {
-        // setup
-        when(repository.getStringAsInteger(R.string.start_menu_key, NavigationMenu.ACCESS_POINTS.ordinal())).thenReturn(NavigationMenu.CHANNEL_GRAPH.ordinal());
-        // execute
-        NavigationMenu actual = fixture.getStartMenu();
-        // validate
-        assertEquals(NavigationMenu.CHANNEL_GRAPH, actual);
-        verify(repository).getStringAsInteger(R.string.start_menu_key, NavigationMenu.ACCESS_POINTS.ordinal());
     }
 
 }

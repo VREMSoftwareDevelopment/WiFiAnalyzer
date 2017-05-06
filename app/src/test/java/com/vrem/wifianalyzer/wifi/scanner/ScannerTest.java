@@ -39,6 +39,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.anyBoolean;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -153,6 +155,28 @@ public class ScannerTest {
         fixture.update();
         // validate
         verifyCache();
+    }
+
+    @Test
+    public void testSetWiFiOnExitOff() throws Exception {
+        // setup
+        when(settings.isWiFiOffOnExit()).thenReturn(true);
+        // execute
+        fixture.setWiFiOnExit();
+        // validate
+        verify(settings).isWiFiOffOnExit();
+        verify(wifiManager).setWifiEnabled(false);
+    }
+
+    @Test
+    public void testSetWiFiOnExitDoNothing() throws Exception {
+        // setup
+        when(settings.isWiFiOffOnExit()).thenReturn(false);
+        // execute
+        fixture.setWiFiOnExit();
+        // validate
+        verify(settings).isWiFiOffOnExit();
+        verify(wifiManager, never()).setWifiEnabled(anyBoolean());
     }
 
     private void withCache() {
