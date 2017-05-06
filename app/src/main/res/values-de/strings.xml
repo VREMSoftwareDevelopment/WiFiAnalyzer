@@ -66,6 +66,7 @@
     <string name="channel_graph_legend_title">Legende in Kanalübersicht anzeige</string>
     <string name="time_graph_legend_title">Legende in Signalverlauf anzeigen</string>
     <string name="theme_title">Thema</string>
+    <string name="wifi_off_on_exit_title">WiFi auf Ausfahrt</string>
     <!-- settings end -->
 
     <!-- about start -->
