@@ -66,16 +66,16 @@ public class WiFiConnection {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (other == null || getClass() != other.getClass()) {
-            return false;
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        WiFiConnection that = (WiFiConnection) o;
+
         return new EqualsBuilder()
-            .append(getSSID(), ((WiFiConnection) other).getSSID())
-            .append(getBSSID(), ((WiFiConnection) other).getBSSID())
+            .append(getSSID(), that.getSSID())
+            .append(getBSSID(), that.getBSSID())
             .isEquals();
     }
 

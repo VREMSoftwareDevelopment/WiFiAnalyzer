@@ -18,87 +18,83 @@
 
 package com.vrem.wifianalyzer.vendor.model;
 
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
-import com.vrem.wifianalyzer.MainContext;
-
-import org.apache.commons.collections4.Closure;
-import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Predicate;
+import org.apache.commons.collections4.Transformer;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 public class VendorService {
-    private final Set<String> remoteCalls = new TreeSet<>();
-    private final Map<String, String> cache = new HashMap<>();
+    private static final int MAX_LEN = 6;
 
-    private RemoteCall remoteCall;
+    private Set<VendorData> cache;
+    private VendorDB vendorDB;
 
-    public String findVendorName(String macAddress) {
-        String key = MacAddress.clean(macAddress);
-        if (cache.containsKey(key)) {
-            return cache.get(key);
-        }
-        Database database = MainContext.INSTANCE.getDatabase();
-        String result = database.find(macAddress);
-        if (result != null) {
-            result = VendorNameUtils.cleanVendorName(result);
-            cache.put(key, result);
-            return result;
-        }
-        if (!remoteCalls.contains(key)) {
-            remoteCalls.add(key);
-            getRemoteCall().execute(macAddress);
-        }
-        return StringUtils.EMPTY;
+    public VendorService(@NonNull Resources resources) {
+        this.cache = new HashSet<>();
+        this.vendorDB = new VendorDB(resources);
     }
 
-    void clear() {
-        cache.clear();
-        remoteCalls.clear();
+    public String findVendorName(@NonNull String macAddress) {
+        String cleaned = clean(macAddress);
+        List<VendorData> results = vendorDB.findByAddress(cleaned);
+        cache.addAll(results);
+        return results.isEmpty() ? StringUtils.EMPTY : results.get(0).getName();
     }
 
-    public SortedMap<String, List<String>> findAll() {
-        SortedMap<String, List<String>> results = new TreeMap<>();
-        IterableUtils.forEach(MainContext.INSTANCE.getDatabase().findAll(), new VendorClosure(results));
-        return results;
+    public List<String> findVendorNames() {
+        return new ArrayList<>(new HashSet<>(CollectionUtils.collect(cache, new ToVendorName())));
     }
 
-    // injectors start
-    private RemoteCall getRemoteCall() {
-        return remoteCall == null ? new RemoteCall() : remoteCall;
+    public List<String> findMacAddresses(String vendorName) {
+        return new ArrayList<>(CollectionUtils.collect(CollectionUtils.select(cache, new VendorNamePredicate(vendorName)), new ToMacAddress()));
     }
 
-    void setRemoteCall(@NonNull RemoteCall remoteCall) {
-        this.remoteCall = remoteCall;
+    Set<VendorData> getCache() {
+        return cache;
     }
-    // injectors end
 
-    private class VendorClosure implements Closure<VendorData> {
-        private final SortedMap<String, List<String>> vendorDatas;
+    String clean(@NonNull String macAddress) {
+        String result = macAddress.replace(":", "");
+        return result.substring(0, Math.min(result.length(), MAX_LEN)).toUpperCase();
+    }
 
-        private VendorClosure(@NonNull SortedMap<String, List<String>> vendorDatas) {
-            this.vendorDatas = vendorDatas;
+    void setVendorDB(VendorDB vendorDB) {
+        this.vendorDB = vendorDB;
+    }
+
+    private class VendorNamePredicate implements Predicate<VendorData> {
+        private final String vendorName;
+
+        private VendorNamePredicate(String vendorName) {
+            this.vendorName = vendorName;
         }
 
         @Override
-        public void execute(VendorData vendorData) {
-            String key = VendorNameUtils.cleanVendorName(vendorData.getName());
-            List<String> macs = vendorDatas.get(key);
-            if (macs == null) {
-                macs = new ArrayList<>();
-                vendorDatas.put(key, macs);
-            }
-            macs.add(vendorData.getMac());
-            Collections.sort(macs);
+        public boolean evaluate(VendorData vendorData) {
+            return vendorData.getName().equals(vendorName);
         }
     }
+
+    private class ToMacAddress implements Transformer<VendorData, String> {
+        @Override
+        public String transform(VendorData input) {
+            return input.getMac();
+        }
+    }
+
+    private class ToVendorName implements Transformer<VendorData, String> {
+        @Override
+        public String transform(VendorData input) {
+            return input.getName();
+        }
+    }
+
 }

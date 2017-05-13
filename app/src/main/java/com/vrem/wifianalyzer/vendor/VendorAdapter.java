@@ -29,20 +29,17 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.vendor.model.VendorService;
 
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.SortedMap;
-
 class VendorAdapter extends ArrayAdapter<String> {
-    private SortedMap<String, List<String>> vendors;
+    private final VendorService vendorService;
 
-    VendorAdapter(@NonNull Context context, @NonNull SortedMap<String, List<String>> vendors) {
-        super(context, R.layout.vendor_details, new ArrayList<>(vendors.keySet()));
-        this.vendors = vendors;
+    VendorAdapter(@NonNull Context context, @NonNull VendorService vendorService) {
+        super(context, R.layout.vendor_details, vendorService.findVendorNames());
+        this.vendorService = vendorService;
     }
 
     @NonNull
@@ -57,19 +54,9 @@ class VendorAdapter extends ArrayAdapter<String> {
         ((TextView) view.findViewById(R.id.vendor_name)).setText(name);
 
         StringBuilder stringBuilder = new StringBuilder();
-        IterableUtils.forEach(vendors.get(name), new MacsClosure(stringBuilder));
+        IterableUtils.forEach(vendorService.findMacAddresses(name), new MacsClosure(stringBuilder));
         ((TextView) view.findViewById(R.id.vendor_macs)).setText(stringBuilder.toString());
         return view;
-    }
-
-    SortedMap<String, List<String>> getVendors() {
-        return vendors;
-    }
-
-    void setVendors(@NonNull SortedMap<String, List<String>> vendors) {
-        this.vendors = vendors;
-        clear();
-        addAll(new ArrayList<>(vendors.keySet()));
     }
 
     private class MacsClosure implements Closure<String> {

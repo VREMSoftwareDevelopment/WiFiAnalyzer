@@ -55,15 +55,16 @@ public class WiFiChannel implements Comparable<WiFiChannel> {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
 
-        if (other == null || getClass() != other.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        WiFiChannel otherDetail = (WiFiChannel) other;
+        WiFiChannel that = (WiFiChannel) o;
+
         return new EqualsBuilder()
-            .append(getChannel(), (otherDetail).getChannel())
-            .append(getFrequency(), (otherDetail).getFrequency())
+            .append(getChannel(), that.getChannel())
+            .append(getFrequency(), that.getFrequency())
             .isEquals();
     }
 

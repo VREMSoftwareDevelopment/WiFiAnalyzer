@@ -19,7 +19,6 @@
 package com.vrem.wifianalyzer;
 
 import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.vendor.model.Database;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
@@ -67,12 +66,6 @@ public enum MainContextHelper {
         return result;
     }
 
-    public Database getDatabase() {
-        Database result = (Database) save(Database.class, mainContext.getDatabase());
-        mainContext.setDatabase(result);
-        return result;
-    }
-
     public MainActivity getMainActivity() {
         MainActivity result = (MainActivity) save(MainActivity.class, mainContext.getMainActivity());
         mainContext.setMainActivity(result);
@@ -104,8 +97,6 @@ public enum MainContextHelper {
                     mainContext.setScanner((Scanner) result);
                 } else if (input.equals(MainActivity.class)) {
                     mainContext.setMainActivity((MainActivity) result);
-                } else if (input.equals(Database.class)) {
-                    mainContext.setDatabase((Database) result);
                 } else if (input.equals(Configuration.class)) {
                     mainContext.setConfiguration((Configuration) result);
                 } else if (input.equals(FilterAdapter.class)) {

@@ -20,21 +20,17 @@ package com.vrem.wifianalyzer.vendor.model;
 
 import android.support.annotation.NonNull;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 class VendorData {
     private final String name;
     private final String mac;
-    private final long id;
 
-    VendorData(long id, @NonNull String name, @NonNull String mac) {
-        this.id = id;
+    VendorData(@NonNull String name, @NonNull String mac) {
         this.name = name;
         this.mac = mac;
-    }
-
-    long getId() {
-        return id;
     }
 
     String getName() {
@@ -43,6 +39,28 @@ class VendorData {
 
     String getMac() {
         return mac;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        VendorData that = (VendorData) o;
+
+        return new EqualsBuilder()
+            .append(getName(), that.getName())
+            .append(getMac(), that.getMac())
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+            .append(getName())
+            .append(getMac())
+            .toHashCode();
     }
 
     @Override

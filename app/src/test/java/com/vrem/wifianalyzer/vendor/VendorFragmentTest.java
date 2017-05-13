@@ -31,12 +31,10 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -64,12 +62,12 @@ public class VendorFragmentTest {
     @Test
     public void testOnCreateView() throws Exception {
         // setup
-        SortedMap<String, List<String>> vendors = new TreeMap<>();
-        when(vendorService.findAll()).thenReturn(vendors);
+        List<String> vendorNames = new ArrayList<>();
+        when(vendorService.findVendorNames()).thenReturn(vendorNames);
         // execute
         SupportFragmentTestUtil.startFragment(fixture);
         // validate
         assertNotNull(fixture);
-        verify(vendorService, atLeastOnce()).findAll();
+        verify(vendorService).findVendorNames();
     }
 }

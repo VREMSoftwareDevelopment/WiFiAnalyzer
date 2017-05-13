@@ -42,15 +42,16 @@ public class GraphColor {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
 
-        if (other == null || getClass() != other.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        GraphColor otherDetail = (GraphColor) other;
+        GraphColor that = (GraphColor) o;
+
         return new EqualsBuilder()
-            .append(getPrimary(), (otherDetail).getPrimary())
-            .append(getBackground(), (otherDetail).getBackground())
+            .append(getPrimary(), that.getPrimary())
+            .append(getBackground(), that.getBackground())
             .isEquals();
     }
 
