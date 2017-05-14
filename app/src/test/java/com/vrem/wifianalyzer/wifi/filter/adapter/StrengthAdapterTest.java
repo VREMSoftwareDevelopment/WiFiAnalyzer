@@ -37,7 +37,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
-@SuppressWarnings("AnonymousInnerClass")
 @RunWith(MockitoJUnitRunner.class)
 public class StrengthAdapterTest {
     @Mock
@@ -65,12 +64,7 @@ public class StrengthAdapterTest {
 
     @Test
     public void testContains() throws Exception {
-        IterableUtils.forEach(EnumUtils.values(Strength.class), new Closure<Strength>() {
-            @Override
-            public void execute(Strength strength) {
-                assertTrue(fixture.contains(strength));
-            }
-        });
+        IterableUtils.forEach(EnumUtils.values(Strength.class), new ContainsClosure());
     }
 
     @Test
@@ -98,19 +92,9 @@ public class StrengthAdapterTest {
         // setup
         Set<Strength> values = EnumUtils.values(Strength.class);
         // execute
-        IterableUtils.forEach(values, new Closure<Strength>() {
-            @Override
-            public void execute(Strength input) {
-                fixture.toggle(input);
-            }
-        });
+        IterableUtils.forEach(values, new ToggleClosure());
         // validate
-        IterableUtils.forEachButLast(values, new Closure<Strength>() {
-            @Override
-            public void execute(Strength input) {
-                assertFalse(fixture.contains(input));
-            }
-        });
+        IterableUtils.forEachButLast(values, new RemovedClosure());
         assertTrue(fixture.contains(IterableUtils.get(values, values.size() - 1)));
     }
 
@@ -138,4 +122,24 @@ public class StrengthAdapterTest {
         verify(settings).saveStrengths(expected);
     }
 
+    private class ContainsClosure implements Closure<Strength> {
+        @Override
+        public void execute(Strength strength) {
+            assertTrue(fixture.contains(strength));
+        }
+    }
+
+    private class ToggleClosure implements Closure<Strength> {
+        @Override
+        public void execute(Strength input) {
+            fixture.toggle(input);
+        }
+    }
+
+    private class RemovedClosure implements Closure<Strength> {
+        @Override
+        public void execute(Strength input) {
+            assertFalse(fixture.contains(input));
+        }
+    }
 }

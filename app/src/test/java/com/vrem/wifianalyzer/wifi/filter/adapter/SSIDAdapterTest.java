@@ -37,7 +37,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
-@SuppressWarnings("AnonymousInnerClass")
 @RunWith(MockitoJUnitRunner.class)
 public class SSIDAdapterTest {
 
@@ -56,12 +55,7 @@ public class SSIDAdapterTest {
     @Test
     public void testGetValue() throws Exception {
         assertEquals(SSID_VALUES.size(), fixture.getValues().size());
-        IterableUtils.forEach(SSID_VALUES, new Closure<String>() {
-            @Override
-            public void execute(String input) {
-                assertTrue(fixture.getValues().contains(input));
-            }
-        });
+        IterableUtils.forEach(SSID_VALUES, new ContainsClosure());
     }
 
     @Test
@@ -93,5 +87,12 @@ public class SSIDAdapterTest {
         fixture.save(settings);
         // execute
         verify(settings).saveSSIDs(SSID_VALUES);
+    }
+
+    private class ContainsClosure implements Closure<String> {
+        @Override
+        public void execute(String input) {
+            assertTrue(fixture.getValues().contains(input));
+        }
     }
 }

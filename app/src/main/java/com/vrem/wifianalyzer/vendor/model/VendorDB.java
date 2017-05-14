@@ -115,7 +115,7 @@ class VendorDB {
     private class NamePredicate implements Predicate<VendorData> {
         private final String name;
 
-        private NamePredicate(@NonNull String name) {
+        private NamePredicate(String name) {
             this.name = name;
         }
 

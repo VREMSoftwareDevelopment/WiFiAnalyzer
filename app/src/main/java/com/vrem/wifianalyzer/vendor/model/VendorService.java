@@ -22,7 +22,6 @@ import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.Predicate;
 import org.apache.commons.collections4.Transformer;
 import org.apache.commons.lang3.StringUtils;
 
@@ -34,7 +33,7 @@ import java.util.Set;
 public class VendorService {
     private static final int MAX_LEN = 6;
 
-    private Set<VendorData> cache;
+    private Set<String> cache;
     private VendorDB vendorDB;
 
     public VendorService(@NonNull Resources resources) {
@@ -45,19 +44,23 @@ public class VendorService {
     public String findVendorName(@NonNull String macAddress) {
         String cleaned = clean(macAddress);
         List<VendorData> results = vendorDB.findByAddress(cleaned);
-        cache.addAll(results);
-        return results.isEmpty() ? StringUtils.EMPTY : results.get(0).getName();
+        String result = StringUtils.EMPTY;
+        if (!results.isEmpty()) {
+            result = results.get(0).getName();
+            cache.add(result);
+        }
+        return result;
     }
 
     public List<String> findVendorNames() {
-        return new ArrayList<>(new HashSet<>(CollectionUtils.collect(cache, new ToVendorName())));
+        return new ArrayList<>(cache);
     }
 
     public List<String> findMacAddresses(String vendorName) {
-        return new ArrayList<>(CollectionUtils.collect(CollectionUtils.select(cache, new VendorNamePredicate(vendorName)), new ToMacAddress()));
+        return new ArrayList<>(CollectionUtils.collect(vendorDB.findByName(vendorName), new ToMacAddress()));
     }
 
-    Set<VendorData> getCache() {
+    Set<String> getCache() {
         return cache;
     }
 
@@ -70,30 +73,10 @@ public class VendorService {
         this.vendorDB = vendorDB;
     }
 
-    private class VendorNamePredicate implements Predicate<VendorData> {
-        private final String vendorName;
-
-        private VendorNamePredicate(String vendorName) {
-            this.vendorName = vendorName;
-        }
-
-        @Override
-        public boolean evaluate(VendorData vendorData) {
-            return vendorData.getName().equals(vendorName);
-        }
-    }
-
     private class ToMacAddress implements Transformer<VendorData, String> {
         @Override
         public String transform(VendorData input) {
             return input.getMac();
-        }
-    }
-
-    private class ToVendorName implements Transformer<VendorData, String> {
-        @Override
-        public String transform(VendorData input) {
-            return input.getName();
         }
     }
 

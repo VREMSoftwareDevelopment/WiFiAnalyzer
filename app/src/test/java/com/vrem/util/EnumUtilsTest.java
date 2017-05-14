@@ -37,7 +37,6 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-@SuppressWarnings("AnonymousInnerClass")
 public class EnumUtilsTest {
 
     @Test
@@ -45,15 +44,10 @@ public class EnumUtilsTest {
         // setup
         Set<TestObject> expected = EnumUtils.values(TestObject.class);
         // execute
-        final Set<String> actual = EnumUtils.ordinals(TestObject.class);
+        Set<String> actual = EnumUtils.ordinals(TestObject.class);
         // validate
         assertEquals(expected.size(), actual.size());
-        IterableUtils.forEach(expected, new Closure<TestObject>() {
-            @Override
-            public void execute(TestObject input) {
-                assertTrue(actual.contains("" + input.ordinal()));
-            }
-        });
+        IterableUtils.forEach(expected, new OrdinalsClosure(actual));
 
     }
 
@@ -176,14 +170,9 @@ public class EnumUtilsTest {
         assertTrue(actual instanceof AnyPredicate);
     }
 
-    private void validate(Collection<TestObject> expected, final Collection<TestObject> actual) {
+    private void validate(Collection<TestObject> expected, Collection<TestObject> actual) {
         assertEquals(expected.size(), actual.size());
-        IterableUtils.forEach(expected, new Closure<TestObject>() {
-            @Override
-            public void execute(TestObject input) {
-                assertTrue(actual.contains(input));
-            }
-        });
+        IterableUtils.forEach(expected, new TestObjectClosure(actual));
     }
 
     private enum TestObject {
@@ -196,6 +185,32 @@ public class EnumUtilsTest {
         @Override
         public Predicate<TestObject> transform(TestObject input) {
             return PredicateUtils.truePredicate();
+        }
+    }
+
+    private static class OrdinalsClosure implements Closure<TestObject> {
+        private final Set<String> actual;
+
+        private OrdinalsClosure(Set<String> actual) {
+            this.actual = actual;
+        }
+
+        @Override
+        public void execute(TestObject input) {
+            assertTrue(actual.contains("" + input.ordinal()));
+        }
+    }
+
+    private static class TestObjectClosure implements Closure<TestObject> {
+        private final Collection<TestObject> actual;
+
+        private TestObjectClosure(Collection<TestObject> actual) {
+            this.actual = actual;
+        }
+
+        @Override
+        public void execute(TestObject input) {
+            assertTrue(actual.contains(input));
         }
     }
 }

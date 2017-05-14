@@ -139,12 +139,7 @@ public class SeriesCacheTest {
         List<BaseSeries<DataPoint>> actual = fixture.remove(new ArrayList<WiFiDetail>());
         // validate
         assertTrue(actual.isEmpty());
-        IterableUtils.forEach(expected, new Closure<WiFiDetail>() {
-            @Override
-            public void execute(WiFiDetail wiFiDetail) {
-                assertTrue(fixture.contains(wiFiDetail));
-            }
-        });
+        IterableUtils.forEach(expected, new ContainsTrueClosure());
     }
 
     @Test
@@ -155,12 +150,7 @@ public class SeriesCacheTest {
         List<BaseSeries<DataPoint>> actual = fixture.remove(expected);
         // validate
         assertEquals(expected.size(), actual.size());
-        IterableUtils.forEach(expected, new Closure<WiFiDetail>() {
-            @Override
-            public void execute(WiFiDetail wiFiDetail) {
-                assertFalse(fixture.contains(wiFiDetail));
-            }
-        });
+        IterableUtils.forEach(expected, new ContainsFalseClosure());
     }
 
     @Test
@@ -187,12 +177,7 @@ public class SeriesCacheTest {
         List<BaseSeries<DataPoint>> actual = fixture.remove(toRemove);
         // validate
         assertTrue(actual.isEmpty());
-        IterableUtils.forEach(expected, new Closure<WiFiDetail>() {
-            @Override
-            public void execute(WiFiDetail wiFiDetail) {
-                assertTrue(fixture.contains(wiFiDetail));
-            }
-        });
+        IterableUtils.forEach(expected, new ContainsTrueClosure());
     }
 
     @Test
@@ -232,6 +217,20 @@ public class SeriesCacheTest {
             fixture.put(wiFiDetail, series.get(i));
         }
         return results;
+    }
+
+    private class ContainsTrueClosure implements Closure<WiFiDetail> {
+        @Override
+        public void execute(WiFiDetail wiFiDetail) {
+            assertTrue(fixture.contains(wiFiDetail));
+        }
+    }
+
+    private class ContainsFalseClosure implements Closure<WiFiDetail> {
+        @Override
+        public void execute(WiFiDetail wiFiDetail) {
+            assertFalse(fixture.contains(wiFiDetail));
+        }
     }
 
 }

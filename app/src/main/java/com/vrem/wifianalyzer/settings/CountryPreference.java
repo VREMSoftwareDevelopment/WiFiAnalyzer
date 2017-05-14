@@ -54,8 +54,8 @@ public class CountryPreference extends CustomPreference {
         return getLocale(configuration).getCountry();
     }
 
-    @NonNull
     @SuppressWarnings("deprecation")
+    @NonNull
     private static Locale getLocale(@NonNull Configuration config) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return config.getLocales().get(0);

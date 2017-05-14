@@ -58,7 +58,6 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@SuppressWarnings("AnonymousInnerClass")
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class DataManagerTest {
@@ -140,23 +139,13 @@ public class DataManagerTest {
         Set<WiFiDetail> wiFiDetails = new TreeSet<>();
         List<WiFiDetail> difference = makeWiFiDetails();
         int xValue = fixture.getXValue();
-        final Integer scanCount = fixture.getScanCount();
-        final DataPoint dataPoint = new DataPoint(xValue, DataManager.MIN_Y + DataManager.MIN_Y_OFFSET);
+        Integer scanCount = fixture.getScanCount();
+        DataPoint dataPoint = new DataPoint(xValue, DataManager.MIN_Y + DataManager.MIN_Y_OFFSET);
         when(graphViewWrapper.differenceSeries(wiFiDetails)).thenReturn(difference);
         // execute
         fixture.adjustData(graphViewWrapper, wiFiDetails);
         // validate
-        IterableUtils.forEach(difference, new Closure<WiFiDetail>() {
-            @Override
-            public void execute(WiFiDetail wiFiDetail) {
-                verify(graphViewWrapper).appendToSeries(
-                    argThat(equalTo(wiFiDetail)),
-                    argThat(new DataPointEquals(dataPoint)),
-                    argThat(equalTo(scanCount)),
-                    argThat(equalTo(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected())));
-                verify(timeGraphCache).add(wiFiDetail);
-            }
-        });
+        IterableUtils.forEach(difference, new WiFiDetailClosure(dataPoint, scanCount));
         verify(timeGraphCache).clear();
     }
 
@@ -253,4 +242,23 @@ public class DataManagerTest {
         return Arrays.asList(makeWiFiDetail("SSID4"), makeWiFiDetail("SSID5"));
     }
 
+    private class WiFiDetailClosure implements Closure<WiFiDetail> {
+        private final DataPoint dataPoint;
+        private final Integer scanCount;
+
+        private WiFiDetailClosure(@NonNull DataPoint dataPoint, @NonNull Integer scanCount) {
+            this.dataPoint = dataPoint;
+            this.scanCount = scanCount;
+        }
+
+        @Override
+        public void execute(WiFiDetail wiFiDetail) {
+            verify(graphViewWrapper).appendToSeries(
+                argThat(equalTo(wiFiDetail)),
+                argThat(new DataPointEquals(dataPoint)),
+                argThat(equalTo(scanCount)),
+                argThat(equalTo(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected())));
+            verify(timeGraphCache).add(wiFiDetail);
+        }
+    }
 }

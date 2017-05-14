@@ -30,19 +30,19 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-@SuppressWarnings("AnonymousInnerClass")
 public class StrengthFilterTest {
 
     @Test
     public void testMapping() throws Exception {
         Set<Strength> strengths = EnumUtils.values(Strength.class);
         assertEquals(strengths.size(), StrengthFilter.ids.size());
-        IterableUtils.forEach(strengths, new Closure<Strength>() {
-            @Override
-            public void execute(Strength strength) {
-                assertNotNull(StrengthFilter.ids.get(strength));
-            }
-        });
+        IterableUtils.forEach(strengths, new MappingClosure());
     }
 
+    private static class MappingClosure implements Closure<Strength> {
+        @Override
+        public void execute(Strength strength) {
+            assertNotNull(StrengthFilter.ids.get(strength));
+        }
+    }
 }

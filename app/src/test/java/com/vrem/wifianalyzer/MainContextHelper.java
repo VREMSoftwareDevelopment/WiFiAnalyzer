@@ -31,7 +31,6 @@ import java.util.Map;
 
 import static org.powermock.api.mockito.PowerMockito.mock;
 
-@SuppressWarnings("AnonymousInnerClass")
 public enum MainContextHelper {
     INSTANCE;
 
@@ -85,27 +84,29 @@ public enum MainContextHelper {
     }
 
     public void restore() {
-        IterableUtils.forEach(saved.keySet(), new Closure<Class>() {
-            @Override
-            public void execute(Class input) {
-                Object result = saved.get(input);
-                if (input.equals(Settings.class)) {
-                    mainContext.setSettings((Settings) result);
-                } else if (input.equals(VendorService.class)) {
-                    mainContext.setVendorService((VendorService) result);
-                } else if (input.equals(Scanner.class)) {
-                    mainContext.setScanner((Scanner) result);
-                } else if (input.equals(MainActivity.class)) {
-                    mainContext.setMainActivity((MainActivity) result);
-                } else if (input.equals(Configuration.class)) {
-                    mainContext.setConfiguration((Configuration) result);
-                } else if (input.equals(FilterAdapter.class)) {
-                    mainContext.setFilterAdapter((FilterAdapter) result);
-                } else {
-                    throw new IllegalArgumentException(input.getName());
-                }
-            }
-        });
+        IterableUtils.forEach(saved.keySet(), new RestoreClosure());
         saved.clear();
+    }
+
+    private class RestoreClosure implements Closure<Class> {
+        @Override
+        public void execute(Class input) {
+            Object result = saved.get(input);
+            if (input.equals(Settings.class)) {
+                mainContext.setSettings((Settings) result);
+            } else if (input.equals(VendorService.class)) {
+                mainContext.setVendorService((VendorService) result);
+            } else if (input.equals(Scanner.class)) {
+                mainContext.setScanner((Scanner) result);
+            } else if (input.equals(MainActivity.class)) {
+                mainContext.setMainActivity((MainActivity) result);
+            } else if (input.equals(Configuration.class)) {
+                mainContext.setConfiguration((Configuration) result);
+            } else if (input.equals(FilterAdapter.class)) {
+                mainContext.setFilterAdapter((FilterAdapter) result);
+            } else {
+                throw new IllegalArgumentException(input.getName());
+            }
+        }
     }
 }

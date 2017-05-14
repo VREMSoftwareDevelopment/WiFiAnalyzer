@@ -58,7 +58,6 @@ import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
 
-@SuppressWarnings("AnonymousInnerClass")
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ChannelGraphNavigationTest {
@@ -82,16 +81,7 @@ public class ChannelGraphNavigationTest {
 
         layout = mock(View.class);
         views = new HashMap<>();
-        IterableUtils.forEach(ChannelGraphNavigation.ids.keySet(), new Closure<Pair<WiFiChannel, WiFiChannel>>() {
-            @Override
-            public void execute(Pair<WiFiChannel, WiFiChannel> key) {
-                Integer id = ChannelGraphNavigation.ids.get(key);
-                Button button = mock(Button.class);
-                views.put(key, button);
-                when(layout.findViewById(id)).thenReturn(button);
-                when(button.getText()).thenReturn("ButtonName");
-            }
-        });
+        IterableUtils.forEach(ChannelGraphNavigation.ids.keySet(), new PairSetUpClosure());
 
         fixture = new ChannelGraphNavigation(layout, mainActivity);
     }
@@ -104,28 +94,13 @@ public class ChannelGraphNavigationTest {
     @Test
     public void testMapping() throws Exception {
         assertEquals(WiFiChannelsGHZ5.SETS.size(), ChannelGraphNavigation.ids.size());
-        IterableUtils.forEach(WiFiChannelsGHZ5.SETS, new Closure<Pair<WiFiChannel, WiFiChannel>>() {
-            @Override
-            public void execute(Pair<WiFiChannel, WiFiChannel> set) {
-                assertNotNull(ChannelGraphNavigation.ids.get(set));
-            }
-        });
+        IterableUtils.forEach(WiFiChannelsGHZ5.SETS, new PairMappingClosure());
     }
 
     @Test
     public void testConstructor() throws Exception {
-        IterableUtils.forEach(ChannelGraphNavigation.ids.values(), new Closure<Integer>() {
-            @Override
-            public void execute(Integer input) {
-                verify(layout).findViewById(input);
-            }
-        });
-        IterableUtils.forEach(views.values(), new Closure<View>() {
-            @Override
-            public void execute(View view) {
-                verify(view).setOnClickListener(any(ChannelGraphNavigation.SetOnClickListener.class));
-            }
-        });
+        IterableUtils.forEach(ChannelGraphNavigation.ids.values(), new IntegerClosure());
+        IterableUtils.forEach(views.values(), new ViewClosure());
     }
 
     @Test
@@ -145,9 +120,9 @@ public class ChannelGraphNavigationTest {
     @Test
     public void testUpdateWithGHZ5AndUS() throws Exception {
         // setup
-        final int colorSelected = ContextCompat.getColor(mainActivity, R.color.connected);
-        final int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.connected_background);
-        final Pair<WiFiChannel, WiFiChannel> selectedKey = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs().get(0);
+        int colorSelected = ContextCompat.getColor(mainActivity, R.color.connected);
+        int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.connected_background);
+        Pair<WiFiChannel, WiFiChannel> selectedKey = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs().get(0);
         when(configuration.getWiFiChannelPair()).thenReturn(selectedKey);
         when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
@@ -156,21 +131,8 @@ public class ChannelGraphNavigationTest {
         fixture.update(WiFiData.EMPTY);
         // validate
         verify(layout).setVisibility(View.VISIBLE);
-        IterableUtils.forEach(views.keySet(), new Closure<Pair<WiFiChannel, WiFiChannel>>() {
-            @Override
-            public void execute(Pair<WiFiChannel, WiFiChannel> key) {
-                Button button = (Button) views.get(key);
-                verify(button).setVisibility(View.VISIBLE);
-                verify(button).setBackgroundColor(selectedKey.equals(key) ? colorSelected : colorNotSelected);
-                verify(button).setSelected(selectedKey.equals(key));
-            }
-        });
-        IterableUtils.forEach(ChannelGraphNavigation.ids.values(), new Closure<Integer>() {
-            @Override
-            public void execute(Integer id) {
-                verify(layout, times(2)).findViewById(id);
-            }
-        });
+        IterableUtils.forEach(views.keySet(), new PairUpdateClosure(selectedKey, colorSelected, colorNotSelected));
+        IterableUtils.forEach(ChannelGraphNavigation.ids.values(), new IntegerUpdateClosure());
         verify(settings).getCountryCode();
         verify(settings, times(2)).getWiFiBand();
         verify(settings).getSortBy();
@@ -187,12 +149,7 @@ public class ChannelGraphNavigationTest {
         fixture.update(WiFiData.EMPTY);
         // validate
         verify(layout).setVisibility(View.VISIBLE);
-        IterableUtils.forEach(views.keySet(), new Closure<Pair<WiFiChannel, WiFiChannel>>() {
-            @Override
-            public void execute(Pair<WiFiChannel, WiFiChannel> key) {
-                verify(views.get(key)).setVisibility(WiFiChannelsGHZ5.SET3.equals(key) ? View.GONE : View.VISIBLE);
-            }
-        });
+        IterableUtils.forEach(views.keySet(), new PairClosure());
         verify(settings).getCountryCode();
         verify(settings, times(2)).getWiFiBand();
         verify(settings).getSortBy();
@@ -223,4 +180,69 @@ public class ChannelGraphNavigationTest {
         verify(scanner).update();
     }
 
+    private static class PairMappingClosure implements Closure<Pair<WiFiChannel, WiFiChannel>> {
+        @Override
+        public void execute(Pair<WiFiChannel, WiFiChannel> set) {
+            assertNotNull(ChannelGraphNavigation.ids.get(set));
+        }
+    }
+
+    private static class ViewClosure implements Closure<View> {
+        @Override
+        public void execute(View view) {
+            verify(view).setOnClickListener(any(ChannelGraphNavigation.SetOnClickListener.class));
+        }
+    }
+
+    private class PairSetUpClosure implements Closure<Pair<WiFiChannel, WiFiChannel>> {
+        @Override
+        public void execute(Pair<WiFiChannel, WiFiChannel> key) {
+            Integer id = ChannelGraphNavigation.ids.get(key);
+            Button button = mock(Button.class);
+            views.put(key, button);
+            when(layout.findViewById(id)).thenReturn(button);
+            when(button.getText()).thenReturn("ButtonName");
+        }
+    }
+
+    private class IntegerClosure implements Closure<Integer> {
+        @Override
+        public void execute(Integer input) {
+            verify(layout).findViewById(input);
+        }
+    }
+
+    private class PairUpdateClosure implements Closure<Pair<WiFiChannel, WiFiChannel>> {
+        private final Pair<WiFiChannel, WiFiChannel> selectedKey;
+        private final int colorSelected;
+        private final int colorNotSelected;
+
+        private PairUpdateClosure(Pair<WiFiChannel, WiFiChannel> selectedKey, int colorSelected, int colorNotSelected) {
+            this.selectedKey = selectedKey;
+            this.colorSelected = colorSelected;
+            this.colorNotSelected = colorNotSelected;
+        }
+
+        @Override
+        public void execute(Pair<WiFiChannel, WiFiChannel> key) {
+            Button button = (Button) views.get(key);
+            verify(button).setVisibility(View.VISIBLE);
+            verify(button).setBackgroundColor(selectedKey.equals(key) ? colorSelected : colorNotSelected);
+            verify(button).setSelected(selectedKey.equals(key));
+        }
+    }
+
+    private class IntegerUpdateClosure implements Closure<Integer> {
+        @Override
+        public void execute(Integer id) {
+            verify(layout, times(2)).findViewById(id);
+        }
+    }
+
+    private class PairClosure implements Closure<Pair<WiFiChannel, WiFiChannel>> {
+        @Override
+        public void execute(Pair<WiFiChannel, WiFiChannel> key) {
+            verify(views.get(key)).setVisibility(WiFiChannelsGHZ5.SET3.equals(key) ? View.GONE : View.VISIBLE);
+        }
+    }
 }

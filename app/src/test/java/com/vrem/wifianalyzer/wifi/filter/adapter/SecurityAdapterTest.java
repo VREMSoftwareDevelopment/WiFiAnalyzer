@@ -38,7 +38,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
-@SuppressWarnings("AnonymousInnerClass")
 @RunWith(MockitoJUnitRunner.class)
 public class SecurityAdapterTest {
     @Mock
@@ -66,12 +65,7 @@ public class SecurityAdapterTest {
 
     @Test
     public void testContains() throws Exception {
-        IterableUtils.forEach(EnumUtils.values(Security.class), new Closure<Security>() {
-            @Override
-            public void execute(Security security) {
-                assertTrue(fixture.contains(security));
-            }
-        });
+        IterableUtils.forEach(EnumUtils.values(Security.class), new ContainsClosure());
     }
 
     @Test
@@ -99,19 +93,9 @@ public class SecurityAdapterTest {
         // setup
         Set<Security> values = EnumUtils.values(Security.class);
         // execute
-        IterableUtils.forEach(values, new Closure<Security>() {
-            @Override
-            public void execute(Security input) {
-                fixture.toggle(input);
-            }
-        });
+        IterableUtils.forEach(values, new ToggleClosure());
         // validate
-        IterableUtils.forEachButLast(values, new Closure<Security>() {
-            @Override
-            public void execute(Security input) {
-                assertFalse(fixture.contains(input));
-            }
-        });
+        IterableUtils.forEachButLast(values, new RemovedClosure());
         assertTrue(fixture.contains(IterableUtils.get(values, values.size() - 1)));
     }
 
@@ -137,5 +121,26 @@ public class SecurityAdapterTest {
         fixture.save(settings);
         // execute
         verify(settings).saveSecurities(expected);
+    }
+
+    private class ContainsClosure implements Closure<Security> {
+        @Override
+        public void execute(Security security) {
+            assertTrue(fixture.contains(security));
+        }
+    }
+
+    private class ToggleClosure implements Closure<Security> {
+        @Override
+        public void execute(Security input) {
+            fixture.toggle(input);
+        }
+    }
+
+    private class RemovedClosure implements Closure<Security> {
+        @Override
+        public void execute(Security input) {
+            assertFalse(fixture.contains(input));
+        }
     }
 }

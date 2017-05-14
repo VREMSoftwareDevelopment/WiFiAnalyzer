@@ -44,14 +44,13 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.when;
 
-@SuppressWarnings("AnonymousInnerClass")
 @RunWith(MockitoJUnitRunner.class)
 public class ExportItemTest {
     @Mock
@@ -141,8 +140,7 @@ public class ExportItemTest {
 
     @NonNull
     private WiFiData withWiFiData() {
-        //noinspection ArraysAsListWithZeroOrOneArgument
-        return new WiFiData(Arrays.asList(wiFiDetail), WiFiConnection.EMPTY, new ArrayList<String>());
+        return new WiFiData(Collections.singletonList(wiFiDetail), WiFiConnection.EMPTY, new ArrayList<String>());
     }
 
     private void verifySendIntentInformation(String sendData) {

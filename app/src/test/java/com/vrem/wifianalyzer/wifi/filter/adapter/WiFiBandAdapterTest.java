@@ -38,7 +38,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
-@SuppressWarnings("AnonymousInnerClass")
 @RunWith(MockitoJUnitRunner.class)
 public class WiFiBandAdapterTest {
     @Mock
@@ -66,12 +65,7 @@ public class WiFiBandAdapterTest {
 
     @Test
     public void testContains() throws Exception {
-        IterableUtils.forEach(EnumUtils.values(WiFiBand.class), new Closure<WiFiBand>() {
-            @Override
-            public void execute(WiFiBand wiFiBand) {
-                assertTrue(fixture.contains(wiFiBand));
-            }
-        });
+        IterableUtils.forEach(EnumUtils.values(WiFiBand.class), new ContainsClosure());
     }
 
     @Test
@@ -99,19 +93,9 @@ public class WiFiBandAdapterTest {
         // setup
         Set<WiFiBand> values = EnumUtils.values(WiFiBand.class);
         // execute
-        IterableUtils.forEach(values, new Closure<WiFiBand>() {
-            @Override
-            public void execute(WiFiBand input) {
-                fixture.toggle(input);
-            }
-        });
+        IterableUtils.forEach(values, new ToggleClosure());
         // validate
-        IterableUtils.forEachButLast(values, new Closure<WiFiBand>() {
-            @Override
-            public void execute(WiFiBand input) {
-                assertFalse(fixture.contains(input));
-            }
-        });
+        IterableUtils.forEachButLast(values, new RemovedClosure());
         assertTrue(fixture.contains(IterableUtils.get(values, values.size() - 1)));
     }
 
@@ -137,5 +121,26 @@ public class WiFiBandAdapterTest {
         fixture.save(settings);
         // execute
         verify(settings).saveWiFiBands(expected);
+    }
+
+    private class ContainsClosure implements Closure<WiFiBand> {
+        @Override
+        public void execute(WiFiBand wiFiBand) {
+            assertTrue(fixture.contains(wiFiBand));
+        }
+    }
+
+    private class ToggleClosure implements Closure<WiFiBand> {
+        @Override
+        public void execute(WiFiBand input) {
+            fixture.toggle(input);
+        }
+    }
+
+    private class RemovedClosure implements Closure<WiFiBand> {
+        @Override
+        public void execute(WiFiBand input) {
+            assertFalse(fixture.contains(input));
+        }
     }
 }

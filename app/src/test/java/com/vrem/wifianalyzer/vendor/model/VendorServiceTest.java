@@ -18,10 +18,14 @@
 
 package com.vrem.wifianalyzer.vendor.model;
 
+import android.support.annotation.NonNull;
+
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
+import org.apache.commons.collections4.Closure;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -71,7 +75,7 @@ public class VendorServiceTest {
         assertEquals(vendorData.getName(), actual);
         verify(vendorDB).findByAddress(MAC_ADDRESS);
         assertEquals(1, fixture.getCache().size());
-        assertEquals(vendorData, fixture.getCache().iterator().next());
+        assertEquals(VENDOR_NAME, fixture.getCache().iterator().next());
     }
 
     @Test
@@ -100,11 +104,8 @@ public class VendorServiceTest {
         // execute
         List<String> actual = fixture.findVendorNames();
         // validate
-        assertEquals(4, actual.size());
+        assertEquals(1, actual.size());
         assertTrue(actual.contains(VENDOR_NAME));
-        assertTrue(actual.contains(VENDOR_NAME + 1));
-        assertTrue(actual.contains(VENDOR_NAME + 2));
-        assertTrue(actual.contains(VENDOR_NAME + 3));
     }
 
     @Test
@@ -116,15 +117,13 @@ public class VendorServiceTest {
     @Test
     public void testFindMacAddresses() throws Exception {
         // setup
-        when(vendorDB.findByAddress(anyString())).thenReturn(withVendorDatas());
-        fixture.findVendorName(MAC_ADDRESS_SEARCH);
+        List<VendorData> expected = withVendorDatas();
+        when(vendorDB.findByName(VENDOR_NAME)).thenReturn(expected);
         // execute
         List<String> actual = fixture.findMacAddresses(VENDOR_NAME);
         // validate
-        assertEquals(3, actual.size());
-        assertTrue(actual.contains(MAC_ADDRESS));
-        assertTrue(actual.contains("0023AC"));
-        assertTrue(actual.contains("0023AD"));
+        assertEquals(expected.size(), actual.size());
+        IterableUtils.forEach(expected, new VendorDataClosure(actual));
     }
 
     @Test
@@ -148,5 +147,18 @@ public class VendorServiceTest {
             new VendorData(VENDOR_NAME + 1, "0023A0"),
             new VendorData(VENDOR_NAME + 2, "0023A1"),
             new VendorData(VENDOR_NAME + 3, "0023A2"));
+    }
+
+    private static class VendorDataClosure implements Closure<VendorData> {
+        private final List<String> actual;
+
+        private VendorDataClosure(@NonNull List<String> actual) {
+            this.actual = actual;
+        }
+
+        @Override
+        public void execute(VendorData vendorData) {
+            assertTrue(actual.contains(vendorData.getMac()));
+        }
     }
 }
