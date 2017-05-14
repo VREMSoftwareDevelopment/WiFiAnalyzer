@@ -32,6 +32,7 @@ import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Scanner {
@@ -59,7 +60,7 @@ public class Scanner {
     }
 
     private void performWiFiScan() {
-        List<ScanResult> scanResults = new ArrayList<>();
+        List<ScanResult> scanResults = Collections.emptyList();
         WifiInfo wifiInfo = null;
         List<WifiConfiguration> configuredNetworks = null;
         try {

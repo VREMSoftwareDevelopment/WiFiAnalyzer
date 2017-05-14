@@ -34,7 +34,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -79,9 +79,9 @@ public class ScannerTest {
 
     @Before
     public void setUp() {
-        scanResults = new ArrayList<>();
-        cacheResults = new ArrayList<>();
-        configuredNetworks = new ArrayList<>();
+        scanResults = Collections.emptyList();
+        cacheResults = Collections.emptyList();
+        configuredNetworks = Collections.emptyList();
 
         fixture = new Scanner(wifiManager, handler, settings);
         fixture.setCache(cache);

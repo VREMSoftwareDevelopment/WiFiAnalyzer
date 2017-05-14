@@ -136,7 +136,7 @@ public class SeriesCacheTest {
         // setup
         List<WiFiDetail> expected = withData();
         // execute
-        List<BaseSeries<DataPoint>> actual = fixture.remove(new ArrayList<WiFiDetail>());
+        List<BaseSeries<DataPoint>> actual = fixture.remove(Collections.<WiFiDetail>emptyList());
         // validate
         assertTrue(actual.isEmpty());
         IterableUtils.forEach(expected, new ContainsTrueClosure());

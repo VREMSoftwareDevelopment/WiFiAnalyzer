@@ -20,11 +20,15 @@ package com.vrem.wifianalyzer.vendor.model;
 
 import android.support.annotation.NonNull;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-class VendorData {
+class VendorData implements Comparable<VendorData> {
+    public static final VendorData EMPTY = new VendorData(StringUtils.EMPTY, StringUtils.EMPTY);
+
     private final String name;
     private final String mac;
 
@@ -50,21 +54,29 @@ class VendorData {
         VendorData that = (VendorData) o;
 
         return new EqualsBuilder()
-            .append(getName(), that.getName())
             .append(getMac(), that.getMac())
+            .append(getName(), that.getName())
             .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-            .append(getName())
             .append(getMac())
+            .append(getName())
             .toHashCode();
     }
 
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
+    }
+
+    @Override
+    public int compareTo(@NonNull VendorData o) {
+        return new CompareToBuilder()
+            .append(getMac(), o.getMac())
+            .append(getName(), o.getName())
+            .toComparison();
     }
 }

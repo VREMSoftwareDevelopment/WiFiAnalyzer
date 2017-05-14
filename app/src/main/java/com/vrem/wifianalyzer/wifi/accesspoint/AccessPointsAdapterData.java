@@ -29,7 +29,7 @@ import com.vrem.wifianalyzer.wifi.predicate.FilterPredicate;
 
 import org.apache.commons.collections4.Predicate;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class AccessPointsAdapterData {
@@ -37,7 +37,7 @@ class AccessPointsAdapterData {
     private List<WiFiDetail> wiFiDetails;
 
     AccessPointsAdapterData() {
-        wiFiDetails = new ArrayList<>();
+        wiFiDetails = Collections.emptyList();
         setAccessPointsAdapterGroup(new AccessPointsAdapterGroup());
     }
 

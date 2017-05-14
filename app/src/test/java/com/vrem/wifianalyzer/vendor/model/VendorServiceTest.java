@@ -33,7 +33,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -81,7 +80,7 @@ public class VendorServiceTest {
     @Test
     public void testFindVendorNameWithNameNotFound() throws Exception {
         // setup
-        when(vendorDB.findByAddress(MAC_ADDRESS)).thenReturn(new ArrayList<VendorData>());
+        when(vendorDB.findByAddress(MAC_ADDRESS)).thenReturn(Collections.<VendorData>emptyList());
         // execute
         String actual = fixture.findVendorName(MAC_ADDRESS_SEARCH);
         // validate

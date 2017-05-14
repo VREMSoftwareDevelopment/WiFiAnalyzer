@@ -33,6 +33,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -90,7 +91,7 @@ public class CacheTest {
         // setup
         when(settings.getScanInterval()).thenReturn(5);
         when(configuration.isSizeAvailable()).thenReturn(true);
-        List<ScanResult> scanResults = new ArrayList<>();
+        List<ScanResult> scanResults = Collections.emptyList();
         // execute
         fixture.add(scanResults);
         // validate
@@ -107,7 +108,7 @@ public class CacheTest {
         List<List<ScanResult>> expected = new ArrayList<>();
         // execute
         for (int i = 0; i < cacheSize; i++) {
-            List<ScanResult> scanResults = new ArrayList<>();
+            List<ScanResult> scanResults = Collections.emptyList();
             expected.add(scanResults);
             fixture.add(scanResults);
         }
@@ -170,7 +171,7 @@ public class CacheTest {
         // setup
         when(settings.getScanInterval()).thenReturn(5);
         when(configuration.isSizeAvailable()).thenReturn(false);
-        List<ScanResult> scanResults = new ArrayList<>();
+        List<ScanResult> scanResults = Collections.emptyList();
         // execute
         fixture.add(scanResults);
         // validate
@@ -188,7 +189,7 @@ public class CacheTest {
         List<List<ScanResult>> expected = new ArrayList<>();
         // execute
         for (int i = 0; i < cacheSize; i++) {
-            List<ScanResult> scanResults = new ArrayList<>();
+            List<ScanResult> scanResults = Collections.emptyList();
             expected.add(scanResults);
             fixture.add(scanResults);
         }

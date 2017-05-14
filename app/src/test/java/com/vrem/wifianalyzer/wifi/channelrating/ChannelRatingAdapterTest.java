@@ -50,6 +50,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -118,7 +119,7 @@ public class ChannelRatingAdapterTest {
     public void testUpdate() throws Exception {
         // setup
         String expected = mainActivity.getResources().getText(R.string.channel_rating_best_none).toString();
-        WiFiData wiFiData = new WiFiData(new ArrayList<WiFiDetail>(), WiFiConnection.EMPTY, new ArrayList<String>());
+        WiFiData wiFiData = new WiFiData(Collections.<WiFiDetail>emptyList(), WiFiConnection.EMPTY, Collections.<String>emptyList());
         Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ5);
         List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(predicate, SortBy.STRENGTH);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
@@ -139,8 +140,8 @@ public class ChannelRatingAdapterTest {
         String expected = resources.getText(R.string.channel_rating_best_none).toString()
             + resources.getText(R.string.channel_rating_best_alternative)
             + " " + resources.getString(WiFiBand.GHZ5.getTextResource());
-        List<WiFiChannel> wiFiChannels = new ArrayList<>();
-        List<ChannelAPCount> channelAPCounts = new ArrayList<>();
+        List<WiFiChannel> wiFiChannels = Collections.emptyList();
+        List<ChannelAPCount> channelAPCounts = Collections.emptyList();
         when(channelRating.getBestChannels(wiFiChannels)).thenReturn(channelAPCounts);
         // execute
         fixture.bestChannels(WiFiBand.GHZ2, wiFiChannels);
@@ -153,8 +154,8 @@ public class ChannelRatingAdapterTest {
     public void testBestChannelsGHZ5WithErrorMessage() throws Exception {
         // setup
         String expected = mainActivity.getResources().getText(R.string.channel_rating_best_none).toString();
-        List<WiFiChannel> wiFiChannels = new ArrayList<>();
-        List<ChannelAPCount> channelAPCounts = new ArrayList<>();
+        List<WiFiChannel> wiFiChannels = Collections.emptyList();
+        List<ChannelAPCount> channelAPCounts = Collections.emptyList();
         when(channelRating.getBestChannels(wiFiChannels)).thenReturn(channelAPCounts);
         // execute
         fixture.bestChannels(WiFiBand.GHZ5, wiFiChannels);
@@ -167,7 +168,7 @@ public class ChannelRatingAdapterTest {
     public void testBestChannelsGHZ5WithChannels() throws Exception {
         // setup
         String expected = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11...";
-        List<WiFiChannel> wiFiChannels = new ArrayList<>();
+        List<WiFiChannel> wiFiChannels = Collections.emptyList();
         List<ChannelAPCount> channelAPCounts = withChannelAPCounts();
         when(channelRating.getBestChannels(wiFiChannels)).thenReturn(channelAPCounts);
         // execute

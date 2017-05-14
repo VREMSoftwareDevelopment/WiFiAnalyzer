@@ -37,7 +37,11 @@ public class ChannelRating {
     private static final int LEVEL_RANGE_MAX = 5;
     private static final int BSSID_LENGTH = 17;
 
-    private List<WiFiDetail> wiFiDetails = new ArrayList<>();
+    private List<WiFiDetail> wiFiDetails;
+
+    public ChannelRating() {
+        wiFiDetails = Collections.emptyList();
+    }
 
     public int getCount(@NonNull WiFiChannel wiFiChannel) {
         return collectOverlapping(wiFiChannel).size();

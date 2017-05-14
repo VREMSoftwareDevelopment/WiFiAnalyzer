@@ -31,8 +31,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
@@ -62,8 +61,7 @@ public class VendorFragmentTest {
     @Test
     public void testOnCreateView() throws Exception {
         // setup
-        List<String> vendorNames = new ArrayList<>();
-        when(vendorService.findVendorNames()).thenReturn(vendorNames);
+        when(vendorService.findVendorNames()).thenReturn(Collections.<String>emptyList());
         // execute
         SupportFragmentTestUtil.startFragment(fixture);
         // validate

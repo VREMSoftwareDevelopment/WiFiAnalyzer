@@ -26,9 +26,9 @@ import org.apache.commons.collections4.Transformer;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class VendorService {
     private static final int MAX_LEN = 6;
@@ -37,7 +37,7 @@ public class VendorService {
     private VendorDB vendorDB;
 
     public VendorService(@NonNull Resources resources) {
-        this.cache = new HashSet<>();
+        this.cache = new TreeSet<>();
         this.vendorDB = new VendorDB(resources);
     }
 

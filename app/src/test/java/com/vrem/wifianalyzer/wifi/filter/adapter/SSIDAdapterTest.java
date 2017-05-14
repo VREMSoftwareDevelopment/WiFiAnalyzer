@@ -29,6 +29,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -66,7 +67,7 @@ public class SSIDAdapterTest {
     @Test
     public void testIsNotActiveWithEmptyValue() throws Exception {
         // execute
-        fixture.setValues(new HashSet<String>());
+        fixture.setValues(Collections.<String>emptySet());
         // validate
         assertFalse(fixture.isActive());
         assertTrue(fixture.getValues().isEmpty());

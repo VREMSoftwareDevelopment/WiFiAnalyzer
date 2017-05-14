@@ -212,12 +212,12 @@ public class SettingsTest {
     public void testGetSSIDFilter() throws Exception {
         // setup
         Set<String> expected = new HashSet<>(Arrays.asList("value1", "value2", "value3"));
-        when(repository.getStringSet(R.string.filter_ssid_key, new HashSet<String>())).thenReturn(expected);
+        when(repository.getStringSet(R.string.filter_ssid_key, Collections.<String>emptySet())).thenReturn(expected);
         // execute
         Set<String> actual = fixture.getSSIDs();
         // validate
         assertEquals(expected, actual);
-        verify(repository).getStringSet(R.string.filter_ssid_key, new HashSet<String>());
+        verify(repository).getStringSet(R.string.filter_ssid_key, Collections.<String>emptySet());
     }
 
     @Test

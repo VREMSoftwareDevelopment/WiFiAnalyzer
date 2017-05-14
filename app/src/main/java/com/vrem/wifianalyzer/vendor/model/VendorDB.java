@@ -26,12 +26,17 @@ import com.vrem.wifianalyzer.R;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
+import org.apache.commons.collections4.Transformer;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.TreeSet;
 
 class VendorDB {
+    private static final int MIN_SIZE = 6;
     private final List<VendorData> data;
 
     VendorDB(@NonNull Resources resources) {
@@ -51,25 +56,18 @@ class VendorDB {
     }
 
     private List<VendorData> readVendorData(@NonNull Resources resources) {
-        List<VendorData> results = new ArrayList<>();
-        String[] vendors = readFile(resources, R.raw.vendors);
-        if (vendors.length > 0) {
-            String[] macs = readFile(resources, R.raw.macs);
-            for (String mac : macs) {
-                try {
-                    String macAddress = mac.substring(0, 6);
-                    int index = Integer.parseInt(mac.substring(6));
-                    String vendorName = vendors[index];
-                    results.add(new VendorData(vendorName, macAddress));
-                } catch (Exception e) {
-                    // skip any entry with errors
-                }
-            }
+        List<String> vendors = readFile(resources, R.raw.vendors);
+        if (vendors.isEmpty()) {
+            return Collections.emptyList();
         }
-        return results;
+        List<String> macs = readFile(resources, R.raw.macs);
+        if (macs.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return new ArrayList<>(new TreeSet<>(CollectionUtils.collect(macs, new ToVendorData(vendors))));
     }
 
-    private String[] readFile(@NonNull Resources resources, @RawRes int id) {
+    private List<String> readFile(@NonNull Resources resources, @RawRes int id) {
         InputStream inputStream = null;
         try {
             inputStream = resources.openRawResource(id);
@@ -77,13 +75,12 @@ class VendorDB {
             byte[] bytes = new byte[size];
             int count = inputStream.read(bytes);
             if (count != size) {
-                // file is corrupted
-                return new String[]{};
+                return Collections.emptyList();
             }
-            return new String(bytes).split("\n");
+            return Arrays.asList(new String(bytes).split("\n"));
         } catch (Exception e) {
             // file is corrupted
-            return new String[]{};
+            return Collections.emptyList();
         } finally {
             close(inputStream);
         }
@@ -95,6 +92,27 @@ class VendorDB {
                 inputStream.close();
             } catch (Exception e) {
                 // do nothing
+            }
+        }
+    }
+
+    private class ToVendorData implements Transformer<String, VendorData> {
+        private final List<String> vendors;
+
+        private ToVendorData(@NonNull List<String> vendors) {
+            this.vendors = vendors;
+        }
+
+        @Override
+        public VendorData transform(String mac) {
+            try {
+                if (mac.length() < MIN_SIZE) {
+                    return VendorData.EMPTY;
+                }
+                int index = Integer.parseInt(mac.substring(MIN_SIZE));
+                return new VendorData(vendors.get(index), mac.substring(0, MIN_SIZE));
+            } catch (Exception e) {
+                return VendorData.EMPTY;
             }
         }
     }

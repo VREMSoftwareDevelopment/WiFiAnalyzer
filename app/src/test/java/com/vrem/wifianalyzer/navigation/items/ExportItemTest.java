@@ -43,7 +43,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
@@ -140,7 +139,7 @@ public class ExportItemTest {
 
     @NonNull
     private WiFiData withWiFiData() {
-        return new WiFiData(Collections.singletonList(wiFiDetail), WiFiConnection.EMPTY, new ArrayList<String>());
+        return new WiFiData(Collections.singletonList(wiFiDetail), WiFiConnection.EMPTY, Collections.<String>emptyList());
     }
 
     private void verifySendIntentInformation(String sendData) {
