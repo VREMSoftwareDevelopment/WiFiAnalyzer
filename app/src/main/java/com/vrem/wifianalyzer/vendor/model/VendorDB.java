@@ -24,50 +24,79 @@ import android.support.annotation.RawRes;
 
 import com.vrem.wifianalyzer.R;
 
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.Predicate;
-import org.apache.commons.collections4.Transformer;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.TreeSet;
 
 class VendorDB {
+    static final int ID_INVALID = -1;
     private static final int MIN_SIZE = 6;
-    private final List<VendorData> data;
+
+    private final String[] vendors;
+    private final String[] macs;
 
     VendorDB(@NonNull Resources resources) {
-        data = readVendorData(resources);
+        vendors = readFile(resources, R.raw.vendors);
+        macs = readFile(resources, R.raw.macs);
     }
 
-    List<VendorData> findByAddress(String address) {
-        return new ArrayList<>(CollectionUtils.select(data, new AddressPredicate(address)));
-    }
-
-    List<VendorData> findByName(String name) {
-        return new ArrayList<>(CollectionUtils.select(data, new NamePredicate(name)));
-    }
-
-    List<VendorData> findAll() {
-        return data;
-    }
-
-    private List<VendorData> readVendorData(@NonNull Resources resources) {
-        List<String> vendors = readFile(resources, R.raw.vendors);
-        if (vendors.isEmpty()) {
-            return Collections.emptyList();
+    int findVendorIndex(String address) {
+        int index = Arrays.binarySearch(macs, address, new MacAddressComparator());
+        if (index < 0) {
+            return ID_INVALID;
         }
-        List<String> macs = readFile(resources, R.raw.macs);
-        if (macs.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return new ArrayList<>(new TreeSet<>(CollectionUtils.collect(macs, new ToVendorData(vendors))));
+        return toIndex(macs[index]);
     }
 
-    private List<String> readFile(@NonNull Resources resources, @RawRes int id) {
+    String findVendorName(Integer vendorIndex) {
+        return validVendorIndex(vendorIndex) ? vendors[vendorIndex] : StringUtils.EMPTY;
+    }
+
+    List<String> findMacAddresses(Integer vendorIndex) {
+        List<String> results = new ArrayList<>();
+        if (validVendorIndex(vendorIndex)) {
+            String[] macs = this.macs;
+            for (String mac : macs) {
+                if (vendorIndex == toIndex(mac)) {
+                    results.add(toAddress(mac));
+                }
+            }
+        }
+        return results;
+    }
+
+    String[] getMacs() {
+        return macs;
+    }
+
+    String[] getVendors() {
+        return vendors;
+    }
+
+    String toAddress(@NonNull String source) {
+        return source.length() < MIN_SIZE ? StringUtils.EMPTY : source.substring(0, MIN_SIZE);
+    }
+
+    int toIndex(@NonNull String source) {
+        try {
+            if (source.length() > MIN_SIZE) {
+                return Integer.parseInt(source.substring(MIN_SIZE));
+            }
+            return ID_INVALID;
+        } catch (Exception e) {
+            return ID_INVALID;
+        }
+    }
+
+    private boolean validVendorIndex(Integer vendorIndex) {
+        return vendorIndex != null && vendorIndex >= 0 && vendorIndex < vendors.length;
+    }
+
+    private String[] readFile(@NonNull Resources resources, @RawRes int id) {
         InputStream inputStream = null;
         try {
             inputStream = resources.openRawResource(id);
@@ -75,12 +104,12 @@ class VendorDB {
             byte[] bytes = new byte[size];
             int count = inputStream.read(bytes);
             if (count != size) {
-                return Collections.emptyList();
+                return new String[]{};
             }
-            return Arrays.asList(new String(bytes).split("\n"));
+            return new String(bytes).split("\n");
         } catch (Exception e) {
             // file is corrupted
-            return Collections.emptyList();
+            return new String[]{};
         } finally {
             close(inputStream);
         }
@@ -96,51 +125,10 @@ class VendorDB {
         }
     }
 
-    private class ToVendorData implements Transformer<String, VendorData> {
-        private final List<String> vendors;
-
-        private ToVendorData(@NonNull List<String> vendors) {
-            this.vendors = vendors;
-        }
-
+    private static class MacAddressComparator implements Comparator<String> {
         @Override
-        public VendorData transform(String mac) {
-            try {
-                if (mac.length() < MIN_SIZE) {
-                    return VendorData.EMPTY;
-                }
-                int index = Integer.parseInt(mac.substring(MIN_SIZE));
-                return new VendorData(vendors.get(index), mac.substring(0, MIN_SIZE));
-            } catch (Exception e) {
-                return VendorData.EMPTY;
-            }
+        public int compare(String source, String address) {
+            return source.substring(0, MIN_SIZE).compareTo(address);
         }
     }
-
-    private class AddressPredicate implements Predicate<VendorData> {
-        private final String address;
-
-        private AddressPredicate(@NonNull String address) {
-            this.address = address;
-        }
-
-        @Override
-        public boolean evaluate(VendorData vendorData) {
-            return vendorData.getMac().equals(address);
-        }
-    }
-
-    private class NamePredicate implements Predicate<VendorData> {
-        private final String name;
-
-        private NamePredicate(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public boolean evaluate(VendorData vendorData) {
-            return vendorData.getName().equals(name);
-        }
-    }
-
 }

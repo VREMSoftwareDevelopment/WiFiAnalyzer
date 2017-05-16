@@ -34,11 +34,13 @@ import com.vrem.wifianalyzer.vendor.model.VendorService;
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
 
-class VendorAdapter extends ArrayAdapter<String> {
+import java.util.List;
+
+class VendorAdapter extends ArrayAdapter<Integer> {
     private final VendorService vendorService;
 
     VendorAdapter(@NonNull Context context, @NonNull VendorService vendorService) {
-        super(context, R.layout.vendor_details, vendorService.findVendorNames());
+        super(context, R.layout.vendor_details, vendorService.findVendorIndexes());
         this.vendorService = vendorService;
     }
 
@@ -50,11 +52,13 @@ class VendorAdapter extends ArrayAdapter<String> {
             LayoutInflater layoutInflater = MainContext.INSTANCE.getMainActivity().getLayoutInflater();
             view = layoutInflater.inflate(R.layout.vendor_details, parent, false);
         }
-        String name = getItem(position);
-        ((TextView) view.findViewById(R.id.vendor_name)).setText(name);
-
+        Integer index = getItem(position);
+        String vendorName = vendorService.findVendorName(index);
+        List<String> macAddresses = vendorService.findMacAddresses(index);
         StringBuilder stringBuilder = new StringBuilder();
-        IterableUtils.forEach(vendorService.findMacAddresses(name), new MacsClosure(stringBuilder));
+        IterableUtils.forEach(macAddresses, new MacsClosure(stringBuilder));
+
+        ((TextView) view.findViewById(R.id.vendor_name)).setText(vendorName);
         ((TextView) view.findViewById(R.id.vendor_macs)).setText(stringBuilder.toString());
         return view;
     }

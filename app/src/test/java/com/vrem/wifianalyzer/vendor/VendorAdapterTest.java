@@ -46,9 +46,10 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class VendorAdapterTest {
-    private static final String VENDOR1 = "V1";
-    private static final String VENDOR2 = "V2";
-    private static final String VENDOR3 = "V3";
+    private static final int VENDOR_INDEX1 = 10;
+    private static final int VENDOR_INDEX2 = 20;
+    private static final int VENDOR_INDEX3 = 30;
+    private static final String VENDOR_NAME2 = "N2";
 
     private VendorService vendorService;
     private VendorAdapter fixture;
@@ -59,37 +60,40 @@ public class VendorAdapterTest {
 
         vendorService = MainContextHelper.INSTANCE.getVendorService();
 
-        withVendorNames();
+        withVendorIndexes();
 
         fixture = new VendorAdapter(mainActivity, vendorService);
     }
 
     @After
     public void tearDown() {
-        verify(vendorService).findVendorNames();
+        verify(vendorService).findVendorIndexes();
         MainContextHelper.INSTANCE.restore();
     }
 
     @Test
     public void testGetView() throws Exception {
         // setup
-        when(vendorService.findMacAddresses(VENDOR2)).thenReturn(Arrays.asList("V2M1X1", "V2M2", "V2M3X1"));
+        when(vendorService.findVendorName(VENDOR_INDEX2)).thenReturn(VENDOR_NAME2);
+        when(vendorService.findMacAddresses(VENDOR_INDEX2)).thenReturn(Arrays.asList("V2M1X1", "V2M2", "V2M3X1"));
         String expected = "V2:M1:X1, *V2M2*, V2:M3:X1";
         // execute
         View actual = fixture.getView(1, null, null);
         // validate
         assertNotNull(actual);
 
-        assertEquals(VENDOR2, ((TextView) actual.findViewById(R.id.vendor_name)).getText());
+        assertEquals(VENDOR_NAME2, ((TextView) actual.findViewById(R.id.vendor_name)).getText());
         assertEquals(expected, ((TextView) actual.findViewById(R.id.vendor_macs)).getText());
 
-        verify(vendorService, never()).findMacAddresses(VENDOR1);
-        verify(vendorService).findMacAddresses(VENDOR2);
-        verify(vendorService, never()).findMacAddresses(VENDOR3);
+        verify(vendorService).findVendorName(VENDOR_INDEX2);
+        verify(vendorService).findMacAddresses(VENDOR_INDEX2);
+
+        verify(vendorService, never()).findVendorName(VENDOR_INDEX1);
+        verify(vendorService, never()).findVendorName(VENDOR_INDEX3);
     }
 
-    private void withVendorNames() {
-        when(vendorService.findVendorNames()).thenReturn(Arrays.asList(VENDOR1, VENDOR2, VENDOR3));
+    private void withVendorIndexes() {
+        when(vendorService.findVendorIndexes()).thenReturn(Arrays.asList(VENDOR_INDEX1, VENDOR_INDEX2, VENDOR_INDEX3));
     }
 
 }

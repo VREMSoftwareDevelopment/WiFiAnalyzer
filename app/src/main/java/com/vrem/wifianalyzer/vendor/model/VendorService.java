@@ -21,8 +21,6 @@ package com.vrem.wifianalyzer.vendor.model;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.Transformer;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -33,7 +31,7 @@ import java.util.TreeSet;
 public class VendorService {
     private static final int MAX_LEN = 6;
 
-    private Set<String> cache;
+    private Set<Integer> cache;
     private VendorDB vendorDB;
 
     public VendorService(@NonNull Resources resources) {
@@ -41,27 +39,25 @@ public class VendorService {
         this.vendorDB = new VendorDB(resources);
     }
 
-    public String findVendorName(@NonNull String macAddress) {
-        String cleaned = clean(macAddress);
-        List<VendorData> results = vendorDB.findByAddress(cleaned);
-        String result = StringUtils.EMPTY;
-        if (!results.isEmpty()) {
-            result = results.get(0).getName();
-            cache.add(result);
-        }
-        return result;
+    public String findVendorName(Integer vendorIndex) {
+        return vendorDB.findVendorName(vendorIndex);
     }
 
-    public List<String> findVendorNames() {
+    public String findVendorName(@NonNull String macAddress) {
+        int index = vendorDB.findVendorIndex(clean(macAddress));
+        String vendorName = vendorDB.findVendorName(index);
+        if (StringUtils.isNotEmpty(vendorName)) {
+            cache.add(index);
+        }
+        return vendorName;
+    }
+
+    public List<Integer> findVendorIndexes() {
         return new ArrayList<>(cache);
     }
 
-    public List<String> findMacAddresses(String vendorName) {
-        return new ArrayList<>(CollectionUtils.collect(vendorDB.findByName(vendorName), new ToMacAddress()));
-    }
-
-    Set<String> getCache() {
-        return cache;
+    public List<String> findMacAddresses(Integer vendorIndex) {
+        return vendorDB.findMacAddresses(vendorIndex);
     }
 
     String clean(@NonNull String macAddress) {
@@ -72,12 +68,4 @@ public class VendorService {
     void setVendorDB(VendorDB vendorDB) {
         this.vendorDB = vendorDB;
     }
-
-    private class ToMacAddress implements Transformer<VendorData, String> {
-        @Override
-        public String transform(VendorData input) {
-            return input.getMac();
-        }
-    }
-
 }

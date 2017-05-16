@@ -61,11 +61,11 @@ public class VendorFragmentTest {
     @Test
     public void testOnCreateView() throws Exception {
         // setup
-        when(vendorService.findVendorNames()).thenReturn(Collections.<String>emptyList());
+        when(vendorService.findVendorIndexes()).thenReturn(Collections.<Integer>emptyList());
         // execute
         SupportFragmentTestUtil.startFragment(fixture);
         // validate
         assertNotNull(fixture);
-        verify(vendorService).findVendorNames();
+        verify(vendorService).findVendorIndexes();
     }
 }

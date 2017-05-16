@@ -37,8 +37,6 @@ public class GraphViewAddTest {
     @Mock
     private ViewGroup viewGroup;
 
-    private GraphViewAdd fixture;
-
     @Test
     public void testSetGraphView() throws Exception {
         // setup

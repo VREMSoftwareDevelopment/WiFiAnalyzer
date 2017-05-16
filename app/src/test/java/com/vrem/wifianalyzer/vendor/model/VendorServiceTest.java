@@ -18,14 +18,10 @@
 
 package com.vrem.wifianalyzer.vendor.model;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
-import org.apache.commons.collections4.Closure;
-import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,13 +29,11 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mock;
@@ -48,6 +42,7 @@ import static org.powermock.api.mockito.PowerMockito.mock;
 @Config(constants = BuildConfig.class)
 public class VendorServiceTest {
     private static final String VENDOR_NAME = "CISCO SYSTEMS INC";
+    private static final int VENDOR_INDEX = 2846;
     private static final String MAC_ADDRESS = "0023AB";
     private static final String MAC_ADDRESS_SEARCH = "00:23:AB:8C:DF:10";
     private VendorDB vendorDB;
@@ -64,65 +59,62 @@ public class VendorServiceTest {
     }
 
     @Test
-    public void testFindVendorNameWithNameFound() throws Exception {
+    public void testFindVendorNameUsingVendorIndex() throws Exception {
         // setup
-        VendorData vendorData = withVendorData();
-        when(vendorDB.findByAddress(MAC_ADDRESS)).thenReturn(Collections.singletonList(vendorData));
+        when(vendorDB.findVendorName(VENDOR_INDEX)).thenReturn(VENDOR_NAME);
         // execute
-        String actual = fixture.findVendorName(MAC_ADDRESS_SEARCH);
+        String actual = fixture.findVendorName(VENDOR_INDEX);
         // validate
-        assertEquals(vendorData.getName(), actual);
-        verify(vendorDB).findByAddress(MAC_ADDRESS);
-        assertEquals(1, fixture.getCache().size());
-        assertEquals(VENDOR_NAME, fixture.getCache().iterator().next());
+        assertEquals(VENDOR_NAME, actual);
+        verify(vendorDB).findVendorName(VENDOR_INDEX);
     }
 
     @Test
-    public void testFindVendorNameWithNameNotFound() throws Exception {
+    public void testFindVendorNameUsingMacAddress() throws Exception {
         // setup
-        when(vendorDB.findByAddress(MAC_ADDRESS)).thenReturn(Collections.<VendorData>emptyList());
+        when(vendorDB.findVendorIndex(MAC_ADDRESS)).thenReturn(VENDOR_INDEX);
+        when(vendorDB.findVendorName(VENDOR_INDEX)).thenReturn(VENDOR_NAME);
+        // execute
+        String actual = fixture.findVendorName(MAC_ADDRESS_SEARCH);
+        // validate
+        assertEquals(VENDOR_NAME, actual);
+        assertEquals(1, fixture.findVendorIndexes().size());
+        assertEquals(VENDOR_INDEX, fixture.findVendorIndexes().get(0).intValue());
+
+        verify(vendorDB).findVendorIndex(MAC_ADDRESS);
+        verify(vendorDB).findVendorName(VENDOR_INDEX);
+    }
+
+    @Test
+    public void testFindVendorNameUsingMacAddressWithEmptyVendorName() throws Exception {
+        // setup
+        when(vendorDB.findVendorIndex(MAC_ADDRESS)).thenReturn(VENDOR_INDEX);
+        when(vendorDB.findVendorName(VENDOR_INDEX)).thenReturn(StringUtils.EMPTY);
         // execute
         String actual = fixture.findVendorName(MAC_ADDRESS_SEARCH);
         // validate
         assertEquals(StringUtils.EMPTY, actual);
-        verify(vendorDB).findByAddress(MAC_ADDRESS);
-        assertEquals(0, fixture.getCache().size());
+        assertTrue(fixture.findVendorIndexes().isEmpty());
+
+        verify(vendorDB).findVendorIndex(MAC_ADDRESS);
+        verify(vendorDB).findVendorName(VENDOR_INDEX);
     }
 
-    @Test
-    public void testFindVendorNamesWithEmptyCache() throws Exception {
-        // execute & validate
-        assertTrue(fixture.findVendorNames().isEmpty());
+    public List<String> findMacAddresses(int index) {
+        return vendorDB.findMacAddresses(index);
     }
 
-    @Test
-    public void testFindVendorNames() throws Exception {
-        // setup
-        when(vendorDB.findByAddress(anyString())).thenReturn(withVendorDatas());
-        fixture.findVendorName(MAC_ADDRESS_SEARCH);
-        // execute
-        List<String> actual = fixture.findVendorNames();
-        // validate
-        assertEquals(1, actual.size());
-        assertTrue(actual.contains(VENDOR_NAME));
-    }
-
-    @Test
-    public void testFindMacAddressesWithEmptyCache() throws Exception {
-        // execute & validate
-        assertTrue(fixture.findMacAddresses(VENDOR_NAME).isEmpty());
-    }
 
     @Test
     public void testFindMacAddresses() throws Exception {
         // setup
-        List<VendorData> expected = withVendorDatas();
-        when(vendorDB.findByName(VENDOR_NAME)).thenReturn(expected);
+        List<String> expected = Collections.emptyList();
+        when(vendorDB.findMacAddresses(VENDOR_INDEX)).thenReturn(expected);
         // execute
-        List<String> actual = fixture.findMacAddresses(VENDOR_NAME);
+        List<String> actual = fixture.findMacAddresses(VENDOR_INDEX);
         // validate
-        assertEquals(expected.size(), actual.size());
-        IterableUtils.forEach(expected, new VendorDataClosure(actual));
+        assertEquals(expected, actual);
+        verify(vendorDB).findMacAddresses(VENDOR_INDEX);
     }
 
     @Test
@@ -134,30 +126,4 @@ public class VendorServiceTest {
         assertEquals("34AC0B", fixture.clean("34:ac:0B:A0"));
     }
 
-    private VendorData withVendorData() {
-        return new VendorData(VENDOR_NAME, MAC_ADDRESS);
-    }
-
-    private List<VendorData> withVendorDatas() {
-        return Arrays.asList(
-            withVendorData(),
-            new VendorData(VENDOR_NAME, "0023AC"),
-            new VendorData(VENDOR_NAME, "0023AD"),
-            new VendorData(VENDOR_NAME + 1, "0023A0"),
-            new VendorData(VENDOR_NAME + 2, "0023A1"),
-            new VendorData(VENDOR_NAME + 3, "0023A2"));
-    }
-
-    private static class VendorDataClosure implements Closure<VendorData> {
-        private final List<String> actual;
-
-        private VendorDataClosure(@NonNull List<String> actual) {
-            this.actual = actual;
-        }
-
-        @Override
-        public void execute(VendorData vendorData) {
-            assertTrue(actual.contains(vendorData.getMac()));
-        }
-    }
 }
