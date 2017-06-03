@@ -28,72 +28,38 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class VendorDB {
-    static final int ID_INVALID = -1;
-    private static final int MIN_SIZE = 6;
-
-    private final String[] vendors;
-    private final String[] macs;
+    private static final int SIZE = 6;
+    private final Resources resources;
+    private Map<String, List<String>> vendors;
+    private Map<String, String> macs;
 
     VendorDB(@NonNull Resources resources) {
-        vendors = readFile(resources, R.raw.vendors);
-        macs = readFile(resources, R.raw.macs);
+        this.resources = resources;
     }
 
-    int findVendorIndex(String address) {
-        int index = Arrays.binarySearch(macs, address, new MacAddressComparator());
-        if (index < 0) {
-            return ID_INVALID;
-        }
-        return toIndex(macs[index]);
+    String findVendorName(String address) {
+        load();
+        return macs.get(address);
     }
 
-    String findVendorName(Integer vendorIndex) {
-        return validVendorIndex(vendorIndex) ? vendors[vendorIndex] : StringUtils.EMPTY;
+    List<String> findMacAddresses(String vendorName) {
+        load();
+        return vendors.get(vendorName);
     }
 
-    List<String> findMacAddresses(Integer vendorIndex) {
-        List<String> results = new ArrayList<>();
-        if (validVendorIndex(vendorIndex)) {
-            String[] macs = this.macs;
-            for (String mac : macs) {
-                if (vendorIndex == toIndex(mac)) {
-                    results.add(toAddress(mac));
-                }
-            }
-        }
-        return results;
-    }
-
-    String[] getMacs() {
+    Map<String, String> getMacs() {
+        load();
         return macs;
     }
 
-    String[] getVendors() {
+    Map<String, List<String>> getVendors() {
+        load();
         return vendors;
-    }
-
-    String toAddress(@NonNull String source) {
-        return source.length() < MIN_SIZE ? StringUtils.EMPTY : source.substring(0, MIN_SIZE);
-    }
-
-    int toIndex(@NonNull String source) {
-        try {
-            if (source.length() > MIN_SIZE) {
-                return Integer.parseInt(source.substring(MIN_SIZE));
-            }
-            return ID_INVALID;
-        } catch (Exception e) {
-            return ID_INVALID;
-        }
-    }
-
-    private boolean validVendorIndex(Integer vendorIndex) {
-        return vendorIndex != null && vendorIndex >= 0 && vendorIndex < vendors.length;
     }
 
     private String[] readFile(@NonNull Resources resources, @RawRes int id) {
@@ -125,10 +91,29 @@ class VendorDB {
         }
     }
 
-    private static class MacAddressComparator implements Comparator<String> {
-        @Override
-        public int compare(String source, String address) {
-            return source.substring(0, MIN_SIZE).compareTo(address);
+    private void load() {
+        if (vendors != null) {
+            return;
         }
+        long time = System.currentTimeMillis();
+        vendors = new HashMap<>();
+        macs = new HashMap<>();
+        String[] lines = readFile(resources, R.raw.data);
+        for (String data : lines) {
+            String[] parts = StringUtils.split(data, "|");
+            if (parts.length == 2) {
+                List<String> addresses = new ArrayList<>();
+                String name = parts[0];
+                vendors.put(name, addresses);
+                int length = parts[1].length();
+                for (int i = 0; i < length; i += SIZE) {
+                    String mac = parts[1].substring(i, i + SIZE);
+                    addresses.add(mac);
+                    macs.put(mac, name);
+                }
+            }
+        }
+        System.out.println("Load time:" + (System.currentTimeMillis() - time));
     }
+
 }

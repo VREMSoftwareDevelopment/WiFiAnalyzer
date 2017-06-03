@@ -24,6 +24,7 @@ import android.support.annotation.NonNull;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -31,7 +32,7 @@ import java.util.TreeSet;
 public class VendorService {
     private static final int MAX_LEN = 6;
 
-    private Set<Integer> cache;
+    private Set<String> cache;
     private VendorDB vendorDB;
 
     public VendorService(@NonNull Resources resources) {
@@ -39,25 +40,22 @@ public class VendorService {
         this.vendorDB = new VendorDB(resources);
     }
 
-    public String findVendorName(Integer vendorIndex) {
-        return vendorDB.findVendorName(vendorIndex);
-    }
-
     public String findVendorName(@NonNull String macAddress) {
-        int index = vendorDB.findVendorIndex(clean(macAddress));
-        String vendorName = vendorDB.findVendorName(index);
-        if (StringUtils.isNotEmpty(vendorName)) {
-            cache.add(index);
+        String vendorName = vendorDB.findVendorName(clean(macAddress));
+        if (vendorName != null) {
+            cache.add(vendorName);
+            return vendorName;
         }
-        return vendorName;
+        return StringUtils.EMPTY;
     }
 
-    public List<Integer> findVendorIndexes() {
+    public List<String> findVendors() {
         return new ArrayList<>(cache);
     }
 
-    public List<String> findMacAddresses(Integer vendorIndex) {
-        return vendorDB.findMacAddresses(vendorIndex);
+    public List<String> findMacAddresses(String vendorName) {
+        List<String> macAddresses = vendorDB.findMacAddresses(vendorName);
+        return macAddresses == null ? Collections.<String>emptyList() : macAddresses;
     }
 
     String clean(@NonNull String macAddress) {

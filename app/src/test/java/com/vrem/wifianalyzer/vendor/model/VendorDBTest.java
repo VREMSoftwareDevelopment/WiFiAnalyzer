@@ -22,7 +22,6 @@ import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +37,6 @@ import static org.junit.Assert.assertEquals;
 public class VendorDBTest {
     private static final String VENDOR_NAME = "CISCO SYSTEMS INC";
     private static final String MAC_ADDRESS = "0023AB";
-    private static final int VENDOR_INDEX = 2846;
 
     private VendorDB fixture;
 
@@ -49,69 +47,34 @@ public class VendorDBTest {
     }
 
     @Test
-    public void testFindVendorIndex() throws Exception {
-        // execute & validate
-        assertEquals(VENDOR_INDEX, fixture.findVendorIndex(MAC_ADDRESS));
-    }
-
-    @Test
     public void testFindVendorName() throws Exception {
         // execute & validate
-        assertEquals(VENDOR_NAME, fixture.findVendorName(VENDOR_INDEX));
+        assertEquals(VENDOR_NAME, fixture.findVendorName(MAC_ADDRESS));
     }
 
     @Test
-    public void testFindByName() throws Exception {
+    public void testFindMacAddresses() throws Exception {
         // setup
-        int expectedSize = 762;
+        int expectedSize = 765;
         // execute
-        List<String> actual = fixture.findMacAddresses(VENDOR_INDEX);
+        List<String> actual = fixture.findMacAddresses(VENDOR_NAME);
         // validate
         assertEquals(expectedSize, actual.size());
 
         assertEquals("00000C", actual.get(0));
         assertEquals("FCFBFB", actual.get(expectedSize - 1));
-        assertEquals("005F86", actual.get(expectedSize / 2));
+        assertEquals("006009", actual.get(expectedSize / 2));
     }
 
     @Test
-    public void testGetMacs() throws Exception {
-        // setup
-        int expectedSize = 23383;
-        // execute
-        String[] actual = fixture.getMacs();
-        // validate
-        assertEquals(expectedSize, actual.length);
-        assertEquals("00000016191", actual[0]);
-        assertEquals("FCFFAA6761", actual[expectedSize - 1]);
-    }
-
-    @Test
-    public void testGetVendors() throws Exception {
-        // setup
-        int expectedSize = 16576;
-        // execute
-        String[] actual = fixture.getVendors();
-        // validate
-        assertEquals(expectedSize, actual.length);
-        assertEquals("01DB METRAVIB", actual[0]);
-        assertEquals("ZYXEL COMMUNICATIONS CORPORATION", actual[expectedSize - 1]);
-    }
-
-    @Test
-    public void testToAddress() throws Exception {
+    public void testVendorDataIsValid() throws Exception {
         // execute & validate
-        assertEquals(StringUtils.EMPTY, fixture.toAddress("12345"));
-        assertEquals("123456", fixture.toAddress("123456"));
-        assertEquals("123456", fixture.toAddress("1234567"));
+        assertEquals(16602, fixture.getVendors().size());
     }
 
     @Test
-    public void testToIndex() throws Exception {
+    public void testMacDataIsValid() throws Exception {
         // execute & validate
-        assertEquals(VendorDB.ID_INVALID, fixture.toIndex("123456"));
-        assertEquals(7, fixture.toIndex("1234567"));
-        assertEquals(VendorDB.ID_INVALID, fixture.toIndex("123456A"));
+        assertEquals(23490, fixture.getMacs().size());
     }
-
 }

@@ -42,7 +42,6 @@ import static org.powermock.api.mockito.PowerMockito.mock;
 @Config(constants = BuildConfig.class)
 public class VendorServiceTest {
     private static final String VENDOR_NAME = "CISCO SYSTEMS INC";
-    private static final int VENDOR_INDEX = 2846;
     private static final String MAC_ADDRESS = "0023AB";
     private static final String MAC_ADDRESS_SEARCH = "00:23:AB:8C:DF:10";
     private VendorDB vendorDB;
@@ -59,62 +58,52 @@ public class VendorServiceTest {
     }
 
     @Test
-    public void testFindVendorNameUsingVendorIndex() throws Exception {
+    public void testFindVendorName() throws Exception {
         // setup
-        when(vendorDB.findVendorName(VENDOR_INDEX)).thenReturn(VENDOR_NAME);
-        // execute
-        String actual = fixture.findVendorName(VENDOR_INDEX);
-        // validate
-        assertEquals(VENDOR_NAME, actual);
-        verify(vendorDB).findVendorName(VENDOR_INDEX);
-    }
-
-    @Test
-    public void testFindVendorNameUsingMacAddress() throws Exception {
-        // setup
-        when(vendorDB.findVendorIndex(MAC_ADDRESS)).thenReturn(VENDOR_INDEX);
-        when(vendorDB.findVendorName(VENDOR_INDEX)).thenReturn(VENDOR_NAME);
+        when(vendorDB.findVendorName(MAC_ADDRESS)).thenReturn(VENDOR_NAME);
         // execute
         String actual = fixture.findVendorName(MAC_ADDRESS_SEARCH);
         // validate
         assertEquals(VENDOR_NAME, actual);
-        assertEquals(1, fixture.findVendorIndexes().size());
-        assertEquals(VENDOR_INDEX, fixture.findVendorIndexes().get(0).intValue());
-
-        verify(vendorDB).findVendorIndex(MAC_ADDRESS);
-        verify(vendorDB).findVendorName(VENDOR_INDEX);
+        assertEquals(1, fixture.findVendors().size());
+        verify(vendorDB).findVendorName(MAC_ADDRESS);
     }
 
     @Test
-    public void testFindVendorNameUsingMacAddressWithEmptyVendorName() throws Exception {
+    public void testFindVendorNameWithNotFound() throws Exception {
         // setup
-        when(vendorDB.findVendorIndex(MAC_ADDRESS)).thenReturn(VENDOR_INDEX);
-        when(vendorDB.findVendorName(VENDOR_INDEX)).thenReturn(StringUtils.EMPTY);
+        when(vendorDB.findVendorName(MAC_ADDRESS)).thenReturn(null);
         // execute
         String actual = fixture.findVendorName(MAC_ADDRESS_SEARCH);
         // validate
         assertEquals(StringUtils.EMPTY, actual);
-        assertTrue(fixture.findVendorIndexes().isEmpty());
+        assertTrue(fixture.findVendors().isEmpty());
 
-        verify(vendorDB).findVendorIndex(MAC_ADDRESS);
-        verify(vendorDB).findVendorName(VENDOR_INDEX);
+        verify(vendorDB).findVendorName(MAC_ADDRESS);
     }
-
-    public List<String> findMacAddresses(int index) {
-        return vendorDB.findMacAddresses(index);
-    }
-
 
     @Test
     public void testFindMacAddresses() throws Exception {
         // setup
         List<String> expected = Collections.emptyList();
-        when(vendorDB.findMacAddresses(VENDOR_INDEX)).thenReturn(expected);
+        when(vendorDB.findMacAddresses(VENDOR_NAME)).thenReturn(expected);
         // execute
-        List<String> actual = fixture.findMacAddresses(VENDOR_INDEX);
+        List<String> actual = fixture.findMacAddresses(VENDOR_NAME);
         // validate
         assertEquals(expected, actual);
-        verify(vendorDB).findMacAddresses(VENDOR_INDEX);
+        verify(vendorDB).findMacAddresses(VENDOR_NAME);
+    }
+
+    @Test
+    public void testFindMacAddressesWithNotFound() throws Exception {
+        // setup
+        List<String> expected = Collections.emptyList();
+        when(vendorDB.findMacAddresses(VENDOR_NAME)).thenReturn(null);
+        // execute
+        List<String> actual = fixture.findMacAddresses(VENDOR_NAME);
+        // validate
+        assertEquals(expected, actual);
+        verify(vendorDB).findMacAddresses(VENDOR_NAME);
     }
 
     @Test

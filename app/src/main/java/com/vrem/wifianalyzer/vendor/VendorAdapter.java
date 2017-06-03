@@ -36,11 +36,11 @@ import org.apache.commons.collections4.IterableUtils;
 
 import java.util.List;
 
-class VendorAdapter extends ArrayAdapter<Integer> {
+class VendorAdapter extends ArrayAdapter<String> {
     private final VendorService vendorService;
 
     VendorAdapter(@NonNull Context context, @NonNull VendorService vendorService) {
-        super(context, R.layout.vendor_details, vendorService.findVendorIndexes());
+        super(context, R.layout.vendor_details, vendorService.findVendors());
         this.vendorService = vendorService;
     }
 
@@ -52,9 +52,8 @@ class VendorAdapter extends ArrayAdapter<Integer> {
             LayoutInflater layoutInflater = MainContext.INSTANCE.getMainActivity().getLayoutInflater();
             view = layoutInflater.inflate(R.layout.vendor_details, parent, false);
         }
-        Integer index = getItem(position);
-        String vendorName = vendorService.findVendorName(index);
-        List<String> macAddresses = vendorService.findMacAddresses(index);
+        String vendorName = getItem(position);
+        List<String> macAddresses = vendorService.findMacAddresses(vendorName);
         StringBuilder stringBuilder = new StringBuilder();
         IterableUtils.forEach(macAddresses, new MacsClosure(stringBuilder));
 
