@@ -113,7 +113,6 @@ class VendorDB {
                 }
             }
         }
-        System.out.println("Load time:" + (System.currentTimeMillis() - time));
     }
 
 }
