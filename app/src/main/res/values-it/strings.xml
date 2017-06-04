@@ -54,17 +54,17 @@
     <string name="graph_axis_y">Potenza Segnale (dBm)</string>
 
     <!-- settings start -->
-    <string name="start_menu_title">Avvio</string>
+    <string name="start_menu_title">Schermata di avvio</string>
     <string name="country_code_title">Paese</string>
-    <string name="scan_interval_title">Intervallo Scansioni</string>
+    <string name="scan_interval_title">Intervallo scansioni</string>
     <string name="scan_interval_summary">%d secondi tra ogni scansione</string>
-    <string name="sort_by_title">Ordina Access Points Per</string>
-    <string name="group_by_title">Raggruppa Access Points Per</string>
-    <string name="connection_view_title">Connessione di visualizzazione</string>
-    <string name="ap_view_title">Access Point di visualizzazione</string>
-    <string name="graph_maximum_y_title">Forza Grafico segnale massimo</string>
-    <string name="channel_graph_legend_title">Mostra Legenda Grafico Canali</string>
-    <string name="time_graph_legend_title">Mostra Legenda Grafico Temporale</string>
+    <string name="sort_by_title">Ordina Access Points per</string>
+    <string name="group_by_title">Raggruppa Access Points per</string>
+    <string name="connection_view_title">Access Point connesso</string>
+    <string name="ap_view_title">Visualizzazione Access Point</string>
+    <string name="graph_maximum_y_title">Potenza massima del segnale nel grafico</string>
+    <string name="channel_graph_legend_title">Mostra legenda grafico canali</string>
+    <string name="time_graph_legend_title">Mostra legenda grafico temporale</string>
     <string name="theme_title">Tema</string>
     <!-- settings end -->
 
@@ -72,7 +72,7 @@
     <string name="about_license_title">Licenza:</string>
     <string name="about_license_name">Distribuito sotto licenza GPLv3</string>
     <string name="about_description_title">Descrizione:</string>
-    <string name="about_description_text">Ottimizza la tua rete WiFi, controllandone lo stato, la potenza del segnale e identificando i canali affollati, usando un WiFiAnalyzer per Android</string>
+    <string name="about_description_text">Ottimizza la tua rete WiFi, controllando lo stato, la potenza del segnale e identificando i canali affollati, usando un WiFiAnalyzer per Android</string>
     <string name="about_libraries_title">Librarie Usate:</string>
     <string name="about_library_graph_view">Graph View</string>
     <string name="about_library_material">Icone Material Design</string>
@@ -86,9 +86,9 @@
 
     <!-- filter start -->
     <string name="filter_title">Filtro</string>
-    <string name="filter_close">Chiudere</string>
-    <string name="filter_reset">Reset</string>
-    <string name="filter_apply">Azzerare</string>
+    <string name="filter_close">Chiudi</string>
+    <string name="filter_reset">Resetta</string>
+    <string name="filter_apply">Applica</string>
     <string name="filter_wifi_band_title">Banda WiFi</string>
     <string name="filter_strength_title">Potenza Segnale</string>
     <string name="filter_security_title">Sicurezza</string>
