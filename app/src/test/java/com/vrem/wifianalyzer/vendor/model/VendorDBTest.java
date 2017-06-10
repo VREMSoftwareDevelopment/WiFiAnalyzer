@@ -55,7 +55,7 @@ public class VendorDBTest {
     @Test
     public void testFindMacAddresses() throws Exception {
         // setup
-        int expectedSize = 765;
+        int expectedSize = 766;
         // execute
         List<String> actual = fixture.findMacAddresses(VENDOR_NAME);
         // validate
@@ -63,18 +63,18 @@ public class VendorDBTest {
 
         assertEquals("00000C", actual.get(0));
         assertEquals("FCFBFB", actual.get(expectedSize - 1));
-        assertEquals("006009", actual.get(expectedSize / 2));
+        assertEquals("00602F", actual.get(expectedSize / 2));
     }
 
     @Test
     public void testVendorDataIsValid() throws Exception {
         // execute & validate
-        assertEquals(16602, fixture.getVendors().size());
+        assertEquals(16613, fixture.getVendors().size());
     }
 
     @Test
     public void testMacDataIsValid() throws Exception {
         // execute & validate
-        assertEquals(23490, fixture.getMacs().size());
+        assertEquals(23523, fixture.getMacs().size());
     }
 }
