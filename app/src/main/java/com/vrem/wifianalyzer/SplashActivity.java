@@ -16,18 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.vendor.model;
+package com.vrem.wifianalyzer;
 
-import org.junit.Test;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-import static org.junit.Assert.assertEquals;
-
-public class MacAddressTest {
-    @Test
-    public void testClean() throws Exception {
-        assertEquals("34AF", MacAddress.clean("34aF"));
-        assertEquals("34AF0B", MacAddress.clean("34aF0B"));
-        assertEquals("34AA0B", MacAddress.clean("34:aa:0b"));
-        assertEquals("34AC0B", MacAddress.clean(MacAddress.clean("34:ac:0B:A0")));
+public class SplashActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

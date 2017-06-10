@@ -43,8 +43,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -87,9 +86,9 @@ public class ChannelGraphViewTest {
     @Test
     public void testUpdate() throws Exception {
         // setup
-        Set<WiFiDetail> newSeries = new HashSet<>();
-        List<WiFiDetail> wiFiDetails = new ArrayList<>();
-        WiFiData wiFiData = new WiFiData(wiFiDetails, WiFiConnection.EMPTY, new ArrayList<String>());
+        Set<WiFiDetail> newSeries = Collections.emptySet();
+        List<WiFiDetail> wiFiDetails = Collections.emptyList();
+        WiFiData wiFiData = new WiFiData(wiFiDetails, WiFiConnection.EMPTY, Collections.<String>emptyList());
         when(dataManager.getNewSeries(wiFiDetails, wiFiChannelPair)).thenReturn(newSeries);
         withSettings();
         // execute

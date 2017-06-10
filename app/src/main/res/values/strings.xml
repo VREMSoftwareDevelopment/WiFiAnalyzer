@@ -121,6 +121,10 @@
     <string name="theme_summary" translatable="false">%s</string>
     <string name="theme_key" translatable="false">theme</string>
     <string name="theme_default" translatable="false">0</string>
+
+    <string name="wifi_off_on_exit_title">WiFi off on Exit</string>
+    <string name="wifi_off_on_exit_key" translatable="false">wifi_off_on_exit</string>
+    <bool name="wifi_off_on_exit_default" translatable="false">false</bool>
     <!-- settings end -->
 
     <!-- about start -->

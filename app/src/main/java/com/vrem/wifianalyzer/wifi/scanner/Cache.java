@@ -21,9 +21,7 @@ package com.vrem.wifianalyzer.wifi.scanner;
 import android.net.wifi.ScanResult;
 import android.support.annotation.NonNull;
 
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.settings.Settings;
 
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
@@ -65,7 +63,7 @@ class Cache {
     @NonNull
     private CacheResult getCacheResult(ScanResult current, int level, int count) {
         CacheResult cacheResult;
-        if (MainContext.INSTANCE.getConfiguration().isSizeAvailable()) {
+        if (isSizeAvailable()) {
             cacheResult = new CacheResult(current, level / count);
         } else {
             cacheResult = new CacheResult(current, (level - ADJUST) / count);
@@ -95,11 +93,8 @@ class Cache {
     }
 
     int getCacheSize() {
-        MainContext mainContext = MainContext.INSTANCE;
-        Configuration configuration = mainContext.getConfiguration();
-        if (configuration.isSizeAvailable()) {
-            Settings settings = mainContext.getSettings();
-            int scanInterval = settings.getScanInterval();
+        if (isSizeAvailable()) {
+            int scanInterval = MainContext.INSTANCE.getSettings().getScanInterval();
             if (scanInterval < 5) {
                 return 4;
             }
@@ -111,6 +106,14 @@ class Cache {
             }
         }
         return 1;
+    }
+
+    private boolean isSizeAvailable() {
+        try {
+            return MainContext.INSTANCE.getConfiguration().isSizeAvailable();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private static class ScanResultComparator implements Comparator<ScanResult> {

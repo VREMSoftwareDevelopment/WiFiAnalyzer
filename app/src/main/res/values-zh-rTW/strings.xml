@@ -65,6 +65,7 @@
     <string name="channel_graph_legend_title">頻道圖例顯示位置</string>
     <string name="time_graph_legend_title">時間圖例顯示位置</string>
     <string name="theme_title">主題</string>
+    <string name="wifi_off_on_exit_title">退出時關閉WiFi</string>
     <!-- settings end -->
 
     <!-- about start -->

@@ -109,6 +109,10 @@ public class Settings {
         return find(WiFiBand.class, R.string.wifi_band_key, WiFiBand.GHZ2);
     }
 
+    public boolean isWiFiOffOnExit() {
+        return repository.getBoolean(R.string.wifi_off_on_exit_key, repository.getResourceBoolean(R.bool.wifi_off_on_exit_default));
+    }
+
     public ThemeStyle getThemeStyle() {
         return find(ThemeStyle.class, R.string.theme_key, ThemeStyle.DARK);
     }

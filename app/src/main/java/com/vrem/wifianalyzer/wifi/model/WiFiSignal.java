@@ -108,16 +108,16 @@ public class WiFiSignal {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (other == null || getClass() != other.getClass()) {
-            return false;
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        WiFiSignal that = (WiFiSignal) o;
+
         return new EqualsBuilder()
-            .append(getPrimaryFrequency(), ((WiFiSignal) other).getPrimaryFrequency())
-            .append(getWiFiWidth(), ((WiFiSignal) other).getWiFiWidth())
+            .append(getPrimaryFrequency(), that.getPrimaryFrequency())
+            .append(getWiFiWidth(), that.getWiFiWidth())
             .isEquals();
     }
 

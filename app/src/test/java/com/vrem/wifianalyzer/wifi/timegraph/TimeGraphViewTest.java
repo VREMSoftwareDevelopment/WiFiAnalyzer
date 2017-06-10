@@ -41,10 +41,9 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -82,9 +81,9 @@ public class TimeGraphViewTest {
     @Test
     public void testUpdate() throws Exception {
         // setup
-        List<WiFiDetail> wiFiDetails = new ArrayList<>();
-        Set<WiFiDetail> newSeries = new TreeSet<>();
-        WiFiData wiFiData = new WiFiData(wiFiDetails, WiFiConnection.EMPTY, new ArrayList<String>());
+        List<WiFiDetail> wiFiDetails = Collections.emptyList();
+        Set<WiFiDetail> newSeries = Collections.emptySet();
+        WiFiData wiFiData = new WiFiData(wiFiDetails, WiFiConnection.EMPTY, Collections.<String>emptyList());
         withSettings();
         when(dataManager.addSeriesData(graphViewWrapper, wiFiDetails, GraphConstants.MAX_Y)).thenReturn(newSeries);
         // execute

@@ -36,11 +36,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -50,7 +48,6 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@SuppressWarnings("AnonymousInnerClass")
 @RunWith(MockitoJUnitRunner.class)
 public class GraphViewWrapperTest {
     @Mock
@@ -100,8 +97,8 @@ public class GraphViewWrapperTest {
     @Test
     public void testRemoveSeries() throws Exception {
         // setup
-        Set<WiFiDetail> newSeries = new TreeSet<>();
-        List<WiFiDetail> difference = new ArrayList<>();
+        Set<WiFiDetail> newSeries = Collections.emptySet();
+        List<WiFiDetail> difference = Collections.emptyList();
         List<BaseSeries<DataPoint>> removed = Collections.singletonList(baseSeries);
         int color = 10;
         when(seriesCache.difference(newSeries)).thenReturn(difference);
@@ -119,8 +116,8 @@ public class GraphViewWrapperTest {
     @Test
     public void testDifferenceSeries() throws Exception {
         // setup
-        Set<WiFiDetail> newSeries = new TreeSet<>();
-        List<WiFiDetail> expected = new ArrayList<>();
+        Set<WiFiDetail> newSeries = Collections.emptySet();
+        List<WiFiDetail> expected = Collections.emptyList();
         when(seriesCache.difference(newSeries)).thenReturn(expected);
         // execute
         List<WiFiDetail> actual = fixture.differenceSeries(newSeries);

@@ -34,11 +34,13 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.anyBoolean;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -77,9 +79,9 @@ public class ScannerTest {
 
     @Before
     public void setUp() {
-        scanResults = new ArrayList<>();
-        cacheResults = new ArrayList<>();
-        configuredNetworks = new ArrayList<>();
+        scanResults = Collections.emptyList();
+        cacheResults = Collections.emptyList();
+        configuredNetworks = Collections.emptyList();
 
         fixture = new Scanner(wifiManager, handler, settings);
         fixture.setCache(cache);
@@ -153,6 +155,28 @@ public class ScannerTest {
         fixture.update();
         // validate
         verifyCache();
+    }
+
+    @Test
+    public void testSetWiFiOnExitOff() throws Exception {
+        // setup
+        when(settings.isWiFiOffOnExit()).thenReturn(true);
+        // execute
+        fixture.setWiFiOnExit();
+        // validate
+        verify(settings).isWiFiOffOnExit();
+        verify(wifiManager).setWifiEnabled(false);
+    }
+
+    @Test
+    public void testSetWiFiOnExitDoNothing() throws Exception {
+        // setup
+        when(settings.isWiFiOffOnExit()).thenReturn(false);
+        // execute
+        fixture.setWiFiOnExit();
+        // validate
+        verify(settings).isWiFiOffOnExit();
+        verify(wifiManager, never()).setWifiEnabled(anyBoolean());
     }
 
     private void withCache() {

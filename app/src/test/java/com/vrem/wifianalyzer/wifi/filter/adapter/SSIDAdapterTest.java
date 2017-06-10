@@ -29,6 +29,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,7 +38,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
-@SuppressWarnings("AnonymousInnerClass")
 @RunWith(MockitoJUnitRunner.class)
 public class SSIDAdapterTest {
 
@@ -56,12 +56,7 @@ public class SSIDAdapterTest {
     @Test
     public void testGetValue() throws Exception {
         assertEquals(SSID_VALUES.size(), fixture.getValues().size());
-        IterableUtils.forEach(SSID_VALUES, new Closure<String>() {
-            @Override
-            public void execute(String input) {
-                assertTrue(fixture.getValues().contains(input));
-            }
-        });
+        IterableUtils.forEach(SSID_VALUES, new ContainsClosure());
     }
 
     @Test
@@ -72,7 +67,7 @@ public class SSIDAdapterTest {
     @Test
     public void testIsNotActiveWithEmptyValue() throws Exception {
         // execute
-        fixture.setValues(new HashSet<String>());
+        fixture.setValues(Collections.<String>emptySet());
         // validate
         assertFalse(fixture.isActive());
         assertTrue(fixture.getValues().isEmpty());
@@ -93,5 +88,12 @@ public class SSIDAdapterTest {
         fixture.save(settings);
         // execute
         verify(settings).saveSSIDs(SSID_VALUES);
+    }
+
+    private class ContainsClosure implements Closure<String> {
+        @Override
+        public void execute(String input) {
+            assertTrue(fixture.getValues().contains(input));
+        }
     }
 }

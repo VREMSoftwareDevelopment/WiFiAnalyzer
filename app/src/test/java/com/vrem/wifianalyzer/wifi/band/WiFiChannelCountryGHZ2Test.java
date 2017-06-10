@@ -31,7 +31,6 @@ import java.util.TreeSet;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-@SuppressWarnings("AnonymousInnerClass")
 public class WiFiChannelCountryGHZ2Test {
 
     private final static SortedSet<Integer> CHANNELS_SET1 = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
@@ -47,23 +46,13 @@ public class WiFiChannelCountryGHZ2Test {
     @Test
     public void testChannelsForUSAndSimilar() throws Exception {
         List<String> countries = Arrays.asList("AS", "AU", "CA", "FM", "GU", "MP", "PA", "PR", "UM", "US", "VI");
-        IterableUtils.forEach(countries, new Closure<String>() {
-            @Override
-            public void execute(String country) {
-                validateChannels(CHANNELS_SET1, fixture.findChannels(country));
-            }
-        });
+        IterableUtils.forEach(countries, new ChannelUSClosure());
     }
 
     @Test
     public void testChannelsForWorld() throws Exception {
         List<String> countries = Arrays.asList(null, "GB", "XYZ", "MX", "AE");
-        IterableUtils.forEach(countries, new Closure<String>() {
-            @Override
-            public void execute(String country) {
-                validateChannels(CHANNELS_SET2, fixture.findChannels(country));
-            }
-        });
+        IterableUtils.forEach(countries, new ChannelWorldClosure());
     }
 
     private void validateChannels(SortedSet<Integer> expected, SortedSet<Integer> actual) {
@@ -71,4 +60,17 @@ public class WiFiChannelCountryGHZ2Test {
         assertTrue(actual.containsAll(expected));
     }
 
+    private class ChannelUSClosure implements Closure<String> {
+        @Override
+        public void execute(String country) {
+            validateChannels(CHANNELS_SET1, fixture.findChannels(country));
+        }
+    }
+
+    private class ChannelWorldClosure implements Closure<String> {
+        @Override
+        public void execute(String country) {
+            validateChannels(CHANNELS_SET2, fixture.findChannels(country));
+        }
+    }
 }

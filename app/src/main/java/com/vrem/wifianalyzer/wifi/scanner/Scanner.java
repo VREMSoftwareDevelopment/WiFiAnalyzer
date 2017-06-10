@@ -32,11 +32,13 @@ import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Scanner {
     private final List<UpdateNotifier> updateNotifiers;
     private final WifiManager wifiManager;
+    private final Settings settings;
     private Transformer transformer;
     private WiFiData wiFiData;
     private Cache cache;
@@ -45,6 +47,7 @@ public class Scanner {
     public Scanner(@NonNull WifiManager wifiManager, @NonNull Handler handler, @NonNull Settings settings) {
         this.updateNotifiers = new ArrayList<>();
         this.wifiManager = wifiManager;
+        this.settings = settings;
         this.wiFiData = WiFiData.EMPTY;
         this.setTransformer(new Transformer());
         this.setCache(new Cache());
@@ -57,7 +60,7 @@ public class Scanner {
     }
 
     private void performWiFiScan() {
-        List<ScanResult> scanResults = new ArrayList<>();
+        List<ScanResult> scanResults = Collections.emptyList();
         WifiInfo wifiInfo = null;
         List<WifiConfiguration> configuredNetworks = null;
         try {
@@ -98,6 +101,16 @@ public class Scanner {
 
     public void resume() {
         periodicScan.start();
+    }
+
+    public void setWiFiOnExit() {
+        if (settings.isWiFiOffOnExit()) {
+            try {
+                wifiManager.setWifiEnabled(false);
+            } catch (Exception e) {
+                // critical error: do not die
+            }
+        }
     }
 
     PeriodicScan getPeriodicScan() {

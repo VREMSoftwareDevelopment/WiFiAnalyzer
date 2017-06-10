@@ -37,7 +37,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-@SuppressWarnings("AnonymousInnerClass")
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class CountryPreferenceTest {
@@ -51,15 +50,7 @@ public class CountryPreferenceTest {
         fixture = new CountryPreference(mainActivity, Robolectric.buildAttributeSet().build());
 
         countries = WiFiChannelCountry.getAll();
-        Collections.sort(countries, new Comparator<WiFiChannelCountry>() {
-            @Override
-            public int compare(WiFiChannelCountry lhs, WiFiChannelCountry rhs) {
-                return new CompareToBuilder()
-                    .append(lhs.getCountryName(), rhs.getCountryName())
-                    .append(lhs.getCountryCode(), rhs.getCountryCode())
-                    .toComparison();
-            }
-        });
+        Collections.sort(countries, new WiFiChannelCountryComparator());
     }
 
     @Test
@@ -82,5 +73,15 @@ public class CountryPreferenceTest {
         assertEquals(expectedSize, actual.length);
         assertEquals(countries.get(0).getCountryCode(), actual[0]);
         assertEquals(countries.get(expectedSize - 1).getCountryCode(), actual[expectedSize - 1]);
+    }
+
+    private static class WiFiChannelCountryComparator implements Comparator<WiFiChannelCountry> {
+        @Override
+        public int compare(WiFiChannelCountry lhs, WiFiChannelCountry rhs) {
+            return new CompareToBuilder()
+                .append(lhs.getCountryName(), rhs.getCountryName())
+                .append(lhs.getCountryCode(), rhs.getCountryCode())
+                .toComparison();
+        }
     }
 }

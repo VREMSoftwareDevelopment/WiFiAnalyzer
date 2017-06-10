@@ -103,15 +103,16 @@ public class WiFiDetail implements Comparable<WiFiDetail> {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
 
-        if (other == null || getClass() != other.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        WiFiDetail otherDetail = (WiFiDetail) other;
+        WiFiDetail that = (WiFiDetail) o;
+
         return new EqualsBuilder()
-            .append(getSSID(), otherDetail.getSSID())
-            .append(getBSSID(), otherDetail.getBSSID())
+            .append(getSSID(), that.getSSID())
+            .append(getBSSID(), that.getBSSID())
             .isEquals();
     }
 

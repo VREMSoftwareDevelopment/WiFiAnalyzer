@@ -96,6 +96,11 @@
         android:summary="@string/theme_summary"
         android:title="@string/theme_title"/>
 
+    <CheckBoxPreference
+        android:defaultValue="@bool/wifi_off_on_exit_default"
+        android:key="@string/wifi_off_on_exit_key"
+        android:title="@string/wifi_off_on_exit_title"/>
+
     <com.vrem.wifianalyzer.settings.StartMenuPreference
         android:key="@string/start_menu_key"
         android:persistent="true"

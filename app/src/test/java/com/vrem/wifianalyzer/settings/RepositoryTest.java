@@ -40,6 +40,7 @@ import java.util.Set;
 import static android.content.SharedPreferences.Editor;
 import static android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -206,6 +207,48 @@ public class RepositoryTest {
     }
 
     @Test
+    public void testGetResourceBoolean() throws Exception {
+        // setup
+        int keyIndex = R.bool.wifi_off_on_exit_default;
+        when(resources.getBoolean(keyIndex)).thenReturn(true);
+        // execute
+        boolean actual = fixture.getResourceBoolean(keyIndex);
+        // validate
+        assertTrue(actual);
+        verify(resources).getBoolean(keyIndex);
+    }
+
+    @Test
+    public void testGetBoolean() throws Exception {
+        // setup
+        int keyIndex = R.string.app_name;
+        when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
+        when(sharedPreferences.getBoolean(keyValue, false)).thenReturn(true);
+        // execute
+        boolean actual = fixture.getBoolean(keyIndex, false);
+        // validate
+        assertTrue(actual);
+        verify(mainActivity).getString(keyIndex);
+        verify(sharedPreferences).getBoolean(keyValue, false);
+    }
+
+    @Test
+    public void testGetBooleanThrowsException() throws Exception {
+        // setup
+        int keyIndex = R.string.app_name;
+        when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
+        when(sharedPreferences.getBoolean(keyValue, true)).thenThrow(new RuntimeException());
+        withSave(keyIndex);
+        // execute
+        boolean actual = fixture.getBoolean(keyIndex, true);
+        // validate
+        assertTrue(actual);
+        verify(mainActivity).getString(keyIndex);
+        verify(sharedPreferences).getBoolean(keyValue, true);
+        verifySave(keyIndex, true);
+    }
+
+    @Test
     public void testRegisterOnSharedPreferenceChangeListener() throws Exception {
         // execute
         fixture.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
@@ -273,6 +316,12 @@ public class RepositoryTest {
     private void verifySave(int keyIndex, int value) {
         verify(mainActivity).getString(keyIndex);
         verify(editor).putString(keyValue, "" + value);
+        verify(editor).apply();
+    }
+
+    private void verifySave(int keyIndex, boolean value) {
+        verify(mainActivity).getString(keyIndex);
+        verify(editor).putBoolean(keyValue, value);
         verify(editor).apply();
     }
 

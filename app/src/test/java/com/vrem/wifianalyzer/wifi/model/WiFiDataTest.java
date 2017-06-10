@@ -48,7 +48,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@SuppressWarnings("AnonymousInnerClass")
 @RunWith(MockitoJUnitRunner.class)
 public class WiFiDataTest {
     private static final String IP_ADDRESS = "21.205.91.7";
@@ -108,12 +107,7 @@ public class WiFiDataTest {
     }
 
     private void withVendorNames() {
-        IterableUtils.forEach(wiFiDetails, new Closure<WiFiDetail>() {
-            @Override
-            public void execute(WiFiDetail wiFiDetail) {
-                when(vendorService.findVendorName(wiFiDetail.getBSSID())).thenReturn(VENDOR_NAME + wiFiDetail.getBSSID());
-            }
-        });
+        IterableUtils.forEach(wiFiDetails, new VendorNameClosure());
     }
 
     @Test
@@ -208,4 +202,10 @@ public class WiFiDataTest {
         assertEquals(BSSID_4, actual.get(6).getBSSID());
     }
 
+    private class VendorNameClosure implements Closure<WiFiDetail> {
+        @Override
+        public void execute(WiFiDetail wiFiDetail) {
+            when(vendorService.findVendorName(wiFiDetail.getBSSID())).thenReturn(VENDOR_NAME + wiFiDetail.getBSSID());
+        }
+    }
 }

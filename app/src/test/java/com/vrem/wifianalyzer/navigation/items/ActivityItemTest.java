@@ -35,7 +35,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.verify;
 
-@SuppressWarnings("AnonymousInnerClass")
 @RunWith(MockitoJUnitRunner.class)
 public class ActivityItemTest {
 
@@ -49,13 +48,7 @@ public class ActivityItemTest {
     @Test
     public void testActivate() throws Exception {
         // setup
-        ActivityItem fixture = new ActivityItem(AboutActivity.class) {
-            @Override
-            Intent createIntent(@NonNull MainActivity mainActivity) {
-                assertEquals(mockMainActivity, mainActivity);
-                return mockIntent;
-            }
-        };
+        ActivityItem fixture = new TestActivityItem();
         // execute
         fixture.activate(mockMainActivity, mockMenuItem, NavigationMenu.ABOUT);
         // validate
@@ -70,4 +63,15 @@ public class ActivityItemTest {
         assertFalse(fixture.isRegistered());
     }
 
+    private class TestActivityItem extends ActivityItem {
+        private TestActivityItem() {
+            super(AboutActivity.class);
+        }
+
+        @Override
+        Intent createIntent(@NonNull MainActivity mainActivity) {
+            assertEquals(mockMainActivity, mainActivity);
+            return mockIntent;
+        }
+    }
 }

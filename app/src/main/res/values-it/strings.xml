@@ -66,6 +66,7 @@
     <string name="channel_graph_legend_title">Mostra legenda grafico canali</string>
     <string name="time_graph_legend_title">Mostra legenda grafico temporale</string>
     <string name="theme_title">Tema</string>
+    <string name="wifi_off_on_exit_title">WiFi fuori all\'uscita</string>
     <!-- settings end -->
 
     <!-- about start -->

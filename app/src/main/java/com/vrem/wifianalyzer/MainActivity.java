@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private NavigationMenu startNavigationMenu;
     private OptionMenu optionMenu;
     private String currentCountryCode;
-    private ConnectionView connectionView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,12 +87,8 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         navigationMenuView = new NavigationMenuView(this, startNavigationMenu);
         onNavigationItemSelected(navigationMenuView.getCurrentMenuItem());
 
-        connectionView = new ConnectionView(this);
+        ConnectionView connectionView = new ConnectionView(this);
         mainContext.getScanner().register(connectionView);
-    }
-
-    ConnectionView getConnectionView() {
-        return connectionView;
     }
 
     private void setWiFiChannelPairs(MainContext mainContext) {
@@ -187,6 +182,12 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     @Override
+    protected void onStop() {
+        MainContext.INSTANCE.getScanner().setWiFiOnExit();
+        super.onStop();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         optionMenu.create(this, menu);
         updateActionBar();
@@ -198,12 +199,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         optionMenu.select(item);
         updateActionBar();
         return true;
-    }
-
-    @Override
-    protected void onDestroy() {
-        MainContext.INSTANCE.getScanner().unregister(connectionView);
-        super.onDestroy();
     }
 
     public void updateActionBar() {

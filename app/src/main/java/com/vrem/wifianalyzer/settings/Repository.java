@@ -64,8 +64,22 @@ class Repository {
         }
     }
 
+    boolean getBoolean(int key, boolean defaultValue) {
+        String keyValue = MainContext.INSTANCE.getMainActivity().getString(key);
+        try {
+            return getSharedPreferences().getBoolean(keyValue, defaultValue);
+        } catch (Exception e) {
+            save(keyValue, defaultValue);
+            return defaultValue;
+        }
+    }
+
     int getResourceInteger(int key) {
         return MainContext.INSTANCE.getMainActivity().getResources().getInteger(key);
+    }
+
+    boolean getResourceBoolean(int key) {
+        return MainContext.INSTANCE.getMainActivity().getResources().getBoolean(key);
     }
 
     int getInteger(int key, int defaultValue) {
@@ -100,6 +114,12 @@ class Repository {
     private void save(@NonNull String key, @NonNull String value) {
         SharedPreferences.Editor editor = getSharedPreferences().edit();
         editor.putString(key, value);
+        editor.apply();
+    }
+
+    private void save(@NonNull String key, boolean value) {
+        SharedPreferences.Editor editor = getSharedPreferences().edit();
+        editor.putBoolean(key, value);
         editor.apply();
     }
 

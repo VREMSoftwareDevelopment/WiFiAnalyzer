@@ -35,7 +35,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -59,7 +59,7 @@ public class FilterAdapterTest {
 
     @Before
     public void setUp() {
-        ssids = new HashSet<>();
+        ssids = Collections.emptySet();
         wiFiBands = EnumUtils.values(WiFiBand.class);
         strengths = EnumUtils.values(Strength.class);
         securities = EnumUtils.values(Security.class);

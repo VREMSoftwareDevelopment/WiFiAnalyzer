@@ -37,7 +37,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-@SuppressWarnings("AnonymousInnerClass")
 public class TimeGraphCacheTest {
 
     private TimeGraphCache fixture;
@@ -102,16 +101,17 @@ public class TimeGraphCacheTest {
             WiFiDetail wiFiDetail = withWiFiDetail("SSID" + i);
             results.add(wiFiDetail);
         }
-        IterableUtils.forEach(results, new Closure<WiFiDetail>() {
-            @Override
-            public void execute(WiFiDetail wiFiDetail) {
-                fixture.add(wiFiDetail);
-            }
-        });
+        IterableUtils.forEach(results, new AddClosure());
         for (int i = 0; i < GraphConstants.MAX_NOTSEEN_COUNT; i++) {
             fixture.add(results.get(0));
         }
         return results;
     }
 
+    private class AddClosure implements Closure<WiFiDetail> {
+        @Override
+        public void execute(WiFiDetail wiFiDetail) {
+            fixture.add(wiFiDetail);
+        }
+    }
 }

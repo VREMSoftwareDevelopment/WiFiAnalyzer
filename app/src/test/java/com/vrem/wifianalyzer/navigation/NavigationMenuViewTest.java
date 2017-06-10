@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.navigation;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,7 +41,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-@SuppressWarnings("AnonymousInnerClass")
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class NavigationMenuViewTest {
@@ -63,24 +63,10 @@ public class NavigationMenuViewTest {
     @Test
     public void testNavigationMenuView() throws Exception {
         // execute
-        final Menu menu = navigationView.getMenu();
+        Menu menu = navigationView.getMenu();
         // validate
         assertEquals(NavigationMenu.values().length, menu.size());
-        IterableUtils.forEach(EnumUtils.values(NavigationGroup.class), new Closure<NavigationGroup>() {
-            @Override
-            public void execute(final NavigationGroup navigationGroup) {
-                IterableUtils.forEach(navigationGroup.getNavigationMenus(), new Closure<NavigationMenu>() {
-                    @Override
-                    public void execute(NavigationMenu navigationMenu) {
-                        MenuItem actual = menu.getItem(navigationMenu.ordinal());
-                        assertEquals(navigationGroup.ordinal(), actual.getGroupId());
-                        assertEquals(mainActivity.getResources().getString(navigationMenu.getTitle()), actual.getTitle());
-                        assertEquals(navigationMenu.ordinal(), actual.getItemId());
-                        assertEquals(navigationMenu.ordinal(), actual.getOrder());
-                    }
-                });
-            }
-        });
+        IterableUtils.forEach(EnumUtils.values(NavigationGroup.class), new NavigationGroupClosure(menu));
     }
 
     @Test
@@ -119,5 +105,37 @@ public class NavigationMenuViewTest {
 
     private MenuItem getMenuItem(NavigationMenu navigationMenu) {
         return navigationView.getMenu().getItem(navigationMenu.ordinal());
+    }
+
+    private class NavigationGroupClosure implements Closure<NavigationGroup> {
+        private final Menu menu;
+
+        private NavigationGroupClosure(@NonNull Menu menu) {
+            this.menu = menu;
+        }
+
+        @Override
+        public void execute(NavigationGroup navigationGroup) {
+            IterableUtils.forEach(navigationGroup.getNavigationMenus(), new NavigationMenuClosure(menu, navigationGroup));
+        }
+    }
+
+    private class NavigationMenuClosure implements Closure<NavigationMenu> {
+        private final Menu menu;
+        private final NavigationGroup navigationGroup;
+
+        private NavigationMenuClosure(@NonNull Menu menu, @NonNull NavigationGroup navigationGroup) {
+            this.menu = menu;
+            this.navigationGroup = navigationGroup;
+        }
+
+        @Override
+        public void execute(NavigationMenu navigationMenu) {
+            MenuItem actual = menu.getItem(navigationMenu.ordinal());
+            assertEquals(navigationGroup.ordinal(), actual.getGroupId());
+            assertEquals(mainActivity.getResources().getString(navigationMenu.getTitle()), actual.getTitle());
+            assertEquals(navigationMenu.ordinal(), actual.getItemId());
+            assertEquals(navigationMenu.ordinal(), actual.getOrder());
+        }
     }
 }
