@@ -23,7 +23,7 @@
     <!-- application end -->
 
     <string name="navigation_drawer_open">Abrir panel de navegación</string>
-    <string name="navigation_drawer_close">Cierre el panel de navegación</string>
+    <string name="navigation_drawer_close">Cerrar el panel de navegación</string>
 
     <!-- action start -->
     <string name="action_access_points">Puntos de acceso</string>
@@ -32,18 +32,18 @@
     <string name="action_time_graph">Gráfico de Tiempo</string>
     <string name="action_export">Exportar</string>
     <string name="action_channel_available">Canales Disponibles</string>
-    <string name="action_vendors">Vendedores</string>
+    <string name="action_vendors">Fabricantes</string>
     <string name="action_settings">Ajustes</string>
     <string name="action_about">Acerca de</string>
     <!-- action end -->
 
     <string name="button_cancel">Cancelar</string>
     <string name="no_data">Sin datos</string>
-    <string name="no_data_geo_warning">Algunos usuarios de Android OS 6 (Marshmallow) informaron que el servicio de localización debe estar habilitado para ver las redes Wi-Fi. Marshmallow usuarios pueden tener que activar el servicio de localización, aunque WiFiAnalyzer no requiere explícitamente. Parece ser atribuido a un problema potencial de Android 6 que necesita el servicio de localización para las redes WiFi.</string>
+    <string name="no_data_geo_warning">Algunos usuarios de Android OS 6 (Marshmallow) informaron de que el servicio de localización debe estar habilitado para ver las redes Wi-Fi. Usuarios de Marshmallow pueden tener que activar el servicio de localización, aunque WiFiAnalyzer no lo requiera explícitamente. Parece ser atribuido a un problema potencial de Android 6 que necesita el servicio de localización para las redes WiFi.</string>
 
     <string name="export_not_available">Exportar no disponible</string>
 
-    <string name="channel_rating_best">Canales Mejores:</string>
+    <string name="channel_rating_best">Mejores canales:</string>
     <string name="channel_rating_best_none">Ninguno</string>
     <string name="channel_rating_best_alternative">, tratar Banda WiFi alternativa</string>
     <string name="channel_rating_heading_rating">Clasificación de Canal</string>
@@ -56,15 +56,15 @@
     <string name="graph_axis_y">Intensidad de señal (dBm)</string>
 
     <!-- settings start -->
-    <string name="start_menu_title">Comienzo</string>
+    <string name="start_menu_title">Mostrar al inicio</string>
     <string name="country_code_title">País</string>
     <string name="scan_interval_title">Intervalo de exploración</string>
-    <string name="scan_interval_summary">%d segundos entre cada Exploracion</string>
-    <string name="sort_by_title">Ordenar Puntos de Accesso por:</string>
+    <string name="scan_interval_summary">%d segundos entre exploraciones</string>
+    <string name="sort_by_title">Ordenar Puntos de Acceso por:</string>
     <string name="group_by_title">Agrupar Puntos de Acceso por:</string>
     <string name="connection_view_title">Pantalla de conexión</string>
-    <string name="ap_view_title">Pantalla del punto de acceso</string>
-    <string name="graph_maximum_y_title">Gráfico de la intensidad máxima de la señal</string>
+    <string name="ap_view_title">Pantalla de punto de acceso</string>
+    <string name="graph_maximum_y_title">Gráfico de intensidad máxima de la señal</string>
     <string name="channel_graph_legend_title">Leyenda de Visualización de Gráfico de Canales</string>
     <string name="time_graph_legend_title">Leyenda de Visualización de Gráfico de Tiempo</string>
     <string name="theme_title">Tema</string>
@@ -75,7 +75,7 @@
     <string name="about_license_title">Licencia:</string>
     <string name="about_license_name">Licenciado bajo GPLv3</string>
     <string name="about_description_title">Descripción:</string>
-    <string name="about_description_text">"Optimizar su red WiFi, mediante la comprobación de estado de la red, intensidad de la señal y la identificación de los canales llenos usando la aplicación de código abierto WiFiAnalyzer para Android"</string>
+    <string name="about_description_text">"Optimiza tu red WiFi, mediante la comprobación de estado de red, intensidad de señal e identificación de los canales llenos usando la aplicación de código abierto WiFiAnalyzer para Android"</string>
     <string name="about_libraries_title">Librerias usadas:</string>
     <string name="about_library_graph_view">Vista Gráfica</string>
     <string name="about_library_material">"Iconos de \'Diseño de Materiales\'"</string>
@@ -90,7 +90,7 @@
     <!-- filter start -->
     <string name="filter_title">Filtro</string>
     <string name="filter_close">Cerrar</string>
-    <string name="filter_reset">Reajustar</string>
+    <string name="filter_reset">Reset</string>
     <string name="filter_apply">Aplicar</string>
     <string name="filter_wifi_band_title">Banda de WiFi</string>
     <string name="filter_strength_title">Intensidad de señal</string>
