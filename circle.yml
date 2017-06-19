@@ -1,0 +1,29 @@
+general:
+    artifacts:
+        - "build/reports/jacoco"        
+machine:
+    java:
+        version: oraclejdk8
+    environment:
+        ANDROID_HOME: /usr/local/android-sdk-linux
+        GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"'
+dependencies:
+    pre:
+        - echo y | android update sdk --no-ui --all --filter tools
+        - echo y | android update sdk --no-ui --all --filter platform-tools
+        - echo y | android update sdk --no-ui --all --filter build-tools-25.0.2
+        - echo y | android update sdk --no-ui --all --filter android-25
+        - echo y | android update sdk --no-ui --all --filter extra-google-m2repository
+        - echo y | android update sdk --no-ui --all --filter extra-android-m2repository
+        - chmod +x gradlew
+        - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies
+    cache_directories:
+        - /usr/local/android-sdk-linux/tools
+        - /usr/local/android-sdk-linux/build-tools/23.0.3
+test:
+    override:
+        - ./gradlew testDebugUnitTest --info
+        - ./gradlew jacocoTestDebugUnitTestReport
+    post:
+        - bash <(curl -s https://codecov.io/bash)
+

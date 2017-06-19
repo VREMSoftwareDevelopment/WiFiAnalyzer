@@ -78,6 +78,7 @@ WiFiAnalyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 ## WiFiAnalyzer Build
 
 [![Build Status](https://travis-ci.org/VREMSoftwareDevelopment/WiFiAnalyzer.svg?branch=master)](https://travis-ci.org/VREMSoftwareDevelopment/WiFiAnalyzer)
+[![CircleCI](https://circleci.com/gh/VREMSoftwareDevelopment/WiFiAnalyzer.svg?style=svg)](https://circleci.com/gh/VREMSoftwareDevelopment/WiFiAnalyzer)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/203eaa0583694bcca6554190513179ba)](https://www.codacy.com/app/vremsoftwaredevelopment/WiFiAnalyzer)
 [![codecov](https://codecov.io/gh/VREMSoftwareDevelopment/WiFiAnalyzer/branch/master/graph/badge.svg)](https://codecov.io/gh/VREMSoftwareDevelopment/WiFiAnalyzer)
 [![Dependency Status](https://www.versioneye.com/user/projects/5774046699ed290049b8bb59/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5774046699ed290049b8bb59)
