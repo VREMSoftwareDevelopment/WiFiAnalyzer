@@ -6,9 +6,6 @@ Optimize your WiFi network using WiFiAnalyzer by examining surrounding WiFi netw
 * Minimum: Jelly Bean (Version 4.1 - API 16)
 * Recommended: Marshmallow (Version 6.0 - API 23)
 
-### Note for Android OS 6+ Users
-Some users running Android OS 6+ (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFiAnalyzer does not explicitly require it. This appears to be attributed to Android OS 6+ that requires location service in order to see WiFi networks. [Click here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23) to learn more about it.
-
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=com.vrem.wifianalyzer)
 [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/repository/browse/?fdid=com.vrem.wifianalyzer)
 [<img src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-underground-app-us-white.png" alt="Get it at Amazon Store" height="70">
@@ -54,6 +51,7 @@ This is the official repository of WiFiAnalyzer.
 
 ## FAQ
 * [Android OS 6+ - Location Service ON](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/23)
+* [Using WiFiAnalyzer as secondary users](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/112)
 * [How channel graph displays 20/40/80/160 MHz channel width?](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/64)
 * [WiFiAnalyzer equivalent on iOS](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/69)
 
@@ -78,7 +76,6 @@ WiFiAnalyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 ## WiFiAnalyzer Build
 
 [![Build Status](https://travis-ci.org/VREMSoftwareDevelopment/WiFiAnalyzer.svg?branch=master)](https://travis-ci.org/VREMSoftwareDevelopment/WiFiAnalyzer)
-[![CircleCI](https://circleci.com/gh/VREMSoftwareDevelopment/WiFiAnalyzer.svg?style=svg)](https://circleci.com/gh/VREMSoftwareDevelopment/WiFiAnalyzer)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/203eaa0583694bcca6554190513179ba)](https://www.codacy.com/app/vremsoftwaredevelopment/WiFiAnalyzer)
 [![codecov](https://codecov.io/gh/VREMSoftwareDevelopment/WiFiAnalyzer/branch/master/graph/badge.svg)](https://codecov.io/gh/VREMSoftwareDevelopment/WiFiAnalyzer)
 [![Dependency Status](https://www.versioneye.com/user/projects/5774046699ed290049b8bb59/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5774046699ed290049b8bb59)
