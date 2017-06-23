@@ -37,7 +37,6 @@
 
     <string name="button_cancel">Annuler</string>
     <string name="no_data">Aucune donnée</string>
-    <string name="no_data_geo_warning">Certains utilisateurs fonctionnant sous Android OS 6 (Marshmallow) ont indiqué que le service de géolocalisation devait être activé pour que l\'application puisse fonctionner correctement. Si vous utilisez Marshmallow, activer le service de géolocalisation pourrait résoudre le problème, même si WiFiAnalyzer ne le demande pas explicitement. Ceci semble être dû à un problème avec Android OS 6 qui requiert le service de géolocalisation d\'être actif afin d\'accéder aux réseaux Wi-Fi.</string>
 
     <string name="export_not_available">Export non disponible</string>
 

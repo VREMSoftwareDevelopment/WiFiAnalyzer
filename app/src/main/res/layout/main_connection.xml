@@ -88,19 +88,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:text="@string/no_data_geo_warning"
-            android:textAlignment="center"
-            android:textColor="@color/warning_color"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:autoLink="web"
             android:gravity="center"
             android:paddingTop="@dimen/activity_vertical_margin"
-            android:text="@string/no_data_geo_url"/>
+            android:text="@string/no_data_url"/>
 
     </LinearLayout>
 </LinearLayout>

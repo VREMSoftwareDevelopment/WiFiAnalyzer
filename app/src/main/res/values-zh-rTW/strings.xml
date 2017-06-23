@@ -37,7 +37,6 @@
 
     <string name="button_cancel">取消</string>
     <string name="no_data">無資料</string>
-    <string name="no_data_geo_warning">部分使用 Android 6(棉花糖)系統的用戶回報， 即便WiFi分析儀沒有明確要求，棉花糖用戶可能需要開啟定位服務，才能在本應用程式內看到WiFi網路。這似乎歸因於Android 6系統，需要位置服務才能看到WiFi網路的潛在問題。</string>
 
     <string name="export_not_available">無法匯出</string>
 

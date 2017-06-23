@@ -37,7 +37,6 @@
 
     <string name="button_cancel">Abbrechen</string>
     <string name="no_data">Keine Daten</string>
-    <string name="no_data_geo_warning">Einige Benutzer mit Android 6 ("Marshmallow") haben berichtet, dass der Standort-Dienst aktiviert sein muss, damit WLAN-Netzerke erkannt werden können. Benutzer unter "Marshmallow" müssen möglicherweise Standortdienste aktivieren, auch wenn WiFiAnalyzer sie nicht benötigt. Dies scheint ein Problem in Android 6 zu sein.</string>
 
     <string name="export_not_available">Export nicht verfügbar</string>
 

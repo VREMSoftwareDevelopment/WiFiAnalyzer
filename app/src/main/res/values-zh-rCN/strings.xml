@@ -37,7 +37,6 @@
 
     <string name="button_cancel">取消</string>
     <string name="no_data">无数据</string>
-    <string name="no_data_geo_warning">運行Android OS 6（棉花糖）一些用戶報告說, 位置服務必須為應用程序看到WiFi網絡中啟用. 棉花糖用戶可根據需要打開定位服務, 即使無線網絡分析儀沒有明確要求它. 這似乎歸因於Android操作系統6, 需要位置服務才能看到WiFi網絡的潛在問題.</string>
 
     <string name="export_not_available">出口不可用</string>
 

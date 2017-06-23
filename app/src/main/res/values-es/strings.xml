@@ -39,7 +39,6 @@
 
     <string name="button_cancel">Cancelar</string>
     <string name="no_data">Sin datos</string>
-    <string name="no_data_geo_warning">Algunos usuarios de Android OS 6 (Marshmallow) informaron de que el servicio de localización debe estar habilitado para ver las redes Wi-Fi. Usuarios de Marshmallow pueden tener que activar el servicio de localización, aunque WiFiAnalyzer no lo requiera explícitamente. Parece ser atribuido a un problema potencial de Android 6 que necesita el servicio de localización para las redes WiFi.</string>
 
     <string name="export_not_available">Exportar no disponible</string>
 
