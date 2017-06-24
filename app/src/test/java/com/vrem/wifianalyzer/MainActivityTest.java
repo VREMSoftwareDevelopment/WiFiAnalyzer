@@ -98,6 +98,17 @@ public class MainActivityTest {
     }
 
     @Test
+    public void testOnResumeCallsOptionMenuResume() throws Exception {
+        // setup
+        OptionMenu optionMenu = mock(OptionMenu.class);
+        fixture.setOptionMenu(optionMenu);
+        // execute
+        fixture.onResume();
+        // validate
+        verify(optionMenu).resume();
+    }
+
+    @Test
     public void testOnCreateOptionsMenu() throws Exception {
         // setup
         Menu menu = mock(Menu.class);
