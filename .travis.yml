@@ -1,9 +1,7 @@
-sudo:
-    false
-language:
-    android
-jdk:
-    oraclejdk8
+sudo: false
+cache: false
+language: android
+jdk: oraclejdk8
 android:
     components:
         - tools
@@ -15,11 +13,5 @@ script:
     - TERM=dumb ./gradlew testDebugUnitTest jacocoTestDebugUnitTestReport --info
 before_install:
     - chmod +x gradlew
-before_cache:
-    - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-cache:
-    directories:
-        - $HOME/.gradle/caches/
-        - $HOME/.gradle/wrapper/
 after_success:
     - bash <(curl -s https://codecov.io/bash)
