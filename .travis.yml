@@ -10,7 +10,7 @@ android:
         - extra-google-m2repository
         - extra-android-m2repository
 script:
-    - TERM=dumb ./gradlew testDebugUnitTest jacocoTestDebugUnitTestReport --info
+    - TERM=dumb ./gradlew testDebugUnitTest jacocoTestDebugUnitTestReport --info -PdisablePreDex
 before_install:
     - chmod +x gradlew
 after_success:
