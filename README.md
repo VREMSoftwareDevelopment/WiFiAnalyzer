@@ -45,6 +45,7 @@ This is the official repository of WiFiAnalyzer.
 
 ## How-to
 * [How to guide](http://translate.google.com/translate?js=n&sl=auto&tl=en&u=http://www.svetandroida.cz/aplikace-wifi-analyzer-open-source-201605)
+* [How to find the best 5Ghz WiFi Channel](https://www.maketecheasier.com/best-wifi-channel-for-5ghz-frequency/)
 * [Why Wi-Fi stinks and how to fix it](http://spectrum.ieee.org/telecom/wireless/why-wifi-stinksand-how-to-fix-it)
 * [Wi-Fi channels list](https://en.wikipedia.org/wiki/List_of_WLAN_channels)
 * [How is distance calculated to Access Point](https://en.wikipedia.org/wiki/Free-space_path_loss)
