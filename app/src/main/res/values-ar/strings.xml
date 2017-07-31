@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ WiFiAnalyzer
+  ~ Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
+  -->
+
+<resources>
+    <!-- application start -->
+    <string name="app_name" translatable="false">WiFiAnalyzer</string>
+    <string name="app_company_name" translatable="false">VREM تطوير البرمجيات</string>
+    <string name="app_copyright">Copyright \u00A9 2015 \u002D 2017</string>
+    <string name="app_url" translatable="false">https://vremsoftwaredevelopment.github.io/WiFiAnalyzer</string>
+    <!-- application end -->
+
+    <string name="navigation_drawer_open">فتح درج التنقل</string>
+    <string name="navigation_drawer_close">إغلاق درج التنقل</string>
+
+    <!-- action start -->
+    <string name="action_access_points">نقطة وصول</string>
+    <string name="action_channel_rating">تقييم القناة</string>
+    <string name="action_channel_graph">الرسم البياني للقناة</string>
+    <string name="action_time_graph">الوقت الرسم البياني</string>
+    <string name="action_export">تصدير</string>
+    <string name="action_channel_available">القنوات المتاحة</string>
+    <string name="action_vendors">البائعين</string>
+    <string name="action_settings">إعدادات</string>
+    <string name="action_about">حول</string>
+    <string name="action_pause" translatable="false">إيقاف مؤقت</string>
+    <string name="action_resume" translatable="false">إستئناف</string>
+    <string name="action_filter" translatable="false">فرز</string>
+    <!-- action end -->
+
+    <string name="button_ok" translatable="false">موافق</string>
+    <string name="button_cancel">إلغاء الأمر</string>
+    <string name="no_data">لايوجد بيانات</string>
+    <string name="no_data_url" translatable="false">https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq</string>
+    <string name="wifi_channels_list_url" translatable="false">https://en.wikipedia.org/wiki/List_of_WLAN_channels</string>
+
+    <string name="export_not_available">تصدير غير متوفر</string>
+
+    <string name="channel_rating_best">أفضل القنوات:</string>
+    <string name="channel_rating_best_none">لا شيء</string>
+    <string name="channel_rating_best_alternative">, حاول البديل النطاق الشبكة واي فاي</string>
+    <string name="channel_rating_heading_rating">تقييم القناة</string>
+    <string name="channel_rating_heading_number">رقم القناة</string>
+    <string name="channel_rating_heading_count">عدد نقاط الوصول</string>
+    <string name="channel_short_name">CH</string>
+
+    <string name="graph_channel_axis_x">WiFi قنوات</string>
+    <string name="graph_time_axis_x">عدد نتائج</string>
+    <string name="graph_axis_y">قوة الاشارة (dBm)</string>
+
+    <!-- settings start -->
+    <string name="start_menu_title">تشغيل</string>
+    <string name="start_menu_summary" translatable="false">%s</string>
+    <string name="start_menu_key" translatable="false">start_menu</string>
+
+    <string name="country_code_title">البلد</string>
+    <string name="country_code_summary" translatable="false">%s</string>
+    <string name="country_code_key" translatable="false">country_code</string>
+
+    <string name="wifi_band_key" translatable="false">wifi_band</string>
+
+    <string name="scan_interval_title">فحص الفاصل الزمني</string>
+    <string name="scan_interval_summary">%d ثانية بين كل فحص</string>
+    <string name="scan_interval_key" translatable="false">scan_interval</string>
+    <integer name="scan_interval_min" translatable="false">1</integer>
+    <integer name="scan_interval_max" translatable="false">30</integer>
+    <integer name="scan_interval_default" translatable="false">5</integer>
+
+    <string name="sort_by_title">فرز نقاط الوصول حسب</string>
+    <string name="sort_by_summary" translatable="false">%s</string>
+    <string name="sort_by_key" translatable="false">sort_by</string>
+    <string name="sort_by_default" translatable="false">0</string>
+
+    <string name="group_by_title">نقاط وصول المجموعة By</string>
+    <string name="group_by_summary" translatable="false">%s</string>
+    <string name="group_by_key" translatable="false">group_by</string>
+    <string name="group_by_default" translatable="false">0</string>
+
+    <string name="ap_view_title">نقطة وصول العرض</string>
+    <string name="ap_view_summary" translatable="false">%s</string>
+    <string name="ap_view_key" translatable="false">عرض</string>
+    <string name="ap_view_default" translatable="false">0</string>
+
+    <string name="connection_view_title">عرض الاتصال</string>
+    <string name="connection_view_summary" translatable="false">%s</string>
+    <string name="connection_view_key" translatable="false">المتصل</string>
+    <string name="connection_view_default" translatable="false">0</string>
+
+    <string name="graph_maximum_y_title">الرسم البياني أقصى قوة الإشارة</string>
+    <string name="graph_maximum_y_summary" translatable="false">%s</string>
+    <string name="graph_maximum_y_key" translatable="false">graph_maximum_y</string>
+    <string name="graph_maximum_y_default" translatable="false">2</string>
+
+    <string name="channel_graph_legend_title">عرض القوة الرسم البياني للقناة</string>
+    <string name="channel_graph_legend_summary" translatable="false">%s</string>
+    <string name="channel_graph_legend_key" translatable="false">channel_graph_legend</string>
+    <string name="channel_graph_legend_default" translatable="false">2</string>
+
+    <string name="time_graph_legend_title">الوقت الرسم البياني قوة العرض</string>
+    <string name="time_graph_legend_summary" translatable="false">%s</string>
+    <string name="time_graph_legend_key" translatable="false">time_graph_legend</string>
+    <string name="time_graph_legend_default" translatable="false">0</string>
+
+    <string name="theme_title">ثيمات</string>
+    <string name="theme_summary" translatable="false">%s</string>
+    <string name="theme_key" translatable="false">ثيم</string>
+    <string name="theme_default" translatable="false">0</string>
+
+    <string name="wifi_off_on_exit_title">WiFi تعطيل وخروج</string>
+    <string name="wifi_off_on_exit_key" translatable="false">wifi_off_on_exit</string>
+    <bool name="wifi_off_on_exit_default" translatable="false">خاطئ</bool>
+    <!-- settings end -->
+
+    <!-- about start -->
+    <string name="about_application_name" translatable="false">WiFiAnalyzer (مفتوح المصدر</string>
+    <string name="about_license_title">رخصة:</string>
+    <string name="about_license_name">مرخصة تحت GPLv3</string>
+    <string name="about_license_url" translatable="false">http://www.gnu.org/licenses/gpl-3.0.html</string>
+    <string name="about_description_title">تفاصيل:</string>
+    <string name="about_description_text">تحسين الخاص بك WiFi الشبكة، عن طريق التحقق من حالة شبكة واي فاي، وقوة الإشارة وتحديد القنوات المزدحمة باستخدام مصدر مفتوح WiFiAnalyzer لأجهزة الأندرويد</string>
+    <string name="about_libraries_title">المكتبات المستخدمة:</string>
+    <string name="about_library_apache" translatable="false">أباتشي كومونس</string>
+    <string name="about_library_apache_url" translatable="false">https://commons.apache.org</string>
+    <string name="about_library_graph_view">عرض الرسم البياني</string>
+    <string name="about_library_graph_view_url" translatable="false">http://www.android-graphview.org</string>
+    <string name="about_library_material">أيقونات التصميم</string>
+    <string name="about_library_material_url" translatable="false">https://design.google.com/icons</string>
+    <string name="about_contributor_title">المساهمون:</string>
+    <string name="about_contributor_list" translatable="false">"مروان الً-سيدي، أبوزر رافي، أليكس أورشارد، أليكسي غيفارا، كارين ديسبريساي، دان ليت، ديفيد جونز، جينا شافيز، جراهام فوستر، جان بورجوا، كيفن جيانغ، لي ماكالوم، لوكاس وينكلر، ماركو سانتينلي، مايكل ميلو، مايكل بيكارد، سيلفيو ماركو، فاديم كارانتاير ، وي مكالوم، ويليام غاثوي، يوري تيموفيف، 'أكيرا، دتورنر، جنكيز، تايكسيونغ"</string>
+    <string name="about_write_review">اكتب تقرير</string>
+    <!-- about end -->
+
+    <string name="wifi_band_2ghz" translatable="false">2.4 GHz</string>
+    <string name="wifi_band_5ghz" translatable="false">5 GHz</string>
+
+    <!-- security start -->
+    <string name="security_none">لا شيء</string>
+    <string name="security_wps" translatable="false">WPS</string>
+    <string name="security_wep" translatable="false">WEP</string>
+    <string name="security_wpa" translatable="false">WPA</string>
+    <string name="security_wpa2" translatable="false">WPA2</string>
+    <!-- security end -->
+
+    <!-- filter start -->
+    <string name="filter_title">فرز</string>
+    <string name="filter_close">إنهاء</string>
+    <string name="filter_reset">إعادة</string>
+    <string name="filter_apply">تطبيق</string>
+    <string name="filter_ssid_title" translatable="false">SSID</string>
+    <string name="filter_ssid_key" translatable="false">filter_ssid</string>
+    <string name="filter_ssid_hint" translatable="false">ssid SSID</string>
+    <string name="filter_wifi_band_title">WiFi نطاق</string>
+    <string name="filter_wifi_band_key" translatable="false">filter_wifi_band</string>
+    <string name="filter_strength_title">قوة الاشارة</string>
+    <string name="filter_strength_key" translatable="false">filter_strength</string>
+    <string name="filter_security_title">الأمان</string>
+    <string name="filter_security_key" translatable="false">filter_security</string>
+    <!-- filter end -->
+</resources>
