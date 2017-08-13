@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ WiFiAnalyzer
+  ~ Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
+  -->
+
+<resources>
+    <string-array name="group_by_index_array" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="group_by_array">
+        <item>لا شيئ</item>
+        <item>SSID</item>
+        <item>القناة</item>
+    </string-array>
+
+    <string-array name="sort_by_index_array" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="sort_by_array">
+        <item>قوة الاشارة</item>
+        <item>SSID</item>
+        <item>القناة</item>
+    </string-array>
+
+    <string-array name="connection_view_index_array" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="connection_view_array">
+        <item>اكتمال</item>
+        <item>المدمج</item>
+        <item>Hide</item>
+    </string-array>
+
+    <string-array name="ap_view_index_array" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="ap_view_array">
+        <item>اكتمال</item>
+        <item>المدمج</item>
+    </string-array>
+
+    <string-array name="graph_maximum_y_index_array" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="graph_maximum_y_array" translatable="false">
+        <item>0dBm</item>
+        <item>-10dBm</item>
+        <item>-20dBm</item>
+        <item>-30dBm</item>
+        <item>-40dBm</item>
+        <item>-50dBm</item>
+    </string-array>
+
+    <string-array name="graph_legend_index_array" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="graph_legend_array">
+        <item>يسار</item>
+        <item>يمين</item>
+        <item>إخفاء</item>
+    </string-array>
+
+    <string-array name="theme_index_array" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="theme_array">
+        <item>داكن</item>
+        <item>مضيئ</item>
+    </string-array>
+
+    <string-array name="graph_colors" translatable="false">
+        <!-- grey_500 -->
+        <item>#FF9E9E9E</item>
+        <item>#339E9E9E</item>
+        <!-- pink 500 -->
+        <item>#FFE91E63</item>
+        <item>#33E91E63</item>
+        <!-- orange 500 -->
+        <item>#FFFF9800</item>
+        <item>#33FF9800</item>
+        <!-- blue_grey 500 -->
+        <item>#FF607D8B</item>
+        <item>#33607D8B</item>
+        <!-- light_green 500 -->
+        <item>#FF8BC34A</item>
+        <item>#338BC34A</item>
+        <!-- light_blue 500 -->
+        <item>#FF03A9F4</item>
+        <item>#3303A9F4</item>
+        <!-- indigo 500 -->
+        <item>#FF3F51B5</item>
+        <item>#333F51B5</item>
+        <!-- deep_orange 500 -->
+        <item>#FFFF5722</item>
+        <item>#33FF5722</item>
+        <!-- amber 500 -->
+        <item>#FFFFC107</item>
+        <item>#33FFC107</item>
+        <!-- deep_purple 500 -->
+        <item>#FF673AB7</item>
+        <item>#33673AB7</item>
+        <!-- teal 500 -->
+        <item>#FF009688</item>
+        <item>#33009688</item>
+        <!-- cyan 500 -->
+        <item>#FF00BCD4</item>
+        <item>#3300BCD4</item>
+        <!-- lime 500 -->
+        <item>#FFCDDC39</item>
+        <item>#33CDDC39</item>
+        <!-- red_500 -->
+        <item>#FFF44336</item>
+        <item>#33F44336</item>
+        <!-- yellow 500 -->
+        <item>#FFFFEB3B</item>
+        <item>#33FFEB3B</item>
+        <!-- brown 500 -->
+        <item>#FF795548</item>
+        <item>#33795548</item>
+        <!-- purple 500 -->
+        <item>#FF9C27B0</item>
+        <item>#339C27B0</item>
+        <!-- green 500 -->
+        <item>#FF4CAF50</item>
+        <item>#334CAF50</item>
+        <!-- blue 500 -->
+        <item>#FF2196F3</item>
+        <item>#332196F3</item>
+    </string-array>
+
+</resources>
