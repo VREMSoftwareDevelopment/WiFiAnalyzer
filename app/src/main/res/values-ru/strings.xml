@@ -36,6 +36,7 @@
 
     <string name="button_cancel">Отмена</string>
     <string name="no_data">Нет данных</string>
+    <string name="no_data_msg">Пожалуйста, посетите часто задаваемые вопросы \"FAQ\" на нашем сайте.</string>
 
     <string name="export_not_available">Экспорт не доступен</string>
 

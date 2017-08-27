@@ -46,6 +46,7 @@
     <string name="button_ok" translatable="false">OK</string>
     <string name="button_cancel">Cancel</string>
     <string name="no_data">No Data</string>
+    <string name="no_data_msg">Please visit frequently ask questions "FAQ" sections on our website.</string>
     <string name="no_data_url" translatable="false">https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq</string>
     <string name="wifi_channels_list_url" translatable="false">https://en.wikipedia.org/wiki/List_of_WLAN_channels</string>
 

@@ -37,6 +37,7 @@
 
     <string name="button_cancel">取消</string>
     <string name="no_data">無資料</string>
+    <string name="no_data_msg">請訪問我們網站上的常見問題“常見問題”部分。</string>
 
     <string name="export_not_available">無法匯出</string>
 

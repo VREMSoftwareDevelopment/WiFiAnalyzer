@@ -37,6 +37,7 @@
 
     <string name="button_cancel">Cancelar</string>
     <string name="no_data">Sem Dados</string>
+    <string name="no_data_msg">Por favor, visite com freqüência as perguntas sobre \"FAQ\" em nosso site.</string>
 
     <string name="export_not_available">Export não disponível</string>
 

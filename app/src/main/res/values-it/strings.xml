@@ -37,6 +37,7 @@
 
     <string name="button_cancel">Annulla</string>
     <string name="no_data">Nessun Dato</string>
+    <string name="no_data_msg">Si prega di visitare spesso faccia domande \"FAQ\" sezioni sul nostro sito web.</string>
 
     <string name="export_not_available">Impossibile esportare</string>
 
