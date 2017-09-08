@@ -43,6 +43,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.text.DateFormat;
 import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
@@ -91,6 +92,11 @@ public class ExportItemTest {
                 assertEquals(sendTitle, title);
                 return chooserIntent;
             }
+
+            @Override
+            DateFormat getTimeFormat(@NonNull MainActivity mainActivity) {
+                return DateFormat.getDateTimeInstance();
+            }
         };
     }
 
@@ -104,13 +110,14 @@ public class ExportItemTest {
     public void testActivate() throws Exception {
         // setup
         WiFiData wiFiData = withWiFiData();
-        String sendData = fixture.getData(wiFiData.getWiFiDetails());
         when(scanner.getWiFiData()).thenReturn(wiFiData);
         withResources();
         withResolveActivity();
         // execute
         fixture.activate(mainActivity, menuItem, NavigationMenu.EXPORT);
         // validate
+        String timestamp = fixture.getTimestamp();
+        String sendData = fixture.getData(timestamp, wiFiData.getWiFiDetails());
         verify(scanner).getWiFiData();
         verifyResources();
         verifyResolveActivity();
@@ -123,10 +130,10 @@ public class ExportItemTest {
         // setup
         WiFiData wiFiData = withWiFiData();
         String expected =
-            "SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security\n"
-                + "SSID|BSSID|-40dBm|1|2412MHz|3|2422MHz|40MHz (2402 - 2442)|1.0m|capabilities\n";
+            "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security\n"
+                + "TimeStamp1|SSID|BSSID|-40dBm|1|2412MHz|3|2422MHz|40MHz (2402 - 2442)|1.0m|capabilities\n";
         // execute
-        String actual = fixture.getData(wiFiData.getWiFiDetails());
+        String actual = fixture.getData("TimeStamp1", wiFiData.getWiFiDetails());
         // validate
         assertEquals(expected, actual);
     }

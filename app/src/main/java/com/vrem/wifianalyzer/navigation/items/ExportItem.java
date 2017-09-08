@@ -35,10 +35,13 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 class ExportItem implements NavigationItem {
+    private String timestamp;
 
     @Override
     public void activate(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, @NonNull NavigationMenu navigationMenu) {
@@ -48,7 +51,8 @@ class ExportItem implements NavigationItem {
             Toast.makeText(mainActivity, R.string.no_data, Toast.LENGTH_LONG).show();
             return;
         }
-        String data = getData(wiFiDetails);
+        timestamp = getTimeFormat(mainActivity).format(new Date());
+        String data = getData(timestamp, wiFiDetails);
         Intent intent = createIntent(title, data);
         Intent chooser = createChooserIntent(intent, title);
         if (!exportAvailable(mainActivity, chooser)) {
@@ -75,10 +79,10 @@ class ExportItem implements NavigationItem {
         return !wiFiDetails.isEmpty();
     }
 
-    String getData(@NonNull List<WiFiDetail> wiFiDetails) {
+    String getData(String timestamp, @NonNull List<WiFiDetail> wiFiDetails) {
         final StringBuilder result = new StringBuilder();
-        result.append("SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security\n");
-        IterableUtils.forEach(wiFiDetails, new WiFiDetailClosure(result));
+        result.append("Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security\n");
+        IterableUtils.forEach(wiFiDetails, new WiFiDetailClosure(timestamp, result));
         return result.toString();
     }
 
@@ -110,17 +114,28 @@ class ExportItem implements NavigationItem {
         return Intent.createChooser(intent, title);
     }
 
+    DateFormat getTimeFormat(@NonNull MainActivity mainActivity) {
+        return android.text.format.DateFormat.getTimeFormat(mainActivity);
+    }
+
+    String getTimestamp() {
+        return timestamp;
+    }
+
     private class WiFiDetailClosure implements Closure<WiFiDetail> {
         private final StringBuilder result;
+        private final String timestamp;
 
-        private WiFiDetailClosure(@NonNull StringBuilder result) {
+        private WiFiDetailClosure(String timestamp, @NonNull StringBuilder result) {
             this.result = result;
+            this.timestamp = timestamp;
         }
 
         @Override
         public void execute(WiFiDetail wiFiDetail) {
             WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-            result.append(String.format(Locale.ENGLISH, "%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%.1fm|%s\n",
+            result.append(String.format(Locale.ENGLISH, "%s|%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%.1fm|%s\n",
+                timestamp,
                 wiFiDetail.getSSID(),
                 wiFiDetail.getBSSID(),
                 wiFiSignal.getLevel(),
