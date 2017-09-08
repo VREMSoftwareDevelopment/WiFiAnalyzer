@@ -35,12 +35,13 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 class ExportItem implements NavigationItem {
+    private static final String TIME_STAMP_FORMAT = "yyyy/MM/dd HH:mm:ss";
     private String timestamp;
 
     @Override
@@ -51,7 +52,7 @@ class ExportItem implements NavigationItem {
             Toast.makeText(mainActivity, R.string.no_data, Toast.LENGTH_LONG).show();
             return;
         }
-        timestamp = getTimeFormat(mainActivity).format(new Date());
+        timestamp = new SimpleDateFormat(TIME_STAMP_FORMAT).format(new Date());
         String data = getData(timestamp, wiFiDetails);
         Intent intent = createIntent(title, data);
         Intent chooser = createChooserIntent(intent, title);
@@ -112,10 +113,6 @@ class ExportItem implements NavigationItem {
 
     Intent createChooserIntent(@NonNull Intent intent, @NonNull String title) {
         return Intent.createChooser(intent, title);
-    }
-
-    DateFormat getTimeFormat(@NonNull MainActivity mainActivity) {
-        return android.text.format.DateFormat.getTimeFormat(mainActivity);
     }
 
     String getTimestamp() {

@@ -43,7 +43,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.text.DateFormat;
 import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
@@ -91,11 +90,6 @@ public class ExportItemTest {
                 assertEquals(sendIntent, intent);
                 assertEquals(sendTitle, title);
                 return chooserIntent;
-            }
-
-            @Override
-            DateFormat getTimeFormat(@NonNull MainActivity mainActivity) {
-                return DateFormat.getDateTimeInstance();
             }
         };
     }
