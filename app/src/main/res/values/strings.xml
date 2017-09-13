@@ -164,7 +164,7 @@
     <string name="filter_apply">Apply</string>
     <string name="filter_ssid_title" translatable="false">SSID</string>
     <string name="filter_ssid_key" translatable="false">filter_ssid</string>
-    <string name="filter_ssid_hint" translatable="false">ssid SSID</string>
+    <string name="filter_ssid_hint">ssid SSID</string>
     <string name="filter_wifi_band_title">WiFi Band</string>
     <string name="filter_wifi_band_key" translatable="false">filter_wifi_band</string>
     <string name="filter_strength_title">Signal Strength</string>
