@@ -18,7 +18,7 @@
   -->
 
 <resources>
-    <string name="app_copyright">Direitos Autorais \u00A9 2015 \u002D 2017</string>
+    <string name="app_copyright">Copyright © 2015 - 2017</string>
 
     <string name="navigation_drawer_open">Abrir gaveta de notificações</string>
     <string name="navigation_drawer_close">Fechar gaveta de notificações</string>
@@ -27,58 +27,57 @@
     <string name="action_access_points">Pontos de Acesso</string>
     <string name="action_channel_rating">Avaliação dos Canais</string>
     <string name="action_channel_graph">Gráfico de Canais</string>
-    <string name="action_time_graph">Gráfico de Tempo</string>
+    <string name="action_time_graph">Linha do Tempo</string>
     <string name="action_export">Exportar</string>
     <string name="action_channel_available">Canais Disponíveis</string>
-    <string name="action_vendors">Vendedores</string>
+    <string name="action_vendors">Fabricantes</string>
     <string name="action_settings">Configurações</string>
     <string name="action_about">Sobre</string>
     <!-- action end -->
 
     <string name="button_cancel">Cancelar</string>
-    <string name="no_data">Sem Dados</string>
+    <string name="no_data">Sem Informações</string>
     <string name="no_data_msg">Por favor, visite com freqüência as perguntas sobre \"FAQ\" em nosso site.</string>
 
-    <string name="export_not_available">Export não disponível</string>
+    <string name="export_not_available">Não foi possível exportar</string>
 
     <string name="channel_rating_best">Melhores Canais:</string>
     <string name="channel_rating_best_none">Nenhum</string>
-    <string name="channel_rating_best_alternative">, Tente uma frequência WiFi diferente</string>
-    <string name="channel_rating_heading_rating">Avaliação dos Canais</string>
-    <string name="channel_rating_heading_number">Número do Canal</string>
-    <string name="channel_rating_heading_count">Número de Pontos de Acesso</string>
+    <string name="channel_rating_best_alternative">, tente alternar para a banda de</string>
+    <string name="channel_rating_heading_rating">Avaliação</string>
+    <string name="channel_rating_heading_number">Canal</string>
+    <string name="channel_rating_heading_count">Pontos de Acesso</string>
     <string name="channel_short_name">CH</string>
 
-    <string name="graph_channel_axis_x">Canais WiFi</string>
-    <string name="graph_time_axis_x">Número de Escaneamentos</string>
-    <string name="graph_axis_y">Força do Sinal (dBm)</string>
+    <string name="graph_channel_axis_x">Canais</string>
+    <string name="graph_time_axis_x">Escaneamentos</string>
+    <string name="graph_axis_y">Intensidade do Sinal (dBm)</string>
 
     <!-- settings start -->
-    <string name="start_menu_title">Começar</string>
+    <string name="start_menu_title">Página inicial</string>
     <string name="country_code_title">País</string>
-    <string name="scan_interval_title">Intervalo de Escaneamento</string>
-    <string name="scan_interval_summary">%d segundos entre cada escaneamento</string>
-    <string name="sort_by_title">Ordenar Pontos de Acesso Por</string>
-    <string name="group_by_title">Agrupar Pontos de Acesso Por</string>
-    <string name="connection_view_title">Exibição da conexão</string>
-    <string name="ap_view_title">Exibição do ponto de acesso</string>
-    <string name="graph_maximum_y_title">Gráfico Máxima Força do Sinal</string>
-    <string name="channel_graph_legend_title">Legenda do Gráfico de Canais</string>
-    <string name="time_graph_legend_title">Legenda do Gráfico de Tempo</string>
+    <string name="scan_interval_title">Intervalo de escaneamento</string>
+    <string name="scan_interval_summary">%d segundos</string>
+    <string name="sort_by_title">Ordenar pontos de acesso</string>
+    <string name="group_by_title">Agrupar pontos de acesso</string>
+    <string name="connection_view_title">Informações da conexão</string>
+    <string name="ap_view_title">Lista dos pontos de acesso</string>
+    <string name="graph_maximum_y_title">Escala máxima do sinal</string>
+    <string name="channel_graph_legend_title">Legenda do gráfico de canais</string>
+    <string name="time_graph_legend_title">Legenda da linha do tempo</string>
     <string name="theme_title">Tema</string>
-    <string name="wifi_off_on_exit_title">WiFi desligado na saída</string>
+    <string name="wifi_off_on_exit_title">Desativar Wi-Fi ao sair</string>
     <!-- settings end -->
 
     <!-- about start -->
     <string name="about_license_title">Licença:</string>
-    <string name="about_license_name">Sob a Licença GPLv3</string>
+    <string name="about_license_name">Licenciado sob a GPLv3</string>
     <string name="about_description_title">Descrição:</string>
-    <string name="about_description_text">Optimize sua rede WiFi, verificando o estado da rede Wi-Fi, a força do sinal e identificando canais congestionados usando um WiFiAnalyzer de código aberto para Android</string>
-    <string name="about_libraries_title">Livrarias Utilizadas:</string>
-    <string name="about_library_graph_view">Vista de Gráfico</string>
-    <string name="about_library_material">Desenho de material ícone</string>
+    <string name="about_description_text">Otimize sua rede Wi-Fi, verificando o estado da rede, a intensidade do sinal e identificando canais congestionados usando o WiFiAnalyzer, app open-source para Android</string>
+    <string name="about_libraries_title">Bibliotecas Utilizadas:</string>
+    <string name="about_library_graph_view">Graph View</string>
     <string name="about_contributor_title">Colaboradores:</string>
-    <string name="about_write_review">Escrever uma resenha</string>
+    <string name="about_write_review">Avaliar o app</string>
     <!-- about end -->
 
     <!-- security start -->
@@ -88,10 +87,12 @@
     <!-- filter start -->
     <string name="filter_title">Filtro</string>
     <string name="filter_close">Fechar</string>
-    <string name="filter_reset">Restabelecer</string>
-    <string name="filter_apply">Aplique</string>
-    <string name="filter_wifi_band_title">Frequência do WiFi</string>
-    <string name="filter_strength_title">Força do Sinal</string>
-    <string name="filter_security_title">Segurança</string>
+    <string name="filter_reset">Redefinir</string>
+    <string name="filter_apply">Aplicar</string>
+    <string name="filter_wifi_band_title">Frequência do Wi-Fi</string>
+    <string name="filter_strength_title">Intensidade do Sinal</string>
+    <string name="filter_security_title">Protocolo de Segurança</string>
+    <string name="about_library_material">Material Design Icons</string>
+    <string name="filter_ssid_hint">Nome da rede</string>
     <!-- filter end -->
 </resources>
