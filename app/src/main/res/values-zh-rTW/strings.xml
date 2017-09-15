@@ -74,8 +74,6 @@
     <string name="about_description_title">描述：</string>
     <string name="about_description_text">使用此開源的Android WiFi分析儀來檢查WiFi狀態、訊號強度並識別擁擠的頻道從而最佳化您的WiFi網路</string>
     <string name="about_libraries_title">使用的庫：</string>
-    <string name="about_library_graph_view">圖表視圖</string>
-    <string name="about_library_material">Material Design圖標</string>
     <string name="about_contributor_title">貢獻者：</string>
     <string name="about_write_review">撰寫評論</string>
     <!-- about end -->

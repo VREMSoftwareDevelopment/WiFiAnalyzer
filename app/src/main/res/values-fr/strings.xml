@@ -75,8 +75,6 @@
     <string name="about_description_title">Description :</string>
     <string name="about_description_text">Optimisez vos réseaux Wi-Fi, en vérifiant l\'état du réseau, la force du signal et en identifiant les canaux surchargés grâce à WiFiAnalyzer pour Android.</string>
     <string name="about_libraries_title">Bibliothèques utilisées :</string>
-    <string name="about_library_graph_view">Visualisation graphique</string>
-    <string name="about_library_material">"Icones de \'Material Design\'"</string>
     <string name="about_contributor_title">Contributeurs :</string>
     <string name="about_write_review">Donner votre avis</string>
     <!-- about end -->

@@ -75,8 +75,6 @@
     <string name="about_description_title">Beschreibung:</string>
     <string name="about_description_text">Verbessere dein WLAN Netwerk, indem du den Zustand und die Stärke des Signals misst und überlastete Kanäle mit einem freien WiFiAnalyzer für Android erkennst</string>
     <string name="about_libraries_title">Benutzte Bibliotheken:</string>
-    <string name="about_library_graph_view">Graphansicht</string>
-    <string name="about_library_material">Material Design Ikonen</string>
     <string name="about_contributor_title">Beitragende:</string>
     <string name="about_write_review">Rezension schreiben</string>
     <!-- about end -->

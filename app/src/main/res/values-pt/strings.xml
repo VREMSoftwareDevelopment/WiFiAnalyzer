@@ -18,7 +18,7 @@
   -->
 
 <resources>
-    <string name="app_copyright">Copyright © 2015 - 2017</string>
+    <string name="app_copyright">Copyright \u00A9 2015 \u002D 2017</string>
 
     <string name="navigation_drawer_open">Abrir gaveta de notificações</string>
     <string name="navigation_drawer_close">Fechar gaveta de notificações</string>
@@ -75,9 +75,8 @@
     <string name="about_description_title">Descrição:</string>
     <string name="about_description_text">Otimize sua rede Wi-Fi, verificando o estado da rede, a intensidade do sinal e identificando canais congestionados usando o WiFiAnalyzer, app open-source para Android</string>
     <string name="about_libraries_title">Bibliotecas Utilizadas:</string>
-    <string name="about_library_graph_view">Graph View</string>
     <string name="about_contributor_title">Colaboradores:</string>
-    <string name="about_write_review">Avaliar o app</string>
+    <string name="about_write_review">Escrever uma resenha</string>
     <!-- about end -->
 
     <!-- security start -->
@@ -92,7 +91,5 @@
     <string name="filter_wifi_band_title">Frequência do Wi-Fi</string>
     <string name="filter_strength_title">Intensidade do Sinal</string>
     <string name="filter_security_title">Protocolo de Segurança</string>
-    <string name="about_library_material">Material Design Icons</string>
-    <string name="filter_ssid_hint">Nome da rede</string>
     <!-- filter end -->
 </resources>

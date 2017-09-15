@@ -74,8 +74,6 @@
     <string name="about_description_title">Описание:</string>
     <string name="about_description_text">Оптимизация сети WiFi путем проверки состояния Wi-Fi, уровня сигнала и определения переполненных каналов используя WiFiAnalyzer для Android</string>
     <string name="about_libraries_title">Использованные библиотеки:</string>
-    <string name="about_library_graph_view">Просмотр диаграммы</string>
-    <string name="about_library_material">Материальный дизайн иконок</string>
     <string name="about_contributor_title">Авторы:</string>
     <string name="about_write_review">Написать отзыв</string>
     <!-- about end -->
