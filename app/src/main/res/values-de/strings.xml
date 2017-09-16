@@ -37,6 +37,7 @@
 
     <string name="button_cancel">Abbrechen</string>
     <string name="no_data">Keine Daten</string>
+    <string name="no_data_msg">Bitte besuchen Sie häufig Fragen zu \"FAQ\" auf unserer Website.</string>
 
     <string name="export_not_available">Export nicht verfügbar</string>
 
@@ -74,8 +75,6 @@
     <string name="about_description_title">Beschreibung:</string>
     <string name="about_description_text">Verbessere dein WLAN Netzwerk, indem du den Zustand und die Stärke des Signals misst und überlastete Kanäle mit einem freien WiFiAnalyzer für Android erkennst.</string>
     <string name="about_libraries_title">Benutzte Bibliotheken:</string>
-    <string name="about_library_graph_view">Graphansicht</string>
-    <string name="about_library_material">Material Design Ikonen</string>
     <string name="about_contributor_title">Beitragende:</string>
     <string name="about_write_review">Rezension schreiben</string>
     <!-- about end -->

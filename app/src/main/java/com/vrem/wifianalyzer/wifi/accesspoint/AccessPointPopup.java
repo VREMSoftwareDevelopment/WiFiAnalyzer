@@ -30,11 +30,16 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 public class AccessPointPopup {
 
     public Dialog show(@NonNull View view) {
-        Dialog dialog = new Dialog(MainContext.INSTANCE.getMainActivity());
-        dialog.setContentView(view);
-        dialog.findViewById(R.id.popupButtonClose).setOnClickListener(new PopupDialogCloseListener(dialog));
-        dialog.show();
-        return dialog;
+        try {
+            Dialog dialog = new Dialog(MainContext.INSTANCE.getMainActivity());
+            dialog.setContentView(view);
+            dialog.findViewById(R.id.popupButtonClose).setOnClickListener(new PopupDialogCloseListener(dialog));
+            dialog.show();
+            return dialog;
+        } catch (Exception e) {
+            // ignore: unable to show details
+            return null;
+        }
     }
 
     void attach(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {

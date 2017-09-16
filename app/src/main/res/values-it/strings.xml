@@ -37,6 +37,7 @@
 
     <string name="button_cancel">Annulla</string>
     <string name="no_data">Nessun Dato</string>
+    <string name="no_data_msg">Si prega di visitare spesso faccia domande \"FAQ\" sezioni sul nostro sito web.</string>
 
     <string name="export_not_available">Impossibile esportare</string>
 
@@ -74,8 +75,6 @@
     <string name="about_description_title">Descrizione:</string>
     <string name="about_description_text">Ottimizza la tua rete WiFi, controllando lo stato, la potenza del segnale e identificando i canali affollati, usando un WiFiAnalyzer per Android</string>
     <string name="about_libraries_title">Librarie Usate:</string>
-    <string name="about_library_graph_view">Graph View</string>
-    <string name="about_library_material">Icone Material Design</string>
     <string name="about_contributor_title">Contributori:</string>
     <string name="about_write_review">Scrivi una recensione</string>
     <!-- about end -->

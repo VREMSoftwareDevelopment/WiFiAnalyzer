@@ -39,6 +39,7 @@
 
     <string name="button_cancel">Cancelar</string>
     <string name="no_data">Sin datos</string>
+    <string name="no_data_msg">Por favor, visite frecuentemente preguntas \"FAQ\" secciones en nuestro sitio web.</string>
 
     <string name="export_not_available">Exportar no disponible</string>
 
@@ -76,8 +77,6 @@
     <string name="about_description_title">Descripción:</string>
     <string name="about_description_text">"Optimiza tu red WiFi, mediante la comprobación de estado de red, intensidad de señal e identificación de los canales llenos usando la aplicación de código abierto WiFiAnalyzer para Android"</string>
     <string name="about_libraries_title">Librerias usadas:</string>
-    <string name="about_library_graph_view">Vista Gráfica</string>
-    <string name="about_library_material">"Iconos de \'Diseño de Materiales\'"</string>
     <string name="about_contributor_title">Colaboradores:</string>
     <string name="about_write_review">Escribir una opinión</string>
     <!-- about end -->

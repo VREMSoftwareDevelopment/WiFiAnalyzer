@@ -24,7 +24,7 @@ android {
     buildToolsVersion '25.0.3'
 
     defaultConfig {
-        applicationId "com.vrem.wifianalyzer"
+        applicationId "com.vrem.wifianalyzer.BETA"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode
@@ -87,7 +87,7 @@ dependencies {
     testCompile 'org.powermock:powermock-module-junit4:1.6.6'
     testCompile 'org.powermock:powermock-api-mockito:1.6.6'
     testCompile 'com.googlecode.junit-toolbox:junit-toolbox:2.3'
-    testCompile 'org.robolectric:robolectric:3.3.2'
+    testCompile 'org.robolectric:robolectric:3.4.2'
     testCompile 'org.robolectric:shadows-support-v4:3.3.2'
 }
 

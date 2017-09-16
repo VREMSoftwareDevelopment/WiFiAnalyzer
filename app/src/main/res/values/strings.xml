@@ -43,9 +43,11 @@
     <string name="action_filter" translatable="false">Filter</string>
     <!-- action end -->
 
+    <string name="scanner_message" translatable="false">Scanning...</string>
     <string name="button_ok" translatable="false">OK</string>
     <string name="button_cancel">Cancel</string>
     <string name="no_data">No Data</string>
+    <string name="no_data_msg">Please visit frequently ask questions "FAQ" sections on our website.</string>
     <string name="no_data_url" translatable="false">https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq</string>
     <string name="wifi_channels_list_url" translatable="false">https://en.wikipedia.org/wiki/List_of_WLAN_channels</string>
 
@@ -136,12 +138,12 @@
     <string name="about_libraries_title">Libraries Used:</string>
     <string name="about_library_apache" translatable="false">Apache Commons</string>
     <string name="about_library_apache_url" translatable="false">https://commons.apache.org</string>
-    <string name="about_library_graph_view">Graph View</string>
+    <string name="about_library_graph_view" translatable="false">Graph View</string>
     <string name="about_library_graph_view_url" translatable="false">http://www.android-graphview.org</string>
-    <string name="about_library_material">Material Design Icons</string>
+    <string name="about_library_material" translatable="false">Material Design Icons</string>
     <string name="about_library_material_url" translatable="false">https://design.google.com/icons</string>
     <string name="about_contributor_title">Contributors:</string>
-    <string name="about_contributor_list" translatable="false">"Abuzer Rafey, Alex Orchard, Alexei Guevara, Caren DesBrisay, Dan Light, David Jones, Gina Chaves, Graham Foster, Jean Bourgeois, Kevin Jiang, Lee McCallum, Lukas Winkler, Marco Santinelli, Michael Melo, Michael Pickard, Silviu Marcu, Vadim Karantayer, Wei McCallum, William Gathoye, Yuriy Timofeev, 'Akira, Dtorner, Genghis, TaiXiong"</string>
+    <string name="about_contributor_list" translatable="false">"Abuzer Rafey, Alex Orchard, Alexei Guevara, Caren DesBrisay, Dan Light, David Jones, Gina Chaves, Graham Foster, Jean Bourgeois, Kevin Jiang, Lee McCallum, Lukas Winkler, Marco Santinelli, Mateus B. Cassiano, Michael Melo, Michael Pickard, Silviu Marcu, Vadim Karantayer, Wei McCallum, William Gathoye, Yuriy Timofeev, 'Akira, Dtorner, Genghis, TaiXiong"</string>
     <string name="about_write_review">Write a Review</string>
     <!-- about end -->
 

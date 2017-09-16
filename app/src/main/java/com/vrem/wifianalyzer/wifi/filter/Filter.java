@@ -56,12 +56,16 @@ public class Filter {
     }
 
     public void show() {
-        if (!alertDialog.isShowing()) {
-            alertDialog.show();
-            addWiFiBandFilter();
-            addSSIDFilter();
-            addStrengthFilter();
-            addSecurityFilter();
+        try {
+            if (!alertDialog.isShowing()) {
+                alertDialog.show();
+                addWiFiBandFilter();
+                addSSIDFilter();
+                addStrengthFilter();
+                addSecurityFilter();
+            }
+        } catch (Exception e) {
+            // ignore: unable to show filter
         }
     }
 

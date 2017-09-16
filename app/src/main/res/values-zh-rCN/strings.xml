@@ -37,6 +37,7 @@
 
     <string name="button_cancel">取消</string>
     <string name="no_data">无数据</string>
+    <string name="no_data_msg">请访问我们网站上的常见问题“常见问题”部分。</string>
 
     <string name="export_not_available">出口不可用</string>
 
@@ -74,8 +75,6 @@
     <string name="about_description_title">描述:</string>
     <string name="about_description_text">使用此开源的Android WiFi分析仪来检查WiFi状态,信号强度并识别拥挤的信道从而优化您的WiFi网络</string>
     <string name="about_libraries_title">使用的库:</string>
-    <string name="about_library_graph_view">图表视图</string>
-    <string name="about_library_material">质感设计图标</string>
     <string name="about_contributor_title">贡献者:</string>
     <string name="about_write_review">我要评价</string>
     <!-- about end -->

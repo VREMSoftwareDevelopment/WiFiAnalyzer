@@ -129,7 +129,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                         android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
-                        android:textColor="@color/channel"/>
+                        android:textColor="@color/frequency"/>
 
                     <TextView
                         android:id="@+id/distance"
@@ -151,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                         android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
-                        android:textColor="@color/channel"/>
+                        android:textColor="@color/frequency"/>
 
                     <TextView
                         android:id="@+id/width"
@@ -159,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                         android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
-                        android:textColor="@color/channel"/>
+                        android:textColor="@color/frequency"/>
 
                     <TextView
                         android:id="@+id/vendorShort"

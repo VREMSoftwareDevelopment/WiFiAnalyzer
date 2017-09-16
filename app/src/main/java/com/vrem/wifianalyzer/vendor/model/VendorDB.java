@@ -95,7 +95,6 @@ class VendorDB {
         if (vendors != null) {
             return;
         }
-        long time = System.currentTimeMillis();
         vendors = new HashMap<>();
         macs = new HashMap<>();
         String[] lines = readFile(resources, R.raw.data);
