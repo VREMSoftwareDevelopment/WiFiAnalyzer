@@ -85,6 +85,27 @@
             android:textColor="@color/error_color"
             android:textStyle="bold"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:text="@string/scanner_message"
+            android:textColor="@color/success_color"
+            android:textStyle="bold"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
