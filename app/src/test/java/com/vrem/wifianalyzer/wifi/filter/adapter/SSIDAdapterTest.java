@@ -90,6 +90,17 @@ public class SSIDAdapterTest {
         verify(settings).saveSSIDs(SSID_VALUES);
     }
 
+    @Test
+    public void testSetValues() throws Exception {
+        // setup
+        Set<String> expected = new HashSet<>(Arrays.asList("ABC", "EDF", "123"));
+        Set<String> values = new HashSet<>(Arrays.asList("", "ABC", "", "EDF", "  ", "123", ""));
+        // execute
+        fixture.setValues(values);
+        // execute
+        assertEquals(expected, fixture.getValues());
+    }
+
     private class ContainsClosure implements Closure<String> {
         @Override
         public void execute(String input) {

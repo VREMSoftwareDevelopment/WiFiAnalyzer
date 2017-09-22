@@ -37,21 +37,23 @@ import java.util.Set;
 class SSIDFilter {
     private static final char SEPARATOR_CHAR = ' ';
 
-    private final BasicFilterAdapter<String> filterAdapter;
-
     SSIDFilter(@NonNull BasicFilterAdapter<String> filterAdapter, @NonNull Dialog dialog) {
-        this.filterAdapter = filterAdapter;
-
         String value = StringUtils.join(filterAdapter.getValues(), SEPARATOR_CHAR);
 
         EditText editText = (EditText) dialog.findViewById(R.id.filterSSIDtext);
         editText.setText(value);
-        editText.addTextChangedListener(new onChange());
+        editText.addTextChangedListener(new OnChange(filterAdapter));
 
         dialog.findViewById(R.id.filterSSID).setVisibility(View.VISIBLE);
     }
 
-    private class onChange implements TextWatcher {
+    static class OnChange implements TextWatcher {
+        private final BasicFilterAdapter<String> filterAdapter;
+
+        OnChange(@NonNull BasicFilterAdapter<String> filterAdapter) {
+            this.filterAdapter = filterAdapter;
+        }
+
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
@@ -62,7 +64,9 @@ class SSIDFilter {
 
         @Override
         public void afterTextChanged(Editable s) {
-            Set<String> values = new HashSet<>(Arrays.asList(StringUtils.split(s.toString(), SEPARATOR_CHAR)));
+            Set<String> values = (s == null)
+                ? new HashSet<String>()
+                : new HashSet<>(Arrays.asList(StringUtils.split(s.toString(), SEPARATOR_CHAR)));
             filterAdapter.setValues(values);
         }
     }
