@@ -23,12 +23,12 @@ import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.filter.adapter.EnumFilterAdapter;
+import com.vrem.wifianalyzer.wifi.filter.adapter.WiFiBandAdapter;
 
 import java.util.HashMap;
 import java.util.Map;
 
-class WiFiBandFilter extends EnumFilter<WiFiBand, EnumFilterAdapter<WiFiBand>> {
+class WiFiBandFilter extends EnumFilter<WiFiBand, WiFiBandAdapter> {
     static final Map<WiFiBand, Integer> ids = new HashMap<>();
 
     static {
@@ -36,7 +36,7 @@ class WiFiBandFilter extends EnumFilter<WiFiBand, EnumFilterAdapter<WiFiBand>> {
         ids.put(WiFiBand.GHZ5, R.id.filterWifiBand5);
     }
 
-    WiFiBandFilter(@NonNull EnumFilterAdapter<WiFiBand> filterAdapter, @NonNull Dialog dialog) {
-        super(ids, filterAdapter, dialog, R.id.filterWiFiBand);
+    WiFiBandFilter(@NonNull WiFiBandAdapter wiFiBandAdapter, @NonNull Dialog dialog) {
+        super(ids, wiFiBandAdapter, dialog, R.id.filterWiFiBand);
     }
 }

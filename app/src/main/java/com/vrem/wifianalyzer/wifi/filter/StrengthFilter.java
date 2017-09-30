@@ -22,13 +22,13 @@ import android.app.Dialog;
 import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.filter.adapter.EnumFilterAdapter;
+import com.vrem.wifianalyzer.wifi.filter.adapter.StrengthAdapter;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 
 import java.util.HashMap;
 import java.util.Map;
 
-class StrengthFilter extends EnumFilter<Strength, EnumFilterAdapter<Strength>> {
+class StrengthFilter extends EnumFilter<Strength, StrengthAdapter> {
     static final Map<Strength, Integer> ids = new HashMap<>();
 
     static {
@@ -39,7 +39,7 @@ class StrengthFilter extends EnumFilter<Strength, EnumFilterAdapter<Strength>> {
         ids.put(Strength.FOUR, R.id.filterStrength4);
     }
 
-    StrengthFilter(@NonNull EnumFilterAdapter<Strength> filterAdapter, @NonNull Dialog dialog) {
-        super(ids, filterAdapter, dialog, R.id.filterStrength);
+    StrengthFilter(@NonNull StrengthAdapter strengthAdapter, @NonNull Dialog dialog) {
+        super(ids, strengthAdapter, dialog, R.id.filterStrength);
     }
 }

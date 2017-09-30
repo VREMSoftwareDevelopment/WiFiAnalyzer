@@ -26,7 +26,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.filter.adapter.BasicFilterAdapter;
+import com.vrem.wifianalyzer.wifi.filter.adapter.SSIDAdapter;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -37,21 +37,21 @@ import java.util.Set;
 class SSIDFilter {
     private static final char SEPARATOR_CHAR = ' ';
 
-    SSIDFilter(@NonNull BasicFilterAdapter<String> filterAdapter, @NonNull Dialog dialog) {
-        String value = StringUtils.join(filterAdapter.getValues(), SEPARATOR_CHAR);
+    SSIDFilter(@NonNull SSIDAdapter ssidAdapter, @NonNull Dialog dialog) {
+        String value = StringUtils.join(ssidAdapter.getValues(), SEPARATOR_CHAR);
 
         EditText editText = (EditText) dialog.findViewById(R.id.filterSSIDtext);
         editText.setText(value);
-        editText.addTextChangedListener(new OnChange(filterAdapter));
+        editText.addTextChangedListener(new OnChange(ssidAdapter));
 
         dialog.findViewById(R.id.filterSSID).setVisibility(View.VISIBLE);
     }
 
     static class OnChange implements TextWatcher {
-        private final BasicFilterAdapter<String> filterAdapter;
+        private final SSIDAdapter ssidAdapter;
 
-        OnChange(@NonNull BasicFilterAdapter<String> filterAdapter) {
-            this.filterAdapter = filterAdapter;
+        OnChange(@NonNull SSIDAdapter ssidAdapter) {
+            this.ssidAdapter = ssidAdapter;
         }
 
         @Override
@@ -67,7 +67,7 @@ class SSIDFilter {
             Set<String> values = (s == null)
                 ? new HashSet<String>()
                 : new HashSet<>(Arrays.asList(StringUtils.split(s.toString(), SEPARATOR_CHAR)));
-            filterAdapter.setValues(values);
+            ssidAdapter.setValues(values);
         }
     }
 }

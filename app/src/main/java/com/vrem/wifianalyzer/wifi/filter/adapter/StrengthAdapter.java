@@ -25,7 +25,7 @@ import com.vrem.wifianalyzer.wifi.model.Strength;
 
 import java.util.Set;
 
-class StrengthAdapter extends EnumFilterAdapter<Strength> {
+public class StrengthAdapter extends EnumFilterAdapter<Strength> {
     StrengthAdapter(@NonNull Set<Strength> values) {
         super(Strength.class, values);
     }

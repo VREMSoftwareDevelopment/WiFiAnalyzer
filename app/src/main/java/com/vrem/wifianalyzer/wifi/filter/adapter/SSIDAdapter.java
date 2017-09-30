@@ -29,7 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.HashSet;
 import java.util.Set;
 
-class SSIDAdapter extends BasicFilterAdapter<String> {
+public class SSIDAdapter extends BasicFilterAdapter<String> {
     SSIDAdapter(@NonNull Set<String> values) {
         super(values);
     }

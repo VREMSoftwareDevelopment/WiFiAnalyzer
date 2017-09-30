@@ -25,7 +25,7 @@ import android.widget.EditText;
 
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.wifi.filter.adapter.BasicFilterAdapter;
+import com.vrem.wifianalyzer.wifi.filter.adapter.SSIDAdapter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
@@ -54,7 +54,7 @@ public class SSIDFilterTest {
     @Mock
     private Settings settings;
     @Mock
-    private BasicFilterAdapter<String> ssidAdapter;
+    private SSIDAdapter ssidAdapter;
     @Mock
     private Editable editable;
 
