@@ -18,20 +18,22 @@
 
 package com.vrem.wifianalyzer.wifi.graphutils;
 
+import android.support.annotation.NonNull;
+
 import com.jjoe64.graphview.series.DataPoint;
 
 import org.mockito.ArgumentMatcher;
 
-public class DataPointEquals extends ArgumentMatcher<DataPoint> {
+public class DataPointEquals implements ArgumentMatcher<DataPoint> {
 
     private final DataPoint expected;
 
-    public DataPointEquals(DataPoint expected) {
+    public DataPointEquals(@NonNull DataPoint expected) {
         this.expected = expected;
     }
 
     @Override
-    public boolean matches(Object actual) {
-        return expected.getX() == ((DataPoint) actual).getX() && expected.getY() == ((DataPoint) actual).getY();
+    public boolean matches(DataPoint argument) {
+        return expected.getX() == argument.getX() && expected.getY() == argument.getY();
     }
 }

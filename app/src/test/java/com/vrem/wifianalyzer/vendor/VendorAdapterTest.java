@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.vendor;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.vrem.wifianalyzer.BuildConfig;
@@ -50,12 +51,13 @@ public class VendorAdapterTest {
     private static final String VENDOR_NAME2 = "N2";
     private static final String VENDOR_NAME3 = "N3";
 
+    private MainActivity mainActivity;
     private VendorService vendorService;
     private VendorAdapter fixture;
 
     @Before
     public void setUp() {
-        MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
+        mainActivity = RobolectricUtil.INSTANCE.getActivity();
 
         vendorService = MainContextHelper.INSTANCE.getVendorService();
 
@@ -75,8 +77,9 @@ public class VendorAdapterTest {
         // setup
         when(vendorService.findMacAddresses(VENDOR_NAME2)).thenReturn(Arrays.asList("V2M1X1", "V2M2", "V2M3X1"));
         String expected = "V2:M1:X1, *V2M2*, V2:M3:X1";
+        ViewGroup viewGroup = (ViewGroup) mainActivity.findViewById(android.R.id.content);
         // execute
-        View actual = fixture.getView(1, null, null);
+        View actual = fixture.getView(1, null, viewGroup);
         // validate
         assertNotNull(actual);
 

@@ -84,8 +84,8 @@ dependencies {
     compile 'com.jjoe64:graphview:4.2.1'
     // Unit Test Dependencies
     testCompile 'junit:junit:4.12'
-    testCompile 'org.powermock:powermock-module-junit4:1.6.6'
-    testCompile 'org.powermock:powermock-api-mockito:1.6.6'
+    testCompile 'org.powermock:powermock-module-junit4:1.7.3'
+    testCompile 'org.powermock:powermock-api-mockito2:1.7.3'
     testCompile 'com.googlecode.junit-toolbox:junit-toolbox:2.3'
     testCompile 'org.robolectric:robolectric:3.4.2'
     testCompile 'org.robolectric:shadows-support-v4:3.3.2'

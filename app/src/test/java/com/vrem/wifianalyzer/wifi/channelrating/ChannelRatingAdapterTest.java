@@ -21,6 +21,7 @@ package com.vrem.wifianalyzer.wifi.channelrating;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -96,8 +97,9 @@ public class ChannelRatingAdapterTest {
         fixture.add(wiFiChannel);
         when(channelRating.getCount(wiFiChannel)).thenReturn(5);
         when(channelRating.getStrength(wiFiChannel)).thenReturn(Strength.FOUR);
+        ViewGroup viewGroup = (ViewGroup) mainActivity.findViewById(android.R.id.content);
         // execute
-        View actual = fixture.getView(0, null, null);
+        View actual = fixture.getView(0, null, viewGroup);
         // validate
         assertNotNull(actual);
 

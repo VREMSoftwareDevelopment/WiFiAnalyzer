@@ -46,7 +46,6 @@ import static org.junit.Assert.assertTrue;
 @Config(constants = BuildConfig.class)
 public class AccessPointPopupTest {
     private MainActivity mainActivity;
-
     private AccessPointPopup fixture;
 
     @Before

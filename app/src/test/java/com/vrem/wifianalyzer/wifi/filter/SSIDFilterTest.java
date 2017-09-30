@@ -32,7 +32,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -58,8 +58,6 @@ public class SSIDFilterTest {
     @Mock
     private Editable editable;
 
-    private SSIDFilter fixture;
-
     @Before
     public void setUp() throws Exception {
         when(dialog.findViewById(R.id.filterSSIDtext)).thenReturn(editText);
@@ -73,7 +71,7 @@ public class SSIDFilterTest {
         when(ssidAdapter.getValues()).thenReturn(values);
         String expected = StringUtils.join(values, " ");
         // execute
-        fixture = new SSIDFilter(ssidAdapter, dialog);
+        new SSIDFilter(ssidAdapter, dialog);
         // verify
         verify(editText).setText(expected);
         verify(dialog).findViewById(R.id.filterSSIDtext);
