@@ -26,6 +26,7 @@ This is the official repository of WiFiAnalyzer.
 * Analyze WiFi networks to rate channels
 * HT/VHT Detection - 40/80/160MHz (Requires Android OS 6+)
 * Access Point view complete or compact
+* Estimated Distance to the Access Points
 * Export access points details
 * Dark or Light theme available
 * Pause/Resume scanning
@@ -39,7 +40,6 @@ This is the official repository of WiFiAnalyzer.
 * Tap the title bar to switch between 2.4 and 5 GHz WiFi band.
 * Swipe to manually refresh screen content.
 * SSID with (***) means it is hidden.
-* Distance to the Access Point is estimated.
 * Access Point security: <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20"> WPA2/WPA; <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_lock_outline_black_18dp.png" alt="WEP/WPS" height="20"> WEP/WPS; <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_lock_open_black_18dp.png" alt="Disabled" height="20"> Disabled
 * Saved networks <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_tag_faces_black_18dp.png" alt="Saved Networks" height="20">
 
