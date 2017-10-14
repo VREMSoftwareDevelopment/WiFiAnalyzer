@@ -20,8 +20,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'jacoco-android'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.3'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.vrem.wifianalyzer.BETA"
@@ -77,8 +77,8 @@ if (project.hasProperty('keyAlias')) {
 dependencies {
     // Compile Build Dependencies
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.android.support:design:26.0.0-alpha1'
     compile 'org.apache.commons:commons-lang3:3.6'
     compile 'org.apache.commons:commons-collections4:4.1'
     compile 'com.jjoe64:graphview:4.2.1'
@@ -88,7 +88,7 @@ dependencies {
     testCompile 'org.powermock:powermock-api-mockito2:1.7.3'
     testCompile 'com.googlecode.junit-toolbox:junit-toolbox:2.3'
     testCompile 'org.robolectric:robolectric:3.4.2'
-    testCompile 'org.robolectric:shadows-support-v4:3.3.2'
+    testCompile 'org.robolectric:shadows-support-v4:3.4-rc2'
 }
 
 updateVersion()
