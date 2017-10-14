@@ -23,16 +23,17 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 
+import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.filter.adapter.SSIDAdapter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -41,25 +42,28 @@ import java.util.Set;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mock;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class SSIDFilterTest {
 
-    @Mock
     private Dialog dialog;
-    @Mock
     private EditText editText;
-    @Mock
     private View view;
-    @Mock
-    private Settings settings;
-    @Mock
     private SSIDAdapter ssidAdapter;
-    @Mock
     private Editable editable;
 
     @Before
     public void setUp() throws Exception {
+        RobolectricUtil.INSTANCE.getActivity();
+
+        dialog = mock(Dialog.class);
+        editText = mock(EditText.class);
+        view = mock(View.class);
+        ssidAdapter = mock(SSIDAdapter.class);
+        editable = mock(Editable.class);
+
         when(dialog.findViewById(R.id.filterSSIDtext)).thenReturn(editText);
         when(dialog.findViewById(R.id.filterSSID)).thenReturn(view);
     }
@@ -96,7 +100,7 @@ public class SSIDFilterTest {
         String value = " ABS ADF ";
         SSIDFilter.OnChange onChange = new SSIDFilter.OnChange(ssidAdapter);
         when(editable.toString()).thenReturn(value);
-        Set<String> expected = new HashSet<>(Arrays.asList(StringUtils.split(value, " ")));
+        Set<String> expected = new HashSet<>(Arrays.asList(value.split(" ")));
         // execute
         onChange.afterTextChanged(editable);
         // verify

@@ -21,6 +21,7 @@ package com.vrem.wifianalyzer.wifi.filter;
 import android.app.Dialog;
 import android.support.annotation.NonNull;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -28,17 +29,15 @@ import android.widget.EditText;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.filter.adapter.SSIDAdapter;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 class SSIDFilter {
-    private static final char SEPARATOR_CHAR = ' ';
+    private static final String SEPARATOR = " ";
 
     SSIDFilter(@NonNull SSIDAdapter ssidAdapter, @NonNull Dialog dialog) {
-        String value = StringUtils.join(ssidAdapter.getValues().toArray(), SEPARATOR_CHAR);
+        String value = TextUtils.join(SEPARATOR, ssidAdapter.getValues().toArray());
 
         EditText editText = (EditText) dialog.findViewById(R.id.filterSSIDtext);
         editText.setText(value);
@@ -66,7 +65,7 @@ class SSIDFilter {
         public void afterTextChanged(Editable s) {
             Set<String> values = (s == null)
                 ? new HashSet<String>()
-                : new HashSet<>(Arrays.asList(StringUtils.split(s.toString(), SEPARATOR_CHAR)));
+                : new HashSet<>(Arrays.asList(s.toString().split(SEPARATOR)));
             ssidAdapter.setValues(values);
         }
     }
