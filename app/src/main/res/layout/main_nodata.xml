@@ -64,6 +64,14 @@
         android:autoLink="web"
         android:gravity="center"
         android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/no_data_geo_warning"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:autoLink="web"
+        android:gravity="center"
+        android:paddingTop="@dimen/activity_vertical_margin"
         android:text="@string/no_data_msg"/>
 
     <TextView
@@ -72,13 +80,5 @@
         android:autoLink="web"
         android:gravity="center"
         android:text="@string/no_data_url"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:autoLink="web"
-        android:gravity="center"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:text="@string/no_data_geo_warning"/>
 
 </LinearLayout>
