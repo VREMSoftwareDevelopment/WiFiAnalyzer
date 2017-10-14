@@ -38,7 +38,7 @@ class SSIDFilter {
     private static final char SEPARATOR_CHAR = ' ';
 
     SSIDFilter(@NonNull SSIDAdapter ssidAdapter, @NonNull Dialog dialog) {
-        String value = StringUtils.join(ssidAdapter.getValues(), SEPARATOR_CHAR);
+        String value = StringUtils.join(ssidAdapter.getValues().toArray(), SEPARATOR_CHAR);
 
         EditText editText = (EditText) dialog.findViewById(R.id.filterSSIDtext);
         editText.setText(value);
