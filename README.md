@@ -19,6 +19,22 @@ This is the official repository of WiFiAnalyzer.
 
 [<img src="https://i-proving.com/wp-content/uploads/2016/07/cropped-i-proving-logo.png" alt="i-proving" height="40">](http://i-proving.com)
 
+## Table of Contents
+- [Features](#features)
+- [Usage Tips](#usage-tips)
+- [How-to](#how-to)
+- [FAQ](#faq)
+- [Feedback](#feedback)
+- [License](#license)
+  - [GPLv3 License key requirements:](#gplv3-license-key-requirements)
+- [WiFiAnalyzer Build](#wifianalyzer-build)
+- [Contribute](#contribute)
+  - [Fork project](#fork-project)
+  - [Build project](#build-project)
+  - [Running unit tests and jacoco coverage report](#running-unit-tests-and-jacoco-coverage-report)
+- [Special Thanks](#special-thanks)
+- [Donations](#donations)
+
 ## Features
 * Identify nearby Access Points
 * Graph channels signal strength
