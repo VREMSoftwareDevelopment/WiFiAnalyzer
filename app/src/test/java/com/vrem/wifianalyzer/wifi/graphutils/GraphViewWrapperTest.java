@@ -34,7 +34,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Collections;
 import java.util.List;
@@ -100,10 +100,8 @@ public class GraphViewWrapperTest {
         Set<WiFiDetail> newSeries = Collections.emptySet();
         List<WiFiDetail> difference = Collections.emptyList();
         List<BaseSeries<DataPoint>> removed = Collections.singletonList(baseSeries);
-        int color = 10;
         when(seriesCache.difference(newSeries)).thenReturn(difference);
         when(seriesCache.remove(difference)).thenReturn(removed);
-        when(baseSeries.getColor()).thenReturn(color);
         // execute
         fixture.removeSeries(newSeries);
         // validate

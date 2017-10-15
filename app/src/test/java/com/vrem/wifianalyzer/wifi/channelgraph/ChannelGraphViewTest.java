@@ -48,7 +48,6 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -96,8 +95,7 @@ public class ChannelGraphViewTest {
         // validate
         verify(dataManager).getNewSeries(wiFiDetails, wiFiChannelPair);
         verify(dataManager).addSeriesData(graphViewWrapper, newSeries, GraphConstants.MAX_Y);
-        //noinspection unchecked
-        verify(graphViewWrapper).removeSeries(any(Set.class));
+        verify(graphViewWrapper).removeSeries(newSeries);
         verify(graphViewWrapper).updateLegend(GraphLegend.RIGHT);
         verify(graphViewWrapper).setVisibility(View.VISIBLE);
         verifySettings();

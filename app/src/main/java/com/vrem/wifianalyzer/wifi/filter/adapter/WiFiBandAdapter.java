@@ -26,7 +26,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 
 import java.util.Set;
 
-class WiFiBandAdapter extends EnumFilterAdapter<WiFiBand> {
+public class WiFiBandAdapter extends EnumFilterAdapter<WiFiBand> {
 
     WiFiBandAdapter(@NonNull Set<WiFiBand> values) {
         super(WiFiBand.class, values);

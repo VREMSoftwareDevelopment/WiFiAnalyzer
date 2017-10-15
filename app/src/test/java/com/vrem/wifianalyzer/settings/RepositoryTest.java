@@ -78,7 +78,7 @@ public class RepositoryTest {
 
     @After
     public void tearDown() {
-        verifyStatic();
+        verifyStatic(PreferenceManager.class);
         MainContextHelper.INSTANCE.restore();
     }
 

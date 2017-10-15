@@ -23,9 +23,6 @@ import android.support.annotation.NonNull;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.model.Security;
-import com.vrem.wifianalyzer.wifi.model.Strength;
 
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
@@ -66,19 +63,19 @@ public class FilterAdapter {
         return Arrays.asList(ssidAdapter, strengthAdapter, securityAdapter);
     }
 
-    public BasicFilterAdapter<String> getSSIDAdapter() {
+    public SSIDAdapter getSSIDAdapter() {
         return ssidAdapter;
     }
 
-    public EnumFilterAdapter<WiFiBand> getWiFiBandAdapter() {
+    public WiFiBandAdapter getWiFiBandAdapter() {
         return wiFiBandAdapter;
     }
 
-    public EnumFilterAdapter<Strength> getStrengthAdapter() {
+    public StrengthAdapter getStrengthAdapter() {
         return strengthAdapter;
     }
 
-    public EnumFilterAdapter<Security> getSecurityAdapter() {
+    public SecurityAdapter getSecurityAdapter() {
         return securityAdapter;
     }
 

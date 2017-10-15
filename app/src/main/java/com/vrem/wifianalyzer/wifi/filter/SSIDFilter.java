@@ -21,37 +21,38 @@ package com.vrem.wifianalyzer.wifi.filter;
 import android.app.Dialog;
 import android.support.annotation.NonNull;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.filter.adapter.BasicFilterAdapter;
-
-import org.apache.commons.lang3.StringUtils;
+import com.vrem.wifianalyzer.wifi.filter.adapter.SSIDAdapter;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 class SSIDFilter {
-    private static final char SEPARATOR_CHAR = ' ';
+    private static final String SEPARATOR = " ";
 
-    private final BasicFilterAdapter<String> filterAdapter;
-
-    SSIDFilter(@NonNull BasicFilterAdapter<String> filterAdapter, @NonNull Dialog dialog) {
-        this.filterAdapter = filterAdapter;
-
-        String value = StringUtils.join(filterAdapter.getValues(), SEPARATOR_CHAR);
+    SSIDFilter(@NonNull SSIDAdapter ssidAdapter, @NonNull Dialog dialog) {
+        String value = TextUtils.join(SEPARATOR, ssidAdapter.getValues().toArray());
 
         EditText editText = (EditText) dialog.findViewById(R.id.filterSSIDtext);
         editText.setText(value);
-        editText.addTextChangedListener(new onChange());
+        editText.addTextChangedListener(new OnChange(ssidAdapter));
 
         dialog.findViewById(R.id.filterSSID).setVisibility(View.VISIBLE);
     }
 
-    private class onChange implements TextWatcher {
+    static class OnChange implements TextWatcher {
+        private final SSIDAdapter ssidAdapter;
+
+        OnChange(@NonNull SSIDAdapter ssidAdapter) {
+            this.ssidAdapter = ssidAdapter;
+        }
+
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
@@ -62,8 +63,10 @@ class SSIDFilter {
 
         @Override
         public void afterTextChanged(Editable s) {
-            Set<String> values = new HashSet<>(Arrays.asList(StringUtils.split(s.toString(), SEPARATOR_CHAR)));
-            filterAdapter.setValues(values);
+            Set<String> values = (s == null)
+                ? new HashSet<String>()
+                : new HashSet<>(Arrays.asList(s.toString().split(SEPARATOR)));
+            ssidAdapter.setValues(values);
         }
     }
 }

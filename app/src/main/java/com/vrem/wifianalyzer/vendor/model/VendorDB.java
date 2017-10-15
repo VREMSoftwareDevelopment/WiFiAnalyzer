@@ -24,8 +24,6 @@ import android.support.annotation.RawRes;
 
 import com.vrem.wifianalyzer.R;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -99,16 +97,18 @@ class VendorDB {
         macs = new HashMap<>();
         String[] lines = readFile(resources, R.raw.data);
         for (String data : lines) {
-            String[] parts = StringUtils.split(data, "|");
-            if (parts.length == 2) {
-                List<String> addresses = new ArrayList<>();
-                String name = parts[0];
-                vendors.put(name, addresses);
-                int length = parts[1].length();
-                for (int i = 0; i < length; i += SIZE) {
-                    String mac = parts[1].substring(i, i + SIZE);
-                    addresses.add(mac);
-                    macs.put(mac, name);
+            if (data != null) {
+                String[] parts = data.split("\\|");
+                if (parts.length == 2) {
+                    List<String> addresses = new ArrayList<>();
+                    String name = parts[0];
+                    vendors.put(name, addresses);
+                    int length = parts[1].length();
+                    for (int i = 0; i < length; i += SIZE) {
+                        String mac = parts[1].substring(i, i + SIZE);
+                        addresses.add(mac);
+                        macs.put(mac, name);
+                    }
                 }
             }
         }

@@ -26,7 +26,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -88,6 +88,17 @@ public class SSIDAdapterTest {
         fixture.save(settings);
         // execute
         verify(settings).saveSSIDs(SSID_VALUES);
+    }
+
+    @Test
+    public void testSetValues() throws Exception {
+        // setup
+        Set<String> expected = new HashSet<>(Arrays.asList("ABC", "EDF", "123"));
+        Set<String> values = new HashSet<>(Arrays.asList("", "ABC", "", "EDF", "  ", "123", ""));
+        // execute
+        fixture.setValues(values);
+        // execute
+        assertEquals(expected, fixture.getValues());
     }
 
     private class ContainsClosure implements Closure<String> {

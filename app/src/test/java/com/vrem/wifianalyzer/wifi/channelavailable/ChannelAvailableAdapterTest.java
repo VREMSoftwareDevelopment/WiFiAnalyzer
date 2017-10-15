@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi.channelavailable;
 
 import android.content.res.Resources;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.vrem.wifianalyzer.BuildConfig;
@@ -64,8 +65,9 @@ public class ChannelAvailableAdapterTest {
         String expected = wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName();
         String expected_GHZ_2 = StringUtils.join(wiFiChannelCountry.getChannelsGHZ2().toArray(), ",");
         String expected_GHZ_5 = StringUtils.join(wiFiChannelCountry.getChannelsGHZ5().toArray(), ",");
+        ViewGroup viewGroup = (ViewGroup) mainActivity.findViewById(android.R.id.content);
         // execute
-        View actual = fixture.getView(0, null, null);
+        View actual = fixture.getView(0, null, viewGroup);
         // validate
         assertNotNull(actual);
 

@@ -39,6 +39,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -47,12 +48,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.argThat;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -128,7 +128,9 @@ public class DataManagerTest {
         // validate
         verify(graphViewWrapper).isNewSeries(wiFiDetail);
         verify(graphViewWrapper).updateSeries(
-            argThat(equalTo(wiFiDetail)), argThat(new DataPointsEquals(dataPoints)), argThat(equalTo(Boolean.TRUE)));
+            eq(wiFiDetail),
+            argThat(new DataPointsEquals(dataPoints)),
+            eq(Boolean.TRUE));
     }
 
     @Test
@@ -142,9 +144,10 @@ public class DataManagerTest {
         fixture.addSeriesData(graphViewWrapper, wiFiDetails, GraphConstants.MAX_Y);
         // validate
         verify(graphViewWrapper).isNewSeries(wiFiDetail);
-        //noinspection unchecked
         verify(graphViewWrapper).addSeries(
-            argThat(equalTo(wiFiDetail)), any(TitleLineGraphSeries.class), argThat(equalTo(Boolean.TRUE)));
+            eq(wiFiDetail),
+            ArgumentMatchers.<TitleLineGraphSeries<DataPoint>>any(),
+            eq(Boolean.TRUE));
     }
 
     private WiFiDetail makeWiFiDetail(@NonNull String SSID, int frequency) {

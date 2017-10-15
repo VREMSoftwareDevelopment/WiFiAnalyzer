@@ -21,6 +21,7 @@ package com.vrem.wifianalyzer.wifi.channelavailable;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,12 +33,12 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.List;
 import java.util.Locale;
 
 class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
+    private static final String SEPARATOR = ",";
+
     ChannelAvailableAdapter(@NonNull Context context, @NonNull List<WiFiChannelCountry> wiFiChannelCountries) {
         super(context, R.layout.channel_available_details, wiFiChannelCountries);
     }
@@ -58,12 +59,12 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
             .setText(String.format(Locale.ENGLISH, "%s : ",
                 view.getResources().getString(WiFiBand.GHZ2.getTextResource())));
         ((TextView) view.findViewById(R.id.channel_available_ghz_2))
-            .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ2().toArray(), ","));
+            .setText(TextUtils.join(SEPARATOR, wiFiChannelCountry.getChannelsGHZ2().toArray()));
         ((TextView) view.findViewById(R.id.channel_available_title_ghz_5))
             .setText(String.format(Locale.ENGLISH, "%s : ",
                 view.getResources().getString(WiFiBand.GHZ5.getTextResource())));
         ((TextView) view.findViewById(R.id.channel_available_ghz_5))
-            .setText(StringUtils.join(wiFiChannelCountry.getChannelsGHZ5().toArray(), ","));
+            .setText(TextUtils.join(SEPARATOR, wiFiChannelCountry.getChannelsGHZ5().toArray()));
         return view;
     }
 

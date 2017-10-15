@@ -32,7 +32,7 @@ import java.util.TreeSet;
 public class VendorService {
     private static final int MAX_LEN = 6;
 
-    private Set<String> cache;
+    private final Set<String> cache;
     private VendorDB vendorDB;
 
     public VendorService(@NonNull Resources resources) {

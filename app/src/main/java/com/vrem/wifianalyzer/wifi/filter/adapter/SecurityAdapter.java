@@ -26,7 +26,7 @@ import com.vrem.wifianalyzer.wifi.model.Security;
 
 import java.util.Set;
 
-class SecurityAdapter extends EnumFilterAdapter<Security> {
+public class SecurityAdapter extends EnumFilterAdapter<Security> {
 
     SecurityAdapter(@NonNull Set<Security> values) {
         super(Security.class, values);
