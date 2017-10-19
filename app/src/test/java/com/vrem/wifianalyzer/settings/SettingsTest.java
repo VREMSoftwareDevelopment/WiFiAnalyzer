@@ -51,6 +51,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -335,6 +336,49 @@ public class SettingsTest {
         assertEquals(expected, actual);
 
         verify(repository).getString(R.string.country_code_key, defaultValue);
+        verify(context).getResources();
+        verify(resources).getConfiguration();
+        verifyConfigurationLocale();
+    }
+
+    @Test
+    public void testGetLanguage() throws Exception {
+        // setup
+        when(context.getResources()).thenReturn(resources);
+        when(resources.getConfiguration()).thenReturn(configuration);
+        withConfigurationLocale(Locale.UK);
+        String defaultValue = Locale.UK.getCountry();
+        String expected = Locale.US.getCountry();
+
+        when(repository.getString(R.string.language_key, defaultValue)).thenReturn(expected);
+        // execute
+        String actual = fixture.getLanguage();
+        // validate
+        assertEquals(expected, actual);
+
+        verify(repository).getString(R.string.language_key, defaultValue);
+        verify(context).getResources();
+        verify(resources).getConfiguration();
+        verifyConfigurationLocale();
+    }
+
+    @Test
+    public void testGetLanguageMissingTranslation() throws Exception {
+        // setup
+        when(context.getResources()).thenReturn(resources);
+        when(resources.getConfiguration()).thenReturn(configuration);
+        withConfigurationLocale(Locale.UK);
+        String defaultValue = Locale.UK.getCountry();
+        String expected = Locale.KOREA.getCountry();
+
+        when(repository.getString(R.string.language_key, defaultValue)).thenReturn(expected);
+        // execute
+        String actual = fixture.getLanguage();
+        // validate
+        assertEquals(defaultValue, actual);
+
+        verify(repository).getString(R.string.language_key, defaultValue);
+        verify(repository, atLeastOnce()).save(R.string.language_key, defaultValue);
         verify(context).getResources();
         verify(resources).getConfiguration();
         verifyConfigurationLocale();
