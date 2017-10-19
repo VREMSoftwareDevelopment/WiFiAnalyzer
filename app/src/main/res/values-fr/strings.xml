@@ -92,5 +92,6 @@
     <string name="filter_wifi_band_title">Fréquence Wi-Fi</string>
     <string name="filter_strength_title">Intensité du signal</string>
     <string name="filter_security_title">Sécurité</string>
+    <string name="language_title">Langue</string>
     <!-- filter end -->
 </resources>

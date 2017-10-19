@@ -30,17 +30,20 @@ class MainReload {
     private AccessPointViewType accessPointViewType;
     private ConnectionViewType connectionViewType;
     private int graphMaximumY;
+    private String language;
 
     MainReload(@NonNull Settings settings) {
         setThemeStyle(settings.getThemeStyle());
         setAccessPointViewType(settings.getAccessPointView());
         setConnectionViewType(settings.getConnectionViewType());
         setGraphMaximumY(settings.getGraphMaximumY());
+        setLanguage(settings.getLanguage());
     }
 
     boolean shouldReload(@NonNull Settings settings) {
         return isThemeChanged(settings) || isAccessPointViewChanged(settings)
-            || isConnectionViewTypeChanged(settings) || isGraphMaximumYChanged(settings);
+            || isConnectionViewTypeChanged(settings) || isGraphMaximumYChanged(settings)
+            || isLanguageChanged(settings);
     }
 
     private boolean isAccessPointViewChanged(Settings settings) {
@@ -79,6 +82,15 @@ class MainReload {
         return graphMaximumYChanged;
     }
 
+    private boolean isLanguageChanged(Settings settings) {
+        String settingLanguage = settings.getLanguage();
+        boolean languageChanged = !getLanguage().equals(settingLanguage);
+        if (languageChanged) {
+            setLanguage(settingLanguage);
+        }
+        return languageChanged;
+    }
+
     ThemeStyle getThemeStyle() {
         return themeStyle;
     }
@@ -109,6 +121,14 @@ class MainReload {
 
     private void setGraphMaximumY(int graphMaximumY) {
         this.graphMaximumY = graphMaximumY;
+    }
+
+    String getLanguage() {
+        return language;
+    }
+
+    private void setLanguage(String language) {
+        this.language = language;
     }
 
 }

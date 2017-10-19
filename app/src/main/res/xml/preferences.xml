@@ -113,4 +113,10 @@
         android:summary="@string/country_code_summary"
         android:title="@string/country_code_title"/>
 
+    <com.vrem.wifianalyzer.settings.LanguagePreference
+        android:key="@string/language_key"
+        android:persistent="true"
+        android:summary="@string/language_summary"
+        android:title="@string/language_title"/>
+
 </PreferenceScreen>
