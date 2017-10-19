@@ -68,6 +68,7 @@
     <string name="time_graph_legend_title">Anzeige der Legende in Signalverlauf</string>
     <string name="theme_title">Theme</string>
     <string name="wifi_off_on_exit_title">WLAN beim Verlassen deaktivieren</string>
+    <string name="language_title">Sprache</string>
     <!-- settings end -->
 
     <!-- about start -->

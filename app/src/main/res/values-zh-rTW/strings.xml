@@ -91,5 +91,6 @@
     <string name="filter_wifi_band_title">WiFi頻段</string>
     <string name="filter_strength_title">訊號強度</string>
     <string name="filter_security_title">安全</string>
+    <string name="language_title">語言</string>
     <!-- filter end -->
 </resources>

@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.settings;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
@@ -28,7 +29,18 @@ import android.view.MenuItem;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
+import java.util.Locale;
+
 public class SettingActivity extends PreferenceActivity {
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        String language = MainContext.INSTANCE.getSettings().getLanguage();
+        Locale newLocale = LocaleType.fromString(language).getLocale();
+        Context context = LocaleContextWrapper.wrap(newBase, newLocale);
+        Locale.setDefault(newLocale);
+        super.attachBaseContext(context);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setCustomTheme();

@@ -61,7 +61,7 @@ public class WiFiChannelCountry {
 
     @NonNull
     public String getCountryName() {
-        String countryName = country.getDisplayCountry();
+        String countryName = country.getDisplayCountry(Locale.getDefault());
         if (countryName == null) {
             countryName = StringUtils.EMPTY;
         }

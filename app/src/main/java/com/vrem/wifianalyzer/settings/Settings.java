@@ -81,6 +81,16 @@ public class Settings {
         return repository.getString(R.string.country_code_key, countryCode);
     }
 
+    public String getLanguage() {
+        String language = LanguagePreference.getDefault(context);
+        String selection = repository.getString(R.string.language_key, language);
+        if (LocaleType.fromString(selection) == null) {
+            repository.save(R.string.language_key, language);
+            return language;
+        }
+        return selection;
+    }
+
     public SortBy getSortBy() {
         return find(SortBy.class, R.string.sort_by_key, SortBy.STRENGTH);
     }

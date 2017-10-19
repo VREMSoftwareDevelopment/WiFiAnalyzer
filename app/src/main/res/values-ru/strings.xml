@@ -91,5 +91,6 @@
     <string name="filter_wifi_band_title">WiFi диапазон</string>
     <string name="filter_strength_title">Уровень сигнала</string>
     <string name="filter_security_title">Безопасность</string>
+    <string name="language_title">язык</string>
     <!-- filter end -->
 </resources>
