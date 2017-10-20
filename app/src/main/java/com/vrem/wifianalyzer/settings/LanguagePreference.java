@@ -53,7 +53,7 @@ public class LanguagePreference extends CustomPreference {
     public static String getDefault(@NonNull Context context) {
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();
-        return getLocale(configuration).getCountry();
+        return getLocale(configuration).toString();
     }
 
     @SuppressWarnings("deprecation")
@@ -68,14 +68,14 @@ public class LanguagePreference extends CustomPreference {
     private static class ToDataLanguage implements Transformer<LanguageCountry, Data> {
         @Override
         public Data transform(LanguageCountry input) {
-            return new Data(input.getCountryCode(), input.getLanguageName());
+            return new Data(input.getLanguageCode(), input.getLanguageName());
         }
     }
 
     private static class LanguageCountryComparator implements Comparator<LanguageCountry> {
         @Override
         public int compare(LanguageCountry o1, LanguageCountry o2) {
-            return o1.getCountryCode().compareTo(o2.getCountryCode());
+            return o1.getLanguageCode().compareTo(o2.getLanguageCode());
         }
     }
 }

@@ -42,9 +42,9 @@ public enum LocaleType {
         return locale;
     }
 
-    public static LocaleType fromString(String countryCode) {
+    public static LocaleType fromString(String language) {
         for (LocaleType localeType : LocaleType.values()) {
-            if (localeType.getLocale().getCountry().equals(countryCode)) {
+            if (localeType.getLocale().toString().equals(language)) {
                 return localeType;
             }
         }

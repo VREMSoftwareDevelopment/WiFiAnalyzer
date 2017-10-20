@@ -36,7 +36,7 @@ public class LocaleTypeTest {
         // setup
         LocaleType expected = LocaleType.GERMAN;
         // execute
-        LocaleType actual = LocaleType.fromString("DE");
+        LocaleType actual = LocaleType.fromString("de_DE");
         // validate
         assertEquals(actual, expected);
         assertEquals(actual.getLocale(), expected.getLocale());

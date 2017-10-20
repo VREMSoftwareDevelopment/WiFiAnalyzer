@@ -347,8 +347,8 @@ public class SettingsTest {
         when(context.getResources()).thenReturn(resources);
         when(resources.getConfiguration()).thenReturn(configuration);
         withConfigurationLocale(Locale.UK);
-        String defaultValue = Locale.UK.getCountry();
-        String expected = Locale.US.getCountry();
+        String defaultValue = Locale.UK.toString();
+        String expected = Locale.US.toString();
 
         when(repository.getString(R.string.language_key, defaultValue)).thenReturn(expected);
         // execute
@@ -368,8 +368,8 @@ public class SettingsTest {
         when(context.getResources()).thenReturn(resources);
         when(resources.getConfiguration()).thenReturn(configuration);
         withConfigurationLocale(Locale.UK);
-        String defaultValue = Locale.UK.getCountry();
-        String expected = Locale.KOREA.getCountry();
+        String defaultValue = Locale.UK.toString();
+        String expected = Locale.KOREA.toString();
 
         when(repository.getString(R.string.language_key, defaultValue)).thenReturn(expected);
         // execute
