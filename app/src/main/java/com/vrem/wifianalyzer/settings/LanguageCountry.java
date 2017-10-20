@@ -38,8 +38,8 @@ public class LanguageCountry {
         return new ArrayList<LanguageCountry>(CollectionUtils.collect(Arrays.asList(LocaleType.values()), new ToLanguageCountry()));
     }
 
-    public String getCountryCode() {
-        return localeType.getLocale().getCountry();
+    public String getLanguageCode() {
+        return localeType.getLocale().toString();
     }
 
     public String getLanguageName() {

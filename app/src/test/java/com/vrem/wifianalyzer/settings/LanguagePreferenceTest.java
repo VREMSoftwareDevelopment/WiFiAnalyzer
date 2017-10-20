@@ -74,8 +74,8 @@ public class LanguagePreferenceTest {
         // validate
         int expectedSize = countries.size();
         assertEquals(expectedSize, actual.length);
-        assertEquals(countries.get(0).getCountryCode(), actual[0]);
-        assertEquals(countries.get(expectedSize - 1).getCountryCode(), actual[expectedSize - 1]);
+        assertEquals(countries.get(0).getLanguageCode(), actual[0]);
+        assertEquals(countries.get(expectedSize - 1).getLanguageCode(), actual[expectedSize - 1]);
     }
 
     private static class LanguageCountryComparator implements Comparator<LanguageCountry> {
@@ -83,7 +83,7 @@ public class LanguagePreferenceTest {
         public int compare(LanguageCountry lhs, LanguageCountry rhs) {
             return new CompareToBuilder()
                 .append(lhs.getLanguageName(), rhs.getLanguageName())
-                .append(lhs.getCountryCode(), rhs.getCountryCode())
+                .append(lhs.getLanguageCode(), rhs.getLanguageCode())
                 .toComparison();
         }
     }
