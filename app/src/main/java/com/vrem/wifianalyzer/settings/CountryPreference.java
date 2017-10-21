@@ -23,6 +23,7 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
 import com.vrem.util.ConfigUtils;
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -31,6 +32,7 @@ import org.apache.commons.collections4.Transformer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class CountryPreference extends CustomPreference {
     public CountryPreference(@NonNull Context context, AttributeSet attrs) {
@@ -45,9 +47,15 @@ public class CountryPreference extends CustomPreference {
     }
 
     private static class ToData implements Transformer<WiFiChannelCountry, Data> {
+        private final Locale currentLocale;
+
+        private ToData() {
+            this.currentLocale = MainContext.INSTANCE.getSettings().getLanguageLocale();
+        }
+
         @Override
         public Data transform(WiFiChannelCountry input) {
-            return new Data(input.getCountryCode(), input.getCountryName());
+            return new Data(input.getCountryCode(), input.getCountryName(currentLocale));
         }
     }
 

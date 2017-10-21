@@ -34,6 +34,7 @@ import org.robolectric.annotation.Config;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 
@@ -43,11 +44,14 @@ public class CountryPreferenceTest {
 
     private List<WiFiChannelCountry> countries;
     private CountryPreference fixture;
+    private Locale currentLocale;
 
     @Before
     public void setUp() {
         MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
         fixture = new CountryPreference(mainActivity, Robolectric.buildAttributeSet().build());
+
+        currentLocale = Locale.getDefault();
 
         countries = WiFiChannelCountry.getAll();
         Collections.sort(countries, new WiFiChannelCountryComparator());
@@ -60,8 +64,8 @@ public class CountryPreferenceTest {
         // validate
         int expectedSize = countries.size();
         assertEquals(expectedSize, actual.length);
-        assertEquals(countries.get(0).getCountryName(), actual[0]);
-        assertEquals(countries.get(expectedSize - 1).getCountryName(), actual[expectedSize - 1]);
+        assertEquals(countries.get(0).getCountryName(currentLocale), actual[0]);
+        assertEquals(countries.get(expectedSize - 1).getCountryName(currentLocale), actual[expectedSize - 1]);
     }
 
     @Test
@@ -75,11 +79,11 @@ public class CountryPreferenceTest {
         assertEquals(countries.get(expectedSize - 1).getCountryCode(), actual[expectedSize - 1]);
     }
 
-    private static class WiFiChannelCountryComparator implements Comparator<WiFiChannelCountry> {
+    private class WiFiChannelCountryComparator implements Comparator<WiFiChannelCountry> {
         @Override
         public int compare(WiFiChannelCountry lhs, WiFiChannelCountry rhs) {
             return new CompareToBuilder()
-                .append(lhs.getCountryName(), rhs.getCountryName())
+                .append(lhs.getCountryName(currentLocale), rhs.getCountryName(currentLocale))
                 .append(lhs.getCountryCode(), rhs.getCountryCode())
                 .toComparison();
         }

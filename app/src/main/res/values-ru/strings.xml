@@ -67,6 +67,7 @@
     <string name="time_graph_legend_title">Показать легенду графика времени</string>
     <string name="theme_title">Цветовая тема</string>
     <string name="wifi_off_on_exit_title">WiFi выключен при выходе</string>
+    <string name="language_title">Язык</string>
     <!-- settings end -->
 
     <!-- about start -->
@@ -91,6 +92,5 @@
     <string name="filter_wifi_band_title">WiFi диапазон</string>
     <string name="filter_strength_title">Уровень сигнала</string>
     <string name="filter_security_title">Безопасность</string>
-    <string name="language_title">язык</string>
     <!-- filter end -->
 </resources>

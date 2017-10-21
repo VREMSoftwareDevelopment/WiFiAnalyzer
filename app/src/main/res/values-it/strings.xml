@@ -68,6 +68,7 @@
     <string name="time_graph_legend_title">Mostra legenda grafico temporale</string>
     <string name="theme_title">Tema</string>
     <string name="wifi_off_on_exit_title">WiFi fuori all\'uscita</string>
+    <string name="language_title">Lingua</string>
     <!-- settings end -->
 
     <!-- about start -->
@@ -92,6 +93,5 @@
     <string name="filter_wifi_band_title">Banda WiFi</string>
     <string name="filter_strength_title">Potenza Segnale</string>
     <string name="filter_security_title">Sicurezza</string>
-    <string name="language_title">Lingua</string>
     <!-- filter end -->
 </resources>

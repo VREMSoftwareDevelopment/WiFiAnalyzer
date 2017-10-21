@@ -46,15 +46,18 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        MainContext mainContext = MainContext.INSTANCE;
         View view = convertView;
         if (view == null) {
-            LayoutInflater layoutInflater = MainContext.INSTANCE.getMainActivity().getLayoutInflater();
+            LayoutInflater layoutInflater = mainContext.getMainActivity().getLayoutInflater();
             view = layoutInflater.inflate(R.layout.channel_available_details, parent, false);
         }
 
+        Locale currentLocale = mainContext.getSettings().getLanguageLocale();
+
         WiFiChannelCountry wiFiChannelCountry = getItem(position);
         ((TextView) view.findViewById(R.id.channel_available_country))
-            .setText(wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName());
+            .setText(wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName(currentLocale));
         ((TextView) view.findViewById(R.id.channel_available_title_ghz_2))
             .setText(String.format(Locale.ENGLISH, "%s : ",
                 view.getResources().getString(WiFiBand.GHZ2.getTextResource())));

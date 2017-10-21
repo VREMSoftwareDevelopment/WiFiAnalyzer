@@ -68,6 +68,7 @@
     <string name="time_graph_legend_title">Legenda da linha do tempo</string>
     <string name="theme_title">Tema</string>
     <string name="wifi_off_on_exit_title">Desativar Wi-Fi ao sair</string>
+    <string name="language_title">Língua</string>
     <!-- settings end -->
 
     <!-- about start -->
@@ -92,6 +93,5 @@
     <string name="filter_wifi_band_title">Frequência do Wi-Fi</string>
     <string name="filter_strength_title">Intensidade do Sinal</string>
     <string name="filter_security_title">Protocolo de Segurança</string>
-    <string name="language_title">Língua</string>
     <!-- filter end -->
 </resources>

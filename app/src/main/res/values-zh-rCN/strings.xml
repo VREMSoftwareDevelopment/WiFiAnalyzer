@@ -68,6 +68,7 @@
     <string name="time_graph_legend_title">时间图例显示位置</string>
     <string name="theme_title">主题</string>
     <string name="wifi_off_on_exit_title">退出时关闭WiFi</string>
+    <string name="language_title">语言</string>
     <!-- settings end -->
 
     <!-- about start -->
@@ -92,6 +93,5 @@
     <string name="filter_wifi_band_title">WiFi频段</string>
     <string name="filter_strength_title">信号强度</string>
     <string name="filter_security_title">安全</string>
-    <string name="language_title">语言</string>
     <!-- filter end -->
 </resources>
