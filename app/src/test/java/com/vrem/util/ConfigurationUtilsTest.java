@@ -34,7 +34,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class ConfigUtilsTest {
+public class ConfigurationUtilsTest {
 
     private MainActivity mainActivity;
     private Locale defaultLocale;
@@ -42,7 +42,7 @@ public class ConfigUtilsTest {
     @Before
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getActivity();
-        defaultLocale = ConfigUtils.getConfigLocale(mainActivity.getResources().getConfiguration());
+        defaultLocale = ConfigurationUtils.getConfigLocale(mainActivity.getResources().getConfiguration());
     }
 
     @Test
@@ -50,7 +50,7 @@ public class ConfigUtilsTest {
         // setup
         String expected = defaultLocale.getCountry();
         // execute
-        String actual = ConfigUtils.getDefaultCountryCode(mainActivity);
+        String actual = ConfigurationUtils.getDefaultCountryCode(mainActivity);
         // validate
         assertEquals(expected, actual);
     }
@@ -60,7 +60,7 @@ public class ConfigUtilsTest {
         // setup
         String expected = LocaleUtils.toLanguageTag(defaultLocale);
         // execute
-        String actual = ConfigUtils.getDefaultLanguageTag(mainActivity);
+        String actual = ConfigurationUtils.getDefaultLanguageTag(mainActivity);
         // validate
         assertEquals(expected, actual);
     }

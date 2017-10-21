@@ -22,7 +22,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
-import com.vrem.util.ConfigUtils;
+import com.vrem.util.ConfigurationUtils;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
@@ -36,7 +36,7 @@ import java.util.Locale;
 
 public class CountryPreference extends CustomPreference {
     public CountryPreference(@NonNull Context context, AttributeSet attrs) {
-        super(context, attrs, getData(), ConfigUtils.getDefaultCountryCode(context));
+        super(context, attrs, getData(), ConfigurationUtils.getDefaultCountryCode(context));
     }
 
     @NonNull

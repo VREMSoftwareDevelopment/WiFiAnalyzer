@@ -27,7 +27,7 @@ import android.support.annotation.NonNull;
 
 import java.util.Locale;
 
-public class ConfigUtils {
+public class ConfigurationUtils {
     @NonNull
     public static String getDefaultCountryCode(@NonNull Context context) {
         return getDefault(context).getCountry();

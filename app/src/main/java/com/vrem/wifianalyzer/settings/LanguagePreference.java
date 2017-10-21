@@ -22,7 +22,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
-import com.vrem.util.ConfigUtils;
+import com.vrem.util.ConfigurationUtils;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Transformer;
@@ -35,7 +35,7 @@ import java.util.TreeSet;
 
 public class LanguagePreference extends CustomPreference {
     public LanguagePreference(@NonNull Context context, AttributeSet attrs) {
-        super(context, attrs, getData(), ConfigUtils.getDefaultLanguageTag(context));
+        super(context, attrs, getData(), ConfigurationUtils.getDefaultLanguageTag(context));
     }
 
     @NonNull

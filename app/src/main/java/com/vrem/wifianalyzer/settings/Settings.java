@@ -21,7 +21,7 @@ package com.vrem.wifianalyzer.settings;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.vrem.util.ConfigUtils;
+import com.vrem.util.ConfigurationUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.util.LocaleUtils;
 import com.vrem.wifianalyzer.R;
@@ -76,12 +76,12 @@ public class Settings {
     }
 
     public String getCountryCode() {
-        String countryCode = ConfigUtils.getDefaultCountryCode(context);
+        String countryCode = ConfigurationUtils.getDefaultCountryCode(context);
         return repository.getString(R.string.country_code_key, countryCode);
     }
 
     public Locale getLanguageLocale() {
-        String defaultLanguageTag = ConfigUtils.getDefaultLanguageTag(context);
+        String defaultLanguageTag = ConfigurationUtils.getDefaultLanguageTag(context);
         String languageTag = repository.getString(R.string.language_key, defaultLanguageTag);
         return LocaleUtils.findByLanguageTag(languageTag);
     }

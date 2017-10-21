@@ -36,7 +36,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.vrem.util.ConfigUtils;
+import com.vrem.util.ConfigurationUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.menu.OptionMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     @Override
     protected void attachBaseContext(Context newBase) {
         Locale newLocale = new Settings(newBase, new Repository(newBase)).getLanguageLocale();
-        Context context = ConfigUtils.createContext(newBase, newLocale);
+        Context context = ConfigurationUtils.createContext(newBase, newLocale);
         super.attachBaseContext(context);
     }
 
