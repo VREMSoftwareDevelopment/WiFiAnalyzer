@@ -108,7 +108,7 @@ public class LocaleUtilsTest {
         validateFindByLanguageTag(Locale.CANADA);
     }
 
-    private void validateFindByLanguageTag(Locale expected) throws Exception {
+    private void validateFindByLanguageTag(Locale expected) {
         assertEquals(expected, LocaleUtils.findByLanguageTag(LocaleUtils.toLanguageTag(expected)));
     }
 

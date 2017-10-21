@@ -42,11 +42,11 @@ public class ChannelRatingFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.channel_rating_content, container, false);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.channelRatingRefresh);
+        swipeRefreshLayout = view.findViewById(R.id.channelRatingRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        TextView bestChannels = (TextView) view.findViewById(R.id.channelRatingBestChannels);
-        ListView listView = (ListView) view.findViewById(R.id.channelRatingView);
+        TextView bestChannels = view.findViewById(R.id.channelRatingBestChannels);
+        ListView listView = view.findViewById(R.id.channelRatingView);
 
         channelRatingAdapter = new ChannelRatingAdapter(activity, bestChannels);
         listView.setAdapter(channelRatingAdapter);

@@ -115,9 +115,9 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     private boolean isLargeScreen() {
         Configuration configuration = getResources().getConfiguration();
-        int screenLayoutSize = configuration.screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK;
-        return screenLayoutSize == android.content.res.Configuration.SCREENLAYOUT_SIZE_LARGE ||
-            screenLayoutSize == android.content.res.Configuration.SCREENLAYOUT_SIZE_XLARGE;
+        int screenLayoutSize = configuration.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        return screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_LARGE ||
+            screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_XLARGE;
     }
 
     @Override

@@ -41,10 +41,10 @@ public class ChannelGraphFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.graph_content, container, false);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.graphRefresh);
+        swipeRefreshLayout = view.findViewById(R.id.graphRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
-        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.graphNavigation);
+        LinearLayout linearLayout = view.findViewById(R.id.graphNavigation);
         ChannelGraphNavigation channelGraphNavigation = new ChannelGraphNavigation(linearLayout, getActivity());
         channelGraphAdapter = new ChannelGraphAdapter(channelGraphNavigation);
         addGraphViews(swipeRefreshLayout, channelGraphAdapter);

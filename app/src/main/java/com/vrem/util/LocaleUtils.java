@@ -58,7 +58,7 @@ public class LocaleUtils {
         return new ArrayList<>(CollectionUtils.select(SyncAvoid.AVAILABLE_LOCALES, new LanguageCodesPredicate(codes)));
     }
 
-    public static Locale find(Predicate<Locale> predicate) {
+    private static Locale find(Predicate<Locale> predicate) {
         Locale result = IterableUtils.find(SyncAvoid.AVAILABLE_LOCALES, predicate);
         return result == null ? Locale.getDefault() : result;
     }

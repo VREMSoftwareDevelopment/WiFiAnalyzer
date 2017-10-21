@@ -76,7 +76,7 @@ public class ConnectionView implements UpdateNotifier {
             connectionView.setVisibility(View.GONE);
         } else {
             connectionView.setVisibility(View.VISIBLE);
-            ViewGroup parent = (ViewGroup) connectionView.findViewById(R.id.connectionDetail);
+            ViewGroup parent = connectionView.findViewById(R.id.connectionDetail);
             View view = accessPointDetail.makeView(parent.getChildAt(0), parent, connection, false, connectionViewType.getAccessPointViewType());
             if (parent.getChildCount() == 0) {
                 parent.addView(view);
@@ -90,7 +90,7 @@ public class ConnectionView implements UpdateNotifier {
         String ipAddress = wiFiConnection.getIpAddress();
         ((TextView) connectionView.findViewById(R.id.ipAddress)).setText(ipAddress);
 
-        TextView textLinkSpeed = (TextView) connectionView.findViewById(R.id.linkSpeed);
+        TextView textLinkSpeed = connectionView.findViewById(R.id.linkSpeed);
         int linkSpeed = wiFiConnection.getLinkSpeed();
         if (linkSpeed == WiFiConnection.LINK_SPEED_INVALID) {
             textLinkSpeed.setVisibility(View.GONE);

@@ -39,7 +39,7 @@ class SSIDFilter {
     SSIDFilter(@NonNull SSIDAdapter ssidAdapter, @NonNull Dialog dialog) {
         String value = TextUtils.join(SEPARATOR, ssidAdapter.getValues().toArray());
 
-        EditText editText = (EditText) dialog.findViewById(R.id.filterSSIDtext);
+        EditText editText = dialog.findViewById(R.id.filterSSIDtext);
         editText.setText(value);
         editText.addTextChangedListener(new OnChange(ssidAdapter));
 

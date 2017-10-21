@@ -18,16 +18,10 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import org.apache.tools.ant.taskdefs.Local;
 import org.junit.Test;
 
-import java.util.List;
-import java.util.Locale;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 public class LocaleTypeTest {
 

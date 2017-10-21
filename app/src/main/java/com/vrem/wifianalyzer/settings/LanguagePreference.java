@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 
 public class LanguagePreference extends CustomPreference {
@@ -40,7 +41,7 @@ public class LanguagePreference extends CustomPreference {
 
     @NonNull
     private static List<Data> getData() {
-        TreeSet<LanguageCountry> uniqueLanguageCountries = new TreeSet<LanguageCountry>(new LanguageCountryComparator());
+        Set<LanguageCountry> uniqueLanguageCountries = new TreeSet<>(new LanguageCountryComparator());
         uniqueLanguageCountries.addAll(LanguageCountry.getAll());
         List<Data> results = new ArrayList<>(CollectionUtils.collect(uniqueLanguageCountries, new ToDataLanguage()));
         Collections.sort(results);

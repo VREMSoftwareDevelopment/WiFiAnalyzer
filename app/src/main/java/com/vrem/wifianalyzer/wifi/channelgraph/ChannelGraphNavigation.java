@@ -144,7 +144,7 @@ class ChannelGraphNavigation implements GraphConstants {
 
         @Override
         public void execute(Pair<WiFiChannel, WiFiChannel> input) {
-            Button button = (Button) view.findViewById(ids.get(input));
+            Button button = view.findViewById(ids.get(input));
             if (visible.contains(input)) {
                 button.setVisibility(View.VISIBLE);
                 setSelected(button, input.equals(selectedWiFiChannelPair));

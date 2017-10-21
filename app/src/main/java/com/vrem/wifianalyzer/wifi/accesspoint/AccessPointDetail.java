@@ -83,11 +83,11 @@ public class AccessPointDetail {
         Strength strength = wiFiSignal.getStrength();
 
         Security security = wiFiDetail.getSecurity();
-        ImageView securityImage = (ImageView) view.findViewById(R.id.securityImage);
+        ImageView securityImage = view.findViewById(R.id.securityImage);
         securityImage.setImageResource(security.getImageResource());
         securityImage.setColorFilter(ContextCompat.getColor(context, R.color.icons_color));
 
-        TextView textLevel = (TextView) view.findViewById(R.id.level);
+        TextView textLevel = view.findViewById(R.id.level);
         textLevel.setText(String.format(Locale.ENGLISH, "%ddBm", wiFiSignal.getLevel()));
         textLevel.setTextColor(ContextCompat.getColor(context, strength.colorResource()));
 
@@ -107,7 +107,7 @@ public class AccessPointDetail {
     }
 
     private void setViewExtra(@NonNull Context context, @NonNull View view, @NonNull WiFiDetail wiFiDetail) {
-        ImageView configuredImage = (ImageView) view.findViewById(R.id.configuredImage);
+        ImageView configuredImage = view.findViewById(R.id.configuredImage);
         WiFiAdditional wiFiAdditional = wiFiDetail.getWiFiAdditional();
         if (wiFiAdditional.isConfiguredNetwork()) {
             configuredImage.setVisibility(View.VISIBLE);
@@ -118,7 +118,7 @@ public class AccessPointDetail {
 
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         Strength strength = wiFiSignal.getStrength();
-        ImageView imageView = (ImageView) view.findViewById(R.id.levelImage);
+        ImageView imageView = view.findViewById(R.id.levelImage);
         imageView.setImageResource(strength.imageResource());
         imageView.setColorFilter(ContextCompat.getColor(context, strength.colorResource()));
 
@@ -131,7 +131,7 @@ public class AccessPointDetail {
     }
 
     private void setViewVendorShort(@NonNull View view, @NonNull WiFiAdditional wiFiAdditional) {
-        TextView textVendorShort = ((TextView) view.findViewById(R.id.vendorShort));
+        TextView textVendorShort = view.findViewById(R.id.vendorShort);
         String vendor = wiFiAdditional.getVendorName();
         if (StringUtils.isBlank(vendor)) {
             textVendorShort.setVisibility(View.GONE);
@@ -142,7 +142,7 @@ public class AccessPointDetail {
     }
 
     private void setViewVendorLong(@NonNull View view, @NonNull WiFiAdditional wiFiAdditional) {
-        TextView textVendor = ((TextView) view.findViewById(R.id.vendorLong));
+        TextView textVendor = view.findViewById(R.id.vendorLong);
         String vendor = wiFiAdditional.getVendorName();
         if (StringUtils.isBlank(vendor)) {
             textVendor.setVisibility(View.GONE);

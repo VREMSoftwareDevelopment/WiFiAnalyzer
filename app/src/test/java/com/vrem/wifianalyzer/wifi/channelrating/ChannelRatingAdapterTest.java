@@ -106,7 +106,7 @@ public class ChannelRatingAdapterTest {
         assertEquals("1", ((TextView) actual.findViewById(R.id.channelNumber)).getText());
         assertEquals("5", ((TextView) actual.findViewById(R.id.accessPointCount)).getText());
 
-        RatingBar ratingBar = (RatingBar) actual.findViewById(R.id.channelRating);
+        RatingBar ratingBar = actual.findViewById(R.id.channelRating);
         assertEquals(expectedSize, ratingBar.getMax());
         assertEquals(expectedSize, ratingBar.getNumStars());
         assertEquals(expectedStrength.ordinal() + 1, (int) ratingBar.getRating());
