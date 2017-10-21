@@ -18,15 +18,16 @@
 
 package com.vrem.wifianalyzer.settings;
 
+import com.vrem.util.LocaleUtils;
+
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Transformer;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class LanguageCountry {
+class LanguageCountry {
 
     private final LocaleType localeType;
 
@@ -34,17 +35,16 @@ public class LanguageCountry {
         this.localeType = localeType;
     }
 
-    public static List<LanguageCountry> getAll(){
-        return new ArrayList<LanguageCountry>(CollectionUtils.collect(Arrays.asList(LocaleType.values()), new ToLanguageCountry()));
+    static List<LanguageCountry> getAll() {
+        return new ArrayList<>(CollectionUtils.collect(Arrays.asList(LocaleType.values()), new ToLanguageCountry()));
     }
 
-    public String getLanguageCode() {
-        return localeType.getLocale().toString();
+    String getLanguageTag() {
+        return LocaleUtils.toLanguageTag(localeType.getLocale());
     }
 
-    public String getLanguageName() {
-        String languageName = localeType.getLocale().getDisplayName(localeType.getLocale());
-        return StringUtils.capitalize(languageName);
+    String getLanguageName() {
+        return localeType.getLocale().getDisplayName(localeType.getLocale());
     }
 
     private static class ToLanguageCountry implements Transformer<LocaleType, LanguageCountry> {

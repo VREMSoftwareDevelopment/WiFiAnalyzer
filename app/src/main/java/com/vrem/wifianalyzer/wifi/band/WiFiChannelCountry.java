@@ -20,6 +20,8 @@ package com.vrem.wifianalyzer.wifi.band;
 
 import android.support.annotation.NonNull;
 
+import com.vrem.util.LocaleUtils;
+
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Transformer;
 import org.apache.commons.lang3.StringUtils;
@@ -32,7 +34,6 @@ import java.util.SortedSet;
 public class WiFiChannelCountry {
     public static final String UNKNOWN = "-Unknown";
 
-    private static final Country COUNTRY = new Country();
     private static final WiFiChannelCountryGHZ2 WIFI_CHANNEL_GHZ2 = new WiFiChannelCountryGHZ2();
     private static final WiFiChannelCountryGHZ5 WIFI_CHANNEL_GHZ5 = new WiFiChannelCountryGHZ5();
 
@@ -43,11 +44,11 @@ public class WiFiChannelCountry {
     }
 
     public static WiFiChannelCountry get(@NonNull String countryCode) {
-        return new WiFiChannelCountry(COUNTRY.getCountry(countryCode));
+        return new WiFiChannelCountry(LocaleUtils.findByCountryCode(countryCode));
     }
 
     public static List<WiFiChannelCountry> getAll() {
-        return new ArrayList<>(CollectionUtils.collect(COUNTRY.getCountries(), new ToCountry()));
+        return new ArrayList<>(CollectionUtils.collect(LocaleUtils.getAllCountries(), new ToCountry()));
     }
 
     @NonNull

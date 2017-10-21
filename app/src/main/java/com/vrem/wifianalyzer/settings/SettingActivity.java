@@ -34,10 +34,8 @@ import java.util.Locale;
 public class SettingActivity extends PreferenceActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
-        String language = MainContext.INSTANCE.getSettings().getLanguage();
-        Locale newLocale = LocaleType.fromString(language).getLocale();
+        Locale newLocale = MainContext.INSTANCE.getSettings().getLanguageLocale();
         Context context = LocaleContextWrapper.wrap(newBase, newLocale);
-        Locale.setDefault(newLocale);
         super.attachBaseContext(context);
     }
 

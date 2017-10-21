@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         LocaleType newLocaleType = LocaleType.fromString(preferences.getString(key, null));
         Locale newLocale = newLocaleType == null ? Locale.getDefault() : newLocaleType.getLocale();
         Context context = LocaleContextWrapper.wrap(newBase, newLocale);
-        Locale.setDefault(newLocale);
         super.attachBaseContext(context);
     }
 

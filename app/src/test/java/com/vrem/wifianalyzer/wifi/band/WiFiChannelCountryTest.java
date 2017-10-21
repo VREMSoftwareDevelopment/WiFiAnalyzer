@@ -68,20 +68,16 @@ public class WiFiChannelCountryTest {
 
     @Test
     public void testFind() throws Exception {
-        assertEquals("US", WiFiChannelCountry.get(Locale.US.getCountry()).getCountryCode());
-    }
-
-    @Test
-    public void testFindFailes() throws Exception {
         // setup
-        String countryCode = "11";
-        Set<Integer> expectedGHZ2 = new WiFiChannelCountryGHZ2().findChannels(countryCode);
-        Set<Integer> expectedGHZ5 = new WiFiChannelCountryGHZ5().findChannels(countryCode);
+        Locale expected = Locale.US;
+        String expectedCountryCode = expected.getCountry();
+        Set<Integer> expectedGHZ2 = new WiFiChannelCountryGHZ2().findChannels(expectedCountryCode);
+        Set<Integer> expectedGHZ5 = new WiFiChannelCountryGHZ5().findChannels(expectedCountryCode);
         // execute
-        WiFiChannelCountry actual = WiFiChannelCountry.get(countryCode);
+        WiFiChannelCountry actual = WiFiChannelCountry.get(expectedCountryCode);
         // validate
-        assertEquals(countryCode, actual.getCountryCode());
-        assertEquals(countryCode + WiFiChannelCountry.UNKNOWN, actual.getCountryName());
+        assertEquals(expectedCountryCode, actual.getCountryCode());
+        assertEquals(expected.getDisplayCountry(), actual.getCountryName());
         assertArrayEquals(expectedGHZ2.toArray(), actual.getChannelsGHZ2().toArray());
         assertArrayEquals(expectedGHZ5.toArray(), actual.getChannelsGHZ5().toArray());
     }

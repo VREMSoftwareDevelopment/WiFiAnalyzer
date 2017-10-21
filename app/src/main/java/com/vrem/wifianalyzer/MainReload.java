@@ -25,19 +25,21 @@ import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointViewType;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType;
 
+import java.util.Locale;
+
 class MainReload {
     private ThemeStyle themeStyle;
     private AccessPointViewType accessPointViewType;
     private ConnectionViewType connectionViewType;
     private int graphMaximumY;
-    private String language;
+    private Locale languageLocale;
 
     MainReload(@NonNull Settings settings) {
         setThemeStyle(settings.getThemeStyle());
         setAccessPointViewType(settings.getAccessPointView());
         setConnectionViewType(settings.getConnectionViewType());
         setGraphMaximumY(settings.getGraphMaximumY());
-        setLanguage(settings.getLanguage());
+        setLanguageLocale(settings.getLanguageLocale());
     }
 
     boolean shouldReload(@NonNull Settings settings) {
@@ -83,12 +85,12 @@ class MainReload {
     }
 
     private boolean isLanguageChanged(Settings settings) {
-        String settingLanguage = settings.getLanguage();
-        boolean languageChanged = !getLanguage().equals(settingLanguage);
-        if (languageChanged) {
-            setLanguage(settingLanguage);
+        Locale settingLanguageLocale = settings.getLanguageLocale();
+        boolean languageLocaleChanged = !getLanguageLocale().equals(settingLanguageLocale);
+        if (languageLocaleChanged) {
+            setLanguageLocale(settingLanguageLocale);
         }
-        return languageChanged;
+        return languageLocaleChanged;
     }
 
     ThemeStyle getThemeStyle() {
@@ -123,12 +125,12 @@ class MainReload {
         this.graphMaximumY = graphMaximumY;
     }
 
-    String getLanguage() {
-        return language;
+    Locale getLanguageLocale() {
+        return languageLocale;
     }
 
-    private void setLanguage(String language) {
-        this.language = language;
+    private void setLanguageLocale(Locale languageLocale) {
+        this.languageLocale = languageLocale;
     }
 
 }

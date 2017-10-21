@@ -26,6 +26,7 @@ import android.os.Build;
 import android.os.LocaleList;
 
 import com.vrem.util.EnumUtils;
+import com.vrem.util.LocaleUtils;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointViewType;
@@ -51,7 +52,6 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -342,43 +342,21 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetLanguage() throws Exception {
+    public void testGetLanguageLocale() throws Exception {
         // setup
         when(context.getResources()).thenReturn(resources);
         when(resources.getConfiguration()).thenReturn(configuration);
         withConfigurationLocale(Locale.UK);
-        String defaultValue = Locale.UK.toString();
-        String expected = Locale.US.toString();
+        String defaultValue = LocaleUtils.toLanguageTag(Locale.UK);
+        Locale expected = Locale.US;
 
-        when(repository.getString(R.string.language_key, defaultValue)).thenReturn(expected);
+        when(repository.getString(R.string.language_key, defaultValue)).thenReturn(LocaleUtils.toLanguageTag(expected));
         // execute
-        String actual = fixture.getLanguage();
+        Locale actual = fixture.getLanguageLocale();
         // validate
         assertEquals(expected, actual);
 
         verify(repository).getString(R.string.language_key, defaultValue);
-        verify(context).getResources();
-        verify(resources).getConfiguration();
-        verifyConfigurationLocale();
-    }
-
-    @Test
-    public void testGetLanguageMissingTranslation() throws Exception {
-        // setup
-        when(context.getResources()).thenReturn(resources);
-        when(resources.getConfiguration()).thenReturn(configuration);
-        withConfigurationLocale(Locale.UK);
-        String defaultValue = Locale.UK.toString();
-        String expected = Locale.KOREA.toString();
-
-        when(repository.getString(R.string.language_key, defaultValue)).thenReturn(expected);
-        // execute
-        String actual = fixture.getLanguage();
-        // validate
-        assertEquals(defaultValue, actual);
-
-        verify(repository).getString(R.string.language_key, defaultValue);
-        verify(repository, atLeastOnce()).save(R.string.language_key, defaultValue);
         verify(context).getResources();
         verify(resources).getConfiguration();
         verifyConfigurationLocale();

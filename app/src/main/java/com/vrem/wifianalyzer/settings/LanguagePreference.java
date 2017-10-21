@@ -19,11 +19,10 @@
 package com.vrem.wifianalyzer.settings;
 
 import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+
+import com.vrem.util.ConfigUtils;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Transformer;
@@ -32,12 +31,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import java.util.TreeSet;
 
 public class LanguagePreference extends CustomPreference {
     public LanguagePreference(@NonNull Context context, AttributeSet attrs) {
-        super(context, attrs, getData(), getDefault(context));
+        super(context, attrs, getData(), ConfigUtils.getDefaultLanguageTag(context));
     }
 
     @NonNull
@@ -49,33 +47,17 @@ public class LanguagePreference extends CustomPreference {
         return results;
     }
 
-    @NonNull
-    public static String getDefault(@NonNull Context context) {
-        Resources resources = context.getResources();
-        Configuration configuration = resources.getConfiguration();
-        return getLocale(configuration).toString();
-    }
-
-    @SuppressWarnings("deprecation")
-    @NonNull
-    private static Locale getLocale(@NonNull Configuration config) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return config.getLocales().get(0);
-        }
-        return config.locale;
-    }
-
     private static class ToDataLanguage implements Transformer<LanguageCountry, Data> {
         @Override
         public Data transform(LanguageCountry input) {
-            return new Data(input.getLanguageCode(), input.getLanguageName());
+            return new Data(input.getLanguageTag(), input.getLanguageName());
         }
     }
 
     private static class LanguageCountryComparator implements Comparator<LanguageCountry> {
         @Override
         public int compare(LanguageCountry o1, LanguageCountry o2) {
-            return o1.getLanguageCode().compareTo(o2.getLanguageCode());
+            return o1.getLanguageTag().compareTo(o2.getLanguageTag());
         }
     }
 }

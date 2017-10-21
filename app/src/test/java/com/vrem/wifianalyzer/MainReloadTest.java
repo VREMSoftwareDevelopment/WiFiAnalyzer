@@ -41,7 +41,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class MainReloadTest {
     private static final int GRAPH_MAXIMUM_Y = 10;
-    private static final String testCountry = Locale.UK.getCountry();
+    private static final Locale TEST_LOCALE = Locale.UK;
     private Settings settings;
     private MainReload fixture;
 
@@ -53,7 +53,7 @@ public class MainReloadTest {
         when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPLETE);
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(settings.getGraphMaximumY()).thenReturn(GRAPH_MAXIMUM_Y);
-        when(settings.getLanguage()).thenReturn(testCountry);
+        when(settings.getLanguageLocale()).thenReturn(TEST_LOCALE);
 
         fixture = new MainReload(settings);
     }
@@ -64,7 +64,7 @@ public class MainReloadTest {
         verify(settings, atLeastOnce()).getAccessPointView();
         verify(settings, atLeastOnce()).getConnectionViewType();
         verify(settings, atLeastOnce()).getGraphMaximumY();
-        verify(settings, atLeastOnce()).getLanguage();
+        verify(settings, atLeastOnce()).getLanguageLocale();
 
         MainContextHelper.INSTANCE.restore();
     }
@@ -154,24 +154,24 @@ public class MainReloadTest {
     }
 
     @Test
-    public void testShouldNotReloadWithNoLanguageChanges() throws Exception {
+    public void testShouldNotReloadWithNoLanguageLocaleChanges() throws Exception {
         // execute
         boolean actual = fixture.shouldReload(settings);
         // validate
         assertFalse(actual);
-        assertEquals(testCountry, fixture.getLanguage());
+        assertEquals(Locale.UK, fixture.getLanguageLocale());
     }
 
     @Test
-    public void testShouldReloadWithLanguageChange() throws Exception {
+    public void testShouldReloadWithLanguageLocaleChange() throws Exception {
         // setup
-        String expected = Locale.US.getCountry();
-        when(settings.getLanguage()).thenReturn(expected);
+        Locale expected = Locale.US;
+        when(settings.getLanguageLocale()).thenReturn(expected);
         // execute
         boolean actual = fixture.shouldReload(settings);
         // validate
         assertTrue(actual);
-        assertEquals(expected, fixture.getLanguage());
+        assertEquals(expected, fixture.getLanguageLocale());
     }
 
 }

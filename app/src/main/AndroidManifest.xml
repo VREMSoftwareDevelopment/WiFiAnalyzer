@@ -57,7 +57,6 @@
         </activity>
         <activity
             android:name=".settings.SettingActivity"
-            android:configChanges="locale"
             android:label="@string/action_settings"
             android:launchMode="singleTask"
             android:parentActivityName=".MainActivity">
