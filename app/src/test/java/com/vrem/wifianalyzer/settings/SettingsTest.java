@@ -72,8 +72,7 @@ public class SettingsTest {
 
     @Before
     public void setUp() {
-        fixture = new Settings(context);
-        fixture.setRepository(repository);
+        fixture = new Settings(context, repository);
     }
 
     @Test

@@ -23,6 +23,7 @@ import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
+import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
@@ -89,7 +90,7 @@ public enum MainContext {
     void initialize(@NonNull MainActivity mainActivity, boolean largeScreen) {
         WifiManager wifiManager = (WifiManager) mainActivity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         Handler handler = new Handler();
-        Settings settings = new Settings(mainActivity);
+        Settings settings = new Settings(mainActivity, new Repository(mainActivity));
         Configuration configuration = new Configuration(largeScreen);
 
         setMainActivity(mainActivity);

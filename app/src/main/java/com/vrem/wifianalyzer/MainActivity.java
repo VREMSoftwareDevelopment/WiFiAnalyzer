@@ -22,9 +22,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.res.Resources;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
@@ -37,12 +36,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.vrem.util.ConfigUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.menu.OptionMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
-import com.vrem.wifianalyzer.settings.LocaleContextWrapper;
-import com.vrem.wifianalyzer.settings.LocaleType;
+import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
@@ -61,11 +60,8 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(newBase);
-        String key = newBase.getString(R.string.language_key);
-        LocaleType newLocaleType = LocaleType.fromString(preferences.getString(key, null));
-        Locale newLocale = newLocaleType == null ? Locale.getDefault() : newLocaleType.getLocale();
-        Context context = LocaleContextWrapper.wrap(newBase, newLocale);
+        Locale newLocale = new Settings(newBase, new Repository(newBase)).getLanguageLocale();
+        Context context = ConfigUtils.createContext(newBase, newLocale);
         super.attachBaseContext(context);
     }
 
@@ -112,15 +108,13 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         String countryCode = settings.getCountryCode();
         if (!countryCode.equals(currentCountryCode)) {
             Pair<WiFiChannel, WiFiChannel> pair = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairFirst(countryCode);
-            Configuration configuration = mainContext.getConfiguration();
-            configuration.setWiFiChannelPair(pair);
+            mainContext.getConfiguration().setWiFiChannelPair(pair);
             currentCountryCode = countryCode;
         }
     }
 
     private boolean isLargeScreen() {
-        Resources resources = getResources();
-        android.content.res.Configuration configuration = resources.getConfiguration();
+        Configuration configuration = getResources().getConfiguration();
         int screenLayoutSize = configuration.screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK;
         return screenLayoutSize == android.content.res.Configuration.SCREENLAYOUT_SIZE_LARGE ||
             screenLayoutSize == android.content.res.Configuration.SCREENLAYOUT_SIZE_XLARGE;
@@ -241,4 +235,5 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
             }
         }
     }
+
 }

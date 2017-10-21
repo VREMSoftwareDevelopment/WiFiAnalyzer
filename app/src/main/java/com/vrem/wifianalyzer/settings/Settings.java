@@ -46,14 +46,10 @@ public class Settings {
     static final int GRAPH_Y_DEFAULT = 2;
 
     private final Context context;
-    private Repository repository;
+    private final Repository repository;
 
-    public Settings(@NonNull Context context) {
+    public Settings(@NonNull Context context, @NonNull Repository repository) {
         this.context = context;
-        setRepository(new Repository());
-    }
-
-    void setRepository(@NonNull Repository repository) {
         this.repository = repository;
     }
 

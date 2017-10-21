@@ -19,6 +19,7 @@
 package com.vrem.util;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -35,6 +36,23 @@ public class ConfigUtils {
     @NonNull
     public static String getDefaultLanguageTag(@NonNull Context context) {
         return LocaleUtils.toLanguageTag(getDefault(context));
+    }
+
+    @SuppressWarnings("deprecation")
+    @NonNull
+    public static Context createContext(@NonNull Context context, @NonNull Locale newLocale) {
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
+
+        Context nextContext = context;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            configuration.setLocale(newLocale);
+            nextContext = context.createConfigurationContext(configuration);
+        } else {
+            configuration.locale = newLocale;
+            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+        }
+        return new ContextWrapper(nextContext);
     }
 
     @NonNull
