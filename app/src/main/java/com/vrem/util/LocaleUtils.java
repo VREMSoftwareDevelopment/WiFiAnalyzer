@@ -24,13 +24,10 @@ import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Predicate;
-import org.apache.commons.collections4.Transformer;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -39,27 +36,28 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class LocaleUtils {
+    private static final Locale SPANISH = new Locale("es");
+    private static final Locale PORTUGUESE = new Locale("pt");
+    private static final Locale RUSSIAN = new Locale("ru");
+    public static final List<Locale> SUPPORTED_LOCALES = Arrays.asList(
+        Locale.GERMAN, Locale.ENGLISH, SPANISH, Locale.FRENCH, Locale.ITALIAN, PORTUGUESE, RUSSIAN,
+        Locale.SIMPLIFIED_CHINESE, Locale.TRADITIONAL_CHINESE);
     private static final String SEPARATOR = "_";
 
     public static Locale findByCountryCode(@NonNull String countryCode) {
-        return find(new CountryCodePredicate(countryCode));
+        return find(SyncAvoid.AVAILABLE_LOCALES, new CountryCodePredicate(countryCode));
     }
 
     public static Locale findByLanguageTag(@NonNull String languageTag) {
-        return find(new LanguageTagPredicate(fromLanguageTag(languageTag)));
+        return find(SUPPORTED_LOCALES, new LanguageTagPredicate(fromLanguageTag(languageTag)));
     }
 
     public static List<Locale> getAllCountries() {
         return new ArrayList<>(SyncAvoid.COUNTRIES_LOCALES.values());
     }
 
-    public static List<Locale> findByLanguageCodes(@NonNull String... languageCodes) {
-        Set<String> codes = new HashSet<>(Arrays.asList(languageCodes));
-        return new ArrayList<>(CollectionUtils.select(SyncAvoid.AVAILABLE_LOCALES, new LanguageCodesPredicate(codes)));
-    }
-
-    private static Locale find(Predicate<Locale> predicate) {
-        Locale result = IterableUtils.find(SyncAvoid.AVAILABLE_LOCALES, predicate);
+    private static Locale find(List<Locale> locales, Predicate<Locale> predicate) {
+        Locale result = IterableUtils.find(locales, predicate);
         return result == null ? Locale.getDefault() : result;
     }
 
@@ -69,10 +67,13 @@ public class LocaleUtils {
 
     private static Locale fromLanguageTag(@NonNull String languageTag) {
         String[] codes = languageTag.split("_");
-        if (codes.length != 2) {
-            return Locale.getDefault();
+        if (codes.length == 1) {
+            return new Locale(codes[0]);
         }
-        return new Locale(codes[0], StringUtils.capitalize(codes[1]));
+        if (codes.length == 2) {
+            return new Locale(codes[0], StringUtils.capitalize(codes[1]));
+        }
+        return Locale.getDefault();
     }
 
     private static class CountryCodePredicate implements Predicate<Locale> {
@@ -101,32 +102,6 @@ public class LocaleUtils {
         }
     }
 
-    private static class LanguageCodesPredicate implements Predicate<Locale> {
-        private final Collection<Locale> languageCodes;
-
-        private LanguageCodesPredicate(@NonNull Set<String> languageCodes) {
-            this.languageCodes = CollectionUtils.collect(languageCodes, new LanguageToLocale());
-        }
-
-        @Override
-        public boolean evaluate(Locale locale) {
-            return IterableUtils.matchesAny(languageCodes, new LanguageCodePredicate(locale));
-        }
-
-        private static class LanguageCodePredicate implements Predicate<Locale> {
-            private final Locale locale;
-
-            private LanguageCodePredicate(@NonNull Locale locale) {
-                this.locale = locale;
-            }
-
-            @Override
-            public boolean evaluate(Locale object) {
-                return object.getLanguage().equals(locale.getLanguage());
-            }
-        }
-    }
-
     private static class LanguageTagPredicate implements Predicate<Locale> {
         private final Locale locale;
 
@@ -137,13 +112,6 @@ public class LocaleUtils {
         @Override
         public boolean evaluate(Locale object) {
             return object.getLanguage().equals(locale.getLanguage()) && object.getCountry().equals(locale.getCountry());
-        }
-    }
-
-    private static class LanguageToLocale implements Transformer<String, Locale> {
-        @Override
-        public Locale transform(String input) {
-            return new Locale(input);
         }
     }
 

@@ -18,11 +18,11 @@
 
 package com.vrem.wifianalyzer.settings;
 
+import com.vrem.util.LocaleUtils;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
-import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,18 +31,18 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.List;
-import java.util.TreeSet;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class LanguagePreferenceTest {
 
-    private List<LanguageCountry> countries;
+    private List<Locale> languages;
     private LanguagePreference fixture;
 
     @Before
@@ -50,41 +50,39 @@ public class LanguagePreferenceTest {
         MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
         fixture = new LanguagePreference(mainActivity, Robolectric.buildAttributeSet().build());
 
-        TreeSet<LanguageCountry> countriesSet = new TreeSet<>(new LanguageCountryComparator());
-        countriesSet.addAll(LanguageCountry.getAll());
-        countries = new ArrayList<>(countriesSet);
-        Collections.sort(countries, new LanguageCountryComparator());
+        withLanguages();
+    }
+
+    private void withLanguages() {
+        languages = new ArrayList<>(LocaleUtils.SUPPORTED_LOCALES);
+        Locale defaultLocale = Locale.getDefault();
+        if (!languages.contains(defaultLocale)) {
+            languages.add(defaultLocale);
+        }
     }
 
     @Test
     public void testGetEntries() throws Exception {
         // execute
-        CharSequence[] actual = fixture.getEntries();
+        List<CharSequence> actual = Arrays.asList(fixture.getEntries());
         // validate
-        int expectedSize = countries.size();
-        assertEquals(expectedSize, actual.length);
-        assertEquals(countries.get(0).getLanguageName(), actual[0]);
-        assertEquals(countries.get(expectedSize - 1).getLanguageName(), actual[expectedSize - 1]);
+        assertEquals(languages.size(), actual.size());
+        for (Locale language : languages) {
+            String getDisplayName = language.getDisplayName(language);
+            assertTrue(getDisplayName, actual.contains(getDisplayName));
+        }
     }
 
     @Test
     public void testGetEntryValues() throws Exception {
         // execute
-        CharSequence[] actual = fixture.getEntryValues();
+        List<CharSequence> actual = Arrays.asList(fixture.getEntryValues());
         // validate
-        int expectedSize = countries.size();
-        assertEquals(expectedSize, actual.length);
-        assertEquals(countries.get(0).getLanguageTag(), actual[0]);
-        assertEquals(countries.get(expectedSize - 1).getLanguageTag(), actual[expectedSize - 1]);
-    }
-
-    private static class LanguageCountryComparator implements Comparator<LanguageCountry> {
-        @Override
-        public int compare(LanguageCountry lhs, LanguageCountry rhs) {
-            return new CompareToBuilder()
-                .append(lhs.getLanguageName(), rhs.getLanguageName())
-                .append(lhs.getLanguageTag(), rhs.getLanguageTag())
-                .toComparison();
+        assertEquals(languages.size(), actual.size());
+        for (Locale language : languages) {
+            String languageTag = LocaleUtils.toLanguageTag(language);
+            assertTrue(languageTag, actual.contains(languageTag));
         }
     }
+
 }

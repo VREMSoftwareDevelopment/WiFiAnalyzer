@@ -345,9 +345,9 @@ public class SettingsTest {
         // setup
         when(context.getResources()).thenReturn(resources);
         when(resources.getConfiguration()).thenReturn(configuration);
-        withConfigurationLocale(Locale.UK);
-        String defaultValue = LocaleUtils.toLanguageTag(Locale.UK);
-        Locale expected = Locale.US;
+        withConfigurationLocale(Locale.ENGLISH);
+        String defaultValue = LocaleUtils.toLanguageTag(Locale.ENGLISH);
+        Locale expected = Locale.FRENCH;
 
         when(repository.getString(R.string.language_key, defaultValue)).thenReturn(LocaleUtils.toLanguageTag(expected));
         // execute

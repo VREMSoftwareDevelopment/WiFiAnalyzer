@@ -62,54 +62,21 @@ public class LocaleUtilsTest {
     }
 
     @Test
-    public void testFindByLanguageCodesWithSingleCode() throws Exception {
-        // execute
-        List<Locale> actual = LocaleUtils.findByLanguageCodes(Locale.ENGLISH.getLanguage());
-        // validate
-        assertTrue(actual.size() >= 2);
-        assertEquals(Locale.ENGLISH.getLanguage(), actual.get(0).getLanguage());
-        assertEquals(Locale.ENGLISH.getLanguage(), actual.get(actual.size() - 1).getLanguage());
-    }
-
-    @Test
-    public void testFindByLanguageCodesWithMultipleCodes() throws Exception {
-        // setup
-        int expectedSize = LocaleUtils.findByLanguageCodes(Locale.ENGLISH.getLanguage()).size()
-            + LocaleUtils.findByLanguageCodes(Locale.FRENCH.getLanguage()).size();
-        // execute
-        List<Locale> actual = LocaleUtils.findByLanguageCodes(Locale.ENGLISH.getLanguage(), Locale.FRENCH.getLanguage());
-        // validate
-        assertEquals(expectedSize, actual.size());
-    }
-
-    @Test
     public void testToLanguageTag() throws Exception {
-        // setup
-        String expected = Locale.US.getLanguage() + "_" + Locale.US.getCountry();
-        // execute
-        String actual = LocaleUtils.toLanguageTag(Locale.US);
-        // validate
-        assertEquals(expected, actual);
+        assertEquals(Locale.US.getLanguage() + "_" + Locale.US.getCountry(), LocaleUtils.toLanguageTag(Locale.US));
+        assertEquals(Locale.ENGLISH.getLanguage() + "_", LocaleUtils.toLanguageTag(Locale.ENGLISH));
     }
 
     @Test
     public void testFindByLanguageTagWithUnknownTag() throws Exception {
-        // execute
-        Locale actual = LocaleUtils.findByLanguageTag("WW");
-        // validate
-        assertEquals(Locale.getDefault(), actual);
+        assertEquals(Locale.getDefault(), LocaleUtils.findByLanguageTag("WW"));
     }
 
     @Test
     public void testFindByLanguageTag() throws Exception {
-        validateFindByLanguageTag(Locale.SIMPLIFIED_CHINESE);
-        validateFindByLanguageTag(Locale.TRADITIONAL_CHINESE);
-        validateFindByLanguageTag(Locale.CANADA_FRENCH);
-        validateFindByLanguageTag(Locale.CANADA);
-    }
-
-    private void validateFindByLanguageTag(Locale expected) {
-        assertEquals(expected, LocaleUtils.findByLanguageTag(LocaleUtils.toLanguageTag(expected)));
+        assertEquals(Locale.SIMPLIFIED_CHINESE, LocaleUtils.findByLanguageTag(LocaleUtils.toLanguageTag(Locale.SIMPLIFIED_CHINESE)));
+        assertEquals(Locale.TRADITIONAL_CHINESE, LocaleUtils.findByLanguageTag(LocaleUtils.toLanguageTag(Locale.TRADITIONAL_CHINESE)));
+        assertEquals(Locale.ENGLISH, LocaleUtils.findByLanguageTag(LocaleUtils.toLanguageTag(Locale.ENGLISH)));
     }
 
 }
