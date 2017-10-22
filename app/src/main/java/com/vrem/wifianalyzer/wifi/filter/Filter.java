@@ -24,7 +24,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
@@ -42,10 +41,10 @@ public class Filter {
     }
 
     private static AlertDialog buildAlertDialog() {
-        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
-        View view = mainActivity.getLayoutInflater().inflate(R.layout.filter_popup, null);
+        MainContext mainContext = MainContext.INSTANCE;
+        View view = mainContext.getLayoutInflater().inflate(R.layout.filter_popup, null);
         return new AlertDialog
-            .Builder(mainActivity)
+            .Builder(mainContext.getContext())
             .setView(view)
             .setTitle(R.string.filter_title)
             .setIcon(R.drawable.ic_filter_list_grey_500_48dp)

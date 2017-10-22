@@ -27,7 +27,6 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.TitleLineGraphSeries;
 import com.vrem.wifianalyzer.Configuration;
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -92,9 +91,9 @@ class ChannelGraphView implements GraphViewNotifier, GraphConstants {
         return Math.min(NUM_X_CHANNEL, channelLast - channelFirst + 1);
     }
 
-    private GraphView makeGraphView(@NonNull MainActivity mainActivity, int graphMaximumY) {
-        Resources resources = mainActivity.getResources();
-        return new GraphViewBuilder(mainActivity, getNumX(), graphMaximumY)
+    private GraphView makeGraphView(@NonNull MainContext mainContext, int graphMaximumY) {
+        Resources resources = mainContext.getResources();
+        return new GraphViewBuilder(mainContext.getContext(), getNumX(), graphMaximumY)
             .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair))
             .setVerticalTitle(resources.getString(R.string.graph_axis_y))
             .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
@@ -103,10 +102,9 @@ class ChannelGraphView implements GraphViewNotifier, GraphConstants {
 
     private GraphViewWrapper makeGraphViewWrapper() {
         MainContext mainContext = MainContext.INSTANCE;
-        MainActivity mainActivity = mainContext.getMainActivity();
         Settings settings = mainContext.getSettings();
         Configuration configuration = mainContext.getConfiguration();
-        GraphView graphView = makeGraphView(mainActivity, settings.getGraphMaximumY());
+        GraphView graphView = makeGraphView(mainContext, settings.getGraphMaximumY());
         graphViewWrapper = new GraphViewWrapper(graphView, settings.getChannelGraphLegend());
         configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
         int minX = wiFiChannelPair.first.getFrequency() - WiFiChannels.FREQUENCY_OFFSET;

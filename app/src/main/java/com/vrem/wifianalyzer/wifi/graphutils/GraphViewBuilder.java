@@ -29,7 +29,7 @@ import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
 
 public class GraphViewBuilder implements GraphConstants {
-    private final Context content;
+    private final Context context;
     private final int numHorizontalLabels;
     private final int maximumY;
     private final LayoutParams layoutParams;
@@ -38,8 +38,8 @@ public class GraphViewBuilder implements GraphConstants {
     private String horizontalTitle;
     private boolean horizontalLabelsVisible = true;
 
-    public GraphViewBuilder(@NonNull Context content, int numHorizontalLabels, int maximumY) {
-        this.content = content;
+    public GraphViewBuilder(@NonNull Context context, int numHorizontalLabels, int maximumY) {
+        this.context = context;
         this.numHorizontalLabels = numHorizontalLabels;
         this.maximumY = (maximumY > MAX_Y || maximumY < MIN_Y_HALF) ? MAX_Y_DEFAULT : maximumY;
         this.layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -67,7 +67,7 @@ public class GraphViewBuilder implements GraphConstants {
     }
 
     public GraphView build() {
-        GraphView graphView = new GraphView(content);
+        GraphView graphView = new GraphView(context);
         setGraphView(graphView);
         setGridLabelRenderer(graphView);
         setViewPortY(graphView);

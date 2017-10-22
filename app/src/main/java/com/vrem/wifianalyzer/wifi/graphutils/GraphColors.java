@@ -41,7 +41,7 @@ class GraphColors {
 
     private List<GraphColor> getAvailableGraphColors() {
         if (availableGraphColors.isEmpty()) {
-            Resources resources = MainContext.INSTANCE.getMainActivity().getResources();
+            Resources resources = MainContext.INSTANCE.getResources();
             String[] colorsAsStrings = resources.getStringArray(R.array.graph_colors);
             for (int i = 0; i < colorsAsStrings.length; i += 2) {
                 GraphColor graphColor = new GraphColor(Long.parseLong(colorsAsStrings[i].substring(1), 16), Long.parseLong(colorsAsStrings[i + 1].substring(1), 16));

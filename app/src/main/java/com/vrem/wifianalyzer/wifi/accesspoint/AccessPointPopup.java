@@ -31,7 +31,7 @@ public class AccessPointPopup {
 
     public Dialog show(@NonNull View view) {
         try {
-            Dialog dialog = new Dialog(MainContext.INSTANCE.getMainActivity());
+            Dialog dialog = new Dialog(MainContext.INSTANCE.getContext());
             dialog.setContentView(view);
             dialog.findViewById(R.id.popupButtonClose).setOnClickListener(new PopupDialogCloseListener(dialog));
             dialog.show();

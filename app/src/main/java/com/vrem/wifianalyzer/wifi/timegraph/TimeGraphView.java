@@ -24,7 +24,6 @@ import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.Configuration;
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -85,9 +84,9 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
         this.dataManager = dataManager;
     }
 
-    private GraphView makeGraphView(@NonNull MainActivity mainActivity, int graphMaximumY) {
-        Resources resources = mainActivity.getResources();
-        return new GraphViewBuilder(mainActivity, getNumX(), graphMaximumY)
+    private GraphView makeGraphView(@NonNull MainContext mainContext, int graphMaximumY) {
+        Resources resources = mainContext.getResources();
+        return new GraphViewBuilder(mainContext.getContext(), getNumX(), graphMaximumY)
             .setLabelFormatter(new TimeAxisLabel())
             .setVerticalTitle(resources.getString(R.string.graph_axis_y))
             .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
@@ -97,10 +96,9 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
 
     private GraphViewWrapper makeGraphViewWrapper() {
         MainContext mainContext = MainContext.INSTANCE;
-        MainActivity mainActivity = mainContext.getMainActivity();
         Settings settings = mainContext.getSettings();
         Configuration configuration = mainContext.getConfiguration();
-        GraphView graphView = makeGraphView(mainActivity, settings.getGraphMaximumY());
+        GraphView graphView = makeGraphView(mainContext, settings.getGraphMaximumY());
         graphViewWrapper = new GraphViewWrapper(graphView, settings.getTimeGraphLegend());
         configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
         graphViewWrapper.setViewport();

@@ -97,7 +97,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            LayoutInflater layoutInflater = MainContext.INSTANCE.getMainActivity().getLayoutInflater();
+            LayoutInflater layoutInflater = MainContext.INSTANCE.getLayoutInflater();
             view = layoutInflater.inflate(R.layout.channel_rating_details, parent, false);
         }
 

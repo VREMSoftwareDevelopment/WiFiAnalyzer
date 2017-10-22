@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi.graphutils;
 
+import android.content.Context;
 import android.content.res.Resources;
 
 import com.vrem.wifianalyzer.MainActivity;
@@ -45,13 +46,16 @@ public class GraphColorsTest {
 
     @Mock
     private Resources resources;
+    @Mock
+    private Context context;
 
     private GraphColors fixture;
 
     @Before
     public void setUp() {
         MainActivity mainActivity = MainContextHelper.INSTANCE.getMainActivity();
-        when(mainActivity.getResources()).thenReturn(resources);
+        when(mainActivity.getApplicationContext()).thenReturn(context);
+        when(context.getResources()).thenReturn(resources);
         when(resources.getStringArray(R.array.graph_colors)).thenReturn(colors);
 
         fixture = new GraphColors();

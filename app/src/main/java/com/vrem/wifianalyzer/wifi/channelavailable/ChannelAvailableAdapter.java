@@ -49,7 +49,7 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
         MainContext mainContext = MainContext.INSTANCE;
         View view = convertView;
         if (view == null) {
-            LayoutInflater layoutInflater = mainContext.getMainActivity().getLayoutInflater();
+            LayoutInflater layoutInflater = mainContext.getLayoutInflater();
             view = layoutInflater.inflate(R.layout.channel_available_details, parent, false);
         }
 
