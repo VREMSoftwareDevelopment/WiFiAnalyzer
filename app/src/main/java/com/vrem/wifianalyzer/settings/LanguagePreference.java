@@ -27,6 +27,7 @@ import com.vrem.util.LocaleUtils;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Transformer;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,7 +54,7 @@ public class LanguagePreference extends CustomPreference {
     private static class ToData implements Transformer<Locale, Data> {
         @Override
         public Data transform(Locale input) {
-            return new Data(LocaleUtils.toLanguageTag(input), input.getDisplayName(input));
+            return new Data(LocaleUtils.toLanguageTag(input), StringUtils.capitalize(input.getDisplayName(input)));
         }
     }
 }

@@ -23,6 +23,7 @@ import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -68,7 +69,7 @@ public class LanguagePreferenceTest {
         // validate
         assertEquals(languages.size(), actual.size());
         for (Locale language : languages) {
-            String getDisplayName = language.getDisplayName(language);
+            String getDisplayName = StringUtils.capitalize(language.getDisplayName(language));
             assertTrue(getDisplayName, actual.contains(getDisplayName));
         }
     }
