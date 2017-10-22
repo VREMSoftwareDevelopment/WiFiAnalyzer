@@ -18,6 +18,7 @@
 
 package com.vrem.util;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.List;
@@ -69,7 +70,9 @@ public class LocaleUtilsTest {
 
     @Test
     public void testFindByLanguageTagWithUnknownTag() throws Exception {
+        assertEquals(Locale.getDefault(), LocaleUtils.findByLanguageTag(StringUtils.EMPTY));
         assertEquals(Locale.getDefault(), LocaleUtils.findByLanguageTag("WW"));
+        assertEquals(Locale.getDefault(), LocaleUtils.findByLanguageTag("WW_HH_TT"));
     }
 
     @Test

@@ -66,7 +66,7 @@ public class LocaleUtils {
     }
 
     private static Locale fromLanguageTag(@NonNull String languageTag) {
-        String[] codes = languageTag.split("_");
+        String[] codes = languageTag.split(SEPARATOR);
         if (codes.length == 1) {
             return new Locale(codes[0]);
         }
