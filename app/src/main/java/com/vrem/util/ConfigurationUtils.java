@@ -18,8 +18,8 @@
 
 package com.vrem.util;
 
+import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -28,46 +28,32 @@ import android.support.annotation.NonNull;
 import java.util.Locale;
 
 public class ConfigurationUtils {
-    @NonNull
-    public static String getDefaultCountryCode(@NonNull Context context) {
-        return getDefault(context).getCountry();
-    }
 
-    @NonNull
-    public static String getDefaultLanguageTag(@NonNull Context context) {
-        return LocaleUtils.toLanguageTag(getDefault(context));
-    }
-
-    @SuppressWarnings("deprecation")
     @NonNull
     public static Context createContext(@NonNull Context context, @NonNull Locale newLocale) {
-        Resources resources = context.getResources();
-        Configuration configuration = resources.getConfiguration();
-
-        Context nextContext = context;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            configuration.setLocale(newLocale);
-            nextContext = context.createConfigurationContext(configuration);
-        } else {
-            configuration.locale = newLocale;
-            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
-        }
-        return new ContextWrapper(nextContext);
+        return
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                ? createContextNougat(context, newLocale)
+                : createContextLegacy(context, newLocale);
     }
 
+    @TargetApi(Build.VERSION_CODES.N)
     @NonNull
-    private static Locale getDefault(@NonNull Context context) {
+    private static Context createContextNougat(@NonNull Context context, @NonNull Locale newLocale) {
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();
-        return getConfigLocale(configuration);
+        configuration.setLocale(newLocale);
+        return context.createConfigurationContext(configuration);
     }
 
     @SuppressWarnings("deprecation")
     @NonNull
-    static Locale getConfigLocale(@NonNull Configuration config) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return config.getLocales().get(0);
-        }
-        return config.locale;
+    private static Context createContextLegacy(@NonNull Context context, @NonNull Locale newLocale) {
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.locale = newLocale;
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+        return context;
     }
+
 }

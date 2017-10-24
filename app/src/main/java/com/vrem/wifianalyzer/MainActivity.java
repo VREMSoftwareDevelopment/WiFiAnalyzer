@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        Locale newLocale = new Settings(newBase, new Repository(newBase)).getLanguageLocale();
+        Locale newLocale = new Settings(new Repository(newBase)).getLanguageLocale();
         Context context = ConfigurationUtils.createContext(newBase, newLocale);
         super.attachBaseContext(context);
     }

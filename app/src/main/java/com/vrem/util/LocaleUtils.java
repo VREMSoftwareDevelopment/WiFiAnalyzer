@@ -28,6 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -36,29 +37,39 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class LocaleUtils {
-    private static final Locale SPANISH = new Locale("es");
-    private static final Locale PORTUGUESE = new Locale("pt");
-    private static final Locale RUSSIAN = new Locale("ru");
-    public static final List<Locale> SUPPORTED_LOCALES = Arrays.asList(
-        Locale.GERMAN, Locale.ENGLISH, SPANISH, Locale.FRENCH, Locale.ITALIAN, PORTUGUESE, RUSSIAN,
-        Locale.SIMPLIFIED_CHINESE, Locale.TRADITIONAL_CHINESE);
+    static final Locale SPANISH = new Locale("es");
+    static final Locale PORTUGUESE = new Locale("pt");
+    static final Locale RUSSIAN = new Locale("ru");
+
     private static final String SEPARATOR = "_";
 
     public static Locale findByCountryCode(@NonNull String countryCode) {
         return find(SyncAvoid.AVAILABLE_LOCALES, new CountryCodePredicate(countryCode));
     }
 
-    public static Locale findByLanguageTag(@NonNull String languageTag) {
-        return find(SUPPORTED_LOCALES, new LanguageTagPredicate(fromLanguageTag(languageTag)));
-    }
-
     public static List<Locale> getAllCountries() {
         return new ArrayList<>(SyncAvoid.COUNTRIES_LOCALES.values());
     }
 
+    public static Locale findByLanguageTag(@NonNull String languageTag) {
+        return find(SyncAvoid.SUPPORTED_LOCALES, new LanguageTagPredicate(fromLanguageTag(languageTag)));
+    }
+
+    public static List<Locale> getSupportedLanguages() {
+        return SyncAvoid.SUPPORTED_LOCALES;
+    }
+
+    public static String getDefaultCountryCode() {
+        return SyncAvoid.DEFAULT.getCountry();
+    }
+
+    public static String getDefaultLanguageTag() {
+        return LocaleUtils.toLanguageTag(SyncAvoid.DEFAULT);
+    }
+
     private static Locale find(List<Locale> locales, Predicate<Locale> predicate) {
         Locale result = IterableUtils.find(locales, predicate);
-        return result == null ? Locale.getDefault() : result;
+        return result == null ? SyncAvoid.DEFAULT : result;
     }
 
     public static String toLanguageTag(@NonNull Locale locale) {
@@ -73,7 +84,7 @@ public class LocaleUtils {
         if (codes.length == 2) {
             return new Locale(codes[0], StringUtils.capitalize(codes[1]));
         }
-        return Locale.getDefault();
+        return SyncAvoid.DEFAULT;
     }
 
     private static class CountryCodePredicate implements Predicate<Locale> {
@@ -116,8 +127,10 @@ public class LocaleUtils {
     }
 
     private static class SyncAvoid {
+        private static final Locale DEFAULT = Locale.getDefault();
         private static final SortedMap<String, Locale> COUNTRIES_LOCALES;
         private static final List<Locale> AVAILABLE_LOCALES;
+        private static final List<Locale> SUPPORTED_LOCALES;
 
         static {
             Set<String> countryCodes = new TreeSet<>(Arrays.asList(Locale.getISOCountries()));
@@ -125,6 +138,9 @@ public class LocaleUtils {
             AVAILABLE_LOCALES = new ArrayList<>(CollectionUtils.select(availableLocales, new CountriesPredicate(countryCodes)));
             COUNTRIES_LOCALES = new TreeMap<>();
             IterableUtils.forEach(AVAILABLE_LOCALES, new CountryClosure());
+            SUPPORTED_LOCALES = new ArrayList<>(new HashSet<>(Arrays.asList(
+                Locale.GERMAN, Locale.ENGLISH, SPANISH, Locale.FRENCH, Locale.ITALIAN, PORTUGUESE, RUSSIAN,
+                Locale.SIMPLIFIED_CHINESE, Locale.TRADITIONAL_CHINESE, DEFAULT)));
         }
 
         private static class CountryClosure implements Closure<Locale> {

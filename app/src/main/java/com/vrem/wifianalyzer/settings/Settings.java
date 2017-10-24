@@ -18,10 +18,8 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.vrem.util.ConfigurationUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.util.LocaleUtils;
 import com.vrem.wifianalyzer.R;
@@ -45,11 +43,9 @@ public class Settings {
     static final int GRAPH_Y_MULTIPLIER = -10;
     static final int GRAPH_Y_DEFAULT = 2;
 
-    private final Context context;
     private final Repository repository;
 
-    public Settings(@NonNull Context context, @NonNull Repository repository) {
-        this.context = context;
+    public Settings(@NonNull Repository repository) {
         this.repository = repository;
     }
 
@@ -76,12 +72,12 @@ public class Settings {
     }
 
     public String getCountryCode() {
-        String countryCode = ConfigurationUtils.getDefaultCountryCode(context);
+        String countryCode = LocaleUtils.getDefaultCountryCode();
         return repository.getString(R.string.country_code_key, countryCode);
     }
 
     public Locale getLanguageLocale() {
-        String defaultLanguageTag = ConfigurationUtils.getDefaultLanguageTag(context);
+        String defaultLanguageTag = LocaleUtils.getDefaultLanguageTag();
         String languageTag = repository.getString(R.string.language_key, defaultLanguageTag);
         return LocaleUtils.findByLanguageTag(languageTag);
     }

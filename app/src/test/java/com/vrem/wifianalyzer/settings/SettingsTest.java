@@ -18,12 +18,7 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import android.content.Context;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
-import android.os.LocaleList;
 
 import com.vrem.util.EnumUtils;
 import com.vrem.util.LocaleUtils;
@@ -60,19 +55,13 @@ public class SettingsTest {
     @Mock
     private Repository repository;
     @Mock
-    private Context context;
-    @Mock
-    private Resources resources;
-    @Mock
-    private Configuration configuration;
-    @Mock
     private OnSharedPreferenceChangeListener onSharedPreferenceChangeListener;
 
     private Settings fixture;
 
     @Before
     public void setUp() {
-        fixture = new Settings(context, repository);
+        fixture = new Settings(repository);
     }
 
     @Test
@@ -322,43 +311,27 @@ public class SettingsTest {
     @Test
     public void testGetCountryCode() throws Exception {
         // setup
-        when(context.getResources()).thenReturn(resources);
-        when(resources.getConfiguration()).thenReturn(configuration);
-        withConfigurationLocale(Locale.UK);
-        String defaultValue = Locale.UK.getCountry();
-        String expected = Locale.US.getCountry();
-
+        String defaultValue = LocaleUtils.getDefaultCountryCode();
+        String expected = "WW";
         when(repository.getString(R.string.country_code_key, defaultValue)).thenReturn(expected);
         // execute
         String actual = fixture.getCountryCode();
         // validate
         assertEquals(expected, actual);
-
         verify(repository).getString(R.string.country_code_key, defaultValue);
-        verify(context).getResources();
-        verify(resources).getConfiguration();
-        verifyConfigurationLocale();
     }
 
     @Test
     public void testGetLanguageLocale() throws Exception {
         // setup
-        when(context.getResources()).thenReturn(resources);
-        when(resources.getConfiguration()).thenReturn(configuration);
-        withConfigurationLocale(Locale.ENGLISH);
-        String defaultValue = LocaleUtils.toLanguageTag(Locale.ENGLISH);
+        String defaultValue = LocaleUtils.getDefaultLanguageTag();
         Locale expected = Locale.FRENCH;
-
         when(repository.getString(R.string.language_key, defaultValue)).thenReturn(LocaleUtils.toLanguageTag(expected));
         // execute
         Locale actual = fixture.getLanguageLocale();
         // validate
         assertEquals(expected, actual);
-
         verify(repository).getString(R.string.language_key, defaultValue);
-        verify(context).getResources();
-        verify(resources).getConfiguration();
-        verifyConfigurationLocale();
     }
 
     @Test
@@ -386,21 +359,6 @@ public class SettingsTest {
 
     public boolean isWiFiOffOnExit() {
         return repository.getBoolean(R.string.wifi_off_on_exit_key, repository.getResourceBoolean(R.bool.wifi_off_on_exit_default));
-    }
-
-    @SuppressWarnings("deprecation")
-    private void withConfigurationLocale(Locale locale) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            when(configuration.getLocales()).thenReturn(new LocaleList(locale));
-        } else {
-            configuration.locale = locale;
-        }
-    }
-
-    private void verifyConfigurationLocale() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            verify(configuration).getLocales();
-        }
     }
 
 }

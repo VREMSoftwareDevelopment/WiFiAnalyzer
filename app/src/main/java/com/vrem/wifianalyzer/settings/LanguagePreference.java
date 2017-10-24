@@ -22,7 +22,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
-import com.vrem.util.ConfigurationUtils;
 import com.vrem.util.LocaleUtils;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -31,22 +30,18 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 public class LanguagePreference extends CustomPreference {
 
     public LanguagePreference(@NonNull Context context, AttributeSet attrs) {
-        super(context, attrs, getData(), ConfigurationUtils.getDefaultLanguageTag(context));
+        super(context, attrs, getData(), LocaleUtils.getDefaultLanguageTag());
     }
 
     @NonNull
     private static List<Data> getData() {
-        Set<Locale> locales = new HashSet<>(LocaleUtils.SUPPORTED_LOCALES);
-        locales.add(Locale.getDefault());
-        List<Data> results = new ArrayList<>(CollectionUtils.collect(locales, new ToData()));
+        List<Data> results = new ArrayList<>(CollectionUtils.collect(LocaleUtils.getSupportedLanguages(), new ToData()));
         Collections.sort(results);
         return results;
     }

@@ -105,7 +105,7 @@ public enum MainContext {
         Context applicationContext = mainActivity.getApplicationContext();
         WifiManager wifiManager = (WifiManager) applicationContext.getSystemService(Context.WIFI_SERVICE);
         Handler handler = new Handler();
-        Settings settings = new Settings(applicationContext, new Repository(applicationContext));
+        Settings settings = new Settings(new Repository(applicationContext));
         Configuration configuration = new Configuration(largeScreen);
 
         setMainActivity(mainActivity);

@@ -31,7 +31,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -51,15 +50,7 @@ public class LanguagePreferenceTest {
         MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
         fixture = new LanguagePreference(mainActivity, Robolectric.buildAttributeSet().build());
 
-        withLanguages();
-    }
-
-    private void withLanguages() {
-        languages = new ArrayList<>(LocaleUtils.SUPPORTED_LOCALES);
-        Locale defaultLocale = Locale.getDefault();
-        if (!languages.contains(defaultLocale)) {
-            languages.add(defaultLocale);
-        }
+        languages = LocaleUtils.getSupportedLanguages();
     }
 
     @Test

@@ -18,52 +18,89 @@
 
 package com.vrem.util;
 
-import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.RobolectricUtil;
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
+import android.util.DisplayMetrics;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ConfigurationUtilsTest {
 
-    private MainActivity mainActivity;
-    private Locale defaultLocale;
+    @Mock
+    private Context context;
+    @Mock
+    private ContextWrapper contextWrapper;
+    @Mock
+    private Resources resources;
+    @Mock
+    private Configuration configuration;
+    @Mock
+    private DisplayMetrics displayMetrics;
+
+    private Locale newLocale;
 
     @Before
     public void setUp() {
-        mainActivity = RobolectricUtil.INSTANCE.getActivity();
-        defaultLocale = ConfigurationUtils.getConfigLocale(mainActivity.getResources().getConfiguration());
+        newLocale = Locale.US;
     }
 
     @Test
-    public void testGetDefaultCountryCode() throws Exception {
-        // setup
-        String expected = defaultLocale.getCountry();
-        // execute
-        String actual = ConfigurationUtils.getDefaultCountryCode(mainActivity);
-        // validate
-        assertEquals(expected, actual);
+    public void testCreateContext() throws Exception {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            validateCreateContextWithNougat();
+        } else {
+            validateCreateContextWithLegacy();
+        }
     }
 
+    @TargetApi(Build.VERSION_CODES.N)
+    public void validateCreateContextWithNougat() throws Exception {
+        // setup
+        when(context.getResources()).thenReturn(resources);
+        when(resources.getConfiguration()).thenReturn(configuration);
+        when(context.createConfigurationContext(configuration)).thenReturn(contextWrapper);
+        // execute
+        Context actual = ConfigurationUtils.createContext(context, newLocale);
+        // validate
+        assertEquals(contextWrapper, actual);
+        assertEquals(context, ((ContextWrapper) actual).getBaseContext());
+        verify(configuration).setLocale(newLocale);
+        verify(context).createConfigurationContext(configuration);
+        verify(context).getResources();
+        verify(resources).getConfiguration();
+    }
+
+    @SuppressWarnings("deprecation")
     @Test
-    public void testGetDefaultLanguageTag() throws Exception {
+    public void validateCreateContextWithLegacy() throws Exception {
         // setup
-        String expected = LocaleUtils.toLanguageTag(defaultLocale);
+        when(context.getResources()).thenReturn(resources);
+        when(resources.getConfiguration()).thenReturn(configuration);
+        when(resources.getDisplayMetrics()).thenReturn(displayMetrics);
         // execute
-        String actual = ConfigurationUtils.getDefaultLanguageTag(mainActivity);
+        Context actual = ConfigurationUtils.createContext(context, newLocale);
         // validate
-        assertEquals(expected, actual);
+        assertEquals(context, actual);
+        assertEquals(newLocale, configuration.locale);
+        verify(resources).getDisplayMetrics();
+        verify(resources).updateConfiguration(configuration, displayMetrics);
+        verify(context).getResources();
+        verify(resources).getConfiguration();
     }
-
 
 }
