@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.vendor.model;
 
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
@@ -26,14 +25,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class VendorDBTest {
     private static final String VENDOR_NAME = "CISCO SYSTEMS INC";
     private static final String MAC_ADDRESS = "0023AB";

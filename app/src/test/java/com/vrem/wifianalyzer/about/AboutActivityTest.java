@@ -36,7 +36,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -48,7 +47,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class AboutActivityTest {
 
     private AboutActivity fixture;
@@ -111,7 +109,7 @@ public class AboutActivityTest {
         when(configuration.isLargeScreen()).thenReturn(false);
         fixture = Robolectric.setupActivity(AboutActivity.class);
         // execute
-        TextView actual = (TextView) fixture.findViewById(R.id.about_version_info);
+        TextView actual = fixture.findViewById(R.id.about_version_info);
         // validate
         assertNotNull(actual);
         assertEquals(expected, actual.getText());
@@ -126,7 +124,7 @@ public class AboutActivityTest {
         when(configuration.isLargeScreen()).thenReturn(true);
         fixture = Robolectric.setupActivity(AboutActivity.class);
         // execute
-        TextView actual = (TextView) fixture.findViewById(R.id.about_version_info);
+        TextView actual = fixture.findViewById(R.id.about_version_info);
         // validate
         assertNotNull(actual);
         assertEquals(expected, actual.getText());
@@ -137,7 +135,7 @@ public class AboutActivityTest {
         // setup
         fixture = Robolectric.setupActivity(AboutActivity.class);
         // execute
-        TextView actual = (TextView) fixture.findViewById(R.id.about_package_name);
+        TextView actual = fixture.findViewById(R.id.about_package_name);
         // validate
         assertNotNull(actual);
         assertEquals(BuildConfig.APPLICATION_ID, actual.getText());
@@ -149,7 +147,7 @@ public class AboutActivityTest {
         fixture = Robolectric.setupActivity(AboutActivity.class);
         String expectedName = fixture.getString(R.string.about_application_name);
         // execute
-        TextView actual = (TextView) fixture.findViewById(R.id.about_application_name);
+        TextView actual = fixture.findViewById(R.id.about_application_name);
         // validate
         assertNotNull(actual);
         assertEquals(expectedName, actual.getText());
