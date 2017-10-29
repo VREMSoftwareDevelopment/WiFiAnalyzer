@@ -75,7 +75,7 @@
     <string name="about_license_title">Lizenz:</string>
     <string name="about_license_name">Lizenziert unter der GPLv3</string>
     <string name="about_description_title">Beschreibung:</string>
-    <string name="about_description_text">Verbessere dein WLAN Netzwerk, indem du den Zustand und die Stärke des Signals misst und überlastete Kanäle mit einem freien WiFiAnalyzer für Android erkennst.</string>
+    <string name="about_description_text">Optimiere Dein WLAN Netzwerk mit dem Open-Source WiFiAnalyzer für Android. Zeigt SSID, BSSID, Signalstärke, Verschlüsselung, Kanalbelegung aller WLAN Netze in Reichweite und hilft überlastete Kanäle zu erkennen.</string>
     <string name="about_libraries_title">Benutzte Bibliotheken:</string>
     <string name="about_contributor_title">Beitragende:</string>
     <string name="about_write_review">Rezension schreiben</string>
