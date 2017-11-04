@@ -25,6 +25,7 @@ import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
@@ -103,6 +104,7 @@ public class ChannelGraphViewTest {
         verify(settings, times(2)).getChannelGraphLegend();
         verify(settings, times(2)).getWiFiBand();
         verify(settings, times(2)).getGraphMaximumY();
+        verify(settings).getThemeStyle();
     }
 
     private void withSettings() {
@@ -110,6 +112,7 @@ public class ChannelGraphViewTest {
         when(settings.getSortBy()).thenReturn(SortBy.CHANNEL);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ2);
         when(settings.getGraphMaximumY()).thenReturn(GraphConstants.MAX_Y);
+        when(settings.getThemeStyle()).thenReturn(ThemeStyle.DARK);
     }
 
     @Test

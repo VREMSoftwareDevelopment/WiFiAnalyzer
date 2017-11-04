@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.wifi.graphutils;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -27,21 +28,24 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
+import com.vrem.wifianalyzer.settings.ThemeStyle;
 
 public class GraphViewBuilder implements GraphConstants {
     private final Context context;
     private final int numHorizontalLabels;
     private final int maximumY;
+    private final ThemeStyle themeStyle;
     private final LayoutParams layoutParams;
     private LabelFormatter labelFormatter;
     private String verticalTitle;
     private String horizontalTitle;
     private boolean horizontalLabelsVisible = true;
 
-    public GraphViewBuilder(@NonNull Context context, int numHorizontalLabels, int maximumY) {
+    public GraphViewBuilder(@NonNull Context context, int numHorizontalLabels, int maximumY, ThemeStyle themeStyle) {
         this.context = context;
         this.numHorizontalLabels = numHorizontalLabels;
         this.maximumY = (maximumY > MAX_Y || maximumY < MIN_Y_HALF) ? MAX_Y_DEFAULT : maximumY;
+        this.themeStyle = themeStyle;
         this.layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         this.horizontalLabelsVisible = true;
     }
@@ -101,6 +105,7 @@ public class GraphViewBuilder implements GraphConstants {
         gridLabelRenderer.setVerticalLabelsVisible(true);
         gridLabelRenderer.setHorizontalLabelsVisible(horizontalLabelsVisible);
         gridLabelRenderer.setTextSize(gridLabelRenderer.getTextSize() * TEXT_SIZE_ADJUSTMENT);
+
         gridLabelRenderer.reloadStyles();
         if (labelFormatter != null) {
             gridLabelRenderer.setLabelFormatter(labelFormatter);
@@ -112,6 +117,18 @@ public class GraphViewBuilder implements GraphConstants {
         if (horizontalTitle != null) {
             gridLabelRenderer.setHorizontalAxisTitle(horizontalTitle);
             gridLabelRenderer.setHorizontalAxisTitleTextSize(gridLabelRenderer.getHorizontalAxisTitleTextSize() * AXIS_TEXT_SIZE_ADJUSTMENT);
+        }
+
+        setGridLabelRenderColors(gridLabelRenderer);
+    }
+
+    private void setGridLabelRenderColors(GridLabelRenderer gridLabelRenderer) {
+        if (ThemeStyle.LIGHT.equals(themeStyle)) {
+            gridLabelRenderer.setGridColor(Color.GRAY);
+            gridLabelRenderer.setVerticalLabelsColor(Color.BLACK);
+            gridLabelRenderer.setVerticalAxisTitleColor(Color.BLACK);
+            gridLabelRenderer.setHorizontalLabelsColor(Color.BLACK);
+            gridLabelRenderer.setHorizontalAxisTitleColor(Color.BLACK);
         }
     }
 

@@ -91,9 +91,9 @@ class ChannelGraphView implements GraphViewNotifier, GraphConstants {
         return Math.min(NUM_X_CHANNEL, channelLast - channelFirst + 1);
     }
 
-    private GraphView makeGraphView(@NonNull MainContext mainContext, int graphMaximumY) {
+    private GraphView makeGraphView(@NonNull MainContext mainContext, @NonNull Settings settings) {
         Resources resources = mainContext.getResources();
-        return new GraphViewBuilder(mainContext.getContext(), getNumX(), graphMaximumY)
+        return new GraphViewBuilder(mainContext.getContext(), getNumX(), settings.getGraphMaximumY(), settings.getThemeStyle())
             .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair))
             .setVerticalTitle(resources.getString(R.string.graph_axis_y))
             .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
@@ -104,7 +104,7 @@ class ChannelGraphView implements GraphViewNotifier, GraphConstants {
         MainContext mainContext = MainContext.INSTANCE;
         Settings settings = mainContext.getSettings();
         Configuration configuration = mainContext.getConfiguration();
-        GraphView graphView = makeGraphView(mainContext, settings.getGraphMaximumY());
+        GraphView graphView = makeGraphView(mainContext, settings);
         graphViewWrapper = new GraphViewWrapper(graphView, settings.getChannelGraphLegend());
         configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
         int minX = wiFiChannelPair.first.getFrequency() - WiFiChannels.FREQUENCY_OFFSET;

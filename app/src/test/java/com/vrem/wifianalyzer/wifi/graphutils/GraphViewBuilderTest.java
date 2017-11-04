@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.wifi.graphutils;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -26,6 +27,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
+import com.vrem.wifianalyzer.settings.ThemeStyle;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,6 +36,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyFloat;
 import static org.mockito.Matchers.anyString;
@@ -60,7 +63,7 @@ public class GraphViewBuilderTest {
 
     @Before
     public void setUp() {
-        fixture = new GraphViewBuilder(content, NUM_HORIZONTAL_LABELS, GraphViewBuilder.MAX_Y_DEFAULT);
+        fixture = new GraphViewBuilder(content, NUM_HORIZONTAL_LABELS, GraphViewBuilder.MAX_Y_DEFAULT, ThemeStyle.DARK);
     }
 
     @Test
@@ -215,8 +218,36 @@ public class GraphViewBuilderTest {
     }
 
     private void validateMaximumY(Context content, int maximumY, int expected) {
-        fixture = new GraphViewBuilder(content, NUM_HORIZONTAL_LABELS, maximumY);
+        fixture = new GraphViewBuilder(content, NUM_HORIZONTAL_LABELS, maximumY, ThemeStyle.DARK);
         assertEquals(expected, fixture.getMaximumY());
     }
 
+    @Test
+    public void testSetGridLabelRenderColorsWithDarkTheme() throws Exception {
+        // setup
+        when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
+        // execute
+        fixture.setGridLabelRenderer(graphView);
+        // validate
+        verify(gridLabelRenderer, never()).setGridColor(anyInt());
+        verify(gridLabelRenderer, never()).setVerticalLabelsColor(anyInt());
+        verify(gridLabelRenderer, never()).setVerticalAxisTitleColor(anyInt());
+        verify(gridLabelRenderer, never()).setHorizontalLabelsColor(anyInt());
+        verify(gridLabelRenderer, never()).setHorizontalAxisTitleColor(anyInt());
+    }
+
+    @Test
+    public void testSetGridLabelRenderColorsWithLightTheme() throws Exception {
+        // setup
+        when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
+        fixture = new GraphViewBuilder(content, NUM_HORIZONTAL_LABELS, GraphViewBuilder.MAX_Y_DEFAULT, ThemeStyle.LIGHT);
+        // execute
+        fixture.setGridLabelRenderer(graphView);
+        // validate
+        verify(gridLabelRenderer).setGridColor(Color.GRAY);
+        verify(gridLabelRenderer).setVerticalLabelsColor(Color.BLACK);
+        verify(gridLabelRenderer).setVerticalAxisTitleColor(Color.BLACK);
+        verify(gridLabelRenderer).setHorizontalLabelsColor(Color.BLACK);
+        verify(gridLabelRenderer).setHorizontalAxisTitleColor(Color.BLACK);
+    }
 }

@@ -84,9 +84,9 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
         this.dataManager = dataManager;
     }
 
-    private GraphView makeGraphView(@NonNull MainContext mainContext, int graphMaximumY) {
+    private GraphView makeGraphView(@NonNull MainContext mainContext, Settings settings) {
         Resources resources = mainContext.getResources();
-        return new GraphViewBuilder(mainContext.getContext(), getNumX(), graphMaximumY)
+        return new GraphViewBuilder(mainContext.getContext(), getNumX(), settings.getGraphMaximumY(), settings.getThemeStyle())
             .setLabelFormatter(new TimeAxisLabel())
             .setVerticalTitle(resources.getString(R.string.graph_axis_y))
             .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
@@ -98,7 +98,7 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
         MainContext mainContext = MainContext.INSTANCE;
         Settings settings = mainContext.getSettings();
         Configuration configuration = mainContext.getConfiguration();
-        GraphView graphView = makeGraphView(mainContext, settings.getGraphMaximumY());
+        GraphView graphView = makeGraphView(mainContext, settings);
         graphViewWrapper = new GraphViewWrapper(graphView, settings.getTimeGraphLegend());
         configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
         graphViewWrapper.setViewport();

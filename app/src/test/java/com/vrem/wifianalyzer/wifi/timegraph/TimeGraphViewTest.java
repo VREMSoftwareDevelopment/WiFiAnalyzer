@@ -24,6 +24,7 @@ import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphLegend;
@@ -97,6 +98,7 @@ public class TimeGraphViewTest {
         verify(settings, times(2)).getTimeGraphLegend();
         verify(settings, times(2)).getWiFiBand();
         verify(settings, times(2)).getGraphMaximumY();
+        verify(settings).getThemeStyle();
     }
 
     private void withSettings() {
@@ -104,6 +106,7 @@ public class TimeGraphViewTest {
         when(settings.getTimeGraphLegend()).thenReturn(GraphLegend.LEFT);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ2);
         when(settings.getGraphMaximumY()).thenReturn(GraphConstants.MAX_Y);
+        when(settings.getThemeStyle()).thenReturn(ThemeStyle.DARK);
     }
 
     @Test
