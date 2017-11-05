@@ -64,8 +64,7 @@ public class SettingActivity extends PreferenceActivity {
     private void setCustomTheme() {
         Settings settings = MainContext.INSTANCE.getSettings();
         if (settings != null) {
-            ThemeStyle themeStyle = settings.getThemeStyle();
-            setTheme(themeStyle.themeDeviceDefaultStyle());
+            setTheme(settings.getThemeStyle().themeDeviceDefaultStyle());
         }
     }
 

@@ -40,7 +40,6 @@ import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.settings.ThemeStyle;
 
 import java.util.Locale;
 
@@ -65,7 +64,7 @@ public class AboutActivity extends AppCompatActivity {
 
         setContentView(R.layout.about_content);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         setExtraInformation();
@@ -81,8 +80,7 @@ public class AboutActivity extends AppCompatActivity {
     private void setCustomTheme() {
         Settings settings = MainContext.INSTANCE.getSettings();
         if (settings != null) {
-            ThemeStyle themeStyle = settings.getThemeStyle();
-            setTheme(themeStyle.themeAppCompatStyle());
+            setTheme(settings.getThemeStyle().themeAppCompatStyle());
         }
     }
 
@@ -103,7 +101,7 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void setText(int id, String text) {
-        TextView version = (TextView) findViewById(id);
+        TextView version = findViewById(id);
         if (version != null) {
             version.setText(text);
         }
