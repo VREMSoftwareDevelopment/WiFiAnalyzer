@@ -27,6 +27,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.collections4.Transformer;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -123,7 +124,10 @@ public class WiFiData {
     private class ConnectionPredicate implements Predicate<WiFiDetail> {
         @Override
         public boolean evaluate(WiFiDetail wiFiDetail) {
-            return wiFiConnection.equals(new WiFiConnection(wiFiDetail.getSSID(), wiFiDetail.getBSSID()));
+            return new EqualsBuilder()
+                .append(wiFiConnection.getSSID(), wiFiDetail.getSSID())
+                .append(wiFiConnection.getBSSID(), wiFiDetail.getBSSID())
+                .isEquals();
         }
     }
 
