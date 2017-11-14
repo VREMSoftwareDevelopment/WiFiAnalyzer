@@ -41,10 +41,9 @@ public class Filter {
     }
 
     private static AlertDialog buildAlertDialog() {
-        MainContext mainContext = MainContext.INSTANCE;
-        View view = mainContext.getLayoutInflater().inflate(R.layout.filter_popup, null);
+        View view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.filter_popup, null);
         return new AlertDialog
-            .Builder(mainContext.getContext())
+            .Builder(view.getContext())
             .setView(view)
             .setTitle(R.string.filter_title)
             .setIcon(R.drawable.ic_filter_list_grey_500_48dp)

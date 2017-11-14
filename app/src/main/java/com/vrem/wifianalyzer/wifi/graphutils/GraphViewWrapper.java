@@ -196,7 +196,7 @@ public class GraphViewWrapper implements GraphConstants {
         public void onTap(@NonNull Series series, @NonNull DataPointInterface dataPoint) {
             WiFiDetail wiFiDetail = seriesCache.find(series);
             if (wiFiDetail != null) {
-                View popupView = getAccessPointDetail().makeViewPopup(wiFiDetail);
+                View popupView = getAccessPointDetail().makeViewDetailed(wiFiDetail);
                 getAccessPointPopup().show(popupView);
             }
         }

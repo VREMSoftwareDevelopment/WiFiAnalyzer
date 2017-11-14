@@ -23,7 +23,6 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
@@ -31,7 +30,7 @@ public class AccessPointPopup {
 
     public Dialog show(@NonNull View view) {
         try {
-            Dialog dialog = new Dialog(MainContext.INSTANCE.getContext());
+            Dialog dialog = new Dialog(view.getContext());
             dialog.setContentView(view);
             dialog.findViewById(R.id.popupButtonClose).setOnClickListener(new PopupDialogCloseListener(dialog));
             dialog.show();
@@ -68,7 +67,7 @@ public class AccessPointPopup {
 
         @Override
         public void onClick(View view) {
-            show(new AccessPointDetail().makeViewPopup(wiFiDetail));
+            show(new AccessPointDetail().makeViewDetailed(wiFiDetail));
         }
     }
 

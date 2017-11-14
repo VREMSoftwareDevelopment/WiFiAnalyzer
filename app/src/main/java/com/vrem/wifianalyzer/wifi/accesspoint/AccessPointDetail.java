@@ -49,35 +49,33 @@ public class AccessPointDetail {
     }
 
     View makeView(View convertView, ViewGroup parent, @NonNull WiFiDetail wiFiDetail, boolean isChild, @NonNull AccessPointViewType accessPointViewType) {
-        MainContext mainContext = MainContext.INSTANCE;
         View view = convertView;
         if (view == null) {
-            LayoutInflater layoutInflater = mainContext.getLayoutInflater();
+            LayoutInflater layoutInflater = MainContext.INSTANCE.getLayoutInflater();
             view = layoutInflater.inflate(accessPointViewType.getLayout(), parent, false);
         }
-        Context context = mainContext.getContext();
-        setViewCompact(context, view, wiFiDetail, isChild);
+        setViewCompact(view, wiFiDetail, isChild);
         if (view.findViewById(R.id.capabilities) != null) {
-            setViewExtra(context, view, wiFiDetail);
+            setViewExtra(view, wiFiDetail);
             setViewVendorShort(view, wiFiDetail.getWiFiAdditional());
         }
 
         return view;
     }
 
-    public View makeViewPopup(@NonNull WiFiDetail wiFiDetail) {
-        MainContext mainContext = MainContext.INSTANCE;
-        View view = mainContext.getLayoutInflater().inflate(R.layout.access_point_view_popup, null);
+    public View makeViewDetailed(@NonNull WiFiDetail wiFiDetail) {
+        View view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.access_point_view_popup, null);
 
-        Context context = mainContext.getContext();
-        setViewCompact(context, view, wiFiDetail, false);
-        setViewExtra(context, view, wiFiDetail);
+        setViewCompact(view, wiFiDetail, false);
+        setViewExtra(view, wiFiDetail);
         setViewVendorLong(view, wiFiDetail.getWiFiAdditional());
 
         return view;
     }
 
-    private void setViewCompact(@NonNull Context context, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
+    private void setViewCompact(@NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
+        Context context = view.getContext();
+
         ((TextView) view.findViewById(R.id.ssid)).setText(wiFiDetail.getTitle());
 
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
@@ -107,7 +105,9 @@ public class AccessPointDetail {
         }
     }
 
-    private void setViewExtra(@NonNull Context context, @NonNull View view, @NonNull WiFiDetail wiFiDetail) {
+    private void setViewExtra(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {
+        Context context = view.getContext();
+
         ImageView configuredImage = view.findViewById(R.id.configuredImage);
         WiFiAdditional wiFiAdditional = wiFiDetail.getWiFiAdditional();
         if (wiFiAdditional.isConfiguredNetwork()) {

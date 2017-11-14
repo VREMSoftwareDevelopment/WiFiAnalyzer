@@ -271,7 +271,7 @@ public class AccessPointDetailTest {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        View actual = fixture.makeViewPopup(wiFiDetail);
+        View actual = fixture.makeViewDetailed(wiFiDetail);
         // validate
         validateTextViewValuesFullView(actual, wiFiDetail);
     }
@@ -281,7 +281,7 @@ public class AccessPointDetailTest {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        View actual = fixture.makeViewPopup(wiFiDetail);
+        View actual = fixture.makeViewDetailed(wiFiDetail);
         // validate
         assertEquals(View.GONE, actual.findViewById(R.id.vendorShort).getVisibility());
         assertEquals(View.GONE, actual.findViewById(R.id.vendorLong).getVisibility());
@@ -292,7 +292,7 @@ public class AccessPointDetailTest {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME, false));
         // execute
-        View actual = fixture.makeViewPopup(wiFiDetail);
+        View actual = fixture.makeViewDetailed(wiFiDetail);
         // validate
         assertEquals(View.GONE, actual.findViewById(R.id.vendorShort).getVisibility());
         assertEquals(View.VISIBLE, actual.findViewById(R.id.vendorLong).getVisibility());
