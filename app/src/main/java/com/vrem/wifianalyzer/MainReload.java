@@ -58,10 +58,10 @@ class MainReload {
     }
 
     private boolean isConnectionViewTypeChanged(Settings settings) {
-        ConnectionViewType connectionViewType = settings.getConnectionViewType();
-        boolean connectionViewTypeChanged = !getConnectionViewType().equals(connectionViewType);
+        ConnectionViewType currentConnectionViewType = settings.getConnectionViewType();
+        boolean connectionViewTypeChanged = !getConnectionViewType().equals(currentConnectionViewType);
         if (connectionViewTypeChanged) {
-            setConnectionViewType(connectionViewType);
+            setConnectionViewType(currentConnectionViewType);
         }
         return connectionViewTypeChanged;
     }
@@ -76,10 +76,10 @@ class MainReload {
     }
 
     private boolean isGraphMaximumYChanged(Settings settings) {
-        int graphMaximumY = settings.getGraphMaximumY();
-        boolean graphMaximumYChanged = graphMaximumY != getGraphMaximumY();
+        int currentGraphMaximumY = settings.getGraphMaximumY();
+        boolean graphMaximumYChanged = currentGraphMaximumY != getGraphMaximumY();
         if (graphMaximumYChanged) {
-            setGraphMaximumY(graphMaximumY);
+            setGraphMaximumY(currentGraphMaximumY);
         }
         return graphMaximumYChanged;
     }

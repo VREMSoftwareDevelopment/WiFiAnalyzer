@@ -29,20 +29,20 @@ public enum GroupBy {
     SSID(new SSIDSortOrder(), new SSIDGroupBy()),
     CHANNEL(new ChannelSortOrder(), new ChannelGroupBy());
 
-    private final Comparator<WiFiDetail> sortOrder;
-    private final Comparator<WiFiDetail> groupBy;
+    private final Comparator<WiFiDetail> sortOrderComparator;
+    private final Comparator<WiFiDetail> groupByComparator;
 
-    GroupBy(@NonNull Comparator<WiFiDetail> sortOrder, @NonNull Comparator<WiFiDetail> groupBy) {
-        this.sortOrder = sortOrder;
-        this.groupBy = groupBy;
+    GroupBy(@NonNull Comparator<WiFiDetail> sortOrderComparator, @NonNull Comparator<WiFiDetail> groupByComparator) {
+        this.sortOrderComparator = sortOrderComparator;
+        this.groupByComparator = groupByComparator;
     }
 
-    Comparator<WiFiDetail> sortOrder() {
-        return sortOrder;
+    Comparator<WiFiDetail> sortOrderComparator() {
+        return sortOrderComparator;
     }
 
-    Comparator<WiFiDetail> groupBy() {
-        return groupBy;
+    Comparator<WiFiDetail> groupByComparator() {
+        return groupByComparator;
     }
 
     static class None implements Comparator<WiFiDetail> {

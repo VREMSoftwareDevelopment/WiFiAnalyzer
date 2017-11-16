@@ -100,9 +100,9 @@ public class WiFiSignal {
     public String getChannelDisplay() {
         int primaryChannel = getPrimaryWiFiChannel().getChannel();
         int centerChannel = getCenterWiFiChannel().getChannel();
-        String channel = "" + primaryChannel;
+        String channel = Integer.toString(primaryChannel);
         if (primaryChannel != centerChannel) {
-            channel += "(" + centerChannel + ")";
+            channel += "(" + Integer.toString(centerChannel) + ")";
         }
         return channel;
     }

@@ -105,15 +105,15 @@ public enum MainContext {
         Context applicationContext = mainActivity.getApplicationContext();
         WifiManager wifiManager = (WifiManager) applicationContext.getSystemService(Context.WIFI_SERVICE);
         Handler handler = new Handler();
-        Settings settings = new Settings(new Repository(applicationContext));
-        Configuration configuration = new Configuration(largeScreen);
+        Settings currentSettings = new Settings(new Repository(applicationContext));
+        Configuration currentConfiguration = new Configuration(largeScreen);
 
         setMainActivity(mainActivity);
-        setConfiguration(configuration);
-        setSettings(settings);
+        setConfiguration(currentConfiguration);
+        setSettings(currentSettings);
         setVendorService(new VendorService(mainActivity.getResources()));
-        setScanner(new Scanner(wifiManager, handler, settings));
-        setFilterAdapter(new FilterAdapter(settings));
+        setScanner(new Scanner(wifiManager, handler, currentSettings));
+        setFilterAdapter(new FilterAdapter(currentSettings));
     }
 
 }

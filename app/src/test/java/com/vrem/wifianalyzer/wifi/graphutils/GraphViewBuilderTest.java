@@ -63,7 +63,7 @@ public class GraphViewBuilderTest {
 
     @Before
     public void setUp() {
-        fixture = new GraphViewBuilder(content, NUM_HORIZONTAL_LABELS, GraphViewBuilder.MAX_Y_DEFAULT, ThemeStyle.DARK);
+        fixture = new GraphViewBuilder(content, NUM_HORIZONTAL_LABELS, GraphConstants.MAX_Y_DEFAULT, ThemeStyle.DARK);
     }
 
     @Test
@@ -87,8 +87,8 @@ public class GraphViewBuilderTest {
         verify(graphView).getViewport();
         verify(viewport).setScrollable(true);
         verify(viewport).setYAxisBoundsManual(true);
-        verify(viewport).setMinY(GraphViewBuilder.MIN_Y);
-        verify(viewport).setMaxY(GraphViewBuilder.MAX_Y_DEFAULT);
+        verify(viewport).setMinY(GraphConstants.MIN_Y);
+        verify(viewport).setMaxY(GraphConstants.MAX_Y_DEFAULT);
         verify(viewport).setXAxisBoundsManual(true);
     }
 
@@ -107,7 +107,7 @@ public class GraphViewBuilderTest {
         verify(gridLabelRenderer).setHighlightZeroLines(false);
         verify(gridLabelRenderer).setNumVerticalLabels(numVerticalLabels);
         verify(gridLabelRenderer).setNumHorizontalLabels(NUM_HORIZONTAL_LABELS);
-        verify(gridLabelRenderer).setTextSize(textSize * GraphViewBuilder.TEXT_SIZE_ADJUSTMENT);
+        verify(gridLabelRenderer).setTextSize(textSize * GraphConstants.TEXT_SIZE_ADJUSTMENT);
         verify(gridLabelRenderer).setVerticalLabelsVisible(true);
         verify(gridLabelRenderer).setHorizontalLabelsVisible(true);
         verify(gridLabelRenderer).reloadStyles();
@@ -158,7 +158,7 @@ public class GraphViewBuilderTest {
         // validate
         verify(gridLabelRenderer).setVerticalAxisTitle(verticalTitle);
         verify(gridLabelRenderer).setVerticalLabelsVisible(true);
-        verify(gridLabelRenderer).setVerticalAxisTitleTextSize(textSize * GraphViewBuilder.AXIS_TEXT_SIZE_ADJUSTMENT);
+        verify(gridLabelRenderer).setVerticalAxisTitleTextSize(textSize * GraphConstants.AXIS_TEXT_SIZE_ADJUSTMENT);
     }
 
     @Test
@@ -185,7 +185,7 @@ public class GraphViewBuilderTest {
         // validate
         verify(gridLabelRenderer).setHorizontalAxisTitle(horizontalTitle);
         verify(gridLabelRenderer).setHorizontalLabelsVisible(true);
-        verify(gridLabelRenderer).setHorizontalAxisTitleTextSize(textSize * GraphViewBuilder.AXIS_TEXT_SIZE_ADJUSTMENT);
+        verify(gridLabelRenderer).setHorizontalAxisTitleTextSize(textSize * GraphConstants.AXIS_TEXT_SIZE_ADJUSTMENT);
     }
 
     @Test
@@ -211,10 +211,10 @@ public class GraphViewBuilderTest {
 
     @Test
     public void testGetMaximumYLimits() throws Exception {
-        validateMaximumY(content, 1, GraphViewBuilder.MAX_Y_DEFAULT);
+        validateMaximumY(content, 1, GraphConstants.MAX_Y_DEFAULT);
         validateMaximumY(content, 0, 0);
         validateMaximumY(content, -50, -50);
-        validateMaximumY(content, -51, GraphViewBuilder.MAX_Y_DEFAULT);
+        validateMaximumY(content, -51, GraphConstants.MAX_Y_DEFAULT);
     }
 
     private void validateMaximumY(Context content, int maximumY, int expected) {
@@ -240,7 +240,7 @@ public class GraphViewBuilderTest {
     public void testSetGridLabelRenderColorsWithLightTheme() throws Exception {
         // setup
         when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
-        fixture = new GraphViewBuilder(content, NUM_HORIZONTAL_LABELS, GraphViewBuilder.MAX_Y_DEFAULT, ThemeStyle.LIGHT);
+        fixture = new GraphViewBuilder(content, NUM_HORIZONTAL_LABELS, GraphConstants.MAX_Y_DEFAULT, ThemeStyle.LIGHT);
         // execute
         fixture.setGridLabelRenderer(graphView);
         // validate

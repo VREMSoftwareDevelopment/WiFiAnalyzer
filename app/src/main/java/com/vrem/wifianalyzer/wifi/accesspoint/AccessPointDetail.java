@@ -124,9 +124,9 @@ public class AccessPointDetail {
         imageView.setColorFilter(ContextCompat.getColor(context, strength.colorResource()));
 
         ((TextView) view.findViewById(R.id.channel_frequency_range))
-            .setText(wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd());
+            .setText(Integer.toString(wiFiSignal.getFrequencyStart()) + " - " + Integer.toString(wiFiSignal.getFrequencyEnd()));
         ((TextView) view.findViewById(R.id.width))
-            .setText("(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WiFiSignal.FREQUENCY_UNITS + ")");
+            .setText("(" + Integer.toString(wiFiSignal.getWiFiWidth().getFrequencyWidth()) + WiFiSignal.FREQUENCY_UNITS + ")");
         ((TextView) view.findViewById(R.id.capabilities))
             .setText(wiFiDetail.getCapabilities());
     }

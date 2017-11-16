@@ -33,7 +33,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-class TimeGraphCache implements GraphConstants {
+class TimeGraphCache {
     private final Map<WiFiDetail, Integer> notSeen;
 
     TimeGraphCache() {
@@ -78,14 +78,14 @@ class TimeGraphCache implements GraphConstants {
     private class SeenPredicate implements Predicate<WiFiDetail> {
         @Override
         public boolean evaluate(WiFiDetail object) {
-            return notSeen.get(object) <= MAX_NOTSEEN_COUNT;
+            return notSeen.get(object) <= GraphConstants.MAX_NOTSEEN_COUNT;
         }
     }
 
     private class NotSeenPredicate implements Predicate<WiFiDetail> {
         @Override
         public boolean evaluate(WiFiDetail object) {
-            return notSeen.get(object) > MAX_NOTSEEN_COUNT;
+            return notSeen.get(object) > GraphConstants.MAX_NOTSEEN_COUNT;
         }
     }
 

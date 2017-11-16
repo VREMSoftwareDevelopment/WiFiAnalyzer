@@ -27,11 +27,14 @@ import java.math.BigInteger;
 import java.net.InetAddress;
 
 public final class WiFiUtils {
-
     private static final double DISTANCE_MHZ_M = 27.55;
     private static final int MIN_RSSI = -100;
     private static final int MAX_RSSI = -55;
     private static final String QUOTE = "\"";
+
+    private WiFiUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static double calculateDistance(int frequency, int level) {
         return Math.pow(10.0, (DISTANCE_MHZ_M - (20 * Math.log10(frequency)) + Math.abs(level)) / 20.0);
@@ -47,8 +50,8 @@ public final class WiFiUtils {
         return (rssi - MIN_RSSI) * (numLevels - 1) / (MAX_RSSI - MIN_RSSI);
     }
 
-    public static String convertSSID(@NonNull String SSID) {
-        return StringUtils.removeEnd(StringUtils.removeStart(SSID, QUOTE), QUOTE);
+    public static String convertSSID(@NonNull String ssid) {
+        return StringUtils.removeEnd(StringUtils.removeStart(ssid, QUOTE), QUOTE);
     }
 
     public static String convertIpAddress(int ipAddress) {

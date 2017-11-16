@@ -47,7 +47,7 @@ import org.apache.commons.collections4.Predicate;
 import java.util.List;
 import java.util.Set;
 
-class ChannelGraphView implements GraphViewNotifier, GraphConstants {
+class ChannelGraphView implements GraphViewNotifier {
     private final WiFiBand wiFiBand;
     private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
     private GraphViewWrapper graphViewWrapper;
@@ -74,10 +74,10 @@ class ChannelGraphView implements GraphViewNotifier, GraphConstants {
 
     private boolean isSelected() {
         Settings settings = MainContext.INSTANCE.getSettings();
-        WiFiBand wiFiBand = settings.getWiFiBand();
+        WiFiBand currentWiFiBand = settings.getWiFiBand();
         Configuration configuration = MainContext.INSTANCE.getConfiguration();
-        Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = configuration.getWiFiChannelPair();
-        return this.wiFiBand.equals(wiFiBand) && (WiFiBand.GHZ2.equals(this.wiFiBand) || this.wiFiChannelPair.equals(wiFiChannelPair));
+        Pair<WiFiChannel, WiFiChannel> currentWiFiChannelPair = configuration.getWiFiChannelPair();
+        return wiFiBand.equals(currentWiFiBand) && (WiFiBand.GHZ2.equals(wiFiBand) || wiFiChannelPair.equals(currentWiFiChannelPair));
     }
 
     @Override
@@ -88,7 +88,7 @@ class ChannelGraphView implements GraphViewNotifier, GraphConstants {
     private int getNumX() {
         int channelFirst = wiFiChannelPair.first.getChannel() - WiFiChannels.CHANNEL_OFFSET;
         int channelLast = wiFiChannelPair.second.getChannel() + WiFiChannels.CHANNEL_OFFSET;
-        return Math.min(NUM_X_CHANNEL, channelLast - channelFirst + 1);
+        return Math.min(GraphConstants.NUM_X_CHANNEL, channelLast - channelFirst + 1);
     }
 
     private GraphView makeGraphView(@NonNull MainContext mainContext, @NonNull Settings settings) {
@@ -116,13 +116,13 @@ class ChannelGraphView implements GraphViewNotifier, GraphConstants {
 
     private TitleLineGraphSeries<DataPoint> makeDefaultSeries(int frequencyEnd, int minX) {
         DataPoint[] dataPoints = new DataPoint[]{
-            new DataPoint(minX, MIN_Y),
-            new DataPoint(frequencyEnd + WiFiChannels.FREQUENCY_OFFSET, MIN_Y)
+            new DataPoint(minX, GraphConstants.MIN_Y),
+            new DataPoint(frequencyEnd + WiFiChannels.FREQUENCY_OFFSET, GraphConstants.MIN_Y)
         };
 
         TitleLineGraphSeries<DataPoint> series = new TitleLineGraphSeries<>(dataPoints);
         series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
-        series.setThickness(THICKNESS_INVISIBLE);
+        series.setThickness(GraphConstants.THICKNESS_INVISIBLE);
         return series;
     }
 

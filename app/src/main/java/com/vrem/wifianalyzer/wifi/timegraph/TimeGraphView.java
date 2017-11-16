@@ -41,7 +41,7 @@ import org.apache.commons.collections4.Predicate;
 import java.util.List;
 import java.util.Set;
 
-class TimeGraphView implements GraphViewNotifier, GraphConstants {
+class TimeGraphView implements GraphViewNotifier {
     private final WiFiBand wiFiBand;
     private DataManager dataManager;
     private GraphViewWrapper graphViewWrapper;
@@ -73,7 +73,7 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
     }
 
     private int getNumX() {
-        return NUM_X_TIME;
+        return GraphConstants.NUM_X_TIME;
     }
 
     void setGraphViewWrapper(@NonNull GraphViewWrapper graphViewWrapper) {

@@ -24,7 +24,6 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
@@ -68,8 +67,6 @@ public class ScannerTest {
     private WiFiData wiFiData;
     @Mock
     private PeriodicScan periodicScan;
-    @Mock
-    private Configuration configuration;
 
     private List<ScanResult> scanResults;
     private List<CacheResult> cacheResults;

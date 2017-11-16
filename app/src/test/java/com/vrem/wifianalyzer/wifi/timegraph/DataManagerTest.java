@@ -98,11 +98,11 @@ public class DataManagerTest {
     @Test
     public void testAddSeriesDoesNotIncreasesScanCountWhenLimitIsReached() throws Exception {
         // setup
-        fixture.setScanCount(DataManager.MAX_SCAN_COUNT);
+        fixture.setScanCount(GraphConstants.MAX_SCAN_COUNT);
         // execute
         fixture.addSeriesData(graphViewWrapper, Collections.<WiFiDetail>emptyList(), GraphConstants.MAX_Y);
         // validate
-        assertEquals(DataManager.MAX_SCAN_COUNT, fixture.getScanCount());
+        assertEquals(GraphConstants.MAX_SCAN_COUNT, fixture.getScanCount());
     }
 
     @Test
@@ -131,7 +131,7 @@ public class DataManagerTest {
         List<WiFiDetail> difference = makeWiFiDetails();
         int xValue = fixture.getXValue();
         Integer scanCount = fixture.getScanCount();
-        DataPoint dataPoint = new DataPoint(xValue, DataManager.MIN_Y + DataManager.MIN_Y_OFFSET);
+        DataPoint dataPoint = new DataPoint(xValue, GraphConstants.MIN_Y + GraphConstants.MIN_Y_OFFSET);
         when(graphViewWrapper.differenceSeries(wiFiDetails)).thenReturn(difference);
         // execute
         fixture.adjustData(graphViewWrapper, wiFiDetails);

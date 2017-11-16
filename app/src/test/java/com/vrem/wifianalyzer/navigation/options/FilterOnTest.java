@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.navigation.options;
 
-import android.content.res.Resources;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -50,8 +49,6 @@ public class FilterOnTest {
     private Menu menu;
     @Mock
     private MenuItem menuItem;
-    @Mock
-    private Resources resources;
 
     private FilterAdapter filterAdapter;
     private FilterOn fixture;

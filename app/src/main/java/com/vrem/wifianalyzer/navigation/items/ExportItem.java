@@ -82,7 +82,9 @@ class ExportItem implements NavigationItem {
 
     String getData(String timestamp, @NonNull List<WiFiDetail> wiFiDetails) {
         final StringBuilder result = new StringBuilder();
-        result.append("Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security\n");
+        result.append(
+            String.format(Locale.ENGLISH,
+                "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security%n"));
         IterableUtils.forEach(wiFiDetails, new WiFiDetailClosure(timestamp, result));
         return result.toString();
     }
@@ -131,7 +133,7 @@ class ExportItem implements NavigationItem {
         @Override
         public void execute(WiFiDetail wiFiDetail) {
             WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-            result.append(String.format(Locale.ENGLISH, "%s|%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%.1fm|%s\n",
+            result.append(String.format(Locale.ENGLISH, "%s|%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%.1fm|%s%n",
                 timestamp,
                 wiFiDetail.getSSID(),
                 wiFiDetail.getBSSID(),

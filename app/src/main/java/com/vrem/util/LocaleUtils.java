@@ -40,8 +40,11 @@ public class LocaleUtils {
     static final Locale SPANISH = new Locale("es");
     static final Locale PORTUGUESE = new Locale("pt");
     static final Locale RUSSIAN = new Locale("ru");
-
     private static final String SEPARATOR = "_";
+
+    private LocaleUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static Locale findByCountryCode(@NonNull String countryCode) {
         return find(SyncAvoid.AVAILABLE_LOCALES, new CountryCodePredicate(countryCode));
@@ -141,6 +144,10 @@ public class LocaleUtils {
             SUPPORTED_LOCALES = new ArrayList<>(new HashSet<>(Arrays.asList(
                 Locale.GERMAN, Locale.ENGLISH, SPANISH, Locale.FRENCH, Locale.ITALIAN, PORTUGUESE, RUSSIAN,
                 Locale.SIMPLIFIED_CHINESE, Locale.TRADITIONAL_CHINESE, DEFAULT)));
+        }
+
+        private SyncAvoid() {
+            throw new IllegalStateException("Utility class");
         }
 
         private static class CountryClosure implements Closure<Locale> {

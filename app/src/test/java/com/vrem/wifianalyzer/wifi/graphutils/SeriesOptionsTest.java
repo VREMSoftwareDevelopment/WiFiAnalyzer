@@ -66,7 +66,7 @@ public class SeriesOptionsTest {
         // execute
         fixture.highlightConnected(lineGraphSeries, true);
         // validate
-        verify(lineGraphSeries).setThickness(SeriesOptions.THICKNESS_CONNECTED);
+        verify(lineGraphSeries).setThickness(GraphConstants.THICKNESS_CONNECTED);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class SeriesOptionsTest {
         // execute
         fixture.highlightConnected(lineGraphSeries, false);
         // validate
-        verify(lineGraphSeries).setThickness(SeriesOptions.THICKNESS_REGULAR);
+        verify(lineGraphSeries).setThickness(GraphConstants.THICKNESS_REGULAR);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class SeriesOptionsTest {
         // execute
         fixture.highlightConnected(titleLineGraphSeries, true);
         // validate
-        verify(titleLineGraphSeries).setThickness(SeriesOptions.THICKNESS_CONNECTED);
+        verify(titleLineGraphSeries).setThickness(GraphConstants.THICKNESS_CONNECTED);
         verify(titleLineGraphSeries).setTextBold(true);
     }
 
@@ -91,7 +91,7 @@ public class SeriesOptionsTest {
         // execute
         fixture.highlightConnected(titleLineGraphSeries, false);
         // validate
-        verify(titleLineGraphSeries).setThickness(SeriesOptions.THICKNESS_REGULAR);
+        verify(titleLineGraphSeries).setThickness(GraphConstants.THICKNESS_REGULAR);
         verify(titleLineGraphSeries).setTextBold(false);
     }
 

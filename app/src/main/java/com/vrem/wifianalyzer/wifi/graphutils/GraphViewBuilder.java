@@ -30,7 +30,7 @@ import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
 
-public class GraphViewBuilder implements GraphConstants {
+public class GraphViewBuilder {
     private final Context context;
     private final int numHorizontalLabels;
     private final int maximumY;
@@ -44,7 +44,8 @@ public class GraphViewBuilder implements GraphConstants {
     public GraphViewBuilder(@NonNull Context context, int numHorizontalLabels, int maximumY, ThemeStyle themeStyle) {
         this.context = context;
         this.numHorizontalLabels = numHorizontalLabels;
-        this.maximumY = (maximumY > MAX_Y || maximumY < MIN_Y_HALF) ? MAX_Y_DEFAULT : maximumY;
+        this.maximumY = (maximumY > GraphConstants.MAX_Y || maximumY < GraphConstants.MIN_Y_HALF)
+            ? GraphConstants.MAX_Y_DEFAULT : maximumY;
         this.themeStyle = themeStyle;
         this.layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         this.horizontalLabelsVisible = true;
@@ -91,7 +92,7 @@ public class GraphViewBuilder implements GraphConstants {
         Viewport viewport = graphView.getViewport();
         viewport.setScrollable(true);
         viewport.setYAxisBoundsManual(true);
-        viewport.setMinY(MIN_Y);
+        viewport.setMinY(GraphConstants.MIN_Y);
         viewport.setMaxY(getMaximumY());
         viewport.setXAxisBoundsManual(true);
     }
@@ -104,7 +105,7 @@ public class GraphViewBuilder implements GraphConstants {
         gridLabelRenderer.setNumHorizontalLabels(numHorizontalLabels);
         gridLabelRenderer.setVerticalLabelsVisible(true);
         gridLabelRenderer.setHorizontalLabelsVisible(horizontalLabelsVisible);
-        gridLabelRenderer.setTextSize(gridLabelRenderer.getTextSize() * TEXT_SIZE_ADJUSTMENT);
+        gridLabelRenderer.setTextSize(gridLabelRenderer.getTextSize() * GraphConstants.TEXT_SIZE_ADJUSTMENT);
 
         gridLabelRenderer.reloadStyles();
         if (labelFormatter != null) {
@@ -112,11 +113,13 @@ public class GraphViewBuilder implements GraphConstants {
         }
         if (verticalTitle != null) {
             gridLabelRenderer.setVerticalAxisTitle(verticalTitle);
-            gridLabelRenderer.setVerticalAxisTitleTextSize(gridLabelRenderer.getVerticalAxisTitleTextSize() * AXIS_TEXT_SIZE_ADJUSTMENT);
+            gridLabelRenderer.setVerticalAxisTitleTextSize(
+                gridLabelRenderer.getVerticalAxisTitleTextSize() * GraphConstants.AXIS_TEXT_SIZE_ADJUSTMENT);
         }
         if (horizontalTitle != null) {
             gridLabelRenderer.setHorizontalAxisTitle(horizontalTitle);
-            gridLabelRenderer.setHorizontalAxisTitleTextSize(gridLabelRenderer.getHorizontalAxisTitleTextSize() * AXIS_TEXT_SIZE_ADJUSTMENT);
+            gridLabelRenderer.setHorizontalAxisTitleTextSize(
+                gridLabelRenderer.getHorizontalAxisTitleTextSize() * GraphConstants.AXIS_TEXT_SIZE_ADJUSTMENT);
         }
 
         setGridLabelRenderColors(gridLabelRenderer);
@@ -133,7 +136,7 @@ public class GraphViewBuilder implements GraphConstants {
     }
 
     int getNumVerticalLabels() {
-        return (getMaximumY() - MIN_Y) / 10 + 1;
+        return (getMaximumY() - GraphConstants.MIN_Y) / 10 + 1;
     }
 
     int getMaximumY() {

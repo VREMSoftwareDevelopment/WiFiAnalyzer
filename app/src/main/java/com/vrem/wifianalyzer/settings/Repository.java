@@ -44,7 +44,7 @@ public class Repository {
     }
 
     void save(int key, int value) {
-        save(key, "" + value);
+        save(key, Integer.toString(value));
     }
 
     void save(int key, String value) {
@@ -53,7 +53,7 @@ public class Repository {
 
     int getStringAsInteger(int key, int defaultValue) {
         try {
-            return Integer.parseInt(getString(key, "" + defaultValue));
+            return Integer.parseInt(getString(key, Integer.toString(defaultValue)));
         } catch (Exception e) {
             return defaultValue;
         }
@@ -92,7 +92,7 @@ public class Repository {
         try {
             return getSharedPreferences().getInt(keyValue, defaultValue);
         } catch (Exception e) {
-            save(keyValue, "" + defaultValue);
+            save(keyValue, Integer.toString(defaultValue));
             return defaultValue;
         }
     }

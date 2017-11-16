@@ -43,7 +43,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-public class GraphViewWrapper implements GraphConstants {
+public class GraphViewWrapper {
     private final GraphView graphView;
     private GraphLegend graphLegend;
     private SeriesCache seriesCache;
@@ -155,7 +155,7 @@ public class GraphViewWrapper implements GraphConstants {
             messageDigest.update(graphType.getBytes());
             return Arrays.hashCode(messageDigest.digest());
         } catch (Exception e) {
-            return TYPE1;
+            return GraphConstants.TYPE1;
         }
     }
 
@@ -172,7 +172,8 @@ public class GraphViewWrapper implements GraphConstants {
     }
 
     public int getSize(int value) {
-        return value == TYPE1 || value == TYPE2 || value == TYPE3 ? Configuration.SIZE_MAX : Configuration.SIZE_MIN;
+        return value == GraphConstants.TYPE1 || value == GraphConstants.TYPE2 || value == GraphConstants.TYPE3
+            ? Configuration.SIZE_MAX : Configuration.SIZE_MIN;
     }
 
     LegendRenderer newLegendRenderer() {

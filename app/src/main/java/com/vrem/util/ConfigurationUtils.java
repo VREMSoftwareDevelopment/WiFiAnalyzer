@@ -28,6 +28,9 @@ import android.support.annotation.NonNull;
 import java.util.Locale;
 
 public class ConfigurationUtils {
+    private ConfigurationUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     @NonNull
     public static Context createContext(@NonNull Context context, @NonNull Locale newLocale) {

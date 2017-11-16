@@ -71,10 +71,10 @@ public class WiFiData {
     @NonNull
     List<WiFiDetail> sortAndGroup(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
         List<WiFiDetail> results = new ArrayList<>();
-        Collections.sort(wiFiDetails, groupBy.sortOrder());
+        Collections.sort(wiFiDetails, groupBy.sortOrderComparator());
         WiFiDetail parent = null;
         for (WiFiDetail wiFiDetail : wiFiDetails) {
-            if (parent == null || groupBy.groupBy().compare(parent, wiFiDetail) != 0) {
+            if (parent == null || groupBy.groupByComparator().compare(parent, wiFiDetail) != 0) {
                 if (parent != null) {
                     Collections.sort(parent.getChildren(), sortBy.comparator());
                 }

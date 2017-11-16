@@ -110,9 +110,20 @@ public class ChannelRating {
             CollectionUtils.collect(
                 CollectionUtils.select(wiFiChannels, new BestChannelPredicate())
                 , new ToChannelAPCount()));
-        Collections.sort(results);
+        Collections.sort(results, new ChannelAPCountSort());
         return results;
     }
+
+    private class ChannelAPCountSort implements Comparator<ChannelAPCount> {
+        @Override
+        public int compare(ChannelAPCount lhs, ChannelAPCount rhs) {
+            return new CompareToBuilder()
+                .append(lhs.getCount(), rhs.getCount())
+                .append(lhs.getWiFiChannel(), rhs.getWiFiChannel())
+                .toComparison();
+        }
+    }
+
 
     private class GuestSort implements Comparator<WiFiDetail> {
         @Override
