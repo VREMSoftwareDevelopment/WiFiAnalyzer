@@ -62,7 +62,9 @@ public class WiFiUtilsTest {
     @Test
     public void testConvertIpAddress() throws Exception {
         assertEquals("21.205.91.7", WiFiUtils.convertIpAddress(123456789));
-        assertEquals(StringUtils.EMPTY, WiFiUtils.convertIpAddress(1234));
+        assertEquals("1.0.0.0", WiFiUtils.convertIpAddress(1));
+        assertEquals(StringUtils.EMPTY, WiFiUtils.convertIpAddress(0));
+        assertEquals(StringUtils.EMPTY, WiFiUtils.convertIpAddress(-1));
     }
 
     @Test

@@ -20,11 +20,11 @@ package com.vrem.wifianalyzer.wifi.model;
 
 import android.support.annotation.NonNull;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigInteger;
 import java.net.InetAddress;
+import java.nio.ByteOrder;
 
 public final class WiFiUtils {
     private static final double DISTANCE_MHZ_M = 27.55;
@@ -56,9 +56,12 @@ public final class WiFiUtils {
 
     public static String convertIpAddress(int ipAddress) {
         try {
-            byte[] bytes = BigInteger.valueOf(ipAddress).toByteArray();
-            ArrayUtils.reverse(bytes);
-            return InetAddress.getByAddress(bytes).getHostAddress();
+            byte[] ipBytes = BigInteger.valueOf(
+                ByteOrder.LITTLE_ENDIAN.equals(ByteOrder.nativeOrder())
+                    ? Integer.reverseBytes(ipAddress)
+                    : ipAddress)
+                .toByteArray();
+            return InetAddress.getByAddress(ipBytes).getHostAddress();
         } catch (Exception e) {
             return StringUtils.EMPTY;
         }
