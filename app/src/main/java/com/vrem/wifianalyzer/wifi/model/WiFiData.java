@@ -27,6 +27,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.collections4.Transformer;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -70,10 +71,10 @@ public class WiFiData {
     @NonNull
     List<WiFiDetail> sortAndGroup(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
         List<WiFiDetail> results = new ArrayList<>();
-        Collections.sort(wiFiDetails, groupBy.sortOrder());
+        Collections.sort(wiFiDetails, groupBy.sortOrderComparator());
         WiFiDetail parent = null;
         for (WiFiDetail wiFiDetail : wiFiDetails) {
-            if (parent == null || groupBy.groupBy().compare(parent, wiFiDetail) != 0) {
+            if (parent == null || groupBy.groupByComparator().compare(parent, wiFiDetail) != 0) {
                 if (parent != null) {
                     Collections.sort(parent.getChildren(), sortBy.comparator());
                 }
@@ -123,7 +124,10 @@ public class WiFiData {
     private class ConnectionPredicate implements Predicate<WiFiDetail> {
         @Override
         public boolean evaluate(WiFiDetail wiFiDetail) {
-            return wiFiConnection.equals(new WiFiConnection(wiFiDetail.getSSID(), wiFiDetail.getBSSID()));
+            return new EqualsBuilder()
+                .append(wiFiConnection.getSSID(), wiFiDetail.getSSID())
+                .append(wiFiConnection.getBSSID(), wiFiDetail.getBSSID())
+                .isEquals();
         }
     }
 

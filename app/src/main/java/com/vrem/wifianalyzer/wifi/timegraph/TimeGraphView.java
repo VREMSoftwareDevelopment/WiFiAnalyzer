@@ -24,7 +24,6 @@ import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.Configuration;
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -42,7 +41,7 @@ import org.apache.commons.collections4.Predicate;
 import java.util.List;
 import java.util.Set;
 
-class TimeGraphView implements GraphViewNotifier, GraphConstants {
+class TimeGraphView implements GraphViewNotifier {
     private final WiFiBand wiFiBand;
     private DataManager dataManager;
     private GraphViewWrapper graphViewWrapper;
@@ -74,7 +73,7 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
     }
 
     private int getNumX() {
-        return NUM_X_TIME;
+        return GraphConstants.NUM_X_TIME;
     }
 
     void setGraphViewWrapper(@NonNull GraphViewWrapper graphViewWrapper) {
@@ -85,9 +84,9 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
         this.dataManager = dataManager;
     }
 
-    private GraphView makeGraphView(@NonNull MainActivity mainActivity, int graphMaximumY) {
-        Resources resources = mainActivity.getResources();
-        return new GraphViewBuilder(mainActivity, getNumX(), graphMaximumY)
+    private GraphView makeGraphView(@NonNull MainContext mainContext, Settings settings) {
+        Resources resources = mainContext.getResources();
+        return new GraphViewBuilder(mainContext.getContext(), getNumX(), settings.getGraphMaximumY(), settings.getThemeStyle())
             .setLabelFormatter(new TimeAxisLabel())
             .setVerticalTitle(resources.getString(R.string.graph_axis_y))
             .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
@@ -97,10 +96,9 @@ class TimeGraphView implements GraphViewNotifier, GraphConstants {
 
     private GraphViewWrapper makeGraphViewWrapper() {
         MainContext mainContext = MainContext.INSTANCE;
-        MainActivity mainActivity = mainContext.getMainActivity();
         Settings settings = mainContext.getSettings();
         Configuration configuration = mainContext.getConfiguration();
-        GraphView graphView = makeGraphView(mainActivity, settings.getGraphMaximumY());
+        GraphView graphView = makeGraphView(mainContext, settings);
         graphViewWrapper = new GraphViewWrapper(graphView, settings.getTimeGraphLegend());
         configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
         graphViewWrapper.setViewport();

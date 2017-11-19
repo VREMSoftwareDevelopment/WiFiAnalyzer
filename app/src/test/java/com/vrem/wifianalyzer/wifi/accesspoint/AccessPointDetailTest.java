@@ -22,7 +22,6 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
@@ -39,7 +38,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.Locale;
 
@@ -49,7 +47,6 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class AccessPointDetailTest {
     private static final String SSID = "SSID";
     private static final String VENDOR_NAME = "VendorName-VendorName-VendorName-VendorName-VendorName-VendorName";
@@ -274,7 +271,7 @@ public class AccessPointDetailTest {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        View actual = fixture.makeViewPopup(wiFiDetail);
+        View actual = fixture.makeViewDetailed(wiFiDetail);
         // validate
         validateTextViewValuesFullView(actual, wiFiDetail);
     }
@@ -284,7 +281,7 @@ public class AccessPointDetailTest {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
-        View actual = fixture.makeViewPopup(wiFiDetail);
+        View actual = fixture.makeViewDetailed(wiFiDetail);
         // validate
         assertEquals(View.GONE, actual.findViewById(R.id.vendorShort).getVisibility());
         assertEquals(View.GONE, actual.findViewById(R.id.vendorLong).getVisibility());
@@ -295,7 +292,7 @@ public class AccessPointDetailTest {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME, false));
         // execute
-        View actual = fixture.makeViewPopup(wiFiDetail);
+        View actual = fixture.makeViewDetailed(wiFiDetail);
         // validate
         assertEquals(View.GONE, actual.findViewById(R.id.vendorShort).getVisibility());
         assertEquals(View.VISIBLE, actual.findViewById(R.id.vendorLong).getVisibility());

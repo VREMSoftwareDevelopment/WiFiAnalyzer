@@ -27,7 +27,7 @@ import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 
 class NextPrevNavigationOff implements NavigationOption {
-    final static OnTouchListener ON_TOUCH_LISTENER_EMPTY = new NavigationOnTouchListener(false);
+    static final OnTouchListener ON_TOUCH_LISTENER_EMPTY = new NavigationOnTouchListener(false);
 
     @Override
     public void apply(@NonNull MainActivity mainActivity) {

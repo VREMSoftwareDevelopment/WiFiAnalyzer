@@ -54,7 +54,7 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         View view = accessPointDetail.makeView(convertView, parent, wiFiDetail, false);
         attachPopup(view, wiFiDetail);
 
-        ImageView groupIndicator = (ImageView) view.findViewById(R.id.groupIndicator);
+        ImageView groupIndicator = view.findViewById(R.id.groupIndicator);
         int childrenCount = getChildrenCount(groupPosition);
         if (childrenCount > 0) {
             groupIndicator.setVisibility(View.VISIBLE);

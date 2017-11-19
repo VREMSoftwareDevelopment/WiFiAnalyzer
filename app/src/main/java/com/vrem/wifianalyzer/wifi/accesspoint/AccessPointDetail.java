@@ -27,7 +27,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.Security;
@@ -50,44 +49,44 @@ public class AccessPointDetail {
     }
 
     View makeView(View convertView, ViewGroup parent, @NonNull WiFiDetail wiFiDetail, boolean isChild, @NonNull AccessPointViewType accessPointViewType) {
-        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
         View view = convertView;
         if (view == null) {
-            LayoutInflater layoutInflater = mainActivity.getLayoutInflater();
+            LayoutInflater layoutInflater = MainContext.INSTANCE.getLayoutInflater();
             view = layoutInflater.inflate(accessPointViewType.getLayout(), parent, false);
         }
-        setViewCompact(mainActivity, view, wiFiDetail, isChild);
+        setViewCompact(view, wiFiDetail, isChild);
         if (view.findViewById(R.id.capabilities) != null) {
-            setViewExtra(mainActivity, view, wiFiDetail);
+            setViewExtra(view, wiFiDetail);
             setViewVendorShort(view, wiFiDetail.getWiFiAdditional());
         }
 
         return view;
     }
 
-    public View makeViewPopup(@NonNull WiFiDetail wiFiDetail) {
-        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
-        View view = mainActivity.getLayoutInflater().inflate(R.layout.access_point_view_popup, null);
+    public View makeViewDetailed(@NonNull WiFiDetail wiFiDetail) {
+        View view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.access_point_view_popup, null);
 
-        setViewCompact(mainActivity, view, wiFiDetail, false);
-        setViewExtra(mainActivity, view, wiFiDetail);
+        setViewCompact(view, wiFiDetail, false);
+        setViewExtra(view, wiFiDetail);
         setViewVendorLong(view, wiFiDetail.getWiFiAdditional());
 
         return view;
     }
 
-    private void setViewCompact(@NonNull Context context, @NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
+    private void setViewCompact(@NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
+        Context context = view.getContext();
+
         ((TextView) view.findViewById(R.id.ssid)).setText(wiFiDetail.getTitle());
 
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         Strength strength = wiFiSignal.getStrength();
 
         Security security = wiFiDetail.getSecurity();
-        ImageView securityImage = (ImageView) view.findViewById(R.id.securityImage);
+        ImageView securityImage = view.findViewById(R.id.securityImage);
         securityImage.setImageResource(security.getImageResource());
         securityImage.setColorFilter(ContextCompat.getColor(context, R.color.icons_color));
 
-        TextView textLevel = (TextView) view.findViewById(R.id.level);
+        TextView textLevel = view.findViewById(R.id.level);
         textLevel.setText(String.format(Locale.ENGLISH, "%ddBm", wiFiSignal.getLevel()));
         textLevel.setTextColor(ContextCompat.getColor(context, strength.colorResource()));
 
@@ -106,8 +105,10 @@ public class AccessPointDetail {
         }
     }
 
-    private void setViewExtra(@NonNull Context context, @NonNull View view, @NonNull WiFiDetail wiFiDetail) {
-        ImageView configuredImage = (ImageView) view.findViewById(R.id.configuredImage);
+    private void setViewExtra(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {
+        Context context = view.getContext();
+
+        ImageView configuredImage = view.findViewById(R.id.configuredImage);
         WiFiAdditional wiFiAdditional = wiFiDetail.getWiFiAdditional();
         if (wiFiAdditional.isConfiguredNetwork()) {
             configuredImage.setVisibility(View.VISIBLE);
@@ -118,20 +119,20 @@ public class AccessPointDetail {
 
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         Strength strength = wiFiSignal.getStrength();
-        ImageView imageView = (ImageView) view.findViewById(R.id.levelImage);
+        ImageView imageView = view.findViewById(R.id.levelImage);
         imageView.setImageResource(strength.imageResource());
         imageView.setColorFilter(ContextCompat.getColor(context, strength.colorResource()));
 
         ((TextView) view.findViewById(R.id.channel_frequency_range))
-            .setText(wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd());
+            .setText(Integer.toString(wiFiSignal.getFrequencyStart()) + " - " + Integer.toString(wiFiSignal.getFrequencyEnd()));
         ((TextView) view.findViewById(R.id.width))
-            .setText("(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WiFiSignal.FREQUENCY_UNITS + ")");
+            .setText("(" + Integer.toString(wiFiSignal.getWiFiWidth().getFrequencyWidth()) + WiFiSignal.FREQUENCY_UNITS + ")");
         ((TextView) view.findViewById(R.id.capabilities))
             .setText(wiFiDetail.getCapabilities());
     }
 
     private void setViewVendorShort(@NonNull View view, @NonNull WiFiAdditional wiFiAdditional) {
-        TextView textVendorShort = ((TextView) view.findViewById(R.id.vendorShort));
+        TextView textVendorShort = view.findViewById(R.id.vendorShort);
         String vendor = wiFiAdditional.getVendorName();
         if (StringUtils.isBlank(vendor)) {
             textVendorShort.setVisibility(View.GONE);
@@ -142,7 +143,7 @@ public class AccessPointDetail {
     }
 
     private void setViewVendorLong(@NonNull View view, @NonNull WiFiAdditional wiFiAdditional) {
-        TextView textVendor = ((TextView) view.findViewById(R.id.vendorLong));
+        TextView textVendor = view.findViewById(R.id.vendorLong);
         String vendor = wiFiAdditional.getVendorName();
         if (StringUtils.isBlank(vendor)) {
             textVendor.setVisibility(View.GONE);

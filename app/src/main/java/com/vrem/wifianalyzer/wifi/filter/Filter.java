@@ -24,7 +24,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
@@ -42,10 +41,9 @@ public class Filter {
     }
 
     private static AlertDialog buildAlertDialog() {
-        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
-        View view = mainActivity.getLayoutInflater().inflate(R.layout.filter_popup, null);
+        View view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.filter_popup, null);
         return new AlertDialog
-            .Builder(mainActivity)
+            .Builder(view.getContext())
             .setView(view)
             .setTitle(R.string.filter_title)
             .setIcon(R.drawable.ic_filter_list_grey_500_48dp)
@@ -56,16 +54,12 @@ public class Filter {
     }
 
     public void show() {
-        try {
-            if (!alertDialog.isShowing()) {
-                alertDialog.show();
-                addWiFiBandFilter();
-                addSSIDFilter();
-                addStrengthFilter();
-                addSecurityFilter();
-            }
-        } catch (Exception e) {
-            // ignore: unable to show filter
+        if (!alertDialog.isShowing()) {
+            alertDialog.show();
+            addWiFiBandFilter();
+            addSSIDFilter();
+            addStrengthFilter();
+            addSecurityFilter();
         }
     }
 

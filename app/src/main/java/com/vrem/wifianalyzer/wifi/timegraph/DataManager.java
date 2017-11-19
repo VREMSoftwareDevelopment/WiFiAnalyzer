@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-class DataManager implements GraphConstants {
+class DataManager {
     private int scanCount;
     private int xValue;
     private TimeGraphCache timeGraphCache;
@@ -51,7 +51,7 @@ class DataManager implements GraphConstants {
         adjustData(graphViewWrapper, inOrder);
         Set<WiFiDetail> result = getNewSeries(inOrder);
         xValue++;
-        if (scanCount < MAX_SCAN_COUNT) {
+        if (scanCount < GraphConstants.MAX_SCAN_COUNT) {
             scanCount++;
         }
         if (scanCount == 2) {
@@ -75,7 +75,8 @@ class DataManager implements GraphConstants {
         boolean drawBackground = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
         int level = Math.min(wiFiDetail.getWiFiSignal().getLevel(), levelMax);
         if (graphViewWrapper.isNewSeries(wiFiDetail)) {
-            DataPoint dataPoint = new DataPoint(xValue, scanCount > 0 ? MIN_Y + MIN_Y_OFFSET : level);
+            DataPoint dataPoint = new DataPoint(xValue, scanCount > 0
+                ? GraphConstants.MIN_Y + GraphConstants.MIN_Y_OFFSET : level);
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{dataPoint});
             graphViewWrapper.addSeries(wiFiDetail, series, drawBackground);
         } else {
@@ -125,7 +126,7 @@ class DataManager implements GraphConstants {
 
         @Override
         public void execute(WiFiDetail wiFiDetail) {
-            DataPoint dataPoint = new DataPoint(xValue, MIN_Y + MIN_Y_OFFSET);
+            DataPoint dataPoint = new DataPoint(xValue, GraphConstants.MIN_Y + GraphConstants.MIN_Y_OFFSET);
             boolean drawBackground = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
             graphViewWrapper.appendToSeries(wiFiDetail, dataPoint, scanCount, drawBackground);
             timeGraphCache.add(wiFiDetail);

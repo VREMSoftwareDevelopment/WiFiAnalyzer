@@ -18,70 +18,61 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
-import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class CountryPreferenceTest {
 
     private List<WiFiChannelCountry> countries;
     private CountryPreference fixture;
+    private Locale currentLocale;
 
     @Before
     public void setUp() {
         MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
         fixture = new CountryPreference(mainActivity, Robolectric.buildAttributeSet().build());
 
+        currentLocale = Locale.getDefault();
         countries = WiFiChannelCountry.getAll();
-        Collections.sort(countries, new WiFiChannelCountryComparator());
     }
 
     @Test
     public void testGetEntries() throws Exception {
         // execute
-        CharSequence[] actual = fixture.getEntries();
+        List<CharSequence> actual = Arrays.asList(fixture.getEntries());
         // validate
-        int expectedSize = countries.size();
-        assertEquals(expectedSize, actual.length);
-        assertEquals(countries.get(0).getCountryName(), actual[0]);
-        assertEquals(countries.get(expectedSize - 1).getCountryName(), actual[expectedSize - 1]);
+        assertEquals(countries.size(), actual.size());
+        for (WiFiChannelCountry country : countries) {
+            String countryName = country.getCountryName(currentLocale);
+            assertTrue(countryName, actual.contains(countryName));
+        }
     }
 
     @Test
     public void testGetEntryValues() throws Exception {
         // execute
-        CharSequence[] actual = fixture.getEntryValues();
+        List<CharSequence> actual = Arrays.asList(fixture.getEntryValues());
         // validate
-        int expectedSize = countries.size();
-        assertEquals(expectedSize, actual.length);
-        assertEquals(countries.get(0).getCountryCode(), actual[0]);
-        assertEquals(countries.get(expectedSize - 1).getCountryCode(), actual[expectedSize - 1]);
-    }
-
-    private static class WiFiChannelCountryComparator implements Comparator<WiFiChannelCountry> {
-        @Override
-        public int compare(WiFiChannelCountry lhs, WiFiChannelCountry rhs) {
-            return new CompareToBuilder()
-                .append(lhs.getCountryName(), rhs.getCountryName())
-                .append(lhs.getCountryCode(), rhs.getCountryCode())
-                .toComparison();
+        assertEquals(countries.size(), actual.size());
+        for (WiFiChannelCountry country : countries) {
+            String countryCode = country.getCountryCode();
+            assertTrue(countryCode, actual.contains(countryCode));
         }
     }
+
 }

@@ -26,6 +26,7 @@ import java.util.Set;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 public class WiFiChannelCountryTest {
@@ -67,23 +68,30 @@ public class WiFiChannelCountryTest {
     }
 
     @Test
-    public void testFind() throws Exception {
-        assertEquals("US", WiFiChannelCountry.get(Locale.US.getCountry()).getCountryCode());
+    public void testGetCorrectlyPopulatesGHZ() throws Exception {
+        // setup
+        String expectedCountryCode = Locale.US.getCountry();
+        Set<Integer> expectedGHZ2 = new WiFiChannelCountryGHZ2().findChannels(expectedCountryCode);
+        Set<Integer> expectedGHZ5 = new WiFiChannelCountryGHZ5().findChannels(expectedCountryCode);
+        // execute
+        WiFiChannelCountry actual = WiFiChannelCountry.get(expectedCountryCode);
+        // validate
+        assertEquals(expectedCountryCode, actual.getCountryCode());
+        assertArrayEquals(expectedGHZ2.toArray(), actual.getChannelsGHZ2().toArray());
+        assertArrayEquals(expectedGHZ5.toArray(), actual.getChannelsGHZ5().toArray());
     }
 
     @Test
-    public void testFindFailes() throws Exception {
+    public void testGetCorrectlyPopulatesCountryCodeAndName() throws Exception {
         // setup
-        String countryCode = "11";
-        Set<Integer> expectedGHZ2 = new WiFiChannelCountryGHZ2().findChannels(countryCode);
-        Set<Integer> expectedGHZ5 = new WiFiChannelCountryGHZ5().findChannels(countryCode);
+        Locale expected = Locale.SIMPLIFIED_CHINESE;
+        String expectedCountryCode = expected.getCountry();
         // execute
-        WiFiChannelCountry actual = WiFiChannelCountry.get(countryCode);
+        WiFiChannelCountry actual = WiFiChannelCountry.get(expectedCountryCode);
         // validate
-        assertEquals(countryCode, actual.getCountryCode());
-        assertEquals(countryCode + WiFiChannelCountry.UNKNOWN, actual.getCountryName());
-        assertArrayEquals(expectedGHZ2.toArray(), actual.getChannelsGHZ2().toArray());
-        assertArrayEquals(expectedGHZ5.toArray(), actual.getChannelsGHZ5().toArray());
+        assertEquals(expectedCountryCode, actual.getCountryCode());
+        assertNotEquals(expected.getDisplayCountry(), actual.getCountryName(expected));
+        assertEquals(expected.getDisplayCountry(expected), actual.getCountryName(expected));
     }
 
 }

@@ -18,10 +18,11 @@
 
 package com.vrem.wifianalyzer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.res.Resources;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
@@ -35,14 +36,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.vrem.util.ConfigurationUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.menu.OptionMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
+import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
+
+import java.util.Locale;
 
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
@@ -52,6 +57,13 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     private NavigationMenu startNavigationMenu;
     private OptionMenu optionMenu;
     private String currentCountryCode;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Locale newLocale = new Settings(new Repository(newBase)).getLanguageLocale();
+        Context context = ConfigurationUtils.createContext(newBase, newLocale);
+        super.attachBaseContext(context);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +85,11 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
         setOptionMenu(new OptionMenu());
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setOnClickListener(new WiFiBandToggle());
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -96,18 +108,16 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         String countryCode = settings.getCountryCode();
         if (!countryCode.equals(currentCountryCode)) {
             Pair<WiFiChannel, WiFiChannel> pair = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairFirst(countryCode);
-            Configuration configuration = mainContext.getConfiguration();
-            configuration.setWiFiChannelPair(pair);
+            mainContext.getConfiguration().setWiFiChannelPair(pair);
             currentCountryCode = countryCode;
         }
     }
 
     private boolean isLargeScreen() {
-        Resources resources = getResources();
-        android.content.res.Configuration configuration = resources.getConfiguration();
-        int screenLayoutSize = configuration.screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK;
-        return screenLayoutSize == android.content.res.Configuration.SCREENLAYOUT_SIZE_LARGE ||
-            screenLayoutSize == android.content.res.Configuration.SCREENLAYOUT_SIZE_XLARGE;
+        Configuration configuration = getResources().getConfiguration();
+        int screenLayoutSize = configuration.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        return screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_LARGE ||
+            screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_XLARGE;
     }
 
     @Override
@@ -159,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     private boolean closeDrawer() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
             return true;
@@ -225,4 +235,5 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
             }
         }
     }
+
 }

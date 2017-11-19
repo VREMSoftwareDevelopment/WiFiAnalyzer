@@ -21,7 +21,7 @@ apply plugin: 'jacoco-android'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '26.0.3'
 
     defaultConfig {
         applicationId "com.vrem.wifianalyzer"
@@ -29,6 +29,7 @@ android {
         targetSdkVersion 22
         versionCode
         versionName
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
 
     buildTypes {
@@ -44,9 +45,17 @@ android {
     }
 
     testOptions {
-        unitTests.all {
-            jacoco {
-                includeNoLocationClasses true
+        unitTests {
+            includeAndroidResources true
+            all {
+                testLogging {
+                    events "passed", "skipped", "failed", "standardOut", "standardError"
+                    outputs.upToDateWhen {false}
+                    showStandardStreams = true
+                }
+                jacoco {
+                    includeNoLocationClasses true
+                }
             }
         }
     }
@@ -65,7 +74,7 @@ jacocoAndroidUnitTestReport {
 
 if (project.hasProperty('keyAlias')) {
     def propertiesFile = file('../../keystores/androidkeystore.properties')
-    def Properties properties = readProperties(propertiesFile);
+    Properties properties = readProperties(propertiesFile)
 
     System.out.println(">>> Signing Config " + properties)
     android.buildTypes.release.signingConfig.keyAlias = properties['key_alias'].toString()
@@ -76,26 +85,30 @@ if (project.hasProperty('keyAlias')) {
 
 dependencies {
     // Compile Build Dependencies
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
-    compile 'com.android.support:design:26.0.0-alpha1'
-    compile 'org.apache.commons:commons-lang3:3.6'
-    compile 'org.apache.commons:commons-collections4:4.1'
-    compile 'com.jjoe64:graphview:4.2.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'org.apache.commons:commons-lang3:3.7'
+    implementation 'org.apache.commons:commons-collections4:4.1'
+    implementation 'com.jjoe64:graphview:4.2.1'
     // Unit Test Dependencies
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.powermock:powermock-module-junit4:1.7.3'
-    testCompile 'org.powermock:powermock-api-mockito2:1.7.3'
-    testCompile 'com.googlecode.junit-toolbox:junit-toolbox:2.4'
-    testCompile 'org.robolectric:robolectric:3.4.2'
-    testCompile 'org.robolectric:shadows-support-v4:3.4-rc2'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.powermock:powermock-module-junit4:1.7.3'
+    testImplementation 'org.powermock:powermock-api-mockito2:1.7.3'
+    testImplementation 'com.googlecode.junit-toolbox:junit-toolbox:2.4'
+    testImplementation 'org.robolectric:robolectric:3.5.1'
+    testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
+    // Android Test Dependencies
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
 }
 
 updateVersion()
 
 def updateVersion() {
     def propertiesFile = file('build.properties')
-    def Properties properties = readProperties(propertiesFile)
+    Properties properties = readProperties(propertiesFile)
 
     def versionMajor = properties['version_major'].toString().toInteger()
     def versionMinor = properties['version_minor'].toString().toInteger()
@@ -140,9 +153,9 @@ def isReleaseTask() {
     return ':app:assembleRelease' in tasks || 'assembleRelease' in tasks
 }
 
-def static Properties readProperties(propertiesFile) {
+static Properties readProperties(propertiesFile) {
     if (propertiesFile.canRead()) {
-        def Properties properties = new Properties()
+        Properties properties = new Properties()
         def inputStream = new FileInputStream(propertiesFile)
         properties.load(inputStream)
         inputStream.close()

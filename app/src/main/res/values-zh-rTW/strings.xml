@@ -67,6 +67,7 @@
     <string name="time_graph_legend_title">時間圖例顯示位置</string>
     <string name="theme_title">主題</string>
     <string name="wifi_off_on_exit_title">退出時關閉WiFi</string>
+    <string name="language_title">語言</string>
     <!-- settings end -->
 
     <!-- about start -->

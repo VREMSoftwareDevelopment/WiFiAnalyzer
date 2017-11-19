@@ -35,7 +35,7 @@ public class NavigationMenuView {
     private NavigationMenu currentNavigationMenu;
 
     public NavigationMenuView(@NonNull MainActivity mainActivity, @NonNull NavigationMenu currentNavigationMenu) {
-        navigationView = (NavigationView) mainActivity.findViewById(R.id.nav_view);
+        navigationView = mainActivity.findViewById(R.id.nav_view);
         populateNavigationMenu();
         setCurrentNavigationMenu(currentNavigationMenu);
         navigationView.setNavigationItemSelectedListener(mainActivity);

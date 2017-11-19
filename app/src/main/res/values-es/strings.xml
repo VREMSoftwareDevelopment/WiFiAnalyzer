@@ -70,6 +70,7 @@
     <string name="time_graph_legend_title">Leyenda de Visualización de Gráfico de Tiempo</string>
     <string name="theme_title">Tema</string>
     <string name="wifi_off_on_exit_title">WiFi en la salida</string>
+    <string name="language_title">Lengua</string>
     <!-- settings end -->
 
     <!-- about start -->

@@ -22,7 +22,6 @@ import android.app.Dialog;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
@@ -35,15 +34,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class AccessPointPopupTest {
     private MainActivity mainActivity;
     private AccessPointPopup fixture;

@@ -24,18 +24,18 @@ import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 
 import org.apache.commons.lang3.StringUtils;
 
-class TimeAxisLabel implements LabelFormatter, GraphConstants {
+class TimeAxisLabel implements LabelFormatter {
     @Override
     public String formatLabel(double value, boolean isValueX) {
         String result = StringUtils.EMPTY;
         int valueAsInt = (int) (value + (value < 0 ? -0.5 : 0.5));
         if (isValueX) {
             if (valueAsInt > 0 && valueAsInt % 2 == 0) {
-                result += valueAsInt;
+                result += Integer.toString(valueAsInt);
             }
         } else {
-            if (valueAsInt <= MAX_Y && valueAsInt > MIN_Y) {
-                result += valueAsInt;
+            if (valueAsInt <= GraphConstants.MAX_Y && valueAsInt > GraphConstants.MIN_Y) {
+                result += Integer.toString(valueAsInt);
             }
         }
         return result;
@@ -43,6 +43,6 @@ class TimeAxisLabel implements LabelFormatter, GraphConstants {
 
     @Override
     public void setViewport(Viewport viewport) {
-        // ignore
+        // Do nothing
     }
 }

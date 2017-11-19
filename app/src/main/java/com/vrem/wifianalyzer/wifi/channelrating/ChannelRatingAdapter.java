@@ -97,7 +97,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            LayoutInflater layoutInflater = MainContext.INSTANCE.getMainActivity().getLayoutInflater();
+            LayoutInflater layoutInflater = MainContext.INSTANCE.getLayoutInflater();
             view = layoutInflater.inflate(R.layout.channel_rating_details, parent, false);
         }
 
@@ -111,7 +111,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         ((TextView) view.findViewById(R.id.accessPointCount))
             .setText(String.format(Locale.ENGLISH, "%d", channelRating.getCount(wiFiChannel)));
         Strength strength = Strength.reverse(channelRating.getStrength(wiFiChannel));
-        RatingBar ratingBar = (RatingBar) view.findViewById(R.id.channelRating);
+        RatingBar ratingBar = view.findViewById(R.id.channelRating);
         int size = Strength.values().length;
         ratingBar.setMax(size);
         ratingBar.setNumStars(size);

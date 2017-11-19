@@ -41,7 +41,7 @@ public class StartMenuPreference extends CustomPreference {
     }
 
     private static String getDefault() {
-        return "" + NavigationGroup.GROUP_FEATURE.getNavigationMenus().get(0).ordinal();
+        return Integer.toString(NavigationGroup.GROUP_FEATURE.getNavigationMenus().get(0).ordinal());
     }
 
     private static class ToData implements Transformer<NavigationMenu, Data> {
@@ -53,7 +53,7 @@ public class StartMenuPreference extends CustomPreference {
 
         @Override
         public Data transform(NavigationMenu input) {
-            return new Data("" + input.ordinal(), context.getString(input.getTitle()));
+            return new Data(Integer.toString(input.ordinal()), context.getString(input.getTitle()));
         }
     }
 

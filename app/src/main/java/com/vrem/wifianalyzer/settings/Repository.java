@@ -18,20 +18,25 @@
 
 package com.vrem.wifianalyzer.settings;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
-import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
 import java.util.Set;
 
-class Repository {
+public class Repository {
+    private final Context context;
+
+    public Repository(@NonNull Context context) {
+        this.context = context;
+    }
+
     void initializeDefaultValues() {
-        PreferenceManager.setDefaultValues(MainContext.INSTANCE.getMainActivity(), R.xml.preferences, false);
+        PreferenceManager.setDefaultValues(context, R.xml.preferences, false);
     }
 
     void registerOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener onSharedPreferenceChangeListener) {
@@ -39,23 +44,23 @@ class Repository {
     }
 
     void save(int key, int value) {
-        save(key, "" + value);
+        save(key, Integer.toString(value));
     }
 
     void save(int key, String value) {
-        save(MainContext.INSTANCE.getMainActivity().getString(key), value);
+        save(context.getString(key), value);
     }
 
     int getStringAsInteger(int key, int defaultValue) {
         try {
-            return Integer.parseInt(getString(key, "" + defaultValue));
+            return Integer.parseInt(getString(key, Integer.toString(defaultValue)));
         } catch (Exception e) {
             return defaultValue;
         }
     }
 
     String getString(int key, @NonNull String defaultValue) {
-        String keyValue = MainContext.INSTANCE.getMainActivity().getString(key);
+        String keyValue = context.getString(key);
         try {
             return getSharedPreferences().getString(keyValue, defaultValue);
         } catch (Exception e) {
@@ -65,7 +70,7 @@ class Repository {
     }
 
     boolean getBoolean(int key, boolean defaultValue) {
-        String keyValue = MainContext.INSTANCE.getMainActivity().getString(key);
+        String keyValue = context.getString(key);
         try {
             return getSharedPreferences().getBoolean(keyValue, defaultValue);
         } catch (Exception e) {
@@ -75,25 +80,25 @@ class Repository {
     }
 
     int getResourceInteger(int key) {
-        return MainContext.INSTANCE.getMainActivity().getResources().getInteger(key);
+        return context.getResources().getInteger(key);
     }
 
     boolean getResourceBoolean(int key) {
-        return MainContext.INSTANCE.getMainActivity().getResources().getBoolean(key);
+        return context.getResources().getBoolean(key);
     }
 
     int getInteger(int key, int defaultValue) {
-        String keyValue = MainContext.INSTANCE.getMainActivity().getString(key);
+        String keyValue = context.getString(key);
         try {
             return getSharedPreferences().getInt(keyValue, defaultValue);
         } catch (Exception e) {
-            save(keyValue, "" + defaultValue);
+            save(keyValue, Integer.toString(defaultValue));
             return defaultValue;
         }
     }
 
     Set<String> getStringSet(int key, @NonNull Set<String> defaultValues) {
-        String keyValue = MainContext.INSTANCE.getMainActivity().getString(key);
+        String keyValue = context.getString(key);
         try {
             return getSharedPreferences().getStringSet(keyValue, defaultValues);
         } catch (Exception e) {
@@ -103,12 +108,11 @@ class Repository {
     }
 
     void saveStringSet(int key, @NonNull Set<String> values) {
-        save(MainContext.INSTANCE.getMainActivity().getString(key), values);
+        save(context.getString(key), values);
     }
 
     private SharedPreferences getSharedPreferences() {
-        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
-        return PreferenceManager.getDefaultSharedPreferences(mainActivity);
+        return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     private void save(@NonNull String key, @NonNull String value) {

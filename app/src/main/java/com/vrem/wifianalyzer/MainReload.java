@@ -25,22 +25,27 @@ import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointViewType;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType;
 
+import java.util.Locale;
+
 class MainReload {
     private ThemeStyle themeStyle;
     private AccessPointViewType accessPointViewType;
     private ConnectionViewType connectionViewType;
     private int graphMaximumY;
+    private Locale languageLocale;
 
     MainReload(@NonNull Settings settings) {
         setThemeStyle(settings.getThemeStyle());
         setAccessPointViewType(settings.getAccessPointView());
         setConnectionViewType(settings.getConnectionViewType());
         setGraphMaximumY(settings.getGraphMaximumY());
+        setLanguageLocale(settings.getLanguageLocale());
     }
 
     boolean shouldReload(@NonNull Settings settings) {
         return isThemeChanged(settings) || isAccessPointViewChanged(settings)
-            || isConnectionViewTypeChanged(settings) || isGraphMaximumYChanged(settings);
+            || isConnectionViewTypeChanged(settings) || isGraphMaximumYChanged(settings)
+            || isLanguageChanged(settings);
     }
 
     private boolean isAccessPointViewChanged(Settings settings) {
@@ -53,10 +58,10 @@ class MainReload {
     }
 
     private boolean isConnectionViewTypeChanged(Settings settings) {
-        ConnectionViewType connectionViewType = settings.getConnectionViewType();
-        boolean connectionViewTypeChanged = !getConnectionViewType().equals(connectionViewType);
+        ConnectionViewType currentConnectionViewType = settings.getConnectionViewType();
+        boolean connectionViewTypeChanged = !getConnectionViewType().equals(currentConnectionViewType);
         if (connectionViewTypeChanged) {
-            setConnectionViewType(connectionViewType);
+            setConnectionViewType(currentConnectionViewType);
         }
         return connectionViewTypeChanged;
     }
@@ -71,12 +76,21 @@ class MainReload {
     }
 
     private boolean isGraphMaximumYChanged(Settings settings) {
-        int graphMaximumY = settings.getGraphMaximumY();
-        boolean graphMaximumYChanged = graphMaximumY != getGraphMaximumY();
+        int currentGraphMaximumY = settings.getGraphMaximumY();
+        boolean graphMaximumYChanged = currentGraphMaximumY != getGraphMaximumY();
         if (graphMaximumYChanged) {
-            setGraphMaximumY(graphMaximumY);
+            setGraphMaximumY(currentGraphMaximumY);
         }
         return graphMaximumYChanged;
+    }
+
+    private boolean isLanguageChanged(Settings settings) {
+        Locale settingLanguageLocale = settings.getLanguageLocale();
+        boolean languageLocaleChanged = !getLanguageLocale().equals(settingLanguageLocale);
+        if (languageLocaleChanged) {
+            setLanguageLocale(settingLanguageLocale);
+        }
+        return languageLocaleChanged;
     }
 
     ThemeStyle getThemeStyle() {
@@ -109,6 +123,14 @@ class MainReload {
 
     private void setGraphMaximumY(int graphMaximumY) {
         this.graphMaximumY = graphMaximumY;
+    }
+
+    Locale getLanguageLocale() {
+        return languageLocale;
+    }
+
+    private void setLanguageLocale(Locale languageLocale) {
+        this.languageLocale = languageLocale;
     }
 
 }

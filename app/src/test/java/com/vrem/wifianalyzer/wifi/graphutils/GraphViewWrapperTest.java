@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.graphutils;
 
-import android.content.res.Resources;
 import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
@@ -59,15 +58,11 @@ public class GraphViewWrapperTest {
     @Mock
     private LegendRenderer legendRenderer;
     @Mock
-    private Resources resources;
-    @Mock
     private SeriesCache seriesCache;
     @Mock
     private SeriesOptions seriesOptions;
     @Mock
     private BaseSeries<DataPoint> baseSeries;
-    @Mock
-    private BaseSeries<DataPoint> currentSeries;
 
     private DataPoint dataPoint;
     private DataPoint[] dataPoints;
@@ -272,10 +267,10 @@ public class GraphViewWrapperTest {
     @Test
     public void testGetSize() throws Exception {
         // execute & validate
-        assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphViewWrapper.TYPE1));
-        assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphViewWrapper.TYPE2));
-        assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphViewWrapper.TYPE3));
-        assertEquals(Configuration.SIZE_MIN, fixture.getSize(GraphViewWrapper.TYPE4));
+        assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphConstants.TYPE1));
+        assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphConstants.TYPE2));
+        assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphConstants.TYPE3));
+        assertEquals(Configuration.SIZE_MIN, fixture.getSize(GraphConstants.TYPE4));
     }
 
     @Test

@@ -47,16 +47,16 @@ public class GroupByTest {
 
     @Test
     public void testGroupBy() throws Exception {
-        assertTrue(GroupBy.NONE.groupBy() instanceof GroupBy.None);
-        assertTrue(GroupBy.SSID.groupBy() instanceof GroupBy.SSIDGroupBy);
-        assertTrue(GroupBy.CHANNEL.groupBy() instanceof GroupBy.ChannelGroupBy);
+        assertTrue(GroupBy.NONE.groupByComparator() instanceof GroupBy.None);
+        assertTrue(GroupBy.SSID.groupByComparator() instanceof GroupBy.SSIDGroupBy);
+        assertTrue(GroupBy.CHANNEL.groupByComparator() instanceof GroupBy.ChannelGroupBy);
     }
 
     @Test
     public void testSortOrder() throws Exception {
-        assertTrue(GroupBy.NONE.sortOrder() instanceof GroupBy.None);
-        assertTrue(GroupBy.SSID.sortOrder() instanceof GroupBy.SSIDSortOrder);
-        assertTrue(GroupBy.CHANNEL.sortOrder() instanceof GroupBy.ChannelSortOrder);
+        assertTrue(GroupBy.NONE.sortOrderComparator() instanceof GroupBy.None);
+        assertTrue(GroupBy.SSID.sortOrderComparator() instanceof GroupBy.SSIDSortOrder);
+        assertTrue(GroupBy.CHANNEL.sortOrderComparator() instanceof GroupBy.ChannelSortOrder);
     }
 
     @Test

@@ -63,7 +63,7 @@ public class WiFiConnectionTest {
     @Test
     public void testEquals() throws Exception {
         // setup
-        WiFiConnection other = new WiFiConnection(SSID, BSSID);
+        WiFiConnection other = new WiFiConnection(SSID, BSSID, StringUtils.EMPTY, WiFiConnection.LINK_SPEED_INVALID);
         // execute & validate
         assertEquals(fixture, other);
         assertNotSame(fixture, other);
@@ -72,7 +72,7 @@ public class WiFiConnectionTest {
     @Test
     public void testHashCode() throws Exception {
         // setup
-        WiFiConnection other = new WiFiConnection(SSID, BSSID);
+        WiFiConnection other = new WiFiConnection(SSID, BSSID, StringUtils.EMPTY, WiFiConnection.LINK_SPEED_INVALID);
         // execute & validate
         assertEquals(fixture.hashCode(), other.hashCode());
     }

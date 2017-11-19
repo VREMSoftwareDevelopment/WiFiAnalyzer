@@ -23,7 +23,6 @@ import android.content.DialogInterface;
 import android.view.View;
 import android.widget.Button;
 
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
@@ -35,7 +34,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowAlertDialog;
 
 import static org.junit.Assert.assertEquals;
@@ -46,7 +44,6 @@ import static org.mockito.Mockito.verify;
 import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class FilterTest {
 
     private MainActivity mainActivity;

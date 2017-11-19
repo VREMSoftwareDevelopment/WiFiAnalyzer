@@ -21,10 +21,10 @@ package com.vrem.wifianalyzer.wifi.timegraph;
 import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphLegend;
@@ -39,7 +39,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.Collections;
 import java.util.List;
@@ -52,7 +51,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class TimeGraphViewTest {
     private GraphViewWrapper graphViewWrapper;
     private DataManager dataManager;
@@ -100,6 +98,7 @@ public class TimeGraphViewTest {
         verify(settings, times(2)).getTimeGraphLegend();
         verify(settings, times(2)).getWiFiBand();
         verify(settings, times(2)).getGraphMaximumY();
+        verify(settings).getThemeStyle();
     }
 
     private void withSettings() {
@@ -107,6 +106,7 @@ public class TimeGraphViewTest {
         when(settings.getTimeGraphLegend()).thenReturn(GraphLegend.LEFT);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ2);
         when(settings.getGraphMaximumY()).thenReturn(GraphConstants.MAX_Y);
+        when(settings.getThemeStyle()).thenReturn(ThemeStyle.DARK);
     }
 
     @Test

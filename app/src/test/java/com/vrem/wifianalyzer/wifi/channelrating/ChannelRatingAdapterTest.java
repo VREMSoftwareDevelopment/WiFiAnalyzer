@@ -25,7 +25,6 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
@@ -48,7 +47,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,7 +60,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class ChannelRatingAdapterTest {
 
     private ChannelRatingAdapter fixture;
@@ -97,7 +94,7 @@ public class ChannelRatingAdapterTest {
         fixture.add(wiFiChannel);
         when(channelRating.getCount(wiFiChannel)).thenReturn(5);
         when(channelRating.getStrength(wiFiChannel)).thenReturn(Strength.FOUR);
-        ViewGroup viewGroup = (ViewGroup) mainActivity.findViewById(android.R.id.content);
+        ViewGroup viewGroup = mainActivity.findViewById(android.R.id.content);
         // execute
         View actual = fixture.getView(0, null, viewGroup);
         // validate
@@ -106,7 +103,7 @@ public class ChannelRatingAdapterTest {
         assertEquals("1", ((TextView) actual.findViewById(R.id.channelNumber)).getText());
         assertEquals("5", ((TextView) actual.findViewById(R.id.accessPointCount)).getText());
 
-        RatingBar ratingBar = (RatingBar) actual.findViewById(R.id.channelRating);
+        RatingBar ratingBar = actual.findViewById(R.id.channelRating);
         assertEquals(expectedSize, ratingBar.getMax());
         assertEquals(expectedSize, ratingBar.getNumStars());
         assertEquals(expectedStrength.ordinal() + 1, (int) ratingBar.getRating());

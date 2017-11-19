@@ -22,7 +22,6 @@ import android.support.annotation.NonNull;
 
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.graphutils.DataPointEquals;
@@ -41,7 +40,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -59,7 +57,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class DataManagerTest {
     private static final String BSSID = "BSSID";
     private static final int LEVEL = -40;
@@ -101,11 +98,11 @@ public class DataManagerTest {
     @Test
     public void testAddSeriesDoesNotIncreasesScanCountWhenLimitIsReached() throws Exception {
         // setup
-        fixture.setScanCount(DataManager.MAX_SCAN_COUNT);
+        fixture.setScanCount(GraphConstants.MAX_SCAN_COUNT);
         // execute
         fixture.addSeriesData(graphViewWrapper, Collections.<WiFiDetail>emptyList(), GraphConstants.MAX_Y);
         // validate
-        assertEquals(DataManager.MAX_SCAN_COUNT, fixture.getScanCount());
+        assertEquals(GraphConstants.MAX_SCAN_COUNT, fixture.getScanCount());
     }
 
     @Test
@@ -134,7 +131,7 @@ public class DataManagerTest {
         List<WiFiDetail> difference = makeWiFiDetails();
         int xValue = fixture.getXValue();
         Integer scanCount = fixture.getScanCount();
-        DataPoint dataPoint = new DataPoint(xValue, DataManager.MIN_Y + DataManager.MIN_Y_OFFSET);
+        DataPoint dataPoint = new DataPoint(xValue, GraphConstants.MIN_Y + GraphConstants.MIN_Y_OFFSET);
         when(graphViewWrapper.differenceSeries(wiFiDetails)).thenReturn(difference);
         // execute
         fixture.adjustData(graphViewWrapper, wiFiDetails);

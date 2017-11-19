@@ -25,7 +25,6 @@ import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
-import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
@@ -49,8 +48,6 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AccessPointsAdapterGroupTest {
-    @Mock
-    private WiFiData wiFiData;
     @Mock
     private ExpandableListView expandableListView;
     @Mock

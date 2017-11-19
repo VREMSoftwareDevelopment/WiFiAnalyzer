@@ -19,10 +19,13 @@
 package com.vrem.wifianalyzer;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
 
+import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
@@ -70,6 +73,18 @@ public enum MainContext {
         this.mainActivity = mainActivity;
     }
 
+    public Context getContext() {
+        return mainActivity.getApplicationContext();
+    }
+
+    public Resources getResources() {
+        return getContext().getResources();
+    }
+
+    public LayoutInflater getLayoutInflater() {
+        return mainActivity.getLayoutInflater();
+    }
+
     public Configuration getConfiguration() {
         return configuration;
     }
@@ -87,17 +102,18 @@ public enum MainContext {
     }
 
     void initialize(@NonNull MainActivity mainActivity, boolean largeScreen) {
-        WifiManager wifiManager = (WifiManager) mainActivity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        Context applicationContext = mainActivity.getApplicationContext();
+        WifiManager wifiManager = (WifiManager) applicationContext.getSystemService(Context.WIFI_SERVICE);
         Handler handler = new Handler();
-        Settings settings = new Settings(mainActivity);
-        Configuration configuration = new Configuration(largeScreen);
+        Settings currentSettings = new Settings(new Repository(applicationContext));
+        Configuration currentConfiguration = new Configuration(largeScreen);
 
         setMainActivity(mainActivity);
-        setConfiguration(configuration);
-        setSettings(settings);
+        setConfiguration(currentConfiguration);
+        setSettings(currentSettings);
         setVendorService(new VendorService(mainActivity.getResources()));
-        setScanner(new Scanner(wifiManager, handler, settings));
-        setFilterAdapter(new FilterAdapter(settings));
+        setScanner(new Scanner(wifiManager, handler, currentSettings));
+        setFilterAdapter(new FilterAdapter(currentSettings));
     }
 
 }

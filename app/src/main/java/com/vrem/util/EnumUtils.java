@@ -33,6 +33,11 @@ import java.util.List;
 import java.util.Set;
 
 public class EnumUtils {
+
+    private EnumUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static <T extends Enum> T find(@NonNull Class<T> enumType, int index, @NonNull T defaultValue) {
         T[] values = enumType.getEnumConstants();
         if (index < 0 || index >= values.length) {
@@ -92,7 +97,7 @@ public class EnumUtils {
     private static class ToOrdinal<T extends Enum> implements Transformer<T, String> {
         @Override
         public String transform(T input) {
-            return "" + input.ordinal();
+            return Integer.toString(input.ordinal());
         }
     }
 

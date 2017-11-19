@@ -41,11 +41,11 @@ public class AccessPointsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.access_points_content, container, false);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.accessPointsRefresh);
+        swipeRefreshLayout = view.findViewById(R.id.accessPointsRefresh);
         swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
 
         accessPointsAdapter = new AccessPointsAdapter(activity);
-        ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.accessPointsView);
+        ExpandableListView expandableListView = view.findViewById(R.id.accessPointsView);
         expandableListView.setAdapter(accessPointsAdapter);
         accessPointsAdapter.setExpandableListView(expandableListView);
 

@@ -23,37 +23,55 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.Collections;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class ChannelAvailableAdapterTest {
+    private Settings settings;
     private MainActivity mainActivity;
     private WiFiChannelCountry wiFiChannelCountry;
+    private Locale currentLocale;
     private ChannelAvailableAdapter fixture;
 
     @Before
     public void setUp() {
+        currentLocale = Locale.getDefault();
+
         mainActivity = RobolectricUtil.INSTANCE.getActivity();
-        wiFiChannelCountry = WiFiChannelCountry.get("US");
+
+        settings = MainContextHelper.INSTANCE.getSettings();
+        when(settings.getLanguageLocale()).thenReturn(currentLocale);
+
+        wiFiChannelCountry = WiFiChannelCountry.get(currentLocale.getCountry());
         fixture = new ChannelAvailableAdapter(mainActivity, Collections.singletonList(wiFiChannelCountry));
+    }
+
+    @After
+    public void tearDown() {
+        verify(settings, atLeastOnce()).getLanguageLocale();
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test
@@ -62,10 +80,10 @@ public class ChannelAvailableAdapterTest {
         Resources resources = mainActivity.getResources();
         String wiFiBand2 = resources.getString(WiFiBand.GHZ2.getTextResource());
         String wiFiBand5 = resources.getString(WiFiBand.GHZ5.getTextResource());
-        String expected = wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName();
+        String expected = wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName(currentLocale);
         String expected_GHZ_2 = StringUtils.join(wiFiChannelCountry.getChannelsGHZ2().toArray(), ",");
         String expected_GHZ_5 = StringUtils.join(wiFiChannelCountry.getChannelsGHZ5().toArray(), ",");
-        ViewGroup viewGroup = (ViewGroup) mainActivity.findViewById(android.R.id.content);
+        ViewGroup viewGroup = mainActivity.findViewById(android.R.id.content);
         // execute
         View actual = fixture.getView(0, null, viewGroup);
         // validate

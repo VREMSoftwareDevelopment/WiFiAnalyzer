@@ -35,7 +35,6 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelsGHZ5;
-import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.predicate.FilterPredicate;
@@ -52,7 +51,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-class ChannelGraphNavigation implements GraphConstants {
+class ChannelGraphNavigation {
     static final Map<Pair<WiFiChannel, WiFiChannel>, Integer> ids = new HashMap<>();
     private static final String ACTIVITY_NONE = "&#8722";
     private static final String ACTIVITY_ON = "&#9585;&#9586;";
@@ -88,23 +87,6 @@ class ChannelGraphNavigation implements GraphConstants {
             List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(predicate, settings.getSortBy());
             IterableUtils.forEach(ids.keySet(), new ButtonClosure(visible, selectedWiFiChannelPair, wiFiDetails));
         }
-    }
-
-    private void setSelected(Button button, boolean selected) {
-        if (selected) {
-            button.setBackgroundColor(ContextCompat.getColor(context, R.color.connected));
-            button.setSelected(true);
-        } else {
-            button.setBackgroundColor(ContextCompat.getColor(context, R.color.connected_background));
-            button.setSelected(false);
-        }
-    }
-
-    private void setActivity(Button button, Pair<WiFiChannel, WiFiChannel> pair, boolean activity) {
-        button.setText(TextUtils.fromHtml(String.format(Locale.ENGLISH, "<strong>%d %s %d</strong>",
-            pair.first.getChannel(),
-            activity ? ACTIVITY_ON : ACTIVITY_NONE,
-            pair.second.getChannel())));
     }
 
     static class SetOnClickListener implements OnClickListener {
@@ -144,7 +126,7 @@ class ChannelGraphNavigation implements GraphConstants {
 
         @Override
         public void execute(Pair<WiFiChannel, WiFiChannel> input) {
-            Button button = (Button) view.findViewById(ids.get(input));
+            Button button = view.findViewById(ids.get(input));
             if (visible.contains(input)) {
                 button.setVisibility(View.VISIBLE);
                 setSelected(button, input.equals(selectedWiFiChannelPair));
@@ -153,6 +135,23 @@ class ChannelGraphNavigation implements GraphConstants {
                 button.setVisibility(View.GONE);
                 setSelected(button, false);
             }
+        }
+
+        private void setSelected(Button button, boolean selected) {
+            if (selected) {
+                button.setBackgroundColor(ContextCompat.getColor(context, R.color.connected));
+                button.setSelected(true);
+            } else {
+                button.setBackgroundColor(ContextCompat.getColor(context, R.color.connected_background));
+                button.setSelected(false);
+            }
+        }
+
+        private void setActivity(Button button, Pair<WiFiChannel, WiFiChannel> pair, boolean activity) {
+            button.setText(TextUtils.fromHtml(String.format(Locale.ENGLISH, "<strong>%d %s %d</strong>",
+                pair.first.getChannel(),
+                activity ? ACTIVITY_ON : ACTIVITY_NONE,
+                pair.second.getChannel())));
         }
     }
 

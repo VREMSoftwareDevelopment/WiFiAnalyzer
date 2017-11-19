@@ -36,7 +36,7 @@ import java.util.List;
 
 class Cache {
     private static final int ADJUST = 10;
-    private final Deque<List<ScanResult>> cache = new ArrayDeque<>();
+    private final Deque<List<ScanResult>> cachedScanResults = new ArrayDeque<>();
 
     List<CacheResult> getScanResults() {
         ScanResult current = null;
@@ -73,23 +73,23 @@ class Cache {
 
     private List<ScanResult> combineCache() {
         List<ScanResult> scanResults = new ArrayList<>();
-        IterableUtils.forEach(cache, new CacheClosure(scanResults));
+        IterableUtils.forEach(cachedScanResults, new CacheClosure(scanResults));
         Collections.sort(scanResults, new ScanResultComparator());
         return scanResults;
     }
 
     void add(List<ScanResult> scanResults) {
         int cacheSize = getCacheSize();
-        while (cache.size() >= cacheSize) {
-            cache.pollLast();
+        while (cachedScanResults.size() >= cacheSize) {
+            cachedScanResults.pollLast();
         }
         if (scanResults != null) {
-            cache.addFirst(scanResults);
+            cachedScanResults.addFirst(scanResults);
         }
     }
 
-    Deque<List<ScanResult>> getCache() {
-        return cache;
+    Deque<List<ScanResult>> getCachedScanResults() {
+        return cachedScanResults;
     }
 
     int getCacheSize() {

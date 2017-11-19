@@ -73,7 +73,7 @@ public class RepositoryTest {
         when(PreferenceManager.getDefaultSharedPreferences(mainActivity)).thenReturn(sharedPreferences);
         when(mainActivity.getResources()).thenReturn(resources);
 
-        fixture = new Repository();
+        fixture = new Repository(mainActivity);
     }
 
     @After

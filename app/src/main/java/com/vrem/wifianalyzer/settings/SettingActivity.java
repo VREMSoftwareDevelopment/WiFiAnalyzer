@@ -19,16 +19,32 @@
 package com.vrem.wifianalyzer.settings;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
+import com.vrem.util.ConfigurationUtils;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
+import java.util.Locale;
+
 public class SettingActivity extends PreferenceActivity {
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Context context = newBase;
+        Settings settings = MainContext.INSTANCE.getSettings();
+        if (settings != null) {
+            Locale newLocale = settings.getLanguageLocale();
+            context = ConfigurationUtils.createContext(newBase, newLocale);
+        }
+        super.attachBaseContext(context);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setCustomTheme();
@@ -41,14 +57,14 @@ public class SettingActivity extends PreferenceActivity {
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.action_settings);
         }
     }
 
     private void setCustomTheme() {
         Settings settings = MainContext.INSTANCE.getSettings();
         if (settings != null) {
-            ThemeStyle themeStyle = settings.getThemeStyle();
-            setTheme(themeStyle.themeDeviceDefaultStyle());
+            setTheme(settings.getThemeStyle().themeDeviceDefaultStyle());
         }
     }
 

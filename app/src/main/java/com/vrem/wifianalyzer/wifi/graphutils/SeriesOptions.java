@@ -25,7 +25,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.TitleLineGraphSeries;
 
-class SeriesOptions implements GraphConstants {
+class SeriesOptions {
     private GraphColors graphColors;
 
     SeriesOptions() {
@@ -38,9 +38,11 @@ class SeriesOptions implements GraphConstants {
 
     void highlightConnected(@NonNull BaseSeries<DataPoint> series, boolean connected) {
         if (series instanceof LineGraphSeries) {
-            ((LineGraphSeries<DataPoint>) series).setThickness(connected ? THICKNESS_CONNECTED : THICKNESS_REGULAR);
+            ((LineGraphSeries<DataPoint>) series).setThickness(
+                connected ? GraphConstants.THICKNESS_CONNECTED : GraphConstants.THICKNESS_REGULAR);
         } else if (series instanceof TitleLineGraphSeries) {
-            ((TitleLineGraphSeries<DataPoint>) series).setThickness(connected ? THICKNESS_CONNECTED : THICKNESS_REGULAR);
+            ((TitleLineGraphSeries<DataPoint>) series).setThickness(connected
+                ? GraphConstants.THICKNESS_CONNECTED : GraphConstants.THICKNESS_REGULAR);
             ((TitleLineGraphSeries<DataPoint>) series).setTextBold(connected);
         }
     }

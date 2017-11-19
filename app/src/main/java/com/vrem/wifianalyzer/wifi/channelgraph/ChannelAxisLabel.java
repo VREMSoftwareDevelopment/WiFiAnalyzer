@@ -32,7 +32,7 @@ import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 
 import org.apache.commons.lang3.StringUtils;
 
-class ChannelAxisLabel implements LabelFormatter, GraphConstants {
+class ChannelAxisLabel implements LabelFormatter {
     private final WiFiBand wiFiBand;
     private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;
 
@@ -49,8 +49,8 @@ class ChannelAxisLabel implements LabelFormatter, GraphConstants {
         if (isValueX) {
             result += findChannel(valueAsInt);
         } else {
-            if (valueAsInt <= MAX_Y && valueAsInt > MIN_Y) {
-                result += valueAsInt;
+            if (valueAsInt <= GraphConstants.MAX_Y && valueAsInt > GraphConstants.MIN_Y) {
+                result += Integer.toString(valueAsInt);
             }
         }
         return result;
@@ -74,7 +74,7 @@ class ChannelAxisLabel implements LabelFormatter, GraphConstants {
         if (!wiFiChannels.isChannelAvailable(countryCode, channel)) {
             return StringUtils.EMPTY;
         }
-        return "" + channel;
+        return Integer.toString(channel);
     }
 
 }

@@ -24,6 +24,9 @@ import android.text.Html;
 import android.text.Spanned;
 
 public class TextUtils {
+    private TextUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static String textToHtml(@NonNull String text, int color, boolean small) {
         return "<font color='" + color + "'><" + (small ? "small" : "strong") +

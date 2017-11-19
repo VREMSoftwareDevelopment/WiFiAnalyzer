@@ -18,10 +18,10 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.vrem.util.EnumUtils;
+import com.vrem.util.LocaleUtils;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointViewType;
@@ -34,6 +34,7 @@ import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import static android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -42,15 +43,9 @@ public class Settings {
     static final int GRAPH_Y_MULTIPLIER = -10;
     static final int GRAPH_Y_DEFAULT = 2;
 
-    private final Context context;
-    private Repository repository;
+    private final Repository repository;
 
-    public Settings(@NonNull Context context) {
-        this.context = context;
-        setRepository(new Repository());
-    }
-
-    void setRepository(@NonNull Repository repository) {
+    public Settings(@NonNull Repository repository) {
         this.repository = repository;
     }
 
@@ -77,8 +72,14 @@ public class Settings {
     }
 
     public String getCountryCode() {
-        String countryCode = CountryPreference.getDefault(context);
+        String countryCode = LocaleUtils.getDefaultCountryCode();
         return repository.getString(R.string.country_code_key, countryCode);
+    }
+
+    public Locale getLanguageLocale() {
+        String defaultLanguageTag = LocaleUtils.getDefaultLanguageTag();
+        String languageTag = repository.getString(R.string.language_key, defaultLanguageTag);
+        return LocaleUtils.findByLanguageTag(languageTag);
     }
 
     public SortBy getSortBy() {
