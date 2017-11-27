@@ -1,6 +1,6 @@
-<h1>WiFiAnalyzer <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/ic_launcher-web.png" alt="Application Icon" width="45" height="45"></h1>
+<h1>WiFi Analyzer <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/ic_launcher-web.png" alt="Application Icon" width="45" height="45"></h1>
 
-Optimize your WiFi network using WiFiAnalyzer by examining surrounding WiFi networks, measuring their signal strength as well as identifying crowded channels.
+Optimize your WiFi network using WiFi Analyzer by examining surrounding WiFi networks, measuring their signal strength as well as identifying crowded channels.
 
 ### Android OS Requirements
 * Minimum: Jelly Bean (Version 4.1 - API 16)
@@ -11,7 +11,7 @@ Optimize your WiFi network using WiFiAnalyzer by examining surrounding WiFi netw
 [<img src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-underground-app-us-white.png" alt="Get it at Amazon Store" height="70">
 ](https://www.amazon.com/VREM-Software-Development-WiFiAnalyzer-open-source/dp/B06XZT7RYD)
 
-This is the official repository of WiFiAnalyzer.
+This is the official repository of WiFi Analyzer.
 
 <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/feature-graphic.png" alt="Feature Graphic" height="300">
 
@@ -27,7 +27,7 @@ This is the official repository of WiFiAnalyzer.
 - [Feedback](#feedback)
 - [License](#license)
   - [GPLv3 License key requirements:](#gplv3-license-key-requirements)
-- [WiFiAnalyzer Build](#wifianalyzer-build)
+- [WiFi Analyzer Build](#wifi-analyzer-build)
 - [Contribute](#contribute)
   - [Fork project](#fork-project)
   - [Build project](#build-project)
@@ -49,7 +49,7 @@ This is the official repository of WiFiAnalyzer.
 * Swipe left/right at the bottom of the screen to navigate to the next/previous screen
 * Available filters: WiFi band, Signal strength, Security and SSID
 
-**Please note WiFiAnalyzer is not a WiFi password cracking or phishing tool.**
+**Please note WiFi Analyzer is not a WiFi password cracking or phishing tool.**
 
  
 ## Usage Tips
@@ -68,10 +68,10 @@ This is the official repository of WiFiAnalyzer.
 
 ## FAQ
 * [Android OS 6+ may require Location Service to be switched on](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Android-OS-6---Location-Service-ON)
-* [WiFiAnalyzer on secondary user accounts](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/WiFiAnalyzer-on-secondary-user-accounts)
+* [WiFi Analyzer on secondary user accounts](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/WiFi-Analyzer-on-secondary-user-accounts)
 * [How channel graph displays 20/40/80/160 MHz channel width?](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/64)
 * [How to use SSID filter?](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/125)
-* [WiFiAnalyzer equivalent on iOS](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/69)
+* [WiFi Analyzer equivalent on iOS](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/69)
 
 ## Feedback
 * Bug reports and feature requests can be submitted [here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues).
@@ -81,7 +81,7 @@ This is the official repository of WiFiAnalyzer.
 ## License
 [<img src="https://www.gnu.org/graphics/gplv3-127x51.png" alt="GPLv3" >](http://www.gnu.org/licenses/gpl-3.0.html)
 
-WiFiAnalyzer is licensed under the GNU General Public License v3.0 (GPLv3).
+WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 
 ### GPLv3 License key requirements:
 * Disclose Source
@@ -93,7 +93,7 @@ WiFiAnalyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 
 [GNU General Public License v3.0 (GPLv3)](http://www.gnu.org/licenses/gpl-3.0.html).
 
-## WiFiAnalyzer Build
+## WiFi Analyzer Build
 
 [![Build Status](https://travis-ci.org/VREMSoftwareDevelopment/WiFiAnalyzer.svg?branch=master)](https://travis-ci.org/VREMSoftwareDevelopment/WiFiAnalyzer)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/203eaa0583694bcca6554190513179ba)](https://www.codacy.com/app/vremsoftwaredevelopment/WiFiAnalyzer)
@@ -115,8 +115,8 @@ WiFiAnalyzer is licensed under the GNU General Public License v3.0 (GPLv3).
   1. Install Android Studio
   2. Import project into Android Studio
       * In Welcome to Android Studio Screen select Import project ...
-      * Select the root directory of the WiFiAnalyzer repository and click "OK".
-      * WiFiAnalyzer will build automatically
+      * Select the root directory of the WiFi Analyzer repository and click "OK".
+      * WiFi Analyzer will build automatically
 
 ### Running unit tests and jacoco coverage report
 ```
@@ -134,5 +134,3 @@ If you would like to contribute financially to the project please feel free to s
 [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=62PA6HJ3BZL3E)
 
 Thanks to every one who already donated so far!
-
-
