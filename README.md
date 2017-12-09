@@ -1,6 +1,6 @@
 <h1>WiFi Analyzer <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/ic_launcher-web.png" alt="Application Icon" width="45" height="45"></h1>
 
-Android Authority selected WiFi Analyzer to be 1 of 15 most useful apps for Android, [click here](https://www.androidauthority.com/most-useful-apps-for-android-603100/amp) to learn more about it.
+### Android Authority selected WiFi Analyzer to be 1 of 15 most useful apps for Android, [click here](https://www.androidauthority.com/most-useful-apps-for-android-603100/amp) to learn more about it.
 
 Optimize your WiFi network using WiFi Analyzer by examining surrounding WiFi networks, measuring their signal strength as well as identifying crowded channels.
 
@@ -15,7 +15,8 @@ Optimize your WiFi network using WiFi Analyzer by examining surrounding WiFi net
 
 This is the official repository of WiFi Analyzer.
 
-<img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/feature-graphic.png" alt="Feature Graphic" height="300">
+[<img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/feature-graphic.png" alt="Feature Graphic - Dark Theme" height="200">]()
+[<img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/feature-graphic-light.png" alt="Feature Graphic - Light Theme" height="200">]()
 
 ### The open-source app was created using Agile methodologies, [click here](http://i-proving.com/2016/10/13/using-agile-methodologies-develop-open-source-android-app) to learn more about it.
 
