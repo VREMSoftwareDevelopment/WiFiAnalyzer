@@ -15,8 +15,8 @@ Optimize your WiFi network using WiFi Analyzer by examining surrounding WiFi net
 
 This is the official repository of WiFi Analyzer.
 
-[<img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/feature-graphic.png" alt="Feature Graphic - Dark Theme" height="200">]()
-[<img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/feature-graphic-light.png" alt="Feature Graphic - Light Theme" height="200">]()
+<img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/feature-graphic.png" alt="Feature Graphic - Dark Theme" height="200">
+<img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/feature-graphic-light.png" alt="Feature Graphic - Light Theme" height="200">
 
 ### The open-source app was created using Agile methodologies, [click here](http://i-proving.com/2016/10/13/using-agile-methodologies-develop-open-source-android-app) to learn more about it.
 
