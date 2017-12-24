@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.settings;
 
+import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.navigation.NavigationGroup;
@@ -28,12 +29,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class StartMenuPreferenceTest {
 
     private MainActivity mainActivity;
