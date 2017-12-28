@@ -37,6 +37,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -53,30 +54,39 @@ public class VendorAdapterTest {
 
     private MainActivity mainActivity;
     private VendorService vendorService;
+    private List<String> vendors;
     private VendorAdapter fixture;
 
     @Before
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getActivity();
-
         vendorService = MainContextHelper.INSTANCE.getVendorService();
 
-        withVendorNames();
+        vendors = Arrays.asList(VENDOR_NAME1, VENDOR_NAME2, VENDOR_NAME3);
+        when(vendorService.findVendors()).thenReturn(vendors);
 
         fixture = new VendorAdapter(mainActivity, vendorService);
     }
 
     @After
     public void tearDown() {
-        verify(vendorService).findVendors();
         MainContextHelper.INSTANCE.restore();
+    }
+
+    @Test
+    public void testConstructor() {
+        assertEquals(vendors.size(), fixture.getCount());
+        assertEquals(vendors.get(0), fixture.getItem(0));
+        assertEquals(vendors.get(1), fixture.getItem(1));
+        assertEquals(vendors.get(2), fixture.getItem(2));
+        verify(vendorService).findVendors();
     }
 
     @Test
     public void testGetView() throws Exception {
         // setup
-        when(vendorService.findMacAddresses(VENDOR_NAME2)).thenReturn(Arrays.asList("V2M1X1", "V2M2", "V2M3X1"));
-        String expected = "V2:M1:X1, *V2M2*, V2:M3:X1";
+        when(vendorService.findMacAddresses(VENDOR_NAME2)).thenReturn(Arrays.asList("VALUE1", "VALUE2", "VALUE3"));
+        String expected = "VALUE1, VALUE2, VALUE3";
         ViewGroup viewGroup = mainActivity.findViewById(android.R.id.content);
         // execute
         View actual = fixture.getView(1, null, viewGroup);
@@ -90,10 +100,6 @@ public class VendorAdapterTest {
 
         verify(vendorService, never()).findVendorName(VENDOR_NAME1);
         verify(vendorService, never()).findVendorName(VENDOR_NAME3);
-    }
-
-    private void withVendorNames() {
-        when(vendorService.findVendors()).thenReturn(Arrays.asList(VENDOR_NAME1, VENDOR_NAME2, VENDOR_NAME3));
     }
 
 }

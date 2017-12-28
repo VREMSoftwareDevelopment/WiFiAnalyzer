@@ -20,97 +20,117 @@ package com.vrem.wifianalyzer.vendor.model;
 
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.support.annotation.RawRes;
 
 import com.vrem.wifianalyzer.R;
 
-import java.io.InputStream;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.collections4.Predicate;
+import org.apache.commons.collections4.PredicateUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
-class VendorDB {
-    private static final int SIZE = 6;
+public class VendorDB implements VendorService {
     private final Resources resources;
-    private Map<String, List<String>> vendors;
-    private Map<String, String> macs;
+    private final Map<String, List<String>> vendors = new TreeMap<>();
+    private final Map<String, String> macs = new TreeMap<>();
 
-    VendorDB(@NonNull Resources resources) {
+    public VendorDB(@NonNull Resources resources) {
         this.resources = resources;
     }
 
-    String findVendorName(String address) {
-        load();
-        return macs.get(address);
+    @NonNull
+    @Override
+    public String findVendorName(String address) {
+        String result = getMacs().get(VendorUtils.clean(address));
+        return result == null ? StringUtils.EMPTY : result;
     }
 
-    List<String> findMacAddresses(String vendorName) {
-        load();
-        return vendors.get(vendorName);
+    @NonNull
+    @Override
+    public List<String> findMacAddresses(String vendorName) {
+        if (StringUtils.isBlank(vendorName)) {
+            return new ArrayList<>();
+        }
+        List<String> results = getVendors().get(vendorName);
+        return results == null ? new ArrayList<String>() : results;
     }
 
-    Map<String, String> getMacs() {
-        load();
-        return macs;
+    @NonNull
+    @Override
+    public List<String> findVendors() {
+        return new ArrayList<>(getVendors().keySet());
     }
 
+    @NonNull
+    @Override
+    public List<String> findVendors(@NonNull String filter) {
+        Predicate<String> predicate =
+            PredicateUtils.anyPredicate(new StringContains(filter), new MacContains(filter));
+        return new ArrayList<>(CollectionUtils.select(getVendors().keySet(), predicate));
+    }
+
+    @NonNull
     Map<String, List<String>> getVendors() {
-        load();
+        load(resources);
         return vendors;
     }
 
-    private String[] readFile(@NonNull Resources resources, @RawRes int id) {
-        InputStream inputStream = null;
-        try {
-            inputStream = resources.openRawResource(id);
-            int size = inputStream.available();
-            byte[] bytes = new byte[size];
-            int count = inputStream.read(bytes);
-            if (count != size) {
-                return new String[]{};
-            }
-            return new String(bytes).split("\n");
-        } catch (Exception e) {
-            // file is corrupted
-            return new String[]{};
-        } finally {
-            close(inputStream);
-        }
+    @NonNull
+    Map<String, String> getMacs() {
+        load(resources);
+        return macs;
     }
 
-    private void close(InputStream inputStream) {
-        if (inputStream != null) {
-            try {
-                inputStream.close();
-            } catch (Exception e) {
-                // do nothing
-            }
-        }
-    }
-
-    private void load() {
-        if (vendors != null) {
-            return;
-        }
-        vendors = new HashMap<>();
-        macs = new HashMap<>();
-        String[] lines = readFile(resources, R.raw.data);
-        for (String data : lines) {
-            if (data != null) {
-                String[] parts = data.split("\\|");
-                if (parts.length == 2) {
-                    List<String> addresses = new ArrayList<>();
-                    String name = parts[0];
-                    vendors.put(name, addresses);
-                    int length = parts[1].length();
-                    for (int i = 0; i < length; i += SIZE) {
-                        String mac = parts[1].substring(i, i + SIZE);
-                        addresses.add(mac);
-                        macs.put(mac, name);
+    private void load(@NonNull Resources resources) {
+        if (vendors.isEmpty()) {
+            String[] lines = VendorUtils.readFile(resources, R.raw.data);
+            for (String data : lines) {
+                if (data != null) {
+                    String[] parts = data.split("\\|");
+                    if (parts.length == 2) {
+                        List<String> addresses = new ArrayList<>();
+                        String name = parts[0];
+                        vendors.put(name, addresses);
+                        int length = parts[1].length();
+                        for (int i = 0; i < length; i += VendorUtils.MAX_SIZE) {
+                            String mac = parts[1].substring(i, i + VendorUtils.MAX_SIZE);
+                            addresses.add(VendorUtils.toMacAddress(mac));
+                            macs.put(mac, name);
+                        }
                     }
                 }
             }
+        }
+    }
+
+    private class StringContains implements Predicate<String> {
+        private final String filter;
+
+        private StringContains(@NonNull String filter) {
+            this.filter = filter;
+        }
+
+        @Override
+        public boolean evaluate(String object) {
+            return object.contains(filter);
+        }
+    }
+
+    private class MacContains implements Predicate<String> {
+        private final String filter;
+
+        private MacContains(@NonNull String filter) {
+            this.filter = filter;
+        }
+
+        @Override
+        public boolean evaluate(String object) {
+            return IterableUtils.matchesAny(findMacAddresses(object), new StringContains(filter));
         }
     }
 

@@ -28,7 +28,6 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.filter.adapter.SSIDAdapter;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -71,9 +70,9 @@ public class SSIDFilterTest {
     @Test
     public void testSSIDFilterWithValues() throws Exception {
         // setup
-        HashSet<String> values = new HashSet<>(Arrays.asList("", " ", "ABC", " JDS "));
+        Set<String> values = new HashSet<>(Arrays.asList("", " ", "ABC", " JDS "));
         when(ssidAdapter.getValues()).thenReturn(values);
-        String expected = StringUtils.join(values, " ");
+        String expected = "ABC JDS";
         // execute
         new SSIDFilter(ssidAdapter, dialog);
         // verify
@@ -100,7 +99,7 @@ public class SSIDFilterTest {
         String value = " ABS ADF ";
         SSIDFilter.OnChange onChange = new SSIDFilter.OnChange(ssidAdapter);
         when(editable.toString()).thenReturn(value);
-        Set<String> expected = new HashSet<>(Arrays.asList(value.split(" ")));
+        Set<String> expected = new HashSet<>(Arrays.asList("ABS", "ADF"));
         // execute
         onChange.afterTextChanged(editable);
         // verify

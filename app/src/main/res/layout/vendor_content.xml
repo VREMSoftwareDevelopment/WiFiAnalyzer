@@ -22,6 +22,29 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+            android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_search_grey_500_36dp"/>
+
+        <EditText
+            android:id="@+id/vendorSearchText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/vendor_search_hint"
+            android:inputType="text|textCapCharacters"
+            android:maxLines="1"/>
+    </LinearLayout>
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"

@@ -59,6 +59,10 @@ android {
             }
         }
     }
+
+    lintOptions {
+        disable 'GoogleAppIndexingWarning'
+    }
 }
 
 jacoco {

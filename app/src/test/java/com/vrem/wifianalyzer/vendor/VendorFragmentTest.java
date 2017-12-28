@@ -18,11 +18,14 @@
 
 package com.vrem.wifianalyzer.vendor;
 
+import android.text.Editable;
+
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +39,7 @@ import java.util.Collections;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mock;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -68,4 +72,32 @@ public class VendorFragmentTest {
         assertNotNull(fixture);
         verify(vendorService).findVendors();
     }
+
+    @Test
+    public void testOnChangeAfterTextChangedWithValues() throws Exception {
+        // setup
+        String values = "     ABS       ADF      ";
+        String expected = "ABS ADF";
+        VendorAdapter vendorAdapter = mock(VendorAdapter.class);
+        VendorFragment.OnChange onChange = new VendorFragment.OnChange(vendorAdapter);
+        Editable editable = mock(Editable.class);
+        when(editable.toString()).thenReturn(values);
+        // execute
+        onChange.afterTextChanged(editable);
+        // verify
+        verify(vendorAdapter).update(expected);
+    }
+
+    @Test
+    public void testOnChangeAfterTextChangedWithNull() throws Exception {
+        // setup
+        VendorAdapter vendorAdapter = mock(VendorAdapter.class);
+        VendorFragment.OnChange onChange = new VendorFragment.OnChange(vendorAdapter);
+        // execute
+        onChange.afterTextChanged(null);
+        // verify
+        verify(vendorAdapter).update(StringUtils.EMPTY);
+    }
+
+
 }

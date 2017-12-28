@@ -32,7 +32,7 @@ import java.util.Locale;
 import java.util.SortedSet;
 
 public class WiFiChannelCountry {
-    public static final String UNKNOWN = "-Unknown";
+    private static final String UNKNOWN = "-Unknown";
 
     private static final WiFiChannelCountryGHZ2 WIFI_CHANNEL_GHZ2 = new WiFiChannelCountryGHZ2();
     private static final WiFiChannelCountryGHZ5 WIFI_CHANNEL_GHZ5 = new WiFiChannelCountryGHZ5();

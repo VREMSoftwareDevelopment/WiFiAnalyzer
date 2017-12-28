@@ -27,6 +27,7 @@ import android.view.LayoutInflater;
 
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.vendor.model.VendorDB;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
 import com.vrem.wifianalyzer.wifi.scanner.Scanner;
@@ -111,7 +112,7 @@ public enum MainContext {
         setMainActivity(mainActivity);
         setConfiguration(currentConfiguration);
         setSettings(currentSettings);
-        setVendorService(new VendorService(mainActivity.getResources()));
+        setVendorService(new VendorDB(mainActivity.getResources()));
         setScanner(new Scanner(wifiManager, handler, currentSettings));
         setFilterAdapter(new FilterAdapter(currentSettings));
     }

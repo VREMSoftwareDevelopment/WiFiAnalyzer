@@ -21,6 +21,7 @@ package com.vrem.wifianalyzer.vendor;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +31,6 @@ import android.widget.TextView;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
-
-import org.apache.commons.collections4.Closure;
-import org.apache.commons.collections4.IterableUtils;
-
-import java.util.List;
 
 class VendorAdapter extends ArrayAdapter<String> {
     private final VendorService vendorService;
@@ -53,32 +49,15 @@ class VendorAdapter extends ArrayAdapter<String> {
             view = layoutInflater.inflate(R.layout.vendor_details, parent, false);
         }
         String vendorName = getItem(position);
-        List<String> macAddresses = vendorService.findMacAddresses(vendorName);
-        StringBuilder stringBuilder = new StringBuilder();
-        IterableUtils.forEach(macAddresses, new MacsClosure(stringBuilder));
-
         ((TextView) view.findViewById(R.id.vendor_name)).setText(vendorName);
-        ((TextView) view.findViewById(R.id.vendor_macs)).setText(stringBuilder.toString());
+        ((TextView) view.findViewById(R.id.vendor_macs)).setText(
+            TextUtils.join(", ", vendorService.findMacAddresses(vendorName)));
         return view;
     }
 
-    private class MacsClosure implements Closure<String> {
-        private final StringBuilder stringBuilder;
-
-        private MacsClosure(@NonNull StringBuilder stringBuilder) {
-            this.stringBuilder = stringBuilder;
-        }
-
-        @Override
-        public void execute(String input) {
-            if (stringBuilder.length() > 0) {
-                stringBuilder.append(", ");
-            }
-            String macAddress =
-                input.length() < 6
-                    ? "*" + input + "*"
-                    : String.format("%s:%s:%s", input.substring(0, 2), input.substring(2, 4), input.substring(4, 6));
-            stringBuilder.append(macAddress);
-        }
+    void update(@NonNull String filter) {
+        clear();
+        addAll(vendorService.findVendors(filter));
     }
+
 }
