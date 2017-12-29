@@ -34,13 +34,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class VendorDB implements VendorService {
+class VendorDB implements VendorService {
     private final Resources resources;
-    private final Map<String, List<String>> vendors = new TreeMap<>();
-    private final Map<String, String> macs = new TreeMap<>();
+    private final Map<String, List<String>> vendors;
+    private final Map<String, String> macs;
+    private boolean loaded;
 
-    public VendorDB(@NonNull Resources resources) {
+    VendorDB(@NonNull Resources resources) {
         this.resources = resources;
+        this.vendors = new TreeMap<>();
+        this.macs = new TreeMap<>();
+        this.loaded = false;
     }
 
     @NonNull
@@ -87,7 +91,8 @@ public class VendorDB implements VendorService {
     }
 
     private void load(@NonNull Resources resources) {
-        if (vendors.isEmpty()) {
+        if (!loaded) {
+            loaded = true;
             String[] lines = VendorUtils.readFile(resources, R.raw.data);
             for (String data : lines) {
                 if (data != null) {
