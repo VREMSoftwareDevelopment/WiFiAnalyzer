@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         onNavigationItemSelected(navigationMenuView.getCurrentMenuItem());
 
         ConnectionView connectionView = new ConnectionView(this);
-        mainContext.getScanner().register(connectionView);
+        mainContext.getScannerService().register(connectionView);
     }
 
     private void setWiFiChannelPairs(MainContext mainContext) {
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     public void update() {
-        MainContext.INSTANCE.getScanner().update();
+        MainContext.INSTANCE.getScannerService().update();
         updateActionBar();
     }
 
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     protected void onStop() {
-        MainContext.INSTANCE.getScanner().setWiFiOnExit();
+        MainContext.INSTANCE.getScannerService().setWiFiOnExit();
         super.onStop();
     }
 

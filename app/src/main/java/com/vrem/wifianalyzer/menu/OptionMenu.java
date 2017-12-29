@@ -38,7 +38,7 @@ public class OptionMenu {
     public void select(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_scanner:
-                if (MainContext.INSTANCE.getScanner().isRunning()) {
+                if (MainContext.INSTANCE.getScannerService().isRunning()) {
                     pause();
                 } else {
                     resume();
@@ -54,11 +54,11 @@ public class OptionMenu {
     }
 
     public void pause() {
-        MainContext.INSTANCE.getScanner().pause();
+        MainContext.INSTANCE.getScannerService().pause();
     }
 
     public void resume() {
-        MainContext.INSTANCE.getScanner().resume();
+        MainContext.INSTANCE.getScannerService().resume();
     }
 
     public Menu getMenu() {

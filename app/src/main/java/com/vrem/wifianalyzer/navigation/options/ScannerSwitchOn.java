@@ -34,7 +34,7 @@ class ScannerSwitchOn implements NavigationOption {
         if (menu != null) {
             MenuItem menuItem = menu.findItem(R.id.action_scanner);
             menuItem.setVisible(true);
-            if (MainContext.INSTANCE.getScanner().isRunning()) {
+            if (MainContext.INSTANCE.getScannerService().isRunning()) {
                 menuItem.setTitle(R.string.action_pause);
                 menuItem.setIcon(R.drawable.ic_pause_grey_500_48dp);
             } else {

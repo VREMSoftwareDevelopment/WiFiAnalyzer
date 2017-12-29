@@ -19,8 +19,8 @@
 package com.vrem.wifianalyzer.wifi.channelrating;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,15 +30,13 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 public class ChannelRatingFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private ChannelRatingAdapter channelRatingAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        FragmentActivity activity = getActivity();
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.channel_rating_content, container, false);
 
@@ -48,19 +46,17 @@ public class ChannelRatingFragment extends Fragment {
         TextView bestChannels = view.findViewById(R.id.channelRatingBestChannels);
         ListView listView = view.findViewById(R.id.channelRatingView);
 
-        channelRatingAdapter = new ChannelRatingAdapter(activity, bestChannels);
+        channelRatingAdapter = new ChannelRatingAdapter(getActivity(), bestChannels);
         listView.setAdapter(channelRatingAdapter);
 
-        Scanner scanner = MainContext.INSTANCE.getScanner();
-        scanner.register(channelRatingAdapter);
+        MainContext.INSTANCE.getScannerService().register(channelRatingAdapter);
 
         return view;
     }
 
     private void refresh() {
         swipeRefreshLayout.setRefreshing(true);
-        Scanner scanner = MainContext.INSTANCE.getScanner();
-        scanner.update();
+        MainContext.INSTANCE.getScannerService().update();
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -72,8 +68,7 @@ public class ChannelRatingFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        Scanner scanner = MainContext.INSTANCE.getScanner();
-        scanner.unregister(channelRatingAdapter);
+        MainContext.INSTANCE.getScannerService().unregister(channelRatingAdapter);
         super.onDestroy();
     }
 

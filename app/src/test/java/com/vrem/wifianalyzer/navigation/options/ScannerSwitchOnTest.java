@@ -25,7 +25,7 @@ import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.menu.OptionMenu;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
+import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
 import org.junit.After;
 import org.junit.Before;
@@ -50,12 +50,12 @@ public class ScannerSwitchOnTest {
     @Mock
     private MenuItem menuItem;
 
-    private Scanner scanner;
+    private ScannerService scanner;
     private ScannerSwitchOn fixture;
 
     @Before
     public void setUp() {
-        scanner = MainContextHelper.INSTANCE.getScanner();
+        scanner = MainContextHelper.INSTANCE.getScannerService();
         fixture = new ScannerSwitchOn();
     }
 

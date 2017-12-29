@@ -30,14 +30,15 @@ import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.vendor.model.VendorServiceFactory;
 import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
+import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
+import com.vrem.wifianalyzer.wifi.scanner.ScannerServiceFactory;
 
 public enum MainContext {
     INSTANCE;
 
     private Settings settings;
     private MainActivity mainActivity;
-    private Scanner scanner;
+    private ScannerService scannerService;
     private VendorService vendorService;
     private Configuration configuration;
     private FilterAdapter filterAdapter;
@@ -58,12 +59,12 @@ public enum MainContext {
         this.vendorService = vendorService;
     }
 
-    public Scanner getScanner() {
-        return scanner;
+    public ScannerService getScannerService() {
+        return scannerService;
     }
 
-    void setScanner(Scanner scanner) {
-        this.scanner = scanner;
+    void setScannerService(ScannerService scannerService) {
+        this.scannerService = scannerService;
     }
 
     public MainActivity getMainActivity() {
@@ -113,7 +114,7 @@ public enum MainContext {
         setConfiguration(currentConfiguration);
         setSettings(currentSettings);
         setVendorService(VendorServiceFactory.makeVendorService(mainActivity.getResources()));
-        setScanner(new Scanner(wifiManager, handler, currentSettings));
+        setScannerService(ScannerServiceFactory.makeScannerService(wifiManager, handler, currentSettings));
         setFilterAdapter(new FilterAdapter(currentSettings));
     }
 

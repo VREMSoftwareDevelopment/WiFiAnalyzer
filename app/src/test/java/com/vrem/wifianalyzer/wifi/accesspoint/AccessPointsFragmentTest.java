@@ -21,7 +21,7 @@ package com.vrem.wifianalyzer.wifi.accesspoint;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
+import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
 import org.junit.After;
 import org.junit.Before;
@@ -39,13 +39,13 @@ import static org.mockito.Mockito.verify;
 @Config(constants = BuildConfig.class)
 public class AccessPointsFragmentTest {
 
-    private Scanner scanner;
+    private ScannerService scanner;
     private AccessPointsFragment fixture;
 
     @Before
     public void setUp() {
         RobolectricUtil.INSTANCE.getActivity();
-        scanner = MainContextHelper.INSTANCE.getScanner();
+        scanner = MainContextHelper.INSTANCE.getScannerService();
         fixture = new AccessPointsFragment();
     }
 

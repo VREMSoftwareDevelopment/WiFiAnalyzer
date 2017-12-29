@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.wifi.timegraph;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -28,7 +29,6 @@ import android.view.ViewGroup;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewAdd;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import org.apache.commons.collections4.IterableUtils;
 
@@ -37,7 +37,7 @@ public class TimeGraphFragment extends Fragment {
     private TimeGraphAdapter timeGraphAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.graph_content, container, false);
 
         swipeRefreshLayout = view.findViewById(R.id.graphRefresh);
@@ -46,8 +46,7 @@ public class TimeGraphFragment extends Fragment {
         timeGraphAdapter = new TimeGraphAdapter();
         addGraphViews(swipeRefreshLayout, timeGraphAdapter);
 
-        Scanner scanner = MainContext.INSTANCE.getScanner();
-        scanner.register(timeGraphAdapter);
+        MainContext.INSTANCE.getScannerService().register(timeGraphAdapter);
 
         return view;
     }
@@ -59,8 +58,7 @@ public class TimeGraphFragment extends Fragment {
 
     private void refresh() {
         swipeRefreshLayout.setRefreshing(true);
-        Scanner scanner = MainContext.INSTANCE.getScanner();
-        scanner.update();
+        MainContext.INSTANCE.getScannerService().update();
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -72,8 +70,7 @@ public class TimeGraphFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        Scanner scanner = MainContext.INSTANCE.getScanner();
-        scanner.unregister(timeGraphAdapter);
+        MainContext.INSTANCE.getScannerService().unregister(timeGraphAdapter);
         super.onDestroy();
     }
 

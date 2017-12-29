@@ -39,7 +39,7 @@ public class PeriodicScanTest {
     @Mock
     private Settings settings;
     @Mock
-    private Scanner scanner;
+    private ScannerService scanner;
 
     private PeriodicScan fixture;
 

@@ -25,7 +25,7 @@ import com.vrem.wifianalyzer.menu.OptionMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
+import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
 import org.junit.After;
 import org.junit.Before;
@@ -59,7 +59,7 @@ public class MainActivityTest {
 
     @Test
     public void testMainActivity() throws Exception {
-        assertTrue(MainContext.INSTANCE.getScanner().isRunning());
+        assertTrue(MainContext.INSTANCE.getScannerService().isRunning());
     }
 
     @Test
@@ -137,7 +137,7 @@ public class MainActivityTest {
     @Test
     public void testOnStop() throws Exception {
         // setup
-        Scanner scanner = MainContextHelper.INSTANCE.getScanner();
+        ScannerService scanner = MainContextHelper.INSTANCE.getScannerService();
         // execute
         fixture.onStop();
         // validate

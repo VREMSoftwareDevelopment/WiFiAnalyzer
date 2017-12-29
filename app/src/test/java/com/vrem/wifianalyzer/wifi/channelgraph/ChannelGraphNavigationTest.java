@@ -35,7 +35,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelsGHZ5;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
+import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
@@ -62,7 +62,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @Config(constants = BuildConfig.class)
 public class ChannelGraphNavigationTest {
 
-    private Scanner scanner;
+    private ScannerService scanner;
     private Settings settings;
     private Configuration configuration;
     private View layout;
@@ -75,7 +75,7 @@ public class ChannelGraphNavigationTest {
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getActivity();
 
-        scanner = MainContextHelper.INSTANCE.getScanner();
+        scanner = MainContextHelper.INSTANCE.getScannerService();
         settings = MainContextHelper.INSTANCE.getSettings();
         configuration = MainContextHelper.INSTANCE.getConfiguration();
 

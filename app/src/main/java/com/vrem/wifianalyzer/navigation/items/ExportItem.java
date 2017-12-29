@@ -90,7 +90,7 @@ class ExportItem implements NavigationItem {
     }
 
     private List<WiFiDetail> getWiFiDetails() {
-        return MainContext.INSTANCE.getScanner().getWiFiData().getWiFiDetails();
+        return MainContext.INSTANCE.getScannerService().getWiFiData().getWiFiDetails();
     }
 
     @NonNull

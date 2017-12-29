@@ -21,7 +21,7 @@ package com.vrem.wifianalyzer.wifi.timegraph;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
+import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
 import org.junit.After;
 import org.junit.Before;
@@ -40,12 +40,12 @@ import static org.mockito.Mockito.verify;
 public class TimeGraphFragmentTest {
 
     private TimeGraphFragment fixture;
-    private Scanner scanner;
+    private ScannerService scanner;
 
     @Before
     public void setUp() {
         RobolectricUtil.INSTANCE.getActivity();
-        scanner = MainContextHelper.INSTANCE.getScanner();
+        scanner = MainContextHelper.INSTANCE.getScannerService();
         fixture = new TimeGraphFragment();
     }
 
