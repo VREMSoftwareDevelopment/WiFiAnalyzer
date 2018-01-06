@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ class ScannerSwitchOn implements NavigationOption {
         if (menu != null) {
             MenuItem menuItem = menu.findItem(R.id.action_scanner);
             menuItem.setVisible(true);
-            if (MainContext.INSTANCE.getScanner().isRunning()) {
+            if (MainContext.INSTANCE.getScannerService().isRunning()) {
                 menuItem.setTitle(R.string.action_pause);
                 menuItem.setIcon(R.drawable.ic_pause_grey_500_48dp);
             } else {

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
+import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
 import org.junit.After;
 import org.junit.Before;
@@ -52,11 +52,11 @@ public class OptionMenuTest {
     private MenuInflater menuInflater;
 
     private OptionMenu fixture;
-    private Scanner scanner;
+    private ScannerService scanner;
 
     @Before
     public void setUp() {
-        scanner = MainContextHelper.INSTANCE.getScanner();
+        scanner = MainContextHelper.INSTANCE.getScannerService();
         fixture = new OptionMenu();
     }
 

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,7 +36,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyFloat;
 import static org.mockito.Matchers.anyString;
@@ -229,11 +228,11 @@ public class GraphViewBuilderTest {
         // execute
         fixture.setGridLabelRenderer(graphView);
         // validate
-        verify(gridLabelRenderer, never()).setGridColor(anyInt());
-        verify(gridLabelRenderer, never()).setVerticalLabelsColor(anyInt());
-        verify(gridLabelRenderer, never()).setVerticalAxisTitleColor(anyInt());
-        verify(gridLabelRenderer, never()).setHorizontalLabelsColor(anyInt());
-        verify(gridLabelRenderer, never()).setHorizontalAxisTitleColor(anyInt());
+        verify(gridLabelRenderer).setGridColor(Color.GRAY);
+        verify(gridLabelRenderer).setVerticalLabelsColor(Color.WHITE);
+        verify(gridLabelRenderer).setVerticalAxisTitleColor(Color.WHITE);
+        verify(gridLabelRenderer).setHorizontalLabelsColor(Color.WHITE);
+        verify(gridLabelRenderer).setHorizontalAxisTitleColor(Color.WHITE);
     }
 
     @Test

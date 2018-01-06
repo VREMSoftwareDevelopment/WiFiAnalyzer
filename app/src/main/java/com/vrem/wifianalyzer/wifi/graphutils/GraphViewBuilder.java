@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -126,13 +126,12 @@ public class GraphViewBuilder {
     }
 
     private void setGridLabelRenderColors(GridLabelRenderer gridLabelRenderer) {
-        if (ThemeStyle.LIGHT.equals(themeStyle)) {
-            gridLabelRenderer.setGridColor(Color.GRAY);
-            gridLabelRenderer.setVerticalLabelsColor(Color.BLACK);
-            gridLabelRenderer.setVerticalAxisTitleColor(Color.BLACK);
-            gridLabelRenderer.setHorizontalLabelsColor(Color.BLACK);
-            gridLabelRenderer.setHorizontalAxisTitleColor(Color.BLACK);
-        }
+        int color = ThemeStyle.DARK.equals(themeStyle) ? Color.WHITE : Color.BLACK;
+        gridLabelRenderer.setGridColor(Color.GRAY);
+        gridLabelRenderer.setVerticalLabelsColor(color);
+        gridLabelRenderer.setVerticalAxisTitleColor(color);
+        gridLabelRenderer.setHorizontalLabelsColor(color);
+        gridLabelRenderer.setHorizontalAxisTitleColor(color);
     }
 
     int getNumVerticalLabels() {

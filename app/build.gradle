@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,11 +20,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'jacoco-android'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.3'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
-        applicationId "com.vrem.wifianalyzer"
+        applicationId "com.vrem.wifianalyzer.BETA"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode
@@ -35,10 +35,13 @@ android {
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt')
             signingConfig
         }
         debug {
+            minifyEnabled false
+            shrinkResources false
             debuggable true
             testCoverageEnabled true
         }
@@ -58,6 +61,10 @@ android {
                 }
             }
         }
+    }
+
+    lintOptions {
+        disable 'GoogleAppIndexingWarning'
     }
 }
 
@@ -86,8 +93,8 @@ if (project.hasProperty('keyAlias')) {
 dependencies {
     // Compile Build Dependencies
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.android.support:design:27.0.2'
     implementation 'org.apache.commons:commons-lang3:3.7'
     implementation 'org.apache.commons:commons-collections4:4.1'
     implementation 'com.jjoe64:graphview:4.2.1'
@@ -96,7 +103,7 @@ dependencies {
     testImplementation 'org.powermock:powermock-module-junit4:1.7.3'
     testImplementation 'org.powermock:powermock-api-mockito2:1.7.3'
     testImplementation 'com.googlecode.junit-toolbox:junit-toolbox:2.4'
-    testImplementation 'org.robolectric:robolectric:3.5.1'
+    testImplementation 'org.robolectric:robolectric:3.6.1'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
     // Android Test Dependencies
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {

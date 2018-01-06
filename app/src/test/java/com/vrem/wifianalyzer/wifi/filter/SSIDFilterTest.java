@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,15 +23,16 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 
+import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.filter.adapter.SSIDAdapter;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -43,6 +44,7 @@ import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class SSIDFilterTest {
 
     private Dialog dialog;
@@ -68,9 +70,9 @@ public class SSIDFilterTest {
     @Test
     public void testSSIDFilterWithValues() throws Exception {
         // setup
-        HashSet<String> values = new HashSet<>(Arrays.asList("", " ", "ABC", " JDS "));
+        Set<String> values = new HashSet<>(Arrays.asList("", " ", "ABC", " JDS "));
         when(ssidAdapter.getValues()).thenReturn(values);
-        String expected = StringUtils.join(values, " ");
+        String expected = "ABC JDS";
         // execute
         new SSIDFilter(ssidAdapter, dialog);
         // verify
@@ -97,7 +99,7 @@ public class SSIDFilterTest {
         String value = " ABS ADF ";
         SSIDFilter.OnChange onChange = new SSIDFilter.OnChange(ssidAdapter);
         when(editable.toString()).thenReturn(value);
-        Set<String> expected = new HashSet<>(Arrays.asList(value.split(" ")));
+        Set<String> expected = new HashSet<>(Arrays.asList("ABS", "ADF"));
         // execute
         onChange.afterTextChanged(editable);
         // verify

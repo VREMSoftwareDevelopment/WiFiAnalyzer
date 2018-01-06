@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -29,7 +30,6 @@ import android.widget.LinearLayout;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewAdd;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import org.apache.commons.collections4.IterableUtils;
 
@@ -38,7 +38,7 @@ public class ChannelGraphFragment extends Fragment {
     private ChannelGraphAdapter channelGraphAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.graph_content, container, false);
 
         swipeRefreshLayout = view.findViewById(R.id.graphRefresh);
@@ -49,8 +49,7 @@ public class ChannelGraphFragment extends Fragment {
         channelGraphAdapter = new ChannelGraphAdapter(channelGraphNavigation);
         addGraphViews(swipeRefreshLayout, channelGraphAdapter);
 
-        Scanner scanner = MainContext.INSTANCE.getScanner();
-        scanner.register(channelGraphAdapter);
+        MainContext.INSTANCE.getScannerService().register(channelGraphAdapter);
 
         return view;
     }
@@ -62,8 +61,7 @@ public class ChannelGraphFragment extends Fragment {
 
     private void refresh() {
         swipeRefreshLayout.setRefreshing(true);
-        Scanner scanner = MainContext.INSTANCE.getScanner();
-        scanner.update();
+        MainContext.INSTANCE.getScannerService().update();
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -75,8 +73,7 @@ public class ChannelGraphFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        Scanner scanner = MainContext.INSTANCE.getScanner();
-        scanner.unregister(channelGraphAdapter);
+        MainContext.INSTANCE.getScannerService().unregister(channelGraphAdapter);
         super.onDestroy();
     }
 

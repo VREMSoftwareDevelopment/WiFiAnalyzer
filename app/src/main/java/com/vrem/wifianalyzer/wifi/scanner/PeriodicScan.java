@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,12 +27,12 @@ class PeriodicScan implements Runnable {
     static final int DELAY_INITIAL = 1;
     static final int DELAY_INTERVAL = 1000;
 
-    private final Scanner scanner;
+    private final ScannerService scanner;
     private final Handler handler;
     private final Settings settings;
     private boolean running;
 
-    PeriodicScan(@NonNull Scanner scanner, @NonNull Handler handler, @NonNull Settings settings) {
+    PeriodicScan(@NonNull ScannerService scanner, @NonNull Handler handler, @NonNull Settings settings) {
         this.scanner = scanner;
         this.handler = handler;
         this.settings = settings;

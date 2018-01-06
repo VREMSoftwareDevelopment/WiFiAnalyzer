@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,6 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannelsGHZ5;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.predicate.FilterPredicate;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
 
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.CollectionUtils;
@@ -100,8 +99,7 @@ class ChannelGraphNavigation {
         public void onClick(View view) {
             MainContext mainContext = MainContext.INSTANCE;
             mainContext.getConfiguration().setWiFiChannelPair(wiFiChannelPair);
-            Scanner scanner = mainContext.getScanner();
-            scanner.update();
+            mainContext.getScannerService().update();
         }
     }
 

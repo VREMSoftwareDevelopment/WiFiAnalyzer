@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ import com.vrem.wifianalyzer.menu.OptionMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
+import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
 import org.junit.After;
 import org.junit.Before;
@@ -33,6 +33,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -41,6 +42,7 @@ import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class MainActivityTest {
 
     private MainActivity fixture;
@@ -57,7 +59,7 @@ public class MainActivityTest {
 
     @Test
     public void testMainActivity() throws Exception {
-        assertTrue(MainContext.INSTANCE.getScanner().isRunning());
+        assertTrue(MainContext.INSTANCE.getScannerService().isRunning());
     }
 
     @Test
@@ -135,7 +137,7 @@ public class MainActivityTest {
     @Test
     public void testOnStop() throws Exception {
         // setup
-        Scanner scanner = MainContextHelper.INSTANCE.getScanner();
+        ScannerService scanner = MainContextHelper.INSTANCE.getScannerService();
         // execute
         fixture.onStop();
         // validate

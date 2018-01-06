@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,15 +28,17 @@ import android.view.LayoutInflater;
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
+import com.vrem.wifianalyzer.vendor.model.VendorServiceFactory;
 import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
-import com.vrem.wifianalyzer.wifi.scanner.Scanner;
+import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
+import com.vrem.wifianalyzer.wifi.scanner.ScannerServiceFactory;
 
 public enum MainContext {
     INSTANCE;
 
     private Settings settings;
     private MainActivity mainActivity;
-    private Scanner scanner;
+    private ScannerService scannerService;
     private VendorService vendorService;
     private Configuration configuration;
     private FilterAdapter filterAdapter;
@@ -57,12 +59,12 @@ public enum MainContext {
         this.vendorService = vendorService;
     }
 
-    public Scanner getScanner() {
-        return scanner;
+    public ScannerService getScannerService() {
+        return scannerService;
     }
 
-    void setScanner(Scanner scanner) {
-        this.scanner = scanner;
+    void setScannerService(ScannerService scannerService) {
+        this.scannerService = scannerService;
     }
 
     public MainActivity getMainActivity() {
@@ -111,8 +113,8 @@ public enum MainContext {
         setMainActivity(mainActivity);
         setConfiguration(currentConfiguration);
         setSettings(currentSettings);
-        setVendorService(new VendorService(mainActivity.getResources()));
-        setScanner(new Scanner(wifiManager, handler, currentSettings));
+        setVendorService(VendorServiceFactory.makeVendorService(mainActivity.getResources()));
+        setScannerService(ScannerServiceFactory.makeScannerService(wifiManager, handler, currentSettings));
         setFilterAdapter(new FilterAdapter(currentSettings));
     }
 

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ public class OptionMenu {
     public void select(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_scanner:
-                if (MainContext.INSTANCE.getScanner().isRunning()) {
+                if (MainContext.INSTANCE.getScannerService().isRunning()) {
                     pause();
                 } else {
                     resume();
@@ -54,11 +54,11 @@ public class OptionMenu {
     }
 
     public void pause() {
-        MainContext.INSTANCE.getScanner().pause();
+        MainContext.INSTANCE.getScannerService().pause();
     }
 
     public void resume() {
-        MainContext.INSTANCE.getScanner().resume();
+        MainContext.INSTANCE.getScannerService().resume();
     }
 
     public Menu getMenu() {

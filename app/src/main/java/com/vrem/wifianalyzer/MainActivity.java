@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2017  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         onNavigationItemSelected(navigationMenuView.getCurrentMenuItem());
 
         ConnectionView connectionView = new ConnectionView(this);
-        mainContext.getScanner().register(connectionView);
+        mainContext.getScannerService().register(connectionView);
     }
 
     private void setWiFiChannelPairs(MainContext mainContext) {
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     public void update() {
-        MainContext.INSTANCE.getScanner().update();
+        MainContext.INSTANCE.getScannerService().update();
         updateActionBar();
     }
 
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     protected void onStop() {
-        MainContext.INSTANCE.getScanner().setWiFiOnExit();
+        MainContext.INSTANCE.getScannerService().setWiFiOnExit();
         super.onStop();
     }
 
