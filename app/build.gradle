@@ -24,7 +24,7 @@ android {
     buildToolsVersion '27.0.3'
 
     defaultConfig {
-        applicationId "com.vrem.wifianalyzer"
+        applicationId "com.vrem.wifianalyzer.BETA"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode
