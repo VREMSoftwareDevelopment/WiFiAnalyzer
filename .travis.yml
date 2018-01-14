@@ -13,5 +13,6 @@ script:
     - TERM=dumb ./gradlew testDebugUnitTest jacocoTestDebugUnitTestReport -PdisablePreDex
 before_install:
     - chmod +x gradlew
+    - yes | sdkmanager "platforms;android-27"
 after_success:
     - bash <(curl -s https://codecov.io/bash)
