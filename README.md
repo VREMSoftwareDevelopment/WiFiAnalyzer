@@ -38,6 +38,9 @@ This is the official repository of WiFi Analyzer.
 - [Special Thanks](#special-thanks)
 - [Donations](#donations)
 
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FVREMSoftwareDevelopment%2FWiFiAnalyzer.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FVREMSoftwareDevelopment%2FWiFiAnalyzer?ref=badge_large)
+
 ## Features
 * Identify nearby Access Points
 * Graph channels signal strength
