@@ -106,7 +106,7 @@ dependencies {
     testImplementation 'org.robolectric:robolectric:3.6.1'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
     // Android Test Dependencies
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
 }
