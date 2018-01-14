@@ -18,13 +18,17 @@
 
 package com.vrem.wifianalyzer.about;
 
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RawRes;
+import android.support.annotation.StringRes;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vrem.util.ConfigurationUtils;
+import com.vrem.util.FileUtils;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
@@ -44,6 +49,7 @@ import com.vrem.wifianalyzer.settings.Settings;
 import java.util.Locale;
 
 public class AboutActivity extends AppCompatActivity {
+    private AlertDialog alertDialog;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -123,6 +129,38 @@ public class AboutActivity extends AppCompatActivity {
             startActivity(intent);
         } catch (ActivityNotFoundException e) {
             Toast.makeText(view.getContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void showALv2(@NonNull View view) {
+        showLicense(view, R.string.al, R.raw.al);
+    }
+
+    public void showGPLv3(@NonNull View view) {
+        showLicense(view, R.string.gpl, R.raw.gpl);
+    }
+
+    private void showLicense(@NonNull View view, @StringRes int titleId, @RawRes int id) {
+        String text = FileUtils.readFile(getResources(), id);
+        alertDialog = new AlertDialog
+            .Builder(view.getContext())
+            .setTitle(titleId)
+            .setMessage(text)
+            .setNeutralButton(android.R.string.ok, new Close())
+            .create();
+        alertDialog.show();
+        TextView textView = alertDialog.findViewById(android.R.id.message);
+        textView.setTextSize(8);
+    }
+
+    AlertDialog getAlertDialog() {
+        return alertDialog;
+    }
+
+    private static class Close implements DialogInterface.OnClickListener {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            dialog.dismiss();
         }
     }
 

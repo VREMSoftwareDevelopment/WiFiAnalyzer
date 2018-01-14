@@ -18,12 +18,16 @@
 
 package com.vrem.wifianalyzer.about;
 
+import android.app.AlertDialog;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.RawRes;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.vrem.util.FileUtils;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContextHelper;
@@ -163,5 +167,46 @@ public class AboutActivityTest {
         // execute
         fixture.writeReview(view);
         // validate
+    }
+
+    @Test
+    public void testShowALv2() throws Exception {
+        // setup
+        fixture = Robolectric.setupActivity(AboutActivity.class);
+        View view = fixture.findViewById(R.id.license);
+        // execute
+        fixture.showALv2(view);
+        // validate
+        AlertDialog alertDialog = fixture.getAlertDialog();
+        assertNotNull(alertDialog);
+        validateMessage(fixture, alertDialog, R.raw.al);
+        validateTitle(fixture, alertDialog, R.string.al);
+    }
+
+    @Test
+    public void testShowGPLv3() throws Exception {
+        // setup
+        fixture = Robolectric.setupActivity(AboutActivity.class);
+        View view = fixture.findViewById(R.id.license);
+        // execute
+        fixture.showGPLv3(view);
+        // validate
+        AlertDialog alertDialog = fixture.getAlertDialog();
+        assertNotNull(alertDialog);
+        validateMessage(fixture, alertDialog, R.raw.gpl);
+        validateTitle(fixture, alertDialog, R.string.gpl);
+    }
+
+    private void validateMessage(@NonNull AboutActivity aboutActivity, @NonNull AlertDialog alertDialog, @RawRes int id) {
+        String expected = FileUtils.readFile(aboutActivity.getResources(), id);
+        TextView messageView = alertDialog.findViewById(android.R.id.message);
+        assertEquals(expected, messageView.getText().toString());
+    }
+
+    private void validateTitle(@NonNull AboutActivity aboutActivity, @NonNull AlertDialog alertDialog, @RawRes int id) {
+        String expected = aboutActivity.getResources().getString(id);
+        int titleId = aboutActivity.getResources().getIdentifier("alertTitle", "id", "android");
+        TextView titleView = alertDialog.findViewById(titleId);
+        assertEquals(expected, titleView.getText().toString());
     }
 }

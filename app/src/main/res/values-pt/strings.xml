@@ -73,7 +73,6 @@
 
     <!-- about start -->
     <string name="about_license_title">Licença:</string>
-    <string name="about_license_name">Licenciado sob a GPLv3</string>
     <string name="about_description_title">Descrição:</string>
     <string name="about_description_text">Otimize sua rede Wi-Fi, verificando o estado da rede, a intensidade do sinal e identificando canais congestionados usando o WiFiAnalyzer, app open-source para Android</string>
     <string name="about_libraries_title">Bibliotecas Utilizadas:</string>

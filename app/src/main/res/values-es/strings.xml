@@ -75,7 +75,6 @@
 
     <!-- about start -->
     <string name="about_license_title">Licencia:</string>
-    <string name="about_license_name">Licenciado bajo GPLv3</string>
     <string name="about_description_title">Descripción:</string>
     <string name="about_description_text">"Optimiza tu red WiFi, mediante la comprobación de estado de red, intensidad de señal e identificación de los canales llenos usando la aplicación de código abierto WiFiAnalyzer para Android"</string>
     <string name="about_libraries_title">Librerias usadas:</string>

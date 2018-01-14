@@ -99,98 +99,157 @@
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingTop="@dimen/activity_vertical_margin">
 
+            <!-- WiFiAnalyzer -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoLink="web"
                 android:text="@string/app_url"/>
-
             <TextView
+                android:id="@+id/license"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:text="@string/about_license_title"
-                android:textStyle="bold|italic"/>
-
+                android:textStyle="italic"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/about_license_name"/>
-
+                android:onClick="showGPLv3"
+                android:text="@string/gpl"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoLink="web"
-                android:text="@string/about_license_url"/>
-
+                android:text="@string/gpl_url"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:text="@string/about_description_title"
-                android:textStyle="bold|italic"/>
-
+                android:textStyle="italic"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_description_text"/>
 
+            <!-- Libraries -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:text="@string/about_libraries_title"
-                android:textStyle="bold|italic"/>
-
+                android:textStyle="italic"/>
+            <!-- Apache Commons -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_library_apache"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autoLink="web"
-                android:text="@string/about_library_apache_url"/>
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoLink="web"
+                    android:text="@string/about_library_apache_url"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="showALv2"
+                    android:text="@string/al"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoLink="web"
+                    android:text="@string/al_url"/>
+            </LinearLayout>
+            <!-- Graph View -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_library_graph_view"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autoLink="web"
-                android:text="@string/about_library_graph_view_url"/>
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoLink="web"
+                    android:text="@string/about_library_graph_view_url"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="showALv2"
+                    android:text="@string/al"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoLink="web"
+                    android:text="@string/al_url"/>
+            </LinearLayout>
+            <!-- Material Design Icons -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_library_material"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autoLink="web"
-                android:text="@string/about_library_material_url"/>
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoLink="web"
+                    android:text="@string/about_library_material_url"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="showALv2"
+                    android:text="@string/al"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoLink="web"
+                    android:text="@string/al_url"/>
+            </LinearLayout>
+            <!-- Contributors -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:text="@string/about_contributor_title"
-                android:textStyle="bold|italic"/>
-
+                android:textStyle="italic"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_contributor_list"/>
 
+            <!-- Review -->
             <Button
                 android:id="@+id/writeReview"
                 android:layout_width="wrap_content"

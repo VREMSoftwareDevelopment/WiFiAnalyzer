@@ -16,40 +16,45 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.vendor.model;
+package com.vrem.util;
 
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.support.annotation.RawRes;
 
 import org.apache.commons.lang3.StringUtils;
 
-class VendorUtils {
-    static final int MAX_SIZE = 6;
-    private static final String SEPARATOR = ":";
+import java.io.InputStream;
 
-    private VendorUtils() {
+public class FileUtils {
+    private FileUtils() {
         throw new IllegalStateException("Utility class");
     }
 
     @NonNull
-    static String clean(String macAddress) {
-        if (macAddress == null) {
+    public static String readFile(@NonNull Resources resources, @RawRes int id) {
+        InputStream inputStream = null;
+        try {
+            inputStream = resources.openRawResource(id);
+            int size = inputStream.available();
+            byte[] bytes = new byte[size];
+            int count = inputStream.read(bytes);
+            if (count != size) {
+                return StringUtils.EMPTY;
+            }
+            return new String(bytes);
+        } catch (Exception e) {
+            // file is corrupted
             return StringUtils.EMPTY;
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (Exception e) {
+                    // do nothing
+                }
+            }
         }
-        String result = macAddress.replace(SEPARATOR, "");
-        return result.substring(0, Math.min(result.length(), MAX_SIZE)).toUpperCase();
-    }
-
-    @NonNull
-    static String toMacAddress(String source) {
-        if (source == null) {
-            return StringUtils.EMPTY;
-        }
-        if (source.length() < MAX_SIZE) {
-            return "*" + source + "*";
-        }
-        return source.substring(0, 2)
-            + SEPARATOR + source.substring(2, 4)
-            + SEPARATOR + source.substring(4, 6);
     }
 
 }
