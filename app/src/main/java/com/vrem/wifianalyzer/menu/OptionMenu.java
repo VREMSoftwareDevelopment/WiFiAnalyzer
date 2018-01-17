@@ -47,6 +47,9 @@ public class OptionMenu {
             case R.id.action_filter:
                 Filter.build().show();
                 break;
+            case R.id.action_change_band:
+	              MainContext.INSTANCE.getSettings().toggleWiFiBand();
+                break;
             default:
                 // do nothing
                 break;
