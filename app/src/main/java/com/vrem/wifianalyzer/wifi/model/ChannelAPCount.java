@@ -33,6 +33,7 @@ public class ChannelAPCount {
         this.count = count;
     }
 
+    @NonNull
     public WiFiChannel getWiFiChannel() {
         return wiFiChannel;
     }

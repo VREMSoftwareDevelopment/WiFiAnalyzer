@@ -64,18 +64,22 @@ public class WiFiSignal {
         return getCenterFrequency() + getWiFiWidth().getFrequencyWidthHalf();
     }
 
+    @NonNull
     public WiFiBand getWiFiBand() {
         return wiFiBand;
     }
 
+    @NonNull
     public WiFiWidth getWiFiWidth() {
         return wiFiWidth;
     }
 
+    @NonNull
     public WiFiChannel getPrimaryWiFiChannel() {
         return getWiFiBand().getWiFiChannels().getWiFiChannelByFrequency(getPrimaryFrequency());
     }
 
+    @NonNull
     public WiFiChannel getCenterWiFiChannel() {
         return getWiFiBand().getWiFiChannels().getWiFiChannelByFrequency(getCenterFrequency());
     }
@@ -84,6 +88,7 @@ public class WiFiSignal {
         return level;
     }
 
+    @NonNull
     public Strength getStrength() {
         return Strength.calculate(level);
     }

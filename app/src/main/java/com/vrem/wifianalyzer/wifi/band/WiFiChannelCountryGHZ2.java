@@ -41,6 +41,7 @@ class WiFiChannelCountryGHZ2 {
         world.add(13);
     }
 
+    @NonNull
     SortedSet<Integer> findChannels(@NonNull String countryCode) {
         SortedSet<Integer> results = new TreeSet<>(world);
         String code = StringUtils.capitalize(countryCode);

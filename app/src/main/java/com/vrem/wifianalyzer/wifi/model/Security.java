@@ -44,6 +44,7 @@ public enum Security {
         this.imageResource = imageResource;
     }
 
+    @NonNull
     public static List<Security> findAll(String capabilities) {
         Set<Security> results = new TreeSet<>();
         if (capabilities != null) {
@@ -60,6 +61,7 @@ public enum Security {
         return new ArrayList<>(results);
     }
 
+    @NonNull
     public static Security findOne(String capabilities) {
         Security result = IterableUtils.find(EnumUtils.values(Security.class), new SecurityPredicate(findAll(capabilities)));
         return result == null ? Security.NONE : result;

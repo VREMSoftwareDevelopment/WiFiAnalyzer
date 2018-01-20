@@ -68,6 +68,7 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     @Override
+    @NonNull
     public GraphView getGraphView() {
         return graphViewWrapper.getGraphView();
     }
@@ -84,6 +85,7 @@ class TimeGraphView implements GraphViewNotifier {
         this.dataManager = dataManager;
     }
 
+    @NonNull
     private GraphView makeGraphView(@NonNull MainContext mainContext, Settings settings) {
         Resources resources = mainContext.getResources();
         return new GraphViewBuilder(mainContext.getContext(), getNumX(), settings.getGraphMaximumY(), settings.getThemeStyle())
@@ -94,6 +96,7 @@ class TimeGraphView implements GraphViewNotifier {
             .build();
     }
 
+    @NonNull
     private GraphViewWrapper makeGraphViewWrapper() {
         MainContext mainContext = MainContext.INSTANCE;
         Settings settings = mainContext.getSettings();

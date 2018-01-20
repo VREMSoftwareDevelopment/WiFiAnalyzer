@@ -37,10 +37,12 @@ public enum GroupBy {
         this.groupByComparator = groupByComparator;
     }
 
+    @NonNull
     Comparator<WiFiDetail> sortOrderComparator() {
         return sortOrderComparator;
     }
 
+    @NonNull
     Comparator<WiFiDetail> groupByComparator() {
         return groupByComparator;
     }

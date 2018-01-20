@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.wifi.graphutils;
 
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
@@ -40,6 +41,7 @@ class GraphColors {
         availableGraphColors = new ArrayList<>();
     }
 
+    @NonNull
     private List<GraphColor> getAvailableGraphColors() {
         if (availableGraphColors.isEmpty()) {
             Resources resources = MainContext.INSTANCE.getResources();
@@ -52,6 +54,7 @@ class GraphColors {
         return availableGraphColors;
     }
 
+    @NonNull
     GraphColor getColor() {
         if (currentGraphColors.isEmpty()) {
             for (GraphColor graphColor : getAvailableGraphColors()) {
@@ -62,15 +65,11 @@ class GraphColors {
     }
 
     void addColor(long primaryColor) {
-        GraphColor graphColor = findColor(primaryColor);
+        GraphColor graphColor = IterableUtils.find(getAvailableGraphColors(), new ColorPredicate(primaryColor));
         if (graphColor == null || currentGraphColors.contains(graphColor)) {
             return;
         }
         currentGraphColors.push(graphColor);
-    }
-
-    private GraphColor findColor(long primaryColor) {
-        return IterableUtils.find(getAvailableGraphColors(), new ColorPredicate(primaryColor));
     }
 
     private class ColorPredicate implements Predicate<GraphColor> {

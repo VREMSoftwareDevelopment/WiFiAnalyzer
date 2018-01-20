@@ -37,16 +37,19 @@ class WiFiChannelsGHZ2 extends WiFiChannels {
     }
 
     @Override
+    @NonNull
     public List<Pair<WiFiChannel, WiFiChannel>> getWiFiChannelPairs() {
         return Collections.singletonList(SET);
     }
 
     @Override
+    @NonNull
     public Pair<WiFiChannel, WiFiChannel> getWiFiChannelPairFirst(String countryCode) {
         return SET;
     }
 
     @Override
+    @NonNull
     public List<WiFiChannel> getAvailableChannels(String countryCode) {
         return getAvailableChannels(WiFiChannelCountry.get(countryCode).getChannelsGHZ2());
     }
@@ -57,6 +60,7 @@ class WiFiChannelsGHZ2 extends WiFiChannels {
     }
 
     @Override
+    @NonNull
     public WiFiChannel getWiFiChannelByFrequency(int frequency, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         return isInRange(frequency) ? getWiFiChannel(frequency, SET) : WiFiChannel.UNKNOWN;
     }

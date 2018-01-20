@@ -62,6 +62,7 @@ class FragmentItem implements NavigationItem {
         fragmentTransaction.replace(R.id.main_fragment, fragment).commit();
     }
 
+    @NonNull
     Fragment getFragment() {
         return fragment;
     }

@@ -39,6 +39,7 @@ public class GraphAdapter implements UpdateNotifier {
         this.graphViewNotifiers = graphViewNotifiers;
     }
 
+    @NonNull
     public List<GraphView> getGraphViews() {
         return new ArrayList<>(CollectionUtils.collect(graphViewNotifiers, new ToGraphView()));
     }
@@ -48,6 +49,7 @@ public class GraphAdapter implements UpdateNotifier {
         IterableUtils.forEach(graphViewNotifiers, new UpdateClosure(wiFiData));
     }
 
+    @NonNull
     public List<GraphViewNotifier> getGraphViewNotifiers() {
         return graphViewNotifiers;
     }

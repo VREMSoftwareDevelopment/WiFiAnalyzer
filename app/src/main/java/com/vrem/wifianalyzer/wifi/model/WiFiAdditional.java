@@ -44,10 +44,12 @@ public class WiFiAdditional {
         this(vendorName, wiFiConnection, true);
     }
 
+    @NonNull
     public String getVendorName() {
         return vendorName;
     }
 
+    @NonNull
     public WiFiConnection getWiFiConnection() {
         return wiFiConnection;
     }

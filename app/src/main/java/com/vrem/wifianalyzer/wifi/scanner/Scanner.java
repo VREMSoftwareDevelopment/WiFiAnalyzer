@@ -61,6 +61,7 @@ class Scanner implements ScannerService {
     }
 
     @Override
+    @NonNull
     public WiFiData getWiFiData() {
         return wiFiData;
     }
@@ -101,6 +102,7 @@ class Scanner implements ScannerService {
         }
     }
 
+    @NonNull
     PeriodicScan getPeriodicScan() {
         return periodicScan;
     }
@@ -117,6 +119,7 @@ class Scanner implements ScannerService {
         this.transformer = transformer;
     }
 
+    @NonNull
     List<UpdateNotifier> getUpdateNotifiers() {
         return updateNotifiers;
     }

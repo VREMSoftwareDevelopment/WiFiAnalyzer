@@ -50,10 +50,12 @@ public final class WiFiUtils {
         return (rssi - MIN_RSSI) * (numLevels - 1) / (MAX_RSSI - MIN_RSSI);
     }
 
+    @NonNull
     public static String convertSSID(@NonNull String ssid) {
         return StringUtils.removeEnd(StringUtils.removeStart(ssid, QUOTE), QUOTE);
     }
 
+    @NonNull
     public static String convertIpAddress(int ipAddress) {
         try {
             byte[] ipBytes = BigInteger.valueOf(

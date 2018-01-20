@@ -56,6 +56,7 @@ public class FilterAdapter {
         IterableUtils.forEach(getFilterAdapters(isAccessPoints()), new SaveClosure());
     }
 
+    @NonNull
     List<? extends BasicFilterAdapter<? extends Serializable>> getFilterAdapters(boolean accessPoints) {
         if (accessPoints) {
             return Arrays.asList(ssidAdapter, strengthAdapter, securityAdapter, wiFiBandAdapter);
@@ -63,18 +64,22 @@ public class FilterAdapter {
         return Arrays.asList(ssidAdapter, strengthAdapter, securityAdapter);
     }
 
+    @NonNull
     public SSIDAdapter getSSIDAdapter() {
         return ssidAdapter;
     }
 
+    @NonNull
     public WiFiBandAdapter getWiFiBandAdapter() {
         return wiFiBandAdapter;
     }
 
+    @NonNull
     public StrengthAdapter getStrengthAdapter() {
         return strengthAdapter;
     }
 
+    @NonNull
     public SecurityAdapter getSecurityAdapter() {
         return securityAdapter;
     }

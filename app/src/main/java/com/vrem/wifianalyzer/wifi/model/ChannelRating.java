@@ -47,6 +47,7 @@ public class ChannelRating {
         return collectOverlapping(wiFiChannel).size();
     }
 
+    @NonNull
     public Strength getStrength(@NonNull WiFiChannel wiFiChannel) {
         Strength strength = Strength.ZERO;
         for (WiFiDetail wiFiDetail : collectOverlapping(wiFiChannel)) {
@@ -57,6 +58,7 @@ public class ChannelRating {
         return strength;
     }
 
+    @NonNull
     private List<WiFiDetail> removeGuest(@NonNull List<WiFiDetail> wiFiDetails) {
         List<WiFiDetail> results = new ArrayList<>();
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
@@ -72,6 +74,7 @@ public class ChannelRating {
         return results;
     }
 
+    @NonNull
     List<WiFiDetail> getWiFiDetails() {
         return wiFiDetails;
     }
@@ -101,10 +104,12 @@ public class ChannelRating {
             lhs.substring(2, BSSID_LENGTH - 1).equalsIgnoreCase(rhs.substring(2, BSSID_LENGTH - 1));
     }
 
+    @NonNull
     private List<WiFiDetail> collectOverlapping(@NonNull WiFiChannel wiFiChannel) {
         return new ArrayList<>(CollectionUtils.select(wiFiDetails, new InRangePredicate(wiFiChannel)));
     }
 
+    @NonNull
     public List<ChannelAPCount> getBestChannels(@NonNull final List<WiFiChannel> wiFiChannels) {
         List<ChannelAPCount> results = new ArrayList<>(
             CollectionUtils.collect(

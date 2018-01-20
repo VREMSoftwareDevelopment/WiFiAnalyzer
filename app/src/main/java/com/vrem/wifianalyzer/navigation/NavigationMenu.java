@@ -84,10 +84,12 @@ public enum NavigationMenu {
         return icon;
     }
 
+    @NonNull
     NavigationItem getNavigationItem() {
         return navigationItem;
     }
 
+    @NonNull
     List<NavigationOption> getNavigationOptions() {
         return navigationOptions;
     }

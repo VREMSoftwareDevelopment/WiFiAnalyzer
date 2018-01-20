@@ -35,10 +35,10 @@ public enum SortBy {
         this.comparator = comparator;
     }
 
+    @NonNull
     Comparator<WiFiDetail> comparator() {
         return comparator;
     }
-
 
     static class StrengthComparator implements Comparator<WiFiDetail> {
         @Override
