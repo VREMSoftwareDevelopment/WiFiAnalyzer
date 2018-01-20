@@ -163,10 +163,11 @@ public class AboutActivityTest {
     public void testWriteReview() throws Exception {
         // setup
         fixture = Robolectric.setupActivity(AboutActivity.class);
-        View view = fixture.findViewById(R.id.writeReview);
         // execute
-        fixture.writeReview(view);
+        View actual = fixture.findViewById(R.id.writeReview);
+        fixture.writeReview(actual);
         // validate
+        assertNotNull(actual);
     }
 
     @Test
@@ -195,6 +196,20 @@ public class AboutActivityTest {
         assertNotNull(alertDialog);
         validateMessage(fixture, alertDialog, R.raw.gpl);
         validateTitle(fixture, alertDialog, R.string.gpl);
+    }
+
+    @Test
+    public void testShowContributors() throws Exception {
+        // setup
+        fixture = Robolectric.setupActivity(AboutActivity.class);
+        View view = fixture.findViewById(R.id.contributors);
+        // execute
+        fixture.showContributors(view);
+        // validate
+        AlertDialog alertDialog = fixture.getAlertDialog();
+        assertNotNull(alertDialog);
+        validateMessage(fixture, alertDialog, R.raw.contributors);
+        validateTitle(fixture, alertDialog, R.string.about_contributor_title);
     }
 
     private void validateMessage(@NonNull AboutActivity aboutActivity, @NonNull AlertDialog alertDialog, @RawRes int id) {

@@ -145,8 +145,7 @@
     <string name="about_library_graph_view_url" translatable="false">http://www.android-graphview.org</string>
     <string name="about_library_material" translatable="false">Material Design Icons</string>
     <string name="about_library_material_url" translatable="false">https://design.google.com/icons</string>
-    <string name="about_contributor_title">Contributors:</string>
-    <string name="about_contributor_list" translatable="false">"Abuzer Rafey, Alex Orchard, Alexei Guevara, Andreas Ziegler, Caren DesBrisay, Dan Light, David Jones, Gina Chaves, Graham Foster, Jean Bourgeois, Kendra Borutski, Kevin Jiang, Lee McCallum, Lukas Winkler, Marco Santinelli, Mateus B. Cassiano, Michael Melo, Michael Pickard, Peter Dave Hello, Silviu Marcu, Vadim Karantayer, Wei McCallum, William Gathoye, Yuriy Timofeev, 'Akira, Dtorner, Genghis, TaiXiong"</string>
+    <string name="about_contributor_title">Contributors</string>
     <string name="about_write_review">Write a Review</string>
     <!-- about end -->
 
