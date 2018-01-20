@@ -41,6 +41,7 @@
     <string name="action_pause" translatable="false">Pause</string>
     <string name="action_resume" translatable="false">Resume</string>
     <string name="action_filter" translatable="false">Filter</string>
+    <string name="action_band" translatable="false">Band</string>
     <!-- action end -->
 
     <string name="scanner_message" translatable="false">Scanning...</string>
