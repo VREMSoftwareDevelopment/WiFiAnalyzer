@@ -47,16 +47,19 @@ class NavigationSwipe implements SwipeAction {
         }
     }
 
+    @NonNull
     private NavigationMenu getNextNavigationMenu() {
         NavigationMenu currentNavigationMenu = mainActivity.getNavigationMenuView().getCurrentNavigationMenu();
         return getNavigationGroup(currentNavigationMenu).next(currentNavigationMenu);
     }
 
+    @NonNull
     private NavigationMenu getPreviousNavigationMenu() {
         NavigationMenu currentNavigationMenu = mainActivity.getNavigationMenuView().getCurrentNavigationMenu();
         return getNavigationGroup(currentNavigationMenu).previous(currentNavigationMenu);
     }
 
+    @NonNull
     private NavigationGroup getNavigationGroup(NavigationMenu currentNavigationMenu) {
         NavigationPredicate navigationPredicate = new NavigationPredicate(currentNavigationMenu);
         return EnumUtils.find(NavigationGroup.class, navigationPredicate, NavigationGroup.GROUP_FEATURE);

@@ -42,6 +42,7 @@ public class Configuration {
         return largeScreen;
     }
 
+    @NonNull
     public Pair<WiFiChannel, WiFiChannel> getWiFiChannelPair() {
         return wiFiChannelPair;
     }

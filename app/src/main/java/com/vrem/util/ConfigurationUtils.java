@@ -58,5 +58,4 @@ public class ConfigurationUtils {
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
         return context;
     }
-
 }

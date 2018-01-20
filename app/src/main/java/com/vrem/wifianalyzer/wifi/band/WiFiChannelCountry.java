@@ -43,10 +43,12 @@ public class WiFiChannelCountry {
         this.country = country;
     }
 
+    @NonNull
     public static WiFiChannelCountry get(@NonNull String countryCode) {
         return new WiFiChannelCountry(LocaleUtils.findByCountryCode(countryCode));
     }
 
+    @NonNull
     public static List<WiFiChannelCountry> getAll() {
         return new ArrayList<>(CollectionUtils.collect(LocaleUtils.getAllCountries(), new ToCountry()));
     }
@@ -69,10 +71,12 @@ public class WiFiChannelCountry {
         return country.getCountry().equals(countryName) ? countryName + UNKNOWN : countryName;
     }
 
+    @NonNull
     public SortedSet<Integer> getChannelsGHZ2() {
         return WIFI_CHANNEL_GHZ2.findChannels(country.getCountry());
     }
 
+    @NonNull
     public SortedSet<Integer> getChannelsGHZ5() {
         return WIFI_CHANNEL_GHZ5.findChannels(country.getCountry());
     }

@@ -40,6 +40,7 @@ class TimeGraphCache {
         this.notSeen = new HashMap<>();
     }
 
+    @NonNull
     Set<WiFiDetail> active() {
         return new HashSet<>(CollectionUtils.select(notSeen.keySet(), new SeenPredicate()));
     }
@@ -64,6 +65,7 @@ class TimeGraphCache {
         }
     }
 
+    @NonNull
     Set<WiFiDetail> getWiFiDetails() {
         return notSeen.keySet();
     }

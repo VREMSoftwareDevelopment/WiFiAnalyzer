@@ -24,6 +24,7 @@ import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
 public interface GraphViewNotifier {
+    @NonNull
     GraphView getGraphView();
 
     void update(@NonNull WiFiData wiFiData);

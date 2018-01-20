@@ -30,6 +30,7 @@ class CacheResult {
         this.levelAverage = levelAverage;
     }
 
+    @NonNull
     ScanResult getScanResult() {
         return scanResult;
     }

@@ -18,6 +18,8 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
+import android.support.annotation.NonNull;
+
 import com.vrem.wifianalyzer.R;
 
 public enum Strength {
@@ -35,11 +37,13 @@ public enum Strength {
         this.colorResource = colorResource;
     }
 
+    @NonNull
     public static Strength calculate(int level) {
         int index = WiFiUtils.calculateSignalLevel(level, values().length);
         return Strength.values()[index];
     }
 
+    @NonNull
     public static Strength reverse(Strength strength) {
         int index = Strength.values().length - strength.ordinal() - 1;
         return Strength.values()[index];

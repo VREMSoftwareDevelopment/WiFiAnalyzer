@@ -39,6 +39,7 @@ import java.util.List;
 
 class Transformer {
 
+    @NonNull
     WiFiConnection transformWifiInfo(WifiInfo wifiInfo) {
         if (wifiInfo == null || wifiInfo.getNetworkId() == -1) {
             return WiFiConnection.EMPTY;
@@ -50,14 +51,17 @@ class Transformer {
             wifiInfo.getLinkSpeed());
     }
 
+    @NonNull
     List<String> transformWifiConfigurations(List<WifiConfiguration> configuredNetworks) {
         return new ArrayList<>(CollectionUtils.collect(configuredNetworks, new ToString()));
     }
 
+    @NonNull
     List<WiFiDetail> transformCacheResults(List<CacheResult> cacheResults) {
         return new ArrayList<>(CollectionUtils.collect(cacheResults, new ToWiFiDetail()));
     }
 
+    @NonNull
     WiFiWidth getWiFiWidth(@NonNull ScanResult scanResult) {
         try {
             return EnumUtils.find(WiFiWidth.class, getFieldValue(scanResult, Fields.channelWidth), WiFiWidth.MHZ_20);
@@ -89,6 +93,7 @@ class Transformer {
         return (int) declaredField.get(scanResult);
     }
 
+    @NonNull
     WiFiData transformToWiFiData(List<CacheResult> cacheResults, WifiInfo wifiInfo, List<WifiConfiguration> configuredNetworks) {
         List<WiFiDetail> wiFiDetails = transformCacheResults(cacheResults);
         WiFiConnection wiFiConnection = transformWifiInfo(wifiInfo);

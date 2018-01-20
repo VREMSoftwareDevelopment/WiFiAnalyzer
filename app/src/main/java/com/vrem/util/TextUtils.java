@@ -36,24 +36,28 @@ public class TextUtils {
         throw new IllegalStateException("Utility class");
     }
 
+    @NonNull
     public static Set<String> split(String source) {
         return StringUtils.isBlank(source)
             ? new HashSet<String>()
             : new HashSet<>(Arrays.asList(trim(source).split(SEPARATOR)));
     }
 
+    @NonNull
     public static String join(Set<String> source) {
         return source == null
             ? StringUtils.EMPTY
             : trim(android.text.TextUtils.join(SEPARATOR, source.toArray()));
     }
 
+    @NonNull
     public static String trim(String source) {
         return StringUtils.isBlank(source)
             ? StringUtils.EMPTY
             : source.trim().replaceAll(" +", " ");
     }
 
+    @NonNull
     public static String textToHtml(@NonNull String text, int color, boolean small) {
         return "<font color='" + color + "'><" + (small ? "small" : "strong") +
             ">" + text + "</" + (small ? "small" : "strong") + "></font>";

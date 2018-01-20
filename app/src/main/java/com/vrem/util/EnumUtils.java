@@ -38,6 +38,7 @@ public class EnumUtils {
         throw new IllegalStateException("Utility class");
     }
 
+    @NonNull
     public static <T extends Enum> T find(@NonNull Class<T> enumType, int index, @NonNull T defaultValue) {
         T[] values = enumType.getEnumConstants();
         if (index < 0 || index >= values.length) {
@@ -46,28 +47,34 @@ public class EnumUtils {
         return values[index];
     }
 
+    @NonNull
     public static <T extends Enum> T find(@NonNull Class<T> enumType, @NonNull Predicate<T> predicate, @NonNull T defaultValue) {
         List<T> results = new ArrayList<>(CollectionUtils.select(values(enumType), predicate));
         return results.isEmpty() ? defaultValue : results.get(0);
     }
 
+    @NonNull
     public static <T extends Enum> Set<T> find(@NonNull Class<T> enumType, @NonNull Set<String> ordinals, @NonNull T defaultValue) {
         Set<T> results = new HashSet<>(CollectionUtils.collect(ordinals, new ToEnum<>(enumType, defaultValue)));
         return results.isEmpty() ? values(enumType) : results;
     }
 
+    @NonNull
     public static <T extends Enum> Set<String> find(@NonNull Set<T> values) {
         return new HashSet<>(CollectionUtils.collect(values, new ToOrdinal<T>()));
     }
 
+    @NonNull
     public static <T extends Enum> Set<String> ordinals(@NonNull Class<T> enumType) {
         return new HashSet<>(CollectionUtils.collect(values(enumType), new ToOrdinal<T>()));
     }
 
+    @NonNull
     public static <T extends Enum> Set<T> values(@NonNull Class<T> enumType) {
         return new HashSet<>(Arrays.asList(enumType.getEnumConstants()));
     }
 
+    @NonNull
     public static <T extends Enum, U> Predicate<U> predicate(@NonNull Class<T> enumType, @NonNull Collection<T> input, @NonNull Transformer<T, Predicate<U>> transformer) {
         if (input.size() >= values(enumType).size()) {
             return PredicateUtils.truePredicate();

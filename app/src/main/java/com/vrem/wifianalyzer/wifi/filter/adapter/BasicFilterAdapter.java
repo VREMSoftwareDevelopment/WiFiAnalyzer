@@ -31,6 +31,7 @@ public abstract class BasicFilterAdapter<T> {
         setValues(values);
     }
 
+    @NonNull
     public Set<T> getValues() {
         return values;
     }

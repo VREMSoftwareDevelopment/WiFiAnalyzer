@@ -25,6 +25,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData;
 public interface ScannerService {
     void update();
 
+    @NonNull
     WiFiData getWiFiData();
 
     void register(@NonNull UpdateNotifier updateNotifier);

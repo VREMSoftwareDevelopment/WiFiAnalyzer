@@ -133,22 +133,32 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     public void showALv2(@NonNull View view) {
-        showLicense(view, R.string.al, R.raw.al);
+        alertDialog = show(view, R.string.al, R.raw.al);
+        changeFont(alertDialog);
     }
 
     public void showGPLv3(@NonNull View view) {
-        showLicense(view, R.string.gpl, R.raw.gpl);
+        alertDialog = show(view, R.string.gpl, R.raw.gpl);
+        changeFont(alertDialog);
     }
 
-    private void showLicense(@NonNull View view, @StringRes int titleId, @RawRes int id) {
+    public void showContributors(@NonNull View view) {
+        alertDialog = show(view, R.string.about_contributor_title, R.raw.contributors);
+    }
+
+    private AlertDialog show(@NonNull View view, @StringRes int titleId, @RawRes int id) {
         String text = FileUtils.readFile(getResources(), id);
-        alertDialog = new AlertDialog
+        AlertDialog dialog = new AlertDialog
             .Builder(view.getContext())
             .setTitle(titleId)
             .setMessage(text)
             .setNeutralButton(android.R.string.ok, new Close())
             .create();
-        alertDialog.show();
+        dialog.show();
+        return dialog;
+    }
+
+    private void changeFont(AlertDialog alertDialog) {
         TextView textView = alertDialog.findViewById(android.R.id.message);
         textView.setTextSize(8);
     }

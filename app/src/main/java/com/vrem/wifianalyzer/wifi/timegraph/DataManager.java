@@ -45,6 +45,7 @@ class DataManager {
         this.timeGraphCache = new TimeGraphCache();
     }
 
+    @NonNull
     Set<WiFiDetail> addSeriesData(@NonNull GraphViewWrapper graphViewWrapper, @NonNull List<WiFiDetail> wiFiDetails, int levelMax) {
         Set<WiFiDetail> inOrder = new TreeSet<>(wiFiDetails);
         IterableUtils.forEach(inOrder, new AddDataClosure(graphViewWrapper, levelMax));
@@ -65,6 +66,7 @@ class DataManager {
         timeGraphCache.clear();
     }
 
+    @NonNull
     Set<WiFiDetail> getNewSeries(@NonNull Set<WiFiDetail> wiFiDetails) {
         Set<WiFiDetail> results = new HashSet<>(wiFiDetails);
         results.addAll(timeGraphCache.active());

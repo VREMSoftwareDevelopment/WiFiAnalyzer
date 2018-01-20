@@ -45,10 +45,12 @@ public class NavigationMenuView {
         IterableUtils.forEach(EnumUtils.values(NavigationGroup.class), new NavigationGroupClosure(navigationView.getMenu()));
     }
 
+    @NonNull
     public MenuItem getCurrentMenuItem() {
         return navigationView.getMenu().getItem(getCurrentNavigationMenu().ordinal());
     }
 
+    @NonNull
     public NavigationMenu getCurrentNavigationMenu() {
         return currentNavigationMenu;
     }
@@ -63,6 +65,7 @@ public class NavigationMenuView {
         }
     }
 
+    @NonNull
     NavigationView getNavigationView() {
         return navigationView;
     }

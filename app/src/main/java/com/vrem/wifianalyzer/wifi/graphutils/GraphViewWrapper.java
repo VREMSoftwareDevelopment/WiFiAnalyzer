@@ -68,6 +68,7 @@ public class GraphViewWrapper {
         IterableUtils.forEach(seriesCache.remove(differenceSeries(newSeries)), new RemoveClouser());
     }
 
+    @NonNull
     public List<WiFiDetail> differenceSeries(@NonNull Set<WiFiDetail> newSeries) {
         return seriesCache.difference(newSeries);
     }

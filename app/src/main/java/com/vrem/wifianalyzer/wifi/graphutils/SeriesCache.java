@@ -44,12 +44,14 @@ class SeriesCache {
         this.cache = new TreeMap<>();
     }
 
+    @NonNull
     List<WiFiDetail> difference(@NonNull Set<WiFiDetail> series) {
         Set<WiFiDetail> difference = new TreeSet<>(cache.keySet());
         difference.removeAll(series);
         return new ArrayList<>(difference);
     }
 
+    @NonNull
     List<BaseSeries<DataPoint>> remove(@NonNull List<WiFiDetail> series) {
         List<BaseSeries<DataPoint>> removeSeries = new ArrayList<>();
         IterableUtils.forEach(CollectionUtils.select(series, new RemovePredicate()), new RemoveClosure(removeSeries));
@@ -64,11 +66,13 @@ class SeriesCache {
         return cache.containsKey(wiFiDetail);
     }
 
+    @NonNull
     BaseSeries<DataPoint> get(@NonNull WiFiDetail wiFiDetail) {
         return cache.get(wiFiDetail);
     }
 
-    BaseSeries<DataPoint> put(WiFiDetail wiFiDetail, BaseSeries<DataPoint> series) {
+    @NonNull
+    BaseSeries<DataPoint> put(@NonNull WiFiDetail wiFiDetail, @NonNull BaseSeries<DataPoint> series) {
         return cache.put(wiFiDetail, series);
     }
 

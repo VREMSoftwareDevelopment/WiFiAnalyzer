@@ -38,6 +38,7 @@ public enum WiFiBand {
         return textResource;
     }
 
+    @NonNull
     public WiFiBand toggle() {
         return isGHZ5() ? WiFiBand.GHZ2 : WiFiBand.GHZ5;
     }
@@ -46,6 +47,7 @@ public enum WiFiBand {
         return WiFiBand.GHZ5.equals(this);
     }
 
+    @NonNull
     public WiFiChannels getWiFiChannels() {
         return wiFiChannels;
     }

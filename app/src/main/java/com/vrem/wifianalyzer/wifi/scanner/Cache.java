@@ -38,6 +38,7 @@ class Cache {
     private static final int ADJUST = 10;
     private final Deque<List<ScanResult>> cachedScanResults = new ArrayDeque<>();
 
+    @NonNull
     List<CacheResult> getScanResults() {
         ScanResult current = null;
         int levelTotal = 0;
@@ -71,6 +72,7 @@ class Cache {
         return cacheResult;
     }
 
+    @NonNull
     private List<ScanResult> combineCache() {
         List<ScanResult> scanResults = new ArrayList<>();
         IterableUtils.forEach(cachedScanResults, new CacheClosure(scanResults));
@@ -88,6 +90,7 @@ class Cache {
         }
     }
 
+    @NonNull
     Deque<List<ScanResult>> getCachedScanResults() {
         return cachedScanResults;
     }

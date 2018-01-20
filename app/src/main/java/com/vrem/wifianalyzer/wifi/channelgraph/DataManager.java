@@ -39,10 +39,12 @@ import java.util.Set;
 import java.util.TreeSet;
 
 class DataManager {
+    @NonNull
     Set<WiFiDetail> getNewSeries(@NonNull List<WiFiDetail> wiFiDetails, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
         return new TreeSet<>(CollectionUtils.select(wiFiDetails, new InRangePredicate(wiFiChannelPair)));
     }
 
+    @NonNull
     DataPoint[] getDataPoints(@NonNull WiFiDetail wiFiDetail, int levelMax) {
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         int frequencyStart = wiFiSignal.getFrequencyStart();

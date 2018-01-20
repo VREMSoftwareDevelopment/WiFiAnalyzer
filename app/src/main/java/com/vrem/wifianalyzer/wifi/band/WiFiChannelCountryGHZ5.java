@@ -56,6 +56,7 @@ class WiFiChannelCountryGHZ5 {
         channels.addAll(channelsSet3);
     }
 
+    @NonNull
     SortedSet<Integer> findChannels(@NonNull String countryCode) {
         SortedSet<Integer> results = new TreeSet<>(channels);
         SortedSet<Integer> exclude = channelsToExclude.get(StringUtils.capitalize(countryCode));
