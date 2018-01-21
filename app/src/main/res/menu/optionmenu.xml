@@ -22,13 +22,13 @@
 
     <item
         android:id="@+id/action_filter"
-        android:icon="@drawable/ic_filter_list_grey_500_48dp"
+        android:icon="@drawable/ic_filter_list_grey_500_24dp"
         android:title="@string/filter_title"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_scanner"
-        android:icon="@drawable/ic_pause_grey_500_48dp"
+        android:icon="@drawable/ic_pause_grey_500_24dp"
         android:title="@string/scanner_pause"
         app:showAsAction="ifRoom"/>
 

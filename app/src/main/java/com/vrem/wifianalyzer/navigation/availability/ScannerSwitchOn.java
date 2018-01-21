@@ -36,10 +36,10 @@ class ScannerSwitchOn implements NavigationOption {
             menuItem.setVisible(true);
             if (MainContext.INSTANCE.getScannerService().isRunning()) {
                 menuItem.setTitle(R.string.scanner_pause);
-                menuItem.setIcon(R.drawable.ic_pause_grey_500_48dp);
+                menuItem.setIcon(R.drawable.ic_pause_grey_500_24dp);
             } else {
                 menuItem.setTitle(R.string.scanner_play);
-                menuItem.setIcon(R.drawable.ic_play_arrow_grey_500_48dp);
+                menuItem.setIcon(R.drawable.ic_play_arrow_grey_500_24dp);
             }
         }
     }

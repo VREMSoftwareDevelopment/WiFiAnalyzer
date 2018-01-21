@@ -86,7 +86,7 @@ public class FilterOnTest {
         // validate
         verifyMenuItem();
         verify(filterAdapter).isActive();
-        verify(menuItem).setIcon(R.drawable.ic_filter_list_grey_500_48dp);
+        verify(menuItem).setIcon(R.drawable.ic_filter_list_grey_500_24dp);
     }
 
     @Test
@@ -99,7 +99,7 @@ public class FilterOnTest {
         // validate
         verifyMenuItem();
         verify(filterAdapter).isActive();
-        verify(menuItem).setIcon(R.drawable.ic_filter_list_blue_500_48dp);
+        verify(menuItem).setIcon(R.drawable.ic_filter_list_blue_500_24dp);
     }
 
     private void verifyMenuItem() {
