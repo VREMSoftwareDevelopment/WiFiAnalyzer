@@ -17,79 +17,82 @@
   -->
 
 <resources>
-    <string name="app_copyright">Авторские права \u00A9 2015 \u002D 2017</string>
+    <string name="app_copyright">"Авторские права \u00A9 2015 \u002D 2017"</string>
 
-    <string name="navigation_drawer_open">Открыть панель навигации</string>
-    <string name="navigation_drawer_close">Закрыть панель навигации</string>
+    <string name="navigation_drawer_open">"Открыть панель навигации"</string>
+    <string name="navigation_drawer_close">"Закрыть панель навигации"</string>
+    <string name="scanner_message">"Сканирование..."</string>
+    <string name="scanner_pause">"Приостановить"</string>
+    <string name="scanner_play">"Воспроизвести"</string>
 
     <!-- action start -->
-    <string name="action_access_points">Точки доступа</string>
-    <string name="action_channel_rating">Оценка каналов</string>
-    <string name="action_channel_graph">График каналов</string>
-    <string name="action_time_graph">Временной график</string>
-    <string name="action_export">Экспорт</string>
-    <string name="action_channel_available">Доступные каналы</string>
-    <string name="action_vendors">Поставщики</string>
-    <string name="action_settings">Настройки</string>
-    <string name="action_about">О Программе</string>
+    <string name="action_access_points">"Точки доступа"</string>
+    <string name="action_channel_rating">"Оценка каналов"</string>
+    <string name="action_channel_graph">"График каналов"</string>
+    <string name="action_time_graph">"Временной график"</string>
+    <string name="action_export">"Экспорт"</string>
+    <string name="action_channel_available">"Доступные каналы"</string>
+    <string name="action_vendors">"Поставщики"</string>
+    <string name="action_settings">"Настройки"</string>
+    <string name="action_about">"О Программе"</string>
     <!-- action end -->
 
-    <string name="button_cancel">Отмена</string>
-    <string name="no_data">Нет данных</string>
-    <string name="no_data_msg">Пожалуйста, посетите часто задаваемые вопросы на нашем сайте.</string>
-    <string name="no_data_geo_warning">Некоторые пользователи Android OS 6+ (Marshmallow) сообщили, что услуга определения местоположения должна быть включена для того, чтобы WiFiAnalyzer увидел WiFi сети. Поэтому Вам, возможно, понадобится включить службу определения местоположения, даже если WiFiAnalyzer этого явно не требует.</string>
+    <string name="button_cancel">"Отмена"</string>
+    <string name="no_data">"Нет данных"</string>
+    <string name="no_data_msg">"Пожалуйста, посетите часто задаваемые вопросы на нашем сайте."</string>
+    <string name="no_data_geo_warning">"Некоторые пользователи Android OS 6+ (Marshmallow) сообщили, что услуга определения местоположения должна быть включена для того, чтобы WiFiAnalyzer увидел WiFi сети. Поэтому Вам, возможно, понадобится включить службу определения местоположения, даже если WiFiAnalyzer этого явно не требует."</string>
 
-    <string name="export_not_available">Экспорт не доступен</string>
+    <string name="export_not_available">"Экспорт не доступен"</string>
 
-    <string name="channel_rating_best">Лучшие каналы:</string>
-    <string name="channel_rating_best_none">Нет</string>
-    <string name="channel_rating_best_alternative">, попробуйте альтернативный WiFi диапазон</string>
-    <string name="channel_rating_heading_rating">Оценка каналов</string>
-    <string name="channel_rating_heading_number">Номер канала</string>
-    <string name="channel_rating_heading_count">Число точек доступа</string>
-    <string name="channel_short_name">CH</string>
+    <string name="channel_rating_best">"Лучшие каналы:"</string>
+    <string name="channel_rating_best_none">"Нет"</string>
+    <string name="channel_rating_best_alternative">", попробуйте альтернативный WiFi диапазон"</string>
+    <string name="channel_rating_heading_rating">"Оценка каналов"</string>
+    <string name="channel_rating_heading_number">"Номер канала"</string>
+    <string name="channel_rating_heading_count">"Число точек доступа"</string>
+    <string name="channel_short_name">"CH"</string>
 
-    <string name="graph_channel_axis_x">WiFi каналы</string>
-    <string name="graph_time_axis_x">Число сканирований</string>
-    <string name="graph_axis_y">Уровень сигнала (dBm)</string>
+    <string name="graph_channel_axis_x">"WiFi каналы"</string>
+    <string name="graph_time_axis_x">"Число сканирований"</string>
+    <string name="graph_axis_y">"Уровень сигнала (dBm)"</string>
 
     <!-- settings start -->
-    <string name="start_menu_title">Начать</string>
-    <string name="country_code_title">Страна</string>
-    <string name="scan_interval_title">Интервал сканирования</string>
-    <string name="scan_interval_summary">%d секунд между каждым сканированием</string>
-    <string name="sort_by_title">Сортировка</string>
-    <string name="group_by_title">Группировка</string>
-    <string name="connection_view_title">Дисплей соединение</string>
-    <string name="ap_view_title">Точка доступа</string>
-    <string name="graph_maximum_y_title">Максимальная сила сигнала графика</string>
-    <string name="channel_graph_legend_title">Показать легенду графика каналa</string>
-    <string name="time_graph_legend_title">Показать легенду графика времени</string>
-    <string name="theme_title">Цветовая тема</string>
-    <string name="wifi_off_on_exit_title">WiFi выключен при выходе</string>
-    <string name="language_title">Язык</string>
+    <string name="start_menu_title">"Начать"</string>
+    <string name="country_code_title">"Страна"</string>
+    <string name="scan_interval_title">"Интервал сканирования"</string>
+    <string name="scan_interval_summary">"%d секунд между каждым сканированием"</string>
+    <string name="sort_by_title">"Сортировка"</string>
+    <string name="group_by_title">"Группировка"</string>
+    <string name="connection_view_title">"Дисплей соединение"</string>
+    <string name="ap_view_title">"Точка доступа"</string>
+    <string name="graph_maximum_y_title">"Максимальная сила сигнала графика"</string>
+    <string name="channel_graph_legend_title">"Показать легенду графика каналa"</string>
+    <string name="time_graph_legend_title">"Показать легенду графика времени"</string>
+    <string name="theme_title">"Цветовая тема"</string>
+    <string name="wifi_off_on_exit_title">"WiFi выключен при выходе"</string>
+    <string name="language_title">"Язык"</string>
     <!-- settings end -->
 
     <!-- about start -->
-    <string name="about_license_title">Лицензия:</string>
-    <string name="about_description_title">Описание:</string>
-    <string name="about_description_text">Оптимизация сети WiFi путем проверки состояния Wi-Fi, уровня сигнала и определения переполненных каналов используя WiFiAnalyzer для Android</string>
-    <string name="about_libraries_title">Использованные библиотеки:</string>
-    <string name="about_contributor_title">Авторы:</string>
-    <string name="about_write_review">Написать отзыв</string>
+    <string name="about_license_title">"Лицензия:"</string>
+    <string name="about_description_title">"Описание:"</string>
+    <string name="about_description_text">"Оптимизация сети WiFi путем проверки состояния Wi-Fi, уровня сигнала и определения переполненных каналов используя WiFiAnalyzer для Android"</string>
+    <string name="about_libraries_title">"Использованные библиотеки:"</string>
+    <string name="about_contributor_title">"Авторы"</string>
+    <string name="about_write_review">"Написать отзыв"</string>
     <!-- about end -->
 
     <!-- security start -->
-    <string name="security_none">Нет</string>
+    <string name="security_none">"Нет"</string>
     <!-- security end -->
 
     <!-- filter start -->
-    <string name="filter_title">Фильтр</string>
-    <string name="filter_close">Закрыть</string>
-    <string name="filter_reset">Сброс</string>
-    <string name="filter_apply">Применять</string>
-    <string name="filter_wifi_band_title">WiFi диапазон</string>
-    <string name="filter_strength_title">Уровень сигнала</string>
-    <string name="filter_security_title">Безопасность</string>
+    <string name="filter_title">"Фильтр"</string>
+    <string name="filter_close">"Закрыть"</string>
+    <string name="filter_reset">"Сброс"</string>
+    <string name="filter_apply">"Применять"</string>
+    <string name="filter_wifi_band_title">"WiFi диапазон"</string>
+    <string name="filter_strength_title">"Уровень сигнала"</string>
+    <string name="filter_security_title">"Безопасность"</string>
     <!-- filter end -->
 </resources>
