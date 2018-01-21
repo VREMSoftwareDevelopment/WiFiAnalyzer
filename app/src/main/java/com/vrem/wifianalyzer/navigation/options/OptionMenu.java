@@ -18,19 +18,39 @@
 
 package com.vrem.wifianalyzer.navigation.options;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.v7.view.menu.MenuBuilder;
 import android.view.Menu;
+import android.view.MenuItem;
 
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 
-class ScannerSwitchOff implements NavigationOption {
+public class OptionMenu {
+    private Menu menu;
 
-    @Override
-    public void apply(@NonNull MainActivity mainActivity) {
-        Menu menu = mainActivity.getOptionMenu().getMenu();
-        if (menu != null) {
-            menu.findItem(R.id.action_scanner).setVisible(false);
+    public void create(@NonNull Activity activity, Menu menu) {
+        activity.getMenuInflater().inflate(R.menu.optionmenu, menu);
+        this.menu = menu;
+        iconsVisible(menu);
+    }
+
+    public void select(@NonNull MenuItem item) {
+        OptionAction.findOptionAction(item.getItemId()).getAction().execute();
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    private void iconsVisible(Menu menu) {
+        if (menu != null && menu instanceof MenuBuilder) {
+            try {
+                ((MenuBuilder) menu).setOptionalIconsVisible(true);
+            } catch (Exception e) {
+                // do nothing
+            }
         }
     }
+
 }

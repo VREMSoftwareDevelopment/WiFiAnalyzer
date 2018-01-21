@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation.options;
+package com.vrem.wifianalyzer.navigation.availability;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,12 +30,10 @@ public class NavigationOptionFactory {
     public static final NavigationOption SCANNER_SWITCH_OFF = new ScannerSwitchOff();
     public static final NavigationOption FILTER_OFF = new FilterOff();
     public static final NavigationOption NEXT_PREV_OFF = new NextPrevNavigationOff();
-    public static final NavigationOption WIFI_BAND_SWITCH_ON = new WiFIBandSwitchOn();
-    public static final NavigationOption WIFI_BAND_SWITCH_OFF = new WiFIBandSwitchOff();
-    public static final List<NavigationOption> AP = Arrays.asList(WIFI_SWITCH_OFF, WIFI_BAND_SWITCH_OFF, SCANNER_SWITCH_ON, FILTER_ON, NEXT_PREV_ON);
-    public static final List<NavigationOption> RATING = Arrays.asList(WIFI_SWITCH_ON, WIFI_BAND_SWITCH_ON, SCANNER_SWITCH_ON, FILTER_OFF, NEXT_PREV_ON);
-    public static final List<NavigationOption> OTHER = Arrays.asList(WIFI_SWITCH_ON, WIFI_BAND_SWITCH_ON, SCANNER_SWITCH_ON, FILTER_ON, NEXT_PREV_ON);
-    public static final List<NavigationOption> OFF = Arrays.asList(WIFI_SWITCH_OFF, WIFI_BAND_SWITCH_OFF, SCANNER_SWITCH_OFF, FILTER_OFF, NEXT_PREV_OFF);
+    public static final List<NavigationOption> AP = Arrays.asList(WIFI_SWITCH_OFF, SCANNER_SWITCH_ON, FILTER_ON, NEXT_PREV_ON);
+    public static final List<NavigationOption> RATING = Arrays.asList(WIFI_SWITCH_ON, SCANNER_SWITCH_ON, FILTER_OFF, NEXT_PREV_ON);
+    public static final List<NavigationOption> OTHER = Arrays.asList(WIFI_SWITCH_ON, SCANNER_SWITCH_ON, FILTER_ON, NEXT_PREV_ON);
+    public static final List<NavigationOption> OFF = Arrays.asList(WIFI_SWITCH_OFF, SCANNER_SWITCH_OFF, FILTER_OFF, NEXT_PREV_OFF);
 
     private NavigationOptionFactory() {
         throw new IllegalStateException("Factory class");

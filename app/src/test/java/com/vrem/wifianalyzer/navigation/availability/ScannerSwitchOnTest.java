@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation.options;
+package com.vrem.wifianalyzer.navigation.availability;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +24,7 @@ import android.view.MenuItem;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.menu.OptionMenu;
+import com.vrem.wifianalyzer.navigation.options.OptionMenu;
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
 import org.junit.After;
@@ -86,7 +86,7 @@ public class ScannerSwitchOnTest {
         // validate
         verifyMenuItem();
         verify(scanner).isRunning();
-        verify(menuItem).setTitle(R.string.action_pause);
+        verify(menuItem).setTitle(R.string.scanner_pause);
         verify(menuItem).setIcon(R.drawable.ic_pause_grey_500_48dp);
     }
 
@@ -100,7 +100,7 @@ public class ScannerSwitchOnTest {
         // validate
         verifyMenuItem();
         verify(scanner).isRunning();
-        verify(menuItem).setTitle(R.string.action_resume);
+        verify(menuItem).setTitle(R.string.scanner_play);
         verify(menuItem).setIcon(R.drawable.ic_play_arrow_grey_500_48dp);
     }
 

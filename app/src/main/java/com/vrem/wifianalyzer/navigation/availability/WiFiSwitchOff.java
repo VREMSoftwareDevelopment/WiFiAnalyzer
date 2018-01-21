@@ -16,12 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation.options;
+package com.vrem.wifianalyzer.navigation.availability;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
+import android.view.Menu;
 
 import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.navigation.options.OptionMenu;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -29,9 +32,24 @@ class WiFiSwitchOff implements NavigationOption {
 
     @Override
     public void apply(@NonNull MainActivity mainActivity) {
+        applyToActionBar(mainActivity);
+        applyToMenu(mainActivity);
+    }
+
+    private void applyToActionBar(@NonNull MainActivity mainActivity) {
         ActionBar actionBar = mainActivity.getSupportActionBar();
         if (actionBar != null) {
             actionBar.setSubtitle(StringUtils.EMPTY);
+        }
+    }
+
+    private void applyToMenu(@NonNull MainActivity mainActivity) {
+        OptionMenu optionMenu = mainActivity.getOptionMenu();
+        if (optionMenu != null) {
+            Menu menu = optionMenu.getMenu();
+            if (menu != null) {
+                menu.findItem(R.id.action_wifi_band).setVisible(false);
+            }
         }
     }
 }

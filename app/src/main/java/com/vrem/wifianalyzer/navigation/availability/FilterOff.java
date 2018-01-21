@@ -16,35 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation.options;
+package com.vrem.wifianalyzer.navigation.availability;
 
 import android.support.annotation.NonNull;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
+import android.view.Menu;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 
-class NextPrevNavigationOff implements NavigationOption {
-    static final OnTouchListener ON_TOUCH_LISTENER_EMPTY = new NavigationOnTouchListener(false);
+class FilterOff implements NavigationOption {
 
     @Override
     public void apply(@NonNull MainActivity mainActivity) {
-        mainActivity.findViewById(R.id.main_fragment_layout).setOnTouchListener(ON_TOUCH_LISTENER_EMPTY);
-    }
-
-    private static class NavigationOnTouchListener implements OnTouchListener {
-        private final boolean result;
-
-        private NavigationOnTouchListener(boolean result) {
-            this.result = result;
-        }
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            return result;
+        Menu menu = mainActivity.getOptionMenu().getMenu();
+        if (menu != null) {
+            menu.findItem(R.id.action_filter).setVisible(false);
         }
     }
-
 }

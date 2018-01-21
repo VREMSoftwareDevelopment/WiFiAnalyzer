@@ -19,8 +19,8 @@
 package com.vrem.wifianalyzer.navigation;
 
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.navigation.availability.NavigationOptionFactory;
 import com.vrem.wifianalyzer.navigation.items.NavigationItemFactory;
-import com.vrem.wifianalyzer.navigation.options.NavigationOptionFactory;
 
 import org.junit.Test;
 

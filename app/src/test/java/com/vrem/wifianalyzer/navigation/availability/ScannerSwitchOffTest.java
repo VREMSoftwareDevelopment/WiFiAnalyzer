@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation.options;
+package com.vrem.wifianalyzer.navigation.availability;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.menu.OptionMenu;
+import com.vrem.wifianalyzer.navigation.options.OptionMenu;
 
 import org.junit.Before;
 import org.junit.Test;

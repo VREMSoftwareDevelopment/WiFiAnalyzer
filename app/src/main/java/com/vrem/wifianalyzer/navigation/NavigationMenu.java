@@ -23,10 +23,10 @@ import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.navigation.availability.NavigationOption;
+import com.vrem.wifianalyzer.navigation.availability.NavigationOptionFactory;
 import com.vrem.wifianalyzer.navigation.items.NavigationItem;
 import com.vrem.wifianalyzer.navigation.items.NavigationItemFactory;
-import com.vrem.wifianalyzer.navigation.options.NavigationOption;
-import com.vrem.wifianalyzer.navigation.options.NavigationOptionFactory;
 
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;

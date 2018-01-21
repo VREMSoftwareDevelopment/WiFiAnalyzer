@@ -16,11 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation.options;
+package com.vrem.wifianalyzer.navigation.availability;
 
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.vrem.util.TextUtils;
 import com.vrem.wifianalyzer.BuildConfig;
@@ -28,6 +31,7 @@ import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.navigation.options.OptionMenu;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 
 import org.junit.Before;
@@ -38,6 +42,7 @@ import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -48,25 +53,28 @@ import static org.powermock.api.mockito.PowerMockito.mock;
 @Config(constants = BuildConfig.class)
 public class WiFiSwitchOnTest {
     private MainActivity mainActivity;
+    private ActionBar actionBar;
+    private OptionMenu optionMenu;
+    private Menu menu;
+    private MenuItem menuItem;
     private WiFiSwitchOn fixture;
 
     @Before
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getActivity();
+
+        actionBar = mock(ActionBar.class);
+        optionMenu = mock(OptionMenu.class);
+        menu = mock(Menu.class);
+        menuItem = mock(MenuItem.class);
+
         fixture = new WiFiSwitchOn();
     }
 
     @Test
     public void testApplySetSubtitle() throws Exception {
         // setup
-        WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
-        Resources resources = mainActivity.getResources();
-        String wiFiBand2 = resources.getString(WiFiBand.GHZ2.getTextResource());
-        String wiFiBand5 = resources.getString(WiFiBand.GHZ5.getTextResource());
-        int colorSelected = ContextCompat.getColor(mainActivity, R.color.connected);
-        int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.icons_color);
-        String subtitle = fixture.makeSubtitle(WiFiBand.GHZ2.equals(wiFiBand), wiFiBand2, wiFiBand5, colorSelected, colorNotSelected);
-        CharSequence expected = TextUtils.fromHtml(subtitle);
+        CharSequence expected = withExpectedSubtitle();
         // execute
         fixture.apply(mainActivity);
         // validate
@@ -78,11 +86,22 @@ public class WiFiSwitchOnTest {
         }
     }
 
+    @NonNull
+    private CharSequence withExpectedSubtitle() {
+        WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
+        Resources resources = mainActivity.getResources();
+        String wiFiBand2 = resources.getString(WiFiBand.GHZ2.getTextResource());
+        String wiFiBand5 = resources.getString(WiFiBand.GHZ5.getTextResource());
+        int colorSelected = ContextCompat.getColor(mainActivity, R.color.connected);
+        int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.icons_color);
+        String subtitle = fixture.makeSubtitle(WiFiBand.GHZ2.equals(wiFiBand), wiFiBand2, wiFiBand5, colorSelected, colorNotSelected);
+        return TextUtils.fromHtml(subtitle);
+    }
+
     @Test
     public void testApplyWithNoActionBarDoesNotSetSubtitle() throws Exception {
         // setup
         MainActivity mainActivity = mock(MainActivity.class);
-        ActionBar actionBar = mock(ActionBar.class);
         when(mainActivity.getSupportActionBar()).thenReturn(null);
         // execute
         fixture.apply(mainActivity);
@@ -121,6 +140,46 @@ public class WiFiSwitchOnTest {
         String actual = fixture.makeSubtitle(false, text1, text2, color1, color2);
         // validate
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testApplyWithWiFiBandVisible() throws Exception {
+        // execute
+        fixture.apply(mainActivity);
+        // validate
+        Menu menu = mainActivity.getOptionMenu().getMenu();
+        assertTrue(menu.findItem(R.id.action_wifi_band).isVisible());
+    }
+
+    @Test
+    public void testApplyWithNoOptionMenuDoesNotSetWiFiBandVisible() throws Exception {
+        // setup
+        MainActivity mainActivity = mock(MainActivity.class);
+        when(mainActivity.getOptionMenu()).thenReturn(null);
+        // execute
+        fixture.apply(mainActivity);
+        // validate
+        verify(mainActivity).getOptionMenu();
+        verifyMenu();
+    }
+
+    @Test
+    public void testApplyWithNoMenuDoesNotSetWiFiBandVisible() throws Exception {
+        // setup
+        MainActivity mainActivity = mock(MainActivity.class);
+        when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
+        when(optionMenu.getMenu()).thenReturn(null);
+        // execute
+        fixture.apply(mainActivity);
+        // validate
+        verify(mainActivity).getOptionMenu();
+        verify(optionMenu).getMenu();
+        verifyMenu();
+    }
+
+    private void verifyMenu() {
+        verify(menu, never()).findItem(R.id.action_wifi_band);
+        verify(menuItem, never()).setVisible(anyBoolean());
     }
 
 }

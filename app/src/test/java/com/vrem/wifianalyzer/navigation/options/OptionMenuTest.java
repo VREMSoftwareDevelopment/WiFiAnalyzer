@@ -18,42 +18,62 @@
 
 package com.vrem.wifianalyzer.navigation.options;
 
-import android.view.View;
+import android.app.Activity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class NextPrevNavigationOffTest {
+public class OptionMenuTest {
+
     @Mock
-    private MainActivity mainActivity;
+    private Menu menu;
     @Mock
-    private View view;
+    private MenuItem menuItem;
+    @Mock
+    private Activity activity;
+    @Mock
+    private MenuInflater menuInflater;
+
+    private OptionMenu fixture;
+
+    @Before
+    public void setUp() {
+        fixture = new OptionMenu();
+    }
 
     @Test
-    public void testApplySwitchesOffOnTouchListener() throws Exception {
+    public void testCreate() throws Exception {
         // setup
-        NextPrevNavigationOff fixture = new NextPrevNavigationOff();
-        when(mainActivity.findViewById(R.id.main_fragment_layout)).thenReturn(view);
+        when(activity.getMenuInflater()).thenReturn(menuInflater);
         // execute
-        fixture.apply(mainActivity);
+        fixture.create(activity, menu);
         // validate
-        verify(mainActivity).findViewById(R.id.main_fragment_layout);
-        verify(view).setOnTouchListener(NextPrevNavigationOff.ON_TOUCH_LISTENER_EMPTY);
+        assertEquals(menu, fixture.getMenu());
+        verify(menuInflater).inflate(R.menu.optionmenu, menu);
     }
-
 
     @Test
-    public void testOnTouchListenerEmptyDoesNotDoAnyEvents() throws Exception {
-        assertFalse(NextPrevNavigationOff.ON_TOUCH_LISTENER_EMPTY.onTouch(null, null));
+    public void testActions() throws Exception {
+        // setup
+        int itemId = -1;
+        when(menuItem.getItemId()).thenReturn(itemId);
+        // execute
+        fixture.select(menuItem);
+        // validate
+        verify(menuItem).getItemId();
     }
+
 }

@@ -16,15 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation.options;
+package com.vrem.wifianalyzer.navigation.availability;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.menu.OptionMenu;
+import com.vrem.wifianalyzer.navigation.options.OptionMenu;
+import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +39,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FilterOffTest {
+public class FilterOnTest {
 
     @Mock
     private MainActivity mainActivity;
@@ -47,30 +50,72 @@ public class FilterOffTest {
     @Mock
     private MenuItem menuItem;
 
-    private FilterOff fixture;
+    private FilterAdapter filterAdapter;
+    private FilterOn fixture;
 
     @Before
     public void setUp() {
-        fixture = new FilterOff();
+        filterAdapter = MainContextHelper.INSTANCE.getFilterAdapter();
+        fixture = new FilterOn();
+    }
+
+    @After
+    public void tearDown() {
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test
-    public void testApplySetVisibleFalse() throws Exception {
+    public void testApplySetMenuItemVisibleTrue() throws Exception {
         // setup
-        when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
-        when(optionMenu.getMenu()).thenReturn(menu);
-        when(menu.findItem(R.id.action_filter)).thenReturn(menuItem);
+        withMenuItem();
         // execute
         fixture.apply(mainActivity);
         // validate
-        verify(mainActivity).getOptionMenu();
-        verify(optionMenu).getMenu();
-        verify(menu).findItem(R.id.action_filter);
-        verify(menuItem).setVisible(false);
+        verifyMenuItem();
+        verify(menuItem).setVisible(true);
+
     }
 
     @Test
-    public void testApplyWithNoMenuDoesNotSetVisibleFalse() throws Exception {
+    public void testApplyWithFilterInactive() throws Exception {
+        // setup
+        when(filterAdapter.isActive()).thenReturn(false);
+        withMenuItem();
+        // execute
+        fixture.apply(mainActivity);
+        // validate
+        verifyMenuItem();
+        verify(filterAdapter).isActive();
+        verify(menuItem).setIcon(R.drawable.ic_filter_list_grey_500_48dp);
+    }
+
+    @Test
+    public void testApplyWithFilterActive() throws Exception {
+        // setup
+        when(filterAdapter.isActive()).thenReturn(true);
+        withMenuItem();
+        // execute
+        fixture.apply(mainActivity);
+        // validate
+        verifyMenuItem();
+        verify(filterAdapter).isActive();
+        verify(menuItem).setIcon(R.drawable.ic_filter_list_blue_500_48dp);
+    }
+
+    private void verifyMenuItem() {
+        verify(mainActivity).getOptionMenu();
+        verify(optionMenu).getMenu();
+        verify(menu).findItem(R.id.action_filter);
+    }
+
+    private void withMenuItem() {
+        when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
+        when(optionMenu.getMenu()).thenReturn(menu);
+        when(menu.findItem(R.id.action_filter)).thenReturn(menuItem);
+    }
+
+    @Test
+    public void testApplyWithNoMenuDoesNotSetVisibleTrue() throws Exception {
         // setup
         when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
         when(optionMenu.getMenu()).thenReturn(null);
@@ -80,7 +125,7 @@ public class FilterOffTest {
         verify(mainActivity).getOptionMenu();
         verify(optionMenu).getMenu();
         verify(menu, never()).findItem(R.id.action_filter);
-        verify(menuItem, never()).setVisible(false);
+        verify(menuItem, never()).setVisible(true);
     }
 
 }

@@ -18,15 +18,17 @@
 
 package com.vrem.wifianalyzer.navigation.options;
 
-import android.support.annotation.NonNull;
+import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
-import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.navigation.NavigationSwipeOnTouchListener;
-
-class NextPrevNavigationOn implements NavigationOption {
+class ScannerAction implements Action {
     @Override
-    public void apply(@NonNull MainActivity mainActivity) {
-        mainActivity.findViewById(R.id.main_fragment_layout).setOnTouchListener(new NavigationSwipeOnTouchListener(mainActivity));
+    public void execute() {
+        ScannerService scannerService = MainContext.INSTANCE.getScannerService();
+        if (scannerService.isRunning()) {
+            scannerService.pause();
+        } else {
+            scannerService.resume();
+        }
     }
 }

@@ -18,57 +18,59 @@
 
 package com.vrem.wifianalyzer.navigation.options;
 
-import android.support.v7.app.ActionBar;
+import com.vrem.wifianalyzer.MainContextHelper;
+import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
-import com.vrem.wifianalyzer.MainActivity;
-
-import org.apache.commons.lang3.StringUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class WiFiSwitchOffTest {
+public class ScannerActionTest {
+    private ScannerService scannerService;
 
-    @Mock
-    private MainActivity mainActivity;
-    @Mock
-    private ActionBar actionBar;
-
-    private WiFiSwitchOff fixture;
+    private ScannerAction fixture;
 
     @Before
     public void setUp() {
-        fixture = new WiFiSwitchOff();
+        scannerService = MainContextHelper.INSTANCE.getScannerService();
+
+        fixture = new ScannerAction();
+    }
+
+    @After
+    public void tearDown() {
+        MainContextHelper.INSTANCE.restore();
     }
 
     @Test
-    public void testApplySetEmptySubtitle() throws Exception {
+    public void testExecuteWithPause() throws Exception {
         // setup
-        when(mainActivity.getSupportActionBar()).thenReturn(actionBar);
+        when(scannerService.isRunning()).thenReturn(true);
         // execute
-        fixture.apply(mainActivity);
+        fixture.execute();
         // validate
-        verify(mainActivity).getSupportActionBar();
-        verify(actionBar).setSubtitle(StringUtils.EMPTY);
+        verify(scannerService).isRunning();
+        verify(scannerService).pause();
+        verify(scannerService, never()).resume();
     }
 
     @Test
-    public void testApplyWithNoActionBarDoesNotSetSubtitle() throws Exception {
+    public void testExecuteActionWithResume() throws Exception {
         // setup
-        when(mainActivity.getSupportActionBar()).thenReturn(null);
+        when(scannerService.isRunning()).thenReturn(false);
         // execute
-        fixture.apply(mainActivity);
+        fixture.execute();
         // validate
-        verify(mainActivity).getSupportActionBar();
-        verify(actionBar, never()).setSubtitle(anyString());
+        verify(scannerService).isRunning();
+        verify(scannerService, never()).pause();
+        verify(scannerService).resume();
     }
 
 }

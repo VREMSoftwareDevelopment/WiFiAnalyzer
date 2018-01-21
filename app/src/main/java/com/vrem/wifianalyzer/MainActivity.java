@@ -38,9 +38,9 @@ import android.view.View.OnClickListener;
 
 import com.vrem.util.ConfigurationUtils;
 import com.vrem.util.EnumUtils;
-import com.vrem.wifianalyzer.menu.OptionMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
+import com.vrem.wifianalyzer.navigation.options.OptionMenu;
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionView;
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     protected void onPause() {
-        optionMenu.pause();
+        MainContext.INSTANCE.getScannerService().pause();
         updateActionBar();
         super.onPause();
     }
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     @Override
     protected void onResume() {
         super.onResume();
-        optionMenu.resume();
+        MainContext.INSTANCE.getScannerService().resume();
         updateActionBar();
     }
 

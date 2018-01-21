@@ -16,17 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation.options;
+package com.vrem.wifianalyzer.navigation.availability;
 
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.view.Menu;
 
 import com.vrem.util.TextUtils;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.navigation.options.OptionMenu;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 
 class WiFiSwitchOn implements NavigationOption {
@@ -35,6 +37,11 @@ class WiFiSwitchOn implements NavigationOption {
 
     @Override
     public void apply(@NonNull MainActivity mainActivity) {
+        applyToActionBar(mainActivity);
+        applyToMenu(mainActivity);
+    }
+
+    private void applyToActionBar(@NonNull MainActivity mainActivity) {
         ActionBar actionBar = mainActivity.getSupportActionBar();
         if (actionBar != null) {
             int colorSelected = ContextCompat.getColor(mainActivity, R.color.connected);
@@ -45,6 +52,16 @@ class WiFiSwitchOn implements NavigationOption {
             WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
             String subtitle = makeSubtitle(WiFiBand.GHZ2.equals(wiFiBand), wiFiBand2, wiFiBand5, colorSelected, colorNotSelected);
             actionBar.setSubtitle(TextUtils.fromHtml(subtitle));
+        }
+    }
+
+    private void applyToMenu(@NonNull MainActivity mainActivity) {
+        OptionMenu optionMenu = mainActivity.getOptionMenu();
+        if (optionMenu != null) {
+            Menu menu = optionMenu.getMenu();
+            if (menu != null) {
+                menu.findItem(R.id.action_wifi_band).setVisible(true);
+            }
         }
     }
 

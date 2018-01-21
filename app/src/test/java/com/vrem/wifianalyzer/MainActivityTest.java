@@ -21,9 +21,9 @@ package com.vrem.wifianalyzer;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.vrem.wifianalyzer.menu.OptionMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
+import com.vrem.wifianalyzer.navigation.options.OptionMenu;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
@@ -87,25 +87,23 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testOnPauseCallsOptionMenuPause() throws Exception {
+    public void testOnPauseWillPauseScanner() throws Exception {
         // setup
-        OptionMenu optionMenu = mock(OptionMenu.class);
-        fixture.setOptionMenu(optionMenu);
+        ScannerService scannerService = MainContextHelper.INSTANCE.getScannerService();
         // execute
         fixture.onPause();
         // validate
-        verify(optionMenu).pause();
+        verify(scannerService).pause();
     }
 
     @Test
     public void testOnResumeCallsOptionMenuResume() throws Exception {
         // setup
-        OptionMenu optionMenu = mock(OptionMenu.class);
-        fixture.setOptionMenu(optionMenu);
+        ScannerService scannerService = MainContextHelper.INSTANCE.getScannerService();
         // execute
         fixture.onResume();
         // validate
-        verify(optionMenu).resume();
+        verify(scannerService).resume();
     }
 
     @Test

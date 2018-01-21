@@ -18,18 +18,32 @@
 
 package com.vrem.wifianalyzer.navigation.options;
 
-import android.support.annotation.NonNull;
-import android.view.Menu;
-
+import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.RobolectricUtil;
 
-public class WiFIBandSwitchOn implements NavigationOption {
-	@Override
-	public void apply(@NonNull MainActivity mainActivity) {
-		Menu menu = mainActivity.getOptionMenu().getMenu();
-		if (menu != null) {
-			menu.findItem(R.id.action_change_band).setVisible(true);
-		}
-	}
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
+public class FilterActionTest {
+
+    private FilterAction fixture;
+
+    @Before
+    public void setUp() {
+        MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
+
+        fixture = new FilterAction();
+    }
+
+    @Test
+    public void testExecute() throws Exception {
+        fixture.execute();
+    }
+
 }

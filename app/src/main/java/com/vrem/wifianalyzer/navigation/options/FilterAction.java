@@ -18,19 +18,12 @@
 
 package com.vrem.wifianalyzer.navigation.options;
 
-import android.support.annotation.NonNull;
-import android.view.Menu;
+import com.vrem.wifianalyzer.wifi.filter.Filter;
 
-import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.R;
-
-class FilterOff implements NavigationOption {
-
+class FilterAction implements Action {
     @Override
-    public void apply(@NonNull MainActivity mainActivity) {
-        Menu menu = mainActivity.getOptionMenu().getMenu();
-        if (menu != null) {
-            menu.findItem(R.id.action_filter).setVisible(false);
-        }
+    public void execute() {
+        Filter.build().show();
     }
 }
+

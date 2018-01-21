@@ -16,33 +16,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation.options;
+package com.vrem.wifianalyzer.navigation.availability;
 
+import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.menu.OptionMenu;
-import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
+import com.vrem.wifianalyzer.navigation.options.OptionMenu;
 
-import org.junit.After;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mock;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FilterOnTest {
+public class WiFiSwitchOffTest {
 
     @Mock
     private MainActivity mainActivity;
+    @Mock
+    private ActionBar actionBar;
     @Mock
     private OptionMenu optionMenu;
     @Mock
@@ -50,73 +54,66 @@ public class FilterOnTest {
     @Mock
     private MenuItem menuItem;
 
-    private FilterAdapter filterAdapter;
-    private FilterOn fixture;
+    private WiFiSwitchOff fixture;
 
     @Before
     public void setUp() {
-        filterAdapter = MainContextHelper.INSTANCE.getFilterAdapter();
-        fixture = new FilterOn();
-    }
-
-    @After
-    public void tearDown() {
-        MainContextHelper.INSTANCE.restore();
+        fixture = new WiFiSwitchOff();
     }
 
     @Test
-    public void testApplySetMenuItemVisibleTrue() throws Exception {
+    public void testApplyWithActionBarSetEmptySubtitle() throws Exception {
         // setup
-        withMenuItem();
+        when(mainActivity.getSupportActionBar()).thenReturn(actionBar);
         // execute
         fixture.apply(mainActivity);
         // validate
-        verifyMenuItem();
-        verify(menuItem).setVisible(true);
-
+        verify(mainActivity).getSupportActionBar();
+        verify(actionBar).setSubtitle(StringUtils.EMPTY);
     }
 
     @Test
-    public void testApplyWithFilterInactive() throws Exception {
+    public void testApplyWithNoActionBarDoesNotSetSubtitle() throws Exception {
         // setup
-        when(filterAdapter.isActive()).thenReturn(false);
-        withMenuItem();
+        when(mainActivity.getSupportActionBar()).thenReturn(null);
         // execute
         fixture.apply(mainActivity);
         // validate
-        verifyMenuItem();
-        verify(filterAdapter).isActive();
-        verify(menuItem).setIcon(R.drawable.ic_filter_list_grey_500_48dp);
+        verify(mainActivity).getSupportActionBar();
+        verify(actionBar, never()).setSubtitle(anyString());
     }
 
     @Test
-    public void testApplyWithFilterActive() throws Exception {
+    public void testApplyWithOptionMenuSetVisibleFalse() throws Exception {
         // setup
-        when(filterAdapter.isActive()).thenReturn(true);
-        withMenuItem();
-        // execute
-        fixture.apply(mainActivity);
-        // validate
-        verifyMenuItem();
-        verify(filterAdapter).isActive();
-        verify(menuItem).setIcon(R.drawable.ic_filter_list_blue_500_48dp);
-    }
-
-    private void verifyMenuItem() {
-        verify(mainActivity).getOptionMenu();
-        verify(optionMenu).getMenu();
-        verify(menu).findItem(R.id.action_filter);
-    }
-
-    private void withMenuItem() {
         when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
         when(optionMenu.getMenu()).thenReturn(menu);
-        when(menu.findItem(R.id.action_filter)).thenReturn(menuItem);
+        when(menu.findItem(R.id.action_wifi_band)).thenReturn(menuItem);
+        // execute
+        fixture.apply(mainActivity);
+        // validate
+        verify(mainActivity).getOptionMenu();
+        verify(optionMenu).getMenu();
+        verify(menu).findItem(R.id.action_wifi_band);
+        verify(menuItem).setVisible(false);
     }
 
     @Test
-    public void testApplyWithNoMenuDoesNotSetVisibleTrue() throws Exception {
+    public void testApplyWithNoOptionMenuDoesNotSetWiFiBandVisible() throws Exception {
         // setup
+        MainActivity mainActivity = mock(MainActivity.class);
+        when(mainActivity.getOptionMenu()).thenReturn(null);
+        // execute
+        fixture.apply(mainActivity);
+        // validate
+        verify(mainActivity).getOptionMenu();
+        verifyMenu();
+    }
+
+    @Test
+    public void testApplyWithNoMenuDoesNotSetWiFiBandVisible() throws Exception {
+        // setup
+        MainActivity mainActivity = mock(MainActivity.class);
         when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
         when(optionMenu.getMenu()).thenReturn(null);
         // execute
@@ -124,8 +121,12 @@ public class FilterOnTest {
         // validate
         verify(mainActivity).getOptionMenu();
         verify(optionMenu).getMenu();
-        verify(menu, never()).findItem(R.id.action_filter);
-        verify(menuItem, never()).setVisible(true);
+        verifyMenu();
+    }
+
+    private void verifyMenu() {
+        verify(menu, never()).findItem(R.id.action_wifi_band);
+        verify(menuItem, never()).setVisible(anyBoolean());
     }
 
 }
