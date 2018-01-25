@@ -37,7 +37,6 @@
     <string name="action_about">"О Программе"</string>
     <!-- action end -->
 
-    <string name="button_cancel">"Отмена"</string>
     <string name="no_data">"Нет данных"</string>
     <string name="no_data_msg">"Пожалуйста, посетите часто задаваемые вопросы на нашем сайте."</string>
     <string name="no_data_geo_warning">"Некоторые пользователи Android OS 6+ (Marshmallow) сообщили, что услуга определения местоположения должна быть включена для того, чтобы WiFiAnalyzer увидел WiFi сети. Поэтому Вам, возможно, понадобится включить службу определения местоположения, даже если WiFiAnalyzer этого явно не требует."</string>

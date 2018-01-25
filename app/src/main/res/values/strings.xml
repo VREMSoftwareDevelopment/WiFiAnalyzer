@@ -43,8 +43,6 @@
     <string name="action_about">About</string>
     <!-- action end -->
 
-    <string name="button_ok" translatable="false">OK</string>
-    <string name="button_cancel">Cancel</string>
     <string name="no_data">No Data</string>
     <string name="no_data_msg">Please visit frequently ask questions section on our website.</string>
     <string name="no_data_url" translatable="false">https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq</string>

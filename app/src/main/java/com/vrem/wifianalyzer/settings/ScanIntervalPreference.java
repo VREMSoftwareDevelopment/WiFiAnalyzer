@@ -43,8 +43,8 @@ public class ScanIntervalPreference extends DialogPreference {
 
         Resources resources = context.getResources();
 
-        setPositiveButtonText(resources.getText(R.string.button_ok));
-        setNegativeButtonText(resources.getText(R.string.button_cancel));
+        setPositiveButtonText(android.R.string.ok);
+        setNegativeButtonText(android.R.string.cancel);
 
         valueDefault = resources.getInteger(R.integer.scan_interval_default);
         valueMin = resources.getInteger(R.integer.scan_interval_min);
