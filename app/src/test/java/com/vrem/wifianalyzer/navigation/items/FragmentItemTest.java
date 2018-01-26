@@ -57,7 +57,7 @@ public class FragmentItemTest {
     @Test
     public void testActivate() throws Exception {
         // setup
-        FragmentItem fixture = new FragmentItem(fragment);
+        FragmentItem fixture = new FragmentItem(fragment, true);
         String title = "title";
         NavigationMenu navigationMenu = NavigationMenu.ACCESS_POINTS;
         withFragmentTransaction();
@@ -75,7 +75,7 @@ public class FragmentItemTest {
     @Test
     public void testIsRegisteredFalse() throws Exception {
         // setup
-        FragmentItem fixture = new FragmentItem(fragment);
+        FragmentItem fixture = new FragmentItem(fragment, false);
         // execute & validate
         assertFalse(fixture.isRegistered());
     }

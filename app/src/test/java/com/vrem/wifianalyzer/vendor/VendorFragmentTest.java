@@ -18,11 +18,10 @@
 
 package com.vrem.wifianalyzer.vendor;
 
-import android.text.Editable;
-
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
+import com.vrem.wifianalyzer.vendor.VendorFragment.Listener;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 
 import org.apache.commons.lang3.StringUtils;
@@ -37,6 +36,7 @@ import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 import java.util.Collections;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mock;
@@ -74,28 +74,28 @@ public class VendorFragmentTest {
     }
 
     @Test
-    public void testOnChangeAfterTextChangedWithValues() throws Exception {
+    public void testListenerOnQueryTextChange() throws Exception {
         // setup
         String values = "     ABS       ADF      ";
         String expected = "ABS ADF";
         VendorAdapter vendorAdapter = mock(VendorAdapter.class);
-        VendorFragment.OnChange onChange = new VendorFragment.OnChange(vendorAdapter);
-        Editable editable = mock(Editable.class);
-        when(editable.toString()).thenReturn(values);
+        Listener fixture = new Listener(vendorAdapter);
         // execute
-        onChange.afterTextChanged(editable);
+        boolean actual = fixture.onQueryTextChange(values);
         // verify
+        assertTrue(actual);
         verify(vendorAdapter).update(expected);
     }
 
     @Test
-    public void testOnChangeAfterTextChangedWithNull() throws Exception {
+    public void testListenerOnQueryTextChangeWithNull() throws Exception {
         // setup
         VendorAdapter vendorAdapter = mock(VendorAdapter.class);
-        VendorFragment.OnChange onChange = new VendorFragment.OnChange(vendorAdapter);
+        Listener fixture = new Listener(vendorAdapter);
         // execute
-        onChange.afterTextChanged(null);
+        boolean actual = fixture.onQueryTextChange(null);
         // verify
+        assertTrue(actual);
         verify(vendorAdapter).update(StringUtils.EMPTY);
     }
 

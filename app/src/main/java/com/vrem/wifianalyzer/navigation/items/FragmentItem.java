@@ -38,10 +38,6 @@ class FragmentItem implements NavigationItem {
         this.registered = registered;
     }
 
-    FragmentItem(@NonNull Fragment fragment) {
-        this(fragment, false);
-    }
-
     @Override
     public void activate(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, @NonNull NavigationMenu navigationMenu) {
         NavigationMenuView navigationMenuView = mainActivity.getNavigationMenuView();

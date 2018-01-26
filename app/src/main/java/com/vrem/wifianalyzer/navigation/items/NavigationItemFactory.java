@@ -33,8 +33,8 @@ public class NavigationItemFactory {
     public static final NavigationItem CHANNEL_GRAPH = new FragmentItem(new ChannelGraphFragment(), true);
     public static final NavigationItem TIME_GRAPH = new FragmentItem(new TimeGraphFragment(), true);
     public static final NavigationItem EXPORT = new ExportItem();
-    public static final NavigationItem CHANNEL_AVAILABLE = new FragmentItem(new ChannelAvailableFragment());
-    public static final NavigationItem VENDOR_LIST = new FragmentItem(new VendorFragment());
+    public static final NavigationItem CHANNEL_AVAILABLE = new FragmentItem(new ChannelAvailableFragment(), false);
+    public static final NavigationItem VENDORS = new FragmentItem(new VendorFragment(), false);
     public static final NavigationItem SETTINGS = new ActivityItem(SettingActivity.class);
     public static final NavigationItem ABOUT = new ActivityItem(AboutActivity.class);
 

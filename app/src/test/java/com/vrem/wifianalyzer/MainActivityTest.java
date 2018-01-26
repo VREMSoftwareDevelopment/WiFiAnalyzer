@@ -79,7 +79,7 @@ public class MainActivityTest {
     public void testClickingOnToolbarDoesNotTogglesWiFiBand() throws Exception {
         // setup
         NavigationMenuView navigationMenuView = fixture.getNavigationMenuView();
-        navigationMenuView.setCurrentNavigationMenu(NavigationMenu.VENDOR_LIST);
+        navigationMenuView.setCurrentNavigationMenu(NavigationMenu.VENDORS);
         // execute and validate
         assertEquals(WiFiBand.GHZ2, MainContext.INSTANCE.getSettings().getWiFiBand());
         fixture.findViewById(R.id.toolbar).performClick();
