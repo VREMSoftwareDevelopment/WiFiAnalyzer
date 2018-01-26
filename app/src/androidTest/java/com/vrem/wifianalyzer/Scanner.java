@@ -35,7 +35,7 @@ class Scanner implements Runnable {
     private static final int SCANNER_BUTTON = 2;
     private static final int SCANNER_ACTION = 1;
     private static final String SCANNER_PAUSE_TAG = "Pause";
-    private static final String SCANNER_RESUME_TAG = "Resume";
+    private static final String SCANNER_RESUME_TAG = "Play";
 
     @Override
     public void run() {
