@@ -50,7 +50,12 @@ public class CountryPreference extends CustomPreference {
         private final Locale currentLocale;
 
         private ToData() {
-            this.currentLocale = MainContext.INSTANCE.getSettings().getLanguageLocale();
+            this.currentLocale = getLocale();
+        }
+
+        private Locale getLocale() {
+            Settings settings = MainContext.INSTANCE.getSettings();
+            return settings == null ? Locale.US : settings.getLanguageLocale();
         }
 
         @Override

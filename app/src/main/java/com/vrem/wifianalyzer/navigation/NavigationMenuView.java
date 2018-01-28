@@ -58,10 +58,12 @@ public class NavigationMenuView {
     public void setCurrentNavigationMenu(@NonNull NavigationMenu navigationMenu) {
         this.currentNavigationMenu = navigationMenu;
         Menu menu = navigationView.getMenu();
-        for (int i = 0; i < menu.size(); i++) {
-            MenuItem item = menu.getItem(i);
-            item.setCheckable(navigationMenu.ordinal() == i);
-            item.setChecked(navigationMenu.ordinal() == i);
+        if (menu != null) {
+            for (int i = 0; i < menu.size(); i++) {
+                MenuItem item = menu.getItem(i);
+                item.setCheckable(navigationMenu.ordinal() == i);
+                item.setChecked(navigationMenu.ordinal() == i);
+            }
         }
     }
 

@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -47,25 +46,13 @@ public class SettingActivity extends PreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setCustomTheme();
+        setTheme(MainContext.INSTANCE.getDefaultTheme());
 
         super.onCreate(savedInstanceState);
 
         getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingPreferenceFragment()).commit();
 
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(R.string.action_settings);
-        }
-    }
-
-    private void setCustomTheme() {
-        Settings settings = MainContext.INSTANCE.getSettings();
-        if (settings != null) {
-            setTheme(settings.getThemeStyle().themeDeviceDefaultStyle());
-        }
+        ConfigurationUtils.setActionBarOptions(getActionBar(), R.string.action_settings);
     }
 
     @Override

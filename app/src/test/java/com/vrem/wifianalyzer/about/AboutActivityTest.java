@@ -32,7 +32,6 @@ import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.After;
 import org.junit.Before;
@@ -60,8 +59,8 @@ public class AboutActivityTest {
 
     @Before
     public void setUp() {
-        RobolectricUtil.INSTANCE.getActivity();
         configuration = MainContextHelper.INSTANCE.getConfiguration();
+        fixture = Robolectric.setupActivity(AboutActivity.class);
     }
 
     @After
@@ -72,7 +71,6 @@ public class AboutActivityTest {
     @Test
     public void testTitle() throws Exception {
         // setup
-        fixture = Robolectric.setupActivity(AboutActivity.class);
         String expected = fixture.getResources().getString(R.string.action_about);
         // execute
         ActionBar actual = fixture.getSupportActionBar();
@@ -87,7 +85,6 @@ public class AboutActivityTest {
         // setup
         MenuItem menuItem = mock(MenuItem.class);
         when(menuItem.getItemId()).thenReturn(android.R.id.home);
-        fixture = Robolectric.setupActivity(AboutActivity.class);
         // execute
         boolean actual = fixture.onOptionsItemSelected(menuItem);
         // validate
@@ -99,7 +96,6 @@ public class AboutActivityTest {
     public void testOnOptionsItemSelected() throws Exception {
         // setup
         MenuItem menuItem = mock(MenuItem.class);
-        fixture = Robolectric.setupActivity(AboutActivity.class);
         // execute
         boolean actual = fixture.onOptionsItemSelected(menuItem);
         // validate
@@ -111,9 +107,6 @@ public class AboutActivityTest {
         // setup
         String expected = BuildConfig.VERSION_NAME + " - " + BuildConfig.VERSION_CODE
             + " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")";
-        when(configuration.isSizeAvailable()).thenReturn(false);
-        when(configuration.isLargeScreen()).thenReturn(false);
-        fixture = Robolectric.setupActivity(AboutActivity.class);
         // execute
         TextView actual = fixture.findViewById(R.id.about_version_info);
         // validate
@@ -138,8 +131,6 @@ public class AboutActivityTest {
 
     @Test
     public void testPackageName() throws Exception {
-        // setup
-        fixture = Robolectric.setupActivity(AboutActivity.class);
         // execute
         TextView actual = fixture.findViewById(R.id.about_package_name);
         // validate
@@ -150,7 +141,6 @@ public class AboutActivityTest {
     @Test
     public void testApplicationName() throws Exception {
         // setup
-        fixture = Robolectric.setupActivity(AboutActivity.class);
         String expectedName = fixture.getString(R.string.about_application_name);
         // execute
         TextView actual = fixture.findViewById(R.id.about_application_name);
@@ -162,9 +152,8 @@ public class AboutActivityTest {
     @Test
     public void testWriteReview() throws Exception {
         // setup
-        fixture = Robolectric.setupActivity(AboutActivity.class);
-        // execute
         View actual = fixture.findViewById(R.id.writeReview);
+        // execute
         fixture.writeReview(actual);
         // validate
         assertNotNull(actual);
@@ -173,7 +162,6 @@ public class AboutActivityTest {
     @Test
     public void testShowALv2() throws Exception {
         // setup
-        fixture = Robolectric.setupActivity(AboutActivity.class);
         View view = fixture.findViewById(R.id.license);
         // execute
         fixture.showALv2(view);
@@ -187,7 +175,6 @@ public class AboutActivityTest {
     @Test
     public void testShowGPLv3() throws Exception {
         // setup
-        fixture = Robolectric.setupActivity(AboutActivity.class);
         View view = fixture.findViewById(R.id.license);
         // execute
         fixture.showGPLv3(view);
@@ -201,7 +188,6 @@ public class AboutActivityTest {
     @Test
     public void testShowContributors() throws Exception {
         // setup
-        fixture = Robolectric.setupActivity(AboutActivity.class);
         View view = fixture.findViewById(R.id.contributors);
         // execute
         fixture.showContributors(view);

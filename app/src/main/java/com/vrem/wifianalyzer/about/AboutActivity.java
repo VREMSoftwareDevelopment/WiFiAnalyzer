@@ -30,7 +30,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RawRes;
 import android.support.annotation.StringRes;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -64,7 +63,7 @@ public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setCustomTheme();
+        setTheme(MainContext.INSTANCE.getDefaultTheme());
 
         super.onCreate(savedInstanceState);
 
@@ -75,19 +74,7 @@ public class AboutActivity extends AppCompatActivity {
 
         setExtraInformation();
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(R.string.action_about);
-        }
-    }
-
-    private void setCustomTheme() {
-        Settings settings = MainContext.INSTANCE.getSettings();
-        if (settings != null) {
-            setTheme(settings.getThemeStyle().themeAppCompatStyle());
-        }
+        ConfigurationUtils.setActionBarOptions(getSupportActionBar(), R.string.action_about);
     }
 
     private void setExtraInformation() {

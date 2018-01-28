@@ -18,6 +18,8 @@
 
 package com.vrem.wifianalyzer.settings;
 
+import android.support.annotation.StyleRes;
+
 import com.vrem.wifianalyzer.R;
 
 public enum ThemeStyle {
@@ -27,16 +29,18 @@ public enum ThemeStyle {
     private final int themeAppCompatStyle;
     private final int themeDeviceDefaultStyle;
 
-    ThemeStyle(int themeAppCompatStyle, int themeDeviceDefaultStyle) {
+    ThemeStyle(@StyleRes int themeAppCompatStyle, @StyleRes int themeDeviceDefaultStyle) {
         this.themeAppCompatStyle = themeAppCompatStyle;
         this.themeDeviceDefaultStyle = themeDeviceDefaultStyle;
     }
 
-    public int themeAppCompatStyle() {
+    public @StyleRes
+    int themeAppCompatStyle() {
         return themeAppCompatStyle;
     }
 
-    public int themeDeviceDefaultStyle() {
+    public @StyleRes
+    int themeDeviceDefaultStyle() {
         return themeDeviceDefaultStyle;
     }
 }

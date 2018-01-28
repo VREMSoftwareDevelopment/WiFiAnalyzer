@@ -43,6 +43,7 @@ import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.navigation.options.OptionMenu;
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
@@ -73,7 +74,9 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         Settings settings = mainContext.getSettings();
         settings.initializeDefaultValues();
 
-        setTheme(settings.getThemeStyle().themeAppCompatStyle());
+        ThemeStyle themeStyle = settings.getThemeStyle();
+        setTheme(themeStyle == null ? R.style.ThemeAppCompatDark : themeStyle.themeAppCompatStyle());
+
         setWiFiChannelPairs(mainContext);
 
         mainReload = new MainReload(settings);

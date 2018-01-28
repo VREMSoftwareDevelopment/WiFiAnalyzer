@@ -24,6 +24,7 @@ import android.content.ContextWrapper;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.support.annotation.StringRes;
 import android.util.DisplayMetrics;
 
 import org.junit.Before;
@@ -35,11 +36,14 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ConfigurationUtilsTest {
+    private final static @StringRes
+    int RES_ID = 12;
 
     @Mock
     private Context context;
@@ -51,6 +55,10 @@ public class ConfigurationUtilsTest {
     private Configuration configuration;
     @Mock
     private DisplayMetrics displayMetrics;
+    @Mock
+    private android.app.ActionBar actionBar;
+    @Mock
+    private android.support.v7.app.ActionBar actionBarv7;
 
     private Locale newLocale;
 
@@ -69,7 +77,7 @@ public class ConfigurationUtilsTest {
     }
 
     @TargetApi(Build.VERSION_CODES.N)
-    public void validateCreateContextWithNougat() throws Exception {
+    private void validateCreateContextWithNougat() throws Exception {
         // setup
         when(context.getResources()).thenReturn(resources);
         when(resources.getConfiguration()).thenReturn(configuration);
@@ -86,8 +94,7 @@ public class ConfigurationUtilsTest {
     }
 
     @SuppressWarnings("deprecation")
-    @Test
-    public void validateCreateContextWithLegacy() throws Exception {
+    private void validateCreateContextWithLegacy() throws Exception {
         // setup
         when(context.getResources()).thenReturn(resources);
         when(resources.getConfiguration()).thenReturn(configuration);
@@ -101,6 +108,46 @@ public class ConfigurationUtilsTest {
         verify(resources).updateConfiguration(configuration, displayMetrics);
         verify(context).getResources();
         verify(resources).getConfiguration();
+    }
+
+    @Test
+    public void testSetActionBarOptions() throws Exception {
+        // execute
+        ConfigurationUtils.setActionBarOptions(actionBar, RES_ID);
+        // validate
+        verify(actionBar).setHomeButtonEnabled(true);
+        verify(actionBar).setDisplayHomeAsUpEnabled(true);
+        verify(actionBar).setTitle(RES_ID);
+    }
+
+    @Test
+    public void testSetActionBarOptionsWithNullActionBar() throws Exception {
+        // execute
+        ConfigurationUtils.setActionBarOptions((android.app.ActionBar) null, RES_ID);
+        // validate
+        verify(actionBar, never()).setHomeButtonEnabled(true);
+        verify(actionBar, never()).setDisplayHomeAsUpEnabled(true);
+        verify(actionBar, never()).setTitle(RES_ID);
+    }
+
+    @Test
+    public void testSetActionBarOptionsv7() throws Exception {
+        // execute
+        ConfigurationUtils.setActionBarOptions(actionBarv7, RES_ID);
+        // validate
+        verify(actionBarv7).setHomeButtonEnabled(true);
+        verify(actionBarv7).setDisplayHomeAsUpEnabled(true);
+        verify(actionBarv7).setTitle(RES_ID);
+    }
+
+    @Test
+    public void testSetActionBarOptionsv7WithNullActionBar() throws Exception {
+        // execute
+        ConfigurationUtils.setActionBarOptions((android.support.v7.app.ActionBar) null, RES_ID);
+        // validate
+        verify(actionBarv7, never()).setHomeButtonEnabled(true);
+        verify(actionBarv7, never()).setDisplayHomeAsUpEnabled(true);
+        verify(actionBarv7, never()).setTitle(RES_ID);
     }
 
 }
