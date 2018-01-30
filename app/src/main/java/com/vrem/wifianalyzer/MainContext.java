@@ -23,12 +23,10 @@ import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
 import android.view.LayoutInflater;
 
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.vendor.model.VendorServiceFactory;
 import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
@@ -120,15 +118,4 @@ public enum MainContext {
         setFilterAdapter(new FilterAdapter(currentSettings));
     }
 
-    public @StyleRes
-    int getDefaultTheme() {
-        @StyleRes int theme = R.style.ThemeAppCompatDark;
-        if (settings != null) {
-            ThemeStyle themeStyle = settings.getThemeStyle();
-            if (themeStyle != null) {
-                theme = themeStyle.themeAppCompatStyle();
-            }
-        }
-        return theme;
-    }
 }

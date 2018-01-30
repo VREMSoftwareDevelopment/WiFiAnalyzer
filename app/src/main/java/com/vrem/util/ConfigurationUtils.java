@@ -24,7 +24,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 
 import java.util.Locale;
 
@@ -58,22 +57,6 @@ public class ConfigurationUtils {
         configuration.locale = newLocale;
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
         return context;
-    }
-
-    public static void setActionBarOptions(android.app.ActionBar actionBar, @StringRes int resId) {
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(resId);
-        }
-    }
-
-    public static void setActionBarOptions(android.support.v7.app.ActionBar actionBar, @StringRes int resId) {
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(resId);
-        }
     }
 
 }
