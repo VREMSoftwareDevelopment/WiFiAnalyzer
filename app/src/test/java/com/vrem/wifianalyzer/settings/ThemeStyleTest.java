@@ -18,13 +18,34 @@
 
 package com.vrem.wifianalyzer.settings;
 
+import android.support.annotation.StyleRes;
+
+import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ThemeStyleTest {
+    private Settings settings;
+
+    @Before
+    public void setUp() {
+        settings = MainContextHelper.INSTANCE.getSettings();
+    }
+
+    @After
+    public void tearDown() {
+        MainContextHelper.INSTANCE.restore();
+    }
 
     @Test
     public void testThemeStyle() throws Exception {
@@ -32,14 +53,26 @@ public class ThemeStyleTest {
     }
 
     @Test
-    public void testThemeAppCompatStyle() throws Exception {
-        assertEquals(R.style.ThemeAppCompatLight, ThemeStyle.LIGHT.themeAppCompatStyle());
-        assertEquals(R.style.ThemeAppCompatDark, ThemeStyle.DARK.themeAppCompatStyle());
+    public void testGetTheme() throws Exception {
+        assertEquals(R.style.ThemeLight, ThemeStyle.LIGHT.getTheme());
+        assertEquals(R.style.ThemeDark, ThemeStyle.DARK.getTheme());
     }
 
     @Test
-    public void testThemeDeviceDefaultStyle() throws Exception {
-        assertEquals(R.style.ThemeDeviceDefaultLight, ThemeStyle.LIGHT.themeDeviceDefaultStyle());
-        assertEquals(R.style.ThemeDeviceDefaultDark, ThemeStyle.DARK.themeDeviceDefaultStyle());
+    public void testGetThemeNoActionBar() throws Exception {
+        assertEquals(R.style.ThemeLightNoActionBar, ThemeStyle.LIGHT.getThemeNoActionBar());
+        assertEquals(R.style.ThemeDarkNoActionBar, ThemeStyle.DARK.getThemeNoActionBar());
     }
+
+    @Test
+    public void testGetDefaultTheme() throws Exception {
+        // setup
+        when(settings.getThemeStyle()).thenReturn(ThemeStyle.LIGHT);
+        // execute
+        @StyleRes int actual = ThemeStyle.getDefaultTheme();
+        // validate
+        assertEquals(ThemeStyle.LIGHT.getTheme(), actual);
+        verify(settings).getThemeStyle();
+    }
+
 }

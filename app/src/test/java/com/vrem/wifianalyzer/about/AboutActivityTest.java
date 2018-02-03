@@ -22,9 +22,6 @@ import android.app.AlertDialog;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RawRes;
-import android.support.annotation.StringRes;
-import android.support.annotation.StyleRes;
-import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -34,14 +31,11 @@ import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.settings.ThemeStyle;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
@@ -49,10 +43,8 @@ import org.robolectric.annotation.Config;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -60,11 +52,13 @@ import static org.mockito.Mockito.when;
 @Config(constants = BuildConfig.class)
 public class AboutActivityTest {
 
+    private MenuItem menuItem;
     private Configuration configuration;
     private AboutActivity fixture;
 
     @Before
     public void setUp() {
+        menuItem = mock(MenuItem.class);
         configuration = MainContextHelper.INSTANCE.getConfiguration();
         fixture = Robolectric.setupActivity(AboutActivity.class);
     }
@@ -75,22 +69,9 @@ public class AboutActivityTest {
     }
 
     @Test
-    public void testTitle() throws Exception {
-        // setup
-        String expected = fixture.getResources().getString(R.string.action_about);
-        // execute
-        ActionBar actual = fixture.getSupportActionBar();
-        // validate
-        assertNotNull(actual);
-        assertEquals(expected, actual.getTitle());
-        assertNull(fixture.getActionBar());
-    }
-
-    @Test
     public void testOnOptionsItemSelectedWithHome() throws Exception {
         // setup
-        MenuItem menuItem = mock(MenuItem.class);
-        Mockito.when(menuItem.getItemId()).thenReturn(android.R.id.home);
+        when(menuItem.getItemId()).thenReturn(android.R.id.home);
         // execute
         boolean actual = fixture.onOptionsItemSelected(menuItem);
         // validate
@@ -101,11 +82,12 @@ public class AboutActivityTest {
     @Test
     public void testOnOptionsItemSelected() throws Exception {
         // setup
-        MenuItem menuItem = mock(MenuItem.class);
+        when(menuItem.getItemId()).thenReturn(-android.R.id.home);
         // execute
         boolean actual = fixture.onOptionsItemSelected(menuItem);
         // validate
         assertFalse(actual);
+        verify(menuItem).getItemId();
     }
 
     @Test
@@ -125,8 +107,8 @@ public class AboutActivityTest {
         // setup
         String expected = BuildConfig.VERSION_NAME + " - " + BuildConfig.VERSION_CODE + "SL"
             + " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")";
-        Mockito.when(configuration.isSizeAvailable()).thenReturn(true);
-        Mockito.when(configuration.isLargeScreen()).thenReturn(true);
+        when(configuration.isSizeAvailable()).thenReturn(true);
+        when(configuration.isLargeScreen()).thenReturn(true);
         fixture = Robolectric.setupActivity(AboutActivity.class);
         // execute
         TextView actual = fixture.findViewById(R.id.about_version_info);
@@ -202,52 +184,6 @@ public class AboutActivityTest {
         assertNotNull(alertDialog);
         validateMessage(fixture, alertDialog, R.raw.contributors);
         validateTitle(fixture, alertDialog, R.string.about_contributor_title);
-    }
-
-    @Test
-    public void testSetActionBarOptions() throws Exception {
-        // setup
-        @StringRes int resId = 22;
-        ActionBar actionBar = mock(ActionBar.class);
-        // execute
-        fixture.setActionBarOptions(actionBar, resId);
-        // validate
-        verify(actionBar).setHomeButtonEnabled(true);
-        verify(actionBar).setDisplayHomeAsUpEnabled(true);
-        verify(actionBar).setTitle(resId);
-    }
-
-    @Test
-    public void testSetActionBarOptionsWithNullActionBar() throws Exception {
-        // setup
-        @StringRes int resId = 11;
-        ActionBar actionBar = mock(ActionBar.class);
-        // execute
-        fixture.setActionBarOptions(null, resId);
-        // validate
-        verify(actionBar, never()).setHomeButtonEnabled(true);
-        verify(actionBar, never()).setDisplayHomeAsUpEnabled(true);
-        verify(actionBar, never()).setTitle(resId);
-    }
-
-    @Test
-    public void testGetDefaultThemeWithNoSettings() throws Exception {
-        // execute
-        @StyleRes int actual = fixture.getDefaultTheme();
-        // validate
-        assertEquals(ThemeStyle.DARK.themeAppCompatStyle(), actual);
-    }
-
-    @Test
-    public void testGetDefaultTheme() throws Exception {
-        // setup
-        Settings settings = MainContextHelper.INSTANCE.getSettings();
-        when(settings.getThemeStyle()).thenReturn(ThemeStyle.LIGHT);
-        // execute
-        @StyleRes int actual = fixture.getDefaultTheme();
-        // validate
-        assertEquals(ThemeStyle.LIGHT.themeAppCompatStyle(), actual);
-        verify(settings).getThemeStyle();
     }
 
     private void validateMessage(@NonNull AboutActivity aboutActivity, @NonNull AlertDialog alertDialog, @RawRes int id) {

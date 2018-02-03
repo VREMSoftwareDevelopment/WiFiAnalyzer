@@ -53,6 +53,7 @@ import static android.support.design.widget.NavigationView.OnNavigationItemSelec
 
 public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
     private MainReload mainReload;
+    private ActionBarDrawerToggle drawerToggle;
     private NavigationMenuView navigationMenuView;
     private NavigationMenu startNavigationMenu;
     private OptionMenu optionMenu;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         Settings settings = mainContext.getSettings();
         settings.initializeDefaultValues();
 
-        setTheme(settings.getThemeStyle().themeAppCompatStyle());
+        setTheme(settings.getThemeStyle().getThemeNoActionBar());
 
         setWiFiChannelPairs(mainContext);
 
@@ -86,15 +87,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
         setOptionMenu(new OptionMenu());
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setOnClickListener(new WiFiBandToggle());
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        drawerToggle = createDrawerNavigation();
 
         startNavigationMenu = settings.getStartMenu();
         navigationMenuView = new NavigationMenuView(this, startNavigationMenu);
@@ -102,6 +95,37 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
         ConnectionView connectionView = new ConnectionView(this);
         mainContext.getScannerService().register(connectionView);
+    }
+
+    @NonNull
+    private ActionBarDrawerToggle createDrawerNavigation() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setOnClickListener(new WiFiBandToggle());
+        setSupportActionBar(toolbar);
+        ActivityUtils.setActionBarOptions(getSupportActionBar());
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle result = new ActionBarDrawerToggle(
+            this,
+            drawer,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close);
+        drawer.addDrawerListener(result);
+        result.syncState();
+        return result;
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 
     private void setWiFiChannelPairs(MainContext mainContext) {

@@ -29,65 +29,36 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RawRes;
 import android.support.annotation.StringRes;
-import android.support.annotation.StyleRes;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vrem.util.ConfigurationUtils;
 import com.vrem.util.FileUtils;
+import com.vrem.wifianalyzer.ActivityUtils;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
-
-import java.util.Locale;
 
 public class AboutActivity extends AppCompatActivity {
     private AlertDialog alertDialog;
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        Context context = newBase;
-        Settings settings = MainContext.INSTANCE.getSettings();
-        if (settings != null) {
-            Locale newLocale = settings.getLanguageLocale();
-            context = ConfigurationUtils.createContext(newBase, newLocale);
-        }
-        super.attachBaseContext(context);
+        super.attachBaseContext(ActivityUtils.createContext(newBase));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(getDefaultTheme());
+        setTheme(ThemeStyle.getDefaultTheme());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_content);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         setExtraInformation();
-        setActionBarOptions(getSupportActionBar(), R.string.action_about);
-    }
-
-    void setActionBarOptions(ActionBar actionBar, @StringRes int resId) {
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(resId);
-        }
-    }
-
-    @StyleRes
-    int getDefaultTheme() {
-        Settings settings = MainContext.INSTANCE.getSettings();
-        ThemeStyle themeStyle = (settings == null ? ThemeStyle.DARK : settings.getThemeStyle());
-        return themeStyle.themeAppCompatStyle();
+        ActivityUtils.setActionBarOptions(getSupportActionBar());
     }
 
     private void setExtraInformation() {
@@ -119,7 +90,7 @@ public class AboutActivity extends AppCompatActivity {
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
     public void writeReview(@NonNull View view) {
