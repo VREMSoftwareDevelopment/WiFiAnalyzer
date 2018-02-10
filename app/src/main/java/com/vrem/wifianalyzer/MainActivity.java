@@ -260,4 +260,8 @@ public class MainActivity extends AppCompatActivity
     void setNavigationMenuView(NavigationMenuView navigationMenuView) {
         this.navigationMenuView = navigationMenuView;
     }
+
+    void setDrawerNavigation(DrawerNavigation drawerNavigation) {
+        this.drawerNavigation = drawerNavigation;
+    }
 }

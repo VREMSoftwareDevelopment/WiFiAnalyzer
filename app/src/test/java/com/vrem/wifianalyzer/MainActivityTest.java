@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer;
 
+import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -110,6 +111,29 @@ public class MainActivityTest {
     }
 
     @Test
+    public void testOnConfigurationChanged() throws Exception {
+        // setup
+        Configuration configuration = fixture.getResources().getConfiguration();
+        DrawerNavigation drawerNavigation = mock(DrawerNavigation.class);
+        fixture.setDrawerNavigation(drawerNavigation);
+        // execute
+        fixture.onConfigurationChanged(configuration);
+        // validate
+        verify(drawerNavigation).onConfigurationChanged(configuration);
+    }
+
+    @Test
+    public void testOnPostCreate() throws Exception {
+        // setup
+        DrawerNavigation drawerNavigation = mock(DrawerNavigation.class);
+        fixture.setDrawerNavigation(drawerNavigation);
+        // execute
+        fixture.onPostCreate(null);
+        // validate
+        verify(drawerNavigation).syncState();
+    }
+
+    @Test
     public void testOnStop() throws Exception {
         // setup
         ScannerService scanner = MainContextHelper.INSTANCE.getScannerService();
@@ -117,6 +141,26 @@ public class MainActivityTest {
         fixture.onStop();
         // validate
         verify(scanner).setWiFiOnExit();
+    }
+
+    @Test
+    public void testUpdateShouldUpdateScanner() throws Exception {
+        // setup
+        ScannerService scanner = MainContextHelper.INSTANCE.getScannerService();
+        // execute
+        fixture.update();
+        // validate
+        verify(scanner).update();
+    }
+
+    @Test
+    public void testOnSharedPreferenceChangedShouldUpdateScanner() throws Exception {
+        // setup
+        ScannerService scanner = MainContextHelper.INSTANCE.getScannerService();
+        // execute
+        fixture.onSharedPreferenceChanged(null, null);
+        // validate
+        verify(scanner).update();
     }
 
     @Test
