@@ -27,7 +27,6 @@ import android.view.MenuItem;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
-import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 
 class FragmentItem implements NavigationItem {
     private final Fragment fragment;
@@ -40,8 +39,7 @@ class FragmentItem implements NavigationItem {
 
     @Override
     public void activate(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, @NonNull NavigationMenu navigationMenu) {
-        NavigationMenuView navigationMenuView = mainActivity.getNavigationMenuView();
-        navigationMenuView.setCurrentNavigationMenu(navigationMenu);
+        mainActivity.setCurrentNavigationMenu(navigationMenu);
         startFragment(mainActivity);
         mainActivity.setTitle(menuItem.getTitle());
         mainActivity.updateActionBar();

@@ -61,13 +61,12 @@ public class FragmentItemTest {
         String title = "title";
         NavigationMenu navigationMenu = NavigationMenu.ACCESS_POINTS;
         withFragmentTransaction();
-        when(mainActivity.getNavigationMenuView()).thenReturn(navigationMenuView);
         when(menuItem.getTitle()).thenReturn(title);
         // execute
         fixture.activate(mainActivity, menuItem, navigationMenu);
         // validate
         verifyFragmentTransaction();
-        verify(navigationMenuView).setCurrentNavigationMenu(navigationMenu);
+        verify(mainActivity).setCurrentNavigationMenu(navigationMenu);
         verify(mainActivity).setTitle(title);
         verify(mainActivity).updateActionBar();
     }

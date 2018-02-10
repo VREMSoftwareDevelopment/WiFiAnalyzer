@@ -18,13 +18,13 @@
 
 package com.vrem.wifianalyzer;
 
+import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 import com.vrem.wifianalyzer.navigation.options.OptionMenu;
-import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
 import org.junit.After;
@@ -40,6 +40,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -60,30 +61,6 @@ public class MainActivityTest {
     @Test
     public void testMainActivity() throws Exception {
         assertTrue(MainContext.INSTANCE.getScannerService().isRunning());
-    }
-
-    @Test
-    public void testClickingOnToolbarTogglesWiFiBand() throws Exception {
-        // setup
-        NavigationMenuView navigationMenuView = fixture.getNavigationMenuView();
-        navigationMenuView.setCurrentNavigationMenu(NavigationMenu.CHANNEL_RATING);
-        // execute and validate
-        assertEquals(WiFiBand.GHZ2, MainContext.INSTANCE.getSettings().getWiFiBand());
-        fixture.findViewById(R.id.toolbar).performClick();
-        assertEquals(WiFiBand.GHZ5, MainContext.INSTANCE.getSettings().getWiFiBand());
-        fixture.findViewById(R.id.toolbar).performClick();
-        assertEquals(WiFiBand.GHZ2, MainContext.INSTANCE.getSettings().getWiFiBand());
-    }
-
-    @Test
-    public void testClickingOnToolbarDoesNotTogglesWiFiBand() throws Exception {
-        // setup
-        NavigationMenuView navigationMenuView = fixture.getNavigationMenuView();
-        navigationMenuView.setCurrentNavigationMenu(NavigationMenu.VENDORS);
-        // execute and validate
-        assertEquals(WiFiBand.GHZ2, MainContext.INSTANCE.getSettings().getWiFiBand());
-        fixture.findViewById(R.id.toolbar).performClick();
-        assertEquals(WiFiBand.GHZ2, MainContext.INSTANCE.getSettings().getWiFiBand());
     }
 
     @Test
@@ -151,6 +128,60 @@ public class MainActivityTest {
         // validate
         assertNotNull(actual.findItem(R.id.action_filter));
         assertNotNull(actual.findItem(R.id.action_scanner));
+    }
+
+    @Test
+    public void testGetCurrentMenuItem() throws Exception {
+        // setup
+        MenuItem menuItem = mock(MenuItem.class);
+        NavigationMenuView navigationMenuView = mock(NavigationMenuView.class);
+        when(navigationMenuView.getCurrentMenuItem()).thenReturn(menuItem);
+        fixture.setNavigationMenuView(navigationMenuView);
+        // execute
+        MenuItem actual = fixture.getCurrentMenuItem();
+        // validate
+        assertEquals(menuItem, actual);
+        verify(navigationMenuView).getCurrentMenuItem();
+    }
+
+    @Test
+    public void testGetCurrentNavigationMenu() throws Exception {
+        // setup
+        NavigationMenu navigationMenu = NavigationMenu.CHANNEL_GRAPH;
+        NavigationMenuView navigationMenuView = mock(NavigationMenuView.class);
+        when(navigationMenuView.getCurrentNavigationMenu()).thenReturn(navigationMenu);
+        fixture.setNavigationMenuView(navigationMenuView);
+        // execute
+        NavigationMenu actual = fixture.getCurrentNavigationMenu();
+        // validate
+        assertEquals(navigationMenu, actual);
+        verify(navigationMenuView).getCurrentNavigationMenu();
+    }
+
+    @Test
+    public void testSetCurrentNavigationMenu() throws Exception {
+        // setup
+        NavigationMenu navigationMenu = NavigationMenu.CHANNEL_GRAPH;
+        NavigationMenuView navigationMenuView = mock(NavigationMenuView.class);
+        fixture.setNavigationMenuView(navigationMenuView);
+        // execute
+        fixture.setCurrentNavigationMenu(navigationMenu);
+        // validate
+        verify(navigationMenuView).setCurrentNavigationMenu(navigationMenu);
+    }
+
+    @Test
+    public void testGetNavigationView() throws Exception {
+        // setup
+        NavigationMenuView navigationMenuView = mock(NavigationMenuView.class);
+        NavigationView navigationView = mock(NavigationView.class);
+        when(navigationMenuView.getNavigationView()).thenReturn(navigationView);
+        fixture.setNavigationMenuView(navigationMenuView);
+        // execute
+        NavigationView actual = fixture.getNavigationView();
+        // validate
+        assertEquals(navigationView, actual);
+        verify(navigationMenuView).getNavigationView();
     }
 
 }

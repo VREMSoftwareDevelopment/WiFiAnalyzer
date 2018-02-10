@@ -21,6 +21,8 @@ package com.vrem.wifianalyzer;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.vrem.util.ConfigurationUtils;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -47,6 +49,30 @@ public class ActivityUtils {
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @NonNull
+    static Toolbar setupToolbar(@NonNull MainActivity mainActivity) {
+        Toolbar toolbar = mainActivity.findViewById(R.id.toolbar);
+        toolbar.setOnClickListener(new WiFiBandToggle(mainActivity));
+        mainActivity.setSupportActionBar(toolbar);
+        setActionBarOptions(mainActivity.getSupportActionBar());
+        return toolbar;
+    }
+
+    static class WiFiBandToggle implements View.OnClickListener {
+        private final MainActivity mainActivity;
+
+        WiFiBandToggle(@NonNull MainActivity mainActivity) {
+            this.mainActivity = mainActivity;
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mainActivity.getCurrentNavigationMenu().isWiFiBandSwitchable()) {
+                MainContext.INSTANCE.getSettings().toggleWiFiBand();
+            }
         }
     }
 
