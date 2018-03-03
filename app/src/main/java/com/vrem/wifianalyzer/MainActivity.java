@@ -25,22 +25,21 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 
 import com.vrem.util.ConfigurationUtils;
 import com.vrem.util.EnumUtils;
-import com.vrem.wifianalyzer.menu.OptionMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
+import com.vrem.wifianalyzer.navigation.NavigationMenuControl;
 import com.vrem.wifianalyzer.navigation.NavigationMenuView;
+import com.vrem.wifianalyzer.navigation.options.OptionMenu;
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionView;
@@ -51,8 +50,10 @@ import java.util.Locale;
 
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
-public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity
+    implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener, NavigationMenuControl {
     private MainReload mainReload;
+    private DrawerNavigation drawerNavigation;
     private NavigationMenuView navigationMenuView;
     private NavigationMenu startNavigationMenu;
     private OptionMenu optionMenu;
@@ -73,7 +74,8 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         Settings settings = mainContext.getSettings();
         settings.initializeDefaultValues();
 
-        setTheme(settings.getThemeStyle().themeAppCompatStyle());
+        setTheme(settings.getThemeStyle().getThemeNoActionBar());
+
         setWiFiChannelPairs(mainContext);
 
         mainReload = new MainReload(settings);
@@ -85,22 +87,27 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
         setOptionMenu(new OptionMenu());
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setOnClickListener(new WiFiBandToggle());
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        Toolbar toolbar = ActivityUtils.setupToolbar(this);
+        drawerNavigation = new DrawerNavigation(this, toolbar);
 
         startNavigationMenu = settings.getStartMenu();
-        navigationMenuView = new NavigationMenuView(this, startNavigationMenu);
-        onNavigationItemSelected(navigationMenuView.getCurrentMenuItem());
+        setNavigationMenuView(new NavigationMenuView(this, startNavigationMenu));
+        onNavigationItemSelected(getCurrentMenuItem());
 
         ConnectionView connectionView = new ConnectionView(this);
         mainContext.getScannerService().register(connectionView);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerNavigation.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerNavigation.onConfigurationChanged(newConfig);
     }
 
     private void setWiFiChannelPairs(MainContext mainContext) {
@@ -147,11 +154,11 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     @Override
     public void onBackPressed() {
         if (!closeDrawer()) {
-            if (startNavigationMenu.equals(navigationMenuView.getCurrentNavigationMenu())) {
+            if (startNavigationMenu.equals(getCurrentNavigationMenu())) {
                 super.onBackPressed();
             } else {
-                navigationMenuView.setCurrentNavigationMenu(startNavigationMenu);
-                onNavigationItemSelected(navigationMenuView.getCurrentMenuItem());
+                setCurrentNavigationMenu(startNavigationMenu);
+                onNavigationItemSelected(getCurrentMenuItem());
             }
         }
     }
@@ -179,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     @Override
     protected void onPause() {
-        optionMenu.pause();
+        MainContext.INSTANCE.getScannerService().pause();
         updateActionBar();
         super.onPause();
     }
@@ -187,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     @Override
     protected void onResume() {
         super.onResume();
-        optionMenu.resume();
+        MainContext.INSTANCE.getScannerService().resume();
         updateActionBar();
     }
 
@@ -212,11 +219,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     public void updateActionBar() {
-        navigationMenuView.getCurrentNavigationMenu().activateOptions(this);
-    }
-
-    public NavigationMenuView getNavigationMenuView() {
-        return navigationMenuView;
+        getCurrentNavigationMenu().activateOptions(this);
     }
 
     public OptionMenu getOptionMenu() {
@@ -227,13 +230,38 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         this.optionMenu = optionMenu;
     }
 
-    private class WiFiBandToggle implements OnClickListener {
-        @Override
-        public void onClick(View view) {
-            if (navigationMenuView.getCurrentNavigationMenu().isWiFiBandSwitchable()) {
-                MainContext.INSTANCE.getSettings().toggleWiFiBand();
-            }
-        }
+    @NonNull
+    @Override
+    public MenuItem getCurrentMenuItem() {
+        return navigationMenuView.getCurrentMenuItem();
     }
 
+    @NonNull
+    @Override
+    public NavigationMenu getCurrentNavigationMenu() {
+        return navigationMenuView.getCurrentNavigationMenu();
+    }
+
+    @Override
+    public void setCurrentNavigationMenu(@NonNull NavigationMenu navigationMenu) {
+        navigationMenuView.setCurrentNavigationMenu(navigationMenu);
+    }
+
+    @NonNull
+    @Override
+    public NavigationView getNavigationView() {
+        return navigationMenuView.getNavigationView();
+    }
+
+    public NavigationMenuView getNavigationMenuView() {
+        return navigationMenuView;
+    }
+
+    void setNavigationMenuView(NavigationMenuView navigationMenuView) {
+        this.navigationMenuView = navigationMenuView;
+    }
+
+    void setDrawerNavigation(DrawerNavigation drawerNavigation) {
+        this.drawerNavigation = drawerNavigation;
+    }
 }

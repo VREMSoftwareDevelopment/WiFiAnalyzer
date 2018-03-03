@@ -18,25 +18,37 @@
 
 package com.vrem.wifianalyzer.settings;
 
+import android.support.annotation.StyleRes;
+
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 
 public enum ThemeStyle {
-    DARK(R.style.ThemeAppCompatDark, R.style.ThemeDeviceDefaultDark),
-    LIGHT(R.style.ThemeAppCompatLight, R.style.ThemeDeviceDefaultLight);
+    DARK(R.style.ThemeDark, R.style.ThemeDarkNoActionBar),
+    LIGHT(R.style.ThemeLight, R.style.ThemeLightNoActionBar);
 
-    private final int themeAppCompatStyle;
-    private final int themeDeviceDefaultStyle;
+    private final int theme;
+    private final int themeNoActionBar;
 
-    ThemeStyle(int themeAppCompatStyle, int themeDeviceDefaultStyle) {
-        this.themeAppCompatStyle = themeAppCompatStyle;
-        this.themeDeviceDefaultStyle = themeDeviceDefaultStyle;
+    ThemeStyle(@StyleRes int theme, @StyleRes int themeNoActionBar) {
+        this.theme = theme;
+        this.themeNoActionBar = themeNoActionBar;
     }
 
-    public int themeAppCompatStyle() {
-        return themeAppCompatStyle;
+    @StyleRes
+    public static int getDefaultTheme() {
+        Settings settings = MainContext.INSTANCE.getSettings();
+        ThemeStyle themeStyle = (settings == null ? ThemeStyle.DARK : settings.getThemeStyle());
+        return themeStyle.getTheme();
     }
 
-    public int themeDeviceDefaultStyle() {
-        return themeDeviceDefaultStyle;
+    public @StyleRes
+    int getTheme() {
+        return theme;
+    }
+
+    public @StyleRes
+    int getThemeNoActionBar() {
+        return themeNoActionBar;
     }
 }

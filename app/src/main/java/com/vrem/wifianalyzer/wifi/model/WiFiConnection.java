@@ -41,14 +41,17 @@ public class WiFiConnection {
         this.linkSpeed = linkSpeed;
     }
 
+    @NonNull
     public String getSSID() {
         return SSID;
     }
 
+    @NonNull
     public String getBSSID() {
         return BSSID;
     }
 
+    @NonNull
     public String getIpAddress() {
         return ipAddress;
     }

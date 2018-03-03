@@ -87,7 +87,7 @@ public class ConnectionViewTest {
     @After
     public void tearDown() {
         MainContextHelper.INSTANCE.restore();
-        mainActivity.getNavigationMenuView().setCurrentNavigationMenu(NavigationMenu.ACCESS_POINTS);
+        mainActivity.setCurrentNavigationMenu(NavigationMenu.ACCESS_POINTS);
     }
 
     @Test
@@ -195,7 +195,7 @@ public class ConnectionViewTest {
     @Test
     public void testNoDataIsGoneWithNavigationMenuThatDoesNotHaveOptionMenu() throws Exception {
         // setup
-        mainActivity.getNavigationMenuView().setCurrentNavigationMenu(NavigationMenu.VENDOR_LIST);
+        mainActivity.setCurrentNavigationMenu(NavigationMenu.VENDORS);
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
         // execute

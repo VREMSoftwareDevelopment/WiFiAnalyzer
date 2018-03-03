@@ -59,6 +59,7 @@ public class Repository {
         }
     }
 
+    @NonNull
     String getString(int key, @NonNull String defaultValue) {
         String keyValue = context.getString(key);
         try {
@@ -97,6 +98,7 @@ public class Repository {
         }
     }
 
+    @NonNull
     Set<String> getStringSet(int key, @NonNull Set<String> defaultValues) {
         String keyValue = context.getString(key);
         try {

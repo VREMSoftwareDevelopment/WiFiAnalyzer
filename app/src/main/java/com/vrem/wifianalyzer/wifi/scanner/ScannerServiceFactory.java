@@ -29,6 +29,7 @@ public class ScannerServiceFactory {
         throw new IllegalStateException("Factory class");
     }
 
+    @NonNull
     public static ScannerService makeScannerService
         (@NonNull WifiManager wifiManager, @NonNull Handler handler, @NonNull Settings settings) {
         return new Scanner(wifiManager, handler, settings);

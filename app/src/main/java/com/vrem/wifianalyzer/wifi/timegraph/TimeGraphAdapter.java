@@ -18,6 +18,8 @@
 
 package com.vrem.wifianalyzer.wifi.timegraph;
 
+import android.support.annotation.NonNull;
+
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphAdapter;
@@ -34,6 +36,7 @@ class TimeGraphAdapter extends GraphAdapter {
         super(makeGraphViewNotifiers());
     }
 
+    @NonNull
     private static List<GraphViewNotifier> makeGraphViewNotifiers() {
         return new ArrayList<>(CollectionUtils.collect(EnumUtils.values(WiFiBand.class), new ToGraphViewNotifier()));
     }

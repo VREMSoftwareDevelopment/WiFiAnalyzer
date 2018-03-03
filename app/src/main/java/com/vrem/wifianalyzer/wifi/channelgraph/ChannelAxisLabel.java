@@ -61,6 +61,7 @@ class ChannelAxisLabel implements LabelFormatter {
         // ignore
     }
 
+    @NonNull
     private String findChannel(int value) {
         WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
         WiFiChannel wiFiChannel = wiFiChannels.getWiFiChannelByFrequency(value, wiFiChannelPair);

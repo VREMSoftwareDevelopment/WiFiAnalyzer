@@ -46,39 +46,48 @@ public class LocaleUtils {
         throw new IllegalStateException("Utility class");
     }
 
+    @NonNull
     public static Locale findByCountryCode(@NonNull String countryCode) {
         return find(SyncAvoid.AVAILABLE_LOCALES, new CountryCodePredicate(countryCode));
     }
 
+    @NonNull
     public static List<Locale> getAllCountries() {
         return new ArrayList<>(SyncAvoid.COUNTRIES_LOCALES.values());
     }
 
+    @NonNull
     public static Locale findByLanguageTag(@NonNull String languageTag) {
         return find(SyncAvoid.SUPPORTED_LOCALES, new LanguageTagPredicate(fromLanguageTag(languageTag)));
     }
 
+    @NonNull
     public static List<Locale> getSupportedLanguages() {
         return SyncAvoid.SUPPORTED_LOCALES;
     }
 
+    @NonNull
     public static String getDefaultCountryCode() {
         return SyncAvoid.DEFAULT.getCountry();
     }
 
+    @NonNull
     public static String getDefaultLanguageTag() {
         return LocaleUtils.toLanguageTag(SyncAvoid.DEFAULT);
     }
 
+    @NonNull
     private static Locale find(List<Locale> locales, Predicate<Locale> predicate) {
         Locale result = IterableUtils.find(locales, predicate);
         return result == null ? SyncAvoid.DEFAULT : result;
     }
 
+    @NonNull
     public static String toLanguageTag(@NonNull Locale locale) {
         return locale.getLanguage() + SEPARATOR + locale.getCountry();
     }
 
+    @NonNull
     private static Locale fromLanguageTag(@NonNull String languageTag) {
         String[] codes = languageTag.split(SEPARATOR);
         if (codes.length == 1) {
@@ -144,10 +153,6 @@ public class LocaleUtils {
             SUPPORTED_LOCALES = new ArrayList<>(new HashSet<>(Arrays.asList(
                 Locale.GERMAN, Locale.ENGLISH, SPANISH, Locale.FRENCH, Locale.ITALIAN, PORTUGUESE, RUSSIAN,
                 Locale.SIMPLIFIED_CHINESE, Locale.TRADITIONAL_CHINESE, DEFAULT)));
-        }
-
-        private SyncAvoid() {
-            throw new IllegalStateException("Utility class");
         }
 
         private static class CountryClosure implements Closure<Locale> {

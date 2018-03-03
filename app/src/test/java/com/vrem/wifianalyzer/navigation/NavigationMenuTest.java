@@ -19,8 +19,8 @@
 package com.vrem.wifianalyzer.navigation;
 
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.navigation.availability.NavigationOptionFactory;
 import com.vrem.wifianalyzer.navigation.items.NavigationItemFactory;
-import com.vrem.wifianalyzer.navigation.options.NavigationOptionFactory;
 
 import org.junit.Test;
 
@@ -42,7 +42,7 @@ public class NavigationMenuTest {
         assertEquals(NavigationItemFactory.CHANNEL_GRAPH, NavigationMenu.CHANNEL_GRAPH.getNavigationItem());
         assertEquals(NavigationItemFactory.TIME_GRAPH, NavigationMenu.TIME_GRAPH.getNavigationItem());
         assertEquals(NavigationItemFactory.CHANNEL_AVAILABLE, NavigationMenu.CHANNEL_AVAILABLE.getNavigationItem());
-        assertEquals(NavigationItemFactory.VENDOR_LIST, NavigationMenu.VENDOR_LIST.getNavigationItem());
+        assertEquals(NavigationItemFactory.VENDORS, NavigationMenu.VENDORS.getNavigationItem());
         assertEquals(NavigationItemFactory.EXPORT, NavigationMenu.EXPORT.getNavigationItem());
         assertEquals(NavigationItemFactory.SETTINGS, NavigationMenu.SETTINGS.getNavigationItem());
         assertEquals(NavigationItemFactory.ABOUT, NavigationMenu.ABOUT.getNavigationItem());
@@ -56,7 +56,7 @@ public class NavigationMenuTest {
         assertEquals(R.string.action_time_graph, NavigationMenu.TIME_GRAPH.getTitle());
         assertEquals(R.string.action_export, NavigationMenu.EXPORT.getTitle());
         assertEquals(R.string.action_channel_available, NavigationMenu.CHANNEL_AVAILABLE.getTitle());
-        assertEquals(R.string.action_vendors, NavigationMenu.VENDOR_LIST.getTitle());
+        assertEquals(R.string.action_vendors, NavigationMenu.VENDORS.getTitle());
         assertEquals(R.string.action_settings, NavigationMenu.SETTINGS.getTitle());
         assertEquals(R.string.action_about, NavigationMenu.ABOUT.getTitle());
     }
@@ -73,7 +73,7 @@ public class NavigationMenuTest {
         assertFalse(NavigationMenu.ACCESS_POINTS.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.CHANNEL_AVAILABLE.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.EXPORT.isWiFiBandSwitchable());
-        assertFalse(NavigationMenu.VENDOR_LIST.isWiFiBandSwitchable());
+        assertFalse(NavigationMenu.VENDORS.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.SETTINGS.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.ABOUT.isWiFiBandSwitchable());
     }
@@ -90,7 +90,7 @@ public class NavigationMenuTest {
     public void testIsRegisteredFalse() throws Exception {
         assertFalse(NavigationMenu.CHANNEL_AVAILABLE.isRegistered());
         assertFalse(NavigationMenu.EXPORT.isRegistered());
-        assertFalse(NavigationMenu.VENDOR_LIST.isRegistered());
+        assertFalse(NavigationMenu.VENDORS.isRegistered());
         assertFalse(NavigationMenu.SETTINGS.isRegistered());
         assertFalse(NavigationMenu.ABOUT.isRegistered());
     }
@@ -103,7 +103,7 @@ public class NavigationMenuTest {
         assertEquals(R.drawable.ic_show_chart_grey_500_48dp, NavigationMenu.TIME_GRAPH.getIcon());
         assertEquals(R.drawable.ic_import_export_grey_500_48dp, NavigationMenu.EXPORT.getIcon());
         assertEquals(R.drawable.ic_location_on_grey_500_48dp, NavigationMenu.CHANNEL_AVAILABLE.getIcon());
-        assertEquals(R.drawable.ic_list_grey_500_48dp, NavigationMenu.VENDOR_LIST.getIcon());
+        assertEquals(R.drawable.ic_list_grey_500_48dp, NavigationMenu.VENDORS.getIcon());
         assertEquals(R.drawable.ic_settings_grey_500_48dp, NavigationMenu.SETTINGS.getIcon());
         assertEquals(R.drawable.ic_info_outline_grey_500_48dp, NavigationMenu.ABOUT.getIcon());
     }
@@ -116,7 +116,7 @@ public class NavigationMenuTest {
         assertEquals(NavigationOptionFactory.OTHER, NavigationMenu.TIME_GRAPH.getNavigationOptions());
 
         assertEquals(NavigationOptionFactory.OFF, NavigationMenu.CHANNEL_AVAILABLE.getNavigationOptions());
-        assertEquals(NavigationOptionFactory.OFF, NavigationMenu.VENDOR_LIST.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.OFF, NavigationMenu.VENDORS.getNavigationOptions());
         assertEquals(NavigationOptionFactory.OFF, NavigationMenu.EXPORT.getNavigationOptions());
         assertEquals(NavigationOptionFactory.OFF, NavigationMenu.SETTINGS.getNavigationOptions());
         assertEquals(NavigationOptionFactory.OFF, NavigationMenu.ABOUT.getNavigationOptions());

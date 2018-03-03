@@ -65,7 +65,7 @@ public class ConnectionView implements UpdateNotifier {
     }
 
     private boolean isDataAvailable(@NonNull WiFiData wiFiData) {
-        return !mainActivity.getNavigationMenuView().getCurrentNavigationMenu().isRegistered() || !wiFiData.getWiFiDetails().isEmpty();
+        return !mainActivity.getCurrentNavigationMenu().isRegistered() || !wiFiData.getWiFiDetails().isEmpty();
     }
 
     private void setConnectionVisibility(@NonNull WiFiData wiFiData, @NonNull ConnectionViewType connectionViewType) {

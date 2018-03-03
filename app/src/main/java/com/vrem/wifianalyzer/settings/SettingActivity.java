@@ -18,54 +18,38 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.vrem.util.ConfigurationUtils;
-import com.vrem.wifianalyzer.MainContext;
+import com.vrem.wifianalyzer.ActivityUtils;
 import com.vrem.wifianalyzer.R;
 
-import java.util.Locale;
-
-public class SettingActivity extends PreferenceActivity {
+public class SettingActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        Context context = newBase;
-        Settings settings = MainContext.INSTANCE.getSettings();
-        if (settings != null) {
-            Locale newLocale = settings.getLanguageLocale();
-            context = ConfigurationUtils.createContext(newBase, newLocale);
-        }
-        super.attachBaseContext(context);
+        super.attachBaseContext(ActivityUtils.createContext(newBase));
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        setCustomTheme();
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setTheme(ThemeStyle.getDefaultTheme());
         super.onCreate(savedInstanceState);
-
-        getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingPreferenceFragment()).commit();
-
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(R.string.action_settings);
-        }
+        setContentView(R.layout.setting_content);
+        setFragment();
+        ActivityUtils.setActionBarOptions(getSupportActionBar());
     }
 
-    private void setCustomTheme() {
-        Settings settings = MainContext.INSTANCE.getSettings();
-        if (settings != null) {
-            setTheme(settings.getThemeStyle().themeDeviceDefaultStyle());
-        }
+    void setFragment() {
+        getFragmentManager()
+            .beginTransaction()
+            .replace(R.id.setting_fragment, new SettingPreferenceFragment())
+            .commit();
     }
 
     @Override
@@ -74,7 +58,7 @@ public class SettingActivity extends PreferenceActivity {
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
     public static class SettingPreferenceFragment extends PreferenceFragment {

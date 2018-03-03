@@ -93,6 +93,7 @@ class MainReload {
         return languageLocaleChanged;
     }
 
+    @NonNull
     ThemeStyle getThemeStyle() {
         return themeStyle;
     }
@@ -101,6 +102,7 @@ class MainReload {
         this.themeStyle = themeStyle;
     }
 
+    @NonNull
     AccessPointViewType getAccessPointViewType() {
         return accessPointViewType;
     }
@@ -109,6 +111,7 @@ class MainReload {
         this.accessPointViewType = accessPointViewType;
     }
 
+    @NonNull
     ConnectionViewType getConnectionViewType() {
         return connectionViewType;
     }
@@ -125,6 +128,7 @@ class MainReload {
         this.graphMaximumY = graphMaximumY;
     }
 
+    @NonNull
     Locale getLanguageLocale() {
         return languageLocale;
     }

@@ -26,11 +26,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-
 import static org.junit.Assert.assertEquals;
-import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class VendorUtilsTest {
@@ -65,31 +61,6 @@ public class VendorUtilsTest {
         assertEquals(MAC_ADDRESS_SHORT, VendorUtils.toMacAddress(MAC_ADDRESS_CLEAN));
         assertEquals("*34AF*", VendorUtils.toMacAddress("34AF"));
         assertEquals("34:AF:0B", VendorUtils.toMacAddress("34AF0BAC"));
-    }
-
-    @Test
-    public void testReadFile() throws Exception {
-        // setup
-        int id = 11;
-        InputStream inputStream = new ByteArrayInputStream("Line-1\nLine-2\n".getBytes());
-        when(resources.openRawResource(id)).thenReturn(inputStream);
-        // execute
-        String[] actual = VendorUtils.readFile(resources, id);
-        // validate
-        assertEquals(2, actual.length);
-        assertEquals("Line-1", actual[0]);
-        assertEquals("Line-2", actual[1]);
-    }
-
-    @Test
-    public void testReadFileHandleException() throws Exception {
-        // setup
-        int id = 11;
-        when(resources.openRawResource(id)).thenThrow(Exception.class);
-        // execute
-        String[] actual = VendorUtils.readFile(resources, id);
-        // validate
-        assertEquals(0, actual.length);
     }
 
 }

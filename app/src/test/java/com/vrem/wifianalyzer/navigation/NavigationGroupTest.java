@@ -52,7 +52,7 @@ public class NavigationGroupTest {
         assertArrayEquals(new NavigationMenu[]{
                 NavigationMenu.EXPORT,
                 NavigationMenu.CHANNEL_AVAILABLE,
-                NavigationMenu.VENDOR_LIST
+                NavigationMenu.VENDORS
             },
             NavigationGroup.GROUP_OTHER.getNavigationMenus().toArray());
         assertArrayEquals(new NavigationMenu[]{

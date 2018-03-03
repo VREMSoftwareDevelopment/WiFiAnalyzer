@@ -42,7 +42,7 @@ public class NavigationItemFactoryTest {
         assertTrue(((FragmentItem) NavigationItemFactory.CHANNEL_GRAPH).getFragment() instanceof ChannelGraphFragment);
         assertTrue(((FragmentItem) NavigationItemFactory.TIME_GRAPH).getFragment() instanceof TimeGraphFragment);
         assertTrue(((FragmentItem) NavigationItemFactory.CHANNEL_AVAILABLE).getFragment() instanceof ChannelAvailableFragment);
-        assertTrue(((FragmentItem) NavigationItemFactory.VENDOR_LIST).getFragment() instanceof VendorFragment);
+        assertTrue(((FragmentItem) NavigationItemFactory.VENDORS).getFragment() instanceof VendorFragment);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class NavigationItemFactoryTest {
     public void testIsRegisteredFalse() throws Exception {
         assertFalse(NavigationItemFactory.EXPORT.isRegistered());
         assertFalse(NavigationItemFactory.CHANNEL_AVAILABLE.isRegistered());
-        assertFalse(NavigationItemFactory.VENDOR_LIST.isRegistered());
+        assertFalse(NavigationItemFactory.VENDORS.isRegistered());
         assertFalse(NavigationItemFactory.SETTINGS.isRegistered());
         assertFalse(NavigationItemFactory.ABOUT.isRegistered());
     }

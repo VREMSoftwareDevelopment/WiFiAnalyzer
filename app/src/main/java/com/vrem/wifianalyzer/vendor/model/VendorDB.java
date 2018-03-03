@@ -21,6 +21,7 @@ package com.vrem.wifianalyzer.vendor.model;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
+import com.vrem.util.FileUtils;
 import com.vrem.wifianalyzer.R;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -93,7 +94,7 @@ class VendorDB implements VendorService {
     private void load(@NonNull Resources resources) {
         if (!loaded) {
             loaded = true;
-            String[] lines = VendorUtils.readFile(resources, R.raw.data);
+            String[] lines = FileUtils.readFile(resources, R.raw.data).split("\n");
             for (String data : lines) {
                 if (data != null) {
                     String[] parts = data.split("\\|");

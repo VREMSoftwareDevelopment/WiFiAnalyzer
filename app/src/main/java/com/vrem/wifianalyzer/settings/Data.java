@@ -34,10 +34,12 @@ class Data implements Comparable<Data> {
         this.name = name;
     }
 
+    @NonNull
     String getCode() {
         return code;
     }
 
+    @NonNull
     String getName() {
         return name;
     }

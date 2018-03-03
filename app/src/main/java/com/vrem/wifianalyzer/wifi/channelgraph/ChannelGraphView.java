@@ -81,6 +81,7 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     @Override
+    @NonNull
     public GraphView getGraphView() {
         return graphViewWrapper.getGraphView();
     }
@@ -91,6 +92,7 @@ class ChannelGraphView implements GraphViewNotifier {
         return Math.min(GraphConstants.NUM_X_CHANNEL, channelLast - channelFirst + 1);
     }
 
+    @NonNull
     private GraphView makeGraphView(@NonNull MainContext mainContext, @NonNull Settings settings) {
         Resources resources = mainContext.getResources();
         return new GraphViewBuilder(mainContext.getContext(), getNumX(), settings.getGraphMaximumY(), settings.getThemeStyle())
@@ -100,6 +102,7 @@ class ChannelGraphView implements GraphViewNotifier {
             .build();
     }
 
+    @NonNull
     private GraphViewWrapper makeGraphViewWrapper() {
         MainContext mainContext = MainContext.INSTANCE;
         Settings settings = mainContext.getSettings();

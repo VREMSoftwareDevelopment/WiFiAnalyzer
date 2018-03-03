@@ -40,7 +40,6 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ConfigurationUtilsTest {
-
     @Mock
     private Context context;
     @Mock
@@ -69,7 +68,7 @@ public class ConfigurationUtilsTest {
     }
 
     @TargetApi(Build.VERSION_CODES.N)
-    public void validateCreateContextWithNougat() throws Exception {
+    private void validateCreateContextWithNougat() throws Exception {
         // setup
         when(context.getResources()).thenReturn(resources);
         when(resources.getConfiguration()).thenReturn(configuration);
@@ -86,8 +85,7 @@ public class ConfigurationUtilsTest {
     }
 
     @SuppressWarnings("deprecation")
-    @Test
-    public void validateCreateContextWithLegacy() throws Exception {
+    private void validateCreateContextWithLegacy() throws Exception {
         // setup
         when(context.getResources()).thenReturn(resources);
         when(resources.getConfiguration()).thenReturn(configuration);

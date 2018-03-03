@@ -18,13 +18,9 @@
 
 package com.vrem.wifianalyzer.vendor.model;
 
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.support.annotation.RawRes;
 
 import org.apache.commons.lang3.StringUtils;
-
-import java.io.InputStream;
 
 class VendorUtils {
     static final int MAX_SIZE = 6;
@@ -54,32 +50,6 @@ class VendorUtils {
         return source.substring(0, 2)
             + SEPARATOR + source.substring(2, 4)
             + SEPARATOR + source.substring(4, 6);
-    }
-
-    @NonNull
-    static String[] readFile(@NonNull Resources resources, @RawRes int id) {
-        InputStream inputStream = null;
-        try {
-            inputStream = resources.openRawResource(id);
-            int size = inputStream.available();
-            byte[] bytes = new byte[size];
-            int count = inputStream.read(bytes);
-            if (count != size) {
-                return new String[]{};
-            }
-            return new String(bytes).split("\n");
-        } catch (Exception e) {
-            // file is corrupted
-            return new String[]{};
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (Exception e) {
-                    // do nothing
-                }
-            }
-        }
     }
 
 }

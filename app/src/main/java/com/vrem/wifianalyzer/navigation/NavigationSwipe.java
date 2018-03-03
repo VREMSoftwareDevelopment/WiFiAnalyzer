@@ -47,30 +47,31 @@ class NavigationSwipe implements SwipeAction {
         }
     }
 
+    @NonNull
     private NavigationMenu getNextNavigationMenu() {
-        NavigationMenu currentNavigationMenu = mainActivity.getNavigationMenuView().getCurrentNavigationMenu();
+        NavigationMenu currentNavigationMenu = mainActivity.getCurrentNavigationMenu();
         return getNavigationGroup(currentNavigationMenu).next(currentNavigationMenu);
     }
 
+    @NonNull
     private NavigationMenu getPreviousNavigationMenu() {
-        NavigationMenu currentNavigationMenu = mainActivity.getNavigationMenuView().getCurrentNavigationMenu();
+        NavigationMenu currentNavigationMenu = mainActivity.getCurrentNavigationMenu();
         return getNavigationGroup(currentNavigationMenu).previous(currentNavigationMenu);
     }
 
+    @NonNull
     private NavigationGroup getNavigationGroup(NavigationMenu currentNavigationMenu) {
         NavigationPredicate navigationPredicate = new NavigationPredicate(currentNavigationMenu);
         return EnumUtils.find(NavigationGroup.class, navigationPredicate, NavigationGroup.GROUP_FEATURE);
     }
 
     private void activateNewMenuItem(@NonNull NavigationMenu navigationMenu) {
-        NavigationMenuView navigationMenuView = mainActivity.getNavigationMenuView();
-        NavigationView navigationView = navigationMenuView.getNavigationView();
+        NavigationView navigationView = mainActivity.getNavigationView();
         MenuItem newMenuItem = navigationView.getMenu().findItem(navigationMenu.ordinal());
-        MenuItem currentMenuItem = navigationMenuView.getCurrentMenuItem();
+        MenuItem currentMenuItem = mainActivity.getCurrentMenuItem();
         if (!currentMenuItem.equals(newMenuItem)) {
             mainActivity.onNavigationItemSelected(newMenuItem);
         }
     }
-
 
 }

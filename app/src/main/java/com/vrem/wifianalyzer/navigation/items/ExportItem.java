@@ -80,6 +80,7 @@ class ExportItem implements NavigationItem {
         return !wiFiDetails.isEmpty();
     }
 
+    @NonNull
     String getData(String timestamp, @NonNull List<WiFiDetail> wiFiDetails) {
         final StringBuilder result = new StringBuilder();
         result.append(
@@ -89,6 +90,7 @@ class ExportItem implements NavigationItem {
         return result.toString();
     }
 
+    @NonNull
     private List<WiFiDetail> getWiFiDetails() {
         return MainContext.INSTANCE.getScannerService().getWiFiData().getWiFiDetails();
     }

@@ -24,7 +24,7 @@ android {
     buildToolsVersion '27.0.3'
 
     defaultConfig {
-        applicationId "com.vrem.wifianalyzer"
+        applicationId "com.vrem.wifianalyzer.BETA"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode
@@ -93,7 +93,6 @@ if (project.hasProperty('keyAlias')) {
 dependencies {
     // Compile Build Dependencies
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.0.2'
     implementation 'com.android.support:design:27.0.2'
     implementation 'org.apache.commons:commons-lang3:3.7'
     implementation 'org.apache.commons:commons-collections4:4.1'
@@ -103,10 +102,10 @@ dependencies {
     testImplementation 'org.powermock:powermock-module-junit4:1.7.3'
     testImplementation 'org.powermock:powermock-api-mockito2:1.7.3'
     testImplementation 'com.googlecode.junit-toolbox:junit-toolbox:2.4'
-    testImplementation 'org.robolectric:robolectric:3.6.1'
+    testImplementation 'org.robolectric:robolectric:3.7.1'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
     // Android Test Dependencies
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
 }

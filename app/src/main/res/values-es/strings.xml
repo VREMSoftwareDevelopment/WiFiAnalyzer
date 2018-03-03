@@ -19,81 +19,82 @@
 
 <resources>
     <!-- application start -->
-    <string name="app_copyright">Derechos de autor \u00A9 2015 \u002D 2017</string>
+    <string name="app_copyright">"Derechos de autor \u00A9 2015 \u002D 2017"</string>
     <!-- application end -->
 
-    <string name="navigation_drawer_open">Abrir panel de navegación</string>
-    <string name="navigation_drawer_close">Cerrar el panel de navegación</string>
+    <string name="navigation_drawer_open">"Abrir panel de navegación"</string>
+    <string name="navigation_drawer_close">"Cerrar el panel de navegación"</string>
+    <string name="scanner_message">"Analizando..."</string>
+    <string name="scanner_pause">"Pausar"</string>
+    <string name="scanner_play">"Reproducir"</string>
 
     <!-- action start -->
-    <string name="action_access_points">Puntos de acceso</string>
-    <string name="action_channel_rating">Clasificación de Canal</string>
-    <string name="action_channel_graph">Gráfico de Canal</string>
-    <string name="action_time_graph">Gráfico de Tiempo</string>
-    <string name="action_export">Exportar</string>
-    <string name="action_channel_available">Canales Disponibles</string>
-    <string name="action_vendors">Fabricantes</string>
-    <string name="action_settings">Ajustes</string>
-    <string name="action_about">Acerca de</string>
+    <string name="action_access_points">"Puntos de acceso"</string>
+    <string name="action_channel_rating">"Clasificación de Canal"</string>
+    <string name="action_channel_graph">"Gráfico de Canal"</string>
+    <string name="action_time_graph">"Gráfico de Tiempo"</string>
+    <string name="action_export">"Exportar"</string>
+    <string name="action_channel_available">"Canales Disponibles"</string>
+    <string name="action_vendors">"Fabricantes"</string>
+    <string name="action_settings">"Ajustes"</string>
+    <string name="action_about">"Acerca de"</string>
     <!-- action end -->
 
-    <string name="button_cancel">Cancelar</string>
-    <string name="no_data">Sin datos</string>
-    <string name="no_data_msg">Por favor, visite frecuentemente preguntas sección en nuestro sitio web.</string>
-    <string name="no_data_geo_warning">Algunos usuarios de Android OS 6 (Marshmallow) informaron de que el servicio de localización debe estar habilitado para ver las redes Wi-Fi. Usuarios de Marshmallow pueden tener que activar el servicio de localización, aunque WiFiAnalyzer no lo requiera explícitamente. Parece ser atribuido a un problema potencial de Android 6 que necesita el servicio de localización para las redes WiFi.</string>
+    <string name="no_data">"Sin datos"</string>
+    <string name="no_data_msg">"Por favor, visite frecuentemente preguntas sección en nuestro sitio web."</string>
+    <string name="no_data_geo_warning">"Algunos usuarios de Android OS 6 (Marshmallow) informaron de que el servicio de localización debe estar habilitado para ver las redes Wi-Fi. Usuarios de Marshmallow pueden tener que activar el servicio de localización, aunque WiFiAnalyzer no lo requiera explícitamente. Parece ser atribuido a un problema potencial de Android 6 que necesita el servicio de localización para las redes WiFi."</string>
 
-    <string name="export_not_available">Exportar no disponible</string>
+    <string name="export_not_available">"Exportar no disponible"</string>
 
-    <string name="channel_rating_best">Mejores canales:</string>
-    <string name="channel_rating_best_none">Ninguno</string>
-    <string name="channel_rating_best_alternative">, tratar Banda WiFi alternativa</string>
-    <string name="channel_rating_heading_rating">Clasificación de Canal</string>
-    <string name="channel_rating_heading_number">Número de Canal</string>
-    <string name="channel_rating_heading_count">Cantidad de Puntos de Acceso</string>
-    <string name="channel_short_name">CH</string>
+    <string name="channel_rating_best">"Mejores canales:"</string>
+    <string name="channel_rating_best_none">"Ninguno"</string>
+    <string name="channel_rating_best_alternative">", tratar Banda WiFi alternativa"</string>
+    <string name="channel_rating_heading_rating">"Clasificación de Canal"</string>
+    <string name="channel_rating_heading_number">"Número de Canal"</string>
+    <string name="channel_rating_heading_count">"Cantidad de Puntos de Acceso"</string>
+    <string name="channel_short_name">"CH"</string>
 
-    <string name="graph_channel_axis_x">Canales WiFi</string>
-    <string name="graph_time_axis_x">Cantidad de Exploraciones</string>
-    <string name="graph_axis_y">Intensidad de señal (dBm)</string>
+    <string name="graph_channel_axis_x">"Canales WiFi"</string>
+    <string name="graph_time_axis_x">"Cantidad de Exploraciones"</string>
+    <string name="graph_axis_y">"Intensidad de señal (dBm)"</string>
 
     <!-- settings start -->
-    <string name="start_menu_title">Mostrar al inicio</string>
-    <string name="country_code_title">País</string>
-    <string name="scan_interval_title">Intervalo de exploración</string>
-    <string name="scan_interval_summary">%d segundos entre exploraciones</string>
-    <string name="sort_by_title">Ordenar Puntos de Acceso por:</string>
-    <string name="group_by_title">Agrupar Puntos de Acceso por:</string>
-    <string name="connection_view_title">Pantalla de conexión</string>
-    <string name="ap_view_title">Pantalla de punto de acceso</string>
-    <string name="graph_maximum_y_title">Gráfico de intensidad máxima de la señal</string>
-    <string name="channel_graph_legend_title">Leyenda de Visualización de Gráfico de Canales</string>
-    <string name="time_graph_legend_title">Leyenda de Visualización de Gráfico de Tiempo</string>
-    <string name="theme_title">Tema</string>
-    <string name="wifi_off_on_exit_title">WiFi en la salida</string>
-    <string name="language_title">Lengua</string>
+    <string name="start_menu_title">"Mostrar al inicio"</string>
+    <string name="country_code_title">"País"</string>
+    <string name="scan_interval_title">"Intervalo de exploración"</string>
+    <string name="scan_interval_summary">"%d segundos entre exploraciones"</string>
+    <string name="sort_by_title">"Ordenar Puntos de Acceso por:"</string>
+    <string name="group_by_title">"Agrupar Puntos de Acceso por:"</string>
+    <string name="connection_view_title">"Pantalla de conexión"</string>
+    <string name="ap_view_title">"Pantalla de punto de acceso"</string>
+    <string name="graph_maximum_y_title">"Gráfico de intensidad máxima de la señal"</string>
+    <string name="channel_graph_legend_title">"Leyenda de Visualización de Gráfico de Canales"</string>
+    <string name="time_graph_legend_title">"Leyenda de Visualización de Gráfico de Tiempo"</string>
+    <string name="theme_title">"Tema"</string>
+    <string name="wifi_off_on_exit_title">"WiFi en la salida"</string>
+    <string name="language_title">"Lengua"</string>
     <!-- settings end -->
 
     <!-- about start -->
-    <string name="about_license_title">Licencia:</string>
-    <string name="about_license_name">Licenciado bajo GPLv3</string>
-    <string name="about_description_title">Descripción:</string>
+    <string name="about_license_title">"Licencia:"</string>
+    <string name="about_description_title">"Descripción:"</string>
     <string name="about_description_text">"Optimiza tu red WiFi, mediante la comprobación de estado de red, intensidad de señal e identificación de los canales llenos usando la aplicación de código abierto WiFiAnalyzer para Android"</string>
-    <string name="about_libraries_title">Librerias usadas:</string>
-    <string name="about_contributor_title">Colaboradores:</string>
-    <string name="about_write_review">Escribir una opinión</string>
+    <string name="about_libraries_title">"Librerias usadas:"</string>
+    <string name="about_contributor_title">"Colaboradores"</string>
+    <string name="about_write_review">"Escribir una opinión"</string>
     <!-- about end -->
 
     <!-- security start -->
-    <string name="security_none">Ninguna</string>
+    <string name="security_none">"Ninguna"</string>
     <!-- security end -->
 
     <!-- filter start -->
-    <string name="filter_title">Filtro</string>
-    <string name="filter_close">Cerrar</string>
-    <string name="filter_reset">Reset</string>
-    <string name="filter_apply">Aplicar</string>
-    <string name="filter_wifi_band_title">Banda de WiFi</string>
-    <string name="filter_strength_title">Intensidad de señal</string>
-    <string name="filter_security_title">Seguridad</string>
+    <string name="filter_title">"Filtro"</string>
+    <string name="filter_close">"Cerrar"</string>
+    <string name="filter_reset">"Reset"</string>
+    <string name="filter_apply">"Aplicar"</string>
+    <string name="filter_wifi_band_title">"Banda de WiFi"</string>
+    <string name="filter_strength_title">"Intensidad de señal"</string>
+    <string name="filter_security_title">"Seguridad"</string>
     <!-- filter end -->
 </resources>

@@ -18,29 +18,22 @@
   -->
 
 <resources>
-    <style name="ThemeAppCompatDark" parent="Theme.AppCompat">
+
+    <style name="ThemeDark" parent="Theme.AppCompat"/>
+
+    <style name="ThemeDarkNoActionBar" parent="ThemeDark">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="ThemeAppCompatLight" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="ThemeLight" parent="Theme.AppCompat.Light.DarkActionBar"/>
+
+    <style name="ThemeLightNoActionBar" parent="ThemeLight">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="ThemeDeviceDefaultDark" parent="android:Theme.DeviceDefault">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="ThemeDeviceDefaultLight" parent="android:Theme.DeviceDefault.Light.DarkActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="ThemeOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_background</item>

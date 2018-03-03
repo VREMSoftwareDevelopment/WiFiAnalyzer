@@ -22,14 +22,20 @@
 
     <item
         android:id="@+id/action_filter"
-        android:icon="@drawable/ic_filter_list_grey_500_48dp"
-        android:title="@string/action_filter"
+        android:icon="@drawable/ic_filter_list_grey_500_24dp"
+        android:title="@string/filter_title"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_scanner"
-        android:icon="@drawable/ic_pause_grey_500_48dp"
-        android:title="@string/action_pause"
+        android:icon="@drawable/ic_pause_grey_500_24dp"
+        android:title="@string/scanner_pause"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_wifi_band"
+        android:icon="@drawable/ic_leak_add_grey_500_24dp"
+        android:title="@string/wifi_band_title"
         app:showAsAction="ifRoom"/>
 
 </menu>

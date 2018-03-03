@@ -18,17 +18,19 @@
 
 package com.vrem.wifianalyzer.about;
 
+import android.app.AlertDialog;
 import android.os.Build;
-import android.support.v7.app.ActionBar;
+import android.support.annotation.NonNull;
+import android.support.annotation.RawRes;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.vrem.util.FileUtils;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.After;
 import org.junit.Before;
@@ -41,7 +43,6 @@ import org.robolectric.annotation.Config;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -51,13 +52,15 @@ import static org.mockito.Mockito.when;
 @Config(constants = BuildConfig.class)
 public class AboutActivityTest {
 
-    private AboutActivity fixture;
+    private MenuItem menuItem;
     private Configuration configuration;
+    private AboutActivity fixture;
 
     @Before
     public void setUp() {
-        RobolectricUtil.INSTANCE.getActivity();
+        menuItem = mock(MenuItem.class);
         configuration = MainContextHelper.INSTANCE.getConfiguration();
+        fixture = Robolectric.setupActivity(AboutActivity.class);
     }
 
     @After
@@ -66,24 +69,9 @@ public class AboutActivityTest {
     }
 
     @Test
-    public void testTitle() throws Exception {
-        // setup
-        fixture = Robolectric.setupActivity(AboutActivity.class);
-        String expected = fixture.getResources().getString(R.string.action_about);
-        // execute
-        ActionBar actual = fixture.getSupportActionBar();
-        // validate
-        assertNotNull(actual);
-        assertEquals(expected, actual.getTitle());
-        assertNull(fixture.getActionBar());
-    }
-
-    @Test
     public void testOnOptionsItemSelectedWithHome() throws Exception {
         // setup
-        MenuItem menuItem = mock(MenuItem.class);
         when(menuItem.getItemId()).thenReturn(android.R.id.home);
-        fixture = Robolectric.setupActivity(AboutActivity.class);
         // execute
         boolean actual = fixture.onOptionsItemSelected(menuItem);
         // validate
@@ -94,12 +82,12 @@ public class AboutActivityTest {
     @Test
     public void testOnOptionsItemSelected() throws Exception {
         // setup
-        MenuItem menuItem = mock(MenuItem.class);
-        fixture = Robolectric.setupActivity(AboutActivity.class);
+        when(menuItem.getItemId()).thenReturn(-android.R.id.home);
         // execute
         boolean actual = fixture.onOptionsItemSelected(menuItem);
         // validate
         assertFalse(actual);
+        verify(menuItem).getItemId();
     }
 
     @Test
@@ -107,9 +95,6 @@ public class AboutActivityTest {
         // setup
         String expected = BuildConfig.VERSION_NAME + " - " + BuildConfig.VERSION_CODE
             + " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")";
-        when(configuration.isSizeAvailable()).thenReturn(false);
-        when(configuration.isLargeScreen()).thenReturn(false);
-        fixture = Robolectric.setupActivity(AboutActivity.class);
         // execute
         TextView actual = fixture.findViewById(R.id.about_version_info);
         // validate
@@ -134,8 +119,6 @@ public class AboutActivityTest {
 
     @Test
     public void testPackageName() throws Exception {
-        // setup
-        fixture = Robolectric.setupActivity(AboutActivity.class);
         // execute
         TextView actual = fixture.findViewById(R.id.about_package_name);
         // validate
@@ -146,7 +129,6 @@ public class AboutActivityTest {
     @Test
     public void testApplicationName() throws Exception {
         // setup
-        fixture = Robolectric.setupActivity(AboutActivity.class);
         String expectedName = fixture.getString(R.string.about_application_name);
         // execute
         TextView actual = fixture.findViewById(R.id.about_application_name);
@@ -158,10 +140,63 @@ public class AboutActivityTest {
     @Test
     public void testWriteReview() throws Exception {
         // setup
-        fixture = Robolectric.setupActivity(AboutActivity.class);
-        View view = fixture.findViewById(R.id.writeReview);
+        View actual = fixture.findViewById(R.id.writeReview);
         // execute
-        fixture.writeReview(view);
+        fixture.writeReview(actual);
         // validate
+        assertNotNull(actual);
     }
+
+    @Test
+    public void testShowALv2() throws Exception {
+        // setup
+        View view = fixture.findViewById(R.id.license);
+        // execute
+        fixture.showALv2(view);
+        // validate
+        AlertDialog alertDialog = fixture.getAlertDialog();
+        assertNotNull(alertDialog);
+        validateMessage(fixture, alertDialog, R.raw.al);
+        validateTitle(fixture, alertDialog, R.string.al);
+    }
+
+    @Test
+    public void testShowGPLv3() throws Exception {
+        // setup
+        View view = fixture.findViewById(R.id.license);
+        // execute
+        fixture.showGPLv3(view);
+        // validate
+        AlertDialog alertDialog = fixture.getAlertDialog();
+        assertNotNull(alertDialog);
+        validateMessage(fixture, alertDialog, R.raw.gpl);
+        validateTitle(fixture, alertDialog, R.string.gpl);
+    }
+
+    @Test
+    public void testShowContributors() throws Exception {
+        // setup
+        View view = fixture.findViewById(R.id.contributors);
+        // execute
+        fixture.showContributors(view);
+        // validate
+        AlertDialog alertDialog = fixture.getAlertDialog();
+        assertNotNull(alertDialog);
+        validateMessage(fixture, alertDialog, R.raw.contributors);
+        validateTitle(fixture, alertDialog, R.string.about_contributor_title);
+    }
+
+    private void validateMessage(@NonNull AboutActivity aboutActivity, @NonNull AlertDialog alertDialog, @RawRes int id) {
+        String expected = FileUtils.readFile(aboutActivity.getResources(), id);
+        TextView messageView = alertDialog.findViewById(android.R.id.message);
+        assertEquals(expected, messageView.getText().toString());
+    }
+
+    private void validateTitle(@NonNull AboutActivity aboutActivity, @NonNull AlertDialog alertDialog, @RawRes int id) {
+        String expected = aboutActivity.getResources().getString(id);
+        int titleId = aboutActivity.getResources().getIdentifier("alertTitle", "id", "android");
+        TextView titleView = alertDialog.findViewById(titleId);
+        assertEquals(expected, titleView.getText().toString());
+    }
+
 }

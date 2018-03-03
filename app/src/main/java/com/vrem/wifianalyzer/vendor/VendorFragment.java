@@ -22,19 +22,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
-import android.text.Editable;
-import android.text.InputFilter;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 
 import com.vrem.util.TextUtils;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-
-import org.apache.commons.lang3.StringUtils;
 
 public class VendorFragment extends ListFragment {
 
@@ -45,34 +41,28 @@ public class VendorFragment extends ListFragment {
         VendorAdapter vendorAdapter = new VendorAdapter(getActivity(), MainContext.INSTANCE.getVendorService());
         setListAdapter(vendorAdapter);
 
-        EditText editText = view.findViewById(R.id.vendorSearchText);
-        editText.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
-        editText.addTextChangedListener(new OnChange(vendorAdapter));
+        SearchView searchView = view.findViewById(R.id.vendorSearchText);
+        searchView.setOnQueryTextListener(new Listener(vendorAdapter));
 
         return view;
     }
 
-    static class OnChange implements TextWatcher {
+    static class Listener implements OnQueryTextListener {
         private final VendorAdapter vendorAdapter;
 
-        OnChange(@NonNull VendorAdapter vendorAdapter) {
+        Listener(@NonNull VendorAdapter vendorAdapter) {
             this.vendorAdapter = vendorAdapter;
         }
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            // Do nothing
+        public boolean onQueryTextSubmit(String query) {
+            return false;
         }
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // Do nothing
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            String filter = TextUtils.trim(s == null ? StringUtils.EMPTY : s.toString());
-            vendorAdapter.update(filter);
+        public boolean onQueryTextChange(String newText) {
+            vendorAdapter.update(TextUtils.trim(newText));
+            return true;
         }
     }
 
