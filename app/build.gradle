@@ -24,7 +24,7 @@ android {
     buildToolsVersion '27.0.3'
 
     defaultConfig {
-        applicationId "com.vrem.wifianalyzer.BETA"
+        applicationId "com.vrem.wifianalyzer"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode
@@ -93,7 +93,7 @@ if (project.hasProperty('keyAlias')) {
 dependencies {
     // Compile Build Dependencies
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:design:27.0.2'
+    implementation 'com.android.support:design:27.1.0'
     implementation 'org.apache.commons:commons-lang3:3.7'
     implementation 'org.apache.commons:commons-collections4:4.1'
     implementation 'com.jjoe64:graphview:4.2.1'
