@@ -27,7 +27,7 @@
     <string name="scanner_play">"Lire"</string>
 
     <!-- action start -->
-    <string name="action_access_points">"Points d\'acccès"</string>
+    <string name="action_access_points">"Points d\'accès"</string>
     <string name="action_channel_rating">"Qualité de réception"</string>
     <string name="action_channel_graph">"Graphique par canal"</string>
     <string name="action_time_graph">"Graphique temporel"</string>
