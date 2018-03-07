@@ -60,7 +60,7 @@ This is the official repository of WiFi Analyzer.
 * Swipe to manually refresh screen content.
 * Swipe left/right at the bottom of the screen to navigate to the next/previous screen
 * SSID with (***) means it is hidden.
-* Access Point security: <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20"> WPA2/WPA; <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_lock_outline_black_18dp.png" alt="WEP/WPS" height="20"> WEP/WPS; <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_lock_open_black_18dp.png" alt="Disabled" height="20"> Disabled
+* Access Point security: <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20"> WPA2/WPA; <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_lock_outline_black_18dp.png" alt="WEP/WPS" height="20"> WEP/WPS; <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_lock_open_black_18dp.png" alt="Disabled" height="20"> Disabled
 * Saved networks <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_tag_faces_black_18dp.png" alt="Saved Networks" height="20">
 
 ## How-to
