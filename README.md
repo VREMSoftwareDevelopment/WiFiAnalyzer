@@ -1,4 +1,4 @@
-<h1>WiFi Analyzer <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/ic_launcher-web.png" alt="Application Icon" width="45" height="45"></h1>
+<h1>WiFi Analyzer <img src="images/ic_launcher-web.png" alt="Application Icon" width="45" height="45"></h1>
 
 ### News: We are happy to announce that Android Authority recently selected WiFi Analyzer to be one of the 15 most useful apps for Android, [click here](https://www.androidauthority.com/most-useful-apps-for-android-603100/amp) to learn more about it!
 
@@ -15,8 +15,8 @@ Optimize your WiFi network using WiFi Analyzer by examining surrounding WiFi net
 
 This is the official repository of WiFi Analyzer.
 
-<img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/feature-graphic.png" alt="Feature Graphic - Dark Theme" height="200">
-<img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/screenshots/feature-graphic-light.png" alt="Feature Graphic - Light Theme" height="200">
+<img src="images/feature-graphic.png" alt="Feature Graphic - Dark Theme" height="200">
+<img src="images/feature-graphic-light.png" alt="Feature Graphic - Light Theme" height="200">
 
 ### The open-source app was created using Agile methodologies, [click here](http://i-proving.com/2016/10/13/using-agile-methodologies-develop-open-source-android-app) to learn more about it.
 
@@ -60,8 +60,8 @@ This is the official repository of WiFi Analyzer.
 * Swipe to manually refresh screen content.
 * Swipe left/right at the bottom of the screen to navigate to the next/previous screen
 * SSID with (***) means it is hidden.
-* Access Point security: <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20"> WPA2/WPA; <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_lock_outline_black_18dp.png" alt="WEP/WPS" height="20"> WEP/WPS; <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_lock_open_black_18dp.png" alt="Disabled" height="20"> Disabled
-* Saved networks <img src="https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/raw/master/app/src/main/res/drawable-hdpi/ic_tag_faces_black_18dp.png" alt="Saved Networks" height="20">
+* Access Point security: <img src="images/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20"> WPA2/WPA; <img src="images/ic_lock_outline_black_18dp.png" alt="WEP/WPS" height="20"> WEP/WPS; <img src="images/ic_lock_open_black_18dp.png" alt="Disabled" height="20"> Disabled
+* Saved networks <img src="images/ic_tag_faces_blue_500_18dp.png" alt="Saved Networks" height="20">
 
 ## How-to
 * [How to guide](http://translate.google.com/translate?js=n&sl=auto&tl=en&u=http://www.svetandroida.cz/aplikace-wifi-analyzer-open-source-201605)
@@ -103,7 +103,6 @@ WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/203eaa0583694bcca6554190513179ba)](https://www.codacy.com/app/vremsoftwaredevelopment/WiFiAnalyzer)
 [![codecov](https://codecov.io/gh/VREMSoftwareDevelopment/WiFiAnalyzer/branch/master/graph/badge.svg)](https://codecov.io/gh/VREMSoftwareDevelopment/WiFiAnalyzer)
 
-[![Dependency Status](https://www.versioneye.com/user/projects/5a5b648a0fb24f1086495dce/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5a5b648a0fb24f1086495dce)
 [![Known Vulnerabilities](https://snyk.io/test/github/vremsoftwaredevelopment/wifianalyzer/badge.svg)](https://snyk.io/test/github/vremsoftwaredevelopment/wifianalyzer)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FVREMSoftwareDevelopment%2FWiFiAnalyzer.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FVREMSoftwareDevelopment%2FWiFiAnalyzer?ref=badge_shield)
 
