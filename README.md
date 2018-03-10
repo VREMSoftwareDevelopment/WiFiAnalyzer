@@ -112,7 +112,7 @@ WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 [![Fork](https://img.shields.io/github/forks/VREMSoftwareDevelopment/WiFiAnalyzer.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/network)
 
 ## Contribute
-* Feel free to fork the project and submit your changes back.
+* Feel free to fork the project and submit your changes.
 * To learn how to submit a pull request [click here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Pull-Request).
 
 ### Fork project
@@ -123,7 +123,7 @@ WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
   2. Import project into Android Studio
       * In Welcome to Android Studio Screen select Import project ...
       * Select the root directory of the WiFi Analyzer repository and click "OK".
-      * WiFi Analyzer will build automatically
+      * WiFi Analyzer will build automatically.
 
 ### Running unit tests and jacoco coverage report
 ```
