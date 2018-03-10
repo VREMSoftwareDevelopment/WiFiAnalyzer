@@ -55,7 +55,7 @@
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                 android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                 android:contentDescription="@null"
-                android:src="@drawable/ic_tag_faces_black_18dp"
+                android:src="@drawable/ic_tag_faces_blue_500_18dp"
                 android:visibility="gone"/>
 
             <TextView

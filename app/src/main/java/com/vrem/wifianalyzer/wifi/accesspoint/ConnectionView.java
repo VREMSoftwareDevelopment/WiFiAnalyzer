@@ -88,7 +88,7 @@ public class ConnectionView implements UpdateNotifier {
 
     private void setViewConnection(View connectionView, WiFiConnection wiFiConnection) {
         String ipAddress = wiFiConnection.getIpAddress();
-        ((TextView) connectionView.findViewById(R.id.ipAddress)).setText(ipAddress);
+        connectionView.<TextView>findViewById(R.id.ipAddress).setText(ipAddress);
 
         TextView textLinkSpeed = connectionView.findViewById(R.id.linkSpeed);
         int linkSpeed = wiFiConnection.getLinkSpeed();

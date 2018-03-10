@@ -107,9 +107,9 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
             return view;
         }
 
-        ((TextView) view.findViewById(R.id.channelNumber))
+        view.<TextView>findViewById(R.id.channelNumber)
             .setText(String.format(Locale.ENGLISH, "%d", wiFiChannel.getChannel()));
-        ((TextView) view.findViewById(R.id.accessPointCount))
+        view.<TextView>findViewById(R.id.accessPointCount)
             .setText(String.format(Locale.ENGLISH, "%d", channelRating.getCount(wiFiChannel)));
         Strength strength = Strength.reverse(channelRating.getStrength(wiFiChannel));
         RatingBar ratingBar = view.findViewById(R.id.channelRating);

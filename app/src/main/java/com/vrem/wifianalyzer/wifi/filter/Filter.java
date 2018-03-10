@@ -32,7 +32,7 @@ public class Filter {
 
     private final AlertDialog alertDialog;
 
-    private Filter(@NonNull AlertDialog alertDialog) {
+    private Filter(AlertDialog alertDialog) {
         this.alertDialog = alertDialog;
     }
 
@@ -41,7 +41,11 @@ public class Filter {
     }
 
     private static AlertDialog buildAlertDialog() {
-        View view = MainContext.INSTANCE.getLayoutInflater().inflate(R.layout.filter_popup, null);
+        MainContext mainContext = MainContext.INSTANCE;
+        if (mainContext.getMainActivity().isFinishing()) {
+            return null;
+        }
+        View view = mainContext.getLayoutInflater().inflate(R.layout.filter_popup, null);
         return new AlertDialog
             .Builder(view.getContext())
             .setView(view)
@@ -54,12 +58,12 @@ public class Filter {
     }
 
     public void show() {
-        if (!alertDialog.isShowing()) {
+        if (alertDialog != null && !alertDialog.isShowing()) {
             alertDialog.show();
-            addWiFiBandFilter();
-            addSSIDFilter();
-            addStrengthFilter();
-            addSecurityFilter();
+            addWiFiBandFilter(alertDialog);
+            addSSIDFilter(alertDialog);
+            addStrengthFilter(alertDialog);
+            addSecurityFilter(alertDialog);
         }
     }
 
@@ -67,21 +71,21 @@ public class Filter {
         return alertDialog;
     }
 
-    private void addSSIDFilter() {
+    private void addSSIDFilter(@NonNull AlertDialog alertDialog) {
         new SSIDFilter(MainContext.INSTANCE.getFilterAdapter().getSSIDAdapter(), alertDialog);
     }
 
-    private void addWiFiBandFilter() {
+    private void addWiFiBandFilter(@NonNull AlertDialog alertDialog) {
         if (NavigationMenu.ACCESS_POINTS.equals(MainContext.INSTANCE.getMainActivity().getCurrentNavigationMenu())) {
             new WiFiBandFilter(MainContext.INSTANCE.getFilterAdapter().getWiFiBandAdapter(), alertDialog);
         }
     }
 
-    private void addStrengthFilter() {
+    private void addStrengthFilter(@NonNull AlertDialog alertDialog) {
         new StrengthFilter(MainContext.INSTANCE.getFilterAdapter().getStrengthAdapter(), alertDialog);
     }
 
-    private void addSecurityFilter() {
+    private void addSecurityFilter(@NonNull AlertDialog alertDialog) {
         new SecurityFilter(MainContext.INSTANCE.getFilterAdapter().getSecurityAdapter(), alertDialog);
     }
 

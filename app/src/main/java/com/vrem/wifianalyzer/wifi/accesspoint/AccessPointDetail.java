@@ -76,7 +76,7 @@ public class AccessPointDetail {
     private void setViewCompact(@NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
         Context context = view.getContext();
 
-        ((TextView) view.findViewById(R.id.ssid)).setText(wiFiDetail.getTitle());
+        view.<TextView>findViewById(R.id.ssid).setText(wiFiDetail.getTitle());
 
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         Strength strength = wiFiSignal.getStrength();
@@ -90,12 +90,12 @@ public class AccessPointDetail {
         textLevel.setText(String.format(Locale.ENGLISH, "%ddBm", wiFiSignal.getLevel()));
         textLevel.setTextColor(ContextCompat.getColor(context, strength.colorResource()));
 
-        ((TextView) view.findViewById(R.id.channel))
+        view.<TextView>findViewById(R.id.channel)
             .setText(wiFiSignal.getChannelDisplay());
-        ((TextView) view.findViewById(R.id.primaryFrequency))
+        view.<TextView>findViewById(R.id.primaryFrequency)
             .setText(String.format(Locale.ENGLISH, "%d%s",
                 wiFiSignal.getPrimaryFrequency(), WiFiSignal.FREQUENCY_UNITS));
-        ((TextView) view.findViewById(R.id.distance))
+        view.<TextView>findViewById(R.id.distance)
             .setText(String.format(Locale.ENGLISH, "%5.1fm", wiFiSignal.getDistance()));
 
         if (isChild) {
@@ -108,14 +108,8 @@ public class AccessPointDetail {
     private void setViewExtra(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {
         Context context = view.getContext();
 
-        ImageView configuredImage = view.findViewById(R.id.configuredImage);
-        WiFiAdditional wiFiAdditional = wiFiDetail.getWiFiAdditional();
-        if (wiFiAdditional.isConfiguredNetwork()) {
-            configuredImage.setVisibility(View.VISIBLE);
-            configuredImage.setColorFilter(ContextCompat.getColor(context, R.color.connected));
-        } else {
-            configuredImage.setVisibility(View.GONE);
-        }
+        view.<ImageView>findViewById(R.id.configuredImage)
+            .setVisibility(wiFiDetail.getWiFiAdditional().isConfiguredNetwork() ? View.VISIBLE : View.GONE);
 
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         Strength strength = wiFiSignal.getStrength();
@@ -123,11 +117,11 @@ public class AccessPointDetail {
         imageView.setImageResource(strength.imageResource());
         imageView.setColorFilter(ContextCompat.getColor(context, strength.colorResource()));
 
-        ((TextView) view.findViewById(R.id.channel_frequency_range))
+        view.<TextView>findViewById(R.id.channel_frequency_range)
             .setText(Integer.toString(wiFiSignal.getFrequencyStart()) + " - " + Integer.toString(wiFiSignal.getFrequencyEnd()));
-        ((TextView) view.findViewById(R.id.width))
+        view.<TextView>findViewById(R.id.width)
             .setText("(" + Integer.toString(wiFiSignal.getWiFiWidth().getFrequencyWidth()) + WiFiSignal.FREQUENCY_UNITS + ")");
-        ((TextView) view.findViewById(R.id.capabilities))
+        view.<TextView>findViewById(R.id.capabilities)
             .setText(wiFiDetail.getCapabilities());
     }
 

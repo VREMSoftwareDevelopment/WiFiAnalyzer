@@ -56,17 +56,17 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
         Locale currentLocale = mainContext.getSettings().getLanguageLocale();
 
         WiFiChannelCountry wiFiChannelCountry = getItem(position);
-        ((TextView) view.findViewById(R.id.channel_available_country))
+        view.<TextView>findViewById(R.id.channel_available_country)
             .setText(wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName(currentLocale));
-        ((TextView) view.findViewById(R.id.channel_available_title_ghz_2))
+        view.<TextView>findViewById(R.id.channel_available_title_ghz_2)
             .setText(String.format(Locale.ENGLISH, "%s : ",
                 view.getResources().getString(WiFiBand.GHZ2.getTextResource())));
-        ((TextView) view.findViewById(R.id.channel_available_ghz_2))
+        view.<TextView>findViewById(R.id.channel_available_ghz_2)
             .setText(TextUtils.join(SEPARATOR, wiFiChannelCountry.getChannelsGHZ2().toArray()));
-        ((TextView) view.findViewById(R.id.channel_available_title_ghz_5))
+        view.<TextView>findViewById(R.id.channel_available_title_ghz_5)
             .setText(String.format(Locale.ENGLISH, "%s : ",
                 view.getResources().getString(WiFiBand.GHZ5.getTextResource())));
-        ((TextView) view.findViewById(R.id.channel_available_ghz_5))
+        view.<TextView>findViewById(R.id.channel_available_ghz_5)
             .setText(TextUtils.join(SEPARATOR, wiFiChannelCountry.getChannelsGHZ5().toArray()));
         return view;
     }

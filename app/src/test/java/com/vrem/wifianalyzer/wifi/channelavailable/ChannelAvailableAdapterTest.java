@@ -92,11 +92,11 @@ public class ChannelAvailableAdapterTest {
         // validate
         assertNotNull(actual);
 
-        assertEquals(expected, ((TextView) actual.findViewById(R.id.channel_available_country)).getText());
-        assertEquals(wiFiBand2 + " : ", ((TextView) actual.findViewById(R.id.channel_available_title_ghz_2)).getText());
-        assertEquals(expected_GHZ_2, ((TextView) actual.findViewById(R.id.channel_available_ghz_2)).getText());
-        assertEquals(wiFiBand5 + " : ", ((TextView) actual.findViewById(R.id.channel_available_title_ghz_5)).getText());
-        assertEquals(expected_GHZ_5, ((TextView) actual.findViewById(R.id.channel_available_ghz_5)).getText());
+        assertEquals(expected, actual.<TextView>findViewById(R.id.channel_available_country).getText());
+        assertEquals(wiFiBand2 + " : ", actual.<TextView>findViewById(R.id.channel_available_title_ghz_2).getText());
+        assertEquals(expected_GHZ_2, actual.<TextView>findViewById(R.id.channel_available_ghz_2).getText());
+        assertEquals(wiFiBand5 + " : ", actual.<TextView>findViewById(R.id.channel_available_title_ghz_5).getText());
+        assertEquals(expected_GHZ_5, actual.<TextView>findViewById(R.id.channel_available_ghz_5).getText());
     }
 
 }
