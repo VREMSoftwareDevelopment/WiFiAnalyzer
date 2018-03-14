@@ -64,6 +64,7 @@ This is the official repository of WiFi Analyzer.
 * Saved networks <img src="images/ic_tag_faces_blue_500_18dp.png" alt="Saved Networks" height="20">
 
 ## How-to
+* [How to video](https://youtu.be/JJVKja0VDR0)
 * [How to guide](http://translate.google.com/translate?js=n&sl=auto&tl=en&u=http://www.svetandroida.cz/aplikace-wifi-analyzer-open-source-201605)
 * [How to find the best 5Ghz WiFi Channel](https://www.maketecheasier.com/best-wifi-channel-for-5ghz-frequency/)
 * [Why Wi-Fi stinks and how to fix it](http://spectrum.ieee.org/telecom/wireless/why-wifi-stinksand-how-to-fix-it)
