@@ -56,7 +56,7 @@ public class DrawerNavigationTest {
 
         fixture = new DrawerNavigation(mainActivity, toolbar) {
             @Override
-            protected ActionBarDrawerToggle create(
+            ActionBarDrawerToggle create(
                 @NonNull MainActivity mainActivityInput,
                 @NonNull Toolbar toolbarInput,
                 @NonNull DrawerLayout drawerLayoutInput,
@@ -75,7 +75,7 @@ public class DrawerNavigationTest {
     }
 
     @Test
-    public void testConstructor() throws Exception {
+    public void testConstructor() {
         // validate
         verify(mainActivity).findViewById(R.id.drawer_layout);
         verify(drawerLayout).addDrawerListener(actionBarDrawerToggle);
@@ -83,7 +83,7 @@ public class DrawerNavigationTest {
     }
 
     @Test
-    public void testSyncState() throws Exception {
+    public void testSyncState() {
         // execute
         fixture.syncState();
         // validate
@@ -91,7 +91,7 @@ public class DrawerNavigationTest {
     }
 
     @Test
-    public void testOnConfigurationChanged() throws Exception {
+    public void testOnConfigurationChanged() {
         // execute
         fixture.onConfigurationChanged(configuration);
         // validate
