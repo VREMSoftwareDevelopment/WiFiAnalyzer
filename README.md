@@ -29,12 +29,8 @@ This is the official repository of WiFi Analyzer.
 - [FAQ](#faq)
 - [Feedback](#feedback)
 - [License](#license)
-  - [GPLv3 License key requirements:](#gplv3-license-key-requirements)
 - [WiFi Analyzer Build](#wifi-analyzer-build)
 - [Contribute](#contribute)
-  - [Fork project](#fork-project)
-  - [Build project](#build-project)
-  - [Running unit tests and jacoco coverage report](#running-unit-tests-and-jacoco-coverage-report)
 - [Special Thanks](#special-thanks)
 - [Donations](#donations)
 
