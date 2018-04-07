@@ -76,7 +76,7 @@ public class CacheTest {
     }
 
     @Test
-    public void testAddWithNullsWithSizeAvailable() throws Exception {
+    public void testAddWithNullsWithSizeAvailable() {
         // setup
         when(settings.getScanInterval()).thenReturn(5);
         when(configuration.isSizeAvailable()).thenReturn(true);
@@ -87,7 +87,7 @@ public class CacheTest {
     }
 
     @Test
-    public void testAddWithSizeAvailable() throws Exception {
+    public void testAddWithSizeAvailable() {
         // setup
         when(settings.getScanInterval()).thenReturn(5);
         when(configuration.isSizeAvailable()).thenReturn(true);
@@ -99,7 +99,7 @@ public class CacheTest {
     }
 
     @Test
-    public void testAddCompliesToMaxCacheSizeWithSizeAvailable() throws Exception {
+    public void testAddCompliesToMaxCacheSizeWithSizeAvailable() {
         // setup
         int scanInterval = 5;
         int cacheSize = 2;
@@ -120,29 +120,29 @@ public class CacheTest {
     }
 
     @Test
-    public void testGetWiFiDataWithSizeAvailable() throws Exception {
+    public void testGetWiFiDataWithSizeAvailable() {
         // setup
         when(configuration.isSizeAvailable()).thenReturn(true);
         withScanResults();
         // execute
         List<CacheResult> actuals = fixture.getScanResults();
         // validate
-        assertEquals(3, actuals.size());
-        validate(scanResult3, 20, actuals.get(0));
-        validate(scanResult4, 50, actuals.get(1));
-        validate(scanResult6, 10, actuals.get(2));
+        assertEquals(2, actuals.size());
+        validate(scanResult3, 30, actuals.get(0));
+        validate(scanResult6, 10, actuals.get(1));
     }
 
     @Test
-    public void testGetCacheSizeWithSizeAvailable() throws Exception {
+    public void testGetCacheSizeWithSizeAvailable() {
         // setup
         int values[] = new int[]{
-            1, 4,
-            4, 4,
-            5, 3,
-            9, 3,
-            10, 2,
-            19, 2,
+            1, 1,
+            2, 3,
+            4, 3,
+            5, 2,
+            9, 2,
+            10, 1,
+            19, 1,
             20, 1
         };
         when(configuration.isSizeAvailable()).thenReturn(true);
@@ -156,7 +156,7 @@ public class CacheTest {
     }
 
     @Test
-    public void testAddWithNulls() throws Exception {
+    public void testAddWithNulls() {
         // setup
         when(settings.getScanInterval()).thenReturn(5);
         when(configuration.isSizeAvailable()).thenReturn(false);
@@ -167,7 +167,7 @@ public class CacheTest {
     }
 
     @Test
-    public void testAdd() throws Exception {
+    public void testAdd() {
         // setup
         when(settings.getScanInterval()).thenReturn(5);
         when(configuration.isSizeAvailable()).thenReturn(false);
@@ -179,7 +179,7 @@ public class CacheTest {
     }
 
     @Test
-    public void testAddCompliesToMaxCacheSize() throws Exception {
+    public void testAddCompliesToMaxCacheSize() {
         // setup
         int expectedSize = 1;
         int scanInterval = 5;
@@ -201,7 +201,7 @@ public class CacheTest {
     }
 
     @Test
-    public void testGetWiFiData() throws Exception {
+    public void testGetWiFiData() {
         // setup
         when(configuration.isSizeAvailable()).thenReturn(false);
         withScanResults();
@@ -214,7 +214,7 @@ public class CacheTest {
     }
 
     @Test
-    public void testGetCacheSize() throws Exception {
+    public void testGetCacheSize() {
         // setup
         int expected = 1;
         when(configuration.isSizeAvailable()).thenReturn(false);
