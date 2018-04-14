@@ -24,8 +24,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
-        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.2'
+        classpath 'com.android.tools.build:gradle:3.1.1'
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.2', {
+            exclude group: 'org.codehaus.groovy', module: 'groovy-all'
+        }
     }
 }
 

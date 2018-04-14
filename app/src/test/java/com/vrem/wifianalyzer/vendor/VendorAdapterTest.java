@@ -93,8 +93,8 @@ public class VendorAdapterTest {
         // validate
         assertNotNull(actual);
 
-        assertEquals(VENDOR_NAME2, ((TextView) actual.findViewById(R.id.vendor_name)).getText());
-        assertEquals(expected, ((TextView) actual.findViewById(R.id.vendor_macs)).getText());
+        assertEquals(VENDOR_NAME2, actual.<TextView>findViewById(R.id.vendor_name).getText());
+        assertEquals(expected, actual.<TextView>findViewById(R.id.vendor_macs).getText());
 
         verify(vendorService).findMacAddresses(VENDOR_NAME2);
 

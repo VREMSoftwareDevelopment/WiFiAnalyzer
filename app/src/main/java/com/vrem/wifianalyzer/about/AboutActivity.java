@@ -118,6 +118,9 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private AlertDialog show(@NonNull View view, @StringRes int titleId, @RawRes int id) {
+        if (isFinishing()) {
+            return null;
+        }
         String text = FileUtils.readFile(getResources(), id);
         AlertDialog dialog = new AlertDialog
             .Builder(view.getContext())
@@ -130,8 +133,10 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void changeFont(AlertDialog alertDialog) {
-        TextView textView = alertDialog.findViewById(android.R.id.message);
-        textView.setTextSize(8);
+        if (alertDialog != null) {
+            TextView textView = alertDialog.findViewById(android.R.id.message);
+            textView.setTextSize(8);
+        }
     }
 
     AlertDialog getAlertDialog() {

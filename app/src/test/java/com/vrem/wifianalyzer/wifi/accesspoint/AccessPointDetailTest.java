@@ -324,7 +324,7 @@ public class AccessPointDetailTest {
     }
 
     private void validateTextViewValue(@NonNull View view, @NonNull String expected, int id) {
-        assertEquals(expected, ((TextView) view.findViewById(id)).getText().toString());
+        assertEquals(expected, view.<TextView>findViewById(id).getText().toString());
     }
 
 }

@@ -49,9 +49,10 @@ class VendorAdapter extends ArrayAdapter<String> {
             view = layoutInflater.inflate(R.layout.vendor_details, parent, false);
         }
         String vendorName = getItem(position);
-        ((TextView) view.findViewById(R.id.vendor_name)).setText(vendorName);
-        ((TextView) view.findViewById(R.id.vendor_macs)).setText(
-            TextUtils.join(", ", vendorService.findMacAddresses(vendorName)));
+        view.<TextView>findViewById(R.id.vendor_name)
+            .setText(vendorName);
+        view.<TextView>findViewById(R.id.vendor_macs)
+            .setText(TextUtils.join(", ", vendorService.findMacAddresses(vendorName)));
         return view;
     }
 

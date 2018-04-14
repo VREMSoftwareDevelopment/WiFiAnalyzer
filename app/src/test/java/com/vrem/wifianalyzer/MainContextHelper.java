@@ -34,7 +34,7 @@ import static org.powermock.api.mockito.PowerMockito.mock;
 public enum MainContextHelper {
     INSTANCE;
 
-    private final Map<Class, Object> saved;
+    private final Map<Class<?>, Object> saved;
     private final MainContext mainContext;
 
     MainContextHelper() {
@@ -42,7 +42,7 @@ public enum MainContextHelper {
         saved = new HashMap<>();
     }
 
-    private Object save(Class clazz, Object object) {
+    private Object save(Class<?> clazz, Object object) {
         saved.put(clazz, object);
         return mock(clazz);
     }
@@ -88,9 +88,9 @@ public enum MainContextHelper {
         saved.clear();
     }
 
-    private class RestoreClosure implements Closure<Class> {
+    private class RestoreClosure implements Closure<Class<?>> {
         @Override
-        public void execute(Class input) {
+        public void execute(Class<?> input) {
             Object result = saved.get(input);
             if (input.equals(Settings.class)) {
                 mainContext.setSettings((Settings) result);

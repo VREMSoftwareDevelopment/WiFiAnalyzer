@@ -48,7 +48,7 @@ class DrawerNavigation {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
-    protected ActionBarDrawerToggle create(
+    ActionBarDrawerToggle create(
         @NonNull MainActivity mainActivity,
         @NonNull Toolbar toolbar,
         @NonNull DrawerLayout drawer,

@@ -40,6 +40,8 @@ android {
             signingConfig
         }
         debug {
+            applicationIdSuffix ".BETA"
+            versionNameSuffix "-BETA"
             minifyEnabled false
             shrinkResources false
             debuggable true
@@ -56,9 +58,6 @@ android {
                     outputs.upToDateWhen {false}
                     showStandardStreams = true
                 }
-                jacoco {
-                    includeNoLocationClasses true
-                }
             }
         }
     }
@@ -69,7 +68,11 @@ android {
 }
 
 jacoco {
-    toolVersion "0.7.9"
+    toolVersion = '0.8.1'
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
 }
 
 jacocoAndroidUnitTestReport {
@@ -93,7 +96,7 @@ if (project.hasProperty('keyAlias')) {
 dependencies {
     // Compile Build Dependencies
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:design:27.1.1'
     implementation 'org.apache.commons:commons-lang3:3.7'
     implementation 'org.apache.commons:commons-collections4:4.1'
     implementation 'com.jjoe64:graphview:4.2.1'
@@ -102,10 +105,10 @@ dependencies {
     testImplementation 'org.powermock:powermock-module-junit4:1.7.3'
     testImplementation 'org.powermock:powermock-api-mockito2:1.7.3'
     testImplementation 'com.googlecode.junit-toolbox:junit-toolbox:2.4'
-    testImplementation 'org.robolectric:robolectric:3.7.1'
+    testImplementation 'org.robolectric:robolectric:3.8'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
     // Android Test Dependencies
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
 }
@@ -140,10 +143,12 @@ def updateVersion() {
     }
 
     def versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
-    if (android.defaultConfig.applicationId.endsWith(".BETA")) {
+    def applicationId = android.defaultConfig.applicationId
+    if (android.buildTypes.debug.applicationIdSuffix.endsWith("BETA")) {
         versionName = versionName + ".${versionBuild}"
+        applicationId = applicationId + android.buildTypes.debug.applicationIdSuffix
     }
-    System.out.println(">>> " + project.parent.name + " " + versionName + " (" + versionStore + ") '" + android.defaultConfig.applicationId + "'")
+    System.out.println(">>> " + project.parent.name + " " + versionName + " (" + versionStore + ") '" + applicationId + "'")
     android.defaultConfig.versionCode = versionStore
     android.defaultConfig.versionName = versionName
 }

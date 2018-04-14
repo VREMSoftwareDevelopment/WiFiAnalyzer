@@ -39,7 +39,7 @@ public class GraphViewBuilder {
     private LabelFormatter labelFormatter;
     private String verticalTitle;
     private String horizontalTitle;
-    private boolean horizontalLabelsVisible = true;
+    private boolean horizontalLabelsVisible;
 
     public GraphViewBuilder(@NonNull Context context, int numHorizontalLabels, int maximumY, ThemeStyle themeStyle) {
         this.context = context;

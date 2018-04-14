@@ -41,8 +41,8 @@ public class VendorDBTest {
     private static final String MAC_ADDRESS = "00:23:AB:8C:DF:10";
     private static final String VENDOR_NAME_INVALID = "XXXXX";
     private static final String MAC_ADDRESS_INVALID = "XX:XX:XX";
-    private static final int VENDOR_SIZE = 16886;
-    private static final int MACS_SIZE = 24597;
+    private static final int VENDOR_SIZE = 16936;
+    private static final int MACS_SIZE = 24738;
 
     private VendorDB fixture;
 
@@ -53,7 +53,7 @@ public class VendorDBTest {
     }
 
     @Test
-    public void testFindVendorName() throws Exception {
+    public void testFindVendorName() {
         // execute
         String actual = fixture.findVendorName(MAC_ADDRESS);
         // validate
@@ -61,7 +61,7 @@ public class VendorDBTest {
     }
 
     @Test
-    public void testFindVendorNameWithNull() throws Exception {
+    public void testFindVendorNameWithNull() {
         // execute
         String actual = fixture.findVendorName(null);
         // validate
@@ -69,7 +69,7 @@ public class VendorDBTest {
     }
 
     @Test
-    public void testFindVendorNameWithInvalidMac() throws Exception {
+    public void testFindVendorNameWithInvalidMac() {
         // execute
         String actual = fixture.findVendorName(MAC_ADDRESS_INVALID);
         // validate
@@ -77,9 +77,9 @@ public class VendorDBTest {
     }
 
     @Test
-    public void testFindMacAddresses() throws Exception {
+    public void testFindMacAddresses() {
         // setup
-        int expectedSize = 801;
+        int expectedSize = 807;
         // execute
         List<String> actual = fixture.findMacAddresses(VENDOR_NAME);
         // validate
@@ -87,11 +87,11 @@ public class VendorDBTest {
 
         assertEquals("00:00:0C", actual.get(0));
         assertEquals("FC:FB:FB", actual.get(expectedSize - 1));
-        assertEquals("00:87:31", actual.get(expectedSize / 2));
+        assertEquals("00:8A:96", actual.get(expectedSize / 2));
     }
 
     @Test
-    public void testFindMacAddressesWithNull() throws Exception {
+    public void testFindMacAddressesWithNull() {
         // execute
         List<String> actual = fixture.findMacAddresses(null);
         // validate
@@ -99,7 +99,7 @@ public class VendorDBTest {
     }
 
     @Test
-    public void testFindMacAddressesWithInvalidName() throws Exception {
+    public void testFindMacAddressesWithInvalidName() {
         // execute
         List<String> actual = fixture.findMacAddresses(VENDOR_NAME_INVALID);
         // validate
@@ -107,7 +107,7 @@ public class VendorDBTest {
     }
 
     @Test
-    public void testFindVendors() throws Exception {
+    public void testFindVendors() {
         // execute
         List<String> actual = fixture.findVendors();
         // validate
@@ -115,7 +115,7 @@ public class VendorDBTest {
     }
 
     @Test
-    public void testFindVendorsWithVendorFilter() throws Exception {
+    public void testFindVendorsWithVendorFilter() {
         // execute
         List<String> actual = fixture.findVendors("1394 ");
         // validate
@@ -125,7 +125,7 @@ public class VendorDBTest {
     }
 
     @Test
-    public void testFindVendorsWithMacFilter() throws Exception {
+    public void testFindVendorsWithMacFilter() {
         // execute
         List<String> actual = fixture.findVendors("00:A0:2");
         // validate
@@ -135,13 +135,13 @@ public class VendorDBTest {
     }
 
     @Test
-    public void testGetVendors() throws Exception {
+    public void testGetVendors() {
         // execute & validate
         assertEquals(VENDOR_SIZE, fixture.getVendors().size());
     }
 
     @Test
-    public void testGetMacs() throws Exception {
+    public void testGetMacs() {
         // execute & validate
         assertEquals(MACS_SIZE, fixture.getMacs().size());
     }
