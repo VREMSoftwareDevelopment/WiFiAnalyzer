@@ -41,8 +41,8 @@ public class VendorDBTest {
     private static final String MAC_ADDRESS = "00:23:AB:8C:DF:10";
     private static final String VENDOR_NAME_INVALID = "XXXXX";
     private static final String MAC_ADDRESS_INVALID = "XX:XX:XX";
-    private static final int VENDOR_SIZE = 16925;
-    private static final int MACS_SIZE = 24709;
+    private static final int VENDOR_SIZE = 16936;
+    private static final int MACS_SIZE = 24738;
 
     private VendorDB fixture;
 
