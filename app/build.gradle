@@ -144,7 +144,7 @@ def updateVersion() {
 
     def versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
     def applicationId = android.defaultConfig.applicationId
-    if (android.buildTypes.debug.applicationIdSuffix.endsWith("BETA")) {
+    if (!isReleaseTask()) {
         versionName = versionName + ".${versionBuild}"
         applicationId = applicationId + android.buildTypes.debug.applicationIdSuffix
     }
