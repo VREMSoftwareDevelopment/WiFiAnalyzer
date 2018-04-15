@@ -18,7 +18,7 @@
   -->
 
 <resources>
-    <string name="app_copyright">"版权 \u00A9 2015 \u002D 2017"</string>
+    <string name="app_copyright">"版权 \u00A9 2015 \u002D 2018"</string>
 
     <string name="navigation_drawer_open">"打开式导览"</string>
     <string name="navigation_drawer_close">"关闭导览"</string>
