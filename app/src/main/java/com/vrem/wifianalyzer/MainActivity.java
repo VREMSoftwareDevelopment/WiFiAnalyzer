@@ -193,9 +193,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onResume() {
-        super.onResume();
-        MainContext.INSTANCE.getScannerService().resume();
-        updateActionBar();
+        try {
+            super.onResume();
+            MainContext.INSTANCE.getScannerService().resume();
+            updateActionBar();
+        } catch (Exception e) {
+            reloadActivity();
+        }
     }
 
     @Override

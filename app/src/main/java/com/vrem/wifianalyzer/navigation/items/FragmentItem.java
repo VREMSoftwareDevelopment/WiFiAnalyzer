@@ -39,10 +39,12 @@ class FragmentItem implements NavigationItem {
 
     @Override
     public void activate(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, @NonNull NavigationMenu navigationMenu) {
-        mainActivity.setCurrentNavigationMenu(navigationMenu);
-        startFragment(mainActivity);
-        mainActivity.setTitle(menuItem.getTitle());
-        mainActivity.updateActionBar();
+        FragmentManager fragmentManager = mainActivity.getSupportFragmentManager();
+        if (fragmentManager.isStateSaved()) {
+            return;
+        }
+        updateMainActivity(mainActivity, menuItem, navigationMenu);
+        startFragment(fragmentManager);
     }
 
     @Override
@@ -50,14 +52,20 @@ class FragmentItem implements NavigationItem {
         return registered;
     }
 
-    private void startFragment(@NonNull MainActivity mainActivity) {
-        FragmentManager fragmentManager = mainActivity.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_fragment, fragment).commit();
-    }
-
     @NonNull
     Fragment getFragment() {
         return fragment;
     }
+
+    private void startFragment(FragmentManager fragmentManager) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_fragment, fragment).commit();
+    }
+
+    private void updateMainActivity(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, @NonNull NavigationMenu navigationMenu) {
+        mainActivity.setCurrentNavigationMenu(navigationMenu);
+        mainActivity.setTitle(menuItem.getTitle());
+        mainActivity.updateActionBar();
+    }
+
 }
