@@ -38,6 +38,7 @@ import java.util.TreeSet;
 
 public class LocaleUtils {
     static final Locale SPANISH = new Locale("es");
+    static final Locale POLISH = new Locale("pl");
     static final Locale PORTUGUESE = new Locale("pt");
     static final Locale RUSSIAN = new Locale("ru");
     private static final String SEPARATOR = "_";
@@ -151,8 +152,16 @@ public class LocaleUtils {
             COUNTRIES_LOCALES = new TreeMap<>();
             IterableUtils.forEach(AVAILABLE_LOCALES, new CountryClosure());
             SUPPORTED_LOCALES = new ArrayList<>(new HashSet<>(Arrays.asList(
-                Locale.GERMAN, Locale.ENGLISH, SPANISH, Locale.FRENCH, Locale.ITALIAN, PORTUGUESE, RUSSIAN,
-                Locale.SIMPLIFIED_CHINESE, Locale.TRADITIONAL_CHINESE, DEFAULT)));
+                Locale.GERMAN,
+                Locale.ENGLISH,
+                SPANISH,
+                Locale.FRENCH,
+                Locale.ITALIAN,
+                POLISH,
+                PORTUGUESE,
+                RUSSIAN,
+                Locale.SIMPLIFIED_CHINESE,
+                Locale.TRADITIONAL_CHINESE, DEFAULT)));
         }
 
         private static class CountryClosure implements Closure<Locale> {
