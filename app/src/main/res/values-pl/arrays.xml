@@ -30,6 +30,17 @@
         <item>Kanał</item>
     </string-array>
 
+    <string-array name="connection_view_array">
+        <item>Complete</item>
+        <item>Compact</item>
+        <item>Hide</item>
+    </string-array>
+
+    <string-array name="ap_view_array">
+        <item>Complete</item>
+        <item>Compact</item>
+    </string-array>
+
     <string-array name="graph_legend_array">
         <item>Lewo</item>
         <item>Prawo</item>
