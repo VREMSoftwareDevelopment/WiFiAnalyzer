@@ -22,7 +22,7 @@
 
     <string name="navigation_drawer_open">"Navigationsleiste öffnen"</string>
     <string name="navigation_drawer_close">"Navigationsleiste schließen"</string>
-    <string name="scanner_message">"Wird gescannt..."</string>
+    <string name="scanner_message">"Wird gescannt &#8230;"</string>
     <string name="scanner_pause">"Pausieren"</string>
     <string name="scanner_play">"Wiedergabe"</string>
 

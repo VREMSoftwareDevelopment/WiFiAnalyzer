@@ -22,7 +22,7 @@
 
     <string name="navigation_drawer_open">"Afficher le volet de navigation"</string>
     <string name="navigation_drawer_close">"Masquer le volet de navigation"</string>
-    <string name="scanner_message">"Analyse en cours..."</string>
+    <string name="scanner_message">"Analyse en cours &#8230;"</string>
     <string name="scanner_pause">"Interrompre"</string>
     <string name="scanner_play">"Lire"</string>
 

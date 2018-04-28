@@ -22,7 +22,7 @@
 
     <string name="navigation_drawer_open">"Apri pannello laterale"</string>
     <string name="navigation_drawer_close">"Chiudi pannello laterale"</string>
-    <string name="scanner_message">"Ricerca in corso..."</string>
+    <string name="scanner_message">"Ricerca in corso &#8230;"</string>
     <string name="scanner_pause">"Pristabdyti"</string>
     <string name="scanner_play">"Leisti"</string>
 

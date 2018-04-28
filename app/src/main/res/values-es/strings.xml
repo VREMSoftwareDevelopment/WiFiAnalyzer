@@ -24,7 +24,7 @@
 
     <string name="navigation_drawer_open">"Abrir panel de navegación"</string>
     <string name="navigation_drawer_close">"Cerrar el panel de navegación"</string>
-    <string name="scanner_message">"Analizando..."</string>
+    <string name="scanner_message">"Analizando &#8230;"</string>
     <string name="scanner_pause">"Pausar"</string>
     <string name="scanner_play">"Reproducir"</string>
 

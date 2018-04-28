@@ -22,7 +22,7 @@
 
     <string name="navigation_drawer_open">"開啟導覽欄"</string>
     <string name="navigation_drawer_close">"關閉導覽欄"</string>
-    <string name="scanner_message">"掃描中..."</string>
+    <string name="scanner_message">"掃描中 &#8230;"</string>
     <string name="scanner_pause">"暫停"</string>
     <string name="scanner_play">"播放"</string>
 

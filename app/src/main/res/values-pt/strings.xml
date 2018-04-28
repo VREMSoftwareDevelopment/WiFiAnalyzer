@@ -22,7 +22,7 @@
 
     <string name="navigation_drawer_open">"Abrir gaveta de notificações"</string>
     <string name="navigation_drawer_close">"Fechar gaveta de notificações"</string>
-    <string name="scanner_message">"Verificando..."</string>
+    <string name="scanner_message">"Verificando &#8230;"</string>
     <string name="scanner_pause">"Pausar"</string>
     <string name="scanner_play">"Reproduzir"</string>
 

@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ WiFiAnalyzer
   ~ Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
@@ -21,7 +22,7 @@
 
     <string name="navigation_drawer_open">"Открыть панель навигации"</string>
     <string name="navigation_drawer_close">"Закрыть панель навигации"</string>
-    <string name="scanner_message">"Сканирование..."</string>
+    <string name="scanner_message">"Сканирование &#8230;"</string>
     <string name="scanner_pause">"Приостановить"</string>
     <string name="scanner_play">"Воспроизвести"</string>
 

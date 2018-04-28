@@ -22,7 +22,7 @@
 
     <string name="navigation_drawer_open">"打开式导览"</string>
     <string name="navigation_drawer_close">"关闭导览"</string>
-    <string name="scanner_message">"正在扫描..."</string>
+    <string name="scanner_message">"正在扫描 &#8230;"</string>
     <string name="scanner_pause">"暂停"</string>
     <string name="scanner_play">"播放"</string>
 
