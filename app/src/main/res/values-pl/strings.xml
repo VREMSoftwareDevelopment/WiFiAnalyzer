@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ WiFiAnalyzer
+  ~ Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
+  -->
+
+<resources>
+    <!-- application start -->
+    <string name="app_copyright">Copyright \u00A9 2015 \u002D 2017</string>
+    <!-- application end -->
+
+    <string name="navigation_drawer_open">Otwórz szufladę aplikacji</string>
+    <string name="navigation_drawer_close">Zamnkij szufladę aplikacji</string>
+    <string name="scanner_message">Skanowanie...</string>
+    <string name="scanner_pause">Zapauzuj</string>
+    <string name="scanner_play">Wznów</string>
+
+    <!-- action start -->
+    <string name="action_access_points">Punkty Dostępu</string>
+    <string name="action_channel_rating">Ocena Kanału</string>
+    <string name="action_channel_graph">Wykres Kanału</string>
+    <string name="action_time_graph">Wykres Czasowy</string>
+    <string name="action_export">Exportuj</string>
+    <string name="action_channel_available">Dotępne Kanały</string>
+    <string name="action_vendors">Vendors</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="action_about">O aplikacji</string>
+    <!-- action end -->
+
+    <string name="export_not_available">Export nie dostępny</string>
+
+    <string name="channel_rating_best">Najlepsze kanały:</string>
+    <string name="channel_rating_best_none">Brak</string>
+    <string name="channel_rating_best_alternative">, spróbuj alternatywne Pasmo WiFi</string>
+    <string name="channel_rating_heading_rating">Ocena Kanału</string>
+    <string name="channel_rating_heading_number">Numer Kanału</string>
+    <string name="channel_rating_heading_count">Liczba Punktów Dostępu</string>
+    <string name="channel_short_name">CH</string>
+
+    <string name="graph_channel_axis_x">Kanały WiFi</string>
+    <string name="graph_time_axis_x">Liczba skanów</string>
+    <string name="graph_axis_y">Siła Sygnału (dBm)</string>
+
+    <!-- settings start -->
+    <string name="start_menu_title">Start</string>
+
+    <string name="country_code_title">Kraj</string>
+
+    <string name="scan_interval_title">Interwał Skanowania</string>
+    <string name="scan_interval_summary">%d sekund pomiędzy każdym skanem</string>
+
+    <string name="channel_graph_legend_title">Wyświetlanie Legendy Wyskresu Kanałów</string>
+    <string name="time_graph_legend_title">Wyświetlanie Legendy Wykresu Czasu</string>
+    <string name="theme_title">Motyw</string>
+    <string name="wifi_off_on_exit_title">Wyłączanie WiFi przy wyjściu</string>
+    <string name="language_title">Język</string>
+    <!-- settings end -->
+
+    <!-- about start -->
+    <string name="about_license_title">Licencja:</string>
+    <string name="about_description_title">Opis:</string>
+    <string name="about_description_text">Zoptymalizuj twoją sieć WiFi, poprzez sprawdzanie statusu sieci WiFi, siłę sygnały i indentyfikowanie zatłoczonych kanałów używając otwartoźródłowej aplikacji WiFiAnalyzer dla Androida</string>
+    <string name="about_libraries_title">Użyte Bibloteki:</string>
+    <string name="about_contributor_title">Współtwórcy</string>
+    <string name="about_write_review">Napisz Recenzje</string>
+    <!-- about end -->
+
+    <!-- security start -->
+    <string name="security_none">Nic</string>
+    <!-- security end -->
+
+    <!-- filter start -->
+    <string name="filter_title">Filter</string>
+    <string name="filter_close">Zamknij</string>
+    <string name="filter_reset">Resetuj</string>
+    <string name="filter_apply">Zatwierdź</string>
+    <string name="filter_wifi_band_title">Pasmo WiFi</string>
+    <string name="filter_strength_title">Siła Sygnału</string>
+    <string name="filter_security_title">Bezpieczeństwo</string>
+    <!-- filter end -->
+</resources>
