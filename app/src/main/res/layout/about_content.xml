@@ -76,9 +76,9 @@
                     android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/about_copyright"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_copyright"
                     android:textStyle="bold"/>
             </LinearLayout>
         </LinearLayout>

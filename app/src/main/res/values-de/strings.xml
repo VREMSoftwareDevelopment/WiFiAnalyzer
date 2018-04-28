@@ -18,7 +18,7 @@
   -->
 
 <resources>
-    <string name="app_copyright">"Copyright \u00A9 2015 \u002D 2018"</string>
+    <string name="app_copyright">"Copyright \u00A9 2015 \u002D "</string>
 
     <string name="navigation_drawer_open">"Navigationsleiste öffnen"</string>
     <string name="navigation_drawer_close">"Navigationsleiste schließen"</string>

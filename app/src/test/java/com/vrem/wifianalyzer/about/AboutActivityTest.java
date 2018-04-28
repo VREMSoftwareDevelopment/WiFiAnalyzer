@@ -40,6 +40,9 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -69,7 +72,7 @@ public class AboutActivityTest {
     }
 
     @Test
-    public void testOnOptionsItemSelectedWithHome() throws Exception {
+    public void testOnOptionsItemSelectedWithHome() {
         // setup
         when(menuItem.getItemId()).thenReturn(android.R.id.home);
         // execute
@@ -80,7 +83,7 @@ public class AboutActivityTest {
     }
 
     @Test
-    public void testOnOptionsItemSelected() throws Exception {
+    public void testOnOptionsItemSelected() {
         // setup
         when(menuItem.getItemId()).thenReturn(-android.R.id.home);
         // execute
@@ -91,7 +94,7 @@ public class AboutActivityTest {
     }
 
     @Test
-    public void testVersionNumber() throws Exception {
+    public void testVersionNumber() {
         // setup
         String expected = BuildConfig.VERSION_NAME + " - " + BuildConfig.VERSION_CODE
             + " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")";
@@ -103,7 +106,7 @@ public class AboutActivityTest {
     }
 
     @Test
-    public void testVersionNumberWithConfiguration() throws Exception {
+    public void testVersionNumberWithConfiguration() {
         // setup
         String expected = BuildConfig.VERSION_NAME + " - " + BuildConfig.VERSION_CODE + "SL"
             + " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")";
@@ -118,7 +121,7 @@ public class AboutActivityTest {
     }
 
     @Test
-    public void testPackageName() throws Exception {
+    public void testPackageName() {
         // execute
         TextView actual = fixture.findViewById(R.id.about_package_name);
         // validate
@@ -127,7 +130,7 @@ public class AboutActivityTest {
     }
 
     @Test
-    public void testApplicationName() throws Exception {
+    public void testApplicationName() {
         // setup
         String expectedName = fixture.getString(R.string.about_application_name);
         // execute
@@ -138,7 +141,19 @@ public class AboutActivityTest {
     }
 
     @Test
-    public void testWriteReview() throws Exception {
+    public void testCopyright() {
+        // setup
+        String expectedName = fixture.getString(R.string.app_copyright)
+            + new SimpleDateFormat("yyyy").format(new Date());
+        // execute
+        TextView actual = fixture.findViewById(R.id.about_copyright);
+        // validate
+        assertNotNull(actual);
+        assertEquals(expectedName, actual.getText());
+    }
+
+    @Test
+    public void testWriteReview() {
         // setup
         View actual = fixture.findViewById(R.id.writeReview);
         // execute
@@ -148,7 +163,7 @@ public class AboutActivityTest {
     }
 
     @Test
-    public void testShowALv2() throws Exception {
+    public void testShowALv2() {
         // setup
         View view = fixture.findViewById(R.id.license);
         // execute
@@ -161,7 +176,7 @@ public class AboutActivityTest {
     }
 
     @Test
-    public void testShowGPLv3() throws Exception {
+    public void testShowGPLv3() {
         // setup
         View view = fixture.findViewById(R.id.license);
         // execute
@@ -174,7 +189,7 @@ public class AboutActivityTest {
     }
 
     @Test
-    public void testShowContributors() throws Exception {
+    public void testShowContributors() {
         // setup
         View view = fixture.findViewById(R.id.contributors);
         // execute

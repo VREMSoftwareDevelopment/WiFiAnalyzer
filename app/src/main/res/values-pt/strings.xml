@@ -18,7 +18,7 @@
   -->
 
 <resources>
-    <string name="app_copyright">"Copyright \u00A9 2015 \u002D 2018"</string>
+    <string name="app_copyright">"Copyright \u00A9 2015 \u002D "</string>
 
     <string name="navigation_drawer_open">"Abrir gaveta de notificações"</string>
     <string name="navigation_drawer_close">"Fechar gaveta de notificações"</string>
