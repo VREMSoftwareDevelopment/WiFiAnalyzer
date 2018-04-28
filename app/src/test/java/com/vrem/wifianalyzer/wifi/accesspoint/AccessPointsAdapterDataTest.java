@@ -77,7 +77,7 @@ public class AccessPointsAdapterDataTest {
     }
 
     @Test
-    public void testBeforeUpdate() throws Exception {
+    public void testBeforeUpdate() {
         assertEquals(0, fixture.parentsCount());
         assertEquals(0, fixture.childrenCount(0));
         assertEquals(WiFiDetail.EMPTY, fixture.parent(0));
@@ -87,7 +87,7 @@ public class AccessPointsAdapterDataTest {
     }
 
     @Test
-    public void testAfterUpdateWithGroupByChannel() throws Exception {
+    public void testAfterUpdateWithGroupByChannel() {
         // setup
         List<WiFiDetail> wiFiDetails = withWiFiDetails();
         withSettings();
@@ -111,7 +111,7 @@ public class AccessPointsAdapterDataTest {
     }
 
     @Test
-    public void testOnGroupCollapsed() throws Exception {
+    public void testOnGroupCollapsed() {
         // setup
         int index = 11;
         List<WiFiDetail> wiFiDetails = fixture.getWiFiDetails();
@@ -122,7 +122,7 @@ public class AccessPointsAdapterDataTest {
     }
 
     @Test
-    public void testOnGroupExpanded() throws Exception {
+    public void testOnGroupExpanded() {
         // setup
         int index = 22;
         List<WiFiDetail> wiFiDetails = fixture.getWiFiDetails();

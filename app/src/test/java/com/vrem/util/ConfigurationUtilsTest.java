@@ -59,7 +59,7 @@ public class ConfigurationUtilsTest {
     }
 
     @Test
-    public void testCreateContext() throws Exception {
+    public void testCreateContext() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             validateCreateContextWithNougat();
         } else {
@@ -68,7 +68,7 @@ public class ConfigurationUtilsTest {
     }
 
     @TargetApi(Build.VERSION_CODES.N)
-    private void validateCreateContextWithNougat() throws Exception {
+    private void validateCreateContextWithNougat() {
         // setup
         when(context.getResources()).thenReturn(resources);
         when(resources.getConfiguration()).thenReturn(configuration);
@@ -85,7 +85,7 @@ public class ConfigurationUtilsTest {
     }
 
     @SuppressWarnings("deprecation")
-    private void validateCreateContextWithLegacy() throws Exception {
+    private void validateCreateContextWithLegacy() {
         // setup
         when(context.getResources()).thenReturn(resources);
         when(resources.getConfiguration()).thenReturn(configuration);

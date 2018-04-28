@@ -1,7 +1,7 @@
 /*
  * WiFiAnalyzer
  * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
- *  
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -51,12 +51,12 @@ public class SecurityAdapterTest {
     }
 
     @Test
-    public void testIsActive() throws Exception {
+    public void testIsActive() {
         assertFalse(fixture.isActive());
     }
 
     @Test
-    public void testIsActivateWithChanges() throws Exception {
+    public void testIsActivateWithChanges() {
         // setup
         fixture.toggle(Security.WPA);
         // execute & validate
@@ -64,12 +64,12 @@ public class SecurityAdapterTest {
     }
 
     @Test
-    public void testContains() throws Exception {
+    public void testContains() {
         IterableUtils.forEach(EnumUtils.values(Security.class), new ContainsClosure());
     }
 
     @Test
-    public void testToggleRemoves() throws Exception {
+    public void testToggleRemoves() {
         // execute
         boolean actual = fixture.toggle(Security.WEP);
         // validate
@@ -78,7 +78,7 @@ public class SecurityAdapterTest {
     }
 
     @Test
-    public void testToggleAdds() throws Exception {
+    public void testToggleAdds() {
         // setup
         fixture.toggle(Security.WPA);
         // execute
@@ -89,7 +89,7 @@ public class SecurityAdapterTest {
     }
 
     @Test
-    public void testRemovingAllWillNotRemoveLast() throws Exception {
+    public void testRemovingAllWillNotRemoveLast() {
         // setup
         Set<Security> values = EnumUtils.values(Security.class);
         // execute
@@ -100,13 +100,13 @@ public class SecurityAdapterTest {
     }
 
     @Test
-    public void testGetColorWithExisting() throws Exception {
+    public void testGetColorWithExisting() {
         // execute & validate
         assertEquals(R.color.connected, fixture.getColor(Security.WPA));
     }
 
     @Test
-    public void testGetColorWithNonExisting() throws Exception {
+    public void testGetColorWithNonExisting() {
         // setup
         fixture.toggle(Security.WPA);
         // execute & validate
@@ -114,7 +114,7 @@ public class SecurityAdapterTest {
     }
 
     @Test
-    public void testSave() throws Exception {
+    public void testSave() {
         // setup
         Set<Security> expected = fixture.getValues();
         // execute

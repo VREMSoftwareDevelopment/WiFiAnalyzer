@@ -79,7 +79,7 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testAddSeriesDataIncreaseXValue() throws Exception {
+    public void testAddSeriesDataIncreaseXValue() {
         // setup
         assertEquals(0, fixture.getXValue());
         // execute
@@ -89,7 +89,7 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testAddSeriesDataIncreaseCounts() throws Exception {
+    public void testAddSeriesDataIncreaseCounts() {
         // setup
         assertEquals(0, fixture.getScanCount());
         // execute
@@ -99,7 +99,7 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testAddSeriesDoesNotIncreasesScanCountWhenLimitIsReached() throws Exception {
+    public void testAddSeriesDoesNotIncreasesScanCountWhenLimitIsReached() {
         // setup
         fixture.setScanCount(GraphConstants.MAX_SCAN_COUNT);
         // execute
@@ -109,7 +109,7 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testAddSeriesSetHorizontalLabelsVisible() throws Exception {
+    public void testAddSeriesSetHorizontalLabelsVisible() {
         // setup
         fixture.setScanCount(1);
         // execute
@@ -120,7 +120,7 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testAddSeriesDoesNotSetHorizontalLabelsVisible() throws Exception {
+    public void testAddSeriesDoesNotSetHorizontalLabelsVisible() {
         // execute
         fixture.addSeriesData(graphViewWrapper, Collections.<WiFiDetail>emptyList(), GraphConstants.MAX_Y);
         // validate
@@ -128,7 +128,7 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testAdjustDataAppendsData() throws Exception {
+    public void testAdjustDataAppendsData() {
         // setup
         Set<WiFiDetail> wiFiDetails = Collections.emptySet();
         List<WiFiDetail> difference = makeWiFiDetails();
@@ -144,7 +144,7 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testGetNewSeries() throws Exception {
+    public void testGetNewSeries() {
         // setup
         Set<WiFiDetail> wiFiDetails = new TreeSet<>(makeWiFiDetails());
         Set<WiFiDetail> moreWiFiDetails = new TreeSet<>(makeMoreWiFiDetails());
@@ -158,7 +158,7 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testAddDataToExistingSeries() throws Exception {
+    public void testAddDataToExistingSeries() {
         // setup
         Integer scanCount = fixture.getScanCount();
         int xValue = fixture.getXValue();
@@ -178,7 +178,7 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testAddDataToExistingSeriesExpectLevelToEqualToLevelMax() throws Exception {
+    public void testAddDataToExistingSeriesExpectLevelToEqualToLevelMax() {
         // setup
         int expectedLevel = LEVEL - 10;
         Integer scanCount = fixture.getScanCount();
@@ -198,7 +198,7 @@ public class DataManagerTest {
 
 
     @Test
-    public void testAddDataNewSeries() throws Exception {
+    public void testAddDataNewSeries() {
         // setup
         WiFiDetail wiFiDetail = makeWiFiDetailConnected("SSID");
         when(graphViewWrapper.isNewSeries(wiFiDetail)).thenReturn(true);

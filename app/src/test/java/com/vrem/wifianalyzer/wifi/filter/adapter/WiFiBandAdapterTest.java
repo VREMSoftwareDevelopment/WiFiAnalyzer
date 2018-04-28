@@ -51,12 +51,12 @@ public class WiFiBandAdapterTest {
     }
 
     @Test
-    public void testIsActive() throws Exception {
+    public void testIsActive() {
         assertFalse(fixture.isActive());
     }
 
     @Test
-    public void testIsActivateWithChanges() throws Exception {
+    public void testIsActivateWithChanges() {
         // setup
         fixture.toggle(WiFiBand.GHZ2);
         // execute & validate
@@ -64,12 +64,12 @@ public class WiFiBandAdapterTest {
     }
 
     @Test
-    public void testContains() throws Exception {
+    public void testContains() {
         IterableUtils.forEach(EnumUtils.values(WiFiBand.class), new ContainsClosure());
     }
 
     @Test
-    public void testToggleRemoves() throws Exception {
+    public void testToggleRemoves() {
         // execute
         boolean actual = fixture.toggle(WiFiBand.GHZ2);
         // validate
@@ -78,7 +78,7 @@ public class WiFiBandAdapterTest {
     }
 
     @Test
-    public void testToggleAdds() throws Exception {
+    public void testToggleAdds() {
         // setup
         fixture.toggle(WiFiBand.GHZ5);
         // execute
@@ -89,7 +89,7 @@ public class WiFiBandAdapterTest {
     }
 
     @Test
-    public void testRemovingAllWillNotRemoveLast() throws Exception {
+    public void testRemovingAllWillNotRemoveLast() {
         // setup
         Set<WiFiBand> values = EnumUtils.values(WiFiBand.class);
         // execute
@@ -100,13 +100,13 @@ public class WiFiBandAdapterTest {
     }
 
     @Test
-    public void testGetColorWithExisting() throws Exception {
+    public void testGetColorWithExisting() {
         // execute & validate
         assertEquals(R.color.connected, fixture.getColor(WiFiBand.GHZ2));
     }
 
     @Test
-    public void testGetColorWithNonExisting() throws Exception {
+    public void testGetColorWithNonExisting() {
         // setup
         fixture.toggle(WiFiBand.GHZ2);
         // execute & validate
@@ -114,7 +114,7 @@ public class WiFiBandAdapterTest {
     }
 
     @Test
-    public void testSave() throws Exception {
+    public void testSave() {
         // setup
         Set<WiFiBand> expected = fixture.getValues();
         // execute

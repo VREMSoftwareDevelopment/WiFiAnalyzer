@@ -55,7 +55,7 @@ public class TimeGraphAdapterTest {
     }
 
     @Test
-    public void testGetGraphViewNotifiers() throws Exception {
+    public void testGetGraphViewNotifiers() {
         // execute
         List<GraphViewNotifier> graphViewNotifiers = fixture.getGraphViewNotifiers();
         // validate
@@ -63,7 +63,7 @@ public class TimeGraphAdapterTest {
     }
 
     @Test
-    public void testGetGraphViews() throws Exception {
+    public void testGetGraphViews() {
         // execute
         List<GraphView> graphViews = fixture.getGraphViews();
         // validate

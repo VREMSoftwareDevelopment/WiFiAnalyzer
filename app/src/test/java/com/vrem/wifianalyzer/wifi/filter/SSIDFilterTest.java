@@ -54,7 +54,7 @@ public class SSIDFilterTest {
     private Editable editable;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         RobolectricUtil.INSTANCE.getActivity();
 
         dialog = mock(Dialog.class);
@@ -68,7 +68,7 @@ public class SSIDFilterTest {
     }
 
     @Test
-    public void testSSIDFilterWithValues() throws Exception {
+    public void testSSIDFilterWithValues() {
         // setup
         Set<String> values = new HashSet<>(Arrays.asList("", " ", "ABC", " JDS "));
         when(ssidAdapter.getValues()).thenReturn(values);
@@ -84,7 +84,7 @@ public class SSIDFilterTest {
     }
 
     @Test
-    public void testOnChangeAfterTextChangedWithNull() throws Exception {
+    public void testOnChangeAfterTextChangedWithNull() {
         // setup
         SSIDFilter.OnChange onChange = new SSIDFilter.OnChange(ssidAdapter);
         // execute
@@ -94,7 +94,7 @@ public class SSIDFilterTest {
     }
 
     @Test
-    public void testOnChangeAfterTextChangedWithValues() throws Exception {
+    public void testOnChangeAfterTextChangedWithValues() {
         // setup
         String value = " ABS ADF ";
         SSIDFilter.OnChange onChange = new SSIDFilter.OnChange(ssidAdapter);

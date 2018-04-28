@@ -38,7 +38,7 @@ public class GraphViewAddTest {
     private ViewGroup viewGroup;
 
     @Test
-    public void testSetGraphView() throws Exception {
+    public void testSetGraphView() {
         // setup
         GraphViewAdd fixture = new GraphViewAdd(viewGroup);
         // execute

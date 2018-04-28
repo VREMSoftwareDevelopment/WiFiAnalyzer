@@ -33,7 +33,7 @@ import static org.junit.Assert.assertNotNull;
 public class SecurityFilterTest {
 
     @Test
-    public void testMapping() throws Exception {
+    public void testMapping() {
         Set<Security> securities = EnumUtils.values(Security.class);
         assertEquals(securities.size(), SecurityFilter.ids.size());
         IterableUtils.forEach(securities, new MappingClosure());

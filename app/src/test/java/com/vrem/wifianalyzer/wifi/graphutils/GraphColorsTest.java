@@ -67,7 +67,7 @@ public class GraphColorsTest {
     }
 
     @Test
-    public void testGetColorStartsOverWhenEndIsReached() throws Exception {
+    public void testGetColorStartsOverWhenEndIsReached() {
         assertEquals(graphColors[2], fixture.getColor());
         assertEquals(graphColors[1], fixture.getColor());
         assertEquals(graphColors[0], fixture.getColor());
@@ -75,7 +75,7 @@ public class GraphColorsTest {
     }
 
     @Test
-    public void testAddColorAddsColorToAvailablePool() throws Exception {
+    public void testAddColorAddsColorToAvailablePool() {
         GraphColor expected = graphColors[2];
         assertEquals(expected, fixture.getColor());
         fixture.addColor(expected.getPrimary());
@@ -83,7 +83,7 @@ public class GraphColorsTest {
     }
 
     @Test
-    public void testAddColorDoesNotAddNonExistingColor() throws Exception {
+    public void testAddColorDoesNotAddNonExistingColor() {
         GraphColor expected = graphColors[1];
         GraphColor graphColor = graphColors[2];
         assertEquals(graphColor, fixture.getColor());

@@ -90,12 +90,12 @@ public class ScannerTest {
     }
 
     @Test
-    public void testPeriodicScanIsSet() throws Exception {
+    public void testPeriodicScanIsSet() {
         assertNotNull(fixture.getPeriodicScan());
     }
 
     @Test
-    public void testRegister() throws Exception {
+    public void testRegister() {
         // setup
         assertEquals(3, fixture.getUpdateNotifiers().size());
         // execute
@@ -105,7 +105,7 @@ public class ScannerTest {
     }
 
     @Test
-    public void testUnregister() throws Exception {
+    public void testUnregister() {
         // setup
         assertEquals(3, fixture.getUpdateNotifiers().size());
         // execute
@@ -115,7 +115,7 @@ public class ScannerTest {
     }
 
     @Test
-    public void testUpdateWithWiFiData() throws Exception {
+    public void testUpdateWithWiFiData() {
         // setup
         withCache();
         withTransformer();
@@ -133,7 +133,7 @@ public class ScannerTest {
     }
 
     @Test
-    public void testUpdateWithWiFiManager() throws Exception {
+    public void testUpdateWithWiFiManager() {
         // setup
         withCache();
         withWiFiManager();
@@ -144,7 +144,7 @@ public class ScannerTest {
     }
 
     @Test
-    public void testUpdateWithCache() throws Exception {
+    public void testUpdateWithCache() {
         // setup
         withCache();
         withWiFiManager();
@@ -155,7 +155,7 @@ public class ScannerTest {
     }
 
     @Test
-    public void testSetWiFiOnExitOff() throws Exception {
+    public void testSetWiFiOnExitOff() {
         // setup
         when(settings.isWiFiOffOnExit()).thenReturn(true);
         // execute
@@ -166,7 +166,7 @@ public class ScannerTest {
     }
 
     @Test
-    public void testSetWiFiOnExitDoNothing() throws Exception {
+    public void testSetWiFiOnExitDoNothing() {
         // setup
         when(settings.isWiFiOffOnExit()).thenReturn(false);
         // execute
@@ -211,7 +211,7 @@ public class ScannerTest {
     }
 
     @Test
-    public void testPause() throws Exception {
+    public void testPause() {
         // setup
         fixture.setPeriodicScan(periodicScan);
         // execute
@@ -221,7 +221,7 @@ public class ScannerTest {
     }
 
     @Test
-    public void testResume() throws Exception {
+    public void testResume() {
         // setup
         fixture.setPeriodicScan(periodicScan);
         // execute

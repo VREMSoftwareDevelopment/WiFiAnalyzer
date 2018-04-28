@@ -29,7 +29,7 @@ public class WiFiAdditionalTest {
     private static final String VENDOR_NAME = "VendorName";
 
     @Test
-    public void testWiFiAdditionalWithWiFiConnection() throws Exception {
+    public void testWiFiAdditionalWithWiFiConnection() {
         // setup
         WiFiConnection wiFiConnection = new WiFiConnection("SSID", "BSSID", "192.168.1.10", 22);
         // execute
@@ -40,7 +40,7 @@ public class WiFiAdditionalTest {
     }
 
     @Test
-    public void testWiFiAdditional() throws Exception {
+    public void testWiFiAdditional() {
         // execute
         WiFiAdditional fixture = new WiFiAdditional(VENDOR_NAME, false);
         // validate
@@ -49,7 +49,7 @@ public class WiFiAdditionalTest {
     }
 
     @Test
-    public void testWiFiAdditionalWithConfiguredNetwork() throws Exception {
+    public void testWiFiAdditionalWithConfiguredNetwork() {
         // execute
         WiFiAdditional fixture = new WiFiAdditional(VENDOR_NAME, true);
         // validate
@@ -58,7 +58,7 @@ public class WiFiAdditionalTest {
     }
 
     @Test
-    public void testWiFiAdditionalEmpty() throws Exception {
+    public void testWiFiAdditionalEmpty() {
         // validate
         assertEquals(StringUtils.EMPTY, WiFiAdditional.EMPTY.getVendorName());
         assertFalse(WiFiAdditional.EMPTY.isConfiguredNetwork());

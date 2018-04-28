@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 public class FrequencyPredicateTest {
 
     @Test
-    public void testWiFiBandPredicate() throws Exception {
+    public void testWiFiBandPredicate() {
         assertFalse(new FrequencyPredicate(2399).evaluate(WiFiBand.GHZ2));
         assertTrue(new FrequencyPredicate(2400).evaluate(WiFiBand.GHZ2));
         assertTrue(new FrequencyPredicate(2499).evaluate(WiFiBand.GHZ2));

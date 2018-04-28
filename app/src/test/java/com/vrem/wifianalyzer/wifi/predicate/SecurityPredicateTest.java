@@ -34,7 +34,7 @@ import static org.junit.Assert.assertTrue;
 public class SecurityPredicateTest {
 
     @Test
-    public void testSecurityPredicateWithFoundValue() throws Exception {
+    public void testSecurityPredicateWithFoundValue() {
         // setup
         WiFiDetail wiFiDetail = makeWiFiDetail("wpa");
         SecurityPredicate fixture = new SecurityPredicate(Security.WPA);
@@ -46,7 +46,7 @@ public class SecurityPredicateTest {
     }
 
     @Test
-    public void testSecurityPredicateWithNotFoundValue() throws Exception {
+    public void testSecurityPredicateWithNotFoundValue() {
         // setup
         WiFiDetail wiFiDetail = makeWiFiDetail("wep");
         SecurityPredicate fixture = new SecurityPredicate(Security.WPA);

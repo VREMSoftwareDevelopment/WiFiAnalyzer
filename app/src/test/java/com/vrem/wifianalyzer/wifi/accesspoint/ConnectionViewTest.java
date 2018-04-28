@@ -91,7 +91,7 @@ public class ConnectionViewTest {
     }
 
     @Test
-    public void testConnectionGoneWithNoConnectionInformation() throws Exception {
+    public void testConnectionGoneWithNoConnectionInformation() {
         // setup
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         withConnectionInformation(withConnection(WiFiAdditional.EMPTY));
@@ -103,7 +103,7 @@ public class ConnectionViewTest {
     }
 
     @Test
-    public void testConnectionGoneWithConnectionInformationAndHideType() throws Exception {
+    public void testConnectionGoneWithConnectionInformationAndHideType() {
         // setup
         WiFiDetail connection = withConnection(withWiFiAdditional());
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.HIDE);
@@ -117,7 +117,7 @@ public class ConnectionViewTest {
     }
 
     @Test
-    public void testConnectionVisibleWithConnectionInformation() throws Exception {
+    public void testConnectionVisibleWithConnectionInformation() {
         // setup
         WiFiDetail connection = withConnection(withWiFiAdditional());
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
@@ -131,7 +131,7 @@ public class ConnectionViewTest {
     }
 
     @Test
-    public void testConnectionWithConnectionInformation() throws Exception {
+    public void testConnectionWithConnectionInformation() {
         // setup
         WiFiAdditional wiFiAdditional = withWiFiAdditional();
         WiFiDetail connection = withConnection(wiFiAdditional);
@@ -151,7 +151,7 @@ public class ConnectionViewTest {
     }
 
     @Test
-    public void testConnectionWithInvalidLinkSpeed() throws Exception {
+    public void testConnectionWithInvalidLinkSpeed() {
         // setup
         WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, IP_ADDRESS, WiFiConnection.LINK_SPEED_INVALID);
         WiFiDetail connection = withConnection(new WiFiAdditional(StringUtils.EMPTY, wiFiConnection));
@@ -167,7 +167,7 @@ public class ConnectionViewTest {
     }
 
     @Test
-    public void testNoDataIsVisibleWithNoWiFiDetails() throws Exception {
+    public void testNoDataIsVisibleWithNoWiFiDetails() {
         // setup
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
@@ -179,7 +179,7 @@ public class ConnectionViewTest {
     }
 
     @Test
-    public void testNoDataIsGoneWithWiFiDetails() throws Exception {
+    public void testNoDataIsGoneWithWiFiDetails() {
         // setup
         WiFiDetail wiFiDetail = withConnection(WiFiAdditional.EMPTY);
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
@@ -193,7 +193,7 @@ public class ConnectionViewTest {
     }
 
     @Test
-    public void testNoDataIsGoneWithNavigationMenuThatDoesNotHaveOptionMenu() throws Exception {
+    public void testNoDataIsGoneWithNavigationMenuThatDoesNotHaveOptionMenu() {
         // setup
         mainActivity.setCurrentNavigationMenu(NavigationMenu.VENDORS);
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
@@ -206,7 +206,7 @@ public class ConnectionViewTest {
     }
 
     @Test
-    public void testViewCompactAddsPopup() throws Exception {
+    public void testViewCompactAddsPopup() {
         // setup
         WiFiDetail connection = withConnection(withWiFiAdditional());
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPACT);

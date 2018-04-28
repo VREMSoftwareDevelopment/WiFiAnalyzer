@@ -61,7 +61,7 @@ public class NavigationMenuViewTest {
     }
 
     @Test
-    public void testNavigationMenuView() throws Exception {
+    public void testNavigationMenuView() {
         // execute
         Menu menu = navigationView.getMenu();
         // validate
@@ -70,7 +70,7 @@ public class NavigationMenuViewTest {
     }
 
     @Test
-    public void testGetCurrentMenuItem() throws Exception {
+    public void testGetCurrentMenuItem() {
         // setup
         MenuItem expected = getMenuItem(NavigationMenu.ACCESS_POINTS);
         // execute
@@ -82,7 +82,7 @@ public class NavigationMenuViewTest {
     }
 
     @Test
-    public void testGetCurrentNavigationMenu() throws Exception {
+    public void testGetCurrentNavigationMenu() {
         // execute
         NavigationMenu actual = fixture.getCurrentNavigationMenu();
         // validate
@@ -90,7 +90,7 @@ public class NavigationMenuViewTest {
     }
 
     @Test
-    public void testSetCurrentNavigationMenu() throws Exception {
+    public void testSetCurrentNavigationMenu() {
         // setup
         NavigationMenu expected = NavigationMenu.CHANNEL_GRAPH;
         // execute

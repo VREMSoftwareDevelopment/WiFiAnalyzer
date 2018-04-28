@@ -40,7 +40,7 @@ public class NextPrevNavigationOffTest {
     private View view;
 
     @Test
-    public void testApplySwitchesOffOnTouchListener() throws Exception {
+    public void testApplySwitchesOffOnTouchListener() {
         // setup
         NextPrevNavigationOff fixture = new NextPrevNavigationOff();
         when(mainActivity.findViewById(R.id.main_fragment_layout)).thenReturn(view);
@@ -53,7 +53,7 @@ public class NextPrevNavigationOffTest {
 
 
     @Test
-    public void testOnTouchListenerEmptyDoesNotDoAnyEvents() throws Exception {
+    public void testOnTouchListenerEmptyDoesNotDoAnyEvents() {
         assertFalse(NextPrevNavigationOff.ON_TOUCH_LISTENER_EMPTY.onTouch(null, null));
     }
 }

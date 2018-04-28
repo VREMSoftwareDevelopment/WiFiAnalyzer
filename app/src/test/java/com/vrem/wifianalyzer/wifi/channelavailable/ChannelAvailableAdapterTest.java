@@ -78,7 +78,7 @@ public class ChannelAvailableAdapterTest {
     }
 
     @Test
-    public void testGetView() throws Exception {
+    public void testGetView() {
         // setup
         Resources resources = mainActivity.getResources();
         String wiFiBand2 = resources.getString(WiFiBand.GHZ2.getTextResource());

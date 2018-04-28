@@ -49,7 +49,7 @@ public class WiFiDetailTest {
     }
 
     @Test
-    public void testWiFiDetail() throws Exception {
+    public void testWiFiDetail() {
         // setup
         String expectedTitle = SSID + " (" + BSSID + ")";
         // validate
@@ -64,7 +64,7 @@ public class WiFiDetailTest {
     }
 
     @Test
-    public void testGetTitleWithEmptySSID() throws Exception {
+    public void testGetTitleWithEmptySSID() {
         // setup
         String expectedTitle = "*** (" + BSSID + ")";
         fixture = new WiFiDetail(StringUtils.EMPTY, BSSID, WPA, wiFiSignal);
@@ -73,7 +73,7 @@ public class WiFiDetailTest {
     }
 
     @Test
-    public void testEquals() throws Exception {
+    public void testEquals() {
         // setup
         WiFiDetail other = new WiFiDetail(SSID, BSSID, WPA, wiFiSignal);
         // execute & validate
@@ -82,7 +82,7 @@ public class WiFiDetailTest {
     }
 
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         // setup
         WiFiDetail other = new WiFiDetail(SSID, BSSID, WPA, wiFiSignal);
         // execute & validate
@@ -90,7 +90,7 @@ public class WiFiDetailTest {
     }
 
     @Test
-    public void testCompareTo() throws Exception {
+    public void testCompareTo() {
         // setup
         WiFiDetail other = new WiFiDetail(SSID, BSSID, WPA, wiFiSignal);
         // execute & validate
@@ -98,7 +98,7 @@ public class WiFiDetailTest {
     }
 
     @Test
-    public void testIsHidden() throws Exception {
+    public void testIsHidden() {
         // setup
         fixture = new WiFiDetail(StringUtils.EMPTY, BSSID, WPA, wiFiSignal);
         // execute & validate
@@ -106,7 +106,7 @@ public class WiFiDetailTest {
     }
 
     @Test
-    public void testWiFiDetailCopyConstructor() throws Exception {
+    public void testWiFiDetailCopyConstructor() {
         // setup
         WiFiDetail expected = new WiFiDetail(StringUtils.EMPTY, BSSID, WPA, wiFiSignal);
         // execute

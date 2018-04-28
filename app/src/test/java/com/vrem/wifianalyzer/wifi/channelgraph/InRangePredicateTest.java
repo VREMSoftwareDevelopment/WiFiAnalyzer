@@ -39,13 +39,13 @@ public class InRangePredicateTest {
     private InRangePredicate fixture;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         wiFiChannelPair = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelPairs().get(0);
         fixture = new InRangePredicate(wiFiChannelPair);
     }
 
     @Test
-    public void testInRangePredicateWithValidFrequency() throws Exception {
+    public void testInRangePredicateWithValidFrequency() {
         // execute & validate
         assertTrue(fixture.evaluate(makeWiFiDetail(wiFiChannelPair.first.getFrequency())));
         assertTrue(fixture.evaluate(makeWiFiDetail(wiFiChannelPair.second.getFrequency())));
@@ -53,7 +53,7 @@ public class InRangePredicateTest {
     }
 
     @Test
-    public void testInRangePredicateWithInvalidValidFrequency() throws Exception {
+    public void testInRangePredicateWithInvalidValidFrequency() {
         // execute & validate
         assertFalse(fixture.evaluate(makeWiFiDetail(wiFiChannelPair.first.getFrequency() - 1)));
         assertFalse(fixture.evaluate(makeWiFiDetail(wiFiChannelPair.second.getFrequency() + 1)));

@@ -31,7 +31,7 @@ import static org.junit.Assert.assertNotNull;
 public class SplashActivityTest {
 
     @Test
-    public void testSplashActivity() throws Exception {
+    public void testSplashActivity() {
         // execute
         SplashActivity fixture = Robolectric.setupActivity(SplashActivity.class);
         // validate

@@ -50,7 +50,7 @@ public class ScannerActionTest {
     }
 
     @Test
-    public void testExecuteWithPause() throws Exception {
+    public void testExecuteWithPause() {
         // setup
         when(scannerService.isRunning()).thenReturn(true);
         // execute
@@ -62,7 +62,7 @@ public class ScannerActionTest {
     }
 
     @Test
-    public void testExecuteActionWithResume() throws Exception {
+    public void testExecuteActionWithResume() {
         // setup
         when(scannerService.isRunning()).thenReturn(false);
         // execute

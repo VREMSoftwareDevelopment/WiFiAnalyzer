@@ -85,13 +85,13 @@ public class FilterAdapterTest {
     }
 
     @Test
-    public void testIsActive() throws Exception {
+    public void testIsActive() {
         // execute & validate
         assertFalse(fixture.isActive());
     }
 
     @Test
-    public void testGetFilterAdapters() throws Exception {
+    public void testGetFilterAdapters() {
         // execute
         List<? extends BasicFilterAdapter<? extends Serializable>> actual = fixture.getFilterAdapters(true);
         // validate
@@ -99,7 +99,7 @@ public class FilterAdapterTest {
     }
 
     @Test
-    public void testGetFilterAdaptersWithNptAccessPoints() throws Exception {
+    public void testGetFilterAdaptersWithNptAccessPoints() {
         // execute
         List<? extends BasicFilterAdapter<? extends Serializable>> actual = fixture.getFilterAdapters(false);
         // validate
@@ -107,7 +107,7 @@ public class FilterAdapterTest {
     }
 
     @Test
-    public void testIsActiveWhenStrengthFilterIsChanged() throws Exception {
+    public void testIsActiveWhenStrengthFilterIsChanged() {
         // setup
         fixture.getStrengthAdapter().toggle(Strength.THREE);
         // execute & validate
@@ -115,7 +115,7 @@ public class FilterAdapterTest {
     }
 
     @Test
-    public void testIsActiveWhenWiFiBandFilterIsChanged() throws Exception {
+    public void testIsActiveWhenWiFiBandFilterIsChanged() {
         // setup
         fixture.getWiFiBandAdapter().toggle(WiFiBand.GHZ2);
         // execute & validate

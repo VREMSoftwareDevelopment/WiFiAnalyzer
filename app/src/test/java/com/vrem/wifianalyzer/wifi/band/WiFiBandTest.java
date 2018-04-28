@@ -28,24 +28,24 @@ import static org.junit.Assert.assertTrue;
 
 public class WiFiBandTest {
     @Test
-    public void testWiFiBand() throws Exception {
+    public void testWiFiBand() {
         assertEquals(2, WiFiBand.values().length);
     }
 
     @Test
-    public void testGetTextResource() throws Exception {
+    public void testGetTextResource() {
         assertEquals(R.string.wifi_band_2ghz, WiFiBand.GHZ2.getTextResource());
         assertEquals(R.string.wifi_band_5ghz, WiFiBand.GHZ5.getTextResource());
     }
 
     @Test
-    public void testToggle() throws Exception {
+    public void testToggle() {
         assertEquals(WiFiBand.GHZ5, WiFiBand.GHZ2.toggle());
         assertEquals(WiFiBand.GHZ2, WiFiBand.GHZ5.toggle());
     }
 
     @Test
-    public void testIsGHZ_5() throws Exception {
+    public void testIsGHZ_5() {
         assertFalse(WiFiBand.GHZ2.isGHZ5());
         assertTrue(WiFiBand.GHZ5.isGHZ5());
     }

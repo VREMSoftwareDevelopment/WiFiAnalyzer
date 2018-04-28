@@ -41,7 +41,7 @@ public class WiFiConnectionTest {
     }
 
     @Test
-    public void testWiFiConnectionEmpty() throws Exception {
+    public void testWiFiConnectionEmpty() {
         // validate
         assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getSSID());
         assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getBSSID());
@@ -51,7 +51,7 @@ public class WiFiConnectionTest {
     }
 
     @Test
-    public void testWiFiConnection() throws Exception {
+    public void testWiFiConnection() {
         // validate
         assertEquals(SSID, fixture.getSSID());
         assertEquals(BSSID, fixture.getBSSID());
@@ -61,7 +61,7 @@ public class WiFiConnectionTest {
     }
 
     @Test
-    public void testEquals() throws Exception {
+    public void testEquals() {
         // setup
         WiFiConnection other = new WiFiConnection(SSID, BSSID, StringUtils.EMPTY, WiFiConnection.LINK_SPEED_INVALID);
         // execute & validate
@@ -70,7 +70,7 @@ public class WiFiConnectionTest {
     }
 
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         // setup
         WiFiConnection other = new WiFiConnection(SSID, BSSID, StringUtils.EMPTY, WiFiConnection.LINK_SPEED_INVALID);
         // execute & validate

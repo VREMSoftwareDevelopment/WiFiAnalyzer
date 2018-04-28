@@ -84,7 +84,7 @@ public class ChannelGraphViewTest {
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void testUpdate() {
         // setup
         Set<WiFiDetail> newSeries = Collections.emptySet();
         List<WiFiDetail> wiFiDetails = Collections.emptyList();
@@ -119,7 +119,7 @@ public class ChannelGraphViewTest {
     }
 
     @Test
-    public void testGetGraphView() throws Exception {
+    public void testGetGraphView() {
         // setup
         GraphView expected = mock(GraphView.class);
         when(graphViewWrapper.getGraphView()).thenReturn(expected);

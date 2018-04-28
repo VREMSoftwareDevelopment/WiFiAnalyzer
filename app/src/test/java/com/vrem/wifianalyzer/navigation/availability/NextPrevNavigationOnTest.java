@@ -41,7 +41,7 @@ public class NextPrevNavigationOnTest {
     private View view;
 
     @Test
-    public void testApplySetsSwipeOnTouchListener() throws Exception {
+    public void testApplySetsSwipeOnTouchListener() {
         // setup
         NextPrevNavigationOn fixture = new NextPrevNavigationOn();
         when(mainActivity.findViewById(R.id.main_fragment_layout)).thenReturn(view);

@@ -31,12 +31,12 @@ import static org.junit.Assert.assertTrue;
 public class NavigationMenuTest {
 
     @Test
-    public void testNavigationMenu() throws Exception {
+    public void testNavigationMenu() {
         assertEquals(9, NavigationMenu.values().length);
     }
 
     @Test
-    public void testGetNavigationItem() throws Exception {
+    public void testGetNavigationItem() {
         assertEquals(NavigationItemFactory.ACCESS_POINTS, NavigationMenu.ACCESS_POINTS.getNavigationItem());
         assertEquals(NavigationItemFactory.CHANNEL_RATING, NavigationMenu.CHANNEL_RATING.getNavigationItem());
         assertEquals(NavigationItemFactory.CHANNEL_GRAPH, NavigationMenu.CHANNEL_GRAPH.getNavigationItem());
@@ -49,7 +49,7 @@ public class NavigationMenuTest {
     }
 
     @Test
-    public void testGetTitle() throws Exception {
+    public void testGetTitle() {
         assertEquals(R.string.action_access_points, NavigationMenu.ACCESS_POINTS.getTitle());
         assertEquals(R.string.action_channel_rating, NavigationMenu.CHANNEL_RATING.getTitle());
         assertEquals(R.string.action_channel_graph, NavigationMenu.CHANNEL_GRAPH.getTitle());
@@ -62,14 +62,14 @@ public class NavigationMenuTest {
     }
 
     @Test
-    public void testIsWiFiBandSwitchableTrue() throws Exception {
+    public void testIsWiFiBandSwitchableTrue() {
         assertTrue(NavigationMenu.CHANNEL_RATING.isWiFiBandSwitchable());
         assertTrue(NavigationMenu.CHANNEL_GRAPH.isWiFiBandSwitchable());
         assertTrue(NavigationMenu.TIME_GRAPH.isWiFiBandSwitchable());
     }
 
     @Test
-    public void testIsWiFiBandSwitchableFalse() throws Exception {
+    public void testIsWiFiBandSwitchableFalse() {
         assertFalse(NavigationMenu.ACCESS_POINTS.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.CHANNEL_AVAILABLE.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.EXPORT.isWiFiBandSwitchable());
@@ -79,7 +79,7 @@ public class NavigationMenuTest {
     }
 
     @Test
-    public void testIsRegisteredTrue() throws Exception {
+    public void testIsRegisteredTrue() {
         assertTrue(NavigationMenu.ACCESS_POINTS.isRegistered());
         assertTrue(NavigationMenu.CHANNEL_RATING.isRegistered());
         assertTrue(NavigationMenu.CHANNEL_GRAPH.isRegistered());
@@ -87,7 +87,7 @@ public class NavigationMenuTest {
     }
 
     @Test
-    public void testIsRegisteredFalse() throws Exception {
+    public void testIsRegisteredFalse() {
         assertFalse(NavigationMenu.CHANNEL_AVAILABLE.isRegistered());
         assertFalse(NavigationMenu.EXPORT.isRegistered());
         assertFalse(NavigationMenu.VENDORS.isRegistered());
@@ -96,7 +96,7 @@ public class NavigationMenuTest {
     }
 
     @Test
-    public void testGetIcon() throws Exception {
+    public void testGetIcon() {
         assertEquals(R.drawable.ic_network_wifi_grey_500_48dp, NavigationMenu.ACCESS_POINTS.getIcon());
         assertEquals(R.drawable.ic_wifi_tethering_grey_500_48dp, NavigationMenu.CHANNEL_RATING.getIcon());
         assertEquals(R.drawable.ic_insert_chart_grey_500_48dp, NavigationMenu.CHANNEL_GRAPH.getIcon());
@@ -109,7 +109,7 @@ public class NavigationMenuTest {
     }
 
     @Test
-    public void testGetNavigationOptions() throws Exception {
+    public void testGetNavigationOptions() {
         assertEquals(NavigationOptionFactory.AP, NavigationMenu.ACCESS_POINTS.getNavigationOptions());
         assertEquals(NavigationOptionFactory.RATING, NavigationMenu.CHANNEL_RATING.getNavigationOptions());
         assertEquals(NavigationOptionFactory.OTHER, NavigationMenu.CHANNEL_GRAPH.getNavigationOptions());

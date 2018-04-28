@@ -41,26 +41,26 @@ public class GroupByTest {
 
 
     @Test
-    public void testGroupByNumber() throws Exception {
+    public void testGroupByNumber() {
         assertEquals(3, GroupBy.values().length);
     }
 
     @Test
-    public void testGroupBy() throws Exception {
+    public void testGroupBy() {
         assertTrue(GroupBy.NONE.groupByComparator() instanceof GroupBy.None);
         assertTrue(GroupBy.SSID.groupByComparator() instanceof GroupBy.SSIDGroupBy);
         assertTrue(GroupBy.CHANNEL.groupByComparator() instanceof GroupBy.ChannelGroupBy);
     }
 
     @Test
-    public void testSortOrder() throws Exception {
+    public void testSortOrder() {
         assertTrue(GroupBy.NONE.sortOrderComparator() instanceof GroupBy.None);
         assertTrue(GroupBy.SSID.sortOrderComparator() instanceof GroupBy.SSIDSortOrder);
         assertTrue(GroupBy.CHANNEL.sortOrderComparator() instanceof GroupBy.ChannelSortOrder);
     }
 
     @Test
-    public void testNoneComparator() throws Exception {
+    public void testNoneComparator() {
         // setup
         GroupBy.None comparator = new GroupBy.None();
         // execute & validate
@@ -71,7 +71,7 @@ public class GroupByTest {
     }
 
     @Test
-    public void testChannelGroupByComparator() throws Exception {
+    public void testChannelGroupByComparator() {
         // setup
         GroupBy.ChannelGroupBy comparator = new GroupBy.ChannelGroupBy();
         // execute & validate
@@ -81,7 +81,7 @@ public class GroupByTest {
     }
 
     @Test
-    public void testChannelSortOrder() throws Exception {
+    public void testChannelSortOrder() {
         // setup
         GroupBy.ChannelSortOrder comparator = new GroupBy.ChannelSortOrder();
         // execute & validate
@@ -91,7 +91,7 @@ public class GroupByTest {
     }
 
     @Test
-    public void testSSIDGroupByComparator() throws Exception {
+    public void testSSIDGroupByComparator() {
         // setup
         GroupBy.SSIDGroupBy comparator = new GroupBy.SSIDGroupBy();
         // execute & validate
@@ -101,7 +101,7 @@ public class GroupByTest {
     }
 
     @Test
-    public void testSSIDSortOrderComparatorEquals() throws Exception {
+    public void testSSIDSortOrderComparatorEquals() {
         GroupBy.SSIDSortOrder comparator = new GroupBy.SSIDSortOrder();
         // execute & validate
         assertEquals(0, comparator.compare(wiFiDetail1, wiFiDetail1));

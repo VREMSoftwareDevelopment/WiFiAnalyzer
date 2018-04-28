@@ -58,7 +58,7 @@ public class ChannelAxisLabelTest {
     }
 
     @Test
-    public void testYAxis() throws Exception {
+    public void testYAxis() {
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(GraphConstants.MIN_Y, false));
         assertEquals("-99", fixture.formatLabel(GraphConstants.MIN_Y + 1, false));
         assertEquals("0", fixture.formatLabel(GraphConstants.MAX_Y, false));
@@ -66,7 +66,7 @@ public class ChannelAxisLabelTest {
     }
 
     @Test
-    public void testXAxis() throws Exception {
+    public void testXAxis() {
         // setup
         WiFiChannel wiFiChannel = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelFirst();
         // execute
@@ -77,7 +77,7 @@ public class ChannelAxisLabelTest {
     }
 
     @Test
-    public void testXAxisWithFrequencyInRange() throws Exception {
+    public void testXAxisWithFrequencyInRange() {
         // setup
         WiFiChannel wiFiChannel = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelFirst();
         // execute & validate
@@ -87,7 +87,7 @@ public class ChannelAxisLabelTest {
     }
 
     @Test
-    public void testXAxisWithFrequencyNotAllowedInLocale() throws Exception {
+    public void testXAxisWithFrequencyNotAllowedInLocale() {
         // setup
         WiFiChannel wiFiChannel = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelLast();
         // execute
@@ -97,7 +97,7 @@ public class ChannelAxisLabelTest {
     }
 
     @Test
-    public void testXAxisWithUnknownFrequencyReturnEmptyString() throws Exception {
+    public void testXAxisWithUnknownFrequencyReturnEmptyString() {
         // setup
         WiFiChannels wiFiChannels = WiFiBand.GHZ2.getWiFiChannels();
         WiFiChannel wiFiChannel = wiFiChannels.getWiFiChannelFirst();

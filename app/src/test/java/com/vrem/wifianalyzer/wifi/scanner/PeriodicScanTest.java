@@ -49,14 +49,14 @@ public class PeriodicScanTest {
     }
 
     @Test
-    public void testScanInitial() throws Exception {
+    public void testScanInitial() {
         // validate
         verify(handler).removeCallbacks(fixture);
         verify(handler).postDelayed(fixture, PeriodicScan.DELAY_INITIAL);
     }
 
     @Test
-    public void testRun() throws Exception {
+    public void testRun() {
         // setup
         int scanInterval = 15;
         when(settings.getScanInterval()).thenReturn(scanInterval);
@@ -69,7 +69,7 @@ public class PeriodicScanTest {
     }
 
     @Test
-    public void testStop() throws Exception {
+    public void testStop() {
         // execute
         fixture.stop();
         // validate
@@ -77,7 +77,7 @@ public class PeriodicScanTest {
     }
 
     @Test
-    public void testStart() throws Exception {
+    public void testStart() {
         // execute
         fixture.start();
         // validate

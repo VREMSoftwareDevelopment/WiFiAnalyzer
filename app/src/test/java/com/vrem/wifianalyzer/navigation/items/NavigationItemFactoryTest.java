@@ -36,7 +36,7 @@ import static org.junit.Assert.assertTrue;
 public class NavigationItemFactoryTest {
 
     @Test
-    public void testFragmentItem() throws Exception {
+    public void testFragmentItem() {
         assertTrue(((FragmentItem) NavigationItemFactory.ACCESS_POINTS).getFragment() instanceof AccessPointsFragment);
         assertTrue(((FragmentItem) NavigationItemFactory.CHANNEL_RATING).getFragment() instanceof ChannelRatingFragment);
         assertTrue(((FragmentItem) NavigationItemFactory.CHANNEL_GRAPH).getFragment() instanceof ChannelGraphFragment);
@@ -46,7 +46,7 @@ public class NavigationItemFactoryTest {
     }
 
     @Test
-    public void testIsRegisteredTrue() throws Exception {
+    public void testIsRegisteredTrue() {
         assertTrue(NavigationItemFactory.ACCESS_POINTS.isRegistered());
         assertTrue(NavigationItemFactory.CHANNEL_RATING.isRegistered());
         assertTrue(NavigationItemFactory.CHANNEL_GRAPH.isRegistered());
@@ -54,7 +54,7 @@ public class NavigationItemFactoryTest {
     }
 
     @Test
-    public void testIsRegisteredFalse() throws Exception {
+    public void testIsRegisteredFalse() {
         assertFalse(NavigationItemFactory.EXPORT.isRegistered());
         assertFalse(NavigationItemFactory.CHANNEL_AVAILABLE.isRegistered());
         assertFalse(NavigationItemFactory.VENDORS.isRegistered());
@@ -63,13 +63,13 @@ public class NavigationItemFactoryTest {
     }
 
     @Test
-    public void testActivityItem() throws Exception {
+    public void testActivityItem() {
         assertEquals(SettingActivity.class, ((ActivityItem) NavigationItemFactory.SETTINGS).getActivity());
         assertEquals(AboutActivity.class, ((ActivityItem) NavigationItemFactory.ABOUT).getActivity());
     }
 
     @Test
-    public void testExportItem() throws Exception {
+    public void testExportItem() {
         assertTrue(NavigationItemFactory.EXPORT instanceof ExportItem);
     }
 

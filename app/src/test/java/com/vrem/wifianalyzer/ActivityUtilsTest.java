@@ -73,7 +73,7 @@ public class ActivityUtilsTest {
     }
 
     @Test
-    public void testCreateContext() throws Exception {
+    public void testCreateContext() {
         // setup
         when(settings.getLanguageLocale()).thenReturn(Locale.US);
         when(ConfigurationUtils.createContext(context, Locale.US)).thenReturn(newContext);
@@ -85,7 +85,7 @@ public class ActivityUtilsTest {
     }
 
     @Test
-    public void testSetActionBarOptions() throws Exception {
+    public void testSetActionBarOptions() {
         // execute
         ActivityUtils.setActionBarOptions(actionBar);
         // validate
@@ -94,7 +94,7 @@ public class ActivityUtilsTest {
     }
 
     @Test
-    public void testSetActionBarOptionsWithNullActionBar() throws Exception {
+    public void testSetActionBarOptionsWithNullActionBar() {
         // execute
         ActivityUtils.setActionBarOptions(null);
         // validate
@@ -103,7 +103,7 @@ public class ActivityUtilsTest {
     }
 
     @Test
-    public void testSetupToolbar() throws Exception {
+    public void testSetupToolbar() {
         // setup
         MainActivity mainActivity = mock(MainActivity.class);
         Toolbar toolbar = mock(Toolbar.class);
@@ -126,7 +126,7 @@ public class ActivityUtilsTest {
     }
 
     @Test
-    public void testWiFiBandToggleOnClickToggles() throws Exception {
+    public void testWiFiBandToggleOnClickToggles() {
         // setup
         MainActivity mainActivity = mock(MainActivity.class);
         when(mainActivity.getCurrentNavigationMenu()).thenReturn(NavigationMenu.CHANNEL_GRAPH);
@@ -139,7 +139,7 @@ public class ActivityUtilsTest {
     }
 
     @Test
-    public void testWiFiBandToggleOnClickDoesNotToggles() throws Exception {
+    public void testWiFiBandToggleOnClickDoesNotToggles() {
         // setup
         MainActivity mainActivity = mock(MainActivity.class);
         when(mainActivity.getCurrentNavigationMenu()).thenReturn(NavigationMenu.ACCESS_POINTS);

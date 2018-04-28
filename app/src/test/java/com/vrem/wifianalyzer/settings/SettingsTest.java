@@ -65,13 +65,13 @@ public class SettingsTest {
     }
 
     @Test
-    public void testInitializeDefaultValues() throws Exception {
+    public void testInitializeDefaultValues() {
         fixture.initializeDefaultValues();
         verify(repository).initializeDefaultValues();
     }
 
     @Test
-    public void testRegisterOnSharedPreferenceChangeListener() throws Exception {
+    public void testRegisterOnSharedPreferenceChangeListener() {
         // execute
         fixture.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
         // validate
@@ -79,7 +79,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetScanInterval() throws Exception {
+    public void testGetScanInterval() {
         // setup
         int defaultValue = 10;
         int expected = 11;
@@ -94,7 +94,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetGroupBy() throws Exception {
+    public void testGetGroupBy() {
         // setup
         when(repository.getStringAsInteger(R.string.group_by_key, GroupBy.NONE.ordinal())).thenReturn(GroupBy.CHANNEL.ordinal());
         // execute
@@ -105,7 +105,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetSortBy() throws Exception {
+    public void testGetSortBy() {
         // setup
         when(repository.getStringAsInteger(R.string.sort_by_key, SortBy.STRENGTH.ordinal())).thenReturn(SortBy.SSID.ordinal());
         // execute
@@ -116,7 +116,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetAccessPointView() throws Exception {
+    public void testGetAccessPointView() {
         // setup
         when(repository.getStringAsInteger(R.string.ap_view_key, AccessPointViewType.COMPLETE.ordinal())).thenReturn(AccessPointViewType.COMPACT.ordinal());
         // execute
@@ -127,7 +127,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetConnectionViewType() throws Exception {
+    public void testGetConnectionViewType() {
         // setup
         when(repository.getStringAsInteger(R.string.connection_view_key, ConnectionViewType.COMPLETE.ordinal())).thenReturn(ConnectionViewType.COMPACT.ordinal());
         // execute
@@ -138,7 +138,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetThemeStyle() throws Exception {
+    public void testGetThemeStyle() {
         // setup
         when(repository.getStringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal())).thenReturn(ThemeStyle.LIGHT.ordinal());
         // execute
@@ -149,7 +149,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetGraphMaximumY() throws Exception {
+    public void testGetGraphMaximumY() {
         // setup
         int defaultValue = 1;
         int value = 2;
@@ -165,7 +165,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetChannelGraphLegend() throws Exception {
+    public void testGetChannelGraphLegend() {
         // setup
         when(repository.getStringAsInteger(R.string.channel_graph_legend_key, GraphLegend.HIDE.ordinal())).thenReturn(GraphLegend.RIGHT.ordinal());
         // execute
@@ -176,7 +176,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetTimeGraphLegend() throws Exception {
+    public void testGetTimeGraphLegend() {
         // setup
         when(repository.getStringAsInteger(R.string.time_graph_legend_key, GraphLegend.LEFT.ordinal())).thenReturn(GraphLegend.RIGHT.ordinal());
         // execute
@@ -187,7 +187,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetWiFiBand() throws Exception {
+    public void testGetWiFiBand() {
         // setup
         when(repository.getStringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal())).thenReturn(WiFiBand.GHZ5.ordinal());
         // execute
@@ -198,7 +198,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetSSIDFilter() throws Exception {
+    public void testGetSSIDFilter() {
         // setup
         Set<String> expected = new HashSet<>(Arrays.asList("value1", "value2", "value3"));
         when(repository.getStringSet(R.string.filter_ssid_key, Collections.<String>emptySet())).thenReturn(expected);
@@ -210,7 +210,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testSaveSSIDFilter() throws Exception {
+    public void testSaveSSIDFilter() {
         // setup
         Set<String> values = new HashSet<>(Arrays.asList("value1", "value2", "value3"));
         // execute
@@ -220,7 +220,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetWiFiBandFilter() throws Exception {
+    public void testGetWiFiBandFilter() {
         // setup
         WiFiBand expected = WiFiBand.GHZ5;
         Set<String> values = Collections.singleton("" + expected.ordinal());
@@ -235,7 +235,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testSaveWiFiBandFilter() throws Exception {
+    public void testSaveWiFiBandFilter() {
         // setup
         Set<WiFiBand> values = Collections.singleton(WiFiBand.GHZ5);
         Set<String> expected = Collections.singleton("" + WiFiBand.GHZ5.ordinal());
@@ -246,7 +246,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetStrengthFilter() throws Exception {
+    public void testGetStrengthFilter() {
         // setup
         Strength expected = Strength.THREE;
         Set<String> values = Collections.singleton("" + expected.ordinal());
@@ -261,7 +261,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testSaveStrengthFilter() throws Exception {
+    public void testSaveStrengthFilter() {
         // setup
         Set<Strength> values = Collections.singleton(Strength.TWO);
         Set<String> expected = Collections.singleton("" + Strength.TWO.ordinal());
@@ -272,7 +272,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetSecurityFilter() throws Exception {
+    public void testGetSecurityFilter() {
         // setup
         Security expected = Security.WPA;
         Set<String> values = Collections.singleton("" + expected.ordinal());
@@ -287,7 +287,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testSaveSecurityFilter() throws Exception {
+    public void testSaveSecurityFilter() {
         // setup
         Set<Security> values = Collections.singleton(Security.WEP);
         Set<String> expected = Collections.singleton("" + Security.WEP.ordinal());
@@ -298,7 +298,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testToggleWiFiBand() throws Exception {
+    public void testToggleWiFiBand() {
         // setup
         when(repository.getStringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal())).thenReturn(WiFiBand.GHZ5.ordinal());
         // execute
@@ -309,7 +309,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetCountryCode() throws Exception {
+    public void testGetCountryCode() {
         // setup
         String defaultValue = LocaleUtils.getDefaultCountryCode();
         String expected = "WW";
@@ -322,7 +322,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetLanguageLocale() throws Exception {
+    public void testGetLanguageLocale() {
         // setup
         String defaultValue = LocaleUtils.getDefaultLanguageTag();
         Locale expected = Locale.FRENCH;
@@ -335,7 +335,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetStartMenu() throws Exception {
+    public void testGetStartMenu() {
         // setup
         when(repository.getStringAsInteger(R.string.start_menu_key, NavigationMenu.ACCESS_POINTS.ordinal())).thenReturn(NavigationMenu.CHANNEL_GRAPH.ordinal());
         // execute
@@ -346,7 +346,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testIsWiFiOffOnExit() throws Exception {
+    public void testIsWiFiOffOnExit() {
         // setup
         when(repository.getResourceBoolean(R.bool.wifi_off_on_exit_default)).thenReturn(true);
         when(repository.getBoolean(R.string.wifi_off_on_exit_key, true)).thenReturn(true);

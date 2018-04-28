@@ -40,7 +40,7 @@ public class WiFiChannelTest {
     }
 
     @Test
-    public void testIsInRange() throws Exception {
+    public void testIsInRange() {
         assertTrue(fixture.isInRange(FREQUENCY));
         assertTrue(fixture.isInRange(FREQUENCY - 2));
         assertTrue(fixture.isInRange(FREQUENCY + 2));
@@ -50,18 +50,18 @@ public class WiFiChannelTest {
     }
 
     @Test
-    public void testEquals() throws Exception {
+    public void testEquals() {
         assertEquals(fixture, other);
         assertNotSame(fixture, other);
     }
 
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         assertEquals(fixture.hashCode(), other.hashCode());
     }
 
     @Test
-    public void testCompareTo() throws Exception {
+    public void testCompareTo() {
         assertEquals(0, fixture.compareTo(other));
     }
 }

@@ -30,7 +30,7 @@ public class WiFiUtilsTest {
     private final DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
     @Test
-    public void testCalculateDistance() throws Exception {
+    public void testCalculateDistance() {
         validate(2437, -36, "0.62");
         validate(2437, -42, "1.23");
         validate(2432, -88, "246.34");
@@ -42,7 +42,7 @@ public class WiFiUtilsTest {
     }
 
     @Test
-    public void testCalculateSignalLevel() throws Exception {
+    public void testCalculateSignalLevel() {
         assertEquals(0, WiFiUtils.calculateSignalLevel(-110, 5));
         assertEquals(0, WiFiUtils.calculateSignalLevel(-89, 5));
 
@@ -60,7 +60,7 @@ public class WiFiUtilsTest {
     }
 
     @Test
-    public void testConvertIpAddress() throws Exception {
+    public void testConvertIpAddress() {
         assertEquals("21.205.91.7", WiFiUtils.convertIpAddress(123456789));
         assertEquals("1.0.0.0", WiFiUtils.convertIpAddress(1));
         assertEquals(StringUtils.EMPTY, WiFiUtils.convertIpAddress(0));
@@ -68,7 +68,7 @@ public class WiFiUtilsTest {
     }
 
     @Test
-    public void testConvertSSID() throws Exception {
+    public void testConvertSSID() {
         assertEquals("SSID", WiFiUtils.convertSSID("\"SSID\""));
         assertEquals("SSID", WiFiUtils.convertSSID("SSID"));
     }

@@ -90,7 +90,7 @@ public class GraphViewWrapperTest {
     }
 
     @Test
-    public void testRemoveSeries() throws Exception {
+    public void testRemoveSeries() {
         // setup
         Set<WiFiDetail> newSeries = Collections.emptySet();
         List<WiFiDetail> difference = Collections.emptyList();
@@ -107,7 +107,7 @@ public class GraphViewWrapperTest {
     }
 
     @Test
-    public void testDifferenceSeries() throws Exception {
+    public void testDifferenceSeries() {
         // setup
         Set<WiFiDetail> newSeries = Collections.emptySet();
         List<WiFiDetail> expected = Collections.emptyList();
@@ -120,7 +120,7 @@ public class GraphViewWrapperTest {
     }
 
     @Test
-    public void testAddSeriesDirectly() throws Exception {
+    public void testAddSeriesDirectly() {
         // execute
         fixture.addSeries(baseSeries);
         // validate
@@ -128,7 +128,7 @@ public class GraphViewWrapperTest {
     }
 
     @Test
-    public void testAddSeriesWhenSeriesExistsDoesNotAddSeries() throws Exception {
+    public void testAddSeriesWhenSeriesExistsDoesNotAddSeries() {
         // setup
         when(seriesCache.contains(wiFiDetail)).thenReturn(true);
         // execute
@@ -140,7 +140,7 @@ public class GraphViewWrapperTest {
     }
 
     @Test
-    public void testAddSeriesAddsSeries() throws Exception {
+    public void testAddSeriesAddsSeries() {
         // setup
         String expectedTitle = wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getChannelDisplay();
         boolean connected = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
@@ -160,7 +160,7 @@ public class GraphViewWrapperTest {
     }
 
     @Test
-    public void testUpdateSeriesWhenSeriesDoesNotExistsDoesNotUpdateSeries() throws Exception {
+    public void testUpdateSeriesWhenSeriesDoesNotExistsDoesNotUpdateSeries() {
         // setup
         when(seriesCache.contains(wiFiDetail)).thenReturn(false);
         // execute
@@ -172,7 +172,7 @@ public class GraphViewWrapperTest {
     }
 
     @Test
-    public void testUpdateSeriesWhenSeriesDoesExists() throws Exception {
+    public void testUpdateSeriesWhenSeriesDoesExists() {
         // setup
         boolean connected = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
         when(seriesCache.contains(wiFiDetail)).thenReturn(true);
@@ -189,7 +189,7 @@ public class GraphViewWrapperTest {
     }
 
     @Test
-    public void testAppendSeriesWhenSeriesDoesNotExistsDoesNotUpdateSeries() throws Exception {
+    public void testAppendSeriesWhenSeriesDoesNotExistsDoesNotUpdateSeries() {
         // setup
         int count = 10;
         when(seriesCache.contains(wiFiDetail)).thenReturn(false);
@@ -202,7 +202,7 @@ public class GraphViewWrapperTest {
     }
 
     @Test
-    public void testAppendSeriesWhenSeriesDoesExists() throws Exception {
+    public void testAppendSeriesWhenSeriesDoesExists() {
         // setup
         int count = 10;
         boolean connected = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
@@ -220,7 +220,7 @@ public class GraphViewWrapperTest {
     }
 
     @Test
-    public void testUpdateLegend() throws Exception {
+    public void testUpdateLegend() {
         // setup
         float textSize = 10f;
         when(graphView.getTitleTextSize()).thenReturn(textSize);
@@ -235,7 +235,7 @@ public class GraphViewWrapperTest {
     }
 
     @Test
-    public void testSetVisibility() throws Exception {
+    public void testSetVisibility() {
         // execute
         fixture.setVisibility(View.VISIBLE);
         // validate
@@ -243,13 +243,13 @@ public class GraphViewWrapperTest {
     }
 
     @Test
-    public void testCalculateGraphType() throws Exception {
+    public void testCalculateGraphType() {
         // execute & validate
         assertTrue(fixture.calculateGraphType() > 0);
     }
 
     @Test
-    public void testSetViewport() throws Exception {
+    public void testSetViewport() {
         // setup
         when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
         when(gridLabelRenderer.getNumHorizontalLabels()).thenReturn(10);
@@ -265,7 +265,7 @@ public class GraphViewWrapperTest {
     }
 
     @Test
-    public void testGetSize() throws Exception {
+    public void testGetSize() {
         // execute & validate
         assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphConstants.TYPE1));
         assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphConstants.TYPE2));
@@ -274,7 +274,7 @@ public class GraphViewWrapperTest {
     }
 
     @Test
-    public void testSetViewportWithMinAndMax() throws Exception {
+    public void testSetViewportWithMinAndMax() {
         // setup
         when(graphView.getViewport()).thenReturn(viewport);
         // execute
@@ -286,7 +286,7 @@ public class GraphViewWrapperTest {
     }
 
     @Test
-    public void testIsNewSeries() throws Exception {
+    public void testIsNewSeries() {
         // setup
         when(seriesCache.contains(wiFiDetail)).thenReturn(false);
         // execute

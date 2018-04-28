@@ -46,7 +46,7 @@ public class NavigationSwipeTest {
     }
 
     @Test
-    public void testSwipe() throws Exception {
+    public void testSwipe() {
         // swipe left expect channel rating
         fixture.swipe(SwipeDirection.LEFT);
         validateSwipeRight(NavigationMenu.CHANNEL_RATING);

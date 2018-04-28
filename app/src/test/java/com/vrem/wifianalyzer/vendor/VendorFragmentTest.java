@@ -63,7 +63,7 @@ public class VendorFragmentTest {
     }
 
     @Test
-    public void testOnCreateView() throws Exception {
+    public void testOnCreateView() {
         // setup
         when(vendorService.findVendors()).thenReturn(Collections.<String>emptyList());
         // execute
@@ -74,7 +74,7 @@ public class VendorFragmentTest {
     }
 
     @Test
-    public void testListenerOnQueryTextChange() throws Exception {
+    public void testListenerOnQueryTextChange() {
         // setup
         String values = "     ABS       ADF      ";
         String expected = "ABS ADF";
@@ -88,7 +88,7 @@ public class VendorFragmentTest {
     }
 
     @Test
-    public void testListenerOnQueryTextChangeWithNull() throws Exception {
+    public void testListenerOnQueryTextChangeWithNull() {
         // setup
         VendorAdapter vendorAdapter = mock(VendorAdapter.class);
         Listener fixture = new Listener(vendorAdapter);

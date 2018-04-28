@@ -54,7 +54,7 @@ public class LanguagePreferenceTest {
     }
 
     @Test
-    public void testGetEntries() throws Exception {
+    public void testGetEntries() {
         // execute
         List<CharSequence> actual = Arrays.asList(fixture.getEntries());
         // validate
@@ -66,7 +66,7 @@ public class LanguagePreferenceTest {
     }
 
     @Test
-    public void testGetEntryValues() throws Exception {
+    public void testGetEntryValues() {
         // execute
         List<CharSequence> actual = Arrays.asList(fixture.getEntryValues());
         // validate

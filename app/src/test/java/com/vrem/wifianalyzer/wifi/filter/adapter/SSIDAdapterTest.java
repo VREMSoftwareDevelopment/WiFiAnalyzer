@@ -54,18 +54,18 @@ public class SSIDAdapterTest {
     }
 
     @Test
-    public void testGetValue() throws Exception {
+    public void testGetValue() {
         assertEquals(SSID_VALUES.size(), fixture.getValues().size());
         IterableUtils.forEach(SSID_VALUES, new ContainsClosure());
     }
 
     @Test
-    public void testIsActive() throws Exception {
+    public void testIsActive() {
         assertTrue(fixture.isActive());
     }
 
     @Test
-    public void testIsNotActiveWithEmptyValue() throws Exception {
+    public void testIsNotActiveWithEmptyValue() {
         // execute
         fixture.setValues(Collections.<String>emptySet());
         // validate
@@ -74,7 +74,7 @@ public class SSIDAdapterTest {
     }
 
     @Test
-    public void testIsNotActiveWithReset() throws Exception {
+    public void testIsNotActiveWithReset() {
         // execute
         fixture.reset();
         // validate
@@ -83,7 +83,7 @@ public class SSIDAdapterTest {
     }
 
     @Test
-    public void testSave() throws Exception {
+    public void testSave() {
         // execute
         fixture.save(settings);
         // execute
@@ -91,7 +91,7 @@ public class SSIDAdapterTest {
     }
 
     @Test
-    public void testSetValues() throws Exception {
+    public void testSetValues() {
         // setup
         Set<String> expected = new HashSet<>(Arrays.asList("ABC", "EDF", "123"));
         Set<String> values = new HashSet<>(Arrays.asList("", "ABC", "", "EDF", "  ", "123", ""));

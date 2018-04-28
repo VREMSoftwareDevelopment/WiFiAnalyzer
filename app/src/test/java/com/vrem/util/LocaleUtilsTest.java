@@ -34,7 +34,7 @@ import static org.junit.Assert.assertTrue;
 public class LocaleUtilsTest {
 
     @Test
-    public void testGetAllCountries() throws Exception {
+    public void testGetAllCountries() {
         // execute
         List<Locale> actual = LocaleUtils.getAllCountries();
         // validate
@@ -43,7 +43,7 @@ public class LocaleUtilsTest {
     }
 
     @Test
-    public void testFindByCountryCode() throws Exception {
+    public void testFindByCountryCode() {
         // setup
         Locale expected = LocaleUtils.getAllCountries().get(0);
         // execute
@@ -58,7 +58,7 @@ public class LocaleUtilsTest {
     }
 
     @Test
-    public void testFindByCountryCodeWithUnknownCode() throws Exception {
+    public void testFindByCountryCodeWithUnknownCode() {
         // execute
         Locale actual = LocaleUtils.findByCountryCode("WW");
         // validate
@@ -66,13 +66,13 @@ public class LocaleUtilsTest {
     }
 
     @Test
-    public void testToLanguageTag() throws Exception {
+    public void testToLanguageTag() {
         assertEquals(Locale.US.getLanguage() + "_" + Locale.US.getCountry(), LocaleUtils.toLanguageTag(Locale.US));
         assertEquals(Locale.ENGLISH.getLanguage() + "_", LocaleUtils.toLanguageTag(Locale.ENGLISH));
     }
 
     @Test
-    public void testFindByLanguageTagWithUnknownTag() throws Exception {
+    public void testFindByLanguageTagWithUnknownTag() {
         Locale defaultLocal = Locale.getDefault();
         assertEquals(defaultLocal, LocaleUtils.findByLanguageTag(StringUtils.EMPTY));
         assertEquals(defaultLocal, LocaleUtils.findByLanguageTag("WW"));
@@ -80,14 +80,14 @@ public class LocaleUtilsTest {
     }
 
     @Test
-    public void testFindByLanguageTag() throws Exception {
+    public void testFindByLanguageTag() {
         assertEquals(Locale.SIMPLIFIED_CHINESE, LocaleUtils.findByLanguageTag(LocaleUtils.toLanguageTag(Locale.SIMPLIFIED_CHINESE)));
         assertEquals(Locale.TRADITIONAL_CHINESE, LocaleUtils.findByLanguageTag(LocaleUtils.toLanguageTag(Locale.TRADITIONAL_CHINESE)));
         assertEquals(Locale.ENGLISH, LocaleUtils.findByLanguageTag(LocaleUtils.toLanguageTag(Locale.ENGLISH)));
     }
 
     @Test
-    public void testGetSupportedLanguages() throws Exception {
+    public void testGetSupportedLanguages() {
         // setup
         Set<Locale> expected = new HashSet<>(Arrays.asList(
             Locale.GERMAN, Locale.ENGLISH, Locale.FRENCH, Locale.ITALIAN, Locale.SIMPLIFIED_CHINESE, Locale.TRADITIONAL_CHINESE,
@@ -102,12 +102,12 @@ public class LocaleUtilsTest {
     }
 
     @Test
-    public void testGetDefaultCountryCode() throws Exception {
+    public void testGetDefaultCountryCode() {
         assertEquals(Locale.getDefault().getCountry(), LocaleUtils.getDefaultCountryCode());
     }
 
     @Test
-    public void testGetDefaultLanguageTag() throws Exception {
+    public void testGetDefaultLanguageTag() {
         assertEquals(LocaleUtils.toLanguageTag(Locale.getDefault()), LocaleUtils.getDefaultLanguageTag());
     }
 

@@ -49,7 +49,7 @@ public class WiFiChannelCountryGHZ5Test {
     }
 
     @Test
-    public void testChannelsAustraliaCanada() throws Exception {
+    public void testChannelsAustraliaCanada() {
         SortedSet<Integer> exclude = new TreeSet<>(Arrays.asList(120, 124, 128));
         int expectedSize = CHANNELS_SET1.size() + CHANNELS_SET2.size() + CHANNELS_SET3.size() - exclude.size();
         List<String> countries = Arrays.asList("AU", "CA");
@@ -57,21 +57,21 @@ public class WiFiChannelCountryGHZ5Test {
     }
 
     @Test
-    public void testChannelsChinaSouthKorea() throws Exception {
+    public void testChannelsChinaSouthKorea() {
         int expectedSize = CHANNELS_SET1.size() + CHANNELS_SET3.size();
         List<String> countries = Arrays.asList("CN", "KR");
         IterableUtils.forEach(countries, new ChannelChinaClosure(expectedSize));
     }
 
     @Test
-    public void testChannelsJapanTurkeySouthAfrica() throws Exception {
+    public void testChannelsJapanTurkeySouthAfrica() {
         int expectedSize = CHANNELS_SET1.size() + CHANNELS_SET2.size();
         List<String> countries = Arrays.asList("JP", "TR", "ZA");
         IterableUtils.forEach(countries, new ChannelJapanClosure(expectedSize));
     }
 
     @Test
-    public void testChannelsIsrael() throws Exception {
+    public void testChannelsIsrael() {
         int expectedSize = CHANNELS_SET1.size();
         Set<Integer> actual = fixture.findChannels("IL");
         assertEquals(expectedSize, actual.size());
@@ -81,7 +81,7 @@ public class WiFiChannelCountryGHZ5Test {
     }
 
     @Test
-    public void testChannelsOther() throws Exception {
+    public void testChannelsOther() {
         int expectedSize = CHANNELS_SET1.size() + CHANNELS_SET2.size() + CHANNELS_SET3.size();
         List<String> countries = Arrays.asList("US", "RU", "XYZ");
         IterableUtils.forEach(countries, new ChannelOtherClosure(expectedSize));

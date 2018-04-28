@@ -60,12 +60,12 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testMainActivity() throws Exception {
+    public void testMainActivity() {
         assertTrue(MainContext.INSTANCE.getScannerService().isRunning());
     }
 
     @Test
-    public void testOnPauseWillPauseScanner() throws Exception {
+    public void testOnPauseWillPauseScanner() {
         // setup
         ScannerService scannerService = MainContextHelper.INSTANCE.getScannerService();
         // execute
@@ -75,7 +75,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testOnResumeCallsOptionMenuResume() throws Exception {
+    public void testOnResumeCallsOptionMenuResume() {
         // setup
         ScannerService scannerService = MainContextHelper.INSTANCE.getScannerService();
         // execute
@@ -85,7 +85,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testOnCreateOptionsMenu() throws Exception {
+    public void testOnCreateOptionsMenu() {
         // setup
         Menu menu = mock(Menu.class);
         OptionMenu optionMenu = mock(OptionMenu.class);
@@ -98,7 +98,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testOnOptionsItemSelected() throws Exception {
+    public void testOnOptionsItemSelected() {
         // setup
         MenuItem menuItem = mock(MenuItem.class);
         OptionMenu optionMenu = mock(OptionMenu.class);
@@ -111,7 +111,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testOnConfigurationChanged() throws Exception {
+    public void testOnConfigurationChanged() {
         // setup
         Configuration configuration = fixture.getResources().getConfiguration();
         DrawerNavigation drawerNavigation = mock(DrawerNavigation.class);
@@ -123,7 +123,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testOnPostCreate() throws Exception {
+    public void testOnPostCreate() {
         // setup
         DrawerNavigation drawerNavigation = mock(DrawerNavigation.class);
         fixture.setDrawerNavigation(drawerNavigation);
@@ -134,7 +134,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testOnStop() throws Exception {
+    public void testOnStop() {
         // setup
         ScannerService scanner = MainContextHelper.INSTANCE.getScannerService();
         // execute
@@ -144,7 +144,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testUpdateShouldUpdateScanner() throws Exception {
+    public void testUpdateShouldUpdateScanner() {
         // setup
         ScannerService scanner = MainContextHelper.INSTANCE.getScannerService();
         // execute
@@ -154,7 +154,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testOnSharedPreferenceChangedShouldUpdateScanner() throws Exception {
+    public void testOnSharedPreferenceChangedShouldUpdateScanner() {
         // setup
         ScannerService scanner = MainContextHelper.INSTANCE.getScannerService();
         // execute
@@ -164,7 +164,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testOptionMenu() throws Exception {
+    public void testOptionMenu() {
         // setup
         OptionMenu optionMenu = fixture.getOptionMenu();
         // execute
@@ -175,7 +175,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testGetCurrentMenuItem() throws Exception {
+    public void testGetCurrentMenuItem() {
         // setup
         MenuItem menuItem = mock(MenuItem.class);
         NavigationMenuView navigationMenuView = mock(NavigationMenuView.class);
@@ -189,7 +189,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testGetCurrentNavigationMenu() throws Exception {
+    public void testGetCurrentNavigationMenu() {
         // setup
         NavigationMenu navigationMenu = NavigationMenu.CHANNEL_GRAPH;
         NavigationMenuView navigationMenuView = mock(NavigationMenuView.class);
@@ -203,7 +203,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testSetCurrentNavigationMenu() throws Exception {
+    public void testSetCurrentNavigationMenu() {
         // setup
         NavigationMenu navigationMenu = NavigationMenu.CHANNEL_GRAPH;
         NavigationMenuView navigationMenuView = mock(NavigationMenuView.class);
@@ -215,7 +215,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void testGetNavigationView() throws Exception {
+    public void testGetNavigationView() {
         // setup
         NavigationMenuView navigationMenuView = mock(NavigationMenuView.class);
         NavigationView navigationView = mock(NavigationView.class);

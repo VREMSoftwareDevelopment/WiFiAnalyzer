@@ -54,7 +54,7 @@ public class AccessPointPopupTest {
     }
 
     @Test
-    public void testShowOpensPopup() throws Exception {
+    public void testShowOpensPopup() {
         // setup
         View view = mainActivity.getLayoutInflater().inflate(R.layout.access_point_view_popup, null);
         // execute
@@ -65,7 +65,7 @@ public class AccessPointPopupTest {
     }
 
     @Test
-    public void testPopupIsClosedOnCloseButtonClick() throws Exception {
+    public void testPopupIsClosedOnCloseButtonClick() {
         // setup
         View view = mainActivity.getLayoutInflater().inflate(R.layout.access_point_view_popup, null);
         Dialog dialog = fixture.show(view);
@@ -77,7 +77,7 @@ public class AccessPointPopupTest {
     }
 
     @Test
-    public void testAttach() throws Exception {
+    public void testAttach() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail();
         View view = mainActivity.getLayoutInflater().inflate(R.layout.access_point_view_compact, null);

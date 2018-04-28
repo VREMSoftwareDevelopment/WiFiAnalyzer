@@ -33,7 +33,7 @@ public class SSIDPredicateTest {
     private static final String SSID = "ssid";
 
     @Test
-    public void testSSIDPredicate() throws Exception {
+    public void testSSIDPredicate() {
         // setup
         WiFiDetail wiFiDetail = new WiFiDetail(SSID, "bssid", "wpa", WiFiSignal.EMPTY, WiFiAdditional.EMPTY);
         // execute & validate

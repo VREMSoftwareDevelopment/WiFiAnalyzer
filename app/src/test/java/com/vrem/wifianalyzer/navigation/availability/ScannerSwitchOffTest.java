@@ -55,7 +55,7 @@ public class ScannerSwitchOffTest {
     }
 
     @Test
-    public void testApplySetVisibleFalse() throws Exception {
+    public void testApplySetVisibleFalse() {
         // setup
         when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
         when(optionMenu.getMenu()).thenReturn(menu);
@@ -70,7 +70,7 @@ public class ScannerSwitchOffTest {
     }
 
     @Test
-    public void testApplyWithNoMenuDoesNotSetVisibleFalse() throws Exception {
+    public void testApplyWithNoMenuDoesNotSetVisibleFalse() {
         // setup
         when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
         when(optionMenu.getMenu()).thenReturn(null);

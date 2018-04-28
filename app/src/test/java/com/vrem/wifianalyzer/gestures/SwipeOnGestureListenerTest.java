@@ -54,7 +54,7 @@ public class SwipeOnGestureListenerTest {
     }
 
     @Test
-    public void testOnFlingSwipesRight() throws Exception {
+    public void testOnFlingSwipesRight() {
         // setup
         when(e1.getY()).thenReturn(0f);
         when(e2.getY()).thenReturn(0f);
@@ -68,7 +68,7 @@ public class SwipeOnGestureListenerTest {
     }
 
     @Test
-    public void testOnFlingSwipesLeft() throws Exception {
+    public void testOnFlingSwipesLeft() {
         // setup
         when(e1.getY()).thenReturn(0f);
         when(e2.getY()).thenReturn(0f);
@@ -82,7 +82,7 @@ public class SwipeOnGestureListenerTest {
     }
 
     @Test
-    public void testOnFlingSwipesDown() throws Exception {
+    public void testOnFlingSwipesDown() {
         // setup
         when(e1.getY()).thenReturn(0f);
         when(e2.getY()).thenReturn((float) SwipeOnGestureListener.SWIPE_THRESHOLD);
@@ -96,7 +96,7 @@ public class SwipeOnGestureListenerTest {
     }
 
     @Test
-    public void testOnFlingSwipesUp() throws Exception {
+    public void testOnFlingSwipesUp() {
         // setup
         when(e1.getY()).thenReturn((float) SwipeOnGestureListener.SWIPE_THRESHOLD);
         when(e2.getY()).thenReturn(0f);
@@ -110,7 +110,7 @@ public class SwipeOnGestureListenerTest {
     }
 
     @Test
-    public void testOnDownAlwaysReturnTrue() throws Exception {
+    public void testOnDownAlwaysReturnTrue() {
         // execute & validate
         assertTrue(fixture.onDown(e1));
     }

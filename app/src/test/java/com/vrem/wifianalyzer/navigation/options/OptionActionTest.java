@@ -27,12 +27,12 @@ import static org.junit.Assert.assertTrue;
 
 public class OptionActionTest {
     @Test
-    public void testOptionAction() throws Exception {
+    public void testOptionAction() {
         assertEquals(4, OptionAction.values().length);
     }
 
     @Test
-    public void testGetKey() throws Exception {
+    public void testGetKey() {
         assertEquals(-1, OptionAction.NO_ACTION.getKey());
         assertEquals(R.id.action_scanner, OptionAction.SCANNER.getKey());
         assertEquals(R.id.action_filter, OptionAction.FILTER.getKey());
@@ -40,7 +40,7 @@ public class OptionActionTest {
     }
 
     @Test
-    public void testGetAction() throws Exception {
+    public void testGetAction() {
         assertTrue(OptionAction.NO_ACTION.getAction() instanceof OptionAction.NoAction);
         assertTrue(OptionAction.SCANNER.getAction() instanceof ScannerAction);
         assertTrue(OptionAction.FILTER.getAction() instanceof FilterAction);
@@ -48,7 +48,7 @@ public class OptionActionTest {
     }
 
     @Test
-    public void testGetOptionAction() throws Exception {
+    public void testGetOptionAction() {
         assertEquals(OptionAction.NO_ACTION, OptionAction.findOptionAction(OptionAction.NO_ACTION.getKey()));
         assertEquals(OptionAction.SCANNER, OptionAction.findOptionAction(OptionAction.SCANNER.getKey()));
         assertEquals(OptionAction.FILTER, OptionAction.findOptionAction(OptionAction.FILTER.getKey()));
@@ -56,7 +56,7 @@ public class OptionActionTest {
     }
 
     @Test
-    public void testGetOptionActionInvalidKey() throws Exception {
+    public void testGetOptionActionInvalidKey() {
         assertEquals(OptionAction.NO_ACTION, OptionAction.findOptionAction(-99));
         assertEquals(OptionAction.NO_ACTION, OptionAction.findOptionAction(99));
     }

@@ -70,7 +70,7 @@ public class MainReloadTest {
     }
 
     @Test
-    public void testShouldNotReloadWithNoThemeChanges() throws Exception {
+    public void testShouldNotReloadWithNoThemeChanges() {
         // execute
         boolean actual = fixture.shouldReload(settings);
         // validate
@@ -79,7 +79,7 @@ public class MainReloadTest {
     }
 
     @Test
-    public void testShouldReloadWithThemeChange() throws Exception {
+    public void testShouldReloadWithThemeChange() {
         // setup
         ThemeStyle expected = ThemeStyle.LIGHT;
         when(settings.getThemeStyle()).thenReturn(expected);
@@ -91,7 +91,7 @@ public class MainReloadTest {
     }
 
     @Test
-    public void testShouldNotReloadWithNoAccessPointViewChanges() throws Exception {
+    public void testShouldNotReloadWithNoAccessPointViewChanges() {
         // execute
         boolean actual = fixture.shouldReload(settings);
         // validate
@@ -100,7 +100,7 @@ public class MainReloadTest {
     }
 
     @Test
-    public void testShouldReloadWithAccessPointViewChange() throws Exception {
+    public void testShouldReloadWithAccessPointViewChange() {
         // setup
         AccessPointViewType expected = AccessPointViewType.COMPACT;
         when(settings.getAccessPointView()).thenReturn(expected);
@@ -112,7 +112,7 @@ public class MainReloadTest {
     }
 
     @Test
-    public void testShouldNotReloadWithNoConnectionViewTypeChanges() throws Exception {
+    public void testShouldNotReloadWithNoConnectionViewTypeChanges() {
         // execute
         boolean actual = fixture.shouldReload(settings);
         // validate
@@ -121,7 +121,7 @@ public class MainReloadTest {
     }
 
     @Test
-    public void testShouldReloadWithConnectionViewTypeChange() throws Exception {
+    public void testShouldReloadWithConnectionViewTypeChange() {
         // setup
         ConnectionViewType expected = ConnectionViewType.COMPACT;
         when(settings.getConnectionViewType()).thenReturn(expected);
@@ -133,7 +133,7 @@ public class MainReloadTest {
     }
 
     @Test
-    public void testShouldNotReloadWithNoGraphMaximumYChanges() throws Exception {
+    public void testShouldNotReloadWithNoGraphMaximumYChanges() {
         // execute
         boolean actual = fixture.shouldReload(settings);
         // validate
@@ -142,7 +142,7 @@ public class MainReloadTest {
     }
 
     @Test
-    public void testShouldReloadWithGraphMaximumYChange() throws Exception {
+    public void testShouldReloadWithGraphMaximumYChange() {
         // setup
         int expected = -GRAPH_MAXIMUM_Y;
         when(settings.getGraphMaximumY()).thenReturn(expected);
@@ -154,7 +154,7 @@ public class MainReloadTest {
     }
 
     @Test
-    public void testShouldNotReloadWithNoLanguageLocaleChanges() throws Exception {
+    public void testShouldNotReloadWithNoLanguageLocaleChanges() {
         // execute
         boolean actual = fixture.shouldReload(settings);
         // validate
@@ -163,7 +163,7 @@ public class MainReloadTest {
     }
 
     @Test
-    public void testShouldReloadWithLanguageLocaleChange() throws Exception {
+    public void testShouldReloadWithLanguageLocaleChange() {
         // setup
         Locale expected = Locale.US;
         when(settings.getLanguageLocale()).thenReturn(expected);

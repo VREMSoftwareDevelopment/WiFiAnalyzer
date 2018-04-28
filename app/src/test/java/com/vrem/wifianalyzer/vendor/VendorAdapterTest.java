@@ -83,7 +83,7 @@ public class VendorAdapterTest {
     }
 
     @Test
-    public void testGetView() throws Exception {
+    public void testGetView() {
         // setup
         when(vendorService.findMacAddresses(VENDOR_NAME2)).thenReturn(Arrays.asList("VALUE1", "VALUE2", "VALUE3"));
         String expected = "VALUE1, VALUE2, VALUE3";

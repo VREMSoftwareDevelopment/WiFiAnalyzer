@@ -64,7 +64,7 @@ public class ChannelGraphAdapterTest {
     }
 
     @Test
-    public void testGetGraphViewNotifiers() throws Exception {
+    public void testGetGraphViewNotifiers() {
         // setup
         int expected = expectedCount();
         // execute
@@ -82,7 +82,7 @@ public class ChannelGraphAdapterTest {
     }
 
     @Test
-    public void testGetGraphViews() throws Exception {
+    public void testGetGraphViews() {
         // setup
         int expected = expectedCount();
         // execute
@@ -92,7 +92,7 @@ public class ChannelGraphAdapterTest {
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void testUpdate() {
         // setup
         WiFiData wiFiData = new WiFiData(Collections.<WiFiDetail>emptyList(), WiFiConnection.EMPTY, Collections.<String>emptyList());
         // execute

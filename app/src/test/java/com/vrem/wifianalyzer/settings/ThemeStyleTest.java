@@ -48,24 +48,24 @@ public class ThemeStyleTest {
     }
 
     @Test
-    public void testThemeStyle() throws Exception {
+    public void testThemeStyle() {
         assertEquals(2, ThemeStyle.values().length);
     }
 
     @Test
-    public void testGetTheme() throws Exception {
+    public void testGetTheme() {
         assertEquals(R.style.ThemeLight, ThemeStyle.LIGHT.getTheme());
         assertEquals(R.style.ThemeDark, ThemeStyle.DARK.getTheme());
     }
 
     @Test
-    public void testGetThemeNoActionBar() throws Exception {
+    public void testGetThemeNoActionBar() {
         assertEquals(R.style.ThemeLightNoActionBar, ThemeStyle.LIGHT.getThemeNoActionBar());
         assertEquals(R.style.ThemeDarkNoActionBar, ThemeStyle.DARK.getThemeNoActionBar());
     }
 
     @Test
-    public void testGetDefaultTheme() throws Exception {
+    public void testGetDefaultTheme() {
         // setup
         when(settings.getThemeStyle()).thenReturn(ThemeStyle.LIGHT);
         // execute
