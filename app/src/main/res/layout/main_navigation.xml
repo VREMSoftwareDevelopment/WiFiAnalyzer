@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:text="@string/app_name"
+        android:text="@string/app_full_name"
         android:textStyle="bold"/>
 
 </LinearLayout>

@@ -41,6 +41,7 @@
     <string name="no_data">"Keine Daten"</string>
     <string name="no_data_msg">"Bitte besuchen Sie den Abschnitt zu häufigen Fragen auf unserer Website."</string>
     <string name="no_data_geo_warning">"Einige Benutzer mit Android 6+ ("Marshmallow") haben berichtet, dass der Standort-Dienst aktiviert sein muss, damit WLAN-Netzerke erkannt werden können. Benutzer unter "Marshmallow" müssen möglicherweise Standortdienste aktivieren, auch wenn WiFiAnalyzer sie nicht benötigt. Dies scheint ein Problem in Android 6+ zu sein."</string>
+    <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a WiFi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
 
     <string name="export_not_available">"Export nicht verfügbar"</string>
 

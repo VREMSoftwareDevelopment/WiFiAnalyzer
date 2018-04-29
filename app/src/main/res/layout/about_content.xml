@@ -41,7 +41,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@+id/app_name"
+                android:contentDescription="@+id/app_full_name"
                 android:src="@drawable/ic_app_green_800_48dp"/>
 
             <LinearLayout
@@ -55,7 +55,7 @@
                     android:id="@+id/about_application_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/about_application_name"
+                    android:text="@string/app_full_name"
                     android:textStyle="bold"/>
 
                 <TextView

@@ -132,7 +132,7 @@ public class AboutActivityTest {
     @Test
     public void testApplicationName() {
         // setup
-        String expectedName = fixture.getString(R.string.about_application_name);
+        String expectedName = fixture.getString(R.string.app_full_name);
         // execute
         TextView actual = fixture.findViewById(R.id.about_application_name);
         // validate
