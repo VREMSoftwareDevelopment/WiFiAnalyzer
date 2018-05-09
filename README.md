@@ -1,4 +1,4 @@
-<h1>WiFi Analyzer <img src="images/ic_launcher-web.png" alt="Application Icon" width="45" height="45"></h1>
+![logotype a main-05](https://user-images.githubusercontent.com/36028424/39791426-35fd2e70-536e-11e8-8708-dce5b528dc77.png)
 
 ### News: We are happy to announce that Android Authority recently selected WiFi Analyzer to be one of the 15 most useful apps for Android, [click here](https://www.androidauthority.com/most-useful-apps-for-android-603100/amp) to learn more about it!
 
