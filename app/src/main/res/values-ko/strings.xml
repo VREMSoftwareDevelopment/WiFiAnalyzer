@@ -29,7 +29,7 @@
     <string name="scanner_play">시작</string>
 
     <!-- action start -->
-    <string name="action_access_points">액세스 포인트</string>
+    <string name="action_access_points">액세스 지점</string>
     <string name="action_channel_rating">채널 등급</string>
     <string name="action_channel_graph">채널 그래프</string>
     <string name="action_time_graph">시간 그래프</string>
