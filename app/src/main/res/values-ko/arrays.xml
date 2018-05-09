@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ WiFiAnalyzer
+  ~ Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
+  -->
+
+    <string-array name="group_by_array">
+        <item>없음</item>
+        <item>SSID</item>
+        <item>채널</item>
+    </string-array>
+
+    <string-array name="sort_by_array">
+        <item>신호 세기</item>
+        <item>SSID</item>
+        <item>채널</item>
+    </string-array>
+
+    <string-array name="connection_view_array">
+        <item>모두</item>
+        <item>단순</item>
+        <item>숨기기</item>
+    </string-array>
+
+    <string-array name="ap_view_array">
+        <item>모두</item>
+        <item>단순</item>
+    </string-array>
+
+
+    <string-array name="graph_legend_array">
+        <item>왼쪽</item>
+        <item>오른쪽</item>
+        <item>숨기기</item>
+    </string-array>
+
+    <string-array name="theme_array">
+        <item>어두움</item>
+        <item>밝음</item>
+    </string-array>
+</resources>
