@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ WiFiAnalyzer
+  ~ Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
+  -->
+
+<resources>
+    <!-- application start -->
+    <string name="app_copyright">저작권 \u00A9 2015 \u002D 2017</string>
+    <!-- application end -->
+
+    <string name="navigation_drawer_open">탐색 창 열기</string>
+    <string name="navigation_drawer_close">탐색 창 닫기</string>
+    <string name="scanner_message">스캔 중...</string>
+    <string name="scanner_pause">일시중지</string>
+    <string name="scanner_play">시작</string>
+
+    <!-- action start -->
+    <string name="action_access_points">액세스 지점</string>
+    <string name="action_channel_rating">채널 등급</string>
+    <string name="action_channel_graph">채널 그래프</string>
+    <string name="action_time_graph">시간 그래프</string>
+    <string name="action_export">내보내기</string>
+    <string name="action_channel_available">사용 가능한 채널</string>
+    <string name="action_vendors">공유기 업체</string>
+    <string name="action_settings">설정</string>
+    <string name="action_about">정보</string>
+    <!-- action end -->
+
+    <string name="no_data">데이터 없음</string>
+    <string name="no_data_msg">저희 사이트의 자주 묻는 질문 섹션을 방문해주세요.</string>
+    <string name="no_data_geo_warning">Android 6 (Marshmallow) 이상 OS를 사용하는 일부 사용자들이 애플리케이션에서 WiFi 네트워크를 보기 위해선 위치 서비스를 반드시 켜야 한다고 보고했습니다. WiFiAnalyzerd에서 해당 권한이 필요하지 않음에도 불구하고, Marshmallow 유저들은 위치 서비스를 켜야 작동합니다. WiFi 네트워크를 보기 위해서 위치 서비스를 켜야 하는 Android 6 이상 OS의 자체적인 문제로 인한 것으로 보입니다.</string>
+    <string name="export_not_available">내보내기 사용 불가능</string>
+
+    <string name="channel_rating_best">적합한 채널:</string>
+    <string name="channel_rating_best_none">없음</string>
+    <string name="channel_rating_best_alternative">, 다른 WiFi 밴드 시도 바람</string>
+    <string name="channel_rating_heading_rating">채널 등급</string>
+    <string name="channel_rating_heading_number">채널 숫자</string>
+    <string name="channel_rating_heading_count">액세스 지점 수</string>
+    <string name="channel_short_name">채널</string>
+
+    <string name="graph_channel_axis_x">WiFi 채널</string>
+    <string name="graph_time_axis_x">스캔 횟수</string>
+    <string name="graph_axis_y">신호 세기 (dBm)</string>
+
+    <!-- settings start -->
+    <string name="start_menu_title">시작 페이지</string>
+
+    <string name="country_code_title">지역</string>
+
+    <string name="scan_interval_title">스캔 주기</string>
+    <string name="scan_interval_summary">각 스캔당 %d초</string>
+
+    <string name="sort_by_title">액세스 지점 정렬 기준</string>
+
+    <string name="group_by_title">액세스 지점 정렬 기준</string>
+
+    <string name="ap_view_title">액세스 지점 표시</string>
+
+    <string name="connection_view_title">신호 표시</string>
+
+    <string name="graph_maximum_y_title">그래프 최대 신호 세기</string>
+
+    <string name="channel_graph_legend_title">채널 그래프 범례 표시</string>
+
+    <string name="time_graph_legend_title">시간 그래프 범례 표시</string>
+
+    <string name="theme_title">테마</string>
+
+    <string name="wifi_off_on_exit_title">나갈 때 WiFi 끄기</string>
+
+    <string name="language_title">언어</string>
+    <!-- settings end -->
+
+    <!-- about start -->
+    <string name="about_license_title">라이선스:</string>
+    <string name="about_description_title">설명:</string>
+    <string name="about_description_text">오픈 소스 WiFiAnalyzer를 통해서, WiFi 네트워크 속도를 최적화 시키고, Wifi 네트워크 상태, 신호 세기를 확인하고, 혼잡한 채널을 확인</string>
+    <string name="about_libraries_title">사용한 라이브러리:</string>
+    <string name="about_contributor_title">기여자</string>
+    <string name="about_write_review">앱 평가하기</string>
+    <!-- about end -->
+
+    <!-- security start -->
+    <string name="security_none">없음</string>
+    <!-- security end -->
+
+    <!-- filter start -->
+    <string name="filter_title">필터</string>
+    <string name="filter_close">닫기</string>
+    <string name="filter_reset">초기화</string>
+    <string name="filter_apply">적용</string>
+    <string name="filter_wifi_band_title">WiFi 밴드</string>
+    <string name="filter_strength_title">신호 세기</string>
+    <string name="filter_security_title">보안</string>
+    <!-- filter end -->
+</resources>
