@@ -17,6 +17,8 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
   -->
 
+<resources>
+
     <string-array name="group_by_array">
         <item>없음</item>
         <item>SSID</item>
