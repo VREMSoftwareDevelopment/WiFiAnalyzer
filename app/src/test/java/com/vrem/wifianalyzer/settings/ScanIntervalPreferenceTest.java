@@ -55,7 +55,7 @@ public class ScanIntervalPreferenceTest {
     }
 
     @Test
-    public void testDialogBehaviour() throws Exception {
+    public void testDialogBehaviour() {
         // setup
         View view = LayoutInflater.from(mainActivity).inflate(R.layout.scan_interval_dialog, null);
         // execute
@@ -67,7 +67,7 @@ public class ScanIntervalPreferenceTest {
     }
 
     @Test
-    public void testOnSetInitialValue() throws Exception {
+    public void testOnSetInitialValue() {
         // setup
         int otherValue = -valueDefault;
         // execute
@@ -77,7 +77,7 @@ public class ScanIntervalPreferenceTest {
     }
 
     @Test
-    public void testOnSetInitialValueWithOtherValue() throws Exception {
+    public void testOnSetInitialValueWithOtherValue() {
         // setup
         int otherValue = -valueDefault;
         // execute
@@ -87,7 +87,7 @@ public class ScanIntervalPreferenceTest {
     }
 
     @Test
-    public void testOnGetDefaultValue() throws Exception {
+    public void testOnGetDefaultValue() {
         // setup
         TypedArray typedArray = mock(TypedArray.class);
         when(typedArray.getInteger(0, valueDefault)).thenReturn(valueDefault);
@@ -98,12 +98,12 @@ public class ScanIntervalPreferenceTest {
     }
 
     @Test
-    public void testGetSummary() throws Exception {
+    public void testGetSummary() {
         assertNull(fixture.getSummary());
     }
 
     @Test
-    public void testSetSummary() throws Exception {
+    public void testSetSummary() {
         // setup
         String summary = "This is Summary";
         // execute

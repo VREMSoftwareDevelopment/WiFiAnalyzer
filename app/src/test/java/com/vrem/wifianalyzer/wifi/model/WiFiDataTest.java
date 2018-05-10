@@ -111,7 +111,7 @@ public class WiFiDataTest {
     }
 
     @Test
-    public void testGetWiFiDetailsWithSSID() throws Exception {
+    public void testGetWiFiDetailsWithSSID() {
         // setup
         Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
         // execute
@@ -125,7 +125,7 @@ public class WiFiDataTest {
     }
 
     @Test
-    public void testGetWiFiDetailsWithVendorName() throws Exception {
+    public void testGetWiFiDetailsWithVendorName() {
         // setup
         Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
         // execute
@@ -140,7 +140,7 @@ public class WiFiDataTest {
     }
 
     @Test
-    public void testGetWiFiDetailsWithChildren() throws Exception {
+    public void testGetWiFiDetailsWithChildren() {
         // setup
         Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
         // execute
@@ -155,7 +155,7 @@ public class WiFiDataTest {
     }
 
     @Test
-    public void testGetConnection() throws Exception {
+    public void testGetConnection() {
         // execute
         WiFiDetail actual = fixture.getConnection();
         // validate
@@ -165,7 +165,7 @@ public class WiFiDataTest {
     }
 
     @Test
-    public void testIsConfiguredNetwork() throws Exception {
+    public void testIsConfiguredNetwork() {
         // setup
         Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
         // execute
@@ -183,7 +183,7 @@ public class WiFiDataTest {
     }
 
     @Test
-    public void testGetWiFiDetails() throws Exception {
+    public void testGetWiFiDetails() {
         // setup
         fixture = new WiFiData(wiFiDetails, wiFiConnection, wiFiConfigurations) {
             @NonNull

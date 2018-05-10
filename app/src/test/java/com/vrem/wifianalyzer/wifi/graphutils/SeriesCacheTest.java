@@ -64,7 +64,7 @@ public class SeriesCacheTest {
     }
 
     @Test
-    public void testContains() throws Exception {
+    public void testContains() {
         // setup
         List<WiFiDetail> wiFiDetails = withData();
         // execute
@@ -74,7 +74,7 @@ public class SeriesCacheTest {
     }
 
     @Test
-    public void testGet() throws Exception {
+    public void testGet() {
         // setup
         List<WiFiDetail> wiFiDetails = withData();
         // execute & validate
@@ -85,7 +85,7 @@ public class SeriesCacheTest {
     }
 
     @Test
-    public void testAddExistingSeries() throws Exception {
+    public void testAddExistingSeries() {
         // setup
         List<WiFiDetail> wiFiDetails = withData();
         // execute
@@ -132,7 +132,7 @@ public class SeriesCacheTest {
     }
 
     @Test
-    public void testRemoveExpectedAllLeft() throws Exception {
+    public void testRemoveExpectedAllLeft() {
         // setup
         List<WiFiDetail> expected = withData();
         // execute
@@ -143,7 +143,7 @@ public class SeriesCacheTest {
     }
 
     @Test
-    public void testRemoveExpectNoneLeft() throws Exception {
+    public void testRemoveExpectNoneLeft() {
         // setup
         List<WiFiDetail> expected = withData();
         // execute
@@ -154,7 +154,7 @@ public class SeriesCacheTest {
     }
 
     @Test
-    public void testRemoveExpectOneLeft() throws Exception {
+    public void testRemoveExpectOneLeft() {
         // setup
         List<WiFiDetail> expected = withData();
         // execute
@@ -169,7 +169,7 @@ public class SeriesCacheTest {
     }
 
     @Test
-    public void testRemoveNonExistingOne() throws Exception {
+    public void testRemoveNonExistingOne() {
         // setup
         List<WiFiDetail> expected = withData();
         List<WiFiDetail> toRemove = Collections.singletonList(makeWiFiDetail("SSID-999"));
@@ -181,7 +181,7 @@ public class SeriesCacheTest {
     }
 
     @Test
-    public void testRemoveExpectMoreThanOneLeft() throws Exception {
+    public void testRemoveExpectMoreThanOneLeft() {
         // setup
         List<WiFiDetail> expected = withData();
         // execute
@@ -196,7 +196,7 @@ public class SeriesCacheTest {
     }
 
     @Test
-    public void testFind() throws Exception {
+    public void testFind() {
         // setup
         List<WiFiDetail> wiFiDetails = withData();
         // execute

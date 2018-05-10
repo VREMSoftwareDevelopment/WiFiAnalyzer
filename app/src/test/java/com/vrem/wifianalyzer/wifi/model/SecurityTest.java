@@ -31,12 +31,12 @@ import static org.junit.Assert.assertEquals;
 public class SecurityTest {
 
     @Test
-    public void testSecurity() throws Exception {
+    public void testSecurity() {
         assertEquals(5, Security.values().length);
     }
 
     @Test
-    public void testGetImageResource() throws Exception {
+    public void testGetImageResource() {
         assertEquals(R.drawable.ic_lock_open_black_18dp, Security.NONE.getImageResource());
         assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WPS.getImageResource());
         assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WEP.getImageResource());
@@ -45,13 +45,13 @@ public class SecurityTest {
     }
 
     @Test
-    public void testFindAll() throws Exception {
+    public void testFindAll() {
         List<Security> expected = Arrays.asList(Security.WPS, Security.WEP, Security.WPA, Security.WPA2);
         assertEquals(expected, Security.findAll("WPA-WPA2-WPA-WEP-WPS-WPA2"));
     }
 
     @Test
-    public void testFindOne() throws Exception {
+    public void testFindOne() {
         assertEquals(Security.NONE, Security.findOne("xyz"));
         assertEquals(Security.NONE, Security.findOne(Security.NONE.name()));
         assertEquals(Security.WPS, Security.findOne(Security.WPS.name()));
@@ -61,7 +61,7 @@ public class SecurityTest {
     }
 
     @Test
-    public void testOrder() throws Exception {
+    public void testOrder() {
         Security[] expected = {Security.NONE, Security.WPS, Security.WEP, Security.WPA, Security.WPA2};
         assertArrayEquals(expected, Security.values());
     }

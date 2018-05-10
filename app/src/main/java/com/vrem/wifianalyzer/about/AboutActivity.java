@@ -44,7 +44,11 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class AboutActivity extends AppCompatActivity {
+    private static final String YEAR_FORMAT = "yyyy";
     private AlertDialog alertDialog;
 
     @Override
@@ -57,8 +61,15 @@ public class AboutActivity extends AppCompatActivity {
         setTheme(ThemeStyle.getDefaultTheme());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_content);
+        setCopyright();
         setExtraInformation();
         ActivityUtils.setActionBarOptions(getSupportActionBar());
+    }
+
+    private void setCopyright() {
+        String year = new SimpleDateFormat(YEAR_FORMAT).format(new Date());
+        String message = getResources().getString(R.string.app_copyright);
+        setText(R.id.about_copyright, message + year);
     }
 
     private void setExtraInformation() {

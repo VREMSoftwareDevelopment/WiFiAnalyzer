@@ -83,14 +83,14 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testInitializeDefaultValues() throws Exception {
+    public void testInitializeDefaultValues() {
         fixture.initializeDefaultValues();
     }
 
     @Test
-    public void testSaveString() throws Exception {
+    public void testSaveString() {
         // setup
-        int keyIndex = R.string.app_name;
+        int keyIndex = R.string.app_full_name;
         String value = "1111";
         withSave(keyIndex);
         // execute
@@ -100,9 +100,9 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testSaveInteger() throws Exception {
+    public void testSaveInteger() {
         // setup
-        int keyIndex = R.string.app_name;
+        int keyIndex = R.string.app_full_name;
         int value = 1111;
         withSave(keyIndex);
         // execute
@@ -112,9 +112,9 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testGetString() throws Exception {
+    public void testGetString() {
         // setup
-        int keyIndex = R.string.app_name;
+        int keyIndex = R.string.app_full_name;
         String value = "1111";
         String defaultValue = "2222";
         when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
@@ -128,9 +128,9 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testGetStringAsInteger() throws Exception {
+    public void testGetStringAsInteger() {
         // setup
-        int keyIndex = R.string.app_name;
+        int keyIndex = R.string.app_full_name;
         int value = 1111;
         int defaultValue = 2222;
         when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
@@ -144,9 +144,9 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testGetStringAsIntegerThrowsException() throws Exception {
+    public void testGetStringAsIntegerThrowsException() {
         // setup
-        int keyIndex = R.string.app_name;
+        int keyIndex = R.string.app_full_name;
         int defaultValue = 2222;
         when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
         when(sharedPreferences.getString(keyValue, "" + defaultValue)).thenThrow(new RuntimeException());
@@ -161,7 +161,7 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testGetResourceInteger() throws Exception {
+    public void testGetResourceInteger() {
         // setup
         int keyIndex = R.integer.scan_interval_max;
         int expected = 1111;
@@ -174,9 +174,9 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testGetInteger() throws Exception {
+    public void testGetInteger() {
         // setup
-        int keyIndex = R.string.app_name;
+        int keyIndex = R.string.app_full_name;
         int value = 1111;
         int defaultValue = 2222;
         when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
@@ -190,9 +190,9 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testGetIntegerThrowsException() throws Exception {
+    public void testGetIntegerThrowsException() {
         // setup
-        int keyIndex = R.string.app_name;
+        int keyIndex = R.string.app_full_name;
         int defaultValue = 2222;
         when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
         when(sharedPreferences.getInt(keyValue, defaultValue)).thenThrow(new RuntimeException());
@@ -207,7 +207,7 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testGetResourceBoolean() throws Exception {
+    public void testGetResourceBoolean() {
         // setup
         int keyIndex = R.bool.wifi_off_on_exit_default;
         when(resources.getBoolean(keyIndex)).thenReturn(true);
@@ -219,9 +219,9 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testGetBoolean() throws Exception {
+    public void testGetBoolean() {
         // setup
-        int keyIndex = R.string.app_name;
+        int keyIndex = R.string.app_full_name;
         when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
         when(sharedPreferences.getBoolean(keyValue, false)).thenReturn(true);
         // execute
@@ -233,9 +233,9 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testGetBooleanThrowsException() throws Exception {
+    public void testGetBooleanThrowsException() {
         // setup
-        int keyIndex = R.string.app_name;
+        int keyIndex = R.string.app_full_name;
         when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
         when(sharedPreferences.getBoolean(keyValue, true)).thenThrow(new RuntimeException());
         withSave(keyIndex);
@@ -249,7 +249,7 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testRegisterOnSharedPreferenceChangeListener() throws Exception {
+    public void testRegisterOnSharedPreferenceChangeListener() {
         // execute
         fixture.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
         // verify
@@ -257,9 +257,9 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testGetStringSet() throws Exception {
+    public void testGetStringSet() {
         // setup
-        int keyIndex = R.string.app_name;
+        int keyIndex = R.string.app_full_name;
         Set<String> expected = Collections.singleton("123");
         Set<String> defaultValues = Collections.singleton("567");
         when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
@@ -273,9 +273,9 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testGetStringSetThrowsException() throws Exception {
+    public void testGetStringSetThrowsException() {
         // setup
-        int keyIndex = R.string.app_name;
+        int keyIndex = R.string.app_full_name;
         Set<String> expected = Collections.singleton("567");
         when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
         when(sharedPreferences.getStringSet(keyValue, expected)).thenThrow(new RuntimeException());
@@ -292,9 +292,9 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testSaveStringSet() throws Exception {
+    public void testSaveStringSet() {
         // setup
-        int keyIndex = R.string.app_name;
+        int keyIndex = R.string.app_full_name;
         Set<String> values = Collections.singleton("123");
         when(mainActivity.getString(keyIndex)).thenReturn(keyValue);
         when(sharedPreferences.edit()).thenReturn(editor);

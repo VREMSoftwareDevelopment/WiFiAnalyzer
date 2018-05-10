@@ -55,7 +55,7 @@ public class AccessPointsFragmentTest {
     }
 
     @Test
-    public void testOnCreateView() throws Exception {
+    public void testOnCreateView() {
         // execute
         SupportFragmentTestUtil.startFragment(fixture);
         // validate
@@ -65,7 +65,7 @@ public class AccessPointsFragmentTest {
     }
 
     @Test
-    public void testOnResume() throws Exception {
+    public void testOnResume() {
         // setup
         SupportFragmentTestUtil.startFragment(fixture);
         // execute
@@ -75,7 +75,7 @@ public class AccessPointsFragmentTest {
     }
 
     @Test
-    public void testOnDestroy() throws Exception {
+    public void testOnDestroy() {
         // setup
         SupportFragmentTestUtil.startFragment(fixture);
         // execute

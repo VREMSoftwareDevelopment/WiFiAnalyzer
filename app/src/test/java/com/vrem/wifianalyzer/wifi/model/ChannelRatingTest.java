@@ -56,7 +56,7 @@ public class ChannelRatingTest {
     }
 
     @Test
-    public void testChannelRating() throws Exception {
+    public void testChannelRating() {
         // setup
         WiFiChannel wiFiChannel = wiFiDetail1.getWiFiSignal().getCenterWiFiChannel();
         // execute & validate
@@ -65,7 +65,7 @@ public class ChannelRatingTest {
     }
 
     @Test
-    public void testGetCount() throws Exception {
+    public void testGetCount() {
         // setup
         fixture.setWiFiDetails(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4));
         // execute and validate
@@ -79,7 +79,7 @@ public class ChannelRatingTest {
     }
 
     @Test
-    public void testGetStrengthShouldReturnMaximum() throws Exception {
+    public void testGetStrengthShouldReturnMaximum() {
         // setup
         WiFiDetail other = makeCopy(wiFiDetail3);
         fixture.setWiFiDetails(Arrays.asList(other, wiFiDetail3));
@@ -91,7 +91,7 @@ public class ChannelRatingTest {
     }
 
     @Test
-    public void testGetStrengthWithConnected() throws Exception {
+    public void testGetStrengthWithConnected() {
         // setup
         WiFiDetail other = makeCopy(wiFiDetail1);
         fixture.setWiFiDetails(Arrays.asList(other, wiFiDetail1));
@@ -110,7 +110,7 @@ public class ChannelRatingTest {
     }
 
     @Test
-    public void testGetBestChannelsSortedInOrderWithMinimumChannels() throws Exception {
+    public void testGetBestChannelsSortedInOrderWithMinimumChannels() {
         // setup
         List<WiFiChannel> channels = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannels();
         fixture.setWiFiDetails(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4));
@@ -133,7 +133,7 @@ public class ChannelRatingTest {
     }
 
     @Test
-    public void testSetWiFiChannelsRemovesGuestAccessPoint() throws Exception {
+    public void testSetWiFiChannelsRemovesGuestAccessPoint() {
         // setup
         WiFiDetail wiFiDetailGuest = new WiFiDetail("SSID2", "22:cf:30:ce:1d:72", StringUtils.EMPTY,
             new WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50 + ChannelRating.LEVEL_RANGE_MIN), WiFiAdditional.EMPTY);

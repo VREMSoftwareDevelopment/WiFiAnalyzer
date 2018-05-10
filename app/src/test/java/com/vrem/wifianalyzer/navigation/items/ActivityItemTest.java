@@ -46,7 +46,7 @@ public class ActivityItemTest {
     private Intent mockIntent;
 
     @Test
-    public void testActivate() throws Exception {
+    public void testActivate() {
         // setup
         ActivityItem fixture = new TestActivityItem();
         // execute
@@ -56,7 +56,7 @@ public class ActivityItemTest {
     }
 
     @Test
-    public void testIsRegistered() throws Exception {
+    public void testIsRegistered() {
         // setup
         ActivityItem fixture = new ActivityItem(AboutActivity.class);
         // execute & validate

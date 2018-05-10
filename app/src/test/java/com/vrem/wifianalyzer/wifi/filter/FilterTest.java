@@ -66,13 +66,13 @@ public class FilterTest {
     }
 
     @Test
-    public void testAlertDialog() throws Exception {
+    public void testAlertDialog() {
         assertFalse(alertDialog.isShowing());
         assertTrue(alertDialog instanceof AlertDialog);
     }
 
     @Test
-    public void testShow() throws Exception {
+    public void testShow() {
         // execute
         fixture.show();
         // validate
@@ -80,7 +80,7 @@ public class FilterTest {
     }
 
     @Test
-    public void testTitle() throws Exception {
+    public void testTitle() {
         // setup
         String expected = mainActivity.getResources().getString(R.string.filter_title);
         ShadowAlertDialog shadowAlertDialog = shadowOf(alertDialog);
@@ -91,7 +91,7 @@ public class FilterTest {
     }
 
     @Test
-    public void testPositiveButton() throws Exception {
+    public void testPositiveButton() {
         // setup
         fixture.show();
         Button button = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
@@ -106,7 +106,7 @@ public class FilterTest {
     }
 
     @Test
-    public void testNegativeButton() throws Exception {
+    public void testNegativeButton() {
         // setup
         fixture.show();
         Button button = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
@@ -121,7 +121,7 @@ public class FilterTest {
     }
 
     @Test
-    public void testNeutralButton() throws Exception {
+    public void testNeutralButton() {
         // setup
         fixture.show();
         Button button = alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL);
@@ -136,7 +136,7 @@ public class FilterTest {
     }
 
     @Test
-    public void testWiFiBandFilterViewIsVisible() throws Exception {
+    public void testWiFiBandFilterViewIsVisible() {
         // setup
         fixture.show();
         // execute
@@ -146,7 +146,7 @@ public class FilterTest {
     }
 
     @Test
-    public void testSecurityFilterViewIsVisible() throws Exception {
+    public void testSecurityFilterViewIsVisible() {
         // setup
         fixture.show();
         // execute
@@ -156,7 +156,7 @@ public class FilterTest {
     }
 
     @Test
-    public void testStrengthFilterViewIsVisible() throws Exception {
+    public void testStrengthFilterViewIsVisible() {
         // setup
         fixture.show();
         // execute

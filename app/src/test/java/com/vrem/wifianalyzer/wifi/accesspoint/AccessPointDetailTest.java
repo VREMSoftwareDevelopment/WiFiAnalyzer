@@ -73,7 +73,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewShouldCreateNewView() throws Exception {
+    public void testMakeViewShouldCreateNewView() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, true));
         // execute
@@ -83,7 +83,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewShouldUseGivenView() throws Exception {
+    public void testMakeViewShouldUseGivenView() {
         // setup
         View expected = mainActivity.getLayoutInflater().inflate(AccessPointViewType.COMPLETE.getLayout(), null, false);
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, true));
@@ -94,7 +94,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithConfiguredImageVisible() throws Exception {
+    public void testMakeViewFullWithConfiguredImageVisible() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, true));
         // execute
@@ -104,7 +104,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithTabGone() throws Exception {
+    public void testMakeViewFullWithTabGone() {
         // setup
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, wiFiAdditional);
@@ -115,7 +115,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithGroupIndicatorGone() throws Exception {
+    public void testMakeViewFullWithGroupIndicatorGone() {
         // setup
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, wiFiAdditional);
@@ -126,7 +126,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithVendorShortNotVisible() throws Exception {
+    public void testMakeViewFullWithVendorShortNotVisible() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
@@ -137,7 +137,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithVendorShortVisible() throws Exception {
+    public void testMakeViewFullWithVendorShortVisible() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME, false));
         // execute
@@ -148,7 +148,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithVendorShortMaximumSize() throws Exception {
+    public void testMakeViewFullWithVendorShortMaximumSize() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME, false));
         // execute
@@ -158,7 +158,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithTabVisible() throws Exception {
+    public void testMakeViewFullWithTabVisible() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
@@ -168,7 +168,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithWiFiDetailAndEmptySSID() throws Exception {
+    public void testMakeViewFullWithWiFiDetailAndEmptySSID() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
@@ -178,7 +178,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithWiFiDetail() throws Exception {
+    public void testMakeViewFullWithWiFiDetail() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
@@ -188,7 +188,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewCompactWithTabGone() throws Exception {
+    public void testMakeViewCompactWithTabGone() {
         // setup
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, wiFiAdditional);
@@ -200,7 +200,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewCompactWithGroupIndicatorGone() throws Exception {
+    public void testMakeViewCompactWithGroupIndicatorGone() {
         // setup
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
         WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
@@ -212,7 +212,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewCompactWithTabVisible() throws Exception {
+    public void testMakeViewCompactWithTabVisible() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
         when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
@@ -223,7 +223,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewCompactWithWiFiDetailAndEmptySSID() throws Exception {
+    public void testMakeViewCompactWithWiFiDetailAndEmptySSID() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
         when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
@@ -234,7 +234,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewCompactWithWiFiDetail() throws Exception {
+    public void testMakeViewCompactWithWiFiDetail() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
         when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
@@ -245,7 +245,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewCompactWithAttachPopup() throws Exception {
+    public void testMakeViewCompactWithAttachPopup() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
         when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
@@ -256,7 +256,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewCompactDoesNotHaveFullDetails() throws Exception {
+    public void testMakeViewCompactDoesNotHaveFullDetails() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
         when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
@@ -270,7 +270,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewPopupWithWiFiDetail() throws Exception {
+    public void testMakeViewPopupWithWiFiDetail() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
@@ -280,7 +280,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewPopupWithVendorNotVisible() throws Exception {
+    public void testMakeViewPopupWithVendorNotVisible() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
@@ -291,7 +291,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewPopupWithVendorVisible() throws Exception {
+    public void testMakeViewPopupWithVendorVisible() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME, false));
         // execute

@@ -40,7 +40,7 @@ import static org.junit.Assert.assertTrue;
 public class EnumUtilsTest {
 
     @Test
-    public void testOrdinals() throws Exception {
+    public void testOrdinals() {
         // setup
         Set<TestObject> expected = EnumUtils.values(TestObject.class);
         // execute
@@ -52,7 +52,7 @@ public class EnumUtilsTest {
     }
 
     @Test
-    public void testValues() throws Exception {
+    public void testValues() {
         // setup
         List<TestObject> expected = Arrays.asList(TestObject.values());
         // execute
@@ -62,7 +62,7 @@ public class EnumUtilsTest {
     }
 
     @Test
-    public void testFindUsingValues() throws Exception {
+    public void testFindUsingValues() {
         // setup
         TestObject expected = TestObject.VALUE1;
         Set<TestObject> values = Collections.singleton(expected);
@@ -74,7 +74,7 @@ public class EnumUtilsTest {
     }
 
     @Test
-    public void testFindUsingOrdinals() throws Exception {
+    public void testFindUsingOrdinals() {
         // setup
         Set<TestObject> expected = EnumUtils.values(TestObject.class);
         Set<String> ordinals = new HashSet<>(
@@ -86,7 +86,7 @@ public class EnumUtilsTest {
     }
 
     @Test
-    public void testFindUsingOrdinalsWithEmptyInput() throws Exception {
+    public void testFindUsingOrdinalsWithEmptyInput() {
         // setup
         Set<TestObject> expected = EnumUtils.values(TestObject.class);
         // execute
@@ -96,7 +96,7 @@ public class EnumUtilsTest {
     }
 
     @Test
-    public void testFindUsingOrdinalsWithInvalidInput() throws Exception {
+    public void testFindUsingOrdinalsWithInvalidInput() {
         // setup
         TestObject expected = TestObject.VALUE2;
         Set<String> ordinals = new HashSet<>(Arrays.asList("-1", null));
@@ -108,7 +108,7 @@ public class EnumUtilsTest {
     }
 
     @Test
-    public void testFindUsingIndex() throws Exception {
+    public void testFindUsingIndex() {
         // setup
         TestObject expected = TestObject.VALUE3;
         // execute
@@ -118,7 +118,7 @@ public class EnumUtilsTest {
     }
 
     @Test
-    public void testFindUsingInvalidIndex() throws Exception {
+    public void testFindUsingInvalidIndex() {
         // setup
         int index = -1;
         TestObject expected = TestObject.VALUE2;
@@ -129,7 +129,7 @@ public class EnumUtilsTest {
     }
 
     @Test
-    public void testFindUsingPredicate() throws Exception {
+    public void testFindUsingPredicate() {
         // setup
         final TestObject expected = TestObject.VALUE3;
         Predicate<TestObject> predicate = PredicateUtils.equalPredicate(expected);
@@ -140,7 +140,7 @@ public class EnumUtilsTest {
     }
 
     @Test
-    public void testFindUsingPredicateWhenNothingFound() throws Exception {
+    public void testFindUsingPredicateWhenNothingFound() {
         // setup
         TestObject expected = TestObject.VALUE2;
         Predicate<TestObject> predicate = PredicateUtils.falsePredicate();
@@ -151,7 +151,7 @@ public class EnumUtilsTest {
     }
 
     @Test
-    public void testPredicateExpectsTruePredicateWithAllValues() throws Exception {
+    public void testPredicateExpectsTruePredicateWithAllValues() {
         // setup
         Set<TestObject> inputs = EnumUtils.values(TestObject.class);
         // execute
@@ -161,7 +161,7 @@ public class EnumUtilsTest {
     }
 
     @Test
-    public void testPredicateExpectsAnyPredicateWithSomeValues() throws Exception {
+    public void testPredicateExpectsAnyPredicateWithSomeValues() {
         // setup
         List<TestObject> inputs = Arrays.asList(TestObject.VALUE1, TestObject.VALUE3);
         // execute

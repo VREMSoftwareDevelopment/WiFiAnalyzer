@@ -49,7 +49,7 @@ public class StartMenuPreferenceTest {
     }
 
     @Test
-    public void testGetEntries() throws Exception {
+    public void testGetEntries() {
         // setup
         List<NavigationMenu> expected = NavigationGroup.GROUP_FEATURE.getNavigationMenus();
         // execute
@@ -62,7 +62,7 @@ public class StartMenuPreferenceTest {
     }
 
     @Test
-    public void testGetEntryValues() throws Exception {
+    public void testGetEntryValues() {
         // setup
         List<NavigationMenu> expected = NavigationGroup.GROUP_FEATURE.getNavigationMenus();
         // execute

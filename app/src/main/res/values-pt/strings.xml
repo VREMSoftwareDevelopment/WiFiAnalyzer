@@ -18,11 +18,11 @@
   -->
 
 <resources>
-    <string name="app_copyright">"Copyright \u00A9 2015 \u002D 2017"</string>
+    <string name="app_copyright">"Copyright \u00A9 2015 \u002D "</string>
 
     <string name="navigation_drawer_open">"Abrir gaveta de notificações"</string>
     <string name="navigation_drawer_close">"Fechar gaveta de notificações"</string>
-    <string name="scanner_message">"Verificando..."</string>
+    <string name="scanner_message">"Verificando &#8230;"</string>
     <string name="scanner_pause">"Pausar"</string>
     <string name="scanner_play">"Reproduzir"</string>
 
@@ -41,6 +41,7 @@
     <string name="no_data">"Sem Informações"</string>
     <string name="no_data_msg">"Por favor, visite com freqüência as perguntas sobre em nosso site."</string>
     <string name="no_data_geo_warning">"Alguns usuários do Android OS 6+ (Marshmallow) relataram que o serviço de localização deve estar habilitado para ver as redes Wi-Fi. Usuários de Marshmallow podem ter que ligar o serviço de localização, apesar de WiFiAnalyzer não exige explicitamente. Parece ser atribuída a um potencial problema do Android 6+ que precisa o serviço de localização para ver as redes WiFi."</string>
+    <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a WiFi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
 
     <string name="export_not_available">"Não foi possível exportar"</string>
 

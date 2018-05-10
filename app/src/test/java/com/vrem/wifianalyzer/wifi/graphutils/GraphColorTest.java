@@ -35,14 +35,14 @@ public class GraphColorTest {
     }
 
     @Test
-    public void testEquals() throws Exception {
+    public void testEquals() {
         // execute & validate
         assertEquals(fixture, other);
         assertNotSame(fixture, other);
     }
 
     @Test
-    public void testHashCode() throws Exception {
+    public void testHashCode() {
         // execute & validate
         assertEquals(fixture.hashCode(), other.hashCode());
     }

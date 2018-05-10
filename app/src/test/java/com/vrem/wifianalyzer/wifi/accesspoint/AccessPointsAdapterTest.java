@@ -86,7 +86,7 @@ public class AccessPointsAdapterTest {
     }
 
     @Test
-    public void testGetGroupViewWithNoChildren() throws Exception {
+    public void testGetGroupViewWithNoChildren() {
         // setup
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.parent(1)).thenReturn(wiFiDetail);
@@ -103,7 +103,7 @@ public class AccessPointsAdapterTest {
     }
 
     @Test
-    public void testGetGroupViewCompactAddsPopup() throws Exception {
+    public void testGetGroupViewCompactAddsPopup() {
         // setup
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.parent(1)).thenReturn(wiFiDetail);
@@ -122,7 +122,7 @@ public class AccessPointsAdapterTest {
     }
 
     @Test
-    public void testGetGroupViewWithChildren() throws Exception {
+    public void testGetGroupViewWithChildren() {
         // setup
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.parent(1)).thenReturn(wiFiDetail);
@@ -139,7 +139,7 @@ public class AccessPointsAdapterTest {
     }
 
     @Test
-    public void testGetChildView() throws Exception {
+    public void testGetChildView() {
         // setup
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.child(0, 0)).thenReturn(wiFiDetail);
@@ -154,7 +154,7 @@ public class AccessPointsAdapterTest {
     }
 
     @Test
-    public void testGetChildViewCompactAddsPopup() throws Exception {
+    public void testGetChildViewCompactAddsPopup() {
         // setup
         WiFiDetail wiFiDetail = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.child(0, 0)).thenReturn(wiFiDetail);
@@ -171,7 +171,7 @@ public class AccessPointsAdapterTest {
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void testUpdate() {
         // setup
         WiFiData wiFiData = new WiFiData(Collections.<WiFiDetail>emptyList(), WiFiConnection.EMPTY, Collections.<String>emptyList());
         // execute
@@ -181,7 +181,7 @@ public class AccessPointsAdapterTest {
     }
 
     @Test
-    public void testGetGroupCount() throws Exception {
+    public void testGetGroupCount() {
         // setup
         int expected = 5;
         when(accessPointsAdapterData.parentsCount()).thenReturn(expected);
@@ -193,7 +193,7 @@ public class AccessPointsAdapterTest {
     }
 
     @Test
-    public void testGetChildrenCount() throws Exception {
+    public void testGetChildrenCount() {
         // setup
         int expected = 25;
         when(accessPointsAdapterData.childrenCount(1)).thenReturn(expected);
@@ -205,7 +205,7 @@ public class AccessPointsAdapterTest {
     }
 
     @Test
-    public void testGetGroup() throws Exception {
+    public void testGetGroup() {
         // setup
         WiFiDetail expected = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.parent(3)).thenReturn(expected);
@@ -217,7 +217,7 @@ public class AccessPointsAdapterTest {
     }
 
     @Test
-    public void testGetChild() throws Exception {
+    public void testGetChild() {
         // setup
         WiFiDetail expected = WiFiDetail.EMPTY;
         when(accessPointsAdapterData.child(1, 2)).thenReturn(expected);
@@ -229,27 +229,27 @@ public class AccessPointsAdapterTest {
     }
 
     @Test
-    public void testGetGroupId() throws Exception {
+    public void testGetGroupId() {
         assertEquals(22, fixture.getGroupId(22));
     }
 
     @Test
-    public void testGetChildId() throws Exception {
+    public void testGetChildId() {
         assertEquals(11, fixture.getChildId(1, 11));
     }
 
     @Test
-    public void testHasStableIds() throws Exception {
+    public void testHasStableIds() {
         assertTrue(fixture.hasStableIds());
     }
 
     @Test
-    public void testIsChildSelectable() throws Exception {
+    public void testIsChildSelectable() {
         assertTrue(fixture.isChildSelectable(0, 0));
     }
 
     @Test
-    public void testOnGroupCollapsed() throws Exception {
+    public void testOnGroupCollapsed() {
         // setup
         int index = 11;
         // execute
@@ -259,7 +259,7 @@ public class AccessPointsAdapterTest {
     }
 
     @Test
-    public void testOnGroupExpanded() throws Exception {
+    public void testOnGroupExpanded() {
         // setup
         int index = 22;
         // execute

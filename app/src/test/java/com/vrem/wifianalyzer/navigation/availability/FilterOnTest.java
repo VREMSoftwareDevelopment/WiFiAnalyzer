@@ -65,7 +65,7 @@ public class FilterOnTest {
     }
 
     @Test
-    public void testApplySetMenuItemVisibleTrue() throws Exception {
+    public void testApplySetMenuItemVisibleTrue() {
         // setup
         withMenuItem();
         // execute
@@ -77,7 +77,7 @@ public class FilterOnTest {
     }
 
     @Test
-    public void testApplyWithFilterInactive() throws Exception {
+    public void testApplyWithFilterInactive() {
         // setup
         when(filterAdapter.isActive()).thenReturn(false);
         withMenuItem();
@@ -90,7 +90,7 @@ public class FilterOnTest {
     }
 
     @Test
-    public void testApplyWithFilterActive() throws Exception {
+    public void testApplyWithFilterActive() {
         // setup
         when(filterAdapter.isActive()).thenReturn(true);
         withMenuItem();
@@ -115,7 +115,7 @@ public class FilterOnTest {
     }
 
     @Test
-    public void testApplyWithNoMenuDoesNotSetVisibleTrue() throws Exception {
+    public void testApplyWithNoMenuDoesNotSetVisibleTrue() {
         // setup
         when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
         when(optionMenu.getMenu()).thenReturn(null);

@@ -29,12 +29,12 @@ import static org.junit.Assert.assertTrue;
 public class StrengthTest {
 
     @Test
-    public void testStrength() throws Exception {
+    public void testStrength() {
         assertEquals(5, Strength.values().length);
     }
 
     @Test
-    public void testImageResource() throws Exception {
+    public void testImageResource() {
         assertEquals(R.drawable.ic_signal_wifi_0_bar_black_36dp, Strength.ZERO.imageResource());
         assertEquals(R.drawable.ic_signal_wifi_1_bar_black_36dp, Strength.ONE.imageResource());
         assertEquals(R.drawable.ic_signal_wifi_2_bar_black_36dp, Strength.TWO.imageResource());
@@ -43,7 +43,7 @@ public class StrengthTest {
     }
 
     @Test
-    public void testColorResource() throws Exception {
+    public void testColorResource() {
         assertEquals(R.color.error_color, Strength.ZERO.colorResource());
         assertEquals(R.color.warning_color, Strength.ONE.colorResource());
         assertEquals(R.color.warning_color, Strength.TWO.colorResource());
@@ -52,7 +52,7 @@ public class StrengthTest {
     }
 
     @Test
-    public void testColorResourceDefault() throws Exception {
+    public void testColorResourceDefault() {
         assertEquals(R.color.icons_color, Strength.ZERO.colorResourceDefault());
         assertEquals(R.color.icons_color, Strength.ONE.colorResourceDefault());
         assertEquals(R.color.icons_color, Strength.TWO.colorResourceDefault());
@@ -61,7 +61,7 @@ public class StrengthTest {
     }
 
     @Test
-    public void testWeak() throws Exception {
+    public void testWeak() {
         assertTrue(Strength.ZERO.weak());
         assertFalse(Strength.ONE.weak());
         assertFalse(Strength.TWO.weak());
@@ -70,7 +70,7 @@ public class StrengthTest {
     }
 
     @Test
-    public void testCalculate() throws Exception {
+    public void testCalculate() {
         assertEquals(Strength.ZERO, Strength.calculate(-89));
 
         assertEquals(Strength.ONE, Strength.calculate(-88));
@@ -87,7 +87,7 @@ public class StrengthTest {
     }
 
     @Test
-    public void testReverse() throws Exception {
+    public void testReverse() {
         assertEquals(Strength.FOUR, Strength.reverse(Strength.ZERO));
         assertEquals(Strength.THREE, Strength.reverse(Strength.ONE));
         assertEquals(Strength.TWO, Strength.reverse(Strength.TWO));

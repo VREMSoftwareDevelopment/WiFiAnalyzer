@@ -66,7 +66,7 @@ public class ScannerSwitchOnTest {
 
 
     @Test
-    public void testApplySetMenuItemVisibleTrue() throws Exception {
+    public void testApplySetMenuItemVisibleTrue() {
         // setup
         withMenuItem();
         // execute
@@ -77,7 +77,7 @@ public class ScannerSwitchOnTest {
     }
 
     @Test
-    public void testApplyWithScannerRunningUpdateMenuItemIconAndTitle() throws Exception {
+    public void testApplyWithScannerRunningUpdateMenuItemIconAndTitle() {
         // setup
         when(scanner.isRunning()).thenReturn(true);
         withMenuItem();
@@ -91,7 +91,7 @@ public class ScannerSwitchOnTest {
     }
 
     @Test
-    public void testApplyWithScannerNotRunningUpdateMenuItemIconAndTitle() throws Exception {
+    public void testApplyWithScannerNotRunningUpdateMenuItemIconAndTitle() {
         // setup
         when(scanner.isRunning()).thenReturn(false);
         withMenuItem();
@@ -117,7 +117,7 @@ public class ScannerSwitchOnTest {
     }
 
     @Test
-    public void testApplyWithNoMenuDoesNotSetVisibleTrue() throws Exception {
+    public void testApplyWithNoMenuDoesNotSetVisibleTrue() {
         // setup
         when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
         when(optionMenu.getMenu()).thenReturn(null);

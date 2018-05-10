@@ -34,7 +34,7 @@ import static org.junit.Assert.assertTrue;
 public class StrengthPredicateTest {
 
     @Test
-    public void testStrengthPredicate() throws Exception {
+    public void testStrengthPredicate() {
         // setup
         WiFiDetail wiFiDetail = makeWiFiDetail(-60);
         // execute & validate

@@ -39,7 +39,7 @@ public class FileUtilsTest {
     private Resources resources;
 
     @Test
-    public void testReadFile() throws Exception {
+    public void testReadFile() {
         // setup
         int id = 11;
         String expected = "Line-1\nLine-2\n";
@@ -53,7 +53,7 @@ public class FileUtilsTest {
     }
 
     @Test
-    public void testReadFileHandleException() throws Exception {
+    public void testReadFileHandleException() {
         // setup
         int id = 11;
         when(resources.openRawResource(id)).thenThrow(Exception.class);

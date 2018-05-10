@@ -34,7 +34,7 @@ import static org.junit.Assert.assertTrue;
 public class WiFiBandPredicateTest {
 
     @Test
-    public void testWiFiBandPredicateWith2GHzFrequency() throws Exception {
+    public void testWiFiBandPredicateWith2GHzFrequency() {
         // setup
         WiFiDetail wiFiDetail = makeWiFiDetail(2455);
         // execute & validate
@@ -43,7 +43,7 @@ public class WiFiBandPredicateTest {
     }
 
     @Test
-    public void testWiFiBandPredicateWith5GHzFrequency() throws Exception {
+    public void testWiFiBandPredicateWith5GHzFrequency() {
         // setup
         WiFiDetail wiFiDetail = makeWiFiDetail(5455);
         // execute & validate

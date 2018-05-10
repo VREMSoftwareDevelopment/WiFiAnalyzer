@@ -33,7 +33,7 @@ import static org.junit.Assert.assertNotNull;
 public class WiFiBandFilterTest {
 
     @Test
-    public void testMapping() throws Exception {
+    public void testMapping() {
         Set<WiFiBand> wiFiBands = EnumUtils.values(WiFiBand.class);
         assertEquals(wiFiBands.size(), WiFiBandFilter.ids.size());
         IterableUtils.forEach(wiFiBands, new MappingClosure());

@@ -71,7 +71,7 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testGetNewSeries() throws Exception {
+    public void testGetNewSeries() {
         // setup
         Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelPairs().get(0);
         List<WiFiDetail> expected = makeWiFiDetails(wiFiChannelPair.first.getFrequency());
@@ -85,7 +85,7 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testGetDataPoints() throws Exception {
+    public void testGetDataPoints() {
         // setup
         WiFiDetail expected = makeWiFiDetail("SSID", 2455);
         // execute
@@ -100,7 +100,7 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testGetDataPointsExpectLevelToEqualToLevelMax() throws Exception {
+    public void testGetDataPointsExpectLevelToEqualToLevelMax() {
         // setup
         int expectedLevel = LEVEL - 10;
         WiFiDetail expected = makeWiFiDetail("SSID", 2455);
@@ -116,7 +116,7 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testAddSeriesDataWithExistingWiFiDetails() throws Exception {
+    public void testAddSeriesDataWithExistingWiFiDetails() {
         // setup
         GraphViewWrapper graphViewWrapper = mock(GraphViewWrapper.class);
         WiFiDetail wiFiDetail = makeWiFiDetail("SSID", 2455);
@@ -134,7 +134,7 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testAddSeriesDataNewWiFiDetails() throws Exception {
+    public void testAddSeriesDataNewWiFiDetails() {
         // setup
         GraphViewWrapper graphViewWrapper = mock(GraphViewWrapper.class);
         WiFiDetail wiFiDetail = makeWiFiDetail("SSID", 2455);

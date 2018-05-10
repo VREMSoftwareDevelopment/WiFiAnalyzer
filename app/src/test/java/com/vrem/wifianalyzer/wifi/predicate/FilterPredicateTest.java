@@ -68,7 +68,7 @@ public class FilterPredicateTest {
     }
 
     @Test
-    public void testMakeAccessPointsPredicate() throws Exception {
+    public void testMakeAccessPointsPredicate() {
         // execute
         fixture = FilterPredicate.makeAccessPointsPredicate(settings);
         // validate
@@ -80,7 +80,7 @@ public class FilterPredicateTest {
     }
 
     @Test
-    public void testMakeOtherPredicate() throws Exception {
+    public void testMakeOtherPredicate() {
         // execute
         fixture = FilterPredicate.makeOtherPredicate(settings);
         // validate
@@ -92,7 +92,7 @@ public class FilterPredicateTest {
     }
 
     @Test
-    public void testEvaluateToTrue() throws Exception {
+    public void testEvaluateToTrue() {
         // setup
         fixture = FilterPredicate.makeAccessPointsPredicate(settings);
         WiFiDetail wiFiDetail = makeWiFiDetail(SSID, WPA2);
@@ -103,7 +103,7 @@ public class FilterPredicateTest {
     }
 
     @Test
-    public void testEvaluateWithSecurityToFalse() throws Exception {
+    public void testEvaluateWithSecurityToFalse() {
         // setup
         fixture = FilterPredicate.makeAccessPointsPredicate(settings);
         WiFiDetail wiFiDetail = makeWiFiDetail(SSID, "WPA");
@@ -114,7 +114,7 @@ public class FilterPredicateTest {
     }
 
     @Test
-    public void testEvaluateWithSSIDToFalse() throws Exception {
+    public void testEvaluateWithSSIDToFalse() {
         // setup
         fixture = FilterPredicate.makeAccessPointsPredicate(settings);
         WiFiDetail wiFiDetail = makeWiFiDetail("WIFI", WPA2);
@@ -125,7 +125,7 @@ public class FilterPredicateTest {
     }
 
     @Test
-    public void testGetPredicateWithSomeValuesIsAnyPredicate() throws Exception {
+    public void testGetPredicateWithSomeValuesIsAnyPredicate() {
         // setup
         fixture = FilterPredicate.makeAccessPointsPredicate(settings);
         // execute
@@ -135,7 +135,7 @@ public class FilterPredicateTest {
     }
 
     @Test
-    public void testGetPredicateWithAllValuesIsTruePredicate() throws Exception {
+    public void testGetPredicateWithAllValuesIsTruePredicate() {
         // setup
         when(settings.getSSIDs()).thenReturn(Collections.<String>emptySet());
         when(settings.getWiFiBands()).thenReturn(EnumUtils.values(WiFiBand.class));

@@ -62,7 +62,7 @@ public class WiFiSwitchOffTest {
     }
 
     @Test
-    public void testApplyWithActionBarSetEmptySubtitle() throws Exception {
+    public void testApplyWithActionBarSetEmptySubtitle() {
         // setup
         when(mainActivity.getSupportActionBar()).thenReturn(actionBar);
         // execute
@@ -73,7 +73,7 @@ public class WiFiSwitchOffTest {
     }
 
     @Test
-    public void testApplyWithNoActionBarDoesNotSetSubtitle() throws Exception {
+    public void testApplyWithNoActionBarDoesNotSetSubtitle() {
         // setup
         when(mainActivity.getSupportActionBar()).thenReturn(null);
         // execute
@@ -84,7 +84,7 @@ public class WiFiSwitchOffTest {
     }
 
     @Test
-    public void testApplyWithOptionMenuSetVisibleFalse() throws Exception {
+    public void testApplyWithOptionMenuSetVisibleFalse() {
         // setup
         when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
         when(optionMenu.getMenu()).thenReturn(menu);
@@ -99,7 +99,7 @@ public class WiFiSwitchOffTest {
     }
 
     @Test
-    public void testApplyWithNoOptionMenuDoesNotSetWiFiBandVisible() throws Exception {
+    public void testApplyWithNoOptionMenuDoesNotSetWiFiBandVisible() {
         // setup
         MainActivity mainActivity = mock(MainActivity.class);
         when(mainActivity.getOptionMenu()).thenReturn(null);
@@ -111,7 +111,7 @@ public class WiFiSwitchOffTest {
     }
 
     @Test
-    public void testApplyWithNoMenuDoesNotSetWiFiBandVisible() throws Exception {
+    public void testApplyWithNoMenuDoesNotSetWiFiBandVisible() {
         // setup
         MainActivity mainActivity = mock(MainActivity.class);
         when(mainActivity.getOptionMenu()).thenReturn(optionMenu);

@@ -41,7 +41,7 @@ public class ScannerServiceFactoryTest {
     private Settings settings;
 
     @Test
-    public void testMakeScannerService() throws Exception {
+    public void testMakeScannerService() {
         // execute
         ScannerService actual =
             ScannerServiceFactory.makeScannerService(wifiManager, handler, settings);

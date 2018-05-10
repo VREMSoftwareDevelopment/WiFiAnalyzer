@@ -47,7 +47,7 @@ public class TimeGraphCacheTest {
     }
 
     @Test
-    public void testAll() throws Exception {
+    public void testAll() {
         // setup
         List<WiFiDetail> expected = withWiFiDetails();
         // execute
@@ -57,7 +57,7 @@ public class TimeGraphCacheTest {
     }
 
     @Test
-    public void testActive() throws Exception {
+    public void testActive() {
         // setup
         List<WiFiDetail> expected = withWiFiDetails();
         // execute
@@ -68,7 +68,7 @@ public class TimeGraphCacheTest {
     }
 
     @Test
-    public void testClear() throws Exception {
+    public void testClear() {
         // setup
         List<WiFiDetail> expected = withWiFiDetails();
         // execute
@@ -80,7 +80,7 @@ public class TimeGraphCacheTest {
     }
 
     @Test
-    public void testReset() throws Exception {
+    public void testReset() {
         // setup
         List<WiFiDetail> expected = withWiFiDetails();
         // execute

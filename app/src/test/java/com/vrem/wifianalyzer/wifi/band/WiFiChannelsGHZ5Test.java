@@ -37,7 +37,7 @@ public class WiFiChannelsGHZ5Test {
     }
 
     @Test
-    public void testGetWiFiChannelByFrequency() throws Exception {
+    public void testGetWiFiChannelByFrequency() {
         validateFrequencyToChannel(5180, 5320, 10, 36, 2);
         validateFrequencyToChannel(5500, 5720, 10, 100, 2);
         validateFrequencyToChannel(5745, 5825, 10, 149, 2);
@@ -52,35 +52,35 @@ public class WiFiChannelsGHZ5Test {
     }
 
     @Test
-    public void testGetWiFiChannelByFrequencyFail() throws Exception {
+    public void testGetWiFiChannelByFrequencyFail() {
         assertEquals(WiFiChannel.UNKNOWN, fixture.getWiFiChannelByFrequency(5167));
         assertEquals(WiFiChannel.UNKNOWN, fixture.getWiFiChannelByFrequency(5828));
     }
 
     @Test
-    public void testGetWiFiChannelFirst() throws Exception {
+    public void testGetWiFiChannelFirst() {
         assertEquals(36, fixture.getWiFiChannelFirst().getChannel());
     }
 
     @Test
-    public void testGetWiFiChannelLast() throws Exception {
+    public void testGetWiFiChannelLast() {
         assertEquals(165, fixture.getWiFiChannelLast().getChannel());
     }
 
     @Test
-    public void testGetWiFiChannelPair() throws Exception {
+    public void testGetWiFiChannelPair() {
         Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = fixture.getWiFiChannelPairFirst(Locale.JAPAN.getCountry());
         validatePair(36, 64, wiFiChannelPair);
     }
 
     @Test
-    public void testGetWiFiChannelPairWithInvalidCountry() throws Exception {
+    public void testGetWiFiChannelPairWithInvalidCountry() {
         Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = fixture.getWiFiChannelPairFirst(null);
         validatePair(36, 64, wiFiChannelPair);
     }
 
     @Test
-    public void testGetWiFiChannelPairs() throws Exception {
+    public void testGetWiFiChannelPairs() {
         List<Pair<WiFiChannel, WiFiChannel>> wiFiChannelPairs = fixture.getWiFiChannelPairs();
         assertEquals(3, wiFiChannelPairs.size());
         validatePair(36, 64, wiFiChannelPairs.get(0));
@@ -94,7 +94,7 @@ public class WiFiChannelsGHZ5Test {
     }
 
     @Test
-    public void testGetWiFiChannelByFrequency5GHZ() throws Exception {
+    public void testGetWiFiChannelByFrequency5GHZ() {
         // setup
         Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = fixture.getWiFiChannelPairs().get(1);
         // execute
@@ -104,7 +104,7 @@ public class WiFiChannelsGHZ5Test {
     }
 
     @Test
-    public void testGetWiFiChannelByFrequency5GHZInRange() throws Exception {
+    public void testGetWiFiChannelByFrequency5GHZInRange() {
         // setup
         Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = fixture.getWiFiChannelPairs().get(1);
         // execute

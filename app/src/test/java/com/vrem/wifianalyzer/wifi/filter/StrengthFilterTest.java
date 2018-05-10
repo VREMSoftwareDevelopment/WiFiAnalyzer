@@ -33,7 +33,7 @@ import static org.junit.Assert.assertNotNull;
 public class StrengthFilterTest {
 
     @Test
-    public void testMapping() throws Exception {
+    public void testMapping() {
         Set<Strength> strengths = EnumUtils.values(Strength.class);
         assertEquals(strengths.size(), StrengthFilter.ids.size());
         IterableUtils.forEach(strengths, new MappingClosure());

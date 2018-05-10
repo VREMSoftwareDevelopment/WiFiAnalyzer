@@ -55,7 +55,7 @@ public class OptionMenuTest {
     }
 
     @Test
-    public void testCreate() throws Exception {
+    public void testCreate() {
         // setup
         when(activity.getMenuInflater()).thenReturn(menuInflater);
         // execute
@@ -66,7 +66,7 @@ public class OptionMenuTest {
     }
 
     @Test
-    public void testActions() throws Exception {
+    public void testActions() {
         // setup
         int itemId = -1;
         when(menuItem.getItemId()).thenReturn(itemId);

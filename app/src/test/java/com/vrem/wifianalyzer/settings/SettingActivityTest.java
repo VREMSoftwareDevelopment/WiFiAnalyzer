@@ -48,7 +48,7 @@ public class SettingActivityTest {
     }
 
     @Test
-    public void testOnOptionsItemSelectedWithHome() throws Exception {
+    public void testOnOptionsItemSelectedWithHome() {
         // setup
         when(menuItem.getItemId()).thenReturn(android.R.id.home);
         // execute
@@ -59,7 +59,7 @@ public class SettingActivityTest {
     }
 
     @Test
-    public void testOnOptionsItemSelected() throws Exception {
+    public void testOnOptionsItemSelected() {
         // setup
         when(menuItem.getItemId()).thenReturn(-android.R.id.home);
         // execute

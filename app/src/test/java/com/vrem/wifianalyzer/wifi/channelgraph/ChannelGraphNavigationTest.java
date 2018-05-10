@@ -92,19 +92,19 @@ public class ChannelGraphNavigationTest {
     }
 
     @Test
-    public void testMapping() throws Exception {
+    public void testMapping() {
         assertEquals(WiFiChannelsGHZ5.SETS.size(), ChannelGraphNavigation.ids.size());
         IterableUtils.forEach(WiFiChannelsGHZ5.SETS, new PairMappingClosure());
     }
 
     @Test
-    public void testConstructor() throws Exception {
+    public void testConstructor() {
         IterableUtils.forEach(ChannelGraphNavigation.ids.values(), new IntegerClosure());
         IterableUtils.forEach(views.values(), new ViewClosure());
     }
 
     @Test
-    public void testUpdateWithGHZ2() throws Exception {
+    public void testUpdateWithGHZ2() {
         // setup
         when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ2);
@@ -118,7 +118,7 @@ public class ChannelGraphNavigationTest {
 
 
     @Test
-    public void testUpdateWithGHZ5AndUS() throws Exception {
+    public void testUpdateWithGHZ5AndUS() {
         // setup
         int colorSelected = ContextCompat.getColor(mainActivity, R.color.connected);
         int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.connected_background);
@@ -140,7 +140,7 @@ public class ChannelGraphNavigationTest {
     }
 
     @Test
-    public void testUpdateGHZ5WithJapan() throws Exception {
+    public void testUpdateGHZ5WithJapan() {
         // setup
         when(settings.getCountryCode()).thenReturn(Locale.JAPAN.getCountry());
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
@@ -156,7 +156,7 @@ public class ChannelGraphNavigationTest {
     }
 
     @Test
-    public void testUpdateGHZ5WithCountryThatHasOnlyOneSet() throws Exception {
+    public void testUpdateGHZ5WithCountryThatHasOnlyOneSet() {
         // setup
         when(settings.getCountryCode()).thenReturn("IL");
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
@@ -169,7 +169,7 @@ public class ChannelGraphNavigationTest {
     }
 
     @Test
-    public void testSetOnClickListener() throws Exception {
+    public void testSetOnClickListener() {
         // setup
         Pair<WiFiChannel, WiFiChannel> expected = WiFiChannelsGHZ5.SET3;
         ChannelGraphNavigation.SetOnClickListener fixture = new ChannelGraphNavigation.SetOnClickListener(expected);

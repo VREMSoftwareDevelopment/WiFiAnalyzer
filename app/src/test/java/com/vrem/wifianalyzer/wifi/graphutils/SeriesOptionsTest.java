@@ -51,7 +51,7 @@ public class SeriesOptionsTest {
     }
 
     @Test
-    public void testRemoveSeries() throws Exception {
+    public void testRemoveSeries() {
         // setup
         int color = 10;
         when(lineGraphSeries.getColor()).thenReturn(color);
@@ -62,7 +62,7 @@ public class SeriesOptionsTest {
     }
 
     @Test
-    public void testHighlightConnectedLineGraphSeriesSetsConnectedThickness() throws Exception {
+    public void testHighlightConnectedLineGraphSeriesSetsConnectedThickness() {
         // execute
         fixture.highlightConnected(lineGraphSeries, true);
         // validate
@@ -70,7 +70,7 @@ public class SeriesOptionsTest {
     }
 
     @Test
-    public void testHighlightConnectedLineGraphSeriesSetsNotConnectedThickness() throws Exception {
+    public void testHighlightConnectedLineGraphSeriesSetsNotConnectedThickness() {
         // execute
         fixture.highlightConnected(lineGraphSeries, false);
         // validate
@@ -78,7 +78,7 @@ public class SeriesOptionsTest {
     }
 
     @Test
-    public void testHighlightConnectedTitleLineGraphSeriesSetsConnectedThickness() throws Exception {
+    public void testHighlightConnectedTitleLineGraphSeriesSetsConnectedThickness() {
         // execute
         fixture.highlightConnected(titleLineGraphSeries, true);
         // validate
@@ -87,7 +87,7 @@ public class SeriesOptionsTest {
     }
 
     @Test
-    public void testHighlightConnectedTitleLineGraphSeriesSetsNotConnectedThickness() throws Exception {
+    public void testHighlightConnectedTitleLineGraphSeriesSetsNotConnectedThickness() {
         // execute
         fixture.highlightConnected(titleLineGraphSeries, false);
         // validate
@@ -96,7 +96,7 @@ public class SeriesOptionsTest {
     }
 
     @Test
-    public void testSetSeriesColorForLineGraphSeries() throws Exception {
+    public void testSetSeriesColorForLineGraphSeries() {
         // setup
         int primaryColor = 22;
         int backgroundColor = 11;
@@ -114,7 +114,7 @@ public class SeriesOptionsTest {
     }
 
     @Test
-    public void testSetSeriesColorForTitleLineGraphSeries() throws Exception {
+    public void testSetSeriesColorForTitleLineGraphSeries() {
         // setup
         int primaryColor = 22;
         int backgroundColor = 11;
@@ -131,7 +131,7 @@ public class SeriesOptionsTest {
     }
 
     @Test
-    public void testDrawBackgroundForLineGraphSeries() throws Exception {
+    public void testDrawBackgroundForLineGraphSeries() {
         // execute
         fixture.drawBackground(lineGraphSeries, true);
         // validate

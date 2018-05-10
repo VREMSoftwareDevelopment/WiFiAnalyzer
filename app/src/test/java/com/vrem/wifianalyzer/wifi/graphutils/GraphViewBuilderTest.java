@@ -66,7 +66,7 @@ public class GraphViewBuilderTest {
     }
 
     @Test
-    public void testSetGraphView() throws Exception {
+    public void testSetGraphView() {
         // setup
         ViewGroup.LayoutParams layoutParams = fixture.getLayoutParams();
         // execute
@@ -77,7 +77,7 @@ public class GraphViewBuilderTest {
     }
 
     @Test
-    public void testSetViewPortY() throws Exception {
+    public void testSetViewPortY() {
         // setup
         when(graphView.getViewport()).thenReturn(viewport);
         // execute
@@ -92,7 +92,7 @@ public class GraphViewBuilderTest {
     }
 
     @Test
-    public void testSetGridLabelRenderer() throws Exception {
+    public void testSetGridLabelRenderer() {
         // setup
         float textSize = 11f;
         int numVerticalLabels = fixture.getNumVerticalLabels();
@@ -113,7 +113,7 @@ public class GraphViewBuilderTest {
     }
 
     @Test
-    public void testSetGridLabelRendererWithLabelFormater() throws Exception {
+    public void testSetGridLabelRendererWithLabelFormater() {
         // setup
         fixture.setLabelFormatter(labelFormatter);
         when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
@@ -124,7 +124,7 @@ public class GraphViewBuilderTest {
     }
 
     @Test
-    public void testSetGridLabelRendererWithHorizontalLabelsVisible() throws Exception {
+    public void testSetGridLabelRendererWithHorizontalLabelsVisible() {
         // setup
         fixture.setHorizontalLabelsVisible(false);
         when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
@@ -135,7 +135,7 @@ public class GraphViewBuilderTest {
     }
 
     @Test
-    public void testSetGridLabelRendererWithNoLabelFormater() throws Exception {
+    public void testSetGridLabelRendererWithNoLabelFormater() {
         // setup
         when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
         // execute
@@ -145,7 +145,7 @@ public class GraphViewBuilderTest {
     }
 
     @Test
-    public void testSetGridLabelRendererWithVerticalAxisTitle() throws Exception {
+    public void testSetGridLabelRendererWithVerticalAxisTitle() {
         // setup
         float textSize = 11f;
         String verticalTitle = "verticalTitle";
@@ -161,7 +161,7 @@ public class GraphViewBuilderTest {
     }
 
     @Test
-    public void testSetGridLabelRendererNoVerticalAxisTitle() throws Exception {
+    public void testSetGridLabelRendererNoVerticalAxisTitle() {
         // setup
         when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
         // execute
@@ -172,7 +172,7 @@ public class GraphViewBuilderTest {
     }
 
     @Test
-    public void testSetGridLabelRendererWithHorizontalAxisTitle() throws Exception {
+    public void testSetGridLabelRendererWithHorizontalAxisTitle() {
         // setup
         float textSize = 11f;
         String horizontalTitle = "horizontalTitle";
@@ -188,7 +188,7 @@ public class GraphViewBuilderTest {
     }
 
     @Test
-    public void testSetGridLabelRendererNoHorizontalAxisTitle() throws Exception {
+    public void testSetGridLabelRendererNoHorizontalAxisTitle() {
         // setup
         when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
         // execute
@@ -199,7 +199,7 @@ public class GraphViewBuilderTest {
     }
 
     @Test
-    public void testGetNumVerticalLabels() throws Exception {
+    public void testGetNumVerticalLabels() {
         // setup
         int expected = 9;
         // execute
@@ -209,7 +209,7 @@ public class GraphViewBuilderTest {
     }
 
     @Test
-    public void testGetMaximumYLimits() throws Exception {
+    public void testGetMaximumYLimits() {
         validateMaximumY(content, 1, GraphConstants.MAX_Y_DEFAULT);
         validateMaximumY(content, 0, 0);
         validateMaximumY(content, -50, -50);
@@ -222,7 +222,7 @@ public class GraphViewBuilderTest {
     }
 
     @Test
-    public void testSetGridLabelRenderColorsWithDarkTheme() throws Exception {
+    public void testSetGridLabelRenderColorsWithDarkTheme() {
         // setup
         when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
         // execute
@@ -236,7 +236,7 @@ public class GraphViewBuilderTest {
     }
 
     @Test
-    public void testSetGridLabelRenderColorsWithLightTheme() throws Exception {
+    public void testSetGridLabelRenderColorsWithLightTheme() {
         // setup
         when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
         fixture = new GraphViewBuilder(content, NUM_HORIZONTAL_LABELS, GraphConstants.MAX_Y_DEFAULT, ThemeStyle.LIGHT);

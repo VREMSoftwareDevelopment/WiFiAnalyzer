@@ -12,6 +12,7 @@ Genghis
 Gina Chaves
 Graham Foster
 Jean Bourgeois
+Karol Kosek
 Kendra Borutski
 Kevin Jiang
 Lee McCallum

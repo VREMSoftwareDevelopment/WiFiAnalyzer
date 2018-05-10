@@ -39,7 +39,7 @@ import static org.junit.Assert.assertTrue;
 public class TextUtilsTest {
 
     @Test
-    public void testTextToHtmlSmall() throws Exception {
+    public void testTextToHtmlSmall() {
         // setup
         int color = 10;
         String text = "ThisIsText";
@@ -51,7 +51,7 @@ public class TextUtilsTest {
     }
 
     @Test
-    public void testTextToHtml() throws Exception {
+    public void testTextToHtml() {
         // setup
         int color = 10;
         String text = "ThisIsText";
@@ -63,7 +63,7 @@ public class TextUtilsTest {
     }
 
     @Test
-    public void testJoin() throws Exception {
+    public void testJoin() {
         // setup
         String expected = "ABC JDS";
         Set<String> values = new HashSet<>(Arrays.asList("", " ", "ABC", " JDS "));
@@ -74,7 +74,7 @@ public class TextUtilsTest {
     }
 
     @Test
-    public void testJoinWithNull() throws Exception {
+    public void testJoinWithNull() {
         // execute
         String actual = TextUtils.join(null);
         // validate
@@ -82,7 +82,7 @@ public class TextUtilsTest {
     }
 
     @Test
-    public void testSplit() throws Exception {
+    public void testSplit() {
         // setup
         String value = "    ABS    ADF    ";
         String[] expected = new String[]{"ABS", "ADF"};
@@ -93,7 +93,7 @@ public class TextUtilsTest {
     }
 
     @Test
-    public void testSplitWithNull() throws Exception {
+    public void testSplitWithNull() {
         // execute
         Set<String> actual = TextUtils.split(null);
         // validate
@@ -101,7 +101,7 @@ public class TextUtilsTest {
     }
 
     @Test
-    public void testTrim() throws Exception {
+    public void testTrim() {
         // setup
         String expected = "ABS ADF";
         String value = "    ABS    ADF    ";
@@ -112,7 +112,7 @@ public class TextUtilsTest {
     }
 
     @Test
-    public void testTrimWithNull() throws Exception {
+    public void testTrimWithNull() {
         // execute
         String actual = TextUtils.trim(null);
         // verify

@@ -72,7 +72,7 @@ public class WiFiSwitchOnTest {
     }
 
     @Test
-    public void testApplySetSubtitle() throws Exception {
+    public void testApplySetSubtitle() {
         // setup
         CharSequence expected = withExpectedSubtitle();
         // execute
@@ -99,7 +99,7 @@ public class WiFiSwitchOnTest {
     }
 
     @Test
-    public void testApplyWithNoActionBarDoesNotSetSubtitle() throws Exception {
+    public void testApplyWithNoActionBarDoesNotSetSubtitle() {
         // setup
         MainActivity mainActivity = mock(MainActivity.class);
         when(mainActivity.getSupportActionBar()).thenReturn(null);
@@ -111,7 +111,7 @@ public class WiFiSwitchOnTest {
     }
 
     @Test
-    public void testMakeSubtitleGHZ2() throws Exception {
+    public void testMakeSubtitleGHZ2() {
         // setup
         int color1 = 10;
         int color2 = 20;
@@ -127,7 +127,7 @@ public class WiFiSwitchOnTest {
     }
 
     @Test
-    public void testMakeSubtitleGHZ5() throws Exception {
+    public void testMakeSubtitleGHZ5() {
         // setup
         int color1 = 10;
         int color2 = 20;
@@ -143,7 +143,7 @@ public class WiFiSwitchOnTest {
     }
 
     @Test
-    public void testApplyWithWiFiBandVisible() throws Exception {
+    public void testApplyWithWiFiBandVisible() {
         // execute
         fixture.apply(mainActivity);
         // validate
@@ -152,7 +152,7 @@ public class WiFiSwitchOnTest {
     }
 
     @Test
-    public void testApplyWithNoOptionMenuDoesNotSetWiFiBandVisible() throws Exception {
+    public void testApplyWithNoOptionMenuDoesNotSetWiFiBandVisible() {
         // setup
         MainActivity mainActivity = mock(MainActivity.class);
         when(mainActivity.getOptionMenu()).thenReturn(null);
@@ -164,7 +164,7 @@ public class WiFiSwitchOnTest {
     }
 
     @Test
-    public void testApplyWithNoMenuDoesNotSetWiFiBandVisible() throws Exception {
+    public void testApplyWithNoMenuDoesNotSetWiFiBandVisible() {
         // setup
         MainActivity mainActivity = mock(MainActivity.class);
         when(mainActivity.getOptionMenu()).thenReturn(optionMenu);

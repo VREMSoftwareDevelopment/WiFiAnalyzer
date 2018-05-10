@@ -62,7 +62,7 @@ public class ChannelAvailableFragmentTest {
     }
 
     @Test
-    public void testOnCreateView() throws Exception {
+    public void testOnCreateView() {
         // execute
         SupportFragmentTestUtil.startFragment(fixture);
         // validate

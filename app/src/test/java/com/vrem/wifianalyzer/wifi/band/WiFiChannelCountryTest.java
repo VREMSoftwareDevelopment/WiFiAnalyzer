@@ -32,7 +32,7 @@ import static org.junit.Assert.assertTrue;
 public class WiFiChannelCountryTest {
 
     @Test
-    public void testIsChannelAvailableWithTrue() throws Exception {
+    public void testIsChannelAvailableWithTrue() {
         assertTrue(WiFiChannelCountry.get(Locale.US.getCountry()).isChannelAvailableGHZ2(1));
         assertTrue(WiFiChannelCountry.get(Locale.US.getCountry()).isChannelAvailableGHZ2(11));
 
@@ -47,7 +47,7 @@ public class WiFiChannelCountryTest {
     }
 
     @Test
-    public void testIsChannelAvailableWithGHZ2() throws Exception {
+    public void testIsChannelAvailableWithGHZ2() {
         assertFalse(WiFiChannelCountry.get(Locale.US.getCountry()).isChannelAvailableGHZ2(0));
         assertFalse(WiFiChannelCountry.get(Locale.US.getCountry()).isChannelAvailableGHZ2(12));
 
@@ -56,7 +56,7 @@ public class WiFiChannelCountryTest {
     }
 
     @Test
-    public void testIsChannelAvailableWithGHZ5() throws Exception {
+    public void testIsChannelAvailableWithGHZ5() {
         assertTrue(WiFiChannelCountry.get(Locale.US.getCountry()).isChannelAvailableGHZ5(36));
         assertTrue(WiFiChannelCountry.get(Locale.US.getCountry()).isChannelAvailableGHZ5(165));
 
@@ -68,7 +68,7 @@ public class WiFiChannelCountryTest {
     }
 
     @Test
-    public void testGetCorrectlyPopulatesGHZ() throws Exception {
+    public void testGetCorrectlyPopulatesGHZ() {
         // setup
         String expectedCountryCode = Locale.US.getCountry();
         Set<Integer> expectedGHZ2 = new WiFiChannelCountryGHZ2().findChannels(expectedCountryCode);
@@ -82,7 +82,7 @@ public class WiFiChannelCountryTest {
     }
 
     @Test
-    public void testGetCorrectlyPopulatesCountryCodeAndName() throws Exception {
+    public void testGetCorrectlyPopulatesCountryCodeAndName() {
         // setup
         Locale expected = Locale.SIMPLIFIED_CHINESE;
         String expectedCountryCode = expected.getCountry();

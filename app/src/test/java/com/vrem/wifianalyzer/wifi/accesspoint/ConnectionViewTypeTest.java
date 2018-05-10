@@ -27,19 +27,19 @@ import static org.junit.Assert.assertTrue;
 
 public class ConnectionViewTypeTest {
     @Test
-    public void testConnectionViewTypeCount() throws Exception {
+    public void testConnectionViewTypeCount() {
         assertEquals(3, ConnectionViewType.values().length);
     }
 
     @Test
-    public void testGetLayout() throws Exception {
+    public void testGetLayout() {
         assertEquals(AccessPointViewType.COMPLETE, ConnectionViewType.COMPLETE.getAccessPointViewType());
         assertEquals(AccessPointViewType.COMPACT, ConnectionViewType.COMPACT.getAccessPointViewType());
         assertNull(ConnectionViewType.HIDE.getAccessPointViewType());
     }
 
     @Test
-    public void testIsHide() throws Exception {
+    public void testIsHide() {
         assertFalse(ConnectionViewType.COMPLETE.isHide());
         assertFalse(ConnectionViewType.COMPACT.isHide());
         assertTrue(ConnectionViewType.HIDE.isHide());

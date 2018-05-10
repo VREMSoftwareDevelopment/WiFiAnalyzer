@@ -35,6 +35,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -55,24 +56,43 @@ public class FragmentItemTest {
     private FragmentTransaction fragmentTransaction;
 
     @Test
-    public void testActivate() throws Exception {
+    public void testActivateWithStateSaved() {
         // setup
         FragmentItem fixture = new FragmentItem(fragment, true);
         String title = "title";
         NavigationMenu navigationMenu = NavigationMenu.ACCESS_POINTS;
+        when(mainActivity.getSupportFragmentManager()).thenReturn(fragmentManager);
+        when(fragmentManager.isStateSaved()).thenReturn(true);
+        // execute
+        fixture.activate(mainActivity, menuItem, navigationMenu);
+        // validate
+        verify(mainActivity).getSupportFragmentManager();
+        verify(fragmentManager).isStateSaved();
+        verifyFragmentManagerIsNotCalled();
+        verifyNoChangesToMainActivity(title, navigationMenu);
+    }
+
+    @Test
+    public void testActivateWithStateNotSaved() {
+        // setup
+        FragmentItem fixture = new FragmentItem(fragment, true);
+        String title = "title";
+        NavigationMenu navigationMenu = NavigationMenu.ACCESS_POINTS;
+        when(mainActivity.getSupportFragmentManager()).thenReturn(fragmentManager);
+        when(fragmentManager.isStateSaved()).thenReturn(false);
         withFragmentTransaction();
         when(menuItem.getTitle()).thenReturn(title);
         // execute
         fixture.activate(mainActivity, menuItem, navigationMenu);
         // validate
-        verifyFragmentTransaction();
-        verify(mainActivity).setCurrentNavigationMenu(navigationMenu);
-        verify(mainActivity).setTitle(title);
-        verify(mainActivity).updateActionBar();
+        verify(mainActivity).getSupportFragmentManager();
+        verify(fragmentManager).isStateSaved();
+        verifyFragmentManager();
+        verifyMainActivityChanges(title, navigationMenu);
     }
 
     @Test
-    public void testIsRegisteredFalse() throws Exception {
+    public void testIsRegisteredFalse() {
         // setup
         FragmentItem fixture = new FragmentItem(fragment, false);
         // execute & validate
@@ -80,7 +100,7 @@ public class FragmentItemTest {
     }
 
     @Test
-    public void testIsRegisteredTrue() throws Exception {
+    public void testIsRegisteredTrue() {
         // setup
         FragmentItem fixture = new FragmentItem(fragment, true);
         // execute & validate
@@ -88,15 +108,32 @@ public class FragmentItemTest {
     }
 
     private void withFragmentTransaction() {
-        when(mainActivity.getSupportFragmentManager()).thenReturn(fragmentManager);
         when(fragmentManager.beginTransaction()).thenReturn(fragmentTransaction);
         when(fragmentTransaction.replace(R.id.main_fragment, fragment)).thenReturn(fragmentTransaction);
     }
 
-    private void verifyFragmentTransaction() {
-        verify(mainActivity).getSupportFragmentManager();
+    private void verifyFragmentManager() {
         verify(fragmentManager).beginTransaction();
         verify(fragmentTransaction).replace(R.id.main_fragment, fragment);
         verify(fragmentTransaction).commit();
     }
+
+    private void verifyMainActivityChanges(String title, NavigationMenu navigationMenu) {
+        verify(mainActivity).setCurrentNavigationMenu(navigationMenu);
+        verify(mainActivity).setTitle(title);
+        verify(mainActivity).updateActionBar();
+    }
+
+    private void verifyFragmentManagerIsNotCalled() {
+        verify(fragmentManager, never()).beginTransaction();
+        verify(fragmentTransaction, never()).replace(R.id.main_fragment, fragment);
+        verify(fragmentTransaction, never()).commit();
+    }
+
+    private void verifyNoChangesToMainActivity(String title, NavigationMenu navigationMenu) {
+        verify(mainActivity, never()).setCurrentNavigationMenu(navigationMenu);
+        verify(mainActivity, never()).setTitle(title);
+        verify(mainActivity, never()).updateActionBar();
+    }
+
 }

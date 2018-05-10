@@ -35,7 +35,7 @@ public class TimeAxisLabelTest {
     }
 
     @Test
-    public void testYAxis() throws Exception {
+    public void testYAxis() {
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(GraphConstants.MIN_Y, false));
         assertEquals("-99", fixture.formatLabel(GraphConstants.MIN_Y + 1, false));
         assertEquals("0", fixture.formatLabel(GraphConstants.MAX_Y, false));
@@ -43,7 +43,7 @@ public class TimeAxisLabelTest {
     }
 
     @Test
-    public void testXAxis() throws Exception {
+    public void testXAxis() {
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(-2, true));
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(-1, true));
         assertEquals(StringUtils.EMPTY, fixture.formatLabel(0, true));

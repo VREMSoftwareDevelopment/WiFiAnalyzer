@@ -35,19 +35,19 @@ public class GraphLegendTest {
     private LegendRenderer legendRenderer;
 
     @Test
-    public void testSortByNumber() throws Exception {
+    public void testSortByNumber() {
         assertEquals(3, GraphLegend.values().length);
     }
 
     @Test
-    public void testGetDisplay() throws Exception {
+    public void testGetDisplay() {
         assertTrue(GraphLegend.HIDE.getDisplay() instanceof GraphLegend.DisplayNone);
         assertTrue(GraphLegend.LEFT.getDisplay() instanceof GraphLegend.DisplayLeft);
         assertTrue(GraphLegend.RIGHT.getDisplay() instanceof GraphLegend.DisplayRight);
     }
 
     @Test
-    public void testDisplayHide() throws Exception {
+    public void testDisplayHide() {
         // execute
         GraphLegend.HIDE.display(legendRenderer);
         // validate
@@ -55,7 +55,7 @@ public class GraphLegendTest {
     }
 
     @Test
-    public void testDisplayLeft() throws Exception {
+    public void testDisplayLeft() {
         // execute
         GraphLegend.LEFT.display(legendRenderer);
         // validate
@@ -64,7 +64,7 @@ public class GraphLegendTest {
     }
 
     @Test
-    public void testDisplayRight() throws Exception {
+    public void testDisplayRight() {
         // execute
         GraphLegend.RIGHT.display(legendRenderer);
         // validate

@@ -89,7 +89,7 @@ public class ChannelRatingAdapterTest {
     }
 
     @Test
-    public void testGetView() throws Exception {
+    public void testGetView() {
         // setup
         int expectedSize = Strength.values().length;
         Strength expectedStrength = Strength.reverse(Strength.FOUR);
@@ -118,7 +118,7 @@ public class ChannelRatingAdapterTest {
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void testUpdate() {
         // setup
         String expected = mainActivity.getResources().getText(R.string.channel_rating_best_none).toString();
         WiFiData wiFiData = new WiFiData(Collections.<WiFiDetail>emptyList(), WiFiConnection.EMPTY, Collections.<String>emptyList());
@@ -136,7 +136,7 @@ public class ChannelRatingAdapterTest {
     }
 
     @Test
-    public void testBestChannelsGHZ2ErrorMessage() throws Exception {
+    public void testBestChannelsGHZ2ErrorMessage() {
         // setup
         Resources resources = mainActivity.getResources();
         String expected = resources.getText(R.string.channel_rating_best_none).toString()
@@ -153,7 +153,7 @@ public class ChannelRatingAdapterTest {
     }
 
     @Test
-    public void testBestChannelsGHZ5WithErrorMessage() throws Exception {
+    public void testBestChannelsGHZ5WithErrorMessage() {
         // setup
         String expected = mainActivity.getResources().getText(R.string.channel_rating_best_none).toString();
         List<WiFiChannel> wiFiChannels = Collections.emptyList();
@@ -167,7 +167,7 @@ public class ChannelRatingAdapterTest {
     }
 
     @Test
-    public void testBestChannelsGHZ5WithChannels() throws Exception {
+    public void testBestChannelsGHZ5WithChannels() {
         // setup
         String expected = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11...";
         List<WiFiChannel> wiFiChannels = Collections.emptyList();

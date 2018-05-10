@@ -102,7 +102,7 @@ public class ExportItemTest {
 
 
     @Test
-    public void testActivate() throws Exception {
+    public void testActivate() {
         // setup
         WiFiData wiFiData = withWiFiData();
         when(scanner.getWiFiData()).thenReturn(wiFiData);
@@ -121,7 +121,7 @@ public class ExportItemTest {
     }
 
     @Test
-    public void testGetData() throws Exception {
+    public void testGetData() {
         // setup
         WiFiData wiFiData = withWiFiData();
         String expected =
@@ -135,7 +135,7 @@ public class ExportItemTest {
     }
 
     @Test
-    public void testIsRegistered() throws Exception {
+    public void testIsRegistered() {
         // execute & validate
         assertFalse(fixture.isRegistered());
     }

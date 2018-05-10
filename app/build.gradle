@@ -102,15 +102,15 @@ dependencies {
     implementation 'com.jjoe64:graphview:4.2.1'
     // Unit Test Dependencies
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.powermock:powermock-module-junit4:1.7.3'
-    testImplementation 'org.powermock:powermock-api-mockito2:1.7.3'
+    testImplementation 'org.powermock:powermock-module-junit4:1.7.4'
+    testImplementation 'org.powermock:powermock-api-mockito2:1.7.4'
     testImplementation 'com.googlecode.junit-toolbox:junit-toolbox:2.4'
     testImplementation 'org.robolectric:robolectric:3.8'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
     // Android Test Dependencies
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
 }
 
 updateVersion()

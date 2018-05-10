@@ -26,12 +26,12 @@ import static org.junit.Assert.assertEquals;
 public class NavigationGroupTest {
 
     @Test
-    public void testNavigationGroup() throws Exception {
+    public void testNavigationGroup() {
         assertEquals(3, NavigationGroup.values().length);
     }
 
     @Test
-    public void testNavigationGroupOrder() throws Exception {
+    public void testNavigationGroupOrder() {
         assertArrayEquals(new NavigationGroup[]{
                 NavigationGroup.GROUP_FEATURE,
                 NavigationGroup.GROUP_OTHER,
@@ -41,7 +41,7 @@ public class NavigationGroupTest {
     }
 
     @Test
-    public void testGetNavigationMenus() throws Exception {
+    public void testGetNavigationMenus() {
         assertArrayEquals(new NavigationMenu[]{
                 NavigationMenu.ACCESS_POINTS,
                 NavigationMenu.CHANNEL_RATING,
@@ -63,14 +63,14 @@ public class NavigationGroupTest {
     }
 
     @Test
-    public void testNext() throws Exception {
+    public void testNext() {
         assertEquals(NavigationMenu.CHANNEL_GRAPH, NavigationGroup.GROUP_FEATURE.next(NavigationMenu.CHANNEL_RATING));
         assertEquals(NavigationMenu.ACCESS_POINTS, NavigationGroup.GROUP_FEATURE.next(NavigationMenu.TIME_GRAPH));
         assertEquals(NavigationMenu.EXPORT, NavigationGroup.GROUP_FEATURE.next(NavigationMenu.EXPORT));
     }
 
     @Test
-    public void testPrevious() throws Exception {
+    public void testPrevious() {
         assertEquals(NavigationMenu.ACCESS_POINTS, NavigationGroup.GROUP_FEATURE.previous(NavigationMenu.CHANNEL_RATING));
         assertEquals(NavigationMenu.TIME_GRAPH, NavigationGroup.GROUP_FEATURE.previous(NavigationMenu.ACCESS_POINTS));
         assertEquals(NavigationMenu.EXPORT, NavigationGroup.GROUP_FEATURE.next(NavigationMenu.EXPORT));

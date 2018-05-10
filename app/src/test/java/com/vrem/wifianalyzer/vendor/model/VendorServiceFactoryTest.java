@@ -34,7 +34,7 @@ public class VendorServiceFactoryTest {
     private Resources resources;
 
     @Test
-    public void testMakeVendorService() throws Exception {
+    public void testMakeVendorService() {
         // execute
         VendorService actual = VendorServiceFactory.makeVendorService(resources);
         // validate

@@ -42,7 +42,7 @@ public class FilterActionTest {
     }
 
     @Test
-    public void testExecute() throws Exception {
+    public void testExecute() {
         fixture.execute();
     }
 

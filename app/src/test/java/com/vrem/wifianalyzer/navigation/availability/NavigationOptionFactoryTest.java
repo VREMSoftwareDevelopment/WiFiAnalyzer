@@ -29,7 +29,7 @@ import static org.junit.Assert.assertTrue;
 public class NavigationOptionFactoryTest {
 
     @Test
-    public void testRating() throws Exception {
+    public void testRating() {
         List<NavigationOption> options = NavigationOptionFactory.RATING;
         assertEquals(4, options.size());
 
@@ -45,7 +45,7 @@ public class NavigationOptionFactoryTest {
     }
 
     @Test
-    public void testOther() throws Exception {
+    public void testOther() {
         List<NavigationOption> options = NavigationOptionFactory.OTHER;
         assertEquals(4, options.size());
 
@@ -61,7 +61,7 @@ public class NavigationOptionFactoryTest {
     }
 
     @Test
-    public void testOff() throws Exception {
+    public void testOff() {
         List<NavigationOption> options = NavigationOptionFactory.OFF;
         assertEquals(4, options.size());
 
@@ -77,7 +77,7 @@ public class NavigationOptionFactoryTest {
     }
 
     @Test
-    public void testAccessPoints() throws Exception {
+    public void testAccessPoints() {
         List<NavigationOption> options = NavigationOptionFactory.AP;
         assertEquals(4, options.size());
 

@@ -47,7 +47,7 @@ public class WiFiBandActionTest {
     }
 
     @Test
-    public void testExecute() throws Exception {
+    public void testExecute() {
         // execute
         fixture.execute();
         // validate

@@ -58,7 +58,7 @@ public class GraphAdapterTest {
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void testUpdate() {
         // execute
         fixture.update(wifiData);
         // validate
@@ -66,7 +66,7 @@ public class GraphAdapterTest {
     }
 
     @Test
-    public void testGetGraphViews() throws Exception {
+    public void testGetGraphViews() {
         // setup
         when(graphViewNotifier.getGraphView()).thenReturn(graphView);
         // execute

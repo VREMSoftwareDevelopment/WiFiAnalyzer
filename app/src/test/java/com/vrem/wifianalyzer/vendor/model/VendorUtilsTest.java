@@ -38,12 +38,12 @@ public class VendorUtilsTest {
     private Resources resources;
 
     @Test
-    public void testCleanWithNull() throws Exception {
+    public void testCleanWithNull() {
         assertEquals(StringUtils.EMPTY, VendorUtils.clean(null));
     }
 
     @Test
-    public void testClean() throws Exception {
+    public void testClean() {
         assertEquals(MAC_ADDRESS_CLEAN, VendorUtils.clean(MAC_ADDRESS_FULL));
         assertEquals("34AF", VendorUtils.clean("34aF"));
         assertEquals("34AF0B", VendorUtils.clean("34aF0B"));
@@ -52,12 +52,12 @@ public class VendorUtilsTest {
     }
 
     @Test
-    public void testToMacAddressWithNull() throws Exception {
+    public void testToMacAddressWithNull() {
         assertEquals(StringUtils.EMPTY, VendorUtils.toMacAddress(null));
     }
 
     @Test
-    public void testToMacAddress() throws Exception {
+    public void testToMacAddress() {
         assertEquals(MAC_ADDRESS_SHORT, VendorUtils.toMacAddress(MAC_ADDRESS_CLEAN));
         assertEquals("*34AF*", VendorUtils.toMacAddress("34AF"));
         assertEquals("34:AF:0B", VendorUtils.toMacAddress("34AF0BAC"));
