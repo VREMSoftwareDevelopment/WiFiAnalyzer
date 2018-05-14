@@ -213,14 +213,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="showGPLv3"
-                    android:text="@string/gpl"/>
+                    android:onClick="showALv2"
+                    android:text="@string/al"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autoLink="web"
-                    android:text="@string/gpl_url"/>
+                    android:text="@string/al_url"/>
             </LinearLayout>
             <!-- Material Design Icons -->
             <TextView

@@ -37,13 +37,13 @@ class SeriesOptions {
     }
 
     void highlightConnected(@NonNull BaseSeries<DataPoint> series, boolean connected) {
+        int thickness = connected ? GraphConstants.THICKNESS_CONNECTED : GraphConstants.THICKNESS_REGULAR;
         if (series instanceof LineGraphSeries) {
-            ((LineGraphSeries<DataPoint>) series).setThickness(
-                connected ? GraphConstants.THICKNESS_CONNECTED : GraphConstants.THICKNESS_REGULAR);
+            ((LineGraphSeries<DataPoint>) series).setThickness(thickness);
         } else if (series instanceof TitleLineGraphSeries) {
-            ((TitleLineGraphSeries<DataPoint>) series).setThickness(connected
-                ? GraphConstants.THICKNESS_CONNECTED : GraphConstants.THICKNESS_REGULAR);
-            ((TitleLineGraphSeries<DataPoint>) series).setTextBold(connected);
+            TitleLineGraphSeries<DataPoint> titleLineGraphSeries = (TitleLineGraphSeries<DataPoint>) series;
+            titleLineGraphSeries.setThickness(thickness);
+            titleLineGraphSeries.setTextBold(connected);
         }
     }
 
@@ -60,6 +60,8 @@ class SeriesOptions {
     void drawBackground(@NonNull BaseSeries<DataPoint> series, boolean drawBackground) {
         if (series instanceof LineGraphSeries) {
             ((LineGraphSeries<DataPoint>) series).setDrawBackground(drawBackground);
+        } else if (series instanceof TitleLineGraphSeries) {
+            ((TitleLineGraphSeries<DataPoint>) series).setDrawBackground(drawBackground);
         }
     }
 
