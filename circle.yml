@@ -22,7 +22,8 @@ dependencies:
         - /usr/local/android-sdk-linux/build-tools/23.0.3
 test:
     override:
-        - ./gradlew testDebugUnitTest --info
+        - ./gradlew lint
+        - ./gradlew testDebugUnitTest
         - ./gradlew jacocoTestDebugUnitTestReport
     post:
         - bash <(curl -s https://codecov.io/bash)
