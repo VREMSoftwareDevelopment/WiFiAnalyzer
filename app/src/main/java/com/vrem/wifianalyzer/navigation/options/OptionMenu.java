@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.navigation.options;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.view.menu.MenuBuilder;
@@ -43,13 +44,14 @@ public class OptionMenu {
         return menu;
     }
 
+    @SuppressLint("RestrictedApi")
     private void iconsVisible(Menu menu) {
-        if (menu != null && menu instanceof MenuBuilder) {
-            try {
+        try {
+            if (menu instanceof MenuBuilder) {
                 ((MenuBuilder) menu).setOptionalIconsVisible(true);
-            } catch (Exception e) {
-                // do nothing
             }
+        } catch (Exception e) {
+            // do nothing
         }
     }
 

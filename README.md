@@ -123,7 +123,7 @@ WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 
 ### Running unit tests and jacoco coverage report
 ```
-./gradlew testDebugUnitTest jacocoTestDebugUnitTestReport --info
+./gradlew lint testDebugUnitTest jacocoTestDebugUnitTestReport
 ```
 
 ## Special Thanks
