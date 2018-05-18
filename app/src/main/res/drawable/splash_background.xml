@@ -22,7 +22,7 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_app"
             />
     </item>
 </layer-list>
