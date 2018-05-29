@@ -18,10 +18,12 @@
   -->
 
 <resources>
-    <string name="app_copyright">"Copyright \u00A9 2015 \u002D "</string>
+	<!-- application start -->
+    <string name="app_copyright">"Prawa autorskie \u00A9 2015 \u002D "</string>
+	<!-- application end -->
 
-    <string name="navigation_drawer_open">"Otwórz szufladę aplikacji"</string>
-    <string name="navigation_drawer_close">"Zamnkij szufladę aplikacji"</string>
+    <string name="navigation_drawer_open">"Otwórz panel nawigacji"</string>
+    <string name="navigation_drawer_close">"Zamnkij panel nawigacji"</string>
     <string name="scanner_message">"Skanowanie &#8230;"</string>
     <string name="scanner_pause">"Zapauzuj"</string>
     <string name="scanner_play">"Wznów"</string>
@@ -33,15 +35,15 @@
     <string name="action_time_graph">"Wykres Czasowy"</string>
     <string name="action_export">"Exportuj"</string>
     <string name="action_channel_available">"Dotępne Kanały"</string>
-    <string name="action_vendors">"Vendors"</string>
+    <string name="action_vendors">"Dostawcy"</string>
     <string name="action_settings">"Ustawienia"</string>
     <string name="action_about">"O aplikacji"</string>
     <!-- action end -->
 
-    <string name="no_data">"No Data"</string>
-    <string name="no_data_msg">"Please visit frequently ask questions section on our website."</string>
-    <string name="no_data_geo_warning">"Some users running Android OS 6+ (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFiAnalyzer does not explicitly require it. This appears to be attributed to a potential issue in Android OS 6+ that requires location service in order to see WiFi networks."</string>
-    <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a WiFi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
+    <string name="no_data">"Brak Danych"</string>
+    <string name="no_data_msg">"Sprawdź FAQ na naszej stronie."</string>
+    <string name="no_data_geo_warning">"Niektórzy urzytkownicy Android OS 6+ (Marshmallow) zgłosili, że usługi lokacyjne muszą być uaktywnione aby aplickacja wykrywała sieci WiFi. Użytkownicy Marshmallow prawdopodobnie będą musieli włączyć usługi lokacyjne, mimo żę sam WiFiAnalyzer ich nie wymaga. Jest to wynikiem problemu z Android OS 6+, który wymaga usług lokalizacyjnych do wykrycia sieci WiFi."</string>
+    <string name="permission_msg">"Od wersji Android Marshmallow, pozwolenia lokacyjne są wymagane do przeprowadzenia skanu WiFi. Użytkownik będzie poproszony o włączenie pozwolenia użycia usług lokacyjnych. Ponieważ aplikacja nie wymaga usług lokacyjnych, użytkownik może być pewien że aplikacja nie wykorzystuje ani nie przekazuje lokacji urządzenia!"</string>
 
     <string name="export_not_available">"Export nie dostępny"</string>
 
@@ -62,11 +64,11 @@
     <string name="country_code_title">"Kraj"</string>
     <string name="scan_interval_title">"Interwał Skanowania"</string>
     <string name="scan_interval_summary">"%d sekund pomiędzy każdym skanem"</string>
-    <string name="sort_by_title">"Sort Access Points By"</string>
-    <string name="group_by_title">"Group Access Points By"</string>
-    <string name="connection_view_title">"Connection Display"</string>
-    <string name="ap_view_title">"Access Point Display"</string>
-    <string name="graph_maximum_y_title">"Graph Maximum Signal Strength"</string>
+    <string name="sort_by_title">"Sortuj punkty dostępu po"</string>
+    <string name="group_by_title">"Grupuj punkty dostępu po"</string>
+    <string name="connection_view_title">"Widok Połączeń"</string>
+    <string name="ap_view_title">"Widok Punktów Dostępu"</string>
+    <string name="graph_maximum_y_title">"Wykres Siły Sygnału"</string>
     <string name="channel_graph_legend_title">"Wyświetlanie Legendy Wyskresu Kanałów"</string>
     <string name="time_graph_legend_title">"Wyświetlanie Legendy Wykresu Czasu"</string>
     <string name="theme_title">"Motyw"</string>
@@ -80,7 +82,7 @@
     <string name="about_description_text">"Zoptymalizuj twoją sieć WiFi, poprzez sprawdzanie statusu sieci WiFi, siłę sygnały i indentyfikowanie zatłoczonych kanałów używając otwartoźródłowej aplikacji WiFiAnalyzer dla Androida"</string>
     <string name="about_libraries_title">"Użyte Bibloteki:"</string>
     <string name="about_contributor_title">"Współtwórcy"</string>
-    <string name="about_write_review">"Napisz Recenzje"</string>
+    <string name="about_write_review">"Napisz Recenzję"</string>
     <!-- about end -->
 
     <!-- security start -->
@@ -88,7 +90,7 @@
     <!-- security end -->
 
     <!-- filter start -->
-    <string name="filter_title">"Filter"</string>
+    <string name="filter_title">"Filtr"</string>
     <string name="filter_close">"Zamknij"</string>
     <string name="filter_reset">"Resetuj"</string>
     <string name="filter_apply">"Zatwierdź"</string>
