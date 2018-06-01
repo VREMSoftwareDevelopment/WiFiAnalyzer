@@ -26,7 +26,7 @@
     <string name="navigation_drawer_close">"Zamnkij panel nawigacji"</string>
     <string name="scanner_message">"Skanowanie &#8230;"</string>
     <string name="scanner_pause">"Zapauzuj"</string>
-    <string name="scanner_play">"Wznów"</string>
+    <string name="scanner_play">"Odtwórz"</string>
 
     <!-- action start -->
     <string name="action_access_points">"Punkty Dostępu"</string>
