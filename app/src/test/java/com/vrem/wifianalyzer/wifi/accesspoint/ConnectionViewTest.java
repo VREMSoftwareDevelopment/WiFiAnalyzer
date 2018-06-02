@@ -51,6 +51,7 @@ import java.util.Collections;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -167,15 +168,17 @@ public class ConnectionViewTest {
     }
 
     @Test
-    public void testNoDataIsVisibleWithNoWiFiDetails() {
+    public void testNoDataIsVisibleWithNoWiFiDetailsOnlyAfterNoDataMaxResponses() {
         // setup
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
         // execute
-        fixture.update(wiFiData);
+        for (int i = 0; i < ConnectionView.COUNT_MAX; i++) {
+            fixture.update(wiFiData);
+        }
         // validate
         assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.nodata).getVisibility());
-        verify(wiFiData).getWiFiDetails();
+        verify(wiFiData, times(2 * ConnectionView.COUNT_MAX)).getWiFiDetails();
     }
 
     @Test
@@ -189,7 +192,7 @@ public class ConnectionViewTest {
         fixture.update(wiFiData);
         // validate
         assertEquals(View.GONE, mainActivity.findViewById(R.id.nodata).getVisibility());
-        verify(wiFiData).getWiFiDetails();
+        verify(wiFiData, times(2)).getWiFiDetails();
     }
 
     @Test
@@ -202,6 +205,45 @@ public class ConnectionViewTest {
         fixture.update(wiFiData);
         // validate
         assertEquals(View.GONE, mainActivity.findViewById(R.id.nodata).getVisibility());
+        verify(wiFiData, never()).getWiFiDetails();
+    }
+
+    @Test
+    public void testScanningIsVisibleWithNoWiFiDetails() {
+        // setup
+        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
+        when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
+        // execute
+        fixture.update(wiFiData);
+        // validate
+        assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.scanning).getVisibility());
+        verify(wiFiData, times(2)).getWiFiDetails();
+    }
+
+    @Test
+    public void testScanningIsGoneWithWiFiDetails() {
+        // setup
+        WiFiDetail wiFiDetail = withConnection(WiFiAdditional.EMPTY);
+        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
+        when(wiFiData.getConnection()).thenReturn(wiFiDetail);
+        when(wiFiData.getWiFiDetails()).thenReturn(Collections.singletonList(wiFiDetail));
+        // execute
+        fixture.update(wiFiData);
+        // validate
+        assertEquals(View.GONE, mainActivity.findViewById(R.id.scanning).getVisibility());
+        verify(wiFiData, times(2)).getWiFiDetails();
+    }
+
+    @Test
+    public void testScanningIsGoneWithNavigationMenuThatDoesNotHaveOptionMenu() {
+        // setup
+        mainActivity.setCurrentNavigationMenu(NavigationMenu.VENDORS);
+        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
+        when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
+        // execute
+        fixture.update(wiFiData);
+        // validate
+        assertEquals(View.GONE, mainActivity.findViewById(R.id.scanning).getVisibility());
         verify(wiFiData, never()).getWiFiDetails();
     }
 

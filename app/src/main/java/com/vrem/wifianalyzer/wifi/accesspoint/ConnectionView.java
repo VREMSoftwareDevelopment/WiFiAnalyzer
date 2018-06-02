@@ -35,21 +35,38 @@ import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 import java.util.Locale;
 
 public class ConnectionView implements UpdateNotifier {
+    static final int COUNT_MAX = 3;
+    private static int count = 0;
     private final MainActivity mainActivity;
     private AccessPointDetail accessPointDetail;
     private AccessPointPopup accessPointPopup;
 
     public ConnectionView(@NonNull MainActivity mainActivity) {
+        resetCount();
         this.mainActivity = mainActivity;
         setAccessPointDetail(new AccessPointDetail());
         setAccessPointPopup(new AccessPointPopup());
     }
 
+    private static boolean isCountMax(boolean noData) {
+        if (noData) {
+            count++;
+        } else {
+            resetCount();
+        }
+        return count >= COUNT_MAX;
+    }
+
+    private static void resetCount() {
+        count = 0;
+    }
+
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         ConnectionViewType connectionViewType = MainContext.INSTANCE.getSettings().getConnectionViewType();
-        setConnectionVisibility(wiFiData, connectionViewType);
-        setNoDataVisibility(wiFiData);
+        displayConnection(wiFiData, connectionViewType);
+        displayScanning(wiFiData);
+        displayNoData(wiFiData);
     }
 
     void setAccessPointDetail(@NonNull AccessPointDetail accessPointDetail) {
@@ -60,15 +77,19 @@ public class ConnectionView implements UpdateNotifier {
         this.accessPointPopup = accessPointPopup;
     }
 
-    private void setNoDataVisibility(@NonNull WiFiData wiFiData) {
-        mainActivity.findViewById(R.id.nodata).setVisibility(isDataAvailable(wiFiData) ? View.GONE : View.VISIBLE);
+    private void displayScanning(@NonNull WiFiData wiFiData) {
+        mainActivity.findViewById(R.id.scanning).setVisibility(noData(wiFiData) ? View.VISIBLE : View.GONE);
     }
 
-    private boolean isDataAvailable(@NonNull WiFiData wiFiData) {
-        return !mainActivity.getCurrentNavigationMenu().isRegistered() || !wiFiData.getWiFiDetails().isEmpty();
+    private void displayNoData(@NonNull WiFiData wiFiData) {
+        mainActivity.findViewById(R.id.nodata).setVisibility(isCountMax(noData(wiFiData)) ? View.VISIBLE : View.GONE);
     }
 
-    private void setConnectionVisibility(@NonNull WiFiData wiFiData, @NonNull ConnectionViewType connectionViewType) {
+    private boolean noData(@NonNull WiFiData wiFiData) {
+        return mainActivity.getCurrentNavigationMenu().isRegistered() && wiFiData.getWiFiDetails().isEmpty();
+    }
+
+    private void displayConnection(@NonNull WiFiData wiFiData, @NonNull ConnectionViewType connectionViewType) {
         WiFiDetail connection = wiFiData.getConnection();
         View connectionView = mainActivity.findViewById(R.id.connection);
         WiFiConnection wiFiConnection = connection.getWiFiAdditional().getWiFiConnection();
