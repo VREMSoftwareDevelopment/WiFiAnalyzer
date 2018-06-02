@@ -71,6 +71,7 @@
     <string name="time_graph_legend_title">"Показать легенду графика времени"</string>
     <string name="theme_title">"Цветовая тема"</string>
     <string name="wifi_off_on_exit_title">"WiFi выключен при выходе"</string>
+    <string name="keep_screen_on_title">"Экран всегда включен"</string>
     <string name="language_title">"Язык"</string>
     <!-- settings end -->
 

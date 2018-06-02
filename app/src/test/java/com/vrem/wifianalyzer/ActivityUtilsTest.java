@@ -21,6 +21,8 @@ package com.vrem.wifianalyzer;
 import android.content.Context;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.vrem.util.ConfigurationUtils;
 import com.vrem.wifianalyzer.ActivityUtils.WiFiBandToggle;
@@ -50,6 +52,8 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @PrepareForTest(ConfigurationUtils.class)
 public class ActivityUtilsTest {
 
+    @Mock
+    private Window window;
     @Mock
     private ActionBar actionBar;
     @Mock
@@ -149,6 +153,34 @@ public class ActivityUtilsTest {
         // validate
         verify(settings, never()).toggleWiFiBand();
         verify(mainActivity).getCurrentNavigationMenu();
+    }
+
+    @Test
+    public void testKeepScreenOnSwitchOn() {
+        // setup
+        MainActivity mainActivity = mock(MainActivity.class);
+        when(settings.isKeepScreenOn()).thenReturn(true);
+        when(mainActivity.getWindow()).thenReturn(window);
+        // execute
+        ActivityUtils.keepScreenOn(mainActivity);
+        // validate
+        verify(settings).isKeepScreenOn();
+        verify(mainActivity).getWindow();
+        verify(window).addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
+    @Test
+    public void testKeepScreenOnSwitchOff() {
+        // setup
+        MainActivity mainActivity = mock(MainActivity.class);
+        when(settings.isKeepScreenOn()).thenReturn(false);
+        when(mainActivity.getWindow()).thenReturn(window);
+        // execute
+        ActivityUtils.keepScreenOn(mainActivity);
+        // validate
+        verify(settings).isKeepScreenOn();
+        verify(mainActivity).getWindow();
+        verify(window).clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
 }

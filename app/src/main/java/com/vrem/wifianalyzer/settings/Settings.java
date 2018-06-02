@@ -123,6 +123,10 @@ public class Settings {
         return repository.getBoolean(R.string.wifi_off_on_exit_key, repository.getResourceBoolean(R.bool.wifi_off_on_exit_default));
     }
 
+    public boolean isKeepScreenOn() {
+        return repository.getBoolean(R.string.keep_screen_on_key, repository.getResourceBoolean(R.bool.keep_screen_on_default));
+    }
+
     @NonNull
     public ThemeStyle getThemeStyle() {
         return find(ThemeStyle.class, R.string.theme_key, ThemeStyle.DARK);

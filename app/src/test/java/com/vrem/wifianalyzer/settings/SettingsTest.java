@@ -357,8 +357,15 @@ public class SettingsTest {
         verify(repository).getBoolean(R.string.wifi_off_on_exit_key, true);
     }
 
-    public boolean isWiFiOffOnExit() {
-        return repository.getBoolean(R.string.wifi_off_on_exit_key, repository.getResourceBoolean(R.bool.wifi_off_on_exit_default));
+    @Test
+    public void testIsKeepScreenOn() {
+        // setup
+        when(repository.getResourceBoolean(R.bool.keep_screen_on_default)).thenReturn(true);
+        when(repository.getBoolean(R.string.keep_screen_on_key, true)).thenReturn(true);
+        // execute
+        boolean actual = fixture.isKeepScreenOn();
+        // validate
+        assertTrue(actual);
+        verify(repository).getBoolean(R.string.keep_screen_on_key, true);
     }
-
 }

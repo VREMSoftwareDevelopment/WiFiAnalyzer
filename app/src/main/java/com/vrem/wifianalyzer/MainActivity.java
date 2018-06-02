@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity
 
         setOptionMenu(new OptionMenu());
 
+        ActivityUtils.keepScreenOn(this);
+
         Toolbar toolbar = ActivityUtils.setupToolbar(this);
         drawerNavigation = new DrawerNavigation(this, toolbar);
 
@@ -133,6 +135,7 @@ public class MainActivity extends AppCompatActivity
         if (mainReload.shouldReload(mainContext.getSettings())) {
             reloadActivity();
         } else {
+            ActivityUtils.keepScreenOn(this);
             setWiFiChannelPairs(mainContext);
             update();
         }

@@ -71,6 +71,7 @@
     <string name="time_graph_legend_title">"Legenda da linha do tempo"</string>
     <string name="theme_title">"Tema"</string>
     <string name="wifi_off_on_exit_title">"Desativar Wi-Fi ao sair"</string>
+    <string name="keep_screen_on_title">"Manter o ecrã ligado"</string>
     <string name="language_title">"Língua"</string>
     <!-- settings end -->
 

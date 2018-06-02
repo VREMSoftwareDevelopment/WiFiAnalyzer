@@ -73,6 +73,7 @@
     <string name="time_graph_legend_title">"Wyświetlanie Legendy Wykresu Czasu"</string>
     <string name="theme_title">"Motyw"</string>
     <string name="wifi_off_on_exit_title">"Wyłączanie WiFi przy wyjściu"</string>
+    <string name="keep_screen_on_title">"Utrzymuj ekran włączony"</string>
     <string name="language_title">"Język"</string>
     <!-- settings end -->
 

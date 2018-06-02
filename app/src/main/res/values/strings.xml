@@ -127,6 +127,10 @@
     <string name="wifi_off_on_exit_key" translatable="false">"wifi_off_on_exit"</string>
     <bool name="wifi_off_on_exit_default" translatable="false">false</bool>
 
+    <string name="keep_screen_on_title">"Keep screen on"</string>
+    <string name="keep_screen_on_key" translatable="false">"keep_screen_on"</string>
+    <bool name="keep_screen_on_default" translatable="false">false</bool>
+
     <string name="language_title">"Language"</string>
     <string name="language_summary" translatable="false">"%s"</string>
     <string name="language_key" translatable="false">"language"</string>

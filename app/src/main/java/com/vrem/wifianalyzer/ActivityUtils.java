@@ -23,6 +23,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.vrem.util.ConfigurationUtils;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -46,9 +48,23 @@ public class ActivityUtils {
     }
 
     public static void setActionBarOptions(ActionBar actionBar) {
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar == null) {
+            return;
+        }
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    static void keepScreenOn(@NonNull MainActivity mainActivity) {
+        Settings settings = MainContext.INSTANCE.getSettings();
+        if (settings == null) {
+            return;
+        }
+        Window window = mainActivity.getWindow();
+        if (settings.isKeepScreenOn()) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
     }
 
