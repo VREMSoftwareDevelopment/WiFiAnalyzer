@@ -18,7 +18,7 @@
   -->
 
 <resources>
-    <string name="app_copyright">"版权 \u00A9 2015 \u002D 2017"</string>
+    <string name="app_copyright">"版权 \u00A9 2015 \u002D 2018"</string>
 
     <string name="navigation_drawer_open">"打开式导览"</string>
     <string name="navigation_drawer_close">"关闭导览"</string>
@@ -39,14 +39,14 @@
     <!-- action end -->
 
     <string name="no_data">"无数据"</string>
-    <string name="no_data_msg">"请访问我们网站上的常见问题“常见问题”部分。"</string>
-    <string name="no_data_geo_warning">"運行Android OS 6+（棉花糖）一些用戶報告說, 位置服務必須為應用程序看到WiFi網絡中啟用. 棉花糖用戶可根據需要打開定位服務, 即使無線網絡分析儀沒有明確要求它. 這似乎歸因於Android操作系統6+, 需要位置服務才能看到WiFi網絡的潛在問題."</string>
+    <string name="no_data_msg">"请访问我们网站上的“常见问题”部分。"</string>
+    <string name="no_data_geo_warning">"一些运行Android OS 6+（棉花糖）的用户报告说，必须启用位置服务才能使应用程序查看WiFi网络。 即使WiFiAnalyzer没有明确要求，用户也可能需要打开位置服务。 这似乎是由于Android OS 6+中存在潜在问题，需要定位服务才能查看WiFi网络。"</string>
 
     <string name="export_not_available">"出口不可用"</string>
 
     <string name="channel_rating_best">"最佳信道:"</string>
     <string name="channel_rating_best_none">"无"</string>
-    <string name="channel_rating_best_alternative">",尝试其他WiFi频段"</string>
+    <string name="channel_rating_best_alternative">，尝试其他WiFi频段</string>
     <string name="channel_rating_heading_rating">"信道评级"</string>
     <string name="channel_rating_heading_number">"信道数"</string>
     <string name="channel_rating_heading_count">"接入点计数"</string>
@@ -74,12 +74,12 @@
     <!-- settings end -->
 
     <!-- about start -->
-    <string name="about_license_title">"License:"</string>
+    <string name="about_license_title">授权：</string>
     <string name="about_description_title">"描述:"</string>
-    <string name="about_description_text">"使用此开源的Android WiFi分析仪来检查WiFi状态,信号强度并识别拥挤的信道从而优化您的WiFi网络"</string>
+    <string name="about_description_text">"使用适用于Android的开源应用WiFiAnalyzer，通过检查WiFi网络状态，信号强度和识别拥挤的频道来优化您的WiFi网络"</string>
     <string name="about_libraries_title">"使用的库:"</string>
     <string name="about_contributor_title">"贡献者"</string>
-    <string name="about_write_review">"我要评价"</string>
+    <string name="about_write_review">评价</string>
     <!-- about end -->
 
     <!-- security start -->
