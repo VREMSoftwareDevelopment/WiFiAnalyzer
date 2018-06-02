@@ -81,7 +81,7 @@
     <string name="about_description_text">"使用适用于Android的开源应用WiFiAnalyzer，通过检查WiFi网络状态，信号强度和识别拥挤的频道来优化您的WiFi网络"</string>
     <string name="about_libraries_title">"使用的库:"</string>
     <string name="about_contributor_title">"贡献者"</string>
-    <string name="about_write_review">"评价"</string>
+    <string name="about_write_review">"我要评价"</string>
     <!-- about end -->
 
     <!-- security start -->
