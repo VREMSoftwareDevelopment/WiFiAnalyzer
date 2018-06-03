@@ -35,7 +35,7 @@ import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 import java.util.Locale;
 
 public class ConnectionView implements UpdateNotifier {
-    static final int COUNT_MAX = 3;
+    static final int COUNT_MAX = 4;
     private static int count = 0;
     private final MainActivity mainActivity;
     private AccessPointDetail accessPointDetail;

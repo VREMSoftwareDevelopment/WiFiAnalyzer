@@ -131,7 +131,8 @@ public class CacheTest {
     public void testGetCacheSizeWithSizeAvailable() {
         // setup
         int values[] = new int[]{
-            1, 3,
+            1, 4,
+            2, 3,
             4, 3,
             5, 2,
             9, 2,
