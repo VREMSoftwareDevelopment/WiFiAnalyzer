@@ -154,7 +154,7 @@ public class AccessPointDetailTest {
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
-        validateTextViewValue(actual, VENDOR_NAME.substring(0, 12), R.id.vendorShort);
+        validateTextViewValue(actual, VENDOR_NAME.substring(0, 10), R.id.vendorShort);
     }
 
     @Test

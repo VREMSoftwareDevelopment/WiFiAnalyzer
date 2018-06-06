@@ -26,5 +26,5 @@
     <dimen name="list_view_item_horizontal_spacer">4dp</dimen>
     <dimen name="list_view_item_horizontal_tab">24dp</dimen>
 
-    <dimen name="nav_header_height">140dp</dimen>
+    <dimen name="nav_header_height">110dp</dimen>
 </resources>

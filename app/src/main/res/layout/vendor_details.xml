@@ -24,12 +24,14 @@
 
     <TextView
         android:id="@+id/vendor_name"
+        android:textIsSelectable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/vendor_macs"
+        android:textIsSelectable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/list_view_item_horizontal_tab"

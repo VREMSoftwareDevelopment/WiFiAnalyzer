@@ -40,7 +40,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Locale;
 
 public class AccessPointDetail {
-    private static final int VENDOR_SHORT_MAX = 12;
+    private static final int VENDOR_SHORT_MAX = 10;
     private static final int VENDOR_LONG_MAX = 30;
 
     View makeView(View convertView, ViewGroup parent, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
