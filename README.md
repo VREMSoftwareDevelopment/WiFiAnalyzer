@@ -4,10 +4,6 @@
 
 Optimize your WiFi network using WiFi Analyzer by examining surrounding WiFi networks, measuring their signal strength as well as identifying crowded channels.
 
-### Android OS Requirements
-* Minimum: Jelly Bean (Version 4.1 - API 16)
-* Recommended: Marshmallow (Version 6.0 - API 23)
-
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=com.vrem.wifianalyzer)
 [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/repository/browse/?fdid=com.vrem.wifianalyzer)
 [<img src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-underground-app-us-white.png" alt="Get it at Amazon Store" height="70">
