@@ -69,8 +69,14 @@ public class AccessPointDetail {
         setViewCompact(view, wiFiDetail, false);
         setViewExtra(view, wiFiDetail);
         setViewVendorLong(view, wiFiDetail.getWiFiAdditional());
+        enableTextSelection(view);
 
         return view;
+    }
+
+    private void enableTextSelection(View view) {
+        view.<TextView>findViewById(R.id.ssid).setTextIsSelectable(true);
+        view.<TextView>findViewById(R.id.vendorLong).setTextIsSelectable(true);
     }
 
     private void setViewCompact(@NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {

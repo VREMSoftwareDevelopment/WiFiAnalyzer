@@ -44,8 +44,10 @@ import org.robolectric.annotation.Config;
 import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
@@ -94,7 +96,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithConfiguredImageVisible() {
+    public void testMakeViewCompleteWithConfiguredImageVisible() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, true));
         // execute
@@ -104,7 +106,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithTabGone() {
+    public void testMakeViewCompleteWithTabGone() {
         // setup
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, wiFiAdditional);
@@ -115,7 +117,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithGroupIndicatorGone() {
+    public void testMakeViewCompleteWithGroupIndicatorGone() {
         // setup
         WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, wiFiAdditional);
@@ -126,7 +128,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithVendorShortNotVisible() {
+    public void testMakeViewCompleteWithVendorShortNotVisible() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
@@ -137,7 +139,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithVendorShortVisible() {
+    public void testMakeViewCompleteWithVendorShortVisible() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME, false));
         // execute
@@ -148,7 +150,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithVendorShortMaximumSize() {
+    public void testMakeViewCompleteWithVendorShortMaximumSize() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME, false));
         // execute
@@ -158,7 +160,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithTabVisible() {
+    public void testMakeViewCompleteWithTabVisible() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
@@ -168,7 +170,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithWiFiDetailAndEmptySSID() {
+    public void testMakeViewCompleteWithWiFiDetailAndEmptySSID() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
@@ -178,13 +180,23 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewFullWithWiFiDetail() {
+    public void testMakeViewCompleteWithWiFiDetail() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
         validateTextViewValuesFullView(actual, wiFiDetail);
+    }
+
+    @Test
+    public void testMakeViewCompleteWithTextNotSelectable() {
+        // setup
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        // execute
+        View actual = fixture.makeView(null, null, wiFiDetail, false);
+        // validate
+        assertFalse(actual.<TextView>findViewById(R.id.ssid).isTextSelectable());
     }
 
     @Test
@@ -270,6 +282,17 @@ public class AccessPointDetailTest {
     }
 
     @Test
+    public void testMakeViewCompactWithTextNotSelectable() {
+        // setup
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
+        // execute
+        View actual = fixture.makeView(null, null, wiFiDetail, false);
+        // validate
+        assertFalse(actual.<TextView>findViewById(R.id.ssid).isTextSelectable());
+    }
+
+    @Test
     public void testMakeViewPopupWithWiFiDetail() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
@@ -280,7 +303,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewPopupWithVendorNotVisible() {
+    public void testMakeViewDetailedWithVendorNotVisible() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
         // execute
@@ -291,7 +314,7 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewPopupWithVendorVisible() {
+    public void testMakeViewDetailedWithVendorVisible() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME, false));
         // execute
@@ -299,6 +322,17 @@ public class AccessPointDetailTest {
         // validate
         assertEquals(View.GONE, actual.findViewById(R.id.vendorShort).getVisibility());
         assertEquals(View.VISIBLE, actual.findViewById(R.id.vendorLong).getVisibility());
+    }
+
+    @Test
+    public void testMakeViewDetailedWithTextSelectable() {
+        // setup
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        // execute
+        View actual = fixture.makeViewDetailed(wiFiDetail);
+        // validate
+        assertTrue(actual.<TextView>findViewById(R.id.ssid).isTextSelectable());
+        assertTrue(actual.<TextView>findViewById(R.id.vendorLong).isTextSelectable());
     }
 
     private WiFiDetail withWiFiDetail(String SSID, WiFiAdditional wiFiAdditional) {

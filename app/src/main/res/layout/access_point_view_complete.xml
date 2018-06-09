@@ -60,7 +60,6 @@
 
             <TextView
                 android:id="@+id/ssid"
-                android:textIsSelectable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"/>
@@ -100,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Row 2 -->
+                <!-- Row 1 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -140,7 +139,7 @@
                         android:textStyle="bold"/>
                 </LinearLayout>
 
-                <!-- Row 2 optional -->
+                <!-- Row 2 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -164,7 +163,6 @@
 
                     <TextView
                         android:id="@+id/vendorShort"
-                        android:textIsSelectable="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="gone"/>
