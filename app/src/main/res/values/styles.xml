@@ -18,6 +18,15 @@
   -->
 
 <resources>
+  
+  <style name="ThemeSystem" parent="Theme.AppCompat.DayNight">
+
+    </style>
+
+    <style name="ThemeSystemNoActionBar" parent="ThemeSystem">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
     <style name="ThemeDark" parent="Theme.AppCompat"/>
 
