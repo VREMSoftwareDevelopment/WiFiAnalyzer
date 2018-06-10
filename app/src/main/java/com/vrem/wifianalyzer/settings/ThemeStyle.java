@@ -25,7 +25,8 @@ import com.vrem.wifianalyzer.R;
 
 public enum ThemeStyle {
     DARK(R.style.ThemeDark, R.style.ThemeDarkNoActionBar),
-    LIGHT(R.style.ThemeLight, R.style.ThemeLightNoActionBar);
+    LIGHT(R.style.ThemeLight, R.style.ThemeLightNoActionBar),
+    SYSTEM(R.style.ThemeSystem, R.style.ThemeSystemNoActionBar);
 
     private final int theme;
     private final int themeNoActionBar;

@@ -97,11 +97,13 @@
     <string-array name="theme_index_array" translatable="false">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
     </string-array>
 
     <string-array name="theme_array">
         <item>Dark</item>
         <item>Light</item>
+        <item>System</item>
     </string-array>
 
     <string-array name="graph_colors" translatable="false">
