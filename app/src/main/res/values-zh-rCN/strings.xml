@@ -59,19 +59,45 @@
 
     <!-- settings start -->
     <string name="start_menu_title">"开始"</string>
+
     <string name="country_code_title">"国家"</string>
+
     <string name="scan_interval_title">"扫描间隔"</string>
     <string name="scan_interval_summary">"每次扫描间隔%d秒"</string>
+
     <string name="sort_by_title">"接入点排序依据"</string>
+    <string name="sort_by_signal_strength">"信号强度"</string>
+    <string name="sort_by_channel">"信道"</string>
+
     <string name="group_by_title">"接入点分组依据"</string>
+    <string name="group_by_none">"无"</string>
+    <string name="group_by_channel">"信道"</string>
+
     <string name="connection_view_title">"连接显示"</string>
+    <string name="connection_view_complete">"完整"</string>
+    <string name="connection_view_compact">"紧凑"</string>
+    <string name="connection_view_hide">"隐藏"</string>
+
     <string name="ap_view_title">"接入点显示"</string>
+    <string name="ap_view_complete">"完整"</string>
+    <string name="ap_view_compact">"紧凑"</string>
+
     <string name="graph_maximum_y_title">"图形最大信号强度"</string>
+
     <string name="channel_graph_legend_title">"信道图例显示位置"</string>
     <string name="time_graph_legend_title">"时间图例显示位置"</string>
+    <string name="graph_legend_left">"左"</string>
+    <string name="graph_legend_right">"右"</string>
+    <string name="graph_legend_hide">"隐藏"</string>
+
     <string name="theme_title">"主题"</string>
+    <string name="theme_dark">"深"</string>
+    <string name="theme_light">"浅"</string>
+
     <string name="wifi_off_on_exit_title">"退出时关闭WiFi"</string>
+
     <string name="keep_screen_on_title">"屏幕常亮"</string>
+
     <string name="language_title">"语言"</string>
     <!-- settings end -->
 
@@ -97,4 +123,5 @@
     <string name="filter_strength_title">"信号强度"</string>
     <string name="filter_security_title">"安全"</string>
     <!-- filter end -->
+
 </resources>

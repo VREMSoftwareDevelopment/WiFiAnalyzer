@@ -61,19 +61,45 @@
 
     <!-- settings start -->
     <string name="start_menu_title">"Start"</string>
+
     <string name="country_code_title">"Kraj"</string>
+
     <string name="scan_interval_title">"Interwał Skanowania"</string>
     <string name="scan_interval_summary">"%d sekund pomiędzy każdym skanem"</string>
+
     <string name="sort_by_title">"Sortuj punkty dostępu po"</string>
+    <string name="sort_by_signal_strength">"Siła Sygnału"</string>
+    <string name="sort_by_channel">"Kanał"</string>
+
     <string name="group_by_title">"Grupuj punkty dostępu po"</string>
+    <string name="group_by_none">"Nic"</string>
+    <string name="group_by_channel">"Kanał"</string>
+
     <string name="connection_view_title">"Widok Połączeń"</string>
+    <string name="connection_view_complete">"Pełny"</string>
+    <string name="connection_view_compact">"Uproszczony"</string>
+    <string name="connection_view_hide">"Ukryj"</string>
+
     <string name="ap_view_title">"Widok Punktów Dostępu"</string>
+    <string name="ap_view_complete">"Pełny"</string>
+    <string name="ap_view_compact">"Uproszczony"</string>
+
     <string name="graph_maximum_y_title">"Wykres Siły Sygnału"</string>
+
     <string name="channel_graph_legend_title">"Wyświetlanie Legendy Wyskresu Kanałów"</string>
     <string name="time_graph_legend_title">"Wyświetlanie Legendy Wykresu Czasu"</string>
+    <string name="graph_legend_left">"Lewo"</string>
+    <string name="graph_legend_right">"Prawo"</string>
+    <string name="graph_legend_hide">"Ukryj"</string>
+
     <string name="theme_title">"Motyw"</string>
+    <string name="theme_dark">"Ciemny"</string>
+    <string name="theme_light">"Jasny"</string>
+
     <string name="wifi_off_on_exit_title">"Wyłączanie WiFi przy wyjściu"</string>
+
     <string name="keep_screen_on_title">"Utrzymuj ekran włączony"</string>
+
     <string name="language_title">"Język"</string>
     <!-- settings end -->
 
@@ -99,4 +125,5 @@
     <string name="filter_strength_title">"Siła Sygnału"</string>
     <string name="filter_security_title">"Bezpieczeństwo"</string>
     <!-- filter end -->
+
 </resources>

@@ -61,19 +61,45 @@
 
     <!-- settings start -->
     <string name="start_menu_title">"Mostrar al inicio"</string>
+
     <string name="country_code_title">"País"</string>
+
     <string name="scan_interval_title">"Intervalo de exploración"</string>
     <string name="scan_interval_summary">"%d segundos entre exploraciones"</string>
+
     <string name="sort_by_title">"Ordenar Puntos de Acceso por:"</string>
+    <string name="sort_by_signal_strength">"Intensidad de señal"</string>
+    <string name="sort_by_channel">"Canal"</string>
+
     <string name="group_by_title">"Agrupar Puntos de Acceso por:"</string>
+    <string name="group_by_none">"Ninguna"</string>
+    <string name="group_by_channel">"Canal"</string>
+
     <string name="connection_view_title">"Pantalla de conexión"</string>
+    <string name="connection_view_complete">"Completo"</string>
+    <string name="connection_view_compact">"Compacto"</string>
+    <string name="connection_view_hide">"Esconder"</string>
+
     <string name="ap_view_title">"Pantalla de punto de acceso"</string>
+    <string name="ap_view_complete">"Completo"</string>
+    <string name="ap_view_compact">"Compacto"</string>
+
     <string name="graph_maximum_y_title">"Gráfico de intensidad máxima de la señal"</string>
+
     <string name="channel_graph_legend_title">"Leyenda de Visualización de Gráfico de Canales"</string>
     <string name="time_graph_legend_title">"Leyenda de Visualización de Gráfico de Tiempo"</string>
+    <string name="graph_legend_left">"Izquierda"</string>
+    <string name="graph_legend_right">"Derecha"</string>
+    <string name="graph_legend_hide">"Esconder"</string>
+
     <string name="theme_title">"Tema"</string>
+    <string name="theme_dark">"Oscuro"</string>
+    <string name="theme_light">"Claro"</string>
+
     <string name="wifi_off_on_exit_title">"Apagar Wifi al salir"</string>
+
     <string name="keep_screen_on_title">"Mantener pantalla encendida"</string>
+
     <string name="language_title">"Lenguaje"</string>
     <!-- settings end -->
 
@@ -99,4 +125,5 @@
     <string name="filter_strength_title">"Intensidad de señal"</string>
     <string name="filter_security_title">"Seguridad"</string>
     <!-- filter end -->
+
 </resources>

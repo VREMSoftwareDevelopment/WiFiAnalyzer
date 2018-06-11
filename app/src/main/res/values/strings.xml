@@ -87,21 +87,32 @@
     <string name="sort_by_summary" translatable="false">"%s"</string>
     <string name="sort_by_key" translatable="false">"sort_by"</string>
     <string name="sort_by_default" translatable="false">"0"</string>
+    <string name="sort_by_signal_strength">"Signal Strength"</string>
+    <string name="sort_by_ssid" translatable="false">"SSID"</string>
+    <string name="sort_by_channel">"Channel"</string>
 
     <string name="group_by_title">"Group Access Points By"</string>
     <string name="group_by_summary" translatable="false">"%s"</string>
     <string name="group_by_key" translatable="false">"group_by"</string>
     <string name="group_by_default" translatable="false">"0"</string>
+    <string name="group_by_none">"None"</string>
+    <string name="group_by_ssid" translatable="false">"SSID"</string>
+    <string name="group_by_channel">"Channel"</string>
 
     <string name="ap_view_title">"Access Point Display"</string>
     <string name="ap_view_summary" translatable="false">"%s"</string>
     <string name="ap_view_key" translatable="false">"view"</string>
     <string name="ap_view_default" translatable="false">"0"</string>
+    <string name="ap_view_complete">"Complete"</string>
+    <string name="ap_view_compact">"Compact"</string>
 
     <string name="connection_view_title">"Connection Display"</string>
     <string name="connection_view_summary" translatable="false">"%s"</string>
     <string name="connection_view_key" translatable="false">"connection"</string>
     <string name="connection_view_default" translatable="false">"0"</string>
+    <string name="connection_view_complete">"Complete"</string>
+    <string name="connection_view_compact">"Compact"</string>
+    <string name="connection_view_hide">"Hide"</string>
 
     <string name="graph_maximum_y_title">"Graph Maximum Signal Strength"</string>
     <string name="graph_maximum_y_summary" translatable="false">"%s"</string>
@@ -118,10 +129,16 @@
     <string name="time_graph_legend_key" translatable="false">"time_graph_legend"</string>
     <string name="time_graph_legend_default" translatable="false">"0"</string>
 
+    <string name="graph_legend_left">"Left"</string>
+    <string name="graph_legend_right">"Right"</string>
+    <string name="graph_legend_hide">"Hide"</string>
+
     <string name="theme_title">"Theme"</string>
     <string name="theme_summary" translatable="false">"%s"</string>
     <string name="theme_key" translatable="false">"theme"</string>
     <string name="theme_default" translatable="false">"0"</string>
+    <string name="theme_dark">"Dark"</string>
+    <string name="theme_light">"Light"</string>
 
     <string name="wifi_off_on_exit_title">"WiFi off on Exit"</string>
     <string name="wifi_off_on_exit_key" translatable="false">"wifi_off_on_exit"</string>
@@ -187,4 +204,5 @@
     <string name="filter_security_title">"Security"</string>
     <string name="filter_security_key" translatable="false">"filter_security"</string>
     <!-- filter end -->
+
 </resources>
