@@ -33,6 +33,15 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="ThemeSystem" parent="Theme.AppCompat.DayNight">
+        <item name="colorPrimary">@color/theme_color</item>
+    </style>
+
+    <style name="ThemeSystemNoActionBar" parent="ThemeSystem">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="ThemeOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
