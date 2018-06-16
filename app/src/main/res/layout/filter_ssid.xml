@@ -32,7 +32,6 @@
 
     <EditText
         android:id="@+id/filterSSIDtext"
-        android:textIsSelectable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/filter_ssid_hint"
