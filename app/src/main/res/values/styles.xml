@@ -34,18 +34,8 @@
     </style>
     -->
 
-    <style name="ThemeSystem" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <!--<item name="android:actionBarStyle">@style/MyTheme.ActionBarStyle</item>-->
-    </style>
-<!--
-    <style name="MyTheme.ActionBarStyle" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
-    </style>
+    <style name="ThemeSystem" parent="Theme.AppCompat.DayNight.DarkActionBar"/>
 
-    <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/theme_system_text_color</item>
-    </style>
--->
     <style name="ThemeSystemNoActionBar" parent="ThemeSystem">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
