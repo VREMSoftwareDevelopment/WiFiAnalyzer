@@ -42,6 +42,8 @@
     <!-- green_500 -->
     <color name="success_color">#4CAF50</color>
 
-    <!-- dark gray -->
+    <!-- theme colors -->
     <color name="theme_system_primary_color">#212121</color>
+    <color name="theme_system_text_color">#FFFFFF</color>
+
 </resources>
