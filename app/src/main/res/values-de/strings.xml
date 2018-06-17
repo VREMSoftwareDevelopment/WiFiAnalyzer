@@ -95,7 +95,6 @@
     <string name="theme_light">"Hell"</string>
     <string name="theme_system">"System"</string>
 
-
     <string name="wifi_off_on_exit_title">"WLAN beim Verlassen deaktivieren"</string>
 
     <string name="keep_screen_on_title">"Bildschirm angeschaltet lassen"</string>

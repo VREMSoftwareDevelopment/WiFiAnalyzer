@@ -34,7 +34,7 @@
     </style>
 
     <style name="ThemeSystem" parent="Theme.AppCompat.DayNight">
-        <item name="colorPrimary">@color/theme_color</item>
+        <item name="colorPrimary">@color/theme_system_primary_color</item>
     </style>
 
     <style name="ThemeSystemNoActionBar" parent="ThemeSystem">
