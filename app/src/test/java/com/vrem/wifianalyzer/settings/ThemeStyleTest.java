@@ -69,11 +69,11 @@ public class ThemeStyleTest {
     @Test
     public void testGetDefaultTheme() {
         // setup
-        when(settings.getThemeStyle()).thenReturn(ThemeStyle.LIGHT);
+        when(settings.getThemeStyle()).thenReturn(ThemeStyle.SYSTEM);
         // execute
         @StyleRes int actual = ThemeStyle.getDefaultTheme();
         // validate
-        assertEquals(ThemeStyle.LIGHT.getTheme(), actual);
+        assertEquals(ThemeStyle.SYSTEM.getTheme(), actual);
         verify(settings).getThemeStyle();
     }
 

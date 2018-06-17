@@ -239,7 +239,7 @@ public class GraphViewBuilderTest {
     public void testSetGridLabelRenderColorsWithLightTheme() {
         // setup
         when(graphView.getGridLabelRenderer()).thenReturn(gridLabelRenderer);
-        fixture = new GraphViewBuilder(content, NUM_HORIZONTAL_LABELS, GraphConstants.MAX_Y_DEFAULT, ThemeStyle.LIGHT);
+        fixture = new GraphViewBuilder(content, NUM_HORIZONTAL_LABELS, GraphConstants.MAX_Y_DEFAULT, ThemeStyle.SYSTEM);
         // execute
         fixture.setGridLabelRenderer(graphView);
         // validate

@@ -81,7 +81,7 @@ public class MainReloadTest {
     @Test
     public void testShouldReloadWithThemeChange() {
         // setup
-        ThemeStyle expected = ThemeStyle.LIGHT;
+        ThemeStyle expected = ThemeStyle.SYSTEM;
         when(settings.getThemeStyle()).thenReturn(expected);
         // execute
         boolean actual = fixture.shouldReload(settings);
