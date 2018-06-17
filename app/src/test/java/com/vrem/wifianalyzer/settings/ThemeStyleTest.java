@@ -49,12 +49,12 @@ public class ThemeStyleTest {
 
     @Test
     public void testThemeStyle() {
-        assertEquals(3, ThemeStyle.values().length);
+        assertEquals(2, ThemeStyle.values().length);
     }
 
     @Test
     public void testGetTheme() {
-        assertEquals(R.style.ThemeLight, ThemeStyle.LIGHT.getTheme());
+        //assertEquals(R.style.ThemeLight, ThemeStyle.LIGHT.getTheme());
         assertEquals(R.style.ThemeDark, ThemeStyle.DARK.getTheme());
         assertEquals(R.style.ThemeSystem, ThemeStyle.SYSTEM.getTheme());
     }

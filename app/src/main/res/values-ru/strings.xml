@@ -92,7 +92,7 @@
 
     <string name="theme_title">"Цветовая тема"</string>
     <string name="theme_dark">"Темная"</string>
-    <string name="theme_light">"Светлая"</string>
+    <!--<string name="theme_light">"Светлая"</string>-->
     <string name="theme_system">"Система"</string>
 
     <string name="wifi_off_on_exit_title">"WiFi выключен при выходе"</string>
