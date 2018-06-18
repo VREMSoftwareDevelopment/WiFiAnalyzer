@@ -92,7 +92,6 @@
 
     <string name="theme_title">"Thème"</string>
     <string name="theme_dark">"Foncé"</string>
-    <!--<string name="theme_light">"Clair"</string>-->
     <string name="theme_system">"Système"</string>
 
     <string name="wifi_off_on_exit_title">"WiFi à la sortie"</string>

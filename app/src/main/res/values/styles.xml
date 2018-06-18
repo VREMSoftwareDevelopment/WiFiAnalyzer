@@ -26,14 +26,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <!--<style name="ThemeLight" parent="Theme.AppCompat.Light.DarkActionBar"/>
-
-    <style name="ThemeLightNoActionBar" parent="ThemeLight">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-    -->
-
     <style name="ThemeSystem" parent="Theme.AppCompat.DayNight.DarkActionBar"/>
 
     <style name="ThemeSystemNoActionBar" parent="ThemeSystem">

@@ -54,14 +54,12 @@ public class ThemeStyleTest {
 
     @Test
     public void testGetTheme() {
-        //assertEquals(R.style.ThemeLight, ThemeStyle.LIGHT.getTheme());
         assertEquals(R.style.ThemeDark, ThemeStyle.DARK.getTheme());
         assertEquals(R.style.ThemeSystem, ThemeStyle.SYSTEM.getTheme());
     }
 
     @Test
     public void testGetThemeNoActionBar() {
-        //assertEquals(R.style.ThemeLightNoActionBar, ThemeStyle.LIGHT.getThemeNoActionBar());
         assertEquals(R.style.ThemeDarkNoActionBar, ThemeStyle.DARK.getThemeNoActionBar());
         assertEquals(R.style.ThemeSystemNoActionBar, ThemeStyle.SYSTEM.getThemeNoActionBar());
     }
