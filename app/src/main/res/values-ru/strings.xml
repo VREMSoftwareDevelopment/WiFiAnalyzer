@@ -119,7 +119,7 @@
     <string name="filter_title">"Фильтр"</string>
     <string name="filter_close">"Закрыть"</string>
     <string name="filter_reset">"Сброс"</string>
-    <string name="filter_apply">"Применять"</string>
+    <string name="filter_apply">"Применить"</string>
     <string name="filter_wifi_band_title">"WiFi диапазон"</string>
     <string name="filter_strength_title">"Уровень сигнала"</string>
     <string name="filter_security_title">"Безопасность"</string>
