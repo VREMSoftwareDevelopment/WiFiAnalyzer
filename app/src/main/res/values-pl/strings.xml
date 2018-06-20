@@ -94,6 +94,7 @@
 
     <string name="theme_title">"Motyw"</string>
     <string name="theme_dark">"Ciemny"</string>
+    <string name="theme_light">"Jasny"</string>
     <string name="theme_system">"System"</string>
 
     <string name="wifi_off_on_exit_title">"Wyłączanie WiFi przy wyjściu"</string>

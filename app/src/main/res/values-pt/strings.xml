@@ -92,6 +92,7 @@
 
     <string name="theme_title">"Tema"</string>
     <string name="theme_dark">"Escuro"</string>
+    <string name="theme_light">"Claro"</string>
     <string name="theme_system">"Sistema"</string>
 
     <string name="wifi_off_on_exit_title">"Desativar Wi-Fi ao sair"</string>

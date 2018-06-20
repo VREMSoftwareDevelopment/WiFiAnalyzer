@@ -92,6 +92,7 @@
 
     <string name="theme_title">"主题"</string>
     <string name="theme_dark">"深"</string>
+    <string name="theme_light">"浅"</string>
     <string name="theme_system">"系统"</string>
 
     <string name="wifi_off_on_exit_title">"退出时关闭WiFi"</string>

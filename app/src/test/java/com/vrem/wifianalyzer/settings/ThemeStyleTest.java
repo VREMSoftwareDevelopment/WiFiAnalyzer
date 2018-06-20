@@ -49,11 +49,12 @@ public class ThemeStyleTest {
 
     @Test
     public void testThemeStyle() {
-        assertEquals(2, ThemeStyle.values().length);
+        assertEquals(3, ThemeStyle.values().length);
     }
 
     @Test
     public void testGetTheme() {
+        assertEquals(R.style.ThemeLight, ThemeStyle.LIGHT.getTheme());
         assertEquals(R.style.ThemeDark, ThemeStyle.DARK.getTheme());
         assertEquals(R.style.ThemeSystem, ThemeStyle.SYSTEM.getTheme());
     }
@@ -61,17 +62,18 @@ public class ThemeStyleTest {
     @Test
     public void testGetThemeNoActionBar() {
         assertEquals(R.style.ThemeDarkNoActionBar, ThemeStyle.DARK.getThemeNoActionBar());
+        assertEquals(R.style.ThemeLightNoActionBar, ThemeStyle.LIGHT.getThemeNoActionBar());
         assertEquals(R.style.ThemeSystemNoActionBar, ThemeStyle.SYSTEM.getThemeNoActionBar());
     }
 
     @Test
     public void testGetDefaultTheme() {
         // setup
-        when(settings.getThemeStyle()).thenReturn(ThemeStyle.SYSTEM);
+        when(settings.getThemeStyle()).thenReturn(ThemeStyle.LIGHT);
         // execute
         @StyleRes int actual = ThemeStyle.getDefaultTheme();
         // validate
-        assertEquals(ThemeStyle.SYSTEM.getTheme(), actual);
+        assertEquals(ThemeStyle.LIGHT.getTheme(), actual);
         verify(settings).getThemeStyle();
     }
 
