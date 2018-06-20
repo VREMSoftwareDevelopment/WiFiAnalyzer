@@ -41,7 +41,4 @@
     <color name="warning_color">#FFC107</color>
     <!-- green_500 -->
     <color name="success_color">#4CAF50</color>
-
-    <!-- dark gray -->
-    <color name="theme_system_primary_color">#212121</color>
 </resources>

@@ -33,9 +33,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="ThemeSystem" parent="Theme.AppCompat.DayNight">
-        <item name="colorPrimary">@color/theme_system_primary_color</item>
-    </style>
+    <style name="ThemeSystem" parent="Theme.AppCompat.DayNight.DarkActionBar"/>
 
     <style name="ThemeSystemNoActionBar" parent="ThemeSystem">
         <item name="windowActionBar">false</item>
