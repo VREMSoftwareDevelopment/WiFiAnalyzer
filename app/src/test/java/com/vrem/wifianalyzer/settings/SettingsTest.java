@@ -140,11 +140,11 @@ public class SettingsTest {
     @Test
     public void testGetThemeStyle() {
         // setup
-        when(repository.getStringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal())).thenReturn(ThemeStyle.SYSTEM.ordinal());
+        when(repository.getStringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal())).thenReturn(ThemeStyle.LIGHT.ordinal());
         // execute
         ThemeStyle actual = fixture.getThemeStyle();
         // validate
-        assertEquals(ThemeStyle.SYSTEM, actual);
+        assertEquals(ThemeStyle.LIGHT, actual);
         verify(repository).getStringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal());
     }
 
