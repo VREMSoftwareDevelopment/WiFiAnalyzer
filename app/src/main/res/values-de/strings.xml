@@ -24,14 +24,14 @@
     <string name="navigation_drawer_close">"Navigationsleiste schließen"</string>
     <string name="scanner_message">"Wird gescannt &#8230;"</string>
     <string name="scanner_pause">"Pausieren"</string>
-    <string name="scanner_play">"Wiedergabe"</string>
+    <string name="scanner_play">"Wiedergeben"</string>
 
     <!-- action start -->
     <string name="action_access_points">"Access Points"</string>
     <string name="action_channel_rating">"Kanalbewertung"</string>
     <string name="action_channel_graph">"Kanalübersicht"</string>
     <string name="action_time_graph">"Signalverlauf"</string>
-    <string name="action_export">"Export"</string>
+    <string name="action_export">"Exportieren"</string>
     <string name="action_channel_available">"Verfügbare Kanäle"</string>
     <string name="action_vendors">"Hersteller"</string>
     <string name="action_settings">"Einstellungen"</string>
@@ -39,9 +39,9 @@
     <!-- action end -->
 
     <string name="no_data">"Keine Daten"</string>
-    <string name="no_data_msg">"Bitte besuchen Sie den Abschnitt zu häufigen Fragen auf unserer Website."</string>
-    <string name="no_data_geo_warning">"Einige Benutzer mit Android 6+ ("Marshmallow") haben berichtet, dass der Standort-Dienst aktiviert sein muss, damit WLAN-Netzerke erkannt werden können. Benutzer unter "Marshmallow" müssen möglicherweise Standortdienste aktivieren, auch wenn WiFiAnalyzer sie nicht benötigt. Dies scheint ein Problem in Android 6+ zu sein."</string>
-    <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a WiFi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
+    <string name="no_data_msg">"Bitte besuchen Sie den Abschnitt zu häufig gestellten Fragen auf unserer Website."</string>
+    <string name="no_data_geo_warning">"Einige Benutzer mit Android 6+ ("Marshmallow") haben berichtet, dass der Standort-Dienst aktiviert sein muss, damit WLAN-Netzerke erkannt werden können. Benutzer unter "Marshmallow" müssen möglicherweise die Standortdienste aktivieren, auch wenn WiFiAnalyzer sie nicht explizit benötigt. Dies scheint ein Problem in Android 6+ zu sein."</string>
+    <string name="permission_msg">"In Andrroid Marshmallow ist es erforderlich die Standortdienste zu aktivieren, um Wifi scans durchzuführen. Sie werden aufgeforrdert die Standortdienste-Berechtigung zu erteilen. Da die app keine Internetverbindung benötigt können sie sicher sein, dass  die app Ihren Standort zu Übermitteln!"</string>
 
     <string name="export_not_available">"Export nicht verfügbar"</string>
 
