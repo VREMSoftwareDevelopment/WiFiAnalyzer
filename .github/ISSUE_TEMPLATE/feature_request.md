@@ -4,6 +4,8 @@ about: Suggest an idea for this project
 
 ---
 
+**Please search issues (open and closed) to see the issues has already been reported. **
+
 **Is your feature request related to a problem? Please describe.**
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 

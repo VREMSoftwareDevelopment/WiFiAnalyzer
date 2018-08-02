@@ -6,6 +6,8 @@ about: Create a report to help us improve
 
 [How to report a bug](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Feedback)
 
+**Please search issues (open and closed) to see the issues has already been reported. **
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 
