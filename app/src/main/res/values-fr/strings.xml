@@ -41,7 +41,7 @@
     <string name="no_data">"Aucune donnée"</string>
     <string name="no_data_msg">"Veuillez visiter régulièrement les section sur notre site Web."</string>
     <string name="no_data_geo_warning">"Certains utilisateurs fonctionnant sous Android OS+ 6 (Marshmallow) ont indiqué que le service de géolocalisation devait être activé pour que l\'application puisse fonctionner correctement. Si vous utilisez Marshmallow, activer le service de géolocalisation pourrait résoudre le problème, même si WiFiAnalyzer ne le demande pas explicitement. Ceci semble être dû à un problème avec Android OS 6+ qui requiert le service de géolocalisation d\'être actif afin d\'accéder aux réseaux Wi-Fi."</string>
-    <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a WiFi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
+    <string name="permission_msg">"À partir de Android Marshmallow, les autorisations de localisation sont requises pour effectuer un scan WiFi. Vous serez invité à activer les services / autorisations de localisation. Depuis cette application ne nécessite pas d'accès Internet, vous pouvez être sûr que cette application ne peut pas transmettre votre position!"</string>
 
     <string name="export_not_available">"Export non disponible"</string>
 

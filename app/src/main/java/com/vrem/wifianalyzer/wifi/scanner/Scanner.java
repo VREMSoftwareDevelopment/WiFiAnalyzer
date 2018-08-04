@@ -32,7 +32,6 @@ import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 class Scanner implements ScannerService {
@@ -56,7 +55,9 @@ class Scanner implements ScannerService {
 
     @Override
     public void update() {
-        performWiFiScan();
+        enableWiFi();
+        scanResults();
+        wiFiData = transformer.transformToWiFiData(cache.getScanResults(), wiFiInfo(), wifiConfiguration());
         IterableUtils.forEach(updateNotifiers, new UpdateClosure());
     }
 
@@ -124,24 +125,43 @@ class Scanner implements ScannerService {
         return updateNotifiers;
     }
 
-    private void performWiFiScan() {
-        List<ScanResult> scanResults = Collections.emptyList();
-        WifiInfo wifiInfo = null;
-        List<WifiConfiguration> configuredNetworks = null;
+    private void enableWiFi() {
         try {
             if (!wifiManager.isWifiEnabled()) {
                 wifiManager.setWifiEnabled(true);
             }
-            if (wifiManager.startScan()) {
-                scanResults = wifiManager.getScanResults();
-            }
-            wifiInfo = wifiManager.getConnectionInfo();
-            configuredNetworks = wifiManager.getConfiguredNetworks();
         } catch (Exception e) {
-            // critical error: set to no results and do not die
+            // critical error: do not die
         }
-        cache.add(scanResults);
-        wiFiData = transformer.transformToWiFiData(cache.getScanResults(), wifiInfo, configuredNetworks);
+    }
+
+    private void scanResults() {
+        try {
+            if (wifiManager.startScan()) {
+                List<ScanResult> scanResults = wifiManager.getScanResults();
+                cache.add(scanResults);
+            }
+        } catch (Exception e) {
+            // critical error: do not die
+        }
+    }
+
+    private WifiInfo wiFiInfo() {
+        try {
+            return wifiManager.getConnectionInfo();
+        } catch (Exception e) {
+            // critical error: do not die
+            return null;
+        }
+    }
+
+    private List<WifiConfiguration> wifiConfiguration() {
+        try {
+            return wifiManager.getConfiguredNetworks();
+        } catch (Exception e) {
+            // critical error: do not die
+            return new ArrayList<>();
+        }
     }
 
     private class UpdateClosure implements Closure<UpdateNotifier> {
