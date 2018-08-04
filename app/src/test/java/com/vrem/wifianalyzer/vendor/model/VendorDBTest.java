@@ -41,8 +41,8 @@ public class VendorDBTest {
     private static final String MAC_ADDRESS = "00:23:AB:8C:DF:10";
     private static final String VENDOR_NAME_INVALID = "XXXXX";
     private static final String MAC_ADDRESS_INVALID = "XX:XX:XX";
-    private static final int VENDOR_SIZE = 16987;
-    private static final int MACS_SIZE = 24951;
+    private static final int VENDOR_SIZE = 17072;
+    private static final int MACS_SIZE = 25227;
 
     private VendorDB fixture;
 
@@ -79,7 +79,7 @@ public class VendorDBTest {
     @Test
     public void testFindMacAddresses() {
         // setup
-        int expectedSize = 816;
+        int expectedSize = 825;
         // execute
         List<String> actual = fixture.findMacAddresses(VENDOR_NAME);
         // validate
@@ -87,7 +87,7 @@ public class VendorDBTest {
 
         assertEquals("00:00:0C", actual.get(0));
         assertEquals("FC:FB:FB", actual.get(expectedSize - 1));
-        assertEquals("00:90:5F", actual.get(expectedSize / 2));
+        assertEquals("00:90:92", actual.get(expectedSize / 2));
     }
 
     @Test
