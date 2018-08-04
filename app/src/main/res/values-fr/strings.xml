@@ -41,7 +41,7 @@
     <string name="no_data">"Aucune donnée"</string>
     <string name="no_data_msg">"Veuillez visiter régulièrement les section sur notre site Web."</string>
     <string name="no_data_geo_warning">"Certains utilisateurs fonctionnant sous Android OS+ 6 (Marshmallow) ont indiqué que le service de géolocalisation devait être activé pour que l\'application puisse fonctionner correctement. Si vous utilisez Marshmallow, activer le service de géolocalisation pourrait résoudre le problème, même si WiFiAnalyzer ne le demande pas explicitement. Ceci semble être dû à un problème avec Android OS 6+ qui requiert le service de géolocalisation d\'être actif afin d\'accéder aux réseaux Wi-Fi."</string>
-    <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a WiFi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
+    <string name="permission_msg">"À partir de Android Marshmallow, les autorisations de localisation sont requises pour effectuer un scan WiFi. Vous serez invité à activer les services / autorisations de localisation. Depuis cette application ne nécessite pas d'accès Internet, vous pouvez être sûr que cette application ne peut pas transmettre votre position!"</string>
 
     <string name="export_not_available">"Export non disponible"</string>
 
@@ -59,19 +59,46 @@
 
     <!-- settings start -->
     <string name="start_menu_title">"Page d\'accueil"</string>
+
     <string name="country_code_title">"Pays"</string>
+
     <string name="scan_interval_title">"Délai d\'analyse"</string>
     <string name="scan_interval_summary">"%d secondes entre chaque analyse"</string>
+
     <string name="sort_by_title">"Trier les points d\'accès par :"</string>
+    <string name="sort_by_signal_strength">"Force du signal"</string>
+    <string name="sort_by_channel">"Canal"</string>
+
     <string name="group_by_title">"Grouper les points d\'accès par :"</string>
+    <string name="group_by_none">"Aucun"</string>
+    <string name="group_by_channel">"Canal"</string>
+
     <string name="connection_view_title">"Affichage de la connexion"</string>
+    <string name="connection_view_complete">"Complet"</string>
+    <string name="connection_view_compact">"Condensé"</string>
+    <string name="connection_view_hide">"Cachée"</string>
+
     <string name="ap_view_title">"Affichage des point d\'accès"</string>
+    <string name="ap_view_complete">"Complet"</string>
+    <string name="ap_view_compact">"Condensé"</string>
+
     <string name="graph_maximum_y_title">"Graphique Puissance maximale du signal"</string>
+
     <string name="channel_graph_legend_title">"Légende pour le graphique des canaux"</string>
     <string name="time_graph_legend_title">"Légende pour le graphique temporel"</string>
+    <string name="graph_legend_left">"Gauche"</string>
+    <string name="graph_legend_right">"Droite"</string>
+    <string name="graph_legend_hide">"Cachée"</string>
+
     <string name="theme_title">"Thème"</string>
+    <string name="theme_dark">"Foncé"</string>
+    <string name="theme_light">"Clair"</string>
+    <string name="theme_system">"Système"</string>
+
     <string name="wifi_off_on_exit_title">"WiFi à la sortie"</string>
+
     <string name="keep_screen_on_title">"Garder l\'écran allumé"</string>
+
     <string name="language_title">"Langue"</string>
     <!-- settings end -->
 
@@ -97,4 +124,5 @@
     <string name="filter_strength_title">"Intensité du signal"</string>
     <string name="filter_security_title">"Sécurité"</string>
     <!-- filter end -->
+
 </resources>

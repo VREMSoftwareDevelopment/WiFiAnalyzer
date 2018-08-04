@@ -41,7 +41,7 @@
     <string name="no_data">"Нет данных"</string>
     <string name="no_data_msg">"Пожалуйста, посетите часто задаваемые вопросы на нашем сайте."</string>
     <string name="no_data_geo_warning">"Некоторые пользователи Android OS 6+ (Marshmallow) сообщили, что услуга определения местоположения должна быть включена для того, чтобы WiFiAnalyzer увидел WiFi сети. Поэтому Вам, возможно, понадобится включить службу определения местоположения, даже если WiFiAnalyzer этого явно не требует."</string>
-    <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a WiFi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
+    <string name="permission_msg">"Начиная с Android Marshmallow, разрешения на размещение необходимы для выполнения сканирования WiFi. Вам будет предложено включить службы определения местоположения / разрешения. Поскольку это приложение не требует доступа в Интернет, вы можете быть уверены, что это приложение не сможет передать ваше местоположение!"</string>
 
     <string name="export_not_available">"Экспорт не доступен"</string>
 
@@ -59,19 +59,46 @@
 
     <!-- settings start -->
     <string name="start_menu_title">"Начать"</string>
+
     <string name="country_code_title">"Страна"</string>
+
     <string name="scan_interval_title">"Интервал сканирования"</string>
     <string name="scan_interval_summary">"%d секунд между каждым сканированием"</string>
+
     <string name="sort_by_title">"Сортировка"</string>
+    <string name="sort_by_signal_strength">"Уровень сигнала"</string>
+    <string name="sort_by_channel">"Канал"</string>
+
     <string name="group_by_title">"Группировка"</string>
+    <string name="group_by_none">"Нет"</string>
+    <string name="group_by_channel">"Канал"</string>
+
     <string name="connection_view_title">"Дисплей соединение"</string>
+    <string name="connection_view_complete">"Полный"</string>
+    <string name="connection_view_compact">"Компактный"</string>
+    <string name="connection_view_hide">"Скрыть"</string>
+
     <string name="ap_view_title">"Точка доступа"</string>
+    <string name="ap_view_complete">"Полный"</string>
+    <string name="ap_view_compact">"Компактный"</string>
+
     <string name="graph_maximum_y_title">"Максимальная сила сигнала графика"</string>
+
     <string name="channel_graph_legend_title">"Показать легенду графика каналa"</string>
     <string name="time_graph_legend_title">"Показать легенду графика времени"</string>
+    <string name="graph_legend_left">"Слева"</string>
+    <string name="graph_legend_right">"Справа"</string>
+    <string name="graph_legend_hide">"Скрыть"</string>
+
     <string name="theme_title">"Цветовая тема"</string>
+    <string name="theme_dark">"Темная"</string>
+    <string name="theme_light">"Светлая"</string>
+    <string name="theme_system">"Система"</string>
+
     <string name="wifi_off_on_exit_title">"WiFi выключен при выходе"</string>
+
     <string name="keep_screen_on_title">"Экран всегда включен"</string>
+
     <string name="language_title">"Язык"</string>
     <!-- settings end -->
 
@@ -92,9 +119,10 @@
     <string name="filter_title">"Фильтр"</string>
     <string name="filter_close">"Закрыть"</string>
     <string name="filter_reset">"Сброс"</string>
-    <string name="filter_apply">"Применять"</string>
+    <string name="filter_apply">"Применить"</string>
     <string name="filter_wifi_band_title">"WiFi диапазон"</string>
     <string name="filter_strength_title">"Уровень сигнала"</string>
     <string name="filter_security_title">"Безопасность"</string>
     <!-- filter end -->
+
 </resources>

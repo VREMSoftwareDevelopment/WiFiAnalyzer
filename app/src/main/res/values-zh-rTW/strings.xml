@@ -58,19 +58,46 @@
 
     <!-- settings start -->
     <string name="start_menu_title">"開始"</string>
+
     <string name="country_code_title">"國家"</string>
+
     <string name="scan_interval_title">"掃描間隔"</string>
     <string name="scan_interval_summary">"每次掃描間隔%d秒"</string>
+
     <string name="sort_by_title">"接入點排序依據"</string>
+    <string name="sort_by_signal_strength">"訊號強度"</string>
+    <string name="sort_by_channel">"頻道"</string>
+
     <string name="group_by_title">"接入點分組依據"</string>
+    <string name="group_by_none">"無"</string>
+    <string name="group_by_channel">"頻道"</string>
+
     <string name="connection_view_title">"連接顯示"</string>
+    <string name="connection_view_complete">"完成"</string>
+    <string name="connection_view_compact">"緊湊"</string>
+    <string name="connection_view_hide">"隱藏"</string>
+
     <string name="ap_view_title">"顯示AP"</string>
+    <string name="ap_view_complete">"完成"</string>
+    <string name="ap_view_compact">"緊湊"</string>
+
     <string name="graph_maximum_y_title">"圖形最大信號強度"</string>
+
     <string name="channel_graph_legend_title">"頻道圖例顯示位置"</string>
     <string name="time_graph_legend_title">"時間圖例顯示位置"</string>
+    <string name="graph_legend_left">"左"</string>
+    <string name="graph_legend_right">"右"</string>
+    <string name="graph_legend_hide">"隱藏"</string>
+
     <string name="theme_title">"主題"</string>
+    <string name="theme_dark">"深"</string>
+    <string name="theme_light">"淺"</string>
+    <string name="theme_system">"系統"</string>
+
     <string name="wifi_off_on_exit_title">"退出時關閉WiFi"</string>
+
     <string name="keep_screen_on_title">"螢幕常亮"</string>
+
     <string name="language_title">"語言"</string>
     <!-- settings end -->
 
@@ -96,4 +123,5 @@
     <string name="filter_strength_title">"訊號強度"</string>
     <string name="filter_security_title">"安全"</string>
     <!-- filter end -->
+
 </resources>

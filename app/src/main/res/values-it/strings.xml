@@ -59,19 +59,45 @@
 
     <!-- settings start -->
     <string name="start_menu_title">"Schermata di avvio"</string>
+
     <string name="country_code_title">"Paese"</string>
+
     <string name="scan_interval_title">"Intervallo scansioni"</string>
     <string name="scan_interval_summary">"%d secondi tra ogni scansione"</string>
+
     <string name="sort_by_title">"Ordina Access Points per"</string>
+    <string name="sort_by_signal_strength">"Potenza Segnale"</string>
+    <string name="sort_by_channel">"Canale"</string>
+
     <string name="group_by_title">"Raggruppa Access Points per"</string>
+    <string name="group_by_none">"Non Raggruppare"</string>
+    <string name="group_by_channel">"Canale"</string>
+
     <string name="connection_view_title">"Access Point connesso"</string>
+    <string name="connection_view_complete">"Completo"</string>
+    <string name="connection_view_compact">"Compatto"</string>
+    <string name="connection_view_hide">"Nascondi"</string>
+
     <string name="ap_view_title">"Visualizzazione Access Point"</string>
+    <string name="ap_view_complete">"Completo"</string>
+    <string name="ap_view_compact">"Compatto"</string>
+
     <string name="graph_maximum_y_title">"Potenza massima del segnale nel grafico"</string>
     <string name="channel_graph_legend_title">"Mostra legenda grafico canali"</string>
     <string name="time_graph_legend_title">"Mostra legenda grafico temporale"</string>
+    <string name="graph_legend_left">"Sinistra"</string>
+    <string name="graph_legend_right">"Destra"</string>
+    <string name="graph_legend_hide">"Nascondi"</string>
+
     <string name="theme_title">"Tema"</string>
+    <string name="theme_dark">"Scuro"</string>
+    <string name="theme_light">"Chiaro"</string>
+    <string name="theme_system">"Sistema"</string>
+
     <string name="wifi_off_on_exit_title">"WiFi fuori all\'uscita"</string>
+
     <string name="keep_screen_on_title">"Mantieni schermo acceso"</string>
+
     <string name="language_title">"Lingua"</string>
     <!-- settings end -->
 
@@ -97,4 +123,5 @@
     <string name="filter_strength_title">"Potenza Segnale"</string>
     <string name="filter_security_title">"Sicurezza"</string>
     <!-- filter end -->
+
 </resources>

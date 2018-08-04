@@ -25,9 +25,9 @@
     </string-array>
 
     <string-array name="group_by_array">
-        <item>None</item>
-        <item>SSID</item>
-        <item>Channel</item>
+        <item>@string/group_by_none</item>
+        <item>@string/group_by_ssid</item>
+        <item>@string/group_by_channel</item>
     </string-array>
 
     <string-array name="sort_by_index_array" translatable="false">
@@ -37,9 +37,9 @@
     </string-array>
 
     <string-array name="sort_by_array">
-        <item>Signal Strength</item>
-        <item>SSID</item>
-        <item>Channel</item>
+        <item>@string/sort_by_signal_strength</item>
+        <item>@string/sort_by_ssid</item>
+        <item>@string/sort_by_channel</item>
     </string-array>
 
     <string-array name="connection_view_index_array" translatable="false">
@@ -49,9 +49,9 @@
     </string-array>
 
     <string-array name="connection_view_array">
-        <item>Complete</item>
-        <item>Compact</item>
-        <item>Hide</item>
+        <item>@string/connection_view_complete</item>
+        <item>@string/connection_view_compact</item>
+        <item>@string/connection_view_hide</item>
     </string-array>
 
     <string-array name="ap_view_index_array" translatable="false">
@@ -60,8 +60,8 @@
     </string-array>
 
     <string-array name="ap_view_array">
-        <item>Complete</item>
-        <item>Compact</item>
+        <item>@string/ap_view_complete</item>
+        <item>@string/ap_view_compact</item>
     </string-array>
 
     <string-array name="graph_maximum_y_index_array" translatable="false">
@@ -89,19 +89,21 @@
     </string-array>
 
     <string-array name="graph_legend_array">
-        <item>Left</item>
-        <item>Right</item>
-        <item>Hide</item>
+        <item>@string/graph_legend_left</item>
+        <item>@string/graph_legend_right</item>
+        <item>@string/graph_legend_hide</item>
     </string-array>
 
     <string-array name="theme_index_array" translatable="false">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
     </string-array>
 
     <string-array name="theme_array">
-        <item>Dark</item>
-        <item>Light</item>
+        <item>@string/theme_dark</item>
+        <item>@string/theme_light</item>
+        <item>@string/theme_system</item>
     </string-array>
 
     <string-array name="graph_colors" translatable="false">
