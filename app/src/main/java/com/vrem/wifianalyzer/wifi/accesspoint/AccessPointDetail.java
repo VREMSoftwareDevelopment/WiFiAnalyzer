@@ -101,8 +101,7 @@ public class AccessPointDetail {
         view.<TextView>findViewById(R.id.primaryFrequency)
             .setText(String.format(Locale.ENGLISH, "%d%s",
                 wiFiSignal.getPrimaryFrequency(), WiFiSignal.FREQUENCY_UNITS));
-        view.<TextView>findViewById(R.id.distance)
-            .setText(String.format(Locale.ENGLISH, "%5.1fm", wiFiSignal.getDistance()));
+        view.<TextView>findViewById(R.id.distance).setText(wiFiSignal.getDistance());
 
         if (isChild) {
             view.findViewById(R.id.tab).setVisibility(View.VISIBLE);

@@ -30,6 +30,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.Locale;
+
 public class WiFiSignal {
     public static final WiFiSignal EMPTY = new WiFiSignal(0, 0, WiFiWidth.MHZ_20, 0);
     public static final String FREQUENCY_UNITS = "MHz";
@@ -93,8 +95,10 @@ public class WiFiSignal {
         return Strength.calculate(level);
     }
 
-    public double getDistance() {
-        return WiFiUtils.calculateDistance(getPrimaryFrequency(), getLevel());
+    @NonNull
+    public String getDistance() {
+        double distance = WiFiUtils.calculateDistance(getPrimaryFrequency(), getLevel());
+        return String.format(Locale.ENGLISH, "~%.1fm", distance);
     }
 
     public boolean isInRange(int frequency) {

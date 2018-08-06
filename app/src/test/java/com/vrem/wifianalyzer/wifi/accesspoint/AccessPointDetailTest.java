@@ -354,7 +354,7 @@ public class AccessPointDetailTest {
         validateTextViewValue(view, String.format(Locale.ENGLISH, "%ddBm", wiFiSignal.getLevel()), R.id.level);
         validateTextViewValue(view, wiFiSignal.getChannelDisplay(), R.id.channel);
         validateTextViewValue(view, String.format(Locale.ENGLISH, "%d%s", wiFiSignal.getPrimaryFrequency(), WiFiSignal.FREQUENCY_UNITS), R.id.primaryFrequency);
-        validateTextViewValue(view, String.format(Locale.ENGLISH, "%5.1fm", wiFiSignal.getDistance()), R.id.distance);
+        validateTextViewValue(view, wiFiSignal.getDistance(), R.id.distance);
     }
 
     private void validateTextViewValue(@NonNull View view, @NonNull String expected, int id) {
