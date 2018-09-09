@@ -24,6 +24,8 @@ import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Locale;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
@@ -101,7 +103,12 @@ public class WiFiSignalTest {
 
     @Test
     public void testGetDistance() {
-        assertEquals(WiFiUtils.calculateDistance(PRIMARY_FREQUENCY, LEVEL), fixture.getDistance(), 0.0);
+        // setup
+        String expected = String.format(Locale.ENGLISH, "~%.1fm", WiFiUtils.calculateDistance(PRIMARY_FREQUENCY, LEVEL));
+        // execute
+        String actual = fixture.getDistance();
+        // validate
+        assertEquals(expected, actual);
     }
 
     @Test

@@ -135,7 +135,7 @@ class ExportItem implements NavigationItem {
         @Override
         public void execute(WiFiDetail wiFiDetail) {
             WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-            result.append(String.format(Locale.ENGLISH, "%s|%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%.1fm|%s%n",
+            result.append(String.format(Locale.ENGLISH, "%s|%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%s|%s%n",
                 timestamp,
                 wiFiDetail.getSSID(),
                 wiFiDetail.getBSSID(),

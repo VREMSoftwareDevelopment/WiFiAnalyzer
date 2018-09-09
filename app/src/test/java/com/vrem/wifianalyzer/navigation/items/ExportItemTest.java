@@ -127,7 +127,7 @@ public class ExportItemTest {
         String expected =
             String.format(Locale.ENGLISH,
                 "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security%n"
-                    + "TimeStamp1|SSID|BSSID|-40dBm|1|2412MHz|3|2422MHz|40MHz (2402 - 2442)|1.0m|capabilities%n");
+                    + "TimeStamp1|SSID|BSSID|-40dBm|1|2412MHz|3|2422MHz|40MHz (2402 - 2442)|~1.0m|capabilities%n");
         // execute
         String actual = fixture.getData("TimeStamp1", wiFiData.getWiFiDetails());
         // validate
