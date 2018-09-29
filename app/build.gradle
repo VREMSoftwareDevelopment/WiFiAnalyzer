@@ -21,7 +21,7 @@ apply plugin: 'jacoco-android'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId "com.vrem.wifianalyzer"
@@ -68,7 +68,7 @@ android {
 }
 
 jacoco {
-    toolVersion = '0.8.1'
+    toolVersion = '0.8.2'
 }
 
 tasks.withType(Test) {
@@ -97,7 +97,7 @@ dependencies {
     // Compile Build Dependencies
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:design:27.1.1'
-    implementation 'org.apache.commons:commons-lang3:3.8'
+    implementation 'org.apache.commons:commons-lang3:3.8.1'
     implementation 'org.apache.commons:commons-collections4:4.2'
     implementation 'com.jjoe64:graphview:4.2.2'
     // Unit Test Dependencies
