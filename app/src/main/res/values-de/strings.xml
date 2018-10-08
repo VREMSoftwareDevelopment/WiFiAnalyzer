@@ -41,7 +41,7 @@
     <string name="no_data">"Keine Daten"</string>
     <string name="no_data_msg">"Bitte besuchen Sie den Abschnitt zu häufig gestellten Fragen auf unserer Website."</string>
     <string name="no_data_geo_warning">"Einige Benutzer mit Android 6+ ("Marshmallow") haben berichtet, dass der Standort-Dienst aktiviert sein muss, damit WLAN-Netzerke erkannt werden können. Benutzer unter "Marshmallow" müssen möglicherweise die Standortdienste aktivieren, auch wenn WiFiAnalyzer sie nicht explizit benötigt. Dies scheint ein Problem in Android 6+ zu sein."</string>
-    <string name="permission_msg">"In Android Marshmallow ist es erforderlich die Standortdienste zu aktivieren, um Wifi scans durchzuführen. Sie werden aufgeforrdert die Standortdienste-Berechtigung zu erteilen. Da die app keine Internetverbindung benötigt können sie sicher sein, dass  die app Ihren Standort zu Übermitteln!"</string>
+    <string name="permission_msg">"In Android Marshmallow ist es erforderlich die Standortdienste zu aktivieren, um WLAN-Scans durchzuführen. Sie werden aufgefordert die Standortdienste-Berechtigung zu erteilen. Da diese App keine Internetverbindung benötigt, können sie sicher sein, dass diese App Ihren Standort nicht übermitteln kann!"</string>
 
     <string name="export_not_available">"Export nicht verfügbar"</string>
 
@@ -105,7 +105,7 @@
     <!-- about start -->
     <string name="about_license_title">"Lizenz:"</string>
     <string name="about_description_title">"Beschreibung:"</string>
-    <string name="about_description_text">"Verbessere dein WLAN Netzwerk, indem du den Zustand und die Stärke des Signals misst und überlastete Kanäle mit einem freien WiFiAnalyzer für Android erkennst."</string>
+    <string name="about_description_text">"Verbessere dein WLAN-Netzwerk, indem du den Zustand und die Stärke des Signals misst und überlastete Kanäle mit einem freien WiFiAnalyzer für Android erkennst."</string>
     <string name="about_libraries_title">"Benutzte Bibliotheken:"</string>
     <string name="about_contributor_title">"Beitragende"</string>
     <string name="about_write_review">"Rezension schreiben"</string>
@@ -120,7 +120,7 @@
     <string name="filter_close">"Schließen"</string>
     <string name="filter_reset">"Zurücksetzen"</string>
     <string name="filter_apply">"Anwenden"</string>
-    <string name="filter_wifi_band_title">"WLAN Frequenzbänder"</string>
+    <string name="filter_wifi_band_title">"WLAN-Frequenzbänder"</string>
     <string name="filter_strength_title">"Signalstärke"</string>
     <string name="filter_security_title">"Sicherheit"</string>
     <!-- filter end -->
