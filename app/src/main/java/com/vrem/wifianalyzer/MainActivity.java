@@ -52,12 +52,14 @@ import static android.support.design.widget.NavigationView.OnNavigationItemSelec
 
 public class MainActivity extends AppCompatActivity
     implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener, NavigationMenuControl {
+
     private MainReload mainReload;
     private DrawerNavigation drawerNavigation;
     private NavigationMenuView navigationMenuView;
     private NavigationMenu startNavigationMenu;
     private OptionMenu optionMenu;
     private String currentCountryCode;
+    private PermissionChecker permissionChecker;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -98,6 +100,9 @@ public class MainActivity extends AppCompatActivity
 
         ConnectionView connectionView = new ConnectionView(this);
         mainContext.getScannerService().register(connectionView);
+
+        permissionChecker = new PermissionChecker(this);
+        permissionChecker.check();
     }
 
     @Override
@@ -110,6 +115,14 @@ public class MainActivity extends AppCompatActivity
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         drawerNavigation.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (!permissionChecker.isGranted(requestCode, grantResults)) {
+            finish();
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private void setWiFiChannelPairs(MainContext mainContext) {
