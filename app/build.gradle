@@ -26,7 +26,7 @@ android {
     defaultConfig {
         applicationId "com.vrem.wifianalyzer"
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion 27
         versionCode
         versionName
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
