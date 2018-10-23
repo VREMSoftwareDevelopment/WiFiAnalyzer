@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ WiFiAnalyzer
+  ~ Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
+  -->
+
+<resources>
+    <!-- application start -->
+    <string name="app_copyright">"Copyright \\00A9 2015 \\002D "</string>
+    <!-- application end -->
+
+    <string name="navigation_drawer_open">"Abrir notificações"</string>
+    <string name="navigation_drawer_close">"Fechar notificações"</string>
+    <string name="scanner_message">"A sondar …"</string>
+    <string name="scanner_pause">"Pausar"</string>
+    <string name="scanner_play">"Iniciar"</string>
+
+    <!-- action start -->
+    <string name="action_access_points">"Pontos de Acesso"</string>
+    <string name="action_channel_rating">"Avaliação dos Canais"</string>
+    <string name="action_channel_graph">"Gráfico de Canais"</string>
+    <string name="action_time_graph">"Gráfico Temporal"</string>
+    <string name="action_export">"Exportar"</string>
+    <string name="action_channel_available">"Canais Disponíveis"</string>
+    <string name="action_vendors">"Fabricantes"</string>
+    <string name="action_settings">"Configurações"</string>
+    <string name="action_about">"Sobre"</string>
+    <!-- action end -->
+
+    <string name="no_data">"Sem Informações"</string>
+    <string name="no_data_msg">"Por favor, visite com frequência a secção de perguntas no nosso site."</string>
+    <string name="no_data_geo_warning">"Alguns utilizadores com Android OS 6+ (Marshmallow) reportaram que o serviço de localização deve estar ativo para ser possível ver redes Wi-Fi. Assim utilizadores com Marshmallow poderão ter que ligar o serviço de localização, apesar de o WiFiAnalyzer não o exigir explicitamente. Este comportamento parece relacionado com um potencial problema do Android 6+ que precisa do serviço de localização para ver as redes WiFi."</string>
+    <string name="permission_msg">"A partir do Android Marshmallow, permissões de localização são necessárias para sondar o WiFi. Ser-lhe-á solicitado ativar serviços/permissões de localização. Dado que esta aplicação não requer acesso à Internet, pode ficar confiante que a sua localização nunca será transmitida!"</string>
+    <string name="export_not_available">"Não foi possível exportar"</string>
+
+    <string name="channel_rating_best">"Melhores Canais:"</string>
+    <string name="channel_rating_best_none">"Nenhum"</string>
+    <string name="channel_rating_best_alternative">", tente alternar para a banda de"</string>
+    <string name="channel_rating_heading_rating">"Avaliação do Canal"</string>
+    <string name="channel_rating_heading_number">"Canal Número"</string>
+    <string name="channel_rating_heading_count">"Pontos de Acesso"</string>
+    <string name="channel_short_name">"CH"</string>
+
+    <string name="graph_channel_axis_x">"Canais WiFi"</string>
+    <string name="graph_time_axis_x">"Varrimentos"</string>
+    <string name="graph_axis_y">"Intensidade do Sinal (dBm)"</string>
+
+    <!-- settings start -->
+    <string name="start_menu_title">"Ecrã inicial"</string>
+
+    <string name="country_code_title">"País"</string>
+
+
+    <string name="scan_interval_title">"Frequência de Varrimentos"</string>
+    <string name="scan_interval_summary">"%d segundos entre leituras"</string>
+    <integer name="scan_interval_min" translatable="false">1</integer>
+    <integer name="scan_interval_max" translatable="false">30</integer>
+    <integer name="scan_interval_default" translatable="false">3</integer>
+
+    <string name="sort_by_title">"Ordenar pontos de acesso"</string>
+    <string name="sort_by_signal_strength">"Por intensidade"</string>
+    <string name="sort_by_channel">"Por canal"</string>
+
+    <string name="group_by_title">"Agrupar pontos de acesso"</string>
+    <string name="group_by_none">"Não agrupar"</string>
+    <string name="group_by_channel">"Por canal"</string>
+
+    <string name="ap_view_title">"Lista de pontos de acesso"</string>
+    <string name="ap_view_complete">"Vista completa"</string>
+    <string name="ap_view_compact">"Vista resumida"</string>
+
+    <string name="connection_view_title">"Informações da ligação"</string>
+    <string name="connection_view_complete">"Vista completa"</string>
+    <string name="connection_view_compact">"Vista resumida"</string>
+    <string name="connection_view_hide">"Ocultar"</string>
+
+    <string name="graph_maximum_y_title">"Escala máxima do sinal"</string>
+
+    <string name="channel_graph_legend_title">"Legenda do Gráfico de Canais"</string>
+
+    <string name="time_graph_legend_title">"Legenda do Gráfico Temporal"</string>
+
+    <string name="graph_legend_left">"Lado esquerdo"</string>
+    <string name="graph_legend_right">"Lado direito"</string>
+    <string name="graph_legend_hide">"Ocultar"</string>
+
+    <string name="theme_title">"Tema"</string>
+    <string name="theme_dark">"Escuro"</string>
+    <string name="theme_light">"Claro"</string>
+    <string name="theme_system">"Sistema"</string>
+
+    <string name="wifi_off_on_exit_title">"Desativar Wi-Fi ao sair"</string>
+    <bool name="wifi_off_on_exit_default" translatable="false">false</bool>
+
+    <string name="keep_screen_on_title">"Manter o ecrã ligado"</string>
+    <bool name="keep_screen_on_default" translatable="false">false</bool>
+
+    <string name="language_title">"Língua"</string>
+    <!-- settings end -->
+
+    <!-- about start -->
+    <string name="about_license_title">"Licença:"</string>
+    <string name="about_description_title">"Descrição:"</string>
+    <string name="about_description_text">"Otimize a sua rede Wi-Fi, verificando o estado da rede, a intensidade do sinal e identificando canais congestionados usando o WiFiAnalyzer, uma app open-source para Android"</string>
+    <string name="about_libraries_title">"Bibliotecas Utilizadas:"</string>
+    <string name="about_contributor_title">"Colaboradores"</string>
+    <string name="about_write_review">"Escrever avaliação"</string>
+    <!-- about end -->
+
+    <!-- license start -->
+    <!-- license end -->
+
+    <!-- wifi band start -->
+    <!-- wifi band end -->
+
+    <!-- security start -->
+    <string name="security_none">"Nenhum"</string>
+    <!-- security end -->
+
+    <!-- filter start -->
+    <string name="filter_title">"Filtro"</string>
+    <string name="filter_close">"Fechar"</string>
+    <string name="filter_reset">"Redefinir"</string>
+    <string name="filter_apply">"Aplicar"</string>
+    <string name="filter_wifi_band_title">"Banda do Wi-Fi"</string>
+    <string name="filter_strength_title">"Intensidade do Sinal"</string>
+    <string name="filter_security_title">"Protocolo de Segurança"</string>
+    <!-- filter end -->
+
+</resources>
