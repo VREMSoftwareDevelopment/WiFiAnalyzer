@@ -21,6 +21,7 @@ Michael Pickard
 Nikolas Rimikis
 Peter Dave Hello
 Silviu Marcu
+Simon Doppler
 Tomasz Wrobel
 Vadim Karantayer
 Wei McCallum
@@ -30,5 +31,6 @@ Yuriy Timofeev
 akillcool
 Dtorner
 Genghis
+Nam
 TaiXiong
 Tobaloidee
