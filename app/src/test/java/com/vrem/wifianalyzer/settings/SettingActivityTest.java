@@ -20,14 +20,11 @@ package com.vrem.wifianalyzer.settings;
 
 import android.view.MenuItem;
 
-import com.vrem.wifianalyzer.BuildConfig;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -36,7 +33,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class SettingActivityTest {
     private MenuItem menuItem;
     private SettingActivity fixture;
