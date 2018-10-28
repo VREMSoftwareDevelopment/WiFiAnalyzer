@@ -42,6 +42,7 @@
     <string name="no_data_msg">"Veuillez visiter la section FAQ de notre site Web."</string>
     <string name="no_data_geo_warning">"Certains utilisateurs fonctionnant sous Android OS+ 6 (Marshmallow) ont indiqué que le service de géolocalisation devait être activé pour que l\'application puisse fonctionner correctement. Si vous utilisez Marshmallow, activer le service de géolocalisation pourrait résoudre le problème, même si WiFiAnalyzer ne le demande pas explicitement. Ceci semble être dû à un problème avec Android OS 6+ qui requiert que le service de géolocalisation soit actif pour accéder aux réseaux Wi-Fi."</string>
     <string name="permission_msg">"À partir de Android Marshmallow, les autorisations de localisation sont requises pour effectuer un scan WiFi. Vous serez donc invités à activer les services de localisation. Cette application ne nécessitant pas d\'accès Internet, vous pouvez être sûr qu\'elle ne transmet pas votre position !"</string>
+
     <string name="export_not_available">"Export non disponible"</string>
 
     <string name="channel_rating_best">"Meilleurs canaux:"</string>
@@ -63,9 +64,6 @@
 
     <string name="scan_interval_title">"Fréquence d\'analyse"</string>
     <string name="scan_interval_summary">"%d secondes entre chaque analyse"</string>
-    <integer name="scan_interval_min" translatable="false">1</integer>
-    <integer name="scan_interval_max" translatable="false">30</integer>
-    <integer name="scan_interval_default" translatable="false">3</integer>
 
     <string name="sort_by_title">"Trier les points d\'accès par:"</string>
     <string name="sort_by_signal_strength">"Force du signal"</string>
@@ -75,21 +73,19 @@
     <string name="group_by_none">"Aucun"</string>
     <string name="group_by_channel">"Canal"</string>
 
-    <string name="ap_view_title">"Affichage des point d\'accès"</string>
-    <string name="ap_view_complete">"Détaillé"</string>
-    <string name="ap_view_compact">"Simplifié"</string>
-
     <string name="connection_view_title">"Affichage de la connexion"</string>
     <string name="connection_view_complete">"Détaillé"</string>
     <string name="connection_view_compact">"Compact"</string>
     <string name="connection_view_hide">"Masqué"</string>
 
+    <string name="ap_view_title">"Affichage des point d\'accès"</string>
+    <string name="ap_view_complete">"Détaillé"</string>
+    <string name="ap_view_compact">"Simplifié"</string>
+
     <string name="graph_maximum_y_title">"Graphique Puissance maximale du signal"</string>
 
     <string name="channel_graph_legend_title">"Légende pour le graphique des canaux"</string>
-
     <string name="time_graph_legend_title">"Légende pour le graphique historique"</string>
-
     <string name="graph_legend_left">"Gauche"</string>
     <string name="graph_legend_right">"Droite"</string>
     <string name="graph_legend_hide">"Masqué"</string>
@@ -100,10 +96,8 @@
     <string name="theme_system">"Système"</string>
 
     <string name="wifi_off_on_exit_title">"Arrêter le WiFi en quittant"</string>
-    <bool name="wifi_off_on_exit_default" translatable="false">false</bool>
 
     <string name="keep_screen_on_title">"Conserver l\'écran allumé"</string>
-    <bool name="keep_screen_on_default" translatable="false">false</bool>
 
     <string name="language_title">"Langue"</string>
     <!-- settings end -->

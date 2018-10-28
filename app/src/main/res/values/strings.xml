@@ -99,13 +99,6 @@
     <string name="group_by_ssid" translatable="false">"SSID"</string>
     <string name="group_by_channel">"Channel"</string>
 
-    <string name="ap_view_title">"Access Point Display"</string>
-    <string name="ap_view_summary" translatable="false">"%s"</string>
-    <string name="ap_view_key" translatable="false">"view"</string>
-    <string name="ap_view_default" translatable="false">"0"</string>
-    <string name="ap_view_complete">"Complete"</string>
-    <string name="ap_view_compact">"Compact"</string>
-
     <string name="connection_view_title">"Connection Display"</string>
     <string name="connection_view_summary" translatable="false">"%s"</string>
     <string name="connection_view_key" translatable="false">"connection"</string>
@@ -113,6 +106,13 @@
     <string name="connection_view_complete">"Complete"</string>
     <string name="connection_view_compact">"Compact"</string>
     <string name="connection_view_hide">"Hide"</string>
+
+    <string name="ap_view_title">"Access Point Display"</string>
+    <string name="ap_view_summary" translatable="false">"%s"</string>
+    <string name="ap_view_key" translatable="false">"view"</string>
+    <string name="ap_view_default" translatable="false">"0"</string>
+    <string name="ap_view_complete">"Complete"</string>
+    <string name="ap_view_compact">"Compact"</string>
 
     <string name="graph_maximum_y_title">"Graph Maximum Signal Strength"</string>
     <string name="graph_maximum_y_summary" translatable="false">"%s"</string>
