@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
@@ -41,6 +42,11 @@ class ActivityItem implements NavigationItem {
     @Override
     public boolean isRegistered() {
         return false;
+    }
+
+    @Override
+    public int getVisibility() {
+        return View.GONE;
     }
 
     Intent createIntent(@NonNull MainActivity mainActivity) {

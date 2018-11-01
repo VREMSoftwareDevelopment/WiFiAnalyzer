@@ -24,6 +24,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
@@ -138,6 +139,12 @@ public class ExportItemTest {
     public void testIsRegistered() {
         // execute & validate
         assertFalse(fixture.isRegistered());
+    }
+
+    @Test
+    public void testGetVisibility() {
+        // execute & validate
+        assertEquals(View.GONE, fixture.getVisibility());
     }
 
     @NonNull

@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.vrem.wifianalyzer.MainActivity;
@@ -70,6 +71,11 @@ class ExportItem implements NavigationItem {
     @Override
     public boolean isRegistered() {
         return false;
+    }
+
+    @Override
+    public int getVisibility() {
+        return View.GONE;
     }
 
     private boolean exportAvailable(@NonNull MainActivity mainActivity, @NonNull Intent chooser) {

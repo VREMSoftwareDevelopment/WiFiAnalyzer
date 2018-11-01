@@ -68,15 +68,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.vrem.wifianalyzer.MainActivity"/>
         </activity>
-        <activity
-            android:name=".about.AboutActivity"
-            android:label="@string/action_about"
-            android:launchMode="singleTask"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vrem.wifianalyzer.MainActivity"/>
-        </activity>
     </application>
 
 </manifest>

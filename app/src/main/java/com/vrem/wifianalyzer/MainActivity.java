@@ -273,6 +273,10 @@ public class MainActivity extends AppCompatActivity
         return navigationMenuView.getNavigationView();
     }
 
+    public void mainConnectionVisibility(int visibility) {
+        findViewById(R.id.main_connection).setVisibility(visibility);
+    }
+
     public NavigationMenuView getNavigationMenuView() {
         return navigationMenuView;
     }

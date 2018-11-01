@@ -18,7 +18,9 @@
 
 package com.vrem.wifianalyzer.navigation.items;
 
-import com.vrem.wifianalyzer.about.AboutActivity;
+import android.view.View;
+
+import com.vrem.wifianalyzer.about.AboutFragment;
 import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.vendor.VendorFragment;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointsFragment;
@@ -43,6 +45,7 @@ public class NavigationItemFactoryTest {
         assertTrue(((FragmentItem) NavigationItemFactory.TIME_GRAPH).getFragment() instanceof TimeGraphFragment);
         assertTrue(((FragmentItem) NavigationItemFactory.CHANNEL_AVAILABLE).getFragment() instanceof ChannelAvailableFragment);
         assertTrue(((FragmentItem) NavigationItemFactory.VENDORS).getFragment() instanceof VendorFragment);
+        assertTrue(((FragmentItem) NavigationItemFactory.ABOUT).getFragment() instanceof AboutFragment);
     }
 
     @Test
@@ -63,9 +66,21 @@ public class NavigationItemFactoryTest {
     }
 
     @Test
+    public void testGetVisibility() {
+        assertEquals(View.VISIBLE, NavigationItemFactory.ACCESS_POINTS.getVisibility());
+        assertEquals(View.VISIBLE, NavigationItemFactory.CHANNEL_RATING.getVisibility());
+        assertEquals(View.VISIBLE, NavigationItemFactory.CHANNEL_GRAPH.getVisibility());
+        assertEquals(View.VISIBLE, NavigationItemFactory.TIME_GRAPH.getVisibility());
+        assertEquals(View.VISIBLE, NavigationItemFactory.CHANNEL_AVAILABLE.getVisibility());
+        assertEquals(View.GONE, NavigationItemFactory.VENDORS.getVisibility());
+        assertEquals(View.GONE, NavigationItemFactory.EXPORT.getVisibility());
+        assertEquals(View.GONE, NavigationItemFactory.SETTINGS.getVisibility());
+        assertEquals(View.GONE, NavigationItemFactory.ABOUT.getVisibility());
+    }
+
+    @Test
     public void testActivityItem() {
         assertEquals(SettingActivity.class, ((ActivityItem) NavigationItemFactory.SETTINGS).getActivity());
-        assertEquals(AboutActivity.class, ((ActivityItem) NavigationItemFactory.ABOUT).getActivity());
     }
 
     @Test

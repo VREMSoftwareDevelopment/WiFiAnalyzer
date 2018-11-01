@@ -23,6 +23,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
@@ -31,10 +32,20 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu;
 class FragmentItem implements NavigationItem {
     private final Fragment fragment;
     private final boolean registered;
+    private final int visibility;
+
+    FragmentItem(@NonNull Fragment fragment) {
+        this(fragment, true, View.VISIBLE);
+    }
 
     FragmentItem(@NonNull Fragment fragment, boolean registered) {
+        this(fragment, registered, View.VISIBLE);
+    }
+
+    FragmentItem(@NonNull Fragment fragment, boolean registered, int visibility) {
         this.fragment = fragment;
         this.registered = registered;
+        this.visibility = visibility;
     }
 
     @Override
@@ -52,6 +63,11 @@ class FragmentItem implements NavigationItem {
         return registered;
     }
 
+    @Override
+    public int getVisibility() {
+        return visibility;
+    }
+
     @NonNull
     Fragment getFragment() {
         return fragment;
@@ -66,6 +82,7 @@ class FragmentItem implements NavigationItem {
         mainActivity.setCurrentNavigationMenu(navigationMenu);
         mainActivity.setTitle(menuItem.getTitle());
         mainActivity.updateActionBar();
+        mainActivity.mainConnectionVisibility(visibility);
     }
 
 }

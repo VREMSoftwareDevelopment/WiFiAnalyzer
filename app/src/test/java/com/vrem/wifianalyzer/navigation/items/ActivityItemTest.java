@@ -21,10 +21,11 @@ package com.vrem.wifianalyzer.navigation.items;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.about.AboutActivity;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
+import com.vrem.wifianalyzer.settings.SettingActivity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,14 +59,22 @@ public class ActivityItemTest {
     @Test
     public void testIsRegistered() {
         // setup
-        ActivityItem fixture = new ActivityItem(AboutActivity.class);
+        ActivityItem fixture = new ActivityItem(SettingActivity.class);
         // execute & validate
         assertFalse(fixture.isRegistered());
     }
 
+    @Test
+    public void testGetVisibility() {
+        // setup
+        ActivityItem fixture = new ActivityItem(SettingActivity.class);
+        // execute & validate
+        assertEquals(View.GONE, fixture.getVisibility());
+    }
+
     private class TestActivityItem extends ActivityItem {
         private TestActivityItem() {
-            super(AboutActivity.class);
+            super(SettingActivity.class);
         }
 
         @Override
