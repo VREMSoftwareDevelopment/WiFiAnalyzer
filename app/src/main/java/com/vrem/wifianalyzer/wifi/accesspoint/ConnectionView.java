@@ -35,37 +35,20 @@ import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 import java.util.Locale;
 
 public class ConnectionView implements UpdateNotifier {
-    static final int COUNT_MAX = 4;
-    private static int count = 0;
     private final MainActivity mainActivity;
     private AccessPointDetail accessPointDetail;
     private AccessPointPopup accessPointPopup;
 
     public ConnectionView(@NonNull MainActivity mainActivity) {
-        resetCount();
         this.mainActivity = mainActivity;
         setAccessPointDetail(new AccessPointDetail());
         setAccessPointPopup(new AccessPointPopup());
-    }
-
-    private static boolean isCountMax(boolean noData) {
-        if (noData) {
-            count++;
-        } else {
-            resetCount();
-        }
-        return count >= COUNT_MAX;
-    }
-
-    private static void resetCount() {
-        count = 0;
     }
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         ConnectionViewType connectionViewType = MainContext.INSTANCE.getSettings().getConnectionViewType();
         displayConnection(wiFiData, connectionViewType);
-        displayScanning(wiFiData);
         displayNoData(wiFiData);
     }
 
@@ -77,12 +60,10 @@ public class ConnectionView implements UpdateNotifier {
         this.accessPointPopup = accessPointPopup;
     }
 
-    private void displayScanning(@NonNull WiFiData wiFiData) {
-        mainActivity.findViewById(R.id.scanning).setVisibility(noData(wiFiData) ? View.VISIBLE : View.GONE);
-    }
-
     private void displayNoData(@NonNull WiFiData wiFiData) {
-        mainActivity.findViewById(R.id.nodata).setVisibility(isCountMax(noData(wiFiData)) ? View.VISIBLE : View.GONE);
+        int visibility = noData(wiFiData) ? View.VISIBLE : View.GONE;
+        mainActivity.findViewById(R.id.scanning).setVisibility(visibility);
+        mainActivity.findViewById(R.id.nodata).setVisibility(visibility);
     }
 
     private boolean noData(@NonNull WiFiData wiFiData) {
