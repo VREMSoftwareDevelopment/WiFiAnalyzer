@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -26,25 +25,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.vrem.util.ConfigurationUtils;
 import com.vrem.wifianalyzer.settings.Settings;
-
-import java.util.Locale;
 
 public class ActivityUtils {
     private ActivityUtils() {
         throw new IllegalStateException("Utility class");
-    }
-
-    @NonNull
-    public static Context createContext(@NonNull Context context) {
-        Context result = context;
-        Settings settings = MainContext.INSTANCE.getSettings();
-        if (settings != null) {
-            Locale newLocale = settings.getLanguageLocale();
-            result = ConfigurationUtils.createContext(context, newLocale);
-        }
-        return result;
     }
 
     public static void setActionBarOptions(ActionBar actionBar) {

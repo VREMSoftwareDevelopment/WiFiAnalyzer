@@ -63,7 +63,7 @@
     <string name="country_code_title">"País"</string>
 
     <string name="scan_interval_title">"Intervalo de escaneamento"</string>
-    <string name="scan_interval_summary">"%d segundos"</string>
+    <string name="scan_interval_summary">"%s segundos"</string>
 
     <string name="sort_by_title">"Ordenar pontos de acesso"</string>
     <string name="sort_by_signal_strength">"Por intensidade"</string>

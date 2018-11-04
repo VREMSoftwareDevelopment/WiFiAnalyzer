@@ -37,8 +37,6 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.util.Locale;
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
@@ -74,18 +72,6 @@ public class ActivityUtilsTest {
     public void tearDown() {
         verifyStatic(ConfigurationUtils.class);
         MainContextHelper.INSTANCE.restore();
-    }
-
-    @Test
-    public void testCreateContext() {
-        // setup
-        when(settings.getLanguageLocale()).thenReturn(Locale.US);
-        when(ConfigurationUtils.createContext(context, Locale.US)).thenReturn(newContext);
-        // execute
-        Context actual = ActivityUtils.createContext(context);
-        // validate
-        assertEquals(newContext, actual);
-        verify(settings).getLanguageLocale();
     }
 
     @Test

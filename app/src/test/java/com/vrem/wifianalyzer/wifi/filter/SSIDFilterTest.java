@@ -87,7 +87,7 @@ public class SSIDFilterTest {
         // execute
         onChange.afterTextChanged(null);
         // verify
-        verify(ssidAdapter).setValues(new HashSet<String>());
+        verify(ssidAdapter).setValues(new HashSet<>());
     }
 
     @Test

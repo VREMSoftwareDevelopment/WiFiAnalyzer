@@ -63,7 +63,7 @@
     <string name="country_code_title">"Land"</string>
 
     <string name="scan_interval_title">"Scan-Intervall"</string>
-    <string name="scan_interval_summary">"%d Sekunden zwischen den Scans"</string>
+    <string name="scan_interval_summary">"%s Sekunden zwischen den Scans"</string>
 
     <string name="sort_by_title">"Sortiere Access Points nach"</string>
     <string name="sort_by_signal_strength">"Signalstärke"</string>

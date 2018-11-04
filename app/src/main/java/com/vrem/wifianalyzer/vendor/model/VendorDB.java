@@ -62,7 +62,7 @@ class VendorDB implements VendorService {
             return new ArrayList<>();
         }
         List<String> results = getVendors().get(vendorName);
-        return results == null ? new ArrayList<String>() : results;
+        return results == null ? new ArrayList<>() : results;
     }
 
     @NonNull

@@ -63,7 +63,7 @@
     <string name="country_code_title">"Pays"</string>
 
     <string name="scan_interval_title">"Fréquence d\'analyse"</string>
-    <string name="scan_interval_summary">"%d secondes entre chaque analyse"</string>
+    <string name="scan_interval_summary">"%s secondes entre chaque analyse"</string>
 
     <string name="sort_by_title">"Trier les points d\'accès par:"</string>
     <string name="sort_by_signal_strength">"Force du signal"</string>

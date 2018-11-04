@@ -62,7 +62,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     private ChannelRating channelRating;
 
     ChannelRatingAdapter(@NonNull Context context, @NonNull TextView bestChannels) {
-        super(context, R.layout.channel_rating_details, new ArrayList<WiFiChannel>());
+        super(context, R.layout.channel_rating_details, new ArrayList<>());
         this.bestChannels = bestChannels;
         setChannelRating(new ChannelRating());
     }
