@@ -25,7 +25,6 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewNotifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -91,7 +90,7 @@ public class ChannelGraphAdapterTest {
     @Test
     public void testUpdate() {
         // setup
-        WiFiData wiFiData = new WiFiData(Collections.<WiFiDetail>emptyList(), WiFiConnection.EMPTY, Collections.<String>emptyList());
+        WiFiData wiFiData = new WiFiData(Collections.emptyList(), WiFiConnection.EMPTY, Collections.emptyList());
         // execute
         fixture.update(wiFiData);
         // validate

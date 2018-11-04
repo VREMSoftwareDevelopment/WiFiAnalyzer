@@ -149,7 +149,7 @@ public class ExportItemTest {
 
     @NonNull
     private WiFiData withWiFiData() {
-        return new WiFiData(Collections.singletonList(wiFiDetail), WiFiConnection.EMPTY, Collections.<String>emptyList());
+        return new WiFiData(Collections.singletonList(wiFiDetail), WiFiConnection.EMPTY, Collections.emptyList());
     }
 
     private void verifySendIntentInformation(String sendData) {

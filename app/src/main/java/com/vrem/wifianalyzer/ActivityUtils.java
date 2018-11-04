@@ -27,12 +27,12 @@ import android.view.WindowManager;
 
 import com.vrem.wifianalyzer.settings.Settings;
 
-public class ActivityUtils {
+class ActivityUtils {
     private ActivityUtils() {
         throw new IllegalStateException("Utility class");
     }
 
-    public static void setActionBarOptions(ActionBar actionBar) {
+    static void setActionBarOptions(ActionBar actionBar) {
         if (actionBar == null) {
             return;
         }

@@ -27,7 +27,6 @@ import android.view.View;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
-import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,8 +49,6 @@ public class FragmentItemTest {
     private MainActivity mainActivity;
     @Mock
     private MenuItem menuItem;
-    @Mock
-    private NavigationMenuView navigationMenuView;
     @Mock
     private FragmentManager fragmentManager;
     @Mock

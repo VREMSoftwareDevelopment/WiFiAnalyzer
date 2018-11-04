@@ -67,7 +67,7 @@ public class SSIDAdapterTest {
     @Test
     public void testIsNotActiveWithEmptyValue() {
         // execute
-        fixture.setValues(Collections.<String>emptySet());
+        fixture.setValues(Collections.emptySet());
         // validate
         assertFalse(fixture.isActive());
         assertTrue(fixture.getValues().isEmpty());

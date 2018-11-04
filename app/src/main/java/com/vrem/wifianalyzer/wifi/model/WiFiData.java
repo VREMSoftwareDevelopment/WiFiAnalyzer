@@ -35,7 +35,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class WiFiData {
-    public static final WiFiData EMPTY = new WiFiData(Collections.<WiFiDetail>emptyList(), WiFiConnection.EMPTY, Collections.<String>emptyList());
+    public static final WiFiData EMPTY = new WiFiData(Collections.emptyList(), WiFiConnection.EMPTY, Collections.emptyList());
 
     private final List<WiFiDetail> wiFiDetails;
     private final WiFiConnection wiFiConnection;

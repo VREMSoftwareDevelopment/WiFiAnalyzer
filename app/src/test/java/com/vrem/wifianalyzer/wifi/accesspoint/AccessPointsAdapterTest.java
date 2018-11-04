@@ -170,7 +170,7 @@ public class AccessPointsAdapterTest {
     @Test
     public void testUpdate() {
         // setup
-        WiFiData wiFiData = new WiFiData(Collections.<WiFiDetail>emptyList(), WiFiConnection.EMPTY, Collections.<String>emptyList());
+        WiFiData wiFiData = new WiFiData(Collections.emptyList(), WiFiConnection.EMPTY, Collections.emptyList());
         // execute
         fixture.update(wiFiData);
         // validate

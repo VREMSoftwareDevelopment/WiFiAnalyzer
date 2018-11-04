@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer;
 
-import android.content.Context;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Window;
@@ -54,10 +53,6 @@ public class ActivityUtilsTest {
     private Window window;
     @Mock
     private ActionBar actionBar;
-    @Mock
-    private Context context;
-    @Mock
-    private Context newContext;
 
     private Settings settings;
 

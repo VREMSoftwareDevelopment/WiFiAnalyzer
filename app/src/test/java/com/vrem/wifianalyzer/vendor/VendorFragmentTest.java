@@ -62,7 +62,7 @@ public class VendorFragmentTest {
     @Test
     public void testOnCreateView() {
         // setup
-        when(vendorService.findVendors()).thenReturn(Collections.<String>emptyList());
+        when(vendorService.findVendors()).thenReturn(Collections.emptyList());
         // execute
         SupportFragmentTestUtil.startFragment(fixture);
         // validate

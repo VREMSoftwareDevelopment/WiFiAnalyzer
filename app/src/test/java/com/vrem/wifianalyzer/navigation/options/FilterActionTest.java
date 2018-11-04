@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.navigation.options;
 
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.Before;
@@ -33,8 +32,7 @@ public class FilterActionTest {
 
     @Before
     public void setUp() {
-        MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
-
+        RobolectricUtil.INSTANCE.getActivity();
         fixture = new FilterAction();
     }
 

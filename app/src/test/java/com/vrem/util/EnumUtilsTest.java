@@ -90,7 +90,7 @@ public class EnumUtilsTest {
         // setup
         Set<TestObject> expected = EnumUtils.values(TestObject.class);
         // execute
-        Set<TestObject> actual = EnumUtils.find(TestObject.class, Collections.<String>emptySet(), TestObject.VALUE2);
+        Set<TestObject> actual = EnumUtils.find(TestObject.class, Collections.emptySet(), TestObject.VALUE2);
         // validate
         validate(expected, actual);
     }

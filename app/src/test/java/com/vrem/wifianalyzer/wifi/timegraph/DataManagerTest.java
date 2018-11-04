@@ -80,7 +80,7 @@ public class DataManagerTest {
         // setup
         assertEquals(0, fixture.getXValue());
         // execute
-        fixture.addSeriesData(graphViewWrapper, Collections.<WiFiDetail>emptyList(), GraphConstants.MAX_Y);
+        fixture.addSeriesData(graphViewWrapper, Collections.emptyList(), GraphConstants.MAX_Y);
         // validate
         assertEquals(1, fixture.getXValue());
     }
@@ -90,7 +90,7 @@ public class DataManagerTest {
         // setup
         assertEquals(0, fixture.getScanCount());
         // execute
-        fixture.addSeriesData(graphViewWrapper, Collections.<WiFiDetail>emptyList(), GraphConstants.MAX_Y);
+        fixture.addSeriesData(graphViewWrapper, Collections.emptyList(), GraphConstants.MAX_Y);
         // validate
         assertEquals(1, fixture.getScanCount());
     }
@@ -100,7 +100,7 @@ public class DataManagerTest {
         // setup
         fixture.setScanCount(GraphConstants.MAX_SCAN_COUNT);
         // execute
-        fixture.addSeriesData(graphViewWrapper, Collections.<WiFiDetail>emptyList(), GraphConstants.MAX_Y);
+        fixture.addSeriesData(graphViewWrapper, Collections.emptyList(), GraphConstants.MAX_Y);
         // validate
         assertEquals(GraphConstants.MAX_SCAN_COUNT, fixture.getScanCount());
     }
@@ -110,7 +110,7 @@ public class DataManagerTest {
         // setup
         fixture.setScanCount(1);
         // execute
-        fixture.addSeriesData(graphViewWrapper, Collections.<WiFiDetail>emptyList(), GraphConstants.MAX_Y);
+        fixture.addSeriesData(graphViewWrapper, Collections.emptyList(), GraphConstants.MAX_Y);
         // validate
         assertEquals(2, fixture.getScanCount());
         verify(graphViewWrapper).setHorizontalLabelsVisible(true);
@@ -119,7 +119,7 @@ public class DataManagerTest {
     @Test
     public void testAddSeriesDoesNotSetHorizontalLabelsVisible() {
         // execute
-        fixture.addSeriesData(graphViewWrapper, Collections.<WiFiDetail>emptyList(), GraphConstants.MAX_Y);
+        fixture.addSeriesData(graphViewWrapper, Collections.emptyList(), GraphConstants.MAX_Y);
         // validate
         verify(graphViewWrapper, never()).setHorizontalLabelsVisible(true);
     }

@@ -18,24 +18,15 @@
 
 package com.vrem.wifianalyzer.vendor.model;
 
-import android.content.res.Resources;
-
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
 public class VendorUtilsTest {
     private static final String MAC_ADDRESS_CLEAN = "0023AB";
     private static final String MAC_ADDRESS_SHORT = "00:23:AB";
     private static final String MAC_ADDRESS_FULL = "00:23:AB:8C:DF:10";
-
-    @Mock
-    private Resources resources;
 
     @Test
     public void testCleanWithNull() {

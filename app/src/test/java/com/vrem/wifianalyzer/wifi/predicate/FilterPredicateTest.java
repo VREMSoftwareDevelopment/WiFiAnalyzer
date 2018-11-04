@@ -137,7 +137,7 @@ public class FilterPredicateTest {
     @Test
     public void testGetPredicateWithAllValuesIsTruePredicate() {
         // setup
-        when(settings.getSSIDs()).thenReturn(Collections.<String>emptySet());
+        when(settings.getSSIDs()).thenReturn(Collections.emptySet());
         when(settings.getWiFiBands()).thenReturn(EnumUtils.values(WiFiBand.class));
         when(settings.getStrengths()).thenReturn(EnumUtils.values(Strength.class));
         when(settings.getSecurities()).thenReturn(EnumUtils.values(Security.class));
