@@ -1,6 +1,6 @@
 ---
-name: Bug report
-about: 'Create a report to help us fix the issue '
+name: Default
+about: Create a report to help us fix the issue
 
 ---
 
