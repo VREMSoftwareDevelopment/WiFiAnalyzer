@@ -21,7 +21,7 @@ package com.vrem.wifianalyzer.navigation.items;
 import android.view.View;
 
 import com.vrem.wifianalyzer.about.AboutFragment;
-import com.vrem.wifianalyzer.settings.SettingActivity;
+import com.vrem.wifianalyzer.settings.SettingsFragment;
 import com.vrem.wifianalyzer.vendor.VendorFragment;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointsFragment;
 import com.vrem.wifianalyzer.wifi.channelavailable.ChannelAvailableFragment;
@@ -45,6 +45,7 @@ public class NavigationItemFactoryTest {
         assertTrue(((FragmentItem) NavigationItemFactory.TIME_GRAPH).getFragment() instanceof TimeGraphFragment);
         assertTrue(((FragmentItem) NavigationItemFactory.CHANNEL_AVAILABLE).getFragment() instanceof ChannelAvailableFragment);
         assertTrue(((FragmentItem) NavigationItemFactory.VENDORS).getFragment() instanceof VendorFragment);
+        assertTrue(((FragmentItem) NavigationItemFactory.SETTINGS).getFragment() instanceof SettingsFragment);
         assertTrue(((FragmentItem) NavigationItemFactory.ABOUT).getFragment() instanceof AboutFragment);
     }
 
@@ -76,11 +77,6 @@ public class NavigationItemFactoryTest {
         assertEquals(View.GONE, NavigationItemFactory.EXPORT.getVisibility());
         assertEquals(View.GONE, NavigationItemFactory.SETTINGS.getVisibility());
         assertEquals(View.GONE, NavigationItemFactory.ABOUT.getVisibility());
-    }
-
-    @Test
-    public void testActivityItem() {
-        assertEquals(SettingActivity.class, ((ActivityItem) NavigationItemFactory.SETTINGS).getActivity());
     }
 
     @Test

@@ -16,12 +16,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-apply plugin: 'com.android.application'
-apply plugin: 'jacoco-android'
+apply plugin: "com.android.application"
+apply plugin: "jacoco-android"
+
+ext {
+    supportVersion = "28.0.0"
+    lang3Version = "3.8.1"
+    collections4Version = "4.2"
+    graphviewVersion = "4.2.2"
+    powermockVersion = "1.7.4"
+    robolectricVersion = "4.0"
+    junitVersion = "4.12"
+    junitToolboxVersion = "2.4"
+    shadowsVersion ="3.4-rc2"
+    espressoVersion = "3.0.2"
+    testVersion = "1.0.2"
+}
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         applicationId "com.vrem.wifianalyzer"
@@ -29,14 +43,14 @@ android {
         targetSdkVersion 28
         versionCode
         versionName
-        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt')
+            proguardFiles getDefaultProguardFile("proguard-android.txt")
             signingConfig
         }
         debug {
@@ -63,12 +77,17 @@ android {
     }
 
     lintOptions {
-        disable 'GoogleAppIndexingWarning'
+        disable "GoogleAppIndexingWarning"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 jacoco {
-    toolVersion = '0.8.2'
+    toolVersion = "0.8.2"
 }
 
 tasks.withType(Test) {
@@ -76,71 +95,72 @@ tasks.withType(Test) {
 }
 
 jacocoAndroidUnitTestReport {
-    excludes += ['**/com/jjoe64/*']
+    excludes += ["**/com/jjoe64/*"]
     html.enabled true
     xml.enabled true
     csv.enabled false
 }
 
-if (project.hasProperty('keyAlias')) {
-    def propertiesFile = file('../../keystores/androidkeystore.properties')
+if (project.hasProperty("keyAlias")) {
+    def propertiesFile = file("../../keystores/androidkeystore.properties")
     Properties properties = readProperties(propertiesFile)
 
     System.out.println(">>> Signing Config " + properties)
-    android.buildTypes.release.signingConfig.keyAlias = properties['key_alias'].toString()
-    android.buildTypes.release.signingConfig.keyPassword = properties['key_password'].toString()
-    android.buildTypes.release.signingConfig.storeFile = file(properties['store_filename'].toString())
-    android.buildTypes.release.signingConfig.storePassword = properties['store_password'].toString()
+    android.buildTypes.release.signingConfig.keyAlias = properties["key_alias"].toString()
+    android.buildTypes.release.signingConfig.keyPassword = properties["key_password"].toString()
+    android.buildTypes.release.signingConfig.storeFile = file(properties["store_filename"].toString())
+    android.buildTypes.release.signingConfig.storePassword = properties["store_password"].toString()
 }
 
 dependencies {
     // Compile Build Dependencies
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:support-v4:28.0.0'
-    implementation 'com.android.support:support-media-compat:28.0.0'
-    implementation 'org.apache.commons:commons-lang3:3.8.1'
-    implementation 'org.apache.commons:commons-collections4:4.2'
-    implementation 'com.jjoe64:graphview:4.2.2'
+    implementation fileTree(include: ["*.jar"], dir: "libs")
+    implementation "com.android.support:design:$supportVersion"
+    implementation "com.android.support:preference-v7:$supportVersion"
+    implementation "com.android.support:support-v4:$supportVersion"
+    implementation "com.android.support:support-media-compat:$supportVersion"
+    implementation "org.apache.commons:commons-lang3:$lang3Version"
+    implementation "org.apache.commons:commons-collections4:$collections4Version"
+    implementation "com.jjoe64:graphview:$graphviewVersion"
     // Unit Test Dependencies
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.powermock:powermock-module-junit4:1.7.4'
-    testImplementation 'org.powermock:powermock-api-mockito2:1.7.4'
-    testImplementation 'com.googlecode.junit-toolbox:junit-toolbox:2.4'
-    testImplementation 'org.robolectric:robolectric:4.0'
-    testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
+    testImplementation "org.powermock:powermock-api-mockito2:$powermockVersion"
+    testImplementation "com.googlecode.junit-toolbox:junit-toolbox:$junitToolboxVersion"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "org.robolectric:shadows-support-v4:$shadowsVersion"
     // Android Test Dependencies
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "com.android.support.test:runner:$testVersion"
+    androidTestImplementation "com.android.support.test:rules:$testVersion"
 }
 
 updateVersion()
 
 def updateVersion() {
-    def propertiesFile = file('build.properties')
+    def propertiesFile = file("build.properties")
     Properties properties = readProperties(propertiesFile)
 
-    def versionMajor = properties['version_major'].toString().toInteger()
-    def versionMinor = properties['version_minor'].toString().toInteger()
-    def versionPatch = properties['version_patch'].toString().toInteger()
-    def versionBuild = properties['version_build'].toString().toInteger()
-    def versionStore = properties['version_store'].toString().toInteger()
+    def versionMajor = properties["version_major"].toString().toInteger()
+    def versionMinor = properties["version_minor"].toString().toInteger()
+    def versionPatch = properties["version_patch"].toString().toInteger()
+    def versionBuild = properties["version_build"].toString().toInteger()
+    def versionStore = properties["version_store"].toString().toInteger()
 
     if (isReleaseTask()) {
         System.out.println(">>> Building Release...")
         versionPatch++
         versionStore++
         versionBuild = 0
-        properties['version_patch'] = versionPatch.toString()
-        properties['version_store'] = versionStore.toString()
-        properties['version_build'] = versionBuild.toString()
+        properties["version_patch"] = versionPatch.toString()
+        properties["version_store"] = versionStore.toString()
+        properties["version_build"] = versionBuild.toString()
         writeProperties(propertiesFile, properties)
     }
     if (isCompileTask()) {
         System.out.println(">>> Compiling Source...")
         versionBuild++
-        properties['version_build'] = versionBuild.toString()
+        properties["version_build"] = versionBuild.toString()
         writeProperties(propertiesFile, properties)
     }
 
@@ -150,20 +170,20 @@ def updateVersion() {
         versionName = versionName + ".${versionBuild}"
         applicationId = applicationId + android.buildTypes.debug.applicationIdSuffix
     }
-    System.out.println(">>> " + project.parent.name + " " + versionName + " (" + versionStore + ") '" + applicationId + "'")
+    System.out.println(">>> " + project.parent.name + " " + versionName + " (" + versionStore + ") " + applicationId)
     android.defaultConfig.versionCode = versionStore
     android.defaultConfig.versionName = versionName
 }
 
 def isCompileTask() {
     def tasks = gradle.getStartParameter().getTaskNames()
-    return ':app:generateDebugSources' in tasks || ':app:generateReleaseSources' in tasks ||
-            'generateDebugSources' in tasks || 'generateReleaseSources' in tasks
+    return ":app:generateDebugSources" in tasks || ":app:generateReleaseSources" in tasks ||
+            "generateDebugSources" in tasks || "generateReleaseSources" in tasks
 }
 
 def isReleaseTask() {
     def tasks = gradle.getStartParameter().getTaskNames()
-    return ':app:assembleRelease' in tasks || 'assembleRelease' in tasks
+    return ":app:assembleRelease" in tasks || "assembleRelease" in tasks
 }
 
 static Properties readProperties(propertiesFile) {

@@ -40,6 +40,7 @@ import java.util.Set;
 import static android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
 public class Settings {
+    static final int SCAN_INTERVAL_DEFAULT = 5;
     static final int GRAPH_Y_MULTIPLIER = -10;
     static final int GRAPH_Y_DEFAULT = 2;
 
@@ -58,7 +59,8 @@ public class Settings {
     }
 
     public int getScanInterval() {
-        return repository.getInteger(R.string.scan_interval_key, repository.getResourceInteger(R.integer.scan_interval_default));
+        int defaultValue = repository.getStringAsInteger(R.string.scan_interval_default, SCAN_INTERVAL_DEFAULT);
+        return repository.getStringAsInteger(R.string.scan_interval_key, defaultValue);
     }
 
     public int getGraphMaximumY() {
@@ -139,7 +141,7 @@ public class Settings {
 
     @NonNull
     public Set<String> getSSIDs() {
-        return repository.getStringSet(R.string.filter_ssid_key, new HashSet<String>());
+        return repository.getStringSet(R.string.filter_ssid_key, new HashSet<>());
     }
 
     public void saveSSIDs(@NonNull Set<String> values) {

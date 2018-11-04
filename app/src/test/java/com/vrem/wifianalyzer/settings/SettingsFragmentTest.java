@@ -16,28 +16,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package com.vrem.wifianalyzer.settings;
 
-buildscript {
-    repositories {
-        google()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.3'
-    }
-}
+import com.vrem.wifianalyzer.RobolectricUtil;
 
-allprojects {
-    repositories {
-        google()
-        jcenter()
-        maven { url 'https://maven.google.com' }
-        mavenCentral()
-    }
-}
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+import static org.junit.Assert.assertNotNull;
+
+@RunWith(RobolectricTestRunner.class)
+public class SettingsFragmentTest {
+    private SettingsFragment fixture;
+
+    @Before
+    public void setUp() {
+        RobolectricUtil.INSTANCE.getActivity();
+        fixture = new SettingsFragment();
+    }
+
+    @Test
+    public void testOnCreateView() {
+        // execute
+        SupportFragmentTestUtil.startFragment(fixture);
+        // validate
+        assertNotNull(fixture.getView());
+    }
+
 }

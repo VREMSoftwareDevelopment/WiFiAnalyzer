@@ -1,0 +1,141 @@
+<!--
+  ~ WiFiAnalyzer
+  ~ Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory>
+        <ListPreference
+            android:defaultValue="@string/scan_interval_default"
+            android:entries="@array/scan_interval_array"
+            android:entryValues="@array/scan_interval_array"
+            android:key="@string/scan_interval_key"
+            android:persistent="true"
+            android:summary="@string/scan_interval_summary"
+            android:title="@string/scan_interval_title"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+        <ListPreference
+            android:defaultValue="@string/sort_by_default"
+            android:entries="@array/sort_by_array"
+            android:entryValues="@array/sort_by_index_array"
+            android:key="@string/sort_by_key"
+            android:persistent="true"
+            android:summary="@string/sort_by_summary"
+            android:title="@string/sort_by_title"/>
+
+        <ListPreference
+            android:defaultValue="@string/group_by_default"
+            android:entries="@array/group_by_array"
+            android:entryValues="@array/group_by_index_array"
+            android:key="@string/group_by_key"
+            android:persistent="true"
+            android:summary="@string/group_by_summary"
+            android:title="@string/group_by_title"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+        <ListPreference
+            android:defaultValue="@string/connection_view_default"
+            android:entries="@array/connection_view_array"
+            android:entryValues="@array/connection_view_index_array"
+            android:key="@string/connection_view_key"
+            android:persistent="true"
+            android:summary="@string/connection_view_summary"
+            android:title="@string/connection_view_title"/>
+
+        <ListPreference
+            android:defaultValue="@string/ap_view_default"
+            android:entries="@array/ap_view_array"
+            android:entryValues="@array/ap_view_index_array"
+            android:key="@string/ap_view_key"
+            android:persistent="true"
+            android:summary="@string/ap_view_summary"
+            android:title="@string/ap_view_title"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+        <ListPreference
+            android:defaultValue="@string/graph_maximum_y_default"
+            android:entries="@array/graph_maximum_y_array"
+            android:entryValues="@array/graph_maximum_y_index_array"
+            android:key="@string/graph_maximum_y_key"
+            android:persistent="true"
+            android:summary="@string/graph_maximum_y_summary"
+            android:title="@string/graph_maximum_y_title"/>
+
+        <ListPreference
+            android:defaultValue="@string/channel_graph_legend_default"
+            android:entries="@array/graph_legend_array"
+            android:entryValues="@array/graph_legend_index_array"
+            android:key="@string/channel_graph_legend_key"
+            android:persistent="true"
+            android:summary="@string/channel_graph_legend_summary"
+            android:title="@string/channel_graph_legend_title"/>
+
+        <ListPreference
+            android:defaultValue="@string/time_graph_legend_default"
+            android:entries="@array/graph_legend_array"
+            android:entryValues="@array/graph_legend_index_array"
+            android:key="@string/time_graph_legend_key"
+            android:persistent="true"
+            android:summary="@string/time_graph_legend_summary"
+            android:title="@string/time_graph_legend_title"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+        <ListPreference
+            android:defaultValue="@string/theme_default"
+            android:entries="@array/theme_array"
+            android:entryValues="@array/theme_index_array"
+            android:key="@string/theme_key"
+            android:persistent="true"
+            android:summary="@string/theme_summary"
+            android:title="@string/theme_title"/>
+
+        <CheckBoxPreference
+            android:defaultValue="@bool/wifi_off_on_exit_default"
+            android:key="@string/wifi_off_on_exit_key"
+            android:title="@string/wifi_off_on_exit_title"/>
+
+        <CheckBoxPreference
+            android:defaultValue="@bool/keep_screen_on_default"
+            android:key="@string/keep_screen_on_key"
+            android:title="@string/keep_screen_on_title"/>
+
+        <com.vrem.wifianalyzer.settings.StartMenuPreference
+            android:key="@string/start_menu_key"
+            android:persistent="true"
+            android:summary="@string/start_menu_summary"
+            android:title="@string/start_menu_title"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+        <com.vrem.wifianalyzer.settings.CountryPreference
+            android:key="@string/country_code_key"
+            android:persistent="true"
+            android:summary="@string/country_code_summary"
+            android:title="@string/country_code_title"/>
+
+        <com.vrem.wifianalyzer.settings.LanguagePreference
+            android:key="@string/language_key"
+            android:persistent="true"
+            android:summary="@string/language_summary"
+            android:title="@string/language_title"/>
+    </PreferenceCategory>
+</PreferenceScreen>

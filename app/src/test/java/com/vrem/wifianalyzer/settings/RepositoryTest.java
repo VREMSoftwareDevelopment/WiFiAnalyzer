@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.settings;
 
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.preference.PreferenceManager;
+import android.support.v7.preference.PreferenceManager;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
@@ -158,19 +158,6 @@ public class RepositoryTest {
         verify(mainActivity).getString(keyIndex);
         verify(sharedPreferences).getString(keyValue, "" + defaultValue);
         verifySave(keyIndex, defaultValue);
-    }
-
-    @Test
-    public void testGetResourceInteger() {
-        // setup
-        int keyIndex = R.integer.scan_interval_max;
-        int expected = 1111;
-        when(resources.getInteger(keyIndex)).thenReturn(expected);
-        // execute
-        int actual = fixture.getResourceInteger(keyIndex);
-        // validate
-        assertEquals(expected, actual);
-        verify(resources).getInteger(keyIndex);
     }
 
     @Test
