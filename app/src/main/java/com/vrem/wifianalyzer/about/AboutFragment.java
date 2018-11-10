@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.about;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
@@ -26,11 +27,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.RawRes;
-import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,14 +46,29 @@ import java.util.Date;
 
 public class AboutFragment extends Fragment {
     private static final String YEAR_FORMAT = "yyyy";
-    private AlertDialog alertDialog;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.about_content, container, false);
         setCopyright(view);
         setExtraInformation(view);
+        setOnClicks(view);
         return view;
+    }
+
+    private void setOnClicks(View view) {
+        AlertDialogClickListener gpl = new AlertDialogClickListener(getActivity(), R.string.gpl, R.raw.gpl);
+        view.findViewById(R.id.license).setOnClickListener(gpl);
+
+        AlertDialogClickListener contributors = new AlertDialogClickListener(getActivity(), R.string.about_contributor_title, R.raw.contributors, false);
+        view.findViewById(R.id.contributors).setOnClickListener(contributors);
+
+        AlertDialogClickListener al = new AlertDialogClickListener(getActivity(), R.string.al, R.raw.al);
+        view.findViewById(R.id.apacheCommonsLicense).setOnClickListener(al);
+        view.findViewById(R.id.graphViewLicense).setOnClickListener(al);
+        view.findViewById(R.id.materialDesignIconsLicense).setOnClickListener(al);
+
+        view.findViewById(R.id.writeReview).setOnClickListener(new WriteReviewClickListener(getActivity()));
     }
 
     private void setCopyright(View view) {
@@ -85,60 +100,65 @@ public class AboutFragment extends Fragment {
         }
     }
 
-    public void writeReview(@NonNull View view) {
-        String url = "market://details?id=" + BuildConfig.APPLICATION_ID;
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        try {
-            startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            Toast.makeText(view.getContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+    static class WriteReviewClickListener implements OnClickListener {
+        private final Activity activity;
+
+        private WriteReviewClickListener(@NonNull Activity activity) {
+            this.activity = activity;
         }
-    }
 
-    public void showALv2(@NonNull View view) {
-        alertDialog = show(view, R.string.al, R.raw.al);
-        changeFont(alertDialog);
-    }
-
-    public void showGPLv3(@NonNull View view) {
-        alertDialog = show(view, R.string.gpl, R.raw.gpl);
-        changeFont(alertDialog);
-    }
-
-    public void showContributors(@NonNull View view) {
-        alertDialog = show(view, R.string.about_contributor_title, R.raw.contributors);
-    }
-
-    private AlertDialog show(@NonNull View view, @StringRes int titleId, @RawRes int id) {
-        if (getActivity().isFinishing()) {
-            return null;
-        }
-        String text = FileUtils.readFile(getResources(), id);
-        AlertDialog dialog = new AlertDialog
-            .Builder(view.getContext())
-            .setTitle(titleId)
-            .setMessage(text)
-            .setNeutralButton(android.R.string.ok, new Close())
-            .create();
-        dialog.show();
-        return dialog;
-    }
-
-    private void changeFont(AlertDialog alertDialog) {
-        if (alertDialog != null) {
-            TextView textView = alertDialog.findViewById(android.R.id.message);
-            textView.setTextSize(8);
-        }
-    }
-
-    AlertDialog getAlertDialog() {
-        return alertDialog;
-    }
-
-    private static class Close implements DialogInterface.OnClickListener {
         @Override
-        public void onClick(DialogInterface dialog, int which) {
-            dialog.dismiss();
+        public void onClick(View view) {
+            String url = "market://details?id=" + BuildConfig.APPLICATION_ID;
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            try {
+                activity.startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(view.getContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    static class AlertDialogClickListener implements OnClickListener {
+        private final Activity activity;
+        private final int titleId;
+        private final int resourceId;
+        private final boolean isSmallFont;
+
+        AlertDialogClickListener(@NonNull Activity activity, int titleId, int resourceId) {
+            this(activity, titleId, resourceId, true);
+        }
+
+        AlertDialogClickListener(@NonNull Activity activity, int titleId, int resourceId, boolean isSmallFont) {
+            this.activity = activity;
+            this.titleId = titleId;
+            this.resourceId = resourceId;
+            this.isSmallFont = isSmallFont;
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (!activity.isFinishing()) {
+                String text = FileUtils.readFile(activity.getResources(), resourceId);
+                AlertDialog alertDialog = new AlertDialog
+                    .Builder(view.getContext())
+                    .setTitle(titleId)
+                    .setMessage(text)
+                    .setNeutralButton(android.R.string.ok, new Close())
+                    .create();
+                alertDialog.show();
+                if (isSmallFont) {
+                    TextView textView = alertDialog.findViewById(android.R.id.message);
+                    textView.setTextSize(8);
+                }
+            }
+        }
+
+        private static class Close implements DialogInterface.OnClickListener {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
         }
     }
 

@@ -92,7 +92,6 @@
                 android:text="@string/app_url"/>
 
             <TextView
-                android:id="@+id/license"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -101,9 +100,9 @@
                 android:textStyle="italic"/>
 
             <TextView
+                android:id="@+id/license"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="showGPLv3"
                 android:text="@string/gpl"/>
 
             <TextView
@@ -130,7 +129,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:onClick="showContributors"
                 android:text="@string/about_contributor_title"/>
 
             <Button
@@ -138,7 +136,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:onClick="writeReview"
                 android:text="@string/about_write_review"/>
             <!-- Libraries -->
             <TextView
@@ -168,9 +165,9 @@
                     android:text="@string/about_library_apache_url"/>
 
                 <TextView
+                    android:id="@+id/apacheCommonsLicense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="showALv2"
                     android:text="@string/al"/>
 
                 <TextView
@@ -199,9 +196,9 @@
                     android:text="@string/about_library_graph_view_url"/>
 
                 <TextView
+                    android:id="@+id/graphViewLicense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="showALv2"
                     android:text="@string/al"/>
 
                 <TextView
@@ -230,9 +227,9 @@
                     android:text="@string/about_library_material_url"/>
 
                 <TextView
+                    android:id="@+id/materialDesignIconsLicense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="showALv2"
                     android:text="@string/al"/>
 
                 <TextView
