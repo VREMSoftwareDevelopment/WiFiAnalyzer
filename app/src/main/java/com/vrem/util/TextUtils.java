@@ -39,7 +39,7 @@ public class TextUtils {
     @NonNull
     public static Set<String> split(String source) {
         return StringUtils.isBlank(source)
-            ? new HashSet<String>()
+            ? new HashSet<>()
             : new HashSet<>(Arrays.asList(trim(source).split(SEPARATOR)));
     }
 

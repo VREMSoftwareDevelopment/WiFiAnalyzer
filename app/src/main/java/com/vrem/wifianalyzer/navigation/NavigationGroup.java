@@ -68,7 +68,7 @@ public enum NavigationGroup {
     }
 
     static class NavigationPredicate implements Predicate<NavigationGroup> {
-        public final NavigationMenu navigationMenu;
+        private final NavigationMenu navigationMenu;
 
         NavigationPredicate(@NonNull NavigationMenu navigationMenu) {
             this.navigationMenu = navigationMenu;

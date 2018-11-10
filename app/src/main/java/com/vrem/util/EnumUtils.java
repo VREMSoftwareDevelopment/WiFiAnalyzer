@@ -61,12 +61,12 @@ public class EnumUtils {
 
     @NonNull
     public static <T extends Enum> Set<String> find(@NonNull Set<T> values) {
-        return new HashSet<>(CollectionUtils.collect(values, new ToOrdinal<T>()));
+        return new HashSet<>(CollectionUtils.collect(values, new ToOrdinal<>()));
     }
 
     @NonNull
     public static <T extends Enum> Set<String> ordinals(@NonNull Class<T> enumType) {
-        return new HashSet<>(CollectionUtils.collect(values(enumType), new ToOrdinal<T>()));
+        return new HashSet<>(CollectionUtils.collect(values(enumType), new ToOrdinal<>()));
     }
 
     @NonNull

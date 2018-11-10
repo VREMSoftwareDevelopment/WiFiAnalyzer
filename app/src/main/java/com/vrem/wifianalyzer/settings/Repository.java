@@ -21,8 +21,8 @@ package com.vrem.wifianalyzer.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v7.preference.PreferenceManager;
 
 import com.vrem.wifianalyzer.R;
 
@@ -36,7 +36,7 @@ public class Repository {
     }
 
     void initializeDefaultValues() {
-        PreferenceManager.setDefaultValues(context, R.xml.preferences, false);
+        PreferenceManager.setDefaultValues(context, R.xml.settings, false);
     }
 
     void registerOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener onSharedPreferenceChangeListener) {
@@ -78,10 +78,6 @@ public class Repository {
             save(keyValue, defaultValue);
             return defaultValue;
         }
-    }
-
-    int getResourceInteger(int key) {
-        return context.getResources().getInteger(key);
     }
 
     boolean getResourceBoolean(int key) {

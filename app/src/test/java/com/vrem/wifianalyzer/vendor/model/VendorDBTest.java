@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.vendor.model;
 
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
@@ -27,7 +26,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.List;
 
@@ -35,14 +33,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class VendorDBTest {
     private static final String VENDOR_NAME = "CISCO SYSTEMS INC";
     private static final String MAC_ADDRESS = "00:23:AB:8C:DF:10";
     private static final String VENDOR_NAME_INVALID = "XXXXX";
     private static final String MAC_ADDRESS_INVALID = "XX:XX:XX";
-    private static final int VENDOR_SIZE = 17115;
-    private static final int MACS_SIZE = 25377;
+    private static final int VENDOR_SIZE = 17167;
+    private static final int MACS_SIZE = 25520;
 
     private VendorDB fixture;
 
@@ -79,7 +76,7 @@ public class VendorDBTest {
     @Test
     public void testFindMacAddresses() {
         // setup
-        int expectedSize = 832;
+        int expectedSize = 839;
         // execute
         List<String> actual = fixture.findMacAddresses(VENDOR_NAME);
         // validate
@@ -87,7 +84,7 @@ public class VendorDBTest {
 
         assertEquals("00:00:0C", actual.get(0));
         assertEquals("FC:FB:FB", actual.get(expectedSize - 1));
-        assertEquals("00:90:BF", actual.get(expectedSize / 2));
+        assertEquals("00:90:F2", actual.get(expectedSize / 2));
     }
 
     @Test

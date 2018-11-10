@@ -18,9 +18,7 @@
   -->
 
 <resources>
-    <!-- application start -->
     <string name="app_copyright">"Derechos de autor \u00A9 2015 \u002D "</string>
-    <!-- application end -->
 
     <string name="navigation_drawer_open">"Abrir panel de navegación"</string>
     <string name="navigation_drawer_close">"Cerrar el panel de navegación"</string>
@@ -65,7 +63,7 @@
     <string name="country_code_title">"País"</string>
 
     <string name="scan_interval_title">"Intervalo de exploración"</string>
-    <string name="scan_interval_summary">"%d segundos entre exploraciones"</string>
+    <string name="scan_interval_summary">"%s segundos entre exploraciones"</string>
 
     <string name="sort_by_title">"Ordenar Puntos de Acceso por:"</string>
     <string name="sort_by_signal_strength">"Intensidad de señal"</string>

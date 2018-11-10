@@ -16,13 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.wifi.accesspoint;
+package com.vrem.wifianalyzer.settings;
 
-import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
-import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,25 +27,15 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
-public class AccessPointsFragmentTest {
-
-    private ScannerService scanner;
-    private AccessPointsFragment fixture;
+public class SettingsFragmentTest {
+    private SettingsFragment fixture;
 
     @Before
     public void setUp() {
         RobolectricUtil.INSTANCE.getActivity();
-        scanner = MainContextHelper.INSTANCE.getScannerService();
-        fixture = new AccessPointsFragment();
-    }
-
-    @After
-    public void tearDown() {
-        MainContextHelper.INSTANCE.restore();
+        fixture = new SettingsFragment();
     }
 
     @Test
@@ -56,29 +43,7 @@ public class AccessPointsFragmentTest {
         // execute
         SupportFragmentTestUtil.startFragment(fixture);
         // validate
-        assertNotNull(fixture);
-        verify(scanner).update();
-        verify(scanner).register(fixture.getAccessPointsAdapter());
-    }
-
-    @Test
-    public void testOnResume() {
-        // setup
-        SupportFragmentTestUtil.startFragment(fixture);
-        // execute
-        fixture.onResume();
-        // validate
-        verify(scanner, times(2)).update();
-    }
-
-    @Test
-    public void testOnDestroy() {
-        // setup
-        SupportFragmentTestUtil.startFragment(fixture);
-        // execute
-        fixture.onDestroy();
-        // validate
-        verify(scanner).unregister(fixture.getAccessPointsAdapter());
+        assertNotNull(fixture.getView());
     }
 
 }

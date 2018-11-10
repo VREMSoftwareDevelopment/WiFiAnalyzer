@@ -23,7 +23,6 @@ import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.Button;
 
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
@@ -44,7 +43,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -59,7 +57,6 @@ import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class ChannelGraphNavigationTest {
 
     private ScannerService scanner;

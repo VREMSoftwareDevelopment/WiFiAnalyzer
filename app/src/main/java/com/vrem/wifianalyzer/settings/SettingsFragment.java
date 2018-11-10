@@ -16,28 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package com.vrem.wifianalyzer.settings;
 
-buildscript {
-    repositories {
-        google()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.3'
-    }
-}
+import android.os.Bundle;
+import android.support.v7.preference.PreferenceFragmentCompat;
 
-allprojects {
-    repositories {
-        google()
-        jcenter()
-        maven { url 'https://maven.google.com' }
-        mavenCentral()
-    }
-}
+import com.vrem.wifianalyzer.R;
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+public class SettingsFragment extends PreferenceFragmentCompat {
+
+    @Override
+    public void onCreatePreferences(Bundle bundle, String s) {
+        addPreferencesFromResource(R.xml.settings);
+    }
+
 }

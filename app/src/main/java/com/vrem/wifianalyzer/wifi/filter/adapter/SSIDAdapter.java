@@ -46,7 +46,7 @@ public class SSIDAdapter extends BasicFilterAdapter<String> {
 
     @Override
     public void reset() {
-        setValues(new HashSet<String>());
+        setValues(new HashSet<>());
     }
 
     @Override

@@ -22,7 +22,6 @@ import android.app.AlertDialog;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RawRes;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -31,90 +30,64 @@ import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
+import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
-public class AboutActivityTest {
+public class AboutFragmentTest {
 
-    private MenuItem menuItem;
     private Configuration configuration;
-    private AboutActivity fixture;
+    private AboutFragment fixture;
 
     @Before
     public void setUp() {
-        menuItem = mock(MenuItem.class);
+        RobolectricUtil.INSTANCE.getActivity();
         configuration = MainContextHelper.INSTANCE.getConfiguration();
-        fixture = Robolectric.setupActivity(AboutActivity.class);
+        when(configuration.isSizeAvailable()).thenReturn(true);
+        when(configuration.isLargeScreen()).thenReturn(true);
+
+        fixture = new AboutFragment();
     }
 
     @After
     public void tearDown() {
         MainContextHelper.INSTANCE.restore();
+        verify(configuration).isSizeAvailable();
+        verify(configuration).isLargeScreen();
+        verifyNoMoreInteractions(configuration);
     }
 
     @Test
-    public void testOnOptionsItemSelectedWithHome() {
-        // setup
-        when(menuItem.getItemId()).thenReturn(android.R.id.home);
+    public void testOnCreateView() {
         // execute
-        boolean actual = fixture.onOptionsItemSelected(menuItem);
+        SupportFragmentTestUtil.startFragment(fixture);
         // validate
-        assertTrue(actual);
-        verify(menuItem).getItemId();
-    }
-
-    @Test
-    public void testOnOptionsItemSelected() {
-        // setup
-        when(menuItem.getItemId()).thenReturn(-android.R.id.home);
-        // execute
-        boolean actual = fixture.onOptionsItemSelected(menuItem);
-        // validate
-        assertFalse(actual);
-        verify(menuItem).getItemId();
+        assertNotNull(fixture.getView());
     }
 
     @Test
     public void testVersionNumber() {
         // setup
-        String expected = BuildConfig.VERSION_NAME + " - " + BuildConfig.VERSION_CODE
-            + " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")";
-        // execute
-        TextView actual = fixture.findViewById(R.id.about_version_info);
-        // validate
-        assertNotNull(actual);
-        assertEquals(expected, actual.getText());
-    }
-
-    @Test
-    public void testVersionNumberWithConfiguration() {
-        // setup
         String expected = BuildConfig.VERSION_NAME + " - " + BuildConfig.VERSION_CODE + "SL"
             + " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")";
-        when(configuration.isSizeAvailable()).thenReturn(true);
-        when(configuration.isLargeScreen()).thenReturn(true);
-        fixture = Robolectric.setupActivity(AboutActivity.class);
+        SupportFragmentTestUtil.startFragment(fixture);
         // execute
-        TextView actual = fixture.findViewById(R.id.about_version_info);
+        TextView actual = fixture.getView().findViewById(R.id.about_version_info);
         // validate
         assertNotNull(actual);
         assertEquals(expected, actual.getText());
@@ -122,8 +95,10 @@ public class AboutActivityTest {
 
     @Test
     public void testPackageName() {
+        // setup
+        SupportFragmentTestUtil.startFragment(fixture);
         // execute
-        TextView actual = fixture.findViewById(R.id.about_package_name);
+        TextView actual = fixture.getView().findViewById(R.id.about_package_name);
         // validate
         assertNotNull(actual);
         assertEquals(BuildConfig.APPLICATION_ID, actual.getText());
@@ -132,9 +107,10 @@ public class AboutActivityTest {
     @Test
     public void testApplicationName() {
         // setup
+        SupportFragmentTestUtil.startFragment(fixture);
         String expectedName = fixture.getString(R.string.app_full_name);
         // execute
-        TextView actual = fixture.findViewById(R.id.about_application_name);
+        TextView actual = fixture.getView().findViewById(R.id.about_application_name);
         // validate
         assertNotNull(actual);
         assertEquals(expectedName, actual.getText());
@@ -143,10 +119,11 @@ public class AboutActivityTest {
     @Test
     public void testCopyright() {
         // setup
+        SupportFragmentTestUtil.startFragment(fixture);
         String expectedName = fixture.getString(R.string.app_copyright)
             + new SimpleDateFormat("yyyy").format(new Date());
         // execute
-        TextView actual = fixture.findViewById(R.id.about_copyright);
+        TextView actual = fixture.getView().findViewById(R.id.about_copyright);
         // validate
         assertNotNull(actual);
         assertEquals(expectedName, actual.getText());
@@ -155,7 +132,8 @@ public class AboutActivityTest {
     @Test
     public void testWriteReview() {
         // setup
-        View actual = fixture.findViewById(R.id.writeReview);
+        SupportFragmentTestUtil.startFragment(fixture);
+        View actual = fixture.getView().findViewById(R.id.writeReview);
         // execute
         fixture.writeReview(actual);
         // validate
@@ -165,7 +143,8 @@ public class AboutActivityTest {
     @Test
     public void testShowALv2() {
         // setup
-        View view = fixture.findViewById(R.id.license);
+        SupportFragmentTestUtil.startFragment(fixture);
+        View view = fixture.getView().findViewById(R.id.license);
         // execute
         fixture.showALv2(view);
         // validate
@@ -178,7 +157,8 @@ public class AboutActivityTest {
     @Test
     public void testShowGPLv3() {
         // setup
-        View view = fixture.findViewById(R.id.license);
+        SupportFragmentTestUtil.startFragment(fixture);
+        View view = fixture.getView().findViewById(R.id.license);
         // execute
         fixture.showGPLv3(view);
         // validate
@@ -191,7 +171,8 @@ public class AboutActivityTest {
     @Test
     public void testShowContributors() {
         // setup
-        View view = fixture.findViewById(R.id.contributors);
+        SupportFragmentTestUtil.startFragment(fixture);
+        View view = fixture.getView().findViewById(R.id.contributors);
         // execute
         fixture.showContributors(view);
         // validate
@@ -201,15 +182,15 @@ public class AboutActivityTest {
         validateTitle(fixture, alertDialog, R.string.about_contributor_title);
     }
 
-    private void validateMessage(@NonNull AboutActivity aboutActivity, @NonNull AlertDialog alertDialog, @RawRes int id) {
-        String expected = FileUtils.readFile(aboutActivity.getResources(), id);
+    private void validateMessage(@NonNull AboutFragment aboutFragment, @NonNull AlertDialog alertDialog, @RawRes int id) {
+        String expected = FileUtils.readFile(aboutFragment.getResources(), id);
         TextView messageView = alertDialog.findViewById(android.R.id.message);
         assertEquals(expected, messageView.getText().toString());
     }
 
-    private void validateTitle(@NonNull AboutActivity aboutActivity, @NonNull AlertDialog alertDialog, @RawRes int id) {
-        String expected = aboutActivity.getResources().getString(id);
-        int titleId = aboutActivity.getResources().getIdentifier("alertTitle", "id", "android");
+    private void validateTitle(@NonNull AboutFragment aboutFragment, @NonNull AlertDialog alertDialog, @RawRes int id) {
+        String expected = aboutFragment.getResources().getString(id);
+        int titleId = aboutFragment.getResources().getIdentifier("alertTitle", "id", "android");
         TextView titleView = alertDialog.findViewById(titleId);
         assertEquals(expected, titleView.getText().toString());
     }

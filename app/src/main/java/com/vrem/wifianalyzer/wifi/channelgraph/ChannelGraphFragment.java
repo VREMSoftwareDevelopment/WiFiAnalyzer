@@ -56,7 +56,7 @@ public class ChannelGraphFragment extends Fragment {
 
     private void addGraphViews(View view, ChannelGraphAdapter channelGraphAdapter) {
         IterableUtils.forEach(channelGraphAdapter.getGraphViews(),
-            new GraphViewAdd((ViewGroup) view.findViewById(R.id.graphFlipper)));
+            new GraphViewAdd(view.findViewById(R.id.graphFlipper)));
     }
 
     private void refresh() {

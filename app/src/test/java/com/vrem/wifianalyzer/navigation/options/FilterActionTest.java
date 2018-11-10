@@ -18,26 +18,21 @@
 
 package com.vrem.wifianalyzer.navigation.options;
 
-import com.vrem.wifianalyzer.BuildConfig;
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class FilterActionTest {
 
     private FilterAction fixture;
 
     @Before
     public void setUp() {
-        MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
-
+        RobolectricUtil.INSTANCE.getActivity();
         fixture = new FilterAction();
     }
 

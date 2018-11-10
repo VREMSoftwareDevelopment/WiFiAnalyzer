@@ -19,8 +19,8 @@
 package com.vrem.wifianalyzer.settings;
 
 import android.content.Context;
-import android.preference.ListPreference;
 import android.support.annotation.NonNull;
+import android.support.v7.preference.ListPreference;
 import android.util.AttributeSet;
 
 import org.apache.commons.collections4.CollectionUtils;

@@ -23,9 +23,11 @@
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -56,24 +58,6 @@
                 <action android:name="com.vrem.wifianalyzer.MAINACTIVITY"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".settings.SettingActivity"
-            android:label="@string/action_settings"
-            android:launchMode="singleTask"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vrem.wifianalyzer.MainActivity"/>
-        </activity>
-        <activity
-            android:name=".about.AboutActivity"
-            android:label="@string/action_about"
-            android:launchMode="singleTask"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vrem.wifianalyzer.MainActivity"/>
         </activity>
     </application>
 

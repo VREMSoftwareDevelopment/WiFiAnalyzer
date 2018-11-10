@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.about;
 
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -29,50 +28,41 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RawRes;
 import android.support.annotation.StringRes;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vrem.util.FileUtils;
-import com.vrem.wifianalyzer.ActivityUtils;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.settings.ThemeStyle;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutFragment extends Fragment {
     private static final String YEAR_FORMAT = "yyyy";
     private AlertDialog alertDialog;
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(ActivityUtils.createContext(newBase));
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.about_content, container, false);
+        setCopyright(view);
+        setExtraInformation(view);
+        return view;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        setTheme(ThemeStyle.getDefaultTheme());
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.about_content);
-        setCopyright();
-        setExtraInformation();
-        ActivityUtils.setActionBarOptions(getSupportActionBar());
-    }
-
-    private void setCopyright() {
+    private void setCopyright(View view) {
         String year = new SimpleDateFormat(YEAR_FORMAT).format(new Date());
         String message = getResources().getString(R.string.app_copyright);
-        setText(R.id.about_copyright, message + year);
+        setText(view, R.id.about_copyright, message + year);
     }
 
-    private void setExtraInformation() {
+    private void setExtraInformation(View view) {
         String text = BuildConfig.VERSION_NAME + " - " + BuildConfig.VERSION_CODE;
         Configuration configuration = MainContext.INSTANCE.getConfiguration();
         if (configuration != null) {
@@ -84,24 +74,15 @@ public class AboutActivity extends AppCompatActivity {
             }
         }
         text += " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")";
-        setText(R.id.about_version_info, text);
-        setText(R.id.about_package_name, BuildConfig.APPLICATION_ID);
+        setText(view, R.id.about_version_info, text);
+        setText(view, R.id.about_package_name, BuildConfig.APPLICATION_ID);
     }
 
-    private void setText(int id, String text) {
-        TextView version = findViewById(id);
+    private void setText(View view, int id, String text) {
+        TextView version = view.findViewById(id);
         if (version != null) {
             version.setText(text);
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
-            return true;
-        }
-        return false;
     }
 
     public void writeReview(@NonNull View view) {
@@ -129,7 +110,7 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private AlertDialog show(@NonNull View view, @StringRes int titleId, @RawRes int id) {
-        if (isFinishing()) {
+        if (getActivity().isFinishing()) {
             return null;
         }
         String text = FileUtils.readFile(getResources(), id);

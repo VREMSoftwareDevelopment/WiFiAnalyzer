@@ -22,17 +22,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
-import com.vrem.wifianalyzer.navigation.NavigationMenuView;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.never;
@@ -48,8 +49,6 @@ public class FragmentItemTest {
     private MainActivity mainActivity;
     @Mock
     private MenuItem menuItem;
-    @Mock
-    private NavigationMenuView navigationMenuView;
     @Mock
     private FragmentManager fragmentManager;
     @Mock
@@ -105,6 +104,14 @@ public class FragmentItemTest {
         FragmentItem fixture = new FragmentItem(fragment, true);
         // execute & validate
         assertTrue(fixture.isRegistered());
+    }
+
+    @Test
+    public void testGetV() {
+        // setup
+        FragmentItem fixture = new FragmentItem(fragment, false, View.INVISIBLE);
+        // execute & validate
+        assertEquals(View.INVISIBLE, fixture.getVisibility());
     }
 
     private void withFragmentTransaction() {

@@ -113,7 +113,7 @@ public class SeriesCacheTest {
         // setup
         List<WiFiDetail> expected = withData();
         // execute
-        List<WiFiDetail> actual = fixture.difference(new TreeSet<WiFiDetail>());
+        List<WiFiDetail> actual = fixture.difference(new TreeSet<>());
         // validate
         assertEquals(expected.size(), actual.size());
         for (int i = 0; i < expected.size(); i++) {
@@ -136,7 +136,7 @@ public class SeriesCacheTest {
         // setup
         List<WiFiDetail> expected = withData();
         // execute
-        List<BaseSeries<DataPoint>> actual = fixture.remove(Collections.<WiFiDetail>emptyList());
+        List<BaseSeries<DataPoint>> actual = fixture.remove(Collections.emptyList());
         // validate
         assertTrue(actual.isEmpty());
         IterableUtils.forEach(expected, new ContainsTrueClosure());

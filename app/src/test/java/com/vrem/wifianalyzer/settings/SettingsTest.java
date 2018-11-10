@@ -83,14 +83,30 @@ public class SettingsTest {
         // setup
         int defaultValue = 10;
         int expected = 11;
-        when(repository.getResourceInteger(R.integer.scan_interval_default)).thenReturn(defaultValue);
-        when(repository.getInteger(R.string.scan_interval_key, defaultValue)).thenReturn(expected);
+        when(repository.getStringAsInteger(R.string.scan_interval_default, Settings.SCAN_INTERVAL_DEFAULT)).thenReturn(defaultValue);
+        when(repository.getStringAsInteger(R.string.scan_interval_key, defaultValue)).thenReturn(expected);
         // execute
         int actual = fixture.getScanInterval();
         // validate
         assertEquals(expected, actual);
-        verify(repository).getResourceInteger(R.integer.scan_interval_default);
-        verify(repository).getInteger(R.string.scan_interval_key, defaultValue);
+        verify(repository).getStringAsInteger(R.string.scan_interval_default, Settings.SCAN_INTERVAL_DEFAULT);
+        verify(repository).getStringAsInteger(R.string.scan_interval_key, defaultValue);
+    }
+
+    @Test
+    public void testGetGraphMaximumY() {
+        // setup
+        int defaultValue = 1;
+        int value = 2;
+        int expected = value * Settings.GRAPH_Y_MULTIPLIER;
+        when(repository.getStringAsInteger(R.string.graph_maximum_y_default, Settings.GRAPH_Y_DEFAULT)).thenReturn(defaultValue);
+        when(repository.getStringAsInteger(R.string.graph_maximum_y_key, defaultValue)).thenReturn(value);
+        // execute
+        int actual = fixture.getGraphMaximumY();
+        // validate
+        assertEquals(expected, actual);
+        verify(repository).getStringAsInteger(R.string.graph_maximum_y_default, Settings.GRAPH_Y_DEFAULT);
+        verify(repository).getStringAsInteger(R.string.graph_maximum_y_key, defaultValue);
     }
 
     @Test
@@ -149,22 +165,6 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetGraphMaximumY() {
-        // setup
-        int defaultValue = 1;
-        int value = 2;
-        int expected = value * Settings.GRAPH_Y_MULTIPLIER;
-        when(repository.getStringAsInteger(R.string.graph_maximum_y_default, Settings.GRAPH_Y_DEFAULT)).thenReturn(defaultValue);
-        when(repository.getStringAsInteger(R.string.graph_maximum_y_key, defaultValue)).thenReturn(value);
-        // execute
-        int actual = fixture.getGraphMaximumY();
-        // validate
-        assertEquals(expected, actual);
-        verify(repository).getStringAsInteger(R.string.graph_maximum_y_default, Settings.GRAPH_Y_DEFAULT);
-        verify(repository).getStringAsInteger(R.string.graph_maximum_y_key, defaultValue);
-    }
-
-    @Test
     public void testGetChannelGraphLegend() {
         // setup
         when(repository.getStringAsInteger(R.string.channel_graph_legend_key, GraphLegend.HIDE.ordinal())).thenReturn(GraphLegend.RIGHT.ordinal());
@@ -201,12 +201,12 @@ public class SettingsTest {
     public void testGetSSIDFilter() {
         // setup
         Set<String> expected = new HashSet<>(Arrays.asList("value1", "value2", "value3"));
-        when(repository.getStringSet(R.string.filter_ssid_key, Collections.<String>emptySet())).thenReturn(expected);
+        when(repository.getStringSet(R.string.filter_ssid_key, Collections.emptySet())).thenReturn(expected);
         // execute
         Set<String> actual = fixture.getSSIDs();
         // validate
         assertEquals(expected, actual);
-        verify(repository).getStringSet(R.string.filter_ssid_key, Collections.<String>emptySet());
+        verify(repository).getStringSet(R.string.filter_ssid_key, Collections.emptySet());
     }
 
     @Test

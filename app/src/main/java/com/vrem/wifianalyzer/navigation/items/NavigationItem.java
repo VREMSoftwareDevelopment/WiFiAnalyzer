@@ -28,4 +28,6 @@ public interface NavigationItem {
     void activate(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, @NonNull NavigationMenu navigationMenu);
 
     boolean isRegistered();
+
+    int getVisibility();
 }

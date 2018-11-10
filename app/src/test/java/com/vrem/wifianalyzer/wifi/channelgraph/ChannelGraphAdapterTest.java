@@ -19,21 +19,18 @@
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
 import com.jjoe64.graphview.GraphView;
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewNotifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,7 +40,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class ChannelGraphAdapterTest {
 
     private ChannelGraphNavigation channelGraphNavigation;
@@ -94,7 +90,7 @@ public class ChannelGraphAdapterTest {
     @Test
     public void testUpdate() {
         // setup
-        WiFiData wiFiData = new WiFiData(Collections.<WiFiDetail>emptyList(), WiFiConnection.EMPTY, Collections.<String>emptyList());
+        WiFiData wiFiData = new WiFiData(Collections.emptyList(), WiFiConnection.EMPTY, Collections.emptyList());
         // execute
         fixture.update(wiFiData);
         // validate

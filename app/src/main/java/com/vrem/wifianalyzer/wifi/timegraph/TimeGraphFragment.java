@@ -53,7 +53,7 @@ public class TimeGraphFragment extends Fragment {
 
     private void addGraphViews(View view, TimeGraphAdapter timeGraphAdapter) {
         IterableUtils.forEach(timeGraphAdapter.getGraphViews(),
-            new GraphViewAdd((ViewGroup) view.findViewById(R.id.graphFlipper)));
+            new GraphViewAdd(view.findViewById(R.id.graphFlipper)));
     }
 
     private void refresh() {

@@ -18,13 +18,10 @@
 
 package com.vrem.util;
 
-import com.vrem.wifianalyzer.BuildConfig;
-
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -35,7 +32,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class TextUtilsTest {
 
     @Test

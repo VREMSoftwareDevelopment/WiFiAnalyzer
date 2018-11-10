@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
@@ -44,19 +43,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class ConnectionViewTest {
     private static final String SSID = "SSID";
     private static final String BSSID = "BSSID";
@@ -168,17 +164,15 @@ public class ConnectionViewTest {
     }
 
     @Test
-    public void testNoDataIsVisibleWithNoWiFiDetailsOnlyAfterNoDataMaxResponses() {
+    public void testNoDataIsVisibleWithNoWiFiDetails() {
         // setup
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
         // execute
-        for (int i = 0; i < ConnectionView.COUNT_MAX; i++) {
-            fixture.update(wiFiData);
-        }
+        fixture.update(wiFiData);
         // validate
         assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.nodata).getVisibility());
-        verify(wiFiData, times(2 * ConnectionView.COUNT_MAX)).getWiFiDetails();
+        verify(wiFiData).getWiFiDetails();
     }
 
     @Test
@@ -192,7 +186,7 @@ public class ConnectionViewTest {
         fixture.update(wiFiData);
         // validate
         assertEquals(View.GONE, mainActivity.findViewById(R.id.nodata).getVisibility());
-        verify(wiFiData, times(2)).getWiFiDetails();
+        verify(wiFiData).getWiFiDetails();
     }
 
     @Test
@@ -217,7 +211,7 @@ public class ConnectionViewTest {
         fixture.update(wiFiData);
         // validate
         assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.scanning).getVisibility());
-        verify(wiFiData, times(2)).getWiFiDetails();
+        verify(wiFiData).getWiFiDetails();
     }
 
     @Test
@@ -231,7 +225,7 @@ public class ConnectionViewTest {
         fixture.update(wiFiData);
         // validate
         assertEquals(View.GONE, mainActivity.findViewById(R.id.scanning).getVisibility());
-        verify(wiFiData, times(2)).getWiFiDetails();
+        verify(wiFiData).getWiFiDetails();
     }
 
     @Test

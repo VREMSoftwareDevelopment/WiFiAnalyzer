@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.vendor;
 
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.vendor.VendorFragment.Listener;
@@ -30,7 +29,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 import java.util.Collections;
@@ -42,7 +40,6 @@ import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class VendorFragmentTest {
 
     private VendorFragment fixture;
@@ -65,7 +62,7 @@ public class VendorFragmentTest {
     @Test
     public void testOnCreateView() {
         // setup
-        when(vendorService.findVendors()).thenReturn(Collections.<String>emptyList());
+        when(vendorService.findVendors()).thenReturn(Collections.emptyList());
         // execute
         SupportFragmentTestUtil.startFragment(fixture);
         // validate

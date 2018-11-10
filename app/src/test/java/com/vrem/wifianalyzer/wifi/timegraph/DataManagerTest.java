@@ -22,7 +22,6 @@ import android.support.annotation.NonNull;
 
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.graphutils.DataPointEquals;
@@ -41,7 +40,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -59,7 +57,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class DataManagerTest {
     private static final String BSSID = "BSSID";
     private static final int LEVEL = -40;
@@ -83,7 +80,7 @@ public class DataManagerTest {
         // setup
         assertEquals(0, fixture.getXValue());
         // execute
-        fixture.addSeriesData(graphViewWrapper, Collections.<WiFiDetail>emptyList(), GraphConstants.MAX_Y);
+        fixture.addSeriesData(graphViewWrapper, Collections.emptyList(), GraphConstants.MAX_Y);
         // validate
         assertEquals(1, fixture.getXValue());
     }
@@ -93,7 +90,7 @@ public class DataManagerTest {
         // setup
         assertEquals(0, fixture.getScanCount());
         // execute
-        fixture.addSeriesData(graphViewWrapper, Collections.<WiFiDetail>emptyList(), GraphConstants.MAX_Y);
+        fixture.addSeriesData(graphViewWrapper, Collections.emptyList(), GraphConstants.MAX_Y);
         // validate
         assertEquals(1, fixture.getScanCount());
     }
@@ -103,7 +100,7 @@ public class DataManagerTest {
         // setup
         fixture.setScanCount(GraphConstants.MAX_SCAN_COUNT);
         // execute
-        fixture.addSeriesData(graphViewWrapper, Collections.<WiFiDetail>emptyList(), GraphConstants.MAX_Y);
+        fixture.addSeriesData(graphViewWrapper, Collections.emptyList(), GraphConstants.MAX_Y);
         // validate
         assertEquals(GraphConstants.MAX_SCAN_COUNT, fixture.getScanCount());
     }
@@ -113,7 +110,7 @@ public class DataManagerTest {
         // setup
         fixture.setScanCount(1);
         // execute
-        fixture.addSeriesData(graphViewWrapper, Collections.<WiFiDetail>emptyList(), GraphConstants.MAX_Y);
+        fixture.addSeriesData(graphViewWrapper, Collections.emptyList(), GraphConstants.MAX_Y);
         // validate
         assertEquals(2, fixture.getScanCount());
         verify(graphViewWrapper).setHorizontalLabelsVisible(true);
@@ -122,7 +119,7 @@ public class DataManagerTest {
     @Test
     public void testAddSeriesDoesNotSetHorizontalLabelsVisible() {
         // execute
-        fixture.addSeriesData(graphViewWrapper, Collections.<WiFiDetail>emptyList(), GraphConstants.MAX_Y);
+        fixture.addSeriesData(graphViewWrapper, Collections.emptyList(), GraphConstants.MAX_Y);
         // validate
         verify(graphViewWrapper, never()).setHorizontalLabelsVisible(true);
     }

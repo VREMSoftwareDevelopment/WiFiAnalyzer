@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer;
 
-import android.content.Context;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Window;
@@ -37,8 +36,6 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.util.Locale;
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
@@ -56,10 +53,6 @@ public class ActivityUtilsTest {
     private Window window;
     @Mock
     private ActionBar actionBar;
-    @Mock
-    private Context context;
-    @Mock
-    private Context newContext;
 
     private Settings settings;
 
@@ -74,18 +67,6 @@ public class ActivityUtilsTest {
     public void tearDown() {
         verifyStatic(ConfigurationUtils.class);
         MainContextHelper.INSTANCE.restore();
-    }
-
-    @Test
-    public void testCreateContext() {
-        // setup
-        when(settings.getLanguageLocale()).thenReturn(Locale.US);
-        when(ConfigurationUtils.createContext(context, Locale.US)).thenReturn(newContext);
-        // execute
-        Context actual = ActivityUtils.createContext(context);
-        // validate
-        assertEquals(newContext, actual);
-        verify(settings).getLanguageLocale();
     }
 
     @Test

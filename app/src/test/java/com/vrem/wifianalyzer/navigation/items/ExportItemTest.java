@@ -24,6 +24,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
@@ -140,9 +141,15 @@ public class ExportItemTest {
         assertFalse(fixture.isRegistered());
     }
 
+    @Test
+    public void testGetVisibility() {
+        // execute & validate
+        assertEquals(View.GONE, fixture.getVisibility());
+    }
+
     @NonNull
     private WiFiData withWiFiData() {
-        return new WiFiData(Collections.singletonList(wiFiDetail), WiFiConnection.EMPTY, Collections.<String>emptyList());
+        return new WiFiData(Collections.singletonList(wiFiDetail), WiFiConnection.EMPTY, Collections.emptyList());
     }
 
     private void verifySendIntentInformation(String sendData) {

@@ -23,7 +23,6 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.filter.adapter.SSIDAdapter;
@@ -32,7 +31,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -44,7 +42,6 @@ import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class SSIDFilterTest {
 
     private Dialog dialog;
@@ -90,7 +87,7 @@ public class SSIDFilterTest {
         // execute
         onChange.afterTextChanged(null);
         // verify
-        verify(ssidAdapter).setValues(new HashSet<String>());
+        verify(ssidAdapter).setValues(new HashSet<>());
     }
 
     @Test

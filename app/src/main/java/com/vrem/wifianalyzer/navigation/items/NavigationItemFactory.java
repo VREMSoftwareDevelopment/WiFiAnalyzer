@@ -18,8 +18,10 @@
 
 package com.vrem.wifianalyzer.navigation.items;
 
-import com.vrem.wifianalyzer.about.AboutActivity;
-import com.vrem.wifianalyzer.settings.SettingActivity;
+import android.view.View;
+
+import com.vrem.wifianalyzer.about.AboutFragment;
+import com.vrem.wifianalyzer.settings.SettingsFragment;
 import com.vrem.wifianalyzer.vendor.VendorFragment;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointsFragment;
 import com.vrem.wifianalyzer.wifi.channelavailable.ChannelAvailableFragment;
@@ -28,15 +30,15 @@ import com.vrem.wifianalyzer.wifi.channelrating.ChannelRatingFragment;
 import com.vrem.wifianalyzer.wifi.timegraph.TimeGraphFragment;
 
 public class NavigationItemFactory {
-    public static final NavigationItem ACCESS_POINTS = new FragmentItem(new AccessPointsFragment(), true);
-    public static final NavigationItem CHANNEL_RATING = new FragmentItem(new ChannelRatingFragment(), true);
-    public static final NavigationItem CHANNEL_GRAPH = new FragmentItem(new ChannelGraphFragment(), true);
-    public static final NavigationItem TIME_GRAPH = new FragmentItem(new TimeGraphFragment(), true);
+    public static final NavigationItem ACCESS_POINTS = new FragmentItem(new AccessPointsFragment());
+    public static final NavigationItem CHANNEL_RATING = new FragmentItem(new ChannelRatingFragment());
+    public static final NavigationItem CHANNEL_GRAPH = new FragmentItem(new ChannelGraphFragment());
+    public static final NavigationItem TIME_GRAPH = new FragmentItem(new TimeGraphFragment());
     public static final NavigationItem EXPORT = new ExportItem();
     public static final NavigationItem CHANNEL_AVAILABLE = new FragmentItem(new ChannelAvailableFragment(), false);
-    public static final NavigationItem VENDORS = new FragmentItem(new VendorFragment(), false);
-    public static final NavigationItem SETTINGS = new ActivityItem(SettingActivity.class);
-    public static final NavigationItem ABOUT = new ActivityItem(AboutActivity.class);
+    public static final NavigationItem VENDORS = new FragmentItem(new VendorFragment(), false, View.GONE);
+    public static final NavigationItem SETTINGS = new FragmentItem(new SettingsFragment(), false, View.GONE);
+    public static final NavigationItem ABOUT = new FragmentItem(new AboutFragment(), false, View.GONE);
 
     private NavigationItemFactory() {
         throw new IllegalStateException("Factory class");

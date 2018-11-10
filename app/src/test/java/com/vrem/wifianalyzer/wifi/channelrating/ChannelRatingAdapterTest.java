@@ -25,7 +25,6 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
@@ -48,7 +47,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,7 +60,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class ChannelRatingAdapterTest {
 
     private ChannelRatingAdapter fixture;
@@ -121,7 +118,7 @@ public class ChannelRatingAdapterTest {
     public void testUpdate() {
         // setup
         String expected = mainActivity.getResources().getText(R.string.channel_rating_best_none).toString();
-        WiFiData wiFiData = new WiFiData(Collections.<WiFiDetail>emptyList(), WiFiConnection.EMPTY, Collections.<String>emptyList());
+        WiFiData wiFiData = new WiFiData(Collections.emptyList(), WiFiConnection.EMPTY, Collections.emptyList());
         Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ5);
         List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(predicate, SortBy.STRENGTH);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
