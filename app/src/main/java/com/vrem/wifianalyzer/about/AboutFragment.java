@@ -100,7 +100,7 @@ public class AboutFragment extends Fragment {
         }
     }
 
-    static class WriteReviewClickListener implements OnClickListener {
+    private static class WriteReviewClickListener implements OnClickListener {
         private final Activity activity;
 
         private WriteReviewClickListener(@NonNull Activity activity) {
@@ -119,7 +119,7 @@ public class AboutFragment extends Fragment {
         }
     }
 
-    static class AlertDialogClickListener implements OnClickListener {
+    private static class AlertDialogClickListener implements OnClickListener {
         private final Activity activity;
         private final int titleId;
         private final int resourceId;
