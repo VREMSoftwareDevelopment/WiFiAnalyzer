@@ -33,9 +33,7 @@ public class FileUtils {
 
     @NonNull
     public static String readFile(@NonNull Resources resources, @RawRes int id) {
-        InputStream inputStream = null;
-        try {
-            inputStream = resources.openRawResource(id);
+        try (InputStream inputStream = resources.openRawResource(id)) {
             int size = inputStream.available();
             byte[] bytes = new byte[size];
             int count = inputStream.read(bytes);
@@ -46,14 +44,6 @@ public class FileUtils {
         } catch (Exception e) {
             // file is corrupted
             return StringUtils.EMPTY;
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (Exception e) {
-                    // do nothing
-                }
-            }
         }
     }
 }
