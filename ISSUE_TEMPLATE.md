@@ -28,3 +28,5 @@ Some behaviour only occurs on certain devices or versions of Android, please pro
 
 **Additional context**
 Add any other context about the problem here.
+
+**Provide Device/Android OS information**
