@@ -29,4 +29,4 @@ Some behaviour only occurs on certain devices or versions of Android, please pro
 **Additional context**
 Add any other context about the problem here.
 
-**Please provide Device/Android OS information**
+**Provide Device/Android OS information**
