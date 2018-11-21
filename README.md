@@ -63,8 +63,7 @@ This is the official repository of WiFi Analyzer.
 * [How is distance calculated to Access Point](https://en.wikipedia.org/wiki/Free-space_path_loss)
 
 ## FAQ
-* [Android OS 8 and 9 Support](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/202)
-* [Android OS 6+ may require Location Service to be switched on](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Android-OS-6---Location-Service-ON)
+* [Location Service Permission Requirements](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Location-Service-Permission-Requirements)
 * [WiFi Analyzer on secondary user accounts](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/WiFi-Analyzer-on-secondary-user-accounts)
 * [How channel graph displays 20/40/80/160 MHz channel width?](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/64)
 * [How to use SSID filter?](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/125)
