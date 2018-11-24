@@ -39,7 +39,7 @@ android {
 
     defaultConfig {
         applicationId "com.vrem.wifianalyzer"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode
         versionName
