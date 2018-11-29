@@ -40,6 +40,14 @@ public class VendorDBTest {
     private static final String MAC_ADDRESS_INVALID = "XX:XX:XX";
     private static final int VENDOR_SIZE = 17185;
     private static final int MACS_SIZE = 25579;
+    private static final String FILTER_VENDOR = "1394 ";
+    private static final String FILTER_MAC = "00:A0:2";
+    private static final String EXPECTED_VENDOR_NAME1 = "1394 TRADE ASSOCIATION";
+    private static final String EXPECTED_VENDOR_NAME2 = "TRANSITIONS RESEARCH CORP";
+    private static final String EXPECTED_VENDOR_NAME3 = "1394 PRINTER WORKING GROUP";
+    private static final String EXPECTED_MAC1 = "00:00:0C";
+    private static final String EXPECTED_MAC2 = "FC:FB:FB";
+    private static final String EXPECTED_MAC3 = "00:9A:D2";
 
     private VendorDB fixture;
 
@@ -53,6 +61,14 @@ public class VendorDBTest {
     public void testFindVendorName() {
         // execute
         String actual = fixture.findVendorName(MAC_ADDRESS);
+        // validate
+        assertEquals(VENDOR_NAME, actual);
+    }
+
+    @Test
+    public void testFindVendorNameUsingLowerCase() {
+        // execute
+        String actual = fixture.findVendorName(MAC_ADDRESS.toLowerCase());
         // validate
         assertEquals(VENDOR_NAME, actual);
     }
@@ -82,9 +98,23 @@ public class VendorDBTest {
         // validate
         assertEquals(expectedSize, actual.size());
 
-        assertEquals("00:00:0C", actual.get(0));
-        assertEquals("FC:FB:FB", actual.get(expectedSize - 1));
-        assertEquals("00:9A:D2", actual.get(expectedSize / 2));
+        assertEquals(EXPECTED_MAC1, actual.get(0));
+        assertEquals(EXPECTED_MAC2, actual.get(expectedSize - 1));
+        assertEquals(EXPECTED_MAC3, actual.get(expectedSize / 2));
+    }
+
+    @Test
+    public void testFindMacAddressesUsingLowerCase() {
+        // setup
+        int expectedSize = 842;
+        // execute
+        List<String> actual = fixture.findMacAddresses(VENDOR_NAME.toLowerCase());
+        // validate
+        assertEquals(expectedSize, actual.size());
+
+        assertEquals(EXPECTED_MAC1, actual.get(0));
+        assertEquals(EXPECTED_MAC2, actual.get(expectedSize - 1));
+        assertEquals(EXPECTED_MAC3, actual.get(expectedSize / 2));
     }
 
     @Test
@@ -112,23 +142,51 @@ public class VendorDBTest {
     }
 
     @Test
+    public void testFindVendorsWithEmptyVendorFilter() {
+        // execute
+        List<String> actual = fixture.findVendors(StringUtils.EMPTY);
+        // validate
+        assertEquals(VENDOR_SIZE, actual.size());
+    }
+
+    @Test
     public void testFindVendorsWithVendorFilter() {
         // execute
-        List<String> actual = fixture.findVendors("1394 ");
+        List<String> actual = fixture.findVendors(FILTER_VENDOR);
         // validate
         assertEquals(2, actual.size());
-        assertEquals("1394 PRINTER WORKING GROUP", actual.get(0));
-        assertEquals("1394 TRADE ASSOCIATION", actual.get(1));
+        assertEquals(EXPECTED_VENDOR_NAME3, actual.get(0));
+        assertEquals(EXPECTED_VENDOR_NAME1, actual.get(1));
+    }
+
+    @Test
+    public void testFindVendorsWithVendorFilterUsingLowerCase() {
+        // execute
+        List<String> actual = fixture.findVendors(FILTER_VENDOR.toLowerCase());
+        // validate
+        assertEquals(2, actual.size());
+        assertEquals(EXPECTED_VENDOR_NAME3, actual.get(0));
+        assertEquals(EXPECTED_VENDOR_NAME1, actual.get(1));
     }
 
     @Test
     public void testFindVendorsWithMacFilter() {
         // execute
-        List<String> actual = fixture.findVendors("00:A0:2");
+        List<String> actual = fixture.findVendors(FILTER_MAC);
         // validate
         assertEquals(16, actual.size());
-        assertEquals("1394 TRADE ASSOCIATION", actual.get(0));
-        assertEquals("TRANSITIONS RESEARCH CORP", actual.get(15));
+        assertEquals(EXPECTED_VENDOR_NAME1, actual.get(0));
+        assertEquals(EXPECTED_VENDOR_NAME2, actual.get(15));
+    }
+
+    @Test
+    public void testFindVendorsWithMacFilterUsingLowerCase() {
+        // execute
+        List<String> actual = fixture.findVendors(FILTER_MAC.toLowerCase());
+        // validate
+        assertEquals(16, actual.size());
+        assertEquals(EXPECTED_VENDOR_NAME1, actual.get(0));
+        assertEquals(EXPECTED_VENDOR_NAME2, actual.get(15));
     }
 
     @Test

@@ -61,21 +61,25 @@ class VendorDB implements VendorService {
         if (StringUtils.isBlank(vendorName)) {
             return new ArrayList<>();
         }
-        List<String> results = getVendors().get(vendorName);
+        List<String> results = getVendors().get(vendorName.toUpperCase());
         return results == null ? new ArrayList<>() : results;
     }
 
     @NonNull
     @Override
     public List<String> findVendors() {
-        return new ArrayList<>(getVendors().keySet());
+        return findVendors(StringUtils.EMPTY);
     }
 
     @NonNull
     @Override
     public List<String> findVendors(@NonNull String filter) {
+        if (StringUtils.isBlank(filter)) {
+            return new ArrayList<>(getVendors().keySet());
+        }
+        String filterToUpperCase = filter.toUpperCase();
         Predicate<String> predicate =
-            PredicateUtils.anyPredicate(new StringContains(filter), new MacContains(filter));
+            PredicateUtils.anyPredicate(new StringContains(filterToUpperCase), new MacContains(filterToUpperCase));
         return new ArrayList<>(CollectionUtils.select(getVendors().keySet(), predicate));
     }
 
