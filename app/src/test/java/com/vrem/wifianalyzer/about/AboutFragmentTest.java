@@ -41,7 +41,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowAlertDialog;
-import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
+import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -67,8 +67,7 @@ public class AboutFragmentTest {
         when(configuration.isSizeAvailable()).thenReturn(true);
         when(configuration.isLargeScreen()).thenReturn(true);
 
-        fixture = new AboutFragment();
-        SupportFragmentTestUtil.startFragment(fixture);
+        fixture = SupportFragmentController.setupFragment(new AboutFragment());
     }
 
     @After
@@ -153,7 +152,6 @@ public class AboutFragmentTest {
 
     private void validateAlertDialogClickListener(int viewId, int titleId, int messageId) {
         // setup
-        SupportFragmentTestUtil.startFragment(fixture);
         View view = fixture.getView().findViewById(viewId);
         String expectedTitle = mainActivity.getApplicationContext().getString(titleId);
         String expectedMessage = FileUtils.readFile(mainActivity.getResources(), messageId);

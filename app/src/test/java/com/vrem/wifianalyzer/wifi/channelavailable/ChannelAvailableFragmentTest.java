@@ -27,7 +27,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
+import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 import java.util.Locale;
 
@@ -49,7 +49,7 @@ public class ChannelAvailableFragmentTest {
         settings = MainContextHelper.INSTANCE.getSettings();
         when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
 
-        fixture = new ChannelAvailableFragment();
+        fixture = SupportFragmentController.setupFragment(new ChannelAvailableFragment());
     }
 
     @After
@@ -60,8 +60,6 @@ public class ChannelAvailableFragmentTest {
 
     @Test
     public void testOnCreateView() {
-        // execute
-        SupportFragmentTestUtil.startFragment(fixture);
         // validate
         assertNotNull(fixture);
     }

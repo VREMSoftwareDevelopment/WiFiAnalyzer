@@ -27,7 +27,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
+import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.times;
@@ -45,7 +45,7 @@ public class ChannelGraphFragmentTest {
 
         scanner = MainContextHelper.INSTANCE.getScannerService();
 
-        fixture = new ChannelGraphFragment();
+        fixture = SupportFragmentController.setupFragment(new ChannelGraphFragment());
     }
 
     @After
@@ -55,8 +55,6 @@ public class ChannelGraphFragmentTest {
 
     @Test
     public void testOnCreateView() {
-        // execute
-        SupportFragmentTestUtil.startFragment(fixture);
         // validate
         assertNotNull(fixture);
         verify(scanner).update();
@@ -65,8 +63,6 @@ public class ChannelGraphFragmentTest {
 
     @Test
     public void testOnResume() {
-        // setup
-        SupportFragmentTestUtil.startFragment(fixture);
         // execute
         fixture.onResume();
         // validate
@@ -75,8 +71,6 @@ public class ChannelGraphFragmentTest {
 
     @Test
     public void testOnDestroy() {
-        // setup
-        SupportFragmentTestUtil.startFragment(fixture);
         // execute
         fixture.onDestroy();
         // validate
