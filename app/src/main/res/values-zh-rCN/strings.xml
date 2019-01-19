@@ -112,11 +112,11 @@
     <!-- about end -->
 
     <!-- security start -->
-    <string name="security_none">"没有"</string>
+    <string name="security_none">"未加密"</string>
     <!-- security end -->
 
     <!-- filter start -->
-    <string name="filter_title">"滤波器"</string>
+    <string name="filter_title">"过滤器"</string>
     <string name="filter_close">"关"</string>
     <string name="filter_reset">"重启"</string>
     <string name="filter_apply">"应用"</string>
