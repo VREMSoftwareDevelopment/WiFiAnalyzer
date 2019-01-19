@@ -160,8 +160,8 @@ public class AboutFragmentTest {
         // validate
         AlertDialog alertDialog = ShadowAlertDialog.getLatestAlertDialog();
         ShadowAlertDialog shadowAlertDialog = Shadows.shadowOf(alertDialog);
-        assertEquals(expectedTitle, shadowAlertDialog.getTitle());
-        assertEquals(expectedMessage, shadowAlertDialog.getMessage());
+        assertEquals(expectedTitle, shadowAlertDialog.getTitle().toString());
+        assertEquals(expectedMessage, shadowAlertDialog.getMessage().toString());
     }
 
 }
