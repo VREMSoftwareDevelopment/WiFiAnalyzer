@@ -17,7 +17,8 @@
  */
 
 apply plugin: "com.android.application"
-apply plugin: "jacoco-android"
+
+apply from: "jacoco.gradle"
 
 ext {
     supportVersion = "28.0.0"
@@ -85,21 +86,7 @@ android {
     }
 }
 
-jacoco {
-    toolVersion = "0.8.2"
-}
-
-tasks.withType(Test) {
-    jacoco.includeNoLocationClasses = true
-}
-
-jacocoAndroidUnitTestReport {
-    excludes += ["**/com/jjoe64/*"]
-    html.enabled true
-    xml.enabled true
-    csv.enabled false
-}
-
+// keystore -------------------------------------------------
 if (project.hasProperty("keyAlias")) {
     def propertiesFile = file("../../keystores/androidkeystore.properties")
     Properties properties = readProperties(propertiesFile)
@@ -111,6 +98,7 @@ if (project.hasProperty("keyAlias")) {
     android.buildTypes.release.signingConfig.storePassword = properties["store_password"].toString()
 }
 
+// dependencies -------------------------------------------------
 dependencies {
     // Compile Build Dependencies
     implementation fileTree(include: ["*.jar"], dir: "libs")
@@ -134,6 +122,7 @@ dependencies {
     androidTestImplementation "com.android.support.test:rules:$testVersion"
 }
 
+// version -------------------------------------------------
 updateVersion()
 
 def updateVersion() {
