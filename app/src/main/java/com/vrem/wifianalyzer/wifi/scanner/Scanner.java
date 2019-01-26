@@ -135,6 +135,7 @@ class Scanner implements ScannerService {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private void scanResults() {
         try {
             if (wifiManager.startScan()) {

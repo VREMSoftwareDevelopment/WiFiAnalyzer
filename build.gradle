@@ -36,6 +36,9 @@ allprojects {
         maven { url 'https://maven.google.com' }
         mavenCentral()
     }
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    }
 }
 
 task clean(type: Delete) {

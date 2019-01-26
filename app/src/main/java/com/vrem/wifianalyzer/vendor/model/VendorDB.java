@@ -31,6 +31,7 @@ import org.apache.commons.collections4.PredicateUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -78,9 +79,8 @@ class VendorDB implements VendorService {
             return new ArrayList<>(getVendors().keySet());
         }
         String filterToUpperCase = filter.toUpperCase();
-        Predicate<String> predicate =
-            PredicateUtils.anyPredicate(new StringContains(filterToUpperCase), new MacContains(filterToUpperCase));
-        return new ArrayList<>(CollectionUtils.select(getVendors().keySet(), predicate));
+        List<Predicate<String>> predicates = Arrays.asList(new StringContains(filterToUpperCase), new MacContains(filterToUpperCase));
+        return new ArrayList<>(CollectionUtils.select(getVendors().keySet(), PredicateUtils.anyPredicate(predicates)));
     }
 
     @NonNull

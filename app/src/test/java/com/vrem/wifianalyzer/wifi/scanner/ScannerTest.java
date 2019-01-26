@@ -196,6 +196,8 @@ public class ScannerTest {
         verify(wifiManager).getScanResults();
         verify(wifiManager).getConnectionInfo();
         verify(wifiManager).getConfiguredNetworks();
+
+        verifyWiFiManagerStartScan();
     }
 
     private void withWiFiManager() {
@@ -204,6 +206,18 @@ public class ScannerTest {
         when(wifiManager.getScanResults()).thenReturn(scanResults);
         when(wifiManager.getConnectionInfo()).thenReturn(wifiInfo);
         when(wifiManager.getConfiguredNetworks()).thenReturn(configuredNetworks);
+
+        withWiFiManagerStartScan();
+    }
+
+    @SuppressWarnings("deprecation")
+    private void verifyWiFiManagerStartScan() {
+        verify(wifiManager).startScan();
+    }
+
+    @SuppressWarnings("deprecation")
+    private void withWiFiManagerStartScan() {
+        when(wifiManager.startScan()).thenReturn(true);
     }
 
     private void verifyTransfomer() {
