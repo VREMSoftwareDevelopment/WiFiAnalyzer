@@ -67,10 +67,12 @@
 
     <string name="sort_by_title">"Ordina Access Points per"</string>
     <string name="sort_by_signal_strength">"Potenza Segnale"</string>
+    <string name="sort_by_ssid" >"SSID"</string>
     <string name="sort_by_channel">"Canale"</string>
 
     <string name="group_by_title">"Raggruppa Access Points per"</string>
     <string name="group_by_none">"Non Raggruppare"</string>
+    <string name="group_by_ssid">"SSID"</string>
     <string name="group_by_channel">"Canale"</string>
 
     <string name="connection_view_title">"Access Point connesso"</string>

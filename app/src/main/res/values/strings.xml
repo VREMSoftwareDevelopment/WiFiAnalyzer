@@ -86,7 +86,7 @@
     <string name="sort_by_key" translatable="false">"sort_by"</string>
     <string name="sort_by_default" translatable="false">"0"</string>
     <string name="sort_by_signal_strength">"Signal Strength"</string>
-    <string name="sort_by_ssid" translatable="false">"SSID"</string>
+    <string name="sort_by_ssid" >"SSID"</string>
     <string name="sort_by_channel">"Channel"</string>
 
     <string name="group_by_title">"Group Access Points By"</string>
@@ -94,7 +94,7 @@
     <string name="group_by_key" translatable="false">"group_by"</string>
     <string name="group_by_default" translatable="false">"0"</string>
     <string name="group_by_none">"None"</string>
-    <string name="group_by_ssid" translatable="false">"SSID"</string>
+    <string name="group_by_ssid">"SSID"</string>
     <string name="group_by_channel">"Channel"</string>
 
     <string name="connection_view_title">"Connection Display"</string>

@@ -67,10 +67,12 @@
 
     <string name="sort_by_title">"Сортировка"</string>
     <string name="sort_by_signal_strength">"Уровень сигнала"</string>
+    <string name="sort_by_ssid" >"SSID"</string>
     <string name="sort_by_channel">"Канал"</string>
 
     <string name="group_by_title">"Группировка"</string>
     <string name="group_by_none">"Нет"</string>
+    <string name="group_by_ssid">"SSID"</string>
     <string name="group_by_channel">"Канал"</string>
 
     <string name="connection_view_title">"Дисплей соединение"</string>

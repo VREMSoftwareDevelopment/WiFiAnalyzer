@@ -32,8 +32,8 @@
     <string name="action_channel_graph">"信道图"</string>
     <string name="action_time_graph">"时间图"</string>
     <string name="action_export">"分享"</string>
-    <string name="action_channel_available">"可用的信道"</string>
-    <string name="action_vendors">"制造商"</string>
+    <string name="action_channel_available">"信道查询"</string>
+    <string name="action_vendors">"制造商查询"</string>
     <string name="action_settings">"设置"</string>
     <string name="action_about">"关于"</string>
     <!-- action end -->
@@ -49,16 +49,16 @@
     <string name="channel_rating_best_none">"无"</string>
     <string name="channel_rating_best_alternative">",尝试其他WiFi频段"</string>
     <string name="channel_rating_heading_rating">"信道评级"</string>
-    <string name="channel_rating_heading_number">"信道数"</string>
+    <string name="channel_rating_heading_number">"信道编号"</string>
     <string name="channel_rating_heading_count">"接入点计数"</string>
     <string name="channel_short_name">"信道"</string>
 
-    <string name="graph_channel_axis_x">"WiFi信道"</string>
+    <string name="graph_channel_axis_x">"信道编号"</string>
     <string name="graph_time_axis_x">"扫描次数"</string>
     <string name="graph_axis_y">"信号强度 (dBm)"</string>
 
     <!-- settings start -->
-    <string name="start_menu_title">"开始"</string>
+    <string name="start_menu_title">"初始界面"</string>
 
     <string name="country_code_title">"国家"</string>
 
@@ -67,13 +67,15 @@
 
     <string name="sort_by_title">"接入点排序依据"</string>
     <string name="sort_by_signal_strength">"信号强度"</string>
-    <string name="sort_by_channel">"信道"</string>
+    <string name="sort_by_ssid" >"接入点名称"</string>
+    <string name="sort_by_channel">"信道编号"</string>
 
     <string name="group_by_title">"接入点分组依据"</string>
     <string name="group_by_none">"无"</string>
-    <string name="group_by_channel">"信道"</string>
+    <string name="group_by_ssid">"接入点名称"</string>
+    <string name="group_by_channel">"信道编号"</string>
 
-    <string name="connection_view_title">"连接显示"</string>
+    <string name="connection_view_title">"当前连接显示"</string>
     <string name="connection_view_complete">"完整"</string>
     <string name="connection_view_compact">"紧凑"</string>
     <string name="connection_view_hide">"隐藏"</string>
@@ -82,7 +84,7 @@
     <string name="ap_view_complete">"完整"</string>
     <string name="ap_view_compact">"紧凑"</string>
 
-    <string name="graph_maximum_y_title">"图形最大信号强度"</string>
+    <string name="graph_maximum_y_title">"图形界面最大信号强度"</string>
 
     <string name="channel_graph_legend_title">"信道图例显示位置"</string>
     <string name="time_graph_legend_title">"时间图例显示位置"</string>
@@ -93,13 +95,13 @@
     <string name="theme_title">"主题"</string>
     <string name="theme_dark">"深"</string>
     <string name="theme_light">"浅"</string>
-    <string name="theme_system">"系统"</string>
+    <string name="theme_system">"跟随系统"</string>
 
     <string name="wifi_off_on_exit_title">"退出时关闭WiFi"</string>
 
-    <string name="keep_screen_on_title">"屏幕常亮"</string>
+    <string name="keep_screen_on_title">"保持屏幕常亮"</string>
 
-    <string name="language_title">"语言"</string>
+    <string name="language_title">"选择语言"</string>
     <!-- settings end -->
 
     <!-- about start -->
@@ -112,17 +114,18 @@
     <!-- about end -->
 
     <!-- security start -->
-    <string name="security_none">"没有"</string>
+    <string name="security_none">"无加密"</string>
     <!-- security end -->
 
     <!-- filter start -->
-    <string name="filter_title">"滤波器"</string>
-    <string name="filter_close">"关"</string>
-    <string name="filter_reset">"重启"</string>
+    <string name="filter_title">"过滤器"</string>
+    <string name="filter_close">"关闭"</string>
+    <string name="filter_reset">"默认"</string>
     <string name="filter_apply">"应用"</string>
+    <string name="filter_ssid_title" translatable="false">"网络名称"</string>
     <string name="filter_wifi_band_title">"WiFi频段"</string>
     <string name="filter_strength_title">"信号强度"</string>
-    <string name="filter_security_title">"安全"</string>
+    <string name="filter_security_title">"加密方式"</string>
     <!-- filter end -->
 
 </resources>

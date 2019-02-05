@@ -67,10 +67,12 @@
 
     <string name="sort_by_title">"Ordenar Puntos de Acceso por:"</string>
     <string name="sort_by_signal_strength">"Intensidad de señal"</string>
+    <string name="sort_by_ssid" >"SSID"</string>
     <string name="sort_by_channel">"Canal"</string>
 
     <string name="group_by_title">"Agrupar Puntos de Acceso por:"</string>
     <string name="group_by_none">"Ninguna"</string>
+    <string name="group_by_ssid">"SSID"</string>
     <string name="group_by_channel">"Canal"</string>
 
     <string name="connection_view_title">"Pantalla de conexión"</string>

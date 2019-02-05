@@ -66,10 +66,12 @@
 
     <string name="sort_by_title">"接入點排序依據"</string>
     <string name="sort_by_signal_strength">"訊號強度"</string>
+    <string name="sort_by_ssid" >"接入點名稱"</string>
     <string name="sort_by_channel">"頻道"</string>
 
     <string name="group_by_title">"接入點分組依據"</string>
     <string name="group_by_none">"無"</string>
+    <string name="group_by_ssid">"接入點名稱"</string>
     <string name="group_by_channel">"頻道"</string>
 
     <string name="connection_view_title">"連接顯示"</string>
