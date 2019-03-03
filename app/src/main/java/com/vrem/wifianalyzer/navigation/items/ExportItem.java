@@ -104,7 +104,11 @@ class ExportItem implements NavigationItem {
     @NonNull
     private String getTitle(@NonNull MainActivity mainActivity) {
         Resources resources = mainActivity.getResources();
-        return resources.getString(R.string.action_access_points);
+        // let's combine timestamp to filename no spaces so other apps can handle it
+        String TIME_STAMP_FORMAT = "yyyyMMdd_HHmmss";
+        String timestamp = new SimpleDateFormat(TIME_STAMP_FORMAT).format(new Date());
+        String stampfilename = timestamp +"-"+ resources.getString(R.string.action_access_points);
+        return stampfilename;
     }
 
     private Intent createIntent(String title, String data) {
