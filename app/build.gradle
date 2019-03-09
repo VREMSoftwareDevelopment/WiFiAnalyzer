@@ -23,7 +23,7 @@ apply from: "jacoco.gradle"
 ext {
     supportVersion = "28.0.0"
     lang3Version = "3.8.1"
-    collections4Version = "4.2"
+    collections4Version = "4.3"
     graphviewVersion = "4.2.2"
     powermockVersion = "1.7.4"
     robolectricVersion = "4.1"
@@ -31,6 +31,30 @@ ext {
     junitToolboxVersion = "2.4"
     espressoVersion = "3.0.2"
     testVersion = "1.0.2"
+}
+
+// dependencies -------------------------------------------------
+dependencies {
+    // Compile Build Dependencies
+    implementation fileTree(include: ["*.jar"], dir: "libs")
+    implementation "com.android.support:design:$supportVersion"
+    implementation "com.android.support:preference-v7:$supportVersion"
+    implementation "com.android.support:support-v4:$supportVersion"
+    implementation "com.android.support:support-media-compat:$supportVersion"
+    implementation "org.apache.commons:commons-lang3:$lang3Version"
+    implementation "org.apache.commons:commons-collections4:$collections4Version"
+    implementation "com.jjoe64:graphview:$graphviewVersion"
+    // Unit Test Dependencies
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
+    testImplementation "org.powermock:powermock-api-mockito2:$powermockVersion"
+    testImplementation "com.googlecode.junit-toolbox:junit-toolbox:$junitToolboxVersion"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "org.robolectric:shadows-supportv4:$robolectricVersion"
+    // Android Test Dependencies
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "com.android.support.test:runner:$testVersion"
+    androidTestImplementation "com.android.support.test:rules:$testVersion"
 }
 
 android {
@@ -96,30 +120,6 @@ if (project.hasProperty("keyAlias")) {
     android.buildTypes.release.signingConfig.keyPassword = properties["key_password"].toString()
     android.buildTypes.release.signingConfig.storeFile = file(properties["store_filename"].toString())
     android.buildTypes.release.signingConfig.storePassword = properties["store_password"].toString()
-}
-
-// dependencies -------------------------------------------------
-dependencies {
-    // Compile Build Dependencies
-    implementation fileTree(include: ["*.jar"], dir: "libs")
-    implementation "com.android.support:design:$supportVersion"
-    implementation "com.android.support:preference-v7:$supportVersion"
-    implementation "com.android.support:support-v4:$supportVersion"
-    implementation "com.android.support:support-media-compat:$supportVersion"
-    implementation "org.apache.commons:commons-lang3:$lang3Version"
-    implementation "org.apache.commons:commons-collections4:$collections4Version"
-    implementation "com.jjoe64:graphview:$graphviewVersion"
-    // Unit Test Dependencies
-    testImplementation "junit:junit:$junitVersion"
-    testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
-    testImplementation "org.powermock:powermock-api-mockito2:$powermockVersion"
-    testImplementation "com.googlecode.junit-toolbox:junit-toolbox:$junitToolboxVersion"
-    testImplementation "org.robolectric:robolectric:$robolectricVersion"
-    testImplementation "org.robolectric:shadows-supportv4:$robolectricVersion"
-    // Android Test Dependencies
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
-    androidTestImplementation "com.android.support.test:runner:$testVersion"
-    androidTestImplementation "com.android.support.test:rules:$testVersion"
 }
 
 // version -------------------------------------------------
