@@ -134,7 +134,7 @@ public class AboutFragmentTest {
         Intent expectedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         View view = fixture.getView().findViewById(R.id.writeReview);
         // execute
-        view.callOnClick();
+        view.performClick();
         // validate
         ShadowActivity shadowActivity = Shadows.shadowOf(mainActivity);
         Intent actualIntent = shadowActivity.getNextStartedActivity();
@@ -156,7 +156,7 @@ public class AboutFragmentTest {
         String expectedTitle = mainActivity.getApplicationContext().getString(titleId);
         String expectedMessage = FileUtils.readFile(mainActivity.getResources(), messageId);
         // execute
-        view.callOnClick();
+        view.performClick();
         // validate
         AlertDialog alertDialog = ShadowAlertDialog.getLatestAlertDialog();
         ShadowAlertDialog shadowAlertDialog = Shadows.shadowOf(alertDialog);
