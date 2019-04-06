@@ -30,8 +30,10 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.refresh.RefreshAction;
+import com.vrem.wifianalyzer.wifi.refresh.RefreshListener;
 
-public class ChannelRatingFragment extends Fragment {
+public class ChannelRatingFragment extends Fragment implements RefreshAction {
     private SwipeRefreshLayout swipeRefreshLayout;
     private ChannelRatingAdapter channelRatingAdapter;
 
@@ -41,7 +43,7 @@ public class ChannelRatingFragment extends Fragment {
         View view = inflater.inflate(R.layout.channel_rating_content, container, false);
 
         swipeRefreshLayout = view.findViewById(R.id.channelRatingRefresh);
-        swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
+        swipeRefreshLayout.setOnRefreshListener(new RefreshListener(this));
 
         TextView bestChannels = view.findViewById(R.id.channelRatingBestChannels);
         ListView listView = view.findViewById(R.id.channelRatingView);
@@ -54,7 +56,8 @@ public class ChannelRatingFragment extends Fragment {
         return view;
     }
 
-    private void refresh() {
+    @Override
+    public void refresh() {
         swipeRefreshLayout.setRefreshing(true);
         MainContext.INSTANCE.getScannerService().update();
         swipeRefreshLayout.setRefreshing(false);
@@ -76,10 +79,4 @@ public class ChannelRatingFragment extends Fragment {
         return channelRatingAdapter;
     }
 
-    private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
-        @Override
-        public void onRefresh() {
-            refresh();
-        }
-    }
 }

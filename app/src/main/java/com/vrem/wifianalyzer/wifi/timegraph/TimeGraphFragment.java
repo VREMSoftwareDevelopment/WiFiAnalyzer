@@ -29,10 +29,12 @@ import android.view.ViewGroup;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewAdd;
+import com.vrem.wifianalyzer.wifi.refresh.RefreshAction;
+import com.vrem.wifianalyzer.wifi.refresh.RefreshListener;
 
 import org.apache.commons.collections4.IterableUtils;
 
-public class TimeGraphFragment extends Fragment {
+public class TimeGraphFragment extends Fragment implements RefreshAction {
     private SwipeRefreshLayout swipeRefreshLayout;
     private TimeGraphAdapter timeGraphAdapter;
 
@@ -41,7 +43,7 @@ public class TimeGraphFragment extends Fragment {
         View view = inflater.inflate(R.layout.graph_content, container, false);
 
         swipeRefreshLayout = view.findViewById(R.id.graphRefresh);
-        swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
+        swipeRefreshLayout.setOnRefreshListener(new RefreshListener(this));
 
         timeGraphAdapter = new TimeGraphAdapter();
         addGraphViews(swipeRefreshLayout, timeGraphAdapter);
@@ -56,7 +58,8 @@ public class TimeGraphFragment extends Fragment {
             new GraphViewAdd(view.findViewById(R.id.graphFlipper)));
     }
 
-    private void refresh() {
+    @Override
+    public void refresh() {
         swipeRefreshLayout.setRefreshing(true);
         MainContext.INSTANCE.getScannerService().update();
         swipeRefreshLayout.setRefreshing(false);
@@ -76,13 +79,6 @@ public class TimeGraphFragment extends Fragment {
 
     TimeGraphAdapter getTimeGraphAdapter() {
         return timeGraphAdapter;
-    }
-
-    private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
-        @Override
-        public void onRefresh() {
-            refresh();
-        }
     }
 
 }

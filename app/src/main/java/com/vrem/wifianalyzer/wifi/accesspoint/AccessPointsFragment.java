@@ -29,8 +29,10 @@ import android.widget.ExpandableListView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.wifi.refresh.RefreshAction;
+import com.vrem.wifianalyzer.wifi.refresh.RefreshListener;
 
-public class AccessPointsFragment extends Fragment {
+public class AccessPointsFragment extends Fragment implements RefreshAction {
     private SwipeRefreshLayout swipeRefreshLayout;
     private AccessPointsAdapter accessPointsAdapter;
 
@@ -40,7 +42,7 @@ public class AccessPointsFragment extends Fragment {
         View view = inflater.inflate(R.layout.access_points_content, container, false);
 
         swipeRefreshLayout = view.findViewById(R.id.accessPointsRefresh);
-        swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
+        swipeRefreshLayout.setOnRefreshListener(new RefreshListener(this));
 
         accessPointsAdapter = new AccessPointsAdapter(getActivity());
         ExpandableListView expandableListView = view.findViewById(R.id.accessPointsView);
@@ -52,7 +54,8 @@ public class AccessPointsFragment extends Fragment {
         return view;
     }
 
-    private void refresh() {
+    @Override
+    public void refresh() {
         swipeRefreshLayout.setRefreshing(true);
         MainContext.INSTANCE.getScannerService().update();
         swipeRefreshLayout.setRefreshing(false);
@@ -74,10 +77,4 @@ public class AccessPointsFragment extends Fragment {
         return accessPointsAdapter;
     }
 
-    private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
-        @Override
-        public void onRefresh() {
-            refresh();
-        }
-    }
 }
