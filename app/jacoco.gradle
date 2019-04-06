@@ -18,10 +18,6 @@
 
 apply plugin: "jacoco"
 
-jacoco {
-    toolVersion = "0.8.2"
-}
-
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
 }

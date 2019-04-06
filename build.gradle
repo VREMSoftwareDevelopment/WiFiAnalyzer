@@ -25,7 +25,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
-        classpath 'org.jacoco:org.jacoco.core:0.8.2'
     }
 }
 
