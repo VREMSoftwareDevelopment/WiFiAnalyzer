@@ -21,13 +21,17 @@ package com.vrem.wifianalyzer.settings;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceFragmentCompat;
 
+import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.R;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override
-    public void onCreatePreferences(Bundle bundle, String s) {
+    public void onCreatePreferences(Bundle bundle, String rootKey) {
         addPreferencesFromResource(R.xml.settings);
+        if (BuildUtils.isMinVersionP()) {
+            findPreference(getString(R.string.scan_interval_key)).setVisible(false);
+        }
     }
 
 }

@@ -24,7 +24,6 @@ import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -35,6 +34,7 @@ import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -118,10 +118,10 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         ratingBar.setNumStars(size);
         ratingBar.setRating(strength.ordinal() + 1);
         int color = ContextCompat.getColor(getContext(), strength.colorResource());
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            setRatingBarColor(ratingBar.getProgressDrawable(), color);
-        } else {
+        if (BuildUtils.isMinVersionL()) {
             ratingBar.setProgressTintList(ColorStateList.valueOf(color));
+        } else {
+            setRatingBarColor(ratingBar.getProgressDrawable(), color);
         }
 
         return view;

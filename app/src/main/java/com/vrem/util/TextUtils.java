@@ -18,7 +18,6 @@
 
 package com.vrem.util;
 
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.text.Html;
 import android.text.Spanned;
@@ -66,7 +65,7 @@ public class TextUtils {
     @SuppressWarnings("deprecation")
     @NonNull
     public static Spanned fromHtml(@NonNull String text) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (BuildUtils.isMinVersionN()) {
             return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
         }
         return Html.fromHtml(text);

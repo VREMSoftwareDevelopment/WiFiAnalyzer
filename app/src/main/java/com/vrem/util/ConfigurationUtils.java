@@ -35,7 +35,7 @@ public class ConfigurationUtils {
     @NonNull
     public static Context createContext(@NonNull Context context, @NonNull Locale newLocale) {
         return
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+            BuildUtils.isMinVersionN()
                 ? createContextNougat(context, newLocale)
                 : createContextLegacy(context, newLocale);
     }

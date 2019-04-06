@@ -21,8 +21,9 @@ package com.vrem.wifianalyzer;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.support.annotation.NonNull;
+
+import com.vrem.util.BuildUtils;
 
 class PermissionChecker {
     static final String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -59,7 +60,7 @@ class PermissionChecker {
     }
 
     private boolean isGranted(String accessCoarseLocation) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (BuildUtils.isMinVersionM()) {
             return activity.checkSelfPermission(accessCoarseLocation) == PackageManager.PERMISSION_GRANTED;
         } else {
             return true;

@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.settings;
 
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
+import com.vrem.util.BuildUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.util.LocaleUtils;
 import com.vrem.wifianalyzer.R;
@@ -33,11 +34,13 @@ import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,8 +52,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.verifyNoMoreInteractions;
+import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(BuildUtils.class)
 public class SettingsTest {
     @Mock
     private Repository repository;
@@ -61,7 +68,15 @@ public class SettingsTest {
 
     @Before
     public void setUp() {
+        mockStatic(BuildUtils.class);
         fixture = new Settings(repository);
+    }
+
+    @After
+    public void tearDown() {
+        verifyNoMoreInteractions(BuildUtils.class);
+        verifyNoMoreInteractions(repository);
+        verifyNoMoreInteractions(onSharedPreferenceChangeListener);
     }
 
     @Test
@@ -81,6 +96,7 @@ public class SettingsTest {
     @Test
     public void testGetScanInterval() {
         // setup
+        when(BuildUtils.isMinVersionP()).thenReturn(false);
         int defaultValue = 10;
         int expected = 11;
         when(repository.getStringAsInteger(R.string.scan_interval_default, Settings.SCAN_INTERVAL_DEFAULT)).thenReturn(defaultValue);
@@ -91,6 +107,20 @@ public class SettingsTest {
         assertEquals(expected, actual);
         verify(repository).getStringAsInteger(R.string.scan_interval_default, Settings.SCAN_INTERVAL_DEFAULT);
         verify(repository).getStringAsInteger(R.string.scan_interval_key, defaultValue);
+        verifyStatic(BuildUtils.class);
+        BuildUtils.isMinVersionP();
+    }
+
+    @Test
+    public void testGetScanIntervalWithAndroidPPlus() {
+        // setup
+        when(BuildUtils.isMinVersionP()).thenReturn(true);
+        // execute
+        int actual = fixture.getScanInterval();
+        // validate
+        assertEquals(Settings.SCAN_INTERVAL_MIN_P, actual);
+        verifyStatic(BuildUtils.class);
+        BuildUtils.isMinVersionP();
     }
 
     @Test
@@ -355,6 +385,7 @@ public class SettingsTest {
         // validate
         assertTrue(actual);
         verify(repository).getBoolean(R.string.wifi_off_on_exit_key, true);
+        verify(repository).getResourceBoolean(R.bool.wifi_off_on_exit_default);
     }
 
     @Test
@@ -367,5 +398,6 @@ public class SettingsTest {
         // validate
         assertTrue(actual);
         verify(repository).getBoolean(R.string.keep_screen_on_key, true);
+        verify(repository).getResourceBoolean(R.bool.keep_screen_on_default);
     }
 }

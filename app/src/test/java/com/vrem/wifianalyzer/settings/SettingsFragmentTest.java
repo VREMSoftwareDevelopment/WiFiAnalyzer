@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.settings;
 
+import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.Before;
@@ -26,6 +27,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.support.v4.SupportFragmentController;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
@@ -40,8 +42,11 @@ public class SettingsFragmentTest {
 
     @Test
     public void testOnCreateView() {
+        // setup
+        String scanIntervalKey = fixture.getString(R.string.scan_interval_key);
         // validate
         assertNotNull(fixture.getView());
+        assertFalse(fixture.findPreference(scanIntervalKey).isVisible());
     }
 
 }

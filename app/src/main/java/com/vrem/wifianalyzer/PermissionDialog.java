@@ -22,9 +22,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.View;
+
+import com.vrem.util.BuildUtils;
 
 class PermissionDialog {
     private final Activity activity;
@@ -56,7 +57,7 @@ class PermissionDialog {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             dialog.dismiss();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (BuildUtils.isMinVersionM()) {
                 activity.requestPermissions(PermissionChecker.PERMISSIONS, PermissionChecker.REQUEST_CODE);
             }
         }
