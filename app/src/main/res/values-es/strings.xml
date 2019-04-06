@@ -42,7 +42,7 @@
     <string name="no_data_msg">"Por favor, visite frecuentemente preguntas sección en nuestro sitio web."</string>
     <string name="no_data_geo_warning">"Algunos usuarios de Android OS 6 (Marshmallow) han informado de que el servicio de localización debe estar habilitado para ver las redes Wi-Fi. Usuarios de Marshmallow pueden tener que activar el servicio de localización, aunque WiFiAnalyzer no lo requiera explícitamente. Parece ser atribuido a un problema potencial de Android 6 que necesita el servicio de localización para las redes WiFi."</string>
     <string name="permission_msg">"A partir de Android Marshmallow, se requieren permisos de ubicación para realizar un escaneo WiFi. Se le pedirá que habilite los servicios / permisos de ubicación. Como esta aplicación no requiere acceso a Internet, puede estar seguro de que esta aplicación no puede transmitir su ubicación!"</string>
-
+    <string name="location_msg">"Esta aplicación puede obtener tu ubicación a partir de fuentes de red como las antenas de telefonía móvil y las redes Wi-Fi. Estos servicios de ubicación deben estar activados y disponibles en tu teléfono para que la aplicación pueda usarlos."</string>
     <string name="export_not_available">"Exportación no disponible"</string>
 
     <string name="channel_rating_best">"Mejores canales:"</string>

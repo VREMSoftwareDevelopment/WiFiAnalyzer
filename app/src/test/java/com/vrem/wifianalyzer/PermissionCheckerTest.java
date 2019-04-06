@@ -40,12 +40,14 @@ import static org.mockito.Mockito.when;
 public class PermissionCheckerTest {
 
     private Activity activity;
+    private PermissionDialog permissionDialog;
     private PermissionChecker fixture;
 
     @Before
     public void setUp() {
         activity = mock(Activity.class);
-        fixture = new PermissionChecker(activity);
+        permissionDialog = mock(PermissionDialog.class);
+        fixture = new PermissionChecker(activity, permissionDialog);
     }
 
     @After
@@ -107,7 +109,7 @@ public class PermissionCheckerTest {
         verify(activity).checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
         verify(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         verify(activity).isFinishing();
-        verify(activity).requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PermissionChecker.REQUEST_CODE);
+        verify(permissionDialog).show();
     }
 
     @Test

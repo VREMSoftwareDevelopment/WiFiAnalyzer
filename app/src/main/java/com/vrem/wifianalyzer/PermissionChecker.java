@@ -25,28 +25,45 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 
 class PermissionChecker {
+    static final String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION};
     static final int REQUEST_CODE = 0x123450;
 
     private final Activity activity;
+    private final PermissionDialog permissionDialog;
 
     PermissionChecker(@NonNull Activity activity) {
+        this(activity, new PermissionDialog(activity));
+    }
+
+    PermissionChecker(@NonNull Activity activity, @NonNull PermissionDialog permissionDialog) {
         this.activity = activity;
+        this.permissionDialog = permissionDialog;
     }
 
     void check() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (activity.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-                activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            if (activity.isFinishing()) {
-                return;
-            }
-            activity.requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE);
+        if (isGranted()) {
+            return;
         }
+        if (activity.isFinishing()) {
+            return;
+        }
+        permissionDialog.show();
     }
 
     boolean isGranted(int requestCode, @NonNull int[] grantResults) {
         return requestCode == REQUEST_CODE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
     }
+
+    private boolean isGranted() {
+        return isGranted(Manifest.permission.ACCESS_COARSE_LOCATION) || isGranted(Manifest.permission.ACCESS_FINE_LOCATION);
+    }
+
+    private boolean isGranted(String accessCoarseLocation) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return activity.checkSelfPermission(accessCoarseLocation) == PackageManager.PERMISSION_GRANTED;
+        } else {
+            return true;
+        }
+    }
+
 }
