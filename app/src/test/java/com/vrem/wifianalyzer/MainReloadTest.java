@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer;
 
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
-import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointViewType;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType;
 
 import org.junit.After;
@@ -40,7 +39,6 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MainReloadTest {
-    private static final int GRAPH_MAXIMUM_Y = 10;
     private static final Locale TEST_LOCALE = Locale.UK;
     private Settings settings;
     private MainReload fixture;
@@ -50,9 +48,7 @@ public class MainReloadTest {
         settings = MainContextHelper.INSTANCE.getSettings();
 
         when(settings.getThemeStyle()).thenReturn(ThemeStyle.DARK);
-        when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPLETE);
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
-        when(settings.getGraphMaximumY()).thenReturn(GRAPH_MAXIMUM_Y);
         when(settings.getLanguageLocale()).thenReturn(TEST_LOCALE);
 
         fixture = new MainReload(settings);
@@ -61,9 +57,7 @@ public class MainReloadTest {
     @After
     public void tearDown() {
         verify(settings, atLeastOnce()).getThemeStyle();
-        verify(settings, atLeastOnce()).getAccessPointView();
         verify(settings, atLeastOnce()).getConnectionViewType();
-        verify(settings, atLeastOnce()).getGraphMaximumY();
         verify(settings, atLeastOnce()).getLanguageLocale();
 
         MainContextHelper.INSTANCE.restore();
@@ -91,27 +85,6 @@ public class MainReloadTest {
     }
 
     @Test
-    public void testShouldNotReloadWithNoAccessPointViewChanges() {
-        // execute
-        boolean actual = fixture.shouldReload(settings);
-        // validate
-        assertFalse(actual);
-        assertEquals(AccessPointViewType.COMPLETE, fixture.getAccessPointViewType());
-    }
-
-    @Test
-    public void testShouldReloadWithAccessPointViewChange() {
-        // setup
-        AccessPointViewType expected = AccessPointViewType.COMPACT;
-        when(settings.getAccessPointView()).thenReturn(expected);
-        // execute
-        boolean actual = fixture.shouldReload(settings);
-        // validate
-        assertTrue(actual);
-        assertEquals(expected, fixture.getAccessPointViewType());
-    }
-
-    @Test
     public void testShouldNotReloadWithNoConnectionViewTypeChanges() {
         // execute
         boolean actual = fixture.shouldReload(settings);
@@ -130,27 +103,6 @@ public class MainReloadTest {
         // validate
         assertTrue(actual);
         assertEquals(expected, fixture.getConnectionViewType());
-    }
-
-    @Test
-    public void testShouldNotReloadWithNoGraphMaximumYChanges() {
-        // execute
-        boolean actual = fixture.shouldReload(settings);
-        // validate
-        assertFalse(actual);
-        assertEquals(GRAPH_MAXIMUM_Y, fixture.getGraphMaximumY());
-    }
-
-    @Test
-    public void testShouldReloadWithGraphMaximumYChange() {
-        // setup
-        int expected = -GRAPH_MAXIMUM_Y;
-        when(settings.getGraphMaximumY()).thenReturn(expected);
-        // execute
-        boolean actual = fixture.shouldReload(settings);
-        // validate
-        assertTrue(actual);
-        assertEquals(expected, fixture.getGraphMaximumY());
     }
 
     @Test

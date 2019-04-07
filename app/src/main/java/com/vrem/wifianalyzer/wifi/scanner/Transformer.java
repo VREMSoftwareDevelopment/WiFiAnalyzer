@@ -23,6 +23,7 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 
+import com.vrem.util.BuildUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
@@ -93,6 +94,10 @@ class Transformer {
         return (int) declaredField.get(scanResult);
     }
 
+    private boolean is80211mc(@NonNull ScanResult scanResult) {
+        return BuildUtils.isMinVersionM() && scanResult.is80211mcResponder();
+    }
+
     @NonNull
     WiFiData transformToWiFiData(List<CacheResult> cacheResults, WifiInfo wifiInfo, List<WifiConfiguration> configuredNetworks) {
         List<WiFiDetail> wiFiDetails = transformCacheResults(cacheResults);
@@ -113,7 +118,7 @@ class Transformer {
             ScanResult scanResult = input.getScanResult();
             WiFiWidth wiFiWidth = getWiFiWidth(scanResult);
             int centerFrequency = getCenterFrequency(scanResult, wiFiWidth);
-            WiFiSignal wiFiSignal = new WiFiSignal(scanResult.frequency, centerFrequency, wiFiWidth, input.getLevelAverage());
+            WiFiSignal wiFiSignal = new WiFiSignal(scanResult.frequency, centerFrequency, wiFiWidth, input.getLevelAverage(), is80211mc(scanResult));
             return new WiFiDetail(scanResult.SSID, scanResult.BSSID, scanResult.capabilities, wiFiSignal);
         }
     }

@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi.graphutils;
 
+import android.graphics.Color;
 import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
@@ -27,6 +28,7 @@ import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.BaseSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.vrem.wifianalyzer.Configuration;
+import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import org.junit.Before;
@@ -77,7 +79,7 @@ public class GraphViewWrapperTest {
 
         when(graphView.getLegendRenderer()).thenReturn(legendRenderer);
 
-        fixture = new GraphViewWrapper(graphView, GraphLegend.HIDE) {
+        fixture = new GraphViewWrapper(graphView, GraphLegend.HIDE, ThemeStyle.DARK) {
             @Override
             protected LegendRenderer newLegendRenderer() {
                 return legendRenderer;
@@ -232,6 +234,7 @@ public class GraphViewWrapperTest {
         verify(legendRenderer).resetStyles();
         verify(legendRenderer).setWidth(0);
         verify(legendRenderer).setTextSize(textSize);
+        verify(legendRenderer).setTextColor(Color.WHITE);
     }
 
     @Test

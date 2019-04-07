@@ -93,7 +93,7 @@ class Scanner implements ScannerService {
     }
 
     @Override
-    public void setWiFiOnExit() {
+    public void stop() {
         if (settings.isWiFiOffOnExit()) {
             try {
                 wifiManager.setWifiEnabled(false);
@@ -140,7 +140,9 @@ class Scanner implements ScannerService {
         try {
             if (wifiManager.startScan()) {
                 List<ScanResult> scanResults = wifiManager.getScanResults();
-                cache.add(scanResults);
+                if (scanResults != null) {
+                    cache.add(scanResults);
+                }
             }
         } catch (Exception e) {
             // critical error: do not die

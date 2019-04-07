@@ -35,6 +35,7 @@ import java.util.Deque;
 import java.util.List;
 
 class Cache {
+
     private static final int ADJUST = 10;
     private final Deque<List<ScanResult>> cachedScanResults = new ArrayDeque<>();
 
@@ -62,7 +63,7 @@ class Cache {
     }
 
     @NonNull
-    private CacheResult getCacheResult(ScanResult current, int level, int count) {
+    private CacheResult getCacheResult(@NonNull ScanResult current, int level, int count) {
         CacheResult cacheResult;
         if (isSizeAvailable()) {
             cacheResult = new CacheResult(current, level / count);
@@ -80,19 +81,22 @@ class Cache {
         return scanResults;
     }
 
-    void add(List<ScanResult> scanResults) {
+    void add(@NonNull List<ScanResult> scanResults) {
         int cacheSize = getCacheSize();
         while (cachedScanResults.size() >= cacheSize) {
             cachedScanResults.pollLast();
         }
-        if (scanResults != null) {
-            cachedScanResults.addFirst(scanResults);
-        }
+        cachedScanResults.addFirst(scanResults);
     }
 
     @NonNull
-    Deque<List<ScanResult>> getCachedScanResults() {
-        return cachedScanResults;
+    List<ScanResult> getFirst() {
+        return cachedScanResults.getFirst();
+    }
+
+    @NonNull
+    List<ScanResult> getLast() {
+        return cachedScanResults.getLast();
     }
 
     int getCacheSize() {

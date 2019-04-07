@@ -38,5 +38,5 @@ public interface ScannerService {
 
     void resume();
 
-    void setWiFiOnExit();
+    void stop();
 }

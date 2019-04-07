@@ -60,7 +60,7 @@ public class InRangePredicateTest {
     }
 
     private WiFiDetail makeWiFiDetail(int frequency) {
-        WiFiSignal wiFiSignal = new WiFiSignal(frequency + 20, frequency, WiFiWidth.MHZ_20, -10);
+        WiFiSignal wiFiSignal = new WiFiSignal(frequency + 20, frequency, WiFiWidth.MHZ_20, -10, true);
         return new WiFiDetail("SSID", "BSSID", StringUtils.EMPTY, wiFiSignal, WiFiAdditional.EMPTY);
     }
 

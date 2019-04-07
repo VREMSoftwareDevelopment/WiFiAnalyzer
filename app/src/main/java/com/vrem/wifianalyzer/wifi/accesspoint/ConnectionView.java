@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
@@ -63,7 +64,10 @@ public class ConnectionView implements UpdateNotifier {
     private void displayNoData(@NonNull WiFiData wiFiData) {
         int visibility = noData(wiFiData) ? View.VISIBLE : View.GONE;
         mainActivity.findViewById(R.id.scanning).setVisibility(visibility);
-        mainActivity.findViewById(R.id.nodata).setVisibility(visibility);
+        mainActivity.findViewById(R.id.no_data).setVisibility(visibility);
+        if (BuildUtils.isMinVersionM()) {
+            mainActivity.findViewById(R.id.no_location).setVisibility(visibility);
+        }
     }
 
     private boolean noData(@NonNull WiFiData wiFiData) {

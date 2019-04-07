@@ -217,7 +217,7 @@ public class DataManagerTest {
     }
 
     private WiFiSignal makeWiFiSignal() {
-        return new WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, LEVEL);
+        return new WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, LEVEL, true);
     }
 
     private WiFiDetail makeWiFiDetail(@NonNull String SSID) {

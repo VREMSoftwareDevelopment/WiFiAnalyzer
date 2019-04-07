@@ -138,7 +138,7 @@ public class MainActivityTest {
         // execute
         fixture.onStop();
         // validate
-        verify(scanner).setWiFiOnExit();
+        verify(scanner).stop();
     }
 
     @Test

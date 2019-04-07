@@ -53,7 +53,7 @@ public class WiFiBandPredicateTest {
 
     @NonNull
     private WiFiDetail makeWiFiDetail(int frequency) {
-        WiFiSignal wiFiSignal = new WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, 1);
+        WiFiSignal wiFiSignal = new WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, 1, true);
         return new WiFiDetail("ssid", "bssid", "wpa", wiFiSignal, WiFiAdditional.EMPTY);
     }
 

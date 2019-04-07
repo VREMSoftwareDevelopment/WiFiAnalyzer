@@ -155,22 +155,22 @@ public class ScannerTest {
     }
 
     @Test
-    public void testSetWiFiOnExitOff() {
+    public void testStopWithIsWiFiOffOnExitTurnsOffWiFi() {
         // setup
         when(settings.isWiFiOffOnExit()).thenReturn(true);
         // execute
-        fixture.setWiFiOnExit();
+        fixture.stop();
         // validate
         verify(settings).isWiFiOffOnExit();
         verify(wifiManager).setWifiEnabled(false);
     }
 
     @Test
-    public void testSetWiFiOnExitDoNothing() {
+    public void testStopDoesNotTurnsOffWiFi() {
         // setup
         when(settings.isWiFiOffOnExit()).thenReturn(false);
         // execute
-        fixture.setWiFiOnExit();
+        fixture.stop();
         // validate
         verify(settings).isWiFiOffOnExit();
         verify(wifiManager, never()).setWifiEnabled(anyBoolean());

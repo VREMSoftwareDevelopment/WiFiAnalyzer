@@ -30,6 +30,7 @@ import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
@@ -93,9 +94,9 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     @NonNull
-    private GraphView makeGraphView(@NonNull MainContext mainContext, @NonNull Settings settings) {
+    private GraphView makeGraphView(@NonNull MainContext mainContext, int graphMaximumY, @NonNull ThemeStyle themeStyle) {
         Resources resources = mainContext.getResources();
-        return new GraphViewBuilder(mainContext.getContext(), getNumX(), settings.getGraphMaximumY(), settings.getThemeStyle())
+        return new GraphViewBuilder(mainContext.getContext(), getNumX(), graphMaximumY, themeStyle)
             .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair))
             .setVerticalTitle(resources.getString(R.string.graph_axis_y))
             .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
@@ -107,8 +108,10 @@ class ChannelGraphView implements GraphViewNotifier {
         MainContext mainContext = MainContext.INSTANCE;
         Settings settings = mainContext.getSettings();
         Configuration configuration = mainContext.getConfiguration();
-        GraphView graphView = makeGraphView(mainContext, settings);
-        graphViewWrapper = new GraphViewWrapper(graphView, settings.getChannelGraphLegend());
+        ThemeStyle themeStyle = settings.getThemeStyle();
+        int graphMaximumY = settings.getGraphMaximumY();
+        GraphView graphView = makeGraphView(mainContext, graphMaximumY, themeStyle);
+        graphViewWrapper = new GraphViewWrapper(graphView, settings.getChannelGraphLegend(), themeStyle);
         configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
         int minX = wiFiChannelPair.first.getFrequency() - WiFiChannels.FREQUENCY_OFFSET;
         int maxX = minX + (graphViewWrapper.getViewportCntX() * WiFiChannels.FREQUENCY_SPREAD);

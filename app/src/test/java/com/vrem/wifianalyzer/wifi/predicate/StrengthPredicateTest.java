@@ -44,7 +44,7 @@ public class StrengthPredicateTest {
 
     @NonNull
     private WiFiDetail makeWiFiDetail(int level) {
-        WiFiSignal wiFiSignal = new WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, level);
+        WiFiSignal wiFiSignal = new WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, level, true);
         return new WiFiDetail("ssid", "bssid", "wpa", wiFiSignal, WiFiAdditional.EMPTY);
     }
 

@@ -40,7 +40,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Locale;
 
 public class AccessPointDetail {
-    private static final int VENDOR_SHORT_MAX = 10;
+    private static final int VENDOR_SHORT_MAX = 12;
     private static final int VENDOR_LONG_MAX = 30;
 
     View makeView(View convertView, ViewGroup parent, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
@@ -69,9 +69,14 @@ public class AccessPointDetail {
         setViewCompact(view, wiFiDetail, false);
         setViewExtra(view, wiFiDetail);
         setViewVendorLong(view, wiFiDetail.getWiFiAdditional());
+        setView80211mc(view, wiFiDetail.getWiFiSignal());
         enableTextSelection(view);
 
         return view;
+    }
+
+    private void setView80211mc(View view, WiFiSignal wiFiSignal) {
+        view.findViewById(R.id.flag80211mc).setVisibility(wiFiSignal.is80211mc() ? View.VISIBLE : View.GONE);
     }
 
     private void enableTextSelection(View view) {

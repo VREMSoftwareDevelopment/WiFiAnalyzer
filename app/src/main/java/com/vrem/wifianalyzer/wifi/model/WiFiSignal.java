@@ -33,7 +33,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.util.Locale;
 
 public class WiFiSignal {
-    public static final WiFiSignal EMPTY = new WiFiSignal(0, 0, WiFiWidth.MHZ_20, 0);
+    public static final WiFiSignal EMPTY = new WiFiSignal(0, 0, WiFiWidth.MHZ_20, 0, false);
     public static final String FREQUENCY_UNITS = "MHz";
 
     private final int primaryFrequency;
@@ -41,12 +41,14 @@ public class WiFiSignal {
     private final WiFiWidth wiFiWidth;
     private final WiFiBand wiFiBand;
     private final int level;
+    private final boolean is80211mc;
 
-    public WiFiSignal(int primaryFrequency, int centerFrequency, @NonNull WiFiWidth wiFiWidth, int level) {
+    public WiFiSignal(int primaryFrequency, int centerFrequency, @NonNull WiFiWidth wiFiWidth, int level, boolean is80211mc) {
         this.primaryFrequency = primaryFrequency;
         this.centerFrequency = centerFrequency;
         this.wiFiWidth = wiFiWidth;
         this.level = level;
+        this.is80211mc = is80211mc;
         this.wiFiBand = EnumUtils.find(WiFiBand.class, new FrequencyPredicate(primaryFrequency), WiFiBand.GHZ2);
     }
 
@@ -88,6 +90,10 @@ public class WiFiSignal {
 
     public int getLevel() {
         return level;
+    }
+
+    public boolean is80211mc() {
+        return is80211mc;
     }
 
     @NonNull

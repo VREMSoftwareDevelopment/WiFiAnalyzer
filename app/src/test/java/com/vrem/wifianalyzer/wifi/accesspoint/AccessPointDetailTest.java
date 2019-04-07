@@ -153,7 +153,7 @@ public class AccessPointDetailTest {
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
-        validateTextViewValue(actual, VENDOR_NAME.substring(0, 10), R.id.vendorShort);
+        validateTextViewValue(actual, VENDOR_NAME.substring(0, 12), R.id.vendorShort);
     }
 
     @Test
@@ -332,8 +332,36 @@ public class AccessPointDetailTest {
         assertTrue(actual.<TextView>findViewById(R.id.vendorLong).isTextSelectable());
     }
 
+    @Test
+    public void testMakeViewDetailedWith80211mcNotVisible() {
+        // setup
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        // execute
+        View actual = fixture.makeViewDetailed(wiFiDetail);
+        // validate
+        assertEquals(View.GONE, actual.findViewById(R.id.flag80211mc).getVisibility());
+    }
+
+    @Test
+    public void testMakeViewDetailedWith80211mcVisible() {
+        // setup
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME, false), true);
+        // execute
+        View actual = fixture.makeViewDetailed(wiFiDetail);
+        // validate
+        assertEquals(View.VISIBLE, actual.findViewById(R.id.flag80211mc).getVisibility());
+    }
+
     private WiFiDetail withWiFiDetail(String SSID, WiFiAdditional wiFiAdditional) {
-        return new WiFiDetail(SSID, "BSSID", "capabilities", new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2), wiFiAdditional);
+        return new WiFiDetail(SSID, "BSSID", "capabilities",
+            new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, false),
+            wiFiAdditional);
+    }
+
+    private WiFiDetail withWiFiDetail(String SSID, WiFiAdditional wiFiAdditional, boolean is80211mc) {
+        return new WiFiDetail(SSID, "BSSID", "capabilities",
+            new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, is80211mc),
+            wiFiAdditional);
     }
 
     private void validateTextViewValuesFullView(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {

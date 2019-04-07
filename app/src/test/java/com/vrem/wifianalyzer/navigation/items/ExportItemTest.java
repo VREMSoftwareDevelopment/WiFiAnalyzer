@@ -45,7 +45,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Collections;
-import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -79,7 +78,8 @@ public class ExportItemTest {
         scanner = MainContextHelper.INSTANCE.getScannerService();
 
         sendTitle = "title";
-        wiFiDetail = new WiFiDetail("SSID", "BSSID", "capabilities", new WiFiSignal(2412, 2422, WiFiWidth.MHZ_40, -40));
+        wiFiDetail = new WiFiDetail("SSID", "BSSID", "capabilities",
+            new WiFiSignal(2412, 2422, WiFiWidth.MHZ_40, -40, true));
 
         fixture = new ExportItem() {
             @Override
@@ -112,27 +112,11 @@ public class ExportItemTest {
         // execute
         fixture.activate(mainActivity, menuItem, NavigationMenu.EXPORT);
         // validate
-        String timestamp = fixture.getTimestamp();
-        String sendData = fixture.getData(timestamp, wiFiData.getWiFiDetails());
         verify(scanner).getWiFiData();
         verifyResources();
         verifyResolveActivity();
-        verifySendIntentInformation(sendData);
+        verifySendIntentInformation(fixture.getExportData());
         verify(mainActivity).startActivity(chooserIntent);
-    }
-
-    @Test
-    public void testGetData() {
-        // setup
-        WiFiData wiFiData = withWiFiData();
-        String expected =
-            String.format(Locale.ENGLISH,
-                "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security%n"
-                    + "TimeStamp1|SSID|BSSID|-40dBm|1|2412MHz|3|2422MHz|40MHz (2402 - 2442)|~1.0m|capabilities%n");
-        // execute
-        String actual = fixture.getData("TimeStamp1", wiFiData.getWiFiDetails());
-        // validate
-        assertEquals(expected, actual);
     }
 
     @Test

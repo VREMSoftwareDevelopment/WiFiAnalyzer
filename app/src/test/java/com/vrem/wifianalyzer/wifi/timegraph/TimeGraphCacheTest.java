@@ -92,7 +92,8 @@ public class TimeGraphCacheTest {
     }
 
     private WiFiDetail withWiFiDetail(String SSID) {
-        return new WiFiDetail(SSID, "BSSID", StringUtils.EMPTY, new WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5));
+        return new WiFiDetail(SSID, "BSSID", StringUtils.EMPTY,
+            new WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5, true));
     }
 
     private List<WiFiDetail> withWiFiDetails() {

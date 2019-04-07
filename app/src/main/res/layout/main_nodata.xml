@@ -18,6 +18,7 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical">
@@ -31,7 +32,8 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,14 +58,15 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/nodata"
+        android:id="@+id/no_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <TextView
             android:layout_width="match_parent"
@@ -74,18 +77,33 @@
             android:textColor="@color/error_color"
             android:textStyle="bold"/>
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/no_location"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:autoLink="web"
-            android:gravity="center"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:text="@string/no_data_geo_warning"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/permission_msg"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableStart="@drawable/ic_location_on_blue_500_36dp"
+                android:gravity="center"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/location_msg"/>
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:autoLink="web"
             android:gravity="center"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:text="@string/no_data_msg"/>

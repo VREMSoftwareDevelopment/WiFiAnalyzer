@@ -37,7 +37,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -79,21 +78,13 @@ public class CacheTest {
     }
 
     @Test
-    public void testAddWithNullsWithSizeAvailable() {
-        // execute
-        fixture.add(null);
-        // validate
-        assertTrue(fixture.getCachedScanResults().isEmpty());
-    }
-
-    @Test
     public void testAddWithSizeAvailable() {
         // setup
         List<ScanResult> scanResults = Collections.emptyList();
         // execute
         fixture.add(scanResults);
         // validate
-        assertEquals(scanResults, fixture.getCachedScanResults().getFirst());
+        assertEquals(scanResults, fixture.getFirst());
     }
 
     @Test
@@ -109,9 +100,8 @@ public class CacheTest {
         }
         // validate
         assertEquals(cacheSize, expected.size());
-        assertEquals(cacheSize, fixture.getCachedScanResults().size());
-        assertEquals(expected.get(cacheSize - 1), fixture.getCachedScanResults().getFirst());
-        assertEquals(expected.get(cacheSize - 2), fixture.getCachedScanResults().getLast());
+        assertEquals(expected.get(cacheSize - 1), fixture.getFirst());
+        assertEquals(expected.get(cacheSize - 2), fixture.getLast());
     }
 
     @Test
@@ -149,16 +139,6 @@ public class CacheTest {
     }
 
     @Test
-    public void testAddWithNulls() {
-        // setup
-        when(configuration.isSizeAvailable()).thenReturn(false);
-        // execute
-        fixture.add(null);
-        // validate
-        assertTrue(fixture.getCachedScanResults().isEmpty());
-    }
-
-    @Test
     public void testAdd() {
         // setup
         when(configuration.isSizeAvailable()).thenReturn(false);
@@ -166,13 +146,12 @@ public class CacheTest {
         // execute
         fixture.add(scanResults);
         // validate
-        assertEquals(scanResults, fixture.getCachedScanResults().getFirst());
+        assertEquals(scanResults, fixture.getFirst());
     }
 
     @Test
     public void testAddCompliesToMaxCacheSize() {
         // setup
-        int expectedSize = 1;
         int cacheSize = 2;
         when(configuration.isSizeAvailable()).thenReturn(false);
         List<List<ScanResult>> expected = new ArrayList<>();
@@ -184,9 +163,8 @@ public class CacheTest {
         }
         // validate
         assertEquals(cacheSize, expected.size());
-        assertEquals(expectedSize, fixture.getCachedScanResults().size());
-        assertEquals(expected.get(cacheSize - 1), fixture.getCachedScanResults().getFirst());
-        assertEquals(expected.get(cacheSize - 2), fixture.getCachedScanResults().getLast());
+        assertEquals(expected.get(cacheSize - 1), fixture.getFirst());
+        assertEquals(expected.get(cacheSize - 2), fixture.getLast());
     }
 
     @Test

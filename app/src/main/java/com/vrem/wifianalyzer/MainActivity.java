@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onStop() {
-        MainContext.INSTANCE.getScannerService().setWiFiOnExit();
+        MainContext.INSTANCE.getScannerService().stop();
         super.onStop();
     }
 
