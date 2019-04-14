@@ -49,11 +49,11 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:text="@string/scanner_message"
-            android:textColor="@color/success_color"
+            android:textColor="@color/success"
             android:textStyle="bold"/>
     </LinearLayout>
 
@@ -70,11 +70,11 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/no_data"
             android:textAlignment="center"
-            android:textColor="@color/error_color"
+            android:textColor="@color/error"
             android:textStyle="bold"/>
 
         <LinearLayout
@@ -85,34 +85,9 @@
             android:visibility="gone"
             tools:visibility="visible">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:text="@string/permission_msg"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawableStart="@drawable/ic_location_on_blue_500_36dp"
-                android:gravity="center"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:text="@string/location_msg"/>
+            <include layout="@layout/info_location"/>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:text="@string/no_data_msg"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:autoLink="web"
-            android:gravity="center"
-            android:text="@string/no_data_url"/>
+        <include layout="@layout/info_faq"/>
     </LinearLayout>
 </LinearLayout>

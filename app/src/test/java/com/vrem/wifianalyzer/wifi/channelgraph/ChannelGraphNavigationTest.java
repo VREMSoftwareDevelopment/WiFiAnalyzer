@@ -117,8 +117,8 @@ public class ChannelGraphNavigationTest {
     @Test
     public void testUpdateWithGHZ5AndUS() {
         // setup
-        int colorSelected = ContextCompat.getColor(mainActivity, R.color.connected);
-        int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.connected_background);
+        int colorSelected = ContextCompat.getColor(mainActivity, R.color.selected);
+        int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.background);
         Pair<WiFiChannel, WiFiChannel> selectedKey = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs().get(0);
         when(configuration.getWiFiChannelPair()).thenReturn(selectedKey);
         when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());

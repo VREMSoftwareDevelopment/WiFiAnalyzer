@@ -31,6 +31,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         addPreferencesFromResource(R.xml.settings);
         if (BuildUtils.isMinVersionP()) {
             findPreference(getString(R.string.scan_interval_key)).setVisible(false);
+            findPreference(getString(R.string.scan_fast_key)).setVisible(true);
+        } else {
+            findPreference(getString(R.string.scan_interval_key)).setVisible(true);
+            findPreference(getString(R.string.scan_fast_key)).setVisible(false);
         }
     }
 

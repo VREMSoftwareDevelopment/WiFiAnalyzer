@@ -27,7 +27,7 @@
         android:id="@+id/connection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/connected_background"
+        android:background="@color/background"
         android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
@@ -52,7 +52,7 @@
                 android:layout_marginLeft="@dimen/list_view_item_horizontal_tab"
                 android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                 android:layout_marginStart="@dimen/list_view_item_horizontal_tab"
-                android:textColor="@color/connected"
+                android:textColor="@color/selected"
                 android:textStyle="bold"/>
 
             <TextView
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                 android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
-                android:textColor="@color/connected"
+                android:textColor="@color/selected"
                 android:textStyle="bold"/>
         </LinearLayout>
     </LinearLayout>

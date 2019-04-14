@@ -18,17 +18,20 @@
 
 package com.vrem.wifianalyzer.settings;
 
+import android.os.Build;
+
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
 public class SettingsFragmentTest {
@@ -36,17 +39,52 @@ public class SettingsFragmentTest {
 
     @Before
     public void setUp() {
-        RobolectricUtil.INSTANCE.getActivity();
-        fixture = SupportFragmentController.setupFragment(new SettingsFragment());
+//        RobolectricUtil.INSTANCE.getActivity();
     }
 
     @Test
-    public void testOnCreateView() {
+    public void testOnCreate() {
         // setup
-        String scanIntervalKey = fixture.getString(R.string.scan_interval_key);
+        fixture = SupportFragmentController.setupFragment(new SettingsFragment());
         // validate
         assertNotNull(fixture.getView());
+    }
+
+    @Test
+    public void testScanIntervalIsInvisible() {
+        // setup
+        fixture = SupportFragmentController.setupFragment(new SettingsFragment());
+        String scanIntervalKey = fixture.getString(R.string.scan_interval_key);
+        // validate
         assertFalse(fixture.findPreference(scanIntervalKey).isVisible());
     }
 
+    @Test
+    public void testScanFastIsVisible() {
+        // setup
+        fixture = SupportFragmentController.setupFragment(new SettingsFragment());
+        String scanFastKey = fixture.getString(R.string.scan_fast_key);
+        // validate
+        assertTrue(fixture.findPreference(scanFastKey).isVisible());
+    }
+
+    @Config(sdk = Build.VERSION_CODES.O)
+    @Test
+    public void testScanIntervalIsVisible() {
+        // setup
+        fixture = SupportFragmentController.setupFragment(new SettingsFragment());
+        String scanIntervalKey = fixture.getString(R.string.scan_interval_key);
+        // validate
+        assertTrue(fixture.findPreference(scanIntervalKey).isVisible());
+    }
+
+    @Config(sdk = Build.VERSION_CODES.O)
+    @Test
+    public void testScanFastIsInvisible() {
+        // setup
+        fixture = SupportFragmentController.setupFragment(new SettingsFragment());
+        String scanFastKey = fixture.getString(R.string.scan_fast_key);
+        // validate
+        assertFalse(fixture.findPreference(scanFastKey).isVisible());
+    }
 }

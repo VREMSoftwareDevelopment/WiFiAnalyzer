@@ -65,6 +65,8 @@
     <string name="scan_interval_title">"Fréquence d\'analyse"</string>
     <string name="scan_interval_summary">"%s secondes entre chaque analyse"</string>
 
+    <string name="scan_fast_title">"Fast Scanning"</string>
+
     <string name="sort_by_title">"Trier les points d\'accès par:"</string>
     <string name="sort_by_signal_strength">"Force du signal"</string>
     <string name="sort_by_channel">"Canal"</string>

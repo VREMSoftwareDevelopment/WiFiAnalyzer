@@ -65,6 +65,8 @@
     <string name="scan_interval_title">"Интервал сканирования"</string>
     <string name="scan_interval_summary">"%s секунд между каждым сканированием"</string>
 
+    <string name="scan_fast_title">"Fast Scanning"</string>
+
     <string name="sort_by_title">"Сортировка"</string>
     <string name="sort_by_signal_strength">"Уровень сигнала"</string>
     <string name="sort_by_channel">"Канал"</string>

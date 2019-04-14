@@ -32,11 +32,11 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public enum Security {
-    NONE(R.drawable.ic_lock_open_black_18dp),
-    WPS(R.drawable.ic_lock_outline_black_18dp),
-    WEP(R.drawable.ic_lock_outline_black_18dp),
-    WPA(R.drawable.ic_lock_black_18dp),
-    WPA2(R.drawable.ic_lock_black_18dp);
+    NONE(R.drawable.ic_lock_open),
+    WPS(R.drawable.ic_lock_outline),
+    WEP(R.drawable.ic_lock_outline),
+    WPA(R.drawable.ic_lock),
+    WPA2(R.drawable.ic_lock);
 
     private final int imageResource;
 

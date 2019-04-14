@@ -50,7 +50,7 @@ public class Filter {
             .Builder(view.getContext())
             .setView(view)
             .setTitle(R.string.filter_title)
-            .setIcon(R.drawable.ic_filter_list_grey_500_24dp)
+            .setIcon(R.drawable.ic_filter_list)
             .setNegativeButton(R.string.filter_reset, new Reset())
             .setNeutralButton(R.string.filter_close, new Close())
             .setPositiveButton(R.string.filter_apply, new Apply())

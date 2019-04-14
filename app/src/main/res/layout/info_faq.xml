@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ WiFiAnalyzer
   ~ Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
@@ -17,12 +17,22 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
   -->
 
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="24dp"
-        android:height="24dp"
-        android:viewportHeight="24.0"
-        android:viewportWidth="24.0">
-    <path
-        android:fillColor="#000000"
-        android:pathData="M16.59,8.59L12,13.17 7.41,8.59 6,10l6,6 6,-6z"/>
-</vector>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/no_data_msg"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:gravity="center"
+        android:text="@string/no_data_url"/>
+</LinearLayout>

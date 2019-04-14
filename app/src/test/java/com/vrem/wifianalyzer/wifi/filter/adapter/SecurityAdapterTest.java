@@ -102,7 +102,7 @@ public class SecurityAdapterTest {
     @Test
     public void testGetColorWithExisting() {
         // execute & validate
-        assertEquals(R.color.connected, fixture.getColor(Security.WPA));
+        assertEquals(R.color.selected, fixture.getColor(Security.WPA));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class SecurityAdapterTest {
         // setup
         fixture.toggle(Security.WPA);
         // execute & validate
-        assertEquals(R.color.icons_color, fixture.getColor(Security.WPA));
+        assertEquals(R.color.regular, fixture.getColor(Security.WPA));
     }
 
     @Test

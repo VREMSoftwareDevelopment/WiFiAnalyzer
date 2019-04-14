@@ -28,34 +28,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:text="@string/permission_msg"/>
+        <include layout="@layout/info_location"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:drawableStart="@drawable/ic_location_on_blue_500_36dp"
-            android:text="@string/location_msg"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:gravity="center"
-            android:text="@string/no_data_msg"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:autoLink="web"
-            android:gravity="center"
-            android:text="@string/no_data_url"/>
-
+        <include layout="@layout/info_faq"/>
     </LinearLayout>
 </ScrollView>

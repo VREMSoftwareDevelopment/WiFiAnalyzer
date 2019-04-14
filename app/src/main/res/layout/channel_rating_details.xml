@@ -51,7 +51,7 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.75"
-        android:textColor="@color/connected"
+        android:textColor="@color/selected"
         android:textStyle="bold"/>
 
 </LinearLayout>

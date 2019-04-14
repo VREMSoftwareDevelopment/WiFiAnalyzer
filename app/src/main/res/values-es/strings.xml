@@ -65,6 +65,8 @@
     <string name="scan_interval_title">"Intervalo de exploración"</string>
     <string name="scan_interval_summary">"%s segundos entre exploraciones"</string>
 
+    <string name="scan_fast_title">"Fast Scanning"</string>
+
     <string name="sort_by_title">"Ordenar Puntos de Acceso por:"</string>
     <string name="sort_by_signal_strength">"Intensidad de señal"</string>
     <string name="sort_by_channel">"Canal"</string>

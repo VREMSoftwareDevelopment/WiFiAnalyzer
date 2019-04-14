@@ -18,12 +18,14 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:id="@+id/filterWiFiBand"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginTop="@dimen/activity_vertical_margin"
               android:orientation="vertical"
-              android:visibility="gone">
+              android:visibility="gone"
+              tools:visibility="visible">
 
     <TextView
         android:layout_width="match_parent"
@@ -33,25 +35,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_half_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/filterWifiBand2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/wifi_band_2ghz"
-            android:textColor="@color/connected"
+            android:textColor="@color/selected"
             android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/filterWifiBand5"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/wifi_band_5ghz"
-            android:textColor="@color/connected"
+            android:textColor="@color/selected"
             android:textStyle="bold"/>
 
     </LinearLayout>

@@ -35,7 +35,7 @@ class PermissionDialog {
     }
 
     void show() {
-        View view = activity.getLayoutInflater().inflate(R.layout.permission_info, null);
+        View view = activity.getLayoutInflater().inflate(R.layout.info_permission, null);
         new AlertDialog
             .Builder(activity)
             .setView(view)

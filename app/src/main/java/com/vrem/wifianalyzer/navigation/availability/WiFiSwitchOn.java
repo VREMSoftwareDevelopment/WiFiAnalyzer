@@ -44,8 +44,8 @@ class WiFiSwitchOn implements NavigationOption {
     private void applyToActionBar(@NonNull MainActivity mainActivity) {
         ActionBar actionBar = mainActivity.getSupportActionBar();
         if (actionBar != null) {
-            int colorSelected = ContextCompat.getColor(mainActivity, R.color.connected);
-            int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.icons_color);
+            int colorSelected = ContextCompat.getColor(mainActivity, R.color.selected);
+            int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.regular);
             Resources resources = mainActivity.getResources();
             String wiFiBand2 = resources.getString(WiFiBand.GHZ2.getTextResource());
             String wiFiBand5 = resources.getString(WiFiBand.GHZ5.getTextResource());

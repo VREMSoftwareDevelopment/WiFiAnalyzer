@@ -34,7 +34,7 @@ public class SecurityAdapter extends EnumFilterAdapter<Security> {
 
     @Override
     public int getColor(@NonNull Security object) {
-        return contains(object) ? R.color.connected : R.color.icons_color;
+        return contains(object) ? R.color.selected : R.color.regular;
     }
 
     @Override

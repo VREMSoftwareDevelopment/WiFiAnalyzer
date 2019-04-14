@@ -87,7 +87,7 @@ public class ScannerSwitchOnTest {
         verifyMenuItem();
         verify(scanner).isRunning();
         verify(menuItem).setTitle(R.string.scanner_pause);
-        verify(menuItem).setIcon(R.drawable.ic_pause_grey_500_24dp);
+        verify(menuItem).setIcon(R.drawable.ic_pause);
     }
 
     @Test
@@ -101,7 +101,7 @@ public class ScannerSwitchOnTest {
         verifyMenuItem();
         verify(scanner).isRunning();
         verify(menuItem).setTitle(R.string.scanner_play);
-        verify(menuItem).setIcon(R.drawable.ic_play_arrow_grey_500_24dp);
+        verify(menuItem).setIcon(R.drawable.ic_play_arrow);
     }
 
     private void verifyMenuItem() {

@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.wifi.accesspoint;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -59,9 +58,8 @@ class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNot
         if (childrenCount > 0) {
             groupIndicator.setVisibility(View.VISIBLE);
             groupIndicator.setImageResource(isExpanded
-                ? R.drawable.ic_expand_less_black_24dp
-                : R.drawable.ic_expand_more_black_24dp);
-            groupIndicator.setColorFilter(ContextCompat.getColor(context, R.color.icons_color));
+                ? R.drawable.ic_expand_less
+                : R.drawable.ic_expand_more);
         } else {
             groupIndicator.setVisibility(View.GONE);
         }

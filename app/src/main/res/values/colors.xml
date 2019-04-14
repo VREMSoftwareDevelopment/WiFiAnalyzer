@@ -18,12 +18,12 @@
   -->
 
 <resources>
-    <!-- blue_500 -->
-    <color name="connected">#2196F3</color>
-    <color name="connected_background">#616161</color>
-
     <!-- grey_500 -->
-    <color name="channel">#9E9E9E</color>
+    <color name="regular">#9E9E9E</color>
+    <!-- blue_500 -->
+    <color name="selected">#2196F3</color>
+    <!-- grey_500 -->
+    <color name="channel">@color/regular</color>
     <!-- cyan_500 -->
     <color name="channel_number">#00BCD4</color>
     <!-- cyan_700 -->
@@ -32,13 +32,12 @@
     <color name="security">#607D8B</color>
     <!-- teal_500 -->
     <color name="distance">#009688</color>
-
-    <!-- grey_500 -->
-    <color name="icons_color">#9E9E9E</color>
     <!-- red_500 -->
-    <color name="error_color">#F44336</color>
+    <color name="error">#F44336</color>
     <!-- amber_500 -->
-    <color name="warning_color">#FFC107</color>
+    <color name="warning">#FFC107</color>
     <!-- green_500 -->
-    <color name="success_color">#4CAF50</color>
+    <color name="success">#4CAF50</color>
+    <!-- background -->
+    <color name="background">#616161</color>
 </resources>

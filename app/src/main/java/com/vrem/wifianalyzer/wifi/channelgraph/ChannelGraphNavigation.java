@@ -137,10 +137,10 @@ class ChannelGraphNavigation {
 
         private void setSelected(Button button, boolean selected) {
             if (selected) {
-                button.setBackgroundColor(ContextCompat.getColor(context, R.color.connected));
+                button.setBackgroundColor(ContextCompat.getColor(context, R.color.selected));
                 button.setSelected(true);
             } else {
-                button.setBackgroundColor(ContextCompat.getColor(context, R.color.connected_background));
+                button.setBackgroundColor(ContextCompat.getColor(context, R.color.background));
                 button.setSelected(false);
             }
         }

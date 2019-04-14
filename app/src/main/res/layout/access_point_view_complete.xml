@@ -55,7 +55,8 @@
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                 android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                 android:contentDescription="@null"
-                android:src="@drawable/ic_tag_faces_blue_500_18dp"
+                android:src="@drawable/ic_tag_faces"
+                android:tint="@color/selected"
                 android:visibility="gone"/>
 
             <TextView
@@ -87,8 +88,8 @@
 
                 <ImageView
                     android:id="@+id/levelImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/icon_large"
+                    android:layout_height="@dimen/icon_large"
                     android:layout_gravity="center"
                     android:contentDescription="@null"/>
 
@@ -177,8 +178,8 @@
 
                     <ImageView
                         android:id="@+id/securityImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/icon_small"
+                        android:layout_height="@dimen/icon_small"
                         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                         android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                         android:contentDescription="@null"/>

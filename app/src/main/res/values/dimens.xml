@@ -23,8 +23,17 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="activity_horizontal_half_margin">8dp</dimen>
+    <dimen name="activity_vertical_half_margin">8dp</dimen>
+
     <dimen name="list_view_item_horizontal_spacer">4dp</dimen>
     <dimen name="list_view_item_horizontal_tab">24dp</dimen>
 
     <dimen name="nav_header_height">110dp</dimen>
+
+    <dimen name="icon_xsmall">12dp</dimen>
+    <dimen name="icon_small">18dp</dimen>
+    <dimen name="icon_regular">24dp</dimen>
+    <dimen name="icon_large">36dp</dimen>
+    <dimen name="icon_xlarge">48dp</dimen>
 </resources>

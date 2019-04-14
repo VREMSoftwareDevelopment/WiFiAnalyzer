@@ -129,7 +129,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
 
     private void setRatingBarColor(Drawable drawable, int color) {
         try {
-            int background = ContextCompat.getColor(getContext(), R.color.connected_background);
+            int background = ContextCompat.getColor(getContext(), R.color.background);
             LayerDrawable layerDrawable = (LayerDrawable) drawable;
             layerDrawable.getDrawable(0).setColorFilter(background, PorterDuff.Mode.SRC_ATOP);
             layerDrawable.getDrawable(1).setColorFilter(background, PorterDuff.Mode.SRC_ATOP);
@@ -156,7 +156,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         }
         if (result.length() > 0) {
             bestChannels.setText(result.toString());
-            bestChannels.setTextColor(ContextCompat.getColor(getContext(), R.color.success_color));
+            bestChannels.setTextColor(ContextCompat.getColor(getContext(), R.color.success));
         } else {
             Resources resources = getContext().getResources();
             StringBuilder message = new StringBuilder(resources.getText(R.string.channel_rating_best_none));
@@ -166,7 +166,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
                 message.append(getContext().getResources().getString(WiFiBand.GHZ5.getTextResource()));
             }
             bestChannels.setText(message);
-            bestChannels.setTextColor(ContextCompat.getColor(getContext(), R.color.error_color));
+            bestChannels.setTextColor(ContextCompat.getColor(getContext(), R.color.error));
         }
     }
 

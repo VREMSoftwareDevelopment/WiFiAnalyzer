@@ -18,15 +18,11 @@
   -->
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="36dp"
-        android:height="36dp"
-        android:viewportHeight="24.0"
-        android:viewportWidth="24.0">
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportWidth="24.0"
+        android:viewportHeight="24.0">
     <path
-        android:fillAlpha=".3"
-        android:fillColor="#000000"
-        android:pathData="M12.01,21.49L23.64,7c-0.45,-0.34 -4.93,-4 -11.64,-4C5.28,3 0.81,6.66 0.36,7l11.63,14.49 0.01,0.01 0.01,-0.01z"/>
-    <path
-        android:fillColor="#000000"
-        android:pathData="M3.53,10.95l8.46,10.54 0.01,0.01 0.01,-0.01 8.46,-10.54C20.04,10.62 16.81,8 12,8c-4.81,0 -8.04,2.62 -8.47,2.95z"/>
+        android:fillColor="#9E9E9E"
+        android:pathData="M6,3L3,3v3c1.66,0 3,-1.34 3,-3zM14,3h-2c0,4.97 -4.03,9 -9,9v2c6.08,0 11,-4.93 11,-11zM10,3L8,3c0,2.76 -2.24,5 -5,5v2c3.87,0 7,-3.13 7,-7zM10,21h2c0,-4.97 4.03,-9 9,-9v-2c-6.07,0 -11,4.93 -11,11zM18,21h3v-3c-1.66,0 -3,1.34 -3,3zM14,21h2c0,-2.76 2.24,-5 5,-5v-2c-3.87,0 -7,3.13 -7,7z"/>
 </vector>

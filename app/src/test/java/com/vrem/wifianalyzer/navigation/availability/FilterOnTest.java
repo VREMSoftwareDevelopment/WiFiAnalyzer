@@ -18,6 +18,9 @@
 
 package com.vrem.wifianalyzer.navigation.availability;
 
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -32,13 +35,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.verifyNoMoreInteractions;
+import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ContextCompat.class, DrawableCompat.class})
 public class FilterOnTest {
 
     @Mock
@@ -49,12 +56,16 @@ public class FilterOnTest {
     private Menu menu;
     @Mock
     private MenuItem menuItem;
+    @Mock
+    private Drawable drawable;
 
     private FilterAdapter filterAdapter;
     private FilterOn fixture;
 
     @Before
     public void setUp() {
+        mockStatic(ContextCompat.class);
+        mockStatic(DrawableCompat.class);
         filterAdapter = MainContextHelper.INSTANCE.getFilterAdapter();
         fixture = new FilterOn();
     }
@@ -62,56 +73,48 @@ public class FilterOnTest {
     @After
     public void tearDown() {
         MainContextHelper.INSTANCE.restore();
-    }
-
-    @Test
-    public void testApplySetMenuItemVisibleTrue() {
-        // setup
-        withMenuItem();
-        // execute
-        fixture.apply(mainActivity);
-        // validate
-        verifyMenuItem();
-        verify(menuItem).setVisible(true);
-
+        verifyNoMoreInteractions(ContextCompat.class);
+        verifyNoMoreInteractions(DrawableCompat.class);
+        verifyNoMoreInteractions(menu);
+        verifyNoMoreInteractions(menuItem);
+        verifyNoMoreInteractions(filterAdapter);
+        verifyNoMoreInteractions(optionMenu);
+        verifyNoMoreInteractions(mainActivity);
+        verifyNoMoreInteractions(drawable);
     }
 
     @Test
     public void testApplyWithFilterInactive() {
         // setup
+        int colorResult = 200;
         when(filterAdapter.isActive()).thenReturn(false);
+        when(ContextCompat.getColor(mainActivity, R.color.regular)).thenReturn(colorResult);
         withMenuItem();
         // execute
         fixture.apply(mainActivity);
         // validate
         verifyMenuItem();
-        verify(filterAdapter).isActive();
-        verify(menuItem).setIcon(R.drawable.ic_filter_list_grey_500_24dp);
+        verifyStatic(ContextCompat.class);
+        ContextCompat.getColor(mainActivity, R.color.regular);
+        verifyStatic(DrawableCompat.class);
+        DrawableCompat.setTint(drawable, colorResult);
     }
 
     @Test
     public void testApplyWithFilterActive() {
         // setup
+        int colorResult = 100;
         when(filterAdapter.isActive()).thenReturn(true);
+        when(ContextCompat.getColor(mainActivity, R.color.selected)).thenReturn(colorResult);
         withMenuItem();
         // execute
         fixture.apply(mainActivity);
         // validate
         verifyMenuItem();
-        verify(filterAdapter).isActive();
-        verify(menuItem).setIcon(R.drawable.ic_filter_list_blue_500_24dp);
-    }
-
-    private void verifyMenuItem() {
-        verify(mainActivity).getOptionMenu();
-        verify(optionMenu).getMenu();
-        verify(menu).findItem(R.id.action_filter);
-    }
-
-    private void withMenuItem() {
-        when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
-        when(optionMenu.getMenu()).thenReturn(menu);
-        when(menu.findItem(R.id.action_filter)).thenReturn(menuItem);
+        verifyStatic(ContextCompat.class);
+        ContextCompat.getColor(mainActivity, R.color.selected);
+        verifyStatic(DrawableCompat.class);
+        DrawableCompat.setTint(drawable, colorResult);
     }
 
     @Test
@@ -124,8 +127,21 @@ public class FilterOnTest {
         // validate
         verify(mainActivity).getOptionMenu();
         verify(optionMenu).getMenu();
-        verify(menu, never()).findItem(R.id.action_filter);
-        verify(menuItem, never()).setVisible(true);
     }
 
+    private void verifyMenuItem() {
+        verify(mainActivity).getOptionMenu();
+        verify(optionMenu).getMenu();
+        verify(menu).findItem(R.id.action_filter);
+        verify(menuItem).getIcon();
+        verify(filterAdapter).isActive();
+        verify(menuItem).setVisible(true);
+    }
+
+    private void withMenuItem() {
+        when(mainActivity.getOptionMenu()).thenReturn(optionMenu);
+        when(optionMenu.getMenu()).thenReturn(menu);
+        when(menu.findItem(R.id.action_filter)).thenReturn(menuItem);
+        when(menuItem.getIcon()).thenReturn(drawable);
+    }
 }

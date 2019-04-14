@@ -34,7 +34,7 @@ public class WiFiBandAdapter extends EnumFilterAdapter<WiFiBand> {
 
     @Override
     public int getColor(@NonNull WiFiBand object) {
-        return contains(object) ? R.color.connected : R.color.icons_color;
+        return contains(object) ? R.color.selected : R.color.regular;
     }
 
     @Override

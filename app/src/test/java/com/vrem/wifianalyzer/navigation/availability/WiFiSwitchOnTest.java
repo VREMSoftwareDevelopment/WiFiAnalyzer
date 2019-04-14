@@ -89,8 +89,8 @@ public class WiFiSwitchOnTest {
         Resources resources = mainActivity.getResources();
         String wiFiBand2 = resources.getString(WiFiBand.GHZ2.getTextResource());
         String wiFiBand5 = resources.getString(WiFiBand.GHZ5.getTextResource());
-        int colorSelected = ContextCompat.getColor(mainActivity, R.color.connected);
-        int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.icons_color);
+        int colorSelected = ContextCompat.getColor(mainActivity, R.color.selected);
+        int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.regular);
         String subtitle = fixture.makeSubtitle(WiFiBand.GHZ2.equals(wiFiBand), wiFiBand2, wiFiBand5, colorSelected, colorNotSelected);
         return TextUtils.fromHtml(subtitle);
     }

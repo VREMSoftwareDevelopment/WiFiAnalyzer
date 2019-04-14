@@ -102,7 +102,7 @@ public class WiFiBandAdapterTest {
     @Test
     public void testGetColorWithExisting() {
         // execute & validate
-        assertEquals(R.color.connected, fixture.getColor(WiFiBand.GHZ2));
+        assertEquals(R.color.selected, fixture.getColor(WiFiBand.GHZ2));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class WiFiBandAdapterTest {
         // setup
         fixture.toggle(WiFiBand.GHZ2);
         // execute & validate
-        assertEquals(R.color.icons_color, fixture.getColor(WiFiBand.GHZ2));
+        assertEquals(R.color.regular, fixture.getColor(WiFiBand.GHZ2));
     }
 
     @Test

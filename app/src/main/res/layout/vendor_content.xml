@@ -43,6 +43,6 @@
         android:gravity="center"
         android:text="@string/no_data"
         android:textAlignment="center"
-        android:textColor="@color/error_color"
+        android:textColor="@color/error"
         android:textStyle="bold"/>
 </LinearLayout>

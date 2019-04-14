@@ -35,29 +35,29 @@ public class StrengthTest {
 
     @Test
     public void testImageResource() {
-        assertEquals(R.drawable.ic_signal_wifi_0_bar_black_36dp, Strength.ZERO.imageResource());
-        assertEquals(R.drawable.ic_signal_wifi_1_bar_black_36dp, Strength.ONE.imageResource());
-        assertEquals(R.drawable.ic_signal_wifi_2_bar_black_36dp, Strength.TWO.imageResource());
-        assertEquals(R.drawable.ic_signal_wifi_3_bar_black_36dp, Strength.THREE.imageResource());
-        assertEquals(R.drawable.ic_signal_wifi_4_bar_black_36dp, Strength.FOUR.imageResource());
+        assertEquals(R.drawable.ic_signal_wifi_0_bar, Strength.ZERO.imageResource());
+        assertEquals(R.drawable.ic_signal_wifi_1_bar, Strength.ONE.imageResource());
+        assertEquals(R.drawable.ic_signal_wifi_2_bar, Strength.TWO.imageResource());
+        assertEquals(R.drawable.ic_signal_wifi_3_bar, Strength.THREE.imageResource());
+        assertEquals(R.drawable.ic_signal_wifi_4_bar, Strength.FOUR.imageResource());
     }
 
     @Test
     public void testColorResource() {
-        assertEquals(R.color.error_color, Strength.ZERO.colorResource());
-        assertEquals(R.color.warning_color, Strength.ONE.colorResource());
-        assertEquals(R.color.warning_color, Strength.TWO.colorResource());
-        assertEquals(R.color.success_color, Strength.THREE.colorResource());
-        assertEquals(R.color.success_color, Strength.FOUR.colorResource());
+        assertEquals(R.color.error, Strength.ZERO.colorResource());
+        assertEquals(R.color.warning, Strength.ONE.colorResource());
+        assertEquals(R.color.warning, Strength.TWO.colorResource());
+        assertEquals(R.color.success, Strength.THREE.colorResource());
+        assertEquals(R.color.success, Strength.FOUR.colorResource());
     }
 
     @Test
     public void testColorResourceDefault() {
-        assertEquals(R.color.icons_color, Strength.ZERO.colorResourceDefault());
-        assertEquals(R.color.icons_color, Strength.ONE.colorResourceDefault());
-        assertEquals(R.color.icons_color, Strength.TWO.colorResourceDefault());
-        assertEquals(R.color.icons_color, Strength.THREE.colorResourceDefault());
-        assertEquals(R.color.icons_color, Strength.FOUR.colorResourceDefault());
+        assertEquals(R.color.regular, Strength.ZERO.colorResourceDefault());
+        assertEquals(R.color.regular, Strength.ONE.colorResourceDefault());
+        assertEquals(R.color.regular, Strength.TWO.colorResourceDefault());
+        assertEquals(R.color.regular, Strength.THREE.colorResourceDefault());
+        assertEquals(R.color.regular, Strength.FOUR.colorResourceDefault());
     }
 
     @Test
