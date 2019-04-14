@@ -26,19 +26,16 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 public class Export {
-    private static final String TIME_STAMP_FORMAT = "yyyy/MM/dd HH:mm:ss";
     private final List<WiFiDetail> wiFiDetails;
     private final String timestamp;
 
-    public Export(@NonNull List<WiFiDetail> wiFiDetails) {
+    public Export(@NonNull List<WiFiDetail> wiFiDetails, @NonNull String timestamp) {
         this.wiFiDetails = wiFiDetails;
-        this.timestamp = new SimpleDateFormat(TIME_STAMP_FORMAT, Locale.US).format(new Date());
+        this.timestamp = timestamp;
     }
 
     @NonNull
@@ -49,11 +46,6 @@ public class Export {
                 "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|802.11mc|Security%n"));
         IterableUtils.forEach(wiFiDetails, new WiFiDetailClosure(timestamp, result));
         return result.toString();
-    }
-
-    @NonNull
-    String getTimestamp() {
-        return timestamp;
     }
 
     private class WiFiDetailClosure implements Closure<WiFiDetail> {

@@ -35,21 +35,27 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 class ExportItem implements NavigationItem {
+    private static final String TIME_STAMP_FORMAT = "yyyy/MM/dd-HH:mm:ss";
     private String exportData;
+    private String timestamp;
 
     @Override
     public void activate(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, @NonNull NavigationMenu navigationMenu) {
-        String title = getTitle(mainActivity);
+        timestamp = new SimpleDateFormat(TIME_STAMP_FORMAT, Locale.US).format(new Date());
+        String title = getTitle(mainActivity, timestamp);
         List<WiFiDetail> wiFiDetails = getWiFiDetails();
         if (!dataAvailable(wiFiDetails)) {
             Toast.makeText(mainActivity, R.string.no_data, Toast.LENGTH_LONG).show();
             exportData = StringUtils.EMPTY;
             return;
         }
-        exportData = new Export(wiFiDetails).getData();
+        exportData = new Export(wiFiDetails, timestamp).getData();
         Intent intent = createIntent(title, exportData);
         Intent chooser = createChooserIntent(intent, title);
         if (!exportAvailable(mainActivity, chooser)) {
@@ -87,14 +93,20 @@ class ExportItem implements NavigationItem {
     }
 
     @NonNull
+    String getTimestamp() {
+        return timestamp;
+    }
+
+    @NonNull
     private List<WiFiDetail> getWiFiDetails() {
         return MainContext.INSTANCE.getScannerService().getWiFiData().getWiFiDetails();
     }
 
     @NonNull
-    private String getTitle(@NonNull MainActivity mainActivity) {
+    private String getTitle(@NonNull MainActivity mainActivity, @NonNull String timestamp) {
         Resources resources = mainActivity.getResources();
-        return resources.getString(R.string.action_access_points);
+        String title = resources.getString(R.string.action_access_points);
+        return title + "-" + timestamp;
     }
 
     private Intent createIntent(String title, String data) {

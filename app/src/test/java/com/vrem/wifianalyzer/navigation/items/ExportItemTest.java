@@ -53,6 +53,8 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ExportItemTest {
+    private static final String TITLE = "title";
+
     @Mock
     private Intent sendIntent;
     @Mock
@@ -69,7 +71,6 @@ public class ExportItemTest {
     private ComponentName componentName;
 
     private ExportItem fixture;
-    private String sendTitle;
     private ScannerService scanner;
     private WiFiDetail wiFiDetail;
 
@@ -77,7 +78,6 @@ public class ExportItemTest {
     public void setUp() {
         scanner = MainContextHelper.INSTANCE.getScannerService();
 
-        sendTitle = "title";
         wiFiDetail = new WiFiDetail("SSID", "BSSID", "capabilities",
             new WiFiSignal(2412, 2422, WiFiWidth.MHZ_40, -40, true));
 
@@ -90,7 +90,7 @@ public class ExportItemTest {
             @Override
             Intent createChooserIntent(@NonNull Intent intent, @NonNull String title) {
                 assertEquals(sendIntent, intent);
-                assertEquals(sendTitle, title);
+                assertEquals(getExpectedTitle(), title);
                 return chooserIntent;
             }
         };
@@ -137,10 +137,11 @@ public class ExportItemTest {
     }
 
     private void verifySendIntentInformation(String sendData) {
+        String expectedTitle = getExpectedTitle();
         verify(sendIntent).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         verify(sendIntent).setType("text/plain");
-        verify(sendIntent).putExtra(Intent.EXTRA_TITLE, sendTitle);
-        verify(sendIntent).putExtra(Intent.EXTRA_SUBJECT, sendTitle);
+        verify(sendIntent).putExtra(Intent.EXTRA_TITLE, expectedTitle);
+        verify(sendIntent).putExtra(Intent.EXTRA_SUBJECT, expectedTitle);
         verify(sendIntent).putExtra(Intent.EXTRA_TEXT, sendData);
     }
 
@@ -156,7 +157,7 @@ public class ExportItemTest {
 
     private void withResources() {
         when(mainActivity.getResources()).thenReturn(resources);
-        when(resources.getString(R.string.action_access_points)).thenReturn(sendTitle);
+        when(resources.getString(R.string.action_access_points)).thenReturn(TITLE);
     }
 
     private void verifyResources() {
@@ -164,4 +165,7 @@ public class ExportItemTest {
         verify(resources).getString(R.string.action_access_points);
     }
 
+    private String getExpectedTitle() {
+        return TITLE + "-" + fixture.getTimestamp();
+    }
 }
