@@ -129,6 +129,7 @@ WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 
 We want to express our gratitude to all people for contributed with patches, bug solving and updates to WiFi Analyzer.
 
+
 ## Donations
 
 If you would like to contribute financially to the project please feel free to send any amount through paypal.
