@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Locale;
 
 public class AccessPointDetail {
-    private static final int VENDOR_SHORT_MAX = 10;
+    private static final int VENDOR_SHORT_MAX = 12;
     private static final int VENDOR_LONG_MAX = 30;
 
     View makeView(View convertView, ViewGroup parent, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
@@ -69,9 +69,14 @@ public class AccessPointDetail {
         setViewCompact(view, wiFiDetail, false);
         setViewExtra(view, wiFiDetail);
         setViewVendorLong(view, wiFiDetail.getWiFiAdditional());
+        setView80211mc(view, wiFiDetail.getWiFiSignal());
         enableTextSelection(view);
 
         return view;
+    }
+
+    private void setView80211mc(View view, WiFiSignal wiFiSignal) {
+        view.findViewById(R.id.flag80211mc).setVisibility(wiFiSignal.is80211mc() ? View.VISIBLE : View.GONE);
     }
 
     private void enableTextSelection(View view) {
@@ -90,7 +95,6 @@ public class AccessPointDetail {
         Security security = wiFiDetail.getSecurity();
         ImageView securityImage = view.findViewById(R.id.securityImage);
         securityImage.setImageResource(security.getImageResource());
-        securityImage.setColorFilter(ContextCompat.getColor(context, R.color.icons_color));
 
         TextView textLevel = view.findViewById(R.id.level);
         textLevel.setText(String.format(Locale.ENGLISH, "%ddBm", wiFiSignal.getLevel()));

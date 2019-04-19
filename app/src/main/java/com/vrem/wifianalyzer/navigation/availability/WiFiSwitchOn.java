@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,8 +44,8 @@ class WiFiSwitchOn implements NavigationOption {
     private void applyToActionBar(@NonNull MainActivity mainActivity) {
         ActionBar actionBar = mainActivity.getSupportActionBar();
         if (actionBar != null) {
-            int colorSelected = ContextCompat.getColor(mainActivity, R.color.connected);
-            int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.icons_color);
+            int colorSelected = ContextCompat.getColor(mainActivity, R.color.selected);
+            int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.regular);
             Resources resources = mainActivity.getResources();
             String wiFiBand2 = resources.getString(WiFiBand.GHZ2.getTextResource());
             String wiFiBand5 = resources.getString(WiFiBand.GHZ5.getTextResource());

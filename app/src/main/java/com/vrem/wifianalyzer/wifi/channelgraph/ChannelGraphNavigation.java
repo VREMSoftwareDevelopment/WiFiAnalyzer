@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -137,10 +137,10 @@ class ChannelGraphNavigation {
 
         private void setSelected(Button button, boolean selected) {
             if (selected) {
-                button.setBackgroundColor(ContextCompat.getColor(context, R.color.connected));
+                button.setBackgroundColor(ContextCompat.getColor(context, R.color.selected));
                 button.setSelected(true);
             } else {
-                button.setBackgroundColor(ContextCompat.getColor(context, R.color.connected_background));
+                button.setBackgroundColor(ContextCompat.getColor(context, R.color.background));
                 button.setSelected(false);
             }
         }

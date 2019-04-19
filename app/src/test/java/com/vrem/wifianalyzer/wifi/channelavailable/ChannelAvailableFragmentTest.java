@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
+import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 import java.util.Locale;
 
@@ -49,7 +49,7 @@ public class ChannelAvailableFragmentTest {
         settings = MainContextHelper.INSTANCE.getSettings();
         when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
 
-        fixture = new ChannelAvailableFragment();
+        fixture = SupportFragmentController.setupFragment(new ChannelAvailableFragment());
     }
 
     @After
@@ -60,8 +60,6 @@ public class ChannelAvailableFragmentTest {
 
     @Test
     public void testOnCreateView() {
-        // execute
-        SupportFragmentTestUtil.startFragment(fixture);
         // validate
         assertNotNull(fixture);
     }

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,27 +18,31 @@
 
 package com.vrem.util;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.util.DisplayMetrics;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.verifyNoMoreInteractions;
+import static org.powermock.api.mockito.PowerMockito.verifyStatic;
+import static org.powermock.api.mockito.PowerMockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(BuildUtils.class)
 public class ConfigurationUtilsTest {
     @Mock
     private Context context;
@@ -55,24 +59,28 @@ public class ConfigurationUtilsTest {
 
     @Before
     public void setUp() {
+        mockStatic(BuildUtils.class);
         newLocale = Locale.US;
     }
 
-    @Test
-    public void testCreateContext() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            validateCreateContextWithNougat();
-        } else {
-            validateCreateContextWithLegacy();
-        }
+    @After
+    public void tearDown() {
+        verifyNoMoreInteractions(BuildUtils.class);
+        verifyNoMoreInteractions(context);
+        verifyNoMoreInteractions(contextWrapper);
+        verifyNoMoreInteractions(resources);
+        verifyNoMoreInteractions(configuration);
+        verifyNoMoreInteractions(displayMetrics);
     }
 
-    @TargetApi(Build.VERSION_CODES.N)
-    private void validateCreateContextWithNougat() {
+    @Test
+    public void testCreateContextWithAndroidNPlus() {
         // setup
+        when(BuildUtils.isMinVersionN()).thenReturn(true);
         when(context.getResources()).thenReturn(resources);
         when(resources.getConfiguration()).thenReturn(configuration);
         when(context.createConfigurationContext(configuration)).thenReturn(contextWrapper);
+        when(contextWrapper.getBaseContext()).thenReturn(context);
         // execute
         Context actual = ConfigurationUtils.createContext(context, newLocale);
         // validate
@@ -81,12 +89,16 @@ public class ConfigurationUtilsTest {
         verify(configuration).setLocale(newLocale);
         verify(context).createConfigurationContext(configuration);
         verify(context).getResources();
+        verify(contextWrapper).getBaseContext();
         verify(resources).getConfiguration();
+        verifyStatic(BuildUtils.class);
+        BuildUtils.isMinVersionN();
     }
 
-    @SuppressWarnings("deprecation")
-    private void validateCreateContextWithLegacy() {
+    @Test
+    public void testCreateContext() {
         // setup
+        when(BuildUtils.isMinVersionN()).thenReturn(false);
         when(context.getResources()).thenReturn(resources);
         when(resources.getConfiguration()).thenReturn(configuration);
         when(resources.getDisplayMetrics()).thenReturn(displayMetrics);
@@ -99,6 +111,8 @@ public class ConfigurationUtilsTest {
         verify(resources).updateConfiguration(configuration, displayMetrics);
         verify(context).getResources();
         verify(resources).getConfiguration();
+        verifyStatic(BuildUtils.class);
+        BuildUtils.isMinVersionN();
     }
 
 }

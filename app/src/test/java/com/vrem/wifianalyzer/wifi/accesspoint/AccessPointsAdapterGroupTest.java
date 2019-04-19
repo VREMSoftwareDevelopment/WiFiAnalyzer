@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -219,7 +219,8 @@ public class AccessPointsAdapterGroupTest {
     }
 
     private WiFiDetail withWiFiDetail() {
-        WiFiDetail wiFiDetail = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY, new WiFiSignal(2255, 2255, WiFiWidth.MHZ_20, -40));
+        WiFiDetail wiFiDetail = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
+            new WiFiSignal(2255, 2255, WiFiWidth.MHZ_20, -40, true));
         wiFiDetail.addChild(new WiFiDetail("SSID1-1", "BSSID1-1", StringUtils.EMPTY, WiFiSignal.EMPTY));
         wiFiDetail.addChild(new WiFiDetail("SSID1-2", "BSSID1-2", StringUtils.EMPTY, WiFiSignal.EMPTY));
         wiFiDetail.addChild(new WiFiDetail("SSID1-3", "BSSID1-3", StringUtils.EMPTY, WiFiSignal.EMPTY));

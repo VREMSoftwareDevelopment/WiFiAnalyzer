@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,7 +50,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
@@ -117,8 +117,8 @@ public class ChannelGraphNavigationTest {
     @Test
     public void testUpdateWithGHZ5AndUS() {
         // setup
-        int colorSelected = ContextCompat.getColor(mainActivity, R.color.connected);
-        int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.connected_background);
+        int colorSelected = ContextCompat.getColor(mainActivity, R.color.selected);
+        int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.background);
         Pair<WiFiChannel, WiFiChannel> selectedKey = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs().get(0);
         when(configuration.getWiFiChannelPair()).thenReturn(selectedKey);
         when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());

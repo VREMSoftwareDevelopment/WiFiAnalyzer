@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowAlertDialog;
-import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
+import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -67,8 +67,7 @@ public class AboutFragmentTest {
         when(configuration.isSizeAvailable()).thenReturn(true);
         when(configuration.isLargeScreen()).thenReturn(true);
 
-        fixture = new AboutFragment();
-        SupportFragmentTestUtil.startFragment(fixture);
+        fixture = SupportFragmentController.setupFragment(new AboutFragment());
     }
 
     @After
@@ -135,7 +134,7 @@ public class AboutFragmentTest {
         Intent expectedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         View view = fixture.getView().findViewById(R.id.writeReview);
         // execute
-        view.callOnClick();
+        view.performClick();
         // validate
         ShadowActivity shadowActivity = Shadows.shadowOf(mainActivity);
         Intent actualIntent = shadowActivity.getNextStartedActivity();
@@ -153,17 +152,16 @@ public class AboutFragmentTest {
 
     private void validateAlertDialogClickListener(int viewId, int titleId, int messageId) {
         // setup
-        SupportFragmentTestUtil.startFragment(fixture);
         View view = fixture.getView().findViewById(viewId);
         String expectedTitle = mainActivity.getApplicationContext().getString(titleId);
         String expectedMessage = FileUtils.readFile(mainActivity.getResources(), messageId);
         // execute
-        view.callOnClick();
+        view.performClick();
         // validate
         AlertDialog alertDialog = ShadowAlertDialog.getLatestAlertDialog();
         ShadowAlertDialog shadowAlertDialog = Shadows.shadowOf(alertDialog);
-        assertEquals(expectedTitle, shadowAlertDialog.getTitle());
-        assertEquals(expectedMessage, shadowAlertDialog.getMessage());
+        assertEquals(expectedTitle, shadowAlertDialog.getTitle().toString());
+        assertEquals(expectedMessage, shadowAlertDialog.getMessage().toString());
     }
 
 }

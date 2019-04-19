@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -171,7 +171,8 @@ public class ConnectionViewTest {
         // execute
         fixture.update(wiFiData);
         // validate
-        assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.nodata).getVisibility());
+        assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.no_data).getVisibility());
+        assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.no_location).getVisibility());
         verify(wiFiData).getWiFiDetails();
     }
 
@@ -185,7 +186,7 @@ public class ConnectionViewTest {
         // execute
         fixture.update(wiFiData);
         // validate
-        assertEquals(View.GONE, mainActivity.findViewById(R.id.nodata).getVisibility());
+        assertEquals(View.GONE, mainActivity.findViewById(R.id.no_data).getVisibility());
         verify(wiFiData).getWiFiDetails();
     }
 
@@ -198,7 +199,7 @@ public class ConnectionViewTest {
         // execute
         fixture.update(wiFiData);
         // validate
-        assertEquals(View.GONE, mainActivity.findViewById(R.id.nodata).getVisibility());
+        assertEquals(View.GONE, mainActivity.findViewById(R.id.no_data).getVisibility());
         verify(wiFiData, never()).getWiFiDetails();
     }
 
@@ -257,7 +258,8 @@ public class ConnectionViewTest {
 
     private WiFiDetail withConnection(@NonNull WiFiAdditional wiFiAdditional) {
         return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY,
-            new WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55), wiFiAdditional);
+            new WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55, true),
+            wiFiAdditional);
     }
 
     private WiFiAdditional withWiFiAdditional() {

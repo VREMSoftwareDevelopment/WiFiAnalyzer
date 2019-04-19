@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,10 +36,10 @@ class ScannerSwitchOn implements NavigationOption {
             menuItem.setVisible(true);
             if (MainContext.INSTANCE.getScannerService().isRunning()) {
                 menuItem.setTitle(R.string.scanner_pause);
-                menuItem.setIcon(R.drawable.ic_pause_grey_500_24dp);
+                menuItem.setIcon(R.drawable.ic_pause);
             } else {
                 menuItem.setTitle(R.string.scanner_play);
-                menuItem.setIcon(R.drawable.ic_play_arrow_grey_500_24dp);
+                menuItem.setIcon(R.drawable.ic_play_arrow);
             }
         }
     }

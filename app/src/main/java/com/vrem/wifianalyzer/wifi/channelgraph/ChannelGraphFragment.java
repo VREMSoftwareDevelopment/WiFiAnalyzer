@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,10 +30,12 @@ import android.widget.LinearLayout;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewAdd;
+import com.vrem.wifianalyzer.wifi.refresh.RefreshAction;
+import com.vrem.wifianalyzer.wifi.refresh.RefreshListener;
 
 import org.apache.commons.collections4.IterableUtils;
 
-public class ChannelGraphFragment extends Fragment {
+public class ChannelGraphFragment extends Fragment implements RefreshAction {
     private SwipeRefreshLayout swipeRefreshLayout;
     private ChannelGraphAdapter channelGraphAdapter;
 
@@ -42,7 +44,7 @@ public class ChannelGraphFragment extends Fragment {
         View view = inflater.inflate(R.layout.graph_content, container, false);
 
         swipeRefreshLayout = view.findViewById(R.id.graphRefresh);
-        swipeRefreshLayout.setOnRefreshListener(new ListViewOnRefreshListener());
+        swipeRefreshLayout.setOnRefreshListener(new RefreshListener(this));
 
         LinearLayout linearLayout = view.findViewById(R.id.graphNavigation);
         ChannelGraphNavigation channelGraphNavigation = new ChannelGraphNavigation(linearLayout, getActivity());
@@ -59,7 +61,8 @@ public class ChannelGraphFragment extends Fragment {
             new GraphViewAdd(view.findViewById(R.id.graphFlipper)));
     }
 
-    private void refresh() {
+    @Override
+    public void refresh() {
         swipeRefreshLayout.setRefreshing(true);
         MainContext.INSTANCE.getScannerService().update();
         swipeRefreshLayout.setRefreshing(false);
@@ -79,13 +82,6 @@ public class ChannelGraphFragment extends Fragment {
 
     ChannelGraphAdapter getChannelGraphAdapter() {
         return channelGraphAdapter;
-    }
-
-    private class ListViewOnRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
-        @Override
-        public void onRefresh() {
-            refresh();
-        }
     }
 
 }

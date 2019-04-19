@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -86,7 +86,9 @@ public class AccessPointPopupTest {
 
     @NonNull
     private WiFiDetail withWiFiDetail() {
-        return new WiFiDetail("SSID", "BSSID", "capabilities", new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2), WiFiAdditional.EMPTY);
+        return new WiFiDetail("SSID", "BSSID", "capabilities",
+            new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, true),
+            WiFiAdditional.EMPTY);
     }
 
 }

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.vrem.util.ConfigurationUtils;
 import com.vrem.wifianalyzer.ActivityUtils.WiFiBandToggle;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -33,40 +32,42 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.verifyStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(ConfigurationUtils.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ActivityUtilsTest {
 
     @Mock
     private Window window;
     @Mock
     private ActionBar actionBar;
+    @Mock
+    private MainActivity mainActivity;
+    @Mock
+    private Toolbar toolbar;
 
     private Settings settings;
 
     @Before
     public void setUp() {
-        mockStatic(ConfigurationUtils.class);
-
         settings = MainContextHelper.INSTANCE.getSettings();
     }
 
     @After
     public void tearDown() {
-        verifyStatic(ConfigurationUtils.class);
         MainContextHelper.INSTANCE.restore();
+        verifyNoMoreInteractions(mainActivity);
+        verifyNoMoreInteractions(toolbar);
+        verifyNoMoreInteractions(actionBar);
+        verifyNoMoreInteractions(window);
+        verifyNoMoreInteractions(settings);
     }
 
     @Test
@@ -90,10 +91,6 @@ public class ActivityUtilsTest {
     @Test
     public void testSetupToolbar() {
         // setup
-        MainActivity mainActivity = mock(MainActivity.class);
-        Toolbar toolbar = mock(Toolbar.class);
-        ActionBar actionBar = mock(ActionBar.class);
-
         when(mainActivity.findViewById(R.id.toolbar)).thenReturn(toolbar);
         when(mainActivity.getSupportActionBar()).thenReturn(actionBar);
         // execute
@@ -113,7 +110,6 @@ public class ActivityUtilsTest {
     @Test
     public void testWiFiBandToggleOnClickToggles() {
         // setup
-        MainActivity mainActivity = mock(MainActivity.class);
         when(mainActivity.getCurrentNavigationMenu()).thenReturn(NavigationMenu.CHANNEL_GRAPH);
         WiFiBandToggle wiFiBandToggle = new WiFiBandToggle(mainActivity);
         // execute
@@ -126,7 +122,6 @@ public class ActivityUtilsTest {
     @Test
     public void testWiFiBandToggleOnClickDoesNotToggles() {
         // setup
-        MainActivity mainActivity = mock(MainActivity.class);
         when(mainActivity.getCurrentNavigationMenu()).thenReturn(NavigationMenu.ACCESS_POINTS);
         WiFiBandToggle wiFiBandToggle = new WiFiBandToggle(mainActivity);
         // execute
@@ -139,7 +134,6 @@ public class ActivityUtilsTest {
     @Test
     public void testKeepScreenOnSwitchOn() {
         // setup
-        MainActivity mainActivity = mock(MainActivity.class);
         when(settings.isKeepScreenOn()).thenReturn(true);
         when(mainActivity.getWindow()).thenReturn(window);
         // execute
@@ -153,7 +147,6 @@ public class ActivityUtilsTest {
     @Test
     public void testKeepScreenOnSwitchOff() {
         // setup
-        MainActivity mainActivity = mock(MainActivity.class);
         when(settings.isKeepScreenOn()).thenReturn(false);
         when(mainActivity.getWindow()).thenReturn(window);
         // execute

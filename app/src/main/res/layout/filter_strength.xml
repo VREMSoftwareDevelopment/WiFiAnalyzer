@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ WiFiAnalyzer
-  ~ Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -18,12 +18,14 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:id="@+id/filterStrength"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginTop="@dimen/activity_vertical_margin"
               android:orientation="vertical"
-              android:visibility="gone">
+              android:visibility="gone"
+              tools:visibility="visible">
 
     <TextView
         android:layout_width="match_parent"
@@ -33,48 +35,49 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_half_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/filterStrength0"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/icon_large"
+            android:layout_height="@dimen/icon_large"
             android:layout_weight="1"
             android:contentDescription="@null"
-            android:src="@drawable/ic_signal_wifi_0_bar_black_36dp"/>
+            android:src="@drawable/ic_signal_wifi_0_bar"/>
 
         <ImageView
             android:id="@+id/filterStrength1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/icon_large"
+            android:layout_height="@dimen/icon_large"
             android:layout_weight="1"
             android:contentDescription="@null"
-            android:src="@drawable/ic_signal_wifi_1_bar_black_36dp"/>
+            android:src="@drawable/ic_signal_wifi_1_bar"/>
 
         <ImageView
             android:id="@+id/filterStrength2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/icon_large"
+            android:layout_height="@dimen/icon_large"
             android:layout_weight="1"
             android:contentDescription="@null"
-            android:src="@drawable/ic_signal_wifi_2_bar_black_36dp"/>
+            android:src="@drawable/ic_signal_wifi_2_bar"/>
 
         <ImageView
             android:id="@+id/filterStrength3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/icon_large"
+            android:layout_height="@dimen/icon_large"
             android:layout_weight="1"
             android:contentDescription="@null"
-            android:src="@drawable/ic_signal_wifi_3_bar_black_36dp"/>
+            android:src="@drawable/ic_signal_wifi_3_bar"/>
 
         <ImageView
             android:id="@+id/filterStrength4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/icon_large"
+            android:layout_height="@dimen/icon_large"
             android:layout_weight="1"
             android:contentDescription="@null"
-            android:src="@drawable/ic_signal_wifi_4_bar_black_36dp"/>
+            android:src="@drawable/ic_signal_wifi_4_bar"/>
 
     </LinearLayout>
 

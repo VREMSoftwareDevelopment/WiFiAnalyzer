@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -206,7 +206,8 @@ public class SeriesCacheTest {
     }
 
     private WiFiDetail makeWiFiDetail(String SSID) {
-        return new WiFiDetail(SSID, "BSSID", StringUtils.EMPTY, new WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5));
+        return new WiFiDetail(SSID, "BSSID", StringUtils.EMPTY,
+            new WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5, true));
     }
 
     private List<WiFiDetail> withData() {

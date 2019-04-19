@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,7 +45,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Collections;
-import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -54,6 +53,8 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ExportItemTest {
+    private static final String TITLE = "title";
+
     @Mock
     private Intent sendIntent;
     @Mock
@@ -70,7 +71,6 @@ public class ExportItemTest {
     private ComponentName componentName;
 
     private ExportItem fixture;
-    private String sendTitle;
     private ScannerService scanner;
     private WiFiDetail wiFiDetail;
 
@@ -78,8 +78,8 @@ public class ExportItemTest {
     public void setUp() {
         scanner = MainContextHelper.INSTANCE.getScannerService();
 
-        sendTitle = "title";
-        wiFiDetail = new WiFiDetail("SSID", "BSSID", "capabilities", new WiFiSignal(2412, 2422, WiFiWidth.MHZ_40, -40));
+        wiFiDetail = new WiFiDetail("SSID", "BSSID", "capabilities",
+            new WiFiSignal(2412, 2422, WiFiWidth.MHZ_40, -40, true));
 
         fixture = new ExportItem() {
             @Override
@@ -90,7 +90,7 @@ public class ExportItemTest {
             @Override
             Intent createChooserIntent(@NonNull Intent intent, @NonNull String title) {
                 assertEquals(sendIntent, intent);
-                assertEquals(sendTitle, title);
+                assertEquals(getExpectedTitle(), title);
                 return chooserIntent;
             }
         };
@@ -112,27 +112,11 @@ public class ExportItemTest {
         // execute
         fixture.activate(mainActivity, menuItem, NavigationMenu.EXPORT);
         // validate
-        String timestamp = fixture.getTimestamp();
-        String sendData = fixture.getData(timestamp, wiFiData.getWiFiDetails());
         verify(scanner).getWiFiData();
         verifyResources();
         verifyResolveActivity();
-        verifySendIntentInformation(sendData);
+        verifySendIntentInformation(fixture.getExportData());
         verify(mainActivity).startActivity(chooserIntent);
-    }
-
-    @Test
-    public void testGetData() {
-        // setup
-        WiFiData wiFiData = withWiFiData();
-        String expected =
-            String.format(Locale.ENGLISH,
-                "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security%n"
-                    + "TimeStamp1|SSID|BSSID|-40dBm|1|2412MHz|3|2422MHz|40MHz (2402 - 2442)|~1.0m|capabilities%n");
-        // execute
-        String actual = fixture.getData("TimeStamp1", wiFiData.getWiFiDetails());
-        // validate
-        assertEquals(expected, actual);
     }
 
     @Test
@@ -153,10 +137,11 @@ public class ExportItemTest {
     }
 
     private void verifySendIntentInformation(String sendData) {
+        String expectedTitle = getExpectedTitle();
         verify(sendIntent).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         verify(sendIntent).setType("text/plain");
-        verify(sendIntent).putExtra(Intent.EXTRA_TITLE, sendTitle);
-        verify(sendIntent).putExtra(Intent.EXTRA_SUBJECT, sendTitle);
+        verify(sendIntent).putExtra(Intent.EXTRA_TITLE, expectedTitle);
+        verify(sendIntent).putExtra(Intent.EXTRA_SUBJECT, expectedTitle);
         verify(sendIntent).putExtra(Intent.EXTRA_TEXT, sendData);
     }
 
@@ -172,7 +157,7 @@ public class ExportItemTest {
 
     private void withResources() {
         when(mainActivity.getResources()).thenReturn(resources);
-        when(resources.getString(R.string.action_access_points)).thenReturn(sendTitle);
+        when(resources.getString(R.string.action_access_points)).thenReturn(TITLE);
     }
 
     private void verifyResources() {
@@ -180,4 +165,7 @@ public class ExportItemTest {
         verify(resources).getString(R.string.action_access_points);
     }
 
+    private String getExpectedTitle() {
+        return TITLE + "-" + fixture.getTimestamp();
+    }
 }

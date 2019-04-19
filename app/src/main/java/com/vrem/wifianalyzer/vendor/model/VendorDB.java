@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,6 +31,7 @@ import org.apache.commons.collections4.PredicateUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -61,22 +62,25 @@ class VendorDB implements VendorService {
         if (StringUtils.isBlank(vendorName)) {
             return new ArrayList<>();
         }
-        List<String> results = getVendors().get(vendorName);
+        List<String> results = getVendors().get(vendorName.toUpperCase());
         return results == null ? new ArrayList<>() : results;
     }
 
     @NonNull
     @Override
     public List<String> findVendors() {
-        return new ArrayList<>(getVendors().keySet());
+        return findVendors(StringUtils.EMPTY);
     }
 
     @NonNull
     @Override
     public List<String> findVendors(@NonNull String filter) {
-        Predicate<String> predicate =
-            PredicateUtils.anyPredicate(new StringContains(filter), new MacContains(filter));
-        return new ArrayList<>(CollectionUtils.select(getVendors().keySet(), predicate));
+        if (StringUtils.isBlank(filter)) {
+            return new ArrayList<>(getVendors().keySet());
+        }
+        String filterToUpperCase = filter.toUpperCase();
+        List<Predicate<String>> predicates = Arrays.asList(new StringContains(filterToUpperCase), new MacContains(filterToUpperCase));
+        return new ArrayList<>(CollectionUtils.select(getVendors().keySet(), PredicateUtils.anyPredicate(predicates)));
     }
 
     @NonNull

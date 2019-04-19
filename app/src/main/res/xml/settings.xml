@@ -1,6 +1,6 @@
 <!--
   ~ WiFiAnalyzer
-  ~ Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@
 
     <PreferenceCategory>
         <ListPreference
+            android:icon="@drawable/ic_fast_forward"
             android:defaultValue="@string/scan_interval_default"
             android:entries="@array/scan_interval_array"
             android:entryValues="@array/scan_interval_array"
@@ -27,10 +28,17 @@
             android:persistent="true"
             android:summary="@string/scan_interval_summary"
             android:title="@string/scan_interval_title"/>
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:defaultValue="@bool/scan_fast_default"
+            android:icon="@drawable/ic_fast_forward"
+            android:key="@string/scan_fast_key"
+            android:title="@string/scan_fast_title"/>
     </PreferenceCategory>
 
     <PreferenceCategory>
         <ListPreference
+            android:icon="@drawable/ic_sort"
             android:defaultValue="@string/sort_by_default"
             android:entries="@array/sort_by_array"
             android:entryValues="@array/sort_by_index_array"
@@ -40,6 +48,7 @@
             android:title="@string/sort_by_title"/>
 
         <ListPreference
+            android:icon="@drawable/ic_group"
             android:defaultValue="@string/group_by_default"
             android:entries="@array/group_by_array"
             android:entryValues="@array/group_by_index_array"
@@ -51,6 +60,7 @@
 
     <PreferenceCategory>
         <ListPreference
+            android:icon="@drawable/ic_view_carousel"
             android:defaultValue="@string/connection_view_default"
             android:entries="@array/connection_view_array"
             android:entryValues="@array/connection_view_index_array"
@@ -60,6 +70,7 @@
             android:title="@string/connection_view_title"/>
 
         <ListPreference
+            android:icon="@drawable/ic_view_carousel"
             android:defaultValue="@string/ap_view_default"
             android:entries="@array/ap_view_array"
             android:entryValues="@array/ap_view_index_array"
@@ -80,6 +91,7 @@
             android:title="@string/graph_maximum_y_title"/>
 
         <ListPreference
+            android:icon="@drawable/ic_insert_chart"
             android:defaultValue="@string/channel_graph_legend_default"
             android:entries="@array/graph_legend_array"
             android:entryValues="@array/graph_legend_index_array"
@@ -89,6 +101,7 @@
             android:title="@string/channel_graph_legend_title"/>
 
         <ListPreference
+            android:icon="@drawable/ic_show_chart"
             android:defaultValue="@string/time_graph_legend_default"
             android:entries="@array/graph_legend_array"
             android:entryValues="@array/graph_legend_index_array"
@@ -100,6 +113,7 @@
 
     <PreferenceCategory>
         <ListPreference
+            android:icon="@drawable/ic_color_lens"
             android:defaultValue="@string/theme_default"
             android:entries="@array/theme_array"
             android:entryValues="@array/theme_index_array"
@@ -108,17 +122,20 @@
             android:summary="@string/theme_summary"
             android:title="@string/theme_title"/>
 
-        <CheckBoxPreference
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:icon="@drawable/ic_signal_wifi_off"
             android:defaultValue="@bool/wifi_off_on_exit_default"
             android:key="@string/wifi_off_on_exit_key"
             android:title="@string/wifi_off_on_exit_title"/>
 
-        <CheckBoxPreference
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:icon="@drawable/ic_brightness_low"
             android:defaultValue="@bool/keep_screen_on_default"
             android:key="@string/keep_screen_on_key"
             android:title="@string/keep_screen_on_title"/>
 
         <com.vrem.wifianalyzer.settings.StartMenuPreference
+            android:icon="@drawable/ic_dashboard"
             android:key="@string/start_menu_key"
             android:persistent="true"
             android:summary="@string/start_menu_summary"
@@ -127,12 +144,14 @@
 
     <PreferenceCategory>
         <com.vrem.wifianalyzer.settings.CountryPreference
+            android:icon="@drawable/ic_location_on"
             android:key="@string/country_code_key"
             android:persistent="true"
             android:summary="@string/country_code_summary"
             android:title="@string/country_code_title"/>
 
         <com.vrem.wifianalyzer.settings.LanguagePreference
+            android:icon="@drawable/ic_language"
             android:key="@string/language_key"
             android:persistent="true"
             android:summary="@string/language_summary"

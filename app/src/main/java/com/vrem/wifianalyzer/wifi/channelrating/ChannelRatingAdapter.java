@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@ import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -35,6 +34,7 @@ import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -118,10 +118,10 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         ratingBar.setNumStars(size);
         ratingBar.setRating(strength.ordinal() + 1);
         int color = ContextCompat.getColor(getContext(), strength.colorResource());
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            setRatingBarColor(ratingBar.getProgressDrawable(), color);
-        } else {
+        if (BuildUtils.isMinVersionL()) {
             ratingBar.setProgressTintList(ColorStateList.valueOf(color));
+        } else {
+            setRatingBarColor(ratingBar.getProgressDrawable(), color);
         }
 
         return view;
@@ -129,7 +129,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
 
     private void setRatingBarColor(Drawable drawable, int color) {
         try {
-            int background = ContextCompat.getColor(getContext(), R.color.connected_background);
+            int background = ContextCompat.getColor(getContext(), R.color.background);
             LayerDrawable layerDrawable = (LayerDrawable) drawable;
             layerDrawable.getDrawable(0).setColorFilter(background, PorterDuff.Mode.SRC_ATOP);
             layerDrawable.getDrawable(1).setColorFilter(background, PorterDuff.Mode.SRC_ATOP);
@@ -156,7 +156,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         }
         if (result.length() > 0) {
             bestChannels.setText(result.toString());
-            bestChannels.setTextColor(ContextCompat.getColor(getContext(), R.color.success_color));
+            bestChannels.setTextColor(ContextCompat.getColor(getContext(), R.color.success));
         } else {
             Resources resources = getContext().getResources();
             StringBuilder message = new StringBuilder(resources.getText(R.string.channel_rating_best_none));
@@ -166,7 +166,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
                 message.append(getContext().getResources().getString(WiFiBand.GHZ5.getTextResource()));
             }
             bestChannels.setText(message);
-            bestChannels.setTextColor(ContextCompat.getColor(getContext(), R.color.error_color));
+            bestChannels.setTextColor(ContextCompat.getColor(getContext(), R.color.error));
         }
     }
 

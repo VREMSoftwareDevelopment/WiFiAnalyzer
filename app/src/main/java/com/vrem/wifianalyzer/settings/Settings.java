@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.settings;
 
 import android.support.annotation.NonNull;
 
+import com.vrem.util.BuildUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.util.LocaleUtils;
 import com.vrem.wifianalyzer.R;
@@ -41,6 +42,7 @@ import static android.content.SharedPreferences.OnSharedPreferenceChangeListener
 
 public class Settings {
     static final int SCAN_INTERVAL_DEFAULT = 5;
+    static final int SCAN_INTERVAL_MIN_P = 30;
     static final int GRAPH_Y_MULTIPLIER = -10;
     static final int GRAPH_Y_DEFAULT = 2;
 
@@ -59,6 +61,9 @@ public class Settings {
     }
 
     public int getScanInterval() {
+        if (BuildUtils.isMinVersionP()) {
+            return SCAN_INTERVAL_MIN_P;
+        }
         int defaultValue = repository.getStringAsInteger(R.string.scan_interval_default, SCAN_INTERVAL_DEFAULT);
         return repository.getStringAsInteger(R.string.scan_interval_key, defaultValue);
     }

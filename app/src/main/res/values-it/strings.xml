@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ WiFiAnalyzer
-  ~ Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@
     <string name="no_data_msg">"Visiti le sezioni di domande frequenti sul nostro sito web."</string>
     <string name="no_data_geo_warning">"Alcuni utenti con Android 6+ (Marshmallow) hanno riferito che i servizi di localizzazione devono essere abilitati per l\'applicazione per vedere le reti WiFi. Gli utenti con Marshmallow potrebbero quindi dover abilitare i servizi di localizzazione, anche se l\'app non li richiede esplicitamente. Questo sembra un possibile bug di Android OS 6+, che richiede i servizi di localizzazione per vedere le reti WiFi."</string>
     <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a WiFi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
-
+    <string name="location_msg">"Questa app può accedere alla tua posizione tramite fonti di rete come antenne di telefonia mobile e reti Wi-Fi. Tali servizi di geolocalizzazione devono essere attivati e disponibili sul telefono per consentire all\'app di utilizzarli."</string>
     <string name="export_not_available">"Impossibile esportare"</string>
 
     <string name="channel_rating_best">"Canali Migliori:"</string>
@@ -64,6 +64,8 @@
 
     <string name="scan_interval_title">"Intervallo scansioni"</string>
     <string name="scan_interval_summary">"%s secondi tra ogni scansione"</string>
+
+    <string name="scan_fast_title">"Fast Scanning"</string>
 
     <string name="sort_by_title">"Ordina Access Points per"</string>
     <string name="sort_by_signal_strength">"Potenza Segnale"</string>

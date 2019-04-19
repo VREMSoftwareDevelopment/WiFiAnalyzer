@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@ import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewBuilder;
@@ -86,9 +87,9 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     @NonNull
-    private GraphView makeGraphView(@NonNull MainContext mainContext, Settings settings) {
+    private GraphView makeGraphView(@NonNull MainContext mainContext, int graphMaximumY, @NonNull ThemeStyle themeStyle) {
         Resources resources = mainContext.getResources();
-        return new GraphViewBuilder(mainContext.getContext(), getNumX(), settings.getGraphMaximumY(), settings.getThemeStyle())
+        return new GraphViewBuilder(mainContext.getContext(), getNumX(), graphMaximumY, themeStyle)
             .setLabelFormatter(new TimeAxisLabel())
             .setVerticalTitle(resources.getString(R.string.graph_axis_y))
             .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
@@ -100,9 +101,11 @@ class TimeGraphView implements GraphViewNotifier {
     private GraphViewWrapper makeGraphViewWrapper() {
         MainContext mainContext = MainContext.INSTANCE;
         Settings settings = mainContext.getSettings();
+        ThemeStyle themeStyle = settings.getThemeStyle();
+        int graphMaximumY = settings.getGraphMaximumY();
         Configuration configuration = mainContext.getConfiguration();
-        GraphView graphView = makeGraphView(mainContext, settings);
-        graphViewWrapper = new GraphViewWrapper(graphView, settings.getTimeGraphLegend());
+        GraphView graphView = makeGraphView(mainContext, graphMaximumY, themeStyle);
+        graphViewWrapper = new GraphViewWrapper(graphView, settings.getTimeGraphLegend(), themeStyle);
         configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
         graphViewWrapper.setViewport();
         return graphViewWrapper;

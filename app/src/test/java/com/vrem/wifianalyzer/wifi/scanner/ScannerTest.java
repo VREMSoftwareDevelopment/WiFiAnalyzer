@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Matchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -155,22 +155,22 @@ public class ScannerTest {
     }
 
     @Test
-    public void testSetWiFiOnExitOff() {
+    public void testStopWithIsWiFiOffOnExitTurnsOffWiFi() {
         // setup
         when(settings.isWiFiOffOnExit()).thenReturn(true);
         // execute
-        fixture.setWiFiOnExit();
+        fixture.stop();
         // validate
         verify(settings).isWiFiOffOnExit();
         verify(wifiManager).setWifiEnabled(false);
     }
 
     @Test
-    public void testSetWiFiOnExitDoNothing() {
+    public void testStopDoesNotTurnsOffWiFi() {
         // setup
         when(settings.isWiFiOffOnExit()).thenReturn(false);
         // execute
-        fixture.setWiFiOnExit();
+        fixture.stop();
         // validate
         verify(settings).isWiFiOffOnExit();
         verify(wifiManager, never()).setWifiEnabled(anyBoolean());
@@ -196,6 +196,8 @@ public class ScannerTest {
         verify(wifiManager).getScanResults();
         verify(wifiManager).getConnectionInfo();
         verify(wifiManager).getConfiguredNetworks();
+
+        verifyWiFiManagerStartScan();
     }
 
     private void withWiFiManager() {
@@ -204,6 +206,18 @@ public class ScannerTest {
         when(wifiManager.getScanResults()).thenReturn(scanResults);
         when(wifiManager.getConnectionInfo()).thenReturn(wifiInfo);
         when(wifiManager.getConfiguredNetworks()).thenReturn(configuredNetworks);
+
+        withWiFiManagerStartScan();
+    }
+
+    @SuppressWarnings("deprecation")
+    private void verifyWiFiManagerStartScan() {
+        verify(wifiManager).startScan();
+    }
+
+    @SuppressWarnings("deprecation")
+    private void withWiFiManagerStartScan() {
+        when(wifiManager.startScan()).thenReturn(true);
     }
 
     private void verifyTransfomer() {

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.support.annotation.NonNull;
 import android.support.v7.preference.PreferenceManager;
@@ -114,19 +115,19 @@ public class Repository {
     }
 
     private void save(@NonNull String key, @NonNull String value) {
-        SharedPreferences.Editor editor = getSharedPreferences().edit();
+        Editor editor = getSharedPreferences().edit();
         editor.putString(key, value);
         editor.apply();
     }
 
     private void save(@NonNull String key, boolean value) {
-        SharedPreferences.Editor editor = getSharedPreferences().edit();
+        Editor editor = getSharedPreferences().edit();
         editor.putBoolean(key, value);
         editor.apply();
     }
 
     private void save(@NonNull String key, @NonNull Set<String> values) {
-        SharedPreferences.Editor editor = getSharedPreferences().edit();
+        Editor editor = getSharedPreferences().edit();
         editor.putStringSet(key, values);
         editor.apply();
     }

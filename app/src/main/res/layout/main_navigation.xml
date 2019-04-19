@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ WiFiAnalyzer
-  ~ Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="@dimen/nav_header_height"
-              android:background="@color/connected_background"
+              android:background="@color/background"
               android:gravity="bottom"
               android:orientation="horizontal"
               android:paddingBottom="@dimen/activity_vertical_margin"

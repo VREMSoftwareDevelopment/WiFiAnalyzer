@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -94,14 +94,21 @@ public class WiFiDataTest {
     }
 
     private List<WiFiDetail> withWiFiDetails() {
-        WiFiDetail wiFiDetail1 = new WiFiDetail(SSID_1, BSSID_1, StringUtils.EMPTY, new WiFiSignal(FREQUENCY1, FREQUENCY1, WiFiWidth.MHZ_20, LEVEL1));
-        WiFiDetail wiFiDetail2 = new WiFiDetail(SSID_2, BSSID_2, StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2));
-        WiFiDetail wiFiDetail3 = new WiFiDetail(SSID_3, BSSID_3, StringUtils.EMPTY, new WiFiSignal(FREQUENCY3, FREQUENCY3, WiFiWidth.MHZ_20, LEVEL0));
-        WiFiDetail wiFiDetail4 = new WiFiDetail(SSID_4, BSSID_4, StringUtils.EMPTY, new WiFiSignal(FREQUENCY4, FREQUENCY4, WiFiWidth.MHZ_20, LEVEL2));
+        WiFiDetail wiFiDetail1 = new WiFiDetail(SSID_1, BSSID_1, StringUtils.EMPTY,
+            new WiFiSignal(FREQUENCY1, FREQUENCY1, WiFiWidth.MHZ_20, LEVEL1, true));
+        WiFiDetail wiFiDetail2 = new WiFiDetail(SSID_2, BSSID_2, StringUtils.EMPTY,
+            new WiFiSignal(FREQUENCY2, FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2, true));
+        WiFiDetail wiFiDetail3 = new WiFiDetail(SSID_3, BSSID_3, StringUtils.EMPTY,
+            new WiFiSignal(FREQUENCY3, FREQUENCY3, WiFiWidth.MHZ_20, LEVEL0, true));
+        WiFiDetail wiFiDetail4 = new WiFiDetail(SSID_4, BSSID_4, StringUtils.EMPTY,
+            new WiFiSignal(FREQUENCY4, FREQUENCY4, WiFiWidth.MHZ_20, LEVEL2, true));
 
-        WiFiDetail wiFiDetail_1 = new WiFiDetail(SSID_2, BSSID_2 + "_1", StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 3));
-        WiFiDetail wiFiDetail_2 = new WiFiDetail(SSID_2, BSSID_2 + "_2", StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 1));
-        WiFiDetail wiFiDetail_3 = new WiFiDetail(SSID_2, BSSID_2 + "_3", StringUtils.EMPTY, new WiFiSignal(FREQUENCY2, FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 2));
+        WiFiDetail wiFiDetail_1 = new WiFiDetail(SSID_2, BSSID_2 + "_1", StringUtils.EMPTY,
+            new WiFiSignal(FREQUENCY2, FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 3, true));
+        WiFiDetail wiFiDetail_2 = new WiFiDetail(SSID_2, BSSID_2 + "_2", StringUtils.EMPTY,
+            new WiFiSignal(FREQUENCY2, FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 1, true));
+        WiFiDetail wiFiDetail_3 = new WiFiDetail(SSID_2, BSSID_2 + "_3", StringUtils.EMPTY,
+            new WiFiSignal(FREQUENCY2, FREQUENCY2, WiFiWidth.MHZ_20, LEVEL2 - 2, true));
 
         return Arrays.asList(wiFiDetail_3, wiFiDetail3, wiFiDetail_2, wiFiDetail1, wiFiDetail_1, wiFiDetail2, wiFiDetail4);
     }

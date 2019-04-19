@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,12 +29,11 @@ import android.widget.Toast;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.export.Export;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
-import org.apache.commons.collections4.Closure;
-import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,20 +41,22 @@ import java.util.List;
 import java.util.Locale;
 
 class ExportItem implements NavigationItem {
-    private static final String TIME_STAMP_FORMAT = "yyyy/MM/dd HH:mm:ss";
+    private static final String TIME_STAMP_FORMAT = "yyyy/MM/dd-HH:mm:ss";
+    private String exportData;
     private String timestamp;
 
     @Override
     public void activate(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, @NonNull NavigationMenu navigationMenu) {
-        String title = getTitle(mainActivity);
+        timestamp = new SimpleDateFormat(TIME_STAMP_FORMAT, Locale.US).format(new Date());
+        String title = getTitle(mainActivity, timestamp);
         List<WiFiDetail> wiFiDetails = getWiFiDetails();
         if (!dataAvailable(wiFiDetails)) {
             Toast.makeText(mainActivity, R.string.no_data, Toast.LENGTH_LONG).show();
+            exportData = StringUtils.EMPTY;
             return;
         }
-        timestamp = new SimpleDateFormat(TIME_STAMP_FORMAT).format(new Date());
-        String data = getData(timestamp, wiFiDetails);
-        Intent intent = createIntent(title, data);
+        exportData = new Export(wiFiDetails, timestamp).getData();
+        Intent intent = createIntent(title, exportData);
         Intent chooser = createChooserIntent(intent, title);
         if (!exportAvailable(mainActivity, chooser)) {
             Toast.makeText(mainActivity, R.string.export_not_available, Toast.LENGTH_LONG).show();
@@ -87,13 +88,13 @@ class ExportItem implements NavigationItem {
     }
 
     @NonNull
-    String getData(String timestamp, @NonNull List<WiFiDetail> wiFiDetails) {
-        final StringBuilder result = new StringBuilder();
-        result.append(
-            String.format(Locale.ENGLISH,
-                "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Security%n"));
-        IterableUtils.forEach(wiFiDetails, new WiFiDetailClosure(timestamp, result));
-        return result.toString();
+    String getExportData() {
+        return exportData;
+    }
+
+    @NonNull
+    String getTimestamp() {
+        return timestamp;
     }
 
     @NonNull
@@ -102,9 +103,10 @@ class ExportItem implements NavigationItem {
     }
 
     @NonNull
-    private String getTitle(@NonNull MainActivity mainActivity) {
+    private String getTitle(@NonNull MainActivity mainActivity, @NonNull String timestamp) {
         Resources resources = mainActivity.getResources();
-        return resources.getString(R.string.action_access_points);
+        String title = resources.getString(R.string.action_access_points);
+        return title + "-" + timestamp;
     }
 
     private Intent createIntent(String title, String data) {
@@ -123,42 +125,6 @@ class ExportItem implements NavigationItem {
 
     Intent createChooserIntent(@NonNull Intent intent, @NonNull String title) {
         return Intent.createChooser(intent, title);
-    }
-
-    String getTimestamp() {
-        return timestamp;
-    }
-
-    private class WiFiDetailClosure implements Closure<WiFiDetail> {
-        private final StringBuilder result;
-        private final String timestamp;
-
-        private WiFiDetailClosure(String timestamp, @NonNull StringBuilder result) {
-            this.result = result;
-            this.timestamp = timestamp;
-        }
-
-        @Override
-        public void execute(WiFiDetail wiFiDetail) {
-            WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-            result.append(String.format(Locale.ENGLISH, "%s|%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%s|%s%n",
-                timestamp,
-                wiFiDetail.getSSID(),
-                wiFiDetail.getBSSID(),
-                wiFiSignal.getLevel(),
-                wiFiSignal.getPrimaryWiFiChannel().getChannel(),
-                wiFiSignal.getPrimaryFrequency(),
-                WiFiSignal.FREQUENCY_UNITS,
-                wiFiSignal.getCenterWiFiChannel().getChannel(),
-                wiFiSignal.getCenterFrequency(),
-                WiFiSignal.FREQUENCY_UNITS,
-                wiFiSignal.getWiFiWidth().getFrequencyWidth(),
-                WiFiSignal.FREQUENCY_UNITS,
-                wiFiSignal.getFrequencyStart(),
-                wiFiSignal.getFrequencyEnd(),
-                wiFiSignal.getDistance(),
-                wiFiDetail.getCapabilities()));
-        }
     }
 
 }

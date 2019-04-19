@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,11 +37,11 @@ public class SecurityTest {
 
     @Test
     public void testGetImageResource() {
-        assertEquals(R.drawable.ic_lock_open_black_18dp, Security.NONE.getImageResource());
-        assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WPS.getImageResource());
-        assertEquals(R.drawable.ic_lock_outline_black_18dp, Security.WEP.getImageResource());
-        assertEquals(R.drawable.ic_lock_black_18dp, Security.WPA.getImageResource());
-        assertEquals(R.drawable.ic_lock_black_18dp, Security.WPA2.getImageResource());
+        assertEquals(R.drawable.ic_lock_open, Security.NONE.getImageResource());
+        assertEquals(R.drawable.ic_lock_outline, Security.WPS.getImageResource());
+        assertEquals(R.drawable.ic_lock_outline, Security.WEP.getImageResource());
+        assertEquals(R.drawable.ic_lock, Security.WPA.getImageResource());
+        assertEquals(R.drawable.ic_lock, Security.WPA2.getImageResource());
     }
 
     @Test

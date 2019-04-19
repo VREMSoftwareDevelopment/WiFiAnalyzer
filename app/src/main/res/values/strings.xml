@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ WiFiAnalyzer
-  ~ Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -49,6 +49,7 @@
     <string name="no_data_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq"</string>
     <string name="no_data_geo_warning">"Some users running Android OS 6+ (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFiAnalyzer does not explicitly require it. This appears to be attributed to a potential issue in Android OS 6+ that requires location service in order to see WiFi networks."</string>
     <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a WiFi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
+    <string name="location_msg">"This app can get your location based on network sources such as cell towers and Wi-Fi networks. These location services must be turned on and available on your phone for the app to be able to use them."</string>
     <string name="wifi_channels_list_url" translatable="false">"https://en.wikipedia.org/wiki/List_of_WLAN_channels"</string>
     <string name="vendor_search_hint" translatable="false">"00:0C:41 CISCO"</string>
     <string name="export_not_available">"Export not available"</string>
@@ -65,6 +66,8 @@
     <string name="graph_time_axis_x">"Scan Count"</string>
     <string name="graph_axis_y">"Signal Strength (dBm)"</string>
 
+    <string name="mc_flag" translatable="false">"802.11mc"</string>
+
     <!-- settings start -->
     <string name="start_menu_title">"Start"</string>
     <string name="start_menu_summary" translatable="false">"%s"</string>
@@ -80,6 +83,10 @@
     <string name="scan_interval_summary">"%s seconds between each scan"</string>
     <string name="scan_interval_key" translatable="false">"scan_interval"</string>
     <string name="scan_interval_default" translatable="false">"5"</string>
+
+    <string name="scan_fast_title">"Fast Scanning"</string>
+    <string name="scan_fast_key" translatable="false">"scan_fast"</string>
+    <bool name="scan_fast_default" translatable="false">false</bool>
 
     <string name="sort_by_title">"Sort Access Points By"</string>
     <string name="sort_by_summary" translatable="false">"%s"</string>

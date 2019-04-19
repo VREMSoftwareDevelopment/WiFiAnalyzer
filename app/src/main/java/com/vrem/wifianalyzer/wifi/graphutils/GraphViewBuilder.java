@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ public class GraphViewBuilder {
     private String horizontalTitle;
     private boolean horizontalLabelsVisible;
 
-    public GraphViewBuilder(@NonNull Context context, int numHorizontalLabels, int maximumY, ThemeStyle themeStyle) {
+    public GraphViewBuilder(@NonNull Context context, int numHorizontalLabels, int maximumY, @NonNull ThemeStyle themeStyle) {
         this.context = context;
         this.numHorizontalLabels = numHorizontalLabels;
         this.maximumY = (maximumY > GraphConstants.MAX_Y || maximumY < GraphConstants.MIN_Y_HALF)
@@ -125,7 +125,7 @@ public class GraphViewBuilder {
         setGridLabelRenderColors(gridLabelRenderer);
     }
 
-    private void setGridLabelRenderColors(GridLabelRenderer gridLabelRenderer) {
+    private void setGridLabelRenderColors(@NonNull GridLabelRenderer gridLabelRenderer) {
         int color = ThemeStyle.DARK.equals(themeStyle) ? Color.WHITE : Color.BLACK;
         gridLabelRenderer.setGridColor(Color.GRAY);
         gridLabelRenderer.setVerticalLabelsColor(color);

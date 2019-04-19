@@ -10,7 +10,7 @@ android:
         - extra-google-m2repository
         - extra-android-m2repository
 script:
-    - TERM=dumb ./gradlew lint testDebugUnitTest jacocoTestDebugUnitTestReport
+    - TERM=dumb ./gradlew lint testDebugUnitTest jacocoTestReport
 before_install:
     - chmod +x gradlew
     - yes | sdkmanager "platforms;android-28"

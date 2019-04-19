@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi.graphutils;
 
+import android.graphics.Color;
 import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
@@ -27,6 +28,7 @@ import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.BaseSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.vrem.wifianalyzer.Configuration;
+import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import org.junit.Before;
@@ -42,7 +44,7 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -77,7 +79,7 @@ public class GraphViewWrapperTest {
 
         when(graphView.getLegendRenderer()).thenReturn(legendRenderer);
 
-        fixture = new GraphViewWrapper(graphView, GraphLegend.HIDE) {
+        fixture = new GraphViewWrapper(graphView, GraphLegend.HIDE, ThemeStyle.DARK) {
             @Override
             protected LegendRenderer newLegendRenderer() {
                 return legendRenderer;
@@ -232,6 +234,7 @@ public class GraphViewWrapperTest {
         verify(legendRenderer).resetStyles();
         verify(legendRenderer).setWidth(0);
         verify(legendRenderer).setTextSize(textSize);
+        verify(legendRenderer).setTextColor(Color.WHITE);
     }
 
     @Test

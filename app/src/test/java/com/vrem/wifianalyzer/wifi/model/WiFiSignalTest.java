@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ public class WiFiSignalTest {
 
     @Before
     public void setUp() {
-        fixture = new WiFiSignal(PRIMARY_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_40, LEVEL);
+        fixture = new WiFiSignal(PRIMARY_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_40, LEVEL, true);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class WiFiSignalTest {
     @Test
     public void testWiFiFrequencyWithFrequencyAndWiFiWidth() {
         // execute
-        fixture = new WiFiSignal(PRIMARY_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_80, LEVEL);
+        fixture = new WiFiSignal(PRIMARY_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_80, LEVEL, true);
         // validate
         assertEquals(PRIMARY_FREQUENCY, fixture.getPrimaryFrequency());
         assertEquals(PRIMARY_CHANNEL, fixture.getPrimaryWiFiChannel().getChannel());
@@ -114,7 +114,7 @@ public class WiFiSignalTest {
     @Test
     public void testEquals() {
         // setup
-        WiFiSignal other = new WiFiSignal(PRIMARY_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_40, LEVEL);
+        WiFiSignal other = new WiFiSignal(PRIMARY_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_40, LEVEL, true);
         // execute & validate
         assertEquals(fixture, other);
         assertNotSame(fixture, other);
@@ -123,7 +123,7 @@ public class WiFiSignalTest {
     @Test
     public void testHashCode() {
         // setup
-        WiFiSignal other = new WiFiSignal(PRIMARY_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_40, LEVEL);
+        WiFiSignal other = new WiFiSignal(PRIMARY_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_40, LEVEL, true);
         // execute & validate
         assertEquals(fixture.hashCode(), other.hashCode());
     }
@@ -131,7 +131,7 @@ public class WiFiSignalTest {
     @Test
     public void testGetChannelDisplayWhenPrimaryAndCenterSame() {
         // setup
-        fixture = new WiFiSignal(PRIMARY_FREQUENCY, PRIMARY_FREQUENCY, WiFiWidth.MHZ_40, LEVEL);
+        fixture = new WiFiSignal(PRIMARY_FREQUENCY, PRIMARY_FREQUENCY, WiFiWidth.MHZ_40, LEVEL, true);
         // execute & validate
         assertEquals("5", fixture.getChannelDisplay());
     }
@@ -139,7 +139,7 @@ public class WiFiSignalTest {
     @Test
     public void testGetChannelDisplayWhenPrimaryAndCenterDifferent() {
         // setup
-        fixture = new WiFiSignal(PRIMARY_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_40, LEVEL);
+        fixture = new WiFiSignal(PRIMARY_FREQUENCY, CENTER_FREQUENCY, WiFiWidth.MHZ_40, LEVEL, true);
         // execute & validate
         assertEquals("5(6)", fixture.getChannelDisplay());
     }

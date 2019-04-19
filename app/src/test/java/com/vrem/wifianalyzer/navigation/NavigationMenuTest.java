@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -97,15 +97,15 @@ public class NavigationMenuTest {
 
     @Test
     public void testGetIcon() {
-        assertEquals(R.drawable.ic_network_wifi_grey_500_48dp, NavigationMenu.ACCESS_POINTS.getIcon());
-        assertEquals(R.drawable.ic_wifi_tethering_grey_500_48dp, NavigationMenu.CHANNEL_RATING.getIcon());
-        assertEquals(R.drawable.ic_insert_chart_grey_500_48dp, NavigationMenu.CHANNEL_GRAPH.getIcon());
-        assertEquals(R.drawable.ic_show_chart_grey_500_48dp, NavigationMenu.TIME_GRAPH.getIcon());
-        assertEquals(R.drawable.ic_import_export_grey_500_48dp, NavigationMenu.EXPORT.getIcon());
-        assertEquals(R.drawable.ic_location_on_grey_500_48dp, NavigationMenu.CHANNEL_AVAILABLE.getIcon());
-        assertEquals(R.drawable.ic_list_grey_500_48dp, NavigationMenu.VENDORS.getIcon());
-        assertEquals(R.drawable.ic_settings_grey_500_48dp, NavigationMenu.SETTINGS.getIcon());
-        assertEquals(R.drawable.ic_info_outline_grey_500_48dp, NavigationMenu.ABOUT.getIcon());
+        assertEquals(R.drawable.ic_network_wifi, NavigationMenu.ACCESS_POINTS.getIcon());
+        assertEquals(R.drawable.ic_wifi_tethering, NavigationMenu.CHANNEL_RATING.getIcon());
+        assertEquals(R.drawable.ic_insert_chart, NavigationMenu.CHANNEL_GRAPH.getIcon());
+        assertEquals(R.drawable.ic_show_chart, NavigationMenu.TIME_GRAPH.getIcon());
+        assertEquals(R.drawable.ic_import_export, NavigationMenu.EXPORT.getIcon());
+        assertEquals(R.drawable.ic_location_on, NavigationMenu.CHANNEL_AVAILABLE.getIcon());
+        assertEquals(R.drawable.ic_list_grey, NavigationMenu.VENDORS.getIcon());
+        assertEquals(R.drawable.ic_settings, NavigationMenu.SETTINGS.getIcon());
+        assertEquals(R.drawable.ic_info_outline, NavigationMenu.ABOUT.getIcon());
     }
 
     @Test

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ WiFiAnalyzer
-  ~ Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@
     <string name="no_data_msg">"Bitte besuchen Sie den Abschnitt zu häufig gestellten Fragen auf unserer Website."</string>
     <string name="no_data_geo_warning">"Einige Benutzer mit Android 6+ ("Marshmallow") haben berichtet, dass der Standort-Dienst aktiviert sein muss, damit WLAN-Netzerke erkannt werden können. Benutzer unter "Marshmallow" müssen möglicherweise die Standortdienste aktivieren, auch wenn WiFiAnalyzer sie nicht explizit benötigt. Dies scheint ein Problem in Android 6+ zu sein."</string>
     <string name="permission_msg">"In Android Marshmallow ist es erforderlich die Standortdienste zu aktivieren, um WLAN-Scans durchzuführen. Sie werden aufgefordert die Standortdienste-Berechtigung zu erteilen. Da diese App keine Internetverbindung benötigt, können sie sicher sein, dass diese App Ihren Standort nicht übermitteln kann!"</string>
-
+    <string name="location_msg">"Diese App kann deinen Standort mithilfe von Netzwerkquellen wie Mobilfunkmasten und WLAN ermitteln. Die App kann diese Standortdienste nur verwenden, wenn sie auf deinem Smartphone aktiviert und verfügbar sind."</string>
     <string name="export_not_available">"Export nicht verfügbar"</string>
 
     <string name="channel_rating_best">"Beste Kanäle:"</string>
@@ -64,6 +64,8 @@
 
     <string name="scan_interval_title">"Scan-Intervall"</string>
     <string name="scan_interval_summary">"%s Sekunden zwischen den Scans"</string>
+
+    <string name="scan_fast_title">"Fast Scanning"</string>
 
     <string name="sort_by_title">"Sortiere Access Points nach"</string>
     <string name="sort_by_signal_strength">"Signalstärke"</string>

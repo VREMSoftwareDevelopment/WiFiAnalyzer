@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -102,7 +102,7 @@ public class WiFiBandAdapterTest {
     @Test
     public void testGetColorWithExisting() {
         // execute & validate
-        assertEquals(R.color.connected, fixture.getColor(WiFiBand.GHZ2));
+        assertEquals(R.color.selected, fixture.getColor(WiFiBand.GHZ2));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class WiFiBandAdapterTest {
         // setup
         fixture.toggle(WiFiBand.GHZ2);
         // execute & validate
-        assertEquals(R.color.icons_color, fixture.getColor(WiFiBand.GHZ2));
+        assertEquals(R.color.regular, fixture.getColor(WiFiBand.GHZ2));
     }
 
     @Test

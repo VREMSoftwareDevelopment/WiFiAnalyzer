@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ WiFiAnalyzer
-  ~ Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@
     <string name="no_data_msg">"Sprawdź FAQ na naszej stronie."</string>
     <string name="no_data_geo_warning">"Niektórzy urzytkownicy Android OS 6+ (Marshmallow) zgłosili, że usługi lokacyjne muszą być uaktywnione aby aplickacja wykrywała sieci WiFi. Użytkownicy Marshmallow prawdopodobnie będą musieli włączyć usługi lokacyjne, mimo żę sam WiFiAnalyzer ich nie wymaga. Jest to wynikiem problemu z Android OS 6+, który wymaga usług lokalizacyjnych do wykrycia sieci WiFi."</string>
     <string name="permission_msg">"Od wersji Android Marshmallow, pozwolenia lokacyjne są wymagane do przeprowadzenia skanu WiFi. Użytkownik będzie poproszony o włączenie pozwolenia użycia usług lokacyjnych. Ponieważ aplikacja nie wymaga usług lokacyjnych, użytkownik może być pewien że aplikacja nie wykorzystuje ani nie przekazuje lokacji urządzenia!"</string>
-
+    <string name="location_msg">"Ta aplikacja może określać Twoją lokalizację na podstawie źródeł sieciowych, takich jak stacje bazowe i sieci Wi-Fi. Te usługi lokalizacyjne muszą być włączone i dostępne na telefonie, by aplikacja mogła z nich korzystać."</string>
     <string name="export_not_available">"Export nie dostępny"</string>
 
     <string name="channel_rating_best">"Najlepsze kanały:"</string>
@@ -64,6 +64,8 @@
 
     <string name="scan_interval_title">"Interwał Skanowania"</string>
     <string name="scan_interval_summary">"%s sekund pomiędzy każdym skanem"</string>
+
+    <string name="scan_fast_title">"Fast Scanning"</string>
 
     <string name="sort_by_title">"Sortuj punkty dostępu po"</string>
     <string name="sort_by_signal_strength">"Siła Sygnału"</string>

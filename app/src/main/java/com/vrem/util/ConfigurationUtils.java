@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ public class ConfigurationUtils {
     @NonNull
     public static Context createContext(@NonNull Context context, @NonNull Locale newLocale) {
         return
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+            BuildUtils.isMinVersionN()
                 ? createContextNougat(context, newLocale)
                 : createContextLegacy(context, newLocale);
     }

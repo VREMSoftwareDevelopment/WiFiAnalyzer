@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi.graphutils;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -31,6 +32,7 @@ import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
+import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointDetail;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointPopup;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -45,13 +47,15 @@ import java.util.Set;
 
 public class GraphViewWrapper {
     private final GraphView graphView;
+    private final ThemeStyle themeStyle;
     private GraphLegend graphLegend;
     private SeriesCache seriesCache;
     private SeriesOptions seriesOptions;
 
-    public GraphViewWrapper(@NonNull GraphView graphView, @NonNull GraphLegend graphLegend) {
+    public GraphViewWrapper(@NonNull GraphView graphView, @NonNull GraphLegend graphLegend, @NonNull ThemeStyle themeStyle) {
         this.graphView = graphView;
         this.graphLegend = graphLegend;
+        this.themeStyle = themeStyle;
         setSeriesCache(new SeriesCache());
         setSeriesOptions(new SeriesOptions());
     }
@@ -139,6 +143,7 @@ public class GraphViewWrapper {
         legendRenderer.resetStyles();
         legendRenderer.setWidth(0);
         legendRenderer.setTextSize(graphView.getTitleTextSize());
+        legendRenderer.setTextColor(ThemeStyle.DARK.equals(themeStyle) ? Color.WHITE : Color.BLACK);
         graphLegend.display(legendRenderer);
     }
 
