@@ -70,7 +70,7 @@ public class AccessPointsAdapterTest {
         expandableListView = mock(ExpandableListView.class);
         viewGroup = mock(ViewGroup.class);
 
-        fixture = new AccessPointsAdapter(mainActivity);
+        fixture = new AccessPointsAdapter();
         fixture.setAccessPointsAdapterData(accessPointsAdapterData);
         fixture.setAccessPointDetail(accessPointDetail);
         fixture.setAccessPointPopup(accessPointPopup);

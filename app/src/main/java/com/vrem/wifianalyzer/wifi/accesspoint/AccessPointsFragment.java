@@ -44,7 +44,7 @@ public class AccessPointsFragment extends Fragment implements RefreshAction {
         swipeRefreshLayout = view.findViewById(R.id.accessPointsRefresh);
         swipeRefreshLayout.setOnRefreshListener(new RefreshListener(this));
 
-        accessPointsAdapter = new AccessPointsAdapter(getActivity());
+        accessPointsAdapter = new AccessPointsAdapter();
         ExpandableListView expandableListView = view.findViewById(R.id.accessPointsView);
         expandableListView.setAdapter(accessPointsAdapter);
         accessPointsAdapter.setExpandableListView(expandableListView);

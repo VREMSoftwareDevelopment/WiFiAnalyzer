@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.accesspoint;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,15 +31,13 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
-    private final Context context;
     private AccessPointsAdapterData accessPointsAdapterData;
     private AccessPointDetail accessPointDetail;
     private AccessPointPopup accessPointPopup;
     private ExpandableListView expandableListView;
 
-    AccessPointsAdapter(@NonNull Context context) {
+    AccessPointsAdapter() {
         super();
-        this.context = context;
         setAccessPointsAdapterData(new AccessPointsAdapterData());
         setAccessPointDetail(new AccessPointDetail());
         setAccessPointPopup(new AccessPointPopup());
