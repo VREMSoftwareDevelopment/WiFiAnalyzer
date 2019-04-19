@@ -25,7 +25,7 @@ ext {
     lang3Version = "3.9"
     collections4Version = "4.3"
     graphviewVersion = "4.2.2"
-    powermockVersion = "1.7.4"
+    powermockVersion = "2.0.0"
     robolectricVersion = "4.1"
     junitVersion = "4.12"
     junitToolboxVersion = "2.4"

@@ -56,7 +56,7 @@ public class FileUtilsTest {
     public void testReadFileHandleException() {
         // setup
         int id = 11;
-        when(resources.openRawResource(id)).thenThrow(Exception.class);
+        when(resources.openRawResource(id)).thenThrow(Resources.NotFoundException.class);
         // execute
         String actual = FileUtils.readFile(resources, id);
         // validate
