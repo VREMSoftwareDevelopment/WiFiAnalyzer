@@ -22,7 +22,6 @@ import android.os.Build;
 
 import com.vrem.wifianalyzer.R;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -36,11 +35,6 @@ import static org.junit.Assert.assertTrue;
 @RunWith(RobolectricTestRunner.class)
 public class SettingsFragmentTest {
     private SettingsFragment fixture;
-
-    @Before
-    public void setUp() {
-//        RobolectricUtil.INSTANCE.getActivity();
-    }
 
     @Test
     public void testOnCreate() {
