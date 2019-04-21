@@ -22,17 +22,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
+import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.refresh.RefreshAction;
-import com.vrem.wifianalyzer.wifi.refresh.RefreshListener;
 
-public class AccessPointsFragment extends Fragment implements RefreshAction {
+public class AccessPointsFragment extends Fragment implements OnRefreshListener {
     private SwipeRefreshLayout swipeRefreshLayout;
     private AccessPointsAdapter accessPointsAdapter;
 
@@ -42,7 +42,11 @@ public class AccessPointsFragment extends Fragment implements RefreshAction {
         View view = inflater.inflate(R.layout.access_points_content, container, false);
 
         swipeRefreshLayout = view.findViewById(R.id.accessPointsRefresh);
-        swipeRefreshLayout.setOnRefreshListener(new RefreshListener(this));
+        swipeRefreshLayout.setOnRefreshListener(this);
+        if (BuildUtils.isMinVersionP()) {
+            swipeRefreshLayout.setRefreshing(false);
+            swipeRefreshLayout.setEnabled(false);
+        }
 
         accessPointsAdapter = new AccessPointsAdapter();
         ExpandableListView expandableListView = view.findViewById(R.id.accessPointsView);
@@ -55,7 +59,7 @@ public class AccessPointsFragment extends Fragment implements RefreshAction {
     }
 
     @Override
-    public void refresh() {
+    public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
         MainContext.INSTANCE.getScannerService().update();
         swipeRefreshLayout.setRefreshing(false);
@@ -64,7 +68,7 @@ public class AccessPointsFragment extends Fragment implements RefreshAction {
     @Override
     public void onResume() {
         super.onResume();
-        refresh();
+        onRefresh();
     }
 
     @Override
