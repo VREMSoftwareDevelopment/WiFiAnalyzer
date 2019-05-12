@@ -16,29 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation;
+package com.vrem.wifianalyzer.navigation.availability;
 
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
-import android.view.MenuItem;
 import android.view.View;
 
-public interface NavigationMenuControl extends
-    NavigationView.OnNavigationItemSelectedListener,
-    BottomNavigationView.OnNavigationItemSelectedListener {
+import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.R;
 
-    @NonNull
-    MenuItem getCurrentMenuItem();
+class BottomNavOff implements NavigationOption {
 
-    @NonNull
-    NavigationMenu getCurrentNavigationMenu();
-
-    void setCurrentNavigationMenu(@NonNull NavigationMenu navigationMenu);
-
-    @NonNull
-    NavigationView getNavigationView();
-
-    <T extends View> T findViewById(@IdRes int id);
+    @Override
+    public void apply(@NonNull MainActivity mainActivity) {
+        mainActivity.findViewById(R.id.nav_bottom).setVisibility(View.GONE);
+    }
 }

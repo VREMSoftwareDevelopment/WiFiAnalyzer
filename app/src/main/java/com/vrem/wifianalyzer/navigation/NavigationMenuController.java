@@ -19,61 +19,71 @@
 package com.vrem.wifianalyzer.navigation;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.vrem.util.EnumUtils;
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
 
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
 
-public class NavigationMenuView implements NavigationMenuControl {
+public class NavigationMenuController {
     private final NavigationView navigationView;
+    private final BottomNavigationView bottomNavigationView;
     private NavigationMenu currentNavigationMenu;
 
-    public NavigationMenuView(@NonNull MainActivity mainActivity, @NonNull NavigationMenu currentNavigationMenu) {
-        navigationView = mainActivity.findViewById(R.id.nav_view);
+    public NavigationMenuController(@NonNull NavigationMenuControl navigationMenuControl) {
+        navigationView = navigationMenuControl.findViewById(R.id.nav_drawer);
+        bottomNavigationView = navigationMenuControl.findViewById(R.id.nav_bottom);
+        navigationView.setNavigationItemSelectedListener(navigationMenuControl);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navigationMenuControl);
         populateNavigationMenu();
-        setCurrentNavigationMenu(currentNavigationMenu);
-        navigationView.setNavigationItemSelectedListener(mainActivity);
     }
 
     private void populateNavigationMenu() {
         IterableUtils.forEach(EnumUtils.values(NavigationGroup.class), new NavigationGroupClosure(navigationView.getMenu()));
+        new NavigationGroupClosure(bottomNavigationView.getMenu()).execute(NavigationGroup.GROUP_FEATURE);
     }
 
-    @Override
     @NonNull
     public MenuItem getCurrentMenuItem() {
         return navigationView.getMenu().getItem(getCurrentNavigationMenu().ordinal());
     }
 
-    @Override
     @NonNull
     public NavigationMenu getCurrentNavigationMenu() {
         return currentNavigationMenu;
     }
 
-    @Override
     public void setCurrentNavigationMenu(@NonNull NavigationMenu navigationMenu) {
         this.currentNavigationMenu = navigationMenu;
-        Menu menu = navigationView.getMenu();
-        if (menu != null) {
-            for (int i = 0; i < menu.size(); i++) {
-                MenuItem item = menu.getItem(i);
-                item.setCheckable(navigationMenu.ordinal() == i);
-                item.setChecked(navigationMenu.ordinal() == i);
-            }
+        selectCurrentMenuItem(navigationMenu, navigationView.getMenu());
+        selectCurrentMenuItem(navigationMenu, bottomNavigationView.getMenu());
+    }
+
+    private void selectCurrentMenuItem(@NonNull NavigationMenu navigationMenu, @NonNull Menu menu) {
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem menuItem = menu.getItem(i);
+            menuItem.setCheckable(false);
+            menuItem.setChecked(false);
+        }
+        MenuItem menuItem = menu.findItem(navigationMenu.ordinal());
+        if (menuItem != null) {
+            menuItem.setCheckable(true);
+            menuItem.setChecked(true);
         }
     }
 
-    @Override
     @NonNull
     public NavigationView getNavigationView() {
         return navigationView;
+    }
+
+    BottomNavigationView getBottomNavigationView() {
+        return bottomNavigationView;
     }
 
     private class NavigationGroupClosure implements Closure<NavigationGroup> {
@@ -85,15 +95,15 @@ public class NavigationMenuView implements NavigationMenuControl {
 
         @Override
         public void execute(final NavigationGroup navigationGroup) {
-            IterableUtils.forEach(navigationGroup.getNavigationMenus(), new NavigationMenuClosure(menu, navigationGroup));
+            IterableUtils.forEach(navigationGroup.getNavigationMenus(), new NavigationItemClosure(menu, navigationGroup));
         }
     }
 
-    private class NavigationMenuClosure implements Closure<NavigationMenu> {
+    private class NavigationItemClosure implements Closure<NavigationMenu> {
         private final Menu menu;
         private final NavigationGroup navigationGroup;
 
-        private NavigationMenuClosure(@NonNull Menu menu, @NonNull NavigationGroup navigationGroup) {
+        private NavigationItemClosure(@NonNull Menu menu, @NonNull NavigationGroup navigationGroup) {
             this.menu = menu;
             this.navigationGroup = navigationGroup;
         }

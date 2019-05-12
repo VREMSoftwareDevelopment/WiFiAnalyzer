@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.navigation;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,16 +41,18 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
-public class NavigationMenuViewTest {
+public class NavigationMenuControllerTest {
     private MainActivity mainActivity;
-    private NavigationMenuView fixture;
+    private NavigationMenuController fixture;
     private NavigationView navigationView;
+    private BottomNavigationView bottomNavigationView;
 
     @Before
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getActivity();
-        fixture = mainActivity.getNavigationMenuView();
+        fixture = mainActivity.getNavigationMenuController();
         navigationView = fixture.getNavigationView();
+        bottomNavigationView = fixture.getBottomNavigationView();
     }
 
     @After
@@ -69,7 +72,7 @@ public class NavigationMenuViewTest {
     @Test
     public void testGetCurrentMenuItem() {
         // setup
-        MenuItem expected = getMenuItem(NavigationMenu.ACCESS_POINTS);
+        MenuItem expected = getNavigationViewMenuItem(NavigationMenu.ACCESS_POINTS);
         // execute
         MenuItem actual = fixture.getCurrentMenuItem();
         // validate
@@ -87,21 +90,39 @@ public class NavigationMenuViewTest {
     }
 
     @Test
-    public void testSetCurrentNavigationMenu() {
+    public void testSetCurrentNavigationMenuWithNavigationView() {
         // setup
         NavigationMenu expected = NavigationMenu.CHANNEL_GRAPH;
         // execute
         fixture.setCurrentNavigationMenu(expected);
         // validate
         assertEquals(expected, fixture.getCurrentNavigationMenu());
-        assertTrue(getMenuItem(NavigationMenu.CHANNEL_GRAPH).isCheckable());
-        assertTrue(getMenuItem(NavigationMenu.CHANNEL_GRAPH).isChecked());
-        assertFalse(getMenuItem(NavigationMenu.ACCESS_POINTS).isCheckable());
-        assertFalse(getMenuItem(NavigationMenu.ACCESS_POINTS).isChecked());
+        assertTrue(getNavigationViewMenuItem(NavigationMenu.CHANNEL_GRAPH).isCheckable());
+        assertTrue(getNavigationViewMenuItem(NavigationMenu.CHANNEL_GRAPH).isChecked());
+        assertFalse(getNavigationViewMenuItem(NavigationMenu.ACCESS_POINTS).isCheckable());
+        assertFalse(getNavigationViewMenuItem(NavigationMenu.ACCESS_POINTS).isChecked());
     }
 
-    private MenuItem getMenuItem(NavigationMenu navigationMenu) {
-        return navigationView.getMenu().getItem(navigationMenu.ordinal());
+    @Test
+    public void testSetCurrentNavigationMenuWithBottomNavigationView() {
+        // setup
+        NavigationMenu expected = NavigationMenu.CHANNEL_GRAPH;
+        // execute
+        fixture.setCurrentNavigationMenu(expected);
+        // validate
+        assertEquals(expected, fixture.getCurrentNavigationMenu());
+        MenuItem menuItem = getBottomNavigationMenuItem(NavigationMenu.CHANNEL_GRAPH);
+        assertTrue(menuItem.isCheckable());
+        assertTrue(menuItem.isChecked());
+        assertFalse(getBottomNavigationMenuItem(NavigationMenu.ACCESS_POINTS).isCheckable());
+    }
+
+    private MenuItem getNavigationViewMenuItem(NavigationMenu navigationMenu) {
+        return navigationView.getMenu().findItem(navigationMenu.ordinal());
+    }
+
+    private MenuItem getBottomNavigationMenuItem(NavigationMenu navigationMenu) {
+        return bottomNavigationView.getMenu().findItem(navigationMenu.ordinal());
     }
 
     private class NavigationGroupClosure implements Closure<NavigationGroup> {

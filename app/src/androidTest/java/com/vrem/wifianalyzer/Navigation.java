@@ -77,7 +77,7 @@ class Navigation implements Runnable {
         pauseShort();
         ViewInteraction navigationMenuItemView = onView(
             allOf(new ChildAtPosition(allOf(withId(R.id.design_navigation_view),
-                new ChildAtPosition(withId(R.id.nav_view), NAVIGATION_DRAWER_BUTTON)), menuItem),
+                new ChildAtPosition(withId(R.id.nav_drawer), NAVIGATION_DRAWER_BUTTON)), menuItem),
                 isDisplayed()));
         navigationMenuItemView.perform(click());
     }

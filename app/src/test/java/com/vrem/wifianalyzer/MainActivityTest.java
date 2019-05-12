@@ -24,7 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
-import com.vrem.wifianalyzer.navigation.NavigationMenuView;
+import com.vrem.wifianalyzer.navigation.NavigationMenuController;
 import com.vrem.wifianalyzer.navigation.options.OptionMenu;
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
@@ -176,54 +176,54 @@ public class MainActivityTest {
     public void testGetCurrentMenuItem() {
         // setup
         MenuItem menuItem = mock(MenuItem.class);
-        NavigationMenuView navigationMenuView = mock(NavigationMenuView.class);
-        when(navigationMenuView.getCurrentMenuItem()).thenReturn(menuItem);
-        fixture.setNavigationMenuView(navigationMenuView);
+        NavigationMenuController navigationMenuController = mock(NavigationMenuController.class);
+        when(navigationMenuController.getCurrentMenuItem()).thenReturn(menuItem);
+        fixture.setNavigationMenuController(navigationMenuController);
         // execute
         MenuItem actual = fixture.getCurrentMenuItem();
         // validate
         assertEquals(menuItem, actual);
-        verify(navigationMenuView).getCurrentMenuItem();
+        verify(navigationMenuController).getCurrentMenuItem();
     }
 
     @Test
     public void testGetCurrentNavigationMenu() {
         // setup
         NavigationMenu navigationMenu = NavigationMenu.CHANNEL_GRAPH;
-        NavigationMenuView navigationMenuView = mock(NavigationMenuView.class);
-        when(navigationMenuView.getCurrentNavigationMenu()).thenReturn(navigationMenu);
-        fixture.setNavigationMenuView(navigationMenuView);
+        NavigationMenuController navigationMenuController = mock(NavigationMenuController.class);
+        when(navigationMenuController.getCurrentNavigationMenu()).thenReturn(navigationMenu);
+        fixture.setNavigationMenuController(navigationMenuController);
         // execute
         NavigationMenu actual = fixture.getCurrentNavigationMenu();
         // validate
         assertEquals(navigationMenu, actual);
-        verify(navigationMenuView).getCurrentNavigationMenu();
+        verify(navigationMenuController).getCurrentNavigationMenu();
     }
 
     @Test
     public void testSetCurrentNavigationMenu() {
         // setup
         NavigationMenu navigationMenu = NavigationMenu.CHANNEL_GRAPH;
-        NavigationMenuView navigationMenuView = mock(NavigationMenuView.class);
-        fixture.setNavigationMenuView(navigationMenuView);
+        NavigationMenuController navigationMenuController = mock(NavigationMenuController.class);
+        fixture.setNavigationMenuController(navigationMenuController);
         // execute
         fixture.setCurrentNavigationMenu(navigationMenu);
         // validate
-        verify(navigationMenuView).setCurrentNavigationMenu(navigationMenu);
+        verify(navigationMenuController).setCurrentNavigationMenu(navigationMenu);
     }
 
     @Test
     public void testGetNavigationView() {
         // setup
-        NavigationMenuView navigationMenuView = mock(NavigationMenuView.class);
+        NavigationMenuController navigationMenuController = mock(NavigationMenuController.class);
         NavigationView navigationView = mock(NavigationView.class);
-        when(navigationMenuView.getNavigationView()).thenReturn(navigationView);
-        fixture.setNavigationMenuView(navigationMenuView);
+        when(navigationMenuController.getNavigationView()).thenReturn(navigationView);
+        fixture.setNavigationMenuController(navigationMenuController);
         // execute
         NavigationView actual = fixture.getNavigationView();
         // validate
         assertEquals(navigationView, actual);
-        verify(navigationMenuView).getNavigationView();
+        verify(navigationMenuController).getNavigationView();
     }
 
 }

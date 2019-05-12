@@ -38,7 +38,7 @@ import com.vrem.util.ConfigurationUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuControl;
-import com.vrem.wifianalyzer.navigation.NavigationMenuView;
+import com.vrem.wifianalyzer.navigation.NavigationMenuController;
 import com.vrem.wifianalyzer.navigation.options.OptionMenu;
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -48,14 +48,11 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 
 import java.util.Locale;
 
-import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
-
-public class MainActivity extends AppCompatActivity
-    implements OnSharedPreferenceChangeListener, OnNavigationItemSelectedListener, NavigationMenuControl {
+public class MainActivity extends AppCompatActivity implements NavigationMenuControl, OnSharedPreferenceChangeListener {
 
     private MainReload mainReload;
     private DrawerNavigation drawerNavigation;
-    private NavigationMenuView navigationMenuView;
+    private NavigationMenuController navigationMenuController;
     private NavigationMenu startNavigationMenu;
     private OptionMenu optionMenu;
     private String currentCountryCode;
@@ -95,7 +92,9 @@ public class MainActivity extends AppCompatActivity
         drawerNavigation = new DrawerNavigation(this, toolbar);
 
         startNavigationMenu = settings.getStartMenu();
-        setNavigationMenuView(new NavigationMenuView(this, startNavigationMenu));
+        NavigationMenuController navigationMenuController = new NavigationMenuController(this);
+        navigationMenuController.setCurrentNavigationMenu(startNavigationMenu);
+        setNavigationMenuController(navigationMenuController);
         onNavigationItemSelected(getCurrentMenuItem());
 
         ConnectionView connectionView = new ConnectionView(this);
@@ -253,36 +252,36 @@ public class MainActivity extends AppCompatActivity
     @NonNull
     @Override
     public MenuItem getCurrentMenuItem() {
-        return navigationMenuView.getCurrentMenuItem();
+        return navigationMenuController.getCurrentMenuItem();
     }
 
     @NonNull
     @Override
     public NavigationMenu getCurrentNavigationMenu() {
-        return navigationMenuView.getCurrentNavigationMenu();
+        return navigationMenuController.getCurrentNavigationMenu();
     }
 
     @Override
     public void setCurrentNavigationMenu(@NonNull NavigationMenu navigationMenu) {
-        navigationMenuView.setCurrentNavigationMenu(navigationMenu);
+        navigationMenuController.setCurrentNavigationMenu(navigationMenu);
     }
 
     @NonNull
     @Override
     public NavigationView getNavigationView() {
-        return navigationMenuView.getNavigationView();
+        return navigationMenuController.getNavigationView();
     }
 
     public void mainConnectionVisibility(int visibility) {
         findViewById(R.id.main_connection).setVisibility(visibility);
     }
 
-    public NavigationMenuView getNavigationMenuView() {
-        return navigationMenuView;
+    public NavigationMenuController getNavigationMenuController() {
+        return navigationMenuController;
     }
 
-    void setNavigationMenuView(NavigationMenuView navigationMenuView) {
-        this.navigationMenuView = navigationMenuView;
+    void setNavigationMenuController(NavigationMenuController navigationMenuController) {
+        this.navigationMenuController = navigationMenuController;
     }
 
     void setDrawerNavigation(DrawerNavigation drawerNavigation) {
