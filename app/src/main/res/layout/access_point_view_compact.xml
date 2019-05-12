@@ -46,12 +46,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
+                android:layout_gravity="center_vertical"
                 android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/ssid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:textStyle="bold"/>
         </LinearLayout>
 
@@ -99,10 +101,11 @@
 
             <ImageView
                 android:id="@+id/securityImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/icon_small"
+                android:layout_height="@dimen/icon_small"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                 android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
+                android:layout_gravity="center_vertical"
                 android:contentDescription="@null"/>
 
             <TextView

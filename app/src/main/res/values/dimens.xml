@@ -31,9 +31,7 @@
 
     <dimen name="nav_header_height">110dp</dimen>
 
-    <dimen name="icon_xsmall">12dp</dimen>
-    <dimen name="icon_small">18dp</dimen>
+    <dimen name="icon_small">12dp</dimen>
     <dimen name="icon_regular">24dp</dimen>
     <dimen name="icon_large">36dp</dimen>
-    <dimen name="icon_xlarge">48dp</dimen>
 </resources>

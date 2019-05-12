@@ -53,6 +53,6 @@
         android:background="@color/primary_material_dark"
         app:itemIconTint="@drawable/menu_selector"
         app:itemTextColor="@drawable/menu_selector"
-        app:labelVisibilityMode="unlabeled"/>
+        app:labelVisibilityMode="labeled"/>
 
 </LinearLayout>
