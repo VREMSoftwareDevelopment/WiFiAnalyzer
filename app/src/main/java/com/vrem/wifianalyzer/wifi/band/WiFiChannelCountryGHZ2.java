@@ -34,7 +34,9 @@ class WiFiChannelCountryGHZ2 {
     private final SortedSet<Integer> world;
 
     WiFiChannelCountryGHZ2() {
-        countries = new HashSet<>(Arrays.asList("AS", "AU", "CA", "FM", "GU", "MP", "PA", "PR", "UM", "US", "VI"));
+        countries = new HashSet<>(Arrays.asList(
+                "AS", "CA", "CO", "DO", "FM", "GT", "GU", "MP", "MX", "PA", "PR", "UM", "US", "UZ", "VI")
+        );
         channels = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
         world = new TreeSet<>(channels);
         world.add(12);

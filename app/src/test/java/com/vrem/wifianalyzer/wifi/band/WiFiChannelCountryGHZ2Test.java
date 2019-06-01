@@ -45,13 +45,13 @@ public class WiFiChannelCountryGHZ2Test {
 
     @Test
     public void testChannelsForUSAndSimilar() {
-        List<String> countries = Arrays.asList("AS", "AU", "CA", "FM", "GU", "MP", "PA", "PR", "UM", "US", "VI");
+        List<String> countries = Arrays.asList("AS", "CA", "CO", "DO", "FM", "GT", "GU", "MP", "MX", "PA", "PR", "UM", "US", "UZ", "VI");
         IterableUtils.forEach(countries, new ChannelUSClosure());
     }
 
     @Test
     public void testChannelsForWorld() {
-        List<String> countries = Arrays.asList(null, "GB", "XYZ", "MX", "AE");
+        List<String> countries = Arrays.asList(null, "GB", "XYZ", "AU", "AE");
         IterableUtils.forEach(countries, new ChannelWorldClosure());
     }
 
