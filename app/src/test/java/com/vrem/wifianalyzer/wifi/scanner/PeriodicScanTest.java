@@ -58,14 +58,14 @@ public class PeriodicScanTest {
     @Test
     public void testRun() {
         // setup
-        int scanInterval = 15;
-        when(settings.getScanInterval()).thenReturn(scanInterval);
+        int scanSpeed = 15;
+        when(settings.getScanSpeed()).thenReturn(scanSpeed);
         // execute
         fixture.run();
         // validate
         verify(scanner).update();
         verify(handler, times(2)).removeCallbacks(fixture);
-        verify(handler).postDelayed(fixture, scanInterval * PeriodicScan.DELAY_INTERVAL);
+        verify(handler).postDelayed(fixture, scanSpeed * PeriodicScan.DELAY_INTERVAL);
     }
 
     @Test

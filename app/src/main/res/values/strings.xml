@@ -79,10 +79,10 @@
 
     <string name="wifi_band_key" translatable="false">"wifi_band"</string>
 
-    <string name="scan_interval_title">"Scan Interval"</string>
-    <string name="scan_interval_summary">"%s seconds between each scan"</string>
-    <string name="scan_interval_key" translatable="false">"scan_interval"</string>
-    <string name="scan_interval_default" translatable="false">"5"</string>
+    <string name="scan_speed_title">"Scan Interval"</string>
+    <string name="scan_speed_summary">"%s seconds between each scan"</string>
+    <string name="scan_speed_key" translatable="false">"scan_speed"</string>
+    <string name="scan_speed_default" translatable="false">"5"</string>
 
     <string name="sort_by_title">"Sort Access Points By"</string>
     <string name="sort_by_summary" translatable="false">"%s"</string>

@@ -62,8 +62,8 @@
 
     <string name="country_code_title">"国家"</string>
 
-    <string name="scan_interval_title">"扫描间隔"</string>
-    <string name="scan_interval_summary">"每次扫描间隔%s秒"</string>
+    <string name="scan_speed_title">"扫描间隔"</string>
+    <string name="scan_speed_summary">"每次扫描间隔%s秒"</string>
 
     <string name="sort_by_title">"接入点排序依据"</string>
     <string name="sort_by_signal_strength">"信号强度"</string>

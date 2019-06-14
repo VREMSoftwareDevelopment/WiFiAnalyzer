@@ -62,8 +62,8 @@
 
     <string name="country_code_title">"Страна"</string>
 
-    <string name="scan_interval_title">"Интервал сканирования"</string>
-    <string name="scan_interval_summary">"%s секунд между каждым сканированием"</string>
+    <string name="scan_speed_title">"Интервал сканирования"</string>
+    <string name="scan_speed_summary">"%s секунд между каждым сканированием"</string>
 
     <string name="sort_by_title">"Сортировка"</string>
     <string name="sort_by_signal_strength">"Уровень сигнала"</string>

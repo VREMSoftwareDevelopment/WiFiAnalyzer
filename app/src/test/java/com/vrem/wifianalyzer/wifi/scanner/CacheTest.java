@@ -68,7 +68,7 @@ public class CacheTest {
         settings = MainContextHelper.INSTANCE.getSettings();
         configuration = MainContextHelper.INSTANCE.getConfiguration();
 
-        when(settings.getScanInterval()).thenReturn(5);
+        when(settings.getScanSpeed()).thenReturn(5);
         when(configuration.isSizeAvailable()).thenReturn(true);
     }
 
@@ -120,7 +120,7 @@ public class CacheTest {
     @Test
     public void testGetCacheSizeWithSizeAvailable() {
         // setup
-        int values[] = new int[]{
+        int[] values = new int[]{
             1, 4,
             2, 3,
             4, 3,
@@ -131,11 +131,11 @@ public class CacheTest {
         };
         // execute
         for (int i = 0; i < values.length; i += 2) {
-            when(settings.getScanInterval()).thenReturn(values[i]);
-            assertEquals("Scan Interval:" + values[i], values[i + 1], fixture.getCacheSize());
+            when(settings.getScanSpeed()).thenReturn(values[i]);
+            assertEquals("Scan Speed:" + values[i], values[i + 1], fixture.getCacheSize());
         }
         // validate
-        verify(settings, times(values.length / 2)).getScanInterval();
+        verify(settings, times(values.length / 2)).getScanSpeed();
     }
 
     @Test
@@ -189,7 +189,7 @@ public class CacheTest {
         int actual = fixture.getCacheSize();
         // validate
         assertEquals(expected, actual);
-        verify(settings, never()).getScanInterval();
+        verify(settings, never()).getScanSpeed();
     }
 
     private void validate(ScanResult expectedScanResult, int expectedLevel, CacheResult actual) {

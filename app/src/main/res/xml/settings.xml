@@ -21,13 +21,13 @@
     <PreferenceCategory>
         <ListPreference
             android:icon="@drawable/ic_fast_forward"
-            android:defaultValue="@string/scan_interval_default"
-            android:entries="@array/scan_interval_array"
-            android:entryValues="@array/scan_interval_array"
-            android:key="@string/scan_interval_key"
+            android:defaultValue="@string/scan_speed_default"
+            android:entries="@array/scan_speed_array"
+            android:entryValues="@array/scan_speed_array"
+            android:key="@string/scan_speed_key"
             android:persistent="true"
-            android:summary="@string/scan_interval_summary"
-            android:title="@string/scan_interval_title"/>
+            android:summary="@string/scan_speed_summary"
+            android:title="@string/scan_speed_title"/>
     </PreferenceCategory>
 
     <PreferenceCategory>

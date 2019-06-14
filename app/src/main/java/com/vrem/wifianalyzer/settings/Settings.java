@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.settings;
 
 import android.support.annotation.NonNull;
 
-import com.vrem.util.BuildUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.util.LocaleUtils;
 import com.vrem.wifianalyzer.R;
@@ -41,8 +40,7 @@ import java.util.Set;
 import static android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
 public class Settings {
-    static final int SCAN_INTERVAL_DEFAULT = 5;
-    static final int SCAN_INTERVAL_MIN_P = 30;
+    static final int SCAN_SPEED_DEFAULT = 5;
     static final int GRAPH_Y_MULTIPLIER = -10;
     static final int GRAPH_Y_DEFAULT = 2;
 
@@ -60,12 +58,9 @@ public class Settings {
         repository.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
     }
 
-    public int getScanInterval() {
-        if (BuildUtils.isMinVersionP()) {
-            return SCAN_INTERVAL_MIN_P;
-        }
-        int defaultValue = repository.getStringAsInteger(R.string.scan_interval_default, SCAN_INTERVAL_DEFAULT);
-        return repository.getStringAsInteger(R.string.scan_interval_key, defaultValue);
+    public int getScanSpeed() {
+        int defaultValue = repository.getStringAsInteger(R.string.scan_speed_default, SCAN_SPEED_DEFAULT);
+        return repository.getStringAsInteger(R.string.scan_speed_key, defaultValue);
     }
 
     public int getGraphMaximumY() {
