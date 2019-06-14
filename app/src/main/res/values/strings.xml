@@ -84,10 +84,6 @@
     <string name="scan_interval_key" translatable="false">"scan_interval"</string>
     <string name="scan_interval_default" translatable="false">"5"</string>
 
-    <string name="scan_fast_title">"Fast Scanning"</string>
-    <string name="scan_fast_key" translatable="false">"scan_fast"</string>
-    <bool name="scan_fast_default" translatable="false">false</bool>
-
     <string name="sort_by_title">"Sort Access Points By"</string>
     <string name="sort_by_summary" translatable="false">"%s"</string>
     <string name="sort_by_key" translatable="false">"sort_by"</string>

@@ -65,8 +65,6 @@
     <string name="scan_interval_title">"扫描间隔"</string>
     <string name="scan_interval_summary">"每次扫描间隔%s秒"</string>
 
-    <string name="scan_fast_title">"快速扫描"</string>
-
     <string name="sort_by_title">"接入点排序依据"</string>
     <string name="sort_by_signal_strength">"信号强度"</string>
     <string name="sort_by_channel">"信道"</string>

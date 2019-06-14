@@ -28,12 +28,6 @@
             android:persistent="true"
             android:summary="@string/scan_interval_summary"
             android:title="@string/scan_interval_title"/>
-
-        <android.support.v7.preference.SwitchPreferenceCompat
-            android:defaultValue="@bool/scan_fast_default"
-            android:icon="@drawable/ic_fast_forward"
-            android:key="@string/scan_fast_key"
-            android:title="@string/scan_fast_title"/>
     </PreferenceCategory>
 
     <PreferenceCategory>

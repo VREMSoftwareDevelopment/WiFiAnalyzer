@@ -64,8 +64,6 @@
     <string name="scan_interval_title">"掃描間隔"</string>
     <string name="scan_interval_summary">"每次掃描間隔%s秒"</string>
 
-    <string name="scan_fast_title">"Fast Scanning"</string>
-
     <string name="sort_by_title">"接入點排序依據"</string>
     <string name="sort_by_signal_strength">"訊號強度"</string>
     <string name="sort_by_channel">"頻道"</string>
