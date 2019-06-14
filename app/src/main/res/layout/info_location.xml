@@ -25,7 +25,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:text="@string/permission_msg"/>
 
@@ -34,7 +33,6 @@
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_location_on"
         android:drawableTint="@color/selected"
-        android:gravity="center"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:text="@string/location_msg"/>
 </LinearLayout>
