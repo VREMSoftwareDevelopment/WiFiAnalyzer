@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.settings;
 
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
+import com.vrem.util.BuildUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.util.LocaleUtils;
 import com.vrem.wifianalyzer.R;
@@ -38,7 +39,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,10 +51,13 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.verifyNoMoreInteractions;
+import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(BuildUtils.class)
 public class SettingsTest {
     @Mock
     private Repository repository;
@@ -63,11 +68,13 @@ public class SettingsTest {
 
     @Before
     public void setUp() {
+        mockStatic(BuildUtils.class);
         fixture = new Settings(repository);
     }
 
     @After
     public void tearDown() {
+        verifyNoMoreInteractions(BuildUtils.class);
         verifyNoMoreInteractions(repository);
         verifyNoMoreInteractions(onSharedPreferenceChangeListener);
     }
@@ -89,8 +96,9 @@ public class SettingsTest {
     @Test
     public void testGetScanSpeed() {
         // setup
+        when(BuildUtils.isMinVersionP()).thenReturn(false);
         int defaultValue = 10;
-        int expected = 11;
+        int expected = 3;
         when(repository.getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)).thenReturn(defaultValue);
         when(repository.getStringAsInteger(R.string.scan_speed_key, defaultValue)).thenReturn(expected);
         // execute
@@ -99,6 +107,26 @@ public class SettingsTest {
         assertEquals(expected, actual);
         verify(repository).getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT);
         verify(repository).getStringAsInteger(R.string.scan_speed_key, defaultValue);
+        verifyStatic(BuildUtils.class);
+        BuildUtils.isMinVersionP();
+    }
+
+    @Test
+    public void testGetScanSpeedWithAndroidPie() {
+        // setup
+        when(BuildUtils.isMinVersionP()).thenReturn(true);
+        int defaultValue = 3;
+        int speedValue = 3;
+        when(repository.getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)).thenReturn(defaultValue);
+        when(repository.getStringAsInteger(R.string.scan_speed_key, defaultValue)).thenReturn(speedValue);
+        // execute
+        int actual = fixture.getScanSpeed();
+        // validate
+        assertEquals(Settings.SCAN_SPEED_DEFAULT, actual);
+        verify(repository).getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT);
+        verify(repository).getStringAsInteger(R.string.scan_speed_key, defaultValue);
+        verifyStatic(BuildUtils.class);
+        BuildUtils.isMinVersionP();
     }
 
     @Test

@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.settings;
 
 import android.support.annotation.NonNull;
 
+import com.vrem.util.BuildUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.util.LocaleUtils;
 import com.vrem.wifianalyzer.R;
@@ -60,7 +61,11 @@ public class Settings {
 
     public int getScanSpeed() {
         int defaultValue = repository.getStringAsInteger(R.string.scan_speed_default, SCAN_SPEED_DEFAULT);
-        return repository.getStringAsInteger(R.string.scan_speed_key, defaultValue);
+        int scanSpeed = repository.getStringAsInteger(R.string.scan_speed_key, defaultValue);
+        if (BuildUtils.isMinVersionP() && scanSpeed < SCAN_SPEED_DEFAULT) {
+            scanSpeed = SCAN_SPEED_DEFAULT;
+        }
+        return scanSpeed;
     }
 
     public int getGraphMaximumY() {
