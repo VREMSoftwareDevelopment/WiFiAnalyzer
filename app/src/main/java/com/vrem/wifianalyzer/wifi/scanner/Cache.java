@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainContext;
@@ -38,6 +39,7 @@ class Cache {
 
     private static final int ADJUST = 10;
     private final Deque<List<ScanResult>> cachedScanResults = new ArrayDeque<>();
+    private WifiInfo cachedWifiInfo = null;
 
     @NonNull
     List<CacheResult> getScanResults() {
@@ -62,6 +64,10 @@ class Cache {
         return results;
     }
 
+    WifiInfo getWifiInfo() {
+        return cachedWifiInfo;
+    }
+
     @NonNull
     private CacheResult getCacheResult(@NonNull ScanResult current, int level, int count) {
         CacheResult cacheResult;
@@ -81,12 +87,13 @@ class Cache {
         return scanResults;
     }
 
-    void add(@NonNull List<ScanResult> scanResults) {
+    void add(@NonNull List<ScanResult> scanResults, WifiInfo wifiInfo) {
         int cacheSize = getCacheSize();
         while (cachedScanResults.size() >= cacheSize) {
             cachedScanResults.pollLast();
         }
         cachedScanResults.addFirst(scanResults);
+        cachedWifiInfo = wifiInfo;
     }
 
     @NonNull

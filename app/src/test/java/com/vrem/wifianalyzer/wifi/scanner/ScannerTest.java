@@ -125,7 +125,7 @@ public class ScannerTest {
         // validate
         assertEquals(wiFiData, fixture.getWiFiData());
         verifyCache();
-        verifyTransfomer();
+        verifyTransformer();
         verifyWiFiManager();
         verify(updateNotifier1).update(wiFiData);
         verify(updateNotifier2).update(wiFiData);
@@ -178,6 +178,7 @@ public class ScannerTest {
 
     private void withCache() {
         when(cache.getScanResults()).thenReturn(cacheResults);
+        when(cache.getWifiInfo()).thenReturn(wifiInfo);
     }
 
     private void withTransformer() {
@@ -185,8 +186,9 @@ public class ScannerTest {
     }
 
     private void verifyCache() {
-        verify(cache).add(scanResults);
+        verify(cache).add(scanResults, wifiInfo);
         verify(cache).getScanResults();
+        verify(cache).getWifiInfo();
     }
 
     private void verifyWiFiManager() {
@@ -210,17 +212,15 @@ public class ScannerTest {
         withWiFiManagerStartScan();
     }
 
-    @SuppressWarnings("deprecation")
     private void verifyWiFiManagerStartScan() {
         verify(wifiManager).startScan();
     }
 
-    @SuppressWarnings("deprecation")
     private void withWiFiManagerStartScan() {
         when(wifiManager.startScan()).thenReturn(true);
     }
 
-    private void verifyTransfomer() {
+    private void verifyTransformer() {
         verify(transformer).transformToWiFiData(cacheResults, wifiInfo, configuredNetworks);
     }
 

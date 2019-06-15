@@ -57,7 +57,7 @@ class Scanner implements ScannerService {
     public void update() {
         enableWiFi();
         scanResults();
-        wiFiData = transformer.transformToWiFiData(cache.getScanResults(), wiFiInfo(), wifiConfiguration());
+        wiFiData = transformer.transformToWiFiData(cache.getScanResults(), cache.getWifiInfo(), wifiConfiguration());
         IterableUtils.forEach(updateNotifiers, new UpdateClosure());
     }
 
@@ -135,26 +135,17 @@ class Scanner implements ScannerService {
         }
     }
 
-    @SuppressWarnings("deprecation")
     private void scanResults() {
         try {
             if (wifiManager.startScan()) {
                 List<ScanResult> scanResults = wifiManager.getScanResults();
+                WifiInfo wifiInfo = wifiManager.getConnectionInfo();
                 if (scanResults != null) {
-                    cache.add(scanResults);
+                    cache.add(scanResults, wifiInfo);
                 }
             }
         } catch (Exception e) {
             // critical error: do not die
-        }
-    }
-
-    private WifiInfo wiFiInfo() {
-        try {
-            return wifiManager.getConnectionInfo();
-        } catch (Exception e) {
-            // critical error: do not die
-            return null;
         }
     }
 

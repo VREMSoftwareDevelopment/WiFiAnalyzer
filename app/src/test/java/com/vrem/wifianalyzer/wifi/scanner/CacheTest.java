@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
 
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContextHelper;
@@ -44,6 +45,8 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CacheTest {
+    @Mock
+    private WifiInfo wifiInfo;
     @Mock
     private ScanResult scanResult1;
     @Mock
@@ -82,7 +85,7 @@ public class CacheTest {
         // setup
         List<ScanResult> scanResults = Collections.emptyList();
         // execute
-        fixture.add(scanResults);
+        fixture.add(scanResults, wifiInfo);
         // validate
         assertEquals(scanResults, fixture.getFirst());
     }
@@ -96,7 +99,7 @@ public class CacheTest {
         for (int i = 0; i < cacheSize; i++) {
             List<ScanResult> scanResults = Collections.emptyList();
             expected.add(scanResults);
-            fixture.add(scanResults);
+            fixture.add(scanResults, wifiInfo);
         }
         // validate
         assertEquals(cacheSize, expected.size());
@@ -144,9 +147,10 @@ public class CacheTest {
         when(configuration.isSizeAvailable()).thenReturn(false);
         List<ScanResult> scanResults = Collections.emptyList();
         // execute
-        fixture.add(scanResults);
+        fixture.add(scanResults, wifiInfo);
         // validate
         assertEquals(scanResults, fixture.getFirst());
+        assertEquals(wifiInfo, fixture.getWifiInfo());
     }
 
     @Test
@@ -159,7 +163,7 @@ public class CacheTest {
         for (int i = 0; i < cacheSize; i++) {
             List<ScanResult> scanResults = Collections.emptyList();
             expected.add(scanResults);
-            fixture.add(scanResults);
+            fixture.add(scanResults, wifiInfo);
         }
         // validate
         assertEquals(cacheSize, expected.size());
@@ -210,9 +214,9 @@ public class CacheTest {
         scanResult6.BSSID = "BBSID3";
         scanResult6.level = 10;
 
-        fixture.add(Arrays.asList(scanResult1, scanResult4));
-        fixture.add(Arrays.asList(scanResult2, scanResult5));
-        fixture.add(Arrays.asList(scanResult3, scanResult6));
+        fixture.add(Arrays.asList(scanResult1, scanResult4), wifiInfo);
+        fixture.add(Arrays.asList(scanResult2, scanResult5), wifiInfo);
+        fixture.add(Arrays.asList(scanResult3, scanResult6), wifiInfo);
     }
 
 }
