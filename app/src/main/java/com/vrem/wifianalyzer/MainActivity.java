@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     private MainReload mainReload;
     private DrawerNavigation drawerNavigation;
     private NavigationMenuController navigationMenuController;
-    private NavigationMenu startNavigationMenu;
+    private NavigationMenu navigationMenu;
     private OptionMenu optionMenu;
     private String currentCountryCode;
     private PermissionChecker permissionChecker;
@@ -91,9 +91,9 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
         Toolbar toolbar = ActivityUtils.setupToolbar(this);
         drawerNavigation = new DrawerNavigation(this, toolbar);
 
-        startNavigationMenu = settings.getStartMenu();
+        navigationMenu = settings.getSelectedMenu();
         NavigationMenuController navigationMenuController = new NavigationMenuController(this);
-        navigationMenuController.setCurrentNavigationMenu(startNavigationMenu);
+        navigationMenuController.setCurrentNavigationMenu(navigationMenu);
         setNavigationMenuController(navigationMenuController);
         onNavigationItemSelected(getCurrentMenuItem());
 
@@ -169,10 +169,10 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     @Override
     public void onBackPressed() {
         if (!closeDrawer()) {
-            if (startNavigationMenu.equals(getCurrentNavigationMenu())) {
+            if (navigationMenu.equals(getCurrentNavigationMenu())) {
                 super.onBackPressed();
             } else {
-                setCurrentNavigationMenu(startNavigationMenu);
+                setCurrentNavigationMenu(navigationMenu);
                 onNavigationItemSelected(getCurrentMenuItem());
             }
         }
@@ -264,6 +264,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     @Override
     public void setCurrentNavigationMenu(@NonNull NavigationMenu navigationMenu) {
         navigationMenuController.setCurrentNavigationMenu(navigationMenu);
+        MainContext.INSTANCE.getSettings().saveSelectedMenu(navigationMenu);
     }
 
     @NonNull

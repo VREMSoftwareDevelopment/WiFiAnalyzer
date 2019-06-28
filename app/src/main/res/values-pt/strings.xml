@@ -58,8 +58,6 @@
     <string name="graph_axis_y">"Intensidade do Sinal (dBm)"</string>
 
     <!-- settings start -->
-    <string name="start_menu_title">"Página inicial"</string>
-
     <string name="country_code_title">"País"</string>
 
     <string name="scan_speed_title">"Intervalo de escaneamento"</string>

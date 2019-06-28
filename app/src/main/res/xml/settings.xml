@@ -128,12 +128,6 @@
             android:key="@string/keep_screen_on_key"
             android:title="@string/keep_screen_on_title"/>
 
-        <com.vrem.wifianalyzer.settings.StartMenuPreference
-            android:icon="@drawable/ic_dashboard"
-            android:key="@string/start_menu_key"
-            android:persistent="true"
-            android:summary="@string/start_menu_summary"
-            android:title="@string/start_menu_title"/>
     </PreferenceCategory>
 
     <PreferenceCategory>

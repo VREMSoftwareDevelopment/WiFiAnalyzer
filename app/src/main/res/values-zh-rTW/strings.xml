@@ -57,8 +57,6 @@
     <string name="graph_axis_y">"訊號強度 (dBm)"</string>
 
     <!-- settings start -->
-    <string name="start_menu_title">"開始"</string>
-
     <string name="country_code_title">"國家"</string>
 
     <string name="scan_speed_title">"掃描間隔"</string>

@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuController;
 import com.vrem.wifianalyzer.navigation.options.OptionMenu;
+import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
 import org.junit.After;
@@ -204,12 +205,14 @@ public class MainActivityTest {
     public void testSetCurrentNavigationMenu() {
         // setup
         NavigationMenu navigationMenu = NavigationMenu.CHANNEL_GRAPH;
+        Settings settings = MainContextHelper.INSTANCE.getSettings();
         NavigationMenuController navigationMenuController = mock(NavigationMenuController.class);
         fixture.setNavigationMenuController(navigationMenuController);
         // execute
         fixture.setCurrentNavigationMenu(navigationMenu);
         // validate
         verify(navigationMenuController).setCurrentNavigationMenu(navigationMenu);
+        verify(settings).saveSelectedMenu(navigationMenu);
     }
 
     @Test

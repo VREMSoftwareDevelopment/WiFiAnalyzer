@@ -69,9 +69,7 @@
     <string name="mc_flag" translatable="false">"802.11mc"</string>
 
     <!-- settings start -->
-    <string name="start_menu_title">"Start"</string>
-    <string name="start_menu_summary" translatable="false">"%s"</string>
-    <string name="start_menu_key" translatable="false">"start_menu"</string>
+    <string name="selected_menu_key" translatable="false">"selected_menu"</string>
 
     <string name="country_code_title">"Country"</string>
     <string name="country_code_summary" translatable="false">"%s"</string>

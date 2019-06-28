@@ -50,6 +50,8 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -371,14 +373,30 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetStartMenu() {
+    public void testGetSelectedMenu() {
         // setup
-        when(repository.getStringAsInteger(R.string.start_menu_key, NavigationMenu.ACCESS_POINTS.ordinal())).thenReturn(NavigationMenu.CHANNEL_GRAPH.ordinal());
+        when(repository.getStringAsInteger(R.string.selected_menu_key, NavigationMenu.ACCESS_POINTS.ordinal())).thenReturn(NavigationMenu.CHANNEL_GRAPH.ordinal());
         // execute
-        NavigationMenu actual = fixture.getStartMenu();
+        NavigationMenu actual = fixture.getSelectedMenu();
         // validate
         assertEquals(NavigationMenu.CHANNEL_GRAPH, actual);
-        verify(repository).getStringAsInteger(R.string.start_menu_key, NavigationMenu.ACCESS_POINTS.ordinal());
+        verify(repository).getStringAsInteger(R.string.selected_menu_key, NavigationMenu.ACCESS_POINTS.ordinal());
+    }
+
+    @Test
+    public void testSaveSelectedMenu() {
+        // execute
+        fixture.saveSelectedMenu(NavigationMenu.CHANNEL_GRAPH);
+        // validate
+        verify(repository).save(R.string.selected_menu_key, NavigationMenu.CHANNEL_GRAPH.ordinal());
+    }
+
+    @Test
+    public void testSaveSelectedMenuWithNotAllowedMenu() {
+        // execute
+        fixture.saveSelectedMenu(NavigationMenu.ABOUT);
+        // validate
+        verify(repository, never()).save(anyInt(), anyInt());
     }
 
     @Test

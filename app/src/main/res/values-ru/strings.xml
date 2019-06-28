@@ -58,8 +58,6 @@
     <string name="graph_axis_y">"Уровень сигнала (dBm)"</string>
 
     <!-- settings start -->
-    <string name="start_menu_title">"Начать"</string>
-
     <string name="country_code_title">"Страна"</string>
 
     <string name="scan_speed_title">"Интервал сканирования"</string>

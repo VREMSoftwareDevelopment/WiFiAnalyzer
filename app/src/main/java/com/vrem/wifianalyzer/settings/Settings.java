@@ -24,6 +24,7 @@ import com.vrem.util.BuildUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.util.LocaleUtils;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.navigation.NavigationGroup;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointViewType;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType;
@@ -140,8 +141,14 @@ public class Settings {
     }
 
     @NonNull
-    public NavigationMenu getStartMenu() {
-        return find(NavigationMenu.class, R.string.start_menu_key, NavigationMenu.ACCESS_POINTS);
+    public NavigationMenu getSelectedMenu() {
+        return find(NavigationMenu.class, R.string.selected_menu_key, NavigationMenu.ACCESS_POINTS);
+    }
+
+    public void saveSelectedMenu(@NonNull NavigationMenu navigationMenu) {
+        if (NavigationGroup.GROUP_FEATURE.getNavigationMenus().contains(navigationMenu)) {
+            repository.save(R.string.selected_menu_key, navigationMenu.ordinal());
+        }
     }
 
     @NonNull
@@ -196,4 +203,5 @@ public class Settings {
     private <T extends Enum> void saveSet(int key, @NonNull Set<T> values) {
         repository.saveStringSet(key, EnumUtils.find(values));
     }
+
 }

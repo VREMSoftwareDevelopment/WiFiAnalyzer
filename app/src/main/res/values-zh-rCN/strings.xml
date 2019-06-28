@@ -58,8 +58,6 @@
     <string name="graph_axis_y">"信号强度 (dBm)"</string>
 
     <!-- settings start -->
-    <string name="start_menu_title">"开始"</string>
-
     <string name="country_code_title">"国家"</string>
 
     <string name="scan_speed_title">"扫描间隔"</string>

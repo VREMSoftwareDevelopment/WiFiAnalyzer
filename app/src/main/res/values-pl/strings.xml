@@ -58,8 +58,6 @@
     <string name="graph_axis_y">"Siła Sygnału (dBm)"</string>
 
     <!-- settings start -->
-    <string name="start_menu_title">"Start"</string>
-
     <string name="country_code_title">"Kraj"</string>
 
     <string name="scan_speed_title">"Interwał Skanowania"</string>

@@ -58,8 +58,6 @@
     <string name="graph_axis_y">"Potenza Segnale (dBm)"</string>
 
     <!-- settings start -->
-    <string name="start_menu_title">"Schermata di avvio"</string>
-
     <string name="country_code_title">"Paese"</string>
 
     <string name="scan_speed_title">"Intervallo scansioni"</string>

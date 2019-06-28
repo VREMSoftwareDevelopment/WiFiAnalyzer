@@ -58,8 +58,6 @@
     <string name="graph_axis_y">"Signalstärke (dBm)"</string>
 
     <!-- settings start -->
-    <string name="start_menu_title">"Beim Start anzeigen"</string>
-
     <string name="country_code_title">"Land"</string>
 
     <string name="scan_speed_title">"Scan-Intervall"</string>
