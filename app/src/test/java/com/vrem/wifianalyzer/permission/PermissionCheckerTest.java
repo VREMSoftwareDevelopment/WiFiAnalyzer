@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer;
+package com.vrem.wifianalyzer.permission;
 
 import android.Manifest;
 import android.app.Activity;

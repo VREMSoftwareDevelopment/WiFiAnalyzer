@@ -39,6 +39,7 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuControl;
 import com.vrem.wifianalyzer.navigation.NavigationMenuController;
 import com.vrem.wifianalyzer.navigation.options.OptionMenu;
+import com.vrem.wifianalyzer.permission.PermissionChecker;
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionView;
@@ -172,8 +173,8 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         closeDrawer();
-        NavigationMenu navigationMenu = EnumUtils.find(NavigationMenu.class, menuItem.getItemId(), NavigationMenu.ACCESS_POINTS);
-        navigationMenu.activateNavigationMenu(this, menuItem);
+        NavigationMenu currentNavigationMenu = EnumUtils.find(NavigationMenu.class, menuItem.getItemId(), NavigationMenu.ACCESS_POINTS);
+        currentNavigationMenu.activateNavigationMenu(this, menuItem);
         return true;
     }
 

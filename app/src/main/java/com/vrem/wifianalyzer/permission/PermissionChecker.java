@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer;
+package com.vrem.wifianalyzer.permission;
 
 import android.Manifest;
 import android.app.Activity;
@@ -25,14 +25,14 @@ import android.support.annotation.NonNull;
 
 import com.vrem.util.BuildUtils;
 
-class PermissionChecker {
+public class PermissionChecker {
     static final String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION};
     static final int REQUEST_CODE = 0x123450;
 
     private final Activity activity;
     private final PermissionDialog permissionDialog;
 
-    PermissionChecker(@NonNull Activity activity) {
+    public PermissionChecker(@NonNull Activity activity) {
         this(activity, new PermissionDialog(activity));
     }
 
@@ -41,7 +41,7 @@ class PermissionChecker {
         this.permissionDialog = permissionDialog;
     }
 
-    void check() {
+    public void check() {
         if (isGranted()) {
             return;
         }
@@ -51,11 +51,11 @@ class PermissionChecker {
         permissionDialog.show();
     }
 
-    boolean isGranted(int requestCode, @NonNull int[] grantResults) {
+    public boolean isGranted(int requestCode, @NonNull int[] grantResults) {
         return requestCode == REQUEST_CODE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
     }
 
-    private boolean isGranted() {
+    public boolean isGranted() {
         return isGranted(Manifest.permission.ACCESS_COARSE_LOCATION) || isGranted(Manifest.permission.ACCESS_FINE_LOCATION);
     }
 

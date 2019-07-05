@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2018  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,18 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer;
+package com.vrem.wifianalyzer.permission;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+
+import com.vrem.wifianalyzer.MainActivity;
+import com.vrem.wifianalyzer.RobolectricUtil;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
-import static com.vrem.wifianalyzer.PermissionDialog.CancelClick;
-import static com.vrem.wifianalyzer.PermissionDialog.OkClick;
+import static com.vrem.wifianalyzer.permission.PermissionDialog.CancelClick;
+import static com.vrem.wifianalyzer.permission.PermissionDialog.OkClick;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
