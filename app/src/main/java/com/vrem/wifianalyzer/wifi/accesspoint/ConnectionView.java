@@ -28,6 +28,8 @@ import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.permission.PermissionChecker;
+import com.vrem.wifianalyzer.permission.ProviderChecker;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -37,11 +39,15 @@ import java.util.Locale;
 
 public class ConnectionView implements UpdateNotifier {
     private final MainActivity mainActivity;
+    private final PermissionChecker permissionChecker;
+    private final ProviderChecker providerChecker;
     private AccessPointDetail accessPointDetail;
     private AccessPointPopup accessPointPopup;
 
     public ConnectionView(@NonNull MainActivity mainActivity) {
         this.mainActivity = mainActivity;
+        this.permissionChecker = new PermissionChecker(mainActivity);
+        this.providerChecker = new ProviderChecker(mainActivity);
         setAccessPointDetail(new AccessPointDetail());
         setAccessPointPopup(new AccessPointPopup());
     }
@@ -66,8 +72,12 @@ public class ConnectionView implements UpdateNotifier {
         mainActivity.findViewById(R.id.scanning).setVisibility(visibility);
         mainActivity.findViewById(R.id.no_data).setVisibility(visibility);
         if (BuildUtils.isMinVersionM()) {
-            mainActivity.findViewById(R.id.no_location).setVisibility(visibility);
+            mainActivity.findViewById(R.id.no_location).setVisibility(getNoLocationVisibility(visibility));
         }
+    }
+
+    private int getNoLocationVisibility(int visibility) {
+        return providerChecker.isEnabled() && permissionChecker.isGranted() ? View.GONE : visibility;
     }
 
     private boolean noData(@NonNull WiFiData wiFiData) {
