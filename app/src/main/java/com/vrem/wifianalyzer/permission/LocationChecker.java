@@ -25,10 +25,10 @@ import android.support.annotation.NonNull;
 
 import com.vrem.util.BuildUtils;
 
-public class ProviderChecker {
+public class LocationChecker {
     private final Activity activity;
 
-    public ProviderChecker(@NonNull Activity activity) {
+    public LocationChecker(@NonNull Activity activity) {
         this.activity = activity;
     }
 
@@ -43,9 +43,31 @@ public class ProviderChecker {
     private boolean isProviderEnabled() {
         try {
             LocationManager locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
-            boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-            boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-            return isNetworkEnabled || isGPSEnabled;
+            return isLocationEnabled(locationManager) || isNetworkProviderEnabled(locationManager) || isGPSProviderEnabled(locationManager);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private boolean isGPSProviderEnabled(@NonNull LocationManager locationManager) {
+        try {
+            return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private boolean isNetworkProviderEnabled(@NonNull LocationManager locationManager) {
+        try {
+            return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private boolean isLocationEnabled(@NonNull LocationManager locationManager) {
+        try {
+            return locationManager.isLocationEnabled();
         } catch (Exception e) {
             return false;
         }

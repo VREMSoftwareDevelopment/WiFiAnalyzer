@@ -36,18 +36,18 @@ import static org.powermock.api.mockito.PowerMockito.verifyNoMoreInteractions;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-public class ProviderCheckerTest {
+public class LocationCheckerTest {
 
     private Activity activity;
     private LocationManager locationManager;
 
-    private ProviderChecker fixture;
+    private LocationChecker fixture;
 
     @Before
     public void setUp() {
         activity = mock(Activity.class);
         locationManager = mock(LocationManager.class);
-        fixture = new ProviderChecker(activity);
+        fixture = new LocationChecker(activity);
     }
 
     @After
@@ -60,45 +60,62 @@ public class ProviderCheckerTest {
     public void testIsEnabledWhenGPSProviderIsEnabled() {
         // setup
         when(activity.getSystemService(Context.LOCATION_SERVICE)).thenReturn(locationManager);
-        when(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)).thenReturn(true);
+        when(locationManager.isLocationEnabled()).thenReturn(false);
         when(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)).thenReturn(false);
+        when(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)).thenReturn(true);
         // execute
         boolean actual = fixture.isEnabled();
         // validate
         assertTrue(actual);
         verify(activity).getSystemService(Context.LOCATION_SERVICE);
-        verify(locationManager).isProviderEnabled(LocationManager.GPS_PROVIDER);
+        verify(locationManager).isLocationEnabled();
         verify(locationManager).isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        verify(locationManager).isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    @Test
+    public void testIsEnabledWhenLocationIsEnabled() {
+        // setup
+        when(activity.getSystemService(Context.LOCATION_SERVICE)).thenReturn(locationManager);
+        when(locationManager.isLocationEnabled()).thenReturn(true);
+        // execute
+        boolean actual = fixture.isEnabled();
+        // validate
+        assertTrue(actual);
+        verify(activity).getSystemService(Context.LOCATION_SERVICE);
+        verify(locationManager).isLocationEnabled();
     }
 
     @Test
     public void testIsEnabledWhenNetworkProviderIsEnabled() {
         // setup
         when(activity.getSystemService(Context.LOCATION_SERVICE)).thenReturn(locationManager);
-        when(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)).thenReturn(false);
+        when(locationManager.isLocationEnabled()).thenReturn(false);
         when(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)).thenReturn(true);
         // execute
         boolean actual = fixture.isEnabled();
         // validate
         assertTrue(actual);
         verify(activity).getSystemService(Context.LOCATION_SERVICE);
-        verify(locationManager).isProviderEnabled(LocationManager.GPS_PROVIDER);
+        verify(locationManager).isLocationEnabled();
         verify(locationManager).isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
     @Test
-    public void testIsEnabledWhenProvidersNotEnabled() {
+    public void testIsEnabledWhenAllProvidersAreDisabled() {
         // setup
         when(activity.getSystemService(Context.LOCATION_SERVICE)).thenReturn(locationManager);
-        when(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)).thenReturn(false);
+        when(locationManager.isLocationEnabled()).thenReturn(false);
         when(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)).thenReturn(false);
+        when(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)).thenReturn(false);
         // execute
         boolean actual = fixture.isEnabled();
         // validate
         assertFalse(actual);
         verify(activity).getSystemService(Context.LOCATION_SERVICE);
-        verify(locationManager).isProviderEnabled(LocationManager.GPS_PROVIDER);
+        verify(locationManager).isLocationEnabled();
         verify(locationManager).isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        verify(locationManager).isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     @Test
