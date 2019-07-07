@@ -21,12 +21,14 @@ package com.vrem.wifianalyzer.permission;
 import android.app.Activity;
 import android.content.Context;
 import android.location.LocationManager;
+import android.os.Build;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -128,4 +130,21 @@ public class LocationCheckerTest {
         assertFalse(actual);
         verify(activity).getSystemService(Context.LOCATION_SERVICE);
     }
+
+    @Config(sdk = Build.VERSION_CODES.O)
+    @Test
+    public void testWiFiThrottleDisabledIsInvisible() {
+        // setup
+        when(activity.getSystemService(Context.LOCATION_SERVICE)).thenReturn(locationManager);
+        when(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)).thenReturn(false);
+        when(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)).thenReturn(false);
+        // execute
+        boolean actual = fixture.isEnabled();
+        // validate
+        assertFalse(actual);
+        verify(activity).getSystemService(Context.LOCATION_SERVICE);
+        verify(locationManager).isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        verify(locationManager).isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
 }

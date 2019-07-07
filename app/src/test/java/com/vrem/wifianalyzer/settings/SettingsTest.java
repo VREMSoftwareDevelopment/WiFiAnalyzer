@@ -114,6 +114,20 @@ public class SettingsTest {
     }
 
     @Test
+    public void testIsWiFiThrottleDisabled() {
+        // setup
+        when(repository.getResourceBoolean(R.bool.wifi_throttle_disabled_default)).thenReturn(true);
+        when(repository.getBoolean(R.string.wifi_throttle_disabled_key, true)).thenReturn(true);
+        // execute
+        boolean actual = fixture.isWiFiThrottleDisabled();
+        // validate
+        assertTrue(actual);
+        verify(repository).getBoolean(R.string.wifi_throttle_disabled_key, true);
+        verify(repository).getResourceBoolean(R.bool.wifi_throttle_disabled_default);
+    }
+
+
+    @Test
     public void testGetScanSpeedWithAndroidPie() {
         // setup
         when(BuildUtils.isMinVersionP()).thenReturn(true);

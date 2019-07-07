@@ -16,133 +16,143 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
   -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory>
         <ListPreference
-            android:icon="@drawable/ic_fast_forward"
-            android:defaultValue="@string/scan_speed_default"
-            android:entries="@array/scan_speed_array"
-            android:entryValues="@array/scan_speed_array"
-            android:key="@string/scan_speed_key"
-            android:persistent="true"
-            android:summary="@string/scan_speed_summary"
-            android:title="@string/scan_speed_title"/>
+            app:defaultValue="@string/scan_speed_default"
+            app:entries="@array/scan_speed_array"
+            app:entryValues="@array/scan_speed_array"
+            app:icon="@drawable/ic_fast_forward"
+            app:key="@string/scan_speed_key"
+            app:persistent="true"
+            app:summary="@string/scan_speed_summary"
+            app:title="@string/scan_speed_title"/>
     </PreferenceCategory>
 
-    <PreferenceCategory>
-        <ListPreference
-            android:icon="@drawable/ic_sort"
-            android:defaultValue="@string/sort_by_default"
-            android:entries="@array/sort_by_array"
-            android:entryValues="@array/sort_by_index_array"
-            android:key="@string/sort_by_key"
-            android:persistent="true"
-            android:summary="@string/sort_by_summary"
-            android:title="@string/sort_by_title"/>
-
-        <ListPreference
-            android:icon="@drawable/ic_group"
-            android:defaultValue="@string/group_by_default"
-            android:entries="@array/group_by_array"
-            android:entryValues="@array/group_by_index_array"
-            android:key="@string/group_by_key"
-            android:persistent="true"
-            android:summary="@string/group_by_summary"
-            android:title="@string/group_by_title"/>
-    </PreferenceCategory>
-
-    <PreferenceCategory>
-        <ListPreference
-            android:icon="@drawable/ic_view_carousel"
-            android:defaultValue="@string/connection_view_default"
-            android:entries="@array/connection_view_array"
-            android:entryValues="@array/connection_view_index_array"
-            android:key="@string/connection_view_key"
-            android:persistent="true"
-            android:summary="@string/connection_view_summary"
-            android:title="@string/connection_view_title"/>
-
-        <ListPreference
-            android:icon="@drawable/ic_view_carousel"
-            android:defaultValue="@string/ap_view_default"
-            android:entries="@array/ap_view_array"
-            android:entryValues="@array/ap_view_index_array"
-            android:key="@string/ap_view_key"
-            android:persistent="true"
-            android:summary="@string/ap_view_summary"
-            android:title="@string/ap_view_title"/>
-    </PreferenceCategory>
-
-    <PreferenceCategory>
-        <ListPreference
-            android:defaultValue="@string/graph_maximum_y_default"
-            android:entries="@array/graph_maximum_y_array"
-            android:entryValues="@array/graph_maximum_y_index_array"
-            android:key="@string/graph_maximum_y_key"
-            android:persistent="true"
-            android:summary="@string/graph_maximum_y_summary"
-            android:title="@string/graph_maximum_y_title"/>
-
-        <ListPreference
-            android:icon="@drawable/ic_insert_chart"
-            android:defaultValue="@string/channel_graph_legend_default"
-            android:entries="@array/graph_legend_array"
-            android:entryValues="@array/graph_legend_index_array"
-            android:key="@string/channel_graph_legend_key"
-            android:persistent="true"
-            android:summary="@string/channel_graph_legend_summary"
-            android:title="@string/channel_graph_legend_title"/>
-
-        <ListPreference
-            android:icon="@drawable/ic_show_chart"
-            android:defaultValue="@string/time_graph_legend_default"
-            android:entries="@array/graph_legend_array"
-            android:entryValues="@array/graph_legend_index_array"
-            android:key="@string/time_graph_legend_key"
-            android:persistent="true"
-            android:summary="@string/time_graph_legend_summary"
-            android:title="@string/time_graph_legend_title"/>
-    </PreferenceCategory>
-
-    <PreferenceCategory>
-        <ListPreference
-            android:icon="@drawable/ic_color_lens"
-            android:defaultValue="@string/theme_default"
-            android:entries="@array/theme_array"
-            android:entryValues="@array/theme_index_array"
-            android:key="@string/theme_key"
-            android:persistent="true"
-            android:summary="@string/theme_summary"
-            android:title="@string/theme_title"/>
+    <PreferenceCategory
+        app:key="@string/experimental_key"
+        app:title="@string/experimental_title">
 
         <android.support.v7.preference.SwitchPreferenceCompat
-            android:icon="@drawable/ic_signal_wifi_off"
-            android:defaultValue="@bool/wifi_off_on_exit_default"
-            android:key="@string/wifi_off_on_exit_key"
-            android:title="@string/wifi_off_on_exit_title"/>
+            app:defaultValue="@bool/wifi_throttle_disabled_default"
+            app:key="@string/wifi_throttle_disabled_key"
+            app:title="@string/wifi_throttle_disabled_title"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+        <ListPreference
+            app:defaultValue="@string/sort_by_default"
+            app:entries="@array/sort_by_array"
+            app:entryValues="@array/sort_by_index_array"
+            app:icon="@drawable/ic_sort"
+            app:key="@string/sort_by_key"
+            app:persistent="true"
+            app:summary="@string/sort_by_summary"
+            app:title="@string/sort_by_title"/>
+
+        <ListPreference
+            app:defaultValue="@string/group_by_default"
+            app:entries="@array/group_by_array"
+            app:entryValues="@array/group_by_index_array"
+            app:icon="@drawable/ic_group"
+            app:key="@string/group_by_key"
+            app:persistent="true"
+            app:summary="@string/group_by_summary"
+            app:title="@string/group_by_title"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+        <ListPreference
+            app:defaultValue="@string/connection_view_default"
+            app:entries="@array/connection_view_array"
+            app:entryValues="@array/connection_view_index_array"
+            app:icon="@drawable/ic_view_carousel"
+            app:key="@string/connection_view_key"
+            app:persistent="true"
+            app:summary="@string/connection_view_summary"
+            app:title="@string/connection_view_title"/>
+
+        <ListPreference
+            app:defaultValue="@string/ap_view_default"
+            app:entries="@array/ap_view_array"
+            app:entryValues="@array/ap_view_index_array"
+            app:icon="@drawable/ic_view_carousel"
+            app:key="@string/ap_view_key"
+            app:persistent="true"
+            app:summary="@string/ap_view_summary"
+            app:title="@string/ap_view_title"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+        <ListPreference
+            app:defaultValue="@string/graph_maximum_y_default"
+            app:entries="@array/graph_maximum_y_array"
+            app:entryValues="@array/graph_maximum_y_index_array"
+            app:key="@string/graph_maximum_y_key"
+            app:persistent="true"
+            app:summary="@string/graph_maximum_y_summary"
+            app:title="@string/graph_maximum_y_title"/>
+
+        <ListPreference
+            app:defaultValue="@string/channel_graph_legend_default"
+            app:entries="@array/graph_legend_array"
+            app:entryValues="@array/graph_legend_index_array"
+            app:icon="@drawable/ic_insert_chart"
+            app:key="@string/channel_graph_legend_key"
+            app:persistent="true"
+            app:summary="@string/channel_graph_legend_summary"
+            app:title="@string/channel_graph_legend_title"/>
+
+        <ListPreference
+            app:defaultValue="@string/time_graph_legend_default"
+            app:entries="@array/graph_legend_array"
+            app:entryValues="@array/graph_legend_index_array"
+            app:icon="@drawable/ic_show_chart"
+            app:key="@string/time_graph_legend_key"
+            app:persistent="true"
+            app:summary="@string/time_graph_legend_summary"
+            app:title="@string/time_graph_legend_title"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+        <ListPreference
+            app:defaultValue="@string/theme_default"
+            app:entries="@array/theme_array"
+            app:entryValues="@array/theme_index_array"
+            app:icon="@drawable/ic_color_lens"
+            app:key="@string/theme_key"
+            app:persistent="true"
+            app:summary="@string/theme_summary"
+            app:title="@string/theme_title"/>
 
         <android.support.v7.preference.SwitchPreferenceCompat
-            android:icon="@drawable/ic_brightness_low"
-            android:defaultValue="@bool/keep_screen_on_default"
-            android:key="@string/keep_screen_on_key"
-            android:title="@string/keep_screen_on_title"/>
+            app:defaultValue="@bool/wifi_off_on_exit_default"
+            app:icon="@drawable/ic_signal_wifi_off"
+            app:key="@string/wifi_off_on_exit_key"
+            app:title="@string/wifi_off_on_exit_title"/>
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            app:defaultValue="@bool/keep_screen_on_default"
+            app:icon="@drawable/ic_brightness_low"
+            app:key="@string/keep_screen_on_key"
+            app:title="@string/keep_screen_on_title"/>
 
     </PreferenceCategory>
 
     <PreferenceCategory>
         <com.vrem.wifianalyzer.settings.CountryPreference
-            android:icon="@drawable/ic_location_on"
-            android:key="@string/country_code_key"
-            android:persistent="true"
-            android:summary="@string/country_code_summary"
-            android:title="@string/country_code_title"/>
+            app:icon="@drawable/ic_location_on"
+            app:key="@string/country_code_key"
+            app:persistent="true"
+            app:summary="@string/country_code_summary"
+            app:title="@string/country_code_title"/>
 
         <com.vrem.wifianalyzer.settings.LanguagePreference
-            android:icon="@drawable/ic_language"
-            android:key="@string/language_key"
-            android:persistent="true"
-            android:summary="@string/language_summary"
-            android:title="@string/language_title"/>
+            app:icon="@drawable/ic_language"
+            app:key="@string/language_key"
+            app:persistent="true"
+            app:summary="@string/language_summary"
+            app:title="@string/language_title"/>
     </PreferenceCategory>
 </PreferenceScreen>

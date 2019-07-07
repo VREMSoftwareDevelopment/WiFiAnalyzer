@@ -66,9 +66,13 @@ public class LocationChecker {
     }
 
     private boolean isLocationEnabled(@NonNull LocationManager locationManager) {
-        try {
-            return locationManager.isLocationEnabled();
-        } catch (Exception e) {
+        if (BuildUtils.isMinVersionP()) {
+            try {
+                return locationManager.isLocationEnabled();
+            } catch (Exception e) {
+                return false;
+            }
+        } else {
             return false;
         }
     }
