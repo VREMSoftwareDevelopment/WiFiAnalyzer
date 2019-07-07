@@ -133,7 +133,7 @@ public class LocationCheckerTest {
 
     @Config(sdk = Build.VERSION_CODES.O)
     @Test
-    public void testWiFiThrottleDisabledIsInvisible() {
+    public void testIsEnabledFalseWhenAllProvidersAreDisabled() {
         // setup
         when(activity.getSystemService(Context.LOCATION_SERVICE)).thenReturn(locationManager);
         when(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)).thenReturn(false);
