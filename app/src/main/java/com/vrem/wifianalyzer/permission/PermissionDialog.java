@@ -59,7 +59,7 @@ class PermissionDialog {
         public void onClick(DialogInterface dialog, int which) {
             dialog.dismiss();
             if (BuildUtils.isMinVersionM()) {
-                activity.requestPermissions(PermissionChecker.PERMISSIONS, PermissionChecker.REQUEST_CODE);
+                activity.requestPermissions(ApplicationPermission.PERMISSIONS, ApplicationPermission.REQUEST_CODE);
             }
         }
     }

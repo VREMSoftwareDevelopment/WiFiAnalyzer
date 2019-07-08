@@ -38,18 +38,18 @@ import static org.powermock.api.mockito.PowerMockito.verifyNoMoreInteractions;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-public class LocationCheckerTest {
+public class SystemPermissionTest {
 
     private Activity activity;
     private LocationManager locationManager;
 
-    private LocationChecker fixture;
+    private SystemPermission fixture;
 
     @Before
     public void setUp() {
         activity = mock(Activity.class);
         locationManager = mock(LocationManager.class);
-        fixture = new LocationChecker(activity);
+        fixture = new SystemPermission(activity);
     }
 
     @After

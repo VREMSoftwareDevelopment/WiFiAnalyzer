@@ -39,7 +39,7 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuControl;
 import com.vrem.wifianalyzer.navigation.NavigationMenuController;
 import com.vrem.wifianalyzer.navigation.options.OptionMenu;
-import com.vrem.wifianalyzer.permission.PermissionChecker;
+import com.vrem.wifianalyzer.permission.ApplicationPermission;
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionView;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     private NavigationMenu navigationMenu;
     private OptionMenu optionMenu;
     private String currentCountryCode;
-    private PermissionChecker permissionChecker;
+    private ApplicationPermission applicationPermission;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
         ConnectionView connectionView = new ConnectionView(this);
         mainContext.getScannerService().register(connectionView);
 
-        permissionChecker = new PermissionChecker(this);
-        permissionChecker.check();
+        applicationPermission = new ApplicationPermission(this);
+        applicationPermission.check();
     }
 
     @Override
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (!permissionChecker.isGranted(requestCode, grantResults)) {
+        if (!applicationPermission.isGranted(requestCode, grantResults)) {
             finish();
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

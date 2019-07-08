@@ -25,18 +25,18 @@ import android.support.annotation.NonNull;
 
 import com.vrem.util.BuildUtils;
 
-public class PermissionChecker {
+public class ApplicationPermission {
     static final String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION};
     static final int REQUEST_CODE = 0x123450;
 
     private final Activity activity;
     private final PermissionDialog permissionDialog;
 
-    public PermissionChecker(@NonNull Activity activity) {
+    public ApplicationPermission(@NonNull Activity activity) {
         this(activity, new PermissionDialog(activity));
     }
 
-    PermissionChecker(@NonNull Activity activity, @NonNull PermissionDialog permissionDialog) {
+    ApplicationPermission(@NonNull Activity activity, @NonNull PermissionDialog permissionDialog) {
         this.activity = activity;
         this.permissionDialog = permissionDialog;
     }
@@ -55,7 +55,7 @@ public class PermissionChecker {
         return requestCode == REQUEST_CODE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
     }
 
-    public boolean isGranted() {
+    boolean isGranted() {
         return isGranted(Manifest.permission.ACCESS_COARSE_LOCATION) || isGranted(Manifest.permission.ACCESS_FINE_LOCATION);
     }
 

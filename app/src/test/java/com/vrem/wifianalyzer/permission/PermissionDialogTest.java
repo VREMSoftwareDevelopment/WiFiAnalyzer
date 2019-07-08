@@ -61,7 +61,7 @@ public class PermissionDialogTest {
         // execute
         fixture.onClick(dialog, 0);
         // validate
-        verify(activity).requestPermissions(PermissionChecker.PERMISSIONS, PermissionChecker.REQUEST_CODE);
+        verify(activity).requestPermissions(ApplicationPermission.PERMISSIONS, ApplicationPermission.REQUEST_CODE);
         verify(dialog).dismiss();
         verifyNoMoreInteractions(activity);
         verifyNoMoreInteractions(dialog);

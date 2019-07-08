@@ -25,10 +25,10 @@ import android.support.annotation.NonNull;
 
 import com.vrem.util.BuildUtils;
 
-public class LocationChecker {
+public class SystemPermission {
     private final Activity activity;
 
-    public LocationChecker(@NonNull Activity activity) {
+    public SystemPermission(@NonNull Activity activity) {
         this.activity = activity;
     }
 
