@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer;
+package com.vrem.wifianalyzer.permission;
 
 import android.Manifest;
 import android.app.Activity;
@@ -37,17 +37,17 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-public class PermissionCheckerTest {
+public class ApplicationPermissionTest {
 
     private Activity activity;
     private PermissionDialog permissionDialog;
-    private PermissionChecker fixture;
+    private ApplicationPermission fixture;
 
     @Before
     public void setUp() {
         activity = mock(Activity.class);
         permissionDialog = mock(PermissionDialog.class);
-        fixture = new PermissionChecker(activity, permissionDialog);
+        fixture = new ApplicationPermission(activity, permissionDialog);
     }
 
     @After
@@ -65,7 +65,7 @@ public class PermissionCheckerTest {
         verify(activity).checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
         verify(activity, never()).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         verify(activity, never()).isFinishing();
-        verify(activity, never()).requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PermissionChecker.REQUEST_CODE);
+        verify(activity, never()).requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, ApplicationPermission.REQUEST_CODE);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class PermissionCheckerTest {
         verify(activity).checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
         verify(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         verify(activity, never()).isFinishing();
-        verify(activity, never()).requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PermissionChecker.REQUEST_CODE);
+        verify(activity, never()).requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, ApplicationPermission.REQUEST_CODE);
     }
 
     @Test
@@ -94,7 +94,7 @@ public class PermissionCheckerTest {
         verify(activity).checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
         verify(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         verify(activity).isFinishing();
-        verify(activity, never()).requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PermissionChecker.REQUEST_CODE);
+        verify(activity, never()).requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, ApplicationPermission.REQUEST_CODE);
     }
 
     @Test
@@ -117,7 +117,7 @@ public class PermissionCheckerTest {
         // setup
         int[] grantResults = new int[]{PackageManager.PERMISSION_GRANTED};
         // execute
-        boolean actual = fixture.isGranted(PermissionChecker.REQUEST_CODE, grantResults);
+        boolean actual = fixture.isGranted(ApplicationPermission.REQUEST_CODE, grantResults);
         // validate
         assertTrue(actual);
     }
@@ -127,7 +127,7 @@ public class PermissionCheckerTest {
         // setup
         int[] grantResults = new int[]{PackageManager.PERMISSION_GRANTED};
         // execute
-        boolean actual = fixture.isGranted(-PermissionChecker.REQUEST_CODE, grantResults);
+        boolean actual = fixture.isGranted(-ApplicationPermission.REQUEST_CODE, grantResults);
         // validate
         assertFalse(actual);
     }
@@ -137,7 +137,7 @@ public class PermissionCheckerTest {
         // setup
         int[] grantResults = new int[]{};
         // execute
-        boolean actual = fixture.isGranted(PermissionChecker.REQUEST_CODE, grantResults);
+        boolean actual = fixture.isGranted(ApplicationPermission.REQUEST_CODE, grantResults);
         // validate
         assertFalse(actual);
     }
@@ -147,7 +147,7 @@ public class PermissionCheckerTest {
         // setup
         int[] grantResults = new int[]{PackageManager.PERMISSION_DENIED};
         // execute
-        boolean actual = fixture.isGranted(PermissionChecker.REQUEST_CODE, grantResults);
+        boolean actual = fixture.isGranted(ApplicationPermission.REQUEST_CODE, grantResults);
         // validate
         assertFalse(actual);
     }

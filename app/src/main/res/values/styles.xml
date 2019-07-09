@@ -19,30 +19,43 @@
 
 <resources>
 
-    <style name="ThemeDark" parent="Theme.AppCompat"/>
+    <style name="ThemeDark" parent="Theme.AppCompat">
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    </style>
 
     <style name="ThemeDarkNoActionBar" parent="ThemeDark">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="ThemeLight" parent="Theme.AppCompat.Light.DarkActionBar"/>
+    <style name="ThemeLight" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    </style>
 
     <style name="ThemeLightNoActionBar" parent="ThemeLight">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="ThemeSystem" parent="Theme.AppCompat.DayNight.DarkActionBar"/>
+    <style name="ThemeSystem" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    </style>
 
     <style name="ThemeSystemNoActionBar" parent="ThemeSystem">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="ThemeOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="ThemeOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 </resources>

@@ -69,6 +69,10 @@ public class Settings {
         return scanSpeed;
     }
 
+    public boolean isWiFiThrottleDisabled() {
+        return repository.getBoolean(R.string.wifi_throttle_disabled_key, repository.getResourceBoolean(R.bool.wifi_throttle_disabled_default));
+    }
+
     public int getGraphMaximumY() {
         int defaultValue = repository.getStringAsInteger(R.string.graph_maximum_y_default, GRAPH_Y_DEFAULT);
         int result = repository.getStringAsInteger(R.string.graph_maximum_y_key, defaultValue);

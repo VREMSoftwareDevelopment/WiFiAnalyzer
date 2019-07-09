@@ -19,7 +19,6 @@
 package com.vrem.wifianalyzer;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
@@ -40,6 +39,7 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuControl;
 import com.vrem.wifianalyzer.navigation.NavigationMenuController;
 import com.vrem.wifianalyzer.navigation.options.OptionMenu;
+import com.vrem.wifianalyzer.permission.ApplicationPermission;
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionView;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     private NavigationMenu navigationMenu;
     private OptionMenu optionMenu;
     private String currentCountryCode;
-    private PermissionChecker permissionChecker;
+    private ApplicationPermission applicationPermission;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -92,16 +92,15 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
         drawerNavigation = new DrawerNavigation(this, toolbar);
 
         navigationMenu = settings.getSelectedMenu();
-        NavigationMenuController navigationMenuController = new NavigationMenuController(this);
+        navigationMenuController = new NavigationMenuController(this);
         navigationMenuController.setCurrentNavigationMenu(navigationMenu);
-        setNavigationMenuController(navigationMenuController);
         onNavigationItemSelected(getCurrentMenuItem());
 
         ConnectionView connectionView = new ConnectionView(this);
         mainContext.getScannerService().register(connectionView);
 
-        permissionChecker = new PermissionChecker(this);
-        permissionChecker.check();
+        applicationPermission = new ApplicationPermission(this);
+        applicationPermission.check();
     }
 
     @Override
@@ -118,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (!permissionChecker.isGranted(requestCode, grantResults)) {
+        if (!applicationPermission.isGranted(requestCode, grantResults)) {
             finish();
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -145,7 +144,8 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         MainContext mainContext = MainContext.INSTANCE;
         if (mainReload.shouldReload(mainContext.getSettings())) {
-            reloadActivity();
+            MainContext.INSTANCE.getScannerService().stop();
+            recreate();
         } else {
             ActivityUtils.keepScreenOn(this);
             setWiFiChannelPairs(mainContext);
@@ -156,14 +156,6 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     public void update() {
         MainContext.INSTANCE.getScannerService().update();
         updateActionBar();
-    }
-
-    private void reloadActivity() {
-        finish();
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP |
-            Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
     }
 
     @Override
@@ -180,13 +172,9 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        try {
-            closeDrawer();
-            NavigationMenu navigationMenu = EnumUtils.find(NavigationMenu.class, menuItem.getItemId(), NavigationMenu.ACCESS_POINTS);
-            navigationMenu.activateNavigationMenu(this, menuItem);
-        } catch (Exception e) {
-            reloadActivity();
-        }
+        closeDrawer();
+        NavigationMenu currentNavigationMenu = EnumUtils.find(NavigationMenu.class, menuItem.getItemId(), NavigationMenu.ACCESS_POINTS);
+        currentNavigationMenu.activateNavigationMenu(this, menuItem);
         return true;
     }
 
@@ -208,13 +196,9 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
 
     @Override
     protected void onResume() {
-        try {
-            super.onResume();
-            MainContext.INSTANCE.getScannerService().resume();
-            updateActionBar();
-        } catch (Exception e) {
-            reloadActivity();
-        }
+        super.onResume();
+        MainContext.INSTANCE.getScannerService().resume();
+        updateActionBar();
     }
 
     @Override

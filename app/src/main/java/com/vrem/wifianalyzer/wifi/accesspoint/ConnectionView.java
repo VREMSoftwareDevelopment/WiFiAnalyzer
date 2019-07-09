@@ -28,6 +28,7 @@ import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.permission.RequirementPermission;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -37,11 +38,13 @@ import java.util.Locale;
 
 public class ConnectionView implements UpdateNotifier {
     private final MainActivity mainActivity;
+    private final RequirementPermission requirementPermission;
     private AccessPointDetail accessPointDetail;
     private AccessPointPopup accessPointPopup;
 
     public ConnectionView(@NonNull MainActivity mainActivity) {
         this.mainActivity = mainActivity;
+        this.requirementPermission = new RequirementPermission(mainActivity);
         setAccessPointDetail(new AccessPointDetail());
         setAccessPointPopup(new AccessPointPopup());
     }
@@ -66,8 +69,12 @@ public class ConnectionView implements UpdateNotifier {
         mainActivity.findViewById(R.id.scanning).setVisibility(visibility);
         mainActivity.findViewById(R.id.no_data).setVisibility(visibility);
         if (BuildUtils.isMinVersionM()) {
-            mainActivity.findViewById(R.id.no_location).setVisibility(visibility);
+            mainActivity.findViewById(R.id.no_location).setVisibility(getNoLocationVisibility(visibility));
         }
+    }
+
+    private int getNoLocationVisibility(int visibility) {
+        return requirementPermission.isEnabled() ? View.GONE : visibility;
     }
 
     private boolean noData(@NonNull WiFiData wiFiData) {
