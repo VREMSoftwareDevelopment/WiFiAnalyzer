@@ -59,16 +59,11 @@
     <string name="graph_time_axis_x">"Брой сканирания"</string>
     <string name="graph_axis_y">"Сила на сигнала (dBm)"</string>
 
-
     <!-- settings start -->
-    <string name="start_menu_title">"Начало"</string>
-
     <string name="country_code_title">"Държава"</string>
 
-    <string name="scan_interval_title">"Интервал на сканиране"</string>
-    <string name="scan_interval_summary">"%s секунди между всяко сканиране"</string>
-
-    <string name="scan_fast_title">"Бързо сканиране"</string>
+    <string name="scan_speed_title">"Интервал на сканиране"</string>
+    <string name="scan_speed_summary">"%s секунди между всяко сканиране"</string>
 
     <string name="sort_by_title">"Сортиране точките за достъп по"</string>
     <string name="sort_by_signal_strength">"Сила на сигнала"</string>
