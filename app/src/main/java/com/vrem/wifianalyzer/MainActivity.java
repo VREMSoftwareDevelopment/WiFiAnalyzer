@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     private MainReload mainReload;
     private DrawerNavigation drawerNavigation;
     private NavigationMenuController navigationMenuController;
-    private NavigationMenu navigationMenu;
     private OptionMenu optionMenu;
     private String currentCountryCode;
     private ApplicationPermission applicationPermission;
@@ -91,9 +90,8 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
         Toolbar toolbar = ActivityUtils.setupToolbar(this);
         drawerNavigation = new DrawerNavigation(this, toolbar);
 
-        navigationMenu = settings.getSelectedMenu();
         navigationMenuController = new NavigationMenuController(this);
-        navigationMenuController.setCurrentNavigationMenu(navigationMenu);
+        navigationMenuController.setCurrentNavigationMenu(settings.getSelectedMenu());
         onNavigationItemSelected(getCurrentMenuItem());
 
         ConnectionView connectionView = new ConnectionView(this);
@@ -161,10 +159,11 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     @Override
     public void onBackPressed() {
         if (!closeDrawer()) {
-            if (navigationMenu.equals(getCurrentNavigationMenu())) {
+            NavigationMenu selectedMenu = MainContext.INSTANCE.getSettings().getSelectedMenu();
+            if (selectedMenu.equals(getCurrentNavigationMenu())) {
                 super.onBackPressed();
             } else {
-                setCurrentNavigationMenu(navigationMenu);
+                setCurrentNavigationMenu(selectedMenu);
                 onNavigationItemSelected(getCurrentMenuItem());
             }
         }
