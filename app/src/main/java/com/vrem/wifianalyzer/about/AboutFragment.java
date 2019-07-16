@@ -26,8 +26,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,6 +41,9 @@ import com.vrem.wifianalyzer.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 public class AboutFragment extends Fragment {
     private static final String YEAR_FORMAT = "yyyy";

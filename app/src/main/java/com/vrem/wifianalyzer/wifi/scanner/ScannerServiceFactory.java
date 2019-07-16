@@ -20,9 +20,10 @@ package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.net.wifi.WifiManager;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.settings.Settings;
+
+import androidx.annotation.NonNull;
 
 public class ScannerServiceFactory {
     private ScannerServiceFactory() {

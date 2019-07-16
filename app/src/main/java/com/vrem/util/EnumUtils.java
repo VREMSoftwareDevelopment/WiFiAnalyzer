@@ -18,8 +18,6 @@
 
 package com.vrem.util;
 
-import android.support.annotation.NonNull;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.collections4.PredicateUtils;
@@ -31,6 +29,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 public class EnumUtils {
 

@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.timegraph;
 
-import android.support.annotation.NonNull;
-
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.vrem.wifianalyzer.RobolectricUtil;
@@ -46,6 +44,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import androidx.annotation.NonNull;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

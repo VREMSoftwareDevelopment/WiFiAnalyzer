@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
-import android.support.v4.util.Pair;
 import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
@@ -45,6 +44,8 @@ import org.robolectric.RobolectricTestRunner;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
+import androidx.core.util.Pair;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;

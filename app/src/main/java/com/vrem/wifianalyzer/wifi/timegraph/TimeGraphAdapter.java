@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.timegraph;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphAdapter;
@@ -30,6 +28,8 @@ import org.apache.commons.collections4.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 class TimeGraphAdapter extends GraphAdapter {
     TimeGraphAdapter() {

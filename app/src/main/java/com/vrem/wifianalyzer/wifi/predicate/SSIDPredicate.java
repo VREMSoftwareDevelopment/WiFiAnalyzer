@@ -18,11 +18,11 @@
 
 package com.vrem.wifianalyzer.wifi.predicate;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import org.apache.commons.collections4.Predicate;
+
+import androidx.annotation.NonNull;
 
 class SSIDPredicate implements Predicate<WiFiDetail> {
     private final String ssid;

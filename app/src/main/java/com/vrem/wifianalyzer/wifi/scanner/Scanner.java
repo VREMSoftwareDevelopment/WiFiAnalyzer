@@ -23,7 +23,6 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -33,6 +32,8 @@ import org.apache.commons.collections4.IterableUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 class Scanner implements ScannerService {
     private final List<UpdateNotifier> updateNotifiers;

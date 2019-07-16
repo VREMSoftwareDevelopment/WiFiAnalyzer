@@ -19,10 +19,10 @@
 package com.vrem.wifianalyzer;
 
 import android.content.res.Configuration;
-import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.material.navigation.NavigationView;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuController;
 import com.vrem.wifianalyzer.navigation.options.OptionMenu;

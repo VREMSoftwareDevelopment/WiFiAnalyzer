@@ -22,11 +22,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.R;
+
+import androidx.annotation.NonNull;
 
 class PermissionDialog {
     private final Activity activity;

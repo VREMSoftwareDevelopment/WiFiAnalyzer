@@ -18,13 +18,13 @@
 
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
-
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import org.apache.commons.collections4.Predicate;
+
+import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
 class InRangePredicate implements Predicate<WiFiDetail> {
     private final Pair<WiFiChannel, WiFiChannel> wiFiChannelPair;

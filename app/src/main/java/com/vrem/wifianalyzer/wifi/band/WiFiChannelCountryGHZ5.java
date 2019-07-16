@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
-import android.support.annotation.NonNull;
-
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
@@ -27,6 +25,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import androidx.annotation.NonNull;
 
 class WiFiChannelCountryGHZ5 {
     private final SortedSet<Integer> channels;

@@ -19,10 +19,6 @@
 package com.vrem.wifianalyzer.wifi.accesspoint;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +27,11 @@ import android.widget.ExpandableListView;
 import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener;
 
 public class AccessPointsFragment extends Fragment implements OnRefreshListener {
     private SwipeRefreshLayout swipeRefreshLayout;

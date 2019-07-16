@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
-import android.support.v4.util.Pair;
-
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
@@ -30,6 +28,8 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
+
+import androidx.core.util.Pair;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

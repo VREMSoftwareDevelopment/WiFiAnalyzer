@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
-import android.support.annotation.NonNull;
-
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
 import org.junit.Before;
@@ -30,6 +28,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import androidx.annotation.NonNull;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

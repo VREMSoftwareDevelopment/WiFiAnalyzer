@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.util.LocaleUtils;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -30,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.SortedSet;
+
+import androidx.annotation.NonNull;
 
 public class WiFiChannelCountry {
     private static final String UNKNOWN = "-Unknown";

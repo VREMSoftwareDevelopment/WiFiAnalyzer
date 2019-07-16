@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.channelrating;
 
-import android.support.v4.widget.SwipeRefreshLayout;
-
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
@@ -30,6 +28,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;

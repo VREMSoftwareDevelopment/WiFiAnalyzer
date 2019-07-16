@@ -19,9 +19,6 @@
 package com.vrem.wifianalyzer.navigation.availability;
 
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.view.Menu;
 
 import com.vrem.util.TextUtils;
@@ -30,6 +27,10 @@ import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.options.OptionMenu;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.core.content.ContextCompat;
 
 class WiFiSwitchOn implements NavigationOption {
 

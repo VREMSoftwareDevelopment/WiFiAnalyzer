@@ -19,12 +19,13 @@
 package com.vrem.wifianalyzer.wifi.accesspoint;
 
 import android.app.Dialog;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+
+import androidx.annotation.NonNull;
 
 public class AccessPointPopup {
 

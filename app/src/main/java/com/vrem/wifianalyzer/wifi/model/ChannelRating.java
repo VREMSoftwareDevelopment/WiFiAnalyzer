@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -31,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 public class ChannelRating {
     static final int LEVEL_RANGE_MIN = -5;

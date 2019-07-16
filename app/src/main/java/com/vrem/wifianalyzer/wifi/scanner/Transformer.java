@@ -21,7 +21,6 @@ package com.vrem.wifianalyzer.wifi.scanner;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
-import android.support.annotation.NonNull;
 
 import com.vrem.util.BuildUtils;
 import com.vrem.util.EnumUtils;
@@ -37,6 +36,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 class Transformer {
 

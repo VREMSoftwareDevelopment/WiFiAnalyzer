@@ -18,14 +18,15 @@
 
 package com.vrem.wifianalyzer;
 
-import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.vrem.wifianalyzer.settings.Settings;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 
 class ActivityUtils {
     private ActivityUtils() {

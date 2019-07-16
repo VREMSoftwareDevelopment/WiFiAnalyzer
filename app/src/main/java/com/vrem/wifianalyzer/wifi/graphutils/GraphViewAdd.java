@@ -18,12 +18,13 @@
 
 package com.vrem.wifianalyzer.wifi.graphutils;
 
-import android.support.annotation.NonNull;
 import android.view.ViewGroup;
 
 import com.jjoe64.graphview.GraphView;
 
 import org.apache.commons.collections4.Closure;
+
+import androidx.annotation.NonNull;
 
 public class GraphViewAdd implements Closure<GraphView> {
     private final ViewGroup viewGroup;

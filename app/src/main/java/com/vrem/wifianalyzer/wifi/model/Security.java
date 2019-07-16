@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.R;
 
@@ -30,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import androidx.annotation.NonNull;
 
 public enum Security {
     NONE(R.drawable.ic_lock_open),

@@ -20,12 +20,13 @@ package com.vrem.wifianalyzer.navigation.options;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.support.v7.view.menu.MenuBuilder;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.R;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.menu.MenuBuilder;
 
 public class OptionMenu {
     private Menu menu;

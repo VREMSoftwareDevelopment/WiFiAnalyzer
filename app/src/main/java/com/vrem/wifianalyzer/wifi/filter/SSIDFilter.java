@@ -19,7 +19,6 @@
 package com.vrem.wifianalyzer.wifi.filter;
 
 import android.app.Dialog;
-import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -30,6 +29,8 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.filter.adapter.SSIDAdapter;
 
 import org.apache.commons.lang3.StringUtils;
+
+import androidx.annotation.NonNull;
 
 class SSIDFilter {
     SSIDFilter(@NonNull SSIDAdapter ssidAdapter, @NonNull Dialog dialog) {

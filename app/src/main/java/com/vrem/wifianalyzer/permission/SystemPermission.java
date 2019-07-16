@@ -21,9 +21,10 @@ package com.vrem.wifianalyzer.permission;
 import android.app.Activity;
 import android.content.Context;
 import android.location.LocationManager;
-import android.support.annotation.NonNull;
 
 import com.vrem.util.BuildUtils;
+
+import androidx.annotation.NonNull;
 
 public class SystemPermission {
     private final Activity activity;

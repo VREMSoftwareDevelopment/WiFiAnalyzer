@@ -18,13 +18,13 @@
 
 package com.vrem.wifianalyzer;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType;
 
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
 
 class MainReload {
     private ThemeStyle themeStyle;

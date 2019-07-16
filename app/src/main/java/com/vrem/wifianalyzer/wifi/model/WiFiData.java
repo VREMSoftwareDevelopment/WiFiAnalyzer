@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 
@@ -33,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 public class WiFiData {
     public static final WiFiData EMPTY = new WiFiData(Collections.emptyList(), WiFiConnection.EMPTY, Collections.emptyList());

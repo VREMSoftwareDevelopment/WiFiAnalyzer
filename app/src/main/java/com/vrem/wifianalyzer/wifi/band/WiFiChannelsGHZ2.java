@@ -18,12 +18,12 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
 class WiFiChannelsGHZ2 extends WiFiChannels {
     private static final Pair<Integer, Integer> RANGE = new Pair<>(2400, 2499);

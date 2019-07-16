@@ -27,7 +27,7 @@
 
     <include layout="@layout/channel_rating_header"/>
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/channelRatingRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -40,6 +40,6 @@
             android:divider="@null"
             android:dividerHeight="0dp"/>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

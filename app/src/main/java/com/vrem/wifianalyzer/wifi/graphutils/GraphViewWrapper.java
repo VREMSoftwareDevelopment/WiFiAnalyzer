@@ -19,7 +19,6 @@
 package com.vrem.wifianalyzer.wifi.graphutils;
 
 import android.graphics.Color;
-import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
@@ -44,6 +43,8 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 public class GraphViewWrapper {
     private final GraphView graphView;

@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.wifi.band.FrequencyPredicate;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
@@ -31,6 +29,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
 
 public class WiFiSignal {
     public static final WiFiSignal EMPTY = new WiFiSignal(0, 0, WiFiWidth.MHZ_20, 0, false);
@@ -117,7 +117,7 @@ public class WiFiSignal {
         int centerChannel = getCenterWiFiChannel().getChannel();
         String channel = Integer.toString(primaryChannel);
         if (primaryChannel != centerChannel) {
-            channel += "(" + Integer.toString(centerChannel) + ")";
+            channel += "(" + centerChannel + ")";
         }
         return channel;
     }

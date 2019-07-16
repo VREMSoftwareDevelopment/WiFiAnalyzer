@@ -18,9 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
-
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.TitleLineGraphSeries;
 import com.vrem.wifianalyzer.RobolectricUtil;
@@ -45,6 +42,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

@@ -18,13 +18,13 @@
 
 package com.vrem.wifianalyzer.wifi.filter.adapter;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 public class WiFiBandAdapter extends EnumFilterAdapter<WiFiBand> {
 

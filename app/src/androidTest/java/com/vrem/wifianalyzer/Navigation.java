@@ -19,14 +19,14 @@
 package com.vrem.wifianalyzer;
 
 
-import android.support.test.espresso.ViewInteraction;
+import androidx.test.espresso.ViewInteraction;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
-import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static com.vrem.wifianalyzer.InstrumentedUtils.ChildAtPosition;
 import static com.vrem.wifianalyzer.InstrumentedUtils.pauseLong;
 import static com.vrem.wifianalyzer.InstrumentedUtils.pauseShort;
@@ -68,7 +68,7 @@ class Navigation implements Runnable {
             allOf(withContentDescription(NAVIGATION_DRAWER_TAG),
                 new ChildAtPosition(allOf(withId(R.id.toolbar),
                     new ChildAtPosition(
-                        withClassName(is("android.support.design.widget.AppBarLayout")),
+                        withClassName(is("com.google.android.material.appbar.AppBarLayout")),
                         NAVIGATION_DRAWER_BUTTON)),
                     NAVIGATION_DRAWER_ACTION),
                 isDisplayed()));

@@ -18,9 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
-
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
 import com.vrem.wifianalyzer.MainContext;
@@ -31,6 +28,9 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 
 import org.apache.commons.lang3.StringUtils;
+
+import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
 class ChannelAxisLabel implements LabelFormatter {
     private final WiFiBand wiFiBand;

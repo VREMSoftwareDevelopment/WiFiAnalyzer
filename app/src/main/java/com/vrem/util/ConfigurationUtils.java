@@ -23,9 +23,10 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
-import android.support.annotation.NonNull;
 
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
 
 public class ConfigurationUtils {
     private ConfigurationUtils() {

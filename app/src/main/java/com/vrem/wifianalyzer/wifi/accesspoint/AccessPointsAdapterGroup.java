@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.accesspoint;
 
-import android.support.annotation.NonNull;
 import android.widget.ExpandableListView;
 
 import com.vrem.wifianalyzer.MainContext;
@@ -30,6 +29,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 class AccessPointsAdapterGroup {
     private final Set<String> expanded;

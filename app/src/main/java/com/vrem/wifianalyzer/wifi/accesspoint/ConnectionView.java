@@ -19,7 +19,6 @@
 package com.vrem.wifianalyzer.wifi.accesspoint;
 
 import android.net.wifi.WifiInfo;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -35,6 +34,8 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
 
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
 
 public class ConnectionView implements UpdateNotifier {
     private final MainActivity mainActivity;

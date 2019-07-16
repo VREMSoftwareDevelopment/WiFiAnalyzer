@@ -19,10 +19,11 @@
 package com.vrem.wifianalyzer.settings;
 
 import android.os.Bundle;
-import android.support.v7.preference.PreferenceFragmentCompat;
 
 import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.R;
+
+import androidx.preference.PreferenceFragmentCompat;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 

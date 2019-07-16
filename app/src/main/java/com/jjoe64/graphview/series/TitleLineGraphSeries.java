@@ -20,7 +20,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.support.v4.view.ViewCompat;
 import android.text.TextPaint;
 import android.view.animation.AccelerateInterpolator;
 
@@ -29,6 +28,8 @@ import com.jjoe64.graphview.GraphView;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Iterator;
+
+import androidx.core.view.ViewCompat;
 
 /*
   modified version of com.jjoe64.graphview.series.LineGraphSeries

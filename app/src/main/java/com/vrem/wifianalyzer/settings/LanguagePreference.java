@@ -19,7 +19,6 @@
 package com.vrem.wifianalyzer.settings;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
 import com.vrem.util.LocaleUtils;
@@ -32,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
 
 public class LanguagePreference extends CustomPreference {
 

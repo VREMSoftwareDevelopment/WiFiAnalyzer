@@ -19,7 +19,6 @@
 package com.vrem.wifianalyzer.wifi.channelrating;
 
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
@@ -52,6 +51,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

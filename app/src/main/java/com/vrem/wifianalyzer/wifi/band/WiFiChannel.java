@@ -18,12 +18,12 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
-import android.support.annotation.NonNull;
-
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import androidx.annotation.NonNull;
 
 public class WiFiChannel implements Comparable<WiFiChannel> {
     public static final WiFiChannel UNKNOWN = new WiFiChannel();

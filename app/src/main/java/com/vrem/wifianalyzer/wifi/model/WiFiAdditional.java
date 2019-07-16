@@ -18,10 +18,10 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.support.annotation.NonNull;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import androidx.annotation.NonNull;
 
 public class WiFiAdditional {
     public static final WiFiAdditional EMPTY = new WiFiAdditional(StringUtils.EMPTY, false);

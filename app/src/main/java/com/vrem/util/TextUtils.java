@@ -18,7 +18,6 @@
 
 package com.vrem.util;
 
-import android.support.annotation.NonNull;
 import android.text.Html;
 import android.text.Spanned;
 
@@ -27,6 +26,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 public class TextUtils {
     private static final String SEPARATOR = " ";

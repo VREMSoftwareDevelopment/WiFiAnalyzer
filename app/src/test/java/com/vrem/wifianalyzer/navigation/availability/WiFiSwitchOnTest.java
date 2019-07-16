@@ -19,9 +19,6 @@
 package com.vrem.wifianalyzer.navigation.availability;
 
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -37,6 +34,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.core.content.ContextCompat;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

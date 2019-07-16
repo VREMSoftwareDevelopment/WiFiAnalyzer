@@ -19,7 +19,8 @@
 package com.vrem.wifianalyzer.vendor.model;
 
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 public class VendorServiceFactory {
     private VendorServiceFactory() {

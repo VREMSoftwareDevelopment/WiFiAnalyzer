@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.accesspoint;
 
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -29,6 +28,8 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
+
+import androidx.annotation.NonNull;
 
 class AccessPointsAdapter extends BaseExpandableListAdapter implements UpdateNotifier {
     private AccessPointsAdapterData accessPointsAdapterData;

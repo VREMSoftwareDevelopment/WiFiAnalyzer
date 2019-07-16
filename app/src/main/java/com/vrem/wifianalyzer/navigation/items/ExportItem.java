@@ -21,7 +21,6 @@ package com.vrem.wifianalyzer.navigation.items;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -39,6 +38,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
 
 class ExportItem implements NavigationItem {
     private static final String TIME_STAMP_FORMAT = "yyyy/MM/dd-HH:mm:ss";

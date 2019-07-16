@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
-import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainContext;
 
@@ -34,6 +33,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Deque;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 class Cache {
 

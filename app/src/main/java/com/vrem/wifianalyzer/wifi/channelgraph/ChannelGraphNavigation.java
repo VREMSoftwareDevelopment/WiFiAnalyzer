@@ -19,9 +19,6 @@
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.util.Pair;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -49,6 +46,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.util.Pair;
 
 class ChannelGraphNavigation {
     static final Map<Pair<WiFiChannel, WiFiChannel>, Integer> ids = new HashMap<>();

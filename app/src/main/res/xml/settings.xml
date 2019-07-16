@@ -34,7 +34,7 @@
         app:key="@string/experimental_key"
         app:title="@string/experimental_title">
 
-        <android.support.v7.preference.SwitchPreferenceCompat
+        <androidx.preference.SwitchPreferenceCompat
             app:defaultValue="@bool/wifi_throttle_disabled_default"
             app:key="@string/wifi_throttle_disabled_key"
             app:title="@string/wifi_throttle_disabled_title"/>
@@ -126,13 +126,13 @@
             app:summary="@string/theme_summary"
             app:title="@string/theme_title"/>
 
-        <android.support.v7.preference.SwitchPreferenceCompat
+        <androidx.preference.SwitchPreferenceCompat
             app:defaultValue="@bool/wifi_off_on_exit_default"
             app:icon="@drawable/ic_signal_wifi_off"
             app:key="@string/wifi_off_on_exit_key"
             app:title="@string/wifi_off_on_exit_title"/>
 
-        <android.support.v7.preference.SwitchPreferenceCompat
+        <androidx.preference.SwitchPreferenceCompat
             app:defaultValue="@bool/keep_screen_on_default"
             app:icon="@drawable/ic_brightness_low"
             app:key="@string/keep_screen_on_key"

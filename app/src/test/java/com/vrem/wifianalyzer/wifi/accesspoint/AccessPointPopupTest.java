@@ -19,7 +19,6 @@
 package com.vrem.wifianalyzer.wifi.accesspoint;
 
 import android.app.Dialog;
-import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.vrem.wifianalyzer.MainActivity;
@@ -34,6 +33,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+
+import androidx.annotation.NonNull;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;

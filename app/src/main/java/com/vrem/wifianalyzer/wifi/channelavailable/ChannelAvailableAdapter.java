@@ -19,8 +19,6 @@
 package com.vrem.wifianalyzer.wifi.channelavailable;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +33,9 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
     private static final String SEPARATOR = ",";

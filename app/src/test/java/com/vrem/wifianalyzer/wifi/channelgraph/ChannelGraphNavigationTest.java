@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
-import android.support.v4.content.ContextCompat;
-import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.Button;
 
@@ -47,6 +45,9 @@ import org.robolectric.RobolectricTestRunner;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.util.Pair;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

@@ -18,9 +18,9 @@
 
 package com.vrem.wifianalyzer.vendor.model;
 
-import android.support.annotation.NonNull;
-
 import org.apache.commons.lang3.StringUtils;
+
+import androidx.annotation.NonNull;
 
 class VendorUtils {
     static final int MAX_SIZE = 6;

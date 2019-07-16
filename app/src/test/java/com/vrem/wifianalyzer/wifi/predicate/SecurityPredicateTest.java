@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.predicate;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
@@ -27,6 +25,8 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.junit.Test;
+
+import androidx.annotation.NonNull;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

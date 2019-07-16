@@ -18,11 +18,11 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.support.annotation.NonNull;
-
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
 import java.util.Comparator;
+
+import androidx.annotation.NonNull;
 
 public enum SortBy {
     STRENGTH(new StrengthComparator()),

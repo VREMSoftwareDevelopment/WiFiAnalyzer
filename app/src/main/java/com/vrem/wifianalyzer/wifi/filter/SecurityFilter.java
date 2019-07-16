@@ -19,7 +19,6 @@
 package com.vrem.wifianalyzer.wifi.filter;
 
 import android.app.Dialog;
-import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.filter.adapter.SecurityAdapter;
@@ -27,6 +26,8 @@ import com.vrem.wifianalyzer.wifi.model.Security;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 class SecurityFilter extends EnumFilter<Security, SecurityAdapter> {
     static final Map<Security, Integer> ids = new HashMap<>();

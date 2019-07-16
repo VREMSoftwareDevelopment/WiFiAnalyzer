@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.accesspoint;
 
-import android.support.annotation.NonNull;
 import android.widget.ExpandableListView;
 
 import com.vrem.wifianalyzer.MainContext;
@@ -31,6 +30,8 @@ import org.apache.commons.collections4.Predicate;
 
 import java.util.Collections;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 class AccessPointsAdapterData {
     private AccessPointsAdapterGroup accessPointsAdapterGroup;

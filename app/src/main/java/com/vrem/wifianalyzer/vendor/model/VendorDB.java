@@ -19,7 +19,6 @@
 package com.vrem.wifianalyzer.vendor.model;
 
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
 
 import com.vrem.util.FileUtils;
 import com.vrem.wifianalyzer.R;
@@ -35,6 +34,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import androidx.annotation.NonNull;
 
 class VendorDB implements VendorService {
     private final Resources resources;

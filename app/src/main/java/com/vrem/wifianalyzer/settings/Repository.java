@@ -22,12 +22,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.support.annotation.NonNull;
-import android.support.v7.preference.PreferenceManager;
 
 import com.vrem.wifianalyzer.R;
 
 import java.util.Set;
+
+import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 
 public class Repository {
     private final Context context;

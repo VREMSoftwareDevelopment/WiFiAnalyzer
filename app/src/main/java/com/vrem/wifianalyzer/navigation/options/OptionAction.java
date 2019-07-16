@@ -18,12 +18,12 @@
 
 package com.vrem.wifianalyzer.navigation.options;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.R;
 
 import org.apache.commons.collections4.Predicate;
+
+import androidx.annotation.NonNull;
 
 enum OptionAction {
     NO_ACTION(-1, new NoAction()),

@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.timegraph;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
@@ -32,6 +30,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 class TimeGraphCache {
     private final Map<WiFiDetail, Integer> notSeen;

@@ -21,9 +21,10 @@ package com.vrem.wifianalyzer.permission;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
 
 import com.vrem.util.BuildUtils;
+
+import androidx.annotation.NonNull;
 
 public class ApplicationPermission {
     static final String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION};

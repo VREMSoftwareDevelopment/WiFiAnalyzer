@@ -19,7 +19,6 @@
 package com.vrem.wifianalyzer.wifi.filter;
 
 import android.app.Dialog;
-import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
@@ -27,6 +26,8 @@ import com.vrem.wifianalyzer.wifi.filter.adapter.WiFiBandAdapter;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 class WiFiBandFilter extends EnumFilter<WiFiBand, WiFiBandAdapter> {
     static final Map<WiFiBand, Integer> ids = new HashMap<>();

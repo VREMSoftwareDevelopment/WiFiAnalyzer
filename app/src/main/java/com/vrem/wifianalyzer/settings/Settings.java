@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.util.BuildUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.util.LocaleUtils;
@@ -38,6 +36,8 @@ import com.vrem.wifianalyzer.wifi.model.Strength;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 import static android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 

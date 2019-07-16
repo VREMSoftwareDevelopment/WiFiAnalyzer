@@ -18,12 +18,14 @@
 
 package com.vrem.wifianalyzer.navigation;
 
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
 
 public interface NavigationMenuControl extends
     NavigationView.OnNavigationItemSelectedListener,

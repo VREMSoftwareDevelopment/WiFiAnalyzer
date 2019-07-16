@@ -19,7 +19,6 @@
 package com.vrem.wifianalyzer.wifi.graphutils;
 
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
@@ -31,6 +30,8 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 class GraphColors {
     private final List<GraphColor> availableGraphColors;

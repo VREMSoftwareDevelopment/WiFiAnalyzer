@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.graphutils;
 
-import android.support.annotation.NonNull;
-
 import com.jjoe64.graphview.series.BaseSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.Series;
@@ -36,6 +34,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
+import androidx.annotation.NonNull;
 
 class SeriesCache {
     private final Map<WiFiDetail, BaseSeries<DataPoint>> cache;
