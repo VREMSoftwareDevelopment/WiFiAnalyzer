@@ -18,6 +18,11 @@
 
 package com.vrem.wifianalyzer;
 
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+
 import org.robolectric.Robolectric;
 
 public enum RobolectricUtil {
@@ -32,4 +37,12 @@ public enum RobolectricUtil {
     public MainActivity getActivity() {
         return mainActivity;
     }
+
+    public void startFragment(@NonNull Fragment fragment) {
+        FragmentManager fragmentManager = mainActivity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(fragment, null);
+        fragmentTransaction.commit();
+    }
+
 }

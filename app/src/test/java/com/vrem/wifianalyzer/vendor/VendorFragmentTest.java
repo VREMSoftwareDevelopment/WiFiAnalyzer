@@ -29,7 +29,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 import java.util.Collections;
 
@@ -51,7 +50,9 @@ public class VendorFragmentTest {
         vendorService = MainContextHelper.INSTANCE.getVendorService();
 
         when(vendorService.findVendors()).thenReturn(Collections.emptyList());
-        fixture = SupportFragmentController.setupFragment(new VendorFragment());
+        fixture = new VendorFragment();
+        RobolectricUtil.INSTANCE.startFragment(fixture);
+
     }
 
     @After

@@ -30,7 +30,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -47,7 +46,8 @@ public class TimeGraphFragmentTest {
     public void setUp() {
         RobolectricUtil.INSTANCE.getActivity();
         scanner = MainContextHelper.INSTANCE.getScannerService();
-        fixture = SupportFragmentController.setupFragment(new TimeGraphFragment());
+        fixture = new TimeGraphFragment();
+        RobolectricUtil.INSTANCE.startFragment(fixture);
     }
 
     @After
