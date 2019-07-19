@@ -98,7 +98,7 @@ public class SettingsTest {
     @Test
     public void testGetScanSpeed() {
         // setup
-        when(BuildUtils.isMinVersionP()).thenReturn(false);
+        when(BuildUtils.isVersionP()).thenReturn(false);
         int defaultValue = 10;
         int expected = 3;
         when(repository.getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)).thenReturn(defaultValue);
@@ -110,7 +110,7 @@ public class SettingsTest {
         verify(repository).getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT);
         verify(repository).getStringAsInteger(R.string.scan_speed_key, defaultValue);
         verifyStatic(BuildUtils.class);
-        BuildUtils.isMinVersionP();
+        BuildUtils.isVersionP();
     }
 
     @Test
@@ -130,7 +130,7 @@ public class SettingsTest {
     @Test
     public void testGetScanSpeedWithAndroidPie() {
         // setup
-        when(BuildUtils.isMinVersionP()).thenReturn(true);
+        when(BuildUtils.isVersionP()).thenReturn(true);
         int defaultValue = 3;
         int speedValue = 3;
         when(repository.getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)).thenReturn(defaultValue);
@@ -142,7 +142,7 @@ public class SettingsTest {
         verify(repository).getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT);
         verify(repository).getStringAsInteger(R.string.scan_speed_key, defaultValue);
         verifyStatic(BuildUtils.class);
-        BuildUtils.isMinVersionP();
+        BuildUtils.isVersionP();
     }
 
     @Test

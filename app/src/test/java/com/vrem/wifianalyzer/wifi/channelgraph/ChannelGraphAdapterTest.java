@@ -18,6 +18,8 @@
 
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
+import android.os.Build;
+
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
@@ -31,6 +33,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.robolectric.annotation.LooperMode;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,8 +42,11 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk = Build.VERSION_CODES.P)
+@LooperMode(PAUSED)
 public class ChannelGraphAdapterTest {
 
     private ChannelGraphNavigation channelGraphNavigation;

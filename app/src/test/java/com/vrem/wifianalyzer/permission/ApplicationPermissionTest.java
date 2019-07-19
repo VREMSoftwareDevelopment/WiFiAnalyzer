@@ -21,12 +21,14 @@ package com.vrem.wifianalyzer.permission;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.os.Build;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -37,6 +39,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk = Build.VERSION_CODES.P)
 public class ApplicationPermissionTest {
 
     private Activity activity;
@@ -56,57 +59,38 @@ public class ApplicationPermissionTest {
     }
 
     @Test
-    public void testCheckWithCoarseLocationGranted() {
-        // setup
-        when(activity.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)).thenReturn(PackageManager.PERMISSION_GRANTED);
-        // execute
-        fixture.check();
-        // validate
-        verify(activity).checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
-        verify(activity, never()).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
-        verify(activity, never()).isFinishing();
-        verify(activity, never()).requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, ApplicationPermission.REQUEST_CODE);
-    }
-
-    @Test
     public void testCheckWithFineLocationGranted() {
         // setup
-        when(activity.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)).thenReturn(PackageManager.PERMISSION_DENIED);
         when(activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)).thenReturn(PackageManager.PERMISSION_GRANTED);
         // execute
         fixture.check();
         // validate
-        verify(activity).checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
         verify(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         verify(activity, never()).isFinishing();
-        verify(activity, never()).requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, ApplicationPermission.REQUEST_CODE);
+        verify(activity, never()).requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, ApplicationPermission.REQUEST_CODE);
     }
 
     @Test
     public void testCheckWithActivityFinish() {
         // setup
-        when(activity.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)).thenReturn(PackageManager.PERMISSION_DENIED);
         when(activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)).thenReturn(PackageManager.PERMISSION_DENIED);
         when(activity.isFinishing()).thenReturn(true);
         // execute
         fixture.check();
         // validate
-        verify(activity).checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
         verify(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         verify(activity).isFinishing();
-        verify(activity, never()).requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, ApplicationPermission.REQUEST_CODE);
+        verify(activity, never()).requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, ApplicationPermission.REQUEST_CODE);
     }
 
     @Test
     public void testCheckWithRequestPermissions() {
         // setup
-        when(activity.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)).thenReturn(PackageManager.PERMISSION_DENIED);
         when(activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)).thenReturn(PackageManager.PERMISSION_DENIED);
         when(activity.isFinishing()).thenReturn(false);
         // execute
         fixture.check();
         // validate
-        verify(activity).checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
         verify(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         verify(activity).isFinishing();
         verify(permissionDialog).show();

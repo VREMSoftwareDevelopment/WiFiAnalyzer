@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi.timegraph;
 
+import android.os.Build;
 import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
@@ -39,6 +40,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.robolectric.annotation.LooperMode;
 
 import java.util.Collections;
 import java.util.List;
@@ -49,8 +52,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk = Build.VERSION_CODES.P)
+@LooperMode(PAUSED)
 public class TimeGraphViewTest {
     private GraphViewWrapper graphViewWrapper;
     private DataManager dataManager;

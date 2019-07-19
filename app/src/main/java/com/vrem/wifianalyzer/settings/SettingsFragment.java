@@ -30,7 +30,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle bundle, String rootKey) {
         addPreferencesFromResource(R.xml.settings);
-        findPreference(getString(R.string.experimental_key)).setVisible(BuildUtils.isMinVersionP());
+        findPreference(getString(R.string.experimental_key)).setVisible(BuildUtils.isVersionP());
     }
 
 }

@@ -63,7 +63,7 @@ public class Settings {
     public int getScanSpeed() {
         int defaultValue = repository.getStringAsInteger(R.string.scan_speed_default, SCAN_SPEED_DEFAULT);
         int scanSpeed = repository.getStringAsInteger(R.string.scan_speed_key, defaultValue);
-        if (BuildUtils.isMinVersionP() && scanSpeed < SCAN_SPEED_DEFAULT) {
+        if (BuildUtils.isVersionP() && scanSpeed < SCAN_SPEED_DEFAULT) {
             scanSpeed = SCAN_SPEED_DEFAULT;
         }
         return scanSpeed;

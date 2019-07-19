@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.wifi.filter;
 
 import android.app.Dialog;
+import android.os.Build;
 import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
@@ -31,6 +32,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.robolectric.annotation.LooperMode;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -40,8 +43,11 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk = Build.VERSION_CODES.P)
+@LooperMode(PAUSED)
 public class SSIDFilterTest {
 
     private Dialog dialog;

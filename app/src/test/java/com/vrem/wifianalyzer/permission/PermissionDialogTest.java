@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.permission;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.os.Build;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
@@ -28,14 +29,19 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.robolectric.annotation.LooperMode;
 
 import static com.vrem.wifianalyzer.permission.PermissionDialog.CancelClick;
 import static com.vrem.wifianalyzer.permission.PermissionDialog.OkClick;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(sdk = Build.VERSION_CODES.P)
+@LooperMode(PAUSED)
 public class PermissionDialogTest {
 
     private PermissionDialog fixture;
