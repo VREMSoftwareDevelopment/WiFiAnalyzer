@@ -16,22 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.settings;
+package com.vrem.util;
 
-import android.os.Bundle;
+import android.content.Intent;
 
-import com.vrem.util.BuildUtils;
-import com.vrem.wifianalyzer.R;
+import androidx.annotation.NonNull;
 
-import androidx.preference.PreferenceFragmentCompat;
+public class IntentUtils {
+    private IntentUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
-public class SettingsFragment extends PreferenceFragmentCompat {
-
-    @Override
-    public void onCreatePreferences(Bundle bundle, String rootKey) {
-        addPreferencesFromResource(R.xml.settings);
-        findPreference(getString(R.string.experimental_key)).setVisible(BuildUtils.isVersionP());
-        findPreference(getString(R.string.wifi_off_on_exit_key)).setVisible(!BuildUtils.isMinVersionQ());
+    public static Intent makeIntent(@NonNull String action) {
+        return new Intent(action);
     }
 
 }

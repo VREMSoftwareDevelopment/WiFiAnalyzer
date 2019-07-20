@@ -29,6 +29,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 import org.robolectric.annotation.LooperMode;
 
+import androidx.preference.Preference;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static org.junit.Assert.assertNotNull;
@@ -46,7 +47,6 @@ public class SettingsFragmentTest {
         fixture = new SettingsFragment();
     }
 
-
     @Test
     public void testOnCreate() {
         // setup
@@ -59,9 +59,48 @@ public class SettingsFragmentTest {
     public void testExperimentalIsVisible() {
         // setup
         RobolectricUtil.INSTANCE.startFragment(fixture);
-        String experimental = fixture.getString(R.string.experimental_key);
+        String key = fixture.getString(R.string.experimental_key);
+        // execute
+        Preference actual = fixture.findPreference(key);
         // validate
-        assertTrue(fixture.findPreference(experimental).isVisible());
+        assertTrue(actual.isVisible());
     }
+
+    @Test
+    public void testWiFiOnExitIsVisible() {
+        // setup
+        RobolectricUtil.INSTANCE.startFragment(fixture);
+        String key = fixture.getString(R.string.wifi_off_on_exit_key);
+        // execute
+        Preference actual = fixture.findPreference(key);
+        // validate
+        assertTrue(actual.isVisible());
+    }
+
+/*
+    @Test
+    @Config(sdk = Build.VERSION_CODES.Q)
+    public void testExperimentalIsNotVisible() {
+        // setup
+        RobolectricUtil.INSTANCE.startFragment(fixture);
+        String key = fixture.getString(R.string.experimental_key);
+        // execute
+        Preference actual = fixture.findPreference(key);
+        // validate
+        assertFalse(actual.isVisible());
+    }
+
+    @Test
+    @Config(sdk = Build.VERSION_CODES.Q)
+    public void testWiFiOnExitIsNotVisible() {
+        // setup
+        RobolectricUtil.INSTANCE.startFragment(fixture);
+        String key = fixture.getString(R.string.wifi_off_on_exit_key);
+        // execute
+        Preference actual = fixture.findPreference(key);
+        // validate
+        assertFalse(actual.isVisible());
+    }
+*/
 
 }

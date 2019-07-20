@@ -18,17 +18,21 @@
 
 package com.vrem.wifianalyzer;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.vrem.util.IntentUtils;
 import com.vrem.wifianalyzer.settings.Settings;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 
-class ActivityUtils {
+import static android.provider.Settings.Panel.ACTION_WIFI;
+
+public class ActivityUtils {
     private ActivityUtils() {
         throw new IllegalStateException("Utility class");
     }
@@ -41,11 +45,13 @@ class ActivityUtils {
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    static void keepScreenOn(@NonNull MainActivity mainActivity) {
-        Settings settings = MainContext.INSTANCE.getSettings();
+    static void keepScreenOn() {
+        MainContext mainContext = MainContext.INSTANCE;
+        Settings settings = mainContext.getSettings();
         if (settings == null) {
             return;
         }
+        MainActivity mainActivity = mainContext.getMainActivity();
         Window window = mainActivity.getWindow();
         if (settings.isKeepScreenOn()) {
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -55,12 +61,19 @@ class ActivityUtils {
     }
 
     @NonNull
-    static Toolbar setupToolbar(@NonNull MainActivity mainActivity) {
+    static Toolbar setupToolbar() {
+        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
         Toolbar toolbar = mainActivity.findViewById(R.id.toolbar);
         toolbar.setOnClickListener(new WiFiBandToggle(mainActivity));
         mainActivity.setSupportActionBar(toolbar);
         setActionBarOptions(mainActivity.getSupportActionBar());
         return toolbar;
+    }
+
+    public static void startWiFiSettings() {
+        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
+        Intent intent = IntentUtils.makeIntent(ACTION_WIFI);
+        mainActivity.startActivityForResult(intent, 0);
     }
 
     static class WiFiBandToggle implements View.OnClickListener {

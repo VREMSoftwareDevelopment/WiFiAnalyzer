@@ -86,9 +86,9 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
 
         setOptionMenu(new OptionMenu());
 
-        ActivityUtils.keepScreenOn(this);
+        ActivityUtils.keepScreenOn();
 
-        Toolbar toolbar = ActivityUtils.setupToolbar(this);
+        Toolbar toolbar = ActivityUtils.setupToolbar();
         drawerNavigation = new DrawerNavigation(this, toolbar);
 
         navigationMenuController = new NavigationMenuController(this);
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
             MainContext.INSTANCE.getScannerService().stop();
             recreate();
         } else {
-            ActivityUtils.keepScreenOn(this);
+            ActivityUtils.keepScreenOn();
             setWiFiChannelPairs(mainContext);
             update();
         }

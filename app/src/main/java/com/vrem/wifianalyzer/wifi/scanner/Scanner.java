@@ -23,6 +23,8 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 
+import com.vrem.util.BuildUtils;
+import com.vrem.wifianalyzer.ActivityUtils;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
@@ -94,9 +96,11 @@ class Scanner implements ScannerService {
 
     @Override
     public void stop() {
-        if (settings.isWiFiOffOnExit()) {
+        if (!BuildUtils.isMinVersionQ()) {
             try {
-                wifiManager.setWifiEnabled(false);
+                if (settings.isWiFiOffOnExit()) {
+                    wifiManager.setWifiEnabled(false);
+                }
             } catch (Exception e) {
                 // critical error: do not die
             }
@@ -128,7 +132,11 @@ class Scanner implements ScannerService {
     private void enableWiFi() {
         try {
             if (!wifiManager.isWifiEnabled()) {
-                wifiManager.setWifiEnabled(true);
+                if (BuildUtils.isMinVersionQ()) {
+                    ActivityUtils.startWiFiSettings();
+                } else {
+                    wifiManager.setWifiEnabled(true);
+                }
             }
         } catch (Exception e) {
             // critical error: do not die

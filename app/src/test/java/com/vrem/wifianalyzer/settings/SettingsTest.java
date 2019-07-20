@@ -49,6 +49,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.never;
@@ -416,6 +417,7 @@ public class SettingsTest {
     @Test
     public void testIsWiFiOffOnExit() {
         // setup
+        when(BuildUtils.isMinVersionQ()).thenReturn(false);
         when(repository.getResourceBoolean(R.bool.wifi_off_on_exit_default)).thenReturn(true);
         when(repository.getBoolean(R.string.wifi_off_on_exit_key, true)).thenReturn(true);
         // execute
@@ -424,6 +426,20 @@ public class SettingsTest {
         assertTrue(actual);
         verify(repository).getBoolean(R.string.wifi_off_on_exit_key, true);
         verify(repository).getResourceBoolean(R.bool.wifi_off_on_exit_default);
+        verifyStatic(BuildUtils.class);
+        BuildUtils.isMinVersionQ();
+    }
+
+    @Test
+    public void testIsWiFiOffOnExitAndroidQ() {
+        // setup
+        when(BuildUtils.isMinVersionQ()).thenReturn(true);
+        // execute
+        boolean actual = fixture.isWiFiOffOnExit();
+        // validate
+        assertFalse(actual);
+        verifyStatic(BuildUtils.class);
+        BuildUtils.isMinVersionQ();
     }
 
     @Test

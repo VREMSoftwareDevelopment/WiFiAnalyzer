@@ -132,6 +132,9 @@ public class Settings {
     }
 
     public boolean isWiFiOffOnExit() {
+        if (BuildUtils.isMinVersionQ()) {
+            return false;
+        }
         return repository.getBoolean(R.string.wifi_off_on_exit_key, repository.getResourceBoolean(R.bool.wifi_off_on_exit_default));
     }
 
