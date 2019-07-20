@@ -19,7 +19,6 @@
 package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.net.wifi.ScanResult;
-import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
@@ -70,7 +69,6 @@ public class ScannerTest {
 
     private List<ScanResult> scanResults;
     private List<CacheResult> cacheResults;
-    private List<WifiConfiguration> configuredNetworks;
 
     private Scanner fixture;
 
@@ -78,7 +76,6 @@ public class ScannerTest {
     public void setUp() {
         scanResults = Collections.emptyList();
         cacheResults = Collections.emptyList();
-        configuredNetworks = Collections.emptyList();
 
         fixture = new Scanner(wifiManager, handler, settings);
         fixture.setCache(cache);
@@ -182,7 +179,7 @@ public class ScannerTest {
     }
 
     private void withTransformer() {
-        when(transformer.transformToWiFiData(cacheResults, wifiInfo, configuredNetworks)).thenReturn(wiFiData);
+        when(transformer.transformToWiFiData(cacheResults, wifiInfo)).thenReturn(wiFiData);
     }
 
     private void verifyCache() {
@@ -197,7 +194,6 @@ public class ScannerTest {
         verify(wifiManager).startScan();
         verify(wifiManager).getScanResults();
         verify(wifiManager).getConnectionInfo();
-        verify(wifiManager).getConfiguredNetworks();
 
         verifyWiFiManagerStartScan();
     }
@@ -207,7 +203,6 @@ public class ScannerTest {
         when(wifiManager.startScan()).thenReturn(true);
         when(wifiManager.getScanResults()).thenReturn(scanResults);
         when(wifiManager.getConnectionInfo()).thenReturn(wifiInfo);
-        when(wifiManager.getConfiguredNetworks()).thenReturn(configuredNetworks);
 
         withWiFiManagerStartScan();
     }
@@ -221,7 +216,7 @@ public class ScannerTest {
     }
 
     private void verifyTransformer() {
-        verify(transformer).transformToWiFiData(cacheResults, wifiInfo, configuredNetworks);
+        verify(transformer).transformToWiFiData(cacheResults, wifiInfo);
     }
 
     @Test

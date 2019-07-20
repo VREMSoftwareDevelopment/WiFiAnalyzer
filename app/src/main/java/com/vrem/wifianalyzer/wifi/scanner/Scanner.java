@@ -18,9 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi.scanner;
 
-import android.annotation.SuppressLint;
 import android.net.wifi.ScanResult;
-import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
@@ -59,7 +57,7 @@ class Scanner implements ScannerService {
     public void update() {
         enableWiFi();
         scanResults();
-        wiFiData = transformer.transformToWiFiData(cache.getScanResults(), cache.getWifiInfo(), wifiConfiguration());
+        wiFiData = transformer.transformToWiFiData(cache.getScanResults(), cache.getWifiInfo());
         IterableUtils.forEach(updateNotifiers, new UpdateClosure());
     }
 
@@ -148,16 +146,6 @@ class Scanner implements ScannerService {
             }
         } catch (Exception e) {
             // critical error: do not die
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    private List<WifiConfiguration> wifiConfiguration() {
-        try {
-            return wifiManager.getConfiguredNetworks();
-        } catch (Exception e) {
-            // critical error: do not die
-            return new ArrayList<>();
         }
     }
 

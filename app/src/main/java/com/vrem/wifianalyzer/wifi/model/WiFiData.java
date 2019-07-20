@@ -35,16 +35,14 @@ import java.util.List;
 import androidx.annotation.NonNull;
 
 public class WiFiData {
-    public static final WiFiData EMPTY = new WiFiData(Collections.emptyList(), WiFiConnection.EMPTY, Collections.emptyList());
+    public static final WiFiData EMPTY = new WiFiData(Collections.emptyList(), WiFiConnection.EMPTY);
 
     private final List<WiFiDetail> wiFiDetails;
     private final WiFiConnection wiFiConnection;
-    private final List<String> wiFiConfigurations;
 
-    public WiFiData(@NonNull List<WiFiDetail> wiFiDetails, @NonNull WiFiConnection wiFiConnection, @NonNull List<String> wiFiConfigurations) {
+    public WiFiData(@NonNull List<WiFiDetail> wiFiDetails, @NonNull WiFiConnection wiFiConnection) {
         this.wiFiDetails = wiFiDetails;
         this.wiFiConnection = wiFiConnection;
-        this.wiFiConfigurations = wiFiConfigurations;
     }
 
     @NonNull
@@ -104,11 +102,6 @@ public class WiFiData {
     }
 
     @NonNull
-    public List<String> getWiFiConfigurations() {
-        return Collections.unmodifiableList(wiFiConfigurations);
-    }
-
-    @NonNull
     public WiFiConnection getWiFiConnection() {
         return wiFiConnection;
     }
@@ -146,8 +139,7 @@ public class WiFiData {
                 return connection;
             }
             String vendorName = vendorService.findVendorName(input.getBSSID());
-            boolean contains = wiFiConfigurations.contains(input.getSSID());
-            WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName, contains);
+            WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName);
             return new WiFiDetail(input, wiFiAdditional);
         }
     }

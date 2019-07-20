@@ -118,9 +118,6 @@ public class AccessPointDetail {
     private void setViewExtra(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {
         Context context = view.getContext();
 
-        view.<ImageView>findViewById(R.id.configuredImage)
-            .setVisibility(wiFiDetail.getWiFiAdditional().isConfiguredNetwork() ? View.VISIBLE : View.GONE);
-
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         Strength strength = wiFiSignal.getStrength();
         ImageView imageView = view.findViewById(R.id.levelImage);

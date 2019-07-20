@@ -88,7 +88,7 @@ public class TimeGraphViewTest {
         // setup
         List<WiFiDetail> wiFiDetails = Collections.emptyList();
         Set<WiFiDetail> newSeries = Collections.emptySet();
-        WiFiData wiFiData = new WiFiData(wiFiDetails, WiFiConnection.EMPTY, Collections.emptyList());
+        WiFiData wiFiData = new WiFiData(wiFiDetails, WiFiConnection.EMPTY);
         withSettings();
         when(dataManager.addSeriesData(graphViewWrapper, wiFiDetails, GraphConstants.MAX_Y)).thenReturn(newSeries);
         // execute

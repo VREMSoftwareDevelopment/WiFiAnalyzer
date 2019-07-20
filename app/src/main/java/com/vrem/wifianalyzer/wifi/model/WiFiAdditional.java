@@ -24,24 +24,18 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import androidx.annotation.NonNull;
 
 public class WiFiAdditional {
-    public static final WiFiAdditional EMPTY = new WiFiAdditional(StringUtils.EMPTY, false);
+    public static final WiFiAdditional EMPTY = new WiFiAdditional(StringUtils.EMPTY);
 
     private final String vendorName;
-    private final boolean configuredNetwork;
     private final WiFiConnection wiFiConnection;
 
-    private WiFiAdditional(@NonNull String vendorName, @NonNull WiFiConnection wiFiConnection, boolean configuredNetwork) {
+    public WiFiAdditional(@NonNull String vendorName, @NonNull WiFiConnection wiFiConnection) {
         this.vendorName = vendorName;
         this.wiFiConnection = wiFiConnection;
-        this.configuredNetwork = configuredNetwork;
     }
 
-    public WiFiAdditional(@NonNull String vendorName, boolean configuredNetwork) {
-        this(vendorName, WiFiConnection.EMPTY, configuredNetwork);
-    }
-
-    public WiFiAdditional(@NonNull String vendorName, @NonNull WiFiConnection wiFiConnection) {
-        this(vendorName, wiFiConnection, true);
+    public WiFiAdditional(@NonNull String vendorName) {
+        this(vendorName, WiFiConnection.EMPTY);
     }
 
     @NonNull
@@ -52,10 +46,6 @@ public class WiFiAdditional {
     @NonNull
     public WiFiConnection getWiFiConnection() {
         return wiFiConnection;
-    }
-
-    public boolean isConfiguredNetwork() {
-        return configuredNetwork;
     }
 
     @Override

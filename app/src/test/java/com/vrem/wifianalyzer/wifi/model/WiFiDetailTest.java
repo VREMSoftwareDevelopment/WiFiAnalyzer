@@ -43,7 +43,7 @@ public class WiFiDetailTest {
 
     @Before
     public void setUp() {
-        wiFiAdditional = new WiFiAdditional(VENDOR_NAME, false);
+        wiFiAdditional = new WiFiAdditional(VENDOR_NAME);
         wiFiSignal = new WiFiSignal(FREQUENCY, FREQUENCY, WiFiWidth.MHZ_20, LEVEL, true);
         fixture = new WiFiDetail(SSID, BSSID, WPA, wiFiSignal, wiFiAdditional);
     }
