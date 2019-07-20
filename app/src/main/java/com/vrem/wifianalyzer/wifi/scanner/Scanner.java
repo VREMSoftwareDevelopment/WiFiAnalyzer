@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi.scanner;
 
+import android.annotation.SuppressLint;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
@@ -150,6 +151,7 @@ class Scanner implements ScannerService {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private List<WifiConfiguration> wifiConfiguration() {
         try {
             return wifiManager.getConfiguredNetworks();
