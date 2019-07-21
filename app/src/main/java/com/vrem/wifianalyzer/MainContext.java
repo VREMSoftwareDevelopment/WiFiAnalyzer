@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.settings.SettingsFactory;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.vendor.model.VendorServiceFactory;
 import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
@@ -108,7 +109,8 @@ public enum MainContext {
         Context applicationContext = mainActivity.getApplicationContext();
         WifiManager wifiManager = (WifiManager) applicationContext.getSystemService(Context.WIFI_SERVICE);
         Handler handler = new Handler();
-        Settings currentSettings = new Settings(new Repository(applicationContext));
+        Repository repository = new Repository(applicationContext);
+        Settings currentSettings = SettingsFactory.make(repository);
         Configuration currentConfiguration = new Configuration(largeScreen);
 
         setMainActivity(mainActivity);

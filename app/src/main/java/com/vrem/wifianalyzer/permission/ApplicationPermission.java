@@ -19,8 +19,10 @@
 package com.vrem.wifianalyzer.permission;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.os.Build;
 
 import com.vrem.util.BuildUtils;
 
@@ -57,11 +59,12 @@ public class ApplicationPermission {
     }
 
     boolean isGranted() {
-        if (BuildUtils.isMinVersionM()) {
-            return activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-        } else {
-            return true;
-        }
+        return !BuildUtils.isMinVersionM() || isGrantedAndroidM();
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private boolean isGrantedAndroidM() {
+        return activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
 }

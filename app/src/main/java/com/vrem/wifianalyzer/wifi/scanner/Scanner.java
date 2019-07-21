@@ -18,9 +18,11 @@
 
 package com.vrem.wifianalyzer.wifi.scanner;
 
+import android.annotation.TargetApi;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Handler;
 
 import com.vrem.util.BuildUtils;
@@ -99,12 +101,17 @@ class Scanner implements ScannerService {
         if (!BuildUtils.isMinVersionQ()) {
             try {
                 if (settings.isWiFiOffOnExit()) {
-                    wifiManager.setWifiEnabled(false);
+                    disableWiFiLegacy();
                 }
             } catch (Exception e) {
                 // critical error: do not die
             }
         }
+    }
+
+    @SuppressWarnings("deprecation")
+    private void disableWiFiLegacy() {
+        wifiManager.setWifiEnabled(false);
     }
 
     @NonNull
@@ -133,14 +140,24 @@ class Scanner implements ScannerService {
         try {
             if (!wifiManager.isWifiEnabled()) {
                 if (BuildUtils.isMinVersionQ()) {
-                    ActivityUtils.startWiFiSettings();
+                    enableWiFiAndroidQ();
                 } else {
-                    wifiManager.setWifiEnabled(true);
+                    enableWiFiLegacy();
                 }
             }
         } catch (Exception e) {
             // critical error: do not die
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.Q)
+    private void enableWiFiAndroidQ() {
+        ActivityUtils.startWiFiSettings();
+    }
+
+    @SuppressWarnings("deprecation")
+    private void enableWiFiLegacy() {
+        wifiManager.setWifiEnabled(true);
     }
 
     private void scanResults() {

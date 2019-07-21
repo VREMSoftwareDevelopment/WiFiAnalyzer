@@ -18,6 +18,8 @@
 
 package com.vrem.util;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
 
@@ -63,12 +65,20 @@ public class TextUtils {
             ">" + text + "</" + (small ? "small" : "strong") + "></font>";
     }
 
-    @SuppressWarnings("deprecation")
     @NonNull
     public static Spanned fromHtml(@NonNull String text) {
-        if (BuildUtils.isMinVersionN()) {
-            return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
-        }
+        return BuildUtils.isMinVersionN() ? fromHtmlAndroidN(text) : fromHtmlLegacy(text);
+    }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    @NonNull
+    private static Spanned fromHtmlAndroidN(@NonNull String text) {
+        return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
+    }
+
+    @SuppressWarnings("deprecation")
+    @NonNull
+    private static Spanned fromHtmlLegacy(@NonNull String text) {
         return Html.fromHtml(text);
     }
 

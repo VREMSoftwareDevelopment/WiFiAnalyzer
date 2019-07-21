@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.settings;
 
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
-import com.vrem.util.BuildUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.util.LocaleUtils;
 import com.vrem.wifianalyzer.R;
@@ -39,8 +38,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -54,13 +52,10 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.verifyNoMoreInteractions;
-import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(BuildUtils.class)
+@RunWith(MockitoJUnitRunner.class)
 public class SettingsTest {
     @Mock
     private Repository repository;
@@ -71,13 +66,11 @@ public class SettingsTest {
 
     @Before
     public void setUp() {
-        mockStatic(BuildUtils.class);
         fixture = new Settings(repository);
     }
 
     @After
     public void tearDown() {
-        verifyNoMoreInteractions(BuildUtils.class);
         verifyNoMoreInteractions(repository);
         verifyNoMoreInteractions(onSharedPreferenceChangeListener);
     }
@@ -99,7 +92,6 @@ public class SettingsTest {
     @Test
     public void testGetScanSpeed() {
         // setup
-        when(BuildUtils.isVersionP()).thenReturn(false);
         int defaultValue = 10;
         int expected = 3;
         when(repository.getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)).thenReturn(defaultValue);
@@ -110,41 +102,16 @@ public class SettingsTest {
         assertEquals(expected, actual);
         verify(repository).getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT);
         verify(repository).getStringAsInteger(R.string.scan_speed_key, defaultValue);
-        verifyStatic(BuildUtils.class);
-        BuildUtils.isVersionP();
     }
 
     @Test
     public void testIsWiFiThrottleDisabled() {
-        // setup
-        when(repository.getResourceBoolean(R.bool.wifi_throttle_disabled_default)).thenReturn(true);
-        when(repository.getBoolean(R.string.wifi_throttle_disabled_key, true)).thenReturn(true);
         // execute
         boolean actual = fixture.isWiFiThrottleDisabled();
         // validate
-        assertTrue(actual);
-        verify(repository).getBoolean(R.string.wifi_throttle_disabled_key, true);
-        verify(repository).getResourceBoolean(R.bool.wifi_throttle_disabled_default);
+        assertFalse(actual);
     }
 
-
-    @Test
-    public void testGetScanSpeedWithAndroidPie() {
-        // setup
-        when(BuildUtils.isVersionP()).thenReturn(true);
-        int defaultValue = 3;
-        int speedValue = 3;
-        when(repository.getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)).thenReturn(defaultValue);
-        when(repository.getStringAsInteger(R.string.scan_speed_key, defaultValue)).thenReturn(speedValue);
-        // execute
-        int actual = fixture.getScanSpeed();
-        // validate
-        assertEquals(Settings.SCAN_SPEED_DEFAULT, actual);
-        verify(repository).getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT);
-        verify(repository).getStringAsInteger(R.string.scan_speed_key, defaultValue);
-        verifyStatic(BuildUtils.class);
-        BuildUtils.isVersionP();
-    }
 
     @Test
     public void testGetGraphMaximumY() {
@@ -417,7 +384,6 @@ public class SettingsTest {
     @Test
     public void testIsWiFiOffOnExit() {
         // setup
-        when(BuildUtils.isMinVersionQ()).thenReturn(false);
         when(repository.getResourceBoolean(R.bool.wifi_off_on_exit_default)).thenReturn(true);
         when(repository.getBoolean(R.string.wifi_off_on_exit_key, true)).thenReturn(true);
         // execute
@@ -426,20 +392,6 @@ public class SettingsTest {
         assertTrue(actual);
         verify(repository).getBoolean(R.string.wifi_off_on_exit_key, true);
         verify(repository).getResourceBoolean(R.bool.wifi_off_on_exit_default);
-        verifyStatic(BuildUtils.class);
-        BuildUtils.isMinVersionQ();
-    }
-
-    @Test
-    public void testIsWiFiOffOnExitAndroidQ() {
-        // setup
-        when(BuildUtils.isMinVersionQ()).thenReturn(true);
-        // execute
-        boolean actual = fixture.isWiFiOffOnExit();
-        // validate
-        assertFalse(actual);
-        verifyStatic(BuildUtils.class);
-        BuildUtils.isMinVersionQ();
     }
 
     @Test

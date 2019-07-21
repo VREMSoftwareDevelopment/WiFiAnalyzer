@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import com.vrem.util.BuildUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.util.LocaleUtils;
 import com.vrem.wifianalyzer.R;
@@ -48,7 +47,7 @@ public class Settings {
 
     private final Repository repository;
 
-    public Settings(@NonNull Repository repository) {
+    Settings(@NonNull Repository repository) {
         this.repository = repository;
     }
 
@@ -62,15 +61,11 @@ public class Settings {
 
     public int getScanSpeed() {
         int defaultValue = repository.getStringAsInteger(R.string.scan_speed_default, SCAN_SPEED_DEFAULT);
-        int scanSpeed = repository.getStringAsInteger(R.string.scan_speed_key, defaultValue);
-        if (BuildUtils.isVersionP() && scanSpeed < SCAN_SPEED_DEFAULT) {
-            scanSpeed = SCAN_SPEED_DEFAULT;
-        }
-        return scanSpeed;
+        return repository.getStringAsInteger(R.string.scan_speed_key, defaultValue);
     }
 
     public boolean isWiFiThrottleDisabled() {
-        return repository.getBoolean(R.string.wifi_throttle_disabled_key, repository.getResourceBoolean(R.bool.wifi_throttle_disabled_default));
+        return false;
     }
 
     public int getGraphMaximumY() {
@@ -132,9 +127,6 @@ public class Settings {
     }
 
     public boolean isWiFiOffOnExit() {
-        if (BuildUtils.isMinVersionQ()) {
-            return false;
-        }
         return repository.getBoolean(R.string.wifi_off_on_exit_key, repository.getResourceBoolean(R.bool.wifi_off_on_exit_default));
     }
 
@@ -192,6 +184,11 @@ public class Settings {
 
     public void saveSecurities(@NonNull Set<Security> values) {
         saveSet(R.string.filter_security_key, values);
+    }
+
+    @NonNull
+    Repository getRepository() {
+        return repository;
     }
 
     @NonNull
