@@ -30,7 +30,8 @@ public class SettingsAndroidP extends Settings {
 
     @Override
     public int getScanSpeed() {
-        return Math.max(super.getScanSpeed(), SCAN_SPEED_DEFAULT);
+        int scanSpeed = super.getScanSpeed();
+        return isWiFiThrottleDisabled() ? Math.max(scanSpeed, SCAN_SPEED_DEFAULT) : scanSpeed;
     }
 
     @Override

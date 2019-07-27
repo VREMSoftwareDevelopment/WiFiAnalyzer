@@ -32,6 +32,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -63,7 +64,8 @@ class VendorDB implements VendorService {
         if (StringUtils.isBlank(vendorName)) {
             return new ArrayList<>();
         }
-        List<String> results = getVendors().get(vendorName.toUpperCase());
+        Locale locale = Locale.getDefault();
+        List<String> results = getVendors().get(vendorName.toUpperCase(locale));
         return results == null ? new ArrayList<>() : results;
     }
 
@@ -79,7 +81,8 @@ class VendorDB implements VendorService {
         if (StringUtils.isBlank(filter)) {
             return new ArrayList<>(getVendors().keySet());
         }
-        String filterToUpperCase = filter.toUpperCase();
+        Locale locale = Locale.getDefault();
+        String filterToUpperCase = filter.toUpperCase(locale);
         List<Predicate<String>> predicates = Arrays.asList(new StringContains(filterToUpperCase), new MacContains(filterToUpperCase));
         return new ArrayList<>(CollectionUtils.select(getVendors().keySet(), PredicateUtils.anyPredicate(predicates)));
     }

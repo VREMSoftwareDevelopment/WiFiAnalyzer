@@ -40,7 +40,6 @@
 
     <string name="no_data">"Nessun Dato"</string>
     <string name="no_data_msg">"Visiti le sezioni di domande frequenti sul nostro sito web."</string>
-    <string name="no_data_geo_warning">"Alcuni utenti con Android 6+ (Marshmallow) hanno riferito che i servizi di localizzazione devono essere abilitati per l\'applicazione per vedere le reti WiFi. Gli utenti con Marshmallow potrebbero quindi dover abilitare i servizi di localizzazione, anche se l\'app non li richiede esplicitamente. Questo sembra un possibile bug di Android OS 6+, che richiede i servizi di localizzazione per vedere le reti WiFi."</string>
     <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a WiFi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
     <string name="location_msg">"Ši programa gali gauti jūsų vietos informaciją naudodamasi tinklo šaltinių, pvz., mobiliojo ryšio bokštų ir „Wi-Fi“ tinklų, duomenimis. Šios vietovės paslaugos turi būti įjungtos ir pasiekiamos telefone, kad programa galėtų jas naudoti. Tai gali padidinti akumuliatoriaus energijos naudojimą."</string>
     <string name="export_not_available">"Impossibile esportare"</string>

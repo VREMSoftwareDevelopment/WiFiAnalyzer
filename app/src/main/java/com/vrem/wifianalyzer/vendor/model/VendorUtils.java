@@ -20,6 +20,8 @@ package com.vrem.wifianalyzer.vendor.model;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Locale;
+
 import androidx.annotation.NonNull;
 
 class VendorUtils {
@@ -36,7 +38,8 @@ class VendorUtils {
             return StringUtils.EMPTY;
         }
         String result = macAddress.replace(SEPARATOR, "");
-        return result.substring(0, Math.min(result.length(), MAX_SIZE)).toUpperCase();
+        Locale locale = Locale.getDefault();
+        return result.substring(0, Math.min(result.length(), MAX_SIZE)).toUpperCase(locale);
     }
 
     @NonNull

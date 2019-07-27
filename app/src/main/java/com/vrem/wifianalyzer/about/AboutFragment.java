@@ -41,6 +41,7 @@ import com.vrem.wifianalyzer.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -73,7 +74,8 @@ public class AboutFragment extends Fragment {
     }
 
     private void setCopyright(View view) {
-        String year = new SimpleDateFormat(YEAR_FORMAT).format(new Date());
+        Locale locale = Locale.getDefault();
+        String year = new SimpleDateFormat(YEAR_FORMAT, locale).format(new Date());
         String message = getResources().getString(R.string.app_copyright);
         setText(view, R.id.about_copyright, message + year);
     }

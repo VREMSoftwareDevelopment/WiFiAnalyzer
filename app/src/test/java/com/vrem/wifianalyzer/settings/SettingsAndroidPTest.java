@@ -65,8 +65,9 @@ public class SettingsAndroidPTest {
     }
 
     @Test
-    public void testGetScanSpeed() {
+    public void testGetScanSpeedWithWiFiThrottleDisabled() {
         // setup
+        fixture = withWiFiThrottle(true);
         int defaultValue = Settings.SCAN_SPEED_DEFAULT - 2;
         int speedValue = Settings.SCAN_SPEED_DEFAULT - 1;
         when(repository.getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)).thenReturn(defaultValue);
@@ -79,4 +80,28 @@ public class SettingsAndroidPTest {
         verify(repository).getStringAsInteger(R.string.scan_speed_key, defaultValue);
     }
 
+    @Test
+    public void testGetScanSpeedWithWiFiThrottleEnabled() {
+        // setup
+        fixture = withWiFiThrottle(false);
+        int defaultValue = Settings.SCAN_SPEED_DEFAULT - 2;
+        int speedValue = Settings.SCAN_SPEED_DEFAULT - 1;
+        when(repository.getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)).thenReturn(defaultValue);
+        when(repository.getStringAsInteger(R.string.scan_speed_key, defaultValue)).thenReturn(speedValue);
+        // execute
+        int actual = fixture.getScanSpeed();
+        // validate
+        assertEquals(speedValue, actual);
+        verify(repository).getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT);
+        verify(repository).getStringAsInteger(R.string.scan_speed_key, defaultValue);
+    }
+
+    private SettingsAndroidP withWiFiThrottle(boolean isWiFiThrottleDisabled) {
+        return new SettingsAndroidP(repository) {
+            @Override
+            public boolean isWiFiThrottleDisabled() {
+                return isWiFiThrottleDisabled;
+            }
+        };
+    }
 }

@@ -47,7 +47,6 @@
     <string name="no_data">"No Data"</string>
     <string name="no_data_msg">"Please visit frequently ask questions section on our website."</string>
     <string name="no_data_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq"</string>
-    <string name="no_data_geo_warning">"Some users running Android OS 6+ (Marshmallow) have reported that the location service must be enabled for the application to see WiFi networks. Marshmallow users may need to turn on the location service, even though WiFiAnalyzer does not explicitly require it. This appears to be attributed to a potential issue in Android OS 6+ that requires location service in order to see WiFi networks."</string>
     <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a WiFi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
     <string name="location_msg">"This app can get your location based on GPS or network location sources such as cell towers and Wi-Fi networks. These location services must be turned on and available on your phone for the app to be able to use them. This may increase battery consumption."</string>
     <string name="wifi_channels_list_url" translatable="false">"https://en.wikipedia.org/wiki/List_of_WLAN_channels"</string>

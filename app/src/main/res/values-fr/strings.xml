@@ -40,7 +40,6 @@
 
     <string name="no_data">"Aucune donnée"</string>
     <string name="no_data_msg">"Veuillez visiter la section FAQ de notre site Web."</string>
-    <string name="no_data_geo_warning">"Certains utilisateurs fonctionnant sous Android OS+ 6 (Marshmallow) ont indiqué que le service de géolocalisation devait être activé pour que l\'application puisse fonctionner correctement. Si vous utilisez Marshmallow, activer le service de géolocalisation pourrait résoudre le problème, même si WiFiAnalyzer ne le demande pas explicitement. Ceci semble être dû à un problème avec Android OS 6+ qui requiert que le service de géolocalisation soit actif pour accéder aux réseaux Wi-Fi."</string>
     <string name="permission_msg">"À partir de Android Marshmallow, les autorisations de localisation sont requises pour effectuer un scan WiFi. Vous serez donc invités à activer les services de localisation. Cette application ne nécessitant pas d\'accès Internet, vous pouvez être sûr qu\'elle ne transmet pas votre position !"</string>
     <string name="location_msg">"Cette application peut obtenir votre position via le GPS ou des sources de positionnement de réseau telles que les antennes-relais et les réseaux Wi-Fi. Ces services de localisation doivent être activés et disponibles sur votre téléphone pour que l\'application puisse les utiliser. Ceci peut réduire l\'autonomie de la batterie."</string>
     <string name="export_not_available">"Export non disponible"</string>

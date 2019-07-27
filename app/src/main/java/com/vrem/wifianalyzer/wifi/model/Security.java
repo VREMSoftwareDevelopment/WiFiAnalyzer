@@ -26,6 +26,7 @@ import org.apache.commons.collections4.Predicate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -48,7 +49,7 @@ public enum Security {
     public static List<Security> findAll(String capabilities) {
         Set<Security> results = new TreeSet<>();
         if (capabilities != null) {
-            String[] values = capabilities.toUpperCase()
+            String[] values = capabilities.toUpperCase(Locale.getDefault())
                 .replace("][", "-").replace("]", "").replace("[", "").split("-");
             for (String value : values) {
                 try {

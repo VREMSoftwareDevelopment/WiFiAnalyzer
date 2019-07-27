@@ -21,6 +21,7 @@ package com.vrem.wifianalyzer.wifi.model;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 
 import java.util.Comparator;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 
@@ -57,10 +58,11 @@ public enum GroupBy {
     static class SSIDSortOrder implements Comparator<WiFiDetail> {
         @Override
         public int compare(WiFiDetail lhs, WiFiDetail rhs) {
+            Locale locale = Locale.getDefault();
             return new CompareToBuilder()
-                .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
+                .append(lhs.getSSID().toUpperCase(locale), rhs.getSSID().toUpperCase(locale))
                 .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
-                .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
+                .append(lhs.getBSSID().toUpperCase(locale), rhs.getBSSID().toUpperCase(locale))
                 .toComparison();
         }
     }
@@ -68,8 +70,9 @@ public enum GroupBy {
     static class SSIDGroupBy implements Comparator<WiFiDetail> {
         @Override
         public int compare(WiFiDetail lhs, WiFiDetail rhs) {
+            Locale locale = Locale.getDefault();
             return new CompareToBuilder()
-                .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
+                .append(lhs.getSSID().toUpperCase(locale), rhs.getSSID().toUpperCase(locale))
                 .toComparison();
         }
     }
@@ -77,11 +80,12 @@ public enum GroupBy {
     static class ChannelSortOrder implements Comparator<WiFiDetail> {
         @Override
         public int compare(WiFiDetail lhs, WiFiDetail rhs) {
+            Locale locale = Locale.getDefault();
             return new CompareToBuilder()
                 .append(lhs.getWiFiSignal().getPrimaryWiFiChannel().getChannel(), rhs.getWiFiSignal().getPrimaryWiFiChannel().getChannel())
                 .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
-                .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
-                .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
+                .append(lhs.getSSID().toUpperCase(locale), rhs.getSSID().toUpperCase(locale))
+                .append(lhs.getBSSID().toUpperCase(locale), rhs.getBSSID().toUpperCase(locale))
                 .toComparison();
         }
     }

@@ -40,7 +40,6 @@
 
     <string name="no_data">"Brak Danych"</string>
     <string name="no_data_msg">"Sprawdź FAQ na naszej stronie."</string>
-    <string name="no_data_geo_warning">"Niektórzy urzytkownicy Android OS 6+ (Marshmallow) zgłosili, że usługi lokacyjne muszą być uaktywnione aby aplickacja wykrywała sieci WiFi. Użytkownicy Marshmallow prawdopodobnie będą musieli włączyć usługi lokacyjne, mimo żę sam WiFiAnalyzer ich nie wymaga. Jest to wynikiem problemu z Android OS 6+, który wymaga usług lokalizacyjnych do wykrycia sieci WiFi."</string>
     <string name="permission_msg">"Od wersji Android Marshmallow, pozwolenia lokacyjne są wymagane do przeprowadzenia skanu WiFi. Użytkownik będzie poproszony o włączenie pozwolenia użycia usług lokacyjnych. Ponieważ aplikacja nie wymaga usług lokacyjnych, użytkownik może być pewien że aplikacja nie wykorzystuje ani nie przekazuje lokacji urządzenia!"</string>
     <string name="location_msg">"Ta aplikacja może określać Twoją lokalizację na podstawie GPS-a lub sieciowych źródeł lokalizacji, takich jak stacje bazowe i sieci Wi-Fi. Te usługi lokalizacyjne muszą być włączone i dostępne na telefonie, by aplikacja mogła z nich korzystać. Może to zwiększyć zużycie baterii."</string>
     <string name="export_not_available">"Export nie dostępny"</string>
