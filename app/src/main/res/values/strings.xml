@@ -170,6 +170,12 @@
     <string name="about_library_graph_view_url" translatable="false">"http://www.android-graphview.org"</string>
     <string name="about_library_material" translatable="false">"Material Design Icons"</string>
     <string name="about_library_material_url" translatable="false">"https://design.google.com/icons"</string>
+    <string name="about_usage_tips" translatable="false">"Usage Tips:"</string>
+    <string name="about_usage_tips_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#usage-tips"</string>
+    <string name="about_how_to" translatable="false">"How-to:"</string>
+    <string name="about_how_to_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#how-to"</string>
+    <string name="about_faq" translatable="false">"FAQ:"</string>
+    <string name="about_faq_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq"</string>
     <string name="about_contributor_title">"Contributors"</string>
     <string name="about_write_review">"Write a Review"</string>
     <!-- about end -->
