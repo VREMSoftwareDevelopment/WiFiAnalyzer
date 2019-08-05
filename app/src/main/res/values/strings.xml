@@ -176,6 +176,8 @@
     <string name="about_how_to_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#how-to"</string>
     <string name="about_faq" translatable="false">"FAQ:"</string>
     <string name="about_faq_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq"</string>
+    <string name="about_donation" translatable="false">"Donations:"</string>
+    <string name="about_donation_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#donations"</string>
     <string name="about_contributor_title">"Contributors"</string>
     <string name="about_write_review">"Write a Review"</string>
     <!-- about end -->
