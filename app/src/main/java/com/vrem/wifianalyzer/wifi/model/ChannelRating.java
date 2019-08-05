@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -31,6 +29,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
+
+import androidx.annotation.NonNull;
 
 public class ChannelRating {
     static final int LEVEL_RANGE_MIN = -5;
@@ -133,11 +134,12 @@ public class ChannelRating {
     private class GuestSort implements Comparator<WiFiDetail> {
         @Override
         public int compare(@NonNull WiFiDetail lhs, @NonNull WiFiDetail rhs) {
+            Locale locale = Locale.getDefault();
             return new CompareToBuilder()
-                .append(lhs.getBSSID().toUpperCase(), rhs.getBSSID().toUpperCase())
+                .append(lhs.getBSSID().toUpperCase(locale), rhs.getBSSID().toUpperCase(locale))
                 .append(lhs.getWiFiSignal().getPrimaryFrequency(), rhs.getWiFiSignal().getPrimaryFrequency())
                 .append(rhs.getWiFiSignal().getLevel(), lhs.getWiFiSignal().getLevel())
-                .append(lhs.getSSID().toUpperCase(), rhs.getSSID().toUpperCase())
+                .append(lhs.getSSID().toUpperCase(locale), rhs.getSSID().toUpperCase(locale))
                 .toComparison();
         }
     }

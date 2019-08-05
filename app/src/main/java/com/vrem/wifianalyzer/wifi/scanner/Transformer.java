@@ -19,9 +19,7 @@
 package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.net.wifi.ScanResult;
-import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
-import android.support.annotation.NonNull;
 
 import com.vrem.util.BuildUtils;
 import com.vrem.util.EnumUtils;
@@ -38,6 +36,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+
 class Transformer {
 
     @NonNull
@@ -50,11 +50,6 @@ class Transformer {
             wifiInfo.getBSSID(),
             WiFiUtils.convertIpAddress(wifiInfo.getIpAddress()),
             wifiInfo.getLinkSpeed());
-    }
-
-    @NonNull
-    List<String> transformWifiConfigurations(List<WifiConfiguration> configuredNetworks) {
-        return new ArrayList<>(CollectionUtils.collect(configuredNetworks, new ToString()));
     }
 
     @NonNull
@@ -99,11 +94,10 @@ class Transformer {
     }
 
     @NonNull
-    WiFiData transformToWiFiData(List<CacheResult> cacheResults, WifiInfo wifiInfo, List<WifiConfiguration> configuredNetworks) {
+    WiFiData transformToWiFiData(List<CacheResult> cacheResults, WifiInfo wifiInfo) {
         List<WiFiDetail> wiFiDetails = transformCacheResults(cacheResults);
         WiFiConnection wiFiConnection = transformWifiInfo(wifiInfo);
-        List<String> wifiConfigurations = transformWifiConfigurations(configuredNetworks);
-        return new WiFiData(wiFiDetails, wiFiConnection, wifiConfigurations);
+        return new WiFiData(wiFiDetails, wiFiConnection);
     }
 
     enum Fields {
@@ -123,10 +117,4 @@ class Transformer {
         }
     }
 
-    private class ToString implements org.apache.commons.collections4.Transformer<WifiConfiguration, String> {
-        @Override
-        public String transform(WifiConfiguration input) {
-            return WiFiUtils.convertSSID(input.SSID);
-        }
-    }
 }

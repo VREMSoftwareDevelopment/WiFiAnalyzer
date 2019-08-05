@@ -40,9 +40,7 @@
 
     <string name="no_data">"Keine Daten"</string>
     <string name="no_data_msg">"Bitte besuchen Sie den Abschnitt zu häufig gestellten Fragen auf unserer Website."</string>
-    <string name="no_data_geo_warning">"Einige Benutzer mit Android 6+ ("Marshmallow") haben berichtet, dass der Standort-Dienst aktiviert sein muss, damit WLAN-Netzerke erkannt werden können. Benutzer unter "Marshmallow" müssen möglicherweise die Standortdienste aktivieren, auch wenn WiFiAnalyzer sie nicht explizit benötigt. Dies scheint ein Problem in Android 6+ zu sein."</string>
     <string name="permission_msg">"In Android Marshmallow ist es erforderlich, die Standortdienste zu aktivieren, um WLAN-Scans durchzuführen. Sie werden aufgefordert, die Standortdienste-Berechtigung zu erteilen. Da diese App keine Internetverbindung benötigt, können Sie sicher sein, dass die App Ihren Standort nicht übermitteln kann!"</string>
-    <string name="location_msg">"Diese App kann Ihren Standort mithilfe von Netzwerkquellen, wie Mobilfunkmasten und WLAN ermitteln. Standortdienste können nur verwendet werden, wenn sie auf Ihrem Smartphone aktiviert und verfügbar sind."</string>
     <string name="export_not_available">"Export nicht verfügbar"</string>
 
     <string name="channel_rating_best">"Beste Kanäle:"</string>

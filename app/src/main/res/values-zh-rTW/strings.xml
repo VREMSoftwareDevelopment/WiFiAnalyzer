@@ -40,9 +40,8 @@
 
     <string name="no_data">"無資料"</string>
     <string name="no_data_msg">"請訪問我們網站上的常見問題“常見問題”部分。"</string>
-    <string name="no_data_geo_warning">"部分使用 Android 6+(棉花糖)系統的用戶回報， 即便WiFi分析儀沒有明確要求，棉花糖用戶可能需要開啟定位服務，才能在本應用程式內看到WiFi網路。這似乎歸因於Android 6+系統，需要位置服務才能看到WiFi網路的潛在問題。"</string>
     <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a WiFi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
-    <string name="location_msg">"這個應用程式可根據網路來源 (例如基地台和 Wi-Fi 網路) 取得你的位置資訊。你必須在手機上開啟這類定位服務，才能讓這個應用程式取得位置資訊。"</string>
+    <string name="location_msg">"這個應用程式可根據 GPS 或網路位置來源 (例如基地台和 Wi-Fi 網路) 取得你的位置資訊。你必須在手機上開啟這類定位服務，才能讓這個應用程式取得位置資訊。不過這可能會增加耗電量。"</string>
     <string name="export_not_available">"無法匯出"</string>
 
     <string name="channel_rating_best">"最佳頻道："</string>

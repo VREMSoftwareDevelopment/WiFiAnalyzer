@@ -19,9 +19,6 @@
 package com.vrem.wifianalyzer.wifi.timegraph;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +29,10 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewAdd;
 
 import org.apache.commons.collections4.IterableUtils;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class TimeGraphFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private SwipeRefreshLayout swipeRefreshLayout;

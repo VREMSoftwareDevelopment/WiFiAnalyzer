@@ -18,9 +18,9 @@
 
 package com.vrem.wifianalyzer.vendor.model;
 
-import android.support.annotation.NonNull;
-
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 public interface VendorService {
     @NonNull

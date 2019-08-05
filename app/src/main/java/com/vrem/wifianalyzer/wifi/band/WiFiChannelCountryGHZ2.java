@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
-import android.support.annotation.NonNull;
-
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
@@ -28,6 +26,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import androidx.annotation.NonNull;
+
 class WiFiChannelCountryGHZ2 {
     private final Set<String> countries;
     private final SortedSet<Integer> channels;
@@ -35,7 +35,7 @@ class WiFiChannelCountryGHZ2 {
 
     WiFiChannelCountryGHZ2() {
         countries = new HashSet<>(Arrays.asList(
-                "AS", "CA", "CO", "DO", "FM", "GT", "GU", "MP", "MX", "PA", "PR", "UM", "US", "UZ", "VI")
+            "AS", "CA", "CO", "DO", "FM", "GT", "GU", "MP", "MX", "PA", "PR", "UM", "US", "UZ", "VI")
         );
         channels = new TreeSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
         world = new TreeSet<>(channels);

@@ -22,16 +22,18 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.settings.SettingsFactory;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.vendor.model.VendorServiceFactory;
 import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 import com.vrem.wifianalyzer.wifi.scanner.ScannerServiceFactory;
+
+import androidx.annotation.NonNull;
 
 public enum MainContext {
     INSTANCE;
@@ -107,7 +109,8 @@ public enum MainContext {
         Context applicationContext = mainActivity.getApplicationContext();
         WifiManager wifiManager = (WifiManager) applicationContext.getSystemService(Context.WIFI_SERVICE);
         Handler handler = new Handler();
-        Settings currentSettings = new Settings(new Repository(applicationContext));
+        Repository repository = new Repository(applicationContext);
+        Settings currentSettings = SettingsFactory.make(repository);
         Configuration currentConfiguration = new Configuration(largeScreen);
 
         setMainActivity(mainActivity);

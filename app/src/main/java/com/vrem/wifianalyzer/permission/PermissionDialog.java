@@ -18,15 +18,18 @@
 
 package com.vrem.wifianalyzer.permission;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.support.annotation.NonNull;
+import android.os.Build;
 import android.view.View;
 
 import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.R;
+
+import androidx.annotation.NonNull;
 
 class PermissionDialog {
     private final Activity activity;
@@ -58,10 +61,16 @@ class PermissionDialog {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             dialog.dismiss();
+            requestPermissionsAndroidM();
+        }
+
+        @TargetApi(Build.VERSION_CODES.M)
+        private void requestPermissionsAndroidM() {
             if (BuildUtils.isMinVersionM()) {
                 activity.requestPermissions(ApplicationPermission.PERMISSIONS, ApplicationPermission.REQUEST_CODE);
             }
         }
+
     }
 
     static class CancelClick implements OnClickListener {

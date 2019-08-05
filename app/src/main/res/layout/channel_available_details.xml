@@ -31,7 +31,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/list_view_item_horizontal_tab"
         android:layout_marginStart="@dimen/list_view_item_horizontal_tab"
         android:orientation="horizontal">
 
@@ -40,7 +39,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-            android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
             android:textStyle="bold"/>
 
         <TextView
@@ -53,7 +51,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/list_view_item_horizontal_tab"
         android:layout_marginStart="@dimen/list_view_item_horizontal_tab"
         android:orientation="horizontal">
 
@@ -62,7 +59,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-            android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
             android:textStyle="bold"/>
 
         <TextView

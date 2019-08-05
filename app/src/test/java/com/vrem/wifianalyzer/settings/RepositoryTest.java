@@ -21,7 +21,6 @@ package com.vrem.wifianalyzer.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.support.v7.preference.PreferenceManager;
 
 import com.vrem.wifianalyzer.R;
 
@@ -35,6 +34,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.Collections;
 import java.util.Set;
+
+import androidx.preference.PreferenceManager;
 
 import static android.content.SharedPreferences.Editor;
 import static android.content.SharedPreferences.OnSharedPreferenceChangeListener;

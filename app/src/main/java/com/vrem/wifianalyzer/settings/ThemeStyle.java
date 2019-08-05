@@ -18,10 +18,10 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import android.support.annotation.StyleRes;
-
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+
+import androidx.annotation.StyleRes;
 
 public enum ThemeStyle {
     DARK(R.style.ThemeDark, R.style.ThemeDarkNoActionBar),

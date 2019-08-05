@@ -22,8 +22,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class WiFiAdditionalTest {
     private static final String VENDOR_NAME = "VendorName";
@@ -42,26 +40,15 @@ public class WiFiAdditionalTest {
     @Test
     public void testWiFiAdditional() {
         // execute
-        WiFiAdditional fixture = new WiFiAdditional(VENDOR_NAME, false);
+        WiFiAdditional fixture = new WiFiAdditional(VENDOR_NAME);
         // validate
         assertEquals(VENDOR_NAME, fixture.getVendorName());
-        assertFalse(fixture.isConfiguredNetwork());
-    }
-
-    @Test
-    public void testWiFiAdditionalWithConfiguredNetwork() {
-        // execute
-        WiFiAdditional fixture = new WiFiAdditional(VENDOR_NAME, true);
-        // validate
-        assertEquals(VENDOR_NAME, fixture.getVendorName());
-        assertTrue(fixture.isConfiguredNetwork());
     }
 
     @Test
     public void testWiFiAdditionalEmpty() {
         // validate
         assertEquals(StringUtils.EMPTY, WiFiAdditional.EMPTY.getVendorName());
-        assertFalse(WiFiAdditional.EMPTY.isConfiguredNetwork());
     }
 
 }

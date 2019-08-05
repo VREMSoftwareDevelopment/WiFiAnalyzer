@@ -16,10 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.gestures;
+package com.vrem.wifianalyzer.settings;
 
-import android.support.annotation.NonNull;
+import com.vrem.util.BuildUtils;
 
-public interface SwipeAction {
-    void swipe(@NonNull SwipeDirection swipeDirection);
+import androidx.annotation.NonNull;
+
+public class SettingsFactory {
+    private SettingsFactory() {
+        throw new IllegalStateException("Factory class");
+    }
+
+    @NonNull
+    public static Settings make(@NonNull Repository repository) {
+        if (BuildUtils.isMinVersionQ()) {
+            return new SettingsAndroidQ(repository);
+        } else if (BuildUtils.isVersionP()) {
+            return new SettingsAndroidP(repository);
+        } else {
+            return new Settings(repository);
+        }
+    }
 }

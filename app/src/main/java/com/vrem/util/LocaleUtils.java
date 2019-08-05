@@ -18,8 +18,6 @@
 
 package com.vrem.util;
 
-import android.support.annotation.NonNull;
-
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.IterableUtils;
@@ -35,6 +33,8 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
+import androidx.annotation.NonNull;
 
 public class LocaleUtils {
     static final Locale SPANISH = new Locale("es");

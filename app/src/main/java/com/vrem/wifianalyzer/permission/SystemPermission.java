@@ -18,12 +18,15 @@
 
 package com.vrem.wifianalyzer.permission;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.location.LocationManager;
-import android.support.annotation.NonNull;
+import android.os.Build;
 
 import com.vrem.util.BuildUtils;
+
+import androidx.annotation.NonNull;
 
 public class SystemPermission {
     private final Activity activity;
@@ -33,14 +36,11 @@ public class SystemPermission {
     }
 
     public boolean isEnabled() {
-        if (BuildUtils.isMinVersionM()) {
-            return isProviderEnabled();
-        } else {
-            return true;
-        }
+        return !BuildUtils.isMinVersionM() || isProviderEnabledAndroidM();
     }
 
-    private boolean isProviderEnabled() {
+    @TargetApi(Build.VERSION_CODES.M)
+    private boolean isProviderEnabledAndroidM() {
         try {
             LocationManager locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
             return isLocationEnabled(locationManager) || isNetworkProviderEnabled(locationManager) || isGPSProviderEnabled(locationManager);
@@ -66,14 +66,16 @@ public class SystemPermission {
     }
 
     private boolean isLocationEnabled(@NonNull LocationManager locationManager) {
-        if (BuildUtils.isMinVersionP()) {
-            try {
-                return locationManager.isLocationEnabled();
-            } catch (Exception e) {
-                return false;
-            }
-        } else {
+        return BuildUtils.isMinVersionP() && isLocationEnabledAndroidP(locationManager);
+    }
+
+    @TargetApi(Build.VERSION_CODES.P)
+    private boolean isLocationEnabledAndroidP(@NonNull LocationManager locationManager) {
+        try {
+            return locationManager.isLocationEnabled();
+        } catch (Exception e) {
             return false;
         }
     }
+
 }

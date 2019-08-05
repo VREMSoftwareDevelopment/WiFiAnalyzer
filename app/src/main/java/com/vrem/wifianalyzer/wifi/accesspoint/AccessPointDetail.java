@@ -19,8 +19,6 @@
 package com.vrem.wifianalyzer.wifi.accesspoint;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +36,9 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 public class AccessPointDetail {
     private static final int VENDOR_SHORT_MAX = 12;
@@ -117,9 +118,6 @@ public class AccessPointDetail {
     private void setViewExtra(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {
         Context context = view.getContext();
 
-        view.<ImageView>findViewById(R.id.configuredImage)
-            .setVisibility(wiFiDetail.getWiFiAdditional().isConfiguredNetwork() ? View.VISIBLE : View.GONE);
-
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         Strength strength = wiFiSignal.getStrength();
         ImageView imageView = view.findViewById(R.id.levelImage);
@@ -127,9 +125,9 @@ public class AccessPointDetail {
         imageView.setColorFilter(ContextCompat.getColor(context, strength.colorResource()));
 
         view.<TextView>findViewById(R.id.channel_frequency_range)
-            .setText(Integer.toString(wiFiSignal.getFrequencyStart()) + " - " + Integer.toString(wiFiSignal.getFrequencyEnd()));
+            .setText(wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd());
         view.<TextView>findViewById(R.id.width)
-            .setText("(" + Integer.toString(wiFiSignal.getWiFiWidth().getFrequencyWidth()) + WiFiSignal.FREQUENCY_UNITS + ")");
+            .setText("(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WiFiSignal.FREQUENCY_UNITS + ")");
         view.<TextView>findViewById(R.id.capabilities)
             .setText(wiFiDetail.getCapabilities());
     }

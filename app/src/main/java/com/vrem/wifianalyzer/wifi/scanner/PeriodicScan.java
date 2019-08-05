@@ -19,9 +19,10 @@
 package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.os.Handler;
-import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.settings.Settings;
+
+import androidx.annotation.NonNull;
 
 class PeriodicScan implements Runnable {
     static final int DELAY_INITIAL = 1;

@@ -18,12 +18,12 @@
 
 package com.vrem.wifianalyzer.wifi.graphutils;
 
-import android.support.annotation.NonNull;
-
 import com.jjoe64.graphview.series.BaseSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.TitleLineGraphSeries;
+
+import androidx.annotation.NonNull;
 
 class SeriesOptions {
     private GraphColors graphColors;

@@ -21,25 +21,36 @@ package com.vrem.wifianalyzer.settings;
 import android.os.Build;
 
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.RobolectricUtil;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.support.v4.SupportFragmentController;
+import org.robolectric.annotation.LooperMode;
 
-import static org.junit.Assert.assertFalse;
+import androidx.preference.Preference;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AndroidJUnit4.class)
+@Config(sdk = Build.VERSION_CODES.P)
+@LooperMode(PAUSED)
 public class SettingsFragmentTest {
     private SettingsFragment fixture;
+
+    @Before
+    public void setUp() {
+        fixture = new SettingsFragment();
+    }
 
     @Test
     public void testOnCreate() {
         // setup
-        fixture = SupportFragmentController.setupFragment(new SettingsFragment());
+        RobolectricUtil.INSTANCE.startFragment(fixture);
         // validate
         assertNotNull(fixture.getView());
     }
@@ -47,20 +58,49 @@ public class SettingsFragmentTest {
     @Test
     public void testExperimentalIsVisible() {
         // setup
-        fixture = SupportFragmentController.setupFragment(new SettingsFragment());
-        String experimental = fixture.getString(R.string.experimental_key);
+        RobolectricUtil.INSTANCE.startFragment(fixture);
+        String key = fixture.getString(R.string.experimental_key);
+        // execute
+        Preference actual = fixture.findPreference(key);
         // validate
-        assertTrue(fixture.findPreference(experimental).isVisible());
+        assertTrue(actual.isVisible());
     }
 
-    @Config(sdk = Build.VERSION_CODES.O)
     @Test
-    public void testExperimentalIsInvisible() {
+    public void testWiFiOnExitIsVisible() {
         // setup
-        fixture = SupportFragmentController.setupFragment(new SettingsFragment());
-        String experimental = fixture.getString(R.string.experimental_key);
+        RobolectricUtil.INSTANCE.startFragment(fixture);
+        String key = fixture.getString(R.string.wifi_off_on_exit_key);
+        // execute
+        Preference actual = fixture.findPreference(key);
         // validate
-        assertFalse(fixture.findPreference(experimental).isVisible());
+        assertTrue(actual.isVisible());
     }
+
+/*
+    @Test
+    @Config(sdk = Build.VERSION_CODES.Q)
+    public void testExperimentalIsNotVisible() {
+        // setup
+        RobolectricUtil.INSTANCE.startFragment(fixture);
+        String key = fixture.getString(R.string.experimental_key);
+        // execute
+        Preference actual = fixture.findPreference(key);
+        // validate
+        assertFalse(actual.isVisible());
+    }
+
+    @Test
+    @Config(sdk = Build.VERSION_CODES.Q)
+    public void testWiFiOnExitIsNotVisible() {
+        // setup
+        RobolectricUtil.INSTANCE.startFragment(fixture);
+        String key = fixture.getString(R.string.wifi_off_on_exit_key);
+        // execute
+        Preference actual = fixture.findPreference(key);
+        // validate
+        assertFalse(actual.isVisible());
+    }
+*/
 
 }

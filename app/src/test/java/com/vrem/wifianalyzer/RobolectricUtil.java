@@ -18,7 +18,16 @@
 
 package com.vrem.wifianalyzer;
 
+import android.os.Looper;
+
 import org.robolectric.Robolectric;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import static org.robolectric.Shadows.shadowOf;
 
 public enum RobolectricUtil {
     INSTANCE;
@@ -32,4 +41,18 @@ public enum RobolectricUtil {
     public MainActivity getActivity() {
         return mainActivity;
     }
+
+    public void startFragment(@NonNull Fragment fragment) {
+        FragmentManager fragmentManager = mainActivity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(fragment, null);
+        fragmentTransaction.commit();
+
+        clearLooper();
+    }
+
+    public void clearLooper() {
+        shadowOf(Looper.getMainLooper()).idle();
+    }
+
 }

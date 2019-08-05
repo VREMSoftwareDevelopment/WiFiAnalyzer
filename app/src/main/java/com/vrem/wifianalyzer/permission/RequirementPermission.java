@@ -18,10 +18,13 @@
 
 package com.vrem.wifianalyzer.permission;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
-import android.support.annotation.NonNull;
+import android.os.Build;
 
 import com.vrem.util.BuildUtils;
+
+import androidx.annotation.NonNull;
 
 public class RequirementPermission {
     private SystemPermission systemPermission;
@@ -33,12 +36,14 @@ public class RequirementPermission {
     }
 
     public boolean isEnabled() {
-        if (BuildUtils.isMinVersionM()) {
-            return systemPermission.isEnabled() && applicationPermission.isGranted();
-        } else {
-            return true;
-        }
+        return !BuildUtils.isMinVersionM() || isEnabledAndroidM();
     }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private boolean isEnabledAndroidM() {
+        return systemPermission.isEnabled() && applicationPermission.isGranted();
+    }
+
 
     void setSystemPermission(SystemPermission systemPermission) {
         this.systemPermission = systemPermission;

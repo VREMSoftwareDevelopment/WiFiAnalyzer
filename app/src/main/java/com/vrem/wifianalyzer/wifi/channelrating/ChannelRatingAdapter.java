@@ -24,9 +24,6 @@ import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +51,10 @@ import org.apache.commons.collections4.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNotifier {
     private static final int MAX_CHANNELS_TO_DISPLAY = 10;
@@ -118,16 +119,21 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         ratingBar.setNumStars(size);
         ratingBar.setRating(strength.ordinal() + 1);
         int color = ContextCompat.getColor(getContext(), strength.colorResource());
-        if (BuildUtils.isMinVersionL()) {
-            ratingBar.setProgressTintList(ColorStateList.valueOf(color));
-        } else {
-            setRatingBarColor(ratingBar.getProgressDrawable(), color);
-        }
+        setRatingBarColor(ratingBar, color);
 
         return view;
     }
 
-    private void setRatingBarColor(Drawable drawable, int color) {
+    private void setRatingBarColor(RatingBar ratingBar, int color) {
+        if (BuildUtils.isMinVersionL()) {
+            ratingBar.setProgressTintList(ColorStateList.valueOf(color));
+        } else {
+            setRatingBarColorLegacy(ratingBar.getProgressDrawable(), color);
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private void setRatingBarColorLegacy(Drawable drawable, int color) {
         try {
             int background = ContextCompat.getColor(getContext(), R.color.background);
             LayerDrawable layerDrawable = (LayerDrawable) drawable;

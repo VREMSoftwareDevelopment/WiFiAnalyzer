@@ -16,17 +16,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation.availability;
+package com.vrem.wifianalyzer.settings;
 
-import android.support.annotation.NonNull;
-
-import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.navigation.NavigationSwipeOnTouchListener;
 
-class NextPrevNavigationOn implements NavigationOption {
-    @Override
-    public void apply(@NonNull MainActivity mainActivity) {
-        mainActivity.findViewById(R.id.main_fragment_layout).setOnTouchListener(new NavigationSwipeOnTouchListener(mainActivity));
+import androidx.annotation.NonNull;
+
+public class SettingsAndroidP extends Settings {
+
+    SettingsAndroidP(@NonNull Repository repository) {
+        super(repository);
     }
+
+    @Override
+    public int getScanSpeed() {
+        int scanSpeed = super.getScanSpeed();
+        return isWiFiThrottleDisabled() ? Math.max(scanSpeed, SCAN_SPEED_DEFAULT) : scanSpeed;
+    }
+
+    @Override
+    public boolean isWiFiThrottleDisabled() {
+        Repository repository = getRepository();
+        boolean defaultValue = repository.getResourceBoolean(R.bool.wifi_throttle_disabled_default);
+        return repository.getBoolean(R.string.wifi_throttle_disabled_key, defaultValue);
+    }
+
 }

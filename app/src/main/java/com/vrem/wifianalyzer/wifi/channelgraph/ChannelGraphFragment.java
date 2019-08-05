@@ -19,10 +19,6 @@
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +30,11 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewAdd;
 
 import org.apache.commons.collections4.IterableUtils;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener;
 
 public class ChannelGraphFragment extends Fragment implements OnRefreshListener {
     private SwipeRefreshLayout swipeRefreshLayout;

@@ -18,6 +18,8 @@
 
 package com.vrem.wifianalyzer.vendor;
 
+import android.os.Build;
+
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.vendor.VendorFragment.Listener;
@@ -28,18 +30,23 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.shadows.support.v4.SupportFragmentController;
+import org.robolectric.annotation.Config;
+import org.robolectric.annotation.LooperMode;
 
 import java.util.Collections;
+
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AndroidJUnit4.class)
+@Config(sdk = Build.VERSION_CODES.P)
+@LooperMode(PAUSED)
 public class VendorFragmentTest {
 
     private VendorFragment fixture;
@@ -51,7 +58,9 @@ public class VendorFragmentTest {
         vendorService = MainContextHelper.INSTANCE.getVendorService();
 
         when(vendorService.findVendors()).thenReturn(Collections.emptyList());
-        fixture = SupportFragmentController.setupFragment(new VendorFragment());
+        fixture = new VendorFragment();
+        RobolectricUtil.INSTANCE.startFragment(fixture);
+
     }
 
     @After

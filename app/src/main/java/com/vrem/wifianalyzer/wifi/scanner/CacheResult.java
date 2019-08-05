@@ -19,7 +19,8 @@
 package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.net.wifi.ScanResult;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 class CacheResult {
     private final ScanResult scanResult;

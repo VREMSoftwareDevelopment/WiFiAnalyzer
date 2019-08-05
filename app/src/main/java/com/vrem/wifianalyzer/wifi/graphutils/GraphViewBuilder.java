@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.wifi.graphutils;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
@@ -29,6 +28,8 @@ import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
+
+import androidx.annotation.NonNull;
 
 public class GraphViewBuilder {
     private final Context context;

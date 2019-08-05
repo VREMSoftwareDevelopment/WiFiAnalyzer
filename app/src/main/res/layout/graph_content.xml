@@ -22,7 +22,7 @@
               android:layout_height="wrap_content"
               android:orientation="vertical">
 
-    <android.support.v7.widget.ButtonBarLayout
+    <androidx.appcompat.widget.ButtonBarLayout
         android:id="@+id/graphNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +36,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_weight="1"
             android:background="@null"
             android:minHeight="0dp"
@@ -55,16 +54,15 @@
             android:id="@+id/graphNavigationSet3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_weight="1"
             android:background="@null"
             android:minHeight="0dp"
             android:minWidth="0dp"/>
 
-    </android.support.v7.widget.ButtonBarLayout>
+    </androidx.appcompat.widget.ButtonBarLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/graphRefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,6 +73,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

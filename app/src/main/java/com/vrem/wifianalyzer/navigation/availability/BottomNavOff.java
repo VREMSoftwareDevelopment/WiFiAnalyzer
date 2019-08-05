@@ -18,11 +18,12 @@
 
 package com.vrem.wifianalyzer.navigation.availability;
 
-import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.R;
+
+import androidx.annotation.NonNull;
 
 class BottomNavOff implements NavigationOption {
 

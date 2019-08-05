@@ -19,8 +19,6 @@
 package com.vrem.wifianalyzer.settings;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.preference.ListPreference;
 import android.util.AttributeSet;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -28,6 +26,9 @@ import org.apache.commons.collections4.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.preference.ListPreference;
 
 class CustomPreference extends ListPreference {
     CustomPreference(@NonNull Context context, AttributeSet attrs, @NonNull List<Data> data, @NonNull String defaultValue) {

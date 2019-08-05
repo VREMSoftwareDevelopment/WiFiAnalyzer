@@ -18,9 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
-
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.TitleLineGraphSeries;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
@@ -37,6 +34,9 @@ import org.apache.commons.collections4.IterableUtils;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
 class DataManager {
     @NonNull

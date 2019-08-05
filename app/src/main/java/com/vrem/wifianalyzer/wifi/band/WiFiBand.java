@@ -18,9 +18,9 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.R;
+
+import androidx.annotation.NonNull;
 
 public enum WiFiBand {
     GHZ2(R.string.wifi_band_2ghz, new WiFiChannelsGHZ2()),

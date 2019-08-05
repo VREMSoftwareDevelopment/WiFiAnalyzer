@@ -18,7 +18,8 @@
 
 package com.vrem.util;
 
-import android.support.annotation.NonNull;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
 
@@ -27,6 +28,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 public class TextUtils {
     private static final String SEPARATOR = " ";
@@ -62,12 +65,20 @@ public class TextUtils {
             ">" + text + "</" + (small ? "small" : "strong") + "></font>";
     }
 
-    @SuppressWarnings("deprecation")
     @NonNull
     public static Spanned fromHtml(@NonNull String text) {
-        if (BuildUtils.isMinVersionN()) {
-            return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
-        }
+        return BuildUtils.isMinVersionN() ? fromHtmlAndroidN(text) : fromHtmlLegacy(text);
+    }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    @NonNull
+    private static Spanned fromHtmlAndroidN(@NonNull String text) {
+        return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
+    }
+
+    @SuppressWarnings("deprecation")
+    @NonNull
+    private static Spanned fromHtmlLegacy(@NonNull String text) {
         return Html.fromHtml(text);
     }
 

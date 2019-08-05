@@ -18,11 +18,12 @@
 
 package com.vrem.wifianalyzer.navigation.items;
 
-import android.support.annotation.NonNull;
 import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
+
+import androidx.annotation.NonNull;
 
 public interface NavigationItem {
     void activate(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, @NonNull NavigationMenu navigationMenu);

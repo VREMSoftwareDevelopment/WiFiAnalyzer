@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
@@ -39,9 +37,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
@@ -72,7 +70,6 @@ public class WiFiDataTest {
     private VendorService vendorService;
     private WiFiConnection wiFiConnection;
     private List<WiFiDetail> wiFiDetails;
-    private List<String> wiFiConfigurations;
     private WiFiData fixture;
 
     @Before
@@ -81,11 +78,10 @@ public class WiFiDataTest {
 
         wiFiDetails = withWiFiDetails();
         wiFiConnection = new WiFiConnection(SSID_1, BSSID_1, IP_ADDRESS, LINK_SPEED);
-        wiFiConfigurations = Arrays.asList(SSID_3, "123-456-789");
 
         withVendorNames();
 
-        fixture = new WiFiData(wiFiDetails, wiFiConnection, wiFiConfigurations);
+        fixture = new WiFiData(wiFiDetails, wiFiConnection);
     }
 
     @After
@@ -181,18 +177,13 @@ public class WiFiDataTest {
         assertEquals(4, actual.size());
 
         assertEquals(SSID_1, actual.get(2).getSSID());
-        assertTrue(actual.get(2).getWiFiAdditional().isConfiguredNetwork());
         assertEquals(SSID_3, actual.get(3).getSSID());
-        assertTrue(actual.get(3).getWiFiAdditional().isConfiguredNetwork());
-
-        assertFalse(actual.get(0).getWiFiAdditional().isConfiguredNetwork());
-        assertFalse(actual.get(1).getWiFiAdditional().isConfiguredNetwork());
     }
 
     @Test
     public void testGetWiFiDetails() {
         // setup
-        fixture = new WiFiData(wiFiDetails, wiFiConnection, wiFiConfigurations) {
+        fixture = new WiFiData(wiFiDetails, wiFiConnection) {
             @NonNull
             @Override
             protected List<WiFiDetail> sortAndGroup(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {

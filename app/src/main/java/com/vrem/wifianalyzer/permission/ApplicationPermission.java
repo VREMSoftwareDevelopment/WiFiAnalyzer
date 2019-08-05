@@ -19,14 +19,17 @@
 package com.vrem.wifianalyzer.permission;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
+import android.os.Build;
 
 import com.vrem.util.BuildUtils;
 
+import androidx.annotation.NonNull;
+
 public class ApplicationPermission {
-    static final String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION};
+    static final String[] PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
     static final int REQUEST_CODE = 0x123450;
 
     private final Activity activity;
@@ -56,15 +59,12 @@ public class ApplicationPermission {
     }
 
     boolean isGranted() {
-        return isGranted(Manifest.permission.ACCESS_COARSE_LOCATION) || isGranted(Manifest.permission.ACCESS_FINE_LOCATION);
+        return !BuildUtils.isMinVersionM() || isGrantedAndroidM();
     }
 
-    private boolean isGranted(String accessCoarseLocation) {
-        if (BuildUtils.isMinVersionM()) {
-            return activity.checkSelfPermission(accessCoarseLocation) == PackageManager.PERMISSION_GRANTED;
-        } else {
-            return true;
-        }
+    @TargetApi(Build.VERSION_CODES.M)
+    private boolean isGrantedAndroidM() {
+        return activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
 }

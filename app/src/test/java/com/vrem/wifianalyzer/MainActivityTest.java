@@ -19,10 +19,11 @@
 package com.vrem.wifianalyzer;
 
 import android.content.res.Configuration;
-import android.support.design.widget.NavigationView;
+import android.os.Build;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.material.navigation.NavigationView;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuController;
 import com.vrem.wifianalyzer.navigation.options.OptionMenu;
@@ -34,7 +35,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.robolectric.annotation.LooperMode;
+
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -42,8 +46,11 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
+import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AndroidJUnit4.class)
+@Config(sdk = Build.VERSION_CODES.P)
+@LooperMode(PAUSED)
 public class MainActivityTest {
 
     private MainActivity fixture;

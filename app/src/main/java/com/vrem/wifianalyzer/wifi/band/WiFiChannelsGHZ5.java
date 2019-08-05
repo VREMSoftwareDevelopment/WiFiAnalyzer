@@ -18,9 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
-
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +25,9 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
 public class WiFiChannelsGHZ5 extends WiFiChannels {
     public static final Pair<WiFiChannel, WiFiChannel> SET1 = new Pair<>(new WiFiChannel(36, 5180), new WiFiChannel(64, 5320));

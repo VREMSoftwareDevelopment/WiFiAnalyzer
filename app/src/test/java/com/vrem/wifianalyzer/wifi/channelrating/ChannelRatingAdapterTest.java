@@ -19,7 +19,7 @@
 package com.vrem.wifianalyzer.wifi.channelrating;
 
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
@@ -46,20 +46,27 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.robolectric.annotation.LooperMode;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AndroidJUnit4.class)
+@Config(sdk = Build.VERSION_CODES.P)
+@LooperMode(PAUSED)
 public class ChannelRatingAdapterTest {
 
     private ChannelRatingAdapter fixture;
@@ -118,7 +125,7 @@ public class ChannelRatingAdapterTest {
     public void testUpdate() {
         // setup
         String expected = mainActivity.getResources().getText(R.string.channel_rating_best_none).toString();
-        WiFiData wiFiData = new WiFiData(Collections.emptyList(), WiFiConnection.EMPTY, Collections.emptyList());
+        WiFiData wiFiData = new WiFiData(Collections.emptyList(), WiFiConnection.EMPTY);
         Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ5);
         List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(predicate, SortBy.STRENGTH);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);

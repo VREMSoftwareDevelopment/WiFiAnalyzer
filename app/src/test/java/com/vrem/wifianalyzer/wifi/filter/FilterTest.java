@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi.filter;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.view.View;
 import android.widget.Button;
 
@@ -33,8 +34,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.robolectric.annotation.LooperMode;
 import org.robolectric.shadows.ShadowAlertDialog;
+
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -42,8 +46,11 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.robolectric.Shadows.shadowOf;
+import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AndroidJUnit4.class)
+@Config(sdk = Build.VERSION_CODES.P)
+@LooperMode(PAUSED)
 public class FilterTest {
 
     private MainActivity mainActivity;
@@ -54,6 +61,7 @@ public class FilterTest {
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getActivity();
         fixture = Filter.build();
+        RobolectricUtil.INSTANCE.clearLooper();
         alertDialog = fixture.getAlertDialog();
     }
 
@@ -97,6 +105,7 @@ public class FilterTest {
         // execute
         button.performClick();
         // validate
+        RobolectricUtil.INSTANCE.clearLooper();
         assertFalse(alertDialog.isShowing());
         verify(filterAdapter).save();
         verify(mainActivity).update();
@@ -112,6 +121,7 @@ public class FilterTest {
         // execute
         button.performClick();
         // validate
+        RobolectricUtil.INSTANCE.clearLooper();
         assertFalse(alertDialog.isShowing());
         verify(filterAdapter).reset();
         verify(mainActivity).update();
@@ -127,6 +137,7 @@ public class FilterTest {
         // execute
         button.performClick();
         // validate
+        RobolectricUtil.INSTANCE.clearLooper();
         assertFalse(alertDialog.isShowing());
         verify(filterAdapter).reload();
         verify(mainActivity, never()).update();

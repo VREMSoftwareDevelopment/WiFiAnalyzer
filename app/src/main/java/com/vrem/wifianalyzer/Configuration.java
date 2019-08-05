@@ -18,11 +18,11 @@
 
 package com.vrem.wifianalyzer;
 
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
-
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
+
+import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
 public class Configuration {
     public static final int SIZE_MIN = 1024;

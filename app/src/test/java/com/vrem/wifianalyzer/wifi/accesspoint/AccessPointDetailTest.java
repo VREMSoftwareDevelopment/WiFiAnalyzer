@@ -18,7 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi.accesspoint;
 
-import android.support.annotation.NonNull;
+import android.os.Build;
 import android.view.View;
 import android.widget.TextView;
 
@@ -37,9 +37,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.robolectric.annotation.LooperMode;
 
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -47,8 +51,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
+import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AndroidJUnit4.class)
+@Config(sdk = Build.VERSION_CODES.P)
+@LooperMode(PAUSED)
 public class AccessPointDetailTest {
     private static final String SSID = "SSID";
     private static final String VENDOR_NAME = "VendorName-VendorName-VendorName-VendorName-VendorName-VendorName";
@@ -74,7 +81,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewShouldCreateNewView() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, true));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -85,7 +92,7 @@ public class AccessPointDetailTest {
     public void testMakeViewShouldUseGivenView() {
         // setup
         View expected = mainActivity.getLayoutInflater().inflate(AccessPointViewType.COMPLETE.getLayout(), null, false);
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, true));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
         // execute
         View actual = fixture.makeView(expected, null, wiFiDetail, false);
         // validate
@@ -93,19 +100,9 @@ public class AccessPointDetailTest {
     }
 
     @Test
-    public void testMakeViewCompleteWithConfiguredImageVisible() {
-        // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, true));
-        // execute
-        View actual = fixture.makeView(null, null, wiFiDetail, false);
-        // validate
-        assertEquals(View.VISIBLE, actual.findViewById(R.id.configuredImage).getVisibility());
-    }
-
-    @Test
     public void testMakeViewCompleteWithTabGone() {
         // setup
-        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
+        WiFiAdditional wiFiAdditional = WiFiAdditional.EMPTY;
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, wiFiAdditional);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
@@ -116,7 +113,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompleteWithGroupIndicatorGone() {
         // setup
-        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
+        WiFiAdditional wiFiAdditional = WiFiAdditional.EMPTY;
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, wiFiAdditional);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
@@ -127,7 +124,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompleteWithVendorShortNotVisible() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -138,7 +135,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompleteWithVendorShortVisible() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME));
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -149,7 +146,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompleteWithVendorShortMaximumSize() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME));
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -159,7 +156,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompleteWithTabVisible() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, WiFiAdditional.EMPTY);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, true);
         // validate
@@ -169,7 +166,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompleteWithWiFiDetailAndEmptySSID() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, WiFiAdditional.EMPTY);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -179,7 +176,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompleteWithWiFiDetail() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -189,7 +186,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompleteWithTextNotSelectable() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -199,7 +196,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompactWithTabGone() {
         // setup
-        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
+        WiFiAdditional wiFiAdditional = WiFiAdditional.EMPTY;
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, wiFiAdditional);
         when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
         // execute
@@ -211,7 +208,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompactWithGroupIndicatorGone() {
         // setup
-        WiFiAdditional wiFiAdditional = new WiFiAdditional(StringUtils.EMPTY, false);
+        WiFiAdditional wiFiAdditional = WiFiAdditional.EMPTY;
         WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
         when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
         // execute
@@ -223,7 +220,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompactWithTabVisible() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, WiFiAdditional.EMPTY);
         when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, true);
@@ -234,7 +231,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompactWithWiFiDetailAndEmptySSID() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, WiFiAdditional.EMPTY);
         when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
@@ -245,7 +242,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompactWithWiFiDetail() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
         when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
@@ -256,7 +253,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompactWithAttachPopup() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
         when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
@@ -267,7 +264,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompactDoesNotHaveFullDetails() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
         when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
@@ -281,7 +278,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewCompactWithTextNotSelectable() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
         when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
@@ -292,7 +289,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewPopupWithWiFiDetail() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
         // execute
         View actual = fixture.makeViewDetailed(wiFiDetail);
         // validate
@@ -302,7 +299,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewDetailedWithVendorNotVisible() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
         // execute
         View actual = fixture.makeViewDetailed(wiFiDetail);
         // validate
@@ -313,7 +310,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewDetailedWithVendorVisible() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME));
         // execute
         View actual = fixture.makeViewDetailed(wiFiDetail);
         // validate
@@ -324,7 +321,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewDetailedWithTextSelectable() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
         // execute
         View actual = fixture.makeViewDetailed(wiFiDetail);
         // validate
@@ -335,7 +332,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewDetailedWith80211mcNotVisible() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(StringUtils.EMPTY, false));
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
         // execute
         View actual = fixture.makeViewDetailed(wiFiDetail);
         // validate
@@ -345,7 +342,7 @@ public class AccessPointDetailTest {
     @Test
     public void testMakeViewDetailedWith80211mcVisible() {
         // setup
-        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME, false), true);
+        WiFiDetail wiFiDetail = withWiFiDetail(SSID, new WiFiAdditional(VENDOR_NAME), true);
         // execute
         View actual = fixture.makeViewDetailed(wiFiDetail);
         // validate

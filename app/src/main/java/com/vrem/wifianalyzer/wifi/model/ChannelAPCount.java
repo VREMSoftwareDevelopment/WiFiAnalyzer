@@ -18,11 +18,11 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import androidx.annotation.NonNull;
 
 public class ChannelAPCount {
     private final WiFiChannel wiFiChannel;

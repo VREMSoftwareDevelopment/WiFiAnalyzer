@@ -18,13 +18,13 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
-import android.support.v4.util.Pair;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 import java.util.Locale;
+
+import androidx.core.util.Pair;
 
 import static org.junit.Assert.assertEquals;
 

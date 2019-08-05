@@ -18,11 +18,11 @@
 
 package com.vrem.wifianalyzer.wifi.filter.adapter;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.util.EnumUtils;
 
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 public abstract class EnumFilterAdapter<T extends Enum> extends BasicFilterAdapter<T> {
     private final Class<T> enumType;

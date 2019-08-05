@@ -18,12 +18,12 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import android.support.annotation.NonNull;
-
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import androidx.annotation.NonNull;
 
 class Data implements Comparable<Data> {
     private final String code;

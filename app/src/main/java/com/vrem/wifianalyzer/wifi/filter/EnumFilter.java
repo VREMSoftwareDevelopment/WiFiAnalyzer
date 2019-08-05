@@ -19,8 +19,6 @@
 package com.vrem.wifianalyzer.wifi.filter;
 
 import android.app.Dialog;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +29,9 @@ import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
 
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 abstract class EnumFilter<T extends Enum, U extends EnumFilterAdapter<T>> {
     private final U filter;

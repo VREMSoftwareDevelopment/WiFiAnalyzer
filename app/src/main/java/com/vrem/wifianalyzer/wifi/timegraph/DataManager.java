@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.timegraph;
 
-import android.support.annotation.NonNull;
-
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
@@ -33,6 +31,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import androidx.annotation.NonNull;
 
 class DataManager {
     private int scanCount;

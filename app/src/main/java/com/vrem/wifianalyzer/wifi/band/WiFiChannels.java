@@ -18,9 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
-
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.IterableUtils;
@@ -30,6 +27,9 @@ import org.apache.commons.collections4.Transformer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedSet;
+
+import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
 public abstract class WiFiChannels {
     public static final Pair<WiFiChannel, WiFiChannel> UNKNOWN = new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN);

@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.graphutils;
 
-import android.support.annotation.NonNull;
-
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier;
@@ -31,6 +29,8 @@ import org.apache.commons.collections4.Transformer;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 public class GraphAdapter implements UpdateNotifier {
     private final List<GraphViewNotifier> graphViewNotifiers;

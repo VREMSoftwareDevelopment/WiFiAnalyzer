@@ -18,12 +18,12 @@
 
 package com.vrem.wifianalyzer.wifi.predicate;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import org.apache.commons.collections4.Predicate;
+
+import androidx.annotation.NonNull;
 
 class SecurityPredicate implements Predicate<WiFiDetail> {
     private final Security security;

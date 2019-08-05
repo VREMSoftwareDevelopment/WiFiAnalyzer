@@ -23,9 +23,10 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
-import android.support.annotation.NonNull;
 
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
 
 public class ConfigurationUtils {
     private ConfigurationUtils() {
@@ -36,13 +37,13 @@ public class ConfigurationUtils {
     public static Context createContext(@NonNull Context context, @NonNull Locale newLocale) {
         return
             BuildUtils.isMinVersionN()
-                ? createContextNougat(context, newLocale)
+                ? createContextAndroidN(context, newLocale)
                 : createContextLegacy(context, newLocale);
     }
 
     @TargetApi(Build.VERSION_CODES.N)
     @NonNull
-    private static Context createContextNougat(@NonNull Context context, @NonNull Locale newLocale) {
+    private static Context createContextAndroidN(@NonNull Context context, @NonNull Locale newLocale) {
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();
         configuration.setLocale(newLocale);

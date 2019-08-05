@@ -18,10 +18,10 @@
 
 package com.vrem.wifianalyzer.wifi.graphutils;
 
-import android.support.annotation.NonNull;
-
 import com.jjoe64.graphview.GraphView;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
+
+import androidx.annotation.NonNull;
 
 public interface GraphViewNotifier {
     @NonNull

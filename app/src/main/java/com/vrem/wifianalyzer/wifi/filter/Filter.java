@@ -21,12 +21,13 @@ package com.vrem.wifianalyzer.wifi.filter;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
+
+import androidx.annotation.NonNull;
 
 public class Filter {
 

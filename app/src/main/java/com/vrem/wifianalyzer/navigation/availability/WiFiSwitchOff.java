@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.navigation.availability;
 
-import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
 import android.view.Menu;
 
 import com.vrem.wifianalyzer.MainActivity;
@@ -27,6 +25,9 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.options.OptionMenu;
 
 import org.apache.commons.lang3.StringUtils;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 
 class WiFiSwitchOff implements NavigationOption {
 

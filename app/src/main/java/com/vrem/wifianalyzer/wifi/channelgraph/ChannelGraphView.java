@@ -19,8 +19,6 @@
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
 import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
@@ -47,6 +45,9 @@ import org.apache.commons.collections4.Predicate;
 
 import java.util.List;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
 class ChannelGraphView implements GraphViewNotifier {
     private final WiFiBand wiFiBand;

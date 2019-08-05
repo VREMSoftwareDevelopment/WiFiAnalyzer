@@ -19,9 +19,7 @@
 package com.vrem.wifianalyzer.wifi.scanner;
 
 import android.net.wifi.ScanResult;
-import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
-import android.support.annotation.NonNull;
 
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
@@ -37,6 +35,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -62,12 +62,6 @@ public class TransformerTest {
     @Mock
     private WifiInfo wifiInfo;
     @Mock
-    private WifiConfiguration wifiConfiguration1;
-    @Mock
-    private WifiConfiguration wifiConfiguration2;
-    @Mock
-    private WifiConfiguration wifiConfiguration3;
-    @Mock
     private ScanResult scanResult1;
     @Mock
     private ScanResult scanResult2;
@@ -75,12 +69,10 @@ public class TransformerTest {
     private ScanResult scanResult3;
 
     private List<CacheResult> cacheResults;
-    private List<WifiConfiguration> wifiConfigurations;
     private Transformer fixture;
 
     @Before
     public void setUp() {
-        wifiConfigurations = Arrays.asList(wifiConfiguration1, wifiConfiguration2, wifiConfiguration3);
         fixture = new Transformer();
     }
 
@@ -88,7 +80,6 @@ public class TransformerTest {
     public void testTransformWithNulls() {
         assertTrue(fixture.transformCacheResults(null).isEmpty());
         assertEquals(WiFiConnection.EMPTY, fixture.transformWifiInfo(null));
-        assertTrue(fixture.transformWifiConfigurations(null).isEmpty());
     }
 
     @Test
@@ -96,19 +87,6 @@ public class TransformerTest {
         when(wifiInfo.getNetworkId()).thenReturn(-1);
         assertEquals(WiFiConnection.EMPTY, fixture.transformWifiInfo(wifiInfo));
         verify(wifiInfo).getNetworkId();
-    }
-
-    @Test
-    public void testTransformWifiConfiguration() {
-        // setup
-        withWiFiConfiguration();
-        // execute
-        List<String> actual = fixture.transformWifiConfigurations(wifiConfigurations);
-        // validate
-        assertEquals(wifiConfigurations.size(), actual.size());
-        assertEquals(SSID_1, actual.get(0));
-        assertEquals(SSID_2, actual.get(1));
-        assertEquals(SSID_3, actual.get(2));
     }
 
     @Test
@@ -139,14 +117,12 @@ public class TransformerTest {
         // setup
         WiFiConnection expectedWiFiConnection = new WiFiConnection(SSID_1, BSSID_1, IP_ADDRESS, LINK_SPEED);
         withCacheResults();
-        withWiFiConfiguration();
         withWiFiInfo();
         // execute
-        WiFiData actual = fixture.transformToWiFiData(cacheResults, wifiInfo, wifiConfigurations);
+        WiFiData actual = fixture.transformToWiFiData(cacheResults, wifiInfo);
         // validate
         assertEquals(expectedWiFiConnection, actual.getWiFiConnection());
         assertEquals(cacheResults.size(), actual.getWiFiDetails().size());
-        assertEquals(wifiConfigurations.size(), actual.getWiFiConfigurations().size());
     }
 
     @Test
@@ -295,12 +271,6 @@ public class TransformerTest {
             new CacheResult(scanResult1, scanResult1.level),
             new CacheResult(scanResult2, scanResult2.level),
             new CacheResult(scanResult3, scanResult2.level));
-    }
-
-    private void withWiFiConfiguration() {
-        wifiConfiguration1.SSID = SSID_1;
-        wifiConfiguration2.SSID = SSID_2;
-        wifiConfiguration3.SSID = SSID_3;
     }
 
     private void withWiFiInfo() {

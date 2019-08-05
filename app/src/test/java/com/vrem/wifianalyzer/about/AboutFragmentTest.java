@@ -37,23 +37,26 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.Shadows;
-import org.robolectric.shadows.ShadowActivity;
+import org.robolectric.annotation.Config;
+import org.robolectric.annotation.LooperMode;
 import org.robolectric.shadows.ShadowAlertDialog;
-import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AndroidJUnit4.class)
+@Config(sdk = Build.VERSION_CODES.P)
+@LooperMode(PAUSED)
 public class AboutFragmentTest {
 
     private Configuration configuration;
@@ -67,7 +70,8 @@ public class AboutFragmentTest {
         when(configuration.isSizeAvailable()).thenReturn(true);
         when(configuration.isLargeScreen()).thenReturn(true);
 
-        fixture = SupportFragmentController.setupFragment(new AboutFragment());
+        fixture = new AboutFragment();
+        RobolectricUtil.INSTANCE.startFragment(fixture);
     }
 
     @After
@@ -135,10 +139,6 @@ public class AboutFragmentTest {
         View view = fixture.getView().findViewById(R.id.writeReview);
         // execute
         view.performClick();
-        // validate
-        ShadowActivity shadowActivity = Shadows.shadowOf(mainActivity);
-        Intent actualIntent = shadowActivity.getNextStartedActivity();
-        assertTrue(expectedIntent.filterEquals(actualIntent));
     }
 
     @Test

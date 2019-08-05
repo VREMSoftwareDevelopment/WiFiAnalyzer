@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.export;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
@@ -28,6 +26,8 @@ import org.apache.commons.collections4.IterableUtils;
 
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
 
 public class Export {
     private final List<WiFiDetail> wiFiDetails;

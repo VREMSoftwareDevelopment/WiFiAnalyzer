@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import android.support.annotation.StyleRes;
-
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 
@@ -28,6 +26,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import androidx.annotation.StyleRes;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;

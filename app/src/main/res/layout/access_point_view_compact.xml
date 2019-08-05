@@ -69,15 +69,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-                android:layout_marginLeft="@dimen/list_view_item_horizontal_tab"
-                android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                 android:layout_marginStart="@dimen/list_view_item_horizontal_tab"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-                android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                 android:text="@string/channel_short_name"
                 android:textColor="@color/channel"
                 android:textStyle="bold"/>
@@ -87,7 +84,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-                android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                 android:textColor="@color/channel_number"
                 android:textStyle="bold"/>
 
@@ -96,7 +92,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-                android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                 android:textColor="@color/frequency"/>
 
             <ImageView
@@ -104,7 +99,6 @@
                 android:layout_width="@dimen/icon_small"
                 android:layout_height="@dimen/icon_small"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-                android:layout_marginRight="@dimen/list_view_item_horizontal_spacer"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@null"/>
 

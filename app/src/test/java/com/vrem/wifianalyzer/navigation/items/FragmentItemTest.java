@@ -18,9 +18,6 @@
 
 package com.vrem.wifianalyzer.navigation.items;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -32,6 +29,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

@@ -18,7 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi.timegraph;
 
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.os.Build;
 
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
@@ -29,15 +29,21 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.shadows.support.v4.SupportFragmentController;
+import org.robolectric.annotation.Config;
+import org.robolectric.annotation.LooperMode;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AndroidJUnit4.class)
+@Config(sdk = Build.VERSION_CODES.P)
+@LooperMode(PAUSED)
 public class TimeGraphFragmentTest {
 
     private TimeGraphFragment fixture;
@@ -47,7 +53,8 @@ public class TimeGraphFragmentTest {
     public void setUp() {
         RobolectricUtil.INSTANCE.getActivity();
         scanner = MainContextHelper.INSTANCE.getScannerService();
-        fixture = SupportFragmentController.setupFragment(new TimeGraphFragment());
+        fixture = new TimeGraphFragment();
+        RobolectricUtil.INSTANCE.startFragment(fixture);
     }
 
     @After

@@ -16,17 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation;
+package com.vrem.wifianalyzer.settings;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.gestures.GestureOnTouchListener;
-import com.vrem.wifianalyzer.gestures.SwipeOnGestureListener;
+public class SettingsAndroidQ extends Settings {
 
-public class NavigationSwipeOnTouchListener extends GestureOnTouchListener {
-
-    public NavigationSwipeOnTouchListener(@NonNull MainActivity mainActivity) {
-        super(mainActivity, new SwipeOnGestureListener(new NavigationSwipe(mainActivity)));
+    SettingsAndroidQ(@NonNull Repository repository) {
+        super(repository);
     }
+
+    @Override
+    public boolean isWiFiOffOnExit() {
+        return false;
+    }
+
 }

@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
@@ -31,6 +29,8 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 import static org.junit.Assert.assertEquals;
 

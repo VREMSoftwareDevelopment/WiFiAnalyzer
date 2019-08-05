@@ -18,9 +18,9 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.R;
+
+import androidx.annotation.NonNull;
 
 public enum Strength {
     ZERO(R.drawable.ic_signal_wifi_0_bar, R.color.error),

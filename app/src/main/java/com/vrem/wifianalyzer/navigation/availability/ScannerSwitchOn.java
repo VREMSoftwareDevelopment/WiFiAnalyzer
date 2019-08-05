@@ -18,13 +18,14 @@
 
 package com.vrem.wifianalyzer.navigation.availability;
 
-import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+
+import androidx.annotation.NonNull;
 
 class ScannerSwitchOn implements NavigationOption {
 

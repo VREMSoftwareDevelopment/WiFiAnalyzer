@@ -16,11 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.gestures;
+package com.vrem.util;
 
-public enum SwipeDirection {
-    DOWN,
-    LEFT,
-    RIGHT,
-    UP
+import android.content.Intent;
+
+import androidx.annotation.NonNull;
+
+public class IntentUtils {
+    private IntentUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    public static Intent makeIntent(@NonNull String action) {
+        return new Intent(action);
+    }
+
 }

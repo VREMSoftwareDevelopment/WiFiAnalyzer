@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.navigation;
 
-import android.support.annotation.NonNull;
 import android.view.MenuItem;
 
 import com.vrem.wifianalyzer.MainActivity;
@@ -32,6 +31,8 @@ import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 public enum NavigationMenu {
     ACCESS_POINTS(R.drawable.ic_network_wifi, R.string.action_access_points, NavigationItemFactory.ACCESS_POINTS, NavigationOptionFactory.AP),

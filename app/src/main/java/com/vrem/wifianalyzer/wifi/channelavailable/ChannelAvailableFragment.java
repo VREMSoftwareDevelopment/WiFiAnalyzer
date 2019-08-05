@@ -19,9 +19,6 @@
 package com.vrem.wifianalyzer.wifi.channelavailable;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +29,10 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.ListFragment;
 
 public class ChannelAvailableFragment extends ListFragment {
     private ChannelAvailableAdapter channelAvailableAdapter;

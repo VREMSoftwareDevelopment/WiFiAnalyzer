@@ -18,11 +18,11 @@
 
 package com.vrem.wifianalyzer.wifi.graphutils;
 
-import android.support.annotation.NonNull;
-
 import com.jjoe64.graphview.series.DataPoint;
 
 import org.mockito.ArgumentMatcher;
+
+import androidx.annotation.NonNull;
 
 public class DataPointEquals implements ArgumentMatcher<DataPoint> {
 

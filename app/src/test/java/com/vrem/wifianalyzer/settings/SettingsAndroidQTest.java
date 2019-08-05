@@ -16,44 +16,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.vrem.wifianalyzer.navigation.availability;
+package com.vrem.wifianalyzer.settings;
 
-import android.view.View;
-
-import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.R;
-
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 @RunWith(MockitoJUnitRunner.class)
-public class NextPrevNavigationOffTest {
+public class SettingsAndroidQTest {
+
     @Mock
-    private MainActivity mainActivity;
-    @Mock
-    private View view;
+    private Repository repository;
+
+    private SettingsAndroidQ fixture;
+
+    @Before
+    public void setUp() {
+        fixture = new SettingsAndroidQ(repository);
+    }
+
+    @After
+    public void tearDown() {
+        verifyNoMoreInteractions(repository);
+    }
 
     @Test
-    public void testApplySwitchesOffOnTouchListener() {
-        // setup
-        NextPrevNavigationOff fixture = new NextPrevNavigationOff();
-        when(mainActivity.findViewById(R.id.main_fragment_layout)).thenReturn(view);
+    public void testIsWiFiOffOnExitAndroidQ() {
         // execute
-        fixture.apply(mainActivity);
+        boolean actual = fixture.isWiFiOffOnExit();
         // validate
-        verify(mainActivity).findViewById(R.id.main_fragment_layout);
-        verify(view).setOnTouchListener(NextPrevNavigationOff.ON_TOUCH_LISTENER_EMPTY);
+        assertFalse(actual);
     }
 
-
-    @Test
-    public void testOnTouchListenerEmptyDoesNotDoAnyEvents() {
-        assertFalse(NextPrevNavigationOff.ON_TOUCH_LISTENER_EMPTY.onTouch(null, null));
-    }
 }

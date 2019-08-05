@@ -19,8 +19,6 @@
 package com.vrem.wifianalyzer.navigation.availability;
 
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -37,6 +35,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

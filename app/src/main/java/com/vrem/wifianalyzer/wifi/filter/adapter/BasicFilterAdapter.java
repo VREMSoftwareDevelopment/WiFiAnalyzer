@@ -18,11 +18,11 @@
 
 package com.vrem.wifianalyzer.wifi.filter.adapter;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.settings.Settings;
 
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 public abstract class BasicFilterAdapter<T> {
     private Set<T> values;

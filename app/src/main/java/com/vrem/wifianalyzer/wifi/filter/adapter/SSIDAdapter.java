@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.filter.adapter;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.wifianalyzer.settings.Settings;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -28,6 +26,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 public class SSIDAdapter extends BasicFilterAdapter<String> {
     SSIDAdapter(@NonNull Set<String> values) {

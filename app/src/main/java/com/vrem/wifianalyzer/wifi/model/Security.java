@@ -18,8 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.support.annotation.NonNull;
-
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.R;
 
@@ -28,8 +26,11 @@ import org.apache.commons.collections4.Predicate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
+
+import androidx.annotation.NonNull;
 
 public enum Security {
     NONE(R.drawable.ic_lock_open),
@@ -48,7 +49,7 @@ public enum Security {
     public static List<Security> findAll(String capabilities) {
         Set<Security> results = new TreeSet<>();
         if (capabilities != null) {
-            String[] values = capabilities.toUpperCase()
+            String[] values = capabilities.toUpperCase(Locale.getDefault())
                 .replace("][", "-").replace("]", "").replace("[", "").split("-");
             for (String value : values) {
                 try {

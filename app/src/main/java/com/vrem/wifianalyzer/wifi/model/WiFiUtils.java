@@ -18,13 +18,13 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
-import android.support.annotation.NonNull;
-
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.nio.ByteOrder;
+
+import androidx.annotation.NonNull;
 
 public final class WiFiUtils {
     private static final double DISTANCE_MHZ_M = 27.55;

@@ -18,6 +18,8 @@
 
 package com.vrem.wifianalyzer.settings;
 
+import android.os.Build;
+
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
@@ -26,16 +28,22 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.robolectric.annotation.LooperMode;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AndroidJUnit4.class)
+@Config(sdk = Build.VERSION_CODES.P)
+@LooperMode(PAUSED)
 public class CountryPreferenceTest {
 
     private List<WiFiChannelCountry> countries;

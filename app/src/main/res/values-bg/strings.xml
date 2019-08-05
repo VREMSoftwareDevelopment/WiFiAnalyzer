@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ WiFiAnalyzer
+  ~ Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
+  -->
+
+<resources>
+    <!-- application start -->
+    <string name="app_copyright">"Авторско право \u00A9 2015 \u002D "</string>
+    <!-- application end -->
+
+    <string name="navigation_drawer_open">"Отвори панела за навигация"</string>
+    <string name="navigation_drawer_close">"Затвори панела за навигация"</string>
+    <string name="scanner_message">"Сканиране &#8230;"</string>
+    <string name="scanner_pause">"Пауза"</string>
+    <string name="scanner_play">"Продължи"</string>
+
+    <!-- action start -->
+    <string name="action_access_points">"Точки за достъп"</string>
+    <string name="action_channel_rating">"Оценка на канала"</string>
+    <string name="action_channel_graph">"Графика на канала"</string>
+    <string name="action_time_graph">"Времева линия"</string>
+    <string name="action_export">"Експортиране"</string>
+    <string name="action_channel_available">"Налични канали"</string>
+    <string name="action_vendors">"Доставчици"</string>
+    <string name="action_settings">"Настройки"</string>
+    <string name="action_about">"Относно"</string>
+    <!-- action end -->
+
+    <string name="no_data">"Няма данни"</string>
+    <string name="no_data_msg">"Моля, посетете секцията често задавани въпроси на нашия уебсайт."</string>
+    <string name="permission_msg">"От Android Marshmallow, за извършване на WiFi сканиране са необходими разрешения за местоположение. Ще бъдете подканени да активирате услугите / разрешенията за местоположение. Тъй като това приложение не изисква достъп до интернет, можете да сте сигурни, че това приложение не може да предаде местоположението ви!"</string>
+    <string name="location_msg">"Приложението може да получава данни за местоположението ви въз основа на GPS или съответните мрежови източници, като клетъчни кули и Wi-Fi. Тези услуги за местоположение трябва да са включени и налице на телефона ви, за да могат да се използват от приложението. Това може да увеличи потреблението на батерията."</string>
+    <string name="export_not_available">"Експортирането не е налично"</string>
+
+    <string name="channel_rating_best">"Най-добри канали:"</string>
+    <string name="channel_rating_best_none">"Няма"</string>
+    <string name="channel_rating_best_alternative">", пробвай алтернативен WiFi диапазон"</string>
+    <string name="channel_rating_heading_rating">"Оценка на канала"</string>
+    <string name="channel_rating_heading_number">"Номер на канала"</string>
+    <string name="channel_rating_heading_count">"Брой точки за достъп"</string>
+    <string name="channel_short_name">"CH"</string>
+
+    <string name="graph_channel_axis_x">"WiFi канали"</string>
+    <string name="graph_time_axis_x">"Брой сканирания"</string>
+    <string name="graph_axis_y">"Сила на сигнала (dBm)"</string>
+
+    <!-- settings start -->
+    <string name="country_code_title">"Държава"</string>
+
+    <string name="scan_speed_title">"Интервал на сканиране"</string>
+    <string name="scan_speed_summary">"%s секунди между всяко сканиране"</string>
+
+    <string name="sort_by_title">"Сортиране точките за достъп по"</string>
+    <string name="sort_by_signal_strength">"Сила на сигнала"</string>
+    <string name="sort_by_channel">"Канал"</string>
+
+    <string name="group_by_title">"Групиране точките за достъп по"</string>
+    <string name="group_by_none">"Няма"</string>
+    <string name="group_by_channel">"Канал"</string>
+
+    <string name="connection_view_title">"Показване на връзката"</string>
+    <string name="connection_view_complete">"Пълно"</string>
+    <string name="connection_view_compact">"Компактно"</string>
+    <string name="connection_view_hide">"Скрий"</string>
+
+    <string name="ap_view_title">"Показване на точките за достъп"</string>
+    <string name="ap_view_complete">"Пълно"</string>
+    <string name="ap_view_compact">"Компактно"</string>
+
+    <string name="graph_maximum_y_title">"Максимална сила на сигнала в графиката"</string>
+
+    <string name="channel_graph_legend_title">"Покажи легенда в графика на канала"</string>
+
+    <string name="time_graph_legend_title">"Покажи легенда във времевата линия"</string>
+
+    <string name="graph_legend_left">"Ляво"</string>
+    <string name="graph_legend_right">"Дясно"</string>
+    <string name="graph_legend_hide">"Скрий"</string>
+
+    <string name="theme_title">"Тема"</string>
+    <string name="theme_dark">"Тъмна"</string>
+    <string name="theme_light">"Светла"</string>
+    <string name="theme_system">"Системна"</string>
+
+    <string name="wifi_off_on_exit_title">"Изключи WiFi при изход"</string>
+
+    <string name="keep_screen_on_title">"Дръж екрана включен"</string>
+
+    <string name="language_title">"Език"</string>
+    <!-- settings end -->
+
+    <!-- about start -->
+    <string name="about_license_title">"Лиценз:"</string>
+    <string name="about_description_title">"Описание:"</string>
+    <string name="about_description_text">"Оптимизирайте своята WiFi мрежа, като проверите състоянието на WiFi мрежата, силата на сигнала и идентифицирате пренаселените канали, използвайки WiFiAnalyzer с отворен код за Android"</string>
+    <string name="about_libraries_title">"Използвани библиоеки:"</string>
+    <string name="about_contributor_title">"Сътрудници"</string>
+    <string name="about_write_review">"Напиши отзив"</string>
+    <!-- about end -->
+
+    <!-- security start -->
+    <string name="security_none">"Няма"</string>
+    <!-- security end -->
+
+    <!-- filter start -->
+    <string name="filter_title">"Филтър"</string>
+    <string name="filter_close">"Затвори"</string>
+    <string name="filter_reset">"Нулирай"</string>
+    <string name="filter_apply">"Приложи"</string>
+    <string name="filter_wifi_band_title">"WiFi диапазон"</string>
+    <string name="filter_strength_title">"Сила на сигнала"</string>
+    <string name="filter_security_title">"Защита"</string>
+    <!-- filter end -->
+
+</resources>

@@ -23,16 +23,10 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.util.Pair;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.material.navigation.NavigationView;
 import com.vrem.util.ConfigurationUtils;
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
@@ -42,25 +36,34 @@ import com.vrem.wifianalyzer.navigation.options.OptionMenu;
 import com.vrem.wifianalyzer.permission.ApplicationPermission;
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.wifianalyzer.settings.SettingsFactory;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.util.Pair;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 public class MainActivity extends AppCompatActivity implements NavigationMenuControl, OnSharedPreferenceChangeListener {
 
     private MainReload mainReload;
     private DrawerNavigation drawerNavigation;
     private NavigationMenuController navigationMenuController;
-    private NavigationMenu navigationMenu;
     private OptionMenu optionMenu;
     private String currentCountryCode;
     private ApplicationPermission applicationPermission;
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        Locale newLocale = new Settings(new Repository(newBase)).getLanguageLocale();
+        Repository repository = new Repository(newBase);
+        Settings settings = SettingsFactory.make(repository);
+        Locale newLocale = settings.getLanguageLocale();
         Context context = ConfigurationUtils.createContext(newBase, newLocale);
         super.attachBaseContext(context);
     }
@@ -86,14 +89,13 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
 
         setOptionMenu(new OptionMenu());
 
-        ActivityUtils.keepScreenOn(this);
+        ActivityUtils.keepScreenOn();
 
-        Toolbar toolbar = ActivityUtils.setupToolbar(this);
+        Toolbar toolbar = ActivityUtils.setupToolbar();
         drawerNavigation = new DrawerNavigation(this, toolbar);
 
-        navigationMenu = settings.getSelectedMenu();
         navigationMenuController = new NavigationMenuController(this);
-        navigationMenuController.setCurrentNavigationMenu(navigationMenu);
+        navigationMenuController.setCurrentNavigationMenu(settings.getSelectedMenu());
         onNavigationItemSelected(getCurrentMenuItem());
 
         ConnectionView connectionView = new ConnectionView(this);
@@ -147,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
             MainContext.INSTANCE.getScannerService().stop();
             recreate();
         } else {
-            ActivityUtils.keepScreenOn(this);
+            ActivityUtils.keepScreenOn();
             setWiFiChannelPairs(mainContext);
             update();
         }
@@ -161,10 +163,11 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     @Override
     public void onBackPressed() {
         if (!closeDrawer()) {
-            if (navigationMenu.equals(getCurrentNavigationMenu())) {
+            NavigationMenu selectedMenu = MainContext.INSTANCE.getSettings().getSelectedMenu();
+            if (selectedMenu.equals(getCurrentNavigationMenu())) {
                 super.onBackPressed();
             } else {
-                setCurrentNavigationMenu(navigationMenu);
+                setCurrentNavigationMenu(selectedMenu);
                 onNavigationItemSelected(getCurrentMenuItem());
             }
         }
