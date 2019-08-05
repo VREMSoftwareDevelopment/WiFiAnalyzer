@@ -40,8 +40,7 @@
 
     <string name="no_data">"Keine Daten"</string>
     <string name="no_data_msg">"Bitte besuchen Sie den Abschnitt zu häufig gestellten Fragen auf unserer Website."</string>
-    <string name="permission_msg">"In Android Marshmallow ist es erforderlich die Standortdienste zu aktivieren, um WLAN-Scans durchzuführen. Sie werden aufgefordert die Standortdienste-Berechtigung zu erteilen. Da diese App keine Internetverbindung benötigt, können sie sicher sein, dass diese App Ihren Standort nicht übermitteln kann!"</string>
-    <string name="location_msg">"Diese App kann deinen Standort über GPS oder mithilfe von Netzwerkstandortquellen wie Mobilfunkmasten und WLAN ermitteln. Die App kann diese Standortdienste nur verwenden, wenn sie auf deinem Smartphone aktiviert und verfügbar sind. Hierdurch kann sich der Akkuverbrauch erhöhen."</string>
+    <string name="permission_msg">"In Android Marshmallow ist es erforderlich, die Standortdienste zu aktivieren, um WLAN-Scans durchzuführen. Sie werden aufgefordert, die Standortdienste-Berechtigung zu erteilen. Da diese App keine Internetverbindung benötigt, können Sie sicher sein, dass die App Ihren Standort nicht übermitteln kann!"</string>
     <string name="export_not_available">"Export nicht verfügbar"</string>
 
     <string name="channel_rating_best">"Beste Kanäle:"</string>
@@ -102,7 +101,7 @@
     <!-- about start -->
     <string name="about_license_title">"Lizenz:"</string>
     <string name="about_description_title">"Beschreibung:"</string>
-    <string name="about_description_text">"Verbessere dein WLAN-Netzwerk, indem du den Zustand und die Stärke des Signals misst und überlastete Kanäle mit einem freien WiFiAnalyzer für Android erkennst."</string>
+    <string name="about_description_text">"Verbesseren Sie Ihr WLAN-Netzwerk, indem Sie den Netzwerkstatus und die Signalstärke Ihres WLANs messen und erkennnen Sie überlastete Kanäle mithilfe einer freien Open-Source App für Android."</string>
     <string name="about_libraries_title">"Benutzte Bibliotheken:"</string>
     <string name="about_contributor_title">"Beitragende"</string>
     <string name="about_write_review">"Rezension schreiben"</string>
