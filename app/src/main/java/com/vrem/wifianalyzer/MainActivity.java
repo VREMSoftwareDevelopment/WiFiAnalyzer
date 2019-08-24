@@ -33,7 +33,7 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuControl;
 import com.vrem.wifianalyzer.navigation.NavigationMenuController;
 import com.vrem.wifianalyzer.navigation.options.OptionMenu;
-import com.vrem.wifianalyzer.permission.ApplicationPermission;
+import com.vrem.wifianalyzer.permission.PermissionService;
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.SettingsFactory;
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     private NavigationMenuController navigationMenuController;
     private OptionMenu optionMenu;
     private String currentCountryCode;
-    private ApplicationPermission applicationPermission;
+    private PermissionService permissionService;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -101,8 +101,8 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
         ConnectionView connectionView = new ConnectionView(this);
         mainContext.getScannerService().register(connectionView);
 
-        applicationPermission = new ApplicationPermission(this);
-        applicationPermission.check();
+        permissionService = new PermissionService(this);
+        permissionService.check();
     }
 
     @Override
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (!applicationPermission.isGranted(requestCode, grantResults)) {
+        if (!permissionService.isGranted(requestCode, grantResults)) {
             finish();
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         optionMenu.select(item);
         updateActionBar();
         return true;
@@ -266,6 +266,10 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
 
     public NavigationMenuController getNavigationMenuController() {
         return navigationMenuController;
+    }
+
+    public PermissionService getPermissionService() {
+        return permissionService;
     }
 
     void setNavigationMenuController(NavigationMenuController navigationMenuController) {

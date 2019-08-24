@@ -27,7 +27,7 @@ import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.permission.RequirementPermission;
+import com.vrem.wifianalyzer.permission.PermissionService;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -39,13 +39,11 @@ import androidx.annotation.NonNull;
 
 public class ConnectionView implements UpdateNotifier {
     private final MainActivity mainActivity;
-    private final RequirementPermission requirementPermission;
     private AccessPointDetail accessPointDetail;
     private AccessPointPopup accessPointPopup;
 
     public ConnectionView(@NonNull MainActivity mainActivity) {
         this.mainActivity = mainActivity;
-        this.requirementPermission = new RequirementPermission(mainActivity);
         setAccessPointDetail(new AccessPointDetail());
         setAccessPointPopup(new AccessPointPopup());
     }
@@ -75,7 +73,8 @@ public class ConnectionView implements UpdateNotifier {
     }
 
     private int getNoLocationVisibility(int visibility) {
-        return requirementPermission.isEnabled() ? View.GONE : visibility;
+        PermissionService permissionService = mainActivity.getPermissionService();
+        return permissionService.isEnabled() ? View.GONE : visibility;
     }
 
     private boolean noData(@NonNull WiFiData wiFiData) {

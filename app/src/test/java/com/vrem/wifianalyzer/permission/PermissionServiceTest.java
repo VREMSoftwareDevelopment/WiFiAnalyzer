@@ -20,27 +20,21 @@ package com.vrem.wifianalyzer.permission;
 
 import android.app.Activity;
 
-import com.vrem.util.BuildUtils;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.verifyNoMoreInteractions;
-import static org.powermock.api.mockito.PowerMockito.verifyStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(BuildUtils.class)
-public class RequirementPermissionTest {
+@RunWith(MockitoJUnitRunner.class)
+public class PermissionServiceTest {
 
     @Mock
     private Activity activity;
@@ -49,12 +43,11 @@ public class RequirementPermissionTest {
     @Mock
     private ApplicationPermission applicationPermission;
 
-    private RequirementPermission fixture;
+    private PermissionService fixture;
 
     @Before
     public void setUp() {
-        mockStatic(BuildUtils.class);
-        fixture = new RequirementPermission(activity);
+        fixture = new PermissionService(activity);
         fixture.setApplicationPermission(applicationPermission);
         fixture.setSystemPermission(systemPermission);
     }
@@ -64,25 +57,11 @@ public class RequirementPermissionTest {
         verifyNoMoreInteractions(activity);
         verifyNoMoreInteractions(applicationPermission);
         verifyNoMoreInteractions(systemPermission);
-        verifyNoMoreInteractions(BuildUtils.class);
-    }
-
-    @Test
-    public void testIsEnabledWithNoPermissionRequired() {
-        // setup
-        when(BuildUtils.isMinVersionM()).thenReturn(false);
-        // execute
-        boolean actual = fixture.isEnabled();
-        // validate
-        assertTrue(actual);
-        verifyStatic(BuildUtils.class);
-        BuildUtils.isMinVersionM();
     }
 
     @Test
     public void testIsEnabled() {
         // setup
-        when(BuildUtils.isMinVersionM()).thenReturn(true);
         when(systemPermission.isEnabled()).thenReturn(true);
         when(applicationPermission.isGranted()).thenReturn(true);
         // execute
@@ -91,29 +70,22 @@ public class RequirementPermissionTest {
         assertTrue(actual);
         verify(systemPermission).isEnabled();
         verify(applicationPermission).isGranted();
-        verifyStatic(BuildUtils.class);
-        BuildUtils.isMinVersionM();
     }
 
     @Test
-    public void testIsEnabledWhenLocationCheckerIsNotEnabled() {
+    public void testIsEnabledWhenSystemPermissionIsNotEnabled() {
         // setup
-        when(BuildUtils.isMinVersionM()).thenReturn(true);
         when(systemPermission.isEnabled()).thenReturn(false);
         // execute
         boolean actual = fixture.isEnabled();
         // validate
         assertFalse(actual);
         verify(systemPermission).isEnabled();
-        verifyStatic(BuildUtils.class);
-        BuildUtils.isMinVersionM();
     }
 
     @Test
-
-    public void testIsEnabledWhenPermissionCheckerIsNotEnabled() {
+    public void testIsEnabledWhenApplicationPermissionAreNotGranted() {
         // setup
-        when(BuildUtils.isMinVersionM()).thenReturn(true);
         when(systemPermission.isEnabled()).thenReturn(true);
         when(applicationPermission.isGranted()).thenReturn(false);
         // execute
@@ -122,7 +94,49 @@ public class RequirementPermissionTest {
         assertFalse(actual);
         verify(systemPermission).isEnabled();
         verify(applicationPermission).isGranted();
-        verifyStatic(BuildUtils.class);
-        BuildUtils.isMinVersionM();
     }
+
+    @Test
+    public void testIsSystemEnabled() {
+        // setup
+        when(systemPermission.isEnabled()).thenReturn(true);
+        // execute
+        boolean actual = fixture.isSystemEnabled();
+        // validate
+        assertTrue(actual);
+        verify(systemPermission).isEnabled();
+    }
+
+    @Test
+    public void testIsPermissionGranted() {
+        // setup
+        when(applicationPermission.isGranted()).thenReturn(true);
+        // execute
+        boolean actual = fixture.isPermissionGranted();
+        // validate
+        assertTrue(actual);
+        verify(applicationPermission).isGranted();
+    }
+
+    @Test
+    public void testPermissionCheck() {
+        // execute
+        fixture.check();
+        // validate
+        verify(applicationPermission).check();
+    }
+
+    @Test
+    public void testIsGranted() {
+        // setup
+        int requestCode = 111;
+        int[] results = new int[]{1, 2, 3};
+        when(applicationPermission.isGranted(requestCode, results)).thenReturn(true);
+        // execute
+        boolean actual = fixture.isGranted(requestCode, results);
+        // validate
+        assertTrue(actual);
+        verify(applicationPermission).isGranted(requestCode, results);
+    }
+
 }

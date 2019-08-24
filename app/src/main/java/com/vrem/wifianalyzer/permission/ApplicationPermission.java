@@ -28,14 +28,14 @@ import com.vrem.util.BuildUtils;
 
 import androidx.annotation.NonNull;
 
-public class ApplicationPermission {
+class ApplicationPermission {
     static final String[] PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
     static final int REQUEST_CODE = 0x123450;
 
     private final Activity activity;
     private final PermissionDialog permissionDialog;
 
-    public ApplicationPermission(@NonNull Activity activity) {
+    ApplicationPermission(@NonNull Activity activity) {
         this(activity, new PermissionDialog(activity));
     }
 
@@ -44,7 +44,7 @@ public class ApplicationPermission {
         this.permissionDialog = permissionDialog;
     }
 
-    public void check() {
+    void check() {
         if (isGranted()) {
             return;
         }
@@ -54,7 +54,7 @@ public class ApplicationPermission {
         permissionDialog.show();
     }
 
-    public boolean isGranted(int requestCode, @NonNull int[] grantResults) {
+    boolean isGranted(int requestCode, @NonNull int[] grantResults) {
         return requestCode == REQUEST_CODE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
     }
 

@@ -28,14 +28,14 @@ import com.vrem.util.BuildUtils;
 
 import androidx.annotation.NonNull;
 
-public class SystemPermission {
+class SystemPermission {
     private final Activity activity;
 
-    public SystemPermission(@NonNull Activity activity) {
+    SystemPermission(@NonNull Activity activity) {
         this.activity = activity;
     }
 
-    public boolean isEnabled() {
+    boolean isEnabled() {
         return !BuildUtils.isMinVersionM() || isProviderEnabledAndroidM();
     }
 

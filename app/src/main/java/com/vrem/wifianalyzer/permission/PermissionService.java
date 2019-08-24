@@ -18,32 +18,38 @@
 
 package com.vrem.wifianalyzer.permission;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.os.Build;
-
-import com.vrem.util.BuildUtils;
 
 import androidx.annotation.NonNull;
 
-public class RequirementPermission {
+public class PermissionService {
     private SystemPermission systemPermission;
     private ApplicationPermission applicationPermission;
 
-    public RequirementPermission(@NonNull Activity activity) {
+    public PermissionService(@NonNull Activity activity) {
         this.applicationPermission = new ApplicationPermission(activity);
         this.systemPermission = new SystemPermission(activity);
     }
 
     public boolean isEnabled() {
-        return !BuildUtils.isMinVersionM() || isEnabledAndroidM();
+        return isSystemEnabled() && isPermissionGranted();
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
-    private boolean isEnabledAndroidM() {
-        return systemPermission.isEnabled() && applicationPermission.isGranted();
+    public boolean isSystemEnabled() {
+        return systemPermission.isEnabled();
     }
 
+    public void check() {
+        applicationPermission.check();
+    }
+
+    public boolean isGranted(int requestCode, int[] grantResults) {
+        return applicationPermission.isGranted(requestCode, grantResults);
+    }
+
+    public boolean isPermissionGranted() {
+        return applicationPermission.isGranted();
+    }
 
     void setSystemPermission(SystemPermission systemPermission) {
         this.systemPermission = systemPermission;
@@ -52,4 +58,5 @@ public class RequirementPermission {
     void setApplicationPermission(ApplicationPermission applicationPermission) {
         this.applicationPermission = applicationPermission;
     }
+
 }
