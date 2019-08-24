@@ -27,6 +27,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuController;
 import com.vrem.wifianalyzer.navigation.options.OptionMenu;
+import com.vrem.wifianalyzer.permission.PermissionService;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
@@ -43,9 +44,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.when;
 import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
 @RunWith(AndroidJUnit4.class)
@@ -83,10 +84,14 @@ public class MainActivityTest {
     @Test
     public void testOnResumeCallsOptionMenuResume() {
         // setup
+        PermissionService permissionService = mock(PermissionService.class);
+        fixture.setPermissionService(permissionService);
         ScannerService scannerService = MainContextHelper.INSTANCE.getScannerService();
+        when(permissionService.isPermissionGranted()).thenReturn(true);
         // execute
         fixture.onResume();
         // validate
+        verify(permissionService).isPermissionGranted();
         verify(scannerService).resume();
     }
 

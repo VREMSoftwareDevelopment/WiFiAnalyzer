@@ -181,4 +181,17 @@ public class ActivityUtilsTest {
         verifyStatic(IntentUtils.class);
         IntentUtils.makeIntent(android.provider.Settings.Panel.ACTION_WIFI);
     }
+
+    @Test
+    public void testStartLocationSettings() {
+        // setup
+        when(IntentUtils.makeIntent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)).thenReturn(intent);
+        // execute
+        ActivityUtils.startLocationSettings();
+        // validate
+        verify(mainActivity).startActivity(intent);
+        verifyStatic(IntentUtils.class);
+        IntentUtils.makeIntent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+    }
+
 }

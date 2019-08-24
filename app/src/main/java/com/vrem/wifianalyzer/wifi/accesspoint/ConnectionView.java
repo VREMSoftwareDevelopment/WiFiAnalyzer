@@ -27,7 +27,6 @@ import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.permission.PermissionService;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -73,8 +72,7 @@ public class ConnectionView implements UpdateNotifier {
     }
 
     private int getNoLocationVisibility(int visibility) {
-        PermissionService permissionService = mainActivity.getPermissionService();
-        return permissionService.isEnabled() ? View.GONE : visibility;
+        return mainActivity.getPermissionService().isEnabled() ? View.GONE : visibility;
     }
 
     private boolean noData(@NonNull WiFiData wiFiData) {

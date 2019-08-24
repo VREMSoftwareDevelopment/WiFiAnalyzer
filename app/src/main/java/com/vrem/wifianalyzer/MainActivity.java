@@ -200,7 +200,12 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     @Override
     protected void onResume() {
         super.onResume();
-        MainContext.INSTANCE.getScannerService().resume();
+        if (permissionService.isPermissionGranted()) {
+            if (!permissionService.isSystemEnabled()) {
+                ActivityUtils.startLocationSettings();
+            }
+            MainContext.INSTANCE.getScannerService().resume();
+        }
         updateActionBar();
     }
 
@@ -278,5 +283,9 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
 
     void setDrawerNavigation(DrawerNavigation drawerNavigation) {
         this.drawerNavigation = drawerNavigation;
+    }
+
+    void setPermissionService(PermissionService permissionService) {
+        this.permissionService = permissionService;
     }
 }

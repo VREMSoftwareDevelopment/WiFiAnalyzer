@@ -18,7 +18,9 @@
 
 package com.vrem.wifianalyzer;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -30,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 
+import static android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS;
 import static android.provider.Settings.Panel.ACTION_WIFI;
 
 public class ActivityUtils {
@@ -70,10 +73,17 @@ public class ActivityUtils {
         return toolbar;
     }
 
+    @TargetApi(Build.VERSION_CODES.Q)
     public static void startWiFiSettings() {
         MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
         Intent intent = IntentUtils.makeIntent(ACTION_WIFI);
         mainActivity.startActivityForResult(intent, 0);
+    }
+
+    static void startLocationSettings() {
+        MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
+        Intent intent = IntentUtils.makeIntent(ACTION_LOCATION_SOURCE_SETTINGS);
+        mainActivity.startActivity(intent);
     }
 
     static class WiFiBandToggle implements View.OnClickListener {
