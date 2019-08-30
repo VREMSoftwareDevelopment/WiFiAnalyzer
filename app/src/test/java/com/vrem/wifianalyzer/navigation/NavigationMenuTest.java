@@ -32,7 +32,7 @@ public class NavigationMenuTest {
 
     @Test
     public void testNavigationMenu() {
-        assertEquals(9, NavigationMenu.values().length);
+        assertEquals(10, NavigationMenu.values().length);
     }
 
     @Test
@@ -46,6 +46,7 @@ public class NavigationMenuTest {
         assertEquals(NavigationItemFactory.EXPORT, NavigationMenu.EXPORT.getNavigationItem());
         assertEquals(NavigationItemFactory.SETTINGS, NavigationMenu.SETTINGS.getNavigationItem());
         assertEquals(NavigationItemFactory.ABOUT, NavigationMenu.ABOUT.getNavigationItem());
+        assertEquals(NavigationItemFactory.PORT_AUTHORITY, NavigationMenu.PORT_AUTHORITY.getNavigationItem());
     }
 
     @Test
@@ -59,6 +60,7 @@ public class NavigationMenuTest {
         assertEquals(R.string.action_vendors, NavigationMenu.VENDORS.getTitle());
         assertEquals(R.string.action_settings, NavigationMenu.SETTINGS.getTitle());
         assertEquals(R.string.action_about, NavigationMenu.ABOUT.getTitle());
+        assertEquals(R.string.action_port_authority, NavigationMenu.PORT_AUTHORITY.getTitle());
     }
 
     @Test
@@ -76,6 +78,7 @@ public class NavigationMenuTest {
         assertFalse(NavigationMenu.VENDORS.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.SETTINGS.isWiFiBandSwitchable());
         assertFalse(NavigationMenu.ABOUT.isWiFiBandSwitchable());
+        assertFalse(NavigationMenu.PORT_AUTHORITY.isWiFiBandSwitchable());
     }
 
     @Test
@@ -93,6 +96,7 @@ public class NavigationMenuTest {
         assertFalse(NavigationMenu.VENDORS.isRegistered());
         assertFalse(NavigationMenu.SETTINGS.isRegistered());
         assertFalse(NavigationMenu.ABOUT.isRegistered());
+        assertFalse(NavigationMenu.PORT_AUTHORITY.isRegistered());
     }
 
     @Test
@@ -106,6 +110,7 @@ public class NavigationMenuTest {
         assertEquals(R.drawable.ic_list_grey, NavigationMenu.VENDORS.getIcon());
         assertEquals(R.drawable.ic_settings, NavigationMenu.SETTINGS.getIcon());
         assertEquals(R.drawable.ic_info_outline, NavigationMenu.ABOUT.getIcon());
+        assertEquals(R.drawable.ic_lan, NavigationMenu.PORT_AUTHORITY.getIcon());
     }
 
     @Test
@@ -120,5 +125,6 @@ public class NavigationMenuTest {
         assertEquals(NavigationOptionFactory.OFF, NavigationMenu.EXPORT.getNavigationOptions());
         assertEquals(NavigationOptionFactory.OFF, NavigationMenu.SETTINGS.getNavigationOptions());
         assertEquals(NavigationOptionFactory.OFF, NavigationMenu.ABOUT.getNavigationOptions());
+        assertEquals(NavigationOptionFactory.OFF, NavigationMenu.PORT_AUTHORITY.getNavigationOptions());
     }
 }

@@ -39,6 +39,7 @@ public class NavigationItemFactory {
     public static final NavigationItem VENDORS = new FragmentItem(new VendorFragment(), false, View.GONE);
     public static final NavigationItem SETTINGS = new FragmentItem(new SettingsFragment(), false, View.GONE);
     public static final NavigationItem ABOUT = new FragmentItem(new AboutFragment(), false, View.GONE);
+    public static final NavigationItem PORT_AUTHORITY = new PortAuthorityItem();
 
     private NavigationItemFactory() {
         throw new IllegalStateException("Factory class");
