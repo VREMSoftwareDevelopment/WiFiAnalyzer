@@ -38,7 +38,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
         'android/**/*.*',
         '**/com/jjoe64/*'
     ]
-    def classDir = "$project.buildDir/intermediates/javac/debug/compileDebugJavaWithJavac/classes"
+    def classDir = "$project.buildDir/intermediates/javac/debug/classes"
     def mainSrc = "$project.projectDir/src/main/java"
     def debugTree = fileTree(dir: classDir, excludes: fileFilter)
 
