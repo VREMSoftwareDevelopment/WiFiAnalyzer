@@ -46,9 +46,9 @@ public class VendorDBTest {
     private static final String MAC_ADDRESS = "00:23:AB:8C:DF:10";
     private static final String VENDOR_NAME_INVALID = "XXXXX";
     private static final String MAC_ADDRESS_INVALID = "XX:XX:XX";
-    private static final int VENDOR_SIZE = 17410;
-    private static final int MACS_SIZE = 26566;
-    private static final int MACS_CISCO_SIZE = 880;
+    private static final int VENDOR_SIZE = 17463;
+    private static final int MACS_SIZE = 26773;
+    private static final int MACS_CISCO_SIZE = 888;
     private static final String FILTER_VENDOR = "1394 ";
     private static final String FILTER_MAC = "00:A0:2";
     private static final String EXPECTED_VENDOR_NAME1 = "1394 TRADE ASSOCIATION";
@@ -56,7 +56,7 @@ public class VendorDBTest {
     private static final String EXPECTED_VENDOR_NAME3 = "1394 PRINTER WORKING GROUP";
     private static final String EXPECTED_MAC1 = "00:00:0C";
     private static final String EXPECTED_MAC2 = "FC:FB:FB";
-    private static final String EXPECTED_MAC3 = "00:B1:E3";
+    private static final String EXPECTED_MAC3 = "00:BC:60";
 
     private VendorDB fixture;
 
