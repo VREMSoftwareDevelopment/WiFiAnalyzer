@@ -6,7 +6,7 @@ dist : trusty
 android:
     components:
         - tools
-        - build-tools-29.0.1
+        - build-tools-29.0.2
         - android-29
         - extra-google-m2repository
         - extra-android-m2repository
