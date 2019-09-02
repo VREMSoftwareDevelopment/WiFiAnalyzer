@@ -25,8 +25,8 @@ import com.vrem.wifianalyzer.settings.Settings;
 import androidx.annotation.NonNull;
 
 class PeriodicScan implements Runnable {
-    static final int DELAY_INITIAL = 1;
-    static final int DELAY_INTERVAL = 1000;
+    static final long DELAY_INITIAL = 1L;
+    static final long DELAY_INTERVAL = 1000L;
 
     private final ScannerService scanner;
     private final Handler handler;
@@ -49,7 +49,7 @@ class PeriodicScan implements Runnable {
         nextRun(DELAY_INITIAL);
     }
 
-    private void nextRun(int delayInitial) {
+    private void nextRun(long delayInitial) {
         stop();
         handler.postDelayed(this, delayInitial);
         running = true;

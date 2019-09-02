@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.view.LayoutInflater;
 
@@ -107,7 +106,6 @@ public enum MainContext {
 
     void initialize(@NonNull MainActivity mainActivity, boolean largeScreen) {
         Context applicationContext = mainActivity.getApplicationContext();
-        WifiManager wifiManager = (WifiManager) applicationContext.getSystemService(Context.WIFI_SERVICE);
         Handler handler = new Handler();
         Repository repository = new Repository(applicationContext);
         Settings currentSettings = SettingsFactory.make(repository);
@@ -117,7 +115,7 @@ public enum MainContext {
         setConfiguration(currentConfiguration);
         setSettings(currentSettings);
         setVendorService(VendorServiceFactory.makeVendorService(mainActivity.getResources()));
-        setScannerService(ScannerServiceFactory.makeScannerService(wifiManager, handler, currentSettings));
+        setScannerService(ScannerServiceFactory.makeScannerService(mainActivity, handler, currentSettings));
         setFilterAdapter(new FilterAdapter(currentSettings));
     }
 

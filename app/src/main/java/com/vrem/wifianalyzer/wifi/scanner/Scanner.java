@@ -18,15 +18,10 @@
 
 package com.vrem.wifianalyzer.wifi.scanner;
 
-import android.annotation.TargetApi;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Handler;
 
-import com.vrem.util.BuildUtils;
-import com.vrem.wifianalyzer.ActivityUtils;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 
@@ -40,16 +35,16 @@ import androidx.annotation.NonNull;
 
 class Scanner implements ScannerService {
     private final List<UpdateNotifier> updateNotifiers;
-    private final WifiManager wifiManager;
     private final Settings settings;
     private Transformer transformer;
     private WiFiData wiFiData;
+    private WiFiManagerWrapper wiFiManagerWrapper;
     private Cache cache;
     private PeriodicScan periodicScan;
 
-    Scanner(@NonNull WifiManager wifiManager, @NonNull Handler handler, @NonNull Settings settings) {
+    Scanner(@NonNull WiFiManagerWrapper wiFiManagerWrapper, @NonNull Handler handler, @NonNull Settings settings) {
         this.updateNotifiers = new ArrayList<>();
-        this.wifiManager = wifiManager;
+        this.wiFiManagerWrapper = wiFiManagerWrapper;
         this.settings = settings;
         this.wiFiData = WiFiData.EMPTY;
         this.setTransformer(new Transformer());
@@ -59,7 +54,7 @@ class Scanner implements ScannerService {
 
     @Override
     public void update() {
-        enableWiFi();
+        wiFiManagerWrapper.enableWiFi();
         scanResults();
         wiFiData = transformer.transformToWiFiData(cache.getScanResults(), cache.getWifiInfo());
         IterableUtils.forEach(updateNotifiers, new UpdateClosure());
@@ -98,20 +93,9 @@ class Scanner implements ScannerService {
 
     @Override
     public void stop() {
-        if (!BuildUtils.isMinVersionQ()) {
-            try {
-                if (settings.isWiFiOffOnExit()) {
-                    disableWiFiLegacy();
-                }
-            } catch (Exception e) {
-                // critical error: do not die
-            }
+        if (settings.isWiFiOffOnExit()) {
+            wiFiManagerWrapper.disableWiFi();
         }
-    }
-
-    @SuppressWarnings("deprecation")
-    private void disableWiFiLegacy() {
-        wifiManager.setWifiEnabled(false);
     }
 
     @NonNull
@@ -136,38 +120,12 @@ class Scanner implements ScannerService {
         return updateNotifiers;
     }
 
-    private void enableWiFi() {
-        try {
-            if (!wifiManager.isWifiEnabled()) {
-                if (BuildUtils.isMinVersionQ()) {
-                    enableWiFiAndroidQ();
-                } else {
-                    enableWiFiLegacy();
-                }
-            }
-        } catch (Exception e) {
-            // critical error: do not die
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.Q)
-    private void enableWiFiAndroidQ() {
-        ActivityUtils.startWiFiSettings();
-    }
-
-    @SuppressWarnings("deprecation")
-    private void enableWiFiLegacy() {
-        wifiManager.setWifiEnabled(true);
-    }
-
     private void scanResults() {
         try {
-            if (wifiManager.startScan()) {
-                List<ScanResult> scanResults = wifiManager.getScanResults();
-                WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                if (scanResults != null) {
-                    cache.add(scanResults, wifiInfo);
-                }
+            if (wiFiManagerWrapper.startScan()) {
+                List<ScanResult> scanResults = wiFiManagerWrapper.scanResults();
+                WifiInfo wifiInfo = wiFiManagerWrapper.wiFiInfo();
+                cache.add(scanResults, wifiInfo);
             }
         } catch (Exception e) {
             // critical error: do not die
