@@ -31,10 +31,12 @@ import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Collections;
@@ -45,8 +47,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -77,18 +81,22 @@ public class GraphViewWrapperTest {
         dataPoint = new DataPoint(1, 2);
         dataPoints = new DataPoint[]{dataPoint};
 
-        when(graphView.getLegendRenderer()).thenReturn(legendRenderer);
-
-        fixture = new GraphViewWrapper(graphView, GraphLegend.HIDE, ThemeStyle.DARK) {
-            @Override
-            protected LegendRenderer newLegendRenderer() {
-                return legendRenderer;
-            }
-        };
+        fixture = Mockito.spy(new GraphViewWrapper(graphView, GraphLegend.HIDE, ThemeStyle.DARK));
         fixture.setSeriesCache(seriesCache);
         fixture.setSeriesOptions(seriesOptions);
 
         assertEquals(GraphLegend.HIDE, fixture.getGraphLegend());
+    }
+
+    @After
+    public void tearDown() {
+        verifyNoMoreInteractions(graphView);
+        verifyNoMoreInteractions(viewport);
+        verifyNoMoreInteractions(gridLabelRenderer);
+        verifyNoMoreInteractions(legendRenderer);
+        verifyNoMoreInteractions(seriesCache);
+        verifyNoMoreInteractions(seriesOptions);
+        verifyNoMoreInteractions(baseSeries);
     }
 
     @Test
@@ -225,16 +233,23 @@ public class GraphViewWrapperTest {
     public void testUpdateLegend() {
         // setup
         float textSize = 10f;
+        doReturn(legendRenderer).when(fixture).newLegendRenderer();
         when(graphView.getTitleTextSize()).thenReturn(textSize);
+        when(graphView.getLegendRenderer()).thenReturn(legendRenderer);
         // execute
         fixture.updateLegend(GraphLegend.RIGHT);
         // validate
         assertEquals(GraphLegend.RIGHT, fixture.getGraphLegend());
+        verify(graphView).getTitleTextSize();
+        verify(graphView).getLegendRenderer();
         verify(graphView).setLegendRenderer(legendRenderer);
         verify(legendRenderer).resetStyles();
         verify(legendRenderer).setWidth(0);
         verify(legendRenderer).setTextSize(textSize);
         verify(legendRenderer).setTextColor(Color.WHITE);
+        verify(legendRenderer).setVisible(true);
+        verify(legendRenderer).setAlign(LegendRenderer.LegendAlign.TOP);
+
     }
 
     @Test

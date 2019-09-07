@@ -27,6 +27,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,12 +37,13 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Arrays;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -73,7 +75,12 @@ public class TransformerTest {
 
     @Before
     public void setUp() {
-        fixture = new Transformer();
+        fixture = spy(new Transformer());
+    }
+
+    @After
+    public void tearDown() {
+        verifyNoMoreInteractions(wifiInfo);
     }
 
     @Test
@@ -123,6 +130,7 @@ public class TransformerTest {
         // validate
         assertEquals(expectedWiFiConnection, actual.getWiFiConnection());
         assertEquals(cacheResults.size(), actual.getWiFiDetails().size());
+        verifyWiFiInfo();
     }
 
     @Test
@@ -134,19 +142,14 @@ public class TransformerTest {
     }
 
     @Test
-    public void testGetWiFiWidthWithWiFiWidth() {
+    public void testGetWiFiWidthWithWiFiWidth() throws Exception {
         // setup
-        fixture = new Transformer() {
-            @Override
-            int getFieldValue(@NonNull ScanResult scanResult, @NonNull Fields field) {
-                assertEquals(Fields.channelWidth, field);
-                return WiFiWidth.MHZ_160.ordinal();
-            }
-        };
+        doReturn(WiFiWidth.MHZ_160.ordinal()).when(fixture).getFieldValue(scanResult1, Transformer.Fields.channelWidth);
         // execute
         WiFiWidth actual = fixture.getWiFiWidth(scanResult1);
         // validate
         assertEquals(WiFiWidth.MHZ_160, actual);
+        verify(fixture).getFieldValue(scanResult1, Transformer.Fields.channelWidth);
     }
 
     @Test
@@ -160,57 +163,42 @@ public class TransformerTest {
     }
 
     @Test
-    public void testGetCenterFrequencyWithFrequency() {
+    public void testGetCenterFrequencyWithFrequency() throws Exception {
         // setup
         int expected = FREQUENCY + WiFiWidth.MHZ_20.getFrequencyWidthHalf();
-        fixture = new Transformer() {
-            @Override
-            int getFieldValue(@NonNull ScanResult scanResult, @NonNull Fields field) {
-                assertEquals(Fields.centerFreq0, field);
-                return FREQUENCY + WiFiWidth.MHZ_20.getFrequencyWidthHalf();
-            }
-        };
+        doReturn(FREQUENCY + WiFiWidth.MHZ_20.getFrequencyWidthHalf()).when(fixture).getFieldValue(scanResult1, Transformer.Fields.centerFreq0);
         scanResult1.frequency = FREQUENCY;
         // execute
         int actual = fixture.getCenterFrequency(scanResult1, WiFiWidth.MHZ_20);
         // validate
         assertEquals(expected, actual);
+        verify(fixture).getFieldValue(scanResult1, Transformer.Fields.centerFreq0);
     }
 
     @Test
-    public void testGetCenterFrequencyWithExtFrequencyAfter() {
+    public void testGetCenterFrequencyWithExtFrequencyAfter() throws Exception {
         // setup
         int expected = FREQUENCY + WiFiWidth.MHZ_20.getFrequencyWidthHalf();
-        fixture = new Transformer() {
-            @Override
-            int getFieldValue(@NonNull ScanResult scanResult, @NonNull Fields field) {
-                assertEquals(Fields.centerFreq0, field);
-                return FREQUENCY + WiFiWidth.MHZ_40.getFrequencyWidthHalf();
-            }
-        };
+        doReturn(FREQUENCY + WiFiWidth.MHZ_40.getFrequencyWidthHalf()).when(fixture).getFieldValue(scanResult1, Transformer.Fields.centerFreq0);
         scanResult1.frequency = FREQUENCY;
         // execute
         int actual = fixture.getCenterFrequency(scanResult1, WiFiWidth.MHZ_40);
         // validate
         assertEquals(expected, actual);
+        verify(fixture).getFieldValue(scanResult1, Transformer.Fields.centerFreq0);
     }
 
     @Test
-    public void testGetCenterFrequencyWithExtFrequencyBefore() {
+    public void testGetCenterFrequencyWithExtFrequencyBefore() throws Exception {
         // setup
         int expected = FREQUENCY - WiFiWidth.MHZ_20.getFrequencyWidthHalf();
-        fixture = new Transformer() {
-            @Override
-            int getFieldValue(@NonNull ScanResult scanResult, @NonNull Fields field) {
-                assertEquals(Fields.centerFreq0, field);
-                return FREQUENCY - WiFiWidth.MHZ_40.getFrequencyWidthHalf();
-            }
-        };
+        doReturn(FREQUENCY - WiFiWidth.MHZ_40.getFrequencyWidthHalf()).when(fixture).getFieldValue(scanResult1, Transformer.Fields.centerFreq0);
         scanResult1.frequency = FREQUENCY;
         // execute
         int actual = fixture.getCenterFrequency(scanResult1, WiFiWidth.MHZ_40);
         // validate
         assertEquals(expected, actual);
+        verify(fixture).getFieldValue(scanResult1, Transformer.Fields.centerFreq0);
     }
 
     @Test
@@ -281,4 +269,11 @@ public class TransformerTest {
         when(wifiInfo.getLinkSpeed()).thenReturn(LINK_SPEED);
     }
 
+    private void verifyWiFiInfo() {
+        verify(wifiInfo).getNetworkId();
+        verify(wifiInfo).getSSID();
+        verify(wifiInfo).getBSSID();
+        verify(wifiInfo).getIpAddress();
+        verify(wifiInfo).getLinkSpeed();
+    }
 }
