@@ -42,6 +42,7 @@ public class LocaleUtils {
     static final Locale POLISH = new Locale("pl");
     static final Locale PORTUGUESE = new Locale("pt");
     static final Locale RUSSIAN = new Locale("ru");
+    static final Locale UKRAINIAN = new Locale("uk");
     private static final String SEPARATOR = "_";
 
     private LocaleUtils() {
@@ -162,8 +163,10 @@ public class LocaleUtils {
                 POLISH,
                 PORTUGUESE,
                 RUSSIAN,
+                UKRAINIAN,
                 Locale.SIMPLIFIED_CHINESE,
-                Locale.TRADITIONAL_CHINESE, DEFAULT)));
+                Locale.TRADITIONAL_CHINESE,
+                DEFAULT)));
         }
 
         private static class CountryClosure implements Closure<Locale> {

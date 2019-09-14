@@ -101,6 +101,7 @@ public class LocaleUtilsTest {
             LocaleUtils.POLISH,
             LocaleUtils.PORTUGUESE,
             LocaleUtils.RUSSIAN,
+            LocaleUtils.UKRAINIAN,
             Locale.getDefault()));
         // execute
         List<Locale> actual = LocaleUtils.getSupportedLanguages();
