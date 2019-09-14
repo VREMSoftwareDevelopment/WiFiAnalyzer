@@ -1,0 +1,16 @@
+Optimize your WiFi network, by checking WiFi network status, signal strength and identifying crowded channels using WiFiAnalyzer
+
+Features:
+
+* Identify nearby Access Points
+* Graph channels signal strength
+* Graph Access Point signal strength over time
+* Analyze WiFi networks to rate channels
+* HT/VHT Detection - 40/80/160MHz (Requires Android OS 6+)
+* Access Point view complete or compact
+* Estimated Distance to the Access Points
+* Export access points details
+* Dark or Light theme available
+* Pause/Resume scanning
+* Available filters: WiFi band, Signal strength, Security and SSID
+* Vendor/OUI Database Lookup
