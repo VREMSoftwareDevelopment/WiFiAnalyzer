@@ -37,6 +37,7 @@ import java.util.TreeSet;
 import androidx.annotation.NonNull;
 
 public class LocaleUtils {
+    static final Locale DUTCH = new Locale("nl");
     static final Locale SPANISH = new Locale("es");
     static final Locale POLISH = new Locale("pl");
     static final Locale PORTUGUESE = new Locale("pt");
@@ -152,6 +153,7 @@ public class LocaleUtils {
             COUNTRIES_LOCALES = new TreeMap<>();
             IterableUtils.forEach(AVAILABLE_LOCALES, new CountryClosure());
             SUPPORTED_LOCALES = new ArrayList<>(new HashSet<>(Arrays.asList(
+                DUTCH,
                 Locale.GERMAN,
                 Locale.ENGLISH,
                 SPANISH,
