@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ WiFiAnalyzer
+  ~ Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
+  -->
+
+<resources>
+    <!-- application start -->
+    <string name="app_name" translatable="false">"WiFiAnalyzer"</string>
+    <string name="app_full_name" translatable="false">"WiFiAnalyzer (open-source)"</string>
+    <string name="app_company_name" translatable="false">"VREM Software Development"</string>
+    <string name="app_copyright">"Copyright \u00A9 2015 \u002D "</string>
+    <string name="app_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer"</string>
+    <!-- application end -->
+
+    <string name="navigation_drawer_open">"Open navigatiepaneel"</string>
+    <string name="navigation_drawer_close">"Sluit navigatiepaneel"</string>
+    <string name="scanner_message">"Scannen &#8230;"</string>
+    <string name="scanner_pause">"Pauzeer"</string>
+    <string name="scanner_play">"Hervat"</string>
+
+    <!-- action start -->
+    <string name="action_access_points">"Toegangspunten"</string>
+    <string name="action_channel_rating">"Kanaalbeoordeling"</string>
+    <string name="action_channel_graph">"Kanaalgrafiek"</string>
+    <string name="action_time_graph">"Tijdgrafiek"</string>
+    <string name="action_export">"Exporteren"</string>
+    <string name="action_channel_available">"Beschikbare kanalen"</string>
+    <string name="action_vendors">"Fabrikanten"</string>
+    <string name="action_settings">"Instellingen"</string>
+    <string name="action_about">"Over"</string>
+    <string name="action_port_authority" translatable="false">"PortAuthority"</string>
+    <!-- action end -->
+
+    <string name="no_data">"Geen gegevens"</string>
+    <string name="no_data_msg">"Bezoek aub het veelgestelde vragen gedeelte op onze website."</string>
+    <string name="no_data_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq"</string>
+    <string name="permission_msg">"Vanaf Android Marshmallow zijn locatiepermissies benodigd voor een WiFi scan. Er zal aan u worden gevraagd om locatiediensten/-permissies in te schakelen. Aangezien deze app geen internettoegang vereist kunt u er zeker van zijn dat deze app uw locatie niet kan verzenden!"</string>
+    <string name="location_msg">"Deze app verkrijgt uw locatie op basis van GPS en netwerkgebaseerde locatiebronnen zoals telefoonmasten en WiFi netwerken. Deze locatiediensten moeten ingeschakeld zijn en beschikbaar zijn op uw telefoon voor deze app om ze te kunnen gebruiken. Dit kan het batterijgebruik doen toenemen."</string>
+    <string name="wifi_channels_list_url" translatable="false">"https://en.wikipedia.org/wiki/List_of_WLAN_channels"</string>
+    <string name="vendor_search_hint" translatable="false">"00:0C:41 CISCO"</string>
+    <string name="export_not_available">"Export niet beschikbaar"</string>
+
+    <string name="channel_rating_best">"Beste kanalen:"</string>
+    <string name="channel_rating_best_none">"Geen"</string>
+    <string name="channel_rating_best_alternative">", probeer alternatieve WiFi band"</string>
+    <string name="channel_rating_heading_rating">"Kanaalbeoordeling"</string>
+    <string name="channel_rating_heading_number">"Kanaalnummer"</string>
+    <string name="channel_rating_heading_count">"Aantal toegangspunten"</string>
+    <string name="channel_short_name">"Kan."</string>
+
+    <string name="graph_channel_axis_x">"WiFi kanalen"</string>
+    <string name="graph_time_axis_x">"Aantal scans"</string>
+    <string name="graph_axis_y">"Signaalsterkte (dBm)"</string>
+
+    <string name="mc_flag" translatable="false">"802.11mc"</string>
+
+    <!-- settings start -->
+    <string name="selected_menu_key" translatable="false">"selected_menu"</string>
+
+    <string name="country_code_title">"Land"</string>
+    <string name="country_code_summary" translatable="false">"%s"</string>
+    <string name="country_code_key" translatable="false">"country_code"</string>
+
+    <string name="wifi_band_key" translatable="false">"wifi_band"</string>
+
+    <string name="scan_speed_title">"Scan interval"</string>
+    <string name="scan_speed_summary">"%s seconden tussen elke scan"</string>
+    <string name="scan_speed_key" translatable="false">"scan_speed"</string>
+    <string name="scan_speed_default" translatable="false">"5"</string>
+
+    <string name="wifi_throttle_disabled_title" translatable="false">"WiFi scanbeperking uitschakelen"</string>
+    <string name="wifi_throttle_disabled_key" translatable="false">"wifi_throttle_disabled_key"</string>
+    <bool name="wifi_throttle_disabled_default" translatable="false">false</bool>
+
+    <string name="experimental_title" translatable="false">"Experimental"</string>
+    <string name="experimental_key" translatable="false">"experimental_key"</string>
+
+    <string name="sort_by_title">"Sorteer toegangspunten op"</string>
+    <string name="sort_by_summary" translatable="false">"%s"</string>
+    <string name="sort_by_key" translatable="false">"sort_by"</string>
+    <string name="sort_by_default" translatable="false">"0"</string>
+    <string name="sort_by_signal_strength">"Signaalsterkte"</string>
+    <string name="sort_by_ssid" translatable="false">"SSID"</string>
+    <string name="sort_by_channel">"Kanaal"</string>
+
+    <string name="group_by_title">"Groepeer toegangspunten op"</string>
+    <string name="group_by_summary" translatable="false">"%s"</string>
+    <string name="group_by_key" translatable="false">"group_by"</string>
+    <string name="group_by_default" translatable="false">"0"</string>
+    <string name="group_by_none">"Niet"</string>
+    <string name="group_by_ssid" translatable="false">"SSID"</string>
+    <string name="group_by_channel">"Kanaal"</string>
+
+    <string name="connection_view_title">"Connectieweergave"</string>
+    <string name="connection_view_summary" translatable="false">"%s"</string>
+    <string name="connection_view_key" translatable="false">"connection"</string>
+    <string name="connection_view_default" translatable="false">"0"</string>
+    <string name="connection_view_complete">"Compleet"</string>
+    <string name="connection_view_compact">"Compact"</string>
+    <string name="connection_view_hide">"Verbergen"</string>
+
+    <string name="ap_view_title">"Toegangspuntweergave"</string>
+    <string name="ap_view_summary" translatable="false">"%s"</string>
+    <string name="ap_view_key" translatable="false">"view"</string>
+    <string name="ap_view_default" translatable="false">"0"</string>
+    <string name="ap_view_complete">"Compleet"</string>
+    <string name="ap_view_compact">"Compact"</string>
+
+    <string name="graph_maximum_y_title">"Grafiek maximale signaalsterkte"</string>
+    <string name="graph_maximum_y_summary" translatable="false">"%s"</string>
+    <string name="graph_maximum_y_key" translatable="false">"graph_maximum_y"</string>
+    <string name="graph_maximum_y_default" translatable="false">"2"</string>
+
+    <string name="channel_graph_legend_title">"Kanaalgrafiek legendaweergave"</string>
+    <string name="channel_graph_legend_summary" translatable="false">"%s"</string>
+    <string name="channel_graph_legend_key" translatable="false">"channel_graph_legend"</string>
+    <string name="channel_graph_legend_default" translatable="false">"2"</string>
+
+    <string name="time_graph_legend_title">"Tijdgrafiek legendaweergave"</string>
+    <string name="time_graph_legend_summary" translatable="false">"%s"</string>
+    <string name="time_graph_legend_key" translatable="false">"time_graph_legend"</string>
+    <string name="time_graph_legend_default" translatable="false">"0"</string>
+
+    <string name="graph_legend_left">"Links"</string>
+    <string name="graph_legend_right">"Rechts"</string>
+    <string name="graph_legend_hide">"Verbergen"</string>
+
+    <string name="theme_title">"Thema"</string>
+    <string name="theme_summary" translatable="false">"%s"</string>
+    <string name="theme_key" translatable="false">"theme"</string>
+    <string name="theme_default" translatable="false">"0"</string>
+    <string name="theme_dark">"Donker"</string>
+    <string name="theme_light">"Licht"</string>
+    <string name="theme_system">"Systeem"</string>
+
+    <string name="wifi_off_on_exit_title">"WiFi uitschakelen bij afsluiten"</string>
+    <string name="wifi_off_on_exit_key" translatable="false">"wifi_off_on_exit"</string>
+    <bool name="wifi_off_on_exit_default" translatable="false">false</bool>
+
+    <string name="keep_screen_on_title">"Scherm aan houden"</string>
+    <string name="keep_screen_on_key" translatable="false">"keep_screen_on"</string>
+    <bool name="keep_screen_on_default" translatable="false">false</bool>
+
+    <string name="language_title">"Taal"</string>
+    <string name="language_summary" translatable="false">"%s"</string>
+    <string name="language_key" translatable="false">"language"</string>
+    <!-- settings end -->
+
+    <!-- about start -->
+    <string name="about_license_title">"Licentie:"</string>
+    <string name="about_description_title">"Beschrijving:"</string>
+    <string name="about_description_text">"Optimaliseer uw WiFi netwerk door het controleren van de WiFi netwerkstatus, signaalsterkte en het indentificeren van drukke kanalen met gebruik van een open-source WiFiAnalyzer voor Android."</string>
+    <string name="about_libraries_title">"Gebruikte bibiliotheken:"</string>
+    <string name="about_library_apache" translatable="false">"Apache Commons"</string>
+    <string name="about_library_apache_url" translatable="false">"https://commons.apache.org"</string>
+    <string name="about_library_graph_view" translatable="false">"Graph View"</string>
+    <string name="about_library_graph_view_url" translatable="false">"http://www.android-graphview.org"</string>
+    <string name="about_library_material" translatable="false">"Material Design Icons"</string>
+    <string name="about_library_material_url" translatable="false">"https://design.google.com/icons"</string>
+    <string name="about_usage_tips" translatable="false">"Usage Tips:"</string>
+    <string name="about_usage_tips_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#usage-tips"</string>
+    <string name="about_how_to" translatable="false">"How-to:"</string>
+    <string name="about_how_to_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#how-to"</string>
+    <string name="about_faq" translatable="false">"FAQ:"</string>
+    <string name="about_faq_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq"</string>
+    <string name="about_donation" translatable="false">"Donations:"</string>
+    <string name="about_donation_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#donations"</string>
+    <string name="about_contributor_title">"Bijdragers"</string>
+    <string name="about_write_review">"Schrijf een beoordeling"</string>
+    <!-- about end -->
+
+    <!-- license start -->
+    <string name="gpl" translatable="false">"<u>GNU General Public License v3.0</u>"</string>
+    <string name="gpl_url" translatable="false">"http://www.gnu.org/licenses/gpl-3.0.html"</string>
+    <string name="al" translatable="false">"<u>Apache License 2.0</u>"</string>
+    <string name="al_url" translatable="false">"http://www.apache.org/licenses/LICENSE-2.0"</string>
+    <!-- license end -->
+
+    <!-- wifi band start -->
+    <string name="wifi_band_title" translatable="false">"2.4/5 GHz"</string>
+    <string name="wifi_band_2ghz" translatable="false">"2.4 GHz"</string>
+    <string name="wifi_band_5ghz" translatable="false">"5 GHz"</string>
+    <!-- wifi band end -->
+
+    <!-- security start -->
+    <string name="security_none">"Geen"</string>
+    <string name="security_wps" translatable="false">"WPS"</string>
+    <string name="security_wep" translatable="false">"WEP"</string>
+    <string name="security_wpa" translatable="false">"WPA"</string>
+    <string name="security_wpa2" translatable="false">"WPA2"</string>
+    <!-- security end -->
+
+    <!-- filter start -->
+    <string name="filter_title">"Filter"</string>
+    <string name="filter_close">"Sluiten"</string>
+    <string name="filter_reset">"Reset"</string>
+    <string name="filter_apply">"Toepassen"</string>
+    <string name="filter_ssid_title" translatable="false">"SSID"</string>
+    <string name="filter_ssid_key" translatable="false">"filter_ssid"</string>
+    <string name="filter_ssid_hint" translatable="false">"ssid SSID"</string>
+    <string name="filter_wifi_band_title">"WiFi band"</string>
+    <string name="filter_wifi_band_key" translatable="false">"filter_wifi_band"</string>
+    <string name="filter_strength_title">"Signaalsterkte"</string>
+    <string name="filter_strength_key" translatable="false">"filter_strength"</string>
+    <string name="filter_security_title">"Beveiliging"</string>
+    <string name="filter_security_key" translatable="false">"filter_security"</string>
+    <!-- filter end -->
+
+</resources>
