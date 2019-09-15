@@ -90,7 +90,6 @@ public class LocaleUtilsTest {
     public void testGetSupportedLanguages() {
         // setup
         Set<Locale> expected = new HashSet<>(Arrays.asList(
-            LocaleUtils.DUTCH,
             Locale.GERMAN,
             Locale.ENGLISH,
             Locale.FRENCH,
@@ -98,10 +97,8 @@ public class LocaleUtilsTest {
             Locale.SIMPLIFIED_CHINESE,
             Locale.TRADITIONAL_CHINESE,
             LocaleUtils.SPANISH,
-            LocaleUtils.POLISH,
             LocaleUtils.PORTUGUESE,
             LocaleUtils.RUSSIAN,
-            LocaleUtils.UKRAINIAN,
             Locale.getDefault()));
         // execute
         List<Locale> actual = LocaleUtils.getSupportedLanguages();
