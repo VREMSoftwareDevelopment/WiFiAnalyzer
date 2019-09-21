@@ -66,7 +66,7 @@ public class WiFiDetailTest {
     @Test
     public void testGetTitleWithEmptySSID() {
         // setup
-        String expectedTitle = "*** (" + BSSID + ")";
+        String expectedTitle = "*hidden* (" + BSSID + ")";
         fixture = new WiFiDetail(StringUtils.EMPTY, BSSID, WPA, wiFiSignal);
         // validate
         assertEquals(expectedTitle, fixture.getTitle());
