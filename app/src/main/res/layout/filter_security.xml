@@ -89,6 +89,15 @@
             android:textColor="@color/selected"
             android:textStyle="bold"/>
 
+        <TextView
+            android:id="@+id/filterSecurityWPA3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/security_wpa3"
+            android:textColor="@color/selected"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <include layout="@layout/separator_line"/>

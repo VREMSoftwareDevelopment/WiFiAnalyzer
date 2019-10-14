@@ -23,7 +23,8 @@ import com.vrem.wifianalyzer.R;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -32,7 +33,7 @@ public class SecurityTest {
 
     @Test
     public void testSecurity() {
-        assertEquals(5, Security.values().length);
+        assertEquals(6, Security.values().length);
     }
 
     @Test
@@ -42,12 +43,29 @@ public class SecurityTest {
         assertEquals(R.drawable.ic_lock_outline, Security.WEP.getImageResource());
         assertEquals(R.drawable.ic_lock, Security.WPA.getImageResource());
         assertEquals(R.drawable.ic_lock, Security.WPA2.getImageResource());
+        assertEquals(R.drawable.ic_lock, Security.WPA3.getImageResource());
     }
 
     @Test
     public void testFindAll() {
-        List<Security> expected = Arrays.asList(Security.WPS, Security.WEP, Security.WPA, Security.WPA2);
-        assertEquals(expected, Security.findAll("WPA-WPA2-WPA-WEP-WPS-WPA2"));
+        // setup
+        String capabilities = "WPA-WPA2-WPA-WEP-YZX-WPA3-WPS-WPA2";
+        Set<Security> expected = new TreeSet<>(Arrays.asList(Security.WPS, Security.WEP, Security.WPA, Security.WPA2, Security.WPA3));
+        // execute
+        Set<Security> actual = Security.findAll(capabilities);
+        // validate
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testFindAllWithAdditional() {
+        // setup
+        String capabilities = "WPA-WPA2-WPA-WEP-RSN-KPG-WPS-WPA2";
+        Set<Security> expected = new TreeSet<>(Arrays.asList(Security.WPS, Security.WEP, Security.WPA, Security.WPA2, Security.WPA3));
+        // execute
+        Set<Security> actual = Security.findAll(capabilities);
+        // validate
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -58,11 +76,13 @@ public class SecurityTest {
         assertEquals(Security.WEP, Security.findOne(Security.WEP.name()));
         assertEquals(Security.WPA, Security.findOne(Security.WPA.name()));
         assertEquals(Security.WPA2, Security.findOne(Security.WPA2.name()));
+        assertEquals(Security.WPA3, Security.findOne(Security.WPA3.name()));
+        assertEquals(Security.WPA3, Security.findOne("RSN"));
     }
 
     @Test
     public void testOrder() {
-        Security[] expected = {Security.NONE, Security.WPS, Security.WEP, Security.WPA, Security.WPA2};
+        Security[] expected = {Security.NONE, Security.WPS, Security.WEP, Security.WPA, Security.WPA2, Security.WPA3};
         assertArrayEquals(expected, Security.values());
     }
 }

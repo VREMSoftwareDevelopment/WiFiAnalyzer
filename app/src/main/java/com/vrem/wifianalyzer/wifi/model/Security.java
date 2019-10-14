@@ -21,10 +21,13 @@ package com.vrem.wifianalyzer.wifi.model;
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.R;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Predicate;
+import org.apache.commons.collections4.PredicateUtils;
+import org.apache.commons.collections4.Transformer;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -37,29 +40,42 @@ public enum Security {
     WPS(R.drawable.ic_lock_outline),
     WEP(R.drawable.ic_lock_outline),
     WPA(R.drawable.ic_lock),
-    WPA2(R.drawable.ic_lock);
+    WPA2(R.drawable.ic_lock),
+    WPA3(R.drawable.ic_lock, Constants.RSN);
 
     private final int imageResource;
+    private final String additional;
 
     Security(int imageResource) {
+        this(imageResource, null);
+    }
+
+    Security(int imageResource, String additional) {
         this.imageResource = imageResource;
+        this.additional = additional;
     }
 
     @NonNull
-    public static List<Security> findAll(String capabilities) {
-        Set<Security> results = new TreeSet<>();
-        if (capabilities != null) {
-            String[] values = capabilities.toUpperCase(Locale.getDefault())
-                .replace("][", "-").replace("]", "").replace("[", "").split("-");
-            for (String value : values) {
-                try {
-                    results.add(Security.valueOf(value));
-                } catch (Exception e) {
-                    // skip getCapabilities that are not getSecurity
-                }
-            }
+    public static Set<Security> findAll(String capabilities) {
+        if (capabilities == null) {
+            return new TreeSet<>();
         }
-        return new ArrayList<>(results);
+        return new TreeSet<>(
+            CollectionUtils.select(
+                CollectionUtils.collect(parseCapabilities(capabilities), new SecurityTransformer()),
+                PredicateUtils.notNullPredicate()
+            )
+        );
+    }
+
+    private static List<String> parseCapabilities(String capabilities) {
+        return Arrays.asList(capabilities
+            .toUpperCase(Locale.getDefault())
+            .replace("][", "-")
+            .replace("]", "")
+            .replace("[", "")
+            .split("-")
+        );
     }
 
     @NonNull
@@ -73,9 +89,9 @@ public enum Security {
     }
 
     private static class SecurityPredicate implements Predicate<Security> {
-        private final List<Security> securities;
+        private final Set<Security> securities;
 
-        private SecurityPredicate(@NonNull List<Security> securities) {
+        private SecurityPredicate(@NonNull Set<Security> securities) {
             this.securities = securities;
         }
 
@@ -85,4 +101,31 @@ public enum Security {
         }
     }
 
+    private static class SecurityAdditionalPredicate implements Predicate<Security> {
+        private final String value;
+
+        private SecurityAdditionalPredicate(@NonNull String value) {
+            this.value = value;
+        }
+
+        @Override
+        public boolean evaluate(Security security) {
+            return value.equals(security.additional);
+        }
+    }
+
+    private static class SecurityTransformer implements Transformer<String, Security> {
+        @Override
+        public Security transform(String input) {
+            try {
+                return Security.valueOf(input);
+            } catch (Exception e) {
+                return IterableUtils.find(EnumUtils.values(Security.class), new SecurityAdditionalPredicate(input));
+            }
+        }
+    }
+
+    private static class Constants {
+        static final String RSN = "RSN";
+    }
 }

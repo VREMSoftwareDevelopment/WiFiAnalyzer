@@ -202,6 +202,7 @@
     <string name="security_wep" translatable="false">"WEP"</string>
     <string name="security_wpa" translatable="false">"WPA"</string>
     <string name="security_wpa2" translatable="false">"WPA2"</string>
+    <string name="security_wpa3" translatable="false">"WPA3"</string>
     <!-- security end -->
 
     <!-- filter start -->
