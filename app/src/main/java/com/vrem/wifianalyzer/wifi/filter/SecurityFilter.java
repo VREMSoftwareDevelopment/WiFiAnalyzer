@@ -38,6 +38,7 @@ class SecurityFilter extends EnumFilter<Security, SecurityAdapter> {
         ids.put(Security.WEP, R.id.filterSecurityWEP);
         ids.put(Security.WPA, R.id.filterSecurityWPA);
         ids.put(Security.WPA2, R.id.filterSecurityWPA2);
+        ids.put(Security.WPA3, R.id.filterSecurityWPA3);
     }
 
     SecurityFilter(@NonNull SecurityAdapter securityAdapter, @NonNull Dialog dialog) {
