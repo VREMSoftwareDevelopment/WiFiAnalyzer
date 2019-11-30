@@ -1,0 +1,1 @@
+Optimiza tu red WiFi, mediante la comprobación de estado de red, intensidad de señal e identificación de los canales llenos usando la aplicación de código abierto WiFiAnalyzer para Android

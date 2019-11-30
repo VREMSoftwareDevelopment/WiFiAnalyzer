@@ -1,0 +1,1 @@
+使用适用于Android的开源应用WiFiAnalyzer，通过检查WiFi网络状态，信号强度和识别拥挤的频道来优化您的WiFi网络

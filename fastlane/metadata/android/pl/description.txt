@@ -1,0 +1,1 @@
+Zoptymalizuj twoją sieć WiFi, poprzez sprawdzanie statusu sieci WiFi, siłę sygnały i indentyfikowanie zatłoczonych kanałów używając otwartoźródłowej aplikacji WiFiAnalyzer dla Androida
