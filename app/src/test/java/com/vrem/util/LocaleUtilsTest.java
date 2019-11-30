@@ -97,7 +97,6 @@ public class LocaleUtilsTest {
             Locale.SIMPLIFIED_CHINESE,
             Locale.TRADITIONAL_CHINESE,
             LocaleUtils.SPANISH,
-            LocaleUtils.POLISH,
             LocaleUtils.PORTUGUESE,
             LocaleUtils.RUSSIAN,
             Locale.getDefault()));

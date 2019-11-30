@@ -177,8 +177,6 @@
     <string name="about_how_to_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#how-to"</string>
     <string name="about_faq" translatable="false">"FAQ:"</string>
     <string name="about_faq_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq"</string>
-    <string name="about_donation" translatable="false">"Donations:"</string>
-    <string name="about_donation_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#donations"</string>
     <string name="about_contributor_title">"Contributors"</string>
     <string name="about_write_review">"Write a Review"</string>
     <!-- about end -->
@@ -202,6 +200,7 @@
     <string name="security_wep" translatable="false">"WEP"</string>
     <string name="security_wpa" translatable="false">"WPA"</string>
     <string name="security_wpa2" translatable="false">"WPA2"</string>
+    <string name="security_wpa3" translatable="false">"WPA3"</string>
     <!-- security end -->
 
     <!-- filter start -->

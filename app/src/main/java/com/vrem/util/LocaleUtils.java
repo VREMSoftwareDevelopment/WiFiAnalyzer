@@ -38,7 +38,6 @@ import androidx.annotation.NonNull;
 
 public class LocaleUtils {
     static final Locale SPANISH = new Locale("es");
-    static final Locale POLISH = new Locale("pl");
     static final Locale PORTUGUESE = new Locale("pt");
     static final Locale RUSSIAN = new Locale("ru");
     private static final String SEPARATOR = "_";
@@ -157,11 +156,11 @@ public class LocaleUtils {
                 SPANISH,
                 Locale.FRENCH,
                 Locale.ITALIAN,
-                POLISH,
                 PORTUGUESE,
                 RUSSIAN,
                 Locale.SIMPLIFIED_CHINESE,
-                Locale.TRADITIONAL_CHINESE, DEFAULT)));
+                Locale.TRADITIONAL_CHINESE,
+                DEFAULT)));
         }
 
         private static class CountryClosure implements Closure<Locale> {

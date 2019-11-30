@@ -29,6 +29,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -43,7 +45,7 @@ public class SettingsAndroidPTest {
 
     @Before
     public void setUp() {
-        fixture = new SettingsAndroidP(repository);
+        fixture = spy(new SettingsAndroidP(repository));
     }
 
     @After
@@ -67,7 +69,7 @@ public class SettingsAndroidPTest {
     @Test
     public void testGetScanSpeedWithWiFiThrottleDisabled() {
         // setup
-        fixture = withWiFiThrottle(true);
+        doReturn(true).when(fixture).isWiFiThrottleDisabled();
         int defaultValue = Settings.SCAN_SPEED_DEFAULT - 2;
         int speedValue = Settings.SCAN_SPEED_DEFAULT - 1;
         when(repository.getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)).thenReturn(defaultValue);
@@ -83,25 +85,17 @@ public class SettingsAndroidPTest {
     @Test
     public void testGetScanSpeedWithWiFiThrottleEnabled() {
         // setup
-        fixture = withWiFiThrottle(false);
+        doReturn(false).when(fixture).isWiFiThrottleDisabled();
         int defaultValue = Settings.SCAN_SPEED_DEFAULT - 2;
         int speedValue = Settings.SCAN_SPEED_DEFAULT - 1;
         when(repository.getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)).thenReturn(defaultValue);
         when(repository.getStringAsInteger(R.string.scan_speed_key, defaultValue)).thenReturn(speedValue);
         // execute
-        int actual = fixture.getScanSpeed();
+        int actual = this.fixture.getScanSpeed();
         // validate
         assertEquals(speedValue, actual);
         verify(repository).getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT);
         verify(repository).getStringAsInteger(R.string.scan_speed_key, defaultValue);
     }
 
-    private SettingsAndroidP withWiFiThrottle(boolean isWiFiThrottleDisabled) {
-        return new SettingsAndroidP(repository) {
-            @Override
-            public boolean isWiFiThrottleDisabled() {
-                return isWiFiThrottleDisabled;
-            }
-        };
-    }
 }

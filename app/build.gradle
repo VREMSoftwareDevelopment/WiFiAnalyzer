@@ -25,18 +25,20 @@ dependencies {
     // Compile Build Dependencies
     implementation fileTree(include: ["*.jar"], dir: "libs")
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.preference:preference:1.0.0'
+    implementation 'androidx.preference:preference:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.media:media:1.0.1'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.collection:collection:1.1.0'
+    implementation 'androidx.media:media:1.1.0'
     implementation 'org.apache.commons:commons-lang3:3.9'
     implementation 'org.apache.commons:commons-collections4:4.4'
     implementation 'com.jjoe64:graphview:4.2.2'
     // Unit Test Dependencies
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.powermock:powermock-module-junit4:2.0.2'
-    testImplementation 'org.powermock:powermock-api-mockito2:2.0.2'
+    testImplementation 'org.powermock:powermock-module-junit4:2.0.4'
+    testImplementation 'org.powermock:powermock-api-mockito2:2.0.4'
     testImplementation 'com.googlecode.junit-toolbox:junit-toolbox:2.4'
-    testImplementation 'org.robolectric:robolectric:4.3'
+    testImplementation 'org.robolectric:robolectric:4.3.1'
     testImplementation 'androidx.test.ext:junit:1.1.1'
     // Android Test Dependencies
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

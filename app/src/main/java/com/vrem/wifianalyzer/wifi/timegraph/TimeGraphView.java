@@ -28,7 +28,6 @@ import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewBuilder;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewNotifier;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper;
@@ -44,6 +43,8 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 
 class TimeGraphView implements GraphViewNotifier {
+    private static final int NUM_X_TIME = 21;
+
     private final WiFiBand wiFiBand;
     private DataManager dataManager;
     private GraphViewWrapper graphViewWrapper;
@@ -75,10 +76,6 @@ class TimeGraphView implements GraphViewNotifier {
         return graphViewWrapper.getGraphView();
     }
 
-    private int getNumX() {
-        return GraphConstants.NUM_X_TIME;
-    }
-
     void setGraphViewWrapper(@NonNull GraphViewWrapper graphViewWrapper) {
         this.graphViewWrapper = graphViewWrapper;
     }
@@ -90,7 +87,7 @@ class TimeGraphView implements GraphViewNotifier {
     @NonNull
     private GraphView makeGraphView(@NonNull MainContext mainContext, int graphMaximumY, @NonNull ThemeStyle themeStyle) {
         Resources resources = mainContext.getResources();
-        return new GraphViewBuilder(mainContext.getContext(), getNumX(), graphMaximumY, themeStyle)
+        return new GraphViewBuilder(mainContext.getContext(), NUM_X_TIME, graphMaximumY, themeStyle)
             .setLabelFormatter(new TimeAxisLabel())
             .setVerticalTitle(resources.getString(R.string.graph_axis_y))
             .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))

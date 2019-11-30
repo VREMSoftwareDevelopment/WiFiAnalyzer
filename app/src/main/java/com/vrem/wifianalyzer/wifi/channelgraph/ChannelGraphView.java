@@ -91,7 +91,7 @@ class ChannelGraphView implements GraphViewNotifier {
     private int getNumX() {
         int channelFirst = wiFiChannelPair.first.getChannel() - WiFiChannels.CHANNEL_OFFSET;
         int channelLast = wiFiChannelPair.second.getChannel() + WiFiChannels.CHANNEL_OFFSET;
-        return Math.min(GraphConstants.NUM_X_CHANNEL, channelLast - channelFirst + 1);
+        return channelLast - channelFirst + 1;
     }
 
     @NonNull

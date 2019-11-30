@@ -18,30 +18,35 @@
 
 package com.vrem.wifianalyzer.wifi.scanner;
 
-import android.content.Context;
+import android.annotation.TargetApi;
 import android.net.wifi.WifiManager;
-import android.os.Handler;
+import android.os.Build;
 
-import com.vrem.wifianalyzer.MainActivity;
-import com.vrem.wifianalyzer.settings.Settings;
+import com.vrem.util.BuildUtils;
+import com.vrem.wifianalyzer.ActivityUtils;
 
 import androidx.annotation.NonNull;
 
-public class ScannerServiceFactory {
-    private ScannerServiceFactory() {
-        throw new IllegalStateException("Factory class");
+class WiFiSwitch {
+    private final WifiManager wifiManager;
+
+    WiFiSwitch(@NonNull WifiManager wifiManager) {
+        this.wifiManager = wifiManager;
     }
 
-    @NonNull
-    public static ScannerService makeScannerService(
-        @NonNull MainActivity mainActivity,
-        @NonNull Handler handler,
-        @NonNull Settings settings) {
-
-        Context context = mainActivity.getApplicationContext();
-        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        WiFiManagerWrapper wiFiManagerWrapper = new WiFiManagerWrapper(wifiManager);
-
-        return new Scanner(wiFiManagerWrapper, handler, settings);
+    boolean setEnabled(boolean enabled) {
+        return BuildUtils.isMinVersionQ() ? enableWiFiAndroidQ() : enableWiFiLegacy(enabled);
     }
+
+    @TargetApi(Build.VERSION_CODES.Q)
+    private boolean enableWiFiAndroidQ() {
+        ActivityUtils.startWiFiSettings();
+        return true;
+    }
+
+    @SuppressWarnings("deprecation")
+    private boolean enableWiFiLegacy(boolean enabled) {
+        return wifiManager.setWifiEnabled(enabled);
+    }
+
 }
