@@ -40,19 +40,19 @@
 
     <string name="no_data">"Sin datos"</string>
     <string name="no_data_msg">"Por favor, visite frecuentemente preguntas sección en nuestro sitio web."</string>
-    <string name="permission_msg">"A partir de Android Marshmallow, se requieren permisos de ubicación para realizar un escaneo WiFi. Se le pedirá que habilite los servicios / permisos de ubicación. Como esta aplicación no requiere acceso a Internet, puede estar seguro de que esta aplicación no puede transmitir su ubicación!"</string>
+    <string name="permission_msg">"A partir de Android Marshmallow, se requieren permisos de ubicación para realizar un escaneo Wi-Fi. Se le pedirá que habilite los servicios / permisos de ubicación. Como esta aplicación no requiere acceso a Internet, puede estar seguro de que esta aplicación no puede transmitir su ubicación!"</string>
     <string name="location_msg">"Esta aplicación puede obtener tu ubicación a partir del GPS o de fuentes de ubicación de red como las antenas de telefonía móvil y las redes Wi-Fi. Estos servicios de ubicación deben estar activados y disponibles en tu teléfono para que la aplicación pueda usarlos. Esto puede aumentar el consumo de batería."</string>
     <string name="export_not_available">"Exportación no disponible"</string>
 
     <string name="channel_rating_best">"Mejores canales:"</string>
     <string name="channel_rating_best_none">"Ninguno"</string>
-    <string name="channel_rating_best_alternative">", tratar Banda WiFi alternativa"</string>
+    <string name="channel_rating_best_alternative">", tratar Banda Wi-Fi alternativa"</string>
     <string name="channel_rating_heading_rating">"Clasificación de Canal"</string>
     <string name="channel_rating_heading_number">"Número de Canal"</string>
     <string name="channel_rating_heading_count">"Cantidad de Puntos de Acceso"</string>
     <string name="channel_short_name">"CH"</string>
 
-    <string name="graph_channel_axis_x">"Canales WiFi"</string>
+    <string name="graph_channel_axis_x">"Canales Wi-Fi"</string>
     <string name="graph_time_axis_x">"Cantidad de Exploraciones"</string>
     <string name="graph_axis_y">"Intensidad de señal (dBm)"</string>
 
@@ -102,7 +102,7 @@
     <!-- about start -->
     <string name="about_license_title">"Licencia:"</string>
     <string name="about_description_title">"Descripción:"</string>
-    <string name="about_description_text">"Optimiza tu red WiFi, mediante la comprobación de estado de red, intensidad de señal e identificación de los canales llenos usando la aplicación de código abierto WiFiAnalyzer para Android"</string>
+    <string name="about_description_text">"Optimiza tu red Wi-Fi, mediante la comprobación de estado de red, intensidad de señal e identificación de los canales llenos usando la aplicación de código abierto WiFiAnalyzer para Android"</string>
     <string name="about_libraries_title">"Librerias usadas:"</string>
     <string name="about_contributor_title">"Colaboradores"</string>
     <string name="about_write_review">"Escribir una opinión"</string>
@@ -117,7 +117,7 @@
     <string name="filter_close">"Cerrar"</string>
     <string name="filter_reset">"Reset"</string>
     <string name="filter_apply">"Aplicar"</string>
-    <string name="filter_wifi_band_title">"Banda de WiFi"</string>
+    <string name="filter_wifi_band_title">"Banda de Wi-Fi"</string>
     <string name="filter_strength_title">"Intensidad de señal"</string>
     <string name="filter_security_title">"Seguridad"</string>
     <!-- filter end -->

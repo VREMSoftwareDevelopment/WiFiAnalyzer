@@ -40,19 +40,19 @@
 
     <string name="no_data">"Brak Danych"</string>
     <string name="no_data_msg">"Sprawdź FAQ na naszej stronie."</string>
-    <string name="permission_msg">"Od wersji Android Marshmallow, pozwolenia lokacyjne są wymagane do przeprowadzenia skanu WiFi. Użytkownik będzie poproszony o włączenie pozwolenia użycia usług lokacyjnych. Ponieważ aplikacja nie wymaga usług lokacyjnych, użytkownik może być pewien że aplikacja nie wykorzystuje ani nie przekazuje lokacji urządzenia!"</string>
+    <string name="permission_msg">"Od wersji Android Marshmallow, pozwolenia lokacyjne są wymagane do przeprowadzenia skanu Wi-Fi. Użytkownik będzie poproszony o włączenie pozwolenia użycia usług lokacyjnych. Ponieważ aplikacja nie wymaga usług lokacyjnych, użytkownik może być pewien że aplikacja nie wykorzystuje ani nie przekazuje lokacji urządzenia!"</string>
     <string name="location_msg">"Ta aplikacja może określać Twoją lokalizację na podstawie GPS-a lub sieciowych źródeł lokalizacji, takich jak stacje bazowe i sieci Wi-Fi. Te usługi lokalizacyjne muszą być włączone i dostępne na telefonie, by aplikacja mogła z nich korzystać. Może to zwiększyć zużycie baterii."</string>
     <string name="export_not_available">"Export nie dostępny"</string>
 
     <string name="channel_rating_best">"Najlepsze kanały:"</string>
     <string name="channel_rating_best_none">"Brak"</string>
-    <string name="channel_rating_best_alternative">", spróbuj alternatywne Pasmo WiFi"</string>
+    <string name="channel_rating_best_alternative">", spróbuj alternatywne Pasmo Wi-Fi"</string>
     <string name="channel_rating_heading_rating">"Ocena Kanału"</string>
     <string name="channel_rating_heading_number">"Numer Kanału"</string>
     <string name="channel_rating_heading_count">"Liczba Punktów Dostępu"</string>
     <string name="channel_short_name">"CH"</string>
 
-    <string name="graph_channel_axis_x">"Kanały WiFi"</string>
+    <string name="graph_channel_axis_x">"Kanały Wi-Fi"</string>
     <string name="graph_time_axis_x">"Liczba skanów"</string>
     <string name="graph_axis_y">"Siła Sygnału (dBm)"</string>
 
@@ -92,7 +92,7 @@
     <string name="theme_light">"Jasny"</string>
     <string name="theme_system">"System"</string>
 
-    <string name="wifi_off_on_exit_title">"Wyłączanie WiFi przy wyjściu"</string>
+    <string name="wifi_off_on_exit_title">"Wyłączanie Wi-Fi przy wyjściu"</string>
 
     <string name="keep_screen_on_title">"Utrzymuj ekran włączony"</string>
 
@@ -102,7 +102,7 @@
     <!-- about start -->
     <string name="about_license_title">"Licencja:"</string>
     <string name="about_description_title">"Opis:"</string>
-    <string name="about_description_text">"Zoptymalizuj twoją sieć WiFi, poprzez sprawdzanie statusu sieci WiFi, siłę sygnały i indentyfikowanie zatłoczonych kanałów używając otwartoźródłowej aplikacji WiFiAnalyzer dla Androida"</string>
+    <string name="about_description_text">"Zoptymalizuj twoją sieć Wi-Fi, poprzez sprawdzanie statusu sieci Wi-Fi, siłę sygnały i indentyfikowanie zatłoczonych kanałów używając otwartoźródłowej aplikacji WiFiAnalyzer dla Androida"</string>
     <string name="about_libraries_title">"Użyte Bibloteki:"</string>
     <string name="about_contributor_title">"Współtwórcy"</string>
     <string name="about_write_review">"Napisz Recenzję"</string>
@@ -117,7 +117,7 @@
     <string name="filter_close">"Zamknij"</string>
     <string name="filter_reset">"Resetuj"</string>
     <string name="filter_apply">"Zatwierdź"</string>
-    <string name="filter_wifi_band_title">"Pasmo WiFi"</string>
+    <string name="filter_wifi_band_title">"Pasmo Wi-Fi"</string>
     <string name="filter_strength_title">"Siła Sygnału"</string>
     <string name="filter_security_title">"Bezpieczeństwo"</string>
     <!-- filter end -->
