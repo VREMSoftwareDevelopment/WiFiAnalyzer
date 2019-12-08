@@ -80,25 +80,12 @@ public enum Security {
 
     @NonNull
     public static Security findOne(String capabilities) {
-        Security result = IterableUtils.find(EnumUtils.values(Security.class), new SecurityPredicate(findAll(capabilities)));
-        return result == null ? Security.NONE : result;
+        Set<Security> results = findAll(capabilities);
+        return results.isEmpty() ? Security.NONE : results.iterator().next();
     }
 
     public int getImageResource() {
         return imageResource;
-    }
-
-    private static class SecurityPredicate implements Predicate<Security> {
-        private final Set<Security> securities;
-
-        private SecurityPredicate(@NonNull Set<Security> securities) {
-            this.securities = securities;
-        }
-
-        @Override
-        public boolean evaluate(Security security) {
-            return securities.contains(security);
-        }
     }
 
     private static class SecurityAdditionalPredicate implements Predicate<Security> {

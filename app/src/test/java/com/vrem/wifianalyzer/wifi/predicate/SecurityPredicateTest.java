@@ -34,22 +34,32 @@ import static org.junit.Assert.assertTrue;
 public class SecurityPredicateTest {
 
     @Test
-    public void testSecurityPredicateWithFoundValue() {
+    public void testSecurityPredicateWithFoundWPAValue() {
         // setup
-        WiFiDetail wiFiDetail = makeWiFiDetail("wpa");
+        WiFiDetail wiFiDetail = makeWiFiDetail();
         SecurityPredicate fixture = new SecurityPredicate(Security.WPA);
         // execute
         boolean actual = fixture.evaluate(wiFiDetail);
         // validate
         assertTrue(actual);
-        assertFalse(new SecurityPredicate(Security.WEP).evaluate(wiFiDetail));
+    }
+
+    @Test
+    public void testSecurityPredicateWithFoundWEPValue() {
+        // setup
+        WiFiDetail wiFiDetail = makeWiFiDetail();
+        SecurityPredicate fixture = new SecurityPredicate(Security.WEP);
+        // execute
+        boolean actual = fixture.evaluate(wiFiDetail);
+        // validate
+        assertTrue(actual);
     }
 
     @Test
     public void testSecurityPredicateWithNotFoundValue() {
         // setup
-        WiFiDetail wiFiDetail = makeWiFiDetail("wep");
-        SecurityPredicate fixture = new SecurityPredicate(Security.WPA);
+        WiFiDetail wiFiDetail = makeWiFiDetail();
+        SecurityPredicate fixture = new SecurityPredicate(Security.WPA2);
         // execute
         boolean actual = fixture.evaluate(wiFiDetail);
         // validate
@@ -57,9 +67,9 @@ public class SecurityPredicateTest {
     }
 
     @NonNull
-    private WiFiDetail makeWiFiDetail(String security) {
+    private WiFiDetail makeWiFiDetail() {
         WiFiSignal wiFiSignal = new WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1, true);
-        return new WiFiDetail("ssid", "bssid", security, wiFiSignal, WiFiAdditional.EMPTY);
+        return new WiFiDetail("ssid", "bssid", "wep-wpa", wiFiSignal, WiFiAdditional.EMPTY);
     }
 
 }
