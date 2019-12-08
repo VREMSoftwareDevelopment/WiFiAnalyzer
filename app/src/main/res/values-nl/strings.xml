@@ -40,7 +40,7 @@
     <string name="no_data">"Geen gegevens"</string>
     <string name="no_data_msg">"Bezoek aub het veelgestelde vragen gedeelte op onze website."</string>
     <string name="permission_msg">"Vanaf Android Marshmallow zijn locatiepermissies benodigd voor een Wi-Fi scan. Er zal aan u worden gevraagd om locatiediensten/-permissies in te schakelen. Aangezien deze app geen internettoegang vereist kunt u er zeker van zijn dat deze app uw locatie niet kan verzenden!"</string>
-    <string name="location_msg">"Deze app kan je locatie ophalen op basis van gps- of netwerklocatiebronnen zoals zendmasten en wifi-netwerken. De app kan alleen gebruikmaken van deze locatieservices als ze zijn ingeschakeld en beschikbaar zijn op je telefoon. Het batterijverbruik kan hierdoor toenemen."</string>
+    <string name="location_msg">"Deze app kan je locatie ophalen op basis van gps- of netwerklocatiebronnen zoals zendmasten en Wi-Fi netwerken. De app kan alleen gebruikmaken van deze locatieservices als ze zijn ingeschakeld en beschikbaar zijn op je telefoon. Het batterijverbruik kan hierdoor toenemen."</string>
     <string name="export_not_available">"Export niet beschikbaar"</string>
 
     <string name="channel_rating_best">"Beste kanalen:"</string>
