@@ -23,14 +23,14 @@
     <string name="navigation_drawer_open">"Apri pannello laterale"</string>
     <string name="navigation_drawer_close">"Chiudi pannello laterale"</string>
     <string name="scanner_message">"Ricerca in corso &#8230;"</string>
-    <string name="scanner_pause">"Pristabdyti"</string>
-    <string name="scanner_play">"Leisti"</string>
+    <string name="scanner_pause">"Pausa"</string>
+    <string name="scanner_play">"Avvia"</string>
 
     <!-- action start -->
     <string name="action_access_points">"Access Points"</string>
-    <string name="action_channel_rating">"Qualità canali"</string>
+    <string name="action_channel_rating">"Qualità Canali"</string>
     <string name="action_channel_graph">"Grafico Canali"</string>
-    <string name="action_time_graph">"Grafico Temporale"</string>
+    <string name="action_time_graph">"Grafico Tempo"</string>
     <string name="action_export">"Esporta"</string>
     <string name="action_channel_available">"Canali Disponibili"</string>
     <string name="action_vendors">"Fornitori"</string>
@@ -39,9 +39,9 @@
     <!-- action end -->
 
     <string name="no_data">"Nessun Dato"</string>
-    <string name="no_data_msg">"Visiti le sezioni di domande frequenti sul nostro sito web."</string>
-    <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a Wi-Fi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
-    <string name="location_msg">"Ši programa gali gauti jūsų vietos informaciją naudodamasi tinklo šaltinių, pvz., mobiliojo ryšio bokštų ir „Wi-Fi“ tinklų, duomenimis. Šios vietovės paslaugos turi būti įjungtos ir pasiekiamos telefone, kad programa galėtų jas naudoti. Tai gali padidinti akumuliatoriaus energijos naudojimą."</string>
+    <string name="no_data_msg">"Visita la sezione di domande frequenti sul nostro sito web."</string>
+    <string name="permission_msg">"Da Android Marshmallow, sono necessari i permessi di geolocalizzazione per effettuare scansioni delle reti Wi-Fi. Ti sarà chiesto di abilitare questo permesso. Dal momento che quest\'app non richiede l\'accesso ad internet, puoi essere sicuro del fatto che non può trasmettere la tua posizione!"</string>
+    <string name="location_msg">"L\'app può ottenere la tua posizione dal GPS oppure dalla rete cellulare. I servizi di localizzazione devono essere abilitati e disponibili sul tuo dispositivo per permettere all\'app di funzionare. Il consumo di batteria potrebbe aumentare."</string>
     <string name="export_not_available">"Impossibile esportare"</string>
 
     <string name="channel_rating_best">"Canali Migliori:"</string>
@@ -91,7 +91,7 @@
     <string name="theme_light">"Chiaro"</string>
     <string name="theme_system">"Sistema"</string>
 
-    <string name="wifi_off_on_exit_title">"Wi-Fi fuori all\'uscita"</string>
+    <string name="wifi_off_on_exit_title">"Spegni Wi-Fi all\'uscita"</string>
 
     <string name="keep_screen_on_title">"Mantieni schermo acceso"</string>
 
