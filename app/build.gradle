@@ -34,7 +34,7 @@ dependencies {
     implementation 'org.apache.commons:commons-collections4:4.4'
     implementation 'com.jjoe64:graphview:4.2.2'
     // Unit Test Dependencies
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     testImplementation 'org.powermock:powermock-module-junit4:2.0.4'
     testImplementation 'org.powermock:powermock-api-mockito2:2.0.4'
     testImplementation 'com.googlecode.junit-toolbox:junit-toolbox:2.4'
