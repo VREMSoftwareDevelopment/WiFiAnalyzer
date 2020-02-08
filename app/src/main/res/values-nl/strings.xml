@@ -39,24 +39,25 @@
 
     <string name="no_data">"Geen gegevens"</string>
     <string name="no_data_msg">"Bezoek de rubriek veelgestelde vragen op onze website."</string>
-    <string name="permission_msg">"Vanaf Android Marshmallow zijn locatiepermissies benodigd voor een Wi-Fi scan. Er zal je worden gevraagd om locatie-diensten/-permissies in te schakelen. Aangezien deze app geen internettoegang vereist kun je er zeker van zijn dat deze app je locatie niet kan verzenden!"</string>
+    <string name="permission_msg">"Vanaf Android Marshmallow zijn locatiepermissies benodigd voor een wifi-scan. Er zal je worden gevraagd om locatie-diensten/-permissies in te schakelen. Aangezien deze app geen internettoegang vereist kun je er zeker van zijn dat deze app je locatie niet kan verzenden!"</string>
     <string name="location_msg">"Deze app kan je exacte locatie ophalen wanneer de app op de voorgrond wordt uitgevoerd. De app kan alleen gebruikmaken van deze locatieservices als ze zijn ingeschakeld en beschikbaar zijn op je telefoon. Hierdoor kan het batterijverbruik toenemen."</string>
     <string name="export_not_available">"Export niet beschikbaar"</string>
+
     <string name="channel_rating_best">"Beste kanalen:"</string>
     <string name="channel_rating_best_none">"Geen"</string>
-    <string name="channel_rating_best_alternative">", probeer alternatieve Wi-Fi band"</string>
+    <string name="channel_rating_best_alternative">", probeer alternatieve wifi-band"</string>
     <string name="channel_rating_heading_rating">"Kanaalbeoordeling"</string>
     <string name="channel_rating_heading_number">"Kanaalnummer"</string>
     <string name="channel_rating_heading_count">"Aantal toegangspunten"</string>
     <string name="channel_short_name">"Kan."</string>
 
-    <string name="graph_channel_axis_x">"Wi-Fi kanalen"</string>
+    <string name="graph_channel_axis_x">"Wifi-kanalen"</string>
     <string name="graph_time_axis_x">"Aantal scans"</string>
     <string name="graph_axis_y">"Signaalsterkte (dBm)"</string>
 
     <!-- settings start -->
     <string name="country_code_title">"Land"</string>
-    <string name="scan_speed_title">"Scan interval"</string>
+    <string name="scan_speed_title">"Scan-interval"</string>
     <string name="scan_speed_summary">"%s seconden tussen elke scan"</string>
     <string name="sort_by_title">"Sorteer toegangspunten op"</string>
     <string name="sort_by_signal_strength">"Signaalsterkte"</string>
@@ -88,7 +89,7 @@
     <string name="theme_light">"Licht"</string>
     <string name="theme_system">"Systeem"</string>
 
-    <string name="wifi_off_on_exit_title">"Wi-Fi uitsch. bij afsluiten"</string>
+    <string name="wifi_off_on_exit_title">"Wifi uitsch. bij afsluiten"</string>
 
     <string name="keep_screen_on_title">"Scherm aan houden"</string>
 
@@ -98,7 +99,7 @@
     <!-- about start -->
     <string name="about_license_title">"Licentie:"</string>
     <string name="about_description_title">"Beschrijving:"</string>
-    <string name="about_description_text">"Optimaliseer uw Wi-Fi netwerk door het controleren van de Wi-Fi netwerkstatus en de signaalsterkte en door het indentificeren van drukke kanalen met gebruik van een open-source WiFiAnalyzer voor Android."</string>
+    <string name="about_description_text">"Optimaliseer uw wifi-netwerk door het controleren van de wifi-netwerkstatus en de signaalsterkte en door het indentificeren van drukke kanalen met gebruik van een open-source wifi-analyzer voor Android."</string>
     <string name="about_libraries_title">"Gebruikte bibiliotheken:"</string>
     <string name="about_contributor_title">"Bijdragers"</string>
     <string name="about_write_review">"Schrijf een beoordeling"</string>
@@ -113,7 +114,7 @@
     <string name="filter_close">"Sluiten"</string>
     <string name="filter_reset">"Reset"</string>
     <string name="filter_apply">"Toepassen"</string>
-    <string name="filter_wifi_band_title">"Wi-Fi band"</string>
+    <string name="filter_wifi_band_title">"Wifi-band"</string>
     <string name="filter_strength_title">"Signaalsterkte"</string>
     <string name="filter_security_title">"Beveiliging"</string>
     <!-- filter end -->
