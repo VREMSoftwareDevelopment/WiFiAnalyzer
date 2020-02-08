@@ -41,7 +41,7 @@
     <string name="no_data">"Nessun Dato"</string>
     <string name="no_data_msg">"Visita la sezione di domande frequenti sul nostro sito web."</string>
     <string name="permission_msg">"Da Android Marshmallow, sono necessari i permessi di geolocalizzazione per effettuare scansioni delle reti Wi-Fi. Ti sarà chiesto di abilitare questo permesso. Dal momento che quest\'app non richiede l\'accesso ad internet, puoi essere sicuro del fatto che non può trasmettere la tua posizione!"</string>
-    <string name="location_msg">"Questa app può accedere alla tua posizione tramite fonti di rete come antenne di telefonia mobile e reti Wi-Fi. Tali servizi di geolocalizzazione devono essere attivati e disponibili sul telefono per consentire all\'app di utilizzarli. Ciò può aumentare il consumo di batteria."</string>
+    <string name="location_msg">"Questa app può recuperare la tua posizione esatta solo quando è in primo piano. Questi servizi di geolocalizzazione devono essere attivi e disponibili sul telefono affinché l\'app possa usarli. Potrebbe aumentare il consumo della batteria."</string>
     <string name="export_not_available">"Impossibile esportare"</string>
 
     <string name="channel_rating_best">"Canali Migliori:"</string>
