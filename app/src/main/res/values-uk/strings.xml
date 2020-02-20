@@ -39,8 +39,8 @@
 
     <string name="no_data">"Немає даних"</string>
     <string name="no_data_msg">"Будь ласка, відвідайте поширені запитання на нашому сайті."</string>
-    <string name="permission_msg">"Починаючи з Android Marshmallow, дозволи на розміщення необхідні для виконання сканування WiFi. Вам буде запропоновано увімкнути служби визначення місця розташування / дозволу. Оскільки ця програма не вимагає доступу в Інтернет, ви можете бути впевнені, що цей додаток не зможе передати ваше місце розташування!"</string>
-    <string name="location_msg">"Цей додаток може отримувати дані про ваше місцезнаходження на основі даних GPS або джерел мережі, як-от антен мобільного зв’язку та мереж Wi-Fi. Щоб додаток міг користуватися цими службами локації, вони мають бути доступними й увімкненими на вашому телефоні. Це може пришвидшити розряджання акумулятора."</string>
+    <string name="permission_msg">"Починаючи з Android Marshmallow, дозволи на розміщення необхідні для виконання сканування Wi-Fi. Вам буде запропоновано увімкнути служби визначення місця розташування / дозволу. Оскільки ця програма не вимагає доступу в Інтернет, ви можете бути впевнені, що цей додаток не зможе передати ваше місце розташування!"</string>
+    <string name="location_msg">"Цей додаток може отримувати дані про ваше точне місцезнаходження лише в активному режимі. Щоб додаток користувався службами локації, вони мають бути наявні й увімкнені на вашому телефоні. Через це може швидше розряджатись акумулятор."</string>
     <string name="export_not_available">"Експорт не доступний"</string>
 
     <string name="channel_rating_best">"Кращі канали:"</string>
@@ -51,7 +51,7 @@
     <string name="channel_rating_heading_count">"Число точок доступу"</string>
     <string name="channel_short_name">"CH"</string>
 
-    <string name="graph_channel_axis_x">"WiFi канали"</string>
+    <string name="graph_channel_axis_x">"Wi-Fi канали"</string>
     <string name="graph_time_axis_x">"Число сканувань"</string>
     <string name="graph_axis_y">"Рівень сигналу (dBm)"</string>
 
@@ -91,7 +91,7 @@
     <string name="theme_light">"Світла"</string>
     <string name="theme_system">"Система"</string>
 
-    <string name="wifi_off_on_exit_title">"WiFi вимкнений при виході"</string>
+    <string name="wifi_off_on_exit_title">"Wi-Fi вимкнений при виході"</string>
 
     <string name="keep_screen_on_title">"Екран завжди увімкнено"</string>
 
@@ -101,7 +101,7 @@
     <!-- about start -->
     <string name="about_license_title">"Ліцензія:"</string>
     <string name="about_description_title">"Опис:"</string>
-    <string name="about_description_text">"Оптимізація мережі WiFi шляхом перевірки стану Wi-Fi, рівня сигналу і визначення переповнених каналів використовуючи WiFiAnalyzer для Android"</string>
+    <string name="about_description_text">"Оптимізація мережі Wi-Fi шляхом перевірки стану Wi-Fi, рівня сигналу і визначення переповнених каналів використовуючи WiFiAnalyzer для Android"</string>
     <string name="about_libraries_title">"Використані бібліотеки:"</string>
     <string name="about_contributor_title">"Автори"</string>
     <string name="about_write_review">"Написати відгук"</string>
@@ -116,7 +116,7 @@
     <string name="filter_close">"Закрити"</string>
     <string name="filter_reset">"Скидання"</string>
     <string name="filter_apply">"Застосувати"</string>
-    <string name="filter_wifi_band_title">"WiFi діапазон"</string>
+    <string name="filter_wifi_band_title">"Wi-Fi діапазон"</string>
     <string name="filter_strength_title">"Рівень сигналу"</string>
     <string name="filter_security_title">"Безпека"</string>
     <!-- filter end -->

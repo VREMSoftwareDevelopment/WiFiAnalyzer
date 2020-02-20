@@ -45,7 +45,7 @@ public class ChannelRatingFragment extends Fragment implements OnRefreshListener
 
         swipeRefreshLayout = view.findViewById(R.id.channelRatingRefresh);
         swipeRefreshLayout.setOnRefreshListener(this);
-        if (BuildUtils.isMinVersionP()) {
+        if (BuildUtils.isVersionP()) {
             swipeRefreshLayout.setRefreshing(false);
             swipeRefreshLayout.setEnabled(false);
         }

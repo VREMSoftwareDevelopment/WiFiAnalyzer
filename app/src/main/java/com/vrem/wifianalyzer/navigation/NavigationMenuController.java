@@ -20,11 +20,7 @@ package com.vrem.wifianalyzer.navigation;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.vrem.util.EnumUtils;
@@ -44,22 +40,8 @@ public class NavigationMenuController {
         navigationView = navigationMenuControl.findViewById(R.id.nav_drawer);
         bottomNavigationView = navigationMenuControl.findViewById(R.id.nav_bottom);
         populateNavigationMenu();
-        removePadding();
         navigationView.setNavigationItemSelectedListener(navigationMenuControl);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationMenuControl);
-
-    }
-
-    private void removePadding() {
-        // https://github.com/material-components/material-components-android/issues/139
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
-        for (int i = 0; i < menuView.getChildCount(); i++) {
-            BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
-            View view = item.findViewById(R.id.largeLabel);
-            if (view instanceof TextView) {
-                view.setPadding(0, 0, 0, 0);
-            }
-        }
     }
 
     private void populateNavigationMenu() {

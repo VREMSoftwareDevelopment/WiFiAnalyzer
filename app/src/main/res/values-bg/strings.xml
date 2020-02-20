@@ -42,19 +42,19 @@
 
     <string name="no_data">"Няма данни"</string>
     <string name="no_data_msg">"Моля, посетете секцията често задавани въпроси на нашия уебсайт."</string>
-    <string name="permission_msg">"От Android Marshmallow, за извършване на WiFi сканиране са необходими разрешения за местоположение. Ще бъдете подканени да активирате услугите / разрешенията за местоположение. Тъй като това приложение не изисква достъп до интернет, можете да сте сигурни, че това приложение не може да предаде местоположението ви!"</string>
-    <string name="location_msg">"Приложението може да получава данни за местоположението ви въз основа на GPS или съответните мрежови източници, като клетъчни кули и Wi-Fi. Тези услуги за местоположение трябва да са включени и налице на телефона ви, за да могат да се използват от приложението. Това може да увеличи потреблението на батерията."</string>
+    <string name="permission_msg">"От Android Marshmallow, за извършване на Wi-Fi сканиране са необходими разрешения за местоположение. Ще бъдете подканени да активирате услугите / разрешенията за местоположение. Тъй като това приложение не изисква достъп до интернет, можете да сте сигурни, че това приложение не може да предаде местоположението ви!"</string>
+    <string name="location_msg">"Приложението може да получава данни за точното ви местоположение само когато работи на преден план. Тези услуги за местоположение трябва да са включени и налице на телефона ви, за да могат да се използват от приложението. Това може да увеличи потреблението на батерията."</string>
     <string name="export_not_available">"Експортирането не е налично"</string>
 
     <string name="channel_rating_best">"Най-добри канали:"</string>
     <string name="channel_rating_best_none">"Няма"</string>
-    <string name="channel_rating_best_alternative">", пробвай алтернативен WiFi диапазон"</string>
+    <string name="channel_rating_best_alternative">", пробвай алтернативен Wi-Fi диапазон"</string>
     <string name="channel_rating_heading_rating">"Оценка на канала"</string>
     <string name="channel_rating_heading_number">"Номер на канала"</string>
     <string name="channel_rating_heading_count">"Брой точки за достъп"</string>
     <string name="channel_short_name">"CH"</string>
 
-    <string name="graph_channel_axis_x">"WiFi канали"</string>
+    <string name="graph_channel_axis_x">"Wi-Fi канали"</string>
     <string name="graph_time_axis_x">"Брой сканирания"</string>
     <string name="graph_axis_y">"Сила на сигнала (dBm)"</string>
 
@@ -96,7 +96,7 @@
     <string name="theme_light">"Светла"</string>
     <string name="theme_system">"Системна"</string>
 
-    <string name="wifi_off_on_exit_title">"Изключи WiFi при изход"</string>
+    <string name="wifi_off_on_exit_title">"Изключи Wi-Fi при изход"</string>
 
     <string name="keep_screen_on_title">"Дръж екрана включен"</string>
 
@@ -106,7 +106,7 @@
     <!-- about start -->
     <string name="about_license_title">"Лиценз:"</string>
     <string name="about_description_title">"Описание:"</string>
-    <string name="about_description_text">"Оптимизирайте своята WiFi мрежа, като проверите състоянието на WiFi мрежата, силата на сигнала и идентифицирате пренаселените канали, използвайки WiFiAnalyzer с отворен код за Android"</string>
+    <string name="about_description_text">"Оптимизирайте своята Wi-Fi мрежа, като проверите състоянието на Wi-Fi мрежата, силата на сигнала и идентифицирате пренаселените канали, използвайки WiFiAnalyzer с отворен код за Android"</string>
     <string name="about_libraries_title">"Използвани библиоеки:"</string>
     <string name="about_contributor_title">"Сътрудници"</string>
     <string name="about_write_review">"Напиши отзив"</string>
@@ -121,7 +121,7 @@
     <string name="filter_close">"Затвори"</string>
     <string name="filter_reset">"Нулирай"</string>
     <string name="filter_apply">"Приложи"</string>
-    <string name="filter_wifi_band_title">"WiFi диапазон"</string>
+    <string name="filter_wifi_band_title">"Wi-Fi диапазон"</string>
     <string name="filter_strength_title">"Сила на сигнала"</string>
     <string name="filter_security_title">"Защита"</string>
     <!-- filter end -->

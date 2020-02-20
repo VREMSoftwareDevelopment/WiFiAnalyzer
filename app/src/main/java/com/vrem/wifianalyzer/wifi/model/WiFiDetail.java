@@ -26,6 +26,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 
@@ -61,6 +62,11 @@ public class WiFiDetail implements Comparable<WiFiDetail> {
     @NonNull
     public Security getSecurity() {
         return Security.findOne(capabilities);
+    }
+
+    @NonNull
+    public Set<Security> getSecurities() {
+        return Security.findAll(capabilities);
     }
 
     @NonNull

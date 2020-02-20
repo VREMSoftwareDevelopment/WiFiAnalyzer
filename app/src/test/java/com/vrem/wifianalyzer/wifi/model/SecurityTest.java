@@ -71,12 +71,12 @@ public class SecurityTest {
     @Test
     public void testFindOne() {
         assertEquals(Security.NONE, Security.findOne("xyz"));
-        assertEquals(Security.NONE, Security.findOne(Security.NONE.name()));
-        assertEquals(Security.WPS, Security.findOne(Security.WPS.name()));
-        assertEquals(Security.WEP, Security.findOne(Security.WEP.name()));
-        assertEquals(Security.WPA, Security.findOne(Security.WPA.name()));
-        assertEquals(Security.WPA2, Security.findOne(Security.WPA2.name()));
-        assertEquals(Security.WPA3, Security.findOne(Security.WPA3.name()));
+        assertEquals(Security.NONE, Security.findOne("WPA3-WPA2-WPA-WEP-WPS-NONE"));
+        assertEquals(Security.WPS, Security.findOne("WPA3-WPA2-WPA-WEP-WPS"));
+        assertEquals(Security.WEP, Security.findOne("WPA3-WPA2-WPA-WEP"));
+        assertEquals(Security.WPA, Security.findOne("WPA3-WPA2-WPA"));
+        assertEquals(Security.WPA2, Security.findOne("WPA3-WPA2"));
+        assertEquals(Security.WPA3, Security.findOne("WPA3"));
         assertEquals(Security.WPA3, Security.findOne("RSN"));
     }
 

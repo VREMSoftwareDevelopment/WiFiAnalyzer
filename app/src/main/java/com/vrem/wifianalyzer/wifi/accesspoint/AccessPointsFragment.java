@@ -44,7 +44,7 @@ public class AccessPointsFragment extends Fragment implements OnRefreshListener 
 
         swipeRefreshLayout = view.findViewById(R.id.accessPointsRefresh);
         swipeRefreshLayout.setOnRefreshListener(this);
-        if (BuildUtils.isMinVersionP()) {
+        if (BuildUtils.isVersionP()) {
             swipeRefreshLayout.setRefreshing(false);
             swipeRefreshLayout.setEnabled(false);
         }
