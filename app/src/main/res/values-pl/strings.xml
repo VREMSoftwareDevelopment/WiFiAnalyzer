@@ -40,13 +40,13 @@
 
     <string name="no_data">"Brak danych"</string>
     <string name="no_data_msg">"Sprawdź FAQ na naszej stronie."</string>
-    <string name="permission_msg">"Od wersji Android Marshmallow, uprawnienia lokalizacyjne są wymagane do przeprowadzenia skanu sieci WiFi. Użytkownik będzie poproszony o włączenie uprawnienia do użycia usług lokalizacyjnych. Ponieważ aplikacja nie wymaga usług lokalizacyjnych, użytkownik może być pewien że aplikacja nie wykorzystuje ani nie przekazuje lokacji urządzenia!"</string>
+    <string name="permission_msg">"Od wersji Android Marshmallow, uprawnienia lokalizacyjne są wymagane do przeprowadzenia skanu sieci Wi-Fi. Użytkownik będzie poproszony o włączenie uprawnienia do użycia usług lokalizacyjnych. Ponieważ aplikacja nie wymaga usług lokalizacyjnych, użytkownik może być pewien że aplikacja nie wykorzystuje ani nie przekazuje lokacji urządzenia!"</string>
     <string name="location_msg">"Ta aplikacja może określić Twoją dokładną lokalizację tylko wtedy, gdy działa na pierwszym planie. Te usługi lokalizacyjne muszą być włączone i dostępne na telefonie, by aplikacja mogła z nich korzystać. Może to zwiększyć zużycie baterii."</string>
     <string name="export_not_available">"Eksport niedostępny"</string>
 
     <string name="channel_rating_best">"Najlepsze kanały:"</string>
     <string name="channel_rating_best_none">"Brak"</string>
-    <string name="channel_rating_best_alternative">", spróbuj alternatywne pasmo WiFi"</string>
+    <string name="channel_rating_best_alternative">", spróbuj alternatywne pasmo Wi-Fi"</string>
     <string name="channel_rating_heading_rating">"Ocena kanału"</string>
     <string name="channel_rating_heading_number">"Numer kanału"</string>
     <string name="channel_rating_heading_count">"Liczba punktów dostępu"</string>
@@ -102,7 +102,7 @@
     <!-- about start -->
     <string name="about_license_title">"Licencja:"</string>
     <string name="about_description_title">"Opis:"</string>
-    <string name="about_description_text">"Zoptymalizuj twoją sieć WiFi, poprzez sprawdzanie statusu sieci WiFi, siłę sygnału i identyfikowanie zatłoczonych kanałów używając otwartej aplikacji WiFiAnalyzer dla Androida"</string>
+    <string name="about_description_text">"Zoptymalizuj twoją sieć Wi-Fi, poprzez sprawdzanie statusu sieci Wi-Fi, siłę sygnału i identyfikowanie zatłoczonych kanałów używając otwartej aplikacji WiFiAnalyzer dla Androida"</string>
     <string name="about_libraries_title">"Użyte biblioteki:"</string>
     <string name="about_contributor_title">"Współtwórcy"</string>
     <string name="about_write_review">"Napisz recenzję"</string>
@@ -117,7 +117,7 @@
     <string name="filter_close">"Zamknij"</string>
     <string name="filter_reset">"Resetuj"</string>
     <string name="filter_apply">"Zastosuj"</string>
-    <string name="filter_wifi_band_title">"Pasmo WiFi"</string>
+    <string name="filter_wifi_band_title">"Pasmo Wi-Fi"</string>
     <string name="filter_strength_title">"Siła sygnału"</string>
     <string name="filter_security_title">"Bezpieczeństwo"</string>
     <!-- filter end -->
