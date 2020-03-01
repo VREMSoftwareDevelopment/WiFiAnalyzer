@@ -22,12 +22,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
 import com.vrem.util.TextUtils;
 import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.databinding.VendorContentBinding;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,15 +36,14 @@ public class VendorFragment extends ListFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.vendor_content, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        VendorContentBinding binding = VendorContentBinding.inflate(inflater, container, false);
         VendorAdapter vendorAdapter = new VendorAdapter(getActivity(), MainContext.INSTANCE.getVendorService());
         setListAdapter(vendorAdapter);
 
-        SearchView searchView = view.findViewById(R.id.vendorSearchText);
-        searchView.setOnQueryTextListener(new Listener(vendorAdapter));
+        binding.vendorSearchText.setOnQueryTextListener(new Listener(vendorAdapter));
 
-        return view;
+        return binding.getRoot();
     }
 
     static class Listener implements OnQueryTextListener {

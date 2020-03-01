@@ -45,13 +45,14 @@ import java.util.Date;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class AboutFragment extends Fragment {
     private static final String YEAR_FORMAT = "yyyy";
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         AboutContentBinding binding = AboutContentBinding.inflate(inflater, container, false);
         setTexts(binding);
         setOnClicks(binding);

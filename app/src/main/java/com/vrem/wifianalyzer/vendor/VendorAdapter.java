@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.databinding.VendorDetailsBinding;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 
 import androidx.annotation.NonNull;
@@ -43,18 +44,28 @@ class VendorAdapter extends ArrayAdapter<String> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
-            LayoutInflater layoutInflater = MainContext.INSTANCE.getLayoutInflater();
-            view = layoutInflater.inflate(R.layout.vendor_details, parent, false);
-        }
+    public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
+        return view == null ? createView(position, parent) : updateView(position, view);
+    }
+
+    private View updateView(int position, @NonNull View view) {
         String vendorName = getItem(position);
-        view.<TextView>findViewById(R.id.vendor_name)
-            .setText(vendorName);
-        view.<TextView>findViewById(R.id.vendor_macs)
-            .setText(TextUtils.join(", ", vendorService.findMacAddresses(vendorName)));
+        view.<TextView>findViewById(R.id.vendor_name).setText(vendorName);
+        view.<TextView>findViewById(R.id.vendor_macs).setText(getMacs(vendorName));
         return view;
+    }
+
+    private View createView(int position, @NonNull ViewGroup parent) {
+        LayoutInflater layoutInflater = MainContext.INSTANCE.getLayoutInflater();
+        VendorDetailsBinding binding = VendorDetailsBinding.inflate(layoutInflater, parent, false);
+        String vendorName = getItem(position);
+        binding.vendorName.setText(vendorName);
+        binding.vendorMacs.setText(getMacs(vendorName));
+        return binding.getRoot();
+    }
+
+    private String getMacs(String vendorName) {
+        return TextUtils.join(", ", vendorService.findMacAddresses(vendorName));
     }
 
     void update(@NonNull String filter) {
