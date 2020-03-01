@@ -38,6 +38,7 @@ import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.databinding.AboutContentBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -51,36 +52,41 @@ public class AboutFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.about_content, container, false);
-        setCopyright(view);
-        setExtraInformation(view);
-        setOnClicks(view);
-        return view;
+        AboutContentBinding binding = AboutContentBinding.inflate(inflater, container, false);
+        setTexts(binding);
+        setOnClicks(binding);
+        return binding.getRoot();
     }
 
-    private void setOnClicks(View view) {
+    private void setTexts(@NonNull AboutContentBinding binding) {
+        binding.aboutCopyright.setText(copyright());
+        binding.aboutVersionInfo.setText(version());
+        binding.aboutPackageName.setText(BuildConfig.APPLICATION_ID);
+    }
+
+    private void setOnClicks(@NonNull AboutContentBinding binding) {
         AlertDialogClickListener gpl = new AlertDialogClickListener(getActivity(), R.string.gpl, R.raw.gpl);
-        view.findViewById(R.id.license).setOnClickListener(gpl);
+        binding.license.setOnClickListener(gpl);
 
         AlertDialogClickListener contributors = new AlertDialogClickListener(getActivity(), R.string.about_contributor_title, R.raw.contributors, false);
-        view.findViewById(R.id.contributors).setOnClickListener(contributors);
+        binding.contributors.setOnClickListener(contributors);
 
         AlertDialogClickListener al = new AlertDialogClickListener(getActivity(), R.string.al, R.raw.al);
-        view.findViewById(R.id.apacheCommonsLicense).setOnClickListener(al);
-        view.findViewById(R.id.graphViewLicense).setOnClickListener(al);
-        view.findViewById(R.id.materialDesignIconsLicense).setOnClickListener(al);
+        binding.apacheCommonsLicense.setOnClickListener(al);
+        binding.graphViewLicense.setOnClickListener(al);
+        binding.materialDesignIconsLicense.setOnClickListener(al);
 
-        view.findViewById(R.id.writeReview).setOnClickListener(new WriteReviewClickListener(getActivity()));
+        binding.writeReview.setOnClickListener(new WriteReviewClickListener(getActivity()));
     }
 
-    private void setCopyright(View view) {
+    private String copyright() {
         Locale locale = Locale.getDefault();
         String year = new SimpleDateFormat(YEAR_FORMAT, locale).format(new Date());
         String message = getResources().getString(R.string.app_copyright);
-        setText(view, R.id.about_copyright, message + year);
+        return message + year;
     }
 
-    private void setExtraInformation(View view) {
+    private String version() {
         String text = BuildConfig.VERSION_NAME + " - " + BuildConfig.VERSION_CODE;
         Configuration configuration = MainContext.INSTANCE.getConfiguration();
         if (configuration != null) {
@@ -92,15 +98,7 @@ public class AboutFragment extends Fragment {
             }
         }
         text += " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")";
-        setText(view, R.id.about_version_info, text);
-        setText(view, R.id.about_package_name, BuildConfig.APPLICATION_ID);
-    }
-
-    private void setText(View view, int id, String text) {
-        TextView version = view.findViewById(id);
-        if (version != null) {
-            version.setText(text);
-        }
+        return text;
     }
 
     private static class WriteReviewClickListener implements OnClickListener {
