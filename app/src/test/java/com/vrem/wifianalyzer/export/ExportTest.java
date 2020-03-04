@@ -39,7 +39,7 @@ public class ExportTest {
     public void setUp() {
         List<WiFiDetail> wiFiDetails = Lists.newArrayList(new WiFiDetail("SSID", "BSSID", "capabilities",
             new WiFiSignal(2412, 2422, WiFiWidth.MHZ_40, -40, true)));
-        fixture = new Export(wiFiDetails, TIME_STAMP);
+        fixture = new Export(wiFiDetails, TIME_STAMP, null);
     }
 
     @Test
@@ -47,8 +47,8 @@ public class ExportTest {
         // setup
         String expected =
             String.format(Locale.ENGLISH,
-                "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|802.11mc|Security%n"
-                    + TIME_STAMP + "|SSID|BSSID|-40dBm|1|2412MHz|3|2422MHz|40MHz (2402 - 2442)|~1.0m|true|capabilities%n");
+                "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|802.11mc|Security|Latitude|Longitude%n"
+                    + TIME_STAMP + "|SSID|BSSID|-40dBm|1|2412MHz|3|2422MHz|40MHz (2402 - 2442)|~1.0m|true|capabilities|0.0000000|0.0000000%n");
         // execute
         String actual = fixture.getData();
         // validate
