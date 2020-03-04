@@ -323,4 +323,8 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     public Location getMyLocation() {
         return myLocation;
     }
+
+    public void setMyLocation(Location location) {
+        this.myLocation = location;
+    }
 }

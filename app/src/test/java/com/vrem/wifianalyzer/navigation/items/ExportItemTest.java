@@ -22,6 +22,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.location.Location;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -78,6 +79,8 @@ public class ExportItemTest {
     @Before
     public void setUp() {
         scanner = MainContextHelper.INSTANCE.getScannerService();
+
+        MainContextHelper.INSTANCE.getMainActivity().setMyLocation( new Location( "mockLocation" ) );
 
         wiFiDetail = new WiFiDetail("SSID", "BSSID", "capabilities",
             new WiFiSignal(2412, 2422, WiFiWidth.MHZ_40, -40, true));
