@@ -56,7 +56,7 @@ class ExportItem implements NavigationItem {
             exportData = StringUtils.EMPTY;
             return;
         }
-        exportData = new Export(wiFiDetails, timestamp).getData();
+        exportData = new Export(wiFiDetails, timestamp, MainContext.INSTANCE.getMainActivity().getMyLocation()).getData();
         Intent intent = createIntent(title, exportData);
         Intent chooser = createChooserIntent(intent, title);
         if (!exportAvailable(mainActivity, chooser)) {

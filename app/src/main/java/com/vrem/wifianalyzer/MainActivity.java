@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,6 +51,12 @@ import androidx.core.util.Pair;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+
 public class MainActivity extends AppCompatActivity implements NavigationMenuControl, OnSharedPreferenceChangeListener {
 
     private MainReload mainReload;
@@ -58,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     private OptionMenu optionMenu;
     private String currentCountryCode;
     private PermissionService permissionService;
+    private FusedLocationProviderClient fusedLocationClient;
+    private Location myLocation;
+    private LocationRequest locationRequest;
+    private LocationCallback locationCallback;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -103,6 +114,26 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
 
         permissionService = new PermissionService(this);
         permissionService.check();
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(20 * 1000);
+
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    myLocation = location;
+                }
+            }
+        };
+
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
     }
 
     @Override
@@ -287,5 +318,9 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
 
     void setPermissionService(PermissionService permissionService) {
         this.permissionService = permissionService;
+    }
+
+    public Location getMyLocation() {
+        return myLocation;
     }
 }
