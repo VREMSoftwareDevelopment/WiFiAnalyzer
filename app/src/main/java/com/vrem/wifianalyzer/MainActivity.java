@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
 
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(20 * 1000);
+        locationRequest.setInterval(1000);
 
         locationCallback = new LocationCallback() {
             @Override
