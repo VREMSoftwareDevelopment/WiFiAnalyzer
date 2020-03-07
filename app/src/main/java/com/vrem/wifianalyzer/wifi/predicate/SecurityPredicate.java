@@ -33,7 +33,7 @@ class SecurityPredicate implements Predicate<WiFiDetail> {
     }
 
     @Override
-    public boolean evaluate(WiFiDetail object) {
-        return object.getSecurity().equals(security);
+    public boolean evaluate(WiFiDetail wiFiDetail) {
+        return wiFiDetail.getSecurities().contains(security);
     }
 }

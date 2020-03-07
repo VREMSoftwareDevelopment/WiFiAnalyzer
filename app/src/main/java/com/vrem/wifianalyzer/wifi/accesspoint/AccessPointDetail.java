@@ -27,7 +27,6 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -91,15 +90,13 @@ public class AccessPointDetail {
         view.<TextView>findViewById(R.id.ssid).setText(wiFiDetail.getTitle());
 
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        Strength strength = wiFiSignal.getStrength();
 
-        Security security = wiFiDetail.getSecurity();
         ImageView securityImage = view.findViewById(R.id.securityImage);
-        securityImage.setImageResource(security.getImageResource());
+        securityImage.setImageResource(wiFiDetail.getSecurity().getImageResource());
 
         TextView textLevel = view.findViewById(R.id.level);
         textLevel.setText(String.format(Locale.ENGLISH, "%ddBm", wiFiSignal.getLevel()));
-        textLevel.setTextColor(ContextCompat.getColor(context, strength.colorResource()));
+        textLevel.setTextColor(ContextCompat.getColor(context, wiFiSignal.getStrength().colorResource()));
 
         view.<TextView>findViewById(R.id.channel)
             .setText(wiFiSignal.getChannelDisplay());

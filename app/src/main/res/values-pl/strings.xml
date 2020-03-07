@@ -23,66 +23,66 @@
     <string name="navigation_drawer_open">"Otwórz panel nawigacji"</string>
     <string name="navigation_drawer_close">"Zamnkij panel nawigacji"</string>
     <string name="scanner_message">"Skanowanie &#8230;"</string>
-    <string name="scanner_pause">"Zapauzuj"</string>
-    <string name="scanner_play">"Odtwórz"</string>
+    <string name="scanner_pause">"Wstrzymaj"</string>
+    <string name="scanner_play">"Wznów"</string>
 
     <!-- action start -->
-    <string name="action_access_points">"Punkty Dostępu"</string>
-    <string name="action_channel_rating">"Ocena Kanału"</string>
-    <string name="action_channel_graph">"Wykres Kanału"</string>
-    <string name="action_time_graph">"Wykres Czasowy"</string>
-    <string name="action_export">"Exportuj"</string>
-    <string name="action_channel_available">"Dotępne Kanały"</string>
+    <string name="action_access_points">"Punkty dostępu"</string>
+    <string name="action_channel_rating">"Ocena kanałów"</string>
+    <string name="action_channel_graph">"Wykres kanałów"</string>
+    <string name="action_time_graph">"Wykres czasowy"</string>
+    <string name="action_export">"Eksportuj"</string>
+    <string name="action_channel_available">"Dostępne kanały"</string>
     <string name="action_vendors">"Dostawcy"</string>
     <string name="action_settings">"Ustawienia"</string>
     <string name="action_about">"O aplikacji"</string>
     <!-- action end -->
 
-    <string name="no_data">"Brak Danych"</string>
+    <string name="no_data">"Brak danych"</string>
     <string name="no_data_msg">"Sprawdź FAQ na naszej stronie."</string>
-    <string name="permission_msg">"Od wersji Android Marshmallow, pozwolenia lokacyjne są wymagane do przeprowadzenia skanu WiFi. Użytkownik będzie poproszony o włączenie pozwolenia użycia usług lokacyjnych. Ponieważ aplikacja nie wymaga usług lokacyjnych, użytkownik może być pewien że aplikacja nie wykorzystuje ani nie przekazuje lokacji urządzenia!"</string>
-    <string name="location_msg">"Ta aplikacja może określać Twoją lokalizację na podstawie GPS-a lub sieciowych źródeł lokalizacji, takich jak stacje bazowe i sieci Wi-Fi. Te usługi lokalizacyjne muszą być włączone i dostępne na telefonie, by aplikacja mogła z nich korzystać. Może to zwiększyć zużycie baterii."</string>
-    <string name="export_not_available">"Export nie dostępny"</string>
+    <string name="permission_msg">"Od wersji Android Marshmallow, uprawnienia lokalizacyjne są wymagane do przeprowadzenia skanu sieci Wi-Fi. Użytkownik będzie poproszony o włączenie uprawnienia do użycia usług lokalizacyjnych. Ponieważ aplikacja nie wymaga usług lokalizacyjnych, użytkownik może być pewien że aplikacja nie wykorzystuje ani nie przekazuje lokacji urządzenia!"</string>
+    <string name="location_msg">"Ta aplikacja może określić Twoją dokładną lokalizację tylko wtedy, gdy działa na pierwszym planie. Te usługi lokalizacyjne muszą być włączone i dostępne na telefonie, by aplikacja mogła z nich korzystać. Może to zwiększyć zużycie baterii."</string>
+    <string name="export_not_available">"Eksport niedostępny"</string>
 
     <string name="channel_rating_best">"Najlepsze kanały:"</string>
     <string name="channel_rating_best_none">"Brak"</string>
-    <string name="channel_rating_best_alternative">", spróbuj alternatywne Pasmo WiFi"</string>
-    <string name="channel_rating_heading_rating">"Ocena Kanału"</string>
-    <string name="channel_rating_heading_number">"Numer Kanału"</string>
-    <string name="channel_rating_heading_count">"Liczba Punktów Dostępu"</string>
+    <string name="channel_rating_best_alternative">", spróbuj alternatywne pasmo Wi-Fi"</string>
+    <string name="channel_rating_heading_rating">"Ocena kanału"</string>
+    <string name="channel_rating_heading_number">"Numer kanału"</string>
+    <string name="channel_rating_heading_count">"Liczba punktów dostępu"</string>
     <string name="channel_short_name">"CH"</string>
 
-    <string name="graph_channel_axis_x">"Kanały WiFi"</string>
+    <string name="graph_channel_axis_x">"Kanały Wi-Fi"</string>
     <string name="graph_time_axis_x">"Liczba skanów"</string>
-    <string name="graph_axis_y">"Siła Sygnału (dBm)"</string>
+    <string name="graph_axis_y">"Siła sygnału (dBm)"</string>
 
     <!-- settings start -->
     <string name="country_code_title">"Kraj"</string>
 
-    <string name="scan_speed_title">"Interwał Skanowania"</string>
+    <string name="scan_speed_title">"Interwał skanowania"</string>
     <string name="scan_speed_summary">"%s sekund pomiędzy każdym skanem"</string>
 
     <string name="sort_by_title">"Sortuj punkty dostępu po"</string>
-    <string name="sort_by_signal_strength">"Siła Sygnału"</string>
+    <string name="sort_by_signal_strength">"Siła sygnału"</string>
     <string name="sort_by_channel">"Kanał"</string>
 
     <string name="group_by_title">"Grupuj punkty dostępu po"</string>
     <string name="group_by_none">"Nic"</string>
     <string name="group_by_channel">"Kanał"</string>
 
-    <string name="connection_view_title">"Widok Połączeń"</string>
+    <string name="connection_view_title">"Widok połączeń"</string>
     <string name="connection_view_complete">"Pełny"</string>
     <string name="connection_view_compact">"Uproszczony"</string>
     <string name="connection_view_hide">"Ukryj"</string>
 
-    <string name="ap_view_title">"Widok Punktów Dostępu"</string>
+    <string name="ap_view_title">"Widok punktów dostępu"</string>
     <string name="ap_view_complete">"Pełny"</string>
     <string name="ap_view_compact">"Uproszczony"</string>
 
-    <string name="graph_maximum_y_title">"Wykres Siły Sygnału"</string>
+    <string name="graph_maximum_y_title">"Wykres siły sygnału"</string>
 
-    <string name="channel_graph_legend_title">"Wyświetlanie Legendy Wyskresu Kanałów"</string>
-    <string name="time_graph_legend_title">"Wyświetlanie Legendy Wykresu Czasu"</string>
+    <string name="channel_graph_legend_title">"Wyświetlanie legendy wykresu kanałów"</string>
+    <string name="time_graph_legend_title">"Wyświetlanie legendy wykresu czasu"</string>
     <string name="graph_legend_left">"Lewo"</string>
     <string name="graph_legend_right">"Prawo"</string>
     <string name="graph_legend_hide">"Ukryj"</string>
@@ -90,9 +90,9 @@
     <string name="theme_title">"Motyw"</string>
     <string name="theme_dark">"Ciemny"</string>
     <string name="theme_light">"Jasny"</string>
-    <string name="theme_system">"System"</string>
+    <string name="theme_system">"Systemowy"</string>
 
-    <string name="wifi_off_on_exit_title">"Wyłączanie WiFi przy wyjściu"</string>
+    <string name="wifi_off_on_exit_title">"Wyłączanie Wi-Fi przy wyjściu"</string>
 
     <string name="keep_screen_on_title">"Utrzymuj ekran włączony"</string>
 
@@ -102,23 +102,23 @@
     <!-- about start -->
     <string name="about_license_title">"Licencja:"</string>
     <string name="about_description_title">"Opis:"</string>
-    <string name="about_description_text">"Zoptymalizuj twoją sieć WiFi, poprzez sprawdzanie statusu sieci WiFi, siłę sygnały i indentyfikowanie zatłoczonych kanałów używając otwartoźródłowej aplikacji WiFiAnalyzer dla Androida"</string>
-    <string name="about_libraries_title">"Użyte Bibloteki:"</string>
+    <string name="about_description_text">"Zoptymalizuj twoją sieć Wi-Fi, poprzez sprawdzanie statusu sieci Wi-Fi, siłę sygnału i identyfikowanie zatłoczonych kanałów używając otwartej aplikacji WiFiAnalyzer dla Androida"</string>
+    <string name="about_libraries_title">"Użyte biblioteki:"</string>
     <string name="about_contributor_title">"Współtwórcy"</string>
-    <string name="about_write_review">"Napisz Recenzję"</string>
+    <string name="about_write_review">"Napisz recenzję"</string>
     <!-- about end -->
 
     <!-- security start -->
-    <string name="security_none">"Nic"</string>
+    <string name="security_none">"Brak"</string>
     <!-- security end -->
 
     <!-- filter start -->
-    <string name="filter_title">"Filtr"</string>
+    <string name="filter_title">"Filtrowanie"</string>
     <string name="filter_close">"Zamknij"</string>
     <string name="filter_reset">"Resetuj"</string>
-    <string name="filter_apply">"Zatwierdź"</string>
-    <string name="filter_wifi_band_title">"Pasmo WiFi"</string>
-    <string name="filter_strength_title">"Siła Sygnału"</string>
+    <string name="filter_apply">"Zastosuj"</string>
+    <string name="filter_wifi_band_title">"Pasmo Wi-Fi"</string>
+    <string name="filter_strength_title">"Siła sygnału"</string>
     <string name="filter_security_title">"Bezpieczeństwo"</string>
     <!-- filter end -->
 

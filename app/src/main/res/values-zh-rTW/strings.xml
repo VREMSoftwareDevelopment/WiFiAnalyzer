@@ -40,18 +40,18 @@
 
     <string name="no_data">"無資料"</string>
     <string name="no_data_msg">"請訪問我們網站上的常見問題“常見問題”部分。"</string>
-    <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a WiFi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
-    <string name="location_msg">"這個應用程式可根據 GPS 或網路位置來源 (例如基地台和 Wi-Fi 網路) 取得你的位置資訊。你必須在手機上開啟這類定位服務，才能讓這個應用程式取得位置資訊。不過這可能會增加耗電量。"</string>
+    <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a Wi-Fi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
+    <string name="location_msg">"這個應用程式只能在前景中取得你的確切位置。你必須在手機上開啟這些定位服務，才能讓這個應用程式取得確切位置。請注意，這麼做可能會增加耗電量。"</string>
     <string name="export_not_available">"無法匯出"</string>
 
     <string name="channel_rating_best">"最佳頻道："</string>
     <string name="channel_rating_best_none">"無"</string>
-    <string name="channel_rating_best_alternative">"，嘗試其他WiFi頻段"</string>
+    <string name="channel_rating_best_alternative">"，嘗試其他Wi-Fi頻段"</string>
     <string name="channel_rating_heading_rating">"頻道評分"</string>
     <string name="channel_rating_heading_number">"頻道數"</string>
     <string name="channel_rating_heading_count">"接入點計數"</string>
     <string name="channel_short_name">"頻道"</string>
-    <string name="graph_channel_axis_x">"WiFi頻道"</string>
+    <string name="graph_channel_axis_x">"Wi-Fi頻道"</string>
     <string name="graph_time_axis_x">"掃描次數"</string>
     <string name="graph_axis_y">"訊號強度 (dBm)"</string>
 
@@ -91,7 +91,7 @@
     <string name="theme_light">"淺"</string>
     <string name="theme_system">"系統"</string>
 
-    <string name="wifi_off_on_exit_title">"退出時關閉WiFi"</string>
+    <string name="wifi_off_on_exit_title">"退出時關閉Wi-Fi"</string>
 
     <string name="keep_screen_on_title">"螢幕常亮"</string>
 
@@ -101,7 +101,7 @@
     <!-- about start -->
     <string name="about_license_title">"授權："</string>
     <string name="about_description_title">"描述："</string>
-    <string name="about_description_text">"使用此開源的Android WiFi分析儀來檢查WiFi狀態、訊號強度並識別擁擠的頻道從而最佳化您的WiFi網路"</string>
+    <string name="about_description_text">"使用此開源的Android WiFiAnalyzer儀來檢查Wi-Fi狀態、訊號強度並識別擁擠的頻道從而最佳化您的Wi-Fi網路"</string>
     <string name="about_libraries_title">"使用的庫："</string>
     <string name="about_contributor_title">"貢獻者"</string>
     <string name="about_write_review">"撰寫評論"</string>
@@ -116,7 +116,7 @@
     <string name="filter_close">"關"</string>
     <string name="filter_reset">"重設"</string>
     <string name="filter_apply">"套用"</string>
-    <string name="filter_wifi_band_title">"WiFi頻段"</string>
+    <string name="filter_wifi_band_title">"Wi-Fi頻段"</string>
     <string name="filter_strength_title">"訊號強度"</string>
     <string name="filter_security_title">"安全"</string>
     <!-- filter end -->

@@ -48,21 +48,21 @@
     <string name="no_data">"No Data"</string>
     <string name="no_data_msg">"Please visit frequently ask questions section on our website."</string>
     <string name="no_data_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq"</string>
-    <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a WiFi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
-    <string name="location_msg">"This app can get your location based on GPS or network location sources such as cell towers and Wi-Fi networks. These location services must be turned on and available on your phone for the app to be able to use them. This may increase battery consumption."</string>
+    <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a Wi-Fi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
+    <string name="location_msg">"This app can get your exact location only when it is in the foreground. These location services must be turned on and available on your phone for the app to be able to use them. This may increase battery consumption."</string>
     <string name="wifi_channels_list_url" translatable="false">"https://en.wikipedia.org/wiki/List_of_WLAN_channels"</string>
     <string name="vendor_search_hint" translatable="false">"00:0C:41 CISCO"</string>
     <string name="export_not_available">"Export not available"</string>
 
     <string name="channel_rating_best">"Best Channels:"</string>
     <string name="channel_rating_best_none">"None"</string>
-    <string name="channel_rating_best_alternative">", try alternative WiFi Band"</string>
+    <string name="channel_rating_best_alternative">", try alternative Wi-Fi Band"</string>
     <string name="channel_rating_heading_rating">"Channel Rating"</string>
     <string name="channel_rating_heading_number">"Channel Number"</string>
     <string name="channel_rating_heading_count">"Access Point Count"</string>
     <string name="channel_short_name">"CH"</string>
 
-    <string name="graph_channel_axis_x">"WiFi Channels"</string>
+    <string name="graph_channel_axis_x">"Wi-Fi Channels"</string>
     <string name="graph_time_axis_x">"Scan Count"</string>
     <string name="graph_axis_y">"Signal Strength (dBm)"</string>
 
@@ -82,7 +82,7 @@
     <string name="scan_speed_key" translatable="false">"scan_speed"</string>
     <string name="scan_speed_default" translatable="false">"5"</string>
 
-    <string name="wifi_throttle_disabled_title" translatable="false">"Disable WiFi scan throttling"</string>
+    <string name="wifi_throttle_disabled_title" translatable="false">"Disable Wi-Fi scan throttling"</string>
     <string name="wifi_throttle_disabled_key" translatable="false">"wifi_throttle_disabled_key"</string>
     <bool name="wifi_throttle_disabled_default" translatable="false">false</bool>
 
@@ -147,7 +147,7 @@
     <string name="theme_light">"Light"</string>
     <string name="theme_system">"System"</string>
 
-    <string name="wifi_off_on_exit_title">"WiFi off on Exit"</string>
+    <string name="wifi_off_on_exit_title">"Wi-Fi off on Exit"</string>
     <string name="wifi_off_on_exit_key" translatable="false">"wifi_off_on_exit"</string>
     <bool name="wifi_off_on_exit_default" translatable="false">false</bool>
 
@@ -163,7 +163,7 @@
     <!-- about start -->
     <string name="about_license_title">"License:"</string>
     <string name="about_description_title">"Description:"</string>
-    <string name="about_description_text">"Optimize your WiFi network, by checking WiFi network status, signal strength and identifying crowded channels using an open-source WiFiAnalyzer for Android"</string>
+    <string name="about_description_text">"Optimize your Wi-Fi network, by checking Wi-Fi network status, signal strength and identifying crowded channels using an open-source WiFiAnalyzer for Android"</string>
     <string name="about_libraries_title">"Libraries Used:"</string>
     <string name="about_library_apache" translatable="false">"Apache Commons"</string>
     <string name="about_library_apache_url" translatable="false">"https://commons.apache.org"</string>
@@ -188,11 +188,11 @@
     <string name="al_url" translatable="false">"http://www.apache.org/licenses/LICENSE-2.0"</string>
     <!-- license end -->
 
-    <!-- wifi band start -->
+    <!-- Wi-Fi band start -->
     <string name="wifi_band_title" translatable="false">"2.4/5 GHz"</string>
     <string name="wifi_band_2ghz" translatable="false">"2.4 GHz"</string>
     <string name="wifi_band_5ghz" translatable="false">"5 GHz"</string>
-    <!-- wifi band end -->
+    <!-- Wi-Fi band end -->
 
     <!-- security start -->
     <string name="security_none">"None"</string>
@@ -211,7 +211,7 @@
     <string name="filter_ssid_title" translatable="false">"SSID"</string>
     <string name="filter_ssid_key" translatable="false">"filter_ssid"</string>
     <string name="filter_ssid_hint" translatable="false">"ssid SSID"</string>
-    <string name="filter_wifi_band_title">"WiFi Band"</string>
+    <string name="filter_wifi_band_title">"Wi-Fi Band"</string>
     <string name="filter_wifi_band_key" translatable="false">"filter_wifi_band"</string>
     <string name="filter_strength_title">"Signal Strength"</string>
     <string name="filter_strength_key" translatable="false">"filter_strength"</string>

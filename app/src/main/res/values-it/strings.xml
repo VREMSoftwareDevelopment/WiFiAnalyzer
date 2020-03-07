@@ -23,14 +23,14 @@
     <string name="navigation_drawer_open">"Apri pannello laterale"</string>
     <string name="navigation_drawer_close">"Chiudi pannello laterale"</string>
     <string name="scanner_message">"Ricerca in corso &#8230;"</string>
-    <string name="scanner_pause">"Pristabdyti"</string>
-    <string name="scanner_play">"Leisti"</string>
+    <string name="scanner_pause">"Pausa"</string>
+    <string name="scanner_play">"Avvia"</string>
 
     <!-- action start -->
     <string name="action_access_points">"Access Points"</string>
-    <string name="action_channel_rating">"Qualità canali"</string>
+    <string name="action_channel_rating">"Qualità Canali"</string>
     <string name="action_channel_graph">"Grafico Canali"</string>
-    <string name="action_time_graph">"Grafico Temporale"</string>
+    <string name="action_time_graph">"Grafico Tempo"</string>
     <string name="action_export">"Esporta"</string>
     <string name="action_channel_available">"Canali Disponibili"</string>
     <string name="action_vendors">"Fornitori"</string>
@@ -39,20 +39,20 @@
     <!-- action end -->
 
     <string name="no_data">"Nessun Dato"</string>
-    <string name="no_data_msg">"Visiti le sezioni di domande frequenti sul nostro sito web."</string>
-    <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a WiFi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
-    <string name="location_msg">"Ši programa gali gauti jūsų vietos informaciją naudodamasi tinklo šaltinių, pvz., mobiliojo ryšio bokštų ir „Wi-Fi“ tinklų, duomenimis. Šios vietovės paslaugos turi būti įjungtos ir pasiekiamos telefone, kad programa galėtų jas naudoti. Tai gali padidinti akumuliatoriaus energijos naudojimą."</string>
+    <string name="no_data_msg">"Visita la sezione di domande frequenti sul nostro sito web."</string>
+    <string name="permission_msg">"Da Android Marshmallow, sono necessari i permessi di geolocalizzazione per effettuare scansioni delle reti Wi-Fi. Ti sarà chiesto di abilitare questo permesso. Dal momento che quest\'app non richiede l\'accesso ad internet, puoi essere sicuro del fatto che non può trasmettere la tua posizione!"</string>
+    <string name="location_msg">"Questa app può recuperare la tua posizione esatta solo quando è in primo piano. Questi servizi di geolocalizzazione devono essere attivi e disponibili sul telefono affinché l\'app possa usarli. Potrebbe aumentare il consumo della batteria."</string>
     <string name="export_not_available">"Impossibile esportare"</string>
 
     <string name="channel_rating_best">"Canali Migliori:"</string>
     <string name="channel_rating_best_none">"Nessuno"</string>
-    <string name="channel_rating_best_alternative">", prova un altra banda WiFi"</string>
+    <string name="channel_rating_best_alternative">", prova un altra banda Wi-Fi"</string>
     <string name="channel_rating_heading_rating">"Qualità Canale"</string>
     <string name="channel_rating_heading_number">"Numero Canale"</string>
     <string name="channel_rating_heading_count">"Numero di Access Point"</string>
     <string name="channel_short_name">"CH"</string>
 
-    <string name="graph_channel_axis_x">"Canali WiFi"</string>
+    <string name="graph_channel_axis_x">"Canali Wi-Fi"</string>
     <string name="graph_time_axis_x">"Numero Scansioni"</string>
     <string name="graph_axis_y">"Potenza Segnale (dBm)"</string>
 
@@ -91,7 +91,7 @@
     <string name="theme_light">"Chiaro"</string>
     <string name="theme_system">"Sistema"</string>
 
-    <string name="wifi_off_on_exit_title">"WiFi fuori all\'uscita"</string>
+    <string name="wifi_off_on_exit_title">"Spegni Wi-Fi all\'uscita"</string>
 
     <string name="keep_screen_on_title">"Mantieni schermo acceso"</string>
 
@@ -101,7 +101,7 @@
     <!-- about start -->
     <string name="about_license_title">"Licenza:"</string>
     <string name="about_description_title">"Descrizione:"</string>
-    <string name="about_description_text">"Ottimizza la tua rete WiFi, controllando lo stato, la potenza del segnale e identificando i canali affollati, usando un WiFiAnalyzer per Android"</string>
+    <string name="about_description_text">"Ottimizza la tua rete Wi-Fi, controllando lo stato, la potenza del segnale e identificando i canali affollati, usando un WiFiAnalyzer per Android"</string>
     <string name="about_libraries_title">"Librarie Usate:"</string>
     <string name="about_contributor_title">"Contributori"</string>
     <string name="about_write_review">"Scrivi una recensione"</string>
@@ -116,7 +116,7 @@
     <string name="filter_close">"Chiudi"</string>
     <string name="filter_reset">"Resetta"</string>
     <string name="filter_apply">"Applica"</string>
-    <string name="filter_wifi_band_title">"Banda WiFi"</string>
+    <string name="filter_wifi_band_title">"Banda Wi-Fi"</string>
     <string name="filter_strength_title">"Potenza Segnale"</string>
     <string name="filter_security_title">"Sicurezza"</string>
     <!-- filter end -->

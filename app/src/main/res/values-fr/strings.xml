@@ -40,8 +40,8 @@
 
     <string name="no_data">"Aucune donnée"</string>
     <string name="no_data_msg">"Veuillez visiter la section FAQ de notre site Web."</string>
-    <string name="permission_msg">"À partir de Android Marshmallow, les autorisations de localisation sont requises pour effectuer un scan WiFi. Vous serez donc invités à activer les services de localisation. Cette application ne nécessitant pas d\'accès Internet, vous pouvez être sûr qu\'elle ne transmet pas votre position !"</string>
-    <string name="location_msg">"Cette application peut obtenir votre position via le GPS ou des sources de positionnement de réseau telles que les antennes-relais et les réseaux Wi-Fi. Ces services de localisation doivent être activés et disponibles sur votre téléphone pour que l\'application puisse les utiliser. Ceci peut réduire l\'autonomie de la batterie."</string>
+    <string name="permission_msg">"À partir de Android Marshmallow, les autorisations de localisation sont requises pour effectuer un scan Wi-Fi. Vous serez donc invités à activer les services de localisation. Cette application ne nécessitant pas d\'accès Internet, vous pouvez être sûr qu\'elle ne transmet pas votre position !"</string>
+    <string name="location_msg">"Cette application peut obtenir votre position exacte uniquement lorsqu\'elle s\'exécute au premier plan. Ces services de localisation doivent être activés et disponibles sur votre téléphone pour que l\'application puisse les utiliser. Ceci peut réduire l\'autonomie de la batterie."</string>
     <string name="export_not_available">"Export non disponible"</string>
 
     <string name="channel_rating_best">"Meilleurs canaux:"</string>
@@ -92,7 +92,7 @@
     <string name="theme_light">"Clair"</string>
     <string name="theme_system">"Système"</string>
 
-    <string name="wifi_off_on_exit_title">"Arrêter le WiFi en quittant"</string>
+    <string name="wifi_off_on_exit_title">"Arrêter le Wi-Fi en quittant"</string>
 
     <string name="keep_screen_on_title">"Conserver l\'écran allumé"</string>
 
