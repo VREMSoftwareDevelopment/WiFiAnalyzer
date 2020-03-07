@@ -19,6 +19,8 @@
 apply plugin: "com.android.application"
 
 apply from: "jacoco.gradle"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 // dependencies -------------------------------------------------
 dependencies {
@@ -29,9 +31,11 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.collection:collection:1.1.0'
+    implementation "androidx.core:core-ktx:1.2.0"
     implementation 'androidx.media:media:1.1.0'
     implementation 'org.apache.commons:commons-lang3:3.9'
     implementation 'org.apache.commons:commons-collections4:4.4'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.jjoe64:graphview:4.2.2'
     // Unit Test Dependencies
     testImplementation 'junit:junit:4.13'
@@ -49,6 +53,10 @@ dependencies {
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 
     defaultConfig {
         applicationId "com.vrem.wifianalyzer"
@@ -82,7 +90,7 @@ android {
             all {
                 testLogging {
                     events "passed", "skipped", "failed", "standardOut", "standardError"
-                    outputs.upToDateWhen {false}
+                    outputs.upToDateWhen { false }
                     showStandardStreams = true
                 }
             }
