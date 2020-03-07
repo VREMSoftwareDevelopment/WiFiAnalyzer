@@ -22,13 +22,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
 
 import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.databinding.AccessPointsContentBinding;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener;
@@ -38,11 +38,10 @@ public class AccessPointsFragment extends Fragment implements OnRefreshListener 
     private AccessPointsAdapter accessPointsAdapter;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        AccessPointsContentBinding binding = AccessPointsContentBinding.inflate(inflater, container, false);
 
-        View view = inflater.inflate(R.layout.access_points_content, container, false);
-
-        swipeRefreshLayout = view.findViewById(R.id.accessPointsRefresh);
+        swipeRefreshLayout = binding.accessPointsRefresh;
         swipeRefreshLayout.setOnRefreshListener(this);
         if (BuildUtils.isVersionP()) {
             swipeRefreshLayout.setRefreshing(false);
@@ -50,13 +49,12 @@ public class AccessPointsFragment extends Fragment implements OnRefreshListener 
         }
 
         accessPointsAdapter = new AccessPointsAdapter();
-        ExpandableListView expandableListView = view.findViewById(R.id.accessPointsView);
-        expandableListView.setAdapter(accessPointsAdapter);
-        accessPointsAdapter.setExpandableListView(expandableListView);
+        binding.accessPointsView.setAdapter(accessPointsAdapter);
+        accessPointsAdapter.setExpandableListView(binding.accessPointsView);
 
         MainContext.INSTANCE.getScannerService().register(accessPointsAdapter);
 
-        return view;
+        return binding.getRoot();
     }
 
     @Override
