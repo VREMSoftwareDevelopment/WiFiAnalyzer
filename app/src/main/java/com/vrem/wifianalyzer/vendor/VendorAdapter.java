@@ -45,32 +45,58 @@ class VendorAdapter extends ArrayAdapter<String> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
-        return view == null ? createView(position, parent) : updateView(position, view);
+        Binding binding = view == null ? new Binding(create(parent)) : new Binding(view);
+        String vendorName = getItem(position);
+        binding.getVendorName().setText(vendorName);
+        binding.getVendorMacs().setText(getMacs(vendorName));
+        return binding.root;
     }
 
-    private View updateView(int position, @NonNull View view) {
-        String vendorName = getItem(position);
-        view.<TextView>findViewById(R.id.vendor_name).setText(vendorName);
-        view.<TextView>findViewById(R.id.vendor_macs).setText(getMacs(vendorName));
-        return view;
-    }
-
-    private View createView(int position, @NonNull ViewGroup parent) {
-        LayoutInflater layoutInflater = MainContext.INSTANCE.getLayoutInflater();
-        VendorDetailsBinding binding = VendorDetailsBinding.inflate(layoutInflater, parent, false);
-        String vendorName = getItem(position);
-        binding.vendorName.setText(vendorName);
-        binding.vendorMacs.setText(getMacs(vendorName));
-        return binding.getRoot();
+    void update(@NonNull String filter) {
+        clear();
+        addAll(vendorService.findVendors(filter));
     }
 
     private String getMacs(String vendorName) {
         return TextUtils.join(", ", vendorService.findMacAddresses(vendorName));
     }
 
-    void update(@NonNull String filter) {
-        clear();
-        addAll(vendorService.findVendors(filter));
+    private VendorDetailsBinding create(@NonNull ViewGroup parent) {
+        LayoutInflater layoutInflater = MainContext.INSTANCE.getLayoutInflater();
+        return VendorDetailsBinding.inflate(layoutInflater, parent, false);
+    }
+
+    private class Binding {
+        private final View root;
+        private final TextView vendorName;
+        private final TextView vendorMacs;
+
+        Binding(@NonNull VendorDetailsBinding vendorDetailsBinding) {
+            root = vendorDetailsBinding.getRoot();
+            vendorName = vendorDetailsBinding.vendorName;
+            vendorMacs = vendorDetailsBinding.vendorMacs;
+        }
+
+        Binding(@NonNull View view) {
+            root = view;
+            vendorName = view.findViewById(R.id.vendor_name);
+            vendorMacs = view.findViewById(R.id.vendor_macs);
+        }
+
+        @NonNull
+        View getRoot() {
+            return root;
+        }
+
+        @NonNull
+        TextView getVendorName() {
+            return vendorName;
+        }
+
+        @NonNull
+        TextView getVendorMacs() {
+            return vendorMacs;
+        }
     }
 
 }
