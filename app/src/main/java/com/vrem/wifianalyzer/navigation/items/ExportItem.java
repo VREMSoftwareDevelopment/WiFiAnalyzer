@@ -28,7 +28,7 @@ import android.widget.Toast;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.export.Export;
+import com.vrem.wifianalyzer.export.ExportKt;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
@@ -56,7 +56,7 @@ class ExportItem implements NavigationItem {
             exportData = StringUtils.EMPTY;
             return;
         }
-        exportData = new Export(wiFiDetails, timestamp).getData();
+        exportData = ExportKt.getData(wiFiDetails, timestamp);
         Intent intent = createIntent(title, exportData);
         Intent chooser = createChooserIntent(intent, title);
         if (!exportAvailable(mainActivity, chooser)) {
