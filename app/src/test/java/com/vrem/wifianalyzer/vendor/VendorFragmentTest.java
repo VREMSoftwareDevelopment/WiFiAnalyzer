@@ -37,6 +37,7 @@ import java.util.Collections;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
@@ -101,5 +102,15 @@ public class VendorFragmentTest {
         verify(vendorAdapter).update(StringUtils.EMPTY);
     }
 
+    @Test
+    public void testListenerOnQueryTextSubmit() {
+        // setup
+        VendorAdapter vendorAdapter = mock(VendorAdapter.class);
+        Listener fixture = new Listener(vendorAdapter);
+        // execute
+        boolean actual = fixture.onQueryTextSubmit(null);
+        // verify
+        assertFalse(actual);
+    }
 
 }
