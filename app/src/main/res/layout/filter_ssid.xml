@@ -18,12 +18,14 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/filterSSID"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/activity_vertical_margin"
-              android:orientation="vertical"
-              android:visibility="visible">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filterSSID"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:visibility="visible"
+    tools:viewBindingIgnore="true">
 
     <TextView
         android:layout_width="match_parent"
