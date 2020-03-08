@@ -24,7 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.databinding.ChannelAvailableContentBinding;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
 import java.util.ArrayList;
@@ -39,11 +39,11 @@ public class ChannelAvailableFragment extends ListFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.channel_available_content, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ChannelAvailableContentBinding binding = ChannelAvailableContentBinding.inflate(inflater, container, false);
         channelAvailableAdapter = new ChannelAvailableAdapter(getActivity(), getChannelAvailable());
         setListAdapter(channelAvailableAdapter);
-        return view;
+        return binding.getRoot();
     }
 
     @Override

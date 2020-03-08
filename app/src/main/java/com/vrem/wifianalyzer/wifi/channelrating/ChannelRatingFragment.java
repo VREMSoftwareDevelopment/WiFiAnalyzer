@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.databinding.ChannelRatingContentBinding;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -40,25 +41,23 @@ public class ChannelRatingFragment extends Fragment implements OnRefreshListener
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ChannelRatingContentBinding binding = ChannelRatingContentBinding.inflate(inflater, container, false);
 
-        View view = inflater.inflate(R.layout.channel_rating_content, container, false);
-
-        swipeRefreshLayout = view.findViewById(R.id.channelRatingRefresh);
+        swipeRefreshLayout = binding.channelRatingRefresh;
         swipeRefreshLayout.setOnRefreshListener(this);
         if (BuildUtils.isVersionP()) {
             swipeRefreshLayout.setRefreshing(false);
             swipeRefreshLayout.setEnabled(false);
         }
 
-        TextView bestChannels = view.findViewById(R.id.channelRatingBestChannels);
-        ListView listView = view.findViewById(R.id.channelRatingView);
-
+        TextView bestChannels = binding.channelRatingBest.channelRatingBestChannels;
         channelRatingAdapter = new ChannelRatingAdapter(getActivity(), bestChannels);
+        ListView listView = binding.channelRatingRefresh.findViewById(R.id.channelRatingView);
         listView.setAdapter(channelRatingAdapter);
 
         MainContext.INSTANCE.getScannerService().register(channelRatingAdapter);
 
-        return view;
+        return binding.getRoot();
     }
 
     @Override

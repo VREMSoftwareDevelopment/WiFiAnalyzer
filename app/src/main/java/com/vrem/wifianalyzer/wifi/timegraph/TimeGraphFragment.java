@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 
 import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.databinding.GraphContentBinding;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewAdd;
 
 import org.apache.commons.collections4.IterableUtils;
@@ -40,9 +40,9 @@ public class TimeGraphFragment extends Fragment implements SwipeRefreshLayout.On
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.graph_content, container, false);
+        GraphContentBinding binding = GraphContentBinding.inflate(inflater, container, false);
 
-        swipeRefreshLayout = view.findViewById(R.id.graphRefresh);
+        swipeRefreshLayout = binding.graphRefresh;
         swipeRefreshLayout.setOnRefreshListener(this);
         if (BuildUtils.isVersionP()) {
             swipeRefreshLayout.setRefreshing(false);
@@ -50,16 +50,15 @@ public class TimeGraphFragment extends Fragment implements SwipeRefreshLayout.On
         }
 
         timeGraphAdapter = new TimeGraphAdapter();
-        addGraphViews(swipeRefreshLayout, timeGraphAdapter);
+        addGraphViews(binding, timeGraphAdapter);
 
         MainContext.INSTANCE.getScannerService().register(timeGraphAdapter);
 
-        return view;
+        return binding.getRoot();
     }
 
-    private void addGraphViews(View view, TimeGraphAdapter timeGraphAdapter) {
-        IterableUtils.forEach(timeGraphAdapter.getGraphViews(),
-            new GraphViewAdd(view.findViewById(R.id.graphFlipper)));
+    private void addGraphViews(GraphContentBinding binding, TimeGraphAdapter timeGraphAdapter) {
+        IterableUtils.forEach(timeGraphAdapter.getGraphViews(), new GraphViewAdd(binding.graphFlipper));
     }
 
     @Override

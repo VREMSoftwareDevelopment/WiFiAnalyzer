@@ -26,7 +26,7 @@ import android.widget.LinearLayout;
 
 import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.MainContext;
-import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.databinding.GraphContentBinding;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewAdd;
 
 import org.apache.commons.collections4.IterableUtils;
@@ -42,28 +42,27 @@ public class ChannelGraphFragment extends Fragment implements OnRefreshListener 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.graph_content, container, false);
+        GraphContentBinding binding = GraphContentBinding.inflate(inflater, container, false);
 
-        swipeRefreshLayout = view.findViewById(R.id.graphRefresh);
+        swipeRefreshLayout = binding.graphRefresh;
         swipeRefreshLayout.setOnRefreshListener(this);
         if (BuildUtils.isVersionP()) {
             swipeRefreshLayout.setRefreshing(false);
             swipeRefreshLayout.setEnabled(false);
         }
 
-        LinearLayout linearLayout = view.findViewById(R.id.graphNavigation);
+        LinearLayout linearLayout = binding.graphNavigation;
         ChannelGraphNavigation channelGraphNavigation = new ChannelGraphNavigation(linearLayout, getActivity());
         channelGraphAdapter = new ChannelGraphAdapter(channelGraphNavigation);
-        addGraphViews(swipeRefreshLayout, channelGraphAdapter);
+        addGraphViews(binding, channelGraphAdapter);
 
         MainContext.INSTANCE.getScannerService().register(channelGraphAdapter);
 
-        return view;
+        return binding.getRoot();
     }
 
-    private void addGraphViews(View view, ChannelGraphAdapter channelGraphAdapter) {
-        IterableUtils.forEach(channelGraphAdapter.getGraphViews(),
-            new GraphViewAdd(view.findViewById(R.id.graphFlipper)));
+    private void addGraphViews(GraphContentBinding binding, ChannelGraphAdapter channelGraphAdapter) {
+        IterableUtils.forEach(channelGraphAdapter.getGraphViews(), new GraphViewAdd(binding.graphFlipper));
     }
 
     @Override

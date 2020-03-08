@@ -23,7 +23,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <include layout="@layout/channel_rating_best"/>
+    <include
+        android:id="@+id/channel_rating_best"
+        layout="@layout/channel_rating_best" />
 
     <include layout="@layout/channel_rating_header"/>
 
