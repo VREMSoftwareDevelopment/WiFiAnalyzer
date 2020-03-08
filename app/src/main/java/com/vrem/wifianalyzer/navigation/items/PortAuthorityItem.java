@@ -32,22 +32,26 @@ import androidx.annotation.NonNull;
 
 class PortAuthorityItem implements NavigationItem {
     private static final String PORT_AUTHORITY = "com.aaronjwood.portauthority.";
-    private static final String PORT_AUTHORITY_FREE = PORT_AUTHORITY + "free";
-    private static final String PORT_AUTHORITY_DONATE = PORT_AUTHORITY + "donate";
+    static final String PORT_AUTHORITY_FREE = PORT_AUTHORITY + "free";
+    static final String PORT_AUTHORITY_DONATE = PORT_AUTHORITY + "donate";
 
     @Override
     public void activate(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, @NonNull NavigationMenu navigationMenu) {
-        Context context = mainActivity.getApplicationContext();
-        PackageManager packageManager = context.getPackageManager();
-        Intent intent = packageManager.getLaunchIntentForPackage(PORT_AUTHORITY_DONATE);
-        if (intent == null) {
-            intent = packageManager.getLaunchIntentForPackage(PORT_AUTHORITY_FREE);
+        try {
+            Context context = mainActivity.getApplicationContext();
+            PackageManager packageManager = context.getPackageManager();
+            Intent intent = packageManager.getLaunchIntentForPackage(PORT_AUTHORITY_DONATE);
             if (intent == null) {
-                intent = redirectToPlayStore();
+                intent = packageManager.getLaunchIntentForPackage(PORT_AUTHORITY_FREE);
+                if (intent == null) {
+                    intent = redirectToPlayStore();
+                }
             }
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } catch (Exception e) {
+            // No Store or Port Authority Available
         }
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
     }
 
     @Override
@@ -60,7 +64,7 @@ class PortAuthorityItem implements NavigationItem {
         return View.GONE;
     }
 
-    private Intent redirectToPlayStore() {
+    Intent redirectToPlayStore() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse("market://details?id=" + PORT_AUTHORITY_FREE));
         return intent;
