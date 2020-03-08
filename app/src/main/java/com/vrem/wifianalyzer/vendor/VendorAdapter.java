@@ -71,10 +71,10 @@ class VendorAdapter extends ArrayAdapter<String> {
         private final TextView vendorName;
         private final TextView vendorMacs;
 
-        Binding(@NonNull VendorDetailsBinding vendorDetailsBinding) {
-            root = vendorDetailsBinding.getRoot();
-            vendorName = vendorDetailsBinding.vendorName;
-            vendorMacs = vendorDetailsBinding.vendorMacs;
+        Binding(@NonNull VendorDetailsBinding binding) {
+            root = binding.getRoot();
+            vendorName = binding.vendorName;
+            vendorMacs = binding.vendorMacs;
         }
 
         Binding(@NonNull View view) {

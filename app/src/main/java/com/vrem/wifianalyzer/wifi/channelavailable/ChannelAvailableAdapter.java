@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.wifi.channelavailable;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.databinding.ChannelAvailableDetailsBinding;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
@@ -46,30 +48,89 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        MainContext mainContext = MainContext.INSTANCE;
-        View view = convertView;
-        if (view == null) {
-            LayoutInflater layoutInflater = mainContext.getLayoutInflater();
-            view = layoutInflater.inflate(R.layout.channel_available_details, parent, false);
+    public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
+        Binding binding = view == null ? new Binding(create(parent)) : new Binding(view);
+        View rootView = binding.getRoot();
+        Resources resources = rootView.getResources();
+
+        Locale currentLocale = MainContext.INSTANCE.getSettings().getLanguageLocale();
+        WiFiChannelCountry wiFiChannelCountry = getItem(position);
+        binding.getChannelAvailableCountry()
+            .setText(wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName(currentLocale));
+        binding.getChannelAvailableTitleGhz2()
+            .setText(String.format(Locale.ENGLISH, "%s : ",
+                resources.getString(WiFiBand.GHZ2.getTextResource())));
+        binding.getChannelAvailableGhz2()
+            .setText(TextUtils.join(SEPARATOR, wiFiChannelCountry.getChannelsGHZ2().toArray()));
+        binding.getChannelAvailableTitleGhz5()
+            .setText(String.format(Locale.ENGLISH, "%s : ",
+                resources.getString(WiFiBand.GHZ5.getTextResource())));
+        binding.getChannelAvailableGhz5()
+            .setText(TextUtils.join(SEPARATOR, wiFiChannelCountry.getChannelsGHZ5().toArray()));
+        return rootView;
+    }
+
+    private ChannelAvailableDetailsBinding create(@NonNull ViewGroup parent) {
+        LayoutInflater layoutInflater = MainContext.INSTANCE.getLayoutInflater();
+        return ChannelAvailableDetailsBinding.inflate(layoutInflater, parent, false);
+    }
+
+
+    private class Binding {
+        private final View root;
+        private final TextView channelAvailableCountry;
+        private final TextView channelAvailableTitleGhz2;
+        private final TextView channelAvailableGhz2;
+        private final TextView channelAvailableTitleGhz5;
+        private final TextView channelAvailableGhz5;
+
+        Binding(@NonNull ChannelAvailableDetailsBinding binding) {
+            root = binding.getRoot();
+            channelAvailableCountry = binding.channelAvailableCountry;
+            channelAvailableTitleGhz2 = binding.channelAvailableTitleGhz2;
+            channelAvailableGhz2 = binding.channelAvailableGhz2;
+            channelAvailableTitleGhz5 = binding.channelAvailableTitleGhz5;
+            channelAvailableGhz5 = binding.channelAvailableGhz5;
         }
 
-        Locale currentLocale = mainContext.getSettings().getLanguageLocale();
+        Binding(@NonNull View view) {
+            root = view;
+            channelAvailableCountry = view.findViewById(R.id.channel_available_country);
+            channelAvailableTitleGhz2 = view.findViewById(R.id.channel_available_title_ghz_2);
+            channelAvailableGhz2 = view.findViewById(R.id.channel_available_ghz_2);
+            channelAvailableTitleGhz5 = view.findViewById(R.id.channel_available_title_ghz_5);
+            channelAvailableGhz5 = view.findViewById(R.id.channel_available_ghz_5);
+        }
 
-        WiFiChannelCountry wiFiChannelCountry = getItem(position);
-        view.<TextView>findViewById(R.id.channel_available_country)
-            .setText(wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName(currentLocale));
-        view.<TextView>findViewById(R.id.channel_available_title_ghz_2)
-            .setText(String.format(Locale.ENGLISH, "%s : ",
-                view.getResources().getString(WiFiBand.GHZ2.getTextResource())));
-        view.<TextView>findViewById(R.id.channel_available_ghz_2)
-            .setText(TextUtils.join(SEPARATOR, wiFiChannelCountry.getChannelsGHZ2().toArray()));
-        view.<TextView>findViewById(R.id.channel_available_title_ghz_5)
-            .setText(String.format(Locale.ENGLISH, "%s : ",
-                view.getResources().getString(WiFiBand.GHZ5.getTextResource())));
-        view.<TextView>findViewById(R.id.channel_available_ghz_5)
-            .setText(TextUtils.join(SEPARATOR, wiFiChannelCountry.getChannelsGHZ5().toArray()));
-        return view;
+        @NonNull
+        View getRoot() {
+            return root;
+        }
+
+        @NonNull
+        TextView getChannelAvailableCountry() {
+            return channelAvailableCountry;
+        }
+
+        @NonNull
+        TextView getChannelAvailableTitleGhz2() {
+            return channelAvailableTitleGhz2;
+        }
+
+        @NonNull
+        TextView getChannelAvailableGhz2() {
+            return channelAvailableGhz2;
+        }
+
+        @NonNull
+        TextView getChannelAvailableTitleGhz5() {
+            return channelAvailableTitleGhz5;
+        }
+
+        @NonNull
+        TextView getChannelAvailableGhz5() {
+            return channelAvailableGhz5;
+        }
     }
 
 }
