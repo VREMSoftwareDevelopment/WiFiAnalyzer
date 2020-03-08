@@ -34,6 +34,7 @@ import android.widget.TextView;
 import com.vrem.util.BuildUtils;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
+import com.vrem.wifianalyzer.databinding.ChannelRatingDetailsBinding;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
@@ -96,32 +97,28 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
-            LayoutInflater layoutInflater = MainContext.INSTANCE.getLayoutInflater();
-            view = layoutInflater.inflate(R.layout.channel_rating_details, parent, false);
-        }
-
+    public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
+        Binding binding = view == null ? new Binding(create(parent)) : new Binding(view);
         WiFiChannel wiFiChannel = getItem(position);
-        if (wiFiChannel == null) {
-            return view;
+        if (wiFiChannel != null) {
+            binding.getChannelNumber()
+                .setText(String.format(Locale.ENGLISH, "%d", wiFiChannel.getChannel()));
+            binding.getAccessPointCount()
+                .setText(String.format(Locale.ENGLISH, "%d", channelRating.getCount(wiFiChannel)));
+            RatingBar ratingBar = binding.getChannelRating();
+            ratingBar(wiFiChannel, ratingBar);
         }
+        return binding.getRoot();
+    }
 
-        view.<TextView>findViewById(R.id.channelNumber)
-            .setText(String.format(Locale.ENGLISH, "%d", wiFiChannel.getChannel()));
-        view.<TextView>findViewById(R.id.accessPointCount)
-            .setText(String.format(Locale.ENGLISH, "%d", channelRating.getCount(wiFiChannel)));
+    private void ratingBar(WiFiChannel wiFiChannel, RatingBar ratingBar) {
         Strength strength = Strength.reverse(channelRating.getStrength(wiFiChannel));
-        RatingBar ratingBar = view.findViewById(R.id.channelRating);
         int size = Strength.values().length;
         ratingBar.setMax(size);
         ratingBar.setNumStars(size);
         ratingBar.setRating(strength.ordinal() + 1);
         int color = ContextCompat.getColor(getContext(), strength.colorResource());
         setRatingBarColor(ratingBar, color);
-
-        return view;
     }
 
     private void setRatingBarColor(RatingBar ratingBar, int color) {
@@ -132,7 +129,6 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         }
     }
 
-    @SuppressWarnings("deprecation")
     private void setRatingBarColorLegacy(Drawable drawable, int color) {
         try {
             int background = ContextCompat.getColor(getContext(), R.color.background);
@@ -173,6 +169,52 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
             }
             bestChannels.setText(message);
             bestChannels.setTextColor(ContextCompat.getColor(getContext(), R.color.error));
+        }
+    }
+
+    private ChannelRatingDetailsBinding create(@NonNull ViewGroup parent) {
+        LayoutInflater layoutInflater = MainContext.INSTANCE.getLayoutInflater();
+        return ChannelRatingDetailsBinding.inflate(layoutInflater, parent, false);
+    }
+
+    private class Binding {
+        private final View root;
+        private final TextView channelNumber;
+        private final TextView accessPointCount;
+        private final RatingBar channelRating;
+
+        Binding(@NonNull ChannelRatingDetailsBinding binding) {
+            root = binding.getRoot();
+            channelNumber = binding.channelNumber;
+            accessPointCount = binding.accessPointCount;
+            channelRating = binding.channelRating;
+        }
+
+        Binding(@NonNull View view) {
+            root = view;
+            channelNumber = view.findViewById(R.id.channelNumber);
+            accessPointCount = view.findViewById(R.id.accessPointCount);
+            channelRating = view.findViewById(R.id.channelRating);
+        }
+
+        @NonNull
+        View getRoot() {
+            return root;
+        }
+
+        @NonNull
+        TextView getChannelNumber() {
+            return channelNumber;
+        }
+
+        @NonNull
+        TextView getAccessPointCount() {
+            return accessPointCount;
+        }
+
+        @NonNull
+        RatingBar getChannelRating() {
+            return channelRating;
         }
     }
 
