@@ -42,9 +42,9 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
     def mainSrc = "$project.projectDir/src/main/java"
     def debugTree = fileTree(dir: classDir, excludes: fileFilter)
 
-    sourceDirectories = files([mainSrc])
-    classDirectories = files([debugTree])
-    executionData = fileTree(dir: project.buildDir, includes: [
+    sourceDirectories.from = files([mainSrc])
+    classDirectories.from = files([debugTree])
+    executionData.from = fileTree(dir: project.buildDir, includes: [
         'jacoco/testDebugUnitTest.exec',
         'outputs/code-coverage/connected/*coverage.ec'
     ])

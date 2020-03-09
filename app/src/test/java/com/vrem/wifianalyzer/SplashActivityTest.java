@@ -25,6 +25,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 
+import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static org.junit.Assert.assertNotNull;
@@ -36,7 +37,7 @@ public class SplashActivityTest {
     @Test
     public void testSplashActivity() {
         // execute
-        SplashActivity fixture = Robolectric.setupActivity(SplashActivity.class);
+        ActivityScenario<SplashActivity> fixture = ActivityScenario.launch(SplashActivity.class);
         // validate
         assertNotNull(fixture);
     }
