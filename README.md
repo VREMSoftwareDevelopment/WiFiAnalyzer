@@ -39,7 +39,7 @@ This is the official repository of WiFi Analyzer.
 * Access Point view complete or compact
 * Estimated Distance to the Access Points
 * Export access points details
-* Dark or Light theme available
+* Dark, Light and System theme available
 * Pause/Resume scanning
 * Available filters: WiFi band, Signal strength, Security and SSID
 * Vendor/OUI Database Lookup
