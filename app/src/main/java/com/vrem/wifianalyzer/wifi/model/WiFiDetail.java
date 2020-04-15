@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 
 public class WiFiDetail implements Comparable<WiFiDetail> {
-    public static final WiFiDetail EMPTY = new WiFiDetail(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, WiFiSignal.EMPTY);
+    public static final WiFiDetail EMPTY = new WiFiDetail(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, WiFiSignal.Companion.getEMPTY());
     private static final String SSID_EMPTY = "*hidden*";
 
     private final List<WiFiDetail> children;
@@ -52,7 +52,7 @@ public class WiFiDetail implements Comparable<WiFiDetail> {
     }
 
     public WiFiDetail(@NonNull String SSID, @NonNull String BSSID, @NonNull String capabilities, @NonNull WiFiSignal wiFiSignal) {
-        this(SSID, BSSID, capabilities, wiFiSignal, WiFiAdditional.EMPTY);
+        this(SSID, BSSID, capabilities, wiFiSignal, WiFiAdditional.Companion.getEMPTY());
     }
 
     public WiFiDetail(@NonNull WiFiDetail wiFiDetail, @NonNull WiFiAdditional wiFiAdditional) {

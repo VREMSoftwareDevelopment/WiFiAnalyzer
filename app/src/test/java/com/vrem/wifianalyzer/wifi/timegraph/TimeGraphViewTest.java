@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -88,7 +88,7 @@ public class TimeGraphViewTest {
         // setup
         List<WiFiDetail> wiFiDetails = Collections.emptyList();
         Set<WiFiDetail> newSeries = Collections.emptySet();
-        WiFiData wiFiData = new WiFiData(wiFiDetails, WiFiConnection.EMPTY);
+        WiFiData wiFiData = new WiFiData(wiFiDetails, WiFiConnection.Companion.getEMPTY());
         withSettings();
         when(dataManager.addSeriesData(graphViewWrapper, wiFiDetails, GraphConstants.MAX_Y)).thenReturn(newSeries);
         // execute

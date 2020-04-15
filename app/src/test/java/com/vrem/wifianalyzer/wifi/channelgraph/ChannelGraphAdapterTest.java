@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -98,7 +98,7 @@ public class ChannelGraphAdapterTest {
     @Test
     public void testUpdate() {
         // setup
-        WiFiData wiFiData = new WiFiData(Collections.emptyList(), WiFiConnection.EMPTY);
+        WiFiData wiFiData = new WiFiData(Collections.emptyList(), WiFiConnection.Companion.getEMPTY());
         // execute
         fixture.update(wiFiData);
         // validate

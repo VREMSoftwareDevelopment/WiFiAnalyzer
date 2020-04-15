@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,13 +49,13 @@ public class ChannelRatingTest {
             new WiFiAdditional(StringUtils.EMPTY, wiFiConnection));
         wiFiDetail2 = new WiFiDetail("SSID2", "58:6d:8f:fa:ae:c0", StringUtils.EMPTY,
             new WiFiSignal(2442, 2442, WiFiWidth.MHZ_20, -70, true),
-            WiFiAdditional.EMPTY);
+            WiFiAdditional.Companion.getEMPTY());
         wiFiDetail3 = new WiFiDetail("SSID3", "84:94:8c:9d:40:68", StringUtils.EMPTY,
             new WiFiSignal(2452, 2452, WiFiWidth.MHZ_20, -60, true),
-            WiFiAdditional.EMPTY);
+            WiFiAdditional.Companion.getEMPTY());
         wiFiDetail4 = new WiFiDetail("SSID3", "64:A4:8c:90:10:12", StringUtils.EMPTY,
             new WiFiSignal(2452, 2452, WiFiWidth.MHZ_20, -80, true),
-            WiFiAdditional.EMPTY);
+            WiFiAdditional.Companion.getEMPTY());
         fixture = new ChannelRating();
     }
 
@@ -110,7 +110,7 @@ public class ChannelRatingTest {
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         return new WiFiDetail("SSID2-OTHER", "BSSID-OTHER", StringUtils.EMPTY,
             new WiFiSignal(wiFiSignal.getPrimaryFrequency(), wiFiSignal.getCenterFrequency(), wiFiSignal.getWiFiWidth(), -80, true),
-            WiFiAdditional.EMPTY);
+            WiFiAdditional.Companion.getEMPTY());
     }
 
     @Test
@@ -141,7 +141,7 @@ public class ChannelRatingTest {
         // setup
         WiFiDetail wiFiDetailGuest = new WiFiDetail("SSID2", "22:cf:30:ce:1d:72", StringUtils.EMPTY,
             new WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50 + ChannelRating.LEVEL_RANGE_MIN, true),
-            WiFiAdditional.EMPTY);
+            WiFiAdditional.Companion.getEMPTY());
         // execute
         fixture.setWiFiDetails(Collections.unmodifiableList(Arrays.asList(wiFiDetail1, wiFiDetailGuest)));
         // validate

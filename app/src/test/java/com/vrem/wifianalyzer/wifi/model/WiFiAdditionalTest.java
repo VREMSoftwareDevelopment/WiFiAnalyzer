@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ public class WiFiAdditionalTest {
     @Test
     public void testWiFiAdditionalEmpty() {
         // validate
-        assertEquals(StringUtils.EMPTY, WiFiAdditional.EMPTY.getVendorName());
+        assertEquals(StringUtils.EMPTY, WiFiAdditional.Companion.getEMPTY().getVendorName());
     }
 
 }

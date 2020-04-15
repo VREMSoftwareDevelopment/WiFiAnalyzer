@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -86,13 +86,13 @@ public class TransformerTest {
     @Test
     public void testTransformWithNulls() {
         assertTrue(fixture.transformCacheResults(null).isEmpty());
-        assertEquals(WiFiConnection.EMPTY, fixture.transformWifiInfo(null));
+        assertEquals(WiFiConnection.Companion.getEMPTY(), fixture.transformWifiInfo(null));
     }
 
     @Test
     public void testTransformWifiInfoNotConnected() {
         when(wifiInfo.getNetworkId()).thenReturn(-1);
-        assertEquals(WiFiConnection.EMPTY, fixture.transformWifiInfo(wifiInfo));
+        assertEquals(WiFiConnection.Companion.getEMPTY(), fixture.transformWifiInfo(wifiInfo));
         verify(wifiInfo).getNetworkId();
     }
 

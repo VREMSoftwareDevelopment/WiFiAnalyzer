@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 
 public class WiFiData {
-    public static final WiFiData EMPTY = new WiFiData(Collections.emptyList(), WiFiConnection.EMPTY);
+    public static final WiFiData EMPTY = new WiFiData(Collections.emptyList(), WiFiConnection.Companion.getEMPTY());
 
     private final List<WiFiDetail> wiFiDetails;
     private final WiFiConnection wiFiConnection;
@@ -139,7 +139,7 @@ public class WiFiData {
                 return connection;
             }
             String vendorName = vendorService.findVendorName(input.getBSSID());
-            WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName);
+            WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName, WiFiConnection.Companion.getEMPTY());
             return new WiFiDetail(input, wiFiAdditional);
         }
     }

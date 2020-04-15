@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ public class SSIDPredicateTest {
     @Test
     public void testSSIDPredicate() {
         // setup
-        WiFiDetail wiFiDetail = new WiFiDetail(SSID, "bssid", "wpa", WiFiSignal.EMPTY, WiFiAdditional.EMPTY);
+        WiFiDetail wiFiDetail = new WiFiDetail(SSID, "bssid", "wpa", WiFiSignal.Companion.getEMPTY(), WiFiAdditional.Companion.getEMPTY());
         // execute & validate
         assertTrue(new SSIDPredicate(SSID).evaluate(wiFiDetail));
         assertTrue(new SSIDPredicate("id").evaluate(wiFiDetail));

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,11 +43,11 @@ public class WiFiConnectionTest {
     @Test
     public void testWiFiConnectionEmpty() {
         // validate
-        assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getSSID());
-        assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getBSSID());
-        assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getIpAddress());
-        assertEquals(WiFiConnection.LINK_SPEED_INVALID, WiFiConnection.EMPTY.getLinkSpeed());
-        assertFalse(WiFiConnection.EMPTY.isConnected());
+        assertEquals(StringUtils.EMPTY, WiFiConnection.Companion.getEMPTY().getSSID());
+        assertEquals(StringUtils.EMPTY, WiFiConnection.Companion.getEMPTY().getBSSID());
+        assertEquals(StringUtils.EMPTY, WiFiConnection.Companion.getEMPTY().getIpAddress());
+        assertEquals(WiFiConnection.LINK_SPEED_INVALID, WiFiConnection.Companion.getEMPTY().getLinkSpeed());
+        assertFalse(WiFiConnection.Companion.getEMPTY().isConnected());
     }
 
     @Test

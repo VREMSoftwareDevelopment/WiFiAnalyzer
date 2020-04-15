@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -98,7 +98,7 @@ public class ConnectionViewTest {
     public void testConnectionGoneWithNoConnectionInformation() {
         // setup
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
-        withConnectionInformation(withConnection(WiFiAdditional.EMPTY));
+        withConnectionInformation(withConnection(WiFiAdditional.Companion.getEMPTY()));
         // execute
         fixture.update(wiFiData);
         // validate
@@ -174,7 +174,7 @@ public class ConnectionViewTest {
     public void testNoDataIsVisibleWithNoWiFiDetails() {
         // setup
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
-        when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
+        when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.Companion.getEMPTY()));
         // execute
         fixture.update(wiFiData);
         // validate
@@ -186,7 +186,7 @@ public class ConnectionViewTest {
     @Test
     public void testNoDataIsGoneWithWiFiDetails() {
         // setup
-        WiFiDetail wiFiDetail = withConnection(WiFiAdditional.EMPTY);
+        WiFiDetail wiFiDetail = withConnection(WiFiAdditional.Companion.getEMPTY());
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(wiFiData.getConnection()).thenReturn(wiFiDetail);
         when(wiFiData.getWiFiDetails()).thenReturn(Collections.singletonList(wiFiDetail));
@@ -202,7 +202,7 @@ public class ConnectionViewTest {
         // setup
         mainActivity.setCurrentNavigationMenu(NavigationMenu.VENDORS);
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
-        when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
+        when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.Companion.getEMPTY()));
         // execute
         fixture.update(wiFiData);
         // validate
@@ -214,7 +214,7 @@ public class ConnectionViewTest {
     public void testScanningIsVisibleWithNoWiFiDetails() {
         // setup
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
-        when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
+        when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.Companion.getEMPTY()));
         // execute
         fixture.update(wiFiData);
         // validate
@@ -225,7 +225,7 @@ public class ConnectionViewTest {
     @Test
     public void testScanningIsGoneWithWiFiDetails() {
         // setup
-        WiFiDetail wiFiDetail = withConnection(WiFiAdditional.EMPTY);
+        WiFiDetail wiFiDetail = withConnection(WiFiAdditional.Companion.getEMPTY());
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(wiFiData.getConnection()).thenReturn(wiFiDetail);
         when(wiFiData.getWiFiDetails()).thenReturn(Collections.singletonList(wiFiDetail));
@@ -241,7 +241,7 @@ public class ConnectionViewTest {
         // setup
         mainActivity.setCurrentNavigationMenu(NavigationMenu.VENDORS);
         when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
-        when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
+        when(wiFiData.getConnection()).thenReturn(withConnection(WiFiAdditional.Companion.getEMPTY()));
         // execute
         fixture.update(wiFiData);
         // validate

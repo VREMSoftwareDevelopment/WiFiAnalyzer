@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 package com.vrem.wifianalyzer.export
 
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal.FREQUENCY_UNITS
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.FREQUENCY_UNITS
 import java.util.Locale.ENGLISH
 
 val header = String.format(ENGLISH,
@@ -37,17 +37,17 @@ fun toExportString(timestamp: String) = { wiFiDetail: WiFiDetail ->
                 ssid,
                 bssid,
                 wiFiSignal.level,
-                wiFiSignal.primaryWiFiChannel.channel,
+                wiFiSignal.getPrimaryWiFiChannel().channel,
                 wiFiSignal.primaryFrequency,
                 FREQUENCY_UNITS,
-                wiFiSignal.centerWiFiChannel.channel,
+                wiFiSignal.getCenterWiFiChannel().channel,
                 wiFiSignal.centerFrequency,
                 FREQUENCY_UNITS,
                 wiFiSignal.wiFiWidth.frequencyWidth,
                 FREQUENCY_UNITS,
-                wiFiSignal.frequencyStart,
-                wiFiSignal.frequencyEnd,
-                wiFiSignal.distance,
+                wiFiSignal.getFrequencyStart(),
+                wiFiSignal.getFrequencyEnd(),
+                wiFiSignal.getDistance(),
                 wiFiSignal.is80211mc,
                 capabilities)
     }
