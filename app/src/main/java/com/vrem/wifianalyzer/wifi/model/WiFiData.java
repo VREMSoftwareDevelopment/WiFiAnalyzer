@@ -35,7 +35,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 
 public class WiFiData {
-    public static final WiFiData EMPTY = new WiFiData(Collections.emptyList(), WiFiConnection.Companion.getEMPTY());
+    public static final WiFiData EMPTY = new WiFiData(Collections.emptyList(), WiFiConnection.EMPTY);
 
     private final List<WiFiDetail> wiFiDetails;
     private final WiFiConnection wiFiConnection;
@@ -139,7 +139,7 @@ public class WiFiData {
                 return connection;
             }
             String vendorName = vendorService.findVendorName(input.getBSSID());
-            WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName, WiFiConnection.Companion.getEMPTY());
+            WiFiAdditional wiFiAdditional = new WiFiAdditional(vendorName, WiFiConnection.EMPTY);
             return new WiFiDetail(input, wiFiAdditional);
         }
     }

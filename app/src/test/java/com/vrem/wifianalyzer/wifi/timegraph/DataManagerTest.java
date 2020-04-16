@@ -228,7 +228,7 @@ public class DataManagerTest {
     }
 
     private WiFiDetail makeWiFiDetail(@NonNull String SSID) {
-        return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY, makeWiFiSignal(), WiFiAdditional.Companion.getEMPTY());
+        return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY, makeWiFiSignal(), WiFiAdditional.EMPTY);
     }
 
     private List<WiFiDetail> makeWiFiDetails() {

@@ -86,13 +86,13 @@ public class TransformerTest {
     @Test
     public void testTransformWithNulls() {
         assertTrue(fixture.transformCacheResults(null).isEmpty());
-        assertEquals(WiFiConnection.Companion.getEMPTY(), fixture.transformWifiInfo(null));
+        assertEquals(WiFiConnection.EMPTY, fixture.transformWifiInfo(null));
     }
 
     @Test
     public void testTransformWifiInfoNotConnected() {
         when(wifiInfo.getNetworkId()).thenReturn(-1);
-        assertEquals(WiFiConnection.Companion.getEMPTY(), fixture.transformWifiInfo(wifiInfo));
+        assertEquals(WiFiConnection.EMPTY, fixture.transformWifiInfo(wifiInfo));
         verify(wifiInfo).getNetworkId();
     }
 

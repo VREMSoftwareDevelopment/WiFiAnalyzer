@@ -43,11 +43,11 @@ public class WiFiConnectionTest {
     @Test
     public void testWiFiConnectionEmpty() {
         // validate
-        assertEquals(StringUtils.EMPTY, WiFiConnection.Companion.getEMPTY().getSSID());
-        assertEquals(StringUtils.EMPTY, WiFiConnection.Companion.getEMPTY().getBSSID());
-        assertEquals(StringUtils.EMPTY, WiFiConnection.Companion.getEMPTY().getIpAddress());
-        assertEquals(WiFiConnection.LINK_SPEED_INVALID, WiFiConnection.Companion.getEMPTY().getLinkSpeed());
-        assertFalse(WiFiConnection.Companion.getEMPTY().isConnected());
+        assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getSSID());
+        assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getBSSID());
+        assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getIpAddress());
+        assertEquals(WiFiConnection.LINK_SPEED_INVALID, WiFiConnection.EMPTY.getLinkSpeed());
+        assertFalse(WiFiConnection.EMPTY.isConnected());
     }
 
     @Test

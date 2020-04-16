@@ -125,7 +125,7 @@ public class ChannelRatingAdapterTest {
     public void testUpdate() {
         // setup
         String expected = mainActivity.getResources().getText(R.string.channel_rating_best_none).toString();
-        WiFiData wiFiData = new WiFiData(Collections.emptyList(), WiFiConnection.Companion.getEMPTY());
+        WiFiData wiFiData = new WiFiData(Collections.emptyList(), WiFiConnection.EMPTY);
         Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ5);
         List<WiFiDetail> wiFiDetails = wiFiData.getWiFiDetails(predicate, SortBy.STRENGTH);
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);

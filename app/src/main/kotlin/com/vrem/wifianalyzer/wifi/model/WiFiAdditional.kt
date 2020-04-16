@@ -17,10 +17,11 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-class WiFiAdditional(val vendorName: String = "", val wiFiConnection: WiFiConnection = WiFiConnection.EMPTY) {
-    constructor(vendorName: String = "") : this(vendorName, WiFiConnection.EMPTY)
+class WiFiAdditional(val vendorName: String = "",
+                     val wiFiConnection: WiFiConnection = WiFiConnection.EMPTY) {
 
     companion object {
+        @JvmField
         val EMPTY = WiFiAdditional()
     }
 

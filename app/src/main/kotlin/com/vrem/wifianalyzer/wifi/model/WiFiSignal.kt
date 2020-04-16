@@ -24,19 +24,13 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth
 import java.util.*
 
-data class WiFiSignal(val primaryFrequency: Int, val wiFiWidth: WiFiWidth) {
-    constructor(primaryFrequency: Int = 0, centerFrequency: Int = 0, wiFiWidth: WiFiWidth = WiFiWidth.MHZ_20, level: Int = 0, is80211mc: Boolean = false) :
-            this(primaryFrequency, wiFiWidth) {
-        this.centerFrequency = centerFrequency
-        this.level = level
-        this.is80211mc = is80211mc
-    }
+data class WiFiSignal(val primaryFrequency: Int = 0,
+                      val centerFrequency: Int = 0,
+                      val wiFiWidth: WiFiWidth = WiFiWidth.MHZ_20,
+                      val level: Int = 0,
+                      val is80211mc: Boolean = false) {
 
-    val wiFiBand: WiFiBand
-
-    var centerFrequency: Int = 0
-    var level: Int = 0
-    var is80211mc: Boolean = false
+    val wiFiBand: WiFiBand = EnumUtils.find(WiFiBand::class.java, FrequencyPredicate(primaryFrequency), WiFiBand.GHZ2)
 
     fun getFrequencyStart(): Int = centerFrequency - wiFiWidth.frequencyWidthHalf
 
@@ -67,12 +61,25 @@ data class WiFiSignal(val primaryFrequency: Int, val wiFiWidth: WiFiWidth) {
         return channel
     }
 
-    companion object {
-        val EMPTY = WiFiSignal()
-        const val FREQUENCY_UNITS = "MHz"
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as WiFiSignal
+
+        if (primaryFrequency != other.primaryFrequency) return false
+        if (wiFiWidth != other.wiFiWidth) return false
+
+        return true
     }
 
-    init {
-        wiFiBand = EnumUtils.find(WiFiBand::class.java, FrequencyPredicate(primaryFrequency), WiFiBand.GHZ2)
+    override fun hashCode(): Int = 31 * primaryFrequency + wiFiWidth.hashCode()
+
+    companion object {
+        const val FREQUENCY_UNITS = "MHz"
+
+        @JvmField
+        val EMPTY = WiFiSignal()
     }
+
 }

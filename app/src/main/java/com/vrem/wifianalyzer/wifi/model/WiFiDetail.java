@@ -31,7 +31,7 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 
 public class WiFiDetail implements Comparable<WiFiDetail> {
-    public static final WiFiDetail EMPTY = new WiFiDetail(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, WiFiSignal.Companion.getEMPTY());
+    public static final WiFiDetail EMPTY = new WiFiDetail(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, WiFiSignal.EMPTY);
     private static final String SSID_EMPTY = "*hidden*";
 
     private final List<WiFiDetail> children;
@@ -52,7 +52,7 @@ public class WiFiDetail implements Comparable<WiFiDetail> {
     }
 
     public WiFiDetail(@NonNull String SSID, @NonNull String BSSID, @NonNull String capabilities, @NonNull WiFiSignal wiFiSignal) {
-        this(SSID, BSSID, capabilities, wiFiSignal, WiFiAdditional.Companion.getEMPTY());
+        this(SSID, BSSID, capabilities, wiFiSignal, WiFiAdditional.EMPTY);
     }
 
     public WiFiDetail(@NonNull WiFiDetail wiFiDetail, @NonNull WiFiAdditional wiFiAdditional) {

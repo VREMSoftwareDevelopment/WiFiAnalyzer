@@ -151,7 +151,7 @@ public class FilterPredicateTest {
 
     private WiFiDetail makeWiFiDetail(String ssid, String security) {
         WiFiSignal wiFiSignal = new WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, -40, true);
-        return new WiFiDetail(ssid, "BSSID", security, wiFiSignal, WiFiAdditional.Companion.getEMPTY());
+        return new WiFiDetail(ssid, "BSSID", security, wiFiSignal, WiFiAdditional.EMPTY);
     }
 
 }

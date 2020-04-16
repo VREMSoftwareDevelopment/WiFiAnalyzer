@@ -92,7 +92,7 @@ public class ChannelGraphViewTest {
         // setup
         Set<WiFiDetail> newSeries = Collections.emptySet();
         List<WiFiDetail> wiFiDetails = Collections.emptyList();
-        WiFiData wiFiData = new WiFiData(wiFiDetails, WiFiConnection.Companion.getEMPTY());
+        WiFiData wiFiData = new WiFiData(wiFiDetails, WiFiConnection.EMPTY);
         when(dataManager.getNewSeries(wiFiDetails, wiFiChannelPair)).thenReturn(newSeries);
         withSettings();
         // execute

@@ -43,7 +43,7 @@ class Transformer {
     @NonNull
     WiFiConnection transformWifiInfo(WifiInfo wifiInfo) {
         if (wifiInfo == null || wifiInfo.getNetworkId() == -1) {
-            return WiFiConnection.Companion.getEMPTY();
+            return WiFiConnection.EMPTY;
         }
         return new WiFiConnection(
             WiFiUtils.convertSSID(wifiInfo.getSSID()),

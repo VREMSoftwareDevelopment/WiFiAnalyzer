@@ -35,10 +35,10 @@ public class GroupByTest {
     public void setUp() {
         wiFiDetail1 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
             new WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -35, true),
-            WiFiAdditional.Companion.getEMPTY());
+            WiFiAdditional.EMPTY);
         wiFiDetail2 = new WiFiDetail("SSID2", "BSSID2", StringUtils.EMPTY,
             new WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -55, true),
-            WiFiAdditional.Companion.getEMPTY());
+            WiFiAdditional.EMPTY);
     }
 
 

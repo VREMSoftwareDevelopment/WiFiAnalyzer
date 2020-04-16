@@ -69,7 +69,7 @@ public class SecurityPredicateTest {
     @NonNull
     private WiFiDetail makeWiFiDetail() {
         WiFiSignal wiFiSignal = new WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1, true);
-        return new WiFiDetail("ssid", "bssid", "wep-wpa", wiFiSignal, WiFiAdditional.Companion.getEMPTY());
+        return new WiFiDetail("ssid", "bssid", "wep-wpa", wiFiSignal, WiFiAdditional.EMPTY);
     }
 
 }

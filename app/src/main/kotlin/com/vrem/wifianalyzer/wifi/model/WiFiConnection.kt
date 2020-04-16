@@ -18,30 +18,37 @@
 
 package com.vrem.wifianalyzer.wifi.model
 
-data class WiFiConnection(val SSID: String = "", val BSSID: String = "") :
+data class WiFiConnection(val SSID: String = "",
+                          val BSSID: String = "",
+                          val ipAddress: String = "",
+                          val linkSpeed: Int = LINK_SPEED_INVALID) :
         Comparable<WiFiConnection> {
-
-    constructor(SSID: String = "", BSSID: String = "", ipAddress: String = "", linkSpeed: Int = LINK_SPEED_INVALID) :
-            this(SSID, BSSID) {
-        this.ipAddress = ipAddress
-        this.linkSpeed = linkSpeed
-    }
-
-    var ipAddress: String = ""
-    var linkSpeed: Int = LINK_SPEED_INVALID
-
-    override fun compareTo(other: WiFiConnection): Int {
-        var result = SSID.compareTo(other.SSID)
-        if (result == 0) {
-            result = BSSID.compareTo(other.BSSID)
-        }
-        return result
-    }
 
     fun isConnected(): Boolean = EMPTY != this
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as WiFiConnection
+
+        if (SSID != other.SSID) return false
+        if (BSSID != other.BSSID) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int = 31 * SSID.hashCode() + BSSID.hashCode()
+
+    override fun compareTo(other: WiFiConnection): Int = when {
+        SSID != other.SSID -> SSID.compareTo(other.SSID)
+        else -> BSSID.compareTo(other.BSSID)
+    }
+
     companion object {
         const val LINK_SPEED_INVALID = -1
+
+        @JvmField
         val EMPTY = WiFiConnection()
     }
 }

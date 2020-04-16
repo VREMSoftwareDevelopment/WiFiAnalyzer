@@ -98,7 +98,7 @@ public class ChannelGraphAdapterTest {
     @Test
     public void testUpdate() {
         // setup
-        WiFiData wiFiData = new WiFiData(Collections.emptyList(), WiFiConnection.Companion.getEMPTY());
+        WiFiData wiFiData = new WiFiData(Collections.emptyList(), WiFiConnection.EMPTY);
         // execute
         fixture.update(wiFiData);
         // validate

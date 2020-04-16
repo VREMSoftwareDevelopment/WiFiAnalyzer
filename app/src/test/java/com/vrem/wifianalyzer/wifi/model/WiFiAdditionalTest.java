@@ -40,7 +40,7 @@ public class WiFiAdditionalTest {
     @Test
     public void testWiFiAdditional() {
         // execute
-        WiFiAdditional fixture = new WiFiAdditional(VENDOR_NAME);
+        WiFiAdditional fixture = new WiFiAdditional(VENDOR_NAME, WiFiConnection.EMPTY);
         // validate
         assertEquals(VENDOR_NAME, fixture.getVendorName());
     }
@@ -48,7 +48,7 @@ public class WiFiAdditionalTest {
     @Test
     public void testWiFiAdditionalEmpty() {
         // validate
-        assertEquals(StringUtils.EMPTY, WiFiAdditional.Companion.getEMPTY().getVendorName());
+        assertEquals(StringUtils.EMPTY, WiFiAdditional.EMPTY.getVendorName());
     }
 
 }
