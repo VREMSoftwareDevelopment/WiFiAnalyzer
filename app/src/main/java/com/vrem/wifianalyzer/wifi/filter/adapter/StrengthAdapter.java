@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ public class StrengthAdapter extends EnumFilterAdapter<Strength> {
 
     @Override
     public int getColor(@NonNull Strength object) {
-        return contains(object) ? object.colorResource() : object.colorResourceDefault();
+        return contains(object) ? object.colorResource() : Strength.colorResourceDefault;
     }
 
     @Override

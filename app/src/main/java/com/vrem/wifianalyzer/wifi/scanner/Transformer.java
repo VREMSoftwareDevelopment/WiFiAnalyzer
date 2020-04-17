@@ -31,6 +31,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import com.vrem.wifianalyzer.wifi.model.WiFiUtils;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -45,9 +46,11 @@ class Transformer {
         if (wifiInfo == null || wifiInfo.getNetworkId() == -1) {
             return WiFiConnection.EMPTY;
         }
+        String SSID = wifiInfo.getSSID();
+        String BSSID = wifiInfo.getBSSID();
         return new WiFiConnection(
-            WiFiUtils.convertSSID(wifiInfo.getSSID()),
-            wifiInfo.getBSSID(),
+            WiFiUtils.convertSSID(SSID == null ? StringUtils.EMPTY : SSID),
+            BSSID == null ? StringUtils.EMPTY : BSSID,
             WiFiUtils.convertIpAddress(wifiInfo.getIpAddress()),
             wifiInfo.getLinkSpeed());
     }
@@ -113,7 +116,11 @@ class Transformer {
             WiFiWidth wiFiWidth = getWiFiWidth(scanResult);
             int centerFrequency = getCenterFrequency(scanResult, wiFiWidth);
             WiFiSignal wiFiSignal = new WiFiSignal(scanResult.frequency, centerFrequency, wiFiWidth, input.getLevelAverage(), is80211mc(scanResult));
-            return new WiFiDetail(scanResult.SSID, scanResult.BSSID, scanResult.capabilities, wiFiSignal);
+            return new WiFiDetail(
+                scanResult.SSID == null ? StringUtils.EMPTY : scanResult.SSID,
+                scanResult.BSSID == null ? StringUtils.EMPTY : scanResult.BSSID,
+                scanResult.capabilities == null ? StringUtils.EMPTY : scanResult.capabilities,
+                wiFiSignal);
         }
     }
 

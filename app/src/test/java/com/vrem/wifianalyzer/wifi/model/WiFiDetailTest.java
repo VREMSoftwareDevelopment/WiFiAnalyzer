@@ -26,9 +26,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
 
 public class WiFiDetailTest {
     private static final int FREQUENCY = 2435;
@@ -56,13 +54,13 @@ public class WiFiDetailTest {
         // validate
         assertEquals(wiFiSignal, fixture.getWiFiSignal());
         assertEquals(wiFiAdditional, fixture.getWiFiAdditional());
+        assertEquals(SSID, fixture.getRawSSID());
         assertEquals(SSID, fixture.getSSID());
         assertEquals(BSSID, fixture.getBSSID());
         assertEquals(CAPABILITIES, fixture.getCapabilities());
         assertEquals(expectedTitle, fixture.getTitle());
         assertEquals(Security.WPA, fixture.getSecurity());
         assertEquals(Sets.newHashSet(Security.WPA, Security.WPA2), fixture.getSecurities());
-        assertFalse(fixture.isHidden());
     }
 
     @Test
@@ -100,11 +98,12 @@ public class WiFiDetailTest {
     }
 
     @Test
-    public void testIsHidden() {
+    public void testGetRawSSID() {
         // setup
         fixture = new WiFiDetail(StringUtils.EMPTY, BSSID, CAPABILITIES, wiFiSignal);
         // execute & validate
-        assertTrue(fixture.isHidden());
+        assertEquals(StringUtils.EMPTY, fixture.getRawSSID());
+        assertEquals(WiFiDetail.SSID_EMPTY, fixture.getSSID());
     }
 
     @Test
@@ -115,13 +114,13 @@ public class WiFiDetailTest {
         WiFiDetail actual = new WiFiDetail(expected, expected.getWiFiAdditional());
         // validate
         assertEquals(expected, actual);
+        assertEquals(expected.getRawSSID(), actual.getRawSSID());
         assertEquals(expected.getSSID(), actual.getSSID());
         assertEquals(expected.getBSSID(), actual.getBSSID());
         assertEquals(expected.getCapabilities(), actual.getCapabilities());
         assertEquals(expected.getTitle(), actual.getTitle());
         assertEquals(expected.getSecurity(), actual.getSecurity());
         assertEquals(expected.getSecurities(), actual.getSecurities());
-        assertEquals(expected.isHidden(), actual.isHidden());
         assertEquals(expected.getWiFiAdditional(), actual.getWiFiAdditional());
         assertEquals(expected.getWiFiSignal(), actual.getWiFiSignal());
     }

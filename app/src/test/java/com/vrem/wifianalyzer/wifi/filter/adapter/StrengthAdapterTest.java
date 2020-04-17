@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -109,7 +109,7 @@ public class StrengthAdapterTest {
         // setup
         fixture.toggle(Strength.TWO);
         // execute & validate
-        assertEquals(Strength.TWO.colorResourceDefault(), fixture.getColor(Strength.TWO));
+        assertEquals(Strength.colorResourceDefault, fixture.getColor(Strength.TWO));
     }
 
     @Test

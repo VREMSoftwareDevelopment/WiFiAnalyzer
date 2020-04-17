@@ -34,8 +34,8 @@ fun toExportString(timestamp: String) = { wiFiDetail: WiFiDetail ->
     with(wiFiDetail) {
         String.format(ENGLISH, "%s|%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%s|%s|%s%n",
                 timestamp,
-                ssid,
-                bssid,
+                SSID,
+                BSSID,
                 wiFiSignal.level,
                 wiFiSignal.getPrimaryWiFiChannel().channel,
                 wiFiSignal.primaryFrequency,
