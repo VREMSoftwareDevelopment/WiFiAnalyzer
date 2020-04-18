@@ -17,12 +17,13 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
+import com.vrem.util.StringUtils
 import com.vrem.wifianalyzer.R
 import java.util.*
 
 const val RSN = "RSN"
 
-enum class Security(val imageResource: Int, val additional: String = "") {
+enum class Security(val imageResource: Int, val additional: String = StringUtils.EMPTY) {
     NONE(R.drawable.ic_lock_open),
     WPS(R.drawable.ic_lock_outline),
     WEP(R.drawable.ic_lock_outline),
@@ -38,7 +39,10 @@ enum class Security(val imageResource: Int, val additional: String = "") {
         @JvmStatic
         fun findOne(capabilities: String): Security {
             val results = findAll(capabilities)
-            return if (results.isEmpty()) NONE else results.first()
+            return when {
+                results.isEmpty() -> NONE
+                else -> results.first()
+            }
         }
 
         private fun transform(): (String) -> Security? = {

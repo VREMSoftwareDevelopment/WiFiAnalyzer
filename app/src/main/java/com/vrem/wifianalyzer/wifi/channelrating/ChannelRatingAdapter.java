@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,6 +40,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.model.ChannelAPCount;
 import com.vrem.wifianalyzer.wifi.model.ChannelRating;
+import com.vrem.wifianalyzer.wifi.model.IChannelRating;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -61,7 +62,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     private static final int MAX_CHANNELS_TO_DISPLAY = 10;
 
     private final TextView bestChannels;
-    private ChannelRating channelRating;
+    private IChannelRating channelRating;
 
     ChannelRatingAdapter(@NonNull Context context, @NonNull TextView bestChannels) {
         super(context, R.layout.channel_rating_details, new ArrayList<>());
@@ -69,7 +70,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
         setChannelRating(new ChannelRating());
     }
 
-    void setChannelRating(@NonNull ChannelRating channelRating) {
+    void setChannelRating(@NonNull IChannelRating channelRating) {
         this.channelRating = channelRating;
     }
 

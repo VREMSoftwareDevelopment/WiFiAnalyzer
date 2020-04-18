@@ -17,9 +17,11 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-data class WiFiDetail(val rawSSID: String = "",
-                      val BSSID: String = "",
-                      val capabilities: String = "",
+import com.vrem.util.StringUtils
+
+data class WiFiDetail(val rawSSID: String = StringUtils.EMPTY,
+                      val BSSID: String = StringUtils.EMPTY,
+                      val capabilities: String = StringUtils.EMPTY,
                       val wiFiSignal: WiFiSignal = WiFiSignal.EMPTY,
                       val wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY) :
         Comparable<WiFiDetail> {
@@ -30,7 +32,10 @@ data class WiFiDetail(val rawSSID: String = "",
     constructor(wiFiDetail: WiFiDetail, wiFiAdditional: WiFiAdditional) :
             this(wiFiDetail.rawSSID, wiFiDetail.BSSID, wiFiDetail.capabilities, wiFiDetail.wiFiSignal, wiFiAdditional)
 
-    val SSID = if (rawSSID.isEmpty()) SSID_EMPTY else rawSSID
+    val SSID = when {
+        rawSSID.isEmpty() -> SSID_EMPTY
+        else -> rawSSID
+    }
 
     private val children: MutableList<WiFiDetail> = ArrayList()
 

@@ -17,7 +17,9 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-class WiFiAdditional(val vendorName: String = "",
+import com.vrem.util.StringUtils
+
+class WiFiAdditional(val vendorName: String = StringUtils.EMPTY,
                      val wiFiConnection: WiFiConnection = WiFiConnection.EMPTY) {
 
     companion object {

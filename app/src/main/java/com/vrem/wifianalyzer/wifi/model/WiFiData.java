@@ -69,7 +69,7 @@ public class WiFiData {
     @NonNull
     List<WiFiDetail> sortAndGroup(@NonNull List<WiFiDetail> wiFiDetails, @NonNull SortBy sortBy, @NonNull GroupBy groupBy) {
         List<WiFiDetail> results = new ArrayList<>();
-        Collections.sort(wiFiDetails, groupBy.sortOrderComparator());
+        Collections.sort(wiFiDetails, groupBy.sortByComparator());
         WiFiDetail parent = null;
         for (WiFiDetail wiFiDetail : wiFiDetails) {
             if (parent == null || groupBy.groupByComparator().compare(parent, wiFiDetail) != 0) {

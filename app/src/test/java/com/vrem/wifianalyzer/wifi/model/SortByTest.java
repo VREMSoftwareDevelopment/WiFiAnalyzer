@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,9 +32,9 @@ public class SortByTest {
 
     @Test
     public void testComparator() {
-        assertTrue(SortBy.STRENGTH.comparator() instanceof SortBy.StrengthComparator);
-        assertTrue(SortBy.SSID.comparator() instanceof SortBy.SSIDComparator);
-        assertTrue(SortBy.CHANNEL.comparator() instanceof SortBy.ChannelComparator);
+        assertTrue(SortBy.STRENGTH.comparator() instanceof SortByStrength);
+        assertTrue(SortBy.SSID.comparator() instanceof SortBySSID);
+        assertTrue(SortBy.CHANNEL.comparator() instanceof SortByChannel);
     }
 
 }

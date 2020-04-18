@@ -15,35 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.model
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
-buildscript {
-    ext {
-        kotlin_version = '1.3.72'
+class SortByStrength : Comparator<WiFiDetail> {
+    override fun compare(lhs: WiFiDetail, rhs: WiFiDetail): Int = when {
+        rhs.wiFiSignal.level != lhs.wiFiSignal.level -> rhs.wiFiSignal.level.compareTo(lhs.wiFiSignal.level)
+        lhs.SSID != rhs.SSID -> lhs.SSID.compareTo(rhs.SSID, true)
+        else -> lhs.BSSID.compareTo(rhs.BSSID, true)
     }
-    repositories {
-        google()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
-        maven { url 'https://maven.google.com' }
-        mavenCentral()
-    }
-    tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }

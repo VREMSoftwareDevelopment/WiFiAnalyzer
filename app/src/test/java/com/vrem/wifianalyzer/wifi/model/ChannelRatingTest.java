@@ -137,13 +137,13 @@ public class ChannelRatingTest {
     }
 
     @Test
-    public void testSetWiFiChannelsRemovesGuestAccessPoint() {
+    public void testSetWiFiChannelsRemovesDuplicateAccessPoints() {
         // setup
-        WiFiDetail wiFiDetailGuest = new WiFiDetail("SSID2", "22:cf:30:ce:1d:72", StringUtils.EMPTY,
-            new WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50 + ChannelRating.LEVEL_RANGE_MIN, true),
+        WiFiDetail wiFiDetail = new WiFiDetail("SSID2", "22:cf:30:ce:1d:72", StringUtils.EMPTY,
+            new WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, wiFiDetail1.getWiFiSignal().getLevel() - 5, true),
             WiFiAdditional.EMPTY);
         // execute
-        fixture.setWiFiDetails(Collections.unmodifiableList(Arrays.asList(wiFiDetail1, wiFiDetailGuest)));
+        fixture.setWiFiDetails(Collections.unmodifiableList(Arrays.asList(wiFiDetail1, wiFiDetail)));
         // validate
         assertEquals(1, fixture.getWiFiDetails().size());
         assertEquals(wiFiDetail1, fixture.getWiFiDetails().get(0));

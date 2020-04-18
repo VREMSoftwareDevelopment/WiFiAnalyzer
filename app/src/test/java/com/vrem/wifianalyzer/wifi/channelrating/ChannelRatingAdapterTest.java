@@ -33,7 +33,7 @@ import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.model.ChannelAPCount;
-import com.vrem.wifianalyzer.wifi.model.ChannelRating;
+import com.vrem.wifianalyzer.wifi.model.IChannelRating;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
@@ -71,7 +71,7 @@ public class ChannelRatingAdapterTest {
 
     private ChannelRatingAdapter fixture;
     private Settings settings;
-    private ChannelRating channelRating;
+    private IChannelRating channelRating;
     private TextView bestChannels;
     private MainActivity mainActivity;
 
@@ -79,7 +79,7 @@ public class ChannelRatingAdapterTest {
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getActivity();
 
-        channelRating = mock(ChannelRating.class);
+        channelRating = mock(IChannelRating.class);
         bestChannels = new TextView(mainActivity);
         settings = MainContextHelper.INSTANCE.getSettings();
 

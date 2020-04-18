@@ -19,11 +19,18 @@
 package com.vrem.wifianalyzer.wifi.model;
 
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
+import com.vrem.wifianalyzer.wifi.model.GroupBy.GroupBySSID;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.vrem.wifianalyzer.wifi.model.GroupBy.CHANNEL;
+import static com.vrem.wifianalyzer.wifi.model.GroupBy.GroupByChannel;
+import static com.vrem.wifianalyzer.wifi.model.GroupBy.NONE;
+import static com.vrem.wifianalyzer.wifi.model.GroupBy.None;
+import static com.vrem.wifianalyzer.wifi.model.GroupBy.SSID;
+import static com.vrem.wifianalyzer.wifi.model.GroupBy.values;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -44,71 +51,52 @@ public class GroupByTest {
 
     @Test
     public void testGroupByNumber() {
-        assertEquals(3, GroupBy.values().length);
+        assertEquals(3, values().length);
     }
 
     @Test
     public void testGroupBy() {
-        assertTrue(GroupBy.NONE.groupByComparator() instanceof GroupBy.None);
-        assertTrue(GroupBy.SSID.groupByComparator() instanceof GroupBy.SSIDGroupBy);
-        assertTrue(GroupBy.CHANNEL.groupByComparator() instanceof GroupBy.ChannelGroupBy);
+        assertTrue(NONE.groupByComparator() instanceof None);
+        assertTrue(SSID.groupByComparator() instanceof GroupBySSID);
+        assertTrue(CHANNEL.groupByComparator() instanceof GroupByChannel);
     }
 
     @Test
-    public void testSortOrder() {
-        assertTrue(GroupBy.NONE.sortOrderComparator() instanceof GroupBy.None);
-        assertTrue(GroupBy.SSID.sortOrderComparator() instanceof GroupBy.SSIDSortOrder);
-        assertTrue(GroupBy.CHANNEL.sortOrderComparator() instanceof GroupBy.ChannelSortOrder);
+    public void testSortBy() {
+        assertTrue(NONE.sortByComparator() instanceof None);
+        assertTrue(SSID.sortByComparator() instanceof SortBySSID);
+        assertTrue(CHANNEL.sortByComparator() instanceof SortByChannel);
     }
 
     @Test
-    public void testNoneComparator() {
+    public void testNone() {
         // setup
-        GroupBy.None comparator = new GroupBy.None();
+        None fixture = new None();
         // execute & validate
-        assertEquals(0, comparator.compare(wiFiDetail1, wiFiDetail1));
-        assertEquals(0, comparator.compare(wiFiDetail2, wiFiDetail2));
-        assertEquals(1, comparator.compare(wiFiDetail1, wiFiDetail2));
-        assertEquals(1, comparator.compare(wiFiDetail2, wiFiDetail1));
+        assertEquals(0, fixture.compare(wiFiDetail1, wiFiDetail1));
+        assertEquals(-1, fixture.compare(wiFiDetail1, wiFiDetail2));
+        assertEquals(1, fixture.compare(wiFiDetail2, wiFiDetail1));
     }
 
     @Test
-    public void testChannelGroupByComparator() {
+    public void testGroupByChannel() {
         // setup
-        GroupBy.ChannelGroupBy comparator = new GroupBy.ChannelGroupBy();
+        GroupByChannel fixture = new GroupByChannel();
         // execute & validate
-        assertEquals(0, comparator.compare(wiFiDetail1, wiFiDetail1));
-        assertEquals(1, comparator.compare(wiFiDetail1, wiFiDetail2));
-        assertEquals(-1, comparator.compare(wiFiDetail2, wiFiDetail1));
+        assertEquals(0, fixture.compare(wiFiDetail1, wiFiDetail1));
+        assertEquals(1, fixture.compare(wiFiDetail1, wiFiDetail2));
+        assertEquals(-1, fixture.compare(wiFiDetail2, wiFiDetail1));
     }
 
     @Test
-    public void testChannelSortOrder() {
+    public void testGroupBySSID() {
         // setup
-        GroupBy.ChannelSortOrder comparator = new GroupBy.ChannelSortOrder();
+        GroupBySSID fixture = new GroupBySSID();
         // execute & validate
-        assertEquals(0, comparator.compare(wiFiDetail1, wiFiDetail1));
-        assertEquals(1, comparator.compare(wiFiDetail1, wiFiDetail2));
-        assertEquals(-1, comparator.compare(wiFiDetail2, wiFiDetail1));
+        assertEquals(0, fixture.compare(wiFiDetail1, wiFiDetail1));
+        assertEquals(-1, fixture.compare(wiFiDetail1, wiFiDetail2));
+        assertEquals(1, fixture.compare(wiFiDetail2, wiFiDetail1));
     }
 
-    @Test
-    public void testSSIDGroupByComparator() {
-        // setup
-        GroupBy.SSIDGroupBy comparator = new GroupBy.SSIDGroupBy();
-        // execute & validate
-        assertEquals(0, comparator.compare(wiFiDetail1, wiFiDetail1));
-        assertEquals(-1, comparator.compare(wiFiDetail1, wiFiDetail2));
-        assertEquals(1, comparator.compare(wiFiDetail2, wiFiDetail1));
-    }
-
-    @Test
-    public void testSSIDSortOrderComparatorEquals() {
-        GroupBy.SSIDSortOrder comparator = new GroupBy.SSIDSortOrder();
-        // execute & validate
-        assertEquals(0, comparator.compare(wiFiDetail1, wiFiDetail1));
-        assertEquals(-1, comparator.compare(wiFiDetail1, wiFiDetail2));
-        assertEquals(1, comparator.compare(wiFiDetail2, wiFiDetail1));
-    }
 
 }
