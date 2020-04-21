@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ class AccessPointsAdapterData {
     void update(@NonNull WiFiData wiFiData, ExpandableListView expandableListView) {
         Settings settings = MainContext.INSTANCE.getSettings();
         Predicate<WiFiDetail> predicate = FilterPredicate.makeAccessPointsPredicate(settings);
-        wiFiDetails = wiFiData.getWiFiDetails(predicate, settings.getSortBy(), settings.getGroupBy());
+        wiFiDetails = wiFiData.wiFiDetails(predicate, settings.getSortBy(), settings.getGroupBy());
         accessPointsAdapterGroup.update(wiFiDetails, expandableListView);
     }
 

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,21 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.util
 
-package com.vrem.wifianalyzer.wifi.band;
+import android.content.Intent
 
-import org.apache.commons.collections4.Predicate;
-
-public class FrequencyPredicate implements Predicate<WiFiBand> {
-    private final int frequency;
-
-    public FrequencyPredicate(int frequency) {
-        this.frequency = frequency;
+class IntentUtils private constructor() {
+    companion object {
+        @JvmStatic
+        fun makeIntent(action: String): Intent = Intent(action)
     }
-
-    @Override
-    public boolean evaluate(WiFiBand object) {
-        return object.getWiFiChannels().isInRange(frequency);
-    }
-
 }

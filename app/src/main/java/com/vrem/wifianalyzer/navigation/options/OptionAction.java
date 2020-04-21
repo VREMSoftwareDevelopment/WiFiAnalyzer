@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,10 +18,7 @@
 
 package com.vrem.wifianalyzer.navigation.options;
 
-import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.R;
-
-import org.apache.commons.collections4.Predicate;
 
 import androidx.annotation.NonNull;
 
@@ -41,7 +38,10 @@ enum OptionAction {
 
     @NonNull
     public static OptionAction findOptionAction(int key) {
-        return EnumUtils.find(OptionAction.class, new ActionPredicate(key), NO_ACTION);
+        for (OptionAction value : values()) {
+            if (value.key == key) return value;
+        }
+        return NO_ACTION;
     }
 
     int getKey() {
@@ -51,19 +51,6 @@ enum OptionAction {
     @NonNull
     Action getAction() {
         return action;
-    }
-
-    private static class ActionPredicate implements Predicate<OptionAction> {
-        private final int key;
-
-        private ActionPredicate(int key) {
-            this.key = key;
-        }
-
-        @Override
-        public boolean evaluate(OptionAction object) {
-            return key == object.key;
-        }
     }
 
     static class NoAction implements Action {

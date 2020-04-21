@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,27 +22,30 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.util.DisplayMetrics;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
+import org.robolectric.annotation.Config;
 
 import java.util.Locale;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.verifyNoMoreInteractions;
-import static org.powermock.api.mockito.PowerMockito.verifyStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(BuildUtils.class)
+@RunWith(AndroidJUnit4.class)
+@Config(sdk = Build.VERSION_CODES.P)
 public class ConfigurationUtilsTest {
     @Mock
     private Context context;
@@ -55,17 +58,18 @@ public class ConfigurationUtilsTest {
     @Mock
     private DisplayMetrics displayMetrics;
 
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
+
     private Locale newLocale;
 
     @Before
     public void setUp() {
-        mockStatic(BuildUtils.class);
         newLocale = Locale.US;
     }
 
     @After
     public void tearDown() {
-        verifyNoMoreInteractions(BuildUtils.class);
         verifyNoMoreInteractions(context);
         verifyNoMoreInteractions(contextWrapper);
         verifyNoMoreInteractions(resources);
@@ -74,9 +78,8 @@ public class ConfigurationUtilsTest {
     }
 
     @Test
-    public void testCreateContextWithAndroidNPlus() {
+    public void testCreateContext() {
         // setup
-        when(BuildUtils.isMinVersionN()).thenReturn(true);
         when(context.getResources()).thenReturn(resources);
         when(resources.getConfiguration()).thenReturn(configuration);
         when(context.createConfigurationContext(configuration)).thenReturn(contextWrapper);
@@ -91,14 +94,12 @@ public class ConfigurationUtilsTest {
         verify(context).getResources();
         verify(contextWrapper).getBaseContext();
         verify(resources).getConfiguration();
-        verifyStatic(BuildUtils.class);
-        BuildUtils.isMinVersionN();
     }
 
     @Test
-    public void testCreateContext() {
+    @Config(sdk = Build.VERSION_CODES.M)
+    public void testCreateContextLegacy() {
         // setup
-        when(BuildUtils.isMinVersionN()).thenReturn(false);
         when(context.getResources()).thenReturn(resources);
         when(resources.getConfiguration()).thenReturn(configuration);
         when(resources.getDisplayMetrics()).thenReturn(displayMetrics);
@@ -111,8 +112,6 @@ public class ConfigurationUtilsTest {
         verify(resources).updateConfiguration(configuration, displayMetrics);
         verify(context).getResources();
         verify(resources).getConfiguration();
-        verifyStatic(BuildUtils.class);
-        BuildUtils.isMinVersionN();
     }
 
 }

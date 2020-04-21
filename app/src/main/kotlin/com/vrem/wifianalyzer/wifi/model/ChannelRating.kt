@@ -18,50 +18,32 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel
-import java.util.*
-import kotlin.collections.ArrayList
 
-interface IChannelRating {
-    fun getCount(wiFiChannel: WiFiChannel): Int
-
-    fun getStrength(wiFiChannel: WiFiChannel): Strength
-
-    fun getWiFiDetails(): List<WiFiDetail>
-
-    fun setWiFiDetails(wiFiDetails: List<WiFiDetail>)
-
-    fun getBestChannels(wiFiChannels: List<WiFiChannel>): List<ChannelAPCount>
-}
-
-class ChannelRating : IChannelRating {
+class ChannelRating {
     private val wiFiDetails: MutableList<WiFiDetail> = ArrayList()
 
-    override fun getCount(wiFiChannel: WiFiChannel): Int {
-        return collectOverlapping(wiFiChannel).size
-    }
+    fun count(wiFiChannel: WiFiChannel): Int = collectOverlapping(wiFiChannel).size
 
-    override fun getStrength(wiFiChannel: WiFiChannel): Strength =
+    fun strength(wiFiChannel: WiFiChannel): Strength =
             enumValues<Strength>()[
                     collectOverlapping(wiFiChannel)
-                            .filter { !it.wiFiAdditional.wiFiConnection.isConnected() }
-                            .map { it.wiFiSignal.getStrength().ordinal }
+                            .filter { !it.wiFiAdditional.wiFiConnection.connected() }
+                            .map { it.wiFiSignal.strength().ordinal }
                             .maxBy { it } ?: Strength.ZERO.ordinal
             ]
 
-    override fun getWiFiDetails(): List<WiFiDetail> {
-        return wiFiDetails.toList()
-    }
+    fun wiFiDetails(): List<WiFiDetail> = wiFiDetails.toList()
 
-    override fun setWiFiDetails(wiFiDetails: List<WiFiDetail>) {
+    fun wiFiDetails(wiFiDetails: List<WiFiDetail>) {
         this.wiFiDetails.clear()
         this.wiFiDetails.addAll(removeSame(wiFiDetails))
     }
 
-    override fun getBestChannels(wiFiChannels: List<WiFiChannel>): List<ChannelAPCount> =
+    fun bestChannels(wiFiChannels: List<WiFiChannel>): List<ChannelAPCount> =
             wiFiChannels
                     .filter { bestChannel(it) }
-                    .map { ChannelAPCount(it, getCount(it)) }
-                    .sortedWith(ChannelAPCountComparator())
+                    .map { ChannelAPCount(it, count(it)) }
+                    .sorted()
 
     private fun removeSame(wiFiDetails: List<WiFiDetail>): List<WiFiDetail> {
         val (left, right) = wiFiDetails.partition { BSSID_LENGTH == it.BSSID.length }
@@ -70,26 +52,19 @@ class ChannelRating : IChannelRating {
 
     private fun collectOverlapping(wiFiChannel: WiFiChannel): List<WiFiDetail> =
             wiFiDetails
-                    .filter { it.wiFiSignal.isInRange(wiFiChannel.frequency) }
+                    .filter { it.wiFiSignal.inRange(wiFiChannel.frequency) }
                     .toList()
 
     private fun bestChannel(it: WiFiChannel): Boolean {
-        val strength = getStrength(it)
+        val strength: Strength = strength(it)
         return Strength.ZERO == strength || Strength.ONE == strength
-    }
-
-    private inner class ChannelAPCountComparator : Comparator<ChannelAPCount> {
-        override fun compare(lhs: ChannelAPCount, rhs: ChannelAPCount): Int = when {
-            lhs.count != rhs.count -> lhs.count.compareTo(rhs.count)
-            else -> lhs.wiFiChannel.compareTo(rhs.wiFiChannel)
-        }
     }
 
     private data class Key(val prefix: String, val BSSID: String, val frequency: Int)
 
     private fun WiFiDetail.toKey(): Key = Key(
-            this.BSSID.substring(0, 0).toUpperCase(Locale.getDefault()),
-            this.BSSID.substring(2, BSSID_LENGTH - 1).toUpperCase(Locale.getDefault()),
+            this.BSSID.substring(0, 0),
+            this.BSSID.substring(2, BSSID_LENGTH - 1),
             this.wiFiSignal.primaryFrequency)
 
     companion object {

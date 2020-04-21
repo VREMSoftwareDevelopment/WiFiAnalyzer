@@ -15,14 +15,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.wifi.model
 
-class SortByChannel : Comparator<WiFiDetail> {
-    override fun compare(lhs: WiFiDetail, rhs: WiFiDetail): Int = when {
-        lhs.wiFiSignal.getPrimaryWiFiChannel().channel != rhs.wiFiSignal.getPrimaryWiFiChannel().channel ->
-            lhs.wiFiSignal.getPrimaryWiFiChannel().channel.compareTo(rhs.wiFiSignal.getPrimaryWiFiChannel().channel)
-        rhs.wiFiSignal.level != lhs.wiFiSignal.level -> rhs.wiFiSignal.level.compareTo(lhs.wiFiSignal.level)
-        lhs.SSID != rhs.SSID -> lhs.SSID.compareTo(rhs.SSID, true)
-        else -> lhs.BSSID.compareTo(rhs.BSSID, true)
+package com.vrem.util
+
+import android.os.Build
+
+class BuildUtils private constructor() {
+    companion object {
+        @JvmStatic
+        fun isMinVersionQ(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+
+        @JvmStatic
+        fun isMinVersionP(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+
+        @JvmStatic
+        fun isVersionP(): Boolean = Build.VERSION.SDK_INT == Build.VERSION_CODES.P
+
+        @JvmStatic
+        fun isMinVersionN(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+
+        @JvmStatic
+        fun isMinVersionM(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+
+        @JvmStatic
+        fun isMinVersionL(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
     }
 }

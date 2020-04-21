@@ -366,18 +366,18 @@ public class AccessPointDetailTest {
         validateTextViewValuesCompactView(view, wiFiDetail);
 
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        validateTextViewValue(view, wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd(), R.id.channel_frequency_range);
+        validateTextViewValue(view, wiFiSignal.frequencyStart() + " - " + wiFiSignal.frequencyEnd(), R.id.channel_frequency_range);
         validateTextViewValue(view, "(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WiFiSignal.FREQUENCY_UNITS + ")", R.id.width);
         validateTextViewValue(view, wiFiDetail.getCapabilities(), R.id.capabilities);
     }
 
     private void validateTextViewValuesCompactView(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        validateTextViewValue(view, wiFiDetail.getTitle(), R.id.ssid);
+        validateTextViewValue(view, wiFiDetail.title(), R.id.ssid);
         validateTextViewValue(view, String.format(Locale.ENGLISH, "%ddBm", wiFiSignal.getLevel()), R.id.level);
-        validateTextViewValue(view, wiFiSignal.getChannelDisplay(), R.id.channel);
+        validateTextViewValue(view, wiFiSignal.channelDisplay(), R.id.channel);
         validateTextViewValue(view, String.format(Locale.ENGLISH, "%d%s", wiFiSignal.getPrimaryFrequency(), WiFiSignal.FREQUENCY_UNITS), R.id.primaryFrequency);
-        validateTextViewValue(view, wiFiSignal.getDistance(), R.id.distance);
+        validateTextViewValue(view, wiFiSignal.distance(), R.id.distance);
     }
 
     private void validateTextViewValue(@NonNull View view, @NonNull String expected, int id) {

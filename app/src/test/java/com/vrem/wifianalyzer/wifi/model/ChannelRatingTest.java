@@ -62,34 +62,34 @@ public class ChannelRatingTest {
     @Test
     public void testChannelRating() {
         // setup
-        WiFiChannel wiFiChannel = wiFiDetail1.getWiFiSignal().getCenterWiFiChannel();
+        WiFiChannel wiFiChannel = wiFiDetail1.getWiFiSignal().centerWiFiChannel();
         // execute & validate
-        assertEquals(0, fixture.getCount(wiFiChannel));
-        assertEquals(Strength.ZERO, fixture.getStrength(wiFiChannel));
+        assertEquals(0, fixture.count(wiFiChannel));
+        assertEquals(Strength.ZERO, fixture.strength(wiFiChannel));
     }
 
     @Test
     public void testGetCount() {
         // setup
-        fixture.setWiFiDetails(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4));
+        fixture.wiFiDetails(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4));
         // execute and validate
-        validateCount(2, wiFiDetail1.getWiFiSignal().getCenterWiFiChannel());
-        validateCount(4, wiFiDetail2.getWiFiSignal().getCenterWiFiChannel());
-        validateCount(3, wiFiDetail3.getWiFiSignal().getCenterWiFiChannel());
+        validateCount(2, wiFiDetail1.getWiFiSignal().centerWiFiChannel());
+        validateCount(4, wiFiDetail2.getWiFiSignal().centerWiFiChannel());
+        validateCount(3, wiFiDetail3.getWiFiSignal().centerWiFiChannel());
     }
 
     private void validateCount(int expected, @NonNull WiFiChannel wiFiChannel) {
-        assertEquals(expected, fixture.getCount(wiFiChannel));
+        assertEquals(expected, fixture.count(wiFiChannel));
     }
 
     @Test
     public void testGetStrengthShouldReturnMaximum() {
         // setup
         WiFiDetail other = makeCopy(wiFiDetail3);
-        fixture.setWiFiDetails(Arrays.asList(other, wiFiDetail3));
-        Strength expected = wiFiDetail3.getWiFiSignal().getStrength();
+        fixture.wiFiDetails(Arrays.asList(other, wiFiDetail3));
+        Strength expected = wiFiDetail3.getWiFiSignal().strength();
         // execute
-        Strength actual = fixture.getStrength(wiFiDetail3.getWiFiSignal().getCenterWiFiChannel());
+        Strength actual = fixture.strength(wiFiDetail3.getWiFiSignal().centerWiFiChannel());
         // execute and validate
         assertEquals(expected, actual);
     }
@@ -98,10 +98,10 @@ public class ChannelRatingTest {
     public void testGetStrengthWithConnected() {
         // setup
         WiFiDetail other = makeCopy(wiFiDetail1);
-        fixture.setWiFiDetails(Arrays.asList(other, wiFiDetail1));
-        Strength expected = other.getWiFiSignal().getStrength();
+        fixture.wiFiDetails(Arrays.asList(other, wiFiDetail1));
+        Strength expected = other.getWiFiSignal().strength();
         // execute
-        Strength actual = fixture.getStrength(wiFiDetail1.getWiFiSignal().getCenterWiFiChannel());
+        Strength actual = fixture.strength(wiFiDetail1.getWiFiSignal().centerWiFiChannel());
         // execute and validate
         assertEquals(expected, actual);
     }
@@ -117,9 +117,9 @@ public class ChannelRatingTest {
     public void testGetBestChannelsSortedInOrderWithMinimumChannels() {
         // setup
         List<WiFiChannel> channels = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannels();
-        fixture.setWiFiDetails(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4));
+        fixture.wiFiDetails(Arrays.asList(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4));
         // execute
-        List<ChannelAPCount> actual = fixture.getBestChannels(channels);
+        List<ChannelAPCount> actual = fixture.bestChannels(channels);
         // validate
         assertEquals(7, actual.size());
         validateChannelAPCount(1, 0, actual.get(0));
@@ -143,9 +143,9 @@ public class ChannelRatingTest {
             new WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, wiFiDetail1.getWiFiSignal().getLevel() - 5, true),
             WiFiAdditional.EMPTY);
         // execute
-        fixture.setWiFiDetails(Collections.unmodifiableList(Arrays.asList(wiFiDetail1, wiFiDetail)));
+        fixture.wiFiDetails(Collections.unmodifiableList(Arrays.asList(wiFiDetail1, wiFiDetail)));
         // validate
-        assertEquals(1, fixture.getWiFiDetails().size());
-        assertEquals(wiFiDetail1, fixture.getWiFiDetails().get(0));
+        assertEquals(1, fixture.wiFiDetails().size());
+        assertEquals(wiFiDetail1, fixture.wiFiDetails().get(0));
     }
 }

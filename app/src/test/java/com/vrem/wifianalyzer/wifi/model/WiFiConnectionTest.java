@@ -47,7 +47,7 @@ public class WiFiConnectionTest {
         assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getBSSID());
         assertEquals(StringUtils.EMPTY, WiFiConnection.EMPTY.getIpAddress());
         assertEquals(WiFiConnection.LINK_SPEED_INVALID, WiFiConnection.EMPTY.getLinkSpeed());
-        assertFalse(WiFiConnection.EMPTY.isConnected());
+        assertFalse(WiFiConnection.EMPTY.connected());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class WiFiConnectionTest {
         assertEquals(BSSID, fixture.getBSSID());
         assertEquals(IP_ADDRESS, fixture.getIpAddress());
         assertEquals(LINK_SPEED, fixture.getLinkSpeed());
-        assertTrue(fixture.isConnected());
+        assertTrue(fixture.connected());
     }
 
     @Test

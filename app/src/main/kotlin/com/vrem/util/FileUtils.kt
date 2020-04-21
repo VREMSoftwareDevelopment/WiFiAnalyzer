@@ -15,12 +15,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.wifi.model
+package com.vrem.util
 
-class SortByStrength : Comparator<WiFiDetail> {
-    override fun compare(lhs: WiFiDetail, rhs: WiFiDetail): Int = when {
-        rhs.wiFiSignal.level != lhs.wiFiSignal.level -> rhs.wiFiSignal.level.compareTo(lhs.wiFiSignal.level)
-        lhs.SSID != rhs.SSID -> lhs.SSID.compareTo(rhs.SSID, true)
-        else -> lhs.BSSID.compareTo(rhs.BSSID, true)
+import android.content.res.Resources
+import androidx.annotation.RawRes
+import java.io.InputStream
+
+class FileUtils private constructor() {
+    companion object {
+        @JvmStatic
+        fun readFile(resources: Resources, @RawRes id: Int): String {
+            return try {
+                resources.openRawResource(id).use { read(it) }
+            } catch (e: Exception) {
+                StringUtils.EMPTY
+            }
+        }
+
+        private fun read(inputStream: InputStream): String {
+            val size = inputStream.available()
+            val bytes = ByteArray(size)
+            val count = inputStream.read(bytes)
+            return if (count == size) String(bytes) else StringUtils.EMPTY
+        }
     }
 }

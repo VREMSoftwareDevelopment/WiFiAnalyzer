@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -87,23 +87,23 @@ public class AccessPointDetail {
     private void setViewCompact(@NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
         Context context = view.getContext();
 
-        view.<TextView>findViewById(R.id.ssid).setText(wiFiDetail.getTitle());
+        view.<TextView>findViewById(R.id.ssid).setText(wiFiDetail.title());
 
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
 
         ImageView securityImage = view.findViewById(R.id.securityImage);
-        securityImage.setImageResource(wiFiDetail.getSecurity().getImageResource());
+        securityImage.setImageResource(wiFiDetail.security().getImageResource());
 
         TextView textLevel = view.findViewById(R.id.level);
         textLevel.setText(String.format(Locale.ENGLISH, "%ddBm", wiFiSignal.getLevel()));
-        textLevel.setTextColor(ContextCompat.getColor(context, wiFiSignal.getStrength().colorResource()));
+        textLevel.setTextColor(ContextCompat.getColor(context, wiFiSignal.strength().colorResource()));
 
         view.<TextView>findViewById(R.id.channel)
-            .setText(wiFiSignal.getChannelDisplay());
+            .setText(wiFiSignal.channelDisplay());
         view.<TextView>findViewById(R.id.primaryFrequency)
             .setText(String.format(Locale.ENGLISH, "%d%s",
                 wiFiSignal.getPrimaryFrequency(), WiFiSignal.FREQUENCY_UNITS));
-        view.<TextView>findViewById(R.id.distance).setText(wiFiSignal.getDistance());
+        view.<TextView>findViewById(R.id.distance).setText(wiFiSignal.distance());
 
         if (isChild) {
             view.findViewById(R.id.tab).setVisibility(View.VISIBLE);
@@ -116,13 +116,13 @@ public class AccessPointDetail {
         Context context = view.getContext();
 
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        Strength strength = wiFiSignal.getStrength();
+        Strength strength = wiFiSignal.strength();
         ImageView imageView = view.findViewById(R.id.levelImage);
         imageView.setImageResource(strength.imageResource());
         imageView.setColorFilter(ContextCompat.getColor(context, strength.colorResource()));
 
         view.<TextView>findViewById(R.id.channel_frequency_range)
-            .setText(wiFiSignal.getFrequencyStart() + " - " + wiFiSignal.getFrequencyEnd());
+            .setText(wiFiSignal.frequencyStart() + " - " + wiFiSignal.frequencyEnd());
         view.<TextView>findViewById(R.id.width)
             .setText("(" + wiFiSignal.getWiFiWidth().getFrequencyWidth() + WiFiSignal.FREQUENCY_UNITS + ")");
         view.<TextView>findViewById(R.id.capabilities)

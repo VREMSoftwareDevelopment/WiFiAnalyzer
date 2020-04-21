@@ -25,6 +25,7 @@ import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
+import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
@@ -178,7 +179,7 @@ public class AccessPointsAdapterGroupTest {
         // execute
         String actual = fixture.getGroupExpandKey(wiFiDetail);
         // validate
-        assertEquals("" + wiFiDetail.getWiFiSignal().getPrimaryWiFiChannel().getChannel(), actual);
+        assertEquals("" + wiFiDetail.getWiFiSignal().primaryWiFiChannel().getChannel(), actual);
     }
 
     @Test
@@ -219,12 +220,13 @@ public class AccessPointsAdapterGroupTest {
     }
 
     private WiFiDetail withWiFiDetail() {
-        WiFiDetail wiFiDetail = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
-            new WiFiSignal(2255, 2255, WiFiWidth.MHZ_20, -40, true));
-        wiFiDetail.addChild(new WiFiDetail("SSID1-1", "BSSID1-1", StringUtils.EMPTY, WiFiSignal.EMPTY));
-        wiFiDetail.addChild(new WiFiDetail("SSID1-2", "BSSID1-2", StringUtils.EMPTY, WiFiSignal.EMPTY));
-        wiFiDetail.addChild(new WiFiDetail("SSID1-3", "BSSID1-3", StringUtils.EMPTY, WiFiSignal.EMPTY));
-        return wiFiDetail;
+        List<WiFiDetail> children = Arrays.asList(
+            new WiFiDetail("SSID1-1", "BSSID1-1", StringUtils.EMPTY, WiFiSignal.EMPTY),
+            new WiFiDetail("SSID1-2", "BSSID1-2", StringUtils.EMPTY, WiFiSignal.EMPTY),
+            new WiFiDetail("SSID1-3", "BSSID1-3", StringUtils.EMPTY, WiFiSignal.EMPTY));
+        WiFiSignal wiFiSignal = new WiFiSignal(2255, 2255, WiFiWidth.MHZ_20, -40, true);
+        return new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY, wiFiSignal, WiFiAdditional.EMPTY, children);
+
     }
 
     private List<WiFiDetail> withWiFiDetails() {

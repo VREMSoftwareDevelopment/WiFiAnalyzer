@@ -24,31 +24,76 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Comparator;
+
 import static org.junit.Assert.assertEquals;
 
 public class SortBySSIDTest {
-    private WiFiDetail wiFiDetail1;
-    private WiFiDetail wiFiDetail2;
+    private Comparator<WiFiDetail> fixture;
 
     @Before
     public void setUp() {
-        wiFiDetail1 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
-            new WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -35, true),
-            WiFiAdditional.EMPTY);
-        wiFiDetail2 = new WiFiDetail("SSID2", "BSSID2", StringUtils.EMPTY,
-            new WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -55, true),
-            WiFiAdditional.EMPTY);
+        fixture = WiFiDetail.sortBySSID();
     }
-
 
     @Test
     public void testSortBySSID() {
         // setup
-        SortBySSID fixture = new SortBySSID();
-        // execute & validate
-        assertEquals(0, fixture.compare(wiFiDetail1, wiFiDetail1));
-        assertEquals(-1, fixture.compare(wiFiDetail1, wiFiDetail2));
-        assertEquals(1, fixture.compare(wiFiDetail2, wiFiDetail1));
+        WiFiDetail wiFiDetail1 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
+            new WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
+            WiFiAdditional.EMPTY);
+        WiFiDetail wiFiDetail2 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
+            new WiFiSignal(2462, 2432, WiFiWidth.MHZ_40, -55, false),
+            WiFiAdditional.EMPTY);
+        // execute
+        int actual = fixture.compare(wiFiDetail1, wiFiDetail2);
+        // validate
+        assertEquals(0, actual);
+    }
+
+    @Test
+    public void testSortBySSIDWithDifferentSSID() {
+        // setup
+        WiFiDetail wiFiDetail1 = new WiFiDetail("ssid1", "BSSID1", StringUtils.EMPTY,
+            new WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
+            WiFiAdditional.EMPTY);
+        WiFiDetail wiFiDetail2 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
+            new WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
+            WiFiAdditional.EMPTY);
+        // execute
+        int actual = fixture.compare(wiFiDetail1, wiFiDetail2);
+        // validate
+        assertEquals(32, actual);
+    }
+
+    @Test
+    public void testSortBySSIDWithDifferentBSSID() {
+        // setup
+        WiFiDetail wiFiDetail1 = new WiFiDetail("SSID1", "bssid1", StringUtils.EMPTY,
+            new WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
+            WiFiAdditional.EMPTY);
+        WiFiDetail wiFiDetail2 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
+            new WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
+            WiFiAdditional.EMPTY);
+        // execute
+        int actual = fixture.compare(wiFiDetail1, wiFiDetail2);
+        // validate
+        assertEquals(32, actual);
+    }
+
+    @Test
+    public void testSortBySSIDWithDifferentStrength() {
+        // setup
+        WiFiDetail wiFiDetail1 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
+            new WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
+            WiFiAdditional.EMPTY);
+        WiFiDetail wiFiDetail2 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
+            new WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -35, true),
+            WiFiAdditional.EMPTY);
+        // execute
+        int actual = fixture.compare(wiFiDetail1, wiFiDetail2);
+        // validate
+        assertEquals(1, actual);
     }
 
 }

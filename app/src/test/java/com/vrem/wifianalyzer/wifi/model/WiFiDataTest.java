@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,8 +24,6 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.predicate.WiFiBandPredicate;
 
-import org.apache.commons.collections4.Closure;
-import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
@@ -38,9 +36,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -78,7 +76,7 @@ public class WiFiDataTest {
         wiFiDetails = withWiFiDetails();
         wiFiConnection = new WiFiConnection(SSID_1, BSSID_1, IP_ADDRESS, LINK_SPEED);
 
-        fixture = spy(new WiFiData(wiFiDetails, wiFiConnection));
+        fixture = new WiFiData(wiFiDetails, wiFiConnection);
     }
 
     @After
@@ -88,61 +86,11 @@ public class WiFiDataTest {
     }
 
     @Test
-    public void testGetWiFiDetailsWithSSID() {
-        // setup
-        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
-        withVendorNames();
-        // execute
-        List<WiFiDetail> actual = fixture.getWiFiDetails(predicate, SortBy.STRENGTH, GroupBy.SSID);
-        // validate
-        assertEquals(4, actual.size());
-        assertEquals(SSID_2, actual.get(0).getSSID());
-        assertEquals(SSID_4, actual.get(1).getSSID());
-        assertEquals(SSID_1, actual.get(2).getSSID());
-        assertEquals(SSID_3, actual.get(3).getSSID());
-        verifyVendorNames();
-    }
-
-    @Test
-    public void testGetWiFiDetailsWithVendorName() {
-        // setup
-        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
-        withVendorNames();
-        // execute
-        List<WiFiDetail> actual = fixture.getWiFiDetails(predicate, SortBy.STRENGTH, GroupBy.SSID);
-        // validate
-        assertEquals(VENDOR_NAME + BSSID_2, actual.get(0).getWiFiAdditional().getVendorName());
-        assertEquals(VENDOR_NAME + BSSID_4, actual.get(1).getWiFiAdditional().getVendorName());
-        assertEquals(VENDOR_NAME + BSSID_1, actual.get(2).getWiFiAdditional().getVendorName());
-        assertEquals(VENDOR_NAME + BSSID_3, actual.get(3).getWiFiAdditional().getVendorName());
-
-//        verify(vendorService, times(7)).findVendorName(anyString());
-        verifyVendorNames();
-    }
-
-    @Test
-    public void testGetWiFiDetailsWithChildren() {
-        // setup
-        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
-        withVendorNames();
-        // execute
-        List<WiFiDetail> actual = fixture.getWiFiDetails(predicate, SortBy.STRENGTH, GroupBy.SSID);
-        // validate
-        WiFiDetail wiFiDetail = actual.get(0);
-        List<WiFiDetail> children = wiFiDetail.getChildren();
-        assertEquals(3, children.size());
-        assertEquals(BSSID_2 + "_2", children.get(0).getBSSID());
-        assertEquals(BSSID_2 + "_3", children.get(1).getBSSID());
-        assertEquals(BSSID_2 + "_1", children.get(2).getBSSID());
-        verifyVendorNames();
-    }
-
-    @Test
     public void testGetConnection() {
         // setup
         when(vendorService.findVendorName(BSSID_1)).thenReturn(VENDOR_NAME);
         // execute
-        WiFiDetail actual = fixture.getConnection();
+        WiFiDetail actual = fixture.connection();
         // validate
         assertEquals(SSID_1, actual.getSSID());
         assertEquals(BSSID_1, actual.getBSSID());
@@ -152,37 +100,210 @@ public class WiFiDataTest {
     }
 
     @Test
-    public void testIsConfiguredNetwork() {
+    public void testGetWiFiDetailsWithConfiguredNetwork() {
         // setup
         Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
         withVendorNames();
         // execute
-        List<WiFiDetail> actual = fixture.getWiFiDetails(predicate, SortBy.STRENGTH, GroupBy.SSID);
+        List<WiFiDetail> actual = fixture.wiFiDetails(predicate, SortBy.SSID);
         // validate
-        assertEquals(4, actual.size());
+        assertEquals(7, actual.size());
+        WiFiDetail wiFiDetail = actual.get(0);
+        assertEquals(SSID_1, wiFiDetail.getSSID());
+        assertEquals(BSSID_1, wiFiDetail.getBSSID());
+        assertEquals(IP_ADDRESS, wiFiDetail.getWiFiAdditional().getWiFiConnection().getIpAddress());
 
-        assertEquals(SSID_1, actual.get(2).getSSID());
-        assertEquals(SSID_3, actual.get(3).getSSID());
+        assertTrue(actual.get(1).getWiFiAdditional().getWiFiConnection().getIpAddress().isEmpty());
+        assertTrue(actual.get(2).getWiFiAdditional().getWiFiConnection().getIpAddress().isEmpty());
+        assertTrue(actual.get(3).getWiFiAdditional().getWiFiConnection().getIpAddress().isEmpty());
+        assertTrue(actual.get(4).getWiFiAdditional().getWiFiConnection().getIpAddress().isEmpty());
+        assertTrue(actual.get(5).getWiFiAdditional().getWiFiConnection().getIpAddress().isEmpty());
+        assertTrue(actual.get(6).getWiFiAdditional().getWiFiConnection().getIpAddress().isEmpty());
         verifyVendorNames();
     }
 
     @Test
-    public void testGetWiFiDetails() {
+    public void testGetWiFiDetailsWithVendorName() {
         // setup
         Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
         withVendorNames();
         // execute
-        List<WiFiDetail> actual = fixture.getWiFiDetails(predicate, SortBy.SSID);
+        List<WiFiDetail> actual = fixture.wiFiDetails(predicate, SortBy.STRENGTH, GroupBy.NONE);
+        // validate
+        assertEquals(7, actual.size());
+        assertEquals(VENDOR_NAME + BSSID_2, actual.get(0).getWiFiAdditional().getVendorName());
+        assertEquals(VENDOR_NAME + BSSID_4, actual.get(1).getWiFiAdditional().getVendorName());
+        assertEquals(VENDOR_NAME + BSSID_1, actual.get(2).getWiFiAdditional().getVendorName());
+        assertEquals(VENDOR_NAME + BSSID_2 + "_2", actual.get(3).getWiFiAdditional().getVendorName());
+        assertEquals(VENDOR_NAME + BSSID_2 + "_3", actual.get(4).getWiFiAdditional().getVendorName());
+        assertEquals(VENDOR_NAME + BSSID_3, actual.get(5).getWiFiAdditional().getVendorName());
+        assertEquals(VENDOR_NAME + BSSID_2 + "_1", actual.get(6).getWiFiAdditional().getVendorName());
+        verify(vendorService, times(7)).findVendorName(anyString());
+        verifyVendorNames();
+    }
+
+    @Test
+    public void testGetWiFiDetailsSortByStrengthGroupByNone() {
+        // setup
+        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
+        withVendorNames();
+        // execute
+        List<WiFiDetail> actual = fixture.wiFiDetails(predicate, SortBy.STRENGTH);
+        // validate
+        assertEquals(7, actual.size());
+        assertEquals(BSSID_2, actual.get(0).getBSSID());
+        assertEquals(BSSID_4, actual.get(1).getBSSID());
+        assertEquals(BSSID_1, actual.get(2).getBSSID());
+        assertEquals(BSSID_2 + "_2", actual.get(3).getBSSID());
+        assertEquals(BSSID_2 + "_3", actual.get(4).getBSSID());
+        assertEquals(BSSID_3, actual.get(5).getBSSID());
+        assertEquals(BSSID_2 + "_1", actual.get(6).getBSSID());
+        verifyChildren(actual);
+        verifyVendorNames();
+    }
+
+    @Test
+    public void testGetWiFiDetailsSortByStrengthGroupBySSID() {
+        // setup
+        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
+        withVendorNames();
+        // execute
+        List<WiFiDetail> actual = fixture.wiFiDetails(predicate, SortBy.STRENGTH, GroupBy.SSID);
+        // validate
+        assertEquals(4, actual.size());
+        assertEquals(SSID_2, actual.get(0).getSSID());
+        assertEquals(SSID_4, actual.get(1).getSSID());
+        assertEquals(SSID_1, actual.get(2).getSSID());
+        assertEquals(SSID_3, actual.get(3).getSSID());
+        verifyChildren(actual, 0);
+        verifyVendorNames();
+    }
+
+    @Test
+    public void testGetWiFiDetailsSortByStrengthGroupByChannel() {
+        // setup
+        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
+        withVendorNames();
+        // execute
+        List<WiFiDetail> actual = fixture.wiFiDetails(predicate, SortBy.STRENGTH, GroupBy.CHANNEL);
+        // validate
+        assertEquals(3, actual.size());
+        assertEquals(SSID_2, actual.get(0).getSSID());
+        assertEquals(SSID_4, actual.get(1).getSSID());
+        assertEquals(SSID_1, actual.get(2).getSSID());
+        verifyChildrenGroupByChannel(actual, 2, 0, 1);
+        verifyVendorNames();
+    }
+
+    @Test
+    public void testGetWiFiDetailsSortBySSIDGroupByNone() {
+        // setup
+        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
+        withVendorNames();
+        // execute
+        List<WiFiDetail> actual = fixture.wiFiDetails(predicate, SortBy.SSID);
         // validate
         assertEquals(7, actual.size());
         assertEquals(BSSID_1, actual.get(0).getBSSID());
+        assertEquals(BSSID_2, actual.get(1).getBSSID());
+        assertEquals(BSSID_2 + "_2", actual.get(2).getBSSID());
+        assertEquals(BSSID_2 + "_3", actual.get(3).getBSSID());
+        assertEquals(BSSID_2 + "_1", actual.get(4).getBSSID());
+        assertEquals(BSSID_3, actual.get(5).getBSSID());
         assertEquals(BSSID_4, actual.get(6).getBSSID());
-        verify(fixture, never()).sortAndGroup(any(), any(), any());
+        verifyChildren(actual);
+        verifyVendorNames();
+    }
+
+    @Test
+    public void testGetWiFiDetailsSortBySSIDGroupBySSID() {
+        // setup
+        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
+        withVendorNames();
+        // execute
+        List<WiFiDetail> actual = fixture.wiFiDetails(predicate, SortBy.SSID, GroupBy.SSID);
+        // validate
+        assertEquals(4, actual.size());
+        assertEquals(SSID_1, actual.get(0).getSSID());
+        assertEquals(SSID_2, actual.get(1).getSSID());
+        assertEquals(SSID_3, actual.get(2).getSSID());
+        assertEquals(SSID_4, actual.get(3).getSSID());
+        verifyChildren(actual, 1);
+        verifyVendorNames();
+    }
+
+    @Test
+    public void testGetWiFiDetailsSortBySSIDGroupByChannel() {
+        // setup
+        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
+        withVendorNames();
+        // execute
+        List<WiFiDetail> actual = fixture.wiFiDetails(predicate, SortBy.SSID, GroupBy.CHANNEL);
+        // validate
+        assertEquals(3, actual.size());
+        assertEquals(SSID_1, actual.get(0).getSSID());
+        assertEquals(SSID_2, actual.get(1).getSSID());
+        assertEquals(SSID_4, actual.get(2).getSSID());
+        verifyChildrenGroupByChannel(actual, 0, 1, 2);
+        verifyVendorNames();
+    }
+
+    @Test
+    public void testGetWiFiDetailsSortByChannelGroupByNone() {
+        // setup
+        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
+        withVendorNames();
+        // execute
+        List<WiFiDetail> actual = fixture.wiFiDetails(predicate, SortBy.CHANNEL);
+        // validate
+        assertEquals(7, actual.size());
+        assertEquals(BSSID_1, actual.get(0).getBSSID());
+        assertEquals(BSSID_2, actual.get(1).getBSSID());
+        assertEquals(BSSID_2 + "_2", actual.get(2).getBSSID());
+        assertEquals(BSSID_2 + "_3", actual.get(3).getBSSID());
+        assertEquals(BSSID_2 + "_1", actual.get(4).getBSSID());
+        assertEquals(BSSID_4, actual.get(5).getBSSID());
+        assertEquals(BSSID_3, actual.get(6).getBSSID());
+        verifyChildren(actual);
+        verifyVendorNames();
+    }
+
+    @Test
+    public void testGetWiFiDetailsSortByChannelGroupBySSID() {
+        // setup
+        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
+        withVendorNames();
+        // execute
+        List<WiFiDetail> actual = fixture.wiFiDetails(predicate, SortBy.CHANNEL, GroupBy.SSID);
+        // validate
+        assertEquals(4, actual.size());
+        assertEquals(SSID_1, actual.get(0).getSSID());
+        assertEquals(SSID_2, actual.get(1).getSSID());
+        assertEquals(SSID_4, actual.get(2).getSSID());
+        assertEquals(SSID_3, actual.get(3).getSSID());
+        verifyChildren(actual, 1);
+        verifyVendorNames();
+    }
+
+    @Test
+    public void testGetWiFiDetailsSortByChannelGroupByChannel() {
+        // setup
+        Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ2);
+        withVendorNames();
+        // execute
+        List<WiFiDetail> actual = fixture.wiFiDetails(predicate, SortBy.CHANNEL, GroupBy.CHANNEL);
+        // validate
+        assertEquals(3, actual.size());
+        assertEquals(SSID_1, actual.get(0).getSSID());
+        assertEquals(SSID_2, actual.get(1).getSSID());
+        assertEquals(SSID_4, actual.get(2).getSSID());
+        verifyChildrenGroupByChannel(actual, 0, 1, 2);
         verifyVendorNames();
     }
 
     private void withVendorNames() {
-        IterableUtils.forEach(wiFiDetails, new VendorNameClosure());
+        wiFiDetails.forEach(wiFiDetail ->
+            when(vendorService.findVendorName(wiFiDetail.getBSSID())).thenReturn(VENDOR_NAME + wiFiDetail.getBSSID()));
     }
 
     private List<WiFiDetail> withWiFiDetails() {
@@ -205,22 +326,41 @@ public class WiFiDataTest {
         return Arrays.asList(wiFiDetail_3, wiFiDetail3, wiFiDetail_2, wiFiDetail1, wiFiDetail_1, wiFiDetail2, wiFiDetail4);
     }
 
+    private void verifyChildren(List<WiFiDetail> actual, int index) {
+        for (int i = 0; i < actual.size(); i++) {
+            WiFiDetail wiFiDetail = actual.get(index);
+            if (i == index) {
+                List<WiFiDetail> children = wiFiDetail.getChildren();
+                assertEquals(3, children.size());
+                assertEquals(BSSID_2 + "_2", children.get(0).getBSSID());
+                assertEquals(BSSID_2 + "_3", children.get(1).getBSSID());
+                assertEquals(BSSID_2 + "_1", children.get(2).getBSSID());
+            } else {
+                assertTrue(actual.get(i).getChildren().isEmpty());
+            }
+        }
+    }
+
+    private void verifyChildrenGroupByChannel(List<WiFiDetail> actual, int indexEmpty, int indexWith3, int indexWith1) {
+        assertTrue(actual.get(indexEmpty).getChildren().isEmpty());
+
+        List<WiFiDetail> children1 = actual.get(indexWith3).getChildren();
+        assertEquals(3, children1.size());
+        assertEquals(BSSID_2 + "_2", children1.get(0).getBSSID());
+        assertEquals(BSSID_2 + "_3", children1.get(1).getBSSID());
+        assertEquals(BSSID_2 + "_1", children1.get(2).getBSSID());
+
+        List<WiFiDetail> children2 = actual.get(indexWith1).getChildren();
+        assertEquals(1, children2.size());
+        assertEquals(BSSID_3, children2.get(0).getBSSID());
+    }
+
     private void verifyVendorNames() {
-        IterableUtils.forEach(wiFiDetails, new VerifyVendorNameClosure());
+        wiFiDetails.forEach(wiFiDetail -> verify(vendorService).findVendorName(wiFiDetail.getBSSID()));
     }
 
-    private class VendorNameClosure implements Closure<WiFiDetail> {
-        @Override
-        public void execute(WiFiDetail wiFiDetail) {
-            when(vendorService.findVendorName(wiFiDetail.getBSSID())).thenReturn(VENDOR_NAME + wiFiDetail.getBSSID());
-        }
-    }
-
-    private class VerifyVendorNameClosure implements Closure<WiFiDetail> {
-        @Override
-        public void execute(WiFiDetail wiFiDetail) {
-            verify(vendorService).findVendorName(wiFiDetail.getBSSID());
-        }
+    private void verifyChildren(List<WiFiDetail> actual) {
+        actual.forEach(wiFiDetail -> assertTrue(wiFiDetail.getChildren().isEmpty()));
     }
 
 }

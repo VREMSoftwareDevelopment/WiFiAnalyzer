@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -80,10 +80,10 @@ public class ConnectionView implements UpdateNotifier {
     }
 
     private void displayConnection(@NonNull WiFiData wiFiData, @NonNull ConnectionViewType connectionViewType) {
-        WiFiDetail connection = wiFiData.getConnection();
+        WiFiDetail connection = wiFiData.connection();
         View connectionView = mainActivity.findViewById(R.id.connection);
         WiFiConnection wiFiConnection = connection.getWiFiAdditional().getWiFiConnection();
-        if (connectionViewType.isHide() || !wiFiConnection.isConnected()) {
+        if (connectionViewType.isHide() || !wiFiConnection.connected()) {
             connectionView.setVisibility(View.GONE);
         } else {
             connectionView.setVisibility(View.VISIBLE);

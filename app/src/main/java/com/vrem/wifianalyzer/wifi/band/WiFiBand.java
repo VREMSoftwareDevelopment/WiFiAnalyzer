@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,4 +51,13 @@ public enum WiFiBand {
     public WiFiChannels getWiFiChannels() {
         return wiFiChannels;
     }
+
+    @NonNull
+    public static WiFiBand find(int frequency) {
+        for (WiFiBand value : values()) {
+            if (value.getWiFiChannels().isInRange(frequency)) return value;
+        }
+        return WiFiBand.GHZ2;
+    }
+
 }

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,8 +47,8 @@ class DataManager {
     @NonNull
     DataPoint[] getDataPoints(@NonNull WiFiDetail wiFiDetail, int levelMax) {
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        int frequencyStart = wiFiSignal.getFrequencyStart();
-        int frequencyEnd = wiFiSignal.getFrequencyEnd();
+        int frequencyStart = wiFiSignal.frequencyStart();
+        int frequencyEnd = wiFiSignal.frequencyEnd();
         int level = Math.min(wiFiSignal.getLevel(), levelMax);
         return new DataPoint[]{
             new DataPoint(frequencyStart, GraphConstants.MIN_Y),

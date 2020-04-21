@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,6 +48,19 @@ public class WiFiBandTest {
     public void testIsGHZ_5() {
         assertFalse(WiFiBand.GHZ2.isGHZ5());
         assertTrue(WiFiBand.GHZ5.isGHZ5());
+    }
+
+    @Test
+    public void testWiFiBandFind() {
+        assertEquals(WiFiBand.GHZ2, WiFiBand.find(2399));
+        assertEquals(WiFiBand.GHZ2, WiFiBand.find(2400));
+        assertEquals(WiFiBand.GHZ2, WiFiBand.find(2499));
+        assertEquals(WiFiBand.GHZ2, WiFiBand.find(2500));
+
+        assertEquals(WiFiBand.GHZ2, WiFiBand.find(4899));
+        assertEquals(WiFiBand.GHZ5, WiFiBand.find(4900));
+        assertEquals(WiFiBand.GHZ5, WiFiBand.find(5899));
+        assertEquals(WiFiBand.GHZ2, WiFiBand.find(5900));
     }
 
 }

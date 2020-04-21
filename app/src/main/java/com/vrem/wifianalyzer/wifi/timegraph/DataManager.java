@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -74,7 +74,7 @@ class DataManager {
     }
 
     void addData(@NonNull GraphViewWrapper graphViewWrapper, @NonNull WiFiDetail wiFiDetail, int levelMax) {
-        boolean drawBackground = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
+        boolean drawBackground = wiFiDetail.getWiFiAdditional().getWiFiConnection().connected();
         int level = Math.min(wiFiDetail.getWiFiSignal().getLevel(), levelMax);
         if (graphViewWrapper.isNewSeries(wiFiDetail)) {
             DataPoint dataPoint = new DataPoint(xValue, scanCount > 0
@@ -129,7 +129,7 @@ class DataManager {
         @Override
         public void execute(WiFiDetail wiFiDetail) {
             DataPoint dataPoint = new DataPoint(xValue, GraphConstants.MIN_Y + GraphConstants.MIN_Y_OFFSET);
-            boolean drawBackground = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
+            boolean drawBackground = wiFiDetail.getWiFiAdditional().getWiFiConnection().connected();
             graphViewWrapper.appendToSeries(wiFiDetail, dataPoint, scanCount, drawBackground);
             timeGraphCache.add(wiFiDetail);
         }

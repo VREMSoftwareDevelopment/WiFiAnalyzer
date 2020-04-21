@@ -177,7 +177,7 @@ public class DataManagerTest {
             eq(wiFiDetail),
             argThat(new DataPointEquals(dataPoint)),
             eq(scanCount),
-            eq(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected()));
+            eq(wiFiDetail.getWiFiAdditional().getWiFiConnection().connected()));
         verify(timeGraphCache).reset(wiFiDetail);
     }
 
@@ -197,7 +197,7 @@ public class DataManagerTest {
             eq(wiFiDetail),
             argThat(new DataPointEquals(dataPoint)),
             eq(scanCount),
-            eq(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected()));
+            eq(wiFiDetail.getWiFiAdditional().getWiFiConnection().connected()));
     }
 
 
@@ -214,7 +214,7 @@ public class DataManagerTest {
         verify(graphViewWrapper).addSeries(
             eq(wiFiDetail),
             ArgumentMatchers.<LineGraphSeries<DataPoint>>any(),
-            eq(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected()));
+            eq(wiFiDetail.getWiFiAdditional().getWiFiConnection().connected()));
     }
 
     private WiFiDetail makeWiFiDetailConnected(@NonNull String SSID) {
@@ -254,7 +254,7 @@ public class DataManagerTest {
                 eq(wiFiDetail),
                 argThat(new DataPointEquals(dataPoint)),
                 eq(scanCount),
-                eq(wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected()));
+                eq(wiFiDetail.getWiFiAdditional().getWiFiConnection().connected()));
             verify(timeGraphCache).add(wiFiDetail);
         }
     }

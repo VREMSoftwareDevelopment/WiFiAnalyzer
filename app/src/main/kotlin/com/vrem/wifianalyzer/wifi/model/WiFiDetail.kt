@@ -23,8 +23,12 @@ data class WiFiDetail(val rawSSID: String = StringUtils.EMPTY,
                       val BSSID: String = StringUtils.EMPTY,
                       val capabilities: String = StringUtils.EMPTY,
                       val wiFiSignal: WiFiSignal = WiFiSignal.EMPTY,
-                      val wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY) :
+                      val wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY,
+                      val children: List<WiFiDetail> = emptyList()) :
         Comparable<WiFiDetail> {
+
+    constructor(rawSSID: String, BSSID: String, capabilities: String, wiFiSignal: WiFiSignal, wiFiAdditional: WiFiAdditional) :
+            this(rawSSID, BSSID, capabilities, wiFiSignal, wiFiAdditional, emptyList())
 
     constructor(rawSSID: String, BSSID: String, capabilities: String, wiFiSignal: WiFiSignal) :
             this(rawSSID, BSSID, capabilities, wiFiSignal, WiFiAdditional.EMPTY)
@@ -32,33 +36,27 @@ data class WiFiDetail(val rawSSID: String = StringUtils.EMPTY,
     constructor(wiFiDetail: WiFiDetail, wiFiAdditional: WiFiAdditional) :
             this(wiFiDetail.rawSSID, wiFiDetail.BSSID, wiFiDetail.capabilities, wiFiDetail.wiFiSignal, wiFiAdditional)
 
+    constructor(wiFiDetail: WiFiDetail, children: List<WiFiDetail>) :
+            this(wiFiDetail.rawSSID, wiFiDetail.BSSID, wiFiDetail.capabilities, wiFiDetail.wiFiSignal, wiFiDetail.wiFiAdditional, children)
+
     val SSID = when {
         rawSSID.isEmpty() -> SSID_EMPTY
         else -> rawSSID
     }
 
-    private val children: MutableList<WiFiDetail> = ArrayList()
+    fun security(): Security = Security.findOne(capabilities)
 
-    fun getSecurity(): Security = Security.findOne(capabilities)
+    fun securities(): Set<Security> = Security.findAll(capabilities)
 
-    fun getSecurities(): Set<Security> = Security.findAll(capabilities)
+    fun noChildren(): Boolean = children.isNotEmpty()
 
-    fun getChildren(): List<WiFiDetail> = children
+    fun title(): String = String.format("%s (%s)", SSID, BSSID)
 
-    fun noChildren(): Boolean = !getChildren().isEmpty()
-
-    fun getTitle(): String = String.format("%s (%s)", SSID, BSSID)
-
-    fun addChild(wiFiDetail: WiFiDetail) {
-        children.add(wiFiDetail)
-    }
-
-    override fun compareTo(other: WiFiDetail): Int = when {
-        SSID != other.SSID -> SSID.compareTo(other.SSID)
-        else -> BSSID.compareTo(other.BSSID)
-    }
+    override fun compareTo(other: WiFiDetail): Int =
+            compareBy<WiFiDetail> { it.SSID }.thenBy { it.BSSID }.compare(this, other)
 
     override fun equals(other: Any?): Boolean {
+
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
@@ -77,6 +75,29 @@ data class WiFiDetail(val rawSSID: String = StringUtils.EMPTY,
 
         @JvmField
         val EMPTY = WiFiDetail()
-    }
 
+        @JvmStatic
+        fun sortBySSID(): Comparator<WiFiDetail> =
+                compareBy<WiFiDetail> { it.SSID }
+                        .thenByDescending { it.wiFiSignal.level }
+                        .thenBy { it.BSSID }
+
+        @JvmStatic
+        fun sortByStrength(): Comparator<WiFiDetail> =
+                compareByDescending<WiFiDetail> { it.wiFiSignal.level }
+                        .thenBy { it.SSID }
+                        .thenBy { it.BSSID }
+
+        @JvmStatic
+        fun sortByChannel(): Comparator<WiFiDetail> =
+                compareBy<WiFiDetail> { it.wiFiSignal.primaryWiFiChannel().channel }
+                        .thenByDescending { it.wiFiSignal.level }
+                        .thenBy { it.SSID }
+                        .thenBy { it.BSSID }
+
+        @JvmStatic
+        fun sortByDefault(): Comparator<WiFiDetail> =
+                compareBy<WiFiDetail> { it.SSID }.thenBy { it.BSSID }
+
+    }
 }

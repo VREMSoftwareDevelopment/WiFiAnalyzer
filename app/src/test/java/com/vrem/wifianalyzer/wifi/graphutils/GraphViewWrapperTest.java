@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -152,8 +152,8 @@ public class GraphViewWrapperTest {
     @Test
     public void testAddSeriesAddsSeries() {
         // setup
-        String expectedTitle = wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getChannelDisplay();
-        boolean connected = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
+        String expectedTitle = wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().channelDisplay();
+        boolean connected = wiFiDetail.getWiFiAdditional().getWiFiConnection().connected();
         when(seriesCache.contains(wiFiDetail)).thenReturn(false);
         // execute
         boolean actual = fixture.addSeries(wiFiDetail, baseSeries, true);
@@ -184,7 +184,7 @@ public class GraphViewWrapperTest {
     @Test
     public void testUpdateSeriesWhenSeriesDoesExists() {
         // setup
-        boolean connected = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
+        boolean connected = wiFiDetail.getWiFiAdditional().getWiFiConnection().connected();
         when(seriesCache.contains(wiFiDetail)).thenReturn(true);
         when(seriesCache.get(wiFiDetail)).thenReturn(baseSeries);
         // execute
@@ -215,7 +215,7 @@ public class GraphViewWrapperTest {
     public void testAppendSeriesWhenSeriesDoesExists() {
         // setup
         int count = 10;
-        boolean connected = wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected();
+        boolean connected = wiFiDetail.getWiFiAdditional().getWiFiConnection().connected();
         when(seriesCache.contains(wiFiDetail)).thenReturn(true);
         when(seriesCache.get(wiFiDetail)).thenReturn(baseSeries);
         // execute

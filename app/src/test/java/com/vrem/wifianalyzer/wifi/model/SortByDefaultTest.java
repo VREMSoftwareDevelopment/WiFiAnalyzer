@@ -28,22 +28,22 @@ import java.util.Comparator;
 
 import static org.junit.Assert.assertEquals;
 
-public class SortByStrengthTest {
+public class SortByDefaultTest {
     private Comparator<WiFiDetail> fixture;
 
     @Before
     public void setUp() {
-        fixture = WiFiDetail.sortByStrength();
+        fixture = WiFiDetail.sortByDefault();
     }
 
     @Test
-    public void testSortByStrength() {
+    public void testSortByDefault() {
         // setup
         WiFiDetail wiFiDetail1 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
             new WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
             WiFiAdditional.EMPTY);
         WiFiDetail wiFiDetail2 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
-            new WiFiSignal(2462, 2432, WiFiWidth.MHZ_40, -55, false),
+            new WiFiSignal(2432, 2432, WiFiWidth.MHZ_40, -35, false),
             WiFiAdditional.EMPTY);
         // execute
         int actual = fixture.compare(wiFiDetail1, wiFiDetail2);
@@ -52,7 +52,7 @@ public class SortByStrengthTest {
     }
 
     @Test
-    public void testSortByStrengthWithDifferentSSID() {
+    public void testSortByDefaultWithDifferentSSID() {
         // setup
         WiFiDetail wiFiDetail1 = new WiFiDetail("ssid1", "BSSID1", StringUtils.EMPTY,
             new WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
@@ -67,7 +67,7 @@ public class SortByStrengthTest {
     }
 
     @Test
-    public void testSortByStrengthWithDifferentBSSID() {
+    public void testSortByDefaultWithDifferentBSSID() {
         // setup
         WiFiDetail wiFiDetail1 = new WiFiDetail("SSID1", "bssid1", StringUtils.EMPTY,
             new WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
@@ -79,21 +79,6 @@ public class SortByStrengthTest {
         int actual = fixture.compare(wiFiDetail1, wiFiDetail2);
         // validate
         assertEquals(32, actual);
-    }
-
-    @Test
-    public void testSortByStrengthWithDifferentStrength() {
-        // setup
-        WiFiDetail wiFiDetail1 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
-            new WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
-            WiFiAdditional.EMPTY);
-        WiFiDetail wiFiDetail2 = new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY,
-            new WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -35, true),
-            WiFiAdditional.EMPTY);
-        // execute
-        int actual = fixture.compare(wiFiDetail1, wiFiDetail2);
-        // validate
-        assertEquals(1, actual);
     }
 
 }

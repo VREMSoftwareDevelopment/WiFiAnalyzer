@@ -32,9 +32,9 @@ public class SortByTest {
 
     @Test
     public void testComparator() {
-        assertTrue(SortBy.STRENGTH.comparator() instanceof SortByStrength);
-        assertTrue(SortBy.SSID.comparator() instanceof SortBySSID);
-        assertTrue(SortBy.CHANNEL.comparator() instanceof SortByChannel);
+        assertTrue(SortBy.STRENGTH.comparator().getClass().isInstance(WiFiDetail.sortByStrength()));
+        assertTrue(SortBy.SSID.comparator().getClass().isInstance(WiFiDetail.sortBySSID()));
+        assertTrue(SortBy.CHANNEL.comparator().getClass().isInstance(WiFiDetail.sortByChannel()));
     }
 
 }

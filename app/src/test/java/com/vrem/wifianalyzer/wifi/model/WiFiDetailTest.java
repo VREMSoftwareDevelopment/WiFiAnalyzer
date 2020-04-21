@@ -58,9 +58,9 @@ public class WiFiDetailTest {
         assertEquals(SSID, fixture.getSSID());
         assertEquals(BSSID, fixture.getBSSID());
         assertEquals(CAPABILITIES, fixture.getCapabilities());
-        assertEquals(expectedTitle, fixture.getTitle());
-        assertEquals(Security.WPA, fixture.getSecurity());
-        assertEquals(Sets.newHashSet(Security.WPA, Security.WPA2), fixture.getSecurities());
+        assertEquals(expectedTitle, fixture.title());
+        assertEquals(Security.WPA, fixture.security());
+        assertEquals(Sets.newHashSet(Security.WPA, Security.WPA2), fixture.securities());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class WiFiDetailTest {
         String expectedTitle = "*hidden* (" + BSSID + ")";
         fixture = new WiFiDetail(StringUtils.EMPTY, BSSID, CAPABILITIES, wiFiSignal);
         // validate
-        assertEquals(expectedTitle, fixture.getTitle());
+        assertEquals(expectedTitle, fixture.title());
     }
 
     @Test
@@ -118,9 +118,9 @@ public class WiFiDetailTest {
         assertEquals(expected.getSSID(), actual.getSSID());
         assertEquals(expected.getBSSID(), actual.getBSSID());
         assertEquals(expected.getCapabilities(), actual.getCapabilities());
-        assertEquals(expected.getTitle(), actual.getTitle());
-        assertEquals(expected.getSecurity(), actual.getSecurity());
-        assertEquals(expected.getSecurities(), actual.getSecurities());
+        assertEquals(expected.title(), actual.title());
+        assertEquals(expected.security(), actual.security());
+        assertEquals(expected.securities(), actual.securities());
         assertEquals(expected.getWiFiAdditional(), actual.getWiFiAdditional());
         assertEquals(expected.getWiFiSignal(), actual.getWiFiSignal());
     }

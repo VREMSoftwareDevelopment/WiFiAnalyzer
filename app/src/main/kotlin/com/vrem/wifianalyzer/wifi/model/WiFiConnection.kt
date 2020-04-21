@@ -26,7 +26,7 @@ data class WiFiConnection(val SSID: String = StringUtils.EMPTY,
                           val linkSpeed: Int = LINK_SPEED_INVALID) :
         Comparable<WiFiConnection> {
 
-    fun isConnected(): Boolean = EMPTY != this
+    fun connected(): Boolean = EMPTY != this
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -42,10 +42,8 @@ data class WiFiConnection(val SSID: String = StringUtils.EMPTY,
 
     override fun hashCode(): Int = 31 * SSID.hashCode() + BSSID.hashCode()
 
-    override fun compareTo(other: WiFiConnection): Int = when {
-        SSID != other.SSID -> SSID.compareTo(other.SSID)
-        else -> BSSID.compareTo(other.BSSID)
-    }
+    override fun compareTo(other: WiFiConnection): Int =
+            compareBy<WiFiConnection> { it.SSID }.thenBy { it.BSSID }.compare(this, other)
 
     companion object {
         const val LINK_SPEED_INVALID = -1

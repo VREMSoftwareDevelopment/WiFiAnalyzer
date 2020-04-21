@@ -18,11 +18,9 @@
 package com.vrem.wifianalyzer.wifi.model
 
 enum class SortBy(private val comparator: Comparator<WiFiDetail>) {
-    STRENGTH(SortByStrength()),
-    SSID(SortBySSID()),
-    CHANNEL(SortByChannel());
+    STRENGTH(WiFiDetail.sortByStrength()),
+    SSID(WiFiDetail.sortBySSID()),
+    CHANNEL(WiFiDetail.sortByChannel());
 
-    fun comparator(): Comparator<WiFiDetail> {
-        return comparator
-    }
+    fun comparator(): Comparator<WiFiDetail> = comparator
 }

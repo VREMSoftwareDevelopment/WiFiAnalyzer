@@ -17,12 +17,9 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import com.vrem.util.EnumUtils
-import com.vrem.wifianalyzer.wifi.band.FrequencyPredicate
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth
-import java.util.*
 
 data class WiFiSignal(val primaryFrequency: Int = 0,
                       val centerFrequency: Int = 0,
@@ -30,30 +27,30 @@ data class WiFiSignal(val primaryFrequency: Int = 0,
                       val level: Int = 0,
                       val is80211mc: Boolean = false) {
 
-    val wiFiBand: WiFiBand = EnumUtils.find(WiFiBand::class.java, FrequencyPredicate(primaryFrequency), WiFiBand.GHZ2)
+    val wiFiBand: WiFiBand = WiFiBand.find(primaryFrequency)
 
-    fun getFrequencyStart(): Int = centerFrequency - wiFiWidth.frequencyWidthHalf
+    fun frequencyStart(): Int = centerFrequency - wiFiWidth.frequencyWidthHalf
 
-    fun getFrequencyEnd(): Int = centerFrequency + wiFiWidth.frequencyWidthHalf
+    fun frequencyEnd(): Int = centerFrequency + wiFiWidth.frequencyWidthHalf
 
-    fun getPrimaryWiFiChannel(): WiFiChannel = wiFiBand.wiFiChannels.getWiFiChannelByFrequency(primaryFrequency)
+    fun primaryWiFiChannel(): WiFiChannel = wiFiBand.wiFiChannels.getWiFiChannelByFrequency(primaryFrequency)
 
-    fun getCenterWiFiChannel(): WiFiChannel = wiFiBand.wiFiChannels.getWiFiChannelByFrequency(centerFrequency)
+    fun centerWiFiChannel(): WiFiChannel = wiFiBand.wiFiChannels.getWiFiChannelByFrequency(centerFrequency)
 
-    fun getStrength(): Strength = Strength.calculate(level)
+    fun strength(): Strength = Strength.calculate(level)
 
-    fun getDistance(): String {
+    fun distance(): String {
         val distance = WiFiUtils.calculateDistance(primaryFrequency, level)
-        return String.format(Locale.ENGLISH, "~%.1fm", distance)
+        return String.format("~%.1fm", distance)
     }
 
-    fun isInRange(frequency: Int): Boolean {
-        return frequency >= getFrequencyStart() && frequency <= getFrequencyEnd()
+    fun inRange(frequency: Int): Boolean {
+        return frequency >= frequencyStart() && frequency <= frequencyEnd()
     }
 
-    fun getChannelDisplay(): String {
-        val primaryChannel = getPrimaryWiFiChannel().channel
-        val centerChannel = getCenterWiFiChannel().channel
+    fun channelDisplay(): String {
+        val primaryChannel = primaryWiFiChannel().channel
+        val centerChannel = centerWiFiChannel().channel
         var channel = Integer.toString(primaryChannel)
         if (primaryChannel != centerChannel) {
             channel += "($centerChannel)"

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -83,9 +83,9 @@ public class GraphViewWrapper {
             return false;
         }
         seriesCache.put(wiFiDetail, series);
-        series.setTitle(wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().getChannelDisplay());
+        series.setTitle(wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().channelDisplay());
         series.setOnDataPointTapListener(new GraphTapListener());
-        seriesOptions.highlightConnected(series, wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected());
+        seriesOptions.highlightConnected(series, wiFiDetail.getWiFiAdditional().getWiFiConnection().connected());
         seriesOptions.setSeriesColor(series);
         seriesOptions.drawBackground(series, drawBackground);
         graphView.addSeries(series);
@@ -98,7 +98,7 @@ public class GraphViewWrapper {
         }
         BaseSeries<DataPoint> series = seriesCache.get(wiFiDetail);
         series.resetData(data);
-        seriesOptions.highlightConnected(series, wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected());
+        seriesOptions.highlightConnected(series, wiFiDetail.getWiFiAdditional().getWiFiConnection().connected());
         seriesOptions.drawBackground(series, drawBackground);
         return true;
     }
@@ -109,7 +109,7 @@ public class GraphViewWrapper {
         }
         BaseSeries<DataPoint> series = seriesCache.get(wiFiDetail);
         series.appendData(data, true, count + 1);
-        seriesOptions.highlightConnected(series, wiFiDetail.getWiFiAdditional().getWiFiConnection().isConnected());
+        seriesOptions.highlightConnected(series, wiFiDetail.getWiFiAdditional().getWiFiConnection().connected());
         seriesOptions.drawBackground(series, drawBackground);
         return true;
     }
