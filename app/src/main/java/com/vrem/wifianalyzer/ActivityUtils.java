@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.vrem.util.IntentUtils;
 import com.vrem.wifianalyzer.settings.Settings;
 
 import androidx.annotation.NonNull;
@@ -36,11 +35,7 @@ import static android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS;
 import static android.provider.Settings.Panel.ACTION_WIFI;
 
 public class ActivityUtils {
-    private ActivityUtils() {
-        throw new IllegalStateException("Utility class");
-    }
-
-    static void setActionBarOptions(ActionBar actionBar) {
+    void setActionBarOptions(ActionBar actionBar) {
         if (actionBar == null) {
             return;
         }
@@ -48,7 +43,7 @@ public class ActivityUtils {
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    static void keepScreenOn() {
+    void keepScreenOn() {
         MainContext mainContext = MainContext.INSTANCE;
         Settings settings = mainContext.getSettings();
         if (settings == null) {
@@ -64,7 +59,7 @@ public class ActivityUtils {
     }
 
     @NonNull
-    static Toolbar setupToolbar() {
+    Toolbar setupToolbar() {
         MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
         Toolbar toolbar = mainActivity.findViewById(R.id.toolbar);
         toolbar.setOnClickListener(new WiFiBandToggle(mainActivity));
@@ -74,15 +69,20 @@ public class ActivityUtils {
     }
 
     @TargetApi(Build.VERSION_CODES.Q)
-    public static void startWiFiSettings() {
+    public void startWiFiSettings() {
         MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
-        Intent intent = IntentUtils.makeIntent(ACTION_WIFI);
+        Intent intent = makeIntent(ACTION_WIFI);
         mainActivity.startActivityForResult(intent, 0);
     }
 
-    static void startLocationSettings() {
+    Intent makeIntent(@NonNull String action) {
+        return new Intent(action);
+
+    }
+
+    void startLocationSettings() {
         MainActivity mainActivity = MainContext.INSTANCE.getMainActivity();
-        Intent intent = IntentUtils.makeIntent(ACTION_LOCATION_SOURCE_SETTINGS);
+        Intent intent = makeIntent(ACTION_LOCATION_SOURCE_SETTINGS);
         mainActivity.startActivity(intent);
     }
 

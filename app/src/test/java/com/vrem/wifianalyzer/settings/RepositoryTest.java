@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,27 +29,24 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Collections;
 import java.util.Set;
-
-import androidx.preference.PreferenceManager;
 
 import static android.content.SharedPreferences.Editor;
 import static android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.verifyNoMoreInteractions;
-import static org.powermock.api.mockito.PowerMockito.verifyStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(PreferenceManager.class)
+@RunWith(MockitoJUnitRunner.class)
 public class RepositoryTest {
     private final static String KEY_VALUE = "xyz";
 
@@ -68,13 +65,13 @@ public class RepositoryTest {
 
     @Before
     public void setUp() {
-        mockStatic(PreferenceManager.class);
-        fixture = new Repository(context);
+        fixture = spy(new Repository(context));
+
+        doReturn(sharedPreferences).when(fixture).getDefaultSharedPreferences(context);
     }
 
     @After
     public void tearDown() {
-        verifyNoMoreInteractions(PreferenceManager.class);
         verifyNoMoreInteractions(resources);
         verifyNoMoreInteractions(context);
 //        verifyNoMoreInteractions(sharedPreferences);
@@ -84,11 +81,12 @@ public class RepositoryTest {
 
     @Test
     public void testInitializeDefaultValues() {
+        // setup
+        doNothing().when(fixture).setDefaultValues(context, R.xml.settings, false);
         // execute
         fixture.initializeDefaultValues();
         // validate
-        verifyStatic(PreferenceManager.class);
-        PreferenceManager.setDefaultValues(context, R.xml.settings, false);
+        verify(fixture).setDefaultValues(context, R.xml.settings, false);
     }
 
     @Test
@@ -96,7 +94,6 @@ public class RepositoryTest {
         // setup
         int keyIndex = R.string.app_full_name;
         String value = "1111";
-        withPreferenceManager();
         withSave(keyIndex);
         // execute
         fixture.save(keyIndex, value);
@@ -110,7 +107,6 @@ public class RepositoryTest {
         // setup
         int keyIndex = R.string.app_full_name;
         int value = 1111;
-        withPreferenceManager();
         withSave(keyIndex);
         // execute
         fixture.save(keyIndex, value);
@@ -125,7 +121,6 @@ public class RepositoryTest {
         int keyIndex = R.string.app_full_name;
         String value = "1111";
         String defaultValue = "2222";
-        withPreferenceManager();
         when(context.getString(keyIndex)).thenReturn(KEY_VALUE);
         when(sharedPreferences.getString(KEY_VALUE, defaultValue)).thenReturn(value);
         // execute
@@ -143,7 +138,6 @@ public class RepositoryTest {
         int keyIndex = R.string.app_full_name;
         int value = 1111;
         int defaultValue = 2222;
-        withPreferenceManager();
         when(context.getString(keyIndex)).thenReturn(KEY_VALUE);
         when(sharedPreferences.getString(KEY_VALUE, "" + defaultValue)).thenReturn("" + value);
         // execute
@@ -160,7 +154,6 @@ public class RepositoryTest {
         // setup
         int keyIndex = R.string.app_full_name;
         int defaultValue = 2222;
-        withPreferenceManager();
         when(context.getString(keyIndex)).thenReturn(KEY_VALUE);
         withSave(keyIndex);
         // execute
@@ -177,7 +170,6 @@ public class RepositoryTest {
         int keyIndex = R.string.app_full_name;
         int value = 1111;
         int defaultValue = 2222;
-        withPreferenceManager();
         when(context.getString(keyIndex)).thenReturn(KEY_VALUE);
         when(sharedPreferences.getInt(KEY_VALUE, defaultValue)).thenReturn(value);
         // execute
@@ -194,7 +186,6 @@ public class RepositoryTest {
         // setup
         int keyIndex = R.string.app_full_name;
         int defaultValue = 2222;
-        withPreferenceManager();
         when(context.getString(keyIndex)).thenReturn(KEY_VALUE);
         when(sharedPreferences.getInt(KEY_VALUE, defaultValue)).thenThrow(new RuntimeException());
         withSave(keyIndex);
@@ -226,7 +217,6 @@ public class RepositoryTest {
     public void testGetBoolean() {
         // setup
         int keyIndex = R.string.app_full_name;
-        withPreferenceManager();
         when(context.getString(keyIndex)).thenReturn(KEY_VALUE);
         when(sharedPreferences.getBoolean(KEY_VALUE, false)).thenReturn(true);
         // execute
@@ -242,7 +232,6 @@ public class RepositoryTest {
     public void testGetBooleanThrowsException() {
         // setup
         int keyIndex = R.string.app_full_name;
-        withPreferenceManager();
         when(context.getString(keyIndex)).thenReturn(KEY_VALUE);
         when(sharedPreferences.getBoolean(KEY_VALUE, true)).thenThrow(new RuntimeException());
         withSave(keyIndex);
@@ -258,8 +247,6 @@ public class RepositoryTest {
 
     @Test
     public void testRegisterOnSharedPreferenceChangeListener() {
-        // setup
-        withPreferenceManager();
         // execute
         fixture.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
         // verify
@@ -273,7 +260,6 @@ public class RepositoryTest {
         int keyIndex = R.string.app_full_name;
         Set<String> expected = Collections.singleton("123");
         Set<String> defaultValues = Collections.singleton("567");
-        withPreferenceManager();
         when(context.getString(keyIndex)).thenReturn(KEY_VALUE);
         when(sharedPreferences.getStringSet(KEY_VALUE, defaultValues)).thenReturn(expected);
         // execute
@@ -290,7 +276,6 @@ public class RepositoryTest {
         // setup
         int keyIndex = R.string.app_full_name;
         Set<String> expected = Collections.singleton("567");
-        withPreferenceManager();
         when(context.getString(keyIndex)).thenReturn(KEY_VALUE);
         when(sharedPreferences.getStringSet(KEY_VALUE, expected)).thenThrow(new RuntimeException());
         when(sharedPreferences.edit()).thenReturn(editor);
@@ -311,7 +296,6 @@ public class RepositoryTest {
         // setup
         int keyIndex = R.string.app_full_name;
         Set<String> values = Collections.singleton("123");
-        withPreferenceManager();
         when(context.getString(keyIndex)).thenReturn(KEY_VALUE);
         when(sharedPreferences.edit()).thenReturn(editor);
         // execute
@@ -341,13 +325,8 @@ public class RepositoryTest {
         when(sharedPreferences.edit()).thenReturn(editor);
     }
 
-    private void withPreferenceManager() {
-        when(PreferenceManager.getDefaultSharedPreferences(context)).thenReturn(sharedPreferences);
-    }
-
     private void verifyPreferenceManager() {
-        verifyStatic(PreferenceManager.class, atLeastOnce());
-        PreferenceManager.getDefaultSharedPreferences(context);
+        verify(fixture, atLeastOnce()).getDefaultSharedPreferences(context);
     }
 
 }

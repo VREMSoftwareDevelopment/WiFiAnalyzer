@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,20 +33,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.verifyNoMoreInteractions;
-import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({ContextCompat.class, DrawableCompat.class})
+@RunWith(MockitoJUnitRunner.class)
 public class FilterOnTest {
 
     @Mock
@@ -65,17 +60,13 @@ public class FilterOnTest {
 
     @Before
     public void setUp() {
-        mockStatic(ContextCompat.class);
-        mockStatic(DrawableCompat.class);
         filterAdapter = MainContextHelper.INSTANCE.getFilterAdapter();
-        fixture = new FilterOn();
+        fixture = spy(new FilterOn());
     }
 
     @After
     public void tearDown() {
         MainContextHelper.INSTANCE.restore();
-        verifyNoMoreInteractions(ContextCompat.class);
-        verifyNoMoreInteractions(DrawableCompat.class);
         verifyNoMoreInteractions(menu);
         verifyNoMoreInteractions(menuItem);
         verifyNoMoreInteractions(filterAdapter);
@@ -89,16 +80,14 @@ public class FilterOnTest {
         // setup
         int colorResult = 200;
         when(filterAdapter.isActive()).thenReturn(false);
-        when(ContextCompat.getColor(mainActivity, R.color.regular)).thenReturn(colorResult);
+        doReturn(colorResult).when(fixture).getColor(mainActivity, R.color.regular);
         withMenuItem();
         // execute
         fixture.apply(mainActivity);
         // validate
         verifyMenuItem();
-        verifyStatic(ContextCompat.class);
-        ContextCompat.getColor(mainActivity, R.color.regular);
-        verifyStatic(DrawableCompat.class);
-        DrawableCompat.setTint(drawable, colorResult);
+        verify(fixture).getColor(mainActivity, R.color.regular);
+        verify(fixture).setTint(drawable, colorResult);
     }
 
     @Test
@@ -106,16 +95,14 @@ public class FilterOnTest {
         // setup
         int colorResult = 100;
         when(filterAdapter.isActive()).thenReturn(true);
-        when(ContextCompat.getColor(mainActivity, R.color.selected)).thenReturn(colorResult);
+        doReturn(colorResult).when(fixture).getColor(mainActivity, R.color.selected);
         withMenuItem();
         // execute
         fixture.apply(mainActivity);
         // validate
         verifyMenuItem();
-        verifyStatic(ContextCompat.class);
-        ContextCompat.getColor(mainActivity, R.color.selected);
-        verifyStatic(DrawableCompat.class);
-        DrawableCompat.setTint(drawable, colorResult);
+        verify(fixture).getColor(mainActivity, R.color.selected);
+        verify(fixture).setTint(drawable, colorResult);
     }
 
     @Test

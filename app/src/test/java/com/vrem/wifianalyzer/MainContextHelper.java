@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ import org.apache.commons.collections4.IterableUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.mockito.Mockito.mock;
 
 public enum MainContextHelper {
     INSTANCE;

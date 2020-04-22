@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     private OptionMenu optionMenu;
     private String currentCountryCode;
     private PermissionService permissionService;
+    private ActivityUtils activityUtils;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -89,9 +90,10 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
 
         setOptionMenu(new OptionMenu());
 
-        ActivityUtils.keepScreenOn();
+        activityUtils = new ActivityUtils();
+        activityUtils.keepScreenOn();
 
-        Toolbar toolbar = ActivityUtils.setupToolbar();
+        Toolbar toolbar = activityUtils.setupToolbar();
         drawerNavigation = new DrawerNavigation(this, toolbar);
 
         navigationMenuController = new NavigationMenuController(this);
@@ -112,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         drawerNavigation.onConfigurationChanged(newConfig);
     }
@@ -149,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
             MainContext.INSTANCE.getScannerService().stop();
             recreate();
         } else {
-            ActivityUtils.keepScreenOn();
+            activityUtils.keepScreenOn();
             setWiFiChannelPairs(mainContext);
             update();
         }
@@ -202,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
         super.onResume();
         if (permissionService.isPermissionGranted()) {
             if (!permissionService.isSystemEnabled()) {
-                ActivityUtils.startLocationSettings();
+                activityUtils.startLocationSettings();
             }
             MainContext.INSTANCE.getScannerService().resume();
         }

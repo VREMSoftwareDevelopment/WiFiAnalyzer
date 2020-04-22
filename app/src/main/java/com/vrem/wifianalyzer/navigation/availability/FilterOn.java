@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.navigation.availability;
 
+import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -42,8 +43,15 @@ class FilterOn implements NavigationOption {
     }
 
     private void setIconColor(@NonNull MainActivity mainActivity, @NonNull MenuItem menuItem, boolean active) {
-        int color = ContextCompat.getColor(mainActivity, active ? R.color.selected : R.color.regular);
-        DrawableCompat.setTint(menuItem.getIcon(), color);
+        int color = getColor(mainActivity, active ? R.color.selected : R.color.regular);
+        setTint(menuItem.getIcon(), color);
     }
 
+    int getColor(MainActivity mainActivity, int color) {
+        return ContextCompat.getColor(mainActivity, color);
+    }
+
+    void setTint(Drawable drawable, int color) {
+        DrawableCompat.setTint(drawable, color);
+    }
 }

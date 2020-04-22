@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ class WiFiSwitch {
 
     @TargetApi(Build.VERSION_CODES.Q)
     private boolean enableWiFiAndroidQ() {
-        ActivityUtils.startWiFiSettings();
+        startWiFiSettings();
         return true;
     }
 
@@ -49,4 +49,7 @@ class WiFiSwitch {
         return wifiManager.setWifiEnabled(enabled);
     }
 
+    void startWiFiSettings() {
+        new ActivityUtils().startWiFiSettings();
+    }
 }

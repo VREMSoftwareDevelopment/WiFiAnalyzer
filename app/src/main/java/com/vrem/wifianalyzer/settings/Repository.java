@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ public class Repository {
     }
 
     void initializeDefaultValues() {
-        PreferenceManager.setDefaultValues(context, R.xml.settings, false);
+        setDefaultValues(context, R.xml.settings, false);
     }
 
     void registerOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener onSharedPreferenceChangeListener) {
@@ -112,7 +112,7 @@ public class Repository {
     }
 
     private SharedPreferences getSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(context);
+        return getDefaultSharedPreferences(context);
     }
 
     private void save(@NonNull String key, @NonNull String value) {
@@ -133,4 +133,11 @@ public class Repository {
         editor.apply();
     }
 
+    void setDefaultValues(Context context, int resId, boolean readAgain) {
+        PreferenceManager.setDefaultValues(context, resId, readAgain);
+    }
+
+    SharedPreferences getDefaultSharedPreferences(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context);
+    }
 }

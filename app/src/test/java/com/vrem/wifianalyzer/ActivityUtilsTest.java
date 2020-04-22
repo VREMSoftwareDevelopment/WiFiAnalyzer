@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@ import android.content.Intent;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.vrem.util.IntentUtils;
 import com.vrem.wifianalyzer.ActivityUtils.WiFiBandToggle;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -32,8 +31,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
@@ -42,13 +41,10 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.verifyNoMoreInteractions;
-import static org.powermock.api.mockito.PowerMockito.verifyStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(IntentUtils.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ActivityUtilsTest {
 
     @Mock
@@ -63,18 +59,18 @@ public class ActivityUtilsTest {
     private MainActivity mainActivity;
     private Settings settings;
 
+    private ActivityUtils fixture;
+
     @Before
     public void setUp() {
-        mockStatic(IntentUtils.class);
-
         mainActivity = MainContextHelper.INSTANCE.getMainActivity();
         settings = MainContextHelper.INSTANCE.getSettings();
+        fixture = Mockito.spy(new ActivityUtils());
     }
 
     @After
     public void tearDown() {
         MainContextHelper.INSTANCE.restore();
-        verifyNoMoreInteractions(IntentUtils.class);
         verifyNoMoreInteractions(mainActivity);
         verifyNoMoreInteractions(toolbar);
         verifyNoMoreInteractions(actionBar);
@@ -86,7 +82,7 @@ public class ActivityUtilsTest {
     @Test
     public void testSetActionBarOptions() {
         // execute
-        ActivityUtils.setActionBarOptions(actionBar);
+        fixture.setActionBarOptions(actionBar);
         // validate
         verify(actionBar).setHomeButtonEnabled(true);
         verify(actionBar).setDisplayHomeAsUpEnabled(true);
@@ -95,7 +91,7 @@ public class ActivityUtilsTest {
     @Test
     public void testSetActionBarOptionsWithNullActionBar() {
         // execute
-        ActivityUtils.setActionBarOptions(null);
+        fixture.setActionBarOptions(null);
         // validate
         verify(actionBar, never()).setHomeButtonEnabled(true);
         verify(actionBar, never()).setDisplayHomeAsUpEnabled(true);
@@ -107,7 +103,7 @@ public class ActivityUtilsTest {
         when(mainActivity.findViewById(R.id.toolbar)).thenReturn(toolbar);
         when(mainActivity.getSupportActionBar()).thenReturn(actionBar);
         // execute
-        Toolbar actual = ActivityUtils.setupToolbar();
+        Toolbar actual = fixture.setupToolbar();
         // validate
         assertEquals(toolbar, actual);
 
@@ -150,7 +146,7 @@ public class ActivityUtilsTest {
         when(settings.isKeepScreenOn()).thenReturn(true);
         when(mainActivity.getWindow()).thenReturn(window);
         // execute
-        ActivityUtils.keepScreenOn();
+        fixture.keepScreenOn();
         // validate
         verify(settings).isKeepScreenOn();
         verify(mainActivity).getWindow();
@@ -163,7 +159,7 @@ public class ActivityUtilsTest {
         when(settings.isKeepScreenOn()).thenReturn(false);
         when(mainActivity.getWindow()).thenReturn(window);
         // execute
-        ActivityUtils.keepScreenOn();
+        fixture.keepScreenOn();
         // validate
         verify(settings).isKeepScreenOn();
         verify(mainActivity).getWindow();
@@ -173,25 +169,23 @@ public class ActivityUtilsTest {
     @Test
     public void testStartWiFiSettings() {
         // setup
-        when(IntentUtils.makeIntent(android.provider.Settings.Panel.ACTION_WIFI)).thenReturn(intent);
+        when(fixture.makeIntent(android.provider.Settings.Panel.ACTION_WIFI)).thenReturn(intent);
         // execute
-        ActivityUtils.startWiFiSettings();
+        fixture.startWiFiSettings();
         // validate
         verify(mainActivity).startActivityForResult(intent, 0);
-        verifyStatic(IntentUtils.class);
-        IntentUtils.makeIntent(android.provider.Settings.Panel.ACTION_WIFI);
+        verify(fixture).makeIntent(android.provider.Settings.Panel.ACTION_WIFI);
     }
 
     @Test
     public void testStartLocationSettings() {
         // setup
-        when(IntentUtils.makeIntent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)).thenReturn(intent);
+        when(fixture.makeIntent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)).thenReturn(intent);
         // execute
-        ActivityUtils.startLocationSettings();
+        fixture.startLocationSettings();
         // validate
         verify(mainActivity).startActivity(intent);
-        verifyStatic(IntentUtils.class);
-        IntentUtils.makeIntent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        verify(fixture).makeIntent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
     }
 
 }

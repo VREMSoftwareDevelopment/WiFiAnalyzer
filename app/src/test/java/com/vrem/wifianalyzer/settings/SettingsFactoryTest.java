@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,81 +18,64 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import com.vrem.util.BuildUtils;
+import android.os.Build;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.robolectric.annotation.Config;
+
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.verifyNoMoreInteractions;
-import static org.powermock.api.mockito.PowerMockito.verifyStatic;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(BuildUtils.class)
+@RunWith(AndroidJUnit4.class)
 public class SettingsFactoryTest {
-
     @Mock
     private Repository repository;
 
     @Before
     public void setUp() {
-        mockStatic(BuildUtils.class);
+        repository = mock(Repository.class);
     }
 
     @After
     public void tearDown() {
-        verifyNoMoreInteractions(BuildUtils.class);
         verifyNoMoreInteractions(repository);
     }
 
     @Test
+    @Config(sdk = Build.VERSION_CODES.O)
     public void testMakeSettings() {
-        // setup
-        when(BuildUtils.isVersionP()).thenReturn(false);
-        when(BuildUtils.isMinVersionQ()).thenReturn(false);
         // execute
         Settings actual = SettingsFactory.make(repository);
         // validate
         assertEquals(Settings.class.getName(), actual.getClass().getName());
-        verifyStatic(BuildUtils.class);
-        BuildUtils.isVersionP();
-        verifyStatic(BuildUtils.class);
-        BuildUtils.isMinVersionQ();
     }
 
+/*
+    FIXME: Q requires JAVA 9
     @Test
+    @Config(sdk = Build.VERSION_CODES.Q)
     public void testMakeSettingsAndroidQ() {
-        // setup
-        when(BuildUtils.isVersionP()).thenReturn(false);
-        when(BuildUtils.isMinVersionQ()).thenReturn(true);
         // execute
         Settings actual = SettingsFactory.make(repository);
         // validate
         assertEquals(SettingsAndroidQ.class.getName(), actual.getClass().getName());
-        verifyStatic(BuildUtils.class);
-        BuildUtils.isMinVersionQ();
     }
+*/
 
     @Test
+    @Config(sdk = Build.VERSION_CODES.P)
     public void testMakeSettingsAndroidP() {
-        // setup
-        when(BuildUtils.isVersionP()).thenReturn(true);
-        when(BuildUtils.isMinVersionQ()).thenReturn(false);
         // execute
         Settings actual = SettingsFactory.make(repository);
         // validate
         assertEquals(SettingsAndroidP.class.getName(), actual.getClass().getName());
-        verifyStatic(BuildUtils.class);
-        BuildUtils.isVersionP();
-        verifyStatic(BuildUtils.class);
-        BuildUtils.isMinVersionQ();
     }
 
 }
