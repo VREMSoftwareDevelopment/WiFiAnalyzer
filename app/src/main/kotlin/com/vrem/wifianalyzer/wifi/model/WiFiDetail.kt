@@ -19,19 +19,13 @@ package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.util.StringUtils
 
-data class WiFiDetail(val rawSSID: String = StringUtils.EMPTY,
-                      val BSSID: String = StringUtils.EMPTY,
-                      val capabilities: String = StringUtils.EMPTY,
-                      val wiFiSignal: WiFiSignal = WiFiSignal.EMPTY,
-                      val wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY,
-                      val children: List<WiFiDetail> = emptyList()) :
+data class WiFiDetail @JvmOverloads constructor(val rawSSID: String = StringUtils.EMPTY,
+                                                val BSSID: String = StringUtils.EMPTY,
+                                                val capabilities: String = StringUtils.EMPTY,
+                                                val wiFiSignal: WiFiSignal = WiFiSignal.EMPTY,
+                                                val wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY,
+                                                val children: List<WiFiDetail> = emptyList()) :
         Comparable<WiFiDetail> {
-
-    constructor(rawSSID: String, BSSID: String, capabilities: String, wiFiSignal: WiFiSignal, wiFiAdditional: WiFiAdditional) :
-            this(rawSSID, BSSID, capabilities, wiFiSignal, wiFiAdditional, emptyList())
-
-    constructor(rawSSID: String, BSSID: String, capabilities: String, wiFiSignal: WiFiSignal) :
-            this(rawSSID, BSSID, capabilities, wiFiSignal, WiFiAdditional.EMPTY)
 
     constructor(wiFiDetail: WiFiDetail, wiFiAdditional: WiFiAdditional) :
             this(wiFiDetail.rawSSID, wiFiDetail.BSSID, wiFiDetail.capabilities, wiFiDetail.wiFiSignal, wiFiAdditional)
