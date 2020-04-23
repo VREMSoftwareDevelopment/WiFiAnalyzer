@@ -40,7 +40,7 @@ data class WiFiSignal(val primaryFrequency: Int = 0,
     fun strength(): Strength = Strength.calculate(level)
 
     fun distance(): String {
-        val distance = WiFiUtils.calculateDistance(primaryFrequency, level)
+        val distance: Double = WiFiUtils.calculateDistance(primaryFrequency, level)
         return String.format("~%.1fm", distance)
     }
 
@@ -49,9 +49,9 @@ data class WiFiSignal(val primaryFrequency: Int = 0,
     }
 
     fun channelDisplay(): String {
-        val primaryChannel = primaryWiFiChannel().channel
-        val centerChannel = centerWiFiChannel().channel
-        var channel = Integer.toString(primaryChannel)
+        val primaryChannel: Int = primaryWiFiChannel().channel
+        val centerChannel: Int = centerWiFiChannel().channel
+        var channel: String = Integer.toString(primaryChannel)
         if (primaryChannel != centerChannel) {
             channel += "($centerChannel)"
         }

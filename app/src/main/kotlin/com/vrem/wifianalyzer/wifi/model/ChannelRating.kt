@@ -48,7 +48,7 @@ class ChannelRating {
                     .sorted()
 
     private fun removeSame(wiFiDetails: List<WiFiDetail>): List<WiFiDetail> {
-        val (left, right) = wiFiDetails.partition { BSSID_LENGTH == it.BSSID.length }
+        val (left: List<WiFiDetail>, right: List<WiFiDetail>) = wiFiDetails.partition { BSSID_LENGTH == it.BSSID.length }
         return left.distinctBy { it.toKey() }.plus(right).sortedWith(SortBy.STRENGTH.comparator())
     }
 

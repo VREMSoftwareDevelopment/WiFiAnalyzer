@@ -18,6 +18,7 @@
 
 package com.vrem.wifianalyzer.export
 
+import com.vrem.util.StringUtils
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.FREQUENCY_UNITS
 import java.util.Locale.ENGLISH
@@ -25,12 +26,10 @@ import java.util.Locale.ENGLISH
 val header = String.format(ENGLISH,
         "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|802.11mc|Security%n")
 
-fun getData(wiFiDetails: List<WiFiDetail>, timestamp: String) =
-        header + wiFiDetails.joinToString(
-                System.lineSeparator(),
-                transform = toExportString(timestamp))
+fun getData(wiFiDetails: List<WiFiDetail>, timestamp: String): String =
+        header + wiFiDetails.joinToString(separator = StringUtils.EMPTY, transform = toExportString(timestamp))
 
-fun toExportString(timestamp: String) = { wiFiDetail: WiFiDetail ->
+private fun toExportString(timestamp: String): (WiFiDetail) -> String = { wiFiDetail: WiFiDetail ->
     with(wiFiDetail) {
         String.format(ENGLISH, "%s|%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%s|%s|%s%n",
                 timestamp,

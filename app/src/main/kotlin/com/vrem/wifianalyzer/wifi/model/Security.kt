@@ -38,7 +38,7 @@ enum class Security(val imageResource: Int, val additional: String = StringUtils
 
         @JvmStatic
         fun findOne(capabilities: String): Security {
-            val results = findAll(capabilities)
+            val results: Set<Security> = findAll(capabilities)
             return when {
                 results.isEmpty() -> NONE
                 else -> results.first()

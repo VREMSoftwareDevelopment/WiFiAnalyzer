@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,17 +29,37 @@ class ExportSpec {
 
     private val timestamp = "timestamp"
 
-    private val wiFiDetails = listOf(WiFiDetail("SSID", "BSSID", "capabilities", WiFiSignal(2412, 2422, WiFiWidth.MHZ_40, -40, true)))
-
     @Test
     fun `getData should evaluate to an export string`() {
 
-        val expected = String.format(Locale.ENGLISH,
+        val wiFiDetails: List<WiFiDetail> = withWiFiDetails()
+        val expected: String = String.format(Locale.ENGLISH,
                 "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|802.11mc|Security%n"
-                        + timestamp + "|SSID|BSSID|-40dBm|1|2412MHz|3|2422MHz|40MHz (2402 - 2442)|~1.0m|true|capabilities%n")
+                        + timestamp + "|SSID10|BSSID10|-10dBm|3|2422MHz|5|2432MHz|40MHz (2412 - 2452)|~0.0m|true|capabilities10%n"
+                        + timestamp + "|SSID20|BSSID20|-20dBm|5|2432MHz|7|2442MHz|40MHz (2422 - 2462)|~0.1m|true|capabilities20%n"
+                        + timestamp + "|SSID30|BSSID30|-30dBm|7|2442MHz|9|2452MHz|40MHz (2432 - 2472)|~0.3m|true|capabilities30%n"
+        )
 
-        val actual = getData(wiFiDetails, timestamp)
+        val actual: String = getData(wiFiDetails, timestamp)
 
         assertEquals(expected, actual)
+    }
+
+    private fun withWiFiDetails(): List<WiFiDetail> {
+        return listOf(withWiFiDetail(10), withWiFiDetail(20), withWiFiDetail(30))
+    }
+
+    private fun withWiFiDetail(offset: Int): WiFiDetail {
+        val wiFiSignal = WiFiSignal(
+                2412 + offset,
+                2422 + offset,
+                WiFiWidth.MHZ_40,
+                -offset,
+                true)
+        return WiFiDetail(
+                "SSID$offset",
+                "BSSID$offset",
+                "capabilities$offset",
+                wiFiSignal)
     }
 }

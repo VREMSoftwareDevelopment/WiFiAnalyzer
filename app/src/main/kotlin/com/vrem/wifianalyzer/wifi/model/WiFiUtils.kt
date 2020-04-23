@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi.model
 import com.vrem.util.StringUtils
 import java.net.InetAddress
 import java.nio.ByteOrder
+import kotlin.math.abs
 import kotlin.math.log10
 import kotlin.math.pow
 
@@ -32,7 +33,7 @@ class WiFiUtils private constructor() {
 
         @JvmStatic
         fun calculateDistance(frequency: Int, level: Int): Double =
-                10.0.pow((DISTANCE_MHZ_M - 20 * log10(frequency.toDouble()) + Math.abs(level)) / 20.0)
+                10.0.pow((DISTANCE_MHZ_M - 20 * log10(frequency.toDouble()) + abs(level)) / 20.0)
 
         @JvmStatic
         fun calculateSignalLevel(rssi: Int, numLevels: Int): Int = when {
@@ -47,7 +48,7 @@ class WiFiUtils private constructor() {
         @JvmStatic
         fun convertIpAddress(ipAddress: Int): String {
             return try {
-                val value = when (ByteOrder.LITTLE_ENDIAN) {
+                val value: Long = when (ByteOrder.LITTLE_ENDIAN) {
                     ByteOrder.nativeOrder() -> Integer.reverseBytes(ipAddress).toLong()
                     else -> ipAddress.toLong()
                 }
