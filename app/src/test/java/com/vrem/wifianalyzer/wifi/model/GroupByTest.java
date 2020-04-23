@@ -18,8 +18,13 @@
 
 package com.vrem.wifianalyzer.wifi.model;
 
+import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
+
 import org.junit.Test;
 
+import static com.vrem.wifianalyzer.wifi.model.GroupBy.CHANNEL;
+import static com.vrem.wifianalyzer.wifi.model.GroupBy.NONE;
+import static com.vrem.wifianalyzer.wifi.model.GroupBy.SSID;
 import static com.vrem.wifianalyzer.wifi.model.GroupBy.values;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -32,10 +37,43 @@ public class GroupByTest {
 
     @Test
     public void testGroupBySortByComparator() {
-        assertTrue(GroupBy.CHANNEL.comparator().getClass().isInstance(WiFiDetail.sortByChannel()));
-        assertTrue(GroupBy.NONE.comparator().getClass().isInstance(WiFiDetail.sortByDefault()));
-        assertTrue(GroupBy.SSID.comparator().getClass().isInstance(WiFiDetail.sortBySSID()));
+        assertTrue(CHANNEL.comparator().getClass().isInstance(WiFiDetail.sortByChannel()));
+        assertTrue(NONE.comparator().getClass().isInstance(WiFiDetail.sortByDefault()));
+        assertTrue(SSID.comparator().getClass().isInstance(WiFiDetail.sortBySSID()));
+    }
 
+    @Test
+    public void testGroupByKeyWithNone() {
+        // setup
+        String expected = "SSID_TO_TEST";
+        WiFiDetail wiFiDetail = new WiFiDetail(expected);
+        // execute
+        String actual = NONE.groupByKey().key(wiFiDetail);
+        // validate
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGroupByKeyWithSSID() {
+        // setup
+        String expected = "SSID_TO_TEST";
+        WiFiDetail wiFiDetail = new WiFiDetail(expected);
+        // execute
+        String actual = SSID.groupByKey().key(wiFiDetail);
+        // validate
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGroupByKeyWithChannel() {
+        // setup
+        String expected = "6";
+        WiFiSignal wiFiSignal = new WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -40, true);
+        WiFiDetail wiFiDetail = new WiFiDetail("xyzSSID", "xyzBSSID", "WPA-WPA2", wiFiSignal);
+        // execute
+        String actual = CHANNEL.groupByKey().key(wiFiDetail);
+        // validate
+        assertEquals(expected, actual);
     }
 
 }

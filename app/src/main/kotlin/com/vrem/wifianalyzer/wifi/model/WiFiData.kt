@@ -47,17 +47,12 @@ class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnec
     private fun List<WiFiDetail>.sortAndGroup(sortBy: SortBy, groupBy: GroupBy): List<WiFiDetail> =
             when (groupBy) {
                 GroupBy.NONE -> this
-                else -> group(groupBy)
+                else -> this
+                        .groupBy { groupBy.groupByKey().key(it) }
                         .values
                         .map(map(sortBy, groupBy))
                         .toList()
                         .sortedWith(sortBy.comparator())
-            }
-
-    private fun List<WiFiDetail>.group(groupBy: GroupBy): Map<String, List<WiFiDetail>> =
-            when (groupBy) {
-                GroupBy.CHANNEL -> this.groupBy { it.wiFiSignal.primaryWiFiChannel().channel.toString() }
-                else -> this.groupBy { it.SSID }
             }
 
     private fun map(sortBy: SortBy, groupBy: GroupBy): (List<WiFiDetail>) -> WiFiDetail {
