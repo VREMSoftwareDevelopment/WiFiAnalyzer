@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 package com.vrem.wifianalyzer.settings;
 
 import com.vrem.util.EnumUtils;
-import com.vrem.util.LocaleUtils;
+import com.vrem.util.LocaleUtilsKt;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationGroup;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
@@ -80,15 +80,15 @@ public class Settings {
 
     @NonNull
     public String getCountryCode() {
-        String countryCode = LocaleUtils.getDefaultCountryCode();
+        String countryCode = LocaleUtilsKt.getDefaultCountryCode();
         return repository.getString(R.string.country_code_key, countryCode);
     }
 
     @NonNull
     public Locale getLanguageLocale() {
-        String defaultLanguageTag = LocaleUtils.getDefaultLanguageTag();
+        String defaultLanguageTag = LocaleUtilsKt.getDefaultLanguageTag();
         String languageTag = repository.getString(R.string.language_key, defaultLanguageTag);
-        return LocaleUtils.findByLanguageTag(languageTag);
+        return LocaleUtilsKt.findByLanguageTag(languageTag);
     }
 
     @NonNull

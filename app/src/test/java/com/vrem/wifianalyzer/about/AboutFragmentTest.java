@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ import android.os.Build;
 import android.view.View;
 import android.widget.TextView;
 
-import com.vrem.util.FileUtils;
+import com.vrem.util.FileUtilsKt;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainActivity;
@@ -154,7 +154,7 @@ public class AboutFragmentTest {
         // setup
         View view = fixture.getView().findViewById(viewId);
         String expectedTitle = mainActivity.getApplicationContext().getString(titleId);
-        String expectedMessage = FileUtils.readFile(mainActivity.getResources(), messageId);
+        String expectedMessage = FileUtilsKt.readFile(mainActivity.getResources(), messageId);
         // execute
         view.performClick();
         // validate

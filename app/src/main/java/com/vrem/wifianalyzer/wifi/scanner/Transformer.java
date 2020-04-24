@@ -21,14 +21,14 @@ package com.vrem.wifianalyzer.wifi.scanner;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 
-import com.vrem.util.BuildUtils;
+import com.vrem.util.BuildUtilsKt;
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
-import com.vrem.wifianalyzer.wifi.model.WiFiUtils;
+import com.vrem.wifianalyzer.wifi.model.WiFiUtilsKt;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -49,9 +49,9 @@ class Transformer {
         String SSID = wifiInfo.getSSID();
         String BSSID = wifiInfo.getBSSID();
         return new WiFiConnection(
-            WiFiUtils.convertSSID(SSID == null ? StringUtils.EMPTY : SSID),
+            WiFiUtilsKt.convertSSID(SSID == null ? StringUtils.EMPTY : SSID),
             BSSID == null ? StringUtils.EMPTY : BSSID,
-            WiFiUtils.convertIpAddress(wifiInfo.getIpAddress()),
+            WiFiUtilsKt.convertIpAddress(wifiInfo.getIpAddress()),
             wifiInfo.getLinkSpeed());
     }
 
@@ -93,7 +93,7 @@ class Transformer {
     }
 
     private boolean is80211mc(@NonNull ScanResult scanResult) {
-        return BuildUtils.isMinVersionM() && scanResult.is80211mcResponder();
+        return BuildUtilsKt.isMinVersionM() && scanResult.is80211mcResponder();
     }
 
     @NonNull

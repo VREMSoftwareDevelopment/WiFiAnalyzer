@@ -33,7 +33,7 @@ public class SortByDefaultTest {
 
     @Before
     public void setUp() {
-        fixture = WiFiDetail.sortByDefault();
+        fixture = SortByKt.sortByDefault();
     }
 
     @Test

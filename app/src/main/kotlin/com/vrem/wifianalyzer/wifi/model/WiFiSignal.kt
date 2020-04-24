@@ -40,7 +40,7 @@ data class WiFiSignal(val primaryFrequency: Int = 0,
     fun strength(): Strength = Strength.calculate(level)
 
     fun distance(): String {
-        val distance: Double = WiFiUtils.calculateDistance(primaryFrequency, level)
+        val distance: Double = calculateDistance(primaryFrequency, level)
         return String.format("~%.1fm", distance)
     }
 

@@ -17,8 +17,4 @@
  */
 package com.vrem.util
 
-class StringUtils private constructor() {
-    companion object {
-        const val EMPTY = ""
-    }
-}
+const val STRING_EMPTY = ""

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.settings;
 
 import android.os.Bundle;
 
-import com.vrem.util.BuildUtils;
+import com.vrem.util.BuildUtilsKt;
 import com.vrem.wifianalyzer.R;
 
 import androidx.preference.PreferenceFragmentCompat;
@@ -30,8 +30,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle bundle, String rootKey) {
         addPreferencesFromResource(R.xml.settings);
-        findPreference(getString(R.string.experimental_key)).setVisible(BuildUtils.isVersionP());
-        findPreference(getString(R.string.wifi_off_on_exit_key)).setVisible(!BuildUtils.isMinVersionQ());
+        findPreference(getString(R.string.experimental_key)).setVisible(BuildUtilsKt.isVersionP());
+        findPreference(getString(R.string.wifi_off_on_exit_key)).setVisible(!BuildUtilsKt.isMinVersionQ());
     }
 
 }

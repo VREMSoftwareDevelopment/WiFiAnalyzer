@@ -20,24 +20,14 @@ package com.vrem.util
 
 import android.os.Build
 
-class BuildUtils private constructor() {
-    companion object {
-        @JvmStatic
-        fun isMinVersionQ(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+fun isMinVersionQ(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 
-        @JvmStatic
-        fun isMinVersionP(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+fun isMinVersionP(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
 
-        @JvmStatic
-        fun isVersionP(): Boolean = Build.VERSION.SDK_INT == Build.VERSION_CODES.P
+fun isVersionP(): Boolean = Build.VERSION.SDK_INT == Build.VERSION_CODES.P
 
-        @JvmStatic
-        fun isMinVersionN(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+fun isMinVersionN(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
 
-        @JvmStatic
-        fun isMinVersionM(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+fun isMinVersionM(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
 
-        @JvmStatic
-        fun isMinVersionL(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-    }
-}
+fun isMinVersionL(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP

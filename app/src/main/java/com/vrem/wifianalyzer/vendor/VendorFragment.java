@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView.OnQueryTextListener;
 
-import com.vrem.util.TextUtils;
+import com.vrem.util.TextUtilsKt;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.databinding.VendorContentBinding;
 
@@ -60,7 +60,7 @@ public class VendorFragment extends ListFragment {
 
         @Override
         public boolean onQueryTextChange(String newText) {
-            vendorAdapter.update(TextUtils.trim(newText));
+            vendorAdapter.update(TextUtilsKt.trim(newText));
             return true;
         }
     }

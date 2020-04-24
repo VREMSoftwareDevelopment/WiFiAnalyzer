@@ -33,7 +33,7 @@ public class SortByChannelTest {
 
     @Before
     public void setUp() {
-        fixture = WiFiDetail.sortByChannel();
+        fixture = SortByKt.sortByChannel();
     }
 
     @Test

@@ -37,9 +37,9 @@ public class GroupByTest {
 
     @Test
     public void testGroupBySortByComparator() {
-        assertTrue(CHANNEL.comparator().getClass().isInstance(WiFiDetail.sortByChannel()));
-        assertTrue(NONE.comparator().getClass().isInstance(WiFiDetail.sortByDefault()));
-        assertTrue(SSID.comparator().getClass().isInstance(WiFiDetail.sortBySSID()));
+        assertTrue(CHANNEL.comparator().getClass().isInstance(SortByKt.sortByChannel()));
+        assertTrue(NONE.comparator().getClass().isInstance(SortByKt.sortByDefault()));
+        assertTrue(SSID.comparator().getClass().isInstance(SortByKt.sortBySSID()));
     }
 
     @Test

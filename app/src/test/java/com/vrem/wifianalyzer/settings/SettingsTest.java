@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ package com.vrem.wifianalyzer.settings;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
 import com.vrem.util.EnumUtils;
-import com.vrem.util.LocaleUtils;
+import com.vrem.util.LocaleUtilsKt;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointViewType;
@@ -331,7 +331,7 @@ public class SettingsTest {
     @Test
     public void testGetCountryCode() {
         // setup
-        String defaultValue = LocaleUtils.getDefaultCountryCode();
+        String defaultValue = LocaleUtilsKt.getDefaultCountryCode();
         String expected = "WW";
         when(repository.getString(R.string.country_code_key, defaultValue)).thenReturn(expected);
         // execute
@@ -344,9 +344,9 @@ public class SettingsTest {
     @Test
     public void testGetLanguageLocale() {
         // setup
-        String defaultValue = LocaleUtils.getDefaultLanguageTag();
+        String defaultValue = LocaleUtilsKt.getDefaultLanguageTag();
         Locale expected = Locale.FRENCH;
-        when(repository.getString(R.string.language_key, defaultValue)).thenReturn(LocaleUtils.toLanguageTag(expected));
+        when(repository.getString(R.string.language_key, defaultValue)).thenReturn(LocaleUtilsKt.toLanguageTag(expected));
         // execute
         Locale actual = fixture.getLanguageLocale();
         // validate

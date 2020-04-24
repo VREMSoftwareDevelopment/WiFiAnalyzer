@@ -38,7 +38,7 @@ enum class Strength(private val imageResource: Int, private val colorResource: I
         @JvmStatic
         fun calculate(level: Int): Strength {
             val enumValues: Array<Strength> = enumValues()
-            return enumValues[WiFiUtils.calculateSignalLevel(level, enumValues.size)]
+            return enumValues[calculateSignalLevel(level, enumValues.size)]
         }
 
         @JvmStatic

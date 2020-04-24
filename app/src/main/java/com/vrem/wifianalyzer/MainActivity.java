@@ -27,7 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
-import com.vrem.util.ConfigurationUtils;
+import com.vrem.util.ConfigurationUtilsKt;
 import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuControl;
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
         Repository repository = new Repository(newBase);
         Settings settings = SettingsFactory.make(repository);
         Locale newLocale = settings.getLanguageLocale();
-        Context context = ConfigurationUtils.createContext(newBase, newLocale);
+        Context context = ConfigurationUtilsKt.createContext(newBase, newLocale);
         super.attachBaseContext(context);
     }
 

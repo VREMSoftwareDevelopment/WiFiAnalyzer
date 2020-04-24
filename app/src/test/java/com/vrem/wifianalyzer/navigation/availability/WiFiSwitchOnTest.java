@@ -23,7 +23,7 @@ import android.os.Build;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.vrem.util.TextUtils;
+import com.vrem.util.TextUtilsKt;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
@@ -99,7 +99,7 @@ public class WiFiSwitchOnTest {
         int colorSelected = ContextCompat.getColor(mainActivity, R.color.selected);
         int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.regular);
         String subtitle = fixture.makeSubtitle(WiFiBand.GHZ2.equals(wiFiBand), wiFiBand2, wiFiBand5, colorSelected, colorNotSelected);
-        return TextUtils.fromHtml(subtitle);
+        return TextUtilsKt.fromHtml(subtitle);
     }
 
     @Test

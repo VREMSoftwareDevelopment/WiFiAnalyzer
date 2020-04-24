@@ -23,36 +23,26 @@ import android.text.Html
 import android.text.Spanned
 import android.text.TextUtils
 
-class TextUtils private constructor() {
-    companion object {
-        private const val SEPARATOR = " "
+private const val SEPARATOR = " "
 
-        @JvmStatic
-        fun split(source: String?): Set<String> =
-                if (source == null || source.isBlank()) HashSet() else trim(source).split(SEPARATOR).toSet()
+fun split(source: String?): Set<String> =
+        if (source == null || source.isBlank()) HashSet() else trim(source).split(SEPARATOR).toSet()
 
-        @JvmStatic
-        fun join(source: Set<String?>?): String =
-                if (source == null) StringUtils.EMPTY else trim(TextUtils.join(SEPARATOR, source.toTypedArray()))
+fun join(source: Set<String?>?): String =
+        if (source == null) STRING_EMPTY else trim(TextUtils.join(SEPARATOR, source.toTypedArray()))
 
-        @JvmStatic
-        fun trim(source: String?): String =
-                if (source == null || source.isBlank()) StringUtils.EMPTY else source.trim { it <= ' ' }.replace(" +".toRegex(), " ")
+fun trim(source: String?): String =
+        if (source == null || source.isBlank()) STRING_EMPTY else source.trim { it <= ' ' }.replace(" +".toRegex(), " ")
 
-        @JvmStatic
-        fun textToHtml(text: String, color: Int, small: Boolean): String =
-                "<font color='" + color + "'><" + (if (small) "small" else "strong") +
-                        ">" + text + "</" + (if (small) "small" else "strong") + "></font>"
+fun textToHtml(text: String, color: Int, small: Boolean): String =
+        "<font color='" + color + "'><" + (if (small) "small" else "strong") +
+                ">" + text + "</" + (if (small) "small" else "strong") + "></font>"
 
-        @JvmStatic
-        fun fromHtml(text: String): Spanned =
-                if (BuildUtils.isMinVersionN()) fromHtmlAndroidN(text) else fromHtmlLegacy(text)
+fun fromHtml(text: String): Spanned =
+        if (isMinVersionN()) fromHtmlAndroidN(text) else fromHtmlLegacy(text)
 
-        @TargetApi(Build.VERSION_CODES.N)
-        private fun fromHtmlAndroidN(text: String): Spanned = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
+@TargetApi(Build.VERSION_CODES.N)
+private fun fromHtmlAndroidN(text: String): Spanned = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
 
-        @Suppress("DEPRECATION")
-        private fun fromHtmlLegacy(text: String): Spanned = Html.fromHtml(text)
-
-    }
-}
+@Suppress("DEPRECATION")
+private fun fromHtmlLegacy(text: String): Spanned = Html.fromHtml(text)

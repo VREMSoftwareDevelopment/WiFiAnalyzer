@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ package com.vrem.wifianalyzer.settings;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.vrem.util.LocaleUtils;
+import com.vrem.util.LocaleUtilsKt;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Transformer;
@@ -37,12 +37,12 @@ import androidx.annotation.NonNull;
 public class LanguagePreference extends CustomPreference {
 
     public LanguagePreference(@NonNull Context context, AttributeSet attrs) {
-        super(context, attrs, getData(), LocaleUtils.getDefaultLanguageTag());
+        super(context, attrs, getData(), LocaleUtilsKt.getDefaultLanguageTag());
     }
 
     @NonNull
     private static List<Data> getData() {
-        List<Data> results = new ArrayList<>(CollectionUtils.collect(LocaleUtils.getSupportedLanguages(), new ToData()));
+        List<Data> results = new ArrayList<>(CollectionUtils.collect(LocaleUtilsKt.getSupportedLanguages(), new ToData()));
         Collections.sort(results);
         return results;
     }
@@ -50,7 +50,7 @@ public class LanguagePreference extends CustomPreference {
     private static class ToData implements Transformer<Locale, Data> {
         @Override
         public Data transform(Locale input) {
-            return new Data(LocaleUtils.toLanguageTag(input), StringUtils.capitalize(input.getDisplayName(input)));
+            return new Data(LocaleUtilsKt.toLanguageTag(input), StringUtils.capitalize(input.getDisplayName(input)));
         }
     }
 }

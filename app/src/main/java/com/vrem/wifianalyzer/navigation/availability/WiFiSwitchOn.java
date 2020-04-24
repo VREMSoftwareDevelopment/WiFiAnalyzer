@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ package com.vrem.wifianalyzer.navigation.availability;
 import android.content.res.Resources;
 import android.view.Menu;
 
-import com.vrem.util.TextUtils;
+import com.vrem.util.TextUtilsKt;
 import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
@@ -52,7 +52,7 @@ class WiFiSwitchOn implements NavigationOption {
             String wiFiBand5 = resources.getString(WiFiBand.GHZ5.getTextResource());
             WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
             String subtitle = makeSubtitle(WiFiBand.GHZ2.equals(wiFiBand), wiFiBand2, wiFiBand5, colorSelected, colorNotSelected);
-            actionBar.setSubtitle(TextUtils.fromHtml(subtitle));
+            actionBar.setSubtitle(TextUtilsKt.fromHtml(subtitle));
         }
     }
 
@@ -70,15 +70,15 @@ class WiFiSwitchOn implements NavigationOption {
     String makeSubtitle(boolean wiFiBand2Selected, String wiFiBand2, String wiFiBand5, int colorSelected, int colorNotSelected) {
         StringBuilder stringBuilder = new StringBuilder();
         if (wiFiBand2Selected) {
-            stringBuilder.append(TextUtils.textToHtml(wiFiBand2, colorSelected, false));
+            stringBuilder.append(TextUtilsKt.textToHtml(wiFiBand2, colorSelected, false));
         } else {
-            stringBuilder.append(TextUtils.textToHtml(wiFiBand2, colorNotSelected, true));
+            stringBuilder.append(TextUtilsKt.textToHtml(wiFiBand2, colorNotSelected, true));
         }
         stringBuilder.append(SPACER);
         if (wiFiBand2Selected) {
-            stringBuilder.append(TextUtils.textToHtml(wiFiBand5, colorNotSelected, true));
+            stringBuilder.append(TextUtilsKt.textToHtml(wiFiBand5, colorNotSelected, true));
         } else {
-            stringBuilder.append(TextUtils.textToHtml(wiFiBand5, colorSelected, false));
+            stringBuilder.append(TextUtilsKt.textToHtml(wiFiBand5, colorSelected, false));
         }
         return stringBuilder.toString();
     }

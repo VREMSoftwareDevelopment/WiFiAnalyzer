@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Build;
 import android.view.View;
 
-import com.vrem.util.BuildUtils;
+import com.vrem.util.BuildUtilsKt;
 import com.vrem.wifianalyzer.R;
 
 import androidx.annotation.NonNull;
@@ -66,7 +66,7 @@ class PermissionDialog {
 
         @TargetApi(Build.VERSION_CODES.M)
         private void requestPermissionsAndroidM() {
-            if (BuildUtils.isMinVersionM()) {
+            if (BuildUtilsKt.isMinVersionM()) {
                 activity.requestPermissions(ApplicationPermission.PERMISSIONS, ApplicationPermission.REQUEST_CODE);
             }
         }

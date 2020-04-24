@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.vrem.util.BuildUtils;
+import com.vrem.util.BuildUtilsKt;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.databinding.ChannelRatingContentBinding;
@@ -45,7 +45,7 @@ public class ChannelRatingFragment extends Fragment implements OnRefreshListener
 
         swipeRefreshLayout = binding.channelRatingRefresh;
         swipeRefreshLayout.setOnRefreshListener(this);
-        if (BuildUtils.isVersionP()) {
+        if (BuildUtilsKt.isVersionP()) {
             swipeRefreshLayout.setRefreshing(false);
             swipeRefreshLayout.setEnabled(false);
         }

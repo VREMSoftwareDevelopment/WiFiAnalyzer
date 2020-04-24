@@ -20,9 +20,9 @@ package com.vrem.wifianalyzer.wifi.model
 import java.util.*
 
 enum class GroupBy(private val comparator: Comparator<WiFiDetail>, private val groupByKey: GroupByKey) {
-    NONE(WiFiDetail.sortByDefault(), GroupBySSID()),
-    SSID(WiFiDetail.sortBySSID(), GroupBySSID()),
-    CHANNEL(WiFiDetail.sortByChannel(), GroupByChannel());
+    NONE(sortByDefault(), GroupBySSID()),
+    SSID(sortBySSID(), GroupBySSID()),
+    CHANNEL(sortByChannel(), GroupByChannel());
 
     fun comparator(): Comparator<WiFiDetail> = comparator
 

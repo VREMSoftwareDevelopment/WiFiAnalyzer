@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi.band;
 
-import com.vrem.util.LocaleUtils;
+import com.vrem.util.LocaleUtilsKt;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Transformer;
@@ -45,12 +45,12 @@ public class WiFiChannelCountry {
 
     @NonNull
     public static WiFiChannelCountry get(@NonNull String countryCode) {
-        return new WiFiChannelCountry(LocaleUtils.findByCountryCode(countryCode));
+        return new WiFiChannelCountry(LocaleUtilsKt.findByCountryCode(countryCode));
     }
 
     @NonNull
     public static List<WiFiChannelCountry> getAll() {
-        return new ArrayList<>(CollectionUtils.collect(LocaleUtils.getAllCountries(), new ToCountry()));
+        return new ArrayList<>(CollectionUtils.collect(LocaleUtilsKt.getAllCountries(), new ToCountry()));
     }
 
     @NonNull

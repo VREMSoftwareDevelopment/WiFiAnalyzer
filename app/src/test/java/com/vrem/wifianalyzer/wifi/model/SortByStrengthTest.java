@@ -33,7 +33,7 @@ public class SortByStrengthTest {
 
     @Before
     public void setUp() {
-        fixture = WiFiDetail.sortByStrength();
+        fixture = SortByKt.sortByStrength();
     }
 
     @Test

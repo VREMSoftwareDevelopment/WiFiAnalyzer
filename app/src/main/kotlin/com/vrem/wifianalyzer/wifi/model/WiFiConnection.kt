@@ -18,11 +18,11 @@
 
 package com.vrem.wifianalyzer.wifi.model
 
-import com.vrem.util.StringUtils
+import com.vrem.util.STRING_EMPTY
 
-data class WiFiConnection(val SSID: String = StringUtils.EMPTY,
-                          val BSSID: String = StringUtils.EMPTY,
-                          val ipAddress: String = StringUtils.EMPTY,
+data class WiFiConnection(val SSID: String = STRING_EMPTY,
+                          val BSSID: String = STRING_EMPTY,
+                          val ipAddress: String = STRING_EMPTY,
                           val linkSpeed: Int = LINK_SPEED_INVALID) :
         Comparable<WiFiConnection> {
 

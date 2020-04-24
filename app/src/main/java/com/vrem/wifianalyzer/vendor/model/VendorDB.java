@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.vendor.model;
 
 import android.content.res.Resources;
 
-import com.vrem.util.FileUtils;
+import com.vrem.util.FileUtilsKt;
 import com.vrem.wifianalyzer.R;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -102,7 +102,7 @@ class VendorDB implements VendorService {
     private void load(@NonNull Resources resources) {
         if (!loaded) {
             loaded = true;
-            String[] lines = FileUtils.readFile(resources, R.raw.data).split("\n");
+            String[] lines = FileUtilsKt.readFile(resources, R.raw.data).split("\n");
             for (String data : lines) {
                 if (data != null) {
                     String[] parts = data.split("\\|");

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
-import com.vrem.util.TextUtils;
+import com.vrem.util.TextUtilsKt;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.filter.adapter.SSIDAdapter;
 
@@ -34,7 +34,7 @@ import androidx.annotation.NonNull;
 
 class SSIDFilter {
     SSIDFilter(@NonNull SSIDAdapter ssidAdapter, @NonNull Dialog dialog) {
-        String value = TextUtils.join(ssidAdapter.getValues());
+        String value = TextUtilsKt.join(ssidAdapter.getValues());
 
         EditText editText = dialog.findViewById(R.id.filterSSIDtext);
         editText.setText(value);
@@ -62,7 +62,7 @@ class SSIDFilter {
 
         @Override
         public void afterTextChanged(Editable s) {
-            ssidAdapter.setValues(TextUtils.split(s == null ? StringUtils.EMPTY : s.toString()));
+            ssidAdapter.setValues(TextUtilsKt.split(s == null ? StringUtils.EMPTY : s.toString()));
         }
     }
 }

@@ -17,10 +17,30 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
+fun sortBySSID(): Comparator<WiFiDetail> =
+        compareBy<WiFiDetail> { it.SSID }
+                .thenByDescending { it.wiFiSignal.level }
+                .thenBy { it.BSSID }
+
+fun sortByStrength(): Comparator<WiFiDetail> =
+        compareByDescending<WiFiDetail> { it.wiFiSignal.level }
+                .thenBy { it.SSID }
+                .thenBy { it.BSSID }
+
+fun sortByChannel(): Comparator<WiFiDetail> =
+        compareBy<WiFiDetail> { it.wiFiSignal.primaryWiFiChannel().channel }
+                .thenByDescending { it.wiFiSignal.level }
+                .thenBy { it.SSID }
+                .thenBy { it.BSSID }
+
+fun sortByDefault(): Comparator<WiFiDetail> =
+        compareBy<WiFiDetail> { it.SSID }.thenBy { it.BSSID }
+
+
 enum class SortBy(private val comparator: Comparator<WiFiDetail>) {
-    STRENGTH(WiFiDetail.sortByStrength()),
-    SSID(WiFiDetail.sortBySSID()),
-    CHANNEL(WiFiDetail.sortByChannel());
+    STRENGTH(sortByStrength()),
+    SSID(sortBySSID()),
+    CHANNEL(sortByChannel());
 
     fun comparator(): Comparator<WiFiDetail> = comparator
 }

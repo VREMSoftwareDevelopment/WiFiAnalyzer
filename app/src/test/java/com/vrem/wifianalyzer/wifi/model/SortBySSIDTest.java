@@ -33,7 +33,7 @@ public class SortBySSIDTest {
 
     @Before
     public void setUp() {
-        fixture = WiFiDetail.sortBySSID();
+        fixture = SortByKt.sortBySSID();
     }
 
     @Test

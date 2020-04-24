@@ -22,7 +22,7 @@ import android.annotation.TargetApi;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 
-import com.vrem.util.BuildUtils;
+import com.vrem.util.BuildUtilsKt;
 import com.vrem.wifianalyzer.ActivityUtils;
 
 import androidx.annotation.NonNull;
@@ -35,7 +35,7 @@ class WiFiSwitch {
     }
 
     boolean setEnabled(boolean enabled) {
-        return BuildUtils.isMinVersionQ() ? enableWiFiAndroidQ() : enableWiFiLegacy(enabled);
+        return BuildUtilsKt.isMinVersionQ() ? enableWiFiAndroidQ() : enableWiFiLegacy(enabled);
     }
 
     @TargetApi(Build.VERSION_CODES.Q)

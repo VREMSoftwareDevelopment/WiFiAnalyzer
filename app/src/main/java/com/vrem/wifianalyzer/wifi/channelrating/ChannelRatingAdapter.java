@@ -31,7 +31,7 @@ import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.vrem.util.BuildUtils;
+import com.vrem.util.BuildUtilsKt;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.databinding.ChannelRatingDetailsBinding;
@@ -122,7 +122,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     }
 
     private void setRatingBarColor(RatingBar ratingBar, int color) {
-        if (BuildUtils.isMinVersionL()) {
+        if (BuildUtilsKt.isMinVersionL()) {
             ratingBar.setProgressTintList(ColorStateList.valueOf(color));
         } else {
             setRatingBarColorLegacy(ratingBar.getProgressDrawable(), color);

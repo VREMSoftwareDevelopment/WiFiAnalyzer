@@ -17,11 +17,11 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import com.vrem.util.StringUtils
+import com.vrem.util.STRING_EMPTY
 
-data class WiFiDetail @JvmOverloads constructor(val rawSSID: String = StringUtils.EMPTY,
-                                                val BSSID: String = StringUtils.EMPTY,
-                                                val capabilities: String = StringUtils.EMPTY,
+data class WiFiDetail @JvmOverloads constructor(val rawSSID: String = STRING_EMPTY,
+                                                val BSSID: String = STRING_EMPTY,
+                                                val capabilities: String = STRING_EMPTY,
                                                 val wiFiSignal: WiFiSignal = WiFiSignal.EMPTY,
                                                 val wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY,
                                                 val children: List<WiFiDetail> = emptyList()) :
@@ -69,29 +69,5 @@ data class WiFiDetail @JvmOverloads constructor(val rawSSID: String = StringUtil
 
         @JvmField
         val EMPTY = WiFiDetail()
-
-        @JvmStatic
-        fun sortBySSID(): Comparator<WiFiDetail> =
-                compareBy<WiFiDetail> { it.SSID }
-                        .thenByDescending { it.wiFiSignal.level }
-                        .thenBy { it.BSSID }
-
-        @JvmStatic
-        fun sortByStrength(): Comparator<WiFiDetail> =
-                compareByDescending<WiFiDetail> { it.wiFiSignal.level }
-                        .thenBy { it.SSID }
-                        .thenBy { it.BSSID }
-
-        @JvmStatic
-        fun sortByChannel(): Comparator<WiFiDetail> =
-                compareBy<WiFiDetail> { it.wiFiSignal.primaryWiFiChannel().channel }
-                        .thenByDescending { it.wiFiSignal.level }
-                        .thenBy { it.SSID }
-                        .thenBy { it.BSSID }
-
-        @JvmStatic
-        fun sortByDefault(): Comparator<WiFiDetail> =
-                compareBy<WiFiDetail> { it.SSID }.thenBy { it.BSSID }
-
     }
 }

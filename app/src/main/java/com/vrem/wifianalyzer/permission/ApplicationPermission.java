@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
-import com.vrem.util.BuildUtils;
+import com.vrem.util.BuildUtilsKt;
 
 import androidx.annotation.NonNull;
 
@@ -59,7 +59,7 @@ class ApplicationPermission {
     }
 
     boolean isGranted() {
-        return !BuildUtils.isMinVersionM() || isGrantedAndroidM();
+        return !BuildUtilsKt.isMinVersionM() || isGrantedAndroidM();
     }
 
     @TargetApi(Build.VERSION_CODES.M)

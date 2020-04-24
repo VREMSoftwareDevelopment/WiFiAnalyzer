@@ -19,30 +19,27 @@ package com.vrem.util
 
 import android.annotation.TargetApi
 import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Build
 import java.util.*
 
-class ConfigurationUtils private constructor() {
-    companion object {
-        @JvmStatic
-        fun createContext(context: Context, newLocale: Locale): Context =
-                if (BuildUtils.isMinVersionN()) createContextAndroidN(context, newLocale) else createContextLegacy(context, newLocale)
+fun createContext(context: Context, newLocale: Locale): Context =
+        if (isMinVersionN()) createContextAndroidN(context, newLocale) else createContextLegacy(context, newLocale)
 
-        @TargetApi(Build.VERSION_CODES.N)
-        private fun createContextAndroidN(context: Context, newLocale: Locale): Context {
-            val resources = context.resources
-            val configuration = resources.configuration
-            configuration.setLocale(newLocale)
-            return context.createConfigurationContext(configuration)
-        }
+@TargetApi(Build.VERSION_CODES.N)
+private fun createContextAndroidN(context: Context, newLocale: Locale): Context {
+    val resources: Resources = context.resources
+    val configuration: Configuration = resources.configuration
+    configuration.setLocale(newLocale)
+    return context.createConfigurationContext(configuration)
+}
 
-        @Suppress("DEPRECATION")
-        private fun createContextLegacy(context: Context, newLocale: Locale): Context {
-            val resources = context.resources
-            val configuration = resources.configuration
-            configuration.locale = newLocale
-            resources.updateConfiguration(configuration, resources.displayMetrics)
-            return context
-        }
-    }
+@Suppress("DEPRECATION")
+private fun createContextLegacy(context: Context, newLocale: Locale): Context {
+    val resources: Resources = context.resources
+    val configuration: Configuration = resources.configuration
+    configuration.locale = newLocale
+    resources.updateConfiguration(configuration, resources.displayMetrics)
+    return context
 }

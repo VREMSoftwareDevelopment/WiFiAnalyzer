@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vrem.util.FileUtils;
+import com.vrem.util.FileUtilsKt;
 import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
@@ -141,7 +141,7 @@ public class AboutFragment extends Fragment {
         @Override
         public void onClick(View view) {
             if (!activity.isFinishing()) {
-                String text = FileUtils.readFile(activity.getResources(), resourceId);
+                String text = FileUtilsKt.readFile(activity.getResources(), resourceId);
                 AlertDialog alertDialog = new AlertDialog
                     .Builder(view.getContext())
                     .setTitle(titleId)

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 package com.vrem.wifianalyzer.settings;
 
-import com.vrem.util.BuildUtils;
+import com.vrem.util.BuildUtilsKt;
 
 import androidx.annotation.NonNull;
 
@@ -29,9 +29,9 @@ public class SettingsFactory {
 
     @NonNull
     public static Settings make(@NonNull Repository repository) {
-        if (BuildUtils.isMinVersionQ()) {
+        if (BuildUtilsKt.isMinVersionQ()) {
             return new SettingsAndroidQ(repository);
-        } else if (BuildUtils.isVersionP()) {
+        } else if (BuildUtilsKt.isVersionP()) {
             return new SettingsAndroidP(repository);
         } else {
             return new Settings(repository);

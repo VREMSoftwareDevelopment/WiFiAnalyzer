@@ -104,7 +104,7 @@ public class WiFiSignalTest {
     @Test
     public void testGetDistance() {
         // setup
-        String expected = String.format(Locale.ENGLISH, "~%.1fm", WiFiUtils.calculateDistance(PRIMARY_FREQUENCY, LEVEL));
+        String expected = String.format(Locale.ENGLISH, "~%.1fm", WiFiUtilsKt.calculateDistance(PRIMARY_FREQUENCY, LEVEL));
         // execute
         String actual = fixture.distance();
         // validate

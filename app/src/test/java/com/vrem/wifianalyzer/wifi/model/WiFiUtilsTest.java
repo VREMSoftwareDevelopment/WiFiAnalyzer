@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,39 +38,39 @@ public class WiFiUtilsTest {
     }
 
     private void validate(int frequency, int level, String expected) {
-        assertEquals(expected, decimalFormat.format(WiFiUtils.calculateDistance(frequency, level)));
+        assertEquals(expected, decimalFormat.format(WiFiUtilsKt.calculateDistance(frequency, level)));
     }
 
     @Test
     public void testCalculateSignalLevel() {
-        assertEquals(0, WiFiUtils.calculateSignalLevel(-110, 5));
-        assertEquals(0, WiFiUtils.calculateSignalLevel(-89, 5));
+        assertEquals(0, WiFiUtilsKt.calculateSignalLevel(-110, 5));
+        assertEquals(0, WiFiUtilsKt.calculateSignalLevel(-89, 5));
 
-        assertEquals(1, WiFiUtils.calculateSignalLevel(-88, 5));
-        assertEquals(1, WiFiUtils.calculateSignalLevel(-78, 5));
+        assertEquals(1, WiFiUtilsKt.calculateSignalLevel(-88, 5));
+        assertEquals(1, WiFiUtilsKt.calculateSignalLevel(-78, 5));
 
-        assertEquals(2, WiFiUtils.calculateSignalLevel(-77, 5));
-        assertEquals(2, WiFiUtils.calculateSignalLevel(-67, 5));
+        assertEquals(2, WiFiUtilsKt.calculateSignalLevel(-77, 5));
+        assertEquals(2, WiFiUtilsKt.calculateSignalLevel(-67, 5));
 
-        assertEquals(3, WiFiUtils.calculateSignalLevel(-66, 5));
-        assertEquals(3, WiFiUtils.calculateSignalLevel(-56, 5));
+        assertEquals(3, WiFiUtilsKt.calculateSignalLevel(-66, 5));
+        assertEquals(3, WiFiUtilsKt.calculateSignalLevel(-56, 5));
 
-        assertEquals(4, WiFiUtils.calculateSignalLevel(-55, 5));
-        assertEquals(4, WiFiUtils.calculateSignalLevel(0, 5));
+        assertEquals(4, WiFiUtilsKt.calculateSignalLevel(-55, 5));
+        assertEquals(4, WiFiUtilsKt.calculateSignalLevel(0, 5));
     }
 
     @Test
     public void testConvertIpAddress() {
-        assertEquals("21.205.91.7", WiFiUtils.convertIpAddress(123456789));
-        assertEquals("1.0.0.0", WiFiUtils.convertIpAddress(1));
-        assertEquals(StringUtils.EMPTY, WiFiUtils.convertIpAddress(0));
-        assertEquals(StringUtils.EMPTY, WiFiUtils.convertIpAddress(-1));
+        assertEquals("21.205.91.7", WiFiUtilsKt.convertIpAddress(123456789));
+        assertEquals("1.0.0.0", WiFiUtilsKt.convertIpAddress(1));
+        assertEquals(StringUtils.EMPTY, WiFiUtilsKt.convertIpAddress(0));
+        assertEquals(StringUtils.EMPTY, WiFiUtilsKt.convertIpAddress(-1));
     }
 
     @Test
     public void testConvertSSID() {
-        assertEquals("SSID", WiFiUtils.convertSSID("\"SSID\""));
-        assertEquals("SSID", WiFiUtils.convertSSID("SSID"));
+        assertEquals("SSID", WiFiUtilsKt.convertSSID("\"SSID\""));
+        assertEquals("SSID", WiFiUtilsKt.convertSSID("SSID"));
     }
 
 }

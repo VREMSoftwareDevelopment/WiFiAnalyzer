@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ package com.vrem.wifianalyzer.settings;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.vrem.util.LocaleUtils;
+import com.vrem.util.LocaleUtilsKt;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry;
 
@@ -37,7 +37,7 @@ import androidx.annotation.NonNull;
 
 public class CountryPreference extends CustomPreference {
     public CountryPreference(@NonNull Context context, AttributeSet attrs) {
-        super(context, attrs, getData(), LocaleUtils.getDefaultCountryCode());
+        super(context, attrs, getData(), LocaleUtilsKt.getDefaultCountryCode());
     }
 
     @NonNull
