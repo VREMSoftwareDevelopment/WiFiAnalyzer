@@ -21,10 +21,10 @@ import java.util.*
 
 private object SyncAvoid {
     val defaultLocale: Locale = Locale.getDefault()
-    val countryCodes = Locale.getISOCountries().toSet()
-    val availableLocales = Locale.getAvailableLocales().filter { countryCodes.contains(it.country) }
-    var countriesLocales = availableLocales.map { it.country.capitalize() to it }.toMap().toSortedMap()
-    val supportedLocales = setOf(
+    val countryCodes: Set<String> = Locale.getISOCountries().toSet()
+    val availableLocales: List<Locale> = Locale.getAvailableLocales().filter { countryCodes.contains(it.country) }
+    var countriesLocales: SortedMap<String, Locale> = availableLocales.map { it.country.capitalize() to it }.toMap().toSortedMap()
+    val supportedLocales: List<Locale> = setOf(
             Locale.GERMAN,
             Locale.ENGLISH,
             SPANISH,
@@ -38,20 +38,20 @@ private object SyncAvoid {
             .toList()
 }
 
-val SPANISH = Locale("es")
+val SPANISH: Locale = Locale("es")
 
-val PORTUGUESE = Locale("pt")
+val PORTUGUESE: Locale = Locale("pt")
 
-val RUSSIAN = Locale("ru")
+val RUSSIAN: Locale = Locale("ru")
 
-private const val SEPARATOR = "_"
+private const val SEPARATOR: String = "_"
 
 fun findByCountryCode(countryCode: String): Locale =
         SyncAvoid.availableLocales
                 .firstOrNull { countryCode.capitalize() == it.country }
                 ?: SyncAvoid.defaultLocale
 
-fun getAllCountries(): List<Locale> = SyncAvoid.countriesLocales.values.toList()
+fun allCountries(): List<Locale> = SyncAvoid.countriesLocales.values.toList()
 
 fun findByLanguageTag(languageTag: String): Locale {
     val languageTagPredicate: (Locale) -> Boolean = {
@@ -63,11 +63,11 @@ fun findByLanguageTag(languageTag: String): Locale {
             ?: SyncAvoid.defaultLocale
 }
 
-fun getSupportedLanguages(): List<Locale> = SyncAvoid.supportedLocales
+fun supportedLanguages(): List<Locale> = SyncAvoid.supportedLocales
 
-fun getDefaultCountryCode(): String = SyncAvoid.defaultLocale.country
+fun defaultCountryCode(): String = SyncAvoid.defaultLocale.country
 
-fun getDefaultLanguageTag(): String = toLanguageTag(SyncAvoid.defaultLocale)
+fun defaultLanguageTag(): String = toLanguageTag(SyncAvoid.defaultLocale)
 
 fun toLanguageTag(locale: Locale): String = locale.language + SEPARATOR + locale.country
 

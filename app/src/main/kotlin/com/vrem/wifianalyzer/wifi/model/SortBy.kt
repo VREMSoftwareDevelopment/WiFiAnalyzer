@@ -37,10 +37,8 @@ fun sortByDefault(): Comparator<WiFiDetail> =
         compareBy<WiFiDetail> { it.SSID }.thenBy { it.BSSID }
 
 
-enum class SortBy(private val comparator: Comparator<WiFiDetail>) {
+enum class SortBy(val sort: Comparator<WiFiDetail>) {
     STRENGTH(sortByStrength()),
     SSID(sortBySSID()),
     CHANNEL(sortByChannel());
-
-    fun comparator(): Comparator<WiFiDetail> = comparator
 }

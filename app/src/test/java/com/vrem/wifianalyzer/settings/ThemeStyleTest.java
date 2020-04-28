@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -71,7 +71,7 @@ public class ThemeStyleTest {
         // setup
         when(settings.getThemeStyle()).thenReturn(ThemeStyle.LIGHT);
         // execute
-        @StyleRes int actual = ThemeStyle.getDefaultTheme();
+        @StyleRes int actual = ThemeStyleKt.defaultTheme();
         // validate
         assertEquals(ThemeStyle.LIGHT.getTheme(), actual);
         verify(settings).getThemeStyle();

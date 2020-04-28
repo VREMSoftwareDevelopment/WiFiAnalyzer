@@ -15,18 +15,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.wifi.model
+package com.vrem.wifianalyzer.settings
 
-import java.util.*
+import androidx.annotation.StyleRes
+import com.vrem.wifianalyzer.MainContext
+import com.vrem.wifianalyzer.R
 
-typealias GroupByKey<T> = (T) -> String
+@StyleRes
+fun defaultTheme(): Int = (MainContext.INSTANCE.settings?.themeStyle ?: ThemeStyle.DARK).theme
 
-private var groupByChannel: GroupByKey<WiFiDetail> = { it.wiFiSignal.primaryWiFiChannel().channel.toString() }
-
-private var groupBySSID: GroupByKey<WiFiDetail> = { it.SSID }
-
-enum class GroupBy(val sort: Comparator<WiFiDetail>, val group: GroupByKey<WiFiDetail>) {
-    NONE(sortByDefault(), groupBySSID),
-    SSID(sortBySSID(), groupBySSID),
-    CHANNEL(sortByChannel(), groupByChannel);
+enum class ThemeStyle(@param:StyleRes val theme: Int, @param:StyleRes val themeNoActionBar: Int) {
+    DARK(R.style.ThemeDark, R.style.ThemeDarkNoActionBar),
+    LIGHT(R.style.ThemeLight, R.style.ThemeLightNoActionBar),
+    SYSTEM(R.style.ThemeSystem, R.style.ThemeSystemNoActionBar);
 }

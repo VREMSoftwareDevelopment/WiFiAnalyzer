@@ -22,7 +22,6 @@ import com.vrem.util.LocaleUtilsKt;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Transformer;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,24 +49,17 @@ public class WiFiChannelCountry {
 
     @NonNull
     public static List<WiFiChannelCountry> getAll() {
-        return new ArrayList<>(CollectionUtils.collect(LocaleUtilsKt.getAllCountries(), new ToCountry()));
+        return new ArrayList<>(CollectionUtils.collect(LocaleUtilsKt.allCountries(), new ToCountry()));
     }
 
     @NonNull
     public String getCountryCode() {
-        String countryCode = country.getCountry();
-        if (countryCode == null) {
-            countryCode = StringUtils.EMPTY;
-        }
-        return countryCode;
+        return country.getCountry();
     }
 
     @NonNull
     public String getCountryName(Locale currentLocale) {
         String countryName = country.getDisplayCountry(currentLocale);
-        if (countryName == null) {
-            countryName = StringUtils.EMPTY;
-        }
         return country.getCountry().equals(countryName) ? countryName + UNKNOWN : countryName;
     }
 

@@ -41,41 +41,40 @@ class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnec
                 .filter { predicate.evaluate(it) }
                 .map { transform(it, connection) }
                 .sortAndGroup(sortBy, groupBy)
-                .sortedWith(sortBy.comparator())
+                .sortedWith(sortBy.sort)
     }
 
     private fun List<WiFiDetail>.sortAndGroup(sortBy: SortBy, groupBy: GroupBy): List<WiFiDetail> =
             when (groupBy) {
                 GroupBy.NONE -> this
                 else -> this
-                        .groupBy { groupBy.groupByKey().key(it) }
+                        .groupBy { groupBy.group(it) }
                         .values
                         .map(map(sortBy, groupBy))
                         .toList()
-                        .sortedWith(sortBy.comparator())
+                        .sortedWith(sortBy.sort)
             }
 
-    private fun map(sortBy: SortBy, groupBy: GroupBy): (List<WiFiDetail>) -> WiFiDetail {
-        return { it: List<WiFiDetail> ->
-            val sortedWith: List<WiFiDetail> = it.sortedWith(groupBy.comparator())
-            when (sortedWith.size) {
-                1 -> sortedWith.first()
-                else ->
-                    WiFiDetail(
-                            sortedWith.first(),
-                            sortedWith.subList(1, sortedWith.size).sortedWith(sortBy.comparator()))
-            }
+    private fun map(sortBy: SortBy, groupBy: GroupBy): (List<WiFiDetail>) -> WiFiDetail = {
+        val sortedWith: List<WiFiDetail> = it.sortedWith(groupBy.sort)
+        when (sortedWith.size) {
+            1 -> sortedWith.first()
+            else ->
+                WiFiDetail(
+                        sortedWith.first(),
+                        sortedWith.subList(1, sortedWith.size).sortedWith(sortBy.sort))
         }
     }
 
-    private fun transform(wiFiDetail: WiFiDetail, connection: WiFiDetail): WiFiDetail {
-        if (wiFiDetail == connection) {
-            return connection
-        }
-        val vendorName: String = vendorService.findVendorName(wiFiDetail.BSSID)
-        val wiFiAdditional = WiFiAdditional(vendorName, WiFiConnection.EMPTY)
-        return WiFiDetail(wiFiDetail, wiFiAdditional)
-    }
+    private fun transform(wiFiDetail: WiFiDetail, connection: WiFiDetail): WiFiDetail =
+            when (wiFiDetail) {
+                connection -> connection
+                else -> {
+                    val vendorName: String = vendorService.findVendorName(wiFiDetail.BSSID)
+                    val wiFiAdditional = WiFiAdditional(vendorName, WiFiConnection.EMPTY)
+                    WiFiDetail(wiFiDetail, wiFiAdditional)
+                }
+            }
 
     private fun connected(it: WiFiDetail): Boolean =
             wiFiConnection.SSID.equals(it.SSID, true) &&

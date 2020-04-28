@@ -15,40 +15,38 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.model
 
-package com.vrem.wifianalyzer.wifi.model;
+import com.vrem.util.STRING_EMPTY
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
-import org.apache.commons.lang3.StringUtils;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-
-public class WiFiAdditionalTest {
-    private static final String VENDOR_NAME = "VendorName";
+class WiFiAdditionalTest {
+    private val vendorName = "VendorName"
 
     @Test
-    public void testWiFiAdditionalWithWiFiConnection() {
+    fun testWiFiAdditionalWithWiFiConnection() {
         // setup
-        WiFiConnection wiFiConnection = new WiFiConnection("SSID", "BSSID", "192.168.1.10", 22);
+        val wiFiConnection = WiFiConnection("SSID", "BSSID", "192.168.1.10", 22)
         // execute
-        WiFiAdditional fixture = new WiFiAdditional(VENDOR_NAME, wiFiConnection);
+        val fixture = WiFiAdditional(vendorName, wiFiConnection)
         // validate
-        assertEquals(VENDOR_NAME, fixture.getVendorName());
-        assertEquals(wiFiConnection, fixture.getWiFiConnection());
+        assertEquals(vendorName, fixture.vendorName)
+        assertEquals(wiFiConnection, fixture.wiFiConnection)
     }
 
     @Test
-    public void testWiFiAdditional() {
+    fun testWiFiAdditional() {
         // execute
-        WiFiAdditional fixture = new WiFiAdditional(VENDOR_NAME, WiFiConnection.EMPTY);
+        val fixture = WiFiAdditional(vendorName, WiFiConnection.EMPTY)
         // validate
-        assertEquals(VENDOR_NAME, fixture.getVendorName());
+        assertEquals(vendorName, fixture.vendorName)
     }
 
     @Test
-    public void testWiFiAdditionalEmpty() {
+    fun testWiFiAdditionalEmpty() {
         // validate
-        assertEquals(StringUtils.EMPTY, WiFiAdditional.EMPTY.getVendorName());
+        assertEquals(STRING_EMPTY, WiFiAdditional.EMPTY.vendorName)
     }
 
 }

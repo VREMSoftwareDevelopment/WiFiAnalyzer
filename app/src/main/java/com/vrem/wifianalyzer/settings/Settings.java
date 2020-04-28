@@ -80,13 +80,13 @@ public class Settings {
 
     @NonNull
     public String getCountryCode() {
-        String countryCode = LocaleUtilsKt.getDefaultCountryCode();
+        String countryCode = LocaleUtilsKt.defaultCountryCode();
         return repository.getString(R.string.country_code_key, countryCode);
     }
 
     @NonNull
     public Locale getLanguageLocale() {
-        String defaultLanguageTag = LocaleUtilsKt.getDefaultLanguageTag();
+        String defaultLanguageTag = LocaleUtilsKt.defaultLanguageTag();
         String languageTag = repository.getString(R.string.language_key, defaultLanguageTag);
         return LocaleUtilsKt.findByLanguageTag(languageTag);
     }

@@ -15,26 +15,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.settings
 
-package com.vrem.wifianalyzer.wifi.model;
+import android.content.Context
+import android.util.AttributeSet
+import com.vrem.util.defaultCountryCode
+import com.vrem.wifianalyzer.MainContext
+import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry
+import java.util.*
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-public class SortByTest {
-
-    @Test
-    public void testSortByNumber() {
-        assertEquals(3, SortBy.values().length);
-    }
-
-    @Test
-    public void testComparator() {
-        assertTrue(SortBy.STRENGTH.comparator().getClass().isInstance(SortByKt.sortByStrength()));
-        assertTrue(SortBy.SSID.comparator().getClass().isInstance(SortByKt.sortBySSID()));
-        assertTrue(SortBy.CHANNEL.comparator().getClass().isInstance(SortByKt.sortByChannel()));
-    }
-
+private fun data(): List<Data> {
+    val currentLocale: Locale = MainContext.INSTANCE.settings?.languageLocale ?: Locale.US
+    return WiFiChannelCountry.getAll()
+            .map { Data(it.countryCode, it.getCountryName(currentLocale)) }
+            .sorted()
+            .toList()
 }
+
+class CountryPreference(context: Context, attrs: AttributeSet) :
+        CustomPreference(context, attrs, data(), defaultCountryCode())

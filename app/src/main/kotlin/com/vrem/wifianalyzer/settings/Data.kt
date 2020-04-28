@@ -15,18 +15,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.wifi.model
+package com.vrem.wifianalyzer.settings
 
-import java.util.*
+class Data(val code: String, val name: String) : Comparable<Data> {
 
-typealias GroupByKey<T> = (T) -> String
+    override fun compareTo(other: Data): Int =
+            compareBy<Data> { it.name }.thenBy { it.code }.compare(this, other)
 
-private var groupByChannel: GroupByKey<WiFiDetail> = { it.wiFiSignal.primaryWiFiChannel().channel.toString() }
-
-private var groupBySSID: GroupByKey<WiFiDetail> = { it.SSID }
-
-enum class GroupBy(val sort: Comparator<WiFiDetail>, val group: GroupByKey<WiFiDetail>) {
-    NONE(sortByDefault(), groupBySSID),
-    SSID(sortBySSID(), groupBySSID),
-    CHANNEL(sortByChannel(), groupByChannel);
 }

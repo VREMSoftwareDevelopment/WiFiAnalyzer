@@ -26,7 +26,7 @@ class LocaleUtilsTest {
     @Test
     fun testGetAllCountries() {
         // execute
-        val actual = getAllCountries()
+        val actual = allCountries()
         // validate
         Assert.assertTrue(actual.size >= 2)
         Assert.assertTrue(actual[0].country.compareTo(actual[actual.size - 1].country) < 0)
@@ -35,7 +35,7 @@ class LocaleUtilsTest {
     @Test
     fun testFindByCountryCode() {
         // setup
-        val expected = getAllCountries()[0]
+        val expected = allCountries()[0]
         // execute
         val actual = findByCountryCode(expected.country)
         // validate
@@ -90,7 +90,7 @@ class LocaleUtilsTest {
                 RUSSIAN,
                 Locale.getDefault()))
         // execute
-        val actual = getSupportedLanguages()
+        val actual = supportedLanguages()
         // validate
         assertEquals(expected.size.toLong(), actual.size.toLong())
         for (locale in expected) {
@@ -100,11 +100,11 @@ class LocaleUtilsTest {
 
     @Test
     fun testGetDefaultCountryCode() {
-        assertEquals(Locale.getDefault().country, getDefaultCountryCode())
+        assertEquals(Locale.getDefault().country, defaultCountryCode())
     }
 
     @Test
     fun testGetDefaultLanguageTag() {
-        assertEquals(toLanguageTag(Locale.getDefault()), getDefaultLanguageTag())
+        assertEquals(toLanguageTag(Locale.getDefault()), defaultLanguageTag())
     }
 }

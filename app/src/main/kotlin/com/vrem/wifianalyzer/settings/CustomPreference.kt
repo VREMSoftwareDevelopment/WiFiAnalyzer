@@ -15,18 +15,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.wifi.model
+package com.vrem.wifianalyzer.settings
 
-import java.util.*
+import android.content.Context
+import android.util.AttributeSet
+import androidx.preference.ListPreference
 
-typealias GroupByKey<T> = (T) -> String
+abstract class CustomPreference(context: Context, attrs: AttributeSet, values: List<Data>, defaultValue: String) : ListPreference(context, attrs) {
+    init {
+        this.entries = names(values)
+        this.entryValues = codes(values)
+        setDefaultValue(defaultValue)
+    }
 
-private var groupByChannel: GroupByKey<WiFiDetail> = { it.wiFiSignal.primaryWiFiChannel().channel.toString() }
+    private fun codes(data: List<Data>): Array<CharSequence> {
+        return data.map { it.code }.toTypedArray()
+    }
 
-private var groupBySSID: GroupByKey<WiFiDetail> = { it.SSID }
+    private fun names(data: List<Data>): Array<CharSequence> {
+        return data.map { it.name }.toTypedArray()
+    }
 
-enum class GroupBy(val sort: Comparator<WiFiDetail>, val group: GroupByKey<WiFiDetail>) {
-    NONE(sortByDefault(), groupBySSID),
-    SSID(sortBySSID(), groupBySSID),
-    CHANNEL(sortByChannel(), groupByChannel);
 }

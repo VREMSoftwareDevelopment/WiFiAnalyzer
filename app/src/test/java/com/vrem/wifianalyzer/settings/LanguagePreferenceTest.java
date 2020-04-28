@@ -55,7 +55,7 @@ public class LanguagePreferenceTest {
         MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
         fixture = new LanguagePreference(mainActivity, Robolectric.buildAttributeSet().build());
 
-        languages = LocaleUtilsKt.getSupportedLanguages();
+        languages = LocaleUtilsKt.supportedLanguages();
     }
 
     @Test

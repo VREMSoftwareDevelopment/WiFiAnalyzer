@@ -17,16 +17,20 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import java.util.*
+import org.junit.Assert
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
-typealias GroupByKey<T> = (T) -> String
+class SortByTest {
+    @Test
+    fun testSortByNumber() {
+        Assert.assertEquals(3, SortBy.values().size)
+    }
 
-private var groupByChannel: GroupByKey<WiFiDetail> = { it.wiFiSignal.primaryWiFiChannel().channel.toString() }
-
-private var groupBySSID: GroupByKey<WiFiDetail> = { it.SSID }
-
-enum class GroupBy(val sort: Comparator<WiFiDetail>, val group: GroupByKey<WiFiDetail>) {
-    NONE(sortByDefault(), groupBySSID),
-    SSID(sortBySSID(), groupBySSID),
-    CHANNEL(sortByChannel(), groupByChannel);
+    @Test
+    fun testComparator() {
+        assertTrue(SortBy.STRENGTH.sort.javaClass.isInstance(sortByStrength()))
+        assertTrue(SortBy.SSID.sort.javaClass.isInstance(sortBySSID()))
+        assertTrue(SortBy.CHANNEL.sort.javaClass.isInstance(sortByChannel()))
+    }
 }

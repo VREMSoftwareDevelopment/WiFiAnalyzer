@@ -49,7 +49,7 @@ class ChannelRating {
 
     private fun removeSame(wiFiDetails: List<WiFiDetail>): List<WiFiDetail> {
         val (left: List<WiFiDetail>, right: List<WiFiDetail>) = wiFiDetails.partition { BSSID_LENGTH == it.BSSID.length }
-        return left.distinctBy { it.toKey() }.plus(right).sortedWith(SortBy.STRENGTH.comparator())
+        return left.distinctBy { it.toKey() }.plus(right).sortedWith(SortBy.STRENGTH.sort)
     }
 
     private fun collectOverlapping(wiFiChannel: WiFiChannel): List<WiFiDetail> =

@@ -331,7 +331,7 @@ public class SettingsTest {
     @Test
     public void testGetCountryCode() {
         // setup
-        String defaultValue = LocaleUtilsKt.getDefaultCountryCode();
+        String defaultValue = LocaleUtilsKt.defaultCountryCode();
         String expected = "WW";
         when(repository.getString(R.string.country_code_key, defaultValue)).thenReturn(expected);
         // execute
@@ -344,7 +344,7 @@ public class SettingsTest {
     @Test
     public void testGetLanguageLocale() {
         // setup
-        String defaultValue = LocaleUtilsKt.getDefaultLanguageTag();
+        String defaultValue = LocaleUtilsKt.defaultLanguageTag();
         Locale expected = Locale.FRENCH;
         when(repository.getString(R.string.language_key, defaultValue)).thenReturn(LocaleUtilsKt.toLanguageTag(expected));
         // execute
