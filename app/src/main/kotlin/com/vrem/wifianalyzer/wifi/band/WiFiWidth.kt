@@ -15,22 +15,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.settings
+package com.vrem.wifianalyzer.wifi.band
 
-import android.content.Context
-import android.util.AttributeSet
-import com.vrem.util.defaultCountryCode
-import com.vrem.wifianalyzer.MainContext
-import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry
-import java.util.*
+enum class WiFiWidth(val frequencyWidth: Int) {
+    MHZ_20(20),
+    MHZ_40(40),
+    MHZ_80(80),
+    MHZ_160(160),
+    MHZ_80_PLUS(80);
 
-private fun data(): List<Data> {
-    val currentLocale: Locale = MainContext.INSTANCE.settings?.languageLocale ?: Locale.US
-    return WiFiChannelCountry.getAll()
-            .map { Data(it.countryCode(), it.countryName(currentLocale)) }
-            .sorted()
-            .toList()
+    val frequencyWidthHalf: Int = frequencyWidth / 2
+
 }
-
-class CountryPreference(context: Context, attrs: AttributeSet) :
-        CustomPreference(context, attrs, data(), defaultCountryCode())

@@ -15,22 +15,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.settings
+package com.vrem.wifianalyzer.wifi.band
 
-import android.content.Context
-import android.util.AttributeSet
-import com.vrem.util.defaultCountryCode
-import com.vrem.wifianalyzer.MainContext
-import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry
-import java.util.*
+data class WiFiChannel(val channel: Int = 0, val frequency: Int = 0) : Comparable<WiFiChannel> {
+    fun inRange(frequency: Int): Boolean {
+        return frequency >= this.frequency - ALLOWED_RANGE && frequency <= this.frequency + ALLOWED_RANGE
+    }
 
-private fun data(): List<Data> {
-    val currentLocale: Locale = MainContext.INSTANCE.settings?.languageLocale ?: Locale.US
-    return WiFiChannelCountry.getAll()
-            .map { Data(it.countryCode(), it.countryName(currentLocale)) }
-            .sorted()
-            .toList()
+    override fun compareTo(other: WiFiChannel): Int =
+            compareBy<WiFiChannel> { it.channel }.thenBy { it.frequency }.compare(this, other)
+
+    companion object {
+        @JvmField
+        val UNKNOWN = WiFiChannel()
+        private const val ALLOWED_RANGE = WiFiChannels.FREQUENCY_SPREAD / 2
+    }
+
 }
-
-class CountryPreference(context: Context, attrs: AttributeSet) :
-        CustomPreference(context, attrs, data(), defaultCountryCode())

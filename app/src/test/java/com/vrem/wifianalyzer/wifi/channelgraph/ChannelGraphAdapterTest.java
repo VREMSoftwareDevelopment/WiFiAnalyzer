@@ -80,7 +80,7 @@ public class ChannelGraphAdapterTest {
     private int expectedCount() {
         int expected = 0;
         for (WiFiBand wiFiBand : WiFiBand.values()) {
-            expected += wiFiBand.getWiFiChannels().getWiFiChannelPairs().size();
+            expected += wiFiBand.getWiFiChannels().wiFiChannelPairs().size();
         }
         return expected;
     }

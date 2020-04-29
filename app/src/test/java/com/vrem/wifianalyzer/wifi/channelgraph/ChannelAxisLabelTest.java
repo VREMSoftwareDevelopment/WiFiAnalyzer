@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,7 +49,7 @@ public class ChannelAxisLabelTest {
         settings = MainContextHelper.INSTANCE.getSettings();
         when(this.settings.getCountryCode()).thenReturn(Locale.US.getCountry());
 
-        fixture = new ChannelAxisLabel(WiFiBand.GHZ2, WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelPairs().get(0));
+        fixture = new ChannelAxisLabel(WiFiBand.GHZ2, WiFiBand.GHZ2.getWiFiChannels().wiFiChannelPairs().get(0));
     }
 
     @After
@@ -68,7 +68,7 @@ public class ChannelAxisLabelTest {
     @Test
     public void testXAxis() {
         // setup
-        WiFiChannel wiFiChannel = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelFirst();
+        WiFiChannel wiFiChannel = WiFiBand.GHZ2.getWiFiChannels().wiFiChannelFirst();
         // execute
         String actual = fixture.formatLabel(wiFiChannel.getFrequency(), true);
         // validate
@@ -79,7 +79,7 @@ public class ChannelAxisLabelTest {
     @Test
     public void testXAxisWithFrequencyInRange() {
         // setup
-        WiFiChannel wiFiChannel = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelFirst();
+        WiFiChannel wiFiChannel = WiFiBand.GHZ2.getWiFiChannels().wiFiChannelFirst();
         // execute & validate
         assertEquals("" + wiFiChannel.getChannel(), fixture.formatLabel(wiFiChannel.getFrequency() - 2, true));
         assertEquals("" + wiFiChannel.getChannel(), fixture.formatLabel(wiFiChannel.getFrequency() + 2, true));
@@ -89,7 +89,7 @@ public class ChannelAxisLabelTest {
     @Test
     public void testXAxisWithFrequencyNotAllowedInLocale() {
         // setup
-        WiFiChannel wiFiChannel = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelLast();
+        WiFiChannel wiFiChannel = WiFiBand.GHZ2.getWiFiChannels().wiFiChannelLast();
         // execute
         String actual = fixture.formatLabel(wiFiChannel.getFrequency(), true);
         // validate
@@ -100,7 +100,7 @@ public class ChannelAxisLabelTest {
     public void testXAxisWithUnknownFrequencyReturnEmptyString() {
         // setup
         WiFiChannels wiFiChannels = WiFiBand.GHZ2.getWiFiChannels();
-        WiFiChannel wiFiChannel = wiFiChannels.getWiFiChannelFirst();
+        WiFiChannel wiFiChannel = wiFiChannels.wiFiChannelFirst();
         // execute
         String actual = fixture.formatLabel(wiFiChannel.getFrequency() - WiFiChannels.FREQUENCY_OFFSET, true);
         // validate

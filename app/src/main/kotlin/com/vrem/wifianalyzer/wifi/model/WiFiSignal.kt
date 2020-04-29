@@ -33,9 +33,9 @@ data class WiFiSignal(val primaryFrequency: Int = 0,
 
     fun frequencyEnd(): Int = centerFrequency + wiFiWidth.frequencyWidthHalf
 
-    fun primaryWiFiChannel(): WiFiChannel = wiFiBand.wiFiChannels.getWiFiChannelByFrequency(primaryFrequency)
+    fun primaryWiFiChannel(): WiFiChannel = wiFiBand.wiFiChannels.wiFiChannelByFrequency(primaryFrequency)
 
-    fun centerWiFiChannel(): WiFiChannel = wiFiBand.wiFiChannels.getWiFiChannelByFrequency(centerFrequency)
+    fun centerWiFiChannel(): WiFiChannel = wiFiBand.wiFiChannels.wiFiChannelByFrequency(centerFrequency)
 
     fun strength(): Strength = Strength.calculate(level)
 

@@ -89,7 +89,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     private List<WiFiChannel> setWiFiChannels(WiFiBand wiFiBand) {
         Settings settings = MainContext.INSTANCE.getSettings();
         String countryCode = settings.getCountryCode();
-        List<WiFiChannel> wiFiChannels = wiFiBand.getWiFiChannels().getAvailableChannels(countryCode);
+        List<WiFiChannel> wiFiChannels = wiFiBand.getWiFiChannels().availableChannels(countryCode);
         clear();
         addAll(wiFiChannels);
         return wiFiChannels;

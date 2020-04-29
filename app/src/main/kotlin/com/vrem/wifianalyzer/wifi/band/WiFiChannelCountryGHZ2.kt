@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,29 +15,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.band
 
-package com.vrem.wifianalyzer.wifi.band;
+import java.util.*
 
-public enum WiFiWidth {
-    MHZ_20(20),
-    MHZ_40(40),
-    MHZ_80(80),
-    MHZ_160(160),
-    MHZ_80_PLUS(80); // should be two 80 and 80 - feature support
+internal class WiFiChannelCountryGHZ2 {
+    private val countries = setOf("AS", "CA", "CO", "DO", "FM", "GT", "GU", "MP", "MX", "PA", "PR", "UM", "US", "UZ", "VI")
+    private val channels = sortedSetOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+    private val world = channels.union(setOf(12, 13)).toSortedSet()
 
-    private final int frequencyWidth;
-    private final int frequencyWidthHalf;
+    fun findChannels(countryCode: String): SortedSet<Int> =
+            if (countries.contains(countryCode.capitalize())) channels else world
 
-    WiFiWidth(int frequencyWidth) {
-        this.frequencyWidth = frequencyWidth;
-        this.frequencyWidthHalf = frequencyWidth / 2;
-    }
-
-    public int getFrequencyWidth() {
-        return frequencyWidth;
-    }
-
-    public int getFrequencyWidthHalf() {
-        return frequencyWidthHalf;
-    }
 }

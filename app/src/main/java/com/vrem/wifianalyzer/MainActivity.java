@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
         Settings settings = mainContext.getSettings();
         String countryCode = settings.getCountryCode();
         if (!countryCode.equals(currentCountryCode)) {
-            Pair<WiFiChannel, WiFiChannel> pair = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairFirst(countryCode);
+            Pair<WiFiChannel, WiFiChannel> pair = WiFiBand.GHZ5.getWiFiChannels().wiFiChannelPairFirst(countryCode);
             mainContext.getConfiguration().setWiFiChannelPair(pair);
             currentCountryCode = countryCode;
         }

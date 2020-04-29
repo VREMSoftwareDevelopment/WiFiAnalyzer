@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -56,17 +56,17 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
         Locale currentLocale = MainContext.INSTANCE.getSettings().getLanguageLocale();
         WiFiChannelCountry wiFiChannelCountry = getItem(position);
         binding.getChannelAvailableCountry()
-            .setText(wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName(currentLocale));
+            .setText(wiFiChannelCountry.countryCode() + " - " + wiFiChannelCountry.countryName(currentLocale));
         binding.getChannelAvailableTitleGhz2()
             .setText(String.format(Locale.ENGLISH, "%s : ",
                 resources.getString(WiFiBand.GHZ2.getTextResource())));
         binding.getChannelAvailableGhz2()
-            .setText(TextUtils.join(SEPARATOR, wiFiChannelCountry.getChannelsGHZ2().toArray()));
+            .setText(TextUtils.join(SEPARATOR, wiFiChannelCountry.channelsGHZ2().toArray()));
         binding.getChannelAvailableTitleGhz5()
             .setText(String.format(Locale.ENGLISH, "%s : ",
                 resources.getString(WiFiBand.GHZ5.getTextResource())));
         binding.getChannelAvailableGhz5()
-            .setText(TextUtils.join(SEPARATOR, wiFiChannelCountry.getChannelsGHZ5().toArray()));
+            .setText(TextUtils.join(SEPARATOR, wiFiChannelCountry.channelsGHZ5().toArray()));
         return rootView;
     }
 

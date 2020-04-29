@@ -51,7 +51,7 @@ enum class Security(val imageResource: Int, val additional: String = STRING_EMPT
             } catch (e: IllegalArgumentException) {
                 enumValues<Security>()
                         .toList()
-                        .firstOrNull { security -> security.additional == it }
+                        .find { security -> security.additional == it }
             }
         }
 

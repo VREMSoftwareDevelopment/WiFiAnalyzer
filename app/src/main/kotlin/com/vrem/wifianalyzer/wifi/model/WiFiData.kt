@@ -28,7 +28,7 @@ class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnec
 
     fun connection(): WiFiDetail =
             wiFiDetails
-                    .firstOrNull { connected(it) }
+                    .find { connected(it) }
                     ?.let { copy(it) }
                     ?: WiFiDetail.EMPTY
 

@@ -126,7 +126,7 @@ public class ChannelGraphNavigationTest {
         // setup
         int colorSelected = ContextCompat.getColor(mainActivity, R.color.selected);
         int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.background);
-        Pair<WiFiChannel, WiFiChannel> selectedKey = WiFiBand.GHZ5.getWiFiChannels().getWiFiChannelPairs().get(0);
+        Pair<WiFiChannel, WiFiChannel> selectedKey = WiFiBand.GHZ5.getWiFiChannels().wiFiChannelPairs().get(0);
         when(configuration.getWiFiChannelPair()).thenReturn(selectedKey);
         when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
         when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ class ChannelGraphAdapter extends GraphAdapter {
 
         @Override
         public void execute(WiFiBand wiFiBand) {
-            IterableUtils.forEach(wiFiBand.getWiFiChannels().getWiFiChannelPairs(), new WiFiChannelClosure(graphViewNotifiers, wiFiBand));
+            IterableUtils.forEach(wiFiBand.getWiFiChannels().wiFiChannelPairs(), new WiFiChannelClosure(graphViewNotifiers, wiFiBand));
         }
     }
 

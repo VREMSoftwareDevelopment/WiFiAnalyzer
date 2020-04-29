@@ -48,7 +48,7 @@ private const val SEPARATOR: String = "_"
 
 fun findByCountryCode(countryCode: String): Locale =
         SyncAvoid.availableLocales
-                .firstOrNull { countryCode.capitalize() == it.country }
+                .find { countryCode.capitalize() == it.country }
                 ?: SyncAvoid.defaultLocale
 
 fun allCountries(): List<Locale> = SyncAvoid.countriesLocales.values.toList()
@@ -58,9 +58,7 @@ fun findByLanguageTag(languageTag: String): Locale {
         val locale: Locale = fromLanguageTag(languageTag)
         it.language == locale.language && it.country == locale.country
     }
-    return SyncAvoid.supportedLocales
-            .firstOrNull(languageTagPredicate)
-            ?: SyncAvoid.defaultLocale
+    return SyncAvoid.supportedLocales.find(languageTagPredicate) ?: SyncAvoid.defaultLocale
 }
 
 fun supportedLanguages(): List<Locale> = SyncAvoid.supportedLocales

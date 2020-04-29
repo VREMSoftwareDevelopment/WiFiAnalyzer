@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -87,9 +87,9 @@ public class ChannelAvailableAdapterTest {
         Resources resources = mainActivity.getResources();
         String wiFiBand2 = resources.getString(WiFiBand.GHZ2.getTextResource());
         String wiFiBand5 = resources.getString(WiFiBand.GHZ5.getTextResource());
-        String expected = wiFiChannelCountry.getCountryCode() + " - " + wiFiChannelCountry.getCountryName(currentLocale);
-        String expected_GHZ_2 = StringUtils.join(wiFiChannelCountry.getChannelsGHZ2().toArray(), ",");
-        String expected_GHZ_5 = StringUtils.join(wiFiChannelCountry.getChannelsGHZ5().toArray(), ",");
+        String expected = wiFiChannelCountry.countryCode() + " - " + wiFiChannelCountry.countryName(currentLocale);
+        String expected_GHZ_2 = StringUtils.join(wiFiChannelCountry.channelsGHZ2().toArray(), ",");
+        String expected_GHZ_5 = StringUtils.join(wiFiChannelCountry.channelsGHZ5().toArray(), ",");
         ViewGroup viewGroup = mainActivity.findViewById(android.R.id.content);
         // execute
         View actual = fixture.getView(0, null, viewGroup);

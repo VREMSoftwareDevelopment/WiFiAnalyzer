@@ -40,7 +40,7 @@ public class InRangePredicateTest {
 
     @Before
     public void setUp() {
-        wiFiChannelPair = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelPairs().get(0);
+        wiFiChannelPair = WiFiBand.GHZ2.getWiFiChannels().wiFiChannelPairs().get(0);
         fixture = new InRangePredicate(wiFiChannelPair);
     }
 

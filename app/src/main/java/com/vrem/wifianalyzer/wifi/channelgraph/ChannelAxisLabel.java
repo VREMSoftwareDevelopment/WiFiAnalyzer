@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,7 +64,7 @@ class ChannelAxisLabel implements LabelFormatter {
     @NonNull
     private String findChannel(int value) {
         WiFiChannels wiFiChannels = wiFiBand.getWiFiChannels();
-        WiFiChannel wiFiChannel = wiFiChannels.getWiFiChannelByFrequency(value, wiFiChannelPair);
+        WiFiChannel wiFiChannel = wiFiChannels.wiFiChannelByFrequency(value, wiFiChannelPair);
         if (wiFiChannel == WiFiChannel.UNKNOWN) {
             return StringUtils.EMPTY;
         }
@@ -72,7 +72,7 @@ class ChannelAxisLabel implements LabelFormatter {
         int channel = wiFiChannel.getChannel();
         Settings settings = MainContext.INSTANCE.getSettings();
         String countryCode = settings.getCountryCode();
-        if (!wiFiChannels.isChannelAvailable(countryCode, channel)) {
+        if (!wiFiChannels.channelAvailable(countryCode, channel)) {
             return StringUtils.EMPTY;
         }
         return Integer.toString(channel);

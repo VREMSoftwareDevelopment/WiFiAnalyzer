@@ -77,7 +77,7 @@ public class DataManagerTest {
     @Test
     public void testGetNewSeries() {
         // setup
-        Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = WiFiBand.GHZ2.getWiFiChannels().getWiFiChannelPairs().get(0);
+        Pair<WiFiChannel, WiFiChannel> wiFiChannelPair = WiFiBand.GHZ2.getWiFiChannels().wiFiChannelPairs().get(0);
         List<WiFiDetail> expected = makeWiFiDetails(wiFiChannelPair.first.getFrequency());
         // execute
         Set<WiFiDetail> actual = fixture.getNewSeries(expected, wiFiChannelPair);
