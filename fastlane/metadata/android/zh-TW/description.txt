@@ -1,1 +1,1 @@
-使用此開源的Android WiFi分析儀來檢查WiFi狀態、訊號強度並識別擁擠的頻道從而最佳化您的WiFi網路
+使用本開放原始碼的 Android WiFiAnalyzer 應用程式來檢查 Wi-Fi 狀態、訊號強度並識別擁擠的頻道從而最佳化您的 Wi-Fi 網路
