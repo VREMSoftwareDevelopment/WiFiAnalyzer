@@ -28,13 +28,11 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
 import org.mockito.Mockito.verify
-import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.Mockito.verifyNoMoreInteractions
 
-@RunWith(MockitoJUnitRunner::class)
 class WiFiDataTest {
     private val ipAddress = "21.205.91.7"
     private val vendorName = "VendorName+"
@@ -61,7 +59,7 @@ class WiFiDataTest {
 
     @After
     fun tearDown() {
-        Mockito.verifyNoMoreInteractions(vendorService)
+        verifyNoMoreInteractions(vendorService)
         MainContextHelper.INSTANCE.restore()
     }
 
@@ -305,15 +303,15 @@ class WiFiDataTest {
     }
 
     private fun verifyChildren(actual: List<WiFiDetail>, index: Int) {
-        for (i in actual.indices) {
+        actual.indices.forEach {
             val children: List<WiFiDetail> = actual[index].children
-            if (i == index) {
+            if (it == index) {
                 assertEquals(3, children.size.toLong())
                 assertEquals(BSSID_2 + "_2", children[0].BSSID)
                 assertEquals(BSSID_2 + "_3", children[1].BSSID)
                 assertEquals(BSSID_2 + "_1", children[2].BSSID)
             } else {
-                assertTrue(actual[i].children.isEmpty())
+                assertTrue(actual[it].children.isEmpty())
             }
         }
     }

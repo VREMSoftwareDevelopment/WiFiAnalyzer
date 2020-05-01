@@ -1,6 +1,6 @@
 <!--
   ~ WiFiAnalyzer
-  ~ Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~ Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@
             app:key="@string/scan_speed_key"
             app:persistent="true"
             app:summary="@string/scan_speed_summary"
+            app:useSimpleSummaryProvider="true"
             app:title="@string/scan_speed_title"/>
     </PreferenceCategory>
 
@@ -49,6 +50,7 @@
             app:key="@string/sort_by_key"
             app:persistent="true"
             app:summary="@string/sort_by_summary"
+            app:useSimpleSummaryProvider="true"
             app:title="@string/sort_by_title"/>
 
         <ListPreference
@@ -59,6 +61,7 @@
             app:key="@string/group_by_key"
             app:persistent="true"
             app:summary="@string/group_by_summary"
+            app:useSimpleSummaryProvider="true"
             app:title="@string/group_by_title"/>
     </PreferenceCategory>
 
@@ -71,6 +74,7 @@
             app:key="@string/connection_view_key"
             app:persistent="true"
             app:summary="@string/connection_view_summary"
+            app:useSimpleSummaryProvider="true"
             app:title="@string/connection_view_title"/>
 
         <ListPreference
@@ -81,6 +85,7 @@
             app:key="@string/ap_view_key"
             app:persistent="true"
             app:summary="@string/ap_view_summary"
+            app:useSimpleSummaryProvider="true"
             app:title="@string/ap_view_title"/>
     </PreferenceCategory>
 
@@ -92,6 +97,7 @@
             app:key="@string/graph_maximum_y_key"
             app:persistent="true"
             app:summary="@string/graph_maximum_y_summary"
+            app:useSimpleSummaryProvider="true"
             app:title="@string/graph_maximum_y_title"/>
 
         <ListPreference
@@ -102,6 +108,7 @@
             app:key="@string/channel_graph_legend_key"
             app:persistent="true"
             app:summary="@string/channel_graph_legend_summary"
+            app:useSimpleSummaryProvider="true"
             app:title="@string/channel_graph_legend_title"/>
 
         <ListPreference
@@ -112,6 +119,7 @@
             app:key="@string/time_graph_legend_key"
             app:persistent="true"
             app:summary="@string/time_graph_legend_summary"
+            app:useSimpleSummaryProvider="true"
             app:title="@string/time_graph_legend_title"/>
     </PreferenceCategory>
 
@@ -124,6 +132,7 @@
             app:key="@string/theme_key"
             app:persistent="true"
             app:summary="@string/theme_summary"
+            app:useSimpleSummaryProvider="true"
             app:title="@string/theme_title"/>
 
         <androidx.preference.SwitchPreferenceCompat
@@ -146,6 +155,7 @@
             app:key="@string/country_code_key"
             app:persistent="true"
             app:summary="@string/country_code_summary"
+            app:useSimpleSummaryProvider="true"
             app:title="@string/country_code_title"/>
 
         <com.vrem.wifianalyzer.settings.LanguagePreference
@@ -153,6 +163,7 @@
             app:key="@string/language_key"
             app:persistent="true"
             app:summary="@string/language_summary"
+            app:useSimpleSummaryProvider="true"
             app:title="@string/language_title"/>
     </PreferenceCategory>
 </PreferenceScreen>

@@ -18,11 +18,7 @@
 package com.vrem.wifianalyzer.settings
 
 import androidx.annotation.StyleRes
-import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
-
-@StyleRes
-fun defaultTheme(): Int = (MainContext.INSTANCE.settings?.themeStyle ?: ThemeStyle.DARK).theme
 
 enum class ThemeStyle(@param:StyleRes val theme: Int, @param:StyleRes val themeNoActionBar: Int) {
     DARK(R.style.ThemeDark, R.style.ThemeDarkNoActionBar),

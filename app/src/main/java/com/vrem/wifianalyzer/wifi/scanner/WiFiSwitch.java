@@ -35,7 +35,7 @@ class WiFiSwitch {
     }
 
     boolean setEnabled(boolean enabled) {
-        return BuildUtilsKt.isMinVersionQ() ? enableWiFiAndroidQ() : enableWiFiLegacy(enabled);
+        return isMinVersionQ() ? enableWiFiAndroidQ() : enableWiFiLegacy(enabled);
     }
 
     @TargetApi(Build.VERSION_CODES.Q)
@@ -52,4 +52,9 @@ class WiFiSwitch {
     void startWiFiSettings() {
         new ActivityUtils().startWiFiSettings();
     }
+
+    boolean isMinVersionQ() {
+        return BuildUtilsKt.isMinVersionQ();
+    }
+
 }

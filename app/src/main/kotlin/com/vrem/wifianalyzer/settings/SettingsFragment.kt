@@ -15,23 +15,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.settings
 
-package com.vrem.wifianalyzer.settings;
+import android.os.Bundle
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import com.vrem.util.isMinVersionQ
+import com.vrem.util.isVersionP
+import com.vrem.wifianalyzer.R
 
-import android.os.Bundle;
-
-import com.vrem.util.BuildUtilsKt;
-import com.vrem.wifianalyzer.R;
-
-import androidx.preference.PreferenceFragmentCompat;
-
-public class SettingsFragment extends PreferenceFragmentCompat {
-
-    @Override
-    public void onCreatePreferences(Bundle bundle, String rootKey) {
-        addPreferencesFromResource(R.xml.settings);
-        findPreference(getString(R.string.experimental_key)).setVisible(BuildUtilsKt.isVersionP());
-        findPreference(getString(R.string.wifi_off_on_exit_key)).setVisible(!BuildUtilsKt.isMinVersionQ());
+open class SettingsFragment : PreferenceFragmentCompat() {
+    override fun onCreatePreferences(bundle: Bundle?, rootKey: String?) {
+        addPreferencesFromResource(R.xml.settings)
+        findPreference<Preference>(getString(R.string.experimental_key))!!.isVisible = versionP()
+        findPreference<Preference>(getString(R.string.wifi_off_on_exit_key))!!.isVisible = !minVersionQ()
     }
 
+    open fun minVersionQ(): Boolean = isMinVersionQ()
+
+    open fun versionP(): Boolean = isVersionP()
 }

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,6 @@ import android.view.LayoutInflater;
 
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.settings.SettingsFactory;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
 import com.vrem.wifianalyzer.vendor.model.VendorServiceFactory;
 import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
@@ -108,7 +107,7 @@ public enum MainContext {
         Context applicationContext = mainActivity.getApplicationContext();
         Handler handler = new Handler();
         Repository repository = new Repository(applicationContext);
-        Settings currentSettings = SettingsFactory.make(repository);
+        Settings currentSettings = new Settings(repository);
         Configuration currentConfiguration = new Configuration(largeScreen);
 
         setMainActivity(mainActivity);

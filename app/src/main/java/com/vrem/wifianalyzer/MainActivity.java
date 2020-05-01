@@ -36,7 +36,6 @@ import com.vrem.wifianalyzer.navigation.options.OptionMenu;
 import com.vrem.wifianalyzer.permission.PermissionService;
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.settings.SettingsFactory;
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionView;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     @Override
     protected void attachBaseContext(Context newBase) {
         Repository repository = new Repository(newBase);
-        Settings settings = SettingsFactory.make(repository);
+        Settings settings = new Settings(repository);
         Locale newLocale = settings.getLanguageLocale();
         Context context = ConfigurationUtilsKt.createContext(newBase, newLocale);
         super.attachBaseContext(context);

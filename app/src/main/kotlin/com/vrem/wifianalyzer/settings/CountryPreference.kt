@@ -25,7 +25,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry
 import java.util.*
 
 private fun data(): List<Data> {
-    val currentLocale: Locale = MainContext.INSTANCE.settings?.languageLocale ?: Locale.US
+    val currentLocale: Locale = MainContext.INSTANCE.settings?.getLanguageLocale() ?: Locale.US
     return WiFiChannelCountry.getAll()
             .map { Data(it.countryCode(), it.countryName(currentLocale)) }
             .sorted()

@@ -30,6 +30,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -75,19 +77,17 @@ public class WiFiSwitchTest {
         verify(wifiManager).setWifiEnabled(false);
     }
 
-/*
-    FIXME: Q requires JAVA 9
-    @Config(sdk = Build.VERSION_CODES.Q)
     @Test
     public void testSetEnabledWithAndroidQ() {
         // setup
+        doReturn(true).when(fixture).isMinVersionQ();
         doNothing().when(fixture).startWiFiSettings();
         // execute
         boolean actual = fixture.setEnabled(true);
         // validate
         assertTrue(actual);
         verify(fixture).startWiFiSettings();
+        verify(fixture).isMinVersionQ();
     }
-*/
 
 }
