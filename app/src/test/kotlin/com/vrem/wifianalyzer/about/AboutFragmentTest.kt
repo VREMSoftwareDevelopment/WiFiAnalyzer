@@ -1,0 +1,155 @@
+/*
+ * WiFiAnalyzer
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
+package com.vrem.wifianalyzer.about
+
+import android.content.pm.PackageInfo
+import android.os.Build
+import android.view.View
+import android.widget.TextView
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.nhaarman.mockitokotlin2.whenever
+import com.vrem.util.readFile
+import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.R
+import com.vrem.wifianalyzer.RobolectricUtil
+import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.verifyNoMoreInteractions
+import org.robolectric.Shadows
+import org.robolectric.annotation.Config
+import org.robolectric.annotation.LooperMode
+import org.robolectric.shadows.ShadowAlertDialog
+import java.text.SimpleDateFormat
+import java.util.*
+
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.P])
+@LooperMode(LooperMode.Mode.PAUSED)
+class AboutFragmentTest {
+    private val mainActivity = RobolectricUtil.INSTANCE.activity
+    private val configuration = MainContextHelper.INSTANCE.configuration
+    private val fixture = AboutFragment()
+
+    @Before
+    fun setUp() {
+        whenever(configuration.isSizeAvailable).thenReturn(true)
+        whenever(configuration.isLargeScreen).thenReturn(true)
+        RobolectricUtil.INSTANCE.startFragment(fixture)
+    }
+
+    @After
+    fun tearDown() {
+        MainContextHelper.INSTANCE.restore()
+        verify(configuration).isSizeAvailable
+        verify(configuration).isLargeScreen
+        verifyNoMoreInteractions(configuration)
+    }
+
+    @Test
+    fun testOnCreateView() {
+        assertNotNull(fixture.view)
+    }
+
+    @Test
+    fun testVersionNumber() {
+        // setup
+        val expected: String = version() + "SL" + " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")"
+        // execute
+        val actual = fixture.requireView().findViewById<TextView>(R.id.about_version_info)
+        // validate
+        assertNotNull(actual)
+        assertEquals(expected, actual.text)
+    }
+
+    @Test
+    fun testPackageName() {
+        // execute
+        val actual = fixture.requireView().findViewById<TextView>(R.id.about_package_name)
+        // validate
+        assertNotNull(actual)
+        assertEquals(mainActivity.packageName, actual.text)
+    }
+
+    @Test
+    fun testApplicationName() {
+        // setup
+        val expectedName = fixture.getString(R.string.app_full_name)
+        // execute
+        val actual = fixture.requireView().findViewById<TextView>(R.id.about_application_name)
+        // validate
+        assertNotNull(actual)
+        assertEquals(expectedName, actual.text)
+    }
+
+    @Test
+    fun testCopyright() {
+        // setup
+        val expectedName = (fixture.getString(R.string.app_copyright)
+                + SimpleDateFormat("yyyy").format(Date()))
+        // execute
+        val actual = fixture.requireView().findViewById<TextView>(R.id.about_copyright)
+        // validate
+        assertNotNull(actual)
+        assertEquals(expectedName, actual.text)
+    }
+
+    @Test
+    fun testWriteReview() {
+        // setup
+/*
+        val url = "market://details?id=" + mainActivity.packageName
+        val expectedIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+*/
+        val view = fixture.requireView().findViewById<View>(R.id.writeReview)
+        // execute
+        view.performClick()
+    }
+
+    @Test
+    fun testAlertDialogClickListener() {
+        validateAlertDialogClickListener(R.id.contributors, R.string.about_contributor_title, R.raw.contributors)
+        validateAlertDialogClickListener(R.id.license, R.string.gpl, R.raw.gpl)
+        validateAlertDialogClickListener(R.id.apacheCommonsLicense, R.string.al, R.raw.al)
+        validateAlertDialogClickListener(R.id.graphViewLicense, R.string.al, R.raw.al)
+        validateAlertDialogClickListener(R.id.materialDesignIconsLicense, R.string.al, R.raw.al)
+    }
+
+    private fun version(): String {
+        val packageInfo: PackageInfo = mainActivity.packageManager.getPackageInfo(mainActivity.packageName, 0)
+        return packageInfo.versionName + " - " + packageInfo.longVersionCode
+    }
+
+    private fun validateAlertDialogClickListener(viewId: Int, titleId: Int, messageId: Int) {
+        // setup
+        val view = fixture.view!!.findViewById<View>(viewId)
+        val expectedTitle = mainActivity.applicationContext.getString(titleId)
+        val expectedMessage = readFile(mainActivity.resources, messageId)
+        // execute
+        view.performClick()
+        // validate
+        val alertDialog = ShadowAlertDialog.getLatestAlertDialog()
+        val shadowAlertDialog = Shadows.shadowOf(alertDialog)
+        assertEquals(expectedTitle, shadowAlertDialog.title.toString())
+        assertEquals(expectedMessage, shadowAlertDialog.message.toString())
+    }
+}
