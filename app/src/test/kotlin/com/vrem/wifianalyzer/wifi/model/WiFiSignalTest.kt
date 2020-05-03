@@ -57,14 +57,14 @@ class WiFiSignalTest {
     }
 
     @Test
-    fun testGetCenterFrequency() {
+    fun testCenterFrequency() {
         assertEquals(centerFrequency, fixture.centerFrequency)
         assertEquals(centerFrequency - WiFiWidth.MHZ_40.frequencyWidthHalf, fixture.frequencyStart())
         assertEquals(centerFrequency + WiFiWidth.MHZ_40.frequencyWidthHalf, fixture.frequencyEnd())
     }
 
     @Test
-    fun testGetInRange() {
+    fun testInRange() {
         assertTrue(fixture.inRange(centerFrequency))
         assertTrue(fixture.inRange(centerFrequency - WiFiWidth.MHZ_40.frequencyWidthHalf))
         assertTrue(fixture.inRange(centerFrequency + WiFiWidth.MHZ_40.frequencyWidthHalf))
@@ -73,22 +73,22 @@ class WiFiSignalTest {
     }
 
     @Test
-    fun testGetPrimaryWiFiChannel() {
+    fun testPrimaryWiFiChannel() {
         assertEquals(primaryChannel, fixture.primaryWiFiChannel().channel)
     }
 
     @Test
-    fun testGetCenterWiFiChannel() {
+    fun testCenterWiFiChannel() {
         assertEquals(centerChannel, fixture.centerWiFiChannel().channel)
     }
 
     @Test
-    fun testGetStrength() {
+    fun testStrength() {
         assertEquals(Strength.THREE, fixture.strength())
     }
 
     @Test
-    fun testGetDistance() {
+    fun testDistance() {
         // setup
         val expected = String.format(Locale.ENGLISH, "~%.1fm", calculateDistance(primaryFrequency, level))
         // execute
@@ -115,7 +115,7 @@ class WiFiSignalTest {
     }
 
     @Test
-    fun testGetChannelDisplayWhenPrimaryAndCenterSame() {
+    fun testChannelDisplayWhenPrimaryAndCenterSame() {
         // setup
         fixture = WiFiSignal(primaryFrequency, primaryFrequency, WiFiWidth.MHZ_40, level, true)
         // execute & validate
@@ -123,7 +123,7 @@ class WiFiSignalTest {
     }
 
     @Test
-    fun testGetChannelDisplayWhenPrimaryAndCenterDifferent() {
+    fun testChannelDisplayWhenPrimaryAndCenterDifferent() {
         // setup
         fixture = WiFiSignal(primaryFrequency, centerFrequency, WiFiWidth.MHZ_40, level, true)
         // execute & validate

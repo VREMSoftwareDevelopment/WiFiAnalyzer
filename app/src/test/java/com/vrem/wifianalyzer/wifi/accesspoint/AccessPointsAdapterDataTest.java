@@ -149,18 +149,18 @@ public class AccessPointsAdapterDataTest {
     }
 
     private void verifySettings() {
-        verify(settings).getSortBy();
-        verify(settings).getGroupBy();
-        verify(settings).getWiFiBands();
-        verify(settings).getStrengths();
-        verify(settings).getSecurities();
+        verify(settings).sortBy();
+        verify(settings).groupBy();
+        verify(settings).findWiFiBands();
+        verify(settings).findStrengths();
+        verify(settings).findSecurities();
     }
 
     private void withSettings() {
-        when(settings.getSortBy()).thenReturn(SortBy.SSID);
-        when(settings.getGroupBy()).thenReturn(GroupBy.CHANNEL);
-        when(settings.getWiFiBands()).thenReturn(EnumUtils.values(WiFiBand.class));
-        when(settings.getStrengths()).thenReturn(EnumUtils.values(Strength.class));
-        when(settings.getSecurities()).thenReturn(EnumUtils.values(Security.class));
+        when(settings.sortBy()).thenReturn(SortBy.SSID);
+        when(settings.groupBy()).thenReturn(GroupBy.CHANNEL);
+        when(settings.findWiFiBands()).thenReturn(EnumUtils.values(WiFiBand.class));
+        when(settings.findStrengths()).thenReturn(EnumUtils.values(Strength.class));
+        when(settings.findSecurities()).thenReturn(EnumUtils.values(Security.class));
     }
 }

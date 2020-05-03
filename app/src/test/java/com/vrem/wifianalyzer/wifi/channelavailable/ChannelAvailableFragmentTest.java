@@ -54,7 +54,7 @@ public class ChannelAvailableFragmentTest {
         RobolectricUtil.INSTANCE.getActivity();
 
         settings = MainContextHelper.INSTANCE.getSettings();
-        when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
+        when(settings.countryCode()).thenReturn(Locale.US.getCountry());
 
         fixture = new ChannelAvailableFragment();
         RobolectricUtil.INSTANCE.startFragment(fixture);
@@ -62,7 +62,7 @@ public class ChannelAvailableFragmentTest {
 
     @After
     public void tearDown() {
-        verify(settings, atLeastOnce()).getCountryCode();
+        verify(settings, atLeastOnce()).countryCode();
         MainContextHelper.INSTANCE.restore();
     }
 

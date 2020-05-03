@@ -47,7 +47,7 @@ class RepositoryTest {
 
     @Before
     fun setUp() {
-        doReturn(sharedPreferences).whenever(fixture).getDefaultSharedPreferences(context)
+        doReturn(sharedPreferences).whenever(fixture).defaultSharedPreferences(context)
     }
 
     @After
@@ -62,11 +62,11 @@ class RepositoryTest {
     @Test
     fun testInitializeDefaultValues() {
         // setup
-        doNothing().whenever(fixture).setDefaultValues(context, R.xml.settings, false)
+        doNothing().whenever(fixture).defaultValues(context, R.xml.settings, false)
         // execute
         fixture.initializeDefaultValues()
         // validate
-        verify(fixture).setDefaultValues(context, R.xml.settings, false)
+        verify(fixture).defaultValues(context, R.xml.settings, false)
     }
 
     @Test
@@ -96,7 +96,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testGetString() {
+    fun testString() {
         // setup
         val keyIndex = R.string.app_full_name
         val value = "1111"
@@ -104,7 +104,7 @@ class RepositoryTest {
         whenever(context.getString(keyIndex)).thenReturn(keyValue)
         whenever(sharedPreferences.getString(keyValue, defaultValue)).thenReturn(value)
         // execute
-        val actual = fixture.getString(keyIndex, defaultValue)
+        val actual = fixture.string(keyIndex, defaultValue)
         // validate
         Assert.assertEquals(value, actual)
         verify(context).getString(keyIndex)
@@ -113,7 +113,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testGetStringAsInteger() {
+    fun testStringAsInteger() {
         // setup
         val keyIndex = R.string.app_full_name
         val value = 1111
@@ -121,7 +121,7 @@ class RepositoryTest {
         whenever(context.getString(keyIndex)).thenReturn(keyValue)
         whenever(sharedPreferences.getString(keyValue, "" + defaultValue)).thenReturn("" + value)
         // execute
-        val actual = fixture.getStringAsInteger(keyIndex, defaultValue)
+        val actual = fixture.stringAsInteger(keyIndex, defaultValue)
         // validate
         Assert.assertEquals(value.toLong(), actual.toLong())
         verify(context).getString(keyIndex)
@@ -130,14 +130,14 @@ class RepositoryTest {
     }
 
     @Test
-    fun testGetStringAsIntegerThrowsException() {
+    fun testStringAsIntegerThrowsException() {
         // setup
         val keyIndex = R.string.app_full_name
         val defaultValue = 2222
         whenever(context.getString(keyIndex)).thenReturn(keyValue)
         withSave(keyIndex)
         // execute
-        val actual = fixture.getStringAsInteger(keyIndex, defaultValue)
+        val actual = fixture.stringAsInteger(keyIndex, defaultValue)
         // validate
         Assert.assertEquals(defaultValue.toLong(), actual.toLong())
         verify(context).getString(keyIndex)
@@ -145,7 +145,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testGetInteger() {
+    fun testInteger() {
         // setup
         val keyIndex = R.string.app_full_name
         val value = 1111
@@ -153,7 +153,7 @@ class RepositoryTest {
         whenever(context.getString(keyIndex)).thenReturn(keyValue)
         whenever(sharedPreferences.getInt(keyValue, defaultValue)).thenReturn(value)
         // execute
-        val actual = fixture.getInteger(keyIndex, defaultValue)
+        val actual = fixture.integer(keyIndex, defaultValue)
         // validate
         Assert.assertEquals(value.toLong(), actual.toLong())
         verify(context).getString(keyIndex)
@@ -162,7 +162,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testGetIntegerThrowsException() {
+    fun testIntegerThrowsException() {
         // setup
         val keyIndex = R.string.app_full_name
         val defaultValue = 2222
@@ -170,7 +170,7 @@ class RepositoryTest {
         whenever(sharedPreferences.getInt(keyValue, defaultValue)).thenThrow(RuntimeException())
         withSave(keyIndex)
         // execute
-        val actual = fixture.getInteger(keyIndex, defaultValue)
+        val actual = fixture.integer(keyIndex, defaultValue)
         // validate
         Assert.assertEquals(defaultValue.toLong(), actual.toLong())
         verify(context).getString(keyIndex)
@@ -180,13 +180,13 @@ class RepositoryTest {
     }
 
     @Test
-    fun testGetResourceBoolean() {
+    fun testResourceBoolean() {
         // setup
         val keyIndex = R.bool.wifi_off_on_exit_default
         whenever(context.resources).thenReturn(resources)
         whenever(resources.getBoolean(keyIndex)).thenReturn(true)
         // execute
-        val actual = fixture.getResourceBoolean(keyIndex)
+        val actual = fixture.resourceBoolean(keyIndex)
         // validate
         Assert.assertTrue(actual)
         verify(context).resources
@@ -194,13 +194,13 @@ class RepositoryTest {
     }
 
     @Test
-    fun testGetBoolean() {
+    fun testBoolean() {
         // setup
         val keyIndex = R.string.app_full_name
         whenever(context.getString(keyIndex)).thenReturn(keyValue)
         whenever(sharedPreferences.getBoolean(keyValue, false)).thenReturn(true)
         // execute
-        val actual = fixture.getBoolean(keyIndex, false)
+        val actual = fixture.boolean(keyIndex, false)
         // validate
         Assert.assertTrue(actual)
         verify(context).getString(keyIndex)
@@ -209,14 +209,14 @@ class RepositoryTest {
     }
 
     @Test
-    fun testGetBooleanThrowsException() {
+    fun testBooleanThrowsException() {
         // setup
         val keyIndex = R.string.app_full_name
         whenever(context.getString(keyIndex)).thenReturn(keyValue)
         whenever(sharedPreferences.getBoolean(keyValue, true)).thenThrow(RuntimeException())
         withSave(keyIndex)
         // execute
-        val actual = fixture.getBoolean(keyIndex, true)
+        val actual = fixture.boolean(keyIndex, true)
         // validate
         Assert.assertTrue(actual)
         verify(context).getString(keyIndex)
@@ -235,7 +235,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testGetStringSet() {
+    fun testStringSet() {
         // setup
         val keyIndex = R.string.app_full_name
         val expected = setOf("123")
@@ -243,7 +243,7 @@ class RepositoryTest {
         whenever(context.getString(keyIndex)).thenReturn(keyValue)
         whenever(sharedPreferences.getStringSet(keyValue, defaultValues)).thenReturn(expected)
         // execute
-        val actual = fixture.getStringSet(keyIndex, defaultValues)
+        val actual = fixture.stringSet(keyIndex, defaultValues)
         // validate
         Assert.assertEquals(expected, actual)
         verify(context).getString(keyIndex)
@@ -252,7 +252,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testGetStringSetThrowsException() {
+    fun testStringSetThrowsException() {
         // setup
         val keyIndex = R.string.app_full_name
         val expected = setOf("567")
@@ -260,7 +260,7 @@ class RepositoryTest {
         whenever(sharedPreferences.getStringSet(keyValue, expected)).thenThrow(RuntimeException())
         whenever(sharedPreferences.edit()).thenReturn(editor)
         // execute
-        val actual = fixture.getStringSet(keyIndex, expected)
+        val actual = fixture.stringSet(keyIndex, expected)
         // validate
         Assert.assertEquals(expected, actual)
         verify(context).getString(keyIndex)
@@ -306,7 +306,7 @@ class RepositoryTest {
     }
 
     private fun verifyPreferenceManager() {
-        verify(fixture, atLeastOnce()).getDefaultSharedPreferences(context)
+        verify(fixture, atLeastOnce()).defaultSharedPreferences(context)
     }
 
 }

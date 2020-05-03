@@ -59,15 +59,15 @@ class TimeGraphView implements GraphViewNotifier {
     public void update(@NonNull WiFiData wiFiData) {
         Settings settings = MainContext.INSTANCE.getSettings();
         Predicate<WiFiDetail> predicate = FilterPredicate.makeOtherPredicate(settings);
-        List<WiFiDetail> wiFiDetails = wiFiData.wiFiDetails(predicate, settings.getSortBy());
-        Set<WiFiDetail> newSeries = dataManager.addSeriesData(graphViewWrapper, wiFiDetails, settings.getGraphMaximumY());
+        List<WiFiDetail> wiFiDetails = wiFiData.wiFiDetails(predicate, settings.sortBy());
+        Set<WiFiDetail> newSeries = dataManager.addSeriesData(graphViewWrapper, wiFiDetails, settings.graphMaximumY());
         graphViewWrapper.removeSeries(newSeries);
-        graphViewWrapper.updateLegend(settings.getTimeGraphLegend());
+        graphViewWrapper.updateLegend(settings.timeGraphLegend());
         graphViewWrapper.setVisibility(isSelected() ? View.VISIBLE : View.GONE);
     }
 
     private boolean isSelected() {
-        return wiFiBand.equals(MainContext.INSTANCE.getSettings().getWiFiBand());
+        return wiFiBand.equals(MainContext.INSTANCE.getSettings().wiFiBand());
     }
 
     @Override
@@ -99,11 +99,11 @@ class TimeGraphView implements GraphViewNotifier {
     private GraphViewWrapper makeGraphViewWrapper() {
         MainContext mainContext = MainContext.INSTANCE;
         Settings settings = mainContext.getSettings();
-        ThemeStyle themeStyle = settings.getThemeStyle();
-        int graphMaximumY = settings.getGraphMaximumY();
+        ThemeStyle themeStyle = settings.themeStyle();
+        int graphMaximumY = settings.graphMaximumY();
         Configuration configuration = mainContext.getConfiguration();
         GraphView graphView = makeGraphView(mainContext, graphMaximumY, themeStyle);
-        graphViewWrapper = new GraphViewWrapper(graphView, settings.getTimeGraphLegend(), themeStyle);
+        graphViewWrapper = new GraphViewWrapper(graphView, settings.timeGraphLegend(), themeStyle);
         configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
         graphViewWrapper.setViewport();
         return graphViewWrapper;

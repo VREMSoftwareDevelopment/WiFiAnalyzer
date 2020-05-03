@@ -59,7 +59,7 @@ public class PeriodicScanTest {
     public void testRun() {
         // setup
         int scanSpeed = 15;
-        when(settings.getScanSpeed()).thenReturn(scanSpeed);
+        when(settings.scanSpeed()).thenReturn(scanSpeed);
         // execute
         fixture.run();
         // validate

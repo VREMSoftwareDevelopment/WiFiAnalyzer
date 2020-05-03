@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.settings
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.RobolectricUtil
-import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry.Companion.getAll
+import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry.Companion.findAll
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -34,12 +34,12 @@ import java.util.*
 @LooperMode(LooperMode.Mode.PAUSED)
 class CountryPreferenceTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val countries = getAll()
+    private val countries = findAll()
     private val fixture = CountryPreference(mainActivity, Robolectric.buildAttributeSet().build())
     private val currentLocale = Locale.getDefault()
 
     @Test
-    fun testGetEntries() {
+    fun testEntries() {
         // execute
         val actual: Array<CharSequence> = fixture.entries
         // validate
@@ -51,7 +51,7 @@ class CountryPreferenceTest {
     }
 
     @Test
-    fun testGetEntryValues() {
+    fun testEntryValues() {
         // execute
         val actual: Array<CharSequence> = fixture.entryValues
         // validate

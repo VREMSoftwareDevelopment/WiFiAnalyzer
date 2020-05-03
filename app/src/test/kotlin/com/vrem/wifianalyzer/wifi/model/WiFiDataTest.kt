@@ -64,7 +64,7 @@ class WiFiDataTest {
     }
 
     @Test
-    fun testGetConnection() {
+    fun testConnection() {
         // setup
         whenever(vendorService.findVendorName(BSSID_1)).thenReturn(vendorName)
         // execute
@@ -78,7 +78,7 @@ class WiFiDataTest {
     }
 
     @Test
-    fun testGetWiFiDetailsWithConfiguredNetwork() {
+    fun testWiFiDetailsWithConfiguredNetwork() {
         // setup
         val predicate: Predicate<WiFiDetail> = WiFiBandPredicate(WiFiBand.GHZ2)
         withVendorNames()
@@ -100,7 +100,7 @@ class WiFiDataTest {
     }
 
     @Test
-    fun testGetWiFiDetailsWithVendorName() {
+    fun testWiFiDetailsWithVendorName() {
         // setup
         val predicate: Predicate<WiFiDetail> = WiFiBandPredicate(WiFiBand.GHZ2)
         withVendorNames()
@@ -120,7 +120,7 @@ class WiFiDataTest {
     }
 
     @Test
-    fun testGetWiFiDetailsSortByStrengthGroupByNone() {
+    fun testWiFiDetailsSortByStrengthGroupByNone() {
         // setup
         val predicate: Predicate<WiFiDetail> = WiFiBandPredicate(WiFiBand.GHZ2)
         withVendorNames()
@@ -140,7 +140,7 @@ class WiFiDataTest {
     }
 
     @Test
-    fun testGetWiFiDetailsSortByStrengthGroupBySSID() {
+    fun testWiFiDetailsSortByStrengthGroupBySSID() {
         // setup
         val predicate: Predicate<WiFiDetail> = WiFiBandPredicate(WiFiBand.GHZ2)
         withVendorNames()
@@ -157,7 +157,7 @@ class WiFiDataTest {
     }
 
     @Test
-    fun testGetWiFiDetailsSortByStrengthGroupByChannel() {
+    fun testWiFiDetailsSortByStrengthGroupByChannel() {
         // setup
         val predicate: Predicate<WiFiDetail> = WiFiBandPredicate(WiFiBand.GHZ2)
         withVendorNames()
@@ -173,7 +173,7 @@ class WiFiDataTest {
     }
 
     @Test
-    fun testGetWiFiDetailsSortBySSIDGroupByNone() {
+    fun testWiFiDetailsSortBySSIDGroupByNone() {
         // setup
         val predicate: Predicate<WiFiDetail> = WiFiBandPredicate(WiFiBand.GHZ2)
         withVendorNames()
@@ -193,7 +193,7 @@ class WiFiDataTest {
     }
 
     @Test
-    fun testGetWiFiDetailsSortBySSIDGroupBySSID() {
+    fun testWiFiDetailsSortBySSIDGroupBySSID() {
         // setup
         val predicate: Predicate<WiFiDetail> = WiFiBandPredicate(WiFiBand.GHZ2)
         withVendorNames()
@@ -210,7 +210,7 @@ class WiFiDataTest {
     }
 
     @Test
-    fun testGetWiFiDetailsSortBySSIDGroupByChannel() {
+    fun testWiFiDetailsSortBySSIDGroupByChannel() {
         // setup
         val predicate: Predicate<WiFiDetail> = WiFiBandPredicate(WiFiBand.GHZ2)
         withVendorNames()
@@ -226,7 +226,7 @@ class WiFiDataTest {
     }
 
     @Test
-    fun testGetWiFiDetailsSortByChannelGroupByNone() {
+    fun testWiFiDetailsSortByChannelGroupByNone() {
         // setup
         val predicate: Predicate<WiFiDetail> = WiFiBandPredicate(WiFiBand.GHZ2)
         withVendorNames()
@@ -246,7 +246,7 @@ class WiFiDataTest {
     }
 
     @Test
-    fun testGetWiFiDetailsSortByChannelGroupBySSID() {
+    fun testWiFiDetailsSortByChannelGroupBySSID() {
         // setup
         val predicate: Predicate<WiFiDetail> = WiFiBandPredicate(WiFiBand.GHZ2)
         withVendorNames()
@@ -263,7 +263,7 @@ class WiFiDataTest {
     }
 
     @Test
-    fun testGetWiFiDetailsSortByChannelGroupByChannel() {
+    fun testWiFiDetailsSortByChannelGroupByChannel() {
         // setup
         val predicate: Predicate<WiFiDetail> = WiFiBandPredicate(WiFiBand.GHZ2)
         withVendorNames()

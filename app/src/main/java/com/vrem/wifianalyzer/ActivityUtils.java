@@ -51,7 +51,7 @@ public class ActivityUtils {
         }
         MainActivity mainActivity = mainContext.getMainActivity();
         Window window = mainActivity.getWindow();
-        if (settings.isKeepScreenOn()) {
+        if (settings.keepScreenOn()) {
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         } else {
             window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

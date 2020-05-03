@@ -143,12 +143,12 @@ public class ActivityUtilsTest {
     @Test
     public void testKeepScreenOnSwitchOn() {
         // setup
-        when(settings.isKeepScreenOn()).thenReturn(true);
+        when(settings.keepScreenOn()).thenReturn(true);
         when(mainActivity.getWindow()).thenReturn(window);
         // execute
         fixture.keepScreenOn();
         // validate
-        verify(settings).isKeepScreenOn();
+        verify(settings).keepScreenOn();
         verify(mainActivity).getWindow();
         verify(window).addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
@@ -156,12 +156,12 @@ public class ActivityUtilsTest {
     @Test
     public void testKeepScreenOnSwitchOff() {
         // setup
-        when(settings.isKeepScreenOn()).thenReturn(false);
+        when(settings.keepScreenOn()).thenReturn(false);
         when(mainActivity.getWindow()).thenReturn(window);
         // execute
         fixture.keepScreenOn();
         // validate
-        verify(settings).isKeepScreenOn();
+        verify(settings).keepScreenOn();
         verify(mainActivity).getWindow();
         verify(window).clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }

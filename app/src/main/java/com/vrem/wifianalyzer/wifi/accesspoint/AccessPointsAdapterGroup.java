@@ -57,7 +57,7 @@ class AccessPointsAdapterGroup {
     }
 
     void updateGroupBy() {
-        GroupBy currentGroupBy = MainContext.INSTANCE.getSettings().getGroupBy();
+        GroupBy currentGroupBy = MainContext.INSTANCE.getSettings().groupBy();
         if (!currentGroupBy.equals(this.groupBy)) {
             expanded.clear();
             this.groupBy = currentGroupBy;

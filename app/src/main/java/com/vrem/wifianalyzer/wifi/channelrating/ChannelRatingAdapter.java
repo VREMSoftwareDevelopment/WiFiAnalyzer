@@ -76,7 +76,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     @Override
     public void update(@NonNull WiFiData wiFiData) {
         Settings settings = MainContext.INSTANCE.getSettings();
-        WiFiBand wiFiBand = settings.getWiFiBand();
+        WiFiBand wiFiBand = settings.wiFiBand();
         List<WiFiChannel> wiFiChannels = setWiFiChannels(wiFiBand);
         Predicate<WiFiDetail> predicate = new WiFiBandPredicate(wiFiBand);
         List<WiFiDetail> wiFiDetails = wiFiData.wiFiDetails(predicate, SortBy.STRENGTH);
@@ -88,7 +88,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     @NonNull
     private List<WiFiChannel> setWiFiChannels(WiFiBand wiFiBand) {
         Settings settings = MainContext.INSTANCE.getSettings();
-        String countryCode = settings.getCountryCode();
+        String countryCode = settings.countryCode();
         List<WiFiChannel> wiFiChannels = wiFiBand.getWiFiChannels().availableChannels(countryCode);
         clear();
         addAll(wiFiChannels);

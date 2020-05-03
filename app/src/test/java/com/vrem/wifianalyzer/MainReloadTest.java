@@ -47,18 +47,18 @@ public class MainReloadTest {
     public void setUp() {
         settings = MainContextHelper.INSTANCE.getSettings();
 
-        when(settings.getThemeStyle()).thenReturn(ThemeStyle.DARK);
-        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
-        when(settings.getLanguageLocale()).thenReturn(TEST_LOCALE);
+        when(settings.themeStyle()).thenReturn(ThemeStyle.DARK);
+        when(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
+        when(settings.languageLocale()).thenReturn(TEST_LOCALE);
 
         fixture = new MainReload(settings);
     }
 
     @After
     public void tearDown() {
-        verify(settings, atLeastOnce()).getThemeStyle();
-        verify(settings, atLeastOnce()).getConnectionViewType();
-        verify(settings, atLeastOnce()).getLanguageLocale();
+        verify(settings, atLeastOnce()).themeStyle();
+        verify(settings, atLeastOnce()).connectionViewType();
+        verify(settings, atLeastOnce()).languageLocale();
 
         MainContextHelper.INSTANCE.restore();
     }
@@ -76,7 +76,7 @@ public class MainReloadTest {
     public void testShouldReloadWithThemeChange() {
         // setup
         ThemeStyle expected = ThemeStyle.LIGHT;
-        when(settings.getThemeStyle()).thenReturn(expected);
+        when(settings.themeStyle()).thenReturn(expected);
         // execute
         boolean actual = fixture.shouldReload(settings);
         // validate
@@ -97,7 +97,7 @@ public class MainReloadTest {
     public void testShouldReloadWithConnectionViewTypeChange() {
         // setup
         ConnectionViewType expected = ConnectionViewType.COMPACT;
-        when(settings.getConnectionViewType()).thenReturn(expected);
+        when(settings.connectionViewType()).thenReturn(expected);
         // execute
         boolean actual = fixture.shouldReload(settings);
         // validate
@@ -118,7 +118,7 @@ public class MainReloadTest {
     public void testShouldReloadWithLanguageLocaleChange() {
         // setup
         Locale expected = Locale.US;
-        when(settings.getLanguageLocale()).thenReturn(expected);
+        when(settings.languageLocale()).thenReturn(expected);
         // execute
         boolean actual = fixture.shouldReload(settings);
         // validate

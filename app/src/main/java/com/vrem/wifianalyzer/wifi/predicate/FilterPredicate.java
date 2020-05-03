@@ -42,22 +42,22 @@ public class FilterPredicate implements Predicate<WiFiDetail> {
     private final Predicate<WiFiDetail> predicate;
 
     private FilterPredicate(@NonNull Settings settings, @NonNull Set<WiFiBand> wiFiBands) {
-        Predicate<WiFiDetail> ssidPredicate = makeSSIDPredicate(settings.getSSIDs());
+        Predicate<WiFiDetail> ssidPredicate = makeSSIDPredicate(settings.findSSIDs());
         Predicate<WiFiDetail> wiFiBandPredicate = EnumUtils.predicate(WiFiBand.class, wiFiBands, new WiFiBandTransformer());
-        Predicate<WiFiDetail> strengthPredicate = EnumUtils.predicate(Strength.class, settings.getStrengths(), new StrengthTransformer());
-        Predicate<WiFiDetail> securityPredicate = EnumUtils.predicate(Security.class, settings.getSecurities(), new SecurityTransformer());
+        Predicate<WiFiDetail> strengthPredicate = EnumUtils.predicate(Strength.class, settings.findStrengths(), new StrengthTransformer());
+        Predicate<WiFiDetail> securityPredicate = EnumUtils.predicate(Security.class, settings.findSecurities(), new SecurityTransformer());
         List<Predicate<WiFiDetail>> predicates = Arrays.asList(ssidPredicate, wiFiBandPredicate, strengthPredicate, securityPredicate);
         this.predicate = PredicateUtils.allPredicate(CollectionUtils.select(predicates, new NoTruePredicate()));
     }
 
     @NonNull
     public static Predicate<WiFiDetail> makeAccessPointsPredicate(@NonNull Settings settings) {
-        return new FilterPredicate(settings, settings.getWiFiBands());
+        return new FilterPredicate(settings, settings.findWiFiBands());
     }
 
     @NonNull
     public static Predicate<WiFiDetail> makeOtherPredicate(@NonNull Settings settings) {
-        return new FilterPredicate(settings, Collections.singleton(settings.getWiFiBand()));
+        return new FilterPredicate(settings, Collections.singleton(settings.wiFiBand()));
     }
 
     @Override

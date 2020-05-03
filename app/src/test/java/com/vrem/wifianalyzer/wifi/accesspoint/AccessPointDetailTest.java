@@ -70,7 +70,7 @@ public class AccessPointDetailTest {
     public void setUp() {
         mainActivity = RobolectricUtil.INSTANCE.getActivity();
         settings = MainContextHelper.INSTANCE.getSettings();
-        when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPLETE);
+        when(settings.accessPointView()).thenReturn(AccessPointViewType.COMPLETE);
         fixture = new AccessPointDetail();
     }
 
@@ -199,7 +199,7 @@ public class AccessPointDetailTest {
         // setup
         WiFiAdditional wiFiAdditional = WiFiAdditional.EMPTY;
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, wiFiAdditional);
-        when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
+        when(settings.accessPointView()).thenReturn(AccessPointViewType.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -211,7 +211,7 @@ public class AccessPointDetailTest {
         // setup
         WiFiAdditional wiFiAdditional = WiFiAdditional.EMPTY;
         WiFiDetail wiFiDetail = withWiFiDetail("SSID", wiFiAdditional);
-        when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
+        when(settings.accessPointView()).thenReturn(AccessPointViewType.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -222,7 +222,7 @@ public class AccessPointDetailTest {
     public void testMakeViewCompactWithTabVisible() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, WiFiAdditional.EMPTY);
-        when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
+        when(settings.accessPointView()).thenReturn(AccessPointViewType.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, true);
         // validate
@@ -233,7 +233,7 @@ public class AccessPointDetailTest {
     public void testMakeViewCompactWithWiFiDetailAndEmptySSID() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(StringUtils.EMPTY, WiFiAdditional.EMPTY);
-        when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
+        when(settings.accessPointView()).thenReturn(AccessPointViewType.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -244,7 +244,7 @@ public class AccessPointDetailTest {
     public void testMakeViewCompactWithWiFiDetail() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
-        when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
+        when(settings.accessPointView()).thenReturn(AccessPointViewType.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -255,7 +255,7 @@ public class AccessPointDetailTest {
     public void testMakeViewCompactWithAttachPopup() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
-        when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
+        when(settings.accessPointView()).thenReturn(AccessPointViewType.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -266,7 +266,7 @@ public class AccessPointDetailTest {
     public void testMakeViewCompactDoesNotHaveFullDetails() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
-        when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
+        when(settings.accessPointView()).thenReturn(AccessPointViewType.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate
@@ -280,7 +280,7 @@ public class AccessPointDetailTest {
     public void testMakeViewCompactWithTextNotSelectable() {
         // setup
         WiFiDetail wiFiDetail = withWiFiDetail(SSID, WiFiAdditional.EMPTY);
-        when(settings.getAccessPointView()).thenReturn(AccessPointViewType.COMPACT);
+        when(settings.accessPointView()).thenReturn(AccessPointViewType.COMPACT);
         // execute
         View actual = fixture.makeView(null, null, wiFiDetail, false);
         // validate

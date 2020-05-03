@@ -43,10 +43,10 @@ class WiFiChannelCountry(private val country: Locale) {
 
     companion object {
         @JvmStatic
-        fun get(countryCode: String): WiFiChannelCountry = WiFiChannelCountry(findByCountryCode(countryCode))
+        fun find(countryCode: String): WiFiChannelCountry = WiFiChannelCountry(findByCountryCode(countryCode))
 
         @JvmStatic
-        fun getAll(): List<WiFiChannelCountry> = allCountries().map { WiFiChannelCountry(it) }.toList()
+        fun findAll(): List<WiFiChannelCountry> = allCountries().map { WiFiChannelCountry(it) }.toList()
     }
 
 }

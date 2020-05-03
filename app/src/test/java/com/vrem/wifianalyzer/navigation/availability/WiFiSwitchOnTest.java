@@ -92,7 +92,7 @@ public class WiFiSwitchOnTest {
 
     @NonNull
     private CharSequence withExpectedSubtitle() {
-        WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().getWiFiBand();
+        WiFiBand wiFiBand = MainContext.INSTANCE.getSettings().wiFiBand();
         Resources resources = mainActivity.getResources();
         String wiFiBand2 = resources.getString(WiFiBand.GHZ2.getTextResource());
         String wiFiBand5 = resources.getString(WiFiBand.GHZ5.getTextResource());

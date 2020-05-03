@@ -71,17 +71,17 @@ public class FilterAdapterTest {
 
         RobolectricUtil.INSTANCE.getActivity();
         settings = MainContextHelper.INSTANCE.getSettings();
-        when(settings.getSSIDs()).thenReturn(ssids);
-        when(settings.getWiFiBands()).thenReturn(wiFiBands);
-        when(settings.getStrengths()).thenReturn(strengths);
-        when(settings.getSecurities()).thenReturn(securities);
+        when(settings.findSSIDs()).thenReturn(ssids);
+        when(settings.findWiFiBands()).thenReturn(wiFiBands);
+        when(settings.findStrengths()).thenReturn(strengths);
+        when(settings.findSecurities()).thenReturn(securities);
 
         fixture = new FilterAdapter(settings);
 
-        verify(settings).getSSIDs();
-        verify(settings).getWiFiBands();
-        verify(settings).getStrengths();
-        verify(settings).getSecurities();
+        verify(settings).findSSIDs();
+        verify(settings).findWiFiBands();
+        verify(settings).findStrengths();
+        verify(settings).findSecurities();
     }
 
     @After
@@ -143,10 +143,10 @@ public class FilterAdapterTest {
         // execute
         fixture.reload();
         // validate
-        verify(settings, times(2)).getSSIDs();
-        verify(settings, times(2)).getWiFiBands();
-        verify(settings, times(2)).getStrengths();
-        verify(settings, times(2)).getSecurities();
+        verify(settings, times(2)).findSSIDs();
+        verify(settings, times(2)).findWiFiBands();
+        verify(settings, times(2)).findStrengths();
+        verify(settings, times(2)).findSecurities();
     }
 
     @Test

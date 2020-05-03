@@ -31,7 +31,7 @@ class SecurityTest {
     }
 
     @Test
-    fun testGetImageResource() {
+    fun testImageResource() {
         assertEquals(R.drawable.ic_lock_open, Security.NONE.imageResource)
         assertEquals(R.drawable.ic_lock_outline, Security.WPS.imageResource)
         assertEquals(R.drawable.ic_lock_outline, Security.WEP.imageResource)

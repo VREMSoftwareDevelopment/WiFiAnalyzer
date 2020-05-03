@@ -66,17 +66,17 @@ class ChannelGraphView implements GraphViewNotifier {
     public void update(@NonNull WiFiData wiFiData) {
         Settings settings = MainContext.INSTANCE.getSettings();
         Predicate<WiFiDetail> predicate = FilterPredicate.makeOtherPredicate(settings);
-        List<WiFiDetail> wiFiDetails = wiFiData.wiFiDetails(predicate, settings.getSortBy());
+        List<WiFiDetail> wiFiDetails = wiFiData.wiFiDetails(predicate, settings.sortBy());
         Set<WiFiDetail> newSeries = dataManager.getNewSeries(wiFiDetails, wiFiChannelPair);
-        dataManager.addSeriesData(graphViewWrapper, newSeries, settings.getGraphMaximumY());
+        dataManager.addSeriesData(graphViewWrapper, newSeries, settings.graphMaximumY());
         graphViewWrapper.removeSeries(newSeries);
-        graphViewWrapper.updateLegend(settings.getChannelGraphLegend());
+        graphViewWrapper.updateLegend(settings.channelGraphLegend());
         graphViewWrapper.setVisibility(isSelected() ? View.VISIBLE : View.GONE);
     }
 
     private boolean isSelected() {
         Settings settings = MainContext.INSTANCE.getSettings();
-        WiFiBand currentWiFiBand = settings.getWiFiBand();
+        WiFiBand currentWiFiBand = settings.wiFiBand();
         Configuration configuration = MainContext.INSTANCE.getConfiguration();
         Pair<WiFiChannel, WiFiChannel> currentWiFiChannelPair = configuration.getWiFiChannelPair();
         return wiFiBand.equals(currentWiFiBand) && (WiFiBand.GHZ2.equals(wiFiBand) || wiFiChannelPair.equals(currentWiFiChannelPair));
@@ -109,10 +109,10 @@ class ChannelGraphView implements GraphViewNotifier {
         MainContext mainContext = MainContext.INSTANCE;
         Settings settings = mainContext.getSettings();
         Configuration configuration = mainContext.getConfiguration();
-        ThemeStyle themeStyle = settings.getThemeStyle();
-        int graphMaximumY = settings.getGraphMaximumY();
+        ThemeStyle themeStyle = settings.themeStyle();
+        int graphMaximumY = settings.graphMaximumY();
         GraphView graphView = makeGraphView(mainContext, graphMaximumY, themeStyle);
-        graphViewWrapper = new GraphViewWrapper(graphView, settings.getChannelGraphLegend(), themeStyle);
+        graphViewWrapper = new GraphViewWrapper(graphView, settings.channelGraphLegend(), themeStyle);
         configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
         int minX = wiFiChannelPair.first.getFrequency() - WiFiChannels.FREQUENCY_OFFSET;
         int maxX = minX + (graphViewWrapper.getViewportCntX() * WiFiChannels.FREQUENCY_SPREAD);

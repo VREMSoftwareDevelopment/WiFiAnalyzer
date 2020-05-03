@@ -107,19 +107,19 @@ public class ChannelGraphViewTest {
     }
 
     private void verifySettings() {
-        verify(settings).getSortBy();
-        verify(settings, times(2)).getChannelGraphLegend();
-        verify(settings, times(2)).getWiFiBand();
-        verify(settings, times(2)).getGraphMaximumY();
-        verify(settings).getThemeStyle();
+        verify(settings).sortBy();
+        verify(settings, times(2)).channelGraphLegend();
+        verify(settings, times(2)).wiFiBand();
+        verify(settings, times(2)).graphMaximumY();
+        verify(settings).themeStyle();
     }
 
     private void withSettings() {
-        when(settings.getChannelGraphLegend()).thenReturn(GraphLegend.RIGHT);
-        when(settings.getSortBy()).thenReturn(SortBy.CHANNEL);
-        when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ2);
-        when(settings.getGraphMaximumY()).thenReturn(GraphConstants.MAX_Y);
-        when(settings.getThemeStyle()).thenReturn(ThemeStyle.DARK);
+        when(settings.channelGraphLegend()).thenReturn(GraphLegend.RIGHT);
+        when(settings.sortBy()).thenReturn(SortBy.CHANNEL);
+        when(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2);
+        when(settings.graphMaximumY()).thenReturn(GraphConstants.MAX_Y);
+        when(settings.themeStyle()).thenReturn(ThemeStyle.DARK);
     }
 
     @Test

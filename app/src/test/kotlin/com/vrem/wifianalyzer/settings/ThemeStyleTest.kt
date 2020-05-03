@@ -37,14 +37,14 @@ class ThemeStyleTest {
     }
 
     @Test
-    fun testGetTheme() {
+    fun testTheme() {
         assertEquals(R.style.ThemeLight, ThemeStyle.LIGHT.theme)
         assertEquals(R.style.ThemeDark, ThemeStyle.DARK.theme)
         assertEquals(R.style.ThemeSystem, ThemeStyle.SYSTEM.theme)
     }
 
     @Test
-    fun testGetThemeNoActionBar() {
+    fun testThemeNoActionBar() {
         assertEquals(R.style.ThemeDarkNoActionBar, ThemeStyle.DARK.themeNoActionBar)
         assertEquals(R.style.ThemeLightNoActionBar, ThemeStyle.LIGHT.themeNoActionBar)
         assertEquals(R.style.ThemeSystemNoActionBar, ThemeStyle.SYSTEM.themeNoActionBar)

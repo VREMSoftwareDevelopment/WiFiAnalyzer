@@ -69,15 +69,15 @@ public class ChannelAvailableAdapterTest {
         mainActivity = RobolectricUtil.INSTANCE.getActivity();
 
         settings = MainContextHelper.INSTANCE.getSettings();
-        when(settings.getLanguageLocale()).thenReturn(currentLocale);
+        when(settings.languageLocale()).thenReturn(currentLocale);
 
-        wiFiChannelCountry = WiFiChannelCountry.get(currentLocale.getCountry());
+        wiFiChannelCountry = WiFiChannelCountry.find(currentLocale.getCountry());
         fixture = new ChannelAvailableAdapter(mainActivity, Collections.singletonList(wiFiChannelCountry));
     }
 
     @After
     public void tearDown() {
-        verify(settings, atLeastOnce()).getLanguageLocale();
+        verify(settings, atLeastOnce()).languageLocale();
         MainContextHelper.INSTANCE.restore();
     }
 

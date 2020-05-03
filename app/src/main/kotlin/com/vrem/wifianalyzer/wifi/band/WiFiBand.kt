@@ -23,9 +23,9 @@ enum class WiFiBand(val textResource: Int, val wiFiChannels: WiFiChannels) {
     GHZ2(R.string.wifi_band_2ghz, WiFiChannelsGHZ2()),
     GHZ5(R.string.wifi_band_5ghz, WiFiChannelsGHZ5());
 
-    fun toggle(): WiFiBand = if (isGHZ5()) GHZ2 else GHZ5
+    fun toggle(): WiFiBand = if (GHZ5()) GHZ2 else GHZ5
 
-    fun isGHZ5(): Boolean = GHZ5 == this
+    fun GHZ5(): Boolean = GHZ5 == this
 
     companion object {
         @JvmStatic

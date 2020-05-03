@@ -79,13 +79,13 @@ public class AccessPointsAdapterGroupTest {
     public void testAfterUpdateWithGroupByChannel() {
         // setup
         List<WiFiDetail> wiFiDetails = withWiFiDetails();
-        when(settings.getGroupBy()).thenReturn(GroupBy.CHANNEL);
+        when(settings.groupBy()).thenReturn(GroupBy.CHANNEL);
         when(expandableListView.getExpandableListAdapter()).thenReturn(expandableListAdapter);
         when(expandableListAdapter.getGroupCount()).thenReturn(wiFiDetails.size());
         // execute
         fixture.update(wiFiDetails, expandableListView);
         // validate
-        verify(settings).getGroupBy();
+        verify(settings).groupBy();
         verify(expandableListView).getExpandableListAdapter();
         verify(expandableListAdapter).getGroupCount();
 
@@ -95,11 +95,11 @@ public class AccessPointsAdapterGroupTest {
     @Test
     public void testUpdateGroupBy() {
         // setup
-        when(settings.getGroupBy()).thenReturn(GroupBy.SSID);
+        when(settings.groupBy()).thenReturn(GroupBy.SSID);
         // execute
         fixture.updateGroupBy();
         // validate
-        verify(settings).getGroupBy();
+        verify(settings).groupBy();
         assertEquals(GroupBy.SSID, fixture.getGroupBy());
     }
 
@@ -107,11 +107,11 @@ public class AccessPointsAdapterGroupTest {
     public void testUpdateGroupByWillClearExpandedWhenGroupByIsChanged() {
         // setup
         fixture.getExpanded().add("TEST");
-        when(settings.getGroupBy()).thenReturn(GroupBy.SSID);
+        when(settings.groupBy()).thenReturn(GroupBy.SSID);
         // execute
         fixture.updateGroupBy();
         // validate
-        verify(settings).getGroupBy();
+        verify(settings).groupBy();
         assertEquals(GroupBy.SSID, fixture.getGroupBy());
         assertTrue(fixture.getExpanded().isEmpty());
     }
@@ -119,7 +119,7 @@ public class AccessPointsAdapterGroupTest {
     @Test
     public void testUpdateGroupByWillNotClearExpandedWhenGroupByIsSame() {
         // setup
-        when(settings.getGroupBy()).thenReturn(GroupBy.SSID);
+        when(settings.groupBy()).thenReturn(GroupBy.SSID);
         fixture.updateGroupBy();
         fixture.getExpanded().add("TEST");
         // execute
@@ -131,7 +131,7 @@ public class AccessPointsAdapterGroupTest {
     @Test
     public void testIsGroupExpandableWithGroupBySSID() {
         // setup
-        when(settings.getGroupBy()).thenReturn(GroupBy.SSID);
+        when(settings.groupBy()).thenReturn(GroupBy.SSID);
         // execute
         fixture.updateGroupBy();
         // validate
@@ -141,7 +141,7 @@ public class AccessPointsAdapterGroupTest {
     @Test
     public void testIsGroupExpandableWithGroupByChannel() {
         // setup
-        when(settings.getGroupBy()).thenReturn(GroupBy.CHANNEL);
+        when(settings.groupBy()).thenReturn(GroupBy.CHANNEL);
         // execute
         fixture.updateGroupBy();
         // validate
@@ -151,7 +151,7 @@ public class AccessPointsAdapterGroupTest {
     @Test
     public void testIsGroupExpandableWithGroupByNone() {
         // setup
-        when(settings.getGroupBy()).thenReturn(GroupBy.NONE);
+        when(settings.groupBy()).thenReturn(GroupBy.NONE);
         // execute
         fixture.updateGroupBy();
         // validate
@@ -161,7 +161,7 @@ public class AccessPointsAdapterGroupTest {
     @Test
     public void testGetGroupExpandKeyWithGroupBySSID() {
         // setup
-        when(settings.getGroupBy()).thenReturn(GroupBy.SSID);
+        when(settings.groupBy()).thenReturn(GroupBy.SSID);
         fixture.updateGroupBy();
         WiFiDetail wiFiDetail = withWiFiDetail();
         // execute
@@ -173,7 +173,7 @@ public class AccessPointsAdapterGroupTest {
     @Test
     public void testGetGroupExpandKeyWithGroupByChannel() {
         // setup
-        when(settings.getGroupBy()).thenReturn(GroupBy.CHANNEL);
+        when(settings.groupBy()).thenReturn(GroupBy.CHANNEL);
         fixture.updateGroupBy();
         WiFiDetail wiFiDetail = withWiFiDetail();
         // execute
@@ -185,7 +185,7 @@ public class AccessPointsAdapterGroupTest {
     @Test
     public void testGetGroupExpandKeyWithGroupByNone() {
         // setup
-        when(settings.getGroupBy()).thenReturn(GroupBy.NONE);
+        when(settings.groupBy()).thenReturn(GroupBy.NONE);
         fixture.updateGroupBy();
         WiFiDetail wiFiDetail = withWiFiDetail();
         // execute
@@ -197,7 +197,7 @@ public class AccessPointsAdapterGroupTest {
     @Test
     public void testOnGroupExpanded() {
         // setup
-        when(settings.getGroupBy()).thenReturn(GroupBy.SSID);
+        when(settings.groupBy()).thenReturn(GroupBy.SSID);
         fixture.updateGroupBy();
         List<WiFiDetail> wiFiDetails = withWiFiDetails();
         // execute
@@ -209,7 +209,7 @@ public class AccessPointsAdapterGroupTest {
     @Test
     public void testOnGroupCollapsed() {
         // setup
-        when(settings.getGroupBy()).thenReturn(GroupBy.SSID);
+        when(settings.groupBy()).thenReturn(GroupBy.SSID);
         fixture.updateGroupBy();
         List<WiFiDetail> wiFiDetails = withWiFiDetails();
         fixture.onGroupExpanded(wiFiDetails, 0);

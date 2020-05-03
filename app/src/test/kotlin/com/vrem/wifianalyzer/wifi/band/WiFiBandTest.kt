@@ -29,7 +29,7 @@ class WiFiBandTest {
     }
 
     @Test
-    fun testGetTextResource() {
+    fun testTextResource() {
         assertEquals(R.string.wifi_band_2ghz, WiFiBand.GHZ2.textResource)
         assertEquals(R.string.wifi_band_5ghz, WiFiBand.GHZ5.textResource)
     }
@@ -41,9 +41,9 @@ class WiFiBandTest {
     }
 
     @Test
-    fun testIsGHZ_5() {
-        assertFalse(WiFiBand.GHZ2.isGHZ5())
-        assertTrue(WiFiBand.GHZ5.isGHZ5())
+    fun testGHZ_5() {
+        assertFalse(WiFiBand.GHZ2.GHZ5())
+        assertTrue(WiFiBand.GHZ5.GHZ5())
     }
 
     @Test

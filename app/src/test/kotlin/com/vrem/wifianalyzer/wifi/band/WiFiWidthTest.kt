@@ -27,7 +27,7 @@ class WiFiWidthTest {
     }
 
     @Test
-    fun testGetFrequencyWidth() {
+    fun testFrequencyWidth() {
         assertEquals(20, WiFiWidth.MHZ_20.frequencyWidth)
         assertEquals(40, WiFiWidth.MHZ_40.frequencyWidth)
         assertEquals(80, WiFiWidth.MHZ_80.frequencyWidth)
@@ -36,7 +36,7 @@ class WiFiWidthTest {
     }
 
     @Test
-    fun testGetFrequencyHalfWidth() {
+    fun testFrequencyHalfWidth() {
         assertEquals(10, WiFiWidth.MHZ_20.frequencyWidthHalf)
         assertEquals(20, WiFiWidth.MHZ_40.frequencyWidthHalf)
         assertEquals(40, WiFiWidth.MHZ_80.frequencyWidthHalf)

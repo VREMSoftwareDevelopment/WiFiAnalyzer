@@ -49,7 +49,7 @@ public class ConnectionView implements UpdateNotifier {
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
-        ConnectionViewType connectionViewType = MainContext.INSTANCE.getSettings().getConnectionViewType();
+        ConnectionViewType connectionViewType = MainContext.INSTANCE.getSettings().connectionViewType();
         displayConnection(wiFiData, connectionViewType);
         displayNoData(wiFiData);
     }

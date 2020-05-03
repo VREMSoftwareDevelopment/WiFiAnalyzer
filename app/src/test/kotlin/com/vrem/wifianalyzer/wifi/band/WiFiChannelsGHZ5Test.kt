@@ -27,7 +27,7 @@ class WiFiChannelsGHZ5Test {
     private val fixture: WiFiChannelsGHZ5 = WiFiChannelsGHZ5()
 
     @Test
-    fun testGetWiFiChannelByFrequency() {
+    fun testWiFiChannelByFrequency() {
         validateFrequencyToChannel(5180, 5320, 10, 36, 2)
         validateFrequencyToChannel(5500, 5720, 10, 100, 2)
         validateFrequencyToChannel(5745, 5825, 10, 149, 2)
@@ -44,35 +44,35 @@ class WiFiChannelsGHZ5Test {
     }
 
     @Test
-    fun testGetWiFiChannelByFrequencyFail() {
+    fun testWiFiChannelByFrequencyFail() {
         assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(5167))
         assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(5828))
     }
 
     @Test
-    fun testGetWiFiChannelFirst() {
+    fun testWiFiChannelFirst() {
         assertEquals(36, fixture.wiFiChannelFirst().channel)
     }
 
     @Test
-    fun testGetWiFiChannelLast() {
+    fun testWiFiChannelLast() {
         assertEquals(165, fixture.wiFiChannelLast().channel)
     }
 
     @Test
-    fun testGetWiFiChannelPair() {
+    fun testWiFiChannelPair() {
         val wiFiChannelPair: Pair<WiFiChannel, WiFiChannel> = fixture.wiFiChannelPairFirst(Locale.JAPAN.country)
         validatePair(36, 64, wiFiChannelPair)
     }
 
     @Test
-    fun testGetWiFiChannelPairWithInvalidCountry() {
+    fun testWiFiChannelPairWithInvalidCountry() {
         val wiFiChannelPair: Pair<WiFiChannel, WiFiChannel> = fixture.wiFiChannelPairFirst(STRING_EMPTY)
         validatePair(36, 64, wiFiChannelPair)
     }
 
     @Test
-    fun testGetWiFiChannelPairs() {
+    fun testWiFiChannelPairs() {
         val wiFiChannelPairs: List<Pair<WiFiChannel, WiFiChannel>> = fixture.wiFiChannelPairs()
         assertEquals(3, wiFiChannelPairs.size)
         validatePair(36, 64, wiFiChannelPairs[0])
@@ -86,7 +86,7 @@ class WiFiChannelsGHZ5Test {
     }
 
     @Test
-    fun testGetWiFiChannelByFrequency5GHZ() {
+    fun testWiFiChannelByFrequency5GHZ() {
         // setup
         val wiFiChannelPair: Pair<WiFiChannel, WiFiChannel> = fixture.wiFiChannelPairs()[1]
         // execute
@@ -96,7 +96,7 @@ class WiFiChannelsGHZ5Test {
     }
 
     @Test
-    fun testGetWiFiChannelByFrequency5GHZInRange() {
+    fun testWiFiChannelByFrequency5GHZInRange() {
         // setup
         val wiFiChannelPair: Pair<WiFiChannel, WiFiChannel> = fixture.wiFiChannelPairs()[1]
         // execute

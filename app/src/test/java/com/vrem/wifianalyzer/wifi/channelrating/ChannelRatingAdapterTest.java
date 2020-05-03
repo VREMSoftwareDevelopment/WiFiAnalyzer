@@ -128,15 +128,15 @@ public class ChannelRatingAdapterTest {
         WiFiData wiFiData = new WiFiData(Collections.emptyList(), WiFiConnection.EMPTY);
         Predicate<WiFiDetail> predicate = new WiFiBandPredicate(WiFiBand.GHZ5);
         List<WiFiDetail> wiFiDetails = wiFiData.wiFiDetails(predicate, SortBy.STRENGTH);
-        when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
-        when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
+        when(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5);
+        when(settings.countryCode()).thenReturn(Locale.US.getCountry());
         // execute
         fixture.update(wiFiData);
         // validate
         assertEquals(expected, bestChannels.getText());
         verify(channelRating).wiFiDetails(wiFiDetails);
-        verify(settings).getWiFiBand();
-        verify(settings).getCountryCode();
+        verify(settings).wiFiBand();
+        verify(settings).countryCode();
     }
 
     @Test

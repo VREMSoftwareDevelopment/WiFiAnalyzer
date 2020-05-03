@@ -93,7 +93,7 @@ class Scanner implements ScannerService {
 
     @Override
     public void stop() {
-        if (settings.isWiFiOffOnExit()) {
+        if (settings.wiFiOffOnExit()) {
             wiFiManagerWrapper.disableWiFi();
         }
     }

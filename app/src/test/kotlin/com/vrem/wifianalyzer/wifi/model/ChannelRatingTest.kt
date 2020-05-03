@@ -50,7 +50,7 @@ class ChannelRatingTest {
     }
 
     @Test
-    fun testGetCount() {
+    fun testCount() {
         // setup
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4))
         // execute and validate
@@ -64,7 +64,7 @@ class ChannelRatingTest {
     }
 
     @Test
-    fun testGetStrengthShouldReturnMaximum() {
+    fun testStrengthShouldReturnMaximum() {
         // setup
         val other: WiFiDetail = makeCopy(wiFiDetail3)
         fixture.wiFiDetails(listOf(other, wiFiDetail3))
@@ -76,7 +76,7 @@ class ChannelRatingTest {
     }
 
     @Test
-    fun testGetStrengthWithConnected() {
+    fun testStrengthWithConnected() {
         // setup
         val other: WiFiDetail = makeCopy(wiFiDetail1)
         fixture.wiFiDetails(listOf(other, wiFiDetail1))
@@ -95,7 +95,7 @@ class ChannelRatingTest {
     }
 
     @Test
-    fun testGetBestChannelsSortedInOrderWithMinimumChannels() {
+    fun testBestChannelsSortedInOrderWithMinimumChannels() {
         // setup
         val channels: List<WiFiChannel> = WiFiBand.GHZ2.wiFiChannels.wiFiChannels()
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4))

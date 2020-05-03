@@ -109,7 +109,7 @@ class Cache {
 
     int getCacheSize() {
         if (isSizeAvailable()) {
-            int scanSpeed = MainContext.INSTANCE.getSettings().getScanSpeed();
+            int scanSpeed = MainContext.INSTANCE.getSettings().scanSpeed();
             if (scanSpeed < 2) {
                 return 4;
             }

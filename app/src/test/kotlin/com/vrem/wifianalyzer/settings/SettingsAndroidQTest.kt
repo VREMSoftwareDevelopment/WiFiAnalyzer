@@ -40,22 +40,22 @@ class SettingsAndroidQTest {
     }
 
     @Test
-    fun testIsWiFiOffOnExitAndroidQ() {
+    fun testWiFiOffOnExitAndroidQ() {
         // execute
-        val actual = fixture.isWiFiOffOnExit()
+        val actual = fixture.wiFiOffOnExit()
         // validate
         assertFalse(actual)
         verify(fixture).minVersionQ()
     }
 
     @Test
-    fun testIsWiFiThrottleDisabled() {
+    fun testWiFiThrottleDisabled() {
         // execute
-        val actual = fixture.isWiFiThrottleDisabled()
+        val actual = fixture.wiFiThrottleDisabled()
         // validate
         assertFalse(actual)
-        verify(repository, never()).getResourceBoolean(anyInt())
-        verify(repository, never()).getBoolean(anyInt(), anyBoolean())
+        verify(repository, never()).resourceBoolean(anyInt())
+        verify(repository, never()).boolean(anyInt(), anyBoolean())
         verify(fixture).versionP()
     }
 }

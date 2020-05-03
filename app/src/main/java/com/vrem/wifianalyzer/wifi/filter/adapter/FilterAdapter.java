@@ -85,10 +85,10 @@ public class FilterAdapter {
     }
 
     public void reload() {
-        this.ssidAdapter = new SSIDAdapter(settings.getSSIDs());
-        this.wiFiBandAdapter = new WiFiBandAdapter(settings.getWiFiBands());
-        this.strengthAdapter = new StrengthAdapter(settings.getStrengths());
-        this.securityAdapter = new SecurityAdapter(settings.getSecurities());
+        this.ssidAdapter = new SSIDAdapter(settings.findSSIDs());
+        this.wiFiBandAdapter = new WiFiBandAdapter(settings.findWiFiBands());
+        this.strengthAdapter = new StrengthAdapter(settings.findStrengths());
+        this.securityAdapter = new SecurityAdapter(settings.findSecurities());
     }
 
     private boolean isAccessPoints() {

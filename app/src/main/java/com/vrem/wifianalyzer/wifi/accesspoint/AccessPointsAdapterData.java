@@ -45,7 +45,7 @@ class AccessPointsAdapterData {
     void update(@NonNull WiFiData wiFiData, ExpandableListView expandableListView) {
         Settings settings = MainContext.INSTANCE.getSettings();
         Predicate<WiFiDetail> predicate = FilterPredicate.makeAccessPointsPredicate(settings);
-        wiFiDetails = wiFiData.wiFiDetails(predicate, settings.getSortBy(), settings.getGroupBy());
+        wiFiDetails = wiFiData.wiFiDetails(predicate, settings.sortBy(), settings.groupBy());
         accessPointsAdapterGroup.update(wiFiDetails, expandableListView);
     }
 

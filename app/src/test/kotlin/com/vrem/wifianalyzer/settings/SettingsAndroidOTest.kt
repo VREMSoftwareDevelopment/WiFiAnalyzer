@@ -42,28 +42,28 @@ class SettingsAndroidOTest {
     }
 
     @Test
-    fun testGetScanSpeed() {
+    fun testScanSpeed() {
         // setup
         val defaultValue = 10
         val expected = 3
-        whenever(repository.getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)).thenReturn(defaultValue)
-        whenever(repository.getStringAsInteger(R.string.scan_speed_key, defaultValue)).thenReturn(expected)
+        whenever(repository.stringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)).thenReturn(defaultValue)
+        whenever(repository.stringAsInteger(R.string.scan_speed_key, defaultValue)).thenReturn(expected)
         // execute
-        val actual = fixture.getScanSpeed()
+        val actual = fixture.scanSpeed()
         // validate
         assertEquals(expected.toLong(), actual.toLong())
-        verify(repository).getStringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)
-        verify(repository).getStringAsInteger(R.string.scan_speed_key, defaultValue)
-        verify(fixture, never()).isWiFiThrottleDisabled()
+        verify(repository).stringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)
+        verify(repository).stringAsInteger(R.string.scan_speed_key, defaultValue)
+        verify(fixture, never()).wiFiThrottleDisabled()
     }
 
     @Test
-    fun testIsWiFiThrottleDisabled() {
+    fun testWiFiThrottleDisabled() {
         // execute
-        val actual = fixture.isWiFiThrottleDisabled()
+        val actual = fixture.wiFiThrottleDisabled()
         // validate
         assertFalse(actual)
-        verify(repository, never()).getResourceBoolean(anyInt())
-        verify(repository, never()).getBoolean(anyInt(), anyBoolean())
+        verify(repository, never()).resourceBoolean(anyInt())
+        verify(repository, never()).boolean(anyInt(), anyBoolean())
     }
 }

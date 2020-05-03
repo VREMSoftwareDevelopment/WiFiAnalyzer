@@ -24,7 +24,7 @@ import java.util.*
 
 class LocaleUtilsTest {
     @Test
-    fun testGetAllCountries() {
+    fun testAllCountries() {
         // execute
         val actual = allCountries()
         // validate
@@ -76,7 +76,7 @@ class LocaleUtilsTest {
     }
 
     @Test
-    fun testGetSupportedLanguages() {
+    fun testSupportedLanguages() {
         // setup
         val expected: Set<Locale> = HashSet(Arrays.asList(
                 Locale.GERMAN,
@@ -99,12 +99,12 @@ class LocaleUtilsTest {
     }
 
     @Test
-    fun testGetDefaultCountryCode() {
+    fun testDefaultCountryCode() {
         assertEquals(Locale.getDefault().country, defaultCountryCode())
     }
 
     @Test
-    fun testGetDefaultLanguageTag() {
+    fun testDefaultLanguageTag() {
         assertEquals(toLanguageTag(Locale.getDefault()), defaultLanguageTag())
     }
 }

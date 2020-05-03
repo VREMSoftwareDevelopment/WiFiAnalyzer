@@ -27,19 +27,19 @@ class WiFiChannelsGHZ2Test {
     private val fixture: WiFiChannelsGHZ2 = WiFiChannelsGHZ2()
 
     @Test
-    fun testIsInRange() {
+    fun testInRange() {
         assertTrue(fixture.inRange(2400))
         assertTrue(fixture.inRange(2499))
     }
 
     @Test
-    fun testIsNotInRange() {
+    fun testNotInRange() {
         assertFalse(fixture.inRange(2399))
         assertFalse(fixture.inRange(2500))
     }
 
     @Test
-    fun testGetWiFiChannelByFrequency() {
+    fun testWiFiChannelByFrequency() {
         assertEquals(1, fixture.wiFiChannelByFrequency(2410).channel)
         assertEquals(1, fixture.wiFiChannelByFrequency(2412).channel)
         assertEquals(1, fixture.wiFiChannelByFrequency(2414).channel)
@@ -54,7 +54,7 @@ class WiFiChannelsGHZ2Test {
     }
 
     @Test
-    fun testGetWiFiChannelByFrequencyNotFound() {
+    fun testWiFiChannelByFrequencyNotFound() {
         assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(2399))
         assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(2409))
         assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(2481))
@@ -64,7 +64,7 @@ class WiFiChannelsGHZ2Test {
     }
 
     @Test
-    fun testGetWiFiChannelByChannel() {
+    fun testWiFiChannelByChannel() {
         assertEquals(2412, fixture.wiFiChannelByChannel(1).frequency)
         assertEquals(2437, fixture.wiFiChannelByChannel(6).frequency)
         assertEquals(2442, fixture.wiFiChannelByChannel(7).frequency)
@@ -73,30 +73,30 @@ class WiFiChannelsGHZ2Test {
     }
 
     @Test
-    fun testGetWiFiChannelByChannelNotFound() {
+    fun testWiFiChannelByChannelNotFound() {
         assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByChannel(0))
         assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByChannel(15))
     }
 
     @Test
-    fun testGetWiFiChannelFirst() {
+    fun testWiFiChannelFirst() {
         assertEquals(1, fixture.wiFiChannelFirst().channel)
     }
 
     @Test
-    fun testGetWiFiChannelLast() {
+    fun testWiFiChannelLast() {
         assertEquals(14, fixture.wiFiChannelLast().channel)
     }
 
     @Test
-    fun testGetWiFiChannelPairs() {
+    fun testWiFiChannelPairs() {
         val pair: List<Pair<WiFiChannel, WiFiChannel>> = fixture.wiFiChannelPairs()
         assertEquals(1, pair.size)
         validatePair(1, 14, pair[0])
     }
 
     @Test
-    fun testGetWiFiChannelPair() {
+    fun testWiFiChannelPair() {
         validatePair(1, 14, fixture.wiFiChannelPairFirst(Locale.US.country))
         validatePair(1, 14, fixture.wiFiChannelPairFirst(STRING_EMPTY))
     }
@@ -107,13 +107,13 @@ class WiFiChannelsGHZ2Test {
     }
 
     @Test
-    fun testGetAvailableChannels() {
+    fun testAvailableChannels() {
         assertEquals(11, fixture.availableChannels(Locale.US.country).size)
         assertEquals(13, fixture.availableChannels(Locale.UK.country).size)
     }
 
     @Test
-    fun testGetWiFiChannelByFrequency2GHZ() {
+    fun testWiFiChannelByFrequency2GHZ() {
         // setup
         val wiFiChannelPair: Pair<WiFiChannel, WiFiChannel> = fixture.wiFiChannelPairs()[0]
         // execute
@@ -123,7 +123,7 @@ class WiFiChannelsGHZ2Test {
     }
 
     @Test
-    fun testGetWiFiChannelByFrequency2GHZInRange() {
+    fun testWiFiChannelByFrequency2GHZInRange() {
         // setup
         val wiFiChannelPair: Pair<WiFiChannel, WiFiChannel> = fixture.wiFiChannelPairs()[0]
         // execute

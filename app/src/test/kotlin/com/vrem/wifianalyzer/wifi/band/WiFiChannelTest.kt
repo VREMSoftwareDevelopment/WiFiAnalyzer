@@ -28,7 +28,7 @@ class WiFiChannelTest {
     private var other: WiFiChannel = WiFiChannel(channel, frequency)
 
     @Test
-    fun testIsInRange() {
+    fun testInRange() {
         assertTrue(fixture.inRange(frequency))
         assertTrue(fixture.inRange(frequency - 2))
         assertTrue(fixture.inRange(frequency + 2))

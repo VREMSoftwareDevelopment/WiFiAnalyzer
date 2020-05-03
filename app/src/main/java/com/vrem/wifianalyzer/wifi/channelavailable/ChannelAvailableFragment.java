@@ -56,7 +56,7 @@ public class ChannelAvailableFragment extends ListFragment {
     @NonNull
     private List<WiFiChannelCountry> getChannelAvailable() {
         List<WiFiChannelCountry> results = new ArrayList<>();
-        results.add(WiFiChannelCountry.get(MainContext.INSTANCE.getSettings().getCountryCode()));
+        results.add(WiFiChannelCountry.find(MainContext.INSTANCE.getSettings().countryCode()));
         return results;
     }
 

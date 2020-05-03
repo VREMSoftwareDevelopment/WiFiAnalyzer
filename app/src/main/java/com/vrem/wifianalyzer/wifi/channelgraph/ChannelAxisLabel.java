@@ -71,7 +71,7 @@ class ChannelAxisLabel implements LabelFormatter {
 
         int channel = wiFiChannel.getChannel();
         Settings settings = MainContext.INSTANCE.getSettings();
-        String countryCode = settings.getCountryCode();
+        String countryCode = settings.countryCode();
         if (!wiFiChannels.channelAvailable(countryCode, channel)) {
             return StringUtils.EMPTY;
         }

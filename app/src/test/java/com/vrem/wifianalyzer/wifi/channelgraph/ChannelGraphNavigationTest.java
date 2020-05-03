@@ -110,14 +110,14 @@ public class ChannelGraphNavigationTest {
     @Test
     public void testUpdateWithGHZ2() {
         // setup
-        when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
-        when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ2);
+        when(settings.countryCode()).thenReturn(Locale.US.getCountry());
+        when(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2);
         // execute
         fixture.update(WiFiData.EMPTY);
         // validate
         verify(layout).setVisibility(View.GONE);
-        verify(settings).getCountryCode();
-        verify(settings).getWiFiBand();
+        verify(settings).countryCode();
+        verify(settings).wiFiBand();
     }
 
 
@@ -128,48 +128,48 @@ public class ChannelGraphNavigationTest {
         int colorNotSelected = ContextCompat.getColor(mainActivity, R.color.background);
         Pair<WiFiChannel, WiFiChannel> selectedKey = WiFiBand.GHZ5.getWiFiChannels().wiFiChannelPairs().get(0);
         when(configuration.getWiFiChannelPair()).thenReturn(selectedKey);
-        when(settings.getCountryCode()).thenReturn(Locale.US.getCountry());
-        when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
-        when(settings.getSortBy()).thenReturn(SortBy.CHANNEL);
+        when(settings.countryCode()).thenReturn(Locale.US.getCountry());
+        when(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5);
+        when(settings.sortBy()).thenReturn(SortBy.CHANNEL);
         // execute
         fixture.update(WiFiData.EMPTY);
         // validate
         verify(layout).setVisibility(View.VISIBLE);
         IterableUtils.forEach(views.keySet(), new PairUpdateClosure(selectedKey, colorSelected, colorNotSelected));
         IterableUtils.forEach(ChannelGraphNavigation.ids.values(), new IntegerUpdateClosure());
-        verify(settings).getCountryCode();
-        verify(settings, times(2)).getWiFiBand();
-        verify(settings).getSortBy();
+        verify(settings).countryCode();
+        verify(settings, times(2)).wiFiBand();
+        verify(settings).sortBy();
         verify(configuration).getWiFiChannelPair();
     }
 
     @Test
     public void testUpdateGHZ5WithJapan() {
         // setup
-        when(settings.getCountryCode()).thenReturn(Locale.JAPAN.getCountry());
-        when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
-        when(settings.getSortBy()).thenReturn(SortBy.CHANNEL);
+        when(settings.countryCode()).thenReturn(Locale.JAPAN.getCountry());
+        when(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5);
+        when(settings.sortBy()).thenReturn(SortBy.CHANNEL);
         // execute
         fixture.update(WiFiData.EMPTY);
         // validate
         verify(layout).setVisibility(View.VISIBLE);
         IterableUtils.forEach(views.keySet(), new PairClosure());
-        verify(settings).getCountryCode();
-        verify(settings, times(2)).getWiFiBand();
-        verify(settings).getSortBy();
+        verify(settings).countryCode();
+        verify(settings, times(2)).wiFiBand();
+        verify(settings).sortBy();
     }
 
     @Test
     public void testUpdateGHZ5WithCountryThatHasOnlyOneSet() {
         // setup
-        when(settings.getCountryCode()).thenReturn("IL");
-        when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
+        when(settings.countryCode()).thenReturn("IL");
+        when(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5);
         // execute
         fixture.update(WiFiData.EMPTY);
         // validate
         verify(layout).setVisibility(View.GONE);
-        verify(settings).getCountryCode();
-        verify(settings).getWiFiBand();
+        verify(settings).countryCode();
+        verify(settings).wiFiBand();
     }
 
     @Test

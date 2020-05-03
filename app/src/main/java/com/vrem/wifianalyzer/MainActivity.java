@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     protected void attachBaseContext(Context newBase) {
         Repository repository = new Repository(newBase);
         Settings settings = new Settings(repository);
-        Locale newLocale = settings.getLanguageLocale();
+        Locale newLocale = settings.languageLocale();
         Context context = ConfigurationUtilsKt.createContext(newBase, newLocale);
         super.attachBaseContext(context);
     }
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
         Settings settings = mainContext.getSettings();
         settings.initializeDefaultValues();
 
-        setTheme(settings.getThemeStyle().getThemeNoActionBar());
+        setTheme(settings.themeStyle().getThemeNoActionBar());
 
         setWiFiChannelPairs(mainContext);
 
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
         drawerNavigation = new DrawerNavigation(this, toolbar);
 
         navigationMenuController = new NavigationMenuController(this);
-        navigationMenuController.setCurrentNavigationMenu(settings.getSelectedMenu());
+        navigationMenuController.setCurrentNavigationMenu(settings.selectedMenu());
         onNavigationItemSelected(getCurrentMenuItem());
 
         ConnectionView connectionView = new ConnectionView(this);
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
 
     private void setWiFiChannelPairs(MainContext mainContext) {
         Settings settings = mainContext.getSettings();
-        String countryCode = settings.getCountryCode();
+        String countryCode = settings.countryCode();
         if (!countryCode.equals(currentCountryCode)) {
             Pair<WiFiChannel, WiFiChannel> pair = WiFiBand.GHZ5.getWiFiChannels().wiFiChannelPairFirst(countryCode);
             mainContext.getConfiguration().setWiFiChannelPair(pair);
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     @Override
     public void onBackPressed() {
         if (!closeDrawer()) {
-            NavigationMenu selectedMenu = MainContext.INSTANCE.getSettings().getSelectedMenu();
+            NavigationMenu selectedMenu = MainContext.INSTANCE.getSettings().selectedMenu();
             if (selectedMenu.equals(getCurrentNavigationMenu())) {
                 super.onBackPressed();
             } else {

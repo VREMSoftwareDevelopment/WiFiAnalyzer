@@ -53,7 +53,7 @@ class WiFiDetailTest {
     }
 
     @Test
-    fun testGetTitleWithEmptySSID() {
+    fun testTitleWithEmptySSID() {
         // setup
         val expectedTitle = "*hidden* ($BSSID)"
         fixture = WiFiDetail(StringUtils.EMPTY, BSSID, capabilities, wiFiSignal)
@@ -87,7 +87,7 @@ class WiFiDetailTest {
     }
 
     @Test
-    fun testGetRawSSID() {
+    fun testRawSSID() {
         // setup
         fixture = WiFiDetail(StringUtils.EMPTY, BSSID, capabilities, wiFiSignal)
         // execute & validate

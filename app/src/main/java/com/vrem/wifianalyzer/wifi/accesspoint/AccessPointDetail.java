@@ -44,7 +44,7 @@ public class AccessPointDetail {
     private static final int VENDOR_LONG_MAX = 30;
 
     View makeView(View convertView, ViewGroup parent, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
-        AccessPointViewType accessPointViewType = MainContext.INSTANCE.getSettings().getAccessPointView();
+        AccessPointViewType accessPointViewType = MainContext.INSTANCE.getSettings().accessPointView();
         return makeView(convertView, parent, wiFiDetail, isChild, accessPointViewType);
     }
 

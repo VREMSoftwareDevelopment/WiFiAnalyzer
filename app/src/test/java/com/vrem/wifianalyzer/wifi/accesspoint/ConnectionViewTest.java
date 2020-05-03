@@ -97,7 +97,7 @@ public class ConnectionViewTest {
     @Test
     public void testConnectionGoneWithNoConnectionInformation() {
         // setup
-        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
+        when(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         withConnectionInformation(withConnection(WiFiAdditional.EMPTY));
         // execute
         fixture.update(wiFiData);
@@ -110,7 +110,7 @@ public class ConnectionViewTest {
     public void testConnectionGoneWithConnectionInformationAndHideType() {
         // setup
         WiFiDetail connection = withConnection(withWiFiAdditional());
-        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.HIDE);
+        when(settings.connectionViewType()).thenReturn(ConnectionViewType.HIDE);
         withConnectionInformation(connection);
         withAccessPointDetailView(connection, ConnectionViewType.COMPLETE.getAccessPointViewType());
         // execute
@@ -124,7 +124,7 @@ public class ConnectionViewTest {
     public void testConnectionVisibleWithConnectionInformation() {
         // setup
         WiFiDetail connection = withConnection(withWiFiAdditional());
-        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
+        when(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         withConnectionInformation(connection);
         withAccessPointDetailView(connection, ConnectionViewType.COMPLETE.getAccessPointViewType());
         // execute
@@ -139,7 +139,7 @@ public class ConnectionViewTest {
         // setup
         WiFiAdditional wiFiAdditional = withWiFiAdditional();
         WiFiDetail connection = withConnection(wiFiAdditional);
-        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
+        when(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         withConnectionInformation(connection);
         withAccessPointDetailView(connection, ConnectionViewType.COMPLETE.getAccessPointViewType());
         // execute
@@ -159,7 +159,7 @@ public class ConnectionViewTest {
         // setup
         WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, IP_ADDRESS, WiFiConnection.LINK_SPEED_INVALID);
         WiFiDetail connection = withConnection(new WiFiAdditional(StringUtils.EMPTY, wiFiConnection));
-        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
+        when(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         withConnectionInformation(connection);
         withAccessPointDetailView(connection, ConnectionViewType.COMPLETE.getAccessPointViewType());
         // execute
@@ -173,7 +173,7 @@ public class ConnectionViewTest {
     @Test
     public void testNoDataIsVisibleWithNoWiFiDetails() {
         // setup
-        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
+        when(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(wiFiData.connection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
         // execute
         fixture.update(wiFiData);
@@ -187,7 +187,7 @@ public class ConnectionViewTest {
     public void testNoDataIsGoneWithWiFiDetails() {
         // setup
         WiFiDetail wiFiDetail = withConnection(WiFiAdditional.EMPTY);
-        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
+        when(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(wiFiData.connection()).thenReturn(wiFiDetail);
         when(wiFiData.getWiFiDetails()).thenReturn(Collections.singletonList(wiFiDetail));
         // execute
@@ -201,7 +201,7 @@ public class ConnectionViewTest {
     public void testNoDataIsGoneWithNavigationMenuThatDoesNotHaveOptionMenu() {
         // setup
         mainActivity.setCurrentNavigationMenu(NavigationMenu.VENDORS);
-        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
+        when(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(wiFiData.connection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
         // execute
         fixture.update(wiFiData);
@@ -213,7 +213,7 @@ public class ConnectionViewTest {
     @Test
     public void testScanningIsVisibleWithNoWiFiDetails() {
         // setup
-        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
+        when(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(wiFiData.connection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
         // execute
         fixture.update(wiFiData);
@@ -226,7 +226,7 @@ public class ConnectionViewTest {
     public void testScanningIsGoneWithWiFiDetails() {
         // setup
         WiFiDetail wiFiDetail = withConnection(WiFiAdditional.EMPTY);
-        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
+        when(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(wiFiData.connection()).thenReturn(wiFiDetail);
         when(wiFiData.getWiFiDetails()).thenReturn(Collections.singletonList(wiFiDetail));
         // execute
@@ -240,7 +240,7 @@ public class ConnectionViewTest {
     public void testScanningIsGoneWithNavigationMenuThatDoesNotHaveOptionMenu() {
         // setup
         mainActivity.setCurrentNavigationMenu(NavigationMenu.VENDORS);
-        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
+        when(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(wiFiData.connection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
         // execute
         fixture.update(wiFiData);
@@ -253,7 +253,7 @@ public class ConnectionViewTest {
     public void testViewCompactAddsPopup() {
         // setup
         WiFiDetail connection = withConnection(withWiFiAdditional());
-        when(settings.getConnectionViewType()).thenReturn(ConnectionViewType.COMPACT);
+        when(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPACT);
         withConnectionInformation(connection);
         View view = withAccessPointDetailView(connection, ConnectionViewType.COMPACT.getAccessPointViewType());
         // execute

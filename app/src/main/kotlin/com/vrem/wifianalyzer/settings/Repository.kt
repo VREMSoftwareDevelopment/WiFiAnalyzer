@@ -27,7 +27,7 @@ import com.vrem.wifianalyzer.R
 @OpenClass
 class Repository(private val context: Context) {
     fun initializeDefaultValues(): Unit =
-            setDefaultValues(context, R.xml.settings, false)
+            defaultValues(context, R.xml.settings, false)
 
     fun registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener): Unit =
             sharedPreferences().registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
@@ -38,14 +38,14 @@ class Repository(private val context: Context) {
     fun save(key: Int, value: String): Unit =
             save(context.getString(key), value)
 
-    fun getStringAsInteger(key: Int, defaultValue: Int): Int =
+    fun stringAsInteger(key: Int, defaultValue: Int): Int =
             try {
-                getString(key, defaultValue.toString()).toInt()
+                string(key, defaultValue.toString()).toInt()
             } catch (e: Exception) {
                 defaultValue
             }
 
-    fun getString(key: Int, defaultValue: String): String {
+    fun string(key: Int, defaultValue: String): String {
         val keyValue: String = context.getString(key)
         return try {
             sharedPreferences().getString(keyValue, defaultValue) ?: defaultValue
@@ -55,7 +55,7 @@ class Repository(private val context: Context) {
         }
     }
 
-    fun getBoolean(key: Int, defaultValue: Boolean): Boolean {
+    fun boolean(key: Int, defaultValue: Boolean): Boolean {
         val keyValue: String = context.getString(key)
         return try {
             sharedPreferences().getBoolean(keyValue, defaultValue)
@@ -65,10 +65,10 @@ class Repository(private val context: Context) {
         }
     }
 
-    fun getResourceBoolean(key: Int): Boolean =
+    fun resourceBoolean(key: Int): Boolean =
             context.resources.getBoolean(key)
 
-    fun getInteger(key: Int, defaultValue: Int): Int {
+    fun integer(key: Int, defaultValue: Int): Int {
         val keyValue: String = context.getString(key)
         return try {
             sharedPreferences().getInt(keyValue, defaultValue)
@@ -78,7 +78,7 @@ class Repository(private val context: Context) {
         }
     }
 
-    fun getStringSet(key: Int, defaultValues: Set<String>): Set<String> {
+    fun stringSet(key: Int, defaultValues: Set<String>): Set<String> {
         val keyValue: String = context.getString(key)
         return try {
             sharedPreferences().getStringSet(keyValue, defaultValues)!!
@@ -92,7 +92,7 @@ class Repository(private val context: Context) {
             save(context.getString(key), values)
 
     private fun sharedPreferences(): SharedPreferences =
-            getDefaultSharedPreferences(context)
+            defaultSharedPreferences(context)
 
     private fun save(key: String, value: String) {
         val editor: SharedPreferences.Editor = sharedPreferences().edit()
@@ -112,10 +112,10 @@ class Repository(private val context: Context) {
         editor.apply()
     }
 
-    fun setDefaultValues(context: Context?, resId: Int, readAgain: Boolean): Unit =
+    fun defaultValues(context: Context?, resId: Int, readAgain: Boolean): Unit =
             PreferenceManager.setDefaultValues(context, resId, readAgain)
 
-    fun getDefaultSharedPreferences(context: Context?): SharedPreferences =
+    fun defaultSharedPreferences(context: Context?): SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(context)
 
 }

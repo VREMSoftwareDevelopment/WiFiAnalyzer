@@ -42,78 +42,78 @@ class Settings(private val repository: Repository) {
     fun registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener): Unit =
             repository.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
 
-    fun getScanSpeed(): Int {
-        val defaultValue = repository.getStringAsInteger(R.string.scan_speed_default, SCAN_SPEED_DEFAULT)
-        val scanSpeed = repository.getStringAsInteger(R.string.scan_speed_key, defaultValue)
+    fun scanSpeed(): Int {
+        val defaultValue = repository.stringAsInteger(R.string.scan_speed_default, SCAN_SPEED_DEFAULT)
+        val scanSpeed = repository.stringAsInteger(R.string.scan_speed_key, defaultValue)
         return if (versionP()) {
-            if (isWiFiThrottleDisabled()) scanSpeed.coerceAtLeast(SCAN_SPEED_DEFAULT) else scanSpeed
+            if (wiFiThrottleDisabled()) scanSpeed.coerceAtLeast(SCAN_SPEED_DEFAULT) else scanSpeed
         } else scanSpeed
     }
 
-    fun isWiFiThrottleDisabled(): Boolean {
+    fun wiFiThrottleDisabled(): Boolean {
         if (versionP()) {
-            val defaultValue = repository.getResourceBoolean(R.bool.wifi_throttle_disabled_default)
-            return repository.getBoolean(R.string.wifi_throttle_disabled_key, defaultValue)
+            val defaultValue = repository.resourceBoolean(R.bool.wifi_throttle_disabled_default)
+            return repository.boolean(R.string.wifi_throttle_disabled_key, defaultValue)
         }
         return false
     }
 
-    fun getGraphMaximumY(): Int {
-        val defaultValue = repository.getStringAsInteger(R.string.graph_maximum_y_default, GRAPH_Y_DEFAULT)
-        val result = repository.getStringAsInteger(R.string.graph_maximum_y_key, defaultValue)
+    fun graphMaximumY(): Int {
+        val defaultValue = repository.stringAsInteger(R.string.graph_maximum_y_default, GRAPH_Y_DEFAULT)
+        val result = repository.stringAsInteger(R.string.graph_maximum_y_key, defaultValue)
         return result * GRAPH_Y_MULTIPLIER
     }
 
     fun toggleWiFiBand() {
-        repository.save(R.string.wifi_band_key, getWiFiBand().toggle().ordinal)
+        repository.save(R.string.wifi_band_key, wiFiBand().toggle().ordinal)
     }
 
-    fun getCountryCode(): String {
+    fun countryCode(): String {
         val countryCode = defaultCountryCode()
-        return repository.getString(R.string.country_code_key, countryCode)
+        return repository.string(R.string.country_code_key, countryCode)
     }
 
-    fun getLanguageLocale(): Locale {
+    fun languageLocale(): Locale {
         val defaultLanguageTag = defaultLanguageTag()
-        val languageTag = repository.getString(R.string.language_key, defaultLanguageTag)
+        val languageTag = repository.string(R.string.language_key, defaultLanguageTag)
         return findByLanguageTag(languageTag)
     }
 
-    fun getSortBy(): SortBy =
+    fun sortBy(): SortBy =
             find(SortBy::class.java, R.string.sort_by_key, SortBy.STRENGTH)
 
-    fun getGroupBy(): GroupBy =
+    fun groupBy(): GroupBy =
             find(GroupBy::class.java, R.string.group_by_key, GroupBy.NONE)
 
-    fun getAccessPointView(): AccessPointViewType =
+    fun accessPointView(): AccessPointViewType =
             find(AccessPointViewType::class.java, R.string.ap_view_key, AccessPointViewType.COMPLETE)
 
-    fun getConnectionViewType(): ConnectionViewType =
+    fun connectionViewType(): ConnectionViewType =
             find(ConnectionViewType::class.java, R.string.connection_view_key, ConnectionViewType.COMPLETE)
 
-    fun getChannelGraphLegend(): GraphLegend =
+    fun channelGraphLegend(): GraphLegend =
             find(GraphLegend::class.java, R.string.channel_graph_legend_key, GraphLegend.HIDE)
 
-    fun getTimeGraphLegend(): GraphLegend =
+    fun timeGraphLegend(): GraphLegend =
             find(GraphLegend::class.java, R.string.time_graph_legend_key, GraphLegend.LEFT)
 
-    fun getWiFiBand(): WiFiBand =
+    fun wiFiBand(): WiFiBand =
             find(WiFiBand::class.java, R.string.wifi_band_key, WiFiBand.GHZ2)
 
-    fun isWiFiOffOnExit(): Boolean =
+    fun wiFiOffOnExit(): Boolean =
             if (minVersionQ()) {
                 false
             } else {
-                repository.getBoolean(R.string.wifi_off_on_exit_key, repository.getResourceBoolean(R.bool.wifi_off_on_exit_default))
+                repository.boolean(R.string.wifi_off_on_exit_key, repository.resourceBoolean(R.bool.wifi_off_on_exit_default))
             }
 
-    fun isKeepScreenOn(): Boolean =
-            repository.getBoolean(R.string.keep_screen_on_key, repository.getResourceBoolean(R.bool.keep_screen_on_default))
+    fun keepScreenOn(): Boolean =
+            repository.boolean(R.string.keep_screen_on_key, repository.resourceBoolean(R.bool.keep_screen_on_default))
 
-    fun getThemeStyle(): ThemeStyle =
+    fun themeStyle(): ThemeStyle =
             find(ThemeStyle::class.java, R.string.theme_key, ThemeStyle.DARK)
 
-    fun getSelectedMenu(): NavigationMenu =
+    fun selectedMenu(): NavigationMenu =
             find(NavigationMenu::class.java, R.string.selected_menu_key, NavigationMenu.ACCESS_POINTS)
 
     fun saveSelectedMenu(navigationMenu: NavigationMenu) {
@@ -122,38 +122,38 @@ class Settings(private val repository: Repository) {
         }
     }
 
-    fun getSSIDs(): Set<String> =
-            repository.getStringSet(R.string.filter_ssid_key, HashSet())
+    fun findSSIDs(): Set<String> =
+            repository.stringSet(R.string.filter_ssid_key, HashSet())
 
     fun saveSSIDs(values: Set<String>): Unit =
             repository.saveStringSet(R.string.filter_ssid_key, values)
 
-    fun getWiFiBands(): Set<WiFiBand> =
+    fun findWiFiBands(): Set<WiFiBand> =
             findSet(WiFiBand::class.java, R.string.filter_wifi_band_key, WiFiBand.GHZ2)
 
     fun saveWiFiBands(values: Set<WiFiBand>): Unit =
             saveSet(R.string.filter_wifi_band_key, values)
 
-    fun getStrengths(): Set<Strength> =
+    fun findStrengths(): Set<Strength> =
             findSet(Strength::class.java, R.string.filter_strength_key, Strength.FOUR)
 
     fun saveStrengths(values: Set<Strength>): Unit =
             saveSet(R.string.filter_strength_key, values)
 
-    fun getSecurities(): Set<Security> =
+    fun findSecurities(): Set<Security> =
             findSet(Security::class.java, R.string.filter_security_key, Security.NONE)
 
     fun saveSecurities(values: Set<Security>): Unit =
             saveSet(R.string.filter_security_key, values)
 
     private fun <T : Enum<*>> find(enumType: Class<T>, key: Int, defaultValue: T): T {
-        val value = repository.getStringAsInteger(key, defaultValue.ordinal)
+        val value = repository.stringAsInteger(key, defaultValue.ordinal)
         return EnumUtils.find(enumType, value, defaultValue)
     }
 
     private fun <T : Enum<*>> findSet(enumType: Class<T>, key: Int, defaultValue: T): Set<T> {
         val defaultValues = EnumUtils.ordinals(enumType)
-        val values = repository.getStringSet(key, defaultValues)
+        val values = repository.stringSet(key, defaultValues)
         return EnumUtils.find(enumType, values, defaultValue)
     }
 

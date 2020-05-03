@@ -58,7 +58,7 @@ class PeriodicScan implements Runnable {
     @Override
     public void run() {
         scanner.update();
-        nextRun(settings.getScanSpeed() * DELAY_INTERVAL);
+        nextRun(settings.scanSpeed() * DELAY_INTERVAL);
     }
 
     boolean isRunning() {

@@ -274,7 +274,7 @@ public class AccessPointsAdapterTest {
 
     private View withView(@NonNull WiFiDetail wiFiDetail, @NonNull AccessPointViewType accessPointViewType, boolean isChild) {
         View view = mainActivity.getLayoutInflater().inflate(accessPointViewType.getLayout(), null, isChild);
-        when(settings.getAccessPointView()).thenReturn(accessPointViewType);
+        when(settings.accessPointView()).thenReturn(accessPointViewType);
         when(accessPointDetail.makeView(view, viewGroup, wiFiDetail, isChild)).thenReturn(view);
         return view;
     }

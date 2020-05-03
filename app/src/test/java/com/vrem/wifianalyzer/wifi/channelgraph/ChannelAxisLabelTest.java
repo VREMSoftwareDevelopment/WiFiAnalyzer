@@ -47,7 +47,7 @@ public class ChannelAxisLabelTest {
     @Before
     public void setUp() {
         settings = MainContextHelper.INSTANCE.getSettings();
-        when(this.settings.getCountryCode()).thenReturn(Locale.US.getCountry());
+        when(this.settings.countryCode()).thenReturn(Locale.US.getCountry());
 
         fixture = new ChannelAxisLabel(WiFiBand.GHZ2, WiFiBand.GHZ2.getWiFiChannels().wiFiChannelPairs().get(0));
     }
@@ -73,7 +73,7 @@ public class ChannelAxisLabelTest {
         String actual = fixture.formatLabel(wiFiChannel.getFrequency(), true);
         // validate
         assertEquals("" + wiFiChannel.getChannel(), actual);
-        verify(settings).getCountryCode();
+        verify(settings).countryCode();
     }
 
     @Test
@@ -83,7 +83,7 @@ public class ChannelAxisLabelTest {
         // execute & validate
         assertEquals("" + wiFiChannel.getChannel(), fixture.formatLabel(wiFiChannel.getFrequency() - 2, true));
         assertEquals("" + wiFiChannel.getChannel(), fixture.formatLabel(wiFiChannel.getFrequency() + 2, true));
-        verify(settings, times(2)).getCountryCode();
+        verify(settings, times(2)).countryCode();
     }
 
     @Test

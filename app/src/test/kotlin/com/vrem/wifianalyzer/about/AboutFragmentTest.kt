@@ -28,14 +28,13 @@ import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
-import org.robolectric.Shadows
+import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
 import org.robolectric.shadows.ShadowAlertDialog
@@ -87,7 +86,7 @@ class AboutFragmentTest {
         val actual = fixture.requireView().findViewById<TextView>(R.id.about_package_name)
         // validate
         assertNotNull(actual)
-        assertEquals(mainActivity.packageName, actual.text)
+        assertEquals(fixture.requireActivity().packageName, actual.text)
     }
 
     @Test
@@ -116,13 +115,11 @@ class AboutFragmentTest {
     @Test
     fun testWriteReview() {
         // setup
-/*
-        val url = "market://details?id=" + mainActivity.packageName
-        val expectedIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-*/
         val view = fixture.requireView().findViewById<View>(R.id.writeReview)
         // execute
-        view.performClick()
+        val actual = view.performClick()
+        //
+        assertTrue(actual)
     }
 
     @Test
@@ -135,20 +132,20 @@ class AboutFragmentTest {
     }
 
     private fun version(): String {
-        val packageInfo: PackageInfo = mainActivity.packageManager.getPackageInfo(mainActivity.packageName, 0)
+        val packageInfo: PackageInfo = fixture.requireActivity().packageManager.getPackageInfo(mainActivity.packageName, 0)
         return packageInfo.versionName + " - " + packageInfo.longVersionCode
     }
 
     private fun validateAlertDialogClickListener(viewId: Int, titleId: Int, messageId: Int) {
         // setup
         val view = fixture.view!!.findViewById<View>(viewId)
-        val expectedTitle = mainActivity.applicationContext.getString(titleId)
-        val expectedMessage = readFile(mainActivity.resources, messageId)
+        val expectedTitle = fixture.requireActivity().applicationContext.getString(titleId)
+        val expectedMessage = readFile(fixture.requireActivity().resources, messageId)
         // execute
         view.performClick()
         // validate
         val alertDialog = ShadowAlertDialog.getLatestAlertDialog()
-        val shadowAlertDialog = Shadows.shadowOf(alertDialog)
+        val shadowAlertDialog = shadowOf(alertDialog)
         assertEquals(expectedTitle, shadowAlertDialog.title.toString())
         assertEquals(expectedMessage, shadowAlertDialog.message.toString())
     }

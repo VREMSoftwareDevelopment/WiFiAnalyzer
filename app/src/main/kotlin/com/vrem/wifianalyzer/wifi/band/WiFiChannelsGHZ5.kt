@@ -30,10 +30,10 @@ class WiFiChannelsGHZ5 : WiFiChannels(RANGE, SETS) {
                         ?: SET1
 
     override fun availableChannels(countryCode: String): List<WiFiChannel> =
-            availableChannels(WiFiChannelCountry.get(countryCode).channelsGHZ5())
+            availableChannels(WiFiChannelCountry.find(countryCode).channelsGHZ5())
 
     override fun channelAvailable(countryCode: String, channel: Int): Boolean =
-            WiFiChannelCountry.get(countryCode).channelAvailableGHZ5(channel)
+            WiFiChannelCountry.find(countryCode).channelAvailableGHZ5(channel)
 
     override fun wiFiChannelByFrequency(frequency: Int, wiFiChannelPair: Pair<WiFiChannel, WiFiChannel>): WiFiChannel =
             if (inRange(frequency)) wiFiChannel(frequency, wiFiChannelPair) else WiFiChannel.UNKNOWN

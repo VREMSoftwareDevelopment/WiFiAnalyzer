@@ -60,11 +60,11 @@ public class FilterPredicateTest {
 
     @Before
     public void setUp() {
-        when(settings.getWiFiBand()).thenReturn(WiFiBand.GHZ5);
-        when(settings.getSSIDs()).thenReturn(new HashSet<>(Arrays.asList(SSID, SSID)));
-        when(settings.getWiFiBands()).thenReturn(Collections.singleton(WiFiBand.GHZ2));
-        when(settings.getStrengths()).thenReturn(new HashSet<>(Arrays.asList(Strength.TWO, Strength.FOUR)));
-        when(settings.getSecurities()).thenReturn(new HashSet<>(Arrays.asList(Security.WEP, Security.WPA2)));
+        when(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5);
+        when(settings.findSSIDs()).thenReturn(new HashSet<>(Arrays.asList(SSID, SSID)));
+        when(settings.findWiFiBands()).thenReturn(Collections.singleton(WiFiBand.GHZ2));
+        when(settings.findStrengths()).thenReturn(new HashSet<>(Arrays.asList(Strength.TWO, Strength.FOUR)));
+        when(settings.findSecurities()).thenReturn(new HashSet<>(Arrays.asList(Security.WEP, Security.WPA2)));
     }
 
     @Test
@@ -73,10 +73,10 @@ public class FilterPredicateTest {
         fixture = FilterPredicate.makeAccessPointsPredicate(settings);
         // validate
         assertNotNull(fixture);
-        verify(settings).getSSIDs();
-        verify(settings).getWiFiBands();
-        verify(settings).getStrengths();
-        verify(settings).getSecurities();
+        verify(settings).findSSIDs();
+        verify(settings).findWiFiBands();
+        verify(settings).findStrengths();
+        verify(settings).findSecurities();
     }
 
     @Test
@@ -85,10 +85,10 @@ public class FilterPredicateTest {
         fixture = FilterPredicate.makeOtherPredicate(settings);
         // validate
         assertNotNull(fixture);
-        verify(settings).getSSIDs();
-        verify(settings).getWiFiBand();
-        verify(settings).getStrengths();
-        verify(settings).getSecurities();
+        verify(settings).findSSIDs();
+        verify(settings).wiFiBand();
+        verify(settings).findStrengths();
+        verify(settings).findSecurities();
     }
 
     @Test
@@ -137,10 +137,10 @@ public class FilterPredicateTest {
     @Test
     public void testGetPredicateWithAllValuesIsTruePredicate() {
         // setup
-        when(settings.getSSIDs()).thenReturn(Collections.emptySet());
-        when(settings.getWiFiBands()).thenReturn(EnumUtils.values(WiFiBand.class));
-        when(settings.getStrengths()).thenReturn(EnumUtils.values(Strength.class));
-        when(settings.getSecurities()).thenReturn(EnumUtils.values(Security.class));
+        when(settings.findSSIDs()).thenReturn(Collections.emptySet());
+        when(settings.findWiFiBands()).thenReturn(EnumUtils.values(WiFiBand.class));
+        when(settings.findStrengths()).thenReturn(EnumUtils.values(Strength.class));
+        when(settings.findSecurities()).thenReturn(EnumUtils.values(Security.class));
 
         fixture = FilterPredicate.makeAccessPointsPredicate(settings);
         // execute

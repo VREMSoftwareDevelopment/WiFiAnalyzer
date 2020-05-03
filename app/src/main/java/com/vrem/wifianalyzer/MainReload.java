@@ -32,9 +32,9 @@ class MainReload {
     private Locale languageLocale;
 
     MainReload(@NonNull Settings settings) {
-        setThemeStyle(settings.getThemeStyle());
-        setConnectionViewType(settings.getConnectionViewType());
-        setLanguageLocale(settings.getLanguageLocale());
+        setThemeStyle(settings.themeStyle());
+        setConnectionViewType(settings.connectionViewType());
+        setLanguageLocale(settings.languageLocale());
     }
 
     boolean shouldReload(@NonNull Settings settings) {
@@ -44,7 +44,7 @@ class MainReload {
     }
 
     private boolean isConnectionViewTypeChanged(Settings settings) {
-        ConnectionViewType currentConnectionViewType = settings.getConnectionViewType();
+        ConnectionViewType currentConnectionViewType = settings.connectionViewType();
         boolean connectionViewTypeChanged = !getConnectionViewType().equals(currentConnectionViewType);
         if (connectionViewTypeChanged) {
             setConnectionViewType(currentConnectionViewType);
@@ -53,7 +53,7 @@ class MainReload {
     }
 
     private boolean isThemeChanged(Settings settings) {
-        ThemeStyle settingThemeStyle = settings.getThemeStyle();
+        ThemeStyle settingThemeStyle = settings.themeStyle();
         boolean themeChanged = !getThemeStyle().equals(settingThemeStyle);
         if (themeChanged) {
             setThemeStyle(settingThemeStyle);
@@ -62,7 +62,7 @@ class MainReload {
     }
 
     private boolean isLanguageChanged(Settings settings) {
-        Locale settingLanguageLocale = settings.getLanguageLocale();
+        Locale settingLanguageLocale = settings.languageLocale();
         boolean languageLocaleChanged = !getLanguageLocale().equals(settingLanguageLocale);
         if (languageLocaleChanged) {
             setLanguageLocale(settingLanguageLocale);

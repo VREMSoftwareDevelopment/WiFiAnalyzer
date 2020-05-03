@@ -84,7 +84,7 @@ class ChannelGraphNavigation {
             Settings settings = mainContext.getSettings();
             Predicate<WiFiDetail> predicate = FilterPredicate.makeOtherPredicate(settings);
             Pair<WiFiChannel, WiFiChannel> selectedWiFiChannelPair = configuration.getWiFiChannelPair();
-            List<WiFiDetail> wiFiDetails = wiFiData.wiFiDetails(predicate, settings.getSortBy());
+            List<WiFiDetail> wiFiDetails = wiFiData.wiFiDetails(predicate, settings.sortBy());
             IterableUtils.forEach(ids.keySet(), new ButtonClosure(visible, selectedWiFiChannelPair, wiFiDetails));
         }
     }
@@ -161,14 +161,14 @@ class ChannelGraphNavigation {
 
         private PairPredicate() {
             Settings settings = MainContext.INSTANCE.getSettings();
-            wiFiBand = settings.getWiFiBand();
-            countryCode = settings.getCountryCode();
+            wiFiBand = settings.wiFiBand();
+            countryCode = settings.countryCode();
             wiFiChannels = wiFiBand.getWiFiChannels();
         }
 
         @Override
         public boolean evaluate(Pair<WiFiChannel, WiFiChannel> object) {
-            return wiFiBand.isGHZ5() && wiFiChannels.channelAvailable(countryCode, object.first.getChannel());
+            return wiFiBand.GHZ5() && wiFiChannels.channelAvailable(countryCode, object.first.getChannel());
         }
     }
 

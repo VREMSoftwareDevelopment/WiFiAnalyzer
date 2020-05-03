@@ -53,7 +53,7 @@ class ChannelAvailableAdapter extends ArrayAdapter<WiFiChannelCountry> {
         View rootView = binding.getRoot();
         Resources resources = rootView.getResources();
 
-        Locale currentLocale = MainContext.INSTANCE.getSettings().getLanguageLocale();
+        Locale currentLocale = MainContext.INSTANCE.getSettings().languageLocale();
         WiFiChannelCountry wiFiChannelCountry = getItem(position);
         binding.getChannelAvailableCountry()
             .setText(wiFiChannelCountry.countryCode() + " - " + wiFiChannelCountry.countryName(currentLocale));
