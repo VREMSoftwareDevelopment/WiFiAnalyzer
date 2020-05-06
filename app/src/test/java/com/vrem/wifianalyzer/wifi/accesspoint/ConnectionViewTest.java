@@ -35,6 +35,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.apache.commons.lang3.StringUtils;
@@ -157,7 +158,8 @@ public class ConnectionViewTest {
     @Test
     public void testConnectionWithInvalidLinkSpeed() {
         // setup
-        WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, IP_ADDRESS, WiFiConnection.LINK_SPEED_INVALID);
+        WiFiIdentifier wiFiIdentifier = new WiFiIdentifier(SSID, BSSID);
+        WiFiConnection wiFiConnection = new WiFiConnection(wiFiIdentifier, IP_ADDRESS, WiFiConnection.LINK_SPEED_INVALID);
         WiFiDetail connection = withConnection(new WiFiAdditional(StringUtils.EMPTY, wiFiConnection));
         when(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         withConnectionInformation(connection);
@@ -264,13 +266,15 @@ public class ConnectionViewTest {
     }
 
     private WiFiDetail withConnection(@NonNull WiFiAdditional wiFiAdditional) {
-        return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY,
+        return new WiFiDetail(
+            new WiFiIdentifier(SSID, BSSID),
+            StringUtils.EMPTY,
             new WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55, true),
             wiFiAdditional);
     }
 
     private WiFiAdditional withWiFiAdditional() {
-        WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, IP_ADDRESS, 11);
+        WiFiConnection wiFiConnection = new WiFiConnection(new WiFiIdentifier(SSID, BSSID), IP_ADDRESS, 11);
         return new WiFiAdditional(StringUtils.EMPTY, wiFiConnection);
     }
 

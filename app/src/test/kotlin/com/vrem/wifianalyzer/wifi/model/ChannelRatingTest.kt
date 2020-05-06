@@ -25,20 +25,33 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class ChannelRatingTest {
-    private val wiFiConnection = WiFiConnection("SSID1", "20:cf:30:ce:1d:71", "192.168.1.15", 11)
-    private val wiFiDetail1: WiFiDetail = WiFiDetail("SSID1", "20:cf:30:ce:1d:71", STRING_EMPTY,
+    private val wiFiConnection = WiFiConnection(
+            WiFiIdentifier("ssid1", "20:CF:30:CE:1D:71"),
+            "192.168.1.15",
+            11)
+
+    private val wiFiDetail1 = WiFiDetail(
+            WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
+            STRING_EMPTY,
             WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50, true),
             WiFiAdditional(STRING_EMPTY, wiFiConnection))
-    private val wiFiDetail2: WiFiDetail = WiFiDetail("SSID2", "58:6d:8f:fa:ae:c0", STRING_EMPTY,
+    private val wiFiDetail2 = WiFiDetail(
+            WiFiIdentifier("SSID2", "58:6d:8f:fa:ae:c0"),
+            STRING_EMPTY,
             WiFiSignal(2442, 2442, WiFiWidth.MHZ_20, -70, true),
             WiFiAdditional.EMPTY)
-    private val wiFiDetail3: WiFiDetail = WiFiDetail("SSID3", "84:94:8c:9d:40:68", STRING_EMPTY,
+    private val wiFiDetail3 = WiFiDetail(
+            WiFiIdentifier("SSID3", "84:94:8c:9d:40:68"),
+            STRING_EMPTY,
             WiFiSignal(2452, 2452, WiFiWidth.MHZ_20, -60, true),
             WiFiAdditional.EMPTY)
-    private val wiFiDetail4: WiFiDetail = WiFiDetail("SSID3", "64:A4:8c:90:10:12", STRING_EMPTY,
+    private val wiFiDetail4 = WiFiDetail(
+            WiFiIdentifier("SSID3", "64:A4:8c:90:10:12"),
+            STRING_EMPTY,
             WiFiSignal(2452, 2452, WiFiWidth.MHZ_20, -80, true),
             WiFiAdditional.EMPTY)
-    private val fixture: ChannelRating = ChannelRating()
+
+    private val fixture = ChannelRating()
 
     @Test
     fun testChannelRating() {
@@ -89,7 +102,9 @@ class ChannelRatingTest {
 
     private fun makeCopy(wiFiDetail: WiFiDetail): WiFiDetail {
         val wiFiSignal: WiFiSignal = wiFiDetail.wiFiSignal
-        return WiFiDetail("SSID2-OTHER", "BSSID-OTHER", STRING_EMPTY,
+        return WiFiDetail(
+                WiFiIdentifier("SSID2-OTHER", "BSSID-OTHER"),
+                STRING_EMPTY,
                 WiFiSignal(wiFiSignal.primaryFrequency, wiFiSignal.centerFrequency, wiFiSignal.wiFiWidth, -80, true),
                 WiFiAdditional.EMPTY)
     }
@@ -120,7 +135,9 @@ class ChannelRatingTest {
     @Test
     fun testSetWiFiChannelsRemovesDuplicateAccessPoints() {
         // setup
-        val wiFiDetail = WiFiDetail("SSID2", "22:cf:30:ce:1d:72", STRING_EMPTY,
+        val wiFiDetail = WiFiDetail(
+                WiFiIdentifier("SSID2", "22:cf:30:ce:1d:72"),
+                STRING_EMPTY,
                 WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, wiFiDetail1.wiFiSignal.level - 5, true),
                 WiFiAdditional.EMPTY)
         // execute

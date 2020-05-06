@@ -22,6 +22,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.junit.Test;
@@ -54,7 +55,8 @@ public class WiFiBandPredicateTest {
     @NonNull
     private WiFiDetail makeWiFiDetail(int frequency) {
         WiFiSignal wiFiSignal = new WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, 1, true);
-        return new WiFiDetail("ssid", "bssid", "wpa", wiFiSignal, WiFiAdditional.EMPTY);
+        WiFiIdentifier wiFiIdentifier = new WiFiIdentifier("ssid", "bssid");
+        return new WiFiDetail(wiFiIdentifier, "wpa", wiFiSignal, WiFiAdditional.EMPTY);
     }
 
 }

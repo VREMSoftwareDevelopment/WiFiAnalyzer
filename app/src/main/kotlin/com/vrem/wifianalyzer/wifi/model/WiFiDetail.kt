@@ -19,8 +19,7 @@ package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.util.STRING_EMPTY
 
-data class WiFiDetail @JvmOverloads constructor(val rawSSID: String = STRING_EMPTY,
-                                                val BSSID: String = STRING_EMPTY,
+data class WiFiDetail @JvmOverloads constructor(val wiFiIdentifier: WiFiIdentifier = WiFiIdentifier.EMPTY,
                                                 val capabilities: String = STRING_EMPTY,
                                                 val wiFiSignal: WiFiSignal = WiFiSignal.EMPTY,
                                                 val wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY,
@@ -28,15 +27,10 @@ data class WiFiDetail @JvmOverloads constructor(val rawSSID: String = STRING_EMP
         Comparable<WiFiDetail> {
 
     constructor(wiFiDetail: WiFiDetail, wiFiAdditional: WiFiAdditional) :
-            this(wiFiDetail.rawSSID, wiFiDetail.BSSID, wiFiDetail.capabilities, wiFiDetail.wiFiSignal, wiFiAdditional)
+            this(wiFiDetail.wiFiIdentifier, wiFiDetail.capabilities, wiFiDetail.wiFiSignal, wiFiAdditional)
 
     constructor(wiFiDetail: WiFiDetail, children: List<WiFiDetail>) :
-            this(wiFiDetail.rawSSID, wiFiDetail.BSSID, wiFiDetail.capabilities, wiFiDetail.wiFiSignal, wiFiDetail.wiFiAdditional, children)
-
-    val SSID = when {
-        rawSSID.isEmpty() -> SSID_EMPTY
-        else -> rawSSID
-    }
+            this(wiFiDetail.wiFiIdentifier, wiFiDetail.capabilities, wiFiDetail.wiFiSignal, wiFiDetail.wiFiAdditional, children)
 
     fun security(): Security = Security.findOne(capabilities)
 
@@ -44,29 +38,20 @@ data class WiFiDetail @JvmOverloads constructor(val rawSSID: String = STRING_EMP
 
     fun noChildren(): Boolean = children.isNotEmpty()
 
-    fun title(): String = String.format("%s (%s)", SSID, BSSID)
-
-    override fun compareTo(other: WiFiDetail): Int =
-            compareBy<WiFiDetail> { it.SSID }.thenBy { it.BSSID }.compare(this, other)
-
     override fun equals(other: Any?): Boolean {
-
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
         other as WiFiDetail
 
-        if (SSID != other.SSID) return false
-        if (BSSID != other.BSSID) return false
-
-        return true
+        return wiFiIdentifier == other.wiFiIdentifier
     }
 
-    override fun hashCode(): Int = 31 * rawSSID.hashCode() + BSSID.hashCode()
+    override fun hashCode(): Int = wiFiIdentifier.hashCode()
+
+    override fun compareTo(other: WiFiDetail): Int = wiFiIdentifier.compareTo(other.wiFiIdentifier)
 
     companion object {
-        const val SSID_EMPTY = "*hidden*"
-
         @JvmField
         val EMPTY = WiFiDetail()
     }

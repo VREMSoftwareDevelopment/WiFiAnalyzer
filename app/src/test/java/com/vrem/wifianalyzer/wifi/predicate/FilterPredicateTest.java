@@ -26,6 +26,7 @@ import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.apache.commons.collections4.Predicate;
@@ -151,7 +152,8 @@ public class FilterPredicateTest {
 
     private WiFiDetail makeWiFiDetail(String ssid, String security) {
         WiFiSignal wiFiSignal = new WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, -40, true);
-        return new WiFiDetail(ssid, "BSSID", security, wiFiSignal, WiFiAdditional.EMPTY);
+        WiFiIdentifier wiFiIdentifier = new WiFiIdentifier(ssid, "bssid");
+        return new WiFiDetail(wiFiIdentifier, security, wiFiSignal, WiFiAdditional.EMPTY);
     }
 
 }

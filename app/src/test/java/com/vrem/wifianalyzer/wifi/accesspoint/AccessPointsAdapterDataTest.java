@@ -32,6 +32,7 @@ import com.vrem.wifianalyzer.wifi.model.Strength;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import com.vrem.wifianalyzer.wifi.predicate.FilterPredicate;
 
@@ -135,17 +136,17 @@ public class AccessPointsAdapterDataTest {
 
     private WiFiDetail withWiFiDetail() {
         List<WiFiDetail> children = Arrays.asList(
-            new WiFiDetail("SSID1-1", "BSSID1-1", StringUtils.EMPTY, WiFiSignal.EMPTY),
-            new WiFiDetail("SSID1-2", "BSSID1-2", StringUtils.EMPTY, WiFiSignal.EMPTY),
-            new WiFiDetail("SSID1-3", "BSSID1-3", StringUtils.EMPTY, WiFiSignal.EMPTY));
+            new WiFiDetail(new WiFiIdentifier("SSID1-1", "BSSID1-1"), StringUtils.EMPTY, WiFiSignal.EMPTY),
+            new WiFiDetail(new WiFiIdentifier("SSID1-2", "BSSID1-2"), StringUtils.EMPTY, WiFiSignal.EMPTY),
+            new WiFiDetail(new WiFiIdentifier("SSID1-3", "BSSID1-3"), StringUtils.EMPTY, WiFiSignal.EMPTY));
         WiFiSignal wiFiSignal = new WiFiSignal(2255, 2255, WiFiWidth.MHZ_20, -40, true);
-        return new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY, wiFiSignal, WiFiAdditional.EMPTY, children);
+        return new WiFiDetail(new WiFiIdentifier("SSID1", "BSSID1"), StringUtils.EMPTY, wiFiSignal, WiFiAdditional.EMPTY, children);
     }
 
     private List<WiFiDetail> withWiFiDetails() {
         return Arrays.asList(withWiFiDetail(),
-            new WiFiDetail("SSID2", "BSSID2", StringUtils.EMPTY, WiFiSignal.EMPTY),
-            new WiFiDetail("SSID3", "BSSID3", StringUtils.EMPTY, WiFiSignal.EMPTY));
+            new WiFiDetail(new WiFiIdentifier("SSID2", "BSSID2"), StringUtils.EMPTY, WiFiSignal.EMPTY),
+            new WiFiDetail(new WiFiIdentifier("SSID3", "BSSID3"), StringUtils.EMPTY, WiFiSignal.EMPTY));
     }
 
     private void verifySettings() {

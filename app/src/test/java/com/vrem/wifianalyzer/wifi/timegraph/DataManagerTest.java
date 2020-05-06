@@ -30,6 +30,7 @@ import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.apache.commons.collections4.Closure;
@@ -218,9 +219,10 @@ public class DataManagerTest {
     }
 
     private WiFiDetail makeWiFiDetailConnected(@NonNull String SSID) {
-        WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, "IPADDRESS", 11);
+        WiFiIdentifier wiFiIdentifier = new WiFiIdentifier(SSID, BSSID);
+        WiFiConnection wiFiConnection = new WiFiConnection(wiFiIdentifier, "IPADDRESS", 11);
         WiFiAdditional wiFiAdditional = new WiFiAdditional("VendorName", wiFiConnection);
-        return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY, makeWiFiSignal(), wiFiAdditional);
+        return new WiFiDetail(wiFiIdentifier, StringUtils.EMPTY, makeWiFiSignal(), wiFiAdditional);
     }
 
     private WiFiSignal makeWiFiSignal() {
@@ -228,7 +230,7 @@ public class DataManagerTest {
     }
 
     private WiFiDetail makeWiFiDetail(@NonNull String SSID) {
-        return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY, makeWiFiSignal(), WiFiAdditional.EMPTY);
+        return new WiFiDetail(new WiFiIdentifier(SSID, BSSID), StringUtils.EMPTY, makeWiFiSignal(), WiFiAdditional.EMPTY);
     }
 
     private List<WiFiDetail> makeWiFiDetails() {

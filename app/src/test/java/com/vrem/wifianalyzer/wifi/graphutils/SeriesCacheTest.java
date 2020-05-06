@@ -22,6 +22,7 @@ import com.jjoe64.graphview.series.BaseSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.apache.commons.collections4.Closure;
@@ -206,7 +207,9 @@ public class SeriesCacheTest {
     }
 
     private WiFiDetail makeWiFiDetail(String SSID) {
-        return new WiFiDetail(SSID, "BSSID", StringUtils.EMPTY,
+        return new WiFiDetail(
+            new WiFiIdentifier(SSID, "BSSID"),
+            StringUtils.EMPTY,
             new WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5, true));
     }
 

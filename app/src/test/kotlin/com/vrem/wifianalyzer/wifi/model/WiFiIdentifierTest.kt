@@ -1,0 +1,93 @@
+/*
+ * WiFiAnalyzer
+ * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ *  
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *  
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *  
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
+package com.vrem.wifianalyzer.wifi.model
+
+import org.apache.commons.lang3.StringUtils
+import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
+
+class WiFiIdentifierTest {
+    private val ssid = "xyzSSID"
+    private val bssid = "xyzBSSID"
+    private var fixture = WiFiIdentifier(ssid, bssid)
+
+    @Test
+    fun testWiFiIdentifier() {
+        // setup
+        val expectedTitle = "$ssid ($bssid)"
+        // validate
+        assertEquals(ssid, fixture.ssidRaw)
+        assertEquals(ssid, fixture.ssid)
+        assertEquals(bssid, fixture.bssid)
+        assertEquals(expectedTitle, fixture.title())
+    }
+
+    @Test
+    fun testTitleWithEmptySSID() {
+        // setup
+        val expectedTitle = "*hidden* ($bssid)"
+        fixture = WiFiIdentifier(StringUtils.EMPTY, bssid)
+        // validate
+        assertEquals(expectedTitle, fixture.title())
+    }
+
+    @Test
+    fun testEquals() {
+        // setup
+        val other = WiFiIdentifier(ssid, bssid)
+        // execute & validate
+        assertEquals(fixture, other)
+        Assert.assertNotSame(fixture, other)
+    }
+
+    @Test
+    fun testHashCode() {
+        // setup
+        val other = WiFiIdentifier(ssid, bssid)
+        // execute & validate
+        assertEquals(fixture.hashCode(), other.hashCode())
+    }
+
+    @Test
+    fun testEqualsIgnoreCase() {
+        // setup
+        val other = WiFiIdentifier(ssid.toLowerCase(), bssid.toUpperCase())
+        // execute & validate
+        assertTrue(fixture.equals(other, true))
+    }
+
+    @Test
+    fun testCompareTo() {
+        // setup
+        val other = WiFiIdentifier(ssid, bssid)
+        // execute & validate
+        assertEquals(0, fixture.compareTo(other))
+    }
+
+    @Test
+    fun testRawSSID() {
+        // setup
+        fixture = WiFiIdentifier(StringUtils.EMPTY, bssid)
+        // execute & validate
+        assertEquals(StringUtils.EMPTY, fixture.ssidRaw)
+        assertEquals(WiFiIdentifier.SSID_EMPTY, fixture.ssid)
+    }
+
+}

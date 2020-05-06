@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.export
 
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -50,16 +51,8 @@ class ExportSpec {
     }
 
     private fun withWiFiDetail(offset: Int): WiFiDetail {
-        val wiFiSignal = WiFiSignal(
-                2412 + offset,
-                2422 + offset,
-                WiFiWidth.MHZ_40,
-                -offset,
-                true)
-        return WiFiDetail(
-                "SSID$offset",
-                "BSSID$offset",
-                "capabilities$offset",
-                wiFiSignal)
+        val wiFiSignal = WiFiSignal(2412 + offset, 2422 + offset, WiFiWidth.MHZ_40, -offset, true)
+        val wiFiIdentifier = WiFiIdentifier("SSID$offset", "BSSID$offset")
+        return WiFiDetail(wiFiIdentifier, "capabilities$offset", wiFiSignal)
     }
 }

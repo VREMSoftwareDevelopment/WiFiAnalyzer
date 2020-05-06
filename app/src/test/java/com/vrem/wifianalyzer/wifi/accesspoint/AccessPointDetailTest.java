@@ -31,6 +31,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.apache.commons.lang3.StringUtils;
@@ -351,13 +352,17 @@ public class AccessPointDetailTest {
     }
 
     private WiFiDetail withWiFiDetail(String SSID, WiFiAdditional wiFiAdditional) {
-        return new WiFiDetail(SSID, "BSSID", "capabilities",
+        return new WiFiDetail(
+            new WiFiIdentifier(SSID, "BSSID"),
+            "capabilities",
             new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, false),
             wiFiAdditional);
     }
 
     private WiFiDetail withWiFiDetail(String SSID, WiFiAdditional wiFiAdditional, boolean is80211mc) {
-        return new WiFiDetail(SSID, "BSSID", "capabilities",
+        return new WiFiDetail(
+            new WiFiIdentifier(SSID, "BSSID"),
+            "capabilities",
             new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, is80211mc),
             wiFiAdditional);
     }
@@ -373,7 +378,7 @@ public class AccessPointDetailTest {
 
     private void validateTextViewValuesCompactView(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
-        validateTextViewValue(view, wiFiDetail.title(), R.id.ssid);
+        validateTextViewValue(view, wiFiDetail.getWiFiIdentifier().title(), R.id.ssid);
         validateTextViewValue(view, String.format(Locale.ENGLISH, "%ddBm", wiFiSignal.getLevel()), R.id.level);
         validateTextViewValue(view, wiFiSignal.channelDisplay(), R.id.channel);
         validateTextViewValue(view, String.format(Locale.ENGLISH, "%d%s", wiFiSignal.getPrimaryFrequency(), WiFiSignal.FREQUENCY_UNITS), R.id.primaryFrequency);

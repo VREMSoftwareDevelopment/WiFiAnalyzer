@@ -27,7 +27,7 @@ class WiFiAdditionalTest {
     @Test
     fun testWiFiAdditionalWithWiFiConnection() {
         // setup
-        val wiFiConnection = WiFiConnection("SSID", "BSSID", "192.168.1.10", 22)
+        val wiFiConnection = WiFiConnection(WiFiIdentifier("SSID", "BSSID"), "192.168.1.10", 22)
         // execute
         val fixture = WiFiAdditional(vendorName, wiFiConnection)
         // validate

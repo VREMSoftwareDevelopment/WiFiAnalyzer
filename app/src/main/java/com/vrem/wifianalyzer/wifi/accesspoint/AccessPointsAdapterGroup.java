@@ -94,7 +94,7 @@ class AccessPointsAdapterGroup {
     String getGroupExpandKey(@NonNull WiFiDetail wiFiDetail) {
         String result = StringUtils.EMPTY;
         if (GroupBy.SSID.equals(this.groupBy)) {
-            result = wiFiDetail.getSSID();
+            result = wiFiDetail.getWiFiIdentifier().getSsid();
         }
         if (GroupBy.CHANNEL.equals(this.groupBy)) {
             result += Integer.toString(wiFiDetail.getWiFiSignal().primaryWiFiChannel().getChannel());

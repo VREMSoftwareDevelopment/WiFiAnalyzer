@@ -22,17 +22,15 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class WiFiConnectionTest {
-    private val SSID = "SSID-123"
-    private val BSSID = "BSSID-123"
     private val ipAddress = "21.205.91.7"
     private val linkSpeed = 21
-    private val fixture: WiFiConnection = WiFiConnection(SSID, BSSID, ipAddress, linkSpeed)
+    private val wiFiIdentifier = WiFiIdentifier("SSID-123", "BSSID-123")
+    private val fixture: WiFiConnection = WiFiConnection(wiFiIdentifier, ipAddress, linkSpeed)
 
     @Test
     fun testWiFiConnectionEmpty() {
         // validate
-        assertEquals(STRING_EMPTY, WiFiConnection.EMPTY.SSID)
-        assertEquals(STRING_EMPTY, WiFiConnection.EMPTY.BSSID)
+        assertEquals(WiFiIdentifier.EMPTY, WiFiConnection.EMPTY.wiFiIdentifier)
         assertEquals(STRING_EMPTY, WiFiConnection.EMPTY.ipAddress)
         assertEquals(WiFiConnection.LINK_SPEED_INVALID, WiFiConnection.EMPTY.linkSpeed)
         assertFalse(WiFiConnection.EMPTY.connected())
@@ -41,8 +39,7 @@ class WiFiConnectionTest {
     @Test
     fun testWiFiConnection() {
         // validate
-        assertEquals(SSID, fixture.SSID)
-        assertEquals(BSSID, fixture.BSSID)
+        assertEquals(wiFiIdentifier, fixture.wiFiIdentifier)
         assertEquals(ipAddress, fixture.ipAddress)
         assertEquals(linkSpeed, fixture.linkSpeed)
         assertTrue(fixture.connected())
@@ -51,7 +48,8 @@ class WiFiConnectionTest {
     @Test
     fun testEquals() {
         // setup
-        val other = WiFiConnection(SSID, BSSID, STRING_EMPTY, WiFiConnection.LINK_SPEED_INVALID)
+        val wiFiIdentifier = WiFiIdentifier("SSID-123", "BSSID-123")
+        val other = WiFiConnection(wiFiIdentifier, STRING_EMPTY, WiFiConnection.LINK_SPEED_INVALID)
         // execute & validate
         assertEquals(fixture, other)
         assertNotSame(fixture, other)
@@ -60,7 +58,8 @@ class WiFiConnectionTest {
     @Test
     fun testHashCode() {
         // setup
-        val other = WiFiConnection(SSID, BSSID, STRING_EMPTY, WiFiConnection.LINK_SPEED_INVALID)
+        val wiFiIdentifier = WiFiIdentifier("SSID-123", "BSSID-123")
+        val other = WiFiConnection(wiFiIdentifier, STRING_EMPTY, WiFiConnection.LINK_SPEED_INVALID)
         // execute & validate
         assertEquals(fixture.hashCode(), other.hashCode())
     }

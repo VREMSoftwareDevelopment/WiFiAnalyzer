@@ -28,10 +28,14 @@ class SortByDefaultTest {
     @Test
     fun testSortByDefault() {
         // setup
-        val wiFiDetail1 = WiFiDetail("SSID1", "BSSID1", STRING_EMPTY,
+        val wiFiDetail1 = WiFiDetail(
+                WiFiIdentifier("SSID1", "BSSID1"),
+                STRING_EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
-        val wiFiDetail2 = WiFiDetail("SSID1", "BSSID1", STRING_EMPTY,
+        val wiFiDetail2 = WiFiDetail(
+                WiFiIdentifier("SSID1", "BSSID1"),
+                STRING_EMPTY,
                 WiFiSignal(2432, 2432, WiFiWidth.MHZ_40, -35, false),
                 WiFiAdditional.EMPTY)
         // execute
@@ -43,10 +47,14 @@ class SortByDefaultTest {
     @Test
     fun testSortByDefaultWithDifferentSSID() {
         // setup
-        val wiFiDetail1 = WiFiDetail("ssid1", "BSSID1", STRING_EMPTY,
+        val wiFiDetail1 = WiFiDetail(
+                WiFiIdentifier("ssid1", "BSSID1"),
+                STRING_EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
-        val wiFiDetail2 = WiFiDetail("SSID1", "BSSID1", STRING_EMPTY,
+        val wiFiDetail2 = WiFiDetail(
+                WiFiIdentifier("SSID1", "BSSID1"),
+                STRING_EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
         // execute
@@ -58,10 +66,14 @@ class SortByDefaultTest {
     @Test
     fun testSortByDefaultWithDifferentBSSID() {
         // setup
-        val wiFiDetail1 = WiFiDetail("SSID1", "bssid1", STRING_EMPTY,
+        val wiFiDetail1 = WiFiDetail(
+                WiFiIdentifier("SSID1", "bssid1"),
+                STRING_EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
-        val wiFiDetail2 = WiFiDetail("SSID1", "BSSID1", STRING_EMPTY,
+        val wiFiDetail2 = WiFiDetail(
+                WiFiIdentifier("SSID1", "BSSID1"),
+                STRING_EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
         // execute

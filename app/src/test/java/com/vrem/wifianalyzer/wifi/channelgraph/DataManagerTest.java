@@ -31,6 +31,7 @@ import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.apache.commons.lang3.StringUtils;
@@ -156,7 +157,8 @@ public class DataManagerTest {
 
     private WiFiDetail makeWiFiDetail(@NonNull String SSID, int frequency) {
         WiFiSignal wiFiSignal = new WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, LEVEL, true);
-        return new WiFiDetail(SSID, "BSSID", StringUtils.EMPTY, wiFiSignal, WiFiAdditional.EMPTY);
+        WiFiIdentifier wiFiIdentifier = new WiFiIdentifier(SSID, "BSSID");
+        return new WiFiDetail(wiFiIdentifier, StringUtils.EMPTY, wiFiSignal, WiFiAdditional.EMPTY);
     }
 
     private List<WiFiDetail> makeWiFiDetails(int frequency) {

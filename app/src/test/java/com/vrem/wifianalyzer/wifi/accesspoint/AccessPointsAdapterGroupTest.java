@@ -27,6 +27,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.GroupBy;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.apache.commons.lang3.StringUtils;
@@ -167,7 +168,7 @@ public class AccessPointsAdapterGroupTest {
         // execute
         String actual = fixture.getGroupExpandKey(wiFiDetail);
         // validate
-        assertEquals(wiFiDetail.getSSID(), actual);
+        assertEquals(wiFiDetail.getWiFiIdentifier().getSsid(), actual);
     }
 
     @Test
@@ -203,7 +204,7 @@ public class AccessPointsAdapterGroupTest {
         // execute
         fixture.onGroupExpanded(wiFiDetails, 0);
         // validate
-        assertTrue(fixture.getExpanded().contains(wiFiDetails.get(0).getSSID()));
+        assertTrue(fixture.getExpanded().contains(wiFiDetails.get(0).getWiFiIdentifier().getSsid()));
     }
 
     @Test
@@ -221,18 +222,18 @@ public class AccessPointsAdapterGroupTest {
 
     private WiFiDetail withWiFiDetail() {
         List<WiFiDetail> children = Arrays.asList(
-            new WiFiDetail("SSID1-1", "BSSID1-1", StringUtils.EMPTY, WiFiSignal.EMPTY),
-            new WiFiDetail("SSID1-2", "BSSID1-2", StringUtils.EMPTY, WiFiSignal.EMPTY),
-            new WiFiDetail("SSID1-3", "BSSID1-3", StringUtils.EMPTY, WiFiSignal.EMPTY));
+            new WiFiDetail(new WiFiIdentifier("SSID1-1", "BSSID1-1"), StringUtils.EMPTY, WiFiSignal.EMPTY),
+            new WiFiDetail(new WiFiIdentifier("SSID1-2", "BSSID1-2"), StringUtils.EMPTY, WiFiSignal.EMPTY),
+            new WiFiDetail(new WiFiIdentifier("SSID1-3", "BSSID1-3"), StringUtils.EMPTY, WiFiSignal.EMPTY));
         WiFiSignal wiFiSignal = new WiFiSignal(2255, 2255, WiFiWidth.MHZ_20, -40, true);
-        return new WiFiDetail("SSID1", "BSSID1", StringUtils.EMPTY, wiFiSignal, WiFiAdditional.EMPTY, children);
+        return new WiFiDetail(new WiFiIdentifier("SSID1", "BSSID1"), StringUtils.EMPTY, wiFiSignal, WiFiAdditional.EMPTY, children);
 
     }
 
     private List<WiFiDetail> withWiFiDetails() {
         return Arrays.asList(withWiFiDetail(),
-            new WiFiDetail("SSID2", "BSSID2", StringUtils.EMPTY, WiFiSignal.EMPTY),
-            new WiFiDetail("SSID3", "BSSID3", StringUtils.EMPTY, WiFiSignal.EMPTY));
+            new WiFiDetail(new WiFiIdentifier("SSID2", "BSSID2"), StringUtils.EMPTY, WiFiSignal.EMPTY),
+            new WiFiDetail(new WiFiIdentifier("SSID3", "BSSID3"), StringUtils.EMPTY, WiFiSignal.EMPTY));
     }
 
 }

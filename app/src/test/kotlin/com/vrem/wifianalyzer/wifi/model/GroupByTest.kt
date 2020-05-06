@@ -39,7 +39,7 @@ class GroupByTest {
     fun testGroupByKeyWithNone() {
         // setup
         val expected = "SSID_TO_TEST"
-        val wiFiDetail = WiFiDetail(expected)
+        val wiFiDetail = WiFiDetail(WiFiIdentifier(expected))
         // execute
         val actual: String = GroupBy.NONE.group(wiFiDetail)
         // validate
@@ -50,7 +50,7 @@ class GroupByTest {
     fun testGroupByKeyWithSSID() {
         // setup
         val expected = "SSID_TO_TEST"
-        val wiFiDetail = WiFiDetail(expected)
+        val wiFiDetail = WiFiDetail(WiFiIdentifier(expected))
         // execute
         val actual: String = GroupBy.SSID.group(wiFiDetail)
         // validate
@@ -61,8 +61,10 @@ class GroupByTest {
     fun testGroupByKeyWithChannel() {
         // setup
         val expected = "6"
-        val wiFiSignal = WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -40, true)
-        val wiFiDetail = WiFiDetail("xyzSSID", "xyzBSSID", "WPA-WPA2", wiFiSignal)
+        val wiFiDetail = WiFiDetail(
+                WiFiIdentifier("xyzSSID", "xyzBSSID"),
+                "WPA-WPA2",
+                WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -40, true))
         // execute
         val actual: String = GroupBy.CHANNEL.group(wiFiDetail)
         // validate

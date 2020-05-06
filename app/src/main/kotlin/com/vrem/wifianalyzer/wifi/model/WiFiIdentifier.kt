@@ -15,36 +15,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-
 package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.util.STRING_EMPTY
 
-data class WiFiConnection(val wiFiIdentifier: WiFiIdentifier = WiFiIdentifier.EMPTY,
-                          val ipAddress: String = STRING_EMPTY,
-                          val linkSpeed: Int = LINK_SPEED_INVALID) :
-        Comparable<WiFiConnection> {
+typealias SSID = String
+typealias BSSID = String
 
-    fun connected(): Boolean = EMPTY != this
+data class WiFiIdentifier(val ssidRaw: SSID = STRING_EMPTY, val bssid: BSSID = STRING_EMPTY) : Comparable<WiFiIdentifier> {
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as WiFiConnection
-
-        return wiFiIdentifier == other.wiFiIdentifier
+    val ssid = when {
+        ssidRaw.isEmpty() -> SSID_EMPTY
+        else -> ssidRaw
     }
 
-    override fun hashCode(): Int = wiFiIdentifier.hashCode()
+    fun title(): String = String.format("%s (%s)", ssid, bssid)
 
-    override fun compareTo(other: WiFiConnection): Int = wiFiIdentifier.compareTo(other.wiFiIdentifier)
+    fun equals(other: WiFiIdentifier, ignoreCase: Boolean = false): Boolean =
+            ssid.equals(other.ssidRaw, ignoreCase) && bssid.equals(other.bssid, ignoreCase)
+
+    override fun compareTo(other: WiFiIdentifier): Int =
+            compareBy<WiFiIdentifier> { it.ssidRaw }.thenBy { it.bssid }.compare(this, other)
 
     companion object {
-        const val LINK_SPEED_INVALID = -1
+        const val SSID_EMPTY = "*hidden*"
 
         @JvmField
-        val EMPTY = WiFiConnection()
+        val EMPTY = WiFiIdentifier()
     }
 }
-

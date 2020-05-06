@@ -37,14 +37,14 @@ class WiFiDataTest {
     private val ipAddress = "21.205.91.7"
     private val vendorName = "VendorName+"
     private val linkSpeed = 21
-    private val SSID_1 = "SSID1"
-    private val SSID_2 = "SSID2"
-    private val SSID_3 = "SSID3"
-    private val SSID_4 = "SSID4"
-    private val BSSID_1 = "B$SSID_1"
-    private val BSSID_2 = "B$SSID_2"
-    private val BSSID_3 = "B$SSID_3"
-    private val BSSID_4 = "B$SSID_4"
+    private val ssid1 = "SSID1"
+    private val ssid2 = "SSID2"
+    private val ssid3 = "SSID3"
+    private val ssid4 = "SSID4"
+    private val bssid1 = "B$ssid1"
+    private val bssid2 = "B$ssid2"
+    private val bssid3 = "B$ssid3"
+    private val bssid4 = "B$ssid4"
     private val frequency1 = 2412
     private val frequency2 = 2417
     private val frequency3 = 2422
@@ -53,7 +53,8 @@ class WiFiDataTest {
     private val level1 = -4
     private val level2 = -3
     private val vendorService = MainContextHelper.INSTANCE.vendorService
-    private val wiFiConnection = WiFiConnection(SSID_1, BSSID_1, ipAddress, linkSpeed)
+    private val wiFiIdentifier = WiFiIdentifier(ssid1, bssid1)
+    private val wiFiConnection = WiFiConnection(wiFiIdentifier, ipAddress, linkSpeed)
     private val wiFiDetails = withWiFiDetails()
     private val fixture = WiFiData(wiFiDetails, wiFiConnection)
 
@@ -66,15 +67,14 @@ class WiFiDataTest {
     @Test
     fun testConnection() {
         // setup
-        whenever(vendorService.findVendorName(BSSID_1)).thenReturn(vendorName)
+        whenever(vendorService.findVendorName(bssid1)).thenReturn(vendorName)
         // execute
         val actual: WiFiDetail = fixture.connection()
         // validate
-        assertEquals(SSID_1, actual.SSID)
-        assertEquals(BSSID_1, actual.BSSID)
+        assertEquals(wiFiIdentifier, actual.wiFiIdentifier)
         assertEquals(vendorName, actual.wiFiAdditional.vendorName)
         assertEquals(ipAddress, actual.wiFiAdditional.wiFiConnection.ipAddress)
-        verify(vendorService).findVendorName(BSSID_1)
+        verify(vendorService).findVendorName(bssid1)
     }
 
     @Test
@@ -87,8 +87,7 @@ class WiFiDataTest {
         // validate
         assertEquals(7, actual.size.toLong())
         val wiFiDetail: WiFiDetail = actual[0]
-        assertEquals(SSID_1, wiFiDetail.SSID)
-        assertEquals(BSSID_1, wiFiDetail.BSSID)
+        assertEquals(wiFiIdentifier, wiFiDetail.wiFiIdentifier)
         assertEquals(ipAddress, wiFiDetail.wiFiAdditional.wiFiConnection.ipAddress)
         assertTrue(actual[1].wiFiAdditional.wiFiConnection.ipAddress.isEmpty())
         assertTrue(actual[2].wiFiAdditional.wiFiConnection.ipAddress.isEmpty())
@@ -108,13 +107,13 @@ class WiFiDataTest {
         val actual: List<WiFiDetail> = fixture.wiFiDetails(predicate, SortBy.STRENGTH, GroupBy.NONE)
         // validate
         assertEquals(7, actual.size.toLong())
-        assertEquals(vendorName + BSSID_2, actual[0].wiFiAdditional.vendorName)
-        assertEquals(vendorName + BSSID_4, actual[1].wiFiAdditional.vendorName)
-        assertEquals(vendorName + BSSID_1, actual[2].wiFiAdditional.vendorName)
-        assertEquals(vendorName + BSSID_2 + "_2", actual[3].wiFiAdditional.vendorName)
-        assertEquals(vendorName + BSSID_2 + "_3", actual[4].wiFiAdditional.vendorName)
-        assertEquals(vendorName + BSSID_3, actual[5].wiFiAdditional.vendorName)
-        assertEquals(vendorName + BSSID_2 + "_1", actual[6].wiFiAdditional.vendorName)
+        assertEquals(vendorName + bssid2, actual[0].wiFiAdditional.vendorName)
+        assertEquals(vendorName + bssid4, actual[1].wiFiAdditional.vendorName)
+        assertEquals(vendorName + bssid1, actual[2].wiFiAdditional.vendorName)
+        assertEquals(vendorName + bssid2 + "_2", actual[3].wiFiAdditional.vendorName)
+        assertEquals(vendorName + bssid2 + "_3", actual[4].wiFiAdditional.vendorName)
+        assertEquals(vendorName + bssid3, actual[5].wiFiAdditional.vendorName)
+        assertEquals(vendorName + bssid2 + "_1", actual[6].wiFiAdditional.vendorName)
         verify(vendorService, Mockito.times(7)).findVendorName(ArgumentMatchers.anyString())
         verifyVendorNames()
     }
@@ -128,13 +127,13 @@ class WiFiDataTest {
         val actual: List<WiFiDetail> = fixture.wiFiDetails(predicate, SortBy.STRENGTH)
         // validate
         assertEquals(7, actual.size.toLong())
-        assertEquals(BSSID_2, actual[0].BSSID)
-        assertEquals(BSSID_4, actual[1].BSSID)
-        assertEquals(BSSID_1, actual[2].BSSID)
-        assertEquals(BSSID_2 + "_2", actual[3].BSSID)
-        assertEquals(BSSID_2 + "_3", actual[4].BSSID)
-        assertEquals(BSSID_3, actual[5].BSSID)
-        assertEquals(BSSID_2 + "_1", actual[6].BSSID)
+        assertEquals(bssid2, actual[0].wiFiIdentifier.bssid)
+        assertEquals(bssid4, actual[1].wiFiIdentifier.bssid)
+        assertEquals(bssid1, actual[2].wiFiIdentifier.bssid)
+        assertEquals(bssid2 + "_2", actual[3].wiFiIdentifier.bssid)
+        assertEquals(bssid2 + "_3", actual[4].wiFiIdentifier.bssid)
+        assertEquals(bssid3, actual[5].wiFiIdentifier.bssid)
+        assertEquals(bssid2 + "_1", actual[6].wiFiIdentifier.bssid)
         verifyChildren(actual)
         verifyVendorNames()
     }
@@ -148,10 +147,10 @@ class WiFiDataTest {
         val actual: List<WiFiDetail> = fixture.wiFiDetails(predicate, SortBy.STRENGTH, GroupBy.SSID)
         // validate
         assertEquals(4, actual.size.toLong())
-        assertEquals(SSID_2, actual[0].SSID)
-        assertEquals(SSID_4, actual[1].SSID)
-        assertEquals(SSID_1, actual[2].SSID)
-        assertEquals(SSID_3, actual[3].SSID)
+        assertEquals(ssid2, actual[0].wiFiIdentifier.ssid)
+        assertEquals(ssid4, actual[1].wiFiIdentifier.ssid)
+        assertEquals(ssid1, actual[2].wiFiIdentifier.ssid)
+        assertEquals(ssid3, actual[3].wiFiIdentifier.ssid)
         verifyChildren(actual, 0)
         verifyVendorNames()
     }
@@ -165,9 +164,9 @@ class WiFiDataTest {
         val actual: List<WiFiDetail> = fixture.wiFiDetails(predicate, SortBy.STRENGTH, GroupBy.CHANNEL)
         // validate
         assertEquals(3, actual.size.toLong())
-        assertEquals(SSID_2, actual[0].SSID)
-        assertEquals(SSID_4, actual[1].SSID)
-        assertEquals(SSID_1, actual[2].SSID)
+        assertEquals(ssid2, actual[0].wiFiIdentifier.ssid)
+        assertEquals(ssid4, actual[1].wiFiIdentifier.ssid)
+        assertEquals(ssid1, actual[2].wiFiIdentifier.ssid)
         verifyChildrenGroupByChannel(actual, 2, 0, 1)
         verifyVendorNames()
     }
@@ -181,13 +180,13 @@ class WiFiDataTest {
         val actual: List<WiFiDetail> = fixture.wiFiDetails(predicate, SortBy.SSID)
         // validate
         assertEquals(7, actual.size.toLong())
-        assertEquals(BSSID_1, actual[0].BSSID)
-        assertEquals(BSSID_2, actual[1].BSSID)
-        assertEquals(BSSID_2 + "_2", actual[2].BSSID)
-        assertEquals(BSSID_2 + "_3", actual[3].BSSID)
-        assertEquals(BSSID_2 + "_1", actual[4].BSSID)
-        assertEquals(BSSID_3, actual[5].BSSID)
-        assertEquals(BSSID_4, actual[6].BSSID)
+        assertEquals(bssid1, actual[0].wiFiIdentifier.bssid)
+        assertEquals(bssid2, actual[1].wiFiIdentifier.bssid)
+        assertEquals(bssid2 + "_2", actual[2].wiFiIdentifier.bssid)
+        assertEquals(bssid2 + "_3", actual[3].wiFiIdentifier.bssid)
+        assertEquals(bssid2 + "_1", actual[4].wiFiIdentifier.bssid)
+        assertEquals(bssid3, actual[5].wiFiIdentifier.bssid)
+        assertEquals(bssid4, actual[6].wiFiIdentifier.bssid)
         verifyChildren(actual)
         verifyVendorNames()
     }
@@ -201,10 +200,10 @@ class WiFiDataTest {
         val actual: List<WiFiDetail> = fixture.wiFiDetails(predicate, SortBy.SSID, GroupBy.SSID)
         // validate
         assertEquals(4, actual.size.toLong())
-        assertEquals(SSID_1, actual[0].SSID)
-        assertEquals(SSID_2, actual[1].SSID)
-        assertEquals(SSID_3, actual[2].SSID)
-        assertEquals(SSID_4, actual[3].SSID)
+        assertEquals(ssid1, actual[0].wiFiIdentifier.ssid)
+        assertEquals(ssid2, actual[1].wiFiIdentifier.ssid)
+        assertEquals(ssid3, actual[2].wiFiIdentifier.ssid)
+        assertEquals(ssid4, actual[3].wiFiIdentifier.ssid)
         verifyChildren(actual, 1)
         verifyVendorNames()
     }
@@ -218,9 +217,9 @@ class WiFiDataTest {
         val actual: List<WiFiDetail> = fixture.wiFiDetails(predicate, SortBy.SSID, GroupBy.CHANNEL)
         // validate
         assertEquals(3, actual.size.toLong())
-        assertEquals(SSID_1, actual[0].SSID)
-        assertEquals(SSID_2, actual[1].SSID)
-        assertEquals(SSID_4, actual[2].SSID)
+        assertEquals(ssid1, actual[0].wiFiIdentifier.ssid)
+        assertEquals(ssid2, actual[1].wiFiIdentifier.ssid)
+        assertEquals(ssid4, actual[2].wiFiIdentifier.ssid)
         verifyChildrenGroupByChannel(actual, 0, 1, 2)
         verifyVendorNames()
     }
@@ -234,13 +233,13 @@ class WiFiDataTest {
         val actual: List<WiFiDetail> = fixture.wiFiDetails(predicate, SortBy.CHANNEL)
         // validate
         assertEquals(7, actual.size.toLong())
-        assertEquals(BSSID_1, actual[0].BSSID)
-        assertEquals(BSSID_2, actual[1].BSSID)
-        assertEquals(BSSID_2 + "_2", actual[2].BSSID)
-        assertEquals(BSSID_2 + "_3", actual[3].BSSID)
-        assertEquals(BSSID_2 + "_1", actual[4].BSSID)
-        assertEquals(BSSID_4, actual[5].BSSID)
-        assertEquals(BSSID_3, actual[6].BSSID)
+        assertEquals(bssid1, actual[0].wiFiIdentifier.bssid)
+        assertEquals(bssid2, actual[1].wiFiIdentifier.bssid)
+        assertEquals(bssid2 + "_2", actual[2].wiFiIdentifier.bssid)
+        assertEquals(bssid2 + "_3", actual[3].wiFiIdentifier.bssid)
+        assertEquals(bssid2 + "_1", actual[4].wiFiIdentifier.bssid)
+        assertEquals(bssid4, actual[5].wiFiIdentifier.bssid)
+        assertEquals(bssid3, actual[6].wiFiIdentifier.bssid)
         verifyChildren(actual)
         verifyVendorNames()
     }
@@ -254,10 +253,10 @@ class WiFiDataTest {
         val actual: List<WiFiDetail> = fixture.wiFiDetails(predicate, SortBy.CHANNEL, GroupBy.SSID)
         // validate
         assertEquals(4, actual.size.toLong())
-        assertEquals(SSID_1, actual[0].SSID)
-        assertEquals(SSID_2, actual[1].SSID)
-        assertEquals(SSID_4, actual[2].SSID)
-        assertEquals(SSID_3, actual[3].SSID)
+        assertEquals(ssid1, actual[0].wiFiIdentifier.ssid)
+        assertEquals(ssid2, actual[1].wiFiIdentifier.ssid)
+        assertEquals(ssid4, actual[2].wiFiIdentifier.ssid)
+        assertEquals(ssid3, actual[3].wiFiIdentifier.ssid)
         verifyChildren(actual, 1)
         verifyVendorNames()
     }
@@ -271,33 +270,47 @@ class WiFiDataTest {
         val actual: List<WiFiDetail> = fixture.wiFiDetails(predicate, SortBy.CHANNEL, GroupBy.CHANNEL)
         // validate
         assertEquals(3, actual.size.toLong())
-        assertEquals(SSID_1, actual[0].SSID)
-        assertEquals(SSID_2, actual[1].SSID)
-        assertEquals(SSID_4, actual[2].SSID)
+        assertEquals(ssid1, actual[0].wiFiIdentifier.ssid)
+        assertEquals(ssid2, actual[1].wiFiIdentifier.ssid)
+        assertEquals(ssid4, actual[2].wiFiIdentifier.ssid)
         verifyChildrenGroupByChannel(actual, 0, 1, 2)
         verifyVendorNames()
     }
 
     private fun withVendorNames() {
         wiFiDetails.forEach {
-            whenever(vendorService.findVendorName(it.BSSID)).thenReturn(vendorName + it.BSSID)
+            whenever(vendorService.findVendorName(it.wiFiIdentifier.bssid)).thenReturn(vendorName + it.wiFiIdentifier.bssid)
         }
     }
 
     private fun withWiFiDetails(): List<WiFiDetail> {
-        val wiFiDetail1 = WiFiDetail(SSID_1, BSSID_1, STRING_EMPTY,
+        val wiFiDetail1 = WiFiDetail(
+                WiFiIdentifier(ssid1, bssid1),
+                STRING_EMPTY,
                 WiFiSignal(frequency1, frequency1, WiFiWidth.MHZ_20, level1, true))
-        val wiFiDetail2 = WiFiDetail(SSID_2, BSSID_2, STRING_EMPTY,
+        val wiFiDetail2 = WiFiDetail(
+                WiFiIdentifier(ssid2, bssid2),
+                STRING_EMPTY,
                 WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2, true))
-        val wiFiDetail3 = WiFiDetail(SSID_3, BSSID_3, STRING_EMPTY,
+        val wiFiDetail3 = WiFiDetail(
+                WiFiIdentifier(ssid3, bssid3),
+                STRING_EMPTY,
                 WiFiSignal(frequency3, frequency3, WiFiWidth.MHZ_20, level0, true))
-        val wiFiDetail4 = WiFiDetail(SSID_4, BSSID_4, STRING_EMPTY,
+        val wiFiDetail4 = WiFiDetail(
+                WiFiIdentifier(ssid4, bssid4),
+                STRING_EMPTY,
                 WiFiSignal(frequency4, frequency4, WiFiWidth.MHZ_20, level2, true))
-        val wiFiDetail_1 = WiFiDetail(SSID_2, BSSID_2 + "_1", STRING_EMPTY,
+        val wiFiDetail_1 = WiFiDetail(
+                WiFiIdentifier(ssid2, bssid2 + "_1"),
+                STRING_EMPTY,
                 WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 3, true))
-        val wiFiDetail_2 = WiFiDetail(SSID_2, BSSID_2 + "_2", STRING_EMPTY,
+        val wiFiDetail_2 = WiFiDetail(
+                WiFiIdentifier(ssid2, bssid2 + "_2"),
+                STRING_EMPTY,
                 WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 1, true))
-        val wiFiDetail_3 = WiFiDetail(SSID_2, BSSID_2 + "_3", STRING_EMPTY,
+        val wiFiDetail_3 = WiFiDetail(
+                WiFiIdentifier(ssid2, bssid2 + "_3"),
+                STRING_EMPTY,
                 WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 2, true))
         return listOf(wiFiDetail_3, wiFiDetail3, wiFiDetail_2, wiFiDetail1, wiFiDetail_1, wiFiDetail2, wiFiDetail4)
     }
@@ -307,9 +320,9 @@ class WiFiDataTest {
             val children: List<WiFiDetail> = actual[index].children
             if (it == index) {
                 assertEquals(3, children.size.toLong())
-                assertEquals(BSSID_2 + "_2", children[0].BSSID)
-                assertEquals(BSSID_2 + "_3", children[1].BSSID)
-                assertEquals(BSSID_2 + "_1", children[2].BSSID)
+                assertEquals(bssid2 + "_2", children[0].wiFiIdentifier.bssid)
+                assertEquals(bssid2 + "_3", children[1].wiFiIdentifier.bssid)
+                assertEquals(bssid2 + "_1", children[2].wiFiIdentifier.bssid)
             } else {
                 assertTrue(actual[it].children.isEmpty())
             }
@@ -320,16 +333,16 @@ class WiFiDataTest {
         assertTrue(actual[indexEmpty].children.isEmpty())
         val children1: List<WiFiDetail> = actual[indexWith3].children
         assertEquals(3, children1.size.toLong())
-        assertEquals(BSSID_2 + "_2", children1[0].BSSID)
-        assertEquals(BSSID_2 + "_3", children1[1].BSSID)
-        assertEquals(BSSID_2 + "_1", children1[2].BSSID)
+        assertEquals(bssid2 + "_2", children1[0].wiFiIdentifier.bssid)
+        assertEquals(bssid2 + "_3", children1[1].wiFiIdentifier.bssid)
+        assertEquals(bssid2 + "_1", children1[2].wiFiIdentifier.bssid)
         val children2: List<WiFiDetail> = actual[indexWith1].children
         assertEquals(1, children2.size.toLong())
-        assertEquals(BSSID_3, children2[0].BSSID)
+        assertEquals(bssid3, children2[0].wiFiIdentifier.bssid)
     }
 
     private fun verifyVendorNames() {
-        wiFiDetails.forEach { verify(vendorService).findVendorName(it.BSSID) }
+        wiFiDetails.forEach { verify(vendorService).findVendorName(it.wiFiIdentifier.bssid) }
     }
 
     private fun verifyChildren(actual: List<WiFiDetail>) {

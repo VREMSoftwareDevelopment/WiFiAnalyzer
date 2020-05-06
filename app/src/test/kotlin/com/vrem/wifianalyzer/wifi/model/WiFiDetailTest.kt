@@ -19,7 +19,6 @@ package com.vrem.wifianalyzer.wifi.model
 
 import com.google.common.collect.Sets
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth
-import org.apache.commons.lang3.StringUtils
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -32,39 +31,26 @@ class WiFiDetailTest {
     private val SSID = "xyzSSID"
     private val BSSID = "xyzBSSID"
 
-    private var wiFiSignal: WiFiSignal = WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, level, true)
-    private var wiFiAdditional: WiFiAdditional = WiFiAdditional(vendorName, WiFiConnection.EMPTY)
-    private var fixture: WiFiDetail = WiFiDetail(SSID, BSSID, capabilities, wiFiSignal, wiFiAdditional)
+    private var wiFiSignal = WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, level, true)
+    private var wiFiAdditional = WiFiAdditional(vendorName, WiFiConnection.EMPTY)
+    private var wiFiIdentifier = WiFiIdentifier(SSID, BSSID)
+    private var fixture = WiFiDetail(wiFiIdentifier, capabilities, wiFiSignal, wiFiAdditional)
 
     @Test
     fun testWiFiDetail() {
-        // setup
-        val expectedTitle = "$SSID ($BSSID)"
         // validate
         assertEquals(wiFiSignal, fixture.wiFiSignal)
         assertEquals(wiFiAdditional, fixture.wiFiAdditional)
-        assertEquals(SSID, fixture.rawSSID)
-        assertEquals(SSID, fixture.SSID)
-        assertEquals(BSSID, fixture.BSSID)
+        assertEquals(wiFiIdentifier, fixture.wiFiIdentifier)
         assertEquals(capabilities, fixture.capabilities)
-        assertEquals(expectedTitle, fixture.title())
         assertEquals(Security.WPA, fixture.security())
         assertEquals(Sets.newHashSet(Security.WPA, Security.WPA2), fixture.securities())
     }
 
     @Test
-    fun testTitleWithEmptySSID() {
-        // setup
-        val expectedTitle = "*hidden* ($BSSID)"
-        fixture = WiFiDetail(StringUtils.EMPTY, BSSID, capabilities, wiFiSignal)
-        // validate
-        assertEquals(expectedTitle, fixture.title())
-    }
-
-    @Test
     fun testEquals() {
         // setup
-        val other = WiFiDetail(SSID, BSSID, capabilities, wiFiSignal)
+        val other = WiFiDetail(wiFiIdentifier, capabilities, wiFiSignal)
         // execute & validate
         assertEquals(fixture, other)
         Assert.assertNotSame(fixture, other)
@@ -73,7 +59,7 @@ class WiFiDetailTest {
     @Test
     fun testHashCode() {
         // setup
-        val other = WiFiDetail(SSID, BSSID, capabilities, wiFiSignal)
+        val other = WiFiDetail(wiFiIdentifier, capabilities, wiFiSignal)
         // execute & validate
         assertEquals(fixture.hashCode(), other.hashCode())
     }
@@ -81,33 +67,21 @@ class WiFiDetailTest {
     @Test
     fun testCompareTo() {
         // setup
-        val other = WiFiDetail(SSID, BSSID, capabilities, wiFiSignal)
+        val other = WiFiDetail(wiFiIdentifier, capabilities, wiFiSignal)
         // execute & validate
         assertEquals(0, fixture.compareTo(other))
     }
 
     @Test
-    fun testRawSSID() {
-        // setup
-        fixture = WiFiDetail(StringUtils.EMPTY, BSSID, capabilities, wiFiSignal)
-        // execute & validate
-        assertEquals(StringUtils.EMPTY, fixture.rawSSID)
-        assertEquals(WiFiDetail.SSID_EMPTY, fixture.SSID)
-    }
-
-    @Test
     fun testWiFiDetailCopyConstructor() {
         // setup
-        val expected = WiFiDetail(StringUtils.EMPTY, BSSID, capabilities, wiFiSignal)
+        val expected = WiFiDetail(wiFiIdentifier, capabilities, wiFiSignal)
         // execute
         val actual = WiFiDetail(expected, expected.wiFiAdditional)
         // validate
         assertEquals(expected, actual)
-        assertEquals(expected.rawSSID, actual.rawSSID)
-        assertEquals(expected.SSID, actual.SSID)
-        assertEquals(expected.BSSID, actual.BSSID)
+        assertEquals(expected.wiFiIdentifier, actual.wiFiIdentifier)
         assertEquals(expected.capabilities, actual.capabilities)
-        assertEquals(expected.title(), actual.title())
         assertEquals(expected.security(), actual.security())
         assertEquals(expected.securities(), actual.securities())
         assertEquals(expected.wiFiAdditional, actual.wiFiAdditional)

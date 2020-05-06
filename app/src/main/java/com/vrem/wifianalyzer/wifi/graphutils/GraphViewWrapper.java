@@ -29,8 +29,8 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
-import com.vrem.wifianalyzer.BuildConfig;
 import com.vrem.wifianalyzer.Configuration;
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointDetail;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointPopup;
@@ -70,7 +70,7 @@ public class GraphViewWrapper {
     }
 
     public void removeSeries(@NonNull Set<WiFiDetail> newSeries) {
-        IterableUtils.forEach(seriesCache.remove(differenceSeries(newSeries)), new RemoveClouser());
+        IterableUtils.forEach(seriesCache.remove(differenceSeries(newSeries)), new RemoveClosure());
     }
 
     @NonNull
@@ -83,7 +83,7 @@ public class GraphViewWrapper {
             return false;
         }
         seriesCache.put(wiFiDetail, series);
-        series.setTitle(wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().channelDisplay());
+        series.setTitle(wiFiDetail.getWiFiIdentifier().getSsid() + " " + wiFiDetail.getWiFiSignal().channelDisplay());
         series.setOnDataPointTapListener(new GraphTapListener());
         seriesOptions.highlightConnected(series, wiFiDetail.getWiFiAdditional().getWiFiConnection().connected());
         seriesOptions.setSeriesColor(series);
@@ -157,9 +157,9 @@ public class GraphViewWrapper {
 
     public int calculateGraphType() {
         try {
-            String graphType = BuildConfig.APPLICATION_ID;
+            byte[] graphType = MainContext.INSTANCE.getMainActivity().getPackageName().getBytes();
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-            messageDigest.update(graphType.getBytes());
+            messageDigest.update(graphType);
             return Arrays.hashCode(messageDigest.digest());
         } catch (Exception e) {
             return GraphConstants.TYPE1;
@@ -191,7 +191,7 @@ public class GraphViewWrapper {
         return graphLegend;
     }
 
-    private class RemoveClouser implements Closure<BaseSeries<DataPoint>> {
+    private class RemoveClosure implements Closure<BaseSeries<DataPoint>> {
         @Override
         public void execute(BaseSeries<DataPoint> series) {
             seriesOptions.removeSeriesColor(series);

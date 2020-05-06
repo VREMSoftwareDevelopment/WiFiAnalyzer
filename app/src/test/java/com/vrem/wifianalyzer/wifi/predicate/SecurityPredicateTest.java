@@ -22,6 +22,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.Security;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.junit.Test;
@@ -69,7 +70,8 @@ public class SecurityPredicateTest {
     @NonNull
     private WiFiDetail makeWiFiDetail() {
         WiFiSignal wiFiSignal = new WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1, true);
-        return new WiFiDetail("ssid", "bssid", "wep-wpa", wiFiSignal, WiFiAdditional.EMPTY);
+        WiFiIdentifier wiFiIdentifier = new WiFiIdentifier("ssid", "bssid");
+        return new WiFiDetail(wiFiIdentifier, "wep-wpa", wiFiSignal, WiFiAdditional.EMPTY);
     }
 
 }

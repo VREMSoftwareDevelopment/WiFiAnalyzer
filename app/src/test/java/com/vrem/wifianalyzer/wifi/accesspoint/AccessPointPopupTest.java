@@ -28,6 +28,7 @@ import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.junit.Before;
@@ -93,7 +94,9 @@ public class AccessPointPopupTest {
 
     @NonNull
     private WiFiDetail withWiFiDetail() {
-        return new WiFiDetail("SSID", "BSSID", "capabilities",
+        return new WiFiDetail(
+            new WiFiIdentifier("SSID", "BSSID"),
+            "capabilities",
             new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, true),
             WiFiAdditional.EMPTY);
     }

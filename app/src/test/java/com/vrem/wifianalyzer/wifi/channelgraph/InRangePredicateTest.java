@@ -23,6 +23,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.apache.commons.lang3.StringUtils;
@@ -61,7 +62,8 @@ public class InRangePredicateTest {
 
     private WiFiDetail makeWiFiDetail(int frequency) {
         WiFiSignal wiFiSignal = new WiFiSignal(frequency + 20, frequency, WiFiWidth.MHZ_20, -10, true);
-        return new WiFiDetail("SSID", "BSSID", StringUtils.EMPTY, wiFiSignal, WiFiAdditional.EMPTY);
+        WiFiIdentifier wiFiIdentifier = new WiFiIdentifier("SSID", "BSSID");
+        return new WiFiDetail(wiFiIdentifier, StringUtils.EMPTY, wiFiSignal, WiFiAdditional.EMPTY);
     }
 
 }

@@ -23,7 +23,7 @@ typealias GroupByKey<T> = (T) -> String
 
 private var groupByChannel: GroupByKey<WiFiDetail> = { it.wiFiSignal.primaryWiFiChannel().channel.toString() }
 
-private var groupBySSID: GroupByKey<WiFiDetail> = { it.SSID }
+private var groupBySSID: GroupByKey<WiFiDetail> = { it.wiFiIdentifier.ssid }
 
 enum class GroupBy(val sort: Comparator<WiFiDetail>, val group: GroupByKey<WiFiDetail>) {
     NONE(sortByDefault(), groupBySSID),

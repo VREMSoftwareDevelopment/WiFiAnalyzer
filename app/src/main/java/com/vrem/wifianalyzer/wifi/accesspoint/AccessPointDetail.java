@@ -87,7 +87,7 @@ public class AccessPointDetail {
     private void setViewCompact(@NonNull View view, @NonNull WiFiDetail wiFiDetail, boolean isChild) {
         Context context = view.getContext();
 
-        view.<TextView>findViewById(R.id.ssid).setText(wiFiDetail.title());
+        view.<TextView>findViewById(R.id.ssid).setText(wiFiDetail.getWiFiIdentifier().title());
 
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
 

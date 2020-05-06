@@ -22,6 +22,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.junit.Test;
@@ -45,7 +46,8 @@ public class StrengthPredicateTest {
     @NonNull
     private WiFiDetail makeWiFiDetail(int level) {
         WiFiSignal wiFiSignal = new WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, level, true);
-        return new WiFiDetail("ssid", "bssid", "wpa", wiFiSignal, WiFiAdditional.EMPTY);
+        WiFiIdentifier wiFiIdentifier = new WiFiIdentifier("ssid", "bssid");
+        return new WiFiDetail(wiFiIdentifier, "wpa", wiFiSignal, WiFiAdditional.EMPTY);
     }
 
 }

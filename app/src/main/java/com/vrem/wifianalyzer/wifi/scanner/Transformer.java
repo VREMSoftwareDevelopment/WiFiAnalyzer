@@ -27,6 +27,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import com.vrem.wifianalyzer.wifi.model.WiFiUtilsKt;
 
@@ -48,9 +49,10 @@ class Transformer {
         }
         String SSID = wifiInfo.getSSID();
         String BSSID = wifiInfo.getBSSID();
-        return new WiFiConnection(
+        WiFiIdentifier wiFiIdentifier = new WiFiIdentifier(
             WiFiUtilsKt.convertSSID(SSID == null ? StringUtils.EMPTY : SSID),
-            BSSID == null ? StringUtils.EMPTY : BSSID,
+            BSSID == null ? StringUtils.EMPTY : BSSID);
+        return new WiFiConnection(wiFiIdentifier,
             WiFiUtilsKt.convertIpAddress(wifiInfo.getIpAddress()),
             wifiInfo.getLinkSpeed());
     }
@@ -116,9 +118,11 @@ class Transformer {
             WiFiWidth wiFiWidth = getWiFiWidth(scanResult);
             int centerFrequency = getCenterFrequency(scanResult, wiFiWidth);
             WiFiSignal wiFiSignal = new WiFiSignal(scanResult.frequency, centerFrequency, wiFiWidth, input.getLevelAverage(), is80211mc(scanResult));
-            return new WiFiDetail(
+            WiFiIdentifier wiFiIdentifier = new WiFiIdentifier(
                 scanResult.SSID == null ? StringUtils.EMPTY : scanResult.SSID,
-                scanResult.BSSID == null ? StringUtils.EMPTY : scanResult.BSSID,
+                scanResult.BSSID == null ? StringUtils.EMPTY : scanResult.BSSID);
+            return new WiFiDetail(
+                wiFiIdentifier,
                 scanResult.capabilities == null ? StringUtils.EMPTY : scanResult.capabilities,
                 wiFiSignal);
         }

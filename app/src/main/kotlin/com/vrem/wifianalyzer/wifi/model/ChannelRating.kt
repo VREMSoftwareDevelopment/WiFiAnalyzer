@@ -48,7 +48,7 @@ class ChannelRating {
                     .sorted()
 
     private fun removeSame(wiFiDetails: List<WiFiDetail>): List<WiFiDetail> {
-        val (left: List<WiFiDetail>, right: List<WiFiDetail>) = wiFiDetails.partition { BSSID_LENGTH == it.BSSID.length }
+        val (left: List<WiFiDetail>, right: List<WiFiDetail>) = wiFiDetails.partition { BSSID_LENGTH == it.wiFiIdentifier.bssid.length }
         return left.distinctBy { it.toKey() }.plus(right).sortedWith(SortBy.STRENGTH.sort)
     }
 
@@ -62,11 +62,11 @@ class ChannelRating {
         return Strength.ZERO == strength || Strength.ONE == strength
     }
 
-    private data class Key(val prefix: String, val BSSID: String, val frequency: Int)
+    private data class Key(val prefix: String, val bssid: String, val frequency: Int)
 
     private fun WiFiDetail.toKey(): Key = Key(
-            this.BSSID.substring(0, 0),
-            this.BSSID.substring(2, BSSID_LENGTH - 1),
+            this.wiFiIdentifier.bssid.substring(0, 0),
+            this.wiFiIdentifier.bssid.substring(2, BSSID_LENGTH - 1),
             this.wiFiSignal.primaryFrequency)
 
     companion object {

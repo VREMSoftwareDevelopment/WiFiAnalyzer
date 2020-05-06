@@ -33,6 +33,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
@@ -79,7 +80,9 @@ public class ExportItemTest {
     public void setUp() {
         scanner = MainContextHelper.INSTANCE.getScannerService();
 
-        wiFiDetail = new WiFiDetail("SSID", "BSSID", "capabilities",
+        wiFiDetail = new WiFiDetail(
+            new WiFiIdentifier("SSID", "BSSID"),
+            "capabilities",
             new WiFiSignal(2412, 2422, WiFiWidth.MHZ_40, -40, true));
 
         fixture = new ExportItem() {

@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi.predicate;
 
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.apache.commons.lang3.StringUtils;
@@ -35,7 +36,8 @@ public class SSIDPredicateTest {
     @Test
     public void testSSIDPredicate() {
         // setup
-        WiFiDetail wiFiDetail = new WiFiDetail(SSID, "bssid", "wpa", WiFiSignal.EMPTY, WiFiAdditional.EMPTY);
+        WiFiIdentifier wiFiIdentifier = new WiFiIdentifier(SSID, "bssid");
+        WiFiDetail wiFiDetail = new WiFiDetail(wiFiIdentifier, "wpa", WiFiSignal.EMPTY, WiFiAdditional.EMPTY);
         // execute & validate
         assertTrue(new SSIDPredicate(SSID).evaluate(wiFiDetail));
         assertTrue(new SSIDPredicate("id").evaluate(wiFiDetail));

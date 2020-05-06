@@ -152,7 +152,7 @@ public class GraphViewWrapperTest {
     @Test
     public void testAddSeriesAddsSeries() {
         // setup
-        String expectedTitle = wiFiDetail.getSSID() + " " + wiFiDetail.getWiFiSignal().channelDisplay();
+        String expectedTitle = wiFiDetail.getWiFiIdentifier().getSsid() + " " + wiFiDetail.getWiFiSignal().channelDisplay();
         boolean connected = wiFiDetail.getWiFiAdditional().getWiFiConnection().connected();
         when(seriesCache.contains(wiFiDetail)).thenReturn(false);
         // execute

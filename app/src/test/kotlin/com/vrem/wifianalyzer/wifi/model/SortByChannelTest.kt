@@ -28,10 +28,14 @@ class SortByChannelTest {
     @Test
     fun testSortByChannel() {
         // setup
-        val wiFiDetail1 = WiFiDetail("SSID1", "BSSID1", STRING_EMPTY,
+        val wiFiDetail1 = WiFiDetail(
+                WiFiIdentifier("SSID1", "BSSID1"),
+                STRING_EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
-        val wiFiDetail2 = WiFiDetail("SSID1", "BSSID1", STRING_EMPTY,
+        val wiFiDetail2 = WiFiDetail(
+                WiFiIdentifier("SSID1", "BSSID1"),
+                STRING_EMPTY,
                 WiFiSignal(2462, 2432, WiFiWidth.MHZ_40, -55, false),
                 WiFiAdditional.EMPTY)
         // execute
@@ -43,10 +47,14 @@ class SortByChannelTest {
     @Test
     fun testSortByChannelWithDifferentChannel() {
         // setup
-        val wiFiDetail1 = WiFiDetail("SSID1", "BSSID1", STRING_EMPTY,
+        val wiFiDetail1 = WiFiDetail(
+                WiFiIdentifier("SSID1", "BSSID1"),
+                STRING_EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
-        val wiFiDetail2 = WiFiDetail("SSID1", "BSSID1", STRING_EMPTY,
+        val wiFiDetail2 = WiFiDetail(
+                WiFiIdentifier("SSID1", "BSSID1"),
+                STRING_EMPTY,
                 WiFiSignal(2432, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
         // execute
@@ -58,10 +66,14 @@ class SortByChannelTest {
     @Test
     fun testSortByChannelWithDifferentSSID() {
         // setup
-        val wiFiDetail1 = WiFiDetail("ssid1", "BSSID1", STRING_EMPTY,
+        val wiFiDetail1 = WiFiDetail(
+                WiFiIdentifier("ssid1", "BSSID1"),
+                STRING_EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
-        val wiFiDetail2 = WiFiDetail("SSID1", "BSSID1", STRING_EMPTY,
+        val wiFiDetail2 = WiFiDetail(
+                WiFiIdentifier("SSID1", "BSSID1"),
+                STRING_EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
         // execute
@@ -73,10 +85,14 @@ class SortByChannelTest {
     @Test
     fun testSortByChannelWithDifferentBSSID() {
         // setup
-        val wiFiDetail1 = WiFiDetail("SSID1", "bssid1", STRING_EMPTY,
+        val wiFiDetail1 = WiFiDetail(
+                WiFiIdentifier("SSID1", "bssid1"),
+                STRING_EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
-        val wiFiDetail2 = WiFiDetail("SSID1", "BSSID1", STRING_EMPTY,
+        val wiFiDetail2 = WiFiDetail(
+                WiFiIdentifier("SSID1", "BSSID1"),
+                STRING_EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
         // execute
@@ -88,10 +104,14 @@ class SortByChannelTest {
     @Test
     fun testSortByChannelWithDifferentStrength() {
         // setup
-        val wiFiDetail1 = WiFiDetail("SSID1", "BSSID1", STRING_EMPTY,
+        val wiFiDetail1 = WiFiDetail(
+                WiFiIdentifier("SSID1", "BSSID1"),
+                STRING_EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
-        val wiFiDetail2 = WiFiDetail("SSID1", "BSSID1", STRING_EMPTY,
+        val wiFiDetail2 = WiFiDetail(
+                WiFiIdentifier("SSID1", "BSSID1"),
+                STRING_EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -35, true),
                 WiFiAdditional.EMPTY)
         // execute

@@ -33,6 +33,6 @@ class SSIDPredicate implements Predicate<WiFiDetail> {
 
     @Override
     public boolean evaluate(WiFiDetail object) {
-        return object.getSSID().contains(ssid);
+        return object.getWiFiIdentifier().getSsid().contains(ssid);
     }
 }

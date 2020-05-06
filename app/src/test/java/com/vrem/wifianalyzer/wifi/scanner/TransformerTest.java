@@ -25,6 +25,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.junit.After;
@@ -110,8 +111,8 @@ public class TransformerTest {
     }
 
     private void validateWiFiDetail(String SSID, String BSSID, WiFiDetail wiFiDetail) {
-        assertEquals(SSID, wiFiDetail.getSSID());
-        assertEquals(BSSID, wiFiDetail.getBSSID());
+        assertEquals(SSID, wiFiDetail.getWiFiIdentifier().getSsid());
+        assertEquals(BSSID, wiFiDetail.getWiFiIdentifier().getBssid());
         assertEquals(WPA, wiFiDetail.getCapabilities());
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         assertEquals(FREQUENCY, wiFiSignal.getPrimaryFrequency());
@@ -122,7 +123,7 @@ public class TransformerTest {
     @Test
     public void testWiFiData() {
         // setup
-        WiFiConnection expectedWiFiConnection = new WiFiConnection(SSID_1, BSSID_1, IP_ADDRESS, LINK_SPEED);
+        WiFiConnection expectedWiFiConnection = new WiFiConnection(new WiFiIdentifier(SSID_1, BSSID_1), IP_ADDRESS, LINK_SPEED);
         withCacheResults();
         withWiFiInfo();
         // execute
