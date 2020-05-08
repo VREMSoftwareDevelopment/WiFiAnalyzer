@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 package com.vrem.wifianalyzer.export
 
-import com.vrem.util.STRING_EMPTY
+import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.FREQUENCY_UNITS
 import java.util.Locale.ENGLISH
@@ -27,7 +27,7 @@ private val header = String.format(ENGLISH,
         "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|802.11mc|Security%n")
 
 fun getData(wiFiDetails: List<WiFiDetail>, timestamp: String): String =
-        header + wiFiDetails.joinToString(separator = STRING_EMPTY, transform = toExportString(timestamp))
+        header + wiFiDetails.joinToString(separator = String.EMPTY, transform = toExportString(timestamp))
 
 private fun toExportString(timestamp: String): (WiFiDetail) -> String = { wiFiDetail: WiFiDetail ->
     with(wiFiDetail) {

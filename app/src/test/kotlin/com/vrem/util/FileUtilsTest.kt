@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -60,7 +60,7 @@ class FileUtilsTest {
         // execute
         val actual: String = readFile(resources, id)
         // validate
-        assertEquals(STRING_EMPTY, actual)
+        assertEquals(String.EMPTY, actual)
         verify(resources).openRawResource(id)
     }
 }

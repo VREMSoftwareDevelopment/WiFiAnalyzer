@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.vrem.util.STRING_EMPTY
+import com.vrem.util.EMPTY
 import com.vrem.util.isMinVersionP
 import com.vrem.util.readFile
 import com.vrem.wifianalyzer.MainContext
@@ -95,7 +95,7 @@ class AboutFragment : Fragment() {
                 val packageInfo: PackageInfo = activity.packageManager.getPackageInfo(activity.packageName, 0)
                 packageInfo.versionName + " - " + versionCode(packageInfo)
             } catch (e: NameNotFoundException) {
-                STRING_EMPTY
+                String.EMPTY
             }
 
     private fun versionCode(packageInfo: PackageInfo): String =

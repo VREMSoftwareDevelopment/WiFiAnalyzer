@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,10 +29,10 @@ fun split(source: String?): Set<String> =
         if (source == null || source.isBlank()) HashSet() else trim(source).split(SEPARATOR).toSet()
 
 fun join(source: Set<String?>?): String =
-        if (source == null) STRING_EMPTY else trim(TextUtils.join(SEPARATOR, source.toTypedArray()))
+        if (source == null) String.EMPTY else trim(TextUtils.join(SEPARATOR, source.toTypedArray()))
 
 fun trim(source: String?): String =
-        if (source == null || source.isBlank()) STRING_EMPTY else source.trim { it <= ' ' }.replace(" +".toRegex(), " ")
+        if (source == null || source.isBlank()) String.EMPTY else source.trim { it <= ' ' }.replace(" +".toRegex(), " ")
 
 fun textToHtml(text: String, color: Int, small: Boolean): String =
         "<font color='" + color + "'><" + (if (small) "small" else "strong") +

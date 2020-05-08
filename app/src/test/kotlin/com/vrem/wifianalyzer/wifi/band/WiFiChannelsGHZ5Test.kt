@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 package com.vrem.wifianalyzer.wifi.band
 
 import androidx.core.util.Pair
-import com.vrem.util.STRING_EMPTY
+import com.vrem.util.EMPTY
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.*
@@ -67,7 +67,7 @@ class WiFiChannelsGHZ5Test {
 
     @Test
     fun testWiFiChannelPairWithInvalidCountry() {
-        val wiFiChannelPair: Pair<WiFiChannel, WiFiChannel> = fixture.wiFiChannelPairFirst(STRING_EMPTY)
+        val wiFiChannelPair: Pair<WiFiChannel, WiFiChannel> = fixture.wiFiChannelPairFirst(String.EMPTY)
         validatePair(36, 64, wiFiChannelPair)
     }
 

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,12 +17,12 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import com.vrem.util.STRING_EMPTY
+import com.vrem.util.EMPTY
 
 typealias SSID = String
 typealias BSSID = String
 
-data class WiFiIdentifier(val ssidRaw: SSID = STRING_EMPTY, val bssid: BSSID = STRING_EMPTY) : Comparable<WiFiIdentifier> {
+data class WiFiIdentifier(val ssidRaw: SSID = String.EMPTY, val bssid: BSSID = String.EMPTY) : Comparable<WiFiIdentifier> {
 
     val ssid = when {
         ssidRaw.isEmpty() -> SSID_EMPTY

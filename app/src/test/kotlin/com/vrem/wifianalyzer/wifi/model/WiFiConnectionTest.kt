@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import com.vrem.util.STRING_EMPTY
+import com.vrem.util.EMPTY
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -31,7 +31,7 @@ class WiFiConnectionTest {
     fun testWiFiConnectionEmpty() {
         // validate
         assertEquals(WiFiIdentifier.EMPTY, WiFiConnection.EMPTY.wiFiIdentifier)
-        assertEquals(STRING_EMPTY, WiFiConnection.EMPTY.ipAddress)
+        assertEquals(String.EMPTY, WiFiConnection.EMPTY.ipAddress)
         assertEquals(WiFiConnection.LINK_SPEED_INVALID, WiFiConnection.EMPTY.linkSpeed)
         assertFalse(WiFiConnection.EMPTY.connected())
     }
@@ -49,7 +49,7 @@ class WiFiConnectionTest {
     fun testEquals() {
         // setup
         val wiFiIdentifier = WiFiIdentifier("SSID-123", "BSSID-123")
-        val other = WiFiConnection(wiFiIdentifier, STRING_EMPTY, WiFiConnection.LINK_SPEED_INVALID)
+        val other = WiFiConnection(wiFiIdentifier, String.EMPTY, WiFiConnection.LINK_SPEED_INVALID)
         // execute & validate
         assertEquals(fixture, other)
         assertNotSame(fixture, other)
@@ -59,7 +59,7 @@ class WiFiConnectionTest {
     fun testHashCode() {
         // setup
         val wiFiIdentifier = WiFiIdentifier("SSID-123", "BSSID-123")
-        val other = WiFiConnection(wiFiIdentifier, STRING_EMPTY, WiFiConnection.LINK_SPEED_INVALID)
+        val other = WiFiConnection(wiFiIdentifier, String.EMPTY, WiFiConnection.LINK_SPEED_INVALID)
         // execute & validate
         assertEquals(fixture.hashCode(), other.hashCode())
     }

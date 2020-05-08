@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import com.vrem.util.STRING_EMPTY
+import com.vrem.util.EMPTY
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -46,7 +46,7 @@ class WiFiAdditionalTest {
     @Test
     fun testWiFiAdditionalEmpty() {
         // validate
-        assertEquals(STRING_EMPTY, WiFiAdditional.EMPTY.vendorName)
+        assertEquals(String.EMPTY, WiFiAdditional.EMPTY.vendorName)
     }
 
 }

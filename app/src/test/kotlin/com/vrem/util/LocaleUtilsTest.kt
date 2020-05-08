@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ class LocaleUtilsTest {
     @Test
     fun testFindByLanguageTagWithUnknownTag() {
         val defaultLocal = Locale.getDefault()
-        assertEquals(defaultLocal, findByLanguageTag(STRING_EMPTY))
+        assertEquals(defaultLocal, findByLanguageTag(String.EMPTY))
         assertEquals(defaultLocal, findByLanguageTag("WW"))
         assertEquals(defaultLocal, findByLanguageTag("WW_HH_TT"))
     }

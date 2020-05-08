@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -69,7 +69,7 @@ class TextUtilsTest {
         // execute
         val actual: String = join(null)
         // validate
-        Assert.assertEquals(STRING_EMPTY, actual)
+        Assert.assertEquals(String.EMPTY, actual)
     }
 
     @Test
@@ -107,7 +107,7 @@ class TextUtilsTest {
         // execute
         val actual: String = trim(null)
         // verify
-        Assert.assertEquals(STRING_EMPTY, actual)
+        Assert.assertEquals(String.EMPTY, actual)
     }
 
     @Test

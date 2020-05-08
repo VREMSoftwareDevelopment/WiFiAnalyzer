@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,19 +24,23 @@ import androidx.preference.PreferenceManager
 import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.R
 
+inline fun SharedPreferences.edit(func: SharedPreferences.Editor.() -> Unit) {
+    val editor: SharedPreferences.Editor = edit()
+    editor.func()
+    editor.apply()
+}
+
 @OpenClass
 class Repository(private val context: Context) {
-    fun initializeDefaultValues(): Unit =
-            defaultValues(context, R.xml.settings, false)
+
+    fun initializeDefaultValues(): Unit = defaultValues(context, R.xml.settings, false)
 
     fun registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener): Unit =
             sharedPreferences().registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
 
-    fun save(key: Int, value: Int): Unit =
-            save(key, value.toString())
+    fun save(key: Int, value: Int): Unit = save(key, value.toString())
 
-    fun save(key: Int, value: String): Unit =
-            save(context.getString(key), value)
+    fun save(key: Int, value: String): Unit = sharedPreferences().edit { putString(context.getString(key), value) }
 
     fun stringAsInteger(key: Int, defaultValue: Int): Int =
             try {
@@ -50,7 +54,7 @@ class Repository(private val context: Context) {
         return try {
             sharedPreferences().getString(keyValue, defaultValue) ?: defaultValue
         } catch (e: Exception) {
-            save(keyValue, defaultValue)
+            sharedPreferences().edit { putString(keyValue, defaultValue) }
             defaultValue
         }
     }
@@ -60,20 +64,19 @@ class Repository(private val context: Context) {
         return try {
             sharedPreferences().getBoolean(keyValue, defaultValue)
         } catch (e: Exception) {
-            save(keyValue, defaultValue)
+            sharedPreferences().edit { putBoolean(keyValue, defaultValue) }
             defaultValue
         }
     }
 
-    fun resourceBoolean(key: Int): Boolean =
-            context.resources.getBoolean(key)
+    fun resourceBoolean(key: Int): Boolean = context.resources.getBoolean(key)
 
     fun integer(key: Int, defaultValue: Int): Int {
         val keyValue: String = context.getString(key)
         return try {
             sharedPreferences().getInt(keyValue, defaultValue)
         } catch (e: Exception) {
-            save(keyValue, defaultValue.toString())
+            sharedPreferences().edit { putString(keyValue, defaultValue.toString()) }
             defaultValue
         }
     }
@@ -83,39 +86,20 @@ class Repository(private val context: Context) {
         return try {
             sharedPreferences().getStringSet(keyValue, defaultValues)!!
         } catch (e: Exception) {
-            save(keyValue, defaultValues)
+            sharedPreferences().edit { putStringSet(keyValue, defaultValues) }
             defaultValues
         }
     }
 
     fun saveStringSet(key: Int, values: Set<String>): Unit =
-            save(context.getString(key), values)
-
-    private fun sharedPreferences(): SharedPreferences =
-            defaultSharedPreferences(context)
-
-    private fun save(key: String, value: String) {
-        val editor: SharedPreferences.Editor = sharedPreferences().edit()
-        editor.putString(key, value)
-        editor.apply()
-    }
-
-    private fun save(key: String, value: Boolean) {
-        val editor: SharedPreferences.Editor = sharedPreferences().edit()
-        editor.putBoolean(key, value)
-        editor.apply()
-    }
-
-    private fun save(key: String, values: Set<String>) {
-        val editor: SharedPreferences.Editor = sharedPreferences().edit()
-        editor.putStringSet(key, values)
-        editor.apply()
-    }
+            sharedPreferences().edit { putStringSet(context.getString(key), values) }
 
     fun defaultValues(context: Context?, resId: Int, readAgain: Boolean): Unit =
             PreferenceManager.setDefaultValues(context, resId, readAgain)
 
     fun defaultSharedPreferences(context: Context?): SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(context)
+
+    private fun sharedPreferences(): SharedPreferences = defaultSharedPreferences(context)
 
 }

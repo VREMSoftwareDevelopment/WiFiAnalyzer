@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ fun readFile(resources: Resources, @RawRes id: Int): String {
     return try {
         resources.openRawResource(id).use { read(it) }
     } catch (e: Exception) {
-        STRING_EMPTY
+        String.EMPTY
     }
 }
 
@@ -33,5 +33,5 @@ private fun read(inputStream: InputStream): String {
     val size = inputStream.available()
     val bytes = ByteArray(size)
     val count = inputStream.read(bytes)
-    return if (count == size) String(bytes) else STRING_EMPTY
+    return if (count == size) String(bytes) else String.EMPTY
 }

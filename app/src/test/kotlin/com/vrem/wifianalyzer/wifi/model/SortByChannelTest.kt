@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import com.vrem.util.STRING_EMPTY
+import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth
 import org.junit.Assert
 import org.junit.Test
@@ -30,12 +30,12 @@ class SortByChannelTest {
         // setup
         val wiFiDetail1 = WiFiDetail(
                 WiFiIdentifier("SSID1", "BSSID1"),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
         val wiFiDetail2 = WiFiDetail(
                 WiFiIdentifier("SSID1", "BSSID1"),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(2462, 2432, WiFiWidth.MHZ_40, -55, false),
                 WiFiAdditional.EMPTY)
         // execute
@@ -49,12 +49,12 @@ class SortByChannelTest {
         // setup
         val wiFiDetail1 = WiFiDetail(
                 WiFiIdentifier("SSID1", "BSSID1"),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
         val wiFiDetail2 = WiFiDetail(
                 WiFiIdentifier("SSID1", "BSSID1"),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(2432, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
         // execute
@@ -68,12 +68,12 @@ class SortByChannelTest {
         // setup
         val wiFiDetail1 = WiFiDetail(
                 WiFiIdentifier("ssid1", "BSSID1"),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
         val wiFiDetail2 = WiFiDetail(
                 WiFiIdentifier("SSID1", "BSSID1"),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
         // execute
@@ -87,12 +87,12 @@ class SortByChannelTest {
         // setup
         val wiFiDetail1 = WiFiDetail(
                 WiFiIdentifier("SSID1", "bssid1"),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
         val wiFiDetail2 = WiFiDetail(
                 WiFiIdentifier("SSID1", "BSSID1"),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
         // execute
@@ -106,12 +106,12 @@ class SortByChannelTest {
         // setup
         val wiFiDetail1 = WiFiDetail(
                 WiFiIdentifier("SSID1", "BSSID1"),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
                 WiFiAdditional.EMPTY)
         val wiFiDetail2 = WiFiDetail(
                 WiFiIdentifier("SSID1", "BSSID1"),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -35, true),
                 WiFiAdditional.EMPTY)
         // execute

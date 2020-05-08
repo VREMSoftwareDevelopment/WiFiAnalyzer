@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import com.nhaarman.mockitokotlin2.whenever
-import com.vrem.util.STRING_EMPTY
+import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth
@@ -286,31 +286,31 @@ class WiFiDataTest {
     private fun withWiFiDetails(): List<WiFiDetail> {
         val wiFiDetail1 = WiFiDetail(
                 WiFiIdentifier(ssid1, bssid1),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(frequency1, frequency1, WiFiWidth.MHZ_20, level1, true))
         val wiFiDetail2 = WiFiDetail(
                 WiFiIdentifier(ssid2, bssid2),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2, true))
         val wiFiDetail3 = WiFiDetail(
                 WiFiIdentifier(ssid3, bssid3),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(frequency3, frequency3, WiFiWidth.MHZ_20, level0, true))
         val wiFiDetail4 = WiFiDetail(
                 WiFiIdentifier(ssid4, bssid4),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(frequency4, frequency4, WiFiWidth.MHZ_20, level2, true))
         val wiFiDetail_1 = WiFiDetail(
                 WiFiIdentifier(ssid2, bssid2 + "_1"),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 3, true))
         val wiFiDetail_2 = WiFiDetail(
                 WiFiIdentifier(ssid2, bssid2 + "_2"),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 1, true))
         val wiFiDetail_3 = WiFiDetail(
                 WiFiIdentifier(ssid2, bssid2 + "_3"),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 2, true))
         return listOf(wiFiDetail_3, wiFiDetail3, wiFiDetail_2, wiFiDetail1, wiFiDetail_1, wiFiDetail2, wiFiDetail4)
     }

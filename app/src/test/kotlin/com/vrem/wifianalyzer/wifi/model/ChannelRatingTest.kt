@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import com.vrem.util.STRING_EMPTY
+import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth
@@ -32,22 +32,22 @@ class ChannelRatingTest {
 
     private val wiFiDetail1 = WiFiDetail(
             WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
-            STRING_EMPTY,
+            String.EMPTY,
             WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50, true),
-            WiFiAdditional(STRING_EMPTY, wiFiConnection))
+            WiFiAdditional(String.EMPTY, wiFiConnection))
     private val wiFiDetail2 = WiFiDetail(
             WiFiIdentifier("SSID2", "58:6d:8f:fa:ae:c0"),
-            STRING_EMPTY,
+            String.EMPTY,
             WiFiSignal(2442, 2442, WiFiWidth.MHZ_20, -70, true),
             WiFiAdditional.EMPTY)
     private val wiFiDetail3 = WiFiDetail(
             WiFiIdentifier("SSID3", "84:94:8c:9d:40:68"),
-            STRING_EMPTY,
+            String.EMPTY,
             WiFiSignal(2452, 2452, WiFiWidth.MHZ_20, -60, true),
             WiFiAdditional.EMPTY)
     private val wiFiDetail4 = WiFiDetail(
             WiFiIdentifier("SSID3", "64:A4:8c:90:10:12"),
-            STRING_EMPTY,
+            String.EMPTY,
             WiFiSignal(2452, 2452, WiFiWidth.MHZ_20, -80, true),
             WiFiAdditional.EMPTY)
 
@@ -104,7 +104,7 @@ class ChannelRatingTest {
         val wiFiSignal: WiFiSignal = wiFiDetail.wiFiSignal
         return WiFiDetail(
                 WiFiIdentifier("SSID2-OTHER", "BSSID-OTHER"),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(wiFiSignal.primaryFrequency, wiFiSignal.centerFrequency, wiFiSignal.wiFiWidth, -80, true),
                 WiFiAdditional.EMPTY)
     }
@@ -137,7 +137,7 @@ class ChannelRatingTest {
         // setup
         val wiFiDetail = WiFiDetail(
                 WiFiIdentifier("SSID2", "22:cf:30:ce:1d:72"),
-                STRING_EMPTY,
+                String.EMPTY,
                 WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, wiFiDetail1.wiFiSignal.level - 5, true),
                 WiFiAdditional.EMPTY)
         // execute
