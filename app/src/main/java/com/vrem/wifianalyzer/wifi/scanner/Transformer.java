@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 
 import com.vrem.util.BuildUtilsKt;
-import com.vrem.util.EnumUtils;
+import com.vrem.util.EnumUtilsKt;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -65,7 +65,7 @@ class Transformer {
     @NonNull
     WiFiWidth getWiFiWidth(@NonNull ScanResult scanResult) {
         try {
-            return EnumUtils.find(WiFiWidth.class, getFieldValue(scanResult, Fields.channelWidth), WiFiWidth.MHZ_20);
+            return EnumUtilsKt.findOne(WiFiWidth.values(), getFieldValue(scanResult, Fields.channelWidth), WiFiWidth.MHZ_20);
         } catch (Exception e) {
             return WiFiWidth.MHZ_20;
         }

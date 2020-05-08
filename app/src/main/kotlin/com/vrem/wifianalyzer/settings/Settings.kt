@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -80,25 +80,25 @@ class Settings(private val repository: Repository) {
     }
 
     fun sortBy(): SortBy =
-            find(SortBy::class.java, R.string.sort_by_key, SortBy.STRENGTH)
+            find(SortBy.values(), R.string.sort_by_key, SortBy.STRENGTH)
 
     fun groupBy(): GroupBy =
-            find(GroupBy::class.java, R.string.group_by_key, GroupBy.NONE)
+            find(GroupBy.values(), R.string.group_by_key, GroupBy.NONE)
 
     fun accessPointView(): AccessPointViewType =
-            find(AccessPointViewType::class.java, R.string.ap_view_key, AccessPointViewType.COMPLETE)
+            find(AccessPointViewType.values(), R.string.ap_view_key, AccessPointViewType.COMPLETE)
 
     fun connectionViewType(): ConnectionViewType =
-            find(ConnectionViewType::class.java, R.string.connection_view_key, ConnectionViewType.COMPLETE)
+            find(ConnectionViewType.values(), R.string.connection_view_key, ConnectionViewType.COMPLETE)
 
     fun channelGraphLegend(): GraphLegend =
-            find(GraphLegend::class.java, R.string.channel_graph_legend_key, GraphLegend.HIDE)
+            find(GraphLegend.values(), R.string.channel_graph_legend_key, GraphLegend.HIDE)
 
     fun timeGraphLegend(): GraphLegend =
-            find(GraphLegend::class.java, R.string.time_graph_legend_key, GraphLegend.LEFT)
+            find(GraphLegend.values(), R.string.time_graph_legend_key, GraphLegend.LEFT)
 
     fun wiFiBand(): WiFiBand =
-            find(WiFiBand::class.java, R.string.wifi_band_key, WiFiBand.GHZ2)
+            find(WiFiBand.values(), R.string.wifi_band_key, WiFiBand.GHZ2)
 
     fun wiFiOffOnExit(): Boolean =
             if (minVersionQ()) {
@@ -111,10 +111,10 @@ class Settings(private val repository: Repository) {
             repository.boolean(R.string.keep_screen_on_key, repository.resourceBoolean(R.bool.keep_screen_on_default))
 
     fun themeStyle(): ThemeStyle =
-            find(ThemeStyle::class.java, R.string.theme_key, ThemeStyle.DARK)
+            find(ThemeStyle.values(), R.string.theme_key, ThemeStyle.DARK)
 
     fun selectedMenu(): NavigationMenu =
-            find(NavigationMenu::class.java, R.string.selected_menu_key, NavigationMenu.ACCESS_POINTS)
+            find(NavigationMenu.values(), R.string.selected_menu_key, NavigationMenu.ACCESS_POINTS)
 
     fun saveSelectedMenu(navigationMenu: NavigationMenu) {
         if (NavigationGroup.GROUP_FEATURE.navigationMenus.contains(navigationMenu)) {
@@ -129,36 +129,36 @@ class Settings(private val repository: Repository) {
             repository.saveStringSet(R.string.filter_ssid_key, values)
 
     fun findWiFiBands(): Set<WiFiBand> =
-            findSet(WiFiBand::class.java, R.string.filter_wifi_band_key, WiFiBand.GHZ2)
+            findSet(WiFiBand.values(), R.string.filter_wifi_band_key, WiFiBand.GHZ2)
 
     fun saveWiFiBands(values: Set<WiFiBand>): Unit =
             saveSet(R.string.filter_wifi_band_key, values)
 
     fun findStrengths(): Set<Strength> =
-            findSet(Strength::class.java, R.string.filter_strength_key, Strength.FOUR)
+            findSet(Strength.values(), R.string.filter_strength_key, Strength.FOUR)
 
     fun saveStrengths(values: Set<Strength>): Unit =
             saveSet(R.string.filter_strength_key, values)
 
     fun findSecurities(): Set<Security> =
-            findSet(Security::class.java, R.string.filter_security_key, Security.NONE)
+            findSet(Security.values(), R.string.filter_security_key, Security.NONE)
 
     fun saveSecurities(values: Set<Security>): Unit =
             saveSet(R.string.filter_security_key, values)
 
-    private fun <T : Enum<*>> find(enumType: Class<T>, key: Int, defaultValue: T): T {
+    private fun <T : Enum<T>> find(values: Array<T>, key: Int, defaultValue: T): T {
         val value = repository.stringAsInteger(key, defaultValue.ordinal)
-        return EnumUtils.find(enumType, value, defaultValue)
+        return findOne(values, value, defaultValue)
     }
 
-    private fun <T : Enum<*>> findSet(enumType: Class<T>, key: Int, defaultValue: T): Set<T> {
-        val defaultValues = EnumUtils.ordinals(enumType)
-        val values = repository.stringSet(key, defaultValues)
-        return EnumUtils.find(enumType, values, defaultValue)
+    private fun <T : Enum<T>> findSet(values: Array<T>, key: Int, defaultValue: T): Set<T> {
+        val ordinalDefault = ordinals(values)
+        val ordinalSaved = repository.stringSet(key, ordinalDefault)
+        return findSet(values, ordinalSaved, defaultValue)
     }
 
-    private fun <T : Enum<*>?> saveSet(key: Int, values: Set<T>): Unit =
-            repository.saveStringSet(key, EnumUtils.find(values))
+    private fun <T : Enum<T>> saveSet(key: Int, values: Set<T>): Unit =
+            repository.saveStringSet(key, ordinals(values))
 
     fun minVersionQ(): Boolean = isMinVersionQ()
 

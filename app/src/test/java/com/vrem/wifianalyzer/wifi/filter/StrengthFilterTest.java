@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,14 @@
 
 package com.vrem.wifianalyzer.wifi.filter;
 
-import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.wifi.model.Strength;
 
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -34,7 +35,7 @@ public class StrengthFilterTest {
 
     @Test
     public void testMapping() {
-        Set<Strength> strengths = EnumUtils.values(Strength.class);
+        Set<Strength> strengths = new HashSet<>(Arrays.asList(Strength.values()));
         assertEquals(strengths.size(), StrengthFilter.ids.size());
         IterableUtils.forEach(strengths, new MappingClosure());
     }

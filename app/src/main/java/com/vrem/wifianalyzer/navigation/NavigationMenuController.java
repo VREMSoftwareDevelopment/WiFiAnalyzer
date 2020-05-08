@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,11 +23,12 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.R;
 
 import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
+
+import java.util.Arrays;
 
 import androidx.annotation.NonNull;
 
@@ -45,7 +46,7 @@ public class NavigationMenuController {
     }
 
     private void populateNavigationMenu() {
-        IterableUtils.forEach(EnumUtils.values(NavigationGroup.class), new NavigationGroupClosure(navigationView.getMenu()));
+        IterableUtils.forEach(Arrays.asList(NavigationGroup.values()), new NavigationGroupClosure(navigationView.getMenu()));
         new NavigationGroupClosure(bottomNavigationView.getMenu()).execute(NavigationGroup.GROUP_FEATURE);
     }
 

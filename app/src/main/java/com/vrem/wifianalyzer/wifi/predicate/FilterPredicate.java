@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi.predicate;
 
-import com.vrem.util.EnumUtils;
+import com.vrem.util.EnumUtilsKt;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.model.Security;
@@ -43,9 +43,9 @@ public class FilterPredicate implements Predicate<WiFiDetail> {
 
     private FilterPredicate(@NonNull Settings settings, @NonNull Set<WiFiBand> wiFiBands) {
         Predicate<WiFiDetail> ssidPredicate = makeSSIDPredicate(settings.findSSIDs());
-        Predicate<WiFiDetail> wiFiBandPredicate = EnumUtils.predicate(WiFiBand.class, wiFiBands, new WiFiBandTransformer());
-        Predicate<WiFiDetail> strengthPredicate = EnumUtils.predicate(Strength.class, settings.findStrengths(), new StrengthTransformer());
-        Predicate<WiFiDetail> securityPredicate = EnumUtils.predicate(Security.class, settings.findSecurities(), new SecurityTransformer());
+        Predicate<WiFiDetail> wiFiBandPredicate = EnumUtilsKt.predicate(WiFiBand.values(), wiFiBands, new WiFiBandTransformer());
+        Predicate<WiFiDetail> strengthPredicate = EnumUtilsKt.predicate(Strength.values(), settings.findStrengths(), new StrengthTransformer());
+        Predicate<WiFiDetail> securityPredicate = EnumUtilsKt.predicate(Security.values(), settings.findSecurities(), new SecurityTransformer());
         List<Predicate<WiFiDetail>> predicates = Arrays.asList(ssidPredicate, wiFiBandPredicate, strengthPredicate, securityPredicate);
         this.predicate = PredicateUtils.allPredicate(CollectionUtils.select(predicates, new NoTruePredicate()));
     }

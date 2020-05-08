@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.vrem.util.ConfigurationUtilsKt;
-import com.vrem.util.EnumUtils;
+import com.vrem.util.EnumUtilsKt;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
 import com.vrem.wifianalyzer.navigation.NavigationMenuControl;
 import com.vrem.wifianalyzer.navigation.NavigationMenuController;
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         closeDrawer();
-        NavigationMenu currentNavigationMenu = EnumUtils.find(NavigationMenu.class, menuItem.getItemId(), NavigationMenu.ACCESS_POINTS);
+        NavigationMenu currentNavigationMenu = EnumUtilsKt.findOne(NavigationMenu.values(), menuItem.getItemId(), NavigationMenu.ACCESS_POINTS);
         currentNavigationMenu.activateNavigationMenu(this, menuItem);
         return true;
     }

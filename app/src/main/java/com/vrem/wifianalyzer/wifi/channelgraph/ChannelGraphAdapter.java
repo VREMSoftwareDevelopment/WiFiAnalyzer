@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
-import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphAdapter;
@@ -29,6 +28,7 @@ import org.apache.commons.collections4.Closure;
 import org.apache.commons.collections4.IterableUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -44,7 +44,7 @@ class ChannelGraphAdapter extends GraphAdapter {
 
     private static List<GraphViewNotifier> makeGraphViewNotifiers() {
         List<GraphViewNotifier> graphViewNotifiers = new ArrayList<>();
-        IterableUtils.forEach(EnumUtils.values(WiFiBand.class), new WiFiBandClosure(graphViewNotifiers));
+        IterableUtils.forEach(Arrays.asList(WiFiBand.values()), new WiFiBandClosure(graphViewNotifiers));
         return graphViewNotifiers;
     }
 

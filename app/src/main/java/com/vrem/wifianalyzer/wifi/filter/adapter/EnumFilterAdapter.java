@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,23 +18,23 @@
 
 package com.vrem.wifianalyzer.wifi.filter.adapter;
 
-import com.vrem.util.EnumUtils;
+import com.vrem.wifianalyzer.R;
 
 import java.util.Set;
 
 import androidx.annotation.NonNull;
 
 public abstract class EnumFilterAdapter<T extends Enum> extends BasicFilterAdapter<T> {
-    private final Class<T> enumType;
+    private final Set<T> valuesDefault;
 
-    EnumFilterAdapter(@NonNull Class<T> enumType, @NonNull Set<T> values) {
+    EnumFilterAdapter(@NonNull Set<T> values) {
         super(values);
-        this.enumType = enumType;
+        this.valuesDefault = values;
     }
 
     @Override
     public boolean isActive() {
-        return getValues().size() != EnumUtils.values(enumType).size();
+        return getValues().size() != valuesDefault.size();
     }
 
     public boolean toggle(@NonNull T object) {
@@ -51,10 +51,12 @@ public abstract class EnumFilterAdapter<T extends Enum> extends BasicFilterAdapt
 
     @Override
     public void reset() {
-        setValues(EnumUtils.values(enumType));
+        setValues(valuesDefault);
     }
 
-    public abstract int getColor(@NonNull T object);
+    public int getColor(@NonNull T object) {
+        return contains(object) ? R.color.selected : R.color.regular;
+    }
 
     boolean contains(@NonNull T object) {
         return getValues().contains(object);

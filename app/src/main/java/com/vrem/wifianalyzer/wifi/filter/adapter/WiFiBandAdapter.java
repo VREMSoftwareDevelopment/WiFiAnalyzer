@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.filter.adapter;
 
-import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 
@@ -29,12 +28,7 @@ import androidx.annotation.NonNull;
 public class WiFiBandAdapter extends EnumFilterAdapter<WiFiBand> {
 
     WiFiBandAdapter(@NonNull Set<WiFiBand> values) {
-        super(WiFiBand.class, values);
-    }
-
-    @Override
-    public int getColor(@NonNull WiFiBand object) {
-        return contains(object) ? R.color.selected : R.color.regular;
+        super(values);
     }
 
     @Override

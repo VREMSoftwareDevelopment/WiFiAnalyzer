@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.timegraph;
 
-import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphAdapter;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewNotifier;
@@ -27,6 +26,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Transformer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -38,7 +38,7 @@ class TimeGraphAdapter extends GraphAdapter {
 
     @NonNull
     private static List<GraphViewNotifier> makeGraphViewNotifiers() {
-        return new ArrayList<>(CollectionUtils.collect(EnumUtils.values(WiFiBand.class), new ToGraphViewNotifier()));
+        return new ArrayList<>(CollectionUtils.collect(Arrays.asList(WiFiBand.values()), new ToGraphViewNotifier()));
     }
 
     private static class ToGraphViewNotifier implements Transformer<WiFiBand, GraphViewNotifier> {

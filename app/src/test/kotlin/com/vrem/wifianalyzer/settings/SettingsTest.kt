@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@ package com.vrem.wifianalyzer.settings
 
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import com.nhaarman.mockitokotlin2.whenever
-import com.vrem.util.EnumUtils
 import com.vrem.util.defaultCountryCode
 import com.vrem.util.defaultLanguageTag
+import com.vrem.util.ordinals
 import com.vrem.util.toLanguageTag
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.NavigationMenu
@@ -255,7 +255,7 @@ class SettingsTest {
         // setup
         val expected = WiFiBand.GHZ5
         val values = setOf("" + expected.ordinal)
-        val defaultValues = EnumUtils.ordinals(WiFiBand::class.java)
+        val defaultValues = ordinals(WiFiBand.values())
         whenever(repository.stringSet(R.string.filter_wifi_band_key, defaultValues)).thenReturn(values)
         // execute
         val actual = fixture.findWiFiBands()
@@ -281,7 +281,7 @@ class SettingsTest {
         // setup
         val expected = Strength.THREE
         val values = setOf("" + expected.ordinal)
-        val defaultValues = EnumUtils.ordinals(Strength::class.java)
+        val defaultValues = ordinals(Strength.values())
         whenever(repository.stringSet(R.string.filter_strength_key, defaultValues)).thenReturn(values)
         // execute
         val actual = fixture.findStrengths()
@@ -307,7 +307,7 @@ class SettingsTest {
         // setup
         val expected = Security.WPA
         val values = setOf("" + expected.ordinal)
-        val defaultValues = EnumUtils.ordinals(Security::class.java)
+        val defaultValues = ordinals(Security.values())
         whenever(repository.stringSet(R.string.filter_security_key, defaultValues)).thenReturn(values)
         // execute
         val actual = fixture.findSecurities()

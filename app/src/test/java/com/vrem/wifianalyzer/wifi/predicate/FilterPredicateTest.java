@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.predicate;
 
-import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
@@ -139,9 +138,9 @@ public class FilterPredicateTest {
     public void testGetPredicateWithAllValuesIsTruePredicate() {
         // setup
         when(settings.findSSIDs()).thenReturn(Collections.emptySet());
-        when(settings.findWiFiBands()).thenReturn(EnumUtils.values(WiFiBand.class));
-        when(settings.findStrengths()).thenReturn(EnumUtils.values(Strength.class));
-        when(settings.findSecurities()).thenReturn(EnumUtils.values(Security.class));
+        when(settings.findWiFiBands()).thenReturn(new HashSet<>(Arrays.asList(WiFiBand.values())));
+        when(settings.findStrengths()).thenReturn(new HashSet<>(Arrays.asList(Strength.values())));
+        when(settings.findSecurities()).thenReturn(new HashSet<>(Arrays.asList(Security.values())));
 
         fixture = FilterPredicate.makeAccessPointsPredicate(settings);
         // execute

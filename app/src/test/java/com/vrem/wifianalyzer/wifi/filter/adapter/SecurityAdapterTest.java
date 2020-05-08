@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2019  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.filter.adapter;
 
-import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.model.Security;
@@ -31,6 +30,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -47,7 +48,7 @@ public class SecurityAdapterTest {
 
     @Before
     public void setUp() {
-        fixture = new SecurityAdapter(EnumUtils.values(Security.class));
+        fixture = new SecurityAdapter(new HashSet<>(Arrays.asList(Security.values())));
     }
 
     @Test
@@ -65,7 +66,7 @@ public class SecurityAdapterTest {
 
     @Test
     public void testContains() {
-        IterableUtils.forEach(EnumUtils.values(Security.class), new ContainsClosure());
+        IterableUtils.forEach(new HashSet<>(Arrays.asList(Security.values())), new ContainsClosure());
     }
 
     @Test
@@ -91,7 +92,7 @@ public class SecurityAdapterTest {
     @Test
     public void testRemovingAllWillNotRemoveLast() {
         // setup
-        Set<Security> values = EnumUtils.values(Security.class);
+        Set<Security> values = new HashSet<>(Arrays.asList(Security.values()));
         // execute
         IterableUtils.forEach(values, new ToggleClosure());
         // validate

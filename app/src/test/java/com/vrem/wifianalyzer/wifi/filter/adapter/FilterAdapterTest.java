@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2020  VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.wifi.filter.adapter;
 
 import android.os.Build;
 
-import com.vrem.util.EnumUtils;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.settings.Settings;
@@ -36,7 +35,9 @@ import org.robolectric.annotation.Config;
 import org.robolectric.annotation.LooperMode;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -65,9 +66,9 @@ public class FilterAdapterTest {
     @Before
     public void setUp() {
         ssids = Collections.emptySet();
-        wiFiBands = EnumUtils.values(WiFiBand.class);
-        strengths = EnumUtils.values(Strength.class);
-        securities = EnumUtils.values(Security.class);
+        wiFiBands = new HashSet<>(Arrays.asList(WiFiBand.values()));
+        strengths = new HashSet<>(Arrays.asList(Strength.values()));
+        securities = new HashSet<>(Arrays.asList(Security.values()));
 
         RobolectricUtil.INSTANCE.getActivity();
         settings = MainContextHelper.INSTANCE.getSettings();
