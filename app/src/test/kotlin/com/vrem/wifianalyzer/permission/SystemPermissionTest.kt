@@ -62,7 +62,7 @@ class SystemPermissionTest {
     }
 
     @Test
-    fun testEnabledWhenLocationIsEnabled() {
+    fun testEnabledWhenLocationEnabled() {
         // setup
         whenever(activity.getSystemService(Context.LOCATION_SERVICE)).thenReturn(locationManager)
         whenever(locationManager.isLocationEnabled).thenReturn(true)
@@ -75,7 +75,7 @@ class SystemPermissionTest {
     }
 
     @Test
-    fun testEnabledWhenNetworkProviderIsEnabled() {
+    fun testEnabledWhenNetworkProviderEnabled() {
         // setup
         whenever(activity.getSystemService(Context.LOCATION_SERVICE)).thenReturn(locationManager)
         whenever(locationManager.isLocationEnabled).thenReturn(false)
@@ -96,6 +96,23 @@ class SystemPermissionTest {
         whenever(locationManager.isLocationEnabled).thenReturn(false)
         whenever(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)).thenReturn(false)
         whenever(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)).thenReturn(false)
+        // execute
+        val actual = fixture.enabled()
+        // validate
+        assertFalse(actual)
+        verify(activity).getSystemService(Context.LOCATION_SERVICE)
+        verify(locationManager).isLocationEnabled
+        verify(locationManager).isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        verify(locationManager).isProviderEnabled(LocationManager.GPS_PROVIDER)
+    }
+
+    @Test
+    fun testEnabledWhenAllProvidersThrowException() {
+        // setup
+        whenever(activity.getSystemService(Context.LOCATION_SERVICE)).thenReturn(locationManager)
+        whenever(locationManager.isLocationEnabled).thenThrow(RuntimeException::class.java)
+        whenever(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)).thenThrow(RuntimeException::class.java)
+        whenever(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)).thenThrow(RuntimeException::class.java)
         // execute
         val actual = fixture.enabled()
         // validate
