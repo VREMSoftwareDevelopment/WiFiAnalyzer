@@ -72,7 +72,7 @@ public class ConnectionView implements UpdateNotifier {
     }
 
     private int getNoLocationVisibility(int visibility) {
-        return mainActivity.getPermissionService().isEnabled() ? View.GONE : visibility;
+        return mainActivity.getPermissionService().enabled() ? View.GONE : visibility;
     }
 
     private boolean noData(@NonNull WiFiData wiFiData) {

@@ -87,11 +87,11 @@ public class MainActivityTest {
         PermissionService permissionService = mock(PermissionService.class);
         fixture.setPermissionService(permissionService);
         ScannerService scannerService = MainContextHelper.INSTANCE.getScannerService();
-        when(permissionService.isPermissionGranted()).thenReturn(true);
+        when(permissionService.permissionGranted()).thenReturn(true);
         // execute
         fixture.onResume();
         // validate
-        verify(permissionService).isPermissionGranted();
+        verify(permissionService).permissionGranted();
         verify(scannerService).resume();
     }
 

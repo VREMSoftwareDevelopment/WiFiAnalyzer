@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (!permissionService.isGranted(requestCode, grantResults)) {
+        if (!permissionService.granted(requestCode, grantResults)) {
             finish();
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -201,8 +201,8 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     @Override
     protected void onResume() {
         super.onResume();
-        if (permissionService.isPermissionGranted()) {
-            if (!permissionService.isSystemEnabled()) {
+        if (permissionService.permissionGranted()) {
+            if (!permissionService.systemEnabled()) {
                 activityUtils.startLocationSettings();
             }
             MainContext.INSTANCE.getScannerService().resume();
