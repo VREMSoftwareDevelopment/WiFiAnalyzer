@@ -20,8 +20,8 @@ package com.vrem.wifianalyzer.settings
 import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.vrem.util.isMinVersionQ
-import com.vrem.util.isVersionP
+import com.vrem.util.buildMinVersionQ
+import com.vrem.util.buildVersionP
 import com.vrem.wifianalyzer.R
 
 open class SettingsFragment : PreferenceFragmentCompat() {
@@ -31,7 +31,7 @@ open class SettingsFragment : PreferenceFragmentCompat() {
         findPreference<Preference>(getString(R.string.wifi_off_on_exit_key))!!.isVisible = !minVersionQ()
     }
 
-    open fun minVersionQ(): Boolean = isMinVersionQ()
+    open fun minVersionQ(): Boolean = buildMinVersionQ()
 
-    open fun versionP(): Boolean = isVersionP()
+    open fun versionP(): Boolean = buildVersionP()
 }

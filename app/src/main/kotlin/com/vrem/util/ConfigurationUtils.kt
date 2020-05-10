@@ -25,7 +25,7 @@ import android.os.Build
 import java.util.*
 
 fun createContext(context: Context, newLocale: Locale): Context =
-        if (isMinVersionN()) createContextAndroidN(context, newLocale) else createContextLegacy(context, newLocale)
+        if (buildMinVersionN()) createContextAndroidN(context, newLocale) else createContextLegacy(context, newLocale)
 
 @TargetApi(Build.VERSION_CODES.N)
 private fun createContextAndroidN(context: Context, newLocale: Locale): Context {

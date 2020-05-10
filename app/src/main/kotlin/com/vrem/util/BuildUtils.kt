@@ -20,14 +20,14 @@ package com.vrem.util
 
 import android.os.Build
 
-fun isMinVersionQ(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+fun buildMinVersionQ(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 
-fun isMinVersionP(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+fun buildMinVersionP(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
 
-fun isVersionP(): Boolean = Build.VERSION.SDK_INT == Build.VERSION_CODES.P
+fun buildVersionP(): Boolean = Build.VERSION.SDK_INT == Build.VERSION_CODES.P
 
-fun isMinVersionN(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+fun buildMinVersionN(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
 
-fun isMinVersionM(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+fun buildMinVersionM(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
 
-fun isMinVersionL(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+fun buildMinVersionL(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP

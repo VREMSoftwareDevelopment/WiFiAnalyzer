@@ -95,7 +95,7 @@ class Transformer {
     }
 
     private boolean is80211mc(@NonNull ScanResult scanResult) {
-        return BuildUtilsKt.isMinVersionM() && scanResult.is80211mcResponder();
+        return BuildUtilsKt.buildMinVersionM() && scanResult.is80211mcResponder();
     }
 
     @NonNull

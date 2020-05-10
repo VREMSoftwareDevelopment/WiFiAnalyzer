@@ -23,12 +23,12 @@ import android.content.Context
 import android.location.LocationManager
 import android.os.Build
 import com.vrem.annotation.OpenClass
-import com.vrem.util.isMinVersionM
-import com.vrem.util.isMinVersionP
+import com.vrem.util.buildMinVersionM
+import com.vrem.util.buildMinVersionP
 
 @OpenClass
 class SystemPermission(private val activity: Activity) {
-    fun enabled(): Boolean = !isMinVersionM() || providerEnabledAndroidM()
+    fun enabled(): Boolean = !buildMinVersionM() || providerEnabledAndroidM()
 
     @TargetApi(Build.VERSION_CODES.M)
     private fun providerEnabledAndroidM(): Boolean =
@@ -54,7 +54,7 @@ class SystemPermission(private val activity: Activity) {
             }
 
     private fun locationEnabled(locationManager: LocationManager): Boolean =
-            isMinVersionP() && locationEnabledAndroidP(locationManager)
+            buildMinVersionP() && locationEnabledAndroidP(locationManager)
 
     @TargetApi(Build.VERSION_CODES.P)
     private fun locationEnabledAndroidP(locationManager: LocationManager): Boolean =

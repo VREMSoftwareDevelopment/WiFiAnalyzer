@@ -66,7 +66,7 @@ public class ConnectionView implements UpdateNotifier {
         int visibility = noData(wiFiData) ? View.VISIBLE : View.GONE;
         mainActivity.findViewById(R.id.scanning).setVisibility(visibility);
         mainActivity.findViewById(R.id.no_data).setVisibility(visibility);
-        if (BuildUtilsKt.isMinVersionM()) {
+        if (BuildUtilsKt.buildMinVersionM()) {
             mainActivity.findViewById(R.id.no_location).setVisibility(getNoLocationVisibility(visibility));
         }
     }

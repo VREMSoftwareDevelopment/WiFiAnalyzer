@@ -122,7 +122,7 @@ class ChannelRatingAdapter extends ArrayAdapter<WiFiChannel> implements UpdateNo
     }
 
     private void setRatingBarColor(RatingBar ratingBar, int color) {
-        if (BuildUtilsKt.isMinVersionL()) {
+        if (BuildUtilsKt.buildMinVersionL()) {
             ratingBar.setProgressTintList(ColorStateList.valueOf(color));
         } else {
             setRatingBarColorLegacy(ratingBar.getProgressDrawable(), color);

@@ -23,7 +23,7 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Build
 import com.vrem.annotation.OpenClass
-import com.vrem.util.isMinVersionM
+import com.vrem.util.buildMinVersionM
 import com.vrem.wifianalyzer.R
 
 @OpenClass
@@ -48,7 +48,7 @@ class PermissionDialog(private val activity: Activity) {
 
         @TargetApi(Build.VERSION_CODES.M)
         private fun requestPermissionsAndroidM() {
-            if (isMinVersionM()) {
+            if (buildMinVersionM()) {
                 activity.requestPermissions(ApplicationPermission.PERMISSIONS, ApplicationPermission.REQUEST_CODE)
             }
         }

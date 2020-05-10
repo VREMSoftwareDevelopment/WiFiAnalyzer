@@ -46,7 +46,7 @@ public class ChannelGraphFragment extends Fragment implements OnRefreshListener 
 
         swipeRefreshLayout = binding.graphRefresh;
         swipeRefreshLayout.setOnRefreshListener(this);
-        if (BuildUtilsKt.isVersionP()) {
+        if (BuildUtilsKt.buildVersionP()) {
             swipeRefreshLayout.setRefreshing(false);
             swipeRefreshLayout.setEnabled(false);
         }

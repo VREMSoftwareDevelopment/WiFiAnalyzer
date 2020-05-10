@@ -35,7 +35,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.vrem.util.EMPTY
-import com.vrem.util.isMinVersionP
+import com.vrem.util.buildMinVersionP
 import com.vrem.util.readFile
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
@@ -99,7 +99,7 @@ class AboutFragment : Fragment() {
             }
 
     private fun versionCode(packageInfo: PackageInfo): String =
-            if (isMinVersionP()) {
+            if (buildMinVersionP()) {
                 packageInfo.longVersionCode.toString()
             } else {
                 @Suppress("DEPRECATION")

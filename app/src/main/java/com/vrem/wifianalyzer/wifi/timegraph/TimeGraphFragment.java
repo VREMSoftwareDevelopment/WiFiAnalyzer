@@ -44,7 +44,7 @@ public class TimeGraphFragment extends Fragment implements SwipeRefreshLayout.On
 
         swipeRefreshLayout = binding.graphRefresh;
         swipeRefreshLayout.setOnRefreshListener(this);
-        if (BuildUtilsKt.isVersionP()) {
+        if (BuildUtilsKt.buildVersionP()) {
             swipeRefreshLayout.setRefreshing(false);
             swipeRefreshLayout.setEnabled(false);
         }

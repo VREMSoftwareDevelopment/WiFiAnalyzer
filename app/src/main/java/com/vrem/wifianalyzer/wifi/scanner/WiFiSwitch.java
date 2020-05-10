@@ -54,7 +54,7 @@ class WiFiSwitch {
     }
 
     boolean isMinVersionQ() {
-        return BuildUtilsKt.isMinVersionQ();
+        return BuildUtilsKt.buildMinVersionQ();
     }
 
 }

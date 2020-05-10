@@ -135,9 +135,9 @@ class Settings(private val repository: Repository) {
 
     private fun <T : Enum<T>> saveSet(key: Int, values: Set<T>): Unit = repository.saveStringSet(key, ordinals(values))
 
-    fun minVersionQ(): Boolean = isMinVersionQ()
+    fun minVersionQ(): Boolean = buildMinVersionQ()
 
-    fun versionP(): Boolean = isVersionP()
+    fun versionP(): Boolean = buildVersionP()
 
     companion object {
         const val SCAN_SPEED_DEFAULT = 5

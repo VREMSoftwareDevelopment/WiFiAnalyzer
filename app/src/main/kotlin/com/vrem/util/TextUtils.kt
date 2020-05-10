@@ -39,7 +39,7 @@ fun textToHtml(text: String, color: Int, small: Boolean): String =
                 ">" + text + "</" + (if (small) "small" else "strong") + "></font>"
 
 fun fromHtml(text: String): Spanned =
-        if (isMinVersionN()) fromHtmlAndroidN(text) else fromHtmlLegacy(text)
+        if (buildMinVersionN()) fromHtmlAndroidN(text) else fromHtmlLegacy(text)
 
 @TargetApi(Build.VERSION_CODES.N)
 private fun fromHtmlAndroidN(text: String): Spanned = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
