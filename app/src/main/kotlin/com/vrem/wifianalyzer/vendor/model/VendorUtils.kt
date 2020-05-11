@@ -15,29 +15,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.vendor.model
 
-package com.vrem.wifianalyzer.vendor.model;
+import com.vrem.util.EMPTY
+import java.util.*
 
-import android.content.res.Resources;
+internal const val MAX_SIZE = 6
+private const val SEPARATOR = ":"
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+internal fun String.clean(): String =
+        orEmpty().replace(SEPARATOR, String.EMPTY).take(MAX_SIZE).toUpperCase(Locale.getDefault())
 
-import static org.junit.Assert.assertTrue;
-
-@RunWith(MockitoJUnitRunner.class)
-public class VendorServiceFactoryTest {
-
-    @Mock
-    private Resources resources;
-
-    @Test
-    public void testMakeVendorService() {
-        // execute
-        VendorService actual = VendorServiceFactory.makeVendorService(resources);
-        // validate
-        assertTrue(actual instanceof VendorDB);
-    }
-}
+internal fun String.toMacAddress(): String =
+        when {
+            isEmpty() -> String.EMPTY
+            length < MAX_SIZE -> "*$this*"
+            else -> substring(0, 2) + SEPARATOR + substring(2, 4) + SEPARATOR + substring(4, 6)
+        }

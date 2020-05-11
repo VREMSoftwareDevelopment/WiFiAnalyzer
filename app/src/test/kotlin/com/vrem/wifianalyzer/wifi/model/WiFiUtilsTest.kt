@@ -17,8 +17,8 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import org.apache.commons.lang3.StringUtils
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.text.DecimalFormat
 
@@ -55,8 +55,8 @@ class WiFiUtilsTest {
     fun testConvertIpAddress() {
         assertEquals("21.205.91.7", convertIpAddress(123456789))
         assertEquals("1.0.0.0", convertIpAddress(1))
-        assertEquals(StringUtils.EMPTY, convertIpAddress(0))
-        assertEquals(StringUtils.EMPTY, convertIpAddress(-1))
+        assertTrue(convertIpAddress(0).isEmpty())
+        assertTrue(convertIpAddress(-1).isEmpty())
     }
 
     @Test

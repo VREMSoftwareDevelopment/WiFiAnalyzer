@@ -15,38 +15,34 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.wifi.model
+package com.vrem.wifianalyzer.vendor.model
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class WiFiAdditionalTest {
-    private val vendorName = "VendorName"
+class VendorUtilsTest {
+
+    private val macAddressClean = "0023AB"
+    private val macAddressShort = "00:23:AB"
+    private val macAddressFull = "00:23:AB:8C:DF:10"
 
     @Test
-    fun testWiFiAdditionalWithWiFiConnection() {
-        // setup
-        val wiFiConnection = WiFiConnection(WiFiIdentifier("SSID", "BSSID"), "192.168.1.10", 22)
-        // execute
-        val fixture = WiFiAdditional(vendorName, wiFiConnection)
-        // validate
-        assertEquals(vendorName, fixture.vendorName)
-        assertEquals(wiFiConnection, fixture.wiFiConnection)
+    fun testClean() {
+        assertTrue("".clean().isEmpty())
+        assertEquals(macAddressClean, macAddressFull.clean())
+        assertEquals("34AF", "34aF".clean())
+        assertEquals("34AF0B", "34aF0B".clean())
+        assertEquals("34AA0B", "34:aa:0b".clean())
+        assertEquals("34AC0B", "34:ac:0B:A0".clean())
     }
 
     @Test
-    fun testWiFiAdditional() {
-        // execute
-        val fixture = WiFiAdditional(vendorName, WiFiConnection.EMPTY)
-        // validate
-        assertEquals(vendorName, fixture.vendorName)
-    }
-
-    @Test
-    fun testWiFiAdditionalEmpty() {
-        // validate
-        assertTrue(WiFiAdditional.EMPTY.vendorName.isEmpty())
+    fun testToMacAddress() {
+        assertTrue("".toMacAddress().isEmpty())
+        assertEquals(macAddressShort, macAddressClean.toMacAddress())
+        assertEquals("*34AF*", "34AF".toMacAddress())
+        assertEquals("34:AF:0B", "34AF0BAC".toMacAddress())
     }
 
 }

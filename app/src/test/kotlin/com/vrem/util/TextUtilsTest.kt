@@ -20,7 +20,7 @@ package com.vrem.util
 import android.os.Build
 import android.text.Spanned
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -38,7 +38,7 @@ class TextUtilsTest {
         // execute
         val actual: String = textToHtml(text, color, true)
         // validate
-        Assert.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -50,7 +50,7 @@ class TextUtilsTest {
         // execute
         val actual: String = textToHtml(text, color, false)
         // validate
-        Assert.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -61,7 +61,7 @@ class TextUtilsTest {
         // execute
         val actual: String = join(values)
         // validate
-        Assert.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -69,7 +69,7 @@ class TextUtilsTest {
         // execute
         val actual: String = join(null)
         // validate
-        Assert.assertEquals(String.EMPTY, actual)
+        assertTrue(actual.isEmpty())
     }
 
     @Test
@@ -80,7 +80,7 @@ class TextUtilsTest {
         // execute
         val actual: Set<String> = split(value)
         // verify
-        Assert.assertArrayEquals(expected, actual.toTypedArray())
+        assertArrayEquals(expected, actual.toTypedArray())
     }
 
     @Test
@@ -88,7 +88,7 @@ class TextUtilsTest {
         // execute
         val actual: Set<String> = split(null)
         // validate
-        Assert.assertTrue(actual.isEmpty())
+        assertTrue(actual.isEmpty())
     }
 
     @Test
@@ -99,7 +99,7 @@ class TextUtilsTest {
         // execute
         val actual: String = trim(value)
         // verify
-        Assert.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -107,7 +107,7 @@ class TextUtilsTest {
         // execute
         val actual: String = trim(null)
         // verify
-        Assert.assertEquals(String.EMPTY, actual)
+        assertTrue(actual.isEmpty())
     }
 
     @Test
@@ -118,7 +118,7 @@ class TextUtilsTest {
         // execute
         val actual: Spanned = fromHtml(text)
         // verify
-        Assert.assertEquals(expected, actual.toString())
+        assertEquals(expected, actual.toString())
     }
 
     @Test
@@ -130,6 +130,6 @@ class TextUtilsTest {
         // execute
         val actual: Spanned = fromHtml(text)
         // verify
-        Assert.assertEquals(expected, actual.toString())
+        assertEquals(expected, actual.toString())
     }
 }

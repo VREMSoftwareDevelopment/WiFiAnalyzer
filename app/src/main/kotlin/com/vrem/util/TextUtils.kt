@@ -25,14 +25,11 @@ import android.text.TextUtils
 
 private const val SEPARATOR = " "
 
-fun split(source: String?): Set<String> =
-        if (source == null || source.isBlank()) HashSet() else trim(source).split(SEPARATOR).toSet()
+fun split(source: String?): Set<String> = if (source == null || source.isBlank()) HashSet() else trim(source).split(SEPARATOR).toSet()
 
-fun join(source: Set<String?>?): String =
-        if (source == null) String.EMPTY else trim(TextUtils.join(SEPARATOR, source.toTypedArray()))
+fun join(source: Set<String>?): String = trim(TextUtils.join(SEPARATOR, source.orEmpty().toTypedArray()))
 
-fun trim(source: String?): String =
-        if (source == null || source.isBlank()) String.EMPTY else source.trim { it <= ' ' }.replace(" +".toRegex(), " ")
+fun trim(source: String?): String = source.orEmpty().trim { it <= ' ' }.replace(" +".toRegex(), " ")
 
 fun textToHtml(text: String, color: Int, small: Boolean): String =
         "<font color='" + color + "'><" + (if (small) "small" else "strong") +

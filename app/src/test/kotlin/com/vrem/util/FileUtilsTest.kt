@@ -23,6 +23,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
@@ -60,7 +61,7 @@ class FileUtilsTest {
         // execute
         val actual: String = readFile(resources, id)
         // validate
-        assertEquals(String.EMPTY, actual)
+        assertTrue(actual.isEmpty())
         verify(resources).openRawResource(id)
     }
 }
