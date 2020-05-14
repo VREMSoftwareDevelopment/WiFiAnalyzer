@@ -18,36 +18,70 @@
 
 package com.vrem.wifianalyzer.export
 
+import android.content.Intent
+import android.content.res.Resources
+import com.vrem.annotation.OpenClass
 import com.vrem.util.EMPTY
+import com.vrem.wifianalyzer.MainActivity
+import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.FREQUENCY_UNITS
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.Locale.ENGLISH
 
-private val header = String.format(ENGLISH,
-        "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|802.11mc|Security%n")
+@OpenClass
+class Export(private val exportIntent: ExportIntent = ExportIntent()) {
 
-fun getData(wiFiDetails: List<WiFiDetail>, timestamp: String): String =
-        header + wiFiDetails.joinToString(separator = String.EMPTY, transform = toExportString(timestamp))
+    private val header = String.format(ENGLISH,
+            "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|802.11mc|Security%n")
 
-private fun toExportString(timestamp: String): (WiFiDetail) -> String = { wiFiDetail: WiFiDetail ->
-    with(wiFiDetail) {
-        String.format(ENGLISH, "%s|%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%s|%s|%s%n",
-                timestamp,
-                wiFiIdentifier.ssid,
-                wiFiIdentifier.bssid,
-                wiFiSignal.level,
-                wiFiSignal.primaryWiFiChannel().channel,
-                wiFiSignal.primaryFrequency,
-                FREQUENCY_UNITS,
-                wiFiSignal.centerWiFiChannel().channel,
-                wiFiSignal.centerFrequency,
-                FREQUENCY_UNITS,
-                wiFiSignal.wiFiWidth.frequencyWidth,
-                FREQUENCY_UNITS,
-                wiFiSignal.frequencyStart(),
-                wiFiSignal.frequencyEnd(),
-                wiFiSignal.distance(),
-                wiFiSignal.is80211mc,
-                capabilities)
+    fun export(mainActivity: MainActivity, wiFiDetails: List<WiFiDetail>): Intent =
+            export(mainActivity, wiFiDetails, Date())
+
+    fun export(mainActivity: MainActivity, wiFiDetails: List<WiFiDetail>, date: Date): Intent {
+        val timestamp: String = timestamp(date)
+        val title: String = title(mainActivity, timestamp)
+        val data: String = data(wiFiDetails, timestamp)
+        return exportIntent.intent(title, data)
     }
+
+    internal fun data(wiFiDetails: List<WiFiDetail>, timestamp: String): String =
+            header + wiFiDetails.joinToString(separator = String.EMPTY, transform = toExportString(timestamp))
+
+    internal fun title(mainActivity: MainActivity, timestamp: String): String {
+        val resources: Resources = mainActivity.resources
+        val title: String = resources.getString(R.string.action_access_points)
+        return "$title-$timestamp"
+    }
+
+    internal fun timestamp(date: Date): String = SimpleDateFormat(TIME_STAMP_FORMAT, Locale.US).format(date)
+
+    private fun toExportString(timestamp: String): (WiFiDetail) -> String = { wiFiDetail: WiFiDetail ->
+        with(wiFiDetail) {
+            String.format(ENGLISH, "%s|%s|%s|%ddBm|%d|%d%s|%d|%d%s|%d%s (%d - %d)|%s|%s|%s%n",
+                    timestamp,
+                    wiFiIdentifier.ssid,
+                    wiFiIdentifier.bssid,
+                    wiFiSignal.level,
+                    wiFiSignal.primaryWiFiChannel().channel,
+                    wiFiSignal.primaryFrequency,
+                    FREQUENCY_UNITS,
+                    wiFiSignal.centerWiFiChannel().channel,
+                    wiFiSignal.centerFrequency,
+                    FREQUENCY_UNITS,
+                    wiFiSignal.wiFiWidth.frequencyWidth,
+                    FREQUENCY_UNITS,
+                    wiFiSignal.frequencyStart(),
+                    wiFiSignal.frequencyEnd(),
+                    wiFiSignal.distance(),
+                    wiFiSignal.is80211mc,
+                    capabilities)
+        }
+    }
+
+    companion object {
+        private const val TIME_STAMP_FORMAT = "yyyy/MM/dd-HH:mm:ss"
+    }
+
 }

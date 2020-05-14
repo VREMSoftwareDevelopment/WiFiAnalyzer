@@ -15,26 +15,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.permission
 
-import android.app.Activity
+package com.vrem.wifianalyzer.export
+
+import android.content.Intent
 import com.vrem.annotation.OpenClass
 
-// FIXME remove @JvmOverloads after full conversion to Kotlin
 @OpenClass
-class PermissionService @JvmOverloads constructor(
-        private val activity: Activity,
-        private val systemPermission: SystemPermission = SystemPermission(activity),
-        private val applicationPermission: ApplicationPermission = ApplicationPermission(activity)) {
+class ExportIntent {
 
-    fun enabled(): Boolean = systemEnabled() && permissionGranted()
+    internal fun intent(title: String, data: String): Intent {
+        val intentSend: Intent = intentSend()
+        intentSend.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        intentSend.type = "text/plain"
+        intentSend.putExtra(Intent.EXTRA_TITLE, title)
+        intentSend.putExtra(Intent.EXTRA_SUBJECT, title)
+        intentSend.putExtra(Intent.EXTRA_TEXT, data)
+        return intentChooser(intentSend, title)
+    }
 
-    fun systemEnabled(): Boolean = systemPermission.enabled()
+    internal fun intentSend(): Intent = Intent(Intent.ACTION_SEND)
 
-    fun check(): Unit = applicationPermission.check()
-
-    fun granted(requestCode: Int, grantResults: IntArray): Boolean =
-            applicationPermission.granted(requestCode, grantResults)
-
-    fun permissionGranted(): Boolean = applicationPermission.granted()
+    internal fun intentChooser(intent: Intent, title: String): Intent = Intent.createChooser(intent, title)
 }

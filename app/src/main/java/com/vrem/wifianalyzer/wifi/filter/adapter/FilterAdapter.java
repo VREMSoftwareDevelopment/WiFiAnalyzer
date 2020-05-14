@@ -92,7 +92,7 @@ public class FilterAdapter {
     }
 
     private boolean isAccessPoints() {
-        return NavigationMenu.ACCESS_POINTS.equals(MainContext.INSTANCE.getMainActivity().getCurrentNavigationMenu());
+        return NavigationMenu.ACCESS_POINTS.equals(MainContext.INSTANCE.getMainActivity().currentNavigationMenu());
     }
 
     private class ActivePredicate implements Predicate<BasicFilterAdapter<? extends Serializable>> {

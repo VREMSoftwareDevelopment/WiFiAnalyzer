@@ -77,7 +77,7 @@ public class Filter {
     }
 
     private void addWiFiBandFilter(@NonNull AlertDialog alertDialog) {
-        if (NavigationMenu.ACCESS_POINTS.equals(MainContext.INSTANCE.getMainActivity().getCurrentNavigationMenu())) {
+        if (NavigationMenu.ACCESS_POINTS.equals(MainContext.INSTANCE.getMainActivity().currentNavigationMenu())) {
             new WiFiBandFilter(MainContext.INSTANCE.getFilterAdapter().getWiFiBandAdapter(), alertDialog);
         }
     }

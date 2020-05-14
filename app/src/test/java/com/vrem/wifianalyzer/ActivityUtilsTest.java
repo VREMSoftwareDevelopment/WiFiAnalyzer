@@ -119,25 +119,25 @@ public class ActivityUtilsTest {
     @Test
     public void testWiFiBandToggleOnClickToggles() {
         // setup
-        when(mainActivity.getCurrentNavigationMenu()).thenReturn(NavigationMenu.CHANNEL_GRAPH);
+        when(mainActivity.currentNavigationMenu()).thenReturn(NavigationMenu.CHANNEL_GRAPH);
         WiFiBandToggle wiFiBandToggle = new WiFiBandToggle(mainActivity);
         // execute
         wiFiBandToggle.onClick(null);
         // validate
         verify(settings).toggleWiFiBand();
-        verify(mainActivity).getCurrentNavigationMenu();
+        verify(mainActivity).currentNavigationMenu();
     }
 
     @Test
     public void testWiFiBandToggleOnClickDoesNotToggles() {
         // setup
-        when(mainActivity.getCurrentNavigationMenu()).thenReturn(NavigationMenu.ACCESS_POINTS);
+        when(mainActivity.currentNavigationMenu()).thenReturn(NavigationMenu.ACCESS_POINTS);
         WiFiBandToggle wiFiBandToggle = new WiFiBandToggle(mainActivity);
         // execute
         wiFiBandToggle.onClick(null);
         // validate
         verify(settings, never()).toggleWiFiBand();
-        verify(mainActivity).getCurrentNavigationMenu();
+        verify(mainActivity).currentNavigationMenu();
     }
 
     @Test

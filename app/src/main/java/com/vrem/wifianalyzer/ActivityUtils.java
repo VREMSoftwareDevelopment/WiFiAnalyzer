@@ -95,7 +95,7 @@ public class ActivityUtils {
 
         @Override
         public void onClick(View view) {
-            if (mainActivity.getCurrentNavigationMenu().isWiFiBandSwitchable()) {
+            if (mainActivity.currentNavigationMenu().wiFiBandSwitchable()) {
                 MainContext.INSTANCE.getSettings().toggleWiFiBand();
             }
         }

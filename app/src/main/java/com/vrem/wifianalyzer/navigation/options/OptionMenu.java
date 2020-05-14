@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import com.vrem.wifianalyzer.R;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.view.menu.MenuBuilder;
 
 public class OptionMenu {
@@ -41,6 +42,7 @@ public class OptionMenu {
         OptionAction.findOptionAction(item.getItemId()).getAction().execute();
     }
 
+    @Nullable
     public Menu getMenu() {
         return menu;
     }

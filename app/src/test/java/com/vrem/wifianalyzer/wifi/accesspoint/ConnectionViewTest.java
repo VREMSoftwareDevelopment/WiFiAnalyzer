@@ -92,7 +92,7 @@ public class ConnectionViewTest {
     @After
     public void tearDown() {
         MainContextHelper.INSTANCE.restore();
-        mainActivity.setCurrentNavigationMenu(NavigationMenu.ACCESS_POINTS);
+        mainActivity.currentNavigationMenu(NavigationMenu.ACCESS_POINTS);
     }
 
     @Test
@@ -202,7 +202,7 @@ public class ConnectionViewTest {
     @Test
     public void testNoDataIsGoneWithNavigationMenuThatDoesNotHaveOptionMenu() {
         // setup
-        mainActivity.setCurrentNavigationMenu(NavigationMenu.VENDORS);
+        mainActivity.currentNavigationMenu(NavigationMenu.VENDORS);
         when(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(wiFiData.connection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
         // execute
@@ -241,7 +241,7 @@ public class ConnectionViewTest {
     @Test
     public void testScanningIsGoneWithNavigationMenuThatDoesNotHaveOptionMenu() {
         // setup
-        mainActivity.setCurrentNavigationMenu(NavigationMenu.VENDORS);
+        mainActivity.currentNavigationMenu(NavigationMenu.VENDORS);
         when(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE);
         when(wiFiData.connection()).thenReturn(withConnection(WiFiAdditional.EMPTY));
         // execute

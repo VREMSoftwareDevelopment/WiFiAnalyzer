@@ -190,13 +190,13 @@ public class MainActivityTest {
         // setup
         MenuItem menuItem = mock(MenuItem.class);
         NavigationMenuController navigationMenuController = mock(NavigationMenuController.class);
-        when(navigationMenuController.getCurrentMenuItem()).thenReturn(menuItem);
+        when(navigationMenuController.currentMenuItem()).thenReturn(menuItem);
         fixture.setNavigationMenuController(navigationMenuController);
         // execute
-        MenuItem actual = fixture.getCurrentMenuItem();
+        MenuItem actual = fixture.currentMenuItem();
         // validate
         assertEquals(menuItem, actual);
-        verify(navigationMenuController).getCurrentMenuItem();
+        verify(navigationMenuController).currentMenuItem();
     }
 
     @Test
@@ -204,13 +204,13 @@ public class MainActivityTest {
         // setup
         NavigationMenu navigationMenu = NavigationMenu.CHANNEL_GRAPH;
         NavigationMenuController navigationMenuController = mock(NavigationMenuController.class);
-        when(navigationMenuController.getCurrentNavigationMenu()).thenReturn(navigationMenu);
+        when(navigationMenuController.currentNavigationMenu()).thenReturn(navigationMenu);
         fixture.setNavigationMenuController(navigationMenuController);
         // execute
-        NavigationMenu actual = fixture.getCurrentNavigationMenu();
+        NavigationMenu actual = fixture.currentNavigationMenu();
         // validate
         assertEquals(navigationMenu, actual);
-        verify(navigationMenuController).getCurrentNavigationMenu();
+        verify(navigationMenuController).currentNavigationMenu();
     }
 
     @Test
@@ -221,9 +221,9 @@ public class MainActivityTest {
         NavigationMenuController navigationMenuController = mock(NavigationMenuController.class);
         fixture.setNavigationMenuController(navigationMenuController);
         // execute
-        fixture.setCurrentNavigationMenu(navigationMenu);
+        fixture.currentNavigationMenu(navigationMenu);
         // validate
-        verify(navigationMenuController).setCurrentNavigationMenu(navigationMenu);
+        verify(navigationMenuController).currentNavigationMenu(navigationMenu);
         verify(settings).saveSelectedMenu(navigationMenu);
     }
 
@@ -235,7 +235,7 @@ public class MainActivityTest {
         when(navigationMenuController.getNavigationView()).thenReturn(navigationView);
         fixture.setNavigationMenuController(navigationMenuController);
         // execute
-        NavigationView actual = fixture.getNavigationView();
+        NavigationView actual = fixture.navigationView();
         // validate
         assertEquals(navigationView, actual);
         verify(navigationMenuController).getNavigationView();

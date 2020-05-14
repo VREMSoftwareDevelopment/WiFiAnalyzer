@@ -1,0 +1,128 @@
+/*
+ * WiFiAnalyzer
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
+package com.vrem.wifianalyzer.navigation.items
+
+import android.view.MenuItem
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import com.nhaarman.mockitokotlin2.whenever
+import com.vrem.wifianalyzer.MainActivity
+import com.vrem.wifianalyzer.R
+import com.vrem.wifianalyzer.navigation.NavigationMenu
+import org.junit.Assert.*
+import org.junit.Test
+import org.mockito.Mockito.*
+
+class FragmentItemTest {
+    private val fragment = mock(Fragment::class.java)
+    private val mainActivity = mock(MainActivity::class.java)
+    private val menuItem = mock(MenuItem::class.java)
+    private val fragmentManager = mock(FragmentManager::class.java)
+    private val fragmentTransaction = mock(FragmentTransaction::class.java)
+
+    @Test
+    fun testActivateWithStateSaved() {
+        // setup
+        val fixture = FragmentItem(fragment, true, View.VISIBLE)
+        val title = "title"
+        val navigationMenu = NavigationMenu.ACCESS_POINTS
+        whenever(mainActivity.supportFragmentManager).thenReturn(fragmentManager)
+        whenever(fragmentManager.isStateSaved).thenReturn(true)
+        // execute
+        fixture.activate(mainActivity, menuItem, navigationMenu)
+        // validate
+        verify(mainActivity).supportFragmentManager
+        verify(fragmentManager).isStateSaved
+        verifyFragmentManagerIsNotCalled()
+        verifyNoChangesToMainActivity(title, navigationMenu)
+    }
+
+    @Test
+    fun testActivateWithStateNotSaved() {
+        // setup
+        val fixture = FragmentItem(fragment, true, View.VISIBLE)
+        val title = "title"
+        val navigationMenu = NavigationMenu.ACCESS_POINTS
+        whenever(mainActivity.supportFragmentManager).thenReturn(fragmentManager)
+        whenever(fragmentManager.isStateSaved).thenReturn(false)
+        withFragmentTransaction()
+        whenever(menuItem.title).thenReturn(title)
+        // execute
+        fixture.activate(mainActivity, menuItem, navigationMenu)
+        // validate
+        verify(mainActivity).supportFragmentManager
+        verify(fragmentManager).isStateSaved
+        verifyFragmentManager()
+        verifyMainActivityChanges(title, navigationMenu)
+    }
+
+    @Test
+    fun testRegisteredFalse() {
+        // setup
+        val fixture = FragmentItem(fragment, false, View.VISIBLE)
+        // execute & validate
+        assertFalse(fixture.registered)
+    }
+
+    @Test
+    fun testRegisteredTrue() {
+        // setup
+        val fixture = FragmentItem(fragment, true, View.VISIBLE)
+        // execute & validate
+        assertTrue(fixture.registered)
+    }
+
+    @Test
+    fun testVisibility() {
+        // setup
+        val fixture = FragmentItem(fragment, false, View.INVISIBLE)
+        // execute & validate
+        assertEquals(View.INVISIBLE, fixture.visibility)
+    }
+
+    private fun withFragmentTransaction() {
+        whenever(fragmentManager.beginTransaction()).thenReturn(fragmentTransaction)
+        whenever(fragmentTransaction.replace(R.id.main_fragment, fragment)).thenReturn(fragmentTransaction)
+    }
+
+    private fun verifyFragmentManager() {
+        verify(fragmentManager).beginTransaction()
+        verify(fragmentTransaction).replace(R.id.main_fragment, fragment)
+        verify(fragmentTransaction).commit()
+    }
+
+    private fun verifyMainActivityChanges(title: String, navigationMenu: NavigationMenu) {
+        verify(mainActivity).currentNavigationMenu(navigationMenu)
+        verify(mainActivity).title = title
+        verify(mainActivity).updateActionBar()
+    }
+
+    private fun verifyFragmentManagerIsNotCalled() {
+        verify(fragmentManager, never()).beginTransaction()
+        verify(fragmentTransaction, never()).replace(R.id.main_fragment, fragment)
+        verify(fragmentTransaction, never()).commit()
+    }
+
+    private fun verifyNoChangesToMainActivity(title: String, navigationMenu: NavigationMenu) {
+        verify(mainActivity, never()).currentNavigationMenu(navigationMenu)
+        verify(mainActivity, never()).title = title
+        verify(mainActivity, never()).updateActionBar()
+    }
+}

@@ -19,12 +19,13 @@ package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.util.EMPTY
 
-data class WiFiDetail @JvmOverloads constructor(val wiFiIdentifier: WiFiIdentifier = WiFiIdentifier.EMPTY,
-                                                val capabilities: String = String.EMPTY,
-                                                val wiFiSignal: WiFiSignal = WiFiSignal.EMPTY,
-                                                val wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY,
-                                                val children: List<WiFiDetail> = emptyList()) :
-        Comparable<WiFiDetail> {
+// FIXME remove @JvmOverloads after full conversion to Kotlin
+data class WiFiDetail @JvmOverloads constructor(
+        val wiFiIdentifier: WiFiIdentifier = WiFiIdentifier.EMPTY,
+        val capabilities: String = String.EMPTY,
+        val wiFiSignal: WiFiSignal = WiFiSignal.EMPTY,
+        val wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY,
+        val children: List<WiFiDetail> = emptyList()) : Comparable<WiFiDetail> {
 
     constructor(wiFiDetail: WiFiDetail, wiFiAdditional: WiFiAdditional) :
             this(wiFiDetail.wiFiIdentifier, wiFiDetail.capabilities, wiFiDetail.wiFiSignal, wiFiAdditional)

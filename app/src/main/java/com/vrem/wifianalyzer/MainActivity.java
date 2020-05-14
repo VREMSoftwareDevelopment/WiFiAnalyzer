@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
         drawerNavigation = new DrawerNavigation(this, toolbar);
 
         navigationMenuController = new NavigationMenuController(this);
-        navigationMenuController.setCurrentNavigationMenu(settings.selectedMenu());
-        onNavigationItemSelected(getCurrentMenuItem());
+        navigationMenuController.currentNavigationMenu(settings.selectedMenu());
+        onNavigationItemSelected(currentMenuItem());
 
         ConnectionView connectionView = new ConnectionView(this);
         mainContext.getScannerService().register(connectionView);
@@ -165,11 +165,11 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     public void onBackPressed() {
         if (!closeDrawer()) {
             NavigationMenu selectedMenu = MainContext.INSTANCE.getSettings().selectedMenu();
-            if (selectedMenu.equals(getCurrentNavigationMenu())) {
+            if (selectedMenu.equals(currentNavigationMenu())) {
                 super.onBackPressed();
             } else {
-                setCurrentNavigationMenu(selectedMenu);
-                onNavigationItemSelected(getCurrentMenuItem());
+                currentNavigationMenu(selectedMenu);
+                onNavigationItemSelected(currentMenuItem());
             }
         }
     }
@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     }
 
     public void updateActionBar() {
-        getCurrentNavigationMenu().activateOptions(this);
+        currentNavigationMenu().activateOptions(this);
     }
 
     public OptionMenu getOptionMenu() {
@@ -244,25 +244,25 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
 
     @NonNull
     @Override
-    public MenuItem getCurrentMenuItem() {
-        return navigationMenuController.getCurrentMenuItem();
+    public MenuItem currentMenuItem() {
+        return navigationMenuController.currentMenuItem();
     }
 
     @NonNull
     @Override
-    public NavigationMenu getCurrentNavigationMenu() {
-        return navigationMenuController.getCurrentNavigationMenu();
+    public NavigationMenu currentNavigationMenu() {
+        return navigationMenuController.currentNavigationMenu();
     }
 
     @Override
-    public void setCurrentNavigationMenu(@NonNull NavigationMenu navigationMenu) {
-        navigationMenuController.setCurrentNavigationMenu(navigationMenu);
+    public void currentNavigationMenu(@NonNull NavigationMenu navigationMenu) {
+        navigationMenuController.currentNavigationMenu(navigationMenu);
         MainContext.INSTANCE.getSettings().saveSelectedMenu(navigationMenu);
     }
 
     @NonNull
     @Override
-    public NavigationView getNavigationView() {
+    public NavigationView navigationView() {
         return navigationMenuController.getNavigationView();
     }
 
