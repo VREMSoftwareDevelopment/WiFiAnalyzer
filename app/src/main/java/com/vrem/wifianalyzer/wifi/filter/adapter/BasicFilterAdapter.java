@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi.filter.adapter;
 
 import com.vrem.wifianalyzer.settings.Settings;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,6 +40,10 @@ public abstract class BasicFilterAdapter<T> {
 
     public void setValues(@NonNull Set<T> values) {
         this.values = new HashSet<>(values);
+    }
+
+    public void setValues(@NonNull T[] values) {
+        this.values = new HashSet<>(Arrays.asList(values));
     }
 
     abstract boolean isActive();

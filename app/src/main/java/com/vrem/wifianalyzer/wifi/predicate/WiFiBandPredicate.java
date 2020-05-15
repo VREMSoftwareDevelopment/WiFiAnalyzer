@@ -33,8 +33,8 @@ public class WiFiBandPredicate implements Predicate<WiFiDetail> {
     }
 
     @Override
-    public boolean evaluate(WiFiDetail object) {
-        return object.getWiFiSignal().getWiFiBand().equals(wiFiBand);
+    public boolean evaluate(WiFiDetail wiFiDetail) {
+        return wiFiDetail.getWiFiSignal().getWiFiBand().equals(wiFiBand);
     }
 
 }

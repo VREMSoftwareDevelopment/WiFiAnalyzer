@@ -34,16 +34,10 @@ enum class Security(val imageResource: Int, val additional: String = String.EMPT
     companion object {
         @JvmStatic
         fun findAll(capabilities: String): Set<Security> =
-                parse(capabilities).mapNotNull(transform()).toSortedSet()
+                parse(capabilities).mapNotNull(transform()).toSortedSet().ifEmpty { setOf(NONE) }
 
         @JvmStatic
-        fun findOne(capabilities: String): Security {
-            val results: Set<Security> = findAll(capabilities)
-            return when {
-                results.isEmpty() -> NONE
-                else -> results.first()
-            }
-        }
+        fun findOne(capabilities: String): Security = findAll(capabilities).first()
 
         private fun transform(): (String) -> Security? = {
             try {

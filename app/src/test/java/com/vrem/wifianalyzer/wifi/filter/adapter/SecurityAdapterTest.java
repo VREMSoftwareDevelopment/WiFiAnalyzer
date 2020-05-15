@@ -34,6 +34,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -57,7 +58,7 @@ public class SecurityAdapterTest {
     }
 
     @Test
-    public void testIsActivateWithChanges() {
+    public void testIsActiveWithChanges() {
         // setup
         fixture.toggle(Security.WPA);
         // execute & validate
@@ -65,8 +66,23 @@ public class SecurityAdapterTest {
     }
 
     @Test
-    public void testContains() {
-        IterableUtils.forEach(new HashSet<>(Arrays.asList(Security.values())), new ContainsClosure());
+    public void testGetValues() {
+        // setup
+        Security[] expected = Security.values();
+        // execute
+        Set<Security> actual = fixture.getValues();
+        // validate
+        assertTrue(actual.containsAll(Arrays.asList(expected)));
+    }
+
+    @Test
+    public void testGetValuesDefault() {
+        // setup
+        Security[] expected = Security.values();
+        // execute
+        Security[] actual = fixture.getValuesDefault();
+        // validate
+        assertArrayEquals(expected, actual);
     }
 
     @Test
@@ -120,15 +136,8 @@ public class SecurityAdapterTest {
         Set<Security> expected = fixture.getValues();
         // execute
         fixture.save(settings);
-        // execute
+        // validate
         verify(settings).saveSecurities(expected);
-    }
-
-    private class ContainsClosure implements Closure<Security> {
-        @Override
-        public void execute(Security security) {
-            assertTrue(fixture.contains(security));
-        }
     }
 
     private class ToggleClosure implements Closure<Security> {

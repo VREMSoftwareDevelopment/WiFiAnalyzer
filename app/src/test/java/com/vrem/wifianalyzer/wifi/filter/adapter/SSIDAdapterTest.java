@@ -20,8 +20,6 @@ package com.vrem.wifianalyzer.wifi.filter.adapter;
 
 import com.vrem.wifianalyzer.settings.Settings;
 
-import org.apache.commons.collections4.Closure;
-import org.apache.commons.collections4.IterableUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,9 +52,12 @@ public class SSIDAdapterTest {
     }
 
     @Test
-    public void testGetValue() {
-        assertEquals(SSID_VALUES.size(), fixture.getValues().size());
-        IterableUtils.forEach(SSID_VALUES, new ContainsClosure());
+    public void testGetValues() {
+        // setup
+        // execute
+        Set<String> actual = fixture.getValues();
+        // validate
+        assertTrue(actual.containsAll(SSID_VALUES));
     }
 
     @Test
@@ -101,10 +102,4 @@ public class SSIDAdapterTest {
         assertEquals(expected, fixture.getValues());
     }
 
-    private class ContainsClosure implements Closure<String> {
-        @Override
-        public void execute(String input) {
-            assertTrue(fixture.getValues().contains(input));
-        }
-    }
 }

@@ -28,7 +28,7 @@ import androidx.annotation.NonNull;
 public class SecurityAdapter extends EnumFilterAdapter<Security> {
 
     SecurityAdapter(@NonNull Set<Security> values) {
-        super(values);
+        super(values, Security.values());
     }
 
     @Override

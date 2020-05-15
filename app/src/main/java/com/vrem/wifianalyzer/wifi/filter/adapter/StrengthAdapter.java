@@ -27,7 +27,7 @@ import androidx.annotation.NonNull;
 
 public class StrengthAdapter extends EnumFilterAdapter<Strength> {
     StrengthAdapter(@NonNull Set<Strength> values) {
-        super(values);
+        super(values, Strength.values());
     }
 
     @Override

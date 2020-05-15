@@ -63,15 +63,27 @@ class SecurityTest {
     }
 
     @Test
+    fun testFindAllNoneFound() {
+        // setup
+        val capabilities = "ESS"
+        val expected: Set<Security> = setOf(Security.NONE)
+        // execute
+        val actual: Set<Security> = findAll(capabilities)
+        // validate
+        assertEquals(expected, actual)
+    }
+
+    @Test
     fun testFindOne() {
         assertEquals(Security.NONE, findOne("xyz"))
-        assertEquals(Security.NONE, findOne("WPA3-WPA2-WPA-WEP-WPS-NONE"))
-        assertEquals(Security.WPS, findOne("WPA3-WPA2-WPA-WEP-WPS"))
-        assertEquals(Security.WEP, findOne("WPA3-WPA2-WPA-WEP"))
-        assertEquals(Security.WPA, findOne("WPA3-WPA2-WPA"))
-        assertEquals(Security.WPA2, findOne("WPA3-WPA2"))
-        assertEquals(Security.WPA3, findOne("WPA3"))
-        assertEquals(Security.WPA3, findOne("RSN"))
+        assertEquals(Security.NONE, findOne("ESS"))
+        assertEquals(Security.NONE, findOne("WPA3-WPA2-WPA-ESS-WEP-WPS-NONE"))
+        assertEquals(Security.WPS, findOne("WPA3-WPA2-ESS-WPA-WEP-WPS"))
+        assertEquals(Security.WEP, findOne("WPA3-ESS-WPA2-WPA-WEP"))
+        assertEquals(Security.WPA, findOne("WPA3-WPA2-ESS-WPA"))
+        assertEquals(Security.WPA2, findOne("WPA3-ESS-WPA2"))
+        assertEquals(Security.WPA3, findOne("WPA3-ESS"))
+        assertEquals(Security.WPA3, findOne("RSN-ESS"))
     }
 
     @Test

@@ -34,6 +34,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -57,7 +58,7 @@ public class WiFiBandAdapterTest {
     }
 
     @Test
-    public void testIsActivateWithChanges() {
+    public void testIsActiveWithChanges() {
         // setup
         fixture.toggle(WiFiBand.GHZ2);
         // execute & validate
@@ -65,8 +66,23 @@ public class WiFiBandAdapterTest {
     }
 
     @Test
-    public void testContains() {
-        IterableUtils.forEach(new HashSet<>(Arrays.asList(WiFiBand.values())), new ContainsClosure());
+    public void testGetValues() {
+        // setup
+        WiFiBand[] expected = WiFiBand.values();
+        // execute
+        Set<WiFiBand> actual = fixture.getValues();
+        // validate
+        assertTrue(actual.containsAll(Arrays.asList(expected)));
+    }
+
+    @Test
+    public void testGetValuesDefault() {
+        // setup
+        WiFiBand[] expected = WiFiBand.values();
+        // execute
+        WiFiBand[] actual = fixture.getValuesDefault();
+        // validate
+        assertArrayEquals(expected, actual);
     }
 
     @Test
@@ -122,13 +138,6 @@ public class WiFiBandAdapterTest {
         fixture.save(settings);
         // execute
         verify(settings).saveWiFiBands(expected);
-    }
-
-    private class ContainsClosure implements Closure<WiFiBand> {
-        @Override
-        public void execute(WiFiBand wiFiBand) {
-            assertTrue(fixture.contains(wiFiBand));
-        }
     }
 
     private class ToggleClosure implements Closure<WiFiBand> {

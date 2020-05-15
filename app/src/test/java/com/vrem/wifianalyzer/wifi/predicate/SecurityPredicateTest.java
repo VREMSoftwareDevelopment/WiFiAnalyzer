@@ -37,7 +37,7 @@ public class SecurityPredicateTest {
     @Test
     public void testSecurityPredicateWithFoundWPAValue() {
         // setup
-        WiFiDetail wiFiDetail = makeWiFiDetail();
+        WiFiDetail wiFiDetail = wiFiDetail();
         SecurityPredicate fixture = new SecurityPredicate(Security.WPA);
         // execute
         boolean actual = fixture.evaluate(wiFiDetail);
@@ -48,8 +48,19 @@ public class SecurityPredicateTest {
     @Test
     public void testSecurityPredicateWithFoundWEPValue() {
         // setup
-        WiFiDetail wiFiDetail = makeWiFiDetail();
+        WiFiDetail wiFiDetail = wiFiDetail();
         SecurityPredicate fixture = new SecurityPredicate(Security.WEP);
+        // execute
+        boolean actual = fixture.evaluate(wiFiDetail);
+        // validate
+        assertTrue(actual);
+    }
+
+    @Test
+    public void testSecurityPredicateWithFoundNoneValue() {
+        // setup
+        WiFiDetail wiFiDetail = wiFiDetailWithNoSecurity();
+        SecurityPredicate fixture = new SecurityPredicate(Security.NONE);
         // execute
         boolean actual = fixture.evaluate(wiFiDetail);
         // validate
@@ -59,7 +70,7 @@ public class SecurityPredicateTest {
     @Test
     public void testSecurityPredicateWithNotFoundValue() {
         // setup
-        WiFiDetail wiFiDetail = makeWiFiDetail();
+        WiFiDetail wiFiDetail = wiFiDetail();
         SecurityPredicate fixture = new SecurityPredicate(Security.WPA2);
         // execute
         boolean actual = fixture.evaluate(wiFiDetail);
@@ -68,10 +79,18 @@ public class SecurityPredicateTest {
     }
 
     @NonNull
-    private WiFiDetail makeWiFiDetail() {
+    private WiFiDetail wiFiDetail() {
         WiFiSignal wiFiSignal = new WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1, true);
         WiFiIdentifier wiFiIdentifier = new WiFiIdentifier("ssid", "bssid");
-        return new WiFiDetail(wiFiIdentifier, "wep-wpa", wiFiSignal, WiFiAdditional.EMPTY);
+        return new WiFiDetail(wiFiIdentifier, "ess-wep-wpa", wiFiSignal, WiFiAdditional.EMPTY);
     }
+
+    @NonNull
+    private WiFiDetail wiFiDetailWithNoSecurity() {
+        WiFiSignal wiFiSignal = new WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1, true);
+        WiFiIdentifier wiFiIdentifier = new WiFiIdentifier("ssid", "bssid");
+        return new WiFiDetail(wiFiIdentifier, "ess", wiFiSignal, WiFiAdditional.EMPTY);
+    }
+
 
 }

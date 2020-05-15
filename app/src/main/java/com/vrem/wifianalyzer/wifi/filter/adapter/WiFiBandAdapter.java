@@ -28,7 +28,7 @@ import androidx.annotation.NonNull;
 public class WiFiBandAdapter extends EnumFilterAdapter<WiFiBand> {
 
     WiFiBandAdapter(@NonNull Set<WiFiBand> values) {
-        super(values);
+        super(values, WiFiBand.values());
     }
 
     @Override

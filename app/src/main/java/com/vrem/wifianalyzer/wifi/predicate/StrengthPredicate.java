@@ -33,8 +33,8 @@ class StrengthPredicate implements Predicate<WiFiDetail> {
     }
 
     @Override
-    public boolean evaluate(WiFiDetail object) {
-        return object.getWiFiSignal().strength().equals(strength);
+    public boolean evaluate(WiFiDetail wiFiDetail) {
+        return wiFiDetail.getWiFiSignal().strength().equals(strength);
     }
 
 }

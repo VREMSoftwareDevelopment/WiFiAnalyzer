@@ -61,8 +61,8 @@ public class FilterPredicate implements Predicate<WiFiDetail> {
     }
 
     @Override
-    public boolean evaluate(WiFiDetail object) {
-        return predicate.evaluate(object);
+    public boolean evaluate(WiFiDetail wiFiDetail) {
+        return predicate.evaluate(wiFiDetail);
     }
 
     @NonNull

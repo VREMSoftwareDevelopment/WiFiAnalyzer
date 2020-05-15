@@ -25,16 +25,16 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 
 public abstract class EnumFilterAdapter<T extends Enum> extends BasicFilterAdapter<T> {
-    private final Set<T> valuesDefault;
+    private final T[] valuesDefault;
 
-    EnumFilterAdapter(@NonNull Set<T> values) {
+    EnumFilterAdapter(@NonNull Set<T> values, @NonNull T[] valuesDefault) {
         super(values);
-        this.valuesDefault = values;
+        this.valuesDefault = valuesDefault;
     }
 
     @Override
     public boolean isActive() {
-        return getValues().size() != valuesDefault.size();
+        return getValues().size() != valuesDefault.length;
     }
 
     public boolean toggle(@NonNull T object) {
@@ -52,6 +52,10 @@ public abstract class EnumFilterAdapter<T extends Enum> extends BasicFilterAdapt
     @Override
     public void reset() {
         setValues(valuesDefault);
+    }
+
+    public T[] getValuesDefault() {
+        return valuesDefault;
     }
 
     public int getColor(@NonNull T object) {

@@ -33,6 +33,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -56,7 +57,7 @@ public class StrengthAdapterTest {
     }
 
     @Test
-    public void testIsActivateWithChanges() {
+    public void testIsActiveWithChanges() {
         // setup
         fixture.toggle(Strength.TWO);
         // execute & validate
@@ -64,8 +65,23 @@ public class StrengthAdapterTest {
     }
 
     @Test
-    public void testContains() {
-        IterableUtils.forEach(new HashSet<>(Arrays.asList(Strength.values())), new ContainsClosure());
+    public void testGetValues() {
+        // setup
+        Strength[] expected = Strength.values();
+        // execute
+        Set<Strength> actual = fixture.getValues();
+        // validate
+        assertTrue(actual.containsAll(Arrays.asList(expected)));
+    }
+
+    @Test
+    public void testGetValuesDefault() {
+        // setup
+        Strength[] expected = Strength.values();
+        // execute
+        Strength[] actual = fixture.getValuesDefault();
+        // validate
+        assertArrayEquals(expected, actual);
     }
 
     @Test
@@ -121,13 +137,6 @@ public class StrengthAdapterTest {
         fixture.save(settings);
         // execute
         verify(settings).saveStrengths(expected);
-    }
-
-    private class ContainsClosure implements Closure<Strength> {
-        @Override
-        public void execute(Strength strength) {
-            assertTrue(fixture.contains(strength));
-        }
     }
 
     private class ToggleClosure implements Closure<Strength> {
