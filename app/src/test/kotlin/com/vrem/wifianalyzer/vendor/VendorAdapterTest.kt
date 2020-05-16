@@ -18,9 +18,11 @@
 package com.vrem.wifianalyzer.vendor
 
 import android.os.Build
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.nhaarman.mockitokotlin2.doNothing
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContextHelper
@@ -33,8 +35,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
 
@@ -51,6 +52,7 @@ class VendorAdapterTest {
     private val mainActivity: MainActivity = RobolectricUtil.INSTANCE.activity
     private val vendorService: VendorService = MainContextHelper.INSTANCE.vendorService
     private val vendors: List<String> = listOf(vendorName1, vendorName2, vendorName3)
+    private val macs: List<String> = listOf("MAC1", "MAC2", "MAC3")
 
     @Before
     fun setUp() {
@@ -60,6 +62,8 @@ class VendorAdapterTest {
 
     @After
     fun tearDown() {
+        verify(vendorService, atLeastOnce()).findVendors()
+        verifyNoMoreInteractions(vendorService)
         MainContextHelper.INSTANCE.restore()
     }
 
@@ -76,9 +80,9 @@ class VendorAdapterTest {
     @Test
     fun testGetView() {
         // setup
-        whenever(vendorService.findMacAddresses(vendorName2)).thenReturn(listOf("VALUE1", "VALUE2", "VALUE3"))
-        val expected = "VALUE1, VALUE2, VALUE3"
+        val expected = macs.joinToString(separator = ", ")
         val viewGroup = mainActivity.findViewById<ViewGroup>(android.R.id.content)
+        whenever(vendorService.findMacAddresses(vendorName2)).thenReturn(macs)
         // execute
         val actual = fixture.getView(1, null, viewGroup)
         // validate
@@ -86,8 +90,45 @@ class VendorAdapterTest {
         assertEquals(vendorName2, actual.findViewById<TextView>(R.id.vendor_name).text.toString())
         assertEquals(expected, actual.findViewById<TextView>(R.id.vendor_macs).text.toString())
         verify(vendorService).findMacAddresses(vendorName2)
-        verify(vendorService, Mockito.never()).findVendorName(vendorName1)
-        verify(vendorService, Mockito.never()).findVendorName(vendorName3)
+        verify(vendorService, never()).findVendorName(vendorName1)
+        verify(vendorService, never()).findVendorName(vendorName3)
+    }
+
+    @Test
+    fun testUpdate() {
+        // setup
+        fixture = spy(VendorAdapter(mainActivity, vendorService))
+        whenever(vendorService.findVendors(vendorName2)).thenReturn(vendors)
+        doNothing().whenever(fixture).clear()
+        doNothing().whenever(fixture).addAll(vendors)
+        // execute
+        fixture.update(vendorName2)
+        // validate
+        verify(vendorService).findVendors(vendorName2)
+        verify(fixture).clear()
+        verify(fixture).addAll(vendors)
+    }
+
+    @Test
+    fun testGetViewWhenRootViewNotNull() {
+        // setup
+        val rootView = mock(View::class.java)
+        val vendorNameView = mock(TextView::class.java)
+        val vendorMacsView = mock(TextView::class.java)
+        val viewGroup = mainActivity.findViewById<ViewGroup>(android.R.id.content)
+        val expected = macs.joinToString(separator = ", ")
+        whenever(vendorService.findMacAddresses(vendorName2)).thenReturn(macs)
+        whenever(rootView.findViewById<TextView>(R.id.vendor_name)).thenReturn(vendorNameView)
+        whenever(rootView.findViewById<TextView>(R.id.vendor_macs)).thenReturn(vendorMacsView)
+        // execute
+        val actual = fixture.getView(1, rootView, viewGroup)
+        // validate
+        assertNotNull(actual)
+        verify(vendorNameView).text = vendorName2
+        verify(vendorMacsView).text = expected
+        verify(rootView).findViewById<TextView>(R.id.vendor_name)
+        verify(rootView).findViewById<TextView>(R.id.vendor_macs)
+        verify(vendorService).findMacAddresses(vendorName2)
     }
 
 }

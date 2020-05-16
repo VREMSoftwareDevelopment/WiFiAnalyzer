@@ -18,7 +18,6 @@
 package com.vrem.wifianalyzer.vendor
 
 import android.content.Context
-import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -35,7 +34,7 @@ internal class VendorAdapter(context: Context, private val vendorService: Vendor
         val binding: Binding = view?.let { Binding(it) } ?: Binding(create(parent))
         val vendorName: String = getItem(position).orEmpty()
         binding.vendorName.text = vendorName
-        binding.vendorMacs.text = macs(vendorName)
+        binding.vendorMacs.text = vendorService.findMacAddresses(vendorName).joinToString(separator = ", ")
         return binding.root
     }
 
@@ -43,9 +42,6 @@ internal class VendorAdapter(context: Context, private val vendorService: Vendor
         clear()
         addAll(vendorService.findVendors(filter))
     }
-
-    private fun macs(vendorName: String): String =
-            TextUtils.join(", ", vendorService.findMacAddresses(vendorName))
 
     private fun create(parent: ViewGroup): VendorDetailsBinding =
             VendorDetailsBinding.inflate(MainContext.INSTANCE.layoutInflater, parent, false)
