@@ -76,19 +76,30 @@ class EnumUtilsTest {
 
     @Test
     fun testFindOneUsingIndex() {
+        TestObject.values().forEach {
+            // execute
+            val actual = findOne(TestObject.values(), it.ordinal, TestObject.VALUE2)
+            // validate
+            assertEquals(it, actual)
+        }
+    }
+
+    @Test
+    fun testFindOneUsingInvalidLowIndex() {
         // setup
+        val index = -1
         val expected = TestObject.VALUE3
         // execute
-        val actual = findOne(TestObject.values(), expected.ordinal, TestObject.VALUE2)
+        val actual = findOne(TestObject.values(), index, expected)
         // validate
         assertEquals(expected, actual)
     }
 
     @Test
-    fun testFindOneUsingInvalidIndex() {
+    fun testFindOneUsingInvalidHighIndex() {
         // setup
-        val index = -1
-        val expected = TestObject.VALUE2
+        val index = TestObject.values().size
+        val expected = TestObject.VALUE3
         // execute
         val actual = findOne(TestObject.values(), index, expected)
         // validate
