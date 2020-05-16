@@ -67,6 +67,14 @@ class VendorServiceTest {
     }
 
     @Test
+    fun testFindVendorNameUsingDefault() {
+        // execute
+        val actual = fixture.findVendorName()
+        // validate
+        assertTrue(actual.isEmpty())
+    }
+
+    @Test
     fun testFindMacAddresses() {
         // setup
         // execute
@@ -94,6 +102,15 @@ class VendorServiceTest {
     fun testFindMacAddressesWithInvalidName() {
         // execute
         val actual = fixture.findMacAddresses(vendorNameInvalid)
+        // validate
+        assertTrue(actual.isEmpty())
+    }
+
+    @Test
+    fun testFindMacAddressesWithDefault() {
+        // setup
+        // execute
+        val actual = fixture.findMacAddresses()
         // validate
         assertTrue(actual.isEmpty())
     }
