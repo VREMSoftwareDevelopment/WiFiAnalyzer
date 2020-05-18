@@ -18,32 +18,12 @@
 package com.vrem.wifianalyzer.navigation.availability
 
 import android.view.View
-import com.nhaarman.mockitokotlin2.whenever
-import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
-import org.junit.After
-import org.junit.Test
-import org.mockito.Mockito.*
 
-class BottomNavOffTest {
-    private val mainActivity: MainActivity = mock(MainActivity::class.java)
-    private val view: View = mock(View::class.java)
-    private var fixture: BottomNavOff = BottomNavOff()
+internal val navigationOptionBottomNavOff: NavigationOption = {
+    it.findViewById<View>(R.id.nav_bottom).visibility = View.GONE
+}
 
-    @After
-    fun tearDown() {
-        verifyNoMoreInteractions(mainActivity)
-        verifyNoMoreInteractions(view)
-    }
-
-    @Test
-    fun testApply() {
-        // setup
-        whenever<View>(mainActivity.findViewById(R.id.nav_bottom)).thenReturn(view)
-        // execute
-        fixture.apply(mainActivity)
-        // validate
-        verify(mainActivity).findViewById<View>(R.id.nav_bottom)
-        verify(view).visibility = View.GONE
-    }
+internal val navigationOptionBottomNavOn: NavigationOption = {
+    it.findViewById<View>(R.id.nav_bottom).visibility = View.VISIBLE
 }

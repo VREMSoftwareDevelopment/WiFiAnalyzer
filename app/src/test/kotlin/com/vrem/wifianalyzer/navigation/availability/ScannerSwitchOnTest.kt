@@ -36,75 +36,85 @@ class ScannerSwitchOnTest {
     private val menu = Mockito.mock(Menu::class.java)
     private val menuItem = Mockito.mock(MenuItem::class.java)
     private val scanner = MainContextHelper.INSTANCE.scannerService
-    private val fixture = ScannerSwitchOn()
 
     @After
     fun tearDown() {
+        Mockito.verifyNoMoreInteractions(mainActivity)
+        Mockito.verifyNoMoreInteractions(optionMenu)
+        Mockito.verifyNoMoreInteractions(menu)
+        Mockito.verifyNoMoreInteractions(menuItem)
+        Mockito.verifyNoMoreInteractions(scanner)
         MainContextHelper.INSTANCE.restore()
     }
 
     @Test
-    fun testApplySetMenuItemVisibleTrue() {
+    fun testNavigationOptionScannerSwitchOn() {
         // setup
-        withMenuItem()
+        whenever(mainActivity.optionMenu).thenReturn(optionMenu)
+        whenever(optionMenu.menu).thenReturn(menu)
+        whenever(menu.findItem(R.id.action_scanner)).thenReturn(menuItem)
         // execute
-        fixture.apply(mainActivity)
+        navigationOptionScannerSwitchOn(mainActivity)
         // validate
-        verifyMenuItem()
+        verify(mainActivity).optionMenu
+        verify(optionMenu).menu
+        verify(menu).findItem(R.id.action_scanner)
+        verify(scanner).isRunning
         verify(menuItem).isVisible = true
+        verify(menuItem).setTitle(R.string.scanner_play)
+        verify(menuItem).setIcon(R.drawable.ic_play_arrow)
     }
 
     @Test
-    fun testApplyWithScannerRunningUpdateMenuItemIconAndTitle() {
+    fun testNavigationOptionScannerSwitchOnWithScannerRunningUpdateMenuItemIconAndTitle() {
         // setup
         whenever(scanner.isRunning).thenReturn(true)
-        withMenuItem()
+        whenever(mainActivity.optionMenu).thenReturn(optionMenu)
+        whenever(optionMenu.menu).thenReturn(menu)
+        whenever(menu.findItem(R.id.action_scanner)).thenReturn(menuItem)
         // execute
-        fixture.apply(mainActivity)
+        navigationOptionScannerSwitchOn(mainActivity)
         // validate
-        verifyMenuItem()
+        verify(mainActivity).optionMenu
+        verify(optionMenu).menu
+        verify(menu).findItem(R.id.action_scanner)
         verify(scanner).isRunning
+        verify(menuItem).isVisible = true
         verify(menuItem).setTitle(R.string.scanner_pause)
         verify(menuItem).setIcon(R.drawable.ic_pause)
     }
 
     @Test
-    fun testApplyWithScannerNotRunningUpdateMenuItemIconAndTitle() {
+    fun testNavigationOptionScannerSwitchOnWithScannerNotRunningUpdateMenuItemIconAndTitle() {
         // setup
         whenever(scanner.isRunning).thenReturn(false)
-        withMenuItem()
+        whenever(mainActivity.optionMenu).thenReturn(optionMenu)
+        whenever(optionMenu.menu).thenReturn(menu)
+        whenever(menu.findItem(R.id.action_scanner)).thenReturn(menuItem)
         // execute
-        fixture.apply(mainActivity)
+        navigationOptionScannerSwitchOn(mainActivity)
         // validate
-        verifyMenuItem()
+        verify(mainActivity).optionMenu
+        verify(optionMenu).menu
+        verify(menu).findItem(R.id.action_scanner)
         verify(scanner).isRunning
+        verify(menuItem).isVisible = true
         verify(menuItem).setTitle(R.string.scanner_play)
         verify(menuItem).setIcon(R.drawable.ic_play_arrow)
     }
 
-    private fun verifyMenuItem() {
-        verify(mainActivity).optionMenu
-        verify(optionMenu).menu
-        verify(menu).findItem(R.id.action_scanner)
-    }
-
-    private fun withMenuItem() {
-        whenever(mainActivity.optionMenu).thenReturn(optionMenu)
-        whenever(optionMenu.menu).thenReturn(menu)
-        whenever(menu.findItem(R.id.action_scanner)).thenReturn(menuItem)
-    }
-
     @Test
-    fun testApplyWithNoMenuDoesNotSetVisibleTrue() {
+    fun testNavigationOptionScannerSwitchOnWithNoMenuDoesNotSetVisibleTrue() {
         // setup
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(null)
         // execute
-        fixture.apply(mainActivity)
+        navigationOptionScannerSwitchOn(mainActivity)
         // validate
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu, never()).findItem(R.id.action_scanner)
         verify(menuItem, never()).isVisible = true
     }
+
 }

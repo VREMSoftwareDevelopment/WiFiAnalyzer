@@ -41,9 +41,9 @@ enum class NavigationMenu(val icon: Int,
     fun activateNavigationMenu(mainActivity: MainActivity, menuItem: MenuItem): Unit =
             navigationItem.activate(mainActivity, menuItem, this)
 
-    fun activateOptions(mainActivity: MainActivity): Unit = navigationOptions.forEach { it.apply(mainActivity) }
+    fun activateOptions(mainActivity: MainActivity): Unit = navigationOptions.forEach { it(mainActivity) }
 
-    fun wiFiBandSwitchable(): Boolean = navigationOptions.contains(navigationOptionWifiSwitchOn)
+    fun wiFiBandSwitchable(): Boolean = navigationOptions.contains(navigationOptionWiFiSwitchOn)
 
     fun registered(): Boolean = navigationItem.registered
 

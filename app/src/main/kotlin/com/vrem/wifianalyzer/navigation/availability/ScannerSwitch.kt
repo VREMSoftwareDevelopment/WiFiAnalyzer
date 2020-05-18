@@ -17,14 +17,27 @@
  */
 package com.vrem.wifianalyzer.navigation.availability
 
-import com.vrem.wifianalyzer.MainActivity
+import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 
-internal class FilterOff : NavigationOption {
-    override fun apply(mainActivity: MainActivity) {
-        val menu = mainActivity.optionMenu.menu
-        if (menu != null) {
-            menu.findItem(R.id.action_filter).isVisible = false
+internal val navigationOptionScannerSwitchOff: NavigationOption = {
+    val menu = it.optionMenu.menu
+    if (menu != null) {
+        menu.findItem(R.id.action_scanner).isVisible = false
+    }
+}
+
+internal val navigationOptionScannerSwitchOn: NavigationOption = {
+    val menu = it.optionMenu.menu
+    if (menu != null) {
+        val menuItem = menu.findItem(R.id.action_scanner)
+        menuItem.isVisible = true
+        if (MainContext.INSTANCE.scannerService.isRunning) {
+            menuItem.setTitle(R.string.scanner_pause)
+            menuItem.setIcon(R.drawable.ic_pause)
+        } else {
+            menuItem.setTitle(R.string.scanner_play)
+            menuItem.setIcon(R.drawable.ic_play_arrow)
         }
     }
 }

@@ -22,9 +22,11 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainActivity
+import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
 import org.apache.commons.lang3.StringUtils
+import org.junit.After
 import org.junit.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.*
@@ -35,39 +37,54 @@ class WiFiSwitchOffTest {
     private val menu = mock(Menu::class.java)
     private val menuItem = mock(MenuItem::class.java)
     private val actionBar = mock(ActionBar::class.java)
-    private val fixture = WiFiSwitchOff()
+
+    @After
+    fun tearDown() {
+        verifyNoMoreInteractions(mainActivity)
+        verifyNoMoreInteractions(optionMenu)
+        verifyNoMoreInteractions(menu)
+        verifyNoMoreInteractions(menuItem)
+        verifyNoMoreInteractions(actionBar)
+        MainContextHelper.INSTANCE.restore()
+    }
 
     @Test
-    fun testApplyWithActionBarSetEmptySubtitle() {
+    fun testNavigationOptionWiFiSwitchOffWithActionBarSetEmptySubtitle() {
         // setup
         whenever(mainActivity.supportActionBar).thenReturn(actionBar)
+        whenever(mainActivity.optionMenu).thenReturn(null)
         // execute
-        fixture.apply(mainActivity)
+        navigationOptionWiFiSwitchOff(mainActivity)
         // validate
         verify(mainActivity).supportActionBar
         verify(actionBar).subtitle = StringUtils.EMPTY
+        verify(mainActivity).optionMenu
     }
 
     @Test
-    fun testApplyWithNoActionBarDoesNotSetSubtitle() {
+    fun testNavigationOptionWiFiSwitchOffWithNoActionBarDoesNotSetSubtitle() {
         // setup
         whenever(mainActivity.supportActionBar).thenReturn(null)
+        whenever(mainActivity.optionMenu).thenReturn(null)
         // execute
-        fixture.apply(mainActivity)
+        navigationOptionWiFiSwitchOff(mainActivity)
         // validate
         verify(mainActivity).supportActionBar
         verify(actionBar, never()).subtitle = ArgumentMatchers.anyString()
+        verify(mainActivity).optionMenu
     }
 
     @Test
-    fun testApplyWithOptionMenuSetVisibleFalse() {
+    fun testNavigationOptionWiFiSwitchOffWithOptionMenuSetVisibleFalse() {
         // setup
+        whenever(mainActivity.supportActionBar).thenReturn(null)
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(menu)
         whenever(menu.findItem(R.id.action_wifi_band)).thenReturn(menuItem)
         // execute
-        fixture.apply(mainActivity)
+        navigationOptionWiFiSwitchOff(mainActivity)
         // validate
+        verify(mainActivity).supportActionBar
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu).findItem(R.id.action_wifi_band)
@@ -75,32 +92,33 @@ class WiFiSwitchOffTest {
     }
 
     @Test
-    fun testApplyWithNoOptionMenuDoesNotSetWiFiBandVisible() {
+    fun testNavigationOptionWiFiSwitchOffWithNoOptionMenuDoesNotSetWiFiBandVisible() {
         // setup
+        whenever(mainActivity.supportActionBar).thenReturn(null)
         whenever(mainActivity.optionMenu).thenReturn(null)
         // execute
-        fixture.apply(mainActivity)
+        navigationOptionWiFiSwitchOff(mainActivity)
         // validate
         verify(mainActivity).optionMenu
-        verifyMenu()
+        verify(menu, never()).findItem(R.id.action_wifi_band)
+        verify(menuItem, never()).isVisible = ArgumentMatchers.anyBoolean()
+        verify(mainActivity).supportActionBar
     }
 
     @Test
-    fun testApplyWithNoMenuDoesNotSetWiFiBandVisible() {
+    fun testNavigationOptionWiFiSwitchOffWithNoMenuDoesNotSetWiFiBandVisible() {
         // setup
-        val mainActivity = mock(MainActivity::class.java)
+        whenever(mainActivity.supportActionBar).thenReturn(null)
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(null)
         // execute
-        fixture.apply(mainActivity)
+        navigationOptionWiFiSwitchOff(mainActivity)
         // validate
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
-        verifyMenu()
-    }
-
-    private fun verifyMenu() {
         verify(menu, never()).findItem(R.id.action_wifi_band)
         verify(menuItem, never()).isVisible = ArgumentMatchers.anyBoolean()
+        verify(mainActivity).supportActionBar
     }
+
 }

@@ -17,15 +17,27 @@
  */
 package com.vrem.wifianalyzer.navigation.availability
 
-val navigationOptionFilterOff: NavigationOption = FilterOff()
-val navigationOptionFilterOn: NavigationOption = FilterOn()
-val navigationOptionScannerSwitchOff: NavigationOption = ScannerSwitchOff()
-val navigationOptionScannerSwitchOn: NavigationOption = ScannerSwitchOn()
-val navigationOptionWifiSwitchOff: NavigationOption = WiFiSwitchOff()
-val navigationOptionWifiSwitchOn: NavigationOption = WiFiSwitchOn()
-val navigationOptionBottomNavOff: NavigationOption = BottomNavOff()
-val navigationOptionBottomNavOn: NavigationOption = BottomNavOn()
-val navigationOptionAp = listOf(navigationOptionWifiSwitchOff, navigationOptionScannerSwitchOn, navigationOptionFilterOn, navigationOptionBottomNavOn)
-val navigationOptionOff = listOf(navigationOptionWifiSwitchOff, navigationOptionScannerSwitchOff, navigationOptionFilterOff, navigationOptionBottomNavOff)
-val navigationOptionOther = listOf(navigationOptionWifiSwitchOn, navigationOptionScannerSwitchOn, navigationOptionFilterOn, navigationOptionBottomNavOn)
-val navigationOptionRating = listOf(navigationOptionWifiSwitchOn, navigationOptionScannerSwitchOn, navigationOptionFilterOff, navigationOptionBottomNavOn)
+val navigationOptionAp = listOf(
+        navigationOptionWiFiSwitchOff,
+        navigationOptionScannerSwitchOn,
+        navigationOptionFilterOn,
+        navigationOptionBottomNavOn)
+
+val navigationOptionOff = listOf(
+        navigationOptionWiFiSwitchOff,
+        navigationOptionScannerSwitchOff,
+        navigationOptionFilterOff,
+        navigationOptionBottomNavOff)
+
+val navigationOptionOther = listOf(
+        navigationOptionWiFiSwitchOn,
+        navigationOptionScannerSwitchOn,
+        navigationOptionFilterOn,
+        navigationOptionBottomNavOn)
+
+val navigationOptionRating = listOf(
+        navigationOptionWiFiSwitchOn,
+        navigationOptionScannerSwitchOn,
+        navigationOptionFilterOff,
+        navigationOptionBottomNavOn)
+

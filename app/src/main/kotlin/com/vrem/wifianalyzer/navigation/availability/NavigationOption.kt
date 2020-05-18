@@ -19,6 +19,4 @@ package com.vrem.wifianalyzer.navigation.availability
 
 import com.vrem.wifianalyzer.MainActivity
 
-interface NavigationOption {
-    fun apply(mainActivity: MainActivity)
-}
+typealias NavigationOption = (mainActivity: MainActivity) -> Unit

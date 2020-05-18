@@ -23,14 +23,11 @@ import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
 import org.junit.After
 import org.junit.Test
-import org.mockito.Mockito
-import org.mockito.Mockito.verify
-import org.mockito.Mockito.verifyNoMoreInteractions
+import org.mockito.Mockito.*
 
-class BottomNavOnTest {
-    private val mainActivity = Mockito.mock(MainActivity::class.java)
-    private val view = Mockito.mock(View::class.java)
-    private val fixture = BottomNavOn()
+class BottomNavTest {
+    private val mainActivity: MainActivity = mock(MainActivity::class.java)
+    private val view: View = mock(View::class.java)
 
     @After
     fun tearDown() {
@@ -39,13 +36,26 @@ class BottomNavOnTest {
     }
 
     @Test
-    fun testApply() {
+    fun testNavigationOptionBottomNavOff() {
         // setup
         whenever<View>(mainActivity.findViewById(R.id.nav_bottom)).thenReturn(view)
         // execute
-        fixture.apply(mainActivity)
+        navigationOptionBottomNavOff(mainActivity)
+        // validate
+        verify(mainActivity).findViewById<View>(R.id.nav_bottom)
+        verify(view).visibility = View.GONE
+    }
+
+    @Test
+    fun testNavigationOptionBottomNavOn() {
+        // setup
+        whenever<View>(mainActivity.findViewById(R.id.nav_bottom)).thenReturn(view)
+        // execute
+        navigationOptionBottomNavOn(mainActivity)
         // validate
         verify(mainActivity).findViewById<View>(R.id.nav_bottom)
         verify(view).visibility = View.VISIBLE
     }
+
 }
+

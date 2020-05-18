@@ -25,11 +25,11 @@ class NavigationOptionsTest {
     fun testRating() {
         val options: List<NavigationOption> = navigationOptionRating
         assertEquals(4, options.size)
-        assertTrue(options.contains(navigationOptionWifiSwitchOn))
+        assertTrue(options.contains(navigationOptionWiFiSwitchOn))
         assertTrue(options.contains(navigationOptionScannerSwitchOn))
         assertTrue(options.contains(navigationOptionFilterOff))
         assertTrue(options.contains(navigationOptionBottomNavOn))
-        assertFalse(options.contains(navigationOptionWifiSwitchOff))
+        assertFalse(options.contains(navigationOptionWiFiSwitchOff))
         assertFalse(options.contains(navigationOptionScannerSwitchOff))
         assertFalse(options.contains(navigationOptionFilterOn))
         assertFalse(options.contains(navigationOptionBottomNavOff))
@@ -39,11 +39,11 @@ class NavigationOptionsTest {
     fun testOther() {
         val options: List<NavigationOption> = navigationOptionOther
         assertEquals(4, options.size)
-        assertTrue(options.contains(navigationOptionWifiSwitchOn))
+        assertTrue(options.contains(navigationOptionWiFiSwitchOn))
         assertTrue(options.contains(navigationOptionScannerSwitchOn))
         assertTrue(options.contains(navigationOptionFilterOn))
         assertTrue(options.contains(navigationOptionBottomNavOn))
-        assertFalse(options.contains(navigationOptionWifiSwitchOff))
+        assertFalse(options.contains(navigationOptionWiFiSwitchOff))
         assertFalse(options.contains(navigationOptionScannerSwitchOff))
         assertFalse(options.contains(navigationOptionFilterOff))
         assertFalse(options.contains(navigationOptionBottomNavOff))
@@ -53,11 +53,11 @@ class NavigationOptionsTest {
     fun testOff() {
         val options: List<NavigationOption> = navigationOptionOff
         assertEquals(4, options.size)
-        assertTrue(options.contains(navigationOptionWifiSwitchOff))
+        assertTrue(options.contains(navigationOptionWiFiSwitchOff))
         assertTrue(options.contains(navigationOptionScannerSwitchOff))
         assertTrue(options.contains(navigationOptionFilterOff))
         assertTrue(options.contains(navigationOptionBottomNavOff))
-        assertFalse(options.contains(navigationOptionWifiSwitchOn))
+        assertFalse(options.contains(navigationOptionWiFiSwitchOn))
         assertFalse(options.contains(navigationOptionScannerSwitchOn))
         assertFalse(options.contains(navigationOptionFilterOn))
         assertFalse(options.contains(navigationOptionBottomNavOn))
@@ -67,11 +67,11 @@ class NavigationOptionsTest {
     fun testAccessPoints() {
         val options: List<NavigationOption> = navigationOptionAp
         assertEquals(4, options.size)
-        assertTrue(options.contains(navigationOptionWifiSwitchOff))
+        assertTrue(options.contains(navigationOptionWiFiSwitchOff))
         assertTrue(options.contains(navigationOptionScannerSwitchOn))
         assertTrue(options.contains(navigationOptionFilterOn))
         assertTrue(options.contains(navigationOptionBottomNavOn))
-        assertFalse(options.contains(navigationOptionWifiSwitchOn))
+        assertFalse(options.contains(navigationOptionWiFiSwitchOn))
         assertFalse(options.contains(navigationOptionScannerSwitchOff))
         assertFalse(options.contains(navigationOptionFilterOff))
         assertFalse(options.contains(navigationOptionBottomNavOff))

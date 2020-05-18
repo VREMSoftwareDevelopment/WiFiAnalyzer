@@ -22,11 +22,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.vrem.util.BuildUtilsKt;
 import com.vrem.util.ConfigurationUtilsKt;
 import com.vrem.util.EnumUtilsKt;
 import com.vrem.wifianalyzer.navigation.NavigationMenu;
@@ -42,9 +44,13 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 
 import java.util.Locale;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.util.Pair;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -264,6 +270,19 @@ public class MainActivity extends AppCompatActivity implements NavigationMenuCon
     @Override
     public NavigationView navigationView() {
         return navigationMenuController.getNavigationView();
+    }
+
+    @ColorInt
+    public int getCompatColor(@ColorRes int id) {
+        return BuildUtilsKt.buildMinVersionM() ? getColor(id) : ContextCompat.getColor(this, id);
+    }
+
+    public void setCompatTint(@NonNull Drawable drawable, @ColorInt int tint) {
+        if (BuildUtilsKt.buildMinVersionL()) {
+            drawable.setTint(tint);
+        } else {
+            DrawableCompat.setTint(drawable, tint);
+        }
     }
 
     public void mainConnectionVisibility(int visibility) {

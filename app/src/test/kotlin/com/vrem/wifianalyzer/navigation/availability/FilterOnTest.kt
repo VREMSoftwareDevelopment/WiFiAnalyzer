@@ -36,7 +36,6 @@ class FilterOnTest {
     private val menuItem = mock(MenuItem::class.java)
     private val drawable = mock(Drawable::class.java)
     private val filterAdapter = MainContextHelper.INSTANCE.filterAdapter
-    private val fixture = spy(FilterOn())
 
     @After
     fun tearDown() {
@@ -50,42 +49,42 @@ class FilterOnTest {
     }
 
     @Test
-    fun testApplyWithFilterInactive() {
+    fun testNavigationOptionFilterOnWithFilterInactive() {
         // setup
         val colorResult = 200
         whenever(filterAdapter.isActive).thenReturn(false)
-        doReturn(colorResult).`when`(fixture).getColor(mainActivity, R.color.regular)
+        whenever(mainActivity.getCompatColor(R.color.regular)).thenReturn(colorResult)
         withMenuItem()
         // execute
-        fixture.apply(mainActivity)
+        navigationOptionFilterOn(mainActivity)
         // validate
         verifyMenuItem()
-        verify(fixture).getColor(mainActivity, R.color.regular)
-        verify(fixture).setTint(drawable, colorResult)
+        verify(mainActivity).getCompatColor(R.color.regular)
+        verify(mainActivity).setCompatTint(drawable, colorResult)
     }
 
     @Test
-    fun testApplyWithFilterActive() {
+    fun testNavigationOptionFilterOnWithFilterActive() {
         // setup
         val colorResult = 100
         whenever(filterAdapter.isActive).thenReturn(true)
-        doReturn(colorResult).`when`(fixture).getColor(mainActivity, R.color.selected)
+        whenever(mainActivity.getCompatColor(R.color.selected)).thenReturn(colorResult)
         withMenuItem()
         // execute
-        fixture.apply(mainActivity)
+        navigationOptionFilterOn(mainActivity)
         // validate
         verifyMenuItem()
-        verify(fixture).getColor(mainActivity, R.color.selected)
-        verify(fixture).setTint(drawable, colorResult)
+        verify(mainActivity).getCompatColor(R.color.selected)
+        verify(mainActivity).setCompatTint(drawable, colorResult)
     }
 
     @Test
-    fun testApplyWithNoMenuDoesNotSetVisibleTrue() {
+    fun testNavigationOptionFilterOnWithNoMenuDoesNotSetVisibleTrue() {
         // setup
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(null)
         // execute
-        fixture.apply(mainActivity)
+        navigationOptionFilterOn(mainActivity)
         // validate
         verify(mainActivity).optionMenu
         verify(optionMenu).menu

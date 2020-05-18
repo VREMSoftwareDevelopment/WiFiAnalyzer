@@ -23,6 +23,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
+import org.junit.After
 import org.junit.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.*
@@ -32,16 +33,23 @@ class ScannerSwitchOffTest {
     private val optionMenu = mock(OptionMenu::class.java)
     private val menu = mock(Menu::class.java)
     private val menuItem = mock(MenuItem::class.java)
-    private val fixture = ScannerSwitchOff()
+
+    @After
+    fun tearDown() {
+        verifyNoMoreInteractions(mainActivity)
+        verifyNoMoreInteractions(optionMenu)
+        verifyNoMoreInteractions(menu)
+        verifyNoMoreInteractions(menuItem)
+    }
 
     @Test
-    fun testApplySetVisibleFalse() {
+    fun testNavigationOptionScannerSwitchOff() {
         // setup
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(menu)
         whenever(menu.findItem(R.id.action_scanner)).thenReturn(menuItem)
         // execute
-        fixture.apply(mainActivity)
+        navigationOptionScannerSwitchOff(mainActivity)
         // validate
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
@@ -50,12 +58,12 @@ class ScannerSwitchOffTest {
     }
 
     @Test
-    fun testApplyWithNoMenuDoesNotSetVisibleFalse() {
+    fun testNavigationOptionScannerSwitchOffWithNoMenuDoesNotSetVisibleFalse() {
         // setup
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(null)
         // execute
-        fixture.apply(mainActivity)
+        navigationOptionScannerSwitchOff(mainActivity)
         // validate
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
