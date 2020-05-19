@@ -18,17 +18,25 @@
 package com.vrem.wifianalyzer.navigation.availability
 
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.view.Menu
 import android.view.MenuItem
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.whenever
+import com.vrem.util.compatColor
+import com.vrem.util.compatTint
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
 import org.junit.After
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mockito.*
+import org.robolectric.annotation.Config
 
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.P])
 class FilterOnTest {
     private val mainActivity = mock(MainActivity::class.java)
     private val optionMenu = mock(OptionMenu::class.java)
@@ -40,12 +48,12 @@ class FilterOnTest {
     @After
     fun tearDown() {
         MainContextHelper.INSTANCE.restore()
-        verifyNoMoreInteractions(menu)
-        verifyNoMoreInteractions(menuItem)
         verifyNoMoreInteractions(filterAdapter)
+        verifyNoMoreInteractions(drawable)
+        verifyNoMoreInteractions(menuItem)
+        verifyNoMoreInteractions(menu)
         verifyNoMoreInteractions(optionMenu)
         verifyNoMoreInteractions(mainActivity)
-        verifyNoMoreInteractions(drawable)
     }
 
     @Test
@@ -53,14 +61,14 @@ class FilterOnTest {
         // setup
         val colorResult = 200
         whenever(filterAdapter.isActive).thenReturn(false)
-        whenever(mainActivity.getCompatColor(R.color.regular)).thenReturn(colorResult)
+        whenever(mainActivity.compatColor(R.color.regular)).thenReturn(colorResult)
         withMenuItem()
         // execute
         navigationOptionFilterOn(mainActivity)
         // validate
         verifyMenuItem()
-        verify(mainActivity).getCompatColor(R.color.regular)
-        verify(mainActivity).setCompatTint(drawable, colorResult)
+        verify(mainActivity).compatColor(R.color.regular)
+        verify(drawable).compatTint(colorResult)
     }
 
     @Test
@@ -68,14 +76,14 @@ class FilterOnTest {
         // setup
         val colorResult = 100
         whenever(filterAdapter.isActive).thenReturn(true)
-        whenever(mainActivity.getCompatColor(R.color.selected)).thenReturn(colorResult)
+        whenever(mainActivity.compatColor(R.color.selected)).thenReturn(colorResult)
         withMenuItem()
         // execute
         navigationOptionFilterOn(mainActivity)
         // validate
         verifyMenuItem()
-        verify(mainActivity).getCompatColor(R.color.selected)
-        verify(mainActivity).setCompatTint(drawable, colorResult)
+        verify(mainActivity).compatColor(R.color.selected)
+        verify(drawable).compatTint(colorResult)
     }
 
     @Test

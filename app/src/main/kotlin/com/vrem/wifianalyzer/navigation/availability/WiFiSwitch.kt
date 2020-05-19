@@ -18,6 +18,7 @@
 package com.vrem.wifianalyzer.navigation.availability
 
 import com.vrem.util.EMPTY
+import com.vrem.util.compatColor
 import com.vrem.util.fromHtml
 import com.vrem.util.textToHtml
 import com.vrem.wifianalyzer.MainActivity
@@ -51,8 +52,8 @@ private fun menu(mainActivity: MainActivity, visible: Boolean) {
 private fun actionBarOn(mainActivity: MainActivity) {
     val actionBar = mainActivity.supportActionBar
     if (actionBar != null) {
-        val colorSelected = mainActivity.getCompatColor(R.color.selected)
-        val colorNotSelected = mainActivity.getCompatColor(R.color.regular)
+        val colorSelected = mainActivity.compatColor(R.color.selected)
+        val colorNotSelected = mainActivity.compatColor(R.color.regular)
         val resources = mainActivity.resources
         val wiFiBand2 = resources.getString(WiFiBand.GHZ2.textResource)
         val wiFiBand5 = resources.getString(WiFiBand.GHZ5.textResource)

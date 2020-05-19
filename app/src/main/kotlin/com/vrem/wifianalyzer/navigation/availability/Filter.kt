@@ -17,6 +17,8 @@
  */
 package com.vrem.wifianalyzer.navigation.availability
 
+import com.vrem.util.compatColor
+import com.vrem.util.compatTint
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 
@@ -33,7 +35,7 @@ internal val navigationOptionFilterOn: NavigationOption = {
         val menuItem = menu.findItem(R.id.action_filter)
         menuItem.isVisible = true
         val color = if (MainContext.INSTANCE.filterAdapter.isActive) R.color.selected else R.color.regular
-        val tint = it.getCompatColor(color)
-        it.setCompatTint(menuItem.icon, tint)
+        val tint = it.compatColor(color)
+        menuItem.icon.compatTint(tint)
     }
 }
