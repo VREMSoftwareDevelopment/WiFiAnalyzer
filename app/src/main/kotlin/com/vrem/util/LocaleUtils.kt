@@ -23,7 +23,7 @@ private object SyncAvoid {
     val defaultLocale: Locale = Locale.getDefault()
     val countryCodes: Set<String> = Locale.getISOCountries().toSet()
     val availableLocales: List<Locale> = Locale.getAvailableLocales().filter { countryCodes.contains(it.country) }
-    var countriesLocales: SortedMap<String, Locale> = availableLocales.map { it.country.capitalize() to it }.toMap().toSortedMap()
+    val countriesLocales: SortedMap<String, Locale> = availableLocales.map { it.country.capitalize() to it }.toMap().toSortedMap()
     val supportedLocales: List<Locale> = setOf(
             Locale.GERMAN,
             Locale.ENGLISH,

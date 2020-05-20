@@ -28,13 +28,12 @@ class WiFiDetailTest {
     private val level = -40
     private val vendorName = "VendorName"
     private val capabilities = "WPA-WPA2"
-    private val SSID = "xyzSSID"
-    private val BSSID = "xyzBSSID"
-
-    private var wiFiSignal = WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, level, true)
-    private var wiFiAdditional = WiFiAdditional(vendorName, WiFiConnection.EMPTY)
-    private var wiFiIdentifier = WiFiIdentifier(SSID, BSSID)
-    private var fixture = WiFiDetail(wiFiIdentifier, capabilities, wiFiSignal, wiFiAdditional)
+    private val ssid = "xyzSSID"
+    private val bssid = "xyzBSSID"
+    private val wiFiSignal = WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, level, true)
+    private val wiFiAdditional = WiFiAdditional(vendorName, WiFiConnection.EMPTY)
+    private val wiFiIdentifier = WiFiIdentifier(ssid, bssid)
+    private val fixture = WiFiDetail(wiFiIdentifier, capabilities, wiFiSignal, wiFiAdditional)
 
     @Test
     fun testWiFiDetail() {

@@ -27,8 +27,7 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 
 internal val navigationOptionWiFiSwitchOff: NavigationOption = {
-    val actionBar = it.supportActionBar
-    if (actionBar != null) {
+    it.supportActionBar?.let { actionBar ->
         actionBar.subtitle = String.EMPTY
     }
     menu(it, false)
@@ -40,18 +39,13 @@ internal val navigationOptionWiFiSwitchOn: NavigationOption = {
 }
 
 private fun menu(mainActivity: MainActivity, visible: Boolean) {
-    val optionMenu = mainActivity.optionMenu
-    if (optionMenu != null) {
-        val menu = optionMenu.menu
-        if (menu != null) {
-            menu.findItem(R.id.action_wifi_band).isVisible = visible
-        }
+    mainActivity.optionMenu?.menu?.let {
+        it.findItem(R.id.action_wifi_band).isVisible = visible
     }
 }
 
 private fun actionBarOn(mainActivity: MainActivity) {
-    val actionBar = mainActivity.supportActionBar
-    if (actionBar != null) {
+    mainActivity.supportActionBar?.let {
         val colorSelected = mainActivity.compatColor(R.color.selected)
         val colorNotSelected = mainActivity.compatColor(R.color.regular)
         val resources = mainActivity.resources
@@ -59,22 +53,16 @@ private fun actionBarOn(mainActivity: MainActivity) {
         val wiFiBand5 = resources.getString(WiFiBand.GHZ5.textResource)
         val wiFiBand = MainContext.INSTANCE.settings.wiFiBand()
         val subtitle = makeSubtitle(WiFiBand.GHZ2 == wiFiBand, wiFiBand2, wiFiBand5, colorSelected, colorNotSelected)
-        actionBar.subtitle = fromHtml(subtitle)
+        it.subtitle = fromHtml(subtitle)
     }
 }
 
-internal fun makeSubtitle(wiFiBand2Selected: Boolean, wiFiBand2: String?, wiFiBand5: String?, colorSelected: Int, colorNotSelected: Int): String {
-    val stringBuilder = StringBuilder()
-    if (wiFiBand2Selected) {
-        stringBuilder.append(textToHtml(wiFiBand2!!, colorSelected, false))
-    } else {
-        stringBuilder.append(textToHtml(wiFiBand2!!, colorNotSelected, true))
-    }
-    stringBuilder.append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
-    if (wiFiBand2Selected) {
-        stringBuilder.append(textToHtml(wiFiBand5!!, colorNotSelected, true))
-    } else {
-        stringBuilder.append(textToHtml(wiFiBand5!!, colorSelected, false))
-    }
-    return stringBuilder.toString()
-}
+private const val SPACER = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+
+internal fun makeSubtitle(wiFiBand2Selected: Boolean, wiFiBand2: String, wiFiBand5: String, colorSelected: Int, colorNotSelected: Int): String =
+        if (wiFiBand2Selected) {
+            textToHtml(wiFiBand2, colorSelected, false) + SPACER + textToHtml(wiFiBand5, colorNotSelected, true)
+        } else {
+            textToHtml(wiFiBand2, colorNotSelected, true) + SPACER + textToHtml(wiFiBand5, colorSelected, false)
+        }
+

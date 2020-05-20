@@ -51,22 +51,16 @@ data class WiFiSignal(val primaryFrequency: Int = 0,
     fun channelDisplay(): String {
         val primaryChannel: Int = primaryWiFiChannel().channel
         val centerChannel: Int = centerWiFiChannel().channel
-        var channel: String = Integer.toString(primaryChannel)
-        if (primaryChannel != centerChannel) {
-            channel += "($centerChannel)"
-        }
-        return channel
+        val channel: String = primaryChannel.toString()
+        return if (primaryChannel != centerChannel) "$channel($centerChannel)" else channel
     }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
-
         other as WiFiSignal
-
         if (primaryFrequency != other.primaryFrequency) return false
         if (wiFiWidth != other.wiFiWidth) return false
-
         return true
     }
 

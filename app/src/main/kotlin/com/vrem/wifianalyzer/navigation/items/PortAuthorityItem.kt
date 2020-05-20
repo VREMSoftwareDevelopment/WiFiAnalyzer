@@ -32,12 +32,10 @@ internal class PortAuthorityItem : NavigationItem {
         try {
             val context: Context = mainActivity.applicationContext
             val packageManager: PackageManager = context.packageManager
-            var intent: Intent? = packageManager.getLaunchIntentForPackage(PORT_AUTHORITY_DONATE)
-            if (intent == null) {
-                intent = packageManager.getLaunchIntentForPackage(PORT_AUTHORITY_FREE)
-                if (intent == null) {
-                    intent = redirectToPlayStore()
-                }
+            val intent: Intent = packageManager.getLaunchIntentForPackage(PORT_AUTHORITY_DONATE)
+                    ?: let {
+                        packageManager.getLaunchIntentForPackage(PORT_AUTHORITY_FREE)
+                                ?: redirectToPlayStore()
             }
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)

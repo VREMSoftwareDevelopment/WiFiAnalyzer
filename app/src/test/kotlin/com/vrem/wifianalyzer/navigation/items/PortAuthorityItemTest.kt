@@ -36,8 +36,7 @@ class PortAuthorityItemTest {
     private val intent: Intent = mock(Intent::class.java)
     private val menuItem: MenuItem = mock(MenuItem::class.java)
     private val packageManager: PackageManager = mock(PackageManager::class.java)
-
-    private var fixture: PortAuthorityItem = spy(PortAuthorityItem())
+    private val fixture: PortAuthorityItem = spy(PortAuthorityItem())
 
     @After
     fun tearDown() {

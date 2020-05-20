@@ -26,7 +26,7 @@ import org.junit.Test
 class WiFiIdentifierTest {
     private val ssid = "xyzSSID"
     private val bssid = "xyzBSSID"
-    private var fixture = WiFiIdentifier(ssid, bssid)
+    private val fixture = WiFiIdentifier(ssid, bssid)
 
     @Test
     fun testWiFiIdentifier() {
@@ -43,7 +43,7 @@ class WiFiIdentifierTest {
     fun testTitleWithEmptySSID() {
         // setup
         val expectedTitle = "*hidden* ($bssid)"
-        fixture = WiFiIdentifier(StringUtils.EMPTY, bssid)
+        val fixture = WiFiIdentifier(StringUtils.EMPTY, bssid)
         // validate
         assertEquals(expectedTitle, fixture.title())
     }
@@ -84,7 +84,7 @@ class WiFiIdentifierTest {
     @Test
     fun testRawSSID() {
         // setup
-        fixture = WiFiIdentifier(StringUtils.EMPTY, bssid)
+        val fixture = WiFiIdentifier(StringUtils.EMPTY, bssid)
         // execute & validate
         assertEquals(StringUtils.EMPTY, fixture.ssidRaw)
         assertEquals(WiFiIdentifier.SSID_EMPTY, fixture.ssid)

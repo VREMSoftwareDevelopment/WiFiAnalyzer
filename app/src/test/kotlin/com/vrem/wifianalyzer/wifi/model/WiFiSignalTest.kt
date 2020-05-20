@@ -29,8 +29,7 @@ class WiFiSignalTest {
     private val centerFrequency = 2437
     private val centerChannel = 6
     private val level = -65
-
-    private var fixture: WiFiSignal = WiFiSignal(primaryFrequency, centerFrequency, WiFiWidth.MHZ_40, level, true)
+    private val fixture: WiFiSignal = WiFiSignal(primaryFrequency, centerFrequency, WiFiWidth.MHZ_40, level, true)
 
     @Test
     fun testWiFiFrequency() {
@@ -45,7 +44,7 @@ class WiFiSignalTest {
     @Test
     fun testWiFiFrequencyWithFrequencyAndWiFiWidth() {
         // execute
-        fixture = WiFiSignal(primaryFrequency, centerFrequency, WiFiWidth.MHZ_80, level, true)
+        val fixture = WiFiSignal(primaryFrequency, centerFrequency, WiFiWidth.MHZ_80, level, true)
         // validate
         assertEquals(primaryFrequency, fixture.primaryFrequency)
         assertEquals(primaryChannel, fixture.primaryWiFiChannel().channel)
@@ -117,7 +116,7 @@ class WiFiSignalTest {
     @Test
     fun testChannelDisplayWhenPrimaryAndCenterSame() {
         // setup
-        fixture = WiFiSignal(primaryFrequency, primaryFrequency, WiFiWidth.MHZ_40, level, true)
+        val fixture = WiFiSignal(primaryFrequency, primaryFrequency, WiFiWidth.MHZ_40, level, true)
         // execute & validate
         assertEquals("5", fixture.channelDisplay())
     }
@@ -125,7 +124,7 @@ class WiFiSignalTest {
     @Test
     fun testChannelDisplayWhenPrimaryAndCenterDifferent() {
         // setup
-        fixture = WiFiSignal(primaryFrequency, centerFrequency, WiFiWidth.MHZ_40, level, true)
+        val fixture = WiFiSignal(primaryFrequency, centerFrequency, WiFiWidth.MHZ_40, level, true)
         // execute & validate
         assertEquals("5(6)", fixture.channelDisplay())
     }

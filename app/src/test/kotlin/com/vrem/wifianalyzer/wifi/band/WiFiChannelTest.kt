@@ -23,9 +23,8 @@ import org.junit.Test
 class WiFiChannelTest {
     private val channel = 1
     private val frequency = 200
-
-    private var fixture: WiFiChannel = WiFiChannel(channel, frequency)
-    private var other: WiFiChannel = WiFiChannel(channel, frequency)
+    private val fixture: WiFiChannel = WiFiChannel(channel, frequency)
+    private val other: WiFiChannel = WiFiChannel(channel, frequency)
 
     @Test
     fun testInRange() {

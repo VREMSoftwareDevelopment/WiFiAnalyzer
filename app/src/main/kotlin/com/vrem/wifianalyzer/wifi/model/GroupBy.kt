@@ -17,13 +17,11 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import java.util.*
-
 typealias GroupByKey<T> = (T) -> String
 
-private var groupByChannel: GroupByKey<WiFiDetail> = { it.wiFiSignal.primaryWiFiChannel().channel.toString() }
+private val groupByChannel: GroupByKey<WiFiDetail> = { it.wiFiSignal.primaryWiFiChannel().channel.toString() }
 
-private var groupBySSID: GroupByKey<WiFiDetail> = { it.wiFiIdentifier.ssid }
+private val groupBySSID: GroupByKey<WiFiDetail> = { it.wiFiIdentifier.ssid }
 
 enum class GroupBy(val sort: Comparator<WiFiDetail>, val group: GroupByKey<WiFiDetail>) {
     NONE(sortByDefault(), groupBySSID),

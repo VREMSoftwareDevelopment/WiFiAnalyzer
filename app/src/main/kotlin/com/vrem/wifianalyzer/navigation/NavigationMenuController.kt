@@ -33,11 +33,6 @@ class NavigationMenuController @JvmOverloads constructor(
 
     private lateinit var currentNavigationMenu: NavigationMenu
 
-    private fun populateNavigationMenu() {
-        NavigationGroup.values().forEach { it -> it.populateMenuItems(navigationView.menu) }
-        NavigationGroup.GROUP_FEATURE.populateMenuItems(bottomNavigationView.menu)
-    }
-
     fun currentMenuItem(): MenuItem = navigationView.menu.getItem(currentNavigationMenu.ordinal)
 
     fun currentNavigationMenu(): NavigationMenu = currentNavigationMenu
@@ -54,16 +49,16 @@ class NavigationMenuController @JvmOverloads constructor(
             menuItem.isCheckable = false
             menuItem.isChecked = false
         }
-        val menuItem: MenuItem? = menu.findItem(navigationMenu.ordinal)
-        if (menuItem != null) {
-            menuItem.isCheckable = true
-            menuItem.isChecked = true
+        menu.findItem(navigationMenu.ordinal)?.let {
+            it.isCheckable = true
+            it.isChecked = true
         }
     }
 
     init {
-        populateNavigationMenu()
+        NavigationGroup.values().forEach { it -> it.populateMenuItems(navigationView.menu) }
         navigationView.setNavigationItemSelectedListener(navigationMenuControl)
+        NavigationGroup.GROUP_FEATURE.populateMenuItems(bottomNavigationView.menu)
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationMenuControl)
     }
 }

@@ -23,15 +23,11 @@ import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 
 internal val navigationOptionFilterOff: NavigationOption = {
-    val menu = it.optionMenu.menu
-    if (menu != null) {
-        menu.findItem(R.id.action_filter).isVisible = false
-    }
+    it.optionMenu.menu?.let { menu -> menu.findItem(R.id.action_filter).isVisible = false }
 }
 
 internal val navigationOptionFilterOn: NavigationOption = {
-    val menu = it.optionMenu.menu
-    if (menu != null) {
+    it.optionMenu.menu?.let { menu ->
         val menuItem = menu.findItem(R.id.action_filter)
         menuItem.isVisible = true
         val color = if (MainContext.INSTANCE.filterAdapter.isActive) R.color.selected else R.color.regular

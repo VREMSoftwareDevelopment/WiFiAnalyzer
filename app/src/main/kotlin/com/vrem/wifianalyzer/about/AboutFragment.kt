@@ -72,22 +72,15 @@ class AboutFragment : Fragment() {
         binding.writeReview.setOnClickListener(WriteReviewClickListener(activity))
     }
 
-    private fun copyright(): String {
-        val locale = Locale.getDefault()
-        val year = SimpleDateFormat(YEAR_FORMAT, locale).format(Date())
-        val message = resources.getString(R.string.app_copyright)
-        return message + year
-    }
+    private fun copyright(): String =
+            resources.getString(R.string.app_copyright) + SimpleDateFormat(YEAR_FORMAT, Locale.getDefault()).format(Date())
 
     private fun version(activity: FragmentActivity): String {
-        var text = applicationVersion(activity)
         val configuration = MainContext.INSTANCE.configuration
-        if (configuration != null) {
-            if (configuration.isSizeAvailable) text += "S"
-            if (configuration.isLargeScreen) text += "L"
-        }
-        text += " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")"
-        return text
+        return applicationVersion(activity) +
+                configuration.isSizeAvailable.let { "S" } +
+                configuration.isLargeScreen.let { "L" } +
+                " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")"
     }
 
     private fun applicationVersion(activity: FragmentActivity): String =
