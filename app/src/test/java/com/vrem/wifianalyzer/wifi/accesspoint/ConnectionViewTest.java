@@ -182,6 +182,7 @@ public class ConnectionViewTest {
         // validate
         assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.no_data).getVisibility());
         assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.no_location).getVisibility());
+        assertEquals(View.VISIBLE, mainActivity.findViewById(R.id.throttling).getVisibility());
         verify(wiFiData).getWiFiDetails();
     }
 
@@ -196,6 +197,8 @@ public class ConnectionViewTest {
         fixture.update(wiFiData);
         // validate
         assertEquals(View.GONE, mainActivity.findViewById(R.id.no_data).getVisibility());
+        assertEquals(View.GONE, mainActivity.findViewById(R.id.no_location).getVisibility());
+        assertEquals(View.GONE, mainActivity.findViewById(R.id.throttling).getVisibility());
         verify(wiFiData).getWiFiDetails();
     }
 
@@ -209,6 +212,8 @@ public class ConnectionViewTest {
         fixture.update(wiFiData);
         // validate
         assertEquals(View.GONE, mainActivity.findViewById(R.id.no_data).getVisibility());
+        assertEquals(View.GONE, mainActivity.findViewById(R.id.no_location).getVisibility());
+        assertEquals(View.GONE, mainActivity.findViewById(R.id.throttling).getVisibility());
         verify(wiFiData, never()).getWiFiDetails();
     }
 

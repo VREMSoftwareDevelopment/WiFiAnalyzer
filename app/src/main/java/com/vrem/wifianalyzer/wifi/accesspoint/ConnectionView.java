@@ -69,6 +69,9 @@ public class ConnectionView implements UpdateNotifier {
         if (BuildUtilsKt.buildMinVersionM()) {
             mainActivity.findViewById(R.id.no_location).setVisibility(getNoLocationVisibility(visibility));
         }
+        if (BuildUtilsKt.buildMinVersionP()) {
+            mainActivity.findViewById(R.id.throttling).setVisibility(visibility);
+        }
     }
 
     private int getNoLocationVisibility(int visibility) {

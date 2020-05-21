@@ -22,14 +22,18 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Build
+import android.view.View
 import com.vrem.annotation.OpenClass
 import com.vrem.util.buildMinVersionM
+import com.vrem.util.buildMinVersionP
 import com.vrem.wifianalyzer.R
 
 @OpenClass
 class PermissionDialog(private val activity: Activity) {
     fun show() {
         val view = activity.layoutInflater.inflate(R.layout.info_permission, null)
+        val visibility = if (buildMinVersionP()) View.VISIBLE else View.GONE
+        view.findViewById<View>(R.id.throttling)?.visibility = visibility
         AlertDialog.Builder(activity)
                 .setView(view)
                 .setTitle(R.string.app_full_name)

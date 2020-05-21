@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ WiFiAnalyzer
   ~ Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
@@ -18,20 +17,21 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:viewBindingIgnore="true">
 
     <LinearLayout
         android:id="@+id/scanning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:visibility="gone"
         tools:visibility="visible">
 
@@ -44,7 +44,7 @@
 
             <ProgressBar
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <TextView
@@ -54,7 +54,7 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             android:text="@string/scanner_message"
             android:textColor="@color/success"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -62,9 +62,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:visibility="gone"
         tools:visibility="visible">
 
@@ -75,7 +75,7 @@
             android:text="@string/no_data"
             android:textAlignment="center"
             android:textColor="@color/error"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/no_location"
@@ -85,9 +85,11 @@
             android:visibility="gone"
             tools:visibility="visible">
 
-            <include layout="@layout/info_location"/>
+            <include layout="@layout/info_location" />
         </LinearLayout>
 
-        <include layout="@layout/info_faq"/>
+        <include layout="@layout/info_throttling" />
+
+        <include layout="@layout/info_faq" />
     </LinearLayout>
 </LinearLayout>
