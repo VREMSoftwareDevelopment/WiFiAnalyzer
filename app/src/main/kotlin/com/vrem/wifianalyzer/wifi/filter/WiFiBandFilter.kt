@@ -15,29 +15,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.filter
 
-package com.vrem.wifianalyzer.wifi.filter;
+import android.app.Dialog
+import com.vrem.wifianalyzer.R
+import com.vrem.wifianalyzer.wifi.band.WiFiBand
+import com.vrem.wifianalyzer.wifi.filter.adapter.WiFiBandAdapter
 
-import android.app.Dialog;
-
-import com.vrem.wifianalyzer.R;
-import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.filter.adapter.WiFiBandAdapter;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import androidx.annotation.NonNull;
-
-class WiFiBandFilter extends EnumFilter<WiFiBand, WiFiBandAdapter> {
-    static final Map<WiFiBand, Integer> ids = new HashMap<>();
-
-    static {
-        ids.put(WiFiBand.GHZ2, R.id.filterWifiBand2);
-        ids.put(WiFiBand.GHZ5, R.id.filterWifiBand5);
-    }
-
-    WiFiBandFilter(@NonNull WiFiBandAdapter wiFiBandAdapter, @NonNull Dialog dialog) {
-        super(ids, wiFiBandAdapter, dialog, R.id.filterWiFiBand);
-    }
-}
+internal class WiFiBandFilter(wiFiBandAdapter: WiFiBandAdapter, dialog: Dialog) :
+        EnumFilter<WiFiBand, WiFiBandAdapter>(
+                mapOf(
+                        WiFiBand.GHZ2 to R.id.filterWifiBand2,
+                        WiFiBand.GHZ5 to R.id.filterWifiBand5
+                ),
+                wiFiBandAdapter,
+                dialog,
+                R.id.filterWiFiBand
+        )

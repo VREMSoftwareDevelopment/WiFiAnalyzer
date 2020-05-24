@@ -60,7 +60,7 @@ class FilterOnTest {
     fun testNavigationOptionFilterOnWithFilterInactive() {
         // setup
         val colorResult = 200
-        whenever(filterAdapter.isActive).thenReturn(false)
+        whenever(filterAdapter.isActive()).thenReturn(false)
         whenever(mainActivity.compatColor(R.color.regular)).thenReturn(colorResult)
         withMenuItem()
         // execute
@@ -75,7 +75,7 @@ class FilterOnTest {
     fun testNavigationOptionFilterOnWithFilterActive() {
         // setup
         val colorResult = 100
-        whenever(filterAdapter.isActive).thenReturn(true)
+        whenever(filterAdapter.isActive()).thenReturn(true)
         whenever(mainActivity.compatColor(R.color.selected)).thenReturn(colorResult)
         withMenuItem()
         // execute
@@ -103,7 +103,7 @@ class FilterOnTest {
         verify(optionMenu).menu
         verify(menu).findItem(R.id.action_filter)
         verify(menuItem).icon
-        verify(filterAdapter).isActive
+        verify(filterAdapter).isActive()
         verify(menuItem).isVisible = true
     }
 

@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer;
 
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
-import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
+import com.vrem.wifianalyzer.wifi.filter.adapter.FiltersAdapter;
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 
 import org.apache.commons.collections4.Closure;
@@ -77,9 +77,9 @@ public enum MainContextHelper {
         return result;
     }
 
-    public FilterAdapter getFilterAdapter() {
-        FilterAdapter result = (FilterAdapter) save(FilterAdapter.class, mainContext.getFilterAdapter());
-        mainContext.setFilterAdapter(result);
+    public FiltersAdapter getFilterAdapter() {
+        FiltersAdapter result = (FiltersAdapter) save(FiltersAdapter.class, mainContext.getFiltersAdapter());
+        mainContext.setFiltersAdapter(result);
         return result;
     }
 
@@ -102,8 +102,8 @@ public enum MainContextHelper {
                 mainContext.setMainActivity((MainActivity) result);
             } else if (input.equals(Configuration.class)) {
                 mainContext.setConfiguration((Configuration) result);
-            } else if (input.equals(FilterAdapter.class)) {
-                mainContext.setFilterAdapter((FilterAdapter) result);
+            } else if (input.equals(FiltersAdapter.class)) {
+                mainContext.setFiltersAdapter((FiltersAdapter) result);
             } else {
                 throw new IllegalArgumentException(input.getName());
             }

@@ -78,7 +78,7 @@ class LocaleUtilsTest {
     @Test
     fun testSupportedLanguages() {
         // setup
-        val expected: Set<Locale> = HashSet(Arrays.asList(
+        val expected: Set<Locale> = setOf(
                 Locale.GERMAN,
                 Locale.ENGLISH,
                 Locale.FRENCH,
@@ -88,7 +88,7 @@ class LocaleUtilsTest {
                 SPANISH,
                 PORTUGUESE,
                 RUSSIAN,
-                Locale.getDefault()))
+                Locale.getDefault())
         // execute
         val actual = supportedLanguages()
         // validate

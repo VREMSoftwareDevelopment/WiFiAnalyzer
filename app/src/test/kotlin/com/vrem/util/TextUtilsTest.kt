@@ -24,7 +24,6 @@ import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
-import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.P])
@@ -57,7 +56,7 @@ class TextUtilsTest {
     fun testJoin() {
         // setup
         val expected = "ABC JDS"
-        val values: Set<String> = HashSet(Arrays.asList("", " ", "ABC", " JDS "))
+        val values: Set<String> = setOf("", " ", "ABC", " JDS ")
         // execute
         val actual: String = join(values)
         // validate

@@ -15,25 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.filter.adapter
 
-package com.vrem.wifianalyzer.wifi.filter.adapter;
+import com.vrem.wifianalyzer.settings.Settings
+import com.vrem.wifianalyzer.wifi.band.WiFiBand
 
-import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.wifi.model.Security;
-
-import java.util.Set;
-
-import androidx.annotation.NonNull;
-
-public class SecurityAdapter extends EnumFilterAdapter<Security> {
-
-    SecurityAdapter(@NonNull Set<Security> values) {
-        super(values, Security.values());
-    }
-
-    @Override
-    public void save(@NonNull Settings settings) {
-        settings.saveSecurities(getValues());
-    }
-
+class WiFiBandAdapter(values: Set<WiFiBand>) : EnumFilterAdapter<WiFiBand>(values, WiFiBand.values()) {
+    override fun save(settings: Settings): Unit =
+            settings.saveWiFiBands(selections)
 }

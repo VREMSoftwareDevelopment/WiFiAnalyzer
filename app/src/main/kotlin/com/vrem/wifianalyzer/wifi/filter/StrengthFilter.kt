@@ -15,23 +15,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.navigation.availability
+package com.vrem.wifianalyzer.wifi.filter
 
-import com.vrem.util.compatColor
-import com.vrem.util.compatTint
-import com.vrem.wifianalyzer.MainContext
+import android.app.Dialog
 import com.vrem.wifianalyzer.R
+import com.vrem.wifianalyzer.wifi.filter.adapter.StrengthAdapter
+import com.vrem.wifianalyzer.wifi.model.Strength
 
-internal val navigationOptionFilterOff: NavigationOption = {
-    it.optionMenu.menu?.let { menu -> menu.findItem(R.id.action_filter).isVisible = false }
-}
-
-internal val navigationOptionFilterOn: NavigationOption = {
-    it.optionMenu.menu?.let { menu ->
-        val menuItem = menu.findItem(R.id.action_filter)
-        menuItem.isVisible = true
-        val color = if (MainContext.INSTANCE.filtersAdapter.isActive()) R.color.selected else R.color.regular
-        val tint = it.compatColor(color)
-        menuItem.icon.compatTint(tint)
-    }
-}
+internal class StrengthFilter(strengthAdapter: StrengthAdapter, dialog: Dialog) :
+        EnumFilter<Strength, StrengthAdapter>(
+                mapOf(
+                        Strength.ZERO to R.id.filterStrength0,
+                        Strength.ONE to R.id.filterStrength1,
+                        Strength.TWO to R.id.filterStrength2,
+                        Strength.THREE to R.id.filterStrength3,
+                        Strength.FOUR to R.id.filterStrength4
+                ),
+                strengthAdapter,
+                dialog,
+                R.id.filterStrength
+        )

@@ -15,23 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.navigation.availability
+package com.vrem.wifianalyzer.wifi.filter.adapter
 
-import com.vrem.util.compatColor
-import com.vrem.util.compatTint
-import com.vrem.wifianalyzer.MainContext
-import com.vrem.wifianalyzer.R
+import com.vrem.wifianalyzer.settings.Settings
+import com.vrem.wifianalyzer.wifi.model.Security
 
-internal val navigationOptionFilterOff: NavigationOption = {
-    it.optionMenu.menu?.let { menu -> menu.findItem(R.id.action_filter).isVisible = false }
-}
-
-internal val navigationOptionFilterOn: NavigationOption = {
-    it.optionMenu.menu?.let { menu ->
-        val menuItem = menu.findItem(R.id.action_filter)
-        menuItem.isVisible = true
-        val color = if (MainContext.INSTANCE.filtersAdapter.isActive()) R.color.selected else R.color.regular
-        val tint = it.compatColor(color)
-        menuItem.icon.compatTint(tint)
+class SecurityAdapter(selections: Set<Security>) : EnumFilterAdapter<Security>(selections, Security.values()) {
+    override fun save(settings: Settings) {
+        settings.saveSecurities(selections)
     }
 }

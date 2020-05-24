@@ -26,7 +26,7 @@ import android.view.LayoutInflater;
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
-import com.vrem.wifianalyzer.wifi.filter.adapter.FilterAdapter;
+import com.vrem.wifianalyzer.wifi.filter.adapter.FiltersAdapter;
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService;
 import com.vrem.wifianalyzer.wifi.scanner.ScannerServiceFactory;
 
@@ -40,7 +40,7 @@ public enum MainContext {
     private ScannerService scannerService;
     private VendorService vendorService;
     private Configuration configuration;
-    private FilterAdapter filterAdapter;
+    private FiltersAdapter filtersAdapter;
 
     public Settings getSettings() {
         return settings;
@@ -94,12 +94,12 @@ public enum MainContext {
         this.configuration = configuration;
     }
 
-    public FilterAdapter getFilterAdapter() {
-        return filterAdapter;
+    public FiltersAdapter getFiltersAdapter() {
+        return filtersAdapter;
     }
 
-    void setFilterAdapter(FilterAdapter filterAdapter) {
-        this.filterAdapter = filterAdapter;
+    void setFiltersAdapter(FiltersAdapter filtersAdapter) {
+        this.filtersAdapter = filtersAdapter;
     }
 
     void initialize(@NonNull MainActivity mainActivity, boolean largeScreen) {
@@ -114,7 +114,7 @@ public enum MainContext {
         setSettings(currentSettings);
         setVendorService(new VendorService(mainActivity.getResources()));
         setScannerService(ScannerServiceFactory.makeScannerService(mainActivity, handler, currentSettings));
-        setFilterAdapter(new FilterAdapter(currentSettings));
+        setFiltersAdapter(new FiltersAdapter(currentSettings));
     }
 
 }

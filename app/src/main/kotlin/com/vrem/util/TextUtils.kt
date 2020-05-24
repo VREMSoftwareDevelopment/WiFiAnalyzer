@@ -25,7 +25,7 @@ import android.text.TextUtils
 
 private const val SEPARATOR = " "
 
-fun split(source: String?): Set<String> = if (source == null || source.isBlank()) HashSet() else trim(source).split(SEPARATOR).toSet()
+fun split(source: String?): Set<String> = if (source == null || source.isBlank()) setOf() else trim(source).split(SEPARATOR).toSet()
 
 fun join(source: Set<String>?): String = trim(TextUtils.join(SEPARATOR, source.orEmpty().toTypedArray()))
 

@@ -15,28 +15,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.filter.adapter
 
-package com.vrem.wifianalyzer.wifi.filter.adapter;
+import com.vrem.wifianalyzer.settings.Settings
+import com.vrem.wifianalyzer.wifi.model.Strength
 
-import com.vrem.wifianalyzer.settings.Settings;
-import com.vrem.wifianalyzer.wifi.model.Strength;
+class StrengthAdapter(selections: Set<Strength>) : EnumFilterAdapter<Strength>(selections, Strength.values()) {
+    override fun color(selection: Strength): Int =
+            if (selections.contains(selection)) selection.colorResource() else Strength.colorResourceDefault
 
-import java.util.Set;
-
-import androidx.annotation.NonNull;
-
-public class StrengthAdapter extends EnumFilterAdapter<Strength> {
-    StrengthAdapter(@NonNull Set<Strength> values) {
-        super(values, Strength.values());
-    }
-
-    @Override
-    public int getColor(@NonNull Strength object) {
-        return contains(object) ? object.colorResource() : Strength.colorResourceDefault;
-    }
-
-    @Override
-    public void save(@NonNull Settings settings) {
-        settings.saveStrengths(getValues());
-    }
+    override fun save(settings: Settings): Unit =
+            settings.saveStrengths(selections)
 }

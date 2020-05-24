@@ -15,40 +15,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.filter.adapter
 
-package com.vrem.wifianalyzer.wifi.filter.adapter;
+import com.vrem.wifianalyzer.settings.Settings
 
-import com.vrem.wifianalyzer.settings.Settings;
+class SSIDAdapter(selections: Set<String>) : BasicFilterAdapter<String>(selections) {
+    override var selections: Set<String>
+        get() = super.selections
+        set(values) {
+            super.selections = values.filter { it.isNotBlank() }.toSet()
+        }
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+    override fun isActive(): Boolean = selections.isNotEmpty()
 
-import androidx.annotation.NonNull;
-
-public abstract class BasicFilterAdapter<T> {
-    private Set<T> values;
-
-    BasicFilterAdapter(@NonNull Set<T> values) {
-        setValues(values);
+    override fun reset() {
+        selections = setOf()
     }
 
-    @NonNull
-    public Set<T> getValues() {
-        return values;
-    }
+    override fun save(settings: Settings): Unit =
+            settings.saveSSIDs(selections)
 
-    public void setValues(@NonNull Set<T> values) {
-        this.values = new HashSet<>(values);
-    }
-
-    public void setValues(@NonNull T[] values) {
-        this.values = new HashSet<>(Arrays.asList(values));
-    }
-
-    abstract boolean isActive();
-
-    abstract void reset();
-
-    abstract void save(@NonNull Settings settings);
 }
