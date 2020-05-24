@@ -24,8 +24,7 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 
 class Filter(val alertDialog: AlertDialog?) {
-    internal var ssidFilter: SSIDFilter? = null
-        private set
+    private var ssidFilter: SSIDFilter? = null
     internal var wiFiBandFilter: WiFiBandFilter? = null
         private set
     internal var strengthFilter: StrengthFilter? = null

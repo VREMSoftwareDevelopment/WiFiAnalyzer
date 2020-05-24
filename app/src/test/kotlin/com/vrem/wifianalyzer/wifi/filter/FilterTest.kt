@@ -132,13 +132,23 @@ class FilterTest {
     }
 
     @Test
+    fun testSSIDFilterViewIsVisible() {
+        // setup
+        fixture.show()
+        // execute
+        val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterSSID).visibility
+        // validate
+        assertEquals(View.VISIBLE, actual)
+    }
+
+    @Test
     fun testWiFiBandFilterViewIsVisible() {
         // setup
         fixture.show()
         // execute
         val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterWiFiBand).visibility
         // validate
-        assertEquals(View.VISIBLE.toLong(), actual.toLong())
+        assertEquals(View.VISIBLE, actual)
     }
 
     @Test
@@ -160,7 +170,7 @@ class FilterTest {
         // execute
         val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterSecurity).visibility
         // validate
-        assertEquals(View.VISIBLE.toLong(), actual.toLong())
+        assertEquals(View.VISIBLE, actual)
     }
 
     @Test
@@ -183,7 +193,7 @@ class FilterTest {
         // execute
         val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterStrength).visibility
         // validate
-        assertEquals(View.VISIBLE.toLong(), actual.toLong())
+        assertEquals(View.VISIBLE, actual)
     }
 
     @Test
