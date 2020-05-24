@@ -23,7 +23,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.ListFragment
-import com.vrem.util.trim
+import com.vrem.util.specialTrim
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.databinding.VendorContentBinding
 
@@ -41,7 +41,7 @@ class VendorFragment : ListFragment() {
         override fun onQueryTextSubmit(query: String): Boolean = false
 
         override fun onQueryTextChange(newText: String): Boolean {
-            vendorAdapter.update(trim(newText))
+            vendorAdapter.update(newText.specialTrim())
             return true
         }
 

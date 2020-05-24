@@ -22,8 +22,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
-import com.vrem.util.join
-import com.vrem.util.split
+import com.vrem.util.SPACE_SEPARATOR
+import com.vrem.util.specialTrim
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.filter.adapter.SSIDAdapter
 
@@ -38,12 +38,12 @@ internal class SSIDFilter(ssidAdapter: SSIDAdapter, dialog: Dialog) {
         }
 
         override fun afterTextChanged(s: Editable) {
-            ssidAdapter.selections = split("$s")
+            ssidAdapter.selections = "$s".specialTrim().split(String.SPACE_SEPARATOR).toSet()
         }
     }
 
     init {
-        val value: String = join(ssidAdapter.selections)
+        val value: String = ssidAdapter.selections.toTypedArray().joinToString(separator = String.SPACE_SEPARATOR).specialTrim()
         val editText: EditText = dialog.findViewById(R.id.filterSSIDtext)
         editText.setText(value)
         editText.addTextChangedListener(OnChange(ssidAdapter))

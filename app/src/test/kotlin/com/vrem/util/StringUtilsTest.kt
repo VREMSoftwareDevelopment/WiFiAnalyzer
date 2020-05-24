@@ -20,93 +20,48 @@ package com.vrem.util
 import android.os.Build
 import android.text.Spanned
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.P])
-class TextUtilsTest {
+class StringUtilsTest {
+
     @Test
-    fun testTextToHtmlSmall() {
+    fun testSpecialTrim() {
+        // setup
+        val expected = "ABS ADF"
+        val value = "    ABS    ADF    "
+        // execute
+        val actual: String = value.specialTrim()
+        // verify
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun testToHtmlSmall() {
         // setup
         val color = 10
         val text = "ThisIsText"
         val expected = "<font color='$color'><small>$text</small></font>"
         // execute
-        val actual: String = textToHtml(text, color, true)
+        val actual: String = text.toHtml(color, true)
         // validate
         assertEquals(expected, actual)
     }
 
     @Test
-    fun testTextToHtml() {
+    fun testToHtml() {
         // setup
         val color = 10
         val text = "ThisIsText"
         val expected = "<font color='$color'><strong>$text</strong></font>"
         // execute
-        val actual: String = textToHtml(text, color, false)
+        val actual: String = text.toHtml(color, false)
         // validate
         assertEquals(expected, actual)
-    }
-
-    @Test
-    fun testJoin() {
-        // setup
-        val expected = "ABC JDS"
-        val values: Set<String> = setOf("", " ", "ABC", " JDS ")
-        // execute
-        val actual: String = join(values)
-        // validate
-        assertEquals(expected, actual)
-    }
-
-    @Test
-    fun testJoinWithNull() {
-        // execute
-        val actual: String = join(null)
-        // validate
-        assertTrue(actual.isEmpty())
-    }
-
-    @Test
-    fun testSplit() {
-        // setup
-        val value = "    ABS    ADF    "
-        val expected = arrayOf("ABS", "ADF")
-        // execute
-        val actual: Set<String> = split(value)
-        // verify
-        assertArrayEquals(expected, actual.toTypedArray())
-    }
-
-    @Test
-    fun testSplitWithNull() {
-        // execute
-        val actual: Set<String> = split(null)
-        // validate
-        assertTrue(actual.isEmpty())
-    }
-
-    @Test
-    fun testTrim() {
-        // setup
-        val expected = "ABS ADF"
-        val value = "    ABS    ADF    "
-        // execute
-        val actual: String = trim(value)
-        // verify
-        assertEquals(expected, actual)
-    }
-
-    @Test
-    fun testTrimWithNull() {
-        // execute
-        val actual: String = trim(null)
-        // verify
-        assertTrue(actual.isEmpty())
     }
 
     @Test
@@ -115,7 +70,7 @@ class TextUtilsTest {
         val expected = "ThisIsText"
         val text = "<font color='20'><small>$expected</small></font>"
         // execute
-        val actual: Spanned = fromHtml(text)
+        val actual: Spanned = text.fromHtml()
         // verify
         assertEquals(expected, actual.toString())
     }
@@ -127,8 +82,9 @@ class TextUtilsTest {
         val expected = "ThisIsText"
         val text = "<font color='20'><small>$expected</small></font>"
         // execute
-        val actual: Spanned = fromHtml(text)
+        val actual: Spanned = text.fromHtml()
         // verify
         assertEquals(expected, actual.toString())
     }
+
 }

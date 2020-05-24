@@ -165,7 +165,7 @@ class WiFiSwitchOnTest {
         val colorSelected = mainActivity.getColor(R.color.selected)
         val colorNotSelected = mainActivity.getColor(R.color.regular)
         val subtitle = makeSubtitle(WiFiBand.GHZ2 == wiFiBand, wiFiBand2, wiFiBand5, colorSelected, colorNotSelected)
-        return fromHtml(subtitle)
+        return subtitle.fromHtml()
     }
 
 }

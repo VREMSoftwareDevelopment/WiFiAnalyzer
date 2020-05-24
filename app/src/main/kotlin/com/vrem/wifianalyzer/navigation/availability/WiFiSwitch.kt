@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.navigation.availability
 import com.vrem.util.EMPTY
 import com.vrem.util.compatColor
 import com.vrem.util.fromHtml
-import com.vrem.util.textToHtml
+import com.vrem.util.toHtml
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
@@ -53,7 +53,7 @@ private fun actionBarOn(mainActivity: MainActivity) {
         val wiFiBand5 = resources.getString(WiFiBand.GHZ5.textResource)
         val wiFiBand = MainContext.INSTANCE.settings.wiFiBand()
         val subtitle = makeSubtitle(WiFiBand.GHZ2 == wiFiBand, wiFiBand2, wiFiBand5, colorSelected, colorNotSelected)
-        it.subtitle = fromHtml(subtitle)
+        it.subtitle = subtitle.fromHtml()
     }
 }
 
@@ -61,8 +61,8 @@ private const val SPACER = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
 
 internal fun makeSubtitle(wiFiBand2Selected: Boolean, wiFiBand2: String, wiFiBand5: String, colorSelected: Int, colorNotSelected: Int): String =
         if (wiFiBand2Selected) {
-            textToHtml(wiFiBand2, colorSelected, false) + SPACER + textToHtml(wiFiBand5, colorNotSelected, true)
+            wiFiBand2.toHtml(colorSelected, false) + SPACER + wiFiBand5.toHtml(colorNotSelected, true)
         } else {
-            textToHtml(wiFiBand2, colorNotSelected, true) + SPACER + textToHtml(wiFiBand5, colorSelected, false)
+            wiFiBand2.toHtml(colorNotSelected, true) + SPACER + wiFiBand5.toHtml(colorSelected, false)
         }
 

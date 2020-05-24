@@ -23,7 +23,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import com.vrem.util.TextUtilsKt;
+import com.vrem.util.StringUtilsKt;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
@@ -147,10 +147,11 @@ class ChannelGraphNavigation {
         }
 
         private void setActivity(Button button, Pair<WiFiChannel, WiFiChannel> pair, boolean activity) {
-            button.setText(TextUtilsKt.fromHtml(String.format(Locale.ENGLISH, "<strong>%d %s %d</strong>",
+            String value = String.format(Locale.ENGLISH, "<strong>%d %s %d</strong>",
                 pair.first.getChannel(),
                 activity ? ACTIVITY_ON : ACTIVITY_NONE,
-                pair.second.getChannel())));
+                pair.second.getChannel());
+            button.setText(StringUtilsKt.fromHtml(value));
         }
     }
 
