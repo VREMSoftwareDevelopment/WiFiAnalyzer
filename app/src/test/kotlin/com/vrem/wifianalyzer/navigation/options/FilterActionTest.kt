@@ -15,15 +15,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.navigation.options
 
-package com.vrem.wifianalyzer.navigation.options;
+import android.os.Build
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.vrem.wifianalyzer.RobolectricUtil
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
+import org.robolectric.annotation.LooperMode
 
-import com.vrem.wifianalyzer.wifi.filter.Filter;
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.P])
+@LooperMode(LooperMode.Mode.PAUSED)
+class FilterActionTest {
 
-class FilterAction implements Action {
-    @Override
-    public void execute() {
-        Filter.build().show();
+    @Before
+    fun setUp() {
+        RobolectricUtil.INSTANCE.activity
+    }
+
+    @Test
+    fun testExecute() {
+        filterAction()
     }
 }
-

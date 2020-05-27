@@ -15,9 +15,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.navigation.options
 
-package com.vrem.wifianalyzer.navigation.options;
+import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.settings.Settings
+import org.junit.After
+import org.junit.Test
+import org.mockito.Mockito.verify
 
-interface Action {
-    void execute();
+class WiFiBandActionTest {
+    private val settings: Settings = MainContextHelper.INSTANCE.settings
+
+    @After
+    fun tearDown() {
+        MainContextHelper.INSTANCE.restore()
+    }
+
+    @Test
+    fun testExecute() {
+        // execute
+        wiFiBandAction()
+        // validate
+        verify(settings).toggleWiFiBand()
+    }
 }
