@@ -27,7 +27,7 @@ internal val noAction: Action = { }
 
 internal val filterAction: Action = { Filter.build().show() }
 
-internal val scannerAction: Action = { with(MainContext.INSTANCE.scannerService) { if (isRunning) pause() else resume() } }
+internal val scannerAction: Action = { MainContext.INSTANCE.scannerService.toggle() }
 
 internal val wiFiBandAction: Action = { MainContext.INSTANCE.settings.toggleWiFiBand() }
 

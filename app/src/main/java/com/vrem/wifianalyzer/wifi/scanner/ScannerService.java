@@ -39,4 +39,6 @@ public interface ScannerService {
     void resume();
 
     void stop();
+
+    void toggle();
 }

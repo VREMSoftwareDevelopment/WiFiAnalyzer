@@ -98,6 +98,15 @@ class Scanner implements ScannerService {
         }
     }
 
+    @Override
+    public void toggle() {
+        if (periodicScan.isRunning()) {
+            periodicScan.stop();
+        } else {
+            periodicScan.start();
+        }
+    }
+
     @NonNull
     PeriodicScan getPeriodicScan() {
         return periodicScan;

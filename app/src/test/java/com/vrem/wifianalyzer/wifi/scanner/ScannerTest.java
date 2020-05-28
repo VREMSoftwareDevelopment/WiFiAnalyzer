@@ -225,4 +225,28 @@ public class ScannerTest {
         verify(periodicScan).start();
     }
 
+    @Test
+    public void testToggleWhenRunning() {
+        // setup
+        fixture.setPeriodicScan(periodicScan);
+        when(periodicScan.isRunning()).thenReturn(true);
+        // execute
+        fixture.toggle();
+        // validate
+        verify(periodicScan).isRunning();
+        verify(periodicScan).stop();
+    }
+
+    @Test
+    public void testToggleWhenNotRunning() {
+        // setup
+        fixture.setPeriodicScan(periodicScan);
+        when(periodicScan.isRunning()).thenReturn(false);
+        // execute
+        fixture.toggle();
+        // validate
+        verify(periodicScan).isRunning();
+        verify(periodicScan).start();
+    }
+
 }

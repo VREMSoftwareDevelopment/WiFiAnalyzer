@@ -17,13 +17,61 @@
  */
 package com.vrem.wifianalyzer.navigation.options
 
+import android.os.Build
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.vrem.wifianalyzer.MainActivity
+import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
+import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.navigation.options.OptionAction.Companion.findOptionAction
+import com.vrem.wifianalyzer.settings.Settings
+import com.vrem.wifianalyzer.wifi.scanner.ScannerService
+import org.junit.After
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.verifyNoMoreInteractions
+import org.robolectric.annotation.Config
+import org.robolectric.annotation.LooperMode
 
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.P])
+@LooperMode(LooperMode.Mode.PAUSED)
 class OptionActionTest {
+    private val mainActivity: MainActivity = RobolectricUtil.INSTANCE.activity
+    private val scannerService: ScannerService = MainContextHelper.INSTANCE.scannerService
+    private val settings: Settings = MainContextHelper.INSTANCE.settings
+
+    @After
+    fun tearDown() {
+        verifyNoMoreInteractions(scannerService)
+        verifyNoMoreInteractions(settings)
+        MainContextHelper.INSTANCE.restore()
+    }
+
+    @Test
+    fun testScannerAction() {
+        // execute
+        scannerAction()
+        // validate
+        verify(scannerService).toggle()
+    }
+
+    @Test
+    fun testWiFiBandAction() {
+        // execute
+        wiFiBandAction()
+        // validate
+        verify(settings).toggleWiFiBand()
+    }
+
+    @Test
+    fun testFilterAction() {
+        filterAction()
+    }
+
     @Test
     fun testOptionAction() {
         assertEquals(4, OptionAction.values().size)
