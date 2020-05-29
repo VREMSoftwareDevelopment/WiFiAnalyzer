@@ -27,6 +27,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.annotation.ColorRes
 import com.vrem.util.EMPTY
 import com.vrem.util.buildMinVersionL
 import com.vrem.util.compatColor
@@ -58,7 +59,9 @@ class ChannelRatingAdapter(
         val predicate: Predicate<WiFiDetail> = WiFiBandPredicate(wiFiBand)
         val wiFiDetails: List<WiFiDetail> = wiFiData.wiFiDetails(predicate, SortBy.STRENGTH)
         channelRating.wiFiDetails(wiFiDetails)
-        bestChannels(wiFiBand, wiFiChannels)
+        val bestChannel = bestChannels(wiFiBand, wiFiChannels)
+        bestChannels.text = bestChannel.message
+        bestChannels.setTextColor(context.compatColor(bestChannel.color))
         notifyDataSetChanged()
     }
 
@@ -109,16 +112,16 @@ class ChannelRatingAdapter(
         }
     }
 
-    fun bestChannels(wiFiBand: WiFiBand, wiFiChannels: List<WiFiChannel>) {
-        val result: List<Int> = channelRating.bestChannels(wiFiChannels).map { it.wiFiChannel.channel }
-        if (result.isNotEmpty()) {
-            bestChannels.text = result.joinToString(separator = ", ", limit = maxChannelsToDisplay)
-            bestChannels.setTextColor(context.compatColor(R.color.success))
+    internal fun bestChannels(wiFiBand: WiFiBand, wiFiChannels: List<WiFiChannel>): Message {
+        val bestChannels: List<Int> = channelRating.bestChannels(wiFiChannels).map { it.wiFiChannel.channel }
+        return if (bestChannels.isNotEmpty()) {
+            Message(bestChannels.joinToString(separator = ", ", limit = maxChannelsToDisplay), R.color.success)
         } else {
-            bestChannels.text = errorMessage(wiFiBand)
-            bestChannels.setTextColor(context.compatColor(R.color.error))
+            Message(errorMessage(wiFiBand), R.color.error)
         }
     }
+
+    internal class Message(val message: String, @ColorRes val color: Int)
 
     private fun errorMessage(wiFiBand: WiFiBand): String = with(context.resources) {
         getText(R.string.channel_rating_best_none).toString() +

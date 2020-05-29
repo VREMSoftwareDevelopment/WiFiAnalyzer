@@ -115,9 +115,10 @@ class ChannelRatingAdapterTest {
         val channelAPCounts: List<ChannelAPCount> = emptyList()
         whenever(channelRating.bestChannels(wiFiChannels)).thenReturn(channelAPCounts)
         // execute
-        fixture.bestChannels(WiFiBand.GHZ2, wiFiChannels)
+        val actual = fixture.bestChannels(WiFiBand.GHZ2, wiFiChannels)
         // validate
-        assertEquals(expected, bestChannels.text)
+        assertEquals(expected, actual.message)
+        assertEquals(R.color.error, actual.color)
         verify(channelRating).bestChannels(wiFiChannels)
     }
 
@@ -129,9 +130,10 @@ class ChannelRatingAdapterTest {
         val channelAPCounts: List<ChannelAPCount> = emptyList()
         whenever(channelRating.bestChannels(wiFiChannels)).thenReturn(channelAPCounts)
         // execute
-        fixture.bestChannels(WiFiBand.GHZ5, wiFiChannels)
+        val actual = fixture.bestChannels(WiFiBand.GHZ5, wiFiChannels)
         // validate
-        assertEquals(expected, bestChannels.text)
+        assertEquals(expected, actual.message)
+        assertEquals(R.color.error, actual.color)
         verify(channelRating).bestChannels(wiFiChannels)
     }
 
@@ -143,9 +145,10 @@ class ChannelRatingAdapterTest {
         val channelAPCounts = withMaximumChannelAPCounts()
         whenever(channelRating.bestChannels(wiFiChannels)).thenReturn(channelAPCounts)
         // execute
-        fixture.bestChannels(WiFiBand.GHZ5, wiFiChannels)
+        val actual = fixture.bestChannels(WiFiBand.GHZ5, wiFiChannels)
         // validate
-        assertEquals(expected, bestChannels.text)
+        assertEquals(expected, actual.message)
+        assertEquals(R.color.success, actual.color)
         verify(channelRating).bestChannels(wiFiChannels)
     }
 
@@ -157,9 +160,10 @@ class ChannelRatingAdapterTest {
         val channelAPCounts = withChannelAPCounts()
         whenever(channelRating.bestChannels(wiFiChannels)).thenReturn(channelAPCounts)
         // execute
-        fixture.bestChannels(WiFiBand.GHZ5, wiFiChannels)
+        val actual = fixture.bestChannels(WiFiBand.GHZ5, wiFiChannels)
         // validate
-        assertEquals(expected, bestChannels.text)
+        assertEquals(expected, actual.message)
+        assertEquals(R.color.success, actual.color)
         verify(channelRating).bestChannels(wiFiChannels)
     }
 
