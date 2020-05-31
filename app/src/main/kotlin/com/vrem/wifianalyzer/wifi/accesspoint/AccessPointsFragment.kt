@@ -15,40 +15,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.wifi.channelrating
+package com.vrem.wifianalyzer.wifi.accesspoint
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.vrem.util.buildVersionP
 import com.vrem.wifianalyzer.MainContext.INSTANCE
-import com.vrem.wifianalyzer.R
-import com.vrem.wifianalyzer.databinding.ChannelRatingContentBinding
+import com.vrem.wifianalyzer.databinding.AccessPointsContentBinding
 
-class ChannelRatingFragment : Fragment(), OnRefreshListener {
+class AccessPointsFragment : Fragment(), OnRefreshListener {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    lateinit var channelRatingAdapter: ChannelRatingAdapter
+    lateinit var accessPointsAdapter: AccessPointsAdapter
         private set
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: ChannelRatingContentBinding = ChannelRatingContentBinding.inflate(inflater, container, false)
-        swipeRefreshLayout = binding.channelRatingRefresh
+        val binding = AccessPointsContentBinding.inflate(inflater, container, false)
+        swipeRefreshLayout = binding.accessPointsRefresh
         swipeRefreshLayout.setOnRefreshListener(this)
         if (buildVersionP()) {
             swipeRefreshLayout.isRefreshing = false
             swipeRefreshLayout.isEnabled = false
         }
-        val bestChannels: TextView = binding.channelRatingBest.channelRatingBestChannels
-        channelRatingAdapter = ChannelRatingAdapter(requireActivity(), bestChannels)
-        val listView: ListView = binding.channelRatingRefresh.findViewById(R.id.channelRatingView)
-        listView.adapter = channelRatingAdapter
-        INSTANCE.scannerService.register(channelRatingAdapter)
+        accessPointsAdapter = AccessPointsAdapter()
+        binding.accessPointsView.setAdapter(accessPointsAdapter)
+        accessPointsAdapter.expandableListView = binding.accessPointsView
+        INSTANCE.scannerService.register(accessPointsAdapter)
         return binding.root
     }
 
@@ -64,7 +60,7 @@ class ChannelRatingFragment : Fragment(), OnRefreshListener {
     }
 
     override fun onDestroy() {
-        INSTANCE.scannerService.unregister(channelRatingAdapter)
+        INSTANCE.scannerService.unregister(accessPointsAdapter)
         super.onDestroy()
     }
 

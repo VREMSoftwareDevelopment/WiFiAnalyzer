@@ -22,7 +22,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainActivity
-import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
 import org.apache.commons.lang3.StringUtils
@@ -45,7 +45,7 @@ class WiFiSwitchOffTest {
         verifyNoMoreInteractions(menu)
         verifyNoMoreInteractions(menuItem)
         verifyNoMoreInteractions(actionBar)
-        MainContextHelper.INSTANCE.restore()
+        INSTANCE.restore()
     }
 
     @Test

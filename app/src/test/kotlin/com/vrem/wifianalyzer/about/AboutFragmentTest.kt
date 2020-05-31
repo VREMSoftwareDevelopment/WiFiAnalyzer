@@ -24,7 +24,7 @@ import android.widget.TextView
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.util.readFile
-import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import org.junit.After
@@ -46,7 +46,7 @@ import java.util.*
 @LooperMode(LooperMode.Mode.PAUSED)
 class AboutFragmentTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val configuration = MainContextHelper.INSTANCE.configuration
+    private val configuration = INSTANCE.configuration
     private val fixture = AboutFragment()
 
     @Before
@@ -58,7 +58,7 @@ class AboutFragmentTest {
 
     @After
     fun tearDown() {
-        MainContextHelper.INSTANCE.restore()
+        INSTANCE.restore()
         verify(configuration).isSizeAvailable
         verify(configuration).isLargeScreen
         verifyNoMoreInteractions(configuration)

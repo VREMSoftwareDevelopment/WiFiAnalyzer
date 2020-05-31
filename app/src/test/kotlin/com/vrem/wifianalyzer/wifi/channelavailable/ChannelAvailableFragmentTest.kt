@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.wifi.channelavailable
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.whenever
-import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.RobolectricUtil
 import org.junit.After
 import org.junit.Assert.assertNotNull
@@ -38,7 +38,7 @@ import java.util.*
 @LooperMode(LooperMode.Mode.PAUSED)
 class ChannelAvailableFragmentTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val settings = MainContextHelper.INSTANCE.settings
+    private val settings = INSTANCE.settings
     private val fixture = ChannelAvailableFragment()
 
     @Before
@@ -49,7 +49,7 @@ class ChannelAvailableFragmentTest {
     @After
     fun tearDown() {
         verify(settings, atLeastOnce()).countryCode()
-        MainContextHelper.INSTANCE.restore()
+        INSTANCE.restore()
     }
 
     @Test

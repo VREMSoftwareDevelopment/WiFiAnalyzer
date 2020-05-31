@@ -15,30 +15,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.settings
+package com.vrem.wifianalyzer.wifi.accesspoint
 
 import com.vrem.wifianalyzer.R
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
 import org.junit.Test
 
-class ThemeStyleTest {
+class ConnectionViewTypeTest {
     @Test
-    fun testThemeStyle() {
-        assertEquals(3, ThemeStyle.values().size)
+    fun testConnectionViewTypeCount() {
+        assertEquals(3, ConnectionViewType.values().size)
     }
 
     @Test
-    fun testTheme() {
-        assertEquals(R.style.ThemeLight, ThemeStyle.LIGHT.theme)
-        assertEquals(R.style.ThemeDark, ThemeStyle.DARK.theme)
-        assertEquals(R.style.ThemeSystem, ThemeStyle.SYSTEM.theme)
+    fun testGetLayout() {
+        assertEquals(R.layout.access_point_view_complete, ConnectionViewType.COMPLETE.layout)
+        assertEquals(R.layout.access_point_view_compact, ConnectionViewType.COMPACT.layout)
+        assertEquals(R.layout.access_point_view_hide, ConnectionViewType.HIDE.layout)
     }
 
     @Test
-    fun testThemeNoActionBar() {
-        assertEquals(R.style.ThemeDarkNoActionBar, ThemeStyle.DARK.themeNoActionBar)
-        assertEquals(R.style.ThemeLightNoActionBar, ThemeStyle.LIGHT.themeNoActionBar)
-        assertEquals(R.style.ThemeSystemNoActionBar, ThemeStyle.SYSTEM.themeNoActionBar)
+    fun testIsHide() {
+        assertFalse(ConnectionViewType.COMPLETE.hide)
+        assertFalse(ConnectionViewType.COMPACT.hide)
+        assertTrue(ConnectionViewType.HIDE.hide)
     }
 
 }

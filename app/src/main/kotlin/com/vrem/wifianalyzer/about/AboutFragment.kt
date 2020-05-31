@@ -37,7 +37,7 @@ import androidx.fragment.app.FragmentActivity
 import com.vrem.util.EMPTY
 import com.vrem.util.buildMinVersionP
 import com.vrem.util.readFile
-import com.vrem.wifianalyzer.MainContext
+import com.vrem.wifianalyzer.MainContext.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.databinding.AboutContentBinding
 import java.text.SimpleDateFormat
@@ -76,7 +76,7 @@ class AboutFragment : Fragment() {
             resources.getString(R.string.app_copyright) + SimpleDateFormat(YEAR_FORMAT, Locale.getDefault()).format(Date())
 
     private fun version(activity: FragmentActivity): String {
-        val configuration = MainContext.INSTANCE.configuration
+        val configuration = INSTANCE.configuration
         return applicationVersion(activity) +
                 configuration.isSizeAvailable.let { "S" } +
                 configuration.isLargeScreen.let { "L" } +

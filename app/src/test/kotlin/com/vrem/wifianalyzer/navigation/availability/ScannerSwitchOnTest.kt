@@ -21,7 +21,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainActivity
-import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
 import org.junit.After
@@ -35,7 +35,7 @@ class ScannerSwitchOnTest {
     private val optionMenu = Mockito.mock(OptionMenu::class.java)
     private val menu = Mockito.mock(Menu::class.java)
     private val menuItem = Mockito.mock(MenuItem::class.java)
-    private val scanner = MainContextHelper.INSTANCE.scannerService
+    private val scanner = INSTANCE.scannerService
 
     @After
     fun tearDown() {
@@ -44,7 +44,7 @@ class ScannerSwitchOnTest {
         Mockito.verifyNoMoreInteractions(menu)
         Mockito.verifyNoMoreInteractions(menuItem)
         Mockito.verifyNoMoreInteractions(scanner)
-        MainContextHelper.INSTANCE.restore()
+        INSTANCE.restore()
     }
 
     @Test

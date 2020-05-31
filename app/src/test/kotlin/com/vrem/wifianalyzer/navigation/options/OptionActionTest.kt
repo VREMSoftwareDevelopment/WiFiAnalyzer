@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.navigation.options
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.MainActivity
-import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.navigation.options.OptionAction.Companion.findOptionAction
@@ -41,14 +41,14 @@ import org.robolectric.annotation.LooperMode
 @LooperMode(LooperMode.Mode.PAUSED)
 class OptionActionTest {
     private val mainActivity: MainActivity = RobolectricUtil.INSTANCE.activity
-    private val scannerService: ScannerService = MainContextHelper.INSTANCE.scannerService
-    private val settings: Settings = MainContextHelper.INSTANCE.settings
+    private val scannerService: ScannerService = INSTANCE.scannerService
+    private val settings: Settings = INSTANCE.settings
 
     @After
     fun tearDown() {
         verifyNoMoreInteractions(scannerService)
         verifyNoMoreInteractions(settings)
-        MainContextHelper.INSTANCE.restore()
+        INSTANCE.restore()
     }
 
     @Test

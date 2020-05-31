@@ -9,3 +9,4 @@ coverage
 libs
 release
 *IntegrationTest.java
+*IntegrationTest.kt

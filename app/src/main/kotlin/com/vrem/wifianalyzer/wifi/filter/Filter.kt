@@ -19,7 +19,7 @@ package com.vrem.wifianalyzer.wifi.filter
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import com.vrem.wifianalyzer.MainContext
+import com.vrem.wifianalyzer.MainContext.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 
@@ -43,41 +43,39 @@ class Filter(val alertDialog: AlertDialog?) {
     }
 
     private fun addSSIDFilter(alertDialog: AlertDialog): SSIDFilter =
-            SSIDFilter(MainContext.INSTANCE.filtersAdapter.ssidAdapter(), alertDialog)
+            SSIDFilter(INSTANCE.filtersAdapter.ssidAdapter(), alertDialog)
 
     private fun addWiFiBandFilter(alertDialog: AlertDialog): WiFiBandFilter? =
-            if (NavigationMenu.ACCESS_POINTS == MainContext.INSTANCE.mainActivity.currentNavigationMenu()) {
-                WiFiBandFilter(MainContext.INSTANCE.filtersAdapter.wiFiBandAdapter(), alertDialog)
+            if (NavigationMenu.ACCESS_POINTS == INSTANCE.mainActivity.currentNavigationMenu()) {
+                WiFiBandFilter(INSTANCE.filtersAdapter.wiFiBandAdapter(), alertDialog)
             } else null
 
     private fun addStrengthFilter(alertDialog: AlertDialog): StrengthFilter =
-            StrengthFilter(MainContext.INSTANCE.filtersAdapter.strengthAdapter(), alertDialog)
+            StrengthFilter(INSTANCE.filtersAdapter.strengthAdapter(), alertDialog)
 
     private fun addSecurityFilter(alertDialog: AlertDialog): SecurityFilter =
-            SecurityFilter(MainContext.INSTANCE.filtersAdapter.securityAdapter(), alertDialog)
+            SecurityFilter(INSTANCE.filtersAdapter.securityAdapter(), alertDialog)
 
     private class Close : DialogInterface.OnClickListener {
         override fun onClick(dialog: DialogInterface, which: Int) {
             dialog.dismiss()
-            MainContext.INSTANCE.filtersAdapter.reload()
+            INSTANCE.filtersAdapter.reload()
         }
     }
 
     private class Apply : DialogInterface.OnClickListener {
         override fun onClick(dialog: DialogInterface, which: Int) {
             dialog.dismiss()
-            val mainContext = MainContext.INSTANCE
-            mainContext.filtersAdapter.save()
-            mainContext.mainActivity.update()
+            INSTANCE.filtersAdapter.save()
+            INSTANCE.mainActivity.update()
         }
     }
 
     private class Reset : DialogInterface.OnClickListener {
         override fun onClick(dialog: DialogInterface, which: Int) {
             dialog.dismiss()
-            val mainContext = MainContext.INSTANCE
-            mainContext.filtersAdapter.reset()
-            mainContext.mainActivity.update()
+            INSTANCE.filtersAdapter.reset()
+            INSTANCE.mainActivity.update()
         }
     }
 
@@ -88,11 +86,10 @@ class Filter(val alertDialog: AlertDialog?) {
         }
 
         private fun buildAlertDialog(): AlertDialog? {
-            val mainContext = MainContext.INSTANCE
-            if (mainContext.mainActivity.isFinishing) {
+            if (INSTANCE.mainActivity.isFinishing) {
                 return null
             }
-            val view = mainContext.layoutInflater.inflate(R.layout.filter_popup, null)
+            val view = INSTANCE.layoutInflater.inflate(R.layout.filter_popup, null)
             return AlertDialog.Builder(view.context)
                     .setView(view)
                     .setTitle(R.string.filter_title)

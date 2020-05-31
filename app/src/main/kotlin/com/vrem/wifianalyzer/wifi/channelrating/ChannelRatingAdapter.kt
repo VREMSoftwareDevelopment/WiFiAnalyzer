@@ -31,7 +31,7 @@ import androidx.annotation.ColorRes
 import com.vrem.util.EMPTY
 import com.vrem.util.buildMinVersionL
 import com.vrem.util.compatColor
-import com.vrem.wifianalyzer.MainContext
+import com.vrem.wifianalyzer.MainContext.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.databinding.ChannelRatingDetailsBinding
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
@@ -52,7 +52,7 @@ class ChannelRatingAdapter(
     private val maxChannelsToDisplay = 11
 
     override fun update(wiFiData: WiFiData) {
-        val settings = MainContext.INSTANCE.settings
+        val settings = INSTANCE.settings
         val wiFiBand = settings.wiFiBand()
         val countryCode = settings.countryCode()
         val wiFiChannels: List<WiFiChannel> = wiFiChannels(wiFiBand, countryCode)
@@ -134,7 +134,7 @@ class ChannelRatingAdapter(
     }
 
     private fun create(parent: ViewGroup): ChannelRatingDetailsBinding =
-            ChannelRatingDetailsBinding.inflate(MainContext.INSTANCE.layoutInflater, parent, false)
+            ChannelRatingDetailsBinding.inflate(INSTANCE.layoutInflater, parent, false)
 
     private inner class Binding {
         val root: View

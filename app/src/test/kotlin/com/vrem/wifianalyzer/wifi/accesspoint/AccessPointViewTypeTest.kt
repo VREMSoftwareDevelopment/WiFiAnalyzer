@@ -15,30 +15,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.accesspoint
 
-package com.vrem.wifianalyzer.wifi.accesspoint;
+import com.vrem.wifianalyzer.R
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
-import com.vrem.wifianalyzer.R;
-
-public enum AccessPointViewType {
-    COMPLETE(R.layout.access_point_view_complete),
-    COMPACT(R.layout.access_point_view_compact);
-
-    private final int layout;
-
-    AccessPointViewType(int layout) {
-        this.layout = layout;
+class AccessPointViewTypeTest {
+    @Test
+    fun testAccessPointViewCount() {
+        assertEquals(2, AccessPointViewType.values().size)
     }
 
-    int getLayout() {
-        return layout;
+    @Test
+    fun testGetLayout() {
+        assertEquals(R.layout.access_point_view_complete, AccessPointViewType.COMPLETE.layout)
+        assertEquals(R.layout.access_point_view_compact, AccessPointViewType.COMPACT.layout)
     }
 
-    boolean isCompact() {
-        return COMPACT.equals(this);
-    }
-
-    boolean isFull() {
-        return COMPLETE.equals(this);
-    }
 }

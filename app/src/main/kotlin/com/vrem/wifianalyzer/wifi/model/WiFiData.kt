@@ -18,12 +18,12 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.annotation.OpenClass
-import com.vrem.wifianalyzer.MainContext
+import com.vrem.wifianalyzer.MainContext.INSTANCE
 import org.apache.commons.collections4.Predicate
 
 @OpenClass
 class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnection) {
-    private val vendorService = MainContext.INSTANCE.vendorService
+    private val vendorService = INSTANCE.vendorService
 
     fun connection(): WiFiDetail =
             wiFiDetails
@@ -44,10 +44,10 @@ class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnec
     }
 
     private fun List<WiFiDetail>.sortAndGroup(sortBy: SortBy, groupBy: GroupBy): List<WiFiDetail> =
-            when (groupBy) {
-                GroupBy.NONE -> this
-                else -> this
-                        .groupBy { groupBy.group(it) }
+            if (groupBy.none) {
+                this
+            } else {
+                this.groupBy { groupBy.group(it) }
                         .values
                         .map(map(sortBy, groupBy))
                         .toList()

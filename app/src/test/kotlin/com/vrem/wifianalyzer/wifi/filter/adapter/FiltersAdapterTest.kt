@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.wifi.filter.adapter
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.whenever
-import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.model.Security
@@ -44,7 +44,7 @@ class FiltersAdapterTest {
     private val wiFiBands: Set<WiFiBand> = WiFiBand.values().toSet()
     private val strengths: Set<Strength> = Strength.values().toSet()
     private val securities: Set<Security> = Security.values().toSet()
-    private val settings = MainContextHelper.INSTANCE.settings
+    private val settings = INSTANCE.settings
 
     private lateinit var fixture: FiltersAdapter
 
@@ -66,7 +66,7 @@ class FiltersAdapterTest {
     @After
     fun tearDown() {
         verifyNoMoreInteractions(settings)
-        MainContextHelper.INSTANCE.restore()
+        INSTANCE.restore()
     }
 
     @Test

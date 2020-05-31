@@ -26,7 +26,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.util.compatColor
 import com.vrem.util.compatTint
 import com.vrem.wifianalyzer.MainActivity
-import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
 import org.junit.After
@@ -43,11 +43,11 @@ class FilterOnTest {
     private val menu = mock(Menu::class.java)
     private val menuItem = mock(MenuItem::class.java)
     private val drawable = mock(Drawable::class.java)
-    private val filterAdapter = MainContextHelper.INSTANCE.filterAdapter
+    private val filterAdapter = INSTANCE.filterAdapter
 
     @After
     fun tearDown() {
-        MainContextHelper.INSTANCE.restore()
+        INSTANCE.restore()
         verifyNoMoreInteractions(filterAdapter)
         verifyNoMoreInteractions(drawable)
         verifyNoMoreInteractions(menuItem)

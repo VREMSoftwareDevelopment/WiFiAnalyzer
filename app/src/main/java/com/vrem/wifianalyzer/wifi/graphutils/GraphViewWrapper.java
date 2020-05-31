@@ -19,7 +19,6 @@
 package com.vrem.wifianalyzer.wifi.graphutils;
 
 import android.graphics.Color;
-import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
@@ -134,7 +133,7 @@ public class GraphViewWrapper {
         return graphView.getGridLabelRenderer().getNumHorizontalLabels() - 1;
     }
 
-    public void addSeries(@NonNull BaseSeries series) {
+    public void addSeries(@NonNull BaseSeries<DataPoint> series) {
         graphView.addSeries(series);
     }
 
@@ -204,8 +203,11 @@ public class GraphViewWrapper {
         public void onTap(@NonNull Series series, @NonNull DataPointInterface dataPoint) {
             WiFiDetail wiFiDetail = seriesCache.find(series);
             if (wiFiDetail != null) {
-                View popupView = getAccessPointDetail().makeViewDetailed(wiFiDetail);
-                getAccessPointPopup().show(popupView);
+                try {
+                    getAccessPointPopup().show(getAccessPointDetail().makeViewDetailed(wiFiDetail));
+                } catch (Exception e) {
+                    // do nothing
+                }
             }
         }
 

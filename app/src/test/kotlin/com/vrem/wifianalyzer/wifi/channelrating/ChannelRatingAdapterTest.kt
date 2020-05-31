@@ -23,7 +23,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.whenever
-import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
@@ -47,7 +47,7 @@ import java.util.*
 @LooperMode(LooperMode.Mode.PAUSED)
 class ChannelRatingAdapterTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val settings = MainContextHelper.INSTANCE.settings
+    private val settings = INSTANCE.settings
     private val channelRating = mock(ChannelRating::class.java)
     private val bestChannels = TextView(mainActivity)
     private val fixture = ChannelRatingAdapter(mainActivity, bestChannels, channelRating)
@@ -56,7 +56,7 @@ class ChannelRatingAdapterTest {
     fun tearDown() {
         verifyNoMoreInteractions(settings)
         verifyNoMoreInteractions(channelRating)
-        MainContextHelper.INSTANCE.restore()
+        INSTANCE.restore()
     }
 
     @Test

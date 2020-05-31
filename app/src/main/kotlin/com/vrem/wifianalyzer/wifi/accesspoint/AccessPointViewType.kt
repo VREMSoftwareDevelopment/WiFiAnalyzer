@@ -15,30 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.settings
+package com.vrem.wifianalyzer.wifi.accesspoint
 
+import androidx.annotation.LayoutRes
 import com.vrem.wifianalyzer.R
-import org.junit.Assert.assertEquals
-import org.junit.Test
 
-class ThemeStyleTest {
-    @Test
-    fun testThemeStyle() {
-        assertEquals(3, ThemeStyle.values().size)
-    }
-
-    @Test
-    fun testTheme() {
-        assertEquals(R.style.ThemeLight, ThemeStyle.LIGHT.theme)
-        assertEquals(R.style.ThemeDark, ThemeStyle.DARK.theme)
-        assertEquals(R.style.ThemeSystem, ThemeStyle.SYSTEM.theme)
-    }
-
-    @Test
-    fun testThemeNoActionBar() {
-        assertEquals(R.style.ThemeDarkNoActionBar, ThemeStyle.DARK.themeNoActionBar)
-        assertEquals(R.style.ThemeLightNoActionBar, ThemeStyle.LIGHT.themeNoActionBar)
-        assertEquals(R.style.ThemeSystemNoActionBar, ThemeStyle.SYSTEM.themeNoActionBar)
-    }
-
+enum class AccessPointViewType(@LayoutRes val layout: Int) {
+    COMPLETE(R.layout.access_point_view_complete),
+    COMPACT(R.layout.access_point_view_compact);
 }

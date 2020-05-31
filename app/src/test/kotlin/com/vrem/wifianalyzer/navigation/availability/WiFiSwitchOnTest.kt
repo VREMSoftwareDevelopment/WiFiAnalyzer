@@ -25,7 +25,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.util.fromHtml
 import com.vrem.wifianalyzer.MainActivity
-import com.vrem.wifianalyzer.MainContext
+import com.vrem.wifianalyzer.MainContext.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
@@ -158,7 +158,7 @@ class WiFiSwitchOnTest {
     }
 
     private fun withExpectedSubtitle(): CharSequence {
-        val wiFiBand = MainContext.INSTANCE.settings.wiFiBand()
+        val wiFiBand = INSTANCE.settings.wiFiBand()
         val resources = mainActivity.resources
         val wiFiBand2 = resources.getString(WiFiBand.GHZ2.textResource)
         val wiFiBand5 = resources.getString(WiFiBand.GHZ5.textResource)

@@ -19,7 +19,7 @@ package com.vrem.wifianalyzer.wifi.model
 
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.util.EMPTY
-import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth
 import com.vrem.wifianalyzer.wifi.predicate.WiFiBandPredicate
@@ -52,7 +52,7 @@ class WiFiDataTest {
     private val level0 = -5
     private val level1 = -4
     private val level2 = -3
-    private val vendorService = MainContextHelper.INSTANCE.vendorService
+    private val vendorService = INSTANCE.vendorService
     private val wiFiIdentifier = WiFiIdentifier(ssid1, bssid1)
     private val wiFiConnection = WiFiConnection(wiFiIdentifier, ipAddress, linkSpeed)
     private val wiFiDetails = withWiFiDetails()
@@ -61,7 +61,7 @@ class WiFiDataTest {
     @After
     fun tearDown() {
         verifyNoMoreInteractions(vendorService)
-        MainContextHelper.INSTANCE.restore()
+        INSTANCE.restore()
     }
 
     @Test

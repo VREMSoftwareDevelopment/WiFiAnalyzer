@@ -15,30 +15,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.settings
+package com.vrem.wifianalyzer.wifi.accesspoint
 
+import android.app.Dialog
+import android.view.View
+import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.R
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
-class ThemeStyleTest {
-    @Test
-    fun testThemeStyle() {
-        assertEquals(3, ThemeStyle.values().size)
+@OpenClass
+class AccessPointPopup {
+    fun show(view: View): Dialog {
+        val dialog = Dialog(view.context)
+        dialog.setContentView(view)
+        dialog.findViewById<View>(R.id.popupButtonClose)
+                .setOnClickListener { dialog.dismiss() }
+        dialog.show()
+        return dialog
     }
 
-    @Test
-    fun testTheme() {
-        assertEquals(R.style.ThemeLight, ThemeStyle.LIGHT.theme)
-        assertEquals(R.style.ThemeDark, ThemeStyle.DARK.theme)
-        assertEquals(R.style.ThemeSystem, ThemeStyle.SYSTEM.theme)
-    }
-
-    @Test
-    fun testThemeNoActionBar() {
-        assertEquals(R.style.ThemeDarkNoActionBar, ThemeStyle.DARK.themeNoActionBar)
-        assertEquals(R.style.ThemeLightNoActionBar, ThemeStyle.LIGHT.themeNoActionBar)
-        assertEquals(R.style.ThemeSystemNoActionBar, ThemeStyle.SYSTEM.themeNoActionBar)
+    fun attach(view: View, wiFiDetail: WiFiDetail) {
+        view.setOnClickListener {
+            try {
+                show(AccessPointDetail().makeViewDetailed(wiFiDetail))
+            } catch (e: Exception) {
+                // do nothing
+            }
+        }
     }
 
 }

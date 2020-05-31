@@ -18,7 +18,7 @@
 package com.vrem.wifianalyzer.wifi.filter.adapter
 
 import com.vrem.annotation.OpenClass
-import com.vrem.wifianalyzer.MainContext
+import com.vrem.wifianalyzer.MainContext.INSTANCE
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.settings.Settings
 import java.io.Serializable
@@ -62,7 +62,7 @@ class FiltersAdapter(private val settings: Settings) {
                 listOf(ssidAdapter, strengthAdapter, securityAdapter)
 
     private fun isAccessPoints(): Boolean =
-            NavigationMenu.ACCESS_POINTS == MainContext.INSTANCE.mainActivity.currentNavigationMenu()
+            NavigationMenu.ACCESS_POINTS == INSTANCE.mainActivity.currentNavigationMenu()
 
     init {
         ssidAdapter = SSIDAdapter(settings.findSSIDs())

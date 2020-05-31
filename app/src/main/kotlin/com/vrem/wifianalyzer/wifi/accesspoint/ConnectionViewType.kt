@@ -15,25 +15,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.accesspoint
 
-package com.vrem.wifianalyzer.wifi.accesspoint;
+import androidx.annotation.LayoutRes
+import com.vrem.wifianalyzer.R
 
-public enum ConnectionViewType {
-    COMPLETE(AccessPointViewType.COMPLETE),
-    COMPACT(AccessPointViewType.COMPACT),
-    HIDE(null);
+enum class ConnectionViewType(@LayoutRes val layout: Int) {
+    COMPLETE(R.layout.access_point_view_complete),
+    COMPACT(R.layout.access_point_view_compact),
+    HIDE(R.layout.access_point_view_hide);
 
-    private final AccessPointViewType accessPointViewType;
-
-    ConnectionViewType(AccessPointViewType accessPointViewType) {
-        this.accessPointViewType = accessPointViewType;
-    }
-
-    AccessPointViewType getAccessPointViewType() {
-        return accessPointViewType;
-    }
-
-    public boolean isHide() {
-        return HIDE.equals(this);
-    }
+    val hide: Boolean
+        get() = HIDE == this
 }

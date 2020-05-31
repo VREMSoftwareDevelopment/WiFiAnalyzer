@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.navigation.options
 
-import com.vrem.wifianalyzer.MainContext
+import com.vrem.wifianalyzer.MainContext.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.filter.Filter
 
@@ -27,9 +27,9 @@ internal val noAction: Action = { }
 
 internal val filterAction: Action = { Filter.build().show() }
 
-internal val scannerAction: Action = { MainContext.INSTANCE.scannerService.toggle() }
+internal val scannerAction: Action = { INSTANCE.scannerService.toggle() }
 
-internal val wiFiBandAction: Action = { MainContext.INSTANCE.settings.toggleWiFiBand() }
+internal val wiFiBandAction: Action = { INSTANCE.settings.toggleWiFiBand() }
 
 internal enum class OptionAction(val key: Int, val action: Action) {
     NO_ACTION(-1, noAction),

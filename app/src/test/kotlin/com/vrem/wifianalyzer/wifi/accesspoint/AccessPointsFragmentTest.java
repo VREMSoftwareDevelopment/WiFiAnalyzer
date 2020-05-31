@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi.accesspoint;
 
 import android.os.Build;
 
+import com.vrem.wifianalyzer.MainActivity;
 import com.vrem.wifianalyzer.MainContextHelper;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.RobolectricUtil;
@@ -46,14 +47,12 @@ import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 @LooperMode(PAUSED)
 public class AccessPointsFragmentTest {
 
-    private ScannerService scanner;
-    private AccessPointsFragment fixture;
+    private MainActivity mainActivity = RobolectricUtil.INSTANCE.getActivity();
+    private ScannerService scanner = MainContextHelper.INSTANCE.getScannerService();
+    private AccessPointsFragment fixture = new AccessPointsFragment();
 
     @Before
     public void setUp() {
-        RobolectricUtil.INSTANCE.getActivity();
-        scanner = MainContextHelper.INSTANCE.getScannerService();
-        fixture = new AccessPointsFragment();
         RobolectricUtil.INSTANCE.startFragment(fixture);
     }
 

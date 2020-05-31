@@ -18,8 +18,7 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 
 class GroupByTest {
@@ -29,10 +28,24 @@ class GroupByTest {
     }
 
     @Test
-    fun testGroupBySortByComparator() {
+    fun testGroupBySort() {
         assertTrue(GroupBy.CHANNEL.sort.javaClass.isInstance(sortByChannel()))
         assertTrue(GroupBy.NONE.sort.javaClass.isInstance(sortByDefault()))
         assertTrue(GroupBy.SSID.sort.javaClass.isInstance(sortBySSID()))
+    }
+
+    @Test
+    fun testGroupByGroup() {
+        assertTrue(GroupBy.CHANNEL.group.javaClass.isInstance(groupByChannel))
+        assertTrue(GroupBy.NONE.group.javaClass.isInstance(groupBySSID))
+        assertTrue(GroupBy.SSID.group.javaClass.isInstance(groupBySSID))
+    }
+
+    @Test
+    fun testNone() {
+        assertFalse(GroupBy.CHANNEL.none)
+        assertTrue(GroupBy.NONE.none)
+        assertFalse(GroupBy.SSID.none)
     }
 
     @Test

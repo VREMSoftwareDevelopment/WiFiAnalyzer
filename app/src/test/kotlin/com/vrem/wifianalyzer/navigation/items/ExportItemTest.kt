@@ -24,7 +24,7 @@ import android.view.MenuItem
 import android.view.View
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainActivity
-import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.export.Export
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection
@@ -43,7 +43,7 @@ class ExportItemTest {
     private val intent = mock(Intent::class.java)
     private val packageManager = mock(PackageManager::class.java)
     private val componentName = mock(ComponentName::class.java)
-    private val scanner = MainContextHelper.INSTANCE.scannerService
+    private val scanner = INSTANCE.scannerService
 
     private val fixture = ExportItem(export)
 
@@ -56,7 +56,7 @@ class ExportItemTest {
         verifyNoMoreInteractions(packageManager)
         verifyNoMoreInteractions(componentName)
         verifyNoMoreInteractions(scanner)
-        MainContextHelper.INSTANCE.restore()
+        INSTANCE.restore()
     }
 
     @Test

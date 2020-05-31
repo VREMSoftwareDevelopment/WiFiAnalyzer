@@ -21,7 +21,7 @@ import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.util.EMPTY
-import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.RobolectricUtil
 import org.junit.After
 import org.junit.Assert.assertFalse
@@ -39,7 +39,7 @@ import org.robolectric.annotation.LooperMode
 @LooperMode(LooperMode.Mode.PAUSED)
 class VendorFragmentTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val vendorService = MainContextHelper.INSTANCE.vendorService
+    private val vendorService = INSTANCE.vendorService
     private val fixture = VendorFragment()
 
     @Before
@@ -51,7 +51,7 @@ class VendorFragmentTest {
     @After
     fun tearDown() {
         verify(vendorService).findVendors()
-        MainContextHelper.INSTANCE.restore()
+        INSTANCE.restore()
     }
 
     @Test

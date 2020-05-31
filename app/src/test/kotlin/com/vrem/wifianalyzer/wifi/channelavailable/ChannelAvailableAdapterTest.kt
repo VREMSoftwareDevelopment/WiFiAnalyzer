@@ -22,7 +22,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.whenever
-import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
@@ -44,7 +44,7 @@ import java.util.*
 @LooperMode(LooperMode.Mode.PAUSED)
 class ChannelAvailableAdapterTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val settings = MainContextHelper.INSTANCE.settings
+    private val settings = INSTANCE.settings
     private val currentLocale = Locale.getDefault()
     private val wiFiChannelCountry = find(currentLocale.country)
     private val fixture = ChannelAvailableAdapter(mainActivity, listOf(wiFiChannelCountry))
@@ -57,7 +57,7 @@ class ChannelAvailableAdapterTest {
     @After
     fun tearDown() {
         verify(settings, atLeastOnce()).languageLocale()
-        MainContextHelper.INSTANCE.restore()
+        INSTANCE.restore()
     }
 
     @Test
