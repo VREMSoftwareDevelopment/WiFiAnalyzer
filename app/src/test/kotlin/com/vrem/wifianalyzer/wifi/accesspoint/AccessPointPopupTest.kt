@@ -74,11 +74,10 @@ class AccessPointPopupTest {
         assertTrue(view.performClick())
     }
 
-    private fun withWiFiDetail(): WiFiDetail {
-        return WiFiDetail(
-                WiFiIdentifier("SSID", "BSSID"),
-                "capabilities",
-                WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, true),
-                WiFiAdditional.EMPTY)
-    }
+    private fun withWiFiDetail(): WiFiDetail =
+            WiFiDetail(
+                    WiFiIdentifier("SSID", "BSSID"),
+                    "capabilities",
+                    WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, true),
+                    WiFiAdditional.EMPTY)
 }

@@ -327,21 +327,19 @@ class AccessPointDetailTest {
         assertEquals(View.VISIBLE, actual.findViewById<View>(R.id.flag80211mc).visibility)
     }
 
-    private fun withWiFiDetail(SSID: String, wiFiAdditional: WiFiAdditional): WiFiDetail {
-        return WiFiDetail(
-                WiFiIdentifier(SSID, "BSSID"),
-                "capabilities",
-                WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, false),
-                wiFiAdditional)
-    }
+    private fun withWiFiDetail(SSID: String, wiFiAdditional: WiFiAdditional): WiFiDetail =
+            WiFiDetail(
+                    WiFiIdentifier(SSID, "BSSID"),
+                    "capabilities",
+                    WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, false),
+                    wiFiAdditional)
 
-    private fun withWiFiDetail(SSID: String, wiFiAdditional: WiFiAdditional, is80211mc: Boolean): WiFiDetail {
-        return WiFiDetail(
-                WiFiIdentifier(SSID, "BSSID"),
-                "capabilities",
-                WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, is80211mc),
-                wiFiAdditional)
-    }
+    private fun withWiFiDetail(SSID: String, wiFiAdditional: WiFiAdditional, is80211mc: Boolean): WiFiDetail =
+            WiFiDetail(
+                    WiFiIdentifier(SSID, "BSSID"),
+                    "capabilities",
+                    WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, is80211mc),
+                    wiFiAdditional)
 
     private fun validateTextViewValuesFullView(view: View, wiFiDetail: WiFiDetail) {
         validateTextViewValuesCompactView(view, wiFiDetail)

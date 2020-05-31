@@ -236,18 +236,15 @@ class ConnectionViewTest {
         verify(accessPointPopup).attach(view.findViewById(R.id.ssid), connection)
     }
 
-    private fun withConnection(wiFiAdditional: WiFiAdditional): WiFiDetail {
-        return WiFiDetail(
-                WiFiIdentifier(ssid, bssid),
-                StringUtils.EMPTY,
-                WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55, true),
-                wiFiAdditional)
-    }
+    private fun withConnection(wiFiAdditional: WiFiAdditional): WiFiDetail =
+            WiFiDetail(
+                    WiFiIdentifier(ssid, bssid),
+                    StringUtils.EMPTY,
+                    WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55, true),
+                    wiFiAdditional)
 
-    private fun withWiFiAdditional(): WiFiAdditional {
-        val wiFiConnection = WiFiConnection(WiFiIdentifier(ssid, bssid), ipAddress, 11)
-        return WiFiAdditional(StringUtils.EMPTY, wiFiConnection)
-    }
+    private fun withWiFiAdditional(): WiFiAdditional =
+            WiFiAdditional(wiFiConnection = WiFiConnection(WiFiIdentifier(ssid, bssid), ipAddress, 11))
 
     private fun withAccessPointDetailView(connection: WiFiDetail, @LayoutRes layout: Int): View {
         val parent = mainActivity.findViewById<View>(R.id.connection).findViewById<ViewGroup>(R.id.connectionDetail)
