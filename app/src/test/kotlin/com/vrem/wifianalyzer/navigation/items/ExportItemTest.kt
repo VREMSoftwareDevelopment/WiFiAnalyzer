@@ -63,14 +63,14 @@ class ExportItemTest {
     fun testActivate() {
         // setup
         val wiFiData: WiFiData = withWiFiData()
-        whenever(scanner.wiFiData).thenReturn(wiFiData)
+        whenever(scanner.wiFiData()).thenReturn(wiFiData)
         whenever(export.export(mainActivity, wiFiData.wiFiDetails)).thenReturn(intent)
         whenever(mainActivity.packageManager).thenReturn(packageManager)
         whenever(intent.resolveActivity(packageManager)).thenReturn(componentName)
         // execute
         fixture.activate(mainActivity, menuItem, NavigationMenu.EXPORT)
         // validate
-        verify(scanner).wiFiData
+        verify(scanner).wiFiData()
         verify(mainActivity).packageManager
         verify(intent).resolveActivity(packageManager)
         verify(mainActivity).startActivity(intent)

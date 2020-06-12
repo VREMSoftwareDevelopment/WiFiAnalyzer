@@ -68,9 +68,9 @@ abstract class WiFiChannels(private val wiFiRange: Pair<Int, Int>, private val w
     companion object {
         @JvmField
         val UNKNOWN = Pair(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN)
-        const val FREQUENCY_SPREAD = 5
-        const val CHANNEL_OFFSET = 2
-        const val FREQUENCY_OFFSET = FREQUENCY_SPREAD * CHANNEL_OFFSET
+        internal const val FREQUENCY_SPREAD = 5
+        internal const val CHANNEL_OFFSET = 2
+        internal const val FREQUENCY_OFFSET = FREQUENCY_SPREAD * CHANNEL_OFFSET
     }
 
 }

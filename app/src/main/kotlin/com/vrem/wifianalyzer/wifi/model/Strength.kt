@@ -39,13 +39,11 @@ enum class Strength(@DrawableRes private val imageResource: Int, @ColorRes priva
     companion object {
         const val colorResourceDefault: Int = R.color.regular
 
-        @JvmStatic
         fun calculate(level: Int): Strength {
             val enumValues: Array<Strength> = enumValues()
             return enumValues[calculateSignalLevel(level, enumValues.size)]
         }
 
-        @JvmStatic
         fun reverse(strength: Strength): Strength {
             val enumValues: Array<Strength> = enumValues()
             return enumValues[enumValues.size - strength.ordinal - 1]

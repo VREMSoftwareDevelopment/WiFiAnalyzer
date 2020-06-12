@@ -23,6 +23,7 @@ Nikolas Rimikis
 Peter Dave Hello
 Silviu Marcu
 Simon Doppler
+Steve Riddle
 Tomasz Wrobel
 Vadim Karantayer
 Wei McCallum

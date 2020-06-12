@@ -38,7 +38,6 @@ internal enum class OptionAction(val key: Int, val action: Action) {
     WIFI_BAND(R.id.action_wifi_band, wiFiBandAction);
 
     companion object {
-        @JvmStatic
         fun findOptionAction(key: Int): OptionAction {
             for (value in values()) {
                 if (value.key == key) return value

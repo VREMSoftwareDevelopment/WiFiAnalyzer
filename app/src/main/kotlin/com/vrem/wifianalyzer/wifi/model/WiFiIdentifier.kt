@@ -25,7 +25,7 @@ typealias BSSID = String
 data class WiFiIdentifier(val ssidRaw: SSID = String.EMPTY, val bssid: BSSID = String.EMPTY) : Comparable<WiFiIdentifier> {
 
     val ssid = when {
-        ssidRaw.isEmpty() -> SSID_EMPTY
+        ssidRaw.isEmpty() -> "*hidden*"
         else -> ssidRaw
     }
 
@@ -38,9 +38,6 @@ data class WiFiIdentifier(val ssidRaw: SSID = String.EMPTY, val bssid: BSSID = S
             compareBy<WiFiIdentifier> { it.ssidRaw }.thenBy { it.bssid }.compare(this, other)
 
     companion object {
-        const val SSID_EMPTY = "*hidden*"
-
-        @JvmField
         val EMPTY = WiFiIdentifier()
     }
 }

@@ -99,7 +99,7 @@ class ChannelRatingAdapter(
                 setRatingBarColorLegacy(ratingBar.progressDrawable, color)
             }
 
-    @Suppress("deprecation")
+    @Suppress("DEPRECATION")
     private fun setRatingBarColorLegacy(drawable: Drawable, color: Int) {
         try {
             val background = context.compatColor(R.color.background)

@@ -42,10 +42,8 @@ class WiFiChannelCountry(private val country: Locale) {
     fun channelAvailableGHZ5(channel: Int): Boolean = channelsGHZ5().contains(channel)
 
     companion object {
-        @JvmStatic
         fun find(countryCode: String): WiFiChannelCountry = WiFiChannelCountry(findByCountryCode(countryCode))
 
-        @JvmStatic
         fun findAll(): List<WiFiChannelCountry> = allCountries().map { WiFiChannelCountry(it) }.toList()
     }
 

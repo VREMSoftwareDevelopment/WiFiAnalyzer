@@ -140,9 +140,9 @@ class Settings(private val repository: Repository) {
     fun versionP(): Boolean = buildVersionP()
 
     companion object {
-        const val SCAN_SPEED_DEFAULT = 5
-        const val GRAPH_Y_MULTIPLIER = -10
-        const val GRAPH_Y_DEFAULT = 2
+        private const val SCAN_SPEED_DEFAULT = 5
+        private const val GRAPH_Y_MULTIPLIER = -10
+        private const val GRAPH_Y_DEFAULT = 2
     }
 
 }

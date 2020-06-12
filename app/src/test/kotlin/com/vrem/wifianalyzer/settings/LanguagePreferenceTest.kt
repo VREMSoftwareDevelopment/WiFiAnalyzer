@@ -22,7 +22,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.util.supportedLanguages
 import com.vrem.util.toLanguageTag
 import com.vrem.wifianalyzer.RobolectricUtil
-import org.apache.commons.lang3.StringUtils
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -45,7 +44,7 @@ class LanguagePreferenceTest {
         // validate
         Assert.assertEquals(languages.size.toLong(), actual.size.toLong())
         languages.forEach {
-            val displayName: String = StringUtils.capitalize(it.getDisplayName(it))
+            val displayName: String = it.getDisplayName(it).capitalize()
             Assert.assertTrue(displayName, actual.contains(displayName))
         }
     }

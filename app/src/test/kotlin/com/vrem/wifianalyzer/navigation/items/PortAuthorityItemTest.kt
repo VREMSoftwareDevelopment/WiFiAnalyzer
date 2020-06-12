@@ -31,6 +31,10 @@ import org.junit.Test
 import org.mockito.Mockito.*
 
 class PortAuthorityItemTest {
+    private val portAuthority = "com.aaronjwood.portauthority."
+    private val portAuthorityFree = portAuthority + "free"
+    private val portAuthorityDonate = portAuthority + "donate"
+
     private val mainActivity: MainActivity = mock(MainActivity::class.java)
     private val context: Context = mock(Context::class.java)
     private val intent: Intent = mock(Intent::class.java)
@@ -52,7 +56,7 @@ class PortAuthorityItemTest {
         // setup
         whenever(mainActivity.applicationContext).thenReturn(context)
         whenever(context.packageManager).thenReturn(packageManager)
-        whenever(packageManager.getLaunchIntentForPackage(PortAuthorityItem.PORT_AUTHORITY_DONATE)).thenReturn(intent)
+        whenever(packageManager.getLaunchIntentForPackage(portAuthorityDonate)).thenReturn(intent)
         // execute
         fixture.activate(mainActivity, menuItem, NavigationMenu.PORT_AUTHORITY)
         // validate
@@ -60,7 +64,7 @@ class PortAuthorityItemTest {
         verify(context).startActivity(intent)
         verify(mainActivity).applicationContext
         verify(context).packageManager
-        verify(packageManager).getLaunchIntentForPackage(PortAuthorityItem.PORT_AUTHORITY_DONATE)
+        verify(packageManager).getLaunchIntentForPackage(portAuthorityDonate)
     }
 
     @Test
@@ -68,8 +72,8 @@ class PortAuthorityItemTest {
         // setup
         whenever(mainActivity.applicationContext).thenReturn(context)
         whenever(context.packageManager).thenReturn(packageManager)
-        whenever(packageManager.getLaunchIntentForPackage(PortAuthorityItem.PORT_AUTHORITY_DONATE)).thenReturn(null)
-        whenever(packageManager.getLaunchIntentForPackage(PortAuthorityItem.PORT_AUTHORITY_FREE)).thenReturn(intent)
+        whenever(packageManager.getLaunchIntentForPackage(portAuthorityDonate)).thenReturn(null)
+        whenever(packageManager.getLaunchIntentForPackage(portAuthorityFree)).thenReturn(intent)
         // execute
         fixture.activate(mainActivity, menuItem, NavigationMenu.PORT_AUTHORITY)
         // validate
@@ -77,8 +81,8 @@ class PortAuthorityItemTest {
         verify(context).startActivity(intent)
         verify(mainActivity).applicationContext
         verify(context).packageManager
-        verify(packageManager).getLaunchIntentForPackage(PortAuthorityItem.PORT_AUTHORITY_DONATE)
-        verify(packageManager).getLaunchIntentForPackage(PortAuthorityItem.PORT_AUTHORITY_FREE)
+        verify(packageManager).getLaunchIntentForPackage(portAuthorityDonate)
+        verify(packageManager).getLaunchIntentForPackage(portAuthorityFree)
     }
 
     @Test
@@ -86,8 +90,8 @@ class PortAuthorityItemTest {
         // setup
         whenever(mainActivity.applicationContext).thenReturn(context)
         whenever(context.packageManager).thenReturn(packageManager)
-        whenever(packageManager.getLaunchIntentForPackage(PortAuthorityItem.PORT_AUTHORITY_DONATE)).thenReturn(null)
-        whenever(packageManager.getLaunchIntentForPackage(PortAuthorityItem.PORT_AUTHORITY_FREE)).thenReturn(null)
+        whenever(packageManager.getLaunchIntentForPackage(portAuthorityDonate)).thenReturn(null)
+        whenever(packageManager.getLaunchIntentForPackage(portAuthorityFree)).thenReturn(null)
         doReturn(intent).whenever(fixture).redirectToPlayStore()
         // execute
         fixture.activate(mainActivity, menuItem, NavigationMenu.PORT_AUTHORITY)
@@ -96,8 +100,8 @@ class PortAuthorityItemTest {
         verify(context).startActivity(intent)
         verify(mainActivity).applicationContext
         verify(context).packageManager
-        verify(packageManager).getLaunchIntentForPackage(PortAuthorityItem.PORT_AUTHORITY_DONATE)
-        verify(packageManager).getLaunchIntentForPackage(PortAuthorityItem.PORT_AUTHORITY_FREE)
+        verify(packageManager).getLaunchIntentForPackage(portAuthorityDonate)
+        verify(packageManager).getLaunchIntentForPackage(portAuthorityFree)
         verify(fixture).redirectToPlayStore()
     }
 

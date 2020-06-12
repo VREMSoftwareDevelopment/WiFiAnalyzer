@@ -41,9 +41,9 @@ class WiFiBandTest {
     }
 
     @Test
-    fun testGHZ_5() {
-        assertFalse(WiFiBand.GHZ2.GHZ5())
-        assertTrue(WiFiBand.GHZ5.GHZ5())
+    fun testGhz5() {
+        assertFalse(WiFiBand.GHZ2.ghz5())
+        assertTrue(WiFiBand.GHZ5.ghz5())
     }
 
     @Test

@@ -44,6 +44,10 @@ import java.util.*
 
 
 class SettingsTest {
+    private val scanSpeedDefault = 5
+    private val graphYMultiplier = -10
+    private val graphYDefault = 2
+
     private val repository = mock(Repository::class.java)
     private val onSharedPreferenceChangeListener = mock(OnSharedPreferenceChangeListener::class.java)
     private val fixture = spy(Settings(repository))
@@ -78,15 +82,15 @@ class SettingsTest {
     fun testScanSpeedWithWiFiThrottleDisabled() {
         // setup
         doReturn(true).whenever(fixture).wiFiThrottleDisabled()
-        val defaultValue = Settings.SCAN_SPEED_DEFAULT - 2
-        val speedValue = Settings.SCAN_SPEED_DEFAULT - 1
-        whenever(repository.stringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)).thenReturn(defaultValue)
+        val defaultValue = scanSpeedDefault - 2
+        val speedValue = scanSpeedDefault - 1
+        whenever(repository.stringAsInteger(R.string.scan_speed_default, scanSpeedDefault)).thenReturn(defaultValue)
         whenever(repository.stringAsInteger(R.string.scan_speed_key, defaultValue)).thenReturn(speedValue)
         // execute
         val actual = fixture.scanSpeed()
         // validate
-        assertEquals(Settings.SCAN_SPEED_DEFAULT, actual)
-        verify(repository).stringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)
+        assertEquals(scanSpeedDefault, actual)
+        verify(repository).stringAsInteger(R.string.scan_speed_default, scanSpeedDefault)
         verify(repository).stringAsInteger(R.string.scan_speed_key, defaultValue)
         verify(fixture).wiFiThrottleDisabled()
         verify(fixture).versionP()
@@ -96,15 +100,15 @@ class SettingsTest {
     fun testScanSpeedWithWiFiThrottleEnabled() {
         // setup
         doReturn(false).whenever(fixture).wiFiThrottleDisabled()
-        val defaultValue = Settings.SCAN_SPEED_DEFAULT - 2
-        val speedValue = Settings.SCAN_SPEED_DEFAULT - 1
-        whenever(repository.stringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)).thenReturn(defaultValue)
+        val defaultValue = scanSpeedDefault - 2
+        val speedValue = scanSpeedDefault - 1
+        whenever(repository.stringAsInteger(R.string.scan_speed_default, scanSpeedDefault)).thenReturn(defaultValue)
         whenever(repository.stringAsInteger(R.string.scan_speed_key, defaultValue)).thenReturn(speedValue)
         // execute
         val actual = fixture.scanSpeed()
         // validate
         assertEquals(speedValue, actual)
-        verify(repository).stringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)
+        verify(repository).stringAsInteger(R.string.scan_speed_default, scanSpeedDefault)
         verify(repository).stringAsInteger(R.string.scan_speed_key, defaultValue)
         verify(fixture).wiFiThrottleDisabled()
         verify(fixture).versionP()
@@ -129,14 +133,14 @@ class SettingsTest {
         // setup
         val defaultValue = 1
         val value = 2
-        val expected = value * Settings.GRAPH_Y_MULTIPLIER
-        whenever(repository.stringAsInteger(R.string.graph_maximum_y_default, Settings.GRAPH_Y_DEFAULT)).thenReturn(defaultValue)
+        val expected = value * graphYMultiplier
+        whenever(repository.stringAsInteger(R.string.graph_maximum_y_default, graphYDefault)).thenReturn(defaultValue)
         whenever(repository.stringAsInteger(R.string.graph_maximum_y_key, defaultValue)).thenReturn(value)
         // execute
         val actual = fixture.graphMaximumY()
         // validate
         assertEquals(expected, actual)
-        verify(repository).stringAsInteger(R.string.graph_maximum_y_default, Settings.GRAPH_Y_DEFAULT)
+        verify(repository).stringAsInteger(R.string.graph_maximum_y_default, graphYDefault)
         verify(repository).stringAsInteger(R.string.graph_maximum_y_key, defaultValue)
     }
 

@@ -59,7 +59,7 @@ class ScannerSwitchOnTest {
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu).findItem(R.id.action_scanner)
-        verify(scanner).isRunning
+        verify(scanner).running()
         verify(menuItem).isVisible = true
         verify(menuItem).setTitle(R.string.scanner_play)
         verify(menuItem).setIcon(R.drawable.ic_play_arrow)
@@ -68,7 +68,7 @@ class ScannerSwitchOnTest {
     @Test
     fun testNavigationOptionScannerSwitchOnWithScannerRunningUpdateMenuItemIconAndTitle() {
         // setup
-        whenever(scanner.isRunning).thenReturn(true)
+        whenever(scanner.running()).thenReturn(true)
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(menu)
         whenever(menu.findItem(R.id.action_scanner)).thenReturn(menuItem)
@@ -78,7 +78,7 @@ class ScannerSwitchOnTest {
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu).findItem(R.id.action_scanner)
-        verify(scanner).isRunning
+        verify(scanner).running()
         verify(menuItem).isVisible = true
         verify(menuItem).setTitle(R.string.scanner_pause)
         verify(menuItem).setIcon(R.drawable.ic_pause)
@@ -87,7 +87,7 @@ class ScannerSwitchOnTest {
     @Test
     fun testNavigationOptionScannerSwitchOnWithScannerNotRunningUpdateMenuItemIconAndTitle() {
         // setup
-        whenever(scanner.isRunning).thenReturn(false)
+        whenever(scanner.running()).thenReturn(false)
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(menu)
         whenever(menu.findItem(R.id.action_scanner)).thenReturn(menuItem)
@@ -97,7 +97,7 @@ class ScannerSwitchOnTest {
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu).findItem(R.id.action_scanner)
-        verify(scanner).isRunning
+        verify(scanner).running()
         verify(menuItem).isVisible = true
         verify(menuItem).setTitle(R.string.scanner_play)
         verify(menuItem).setIcon(R.drawable.ic_play_arrow)

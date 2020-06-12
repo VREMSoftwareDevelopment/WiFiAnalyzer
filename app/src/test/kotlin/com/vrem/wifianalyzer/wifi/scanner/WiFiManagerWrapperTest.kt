@@ -1,0 +1,223 @@
+/*
+ * WiFiAnalyzer
+ * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
+package com.vrem.wifianalyzer.wifi.scanner
+
+import android.net.wifi.ScanResult
+import android.net.wifi.WifiInfo
+import android.net.wifi.WifiManager
+import com.nhaarman.mockitokotlin2.whenever
+import org.junit.After
+import org.junit.Assert.*
+import org.junit.Test
+import org.mockito.ArgumentMatchers
+import org.mockito.Mockito
+import org.mockito.Mockito.verify
+
+class WiFiManagerWrapperTest {
+    private val wifiManager = Mockito.mock(WifiManager::class.java)
+    private val wiFiSwitch = Mockito.mock(WiFiSwitch::class.java)
+    private val wifiInfo = Mockito.mock(WifiInfo::class.java)
+    private val fixture = WiFiManagerWrapper(wifiManager, wiFiSwitch)
+
+    @After
+    fun tearDown() {
+        Mockito.verifyNoMoreInteractions(wifiManager)
+        Mockito.verifyNoMoreInteractions(wiFiSwitch)
+    }
+
+    @Test
+    fun testWiFiEnabled() {
+        // setup
+        whenever(wifiManager.isWifiEnabled).thenReturn(true)
+        // execute
+        val actual = fixture.wiFiEnabled()
+        // validate
+        assertTrue(actual)
+        verify(wifiManager).isWifiEnabled
+    }
+
+    @Test
+    fun testWiFiEnabledWithException() {
+        // setup
+        whenever(wifiManager.isWifiEnabled).thenThrow(RuntimeException())
+        // execute
+        val actual = fixture.wiFiEnabled()
+        // validate
+        assertFalse(actual)
+        verify(wifiManager).isWifiEnabled
+    }
+
+    @Suppress("DEPRECATION")
+    @Test
+    fun testEnableWiFi() {
+        // setup
+        whenever(wifiManager.isWifiEnabled).thenReturn(true)
+        // execute
+        val actual = fixture.enableWiFi()
+        // validate
+        assertTrue(actual)
+        verify(wifiManager).isWifiEnabled
+        verify(wifiManager, Mockito.never()).isWifiEnabled = ArgumentMatchers.anyBoolean()
+    }
+
+    @Test
+    fun testEnableWiFiWhenDisabled() {
+        // setup
+        whenever(wifiManager.isWifiEnabled).thenReturn(false)
+        whenever(wiFiSwitch.on()).thenReturn(true)
+        // execute
+        val actual = fixture.enableWiFi()
+        // validate
+        assertTrue(actual)
+        verify(wifiManager).isWifiEnabled
+        verify(wiFiSwitch).on()
+    }
+
+    @Test
+    fun testEnableWiFiWithException() {
+        // setup
+        whenever(wifiManager.isWifiEnabled).thenReturn(false)
+        whenever(wiFiSwitch.on()).thenThrow(RuntimeException())
+        // execute
+        val actual = fixture.enableWiFi()
+        // validate
+        assertFalse(actual)
+        verify(wifiManager).isWifiEnabled
+        verify(wiFiSwitch).on()
+    }
+
+    @Test
+    fun testDisableWiFi() {
+        // setup
+        whenever(wifiManager.isWifiEnabled).thenReturn(true)
+        whenever(wiFiSwitch.off()).thenReturn(true)
+        // execute
+        val actual = fixture.disableWiFi()
+        // validate
+        assertTrue(actual)
+        verify(wifiManager).isWifiEnabled
+        verify(wiFiSwitch).off()
+    }
+
+    @Test
+    fun testDisableWiFiWhenDisabled() {
+        // setup
+        whenever(wifiManager.isWifiEnabled).thenReturn(false)
+        // execute
+        val actual = fixture.disableWiFi()
+        // validate
+        assertTrue(actual)
+        verify(wifiManager).isWifiEnabled
+        verify(wiFiSwitch, Mockito.never()).off()
+    }
+
+    @Test
+    fun testDisableWiFiWithException() {
+        // setup
+        whenever(wifiManager.isWifiEnabled).thenReturn(true)
+        whenever(wiFiSwitch.off()).thenThrow(RuntimeException())
+        // execute
+        val actual = fixture.disableWiFi()
+        // validate
+        assertFalse(actual)
+        verify(wifiManager).isWifiEnabled
+        verify(wiFiSwitch).off()
+    }
+
+    @Suppress("DEPRECATION")
+    @Test
+    fun testStartScan() {
+        // setup
+        whenever(wifiManager.startScan()).thenReturn(true)
+        // execute
+        val actual = fixture.startScan()
+        // validate
+        assertTrue(actual)
+        verify(wifiManager).startScan()
+    }
+
+    @Suppress("DEPRECATION")
+    @Test
+    fun testStartScanWithException() {
+        // setup
+        whenever(wifiManager.startScan()).thenThrow(RuntimeException())
+        // execute
+        val actual = fixture.startScan()
+        // validate
+        assertFalse(actual)
+        verify(wifiManager).startScan()
+    }
+
+    @Test
+    fun testScanResults() {
+        // setup
+        val expected = emptyList<ScanResult>()
+        whenever(wifiManager.scanResults).thenReturn(expected)
+        // execute
+        val actual = fixture.scanResults()
+        // validate
+        assertSame(expected, actual)
+        verify(wifiManager).scanResults
+    }
+
+    @Test
+    fun testScanResultsWhenWiFiManagerReturnsNullScanResults() {
+        // setup
+        whenever(wifiManager.scanResults).thenReturn(null)
+        // execute
+        val actual = fixture.scanResults()
+        // validate
+        assertNotNull(actual)
+        assertTrue(actual.isEmpty())
+        verify(wifiManager).scanResults
+    }
+
+    @Test
+    fun testScanResultsWithException() {
+        // setup
+        whenever(wifiManager.scanResults).thenThrow(RuntimeException())
+        // execute
+        val actual = fixture.scanResults()
+        // validate
+        assertNotNull(actual)
+        assertTrue(actual.isEmpty())
+        verify(wifiManager).scanResults
+    }
+
+    @Test
+    fun testWiFiInfo() {
+        // setup
+        whenever(wifiManager.connectionInfo).thenReturn(wifiInfo)
+        // execute
+        val actual = fixture.wiFiInfo()
+        // validate
+        assertSame(wifiInfo, actual)
+        verify(wifiManager).connectionInfo
+    }
+
+    @Test
+    fun testWiFiInfoWithException() {
+        // setup
+        whenever(wifiManager.connectionInfo).thenThrow(RuntimeException())
+        // execute
+        val actual = fixture.wiFiInfo()
+        // validate
+        assertNull(actual)
+        verify(wifiManager).connectionInfo
+    }
+}

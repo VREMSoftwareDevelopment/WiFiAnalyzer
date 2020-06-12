@@ -31,7 +31,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 internal class ExportItem(private val export: Export) : NavigationItem {
 
     override fun activate(mainActivity: MainActivity, menuItem: MenuItem, navigationMenu: NavigationMenu) {
-        val wiFiDetails: List<WiFiDetail> = INSTANCE.scannerService.wiFiData.wiFiDetails
+        val wiFiDetails: List<WiFiDetail> = INSTANCE.scannerService.wiFiData().wiFiDetails
         if (wiFiDetails.isEmpty()) {
             Toast.makeText(mainActivity, R.string.no_data, Toast.LENGTH_LONG).show()
             return

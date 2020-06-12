@@ -68,7 +68,7 @@ public class MainActivityTest {
 
     @Test
     public void testMainActivity() {
-        assertTrue(MainContext.INSTANCE.getScannerService().isRunning());
+        assertTrue(MainContext.INSTANCE.getScannerService().running());
     }
 
     @Test

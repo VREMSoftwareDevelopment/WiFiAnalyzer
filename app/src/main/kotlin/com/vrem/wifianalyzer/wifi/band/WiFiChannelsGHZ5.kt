@@ -41,13 +41,10 @@ class WiFiChannelsGHZ5 : WiFiChannels(RANGE, SETS) {
     companion object {
         @JvmField
         val SET1 = Pair(WiFiChannel(36, 5180), WiFiChannel(64, 5320))
-
         @JvmField
         val SET2 = Pair(WiFiChannel(100, 5500), WiFiChannel(144, 5720))
-
         @JvmField
         val SET3 = Pair(WiFiChannel(149, 5745), WiFiChannel(165, 5825))
-
         @JvmField
         val SETS = listOf(SET1, SET2, SET3)
         private val RANGE = Pair(4900, 5899)

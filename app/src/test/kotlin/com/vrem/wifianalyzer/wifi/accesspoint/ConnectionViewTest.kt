@@ -25,13 +25,13 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.whenever
+import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth
 import com.vrem.wifianalyzer.wifi.model.*
-import org.apache.commons.lang3.StringUtils
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -126,7 +126,7 @@ class ConnectionViewTest {
         // setup
         val wiFiIdentifier = WiFiIdentifier(ssid, bssid)
         val wiFiConnection = WiFiConnection(wiFiIdentifier, ipAddress, WiFiConnection.LINK_SPEED_INVALID)
-        val connection = withConnection(WiFiAdditional(StringUtils.EMPTY, wiFiConnection))
+        val connection = withConnection(WiFiAdditional(String.EMPTY, wiFiConnection))
         whenever(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE)
         withConnectionInformation(connection)
         withAccessPointDetailView(connection, ConnectionViewType.COMPLETE.layout)
@@ -239,7 +239,7 @@ class ConnectionViewTest {
     private fun withConnection(wiFiAdditional: WiFiAdditional): WiFiDetail =
             WiFiDetail(
                     WiFiIdentifier(ssid, bssid),
-                    StringUtils.EMPTY,
+                    String.EMPTY,
                     WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55, true),
                     wiFiAdditional)
 

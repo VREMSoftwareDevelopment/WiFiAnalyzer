@@ -21,11 +21,11 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import com.nhaarman.mockitokotlin2.whenever
+import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
-import org.apache.commons.lang3.StringUtils
 import org.junit.After
 import org.junit.Test
 import org.mockito.ArgumentMatchers
@@ -57,7 +57,7 @@ class WiFiSwitchOffTest {
         navigationOptionWiFiSwitchOff(mainActivity)
         // validate
         verify(mainActivity).supportActionBar
-        verify(actionBar).subtitle = StringUtils.EMPTY
+        verify(actionBar).subtitle = String.EMPTY
         verify(mainActivity).optionMenu
     }
 

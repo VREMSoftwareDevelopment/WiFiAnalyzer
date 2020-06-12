@@ -80,7 +80,6 @@ class Filter(val alertDialog: AlertDialog?) {
     }
 
     companion object {
-        @JvmStatic
         fun build(): Filter {
             return Filter(buildAlertDialog())
         }

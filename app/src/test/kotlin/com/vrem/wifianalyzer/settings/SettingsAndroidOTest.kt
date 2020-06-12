@@ -27,6 +27,8 @@ import org.junit.Test
 import org.mockito.Mockito.*
 
 class SettingsAndroidOTest {
+    private val scanSpeedDefault = 5
+
     private val repository = mock(Repository::class.java)
     private val fixture = spy(Settings(repository))
 
@@ -46,13 +48,13 @@ class SettingsAndroidOTest {
         // setup
         val defaultValue = 10
         val expected = 3
-        whenever(repository.stringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)).thenReturn(defaultValue)
+        whenever(repository.stringAsInteger(R.string.scan_speed_default, scanSpeedDefault)).thenReturn(defaultValue)
         whenever(repository.stringAsInteger(R.string.scan_speed_key, defaultValue)).thenReturn(expected)
         // execute
         val actual = fixture.scanSpeed()
         // validate
         assertEquals(expected.toLong(), actual.toLong())
-        verify(repository).stringAsInteger(R.string.scan_speed_default, Settings.SCAN_SPEED_DEFAULT)
+        verify(repository).stringAsInteger(R.string.scan_speed_default, scanSpeedDefault)
         verify(repository).stringAsInteger(R.string.scan_speed_key, defaultValue)
         verify(fixture, never()).wiFiThrottleDisabled()
     }

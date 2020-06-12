@@ -47,9 +47,8 @@ class ApplicationPermission(private val activity: Activity, private val permissi
             activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
 
     companion object {
-        @JvmField
-        val PERMISSIONS = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-        const val REQUEST_CODE = 0x123450
+        internal val PERMISSIONS = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+        internal const val REQUEST_CODE = 0x123450
     }
 
 }

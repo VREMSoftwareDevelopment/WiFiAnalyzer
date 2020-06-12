@@ -30,7 +30,7 @@ internal val navigationOptionScannerSwitchOn: NavigationOption = {
     it.optionMenu.menu?.let { menu ->
         val menuItem = menu.findItem(R.id.action_scanner)
         menuItem.isVisible = true
-        if (INSTANCE.scannerService.isRunning) {
+        if (INSTANCE.scannerService.running()) {
             menuItem.setTitle(R.string.scanner_pause)
             menuItem.setIcon(R.drawable.ic_pause)
         } else {

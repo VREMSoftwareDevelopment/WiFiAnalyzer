@@ -15,13 +15,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.scanner
 
-package com.vrem.wifianalyzer.wifi.scanner;
+import com.vrem.wifianalyzer.wifi.model.WiFiData
 
-import com.vrem.wifianalyzer.wifi.model.WiFiData;
-
-import androidx.annotation.NonNull;
-
-public interface UpdateNotifier {
-    void update(@NonNull WiFiData wiFiData);
+interface UpdateNotifier {
+    fun update(wiFiData: WiFiData)
 }

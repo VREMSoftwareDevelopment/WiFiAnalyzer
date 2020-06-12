@@ -169,7 +169,7 @@ class ChannelGraphNavigation {
 
         @Override
         public boolean evaluate(Pair<WiFiChannel, WiFiChannel> object) {
-            return wiFiBand.GHZ5() && wiFiChannels.channelAvailable(countryCode, object.first.getChannel());
+            return wiFiBand.ghz5() && wiFiChannels.channelAvailable(countryCode, object.first.getChannel());
         }
     }
 

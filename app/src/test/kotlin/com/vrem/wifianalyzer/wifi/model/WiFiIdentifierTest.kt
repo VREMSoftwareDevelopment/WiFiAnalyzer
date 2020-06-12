@@ -17,13 +17,14 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import org.apache.commons.lang3.StringUtils
+import com.vrem.util.EMPTY
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class WiFiIdentifierTest {
+    private val hidden = "*hidden*"
     private val ssid = "xyzSSID"
     private val bssid = "xyzBSSID"
     private val fixture = WiFiIdentifier(ssid, bssid)
@@ -43,7 +44,7 @@ class WiFiIdentifierTest {
     fun testTitleWithEmptySSID() {
         // setup
         val expectedTitle = "*hidden* ($bssid)"
-        val fixture = WiFiIdentifier(StringUtils.EMPTY, bssid)
+        val fixture = WiFiIdentifier(String.EMPTY, bssid)
         // validate
         assertEquals(expectedTitle, fixture.title())
     }
@@ -84,10 +85,10 @@ class WiFiIdentifierTest {
     @Test
     fun testRawSSID() {
         // setup
-        val fixture = WiFiIdentifier(StringUtils.EMPTY, bssid)
+        val fixture = WiFiIdentifier(String.EMPTY, bssid)
         // execute & validate
-        assertEquals(StringUtils.EMPTY, fixture.ssidRaw)
-        assertEquals(WiFiIdentifier.SSID_EMPTY, fixture.ssid)
+        assertEquals(String.EMPTY, fixture.ssidRaw)
+        assertEquals(hidden, fixture.ssid)
     }
 
 }

@@ -52,7 +52,7 @@ internal class PortAuthorityItem : NavigationItem {
 
     companion object {
         private const val PORT_AUTHORITY = "com.aaronjwood.portauthority."
-        const val PORT_AUTHORITY_FREE = PORT_AUTHORITY + "free"
-        const val PORT_AUTHORITY_DONATE = PORT_AUTHORITY + "donate"
+        private const val PORT_AUTHORITY_FREE = PORT_AUTHORITY + "free"
+        private const val PORT_AUTHORITY_DONATE = PORT_AUTHORITY + "donate"
     }
 }

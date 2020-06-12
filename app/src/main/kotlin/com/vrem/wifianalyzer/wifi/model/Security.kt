@@ -21,7 +21,7 @@ import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.R
 import java.util.*
 
-const val RSN = "RSN"
+private const val RSN = "RSN"
 
 enum class Security(val imageResource: Int, val additional: String = String.EMPTY) {
     NONE(R.drawable.ic_lock_open),
@@ -32,11 +32,9 @@ enum class Security(val imageResource: Int, val additional: String = String.EMPT
     WPA3(R.drawable.ic_lock, RSN);
 
     companion object {
-        @JvmStatic
         fun findAll(capabilities: String): Set<Security> =
                 parse(capabilities).mapNotNull(transform()).toSortedSet().ifEmpty { setOf(NONE) }
 
-        @JvmStatic
         fun findOne(capabilities: String): Security = findAll(capabilities).first()
 
         private fun transform(): (String) -> Security? = {

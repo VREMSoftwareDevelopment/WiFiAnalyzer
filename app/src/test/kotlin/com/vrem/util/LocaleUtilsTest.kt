@@ -29,7 +29,7 @@ class LocaleUtilsTest {
         val actual = allCountries()
         // validate
         Assert.assertTrue(actual.size >= 2)
-        Assert.assertTrue(actual[0].country.compareTo(actual[actual.size - 1].country) < 0)
+        Assert.assertTrue(actual[0].country < actual[actual.size - 1].country)
     }
 
     @Test
