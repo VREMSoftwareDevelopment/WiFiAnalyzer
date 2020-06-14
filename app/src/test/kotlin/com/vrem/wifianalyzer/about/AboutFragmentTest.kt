@@ -33,9 +33,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.verify
-import org.mockito.Mockito.verifyNoMoreInteractions
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
@@ -64,7 +62,6 @@ class AboutFragmentTest {
         INSTANCE.restore()
         verify(configuration, atLeastOnce()).sizeAvailable
         verify(configuration).largeScreen
-        verifyNoMoreInteractions(configuration)
     }
 
     @Test
@@ -112,7 +109,6 @@ class AboutFragmentTest {
         // validate
         assertNotNull(actual)
         assertEquals(expectedName, actual.text)
-        verify(configuration).size = ArgumentMatchers.anyInt()
     }
 
     @Test
