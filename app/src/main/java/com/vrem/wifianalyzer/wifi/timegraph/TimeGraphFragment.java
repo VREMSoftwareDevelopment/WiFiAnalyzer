@@ -52,7 +52,7 @@ public class TimeGraphFragment extends Fragment implements SwipeRefreshLayout.On
         timeGraphAdapter = new TimeGraphAdapter();
         addGraphViews(binding, timeGraphAdapter);
 
-        MainContext.INSTANCE.getScannerService().register(timeGraphAdapter);
+        MainContext.INSTANCE.scannerService.register(timeGraphAdapter);
 
         return binding.getRoot();
     }
@@ -64,7 +64,7 @@ public class TimeGraphFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
-        MainContext.INSTANCE.getScannerService().update();
+        MainContext.INSTANCE.scannerService.update();
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -76,7 +76,7 @@ public class TimeGraphFragment extends Fragment implements SwipeRefreshLayout.On
 
     @Override
     public void onDestroy() {
-        MainContext.INSTANCE.getScannerService().unregister(timeGraphAdapter);
+        MainContext.INSTANCE.scannerService.unregister(timeGraphAdapter);
         super.onDestroy();
     }
 

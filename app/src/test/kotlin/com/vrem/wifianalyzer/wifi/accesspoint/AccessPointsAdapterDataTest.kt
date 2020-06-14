@@ -120,7 +120,7 @@ class AccessPointsAdapterDataTest {
         verify(settings).findWiFiBands()
         verify(settings).findStrengths()
         verify(settings).findSecurities()
-        verify(configuration).setSize(anyInt())
+        verify(configuration).size = ArgumentMatchers.anyInt()
     }
 
     private fun withSettings() {

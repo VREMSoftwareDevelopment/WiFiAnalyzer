@@ -35,8 +35,6 @@ class AccessPointDetail {
     private val vendorShortMax = 12
     private val vendorLongMax = 30
 
-    // FIXME remove @JvmOverloads after full conversion to Kotlin
-    @JvmOverloads
     fun makeView(convertView: View?,
                  parent: ViewGroup?,
                  wiFiDetail: WiFiDetail,

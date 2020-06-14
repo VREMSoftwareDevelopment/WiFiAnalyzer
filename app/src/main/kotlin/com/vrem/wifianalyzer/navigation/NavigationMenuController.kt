@@ -24,9 +24,8 @@ import com.google.android.material.navigation.NavigationView
 import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.R
 
-// FIXME remove @JvmOverloads after full conversion to Kotlin
 @OpenClass
-class NavigationMenuController @JvmOverloads constructor(
+class NavigationMenuController(
         navigationMenuControl: NavigationMenuControl,
         val navigationView: NavigationView = navigationMenuControl.findViewById(R.id.nav_drawer),
         val bottomNavigationView: BottomNavigationView = navigationMenuControl.findViewById(R.id.nav_bottom)) {

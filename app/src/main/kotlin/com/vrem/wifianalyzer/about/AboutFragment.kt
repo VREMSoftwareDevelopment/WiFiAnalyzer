@@ -78,8 +78,8 @@ class AboutFragment : Fragment() {
     private fun version(activity: FragmentActivity): String {
         val configuration = INSTANCE.configuration
         return applicationVersion(activity) +
-                configuration.isSizeAvailable.let { "S" } +
-                configuration.isLargeScreen.let { "L" } +
+                configuration.sizeAvailable.let { "S" } +
+                configuration.largeScreen.let { "L" } +
                 " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")"
     }
 

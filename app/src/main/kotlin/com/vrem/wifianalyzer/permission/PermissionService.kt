@@ -20,9 +20,8 @@ package com.vrem.wifianalyzer.permission
 import android.app.Activity
 import com.vrem.annotation.OpenClass
 
-// FIXME remove @JvmOverloads after full conversion to Kotlin
 @OpenClass
-class PermissionService @JvmOverloads constructor(
+class PermissionService(
         private val activity: Activity,
         private val systemPermission: SystemPermission = SystemPermission(activity),
         private val applicationPermission: ApplicationPermission = ApplicationPermission(activity)) {

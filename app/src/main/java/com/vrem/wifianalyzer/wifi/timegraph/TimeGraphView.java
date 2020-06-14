@@ -57,7 +57,7 @@ class TimeGraphView implements GraphViewNotifier {
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
-        Settings settings = MainContext.INSTANCE.getSettings();
+        Settings settings = MainContext.INSTANCE.settings;
         Predicate<WiFiDetail> predicate = FilterPredicate.makeOtherPredicate(settings);
         List<WiFiDetail> wiFiDetails = wiFiData.wiFiDetails(predicate, settings.sortBy());
         Set<WiFiDetail> newSeries = dataManager.addSeriesData(graphViewWrapper, wiFiDetails, settings.graphMaximumY());
@@ -67,7 +67,7 @@ class TimeGraphView implements GraphViewNotifier {
     }
 
     private boolean isSelected() {
-        return wiFiBand.equals(MainContext.INSTANCE.getSettings().wiFiBand());
+        return wiFiBand.equals(MainContext.INSTANCE.settings.wiFiBand());
     }
 
     @Override
@@ -98,10 +98,10 @@ class TimeGraphView implements GraphViewNotifier {
     @NonNull
     private GraphViewWrapper makeGraphViewWrapper() {
         MainContext mainContext = MainContext.INSTANCE;
-        Settings settings = mainContext.getSettings();
+        Settings settings = mainContext.settings;
         ThemeStyle themeStyle = settings.themeStyle();
         int graphMaximumY = settings.graphMaximumY();
-        Configuration configuration = mainContext.getConfiguration();
+        Configuration configuration = mainContext.configuration;
         GraphView graphView = makeGraphView(mainContext, graphMaximumY, themeStyle);
         graphViewWrapper = new GraphViewWrapper(graphView, settings.timeGraphLegend(), themeStyle);
         configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));

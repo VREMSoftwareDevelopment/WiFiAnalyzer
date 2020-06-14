@@ -56,7 +56,7 @@ public class ChannelGraphFragment extends Fragment implements OnRefreshListener 
         channelGraphAdapter = new ChannelGraphAdapter(channelGraphNavigation);
         addGraphViews(binding, channelGraphAdapter);
 
-        MainContext.INSTANCE.getScannerService().register(channelGraphAdapter);
+        MainContext.INSTANCE.scannerService.register(channelGraphAdapter);
 
         return binding.getRoot();
     }
@@ -68,7 +68,7 @@ public class ChannelGraphFragment extends Fragment implements OnRefreshListener 
     @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
-        MainContext.INSTANCE.getScannerService().update();
+        MainContext.INSTANCE.scannerService.update();
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -80,7 +80,7 @@ public class ChannelGraphFragment extends Fragment implements OnRefreshListener 
 
     @Override
     public void onDestroy() {
-        MainContext.INSTANCE.getScannerService().unregister(channelGraphAdapter);
+        MainContext.INSTANCE.scannerService.unregister(channelGraphAdapter);
         super.onDestroy();
     }
 

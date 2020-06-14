@@ -42,7 +42,7 @@ class CacheTest {
     @Before
     fun setUp() {
         whenever(settings.scanSpeed()).thenReturn(5)
-        whenever(configuration.isSizeAvailable).thenReturn(true)
+        whenever(configuration.sizeAvailable).thenReturn(true)
     }
 
     @After
@@ -113,7 +113,7 @@ class CacheTest {
     @Test
     fun testAdd() {
         // setup
-        whenever(configuration.isSizeAvailable).thenReturn(false)
+        whenever(configuration.sizeAvailable).thenReturn(false)
         val scanResults = emptyList<ScanResult>()
         // execute
         fixture.add(scanResults, wifiInfo)
@@ -126,7 +126,7 @@ class CacheTest {
     fun testAddCompliesToMaxCacheSize() {
         // setup
         val cacheSize = 2
-        whenever(configuration.isSizeAvailable).thenReturn(false)
+        whenever(configuration.sizeAvailable).thenReturn(false)
         val expected: MutableList<List<ScanResult>> = ArrayList()
         // execute
         for (i in 0 until cacheSize) {
@@ -143,7 +143,7 @@ class CacheTest {
     @Test
     fun testScanResultsWhenSingle() {
         // setup
-        whenever(configuration.isSizeAvailable).thenReturn(false)
+        whenever(configuration.sizeAvailable).thenReturn(false)
         withScanResults()
         // execute
         val actual = fixture.scanResults()
@@ -156,7 +156,7 @@ class CacheTest {
     @Test
     fun testScanResultsWhenMultiple() {
         // setup
-        whenever(configuration.isSizeAvailable).thenReturn(false)
+        whenever(configuration.sizeAvailable).thenReturn(false)
         withScanResults()
         withScanResults()
         // execute
@@ -171,7 +171,7 @@ class CacheTest {
     fun testSize() {
         // setup
         val expected = 1
-        whenever(configuration.isSizeAvailable).thenReturn(false)
+        whenever(configuration.sizeAvailable).thenReturn(false)
         // execute
         val actual = fixture.size()
         // validate

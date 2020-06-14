@@ -80,8 +80,8 @@ class ChannelGraphNavigation {
     private void updateButtons(@NonNull WiFiData wiFiData, Collection<Pair<WiFiChannel, WiFiChannel>> visible) {
         if (visible.size() > 1) {
             MainContext mainContext = MainContext.INSTANCE;
-            Configuration configuration = mainContext.getConfiguration();
-            Settings settings = mainContext.getSettings();
+            Configuration configuration = mainContext.configuration;
+            Settings settings = mainContext.settings;
             Predicate<WiFiDetail> predicate = FilterPredicate.makeOtherPredicate(settings);
             Pair<WiFiChannel, WiFiChannel> selectedWiFiChannelPair = configuration.getWiFiChannelPair();
             List<WiFiDetail> wiFiDetails = wiFiData.wiFiDetails(predicate, settings.sortBy());
@@ -99,8 +99,8 @@ class ChannelGraphNavigation {
         @Override
         public void onClick(View view) {
             MainContext mainContext = MainContext.INSTANCE;
-            mainContext.getConfiguration().setWiFiChannelPair(wiFiChannelPair);
-            mainContext.getScannerService().update();
+            mainContext.configuration.setWiFiChannelPair(wiFiChannelPair);
+            mainContext.scannerService.update();
         }
     }
 
@@ -161,7 +161,7 @@ class ChannelGraphNavigation {
         private final WiFiChannels wiFiChannels;
 
         private PairPredicate() {
-            Settings settings = MainContext.INSTANCE.getSettings();
+            Settings settings = MainContext.INSTANCE.settings;
             wiFiBand = settings.wiFiBand();
             countryCode = settings.countryCode();
             wiFiChannels = wiFiBand.getWiFiChannels();

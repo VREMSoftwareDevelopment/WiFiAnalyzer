@@ -56,7 +56,7 @@ internal class Cache {
     fun last(): List<ScanResult> = scanResults.last()
 
     fun size(): Int =
-            if (sizeAvailable())
+            if (sizeAvailable)
                 with(MainContext.INSTANCE.settings.scanSpeed()) {
                     when {
                         this < 2 -> MAXIMUM
@@ -71,7 +71,7 @@ internal class Cache {
 
     private fun calculate(first: Boolean, element: ScanResult, accumulator: CacheResult?): Int {
         val average: Int = if (first) element.level else (accumulator!!.average + element.level) / 2
-        return (if (sizeAvailable()) average else average - SIZE * count / 2).coerceIn(LEVEL_MINIMUM, LEVEL_MAXIMUM)
+        return (if (sizeAvailable) average else average - SIZE * count / 2).coerceIn(LEVEL_MINIMUM, LEVEL_MAXIMUM)
     }
 
     private fun combineCache(): List<ScanResult> =
@@ -80,12 +80,8 @@ internal class Cache {
     private fun comparator(): Comparator<ScanResult> =
             compareBy<ScanResult> { it.BSSID }.thenBy { it.SSID }.thenBy { it.level }
 
-    private fun sizeAvailable(): Boolean =
-            try {
-                MainContext.INSTANCE.configuration.isSizeAvailable
-            } catch (e: Exception) {
-                false
-            }
+    private val sizeAvailable: Boolean
+        get() = MainContext.INSTANCE.configuration.sizeAvailable
 
     companion object {
         private const val MINIMUM: Int = 1

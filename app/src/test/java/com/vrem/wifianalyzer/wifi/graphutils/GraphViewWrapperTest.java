@@ -27,7 +27,6 @@ import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.BaseSeries;
 import com.jjoe64.graphview.series.DataPoint;
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
@@ -43,6 +42,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import static com.vrem.wifianalyzer.ConfigurationKt.SIZE_MAX;
+import static com.vrem.wifianalyzer.ConfigurationKt.SIZE_MIN;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -285,10 +286,10 @@ public class GraphViewWrapperTest {
     @Test
     public void testGetSize() {
         // execute & validate
-        assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphConstants.TYPE1));
-        assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphConstants.TYPE2));
-        assertEquals(Configuration.SIZE_MAX, fixture.getSize(GraphConstants.TYPE3));
-        assertEquals(Configuration.SIZE_MIN, fixture.getSize(GraphConstants.TYPE4));
+        assertEquals(SIZE_MAX, fixture.getSize(GraphConstants.TYPE1));
+        assertEquals(SIZE_MAX, fixture.getSize(GraphConstants.TYPE2));
+        assertEquals(SIZE_MAX, fixture.getSize(GraphConstants.TYPE3));
+        assertEquals(SIZE_MIN, fixture.getSize(GraphConstants.TYPE4));
     }
 
     @Test

@@ -19,9 +19,9 @@ package com.vrem.wifianalyzer.wifi.accesspoint
 
 import android.widget.ExpandableListView
 import com.vrem.annotation.OpenClass
-import com.vrem.wifianalyzer.Configuration.SIZE_MAX
-import com.vrem.wifianalyzer.Configuration.SIZE_MIN
 import com.vrem.wifianalyzer.MainContext.INSTANCE
+import com.vrem.wifianalyzer.SIZE_MAX
+import com.vrem.wifianalyzer.SIZE_MIN
 import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants.*
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
@@ -34,7 +34,7 @@ class AccessPointsAdapterData(
         val wiFiDetails: MutableList<WiFiDetail> = mutableListOf()) {
 
     fun update(wiFiData: WiFiData, expandableListView: ExpandableListView?) {
-        INSTANCE.configuration.setSize(type(calculateChildType()))
+        INSTANCE.configuration.size = type(calculateChildType())
         val settings = INSTANCE.settings
         val predicate = FilterPredicate.makeAccessPointsPredicate(settings)
         wiFiDetails.clear()

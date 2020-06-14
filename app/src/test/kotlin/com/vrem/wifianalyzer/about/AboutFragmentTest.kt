@@ -22,6 +22,7 @@ import android.os.Build
 import android.view.View
 import android.widget.TextView
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.nhaarman.mockitokotlin2.atLeastOnce
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.util.readFile
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
@@ -32,6 +33,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.verifyNoMoreInteractions
 import org.robolectric.Shadows.shadowOf
@@ -51,16 +53,17 @@ class AboutFragmentTest {
 
     @Before
     fun setUp() {
-        whenever(configuration.isSizeAvailable).thenReturn(true)
-        whenever(configuration.isLargeScreen).thenReturn(true)
+        whenever(configuration.sizeAvailable).thenReturn(true)
+        whenever(configuration.largeScreen).thenReturn(true)
         RobolectricUtil.INSTANCE.startFragment(fixture)
+        RobolectricUtil.INSTANCE.clearLooper()
     }
 
     @After
     fun tearDown() {
         INSTANCE.restore()
-        verify(configuration).isSizeAvailable
-        verify(configuration).isLargeScreen
+        verify(configuration, atLeastOnce()).sizeAvailable
+        verify(configuration).largeScreen
         verifyNoMoreInteractions(configuration)
     }
 
@@ -103,13 +106,13 @@ class AboutFragmentTest {
     @Test
     fun testCopyright() {
         // setup
-        val expectedName = (fixture.getString(R.string.app_copyright)
-                + SimpleDateFormat("yyyy").format(Date()))
+        val expectedName = (fixture.getString(R.string.app_copyright) + SimpleDateFormat("yyyy").format(Date()))
         // execute
         val actual = fixture.requireView().findViewById<TextView>(R.id.about_copyright)
         // validate
         assertNotNull(actual)
         assertEquals(expectedName, actual.text)
+        verify(configuration).size = ArgumentMatchers.anyInt()
     }
 
     @Test

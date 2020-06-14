@@ -31,8 +31,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier
 
-// FIXME remove @JvmOverloads after full conversion to Kotlin
-class ConnectionView @JvmOverloads constructor(
+class ConnectionView(
         private val mainActivity: MainActivity,
         private val accessPointDetail: AccessPointDetail = AccessPointDetail(),
         private val accessPointPopup: AccessPointPopup = AccessPointPopup()) : UpdateNotifier {

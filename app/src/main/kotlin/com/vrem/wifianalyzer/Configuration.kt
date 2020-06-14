@@ -15,30 +15,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer
 
-package com.vrem.wifianalyzer;
+import com.vrem.annotation.OpenClass
+import com.vrem.wifianalyzer.wifi.band.WiFiChannels
 
-import android.os.Build;
+const val SIZE_MIN = 1024
+const val SIZE_MAX = 4096
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.annotation.Config;
+@OpenClass
+class Configuration(val largeScreen: Boolean) {
+    var size = SIZE_MAX
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+    var wiFiChannelPair = WiFiChannels.UNKNOWN
 
-import static org.junit.Assert.assertNotNull;
-
-@RunWith(AndroidJUnit4.class)
-@Config(sdk = Build.VERSION_CODES.P)
-public class SplashActivityTest {
-
-    @Test
-    public void testSplashActivity() {
-        // execute
-        SplashActivity fixture = Robolectric.setupActivity(SplashActivity.class);
-        // validate
-        assertNotNull(fixture);
-    }
+    val sizeAvailable: Boolean
+        get() = size == SIZE_MAX
 
 }

@@ -28,7 +28,6 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
-import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointDetail;
@@ -44,6 +43,9 @@ import java.util.List;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
+
+import static com.vrem.wifianalyzer.ConfigurationKt.SIZE_MAX;
+import static com.vrem.wifianalyzer.ConfigurationKt.SIZE_MIN;
 
 public class GraphViewWrapper {
     private final GraphView graphView;
@@ -156,7 +158,7 @@ public class GraphViewWrapper {
 
     public int calculateGraphType() {
         try {
-            byte[] graphType = MainContext.INSTANCE.getMainActivity().getPackageName().getBytes();
+            byte[] graphType = MainContext.INSTANCE.mainActivity.getPackageName().getBytes();
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
             messageDigest.update(graphType);
             return Arrays.hashCode(messageDigest.digest());
@@ -179,7 +181,7 @@ public class GraphViewWrapper {
 
     public int getSize(int value) {
         return value == GraphConstants.TYPE1 || value == GraphConstants.TYPE2 || value == GraphConstants.TYPE3
-            ? Configuration.SIZE_MAX : Configuration.SIZE_MIN;
+            ? SIZE_MAX : SIZE_MIN;
     }
 
     LegendRenderer newLegendRenderer() {

@@ -23,7 +23,6 @@ import org.apache.commons.collections4.Predicate
 
 @OpenClass
 class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnection) {
-    private val vendorService = INSTANCE.vendorService
 
     fun connection(): WiFiDetail =
             wiFiDetails
@@ -69,7 +68,7 @@ class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnec
             when (wiFiDetail) {
                 connection -> connection
                 else -> {
-                    val vendorName: String = vendorService.findVendorName(wiFiDetail.wiFiIdentifier.bssid)
+                    val vendorName: String = INSTANCE.vendorService.findVendorName(wiFiDetail.wiFiIdentifier.bssid)
                     val wiFiAdditional = WiFiAdditional(vendorName, WiFiConnection.EMPTY)
                     WiFiDetail(wiFiDetail, wiFiAdditional)
                 }
@@ -79,7 +78,7 @@ class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnec
             wiFiConnection.wiFiIdentifier.equals(it.wiFiIdentifier, true)
 
     private fun copy(wiFiDetail: WiFiDetail): WiFiDetail {
-        val vendorName: String = vendorService.findVendorName(wiFiDetail.wiFiIdentifier.bssid)
+        val vendorName: String = INSTANCE.vendorService.findVendorName(wiFiDetail.wiFiIdentifier.bssid)
         val wiFiAdditional = WiFiAdditional(vendorName, wiFiConnection)
         return WiFiDetail(wiFiDetail, wiFiAdditional)
     }

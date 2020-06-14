@@ -15,20 +15,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer
 
-package com.vrem.wifianalyzer;
+import android.os.Looper
+import androidx.fragment.app.Fragment
+import org.robolectric.Robolectric
+import org.robolectric.Shadows
 
-import android.content.Intent;
-import android.os.Bundle;
+enum class RobolectricUtil {
+    INSTANCE;
 
-import androidx.appcompat.app.AppCompatActivity;
+    val activity: MainActivity = Robolectric.buildActivity(MainActivity::class.java).create().resume().get()
 
-public class SplashActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+    fun startFragment(fragment: Fragment) {
+        val fragmentManager = activity.supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.add(fragment, null)
+        fragmentTransaction.commit()
+        clearLooper()
     }
+
+    fun clearLooper() {
+        Shadows.shadowOf(Looper.getMainLooper()).idle()
+    }
+
 }

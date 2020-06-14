@@ -64,7 +64,7 @@ class ChannelGraphView implements GraphViewNotifier {
 
     @Override
     public void update(@NonNull WiFiData wiFiData) {
-        Settings settings = MainContext.INSTANCE.getSettings();
+        Settings settings = MainContext.INSTANCE.settings;
         Predicate<WiFiDetail> predicate = FilterPredicate.makeOtherPredicate(settings);
         List<WiFiDetail> wiFiDetails = wiFiData.wiFiDetails(predicate, settings.sortBy());
         Set<WiFiDetail> newSeries = dataManager.getNewSeries(wiFiDetails, wiFiChannelPair);
@@ -75,9 +75,9 @@ class ChannelGraphView implements GraphViewNotifier {
     }
 
     private boolean isSelected() {
-        Settings settings = MainContext.INSTANCE.getSettings();
+        Settings settings = MainContext.INSTANCE.settings;
         WiFiBand currentWiFiBand = settings.wiFiBand();
-        Configuration configuration = MainContext.INSTANCE.getConfiguration();
+        Configuration configuration = MainContext.INSTANCE.configuration;
         Pair<WiFiChannel, WiFiChannel> currentWiFiChannelPair = configuration.getWiFiChannelPair();
         return wiFiBand.equals(currentWiFiBand) && (WiFiBand.GHZ2.equals(wiFiBand) || wiFiChannelPair.equals(currentWiFiChannelPair));
     }
@@ -107,8 +107,8 @@ class ChannelGraphView implements GraphViewNotifier {
     @NonNull
     private GraphViewWrapper makeGraphViewWrapper() {
         MainContext mainContext = MainContext.INSTANCE;
-        Settings settings = mainContext.getSettings();
-        Configuration configuration = mainContext.getConfiguration();
+        Settings settings = mainContext.settings;
+        Configuration configuration = mainContext.configuration;
         ThemeStyle themeStyle = settings.themeStyle();
         int graphMaximumY = settings.graphMaximumY();
         GraphView graphView = makeGraphView(mainContext, graphMaximumY, themeStyle);
