@@ -1,8 +1,9 @@
 <h1>WiFi Analyzer <img src="images/icon.png" alt="Application Icon" width="45" height="45"></h1>
 
-### News: We are happy to announce that Android Authority recently selected WiFi Analyzer to be one of the 15 most useful apps for Android, [click here](https://www.androidauthority.com/most-useful-apps-for-android-603100/amp) to learn more about it!
-
-Optimize your WiFi network using WiFi Analyzer by examining surrounding WiFi networks, measuring their signal strength as well as identifying crowded channels.
+## News: 
+- WiFi Analyzer rated as one of the 15 most useful apps for Android by [Android Authority](https://www.androidauthority.com/most-useful-apps-for-android-603100/amp)
+- [Gizmodo](https://gizmodo.com/the-best-wifi-analyzer-apps-to-troubleshoot-your-networ-1843957301) rates WiFi Analyzer one of The Best Apps for Fixing Your WiFi
+- WiFi Analyzer featured in [The NY Times Wirecutter](https://www.nytimes.com/wirecutter/reviews/best-wi-fi-router) – The Best Wi-fi Router
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=com.vrem.wifianalyzer)
 [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/repository/browse/?fdid=com.vrem.wifianalyzer)
