@@ -32,8 +32,7 @@ import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
-import com.vrem.wifianalyzer.wifi.graphutils.GraphColor;
-import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
+import com.vrem.wifianalyzer.wifi.graphutils.GraphColorsKt;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewBuilder;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewNotifier;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper;
@@ -48,6 +47,9 @@ import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
+
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MIN_Y;
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.THICKNESS_INVISIBLE;
 
 class ChannelGraphView implements GraphViewNotifier {
     private final WiFiBand wiFiBand;
@@ -71,7 +73,7 @@ class ChannelGraphView implements GraphViewNotifier {
         dataManager.addSeriesData(graphViewWrapper, newSeries, settings.graphMaximumY());
         graphViewWrapper.removeSeries(newSeries);
         graphViewWrapper.updateLegend(settings.channelGraphLegend());
-        graphViewWrapper.setVisibility(isSelected() ? View.VISIBLE : View.GONE);
+        graphViewWrapper.visibility(isSelected() ? View.VISIBLE : View.GONE);
     }
 
     private boolean isSelected() {
@@ -84,7 +86,7 @@ class ChannelGraphView implements GraphViewNotifier {
 
     @Override
     @NonNull
-    public GraphView getGraphView() {
+    public GraphView graphView() {
         return graphViewWrapper.getGraphView();
     }
 
@@ -97,11 +99,11 @@ class ChannelGraphView implements GraphViewNotifier {
     @NonNull
     private GraphView makeGraphView(@NonNull MainContext mainContext, int graphMaximumY, @NonNull ThemeStyle themeStyle) {
         Resources resources = mainContext.getResources();
-        return new GraphViewBuilder(mainContext.getContext(), getNumX(), graphMaximumY, themeStyle)
+        return new GraphViewBuilder(getNumX(), graphMaximumY, themeStyle, true)
             .setLabelFormatter(new ChannelAxisLabel(wiFiBand, wiFiChannelPair))
             .setVerticalTitle(resources.getString(R.string.graph_axis_y))
             .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
-            .build();
+            .build(mainContext.getContext());
     }
 
     @NonNull
@@ -113,7 +115,7 @@ class ChannelGraphView implements GraphViewNotifier {
         int graphMaximumY = settings.graphMaximumY();
         GraphView graphView = makeGraphView(mainContext, graphMaximumY, themeStyle);
         graphViewWrapper = new GraphViewWrapper(graphView, settings.channelGraphLegend(), themeStyle);
-        configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
+        configuration.setSize(graphViewWrapper.size(graphViewWrapper.calculateGraphType()));
         int minX = wiFiChannelPair.first.getFrequency() - WiFiChannels.FREQUENCY_OFFSET;
         int maxX = minX + (graphViewWrapper.getViewportCntX() * WiFiChannels.FREQUENCY_SPREAD);
         graphViewWrapper.setViewport(minX, maxX);
@@ -123,13 +125,13 @@ class ChannelGraphView implements GraphViewNotifier {
 
     private TitleLineGraphSeries<DataPoint> makeDefaultSeries(int frequencyEnd, int minX) {
         DataPoint[] dataPoints = new DataPoint[]{
-            new DataPoint(minX, GraphConstants.MIN_Y),
-            new DataPoint(frequencyEnd + WiFiChannels.FREQUENCY_OFFSET, GraphConstants.MIN_Y)
+            new DataPoint(minX, MIN_Y),
+            new DataPoint(frequencyEnd + WiFiChannels.FREQUENCY_OFFSET, MIN_Y)
         };
 
         TitleLineGraphSeries<DataPoint> series = new TitleLineGraphSeries<>(dataPoints);
-        series.setColor((int) GraphColor.TRANSPARENT.getPrimary());
-        series.setThickness(GraphConstants.THICKNESS_INVISIBLE);
+        series.setColor((int) GraphColorsKt.getTransparent().getPrimary());
+        series.setThickness(THICKNESS_INVISIBLE);
         return series;
     }
 

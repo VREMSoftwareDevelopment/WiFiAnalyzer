@@ -72,7 +72,7 @@ public class ChannelGraphAdapterTest {
         // setup
         int expected = expectedCount();
         // execute
-        List<GraphViewNotifier> graphViewNotifiers = fixture.getGraphViewNotifiers();
+        List<GraphViewNotifier> graphViewNotifiers = fixture.graphViewNotifiers();
         // validate
         assertEquals(expected, graphViewNotifiers.size());
     }
@@ -90,7 +90,7 @@ public class ChannelGraphAdapterTest {
         // setup
         int expected = expectedCount();
         // execute
-        List<GraphView> graphViews = fixture.getGraphViews();
+        List<GraphView> graphViews = fixture.graphViews();
         // validate
         assertEquals(expected, graphViews.size());
     }

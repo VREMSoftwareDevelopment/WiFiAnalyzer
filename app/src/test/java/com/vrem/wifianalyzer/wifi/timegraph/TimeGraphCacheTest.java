@@ -19,7 +19,6 @@
 package com.vrem.wifianalyzer.wifi.timegraph;
 
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
-import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
@@ -34,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MAX_NOT_SEEN_COUNT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -106,7 +106,7 @@ public class TimeGraphCacheTest {
             results.add(wiFiDetail);
         }
         IterableUtils.forEach(results, new AddClosure());
-        for (int i = 0; i < GraphConstants.MAX_NOTSEEN_COUNT; i++) {
+        for (int i = 0; i < MAX_NOT_SEEN_COUNT; i++) {
             fixture.add(results.get(0));
         }
         return results;

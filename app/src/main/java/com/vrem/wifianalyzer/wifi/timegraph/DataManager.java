@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.wifi.timegraph;
 
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
@@ -33,6 +32,10 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import androidx.annotation.NonNull;
+
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MAX_SCAN_COUNT;
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MIN_Y;
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MIN_Y_OFFSET;
 
 class DataManager {
     private int scanCount;
@@ -52,7 +55,7 @@ class DataManager {
         adjustData(graphViewWrapper, inOrder);
         Set<WiFiDetail> result = getNewSeries(inOrder);
         xValue++;
-        if (scanCount < GraphConstants.MAX_SCAN_COUNT) {
+        if (scanCount < MAX_SCAN_COUNT) {
             scanCount++;
         }
         if (scanCount == 2) {
@@ -76,9 +79,8 @@ class DataManager {
     void addData(@NonNull GraphViewWrapper graphViewWrapper, @NonNull WiFiDetail wiFiDetail, int levelMax) {
         boolean drawBackground = wiFiDetail.getWiFiAdditional().getWiFiConnection().connected();
         int level = Math.min(wiFiDetail.getWiFiSignal().getLevel(), levelMax);
-        if (graphViewWrapper.isNewSeries(wiFiDetail)) {
-            DataPoint dataPoint = new DataPoint(xValue, scanCount > 0
-                ? GraphConstants.MIN_Y + GraphConstants.MIN_Y_OFFSET : level);
+        if (graphViewWrapper.newSeries(wiFiDetail)) {
+            DataPoint dataPoint = new DataPoint(xValue, scanCount > 0 ? MIN_Y + MIN_Y_OFFSET : level);
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{dataPoint});
             graphViewWrapper.addSeries(wiFiDetail, series, drawBackground);
         } else {
@@ -128,7 +130,7 @@ class DataManager {
 
         @Override
         public void execute(WiFiDetail wiFiDetail) {
-            DataPoint dataPoint = new DataPoint(xValue, GraphConstants.MIN_Y + GraphConstants.MIN_Y_OFFSET);
+            DataPoint dataPoint = new DataPoint(xValue, MIN_Y + MIN_Y_OFFSET);
             boolean drawBackground = wiFiDetail.getWiFiAdditional().getWiFiConnection().connected();
             graphViewWrapper.appendToSeries(wiFiDetail, dataPoint, scanCount, drawBackground);
             timeGraphCache.add(wiFiDetail);

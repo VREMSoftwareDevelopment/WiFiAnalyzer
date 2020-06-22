@@ -27,7 +27,6 @@ import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphLegend;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
@@ -48,6 +47,7 @@ import java.util.Set;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MAX_Y;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -73,6 +73,8 @@ public class TimeGraphViewTest {
 
         settings = MainContextHelper.INSTANCE.getSettings();
 
+        withSettings();
+
         fixture = new TimeGraphView(WiFiBand.GHZ2);
         fixture.setGraphViewWrapper(graphViewWrapper);
         fixture.setDataManager(dataManager);
@@ -89,14 +91,13 @@ public class TimeGraphViewTest {
         List<WiFiDetail> wiFiDetails = Collections.emptyList();
         Set<WiFiDetail> newSeries = Collections.emptySet();
         WiFiData wiFiData = new WiFiData(wiFiDetails, WiFiConnection.EMPTY);
-        withSettings();
-        when(dataManager.addSeriesData(graphViewWrapper, wiFiDetails, GraphConstants.MAX_Y)).thenReturn(newSeries);
+        when(dataManager.addSeriesData(graphViewWrapper, wiFiDetails, MAX_Y)).thenReturn(newSeries);
         // execute
         fixture.update(wiFiData);
         // validate
         verify(graphViewWrapper).removeSeries(newSeries);
         verify(graphViewWrapper).updateLegend(GraphLegend.LEFT);
-        verify(graphViewWrapper).setVisibility(View.VISIBLE);
+        verify(graphViewWrapper).visibility(View.VISIBLE);
         verifySettings();
     }
 
@@ -112,7 +113,7 @@ public class TimeGraphViewTest {
         when(settings.sortBy()).thenReturn(SortBy.SSID);
         when(settings.timeGraphLegend()).thenReturn(GraphLegend.LEFT);
         when(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2);
-        when(settings.graphMaximumY()).thenReturn(GraphConstants.MAX_Y);
+        when(settings.graphMaximumY()).thenReturn(MAX_Y);
         when(settings.themeStyle()).thenReturn(ThemeStyle.DARK);
     }
 
@@ -122,9 +123,12 @@ public class TimeGraphViewTest {
         GraphView expected = mock(GraphView.class);
         when(graphViewWrapper.getGraphView()).thenReturn(expected);
         // execute
-        GraphView actual = fixture.getGraphView();
+        GraphView actual = fixture.graphView();
         // validate
         assertEquals(expected, actual);
         verify(graphViewWrapper).getGraphView();
+        verify(settings).timeGraphLegend();
+        verify(settings).graphMaximumY();
+        verify(settings).themeStyle();
     }
 }

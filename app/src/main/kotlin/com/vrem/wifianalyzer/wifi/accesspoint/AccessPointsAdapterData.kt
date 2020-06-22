@@ -22,7 +22,9 @@ import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.MainContext.INSTANCE
 import com.vrem.wifianalyzer.SIZE_MAX
 import com.vrem.wifianalyzer.SIZE_MIN
-import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants.*
+import com.vrem.wifianalyzer.wifi.graphutils.TYPE1
+import com.vrem.wifianalyzer.wifi.graphutils.TYPE2
+import com.vrem.wifianalyzer.wifi.graphutils.TYPE3
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.predicate.FilterPredicate

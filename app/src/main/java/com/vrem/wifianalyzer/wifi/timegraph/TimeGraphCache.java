@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.timegraph;
 
-import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 
 import org.apache.commons.collections4.Closure;
@@ -32,6 +31,8 @@ import java.util.Map;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
+
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MAX_NOT_SEEN_COUNT;
 
 class TimeGraphCache {
     private final Map<WiFiDetail, Integer> notSeen;
@@ -80,14 +81,14 @@ class TimeGraphCache {
     private class SeenPredicate implements Predicate<WiFiDetail> {
         @Override
         public boolean evaluate(WiFiDetail object) {
-            return notSeen.get(object) <= GraphConstants.MAX_NOTSEEN_COUNT;
+            return notSeen.get(object) <= MAX_NOT_SEEN_COUNT;
         }
     }
 
     private class NotSeenPredicate implements Predicate<WiFiDetail> {
         @Override
         public boolean evaluate(WiFiDetail object) {
-            return notSeen.get(object) > GraphConstants.MAX_NOTSEEN_COUNT;
+            return notSeen.get(object) > MAX_NOT_SEEN_COUNT;
         }
     }
 

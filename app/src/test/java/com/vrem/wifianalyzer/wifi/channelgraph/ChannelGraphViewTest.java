@@ -28,7 +28,6 @@ import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.settings.ThemeStyle;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
-import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphLegend;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.SortBy;
@@ -50,10 +49,12 @@ import java.util.Set;
 import androidx.core.util.Pair;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MAX_Y;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
@@ -76,6 +77,8 @@ public class ChannelGraphViewTest {
 
         settings = MainContextHelper.INSTANCE.getSettings();
 
+        withSettings();
+
         wiFiChannelPair = new Pair<>(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN);
         fixture = new ChannelGraphView(WiFiBand.GHZ2, wiFiChannelPair);
         fixture.setGraphViewWrapper(graphViewWrapper);
@@ -84,6 +87,11 @@ public class ChannelGraphViewTest {
 
     @After
     public void tearDown() {
+        verifyNoMoreInteractions(graphViewWrapper);
+        verifyNoMoreInteractions(dataManager);
+/*
+        verifyNoMoreInteractions(settings);
+*/
         MainContextHelper.INSTANCE.restore();
     }
 
@@ -94,31 +102,29 @@ public class ChannelGraphViewTest {
         List<WiFiDetail> wiFiDetails = Collections.emptyList();
         WiFiData wiFiData = new WiFiData(wiFiDetails, WiFiConnection.EMPTY);
         when(dataManager.getNewSeries(wiFiDetails, wiFiChannelPair)).thenReturn(newSeries);
-        withSettings();
+        when(settings.sortBy()).thenReturn(SortBy.CHANNEL);
         // execute
         fixture.update(wiFiData);
         // validate
         verify(dataManager).getNewSeries(wiFiDetails, wiFiChannelPair);
-        verify(dataManager).addSeriesData(graphViewWrapper, newSeries, GraphConstants.MAX_Y);
+        verify(dataManager).addSeriesData(graphViewWrapper, newSeries, MAX_Y);
         verify(graphViewWrapper).removeSeries(newSeries);
         verify(graphViewWrapper).updateLegend(GraphLegend.RIGHT);
-        verify(graphViewWrapper).setVisibility(View.VISIBLE);
+        verify(graphViewWrapper).visibility(View.VISIBLE);
+        verify(settings).sortBy();
         verifySettings();
     }
 
     private void verifySettings() {
-        verify(settings).sortBy();
         verify(settings, times(2)).channelGraphLegend();
-        verify(settings, times(2)).wiFiBand();
         verify(settings, times(2)).graphMaximumY();
         verify(settings).themeStyle();
     }
 
     private void withSettings() {
         when(settings.channelGraphLegend()).thenReturn(GraphLegend.RIGHT);
-        when(settings.sortBy()).thenReturn(SortBy.CHANNEL);
         when(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2);
-        when(settings.graphMaximumY()).thenReturn(GraphConstants.MAX_Y);
+        when(settings.graphMaximumY()).thenReturn(MAX_Y);
         when(settings.themeStyle()).thenReturn(ThemeStyle.DARK);
     }
 
@@ -128,9 +134,12 @@ public class ChannelGraphViewTest {
         GraphView expected = mock(GraphView.class);
         when(graphViewWrapper.getGraphView()).thenReturn(expected);
         // execute
-        GraphView actual = fixture.getGraphView();
+        GraphView actual = fixture.graphView();
         // validate
         assertEquals(expected, actual);
         verify(graphViewWrapper).getGraphView();
+        verify(settings).channelGraphLegend();
+        verify(settings).graphMaximumY();
+        verify(settings).themeStyle();
     }
 }

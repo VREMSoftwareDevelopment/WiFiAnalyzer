@@ -18,12 +18,12 @@
 
 package com.vrem.wifianalyzer.wifi.timegraph;
 
-import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
-
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MAX_Y;
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MIN_Y;
 import static org.junit.Assert.assertEquals;
 
 public class TimeAxisLabelTest {
@@ -36,10 +36,10 @@ public class TimeAxisLabelTest {
 
     @Test
     public void testYAxis() {
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(GraphConstants.MIN_Y, false));
-        assertEquals("-99", fixture.formatLabel(GraphConstants.MIN_Y + 1, false));
-        assertEquals("0", fixture.formatLabel(GraphConstants.MAX_Y, false));
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(GraphConstants.MAX_Y + 1, false));
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(MIN_Y, false));
+        assertEquals("-99", fixture.formatLabel(MIN_Y + 1, false));
+        assertEquals("0", fixture.formatLabel(MAX_Y, false));
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(MAX_Y + 1, false));
     }
 
     @Test

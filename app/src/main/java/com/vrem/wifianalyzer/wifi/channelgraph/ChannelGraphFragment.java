@@ -27,7 +27,6 @@ import android.widget.LinearLayout;
 import com.vrem.util.BuildUtilsKt;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.databinding.GraphContentBinding;
-import com.vrem.wifianalyzer.wifi.graphutils.GraphViewAdd;
 
 import org.apache.commons.collections4.IterableUtils;
 
@@ -62,7 +61,7 @@ public class ChannelGraphFragment extends Fragment implements OnRefreshListener 
     }
 
     private void addGraphViews(GraphContentBinding binding, ChannelGraphAdapter channelGraphAdapter) {
-        IterableUtils.forEach(channelGraphAdapter.getGraphViews(), new GraphViewAdd(binding.graphFlipper));
+        IterableUtils.forEach(channelGraphAdapter.graphViews(), graphView -> binding.graphFlipper.addView(graphView));
     }
 
     @Override

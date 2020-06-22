@@ -26,8 +26,6 @@ import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
-import com.vrem.wifianalyzer.wifi.graphutils.DataPointsEquals;
-import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -38,6 +36,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatcher;
 import org.mockito.ArgumentMatchers;
 import org.robolectric.annotation.Config;
 import org.robolectric.annotation.LooperMode;
@@ -51,6 +50,7 @@ import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MAX_Y;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -94,7 +94,7 @@ public class DataManagerTest {
         // setup
         WiFiDetail expected = makeWiFiDetail("SSID", 2455);
         // execute
-        DataPoint[] actual = fixture.getDataPoints(expected, GraphConstants.MAX_Y);
+        DataPoint[] actual = fixture.getDataPoints(expected, MAX_Y);
         // validate
         assertEquals(5, actual.length);
         assertEquals(new DataPoint(2445, -100).toString(), actual[0].toString());
@@ -126,12 +126,12 @@ public class DataManagerTest {
         GraphViewWrapper graphViewWrapper = mock(GraphViewWrapper.class);
         WiFiDetail wiFiDetail = makeWiFiDetail("SSID", 2455);
         Set<WiFiDetail> wiFiDetails = Collections.singleton(wiFiDetail);
-        DataPoint[] dataPoints = fixture.getDataPoints(wiFiDetail, GraphConstants.MAX_Y);
-        when(graphViewWrapper.isNewSeries(wiFiDetail)).thenReturn(false);
+        DataPoint[] dataPoints = fixture.getDataPoints(wiFiDetail, MAX_Y);
+        when(graphViewWrapper.newSeries(wiFiDetail)).thenReturn(false);
         // execute
-        fixture.addSeriesData(graphViewWrapper, wiFiDetails, GraphConstants.MAX_Y);
+        fixture.addSeriesData(graphViewWrapper, wiFiDetails, MAX_Y);
         // validate
-        verify(graphViewWrapper).isNewSeries(wiFiDetail);
+        verify(graphViewWrapper).newSeries(wiFiDetail);
         verify(graphViewWrapper).updateSeries(
             eq(wiFiDetail),
             argThat(new DataPointsEquals(dataPoints)),
@@ -144,11 +144,11 @@ public class DataManagerTest {
         GraphViewWrapper graphViewWrapper = mock(GraphViewWrapper.class);
         WiFiDetail wiFiDetail = makeWiFiDetail("SSID", 2455);
         Set<WiFiDetail> wiFiDetails = Collections.singleton(wiFiDetail);
-        when(graphViewWrapper.isNewSeries(wiFiDetail)).thenReturn(true);
+        when(graphViewWrapper.newSeries(wiFiDetail)).thenReturn(true);
         // execute
-        fixture.addSeriesData(graphViewWrapper, wiFiDetails, GraphConstants.MAX_Y);
+        fixture.addSeriesData(graphViewWrapper, wiFiDetails, MAX_Y);
         // validate
-        verify(graphViewWrapper).isNewSeries(wiFiDetail);
+        verify(graphViewWrapper).newSeries(wiFiDetail);
         verify(graphViewWrapper).addSeries(
             eq(wiFiDetail),
             ArgumentMatchers.<TitleLineGraphSeries<DataPoint>>any(),
@@ -164,4 +164,42 @@ public class DataManagerTest {
     private List<WiFiDetail> makeWiFiDetails(int frequency) {
         return Arrays.asList(makeWiFiDetail("SSID1", frequency), makeWiFiDetail("SSID2", -frequency), makeWiFiDetail("SSID3", frequency));
     }
+
+    private static class DataPointsEquals implements ArgumentMatcher<DataPoint[]> {
+
+        private final DataPoint[] expected;
+
+        public DataPointsEquals(DataPoint[] expected) {
+            this.expected = expected;
+        }
+
+        @Override
+        public boolean matches(DataPoint[] argument) {
+            boolean result = expected.length == argument.length;
+            if (result) {
+                for (int i = 0; i < argument.length; i++) {
+                    result = expected[i].getX() == argument[i].getX() && expected[i].getY() == argument[i].getY();
+                    if (!result) {
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+    }
+
+    private static class DataPointEquals implements ArgumentMatcher<DataPoint> {
+
+        private final DataPoint expected;
+
+        public DataPointEquals(@NonNull DataPoint expected) {
+            this.expected = expected;
+        }
+
+        @Override
+        public boolean matches(DataPoint argument) {
+            return expected.getX() == argument.getX() && expected.getY() == argument.getY();
+        }
+    }
+
 }

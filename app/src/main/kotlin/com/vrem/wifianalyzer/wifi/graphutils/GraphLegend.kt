@@ -15,17 +15,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.graphutils
 
-package com.vrem.wifianalyzer.wifi.graphutils;
+import com.jjoe64.graphview.LegendRenderer
 
-import com.jjoe64.graphview.GraphView;
-import com.vrem.wifianalyzer.wifi.model.WiFiData;
+internal typealias LegendDisplay = (legendRenderer: LegendRenderer) -> Unit
 
-import androidx.annotation.NonNull;
+internal val legendDisplayNone: LegendDisplay = { it.isVisible = false }
 
-public interface GraphViewNotifier {
-    @NonNull
-    GraphView getGraphView();
+internal val legendDisplayLeft: LegendDisplay = {
+    it.isVisible = true
+    it.setFixedPosition(0, 0)
+}
 
-    void update(@NonNull WiFiData wiFiData);
+internal val legendDisplayRight: LegendDisplay = {
+    it.isVisible = true
+    it.align = LegendRenderer.LegendAlign.TOP
+}
+
+enum class GraphLegend(val legendDisplay: LegendDisplay) {
+    LEFT(legendDisplayLeft),
+    RIGHT(legendDisplayRight),
+    HIDE(legendDisplayNone);
+
+    fun display(legendRenderer: LegendRenderer) {
+        legendDisplay(legendRenderer)
+    }
+
 }

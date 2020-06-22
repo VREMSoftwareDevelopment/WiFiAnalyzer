@@ -63,7 +63,7 @@ class TimeGraphView implements GraphViewNotifier {
         Set<WiFiDetail> newSeries = dataManager.addSeriesData(graphViewWrapper, wiFiDetails, settings.graphMaximumY());
         graphViewWrapper.removeSeries(newSeries);
         graphViewWrapper.updateLegend(settings.timeGraphLegend());
-        graphViewWrapper.setVisibility(isSelected() ? View.VISIBLE : View.GONE);
+        graphViewWrapper.visibility(isSelected() ? View.VISIBLE : View.GONE);
     }
 
     private boolean isSelected() {
@@ -72,7 +72,7 @@ class TimeGraphView implements GraphViewNotifier {
 
     @Override
     @NonNull
-    public GraphView getGraphView() {
+    public GraphView graphView() {
         return graphViewWrapper.getGraphView();
     }
 
@@ -87,12 +87,11 @@ class TimeGraphView implements GraphViewNotifier {
     @NonNull
     private GraphView makeGraphView(@NonNull MainContext mainContext, int graphMaximumY, @NonNull ThemeStyle themeStyle) {
         Resources resources = mainContext.getResources();
-        return new GraphViewBuilder(mainContext.getContext(), NUM_X_TIME, graphMaximumY, themeStyle)
+        return new GraphViewBuilder(NUM_X_TIME, graphMaximumY, themeStyle, false)
             .setLabelFormatter(new TimeAxisLabel())
             .setVerticalTitle(resources.getString(R.string.graph_axis_y))
             .setHorizontalTitle(resources.getString(R.string.graph_time_axis_x))
-            .setHorizontalLabelsVisible(false)
-            .build();
+            .build(mainContext.getContext());
     }
 
     @NonNull
@@ -104,7 +103,7 @@ class TimeGraphView implements GraphViewNotifier {
         Configuration configuration = mainContext.configuration;
         GraphView graphView = makeGraphView(mainContext, graphMaximumY, themeStyle);
         graphViewWrapper = new GraphViewWrapper(graphView, settings.timeGraphLegend(), themeStyle);
-        configuration.setSize(graphViewWrapper.getSize(graphViewWrapper.calculateGraphType()));
+        configuration.setSize(graphViewWrapper.size(graphViewWrapper.calculateGraphType()));
         graphViewWrapper.setViewport();
         return graphViewWrapper;
     }

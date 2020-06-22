@@ -23,7 +23,6 @@ import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
-import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
@@ -34,6 +33,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Locale;
 
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MAX_Y;
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MIN_Y;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -59,10 +60,10 @@ public class ChannelAxisLabelTest {
 
     @Test
     public void testYAxis() {
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(GraphConstants.MIN_Y, false));
-        assertEquals("-99", fixture.formatLabel(GraphConstants.MIN_Y + 1, false));
-        assertEquals("0", fixture.formatLabel(GraphConstants.MAX_Y, false));
-        assertEquals(StringUtils.EMPTY, fixture.formatLabel(GraphConstants.MAX_Y + 1, false));
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(MIN_Y, false));
+        assertEquals("-99", fixture.formatLabel(MIN_Y + 1, false));
+        assertEquals("0", fixture.formatLabel(MAX_Y, false));
+        assertEquals(StringUtils.EMPTY, fixture.formatLabel(MAX_Y + 1, false));
     }
 
     @Test

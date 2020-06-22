@@ -15,25 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.graphutils
 
-package com.vrem.wifianalyzer.wifi.graphutils;
+import com.jjoe64.graphview.GraphView
+import com.vrem.wifianalyzer.wifi.model.WiFiData
 
-import com.jjoe64.graphview.series.DataPoint;
-
-import org.mockito.ArgumentMatcher;
-
-import androidx.annotation.NonNull;
-
-public class DataPointEquals implements ArgumentMatcher<DataPoint> {
-
-    private final DataPoint expected;
-
-    public DataPointEquals(@NonNull DataPoint expected) {
-        this.expected = expected;
-    }
-
-    @Override
-    public boolean matches(DataPoint argument) {
-        return expected.getX() == argument.getX() && expected.getY() == argument.getY();
-    }
+interface GraphViewNotifier {
+    fun graphView(): GraphView
+    fun update(wiFiData: WiFiData)
 }

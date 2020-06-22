@@ -22,7 +22,6 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.TitleLineGraphSeries;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
-import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
@@ -38,6 +37,8 @@ import java.util.TreeSet;
 import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
 
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MIN_Y;
+
 class DataManager {
     @NonNull
     Set<WiFiDetail> getNewSeries(@NonNull List<WiFiDetail> wiFiDetails, @NonNull Pair<WiFiChannel, WiFiChannel> wiFiChannelPair) {
@@ -51,11 +52,11 @@ class DataManager {
         int frequencyEnd = wiFiSignal.frequencyEnd();
         int level = Math.min(wiFiSignal.getLevel(), levelMax);
         return new DataPoint[]{
-            new DataPoint(frequencyStart, GraphConstants.MIN_Y),
+            new DataPoint(frequencyStart, MIN_Y),
             new DataPoint(frequencyStart + WiFiChannels.FREQUENCY_SPREAD, level),
             new DataPoint(wiFiSignal.getCenterFrequency(), level),
             new DataPoint(frequencyEnd - WiFiChannels.FREQUENCY_SPREAD, level),
-            new DataPoint(frequencyEnd, GraphConstants.MIN_Y)
+            new DataPoint(frequencyEnd, MIN_Y)
         };
     }
 
@@ -75,7 +76,7 @@ class DataManager {
         @Override
         public void execute(WiFiDetail wiFiDetail) {
             DataPoint[] dataPoints = getDataPoints(wiFiDetail, levelMax);
-            if (graphViewWrapper.isNewSeries(wiFiDetail)) {
+            if (graphViewWrapper.newSeries(wiFiDetail)) {
                 graphViewWrapper.addSeries(wiFiDetail, new TitleLineGraphSeries<>(dataPoints), true);
             } else {
                 graphViewWrapper.updateSeries(wiFiDetail, dataPoints, true);

@@ -62,7 +62,7 @@ public class TimeGraphAdapterTest {
     @Test
     public void testGetGraphViewNotifiers() {
         // execute
-        List<GraphViewNotifier> graphViewNotifiers = fixture.getGraphViewNotifiers();
+        List<GraphViewNotifier> graphViewNotifiers = fixture.graphViewNotifiers();
         // validate
         assertEquals(WiFiBand.values().length, graphViewNotifiers.size());
     }
@@ -70,7 +70,7 @@ public class TimeGraphAdapterTest {
     @Test
     public void testGetGraphViews() {
         // execute
-        List<GraphView> graphViews = fixture.getGraphViews();
+        List<GraphView> graphViews = fixture.graphViews();
         // validate
         assertEquals(WiFiBand.values().length, graphViews.size());
     }

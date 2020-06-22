@@ -25,12 +25,14 @@ import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
-import com.vrem.wifianalyzer.wifi.graphutils.GraphConstants;
 
 import org.apache.commons.lang3.StringUtils;
 
 import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
+
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MAX_Y;
+import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MIN_Y;
 
 class ChannelAxisLabel implements LabelFormatter {
     private final WiFiBand wiFiBand;
@@ -49,7 +51,7 @@ class ChannelAxisLabel implements LabelFormatter {
         if (isValueX) {
             result += findChannel(valueAsInt);
         } else {
-            if (valueAsInt <= GraphConstants.MAX_Y && valueAsInt > GraphConstants.MIN_Y) {
+            if (valueAsInt <= MAX_Y && valueAsInt > MIN_Y) {
                 result += Integer.toString(valueAsInt);
             }
         }

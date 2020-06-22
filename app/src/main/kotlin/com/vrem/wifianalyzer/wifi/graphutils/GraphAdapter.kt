@@ -15,27 +15,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.graphutils
 
-package com.vrem.wifianalyzer.wifi.graphutils;
+import com.jjoe64.graphview.GraphView
+import com.vrem.wifianalyzer.wifi.model.WiFiData
+import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier
 
-import android.view.ViewGroup;
+open class GraphAdapter(private val graphViewNotifiers: List<GraphViewNotifier>) : UpdateNotifier {
+    fun graphViews(): List<GraphView> = graphViewNotifiers.map { it.graphView() }
 
-import com.jjoe64.graphview.GraphView;
+    override fun update(wiFiData: WiFiData) = graphViewNotifiers.forEach { it.update(wiFiData) }
 
-import org.apache.commons.collections4.Closure;
+    fun graphViewNotifiers(): List<GraphViewNotifier> = graphViewNotifiers
 
-import androidx.annotation.NonNull;
-
-public class GraphViewAdd implements Closure<GraphView> {
-    private final ViewGroup viewGroup;
-
-    public GraphViewAdd(@NonNull ViewGroup viewGroup) {
-        this.viewGroup = viewGroup;
-    }
-
-    @Override
-    public void execute(GraphView graphView) {
-        viewGroup.addView(graphView);
-    }
 }
-

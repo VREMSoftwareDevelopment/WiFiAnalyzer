@@ -26,7 +26,6 @@ import android.view.ViewGroup;
 import com.vrem.util.BuildUtilsKt;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.databinding.GraphContentBinding;
-import com.vrem.wifianalyzer.wifi.graphutils.GraphViewAdd;
 
 import org.apache.commons.collections4.IterableUtils;
 
@@ -58,7 +57,7 @@ public class TimeGraphFragment extends Fragment implements SwipeRefreshLayout.On
     }
 
     private void addGraphViews(GraphContentBinding binding, TimeGraphAdapter timeGraphAdapter) {
-        IterableUtils.forEach(timeGraphAdapter.getGraphViews(), new GraphViewAdd(binding.graphFlipper));
+        IterableUtils.forEach(timeGraphAdapter.graphViews(), graphView -> binding.graphFlipper.addView(graphView));
     }
 
     @Override
