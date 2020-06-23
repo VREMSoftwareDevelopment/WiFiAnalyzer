@@ -1,8 +1,9 @@
 <h1>WiFi Analyzer <img src="images/icon.png" alt="Application Icon" width="45" height="45"></h1>
 
-### News: We are happy to announce that Android Authority recently selected WiFi Analyzer to be one of the 15 most useful apps for Android, [click here](https://www.androidauthority.com/most-useful-apps-for-android-603100/amp) to learn more about it!
-
-Optimize your WiFi network using WiFi Analyzer by examining surrounding WiFi networks, measuring their signal strength as well as identifying crowded channels.
+## News: 
+- WiFi Analyzer rated as one of the 15 most useful apps for Android by [Android Authority](https://www.androidauthority.com/most-useful-apps-for-android-603100/amp)
+- [Gizmodo](https://gizmodo.com/the-best-wifi-analyzer-apps-to-troubleshoot-your-networ-1843957301) rates WiFi Analyzer one of The Best Apps for Fixing Your WiFi
+- WiFi Analyzer featured in [The NY Times Wirecutter](https://www.nytimes.com/wirecutter/reviews/best-wi-fi-router) – The Best Wi-fi Router
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=com.vrem.wifianalyzer)
 [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/repository/browse/?fdid=com.vrem.wifianalyzer)
@@ -14,9 +15,7 @@ This is the official repository of WiFi Analyzer.
 <img src="images/feature-graphic.png" alt="Feature Graphic - Dark Theme" height="200">
 <img src="images/feature-graphic-light.png" alt="Feature Graphic - Light Theme" height="200">
 
-### The open-source app was created using Agile methodologies, [click here](http://i-proving.com/2016/10/13/using-agile-methodologies-develop-open-source-android-app) to learn more about it.
-
-[<img src="https://i-proving.com/wp-content/uploads/2016/07/cropped-i-proving-logo.png" alt="i-proving" height="40">](http://i-proving.com)
+### The open-source app was created using Agile methodologies, [click here](https://www.intelliware.com/how-to-use-the-wifianalyzer-open-source/) to learn more about it.
 
 ## Table of Contents
 - [Features](#features)
@@ -49,6 +48,7 @@ This is the official repository of WiFi Analyzer.
  
 ## Usage Tips
 * Tap the title bar to switch between 2.4 and 5 GHz WiFi band.
+* SSID with `***` or `*hidden*` means it is hidden.
 * Access Point security: <img src="images/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20"> WPA3/WPA2/WPA; <img src="images/ic_lock_outline_black_18dp.png" alt="WEP/WPS" height="20"> WEP/WPS; <img src="images/ic_lock_open_black_18dp.png" alt="Disabled" height="20"> Disabled
 
 ## How-to
