@@ -18,7 +18,7 @@
 package com.vrem.wifianalyzer.settings
 
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.util.defaultCountryCode
 import com.vrem.util.defaultLanguageTag
 import com.vrem.util.ordinals
@@ -39,7 +39,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.*
 import java.util.*
 
 
@@ -48,8 +47,8 @@ class SettingsTest {
     private val graphYMultiplier = -10
     private val graphYDefault = 2
 
-    private val repository = mock(Repository::class.java)
-    private val onSharedPreferenceChangeListener = mock(OnSharedPreferenceChangeListener::class.java)
+    private val repository: Repository = mock()
+    private val onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener = mock()
     private val fixture = spy(Settings(repository))
 
     @Before

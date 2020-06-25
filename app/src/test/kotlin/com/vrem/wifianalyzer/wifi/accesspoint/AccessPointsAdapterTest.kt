@@ -22,6 +22,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListView
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
@@ -34,7 +37,6 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.*
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
 
@@ -43,11 +45,11 @@ import org.robolectric.annotation.LooperMode
 @LooperMode(LooperMode.Mode.PAUSED)
 class AccessPointsAdapterTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val accessPointsAdapterData = mock(AccessPointsAdapterData::class.java)
-    private val accessPointDetail = mock(AccessPointDetail::class.java)
-    private val accessPointPopup = mock(AccessPointPopup::class.java)
-    private val expandableListView = mock(ExpandableListView::class.java)
-    private val viewGroup = mock(ViewGroup::class.java)
+    private val accessPointsAdapterData: AccessPointsAdapterData = mock()
+    private val accessPointDetail: AccessPointDetail = mock()
+    private val accessPointPopup: AccessPointPopup = mock()
+    private val expandableListView: ExpandableListView = mock()
+    private val viewGroup: ViewGroup = mock()
     private val settings = MainContextHelper.INSTANCE.settings
     private val fixture = AccessPointsAdapter(accessPointsAdapterData, accessPointDetail, accessPointPopup)
 

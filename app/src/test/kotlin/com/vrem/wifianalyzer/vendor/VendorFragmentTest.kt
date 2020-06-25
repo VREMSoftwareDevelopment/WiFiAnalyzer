@@ -19,6 +19,8 @@ package com.vrem.wifianalyzer.vendor
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
@@ -29,8 +31,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
 
@@ -59,7 +59,7 @@ class VendorFragmentTest {
         // setup
         val values = "     ABS       ADF      "
         val expected = "ABS ADF"
-        val vendorAdapter = mock(VendorAdapter::class.java)
+        val vendorAdapter: VendorAdapter = mock()
         val fixture = VendorFragment.Listener(vendorAdapter)
         // execute
         val actual = fixture.onQueryTextChange(values)
@@ -71,7 +71,7 @@ class VendorFragmentTest {
     @Test
     fun testListenerOnQueryTextChangeWithNull() {
         // setup
-        val vendorAdapter = mock(VendorAdapter::class.java)
+        val vendorAdapter: VendorAdapter = mock()
         val fixture = VendorFragment.Listener(vendorAdapter)
         // execute
         val actual = fixture.onQueryTextChange(String.EMPTY)
@@ -83,7 +83,7 @@ class VendorFragmentTest {
     @Test
     fun testListenerOnQueryTextSubmit() {
         // setup
-        val vendorAdapter = mock(VendorAdapter::class.java)
+        val vendorAdapter: VendorAdapter = mock()
         val fixture = VendorFragment.Listener(vendorAdapter)
         // execute
         val actual = fixture.onQueryTextSubmit(String.EMPTY)

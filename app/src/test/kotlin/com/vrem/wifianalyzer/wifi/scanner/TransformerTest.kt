@@ -19,13 +19,12 @@ package com.vrem.wifianalyzer.wifi.scanner
 
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth
 import com.vrem.wifianalyzer.wifi.model.*
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class TransformerTest {
     private val scanResult1 = withScanResult(SSID_1, BSSID_1, WiFiWidth.MHZ_160)
@@ -205,7 +204,7 @@ class TransformerTest {
     }
 
     private fun withScanResult(ssid: SSID, bssid: BSSID, wiFiWidth: WiFiWidth): ScanResult {
-        val scanResult = mock(ScanResult::class.java)
+        val scanResult: ScanResult = mock()
         scanResult.SSID = ssid
         scanResult.BSSID = bssid
         scanResult.capabilities = WPA
@@ -216,7 +215,7 @@ class TransformerTest {
     }
 
     private fun withWiFiInfo(): WifiInfo {
-        val wifiInfo = mock(WifiInfo::class.java)
+        val wifiInfo: WifiInfo = mock()
         whenever(wifiInfo.networkId).thenReturn(0)
         whenever(wifiInfo.ssid).thenReturn(SSID_1)
         whenever(wifiInfo.bssid).thenReturn(BSSID_1)

@@ -22,24 +22,23 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.view.MenuItem
 import android.view.View
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import org.junit.After
 import org.junit.Assert
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class PortAuthorityItemTest {
     private val portAuthority = "com.aaronjwood.portauthority."
     private val portAuthorityFree = portAuthority + "free"
     private val portAuthorityDonate = portAuthority + "donate"
 
-    private val mainActivity: MainActivity = mock(MainActivity::class.java)
-    private val context: Context = mock(Context::class.java)
-    private val intent: Intent = mock(Intent::class.java)
-    private val menuItem: MenuItem = mock(MenuItem::class.java)
-    private val packageManager: PackageManager = mock(PackageManager::class.java)
+    private val mainActivity: MainActivity = mock()
+    private val context: Context = mock()
+    private val intent: Intent = mock()
+    private val menuItem: MenuItem = mock()
+    private val packageManager: PackageManager = mock()
     private val fixture: PortAuthorityItem = spy(PortAuthorityItem())
 
     @After

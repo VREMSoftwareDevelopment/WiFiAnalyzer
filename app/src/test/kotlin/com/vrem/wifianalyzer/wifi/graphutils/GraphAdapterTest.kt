@@ -18,20 +18,20 @@
 package com.vrem.wifianalyzer.wifi.graphutils
 
 import com.jjoe64.graphview.GraphView
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.Mockito
-import org.mockito.Mockito.verify
-import org.mockito.Mockito.verifyNoMoreInteractions
 
 class GraphAdapterTest {
-    private val graphViewNotifier = Mockito.mock(GraphViewNotifier::class.java)
-    private val graphView = Mockito.mock(GraphView::class.java)
-    private val wiFiData = Mockito.mock(WiFiData::class.java)
+    private val graphViewNotifier: GraphViewNotifier = mock()
+    private val graphView: GraphView = mock()
+    private val wiFiData: WiFiData = mock()
     private val fixture = GraphAdapter(listOf(graphViewNotifier))
 
     @After

@@ -19,20 +19,18 @@ package com.vrem.wifianalyzer.navigation.availability
 
 import android.view.Menu
 import android.view.MenuItem
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
 import org.junit.After
 import org.junit.Test
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.*
 
 class FilterOffTest {
-    private val mainActivity = mock(MainActivity::class.java)
-    private val optionMenu = mock(OptionMenu::class.java)
-    private val menu = mock(Menu::class.java)
-    private val menuItem = mock(MenuItem::class.java)
+    private val mainActivity: MainActivity = mock()
+    private val optionMenu: OptionMenu = mock()
+    private val menu: Menu = mock()
+    private val menuItem: MenuItem = mock()
 
     @After
     fun tearDown() {
@@ -68,6 +66,6 @@ class FilterOffTest {
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu, never()).findItem(R.id.action_filter)
-        verify(menuItem, never()).isVisible = ArgumentMatchers.anyBoolean()
+        verify(menuItem, never()).isVisible = any()
     }
 }

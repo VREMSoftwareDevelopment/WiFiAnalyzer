@@ -23,19 +23,17 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.*
 
 class ActivityUtilsTest {
-    private val window = mock(Window::class.java)
-    private val actionBar = mock(ActionBar::class.java)
-    private val toolbar = mock(Toolbar::class.java)
-    private val intent = mock(Intent::class.java)
+    private val window: Window = mock()
+    private val actionBar: ActionBar = mock()
+    private val toolbar: Toolbar = mock()
+    private val intent: Intent = mock()
     private val mainActivity = MainContextHelper.INSTANCE.mainActivity
     private val settings = MainContextHelper.INSTANCE.settings
 
@@ -61,7 +59,7 @@ class ActivityUtilsTest {
         assertEquals(toolbar, actual)
         verify(mainActivity).findViewById<View>(R.id.toolbar)
         verify(mainActivity).supportActionBar
-        verify(toolbar).setOnClickListener(ArgumentMatchers.any(View.OnClickListener::class.java))
+        verify(toolbar).setOnClickListener(any())
         verify(mainActivity).setSupportActionBar(toolbar)
         verify(actionBar).setHomeButtonEnabled(true)
         verify(actionBar).setDisplayHomeAsUpEnabled(true)
@@ -120,7 +118,7 @@ class ActivityUtilsTest {
         // execute
         mainActivity.startWiFiSettings()
         // validate
-        verify(mainActivity).startActivityForResult(ArgumentMatchers.any(Intent::class.java), ArgumentMatchers.eq(0))
+        verify(mainActivity).startActivityForResult(any(), eq(0))
     }
 
     @Test
@@ -128,6 +126,6 @@ class ActivityUtilsTest {
         // execute
         mainActivity.startLocationSettings()
         // validate
-        verify(mainActivity).startActivity(ArgumentMatchers.any(Intent::class.java))
+        verify(mainActivity).startActivity(any())
     }
 }

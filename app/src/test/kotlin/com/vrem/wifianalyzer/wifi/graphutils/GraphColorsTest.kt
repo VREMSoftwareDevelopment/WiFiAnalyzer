@@ -19,6 +19,9 @@ package com.vrem.wifianalyzer.wifi.graphutils
 
 import android.content.Context
 import android.content.res.Resources
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
@@ -26,11 +29,10 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class GraphColorsTest {
-    private val resources = mock(Resources::class.java)
-    private val context = mock(Context::class.java)
+    private val resources: Resources = mock()
+    private val context: Context = mock()
     private val fixture = GraphColors()
 
     @Before

@@ -19,7 +19,7 @@ package com.vrem.wifianalyzer.wifi.accesspoint
 
 import android.widget.ExpandableListAdapter
 import android.widget.ExpandableListView
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth
 import com.vrem.wifianalyzer.wifi.model.GroupBy
@@ -29,12 +29,10 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.*
 
 class AccessPointsAdapterGroupTest {
-    private val expandableListView = mock(ExpandableListView::class.java)
-    private val expandableListAdapter = mock(ExpandableListAdapter::class.java)
+    private val expandableListView: ExpandableListView = mock()
+    private val expandableListAdapter: ExpandableListAdapter = mock()
     private val settings = INSTANCE.settings
     private val fixture = AccessPointsAdapterGroup()
 
@@ -64,7 +62,7 @@ class AccessPointsAdapterGroupTest {
         verify(settings).groupBy()
         verify(expandableListView).expandableListAdapter
         verify(expandableListAdapter).groupCount
-        verify(expandableListView, times(3)).collapseGroup(ArgumentMatchers.anyInt())
+        verify(expandableListView, times(3)).collapseGroup(any())
         assertEquals(GroupBy.CHANNEL, fixture.groupBy)
     }
 

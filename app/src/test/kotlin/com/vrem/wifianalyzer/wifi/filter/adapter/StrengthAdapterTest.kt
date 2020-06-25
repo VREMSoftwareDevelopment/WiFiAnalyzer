@@ -17,20 +17,22 @@
  */
 package com.vrem.wifianalyzer.wifi.filter.adapter
 
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.model.Strength
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
-import org.mockito.Mockito
 
 class StrengthAdapterTest {
-    private val settings = Mockito.mock(Settings::class.java)
+    private val settings: Settings = mock()
     private val fixture = StrengthAdapter(Strength.values().toSet())
 
     @After
     fun tearDown() {
-        Mockito.verifyNoMoreInteractions(settings)
+        verifyNoMoreInteractions(settings)
     }
 
     @Test
@@ -118,7 +120,7 @@ class StrengthAdapterTest {
         // execute
         fixture.save(settings)
         // execute
-        Mockito.verify(settings).saveStrengths(expected)
+        verify(settings).saveStrengths(expected)
     }
 }
 

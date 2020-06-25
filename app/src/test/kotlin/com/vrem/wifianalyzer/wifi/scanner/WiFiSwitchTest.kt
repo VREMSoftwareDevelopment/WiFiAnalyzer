@@ -18,14 +18,13 @@
 package com.vrem.wifianalyzer.wifi.scanner
 
 import android.net.wifi.WifiManager
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class WiFiSwitchTest {
-    private val wifiManager = mock(WifiManager::class.java)
+    private val wifiManager: WifiManager = mock()
     private val fixture = spy(WiFiSwitch(wifiManager))
 
     @After

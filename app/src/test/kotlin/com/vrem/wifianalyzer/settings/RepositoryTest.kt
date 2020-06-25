@@ -22,27 +22,20 @@ import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.res.Resources
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.R
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class RepositoryTest {
     private val keyValue = "xyz"
-
-    private val context: Context = mock(Context::class.java)
-
-    private val sharedPreferences: SharedPreferences = mock(SharedPreferences::class.java)
-
-    private val onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener = mock(OnSharedPreferenceChangeListener::class.java)
-
-    private val editor: Editor = mock(Editor::class.java)
-
-    private val resources: Resources = mock(Resources::class.java)
-
+    private val context: Context = mock()
+    private val sharedPreferences: SharedPreferences = mock()
+    private val onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener = mock()
+    private val editor: Editor = mock()
+    private val resources: Resources = mock()
     private val fixture = spy(Repository(context))
 
     @Before

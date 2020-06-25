@@ -22,7 +22,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.util.fromHtml
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContext.INSTANCE
@@ -35,8 +35,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.*
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
 
@@ -46,10 +44,10 @@ import org.robolectric.annotation.LooperMode
 class WiFiSwitchOnTest {
     private val spacer = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
     private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val optionMenu = mock(OptionMenu::class.java)
-    private val menu = mock(Menu::class.java)
-    private val menuItem = mock(MenuItem::class.java)
-    private val actionBar = mock(ActionBar::class.java)
+    private val optionMenu: OptionMenu = mock()
+    private val menu: Menu = mock()
+    private val menuItem: MenuItem = mock()
+    private val actionBar: ActionBar = mock()
 
     @After
     fun tearDown() {
@@ -77,13 +75,13 @@ class WiFiSwitchOnTest {
     @Test
     fun testNavigationOptionWiFiSwitchOnWithNoActionBarDoesNotSetSubtitle() {
         // setup
-        val mainActivity = mock(MainActivity::class.java)
+        val mainActivity: MainActivity = mock()
         whenever(mainActivity.supportActionBar).thenReturn(null)
         // execute
         navigationOptionWiFiSwitchOn(mainActivity)
         // validate
         verify(mainActivity).supportActionBar
-        verify(actionBar, never()).subtitle = ArgumentMatchers.anyString()
+        verify(actionBar, never()).subtitle = any()
     }
 
     @Test
@@ -129,7 +127,7 @@ class WiFiSwitchOnTest {
     @Test
     fun testNavigationOptionWiFiSwitchOnWithNoOptionMenuDoesNotSetWiFiBandVisible() {
         // setup
-        val mainActivity = mock(MainActivity::class.java)
+        val mainActivity: MainActivity = mock()
         whenever(mainActivity.optionMenu).thenReturn(null)
         // execute
         navigationOptionWiFiSwitchOn(mainActivity)
@@ -141,7 +139,7 @@ class WiFiSwitchOnTest {
     @Test
     fun testNavigationOptionWiFiSwitchOnWithNoMenuDoesNotSetWiFiBandVisible() {
         // setup
-        val mainActivity = mock(MainActivity::class.java)
+        val mainActivity: MainActivity = mock()
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(null)
         // execute
@@ -154,7 +152,7 @@ class WiFiSwitchOnTest {
 
     private fun verifyMenu() {
         verify(menu, never()).findItem(R.id.action_wifi_band)
-        verify(menuItem, never()).isVisible = ArgumentMatchers.anyBoolean()
+        verify(menuItem, never()).isVisible = any()
     }
 
     private fun withExpectedSubtitle(): CharSequence {

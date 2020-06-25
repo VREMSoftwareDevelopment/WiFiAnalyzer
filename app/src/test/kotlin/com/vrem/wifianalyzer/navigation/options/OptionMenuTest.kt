@@ -21,18 +21,20 @@ import android.app.Activity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.R
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class OptionMenuTest {
-    private val menu = mock(Menu::class.java)
-    private val menuItem = mock(MenuItem::class.java)
-    private val activity = mock(Activity::class.java)
-    private val menuInflater = mock(MenuInflater::class.java)
+    private val menu: Menu = mock()
+    private val menuItem: MenuItem = mock()
+    private val activity: Activity = mock()
+    private val menuInflater: MenuInflater = mock()
     private val fixture = OptionMenu()
 
     @After

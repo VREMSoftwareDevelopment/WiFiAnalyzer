@@ -23,7 +23,7 @@ import android.text.Editable
 import android.view.View
 import android.widget.EditText
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.filter.SSIDFilter.OnChange
@@ -32,8 +32,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.*
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
 
@@ -41,11 +39,11 @@ import org.robolectric.annotation.LooperMode
 @Config(sdk = [Build.VERSION_CODES.P])
 @LooperMode(LooperMode.Mode.PAUSED)
 class SSIDFilterTest {
-    private val dialog = mock(Dialog::class.java)
-    private val editText = mock(EditText::class.java)
-    private val view = mock(View::class.java)
-    private val ssidAdapter = mock(SSIDAdapter::class.java)
-    private val editable = mock(Editable::class.java)
+    private val dialog: Dialog = mock()
+    private val editText: EditText = mock()
+    private val view: View = mock()
+    private val ssidAdapter: SSIDAdapter = mock()
+    private val editable: Editable = mock()
 
     @Before
     fun setUp() {
@@ -77,7 +75,7 @@ class SSIDFilterTest {
         verify(dialog).findViewById<EditText>(R.id.filterSSIDtext)
         verify(dialog).findViewById<View>(R.id.filterSSID)
         verify(view).visibility = View.VISIBLE
-        verify(editText).addTextChangedListener(ArgumentMatchers.any(OnChange::class.java))
+        verify(editText).addTextChangedListener(any())
     }
 
     @Test

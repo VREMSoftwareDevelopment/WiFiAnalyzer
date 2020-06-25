@@ -18,18 +18,19 @@
 package com.vrem.wifianalyzer.permission
 
 import android.app.Activity
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
-import com.vrem.wifianalyzer.permission.ApplicationPermission
 import org.junit.After
 import org.junit.Assert
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class PermissionServiceTest {
-    private val activity = mock(Activity::class.java)
-    private val systemPermission = mock(SystemPermission::class.java)
-    private val applicationPermission = mock(ApplicationPermission::class.java)
+    private val activity: Activity = mock()
+    private val systemPermission: SystemPermission = mock()
+    private val applicationPermission: ApplicationPermission = mock()
     private val fixture = PermissionService(activity, systemPermission, applicationPermission)
 
     @After

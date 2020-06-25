@@ -22,26 +22,28 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.never
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import org.junit.Assert.*
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class FragmentItemTest {
-    private val fragment = mock(Fragment::class.java)
-    private val mainActivity = mock(MainActivity::class.java)
-    private val menuItem = mock(MenuItem::class.java)
-    private val fragmentManager = mock(FragmentManager::class.java)
-    private val fragmentTransaction = mock(FragmentTransaction::class.java)
+    private val title = "title"
+    private val fragment: Fragment = mock()
+    private val mainActivity: MainActivity = mock()
+    private val menuItem: MenuItem = mock()
+    private val fragmentManager: FragmentManager = mock()
+    private val fragmentTransaction: FragmentTransaction = mock()
 
     @Test
     fun testActivateWithStateSaved() {
         // setup
         val fixture = FragmentItem(fragment, true, View.VISIBLE)
-        val title = "title"
         val navigationMenu = NavigationMenu.ACCESS_POINTS
         whenever(mainActivity.supportFragmentManager).thenReturn(fragmentManager)
         whenever(fragmentManager.isStateSaved).thenReturn(true)
@@ -51,14 +53,13 @@ class FragmentItemTest {
         verify(mainActivity).supportFragmentManager
         verify(fragmentManager).isStateSaved
         verifyFragmentManagerIsNotCalled()
-        verifyNoChangesToMainActivity(title, navigationMenu)
+        verifyNoChangesToMainActivity(navigationMenu)
     }
 
     @Test
     fun testActivateWithStateNotSaved() {
         // setup
         val fixture = FragmentItem(fragment, true, View.VISIBLE)
-        val title = "title"
         val navigationMenu = NavigationMenu.ACCESS_POINTS
         whenever(mainActivity.supportFragmentManager).thenReturn(fragmentManager)
         whenever(fragmentManager.isStateSaved).thenReturn(false)
@@ -70,7 +71,7 @@ class FragmentItemTest {
         verify(mainActivity).supportFragmentManager
         verify(fragmentManager).isStateSaved
         verifyFragmentManager()
-        verifyMainActivityChanges(title, navigationMenu)
+        verifyMainActivityChanges(navigationMenu)
     }
 
     @Test
@@ -108,7 +109,7 @@ class FragmentItemTest {
         verify(fragmentTransaction).commit()
     }
 
-    private fun verifyMainActivityChanges(title: String, navigationMenu: NavigationMenu) {
+    private fun verifyMainActivityChanges(navigationMenu: NavigationMenu) {
         verify(mainActivity).currentNavigationMenu(navigationMenu)
         verify(mainActivity).title = title
         verify(mainActivity).updateActionBar()
@@ -120,7 +121,7 @@ class FragmentItemTest {
         verify(fragmentTransaction, never()).commit()
     }
 
-    private fun verifyNoChangesToMainActivity(title: String, navigationMenu: NavigationMenu) {
+    private fun verifyNoChangesToMainActivity(navigationMenu: NavigationMenu) {
         verify(mainActivity, never()).currentNavigationMenu(navigationMenu)
         verify(mainActivity, never()).title = title
         verify(mainActivity, never()).updateActionBar()

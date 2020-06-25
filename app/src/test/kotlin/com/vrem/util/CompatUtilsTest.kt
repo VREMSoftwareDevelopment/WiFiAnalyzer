@@ -25,6 +25,9 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.DisplayMetrics
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.R
 import org.junit.After
@@ -32,7 +35,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.*
 import org.robolectric.annotation.Config
 import java.util.*
 
@@ -40,12 +42,12 @@ import java.util.*
 @Config(sdk = [Build.VERSION_CODES.P])
 class CompatUtilsTest {
 
-    private val context = mock(Context::class.java)
-    private val contextWrapper = mock(ContextWrapper::class.java)
-    private val resources = mock(Resources::class.java)
-    private val configuration = mock(Configuration::class.java)
-    private val displayMetrics = mock(DisplayMetrics::class.java)
-    private val drawable = mock(Drawable::class.java)
+    private val context: Context = mock()
+    private val contextWrapper: ContextWrapper = mock()
+    private val resources: Resources = mock()
+    private val configuration: Configuration = mock()
+    private val displayMetrics: DisplayMetrics = mock()
+    private val drawable: Drawable = mock()
 
     private lateinit var newLocale: Locale
 

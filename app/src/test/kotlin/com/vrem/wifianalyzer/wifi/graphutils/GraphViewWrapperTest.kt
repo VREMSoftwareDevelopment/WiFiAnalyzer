@@ -25,8 +25,7 @@ import com.jjoe64.graphview.LegendRenderer
 import com.jjoe64.graphview.Viewport
 import com.jjoe64.graphview.series.BaseSeries
 import com.jjoe64.graphview.series.DataPoint
-import com.jjoe64.graphview.series.OnDataPointTapListener
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.SIZE_MAX
 import com.vrem.wifianalyzer.SIZE_MIN
 import com.vrem.wifianalyzer.settings.ThemeStyle
@@ -35,17 +34,15 @@ import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.*
 
 class GraphViewWrapperTest {
-    private val graphView = mock(GraphView::class.java)
-    private val viewport = mock(Viewport::class.java)
-    private val gridLabelRenderer = mock(GridLabelRenderer::class.java)
-    private val legendRenderer = mock(LegendRenderer::class.java)
-    private val seriesCache = mock(SeriesCache::class.java)
-    private val seriesOptions = mock(SeriesOptions::class.java)
-    private val baseSeries: BaseSeries<DataPoint> = mock(BaseSeries::class.java) as BaseSeries<DataPoint>
+    private val graphView: GraphView = mock()
+    private val viewport: Viewport = mock()
+    private val gridLabelRenderer: GridLabelRenderer = mock()
+    private val legendRenderer: LegendRenderer = mock()
+    private val seriesCache: SeriesCache = mock()
+    private val seriesOptions: SeriesOptions = mock()
+    private val baseSeries: BaseSeries<DataPoint> = mock()
     private val dataPoint: DataPoint = DataPoint(1.0, 2.0)
     private val dataPoints = arrayOf(dataPoint)
     private val wiFiDetail = WiFiDetail.EMPTY
@@ -130,7 +127,7 @@ class GraphViewWrapperTest {
         verify(seriesCache).contains(wiFiDetail)
         verify(seriesCache).put(wiFiDetail, baseSeries)
         verify(baseSeries).title = expectedTitle
-        verify(baseSeries).setOnDataPointTapListener(any(OnDataPointTapListener::class.java))
+        verify(baseSeries).setOnDataPointTapListener(any())
         verify(seriesOptions).highlightConnected(baseSeries, connected)
         verify(seriesOptions).setSeriesColor(baseSeries)
         verify(seriesOptions).drawBackground(baseSeries, true)

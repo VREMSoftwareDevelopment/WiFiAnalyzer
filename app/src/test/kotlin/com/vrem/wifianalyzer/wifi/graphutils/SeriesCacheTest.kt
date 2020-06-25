@@ -19,6 +19,8 @@ package com.vrem.wifianalyzer.wifi.graphutils
 
 import com.jjoe64.graphview.series.BaseSeries
 import com.jjoe64.graphview.series.DataPoint
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
@@ -27,21 +29,19 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.verifyNoInteractions
 
 class SeriesCacheTest {
-    private val series1: BaseSeries<DataPoint> = mock(BaseSeries::class.java) as BaseSeries<DataPoint>
-    private val series2: BaseSeries<DataPoint> = mock(BaseSeries::class.java) as BaseSeries<DataPoint>
-    private val series3: BaseSeries<DataPoint> = mock(BaseSeries::class.java) as BaseSeries<DataPoint>
+    private val series1: BaseSeries<DataPoint> = mock()
+    private val series2: BaseSeries<DataPoint> = mock()
+    private val series3: BaseSeries<DataPoint> = mock()
     private val series = listOf(series1, series2, series3)
     private val fixture = SeriesCache()
 
     @After
     fun tearDown() {
-        verifyNoInteractions(series1)
-        verifyNoInteractions(series2)
-        verifyNoInteractions(series3)
+        verifyNoMoreInteractions(series1)
+        verifyNoMoreInteractions(series2)
+        verifyNoMoreInteractions(series3)
     }
 
     @Test

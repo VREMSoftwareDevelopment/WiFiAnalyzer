@@ -20,6 +20,8 @@ package com.vrem.wifianalyzer.wifi.channelrating
 import android.os.Build
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.nhaarman.mockitokotlin2.times
+import com.nhaarman.mockitokotlin2.verify
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
@@ -30,8 +32,6 @@ import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
 
