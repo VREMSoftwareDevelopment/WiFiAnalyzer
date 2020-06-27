@@ -22,7 +22,6 @@ import android.content.res.Resources;
 import android.view.View;
 
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.TitleLineGraphSeries;
 import com.vrem.wifianalyzer.Configuration;
 import com.vrem.wifianalyzer.MainContext;
@@ -33,6 +32,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphColorsKt;
+import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewBuilder;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewNotifier;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper;
@@ -123,13 +123,13 @@ class ChannelGraphView implements GraphViewNotifier {
         return graphViewWrapper;
     }
 
-    private TitleLineGraphSeries<DataPoint> makeDefaultSeries(int frequencyEnd, int minX) {
-        DataPoint[] dataPoints = new DataPoint[]{
-            new DataPoint(minX, MIN_Y),
-            new DataPoint(frequencyEnd + WiFiChannels.FREQUENCY_OFFSET, MIN_Y)
+    private TitleLineGraphSeries<GraphDataPoint> makeDefaultSeries(int frequencyEnd, int minX) {
+        GraphDataPoint[] dataPoints = new GraphDataPoint[]{
+            new GraphDataPoint(minX, MIN_Y),
+            new GraphDataPoint(frequencyEnd + WiFiChannels.FREQUENCY_OFFSET, MIN_Y)
         };
 
-        TitleLineGraphSeries<DataPoint> series = new TitleLineGraphSeries<>(dataPoints);
+        TitleLineGraphSeries<GraphDataPoint> series = new TitleLineGraphSeries<>(dataPoints);
         series.setColor((int) GraphColorsKt.getTransparent().getPrimary());
         series.setThickness(THICKNESS_INVISIBLE);
         return series;

@@ -15,36 +15,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.timegraph
 
-package com.vrem.wifianalyzer.wifi.timegraph;
+import com.jjoe64.graphview.LabelFormatter
+import com.jjoe64.graphview.Viewport
+import com.vrem.util.EMPTY
+import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y
+import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
 
-import com.jjoe64.graphview.LabelFormatter;
-import com.jjoe64.graphview.Viewport;
-
-import org.apache.commons.lang3.StringUtils;
-
-import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MAX_Y;
-import static com.vrem.wifianalyzer.wifi.graphutils.GraphConstantsKt.MIN_Y;
-
-class TimeAxisLabel implements LabelFormatter {
-    @Override
-    public String formatLabel(double value, boolean isValueX) {
-        String result = StringUtils.EMPTY;
-        int valueAsInt = (int) (value + (value < 0 ? -0.5 : 0.5));
+internal class TimeAxisLabel : LabelFormatter {
+    override fun formatLabel(value: Double, isValueX: Boolean): String {
+        val valueAsInt = (value + if (value < 0) -0.5 else 0.5).toInt()
         if (isValueX) {
             if (valueAsInt > 0 && valueAsInt % 2 == 0) {
-                result += Integer.toString(valueAsInt);
+                return valueAsInt.toString()
             }
         } else {
-            if (valueAsInt <= MAX_Y && valueAsInt > MIN_Y) {
-                result += Integer.toString(valueAsInt);
+            if (valueAsInt in (MIN_Y + 1)..MAX_Y) {
+                return valueAsInt.toString()
             }
         }
-        return result;
+        return String.EMPTY
     }
 
-    @Override
-    public void setViewport(Viewport viewport) {
+    override fun setViewport(viewport: Viewport) {
         // Do nothing
     }
 }

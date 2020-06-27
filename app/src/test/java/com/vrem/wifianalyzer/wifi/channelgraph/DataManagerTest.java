@@ -20,12 +20,12 @@ package com.vrem.wifianalyzer.wifi.channelgraph;
 
 import android.os.Build;
 
-import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.TitleLineGraphSeries;
 import com.vrem.wifianalyzer.RobolectricUtil;
 import com.vrem.wifianalyzer.wifi.band.WiFiBand;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
+import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
@@ -90,34 +90,34 @@ public class DataManagerTest {
     }
 
     @Test
-    public void testGetDataPoints() {
+    public void testGetGraphDataPoints() {
         // setup
         WiFiDetail expected = makeWiFiDetail("SSID", 2455);
         // execute
-        DataPoint[] actual = fixture.getDataPoints(expected, MAX_Y);
+        GraphDataPoint[] actual = fixture.getGraphDataPoints(expected, MAX_Y);
         // validate
         assertEquals(5, actual.length);
-        assertEquals(new DataPoint(2445, -100).toString(), actual[0].toString());
-        assertEquals(new DataPoint(2450, LEVEL).toString(), actual[1].toString());
-        assertEquals(new DataPoint(2455, LEVEL).toString(), actual[2].toString());
-        assertEquals(new DataPoint(2460, LEVEL).toString(), actual[3].toString());
-        assertEquals(new DataPoint(2465, -100).toString(), actual[4].toString());
+        assertEquals(new GraphDataPoint(2445, -100).toString(), actual[0].toString());
+        assertEquals(new GraphDataPoint(2450, LEVEL).toString(), actual[1].toString());
+        assertEquals(new GraphDataPoint(2455, LEVEL).toString(), actual[2].toString());
+        assertEquals(new GraphDataPoint(2460, LEVEL).toString(), actual[3].toString());
+        assertEquals(new GraphDataPoint(2465, -100).toString(), actual[4].toString());
     }
 
     @Test
-    public void testGetDataPointsExpectLevelToEqualToLevelMax() {
+    public void testGetGraphDataPointsExpectLevelToEqualToLevelMax() {
         // setup
         int expectedLevel = LEVEL - 10;
         WiFiDetail expected = makeWiFiDetail("SSID", 2455);
         // execute
-        DataPoint[] actual = fixture.getDataPoints(expected, expectedLevel);
+        GraphDataPoint[] actual = fixture.getGraphDataPoints(expected, expectedLevel);
         // validate
         assertEquals(5, actual.length);
-        assertEquals(new DataPoint(2445, -100).toString(), actual[0].toString());
-        assertEquals(new DataPoint(2450, expectedLevel).toString(), actual[1].toString());
-        assertEquals(new DataPoint(2455, expectedLevel).toString(), actual[2].toString());
-        assertEquals(new DataPoint(2460, expectedLevel).toString(), actual[3].toString());
-        assertEquals(new DataPoint(2465, -100).toString(), actual[4].toString());
+        assertEquals(new GraphDataPoint(2445, -100).toString(), actual[0].toString());
+        assertEquals(new GraphDataPoint(2450, expectedLevel).toString(), actual[1].toString());
+        assertEquals(new GraphDataPoint(2455, expectedLevel).toString(), actual[2].toString());
+        assertEquals(new GraphDataPoint(2460, expectedLevel).toString(), actual[3].toString());
+        assertEquals(new GraphDataPoint(2465, -100).toString(), actual[4].toString());
     }
 
     @Test
@@ -126,7 +126,7 @@ public class DataManagerTest {
         GraphViewWrapper graphViewWrapper = mock(GraphViewWrapper.class);
         WiFiDetail wiFiDetail = makeWiFiDetail("SSID", 2455);
         Set<WiFiDetail> wiFiDetails = Collections.singleton(wiFiDetail);
-        DataPoint[] dataPoints = fixture.getDataPoints(wiFiDetail, MAX_Y);
+        GraphDataPoint[] dataPoints = fixture.getGraphDataPoints(wiFiDetail, MAX_Y);
         when(graphViewWrapper.newSeries(wiFiDetail)).thenReturn(false);
         // execute
         fixture.addSeriesData(graphViewWrapper, wiFiDetails, MAX_Y);
@@ -134,7 +134,7 @@ public class DataManagerTest {
         verify(graphViewWrapper).newSeries(wiFiDetail);
         verify(graphViewWrapper).updateSeries(
             eq(wiFiDetail),
-            argThat(new DataPointsEquals(dataPoints)),
+            argThat(new GraphDataPointsEquals(dataPoints)),
             eq(Boolean.TRUE));
     }
 
@@ -151,7 +151,7 @@ public class DataManagerTest {
         verify(graphViewWrapper).newSeries(wiFiDetail);
         verify(graphViewWrapper).addSeries(
             eq(wiFiDetail),
-            ArgumentMatchers.<TitleLineGraphSeries<DataPoint>>any(),
+            ArgumentMatchers.<TitleLineGraphSeries<GraphDataPoint>>any(),
             eq(Boolean.TRUE));
     }
 
@@ -165,16 +165,16 @@ public class DataManagerTest {
         return Arrays.asList(makeWiFiDetail("SSID1", frequency), makeWiFiDetail("SSID2", -frequency), makeWiFiDetail("SSID3", frequency));
     }
 
-    private static class DataPointsEquals implements ArgumentMatcher<DataPoint[]> {
+    private static class GraphDataPointsEquals implements ArgumentMatcher<GraphDataPoint[]> {
 
-        private final DataPoint[] expected;
+        private final GraphDataPoint[] expected;
 
-        public DataPointsEquals(DataPoint[] expected) {
+        public GraphDataPointsEquals(GraphDataPoint[] expected) {
             this.expected = expected;
         }
 
         @Override
-        public boolean matches(DataPoint[] argument) {
+        public boolean matches(GraphDataPoint[] argument) {
             boolean result = expected.length == argument.length;
             if (result) {
                 for (int i = 0; i < argument.length; i++) {
@@ -185,20 +185,6 @@ public class DataManagerTest {
                 }
             }
             return result;
-        }
-    }
-
-    private static class DataPointEquals implements ArgumentMatcher<DataPoint> {
-
-        private final DataPoint expected;
-
-        public DataPointEquals(@NonNull DataPoint expected) {
-            this.expected = expected;
-        }
-
-        @Override
-        public boolean matches(DataPoint argument) {
-            return expected.getX() == argument.getX() && expected.getY() == argument.getY();
         }
     }
 

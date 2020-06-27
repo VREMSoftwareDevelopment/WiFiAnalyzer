@@ -21,7 +21,6 @@ import android.graphics.Color
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.LegendRenderer
 import com.jjoe64.graphview.series.BaseSeries
-import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.DataPointInterface
 import com.jjoe64.graphview.series.Series
 import com.vrem.annotation.OpenClass
@@ -51,7 +50,7 @@ class GraphViewWrapper @JvmOverloads constructor(
 
     fun differenceSeries(newSeries: Set<WiFiDetail>): List<WiFiDetail> = seriesCache.difference(newSeries)
 
-    fun addSeries(wiFiDetail: WiFiDetail, series: BaseSeries<DataPoint>, drawBackground: Boolean): Boolean =
+    fun addSeries(wiFiDetail: WiFiDetail, series: BaseSeries<GraphDataPoint>, drawBackground: Boolean): Boolean =
             if (seriesExists(wiFiDetail)) {
                 false
             } else {
@@ -65,7 +64,7 @@ class GraphViewWrapper @JvmOverloads constructor(
                 true
             }
 
-    fun updateSeries(wiFiDetail: WiFiDetail, data: Array<DataPoint>, drawBackground: Boolean): Boolean =
+    fun updateSeries(wiFiDetail: WiFiDetail, data: Array<GraphDataPoint>, drawBackground: Boolean): Boolean =
             if (seriesExists(wiFiDetail)) {
                 val series = seriesCache[wiFiDetail]
                 series.resetData(data)
@@ -76,7 +75,7 @@ class GraphViewWrapper @JvmOverloads constructor(
                 false
             }
 
-    fun appendToSeries(wiFiDetail: WiFiDetail, data: DataPoint, count: Int, drawBackground: Boolean): Boolean =
+    fun appendToSeries(wiFiDetail: WiFiDetail, data: GraphDataPoint, count: Int, drawBackground: Boolean): Boolean =
             if (seriesExists(wiFiDetail)) {
                 val series = seriesCache[wiFiDetail]
                 series.appendData(data, true, count + 1)
@@ -104,7 +103,7 @@ class GraphViewWrapper @JvmOverloads constructor(
     val viewportCntX: Int
         get() = graphView.gridLabelRenderer.numHorizontalLabels - 1
 
-    fun addSeries(series: BaseSeries<DataPoint>) {
+    fun addSeries(series: BaseSeries<GraphDataPoint>) {
         graphView.addSeries(series)
     }
 

@@ -26,6 +26,7 @@ import com.jjoe64.graphview.Viewport
 import com.jjoe64.graphview.series.BaseSeries
 import com.jjoe64.graphview.series.DataPoint
 import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.SIZE_MAX
 import com.vrem.wifianalyzer.SIZE_MIN
 import com.vrem.wifianalyzer.settings.ThemeStyle
@@ -36,6 +37,14 @@ import org.junit.Before
 import org.junit.Test
 
 class GraphViewWrapperTest {
+    private val graphView: GraphView = mock()
+    private val viewport: Viewport = mock()
+    private val gridLabelRenderer: GridLabelRenderer = mock()
+    private val legendRenderer: LegendRenderer = mock()
+    private val seriesCache: SeriesCache = mock()
+    private val seriesOptions: SeriesOptions = mock()
+    private val baseSeries: BaseSeries<GraphDataPoint> = mock()
+    private val dataPoint: GraphDataPoint = GraphDataPoint(1, 2)
     private val graphView: GraphView = mock()
     private val viewport: Viewport = mock()
     private val gridLabelRenderer: GridLabelRenderer = mock()

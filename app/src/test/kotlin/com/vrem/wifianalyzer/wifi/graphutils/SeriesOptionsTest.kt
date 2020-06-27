@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer.wifi.graphutils
 
-import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.series.TitleLineGraphSeries
 import com.nhaarman.mockitokotlin2.mock
@@ -31,6 +30,9 @@ class SeriesOptionsTest {
     private val graphColors: GraphColors = mock()
     private val lineGraphSeries: LineGraphSeries<DataPoint> = mock()
     private val titleLineGraphSeries: TitleLineGraphSeries<DataPoint> = mock()
+    private val graphColors: GraphColors = mock()
+    private val lineGraphSeries: LineGraphSeries<GraphDataPoint> = mock()
+    private val titleLineGraphSeries: TitleLineGraphSeries<GraphDataPoint> = mock()
     private val graphColor = GraphColor(22, 11)
     private val fixture = SeriesOptions(graphColors)
 
