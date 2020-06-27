@@ -20,21 +20,19 @@ package com.vrem.wifianalyzer.wifi.scanner
 import android.content.Context
 import android.net.wifi.WifiManager
 import android.os.Handler
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.settings.Settings
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.*
 
 class ScannerServiceTest {
-    private val mainActivity = mock(MainActivity::class.java)
-    private val wifiManager = mock(WifiManager::class.java)
-    private val handler = mock(Handler::class.java)
-    private val settings = mock(Settings::class.java)
-    private val context = mock(Context::class.java)
+    private val mainActivity: MainActivity = mock()
+    private val wifiManager: WifiManager = mock()
+    private val handler: Handler = mock()
+    private val settings: Settings = mock()
+    private val context: Context = mock()
 
     @After
     fun tearDown() {
@@ -58,7 +56,7 @@ class ScannerServiceTest {
         assertTrue(actual.running())
         verify(mainActivity).applicationContext
         verify(context).getSystemService(Context.WIFI_SERVICE)
-        verify(handler).removeCallbacks(ArgumentMatchers.any(PeriodicScan::class.java))
-        verify(handler).postDelayed(ArgumentMatchers.any(PeriodicScan::class.java), ArgumentMatchers.eq(delayInitial))
+        verify(handler).removeCallbacks(any())
+        verify(handler).postDelayed(any(), eq(delayInitial))
     }
 }

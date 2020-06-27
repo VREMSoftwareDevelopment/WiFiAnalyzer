@@ -15,19 +15,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.vendor
+package com.vrem.wifianalyzer.wifi.timegraph
 
 import android.os.Build
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
-import com.vrem.util.EMPTY
-import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
+import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import org.junit.After
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -37,57 +37,50 @@ import org.robolectric.annotation.LooperMode
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.P])
 @LooperMode(LooperMode.Mode.PAUSED)
-class VendorFragmentTest {
+class TimeGraphFragmentTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val vendorService = INSTANCE.vendorService
-    private val fixture = VendorFragment()
+    private val fixture = TimeGraphFragment()
+    private val scanner = MainContextHelper.INSTANCE.scannerService
 
     @Before
     fun setUp() {
-        whenever(vendorService.findVendors()).thenReturn(emptyList())
         RobolectricUtil.INSTANCE.startFragment(fixture)
     }
 
     @After
     fun tearDown() {
-        verify(vendorService).findVendors()
-        INSTANCE.restore()
+        MainContextHelper.INSTANCE.restore()
     }
 
     @Test
-    fun testListenerOnQueryTextChange() {
-        // setup
-        val values = "     ABS       ADF      "
-        val expected = "ABS ADF"
-        val vendorAdapter: VendorAdapter = mock()
-        val fixture = VendorFragment.Listener(vendorAdapter)
-        // execute
-        val actual = fixture.onQueryTextChange(values)
-        // verify
-        assertTrue(actual)
-        verify(vendorAdapter).update(expected)
+    fun testOnCreateView() {
+        // validate
+        assertNotNull(fixture)
+        verify(scanner).update()
+        verify(scanner).register(fixture.timeGraphAdapter)
     }
 
     @Test
-    fun testListenerOnQueryTextChangeWithNull() {
-        // setup
-        val vendorAdapter: VendorAdapter = mock()
-        val fixture = VendorFragment.Listener(vendorAdapter)
+    fun testOnResume() {
         // execute
-        val actual = fixture.onQueryTextChange(String.EMPTY)
-        // verify
-        assertTrue(actual)
-        verify(vendorAdapter).update(String.EMPTY)
+        fixture.onResume()
+        // validate
+        verify(scanner, times(2)).update()
     }
 
     @Test
-    fun testListenerOnQueryTextSubmit() {
-        // setup
-        val vendorAdapter: VendorAdapter = mock()
-        val fixture = VendorFragment.Listener(vendorAdapter)
+    fun testOnDestroy() {
         // execute
-        val actual = fixture.onQueryTextSubmit(String.EMPTY)
-        // verify
-        assertFalse(actual)
+        fixture.onDestroy()
+        // validate
+        verify(scanner).unregister(fixture.timeGraphAdapter)
+    }
+
+    @Test
+    fun testRefreshDisabled() {
+        // validate
+        val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.graphRefresh)
+        assertFalse(swipeRefreshLayout.isRefreshing)
+        assertFalse(swipeRefreshLayout.isEnabled)
     }
 }

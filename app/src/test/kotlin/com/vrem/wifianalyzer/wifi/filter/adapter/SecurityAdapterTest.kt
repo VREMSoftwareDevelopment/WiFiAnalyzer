@@ -17,16 +17,18 @@
  */
 package com.vrem.wifianalyzer.wifi.filter.adapter
 
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.model.Security
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class SecurityAdapterTest {
-    private val settings = mock(Settings::class.java)
+    private val settings: Settings = mock()
     private val fixture = SecurityAdapter(Security.values().toSet())
 
     @After

@@ -18,49 +18,48 @@
 package com.vrem.wifianalyzer.wifi.graphutils
 
 import com.jjoe64.graphview.series.BaseSeries
-import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.series.TitleLineGraphSeries
 import com.vrem.annotation.OpenClass
 
-private fun BaseSeries<DataPoint>.removeSeriesColor(graphColors: GraphColors) = graphColors.addColor(this.color.toLong())
+private fun BaseSeries<GraphDataPoint>.removeSeriesColor(graphColors: GraphColors) = graphColors.addColor(this.color.toLong())
 
-private fun BaseSeries<DataPoint>.highlightConnected(connected: Boolean) {
+private fun BaseSeries<GraphDataPoint>.highlightConnected(connected: Boolean) {
     val thickness = if (connected) THICKNESS_CONNECTED else THICKNESS_REGULAR
     when (this) {
-        is LineGraphSeries<DataPoint> -> this.setThickness(thickness)
-        is TitleLineGraphSeries<DataPoint> -> {
+        is LineGraphSeries<GraphDataPoint> -> this.setThickness(thickness)
+        is TitleLineGraphSeries<GraphDataPoint> -> {
             this.thickness = thickness
             this.setTextBold(connected)
         }
     }
 }
 
-private fun BaseSeries<DataPoint>.seriesColor(graphColors: GraphColors) {
+private fun BaseSeries<GraphDataPoint>.seriesColor(graphColors: GraphColors) {
     val graphColor = graphColors.graphColor()
     this.color = graphColor.primary.toInt()
     when (this) {
-        is LineGraphSeries<DataPoint> -> this.backgroundColor = graphColor.background.toInt()
-        is TitleLineGraphSeries<DataPoint> -> this.backgroundColor = graphColor.background.toInt()
+        is LineGraphSeries<GraphDataPoint> -> this.backgroundColor = graphColor.background.toInt()
+        is TitleLineGraphSeries<GraphDataPoint> -> this.backgroundColor = graphColor.background.toInt()
     }
 }
 
-private fun BaseSeries<DataPoint>.drawBackground(drawBackground: Boolean) {
+private fun BaseSeries<GraphDataPoint>.drawBackground(drawBackground: Boolean) {
     when (this) {
-        is LineGraphSeries<DataPoint> -> this.isDrawBackground = drawBackground
-        is TitleLineGraphSeries<DataPoint> -> this.isDrawBackground = drawBackground
+        is LineGraphSeries<GraphDataPoint> -> this.isDrawBackground = drawBackground
+        is TitleLineGraphSeries<GraphDataPoint> -> this.isDrawBackground = drawBackground
     }
 }
 
 @OpenClass
 class SeriesOptions(private val graphColors: GraphColors = GraphColors()) {
 
-    fun highlightConnected(series: BaseSeries<DataPoint>, connected: Boolean) = series.highlightConnected(connected)
+    fun highlightConnected(series: BaseSeries<GraphDataPoint>, connected: Boolean) = series.highlightConnected(connected)
 
-    fun setSeriesColor(series: BaseSeries<DataPoint>) = series.seriesColor(graphColors)
+    fun setSeriesColor(series: BaseSeries<GraphDataPoint>) = series.seriesColor(graphColors)
 
-    fun drawBackground(series: BaseSeries<DataPoint>, drawBackground: Boolean) = series.drawBackground(drawBackground)
+    fun drawBackground(series: BaseSeries<GraphDataPoint>, drawBackground: Boolean) = series.drawBackground(drawBackground)
 
-    fun removeSeriesColor(series: BaseSeries<DataPoint>) = series.removeSeriesColor(graphColors)
+    fun removeSeriesColor(series: BaseSeries<GraphDataPoint>) = series.removeSeriesColor(graphColors)
 
 }

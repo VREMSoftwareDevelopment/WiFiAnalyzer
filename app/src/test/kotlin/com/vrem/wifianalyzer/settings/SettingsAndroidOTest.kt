@@ -17,19 +17,17 @@
  */
 package com.vrem.wifianalyzer.settings
 
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.R
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class SettingsAndroidOTest {
     private val scanSpeedDefault = 5
-
-    private val repository = mock(Repository::class.java)
+    private val repository: Repository = mock()
     private val fixture = spy(Settings(repository))
 
     @Before
@@ -65,7 +63,7 @@ class SettingsAndroidOTest {
         val actual = fixture.wiFiThrottleDisabled()
         // validate
         assertFalse(actual)
-        verify(repository, never()).resourceBoolean(anyInt())
-        verify(repository, never()).boolean(anyInt(), anyBoolean())
+        verify(repository, never()).resourceBoolean(any())
+        verify(repository, never()).boolean(any(), any())
     }
 }

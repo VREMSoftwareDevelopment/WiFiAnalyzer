@@ -23,6 +23,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.material.navigation.NavigationView
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.navigation.NavigationMenu
@@ -33,8 +35,6 @@ import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
 import org.robolectric.Robolectric
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
@@ -43,7 +43,7 @@ import org.robolectric.annotation.LooperMode
 @Config(sdk = [Build.VERSION_CODES.P])
 @LooperMode(LooperMode.Mode.PAUSED)
 class MainActivityTest {
-    private val sharedPreferences = mock(SharedPreferences::class.java)
+    private val sharedPreferences: SharedPreferences = mock()
     private val fixture = Robolectric.buildActivity(MainActivity::class.java).create().resume().get()
 
     @After
@@ -69,7 +69,7 @@ class MainActivityTest {
     @Test
     fun testOnResumeCallsOptionMenuResume() {
         // setup
-        val permissionService = mock(PermissionService::class.java)
+        val permissionService: PermissionService = mock()
         fixture.permissionService = permissionService
         val scannerService = MainContextHelper.INSTANCE.scannerService
         whenever(permissionService.permissionGranted()).thenReturn(true)
@@ -83,8 +83,8 @@ class MainActivityTest {
     @Test
     fun testOnCreateOptionsMenu() {
         // setup
-        val menu = mock(Menu::class.java)
-        val optionMenu = mock(OptionMenu::class.java)
+        val menu: Menu = mock()
+        val optionMenu: OptionMenu = mock()
         fixture.optionMenu = optionMenu
         // execute
         val actual = fixture.onCreateOptionsMenu(menu)
@@ -96,8 +96,8 @@ class MainActivityTest {
     @Test
     fun testOnOptionsItemSelected() {
         // setup
-        val menuItem = mock(MenuItem::class.java)
-        val optionMenu = mock(OptionMenu::class.java)
+        val menuItem: MenuItem = mock()
+        val optionMenu: OptionMenu = mock()
         fixture.optionMenu = optionMenu
         // execute
         val actual = fixture.onOptionsItemSelected(menuItem)
@@ -110,7 +110,7 @@ class MainActivityTest {
     fun testOnConfigurationChanged() {
         // setup
         val configuration = fixture.resources.configuration
-        val drawerNavigation = mock(DrawerNavigation::class.java)
+        val drawerNavigation: DrawerNavigation = mock()
         fixture.drawerNavigation = drawerNavigation
         // execute
         fixture.onConfigurationChanged(configuration)
@@ -121,7 +121,7 @@ class MainActivityTest {
     @Test
     fun testOnPostCreate() {
         // setup
-        val drawerNavigation = mock(DrawerNavigation::class.java)
+        val drawerNavigation: DrawerNavigation = mock()
         fixture.drawerNavigation = drawerNavigation
         // execute
         fixture.onPostCreate(null)
@@ -170,8 +170,8 @@ class MainActivityTest {
     @Test
     fun testGetCurrentMenuItem() {
         // setup
-        val menuItem = mock(MenuItem::class.java)
-        val navigationMenuController = mock(NavigationMenuController::class.java)
+        val menuItem: MenuItem = mock()
+        val navigationMenuController: NavigationMenuController = mock()
         whenever(navigationMenuController.currentMenuItem()).thenReturn(menuItem)
         fixture.navigationMenuController = navigationMenuController
         // execute
@@ -185,7 +185,7 @@ class MainActivityTest {
     fun testGetCurrentNavigationMenu() {
         // setup
         val navigationMenu = NavigationMenu.CHANNEL_GRAPH
-        val navigationMenuController = mock(NavigationMenuController::class.java)
+        val navigationMenuController: NavigationMenuController = mock()
         whenever(navigationMenuController.currentNavigationMenu()).thenReturn(navigationMenu)
         fixture.navigationMenuController = navigationMenuController
         // execute
@@ -200,7 +200,7 @@ class MainActivityTest {
         // setup
         val navigationMenu = NavigationMenu.CHANNEL_GRAPH
         val settings = MainContextHelper.INSTANCE.settings
-        val navigationMenuController = mock(NavigationMenuController::class.java)
+        val navigationMenuController: NavigationMenuController = mock()
         fixture.navigationMenuController = navigationMenuController
         // execute
         fixture.currentNavigationMenu(navigationMenu)
@@ -212,8 +212,8 @@ class MainActivityTest {
     @Test
     fun testGetNavigationView() {
         // setup
-        val navigationMenuController = mock(NavigationMenuController::class.java)
-        val navigationView = mock(NavigationView::class.java)
+        val navigationMenuController: NavigationMenuController = mock()
+        val navigationView: NavigationView = mock()
         whenever(navigationMenuController.navigationView).thenReturn(navigationView)
         fixture.navigationMenuController = navigationMenuController
         // execute

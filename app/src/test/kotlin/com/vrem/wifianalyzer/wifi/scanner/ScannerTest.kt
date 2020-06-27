@@ -19,7 +19,7 @@ package com.vrem.wifianalyzer.wifi.scanner
 
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import org.junit.After
@@ -27,20 +27,19 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class ScannerTest {
-    private val settings = mock(Settings::class.java)
-    private val wiFiManagerWrapper = mock(WiFiManagerWrapper::class.java)
-    private val updateNotifier1 = mock(UpdateNotifier::class.java)
-    private val updateNotifier2 = mock(UpdateNotifier::class.java)
-    private val updateNotifier3 = mock(UpdateNotifier::class.java)
-    private val wifiInfo = mock(WifiInfo::class.java)
-    private val cache = mock(Cache::class.java)
-    private val transformer = mock(Transformer::class.java)
-    private val wiFiData = mock(WiFiData::class.java)
-    private val periodicScan = mock(PeriodicScan::class.java)
-    private val scanResults = emptyList<ScanResult>()
+    private val settings: Settings = mock()
+    private val wiFiManagerWrapper: WiFiManagerWrapper = mock()
+    private val updateNotifier1: UpdateNotifier = mock()
+    private val updateNotifier2: UpdateNotifier = mock()
+    private val updateNotifier3: UpdateNotifier = mock()
+    private val wifiInfo: WifiInfo = mock()
+    private val cache: Cache = mock()
+    private val transformer: Transformer = mock()
+    private val wiFiData: WiFiData = mock()
+    private val periodicScan: PeriodicScan = mock()
+    private val scanResults: List<ScanResult> = emptyList<ScanResult>()
     private val cacheResults: List<CacheResult> = emptyList()
     private val fixture = Scanner(wiFiManagerWrapper, settings, cache, transformer)
 

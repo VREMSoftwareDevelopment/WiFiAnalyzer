@@ -19,31 +19,28 @@ package com.vrem.wifianalyzer.navigation.availability
 
 import android.view.Menu
 import android.view.MenuItem
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
 import org.junit.After
 import org.junit.Test
-import org.mockito.Mockito
-import org.mockito.Mockito.never
-import org.mockito.Mockito.verify
 
 class ScannerSwitchOnTest {
-    private val mainActivity = Mockito.mock(MainActivity::class.java)
-    private val optionMenu = Mockito.mock(OptionMenu::class.java)
-    private val menu = Mockito.mock(Menu::class.java)
-    private val menuItem = Mockito.mock(MenuItem::class.java)
+    private val mainActivity: MainActivity = mock()
+    private val optionMenu: OptionMenu = mock()
+    private val menu: Menu = mock()
+    private val menuItem: MenuItem = mock()
     private val scanner = INSTANCE.scannerService
 
     @After
     fun tearDown() {
-        Mockito.verifyNoMoreInteractions(mainActivity)
-        Mockito.verifyNoMoreInteractions(optionMenu)
-        Mockito.verifyNoMoreInteractions(menu)
-        Mockito.verifyNoMoreInteractions(menuItem)
-        Mockito.verifyNoMoreInteractions(scanner)
+        verifyNoMoreInteractions(mainActivity)
+        verifyNoMoreInteractions(optionMenu)
+        verifyNoMoreInteractions(menu)
+        verifyNoMoreInteractions(menuItem)
+        verifyNoMoreInteractions(scanner)
         INSTANCE.restore()
     }
 

@@ -15,48 +15,42 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.wifi.channelavailable
+package com.vrem.wifianalyzer.wifi.timegraph
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.nhaarman.mockitokotlin2.atLeastOnce
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
-import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.RobolectricUtil
-import org.junit.After
-import org.junit.Assert.assertNotNull
-import org.junit.Before
+import com.vrem.wifianalyzer.wifi.band.WiFiBand
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
-import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.P])
 @LooperMode(LooperMode.Mode.PAUSED)
-class ChannelAvailableFragmentTest {
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val settings = INSTANCE.settings
-    private val fixture = ChannelAvailableFragment()
+class TimeGraphAdapterTest {
 
-    @Before
-    fun setUp() {
-        whenever(settings.countryCode()).thenReturn(Locale.US.country)
-    }
-
-    @After
-    fun tearDown() {
-        verify(settings, atLeastOnce()).countryCode()
-        INSTANCE.restore()
+    @Test
+    fun testGraphViewNotifiers() {
+        // setup
+        RobolectricUtil.INSTANCE.activity
+        val fixture = TimeGraphAdapter()
+        // execute
+        val graphViewNotifiers = fixture.graphViewNotifiers()
+        // validate
+        assertEquals(WiFiBand.values().size, graphViewNotifiers.size)
     }
 
     @Test
-    fun testOnCreateView() {
+    fun testGraphViews() {
         // setup
-        RobolectricUtil.INSTANCE.startFragment(fixture)
+        RobolectricUtil.INSTANCE.activity
+        val fixture = TimeGraphAdapter()
+        // execute
+        val graphViews = fixture.graphViews()
         // validate
-        assertNotNull(fixture)
+        assertEquals(WiFiBand.values().size, graphViews.size)
     }
 }

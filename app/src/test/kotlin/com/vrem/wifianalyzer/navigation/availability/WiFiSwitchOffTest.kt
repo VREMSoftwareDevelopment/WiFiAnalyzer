@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.navigation.availability
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
@@ -28,15 +28,13 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
 import org.junit.After
 import org.junit.Test
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.*
 
 class WiFiSwitchOffTest {
-    private val mainActivity = mock(MainActivity::class.java)
-    private val optionMenu = mock(OptionMenu::class.java)
-    private val menu = mock(Menu::class.java)
-    private val menuItem = mock(MenuItem::class.java)
-    private val actionBar = mock(ActionBar::class.java)
+    private val mainActivity: MainActivity = mock()
+    private val optionMenu: OptionMenu = mock()
+    private val menu: Menu = mock()
+    private val menuItem: MenuItem = mock()
+    private val actionBar: ActionBar = mock()
 
     @After
     fun tearDown() {
@@ -70,7 +68,7 @@ class WiFiSwitchOffTest {
         navigationOptionWiFiSwitchOff(mainActivity)
         // validate
         verify(mainActivity).supportActionBar
-        verify(actionBar, never()).subtitle = ArgumentMatchers.anyString()
+        verify(actionBar, never()).subtitle = any()
         verify(mainActivity).optionMenu
     }
 
@@ -101,7 +99,7 @@ class WiFiSwitchOffTest {
         // validate
         verify(mainActivity).optionMenu
         verify(menu, never()).findItem(R.id.action_wifi_band)
-        verify(menuItem, never()).isVisible = ArgumentMatchers.anyBoolean()
+        verify(menuItem, never()).isVisible = any()
         verify(mainActivity).supportActionBar
     }
 
@@ -117,7 +115,7 @@ class WiFiSwitchOffTest {
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu, never()).findItem(R.id.action_wifi_band)
-        verify(menuItem, never()).isVisible = ArgumentMatchers.anyBoolean()
+        verify(menuItem, never()).isVisible = any()
         verify(mainActivity).supportActionBar
     }
 

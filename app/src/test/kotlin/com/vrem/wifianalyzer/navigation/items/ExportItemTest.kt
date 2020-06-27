@@ -22,6 +22,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.view.MenuItem
 import android.view.View
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
@@ -34,15 +37,14 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class ExportItemTest {
-    private val export = mock(Export::class.java)
-    private val mainActivity = mock(MainActivity::class.java)
-    private val menuItem = mock(MenuItem::class.java)
-    private val intent = mock(Intent::class.java)
-    private val packageManager = mock(PackageManager::class.java)
-    private val componentName = mock(ComponentName::class.java)
+    private val export: Export = mock()
+    private val mainActivity: MainActivity = mock()
+    private val menuItem: MenuItem = mock()
+    private val intent: Intent = mock()
+    private val packageManager: PackageManager = mock()
+    private val componentName: ComponentName = mock()
     private val scanner = INSTANCE.scannerService
 
     private val fixture = ExportItem(export)

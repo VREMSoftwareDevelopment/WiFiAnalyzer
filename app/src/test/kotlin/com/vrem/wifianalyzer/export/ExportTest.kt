@@ -19,6 +19,9 @@ package com.vrem.wifianalyzer.export
 
 import android.content.Intent
 import android.content.res.Resources
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
@@ -29,7 +32,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.Mockito.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -37,10 +39,10 @@ class ExportTest {
     private val name = "name"
     private val date = Date()
 
-    private val mainActivity = mock(MainActivity::class.java)
-    private val exportIntent = mock(ExportIntent::class.java)
-    private val intent = mock(Intent::class.java)
-    private val resources = mock(Resources::class.java)
+    private val mainActivity: MainActivity = mock()
+    private val exportIntent: ExportIntent = mock()
+    private val intent: Intent = mock()
+    private val resources: Resources = mock()
     private val fixture = Export(exportIntent)
 
     @After

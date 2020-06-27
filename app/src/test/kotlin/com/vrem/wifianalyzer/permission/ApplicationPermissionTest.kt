@@ -22,22 +22,19 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import org.junit.After
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
-import org.mockito.Mockito.verify
-import org.mockito.Mockito.verifyNoMoreInteractions
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.P])
 class ApplicationPermissionTest {
-    private val activity = Mockito.mock(Activity::class.java)
-    private val permissionDialog = Mockito.mock(PermissionDialog::class.java)
+    private val activity: Activity = mock()
+    private val permissionDialog: PermissionDialog = mock()
     private val fixture = ApplicationPermission(activity, permissionDialog)
 
     @After
@@ -53,8 +50,8 @@ class ApplicationPermissionTest {
         fixture.check()
         // validate
         verify(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-        verify(activity, Mockito.never()).isFinishing
-        verify(activity, Mockito.never()).requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), ApplicationPermission.REQUEST_CODE)
+        verify(activity, never()).isFinishing
+        verify(activity, never()).requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), ApplicationPermission.REQUEST_CODE)
     }
 
     @Test
@@ -67,7 +64,7 @@ class ApplicationPermissionTest {
         // validate
         verify(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
         verify(activity).isFinishing
-        verify(activity, Mockito.never()).requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), ApplicationPermission.REQUEST_CODE)
+        verify(activity, never()).requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), ApplicationPermission.REQUEST_CODE)
     }
 
     @Test

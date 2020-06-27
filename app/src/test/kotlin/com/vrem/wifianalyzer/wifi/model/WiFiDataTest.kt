@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
@@ -28,10 +28,6 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito
-import org.mockito.Mockito.verify
-import org.mockito.Mockito.verifyNoMoreInteractions
 
 class WiFiDataTest {
     private val ipAddress = "21.205.91.7"
@@ -114,7 +110,7 @@ class WiFiDataTest {
         assertEquals(vendorName + bssid2 + "_3", actual[4].wiFiAdditional.vendorName)
         assertEquals(vendorName + bssid3, actual[5].wiFiAdditional.vendorName)
         assertEquals(vendorName + bssid2 + "_1", actual[6].wiFiAdditional.vendorName)
-        verify(vendorService, Mockito.times(7)).findVendorName(ArgumentMatchers.anyString())
+        verify(vendorService, times(7)).findVendorName(any())
         verifyVendorNames()
     }
 

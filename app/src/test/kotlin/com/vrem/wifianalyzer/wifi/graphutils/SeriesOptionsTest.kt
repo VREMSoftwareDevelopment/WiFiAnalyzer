@@ -17,18 +17,19 @@
  */
 package com.vrem.wifianalyzer.wifi.graphutils
 
-import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.series.TitleLineGraphSeries
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.After
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class SeriesOptionsTest {
-    private val graphColors = mock(GraphColors::class.java)
-    private val lineGraphSeries: LineGraphSeries<DataPoint> = mock(LineGraphSeries::class.java) as LineGraphSeries<DataPoint>
-    private val titleLineGraphSeries: TitleLineGraphSeries<DataPoint> = mock(TitleLineGraphSeries::class.java) as TitleLineGraphSeries<DataPoint>
+    private val graphColors: GraphColors = mock()
+    private val lineGraphSeries: LineGraphSeries<GraphDataPoint> = mock()
+    private val titleLineGraphSeries: TitleLineGraphSeries<GraphDataPoint> = mock()
     private val graphColor = GraphColor(22, 11)
     private val fixture = SeriesOptions(graphColors)
 

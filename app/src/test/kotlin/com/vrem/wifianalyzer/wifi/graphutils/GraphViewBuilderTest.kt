@@ -23,20 +23,18 @@ import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.GridLabelRenderer
 import com.jjoe64.graphview.LabelFormatter
 import com.jjoe64.graphview.Viewport
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.settings.ThemeStyle
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.*
 
 class GraphViewBuilderTest {
     private val numHorizontalLabels = 5
-    private val gridLabelRenderer = mock(GridLabelRenderer::class.java)
-    private val graphView = mock(GraphView::class.java)
-    private val viewport = mock(Viewport::class.java)
-    private val labelFormatter = mock(LabelFormatter::class.java)
+    private val gridLabelRenderer: GridLabelRenderer = mock()
+    private val graphView: GraphView = mock()
+    private val viewport: Viewport = mock()
+    private val labelFormatter: LabelFormatter = mock()
 
     @After
     fun tearDown() {
@@ -122,8 +120,8 @@ class GraphViewBuilderTest {
         // execute
         gridLabelRenderer.verticalTitle("")
         // validate
-        verify(gridLabelRenderer, never()).verticalAxisTitle = ArgumentMatchers.anyString()
-        verify(gridLabelRenderer, never()).verticalAxisTitleTextSize = ArgumentMatchers.anyFloat()
+        verify(gridLabelRenderer, never()).verticalAxisTitle = any()
+        verify(gridLabelRenderer, never()).verticalAxisTitleTextSize = any()
     }
 
     @Test
@@ -146,8 +144,8 @@ class GraphViewBuilderTest {
         // execute
         gridLabelRenderer.horizontalTitle("")
         // validate
-        verify(gridLabelRenderer, never()).horizontalAxisTitle = ArgumentMatchers.anyString()
-        verify(gridLabelRenderer, never()).horizontalAxisTitleTextSize = ArgumentMatchers.anyFloat()
+        verify(gridLabelRenderer, never()).horizontalAxisTitle = any()
+        verify(gridLabelRenderer, never()).horizontalAxisTitleTextSize = any()
     }
 
     @Test

@@ -18,10 +18,10 @@
 
 package com.vrem.wifianalyzer.wifi.channelgraph;
 
-import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.TitleLineGraphSeries;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel;
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels;
+import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint;
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper;
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
@@ -46,17 +46,17 @@ class DataManager {
     }
 
     @NonNull
-    DataPoint[] getDataPoints(@NonNull WiFiDetail wiFiDetail, int levelMax) {
+    GraphDataPoint[] getGraphDataPoints(@NonNull WiFiDetail wiFiDetail, int levelMax) {
         WiFiSignal wiFiSignal = wiFiDetail.getWiFiSignal();
         int frequencyStart = wiFiSignal.frequencyStart();
         int frequencyEnd = wiFiSignal.frequencyEnd();
         int level = Math.min(wiFiSignal.getLevel(), levelMax);
-        return new DataPoint[]{
-            new DataPoint(frequencyStart, MIN_Y),
-            new DataPoint(frequencyStart + WiFiChannels.FREQUENCY_SPREAD, level),
-            new DataPoint(wiFiSignal.getCenterFrequency(), level),
-            new DataPoint(frequencyEnd - WiFiChannels.FREQUENCY_SPREAD, level),
-            new DataPoint(frequencyEnd, MIN_Y)
+        return new GraphDataPoint[]{
+            new GraphDataPoint(frequencyStart, MIN_Y),
+            new GraphDataPoint(frequencyStart + WiFiChannels.FREQUENCY_SPREAD, level),
+            new GraphDataPoint(wiFiSignal.getCenterFrequency(), level),
+            new GraphDataPoint(frequencyEnd - WiFiChannels.FREQUENCY_SPREAD, level),
+            new GraphDataPoint(frequencyEnd, MIN_Y)
         };
     }
 
@@ -75,7 +75,7 @@ class DataManager {
 
         @Override
         public void execute(WiFiDetail wiFiDetail) {
-            DataPoint[] dataPoints = getDataPoints(wiFiDetail, levelMax);
+            GraphDataPoint[] dataPoints = getGraphDataPoints(wiFiDetail, levelMax);
             if (graphViewWrapper.newSeries(wiFiDetail)) {
                 graphViewWrapper.addSeries(wiFiDetail, new TitleLineGraphSeries<>(dataPoints), true);
             } else {

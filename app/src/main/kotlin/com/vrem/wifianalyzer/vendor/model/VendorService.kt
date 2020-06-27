@@ -35,8 +35,8 @@ class VendorService(private val resources: Resources) {
             vendorData.vendors[vendorName.toUpperCase(Locale.getDefault())].orEmpty()
 
     fun findVendors(vendorName: String = String.EMPTY): List<String> {
-        val filter = vendorName.toUpperCase(Locale.getDefault())
-        return vendorData.vendors.keys.filter { filter(it, filter) }.toList()
+        val name = vendorName.toUpperCase(Locale.getDefault())
+        return vendorData.vendors.filterKeys { filter(it, name) }.keys.toList()
     }
 
     internal fun findMacs(): List<String> = vendorData.macs.keys.toList()

@@ -22,18 +22,17 @@ import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class DrawerNavigationTest {
-    private val mainActivity = mock(MainActivity::class.java)
-    private val toolbar = mock(Toolbar::class.java)
-    private val configuration = mock(Configuration::class.java)
-    private val drawerLayout = mock(DrawerLayout::class.java)
-    private val actionBarDrawerToggle = mock(ActionBarDrawerToggle::class.java)
+    private val mainActivity: MainActivity = mock()
+    private val toolbar: Toolbar = mock()
+    private val configuration: Configuration = mock()
+    private val drawerLayout: DrawerLayout = mock()
+    private val actionBarDrawerToggle: ActionBarDrawerToggle = mock()
     private val fixture = spy(DrawerNavigation(mainActivity, toolbar))
 
     @Before

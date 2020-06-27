@@ -18,16 +18,18 @@
 package com.vrem.wifianalyzer.navigation.availability
 
 import android.view.View
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
 import org.junit.After
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class BottomNavTest {
-    private val mainActivity: MainActivity = mock(MainActivity::class.java)
-    private val view: View = mock(View::class.java)
+    private val mainActivity: MainActivity = mock()
+    private val view: View = mock()
 
     @After
     fun tearDown() {

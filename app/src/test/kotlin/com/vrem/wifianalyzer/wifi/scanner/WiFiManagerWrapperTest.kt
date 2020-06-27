@@ -20,24 +20,21 @@ package com.vrem.wifianalyzer.wifi.scanner
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito
-import org.mockito.Mockito.verify
 
 class WiFiManagerWrapperTest {
-    private val wifiManager = Mockito.mock(WifiManager::class.java)
-    private val wiFiSwitch = Mockito.mock(WiFiSwitch::class.java)
-    private val wifiInfo = Mockito.mock(WifiInfo::class.java)
+    private val wifiManager: WifiManager = mock()
+    private val wiFiSwitch: WiFiSwitch = mock()
+    private val wifiInfo: WifiInfo = mock()
     private val fixture = WiFiManagerWrapper(wifiManager, wiFiSwitch)
 
     @After
     fun tearDown() {
-        Mockito.verifyNoMoreInteractions(wifiManager)
-        Mockito.verifyNoMoreInteractions(wiFiSwitch)
+        verifyNoMoreInteractions(wifiManager)
+        verifyNoMoreInteractions(wiFiSwitch)
     }
 
     @Test
@@ -72,7 +69,7 @@ class WiFiManagerWrapperTest {
         // validate
         assertTrue(actual)
         verify(wifiManager).isWifiEnabled
-        verify(wifiManager, Mockito.never()).isWifiEnabled = ArgumentMatchers.anyBoolean()
+        verify(wifiManager, never()).isWifiEnabled = any()
     }
 
     @Test
@@ -123,7 +120,7 @@ class WiFiManagerWrapperTest {
         // validate
         assertTrue(actual)
         verify(wifiManager).isWifiEnabled
-        verify(wiFiSwitch, Mockito.never()).off()
+        verify(wiFiSwitch, never()).off()
     }
 
     @Test

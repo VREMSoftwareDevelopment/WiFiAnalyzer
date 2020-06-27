@@ -24,6 +24,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.never
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
@@ -36,8 +39,6 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
-import org.mockito.Mockito.verify
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
 
@@ -50,9 +51,9 @@ class ConnectionViewTest {
     private val ipAddress = "IP-ADDRESS"
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val settings = INSTANCE.settings
-    private val wiFiData = Mockito.mock(WiFiData::class.java)
-    private val accessPointDetail = Mockito.mock(AccessPointDetail::class.java)
-    private val accessPointPopup = Mockito.mock(AccessPointPopup::class.java)
+    private val wiFiData: WiFiData = mock()
+    private val accessPointDetail: AccessPointDetail = mock()
+    private val accessPointPopup: AccessPointPopup = mock()
     private val fixture = ConnectionView(mainActivity, accessPointDetail, accessPointPopup)
 
     @After
@@ -180,7 +181,7 @@ class ConnectionViewTest {
         assertEquals(View.GONE, mainActivity.findViewById<View>(R.id.no_data).visibility)
         assertEquals(View.GONE, mainActivity.findViewById<View>(R.id.no_location).visibility)
         assertEquals(View.GONE, mainActivity.findViewById<View>(R.id.throttling).visibility)
-        verify(wiFiData, Mockito.never()).wiFiDetails
+        verify(wiFiData, never()).wiFiDetails
     }
 
     @Test
@@ -219,7 +220,7 @@ class ConnectionViewTest {
         fixture.update(wiFiData)
         // validate
         assertEquals(View.GONE, mainActivity.findViewById<View>(R.id.scanning).visibility)
-        verify(wiFiData, Mockito.never()).wiFiDetails
+        verify(wiFiData, never()).wiFiDetails
     }
 
     @Test

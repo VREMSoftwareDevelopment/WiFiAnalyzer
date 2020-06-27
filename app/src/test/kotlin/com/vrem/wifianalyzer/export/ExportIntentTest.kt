@@ -18,15 +18,14 @@
 package com.vrem.wifianalyzer.export
 
 import android.content.Intent
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class ExportIntentTest {
-    private val intentSend = mock(Intent::class.java)
-    private val intentChooser = mock(Intent::class.java)
+    private val intentSend: Intent = mock()
+    private val intentChooser: Intent = mock()
 
     private val fixture = spy(ExportIntent())
 

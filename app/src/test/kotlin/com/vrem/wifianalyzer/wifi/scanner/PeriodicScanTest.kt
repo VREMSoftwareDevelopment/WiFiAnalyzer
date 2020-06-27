@@ -18,17 +18,17 @@
 package com.vrem.wifianalyzer.wifi.scanner
 
 import android.os.Handler
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.settings.Settings
 import org.junit.Test
-import org.mockito.Mockito
-import org.mockito.Mockito.verify
 
 class PeriodicScanTest {
-    private val handler = Mockito.mock(Handler::class.java)
-    private val settings = Mockito.mock(Settings::class.java)
-    private val scanner = Mockito.mock(ScannerService::class.java)
-    private val fixture = PeriodicScan(scanner, handler, settings)
+    private val handler: Handler = mock()
+    private val settings: Settings = mock()
+    private val scanner: ScannerService = mock()
+    private val fixture: PeriodicScan = PeriodicScan(scanner, handler, settings)
 
     @Test
     fun testRun() {

@@ -22,6 +22,9 @@ import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
@@ -37,7 +40,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.*
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
 import java.util.*
@@ -48,7 +50,7 @@ import java.util.*
 class ChannelRatingAdapterTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val settings = INSTANCE.settings
-    private val channelRating = mock(ChannelRating::class.java)
+    private val channelRating: ChannelRating = mock()
     private val bestChannels = TextView(mainActivity)
     private val fixture = ChannelRatingAdapter(mainActivity, bestChannels, channelRating)
 

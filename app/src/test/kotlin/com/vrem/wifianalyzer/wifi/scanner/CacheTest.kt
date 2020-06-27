@@ -19,22 +19,21 @@ package com.vrem.wifianalyzer.wifi.scanner
 
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainContextHelper
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.*
 
 class CacheTest {
-    private val wifiInfo = mock(WifiInfo::class.java)
-    private val scanResult1 = mock(ScanResult::class.java)
-    private val scanResult2 = mock(ScanResult::class.java)
-    private val scanResult3 = mock(ScanResult::class.java)
-    private val scanResult4 = mock(ScanResult::class.java)
-    private val scanResult5 = mock(ScanResult::class.java)
-    private val scanResult6 = mock(ScanResult::class.java)
+    private val wifiInfo: WifiInfo = mock()
+    private val scanResult1: ScanResult = mock()
+    private val scanResult2: ScanResult = mock()
+    private val scanResult3: ScanResult = mock()
+    private val scanResult4: ScanResult = mock()
+    private val scanResult5: ScanResult = mock()
+    private val scanResult6: ScanResult = mock()
     private val settings = MainContextHelper.INSTANCE.settings
     private val configuration = MainContextHelper.INSTANCE.configuration
     private val fixture = Cache()

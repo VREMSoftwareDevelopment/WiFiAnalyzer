@@ -18,22 +18,19 @@
 package com.vrem.wifianalyzer.wifi.accesspoint
 
 import android.widget.ExpandableListView
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth
 import com.vrem.wifianalyzer.wifi.model.*
-import com.vrem.wifianalyzer.wifi.predicate.FilterPredicate
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.*
 
 class AccessPointsAdapterDataTest {
-    private val wiFiData = mock(WiFiData::class.java)
-    private val accessPointsAdapterGroup = mock(AccessPointsAdapterGroup::class.java)
-    private val expandableListView = mock(ExpandableListView::class.java)
+    private val wiFiData: WiFiData = mock()
+    private val accessPointsAdapterGroup: AccessPointsAdapterGroup = mock()
+    private val expandableListView: ExpandableListView = mock()
     private val settings = INSTANCE.settings
     private val configuration = INSTANCE.configuration
     private val fixture = AccessPointsAdapterData(accessPointsAdapterGroup)
@@ -62,11 +59,11 @@ class AccessPointsAdapterDataTest {
         // setup
         val wiFiDetails = withWiFiDetails()
         withSettings()
-        whenever(wiFiData.wiFiDetails(any(FilterPredicate::class.java), eq(SortBy.SSID), eq(GroupBy.CHANNEL))).thenReturn(wiFiDetails)
+        whenever(wiFiData.wiFiDetails(any(), eq(SortBy.SSID), eq(GroupBy.CHANNEL))).thenReturn(wiFiDetails)
         // execute
         fixture.update(wiFiData, expandableListView)
         // validate
-        verify(wiFiData).wiFiDetails(any(FilterPredicate::class.java), eq(SortBy.SSID), eq(GroupBy.CHANNEL))
+        verify(wiFiData).wiFiDetails(any(), eq(SortBy.SSID), eq(GroupBy.CHANNEL))
         verify(accessPointsAdapterGroup).update(wiFiDetails, expandableListView)
         verifySettings()
         assertEquals(wiFiDetails.size, fixture.parentsCount())
@@ -120,7 +117,7 @@ class AccessPointsAdapterDataTest {
         verify(settings).findWiFiBands()
         verify(settings).findStrengths()
         verify(settings).findSecurities()
-        verify(configuration).size = ArgumentMatchers.anyInt()
+        verify(configuration).size = any()
     }
 
     private fun withSettings() {
@@ -130,8 +127,5 @@ class AccessPointsAdapterDataTest {
         whenever(settings.findStrengths()).thenReturn(Strength.values().toSet())
         whenever(settings.findSecurities()).thenReturn(Security.values().toSet())
     }
-
-    private fun <T> any(type: Class<T>): T = ArgumentMatchers.any(type)
-    private fun <T> eq(value: T): T = ArgumentMatchers.eq(value)
 
 }

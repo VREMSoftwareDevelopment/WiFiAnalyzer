@@ -17,11 +17,11 @@
  */
 package com.vrem.wifianalyzer
 
+import com.nhaarman.mockitokotlin2.mock
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.vendor.model.VendorService
 import com.vrem.wifianalyzer.wifi.filter.adapter.FiltersAdapter
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService
-import org.mockito.Mockito.mock
 
 enum class MainContextHelper {
     INSTANCE;
@@ -36,7 +36,7 @@ enum class MainContextHelper {
             } catch (e: UninitializedPropertyAccessException) {
                 /* do nothing */
             }
-            mainContext.settings = mock(Settings::class.java)
+            mainContext.settings = mock()
             return mainContext.settings
         }
 
@@ -47,7 +47,7 @@ enum class MainContextHelper {
             } catch (e: UninitializedPropertyAccessException) {
                 /* do nothing */
             }
-            mainContext.vendorService = mock(VendorService::class.java)
+            mainContext.vendorService = mock()
             return mainContext.vendorService
         }
 
@@ -58,7 +58,7 @@ enum class MainContextHelper {
             } catch (e: UninitializedPropertyAccessException) {
                 /* do nothing */
             }
-            mainContext.scannerService = mock(ScannerService::class.java)
+            mainContext.scannerService = mock()
             return mainContext.scannerService
         }
 
@@ -69,7 +69,7 @@ enum class MainContextHelper {
             } catch (e: UninitializedPropertyAccessException) {
                 /* do nothing */
             }
-            mainContext.mainActivity = mock(MainActivity::class.java)
+            mainContext.mainActivity = mock()
             return mainContext.mainActivity
         }
 
@@ -80,7 +80,7 @@ enum class MainContextHelper {
             } catch (e: UninitializedPropertyAccessException) {
                 /* do nothing */
             }
-            mainContext.configuration = mock(Configuration::class.java)
+            mainContext.configuration = mock()
             return mainContext.configuration
         }
 
@@ -91,7 +91,7 @@ enum class MainContextHelper {
             } catch (e: UninitializedPropertyAccessException) {
                 /* do nothing */
             }
-            mainContext.filtersAdapter = mock(FiltersAdapter::class.java)
+            mainContext.filtersAdapter = mock()
             return mainContext.filtersAdapter
         }
 
