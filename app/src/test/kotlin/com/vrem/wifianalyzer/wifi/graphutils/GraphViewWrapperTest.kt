@@ -24,8 +24,6 @@ import com.jjoe64.graphview.GridLabelRenderer
 import com.jjoe64.graphview.LegendRenderer
 import com.jjoe64.graphview.Viewport
 import com.jjoe64.graphview.series.BaseSeries
-import com.jjoe64.graphview.series.DataPoint
-import com.nhaarman.mockitokotlin2.*
 import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.SIZE_MAX
 import com.vrem.wifianalyzer.SIZE_MIN
@@ -45,14 +43,6 @@ class GraphViewWrapperTest {
     private val seriesOptions: SeriesOptions = mock()
     private val baseSeries: BaseSeries<GraphDataPoint> = mock()
     private val dataPoint: GraphDataPoint = GraphDataPoint(1, 2)
-    private val graphView: GraphView = mock()
-    private val viewport: Viewport = mock()
-    private val gridLabelRenderer: GridLabelRenderer = mock()
-    private val legendRenderer: LegendRenderer = mock()
-    private val seriesCache: SeriesCache = mock()
-    private val seriesOptions: SeriesOptions = mock()
-    private val baseSeries: BaseSeries<DataPoint> = mock()
-    private val dataPoint: DataPoint = DataPoint(1.0, 2.0)
     private val dataPoints = arrayOf(dataPoint)
     private val wiFiDetail = WiFiDetail.EMPTY
     private val fixture = spy(GraphViewWrapper(graphView, GraphLegend.HIDE, ThemeStyle.DARK, seriesCache, seriesOptions))

@@ -18,9 +18,6 @@
 package com.vrem.wifianalyzer.wifi.graphutils
 
 import com.jjoe64.graphview.series.BaseSeries
-import com.jjoe64.graphview.series.DataPoint
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.vrem.util.EMPTY
@@ -36,9 +33,6 @@ class SeriesCacheTest {
     private val series1: BaseSeries<GraphDataPoint> = mock()
     private val series2: BaseSeries<GraphDataPoint> = mock()
     private val series3: BaseSeries<GraphDataPoint> = mock()
-    private val series1: BaseSeries<DataPoint> = mock()
-    private val series2: BaseSeries<DataPoint> = mock()
-    private val series3: BaseSeries<DataPoint> = mock()
     private val series = listOf(series1, series2, series3)
     private val fixture = SeriesCache()
 

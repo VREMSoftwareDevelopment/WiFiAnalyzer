@@ -28,9 +28,6 @@ import org.junit.Test
 
 class SeriesOptionsTest {
     private val graphColors: GraphColors = mock()
-    private val lineGraphSeries: LineGraphSeries<DataPoint> = mock()
-    private val titleLineGraphSeries: TitleLineGraphSeries<DataPoint> = mock()
-    private val graphColors: GraphColors = mock()
     private val lineGraphSeries: LineGraphSeries<GraphDataPoint> = mock()
     private val titleLineGraphSeries: TitleLineGraphSeries<GraphDataPoint> = mock()
     private val graphColor = GraphColor(22, 11)
