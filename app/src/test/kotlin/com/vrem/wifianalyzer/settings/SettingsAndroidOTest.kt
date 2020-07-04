@@ -51,7 +51,7 @@ class SettingsAndroidOTest {
         // execute
         val actual = fixture.scanSpeed()
         // validate
-        assertEquals(expected.toLong(), actual.toLong())
+        assertEquals(expected, actual)
         verify(repository).stringAsInteger(R.string.scan_speed_default, scanSpeedDefault)
         verify(repository).stringAsInteger(R.string.scan_speed_key, defaultValue)
         verify(fixture, never()).wiFiThrottleDisabled()

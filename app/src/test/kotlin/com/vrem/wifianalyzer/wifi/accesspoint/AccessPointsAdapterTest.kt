@@ -78,7 +78,7 @@ class AccessPointsAdapterTest {
         val actual = fixture.getGroupView(1, false, view, viewGroup)
         // validate
         assertNotNull(actual)
-        assertEquals(View.GONE.toLong(), actual.findViewById<View>(R.id.groupIndicator).visibility.toLong())
+        assertEquals(View.GONE, actual.findViewById<View>(R.id.groupIndicator).visibility)
         verify(accessPointsAdapterData).parent(1)
         verify(accessPointsAdapterData).childrenCount(1)
         verifyView(view, wiFiDetail)
@@ -95,7 +95,7 @@ class AccessPointsAdapterTest {
         val actual = fixture.getGroupView(1, false, view, viewGroup)
         // validate
         assertNotNull(actual)
-        assertEquals(View.GONE.toLong(), actual.findViewById<View>(R.id.groupIndicator).visibility.toLong())
+        assertEquals(View.GONE, actual.findViewById<View>(R.id.groupIndicator).visibility)
         verify(accessPointsAdapterData).parent(1)
         verify(accessPointsAdapterData).childrenCount(1)
         verifyView(view, wiFiDetail)
@@ -114,7 +114,7 @@ class AccessPointsAdapterTest {
         val actual = fixture.getGroupView(1, false, view, viewGroup)
         // validate
         assertNotNull(actual)
-        assertEquals(View.VISIBLE.toLong(), actual.findViewById<View>(R.id.groupIndicator).visibility.toLong())
+        assertEquals(View.VISIBLE, actual.findViewById<View>(R.id.groupIndicator).visibility)
         verify(accessPointsAdapterData).parent(1)
         verify(accessPointsAdapterData).childrenCount(1)
         verifyView(view, wiFiDetail)
@@ -130,7 +130,7 @@ class AccessPointsAdapterTest {
         val actual = fixture.getChildView(0, 0, false, view, viewGroup)
         // validate
         assertNotNull(actual)
-        assertEquals(View.GONE.toLong(), actual.findViewById<View>(R.id.groupIndicator).visibility.toLong())
+        assertEquals(View.GONE, actual.findViewById<View>(R.id.groupIndicator).visibility)
         verify(accessPointsAdapterData).child(0, 0)
         verifyChildView(view, wiFiDetail)
     }
@@ -145,7 +145,7 @@ class AccessPointsAdapterTest {
         val actual = fixture.getChildView(0, 0, false, view, viewGroup)
         // validate
         assertNotNull(actual)
-        assertEquals(View.GONE.toLong(), actual.findViewById<View>(R.id.groupIndicator).visibility.toLong())
+        assertEquals(View.GONE, actual.findViewById<View>(R.id.groupIndicator).visibility)
         verify(accessPointsAdapterData).child(0, 0)
         verifyChildView(view, wiFiDetail)
         verify(accessPointPopup).attach(view.findViewById(R.id.attachPopup), wiFiDetail)
@@ -170,7 +170,7 @@ class AccessPointsAdapterTest {
         // execute
         val actual = fixture.groupCount
         // validate
-        assertEquals(expected.toLong(), actual.toLong())
+        assertEquals(expected, actual)
         verify(accessPointsAdapterData).parentsCount()
     }
 
@@ -182,7 +182,7 @@ class AccessPointsAdapterTest {
         // execute
         val actual = fixture.getChildrenCount(1)
         // validate
-        assertEquals(expected.toLong(), actual.toLong())
+        assertEquals(expected, actual)
         verify(accessPointsAdapterData).childrenCount(1)
     }
 

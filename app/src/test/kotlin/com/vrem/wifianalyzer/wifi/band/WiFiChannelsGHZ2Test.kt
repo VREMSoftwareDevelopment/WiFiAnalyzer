@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
-import androidx.core.util.Pair
 import com.vrem.util.EMPTY
 import org.junit.Assert.*
 import org.junit.Test
@@ -90,7 +89,7 @@ class WiFiChannelsGHZ2Test {
 
     @Test
     fun testWiFiChannelPairs() {
-        val pair: List<Pair<WiFiChannel, WiFiChannel>> = fixture.wiFiChannelPairs()
+        val pair: List<WiFiChannelPair> = fixture.wiFiChannelPairs()
         assertEquals(1, pair.size)
         validatePair(1, 14, pair[0])
     }
@@ -101,7 +100,7 @@ class WiFiChannelsGHZ2Test {
         validatePair(1, 14, fixture.wiFiChannelPairFirst(String.EMPTY))
     }
 
-    private fun validatePair(expectedFirst: Int, expectedSecond: Int, pair: Pair<WiFiChannel, WiFiChannel>) {
+    private fun validatePair(expectedFirst: Int, expectedSecond: Int, pair: WiFiChannelPair) {
         assertEquals(expectedFirst, pair.first!!.channel)
         assertEquals(expectedSecond, pair.second!!.channel)
     }
@@ -115,7 +114,7 @@ class WiFiChannelsGHZ2Test {
     @Test
     fun testWiFiChannelByFrequency2GHZ() {
         // setup
-        val wiFiChannelPair: Pair<WiFiChannel, WiFiChannel> = fixture.wiFiChannelPairs()[0]
+        val wiFiChannelPair: WiFiChannelPair = fixture.wiFiChannelPairs()[0]
         // execute
         val actual: WiFiChannel = fixture.wiFiChannelByFrequency(2000, wiFiChannelPair)
         // validate
@@ -125,7 +124,7 @@ class WiFiChannelsGHZ2Test {
     @Test
     fun testWiFiChannelByFrequency2GHZInRange() {
         // setup
-        val wiFiChannelPair: Pair<WiFiChannel, WiFiChannel> = fixture.wiFiChannelPairs()[0]
+        val wiFiChannelPair: WiFiChannelPair = fixture.wiFiChannelPairs()[0]
         // execute
         val actual: WiFiChannel = fixture.wiFiChannelByFrequency(wiFiChannelPair.first!!.frequency, wiFiChannelPair)
         // validate

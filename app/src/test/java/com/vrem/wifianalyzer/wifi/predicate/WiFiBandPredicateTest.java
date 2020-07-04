@@ -27,6 +27,8 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 
 import static org.junit.Assert.assertFalse;
@@ -56,7 +58,7 @@ public class WiFiBandPredicateTest {
     private WiFiDetail makeWiFiDetail(int frequency) {
         WiFiSignal wiFiSignal = new WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, 1, true);
         WiFiIdentifier wiFiIdentifier = new WiFiIdentifier("ssid", "bssid");
-        return new WiFiDetail(wiFiIdentifier, "wpa", wiFiSignal, WiFiAdditional.EMPTY);
+        return new WiFiDetail(wiFiIdentifier, "wpa", wiFiSignal, WiFiAdditional.EMPTY, new ArrayList<>());
     }
 
 }

@@ -27,6 +27,8 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 
 import static org.junit.Assert.assertFalse;
@@ -47,7 +49,7 @@ public class StrengthPredicateTest {
     private WiFiDetail makeWiFiDetail(int level) {
         WiFiSignal wiFiSignal = new WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, level, true);
         WiFiIdentifier wiFiIdentifier = new WiFiIdentifier("ssid", "bssid");
-        return new WiFiDetail(wiFiIdentifier, "wpa", wiFiSignal, WiFiAdditional.EMPTY);
+        return new WiFiDetail(wiFiIdentifier, "wpa", wiFiSignal, WiFiAdditional.EMPTY, new ArrayList<>());
     }
 
 }

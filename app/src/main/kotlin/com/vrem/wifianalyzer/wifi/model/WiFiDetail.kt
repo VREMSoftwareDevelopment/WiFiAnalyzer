@@ -19,8 +19,7 @@ package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.util.EMPTY
 
-// FIXME remove @JvmOverloads after full conversion to Kotlin
-data class WiFiDetail @JvmOverloads constructor(
+data class WiFiDetail(
         val wiFiIdentifier: WiFiIdentifier = WiFiIdentifier.EMPTY,
         val capabilities: String = String.EMPTY,
         val wiFiSignal: WiFiSignal = WiFiSignal.EMPTY,

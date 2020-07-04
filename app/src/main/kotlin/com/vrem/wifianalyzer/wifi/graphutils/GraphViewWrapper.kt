@@ -33,9 +33,8 @@ import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointPopup
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import java.security.MessageDigest
 
-// FIXME remove @JvmOverloads after full conversion to Kotlin
 @OpenClass
-class GraphViewWrapper @JvmOverloads constructor(
+class GraphViewWrapper(
         val graphView: GraphView,
         var graphLegend: GraphLegend,
         private val themeStyle: ThemeStyle,

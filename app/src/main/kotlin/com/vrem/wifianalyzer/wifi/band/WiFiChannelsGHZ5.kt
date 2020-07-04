@@ -17,12 +17,10 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
-import androidx.core.util.Pair
-
 class WiFiChannelsGHZ5 : WiFiChannels(RANGE, SETS) {
-    override fun wiFiChannelPairs(): List<Pair<WiFiChannel, WiFiChannel>> = SETS
+    override fun wiFiChannelPairs(): List<WiFiChannelPair> = SETS
 
-    override fun wiFiChannelPairFirst(countryCode: String): Pair<WiFiChannel, WiFiChannel> =
+    override fun wiFiChannelPairFirst(countryCode: String): WiFiChannelPair =
             if (countryCode.isBlank())
                 SET1
             else
@@ -35,18 +33,14 @@ class WiFiChannelsGHZ5 : WiFiChannels(RANGE, SETS) {
     override fun channelAvailable(countryCode: String, channel: Int): Boolean =
             WiFiChannelCountry.find(countryCode).channelAvailableGHZ5(channel)
 
-    override fun wiFiChannelByFrequency(frequency: Int, wiFiChannelPair: Pair<WiFiChannel, WiFiChannel>): WiFiChannel =
+    override fun wiFiChannelByFrequency(frequency: Int, wiFiChannelPair: WiFiChannelPair): WiFiChannel =
             if (inRange(frequency)) wiFiChannel(frequency, wiFiChannelPair) else WiFiChannel.UNKNOWN
 
     companion object {
-        @JvmField
-        val SET1 = Pair(WiFiChannel(36, 5180), WiFiChannel(64, 5320))
-        @JvmField
-        val SET2 = Pair(WiFiChannel(100, 5500), WiFiChannel(144, 5720))
-        @JvmField
-        val SET3 = Pair(WiFiChannel(149, 5745), WiFiChannel(165, 5825))
-        @JvmField
+        val SET1 = WiFiChannelPair(WiFiChannel(36, 5180), WiFiChannel(64, 5320))
+        val SET2 = WiFiChannelPair(WiFiChannel(100, 5500), WiFiChannel(144, 5720))
+        val SET3 = WiFiChannelPair(WiFiChannel(149, 5745), WiFiChannel(165, 5825))
         val SETS = listOf(SET1, SET2, SET3)
-        private val RANGE = Pair(4900, 5899)
+        private val RANGE = WiFiRange(4900, 5899)
     }
 }

@@ -116,7 +116,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.stringAsInteger(keyIndex, defaultValue)
         // validate
-        Assert.assertEquals(value.toLong(), actual.toLong())
+        Assert.assertEquals(value, actual)
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getString(keyValue, "" + defaultValue)
         verifyPreferenceManager()
@@ -132,7 +132,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.stringAsInteger(keyIndex, defaultValue)
         // validate
-        Assert.assertEquals(defaultValue.toLong(), actual.toLong())
+        Assert.assertEquals(defaultValue, actual)
         verify(context).getString(keyIndex)
         verifyPreferenceManager()
     }
@@ -148,7 +148,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.integer(keyIndex, defaultValue)
         // validate
-        Assert.assertEquals(value.toLong(), actual.toLong())
+        Assert.assertEquals(value, actual)
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getInt(keyValue, defaultValue)
         verifyPreferenceManager()
@@ -165,7 +165,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.integer(keyIndex, defaultValue)
         // validate
-        Assert.assertEquals(defaultValue.toLong(), actual.toLong())
+        Assert.assertEquals(defaultValue, actual)
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getInt(keyValue, defaultValue)
         verifySave(keyIndex, Integer.toString(defaultValue))

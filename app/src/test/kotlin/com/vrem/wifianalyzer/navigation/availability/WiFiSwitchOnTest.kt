@@ -66,9 +66,9 @@ class WiFiSwitchOnTest {
         // validate
         val actual = mainActivity.supportActionBar!!.subtitle
         assertTrue(expected.isNotEmpty())
-        assertEquals(expected.length.toLong(), actual!!.length.toLong())
+        assertEquals(expected.length, actual!!.length)
         for (i in expected.indices) {
-            assertEquals("" + i + ":" + expected[i] + ":" + actual[i], expected[i].toLong(), actual[i].toLong())
+            assertEquals("" + i + ":" + expected[i] + ":" + actual[i], expected[i], actual[i])
         }
     }
 

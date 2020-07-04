@@ -35,7 +35,7 @@ class EnumUtilsTest {
         // execute
         val actual = ordinals(TestObject.values())
         // validate
-        assertEquals(expected.size.toLong(), actual.size.toLong())
+        assertEquals(expected.size, actual.size)
         expected.forEach {
             assertTrue(actual.contains("" + it.ordinal))
         }
@@ -70,7 +70,7 @@ class EnumUtilsTest {
         // execute
         val actual = findSet(TestObject.values(), ordinals, expected)
         // validate
-        assertEquals(1, actual.size.toLong())
+        assertEquals(1, actual.size)
         assertTrue(actual.contains(expected))
     }
 
@@ -133,7 +133,7 @@ class EnumUtilsTest {
     }
 
     private fun validate(expected: Collection<TestObject>, actual: Collection<TestObject>) {
-        assertEquals(expected.size.toLong(), actual.size.toLong())
+        assertEquals(expected.size, actual.size)
         expected.forEach {
             assertTrue(actual.contains(it))
         }

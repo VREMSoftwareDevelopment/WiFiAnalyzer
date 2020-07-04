@@ -15,19 +15,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+
 package com.vrem.wifianalyzer.wifi.band
 
-data class WiFiChannel(val channel: Int = 0, val frequency: Int = 0) : Comparable<WiFiChannel> {
-    fun inRange(frequency: Int): Boolean {
-        return frequency >= this.frequency - ALLOWED_RANGE && frequency <= this.frequency + ALLOWED_RANGE
+import org.junit.Assert.assertEquals
+import org.junit.Test
+
+class WiFiChannelPairTest {
+
+    @Test
+    fun testChannelCount() {
+        // setup
+        val expected = 20 - 10 + 5
+        val first = WiFiChannel(10, 10)
+        val second = WiFiChannel(20, 20)
+        val fixture = WiFiChannelPair(first, second)
+        // execute
+        val actual = fixture.channelCount()
+        // validate
+        assertEquals(expected, actual)
     }
-
-    override fun compareTo(other: WiFiChannel): Int =
-            compareBy<WiFiChannel> { it.channel }.thenBy { it.frequency }.compare(this, other)
-
-    companion object {
-        val UNKNOWN = WiFiChannel()
-        private const val ALLOWED_RANGE = WiFiChannels.FREQUENCY_SPREAD / 2
-    }
-
 }

@@ -39,16 +39,16 @@ class WiFiUtilsTest {
 
     @Test
     fun testCalculateSignalLevel() {
-        assertEquals(0, calculateSignalLevel(-110, 5).toLong())
-        assertEquals(0, calculateSignalLevel(-89, 5).toLong())
-        assertEquals(1, calculateSignalLevel(-88, 5).toLong())
-        assertEquals(1, calculateSignalLevel(-78, 5).toLong())
-        assertEquals(2, calculateSignalLevel(-77, 5).toLong())
-        assertEquals(2, calculateSignalLevel(-67, 5).toLong())
-        assertEquals(3, calculateSignalLevel(-66, 5).toLong())
-        assertEquals(3, calculateSignalLevel(-56, 5).toLong())
-        assertEquals(4, calculateSignalLevel(-55, 5).toLong())
-        assertEquals(4, calculateSignalLevel(0, 5).toLong())
+        assertEquals(0, calculateSignalLevel(-110, 5))
+        assertEquals(0, calculateSignalLevel(-89, 5))
+        assertEquals(1, calculateSignalLevel(-88, 5))
+        assertEquals(1, calculateSignalLevel(-78, 5))
+        assertEquals(2, calculateSignalLevel(-77, 5))
+        assertEquals(2, calculateSignalLevel(-67, 5))
+        assertEquals(3, calculateSignalLevel(-66, 5))
+        assertEquals(3, calculateSignalLevel(-56, 5))
+        assertEquals(4, calculateSignalLevel(-55, 5))
+        assertEquals(4, calculateSignalLevel(0, 5))
     }
 
     @Test

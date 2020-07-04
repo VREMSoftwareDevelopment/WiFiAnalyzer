@@ -92,7 +92,7 @@ class LocaleUtilsTest {
         // execute
         val actual = supportedLanguages()
         // validate
-        assertEquals(expected.size.toLong(), actual.size.toLong())
+        assertEquals(expected.size, actual.size)
         for (locale in expected) {
             Assert.assertTrue(actual.contains(locale))
         }

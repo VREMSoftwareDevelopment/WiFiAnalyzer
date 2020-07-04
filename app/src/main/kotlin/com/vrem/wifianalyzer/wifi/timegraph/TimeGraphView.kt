@@ -45,9 +45,8 @@ internal fun makeGraphView(mainContext: MainContext, graphMaximumY: Int, themeSt
 internal fun makeGraphViewWrapper(): GraphViewWrapper {
     val settings = MainContext.INSTANCE.settings
     val themeStyle = settings.themeStyle()
-    val graphMaximumY = settings.graphMaximumY()
     val configuration = MainContext.INSTANCE.configuration
-    val graphView = makeGraphView(MainContext.INSTANCE, graphMaximumY, themeStyle)
+    val graphView = makeGraphView(MainContext.INSTANCE, settings.graphMaximumY(), themeStyle)
     val graphViewWrapper = GraphViewWrapper(graphView, settings.timeGraphLegend(), themeStyle)
     configuration.size = graphViewWrapper.size(graphViewWrapper.calculateGraphType())
     graphViewWrapper.setViewport()

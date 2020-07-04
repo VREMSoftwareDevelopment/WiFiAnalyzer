@@ -27,6 +27,8 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 
 import static org.junit.Assert.assertFalse;
@@ -82,14 +84,14 @@ public class SecurityPredicateTest {
     private WiFiDetail wiFiDetail() {
         WiFiSignal wiFiSignal = new WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1, true);
         WiFiIdentifier wiFiIdentifier = new WiFiIdentifier("ssid", "bssid");
-        return new WiFiDetail(wiFiIdentifier, "ess-wep-wpa", wiFiSignal, WiFiAdditional.EMPTY);
+        return new WiFiDetail(wiFiIdentifier, "ess-wep-wpa", wiFiSignal, WiFiAdditional.EMPTY, new ArrayList<>());
     }
 
     @NonNull
     private WiFiDetail wiFiDetailWithNoSecurity() {
         WiFiSignal wiFiSignal = new WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1, true);
         WiFiIdentifier wiFiIdentifier = new WiFiIdentifier("ssid", "bssid");
-        return new WiFiDetail(wiFiIdentifier, "ess", wiFiSignal, WiFiAdditional.EMPTY);
+        return new WiFiDetail(wiFiIdentifier, "ess", wiFiSignal, WiFiAdditional.EMPTY, new ArrayList<>());
     }
 
 

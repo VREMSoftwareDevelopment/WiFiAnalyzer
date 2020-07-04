@@ -17,17 +17,9 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
-data class WiFiChannel(val channel: Int = 0, val frequency: Int = 0) : Comparable<WiFiChannel> {
-    fun inRange(frequency: Int): Boolean {
-        return frequency >= this.frequency - ALLOWED_RANGE && frequency <= this.frequency + ALLOWED_RANGE
-    }
+import androidx.core.util.Pair
+import com.vrem.wifianalyzer.wifi.band.WiFiChannels.Companion.CHANNEL_OFFSET
 
-    override fun compareTo(other: WiFiChannel): Int =
-            compareBy<WiFiChannel> { it.channel }.thenBy { it.frequency }.compare(this, other)
-
-    companion object {
-        val UNKNOWN = WiFiChannel()
-        private const val ALLOWED_RANGE = WiFiChannels.FREQUENCY_SPREAD / 2
-    }
-
+class WiFiChannelPair(first: WiFiChannel, second: WiFiChannel) : Pair<WiFiChannel, WiFiChannel>(first, second) {
+    fun channelCount(): Int = second!!.channel - first!!.channel + 1 + CHANNEL_OFFSET * 2
 }

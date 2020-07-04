@@ -31,7 +31,7 @@ internal data class CacheKey(val bssid: String, val ssid: String)
 internal class Cache {
     private val scanResults: ArrayDeque<List<ScanResult>> = ArrayDeque(MAXIMUM)
     private var wifiInfo: WifiInfo? = null
-    private var count: Int = MINIMUM
+    private var count: Int = COUNT_MIN
 
     fun scanResults(): List<CacheResult> =
             combineCache()
@@ -43,7 +43,7 @@ internal class Cache {
                     .toList()
 
     fun add(scanResults: List<ScanResult>, wifiInfo: WifiInfo?) {
-        count = if (count > MAXIMUM * 2) MINIMUM else count + 1
+        count = if (count >= MAXIMUM * FACTOR) COUNT_MIN else count + 1
         while (this.scanResults.size >= size()) {
             this.scanResults.removeLastOrNull()
         }
@@ -70,8 +70,9 @@ internal class Cache {
     fun wifiInfo(): WifiInfo? = wifiInfo
 
     private fun calculate(first: Boolean, element: ScanResult, accumulator: CacheResult?): Int {
-        val average: Int = if (first) element.level else (accumulator!!.average + element.level) / 2
-        return (if (sizeAvailable) average else average - SIZE * count / 2).coerceIn(LEVEL_MINIMUM, LEVEL_MAXIMUM)
+        val average: Int = if (first) element.level else (accumulator!!.average + element.level) / DENOMINATOR
+        return (if (sizeAvailable) average else average - SIZE * (count + count % FACTOR) / DENOMINATOR)
+                .coerceIn(LEVEL_MINIMUM, LEVEL_MAXIMUM)
     }
 
     private fun combineCache(): List<ScanResult> =
@@ -89,5 +90,8 @@ internal class Cache {
         private const val SIZE: Int = MINIMUM + MAXIMUM
         private const val LEVEL_MINIMUM: Int = -100
         private const val LEVEL_MAXIMUM: Int = 0
+        private const val FACTOR: Int = 3
+        private const val DENOMINATOR: Int = 2
+        private const val COUNT_MIN: Int = 2
     }
 }

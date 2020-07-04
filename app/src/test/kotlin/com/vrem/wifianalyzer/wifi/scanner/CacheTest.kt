@@ -21,6 +21,7 @@ import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.wifi.band.WiFiRange
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -92,14 +93,14 @@ class CacheTest {
     @Test
     fun testSizeWithSizeAvailable() {
         // setup
-        val values: List<Pair<Int, Int>> = listOf(
-                Pair(1, 4),
-                Pair(2, 3),
-                Pair(4, 3),
-                Pair(5, 2),
-                Pair(9, 2),
-                Pair(10, 1),
-                Pair(20, 1)
+        val values: List<WiFiRange> = listOf(
+                WiFiRange(1, 4),
+                WiFiRange(2, 3),
+                WiFiRange(4, 3),
+                WiFiRange(5, 2),
+                WiFiRange(9, 2),
+                WiFiRange(10, 1),
+                WiFiRange(20, 1)
         )
         // execute & validate
         values.forEach {
@@ -148,8 +149,8 @@ class CacheTest {
         val actual = fixture.scanResults()
         // validate
         assertEquals(2, actual.size)
-        validate(scanResult3, -40, actual[0])
-        validate(scanResult6, -20, actual[1])
+        validate(scanResult3, -47, actual[0])
+        validate(scanResult6, -27, actual[1])
     }
 
     @Test
@@ -162,8 +163,8 @@ class CacheTest {
         val actual = fixture.scanResults()
         // validate
         assertEquals(2, actual.size)
-        validate(scanResult3, -47, actual[0])
-        validate(scanResult6, -27, actual[1])
+        validate(scanResult3, -55, actual[0])
+        validate(scanResult6, -35, actual[1])
     }
 
     @Test

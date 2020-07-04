@@ -156,7 +156,7 @@ class GraphViewBuilderTest {
         // execute
         val actual = fixture.numVerticalLabels
         // validate
-        assertEquals(expected.toLong(), actual.toLong())
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -169,7 +169,7 @@ class GraphViewBuilderTest {
 
     private fun validateMaximumY(maximumY: Int, expected: Int) {
         val fixture = GraphViewBuilder(numHorizontalLabels, maximumY, ThemeStyle.DARK, true)
-        assertEquals(expected.toLong(), fixture.maximumPortY.toLong())
+        assertEquals(expected, fixture.maximumPortY)
     }
 
     @Test

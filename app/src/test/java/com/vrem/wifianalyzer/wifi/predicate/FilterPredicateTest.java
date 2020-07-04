@@ -37,6 +37,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -152,7 +153,7 @@ public class FilterPredicateTest {
     private WiFiDetail makeWiFiDetail(String ssid, String security) {
         WiFiSignal wiFiSignal = new WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, -40, true);
         WiFiIdentifier wiFiIdentifier = new WiFiIdentifier(ssid, "bssid");
-        return new WiFiDetail(wiFiIdentifier, security, wiFiSignal, WiFiAdditional.EMPTY);
+        return new WiFiDetail(wiFiIdentifier, security, wiFiSignal, WiFiAdditional.EMPTY, new ArrayList<>());
     }
 
 }

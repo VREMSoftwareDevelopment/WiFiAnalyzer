@@ -42,7 +42,7 @@ class LanguagePreferenceTest {
         // execute
         val actual: Array<CharSequence> = fixture.entries
         // validate
-        Assert.assertEquals(languages.size.toLong(), actual.size.toLong())
+        Assert.assertEquals(languages.size, actual.size)
         languages.forEach {
             val displayName: String = it.getDisplayName(it).capitalize()
             Assert.assertTrue(displayName, actual.contains(displayName))
@@ -54,7 +54,7 @@ class LanguagePreferenceTest {
         // execute
         val actual: Array<CharSequence> = fixture.entryValues
         // validate
-        Assert.assertEquals(languages.size.toLong(), actual.size.toLong())
+        Assert.assertEquals(languages.size, actual.size)
         languages.forEach {
             val languageTag: String = toLanguageTag(it)
             Assert.assertTrue(languageTag, actual.contains(languageTag))

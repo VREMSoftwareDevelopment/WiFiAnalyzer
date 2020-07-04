@@ -23,14 +23,6 @@ import com.vrem.wifianalyzer.R
 
 private fun String.toColor(): Long = this.substring(1).toLong(16)
 
-/*
-FIXME ...
-typealias GraphColor = Pair<Long, Long>
-
-internal val GraphColor.primary get() = this.first
-
-internal val GraphColor.background get() = this.second
-*/
 data class GraphColor(val primary: Long, val background: Long)
 
 internal val transparent = GraphColor(0x009E9E9E, 0x009E9E9E)
