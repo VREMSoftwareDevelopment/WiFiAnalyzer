@@ -43,7 +43,6 @@ data class WiFiConnection(val wiFiIdentifier: WiFiIdentifier = WiFiIdentifier.EM
     companion object {
         const val LINK_SPEED_INVALID = -1
 
-        @JvmField
         val EMPTY = WiFiConnection()
     }
 }

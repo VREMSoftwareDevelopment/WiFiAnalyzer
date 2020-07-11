@@ -17,11 +17,6 @@
  */
 package com.vrem.util
 
-import org.apache.commons.collections4.Predicate
-import org.apache.commons.collections4.PredicateUtils
-import org.apache.commons.collections4.Transformer
-import org.apache.commons.collections4.functors.AnyPredicate
-import org.apache.commons.collections4.functors.TruePredicate
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -57,7 +52,7 @@ class EnumUtilsTest {
         // setup
         val expected = TestObject.values().toSet()
         // execute
-        val actual = findSet(TestObject.values(), emptySet(), TestObject.VALUE2)
+        val actual = findSet(TestObject.values(), setOf(), TestObject.VALUE2)
         // validate
         validate(expected, actual)
     }
@@ -104,32 +99,6 @@ class EnumUtilsTest {
         val actual = findOne(TestObject.values(), index, expected)
         // validate
         assertEquals(expected, actual)
-    }
-
-    @Test
-    fun testPredicateExpectsTruePredicateWithAllValues() {
-        // setup
-        val filters = TestObject.values().toList()
-        // execute
-        val actual = predicate(TestObject.values(), filters, TestObjectTransformer())
-        // validate
-        assertTrue(actual is TruePredicate<*>)
-    }
-
-    @Test
-    fun testPredicateExpectsAnyPredicateWithSomeValues() {
-        // setup
-        val filters = listOf(TestObject.VALUE1, TestObject.VALUE3)
-        // execute
-        val actual = predicate(TestObject.values(), filters, TestObjectTransformer())
-        // validate
-        assertTrue(actual is AnyPredicate<*>)
-    }
-
-    private class TestObjectTransformer : Transformer<TestObject, Predicate<TestObject>> {
-        override fun transform(input: TestObject): Predicate<TestObject> {
-            return PredicateUtils.truePredicate()
-        }
     }
 
     private fun validate(expected: Collection<TestObject>, actual: Collection<TestObject>) {

@@ -15,26 +15,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.predicate
 
-package com.vrem.wifianalyzer.wifi.predicate;
+import com.vrem.wifianalyzer.wifi.model.Strength
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
-import com.vrem.wifianalyzer.wifi.band.WiFiBand;
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
-
-import org.apache.commons.collections4.Predicate;
-
-import androidx.annotation.NonNull;
-
-public class WiFiBandPredicate implements Predicate<WiFiDetail> {
-    private final WiFiBand wiFiBand;
-
-    public WiFiBandPredicate(@NonNull WiFiBand wiFiBand) {
-        this.wiFiBand = wiFiBand;
-    }
-
-    @Override
-    public boolean evaluate(WiFiDetail wiFiDetail) {
-        return wiFiDetail.getWiFiSignal().getWiFiBand().equals(wiFiBand);
-    }
-
+internal class StrengthPredicate(private val strength: Strength) : Predicate {
+    override fun test(wiFiDetail: WiFiDetail): Boolean = wiFiDetail.wiFiSignal.strength() == strength
 }

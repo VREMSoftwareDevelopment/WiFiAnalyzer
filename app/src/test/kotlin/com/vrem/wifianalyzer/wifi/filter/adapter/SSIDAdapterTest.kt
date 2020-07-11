@@ -52,7 +52,7 @@ class SSIDAdapterTest {
     @Test
     fun testIsNotActiveWithEmptyValue() {
         // execute
-        fixture.selections = emptySet()
+        fixture.selections = setOf()
         // validate
         assertFalse(fixture.isActive())
         assertTrue(fixture.selections.isEmpty())

@@ -163,7 +163,7 @@ class WiFiManagerWrapperTest {
     @Test
     fun testScanResults() {
         // setup
-        val expected = emptyList<ScanResult>()
+        val expected = listOf<ScanResult>()
         whenever(wifiManager.scanResults).thenReturn(expected)
         // execute
         val actual = fixture.scanResults()

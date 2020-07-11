@@ -44,7 +44,7 @@ class VendorFragmentTest {
 
     @Before
     fun setUp() {
-        whenever(vendorService.findVendors()).thenReturn(emptyList())
+        whenever(vendorService.findVendors()).thenReturn(listOf())
         RobolectricUtil.INSTANCE.startFragment(fixture)
     }
 

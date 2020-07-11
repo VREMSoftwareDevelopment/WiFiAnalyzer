@@ -24,7 +24,7 @@ class WiFiChannelsGHZ5 : WiFiChannels(RANGE, SETS) {
             if (countryCode.isBlank())
                 SET1
             else
-                wiFiChannelPairs().find { channelAvailable(countryCode, it.first!!.channel) }
+                wiFiChannelPairs().find { channelAvailable(countryCode, it.first.channel) }
                         ?: SET1
 
     override fun availableChannels(countryCode: String): List<WiFiChannel> =

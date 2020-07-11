@@ -44,7 +44,7 @@ class WiFiChannelCountry(private val country: Locale) {
     companion object {
         fun find(countryCode: String): WiFiChannelCountry = WiFiChannelCountry(findByCountryCode(countryCode))
 
-        fun findAll(): List<WiFiChannelCountry> = allCountries().map { WiFiChannelCountry(it) }.toList()
+        fun findAll(): List<WiFiChannelCountry> = allCountries().map { WiFiChannelCountry(it) }
     }
 
 }

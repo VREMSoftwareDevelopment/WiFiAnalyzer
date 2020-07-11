@@ -29,9 +29,8 @@ import com.vrem.wifianalyzer.wifi.graphutils.GraphViewBuilder
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewNotifier
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper
 import com.vrem.wifianalyzer.wifi.model.WiFiData
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.predicate.FilterPredicate
-import org.apache.commons.collections4.Predicate
+import com.vrem.wifianalyzer.wifi.predicate.Predicate
+import com.vrem.wifianalyzer.wifi.predicate.makeOtherPredicate
 
 private const val NUM_X_TIME = 21
 
@@ -68,7 +67,7 @@ internal class TimeGraphView(private val wiFiBand: WiFiBand,
         graphViewWrapper.visibility(if (selected()) View.VISIBLE else View.GONE)
     }
 
-    fun predicate(settings: Settings): Predicate<WiFiDetail> = FilterPredicate.makeOtherPredicate(settings)
+    fun predicate(settings: Settings): Predicate = makeOtherPredicate(settings)
 
     private fun selected(): Boolean {
         return wiFiBand == MainContext.INSTANCE.settings.wiFiBand()

@@ -19,7 +19,7 @@ package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.MainContext.INSTANCE
-import org.apache.commons.collections4.Predicate
+import com.vrem.wifianalyzer.wifi.predicate.Predicate
 
 @OpenClass
 class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnection) {
@@ -30,13 +30,13 @@ class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnec
                     ?.let { copy(it) }
                     ?: WiFiDetail.EMPTY
 
-    fun wiFiDetails(predicate: Predicate<WiFiDetail>, sortBy: SortBy): List<WiFiDetail> =
+    fun wiFiDetails(predicate: Predicate, sortBy: SortBy): List<WiFiDetail> =
             wiFiDetails(predicate, sortBy, GroupBy.NONE)
 
-    fun wiFiDetails(predicate: Predicate<WiFiDetail>, sortBy: SortBy, groupBy: GroupBy): List<WiFiDetail> {
+    fun wiFiDetails(predicate: Predicate, sortBy: SortBy, groupBy: GroupBy): List<WiFiDetail> {
         val connection: WiFiDetail = connection()
         return wiFiDetails
-                .filter { predicate.evaluate(it) }
+                .filter { predicate.test(it) }
                 .map { transform(it, connection) }
                 .sortAndGroup(sortBy, groupBy)
                 .sortedWith(sortBy.sort)
@@ -49,7 +49,6 @@ class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnec
                 this.groupBy { groupBy.group(it) }
                         .values
                         .map(map(sortBy, groupBy))
-                        .toList()
                         .sortedWith(sortBy.sort)
             }
 
@@ -84,8 +83,7 @@ class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnec
     }
 
     companion object {
-        @JvmField
-        val EMPTY = WiFiData(emptyList(), WiFiConnection.EMPTY)
+        val EMPTY = WiFiData(listOf(), WiFiConnection.EMPTY)
     }
 
 }

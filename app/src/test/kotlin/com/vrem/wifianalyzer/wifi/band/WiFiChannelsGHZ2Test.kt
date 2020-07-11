@@ -101,8 +101,8 @@ class WiFiChannelsGHZ2Test {
     }
 
     private fun validatePair(expectedFirst: Int, expectedSecond: Int, pair: WiFiChannelPair) {
-        assertEquals(expectedFirst, pair.first!!.channel)
-        assertEquals(expectedSecond, pair.second!!.channel)
+        assertEquals(expectedFirst, pair.first.channel)
+        assertEquals(expectedSecond, pair.second.channel)
     }
 
     @Test
@@ -126,7 +126,7 @@ class WiFiChannelsGHZ2Test {
         // setup
         val wiFiChannelPair: WiFiChannelPair = fixture.wiFiChannelPairs()[0]
         // execute
-        val actual: WiFiChannel = fixture.wiFiChannelByFrequency(wiFiChannelPair.first!!.frequency, wiFiChannelPair)
+        val actual: WiFiChannel = fixture.wiFiChannelByFrequency(wiFiChannelPair.first.frequency, wiFiChannelPair)
         // validate
         assertEquals(wiFiChannelPair.first, actual)
     }

@@ -39,7 +39,7 @@ internal class WiFiChannelCountryGHZ5 {
 
     fun findChannels(countryCode: String): SortedSet<Int> =
             channels.subtract(channelsToExclude[countryCode.capitalize()]?.toSortedSet()
-                    ?: emptySet())
+                    ?: setOf())
                     .toSortedSet()
 
 }

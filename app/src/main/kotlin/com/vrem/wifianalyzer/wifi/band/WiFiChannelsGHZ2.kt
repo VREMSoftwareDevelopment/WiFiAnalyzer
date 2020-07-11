@@ -36,6 +36,6 @@ class WiFiChannelsGHZ2 : WiFiChannels(RANGE, SETS) {
         private val SETS: List<WiFiChannelPair> = listOf(
                 WiFiChannelPair(WiFiChannel(1, 2412), WiFiChannel(13, 2472)),
                 WiFiChannelPair(WiFiChannel(14, 2484), WiFiChannel(14, 2484)))
-        private val SET: WiFiChannelPair = WiFiChannelPair(SETS[0].first!!, SETS[SETS.size - 1].second!!)
+        private val SET: WiFiChannelPair = WiFiChannelPair(SETS[0].first, SETS[SETS.size - 1].second)
     }
 }

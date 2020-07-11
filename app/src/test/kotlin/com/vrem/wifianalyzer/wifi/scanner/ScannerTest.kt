@@ -39,8 +39,8 @@ class ScannerTest {
     private val transformer: Transformer = mock()
     private val wiFiData: WiFiData = mock()
     private val periodicScan: PeriodicScan = mock()
-    private val scanResults: List<ScanResult> = emptyList<ScanResult>()
-    private val cacheResults: List<CacheResult> = emptyList()
+    private val scanResults: List<ScanResult> = listOf<ScanResult>()
+    private val cacheResults: List<CacheResult> = listOf()
     private val fixture = Scanner(wiFiManagerWrapper, settings, cache, transformer)
 
     @Before

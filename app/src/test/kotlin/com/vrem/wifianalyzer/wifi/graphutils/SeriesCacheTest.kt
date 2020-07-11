@@ -116,7 +116,7 @@ class SeriesCacheTest {
         // setup
         val expected = withData()
         // execute
-        val actual = fixture.remove(emptyList())
+        val actual = fixture.remove(listOf())
         // validate
         assertTrue(actual.isEmpty())
         expected.forEach { assertTrue(fixture.contains(it)) }
@@ -193,7 +193,7 @@ class SeriesCacheTest {
     }
 
     private fun withData(): List<WiFiDetail> {
-        val results: MutableList<WiFiDetail> = ArrayList()
+        val results: MutableList<WiFiDetail> = mutableListOf()
         for (i in series.indices) {
             val wiFiDetail = makeWiFiDetail("SSID$i")
             results.add(wiFiDetail)

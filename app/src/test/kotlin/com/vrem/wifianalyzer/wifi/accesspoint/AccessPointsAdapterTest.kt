@@ -155,7 +155,7 @@ class AccessPointsAdapterTest {
     @Test
     fun testUpdate() {
         // setup
-        val wiFiData = WiFiData(emptyList(), WiFiConnection.EMPTY)
+        val wiFiData = WiFiData(listOf(), WiFiConnection.EMPTY)
         // execute
         fixture.update(wiFiData)
         // validate

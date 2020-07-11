@@ -49,7 +49,7 @@ class DataManagerTest {
     fun testNewSeries() {
         // setup
         val wiFiChannelPair = WiFiBand.GHZ2.wiFiChannels.wiFiChannelPairs()[0]
-        val expected = makeWiFiDetails(wiFiChannelPair.first!!.frequency)
+        val expected = makeWiFiDetails(wiFiChannelPair.first.frequency)
         // execute
         val actual = fixture.newSeries(expected, wiFiChannelPair)
         // validate
@@ -124,9 +124,9 @@ class DataManagerTest {
         // setup
         val wiFiChannelPair = WiFiBand.GHZ2.wiFiChannels.wiFiChannelPairs()[0]
         // execute & validate
-        assertTrue(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.first!!.frequency)))
-        assertTrue(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.second!!.frequency)))
-        assertTrue(wiFiChannelPair.inRange(makeWiFiDetail(frequency = (wiFiChannelPair.first!!.frequency + wiFiChannelPair.second!!.frequency) / 2)))
+        assertTrue(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.first.frequency)))
+        assertTrue(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.second.frequency)))
+        assertTrue(wiFiChannelPair.inRange(makeWiFiDetail(frequency = (wiFiChannelPair.first.frequency + wiFiChannelPair.second.frequency) / 2)))
     }
 
     @Test
@@ -134,8 +134,8 @@ class DataManagerTest {
         // setup
         val wiFiChannelPair = WiFiBand.GHZ2.wiFiChannels.wiFiChannelPairs()[0]
         // execute & validate
-        assertFalse(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.first!!.frequency - 1)))
-        assertFalse(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.second!!.frequency + 1)))
+        assertFalse(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.first.frequency - 1)))
+        assertFalse(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.second.frequency + 1)))
     }
 
     private fun makeWiFiDetail(SSID: String = "SSID", frequency: Int = 2455): WiFiDetail {

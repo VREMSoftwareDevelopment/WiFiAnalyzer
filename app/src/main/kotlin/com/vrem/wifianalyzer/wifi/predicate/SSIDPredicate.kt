@@ -15,11 +15,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.wifi.band
+package com.vrem.wifianalyzer.wifi.predicate
 
-import androidx.core.util.Pair
-import com.vrem.wifianalyzer.wifi.band.WiFiChannels.Companion.CHANNEL_OFFSET
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
-class WiFiChannelPair(first: WiFiChannel, second: WiFiChannel) : Pair<WiFiChannel, WiFiChannel>(first, second) {
-    fun channelCount(): Int = second!!.channel - first!!.channel + 1 + CHANNEL_OFFSET * 2
+internal class SSIDPredicate(private val ssid: String) : Predicate {
+    override fun test(wiFiDetail: WiFiDetail): Boolean = wiFiDetail.wiFiIdentifier.ssid.contains(ssid)
 }

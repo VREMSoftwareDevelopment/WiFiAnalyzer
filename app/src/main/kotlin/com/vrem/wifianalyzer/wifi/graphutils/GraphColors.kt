@@ -37,7 +37,6 @@ class GraphColors {
         if (availableGraphColors.isEmpty()) {
             val colors = MainContext.INSTANCE.resources.getStringArray(R.array.graph_colors)
                     .filterNotNull()
-                    .toList()
                     .withIndex()
                     .groupBy { it.index / 2 }
                     .map { GraphColor(it.value[0].value.toColor(), it.value[1].value.toColor()) }

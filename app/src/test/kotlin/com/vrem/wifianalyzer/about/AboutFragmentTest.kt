@@ -125,7 +125,6 @@ class AboutFragmentTest {
     fun testAlertDialogClickListener() {
         validateAlertDialogClickListener(R.id.contributors, R.string.about_contributor_title, R.raw.contributors)
         validateAlertDialogClickListener(R.id.license, R.string.gpl, R.raw.gpl)
-        validateAlertDialogClickListener(R.id.apacheCommonsLicense, R.string.al, R.raw.al)
         validateAlertDialogClickListener(R.id.graphViewLicense, R.string.al, R.raw.al)
         validateAlertDialogClickListener(R.id.materialDesignIconsLicense, R.string.al, R.raw.al)
     }

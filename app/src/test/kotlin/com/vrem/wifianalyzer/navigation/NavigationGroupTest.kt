@@ -17,6 +17,7 @@
  */
 package com.vrem.wifianalyzer.navigation
 
+import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -29,12 +30,12 @@ class NavigationGroupTest {
     @Test
     fun testNavigationGroupOrder() {
         // setup
-        val expected: List<NavigationGroup> = listOf(
+        val expected = arrayOf(
                 NavigationGroup.GROUP_FEATURE,
                 NavigationGroup.GROUP_OTHER,
                 NavigationGroup.GROUP_SETTINGS)
         // validate
-        assertEquals(expected, NavigationGroup.values().toList())
+        assertArrayEquals(expected, NavigationGroup.values())
     }
 
     @Test

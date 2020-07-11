@@ -41,9 +41,7 @@ enum class Security(val imageResource: Int, val additional: String = String.EMPT
             try {
                 enumValueOf<Security>(it)
             } catch (e: IllegalArgumentException) {
-                enumValues<Security>()
-                        .toList()
-                        .find { security -> security.additional == it }
+                enumValues<Security>().find { security -> security.additional == it }
             }
         }
 
@@ -54,7 +52,6 @@ enum class Security(val imageResource: Int, val additional: String = String.EMPT
                         .replace("]", "")
                         .replace("[", "")
                         .split("-")
-                        .toList()
     }
 
 }

@@ -235,12 +235,12 @@ class SettingsTest {
     fun testFindSSIDs() {
         // setup
         val expected: Set<String> = setOf("value1", "value2", "value3")
-        whenever(repository.stringSet(R.string.filter_ssid_key, emptySet())).thenReturn(expected)
+        whenever(repository.stringSet(R.string.filter_ssid_key, setOf())).thenReturn(expected)
         // execute
         val actual = fixture.findSSIDs()
         // validate
         assertEquals(expected, actual)
-        verify(repository).stringSet(R.string.filter_ssid_key, emptySet())
+        verify(repository).stringSet(R.string.filter_ssid_key, setOf())
     }
 
     @Test

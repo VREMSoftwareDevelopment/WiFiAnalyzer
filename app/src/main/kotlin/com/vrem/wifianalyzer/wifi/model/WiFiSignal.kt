@@ -69,7 +69,6 @@ data class WiFiSignal(val primaryFrequency: Int = 0,
     companion object {
         const val FREQUENCY_UNITS = "MHz"
 
-        @JvmField
         val EMPTY = WiFiSignal()
     }
 

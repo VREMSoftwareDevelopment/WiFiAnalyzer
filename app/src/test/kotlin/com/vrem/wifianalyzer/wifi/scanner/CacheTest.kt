@@ -53,7 +53,7 @@ class CacheTest {
     @Test
     fun testAddWithSizeAvailable() {
         // setup
-        val scanResults = emptyList<ScanResult>()
+        val scanResults = listOf<ScanResult>()
         // execute
         fixture.add(scanResults, wifiInfo)
         // validate
@@ -64,10 +64,10 @@ class CacheTest {
     fun testAddCompliesToMaxCacheSizeWithSizeAvailable() {
         // setup
         val cacheSize = 2
-        val expected: MutableList<List<ScanResult>> = ArrayList()
+        val expected: MutableList<List<ScanResult>> = mutableListOf()
         // execute
         for (i in 0 until cacheSize) {
-            val scanResults = emptyList<ScanResult>()
+            val scanResults = listOf<ScanResult>()
             expected.add(scanResults)
             fixture.add(scanResults, wifiInfo)
         }
@@ -114,7 +114,7 @@ class CacheTest {
     fun testAdd() {
         // setup
         whenever(configuration.sizeAvailable).thenReturn(false)
-        val scanResults = emptyList<ScanResult>()
+        val scanResults = listOf<ScanResult>()
         // execute
         fixture.add(scanResults, wifiInfo)
         // validate
@@ -127,10 +127,10 @@ class CacheTest {
         // setup
         val cacheSize = 2
         whenever(configuration.sizeAvailable).thenReturn(false)
-        val expected: MutableList<List<ScanResult>> = ArrayList()
+        val expected: MutableList<List<ScanResult>> = mutableListOf()
         // execute
         for (i in 0 until cacheSize) {
-            val scanResults = emptyList<ScanResult>()
+            val scanResults = listOf<ScanResult>()
             expected.add(scanResults)
             fixture.add(scanResults, wifiInfo)
         }

@@ -27,7 +27,6 @@ import java.util.*
 private fun data(): List<Data> = supportedLanguages()
         .map { map(it) }
         .sorted()
-        .toList()
 
 private fun map(it: Locale): Data = Data(toLanguageTag(it), it.getDisplayName(it).capitalize())
 

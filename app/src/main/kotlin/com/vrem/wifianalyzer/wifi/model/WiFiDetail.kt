@@ -24,7 +24,7 @@ data class WiFiDetail(
         val capabilities: String = String.EMPTY,
         val wiFiSignal: WiFiSignal = WiFiSignal.EMPTY,
         val wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY,
-        val children: List<WiFiDetail> = emptyList()) : Comparable<WiFiDetail> {
+        val children: List<WiFiDetail> = listOf()) : Comparable<WiFiDetail> {
 
     constructor(wiFiDetail: WiFiDetail, wiFiAdditional: WiFiAdditional) :
             this(wiFiDetail.wiFiIdentifier, wiFiDetail.capabilities, wiFiDetail.wiFiSignal, wiFiAdditional)
@@ -52,7 +52,6 @@ data class WiFiDetail(
     override fun compareTo(other: WiFiDetail): Int = wiFiIdentifier.compareTo(other.wiFiIdentifier)
 
     companion object {
-        @JvmField
         val EMPTY = WiFiDetail()
     }
 }

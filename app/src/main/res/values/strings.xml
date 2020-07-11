@@ -166,8 +166,6 @@
     <string name="about_description_title">"Description:"</string>
     <string name="about_description_text">"Optimize your Wi-Fi network, by checking Wi-Fi network status, signal strength and identifying crowded channels using an open-source WiFiAnalyzer for Android"</string>
     <string name="about_libraries_title">"Libraries Used:"</string>
-    <string name="about_library_apache" translatable="false">"Apache Commons"</string>
-    <string name="about_library_apache_url" translatable="false">"https://commons.apache.org"</string>
     <string name="about_library_graph_view" translatable="false">"Graph View"</string>
     <string name="about_library_graph_view_url" translatable="false">"http://www.android-graphview.org"</string>
     <string name="about_library_material" translatable="false">"Material Design Icons"</string>

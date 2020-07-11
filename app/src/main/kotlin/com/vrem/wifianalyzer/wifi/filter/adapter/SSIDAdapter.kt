@@ -29,7 +29,7 @@ class SSIDAdapter(selections: Set<String>) : BasicFilterAdapter<String>(selectio
     override fun isActive(): Boolean = selections.isNotEmpty()
 
     override fun reset() {
-        selections = emptySet()
+        selections = setOf()
     }
 
     override fun save(settings: Settings): Unit =

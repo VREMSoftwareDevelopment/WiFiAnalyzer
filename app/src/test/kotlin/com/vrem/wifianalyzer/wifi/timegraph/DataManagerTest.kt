@@ -48,7 +48,7 @@ class DataManagerTest {
         // setup
         assertEquals(0, fixture.xValue)
         // execute
-        fixture.addSeriesData(graphViewWrapper, emptyList(), MAX_Y)
+        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y)
         // validate
         assertEquals(1, fixture.xValue)
     }
@@ -58,7 +58,7 @@ class DataManagerTest {
         // setup
         assertEquals(0, fixture.scanCount)
         // execute
-        fixture.addSeriesData(graphViewWrapper, emptyList(), MAX_Y)
+        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y)
         // validate
         assertEquals(1, fixture.scanCount)
     }
@@ -68,7 +68,7 @@ class DataManagerTest {
         // setup
         fixture.scanCount = MAX_SCAN_COUNT
         // execute
-        fixture.addSeriesData(graphViewWrapper, emptyList(), MAX_Y)
+        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y)
         // validate
         assertEquals(MAX_SCAN_COUNT, fixture.scanCount)
     }
@@ -78,7 +78,7 @@ class DataManagerTest {
         // setup
         fixture.scanCount = 1
         // execute
-        fixture.addSeriesData(graphViewWrapper, emptyList(), MAX_Y)
+        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y)
         // validate
         assertEquals(2, fixture.scanCount)
         verify(graphViewWrapper).setHorizontalLabelsVisible(true)
@@ -87,7 +87,7 @@ class DataManagerTest {
     @Test
     fun testAddSeriesDoesNotSetHorizontalLabelsVisible() {
         // execute
-        fixture.addSeriesData(graphViewWrapper, emptyList(), MAX_Y)
+        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y)
         // validate
         verify(graphViewWrapper, never()).setHorizontalLabelsVisible(true)
     }
@@ -95,7 +95,7 @@ class DataManagerTest {
     @Test
     fun testAdjustDataAppendsData() {
         // setup
-        val wiFiDetails: Set<WiFiDetail> = emptySet()
+        val wiFiDetails: Set<WiFiDetail> = setOf()
         val difference = makeWiFiDetails()
         val xValue = fixture.xValue
         val scanCount = fixture.scanCount

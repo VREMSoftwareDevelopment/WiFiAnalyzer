@@ -23,7 +23,6 @@ class WiFiAdditional(val vendorName: String = String.EMPTY,
                      val wiFiConnection: WiFiConnection = WiFiConnection.EMPTY) {
 
     companion object {
-        @JvmField
         val EMPTY = WiFiAdditional()
     }
 

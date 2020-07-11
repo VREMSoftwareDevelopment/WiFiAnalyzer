@@ -30,13 +30,12 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels
 import com.vrem.wifianalyzer.wifi.graphutils.*
 import com.vrem.wifianalyzer.wifi.model.WiFiData
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.predicate.FilterPredicate
-import org.apache.commons.collections4.Predicate
+import com.vrem.wifianalyzer.wifi.predicate.Predicate
+import com.vrem.wifianalyzer.wifi.predicate.makeOtherPredicate
 
 internal fun WiFiChannelPair.numX(): Int {
-    val channelFirst = this.first!!.channel - WiFiChannels.CHANNEL_OFFSET
-    val channelLast = this.second!!.channel + WiFiChannels.CHANNEL_OFFSET
+    val channelFirst = this.first.channel - WiFiChannels.CHANNEL_OFFSET
+    val channelLast = this.second.channel + WiFiChannels.CHANNEL_OFFSET
     return channelLast - channelFirst + 1
 }
 
@@ -74,10 +73,10 @@ internal fun makeGraphViewWrapper(wiFiChannelPair: WiFiChannelPair): GraphViewWr
     val graphView = makeGraphView(MainContext.INSTANCE, graphMaximumY, themeStyle, settings.wiFiBand(), wiFiChannelPair)
     val graphViewWrapper = GraphViewWrapper(graphView, settings.channelGraphLegend(), themeStyle)
     configuration.size = graphViewWrapper.size(graphViewWrapper.calculateGraphType())
-    val minX = wiFiChannelPair.first!!.frequency - WiFiChannels.FREQUENCY_OFFSET
+    val minX = wiFiChannelPair.first.frequency - WiFiChannels.FREQUENCY_OFFSET
     val maxX = minX + graphViewWrapper.viewportCntX * WiFiChannels.FREQUENCY_SPREAD
     graphViewWrapper.setViewport(minX, maxX)
-    graphViewWrapper.addSeries(makeDefaultSeries(wiFiChannelPair.second!!.frequency, minX))
+    graphViewWrapper.addSeries(makeDefaultSeries(wiFiChannelPair.second.frequency, minX))
     return graphViewWrapper
 }
 
@@ -100,7 +99,7 @@ internal class ChannelGraphView(private val wiFiBand: WiFiBand,
 
     fun selected(): Boolean = wiFiChannelPair.selected(wiFiBand)
 
-    fun predicate(settings: Settings): Predicate<WiFiDetail> = FilterPredicate.makeOtherPredicate(settings)
+    fun predicate(settings: Settings): Predicate = makeOtherPredicate(settings)
 
     override fun graphView(): GraphView {
         return graphViewWrapper.graphView

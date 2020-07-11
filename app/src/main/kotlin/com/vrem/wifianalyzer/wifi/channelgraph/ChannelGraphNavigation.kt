@@ -31,7 +31,8 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelsGHZ5
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.predicate.FilterPredicate
+import com.vrem.wifianalyzer.wifi.predicate.Predicate
+import com.vrem.wifianalyzer.wifi.predicate.makeOtherPredicate
 
 internal val navigationSet: Map<WiFiChannelPair, Int> = mapOf(
         WiFiChannelsGHZ5.SET1 to R.id.graphNavigationSet1,
@@ -47,7 +48,7 @@ class ChannelGraphNavigation(private val view: View, private val context: Contex
         val countryCode = settings.countryCode()
         val wiFiChannels = wiFiBand.wiFiChannels
         val visible = navigationSet
-                .filterKeys { wiFiBand.ghz5() && wiFiChannels.channelAvailable(countryCode, it.first!!.channel) }
+                .filterKeys { wiFiBand.ghz5() && wiFiChannels.channelAvailable(countryCode, it.first.channel) }
                 .keys
         updateButtons(wiFiData, visible)
         view.visibility = if (visible.size > 1) View.VISIBLE else View.GONE
@@ -63,7 +64,7 @@ class ChannelGraphNavigation(private val view: View, private val context: Contex
         }
     }
 
-    fun predicate(settings: Settings) = FilterPredicate.makeOtherPredicate(settings)
+    fun predicate(settings: Settings): Predicate = makeOtherPredicate(settings)
 
     private fun button(entry: Map.Entry<WiFiChannelPair, Int>, visible: Set<WiFiChannelPair>, selectedWiFiChannelPair: WiFiChannelPair, wiFiDetails: List<WiFiDetail>) {
         val wiFiChannelPair = entry.key
@@ -81,7 +82,7 @@ class ChannelGraphNavigation(private val view: View, private val context: Contex
 
     private fun buttonText(wiFiDetails: List<WiFiDetail>, wiFiChannelPair: WiFiChannelPair): Spanned {
         val activity = if (wiFiDetails.any { wiFiChannelPair.inRange(it) }) "&#9585;&#9586;" else "&#8722"
-        return """<strong>${wiFiChannelPair.first!!.channel} $activity ${wiFiChannelPair.second!!.channel}</strong>""".fromHtml()
+        return """<strong>${wiFiChannelPair.first.channel} $activity ${wiFiChannelPair.second.channel}</strong>""".fromHtml()
     }
 
     private fun setSelected(button: Button, selected: Boolean) {

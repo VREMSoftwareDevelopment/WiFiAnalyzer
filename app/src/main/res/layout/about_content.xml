@@ -182,36 +182,6 @@
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:text="@string/about_libraries_title"
                 android:textStyle="italic"/>
-            <!-- Apache Commons -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/about_library_apache"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:autoLink="web"
-                    android:text="@string/about_library_apache_url"/>
-
-                <TextView
-                    android:id="@+id/apacheCommonsLicense"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/al"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:autoLink="web"
-                    android:text="@string/al_url"/>
-            </LinearLayout>
             <!-- Graph View -->
             <TextView
                 android:layout_width="wrap_content"

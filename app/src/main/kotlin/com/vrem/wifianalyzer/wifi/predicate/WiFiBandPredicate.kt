@@ -15,24 +15,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.predicate
 
-package com.vrem.wifianalyzer.wifi.predicate;
+import com.vrem.wifianalyzer.wifi.band.WiFiBand
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
-
-import org.apache.commons.collections4.Predicate;
-
-import androidx.annotation.NonNull;
-
-class SSIDPredicate implements Predicate<WiFiDetail> {
-    private final String ssid;
-
-    SSIDPredicate(@NonNull String ssid) {
-        this.ssid = ssid;
-    }
-
-    @Override
-    public boolean evaluate(WiFiDetail wiFiDetail) {
-        return wiFiDetail.getWiFiIdentifier().getSsid().contains(ssid);
-    }
+internal class WiFiBandPredicate(private val wiFiBand: WiFiBand) : Predicate {
+    override fun test(wiFiDetail: WiFiDetail): Boolean = wiFiDetail.wiFiSignal.wiFiBand == wiFiBand
 }

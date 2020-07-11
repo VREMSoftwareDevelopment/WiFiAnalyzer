@@ -17,10 +17,6 @@
  */
 package com.vrem.util
 
-import org.apache.commons.collections4.Predicate
-import org.apache.commons.collections4.PredicateUtils
-import org.apache.commons.collections4.Transformer
-
 fun <T : Enum<T>> findSet(values: Array<T>, indexes: Set<String>, defaultValue: T): Set<T> {
     val results: Set<T> = indexes.map { findOne(values, it.toInt(), defaultValue) }.toSet()
     return if (results.isEmpty()) values.toSet() else results
@@ -34,9 +30,3 @@ fun <T : Enum<T>> ordinals(values: Array<T>): Set<String> =
 
 fun <T : Enum<T>> ordinals(values: Set<T>): Set<String> =
         values.map { it.ordinal.toString() }.toSet()
-
-fun <T : Enum<T>, U> predicate(values: Array<T>, filter: Collection<T>, transformer: Transformer<T, Predicate<U>>): Predicate<U> =
-        if (filter.size >= values.size)
-            PredicateUtils.truePredicate()
-        else
-            PredicateUtils.anyPredicate(filter.map { transformer.transform(it)!! }.toList())

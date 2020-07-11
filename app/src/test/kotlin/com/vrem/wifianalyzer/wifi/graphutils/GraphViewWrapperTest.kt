@@ -66,8 +66,8 @@ class GraphViewWrapperTest {
     @Test
     fun testRemoveSeries() {
         // setup
-        val newSeries: Set<WiFiDetail> = emptySet()
-        val difference: List<WiFiDetail> = emptyList()
+        val newSeries: Set<WiFiDetail> = setOf()
+        val difference: List<WiFiDetail> = listOf()
         val removed = listOf(baseSeries)
         whenever(seriesCache.difference(newSeries)).thenReturn(difference)
         whenever(seriesCache.remove(difference)).thenReturn(removed)
@@ -83,8 +83,8 @@ class GraphViewWrapperTest {
     @Test
     fun testDifferenceSeries() {
         // setup
-        val newSeries: Set<WiFiDetail> = emptySet()
-        val expected: List<WiFiDetail> = emptyList()
+        val newSeries: Set<WiFiDetail> = setOf()
+        val expected: List<WiFiDetail> = listOf()
         whenever(seriesCache.difference(newSeries)).thenReturn(expected)
         // execute
         val actual = fixture.differenceSeries(newSeries)

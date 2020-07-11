@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import com.google.common.collect.Sets
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth
 import org.junit.Assert
 import org.junit.Assert.assertEquals
@@ -43,7 +42,7 @@ class WiFiDetailTest {
         assertEquals(wiFiIdentifier, fixture.wiFiIdentifier)
         assertEquals(capabilities, fixture.capabilities)
         assertEquals(Security.WPA, fixture.security())
-        assertEquals(Sets.newHashSet(Security.WPA, Security.WPA2), fixture.securities())
+        assertEquals(setOf(Security.WPA, Security.WPA2), fixture.securities())
     }
 
     @Test

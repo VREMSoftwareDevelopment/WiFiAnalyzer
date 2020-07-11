@@ -28,7 +28,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
 internal fun WiFiChannelPair.inRange(wiFiDetail: WiFiDetail): Boolean {
     val frequency = wiFiDetail.wiFiSignal.centerFrequency
-    return frequency >= this.first!!.frequency && frequency <= this.second!!.frequency
+    return frequency >= this.first.frequency && frequency <= this.second.frequency
 }
 
 @OpenClass

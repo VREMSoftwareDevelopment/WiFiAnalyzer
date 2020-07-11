@@ -55,9 +55,9 @@ internal class WiFiManagerWrapper(private val wifiManager: WifiManager, private 
 
     fun scanResults(): List<ScanResult> =
             try {
-                wifiManager.scanResults ?: emptyList()
+                wifiManager.scanResults ?: listOf()
             } catch (e: Exception) {
-                emptyList()
+                listOf()
             }
 
     fun wiFiInfo(): WifiInfo? =

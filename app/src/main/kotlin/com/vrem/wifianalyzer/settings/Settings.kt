@@ -106,7 +106,7 @@ class Settings(private val repository: Repository) {
         }
     }
 
-    fun findSSIDs(): Set<String> = repository.stringSet(R.string.filter_ssid_key, emptySet())
+    fun findSSIDs(): Set<String> = repository.stringSet(R.string.filter_ssid_key, setOf())
 
     fun saveSSIDs(values: Set<String>): Unit = repository.saveStringSet(R.string.filter_ssid_key, values)
 

@@ -27,7 +27,7 @@ import com.vrem.wifianalyzer.wifi.graphutils.TYPE2
 import com.vrem.wifianalyzer.wifi.graphutils.TYPE3
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.predicate.FilterPredicate
+import com.vrem.wifianalyzer.wifi.predicate.makeAccessPointsPredicate
 import java.security.MessageDigest
 
 @OpenClass
@@ -38,7 +38,7 @@ class AccessPointsAdapterData(
     fun update(wiFiData: WiFiData, expandableListView: ExpandableListView?) {
         INSTANCE.configuration.size = type(calculateChildType())
         val settings = INSTANCE.settings
-        val predicate = FilterPredicate.makeAccessPointsPredicate(settings)
+        val predicate = makeAccessPointsPredicate(settings)
         wiFiDetails.clear()
         wiFiDetails.addAll(wiFiData.wiFiDetails(predicate, settings.sortBy(), settings.groupBy()))
         accessPointsAdapterGroup.update(wiFiDetails, expandableListView)

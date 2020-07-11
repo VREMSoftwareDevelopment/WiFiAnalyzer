@@ -25,7 +25,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal
 import org.junit.Assert.*
 import org.junit.Test
-import java.util.*
 
 class TimeGraphCacheTest {
     private val fixture = TimeGraphCache()
@@ -83,7 +82,7 @@ class TimeGraphCacheTest {
     }
 
     private fun withWiFiDetails(): List<WiFiDetail> {
-        val results: MutableList<WiFiDetail> = ArrayList()
+        val results: MutableList<WiFiDetail> = mutableListOf()
         for (i in 0..3) {
             val wiFiDetail = withWiFiDetail("SSID$i")
             results.add(wiFiDetail)

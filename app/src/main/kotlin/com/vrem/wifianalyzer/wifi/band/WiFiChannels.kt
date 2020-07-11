@@ -18,6 +18,9 @@
 package com.vrem.wifianalyzer.wifi.band
 
 typealias WiFiRange = Pair<Int, Int>
+typealias WiFiChannelPair = Pair<WiFiChannel, WiFiChannel>
+
+fun WiFiChannelPair.channelCount(): Int = second.channel - first.channel + 1 + WiFiChannels.CHANNEL_OFFSET * 2
 
 abstract class WiFiChannels(private val wiFiRange: WiFiRange, private val wiFiChannelPairs: List<WiFiChannelPair>) {
     fun inRange(frequency: Int): Boolean = frequency >= wiFiRange.first && frequency <= wiFiRange.second
@@ -31,17 +34,17 @@ abstract class WiFiChannels(private val wiFiRange: WiFiRange, private val wiFiCh
             }
 
     fun wiFiChannelByChannel(channel: Int): WiFiChannel =
-            wiFiChannelPairs.find { channel >= it.first!!.channel && channel <= it.second!!.channel }
-                    ?.let { WiFiChannel(channel, it.first!!.frequency + (channel - it.first.channel) * FREQUENCY_SPREAD) }
+            wiFiChannelPairs.find { channel >= it.first.channel && channel <= it.second.channel }
+                    ?.let { WiFiChannel(channel, it.first.frequency + (channel - it.first.channel) * FREQUENCY_SPREAD) }
                     ?: WiFiChannel.UNKNOWN
 
-    fun wiFiChannelFirst(): WiFiChannel = wiFiChannelPairs[0].first!!
+    fun wiFiChannelFirst(): WiFiChannel = wiFiChannelPairs[0].first
 
-    fun wiFiChannelLast(): WiFiChannel = wiFiChannelPairs[wiFiChannelPairs.size - 1].second!!
+    fun wiFiChannelLast(): WiFiChannel = wiFiChannelPairs[wiFiChannelPairs.size - 1].second
 
     fun wiFiChannel(frequency: Int, wiFiChannelPair: WiFiChannelPair): WiFiChannel {
-        val first: WiFiChannel = wiFiChannelPair.first!!
-        val last: WiFiChannel = wiFiChannelPair.second!!
+        val first: WiFiChannel = wiFiChannelPair.first
+        val last: WiFiChannel = wiFiChannelPair.second
         val channel: Int = ((frequency - first.frequency).toDouble() / FREQUENCY_SPREAD + first.channel + 0.5).toInt()
         return if (channel >= first.channel && channel <= last.channel)
             WiFiChannel(channel, frequency)
@@ -55,15 +58,12 @@ abstract class WiFiChannels(private val wiFiRange: WiFiRange, private val wiFiCh
     abstract fun wiFiChannelPairFirst(countryCode: String): WiFiChannelPair
     abstract fun wiFiChannelByFrequency(frequency: Int, wiFiChannelPair: WiFiChannelPair): WiFiChannel
 
-    fun availableChannels(channels: Set<Int>): List<WiFiChannel> =
-            channels.map { this.wiFiChannelByChannel(it) }.toList()
+    fun availableChannels(channels: Set<Int>): List<WiFiChannel> = channels.map { this.wiFiChannelByChannel(it) }
 
-    fun wiFiChannels(): List<WiFiChannel> = wiFiChannelPairs.flatMap { transform(it) }.toList()
+    fun wiFiChannels(): List<WiFiChannel> = wiFiChannelPairs.flatMap { transform(it) }
 
     private fun transform(wiFiChannelPair: WiFiChannelPair): List<WiFiChannel> =
-            (wiFiChannelPair.first!!.channel..wiFiChannelPair.second!!.channel)
-                    .map { wiFiChannelByChannel(it) }
-                    .toList()
+            (wiFiChannelPair.first.channel..wiFiChannelPair.second.channel).map { wiFiChannelByChannel(it) }
 
     companion object {
         val UNKNOWN = WiFiChannelPair(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN)

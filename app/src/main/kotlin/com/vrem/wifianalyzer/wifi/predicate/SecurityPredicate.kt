@@ -15,26 +15,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.predicate
 
-package com.vrem.wifianalyzer.wifi.predicate;
+import com.vrem.wifianalyzer.wifi.model.Security
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
-import com.vrem.wifianalyzer.wifi.model.Strength;
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail;
-
-import org.apache.commons.collections4.Predicate;
-
-import androidx.annotation.NonNull;
-
-class StrengthPredicate implements Predicate<WiFiDetail> {
-    private final Strength strength;
-
-    StrengthPredicate(@NonNull Strength strength) {
-        this.strength = strength;
-    }
-
-    @Override
-    public boolean evaluate(WiFiDetail wiFiDetail) {
-        return wiFiDetail.getWiFiSignal().strength().equals(strength);
-    }
-
+internal class SecurityPredicate(private val security: Security) : Predicate {
+    override fun test(wiFiDetail: WiFiDetail): Boolean = wiFiDetail.securities().contains(security)
 }
