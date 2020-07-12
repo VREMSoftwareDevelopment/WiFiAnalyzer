@@ -17,9 +17,35 @@
  */
 package com.vrem.wifianalyzer.wifi.predicate
 
-import com.vrem.wifianalyzer.wifi.model.Security
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
-internal class SecurityPredicate(private val security: Security) : Predicate {
-    override fun test(wiFiDetail: WiFiDetail): Boolean = wiFiDetail.securities().contains(security)
+class AmyPredicateTest {
+
+    @Test
+    fun testAnyPredicateIsTrue() {
+        // setup
+        val wiFiDetail = WiFiDetail.EMPTY
+        val predicates = listOf(FalsePredicate(), TruePredicate(), FalsePredicate())
+        val fixture = AnyPredicate(predicates)
+        // execute
+        val actual = fixture.test(wiFiDetail)
+        // validate
+        assertTrue(actual)
+    }
+
+    @Test
+    fun testAnyPredicateIsFalse() {
+        // setup
+        val wiFiDetail = WiFiDetail.EMPTY
+        val predicates = listOf(FalsePredicate(), FalsePredicate(), FalsePredicate())
+        val fixture = AnyPredicate(predicates)
+        // execute
+        val actual = fixture.test(wiFiDetail)
+        // validate
+        assertFalse(actual)
+    }
+
 }

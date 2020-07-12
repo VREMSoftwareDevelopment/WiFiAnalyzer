@@ -43,17 +43,29 @@ internal class AllPredicate(private val predicates: List<Predicate>) : Predicate
     override fun test(wiFiDetail: WiFiDetail): Boolean = predicates.all { it.test(wiFiDetail) }
 }
 
-typealias ToPredicate<T> = (T) -> Predicate
+internal typealias ToPredicate<T> = (T) -> Predicate
 
-private val wiFiBand: ToPredicate<WiFiBand> = { WiFiBandPredicate(it) }
-private val strength: ToPredicate<Strength> = { StrengthPredicate(it) }
-private val security: ToPredicate<Security> = { SecurityPredicate(it) }
-
-internal fun <T : Enum<T>> predicate(values: Array<T>, filter: Set<T>, toPredicate: ToPredicate<T>): Predicate =
+internal fun <T : Enum<T>> makePredicate(values: Array<T>, filter: Set<T>, toPredicate: ToPredicate<T>): Predicate =
         if (filter.size >= values.size)
             TruePredicate()
         else
             AnyPredicate(filter.map { toPredicate(it) })
+
+class WiFiBandPredicate(private val wiFiBand: WiFiBand) : Predicate {
+    override fun test(wiFiDetail: WiFiDetail): Boolean = wiFiDetail.wiFiSignal.wiFiBand == wiFiBand
+}
+
+internal class StrengthPredicate(private val strength: Strength) : Predicate {
+    override fun test(wiFiDetail: WiFiDetail): Boolean = wiFiDetail.wiFiSignal.strength() == strength
+}
+
+internal class SSIDPredicate(private val ssid: String) : Predicate {
+    override fun test(wiFiDetail: WiFiDetail): Boolean = wiFiDetail.wiFiIdentifier.ssid.contains(ssid)
+}
+
+internal class SecurityPredicate(private val security: Security) : Predicate {
+    override fun test(wiFiDetail: WiFiDetail): Boolean = wiFiDetail.securities().contains(security)
+}
 
 private fun makeSSIDPredicate(ssids: Set<String>): Predicate =
         if (ssids.isEmpty())
@@ -62,12 +74,14 @@ private fun makeSSIDPredicate(ssids: Set<String>): Predicate =
             AnyPredicate(ssids.map { SSIDPredicate(it) })
 
 private fun makePredicate(settings: Settings, wiFiBands: Set<WiFiBand>): AllPredicate =
-        AllPredicate(sequenceOf(
-                makeSSIDPredicate(settings.findSSIDs()),
-                predicate(WiFiBand.values(), wiFiBands, wiFiBand),
-                predicate(Strength.values(), settings.findStrengths(), strength),
-                predicate(Security.values(), settings.findSecurities(), security))
-                .toList())
+        AllPredicate(
+                listOf(
+                        makeSSIDPredicate(settings.findSSIDs()),
+                        makePredicate(WiFiBand.values(), wiFiBands) { WiFiBandPredicate(it) },
+                        makePredicate(Strength.values(), settings.findStrengths()) { StrengthPredicate(it) },
+                        makePredicate(Security.values(), settings.findSecurities()) { SecurityPredicate(it) }
+                )
+        )
 
 fun makeAccessPointsPredicate(settings: Settings): Predicate = makePredicate(settings, settings.findWiFiBands())
 
