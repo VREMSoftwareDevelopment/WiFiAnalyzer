@@ -73,7 +73,7 @@ class ChannelRatingAdapter(
     }
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-        val binding = view?.let { Binding(it) } ?: Binding(create(parent))
+        val binding = view?.let { ChannelRatingAdapterBinding(it) } ?: ChannelRatingAdapterBinding(create(parent))
         getItem(position)?.let {
             binding.channelNumber.text = it.channel.toString()
             binding.accessPointCount.text = channelRating.count(it).toString()
@@ -136,25 +136,4 @@ class ChannelRatingAdapter(
     private fun create(parent: ViewGroup): ChannelRatingDetailsBinding =
             ChannelRatingDetailsBinding.inflate(INSTANCE.layoutInflater, parent, false)
 
-    private inner class Binding {
-        val root: View
-        val channelNumber: TextView
-        val accessPointCount: TextView
-        val channelRating: RatingBar
-
-        internal constructor(binding: ChannelRatingDetailsBinding) {
-            root = binding.root
-            channelNumber = binding.channelNumber
-            accessPointCount = binding.accessPointCount
-            channelRating = binding.channelRating
-        }
-
-        internal constructor(view: View) {
-            root = view
-            channelNumber = view.findViewById(R.id.channelNumber)
-            accessPointCount = view.findViewById(R.id.accessPointCount)
-            channelRating = view.findViewById(R.id.channelRating)
-        }
-
-    }
 }

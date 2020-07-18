@@ -80,4 +80,5 @@ class ChannelAvailableAdapterTest {
         assertEquals("$wiFiBand5 : ", actual.findViewById<TextView>(R.id.channel_available_title_ghz_5).text)
         assertEquals(expectedGHZ5, actual.findViewById<TextView>(R.id.channel_available_ghz_5).text)
     }
+
 }

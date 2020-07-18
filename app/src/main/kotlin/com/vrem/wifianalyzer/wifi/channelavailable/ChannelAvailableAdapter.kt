@@ -21,7 +21,6 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import com.vrem.wifianalyzer.MainContext.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.databinding.ChannelAvailableDetailsBinding
@@ -32,7 +31,7 @@ internal class ChannelAvailableAdapter(context: Context, wiFiChannelCountries: L
         ArrayAdapter<WiFiChannelCountry>(context, R.layout.channel_available_details, wiFiChannelCountries) {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-        val binding = view?.let { Binding(it) } ?: Binding(create(parent))
+        val binding = view?.let { ChannelAvailableAdapterBinding(it) } ?: ChannelAvailableAdapterBinding(create(parent))
         val rootView = binding.root
         getItem(position)?.let {
             val resources = rootView.resources
@@ -49,31 +48,4 @@ internal class ChannelAvailableAdapter(context: Context, wiFiChannelCountries: L
     private fun create(parent: ViewGroup): ChannelAvailableDetailsBinding =
             ChannelAvailableDetailsBinding.inflate(INSTANCE.layoutInflater, parent, false)
 
-    private inner class Binding {
-        val root: View
-        val channelAvailableCountry: TextView
-        val channelAvailableTitleGhz2: TextView
-        val channelAvailableGhz2: TextView
-        val channelAvailableTitleGhz5: TextView
-        val channelAvailableGhz5: TextView
-
-        internal constructor(binding: ChannelAvailableDetailsBinding) {
-            root = binding.root
-            channelAvailableCountry = binding.channelAvailableCountry
-            channelAvailableTitleGhz2 = binding.channelAvailableTitleGhz2
-            channelAvailableGhz2 = binding.channelAvailableGhz2
-            channelAvailableTitleGhz5 = binding.channelAvailableTitleGhz5
-            channelAvailableGhz5 = binding.channelAvailableGhz5
-        }
-
-        internal constructor(view: View) {
-            root = view
-            channelAvailableCountry = view.findViewById(R.id.channel_available_country)
-            channelAvailableTitleGhz2 = view.findViewById(R.id.channel_available_title_ghz_2)
-            channelAvailableGhz2 = view.findViewById(R.id.channel_available_ghz_2)
-            channelAvailableTitleGhz5 = view.findViewById(R.id.channel_available_title_ghz_5)
-            channelAvailableGhz5 = view.findViewById(R.id.channel_available_ghz_5)
-        }
-
-    }
 }
