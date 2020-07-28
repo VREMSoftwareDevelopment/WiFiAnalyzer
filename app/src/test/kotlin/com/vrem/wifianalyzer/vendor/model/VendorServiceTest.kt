@@ -35,9 +35,9 @@ class VendorServiceTest {
     private val macAddress = "00:23:AB:8C:DF:10"
     private val vendorNameInvalid = "XXXXX"
     private val macAddressInvalid = "XX:XX:XX"
-    private val vendorSize = 17648
-    private val macsSize = 27718
-    private val macsCiscoSize = 923
+    private val vendorSize = 17749
+    private val macsSize = 28301
+    private val macsCiscoSize = 939
     private val filterVendor = "1394 "
     private val filterMac = "00:A0:2"
     private val expectedVendorName1 = "1394 TRADE ASSOCIATION"
@@ -45,7 +45,7 @@ class VendorServiceTest {
     private val expectedVendorName3 = "1394 PRINTER WORKING GROUP"
     private val expectedMac1 = "00:00:0C"
     private val expectedMac2 = "FC:FB:FB"
-    private val expectedMac3 = "00:D0:C0"
+    private val expectedMac3 = "00:E0:14"
 
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val fixture = VendorService(mainActivity.resources)
