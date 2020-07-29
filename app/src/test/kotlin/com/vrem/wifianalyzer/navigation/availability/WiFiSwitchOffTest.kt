@@ -50,26 +50,30 @@ class WiFiSwitchOffTest {
     fun testNavigationOptionWiFiSwitchOffWithActionBarSetEmptySubtitle() {
         // setup
         whenever(mainActivity.supportActionBar).thenReturn(actionBar)
-        whenever(mainActivity.optionMenu).thenReturn(null)
+        whenever(mainActivity.optionMenu).thenReturn(optionMenu)
+        whenever(optionMenu.menu).thenReturn(null)
         // execute
         navigationOptionWiFiSwitchOff(mainActivity)
         // validate
         verify(mainActivity).supportActionBar
         verify(actionBar).subtitle = String.EMPTY
         verify(mainActivity).optionMenu
+        verify(optionMenu).menu
     }
 
     @Test
     fun testNavigationOptionWiFiSwitchOffWithNoActionBarDoesNotSetSubtitle() {
         // setup
         whenever(mainActivity.supportActionBar).thenReturn(null)
-        whenever(mainActivity.optionMenu).thenReturn(null)
+        whenever(mainActivity.optionMenu).thenReturn(optionMenu)
+        whenever(optionMenu.menu).thenReturn(null)
         // execute
         navigationOptionWiFiSwitchOff(mainActivity)
         // validate
         verify(mainActivity).supportActionBar
         verify(actionBar, never()).subtitle = any()
         verify(mainActivity).optionMenu
+        verify(optionMenu).menu
     }
 
     @Test
@@ -93,11 +97,13 @@ class WiFiSwitchOffTest {
     fun testNavigationOptionWiFiSwitchOffWithNoOptionMenuDoesNotSetWiFiBandVisible() {
         // setup
         whenever(mainActivity.supportActionBar).thenReturn(null)
-        whenever(mainActivity.optionMenu).thenReturn(null)
+        whenever(mainActivity.optionMenu).thenReturn(optionMenu)
+        whenever(optionMenu.menu).thenReturn(null)
         // execute
         navigationOptionWiFiSwitchOff(mainActivity)
         // validate
         verify(mainActivity).optionMenu
+        verify(optionMenu).menu
         verify(menu, never()).findItem(R.id.action_wifi_band)
         verify(menuItem, never()).isVisible = any()
         verify(mainActivity).supportActionBar

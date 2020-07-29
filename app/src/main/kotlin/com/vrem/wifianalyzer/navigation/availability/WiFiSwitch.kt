@@ -24,22 +24,23 @@ import com.vrem.util.toHtml
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContext.INSTANCE
 import com.vrem.wifianalyzer.R
+import com.vrem.wifianalyzer.navigation.options.OptionMenu
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 
 internal val navigationOptionWiFiSwitchOff: NavigationOption = {
     it.supportActionBar?.let { actionBar ->
         actionBar.subtitle = String.EMPTY
     }
-    menu(it, false)
+    menu(it.optionMenu, false)
 }
 
 internal val navigationOptionWiFiSwitchOn: NavigationOption = {
     actionBarOn(it)
-    menu(it, true)
+    menu(it.optionMenu, true)
 }
 
-private fun menu(mainActivity: MainActivity, visible: Boolean) {
-    mainActivity.optionMenu?.menu?.let {
+private fun menu(optionMenu: OptionMenu, visible: Boolean) {
+    optionMenu.menu?.let {
         it.findItem(R.id.action_wifi_band).isVisible = visible
     }
 }

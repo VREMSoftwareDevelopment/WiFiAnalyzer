@@ -77,10 +77,14 @@ class WiFiSwitchOnTest {
         // setup
         val mainActivity: MainActivity = mock()
         whenever(mainActivity.supportActionBar).thenReturn(null)
+        whenever(mainActivity.optionMenu).thenReturn(optionMenu)
+        whenever(optionMenu.menu).thenReturn(null)
         // execute
         navigationOptionWiFiSwitchOn(mainActivity)
         // validate
         verify(mainActivity).supportActionBar
+        verify(mainActivity).optionMenu
+        verify(optionMenu).menu
         verify(actionBar, never()).subtitle = any()
     }
 
@@ -122,18 +126,6 @@ class WiFiSwitchOnTest {
         navigationOptionWiFiSwitchOn(mainActivity)
         // validate
         mainActivity.optionMenu.menu?.findItem(R.id.action_wifi_band)?.isVisible?.let { assertTrue(it) }
-    }
-
-    @Test
-    fun testNavigationOptionWiFiSwitchOnWithNoOptionMenuDoesNotSetWiFiBandVisible() {
-        // setup
-        val mainActivity: MainActivity = mock()
-        whenever(mainActivity.optionMenu).thenReturn(null)
-        // execute
-        navigationOptionWiFiSwitchOn(mainActivity)
-        // validate
-        verify(mainActivity).optionMenu
-        verifyMenu()
     }
 
     @Test
