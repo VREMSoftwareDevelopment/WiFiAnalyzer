@@ -65,12 +65,12 @@ internal fun makeDefaultSeries(frequencyEnd: Int, minX: Int): TitleLineGraphSeri
     return series
 }
 
-internal fun makeGraphViewWrapper(wiFiChannelPair: WiFiChannelPair): GraphViewWrapper {
+internal fun makeGraphViewWrapper(wiFiBand: WiFiBand, wiFiChannelPair: WiFiChannelPair): GraphViewWrapper {
     val settings = MainContext.INSTANCE.settings
     val configuration = MainContext.INSTANCE.configuration
     val themeStyle = settings.themeStyle()
     val graphMaximumY = settings.graphMaximumY()
-    val graphView = makeGraphView(MainContext.INSTANCE, graphMaximumY, themeStyle, settings.wiFiBand(), wiFiChannelPair)
+    val graphView = makeGraphView(MainContext.INSTANCE, graphMaximumY, themeStyle, wiFiBand, wiFiChannelPair)
     val graphViewWrapper = GraphViewWrapper(graphView, settings.channelGraphLegend(), themeStyle)
     configuration.size = graphViewWrapper.size(graphViewWrapper.calculateGraphType())
     val minX = wiFiChannelPair.first.frequency - WiFiChannels.FREQUENCY_OFFSET
@@ -84,7 +84,7 @@ internal fun makeGraphViewWrapper(wiFiChannelPair: WiFiChannelPair): GraphViewWr
 internal class ChannelGraphView(private val wiFiBand: WiFiBand,
                                 private val wiFiChannelPair: WiFiChannelPair,
                                 private var dataManager: DataManager = DataManager(),
-                                private var graphViewWrapper: GraphViewWrapper = makeGraphViewWrapper(wiFiChannelPair))
+                                private var graphViewWrapper: GraphViewWrapper = makeGraphViewWrapper(wiFiBand, wiFiChannelPair))
     : GraphViewNotifier {
 
     override fun update(wiFiData: WiFiData) {

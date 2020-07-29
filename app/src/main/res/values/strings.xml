@@ -109,7 +109,7 @@
     <string name="connection_view_title">"Connection Display"</string>
     <string name="connection_view_summary" translatable="false">"%s"</string>
     <string name="connection_view_key" translatable="false">"connection"</string>
-    <string name="connection_view_default" translatable="false">"0"</string>
+    <string name="connection_view_default" translatable="false">"1"</string>
     <string name="connection_view_complete">"Complete"</string>
     <string name="connection_view_compact">"Compact"</string>
     <string name="connection_view_hide">"Hide"</string>

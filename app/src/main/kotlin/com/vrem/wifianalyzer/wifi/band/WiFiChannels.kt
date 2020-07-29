@@ -23,11 +23,13 @@ typealias WiFiChannelPair = Pair<WiFiChannel, WiFiChannel>
 fun WiFiChannelPair.channelCount(): Int = second.channel - first.channel + 1 + WiFiChannels.CHANNEL_OFFSET * 2
 
 abstract class WiFiChannels(private val wiFiRange: WiFiRange, private val wiFiChannelPairs: List<WiFiChannelPair>) {
-    fun inRange(frequency: Int): Boolean = frequency >= wiFiRange.first && frequency <= wiFiRange.second
+    fun inRange(frequency: Int): Boolean =
+            frequency >= wiFiRange.first && frequency <= wiFiRange.second
 
     fun wiFiChannelByFrequency(frequency: Int): WiFiChannel =
             if (inRange(frequency)) {
-                wiFiChannelPairs.find { WiFiChannel.UNKNOWN != wiFiChannel(frequency, it) }?.let { wiFiChannel(frequency, it) }
+                wiFiChannelPairs.find { WiFiChannel.UNKNOWN != wiFiChannel(frequency, it) }
+                        ?.let { wiFiChannel(frequency, it) }
                         ?: WiFiChannel.UNKNOWN
             } else {
                 WiFiChannel.UNKNOWN

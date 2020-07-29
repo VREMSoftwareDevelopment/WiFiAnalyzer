@@ -79,7 +79,7 @@ class Settings(private val repository: Repository) {
 
     fun accessPointView(): AccessPointViewType = find(AccessPointViewType.values(), R.string.ap_view_key, AccessPointViewType.COMPLETE)
 
-    fun connectionViewType(): ConnectionViewType = find(ConnectionViewType.values(), R.string.connection_view_key, ConnectionViewType.COMPLETE)
+    fun connectionViewType(): ConnectionViewType = find(ConnectionViewType.values(), R.string.connection_view_key, ConnectionViewType.COMPACT)
 
     fun channelGraphLegend(): GraphLegend = find(GraphLegend.values(), R.string.channel_graph_legend_key, GraphLegend.HIDE)
 

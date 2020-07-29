@@ -193,7 +193,7 @@ class ChannelGraphViewTest {
         RobolectricUtil.INSTANCE.activity
         val wiFiChannelPair = withWiFiChannelPair()
         // execute
-        val actual = makeGraphViewWrapper(wiFiChannelPair)
+        val actual = makeGraphViewWrapper(WiFiBand.GHZ2, wiFiChannelPair)
         // validate
         assertNotNull(actual)
     }

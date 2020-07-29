@@ -52,7 +52,7 @@ class AccessPointsAdapter(
         return view
     }
 
-    override fun getChildView(groupPosition: Int, childPosition: Int, lastChild: Boolean, convertView: View, parent: ViewGroup): View {
+    override fun getChildView(groupPosition: Int, childPosition: Int, lastChild: Boolean, convertView: View?, parent: ViewGroup?): View {
         val wiFiDetail = getChild(groupPosition, childPosition)
         val view = accessPointDetail.makeView(convertView, parent, wiFiDetail, true)
         attachPopup(view, wiFiDetail)

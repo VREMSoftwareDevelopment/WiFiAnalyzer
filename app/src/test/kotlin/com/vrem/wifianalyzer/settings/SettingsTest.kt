@@ -179,12 +179,12 @@ class SettingsTest {
     @Test
     fun testConnectionViewType() {
         // setup
-        whenever(repository.stringAsInteger(R.string.connection_view_key, ConnectionViewType.COMPLETE.ordinal)).thenReturn(ConnectionViewType.COMPACT.ordinal)
+        whenever(repository.stringAsInteger(R.string.connection_view_key, ConnectionViewType.COMPACT.ordinal)).thenReturn(ConnectionViewType.COMPLETE.ordinal)
         // execute
         val actual = fixture.connectionViewType()
         // validate
-        assertEquals(ConnectionViewType.COMPACT, actual)
-        verify(repository).stringAsInteger(R.string.connection_view_key, ConnectionViewType.COMPLETE.ordinal)
+        assertEquals(ConnectionViewType.COMPLETE, actual)
+        verify(repository).stringAsInteger(R.string.connection_view_key, ConnectionViewType.COMPACT.ordinal)
     }
 
     @Test
