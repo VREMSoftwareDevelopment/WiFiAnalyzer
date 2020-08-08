@@ -27,7 +27,7 @@ apply plugin: "kotlin-allopen"
 dependencies {
     // Compile Build Dependencies
     implementation fileTree(include: ["*.jar"], dir: "libs")
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.android.material:material:1.2.0'
     implementation 'androidx.preference:preference:1.1.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.annotation:annotation:1.1.0'
@@ -38,7 +38,7 @@ dependencies {
     implementation 'com.jjoe64:graphview:4.2.2'
     // Unit Test Dependencies
     testImplementation 'junit:junit:4.13'
-    testImplementation 'org.mockito:mockito-core:3.4.4'
+    testImplementation 'org.mockito:mockito-core:3.4.6'
     testImplementation 'com.googlecode.junit-toolbox:junit-toolbox:2.4'
     testImplementation 'org.robolectric:robolectric:4.3.1'
     testImplementation 'androidx.test.ext:junit:1.1.1'
