@@ -15,46 +15,40 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer
 
-package com.vrem.wifianalyzer;
-
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
-
-import static com.vrem.wifianalyzer.InstrumentedUtils.pauseShort;
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.LargeTest
+import androidx.test.rule.ActivityTestRule
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
 
 @LargeTest
-@RunWith(AndroidJUnit4.class)
-public class MainInstrumentedTest {
+@RunWith(AndroidJUnit4::class)
+class MainInstrumentedTest {
 
-    @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+    @get:Rule
+    var mActivityTestRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    public void testNavigation() {
-        pauseShort();
-        new Navigation().run();
-        pauseShort();
+    fun testNavigation() {
+        pauseShort()
+        NavigationInstrumentedTest().run()
+        pauseShort()
     }
 
     @Test
-    public void testScanner() {
-        pauseShort();
-        new Scanner().run();
-        pauseShort();
+    fun testScanner() {
+        pauseShort()
+        ScannerInstrumentedTest().run()
+        pauseShort()
     }
 
     @Test
-    public void testFilter() {
-        pauseShort();
-        new Filter().run();
-        pauseShort();
+    fun testFilter() {
+        pauseShort()
+        FilterInstrumentedTest().run()
+        pauseShort()
     }
-
 }
