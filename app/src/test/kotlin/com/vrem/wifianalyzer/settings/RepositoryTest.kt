@@ -84,7 +84,7 @@ class RepositoryTest {
         // execute
         fixture.save(keyIndex, value)
         // validate
-        verifySave(keyIndex, Integer.toString(value))
+        verifySave(keyIndex, value.toString())
         verifyPreferenceManager()
     }
 
@@ -168,7 +168,7 @@ class RepositoryTest {
         Assert.assertEquals(defaultValue, actual)
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getInt(keyValue, defaultValue)
-        verifySave(keyIndex, Integer.toString(defaultValue))
+        verifySave(keyIndex, defaultValue.toString())
         verifyPreferenceManager()
     }
 

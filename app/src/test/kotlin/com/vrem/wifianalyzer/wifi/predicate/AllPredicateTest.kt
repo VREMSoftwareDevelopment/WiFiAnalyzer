@@ -40,7 +40,7 @@ class AllPredicateTest {
     fun testAllPredicateIsFalse() {
         // setup
         val wiFiDetail = WiFiDetail.EMPTY
-        val predicates = listOf<Predicate>(FalsePredicate(), TruePredicate(), FalsePredicate())
+        val predicates = listOf(FalsePredicate(), TruePredicate(), FalsePredicate())
         val fixture = AllPredicate(predicates)
         // execute
         val actual = fixture.test(wiFiDetail)

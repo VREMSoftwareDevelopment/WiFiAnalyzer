@@ -55,7 +55,7 @@ class NavigationMenuController(
     }
 
     init {
-        NavigationGroup.values().forEach { it -> it.populateMenuItems(navigationView.menu) }
+        NavigationGroup.values().forEach { it.populateMenuItems(navigationView.menu) }
         navigationView.setNavigationItemSelectedListener(navigationMenuControl)
         NavigationGroup.GROUP_FEATURE.populateMenuItems(bottomNavigationView.menu)
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationMenuControl)
