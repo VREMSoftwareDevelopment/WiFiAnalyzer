@@ -88,7 +88,7 @@ class ChannelRatingAdapter(
         ratingBar.max = size
         ratingBar.numStars = size
         ratingBar.rating = strength.ordinal + 1.toFloat()
-        val color = context.compatColor(strength.colorResource())
+        val color = context.compatColor(strength.colorResource)
         ratingBarColor(ratingBar, color)
     }
 

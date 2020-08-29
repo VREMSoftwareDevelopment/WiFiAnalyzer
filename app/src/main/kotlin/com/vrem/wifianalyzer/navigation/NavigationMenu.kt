@@ -33,7 +33,7 @@ enum class NavigationMenu(val icon: Int,
     TIME_GRAPH(R.drawable.ic_show_chart, R.string.action_time_graph, navigationItemTimeGraph, navigationOptionOther),
     EXPORT(R.drawable.ic_import_export, R.string.action_export, navigationItemExport),
     CHANNEL_AVAILABLE(R.drawable.ic_location_on, R.string.action_channel_available, navigationItemChannelAvailable),
-    VENDORS(R.drawable.ic_list_grey, R.string.action_vendors, navigationItemVendors),
+    VENDORS(R.drawable.ic_list, R.string.action_vendors, navigationItemVendors),
     PORT_AUTHORITY(R.drawable.ic_lan, R.string.action_port_authority, navigationItemPortAuthority),
     SETTINGS(R.drawable.ic_settings, R.string.action_settings, navigationItemSettings),
     ABOUT(R.drawable.ic_info_outline, R.string.action_about, navigationItemAbout);

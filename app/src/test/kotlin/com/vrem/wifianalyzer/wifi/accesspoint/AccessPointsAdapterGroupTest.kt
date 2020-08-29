@@ -21,11 +21,7 @@ import android.widget.ExpandableListAdapter
 import android.widget.ExpandableListView
 import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
-import com.vrem.wifianalyzer.wifi.band.WiFiWidth
-import com.vrem.wifianalyzer.wifi.model.GroupBy
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.*
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test

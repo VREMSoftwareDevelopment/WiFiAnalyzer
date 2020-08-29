@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import com.vrem.wifianalyzer.wifi.band.WiFiWidth
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Test

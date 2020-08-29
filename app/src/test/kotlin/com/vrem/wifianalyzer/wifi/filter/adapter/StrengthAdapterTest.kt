@@ -102,7 +102,7 @@ class StrengthAdapterTest {
     @Test
     fun testGetColorWithExisting() {
         // execute & validate
-        assertEquals(Strength.TWO.colorResource(), fixture.color(Strength.TWO))
+        assertEquals(Strength.TWO.colorResource, fixture.color(Strength.TWO))
     }
 
     @Test

@@ -17,13 +17,14 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
+import androidx.annotation.DrawableRes
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.R
 import java.util.*
 
 private const val RSN = "RSN"
 
-enum class Security(val imageResource: Int, val additional: String = String.EMPTY) {
+enum class Security(@DrawableRes val imageResource: Int, val additional: String = String.EMPTY) {
     NONE(R.drawable.ic_lock_open),
     WPS(R.drawable.ic_lock_outline),
     WEP(R.drawable.ic_lock_outline),

@@ -19,15 +19,17 @@ package com.vrem.wifianalyzer.wifi.accesspoint
 
 import android.os.Build
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
-import com.vrem.wifianalyzer.wifi.band.WiFiWidth
 import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -148,7 +150,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
-        validateTextViewValuesFullView(actual, wiFiDetail)
+        validateTextViewValuesCompleteView(actual, wiFiDetail)
     }
 
     @Test
@@ -158,7 +160,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
-        validateTextViewValuesFullView(actual, wiFiDetail)
+        validateTextViewValuesCompleteView(actual, wiFiDetail)
     }
 
     @Test
@@ -247,6 +249,8 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
+        assertNull(actual.findViewById(R.id.levelImage))
+        assertNull(actual.findViewById(R.id.wiFiStandardImage))
         assertNull(actual.findViewById(R.id.channel_frequency_range))
         assertNull(actual.findViewById(R.id.width))
         assertNull(actual.findViewById(R.id.capabilities))
@@ -271,7 +275,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeViewDetailed(wiFiDetail)
         // validate
-        validateTextViewValuesFullView(actual, wiFiDetail)
+        validateTextViewValuesPopupView(actual, wiFiDetail)
     }
 
     @Test
@@ -327,26 +331,31 @@ class AccessPointDetailTest {
         assertEquals(View.VISIBLE, actual.findViewById<View>(R.id.flag80211mc).visibility)
     }
 
-    private fun withWiFiDetail(SSID: String, wiFiAdditional: WiFiAdditional): WiFiDetail =
+    private fun withWiFiDetail(ssid: String, wiFiAdditional: WiFiAdditional): WiFiDetail =
+            withWiFiDetail(ssid, wiFiAdditional, false)
+
+    private fun withWiFiDetail(ssid: String, wiFiAdditional: WiFiAdditional, is80211mc: Boolean): WiFiDetail =
             WiFiDetail(
-                    WiFiIdentifier(SSID, "BSSID"),
+                    WiFiIdentifier(ssid, "BSSID"),
                     "capabilities",
-                    WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, false),
+                    WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, is80211mc, WiFiStandard.AC),
                     wiFiAdditional)
 
-    private fun withWiFiDetail(SSID: String, wiFiAdditional: WiFiAdditional, is80211mc: Boolean): WiFiDetail =
-            WiFiDetail(
-                    WiFiIdentifier(SSID, "BSSID"),
-                    "capabilities",
-                    WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, is80211mc),
-                    wiFiAdditional)
-
-    private fun validateTextViewValuesFullView(view: View, wiFiDetail: WiFiDetail) {
+    private fun validateTextViewValuesCompleteView(view: View, wiFiDetail: WiFiDetail) {
         validateTextViewValuesCompactView(view, wiFiDetail)
         val wiFiSignal = wiFiDetail.wiFiSignal
         validateTextViewValue(view, "${wiFiSignal.frequencyStart()} - ${wiFiSignal.frequencyEnd()}", R.id.channel_frequency_range)
         validateTextViewValue(view, "(${wiFiSignal.wiFiWidth.frequencyWidth}${WiFiSignal.FREQUENCY_UNITS})", R.id.width)
         validateTextViewValue(view, wiFiDetail.capabilities, R.id.capabilities)
+        validateImageViewValue(view, wiFiSignal.strength().imageResource, R.id.levelImage)
+        validateImageViewValue(view, wiFiDetail.security().imageResource, R.id.securityImage)
+        validateImageViewValue(view, wiFiSignal.wiFiStandard.imageResource, R.id.wiFiStandardImage)
+    }
+
+    private fun validateTextViewValuesPopupView(view: View, wiFiDetail: WiFiDetail) {
+        validateTextViewValuesCompleteView(view, wiFiDetail)
+        val expectedWiFiStandard = view.context.getString(wiFiDetail.wiFiSignal.wiFiStandard.nameResource)
+        validateTextViewValue(view, expectedWiFiStandard, R.id.wiFiStandard)
     }
 
     private fun validateTextViewValuesCompactView(view: View, wiFiDetail: WiFiDetail) {
@@ -360,6 +369,10 @@ class AccessPointDetailTest {
 
     private fun validateTextViewValue(view: View, expected: String, id: Int) {
         assertEquals(expected, view.findViewById<TextView>(id).text.toString())
+    }
+
+    private fun validateImageViewValue(view: View, @DrawableRes expected: Int, id: Int) {
+        assertEquals(expected, view.findViewById<ImageView>(id).tag)
     }
 
 }

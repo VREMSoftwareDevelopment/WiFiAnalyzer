@@ -193,6 +193,14 @@
     <string name="wifi_band_5ghz" translatable="false">"5 GHz"</string>
     <!-- Wi-Fi band end -->
 
+    <!-- Wi-Fi standard start -->
+    <string name="wifi_standard_unknown" translatable="false">""</string>
+    <string name="wifi_standard_legacy" translatable="false">"Wi-Fi 802.11a/b/g"</string>
+    <string name="wifi_standard_n" translatable="false">"Wi-Fi 802.11n"</string>
+    <string name="wifi_standard_ac" translatable="false">"Wi-Fi 802.11ac"</string>
+    <string name="wifi_standard_ax" translatable="false">"Wi-Fi 802.11ax"</string>
+    <!-- Wi-Fi standard end -->
+
     <!-- security start -->
     <string name="security_none">"None"</string>
     <string name="security_wps" translatable="false">"WPS"</string>

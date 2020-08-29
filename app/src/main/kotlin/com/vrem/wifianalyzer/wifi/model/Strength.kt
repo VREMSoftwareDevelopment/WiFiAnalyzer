@@ -21,18 +21,12 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import com.vrem.wifianalyzer.R
 
-enum class Strength(@DrawableRes private val imageResource: Int, @ColorRes private val colorResource: Int) {
+enum class Strength(@DrawableRes val imageResource: Int, @ColorRes val colorResource: Int) {
     ZERO(R.drawable.ic_signal_wifi_0_bar, R.color.error),
     ONE(R.drawable.ic_signal_wifi_1_bar, R.color.warning),
     TWO(R.drawable.ic_signal_wifi_2_bar, R.color.warning),
     THREE(R.drawable.ic_signal_wifi_3_bar, R.color.success),
     FOUR(R.drawable.ic_signal_wifi_4_bar, R.color.success);
-
-    @ColorRes
-    fun colorResource(): Int = colorResource
-
-    @DrawableRes
-    fun imageResource(): Int = imageResource
 
     fun weak(): Boolean = ZERO == this
 

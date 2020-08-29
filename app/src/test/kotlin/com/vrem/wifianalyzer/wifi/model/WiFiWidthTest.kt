@@ -15,14 +15,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.wifi.band
 
+package com.vrem.wifianalyzer.wifi.model
+
+import android.net.wifi.ScanResult
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class WiFiWidthTest {
+
     @Test
-    fun testWiFiWidth() {
+    fun testWidth() {
         assertEquals(5, WiFiWidth.values().size)
     }
 
@@ -43,4 +46,16 @@ class WiFiWidthTest {
         assertEquals(80, WiFiWidth.MHZ_160.frequencyWidthHalf)
         assertEquals(40, WiFiWidth.MHZ_80_PLUS.frequencyWidthHalf)
     }
+
+    @Test
+    fun testFindOne() {
+        assertEquals(WiFiWidth.MHZ_20, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_20MHZ))
+        assertEquals(WiFiWidth.MHZ_40, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_40MHZ))
+        assertEquals(WiFiWidth.MHZ_80, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ))
+        assertEquals(WiFiWidth.MHZ_160, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_160MHZ))
+        assertEquals(WiFiWidth.MHZ_80_PLUS, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ))
+        assertEquals(WiFiWidth.MHZ_20, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_20MHZ - 1))
+        assertEquals(WiFiWidth.MHZ_20, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ + 1))
+    }
+
 }

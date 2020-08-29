@@ -104,7 +104,7 @@ class NavigationMenuTest {
         assertEquals(R.drawable.ic_show_chart, NavigationMenu.TIME_GRAPH.icon)
         assertEquals(R.drawable.ic_import_export, NavigationMenu.EXPORT.icon)
         assertEquals(R.drawable.ic_location_on, NavigationMenu.CHANNEL_AVAILABLE.icon)
-        assertEquals(R.drawable.ic_list_grey, NavigationMenu.VENDORS.icon)
+        assertEquals(R.drawable.ic_list, NavigationMenu.VENDORS.icon)
         assertEquals(R.drawable.ic_settings, NavigationMenu.SETTINGS.icon)
         assertEquals(R.drawable.ic_info_outline, NavigationMenu.ABOUT.icon)
         assertEquals(R.drawable.ic_lan, NavigationMenu.PORT_AUTHORITY.icon)

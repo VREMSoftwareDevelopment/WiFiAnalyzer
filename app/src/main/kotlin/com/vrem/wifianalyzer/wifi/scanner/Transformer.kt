@@ -22,9 +22,9 @@ import android.net.wifi.WifiInfo
 import com.vrem.annotation.OpenClass
 import com.vrem.util.EMPTY
 import com.vrem.util.buildMinVersionM
-import com.vrem.util.findOne
-import com.vrem.wifianalyzer.wifi.band.WiFiWidth
+import com.vrem.util.buildMinVersionR
 import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import kotlin.math.abs
 
 @OpenClass
@@ -48,11 +48,18 @@ internal class Transformer {
     internal fun transformToWiFiData(cacheResults: List<CacheResult>, wifiInfo: WifiInfo?): WiFiData =
             WiFiData(transformCacheResults(cacheResults), transformWifiInfo(wifiInfo))
 
-    internal fun wiFiWidth(scanResult: ScanResult): WiFiWidth =
+    internal fun channelWidth(scanResult: ScanResult): ChannelWidth =
             if (minVersionM()) {
-                findOne(WiFiWidth.values(), scanResult.channelWidth, WiFiWidth.MHZ_20)
+                scanResult.channelWidth
             } else {
-                WiFiWidth.MHZ_20
+                WiFiWidth.MHZ_20.channelWidth
+            }
+
+    internal fun wiFiStandard(scanResult: ScanResult): WiFiStandardId =
+            if (minVersionR()) {
+                scanResult.wifiStandard
+            } else {
+                WiFiStandard.UNKNOWN.wiFiStandardId
             }
 
     internal fun centerFrequency(scanResult: ScanResult, wiFiWidth: WiFiWidth): Int =
@@ -71,11 +78,15 @@ internal class Transformer {
 
     internal fun minVersionM(): Boolean = buildMinVersionM()
 
+    internal fun minVersionR(): Boolean = buildMinVersionR()
+
     private fun transform(cacheResult: CacheResult): WiFiDetail {
         val scanResult = cacheResult.scanResult
-        val wiFiWidth = wiFiWidth(scanResult)
+        val wiFiWidth = WiFiWidth.findOne(channelWidth(scanResult))
         val centerFrequency = centerFrequency(scanResult, wiFiWidth)
-        val wiFiSignal = WiFiSignal(scanResult.frequency, centerFrequency, wiFiWidth, cacheResult.average, mc80211(scanResult))
+        val mc80211 = mc80211(scanResult)
+        val wiFiStandard = WiFiStandard.findOne(wiFiStandard(scanResult))
+        val wiFiSignal = WiFiSignal(scanResult.frequency, centerFrequency, wiFiWidth, cacheResult.average, mc80211, wiFiStandard)
         val wiFiIdentifier = WiFiIdentifier(
                 if (scanResult.SSID == null) String.EMPTY else scanResult.SSID,
                 if (scanResult.BSSID == null) String.EMPTY else scanResult.BSSID)

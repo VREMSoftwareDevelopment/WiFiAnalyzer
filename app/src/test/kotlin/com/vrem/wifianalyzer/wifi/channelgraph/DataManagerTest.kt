@@ -23,14 +23,10 @@ import com.nhaarman.mockitokotlin2.*
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.band.WiFiWidth
 import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y
-import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.*
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith

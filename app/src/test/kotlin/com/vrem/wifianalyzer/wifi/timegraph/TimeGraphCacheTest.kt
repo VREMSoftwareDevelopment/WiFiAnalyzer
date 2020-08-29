@@ -18,11 +18,11 @@
 package com.vrem.wifianalyzer.wifi.timegraph
 
 import com.vrem.util.EMPTY
-import com.vrem.wifianalyzer.wifi.band.WiFiWidth
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_NOT_SEEN_COUNT
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.junit.Assert.*
 import org.junit.Test
 

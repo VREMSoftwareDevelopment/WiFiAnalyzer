@@ -31,20 +31,20 @@ class StrengthTest {
 
     @Test
     fun testImageResource() {
-        assertEquals(R.drawable.ic_signal_wifi_0_bar, Strength.ZERO.imageResource())
-        assertEquals(R.drawable.ic_signal_wifi_1_bar, Strength.ONE.imageResource())
-        assertEquals(R.drawable.ic_signal_wifi_2_bar, Strength.TWO.imageResource())
-        assertEquals(R.drawable.ic_signal_wifi_3_bar, Strength.THREE.imageResource())
-        assertEquals(R.drawable.ic_signal_wifi_4_bar, Strength.FOUR.imageResource())
+        assertEquals(R.drawable.ic_signal_wifi_0_bar, Strength.ZERO.imageResource)
+        assertEquals(R.drawable.ic_signal_wifi_1_bar, Strength.ONE.imageResource)
+        assertEquals(R.drawable.ic_signal_wifi_2_bar, Strength.TWO.imageResource)
+        assertEquals(R.drawable.ic_signal_wifi_3_bar, Strength.THREE.imageResource)
+        assertEquals(R.drawable.ic_signal_wifi_4_bar, Strength.FOUR.imageResource)
     }
 
     @Test
     fun testColorResource() {
-        assertEquals(R.color.error, Strength.ZERO.colorResource())
-        assertEquals(R.color.warning, Strength.ONE.colorResource())
-        assertEquals(R.color.warning, Strength.TWO.colorResource())
-        assertEquals(R.color.success, Strength.THREE.colorResource())
-        assertEquals(R.color.success, Strength.FOUR.colorResource())
+        assertEquals(R.color.error, Strength.ZERO.colorResource)
+        assertEquals(R.color.warning, Strength.ONE.colorResource)
+        assertEquals(R.color.warning, Strength.TWO.colorResource)
+        assertEquals(R.color.success, Strength.THREE.colorResource)
+        assertEquals(R.color.success, Strength.FOUR.colorResource)
     }
 
     @Test
