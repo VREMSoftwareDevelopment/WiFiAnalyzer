@@ -36,11 +36,9 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
-import org.robolectric.annotation.LooperMode
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.P])
-@LooperMode(LooperMode.Mode.PAUSED)
 class WiFiSwitchOnTest {
     private val spacer = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
     private val mainActivity = RobolectricUtil.INSTANCE.activity

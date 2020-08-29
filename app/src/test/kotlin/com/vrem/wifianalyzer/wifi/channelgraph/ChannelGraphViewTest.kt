@@ -45,11 +45,9 @@ import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
-import org.robolectric.annotation.LooperMode
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.P])
-@LooperMode(LooperMode.Mode.PAUSED)
 class ChannelGraphViewTest {
     private val wiFiChannelPair: WiFiChannelPair = WiFiChannelPair(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN)
     private val settings: Settings = MainContextHelper.INSTANCE.settings

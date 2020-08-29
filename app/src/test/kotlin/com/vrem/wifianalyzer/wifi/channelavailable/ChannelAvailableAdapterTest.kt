@@ -36,12 +36,10 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
-import org.robolectric.annotation.LooperMode
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.P])
-@LooperMode(LooperMode.Mode.PAUSED)
 class ChannelAvailableAdapterTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val settings = INSTANCE.settings

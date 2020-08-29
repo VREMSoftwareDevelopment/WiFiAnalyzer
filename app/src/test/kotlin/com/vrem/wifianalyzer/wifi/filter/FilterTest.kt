@@ -37,11 +37,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Shadows
 import org.robolectric.annotation.Config
-import org.robolectric.annotation.LooperMode
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.P])
-@LooperMode(LooperMode.Mode.PAUSED)
 class FilterTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val fixture = build()
