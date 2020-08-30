@@ -26,8 +26,6 @@ This is the official repository of WiFi Analyzer.
 - [License](#license)
 - [WiFi Analyzer Build](#wifi-analyzer-build)
 - [Contribute](#contribute)
-- [Special Thanks](#special-thanks)
-- [Donations](#donations)
 
 ## Features
 * Identify nearby Access Points
@@ -44,7 +42,6 @@ This is the official repository of WiFi Analyzer.
 * Vendor/OUI Database Lookup
 
 **Please note WiFi Analyzer is not a WiFi password cracking or phishing tool.**
-
  
 ## Usage Tips
 * Tap the title bar to switch between 2.4 and 5 GHz WiFi band.
@@ -102,16 +99,20 @@ WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 ## Contribute
 * Feel free to fork the project and submit your changes.
 * To learn how to submit a pull request [click here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Pull-Request).
+* We want to express our gratitude to all [people](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/graphs/contributors) for their contributions, such as: patches, bug solving, updates and etc. 
+* If you would like to contribute financially to the project please feel free to send any amount through paypal.
+	* [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=62PA6HJ3BZL3E)
+	* Thanks to every one who already donated so far!
 
 ### Fork project
 [How to fork project](https://help.github.com/articles/fork-a-repo)
 
 ### Build project
-  1. Install Android Studio
-  2. Import project into Android Studio
-      * In Welcome to Android Studio Screen select Import project ...
-      * Select the root directory of the WiFi Analyzer repository and click "OK".
-      * WiFi Analyzer will build automatically.
+1. Install Android Studio
+2. Import project into Android Studio
+    * In Welcome to Android Studio Screen select Import project ...
+    * Select the root directory of the WiFi Analyzer repository and click "OK".
+    * WiFi Analyzer will build automatically.
 
 ### Running unit tests and jacoco coverage report
 ```
@@ -121,16 +122,3 @@ WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 - lint report: `app/build/reports/lint-results.html`
 - unit test report: `app/build/reports/tests/testDebugUnitTest/index.html`
 - code coverage report: `app/build/reports/jacoco/jacocoTestReport/html/index.html`
-
-## Special Thanks
-
-We want to express our gratitude to all people for contributed with patches, bug solving and updates to WiFi Analyzer.
-
-
-## Donations
-
-If you would like to contribute financially to the project please feel free to send any amount through paypal.
-
-[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=62PA6HJ3BZL3E)
-
-Thanks to every one who already donated so far!
