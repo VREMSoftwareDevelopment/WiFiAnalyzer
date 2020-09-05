@@ -40,6 +40,7 @@ This is the official repository of WiFi Analyzer.
 * Pause/Resume scanning
 * Available filters: WiFi band, Signal strength, Security and SSID
 * Vendor/OUI Database Lookup
+* The application has too many features to mention them all
 
 **Please note WiFi Analyzer is not a WiFi password cracking or phishing tool.**
  
