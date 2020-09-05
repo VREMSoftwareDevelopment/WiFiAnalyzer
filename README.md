@@ -46,7 +46,15 @@ This is the official repository of WiFi Analyzer.
 ## Usage Tips
 * Tap the title bar to switch between 2.4 and 5 GHz WiFi band.
 * SSID with `***` or `*hidden*` means it is hidden.
-* Access Point security: <img src="images/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20"> WPA3/WPA2/WPA; <img src="images/ic_lock_outline_black_18dp.png" alt="WEP/WPS" height="20"> WEP/WPS; <img src="images/ic_lock_open_black_18dp.png" alt="Disabled" height="20"> Disabled
+* Access Point security: 
+     * <img src="images/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20"> WPA3(RSN)/WPA2/WPA 
+     * <img src="images/ic_lock_outline_black_18dp.png" alt="WEP/WPS" height="20"> WEP/WPS
+     * <img src="images/ic_lock_open_black_18dp.png" alt="Disabled" height="20"> Disabled
+* Wi-Fi Standard (Requires Android OS 11+):
+     * <img src="images/ic_wifi_legacy.png" alt="Wi-Fi 802.11a/b/g" height="20"> Wi-Fi 802.11a/b/g
+     * <img src="images/ic_wifi_4.png" alt="Wi-Fi 802.11n" height="20"> Wi-Fi 802.11n
+     * <img src="images/ic_wifi_5.png" alt="Wi-Fi 802.11ac" height="20"> Wi-Fi 802.11ac
+     * <img src="images/ic_wifi_6.png" alt="Wi-Fi 802.11ax" height="20"> Wi-Fi 802.11ax
 
 ## How-to
 * [How to video](https://youtu.be/JJVKja0VDR0)
