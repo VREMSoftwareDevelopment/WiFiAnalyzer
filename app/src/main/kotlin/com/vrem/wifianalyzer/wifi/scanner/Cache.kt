@@ -27,7 +27,6 @@ internal class CacheResult(val scanResult: ScanResult, val average: Int)
 internal data class CacheKey(val bssid: String, val ssid: String)
 
 @OpenClass
-@OptIn(ExperimentalStdlibApi::class)
 internal class Cache {
     private val scanResults: ArrayDeque<List<ScanResult>> = ArrayDeque(MAXIMUM)
     private var wifiInfo: WifiInfo? = null

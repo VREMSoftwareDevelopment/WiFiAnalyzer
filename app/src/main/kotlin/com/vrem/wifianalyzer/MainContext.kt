@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer
 import android.content.Context
 import android.content.res.Resources
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import com.vrem.wifianalyzer.settings.Repository
 import com.vrem.wifianalyzer.settings.Settings
@@ -52,7 +53,7 @@ enum class MainContext {
         configuration = Configuration(largeScreen)
         settings = Settings(Repository(mainActivity.applicationContext))
         vendorService = VendorService(mainActivity.resources)
-        scannerService = makeScannerService(mainActivity, Handler(), settings)
+        scannerService = makeScannerService(mainActivity, Handler(Looper.getMainLooper()), settings)
         filtersAdapter = FiltersAdapter(settings)
     }
 }

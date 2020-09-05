@@ -39,7 +39,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
-import com.vrem.wifianalyzer.wifi.predicate.TruePredicate
+import com.vrem.wifianalyzer.wifi.predicate.truePredicate
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
@@ -69,7 +69,7 @@ class ChannelGraphViewTest {
         val newSeries: Set<WiFiDetail> = setOf()
         val wiFiDetails: List<WiFiDetail> = listOf()
         val wiFiData = WiFiData(wiFiDetails, WiFiConnection.EMPTY)
-        val predicate: Predicate = TruePredicate()
+        val predicate: Predicate = truePredicate
         doReturn(predicate).whenever(fixture).predicate(settings)
         doReturn(true).whenever(fixture).selected()
         whenever(dataManager.newSeries(wiFiDetails, wiFiChannelPair)).thenReturn(newSeries)

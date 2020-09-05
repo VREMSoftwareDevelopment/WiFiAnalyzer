@@ -31,7 +31,7 @@ class ChannelRating {
                     collectOverlapping(wiFiChannel)
                             .filter { !it.wiFiAdditional.wiFiConnection.connected() }
                             .map { it.wiFiSignal.strength().ordinal }
-                            .maxBy { it } ?: Strength.ZERO.ordinal
+                            .maxByOrNull { it } ?: Strength.ZERO.ordinal
             ]
 
     fun wiFiDetails(): List<WiFiDetail> = wiFiDetails

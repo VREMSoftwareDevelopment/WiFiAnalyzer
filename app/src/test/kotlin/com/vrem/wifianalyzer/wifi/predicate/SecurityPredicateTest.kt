@@ -27,9 +27,9 @@ class SecurityPredicateTest {
     fun testSecurityPredicateWithFoundWPAValue() {
         // setup
         val wiFiDetail = wiFiDetail()
-        val fixture = SecurityPredicate(Security.WPA)
+        val fixture = Security.WPA.predicate()
         // execute
-        val actual = fixture.test(wiFiDetail)
+        val actual = fixture(wiFiDetail)
         // validate
         assertTrue(actual)
     }
@@ -38,9 +38,9 @@ class SecurityPredicateTest {
     fun testSecurityPredicateWithFoundWEPValue() {
         // setup
         val wiFiDetail = wiFiDetail()
-        val fixture = SecurityPredicate(Security.WEP)
+        val fixture = Security.WEP.predicate()
         // execute
-        val actual = fixture.test(wiFiDetail)
+        val actual = fixture(wiFiDetail)
         // validate
         assertTrue(actual)
     }
@@ -49,9 +49,9 @@ class SecurityPredicateTest {
     fun testSecurityPredicateWithFoundNoneValue() {
         // setup
         val wiFiDetail = wiFiDetailWithNoSecurity()
-        val fixture = SecurityPredicate(Security.NONE)
+        val fixture = Security.NONE.predicate()
         // execute
-        val actual = fixture.test(wiFiDetail)
+        val actual = fixture(wiFiDetail)
         // validate
         assertTrue(actual)
     }
@@ -60,9 +60,9 @@ class SecurityPredicateTest {
     fun testSecurityPredicateWithNotFoundValue() {
         // setup
         val wiFiDetail = wiFiDetail()
-        val fixture = SecurityPredicate(Security.WPA2)
+        val fixture = Security.WPA2.predicate()
         // execute
-        val actual = fixture.test(wiFiDetail)
+        val actual = fixture(wiFiDetail)
         // validate
         assertFalse(actual)
     }

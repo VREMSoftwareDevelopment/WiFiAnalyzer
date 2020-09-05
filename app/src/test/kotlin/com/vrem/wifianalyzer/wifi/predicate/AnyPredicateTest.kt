@@ -28,10 +28,9 @@ class AmyPredicateTest {
     fun testAnyPredicateIsTrue() {
         // setup
         val wiFiDetail = WiFiDetail.EMPTY
-        val predicates = listOf(FalsePredicate(), TruePredicate(), FalsePredicate())
-        val fixture = AnyPredicate(predicates)
+        val fixture = listOf(falsePredicate, truePredicate, falsePredicate).anyPredicate()
         // execute
-        val actual = fixture.test(wiFiDetail)
+        val actual = fixture(wiFiDetail)
         // validate
         assertTrue(actual)
     }
@@ -40,10 +39,9 @@ class AmyPredicateTest {
     fun testAnyPredicateIsFalse() {
         // setup
         val wiFiDetail = WiFiDetail.EMPTY
-        val predicates = listOf(FalsePredicate(), FalsePredicate(), FalsePredicate())
-        val fixture = AnyPredicate(predicates)
+        val fixture = listOf(falsePredicate, falsePredicate, falsePredicate).anyPredicate()
         // execute
-        val actual = fixture.test(wiFiDetail)
+        val actual = fixture(wiFiDetail)
         // validate
         assertFalse(actual)
     }

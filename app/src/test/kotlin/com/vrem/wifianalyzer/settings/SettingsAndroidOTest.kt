@@ -17,8 +17,8 @@
  */
 package com.vrem.wifianalyzer.settings
 
-import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.R
+import io.mockk.*
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -27,18 +27,18 @@ import org.junit.Test
 
 class SettingsAndroidOTest {
     private val scanSpeedDefault = 5
-    private val repository: Repository = mock()
-    private val fixture = spy(Settings(repository))
+    private val repository: Repository = mockk()
+    private val fixture = spyk(Settings(repository))
 
     @Before
     fun setUp() {
-        doReturn(false).whenever(fixture).minVersionQ()
-        doReturn(false).whenever(fixture).versionP()
+        every { fixture.minVersionQ() } returns false
+        every { fixture.versionP() } returns false
     }
 
     @After
     fun tearDown() {
-        verifyNoMoreInteractions(repository)
+        confirmVerified(repository)
     }
 
     @Test
@@ -46,15 +46,14 @@ class SettingsAndroidOTest {
         // setup
         val defaultValue = 10
         val expected = 3
-        whenever(repository.stringAsInteger(R.string.scan_speed_default, scanSpeedDefault)).thenReturn(defaultValue)
-        whenever(repository.stringAsInteger(R.string.scan_speed_key, defaultValue)).thenReturn(expected)
+        every { repository.stringAsInteger(R.string.scan_speed_default, scanSpeedDefault) } returns defaultValue
+        every { repository.stringAsInteger(R.string.scan_speed_key, defaultValue) } returns expected
         // execute
         val actual = fixture.scanSpeed()
         // validate
         assertEquals(expected, actual)
-        verify(repository).stringAsInteger(R.string.scan_speed_default, scanSpeedDefault)
-        verify(repository).stringAsInteger(R.string.scan_speed_key, defaultValue)
-        verify(fixture, never()).wiFiThrottleDisabled()
+        verify { repository.stringAsInteger(R.string.scan_speed_default, scanSpeedDefault) }
+        verify { repository.stringAsInteger(R.string.scan_speed_key, defaultValue) }
     }
 
     @Test
@@ -63,7 +62,5 @@ class SettingsAndroidOTest {
         val actual = fixture.wiFiThrottleDisabled()
         // validate
         assertFalse(actual)
-        verify(repository, never()).resourceBoolean(any())
-        verify(repository, never()).boolean(any(), any())
     }
 }

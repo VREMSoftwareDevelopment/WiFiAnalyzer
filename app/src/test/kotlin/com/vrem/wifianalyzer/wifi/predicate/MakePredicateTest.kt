@@ -17,6 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.predicate
 
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -25,23 +26,25 @@ class MakePredicateTest {
     @Test
     fun testMakePredicateExpectsTruePredicate() {
         // setup
-        val toPredicate: ToPredicate<TestObject> = { TruePredicate() }
+        val wiFiDetail = WiFiDetail.EMPTY
+        val toPredicate: ToPredicate<TestObject> = { truePredicate }
         val filters: Set<TestObject> = TestObject.values().toSet()
         // execute
         val actual: Predicate = makePredicate(TestObject.values(), filters, toPredicate)
         // validate
-        assertTrue(actual is TruePredicate)
+        assertTrue(actual(wiFiDetail))
     }
 
     @Test
     fun testMakePredicateExpectsAnyPredicate() {
         // setup
-        val toPredicate: ToPredicate<TestObject> = { TruePredicate() }
+        val wiFiDetail = WiFiDetail.EMPTY
+        val toPredicate: ToPredicate<TestObject> = { truePredicate }
         val filters: Set<TestObject> = setOf(TestObject.VALUE1, TestObject.VALUE3)
         // execute
         val actual: Predicate = makePredicate(TestObject.values(), filters, toPredicate)
         // validate
-        assertTrue(actual is AnyPredicate)
+        assertTrue(actual(wiFiDetail))
     }
 
 }

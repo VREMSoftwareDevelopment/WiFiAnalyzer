@@ -39,7 +39,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 import com.vrem.wifianalyzer.wifi.model.*
 import com.vrem.wifianalyzer.wifi.model.Strength.Companion.reverse
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
-import com.vrem.wifianalyzer.wifi.predicate.WiFiBandPredicate
+import com.vrem.wifianalyzer.wifi.predicate.predicate
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier
 
 class ChannelRatingAdapter(
@@ -56,7 +56,7 @@ class ChannelRatingAdapter(
         val wiFiBand = settings.wiFiBand()
         val countryCode = settings.countryCode()
         val wiFiChannels: List<WiFiChannel> = wiFiChannels(wiFiBand, countryCode)
-        val predicate: Predicate = WiFiBandPredicate(wiFiBand)
+        val predicate: Predicate = wiFiBand.predicate()
         val wiFiDetails: List<WiFiDetail> = wiFiData.wiFiDetails(predicate, SortBy.STRENGTH)
         channelRating.wiFiDetails(wiFiDetails)
         val bestChannel = bestChannels(wiFiBand, wiFiChannels)

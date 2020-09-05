@@ -34,7 +34,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 import com.vrem.wifianalyzer.wifi.model.*
 import com.vrem.wifianalyzer.wifi.model.Strength.Companion.reverse
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
-import com.vrem.wifianalyzer.wifi.predicate.WiFiBandPredicate
+import com.vrem.wifianalyzer.wifi.predicate.predicate
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -90,7 +90,7 @@ class ChannelRatingAdapterTest {
         val expected = mainActivity.resources.getText(R.string.channel_rating_best_none).toString()
         val wiFiData = WiFiData(listOf(), WiFiConnection.EMPTY)
         val wiFiChannels = WiFiBand.GHZ5.wiFiChannels.availableChannels(Locale.US.country)
-        val predicate: Predicate = WiFiBandPredicate(WiFiBand.GHZ5)
+        val predicate: Predicate = WiFiBand.GHZ5.predicate()
         val wiFiDetails = wiFiData.wiFiDetails(predicate, SortBy.STRENGTH)
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5)
         whenever(settings.countryCode()).thenReturn(Locale.US.country)

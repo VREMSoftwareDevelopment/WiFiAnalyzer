@@ -17,25 +17,25 @@
  */
 package com.vrem.wifianalyzer.settings
 
-import com.nhaarman.mockitokotlin2.*
+import io.mockk.*
 import org.junit.After
 import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Test
 
 class SettingsAndroidQTest {
-    private val repository: Repository = mock()
-    private val fixture = spy(Settings(repository))
+    private val repository: Repository = mockk()
+    private val fixture = spyk(Settings(repository))
 
     @Before
     fun setUp() {
-        doReturn(true).whenever(fixture).minVersionQ()
-        doReturn(false).whenever(fixture).versionP()
+        every { fixture.minVersionQ() } returns true
+        every { fixture.versionP() } returns false
     }
 
     @After
     fun tearDown() {
-        verifyNoMoreInteractions(repository)
+        confirmVerified(repository)
     }
 
     @Test
@@ -44,7 +44,7 @@ class SettingsAndroidQTest {
         val actual = fixture.wiFiOffOnExit()
         // validate
         assertFalse(actual)
-        verify(fixture).minVersionQ()
+        verify { fixture.minVersionQ() }
     }
 
     @Test
@@ -53,8 +53,6 @@ class SettingsAndroidQTest {
         val actual = fixture.wiFiThrottleDisabled()
         // validate
         assertFalse(actual)
-        verify(repository, never()).resourceBoolean(any())
-        verify(repository, never()).boolean(any(), any())
-        verify(fixture).versionP()
+        verify { fixture.versionP() }
     }
 }

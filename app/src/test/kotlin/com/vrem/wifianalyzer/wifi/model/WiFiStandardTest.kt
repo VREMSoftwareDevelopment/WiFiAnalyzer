@@ -40,8 +40,8 @@ class WiFiStandardTest {
 
     @Test
     fun testImageResource() {
-        assertEquals(R.drawable.ic_no_image, WiFiStandard.UNKNOWN.imageResource)
-        assertEquals(R.drawable.ic_no_image, WiFiStandard.LEGACY.imageResource)
+        assertEquals(R.drawable.ic_wifi_unknown, WiFiStandard.UNKNOWN.imageResource)
+        assertEquals(R.drawable.ic_wifi_legacy, WiFiStandard.LEGACY.imageResource)
         assertEquals(R.drawable.ic_wifi_4, WiFiStandard.N.imageResource)
         assertEquals(R.drawable.ic_wifi_5, WiFiStandard.AC.imageResource)
         assertEquals(R.drawable.ic_wifi_6, WiFiStandard.AX.imageResource)

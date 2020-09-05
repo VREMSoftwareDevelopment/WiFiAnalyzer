@@ -25,7 +25,7 @@ abstract class CustomPreference(context: Context, attrs: AttributeSet, values: L
     init {
         this.entries = names(values)
         this.entryValues = codes(values)
-        setDefaultValue(defaultValue)
+        this.setDefaultValue(defaultValue)
     }
 
     private fun codes(data: List<Data>): Array<CharSequence> {

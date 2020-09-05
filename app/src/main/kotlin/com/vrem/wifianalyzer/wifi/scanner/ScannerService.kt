@@ -24,6 +24,10 @@ import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 
+interface UpdateNotifier {
+    fun update(wiFiData: WiFiData)
+}
+
 interface ScannerService {
     fun update()
     fun wiFiData(): WiFiData

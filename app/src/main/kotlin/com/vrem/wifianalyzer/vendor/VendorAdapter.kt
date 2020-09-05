@@ -49,18 +49,18 @@ internal class VendorAdapter(context: Context, private val vendorService: Vendor
     private fun create(parent: ViewGroup): VendorDetailsBinding =
             VendorDetailsBinding.inflate(INSTANCE.layoutInflater, parent, false)
 
-    private inner class Binding {
+    private class Binding {
         val root: View
         val vendorName: TextView
         val vendorMacs: TextView
 
-        internal constructor(binding: VendorDetailsBinding) {
+        constructor(binding: VendorDetailsBinding) {
             root = binding.root
             vendorName = binding.vendorName
             vendorMacs = binding.vendorMacs
         }
 
-        internal constructor(view: View) {
+        constructor(view: View) {
             root = view
             vendorName = view.findViewById(R.id.vendor_name)
             vendorMacs = view.findViewById(R.id.vendor_macs)

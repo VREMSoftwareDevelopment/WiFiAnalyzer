@@ -22,61 +22,59 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.view.MenuItem
 import android.view.View
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
-import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainActivity
-import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
+import com.vrem.wifianalyzer.MainContextMockkHelper
 import com.vrem.wifianalyzer.export.Export
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import io.mockk.*
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Test
 
 class ExportItemTest {
-    private val export: Export = mock()
-    private val mainActivity: MainActivity = mock()
-    private val menuItem: MenuItem = mock()
-    private val intent: Intent = mock()
-    private val packageManager: PackageManager = mock()
-    private val componentName: ComponentName = mock()
-    private val scanner = INSTANCE.scannerService
+    private val export: Export = mockk()
+    private val mainActivity: MainActivity = mockk()
+    private val menuItem: MenuItem = mockk()
+    private val intent: Intent = mockk()
+    private val packageManager: PackageManager = mockk()
+    private val componentName: ComponentName = mockk()
+    private val scanner = MainContextMockkHelper.INSTANCE.scannerService
 
     private val fixture = ExportItem(export)
 
     @After
     fun tearDown() {
-        verifyNoMoreInteractions(export)
-        verifyNoMoreInteractions(mainActivity)
-        verifyNoMoreInteractions(menuItem)
-        verifyNoMoreInteractions(intent)
-        verifyNoMoreInteractions(packageManager)
-        verifyNoMoreInteractions(componentName)
-        verifyNoMoreInteractions(scanner)
-        INSTANCE.restore()
+        confirmVerified(export)
+        confirmVerified(mainActivity)
+        confirmVerified(menuItem)
+        confirmVerified(intent)
+        confirmVerified(packageManager)
+        confirmVerified(componentName)
+        confirmVerified(scanner)
+        MainContextMockkHelper.INSTANCE.restore()
     }
 
     @Test
     fun testActivate() {
         // setup
         val wiFiData: WiFiData = withWiFiData()
-        whenever(scanner.wiFiData()).thenReturn(wiFiData)
-        whenever(export.export(mainActivity, wiFiData.wiFiDetails)).thenReturn(intent)
-        whenever(mainActivity.packageManager).thenReturn(packageManager)
-        whenever(intent.resolveActivity(packageManager)).thenReturn(componentName)
+        every { scanner.wiFiData() } returns wiFiData
+        every { export.export(mainActivity, wiFiData.wiFiDetails) } returns intent
+        every { mainActivity.startActivity(intent) } just runs
+        every { mainActivity.packageManager } returns packageManager
+        every { intent.resolveActivity(packageManager) } returns componentName
         // execute
         fixture.activate(mainActivity, menuItem, NavigationMenu.EXPORT)
         // validate
-        verify(scanner).wiFiData()
-        verify(mainActivity).packageManager
-        verify(intent).resolveActivity(packageManager)
-        verify(mainActivity).startActivity(intent)
-        verify(export).export(mainActivity, wiFiData.wiFiDetails)
+        verify { scanner.wiFiData() }
+        verify { mainActivity.packageManager }
+        verify { intent.resolveActivity(packageManager) }
+        verify { mainActivity.startActivity(intent) }
+        verify { export.export(mainActivity, wiFiData.wiFiDetails) }
     }
 
     @Test

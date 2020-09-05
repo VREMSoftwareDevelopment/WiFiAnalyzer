@@ -29,12 +29,12 @@ class SSIDPredicateTest {
         // setup
         val wiFiDetail = WiFiDetail(WiFiIdentifier("ssid", "bssid"), "wpa")
         // execute & validate
-        assertTrue(SSIDPredicate("ssid").test(wiFiDetail))
-        assertTrue(SSIDPredicate("id").test(wiFiDetail))
-        assertTrue(SSIDPredicate("ss").test(wiFiDetail))
-        assertTrue(SSIDPredicate("s").test(wiFiDetail))
-        assertTrue(SSIDPredicate("").test(wiFiDetail))
-        assertFalse(SSIDPredicate("SSID").test(wiFiDetail))
-        assertFalse(SSIDPredicate("B").test(wiFiDetail))
+        assertTrue("ssid".predicate()(wiFiDetail))
+        assertTrue("id".predicate()(wiFiDetail))
+        assertTrue("ss".predicate()(wiFiDetail))
+        assertTrue("s".predicate()(wiFiDetail))
+        assertTrue("".predicate()(wiFiDetail))
+        assertFalse("SSID".predicate()(wiFiDetail))
+        assertFalse("B".predicate()(wiFiDetail))
     }
 }

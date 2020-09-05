@@ -36,7 +36,7 @@ class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnec
     fun wiFiDetails(predicate: Predicate, sortBy: SortBy, groupBy: GroupBy): List<WiFiDetail> {
         val connection: WiFiDetail = connection()
         return wiFiDetails
-                .filter { predicate.test(it) }
+                .filter { predicate(it) }
                 .map { transform(it, connection) }
                 .sortAndGroup(sortBy, groupBy)
                 .sortedWith(sortBy.sort)

@@ -21,7 +21,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import androidx.preference.PreferenceManager
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.R
 
 inline fun SharedPreferences.edit(func: SharedPreferences.Editor.() -> Unit) {
@@ -30,7 +29,6 @@ inline fun SharedPreferences.edit(func: SharedPreferences.Editor.() -> Unit) {
     editor.apply()
 }
 
-@OpenClass
 class Repository(private val context: Context) {
 
     fun initializeDefaultValues(): Unit = defaultValues(context, R.xml.settings, false)

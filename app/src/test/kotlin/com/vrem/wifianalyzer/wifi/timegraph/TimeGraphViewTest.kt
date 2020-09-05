@@ -35,7 +35,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
-import com.vrem.wifianalyzer.wifi.predicate.TruePredicate
+import com.vrem.wifianalyzer.wifi.predicate.truePredicate
 import org.junit.After
 import org.junit.Assert
 import org.junit.Test
@@ -63,7 +63,7 @@ class TimeGraphViewTest {
         val wiFiDetails: List<WiFiDetail> = listOf()
         val newSeries: Set<WiFiDetail> = setOf()
         val wiFiData = WiFiData(wiFiDetails, WiFiConnection.EMPTY)
-        val predicate: Predicate = TruePredicate()
+        val predicate: Predicate = truePredicate
         doReturn(predicate).whenever(fixture).predicate(settings)
         whenever(dataManager.addSeriesData(graphViewWrapper, wiFiDetails, MAX_Y)).thenReturn(newSeries)
         whenever(settings.sortBy()).thenReturn(SortBy.SSID)

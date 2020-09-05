@@ -28,7 +28,6 @@ data class GraphColor(val primary: Long, val background: Long)
 internal val transparent = GraphColor(0x009E9E9E, 0x009E9E9E)
 
 @OpenClass
-@OptIn(ExperimentalStdlibApi::class)
 class GraphColors {
     private val availableGraphColors: MutableList<GraphColor> = mutableListOf()
     private val currentGraphColors: ArrayDeque<GraphColor> = ArrayDeque()

@@ -98,9 +98,7 @@ class AccessPointDetail {
     private fun setWiFiStandardImage(view: View, wiFiSignal: WiFiSignal) =
             view.findViewById<ImageView>(R.id.wiFiStandardImage).let {
                 it.tag = wiFiSignal.wiFiStandard.imageResource
-                if (R.drawable.ic_no_image != wiFiSignal.wiFiStandard.imageResource) {
-                    it.setImageResource(wiFiSignal.wiFiStandard.imageResource)
-                }
+                it.setImageResource(wiFiSignal.wiFiStandard.imageResource)
             }
 
     private fun setLevelText(view: View, wiFiSignal: WiFiSignal) =

@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.export
 
 import android.content.Intent
 import android.content.res.Resources
-import com.vrem.annotation.OpenClass
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
@@ -29,7 +28,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.FREQUENCY_UNITS
 import java.text.SimpleDateFormat
 import java.util.*
 
-@OpenClass
 class Export(private val exportIntent: ExportIntent = ExportIntent()) {
 
     private val header = "Time Stamp|" +

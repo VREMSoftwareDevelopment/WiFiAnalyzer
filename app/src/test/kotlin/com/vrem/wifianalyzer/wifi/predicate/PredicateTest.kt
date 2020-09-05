@@ -61,7 +61,7 @@ class PredicateTest {
         val fixture: Predicate = makeAccessPointsPredicate(settings)
         val wiFiDetail = makeWiFiDetail(ssid, wpa2)
         // execute
-        val actual = fixture.test(wiFiDetail)
+        val actual = fixture(wiFiDetail)
         // validate
         assertTrue(actual)
         verifySettings()
@@ -74,7 +74,7 @@ class PredicateTest {
         val fixture: Predicate = makeAccessPointsPredicate(settings)
         val wiFiDetail = makeWiFiDetail(ssid, "WPA")
         // execute
-        val actual = fixture.test(wiFiDetail)
+        val actual = fixture(wiFiDetail)
         // validate
         assertFalse(actual)
         verifySettings()
@@ -87,7 +87,7 @@ class PredicateTest {
         val fixture: Predicate = makeAccessPointsPredicate(settings)
         val wiFiDetail = makeWiFiDetail("WIFI", wpa2)
         // execute
-        val actual = fixture.test(wiFiDetail)
+        val actual = fixture(wiFiDetail)
         // validate
         assertFalse(actual)
         verifySettings()
@@ -96,11 +96,12 @@ class PredicateTest {
     @Test
     fun testMakeAccessPointsPredicateIsAllPredicate() {
         // setup
+        val wiFiDetail = WiFiDetail.EMPTY
         whenSettingsWithFullSets()
         // execute
         val fixture: Predicate = makeAccessPointsPredicate(settings)
         // validate
-        assertTrue(fixture is AllPredicate)
+        assertTrue(fixture(wiFiDetail))
         verifySettings()
     }
 
@@ -111,7 +112,7 @@ class PredicateTest {
         val wiFiDetail = makeWiFiDetail(ssid, wpa2)
         val fixture: Predicate = makeAccessPointsPredicate(settings)
         // execute
-        val actual = fixture.test(wiFiDetail)
+        val actual = fixture(wiFiDetail)
         // validate
         assertTrue(actual)
         verifySettings()

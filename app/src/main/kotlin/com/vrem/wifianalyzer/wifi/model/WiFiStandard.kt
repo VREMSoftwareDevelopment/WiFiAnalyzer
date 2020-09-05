@@ -32,8 +32,8 @@ private val ac: WiFiStandardId = if (buildMinVersionR()) ScanResult.WIFI_STANDAR
 private val ax: WiFiStandardId = if (buildMinVersionR()) ScanResult.WIFI_STANDARD_11AX else 6
 
 enum class WiFiStandard(val wiFiStandardId: WiFiStandardId, @StringRes val nameResource: Int, @DrawableRes val imageResource: Int) {
-    UNKNOWN(unknown, R.string.wifi_standard_unknown, R.drawable.ic_no_image),
-    LEGACY(legacy, R.string.wifi_standard_legacy, R.drawable.ic_no_image),
+    UNKNOWN(unknown, R.string.wifi_standard_unknown, R.drawable.ic_wifi_unknown),
+    LEGACY(legacy, R.string.wifi_standard_legacy, R.drawable.ic_wifi_legacy),
     N(n, R.string.wifi_standard_n, R.drawable.ic_wifi_4),
     AC(ac, R.string.wifi_standard_ac, R.drawable.ic_wifi_5),
     AX(ax, R.string.wifi_standard_ax, R.drawable.ic_wifi_6);

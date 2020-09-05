@@ -28,8 +28,8 @@ class StrengthPredicateTest {
         // setup
         val wiFiDetail = makeWiFiDetail(-60)
         // execute & validate
-        assertTrue(StrengthPredicate(Strength.THREE).test(wiFiDetail))
-        assertFalse(StrengthPredicate(Strength.FOUR).test(wiFiDetail))
+        assertTrue(Strength.THREE.predicate()(wiFiDetail))
+        assertFalse(Strength.FOUR.predicate()(wiFiDetail))
     }
 
     private fun makeWiFiDetail(level: Int): WiFiDetail =
