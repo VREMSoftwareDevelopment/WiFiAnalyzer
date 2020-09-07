@@ -28,12 +28,12 @@ private val channelWidth80: ChannelWidth = if (buildMinVersionM()) ScanResult.CH
 private val channelWidth160: ChannelWidth = if (buildMinVersionM()) ScanResult.CHANNEL_WIDTH_160MHZ else 3
 private val channelWidth80Plus: ChannelWidth = if (buildMinVersionM()) ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ else 4
 
-enum class WiFiWidth(val channelWidth: ChannelWidth, val frequencyWidth: Int) {
-    MHZ_20(channelWidth20, 20),
-    MHZ_40(channelWidth40, 40),
-    MHZ_80(channelWidth80, 80),
-    MHZ_160(channelWidth160, 160),
-    MHZ_80_PLUS(channelWidth80Plus, 80);
+enum class WiFiWidth(val channelWidth: ChannelWidth, val frequencyWidth: Int, val guardBand: Int) {
+    MHZ_20(channelWidth20, 20, 2),
+    MHZ_40(channelWidth40, 40, 3),
+    MHZ_80(channelWidth80, 80, 3),
+    MHZ_160(channelWidth160, 160, 3),
+    MHZ_80_PLUS(channelWidth80Plus, 80, 3);
 
     val frequencyWidthHalf: Int = frequencyWidth / 2
 

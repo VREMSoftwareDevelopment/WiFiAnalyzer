@@ -62,9 +62,9 @@ class DataManagerTest {
         // validate
         assertEquals(5, actual.size)
         assertEquals(GraphDataPoint(2445, -100).toString(), actual[0].toString())
-        assertEquals(GraphDataPoint(2450, level).toString(), actual[1].toString())
+        assertEquals(GraphDataPoint(2447, level).toString(), actual[1].toString())
         assertEquals(GraphDataPoint(2455, level).toString(), actual[2].toString())
-        assertEquals(GraphDataPoint(2460, level).toString(), actual[3].toString())
+        assertEquals(GraphDataPoint(2463, level).toString(), actual[3].toString())
         assertEquals(GraphDataPoint(2465, -100).toString(), actual[4].toString())
     }
 
@@ -78,9 +78,9 @@ class DataManagerTest {
         // validate
         assertEquals(5, actual.size)
         assertEquals(GraphDataPoint(2445, -100).toString(), actual[0].toString())
-        assertEquals(GraphDataPoint(2450, expectedLevel).toString(), actual[1].toString())
+        assertEquals(GraphDataPoint(2447, expectedLevel).toString(), actual[1].toString())
         assertEquals(GraphDataPoint(2455, expectedLevel).toString(), actual[2].toString())
-        assertEquals(GraphDataPoint(2460, expectedLevel).toString(), actual[3].toString())
+        assertEquals(GraphDataPoint(2463, expectedLevel).toString(), actual[3].toString())
         assertEquals(GraphDataPoint(2465, -100).toString(), actual[4].toString())
     }
 

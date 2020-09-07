@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.wifi.channelgraph
 import com.jjoe64.graphview.series.TitleLineGraphSeries
 import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
-import com.vrem.wifianalyzer.wifi.band.WiFiChannels
 import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper
 import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
@@ -38,14 +37,15 @@ internal class DataManager {
 
     fun graphDataPoints(wiFiDetail: WiFiDetail, levelMax: Int): Array<GraphDataPoint> {
         val wiFiSignal = wiFiDetail.wiFiSignal
+        val guardBand = wiFiSignal.wiFiWidth.guardBand
         val frequencyStart = wiFiSignal.frequencyStart()
         val frequencyEnd = wiFiSignal.frequencyEnd()
         val level = wiFiSignal.level.coerceAtMost(levelMax)
         return arrayOf(
                 GraphDataPoint(frequencyStart, MIN_Y),
-                GraphDataPoint(frequencyStart + WiFiChannels.FREQUENCY_SPREAD, level),
+                GraphDataPoint(frequencyStart + guardBand, level),
                 GraphDataPoint(wiFiSignal.centerFrequency, level),
-                GraphDataPoint(frequencyEnd - WiFiChannels.FREQUENCY_SPREAD, level),
+                GraphDataPoint(frequencyEnd - guardBand, level),
                 GraphDataPoint(frequencyEnd, MIN_Y)
         )
     }

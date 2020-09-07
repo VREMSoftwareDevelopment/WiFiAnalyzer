@@ -48,6 +48,15 @@ class WiFiWidthTest {
     }
 
     @Test
+    fun testGuardBand() {
+        assertEquals(2, WiFiWidth.MHZ_20.guardBand)
+        assertEquals(3, WiFiWidth.MHZ_40.guardBand)
+        assertEquals(3, WiFiWidth.MHZ_80.guardBand)
+        assertEquals(3, WiFiWidth.MHZ_160.guardBand)
+        assertEquals(3, WiFiWidth.MHZ_80_PLUS.guardBand)
+    }
+
+    @Test
     fun testFindOne() {
         assertEquals(WiFiWidth.MHZ_20, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_20MHZ))
         assertEquals(WiFiWidth.MHZ_40, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_40MHZ))
