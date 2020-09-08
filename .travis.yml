@@ -1,13 +1,11 @@
 sudo: false
 cache: false
 language: android
-jdk: openjdk11
+jdk: openjdk9
 dist : trusty
 matrix:
   include:
-    - jdk: openjdk11
-  allow_failures:
-    - env: JDK='OpenJDK 11'
+    - jdk: openjdk9
 android:
     components:
         - tools
