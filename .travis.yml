@@ -3,6 +3,11 @@ cache: false
 language: android
 jdk: openjdk11
 dist : trusty
+matrix:
+  include:
+    - jdk: openjdk11
+  allow_failures:
+    - env: JDK='OpenJDK 11'
 android:
     components:
         - tools
