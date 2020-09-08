@@ -1,7 +1,7 @@
 sudo: false
 cache: false
 language: android
-jdk: openjdk8
+jdk: openjdk9
 dist : bionic
 android:
     components:
