@@ -1,22 +1,19 @@
 sudo: false
 cache: false
 language: android
-jdk: openjdk9
-dist : trusty
-matrix:
-  include:
-    - jdk: openjdk9
+jdk: oraclejdk8
+dist : bionic
 android:
     components:
         - tools
-        - build-tools-30.0.2
-        - android-30
+        - build-tools-29.0.3
+        - android-29
         - extra-google-m2repository
         - extra-android-m2repository
 script:
     - TERM=dumb ./gradlew lint testDebugUnitTest jacocoTestReport
 before_install:
     - chmod +x gradlew
-    - yes | sdkmanager "platforms;android-30"
+    - yes | sdkmanager "platforms;android-29"
 after_success:
     - bash <(curl -s https://codecov.io/bash)
