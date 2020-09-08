@@ -1,7 +1,7 @@
 sudo: false
 cache: false
 language: android
-jdk: oraclejdk8
+jdk: openjdk11
 dist : trusty
 android:
     components:
