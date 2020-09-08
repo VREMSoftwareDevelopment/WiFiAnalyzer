@@ -15,5 +15,5 @@ script:
 before_install:
     - chmod +x gradlew
     - yes | sdkmanager "platforms;android-29"
-after_success:
-    - bash <(curl -s https://codecov.io/bash)
+#after_success:
+#    - bash <(curl -s https://codecov.io/bash)
