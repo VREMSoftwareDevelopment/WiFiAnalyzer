@@ -17,5 +17,14 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+      - name: lint
+        run: bash ./gradlew lint --stacktrace
       - name: Unit tests
-        run: bash ./gradlew lint testDebugUnitTest jacocoTestReport --stacktrace
+        run: bash ./gradlew testDebugUnitTest --stacktrace
+      - name: coverage
+        run: bash ./gradlew jacocoTestReport --stacktrace
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml
