@@ -27,11 +27,8 @@ import com.vrem.wifianalyzer.R
 open class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(bundle: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings)
-        findPreference<Preference>(getString(R.string.experimental_key))!!.isVisible = versionP()
-        findPreference<Preference>(getString(R.string.wifi_off_on_exit_key))!!.isVisible = !minVersionQ()
+        findPreference<Preference>(getString(R.string.experimental_key))!!.isVisible = buildVersionP()
+        findPreference<Preference>(getString(R.string.wifi_off_on_exit_key))!!.isVisible = !buildMinVersionQ()
     }
 
-    open fun minVersionQ(): Boolean = buildMinVersionQ()
-
-    open fun versionP(): Boolean = buildVersionP()
 }

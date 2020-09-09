@@ -29,21 +29,17 @@ import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService
 import org.junit.After
 import org.junit.Assert.assertFalse
-import org.junit.Before
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.P])
+@Config(sdk = [Build.VERSION_CODES.Q])
 class ChannelRatingFragmentTest {
     private val mainActivity: MainActivity = RobolectricUtil.INSTANCE.activity
     private val scanner: ScannerService = INSTANCE.scannerService
     private val fixture: ChannelRatingFragment = ChannelRatingFragment()
-
-    @Before
-    fun setUp() {
-    }
 
     @After
     fun tearDown() {
@@ -58,6 +54,17 @@ class ChannelRatingFragmentTest {
         verify(scanner).update()
         verify(scanner).register(fixture.channelRatingAdapter)
     }
+
+    @Test
+    fun testRefreshEnabled() {
+        // setup
+        RobolectricUtil.INSTANCE.startFragment(fixture)
+        // execute
+        val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.channelRatingRefresh)
+        // validate
+        assertTrue(swipeRefreshLayout.isEnabled)
+    }
+
 
     @Test
     fun testOnResume() {
@@ -79,6 +86,7 @@ class ChannelRatingFragmentTest {
         verify(scanner).unregister(fixture.channelRatingAdapter)
     }
 
+    @Config(sdk = [Build.VERSION_CODES.P])
     @Test
     fun testRefreshDisabled() {
         // setup

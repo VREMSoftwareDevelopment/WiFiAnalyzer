@@ -26,24 +26,17 @@ import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import org.junit.After
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
-import org.junit.Before
+import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.P])
+@Config(sdk = [Build.VERSION_CODES.Q])
 class AccessPointsFragmentTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val scanner = MainContextHelper.INSTANCE.scannerService
     private val fixture = AccessPointsFragment()
-
-    @Before
-    fun setUp() {
-        RobolectricUtil.INSTANCE.startFragment(fixture)
-    }
 
     @After
     fun tearDown() {
@@ -52,6 +45,8 @@ class AccessPointsFragmentTest {
 
     @Test
     fun testOnCreateView() {
+        // setup
+        RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
         assertNotNull(fixture)
         verify(scanner).update()
@@ -59,15 +54,18 @@ class AccessPointsFragmentTest {
     }
 
     @Test
-    fun testRefreshDisabled() {
+    fun testRefreshEnabled() {
+        // setup
+        RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.accessPointsRefresh)
-        assertFalse(swipeRefreshLayout.isRefreshing)
-        assertFalse(swipeRefreshLayout.isEnabled)
+        assertTrue(swipeRefreshLayout.isEnabled)
     }
 
     @Test
     fun testOnResume() {
+        // setup
+        RobolectricUtil.INSTANCE.startFragment(fixture)
         // execute
         fixture.onResume()
         // validate
@@ -76,9 +74,23 @@ class AccessPointsFragmentTest {
 
     @Test
     fun testOnDestroy() {
+        // setup
+        RobolectricUtil.INSTANCE.startFragment(fixture)
         // execute
         fixture.onDestroy()
         // validate
         verify(scanner).unregister(fixture.accessPointsAdapter)
     }
+
+    @Config(sdk = [Build.VERSION_CODES.P])
+    @Test
+    fun testRefreshDisabled() {
+        // setup
+        RobolectricUtil.INSTANCE.startFragment(fixture)
+        // validate
+        val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.accessPointsRefresh)
+        assertFalse(swipeRefreshLayout.isRefreshing)
+        assertFalse(swipeRefreshLayout.isEnabled)
+    }
+
 }

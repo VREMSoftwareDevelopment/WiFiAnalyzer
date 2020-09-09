@@ -41,7 +41,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.P])
+@Config(sdk = [Build.VERSION_CODES.Q])
 class AboutFragmentTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val configuration = INSTANCE.configuration

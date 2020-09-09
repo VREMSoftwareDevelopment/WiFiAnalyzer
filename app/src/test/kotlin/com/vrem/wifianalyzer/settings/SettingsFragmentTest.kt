@@ -30,7 +30,7 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.P])
+@Config(sdk = [Build.VERSION_CODES.Q])
 class SettingsFragmentTest {
 
     @Test
@@ -42,6 +42,7 @@ class SettingsFragmentTest {
         Assert.assertNotNull(fixture.view)
     }
 
+    @Config(sdk = [Build.VERSION_CODES.P])
     @Test
     fun testExperimentalIsVisible() {
         // setup
@@ -54,6 +55,7 @@ class SettingsFragmentTest {
         assertTrue(actual!!.isVisible)
     }
 
+    @Config(sdk = [Build.VERSION_CODES.P])
     @Test
     fun testWiFiOnExitIsVisible() {
         // setup
@@ -69,7 +71,7 @@ class SettingsFragmentTest {
     @Test
     fun testExperimentalIsNotVisible() {
         // setup
-        val fixture = SettingsFragmentQ()
+        val fixture = SettingsFragment()
         RobolectricUtil.INSTANCE.startFragment(fixture)
         val key = fixture.getString(R.string.experimental_key)
         // execute
@@ -81,7 +83,7 @@ class SettingsFragmentTest {
     @Test
     fun testWiFiOnExitIsNotVisible() {
         // setup
-        val fixture = SettingsFragmentQ()
+        val fixture = SettingsFragment()
         RobolectricUtil.INSTANCE.startFragment(fixture)
         val key = fixture.getString(R.string.wifi_off_on_exit_key)
         // execute
@@ -90,9 +92,4 @@ class SettingsFragmentTest {
         assertFalse(actual!!.isVisible)
     }
 
-    class SettingsFragmentQ : SettingsFragment() {
-        override fun minVersionQ(): Boolean = true
-
-        override fun versionP(): Boolean = false
-    }
 }

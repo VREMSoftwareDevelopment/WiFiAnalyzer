@@ -29,7 +29,7 @@ import org.robolectric.annotation.Config
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.P])
+@Config(sdk = [Build.VERSION_CODES.Q])
 class CountryPreferenceTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val countries = findAll()
