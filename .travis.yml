@@ -1,19 +1,21 @@
 sudo: false
 cache: false
 language: android
-jdk: openjdk11
-dist : trusty
+jdk: openjdk9
+dist: trusty
+env:
+  - JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
 android:
-    components:
-        - tools
-        - build-tools-30.0.2
-        - android-30
-        - extra-google-m2repository
-        - extra-android-m2repository
+  components:
+    - tools
+    - build-tools-30.0.2
+    - android-30
+    - extra-google-m2repository
+    - extra-android-m2repository
 script:
-    - TERM=dumb ./gradlew lint testDebugUnitTest jacocoTestReport
+  - TERM=dumb ./gradlew lint testDebugUnitTest jacocoTestReport
 before_install:
-    - chmod +x gradlew
-    - yes | sdkmanager "platforms;android-30"
+  - chmod +x gradlew
+  - yes | sdkmanager "platforms;android-30"
 #after_success:
-#    - bash <(curl -s https://codecov.io/bash)
+#  - bash <(curl -s https://codecov.io/bash)
