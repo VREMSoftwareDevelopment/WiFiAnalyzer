@@ -15,8 +15,6 @@ This is the official repository of WiFi Analyzer.
 <img src="images/feature-graphic.png" alt="Feature Graphic - Dark Theme" height="200">
 <img src="images/feature-graphic-light.png" alt="Feature Graphic - Light Theme" height="200">
 
-### The open-source app was created using Agile methodologies, [click here](https://www.intelliware.com/how-to-use-the-wifianalyzer-open-source/) to learn more about it.
-
 ## Table of Contents
 - [Features](#features)
 - [Usage Tips](#usage-tips)
