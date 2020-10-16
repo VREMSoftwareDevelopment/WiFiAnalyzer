@@ -26,6 +26,7 @@ import com.vrem.annotation.OpenClass
 import com.vrem.util.compatColor
 import com.vrem.wifianalyzer.MainContext.INSTANCE
 import com.vrem.wifianalyzer.R
+import com.vrem.wifianalyzer.wifi.model.Security
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal
@@ -52,6 +53,7 @@ class AccessPointDetail {
         val view = INSTANCE.layoutInflater.inflate(R.layout.access_point_view_popup, null)
         setViewCompact(view, wiFiDetail, false)
         setViewExtra(view, wiFiDetail)
+        setViewCapabilitiesLong(view, wiFiDetail)
         setViewVendorLong(view, wiFiDetail.wiFiAdditional)
         setView80211mc(view, wiFiDetail.wiFiSignal)
         setViewWiFiStandard(view, wiFiDetail.wiFiSignal)
@@ -92,7 +94,10 @@ class AccessPointDetail {
                 setWiFiStandardImage(view, wiFiSignal)
                 it.text = "${wiFiSignal.frequencyStart()} - ${wiFiSignal.frequencyEnd()}"
                 view.findViewById<TextView>(R.id.width).text = "(${wiFiSignal.wiFiWidth.frequencyWidth}${WiFiSignal.FREQUENCY_UNITS})"
-                view.findViewById<TextView>(R.id.capabilities).text = wiFiDetail.capabilities
+                view.findViewById<TextView>(R.id.capabilities).text = wiFiDetail.securities()
+                        .filter { it != Security.NONE }
+                        .toList()
+                        .joinToString(" ", "[", "]")
             }
 
     private fun setWiFiStandardImage(view: View, wiFiSignal: WiFiSignal) =
@@ -123,6 +128,11 @@ class AccessPointDetail {
                     it.visibility = View.VISIBLE
                     it.text = wiFiAdditional.vendorName.take(vendorShortMax)
                 }
+            }
+
+    private fun setViewCapabilitiesLong(view: View, wiFiDetail: WiFiDetail) =
+            view.findViewById<TextView>(R.id.capabilitiesLong)?.let {
+                it.text = wiFiDetail.capabilities
             }
 
     private fun setViewVendorLong(view: View, wiFiAdditional: WiFiAdditional) =
