@@ -68,18 +68,4 @@
             tools:visibility="visible"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/activity_vertical_margin">
-
-        <Button
-            android:id="@+id/popupButtonClose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:text="@android:string/ok"/>
-
-    </LinearLayout>
 </LinearLayout>

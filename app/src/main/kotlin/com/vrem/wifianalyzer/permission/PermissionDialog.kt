@@ -45,8 +45,8 @@ class PermissionDialog(private val activity: Activity) {
     }
 
     internal class OkClick(private val activity: Activity) : DialogInterface.OnClickListener {
-        override fun onClick(dialog: DialogInterface, which: Int) {
-            dialog.dismiss()
+        override fun onClick(alertDialog: DialogInterface, which: Int) {
+            alertDialog.dismiss()
             requestPermissionsAndroidM()
         }
 
@@ -60,8 +60,8 @@ class PermissionDialog(private val activity: Activity) {
     }
 
     internal class CancelClick(private val activity: Activity) : DialogInterface.OnClickListener {
-        override fun onClick(dialog: DialogInterface, which: Int) {
-            dialog.dismiss()
+        override fun onClick(alertDialog: DialogInterface, which: Int) {
+            alertDialog.dismiss()
             activity.finish()
         }
 

@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.filter
 
-import android.app.Dialog
+import android.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -27,7 +27,7 @@ import com.vrem.util.specialTrim
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.filter.adapter.SSIDAdapter
 
-internal class SSIDFilter(ssidAdapter: SSIDAdapter, dialog: Dialog) {
+internal class SSIDFilter(ssidAdapter: SSIDAdapter, alertDialog: AlertDialog) {
     internal class OnChange(private val ssidAdapter: SSIDAdapter) : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             // Do nothing
@@ -44,9 +44,9 @@ internal class SSIDFilter(ssidAdapter: SSIDAdapter, dialog: Dialog) {
 
     init {
         val value: String = ssidAdapter.selections.toTypedArray().joinToString(separator = String.SPACE_SEPARATOR).specialTrim()
-        val editText: EditText = dialog.findViewById(R.id.filterSSIDtext)
+        val editText: EditText = alertDialog.findViewById(R.id.filterSSIDtext)
         editText.setText(value)
         editText.addTextChangedListener(OnChange(ssidAdapter))
-        dialog.findViewById<View>(R.id.filterSSID).visibility = View.VISIBLE
+        alertDialog.findViewById<View>(R.id.filterSSID).visibility = View.VISIBLE
     }
 }

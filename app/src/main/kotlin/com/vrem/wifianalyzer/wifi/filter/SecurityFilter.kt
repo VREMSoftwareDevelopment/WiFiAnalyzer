@@ -17,12 +17,12 @@
  */
 package com.vrem.wifianalyzer.wifi.filter
 
-import android.app.Dialog
+import android.app.AlertDialog
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.filter.adapter.SecurityAdapter
 import com.vrem.wifianalyzer.wifi.model.Security
 
-internal class SecurityFilter(securityAdapter: SecurityAdapter, dialog: Dialog) :
+internal class SecurityFilter(securityAdapter: SecurityAdapter, alertDialog: AlertDialog) :
         EnumFilter<Security, SecurityAdapter>(
                 mapOf(
                         Security.NONE to R.id.filterSecurityNone,
@@ -33,6 +33,6 @@ internal class SecurityFilter(securityAdapter: SecurityAdapter, dialog: Dialog) 
                         Security.WPA3 to R.id.filterSecurityWPA3
                 ),
                 securityAdapter,
-                dialog,
+                alertDialog,
                 R.id.filterSecurity
         )

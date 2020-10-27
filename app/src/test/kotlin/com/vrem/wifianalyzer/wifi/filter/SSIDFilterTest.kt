@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.filter
 
-import android.app.Dialog
+import android.app.AlertDialog
 import android.os.Build
 import android.text.Editable
 import android.view.View
@@ -37,7 +37,7 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.Q])
 class SSIDFilterTest {
-    private val dialog: Dialog = mock()
+    private val alertDialog: AlertDialog = mock()
     private val editText: EditText = mock()
     private val view: View = mock()
     private val ssidAdapter: SSIDAdapter = mock()
@@ -50,7 +50,7 @@ class SSIDFilterTest {
 
     @After
     fun tearDown() {
-        verifyNoMoreInteractions(dialog)
+        verifyNoMoreInteractions(alertDialog)
         verifyNoMoreInteractions(editText)
         verifyNoMoreInteractions(view)
         verifyNoMoreInteractions(ssidAdapter)
@@ -62,16 +62,16 @@ class SSIDFilterTest {
         // setup
         val values: Set<String> = setOf("", " ", "ABC", " JDS ")
         whenever(ssidAdapter.selections).thenReturn(values)
-        whenever(dialog.findViewById<EditText>(R.id.filterSSIDtext)).thenReturn(editText)
-        whenever(dialog.findViewById<View>(R.id.filterSSID)).thenReturn(view)
+        whenever(alertDialog.findViewById<EditText>(R.id.filterSSIDtext)).thenReturn(editText)
+        whenever(alertDialog.findViewById<View>(R.id.filterSSID)).thenReturn(view)
         val expected = "ABC JDS"
         // execute
-        SSIDFilter(ssidAdapter, dialog)
+        SSIDFilter(ssidAdapter, alertDialog)
         // verify
         verify(ssidAdapter).selections
         verify(editText).setText(expected)
-        verify(dialog).findViewById<EditText>(R.id.filterSSIDtext)
-        verify(dialog).findViewById<View>(R.id.filterSSID)
+        verify(alertDialog).findViewById<EditText>(R.id.filterSSIDtext)
+        verify(alertDialog).findViewById<View>(R.id.filterSSID)
         verify(view).visibility = View.VISIBLE
         verify(editText).addTextChangedListener(any())
     }

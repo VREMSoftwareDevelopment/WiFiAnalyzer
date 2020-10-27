@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.about
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager.NameNotFoundException
@@ -42,7 +41,6 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.databinding.AboutContentBinding
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class AboutFragment : Fragment() {
 
@@ -121,7 +119,7 @@ class AboutFragment : Fragment() {
                 val alertDialog: AlertDialog = AlertDialog.Builder(view.context)
                         .setTitle(titleId)
                         .setMessage(text)
-                        .setNeutralButton(android.R.string.ok, Close())
+                        .setNeutralButton(android.R.string.ok) { dialog, which -> dialog.dismiss() }
                         .create()
                 alertDialog.show()
                 if (isSmallFont) {
@@ -129,13 +127,6 @@ class AboutFragment : Fragment() {
                 }
             }
         }
-
-        private class Close : DialogInterface.OnClickListener {
-            override fun onClick(dialog: DialogInterface, which: Int) {
-                dialog.dismiss()
-            }
-        }
-
     }
 
     companion object {

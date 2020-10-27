@@ -26,7 +26,6 @@ import com.vrem.annotation.OpenClass
 import com.vrem.util.compatColor
 import com.vrem.wifianalyzer.MainContext.INSTANCE
 import com.vrem.wifianalyzer.R
-import com.vrem.wifianalyzer.wifi.model.Security
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal
@@ -95,7 +94,6 @@ class AccessPointDetail {
                 it.text = "${wiFiSignal.frequencyStart()} - ${wiFiSignal.frequencyEnd()}"
                 view.findViewById<TextView>(R.id.width).text = "(${wiFiSignal.wiFiWidth.frequencyWidth}${WiFiSignal.FREQUENCY_UNITS})"
                 view.findViewById<TextView>(R.id.capabilities).text = wiFiDetail.securities()
-                        .filter { it != Security.NONE }
                         .toList()
                         .joinToString(" ", "[", "]")
             }

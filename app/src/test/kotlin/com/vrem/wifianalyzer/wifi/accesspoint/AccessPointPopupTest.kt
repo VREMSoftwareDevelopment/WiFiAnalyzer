@@ -17,6 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.accesspoint
 
+import android.content.DialogInterface
 import android.os.Build
 import android.view.View
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -46,15 +47,49 @@ class AccessPointPopupTest {
     }
 
     @Test
-    fun testPopupIsClosedOnCloseButtonClick() {
+    fun testPopupIsClosedOnPositiveButtonClick() {
         // setup
         val view = mainActivity.layoutInflater.inflate(R.layout.access_point_view_popup, null)
-        val dialog = fixture.show(view)
-        val closeButton = dialog.findViewById<View>(R.id.popupButtonClose)
+        val alertDialog = fixture.show(view)
+        val button = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
         // execute
-        closeButton.performClick()
+        button.performClick()
         // validate
-        assertFalse(dialog.isShowing)
+        RobolectricUtil.INSTANCE.clearLooper()
+        assertFalse(alertDialog.isShowing)
+    }
+
+    @Test
+    fun testPopupPositiveButtonIsNotVisible() {
+        // setup
+        val view = mainActivity.layoutInflater.inflate(R.layout.access_point_view_popup, null)
+        val alertDialog = fixture.show(view)
+        // execute
+        val actual = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+        // validate
+        assertEquals(View.VISIBLE, actual.visibility)
+    }
+
+    @Test
+    fun testPopupNegativeButtonIsNotVisible() {
+        // setup
+        val view = mainActivity.layoutInflater.inflate(R.layout.access_point_view_popup, null)
+        val alertDialog = fixture.show(view)
+        // execute
+        val actual = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE)
+        // validate
+        assertEquals(View.GONE, actual.visibility)
+    }
+
+    @Test
+    fun testPopupNeutralButtonIsNotVisible() {
+        // setup
+        val view = mainActivity.layoutInflater.inflate(R.layout.access_point_view_popup, null)
+        val alertDialog = fixture.show(view)
+        // execute
+        val actual = alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL)
+        // validate
+        assertEquals(View.GONE, actual.visibility)
     }
 
     @Test

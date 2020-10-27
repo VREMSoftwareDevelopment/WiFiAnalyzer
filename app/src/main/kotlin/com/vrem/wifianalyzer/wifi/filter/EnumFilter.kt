@@ -17,14 +17,14 @@
  */
 package com.vrem.wifianalyzer.wifi.filter
 
-import android.app.Dialog
+import android.app.AlertDialog
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.vrem.wifianalyzer.wifi.filter.adapter.EnumFilterAdapter
 
-internal abstract class EnumFilter<T : Enum<*>, U : EnumFilterAdapter<T>>(internal val ids: Map<T, Int>, private val filter: U, dialog: Dialog, id: Int) {
+internal abstract class EnumFilter<T : Enum<*>, U : EnumFilterAdapter<T>>(internal val ids: Map<T, Int>, private val filter: U, alertDialog: AlertDialog, id: Int) {
 
     private fun setColor(view: View, value: T) {
         this.filter.color(value).let {
@@ -37,12 +37,12 @@ internal abstract class EnumFilter<T : Enum<*>, U : EnumFilterAdapter<T>>(intern
     }
 
     init {
-        ids.keys.forEach { value -> ids[value]?.let { process(dialog, it, value) } }
-        dialog.findViewById<View>(id).visibility = View.VISIBLE
+        ids.keys.forEach { value -> ids[value]?.let { process(alertDialog, it, value) } }
+        alertDialog.findViewById<View>(id).visibility = View.VISIBLE
     }
 
-    private fun process(dialog: Dialog, id: Int, value: T) {
-        val view = dialog.findViewById<View>(id)
+    private fun process(alertDialog: AlertDialog, id: Int, value: T) {
+        val view = alertDialog.findViewById<View>(id)
         view.setOnClickListener { onClickListener(value, it) }
         setColor(view, value)
     }

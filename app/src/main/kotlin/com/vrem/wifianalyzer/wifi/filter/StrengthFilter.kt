@@ -17,12 +17,12 @@
  */
 package com.vrem.wifianalyzer.wifi.filter
 
-import android.app.Dialog
+import android.app.AlertDialog
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.filter.adapter.StrengthAdapter
 import com.vrem.wifianalyzer.wifi.model.Strength
 
-internal class StrengthFilter(strengthAdapter: StrengthAdapter, dialog: Dialog) :
+internal class StrengthFilter(strengthAdapter: StrengthAdapter, alertDialog: AlertDialog) :
         EnumFilter<Strength, StrengthAdapter>(
                 mapOf(
                         Strength.ZERO to R.id.filterStrength0,
@@ -32,6 +32,6 @@ internal class StrengthFilter(strengthAdapter: StrengthAdapter, dialog: Dialog) 
                         Strength.FOUR to R.id.filterStrength4
                 ),
                 strengthAdapter,
-                dialog,
+                alertDialog,
                 R.id.filterStrength
         )
