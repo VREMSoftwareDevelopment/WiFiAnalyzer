@@ -33,5 +33,5 @@ private fun read(inputStream: InputStream): String {
     val size = inputStream.available()
     val bytes = ByteArray(size)
     val count = inputStream.read(bytes)
-    return if (count == size) String(bytes) else String.EMPTY
+    return if (count == size) String(bytes).replace("\r", "") else String.EMPTY
 }
