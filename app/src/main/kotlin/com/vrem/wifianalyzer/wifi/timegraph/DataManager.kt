@@ -44,7 +44,7 @@ internal class DataManager(private val timeGraphCache: TimeGraphCache = TimeGrap
     fun adjustData(graphViewWrapper: GraphViewWrapper, wiFiDetails: Set<WiFiDetail>) {
         graphViewWrapper.differenceSeries(wiFiDetails).forEach {
             val dataPoint = GraphDataPoint(xValue, MIN_Y + MIN_Y_OFFSET)
-            val drawBackground = it.wiFiAdditional.wiFiConnection.connected()
+            val drawBackground = it.wiFiAdditional.wiFiConnection.connected
             graphViewWrapper.appendToSeries(it, dataPoint, scanCount, drawBackground)
             timeGraphCache.add(it)
         }
@@ -54,7 +54,7 @@ internal class DataManager(private val timeGraphCache: TimeGraphCache = TimeGrap
     fun newSeries(wiFiDetails: Set<WiFiDetail>): Set<WiFiDetail> = wiFiDetails.plus(timeGraphCache.active())
 
     fun addData(graphViewWrapper: GraphViewWrapper, wiFiDetail: WiFiDetail, levelMax: Int) {
-        val drawBackground = wiFiDetail.wiFiAdditional.wiFiConnection.connected()
+        val drawBackground = wiFiDetail.wiFiAdditional.wiFiConnection.connected
         val level = wiFiDetail.wiFiSignal.level.coerceAtMost(levelMax)
         if (graphViewWrapper.newSeries(wiFiDetail)) {
             val dataPoint = GraphDataPoint(xValue, (if (scanCount > 0) MIN_Y + MIN_Y_OFFSET else level))

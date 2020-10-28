@@ -37,7 +37,7 @@ class WiFiIdentifierTest {
         assertEquals(ssid, fixture.ssidRaw)
         assertEquals(ssid, fixture.ssid)
         assertEquals(bssid, fixture.bssid)
-        assertEquals(expectedTitle, fixture.title())
+        assertEquals(expectedTitle, fixture.title)
     }
 
     @Test
@@ -46,7 +46,7 @@ class WiFiIdentifierTest {
         val expectedTitle = "*hidden* ($bssid)"
         val fixture = WiFiIdentifier(String.EMPTY, bssid)
         // validate
-        assertEquals(expectedTitle, fixture.title())
+        assertEquals(expectedTitle, fixture.title)
     }
 
     @Test

@@ -105,6 +105,7 @@
     <string name="group_by_none">"None"</string>
     <string name="group_by_ssid" translatable="false">"SSID"</string>
     <string name="group_by_channel">"Channel"</string>
+    <string name="group_by_virtual">"Virtual"</string>
 
     <string name="connection_view_title">"Connection Display"</string>
     <string name="connection_view_summary" translatable="false">"%s"</string>

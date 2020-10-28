@@ -69,6 +69,7 @@
     <string name="group_by_title">"存取點分組依據"</string>
     <string name="group_by_none">"無"</string>
     <string name="group_by_channel">"頻道"</string>
+    <string name="group_by_virtual">"Virtual"</string>
 
     <string name="connection_view_title">"顯示連線"</string>
     <string name="connection_view_complete">"完整"</string>

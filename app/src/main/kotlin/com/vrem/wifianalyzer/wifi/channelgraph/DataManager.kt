@@ -25,10 +25,8 @@ import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper
 import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
-internal fun WiFiChannelPair.inRange(wiFiDetail: WiFiDetail): Boolean {
-    val frequency = wiFiDetail.wiFiSignal.centerFrequency
-    return frequency >= this.first.frequency && frequency <= this.second.frequency
-}
+internal fun WiFiChannelPair.inRange(wiFiDetail: WiFiDetail): Boolean =
+        wiFiDetail.wiFiSignal.centerFrequency in first.frequency..second.frequency
 
 @OpenClass
 internal class DataManager {
@@ -38,8 +36,8 @@ internal class DataManager {
     fun graphDataPoints(wiFiDetail: WiFiDetail, levelMax: Int): Array<GraphDataPoint> {
         val wiFiSignal = wiFiDetail.wiFiSignal
         val guardBand = wiFiSignal.wiFiWidth.guardBand
-        val frequencyStart = wiFiSignal.frequencyStart()
-        val frequencyEnd = wiFiSignal.frequencyEnd()
+        val frequencyStart = wiFiSignal.frequencyStart
+        val frequencyEnd = wiFiSignal.frequencyEnd
         val level = wiFiSignal.level.coerceAtMost(levelMax)
         return arrayOf(
                 GraphDataPoint(frequencyStart, MIN_Y),

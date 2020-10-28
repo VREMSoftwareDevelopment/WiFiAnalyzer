@@ -64,7 +64,7 @@ class ConnectionView(
         val connection = wiFiData.connection()
         val connectionView = mainActivity.findViewById<View>(R.id.connection)
         val wiFiConnection = connection.wiFiAdditional.wiFiConnection
-        if (connectionViewType.hide || !wiFiConnection.connected()) {
+        if (connectionViewType.hide || !wiFiConnection.connected) {
             connectionView.visibility = View.GONE
         } else {
             connectionView.visibility = View.VISIBLE

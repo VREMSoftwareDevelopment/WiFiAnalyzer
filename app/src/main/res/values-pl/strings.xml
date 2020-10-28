@@ -69,6 +69,7 @@
     <string name="group_by_title">"Grupuj punkty dostępu po"</string>
     <string name="group_by_none">"Nic"</string>
     <string name="group_by_channel">"Kanał"</string>
+    <string name="group_by_virtual">"Virtual"</string>
 
     <string name="connection_view_title">"Widok połączeń"</string>
     <string name="connection_view_complete">"Pełny"</string>

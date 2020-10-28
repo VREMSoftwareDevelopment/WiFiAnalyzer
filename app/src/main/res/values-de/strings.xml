@@ -69,6 +69,7 @@
     <string name="group_by_title">"Gruppiere Access Points nach"</string>
     <string name="group_by_none">"Nicht Gruppieren"</string>
     <string name="group_by_channel">"Kanal"</string>
+    <string name="group_by_virtual">"Virtual"</string>
 
     <string name="connection_view_title">"Verbindungs-Darstellung"</string>
     <string name="connection_view_complete">"Komplett"</string>

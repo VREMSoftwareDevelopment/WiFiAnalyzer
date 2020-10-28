@@ -25,7 +25,8 @@ data class WiFiConnection(val wiFiIdentifier: WiFiIdentifier = WiFiIdentifier.EM
                           val linkSpeed: Int = LINK_SPEED_INVALID) :
         Comparable<WiFiConnection> {
 
-    fun connected(): Boolean = EMPTY != this
+    val connected: Boolean
+        get() = EMPTY != this
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

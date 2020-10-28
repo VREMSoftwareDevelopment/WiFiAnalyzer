@@ -56,7 +56,7 @@ class GraphViewWrapper(
                 seriesCache.put(wiFiDetail, series)
                 series.title = wiFiDetail.wiFiIdentifier.ssid + " " + wiFiDetail.wiFiSignal.channelDisplay()
                 series.setOnDataPointTapListener { value, _ -> this.popup(value) }
-                seriesOptions.highlightConnected(series, wiFiDetail.wiFiAdditional.wiFiConnection.connected())
+                seriesOptions.highlightConnected(series, wiFiDetail.wiFiAdditional.wiFiConnection.connected)
                 seriesOptions.setSeriesColor(series)
                 seriesOptions.drawBackground(series, drawBackground)
                 graphView.addSeries(series)
@@ -67,7 +67,7 @@ class GraphViewWrapper(
             if (seriesExists(wiFiDetail)) {
                 val series = seriesCache[wiFiDetail]
                 series.resetData(data)
-                seriesOptions.highlightConnected(series, wiFiDetail.wiFiAdditional.wiFiConnection.connected())
+                seriesOptions.highlightConnected(series, wiFiDetail.wiFiAdditional.wiFiConnection.connected)
                 seriesOptions.drawBackground(series, drawBackground)
                 true
             } else {
@@ -78,7 +78,7 @@ class GraphViewWrapper(
             if (seriesExists(wiFiDetail)) {
                 val series = seriesCache[wiFiDetail]
                 series.appendData(data, true, count + 1)
-                seriesOptions.highlightConnected(series, wiFiDetail.wiFiAdditional.wiFiConnection.connected())
+                seriesOptions.highlightConnected(series, wiFiDetail.wiFiAdditional.wiFiConnection.connected)
                 seriesOptions.drawBackground(series, drawBackground)
                 true
             } else {

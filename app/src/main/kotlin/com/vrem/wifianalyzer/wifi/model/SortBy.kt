@@ -28,7 +28,7 @@ fun sortByStrength(): Comparator<WiFiDetail> =
                 .thenBy { it.wiFiIdentifier.bssid }
 
 fun sortByChannel(): Comparator<WiFiDetail> =
-        compareBy<WiFiDetail> { it.wiFiSignal.primaryWiFiChannel().channel }
+        compareBy<WiFiDetail> { it.wiFiSignal.primaryWiFiChannel.channel }
                 .thenByDescending { it.wiFiSignal.level }
                 .thenBy { it.wiFiIdentifier.ssid }
                 .thenBy { it.wiFiIdentifier.bssid }

@@ -15,23 +15,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+
 package com.vrem.wifianalyzer.wifi.model
 
-typealias GroupByKey<T> = (T) -> String
+private const val BSSID_LENGTH = 17
 
-internal val groupByChannel: GroupByKey<WiFiDetail> = { it.wiFiSignal.primaryWiFiChannel.channel.toString() }
-
-internal val groupBySSID: GroupByKey<WiFiDetail> = { it.wiFiIdentifier.ssid }
-
-internal val groupByVirtual: GroupByKey<WiFiDetail> = { it.wiFiVirtual.key }
-
-enum class GroupBy(val sort: Comparator<WiFiDetail>, val group: GroupByKey<WiFiDetail>) {
-    NONE(sortByDefault(), groupBySSID),
-    SSID(sortBySSID(), groupBySSID),
-    CHANNEL(sortByChannel(), groupByChannel),
-    VIRTUAL(sortBySSID(), groupByVirtual);
-
-    val none: Boolean
-        get() = NONE == this
-
+data class WiFiVirtual(val bssid: String, val frequency: Int) {
+    val key: String
+        get() = "$bssid-$frequency"
 }
+
+val WiFiDetail.wiFiVirtual: WiFiVirtual
+    get() =
+        if (BSSID_LENGTH == wiFiIdentifier.bssid.length)
+            WiFiVirtual(
+                    this.wiFiIdentifier.bssid.substring(2, BSSID_LENGTH - 1),
+                    this.wiFiSignal.primaryFrequency)
+        else
+            WiFiVirtual(
+                    wiFiIdentifier.bssid,
+                    wiFiSignal.primaryFrequency)
+
+

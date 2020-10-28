@@ -32,11 +32,14 @@ data class WiFiDetail(
     constructor(wiFiDetail: WiFiDetail, children: List<WiFiDetail>) :
             this(wiFiDetail.wiFiIdentifier, wiFiDetail.capabilities, wiFiDetail.wiFiSignal, wiFiDetail.wiFiAdditional, children)
 
-    fun security(): Security = Security.findOne(capabilities)
+    val security: Security
+        get() = Security.findOne(capabilities)
 
-    fun securities(): Set<Security> = Security.findAll(capabilities)
+    val securities: Set<Security>
+        get() = Security.findAll(capabilities)
 
-    fun noChildren(): Boolean = children.isNotEmpty()
+    val noChildren: Boolean
+        get() = children.isNotEmpty()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -55,3 +58,4 @@ data class WiFiDetail(
         val EMPTY = WiFiDetail()
     }
 }
+

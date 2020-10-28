@@ -55,7 +55,7 @@ class ChannelRatingTest {
     @Test
     fun testChannelRating() {
         // setup
-        val wiFiChannel: WiFiChannel = wiFiDetail1.wiFiSignal.centerWiFiChannel()
+        val wiFiChannel: WiFiChannel = wiFiDetail1.wiFiSignal.centerWiFiChannel
         // execute & validate
         assertEquals(0, fixture.count(wiFiChannel))
         assertEquals(Strength.ZERO, fixture.strength(wiFiChannel))
@@ -66,9 +66,9 @@ class ChannelRatingTest {
         // setup
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4))
         // execute and validate
-        validateCount(2, wiFiDetail1.wiFiSignal.centerWiFiChannel())
-        validateCount(4, wiFiDetail2.wiFiSignal.centerWiFiChannel())
-        validateCount(3, wiFiDetail3.wiFiSignal.centerWiFiChannel())
+        validateCount(2, wiFiDetail1.wiFiSignal.centerWiFiChannel)
+        validateCount(4, wiFiDetail2.wiFiSignal.centerWiFiChannel)
+        validateCount(3, wiFiDetail3.wiFiSignal.centerWiFiChannel)
     }
 
     private fun validateCount(expected: Int, wiFiChannel: WiFiChannel) {
@@ -80,9 +80,9 @@ class ChannelRatingTest {
         // setup
         val other: WiFiDetail = makeCopy(wiFiDetail3)
         fixture.wiFiDetails(listOf(other, wiFiDetail3))
-        val expected: Strength = wiFiDetail3.wiFiSignal.strength()
+        val expected: Strength = wiFiDetail3.wiFiSignal.strength
         // execute
-        val actual: Strength = fixture.strength(wiFiDetail3.wiFiSignal.centerWiFiChannel())
+        val actual: Strength = fixture.strength(wiFiDetail3.wiFiSignal.centerWiFiChannel)
         // execute and validate
         assertEquals(expected, actual)
     }
@@ -92,9 +92,9 @@ class ChannelRatingTest {
         // setup
         val other: WiFiDetail = makeCopy(wiFiDetail1)
         fixture.wiFiDetails(listOf(other, wiFiDetail1))
-        val expected: Strength = other.wiFiSignal.strength()
+        val expected: Strength = other.wiFiSignal.strength
         // execute
-        val actual: Strength = fixture.strength(wiFiDetail1.wiFiSignal.centerWiFiChannel())
+        val actual: Strength = fixture.strength(wiFiDetail1.wiFiSignal.centerWiFiChannel)
         // execute and validate
         assertEquals(expected, actual)
     }

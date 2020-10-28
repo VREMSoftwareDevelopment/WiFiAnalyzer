@@ -22,12 +22,14 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
+        <item>3</item>
     </string-array>
 
     <string-array name="group_by_array">
         <item>@string/group_by_none</item>
         <item>@string/group_by_ssid</item>
         <item>@string/group_by_channel</item>
+        <item>@string/group_by_virtual</item>
     </string-array>
 
     <string-array name="sort_by_index_array" translatable="false">

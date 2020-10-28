@@ -69,6 +69,7 @@
     <string name="group_by_title">"Agrupar Puntos de Acceso por:"</string>
     <string name="group_by_none">"Ninguna"</string>
     <string name="group_by_channel">"Canal"</string>
+    <string name="group_by_virtual">"Virtual"</string>
 
     <string name="connection_view_title">"Pantalla de conexión"</string>
     <string name="connection_view_complete">"Completo"</string>

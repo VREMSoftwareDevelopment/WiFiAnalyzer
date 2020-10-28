@@ -69,6 +69,7 @@
     <string name="group_by_title">"Группировка"</string>
     <string name="group_by_none">"Нет"</string>
     <string name="group_by_channel">"Канал"</string>
+    <string name="group_by_virtual">"Virtual"</string>
 
     <string name="connection_view_title">"Дисплей соединение"</string>
     <string name="connection_view_complete">"Полный"</string>

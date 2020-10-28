@@ -69,6 +69,7 @@
     <string name="group_by_title">"Raggruppa Access Points per"</string>
     <string name="group_by_none">"Non Raggruppare"</string>
     <string name="group_by_channel">"Canale"</string>
+    <string name="group_by_virtual">"Virtual"</string>
 
     <string name="connection_view_title">"Access Point connesso"</string>
     <string name="connection_view_complete">"Completo"</string>
@@ -80,6 +81,7 @@
     <string name="ap_view_compact">"Compatto"</string>
 
     <string name="graph_maximum_y_title">"Potenza massima del segnale nel grafico"</string>
+
     <string name="channel_graph_legend_title">"Mostra legenda grafico canali"</string>
     <string name="time_graph_legend_title">"Mostra legenda grafico temporale"</string>
     <string name="graph_legend_left">"Sinistra"</string>

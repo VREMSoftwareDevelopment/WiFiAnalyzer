@@ -69,6 +69,7 @@
     <string name="group_by_title">"Agrupar pontos de acesso"</string>
     <string name="group_by_none">"Não agrupar"</string>
     <string name="group_by_channel">"Por canal"</string>
+    <string name="group_by_virtual">"Virtual"</string>
 
     <string name="connection_view_title">"Informações da conexão"</string>
     <string name="connection_view_complete">"Mostrar todas as informações"</string>

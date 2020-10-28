@@ -24,7 +24,7 @@ fun WiFiChannelPair.channelCount(): Int = second.channel - first.channel + 1 + W
 
 abstract class WiFiChannels(private val wiFiRange: WiFiRange, private val wiFiChannelPairs: List<WiFiChannelPair>) {
     fun inRange(frequency: Int): Boolean =
-            frequency >= wiFiRange.first && frequency <= wiFiRange.second
+            frequency in wiFiRange.first..wiFiRange.second
 
     fun wiFiChannelByFrequency(frequency: Int): WiFiChannel =
             if (inRange(frequency)) {

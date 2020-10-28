@@ -40,8 +40,8 @@ class WiFiDetailTest {
         assertEquals(wiFiAdditional, fixture.wiFiAdditional)
         assertEquals(wiFiIdentifier, fixture.wiFiIdentifier)
         assertEquals(capabilities, fixture.capabilities)
-        assertEquals(Security.WPA, fixture.security())
-        assertEquals(setOf(Security.WPA, Security.WPA2), fixture.securities())
+        assertEquals(Security.WPA, fixture.security)
+        assertEquals(setOf(Security.WPA, Security.WPA2), fixture.securities)
     }
 
     @Test
@@ -79,8 +79,8 @@ class WiFiDetailTest {
         assertEquals(expected, actual)
         assertEquals(expected.wiFiIdentifier, actual.wiFiIdentifier)
         assertEquals(expected.capabilities, actual.capabilities)
-        assertEquals(expected.security(), actual.security())
-        assertEquals(expected.securities(), actual.securities())
+        assertEquals(expected.security, actual.security)
+        assertEquals(expected.securities, actual.securities)
         assertEquals(expected.wiFiAdditional, actual.wiFiAdditional)
         assertEquals(expected.wiFiSignal, actual.wiFiSignal)
     }

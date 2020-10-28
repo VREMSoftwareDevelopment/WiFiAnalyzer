@@ -47,9 +47,9 @@ class WiFiSignalTest {
         val fixture = WiFiSignal(primaryFrequency, centerFrequency, WiFiWidth.MHZ_80, level, true, WiFiStandard.AC)
         // validate
         assertEquals(primaryFrequency, fixture.primaryFrequency)
-        assertEquals(primaryChannel, fixture.primaryWiFiChannel().channel)
+        assertEquals(primaryChannel, fixture.primaryWiFiChannel.channel)
         assertEquals(centerFrequency, fixture.centerFrequency)
-        assertEquals(centerChannel, fixture.centerWiFiChannel().channel)
+        assertEquals(centerChannel, fixture.centerWiFiChannel.channel)
         assertEquals(level, fixture.level)
         assertEquals(WiFiBand.GHZ2, fixture.wiFiBand)
         assertEquals(WiFiWidth.MHZ_80, fixture.wiFiWidth)
@@ -59,8 +59,8 @@ class WiFiSignalTest {
     @Test
     fun testCenterFrequency() {
         assertEquals(centerFrequency, fixture.centerFrequency)
-        assertEquals(centerFrequency - WiFiWidth.MHZ_40.frequencyWidthHalf, fixture.frequencyStart())
-        assertEquals(centerFrequency + WiFiWidth.MHZ_40.frequencyWidthHalf, fixture.frequencyEnd())
+        assertEquals(centerFrequency - WiFiWidth.MHZ_40.frequencyWidthHalf, fixture.frequencyStart)
+        assertEquals(centerFrequency + WiFiWidth.MHZ_40.frequencyWidthHalf, fixture.frequencyEnd)
     }
 
     @Test
@@ -74,17 +74,17 @@ class WiFiSignalTest {
 
     @Test
     fun testPrimaryWiFiChannel() {
-        assertEquals(primaryChannel, fixture.primaryWiFiChannel().channel)
+        assertEquals(primaryChannel, fixture.primaryWiFiChannel.channel)
     }
 
     @Test
     fun testCenterWiFiChannel() {
-        assertEquals(centerChannel, fixture.centerWiFiChannel().channel)
+        assertEquals(centerChannel, fixture.centerWiFiChannel.channel)
     }
 
     @Test
     fun testStrength() {
-        assertEquals(Strength.THREE, fixture.strength())
+        assertEquals(Strength.THREE, fixture.strength)
     }
 
     @Test
@@ -92,7 +92,7 @@ class WiFiSignalTest {
         // setup
         val expected = String.format(Locale.ENGLISH, "~%.1fm", calculateDistance(primaryFrequency, level))
         // execute
-        val actual: String = fixture.distance()
+        val actual: String = fixture.distance
         // validate
         assertEquals(expected, actual)
     }

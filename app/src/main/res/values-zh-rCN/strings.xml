@@ -69,6 +69,7 @@
     <string name="group_by_title">"接入点分组依据"</string>
     <string name="group_by_none">"无"</string>
     <string name="group_by_channel">"信道"</string>
+    <string name="group_by_virtual">"Virtual"</string>
 
     <string name="connection_view_title">"已连接显示"</string>
     <string name="connection_view_complete">"完整"</string>

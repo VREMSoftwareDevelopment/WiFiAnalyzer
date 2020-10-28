@@ -29,7 +29,8 @@ data class WiFiIdentifier(val ssidRaw: SSID = String.EMPTY, val bssid: BSSID = S
         else -> ssidRaw
     }
 
-    fun title(): String = "$ssid ($bssid)"
+    val title: String
+        get() = "$ssid ($bssid)"
 
     fun equals(other: WiFiIdentifier, ignoreCase: Boolean = false): Boolean =
             ssid.equals(other.ssidRaw, ignoreCase) && bssid.equals(other.bssid, ignoreCase)

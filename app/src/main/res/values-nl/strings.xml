@@ -57,14 +57,19 @@
 
     <!-- settings start -->
     <string name="country_code_title">"Land"</string>
+
     <string name="scan_speed_title">"Scan-interval"</string>
     <string name="scan_speed_summary">"%s seconden tussen elke scan"</string>
+
     <string name="sort_by_title">"Sorteer toegangspunten op"</string>
     <string name="sort_by_signal_strength">"Signaalsterkte"</string>
     <string name="sort_by_channel">"Kanaal"</string>
+
     <string name="group_by_title">"Groepeer toegangspunten op"</string>
     <string name="group_by_none">"Niet"</string>
     <string name="group_by_channel">"Kanaal"</string>
+    <string name="group_by_virtual">"Virtual"</string>
+
     <string name="connection_view_title">"Verbindingsweergave"</string>
     <string name="connection_view_complete">"Compleet"</string>
     <string name="connection_view_compact">"Compact"</string>
@@ -77,9 +82,7 @@
     <string name="graph_maximum_y_title">"Grafiek maximale signaalsterkte"</string>
 
     <string name="channel_graph_legend_title">"Kanaalgrafiek legendaweergave"</string>
-
     <string name="time_graph_legend_title">"Tijdgrafiek legendaweergave"</string>
-
     <string name="graph_legend_left">"Links"</string>
     <string name="graph_legend_right">"Rechts"</string>
     <string name="graph_legend_hide">"Verbergen"</string>

@@ -71,6 +71,7 @@
     <string name="group_by_title">"Групиране точките за достъп по"</string>
     <string name="group_by_none">"Няма"</string>
     <string name="group_by_channel">"Канал"</string>
+    <string name="group_by_virtual">"Virtual"</string>
 
     <string name="connection_view_title">"Показване на връзката"</string>
     <string name="connection_view_complete">"Пълно"</string>

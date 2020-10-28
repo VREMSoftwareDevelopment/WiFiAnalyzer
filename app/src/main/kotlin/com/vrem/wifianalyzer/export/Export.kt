@@ -71,12 +71,12 @@ class Export(private val exportIntent: ExportIntent = ExportIntent()) {
                     "${wiFiIdentifier.ssid}|" +
                     "${wiFiIdentifier.bssid}|" +
                     "${wiFiSignal.level}dBm|" +
-                    "${wiFiSignal.primaryWiFiChannel().channel}|" +
+                    "${wiFiSignal.primaryWiFiChannel.channel}|" +
                     "${wiFiSignal.primaryFrequency}$FREQUENCY_UNITS|" +
-                    "${wiFiSignal.centerWiFiChannel().channel}|" +
+                    "${wiFiSignal.centerWiFiChannel.channel}|" +
                     "${wiFiSignal.centerFrequency}$FREQUENCY_UNITS|" +
-                    "${wiFiSignal.wiFiWidth.frequencyWidth}$FREQUENCY_UNITS (${wiFiSignal.frequencyStart()} - ${wiFiSignal.frequencyEnd()})|" +
-                    "${wiFiSignal.distance()}|" +
+                    "${wiFiSignal.wiFiWidth.frequencyWidth}$FREQUENCY_UNITS (${wiFiSignal.frequencyStart} - ${wiFiSignal.frequencyEnd})|" +
+                    "${wiFiSignal.distance}|" +
                     "${wiFiSignal.is80211mc}|" +
                     capabilities +
                     "\n"

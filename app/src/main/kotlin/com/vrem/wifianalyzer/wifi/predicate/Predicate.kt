@@ -40,13 +40,13 @@ fun WiFiBand.predicate(): Predicate =
         { wiFiDetail -> wiFiDetail.wiFiSignal.wiFiBand == this }
 
 internal fun Strength.predicate(): Predicate =
-        { wiFiDetail -> wiFiDetail.wiFiSignal.strength() == this }
+        { wiFiDetail -> wiFiDetail.wiFiSignal.strength == this }
 
 internal fun SSID.predicate(): Predicate =
         { wiFiDetail -> wiFiDetail.wiFiIdentifier.ssid.contains(this) }
 
 internal fun Security.predicate(): Predicate =
-        { wiFiDetail -> wiFiDetail.securities().contains(this) }
+        { wiFiDetail -> wiFiDetail.securities.contains(this) }
 
 private fun Set<SSID>.ssidPredicate(): Predicate =
         if (this.isEmpty())

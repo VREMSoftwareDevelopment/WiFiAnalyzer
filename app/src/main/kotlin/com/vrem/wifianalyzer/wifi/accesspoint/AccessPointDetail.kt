@@ -68,11 +68,11 @@ class AccessPointDetail {
 
     private fun setViewCompact(view: View, wiFiDetail: WiFiDetail, child: Boolean) =
             view.findViewById<TextView>(R.id.ssid)?.let {
-                it.text = wiFiDetail.wiFiIdentifier.title()
+                it.text = wiFiDetail.wiFiIdentifier.title
                 val wiFiSignal = wiFiDetail.wiFiSignal
                 view.findViewById<TextView>(R.id.channel).text = wiFiSignal.channelDisplay()
                 view.findViewById<TextView>(R.id.primaryFrequency).text = "${wiFiSignal.primaryFrequency}${WiFiSignal.FREQUENCY_UNITS}"
-                view.findViewById<TextView>(R.id.distance).text = wiFiSignal.distance()
+                view.findViewById<TextView>(R.id.distance).text = wiFiSignal.distance
                 view.findViewById<View>(R.id.tab).visibility = if (child) View.VISIBLE else View.GONE
                 setSecurityImage(view, wiFiDetail)
                 setLevelText(view, wiFiSignal)
@@ -80,7 +80,7 @@ class AccessPointDetail {
 
     private fun setSecurityImage(view: View, wiFiDetail: WiFiDetail) =
             view.findViewById<ImageView>(R.id.securityImage).let {
-                val security = wiFiDetail.security()
+                val security = wiFiDetail.security
                 it.tag = security.imageResource
                 it.setImageResource(security.imageResource)
             }
@@ -91,9 +91,9 @@ class AccessPointDetail {
                 val wiFiSignal = wiFiDetail.wiFiSignal
                 setLevelImage(view, wiFiSignal)
                 setWiFiStandardImage(view, wiFiSignal)
-                it.text = "${wiFiSignal.frequencyStart()} - ${wiFiSignal.frequencyEnd()}"
+                it.text = "${wiFiSignal.frequencyStart} - ${wiFiSignal.frequencyEnd}"
                 view.findViewById<TextView>(R.id.width).text = "(${wiFiSignal.wiFiWidth.frequencyWidth}${WiFiSignal.FREQUENCY_UNITS})"
-                view.findViewById<TextView>(R.id.capabilities).text = wiFiDetail.securities()
+                view.findViewById<TextView>(R.id.capabilities).text = wiFiDetail.securities
                         .toList()
                         .joinToString(" ", "[", "]")
             }
@@ -107,12 +107,12 @@ class AccessPointDetail {
     private fun setLevelText(view: View, wiFiSignal: WiFiSignal) =
             view.findViewById<TextView>(R.id.level).let {
                 it.text = "${wiFiSignal.level}dBm"
-                it.setTextColor(view.context.compatColor(wiFiSignal.strength().colorResource))
+                it.setTextColor(view.context.compatColor(wiFiSignal.strength.colorResource))
             }
 
     private fun setLevelImage(view: View, wiFiSignal: WiFiSignal) =
             view.findViewById<ImageView>(R.id.levelImage).let {
-                val strength = wiFiSignal.strength()
+                val strength = wiFiSignal.strength
                 it.tag = strength.imageResource
                 it.setImageResource(strength.imageResource)
                 it.setColorFilter(view.context.compatColor(strength.colorResource))

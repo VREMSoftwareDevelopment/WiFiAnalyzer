@@ -44,7 +44,7 @@ class AccessPointsAdapterGroup(val expanded: MutableSet<String> = mutableSetOf()
     fun onGroupCollapsed(wiFiDetails: List<WiFiDetail>, groupPosition: Int) {
         if (!groupBy.none) {
             wiFiDetails.getOrNull(groupPosition)?.let {
-                if (it.noChildren()) {
+                if (it.noChildren) {
                     expanded.remove(groupBy.group(it))
                 }
             }
@@ -54,7 +54,7 @@ class AccessPointsAdapterGroup(val expanded: MutableSet<String> = mutableSetOf()
     fun onGroupExpanded(wiFiDetails: List<WiFiDetail>, groupPosition: Int) {
         if (!groupBy.none) {
             wiFiDetails.getOrNull(groupPosition)?.let {
-                if (it.noChildren()) {
+                if (it.noChildren) {
                     expanded.add(groupBy.group(it))
                 }
             }

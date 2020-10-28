@@ -107,7 +107,7 @@ class DataManagerTest {
                     it,
                     dataPoint,
                     scanCount,
-                    it.wiFiAdditional.wiFiConnection.connected())
+                    it.wiFiAdditional.wiFiConnection.connected)
             verify(timeGraphCache).add(it)
         }
         verify(timeGraphCache).clear()
@@ -143,7 +143,7 @@ class DataManagerTest {
                 wiFiDetail,
                 dataPoint,
                 scanCount,
-                wiFiDetail.wiFiAdditional.wiFiConnection.connected())
+                wiFiDetail.wiFiAdditional.wiFiConnection.connected)
         verify(timeGraphCache).reset(wiFiDetail)
     }
 
@@ -163,7 +163,7 @@ class DataManagerTest {
                 wiFiDetail,
                 dataPoint,
                 scanCount,
-                wiFiDetail.wiFiAdditional.wiFiConnection.connected())
+                wiFiDetail.wiFiAdditional.wiFiConnection.connected)
     }
 
     @Test
@@ -179,7 +179,7 @@ class DataManagerTest {
         verify(graphViewWrapper).addSeries(
                 eq(wiFiDetail),
                 any(),
-                eq(wiFiDetail.wiFiAdditional.wiFiConnection.connected()))
+                eq(wiFiDetail.wiFiAdditional.wiFiConnection.connected))
     }
 
     private fun makeWiFiDetailConnected(SSID: String): WiFiDetail {

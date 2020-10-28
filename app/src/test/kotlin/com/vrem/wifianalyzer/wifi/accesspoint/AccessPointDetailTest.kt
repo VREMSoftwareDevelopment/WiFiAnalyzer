@@ -342,11 +342,11 @@ class AccessPointDetailTest {
     private fun validateTextViewValuesCompleteView(view: View, wiFiDetail: WiFiDetail) {
         validateTextViewValuesCompactView(view, wiFiDetail)
         val wiFiSignal = wiFiDetail.wiFiSignal
-        validateTextViewValue(view, "${wiFiSignal.frequencyStart()} - ${wiFiSignal.frequencyEnd()}", R.id.channel_frequency_range)
+        validateTextViewValue(view, "${wiFiSignal.frequencyStart} - ${wiFiSignal.frequencyEnd}", R.id.channel_frequency_range)
         validateTextViewValue(view, "(${wiFiSignal.wiFiWidth.frequencyWidth}${WiFiSignal.FREQUENCY_UNITS})", R.id.width)
         validateTextViewValue(view, "[WPS WPA2 WPA3]", R.id.capabilities)
-        validateImageViewValue(view, wiFiSignal.strength().imageResource, R.id.levelImage)
-        validateImageViewValue(view, wiFiDetail.security().imageResource, R.id.securityImage)
+        validateImageViewValue(view, wiFiSignal.strength.imageResource, R.id.levelImage)
+        validateImageViewValue(view, wiFiDetail.security.imageResource, R.id.securityImage)
         validateImageViewValue(view, wiFiSignal.wiFiStandard.imageResource, R.id.wiFiStandardImage)
     }
 
@@ -359,11 +359,11 @@ class AccessPointDetailTest {
 
     private fun validateTextViewValuesCompactView(view: View, wiFiDetail: WiFiDetail) {
         val wiFiSignal = wiFiDetail.wiFiSignal
-        validateTextViewValue(view, wiFiDetail.wiFiIdentifier.title(), R.id.ssid)
+        validateTextViewValue(view, wiFiDetail.wiFiIdentifier.title, R.id.ssid)
         validateTextViewValue(view, "${wiFiSignal.level}dBm", R.id.level)
         validateTextViewValue(view, wiFiSignal.channelDisplay(), R.id.channel)
         validateTextViewValue(view, "${wiFiSignal.primaryFrequency}${WiFiSignal.FREQUENCY_UNITS}", R.id.primaryFrequency)
-        validateTextViewValue(view, wiFiSignal.distance(), R.id.distance)
+        validateTextViewValue(view, wiFiSignal.distance, R.id.distance)
     }
 
     private fun validateTextViewValue(view: View, expected: String, id: Int) {

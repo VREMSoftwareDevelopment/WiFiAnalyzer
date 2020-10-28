@@ -117,7 +117,7 @@ class GraphViewWrapperTest {
     fun testAddSeriesAddsSeries() {
         // setup
         val expectedTitle = wiFiDetail.wiFiIdentifier.ssid + " " + wiFiDetail.wiFiSignal.channelDisplay()
-        val connected = wiFiDetail.wiFiAdditional.wiFiConnection.connected()
+        val connected = wiFiDetail.wiFiAdditional.wiFiConnection.connected
         whenever(seriesCache.contains(wiFiDetail)).thenReturn(false)
         // execute
         val actual = fixture.addSeries(wiFiDetail, baseSeries, true)
@@ -148,7 +148,7 @@ class GraphViewWrapperTest {
     @Test
     fun testUpdateSeriesWhenSeriesDoesExists() {
         // setup
-        val connected = wiFiDetail.wiFiAdditional.wiFiConnection.connected()
+        val connected = wiFiDetail.wiFiAdditional.wiFiConnection.connected
         whenever(seriesCache.contains(wiFiDetail)).thenReturn(true)
         whenever(seriesCache[wiFiDetail]).thenReturn(baseSeries)
         // execute
@@ -179,7 +179,7 @@ class GraphViewWrapperTest {
     fun testAppendSeriesWhenSeriesDoesExists() {
         // setup
         val count = 10
-        val connected = wiFiDetail.wiFiAdditional.wiFiConnection.connected()
+        val connected = wiFiDetail.wiFiAdditional.wiFiConnection.connected
         whenever(seriesCache.contains(wiFiDetail)).thenReturn(true)
         whenever(seriesCache[wiFiDetail]).thenReturn(baseSeries)
         // execute
