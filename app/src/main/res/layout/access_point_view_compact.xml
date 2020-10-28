@@ -49,14 +49,16 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
                 android:layout_gravity="center_vertical"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/ssid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                tools:text="NETWORK SSID (0a:0a:0a:0a:0a:0a)" />
         </LinearLayout>
 
         <!-- Row 2 -->
@@ -71,7 +73,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-                android:layout_marginStart="@dimen/list_view_item_horizontal_tab"/>
+                android:layout_marginStart="@dimen/list_view_item_horizontal_tab"
+                tools:text="-99dBm" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -87,14 +90,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                 android:textColor="@color/channel_number"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                tools:text="140(150)" />
 
             <TextView
                 android:id="@+id/primaryFrequency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-                android:textColor="@color/frequency"/>
+                android:textColor="@color/frequency"
+                tools:text="5750MHz" />
 
             <ImageView
                 android:id="@+id/securityImage"
@@ -102,14 +107,16 @@
                 android:layout_height="@dimen/icon_small"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                 android:layout_gravity="center_vertical"
-                android:contentDescription="@null"/>
+                android:contentDescription="@null"
+                tools:src="@drawable/ic_lock" />
 
             <TextView
                 android:id="@+id/distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/distance"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                tools:text="~999.9m" />
 
         </LinearLayout>
     </LinearLayout>

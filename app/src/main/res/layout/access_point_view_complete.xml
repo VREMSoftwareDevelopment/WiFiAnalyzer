@@ -48,14 +48,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@null"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/ssid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="NETWORK SSID (0a:0a:0a:0a:0a:0a)" />
         </LinearLayout>
 
         <!-- Row 2 -->
@@ -75,7 +77,8 @@
                 <TextView
                     android:id="@+id/level"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    tools:text="-99dBm" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -138,21 +141,24 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                         android:textColor="@color/channel_number"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="140(150)" />
 
                     <TextView
                         android:id="@+id/primaryFrequency"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-                        android:textColor="@color/frequency" />
+                        android:textColor="@color/frequency"
+                        tools:text="5750MHz" />
 
                     <TextView
                         android:id="@+id/distance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/distance"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="~999.9m" />
                 </LinearLayout>
 
                 <!-- Row 2 -->
@@ -166,20 +172,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-                        android:textColor="@color/frequency" />
+                        android:textColor="@color/frequency"
+                        tools:text="5700-5800" />
 
                     <TextView
                         android:id="@+id/width"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-                        android:textColor="@color/frequency" />
+                        android:textColor="@color/frequency"
+                        tools:text="(160MHz)" />
 
                     <TextView
                         android:id="@+id/vendorShort"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        tools:text="Vendor Name1"
+                        tools:visibility="visible" />
                 </LinearLayout>
 
                 <!-- Row 3 -->
@@ -193,7 +203,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/security"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        tools:text="[WPS WEP WPA WPA2 WPA3]" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

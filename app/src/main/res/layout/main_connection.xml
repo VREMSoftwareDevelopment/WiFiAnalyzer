@@ -18,10 +18,12 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/main_connection"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_connection"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:viewBindingIgnore="true">
 
     <LinearLayout
         android:id="@+id/connection"
@@ -31,13 +33,14 @@
         android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <LinearLayout
             android:id="@+id/connectionDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,7 +54,8 @@
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                 android:layout_marginStart="@dimen/list_view_item_horizontal_tab"
                 android:textColor="@color/selected"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                tools:text="999Mbps" />
 
             <TextView
                 android:id="@+id/ipAddress"
@@ -59,7 +63,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                 android:textColor="@color/selected"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                tools:text="192.168.111.222" />
         </LinearLayout>
     </LinearLayout>
 
