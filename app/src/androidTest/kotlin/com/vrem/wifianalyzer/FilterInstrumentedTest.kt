@@ -18,42 +18,50 @@
 package com.vrem.wifianalyzer
 
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import org.hamcrest.Matchers
 
 internal class FilterInstrumentedTest : Runnable {
     override fun run() {
-        pauseShort()
-        actionOpen().perform(ViewActions.click())
+        actionOpen()
+        actionClose()
+    }
+
+    private fun actionClose() {
         pauseLong()
-        actionClose().perform(ViewActions.scrollTo(), ViewActions.click())
+        Espresso.onView(
+                Matchers.allOf(
+                        ViewMatchers.withId(android.R.id.button3),
+                        ViewMatchers.withText(FILTER_CLOSE_TAG),
+                        ChildAtPosition(
+                                ChildAtPosition(
+                                        ViewMatchers.withClassName(Matchers.`is`("android.widget.ScrollView")),
+                                        FILTER_BUTTON_CLOSE), FILTER_ACTION)))
+                .perform(ViewActions.scrollTo(), ViewActions.click())
     }
 
-    private fun actionClose(): ViewInteraction {
-        val button3 = ViewMatchers.withId(android.R.id.button3)
-        val filterClose = ViewMatchers.withText(FILTER_CLOSE_TAG)
-        val scrollView = ViewMatchers.withClassName(Matchers.`is`("android.widget.ScrollView"))
-        val filterButtonClose = ChildAtPosition(scrollView, FILTER_BUTTON_CLOSE)
-        val filterActionClose = ChildAtPosition(filterButtonClose, FILTER_ACTION)
-        return Espresso.onView(Matchers.allOf(button3, filterClose, filterActionClose))
+    private fun actionOpen() {
+        pauseShort()
+        Espresso.onView(
+                Matchers.allOf(
+                        ViewMatchers.withId(R.id.action_filter),
+                        ViewMatchers.withContentDescription(FILTER_BUTTON_TAG),
+                        ChildAtPosition(
+                                ChildAtPosition(
+                                        ViewMatchers.withId(R.id.toolbar),
+                                        FILTER_BUTTON_OPEN),
+                                FILTER_ACTION),
+                        ViewMatchers.isDisplayed()))
+                .perform(ViewActions.click())
     }
 
-    private fun actionOpen(): ViewInteraction {
-        val actionFilter = ViewMatchers.withId(R.id.action_filter)
-        val filterButtonTag = ViewMatchers.withContentDescription(FILTER_BUTTON_TAG)
-        val toolbar = ViewMatchers.withId(R.id.toolbar)
-        val filterButtonOpen = ChildAtPosition(toolbar, FILTER_BUTTON_OPEN)
-        val filterActionOpen = ChildAtPosition(filterButtonOpen, FILTER_ACTION)
-        return Espresso.onView(Matchers.allOf(actionFilter, filterButtonTag, filterActionOpen, ViewMatchers.isDisplayed()))
-    }
 
     companion object {
         private const val FILTER_BUTTON_OPEN = 2
         private const val FILTER_BUTTON_CLOSE = 0
         private const val FILTER_ACTION = 0
-        private const val FILTER_BUTTON_TAG = "FilterInstrumentedTest"
+        private const val FILTER_BUTTON_TAG = "Filter"
         private const val FILTER_CLOSE_TAG = "Close"
     }
 }

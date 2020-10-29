@@ -27,7 +27,7 @@ class AccessPointPopup {
     fun show(view: View): AlertDialog {
         val alertDialog: AlertDialog = AlertDialog.Builder(view.context)
                 .setView(view)
-                .setPositiveButton(android.R.string.ok) { dialog, which -> dialog.cancel(); }
+                .setPositiveButton(android.R.string.ok) { dialog, _ -> dialog.cancel(); }
                 .create()
         alertDialog.show()
         return alertDialog

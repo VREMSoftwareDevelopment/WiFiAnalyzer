@@ -119,7 +119,7 @@ class AboutFragment : Fragment() {
                 val alertDialog: AlertDialog = AlertDialog.Builder(view.context)
                         .setTitle(titleId)
                         .setMessage(text)
-                        .setNeutralButton(android.R.string.ok) { dialog, which -> dialog.dismiss() }
+                        .setNeutralButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }
                         .create()
                 alertDialog.show()
                 if (isSmallFont) {
