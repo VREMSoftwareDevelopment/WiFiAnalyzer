@@ -22,7 +22,7 @@ import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.R
 import java.util.*
 
-private const val RSN = "RSN"
+private const val SAE = "SAE"
 
 enum class Security(@DrawableRes val imageResource: Int, val additional: String = String.EMPTY) {
     NONE(R.drawable.ic_lock_open),
@@ -30,9 +30,11 @@ enum class Security(@DrawableRes val imageResource: Int, val additional: String 
     WEP(R.drawable.ic_lock_outline),
     WPA(R.drawable.ic_lock),
     WPA2(R.drawable.ic_lock),
-    WPA3(R.drawable.ic_lock, RSN);
+    WPA3(R.drawable.ic_lock, SAE);
 
     companion object {
+        private val regex = Regex("[^A-Z0-9]")
+
         fun findAll(capabilities: String): Set<Security> =
                 parse(capabilities).mapNotNull(transform()).toSortedSet().ifEmpty { setOf(NONE) }
 
@@ -47,12 +49,9 @@ enum class Security(@DrawableRes val imageResource: Int, val additional: String 
         }
 
         private fun parse(capabilities: String): List<String> =
-                capabilities
-                        .toUpperCase(Locale.getDefault())
-                        .replace("][", "-")
-                        .replace("]", "")
-                        .replace("[", "")
+                regex.replace(capabilities.toUpperCase(Locale.getDefault()), "-")
                         .split("-")
+                        .filter { it.isNotBlank() }
     }
 
 }

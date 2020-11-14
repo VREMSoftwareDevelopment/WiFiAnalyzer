@@ -335,7 +335,7 @@ class AccessPointDetailTest {
     private fun withWiFiDetail(ssid: String, wiFiAdditional: WiFiAdditional, is80211mc: Boolean): WiFiDetail =
             WiFiDetail(
                     WiFiIdentifier(ssid, "BSSID"),
-                    "[WPS-capabilities][WPA2-SAE][RSN-XYZ-abc]",
+                    "[WPS-capabilities][WPA2-XYZ][XYZ-FT/SAE-XYZ-abc]",
                     WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, is80211mc, WiFiStandard.AC),
                     wiFiAdditional)
 

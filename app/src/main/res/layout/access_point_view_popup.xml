@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/security"
         android:textStyle="italic"
-        tools:text="[WPA-PSK-CCMP+TKIP][WPA2-PSK-CCMP+TKIP][RSN-PSK-CCMP+TKIP][WPS][ESS]" />
+        tools:text="[WPA-PSK-CCMP+TKIP][WPA2-PSK-CCMP+TKIP][RSN-PSK+FT/PSK+FT/SAE-CCMP][WPS][ESS]" />
 
     <TextView
         android:id="@+id/vendorLong"
