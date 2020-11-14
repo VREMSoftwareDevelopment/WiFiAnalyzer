@@ -22,7 +22,7 @@
     <string name="app_name" translatable="false">"WiFiAnalyzer"</string>
     <string name="app_full_name" translatable="false">"WiFiAnalyzer (open-source)"</string>
     <string name="app_company_name" translatable="false">"VREM Software Development"</string>
-    <string name="app_copyright">"Copyright \u00A9 2015 \u002D "</string>
+    <string name="app_copyright">"Copyright \u00A9 2015 \u002D"</string>
     <string name="app_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer"</string>
     <!-- application end -->
 
@@ -49,8 +49,8 @@
     <string name="no_data_msg">"Please visit frequently ask questions section on our website."</string>
     <string name="no_data_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq"</string>
     <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a Wi-Fi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
-    <string name="location_msg">"This app can get your exact location only when it is in the foreground. These location services must be turned on and available on your phone for the app to be able to use them. This may increase battery consumption."</string>
-    <string name="throttling_msg" translatable="false">"Android 9 introduced Wi-Fi scan throttling. Android 10 has a new developer option to toggle the throttling off under (Settings > Developer Options > Networking > Wi-Fi scan throttling)."</string>
+    <string name="location_msg">"This app can get your precise location from location services while the app is in use. Location services for your device must be turned on for the app to get location. This may increase battery usage."</string>
+    <string name="throttling_msg">"Android 9 introduced Wi-Fi scan throttling. Android 10 has a new developer option to toggle the throttling off under (Settings > Developer Options > Networking > Wi-Fi scan throttling)."</string>
     <string name="wifi_channels_list_url" translatable="false">"https://en.wikipedia.org/wiki/List_of_WLAN_channels"</string>
     <string name="vendor_search_hint" translatable="false">"00:0C:41 CISCO"</string>
     <string name="export_not_available">"Export not available"</string>

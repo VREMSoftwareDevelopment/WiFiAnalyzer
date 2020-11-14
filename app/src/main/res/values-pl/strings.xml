@@ -41,7 +41,8 @@
     <string name="no_data">"Brak danych"</string>
     <string name="no_data_msg">"Sprawdź FAQ na naszej stronie."</string>
     <string name="permission_msg">"Od wersji Android Marshmallow, uprawnienia lokalizacyjne są wymagane do przeprowadzenia skanu sieci Wi-Fi. Użytkownik będzie poproszony o włączenie uprawnienia do użycia usług lokalizacyjnych. Ponieważ aplikacja nie wymaga usług lokalizacyjnych, użytkownik może być pewien że aplikacja nie wykorzystuje ani nie przekazuje lokacji urządzenia!"</string>
-    <string name="location_msg">"Ta aplikacja może określić Twoją dokładną lokalizację tylko wtedy, gdy działa na pierwszym planie. Te usługi lokalizacyjne muszą być włączone i dostępne na telefonie, by aplikacja mogła z nich korzystać. Może to zwiększyć zużycie baterii."</string>
+    <string name="location_msg">"Aplikacja ma dostęp do dokładnej lokalizacji z usług lokalizacyjnych, kiedy jest używana. Aby aplikacja mogła używać lokalizacji, musisz mieć na urządzeniu włączone usługi lokalizacyjne. Może to zwiększyć wykorzystanie baterii."</string>
+    <string name="throttling_msg">"Android 9 introduced Wi-Fi scan throttling. Android 10 has a new developer option to toggle the throttling off under (Settings > Developer Options > Networking > Wi-Fi scan throttling)."</string>
     <string name="export_not_available">"Eksport niedostępny"</string>
 
     <string name="channel_rating_best">"Najlepsze kanały:"</string>

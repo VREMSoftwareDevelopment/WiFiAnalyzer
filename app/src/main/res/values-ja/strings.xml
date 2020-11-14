@@ -19,106 +19,107 @@
 
 <resources>
     <!-- application start -->
-    <string name="app_copyright">"Copyright \u00A9 2015 \u002D "</string>
+    <string name="app_copyright">"Copyright \u00A9 2015 \u002D"</string>
     <!-- application end -->
 
-    <string name="navigation_drawer_open">ナビゲーションドロワーを開く</string>
-    <string name="navigation_drawer_close">ナビゲーションドロワーを閉じる</string>
-    <string name="scanner_message">スキャンしています &#8230;</string>
-    <string name="scanner_pause">停止</string>
-    <string name="scanner_play">開始</string>
+    <string name="navigation_drawer_open">"ナビゲーションドロワーを開く"</string>
+    <string name="navigation_drawer_close">"ナビゲーションドロワーを閉じる"</string>
+    <string name="scanner_message">"スキャンしています &#8230;"</string>
+    <string name="scanner_pause">"停止"</string>
+    <string name="scanner_play">"開始"</string>
 
     <!-- action start -->
-    <string name="action_access_points">アクセスポイント</string>
-    <string name="action_channel_rating">チャンネルの評価</string>
-    <string name="action_channel_graph">チャンネルグラフ</string>
-    <string name="action_time_graph">タイムグラフ</string>
-    <string name="action_export">出力</string>
-    <string name="action_channel_available">利用可能なチャンネル</string>
-    <string name="action_vendors">ベンダー</string>
-    <string name="action_settings">設定</string>
-    <string name="action_about">アプリについて</string>
+    <string name="action_access_points">"アクセスポイント"</string>
+    <string name="action_channel_rating">"チャンネルの評価"</string>
+    <string name="action_channel_graph">"チャンネルグラフ"</string>
+    <string name="action_time_graph">"タイムグラフ"</string>
+    <string name="action_export">"出力"</string>
+    <string name="action_channel_available">"利用可能なチャンネル"</string>
+    <string name="action_vendors">"ベンダー"</string>
+    <string name="action_settings">"設定"</string>
+    <string name="action_about">"アプリについて"</string>
     <!-- action end -->
 
-    <string name="no_data">データなし</string>
-    <string name="no_data_msg">以下のFAQページもご覧ください。</string>
-    <string name="permission_msg">Android Marshmallow からは、 Wi-Fi をスキャンするために位置情報の権限が必要になりました。そのため、位置情報サービスや権限を有効にするように要求されます。このアプリはインターネットへの接続を必要としません。また、あなたの位置情報を送信することはできないためご安心ください!</string>
-    <string name="location_msg">このアプリはフォアグラウンドで実行している場合のみに正確な位置情報が取得できます。これにより、バッテリーの消費が増える場合があります。</string>
-    <string name="export_not_available">出力は利用できません</string>
+    <string name="no_data">"データなし"</string>
+    <string name="no_data_msg">"以下のFAQページもご覧ください。"</string>
+    <string name="permission_msg">"Android Marshmallow からは、 Wi-Fi をスキャンするために位置情報の権限が必要になりました。そのため、位置情報サービスや権限を有効にするように要求されます。このアプリはインターネットへの接続を必要としません。また、あなたの位置情報を送信することはできないためご安心ください!"</string>
+    <string name="location_msg">"このアプリは、使用中に、位置情報サービスからデバイスの正確な位置情報を取得できます。アプリが位置情報を取得するには、デバイスで位置情報サービスがオンになっている必要があります。この場合、電池使用量が増えることがあります。"</string>
+    <string name="throttling_msg">"Android 9 introduced Wi-Fi scan throttling. Android 10 has a new developer option to toggle the throttling off under (Settings > Developer Options > Networking > Wi-Fi scan throttling)."</string>
+    <string name="export_not_available">"出力は利用できません"</string>
 
-    <string name="channel_rating_best">最適なチャンネル:</string>
-    <string name="channel_rating_best_none">なし</string>
-    <string name="channel_rating_best_alternative">、 Wi-Fi バンドを代替して試す</string>
-    <string name="channel_rating_heading_rating">チャンネルの評価</string>
-    <string name="channel_rating_heading_number">チャンネルの番号</string>
-    <string name="channel_rating_heading_count">アクセスポイントの数</string>
-    <string name="channel_short_name">CH</string>
+    <string name="channel_rating_best">"最適なチャンネル:"</string>
+    <string name="channel_rating_best_none">"なし"</string>
+    <string name="channel_rating_best_alternative">"、 Wi-Fi バンドを代替して試す"</string>
+    <string name="channel_rating_heading_rating">"チャンネルの評価"</string>
+    <string name="channel_rating_heading_number">"チャンネルの番号"</string>
+    <string name="channel_rating_heading_count">"アクセスポイントの数"</string>
+    <string name="channel_short_name">"CH"</string>
 
-    <string name="graph_channel_axis_x">Wi-Fi チャンネル</string>
-    <string name="graph_time_axis_x">スキャン回数</string>
-    <string name="graph_axis_y">信号の強さ (dBm)</string>
+    <string name="graph_channel_axis_x">"Wi-Fi チャンネル"</string>
+    <string name="graph_time_axis_x">"スキャン回数"</string>
+    <string name="graph_axis_y">"信号の強さ (dBm)"</string>
 
     <!-- settings start -->
-    <string name="country_code_title">国</string>
+    <string name="country_code_title">"国"</string>
 
-    <string name="scan_speed_title">スキャン間隔</string>
-    <string name="scan_speed_summary">各スキャンの間に%s秒</string>
-    <string name="sort_by_title">アクセスポイントの並べ順</string>
-    <string name="sort_by_signal_strength">信号の強さ</string>
-    <string name="sort_by_channel">チャンネル</string>
+    <string name="scan_speed_title">"スキャン間隔"</string>
+    <string name="scan_speed_summary">"各スキャンの間に%s秒"</string>
+    <string name="sort_by_title">"アクセスポイントの並べ順"</string>
+    <string name="sort_by_signal_strength">"信号の強さ"</string>
+    <string name="sort_by_channel">"チャンネル"</string>
 
-    <string name="group_by_title">アクセスポイントのグループ手段</string>
-    <string name="group_by_none">なし</string>
-    <string name="group_by_channel">チャンネル</string>
-    <string name="group_by_virtual">バーチャル</string>
+    <string name="group_by_title">"アクセスポイントのグループ手段"</string>
+    <string name="group_by_none">"なし"</string>
+    <string name="group_by_channel">"チャンネル"</string>
+    <string name="group_by_virtual">"バーチャル"</string>
 
-    <string name="connection_view_title">接続画面</string>
-    <string name="connection_view_complete">完全</string>
-    <string name="connection_view_compact">コンパクト</string>
-    <string name="connection_view_hide">隠す</string>
+    <string name="connection_view_title">"接続画面"</string>
+    <string name="connection_view_complete">"完全"</string>
+    <string name="connection_view_compact">"コンパクト"</string>
+    <string name="connection_view_hide">"隠す"</string>
 
-    <string name="ap_view_title">アクセスポイント画面</string>
-    <string name="ap_view_complete">完全</string>
-    <string name="ap_view_compact">コンパクト</string>
+    <string name="ap_view_title">"アクセスポイント画面"</string>
+    <string name="ap_view_complete">"完全"</string>
+    <string name="ap_view_compact">"コンパクト"</string>
 
-    <string name="graph_maximum_y_title">信号の強さのグラフの最大値</string>
-    <string name="channel_graph_legend_title">チャンネルグラフの凡例の位置</string>
-    <string name="time_graph_legend_title">タイムグラフの凡例の位置</string>
+    <string name="graph_maximum_y_title">"信号の強さのグラフの最大値"</string>
+    <string name="channel_graph_legend_title">"チャンネルグラフの凡例の位置"</string>
+    <string name="time_graph_legend_title">"タイムグラフの凡例の位置"</string>
 
-    <string name="graph_legend_left">左</string>
-    <string name="graph_legend_right">右</string>
-    <string name="graph_legend_hide">隠す</string>
+    <string name="graph_legend_left">"左"</string>
+    <string name="graph_legend_right">"右"</string>
+    <string name="graph_legend_hide">"隠す"</string>
 
-    <string name="theme_title">テーマ</string>
-    <string name="theme_dark">ダーク</string>
-    <string name="theme_light">ライト</string>
-    <string name="theme_system">システム</string>
+    <string name="theme_title">"テーマ"</string>
+    <string name="theme_dark">"ダーク"</string>
+    <string name="theme_light">"ライト"</string>
+    <string name="theme_system">"システム"</string>
 
-    <string name="wifi_off_on_exit_title">閉じる時 Wi-Fi をオフにする</string>
-    <string name="keep_screen_on_title">画面をオフにしない</string>
-    <string name="language_title">言語</string>
+    <string name="wifi_off_on_exit_title">"閉じる時 Wi-Fi をオフにする"</string>
+    <string name="keep_screen_on_title">"画面をオフにしない"</string>
+    <string name="language_title">"言語"</string>
     <!-- settings end -->
 
     <!-- about start -->
-    <string name="about_license_title">ライセンス:</string>
-    <string name="about_description_title">説明:</string>
-    <string name="about_description_text">オープンソースの WiFiAnalyzer for Android を使って Wi-Fi ネットワークの状態、信号の強さ、混雑しているチャンネルの確認し Wi-Fi ネットワークを最適化します</string>
-    <string name="about_libraries_title">使用しているライブラリ:</string>
-    <string name="about_contributor_title">貢献者</string>
-    <string name="about_write_review">レビューを書く</string>
+    <string name="about_license_title">"ライセンス:"</string>
+    <string name="about_description_title">"説明:"</string>
+    <string name="about_description_text">"オープンソースの WiFiAnalyzer for Android を使って Wi-Fi ネットワークの状態、信号の強さ、混雑しているチャンネルの確認し Wi-Fi ネットワークを最適化します"</string>
+    <string name="about_libraries_title">"使用しているライブラリ:"</string>
+    <string name="about_contributor_title">"貢献者"</string>
+    <string name="about_write_review">"レビューを書く"</string>
     <!-- about end -->
 
     <!-- security start -->
-    <string name="security_none">なし</string>
+    <string name="security_none">"なし"</string>
     <!-- security end -->
 
     <!-- filter start -->
-    <string name="filter_title">フィルター</string>
-    <string name="filter_close">閉じる</string>
-    <string name="filter_reset">リセット</string>
-    <string name="filter_apply">適用</string>
-    <string name="filter_wifi_band_title">Wi-Fi バンド</string>
-    <string name="filter_strength_title">信号の強さ</string>
-    <string name="filter_security_title">セキュリティ</string>
+    <string name="filter_title">"フィルター"</string>
+    <string name="filter_close">"閉じる"</string>
+    <string name="filter_reset">"リセット"</string>
+    <string name="filter_apply">"適用"</string>
+    <string name="filter_wifi_band_title">"Wi-Fi バンド"</string>
+    <string name="filter_strength_title">"信号の強さ"</string>
+    <string name="filter_security_title">"セキュリティ"</string>
     <!-- filter end -->
 </resources>

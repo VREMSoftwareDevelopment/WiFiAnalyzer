@@ -41,6 +41,7 @@
     <string name="no_data_msg">"Будь ласка, відвідайте поширені запитання на нашому сайті."</string>
     <string name="permission_msg">"Починаючи з Android Marshmallow, дозволи на розміщення необхідні для виконання сканування Wi-Fi. Вам буде запропоновано увімкнути служби визначення місця розташування / дозволу. Оскільки ця програма не вимагає доступу в Інтернет, ви можете бути впевнені, що цей додаток не зможе передати ваше місце розташування!"</string>
     <string name="location_msg">"Цей додаток може отримувати дані про ваше точне місцезнаходження лише в активному режимі. Щоб додаток користувався службами локації, вони мають бути наявні й увімкнені на вашому телефоні. Через це може швидше розряджатись акумулятор."</string>
+    <string name="throttling_msg">"Android 9 introduced Wi-Fi scan throttling. Android 10 has a new developer option to toggle the throttling off under (Settings > Developer Options > Networking > Wi-Fi scan throttling)."</string>
     <string name="export_not_available">"Експорт не доступний"</string>
 
     <string name="channel_rating_best">"Кращі канали:"</string>

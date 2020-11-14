@@ -40,7 +40,8 @@
     <string name="no_data">"Geen gegevens"</string>
     <string name="no_data_msg">"Bezoek de rubriek veelgestelde vragen op onze website."</string>
     <string name="permission_msg">"Vanaf Android Marshmallow zijn locatiepermissies benodigd voor een wifi-scan. Er zal je worden gevraagd om locatie-diensten/-permissies in te schakelen. Aangezien deze app geen internettoegang vereist kun je er zeker van zijn dat deze app je locatie niet kan verzenden!"</string>
-    <string name="location_msg">"Deze app kan je exacte locatie ophalen wanneer de app op de voorgrond wordt uitgevoerd. De app kan alleen gebruikmaken van deze locatieservices als ze zijn ingeschakeld en beschikbaar zijn op je telefoon. Hierdoor kan het batterijverbruik toenemen."</string>
+    <string name="location_msg">"Deze app kan je precieze locatie opvragen bij de locatieservices terwijl de app wordt gebruikt. De app kan de locatie alleen opvragen als de locatieservices voor je apparaat zijn ingeschakeld. Hierdoor kan het batterijgebruik toenemen."</string>
+    <string name="throttling_msg">"Android 9 introduced Wi-Fi scan throttling. Android 10 has a new developer option to toggle the throttling off under (Settings > Developer Options > Networking > Wi-Fi scan throttling)."</string>
     <string name="export_not_available">"Export niet beschikbaar"</string>
 
     <string name="channel_rating_best">"Beste kanalen:"</string>

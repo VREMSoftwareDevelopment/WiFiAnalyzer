@@ -41,7 +41,8 @@
     <string name="no_data">"Sem Informações"</string>
     <string name="no_data_msg">"Por favor, visite com freqüência as perguntas sobre em nosso site."</string>
     <string name="permission_msg">"A partir do Android Marshmallow, as permissões de localização são necessárias para realizar uma verificação de Wi-Fi. Você será solicitado a ativar serviços / permissões de localização. Como este aplicativo não requer acesso à Internet, você pode ter certeza de que este aplicativo não pode transmitir sua localização!"</string>
-    <string name="location_msg">"Este app pode ver sua localização exata a qualquer momento apenas quando está em primeiro plano. Esses serviços de localização precisam estar ativados e disponíveis no seu smartphone para que o app possa usá-los. Isso pode aumentar o consumo de bateria."</string>
+    <string name="location_msg">"Esse app poderá acessar seu local exato por meio dos Serviços de localização enquanto estiver sendo usado. Os Serviços de localização do dispositivo precisam estar ativados para que o app possa acessar o local. Isso pode aumentar o uso da bateria."</string>
+    <string name="throttling_msg">"Android 9 introduced Wi-Fi scan throttling. Android 10 has a new developer option to toggle the throttling off under (Settings > Developer Options > Networking > Wi-Fi scan throttling)."</string>
     <string name="export_not_available">"Não foi possível exportar"</string>
 
     <string name="channel_rating_best">"Melhores Canais:"</string>
