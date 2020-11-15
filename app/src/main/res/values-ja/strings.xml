@@ -44,7 +44,7 @@
     <string name="no_data_msg">"以下のFAQページもご覧ください。"</string>
     <string name="permission_msg">"Android Marshmallow からは、 Wi-Fi をスキャンするために位置情報の権限が必要になりました。そのため、位置情報サービスや権限を有効にするように要求されます。このアプリはインターネットへの接続を必要としません。また、あなたの位置情報を送信することはできないためご安心ください!"</string>
     <string name="location_msg">"このアプリは、使用中に、位置情報サービスからデバイスの正確な位置情報を取得できます。アプリが位置情報を取得するには、デバイスで位置情報サービスがオンになっている必要があります。この場合、電池使用量が増えることがあります。"</string>
-    <string name="throttling_msg">"Android 9 introduced Wi-Fi scan throttling. Android 10 has a new developer option to toggle the throttling off under (Settings > Developer Options > Networking > Wi-Fi scan throttling)."</string>
+    <string name="throttling_msg">"Android 9では、Wi-Fiスキャンスロットリングが導入されました。 Android 10には、スロットリングをオフに切り替える新しい開発者向けオプションがあります（[設定] > [開発者向けオプション] > [ネットワーク] > [Wi-Fiスキャンスロットリング]）。"</string>
     <string name="export_not_available">"出力は利用できません"</string>
 
     <string name="channel_rating_best">"最適なチャンネル:"</string>

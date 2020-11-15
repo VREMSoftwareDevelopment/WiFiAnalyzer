@@ -44,7 +44,7 @@
     <string name="no_data_msg">"Моля, посетете секцията често задавани въпроси на нашия уебсайт."</string>
     <string name="permission_msg">"От Android Marshmallow, за извършване на Wi-Fi сканиране са необходими разрешения за местоположение. Ще бъдете подканени да активирате услугите / разрешенията за местоположение. Тъй като това приложение не изисква достъп до интернет, можете да сте сигурни, че това приложение не може да предаде местоположението ви!"</string>
     <string name="location_msg">"Това приложение може да получава данни за точното ви местоположение от съответните услуги, докато се използва. За целта услугите за местоположение трябва да са включени за устройството ви. Това може да увеличи използването на батерията."</string>
-    <string name="throttling_msg">"Android 9 introduced Wi-Fi scan throttling. Android 10 has a new developer option to toggle the throttling off under (Settings > Developer Options > Networking > Wi-Fi scan throttling)."</string>
+    <string name="throttling_msg">"Android 9 представи регулиране на Wi-Fi сканирането. Android 10 има нова опция за разработчици, за да изключите регулирането под (Настройки > Опции за програмисти > Мрежа > Регулиране на Wi-Fi сканиране)."</string>
     <string name="export_not_available">"Експортирането не е налично"</string>
 
     <string name="channel_rating_best">"Най-добри канали:"</string>

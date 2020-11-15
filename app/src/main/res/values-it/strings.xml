@@ -42,7 +42,7 @@
     <string name="no_data_msg">"Visita la sezione di domande frequenti sul nostro sito web."</string>
     <string name="permission_msg">"Da Android Marshmallow, sono necessari i permessi di geolocalizzazione per effettuare scansioni delle reti Wi-Fi. Ti sarà chiesto di abilitare questo permesso. Dal momento che quest\'app non richiede l\'accesso ad internet, puoi essere sicuro del fatto che non può trasmettere la tua posizione!"</string>
     <string name="location_msg">"Questa app può recuperare la tua posizione precisa dai Servizi di geolocalizzazione quando l\'app è in uso. L\'impostazione Servizi di geolocalizzazione deve essere attiva sul tuo dispositivo perché l\'app possa recuperare la tua posizione. Questa operazione potrebbe comportare un maggior consumo della batteria."</string>
-    <string name="throttling_msg">"Android 9 introduced Wi-Fi scan throttling. Android 10 has a new developer option to toggle the throttling off under (Settings > Developer Options > Networking > Wi-Fi scan throttling)."</string>
+    <string name="throttling_msg">"Android 9 ha introdotto la limitazione della scansione Wi-Fi. Android 10 ha una nuova opzione sviluppatore per disattivare la limitazione in (Impostazioni > Opzioni sviluppatore > Rete > Limitazione scansione Wi-Fi)."</string>
     <string name="export_not_available">"Impossibile esportare"</string>
 
     <string name="channel_rating_best">"Canali Migliori:"</string>
