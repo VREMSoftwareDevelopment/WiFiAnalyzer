@@ -17,38 +17,52 @@
  */
 package com.vrem.util
 
+import android.annotation.SuppressLint
 import java.util.*
 
 private object SyncAvoid {
+    @SuppressLint("ConstantLocale")
     val defaultLocale: Locale = Locale.getDefault()
     val countryCodes: Set<String> = Locale.getISOCountries().toSet()
     val availableLocales: List<Locale> = Locale.getAvailableLocales().filter { countryCodes.contains(it.country) }
-    val countriesLocales: SortedMap<String, Locale> = availableLocales.map { it.country.capitalize() to it }.toMap().toSortedMap()
+
+    @SuppressLint("ConstantLocale")
+    val countriesLocales: SortedMap<String, Locale> = availableLocales.map { it.country.capitalize(Locale.getDefault()) to it }.toMap().toSortedMap()
     val supportedLocales: List<Locale> = setOf(
-            Locale.GERMAN,
-            Locale.ENGLISH,
-            SPANISH,
-            Locale.FRENCH,
-            Locale.ITALIAN,
-            PORTUGUESE,
-            RUSSIAN,
+            BULGARIAN,
             Locale.SIMPLIFIED_CHINESE,
             Locale.TRADITIONAL_CHINESE,
+            Locale.ENGLISH,
+            Locale.FRENCH,
+            Locale.GERMAN,
+            Locale.ITALIAN,
+            Locale.JAPANESE,
+            POLISH,
+            PORTUGUESE,
+            SPANISH,
+            RUSSIAN,
+            UKRAINIAN,
             defaultLocale)
             .toList()
 }
 
-val SPANISH: Locale = Locale("es")
+val BULGARIAN: Locale = Locale("bg")
+
+val POLISH: Locale = Locale("pl")
 
 val PORTUGUESE: Locale = Locale("pt")
 
+val SPANISH: Locale = Locale("es")
+
 val RUSSIAN: Locale = Locale("ru")
+
+val UKRAINIAN: Locale = Locale("uk")
 
 private const val SEPARATOR: String = "_"
 
 fun findByCountryCode(countryCode: String): Locale =
         SyncAvoid.availableLocales
-                .find { countryCode.capitalize() == it.country }
+                .find { countryCode.capitalize(Locale.getDefault()) == it.country }
                 ?: SyncAvoid.defaultLocale
 
 fun allCountries(): List<Locale> = SyncAvoid.countriesLocales.values.toList()
@@ -73,7 +87,7 @@ private fun fromLanguageTag(languageTag: String): Locale {
     val codes: Array<String> = languageTag.split(SEPARATOR).toTypedArray()
     return when (codes.size) {
         1 -> Locale(codes[0])
-        2 -> Locale(codes[0], codes[1].capitalize())
+        2 -> Locale(codes[0], codes[1].capitalize(Locale.getDefault()))
         else -> SyncAvoid.defaultLocale
     }
 }
