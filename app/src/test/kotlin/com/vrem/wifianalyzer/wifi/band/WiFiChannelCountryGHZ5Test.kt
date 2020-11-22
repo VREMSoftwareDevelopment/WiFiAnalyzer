@@ -19,17 +19,16 @@ package com.vrem.wifianalyzer.wifi.band
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.util.*
 
 class WiFiChannelCountryGHZ5Test {
-    private val channelsSet1: SortedSet<Int> = sortedSetOf(36, 40, 44, 48, 52, 56, 60, 64)
-    private val channelsSet2: SortedSet<Int> = sortedSetOf(100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-    private val channelsSet3: SortedSet<Int> = sortedSetOf(149, 153, 157, 161, 165)
+    private val channelsSet1: Set<Int> = setOf(36, 40, 44, 48, 52, 56, 60, 64)
+    private val channelsSet2: Set<Int> = setOf(100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
+    private val channelsSet3: Set<Int> = setOf(149, 153, 157, 161, 165)
     private val fixture = WiFiChannelCountryGHZ5()
 
     @Test
     fun testChannelsAustraliaCanada() {
-        val expected = channelsSet1.union(sortedSetOf(100, 104, 108, 112, 116, 132, 136, 140, 144)).union(channelsSet3)
+        val expected = channelsSet1.union(setOf(100, 104, 108, 112, 116, 132, 136, 140, 144)).union(channelsSet3)
         listOf("AU", "CA").forEach {
             val actual = fixture.findChannels(it)
             assertEquals(expected.size, actual.size)
@@ -67,7 +66,7 @@ class WiFiChannelCountryGHZ5Test {
 
     @Test
     fun testChannelsRussia() {
-        val expected = channelsSet1.union(sortedSetOf(132, 136, 140, 144)).union(channelsSet3)
+        val expected = channelsSet1.union(setOf(132, 136, 140, 144)).union(channelsSet3)
         val actual = fixture.findChannels("RU")
         assertEquals(expected.size, actual.size)
         assertEquals(expected, actual)
@@ -108,8 +107,8 @@ class WiFiChannelCountryGHZ5Test {
         )
 
         val expected = channelsSet1
-                .union(sortedSetOf(100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140))
-                .union(sortedSetOf(149, 153, 157, 161, 165, 169, 173))
+                .union(setOf(100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140))
+                .union(setOf(149, 153, 157, 161, 165, 169, 173))
         countriesETSI.forEach {
             val actual = fixture.findChannels(it)
             assertEquals(expected.size, actual.size)

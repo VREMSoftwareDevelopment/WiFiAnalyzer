@@ -19,14 +19,14 @@ package com.vrem.wifianalyzer.wifi.band
 
 import java.util.*
 
-private class Rules(val countries: SortedSet<String>, val channels: SortedSet<Int>) {
-    fun find(countryCode: String): SortedSet<Int> =
-            if (countries.any { it == countryCode }) {
-                channels
-            } else sortedSetOf()
-}
+private typealias Rules = Pair<Set<String>, Set<Int>>
 
-private val countriesETSI: SortedSet<String> = sortedSetOf(
+private fun Rules.find(countryCode: String): Set<Int> =
+        if (first.any { it == countryCode }) {
+            second
+        } else setOf()
+
+private val countriesETSI: Set<String> = setOf(
         "AT",      // ETSI Austria
         "BE",      // ETSI Belgium
         "CH",      // ETSI Switzerland
@@ -59,18 +59,18 @@ private val countriesETSI: SortedSet<String> = sortedSetOf(
 )
 
 internal class WiFiChannelCountryGHZ5 {
-    private val channelsSet1: SortedSet<Int> = sortedSetOf(36, 40, 44, 48, 52, 56, 60, 64)
-    private val channelsSet2: SortedSet<Int> = sortedSetOf(100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
-    private val channelsSet3: SortedSet<Int> = sortedSetOf(149, 153, 157, 161, 165)
-    private val channels: SortedSet<Int> = channelsSet1.union(channelsSet2).union(channelsSet3).toSortedSet()
+    private val channelsSet1: Set<Int> = setOf(36, 40, 44, 48, 52, 56, 60, 64)
+    private val channelsSet2: Set<Int> = setOf(100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)
+    private val channelsSet3: Set<Int> = setOf(149, 153, 157, 161, 165)
+    private val channels: Set<Int> = channelsSet1.union(channelsSet2).union(channelsSet3).toSet()
 
     private val exclude: List<Rules> = listOf(
-            Rules(sortedSetOf("AU", "CA"), sortedSetOf(120, 124, 128)),
-            Rules(sortedSetOf("RU"), sortedSetOf(100, 104, 108, 112, 116, 120, 124, 128)),
+            Rules(setOf("AU", "CA"), sortedSetOf(120, 124, 128)),
+            Rules(setOf("RU"), sortedSetOf(100, 104, 108, 112, 116, 120, 124, 128)),
             Rules(countriesETSI, sortedSetOf(144)),
-            Rules(sortedSetOf("IL"), channelsSet2.union(channelsSet3).toSortedSet()),
-            Rules(sortedSetOf("CN", "KR"), channelsSet2),
-            Rules(sortedSetOf("JP", "TR", "ZA"), channelsSet3))
+            Rules(setOf("IL"), channelsSet2.union(channelsSet3).toSortedSet()),
+            Rules(setOf("CN", "KR"), channelsSet2),
+            Rules(setOf("JP", "TR", "ZA"), channelsSet3))
 
     private val include: Rules = Rules(countriesETSI, sortedSetOf(169, 173))
 
