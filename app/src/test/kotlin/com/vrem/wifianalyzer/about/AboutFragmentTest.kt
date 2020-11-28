@@ -90,23 +90,45 @@ class AboutFragmentTest {
     @Test
     fun testApplicationName() {
         // setup
-        val expectedName = fixture.getString(R.string.app_full_name)
+        val expected = fixture.getString(R.string.app_full_name)
         // execute
         val actual = fixture.requireView().findViewById<TextView>(R.id.about_application_name)
         // validate
         assertNotNull(actual)
-        assertEquals(expectedName, actual.text)
+        assertEquals(expected, actual.text)
     }
 
     @Test
     fun testCopyright() {
         // setup
-        val expectedName = (fixture.getString(R.string.app_copyright) + SimpleDateFormat("yyyy").format(Date()))
+        val expected = (fixture.getString(R.string.app_copyright) + SimpleDateFormat("yyyy").format(Date()))
         // execute
         val actual = fixture.requireView().findViewById<TextView>(R.id.about_copyright)
         // validate
         assertNotNull(actual)
-        assertEquals(expectedName, actual.text)
+        assertEquals(expected, actual.text)
+    }
+
+    @Test
+    fun testDevice() {
+        // setup
+        val expected = "unknown - unknown - robolectric"
+        // execute
+        val actual = fixture.requireView().findViewById<TextView>(R.id.about_device)
+        // validate
+        assertNotNull(actual)
+        assertEquals(expected, actual.text)
+    }
+
+    @Test
+    fun testWiFi() {
+        // setup
+        val expected = "2.4 GHz"
+        // execute
+        val actual = fixture.requireView().findViewById<TextView>(R.id.about_wi_fi)
+        // validate
+        assertNotNull(actual)
+        assertEquals(expected, actual.text)
     }
 
     @Test

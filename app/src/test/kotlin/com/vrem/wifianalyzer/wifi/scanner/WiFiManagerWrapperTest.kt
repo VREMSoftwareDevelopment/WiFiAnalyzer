@@ -29,7 +29,7 @@ class WiFiManagerWrapperTest {
     private val wifiManager: WifiManager = mock()
     private val wiFiSwitch: WiFiSwitch = mock()
     private val wifiInfo: WifiInfo = mock()
-    private val fixture = WiFiManagerWrapper(wifiManager, wiFiSwitch)
+    private val fixture = spy(WiFiManagerWrapper(wifiManager, wiFiSwitch))
 
     @After
     fun tearDown() {
@@ -217,4 +217,55 @@ class WiFiManagerWrapperTest {
         assertNull(actual)
         verify(wifiManager).connectionInfo
     }
+
+    @Test
+    fun testIs5GHzBandSupported() {
+        // setup
+        doReturn(false).whenever(fixture).minVersionL()
+        // execute
+        val actual = fixture.is5GHzBandSupported()
+        // validate
+        assertFalse(actual)
+        verify(wifiManager, never()).is5GHzBandSupported
+        verify(fixture).minVersionL()
+    }
+
+    @Test
+    fun testIs5GHzBandSupportedWithAndroidL() {
+        // setup
+        doReturn(true).whenever(fixture).minVersionL()
+        whenever(wifiManager.is5GHzBandSupported).thenReturn(true)
+        // execute
+        val actual = fixture.is5GHzBandSupported()
+        // validate
+        assertTrue(actual)
+        verify(wifiManager).is5GHzBandSupported
+        verify(fixture).minVersionL()
+    }
+
+    @Test
+    fun testIs6GHzBandSupported() {
+        // setup
+        doReturn(false).whenever(fixture).minVersionR()
+        // execute
+        val actual = fixture.is6GHzBandSupported()
+        // validate
+        assertFalse(actual)
+        verify(wifiManager, never()).is6GHzBandSupported
+        verify(fixture).minVersionR()
+    }
+
+    @Test
+    fun testIs6GHzBandSupportedWithAndroidR() {
+        // setup
+        doReturn(true).whenever(fixture).minVersionR()
+        whenever(wifiManager.is6GHzBandSupported).thenReturn(true)
+        // execute
+        val actual = fixture.is6GHzBandSupported()
+        // validate
+        assertTrue(actual)
+        verify(wifiManager).is6GHzBandSupported
+        verify(fixture).minVersionR()
+    }
+
 }

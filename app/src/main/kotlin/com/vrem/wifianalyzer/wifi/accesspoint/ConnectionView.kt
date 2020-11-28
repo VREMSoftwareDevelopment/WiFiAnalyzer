@@ -92,7 +92,7 @@ class ConnectionView(
     }
 
     private fun attachPopup(view: View, wiFiDetail: WiFiDetail) {
-        view.findViewById<View>(R.id.attachPopup).let {
+        view.findViewById<View>(R.id.attachPopup)?.let {
             accessPointPopup.attach(it, wiFiDetail)
             accessPointPopup.attach(view.findViewById(R.id.ssid), wiFiDetail)
         }

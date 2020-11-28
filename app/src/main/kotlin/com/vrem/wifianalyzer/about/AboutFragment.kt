@@ -20,10 +20,12 @@ package com.vrem.wifianalyzer.about
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager.NameNotFoundException
 import android.net.Uri
+import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -39,6 +41,7 @@ import com.vrem.util.readFile
 import com.vrem.wifianalyzer.MainContext.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.databinding.AboutContentBinding
+import com.vrem.wifianalyzer.wifi.scanner.WiFiManagerWrapper
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -56,6 +59,18 @@ class AboutFragment : Fragment() {
         binding.aboutCopyright.text = copyright()
         binding.aboutVersionInfo.text = version(activity)
         binding.aboutPackageName.text = activity.packageName
+        binding.aboutDevice.text = device()
+        binding.aboutWiFi.text = wiFi(activity)
+    }
+
+    private fun device(): String =
+            Build.MANUFACTURER + " - " + Build.BRAND + " - " + Build.MODEL
+
+    private fun wiFi(activity: FragmentActivity): String {
+        val wiFiManagerWrapper = wiFiManagerWrapper(activity)
+        return String.EMPTY + activity.getText(R.string.wifi_band_2ghz) +
+                ifElse(wiFiManagerWrapper.is5GHzBandSupported(), "|" + activity.getText(R.string.wifi_band_5ghz)) +
+                ifElse(wiFiManagerWrapper.is6GHzBandSupported(), "|" + activity.getText(R.string.wifi_band_6ghz))
     }
 
     private fun setOnClicks(binding: AboutContentBinding, activity: FragmentActivity) {
@@ -75,8 +90,8 @@ class AboutFragment : Fragment() {
     private fun version(activity: FragmentActivity): String {
         val configuration = INSTANCE.configuration
         return applicationVersion(activity) +
-                configuration.sizeAvailable.let { "S" } +
-                configuration.largeScreen.let { "L" } +
+                ifElse(configuration.sizeAvailable, "S") +
+                ifElse(configuration.largeScreen, "L") +
                 " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")"
     }
 
@@ -128,6 +143,17 @@ class AboutFragment : Fragment() {
             }
         }
     }
+
+    private fun wiFiManagerWrapper(activity: FragmentActivity): WiFiManagerWrapper =
+            WiFiManagerWrapper(activity.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager)
+
+    private fun ifElse(condition: Boolean, value: String) =
+            if (condition) {
+                value
+            } else {
+                String.EMPTY
+            }
+
 
     companion object {
         private const val YEAR_FORMAT = "yyyy"

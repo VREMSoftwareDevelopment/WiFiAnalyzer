@@ -21,6 +21,8 @@ import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import com.vrem.annotation.OpenClass
+import com.vrem.util.buildMinVersionL
+import com.vrem.util.buildMinVersionR
 
 @OpenClass
 internal class WiFiManagerWrapper(private val wifiManager: WifiManager, private val wiFiSwitch: WiFiSwitch = WiFiSwitch(wifiManager)) {
@@ -66,6 +68,25 @@ internal class WiFiManagerWrapper(private val wifiManager: WifiManager, private 
             } catch (e: Exception) {
                 null
             }
+
+
+    fun is5GHzBandSupported(): Boolean =
+            if (minVersionL()) {
+                wifiManager.is5GHzBandSupported
+            } else {
+                false
+            }
+
+    fun is6GHzBandSupported(): Boolean =
+            if (minVersionR()) {
+                wifiManager.is6GHzBandSupported
+            } else {
+                false
+            }
+
+    fun minVersionL(): Boolean = buildMinVersionL()
+
+    fun minVersionR(): Boolean = buildMinVersionR()
 
 }
 

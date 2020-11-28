@@ -79,7 +79,7 @@ class AccessPointDetail {
             }
 
     private fun setSecurityImage(view: View, wiFiDetail: WiFiDetail) =
-            view.findViewById<ImageView>(R.id.securityImage).let {
+            view.findViewById<ImageView>(R.id.securityImage)?.let {
                 val security = wiFiDetail.security
                 it.tag = security.imageResource
                 it.setImageResource(security.imageResource)
@@ -99,19 +99,19 @@ class AccessPointDetail {
             }
 
     private fun setWiFiStandardImage(view: View, wiFiSignal: WiFiSignal) =
-            view.findViewById<ImageView>(R.id.wiFiStandardImage).let {
+            view.findViewById<ImageView>(R.id.wiFiStandardImage)?.let {
                 it.tag = wiFiSignal.wiFiStandard.imageResource
                 it.setImageResource(wiFiSignal.wiFiStandard.imageResource)
             }
 
     private fun setLevelText(view: View, wiFiSignal: WiFiSignal) =
-            view.findViewById<TextView>(R.id.level).let {
+            view.findViewById<TextView>(R.id.level)?.let {
                 it.text = "${wiFiSignal.level}dBm"
                 it.setTextColor(view.context.compatColor(wiFiSignal.strength.colorResource))
             }
 
     private fun setLevelImage(view: View, wiFiSignal: WiFiSignal) =
-            view.findViewById<ImageView>(R.id.levelImage).let {
+            view.findViewById<ImageView>(R.id.levelImage)?.let {
                 val strength = wiFiSignal.strength
                 it.tag = strength.imageResource
                 it.setImageResource(strength.imageResource)
