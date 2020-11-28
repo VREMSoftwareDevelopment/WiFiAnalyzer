@@ -25,7 +25,7 @@
     android:layout_marginTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:visibility="gone"
-    tools:viewBindingIgnore="true"
+
     tools:visibility="visible">
 
     <TextView

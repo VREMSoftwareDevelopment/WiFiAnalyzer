@@ -23,7 +23,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/activity_horizontal_margin"
-    tools:viewBindingIgnore="true">
+    >
 
     <include layout="@layout/access_point_view_complete" />
 
