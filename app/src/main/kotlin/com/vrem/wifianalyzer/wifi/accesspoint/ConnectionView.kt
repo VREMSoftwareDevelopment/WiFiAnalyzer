@@ -24,7 +24,7 @@ import android.widget.TextView
 import com.vrem.util.buildMinVersionM
 import com.vrem.util.buildMinVersionP
 import com.vrem.wifianalyzer.MainActivity
-import com.vrem.wifianalyzer.MainContext.INSTANCE
+import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiData
@@ -37,7 +37,7 @@ class ConnectionView(
         private val accessPointPopup: AccessPointPopup = AccessPointPopup()) : UpdateNotifier {
 
     override fun update(wiFiData: WiFiData) {
-        val connectionViewType = INSTANCE.settings.connectionViewType()
+        val connectionViewType = MainContext.INSTANCE.settings.connectionViewType()
         displayConnection(wiFiData, connectionViewType)
         displayNoData(wiFiData)
     }

@@ -27,7 +27,7 @@ import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.vrem.util.buildVersionP
-import com.vrem.wifianalyzer.MainContext.INSTANCE
+import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.databinding.ChannelRatingContentBinding
 
@@ -48,13 +48,13 @@ class ChannelRatingFragment : Fragment(), OnRefreshListener {
         channelRatingAdapter = ChannelRatingAdapter(requireActivity(), bestChannels)
         val listView: ListView = binding.channelRatingRefresh.findViewById(R.id.channelRatingView)
         listView.adapter = channelRatingAdapter
-        INSTANCE.scannerService.register(channelRatingAdapter)
+        MainContext.INSTANCE.scannerService.register(channelRatingAdapter)
         return binding.root
     }
 
     override fun onRefresh() {
         swipeRefreshLayout.isRefreshing = true
-        INSTANCE.scannerService.update()
+        MainContext.INSTANCE.scannerService.update()
         swipeRefreshLayout.isRefreshing = false
     }
 
@@ -64,7 +64,7 @@ class ChannelRatingFragment : Fragment(), OnRefreshListener {
     }
 
     override fun onDestroy() {
-        INSTANCE.scannerService.unregister(channelRatingAdapter)
+        MainContext.INSTANCE.scannerService.unregister(channelRatingAdapter)
         super.onDestroy()
     }
 

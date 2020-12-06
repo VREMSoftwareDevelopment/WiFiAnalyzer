@@ -24,7 +24,7 @@ import android.widget.Button
 import com.vrem.annotation.OpenClass
 import com.vrem.util.compatColor
 import com.vrem.util.fromHtml
-import com.vrem.wifianalyzer.MainContext.INSTANCE
+import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
@@ -43,7 +43,7 @@ internal val navigationSet: Map<WiFiChannelPair, Int> = mapOf(
 class ChannelGraphNavigation(private val view: View, private val context: Context) {
 
     fun update(wiFiData: WiFiData) {
-        val settings = INSTANCE.settings
+        val settings = MainContext.INSTANCE.settings
         val wiFiBand = settings.wiFiBand()
         val countryCode = settings.countryCode()
         val wiFiChannels = wiFiBand.wiFiChannels
@@ -56,9 +56,9 @@ class ChannelGraphNavigation(private val view: View, private val context: Contex
 
     private fun updateButtons(wiFiData: WiFiData, visible: Set<WiFiChannelPair>) {
         if (visible.size > 1) {
-            val settings = INSTANCE.settings
+            val settings = MainContext.INSTANCE.settings
             val predicate = predicate(settings)
-            val selectedWiFiChannelPair = INSTANCE.configuration.wiFiChannelPair
+            val selectedWiFiChannelPair = MainContext.INSTANCE.configuration.wiFiChannelPair
             val wiFiDetails = wiFiData.wiFiDetails(predicate, settings.sortBy())
             navigationSet.entries.forEach { button(it, visible, selectedWiFiChannelPair, wiFiDetails) }
         }
@@ -98,7 +98,7 @@ class ChannelGraphNavigation(private val view: View, private val context: Contex
     }
 
     fun onClickListener(wiFiChannelPair: WiFiChannelPair) {
-        val mainContext = INSTANCE
+        val mainContext = MainContext.INSTANCE
         mainContext.configuration.wiFiChannelPair = wiFiChannelPair
         mainContext.scannerService.update()
     }

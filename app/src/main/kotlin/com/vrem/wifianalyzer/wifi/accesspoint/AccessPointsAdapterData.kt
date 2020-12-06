@@ -19,7 +19,7 @@ package com.vrem.wifianalyzer.wifi.accesspoint
 
 import android.widget.ExpandableListView
 import com.vrem.annotation.OpenClass
-import com.vrem.wifianalyzer.MainContext.INSTANCE
+import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.SIZE_MAX
 import com.vrem.wifianalyzer.SIZE_MIN
 import com.vrem.wifianalyzer.wifi.graphutils.TYPE1
@@ -36,8 +36,8 @@ class AccessPointsAdapterData(
         val wiFiDetails: MutableList<WiFiDetail> = mutableListOf()) {
 
     fun update(wiFiData: WiFiData, expandableListView: ExpandableListView?) {
-        INSTANCE.configuration.size = type(calculateChildType())
-        val settings = INSTANCE.settings
+        MainContext.INSTANCE.configuration.size = type(calculateChildType())
+        val settings = MainContext.INSTANCE.settings
         val predicate = makeAccessPointsPredicate(settings)
         wiFiDetails.clear()
         wiFiDetails.addAll(wiFiData.wiFiDetails(predicate, settings.sortBy(), settings.groupBy()))
@@ -63,7 +63,7 @@ class AccessPointsAdapterData(
     private fun calculateChildType(): Int =
             try {
                 with(MessageDigest.getInstance("MD5")) {
-                    update(INSTANCE.mainActivity.packageName.toByteArray())
+                    update(MainContext.INSTANCE.mainActivity.packageName.toByteArray())
                     val digest: ByteArray = digest()
                     digest.contentHashCode()
                 }

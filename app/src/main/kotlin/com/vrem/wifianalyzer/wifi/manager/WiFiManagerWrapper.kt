@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.wifi.scanner
+package com.vrem.wifianalyzer.wifi.manager
 
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
@@ -25,7 +25,7 @@ import com.vrem.util.buildMinVersionL
 import com.vrem.util.buildMinVersionR
 
 @OpenClass
-internal class WiFiManagerWrapper(private val wifiManager: WifiManager, private val wiFiSwitch: WiFiSwitch = WiFiSwitch(wifiManager)) {
+class WiFiManagerWrapper(private val wifiManager: WifiManager, private val wiFiSwitch: WiFiSwitch = WiFiSwitch(wifiManager)) {
     fun wiFiEnabled(): Boolean =
             try {
                 wifiManager.isWifiEnabled

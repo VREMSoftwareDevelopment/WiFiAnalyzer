@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.navigation.availability
 
-import com.vrem.wifianalyzer.MainContext.INSTANCE
+import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 
 internal val navigationOptionScannerSwitchOff: NavigationOption = {
@@ -30,7 +30,7 @@ internal val navigationOptionScannerSwitchOn: NavigationOption = {
     it.optionMenu.menu?.let { menu ->
         val menuItem = menu.findItem(R.id.action_scanner)
         menuItem.isVisible = true
-        if (INSTANCE.scannerService.running()) {
+        if (MainContext.INSTANCE.scannerService.running()) {
             menuItem.setTitle(R.string.scanner_pause)
             menuItem.setIcon(R.drawable.ic_pause)
         } else {

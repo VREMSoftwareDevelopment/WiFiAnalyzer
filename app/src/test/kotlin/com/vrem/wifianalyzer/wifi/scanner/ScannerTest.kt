@@ -21,6 +21,7 @@ import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.settings.Settings
+import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import org.junit.After
 import org.junit.Assert.assertEquals

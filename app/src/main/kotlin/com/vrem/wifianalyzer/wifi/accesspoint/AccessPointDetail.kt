@@ -24,7 +24,7 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import com.vrem.annotation.OpenClass
 import com.vrem.util.compatColor
-import com.vrem.wifianalyzer.MainContext.INSTANCE
+import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
@@ -39,9 +39,9 @@ class AccessPointDetail {
                  parent: ViewGroup?,
                  wiFiDetail: WiFiDetail,
                  child: Boolean = false,
-                 @LayoutRes layout: Int = INSTANCE.settings.accessPointView().layout)
+                 @LayoutRes layout: Int = MainContext.INSTANCE.settings.accessPointView().layout)
             : View {
-        val view = convertView ?: INSTANCE.layoutInflater.inflate(layout, parent, false)
+        val view = convertView ?: MainContext.INSTANCE.layoutInflater.inflate(layout, parent, false)
         setViewCompact(view, wiFiDetail, child)
         setViewExtra(view, wiFiDetail)
         setViewVendorShort(view, wiFiDetail.wiFiAdditional)
@@ -49,7 +49,7 @@ class AccessPointDetail {
     }
 
     fun makeViewDetailed(wiFiDetail: WiFiDetail): View {
-        val view = INSTANCE.layoutInflater.inflate(R.layout.access_point_view_popup, null)
+        val view = MainContext.INSTANCE.layoutInflater.inflate(R.layout.access_point_view_popup, null)
         setViewCompact(view, wiFiDetail, false)
         setViewExtra(view, wiFiDetail)
         setViewCapabilitiesLong(view, wiFiDetail)

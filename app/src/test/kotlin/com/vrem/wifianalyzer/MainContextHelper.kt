@@ -21,6 +21,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.vendor.model.VendorService
 import com.vrem.wifianalyzer.wifi.filter.adapter.FiltersAdapter
+import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService
 
 enum class MainContextHelper {
@@ -95,6 +96,17 @@ enum class MainContextHelper {
             return mainContext.filtersAdapter
         }
 
+    val wiFiManagerWrapper: WiFiManagerWrapper
+        get() {
+            try {
+                saved[WiFiManagerWrapper::class.java] = mainContext.wiFiManagerWrapper
+            } catch (e: UninitializedPropertyAccessException) {
+                /* do nothing */
+            }
+            mainContext.wiFiManagerWrapper = mock()
+            return mainContext.wiFiManagerWrapper
+        }
+
     fun restore() {
         saved.entries.forEach {
             when (it.key) {
@@ -104,6 +116,7 @@ enum class MainContextHelper {
                 MainActivity::class.java -> mainContext.mainActivity = it.value as MainActivity
                 Configuration::class.java -> mainContext.configuration = it.value as Configuration
                 FiltersAdapter::class.java -> mainContext.filtersAdapter = it.value as FiltersAdapter
+                WiFiManagerWrapper::class.java -> mainContext.wiFiManagerWrapper = it.value as WiFiManagerWrapper
             }
         }
         saved.clear()

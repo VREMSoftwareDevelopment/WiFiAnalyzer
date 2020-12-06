@@ -22,7 +22,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.ListFragment
-import com.vrem.wifianalyzer.MainContext.INSTANCE
+import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.databinding.ChannelAvailableContentBinding
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry.Companion.find
@@ -44,6 +44,6 @@ class ChannelAvailableFragment : ListFragment() {
     }
 
     private fun channelAvailable(): MutableList<WiFiChannelCountry> =
-            mutableListOf(find(INSTANCE.settings.countryCode()))
+            mutableListOf(find(MainContext.INSTANCE.settings.countryCode()))
 
 }

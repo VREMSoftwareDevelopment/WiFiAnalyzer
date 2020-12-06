@@ -20,12 +20,10 @@ package com.vrem.wifianalyzer.about
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager.NameNotFoundException
 import android.net.Uri
-import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -38,10 +36,9 @@ import androidx.fragment.app.FragmentActivity
 import com.vrem.util.EMPTY
 import com.vrem.util.buildMinVersionP
 import com.vrem.util.readFile
-import com.vrem.wifianalyzer.MainContext.INSTANCE
+import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.databinding.AboutContentBinding
-import com.vrem.wifianalyzer.wifi.scanner.WiFiManagerWrapper
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -67,7 +64,7 @@ class AboutFragment : Fragment() {
             Build.MANUFACTURER + " - " + Build.BRAND + " - " + Build.MODEL
 
     private fun wiFi(activity: FragmentActivity): String {
-        val wiFiManagerWrapper = wiFiManagerWrapper(activity)
+        val wiFiManagerWrapper = MainContext.INSTANCE.wiFiManagerWrapper
         return String.EMPTY + activity.getText(R.string.wifi_band_2ghz) +
                 ifElse(wiFiManagerWrapper.is5GHzBandSupported(), "|" + activity.getText(R.string.wifi_band_5ghz)) +
                 ifElse(wiFiManagerWrapper.is6GHzBandSupported(), "|" + activity.getText(R.string.wifi_band_6ghz))
@@ -88,7 +85,7 @@ class AboutFragment : Fragment() {
             resources.getString(R.string.app_copyright) + SimpleDateFormat(YEAR_FORMAT, Locale.getDefault()).format(Date())
 
     private fun version(activity: FragmentActivity): String {
-        val configuration = INSTANCE.configuration
+        val configuration = MainContext.INSTANCE.configuration
         return applicationVersion(activity) +
                 ifElse(configuration.sizeAvailable, "S") +
                 ifElse(configuration.largeScreen, "L") +
@@ -143,9 +140,6 @@ class AboutFragment : Fragment() {
             }
         }
     }
-
-    private fun wiFiManagerWrapper(activity: FragmentActivity): WiFiManagerWrapper =
-            WiFiManagerWrapper(activity.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager)
 
     private fun ifElse(condition: Boolean, value: String) =
             if (condition) {

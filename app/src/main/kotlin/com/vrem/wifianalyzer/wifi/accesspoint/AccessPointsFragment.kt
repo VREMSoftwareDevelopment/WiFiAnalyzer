@@ -25,7 +25,7 @@ import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.vrem.util.buildVersionP
-import com.vrem.wifianalyzer.MainContext.INSTANCE
+import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.databinding.AccessPointsContentBinding
 
 class AccessPointsFragment : Fragment(), OnRefreshListener {
@@ -44,13 +44,13 @@ class AccessPointsFragment : Fragment(), OnRefreshListener {
         accessPointsAdapter = AccessPointsAdapter()
         binding.accessPointsView.setAdapter(accessPointsAdapter)
         accessPointsAdapter.expandableListView = binding.accessPointsView
-        INSTANCE.scannerService.register(accessPointsAdapter)
+        MainContext.INSTANCE.scannerService.register(accessPointsAdapter)
         return binding.root
     }
 
     override fun onRefresh() {
         swipeRefreshLayout.isRefreshing = true
-        INSTANCE.scannerService.update()
+        MainContext.INSTANCE.scannerService.update()
         swipeRefreshLayout.isRefreshing = false
     }
 
@@ -60,7 +60,7 @@ class AccessPointsFragment : Fragment(), OnRefreshListener {
     }
 
     override fun onDestroy() {
-        INSTANCE.scannerService.unregister(accessPointsAdapter)
+        MainContext.INSTANCE.scannerService.unregister(accessPointsAdapter)
         super.onDestroy()
     }
 

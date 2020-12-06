@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.wifi.scanner
+package com.vrem.wifianalyzer.wifi.manager
 
 import android.net.wifi.WifiManager
 import com.nhaarman.mockitokotlin2.*

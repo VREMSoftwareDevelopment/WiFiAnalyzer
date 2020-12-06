@@ -18,7 +18,7 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.annotation.OpenClass
-import com.vrem.wifianalyzer.MainContext.INSTANCE
+import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
 
 @OpenClass
@@ -67,7 +67,7 @@ class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnec
             when (wiFiDetail) {
                 connection -> connection
                 else -> {
-                    val vendorName: String = INSTANCE.vendorService.findVendorName(wiFiDetail.wiFiIdentifier.bssid)
+                    val vendorName: String = MainContext.INSTANCE.vendorService.findVendorName(wiFiDetail.wiFiIdentifier.bssid)
                     val wiFiAdditional = WiFiAdditional(vendorName, WiFiConnection.EMPTY)
                     WiFiDetail(wiFiDetail, wiFiAdditional)
                 }
@@ -77,7 +77,7 @@ class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnec
             wiFiConnection.wiFiIdentifier.equals(it.wiFiIdentifier, true)
 
     private fun copy(wiFiDetail: WiFiDetail): WiFiDetail {
-        val vendorName: String = INSTANCE.vendorService.findVendorName(wiFiDetail.wiFiIdentifier.bssid)
+        val vendorName: String = MainContext.INSTANCE.vendorService.findVendorName(wiFiDetail.wiFiIdentifier.bssid)
         val wiFiAdditional = WiFiAdditional(vendorName, wiFiConnection)
         return WiFiDetail(wiFiDetail, wiFiAdditional)
     }

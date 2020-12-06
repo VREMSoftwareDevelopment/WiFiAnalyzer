@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi.scanner
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import com.vrem.wifianalyzer.settings.Settings
+import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 
 internal class Scanner(private val wiFiManagerWrapper: WiFiManagerWrapper,

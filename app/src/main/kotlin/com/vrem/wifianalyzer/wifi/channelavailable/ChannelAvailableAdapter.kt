@@ -21,7 +21,7 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import com.vrem.wifianalyzer.MainContext.INSTANCE
+import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.databinding.ChannelAvailableDetailsBinding
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
@@ -35,7 +35,7 @@ internal class ChannelAvailableAdapter(context: Context, wiFiChannelCountries: L
         val rootView = binding.root
         getItem(position)?.let {
             val resources = rootView.resources
-            val currentLocale = INSTANCE.settings.languageLocale()
+            val currentLocale = MainContext.INSTANCE.settings.languageLocale()
             binding.channelAvailableCountry.text = "${it.countryCode()} - ${it.countryName(currentLocale)}"
             binding.channelAvailableTitleGhz2.text = "${resources.getString(WiFiBand.GHZ2.textResource)} : "
             binding.channelAvailableGhz2.text = it.channelsGHZ2().joinToString(",")
@@ -46,6 +46,6 @@ internal class ChannelAvailableAdapter(context: Context, wiFiChannelCountries: L
     }
 
     private fun create(parent: ViewGroup): ChannelAvailableDetailsBinding =
-            ChannelAvailableDetailsBinding.inflate(INSTANCE.layoutInflater, parent, false)
+            ChannelAvailableDetailsBinding.inflate(MainContext.INSTANCE.layoutInflater, parent, false)
 
 }
