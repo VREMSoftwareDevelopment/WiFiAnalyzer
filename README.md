@@ -73,6 +73,7 @@ This is the official repository of WiFi Analyzer.
 ## Feedback
 * Bug reports can be submitted [here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues).
 * To learn how to submit a bug [click here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Feedback).
+* [Discussions](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/discussions)
 * If you do not have GitHub account, please use [google groups](https://groups.google.com/forum/#!forum/wifi-analyzer-open-source) to discuss application features.
 
 ## License
