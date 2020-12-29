@@ -28,7 +28,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import org.junit.After
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -53,7 +53,7 @@ class ChannelGraphAdapterTest {
         // execute
         val graphViewNotifiers = fixture.graphViewNotifiers()
         // validate
-        Assert.assertEquals(expected, graphViewNotifiers.size)
+        assertEquals(expected, graphViewNotifiers.size)
     }
 
     @Test
@@ -63,7 +63,7 @@ class ChannelGraphAdapterTest {
         // execute
         val graphViews = fixture.graphViews()
         // validate
-        Assert.assertEquals(expected, graphViews.size)
+        assertEquals(expected, graphViews.size)
     }
 
     @Test
@@ -73,6 +73,6 @@ class ChannelGraphAdapterTest {
         // execute
         fixture.update(wiFiData)
         // validate
-        verify(channelGraphNavigation).update(wiFiData)
+        verify(channelGraphNavigation).update()
     }
 }

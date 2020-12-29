@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ WiFiAnalyzer
   ~ Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
@@ -18,9 +17,10 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.ButtonBarLayout
         android:id="@+id/graphNavigation"
@@ -29,7 +29,8 @@
         android:layout_margin="@dimen/no_margin"
         android:orientation="horizontal"
         android:padding="@dimen/no_margin"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <Button
             android:id="@+id/graphNavigationSet1"
@@ -38,8 +39,9 @@
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_weight="1"
             android:background="@null"
+            android:minWidth="0dp"
             android:minHeight="0dp"
-            android:minWidth="0dp"/>
+            tools:text="U-NII-1" />
 
         <Button
             android:id="@+id/graphNavigationSet2"
@@ -47,8 +49,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
+            android:minWidth="0dp"
             android:minHeight="0dp"
-            android:minWidth="0dp"/>
+            tools:text="U-NII-2" />
 
         <Button
             android:id="@+id/graphNavigationSet3"
@@ -57,8 +60,9 @@
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_weight="1"
             android:background="@null"
+            android:minWidth="0dp"
             android:minHeight="0dp"
-            android:minWidth="0dp"/>
+            tools:text="U-NII-3" />
 
     </androidx.appcompat.widget.ButtonBarLayout>
 
@@ -71,7 +75,7 @@
         <ViewFlipper
             android:id="@+id/graphFlipper"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

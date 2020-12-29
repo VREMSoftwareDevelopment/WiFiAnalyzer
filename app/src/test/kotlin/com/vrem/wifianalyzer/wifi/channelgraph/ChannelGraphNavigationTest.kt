@@ -32,8 +32,6 @@ import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelsGHZ5
-import com.vrem.wifianalyzer.wifi.model.SortBy
-import com.vrem.wifianalyzer.wifi.model.WiFiData
 import org.junit.After
 import org.junit.Assert
 import org.junit.Assert.assertEquals
@@ -42,7 +40,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
 import org.robolectric.annotation.Config
-import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.Q])
@@ -53,7 +50,7 @@ class ChannelGraphNavigationTest {
     private val configuration = MainContextHelper.INSTANCE.configuration
     private val layout: View = mock()
     private val views: MutableMap<WiFiChannelPair, View> = mutableMapOf()
-    private val fixture = ChannelGraphNavigation(layout, mainActivity)
+    private val fixture = ChannelGraphNavigation(layout, mainActivity.applicationContext)
 
     @Before
     fun setUp() {
@@ -81,87 +78,34 @@ class ChannelGraphNavigationTest {
     @Test
     fun testUpdateWithGHZ2() {
         // setup
-        whenever(settings.countryCode()).thenReturn(Locale.US.country)
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
         // execute
-        fixture.update(WiFiData.EMPTY)
+        fixture.update()
         // validate
         verify(layout).visibility = View.GONE
-        verify(settings).countryCode()
         verify(settings).wiFiBand()
     }
 
     @Test
-    fun testUpdateWithGHZ5AndUS() {
+    fun testUpdateWithGHZ5() {
         // setup
         val colorSelected = ContextCompat.getColor(mainActivity, R.color.selected)
         val colorNotSelected = ContextCompat.getColor(mainActivity, R.color.background)
         val selectedKey = WiFiBand.GHZ5.wiFiChannels.wiFiChannelPairs()[0]
         whenever(configuration.wiFiChannelPair).thenReturn(selectedKey)
-        whenever(settings.countryCode()).thenReturn(Locale.US.country)
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5)
-        whenever(settings.sortBy()).thenReturn(SortBy.CHANNEL)
         // execute
-        fixture.update(WiFiData.EMPTY)
+        fixture.update()
         // validate
         verify(layout).visibility = View.VISIBLE
-        views.keys.forEach { pairUpdate(selectedKey, colorSelected, colorNotSelected, it) }
+        views.keys.forEach {
+            val button = views[it] as Button
+            verify(button).setBackgroundColor(if (selectedKey == it) colorSelected else colorNotSelected)
+            verify(button).isSelected = selectedKey == it
+        }
         navigationSet.values.forEach { verify(layout, times(2)).findViewById<View>(it) }
-        verify(settings).countryCode()
-        verify(settings, times(2)).wiFiBand()
-        verify(settings).sortBy()
-        verify(configuration).wiFiChannelPair
-    }
-
-    @Test
-    fun testUpdateWithGHZ5AndRU() {
-        // setup
-        val colorSelected = ContextCompat.getColor(mainActivity, R.color.selected)
-        val colorNotSelected = ContextCompat.getColor(mainActivity, R.color.background)
-        val selectedKey = WiFiBand.GHZ5.wiFiChannels.wiFiChannelPairs()[0]
-        whenever(configuration.wiFiChannelPair).thenReturn(selectedKey)
-        whenever(settings.countryCode()).thenReturn(Locale("ru", "RU").country)
-        whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5)
-        whenever(settings.sortBy()).thenReturn(SortBy.CHANNEL)
-        // execute
-        fixture.update(WiFiData.EMPTY)
-        // validate
-        verify(layout).visibility = View.VISIBLE
-        views.keys.forEach { pairUpdate(selectedKey, colorSelected, colorNotSelected, it) }
-        navigationSet.values.forEach { verify(layout, times(2)).findViewById<View>(it) }
-        verify(settings).countryCode()
-        verify(settings, times(2)).wiFiBand()
-        verify(settings).sortBy()
-        verify(configuration).wiFiChannelPair
-    }
-
-    @Test
-    fun testUpdateGHZ5WithJapan() {
-        // setup
-        whenever(settings.countryCode()).thenReturn(Locale.JAPAN.country)
-        whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5)
-        whenever(settings.sortBy()).thenReturn(SortBy.CHANNEL)
-        // execute
-        fixture.update(WiFiData.EMPTY)
-        // validate
-        verify(layout).visibility = View.VISIBLE
-        views.entries.forEach { verify(it.value).visibility = if (WiFiChannelsGHZ5.SET3 == it.key) View.GONE else View.VISIBLE }
-        verify(settings).countryCode()
-        verify(settings, times(2)).wiFiBand()
-        verify(settings).sortBy()
-    }
-
-    @Test
-    fun testUpdateGHZ5WithCountryThatHasOnlyOneSet() {
-        // setup
-        whenever(settings.countryCode()).thenReturn("IL")
-        whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5)
-        // execute
-        fixture.update(WiFiData.EMPTY)
-        // validate
-        verify(layout).visibility = View.GONE
-        verify(settings).countryCode()
         verify(settings).wiFiBand()
+        verify(configuration).wiFiChannelPair
     }
 
     @Test
@@ -181,12 +125,5 @@ class ChannelGraphNavigationTest {
         views[key] = button
         whenever(layout.findViewById<View>(id)).thenReturn(button)
         whenever(button.text).thenReturn("ButtonName")
-    }
-
-    private fun pairUpdate(selectedKey: WiFiChannelPair, colorSelected: Int, colorNotSelected: Int, key: WiFiChannelPair) {
-        val button = views[key] as Button
-        verify(button).visibility = View.VISIBLE
-        verify(button).setBackgroundColor(if (selectedKey == key) colorSelected else colorNotSelected)
-        verify(button).isSelected = selectedKey == key
     }
 }

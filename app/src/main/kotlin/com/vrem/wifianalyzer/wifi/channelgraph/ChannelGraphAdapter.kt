@@ -31,7 +31,7 @@ private fun channelGraphViews(): List<ChannelGraphView> =
 class ChannelGraphAdapter(private val channelGraphNavigation: ChannelGraphNavigation) : GraphAdapter(channelGraphViews()) {
     override fun update(wiFiData: WiFiData) {
         super.update(wiFiData)
-        channelGraphNavigation.update(wiFiData)
+        channelGraphNavigation.update()
     }
 }
 

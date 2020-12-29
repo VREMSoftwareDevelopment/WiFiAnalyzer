@@ -18,7 +18,6 @@
 package com.vrem.wifianalyzer.wifi.channelgraph
 
 import android.content.Context
-import android.text.Spanned
 import android.view.View
 import android.widget.Button
 import com.vrem.annotation.OpenClass
@@ -26,84 +25,49 @@ import com.vrem.util.compatColor
 import com.vrem.util.fromHtml
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
-import com.vrem.wifianalyzer.settings.Settings
-import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelsGHZ5
-import com.vrem.wifianalyzer.wifi.model.WiFiData
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.predicate.Predicate
-import com.vrem.wifianalyzer.wifi.predicate.makeOtherPredicate
 
 internal val navigationSet: Map<WiFiChannelPair, Int> = mapOf(
         WiFiChannelsGHZ5.SET1 to R.id.graphNavigationSet1,
         WiFiChannelsGHZ5.SET2 to R.id.graphNavigationSet2,
         WiFiChannelsGHZ5.SET3 to R.id.graphNavigationSet3)
 
-internal fun WiFiBand.visible(countryCode: String, wiFiChannelPair: WiFiChannelPair): Boolean =
-        this.ghz5() &&
-                (this.wiFiChannels.channelAvailable(countryCode, wiFiChannelPair.first.channel) ||
-                        this.wiFiChannels.channelAvailable(countryCode, wiFiChannelPair.second.channel))
-
 @OpenClass
-class ChannelGraphNavigation(private val view: View, private val context: Context) {
+class ChannelGraphNavigation(private val view: View, private val mainContext: Context) {
 
-    fun update(wiFiData: WiFiData) {
-        val settings = MainContext.INSTANCE.settings
-        val wiFiBand = settings.wiFiBand()
-        val countryCode = settings.countryCode()
-        val visible = navigationSet.filterKeys { wiFiBand.visible(countryCode, it) }.keys
-        updateButtons(wiFiData, visible)
-        view.visibility = if (visible.size > 1) View.VISIBLE else View.GONE
-    }
-
-    private fun updateButtons(wiFiData: WiFiData, visible: Set<WiFiChannelPair>) {
-        if (visible.size > 1) {
-            val settings = MainContext.INSTANCE.settings
-            val predicate = predicate(settings)
+    internal fun update() {
+        if (MainContext.INSTANCE.settings.wiFiBand().ghz5()) {
             val selectedWiFiChannelPair = MainContext.INSTANCE.configuration.wiFiChannelPair
-            val wiFiDetails = wiFiData.wiFiDetails(predicate, settings.sortBy())
-            navigationSet.entries.forEach { button(it, visible, selectedWiFiChannelPair, wiFiDetails) }
-        }
-    }
-
-    fun predicate(settings: Settings): Predicate = makeOtherPredicate(settings)
-
-    private fun button(entry: Map.Entry<WiFiChannelPair, Int>, visible: Set<WiFiChannelPair>, selectedWiFiChannelPair: WiFiChannelPair, wiFiDetails: List<WiFiDetail>) {
-        val wiFiChannelPair = entry.key
-        val id = entry.value
-        val button = view.findViewById<Button>(id)
-        if (visible.contains(wiFiChannelPair)) {
-            button.visibility = View.VISIBLE
-            setSelected(button, wiFiChannelPair == selectedWiFiChannelPair)
-            button.text = buttonText(wiFiDetails, wiFiChannelPair)
+            navigationSet.entries.forEach { button(it, selectedWiFiChannelPair) }
+            view.visibility = View.VISIBLE
         } else {
-            button.visibility = View.GONE
-            setSelected(button, false)
+            view.visibility = View.GONE
         }
     }
 
-    private fun buttonText(wiFiDetails: List<WiFiDetail>, wiFiChannelPair: WiFiChannelPair): Spanned {
-        val activity = if (wiFiDetails.any { wiFiChannelPair.inRange(it) }) "&#9585;&#9586;" else "&#8722"
-        return """<strong>${wiFiChannelPair.first.channel} $activity ${wiFiChannelPair.second.channel}</strong>""".fromHtml()
-    }
-
-    private fun setSelected(button: Button, selected: Boolean) {
-        val color = context.compatColor(if (selected) R.color.selected else R.color.background)
-        button.setBackgroundColor(color)
-        button.isSelected = selected
-    }
-
-    fun initialize() {
+    internal fun initialize() {
         navigationSet.entries.forEach { entry ->
-            view.findViewById<View>(entry.value)?.setOnClickListener { onClickListener(entry.key) }
+            with(view.findViewById<Button>(entry.value)) {
+                setOnClickListener { onClickListener(entry.key) }
+                text = """<strong>${entry.key.first.channel} &#8722 ${entry.key.second.channel}</strong>""".fromHtml()
+            }
         }
     }
 
-    fun onClickListener(wiFiChannelPair: WiFiChannelPair) {
+    internal fun onClickListener(wiFiChannelPair: WiFiChannelPair) {
         val mainContext = MainContext.INSTANCE
         mainContext.configuration.wiFiChannelPair = wiFiChannelPair
         mainContext.scannerService.update()
+    }
+
+    private fun button(entry: Map.Entry<WiFiChannelPair, Int>, selectedWiFiChannelPair: WiFiChannelPair) {
+        with(view.findViewById<Button>(entry.value)) {
+            val selected = entry.key == selectedWiFiChannelPair
+            val color = if (selected) R.color.selected else R.color.background
+            setBackgroundColor(mainContext.compatColor(color))
+            isSelected = selected
+        }
     }
 
 }
