@@ -27,6 +27,7 @@ import com.vrem.util.fromHtml
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.settings.Settings
+import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelsGHZ5
 import com.vrem.wifianalyzer.wifi.model.WiFiData
@@ -39,6 +40,11 @@ internal val navigationSet: Map<WiFiChannelPair, Int> = mapOf(
         WiFiChannelsGHZ5.SET2 to R.id.graphNavigationSet2,
         WiFiChannelsGHZ5.SET3 to R.id.graphNavigationSet3)
 
+internal fun WiFiBand.visible(countryCode: String, wiFiChannelPair: WiFiChannelPair): Boolean =
+        this.ghz5() &&
+                (this.wiFiChannels.channelAvailable(countryCode, wiFiChannelPair.first.channel) ||
+                        this.wiFiChannels.channelAvailable(countryCode, wiFiChannelPair.second.channel))
+
 @OpenClass
 class ChannelGraphNavigation(private val view: View, private val context: Context) {
 
@@ -46,10 +52,7 @@ class ChannelGraphNavigation(private val view: View, private val context: Contex
         val settings = MainContext.INSTANCE.settings
         val wiFiBand = settings.wiFiBand()
         val countryCode = settings.countryCode()
-        val wiFiChannels = wiFiBand.wiFiChannels
-        val visible = navigationSet
-                .filterKeys { wiFiBand.ghz5() && wiFiChannels.channelAvailable(countryCode, it.first.channel) }
-                .keys
+        val visible = navigationSet.filterKeys { wiFiBand.visible(countryCode, it) }.keys
         updateButtons(wiFiData, visible)
         view.visibility = if (visible.size > 1) View.VISIBLE else View.GONE
     }

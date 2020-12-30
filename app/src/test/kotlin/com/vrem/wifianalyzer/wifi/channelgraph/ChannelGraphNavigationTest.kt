@@ -114,6 +114,28 @@ class ChannelGraphNavigationTest {
     }
 
     @Test
+    fun testUpdateWithGHZ5AndRU() {
+        // setup
+        val colorSelected = ContextCompat.getColor(mainActivity, R.color.selected)
+        val colorNotSelected = ContextCompat.getColor(mainActivity, R.color.background)
+        val selectedKey = WiFiBand.GHZ5.wiFiChannels.wiFiChannelPairs()[0]
+        whenever(configuration.wiFiChannelPair).thenReturn(selectedKey)
+        whenever(settings.countryCode()).thenReturn(Locale("ru", "RU").country)
+        whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5)
+        whenever(settings.sortBy()).thenReturn(SortBy.CHANNEL)
+        // execute
+        fixture.update(WiFiData.EMPTY)
+        // validate
+        verify(layout).visibility = View.VISIBLE
+        views.keys.forEach { pairUpdate(selectedKey, colorSelected, colorNotSelected, it) }
+        navigationSet.values.forEach { verify(layout, times(2)).findViewById<View>(it) }
+        verify(settings).countryCode()
+        verify(settings, times(2)).wiFiBand()
+        verify(settings).sortBy()
+        verify(configuration).wiFiChannelPair
+    }
+
+    @Test
     fun testUpdateGHZ5WithJapan() {
         // setup
         whenever(settings.countryCode()).thenReturn(Locale.JAPAN.country)
