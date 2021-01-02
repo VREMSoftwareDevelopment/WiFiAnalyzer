@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2020 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2021 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +25,6 @@ internal class WiFiChannelCountryGHZ2 {
     private val world = channels.union(setOf(12, 13)).toSortedSet()
 
     fun findChannels(countryCode: String): SortedSet<Int> =
-            if (countries.contains(countryCode.capitalize())) channels else world
+            if (countries.contains(countryCode.capitalize(Locale.getDefault()))) channels else world
 
 }
