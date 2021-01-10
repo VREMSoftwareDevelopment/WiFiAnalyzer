@@ -18,11 +18,11 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    >
+    android:orientation="horizontal">
 
     <!-- Column 1 -->
     <TextView
@@ -101,7 +101,7 @@
                         android:layout_alignStart="@+id/levelImage"
                         android:layout_alignBottom="@+id/levelImage"
                         android:contentDescription="@null"
-                        android:tint="@color/frequency"
+                        app:tint="@color/frequency"
                         tools:src="@drawable/ic_wifi_5" />
 
                     <ImageView

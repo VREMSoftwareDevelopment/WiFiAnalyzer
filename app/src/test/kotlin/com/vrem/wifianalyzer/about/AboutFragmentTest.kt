@@ -122,13 +122,11 @@ class AboutFragmentTest {
 
     @Test
     fun testWiFi() {
-        // setup
-        val expected = "2.4 GHz"
-        // execute
-        val actual = fixture.requireView().findViewById<TextView>(R.id.about_wi_fi)
-        // validate
-        assertNotNull(actual)
-        assertEquals(expected, actual.text)
+        assertEquals(View.VISIBLE, fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_2ghz_success).visibility)
+        assertEquals(View.GONE, fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_5ghz_success).visibility)
+        assertEquals(View.VISIBLE, fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_5ghz_fails).visibility)
+        assertEquals(View.GONE, fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_6ghz_success).visibility)
+        assertEquals(View.VISIBLE, fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_6ghz_fails).visibility)
     }
 
     @Test

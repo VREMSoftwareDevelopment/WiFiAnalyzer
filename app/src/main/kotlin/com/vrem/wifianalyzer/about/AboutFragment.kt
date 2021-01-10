@@ -49,6 +49,7 @@ class AboutFragment : Fragment() {
         val activity: FragmentActivity = requireActivity()
         setTexts(binding, activity)
         setOnClicks(binding, activity)
+        wiFiState(binding)
         return binding.root
     }
 
@@ -57,17 +58,25 @@ class AboutFragment : Fragment() {
         binding.aboutVersionInfo.text = version(activity)
         binding.aboutPackageName.text = activity.packageName
         binding.aboutDevice.text = device()
-        binding.aboutWiFi.text = wiFi(activity)
     }
 
     private fun device(): String =
             Build.MANUFACTURER + " - " + Build.BRAND + " - " + Build.MODEL
 
-    private fun wiFi(activity: FragmentActivity): String {
+    private fun wiFiState(binding: AboutContentBinding) {
         val wiFiManagerWrapper = MainContext.INSTANCE.wiFiManagerWrapper
-        return String.EMPTY + activity.getText(R.string.wifi_band_2ghz) +
-                ifElse(wiFiManagerWrapper.is5GHzBandSupported(), "|" + activity.getText(R.string.wifi_band_5ghz)) +
-                ifElse(wiFiManagerWrapper.is6GHzBandSupported(), "|" + activity.getText(R.string.wifi_band_6ghz))
+        wiFiBand(wiFiManagerWrapper.is5GHzBandSupported(), binding.aboutWifiBand5ghzSuccess, binding.aboutWifiBand5ghzFails)
+        wiFiBand(wiFiManagerWrapper.is6GHzBandSupported(), binding.aboutWifiBand6ghzSuccess, binding.aboutWifiBand6ghzFails)
+    }
+
+    private fun wiFiBand(bandSupported: Boolean, aboutWifiBandSuccess: TextView, aboutWifiBandFails: TextView) {
+        if (bandSupported) {
+            aboutWifiBandSuccess.visibility = View.VISIBLE
+            aboutWifiBandFails.visibility = View.GONE
+        } else {
+            aboutWifiBandSuccess.visibility = View.GONE
+            aboutWifiBandFails.visibility = View.VISIBLE
+        }
     }
 
     private fun setOnClicks(binding: AboutContentBinding, activity: FragmentActivity) {
