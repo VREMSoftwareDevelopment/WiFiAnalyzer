@@ -55,7 +55,8 @@ private val countriesETSI: Set<String> = setOf(
         "RO",      // ETSI Romania
         "SE",      // ETSI Sweden
         "SI",      // ETSI Slovenia
-        "SK"       // ETSI Slovakia
+        "SK",      // ETSI Slovakia
+        "IL"       // ETSI Israel
 )
 
 internal class WiFiChannelCountryGHZ5 {
@@ -67,16 +68,17 @@ internal class WiFiChannelCountryGHZ5 {
     private val exclude: List<Rules> = listOf(
             Rules(setOf("AU", "CA"), sortedSetOf(120, 124, 128)),
             Rules(setOf("RU"), sortedSetOf(100, 104, 108, 112, 116, 120, 124, 128)),
-            Rules(countriesETSI, sortedSetOf(144)),
-            Rules(setOf("IL"), channelsSet2.union(channelsSet3).toSortedSet()),
             Rules(setOf("CN", "KR"), channelsSet2),
             Rules(setOf("JP", "TR", "ZA"), channelsSet3))
 
-    private val include: Rules = Rules(countriesETSI, sortedSetOf(169, 173))
+    private val include: List<Rules> = listOf(
+            Rules(countriesETSI, sortedSetOf(169, 173)),
+            Rules(setOf("US"), sortedSetOf(169, 173, 177)))
+
 
     fun findChannels(countryCode: String): SortedSet<Int> =
             channels.subtract(exclude.flatMap { it.find(countryCode.capitalize(Locale.getDefault())) })
-                    .union(include.find(countryCode.capitalize(Locale.getDefault())))
+                    .union(include.flatMap { it.find(countryCode.capitalize(Locale.getDefault())) })
                     .toSortedSet()
 
 }

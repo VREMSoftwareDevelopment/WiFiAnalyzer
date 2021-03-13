@@ -25,7 +25,6 @@ import com.vrem.util.buildMinVersionM
 import com.vrem.util.buildMinVersionR
 import com.vrem.wifianalyzer.wifi.model.*
 import com.vrem.wifianalyzer.wifi.model.WiFiWidth
-import kotlin.math.abs
 
 @OpenClass
 internal class Transformer {
@@ -41,9 +40,6 @@ internal class Transformer {
 
     internal fun transformCacheResults(cacheResults: List<CacheResult>): List<WiFiDetail> =
             cacheResults.map { transform(it) }
-
-    internal fun extensionFrequency(frequency: Int, wiFiWidth: WiFiWidth, centerFrequency: Int): Boolean =
-            WiFiWidth.MHZ_40 == wiFiWidth && abs(frequency - centerFrequency) >= WiFiWidth.MHZ_40.frequencyWidthHalf
 
     internal fun transformToWiFiData(cacheResults: List<CacheResult>, wifiInfo: WifiInfo?): WiFiData =
             WiFiData(transformCacheResults(cacheResults), transformWifiInfo(wifiInfo))
@@ -64,12 +60,7 @@ internal class Transformer {
 
     internal fun centerFrequency(scanResult: ScanResult, wiFiWidth: WiFiWidth): Int =
             if (minVersionM()) {
-                val centerFrequency = if (scanResult.centerFreq0 != 0) scanResult.centerFreq0 else scanResult.frequency
-                if (extensionFrequency(scanResult.frequency, wiFiWidth, centerFrequency)) {
-                    (centerFrequency + scanResult.frequency) / 2
-                } else {
-                    centerFrequency
-                }
+                wiFiWidth.calculateCenter(scanResult.frequency, scanResult.centerFreq0)
             } else {
                 scanResult.frequency
             }

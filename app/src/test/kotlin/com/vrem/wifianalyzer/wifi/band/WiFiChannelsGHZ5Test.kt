@@ -29,7 +29,7 @@ class WiFiChannelsGHZ5Test {
     fun testWiFiChannelByFrequency() {
         validateFrequencyToChannel(5180, 5320, 10, 36, 2)
         validateFrequencyToChannel(5500, 5720, 10, 100, 2)
-        validateFrequencyToChannel(5745, 5865, 10, 149, 2)
+        validateFrequencyToChannel(5745, 5885, 10, 149, 2)
     }
 
     private fun validateFrequencyToChannel(frequencyStart: Int, frequencyEnd: Int, frequencyIncrement: Int, channelStart: Int, channelIncrement: Int) {
@@ -44,8 +44,8 @@ class WiFiChannelsGHZ5Test {
 
     @Test
     fun testWiFiChannelByFrequencyFail() {
-        assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(5167))
-        assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(5868))
+        assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(5149))
+        assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(5896))
     }
 
     @Test
@@ -55,7 +55,7 @@ class WiFiChannelsGHZ5Test {
 
     @Test
     fun testWiFiChannelLast() {
-        assertEquals(173, fixture.wiFiChannelLast().channel)
+        assertEquals(177, fixture.wiFiChannelLast().channel)
     }
 
     @Test
@@ -76,7 +76,7 @@ class WiFiChannelsGHZ5Test {
         assertEquals(3, wiFiChannelPairs.size)
         validatePair(36, 64, wiFiChannelPairs[0])
         validatePair(100, 144, wiFiChannelPairs[1])
-        validatePair(149, 173, wiFiChannelPairs[2])
+        validatePair(149, 177, wiFiChannelPairs[2])
     }
 
     private fun validatePair(expectedFirst: Int, expectedSecond: Int, pair: WiFiChannelPair) {

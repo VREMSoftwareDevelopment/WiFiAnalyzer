@@ -151,80 +151,23 @@ class TransformerTest {
     @Test
     fun testCenterFrequency() {
         // setup
+        val wiFiWidth = WiFiWidth.values()[scanResult1.channelWidth]
         // execute
-        val actual = fixture.centerFrequency(scanResult1, WiFiWidth.MHZ_20)
+        val actual = fixture.centerFrequency(scanResult1, wiFiWidth)
         // validate
         assertEquals(FREQUENCY, actual)
     }
 
     @Test
-    fun testCenterFrequencyWithFrequency() {
+    fun testCenterFrequencyWithAndroidM() {
         // setup
         doReturn(true).whenever(fixture).minVersionM()
-        val expected = FREQUENCY + WiFiWidth.MHZ_20.frequencyWidthHalf
-        scanResult1.centerFreq0 = FREQUENCY + WiFiWidth.MHZ_20.frequencyWidthHalf
+        val wiFiWidth = WiFiWidth.values()[scanResult1.channelWidth]
+        val expected = wiFiWidth.calculateCenter(scanResult1.frequency, scanResult1.centerFreq0)
         // execute
-        val actual = fixture.centerFrequency(scanResult1, WiFiWidth.MHZ_20)
+        val actual = fixture.centerFrequency(scanResult1, wiFiWidth)
         // validate
         assertEquals(expected, actual)
-    }
-
-    @Test
-    fun testCenterFrequencyWithExtFrequencyAfter() {
-        // setup
-        doReturn(true).whenever(fixture).minVersionM()
-        val expected = FREQUENCY + WiFiWidth.MHZ_20.frequencyWidthHalf
-        scanResult1.centerFreq0 = FREQUENCY + WiFiWidth.MHZ_40.frequencyWidthHalf
-        // execute
-        val actual = fixture.centerFrequency(scanResult1, WiFiWidth.MHZ_40)
-        // validate
-        assertEquals(expected, actual)
-    }
-
-    @Test
-    fun testCenterFrequencyWithExtFrequencyBefore() {
-        // setup
-        doReturn(true).whenever(fixture).minVersionM()
-        val expected = FREQUENCY - WiFiWidth.MHZ_20.frequencyWidthHalf
-        scanResult1.frequency = FREQUENCY
-        scanResult1.centerFreq0 = FREQUENCY - WiFiWidth.MHZ_40.frequencyWidthHalf
-        // execute
-        val actual = fixture.centerFrequency(scanResult1, WiFiWidth.MHZ_40)
-        // validate
-        assertEquals(expected, actual)
-    }
-
-    @Test
-    fun testIsExtensionFrequencyWith2GHz() {
-        // setup
-        val frequency = FREQUENCY
-        // execute & validate
-        assertTrue(fixture.extensionFrequency(frequency, WiFiWidth.MHZ_40, FREQUENCY + WiFiWidth.MHZ_40.frequencyWidthHalf))
-        assertTrue(fixture.extensionFrequency(frequency, WiFiWidth.MHZ_40, FREQUENCY - WiFiWidth.MHZ_40.frequencyWidthHalf))
-        assertTrue(fixture.extensionFrequency(frequency, WiFiWidth.MHZ_40, FREQUENCY + WiFiWidth.MHZ_40.frequencyWidth))
-        assertTrue(fixture.extensionFrequency(frequency, WiFiWidth.MHZ_40, FREQUENCY - WiFiWidth.MHZ_40.frequencyWidth))
-    }
-
-    @Test
-    fun testIsExtensionFrequencyWith5GHz() {
-        // setup
-        val frequency = 5100
-        // execute & validate
-        assertTrue(fixture.extensionFrequency(frequency, WiFiWidth.MHZ_40, FREQUENCY + WiFiWidth.MHZ_40.frequencyWidthHalf))
-        assertTrue(fixture.extensionFrequency(frequency, WiFiWidth.MHZ_40, FREQUENCY - WiFiWidth.MHZ_40.frequencyWidthHalf))
-        assertTrue(fixture.extensionFrequency(frequency, WiFiWidth.MHZ_40, FREQUENCY + WiFiWidth.MHZ_40.frequencyWidth))
-        assertTrue(fixture.extensionFrequency(frequency, WiFiWidth.MHZ_40, FREQUENCY - WiFiWidth.MHZ_40.frequencyWidth))
-    }
-
-    @Test
-    fun testIsNotExtensionFrequency() {
-        // setup
-        val frequency = FREQUENCY
-        // execute & validate
-        assertFalse(fixture.extensionFrequency(frequency, WiFiWidth.MHZ_20, FREQUENCY + WiFiWidth.MHZ_40.frequencyWidthHalf))
-        assertFalse(fixture.extensionFrequency(frequency, WiFiWidth.MHZ_80, FREQUENCY + WiFiWidth.MHZ_40.frequencyWidthHalf))
-        assertFalse(fixture.extensionFrequency(frequency, WiFiWidth.MHZ_20, FREQUENCY + WiFiWidth.MHZ_20.frequencyWidthHalf))
-        assertFalse(fixture.extensionFrequency(frequency, WiFiWidth.MHZ_80, FREQUENCY + WiFiWidth.MHZ_20.frequencyWidthHalf))
     }
 
     private fun withScanResult(ssid: SSID, bssid: BSSID, wiFiWidth: WiFiWidth, wiFiStandard: WiFiStandard): ScanResult {
@@ -233,6 +176,13 @@ class TransformerTest {
         scanResult.BSSID = bssid
         scanResult.capabilities = WPA
         scanResult.frequency = FREQUENCY
+        scanResult.centerFreq0 = when (wiFiWidth) {
+            WiFiWidth.MHZ_20 -> FREQUENCY
+            WiFiWidth.MHZ_40 -> FREQUENCY + wiFiWidth.frequencyWidth
+            WiFiWidth.MHZ_80 -> FREQUENCY + wiFiWidth.frequencyWidthHalf
+            WiFiWidth.MHZ_160 -> FREQUENCY + wiFiWidth.frequencyWidth
+            WiFiWidth.MHZ_80_PLUS -> FREQUENCY + wiFiWidth.frequencyWidthHalf
+        }
         scanResult.level = LEVEL
         scanResult.channelWidth = wiFiWidth.ordinal
         whenever(scanResult.wifiStandard).thenReturn(wiFiStandard.wiFiStandardId)
@@ -262,11 +212,11 @@ class TransformerTest {
         assertEquals(BSSID, wiFiDetail.wiFiIdentifier.bssid)
         assertEquals(WPA, wiFiDetail.capabilities)
         with(wiFiDetail.wiFiSignal) {
-            assertEquals(FREQUENCY, this.primaryFrequency)
-            assertEquals(FREQUENCY, this.centerFrequency)
-            assertEquals(LEVEL, this.level)
             assertEquals(wiFiWidth, this.wiFiWidth)
             assertEquals(wiFiStandard, this.wiFiStandard)
+            assertEquals(LEVEL, this.level)
+            assertEquals(FREQUENCY, this.primaryFrequency)
+            assertEquals(FREQUENCY + wiFiWidth.frequencyWidthHalf, this.centerFrequency)
         }
     }
 
@@ -278,7 +228,7 @@ class TransformerTest {
         private const val SSID_3 = "SSID_3-123"
         private const val BSSID_3 = "BSSID_3-123"
         private const val WPA = "WPA"
-        private const val FREQUENCY = 2435
+        private const val FREQUENCY = 5170
         private const val LEVEL = -40
         private const val IP_ADDRESS_VALUE = 123456789
         private const val IP_ADDRESS = "21.205.91.7"

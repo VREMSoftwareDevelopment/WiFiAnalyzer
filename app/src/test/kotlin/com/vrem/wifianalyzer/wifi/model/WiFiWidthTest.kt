@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi.model
 
 import android.net.wifi.ScanResult
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class WiFiWidthTest {
@@ -27,6 +28,15 @@ class WiFiWidthTest {
     @Test
     fun testWidth() {
         assertEquals(5, WiFiWidth.values().size)
+    }
+
+    @Test
+    fun testGroupByGroup() {
+        assertTrue(WiFiWidth.MHZ_20.calculateCenter.javaClass.isInstance(calculateCenter20))
+        assertTrue(WiFiWidth.MHZ_40.calculateCenter.javaClass.isInstance(calculateCenter40))
+        assertTrue(WiFiWidth.MHZ_80.calculateCenter.javaClass.isInstance(calculateCenter80))
+        assertTrue(WiFiWidth.MHZ_160.calculateCenter.javaClass.isInstance(calculateCenter160))
+        assertTrue(WiFiWidth.MHZ_80_PLUS.calculateCenter.javaClass.isInstance(calculateCenter80))
     }
 
     @Test
@@ -65,6 +75,77 @@ class WiFiWidthTest {
         assertEquals(WiFiWidth.MHZ_80_PLUS, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ))
         assertEquals(WiFiWidth.MHZ_20, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_20MHZ - 1))
         assertEquals(WiFiWidth.MHZ_20, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ + 1))
+    }
+
+    @Test
+    fun testCalculateCenter20() {
+        // setup
+        val expected = 35
+        // execute & validate
+        assertEquals(expected, calculateCenter20(expected, Int.MIN_VALUE))
+        assertEquals(expected, calculateCenter20(expected, 0))
+        assertEquals(expected, calculateCenter20(expected, Int.MAX_VALUE))
+    }
+
+    @Test
+    fun testCalculateCenter40() {
+        // execute & validate
+        assertEquals(Int.MAX_VALUE, calculateCenter40(Int.MAX_VALUE, Int.MAX_VALUE))
+        assertEquals(Int.MIN_VALUE, calculateCenter40(Int.MIN_VALUE, Int.MIN_VALUE))
+        assertEquals(0, calculateCenter40(Int.MIN_VALUE, Int.MAX_VALUE))
+        assertEquals(Int.MIN_VALUE / 2, calculateCenter40(Int.MIN_VALUE, 0))
+        assertEquals(Int.MAX_VALUE / 2, calculateCenter40(0, Int.MAX_VALUE))
+    }
+
+    @Test
+    fun testCalculateCenter80() {
+        // setup
+        val expected = 35
+        // execute & validate
+        assertEquals(expected, calculateCenter80(Int.MIN_VALUE, expected))
+        assertEquals(expected, calculateCenter80(0, expected))
+        assertEquals(expected, calculateCenter80(Int.MAX_VALUE, expected))
+    }
+
+    @Test
+    fun testCalculateCenter160_UNII_1_2A() {
+        // execute & validate
+        for (value in 5170..5330) {
+            assertEquals(5250, calculateCenter160(value, Int.MIN_VALUE))
+            assertEquals(5250, calculateCenter160(value, 0))
+            assertEquals(5250, calculateCenter160(value, Int.MAX_VALUE))
+        }
+    }
+
+    @Test
+    fun testCalculateCenter160_UNII_2C_3() {
+        // execute & validate
+        for (value in 5490..5730) {
+            assertEquals(5570, calculateCenter160(value, Int.MIN_VALUE))
+            assertEquals(5570, calculateCenter160(value, 0))
+            assertEquals(5570, calculateCenter160(value, Int.MAX_VALUE))
+        }
+    }
+
+    @Test
+    fun testCalculateCenter160_UNII_3_4() {
+        // execute & validate
+        for (value in 5735..5895) {
+            assertEquals(5815, calculateCenter160(value, Int.MIN_VALUE))
+            assertEquals(5815, calculateCenter160(value, 0))
+            assertEquals(5815, calculateCenter160(value, Int.MAX_VALUE))
+        }
+    }
+
+    @Test
+    fun testCalculateCenter160Invalid() {
+        // execute & validate
+        assertEquals(Int.MIN_VALUE, calculateCenter160(5169, Int.MIN_VALUE))
+        assertEquals(0, calculateCenter160(5169, 0))
+        assertEquals(Int.MAX_VALUE, calculateCenter160(5169, Int.MAX_VALUE))
+        assertEquals(Int.MIN_VALUE, calculateCenter160(5896, Int.MIN_VALUE))
+        assertEquals(0, calculateCenter160(5896, 0))
+        assertEquals(Int.MAX_VALUE, calculateCenter160(5896, Int.MAX_VALUE))
     }
 
 }
