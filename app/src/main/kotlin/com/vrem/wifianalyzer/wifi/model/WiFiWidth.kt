@@ -19,6 +19,7 @@ package com.vrem.wifianalyzer.wifi.model
 
 import android.net.wifi.ScanResult
 import com.vrem.util.buildMinVersionM
+import kotlin.math.abs
 
 typealias ChannelWidth = Int
 
@@ -32,7 +33,13 @@ typealias CalculateCenter = (primary: Int, center: Int) -> Int
 
 internal val calculateCenter20: CalculateCenter = { primary, _ -> primary }
 
-internal val calculateCenter40: CalculateCenter = { primary, center -> ((primary.toLong() + center.toLong()) / 2).toInt() }
+internal val calculateCenter40: CalculateCenter = { primary, center ->
+    if (abs(primary - center) >= WiFiWidth.MHZ_40.frequencyWidthHalf) {
+        (primary + center) / 2
+    } else {
+        center
+    }
+}
 
 internal val calculateCenter80: CalculateCenter = { _, center -> center }
 

@@ -89,12 +89,23 @@ class WiFiWidthTest {
 
     @Test
     fun testCalculateCenter40() {
+        // setup
+        val primary = 10
+        val center = primary + WiFiWidth.MHZ_40.frequencyWidthHalf - 1
         // execute & validate
-        assertEquals(Int.MAX_VALUE, calculateCenter40(Int.MAX_VALUE, Int.MAX_VALUE))
-        assertEquals(Int.MIN_VALUE, calculateCenter40(Int.MIN_VALUE, Int.MIN_VALUE))
-        assertEquals(0, calculateCenter40(Int.MIN_VALUE, Int.MAX_VALUE))
-        assertEquals(Int.MIN_VALUE / 2, calculateCenter40(Int.MIN_VALUE, 0))
-        assertEquals(Int.MAX_VALUE / 2, calculateCenter40(0, Int.MAX_VALUE))
+        assertEquals(center, calculateCenter40(primary, center))
+        assertEquals(primary, calculateCenter40(center, primary))
+    }
+
+    @Test
+    fun testCalculateCenter40WithCenterBroken() {
+        // setup
+        val primary = 10
+        val center = primary + WiFiWidth.MHZ_40.frequencyWidthHalf
+        val expected = (primary + center) / 2
+        // execute & validate
+        assertEquals(expected, calculateCenter40(primary, center))
+        assertEquals(expected, calculateCenter40(center, primary))
     }
 
     @Test
