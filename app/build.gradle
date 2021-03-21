@@ -39,7 +39,7 @@ dependencies {
     testImplementation 'androidx.test.ext:junit:1.1.2'
     testImplementation 'com.googlecode.junit-toolbox:junit-toolbox:2.4'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
-    testImplementation 'io.mockk:mockk:1.10.6'
+    testImplementation 'io.mockk:mockk:1.11.0'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.8.0'
     testImplementation 'org.robolectric:robolectric:4.5.1'
