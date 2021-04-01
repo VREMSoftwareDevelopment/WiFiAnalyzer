@@ -31,10 +31,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.vrem.util.EMPTY
-import com.vrem.util.buildMinVersionP
 import com.vrem.util.readFile
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
@@ -104,17 +104,9 @@ class AboutFragment : Fragment() {
     private fun applicationVersion(activity: FragmentActivity): String =
             try {
                 val packageInfo: PackageInfo = activity.packageManager.getPackageInfo(activity.packageName, 0)
-                packageInfo.versionName + " - " + versionCode(packageInfo)
+                packageInfo.versionName + " - " + PackageInfoCompat.getLongVersionCode(packageInfo)
             } catch (e: NameNotFoundException) {
                 String.EMPTY
-            }
-
-    private fun versionCode(packageInfo: PackageInfo): String =
-            if (buildMinVersionP()) {
-                packageInfo.longVersionCode.toString()
-            } else {
-                @Suppress("DEPRECATION")
-                packageInfo.versionCode.toString()
             }
 
     private class WriteReviewClickListener(private val activity: Activity) : View.OnClickListener {
