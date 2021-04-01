@@ -17,9 +17,9 @@
  */
 package com.vrem.wifianalyzer.navigation.availability
 
+import androidx.core.text.parseAsHtml
 import com.vrem.util.EMPTY
 import com.vrem.util.compatColor
-import com.vrem.util.fromHtml
 import com.vrem.util.toHtml
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContext
@@ -54,7 +54,7 @@ private fun actionBarOn(mainActivity: MainActivity) {
         val wiFiBand5 = resources.getString(WiFiBand.GHZ5.textResource)
         val wiFiBand = MainContext.INSTANCE.settings.wiFiBand()
         val subtitle = makeSubtitle(WiFiBand.GHZ2 == wiFiBand, wiFiBand2, wiFiBand5, colorSelected, colorNotSelected)
-        it.subtitle = subtitle.fromHtml()
+        it.subtitle = subtitle.parseAsHtml()
     }
 }
 

@@ -20,9 +20,9 @@ package com.vrem.wifianalyzer.wifi.channelgraph
 import android.content.Context
 import android.view.View
 import android.widget.Button
+import androidx.core.text.parseAsHtml
 import com.vrem.annotation.OpenClass
 import com.vrem.util.compatColor
-import com.vrem.util.fromHtml
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
@@ -50,7 +50,7 @@ class ChannelGraphNavigation(private val view: View, private val mainContext: Co
         navigationSet.entries.forEach { entry ->
             with(view.findViewById<Button>(entry.value)) {
                 setOnClickListener { onClickListener(entry.key) }
-                text = """<strong>${entry.key.first.channel} &#8722 ${entry.key.second.channel}</strong>""".fromHtml()
+                text = """<strong>${entry.key.first.channel} &#8722 ${entry.key.second.channel}</strong>""".parseAsHtml()
             }
         }
     }
