@@ -17,17 +17,9 @@
  */
 package com.vrem.util
 
-import android.os.Build
-import android.text.Spanned
-import androidx.core.text.parseAsHtml
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.annotation.Config
 
-@RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.Q])
 class StringUtilsTest {
 
     @Test
@@ -63,29 +55,6 @@ class StringUtilsTest {
         val actual: String = text.toHtml(color, false)
         // validate
         assertEquals(expected, actual)
-    }
-
-    @Test
-    fun testFromHtml() {
-        // setup
-        val expected = "ThisIsText"
-        val text = "<font color='20'><small>$expected</small></font>"
-        // execute
-        val actual: Spanned = text.parseAsHtml()
-        // verify
-        assertEquals(expected, actual.toString())
-    }
-
-    @Test
-    @Config(sdk = [Build.VERSION_CODES.M])
-    fun testFromHtmlLegacy() {
-        // setup
-        val expected = "ThisIsText"
-        val text = "<font color='20'><small>$expected</small></font>"
-        // execute
-        val actual: Spanned = text.parseAsHtml()
-        // verify
-        assertEquals(expected, actual.toString())
     }
 
 }

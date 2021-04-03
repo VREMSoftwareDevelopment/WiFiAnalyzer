@@ -22,13 +22,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.never
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.NavigationMenu
+import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -39,6 +37,15 @@ class FragmentItemTest {
     private val menuItem: MenuItem = mock()
     private val fragmentManager: FragmentManager = mock()
     private val fragmentTransaction: FragmentTransaction = mock()
+
+    @After
+    fun tearDown() {
+        verifyNoMoreInteractions(fragment)
+        verifyNoMoreInteractions(mainActivity)
+        verifyNoMoreInteractions(menuItem)
+        verifyNoMoreInteractions(fragmentManager)
+        verifyNoMoreInteractions(fragmentTransaction)
+    }
 
     @Test
     fun testActivateWithStateSaved() {
@@ -63,13 +70,14 @@ class FragmentItemTest {
         val navigationMenu = NavigationMenu.ACCESS_POINTS
         whenever(mainActivity.supportFragmentManager).thenReturn(fragmentManager)
         whenever(fragmentManager.isStateSaved).thenReturn(false)
-        withFragmentTransaction()
         whenever(menuItem.title).thenReturn(title)
+        withFragmentTransaction()
         // execute
         fixture.activate(mainActivity, menuItem, navigationMenu)
         // validate
         verify(mainActivity).supportFragmentManager
         verify(fragmentManager).isStateSaved
+        verify(menuItem).title
         verifyFragmentManager()
         verifyMainActivityChanges(navigationMenu)
     }
@@ -113,6 +121,7 @@ class FragmentItemTest {
         verify(mainActivity).currentNavigationMenu(navigationMenu)
         verify(mainActivity).title = title
         verify(mainActivity).updateActionBar()
+        verify(mainActivity).mainConnectionVisibility(View.VISIBLE)
     }
 
     private fun verifyFragmentManagerIsNotCalled() {

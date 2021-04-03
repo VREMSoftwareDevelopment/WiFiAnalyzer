@@ -112,8 +112,8 @@ class ChannelRatingAdapter(
         }
     }
 
-    private fun Drawable.colorFilter(i: Int) {
-        this.colorFilter = PorterDuffColorFilter(i, PorterDuff.Mode.SRC_ATOP)
+    private fun Drawable.colorFilter(color: Int) {
+        this.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)
     }
 
     internal fun bestChannels(wiFiBand: WiFiBand, wiFiChannels: List<WiFiChannel>): Message {
