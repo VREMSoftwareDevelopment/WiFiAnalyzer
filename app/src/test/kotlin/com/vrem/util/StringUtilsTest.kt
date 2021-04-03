@@ -19,6 +19,7 @@ package com.vrem.util
 
 import android.os.Build
 import android.text.Spanned
+import androidx.core.text.parseAsHtml
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -70,7 +71,7 @@ class StringUtilsTest {
         val expected = "ThisIsText"
         val text = "<font color='20'><small>$expected</small></font>"
         // execute
-        val actual: Spanned = text.fromHtml()
+        val actual: Spanned = text.parseAsHtml()
         // verify
         assertEquals(expected, actual.toString())
     }
@@ -82,7 +83,7 @@ class StringUtilsTest {
         val expected = "ThisIsText"
         val text = "<font color='20'><small>$expected</small></font>"
         // execute
-        val actual: Spanned = text.fromHtml()
+        val actual: Spanned = text.parseAsHtml()
         // verify
         assertEquals(expected, actual.toString())
     }

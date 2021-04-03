@@ -21,9 +21,9 @@ import android.os.Build
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
+import androidx.core.text.parseAsHtml
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.*
-import com.vrem.util.fromHtml
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
@@ -153,7 +153,7 @@ class WiFiSwitchOnTest {
         val colorSelected = mainActivity.getColor(R.color.selected)
         val colorNotSelected = mainActivity.getColor(R.color.regular)
         val subtitle = makeSubtitle(WiFiBand.GHZ2 == wiFiBand, wiFiBand2, wiFiBand5, colorSelected, colorNotSelected)
-        return subtitle.fromHtml()
+        return subtitle.parseAsHtml()
     }
 
 }

@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi.channelrating
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.view.View
@@ -99,17 +100,20 @@ class ChannelRatingAdapter(
                 setRatingBarColorLegacy(ratingBar.progressDrawable, color)
             }
 
-    @Suppress("DEPRECATION")
     private fun setRatingBarColorLegacy(drawable: Drawable, color: Int) {
         try {
             val background = context.compatColor(R.color.background)
             val layerDrawable = drawable as LayerDrawable
-            layerDrawable.getDrawable(0).setColorFilter(background, PorterDuff.Mode.SRC_ATOP)
-            layerDrawable.getDrawable(1).setColorFilter(background, PorterDuff.Mode.SRC_ATOP)
-            layerDrawable.getDrawable(2).setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+            layerDrawable.getDrawable(0).colorFilter(background)
+            layerDrawable.getDrawable(1).colorFilter(background)
+            layerDrawable.getDrawable(2).colorFilter(color)
         } catch (e: Exception) {
-            drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+            drawable.colorFilter(color)
         }
+    }
+
+    private fun Drawable.colorFilter(i: Int) {
+        this.colorFilter = PorterDuffColorFilter(i, PorterDuff.Mode.SRC_ATOP)
     }
 
     internal fun bestChannels(wiFiBand: WiFiBand, wiFiChannels: List<WiFiChannel>): Message {
