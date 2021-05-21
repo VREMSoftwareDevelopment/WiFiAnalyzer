@@ -27,22 +27,25 @@ private object SyncAvoid {
     val availableLocales: List<Locale> = Locale.getAvailableLocales().filter { countryCodes.contains(it.country) }
 
     @SuppressLint("ConstantLocale")
-    val countriesLocales: SortedMap<String, Locale> = availableLocales.map { it.country.capitalize(Locale.getDefault()) to it }.toMap().toSortedMap()
+    val countriesLocales: SortedMap<String, Locale> =
+        availableLocales.map { it.country.toCapitalize(Locale.getDefault()) to it }.toMap()
+            .toSortedMap()
     val supportedLocales: List<Locale> = setOf(
-            BULGARIAN,
-            Locale.SIMPLIFIED_CHINESE,
-            Locale.TRADITIONAL_CHINESE,
-            Locale.ENGLISH,
-            Locale.FRENCH,
-            Locale.GERMAN,
-            Locale.ITALIAN,
-            Locale.JAPANESE,
-            POLISH,
-            PORTUGUESE,
-            SPANISH,
-            RUSSIAN,
-            UKRAINIAN,
-            defaultLocale)
+        BULGARIAN,
+        Locale.SIMPLIFIED_CHINESE,
+        Locale.TRADITIONAL_CHINESE,
+        Locale.ENGLISH,
+        Locale.FRENCH,
+        Locale.GERMAN,
+        Locale.ITALIAN,
+        Locale.JAPANESE,
+        POLISH,
+        PORTUGUESE,
+        SPANISH,
+        RUSSIAN,
+        UKRAINIAN,
+        defaultLocale
+    )
             .toList()
 }
 
@@ -61,9 +64,9 @@ val UKRAINIAN: Locale = Locale("uk")
 private const val SEPARATOR: String = "_"
 
 fun findByCountryCode(countryCode: String): Locale =
-        SyncAvoid.availableLocales
-                .find { countryCode.capitalize(Locale.getDefault()) == it.country }
-                ?: SyncAvoid.defaultLocale
+    SyncAvoid.availableLocales
+        .find { countryCode.toCapitalize(Locale.getDefault()) == it.country }
+        ?: SyncAvoid.defaultLocale
 
 fun allCountries(): List<Locale> = SyncAvoid.countriesLocales.values.toList()
 
@@ -87,7 +90,7 @@ private fun fromLanguageTag(languageTag: String): Locale {
     val codes: Array<String> = languageTag.split(SEPARATOR).toTypedArray()
     return when (codes.size) {
         1 -> Locale(codes[0])
-        2 -> Locale(codes[0], codes[1].capitalize(Locale.getDefault()))
+        2 -> Locale(codes[0], codes[1].toCapitalize(Locale.getDefault()))
         else -> SyncAvoid.defaultLocale
     }
 }

@@ -17,6 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
+import com.vrem.util.toCapitalize
 import java.util.*
 
 internal class WiFiChannelCountryGHZ2 {
@@ -25,6 +26,6 @@ internal class WiFiChannelCountryGHZ2 {
     private val world = channels.union(setOf(12, 13)).toSortedSet()
 
     fun findChannels(countryCode: String): SortedSet<Int> =
-            if (countries.contains(countryCode.capitalize(Locale.getDefault()))) channels else world
+        if (countries.contains(countryCode.toCapitalize(Locale.getDefault()))) channels else world
 
 }

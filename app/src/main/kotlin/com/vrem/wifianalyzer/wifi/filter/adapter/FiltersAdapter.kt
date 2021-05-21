@@ -25,10 +25,10 @@ import java.io.Serializable
 
 @OpenClass
 class FiltersAdapter(private val settings: Settings) {
-    private lateinit var ssidAdapter: SSIDAdapter
-    private lateinit var wiFiBandAdapter: WiFiBandAdapter
-    private lateinit var strengthAdapter: StrengthAdapter
-    private lateinit var securityAdapter: SecurityAdapter
+    private var ssidAdapter: SSIDAdapter = SSIDAdapter(settings.findSSIDs())
+    private var wiFiBandAdapter: WiFiBandAdapter = WiFiBandAdapter(settings.findWiFiBands())
+    private var strengthAdapter: StrengthAdapter = StrengthAdapter(settings.findStrengths())
+    private var securityAdapter: SecurityAdapter = SecurityAdapter(settings.findSecurities())
 
     fun reload() {
         ssidAdapter = SSIDAdapter(settings.findSSIDs())
@@ -38,10 +38,10 @@ class FiltersAdapter(private val settings: Settings) {
     }
 
     fun reset(): Unit =
-            filterAdapters(isAccessPoints()).forEach {
-                it.reset()
-                it.save(settings)
-            }
+        filterAdapters(isAccessPoints()).forEach {
+            it.reset()
+            it.save(settings)
+        }
 
     fun save(): Unit = filterAdapters(isAccessPoints()).forEach { it.save(settings) }
 
@@ -56,18 +56,11 @@ class FiltersAdapter(private val settings: Settings) {
     internal fun isActive(): Boolean = filterAdapters(isAccessPoints()).any { it.isActive() }
 
     internal fun filterAdapters(accessPoints: Boolean): List<BasicFilterAdapter<out Serializable>> =
-            if (accessPoints)
-                listOf(ssidAdapter, strengthAdapter, securityAdapter, wiFiBandAdapter)
-            else
-                listOf(ssidAdapter, strengthAdapter, securityAdapter)
+        if (accessPoints)
+            listOf(ssidAdapter, strengthAdapter, securityAdapter, wiFiBandAdapter)
+        else
+            listOf(ssidAdapter, strengthAdapter, securityAdapter)
 
     private fun isAccessPoints(): Boolean =
-            NavigationMenu.ACCESS_POINTS == MainContext.INSTANCE.mainActivity.currentNavigationMenu()
-
-    init {
-        ssidAdapter = SSIDAdapter(settings.findSSIDs())
-        wiFiBandAdapter = WiFiBandAdapter(settings.findWiFiBands())
-        strengthAdapter = StrengthAdapter(settings.findStrengths())
-        securityAdapter = SecurityAdapter(settings.findSecurities())
-    }
+        NavigationMenu.ACCESS_POINTS == MainContext.INSTANCE.mainActivity.currentNavigationMenu()
 }

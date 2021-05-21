@@ -49,7 +49,7 @@ enum class Security(@DrawableRes val imageResource: Int, val additional: String 
         }
 
         private fun parse(capabilities: String): List<String> =
-                regex.replace(capabilities.toUpperCase(Locale.getDefault()), "-")
+                regex.replace(capabilities.uppercase(Locale.getDefault()), "-")
                         .split("-")
                         .filter { it.isNotBlank() }
     }

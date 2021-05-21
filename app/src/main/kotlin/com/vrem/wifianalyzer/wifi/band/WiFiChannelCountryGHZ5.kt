@@ -17,6 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
+import com.vrem.util.toCapitalize
 import java.util.*
 
 private typealias Rules = Pair<Set<String>, Set<Int>>
@@ -69,16 +70,18 @@ internal class WiFiChannelCountryGHZ5 {
             Rules(setOf("AU", "CA"), sortedSetOf(120, 124, 128)),
             Rules(setOf("RU"), sortedSetOf(100, 104, 108, 112, 116, 120, 124, 128)),
             Rules(setOf("CN", "KR"), channelsSet2),
-            Rules(setOf("JP", "TR", "ZA"), channelsSet3))
+            Rules(setOf("JP", "TR", "ZA"), channelsSet3)
+    )
 
-    private val include: List<Rules> = listOf(
-            Rules(countriesETSI, sortedSetOf(169, 173)),
-            Rules(setOf("US"), sortedSetOf(169, 173, 177)))
+        private val include: List<Rules> = listOf(
+                Rules(countriesETSI, sortedSetOf(169, 173)),
+                Rules(setOf("US"), sortedSetOf(169, 173, 177))
+        )
 
 
-    fun findChannels(countryCode: String): SortedSet<Int> =
-            channels.subtract(exclude.flatMap { it.find(countryCode.capitalize(Locale.getDefault())) })
-                    .union(include.flatMap { it.find(countryCode.capitalize(Locale.getDefault())) })
-                    .toSortedSet()
+        fun findChannels(countryCode: String): SortedSet<Int> =
+                channels.subtract(exclude.flatMap { it.find(countryCode.toCapitalize(Locale.getDefault())) })
+                        .union(include.flatMap { it.find(countryCode.toCapitalize(Locale.getDefault())) })
+                        .toSortedSet()
 
 }
