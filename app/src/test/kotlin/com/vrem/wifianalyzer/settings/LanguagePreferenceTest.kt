@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.settings
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.util.supportedLanguages
+import com.vrem.util.toCapitalize
 import com.vrem.util.toLanguageTag
 import com.vrem.wifianalyzer.RobolectricUtil
 import org.junit.Assert
@@ -27,6 +28,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.annotation.Config
+import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.Q])
@@ -42,7 +44,7 @@ class LanguagePreferenceTest {
         // validate
         Assert.assertEquals(languages.size, actual.size)
         languages.forEach {
-            val displayName: String = it.getDisplayName(it).capitalize()
+            val displayName: String = it.getDisplayName(it).toCapitalize(Locale.getDefault())
             Assert.assertTrue(displayName, actual.contains(displayName))
         }
     }

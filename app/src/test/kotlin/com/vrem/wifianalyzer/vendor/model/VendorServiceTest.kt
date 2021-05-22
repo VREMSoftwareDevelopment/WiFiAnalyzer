@@ -51,7 +51,7 @@ class VendorServiceTest {
     @Test
     fun testFindVendorNameUsingLowerCase() {
         // execute
-        val actual = fixture.findVendorName(macAddress.toLowerCase())
+        val actual = fixture.findVendorName(macAddress.lowercase())
         // validate
         assertEquals(vendorName, actual)
     }
@@ -88,7 +88,7 @@ class VendorServiceTest {
     fun testFindMacAddressesUsingLowerCase() {
         // setup
         // execute
-        val actual = fixture.findMacAddresses(vendorName.toLowerCase())
+        val actual = fixture.findMacAddresses(vendorName.lowercase())
         // validate
         assertEquals(macsCiscoSize, actual.size)
         assertEquals(expectedMac1, actual[0])
@@ -134,7 +134,7 @@ class VendorServiceTest {
     @Test
     fun testFindVendorsWithVendorFilterUsingLowerCase() {
         // execute
-        val actual = fixture.findVendors(filterVendor.toLowerCase())
+        val actual = fixture.findVendors(filterVendor.lowercase())
         // validate
         assertEquals(2, actual.size)
         assertEquals(expectedVendorName3, actual[0])
@@ -154,7 +154,7 @@ class VendorServiceTest {
     @Test
     fun testFindVendorsWithMacFilterUsingLowerCase() {
         // execute
-        val actual = fixture.findVendors(filterMac.toLowerCase())
+        val actual = fixture.findVendors(filterMac.lowercase())
         // validate
         assertEquals(16, actual.size)
         assertEquals(expectedVendorName1, actual[0])

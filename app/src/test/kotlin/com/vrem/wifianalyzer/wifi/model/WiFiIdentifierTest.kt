@@ -69,7 +69,7 @@ class WiFiIdentifierTest {
     @Test
     fun testEqualsIgnoreCase() {
         // setup
-        val other = WiFiIdentifier(ssid.toLowerCase(), bssid.toUpperCase())
+        val other = WiFiIdentifier(ssid.lowercase(), bssid.uppercase())
         // execute & validate
         assertTrue(fixture.equals(other, true))
     }
