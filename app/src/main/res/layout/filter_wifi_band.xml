@@ -48,7 +48,7 @@
             android:gravity="center"
             android:text="@string/wifi_band_2ghz"
             android:textColor="@color/selected"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/filterWifiBand5"
@@ -58,7 +58,17 @@
             android:gravity="center"
             android:text="@string/wifi_band_5ghz"
             android:textColor="@color/selected"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/filterWifiBand6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/wifi_band_6ghz"
+            android:textColor="@color/selected"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

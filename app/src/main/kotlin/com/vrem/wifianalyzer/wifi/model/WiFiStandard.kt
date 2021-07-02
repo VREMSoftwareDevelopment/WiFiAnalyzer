@@ -31,7 +31,7 @@ private val n: WiFiStandardId = if (buildMinVersionR()) ScanResult.WIFI_STANDARD
 private val ac: WiFiStandardId = if (buildMinVersionR()) ScanResult.WIFI_STANDARD_11AC else 5
 private val ax: WiFiStandardId = if (buildMinVersionR()) ScanResult.WIFI_STANDARD_11AX else 6
 
-enum class WiFiStandard(val wiFiStandardId: WiFiStandardId, @StringRes val nameResource: Int, @DrawableRes val imageResource: Int) {
+enum class WiFiStandard(val wiFiStandardId: WiFiStandardId, @StringRes val textResource: Int, @DrawableRes val imageResource: Int) {
     UNKNOWN(unknown, R.string.wifi_standard_unknown, R.drawable.ic_wifi_unknown),
     LEGACY(legacy, R.string.wifi_standard_legacy, R.drawable.ic_wifi_legacy),
     N(n, R.string.wifi_standard_n, R.drawable.ic_wifi_4),
@@ -40,6 +40,6 @@ enum class WiFiStandard(val wiFiStandardId: WiFiStandardId, @StringRes val nameR
 
     companion object {
         fun findOne(wiFiStandardId: WiFiStandardId): WiFiStandard =
-                values().firstOrNull { it.wiFiStandardId == wiFiStandardId } ?: UNKNOWN
+            values().firstOrNull { it.wiFiStandardId == wiFiStandardId } ?: UNKNOWN
     }
 }

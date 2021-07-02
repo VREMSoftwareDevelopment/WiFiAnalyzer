@@ -15,21 +15,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.wifi.filter
+package com.vrem.wifianalyzer.wifi.band
 
-import android.app.AlertDialog
-import com.vrem.wifianalyzer.R
-import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.filter.adapter.WiFiBandAdapter
+import java.util.*
 
-internal class WiFiBandFilter(wiFiBandAdapter: WiFiBandAdapter, alertDialog: AlertDialog) :
-        EnumFilter<WiFiBand, WiFiBandAdapter>(
-                mapOf(
-                    WiFiBand.GHZ2 to R.id.filterWifiBand2,
-                    WiFiBand.GHZ5 to R.id.filterWifiBand5,
-                    WiFiBand.GHZ6 to R.id.filterWifiBand6
-                ),
-                wiFiBandAdapter,
-                alertDialog,
-                R.id.filterWiFiBand
-        )
+internal class WiFiChannelCountryGHZ6 {
+    private val channels = sortedSetOf(
+        1, 5, 9, 13, 17, 21, 25, 29,
+        33, 37, 41, 45, 49, 53, 57, 61,
+        65, 69, 73, 77, 81, 85, 89, 93
+    )
+
+    fun findChannels(countryCode: String): SortedSet<Int> = channels
+}

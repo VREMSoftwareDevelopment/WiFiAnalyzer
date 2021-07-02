@@ -54,17 +54,29 @@ class WiFiChannelCountryTest {
     }
 
     @Test
+    fun testChannelAvailableWithGHZ6() {
+        assertTrue(find(Locale.US.country).channelAvailableGHZ6(1))
+        assertTrue(find(Locale.US.country).channelAvailableGHZ6(93))
+        assertTrue(find(Locale.UK.country).channelAvailableGHZ6(1))
+        assertTrue(find(Locale.UK.country).channelAvailableGHZ6(93))
+        assertTrue(find("AE").channelAvailableGHZ6(1))
+        assertTrue(find("AE").channelAvailableGHZ6(93))
+    }
+
+    @Test
     fun testFindCorrectlyPopulatesGHZ() {
         // setup
         val expectedCountryCode = Locale.US.country
         val expectedGHZ2: Set<Int> = WiFiChannelCountryGHZ2().findChannels(expectedCountryCode)
         val expectedGHZ5: Set<Int> = WiFiChannelCountryGHZ5().findChannels(expectedCountryCode)
+        val expectedGHZ6: Set<Int> = WiFiChannelCountryGHZ6().findChannels(expectedCountryCode)
         // execute
         val actual: WiFiChannelCountry = find(expectedCountryCode)
         // validate
         assertEquals(expectedCountryCode, actual.countryCode())
         assertArrayEquals(expectedGHZ2.toTypedArray(), actual.channelsGHZ2().toTypedArray())
         assertArrayEquals(expectedGHZ5.toTypedArray(), actual.channelsGHZ5().toTypedArray())
+        assertArrayEquals(expectedGHZ6.toTypedArray(), actual.channelsGHZ6().toTypedArray())
     }
 
     @Test

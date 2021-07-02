@@ -17,21 +17,29 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
-import androidx.annotation.StringRes
-import com.vrem.wifianalyzer.R
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
+import java.util.*
 
-enum class WiFiBand(@StringRes val textResource: Int, val wiFiChannels: WiFiChannels) {
-    GHZ2(R.string.wifi_band_2ghz, WiFiChannelsGHZ2()),
-    GHZ5(R.string.wifi_band_5ghz, WiFiChannelsGHZ5()),
-    GHZ6(R.string.wifi_band_6ghz, WiFiChannelsGHZ6());
+class WiFiChannelCountryGHZ6Test {
+    private val channelsSet: SortedSet<Int> = sortedSetOf(
+        1, 5, 9, 13, 17, 21, 25, 29,
+        33, 37, 41, 45, 49, 53, 57, 61,
+        65, 69, 73, 77, 81, 85, 89, 93
+    )
 
-    fun toggle(): WiFiBand = if (ghz5()) GHZ2 else GHZ5
+    private val fixture = WiFiChannelCountryGHZ6()
 
-    fun ghz5(): Boolean = GHZ5 == this
+    @Test
+    fun testChannelsForWorld() {
+        listOf("GB", "XYZ", "US", "AU", "AE")
+            .forEach { validateChannels(channelsSet, fixture.findChannels(it)) }
+    }
 
-    companion object {
-        fun find(frequency: Int): WiFiBand = values().find { it.wiFiChannels.inRange(frequency) }
-            ?: GHZ2
+    private fun validateChannels(expected: SortedSet<Int>, actual: SortedSet<Int>) {
+        assertEquals(expected.size, actual.size)
+        assertTrue(actual.containsAll(expected))
     }
 
 }

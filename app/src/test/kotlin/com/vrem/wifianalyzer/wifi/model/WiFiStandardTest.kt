@@ -31,11 +31,11 @@ class WiFiStandardTest {
 
     @Test
     fun testNameResource() {
-        assertEquals(R.string.wifi_standard_unknown, WiFiStandard.UNKNOWN.nameResource)
-        assertEquals(R.string.wifi_standard_legacy, WiFiStandard.LEGACY.nameResource)
-        assertEquals(R.string.wifi_standard_n, WiFiStandard.N.nameResource)
-        assertEquals(R.string.wifi_standard_ac, WiFiStandard.AC.nameResource)
-        assertEquals(R.string.wifi_standard_ax, WiFiStandard.AX.nameResource)
+        assertEquals(R.string.wifi_standard_unknown, WiFiStandard.UNKNOWN.textResource)
+        assertEquals(R.string.wifi_standard_legacy, WiFiStandard.LEGACY.textResource)
+        assertEquals(R.string.wifi_standard_n, WiFiStandard.N.textResource)
+        assertEquals(R.string.wifi_standard_ac, WiFiStandard.AC.textResource)
+        assertEquals(R.string.wifi_standard_ax, WiFiStandard.AX.textResource)
     }
 
     @Test

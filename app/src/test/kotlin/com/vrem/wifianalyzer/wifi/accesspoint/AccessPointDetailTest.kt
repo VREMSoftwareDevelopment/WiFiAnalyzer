@@ -353,8 +353,10 @@ class AccessPointDetailTest {
     private fun validateTextViewValuesPopupView(view: View, wiFiDetail: WiFiDetail) {
         validateTextViewValuesCompleteView(view, wiFiDetail)
         validateTextViewValue(view, wiFiDetail.capabilities, R.id.capabilitiesLong)
-        val expectedWiFiStandard = view.context.getString(wiFiDetail.wiFiSignal.wiFiStandard.nameResource)
+        val expectedWiFiStandard = view.context.getString(wiFiDetail.wiFiSignal.wiFiStandard.textResource)
         validateTextViewValue(view, expectedWiFiStandard, R.id.wiFiStandard)
+        val expectedWiFiBand = view.context.getString(wiFiDetail.wiFiSignal.wiFiBand.textResource)
+        validateTextViewValue(view, expectedWiFiBand, R.id.wiFiBand)
     }
 
     private fun validateTextViewValuesCompactView(view: View, wiFiDetail: WiFiDetail) {

@@ -25,13 +25,14 @@ import org.junit.Test
 class WiFiBandTest {
     @Test
     fun testWiFiBand() {
-        assertEquals(2, WiFiBand.values().size)
+        assertEquals(3, WiFiBand.values().size)
     }
 
     @Test
     fun testTextResource() {
         assertEquals(R.string.wifi_band_2ghz, WiFiBand.GHZ2.textResource)
         assertEquals(R.string.wifi_band_5ghz, WiFiBand.GHZ5.textResource)
+        assertEquals(R.string.wifi_band_6ghz, WiFiBand.GHZ6.textResource)
     }
 
     @Test
@@ -44,6 +45,7 @@ class WiFiBandTest {
     fun testGhz5() {
         assertFalse(WiFiBand.GHZ2.ghz5())
         assertTrue(WiFiBand.GHZ5.ghz5())
+        assertFalse(WiFiBand.GHZ6.ghz5())
     }
 
     @Test
@@ -52,9 +54,15 @@ class WiFiBandTest {
         assertEquals(WiFiBand.GHZ2, find(2400))
         assertEquals(WiFiBand.GHZ2, find(2499))
         assertEquals(WiFiBand.GHZ2, find(2500))
+
         assertEquals(WiFiBand.GHZ2, find(4899))
         assertEquals(WiFiBand.GHZ5, find(4900))
         assertEquals(WiFiBand.GHZ5, find(5899))
         assertEquals(WiFiBand.GHZ2, find(5900))
+
+        assertEquals(WiFiBand.GHZ2, find(5924))
+        assertEquals(WiFiBand.GHZ6, find(5925))
+        assertEquals(WiFiBand.GHZ6, find(7125))
+        assertEquals(WiFiBand.GHZ2, find(7126))
     }
 }

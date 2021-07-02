@@ -48,6 +48,9 @@ internal val calculateCenter160: CalculateCenter = { primary, center ->
         in 5170..5330 -> 5250
         in 5490..5730 -> 5570
         in 5735..5895 -> 5815
+        in 5955..6095 -> 6025
+        in 6115..6255 -> 6185
+        in 6275..6415 -> 6345
         else -> center
     }
 }

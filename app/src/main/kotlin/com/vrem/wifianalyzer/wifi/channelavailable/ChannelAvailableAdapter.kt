@@ -41,6 +41,8 @@ internal class ChannelAvailableAdapter(context: Context, wiFiChannelCountries: L
             binding.channelAvailableGhz2.text = it.channelsGHZ2().joinToString(",")
             binding.channelAvailableTitleGhz5.text = "${resources.getString(WiFiBand.GHZ5.textResource)} : "
             binding.channelAvailableGhz5.text = it.channelsGHZ5().joinToString(",")
+            binding.channelAvailableTitleGhz6.text = "${resources.getString(WiFiBand.GHZ6.textResource)} : "
+            binding.channelAvailableGhz6.text = it.channelsGHZ6().joinToString(",")
         }
         return rootView
     }
