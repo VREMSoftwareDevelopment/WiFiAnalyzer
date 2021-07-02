@@ -21,6 +21,7 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class GroupByTest {
+
     @Test
     fun testGroupByNumber() {
         assertEquals(4, GroupBy.values().size)
@@ -75,11 +76,8 @@ class GroupByTest {
     @Test
     fun testGroupByKeyWithChannel() {
         // setup
-        val expected = "6"
-        val wiFiDetail = WiFiDetail(
-                WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
-                "WPA-WPA2",
-                WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -40, true))
+        val wiFiDetail = withWiFiDetail()
+        val expected = "2435"
         // execute
         val actual: String = GroupBy.CHANNEL.group(wiFiDetail)
         // validate
@@ -89,14 +87,17 @@ class GroupByTest {
     @Test
     fun testGroupByKeyWithVirtual() {
         // setup
+        val wiFiDetail = withWiFiDetail()
         val expected = ":cf:30:ce:1d:7-2435"
-        val wiFiDetail = WiFiDetail(
-                WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
-                "WPA-WPA2",
-                WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -40, true))
         // execute
         val actual: String = GroupBy.VIRTUAL.group(wiFiDetail)
         // validate
         assertEquals(expected, actual)
     }
+
+    private fun withWiFiDetail() = WiFiDetail(
+        WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
+        "WPA-WPA2",
+        WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -40, true)
+    )
 }

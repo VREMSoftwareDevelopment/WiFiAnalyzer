@@ -19,7 +19,7 @@ package com.vrem.wifianalyzer.wifi.model
 
 typealias GroupByKey<T> = (T) -> String
 
-internal val groupByChannel: GroupByKey<WiFiDetail> = { it.wiFiSignal.primaryWiFiChannel.channel.toString() }
+internal val groupByChannel: GroupByKey<WiFiDetail> = { it.wiFiSignal.primaryFrequency.toString() }
 
 internal val groupBySSID: GroupByKey<WiFiDetail> = { it.wiFiIdentifier.ssid }
 
