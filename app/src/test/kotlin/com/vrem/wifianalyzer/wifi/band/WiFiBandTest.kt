@@ -17,15 +17,36 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
+import com.nhaarman.mockitokotlin2.whenever
+import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.band.WiFiBand.Companion.find
+import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
 
 class WiFiBandTest {
+    private val wiFiManagerWrapper = MainContextHelper.INSTANCE.wiFiManagerWrapper
+
+    @After
+    fun tearDown() {
+        MainContextHelper.INSTANCE.restore()
+        verifyNoMoreInteractions(wiFiManagerWrapper)
+    }
+
+
     @Test
     fun testWiFiBand() {
         assertEquals(3, WiFiBand.values().size)
+    }
+
+    @Test
+    fun testAvailable() {
+        assertTrue(WiFiBand.GHZ2.available.javaClass.isInstance(availableGHZ2))
+        assertTrue(WiFiBand.GHZ5.available.javaClass.isInstance(availableGHZ5))
+        assertTrue(WiFiBand.GHZ6.available.javaClass.isInstance(availableGHZ6))
     }
 
     @Test
@@ -65,4 +86,35 @@ class WiFiBandTest {
         assertEquals(WiFiBand.GHZ6, find(7125))
         assertEquals(WiFiBand.GHZ2, find(7126))
     }
+
+    @Test
+    fun testAvailableGHZ2() {
+        // execute
+        val actual = WiFiBand.GHZ2.available()
+        // validate
+        assertTrue(actual)
+    }
+
+    @Test
+    fun testAvailableGHZ5() {
+        // setup
+        whenever(wiFiManagerWrapper.is5GHzBandSupported()).thenReturn(true)
+        // execute
+        val actual = WiFiBand.GHZ5.available()
+        // validate
+        assertTrue(actual)
+        verify(wiFiManagerWrapper).is5GHzBandSupported()
+    }
+
+    @Test
+    fun testAvailableGHZ6() {
+        // setup
+        whenever(wiFiManagerWrapper.is6GHzBandSupported()).thenReturn(true)
+        // execute
+        val actual = WiFiBand.GHZ6.available()
+        // validate
+        assertTrue(actual)
+        verify(wiFiManagerWrapper).is6GHzBandSupported()
+    }
+
 }

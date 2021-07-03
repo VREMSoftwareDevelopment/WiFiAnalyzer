@@ -58,6 +58,6 @@ class NavigationMenuController(
         NavigationGroup.values().forEach { it.populateMenuItems(navigationView.menu) }
         navigationView.setNavigationItemSelectedListener(navigationMenuControl)
         NavigationGroup.GROUP_FEATURE.populateMenuItems(bottomNavigationView.menu)
-        bottomNavigationView.setOnNavigationItemSelectedListener(navigationMenuControl)
+        bottomNavigationView.setOnItemSelectedListener(navigationMenuControl)
     }
 }

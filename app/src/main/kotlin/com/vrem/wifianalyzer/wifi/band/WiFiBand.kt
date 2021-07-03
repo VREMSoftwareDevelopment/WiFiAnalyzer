@@ -18,12 +18,19 @@
 package com.vrem.wifianalyzer.wifi.band
 
 import androidx.annotation.StringRes
+import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 
-enum class WiFiBand(@StringRes val textResource: Int, val wiFiChannels: WiFiChannels) {
-    GHZ2(R.string.wifi_band_2ghz, WiFiChannelsGHZ2()),
-    GHZ5(R.string.wifi_band_5ghz, WiFiChannelsGHZ5()),
-    GHZ6(R.string.wifi_band_6ghz, WiFiChannelsGHZ6());
+typealias Available = () -> Boolean
+
+internal val availableGHZ2: Available = { true }
+internal val availableGHZ5: Available = { MainContext.INSTANCE.wiFiManagerWrapper.is5GHzBandSupported() }
+internal val availableGHZ6: Available = { MainContext.INSTANCE.wiFiManagerWrapper.is6GHzBandSupported() }
+
+enum class WiFiBand(@StringRes val textResource: Int, val wiFiChannels: WiFiChannels, val available: Available) {
+    GHZ2(R.string.wifi_band_2ghz, WiFiChannelsGHZ2(), availableGHZ2),
+    GHZ5(R.string.wifi_band_5ghz, WiFiChannelsGHZ5(), availableGHZ5),
+    GHZ6(R.string.wifi_band_6ghz, WiFiChannelsGHZ6(), availableGHZ6);
 
     fun toggle(): WiFiBand = if (ghz5()) GHZ2 else GHZ5
 

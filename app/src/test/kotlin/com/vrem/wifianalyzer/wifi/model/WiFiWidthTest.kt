@@ -149,6 +149,36 @@ class WiFiWidthTest {
     }
 
     @Test
+    fun testCalculateCenter160_UNII_5_1() {
+        // execute & validate
+        for (value in 5950..6100) {
+            assertEquals(6025, calculateCenter160(value, Int.MIN_VALUE))
+            assertEquals(6025, calculateCenter160(value, 0))
+            assertEquals(6025, calculateCenter160(value, Int.MAX_VALUE))
+        }
+    }
+
+    @Test
+    fun testCalculateCenter160_UNII_5_2() {
+        // execute & validate
+        for (value in 6110..6260) {
+            assertEquals(6185, calculateCenter160(value, Int.MIN_VALUE))
+            assertEquals(6185, calculateCenter160(value, 0))
+            assertEquals(6185, calculateCenter160(value, Int.MAX_VALUE))
+        }
+    }
+
+    @Test
+    fun testCalculateCenter160_UNII_5_3() {
+        // execute & validate
+        for (value in 6270..6420) {
+            assertEquals(6345, calculateCenter160(value, Int.MIN_VALUE))
+            assertEquals(6345, calculateCenter160(value, 0))
+            assertEquals(6345, calculateCenter160(value, Int.MAX_VALUE))
+        }
+    }
+
+    @Test
     fun testCalculateCenter160Invalid() {
         // execute & validate
         assertEquals(Int.MIN_VALUE, calculateCenter160(5169, Int.MIN_VALUE))

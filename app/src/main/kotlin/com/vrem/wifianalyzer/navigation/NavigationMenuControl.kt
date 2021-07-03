@@ -20,10 +20,11 @@ package com.vrem.wifianalyzer.navigation
 import android.view.MenuItem
 import android.view.View
 import androidx.annotation.IdRes
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigation.NavigationView
 
-interface NavigationMenuControl : NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
+interface NavigationMenuControl : NavigationView.OnNavigationItemSelectedListener,
+    NavigationBarView.OnItemSelectedListener {
     fun currentMenuItem(): MenuItem
     fun currentNavigationMenu(): NavigationMenu
     fun currentNavigationMenu(navigationMenu: NavigationMenu)
