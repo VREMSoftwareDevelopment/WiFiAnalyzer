@@ -1,7 +1,7 @@
 sudo: false
 cache: false
 language: android
-jdk: openjdk9
+jdk: openjdk15
 dist: trusty
 env:
   - JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
