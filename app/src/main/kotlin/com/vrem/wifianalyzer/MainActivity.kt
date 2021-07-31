@@ -20,12 +20,17 @@ package com.vrem.wifianalyzer
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
@@ -50,6 +55,7 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
     lateinit var navigationMenuController: NavigationMenuController
     lateinit var optionMenu: OptionMenu
     lateinit var permissionService: PermissionService
+    lateinit var locationManager: LocationManager
 
     private var currentCountryCode: String = String.EMPTY
 
@@ -89,6 +95,16 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
 
         permissionService = PermissionService(this)
         permissionService.check()
+
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val hasGps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        if (hasGps && ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0F, object : LocationListener {
+                override fun onLocationChanged(p0: Location) {
+                    MainContext.INSTANCE.myLocation = p0
+                }
+            })
+        }
     }
 
     public override fun onPostCreate(savedInstanceState: Bundle?) {

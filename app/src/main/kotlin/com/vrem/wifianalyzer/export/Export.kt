@@ -20,11 +20,13 @@ package com.vrem.wifianalyzer.export
 
 import android.content.Intent
 import android.content.res.Resources
+import android.location.Location
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.FREQUENCY_UNITS
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,21 +43,27 @@ class Export(private val exportIntent: ExportIntent = ExportIntent()) {
             "Width (Range)|" +
             "Distance|" +
             "802.11mc|" +
-            "Security" +
+            "Security|" +
+            "Longitude|" +
+            "Latitude|" +
+            "Altitude|" +
+            "Accuracy|" +
+            "Bearing|" +
+            "BearingAccuracy" +
             "\n"
 
-    fun export(mainActivity: MainActivity, wiFiDetails: List<WiFiDetail>): Intent =
-            export(mainActivity, wiFiDetails, Date())
+    fun export(mainActivity: MainActivity, wiFiDetails: List<WiFiDetail>, location: Location?): Intent =
+            export(mainActivity, wiFiDetails, Date(), location)
 
-    fun export(mainActivity: MainActivity, wiFiDetails: List<WiFiDetail>, date: Date): Intent {
+    fun export(mainActivity: MainActivity, wiFiDetails: List<WiFiDetail>, date: Date, location: Location?): Intent {
         val timestamp: String = timestamp(date)
         val title: String = title(mainActivity, timestamp)
-        val data: String = data(wiFiDetails, timestamp)
+        val data: String = data(wiFiDetails, timestamp, location)
         return exportIntent.intent(title, data)
     }
 
-    internal fun data(wiFiDetails: List<WiFiDetail>, timestamp: String): String =
-            header + wiFiDetails.joinToString(separator = String.EMPTY, transform = toExportString(timestamp))
+    internal fun data(wiFiDetails: List<WiFiDetail>, timestamp: String, location: Location?): String =
+            header + wiFiDetails.joinToString(separator = String.EMPTY, transform = toExportString(timestamp, location))
 
     internal fun title(mainActivity: MainActivity, timestamp: String): String {
         val resources: Resources = mainActivity.resources
@@ -65,8 +73,38 @@ class Export(private val exportIntent: ExportIntent = ExportIntent()) {
 
     internal fun timestamp(date: Date): String = SimpleDateFormat(TIME_STAMP_FORMAT, Locale.US).format(date)
 
-    private fun toExportString(timestamp: String): (WiFiDetail) -> String = {
+    fun Double.format(fracDigits: Int): String {
+        val nf: NumberFormat = NumberFormat.getNumberInstance(Locale.US)
+        nf.maximumFractionDigits = fracDigits
+        return nf.format(this)
+    }
+
+    fun Float.format(fracDigits: Int): String {
+        val nf: NumberFormat = NumberFormat.getNumberInstance(Locale.US)
+        nf.maximumFractionDigits = fracDigits
+        return nf.format(this)
+    }
+
+    private fun toExportString(timestamp: String, location: Location?): (WiFiDetail) -> String = {
         with(it) {
+            var longitude = ""
+            var latitude = ""
+            var altitude = ""
+            var accuracy = ""
+            var bearing = ""
+            var bearingAccuracy = ""
+
+            if (location != null) {
+                longitude = location.longitude.format(6)
+                latitude = location.latitude.format(6)
+                if (location.hasAltitude()) altitude = location.altitude.format(1)
+                if (location.hasAccuracy()) accuracy = location.accuracy.format(1)
+                if (location.hasBearing()) {
+                    bearing = location.bearing.format(1)
+                    if (location.hasBearingAccuracy()) bearingAccuracy = location.bearingAccuracyDegrees.format(1)
+                }
+            }
+
             "$timestamp|" +
                     "${wiFiIdentifier.ssid}|" +
                     "${wiFiIdentifier.bssid}|" +
@@ -78,7 +116,13 @@ class Export(private val exportIntent: ExportIntent = ExportIntent()) {
                     "${wiFiSignal.wiFiWidth.frequencyWidth}$FREQUENCY_UNITS (${wiFiSignal.frequencyStart} - ${wiFiSignal.frequencyEnd})|" +
                     "${wiFiSignal.distance}|" +
                     "${wiFiSignal.is80211mc}|" +
-                    capabilities +
+                    capabilities + "|" +
+                    "$longitude|" +
+                    "$latitude|" +
+                    "$altitude|" +
+                    "$accuracy|"+
+                    "$bearing|"+
+                    "$bearingAccuracy"+
                     "\n"
         }
     }

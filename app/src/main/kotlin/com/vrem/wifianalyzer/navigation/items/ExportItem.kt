@@ -36,7 +36,7 @@ internal class ExportItem(private val export: Export) : NavigationItem {
             Toast.makeText(mainActivity, R.string.no_data, Toast.LENGTH_LONG).show()
             return
         }
-        val intent: Intent = export.export(mainActivity, wiFiDetails)
+        val intent: Intent = export.export(mainActivity, wiFiDetails, MainContext.INSTANCE.myLocation)
         if (!exportAvailable(mainActivity, intent)) {
             Toast.makeText(mainActivity, R.string.export_not_available, Toast.LENGTH_LONG).show()
             return

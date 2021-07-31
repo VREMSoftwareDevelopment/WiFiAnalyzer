@@ -63,7 +63,7 @@ class ExportItemTest {
         // setup
         val wiFiData: WiFiData = withWiFiData()
         every { scanner.wiFiData() } returns wiFiData
-        every { export.export(mainActivity, wiFiData.wiFiDetails) } returns intent
+        every { export.export(mainActivity, wiFiData.wiFiDetails, null) } returns intent
         every { mainActivity.startActivity(intent) } just runs
         every { mainActivity.packageManager } returns packageManager
         every { intent.resolveActivity(packageManager) } returns componentName
@@ -74,7 +74,7 @@ class ExportItemTest {
         verify { mainActivity.packageManager }
         verify { intent.resolveActivity(packageManager) }
         verify { mainActivity.startActivity(intent) }
-        verify { export.export(mainActivity, wiFiData.wiFiDetails) }
+        verify { export.export(mainActivity, wiFiData.wiFiDetails, null) }
     }
 
     @Test
