@@ -31,7 +31,7 @@ dependencies {
     implementation 'androidx.collection:collection-ktx:1.1.0'
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.media:media:1.3.1'
+    implementation 'androidx.media:media:1.4.0'
     implementation 'androidx.preference:preference-ktx:1.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.jjoe64:graphview:4.2.2'
@@ -154,8 +154,8 @@ def updateVersion() {
         properties["version_build"] = versionBuild.toString()
         writeProperties(propertiesFile, properties)
     }
-    if (isCompileTask()) {
-        System.out.println(">>> Compiling Source...")
+    if (isTestTask()) {
+        System.out.println(">>> Running Tests...")
         versionBuild++
         properties["version_build"] = versionBuild.toString()
         writeProperties(propertiesFile, properties)
@@ -172,10 +172,10 @@ def updateVersion() {
     android.defaultConfig.versionName = versionName
 }
 
-def isCompileTask() {
+def isTestTask() {
     def tasks = gradle.getStartParameter().getTaskNames()
-    return ":app:generateDebugSources" in tasks || ":app:generateReleaseSources" in tasks ||
-            "generateDebugSources" in tasks || "generateReleaseSources" in tasks
+    return ":app:testDebugUnitTest" in tasks || "testDebugUnitTest" in tasks ||
+            ":app:testReleaseUnitTest" in tasks || "testReleaseUnitTest" in tasks
 }
 
 def isReleaseTask() {

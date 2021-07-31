@@ -1,6 +1,7 @@
 *.iml
 .gradle
 .idea
+.run
 .navigation
 local.properties
 .DS_Store
