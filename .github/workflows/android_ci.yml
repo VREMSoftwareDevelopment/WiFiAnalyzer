@@ -11,7 +11,7 @@ jobs:
         with:
           java-version: 16
       - name: lint
-        run: bash ./gradlew lint --stacktrace
+        run: bash ./gradlew lintDebug --stacktrace
       - name: unit tests
         run: bash ./gradlew testDebugUnitTest --stacktrace
       - name: coverage
