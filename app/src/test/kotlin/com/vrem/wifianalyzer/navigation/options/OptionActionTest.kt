@@ -27,10 +27,11 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.navigation.options.OptionAction.Companion.findOptionAction
 import com.vrem.wifianalyzer.settings.Settings
+import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService
 import org.junit.After
-import org.junit.Assert
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -58,11 +59,27 @@ class OptionActionTest {
     }
 
     @Test
-    fun testWiFiBandAction() {
+    fun testWiFiBandAction2() {
         // execute
-        wiFiBandAction()
+        wiFiBandAction2()
         // validate
-        verify(settings).toggleWiFiBand()
+        verify(settings).wiFiBand(WiFiBand.GHZ2)
+    }
+
+    @Test
+    fun testWiFiBandAction5() {
+        // execute
+        wiFiBandAction5()
+        // validate
+        verify(settings).wiFiBand(WiFiBand.GHZ5)
+    }
+
+    @Test
+    fun testWiFiBandAction6() {
+        // execute
+        wiFiBandAction6()
+        // validate
+        verify(settings).wiFiBand(WiFiBand.GHZ6)
     }
 
     @Test
@@ -72,7 +89,7 @@ class OptionActionTest {
 
     @Test
     fun testOptionAction() {
-        assertEquals(4, OptionAction.values().size)
+        assertEquals(6, OptionAction.values().size)
     }
 
     @Test
@@ -80,15 +97,19 @@ class OptionActionTest {
         assertEquals(-1, OptionAction.NO_ACTION.key)
         assertEquals(R.id.action_scanner, OptionAction.SCANNER.key)
         assertEquals(R.id.action_filter, OptionAction.FILTER.key)
-        assertEquals(R.id.action_wifi_band, OptionAction.WIFI_BAND.key)
+        assertEquals(R.id.action_wifi_band_2ghz, OptionAction.WIFI_BAND_2.key)
+        assertEquals(R.id.action_wifi_band_5ghz, OptionAction.WIFI_BAND_5.key)
+        assertEquals(R.id.action_wifi_band_6ghz, OptionAction.WIFI_BAND_6.key)
     }
 
     @Test
     fun testGetAction() {
-        Assert.assertTrue(OptionAction.NO_ACTION.action == noAction)
-        Assert.assertTrue(OptionAction.SCANNER.action == scannerAction)
-        Assert.assertTrue(OptionAction.FILTER.action == filterAction)
-        Assert.assertTrue(OptionAction.WIFI_BAND.action == wiFiBandAction)
+        assertTrue(OptionAction.NO_ACTION.action == noAction)
+        assertTrue(OptionAction.SCANNER.action == scannerAction)
+        assertTrue(OptionAction.FILTER.action == filterAction)
+        assertTrue(OptionAction.WIFI_BAND_2.action == wiFiBandAction2)
+        assertTrue(OptionAction.WIFI_BAND_5.action == wiFiBandAction5)
+        assertTrue(OptionAction.WIFI_BAND_6.action == wiFiBandAction6)
     }
 
     @Test
@@ -96,7 +117,9 @@ class OptionActionTest {
         assertEquals(OptionAction.NO_ACTION, findOptionAction(OptionAction.NO_ACTION.key))
         assertEquals(OptionAction.SCANNER, findOptionAction(OptionAction.SCANNER.key))
         assertEquals(OptionAction.FILTER, findOptionAction(OptionAction.FILTER.key))
-        assertEquals(OptionAction.WIFI_BAND, findOptionAction(OptionAction.WIFI_BAND.key))
+        assertEquals(OptionAction.WIFI_BAND_2, findOptionAction(OptionAction.WIFI_BAND_2.key))
+        assertEquals(OptionAction.WIFI_BAND_5, findOptionAction(OptionAction.WIFI_BAND_5.key))
+        assertEquals(OptionAction.WIFI_BAND_6, findOptionAction(OptionAction.WIFI_BAND_6.key))
     }
 
     @Test

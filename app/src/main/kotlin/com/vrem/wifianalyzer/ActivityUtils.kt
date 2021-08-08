@@ -33,19 +33,12 @@ internal fun MainActivity.keepScreenOn() =
 
 internal fun MainActivity.setupToolbar(): Toolbar {
     val toolbar: Toolbar = this.findViewById(R.id.toolbar)
-    toolbar.setOnClickListener { toggleWiFiBand() }
     this.setSupportActionBar(toolbar)
     this.supportActionBar?.let {
         it.setHomeButtonEnabled(true)
         it.setDisplayHomeAsUpEnabled(true)
     }
     return toolbar
-}
-
-internal fun MainActivity.toggleWiFiBand() {
-    if (this.currentNavigationMenu().wiFiBandSwitchable()) {
-        MainContext.INSTANCE.settings.toggleWiFiBand()
-    }
 }
 
 internal fun makeIntent(action: String): Intent = Intent(action)

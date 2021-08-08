@@ -17,14 +17,14 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class SortByTest {
     @Test
     fun testSortByNumber() {
-        Assert.assertEquals(3, SortBy.values().size)
+        assertEquals(3, SortBy.values().size)
     }
 
     @Test

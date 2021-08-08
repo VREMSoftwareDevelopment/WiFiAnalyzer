@@ -226,14 +226,29 @@ class SettingsTest {
     }
 
     @Test
-    fun testWiFiBand() {
+    fun testGetWiFiBand() {
         // setup
-        every { repository.stringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal) } returns WiFiBand.GHZ5.ordinal
+        every {
+            repository.stringAsInteger(
+                R.string.wifi_band_key,
+                WiFiBand.GHZ2.ordinal
+            )
+        } returns WiFiBand.GHZ5.ordinal
         // execute
         val actual = fixture.wiFiBand()
         // validate
         assertEquals(WiFiBand.GHZ5, actual)
         verify { repository.stringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal) }
+    }
+
+    @Test
+    fun testSetWiFiBand() {
+        // setup
+        every { repository.save(R.string.wifi_band_key, WiFiBand.GHZ5.ordinal) } just runs
+        // execute
+        fixture.wiFiBand(WiFiBand.GHZ5)
+        // validate
+        verify { repository.save(R.string.wifi_band_key, WiFiBand.GHZ5.ordinal) }
     }
 
     @Test
@@ -338,18 +353,6 @@ class SettingsTest {
         fixture.saveSecurities(values)
         // validate
         verify { repository.saveStringSet(R.string.filter_security_key, expected) }
-    }
-
-    @Test
-    fun testToggleWiFiBand() {
-        // setup
-        every { repository.stringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal) } returns WiFiBand.GHZ5.ordinal
-        every { repository.save(R.string.wifi_band_key, WiFiBand.GHZ5.toggle().ordinal) } just runs
-        // execute
-        fixture.toggleWiFiBand()
-        // validate
-        verify { repository.stringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal) }
-        verify { repository.save(R.string.wifi_band_key, WiFiBand.GHZ5.toggle().ordinal) }
     }
 
     @Test

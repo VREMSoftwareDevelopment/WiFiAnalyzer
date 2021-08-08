@@ -23,7 +23,7 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.After
-import org.junit.Assert
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -60,7 +60,7 @@ class PermissionServiceTest {
         // execute
         val actual = fixture.enabled()
         // validate
-        Assert.assertFalse(actual)
+        assertFalse(actual)
         verify(systemPermission).enabled()
     }
 
@@ -72,7 +72,7 @@ class PermissionServiceTest {
         // execute
         val actual = fixture.enabled()
         // validate
-        Assert.assertFalse(actual)
+        assertFalse(actual)
         verify(systemPermission).enabled()
         verify(applicationPermission).granted()
     }

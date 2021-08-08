@@ -22,9 +22,7 @@ import androidx.preference.Preference
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
-import org.junit.Assert
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -39,7 +37,7 @@ class SettingsFragmentTest {
         val fixture = SettingsFragment()
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
-        Assert.assertNotNull(fixture.view)
+        assertNotNull(fixture.view)
     }
 
     @Config(sdk = [Build.VERSION_CODES.P])

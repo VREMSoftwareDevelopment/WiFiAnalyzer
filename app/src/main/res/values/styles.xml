@@ -18,9 +18,9 @@
   -->
 
 <resources>
-
     <style name="ThemeDark" parent="Theme.AppCompat">
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="android:actionMenuTextColor">@color/selected</item>
     </style>
 
     <style name="ThemeDarkNoActionBar" parent="ThemeDark">
@@ -30,6 +30,7 @@
 
     <style name="ThemeLight" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="android:actionMenuTextColor">@color/selected</item>
     </style>
 
     <style name="ThemeLightNoActionBar" parent="ThemeLight">
@@ -39,6 +40,7 @@
 
     <style name="ThemeSystem" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="android:actionMenuTextColor">@color/selected</item>
     </style>
 
     <style name="ThemeSystemNoActionBar" parent="ThemeSystem">
@@ -48,6 +50,7 @@
 
     <style name="ThemeOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="android:actionMenuTextColor">@color/selected</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">

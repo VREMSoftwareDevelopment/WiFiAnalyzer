@@ -37,7 +37,7 @@ internal val navigationSet: Map<WiFiChannelPair, Int> = mapOf(
 class ChannelGraphNavigation(private val view: View, private val mainContext: Context) {
 
     internal fun update() {
-        if (MainContext.INSTANCE.settings.wiFiBand().ghz5()) {
+        if (MainContext.INSTANCE.settings.wiFiBand().ghz5) {
             val selectedWiFiChannelPair = MainContext.INSTANCE.configuration.wiFiChannelPair
             navigationSet.entries.forEach { button(it, selectedWiFiChannelPair) }
             view.visibility = View.VISIBLE

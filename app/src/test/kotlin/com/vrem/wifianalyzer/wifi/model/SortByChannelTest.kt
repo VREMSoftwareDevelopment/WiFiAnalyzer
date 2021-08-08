@@ -18,7 +18,7 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.util.EMPTY
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class SortByChannelTest {
@@ -40,7 +40,7 @@ class SortByChannelTest {
         // execute
         val actual: Int = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
-        Assert.assertEquals(0, actual)
+        assertEquals(0, actual)
     }
 
     @Test
@@ -59,7 +59,7 @@ class SortByChannelTest {
         // execute
         val actual: Int = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
-        Assert.assertEquals(1, actual)
+        assertEquals(1, actual)
     }
 
     @Test
@@ -78,7 +78,7 @@ class SortByChannelTest {
         // execute
         val actual: Int = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
-        Assert.assertEquals(32, actual)
+        assertEquals(32, actual)
     }
 
     @Test
@@ -97,7 +97,7 @@ class SortByChannelTest {
         // execute
         val actual: Int = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
-        Assert.assertEquals(32, actual)
+        assertEquals(32, actual)
     }
 
     @Test
@@ -116,6 +116,6 @@ class SortByChannelTest {
         // execute
         val actual: Int = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
-        Assert.assertEquals(1, actual)
+        assertEquals(1, actual)
     }
 }

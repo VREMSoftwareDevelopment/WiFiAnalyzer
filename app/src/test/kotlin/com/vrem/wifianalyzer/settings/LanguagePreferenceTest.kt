@@ -23,7 +23,8 @@ import com.vrem.util.supportedLanguages
 import com.vrem.util.toCapitalize
 import com.vrem.util.toLanguageTag
 import com.vrem.wifianalyzer.RobolectricUtil
-import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -42,10 +43,10 @@ class LanguagePreferenceTest {
         // execute
         val actual: Array<CharSequence> = fixture.entries
         // validate
-        Assert.assertEquals(languages.size, actual.size)
+        assertEquals(languages.size, actual.size)
         languages.forEach {
             val displayName: String = it.getDisplayName(it).toCapitalize(Locale.getDefault())
-            Assert.assertTrue(displayName, actual.contains(displayName))
+            assertTrue(displayName, actual.contains(displayName))
         }
     }
 
@@ -54,10 +55,10 @@ class LanguagePreferenceTest {
         // execute
         val actual: Array<CharSequence> = fixture.entryValues
         // validate
-        Assert.assertEquals(languages.size, actual.size)
+        assertEquals(languages.size, actual.size)
         languages.forEach {
             val languageTag: String = toLanguageTag(it)
-            Assert.assertTrue(languageTag, actual.contains(languageTag))
+            assertTrue(languageTag, actual.contains(languageTag))
         }
     }
 }

@@ -63,7 +63,7 @@ class Settings(private val repository: Repository) {
         return result * GRAPH_Y_MULTIPLIER
     }
 
-    fun toggleWiFiBand(): Unit = repository.save(R.string.wifi_band_key, wiFiBand().toggle().ordinal)
+    fun wiFiBand(wiFiBand: WiFiBand): Unit = repository.save(R.string.wifi_band_key, wiFiBand.ordinal)
 
     fun countryCode(): String = repository.string(R.string.country_code_key, defaultCountryCode())
 

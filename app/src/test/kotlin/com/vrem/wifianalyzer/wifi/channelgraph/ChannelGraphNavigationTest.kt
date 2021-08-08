@@ -33,8 +33,8 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelsGHZ5
 import org.junit.After
-import org.junit.Assert
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -66,7 +66,7 @@ class ChannelGraphNavigationTest {
     @Test
     fun testMapping() {
         assertEquals(WiFiChannelsGHZ5.SETS.size, navigationSet.size)
-        WiFiChannelsGHZ5.SETS.forEach { Assert.assertNotNull(navigationSet[it]) }
+        WiFiChannelsGHZ5.SETS.forEach { assertNotNull(navigationSet[it]) }
     }
 
     @Test
