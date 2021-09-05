@@ -32,37 +32,102 @@
         android:visibility="gone"
         tools:visibility="visible">
 
-        <Button
-            android:id="@+id/graphNavigationSet1"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_weight="1"
-            android:background="@null"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            tools:text="U-NII-1" />
+            android:layout_marginBottom="@dimen/activity_vertical_half_margin"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/graphNavigationSet2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@null"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            tools:text="U-NII-2" />
+            <LinearLayout
+                android:id="@+id/graphNavigationLine1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/graphNavigationSet3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_weight="1"
-            android:background="@null"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            tools:text="U-NII-3" />
+                <Button
+                    android:id="@+id/graphNavigationSet1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    tools:text="100-199" />
+
+                <Button
+                    android:id="@+id/graphNavigationSet2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_vertical_half_margin"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    tools:text="200-299" />
+
+                <Button
+                    android:id="@+id/graphNavigationSet3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_vertical_half_margin"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    tools:text="300-399" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/graphNavigationLine2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_half_margin"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/graphNavigationSet4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    tools:text="400-499" />
+
+                <Button
+                    android:id="@+id/graphNavigationSet5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_vertical_half_margin"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    tools:text="500-599" />
+
+                <Button
+                    android:id="@+id/graphNavigationSet6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_vertical_half_margin"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    tools:text="600-699" />
+
+                <Button
+                    android:id="@+id/graphNavigationSet7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_vertical_half_margin"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    tools:text="700-799" />
+            </LinearLayout>
+        </LinearLayout>
 
     </androidx.appcompat.widget.ButtonBarLayout>
 

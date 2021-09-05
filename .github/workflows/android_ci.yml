@@ -15,7 +15,7 @@ jobs:
       - name: unit tests
         run: bash ./gradlew testDebugUnitTest --stacktrace
       - name: coverage
-        run: bash ./gradlew jacocoTestReport --stacktrace
+        run: bash ./gradlew jacocoTestCoverageVerification --stacktrace
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:

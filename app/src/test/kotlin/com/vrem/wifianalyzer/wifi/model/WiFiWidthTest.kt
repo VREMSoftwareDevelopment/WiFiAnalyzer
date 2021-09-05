@@ -179,6 +179,46 @@ class WiFiWidthTest {
     }
 
     @Test
+    fun testCalculateCenter160_UNII_6_1() {
+        // execute & validate
+        for (value in 6430..6580) {
+            assertEquals(6505, calculateCenter160(value, Int.MIN_VALUE))
+            assertEquals(6505, calculateCenter160(value, 0))
+            assertEquals(6505, calculateCenter160(value, Int.MAX_VALUE))
+        }
+    }
+
+    @Test
+    fun testCalculateCenter160_UNII_7_1() {
+        // execute & validate
+        for (value in 6590..6740) {
+            assertEquals(6665, calculateCenter160(value, Int.MIN_VALUE))
+            assertEquals(6665, calculateCenter160(value, 0))
+            assertEquals(6665, calculateCenter160(value, Int.MAX_VALUE))
+        }
+    }
+
+    @Test
+    fun testCalculateCenter160_UNII_7_2() {
+        // execute & validate
+        for (value in 6750..6900) {
+            assertEquals(6825, calculateCenter160(value, Int.MIN_VALUE))
+            assertEquals(6825, calculateCenter160(value, 0))
+            assertEquals(6825, calculateCenter160(value, Int.MAX_VALUE))
+        }
+    }
+
+    @Test
+    fun testCalculateCenter160_UNII_8_1() {
+        // execute & validate
+        for (value in 6910..7120) {
+            assertEquals(6985, calculateCenter160(value, Int.MIN_VALUE))
+            assertEquals(6985, calculateCenter160(value, 0))
+            assertEquals(6985, calculateCenter160(value, Int.MAX_VALUE))
+        }
+    }
+
+    @Test
     fun testCalculateCenter160Invalid() {
         // execute & validate
         assertEquals(Int.MIN_VALUE, calculateCenter160(5169, Int.MIN_VALUE))

@@ -45,12 +45,18 @@ internal val calculateCenter80: CalculateCenter = { _, center -> center }
 
 internal val calculateCenter160: CalculateCenter = { primary, center ->
     when (primary) {
+        // 5GHz
         in 5170..5330 -> 5250
         in 5490..5730 -> 5570
         in 5735..5895 -> 5815
+        // 6GHz
         in 5950..6100 -> 6025
         in 6110..6260 -> 6185
         in 6270..6420 -> 6345
+        in 6430..6580 -> 6505
+        in 6590..6740 -> 6665
+        in 6750..6900 -> 6825
+        in 6910..7120 -> 6985
         else -> center
     }
 }

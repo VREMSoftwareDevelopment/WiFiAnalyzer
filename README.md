@@ -121,9 +121,9 @@ WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
     * Select the root directory of the WiFi Analyzer repository and click "OK".
     * WiFi Analyzer will build automatically.
 
-### Running unit tests and jacoco coverage report
+### Running lint, unit tests and jacoco coverage report
 ```
-./gradlew lint testDebugUnitTest jacocoTestReport
+./gradlew lintDebug jacocoTestCoverageVerification
 ```
 
 - lint report: `app/build/reports/lint-results.html`

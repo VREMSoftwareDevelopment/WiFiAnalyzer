@@ -91,4 +91,27 @@ class WiFiChannelCountryTest {
         assertNotEquals(expected.displayCountry, actual.countryName(expected))
         assertEquals(expected.getDisplayCountry(expected), actual.countryName(expected))
     }
+
+    @Test
+    fun testCountryName() {
+        // setup
+        val fixture = WiFiChannelCountry(Locale.US)
+        val expected = "United States"
+        // execute & validate
+        val actual = fixture.countryName(Locale.US)
+        // execute & validate
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun testCountryNameUnknown() {
+        // setup
+        val fixture = WiFiChannelCountry(Locale("XYZ"))
+        val expected = "-Unknown"
+        // execute & validate
+        val actual = fixture.countryName(Locale.US)
+        // execute & validate
+        assertEquals(expected, actual)
+    }
+
 }

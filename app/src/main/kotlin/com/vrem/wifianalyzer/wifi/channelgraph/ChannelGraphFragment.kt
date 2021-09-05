@@ -44,7 +44,6 @@ class ChannelGraphFragment : Fragment(), OnRefreshListener {
         }
         val linearLayout: LinearLayout = binding.graphNavigation
         val channelGraphNavigation = ChannelGraphNavigation(linearLayout, requireActivity().applicationContext)
-        channelGraphNavigation.initialize()
         channelGraphAdapter = ChannelGraphAdapter(channelGraphNavigation)
         channelGraphAdapter.graphViews().forEach { binding.graphFlipper.addView(it) }
         MainContext.INSTANCE.scannerService.register(channelGraphAdapter)

@@ -41,7 +41,7 @@ internal fun WiFiChannelPair.numX(): Int {
 
 internal fun WiFiChannelPair.selected(wiFiBand: WiFiBand): Boolean {
     val currentWiFiBand = MainContext.INSTANCE.settings.wiFiBand()
-    val currentWiFiChannelPair = MainContext.INSTANCE.configuration.wiFiChannelPair
+    val currentWiFiChannelPair = MainContext.INSTANCE.configuration.wiFiChannelPair(currentWiFiBand)
     return wiFiBand == currentWiFiBand && (WiFiBand.GHZ2 == wiFiBand || this == currentWiFiChannelPair)
 }
 

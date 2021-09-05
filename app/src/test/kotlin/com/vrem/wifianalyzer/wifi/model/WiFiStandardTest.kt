@@ -48,6 +48,15 @@ class WiFiStandardTest {
     }
 
     @Test
+    fun testWiFIStandard() {
+        assertEquals(ScanResult.WIFI_STANDARD_UNKNOWN, WiFiStandard.UNKNOWN.wiFiStandardId)
+        assertEquals(ScanResult.WIFI_STANDARD_LEGACY, WiFiStandard.LEGACY.wiFiStandardId)
+        assertEquals(ScanResult.WIFI_STANDARD_11N, WiFiStandard.N.wiFiStandardId)
+        assertEquals(ScanResult.WIFI_STANDARD_11AC, WiFiStandard.AC.wiFiStandardId)
+        assertEquals(ScanResult.WIFI_STANDARD_11AX, WiFiStandard.AX.wiFiStandardId)
+    }
+
+    @Test
     fun testFindOne() {
         assertEquals(WiFiStandard.UNKNOWN, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_UNKNOWN))
         assertEquals(WiFiStandard.LEGACY, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_LEGACY))

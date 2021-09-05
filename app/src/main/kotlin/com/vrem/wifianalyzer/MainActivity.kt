@@ -41,7 +41,6 @@ import com.vrem.wifianalyzer.permission.PermissionService
 import com.vrem.wifianalyzer.settings.Repository
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionView
-import com.vrem.wifianalyzer.wifi.band.WiFiBand
 
 @OpenClass
 class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPreferenceChangeListener {
@@ -112,8 +111,7 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
         val settings = mainContext.settings
         val countryCode = settings.countryCode()
         if (countryCode != currentCountryCode) {
-            val pair = WiFiBand.GHZ5.wiFiChannels.wiFiChannelPairFirst(countryCode)
-            mainContext.configuration.wiFiChannelPair = pair
+            mainContext.configuration.wiFiChannelPair(countryCode)
             currentCountryCode = countryCode
         }
     }
