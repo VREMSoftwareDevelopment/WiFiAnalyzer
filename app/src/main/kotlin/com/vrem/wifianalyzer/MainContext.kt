@@ -19,6 +19,7 @@ package com.vrem.wifianalyzer
 
 import android.content.Context
 import android.content.res.Resources
+import android.location.Location
 import android.net.wifi.WifiManager
 import android.os.Handler
 import android.os.Looper
@@ -41,6 +42,7 @@ enum class MainContext {
     lateinit var vendorService: VendorService
     lateinit var configuration: Configuration
     lateinit var filtersAdapter: FiltersAdapter
+    var myLocation: Location? = null
 
     val context: Context
         get() = mainActivity.applicationContext
