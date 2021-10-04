@@ -40,6 +40,7 @@
     <string name="action_export">"Export"</string>
     <string name="action_channel_available">"Available Channels"</string>
     <string name="action_vendors">"Vendors"</string>
+    <string name="action_apalias">AP alias</string>
     <string name="action_settings">"Settings"</string>
     <string name="action_about">"About"</string>
     <!-- action end -->
@@ -204,6 +205,8 @@
     <string name="filter_strength_key" translatable="false">"filter_strength"</string>
     <string name="filter_security_title">"Security"</string>
     <string name="filter_security_key" translatable="false">"filter_security"</string>
+    <string name="apalias_bssid">BSSID (regexp)</string>
+    <string name="apalias_alias">Alias</string>
     <!-- filter end -->
 
 </resources>

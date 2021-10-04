@@ -24,6 +24,7 @@ import android.net.wifi.WifiInfo;
 import android.support.annotation.NonNull;
 
 import com.vrem.util.EnumUtils;
+import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.wifi.band.WiFiWidth;
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection;
 import com.vrem.wifianalyzer.wifi.model.WiFiData;
@@ -114,7 +115,8 @@ class Transformer {
             WiFiWidth wiFiWidth = getWiFiWidth(scanResult);
             int centerFrequency = getCenterFrequency(scanResult, wiFiWidth);
             WiFiSignal wiFiSignal = new WiFiSignal(scanResult.frequency, centerFrequency, wiFiWidth, input.getLevelAverage());
-            return new WiFiDetail(scanResult.SSID, scanResult.BSSID, scanResult.capabilities, wiFiSignal);
+
+            return new WiFiDetail(scanResult.SSID, scanResult.BSSID, scanResult.capabilities, wiFiSignal, MainContext.INSTANCE.getaPAliasService() != null ? MainContext.INSTANCE.getaPAliasService().findAliasForBSSID(scanResult.BSSID) : null);
         }
     }
 

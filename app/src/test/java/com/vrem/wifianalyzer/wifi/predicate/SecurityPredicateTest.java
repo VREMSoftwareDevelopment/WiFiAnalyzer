@@ -59,7 +59,7 @@ public class SecurityPredicateTest {
     @NonNull
     private WiFiDetail makeWiFiDetail(String security) {
         WiFiSignal wiFiSignal = new WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1);
-        return new WiFiDetail("ssid", "bssid", security, wiFiSignal, WiFiAdditional.EMPTY);
+        return new WiFiDetail("ssid", "bssid", security, wiFiSignal, WiFiAdditional.EMPTY, null);
     }
 
 }

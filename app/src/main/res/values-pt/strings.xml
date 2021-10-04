@@ -34,6 +34,7 @@
     <string name="action_export">"Exportar"</string>
     <string name="action_channel_available">"Canais Disponíveis"</string>
     <string name="action_vendors">"Fabricantes"</string>
+    <string name="action_apalias">"AP pseudônimo"</string>
     <string name="action_settings">"Configurações"</string>
     <string name="action_about">"Sobre"</string>
     <!-- action end -->
@@ -123,6 +124,8 @@
     <string name="filter_wifi_band_title">"Frequência do Wi-Fi"</string>
     <string name="filter_strength_title">"Intensidade do Sinal"</string>
     <string name="filter_security_title">"Protocolo de Segurança"</string>
+    <string name="apalias_bssid">BSSID (regexp)</string>
+    <string name="apalias_alias">Alias</string>
     <!-- filter end -->
 
 </resources>

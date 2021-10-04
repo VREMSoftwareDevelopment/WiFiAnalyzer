@@ -216,7 +216,7 @@ public class DataManagerTest {
     private WiFiDetail makeWiFiDetailConnected(@NonNull String SSID) {
         WiFiConnection wiFiConnection = new WiFiConnection(SSID, BSSID, "IPADDRESS", 11);
         WiFiAdditional wiFiAdditional = new WiFiAdditional("VendorName", wiFiConnection);
-        return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY, makeWiFiSignal(), wiFiAdditional);
+        return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY, makeWiFiSignal(), wiFiAdditional, null);
     }
 
     private WiFiSignal makeWiFiSignal() {
@@ -224,7 +224,7 @@ public class DataManagerTest {
     }
 
     private WiFiDetail makeWiFiDetail(@NonNull String SSID) {
-        return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY, makeWiFiSignal(), WiFiAdditional.EMPTY);
+        return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY, makeWiFiSignal(), WiFiAdditional.EMPTY, null);
     }
 
     private List<WiFiDetail> makeWiFiDetails() {

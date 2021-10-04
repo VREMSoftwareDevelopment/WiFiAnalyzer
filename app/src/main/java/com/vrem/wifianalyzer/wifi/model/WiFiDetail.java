@@ -19,6 +19,9 @@
 package com.vrem.wifianalyzer.wifi.model;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+import com.vrem.util.TextUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.CompareToBuilder;
@@ -30,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WiFiDetail implements Comparable<WiFiDetail> {
-    public static final WiFiDetail EMPTY = new WiFiDetail(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, WiFiSignal.EMPTY);
+    public static final WiFiDetail EMPTY = new WiFiDetail(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, WiFiSignal.EMPTY, null);
     private static final String SSID_EMPTY = "***";
 
     private final List<WiFiDetail> children;
@@ -39,23 +42,25 @@ public class WiFiDetail implements Comparable<WiFiDetail> {
     private final String capabilities;
     private final WiFiSignal wiFiSignal;
     private final WiFiAdditional wiFiAdditional;
+    private final String wifiName;
 
     public WiFiDetail(@NonNull String SSID, @NonNull String BSSID, @NonNull String capabilities,
-                      @NonNull WiFiSignal wiFiSignal, @NonNull WiFiAdditional wiFiAdditional) {
+                      @NonNull WiFiSignal wiFiSignal, @NonNull WiFiAdditional wiFiAdditional, @Nullable String wifiName) {
         this.SSID = SSID;
         this.BSSID = BSSID;
         this.capabilities = capabilities;
         this.wiFiSignal = wiFiSignal;
         this.wiFiAdditional = wiFiAdditional;
         this.children = new ArrayList<>();
+        this.wifiName = wifiName;
     }
 
-    public WiFiDetail(@NonNull String SSID, @NonNull String BSSID, @NonNull String capabilities, @NonNull WiFiSignal wiFiSignal) {
-        this(SSID, BSSID, capabilities, wiFiSignal, WiFiAdditional.EMPTY);
+    public WiFiDetail(@NonNull String SSID, @NonNull String BSSID, @NonNull String capabilities, @NonNull WiFiSignal wiFiSignal, @Nullable String wifiName) {
+        this(SSID, BSSID, capabilities, wiFiSignal, WiFiAdditional.EMPTY, wifiName);
     }
 
     public WiFiDetail(@NonNull WiFiDetail wiFiDetail, @NonNull WiFiAdditional wiFiAdditional) {
-        this(wiFiDetail.SSID, wiFiDetail.BSSID, wiFiDetail.getCapabilities(), wiFiDetail.getWiFiSignal(), wiFiAdditional);
+        this(wiFiDetail.SSID, wiFiDetail.BSSID, wiFiDetail.getCapabilities(), wiFiDetail.getWiFiSignal(), wiFiAdditional, wiFiDetail.wifiName);
     }
 
     @NonNull
@@ -103,11 +108,16 @@ public class WiFiDetail implements Comparable<WiFiDetail> {
 
     @NonNull
     public String getTitle() {
-        return String.format("%s (%s)", getSSID(), BSSID);
+        return String.format("%s (%s)", getSSID(), TextUtils.isEmpty(wifiName) ? BSSID : wifiName);
     }
 
     public void addChild(@NonNull WiFiDetail wiFiDetail) {
         children.add(wiFiDetail);
+    }
+
+    @Nullable
+    public String getWifiName() {
+        return wifiName;
     }
 
     @Override

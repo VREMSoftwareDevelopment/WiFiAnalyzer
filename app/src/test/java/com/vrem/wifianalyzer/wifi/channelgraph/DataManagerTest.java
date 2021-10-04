@@ -152,7 +152,7 @@ public class DataManagerTest {
 
     private WiFiDetail makeWiFiDetail(@NonNull String SSID, int frequency) {
         WiFiSignal wiFiSignal = new WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, LEVEL);
-        return new WiFiDetail(SSID, "BSSID", StringUtils.EMPTY, wiFiSignal, WiFiAdditional.EMPTY);
+        return new WiFiDetail(SSID, "BSSID", StringUtils.EMPTY, wiFiSignal, WiFiAdditional.EMPTY, null);
     }
 
     private List<WiFiDetail> makeWiFiDetails(int frequency) {

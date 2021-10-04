@@ -78,7 +78,7 @@ public class ExportItemTest {
         scanner = MainContextHelper.INSTANCE.getScannerService();
 
         sendTitle = "title";
-        wiFiDetail = new WiFiDetail("SSID", "BSSID", "capabilities", new WiFiSignal(2412, 2422, WiFiWidth.MHZ_40, -40));
+        wiFiDetail = new WiFiDetail("SSID", "BSSID", "capabilities", new WiFiSignal(2412, 2422, WiFiWidth.MHZ_40, -40), null);
 
         fixture = new ExportItem() {
             @Override

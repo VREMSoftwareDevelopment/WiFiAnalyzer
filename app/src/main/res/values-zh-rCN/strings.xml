@@ -34,6 +34,7 @@
     <string name="action_export">"分享"</string>
     <string name="action_channel_available">"可用的信道"</string>
     <string name="action_vendors">"制造商"</string>
+    <string name="action_apalias">"AP 别号"</string>
     <string name="action_settings">"设置"</string>
     <string name="action_about">"关于"</string>
     <!-- action end -->
@@ -123,6 +124,8 @@
     <string name="filter_wifi_band_title">"WiFi频段"</string>
     <string name="filter_strength_title">"信号强度"</string>
     <string name="filter_security_title">"安全"</string>
+    <string name="apalias_bssid">BSSID (regexp)</string>
+    <string name="apalias_alias">Alias</string>
     <!-- filter end -->
 
 </resources>

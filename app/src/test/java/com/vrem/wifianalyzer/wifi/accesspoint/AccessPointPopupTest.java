@@ -89,7 +89,7 @@ public class AccessPointPopupTest {
 
     @NonNull
     private WiFiDetail withWiFiDetail() {
-        return new WiFiDetail("SSID", "BSSID", "capabilities", new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2), WiFiAdditional.EMPTY);
+        return new WiFiDetail("SSID", "BSSID", "capabilities", new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2), WiFiAdditional.EMPTY, null);
     }
 
 }

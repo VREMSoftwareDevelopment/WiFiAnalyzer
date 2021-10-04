@@ -263,7 +263,7 @@ public class ConnectionViewTest {
 
     private WiFiDetail withConnection(@NonNull WiFiAdditional wiFiAdditional) {
         return new WiFiDetail(SSID, BSSID, StringUtils.EMPTY,
-            new WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55), wiFiAdditional);
+            new WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55), wiFiAdditional, null);
     }
 
     private WiFiAdditional withWiFiAdditional() {

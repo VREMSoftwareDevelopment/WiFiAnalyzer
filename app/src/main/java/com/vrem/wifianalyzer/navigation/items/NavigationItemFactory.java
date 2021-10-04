@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.navigation.items;
 
 import com.vrem.wifianalyzer.about.AboutActivity;
+import com.vrem.wifianalyzer.apalias.APAliasFragment;
 import com.vrem.wifianalyzer.settings.SettingActivity;
 import com.vrem.wifianalyzer.vendor.VendorFragment;
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointsFragment;
@@ -35,6 +36,7 @@ public class NavigationItemFactory {
     public static final NavigationItem EXPORT = new ExportItem();
     public static final NavigationItem CHANNEL_AVAILABLE = new FragmentItem(new ChannelAvailableFragment(), false);
     public static final NavigationItem VENDORS = new FragmentItem(new VendorFragment(), false);
+    public static final NavigationItem APALIAS = new FragmentItem(new APAliasFragment(), false);
     public static final NavigationItem SETTINGS = new ActivityItem(SettingActivity.class);
     public static final NavigationItem ABOUT = new ActivityItem(AboutActivity.class);
 

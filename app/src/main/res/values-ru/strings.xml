@@ -34,6 +34,7 @@
     <string name="action_export">"Экспорт"</string>
     <string name="action_channel_available">"Доступные каналы"</string>
     <string name="action_vendors">"Поставщики"</string>
+    <string name="action_apalias">"AP кличка"</string>
     <string name="action_settings">"Настройки"</string>
     <string name="action_about">"О Программе"</string>
     <!-- action end -->
@@ -123,6 +124,8 @@
     <string name="filter_wifi_band_title">"WiFi диапазон"</string>
     <string name="filter_strength_title">"Уровень сигнала"</string>
     <string name="filter_security_title">"Безопасность"</string>
+    <string name="apalias_bssid">BSSID (regexp)</string>
+    <string name="apalias_alias">Alias</string>
     <!-- filter end -->
 
 </resources>

@@ -336,7 +336,7 @@ public class AccessPointDetailTest {
     }
 
     private WiFiDetail withWiFiDetail(String SSID, WiFiAdditional wiFiAdditional) {
-        return new WiFiDetail(SSID, "BSSID", "capabilities", new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2), wiFiAdditional);
+        return new WiFiDetail(SSID, "BSSID", "capabilities", new WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2), wiFiAdditional, null);
     }
 
     private void validateTextViewValuesFullView(@NonNull View view, @NonNull WiFiDetail wiFiDetail) {

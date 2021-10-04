@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vrem.util.TextUtils;
 import com.vrem.wifianalyzer.MainContext;
 import com.vrem.wifianalyzer.R;
 import com.vrem.wifianalyzer.wifi.model.Security;
@@ -129,6 +130,18 @@ public class AccessPointDetail {
             .setText("(" + Integer.toString(wiFiSignal.getWiFiWidth().getFrequencyWidth()) + WiFiSignal.FREQUENCY_UNITS + ")");
         view.<TextView>findViewById(R.id.capabilities)
             .setText(wiFiDetail.getCapabilities());
+        if (TextUtils.isEmpty(wiFiDetail.getWifiName()))
+        {
+            view.<TextView>findViewById(R.id.bssid)
+                    .setVisibility(View.GONE);
+        }
+        else
+        {
+            view.<TextView>findViewById(R.id.bssid)
+                    .setVisibility(View.VISIBLE);
+            view.<TextView>findViewById(R.id.bssid)
+                    .setText(wiFiDetail.getBSSID());
+        }
     }
 
     private void setViewVendorShort(@NonNull View view, @NonNull WiFiAdditional wiFiAdditional) {

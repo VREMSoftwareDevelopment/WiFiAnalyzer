@@ -35,7 +35,7 @@ public class SSIDPredicateTest {
     @Test
     public void testSSIDPredicate() {
         // setup
-        WiFiDetail wiFiDetail = new WiFiDetail(SSID, "bssid", "wpa", WiFiSignal.EMPTY, WiFiAdditional.EMPTY);
+        WiFiDetail wiFiDetail = new WiFiDetail(SSID, "bssid", "wpa", WiFiSignal.EMPTY, WiFiAdditional.EMPTY, null);
         // execute & validate
         assertTrue(new SSIDPredicate(SSID).evaluate(wiFiDetail));
         assertTrue(new SSIDPredicate("id").evaluate(wiFiDetail));

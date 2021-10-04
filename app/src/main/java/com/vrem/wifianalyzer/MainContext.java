@@ -25,6 +25,8 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 
+import com.vrem.wifianalyzer.apalias.model.APAliasService;
+import com.vrem.wifianalyzer.apalias.model.APAliasServiceFactory;
 import com.vrem.wifianalyzer.settings.Repository;
 import com.vrem.wifianalyzer.settings.Settings;
 import com.vrem.wifianalyzer.vendor.model.VendorService;
@@ -40,6 +42,7 @@ public enum MainContext {
     private MainActivity mainActivity;
     private ScannerService scannerService;
     private VendorService vendorService;
+    private APAliasService aPAliasService;
     private Configuration configuration;
     private FilterAdapter filterAdapter;
 
@@ -103,6 +106,16 @@ public enum MainContext {
         this.filterAdapter = filterAdapter;
     }
 
+    public APAliasService getaPAliasService()
+    {
+        return aPAliasService;
+    }
+
+    public void setaPAliasService(APAliasService aPAliasService)
+    {
+        this.aPAliasService = aPAliasService;
+    }
+
     void initialize(@NonNull MainActivity mainActivity, boolean largeScreen) {
         Context applicationContext = mainActivity.getApplicationContext();
         WifiManager wifiManager = (WifiManager) applicationContext.getSystemService(Context.WIFI_SERVICE);
@@ -114,6 +127,7 @@ public enum MainContext {
         setConfiguration(currentConfiguration);
         setSettings(currentSettings);
         setVendorService(VendorServiceFactory.makeVendorService(mainActivity.getResources()));
+        setaPAliasService(APAliasServiceFactory.makeNamingService(mainActivity));
         setScannerService(ScannerServiceFactory.makeScannerService(wifiManager, handler, currentSettings));
         setFilterAdapter(new FilterAdapter(currentSettings));
     }
