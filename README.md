@@ -42,7 +42,7 @@ This is the official repository of WiFi Analyzer.
 **Please note WiFi Analyzer is not a WiFi password cracking or phishing tool.**
  
 ## Usage Tips
-* Tap the title bar to switch between 2.4 and 5 GHz WiFi band.
+* Tap the title bar to switch between 2.4, 5 and 6 GHz WiFi band.
 * SSID with `***` or `*hidden*` means it is hidden.
 * Access Point security: 
      * <img src="images/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20"> WPA3(SAE)/WPA2/WPA 
