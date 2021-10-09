@@ -18,11 +18,26 @@
 package com.vrem.wifianalyzer.wifi.band
 
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry.Companion.find
+import org.junit.After
 import org.junit.Assert.*
+import org.junit.Before
 import org.junit.Test
 import java.util.*
 
 class WiFiChannelCountryTest {
+    private val currentLocale: Locale = Locale.getDefault()
+
+    @Before
+    fun setUp() {
+        Locale.setDefault(Locale.US)
+    }
+
+    @After
+    fun tearDown() {
+        Locale.setDefault(currentLocale)
+    }
+
+
     @Test
     fun testChannelAvailableWithTrue() {
         assertTrue(find(Locale.US.country).channelAvailableGHZ2(1))
