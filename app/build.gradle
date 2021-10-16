@@ -31,7 +31,7 @@ dependencies {
     implementation 'androidx.collection:collection-ktx:1.1.0'
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.media:media:1.4.2'
+    implementation 'androidx.media:media:1.4.3'
     implementation 'androidx.preference:preference-ktx:1.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.jjoe64:graphview:4.2.2'
