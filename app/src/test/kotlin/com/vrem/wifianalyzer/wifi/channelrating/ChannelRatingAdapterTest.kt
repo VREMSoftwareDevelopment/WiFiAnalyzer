@@ -44,7 +44,7 @@ import org.robolectric.annotation.Config
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.Q])
+@Config(sdk = [Build.VERSION_CODES.R])
 class ChannelRatingAdapterTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val settings = INSTANCE.settings

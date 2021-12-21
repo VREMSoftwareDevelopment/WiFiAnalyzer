@@ -37,7 +37,7 @@ import org.robolectric.annotation.Config
 import java.io.Serializable
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.Q])
+@Config(sdk = [Build.VERSION_CODES.R])
 class FiltersAdapterTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val ssids = setOf<String>()

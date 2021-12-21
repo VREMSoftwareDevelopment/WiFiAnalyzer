@@ -41,7 +41,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.Q])
+@Config(sdk = [Build.VERSION_CODES.R])
 class AboutFragmentTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val configuration = INSTANCE.configuration
@@ -112,7 +112,7 @@ class AboutFragmentTest {
     @Test
     fun testDevice() {
         // setup
-        val expected = "unknown - unknown - robolectric"
+        val expected = "robolectric - robolectric - robolectric"
         // execute
         val actual = fixture.requireView().findViewById<TextView>(R.id.about_device)
         // validate
