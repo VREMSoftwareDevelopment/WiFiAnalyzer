@@ -74,14 +74,15 @@ class ChannelRatingFragmentTest {
         fixture.onResume()
         // validate
         verify(scanner, times(2)).update()
+        verify(scanner, times(2)).register(fixture.channelRatingAdapter)
     }
 
     @Test
-    fun testOnDestroy() {
+    fun testOnPause() {
         // setup
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // execute
-        fixture.onDestroy()
+        fixture.onPause()
         // validate
         verify(scanner).unregister(fixture.channelRatingAdapter)
     }

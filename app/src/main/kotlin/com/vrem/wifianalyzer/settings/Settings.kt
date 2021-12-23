@@ -57,6 +57,9 @@ class Settings(private val repository: Repository) {
         return false
     }
 
+    fun cacheOff(): Boolean =
+        repository.boolean(R.string.cache_off_key, repository.resourceBoolean(R.bool.cache_off_default))
+
     fun graphMaximumY(): Int {
         val defaultValue = repository.stringAsInteger(R.string.graph_maximum_y_default, GRAPH_Y_DEFAULT)
         val result = repository.stringAsInteger(R.string.graph_maximum_y_key, defaultValue)

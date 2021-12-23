@@ -32,7 +32,7 @@ class PeriodicScanTest {
 
     @Test
     fun testRun() {
-        //_setup
+        // setup
         val delayInterval = 1000L
         val scanSpeed = 15
         whenever(settings.scanSpeed()).thenReturn(scanSpeed)
@@ -62,4 +62,18 @@ class PeriodicScanTest {
         verify(handler).removeCallbacks(fixture)
         verify(handler).postDelayed(fixture, delayInitial)
     }
+
+    @Test
+    fun testStartWithDelay() {
+        // setup
+        val scanSpeed = 15
+        whenever(settings.scanSpeed()).thenReturn(scanSpeed)
+        // execute
+        fixture.startWithDelay()
+        // validate
+        verify(handler).removeCallbacks(fixture)
+        verify(handler).postDelayed(fixture, scanSpeed * PeriodicScan.DELAY_INTERVAL)
+        verify(settings).scanSpeed()
+    }
+
 }

@@ -31,16 +31,6 @@
             app:title="@string/scan_speed_title"/>
     </PreferenceCategory>
 
-    <PreferenceCategory
-        app:key="@string/experimental_key"
-        app:title="@string/experimental_title">
-
-        <androidx.preference.SwitchPreferenceCompat
-            app:defaultValue="@bool/wifi_throttle_disabled_default"
-            app:key="@string/wifi_throttle_disabled_key"
-            app:title="@string/wifi_throttle_disabled_title"/>
-    </PreferenceCategory>
-
     <PreferenceCategory>
         <ListPreference
             app:defaultValue="@string/sort_by_default"
@@ -156,7 +146,7 @@
             app:persistent="true"
             app:summary="@string/country_code_summary"
             app:useSimpleSummaryProvider="true"
-            app:title="@string/country_code_title"/>
+            app:title="@string/country_code_title" />
 
         <com.vrem.wifianalyzer.settings.LanguagePreference
             app:icon="@drawable/ic_language"
@@ -164,6 +154,23 @@
             app:persistent="true"
             app:summary="@string/language_summary"
             app:useSimpleSummaryProvider="true"
-            app:title="@string/language_title"/>
+            app:title="@string/language_title" />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="@string/experimental_key"
+        app:title="@string/experimental_title">
+
+        <androidx.preference.SwitchPreferenceCompat
+            app:defaultValue="@bool/wifi_throttle_disabled_default"
+            app:key="@string/wifi_throttle_disabled_key"
+            app:title="@string/wifi_throttle_disabled_title" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            app:defaultValue="@bool/cache_off_default"
+            app:key="@string/cache_off_key"
+            app:title="@string/cache_off_title" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

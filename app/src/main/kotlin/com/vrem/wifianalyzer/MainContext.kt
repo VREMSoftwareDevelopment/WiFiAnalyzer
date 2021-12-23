@@ -60,7 +60,7 @@ enum class MainContext {
         settings = Settings(Repository(context))
         vendorService = VendorService(activity.resources)
         wiFiManagerWrapper = WiFiManagerWrapper(wiFiManager)
-        scannerService = makeScannerService(wiFiManagerWrapper, Handler(Looper.getMainLooper()), settings)
+        scannerService = makeScannerService(mainActivity, wiFiManagerWrapper, Handler(Looper.getMainLooper()), settings)
         filtersAdapter = FiltersAdapter(settings)
     }
 

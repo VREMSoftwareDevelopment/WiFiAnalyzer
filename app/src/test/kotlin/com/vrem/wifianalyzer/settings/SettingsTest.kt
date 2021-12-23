@@ -151,7 +151,12 @@ class SettingsTest {
     @Test
     fun testGroupBy() {
         // setup
-        every { repository.stringAsInteger(R.string.group_by_key, GroupBy.NONE.ordinal) } returns GroupBy.CHANNEL.ordinal
+        every {
+            repository.stringAsInteger(
+                R.string.group_by_key,
+                GroupBy.NONE.ordinal
+            )
+        } returns GroupBy.CHANNEL.ordinal
         // execute
         val actual = fixture.groupBy()
         // validate
@@ -173,7 +178,12 @@ class SettingsTest {
     @Test
     fun testAccessPointView() {
         // setup
-        every { repository.stringAsInteger(R.string.ap_view_key, AccessPointViewType.COMPLETE.ordinal) } returns AccessPointViewType.COMPACT.ordinal
+        every {
+            repository.stringAsInteger(
+                R.string.ap_view_key,
+                AccessPointViewType.COMPLETE.ordinal
+            )
+        } returns AccessPointViewType.COMPACT.ordinal
         // execute
         val actual = fixture.accessPointView()
         // validate
@@ -184,7 +194,12 @@ class SettingsTest {
     @Test
     fun testConnectionViewType() {
         // setup
-        every { repository.stringAsInteger(R.string.connection_view_key, ConnectionViewType.COMPACT.ordinal) } returns ConnectionViewType.COMPLETE.ordinal
+        every {
+            repository.stringAsInteger(
+                R.string.connection_view_key,
+                ConnectionViewType.COMPACT.ordinal
+            )
+        } returns ConnectionViewType.COMPLETE.ordinal
         // execute
         val actual = fixture.connectionViewType()
         // validate
@@ -195,7 +210,12 @@ class SettingsTest {
     @Test
     fun testThemeStyle() {
         // setup
-        every { repository.stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal) } returns ThemeStyle.LIGHT.ordinal
+        every {
+            repository.stringAsInteger(
+                R.string.theme_key,
+                ThemeStyle.DARK.ordinal
+            )
+        } returns ThemeStyle.LIGHT.ordinal
         // execute
         val actual = fixture.themeStyle()
         // validate
@@ -206,7 +226,12 @@ class SettingsTest {
     @Test
     fun testChannelGraphLegend() {
         // setup
-        every { repository.stringAsInteger(R.string.channel_graph_legend_key, GraphLegend.HIDE.ordinal) } returns GraphLegend.RIGHT.ordinal
+        every {
+            repository.stringAsInteger(
+                R.string.channel_graph_legend_key,
+                GraphLegend.HIDE.ordinal
+            )
+        } returns GraphLegend.RIGHT.ordinal
         // execute
         val actual = fixture.channelGraphLegend()
         // validate
@@ -217,7 +242,12 @@ class SettingsTest {
     @Test
     fun testTimeGraphLegend() {
         // setup
-        every { repository.stringAsInteger(R.string.time_graph_legend_key, GraphLegend.LEFT.ordinal) } returns GraphLegend.RIGHT.ordinal
+        every {
+            repository.stringAsInteger(
+                R.string.time_graph_legend_key,
+                GraphLegend.LEFT.ordinal
+            )
+        } returns GraphLegend.RIGHT.ordinal
         // execute
         val actual = fixture.timeGraphLegend()
         // validate
@@ -384,7 +414,12 @@ class SettingsTest {
     @Test
     fun testSelectedMenu() {
         // setup
-        every { repository.stringAsInteger(R.string.selected_menu_key, NavigationMenu.ACCESS_POINTS.ordinal) } returns NavigationMenu.CHANNEL_GRAPH.ordinal
+        every {
+            repository.stringAsInteger(
+                R.string.selected_menu_key,
+                NavigationMenu.ACCESS_POINTS.ordinal
+            )
+        } returns NavigationMenu.CHANNEL_GRAPH.ordinal
         // execute
         val actual = fixture.selectedMenu()
         // validate
@@ -433,4 +468,18 @@ class SettingsTest {
         verify { repository.boolean(R.string.keep_screen_on_key, true) }
         verify { repository.resourceBoolean(R.bool.keep_screen_on_default) }
     }
+
+    @Test
+    fun testCacheOff() {
+        // setup
+        every { repository.resourceBoolean(R.bool.cache_off_default) } returns true
+        every { repository.boolean(R.string.cache_off_key, true) } returns true
+        // execute
+        val actual = fixture.cacheOff()
+        // validate
+        assertTrue(actual)
+        verify { repository.boolean(R.string.cache_off_key, true) }
+        verify { repository.resourceBoolean(R.bool.cache_off_default) }
+    }
+
 }

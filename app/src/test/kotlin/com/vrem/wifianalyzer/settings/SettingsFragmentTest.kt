@@ -42,11 +42,11 @@ class SettingsFragmentTest {
 
     @Config(sdk = [Build.VERSION_CODES.P])
     @Test
-    fun testExperimentalIsVisible() {
+    fun testWifiThrottleDisabledIsVisible() {
         // setup
         val fixture = SettingsFragment()
         RobolectricUtil.INSTANCE.startFragment(fixture)
-        val key = fixture.getString(R.string.experimental_key)
+        val key = fixture.getString(R.string.wifi_throttle_disabled_key)
         // execute
         val actual = fixture.findPreference<Preference>(key)
         // validate
@@ -67,11 +67,11 @@ class SettingsFragmentTest {
     }
 
     @Test
-    fun testExperimentalIsNotVisible() {
+    fun testWifiThrottleDisabledIsNotVisible() {
         // setup
         val fixture = SettingsFragment()
         RobolectricUtil.INSTANCE.startFragment(fixture)
-        val key = fixture.getString(R.string.experimental_key)
+        val key = fixture.getString(R.string.wifi_throttle_disabled_key)
         // execute
         val actual = fixture.findPreference<Preference>(key)
         // validate

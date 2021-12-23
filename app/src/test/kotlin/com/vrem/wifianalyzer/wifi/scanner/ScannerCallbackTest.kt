@@ -17,43 +17,42 @@
  */
 package com.vrem.wifianalyzer.wifi.scanner
 
-import android.os.Handler
+import android.net.wifi.ScanResult
+import android.net.wifi.WifiInfo
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
-import com.vrem.wifianalyzer.MainActivity
-import com.vrem.wifianalyzer.settings.Settings
+import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Test
 
-class ScannerServiceTest {
+class ScannerCallbackTest {
     private val wiFiManagerWrapper: WiFiManagerWrapper = mock()
-    private val mainActivity: MainActivity = mock()
-    private val handler: Handler = mock()
-    private val settings: Settings = mock()
+    private val cache: Cache = mock()
+    private val scanner: Scanner = mock()
+    private val wifiInfo: WifiInfo = mock()
+    private val scanResults: List<ScanResult> = listOf()
+    private val fixture: ScannerCallback = ScannerCallback(wiFiManagerWrapper, cache)
 
     @After
     fun tearDown() {
+        verifyNoMoreInteractions(cache)
+        verifyNoMoreInteractions(scanner)
         verifyNoMoreInteractions(wiFiManagerWrapper)
-        verifyNoMoreInteractions(mainActivity)
-        verifyNoMoreInteractions(handler)
-        verifyNoMoreInteractions(settings)
     }
 
     @Test
-    fun testMakeScannerService() {
+    fun testOnSuccess() {
         // setup
+        whenever(wiFiManagerWrapper.scanResults()).thenReturn(scanResults)
+        whenever(wiFiManagerWrapper.wiFiInfo()).thenReturn(wifiInfo)
         // execute
-        val actual = makeScannerService(mainActivity, wiFiManagerWrapper, handler, settings) as Scanner
+        fixture.onSuccess()
         // validate
-        assertEquals(wiFiManagerWrapper, actual.wiFiManagerWrapper)
-        assertEquals(settings, actual.settings)
-        assertNotNull(actual.transformer)
-        assertNotNull(actual.periodicScan)
-        assertNotNull(actual.scannerCallback)
-        assertNotNull(actual.scanResultsReceiver)
-        assertFalse(actual.running())
+        verify(wiFiManagerWrapper).scanResults()
+        verify(wiFiManagerWrapper).wiFiInfo()
+        verify(cache).add(scanResults, wifiInfo)
     }
 
 }

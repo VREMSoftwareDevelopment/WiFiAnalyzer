@@ -48,7 +48,6 @@ class ChannelRatingFragment : Fragment(), OnRefreshListener {
         channelRatingAdapter = ChannelRatingAdapter(requireActivity(), bestChannels)
         val listView: ListView = binding.channelRatingRefresh.findViewById(R.id.channelRatingView)
         listView.adapter = channelRatingAdapter
-        MainContext.INSTANCE.scannerService.register(channelRatingAdapter)
         return binding.root
     }
 
@@ -60,12 +59,13 @@ class ChannelRatingFragment : Fragment(), OnRefreshListener {
 
     override fun onResume() {
         super.onResume()
+        MainContext.INSTANCE.scannerService.register(channelRatingAdapter)
         onRefresh()
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
         MainContext.INSTANCE.scannerService.unregister(channelRatingAdapter)
-        super.onDestroy()
+        super.onPause()
     }
 
 }

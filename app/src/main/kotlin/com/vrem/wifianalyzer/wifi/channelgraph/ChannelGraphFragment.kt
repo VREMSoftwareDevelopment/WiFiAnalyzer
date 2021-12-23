@@ -46,7 +46,6 @@ class ChannelGraphFragment : Fragment(), OnRefreshListener {
         val channelGraphNavigation = ChannelGraphNavigation(linearLayout, requireActivity().applicationContext)
         channelGraphAdapter = ChannelGraphAdapter(channelGraphNavigation)
         channelGraphAdapter.graphViews().forEach { binding.graphFlipper.addView(it) }
-        MainContext.INSTANCE.scannerService.register(channelGraphAdapter)
         return binding.root
     }
 
@@ -58,12 +57,13 @@ class ChannelGraphFragment : Fragment(), OnRefreshListener {
 
     override fun onResume() {
         super.onResume()
+        MainContext.INSTANCE.scannerService.register(channelGraphAdapter)
         onRefresh()
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
         MainContext.INSTANCE.scannerService.unregister(channelGraphAdapter)
-        super.onDestroy()
+        super.onPause()
     }
 
 }

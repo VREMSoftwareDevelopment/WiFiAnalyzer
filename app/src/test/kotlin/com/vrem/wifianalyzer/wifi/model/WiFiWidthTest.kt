@@ -98,7 +98,7 @@ class WiFiWidthTest {
     }
 
     @Test
-    fun testCalculateCenter40WithCenterBroken() {
+    fun testCalculateCenter40WithCenter() {
         // setup
         val primary = 10
         val center = primary + WiFiWidth.MHZ_40.frequencyWidthHalf

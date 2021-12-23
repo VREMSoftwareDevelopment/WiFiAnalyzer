@@ -27,43 +27,45 @@ import com.vrem.wifianalyzer.wifi.model.*
 import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 
 @OpenClass
-internal class Transformer {
+internal class Transformer(private val cache: Cache) {
 
-    internal fun transformWifiInfo(wifiInfo: WifiInfo?): WiFiConnection =
-            if (wifiInfo == null || wifiInfo.networkId == -1) {
-                WiFiConnection.EMPTY
-            } else {
-                val ssid = convertSSID(wifiInfo.ssid ?: String.EMPTY)
-                val wiFiIdentifier = WiFiIdentifier(ssid, wifiInfo.bssid ?: String.EMPTY)
-                WiFiConnection(wiFiIdentifier, convertIpAddress(wifiInfo.ipAddress), wifiInfo.linkSpeed)
-            }
+    internal fun transformWifiInfo(): WiFiConnection {
+        val wifiInfo: WifiInfo? = cache.wifiInfo()
+        return if (wifiInfo == null || wifiInfo.networkId == -1) {
+            WiFiConnection.EMPTY
+        } else {
+            val ssid = convertSSID(wifiInfo.ssid ?: String.EMPTY)
+            val wiFiIdentifier = WiFiIdentifier(ssid, wifiInfo.bssid ?: String.EMPTY)
+            WiFiConnection(wiFiIdentifier, convertIpAddress(wifiInfo.ipAddress), wifiInfo.linkSpeed)
+        }
+    }
 
-    internal fun transformCacheResults(cacheResults: List<CacheResult>): List<WiFiDetail> =
-            cacheResults.map { transform(it) }
+    internal fun transformCacheResults(): List<WiFiDetail> =
+        cache.scanResults().map { transform(it) }
 
-    internal fun transformToWiFiData(cacheResults: List<CacheResult>, wifiInfo: WifiInfo?): WiFiData =
-            WiFiData(transformCacheResults(cacheResults), transformWifiInfo(wifiInfo))
+    internal fun transformToWiFiData(): WiFiData =
+        WiFiData(transformCacheResults(), transformWifiInfo())
 
     internal fun channelWidth(scanResult: ScanResult): ChannelWidth =
-            if (minVersionM()) {
-                scanResult.channelWidth
-            } else {
-                WiFiWidth.MHZ_20.channelWidth
-            }
+        if (minVersionM()) {
+            scanResult.channelWidth
+        } else {
+            WiFiWidth.MHZ_20.channelWidth
+        }
 
     internal fun wiFiStandard(scanResult: ScanResult): WiFiStandardId =
-            if (minVersionR()) {
-                scanResult.wifiStandard
-            } else {
-                WiFiStandard.UNKNOWN.wiFiStandardId
-            }
+        if (minVersionR()) {
+            scanResult.wifiStandard
+        } else {
+            WiFiStandard.UNKNOWN.wiFiStandardId
+        }
 
     internal fun centerFrequency(scanResult: ScanResult, wiFiWidth: WiFiWidth): Int =
-            if (minVersionM()) {
-                wiFiWidth.calculateCenter(scanResult.frequency, scanResult.centerFreq0)
-            } else {
-                scanResult.frequency
-            }
+        if (minVersionM()) {
+            wiFiWidth.calculateCenter(scanResult.frequency, scanResult.centerFreq0)
+        } else {
+            scanResult.frequency
+        }
 
     internal fun mc80211(scanResult: ScanResult): Boolean = minVersionM() && scanResult.is80211mcResponder
 

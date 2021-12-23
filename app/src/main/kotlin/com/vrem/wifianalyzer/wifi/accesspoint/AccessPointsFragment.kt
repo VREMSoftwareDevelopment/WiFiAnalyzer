@@ -44,7 +44,6 @@ class AccessPointsFragment : Fragment(), OnRefreshListener {
         accessPointsAdapter = AccessPointsAdapter()
         binding.accessPointsView.setAdapter(accessPointsAdapter)
         accessPointsAdapter.expandableListView = binding.accessPointsView
-        MainContext.INSTANCE.scannerService.register(accessPointsAdapter)
         return binding.root
     }
 
@@ -56,12 +55,13 @@ class AccessPointsFragment : Fragment(), OnRefreshListener {
 
     override fun onResume() {
         super.onResume()
+        MainContext.INSTANCE.scannerService.register(accessPointsAdapter)
         onRefresh()
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
         MainContext.INSTANCE.scannerService.unregister(accessPointsAdapter)
-        super.onDestroy()
+        super.onPause()
     }
 
 }
