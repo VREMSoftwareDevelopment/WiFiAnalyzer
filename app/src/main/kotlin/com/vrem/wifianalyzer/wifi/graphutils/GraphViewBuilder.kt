@@ -139,6 +139,6 @@ class GraphViewBuilder(private val numHorizontalLabels: Int,
         get() = if (maximumY > MAX_Y || maximumY < MIN_Y_HALF) MAX_Y_DEFAULT else maximumY
 
     val layoutParams: ViewGroup.LayoutParams =
-            ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 
 }
