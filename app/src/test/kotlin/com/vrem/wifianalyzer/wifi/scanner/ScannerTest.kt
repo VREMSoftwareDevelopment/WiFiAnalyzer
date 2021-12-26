@@ -17,15 +17,14 @@
  */
 package com.vrem.wifianalyzer.wifi.scanner
 
-import android.net.wifi.ScanResult
-import android.net.wifi.WifiInfo
 import com.nhaarman.mockitokotlin2.*
+import com.vrem.wifianalyzer.permission.PermissionService
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -35,18 +34,20 @@ class ScannerTest {
     private val updateNotifier1: UpdateNotifier = mock()
     private val updateNotifier2: UpdateNotifier = mock()
     private val updateNotifier3: UpdateNotifier = mock()
-    private val wifiInfo: WifiInfo = mock()
-    private val cache: Cache = mock()
     private val transformer: Transformer = mock()
+    private val scanResultsReceiver: ScanResultsReceiver = mock()
+    private val scannerCallback: ScannerCallback = mock()
+    private val permissionService: PermissionService = mock()
     private val wiFiData: WiFiData = mock()
     private val periodicScan: PeriodicScan = mock()
-    private val scanResults: List<ScanResult> = listOf()
-    private val cacheResults: List<CacheResult> = listOf()
-    private val fixture = Scanner(wiFiManagerWrapper, settings, cache, transformer)
+    private val fixture = Scanner(wiFiManagerWrapper, settings, permissionService, transformer)
 
     @Before
     fun setUp() {
         fixture.periodicScan = periodicScan
+        fixture.scanResultsReceiver = scanResultsReceiver
+        fixture.scannerCallback = scannerCallback
+
         fixture.register(updateNotifier1)
         fixture.register(updateNotifier2)
         fixture.register(updateNotifier3)
@@ -56,14 +57,67 @@ class ScannerTest {
     fun tearDown() {
         verifyNoMoreInteractions(settings)
         verifyNoMoreInteractions(wiFiManagerWrapper)
-        verifyNoMoreInteractions(cache)
         verifyNoMoreInteractions(transformer)
         verifyNoMoreInteractions(periodicScan)
+        verifyNoMoreInteractions(permissionService)
+        verifyNoMoreInteractions(scanResultsReceiver)
+        verifyNoMoreInteractions(scannerCallback)
     }
 
     @Test
-    fun testPeriodicScanIsSet() {
-        assertNotNull(fixture.periodicScan)
+    fun testStop() {
+        // setup
+        whenever(settings.wiFiOffOnExit()).thenReturn(false)
+        // execute
+        fixture.stop()
+        // validate
+        assertEquals(0, fixture.registered())
+        verify(settings).wiFiOffOnExit()
+        verify(wiFiManagerWrapper, never()).disableWiFi()
+        verify(periodicScan).stop()
+        verify(scanResultsReceiver).unregister()
+    }
+
+    @Test
+    fun testStopWithDisableWiFiOnExit() {
+        // setup
+        whenever(settings.wiFiOffOnExit()).thenReturn(true)
+        // execute
+        fixture.stop()
+        // validate
+        assertEquals(0, fixture.registered())
+        verify(wiFiManagerWrapper).disableWiFi()
+        verify(periodicScan).stop()
+        verify(scanResultsReceiver).unregister()
+        verify(settings).wiFiOffOnExit()
+    }
+
+    @Test
+    fun testPause() {
+        // execute
+        fixture.pause()
+        // validate
+        verify(periodicScan).stop()
+        verify(scanResultsReceiver).unregister()
+    }
+
+    @Test
+    fun testResume() {
+        // execute
+        fixture.resume()
+        // validate
+        verify(periodicScan).start()
+    }
+
+    @Test
+    fun testRunning() {
+        // setup
+        whenever(periodicScan.running).thenReturn(true)
+        // execute
+        val actual = fixture.running()
+        // validate
+        assertTrue(actual)
+        verify(periodicScan).running
     }
 
     @Test
@@ -89,103 +143,56 @@ class ScannerTest {
     @Test
     fun testUpdate() {
         // setup
-        withCache()
-        withTransformer()
-        withWiFiManagerWrapper()
+        whenever(transformer.transformToWiFiData()).thenReturn(wiFiData)
+        whenever(permissionService.enabled()).thenReturn(true)
         // execute
         fixture.update()
         // validate
         assertEquals(wiFiData, fixture.wiFiData())
-        verifyCache()
-        verifyTransformer()
-        verifyWiFiManagerWrapper()
-        verify(updateNotifier1).update(wiFiData)
-        verify(updateNotifier2).update(wiFiData)
-        verify(updateNotifier3).update(wiFiData)
-    }
-
-    @Test
-    fun testStopWithIsWiFiOffOnExitTurnsOffWiFi() {
-        // setup
-        whenever(settings.wiFiOffOnExit()).thenReturn(true)
-        // execute
-        fixture.stop()
-        // validate
-        verify(settings).wiFiOffOnExit()
-        verify(wiFiManagerWrapper).disableWiFi()
-    }
-
-    @Test
-    fun testStopDoesNotTurnsOffWiFi() {
-        // setup
-        whenever(settings.wiFiOffOnExit()).thenReturn(false)
-        // execute
-        fixture.stop()
-        // validate
-        verify(settings).wiFiOffOnExit()
-        verify(wiFiManagerWrapper, never()).enableWiFi()
-    }
-
-    private fun withCache() {
-        whenever(cache.scanResults()).thenReturn(cacheResults)
-        whenever(cache.wifiInfo()).thenReturn(wifiInfo)
-    }
-
-    private fun withTransformer() {
-        whenever(transformer.transformToWiFiData(cacheResults, wifiInfo)).thenReturn(wiFiData)
-    }
-
-    private fun verifyCache() {
-        verify(cache).add(scanResults, wifiInfo)
-        verify(cache).scanResults()
-        verify(cache).wifiInfo()
-    }
-
-    private fun verifyWiFiManagerWrapper() {
         verify(wiFiManagerWrapper).enableWiFi()
+        verify(permissionService).enabled()
+        verify(scanResultsReceiver).register()
         verify(wiFiManagerWrapper).startScan()
-        verify(wiFiManagerWrapper).scanResults()
-        verify(wiFiManagerWrapper).wiFiInfo()
-        verifyWiFiManagerStartScan()
-    }
-
-    private fun withWiFiManagerWrapper() {
-        whenever(wiFiManagerWrapper.startScan()).thenReturn(true)
-        whenever(wiFiManagerWrapper.scanResults()).thenReturn(scanResults)
-        whenever(wiFiManagerWrapper.wiFiInfo()).thenReturn(wifiInfo)
-        withWiFiManagerStartScan()
-    }
-
-    private fun verifyWiFiManagerStartScan() {
-        verify(wiFiManagerWrapper).startScan()
-    }
-
-    private fun withWiFiManagerStartScan() {
-        whenever(wiFiManagerWrapper.startScan()).thenReturn(true)
-    }
-
-    private fun verifyTransformer() {
-        verify(transformer).transformToWiFiData(cacheResults, wifiInfo)
+        verify(scannerCallback).onSuccess()
+        verify(transformer).transformToWiFiData()
+        verifyUpdateNotifier(1)
     }
 
     @Test
-    fun testPause() {
+    fun testUpdateShouldScanResultsOnce() {
         // setup
-        fixture.periodicScan = periodicScan
+        val expected = 3
+        whenever(transformer.transformToWiFiData()).thenReturn(wiFiData)
+        whenever(permissionService.enabled()).thenReturn(true)
         // execute
-        fixture.pause()
+        for (i in 0 until expected) {
+            fixture.update()
+        }
         // validate
-        verify(periodicScan).stop()
+        verify(wiFiManagerWrapper, times(expected)).enableWiFi()
+        verify(permissionService, times(expected)).enabled()
+        verify(scanResultsReceiver, times(expected)).register()
+        verify(wiFiManagerWrapper, times(expected)).startScan()
+        verify(scannerCallback).onSuccess()
+        verify(transformer, times(expected)).transformToWiFiData()
+        verifyUpdateNotifier(expected)
     }
 
     @Test
-    fun testResume() {
+    fun testUpdateWithRequirementPermissionDisabled() {
         // setup
-        fixture.periodicScan = periodicScan
+        whenever(transformer.transformToWiFiData()).thenReturn(wiFiData)
+        whenever(permissionService.enabled()).thenReturn(false)
         // execute
-        fixture.resume()
+        fixture.update()
         // validate
-        verify(periodicScan).start()
+        verify(wiFiManagerWrapper).enableWiFi()
+        verify(permissionService).enabled()
+        verify(scanResultsReceiver, never()).register()
+        verify(wiFiManagerWrapper, never()).startScan()
+        verify(scannerCallback, never()).onSuccess()
+        verify(transformer).transformToWiFiData()
+        verifyUpdateNotifier(1)
     }
 
     @Test
@@ -211,4 +218,11 @@ class ScannerTest {
         verify(periodicScan).running
         verify(periodicScan).start()
     }
+
+    private fun verifyUpdateNotifier(expected: Int) {
+        verify(updateNotifier1, times(expected)).update(wiFiData)
+        verify(updateNotifier2, times(expected)).update(wiFiData)
+        verify(updateNotifier3, times(expected)).update(wiFiData)
+    }
+
 }

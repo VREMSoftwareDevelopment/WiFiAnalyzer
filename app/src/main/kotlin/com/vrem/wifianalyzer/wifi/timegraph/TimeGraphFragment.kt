@@ -26,7 +26,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.vrem.util.buildVersionP
 import com.vrem.wifianalyzer.MainContext
-
 import com.vrem.wifianalyzer.databinding.GraphContentBinding
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.graphutils.GraphAdapter
@@ -50,7 +49,6 @@ class TimeGraphFragment : Fragment(), OnRefreshListener {
         }
         timeGraphAdapter = TimeGraphAdapter()
         timeGraphAdapter.graphViews().forEach { binding.graphFlipper.addView(it) }
-        MainContext.INSTANCE.scannerService.register(timeGraphAdapter)
         return binding.root
     }
 
@@ -62,12 +60,13 @@ class TimeGraphFragment : Fragment(), OnRefreshListener {
 
     override fun onResume() {
         super.onResume()
+        MainContext.INSTANCE.scannerService.register(timeGraphAdapter)
         onRefresh()
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
         MainContext.INSTANCE.scannerService.unregister(timeGraphAdapter)
-        super.onDestroy()
+        super.onPause()
     }
 
 }

@@ -22,39 +22,71 @@ jacoco {
     toolVersion = "0.8.7"
 }
 
+def executionPath = 'outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec'
+
+def fileFilter = [
+    '**/R.class',
+    '**/R$*.class',
+    '**/BuildConfig.*',
+    '**/databinding/*.*',
+    '**/Manifest*.*',
+    '**/*Test*.*',
+    'android/**/*.*',
+    '**/com/jjoe64/*'
+]
+
+def classJavaDir = "$project.buildDir/intermediates/javac/debug/classes"
+def classKotlinDir = "$project.buildDir/tmp/kotlin-classes/debug"
+def mainJavaSrc = "$project.projectDir/src/main/java"
+def mainKotlinSrc = "$project.projectDir/src/main/kotlin"
+def debugTree = fileTree(dir: classJavaDir, excludes: fileFilter) + fileTree(dir: classKotlinDir, excludes: fileFilter)
+
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
     jacoco.excludes = ['jdk.internal.*']
 }
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
-
     reports {
         xml.enabled = true
         html.enabled = true
     }
-
-    def fileFilter = [
-        '**/R.class',
-        '**/R$*.class',
-        '**/BuildConfig.*',
-        '**/databinding/*.*',
-        '**/Manifest*.*',
-        '**/*Test*.*',
-        'android/**/*.*',
-        '**/com/jjoe64/*'
-    ]
-
-    def classJavaDir = "$project.buildDir/intermediates/javac/debug/classes"
-    def classKotlinDir = "$project.buildDir/tmp/kotlin-classes/debug"
-    def mainJavaSrc = "$project.projectDir/src/main/java"
-    def mainKotlinSrc = "$project.projectDir/src/main/kotlin"
-    def debugTree = fileTree(dir: classJavaDir, excludes: fileFilter) +
-            fileTree(dir: classKotlinDir, excludes: fileFilter)
-
     sourceDirectories.from = files([mainJavaSrc, mainKotlinSrc])
     classDirectories.from = files([debugTree])
-    executionData.from = fileTree(dir: project.buildDir, includes: [
-        'outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec'
-    ])
+    executionData.from = fileTree(dir: project.buildDir, includes: [executionPath])
+}
+
+task jacocoTestCoverageVerification(type: JacocoCoverageVerification, dependsOn: 'jacocoTestReport') {
+    sourceDirectories.from = files([[mainJavaSrc, mainKotlinSrc]])
+    classDirectories.from = files([debugTree])
+    executionData.from = fileTree(dir: project.buildDir, includes: [executionPath])
+    violationRules {
+        failOnViolation = true
+        rule {
+            limit {
+                counter = 'INSTRUCTION'
+                minimum = 0.96
+            }
+            limit {
+                counter = 'BRANCH'
+                minimum = 0.82
+            }
+            limit {
+                counter = 'COMPLEXITY'
+                minimum = 0.87
+            }
+            limit {
+                counter = 'LINE'
+                minimum = 0.97
+            }
+            limit {
+                counter = 'METHOD'
+                minimum = 0.97
+            }
+            limit {
+                counter = 'CLASS'
+                minimum = 0.99
+            }
+        }
+    }
 }

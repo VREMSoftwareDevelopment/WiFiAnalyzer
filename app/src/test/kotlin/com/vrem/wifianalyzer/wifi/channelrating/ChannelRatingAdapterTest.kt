@@ -44,7 +44,7 @@ import org.robolectric.annotation.Config
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.Q])
+@Config(sdk = [Build.VERSION_CODES.R])
 class ChannelRatingAdapterTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val settings = INSTANCE.settings
@@ -61,6 +61,32 @@ class ChannelRatingAdapterTest {
 
     @Test
     fun testGetView() {
+        // setup
+        val expectedSize = Strength.values().size
+        val expectedStrength = reverse(Strength.FOUR)
+        val wiFiChannel = WiFiChannel(1, 2)
+        fixture.add(wiFiChannel)
+        whenever(channelRating.count(wiFiChannel)).thenReturn(5)
+        whenever(channelRating.strength(wiFiChannel)).thenReturn(Strength.FOUR)
+        val viewGroup = mainActivity.findViewById<ViewGroup>(android.R.id.content)
+        // execute
+        val actual = fixture.getView(0, null, viewGroup)
+        // validate
+        assertNotNull(actual)
+        assertEquals("1", actual.findViewById<TextView>(R.id.channelNumber).text)
+        assertEquals("5", actual.findViewById<TextView>(R.id.accessPointCount).text)
+        val ratingBar = actual.findViewById<RatingBar>(R.id.channelRating)
+        assertEquals(expectedSize, ratingBar.max)
+        assertEquals(expectedSize, ratingBar.numStars)
+        assertEquals(expectedStrength.ordinal + 1, ratingBar.rating.toInt())
+        assertEquals("", bestChannels.text)
+        verify(channelRating).count(wiFiChannel)
+        verify(channelRating).strength(wiFiChannel)
+    }
+
+    @Config(sdk = [Build.VERSION_CODES.KITKAT])
+    @Test
+    fun testGetViewLegacy() {
         // setup
         val expectedSize = Strength.values().size
         val expectedStrength = reverse(Strength.FOUR)

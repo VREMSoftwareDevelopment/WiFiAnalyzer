@@ -57,13 +57,16 @@ class Settings(private val repository: Repository) {
         return false
     }
 
+    fun cacheOff(): Boolean =
+        repository.boolean(R.string.cache_off_key, repository.resourceBoolean(R.bool.cache_off_default))
+
     fun graphMaximumY(): Int {
         val defaultValue = repository.stringAsInteger(R.string.graph_maximum_y_default, GRAPH_Y_DEFAULT)
         val result = repository.stringAsInteger(R.string.graph_maximum_y_key, defaultValue)
         return result * GRAPH_Y_MULTIPLIER
     }
 
-    fun toggleWiFiBand(): Unit = repository.save(R.string.wifi_band_key, wiFiBand().toggle().ordinal)
+    fun wiFiBand(wiFiBand: WiFiBand): Unit = repository.save(R.string.wifi_band_key, wiFiBand.ordinal)
 
     fun countryCode(): String = repository.string(R.string.country_code_key, defaultCountryCode())
 

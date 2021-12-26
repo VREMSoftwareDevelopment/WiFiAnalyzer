@@ -41,11 +41,7 @@ class Repository(private val context: Context) {
     fun save(key: Int, value: String): Unit = sharedPreferences().edit { putString(context.getString(key), value) }
 
     fun stringAsInteger(key: Int, defaultValue: Int): Int =
-            try {
-                string(key, defaultValue.toString()).toInt()
-            } catch (e: Exception) {
-                defaultValue
-            }
+        string(key, defaultValue.toString()).toInt()
 
     fun string(key: Int, defaultValue: String): String {
         val keyValue: String = context.getString(key)

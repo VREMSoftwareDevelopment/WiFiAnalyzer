@@ -34,7 +34,7 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.Q])
+@Config(sdk = [Build.VERSION_CODES.R])
 class ChannelGraphAdapterTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val channelGraphNavigation: ChannelGraphNavigation = mock()

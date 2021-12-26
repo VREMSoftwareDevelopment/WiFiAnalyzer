@@ -87,6 +87,10 @@
     <string name="wifi_throttle_disabled_key" translatable="false">"wifi_throttle_disabled_key"</string>
     <bool name="wifi_throttle_disabled_default" translatable="false">false</bool>
 
+    <string name="cache_off_title" translatable="false">"Cache off"</string>
+    <string name="cache_off_key" translatable="false">"cache_off"</string>
+    <bool name="cache_off_default" translatable="false">false</bool>
+
     <string name="experimental_title" translatable="false">"Experimental"</string>
     <string name="experimental_key" translatable="false">"experimental_key"</string>
 
@@ -189,7 +193,7 @@
     <!-- license end -->
 
     <!-- Wi-Fi band start -->
-    <string name="wifi_band_title" translatable="false">"2.4/5 GHz"</string>
+    <string name="wifi_band_title" translatable="false">"2.4/5/6 GHz"</string>
     <string name="wifi_band_2ghz" translatable="false">"2.4 GHz"</string>
     <string name="wifi_band_5ghz" translatable="false">"5 GHz"</string>
     <string name="wifi_band_6ghz" translatable="false">"6 GHz"</string>

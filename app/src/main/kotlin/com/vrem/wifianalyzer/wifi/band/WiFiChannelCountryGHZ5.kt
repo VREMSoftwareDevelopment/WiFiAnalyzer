@@ -80,8 +80,8 @@ internal class WiFiChannelCountryGHZ5 {
 
 
         fun findChannels(countryCode: String): SortedSet<Int> =
-                channels.subtract(exclude.flatMap { it.find(countryCode.toCapitalize(Locale.getDefault())) })
-                        .union(include.flatMap { it.find(countryCode.toCapitalize(Locale.getDefault())) })
+                channels.subtract(exclude.flatMap { it.find(countryCode.toCapitalize(Locale.getDefault())) }.toSet())
+                        .union(include.flatMap { it.find(countryCode.toCapitalize(Locale.getDefault())) }.toSet())
                         .toSortedSet()
 
 }

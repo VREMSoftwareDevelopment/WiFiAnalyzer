@@ -49,10 +49,10 @@ internal class ChannelAxisLabel(private val wiFiBand: WiFiBand, private val wiFi
         } else {
             val channel = wiFiChannel.channel
             val countryCode = MainContext.INSTANCE.settings.countryCode()
-            if (!wiFiChannels.channelAvailable(countryCode, channel)) {
-                String.EMPTY
-            } else {
+            if (wiFiChannels.channelAvailable(countryCode, channel)) {
                 channel.toString()
+            } else {
+                String.EMPTY
             }
         }
     }

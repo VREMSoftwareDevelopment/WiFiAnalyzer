@@ -64,4 +64,13 @@ class WiFiConnectionTest {
         assertEquals(fixture.hashCode(), other.hashCode())
     }
 
+    @Test
+    fun testCompareTo() {
+        // setup
+        val wiFiIdentifier = WiFiIdentifier("SSID-123", "BSSID-123")
+        val other = WiFiConnection(wiFiIdentifier, String.EMPTY, WiFiConnection.LINK_SPEED_INVALID)
+        // execute & validate
+        assertEquals(0, fixture.compareTo(other))
+    }
+
 }

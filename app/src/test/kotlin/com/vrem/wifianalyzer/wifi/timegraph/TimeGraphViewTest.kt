@@ -37,13 +37,14 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
 import com.vrem.wifianalyzer.wifi.predicate.truePredicate
 import org.junit.After
-import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.Q])
+@Config(sdk = [Build.VERSION_CODES.R])
 class TimeGraphViewTest {
     private val dataManager: DataManager = mock()
     private val graphViewWrapper: GraphViewWrapper = mock()
@@ -94,7 +95,7 @@ class TimeGraphViewTest {
         // execute
         val actual = fixture.graphView()
         // validate
-        Assert.assertEquals(expected, actual)
+        assertEquals(expected, actual)
         verify(graphViewWrapper).graphView
         verifyNoMoreInteractions(expected)
     }
@@ -106,7 +107,7 @@ class TimeGraphViewTest {
         // execute
         val actual = makeGraphView(MainContext.INSTANCE, 10, ThemeStyle.DARK)
         // validate
-        Assert.assertNotNull(actual)
+        assertNotNull(actual)
     }
 
     @Test
@@ -116,6 +117,6 @@ class TimeGraphViewTest {
         // execute
         val actual = makeGraphViewWrapper()
         // validate
-        Assert.assertNotNull(actual)
+        assertNotNull(actual)
     }
 }

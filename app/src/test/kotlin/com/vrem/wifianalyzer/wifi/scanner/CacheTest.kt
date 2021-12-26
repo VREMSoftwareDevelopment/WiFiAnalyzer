@@ -42,6 +42,7 @@ class CacheTest {
     @Before
     fun setUp() {
         whenever(settings.scanSpeed()).thenReturn(5)
+        whenever(settings.cacheOff()).thenReturn(false)
         whenever(configuration.sizeAvailable).thenReturn(true)
     }
 
@@ -100,7 +101,7 @@ class CacheTest {
                 WiFiRange(5, 2),
                 WiFiRange(9, 2),
                 WiFiRange(10, 1),
-                WiFiRange(20, 1)
+            WiFiRange(20, 1)
         )
         // execute & validate
         values.forEach {
@@ -108,6 +109,78 @@ class CacheTest {
             assertEquals("Scan Speed:" + it.first, it.second, fixture.size())
         }
         verify(settings, times(values.size)).scanSpeed()
+    }
+
+    @Test
+    fun testAddWithCacheOff() {
+        // setup
+        whenever(settings.cacheOff()).thenReturn(true)
+        val scanResults = listOf<ScanResult>()
+        // execute
+        fixture.add(scanResults, wifiInfo)
+        // validate
+        assertEquals(scanResults, fixture.first())
+        assertEquals(wifiInfo, fixture.wifiInfo())
+        verify(settings).cacheOff()
+    }
+
+    @Test
+    fun testAddCompliesToMaxCacheSizeWhenCacheOff() {
+        // setup
+        val count = 2
+        whenever(settings.cacheOff()).thenReturn(true)
+        val expected: MutableList<List<ScanResult>> = mutableListOf()
+        // execute
+        for (i in 0 until count) {
+            val scanResults = listOf<ScanResult>()
+            expected.add(scanResults)
+            fixture.add(scanResults, wifiInfo)
+        }
+        // validate
+        assertEquals(count, expected.size)
+        assertEquals(expected[count - 1], fixture.first())
+        assertEquals(expected[count - 2], fixture.last())
+        verify(settings, times(count)).cacheOff()
+    }
+
+    @Test
+    fun testScanResultsWhenSingleAndCacheOff() {
+        // setup
+        whenever(settings.cacheOff()).thenReturn(true)
+        val count = withScanResults()
+        // execute
+        val actual = fixture.scanResults()
+        // validate
+        assertEquals(2, actual.size)
+        validate(scanResult3, -30, actual[0])
+        validate(scanResult6, -10, actual[1])
+        verify(settings, times(count)).cacheOff()
+    }
+
+    @Test
+    fun testScanResultsWhenMultipleAndCacheOff() {
+        // setup
+        whenever(settings.cacheOff()).thenReturn(true)
+        val count = withScanResults() + withScanResults()
+        // execute
+        val actual = fixture.scanResults()
+        // validate
+        assertEquals(2, actual.size)
+        validate(scanResult3, -30, actual[0])
+        validate(scanResult6, -10, actual[1])
+        verify(settings, times(count)).cacheOff()
+    }
+
+    @Test
+    fun testSizeWhenCacheOff() {
+        // setup
+        val expected = 1
+        whenever(settings.cacheOff()).thenReturn(true)
+        // execute
+        val actual = fixture.size()
+        // validate
+        assertEquals(expected, actual)
+        verify(settings).cacheOff()
     }
 
     @Test
@@ -184,7 +257,7 @@ class CacheTest {
         assertEquals(expectedLevel, actual.average)
     }
 
-    private fun withScanResults() {
+    private fun withScanResults(): Int {
         scanResult1.SSID = "SSID1"
         scanResult1.BSSID = "BSSID1"
         scanResult1.level = -10
@@ -209,8 +282,14 @@ class CacheTest {
         scanResult6.BSSID = "BSSID3"
         scanResult6.level = -10
 
+        var result = 0
         fixture.add(listOf(scanResult1, scanResult4), wifiInfo)
+        result++
         fixture.add(listOf(scanResult2, scanResult5), wifiInfo)
+        result++
         fixture.add(listOf(scanResult3, scanResult6), wifiInfo)
+        result++
+
+        return result
     }
 }

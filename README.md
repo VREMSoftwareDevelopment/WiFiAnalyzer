@@ -1,9 +1,5 @@
 <h1>WiFi Analyzer <img src="images/icon.png" alt="Application Icon" width="45" height="45"></h1>
 
-## News: 
-- WiFi Analyzer rated as one of the 15 most useful apps for Android by [Android Authority](https://www.androidauthority.com/most-useful-apps-for-android-603100/amp)
-- [Gizmodo](https://gizmodo.com/the-best-wifi-analyzer-apps-to-troubleshoot-your-networ-1843957301) rates WiFi Analyzer one of The Best Apps for Fixing Your WiFi
-
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=com.vrem.wifianalyzer)
 [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/repository/browse/?fdid=com.vrem.wifianalyzer)
 [<img src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-underground-app-us-white.png" alt="Get it at Amazon Store" height="70">
@@ -30,6 +26,7 @@ This is the official repository of WiFi Analyzer.
 * Graph Access Point signal strength over time
 * Analyze WiFi networks to rate channels
 * HT/VHT Detection - 40/80/160MHz (Requires Android OS 6+)
+* 2.4 GHz, 5 GHz and 6 GHz WiFi bands (Requires hardware support)
 * Access Point view complete or compact
 * Estimated Distance to the Access Points
 * Export access points details
@@ -42,7 +39,7 @@ This is the official repository of WiFi Analyzer.
 **Please note WiFi Analyzer is not a WiFi password cracking or phishing tool.**
  
 ## Usage Tips
-* Tap the title bar to switch between 2.4 and 5 GHz WiFi band.
+* Tap the title bar to switch between 2.4, 5 and 6 GHz WiFi band.
 * SSID with `***` or `*hidden*` means it is hidden.
 * Access Point security: 
      * <img src="images/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20"> WPA3(SAE)/WPA2/WPA 
@@ -121,9 +118,9 @@ WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
     * Select the root directory of the WiFi Analyzer repository and click "OK".
     * WiFi Analyzer will build automatically.
 
-### Running unit tests and jacoco coverage report
+### Running lint, unit tests and jacoco coverage report
 ```
-./gradlew lint testDebugUnitTest jacocoTestReport
+./gradlew lintDebug jacocoTestCoverageVerification
 ```
 
 - lint report: `app/build/reports/lint-results.html`

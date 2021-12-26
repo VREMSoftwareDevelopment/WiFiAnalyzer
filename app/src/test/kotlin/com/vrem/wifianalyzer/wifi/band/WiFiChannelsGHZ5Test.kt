@@ -60,14 +60,9 @@ class WiFiChannelsGHZ5Test {
 
     @Test
     fun testWiFiChannelPair() {
-        val wiFiChannelPair: WiFiChannelPair = fixture.wiFiChannelPairFirst(Locale.JAPAN.country)
-        validatePair(36, 64, wiFiChannelPair)
-    }
-
-    @Test
-    fun testWiFiChannelPairWithInvalidCountry() {
-        val wiFiChannelPair: WiFiChannelPair = fixture.wiFiChannelPairFirst(String.EMPTY)
-        validatePair(36, 64, wiFiChannelPair)
+        validatePair(36, 64, fixture.wiFiChannelPairFirst(Locale.JAPAN.country))
+        validatePair(36, 64, fixture.wiFiChannelPairFirst(String.EMPTY))
+        validatePair(36, 64, fixture.wiFiChannelPairFirst("XYZ"))
     }
 
     @Test

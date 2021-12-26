@@ -17,24 +17,39 @@
  */
 package com.vrem.wifianalyzer.wifi.scanner
 
-import android.net.wifi.ScanResult
-import android.net.wifi.WifiInfo
+import com.vrem.annotation.OpenClass
+import com.vrem.wifianalyzer.permission.PermissionService
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 
-internal class Scanner(private val wiFiManagerWrapper: WiFiManagerWrapper,
-                       private val settings: Settings,
-                       private val cache: Cache = Cache(),
-                       private val transformer: Transformer = Transformer()) : ScannerService {
+@OpenClass
+internal class Scanner(
+    val wiFiManagerWrapper: WiFiManagerWrapper,
+    val settings: Settings,
+    val permissionService: PermissionService,
+    val transformer: Transformer
+) : ScannerService {
     private val updateNotifiers: MutableList<UpdateNotifier> = mutableListOf()
+
     private var wiFiData: WiFiData = WiFiData.EMPTY
+    private var initialScan: Boolean = false
+
     lateinit var periodicScan: PeriodicScan
+    lateinit var scannerCallback: ScannerCallback
+    lateinit var scanResultsReceiver: ScanResultsReceiver
 
     override fun update() {
         wiFiManagerWrapper.enableWiFi()
-        scanResults()
-        wiFiData = transformer.transformToWiFiData(cache.scanResults(), cache.wifiInfo())
+        if (permissionService.enabled()) {
+            scanResultsReceiver.register()
+            wiFiManagerWrapper.startScan()
+            if (!initialScan) {
+                scannerCallback.onSuccess()
+                initialScan = true
+            }
+        }
+        wiFiData = transformer.transformToWiFiData()
         updateNotifiers.forEach { it.update(wiFiData) }
     }
 
@@ -44,37 +59,33 @@ internal class Scanner(private val wiFiManagerWrapper: WiFiManagerWrapper,
 
     override fun unregister(updateNotifier: UpdateNotifier): Boolean = updateNotifiers.remove(updateNotifier)
 
-    override fun pause(): Unit = periodicScan.stop()
+    override fun pause() {
+        periodicScan.stop()
+        scanResultsReceiver.unregister()
+    }
 
     override fun running(): Boolean = periodicScan.running
 
     override fun resume(): Unit = periodicScan.start()
 
+    override fun resumeWithDelay(): Unit = periodicScan.startWithDelay()
+
     override fun stop() {
+        periodicScan.stop()
+        updateNotifiers.clear()
         if (settings.wiFiOffOnExit()) {
             wiFiManagerWrapper.disableWiFi()
         }
+        scanResultsReceiver.unregister()
     }
 
     override fun toggle(): Unit =
-            if (periodicScan.running) {
-                periodicScan.stop()
-            } else {
-                periodicScan.start()
-            }
+        if (periodicScan.running) {
+            periodicScan.stop()
+        } else {
+            periodicScan.start()
+        }
 
     fun registered(): Int = updateNotifiers.size
-
-    private fun scanResults() {
-        try {
-            if (wiFiManagerWrapper.startScan()) {
-                val scanResults: List<ScanResult> = wiFiManagerWrapper.scanResults()
-                val wifiInfo: WifiInfo? = wiFiManagerWrapper.wiFiInfo()
-                cache.add(scanResults, wifiInfo)
-            }
-        } catch (e: Exception) {
-            // critical error: do not die
-        }
-    }
 
 }

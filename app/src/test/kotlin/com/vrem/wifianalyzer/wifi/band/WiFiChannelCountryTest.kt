@@ -18,11 +18,26 @@
 package com.vrem.wifianalyzer.wifi.band
 
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry.Companion.find
+import org.junit.After
 import org.junit.Assert.*
+import org.junit.Before
 import org.junit.Test
 import java.util.*
 
 class WiFiChannelCountryTest {
+    private val currentLocale: Locale = Locale.getDefault()
+
+    @Before
+    fun setUp() {
+        Locale.setDefault(Locale.US)
+    }
+
+    @After
+    fun tearDown() {
+        Locale.setDefault(currentLocale)
+    }
+
+
     @Test
     fun testChannelAvailableWithTrue() {
         assertTrue(find(Locale.US.country).channelAvailableGHZ2(1))
@@ -91,4 +106,27 @@ class WiFiChannelCountryTest {
         assertNotEquals(expected.displayCountry, actual.countryName(expected))
         assertEquals(expected.getDisplayCountry(expected), actual.countryName(expected))
     }
+
+    @Test
+    fun testCountryName() {
+        // setup
+        val fixture = WiFiChannelCountry(Locale.US)
+        val expected = "United States"
+        // execute & validate
+        val actual = fixture.countryName(Locale.US)
+        // execute & validate
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun testCountryNameUnknown() {
+        // setup
+        val fixture = WiFiChannelCountry(Locale("XYZ"))
+        val expected = "-Unknown"
+        // execute & validate
+        val actual = fixture.countryName(Locale.US)
+        // execute & validate
+        assertEquals(expected, actual)
+    }
+
 }

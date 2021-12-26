@@ -72,20 +72,27 @@ class WiFiChannelsGHZ6Test {
 
     @Test
     fun testWiFiChannelLast() {
-        assertEquals(93, fixture.wiFiChannelLast().channel)
-    }
-
-    @Test
-    fun testWiFiChannelPairs() {
-        val pair: List<WiFiChannelPair> = fixture.wiFiChannelPairs()
-        assertEquals(1, pair.size)
-        validatePair(1, 93, pair[0])
+        assertEquals(229, fixture.wiFiChannelLast().channel)
     }
 
     @Test
     fun testWiFiChannelPair() {
-        validatePair(1, 93, fixture.wiFiChannelPairFirst(Locale.US.country))
-        validatePair(1, 93, fixture.wiFiChannelPairFirst(String.EMPTY))
+        validatePair(1, 29, fixture.wiFiChannelPairFirst(Locale.US.country))
+        validatePair(1, 29, fixture.wiFiChannelPairFirst(String.EMPTY))
+        validatePair(1, 29, fixture.wiFiChannelPairFirst("XYZ"))
+    }
+
+    @Test
+    fun testWiFiChannelPairs() {
+        val wiFiChannelPairs: List<WiFiChannelPair> = fixture.wiFiChannelPairs()
+        assertEquals(7, wiFiChannelPairs.size)
+        validatePair(1, 29, wiFiChannelPairs[0])
+        validatePair(33, 61, wiFiChannelPairs[1])
+        validatePair(65, 93, wiFiChannelPairs[2])
+        validatePair(97, 125, wiFiChannelPairs[3])
+        validatePair(129, 157, wiFiChannelPairs[4])
+        validatePair(161, 189, wiFiChannelPairs[5])
+        validatePair(193, 229, wiFiChannelPairs[6])
     }
 
     private fun validatePair(expectedFirst: Int, expectedSecond: Int, pair: WiFiChannelPair) {
@@ -95,8 +102,8 @@ class WiFiChannelsGHZ6Test {
 
     @Test
     fun testAvailableChannels() {
-        assertEquals(24, fixture.availableChannels(Locale.US.country).size)
-        assertEquals(24, fixture.availableChannels(Locale.UK.country).size)
+        assertEquals(58, fixture.availableChannels(Locale.US.country).size)
+        assertEquals(58, fixture.availableChannels(Locale.UK.country).size)
     }
 
     @Test

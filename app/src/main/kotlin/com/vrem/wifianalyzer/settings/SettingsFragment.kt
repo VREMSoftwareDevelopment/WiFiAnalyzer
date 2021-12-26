@@ -27,7 +27,7 @@ import com.vrem.wifianalyzer.R
 open class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(bundle: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings)
-        findPreference<Preference>(getString(R.string.experimental_key))!!.isVisible = buildVersionP()
+        findPreference<Preference>(getString(R.string.wifi_throttle_disabled_key))!!.isVisible = buildVersionP()
         findPreference<Preference>(getString(R.string.wifi_off_on_exit_key))!!.isVisible = !buildMinVersionQ()
     }
 

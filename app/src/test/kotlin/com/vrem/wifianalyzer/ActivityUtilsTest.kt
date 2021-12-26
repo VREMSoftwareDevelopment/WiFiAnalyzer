@@ -24,7 +24,6 @@ import android.view.WindowManager
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import com.nhaarman.mockitokotlin2.*
-import com.vrem.wifianalyzer.navigation.NavigationMenu
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -59,32 +58,9 @@ class ActivityUtilsTest {
         assertEquals(toolbar, actual)
         verify(mainActivity).findViewById<View>(R.id.toolbar)
         verify(mainActivity).supportActionBar
-        verify(toolbar).setOnClickListener(any())
         verify(mainActivity).setSupportActionBar(toolbar)
         verify(actionBar).setHomeButtonEnabled(true)
         verify(actionBar).setDisplayHomeAsUpEnabled(true)
-    }
-
-    @Test
-    fun testWiFiBandToggleOnClickToggles() {
-        // setup
-        whenever(mainActivity.currentNavigationMenu()).thenReturn(NavigationMenu.CHANNEL_GRAPH)
-        // execute
-        mainActivity.toggleWiFiBand()
-        // validate
-        verify(settings).toggleWiFiBand()
-        verify(mainActivity).currentNavigationMenu()
-    }
-
-    @Test
-    fun testWiFiBandToggleOnClickDoesNotToggles() {
-        // setup
-        whenever(mainActivity.currentNavigationMenu()).thenReturn(NavigationMenu.ACCESS_POINTS)
-        // execute
-        mainActivity.toggleWiFiBand()
-        // validate
-        verify(settings, never()).toggleWiFiBand()
-        verify(mainActivity).currentNavigationMenu()
     }
 
     @Test

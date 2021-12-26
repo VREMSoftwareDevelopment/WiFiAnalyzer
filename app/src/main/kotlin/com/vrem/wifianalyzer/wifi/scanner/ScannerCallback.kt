@@ -15,35 +15,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package com.vrem.wifianalyzer.wifi.scanner
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+import com.vrem.annotation.OpenClass
+import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
 
-buildscript {
-    ext {
-        kotlin_version = '1.6.10'
-    }
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
-    }
-}
+@OpenClass
+internal class ScannerCallback(private val wiFiManagerWrapper: WiFiManagerWrapper, private val cache: Cache) :
+    Callback {
 
-allprojects {
-    repositories {
-        google()
-        maven { url 'https://maven.google.com' }
-        mavenCentral()
+    override fun onSuccess() {
+        cache.add(wiFiManagerWrapper.scanResults(), wiFiManagerWrapper.wiFiInfo())
     }
-    tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-    }
-}
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }

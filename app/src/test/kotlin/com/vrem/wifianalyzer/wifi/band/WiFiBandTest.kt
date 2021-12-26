@@ -57,16 +57,24 @@ class WiFiBandTest {
     }
 
     @Test
-    fun testToggle() {
-        assertEquals(WiFiBand.GHZ5, WiFiBand.GHZ2.toggle())
-        assertEquals(WiFiBand.GHZ2, WiFiBand.GHZ5.toggle())
+    fun testGhz5() {
+        assertFalse(WiFiBand.GHZ2.ghz5)
+        assertTrue(WiFiBand.GHZ5.ghz5)
+        assertFalse(WiFiBand.GHZ6.ghz5)
     }
 
     @Test
-    fun testGhz5() {
-        assertFalse(WiFiBand.GHZ2.ghz5())
-        assertTrue(WiFiBand.GHZ5.ghz5())
-        assertFalse(WiFiBand.GHZ6.ghz5())
+    fun testGhz2() {
+        assertTrue(WiFiBand.GHZ2.ghz2)
+        assertFalse(WiFiBand.GHZ5.ghz2)
+        assertFalse(WiFiBand.GHZ6.ghz2)
+    }
+
+    @Test
+    fun testGhz6() {
+        assertFalse(WiFiBand.GHZ2.ghz6)
+        assertFalse(WiFiBand.GHZ5.ghz6)
+        assertTrue(WiFiBand.GHZ6.ghz6)
     }
 
     @Test

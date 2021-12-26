@@ -18,24 +18,37 @@
   -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/action_wifi_band"
+        android:title="@string/wifi_band_title"
+        app:showAsAction="ifRoom|withText"
+        tools:title="5\nGhz">
+        <menu>
+            <item
+                android:id="@+id/action_wifi_band_2ghz"
+                android:title="@string/wifi_band_2ghz" />
+            <item
+                android:id="@+id/action_wifi_band_5ghz"
+                android:title="@string/wifi_band_5ghz" />
+            <item
+                android:id="@+id/action_wifi_band_6ghz"
+                android:title="@string/wifi_band_6ghz" />
+        </menu>
+    </item>
 
     <item
         android:id="@+id/action_filter"
         android:icon="@drawable/ic_filter_list"
         android:title="@string/filter_title"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_scanner"
         android:icon="@drawable/ic_pause"
         android:title="@string/scanner_pause"
-        app:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/action_wifi_band"
-        android:icon="@drawable/ic_leak_add"
-        android:title="@string/wifi_band_title"
         app:showAsAction="ifRoom"/>
 
 </menu>

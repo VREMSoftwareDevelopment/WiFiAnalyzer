@@ -17,8 +17,7 @@
  */
 package com.vrem.util
 
-import org.junit.Assert
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
 import org.junit.Test
 import java.util.*
 
@@ -28,8 +27,8 @@ class LocaleUtilsTest {
         // execute
         val actual = allCountries()
         // validate
-        Assert.assertTrue(actual.size >= 2)
-        Assert.assertTrue(actual[0].country < actual[actual.size - 1].country)
+        assertTrue(actual.size >= 2)
+        assertTrue(actual[0].country < actual[actual.size - 1].country)
     }
 
     @Test
@@ -42,8 +41,8 @@ class LocaleUtilsTest {
         assertEquals(expected, actual)
         assertEquals(expected.country, actual.country)
         assertEquals(expected.displayCountry, actual.displayCountry)
-        Assert.assertNotEquals(expected.country, expected.displayCountry)
-        Assert.assertNotEquals(actual.country, actual.displayCountry)
+        assertNotEquals(expected.country, expected.displayCountry)
+        assertNotEquals(actual.country, actual.displayCountry)
     }
 
     @Test
@@ -98,7 +97,7 @@ class LocaleUtilsTest {
         // validate
         assertEquals(expected.size, actual.size)
         for (locale in expected) {
-            Assert.assertTrue(actual.contains(locale))
+            assertTrue(actual.contains(locale))
         }
     }
 

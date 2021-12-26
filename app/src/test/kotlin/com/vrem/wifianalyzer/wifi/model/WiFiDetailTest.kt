@@ -17,8 +17,8 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import org.junit.Assert
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotSame
 import org.junit.Test
 
 class WiFiDetailTest {
@@ -50,7 +50,7 @@ class WiFiDetailTest {
         val other = WiFiDetail(wiFiIdentifier, capabilities, wiFiSignal)
         // execute & validate
         assertEquals(fixture, other)
-        Assert.assertNotSame(fixture, other)
+        assertNotSame(fixture, other)
     }
 
     @Test

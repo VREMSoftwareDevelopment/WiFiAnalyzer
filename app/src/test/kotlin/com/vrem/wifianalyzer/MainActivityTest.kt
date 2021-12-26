@@ -25,6 +25,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.material.navigation.NavigationView
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.navigation.NavigationMenu
@@ -33,25 +34,34 @@ import com.vrem.wifianalyzer.navigation.options.OptionMenu
 import com.vrem.wifianalyzer.permission.PermissionService
 import org.junit.After
 import org.junit.Assert.*
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.Q])
+@Config(sdk = [Build.VERSION_CODES.R])
 class MainActivityTest {
     private val sharedPreferences: SharedPreferences = mock()
+    private val permissionService: PermissionService = mock()
     private val fixture = Robolectric.buildActivity(MainActivity::class.java).create().resume().get()
+
+    @Before
+    fun setup() {
+        fixture.permissionService = permissionService
+    }
 
     @After
     fun tearDown() {
+        verifyNoMoreInteractions(permissionService)
+        verifyNoMoreInteractions(sharedPreferences)
         MainContextHelper.INSTANCE.restore()
     }
 
     @Test
     fun testMainActivity() {
-        assertTrue(MainContext.INSTANCE.scannerService.running())
+        assertFalse(MainContext.INSTANCE.scannerService.running())
     }
 
     @Test
@@ -62,20 +72,58 @@ class MainActivityTest {
         fixture.onPause()
         // validate
         verify(scannerService).pause()
+        verify(scannerService).unregister(fixture.connectionView)
     }
 
     @Test
-    fun testOnResumeCallsOptionMenuResume() {
+    fun testOnResumeWithPermissionGrantedWillResumeScanner() {
         // setup
-        val permissionService: PermissionService = mock()
-        fixture.permissionService = permissionService
         val scannerService = MainContextHelper.INSTANCE.scannerService
         whenever(permissionService.permissionGranted()).thenReturn(true)
+        whenever(permissionService.systemEnabled()).thenReturn(false)
         // execute
         fixture.onResume()
         // validate
         verify(permissionService).permissionGranted()
+        verify(permissionService).systemEnabled()
         verify(scannerService).resume()
+        verify(scannerService).register(fixture.connectionView)
+    }
+
+    @Test
+    fun testOnResumeWithPermissionNotGrantedWillPauseScanner() {
+        // setup
+        whenever(permissionService.permissionGranted()).thenReturn(false)
+        val scannerService = MainContextHelper.INSTANCE.scannerService
+        // execute
+        fixture.onResume()
+        // validate
+        verify(scannerService).pause()
+        verify(scannerService).register(fixture.connectionView)
+        verify(permissionService).permissionGranted()
+    }
+
+    @Test
+    fun testOnStartWithPermissionGrantedWillResumeScanner() {
+        // setup
+        whenever(permissionService.permissionGranted()).thenReturn(true)
+        val scannerService = MainContextHelper.INSTANCE.scannerService
+        // execute
+        fixture.onStart()
+        // validate
+        verify(scannerService).resume()
+        verify(permissionService).permissionGranted()
+    }
+
+    @Test
+    fun testOnStartWithPermissionNotGrantedWillCheckPermission() {
+        // setup
+        whenever(permissionService.permissionGranted()).thenReturn(false)
+        // execute
+        fixture.onStart()
+        // validate
+        verify(permissionService).check()
+        verify(permissionService).permissionGranted()
     }
 
     @Test

@@ -27,15 +27,15 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.Q])
+@Config(sdk = [Build.VERSION_CODES.R])
 class VendorServiceTest {
     private val vendorName = "CISCO SYSTEMS INC"
     private val macAddress = "00:23:AB:8C:DF:10"
     private val vendorNameInvalid = "XXXXX"
     private val macAddressInvalid = "XX:XX:XX"
-    private val vendorSize = 18124
-    private val macsSize = 30293
-    private val macsCiscoSize = 987
+    private val vendorSize = 18276
+    private val macsSize = 31195
+    private val macsCiscoSize = 1010
     private val filterVendor = "1394 "
     private val filterMac = "00:A0:2"
     private val expectedVendorName1 = "1394 TRADE ASSOCIATION"
@@ -43,7 +43,7 @@ class VendorServiceTest {
     private val expectedVendorName3 = "1394 PRINTER WORKING GROUP"
     private val expectedMac1 = "00:00:0C"
     private val expectedMac2 = "FC:FB:FB"
-    private val expectedMac3 = "04:76:B0"
+    private val expectedMac3 = "08:96:AD"
 
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val fixture = VendorService(mainActivity.resources)

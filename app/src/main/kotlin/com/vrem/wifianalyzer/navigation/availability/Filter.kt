@@ -28,10 +28,9 @@ internal val navigationOptionFilterOff: NavigationOption = {
 
 internal val navigationOptionFilterOn: NavigationOption = {
     it.optionMenu.menu?.let { menu ->
+        val color = if (MainContext.INSTANCE.filtersAdapter.isActive()) R.color.selected else R.color.regular
         val menuItem = menu.findItem(R.id.action_filter)
         menuItem.isVisible = true
-        val color = if (MainContext.INSTANCE.filtersAdapter.isActive()) R.color.selected else R.color.regular
-        val tint = it.compatColor(color)
-        menuItem.icon.compatTint(tint)
+        menuItem.icon.compatTint(it.compatColor(color))
     }
 }

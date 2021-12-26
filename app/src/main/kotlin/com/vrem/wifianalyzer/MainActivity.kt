@@ -41,20 +41,21 @@ import com.vrem.wifianalyzer.permission.PermissionService
 import com.vrem.wifianalyzer.settings.Repository
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionView
-import com.vrem.wifianalyzer.wifi.band.WiFiBand
+import com.vrem.wifianalyzer.wifi.scanner.ScannerService
 
 @OpenClass
 class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPreferenceChangeListener {
-    lateinit var drawerNavigation: DrawerNavigation
-    lateinit var mainReload: MainReload
-    lateinit var navigationMenuController: NavigationMenuController
-    lateinit var optionMenu: OptionMenu
-    lateinit var permissionService: PermissionService
+    internal lateinit var drawerNavigation: DrawerNavigation
+    internal lateinit var mainReload: MainReload
+    internal lateinit var navigationMenuController: NavigationMenuController
+    internal lateinit var optionMenu: OptionMenu
+    internal lateinit var permissionService: PermissionService
+    internal lateinit var connectionView: ConnectionView
 
     private var currentCountryCode: String = String.EMPTY
 
     override fun attachBaseContext(newBase: Context) =
-            super.attachBaseContext(newBase.createContext(Settings(Repository(newBase)).languageLocale()))
+        super.attachBaseContext(newBase.createContext(Settings(Repository(newBase)).languageLocale()))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val mainContext = MainContext.INSTANCE
@@ -84,11 +85,9 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
         navigationMenuController.currentNavigationMenu(settings.selectedMenu())
         onNavigationItemSelected(currentMenuItem())
 
-        val connectionView = ConnectionView(this)
-        mainContext.scannerService.register(connectionView)
+        connectionView = ConnectionView(this)
 
         permissionService = PermissionService(this)
-        permissionService.check()
     }
 
     public override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -112,8 +111,7 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
         val settings = mainContext.settings
         val countryCode = settings.countryCode()
         if (countryCode != currentCountryCode) {
-            val pair = WiFiBand.GHZ5.wiFiChannels.wiFiChannelPairFirst(countryCode)
-            mainContext.configuration.wiFiChannelPair = pair
+            mainContext.configuration.wiFiChannelPair(countryCode)
             currentCountryCode = countryCode
         }
     }
@@ -172,25 +170,40 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
     }
 
     public override fun onPause() {
-        MainContext.INSTANCE.scannerService.pause()
+        val scannerService: ScannerService = MainContext.INSTANCE.scannerService
+        scannerService.pause()
+        scannerService.unregister(connectionView)
         updateActionBar()
         super.onPause()
     }
 
     public override fun onResume() {
         super.onResume()
+        val scannerService: ScannerService = MainContext.INSTANCE.scannerService
         if (permissionService.permissionGranted()) {
             if (!permissionService.systemEnabled()) {
                 startLocationSettings()
             }
-            MainContext.INSTANCE.scannerService.resume()
+            scannerService.resume()
+        } else {
+            scannerService.pause()
         }
         updateActionBar()
+        scannerService.register(connectionView)
     }
 
     public override fun onStop() {
         MainContext.INSTANCE.scannerService.stop()
         super.onStop()
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        if (permissionService.permissionGranted()) {
+            MainContext.INSTANCE.scannerService.resume()
+        } else {
+            permissionService.check()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -23,7 +23,7 @@ import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.wifi.model.*
 import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class TransformerTest {
@@ -31,34 +31,55 @@ class TransformerTest {
     private val scanResult2 = withScanResult(SSID_2, BSSID_2, WiFiWidth.MHZ_80, WiFiStandard.AC)
     private val scanResult3 = withScanResult(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N)
     private val cacheResults = listOf(
-            CacheResult(scanResult1, scanResult1.level),
-            CacheResult(scanResult2, scanResult2.level),
-            CacheResult(scanResult3, scanResult2.level))
+        CacheResult(scanResult1, scanResult1.level),
+        CacheResult(scanResult2, scanResult2.level),
+        CacheResult(scanResult3, scanResult2.level)
+    )
     private val wifiInfo = withWiFiInfo()
-    private val fixture = spy(Transformer())
+    private val cache: Cache = mock()
+    private val fixture = spy(Transformer(cache))
 
     @After
     fun tearDown() {
         verifyNoMoreInteractions(wifiInfo)
+        verifyNoMoreInteractions(cache)
+    }
+
+    @Test
+    fun testTransformWifiInfo() {
+        // setup
+        val expected = WiFiConnection(WiFiIdentifier(SSID_1, BSSID_1), IP_ADDRESS, LINK_SPEED)
+        whenever(cache.wifiInfo()).thenReturn(wifiInfo)
+        // execute
+        val actual = fixture.transformWifiInfo()
+        // validate
+        assertEquals(expected, actual)
+        verify(cache).wifiInfo()
+        verifyWiFiInfo()
     }
 
     @Test
     fun testTransformWithNulls() {
+        // setup
+        whenever(cache.wifiInfo()).thenReturn(null)
         // execute
-        val actual = fixture.transformWifiInfo(null)
+        val actual = fixture.transformWifiInfo()
         // validate
         assertEquals(WiFiConnection.EMPTY, actual)
+        verify(cache).wifiInfo()
     }
 
     @Test
     fun testTransformWifiInfoNotConnected() {
         // setup
+        whenever(cache.wifiInfo()).thenReturn(wifiInfo)
         whenever(wifiInfo.networkId).thenReturn(-1)
         // execute
-        val actual = fixture.transformWifiInfo(wifiInfo)
+        val actual = fixture.transformWifiInfo()
         // validate
         assertEquals(WiFiConnection.EMPTY, actual)
         verify(wifiInfo).networkId
+        verify(cache).wifiInfo()
     }
 
     @Test
@@ -66,8 +87,9 @@ class TransformerTest {
         // setup
         doReturn(true).whenever(fixture).minVersionM()
         doReturn(true).whenever(fixture).minVersionR()
+        whenever(cache.scanResults()).thenReturn(cacheResults)
         // execute
-        val actual = fixture.transformCacheResults(cacheResults)
+        val actual = fixture.transformCacheResults()
         // validate
         assertEquals(cacheResults.size, actual.size)
         validateWiFiDetail(SSID_1, BSSID_1, WiFiWidth.MHZ_160, WiFiStandard.AX, actual[0])
@@ -75,99 +97,23 @@ class TransformerTest {
         validateWiFiDetail(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N, actual[2])
         verify(fixture, times(9)).minVersionM()
         verify(fixture, times(3)).minVersionR()
+        verify(cache).scanResults()
     }
 
     @Test
     fun testWiFiData() {
         // setup
         val expectedWiFiConnection = WiFiConnection(WiFiIdentifier(SSID_1, BSSID_1), IP_ADDRESS, LINK_SPEED)
+        whenever(cache.wifiInfo()).thenReturn(wifiInfo)
+        whenever(cache.scanResults()).thenReturn(cacheResults)
         // execute
-        val actual = fixture.transformToWiFiData(cacheResults, wifiInfo)
+        val actual = fixture.transformToWiFiData()
         // validate
         assertEquals(expectedWiFiConnection, actual.wiFiConnection)
         assertEquals(cacheResults.size, actual.wiFiDetails.size)
         verifyWiFiInfo()
-    }
-
-    @Test
-    fun testChannelWidth() {
-        // setup
-        doReturn(true).whenever(fixture).minVersionM()
-        // execute
-        val actual = fixture.channelWidth(scanResult1)
-        // validate
-        assertEquals(WiFiWidth.MHZ_160.channelWidth, actual)
-        verify(fixture).minVersionM()
-    }
-
-    @Test
-    fun testChannelWidthLegacy() {
-        // execute
-        val actual = fixture.channelWidth(scanResult1)
-        // validate
-        assertEquals(WiFiWidth.MHZ_20.channelWidth, actual)
-    }
-
-    @Test
-    fun testWiFiStandard() {
-        // setup
-        doReturn(true).whenever(fixture).minVersionR()
-        // execute
-        val actual = fixture.wiFiStandard(scanResult1)
-        // validate
-        assertEquals(WiFiStandard.AX.wiFiStandardId, actual)
-        verify(fixture).minVersionR()
-    }
-
-    @Test
-    fun testWiFiStandardLegacy() {
-        // execute
-        val actual = fixture.wiFiStandard(scanResult1)
-        // validate
-        assertEquals(WiFiStandard.UNKNOWN.wiFiStandardId, actual)
-    }
-
-    @Test
-    fun testMc80211() {
-        // setup
-        doReturn(true).whenever(fixture).minVersionM()
-        whenever(scanResult1.is80211mcResponder).thenReturn(true)
-        // execute
-        val actual = fixture.mc80211(scanResult1)
-        // validate
-        assertTrue(actual)
-        verify(scanResult1).is80211mcResponder
-        verify(fixture).minVersionM()
-    }
-
-    @Test
-    fun testMc80211Legacy() {
-        // execute
-        val actual = fixture.mc80211(scanResult1)
-        // validate
-        assertFalse(actual)
-    }
-
-    @Test
-    fun testCenterFrequency() {
-        // setup
-        val wiFiWidth = WiFiWidth.values()[scanResult1.channelWidth]
-        // execute
-        val actual = fixture.centerFrequency(scanResult1, wiFiWidth)
-        // validate
-        assertEquals(FREQUENCY, actual)
-    }
-
-    @Test
-    fun testCenterFrequencyWithAndroidM() {
-        // setup
-        doReturn(true).whenever(fixture).minVersionM()
-        val wiFiWidth = WiFiWidth.values()[scanResult1.channelWidth]
-        val expected = wiFiWidth.calculateCenter(scanResult1.frequency, scanResult1.centerFreq0)
-        // execute
-        val actual = fixture.centerFrequency(scanResult1, wiFiWidth)
-        // validate
-        assertEquals(expected, actual)
+        verify(cache).wifiInfo()
+        verify(cache).scanResults()
     }
 
     private fun withScanResult(ssid: SSID, bssid: BSSID, wiFiWidth: WiFiWidth, wiFiStandard: WiFiStandard): ScanResult {

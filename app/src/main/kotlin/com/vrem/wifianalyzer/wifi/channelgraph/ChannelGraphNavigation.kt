@@ -20,54 +20,94 @@ package com.vrem.wifianalyzer.wifi.channelgraph
 import android.content.Context
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import androidx.core.text.parseAsHtml
 import com.vrem.annotation.OpenClass
 import com.vrem.util.compatColor
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
+import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelsGHZ5
+import com.vrem.wifianalyzer.wifi.band.WiFiChannelsGHZ6
 
-internal val navigationSet: Map<WiFiChannelPair, Int> = mapOf(
-        WiFiChannelsGHZ5.SET1 to R.id.graphNavigationSet1,
-        WiFiChannelsGHZ5.SET2 to R.id.graphNavigationSet2,
-        WiFiChannelsGHZ5.SET3 to R.id.graphNavigationSet3)
+typealias NavigationSets = Map<Int, WiFiChannelPair>
+typealias NavigationLines = Map<Int, NavigationSets>
+
+internal val navigationGHZ2Lines = mapOf<Int, NavigationSets>()
+
+internal val navigationGHZ5Lines = mapOf(
+    R.id.graphNavigationLine1 to mapOf(
+        R.id.graphNavigationSet1 to WiFiChannelsGHZ5.SET1,
+        R.id.graphNavigationSet2 to WiFiChannelsGHZ5.SET2,
+        R.id.graphNavigationSet3 to WiFiChannelsGHZ5.SET3
+    ),
+    R.id.graphNavigationLine2 to emptyMap()
+)
+
+internal val navigationGHZ6Lines = mapOf(
+    R.id.graphNavigationLine1 to mapOf(
+        R.id.graphNavigationSet1 to WiFiChannelsGHZ6.SET1,
+        R.id.graphNavigationSet2 to WiFiChannelsGHZ6.SET2,
+        R.id.graphNavigationSet3 to WiFiChannelsGHZ6.SET3
+    ),
+    R.id.graphNavigationLine2 to mapOf(
+        R.id.graphNavigationSet4 to WiFiChannelsGHZ6.SET4,
+        R.id.graphNavigationSet5 to WiFiChannelsGHZ6.SET5,
+        R.id.graphNavigationSet6 to WiFiChannelsGHZ6.SET6,
+        R.id.graphNavigationSet7 to WiFiChannelsGHZ6.SET7
+    )
+)
 
 @OpenClass
 class ChannelGraphNavigation(private val view: View, private val mainContext: Context) {
 
     internal fun update() {
-        if (MainContext.INSTANCE.settings.wiFiBand().ghz5()) {
-            val selectedWiFiChannelPair = MainContext.INSTANCE.configuration.wiFiChannelPair
-            navigationSet.entries.forEach { button(it, selectedWiFiChannelPair) }
-            view.visibility = View.VISIBLE
-        } else {
-            view.visibility = View.GONE
+        val wiFiBand = MainContext.INSTANCE.settings.wiFiBand()
+        val selectedWiFiChannelPair = MainContext.INSTANCE.configuration.wiFiChannelPair(wiFiBand)
+        val navigationLines = navigationLines(wiFiBand)
+        view.visibility = visibility(navigationLines)
+        navigationLines.entries.forEach { entry ->
+            view.findViewById<LinearLayout>(entry.key).visibility = visibility(entry.value)
+            buttons(entry.value, wiFiBand, selectedWiFiChannelPair)
         }
     }
 
-    internal fun initialize() {
-        navigationSet.entries.forEach { entry ->
-            with(view.findViewById<Button>(entry.value)) {
-                setOnClickListener { onClickListener(entry.key) }
-                text = """<strong>${entry.key.first.channel} &#8722 ${entry.key.second.channel}</strong>""".parseAsHtml()
+    private fun buttons(navigationSets: NavigationSets, wiFiBand: WiFiBand, selectedWiFiChannelPair: WiFiChannelPair) {
+        navigationSets.forEach { entry ->
+            with(view.findViewById<Button>(entry.key)) {
+                val value = entry.value
+                val selected = value == selectedWiFiChannelPair
+                val color = mainContext.compatColor(if (selected) R.color.selected else R.color.background)
+                val textValue =
+                    """<strong>${value.first.channel} &#8722 ${value.second.channel}</strong>""".parseAsHtml()
+                        .toString()
+                setBackgroundColor(color)
+                text = textValue
+                isSelected = selected
+                setOnClickListener { onClickListener(wiFiBand, value) }
             }
         }
     }
 
-    internal fun onClickListener(wiFiChannelPair: WiFiChannelPair) {
+    private fun visibility(map: Map<Int, Any>) =
+        if (map.isEmpty()) {
+            View.GONE
+        } else {
+            View.VISIBLE
+        }
+
+    internal fun onClickListener(wiFiBand: WiFiBand, wiFiChannelPair: WiFiChannelPair) {
         val mainContext = MainContext.INSTANCE
-        mainContext.configuration.wiFiChannelPair = wiFiChannelPair
+        mainContext.configuration.wiFiChannelPair(wiFiBand, wiFiChannelPair)
         mainContext.scannerService.update()
     }
 
-    private fun button(entry: Map.Entry<WiFiChannelPair, Int>, selectedWiFiChannelPair: WiFiChannelPair) {
-        with(view.findViewById<Button>(entry.value)) {
-            val selected = entry.key == selectedWiFiChannelPair
-            val color = if (selected) R.color.selected else R.color.background
-            setBackgroundColor(mainContext.compatColor(color))
-            isSelected = selected
+    private fun navigationLines(wiFiBand: WiFiBand): NavigationLines =
+        when (wiFiBand) {
+            WiFiBand.GHZ2 -> navigationGHZ2Lines
+            WiFiBand.GHZ5 -> navigationGHZ5Lines
+            WiFiBand.GHZ6 -> navigationGHZ6Lines
         }
-    }
 
 }

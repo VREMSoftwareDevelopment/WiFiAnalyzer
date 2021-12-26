@@ -33,28 +33,4 @@ class StringUtilsTest {
         assertEquals(expected, actual)
     }
 
-    @Test
-    fun testToHtmlSmall() {
-        // setup
-        val color = 10
-        val text = "ThisIsText"
-        val expected = "<font color='$color'><small>$text</small></font>"
-        // execute
-        val actual: String = text.toHtml(color, true)
-        // validate
-        assertEquals(expected, actual)
-    }
-
-    @Test
-    fun testToHtml() {
-        // setup
-        val color = 10
-        val text = "ThisIsText"
-        val expected = "<font color='$color'><strong>$text</strong></font>"
-        // execute
-        val actual: String = text.toHtml(color, false)
-        // validate
-        assertEquals(expected, actual)
-    }
-
 }

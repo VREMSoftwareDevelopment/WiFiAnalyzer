@@ -26,7 +26,8 @@ import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import org.junit.After
-import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Test
 
 class PortAuthorityItemTest {
@@ -110,7 +111,7 @@ class PortAuthorityItemTest {
         // execute
         val actual: Boolean = fixture.registered
         // validate
-        Assert.assertFalse(actual)
+        assertFalse(actual)
     }
 
     @Test
@@ -119,6 +120,6 @@ class PortAuthorityItemTest {
         // execute
         val actual: Int = fixture.visibility
         // validate
-        Assert.assertEquals(View.GONE, actual)
+        assertEquals(View.GONE, actual)
     }
 }
