@@ -7,10 +7,11 @@ Features:
 * Graph Access Point signal strength over time
 * Analyze WiFi networks to rate channels
 * HT/VHT Detection - 40/80/160MHz (Requires Android OS 6+)
+* 2.4 GHz, 5 GHz and 6 GHz WiFi bands (Requires hardware support)
 * Access Point view complete or compact
 * Estimated Distance to the Access Points
 * Export access points details
-* Dark or Light theme available
+* Dark, Light and System theme available
 * Pause/Resume scanning
 * Available filters: WiFi band, Signal strength, Security and SSID
 * Vendor/OUI Database Lookup
