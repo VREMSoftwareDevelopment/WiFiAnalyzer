@@ -17,6 +17,8 @@
  */
 package com.vrem.wifianalyzer.navigation
 
+import android.os.Build
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.availability.navigationOptionAp
 import com.vrem.wifianalyzer.navigation.availability.navigationOptionOff
@@ -25,7 +27,11 @@ import com.vrem.wifianalyzer.navigation.availability.navigationOptionRating
 import com.vrem.wifianalyzer.navigation.items.*
 import org.junit.Assert.*
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.S])
 class NavigationMenuTest {
     @Test
     fun testNavigationMenu() {

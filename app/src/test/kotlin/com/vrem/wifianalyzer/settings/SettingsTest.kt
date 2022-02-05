@@ -18,6 +18,8 @@
 package com.vrem.wifianalyzer.settings
 
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import android.os.Build
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.util.defaultCountryCode
 import com.vrem.util.defaultLanguageTag
 import com.vrem.util.ordinals
@@ -38,9 +40,12 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 import java.util.*
 
-
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.S])
 class SettingsTest {
     private val scanSpeedDefault = 5
     private val graphYMultiplier = -10

@@ -20,8 +20,10 @@ package com.vrem.wifianalyzer.navigation.items
 import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.view.MenuItem
 import android.view.View
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContextMockkHelper
 import com.vrem.wifianalyzer.export.Export
@@ -34,7 +36,11 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.S])
 class ExportItemTest {
     private val export: Export = mockk()
     private val mainActivity: MainActivity = mockk()

@@ -86,13 +86,13 @@ class Repository(private val context: Context) {
     }
 
     fun saveStringSet(key: Int, values: Set<String>): Unit =
-            sharedPreferences().edit { putStringSet(context.getString(key), values) }
+        sharedPreferences().edit { putStringSet(context.getString(key), values) }
 
-    fun defaultValues(context: Context?, resId: Int, readAgain: Boolean): Unit =
-            PreferenceManager.setDefaultValues(context, resId, readAgain)
+    fun defaultValues(context: Context, resId: Int, readAgain: Boolean): Unit =
+        PreferenceManager.setDefaultValues(context, resId, readAgain)
 
-    fun defaultSharedPreferences(context: Context?): SharedPreferences =
-            PreferenceManager.getDefaultSharedPreferences(context)
+    fun defaultSharedPreferences(context: Context): SharedPreferences =
+        PreferenceManager.getDefaultSharedPreferences(context)
 
     private fun sharedPreferences(): SharedPreferences = defaultSharedPreferences(context)
 

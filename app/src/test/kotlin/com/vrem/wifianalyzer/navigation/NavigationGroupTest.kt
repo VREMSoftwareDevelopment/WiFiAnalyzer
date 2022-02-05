@@ -17,10 +17,16 @@
  */
 package com.vrem.wifianalyzer.navigation
 
+import android.os.Build
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.S])
 class NavigationGroupTest {
     @Test
     fun testNavigationGroup() {
@@ -31,9 +37,10 @@ class NavigationGroupTest {
     fun testNavigationGroupOrder() {
         // setup
         val expected = arrayOf(
-                NavigationGroup.GROUP_FEATURE,
-                NavigationGroup.GROUP_OTHER,
-                NavigationGroup.GROUP_SETTINGS)
+            NavigationGroup.GROUP_FEATURE,
+            NavigationGroup.GROUP_OTHER,
+            NavigationGroup.GROUP_SETTINGS
+        )
         // validate
         assertArrayEquals(expected, NavigationGroup.values())
     }
@@ -50,10 +57,11 @@ class NavigationGroupTest {
     fun testFeatureNavigationMenus() {
         // setup
         val expected: List<NavigationMenu> = listOf(
-                NavigationMenu.ACCESS_POINTS,
-                NavigationMenu.CHANNEL_RATING,
-                NavigationMenu.CHANNEL_GRAPH,
-                NavigationMenu.TIME_GRAPH)
+            NavigationMenu.ACCESS_POINTS,
+            NavigationMenu.CHANNEL_RATING,
+            NavigationMenu.CHANNEL_GRAPH,
+            NavigationMenu.TIME_GRAPH
+        )
         // validate
         assertEquals(expected, NavigationGroup.GROUP_FEATURE.navigationMenus)
     }
@@ -62,10 +70,11 @@ class NavigationGroupTest {
     fun testOtherNavigationMenus() {
         // setup
         val expected: List<NavigationMenu> = listOf(
-                NavigationMenu.EXPORT,
-                NavigationMenu.CHANNEL_AVAILABLE,
-                NavigationMenu.VENDORS,
-                NavigationMenu.PORT_AUTHORITY)
+            NavigationMenu.EXPORT,
+            NavigationMenu.CHANNEL_AVAILABLE,
+            NavigationMenu.VENDORS,
+            NavigationMenu.PORT_AUTHORITY
+        )
         // validate
         assertEquals(expected, NavigationGroup.GROUP_OTHER.navigationMenus)
     }

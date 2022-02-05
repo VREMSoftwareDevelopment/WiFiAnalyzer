@@ -20,8 +20,10 @@ package com.vrem.wifianalyzer.navigation.items
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.view.MenuItem
 import android.view.View
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.navigation.NavigationMenu
@@ -29,7 +31,11 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.S])
 class PortAuthorityItemTest {
     private val portAuthority = "com.aaronjwood.portauthority."
     private val portAuthorityFree = portAuthority + "free"

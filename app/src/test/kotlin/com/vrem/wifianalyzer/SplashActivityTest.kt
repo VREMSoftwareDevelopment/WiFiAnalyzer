@@ -26,7 +26,7 @@ import org.robolectric.Robolectric.buildActivity
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.R])
+@Config(sdk = [Build.VERSION_CODES.S])
 class SplashActivityTest {
     @Test
     fun testSplashActivity() {

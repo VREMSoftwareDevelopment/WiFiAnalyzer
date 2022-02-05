@@ -17,7 +17,9 @@
  */
 package com.vrem.wifianalyzer.navigation.items
 
+import android.os.Build
 import android.view.View
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.about.AboutFragment
 import com.vrem.wifianalyzer.settings.SettingsFragment
 import com.vrem.wifianalyzer.vendor.VendorFragment
@@ -28,7 +30,11 @@ import com.vrem.wifianalyzer.wifi.channelrating.ChannelRatingFragment
 import com.vrem.wifianalyzer.wifi.timegraph.TimeGraphFragment
 import org.junit.Assert.*
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.S])
 class NavigationItemsTest {
     @Test
     fun testFragmentItem() {
