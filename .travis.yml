@@ -1,5 +1,8 @@
 sudo: false
-cache: false
+cache:
+   directories:
+   - $HOME/.gradle/caches/
+   - $HOME/.gradle/wrapper/
 language: android
 jdk: openjdk15
 dist: trusty
