@@ -26,6 +26,7 @@ import com.vrem.util.buildMinVersionP
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
+import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
@@ -37,9 +38,18 @@ class ConnectionView(
         private val accessPointPopup: AccessPointPopup = AccessPointPopup()) : UpdateNotifier {
 
     override fun update(wiFiData: WiFiData) {
-        val connectionViewType = MainContext.INSTANCE.settings.connectionViewType()
-        displayConnection(wiFiData, connectionViewType)
+        val settings = MainContext.INSTANCE.settings
+        displayConnection(wiFiData, settings)
+        displayWiFiSupport(settings)
         displayNoData(wiFiData)
+    }
+
+    private fun displayWiFiSupport(settings: Settings) {
+        val wiFiBand = settings.wiFiBand()
+        val visibility = if (wiFiBand.available()) View.GONE else View.VISIBLE
+        val textView = mainActivity.findViewById<TextView>(R.id.main_wifi_support)
+        textView.visibility = visibility
+        textView.text = wiFiBand.name
     }
 
     private fun displayNoData(wiFiData: WiFiData) {
@@ -55,12 +65,13 @@ class ConnectionView(
     }
 
     private fun getNoLocationVisibility(visibility: Int): Int =
-            if (mainActivity.permissionService.enabled()) View.GONE else visibility
+        if (mainActivity.permissionService.enabled()) View.GONE else visibility
 
     private fun noData(wiFiData: WiFiData): Boolean =
-            mainActivity.currentNavigationMenu().registered() && wiFiData.wiFiDetails.isEmpty()
+        mainActivity.currentNavigationMenu().registered() && wiFiData.wiFiDetails.isEmpty()
 
-    private fun displayConnection(wiFiData: WiFiData, connectionViewType: ConnectionViewType) {
+    private fun displayConnection(wiFiData: WiFiData, settings: Settings) {
+        val connectionViewType = settings.connectionViewType()
         val connection = wiFiData.connection()
         val connectionView = mainActivity.findViewById<View>(R.id.connection)
         val wiFiConnection = connection.wiFiAdditional.wiFiConnection
@@ -69,7 +80,8 @@ class ConnectionView(
         } else {
             connectionView.visibility = View.VISIBLE
             val parent = connectionView.findViewById<ViewGroup>(R.id.connectionDetail)
-            val view = accessPointDetail.makeView(parent.getChildAt(0), parent, connection, layout = connectionViewType.layout)
+            val view =
+                accessPointDetail.makeView(parent.getChildAt(0), parent, connection, layout = connectionViewType.layout)
             if (parent.childCount == 0) {
                 parent.addView(view)
             }

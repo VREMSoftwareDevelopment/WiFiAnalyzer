@@ -31,12 +31,7 @@ internal class PortAuthorityItem : NavigationItem {
     override fun activate(mainActivity: MainActivity, menuItem: MenuItem, navigationMenu: NavigationMenu) {
         try {
             val context: Context = mainActivity.applicationContext
-            val packageManager: PackageManager = context.packageManager
-            val intent: Intent = packageManager.getLaunchIntentForPackage(PORT_AUTHORITY_DONATE)
-                    ?: let {
-                        packageManager.getLaunchIntentForPackage(PORT_AUTHORITY_FREE)
-                                ?: redirectToPlayStore()
-            }
+            val intent = findPortAuthority(context.packageManager)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
         } catch (e: Exception) {
@@ -44,15 +39,21 @@ internal class PortAuthorityItem : NavigationItem {
         }
     }
 
-    fun redirectToPlayStore(): Intent {
+    private fun findPortAuthority(packageManager: PackageManager): Intent =
+        portAuthorities
+            .firstNotNullOfOrNull { packageManager.getLaunchIntentForPackage(it) }
+            ?: redirectToStore()
+
+    fun redirectToStore(): Intent {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse("market://details?id=$PORT_AUTHORITY_FREE")
         return intent
     }
 
     companion object {
-        private const val PORT_AUTHORITY = "com.aaronjwood.portauthority."
-        private const val PORT_AUTHORITY_FREE = PORT_AUTHORITY + "free"
-        private const val PORT_AUTHORITY_DONATE = PORT_AUTHORITY + "donate"
+        private const val PORT_AUTHORITY = "com.aaronjwood.portauthority"
+        private const val PORT_AUTHORITY_DONATE = "$PORT_AUTHORITY.donate"
+        private const val PORT_AUTHORITY_FREE = "$PORT_AUTHORITY.free"
+        private val portAuthorities = arrayOf(PORT_AUTHORITY_DONATE, PORT_AUTHORITY_FREE, PORT_AUTHORITY)
     }
 }

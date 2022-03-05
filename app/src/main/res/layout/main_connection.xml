@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ WiFiAnalyzer
   ~ Copyright (C) 2015 - 2022 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
@@ -22,8 +21,7 @@
     android:id="@+id/main_connection"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/connection"
@@ -51,8 +49,8 @@
                 android:id="@+id/linkSpeed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                 android:layout_marginStart="@dimen/list_view_item_horizontal_tab"
+                android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                 android:textColor="@color/selected"
                 android:textStyle="bold"
                 tools:text="999Mbps" />
@@ -68,5 +66,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <include layout="@layout/main_nodata"/>
+    <include layout="@layout/main_wifi_support" />
+
+    <include layout="@layout/main_nodata" />
 </LinearLayout>

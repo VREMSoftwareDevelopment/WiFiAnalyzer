@@ -37,9 +37,9 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.S])
 class PortAuthorityItemTest {
-    private val portAuthority = "com.aaronjwood.portauthority."
-    private val portAuthorityFree = portAuthority + "free"
-    private val portAuthorityDonate = portAuthority + "donate"
+    private val portAuthority = "com.aaronjwood.portauthority"
+    private val portAuthorityFree = portAuthority + ".free"
+    private val portAuthorityDonate = portAuthority + ".donate"
 
     private val mainActivity: MainActivity = mock()
     private val context: Context = mock()
@@ -92,13 +92,13 @@ class PortAuthorityItemTest {
     }
 
     @Test
-    fun testActivateWhenNoPortAuthority() {
+    fun testActivateWhenPortAuthority() {
         // setup
         whenever(mainActivity.applicationContext).thenReturn(context)
         whenever(context.packageManager).thenReturn(packageManager)
         whenever(packageManager.getLaunchIntentForPackage(portAuthorityDonate)).thenReturn(null)
         whenever(packageManager.getLaunchIntentForPackage(portAuthorityFree)).thenReturn(null)
-        doReturn(intent).whenever(fixture).redirectToPlayStore()
+        whenever(packageManager.getLaunchIntentForPackage(portAuthority)).thenReturn(intent)
         // execute
         fixture.activate(mainActivity, menuItem, NavigationMenu.PORT_AUTHORITY)
         // validate
@@ -108,7 +108,29 @@ class PortAuthorityItemTest {
         verify(context).packageManager
         verify(packageManager).getLaunchIntentForPackage(portAuthorityDonate)
         verify(packageManager).getLaunchIntentForPackage(portAuthorityFree)
-        verify(fixture).redirectToPlayStore()
+        verify(packageManager).getLaunchIntentForPackage(portAuthority)
+    }
+
+    @Test
+    fun testActivateWhenNoPortAuthority() {
+        // setup
+        whenever(mainActivity.applicationContext).thenReturn(context)
+        whenever(context.packageManager).thenReturn(packageManager)
+        whenever(packageManager.getLaunchIntentForPackage(portAuthorityDonate)).thenReturn(null)
+        whenever(packageManager.getLaunchIntentForPackage(portAuthorityFree)).thenReturn(null)
+        whenever(packageManager.getLaunchIntentForPackage(portAuthority)).thenReturn(null)
+        doReturn(intent).whenever(fixture).redirectToStore()
+        // execute
+        fixture.activate(mainActivity, menuItem, NavigationMenu.PORT_AUTHORITY)
+        // validate
+        verify(intent).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        verify(context).startActivity(intent)
+        verify(mainActivity).applicationContext
+        verify(context).packageManager
+        verify(packageManager).getLaunchIntentForPackage(portAuthorityDonate)
+        verify(packageManager).getLaunchIntentForPackage(portAuthorityFree)
+        verify(packageManager).getLaunchIntentForPackage(portAuthority)
+        verify(fixture).redirectToStore()
     }
 
     @Test

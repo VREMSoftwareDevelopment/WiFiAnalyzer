@@ -77,6 +77,8 @@
             android:textColor="@color/error"
             android:textStyle="bold" />
 
+        <include layout="@layout/info_throttling" />
+
         <LinearLayout
             android:id="@+id/no_location"
             android:layout_width="match_parent"
@@ -87,8 +89,6 @@
 
             <include layout="@layout/info_location" />
         </LinearLayout>
-
-        <include layout="@layout/info_throttling" />
 
         <include layout="@layout/info_faq" />
     </LinearLayout>
