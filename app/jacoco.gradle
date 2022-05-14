@@ -69,7 +69,7 @@ task jacocoTestCoverageVerification(type: JacocoCoverageVerification, dependsOn:
             }
             limit {
                 counter = 'BRANCH'
-                minimum = 0.83
+                minimum = 0.82
             }
             limit {
                 counter = 'COMPLEXITY'
