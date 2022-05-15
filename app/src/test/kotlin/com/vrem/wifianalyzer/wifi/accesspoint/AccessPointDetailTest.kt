@@ -329,14 +329,19 @@ class AccessPointDetailTest {
     }
 
     private fun withWiFiDetail(ssid: String, wiFiAdditional: WiFiAdditional): WiFiDetail =
-            withWiFiDetail(ssid, wiFiAdditional, false)
+        withWiFiDetail(ssid, wiFiAdditional, false)
 
-    private fun withWiFiDetail(ssid: String, wiFiAdditional: WiFiAdditional, is80211mc: Boolean): WiFiDetail =
-            WiFiDetail(
-                    WiFiIdentifier(ssid, "BSSID"),
-                    "[WPS-capabilities][WPA2-XYZ][XYZ-FT/SAE-XYZ-abc]",
-                    WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, is80211mc, WiFiStandard.AC),
-                    wiFiAdditional)
+    private fun withWiFiDetail(
+        ssid: String,
+        wiFiAdditional: WiFiAdditional,
+        is80211mc: Boolean
+    ): WiFiDetail =
+        WiFiDetail(
+            WiFiIdentifier(ssid, "BSSID"),
+            "[WPS-capabilities][WPA2-XYZ][XYZ-FT/SAE-XYZ-abc]",
+            WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, is80211mc, WiFiStandard.AC, 1000000),
+            wiFiAdditional
+        )
 
     private fun validateTextViewValuesCompleteView(view: View, wiFiDetail: WiFiDetail) {
         validateTextViewValuesCompactView(view, wiFiDetail)
@@ -352,10 +357,13 @@ class AccessPointDetailTest {
     private fun validateTextViewValuesPopupView(view: View, wiFiDetail: WiFiDetail) {
         validateTextViewValuesCompleteView(view, wiFiDetail)
         validateTextViewValue(view, wiFiDetail.capabilities, R.id.capabilitiesLong)
-        val expectedWiFiStandard = view.context.getString(wiFiDetail.wiFiSignal.wiFiStandard.textResource)
+        val expectedWiFiStandard =
+            view.context.getString(wiFiDetail.wiFiSignal.wiFiStandard.textResource)
         validateTextViewValue(view, expectedWiFiStandard, R.id.wiFiStandard)
         val expectedWiFiBand = view.context.getString(wiFiDetail.wiFiSignal.wiFiBand.textResource)
         validateTextViewValue(view, expectedWiFiBand, R.id.wiFiBand)
+        val expectedTimestamp = "0:00:01.000"
+        validateTextViewValue(view, expectedTimestamp, R.id.timestamp)
     }
 
     private fun validateTextViewValuesCompactView(view: View, wiFiDetail: WiFiDetail) {

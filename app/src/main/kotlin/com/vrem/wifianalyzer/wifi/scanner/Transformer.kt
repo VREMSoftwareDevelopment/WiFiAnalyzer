@@ -24,7 +24,6 @@ import com.vrem.util.EMPTY
 import com.vrem.util.buildMinVersionM
 import com.vrem.util.buildMinVersionR
 import com.vrem.wifianalyzer.wifi.model.*
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 
 @OpenClass
 internal class Transformer(private val cache: Cache) {
@@ -79,14 +78,19 @@ internal class Transformer(private val cache: Cache) {
         val centerFrequency = centerFrequency(scanResult, wiFiWidth)
         val mc80211 = mc80211(scanResult)
         val wiFiStandard = WiFiStandard.findOne(wiFiStandard(scanResult))
-        val wiFiSignal = WiFiSignal(scanResult.frequency, centerFrequency, wiFiWidth, cacheResult.average, mc80211, wiFiStandard)
+        val wiFiSignal = WiFiSignal(
+            scanResult.frequency, centerFrequency, wiFiWidth,
+            cacheResult.average, mc80211, wiFiStandard, scanResult.timestamp
+        )
         val wiFiIdentifier = WiFiIdentifier(
-                if (scanResult.SSID == null) String.EMPTY else scanResult.SSID,
-                if (scanResult.BSSID == null) String.EMPTY else scanResult.BSSID)
+            if (scanResult.SSID == null) String.EMPTY else scanResult.SSID,
+            if (scanResult.BSSID == null) String.EMPTY else scanResult.BSSID
+        )
         return WiFiDetail(
-                wiFiIdentifier,
-                if (scanResult.capabilities == null) String.EMPTY else scanResult.capabilities,
-                wiFiSignal)
+            wiFiIdentifier,
+            if (scanResult.capabilities == null) String.EMPTY else scanResult.capabilities,
+            wiFiSignal
+        )
     }
 
 }

@@ -29,6 +29,8 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import java.text.SimpleDateFormat
+import java.util.*
 
 @OpenClass
 class AccessPointDetail {
@@ -57,6 +59,7 @@ class AccessPointDetail {
         setViewWiFiBand(view, wiFiDetail.wiFiSignal)
         setView80211mc(view, wiFiDetail.wiFiSignal)
         setViewWiFiStandard(view, wiFiDetail.wiFiSignal)
+        setTimestamp(view, wiFiDetail.wiFiSignal)
         enableTextSelection(view)
         return view
     }
@@ -157,5 +160,17 @@ class AccessPointDetail {
         view.findViewById<TextView>(R.id.flag80211mc)?.let {
             it.visibility = if (wiFiSignal.is80211mc) View.VISIBLE else View.GONE
         }
+
+    private fun setTimestamp(view: View, wiFiSignal: WiFiSignal) =
+        view.findViewById<TextView>(R.id.timestamp)?.let {
+            val milliseconds = wiFiSignal.timestamp / 1000
+            val simpleDateFormat = SimpleDateFormat(TIME_STAMP_FORMAT, Locale.US)
+            simpleDateFormat.timeZone = TimeZone.getTimeZone("GMT")
+            it.text = simpleDateFormat.format(Date(milliseconds))
+        }
+
+    companion object {
+        private const val TIME_STAMP_FORMAT = "H:mm:ss.SSS"
+    }
 
 }

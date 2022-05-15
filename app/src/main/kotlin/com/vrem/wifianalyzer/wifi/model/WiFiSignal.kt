@@ -20,12 +20,15 @@ package com.vrem.wifianalyzer.wifi.model
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 
-data class WiFiSignal(val primaryFrequency: Int = 0,
-                      val centerFrequency: Int = 0,
-                      val wiFiWidth: WiFiWidth = WiFiWidth.MHZ_20,
-                      val level: Int = 0,
-                      val is80211mc: Boolean = false,
-                      val wiFiStandard: WiFiStandard = WiFiStandard.UNKNOWN) {
+data class WiFiSignal(
+    val primaryFrequency: Int = 0,
+    val centerFrequency: Int = 0,
+    val wiFiWidth: WiFiWidth = WiFiWidth.MHZ_20,
+    val level: Int = 0,
+    val is80211mc: Boolean = false,
+    val wiFiStandard: WiFiStandard = WiFiStandard.UNKNOWN,
+    val timestamp: Long = 0
+) {
 
     val wiFiBand: WiFiBand = WiFiBand.find(primaryFrequency)
 

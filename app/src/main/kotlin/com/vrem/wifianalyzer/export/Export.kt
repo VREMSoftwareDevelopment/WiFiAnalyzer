@@ -40,6 +40,7 @@ class Export(private val exportIntent: ExportIntent = ExportIntent()) {
             "Center Frequency|" +
             "Width (Range)|" +
             "Distance|" +
+            "Timestamp|" +
             "802.11mc|" +
             "Security" +
             "\n"
@@ -77,6 +78,7 @@ class Export(private val exportIntent: ExportIntent = ExportIntent()) {
                     "${wiFiSignal.centerFrequency}$FREQUENCY_UNITS|" +
                     "${wiFiSignal.wiFiWidth.frequencyWidth}$FREQUENCY_UNITS (${wiFiSignal.frequencyStart} - ${wiFiSignal.frequencyEnd})|" +
                     "${wiFiSignal.distance}|" +
+                    "${wiFiSignal.timestamp}|" +
                     "${wiFiSignal.is80211mc}|" +
                     capabilities +
                     "\n"
