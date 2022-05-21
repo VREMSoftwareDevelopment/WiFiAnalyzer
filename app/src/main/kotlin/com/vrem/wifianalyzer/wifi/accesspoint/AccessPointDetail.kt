@@ -23,6 +23,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import com.vrem.annotation.OpenClass
+import com.vrem.util.EMPTY
 import com.vrem.util.compatColor
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
@@ -163,10 +164,16 @@ class AccessPointDetail {
 
     private fun setTimestamp(view: View, wiFiSignal: WiFiSignal) =
         view.findViewById<TextView>(R.id.timestamp)?.let {
-            val milliseconds = wiFiSignal.timestamp / 1000
-            val simpleDateFormat = SimpleDateFormat(TIME_STAMP_FORMAT, Locale.US)
-            simpleDateFormat.timeZone = TimeZone.getTimeZone("GMT")
-            it.text = simpleDateFormat.format(Date(milliseconds))
+            val milliseconds: Long = wiFiSignal.timestamp / 1000
+            if (0L == milliseconds) {
+                it.text = String.EMPTY
+                it.visibility = View.GONE
+            } else {
+                val simpleDateFormat = SimpleDateFormat(TIME_STAMP_FORMAT, Locale.US)
+                simpleDateFormat.timeZone = TimeZone.getTimeZone("GMT")
+                it.text = simpleDateFormat.format(Date(milliseconds))
+                it.visibility = View.VISIBLE
+            }
         }
 
     companion object {
