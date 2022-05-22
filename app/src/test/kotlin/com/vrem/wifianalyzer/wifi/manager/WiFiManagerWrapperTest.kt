@@ -59,8 +59,8 @@ class WiFiManagerWrapperTest {
         verify(wifiManager).isWifiEnabled
     }
 
-    @Suppress("DEPRECATION")
     @Test
+    @Suppress("DEPRECATION")
     fun testEnableWiFi() {
         // setup
         whenever(wifiManager.isWifiEnabled).thenReturn(true)
@@ -69,7 +69,6 @@ class WiFiManagerWrapperTest {
         // validate
         assertTrue(actual)
         verify(wifiManager).isWifiEnabled
-        verify(wifiManager, never()).isWifiEnabled = any()
     }
 
     @Test
@@ -196,6 +195,7 @@ class WiFiManagerWrapperTest {
         verify(wifiManager).scanResults
     }
 
+    @Suppress("DEPRECATION")
     @Test
     fun testWiFiInfo() {
         // setup
@@ -207,6 +207,7 @@ class WiFiManagerWrapperTest {
         verify(wifiManager).connectionInfo
     }
 
+    @Suppress("DEPRECATION")
     @Test
     fun testWiFiInfoWithException() {
         // setup

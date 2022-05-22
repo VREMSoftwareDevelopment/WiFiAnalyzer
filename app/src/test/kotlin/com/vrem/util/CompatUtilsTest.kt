@@ -116,4 +116,20 @@ class CompatUtilsTest {
         verify(context).getColor(R.color.regular)
     }
 
+    @Test
+    @Config(sdk = [Build.VERSION_CODES.LOLLIPOP])
+    @Suppress("DEPRECATION")
+    fun testContextCompatColorLegacy() {
+        // setup
+        val expected = 300
+        whenever(context.resources).thenReturn(resources)
+        whenever(resources.getColor(R.color.regular)).thenReturn(expected)
+        // execute
+        val actual = context.compatColor(R.color.regular)
+        // validate
+        assertEquals(expected, actual)
+        verify(context).resources
+        verify(resources).getColor(R.color.regular)
+    }
+
 }

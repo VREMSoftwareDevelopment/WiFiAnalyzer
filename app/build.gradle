@@ -100,6 +100,7 @@ android {
                     outputs.upToDateWhen { false }
                     showStandardStreams = true
                 }
+                jvmArgs '-noverify'
             }
         }
     }
