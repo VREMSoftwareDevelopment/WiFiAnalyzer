@@ -27,7 +27,6 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.util.compatColor
-import com.vrem.util.compatTint
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
@@ -70,7 +69,7 @@ class FilterOnTest {
         // validate
         verifyMenuItem()
         verify(mainActivity).compatColor(R.color.regular)
-        verify(drawable).compatTint(colorResult)
+        verify(drawable).setTint(colorResult)
     }
 
     @Test
@@ -85,7 +84,7 @@ class FilterOnTest {
         // validate
         verifyMenuItem()
         verify(mainActivity).compatColor(R.color.selected)
-        verify(drawable).compatTint(colorResult)
+        verify(drawable).setTint(colorResult)
     }
 
     @Test

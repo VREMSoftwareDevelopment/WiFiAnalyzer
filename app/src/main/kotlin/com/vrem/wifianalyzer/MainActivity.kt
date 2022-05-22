@@ -26,6 +26,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
         mainReload = MainReload(settings)
 
         super.onCreate(savedInstanceState)
-
+        installSplashScreen()
         setContentView(R.layout.main_activity)
 
         settings.registerOnSharedPreferenceChangeListener(this)

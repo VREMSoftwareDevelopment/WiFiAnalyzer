@@ -19,10 +19,6 @@ package com.vrem.wifianalyzer.wifi.channelrating
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.LayerDrawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -30,7 +26,6 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import com.vrem.util.EMPTY
-import com.vrem.util.buildMinVersionL
 import com.vrem.util.compatColor
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
@@ -90,30 +85,7 @@ class ChannelRatingAdapter(
         ratingBar.numStars = size
         ratingBar.rating = strength.ordinal + 1.toFloat()
         val color = context.compatColor(strength.colorResource)
-        ratingBarColor(ratingBar, color)
-    }
-
-    private fun ratingBarColor(ratingBar: RatingBar, color: Int): Unit =
-            if (buildMinVersionL()) {
-                ratingBar.progressTintList = ColorStateList.valueOf(color)
-            } else {
-                setRatingBarColorLegacy(ratingBar.progressDrawable, color)
-            }
-
-    private fun setRatingBarColorLegacy(drawable: Drawable, color: Int) {
-        try {
-            val background = context.compatColor(R.color.background)
-            val layerDrawable = drawable as LayerDrawable
-            layerDrawable.getDrawable(0).colorFilter(background)
-            layerDrawable.getDrawable(1).colorFilter(background)
-            layerDrawable.getDrawable(2).colorFilter(color)
-        } catch (e: Exception) {
-            drawable.colorFilter(color)
-        }
-    }
-
-    private fun Drawable.colorFilter(color: Int) {
-        this.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        ratingBar.progressTintList = ColorStateList.valueOf(color)
     }
 
     internal fun bestChannels(wiFiBand: WiFiBand, wiFiChannels: List<WiFiChannel>): Message {

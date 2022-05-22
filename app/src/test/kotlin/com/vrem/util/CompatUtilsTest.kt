@@ -116,12 +116,4 @@ class CompatUtilsTest {
         verify(context).getColor(R.color.regular)
     }
 
-    @Test
-    fun testDrawableCompatTint() {
-        // execute
-        drawable.compatTint(R.color.regular)
-        // validate
-        verify(drawable).setTint(R.color.regular)
-    }
-
 }

@@ -221,26 +221,12 @@ class WiFiManagerWrapperTest {
     @Test
     fun testIs5GHzBandSupported() {
         // setup
-        doReturn(false).whenever(fixture).minVersionL()
-        // execute
-        val actual = fixture.is5GHzBandSupported()
-        // validate
-        assertFalse(actual)
-        verify(wifiManager, never()).is5GHzBandSupported
-        verify(fixture).minVersionL()
-    }
-
-    @Test
-    fun testIs5GHzBandSupportedWithAndroidL() {
-        // setup
-        doReturn(true).whenever(fixture).minVersionL()
         whenever(wifiManager.is5GHzBandSupported).thenReturn(true)
         // execute
         val actual = fixture.is5GHzBandSupported()
         // validate
         assertTrue(actual)
         verify(wifiManager).is5GHzBandSupported
-        verify(fixture).minVersionL()
     }
 
     @Test

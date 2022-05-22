@@ -38,8 +38,8 @@ import org.robolectric.annotation.Config
 @Config(sdk = [Build.VERSION_CODES.S])
 class PortAuthorityItemTest {
     private val portAuthority = "com.aaronjwood.portauthority"
-    private val portAuthorityFree = portAuthority + ".free"
-    private val portAuthorityDonate = portAuthority + ".donate"
+    private val portAuthorityFree = "$portAuthority.free"
+    private val portAuthorityDonate = "$portAuthority.donate"
 
     private val mainActivity: MainActivity = mock()
     private val context: Context = mock()

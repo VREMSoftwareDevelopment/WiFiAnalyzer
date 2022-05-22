@@ -21,70 +21,66 @@ import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import com.vrem.annotation.OpenClass
-import com.vrem.util.buildMinVersionL
 import com.vrem.util.buildMinVersionR
 
 @OpenClass
-class WiFiManagerWrapper(private val wifiManager: WifiManager, private val wiFiSwitch: WiFiSwitch = WiFiSwitch(wifiManager)) {
+class WiFiManagerWrapper(
+    private val wifiManager: WifiManager,
+    private val wiFiSwitch: WiFiSwitch = WiFiSwitch(wifiManager)
+) {
     fun wiFiEnabled(): Boolean =
-            try {
-                wifiManager.isWifiEnabled
-            } catch (e: Exception) {
-                false
-            }
+        try {
+            wifiManager.isWifiEnabled
+        } catch (e: Exception) {
+            false
+        }
 
     fun enableWiFi(): Boolean =
-            try {
-                wiFiEnabled() || wiFiSwitch.on()
-            } catch (e: Exception) {
-                false
-            }
+        try {
+            wiFiEnabled() || wiFiSwitch.on()
+        } catch (e: Exception) {
+            false
+        }
 
     fun disableWiFi(): Boolean =
-            try {
-                !wiFiEnabled() || wiFiSwitch.off()
-            } catch (e: Exception) {
-                false
-            }
+        try {
+            !wiFiEnabled() || wiFiSwitch.off()
+        } catch (e: Exception) {
+            false
+        }
 
     @Suppress("DEPRECATION")
     fun startScan(): Boolean =
-            try {
-                wifiManager.startScan()
-            } catch (e: Exception) {
-                false
-            }
+        try {
+            wifiManager.startScan()
+        } catch (e: Exception) {
+            false
+        }
 
     fun scanResults(): List<ScanResult> =
-            try {
-                wifiManager.scanResults ?: listOf()
-            } catch (e: Exception) {
-                listOf()
-            }
+        try {
+            wifiManager.scanResults ?: listOf()
+        } catch (e: Exception) {
+            listOf()
+        }
 
     fun wiFiInfo(): WifiInfo? =
-            try {
-                wifiManager.connectionInfo
-            } catch (e: Exception) {
-                null
-            }
+        try {
+            wifiManager.connectionInfo
+        } catch (e: Exception) {
+            null
+        }
 
 
     fun is5GHzBandSupported(): Boolean =
-            if (minVersionL()) {
-                wifiManager.is5GHzBandSupported
-            } else {
-                false
-            }
+        wifiManager.is5GHzBandSupported
 
     fun is6GHzBandSupported(): Boolean =
-            if (minVersionR()) {
-                wifiManager.is6GHzBandSupported
-            } else {
-                false
-            }
-
-    fun minVersionL(): Boolean = buildMinVersionL()
+        if (minVersionR()) {
+            wifiManager.is6GHzBandSupported
+        } else {
+            false
+        }
 
     fun minVersionR(): Boolean = buildMinVersionR()
 

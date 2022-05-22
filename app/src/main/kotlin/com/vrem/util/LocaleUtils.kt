@@ -28,7 +28,8 @@ private object SyncAvoid {
 
     @SuppressLint("ConstantLocale")
     val countriesLocales: SortedMap<String, Locale> =
-        availableLocales.map { it.country.toCapitalize(Locale.getDefault()) to it }.toMap()
+        availableLocales
+            .associateBy { it.country.toCapitalize(Locale.getDefault()) }
             .toSortedMap()
     val supportedLocales: List<Locale> = setOf(
         BULGARIAN,

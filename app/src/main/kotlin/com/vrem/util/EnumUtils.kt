@@ -19,7 +19,7 @@ package com.vrem.util
 
 fun <T : Enum<T>> findSet(values: Array<T>, indexes: Set<String>, defaultValue: T): Set<T> {
     val results: Set<T> = indexes.map { findOne(values, it.toInt(), defaultValue) }.toSet()
-    return if (results.isEmpty()) values.toSet() else results
+    return results.ifEmpty { values.toSet() }
 }
 
 fun <T : Enum<T>> findOne(values: Array<T>, index: Int, defaultValue: T): T =
