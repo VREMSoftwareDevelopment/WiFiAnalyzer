@@ -27,9 +27,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/info_location" />
-
         <include layout="@layout/info_throttling" />
+
+        <include layout="@layout/info_location" />
 
         <include layout="@layout/info_faq" />
     </LinearLayout>
