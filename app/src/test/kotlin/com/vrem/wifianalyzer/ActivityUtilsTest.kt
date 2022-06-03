@@ -94,7 +94,7 @@ class ActivityUtilsTest {
         // execute
         mainActivity.startWiFiSettings()
         // validate
-        verify(mainActivity).startActivityForResult(any(), eq(0))
+        verify(mainActivity).startActivity(any())
     }
 
     @Test
