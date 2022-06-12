@@ -55,7 +55,7 @@ dependencies {
 android {
     namespace 'com.vrem.wifianalyzer'
     compileSdkVersion 31
-    buildToolsVersion '32.0.0'
+    buildToolsVersion '33.0.0'
 
     sourceSets.each {
         it.java.srcDirs += "src/$it.name/kotlin"
