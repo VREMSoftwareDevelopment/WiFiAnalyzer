@@ -56,8 +56,7 @@
     <style name="ThemeSplash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/background</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_inset</item>
-        <item name="windowSplashScreenAnimationDuration">200</item>
-        <item name="postSplashScreenTheme">@style/ThemeDarkNoActionBar</item>
+        <item name="windowSplashScreenAnimationDuration">500</item>
     </style>
 
     <style name="WindowAnimationTransition">
