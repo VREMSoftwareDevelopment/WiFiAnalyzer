@@ -49,7 +49,7 @@ class ConnectionView(
         val visibility = if (wiFiBand.available()) View.GONE else View.VISIBLE
         val textView = mainActivity.findViewById<TextView>(R.id.main_wifi_support)
         textView.visibility = visibility
-        textView.text = wiFiBand.name
+        textView.text = mainActivity.resources.getString(wiFiBand.textResource)
     }
 
     private fun displayNoData(wiFiData: WiFiData) {

@@ -265,6 +265,7 @@ class ConnectionViewTest {
     @Test
     fun testWiFiSupportIsVisibleWhenWiFiBandIsNotAvailable() {
         // setup
+        val expectedText = mainActivity.resources.getString(WiFiBand.GHZ6.textResource)
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ6)
         whenever(wiFiManagerWrapper.is6GHzBandSupported()).thenReturn(false)
         whenever(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE)
@@ -274,7 +275,7 @@ class ConnectionViewTest {
         // validate
         val textView = mainActivity.findViewById<TextView>(R.id.main_wifi_support)
         assertEquals(View.VISIBLE, textView.visibility)
-        assertEquals(WiFiBand.GHZ6.name, textView.text)
+        assertEquals(expectedText, textView.text)
         verify(settings).wiFiBand()
         verify(wiFiManagerWrapper).is6GHzBandSupported()
         verify(wiFiData).wiFiDetails
