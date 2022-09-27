@@ -161,6 +161,17 @@ class CompatUtilsTest {
     }
 
     @Test
+    fun testScanResultSSIDWhenWifiSsidNull() {
+        // setup
+        whenever(scanResult.wifiSsid).thenReturn(null)
+        // execute
+        val actual = scanResult.ssid()
+        // validate
+        assertEquals(String.EMPTY, actual)
+        verify(scanResult).wifiSsid
+    }
+
+    @Test
     fun testScanResultSSIDWhenNull() {
         // setup
         whenever(scanResult.wifiSsid).thenReturn(wifiSsid)
