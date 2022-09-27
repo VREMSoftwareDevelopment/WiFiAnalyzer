@@ -95,12 +95,12 @@ class CacheTest {
     fun testSizeWithSizeAvailable() {
         // setup
         val values: List<WiFiRange> = listOf(
-                WiFiRange(1, 4),
-                WiFiRange(2, 3),
-                WiFiRange(4, 3),
-                WiFiRange(5, 2),
-                WiFiRange(9, 2),
-                WiFiRange(10, 1),
+            WiFiRange(1, 4),
+            WiFiRange(2, 3),
+            WiFiRange(4, 3),
+            WiFiRange(5, 2),
+            WiFiRange(9, 2),
+            WiFiRange(10, 1),
             WiFiRange(20, 1)
         )
         // execute & validate
@@ -258,27 +258,27 @@ class CacheTest {
     }
 
     private fun withScanResults(): Int {
-        scanResult1.SSID = "SSID1"
+        whenSsid(scanResult1, "SSID1")
         scanResult1.BSSID = "BSSID1"
         scanResult1.level = -10
 
-        scanResult2.SSID = "SSID1"
+        whenSsid(scanResult2, "SSID1")
         scanResult2.BSSID = "BSSID1"
         scanResult2.level = -20
 
-        scanResult3.SSID = "SSID1"
+        whenSsid(scanResult3, "SSID1")
         scanResult3.BSSID = "BSSID1"
         scanResult3.level = -30
 
-        scanResult4.SSID = "SSID2"
+        whenSsid(scanResult4, "SSID2")
         scanResult4.BSSID = "BSSID2"
         scanResult4.level = -60
 
-        scanResult5.SSID = "SSID2"
+        whenSsid(scanResult5, "SSID2")
         scanResult5.BSSID = "BSSID2"
         scanResult5.level = -40
 
-        scanResult6.SSID = "SSID3"
+        whenSsid(scanResult6, "SSID3")
         scanResult6.BSSID = "BSSID3"
         scanResult6.level = -10
 
@@ -292,4 +292,5 @@ class CacheTest {
 
         return result
     }
+
 }

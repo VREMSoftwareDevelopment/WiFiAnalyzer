@@ -30,7 +30,7 @@ private const val MAX_RSSI = -55
 private const val QUOTE = "\""
 
 fun calculateDistance(frequency: Int, level: Int): Double =
-        10.0.pow((DISTANCE_MHZ_M - 20 * log10(frequency.toDouble()) + abs(level)) / 20.0)
+    10.0.pow((DISTANCE_MHZ_M - 20 * log10(frequency.toDouble()) + abs(level)) / 20.0)
 
 fun calculateSignalLevel(rssi: Int, numLevels: Int): Int = when {
     rssi <= MIN_RSSI -> 0
@@ -40,13 +40,13 @@ fun calculateSignalLevel(rssi: Int, numLevels: Int): Int = when {
 
 fun convertSSID(ssid: String): String = ssid.removePrefix(QUOTE).removeSuffix(QUOTE)
 
-fun convertIpAddress(ipAddress: Int): String {
+fun convertIpV4Address(ipV4Address: Int): String {
     return try {
         val value: Long = when (ByteOrder.LITTLE_ENDIAN) {
-            ByteOrder.nativeOrder() -> Integer.reverseBytes(ipAddress).toLong()
-            else -> ipAddress.toLong()
+            ByteOrder.nativeOrder() -> Integer.reverseBytes(ipV4Address).toLong()
+            else -> ipV4Address.toLong()
         }
-        InetAddress.getByAddress(value.toBigInteger().toByteArray()).hostAddress
+        return InetAddress.getByAddress(value.toBigInteger().toByteArray()).hostAddress ?: String.EMPTY
     } catch (e: Exception) {
         String.EMPTY
     }

@@ -21,7 +21,6 @@ import android.net.wifi.WifiInfo
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.vrem.util.buildMinVersionM
 import com.vrem.util.buildMinVersionP
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContext
@@ -56,9 +55,7 @@ class ConnectionView(
         val visibility = if (noData(wiFiData)) View.VISIBLE else View.GONE
         mainActivity.findViewById<View>(R.id.scanning).visibility = visibility
         mainActivity.findViewById<View>(R.id.no_data).visibility = visibility
-        if (buildMinVersionM()) {
-            mainActivity.findViewById<View>(R.id.no_location).visibility = getNoLocationVisibility(visibility)
-        }
+        mainActivity.findViewById<View>(R.id.no_location).visibility = getNoLocationVisibility(visibility)
         if (buildMinVersionP()) {
             mainActivity.findViewById<View>(R.id.throttling).visibility = visibility
         }

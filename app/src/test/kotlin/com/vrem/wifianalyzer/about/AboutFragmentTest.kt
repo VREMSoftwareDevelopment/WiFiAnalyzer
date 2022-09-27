@@ -25,6 +25,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.atLeastOnce
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
+import com.vrem.util.packageInfo
 import com.vrem.util.readFile
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
@@ -41,7 +42,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.S])
+@Config(sdk = [Build.VERSION_CODES.TIRAMISU])
 class AboutFragmentTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val configuration = INSTANCE.configuration
@@ -148,7 +149,7 @@ class AboutFragmentTest {
     }
 
     private fun version(): String {
-        val packageInfo: PackageInfo = fixture.requireActivity().packageManager.getPackageInfo(mainActivity.packageName, 0)
+        val packageInfo: PackageInfo = fixture.requireActivity().packageInfo()
         return packageInfo.versionName + " - " + packageInfo.longVersionCode
     }
 

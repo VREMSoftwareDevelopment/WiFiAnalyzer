@@ -22,9 +22,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
 import com.vrem.annotation.OpenClass
 import com.vrem.util.EMPTY
-import com.vrem.util.compatColor
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
@@ -114,7 +114,7 @@ class AccessPointDetail {
     private fun setLevelText(view: View, wiFiSignal: WiFiSignal) =
         view.findViewById<TextView>(R.id.level)?.let {
             it.text = "${wiFiSignal.level}dBm"
-            it.setTextColor(view.context.compatColor(wiFiSignal.strength.colorResource))
+            it.setTextColor(ContextCompat.getColor(view.context, wiFiSignal.strength.colorResource))
         }
 
     private fun setLevelImage(view: View, wiFiSignal: WiFiSignal) =
@@ -122,7 +122,7 @@ class AccessPointDetail {
             val strength = wiFiSignal.strength
             it.tag = strength.imageResource
             it.setImageResource(strength.imageResource)
-            it.setColorFilter(view.context.compatColor(strength.colorResource))
+            it.setColorFilter(ContextCompat.getColor(view.context, strength.colorResource))
         }
 
     private fun setViewVendorShort(view: View, wiFiAdditional: WiFiAdditional) =

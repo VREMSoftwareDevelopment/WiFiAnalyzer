@@ -21,12 +21,12 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.content.ContextCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
-import com.vrem.util.compatColor
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
@@ -37,7 +37,7 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.S])
+@Config(sdk = [Build.VERSION_CODES.TIRAMISU])
 class FilterOnTest {
     private val mainActivity: MainActivity = mock()
     private val optionMenu: OptionMenu = mock()
@@ -62,13 +62,13 @@ class FilterOnTest {
         // setup
         val colorResult = 200
         whenever(filterAdapter.isActive()).thenReturn(false)
-        whenever(mainActivity.compatColor(R.color.regular)).thenReturn(colorResult)
+        whenever(ContextCompat.getColor(mainActivity, R.color.regular)).thenReturn(colorResult)
         withMenuItem()
         // execute
         navigationOptionFilterOn(mainActivity)
         // validate
         verifyMenuItem()
-        verify(mainActivity).compatColor(R.color.regular)
+        ContextCompat.getColor(verify(mainActivity), R.color.regular)
         verify(drawable).setTint(colorResult)
     }
 
@@ -77,13 +77,13 @@ class FilterOnTest {
         // setup
         val colorResult = 100
         whenever(filterAdapter.isActive()).thenReturn(true)
-        whenever(mainActivity.compatColor(R.color.selected)).thenReturn(colorResult)
+        whenever(ContextCompat.getColor(mainActivity, R.color.selected)).thenReturn(colorResult)
         withMenuItem()
         // execute
         navigationOptionFilterOn(mainActivity)
         // validate
         verifyMenuItem()
-        verify(mainActivity).compatColor(R.color.selected)
+        ContextCompat.getColor(verify(mainActivity), R.color.selected)
         verify(drawable).setTint(colorResult)
     }
 

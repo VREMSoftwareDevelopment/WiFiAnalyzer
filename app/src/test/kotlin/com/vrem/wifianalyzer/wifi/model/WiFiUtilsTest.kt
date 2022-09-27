@@ -53,10 +53,10 @@ class WiFiUtilsTest {
 
     @Test
     fun testConvertIpAddress() {
-        assertEquals("21.205.91.7", convertIpAddress(123456789))
-        assertEquals("1.0.0.0", convertIpAddress(1))
-        assertTrue(convertIpAddress(0).isEmpty())
-        assertTrue(convertIpAddress(-1).isEmpty())
+        assertEquals("21.205.91.7", convertIpV4Address(123456789))
+        assertEquals("1.0.0.0", convertIpV4Address(1))
+        assertTrue(convertIpV4Address(0).isEmpty())
+        assertTrue(convertIpV4Address(-1).isEmpty())
     }
 
     @Test

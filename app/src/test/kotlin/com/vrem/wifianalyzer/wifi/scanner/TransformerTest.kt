@@ -21,7 +21,6 @@ import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.wifi.model.*
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -85,7 +84,6 @@ class TransformerTest {
     @Test
     fun testTransformScanResults() {
         // setup
-        doReturn(true).whenever(fixture).minVersionM()
         doReturn(true).whenever(fixture).minVersionR()
         whenever(cache.scanResults()).thenReturn(cacheResults)
         // execute
@@ -95,7 +93,6 @@ class TransformerTest {
         validateWiFiDetail(SSID_1, BSSID_1, WiFiWidth.MHZ_160, WiFiStandard.AX, actual[0])
         validateWiFiDetail(SSID_2, BSSID_2, WiFiWidth.MHZ_80, WiFiStandard.AC, actual[1])
         validateWiFiDetail(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N, actual[2])
-        verify(fixture, times(9)).minVersionM()
         verify(fixture, times(3)).minVersionR()
         verify(cache).scanResults()
     }
@@ -118,7 +115,7 @@ class TransformerTest {
 
     private fun withScanResult(ssid: SSID, bssid: BSSID, wiFiWidth: WiFiWidth, wiFiStandard: WiFiStandard): ScanResult {
         val scanResult: ScanResult = mock()
-        scanResult.SSID = ssid
+        whenSsid(scanResult, ssid)
         scanResult.BSSID = bssid
         scanResult.capabilities = WPA
         scanResult.frequency = FREQUENCY
@@ -140,7 +137,7 @@ class TransformerTest {
         whenever(wifiInfo.networkId).thenReturn(0)
         whenever(wifiInfo.ssid).thenReturn(SSID_1)
         whenever(wifiInfo.bssid).thenReturn(BSSID_1)
-        whenever(wifiInfo.ipAddress).thenReturn(IP_ADDRESS_VALUE)
+        whenever(wifiInfo.ipV4Address()).thenReturn(IP_ADDRESS_VALUE)
         whenever(wifiInfo.linkSpeed).thenReturn(LINK_SPEED)
         return wifiInfo
     }
@@ -149,7 +146,7 @@ class TransformerTest {
         verify(wifiInfo).networkId
         verify(wifiInfo).ssid
         verify(wifiInfo).bssid
-        verify(wifiInfo).ipAddress
+        verify(wifiInfo).ipV4Address()
         verify(wifiInfo).linkSpeed
     }
 

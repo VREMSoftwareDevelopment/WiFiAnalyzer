@@ -35,6 +35,7 @@ import androidx.core.content.pm.PackageInfoCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.vrem.util.EMPTY
+import com.vrem.util.packageInfo
 import com.vrem.util.readFile
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
@@ -44,7 +45,7 @@ import java.util.*
 
 class AboutFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding: AboutContentBinding = AboutContentBinding.inflate(inflater, container, false)
         val activity: FragmentActivity = requireActivity()
         setTexts(binding, activity)
@@ -61,12 +62,20 @@ class AboutFragment : Fragment() {
     }
 
     private fun device(): String =
-            Build.MANUFACTURER + " - " + Build.BRAND + " - " + Build.MODEL
+        Build.MANUFACTURER + " - " + Build.BRAND + " - " + Build.MODEL
 
     private fun wiFiState(binding: AboutContentBinding) {
         val wiFiManagerWrapper = MainContext.INSTANCE.wiFiManagerWrapper
-        wiFiBand(wiFiManagerWrapper.is5GHzBandSupported(), binding.aboutWifiBand5ghzSuccess, binding.aboutWifiBand5ghzFails)
-        wiFiBand(wiFiManagerWrapper.is6GHzBandSupported(), binding.aboutWifiBand6ghzSuccess, binding.aboutWifiBand6ghzFails)
+        wiFiBand(
+            wiFiManagerWrapper.is5GHzBandSupported(),
+            binding.aboutWifiBand5ghzSuccess,
+            binding.aboutWifiBand5ghzFails
+        )
+        wiFiBand(
+            wiFiManagerWrapper.is6GHzBandSupported(),
+            binding.aboutWifiBand6ghzSuccess,
+            binding.aboutWifiBand6ghzFails
+        )
     }
 
     private fun wiFiBand(bandSupported: Boolean, aboutWifiBandSuccess: TextView, aboutWifiBandFails: TextView) {
@@ -82,7 +91,8 @@ class AboutFragment : Fragment() {
     private fun setOnClicks(binding: AboutContentBinding, activity: FragmentActivity) {
         val gpl = AlertDialogClickListener(activity, R.string.gpl, R.raw.gpl)
         binding.license.setOnClickListener(gpl)
-        val contributors = AlertDialogClickListener(activity, R.string.about_contributor_title, R.raw.contributors, false)
+        val contributors =
+            AlertDialogClickListener(activity, R.string.about_contributor_title, R.raw.contributors, false)
         binding.contributors.setOnClickListener(contributors)
         val al = AlertDialogClickListener(activity, R.string.al, R.raw.al)
         binding.graphViewLicense.setOnClickListener(al)
@@ -91,7 +101,7 @@ class AboutFragment : Fragment() {
     }
 
     private fun copyright(): String =
-            resources.getString(R.string.app_copyright) + SimpleDateFormat(YEAR_FORMAT, Locale.getDefault()).format(Date())
+        resources.getString(R.string.app_copyright) + SimpleDateFormat(YEAR_FORMAT, Locale.getDefault()).format(Date())
 
     private fun version(activity: FragmentActivity): String {
         val configuration = MainContext.INSTANCE.configuration
@@ -102,12 +112,13 @@ class AboutFragment : Fragment() {
     }
 
     private fun applicationVersion(activity: FragmentActivity): String =
-            try {
-                val packageInfo: PackageInfo = activity.packageManager.getPackageInfo(activity.packageName, 0)
-                packageInfo.versionName + " - " + PackageInfoCompat.getLongVersionCode(packageInfo)
-            } catch (e: NameNotFoundException) {
-                String.EMPTY
-            }
+        try {
+            val packageInfo: PackageInfo = activity.packageInfo()
+            packageInfo.versionName + " - " + PackageInfoCompat.getLongVersionCode(packageInfo)
+        } catch (e: NameNotFoundException) {
+            String.EMPTY
+        }
+
 
     private class WriteReviewClickListener(private val activity: Activity) : View.OnClickListener {
         override fun onClick(view: View) {
@@ -119,21 +130,22 @@ class AboutFragment : Fragment() {
                 Toast.makeText(view.context, e.localizedMessage, Toast.LENGTH_LONG).show()
             }
         }
-
     }
 
-    private class AlertDialogClickListener(private val activity: Activity,
-                                           private val titleId: Int,
-                                           private val resourceId: Int,
-                                           private val isSmallFont: Boolean = true) : View.OnClickListener {
+    private class AlertDialogClickListener(
+        private val activity: Activity,
+        private val titleId: Int,
+        private val resourceId: Int,
+        private val isSmallFont: Boolean = true
+    ) : View.OnClickListener {
         override fun onClick(view: View) {
             if (!activity.isFinishing) {
                 val text = readFile(activity.resources, resourceId)
                 val alertDialog: AlertDialog = AlertDialog.Builder(view.context)
-                        .setTitle(titleId)
-                        .setMessage(text)
-                        .setNeutralButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }
-                        .create()
+                    .setTitle(titleId)
+                    .setMessage(text)
+                    .setNeutralButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }
+                    .create()
                 alertDialog.show()
                 if (isSmallFont) {
                     alertDialog.findViewById<TextView>(android.R.id.message).textSize = 8f
@@ -143,11 +155,11 @@ class AboutFragment : Fragment() {
     }
 
     private fun ifElse(condition: Boolean, value: String) =
-            if (condition) {
-                value
-            } else {
-                String.EMPTY
-            }
+        if (condition) {
+            value
+        } else {
+            String.EMPTY
+        }
 
 
     companion object {

@@ -38,7 +38,7 @@ class WiFiChannelCountry(private val country: Locale) {
 
     fun channelsGHZ5(): SortedSet<Int> = wiFiChannelGHZ5.findChannels(country.country)
 
-    fun channelsGHZ6(): SortedSet<Int> = wiFiChannelGHZ6.findChannels(country.country)
+    fun channelsGHZ6(): SortedSet<Int> = wiFiChannelGHZ6.findChannels()
 
     fun channelAvailableGHZ2(channel: Int): Boolean = channelsGHZ2().contains(channel)
 

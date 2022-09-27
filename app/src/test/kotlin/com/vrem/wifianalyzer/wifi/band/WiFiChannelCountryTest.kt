@@ -84,7 +84,7 @@ class WiFiChannelCountryTest {
         val expectedCountryCode = Locale.US.country
         val expectedGHZ2: Set<Int> = WiFiChannelCountryGHZ2().findChannels(expectedCountryCode)
         val expectedGHZ5: Set<Int> = WiFiChannelCountryGHZ5().findChannels(expectedCountryCode)
-        val expectedGHZ6: Set<Int> = WiFiChannelCountryGHZ6().findChannels(expectedCountryCode)
+        val expectedGHZ6: Set<Int> = WiFiChannelCountryGHZ6().findChannels()
         // execute
         val actual: WiFiChannelCountry = find(expectedCountryCode)
         // validate

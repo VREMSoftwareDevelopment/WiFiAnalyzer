@@ -89,6 +89,8 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
         connectionView = ConnectionView(this)
 
         permissionService = PermissionService(this)
+
+        onBackPressedDispatcher.addCallback(this, MainActivityBackPressed(this))
     }
 
     public override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -142,18 +144,6 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
         updateActionBar()
     }
 
-    override fun onBackPressed() {
-        if (!closeDrawer()) {
-            val selectedMenu = MainContext.INSTANCE.settings.selectedMenu()
-            if (selectedMenu == currentNavigationMenu()) {
-                super.onBackPressed()
-            } else {
-                currentNavigationMenu(selectedMenu)
-                onNavigationItemSelected(currentMenuItem())
-            }
-        }
-    }
-
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         closeDrawer()
         val currentNavigationMenu = findOne(NavigationMenu.values(), menuItem.itemId, NavigationMenu.ACCESS_POINTS)
@@ -161,7 +151,7 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
         return true
     }
 
-    private fun closeDrawer(): Boolean {
+    fun closeDrawer(): Boolean {
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)

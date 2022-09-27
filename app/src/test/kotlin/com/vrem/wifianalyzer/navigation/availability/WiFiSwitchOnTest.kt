@@ -32,7 +32,7 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.S])
+@Config(sdk = [Build.VERSION_CODES.TIRAMISU])
 class WiFiSwitchOnTest {
     private val mainActivity = MainContextHelper.INSTANCE.mainActivity
     private val settings = MainContextHelper.INSTANCE.settings

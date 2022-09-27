@@ -183,6 +183,7 @@
     <string name="about_faq_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq"</string>
     <string name="about_contributor_title">"Contributors"</string>
     <string name="about_write_review">"Write a Review"</string>
+    <string name="about_port_authority_url" translatable="false">https://github.com/aaronjwood/PortAuthority</string>
     <!-- about end -->
 
     <!-- license start -->
@@ -205,6 +206,8 @@
     <string name="wifi_standard_n" translatable="false">"Wi-Fi 802.11n"</string>
     <string name="wifi_standard_ac" translatable="false">"Wi-Fi 802.11ac"</string>
     <string name="wifi_standard_ax" translatable="false">"Wi-Fi 802.11ax"</string>
+    <string name="wifi_standard_ad" translatable="false">"Wi-Fi 802.11ad"</string>
+    <string name="wifi_standard_be" translatable="false">"Wi-Fi 802.11be"</string>
     <!-- Wi-Fi standard end -->
 
     <!-- security start -->
@@ -231,5 +234,4 @@
     <string name="filter_security_title">"Security"</string>
     <string name="filter_security_key" translatable="false">"filter_security"</string>
     <!-- filter end -->
-
 </resources>

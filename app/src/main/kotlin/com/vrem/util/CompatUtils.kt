@@ -19,12 +19,12 @@ package com.vrem.util
 
 import android.annotation.TargetApi
 import android.content.Context
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager.PackageInfoFlags
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.net.wifi.ScanResult
 import android.os.Build
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat
 import java.util.*
 
 fun Context.createContext(newLocale: Locale): Context =
@@ -51,10 +51,32 @@ private fun Context.createContextLegacy(newLocale: Locale): Context {
     return this
 }
 
-@ColorInt
-fun Context.compatColor(@ColorRes id: Int): Int =
-    if (buildMinVersionM()) {
-        getColor(id)
+fun Context.packageInfo(): PackageInfo =
+    if (buildMinVersionT()) {
+        packageInfoAndroidT()
     } else {
-        ContextCompat.getColor(this, id)
+        packageInfoLegacy()
     }
+
+@TargetApi(Build.VERSION_CODES.TIRAMISU)
+private fun Context.packageInfoAndroidT(): PackageInfo =
+    packageManager.getPackageInfo(packageName, PackageInfoFlags.of(0))
+
+@Suppress("DEPRECATION")
+private fun Context.packageInfoLegacy(): PackageInfo =
+    packageManager.getPackageInfo(packageName, 0)
+
+fun ScanResult.ssid(): String =
+    if (buildMinVersionT()) {
+        ssidAndroidT()
+    } else {
+        ssidLegacy()
+    }
+
+@TargetApi(Build.VERSION_CODES.TIRAMISU)
+private fun ScanResult.ssidAndroidT(): String =
+    wifiSsid?.toString() ?: String.EMPTY
+
+@Suppress("DEPRECATION")
+private fun ScanResult.ssidLegacy(): String =
+    if (SSID == null) String.EMPTY else SSID

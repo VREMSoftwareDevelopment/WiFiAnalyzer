@@ -15,21 +15,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.navigation.availability
 
-import androidx.core.content.ContextCompat
-import com.vrem.wifianalyzer.MainContext
-import com.vrem.wifianalyzer.R
+package com.vrem.wifianalyzer
 
-internal val navigationOptionFilterOff: NavigationOption = {
-    it.optionMenu.menu?.let { menu -> menu.findItem(R.id.action_filter).isVisible = false }
-}
+import androidx.activity.OnBackPressedCallback
 
-internal val navigationOptionFilterOn: NavigationOption = {
-    it.optionMenu.menu?.let { menu ->
-        val color = if (MainContext.INSTANCE.filtersAdapter.isActive()) R.color.selected else R.color.regular
-        val menuItem = menu.findItem(R.id.action_filter)
-        menuItem.isVisible = true
-        menuItem.icon?.setTint(ContextCompat.getColor(it, color))
+class MainActivityBackPressed(val mainActivity: MainActivity) : OnBackPressedCallback(true) {
+    override fun handleOnBackPressed() {
+        if (!mainActivity.closeDrawer()) {
+            val selectedMenu = MainContext.INSTANCE.settings.selectedMenu()
+            if (selectedMenu == mainActivity.currentNavigationMenu()) {
+                mainActivity.finish()
+            } else {
+                mainActivity.currentNavigationMenu(selectedMenu)
+                mainActivity.onNavigationItemSelected(mainActivity.currentMenuItem())
+            }
+        }
     }
 }

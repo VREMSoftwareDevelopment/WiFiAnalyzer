@@ -26,7 +26,7 @@ import org.junit.Test
 class WiFiStandardTest {
     @Test
     fun testWidth() {
-        assertEquals(5, WiFiStandard.values().size)
+        assertEquals(7, WiFiStandard.values().size)
     }
 
     @Test
@@ -36,6 +36,8 @@ class WiFiStandardTest {
         assertEquals(R.string.wifi_standard_n, WiFiStandard.N.textResource)
         assertEquals(R.string.wifi_standard_ac, WiFiStandard.AC.textResource)
         assertEquals(R.string.wifi_standard_ax, WiFiStandard.AX.textResource)
+        assertEquals(R.string.wifi_standard_ad, WiFiStandard.AD.textResource)
+        assertEquals(R.string.wifi_standard_be, WiFiStandard.BE.textResource)
     }
 
     @Test
@@ -45,6 +47,8 @@ class WiFiStandardTest {
         assertEquals(R.drawable.ic_wifi_4, WiFiStandard.N.imageResource)
         assertEquals(R.drawable.ic_wifi_5, WiFiStandard.AC.imageResource)
         assertEquals(R.drawable.ic_wifi_6, WiFiStandard.AX.imageResource)
+        assertEquals(R.drawable.ic_wifi_unknown, WiFiStandard.AD.imageResource)
+        assertEquals(R.drawable.ic_wifi_unknown, WiFiStandard.BE.imageResource)
     }
 
     @Test
@@ -54,6 +58,8 @@ class WiFiStandardTest {
         assertEquals(ScanResult.WIFI_STANDARD_11N, WiFiStandard.N.wiFiStandardId)
         assertEquals(ScanResult.WIFI_STANDARD_11AC, WiFiStandard.AC.wiFiStandardId)
         assertEquals(ScanResult.WIFI_STANDARD_11AX, WiFiStandard.AX.wiFiStandardId)
+        assertEquals(ScanResult.WIFI_STANDARD_11AD, WiFiStandard.AD.wiFiStandardId)
+        assertEquals(ScanResult.WIFI_STANDARD_11BE, WiFiStandard.BE.wiFiStandardId)
     }
 
     @Test
@@ -63,8 +69,10 @@ class WiFiStandardTest {
         assertEquals(WiFiStandard.N, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11N))
         assertEquals(WiFiStandard.AC, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11AC))
         assertEquals(WiFiStandard.AX, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11AX))
+        assertEquals(WiFiStandard.AD, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11AD))
+        assertEquals(WiFiStandard.BE, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11BE))
         assertEquals(WiFiStandard.UNKNOWN, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_UNKNOWN - 1))
-        assertEquals(WiFiStandard.UNKNOWN, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11AX + 1))
+        assertEquals(WiFiStandard.UNKNOWN, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11BE + 1))
     }
 
 }

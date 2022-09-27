@@ -17,14 +17,11 @@
  */
 package com.vrem.wifianalyzer.permission
 
-import android.annotation.TargetApi
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.os.Build
 import android.view.View
 import com.vrem.annotation.OpenClass
-import com.vrem.util.buildMinVersionM
 import com.vrem.util.buildMinVersionP
 import com.vrem.wifianalyzer.R
 
@@ -47,14 +44,7 @@ class PermissionDialog(private val activity: Activity) {
     internal class OkClick(private val activity: Activity) : DialogInterface.OnClickListener {
         override fun onClick(alertDialog: DialogInterface, which: Int) {
             alertDialog.dismiss()
-            requestPermissionsAndroidM()
-        }
-
-        @TargetApi(Build.VERSION_CODES.M)
-        private fun requestPermissionsAndroidM() {
-            if (buildMinVersionM()) {
-                activity.requestPermissions(ApplicationPermission.PERMISSIONS, ApplicationPermission.REQUEST_CODE)
-            }
+            activity.requestPermissions(ApplicationPermission.PERMISSIONS, ApplicationPermission.REQUEST_CODE)
         }
 
     }

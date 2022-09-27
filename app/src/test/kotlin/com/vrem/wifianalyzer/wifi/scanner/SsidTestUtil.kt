@@ -15,21 +15,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.navigation.availability
+package com.vrem.wifianalyzer.wifi.scanner
 
-import androidx.core.content.ContextCompat
-import com.vrem.wifianalyzer.MainContext
-import com.vrem.wifianalyzer.R
+import android.net.wifi.ScanResult
+import android.net.wifi.WifiSsid
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
+import com.vrem.util.buildMinVersionT
 
-internal val navigationOptionFilterOff: NavigationOption = {
-    it.optionMenu.menu?.let { menu -> menu.findItem(R.id.action_filter).isVisible = false }
-}
-
-internal val navigationOptionFilterOn: NavigationOption = {
-    it.optionMenu.menu?.let { menu ->
-        val color = if (MainContext.INSTANCE.filtersAdapter.isActive()) R.color.selected else R.color.regular
-        val menuItem = menu.findItem(R.id.action_filter)
-        menuItem.isVisible = true
-        menuItem.icon?.setTint(ContextCompat.getColor(it, color))
+fun whenSsid(scanResult: ScanResult, ssid: String) {
+    if (buildMinVersionT()) {
+        val wifiSsid: WifiSsid = mock()
+        whenever(scanResult.wifiSsid).thenReturn(wifiSsid)
+        whenever(wifiSsid.toString()).thenReturn(ssid)
+    } else {
+        @Suppress("DEPRECATION")
+        scanResult.SSID = ssid
     }
 }

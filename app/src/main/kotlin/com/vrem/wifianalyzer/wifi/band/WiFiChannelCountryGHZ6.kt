@@ -36,5 +36,5 @@ internal class WiFiChannelCountryGHZ6 {
         .union(channelsSet7)
         .toSortedSet()
 
-    fun findChannels(countryCode: String): SortedSet<Int> = channels
+    fun findChannels(): SortedSet<Int> = channels
 }

@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi.scanner
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import com.vrem.annotation.OpenClass
+import com.vrem.util.ssid
 import com.vrem.wifianalyzer.MainContext
 
 internal class CacheResult(val scanResult: ScanResult, val average: Int)
@@ -34,7 +35,7 @@ internal class Cache {
 
     fun scanResults(): List<CacheResult> =
         combineCache()
-            .groupingBy { CacheKey(it.BSSID, it.SSID) }
+            .groupingBy { CacheKey(it.BSSID, it.ssid()) }
             .aggregate { _, accumulator: CacheResult?, element, first ->
                 CacheResult(element, calculate(first, element, accumulator))
             }
@@ -84,7 +85,7 @@ internal class Cache {
         scanResults.flatten().sortedWith(comparator())
 
     private fun comparator(): Comparator<ScanResult> =
-        compareBy<ScanResult> { it.BSSID }.thenBy { it.SSID }.thenBy { it.level }
+        compareBy<ScanResult> { it.BSSID }.thenBy { it.ssid() }.thenBy { it.level }
 
     private val sizeAvailable: Boolean
         get() = MainContext.INSTANCE.configuration.sizeAvailable

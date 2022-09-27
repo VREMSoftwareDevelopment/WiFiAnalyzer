@@ -21,9 +21,9 @@ import android.content.Context
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.core.text.parseAsHtml
 import com.vrem.annotation.OpenClass
-import com.vrem.util.compatColor
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
@@ -78,7 +78,7 @@ class ChannelGraphNavigation(private val view: View, private val mainContext: Co
             with(view.findViewById<Button>(entry.key)) {
                 val value = entry.value
                 val selected = value == selectedWiFiChannelPair
-                val color = mainContext.compatColor(if (selected) R.color.selected else R.color.background)
+                val color = ContextCompat.getColor(mainContext, if (selected) R.color.selected else R.color.background)
                 val textValue =
                     """<strong>${value.first.channel} &#8722 ${value.second.channel}</strong>""".parseAsHtml()
                         .toString()

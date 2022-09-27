@@ -25,8 +25,8 @@ import android.widget.ArrayAdapter
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import com.vrem.util.EMPTY
-import com.vrem.util.compatColor
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.databinding.ChannelRatingDetailsBinding
@@ -57,7 +57,7 @@ class ChannelRatingAdapter(
         channelRating.wiFiDetails(wiFiDetails)
         val bestChannel = bestChannels(wiFiBand, wiFiChannels)
         bestChannels.text = bestChannel.message
-        bestChannels.setTextColor(context.compatColor(bestChannel.color))
+        bestChannels.setTextColor(ContextCompat.getColor(context, bestChannel.color))
         notifyDataSetChanged()
     }
 
@@ -84,7 +84,7 @@ class ChannelRatingAdapter(
         ratingBar.max = size
         ratingBar.numStars = size
         ratingBar.rating = strength.ordinal + 1.toFloat()
-        val color = context.compatColor(strength.colorResource)
+        val color = ContextCompat.getColor(context, strength.colorResource)
         ratingBar.progressTintList = ColorStateList.valueOf(color)
     }
 
