@@ -32,7 +32,7 @@ fun WifiInfo.ipV4Address(): Int = ipAddress
 internal class Transformer(private val cache: Cache) {
 
     internal fun transformWifiInfo(): WiFiConnection {
-        val wifiInfo: WifiInfo? = cache.wifiInfo()
+        val wifiInfo: WifiInfo? = cache.wifiInfo
         return if (wifiInfo == null || wifiInfo.networkId == -1) {
             WiFiConnection.EMPTY
         } else {

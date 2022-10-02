@@ -18,7 +18,6 @@
 package com.vrem.wifianalyzer.wifi.scanner
 
 import android.net.wifi.ScanResult
-import android.net.wifi.WifiInfo
 import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.wifi.band.WiFiRange
@@ -28,7 +27,6 @@ import org.junit.Before
 import org.junit.Test
 
 class CacheTest {
-    private val wifiInfo: WifiInfo = mock()
     private val scanResult1: ScanResult = mock()
     private val scanResult2: ScanResult = mock()
     private val scanResult3: ScanResult = mock()
@@ -56,7 +54,7 @@ class CacheTest {
         // setup
         val scanResults = listOf<ScanResult>()
         // execute
-        fixture.add(scanResults, wifiInfo)
+        fixture.add(scanResults)
         // validate
         assertEquals(scanResults, fixture.first())
     }
@@ -70,7 +68,7 @@ class CacheTest {
         for (i in 0 until cacheSize) {
             val scanResults = listOf<ScanResult>()
             expected.add(scanResults)
-            fixture.add(scanResults, wifiInfo)
+            fixture.add(scanResults)
         }
         // validate
         assertEquals(cacheSize, expected.size)
@@ -117,10 +115,9 @@ class CacheTest {
         whenever(settings.cacheOff()).thenReturn(true)
         val scanResults = listOf<ScanResult>()
         // execute
-        fixture.add(scanResults, wifiInfo)
+        fixture.add(scanResults)
         // validate
         assertEquals(scanResults, fixture.first())
-        assertEquals(wifiInfo, fixture.wifiInfo())
         verify(settings).cacheOff()
     }
 
@@ -134,7 +131,7 @@ class CacheTest {
         for (i in 0 until count) {
             val scanResults = listOf<ScanResult>()
             expected.add(scanResults)
-            fixture.add(scanResults, wifiInfo)
+            fixture.add(scanResults)
         }
         // validate
         assertEquals(count, expected.size)
@@ -189,10 +186,9 @@ class CacheTest {
         whenever(configuration.sizeAvailable).thenReturn(false)
         val scanResults = listOf<ScanResult>()
         // execute
-        fixture.add(scanResults, wifiInfo)
+        fixture.add(scanResults)
         // validate
         assertEquals(scanResults, fixture.first())
-        assertEquals(wifiInfo, fixture.wifiInfo())
     }
 
     @Test
@@ -205,7 +201,7 @@ class CacheTest {
         for (i in 0 until cacheSize) {
             val scanResults = listOf<ScanResult>()
             expected.add(scanResults)
-            fixture.add(scanResults, wifiInfo)
+            fixture.add(scanResults)
         }
         // validate
         assertEquals(cacheSize, expected.size)
@@ -283,11 +279,11 @@ class CacheTest {
         scanResult6.level = -10
 
         var result = 0
-        fixture.add(listOf(scanResult1, scanResult4), wifiInfo)
+        fixture.add(listOf(scanResult1, scanResult4))
         result++
-        fixture.add(listOf(scanResult2, scanResult5), wifiInfo)
+        fixture.add(listOf(scanResult2, scanResult5))
         result++
-        fixture.add(listOf(scanResult3, scanResult6), wifiInfo)
+        fixture.add(listOf(scanResult3, scanResult6))
         result++
 
         return result

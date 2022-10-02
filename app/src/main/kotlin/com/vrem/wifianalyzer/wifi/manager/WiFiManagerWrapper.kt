@@ -66,6 +66,7 @@ class WiFiManagerWrapper(
             listOf()
         }
 
+    @Suppress("DEPRECATION")
     fun wiFiInfo(): WifiInfo? =
         try {
             wifiManager.connectionInfo

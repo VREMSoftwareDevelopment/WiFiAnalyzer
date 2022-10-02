@@ -48,37 +48,37 @@ class TransformerTest {
     fun testTransformWifiInfo() {
         // setup
         val expected = WiFiConnection(WiFiIdentifier(SSID_1, BSSID_1), IP_ADDRESS, LINK_SPEED)
-        whenever(cache.wifiInfo()).thenReturn(wifiInfo)
+        whenever(cache.wifiInfo).thenReturn(wifiInfo)
         // execute
         val actual = fixture.transformWifiInfo()
         // validate
         assertEquals(expected, actual)
-        verify(cache).wifiInfo()
+        verify(cache).wifiInfo
         verifyWiFiInfo()
     }
 
     @Test
     fun testTransformWithNulls() {
         // setup
-        whenever(cache.wifiInfo()).thenReturn(null)
+        whenever(cache.wifiInfo).thenReturn(null)
         // execute
         val actual = fixture.transformWifiInfo()
         // validate
         assertEquals(WiFiConnection.EMPTY, actual)
-        verify(cache).wifiInfo()
+        verify(cache).wifiInfo
     }
 
     @Test
     fun testTransformWifiInfoNotConnected() {
         // setup
-        whenever(cache.wifiInfo()).thenReturn(wifiInfo)
+        whenever(cache.wifiInfo).thenReturn(wifiInfo)
         whenever(wifiInfo.networkId).thenReturn(-1)
         // execute
         val actual = fixture.transformWifiInfo()
         // validate
         assertEquals(WiFiConnection.EMPTY, actual)
         verify(wifiInfo).networkId
-        verify(cache).wifiInfo()
+        verify(cache).wifiInfo
     }
 
     @Test
@@ -101,7 +101,7 @@ class TransformerTest {
     fun testWiFiData() {
         // setup
         val expectedWiFiConnection = WiFiConnection(WiFiIdentifier(SSID_1, BSSID_1), IP_ADDRESS, LINK_SPEED)
-        whenever(cache.wifiInfo()).thenReturn(wifiInfo)
+        whenever(cache.wifiInfo).thenReturn(wifiInfo)
         whenever(cache.scanResults()).thenReturn(cacheResults)
         // execute
         val actual = fixture.transformToWiFiData()
@@ -109,7 +109,7 @@ class TransformerTest {
         assertEquals(expectedWiFiConnection, actual.wiFiConnection)
         assertEquals(cacheResults.size, actual.wiFiDetails.size)
         verifyWiFiInfo()
-        verify(cache).wifiInfo()
+        verify(cache).wifiInfo
         verify(cache).scanResults()
     }
 

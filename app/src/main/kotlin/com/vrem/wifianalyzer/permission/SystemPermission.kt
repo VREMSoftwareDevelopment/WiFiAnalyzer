@@ -19,7 +19,6 @@ package com.vrem.wifianalyzer.permission
 
 import android.annotation.TargetApi
 import android.app.Activity
-import android.content.Context
 import android.location.LocationManager
 import android.os.Build
 import com.vrem.annotation.OpenClass
@@ -29,7 +28,7 @@ import com.vrem.util.buildMinVersionP
 class SystemPermission(private val activity: Activity) {
     fun enabled(): Boolean =
         try {
-            val locationManager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            val locationManager = activity.getSystemService(LocationManager::class.java)
             locationEnabled(locationManager) || networkProviderEnabled(locationManager) || gpsProviderEnabled(
                 locationManager
             )

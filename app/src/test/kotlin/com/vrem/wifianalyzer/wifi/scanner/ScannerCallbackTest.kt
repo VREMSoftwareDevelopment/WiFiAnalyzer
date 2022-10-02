@@ -52,7 +52,8 @@ class ScannerCallbackTest {
         // validate
         verify(wiFiManagerWrapper).scanResults()
         verify(wiFiManagerWrapper).wiFiInfo()
-        verify(cache).add(scanResults, wifiInfo)
+        verify(cache).add(scanResults)
+        verify(cache).wifiInfo = wifiInfo
     }
 
 }
