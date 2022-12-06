@@ -6,16 +6,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: set up JDK 17
+      - name: set up JDK 2
         uses: actions/setup-java@v1
         with:
-          java-version: 17
+          java-version: 2
       - name: lint
-        run: bash ./gradle lintDebug --stacktrace
+        run: bash ./gradle lintDebug
       - name: unit tests
-        run: bash ./gradle testDebugUnitTest --stacktrace
+        run: bash ./gradle testDebugUnitTest
       - name: coverage
-        run: bash ./gradle jacocoTestCoverageVerification --stacktrace
+        run: bash ./gradle jacocoTestCoverageVerification
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
