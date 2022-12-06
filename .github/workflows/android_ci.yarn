@@ -11,11 +11,11 @@ jobs:
         with:
           java-version: 17
       - name: lint
-        run: bash ./gradlew lintDebug --stacktrace
+        run: bash ./gradle lintDebug --stacktrace
       - name: unit tests
-        run: bash ./gradlew testDebugUnitTest --stacktrace
+        run: bash ./gradle testDebugUnitTest --stacktrace
       - name: coverage
-        run: bash ./gradlew jacocoTestCoverageVerification --stacktrace
+        run: bash ./gradle jacocoTestCoverageVerification --stacktrace
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
