@@ -34,7 +34,7 @@ class ChannelGraphFragment : Fragment(), OnRefreshListener {
     lateinit var channelGraphAdapter: ChannelGraphAdapter
         private set
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding = GraphContentBinding.inflate(inflater, container, false)
         swipeRefreshLayout = binding.graphRefresh
         swipeRefreshLayout.setOnRefreshListener(this)

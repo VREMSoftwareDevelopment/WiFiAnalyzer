@@ -36,7 +36,7 @@ class ChannelRatingFragment : Fragment(), OnRefreshListener {
     lateinit var channelRatingAdapter: ChannelRatingAdapter
         private set
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding: ChannelRatingContentBinding = ChannelRatingContentBinding.inflate(inflater, container, false)
         swipeRefreshLayout = binding.channelRatingRefresh
         swipeRefreshLayout.setOnRefreshListener(this)

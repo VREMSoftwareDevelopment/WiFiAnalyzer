@@ -209,6 +209,6 @@ class ChannelGraphViewTest {
     }
 
     private fun withWiFiChannelPair(channel: Int = 10): WiFiChannelPair =
-            WiFiChannelPair(WiFiChannel(channel, 100), WiFiChannel(20, 200))
+        WiFiChannelPair(WiFiChannel(channel, 100), WiFiChannel(20, 200))
 
 }

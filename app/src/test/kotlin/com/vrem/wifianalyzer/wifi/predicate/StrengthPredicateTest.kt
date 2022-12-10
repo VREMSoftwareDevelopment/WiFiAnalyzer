@@ -33,8 +33,9 @@ class StrengthPredicateTest {
     }
 
     private fun makeWiFiDetail(level: Int): WiFiDetail =
-            WiFiDetail(
-                    WiFiIdentifier("ssid", "bssid"),
-                    "wpa",
-                    WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, level, true))
+        WiFiDetail(
+            WiFiIdentifier("ssid", "bssid"),
+            "wpa",
+            WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, level, true)
+        )
 }

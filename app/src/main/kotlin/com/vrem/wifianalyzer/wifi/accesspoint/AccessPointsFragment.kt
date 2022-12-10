@@ -33,7 +33,7 @@ class AccessPointsFragment : Fragment(), OnRefreshListener {
     lateinit var accessPointsAdapter: AccessPointsAdapter
         private set
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding = AccessPointsContentBinding.inflate(inflater, container, false)
         swipeRefreshLayout = binding.accessPointsRefresh
         swipeRefreshLayout.setOnRefreshListener(this)

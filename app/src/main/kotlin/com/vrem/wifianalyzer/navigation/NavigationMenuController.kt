@@ -26,9 +26,10 @@ import com.vrem.wifianalyzer.R
 
 @OpenClass
 class NavigationMenuController(
-        navigationMenuControl: NavigationMenuControl,
-        val navigationView: NavigationView = navigationMenuControl.findViewById(R.id.nav_drawer),
-        val bottomNavigationView: BottomNavigationView = navigationMenuControl.findViewById(R.id.nav_bottom)) {
+    navigationMenuControl: NavigationMenuControl,
+    val navigationView: NavigationView = navigationMenuControl.findViewById(R.id.nav_drawer),
+    val bottomNavigationView: BottomNavigationView = navigationMenuControl.findViewById(R.id.nav_bottom)
+) {
 
     private lateinit var currentNavigationMenu: NavigationMenu
 

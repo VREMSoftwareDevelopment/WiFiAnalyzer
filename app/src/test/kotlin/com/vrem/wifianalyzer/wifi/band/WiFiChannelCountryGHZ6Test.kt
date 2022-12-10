@@ -38,7 +38,7 @@ class WiFiChannelCountryGHZ6Test {
     @Test
     fun testChannelsForWorld() {
         listOf("GB", "XYZ", "US", "AU", "AE")
-            .forEach { validateChannels(channelsSet, fixture.findChannels()) }
+            .forEach { _ -> validateChannels(channelsSet, fixture.findChannels()) }
     }
 
     private fun validateChannels(expected: SortedSet<Int>, actual: SortedSet<Int>) {
