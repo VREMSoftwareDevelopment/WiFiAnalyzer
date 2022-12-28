@@ -71,7 +71,7 @@ fun ScanResult.ssid(): String =
         ssidAndroidT()
     } else {
         ssidLegacy()
-    }
+    }.removeSurrounding("\"")
 
 @TargetApi(Build.VERSION_CODES.TIRAMISU)
 private fun ScanResult.ssidAndroidT(): String =

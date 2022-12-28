@@ -113,6 +113,26 @@ class TransformerTest {
         verify(cache).scanResults()
     }
 
+    @Test
+    fun testWiFiStandardMinVersionR() {
+        // setup
+        whenever(fixture.minVersionR()).thenReturn(true)
+        // execute
+        val actual = fixture.wiFiStandard(scanResult1)
+        // validate
+        assertEquals(WiFiStandard.AX.wiFiStandardId, actual)
+        verify(fixture).minVersionR()
+    }
+
+    @Test
+    fun testWiFiStandard() {
+        // setup
+        // execute
+        val actual = fixture.wiFiStandard(scanResult1)
+        // validate
+        assertEquals(WiFiStandard.UNKNOWN.wiFiStandardId, actual)
+    }
+
     private fun withScanResult(ssid: SSID, bssid: BSSID, wiFiWidth: WiFiWidth, wiFiStandard: WiFiStandard): ScanResult {
         val scanResult: ScanResult = mock()
         whenSsid(scanResult, ssid)

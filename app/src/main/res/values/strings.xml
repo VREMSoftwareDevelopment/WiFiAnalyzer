@@ -83,10 +83,6 @@
     <string name="scan_speed_key" translatable="false">"scan_speed"</string>
     <string name="scan_speed_default" translatable="false">"5"</string>
 
-    <string name="wifi_throttle_disabled_title" translatable="false">"Disable Wi-Fi scan throttling"</string>
-    <string name="wifi_throttle_disabled_key" translatable="false">"wifi_throttle_disabled_key"</string>
-    <bool name="wifi_throttle_disabled_default" translatable="false">false</bool>
-
     <string name="cache_off_title" translatable="false">"Cache off"</string>
     <string name="cache_off_key" translatable="false">"cache_off"</string>
     <bool name="cache_off_default" translatable="false">false</bool>

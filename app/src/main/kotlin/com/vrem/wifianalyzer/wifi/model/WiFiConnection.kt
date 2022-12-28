@@ -31,9 +31,7 @@ data class WiFiConnection(val wiFiIdentifier: WiFiIdentifier = WiFiIdentifier.EM
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
-
         other as WiFiConnection
-
         return wiFiIdentifier == other.wiFiIdentifier
     }
 
@@ -43,7 +41,6 @@ data class WiFiConnection(val wiFiIdentifier: WiFiIdentifier = WiFiIdentifier.EM
 
     companion object {
         const val LINK_SPEED_INVALID = -1
-
         val EMPTY = WiFiConnection()
     }
 }

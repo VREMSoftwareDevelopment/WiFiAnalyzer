@@ -42,19 +42,6 @@ class SettingsFragmentTest {
 
     @Config(sdk = [Build.VERSION_CODES.P])
     @Test
-    fun testWifiThrottleDisabledIsVisible() {
-        // setup
-        val fixture = SettingsFragment()
-        RobolectricUtil.INSTANCE.startFragment(fixture)
-        val key = fixture.getString(R.string.wifi_throttle_disabled_key)
-        // execute
-        val actual = fixture.findPreference<Preference>(key)
-        // validate
-        assertTrue(actual!!.isVisible)
-    }
-
-    @Config(sdk = [Build.VERSION_CODES.P])
-    @Test
     fun testWiFiOnExitIsVisible() {
         // setup
         val fixture = SettingsFragment()
@@ -64,18 +51,6 @@ class SettingsFragmentTest {
         val actual = fixture.findPreference<Preference>(key)
         // validate
         assertTrue(actual!!.isVisible)
-    }
-
-    @Test
-    fun testWifiThrottleDisabledIsNotVisible() {
-        // setup
-        val fixture = SettingsFragment()
-        RobolectricUtil.INSTANCE.startFragment(fixture)
-        val key = fixture.getString(R.string.wifi_throttle_disabled_key)
-        // execute
-        val actual = fixture.findPreference<Preference>(key)
-        // validate
-        assertFalse(actual!!.isVisible)
     }
 
     @Test

@@ -30,7 +30,6 @@ class SettingsAndroidQTest {
     @Before
     fun setUp() {
         every { fixture.minVersionQ() } returns true
-        every { fixture.versionP() } returns false
     }
 
     @After
@@ -47,12 +46,4 @@ class SettingsAndroidQTest {
         verify { fixture.minVersionQ() }
     }
 
-    @Test
-    fun testWiFiThrottleDisabled() {
-        // execute
-        val actual = fixture.wiFiThrottleDisabled()
-        // validate
-        assertFalse(actual)
-        verify { fixture.versionP() }
-    }
 }

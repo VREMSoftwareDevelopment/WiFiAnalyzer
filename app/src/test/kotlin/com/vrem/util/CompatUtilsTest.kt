@@ -151,8 +151,9 @@ class CompatUtilsTest {
     fun testScanResultSSID() {
         // setup
         val expected = "SSID"
+        val ssid = "\"$expected\""
         whenever(scanResult.wifiSsid).thenReturn(wifiSsid)
-        whenever(wifiSsid.toString()).thenReturn(expected)
+        whenever(wifiSsid.toString()).thenReturn(ssid)
         // execute
         val actual = scanResult.ssid()
         // validate
@@ -189,7 +190,8 @@ class CompatUtilsTest {
     fun testScanResultSSIDLegacy() {
         // setup
         val expected = "SSID"
-        scanResult.SSID = expected
+        val ssid = "\"$expected\""
+        scanResult.SSID = ssid
         // execute
         val actual = scanResult.ssid()
         // validate

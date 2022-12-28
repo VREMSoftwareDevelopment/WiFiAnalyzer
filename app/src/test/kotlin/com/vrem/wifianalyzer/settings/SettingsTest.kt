@@ -58,7 +58,6 @@ class SettingsTest {
     @Before
     fun setUp() {
         every { fixture.minVersionQ() } returns false
-        every { fixture.versionP() } returns true
     }
 
     @After
@@ -88,27 +87,8 @@ class SettingsTest {
     }
 
     @Test
-    fun testScanSpeedWithWiFiThrottleDisabled() {
+    fun testScanSpeed() {
         // setup
-        every { fixture.wiFiThrottleDisabled() } returns true
-        val defaultValue = scanSpeedDefault - 2
-        val speedValue = scanSpeedDefault - 1
-        every { repository.stringAsInteger(R.string.scan_speed_default, scanSpeedDefault) } returns defaultValue
-        every { repository.stringAsInteger(R.string.scan_speed_key, defaultValue) } returns speedValue
-        // execute
-        val actual = fixture.scanSpeed()
-        // validate
-        assertEquals(scanSpeedDefault, actual)
-        verify { repository.stringAsInteger(R.string.scan_speed_default, scanSpeedDefault) }
-        verify { repository.stringAsInteger(R.string.scan_speed_key, defaultValue) }
-        verify { fixture.wiFiThrottleDisabled() }
-        verify { fixture.versionP() }
-    }
-
-    @Test
-    fun testScanSpeedWithWiFiThrottleEnabled() {
-        // setup
-        every { fixture.wiFiThrottleDisabled() } returns false
         val defaultValue = scanSpeedDefault - 2
         val speedValue = scanSpeedDefault - 1
         every { repository.stringAsInteger(R.string.scan_speed_default, scanSpeedDefault) } returns defaultValue
@@ -119,22 +99,6 @@ class SettingsTest {
         assertEquals(speedValue, actual)
         verify { repository.stringAsInteger(R.string.scan_speed_default, scanSpeedDefault) }
         verify { repository.stringAsInteger(R.string.scan_speed_key, defaultValue) }
-        verify { fixture.wiFiThrottleDisabled() }
-        verify { fixture.versionP() }
-    }
-
-    @Test
-    fun testWiFiThrottleDisabled() {
-        // setup
-        every { repository.resourceBoolean(R.bool.wifi_throttle_disabled_default) } returns true
-        every { repository.boolean(R.string.wifi_throttle_disabled_key, true) } returns true
-        // execute
-        val actual = fixture.wiFiThrottleDisabled()
-        // validate
-        assertTrue(actual)
-        verify { repository.boolean(R.string.wifi_throttle_disabled_key, true) }
-        verify { repository.resourceBoolean(R.bool.wifi_throttle_disabled_default) }
-        verify { fixture.versionP() }
     }
 
     @Test

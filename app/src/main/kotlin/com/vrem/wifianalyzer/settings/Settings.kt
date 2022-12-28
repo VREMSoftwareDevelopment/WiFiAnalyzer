@@ -39,23 +39,13 @@ class Settings(private val repository: Repository) {
     fun initializeDefaultValues(): Unit = repository.initializeDefaultValues()
 
     fun registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener): Unit =
-            repository.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
+        repository.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
 
-    fun scanSpeed(): Int {
-        val defaultValue = repository.stringAsInteger(R.string.scan_speed_default, SCAN_SPEED_DEFAULT)
-        val scanSpeed = repository.stringAsInteger(R.string.scan_speed_key, defaultValue)
-        return if (versionP()) {
-            if (wiFiThrottleDisabled()) scanSpeed.coerceAtLeast(SCAN_SPEED_DEFAULT) else scanSpeed
-        } else scanSpeed
-    }
-
-    fun wiFiThrottleDisabled(): Boolean {
-        if (versionP()) {
-            val defaultValue = repository.resourceBoolean(R.bool.wifi_throttle_disabled_default)
-            return repository.boolean(R.string.wifi_throttle_disabled_key, defaultValue)
-        }
-        return false
-    }
+    fun scanSpeed(): Int =
+        repository.stringAsInteger(
+            R.string.scan_speed_key,
+            repository.stringAsInteger(R.string.scan_speed_default, SCAN_SPEED_DEFAULT)
+        )
 
     fun cacheOff(): Boolean =
         repository.boolean(R.string.cache_off_key, repository.resourceBoolean(R.bool.cache_off_default))
@@ -91,11 +81,14 @@ class Settings(private val repository: Repository) {
     fun wiFiBand(): WiFiBand = find(WiFiBand.values(), R.string.wifi_band_key, WiFiBand.GHZ2)
 
     fun wiFiOffOnExit(): Boolean =
-            if (minVersionQ()) {
-                false
-            } else {
-                repository.boolean(R.string.wifi_off_on_exit_key, repository.resourceBoolean(R.bool.wifi_off_on_exit_default))
-            }
+        if (minVersionQ()) {
+            false
+        } else {
+            repository.boolean(
+                R.string.wifi_off_on_exit_key,
+                repository.resourceBoolean(R.bool.wifi_off_on_exit_default)
+            )
+        }
 
     fun keepScreenOn(): Boolean = repository.boolean(R.string.keep_screen_on_key, repository.resourceBoolean(R.bool.keep_screen_on_default))
 
@@ -139,8 +132,6 @@ class Settings(private val repository: Repository) {
     private fun <T : Enum<T>> saveSet(key: Int, values: Set<T>): Unit = repository.saveStringSet(key, ordinals(values))
 
     fun minVersionQ(): Boolean = buildMinVersionQ()
-
-    fun versionP(): Boolean = buildVersionP()
 
     companion object {
         private const val SCAN_SPEED_DEFAULT = 5

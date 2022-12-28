@@ -162,11 +162,6 @@
         app:title="@string/experimental_title">
 
         <androidx.preference.SwitchPreferenceCompat
-            app:defaultValue="@bool/wifi_throttle_disabled_default"
-            app:key="@string/wifi_throttle_disabled_key"
-            app:title="@string/wifi_throttle_disabled_title" />
-
-        <androidx.preference.SwitchPreferenceCompat
             app:defaultValue="@bool/cache_off_default"
             app:key="@string/cache_off_key"
             app:title="@string/cache_off_title" />

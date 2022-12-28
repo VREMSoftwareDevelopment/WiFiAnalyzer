@@ -33,10 +33,10 @@ data class WiFiIdentifier(val ssidRaw: SSID = String.EMPTY, val bssid: BSSID = S
         get() = "$ssid ($bssid)"
 
     fun equals(other: WiFiIdentifier, ignoreCase: Boolean = false): Boolean =
-            ssid.equals(other.ssidRaw, ignoreCase) && bssid.equals(other.bssid, ignoreCase)
+        ssid.equals(other.ssidRaw, ignoreCase) && bssid.equals(other.bssid, ignoreCase)
 
     override fun compareTo(other: WiFiIdentifier): Int =
-            compareBy<WiFiIdentifier> { it.ssidRaw }.thenBy { it.bssid }.compare(this, other)
+        compareBy<WiFiIdentifier> { it.ssidRaw }.thenBy { it.bssid }.compare(this, other)
 
     companion object {
         val EMPTY = WiFiIdentifier()
