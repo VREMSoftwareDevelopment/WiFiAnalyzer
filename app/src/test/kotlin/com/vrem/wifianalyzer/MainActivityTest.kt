@@ -80,12 +80,12 @@ class MainActivityTest {
         // setup
         val scannerService = MainContextHelper.INSTANCE.scannerService
         whenever(permissionService.permissionGranted()).thenReturn(true)
-        whenever(permissionService.systemEnabled()).thenReturn(false)
+        whenever(permissionService.locationEnabled()).thenReturn(false)
         // execute
         fixture.onResume()
         // validate
         verify(permissionService).permissionGranted()
-        verify(permissionService).systemEnabled()
+        verify(permissionService).locationEnabled()
         verify(scannerService).resume()
         verify(scannerService).register(fixture.connectionView)
     }

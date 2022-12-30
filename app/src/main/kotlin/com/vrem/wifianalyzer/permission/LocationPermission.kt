@@ -25,15 +25,19 @@ import com.vrem.annotation.OpenClass
 import com.vrem.util.buildMinVersionP
 
 @OpenClass
-class SystemPermission(private val activity: Activity) {
+class LocationPermission(private val activity: Activity) {
     fun enabled(): Boolean =
-        try {
-            val locationManager = activity.getSystemService(LocationManager::class.java)
-            locationEnabled(locationManager) || networkProviderEnabled(locationManager) || gpsProviderEnabled(
-                locationManager
-            )
-        } catch (e: Exception) {
-            false
+        if (buildMinVersionP()) {
+            try {
+                val locationManager = activity.getSystemService(LocationManager::class.java)
+                locationEnabled(locationManager) ||
+                        networkProviderEnabled(locationManager) ||
+                        gpsProviderEnabled(locationManager)
+            } catch (e: Exception) {
+                false
+            }
+        } else {
+            true
         }
 
     private fun gpsProviderEnabled(locationManager: LocationManager): Boolean =
@@ -50,11 +54,8 @@ class SystemPermission(private val activity: Activity) {
             false
         }
 
-    private fun locationEnabled(locationManager: LocationManager): Boolean =
-        buildMinVersionP() && locationEnabledAndroidP(locationManager)
-
     @TargetApi(Build.VERSION_CODES.P)
-    private fun locationEnabledAndroidP(locationManager: LocationManager): Boolean =
+    private fun locationEnabled(locationManager: LocationManager): Boolean =
         try {
             locationManager.isLocationEnabled
         } catch (e: Exception) {

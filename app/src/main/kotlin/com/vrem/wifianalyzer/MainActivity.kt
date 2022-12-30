@@ -172,7 +172,7 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
         super.onResume()
         val scannerService: ScannerService = MainContext.INSTANCE.scannerService
         if (permissionService.permissionGranted()) {
-            if (!permissionService.systemEnabled()) {
+            if (!permissionService.locationEnabled()) {
                 startLocationSettings()
             }
             scannerService.resume()

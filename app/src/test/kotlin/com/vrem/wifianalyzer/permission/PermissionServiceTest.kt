@@ -29,63 +29,63 @@ import org.junit.Test
 
 class PermissionServiceTest {
     private val activity: Activity = mock()
-    private val systemPermission: SystemPermission = mock()
+    private val locationPermission: LocationPermission = mock()
     private val applicationPermission: ApplicationPermission = mock()
-    private val fixture = PermissionService(activity, systemPermission, applicationPermission)
+    private val fixture = PermissionService(activity, locationPermission, applicationPermission)
 
     @After
     fun tearDown() {
         verifyNoMoreInteractions(activity)
         verifyNoMoreInteractions(applicationPermission)
-        verifyNoMoreInteractions(systemPermission)
+        verifyNoMoreInteractions(locationPermission)
     }
 
     @Test
     fun testEnabled() {
         // setup
-        whenever(systemPermission.enabled()).thenReturn(true)
+        whenever(locationPermission.enabled()).thenReturn(true)
         whenever(applicationPermission.granted()).thenReturn(true)
         // execute
         val actual = fixture.enabled()
         // validate
         assertTrue(actual)
-        verify(systemPermission).enabled()
+        verify(locationPermission).enabled()
         verify(applicationPermission).granted()
     }
 
     @Test
-    fun testEnabledWhenSystemPermissionIsNotEnabled() {
+    fun testEnabledWhenLocationPermissionIsNotEnabled() {
         // setup
-        whenever(systemPermission.enabled()).thenReturn(false)
+        whenever(locationPermission.enabled()).thenReturn(false)
         // execute
         val actual = fixture.enabled()
         // validate
         assertFalse(actual)
-        verify(systemPermission).enabled()
+        verify(locationPermission).enabled()
     }
 
     @Test
     fun testEnabledWhenApplicationPermissionAreNotGranted() {
         // setup
-        whenever(systemPermission.enabled()).thenReturn(true)
+        whenever(locationPermission.enabled()).thenReturn(true)
         whenever(applicationPermission.granted()).thenReturn(false)
         // execute
         val actual = fixture.enabled()
         // validate
         assertFalse(actual)
-        verify(systemPermission).enabled()
+        verify(locationPermission).enabled()
         verify(applicationPermission).granted()
     }
 
     @Test
     fun testSystemEnabled() {
         // setup
-        whenever(systemPermission.enabled()).thenReturn(true)
+        whenever(locationPermission.enabled()).thenReturn(true)
         // execute
-        val actual = fixture.systemEnabled()
+        val actual = fixture.locationEnabled()
         // validate
         assertTrue(actual)
-        verify(systemPermission).enabled()
+        verify(locationPermission).enabled()
     }
 
     @Test

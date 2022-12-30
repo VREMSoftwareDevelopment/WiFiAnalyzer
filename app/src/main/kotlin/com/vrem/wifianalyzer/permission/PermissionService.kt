@@ -22,18 +22,19 @@ import com.vrem.annotation.OpenClass
 
 @OpenClass
 class PermissionService(
-        private val activity: Activity,
-        private val systemPermission: SystemPermission = SystemPermission(activity),
-        private val applicationPermission: ApplicationPermission = ApplicationPermission(activity)) {
+    private val activity: Activity,
+    private val locationPermission: LocationPermission = LocationPermission(activity),
+    private val applicationPermission: ApplicationPermission = ApplicationPermission(activity)
+) {
 
-    fun enabled(): Boolean = systemEnabled() && permissionGranted()
+    fun enabled(): Boolean = locationEnabled() && permissionGranted()
 
-    fun systemEnabled(): Boolean = systemPermission.enabled()
+    fun locationEnabled(): Boolean = locationPermission.enabled()
 
     fun check(): Unit = applicationPermission.check()
 
     fun granted(requestCode: Int, grantResults: IntArray): Boolean =
-            applicationPermission.granted(requestCode, grantResults)
+        applicationPermission.granted(requestCode, grantResults)
 
     fun permissionGranted(): Boolean = applicationPermission.granted()
 }

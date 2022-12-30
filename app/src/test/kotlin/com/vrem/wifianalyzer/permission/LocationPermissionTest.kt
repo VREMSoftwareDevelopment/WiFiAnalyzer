@@ -21,10 +21,7 @@ import android.app.Activity
 import android.location.LocationManager
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import org.junit.After
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -34,10 +31,10 @@ import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.TIRAMISU])
-class SystemPermissionTest {
+class LocationPermissionTest {
     private val activity: Activity = mock()
     private val locationManager: LocationManager = mock()
-    private val fixture: SystemPermission = SystemPermission(activity)
+    private val fixture: LocationPermission = LocationPermission(activity)
 
     @After
     fun tearDown() {
@@ -125,7 +122,7 @@ class SystemPermissionTest {
     }
 
     @Test
-    fun testEnabled() {
+    fun testEnabledWhenException() {
         // setup
         whenever(activity.getSystemService(LocationManager::class.java)).thenThrow(RuntimeException::class.java)
         // execute
@@ -134,4 +131,15 @@ class SystemPermissionTest {
         assertFalse(actual)
         verify(activity).getSystemService(LocationManager::class.java)
     }
+
+    @Config(sdk = [Build.VERSION_CODES.O_MR1])
+    @Test
+    fun testEnabledReturnsTrueLegacy() {
+        // execute
+        val actual = fixture.enabled()
+        // validate
+        assertTrue(actual)
+        verify(activity, never()).getSystemService(any())
+    }
+
 }
