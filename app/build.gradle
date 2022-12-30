@@ -44,8 +44,8 @@ dependencies {
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
     testImplementation 'io.mockk:mockk:1.13.3'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:4.10.0'
-    testImplementation 'org.robolectric:robolectric:4.9.1'
+    testImplementation 'org.mockito:mockito-core:4.11.0'
+    testImplementation 'org.robolectric:robolectric:4.9.2'
     testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     // Android Test Dependencies
