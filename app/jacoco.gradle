@@ -19,7 +19,7 @@
 apply plugin: "jacoco"
 
 jacoco {
-    toolVersion = "0.8.7"
+    toolVersion = "0.8.8"
 }
 
 def executionPath = 'outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec'
@@ -48,8 +48,8 @@ tasks.withType(Test) {
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
     reports {
-        xml.enabled = true
-        html.enabled = true
+        xml.required = true
+        html.required = true
     }
     sourceDirectories.from = files([mainJavaSrc, mainKotlinSrc])
     classDirectories.from = files([debugTree])
@@ -73,7 +73,7 @@ task jacocoTestCoverageVerification(type: JacocoCoverageVerification, dependsOn:
             }
             limit {
                 counter = 'COMPLEXITY'
-                minimum = 0.87
+                minimum = 0.88
             }
             limit {
                 counter = 'LINE'
