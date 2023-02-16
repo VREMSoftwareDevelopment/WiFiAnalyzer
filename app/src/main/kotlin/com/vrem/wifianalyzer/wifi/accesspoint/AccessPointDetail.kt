@@ -164,12 +164,32 @@ class AccessPointDetail {
 
     private fun setTimestamp(view: View, wiFiSignal: WiFiSignal) =
         view.findViewById<TextView>(R.id.timestamp)?.let {
-            val milliseconds: Long = wiFiSignal.timestamp / 1000
-            if (0L == milliseconds) {
+            val milliseconds: Long = (wiFiSignal.timestamp + 499) / 1000
+            if (0L == milliseconds || 31622400000 <= milliseconds) {
+                /*
+                 * SimpleDateFormat processes dates, not durations, which means
+                 * units larger than days produce nonsensical results.
+                 * The 'D' conversion counts days in a year, so we can't count
+                 * any higher than that.
+                 */
                 it.text = String.EMPTY
                 it.visibility = View.GONE
             } else {
-                val simpleDateFormat = SimpleDateFormat(TIME_STAMP_FORMAT, Locale.US)
+                /* up to 365d,23h,59m,59.999s */
+                val dateFormatString = TIME_STAMP_FORMAT
+                if      (    60000 > milliseconds) { dateFormatString = TIME_STAMP_FORMAT_1min   }
+                else if (   600000 > milliseconds) { dateFormatString = TIME_STAMP_FORMAT_10min  }
+                else if (  3600000 > milliseconds) { dateFormatString = TIME_STAMP_FORMAT_1hour  }
+                else if (864000000 > milliseconds) { dateFormatString = TIME_STAMP_FORMAT_1day   }
+                else {
+                    /*
+                     * The 'D' conversion numbers days starting at 1, but we
+                     * want to count days up to the preceding midnight.
+                     */
+                    milliseconds -= 864000000
+                }
+
+                val simpleDateFormat = SimpleDateFormat(dateFormatString, Locale.US)
                 simpleDateFormat.timeZone = TimeZone.getTimeZone("GMT")
                 it.text = simpleDateFormat.format(Date(milliseconds))
                 it.visibility = View.VISIBLE
@@ -177,7 +197,11 @@ class AccessPointDetail {
         }
 
     companion object {
-        private const val TIME_STAMP_FORMAT = "H:mm:ss.SSS"
+        private const val TIME_STAMP_FORMAT_1min  =           "ss.SSS"
+        private const val TIME_STAMP_FORMAT_10min =         "m:ss.SS"
+        private const val TIME_STAMP_FORMAT_1hour =        "mm:ss.S"
+        private const val TIME_STAMP_FORMAT_1day  =      "H:mm:ss"
+        private const val TIME_STAMP_FORMAT       = "D'd' H:mm"     /* TODO: localize */
     }
 
 }
