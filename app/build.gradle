@@ -28,7 +28,7 @@ dependencies {
     implementation fileTree(include: ["*.jar"], dir: "libs")
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.annotation:annotation:1.5.0'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.collection:collection-ktx:1.2.0'
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.core:core-splashscreen:1.0.0'
@@ -57,7 +57,7 @@ dependencies {
 android {
     namespace 'com.vrem.wifianalyzer'
     compileSdkVersion 33
-    buildToolsVersion '33.0.1'
+    buildToolsVersion '33.0.2'
 
     sourceSets.each {
         it.java.srcDirs += "src/$it.name/kotlin"
