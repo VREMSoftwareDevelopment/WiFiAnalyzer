@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2022 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@ import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.model.*
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test

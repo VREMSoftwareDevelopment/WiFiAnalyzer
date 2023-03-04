@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2022 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ dependencies {
     // Compile Build Dependencies
     implementation fileTree(include: ["*.jar"], dir: "libs")
     implementation 'com.google.android.material:material:1.8.0'
-    implementation 'androidx.annotation:annotation:1.5.0'
+    implementation 'androidx.annotation:annotation:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.collection:collection-ktx:1.2.0'
     implementation 'androidx.core:core-ktx:1.9.0'
