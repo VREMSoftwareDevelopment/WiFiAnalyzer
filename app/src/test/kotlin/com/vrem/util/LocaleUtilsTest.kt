@@ -17,9 +17,11 @@
  */
 package com.vrem.util
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.*
+import java.util.Locale
 
 class LocaleUtilsTest {
     @Test
@@ -78,20 +80,23 @@ class LocaleUtilsTest {
     fun testSupportedLanguages() {
         // setup
         val expected: Set<Locale> = setOf(
-                BULGARIAN,
-                Locale.SIMPLIFIED_CHINESE,
-                Locale.TRADITIONAL_CHINESE,
-                Locale.ENGLISH,
-                Locale.FRENCH,
-                Locale.GERMAN,
-                Locale.ITALIAN,
-                Locale.JAPANESE,
-                POLISH,
-                PORTUGUESE,
-                SPANISH,
-                RUSSIAN,
-                UKRAINIAN,
-                Locale.getDefault())
+            BULGARIAN,
+            GREEK,
+            Locale.SIMPLIFIED_CHINESE,
+            Locale.TRADITIONAL_CHINESE,
+            Locale.ENGLISH,
+            Locale.FRENCH,
+            Locale.GERMAN,
+            Locale.ITALIAN,
+            Locale.JAPANESE,
+            POLISH,
+            PORTUGUESE,
+            SPANISH,
+            RUSSIAN,
+            TURKISH,
+            UKRAINIAN,
+            Locale.getDefault()
+        )
         // execute
         val actual = supportedLanguages()
         // validate

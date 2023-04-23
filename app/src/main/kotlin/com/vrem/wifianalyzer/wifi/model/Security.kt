@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.wifi.model
 import androidx.annotation.DrawableRes
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.R
-import java.util.*
+import java.util.Locale
 
 private const val SAE = "SAE"
 
@@ -49,9 +49,9 @@ enum class Security(@DrawableRes val imageResource: Int, val additional: String 
         }
 
         private fun parse(capabilities: String): List<String> =
-                regex.replace(capabilities.uppercase(Locale.getDefault()), "-")
-                        .split("-")
-                        .filter { it.isNotBlank() }
+            regex.replace(capabilities.uppercase(Locale.getDefault()), "-")
+                .split("-")
+                .filter { it.isNotBlank() && it != NONE.name }
     }
 
 }

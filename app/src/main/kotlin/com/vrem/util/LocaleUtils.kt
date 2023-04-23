@@ -33,6 +33,7 @@ private object SyncAvoid {
             .toSortedMap()
     val supportedLocales: List<Locale> = setOf(
         BULGARIAN,
+        GREEK,
         Locale.SIMPLIFIED_CHINESE,
         Locale.TRADITIONAL_CHINESE,
         Locale.ENGLISH,
@@ -44,22 +45,19 @@ private object SyncAvoid {
         PORTUGUESE,
         SPANISH,
         RUSSIAN,
+        TURKISH,
         UKRAINIAN,
         defaultLocale
-    )
-            .toList()
+    ).toList()
 }
 
 val BULGARIAN: Locale = Locale("bg")
-
+val GREEK: Locale = Locale("el")
 val POLISH: Locale = Locale("pl")
-
 val PORTUGUESE: Locale = Locale("pt")
-
 val SPANISH: Locale = Locale("es")
-
 val RUSSIAN: Locale = Locale("ru")
-
+val TURKISH: Locale = Locale("tr")
 val UKRAINIAN: Locale = Locale("uk")
 
 private const val SEPARATOR: String = "_"

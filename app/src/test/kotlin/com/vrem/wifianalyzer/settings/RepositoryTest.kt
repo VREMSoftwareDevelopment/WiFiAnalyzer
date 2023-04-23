@@ -23,7 +23,14 @@ import android.content.SharedPreferences.Editor
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.res.Resources
 import com.vrem.wifianalyzer.R
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.confirmVerified
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.runs
+import io.mockk.spyk
+import io.mockk.verify
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -128,16 +135,18 @@ class RepositoryTest {
         // setup
         val keyIndex = R.string.app_full_name
         val defaultValue = 2222
+        val defaultValueAsString = defaultValue.toString()
         every { context.getString(keyIndex) } returns keyValue
         every { sharedPreferences.getInt(keyValue, defaultValue) } throws RuntimeException()
-        withSave(keyIndex, defaultValue.toString())
+        withSave(keyIndex, defaultValueAsString)
         // execute
         val actual = fixture.stringAsInteger(keyIndex, defaultValue)
         // validate
         assertEquals(defaultValue, actual)
         verify { context.getString(keyIndex) }
-        verify { sharedPreferences.getString(keyValue, defaultValue.toString()) }
-        verifySave(keyIndex, defaultValue.toString())
+        verify { sharedPreferences.getString(keyValue, defaultValueAsString) }
+        verify(atLeast = 2) { sharedPreferences.toString() }
+        verifySave(keyIndex, defaultValueAsString)
         verifyPreferenceManager()
     }
 
