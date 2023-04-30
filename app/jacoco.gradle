@@ -19,9 +19,10 @@
 apply plugin: "jacoco"
 
 jacoco {
-    toolVersion = "0.8.8"
+    toolVersion = "0.8.9"
 }
 
+// FIXME: Gradle 8 & Jacoco where is exec file
 def executionPath = 'outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec'
 
 def fileFilter = [
@@ -48,6 +49,7 @@ tasks.withType(Test) {
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
     reports {
+        csv.required = false
         xml.required = true
         html.required = true
     }
