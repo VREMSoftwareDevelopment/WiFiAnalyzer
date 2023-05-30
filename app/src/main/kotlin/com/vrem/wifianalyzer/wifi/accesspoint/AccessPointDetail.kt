@@ -30,7 +30,7 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal
-import java.text.SimpleDateFormat
+import java.lang.StringBuffer
 import java.util.*
 
 @OpenClass
@@ -162,46 +162,57 @@ class AccessPointDetail {
             it.visibility = if (wiFiSignal.is80211mc) View.VISIBLE else View.GONE
         }
 
+    companion object {
+        val tSec  = 1000000L    // counts microseconds
+        val tMin  = tSec*60
+        val tHour = tMin*60
+        val tDay  = tHour*24
+    }
+
     private fun setTimestamp(view: View, wiFiSignal: WiFiSignal) =
         view.findViewById<TextView>(R.id.timestamp)?.let {
-            val milliseconds: Long = (wiFiSignal.timestamp + 499) / 1000
-            if (0L == milliseconds || 31622400000 <= milliseconds) {
-                /*
-                 * SimpleDateFormat processes dates, not durations, which means
-                 * units larger than days produce nonsensical results.
-                 * The 'D' conversion counts days in a year, so we can't count
-                 * any higher than that.
-                 */
+            var microseconds: Long = wiFiSignal.timestamp
+            if (0L >= microseconds || 31536000000000 <= microseconds) {
                 it.text = String.EMPTY
                 it.visibility = View.GONE
             } else {
-                /* up to 365d,23h,59m,59.999s */
-                val dateFormatString = TIME_STAMP_FORMAT
-                if      (    60000 > milliseconds) { dateFormatString = TIME_STAMP_FORMAT_1min   }
-                else if (   600000 > milliseconds) { dateFormatString = TIME_STAMP_FORMAT_10min  }
-                else if (  3600000 > milliseconds) { dateFormatString = TIME_STAMP_FORMAT_1hour  }
-                else if (864000000 > milliseconds) { dateFormatString = TIME_STAMP_FORMAT_1day   }
-                else {
-                    /*
-                     * The 'D' conversion numbers days starting at 1, but we
-                     * want to count days up to the preceding midnight.
-                     */
-                    milliseconds -= 864000000
+                val rounding : Long = when {
+                    microseconds >= 1000*tDay -> tDay    //  1000d or over
+                    microseconds >=   10*tDay -> tHour   //    10d ~ 99d23h
+                    microseconds >=      tDay -> tMin    //     1d ~ 9d23h59m
+                    microseconds >=     tHour -> tSec    //     1h ~ 23h59m99s
+                    microseconds >=   10*tMin -> 100000L //    10m ~ 59m99.9s
+                    microseconds >=      tMin ->  10000L //     1m ~ 9m59.99s
+                    microseconds >=   10*tSec ->   1000L //    10s ~ 59.999s
+                    microseconds >=      tSec ->    100L //     1s ~ 9.9999s
+                    microseconds >=    100000 ->     10L //  100ms ~ 999.99ms
+                    else                      ->      1L //   10ms ~ 99.999ms
+                                                         // or 1μs ~ 9999μs
                 }
 
-                val simpleDateFormat = SimpleDateFormat(dateFormatString, Locale.US)
-                simpleDateFormat.timeZone = TimeZone.getTimeZone("GMT")
-                it.text = simpleDateFormat.format(Date(milliseconds))
+                microseconds += rounding / 2
+                microseconds -= microseconds % rounding
+
+                val sb = StringBuffer()
+                if (10000 > microseconds)
+                    sb.append(microseconds).append("μs")
+                else if (1000000 > microseconds)
+                    sb.append(microseconds/1000.0).append("ms")
+                else {
+                    if (86400000000 <= microseconds) { sb.append(microseconds / 86400000000).append("d"); microseconds %=    86400000000; }
+                    if ( 3600000000 <= microseconds) { sb.append(microseconds /  3600000000).append("h"); microseconds %=     3600000000; }
+                    if (   60000000 <= microseconds) { sb.append(microseconds /    60000000).append("m"); microseconds %=       60000000; }
+                    if (          1 <= microseconds) {
+                        if (microseconds % 1000000L == 0L)
+                            sb.append(microseconds / 1000000L)  // avoid trailing ".0"
+                        else
+                            sb.append(microseconds / 1000000.0)
+                        sb.append("s")
+                    }
+                }
+                it.text = sb.toString()
                 it.visibility = View.VISIBLE
             }
         }
-
-    companion object {
-        private const val TIME_STAMP_FORMAT_1min  =           "ss.SSS"
-        private const val TIME_STAMP_FORMAT_10min =         "m:ss.SS"
-        private const val TIME_STAMP_FORMAT_1hour =        "mm:ss.S"
-        private const val TIME_STAMP_FORMAT_1day  =      "H:mm:ss"
-        private const val TIME_STAMP_FORMAT       = "D'd' H:mm"     /* TODO: localize */
-    }
 
 }
