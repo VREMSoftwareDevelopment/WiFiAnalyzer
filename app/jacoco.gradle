@@ -19,21 +19,21 @@
 apply plugin: "jacoco"
 
 jacoco {
-    toolVersion = "0.8.9"
+    toolVersion = "0.8.10"
 }
 
-// FIXME: Gradle 8 & Jacoco where is exec file
 def executionPath = 'outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec'
 
 def fileFilter = [
-    '**/R.class',
-    '**/R$*.class',
-    '**/BuildConfig.*',
-    '**/databinding/*.*',
-    '**/Manifest*.*',
-    '**/*Test*.*',
-    'android/**/*.*',
-    '**/com/jjoe64/*'
+        '**/R.class',
+        '**/R$*.class',
+        '**/BuildConfig.*',
+        '**/databinding/*.*',
+        '**/Manifest*.*',
+        '**/*Test*.*',
+        'android/**/*.*',
+        '**/com/jjoe64/*',
+        '**/com/vrem/wifianalyzer/settings/SharedPreferences*'
 ]
 
 def classJavaDir = "$project.buildDir/intermediates/javac/debug/classes"
@@ -65,6 +65,7 @@ task jacocoTestCoverageVerification(type: JacocoCoverageVerification, dependsOn:
     violationRules {
         failOnViolation = true
         rule {
+            element = 'BUNDLE'
             limit {
                 counter = 'INSTRUCTION'
                 minimum = 0.96
@@ -88,6 +89,29 @@ task jacocoTestCoverageVerification(type: JacocoCoverageVerification, dependsOn:
             limit {
                 counter = 'CLASS'
                 minimum = 0.99
+            }
+        }
+        rule {
+            element = 'CLASS'
+            limit {
+                counter = 'INSTRUCTION'
+                minimum = 0.67
+            }
+            limit {
+                counter = 'BRANCH'
+                minimum = 0.50
+            }
+            limit {
+                counter = 'COMPLEXITY'
+                minimum = 0.33
+            }
+            limit {
+                counter = 'LINE'
+                minimum = 0.60
+            }
+            limit {
+                counter = 'METHOD'
+                minimum = 0.33
             }
         }
     }

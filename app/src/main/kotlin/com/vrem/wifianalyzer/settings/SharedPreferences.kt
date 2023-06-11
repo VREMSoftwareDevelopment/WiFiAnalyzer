@@ -17,9 +17,10 @@
  */
 package com.vrem.wifianalyzer.settings
 
-data class Data(val code: String, val name: String) : Comparable<Data> {
+import android.content.SharedPreferences
 
-    override fun compareTo(other: Data): Int =
-        compareBy<Data> { it.name }.thenBy { it.code }.compare(this, other)
-
+inline fun SharedPreferences.edit(func: SharedPreferences.Editor.() -> Unit) {
+    val editor: SharedPreferences.Editor = edit()
+    editor.func()
+    editor.apply()
 }

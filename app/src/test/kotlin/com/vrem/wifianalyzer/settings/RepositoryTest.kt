@@ -39,6 +39,7 @@ import org.junit.Before
 import org.junit.Test
 
 class RepositoryTest {
+    private val keyIndex = R.string.app_full_name
     private val keyValue = "xyz"
     private val context: Context = mock()
     private val sharedPreferences: SharedPreferences = mock()
@@ -74,33 +75,30 @@ class RepositoryTest {
     @Test
     fun testSaveString() {
         // setup
-        val keyIndex = R.string.app_full_name
         val value = "1111"
-        withSave(keyIndex, value)
+        withSave(value)
         // execute
         fixture.save(keyIndex, value)
         // validate
-        verifySave(keyIndex, value)
+        verifySave(value)
         verifyPreferenceManager()
     }
 
     @Test
     fun testSaveInteger() {
         // setup
-        val keyIndex = R.string.app_full_name
         val value = 1111
-        withSave(keyIndex, value.toString())
+        withSave(value.toString())
         // execute
         fixture.save(keyIndex, value)
         // validate
-        verifySave(keyIndex, value.toString())
+        verifySave(value.toString())
         verifyPreferenceManager()
     }
 
     @Test
     fun testString() {
         // setup
-        val keyIndex = R.string.app_full_name
         val value = "1111"
         val defaultValue = "2222"
         doReturn(keyValue).whenever(context).getString(keyIndex)
@@ -117,7 +115,6 @@ class RepositoryTest {
     @Test
     fun testStringAsInteger() {
         // setup
-        val keyIndex = R.string.app_full_name
         val value = 1111
         val defaultValue = 2222
         doReturn(keyValue).whenever(context).getString(keyIndex)
@@ -134,26 +131,24 @@ class RepositoryTest {
     @Test
     fun testStringAsIntegerThrowsException() {
         // setup
-        val keyIndex = R.string.app_full_name
         val defaultValue = 2222
         val defaultValueAsString = defaultValue.toString()
         doReturn(keyValue).whenever(context).getString(keyIndex)
         doThrow(RuntimeException()).whenever(sharedPreferences).getString(keyValue, defaultValueAsString)
-        withSave(keyIndex, defaultValueAsString)
+        withSave(defaultValueAsString)
         // execute
         val actual = fixture.stringAsInteger(keyIndex, defaultValue)
         // validate
         assertEquals(defaultValue, actual)
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getString(keyValue, defaultValueAsString)
-        verifySave(keyIndex, defaultValueAsString)
+        verifySave(defaultValueAsString)
         verifyPreferenceManager()
     }
 
     @Test
     fun testInteger() {
         // setup
-        val keyIndex = R.string.app_full_name
         val value = 1111
         val defaultValue = 2222
         doReturn(keyValue).whenever(context).getString(keyIndex)
@@ -170,18 +165,17 @@ class RepositoryTest {
     @Test
     fun testIntegerThrowsException() {
         // setup
-        val keyIndex = R.string.app_full_name
         val defaultValue = 2222
         doReturn(keyValue).whenever(context).getString(keyIndex)
         doThrow(RuntimeException()).whenever(sharedPreferences).getInt(keyValue, defaultValue)
-        withSave(keyIndex, defaultValue.toString())
+        withSave(defaultValue.toString())
         // execute
         val actual = fixture.integer(keyIndex, defaultValue)
         // validate
         assertEquals(defaultValue, actual)
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getInt(keyValue, defaultValue)
-        verifySave(keyIndex, defaultValue.toString())
+        verifySave(defaultValue.toString())
         verifyPreferenceManager()
     }
 
@@ -202,7 +196,6 @@ class RepositoryTest {
     @Test
     fun testBoolean() {
         // setup
-        val keyIndex = R.string.app_full_name
         doReturn(keyValue).whenever(context).getString(keyIndex)
         doReturn(true).whenever(sharedPreferences).getBoolean(keyValue, false)
         // execute
@@ -218,17 +211,16 @@ class RepositoryTest {
     fun testBooleanThrowsException() {
         // setup
         val defaultValue = true
-        val keyIndex = R.string.app_full_name
         doReturn(keyValue).whenever(context).getString(keyIndex)
         doThrow(RuntimeException()).whenever(sharedPreferences).getBoolean(keyValue, defaultValue)
-        withSave(keyIndex, defaultValue)
+        withSave()
         // execute
         val actual = fixture.boolean(keyIndex, defaultValue)
         // validate
         assertTrue(actual)
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getBoolean(keyValue, defaultValue)
-        verifySave(keyIndex, defaultValue)
+        verifySave()
         verifyPreferenceManager()
     }
 
@@ -247,7 +239,6 @@ class RepositoryTest {
     @Test
     fun testStringSet() {
         // setup
-        val keyIndex = R.string.app_full_name
         val expected = setOf("123")
         val defaultValues = setOf("567")
         doReturn(keyValue).whenever(context).getString(keyIndex)
@@ -264,16 +255,15 @@ class RepositoryTest {
     @Test
     fun testStringSetThrowsException() {
         // setup
-        val keyIndex = R.string.app_full_name
         val expected = setOf("567")
         doThrow(RuntimeException()).whenever(sharedPreferences).getStringSet(keyValue, expected)
-        withSave(keyIndex, expected)
+        withSave(expected)
         // execute
         val actual = fixture.stringSet(keyIndex, expected)
         // validate
         assertEquals(expected, actual)
         verify(sharedPreferences).getStringSet(keyValue, expected)
-        verifySave(keyIndex, expected)
+        verifySave(expected)
         verifyPreferenceManager()
     }
 
@@ -282,50 +272,66 @@ class RepositoryTest {
         // setup
         val keyIndex = R.string.app_full_name
         val values = setOf("123")
-        withSave(keyIndex, values)
+        withSave(values)
         // execute
         fixture.saveStringSet(keyIndex, values)
         // validate
-        verifySave(keyIndex, values)
+        verifySave(values)
         verifyPreferenceManager()
     }
 
-    private fun verifySave(keyIndex: Int, values: Set<String>) {
+    @Test
+    fun testStringWhenGetStringReturnsNull() {
+        // setup
+        val keyValue = "123"
+        val defaultValue = "default value"
+        doReturn(keyValue).whenever(context).getString(keyIndex)
+        doReturn(null).whenever(sharedPreferences).getString(keyValue, defaultValue)
+        // execute
+        val actual = fixture.string(keyIndex, defaultValue)
+        // validate
+        assertEquals(defaultValue, actual)
+        verify(context).getString(keyIndex)
+        verify(sharedPreferences).getString(keyValue, defaultValue)
+    }
+
+
+    private fun verifySave(values: Set<String>) {
         verify(context).getString(keyIndex)
         verify(sharedPreferences).edit()
         verify(editor).putStringSet(keyValue, values)
         verify(editor).apply()
     }
 
-    private fun verifySave(keyIndex: Int, value: String) {
+    private fun verifySave(value: String) {
         verify(context).getString(keyIndex)
         verify(sharedPreferences).edit()
         verify(editor).putString(keyValue, value)
         verify(editor).apply()
     }
 
-    private fun verifySave(keyIndex: Int, value: Boolean) {
+    private fun verifySave() {
         verify(context).getString(keyIndex)
         verify(sharedPreferences).edit()
-        verify(editor).putBoolean(keyValue, value)
+        verify(editor).putBoolean(keyValue, true)
         verify(editor).apply()
     }
 
-    private fun withSave(keyIndex: Int, value: String) {
+    private fun withSave(value: String) {
         doReturn(keyValue).whenever(context).getString(keyIndex)
         doReturn(editor).whenever(sharedPreferences).edit()
         doReturn(editor).whenever(editor).putString(keyValue, value)
         doNothing().whenever(editor).apply()
     }
 
-    private fun withSave(keyIndex: Int, value: Boolean) {
+    private fun withSave() {
         doReturn(keyValue).whenever(context).getString(keyIndex)
         doReturn(editor).whenever(sharedPreferences).edit()
-        doReturn(editor).whenever(editor).putBoolean(keyValue, value)
+        doReturn(editor).whenever(editor).putBoolean(keyValue, true)
         doNothing().whenever(editor).apply()
     }
 
-    private fun withSave(keyIndex: Int, value: Set<String>) {
+    private fun withSave(value: Set<String>) {
         doReturn(keyValue).whenever(context).getString(keyIndex)
         doReturn(editor).whenever(sharedPreferences).edit()
         doReturn(editor).whenever(editor).putStringSet(keyValue, value)
