@@ -180,8 +180,8 @@ class AccessPointDetail {
                     microseconds >= 1000*tDay -> tDay    //  1000d or over
                     microseconds >=   10*tDay -> tHour   //    10d ~ 99d23h
                     microseconds >=      tDay -> tMin    //     1d ~ 9d23h59m
-                    microseconds >=     tHour -> tSec    //     1h ~ 23h59m99s
-                    microseconds >=   10*tMin -> 100000L //    10m ~ 59m99.9s
+                    microseconds >=     tHour -> tSec    //     1h ~ 23h59m59s
+                    microseconds >=   10*tMin -> 100000L //    10m ~ 59m59.9s
                     microseconds >=      tMin ->  10000L //     1m ~ 9m59.99s
                     microseconds >=   10*tSec ->   1000L //    10s ~ 59.999s
                     microseconds >=      tSec ->    100L //     1s ~ 9.9999s
