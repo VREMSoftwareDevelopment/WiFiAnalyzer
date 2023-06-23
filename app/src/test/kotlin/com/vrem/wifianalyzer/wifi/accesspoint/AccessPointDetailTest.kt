@@ -97,7 +97,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompleteWithVendorShortNotVisible() {
+    fun testMakeViewCompleteWithVendorShortInvisible() {
         // setup
         val wiFiDetail = withWiFiDetail()
         // execute
@@ -272,7 +272,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewDetailedWithVendorNotVisible() {
+    fun testMakeViewDetailedWithVendorInvisible() {
         // setup
         val wiFiDetail = withWiFiDetail()
         // execute
@@ -305,7 +305,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewDetailedWith80211mcNotVisible() {
+    fun testMakeViewDetailedWith80211mcInvisible() {
         // setup
         val wiFiDetail = withWiFiDetail()
         // execute
@@ -325,157 +325,53 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewDetailedWithTimestampNotVisible1() {
-        // setup
-        val wiFiDetail = withWiFiDetail(timestamp = 0)
-        // execute
-        val actual = fixture.makeViewDetailed(wiFiDetail)
-        // validate
-        validateViewVisibility(actual, View.GONE, R.id.timestamp)
-        validateTextViewValue(actual, String.EMPTY, R.id.timestamp)
+    fun testMakeViewDetailedWithTimestampInvisible() {
+        validateInvisibleTimestamp(timestamp =              0)
+        validateInvisibleTimestamp(timestamp =       -1000000)  // 1 second in the future
+        validateInvisibleTimestamp(timestamp = 31536000000000)  // 1 year ago
     }
 
     @Test
-    fun testMakeViewDetailedWithTimestampNotVisible2() {
-        // setup
-        val wiFiDetail = withWiFiDetail(timestamp = -1000000)   // 1 second in the future
-        // execute
-        val actual = fixture.makeViewDetailed(wiFiDetail)
-        // validate
-        validateViewVisibility(actual, View.GONE, R.id.timestamp)
-        validateTextViewValue(actual, String.EMPTY, R.id.timestamp)
+    fun testMakeViewDetailedWithTimestampVisible() {
+        validateVisibleTimestamp(timestamp =              1, expected = "1μs")
+        validateVisibleTimestamp(timestamp =           9999, expected = "9999μs")
+        validateVisibleTimestamp(timestamp =          10000, expected = "10ms")
+        validateVisibleTimestamp(timestamp =          10001, expected = "10.001ms")
+        validateVisibleTimestamp(timestamp =          99999, expected = "99.999ms")
+        validateVisibleTimestamp(timestamp =         100000, expected = "100ms")
+        validateVisibleTimestamp(timestamp =         100006, expected = "100.01ms")
+        validateVisibleTimestamp(timestamp =         999994, expected = "999.99ms")
+        validateVisibleTimestamp(timestamp =         999996, expected = "1s")
+        validateVisibleTimestamp(timestamp =        1000049, expected = "1s")
+        validateVisibleTimestamp(timestamp =        1000051, expected = "1.0001s")
+        validateVisibleTimestamp(timestamp =        1234567, expected = "1.2346s")
+        validateVisibleTimestamp(timestamp =        9999949, expected = "9.9999s")
+        validateVisibleTimestamp(timestamp =        9999951, expected = "10s")
+        validateVisibleTimestamp(timestamp =       10000051, expected = "10.001s")
+        validateVisibleTimestamp(timestamp =       59999499, expected = "59.999s")
+        validateVisibleTimestamp(timestamp =       59999501, expected = "1m")
+        validateVisibleTimestamp(timestamp =       60004999, expected = "1m")
+        validateVisibleTimestamp(timestamp =       60005001, expected = "1m1s")
+        validateVisibleTimestamp(timestamp =      123456789, expected = "2m3.46s")
+        validateVisibleTimestamp(timestamp =     1234567890, expected = "20m34.6s")
+        validateVisibleTimestamp(timestamp =    12345678901, expected = "3h25m46s")
+        validateVisibleTimestamp(timestamp =   123456789012, expected = "1d10h18m")
+        validateVisibleTimestamp(timestamp =  1234567890123, expected = "14d7h")
+        validateVisibleTimestamp(timestamp = 12345678901234, expected = "142d21h")
+        validateVisibleTimestamp(timestamp = 86398199999999, expected = "999d23h")
+        validateVisibleTimestamp(timestamp = 86398200000001, expected = "1000d")
     }
 
-    @Test
-    fun testMakeViewDetailedWithTimestampNotVisible3() {
-        // setup
-        val wiFiDetail = withWiFiDetail(timestamp = 31536000000000) // 1 year
-        // execute
-        val actual = fixture.makeViewDetailed(wiFiDetail)
-        // validate
-        validateViewVisibility(actual, View.GONE, R.id.timestamp)
-        validateTextViewValue(actual, String.EMPTY, R.id.timestamp)
+    private fun validateInvisibleTimestamp(timestamp: Long) {
+        val viewResult = fixture.makeViewDetailed(withWiFiDetail(timestamp = timestamp))
+        validateViewVisibility(viewResult, View.GONE, R.id.timestamp)
+        validateTextViewValue(viewResult, String.EMPTY, R.id.timestamp)
     }
 
-    @Test
-    fun testMakeViewDetailedWithTimestampVisible1() {
-        // setup
-        val wiFiDetail = withWiFiDetail(timestamp=1234)
-        val expectedTimestamp = "1234μs"
-        // execute
-        val actual = fixture.makeViewDetailed(wiFiDetail)
-        // validate
-        validateViewVisibility(actual, View.VISIBLE, R.id.timestamp)
-        validateTextViewValue(actual, expectedTimestamp, R.id.timestamp)
-    }
-
-    @Test
-    fun testMakeViewDetailedWithTimestampVisible2() {
-        // setup
-        val wiFiDetail = withWiFiDetail(timestamp=12345)
-        val expectedTimestamp = "12.345ms"
-        // execute
-        val actual = fixture.makeViewDetailed(wiFiDetail)
-        // validate
-        validateViewVisibility(actual, View.VISIBLE, R.id.timestamp)
-        validateTextViewValue(actual, expectedTimestamp, R.id.timestamp)
-    }
-
-    @Test
-    fun testMakeViewDetailedWithTimestampVisible3() {
-        // setup
-        val wiFiDetail = withWiFiDetail(timestamp=123456)
-        val expectedTimestamp = "123.46ms"
-        // execute
-        val actual = fixture.makeViewDetailed(wiFiDetail)
-        // validate
-        validateViewVisibility(actual, View.VISIBLE, R.id.timestamp)
-        validateTextViewValue(actual, expectedTimestamp, R.id.timestamp)
-    }
-
-    @Test
-    fun testMakeViewDetailedWithTimestampVisible4() {
-        // setup
-        val wiFiDetail = withWiFiDetail(timestamp=1234567)
-        val expectedTimestamp = "1.2346s"
-        // execute
-        val actual = fixture.makeViewDetailed(wiFiDetail)
-        // validate
-        validateViewVisibility(actual, View.VISIBLE, R.id.timestamp)
-        validateTextViewValue(actual, expectedTimestamp, R.id.timestamp)
-    }
-
-    @Test
-    fun testMakeViewDetailedWithTimestampVisible5() {
-        // setup
-        val wiFiDetail = withWiFiDetail(timestamp=12345678)
-        val expectedTimestamp = "12.346s"
-        // execute
-        val actual = fixture.makeViewDetailed(wiFiDetail)
-        // validate
-        validateViewVisibility(actual, View.VISIBLE, R.id.timestamp)
-        validateTextViewValue(actual, expectedTimestamp, R.id.timestamp)
-    }
-
-    @Test
-    fun testMakeViewDetailedWithTimestampVisible6() {
-        // setup
-        val wiFiDetail = withWiFiDetail(timestamp=123456789)
-        val expectedTimestamp = "2m3.46s"
-        // execute
-        val actual = fixture.makeViewDetailed(wiFiDetail)
-        // validate
-        validateViewVisibility(actual, View.VISIBLE, R.id.timestamp)
-        validateTextViewValue(actual, expectedTimestamp, R.id.timestamp)
-    }
-
-    @Test
-    fun testMakeViewDetailedWithTimestampVisible7() {
-        // setup
-        val wiFiDetail = withWiFiDetail(timestamp=1234567890)
-        val expectedTimestamp = "20m34.6s"
-        // execute
-        val actual = fixture.makeViewDetailed(wiFiDetail)
-        // validate
-        validateViewVisibility(actual, View.VISIBLE, R.id.timestamp)
-        validateTextViewValue(actual, expectedTimestamp, R.id.timestamp)
-    }
-
-    @Test
-    fun testMakeViewDetailedWithTimestampVisible8() {
-        // setup
-        val wiFiDetail = withWiFiDetail(timestamp=12345678901)
-        val expectedTimestamp = "3h25m46s"
-        // execute
-        val actual = fixture.makeViewDetailed(wiFiDetail)
-        // validate
-        validateViewVisibility(actual, View.VISIBLE, R.id.timestamp)
-        validateTextViewValue(actual, expectedTimestamp, R.id.timestamp)
-    }
-
-    @Test
-    fun testMakeViewDetailedWithTimestampVisible9() {
-        // setup
-        val wiFiDetail = withWiFiDetail(timestamp=123456789012)
-        val expectedTimestamp = "1d10h18m"
-        // execute
-        val actual = fixture.makeViewDetailed(wiFiDetail)
-        // validate
-        validateViewVisibility(actual, View.VISIBLE, R.id.timestamp)
-        validateViewVisibility(actual, View.VISIBLE, R.id.timestamp)
-        validateTextViewValue(actual, expectedTimestamp, R.id.timestamp)
-    }
-
-    @Test
-    fun testMakeViewDetailedWithTimestampVisible10() {
-        // setup
-        val wiFiDetail = withWiFiDetail(timestamp=1234567890123)
-        val expectedTimestamp = "14d7h"
-        // execute
-        val actual = fixture.makeViewDetailed(wiFiDetail)
-        // validate
-        validateViewVisibility(actual, View.VISIBLE, R.id.timestamp)
-        validateTextViewValue(actual, expectedTimestamp, R.id.timestamp)
+    private fun validateVisibleTimestamp(timestamp: Long, expected: String) {
+        val viewResult = fixture.makeViewDetailed(withWiFiDetail(timestamp = timestamp))
+        validateViewVisibility(viewResult, View.VISIBLE, R.id.timestamp)
+        validateTextViewValue(viewResult, expected, R.id.timestamp)
     }
 
     private fun withWiFiDetail(
