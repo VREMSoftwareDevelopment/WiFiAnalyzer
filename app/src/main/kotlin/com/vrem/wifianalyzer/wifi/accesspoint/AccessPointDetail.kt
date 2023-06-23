@@ -199,16 +199,14 @@ class AccessPointDetail {
                 else if (1000000 > microseconds)
                     sb.append(microseconds/1000.0).append("ms")
                 else {
-                    if (86400000000 <= microseconds) { sb.append(microseconds / 86400000000).append("d"); microseconds %=    86400000000; }
-                    if ( 3600000000 <= microseconds) { sb.append(microseconds /  3600000000).append("h"); microseconds %=     3600000000; }
-                    if (   60000000 <= microseconds) { sb.append(microseconds /    60000000).append("m"); microseconds %=       60000000; }
-                    if (          1 <= microseconds) {
-                        if (microseconds % 1000000L == 0L)
-                            sb.append(microseconds / 1000000L)  // avoid trailing ".0"
+                    if (microseconds >= 86400000000) { sb.append(microseconds / 86400000000).append("d"); microseconds %= 86400000000; }
+                    if (microseconds >=  3600000000) { sb.append(microseconds /  3600000000).append("h"); microseconds %=  3600000000; }
+                    if (microseconds >=    60000000) { sb.append(microseconds /    60000000).append("m"); microseconds %=    60000000; }
+                    if (microseconds != 0)
+                        if (microseconds % 1000000L != 0L)
+                            sb.append(microseconds / 1000000.0).append("s")
                         else
-                            sb.append(microseconds / 1000000.0)
-                        sb.append("s")
-                    }
+                            sb.append(microseconds / 1000000L).append("s")  // avoid trailing "."
                 }
                 it.text = sb.toString()
                 it.visibility = View.VISIBLE
