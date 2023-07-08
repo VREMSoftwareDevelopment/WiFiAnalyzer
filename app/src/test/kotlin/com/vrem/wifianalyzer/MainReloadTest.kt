@@ -27,7 +27,7 @@ import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import java.util.*
+import java.util.Locale
 
 class MainReloadTest {
     private val settings = MainContextHelper.INSTANCE.settings

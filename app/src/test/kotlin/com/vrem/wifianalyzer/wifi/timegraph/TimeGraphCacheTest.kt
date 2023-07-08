@@ -76,9 +76,10 @@ class TimeGraphCacheTest {
 
     private fun withWiFiDetail(SSID: String): WiFiDetail {
         return WiFiDetail(
-                WiFiIdentifier(SSID, "BSSID"),
-                String.EMPTY,
-                WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5, true))
+            WiFiIdentifier(SSID, "BSSID"),
+            String.EMPTY,
+            WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5, true)
+        )
     }
 
     private fun withWiFiDetails(): List<WiFiDetail> {

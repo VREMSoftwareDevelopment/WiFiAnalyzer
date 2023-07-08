@@ -20,25 +20,25 @@ package com.vrem.wifianalyzer.wifi.band
 import com.vrem.util.EMPTY
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.util.*
+import java.util.Locale
 
 class WiFiChannelsGHZ5Test {
     private val fixture: WiFiChannelsGHZ5 = WiFiChannelsGHZ5()
 
     @Test
     fun testWiFiChannelByFrequency() {
-        validateFrequencyToChannel(5180, 5320, 10, 36, 2)
-        validateFrequencyToChannel(5500, 5720, 10, 100, 2)
-        validateFrequencyToChannel(5745, 5885, 10, 149, 2)
+        validateFrequencyToChannel(5180, 5320, 36)
+        validateFrequencyToChannel(5500, 5720, 100)
+        validateFrequencyToChannel(5745, 5885, 149)
     }
 
-    private fun validateFrequencyToChannel(frequencyStart: Int, frequencyEnd: Int, frequencyIncrement: Int, channelStart: Int, channelIncrement: Int) {
+    private fun validateFrequencyToChannel(frequencyStart: Int, frequencyEnd: Int, channelStart: Int) {
         var channel = channelStart
         var frequency = frequencyStart
         while (frequency <= frequencyEnd) {
             assertEquals(channel, fixture.wiFiChannelByFrequency(frequency).channel)
-            channel += channelIncrement
-            frequency += frequencyIncrement
+            channel += 2
+            frequency += 10
         }
     }
 

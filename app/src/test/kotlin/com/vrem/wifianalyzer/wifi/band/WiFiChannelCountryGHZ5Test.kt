@@ -75,41 +75,41 @@ class WiFiChannelCountryGHZ5Test {
     @Test
     fun testChannelsETSI() {
         val countriesETSI = listOf(
-                "AT",      // ETSI Austria
-                "BE",      // ETSI Belgium
-                "CH",      // ETSI Switzerland
-                "CY",      // ETSI Cyprus
-                "CZ",      // ETSI Czechia
-                "DE",      // ETSI Germany
-                "DK",      // ETSI Denmark
-                "EE",      // ETSI Estonia
-                "ES",      // ETSI Spain
-                "FI",      // ETSI Finland
-                "FR",      // ETSI France
-                "GR",      // ETSI Greece
-                "HU",      // ETSI Hungary
-                "IE",      // ETSI Ireland
-                "IS",      // ETSI Iceland
-                "IT",      // ETSI Italy
-                "LI",      // ETSI Liechtenstein
-                "LT",      // ETSI Lithuania
-                "LU",      // ETSI Luxembourg
-                "LV",      // ETSI Latvia
-                "MT",      // ETSI Malta
-                "NL",      // ETSI Netherlands
-                "NO",      // ETSI Norway
-                "PL",      // ETSI Poland
-                "PT",      // ETSI Portugal
-                "RO",      // ETSI Romania
-                "SE",      // ETSI Sweden
-                "SI",      // ETSI Slovenia
-                "SK",      // ETSI Slovakia
-                "IL"       // ETSI Israel
+            "AT",      // ETSI Austria
+            "BE",      // ETSI Belgium
+            "CH",      // ETSI Switzerland
+            "CY",      // ETSI Cyprus
+            "CZ",      // ETSI Czechia
+            "DE",      // ETSI Germany
+            "DK",      // ETSI Denmark
+            "EE",      // ETSI Estonia
+            "ES",      // ETSI Spain
+            "FI",      // ETSI Finland
+            "FR",      // ETSI France
+            "GR",      // ETSI Greece
+            "HU",      // ETSI Hungary
+            "IE",      // ETSI Ireland
+            "IS",      // ETSI Iceland
+            "IT",      // ETSI Italy
+            "LI",      // ETSI Liechtenstein
+            "LT",      // ETSI Lithuania
+            "LU",      // ETSI Luxembourg
+            "LV",      // ETSI Latvia
+            "MT",      // ETSI Malta
+            "NL",      // ETSI Netherlands
+            "NO",      // ETSI Norway
+            "PL",      // ETSI Poland
+            "PT",      // ETSI Portugal
+            "RO",      // ETSI Romania
+            "SE",      // ETSI Sweden
+            "SI",      // ETSI Slovenia
+            "SK",      // ETSI Slovakia
+            "IL"       // ETSI Israel
         )
 
         val expected = channelsSet1
-                .union(setOf(100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144))
-                .union(setOf(149, 153, 157, 161, 165, 169, 173))
+            .union(setOf(100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144))
+            .union(setOf(149, 153, 157, 161, 165, 169, 173))
         countriesETSI.forEach {
             val actual = fixture.findChannels(it)
             assertEquals(it, expected.size, actual.size)

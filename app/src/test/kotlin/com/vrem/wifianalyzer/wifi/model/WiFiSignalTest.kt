@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.wifi.model
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import org.junit.Assert.*
 import org.junit.Test
-import java.util.*
+import java.util.Locale
 
 class WiFiSignalTest {
     private val primaryFrequency = 2432

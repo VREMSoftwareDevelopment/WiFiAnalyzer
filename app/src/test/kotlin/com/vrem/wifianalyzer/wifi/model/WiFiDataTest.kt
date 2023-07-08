@@ -280,33 +280,40 @@ class WiFiDataTest {
 
     private fun withWiFiDetails(): List<WiFiDetail> {
         val wiFiDetail1 = WiFiDetail(
-                WiFiIdentifier(ssid1, bssid1),
-                String.EMPTY,
-                WiFiSignal(frequency1, frequency1, WiFiWidth.MHZ_20, level1, true))
+            WiFiIdentifier(ssid1, bssid1),
+            String.EMPTY,
+            WiFiSignal(frequency1, frequency1, WiFiWidth.MHZ_20, level1, true)
+        )
         val wiFiDetail2 = WiFiDetail(
-                WiFiIdentifier(ssid2, bssid2),
-                String.EMPTY,
-                WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2, true))
+            WiFiIdentifier(ssid2, bssid2),
+            String.EMPTY,
+            WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2, true)
+        )
         val wiFiDetail3 = WiFiDetail(
-                WiFiIdentifier(ssid3, bssid3),
-                String.EMPTY,
-                WiFiSignal(frequency3, frequency3, WiFiWidth.MHZ_20, level0, true))
+            WiFiIdentifier(ssid3, bssid3),
+            String.EMPTY,
+            WiFiSignal(frequency3, frequency3, WiFiWidth.MHZ_20, level0, true)
+        )
         val wiFiDetail4 = WiFiDetail(
-                WiFiIdentifier(ssid4, bssid4),
-                String.EMPTY,
-                WiFiSignal(frequency4, frequency4, WiFiWidth.MHZ_20, level2, true))
+            WiFiIdentifier(ssid4, bssid4),
+            String.EMPTY,
+            WiFiSignal(frequency4, frequency4, WiFiWidth.MHZ_20, level2, true)
+        )
         val wiFiDetail21 = WiFiDetail(
-                WiFiIdentifier(ssid2, bssid2 + "_1"),
-                String.EMPTY,
-                WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 3, true))
+            WiFiIdentifier(ssid2, bssid2 + "_1"),
+            String.EMPTY,
+            WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 3, true)
+        )
         val wiFiDetail22 = WiFiDetail(
-                WiFiIdentifier(ssid2, bssid2 + "_2"),
-                String.EMPTY,
-                WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 1, true))
+            WiFiIdentifier(ssid2, bssid2 + "_2"),
+            String.EMPTY,
+            WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 1, true)
+        )
         val wiFiDetail23 = WiFiDetail(
-                WiFiIdentifier(ssid2, bssid2 + "_3"),
-                String.EMPTY,
-                WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 2, true))
+            WiFiIdentifier(ssid2, bssid2 + "_3"),
+            String.EMPTY,
+            WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 2, true)
+        )
         return listOf(wiFiDetail23, wiFiDetail3, wiFiDetail22, wiFiDetail1, wiFiDetail21, wiFiDetail2, wiFiDetail4)
     }
 

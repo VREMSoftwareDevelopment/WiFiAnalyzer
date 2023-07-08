@@ -68,15 +68,17 @@ class SecurityPredicateTest {
     }
 
     private fun wiFiDetail(): WiFiDetail =
-            WiFiDetail(
-                    WiFiIdentifier("ssid", "bssid"),
-                    "ess-wep-wpa",
-                    WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1, true))
+        WiFiDetail(
+            WiFiIdentifier("ssid", "bssid"),
+            "ess-wep-wpa",
+            WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1, true)
+        )
 
     private fun wiFiDetailWithNoSecurity(): WiFiDetail =
-            WiFiDetail(
-                    WiFiIdentifier("ssid", "bssid"),
-                    "ess",
-                    WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1, true))
+        WiFiDetail(
+            WiFiIdentifier("ssid", "bssid"),
+            "ess",
+            WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1, true)
+        )
 
 }

@@ -98,17 +98,22 @@ class AccessPointsAdapterDataTest {
     }
 
     private fun withWiFiDetail(): WiFiDetail =
-            WiFiDetail(
-                    WiFiIdentifier("SSID1", "BSSID1"),
-                    wiFiSignal = WiFiSignal(2255, 2255, WiFiWidth.MHZ_20, -40, true),
-                    children = listOf(WiFiDetail(WiFiIdentifier("SSID1-1", "BSSID1-1")),
-                            WiFiDetail(WiFiIdentifier("SSID1-2", "BSSID1-2")),
-                            WiFiDetail(WiFiIdentifier("SSID1-3", "BSSID1-3"))))
+        WiFiDetail(
+            WiFiIdentifier("SSID1", "BSSID1"),
+            wiFiSignal = WiFiSignal(2255, 2255, WiFiWidth.MHZ_20, -40, true),
+            children = listOf(
+                WiFiDetail(WiFiIdentifier("SSID1-1", "BSSID1-1")),
+                WiFiDetail(WiFiIdentifier("SSID1-2", "BSSID1-2")),
+                WiFiDetail(WiFiIdentifier("SSID1-3", "BSSID1-3"))
+            )
+        )
 
     private fun withWiFiDetails(): List<WiFiDetail> =
-            listOf(withWiFiDetail(),
-                    WiFiDetail(WiFiIdentifier("SSID2", "BSSID2")),
-                    WiFiDetail(WiFiIdentifier("SSID3", "BSSID3")))
+        listOf(
+            withWiFiDetail(),
+            WiFiDetail(WiFiIdentifier("SSID2", "BSSID2")),
+            WiFiDetail(WiFiIdentifier("SSID3", "BSSID3"))
+        )
 
     private fun verifySettings() {
         verify(settings).sortBy()

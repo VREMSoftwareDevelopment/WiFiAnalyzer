@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.wifi.band
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.util.*
+import java.util.SortedSet
 
 class WiFiChannelCountryGHZ6Test {
     private val channelsSet: SortedSet<Int> = sortedSetOf(

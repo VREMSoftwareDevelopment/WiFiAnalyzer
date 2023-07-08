@@ -24,7 +24,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels
 import org.junit.Assert.*
 import org.junit.Test
-import java.util.*
+import java.util.Locale
 
 class ConfigurationTest {
     private val fixture = Configuration(true)

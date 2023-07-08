@@ -22,7 +22,7 @@ import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import java.util.*
+import java.util.Locale
 
 class WiFiChannelCountryTest {
     private val currentLocale: Locale = Locale.getDefault()

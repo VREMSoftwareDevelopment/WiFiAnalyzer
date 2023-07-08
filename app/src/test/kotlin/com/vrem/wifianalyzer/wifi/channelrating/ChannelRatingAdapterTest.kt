@@ -109,8 +109,8 @@ class ChannelRatingAdapterTest {
         // setup
         val resources = mainActivity.resources
         val expected = (resources.getText(R.string.channel_rating_best_none).toString()
-                + resources.getText(R.string.channel_rating_best_alternative)
-                + " " + resources.getString(WiFiBand.GHZ5.textResource))
+            + resources.getText(R.string.channel_rating_best_alternative)
+            + " " + resources.getString(WiFiBand.GHZ5.textResource))
         val wiFiChannels: List<WiFiChannel> = listOf()
         val channelAPCounts: List<ChannelAPCount> = listOf()
         whenever(channelRating.bestChannels(wiFiChannels)).thenReturn(channelAPCounts)
@@ -168,9 +168,9 @@ class ChannelRatingAdapterTest {
     }
 
     private fun withMaximumChannelAPCounts(): List<ChannelAPCount> =
-            (0..11).map { ChannelAPCount(WiFiChannel(it + 1, it + 100), 0) }
+        (0..11).map { ChannelAPCount(WiFiChannel(it + 1, it + 100), 0) }
 
     private fun withChannelAPCounts(): List<ChannelAPCount> =
-            (0..10).map { ChannelAPCount(WiFiChannel(it + 1, it + 100), 0) }
+        (0..10).map { ChannelAPCount(WiFiChannel(it + 1, it + 100), 0) }
 
 }

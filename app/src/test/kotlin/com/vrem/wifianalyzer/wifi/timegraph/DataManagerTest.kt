@@ -104,10 +104,11 @@ class DataManagerTest {
         // validate
         difference.forEach {
             verify(graphViewWrapper).appendToSeries(
-                    it,
-                    dataPoint,
-                    scanCount,
-                    it.wiFiAdditional.wiFiConnection.connected)
+                it,
+                dataPoint,
+                scanCount,
+                it.wiFiAdditional.wiFiConnection.connected
+            )
             verify(timeGraphCache).add(it)
         }
         verify(timeGraphCache).clear()
@@ -140,10 +141,11 @@ class DataManagerTest {
         // validate
         verify(graphViewWrapper).newSeries(wiFiDetail)
         verify(graphViewWrapper).appendToSeries(
-                wiFiDetail,
-                dataPoint,
-                scanCount,
-                wiFiDetail.wiFiAdditional.wiFiConnection.connected)
+            wiFiDetail,
+            dataPoint,
+            scanCount,
+            wiFiDetail.wiFiAdditional.wiFiConnection.connected
+        )
         verify(timeGraphCache).reset(wiFiDetail)
     }
 
@@ -160,10 +162,11 @@ class DataManagerTest {
         fixture.addData(graphViewWrapper, wiFiDetail, expectedLevel)
         // validate
         verify(graphViewWrapper).appendToSeries(
-                wiFiDetail,
-                dataPoint,
-                scanCount,
-                wiFiDetail.wiFiAdditional.wiFiConnection.connected)
+            wiFiDetail,
+            dataPoint,
+            scanCount,
+            wiFiDetail.wiFiAdditional.wiFiConnection.connected
+        )
     }
 
     @Test
@@ -177,9 +180,10 @@ class DataManagerTest {
         verify(graphViewWrapper).newSeries(wiFiDetail)
         verify(timeGraphCache).reset(wiFiDetail)
         verify(graphViewWrapper).addSeries(
-                eq(wiFiDetail),
-                any(),
-                eq(wiFiDetail.wiFiAdditional.wiFiConnection.connected))
+            eq(wiFiDetail),
+            any(),
+            eq(wiFiDetail.wiFiAdditional.wiFiConnection.connected)
+        )
     }
 
     private fun makeWiFiDetailConnected(SSID: String): WiFiDetail {
@@ -190,15 +194,15 @@ class DataManagerTest {
     }
 
     private fun makeWiFiSignal(): WiFiSignal =
-            WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, level, true)
+        WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, level, true)
 
     private fun makeWiFiDetail(SSID: String): WiFiDetail =
-            WiFiDetail(WiFiIdentifier(SSID, bssid), String.EMPTY, makeWiFiSignal(), WiFiAdditional.EMPTY)
+        WiFiDetail(WiFiIdentifier(SSID, bssid), String.EMPTY, makeWiFiSignal(), WiFiAdditional.EMPTY)
 
     private fun makeWiFiDetails(): List<WiFiDetail> =
-            listOf(makeWiFiDetailConnected("SSID1"), makeWiFiDetail("SSID2"), makeWiFiDetail("SSID3"))
+        listOf(makeWiFiDetailConnected("SSID1"), makeWiFiDetail("SSID2"), makeWiFiDetail("SSID3"))
 
     private fun makeMoreWiFiDetails(): List<WiFiDetail> =
-            listOf(makeWiFiDetail("SSID4"), makeWiFiDetail("SSID5"))
+        listOf(makeWiFiDetail("SSID4"), makeWiFiDetail("SSID5"))
 
 }

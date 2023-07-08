@@ -157,9 +157,10 @@ class PredicateTest {
     }
 
     private fun makeWiFiDetail(ssid: String, security: String): WiFiDetail =
-            WiFiDetail(
-                    WiFiIdentifier(ssid, "bssid"),
-                    security,
-                    WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, -40, true))
+        WiFiDetail(
+            WiFiIdentifier(ssid, "bssid"),
+            security,
+            WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, -40, true)
+        )
 
 }

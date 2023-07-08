@@ -187,9 +187,10 @@ class SeriesCacheTest {
 
     private fun makeWiFiDetail(SSID: String): WiFiDetail {
         return WiFiDetail(
-                WiFiIdentifier(SSID, "BSSID"),
-                String.EMPTY,
-                WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5, true))
+            WiFiIdentifier(SSID, "BSSID"),
+            String.EMPTY,
+            WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5, true)
+        )
     }
 
     private fun withData(): List<WiFiDetail> {

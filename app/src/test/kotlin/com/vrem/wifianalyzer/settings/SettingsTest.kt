@@ -20,13 +20,7 @@ package com.vrem.wifianalyzer.settings
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.nhaarman.mockitokotlin2.doNothing
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.spy
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.util.defaultCountryCode
 import com.vrem.util.defaultLanguageTag
 import com.vrem.util.ordinals

@@ -28,10 +28,11 @@ class WiFiVirtualTest {
     fun testWiFiVirtualWithVirtualBSSID() {
         // setup
         val wiFiDetail = WiFiDetail(
-                WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
-                String.EMPTY,
-                WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50, true),
-                WiFiAdditional.EMPTY)
+            WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
+            String.EMPTY,
+            WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50, true),
+            WiFiAdditional.EMPTY
+        )
         // execute
         val actual = wiFiDetail.wiFiVirtual
         // validate
@@ -44,10 +45,11 @@ class WiFiVirtualTest {
     fun testWiFiVirtualWithRegularBSSIDWhenBSSIDShort() {
         // setup
         val wiFiDetail = WiFiDetail(
-                WiFiIdentifier("SSID1", "20:cf:30:ce:1d:7"),
-                String.EMPTY,
-                WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50, true),
-                WiFiAdditional.EMPTY)
+            WiFiIdentifier("SSID1", "20:cf:30:ce:1d:7"),
+            String.EMPTY,
+            WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50, true),
+            WiFiAdditional.EMPTY
+        )
         // execute
         val actual = wiFiDetail.wiFiVirtual
         // validate
@@ -60,10 +62,11 @@ class WiFiVirtualTest {
     fun testWiFiVirtualWithRegularBSSIDWhenBSSIDLong() {
         // setup
         val wiFiDetail = WiFiDetail(
-                WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71:"),
-                String.EMPTY,
-                WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50, true),
-                WiFiAdditional.EMPTY)
+            WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71:"),
+            String.EMPTY,
+            WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50, true),
+            WiFiAdditional.EMPTY
+        )
         // execute
         val actual = wiFiDetail.wiFiVirtual
         // validate

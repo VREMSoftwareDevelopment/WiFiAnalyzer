@@ -30,7 +30,7 @@ import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.util.*
+import java.util.Locale
 
 class ChannelAxisLabelTest {
     private val settings = MainContextHelper.INSTANCE.settings

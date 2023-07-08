@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.wifi.band
 import com.vrem.util.EMPTY
 import org.junit.Assert.*
 import org.junit.Test
-import java.util.*
+import java.util.Locale
 
 class WiFiChannelsGHZ6Test {
     private val fixture: WiFiChannelsGHZ6 = WiFiChannelsGHZ6()

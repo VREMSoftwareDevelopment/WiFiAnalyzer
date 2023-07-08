@@ -46,9 +46,10 @@ class WiFiBandPredicateTest {
     }
 
     private fun makeWiFiDetail(frequency: Int): WiFiDetail =
-            WiFiDetail(
-                    WiFiIdentifier("ssid", "bssid"),
-                    "wpa",
-                    WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, 1, true))
+        WiFiDetail(
+            WiFiIdentifier("ssid", "bssid"),
+            "wpa",
+            WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, 1, true)
+        )
 
 }
