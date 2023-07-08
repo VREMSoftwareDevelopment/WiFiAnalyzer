@@ -32,13 +32,16 @@ internal class ScannerInstrumentedTest : Runnable {
     private fun scannerAction(tag: String) {
         pauseShort()
         val actionMenuItemView = Espresso.onView(
-                Matchers.allOf(
-                        ViewMatchers.withId(R.id.action_scanner),
-                        ViewMatchers.withContentDescription(tag),
-                        ChildAtPosition(
-                                ChildAtPosition(ViewMatchers.withId(R.id.toolbar), SCANNER_BUTTON),
-                                SCANNER_ACTION),
-                        ViewMatchers.isDisplayed()))
+            Matchers.allOf(
+                ViewMatchers.withId(R.id.action_scanner),
+                ViewMatchers.withContentDescription(tag),
+                ChildAtPosition(
+                    ChildAtPosition(ViewMatchers.withId(R.id.toolbar), SCANNER_BUTTON),
+                    SCANNER_ACTION
+                ),
+                ViewMatchers.isDisplayed()
+            )
+        )
         actionMenuItemView.perform(ViewActions.click())
     }
 

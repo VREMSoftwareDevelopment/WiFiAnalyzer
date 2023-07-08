@@ -31,29 +31,37 @@ internal class FilterInstrumentedTest : Runnable {
     private fun actionClose() {
         pauseLong()
         Espresso.onView(
-                Matchers.allOf(
-                        ViewMatchers.withId(android.R.id.button3),
-                        ViewMatchers.withText(FILTER_CLOSE_TAG),
-                        ChildAtPosition(
-                                ChildAtPosition(
-                                        ViewMatchers.withClassName(Matchers.`is`("android.widget.ScrollView")),
-                                        FILTER_BUTTON_CLOSE), FILTER_ACTION)))
-                .perform(ViewActions.scrollTo(), ViewActions.click())
+            Matchers.allOf(
+                ViewMatchers.withId(android.R.id.button3),
+                ViewMatchers.withText(FILTER_CLOSE_TAG),
+                ChildAtPosition(
+                    ChildAtPosition(
+                        ViewMatchers.withClassName(Matchers.`is`("android.widget.ScrollView")),
+                        FILTER_BUTTON_CLOSE
+                    ), FILTER_ACTION
+                )
+            )
+        )
+            .perform(ViewActions.scrollTo(), ViewActions.click())
     }
 
     private fun actionOpen() {
         pauseShort()
         Espresso.onView(
-                Matchers.allOf(
-                        ViewMatchers.withId(R.id.action_filter),
-                        ViewMatchers.withContentDescription(FILTER_BUTTON_TAG),
-                        ChildAtPosition(
-                                ChildAtPosition(
-                                        ViewMatchers.withId(R.id.toolbar),
-                                        FILTER_BUTTON_OPEN),
-                                FILTER_ACTION),
-                        ViewMatchers.isDisplayed()))
-                .perform(ViewActions.click())
+            Matchers.allOf(
+                ViewMatchers.withId(R.id.action_filter),
+                ViewMatchers.withContentDescription(FILTER_BUTTON_TAG),
+                ChildAtPosition(
+                    ChildAtPosition(
+                        ViewMatchers.withId(R.id.toolbar),
+                        FILTER_BUTTON_OPEN
+                    ),
+                    FILTER_ACTION
+                ),
+                ViewMatchers.isDisplayed()
+            )
+        )
+            .perform(ViewActions.click())
     }
 
 
