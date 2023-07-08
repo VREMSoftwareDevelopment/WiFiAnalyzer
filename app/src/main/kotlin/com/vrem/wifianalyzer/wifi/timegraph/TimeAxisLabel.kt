@@ -34,6 +34,7 @@ internal class TimeAxisLabel : LabelFormatter {
                     String.EMPTY
                 }
             }
+
             valueAsInt in (MIN_Y + 1)..MAX_Y -> valueAsInt.toString()
             else -> String.EMPTY
         }

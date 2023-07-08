@@ -35,11 +35,11 @@ class GraphColors {
     private fun availableGraphColors(): List<GraphColor> {
         if (availableGraphColors.isEmpty()) {
             val colors = MainContext.INSTANCE.resources.getStringArray(R.array.graph_colors)
-                    .filterNotNull()
-                    .withIndex()
-                    .groupBy { it.index / 2 }
-                    .map { GraphColor(it.value[0].value.toColor(), it.value[1].value.toColor()) }
-                    .reversed()
+                .filterNotNull()
+                .withIndex()
+                .groupBy { it.index / 2 }
+                .map { GraphColor(it.value[0].value.toColor(), it.value[1].value.toColor()) }
+                .reversed()
             availableGraphColors.addAll(colors)
         }
         return availableGraphColors

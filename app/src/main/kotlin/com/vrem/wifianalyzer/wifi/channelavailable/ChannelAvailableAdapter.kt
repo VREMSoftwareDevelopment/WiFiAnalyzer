@@ -28,7 +28,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry
 
 internal class ChannelAvailableAdapter(context: Context, wiFiChannelCountries: List<WiFiChannelCountry>) :
-        ArrayAdapter<WiFiChannelCountry>(context, R.layout.channel_available_details, wiFiChannelCountries) {
+    ArrayAdapter<WiFiChannelCountry>(context, R.layout.channel_available_details, wiFiChannelCountries) {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val binding = view?.let { ChannelAvailableAdapterBinding(it) } ?: ChannelAvailableAdapterBinding(create(parent))
@@ -48,6 +48,6 @@ internal class ChannelAvailableAdapter(context: Context, wiFiChannelCountries: L
     }
 
     private fun create(parent: ViewGroup): ChannelAvailableDetailsBinding =
-            ChannelAvailableDetailsBinding.inflate(MainContext.INSTANCE.layoutInflater, parent, false)
+        ChannelAvailableDetailsBinding.inflate(MainContext.INSTANCE.layoutInflater, parent, false)
 
 }

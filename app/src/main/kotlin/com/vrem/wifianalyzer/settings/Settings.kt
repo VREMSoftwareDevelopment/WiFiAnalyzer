@@ -31,7 +31,7 @@ import com.vrem.wifianalyzer.wifi.model.GroupBy
 import com.vrem.wifianalyzer.wifi.model.Security
 import com.vrem.wifianalyzer.wifi.model.SortBy
 import com.vrem.wifianalyzer.wifi.model.Strength
-import java.util.*
+import java.util.Locale
 
 @OpenClass
 class Settings(private val repository: Repository) {
@@ -72,7 +72,8 @@ class Settings(private val repository: Repository) {
 
     fun accessPointView(): AccessPointViewType = find(AccessPointViewType.values(), R.string.ap_view_key, AccessPointViewType.COMPLETE)
 
-    fun connectionViewType(): ConnectionViewType = find(ConnectionViewType.values(), R.string.connection_view_key, ConnectionViewType.COMPACT)
+    fun connectionViewType(): ConnectionViewType =
+        find(ConnectionViewType.values(), R.string.connection_view_key, ConnectionViewType.COMPACT)
 
     fun channelGraphLegend(): GraphLegend = find(GraphLegend.values(), R.string.channel_graph_legend_key, GraphLegend.HIDE)
 

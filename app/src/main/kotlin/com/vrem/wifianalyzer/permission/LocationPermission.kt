@@ -31,8 +31,8 @@ class LocationPermission(private val activity: Activity) {
             try {
                 val locationManager = activity.getSystemService(LocationManager::class.java)
                 locationEnabled(locationManager) ||
-                        networkProviderEnabled(locationManager) ||
-                        gpsProviderEnabled(locationManager)
+                    networkProviderEnabled(locationManager) ||
+                    gpsProviderEnabled(locationManager)
             } catch (e: Exception) {
                 false
             }

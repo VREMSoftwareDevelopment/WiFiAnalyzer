@@ -33,6 +33,6 @@ class SSIDAdapter(selections: Set<String>) : BasicFilterAdapter<String>(selectio
     }
 
     override fun save(settings: Settings): Unit =
-            settings.saveSSIDs(selections)
+        settings.saveSSIDs(selections)
 
 }

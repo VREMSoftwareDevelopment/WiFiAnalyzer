@@ -26,27 +26,28 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.FREQUENCY_UNITS
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class Export(private val exportIntent: ExportIntent = ExportIntent()) {
 
     private val header = "Time Stamp|" +
-            "SSID|" +
-            "BSSID|" +
-            "Strength|" +
-            "Primary Channel|" +
-            "Primary Frequency|" +
-            "Center Channel|" +
-            "Center Frequency|" +
-            "Width (Range)|" +
-            "Distance|" +
-            "Timestamp|" +
-            "802.11mc|" +
-            "Security" +
-            "\n"
+        "SSID|" +
+        "BSSID|" +
+        "Strength|" +
+        "Primary Channel|" +
+        "Primary Frequency|" +
+        "Center Channel|" +
+        "Center Frequency|" +
+        "Width (Range)|" +
+        "Distance|" +
+        "Timestamp|" +
+        "802.11mc|" +
+        "Security" +
+        "\n"
 
     fun export(mainActivity: MainActivity, wiFiDetails: List<WiFiDetail>): Intent =
-            export(mainActivity, wiFiDetails, Date())
+        export(mainActivity, wiFiDetails, Date())
 
     fun export(mainActivity: MainActivity, wiFiDetails: List<WiFiDetail>, date: Date): Intent {
         val timestamp: String = timestamp(date)
@@ -56,7 +57,7 @@ class Export(private val exportIntent: ExportIntent = ExportIntent()) {
     }
 
     internal fun data(wiFiDetails: List<WiFiDetail>, timestamp: String): String =
-            header + wiFiDetails.joinToString(separator = String.EMPTY, transform = toExportString(timestamp))
+        header + wiFiDetails.joinToString(separator = String.EMPTY, transform = toExportString(timestamp))
 
     internal fun title(mainActivity: MainActivity, timestamp: String): String {
         val resources: Resources = mainActivity.resources
@@ -69,19 +70,19 @@ class Export(private val exportIntent: ExportIntent = ExportIntent()) {
     private fun toExportString(timestamp: String): (WiFiDetail) -> String = {
         with(it) {
             "$timestamp|" +
-                    "${wiFiIdentifier.ssid}|" +
-                    "${wiFiIdentifier.bssid}|" +
-                    "${wiFiSignal.level}dBm|" +
-                    "${wiFiSignal.primaryWiFiChannel.channel}|" +
-                    "${wiFiSignal.primaryFrequency}$FREQUENCY_UNITS|" +
-                    "${wiFiSignal.centerWiFiChannel.channel}|" +
-                    "${wiFiSignal.centerFrequency}$FREQUENCY_UNITS|" +
-                    "${wiFiSignal.wiFiWidth.frequencyWidth}$FREQUENCY_UNITS (${wiFiSignal.frequencyStart} - ${wiFiSignal.frequencyEnd})|" +
-                    "${wiFiSignal.distance}|" +
-                    "${wiFiSignal.timestamp}|" +
-                    "${wiFiSignal.is80211mc}|" +
-                    capabilities +
-                    "\n"
+                "${wiFiIdentifier.ssid}|" +
+                "${wiFiIdentifier.bssid}|" +
+                "${wiFiSignal.level}dBm|" +
+                "${wiFiSignal.primaryWiFiChannel.channel}|" +
+                "${wiFiSignal.primaryFrequency}$FREQUENCY_UNITS|" +
+                "${wiFiSignal.centerWiFiChannel.channel}|" +
+                "${wiFiSignal.centerFrequency}$FREQUENCY_UNITS|" +
+                "${wiFiSignal.wiFiWidth.frequencyWidth}$FREQUENCY_UNITS (${wiFiSignal.frequencyStart} - ${wiFiSignal.frequencyEnd})|" +
+                "${wiFiSignal.distance}|" +
+                "${wiFiSignal.timestamp}|" +
+                "${wiFiSignal.is80211mc}|" +
+                capabilities +
+                "\n"
         }
     }
 

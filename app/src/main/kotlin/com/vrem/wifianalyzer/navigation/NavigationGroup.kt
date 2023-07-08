@@ -20,7 +20,14 @@ package com.vrem.wifianalyzer.navigation
 import android.view.Menu
 
 enum class NavigationGroup(val navigationMenus: List<NavigationMenu>) {
-    GROUP_FEATURE(listOf(NavigationMenu.ACCESS_POINTS, NavigationMenu.CHANNEL_RATING, NavigationMenu.CHANNEL_GRAPH, NavigationMenu.TIME_GRAPH)),
+    GROUP_FEATURE(
+        listOf(
+            NavigationMenu.ACCESS_POINTS,
+            NavigationMenu.CHANNEL_RATING,
+            NavigationMenu.CHANNEL_GRAPH,
+            NavigationMenu.TIME_GRAPH
+        )
+    ),
     GROUP_OTHER(listOf(NavigationMenu.EXPORT, NavigationMenu.CHANNEL_AVAILABLE, NavigationMenu.VENDORS, NavigationMenu.PORT_AUTHORITY)),
     GROUP_SETTINGS(listOf(NavigationMenu.SETTINGS, NavigationMenu.ABOUT));
 
@@ -49,9 +56,9 @@ enum class NavigationGroup(val navigationMenus: List<NavigationMenu>) {
     }
 
     fun populateMenuItems(menu: Menu): Unit =
-            navigationMenus.forEach {
-                val menuItem = menu.add(ordinal, it.ordinal, it.ordinal, it.title)
-                menuItem.setIcon(it.icon)
-            }
+        navigationMenus.forEach {
+            val menuItem = menu.add(ordinal, it.ordinal, it.ordinal, it.title)
+            menuItem.setIcon(it.icon)
+        }
 
 }

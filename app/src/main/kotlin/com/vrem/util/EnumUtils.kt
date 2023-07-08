@@ -23,10 +23,10 @@ fun <T : Enum<T>> findSet(values: Array<T>, indexes: Set<String>, defaultValue: 
 }
 
 fun <T : Enum<T>> findOne(values: Array<T>, index: Int, defaultValue: T): T =
-        if (index in values.indices) values[index] else defaultValue
+    if (index in values.indices) values[index] else defaultValue
 
 fun <T : Enum<T>> ordinals(values: Array<T>): Set<String> =
-        ordinals(values.toSet())
+    ordinals(values.toSet())
 
 fun <T : Enum<T>> ordinals(values: Set<T>): Set<String> =
-        values.map { it.ordinal.toString() }.toSet()
+    values.map { it.ordinal.toString() }.toSet()

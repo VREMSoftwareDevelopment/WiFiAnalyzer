@@ -41,7 +41,8 @@ import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.databinding.AboutContentBinding
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class AboutFragment : Fragment() {
 
@@ -106,9 +107,9 @@ class AboutFragment : Fragment() {
     private fun version(activity: FragmentActivity): String {
         val configuration = MainContext.INSTANCE.configuration
         return applicationVersion(activity) +
-                ifElse(configuration.sizeAvailable, "S") +
-                ifElse(configuration.largeScreen, "L") +
-                " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")"
+            ifElse(configuration.sizeAvailable, "S") +
+            ifElse(configuration.largeScreen, "L") +
+            " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")"
     }
 
     private fun applicationVersion(activity: FragmentActivity): String =

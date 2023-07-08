@@ -29,11 +29,13 @@ val WiFiDetail.wiFiVirtual: WiFiVirtual
     get() =
         if (BSSID_LENGTH == wiFiIdentifier.bssid.length)
             WiFiVirtual(
-                    this.wiFiIdentifier.bssid.substring(2, BSSID_LENGTH - 1),
-                    this.wiFiSignal.primaryFrequency)
+                this.wiFiIdentifier.bssid.substring(2, BSSID_LENGTH - 1),
+                this.wiFiSignal.primaryFrequency
+            )
         else
             WiFiVirtual(
-                    wiFiIdentifier.bssid,
-                    wiFiSignal.primaryFrequency)
+                wiFiIdentifier.bssid,
+                wiFiSignal.primaryFrequency
+            )
 
 

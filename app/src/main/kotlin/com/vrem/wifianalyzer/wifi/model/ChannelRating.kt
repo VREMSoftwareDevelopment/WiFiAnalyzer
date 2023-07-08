@@ -27,12 +27,12 @@ class ChannelRating {
     fun count(wiFiChannel: WiFiChannel): Int = collectOverlapping(wiFiChannel).size
 
     fun strength(wiFiChannel: WiFiChannel): Strength =
-            enumValues<Strength>()[
-                    collectOverlapping(wiFiChannel)
-                            .filter { !it.wiFiAdditional.wiFiConnection.connected }
-                            .map { it.wiFiSignal.strength.ordinal }
-                            .maxByOrNull { it } ?: Strength.ZERO.ordinal
-            ]
+        enumValues<Strength>()[
+            collectOverlapping(wiFiChannel)
+                .filter { !it.wiFiAdditional.wiFiConnection.connected }
+                .map { it.wiFiSignal.strength.ordinal }
+                .maxByOrNull { it } ?: Strength.ZERO.ordinal
+        ]
 
     fun wiFiDetails(): List<WiFiDetail> = wiFiDetails
 
@@ -42,17 +42,17 @@ class ChannelRating {
     }
 
     fun bestChannels(wiFiChannels: List<WiFiChannel>): List<ChannelAPCount> =
-            wiFiChannels
-                    .filter { bestChannel(it) }
-                    .map { ChannelAPCount(it, count(it)) }
-                    .sorted()
+        wiFiChannels
+            .filter { bestChannel(it) }
+            .map { ChannelAPCount(it, count(it)) }
+            .sorted()
 
     private fun removeSame(wiFiDetails: List<WiFiDetail>): List<WiFiDetail> {
         return wiFiDetails.distinctBy { it.wiFiVirtual }.sortedWith(SortBy.STRENGTH.sort)
     }
 
     private fun collectOverlapping(wiFiChannel: WiFiChannel): List<WiFiDetail> =
-            wiFiDetails.filter { it.wiFiSignal.inRange(wiFiChannel.frequency) }
+        wiFiDetails.filter { it.wiFiSignal.inRange(wiFiChannel.frequency) }
 
     private fun bestChannel(it: WiFiChannel): Boolean {
         val strength: Strength = strength(it)

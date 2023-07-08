@@ -21,7 +21,8 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.preference.ListPreference
 
-abstract class CustomPreference(context: Context, attrs: AttributeSet, values: List<Data>, defaultValue: String) : ListPreference(context, attrs) {
+abstract class CustomPreference(context: Context, attrs: AttributeSet, values: List<Data>, defaultValue: String) :
+    ListPreference(context, attrs) {
     init {
         this.entries = names(values)
         this.entryValues = codes(values)

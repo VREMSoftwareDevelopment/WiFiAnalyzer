@@ -36,7 +36,7 @@ enum class Security(@DrawableRes val imageResource: Int, val additional: String 
         private val regex = Regex("[^A-Z0-9]")
 
         fun findAll(capabilities: String): Set<Security> =
-                parse(capabilities).mapNotNull(transform()).toSortedSet().ifEmpty { setOf(NONE) }
+            parse(capabilities).mapNotNull(transform()).toSortedSet().ifEmpty { setOf(NONE) }
 
         fun findOne(capabilities: String): Security = findAll(capabilities).first()
 

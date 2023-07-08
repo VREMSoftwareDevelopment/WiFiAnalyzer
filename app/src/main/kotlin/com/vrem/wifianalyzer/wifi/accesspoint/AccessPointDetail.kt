@@ -31,19 +31,23 @@ import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 @OpenClass
 class AccessPointDetail {
     private val vendorShortMax = 12
     private val vendorLongMax = 30
 
-    fun makeView(convertView: View?,
-                 parent: ViewGroup?,
-                 wiFiDetail: WiFiDetail,
-                 child: Boolean = false,
-                 @LayoutRes layout: Int = MainContext.INSTANCE.settings.accessPointView().layout)
-            : View {
+    fun makeView(
+        convertView: View?,
+        parent: ViewGroup?,
+        wiFiDetail: WiFiDetail,
+        child: Boolean = false,
+        @LayoutRes layout: Int = MainContext.INSTANCE.settings.accessPointView().layout
+    )
+        : View {
         val view = convertView ?: MainContext.INSTANCE.layoutInflater.inflate(layout, parent, false)
         setViewCompact(view, wiFiDetail, child)
         setViewExtra(view, wiFiDetail)

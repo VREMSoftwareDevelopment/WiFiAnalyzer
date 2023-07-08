@@ -28,7 +28,7 @@ class Repository(private val context: Context) {
     fun initializeDefaultValues(): Unit = defaultValues(context, R.xml.settings, false)
 
     fun registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener): Unit =
-            sharedPreferences().registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
+        sharedPreferences().registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
 
     fun save(key: Int, value: Int): Unit = save(key, value.toString())
 

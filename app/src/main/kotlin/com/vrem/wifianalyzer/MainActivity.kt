@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
             val configuration = resources.configuration
             val screenLayoutSize = configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK
             return screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_LARGE ||
-                    screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_XLARGE
+                screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_XLARGE
         }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {

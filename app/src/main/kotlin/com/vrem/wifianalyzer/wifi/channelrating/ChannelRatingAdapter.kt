@@ -39,11 +39,12 @@ import com.vrem.wifianalyzer.wifi.predicate.predicate
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier
 
 class ChannelRatingAdapter(
-        context: Context,
-        private val bestChannels: TextView,
-        private val channelRating: ChannelRating = ChannelRating()) :
-        ArrayAdapter<WiFiChannel>(context, R.layout.channel_rating_details, mutableListOf()),
-        UpdateNotifier {
+    context: Context,
+    private val bestChannels: TextView,
+    private val channelRating: ChannelRating = ChannelRating()
+) :
+    ArrayAdapter<WiFiChannel>(context, R.layout.channel_rating_details, mutableListOf()),
+    UpdateNotifier {
 
     private val maxChannelsToDisplay = 11
 
@@ -101,15 +102,15 @@ class ChannelRatingAdapter(
 
     private fun errorMessage(wiFiBand: WiFiBand): String = with(context.resources) {
         getText(R.string.channel_rating_best_none).toString() +
-                if (WiFiBand.GHZ2 == wiFiBand) {
-                    getText(R.string.channel_rating_best_alternative).toString() +
-                            " " + getString(WiFiBand.GHZ5.textResource)
-                } else {
-                    String.EMPTY
-                }
+            if (WiFiBand.GHZ2 == wiFiBand) {
+                getText(R.string.channel_rating_best_alternative).toString() +
+                    " " + getString(WiFiBand.GHZ5.textResource)
+            } else {
+                String.EMPTY
+            }
     }
 
     private fun create(parent: ViewGroup): ChannelRatingDetailsBinding =
-            ChannelRatingDetailsBinding.inflate(MainContext.INSTANCE.layoutInflater, parent, false)
+        ChannelRatingDetailsBinding.inflate(MainContext.INSTANCE.layoutInflater, parent, false)
 
 }

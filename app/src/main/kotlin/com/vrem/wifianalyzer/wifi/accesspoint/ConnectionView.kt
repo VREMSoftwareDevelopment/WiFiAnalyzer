@@ -32,9 +32,10 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier
 
 class ConnectionView(
-        private val mainActivity: MainActivity,
-        private val accessPointDetail: AccessPointDetail = AccessPointDetail(),
-        private val accessPointPopup: AccessPointPopup = AccessPointPopup()) : UpdateNotifier {
+    private val mainActivity: MainActivity,
+    private val accessPointDetail: AccessPointDetail = AccessPointDetail(),
+    private val accessPointPopup: AccessPointPopup = AccessPointPopup()
+) : UpdateNotifier {
 
     override fun update(wiFiData: WiFiData) {
         val settings = MainContext.INSTANCE.settings

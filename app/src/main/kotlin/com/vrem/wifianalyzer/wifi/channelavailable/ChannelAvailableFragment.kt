@@ -44,6 +44,6 @@ class ChannelAvailableFragment : ListFragment() {
     }
 
     private fun channelAvailable(): MutableList<WiFiChannelCountry> =
-            mutableListOf(find(MainContext.INSTANCE.settings.countryCode()))
+        mutableListOf(find(MainContext.INSTANCE.settings.countryCode()))
 
 }

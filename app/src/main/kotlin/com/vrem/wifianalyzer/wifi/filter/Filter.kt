@@ -43,18 +43,18 @@ class Filter(val alertDialog: AlertDialog?) {
     }
 
     private fun addSSIDFilter(alertDialog: AlertDialog): SSIDFilter =
-            SSIDFilter(MainContext.INSTANCE.filtersAdapter.ssidAdapter(), alertDialog)
+        SSIDFilter(MainContext.INSTANCE.filtersAdapter.ssidAdapter(), alertDialog)
 
     private fun addWiFiBandFilter(alertDialog: AlertDialog): WiFiBandFilter? =
-            if (NavigationMenu.ACCESS_POINTS == MainContext.INSTANCE.mainActivity.currentNavigationMenu()) {
-                WiFiBandFilter(MainContext.INSTANCE.filtersAdapter.wiFiBandAdapter(), alertDialog)
-            } else null
+        if (NavigationMenu.ACCESS_POINTS == MainContext.INSTANCE.mainActivity.currentNavigationMenu()) {
+            WiFiBandFilter(MainContext.INSTANCE.filtersAdapter.wiFiBandAdapter(), alertDialog)
+        } else null
 
     private fun addStrengthFilter(alertDialog: AlertDialog): StrengthFilter =
-            StrengthFilter(MainContext.INSTANCE.filtersAdapter.strengthAdapter(), alertDialog)
+        StrengthFilter(MainContext.INSTANCE.filtersAdapter.strengthAdapter(), alertDialog)
 
     private fun addSecurityFilter(alertDialog: AlertDialog): SecurityFilter =
-            SecurityFilter(MainContext.INSTANCE.filtersAdapter.securityAdapter(), alertDialog)
+        SecurityFilter(MainContext.INSTANCE.filtersAdapter.securityAdapter(), alertDialog)
 
     private class Close : DialogInterface.OnClickListener {
         override fun onClick(dialog: DialogInterface, which: Int) {
@@ -90,13 +90,13 @@ class Filter(val alertDialog: AlertDialog?) {
             }
             val view = MainContext.INSTANCE.layoutInflater.inflate(R.layout.filter_popup, null)
             return AlertDialog.Builder(view.context)
-                    .setView(view)
-                    .setTitle(R.string.filter_title)
-                    .setIcon(R.drawable.ic_filter_list)
-                    .setNegativeButton(R.string.filter_reset, Reset())
-                    .setNeutralButton(R.string.filter_close, Close())
-                    .setPositiveButton(R.string.filter_apply, Apply())
-                    .create()
+                .setView(view)
+                .setTitle(R.string.filter_title)
+                .setIcon(R.drawable.ic_filter_list)
+                .setNegativeButton(R.string.filter_reset, Reset())
+                .setNeutralButton(R.string.filter_close, Close())
+                .setPositiveButton(R.string.filter_apply, Apply())
+                .create()
         }
     }
 

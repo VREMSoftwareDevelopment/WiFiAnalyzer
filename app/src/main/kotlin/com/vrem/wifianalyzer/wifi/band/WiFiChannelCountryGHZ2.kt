@@ -18,7 +18,8 @@
 package com.vrem.wifianalyzer.wifi.band
 
 import com.vrem.util.toCapitalize
-import java.util.*
+import java.util.Locale
+import java.util.SortedSet
 
 internal class WiFiChannelCountryGHZ2 {
     private val countries = setOf("AS", "CA", "CO", "DO", "FM", "GT", "GU", "MP", "MX", "PA", "PR", "UM", "US", "UZ", "VI")

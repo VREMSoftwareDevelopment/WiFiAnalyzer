@@ -51,7 +51,7 @@ data class WiFiSignal(
         get() = String.format("~%.1fm", calculateDistance(primaryFrequency, level))
 
     fun inRange(frequency: Int): Boolean =
-            frequency in frequencyStart..frequencyEnd
+        frequency in frequencyStart..frequencyEnd
 
     fun channelDisplay(): String {
         val primaryChannel: Int = primaryWiFiChannel.channel

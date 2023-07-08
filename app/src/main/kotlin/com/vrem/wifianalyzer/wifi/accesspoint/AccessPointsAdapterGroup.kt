@@ -62,13 +62,13 @@ class AccessPointsAdapterGroup(val expanded: MutableSet<String> = mutableSetOf()
     }
 
     private fun toggle(wiFiDetails: List<WiFiDetail>, expandableListView: ExpandableListView) =
-            (0 until expandableListView.expandableListAdapter.groupCount).forEach {
-                val group = groupBy.group(wiFiDetails.getOrNull(it) ?: WiFiDetail.EMPTY)
-                if (expanded.contains(group)) {
-                    expandableListView.expandGroup(it)
-                } else {
-                    expandableListView.collapseGroup(it)
-                }
+        (0 until expandableListView.expandableListAdapter.groupCount).forEach {
+            val group = groupBy.group(wiFiDetails.getOrNull(it) ?: WiFiDetail.EMPTY)
+            if (expanded.contains(group)) {
+                expandableListView.expandGroup(it)
+            } else {
+                expandableListView.collapseGroup(it)
             }
+        }
 
 }

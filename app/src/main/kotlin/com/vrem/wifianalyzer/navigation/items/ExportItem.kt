@@ -49,6 +49,6 @@ internal class ExportItem(private val export: Export) : NavigationItem {
     }
 
     private fun exportAvailable(mainActivity: MainActivity, chooser: Intent): Boolean =
-            chooser.resolveActivity(mainActivity.packageManager) != null
+        chooser.resolveActivity(mainActivity.packageManager) != null
 
 }

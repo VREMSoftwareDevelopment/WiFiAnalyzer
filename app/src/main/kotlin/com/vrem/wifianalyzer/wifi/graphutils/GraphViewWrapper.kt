@@ -35,55 +35,56 @@ import java.security.MessageDigest
 
 @OpenClass
 class GraphViewWrapper(
-        val graphView: GraphView,
-        var graphLegend: GraphLegend,
-        private val themeStyle: ThemeStyle,
-        private val seriesCache: SeriesCache = SeriesCache(),
-        private val seriesOptions: SeriesOptions = SeriesOptions()) {
+    val graphView: GraphView,
+    var graphLegend: GraphLegend,
+    private val themeStyle: ThemeStyle,
+    private val seriesCache: SeriesCache = SeriesCache(),
+    private val seriesOptions: SeriesOptions = SeriesOptions()
+) {
 
     fun removeSeries(newSeries: Set<WiFiDetail>): Unit =
-            seriesCache.remove(differenceSeries(newSeries)).forEach {
-                seriesOptions.removeSeriesColor(it)
-                graphView.removeSeries(it)
-            }
+        seriesCache.remove(differenceSeries(newSeries)).forEach {
+            seriesOptions.removeSeriesColor(it)
+            graphView.removeSeries(it)
+        }
 
     fun differenceSeries(newSeries: Set<WiFiDetail>): List<WiFiDetail> = seriesCache.difference(newSeries)
 
     fun addSeries(wiFiDetail: WiFiDetail, series: BaseSeries<GraphDataPoint>, drawBackground: Boolean): Boolean =
-            if (seriesExists(wiFiDetail)) {
-                false
-            } else {
-                seriesCache.put(wiFiDetail, series)
-                series.title = wiFiDetail.wiFiIdentifier.ssid + " " + wiFiDetail.wiFiSignal.channelDisplay()
-                series.setOnDataPointTapListener { value, _ -> this.popup(value) }
-                seriesOptions.highlightConnected(series, wiFiDetail.wiFiAdditional.wiFiConnection.connected)
-                seriesOptions.setSeriesColor(series)
-                seriesOptions.drawBackground(series, drawBackground)
-                graphView.addSeries(series)
-                true
-            }
+        if (seriesExists(wiFiDetail)) {
+            false
+        } else {
+            seriesCache.put(wiFiDetail, series)
+            series.title = wiFiDetail.wiFiIdentifier.ssid + " " + wiFiDetail.wiFiSignal.channelDisplay()
+            series.setOnDataPointTapListener { value, _ -> this.popup(value) }
+            seriesOptions.highlightConnected(series, wiFiDetail.wiFiAdditional.wiFiConnection.connected)
+            seriesOptions.setSeriesColor(series)
+            seriesOptions.drawBackground(series, drawBackground)
+            graphView.addSeries(series)
+            true
+        }
 
     fun updateSeries(wiFiDetail: WiFiDetail, data: Array<GraphDataPoint>, drawBackground: Boolean): Boolean =
-            if (seriesExists(wiFiDetail)) {
-                val series = seriesCache[wiFiDetail]
-                series.resetData(data)
-                seriesOptions.highlightConnected(series, wiFiDetail.wiFiAdditional.wiFiConnection.connected)
-                seriesOptions.drawBackground(series, drawBackground)
-                true
-            } else {
-                false
-            }
+        if (seriesExists(wiFiDetail)) {
+            val series = seriesCache[wiFiDetail]
+            series.resetData(data)
+            seriesOptions.highlightConnected(series, wiFiDetail.wiFiAdditional.wiFiConnection.connected)
+            seriesOptions.drawBackground(series, drawBackground)
+            true
+        } else {
+            false
+        }
 
     fun appendToSeries(wiFiDetail: WiFiDetail, data: GraphDataPoint, count: Int, drawBackground: Boolean): Boolean =
-            if (seriesExists(wiFiDetail)) {
-                val series = seriesCache[wiFiDetail]
-                series.appendData(data, true, count + 1)
-                seriesOptions.highlightConnected(series, wiFiDetail.wiFiAdditional.wiFiConnection.connected)
-                seriesOptions.drawBackground(series, drawBackground)
-                true
-            } else {
-                false
-            }
+        if (seriesExists(wiFiDetail)) {
+            val series = seriesCache[wiFiDetail]
+            series.appendData(data, true, count + 1)
+            seriesOptions.highlightConnected(series, wiFiDetail.wiFiAdditional.wiFiConnection.connected)
+            seriesOptions.drawBackground(series, drawBackground)
+            true
+        } else {
+            false
+        }
 
     fun newSeries(wiFiDetail: WiFiDetail): Boolean = !seriesExists(wiFiDetail)
 
@@ -117,15 +118,15 @@ class GraphViewWrapper(
     }
 
     fun calculateGraphType(): Int =
-            try {
-                with(MessageDigest.getInstance("MD5")) {
-                    update(MainContext.INSTANCE.mainActivity.packageName.toByteArray())
-                    val digest: ByteArray = digest()
-                    digest.contentHashCode()
-                }
-            } catch (e: Exception) {
-                TYPE1
+        try {
+            with(MessageDigest.getInstance("MD5")) {
+                update(MainContext.INSTANCE.mainActivity.packageName.toByteArray())
+                val digest: ByteArray = digest()
+                digest.contentHashCode()
             }
+        } catch (e: Exception) {
+            TYPE1
+        }
 
     fun setHorizontalLabelsVisible(horizontalLabelsVisible: Boolean) {
         graphView.gridLabelRenderer.isHorizontalLabelsVisible = horizontalLabelsVisible
@@ -136,7 +137,7 @@ class GraphViewWrapper(
     }
 
     fun size(value: Int): Int =
-            if (value == TYPE1 || value == TYPE2 || value == TYPE3) SIZE_MAX else SIZE_MIN
+        if (value == TYPE1 || value == TYPE2 || value == TYPE3) SIZE_MAX else SIZE_MIN
 
     fun newLegendRenderer(): LegendRenderer = LegendRenderer(graphView)
 

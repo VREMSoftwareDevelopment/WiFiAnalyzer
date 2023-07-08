@@ -19,7 +19,8 @@ package com.vrem.wifianalyzer.wifi.band
 
 import com.vrem.util.allCountries
 import com.vrem.util.findByCountryCode
-import java.util.*
+import java.util.Locale
+import java.util.SortedSet
 
 class WiFiChannelCountry(private val country: Locale) {
     private val unknown = "-Unknown"

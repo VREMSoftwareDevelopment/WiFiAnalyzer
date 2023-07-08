@@ -18,23 +18,23 @@
 package com.vrem.wifianalyzer.wifi.model
 
 fun sortBySSID(): Comparator<WiFiDetail> =
-        compareBy<WiFiDetail> { it.wiFiIdentifier.ssid }
-                .thenByDescending { it.wiFiSignal.level }
-                .thenBy { it.wiFiIdentifier.bssid }
+    compareBy<WiFiDetail> { it.wiFiIdentifier.ssid }
+        .thenByDescending { it.wiFiSignal.level }
+        .thenBy { it.wiFiIdentifier.bssid }
 
 fun sortByStrength(): Comparator<WiFiDetail> =
-        compareByDescending<WiFiDetail> { it.wiFiSignal.level }
-                .thenBy { it.wiFiIdentifier.ssid }
-                .thenBy { it.wiFiIdentifier.bssid }
+    compareByDescending<WiFiDetail> { it.wiFiSignal.level }
+        .thenBy { it.wiFiIdentifier.ssid }
+        .thenBy { it.wiFiIdentifier.bssid }
 
 fun sortByChannel(): Comparator<WiFiDetail> =
-        compareBy<WiFiDetail> { it.wiFiSignal.primaryFrequency }
-                .thenByDescending { it.wiFiSignal.level }
-                .thenBy { it.wiFiIdentifier.ssid }
-                .thenBy { it.wiFiIdentifier.bssid }
+    compareBy<WiFiDetail> { it.wiFiSignal.primaryFrequency }
+        .thenByDescending { it.wiFiSignal.level }
+        .thenBy { it.wiFiIdentifier.ssid }
+        .thenBy { it.wiFiIdentifier.bssid }
 
 fun sortByDefault(): Comparator<WiFiDetail> =
-        compareBy<WiFiDetail> { it.wiFiIdentifier.ssid }.thenBy { it.wiFiIdentifier.bssid }
+    compareBy<WiFiDetail> { it.wiFiIdentifier.ssid }.thenBy { it.wiFiIdentifier.bssid }
 
 
 enum class SortBy(val sort: Comparator<WiFiDetail>) {

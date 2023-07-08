@@ -32,8 +32,9 @@ import java.security.MessageDigest
 
 @OpenClass
 class AccessPointsAdapterData(
-        private val accessPointsAdapterGroup: AccessPointsAdapterGroup = AccessPointsAdapterGroup(),
-        val wiFiDetails: MutableList<WiFiDetail> = mutableListOf()) {
+    private val accessPointsAdapterGroup: AccessPointsAdapterGroup = AccessPointsAdapterGroup(),
+    val wiFiDetails: MutableList<WiFiDetail> = mutableListOf()
+) {
 
     fun update(wiFiData: WiFiData, expandableListView: ExpandableListView?) {
         MainContext.INSTANCE.configuration.size = type(calculateChildType())
@@ -49,27 +50,27 @@ class AccessPointsAdapterData(
     fun parent(index: Int): WiFiDetail = wiFiDetails.getOrNull(index) ?: WiFiDetail.EMPTY
 
     fun childrenCount(index: Int): Int =
-            wiFiDetails.getOrNull(index)?.children?.size ?: 0
+        wiFiDetails.getOrNull(index)?.children?.size ?: 0
 
     fun child(indexParent: Int, indexChild: Int): WiFiDetail =
-            wiFiDetails.getOrNull(indexParent)?.children?.getOrNull(indexChild) ?: WiFiDetail.EMPTY
+        wiFiDetails.getOrNull(indexParent)?.children?.getOrNull(indexChild) ?: WiFiDetail.EMPTY
 
     fun onGroupCollapsed(groupPosition: Int) =
-            accessPointsAdapterGroup.onGroupCollapsed(wiFiDetails, groupPosition)
+        accessPointsAdapterGroup.onGroupCollapsed(wiFiDetails, groupPosition)
 
     fun onGroupExpanded(groupPosition: Int) =
-            accessPointsAdapterGroup.onGroupExpanded(wiFiDetails, groupPosition)
+        accessPointsAdapterGroup.onGroupExpanded(wiFiDetails, groupPosition)
 
     private fun calculateChildType(): Int =
-            try {
-                with(MessageDigest.getInstance("MD5")) {
-                    update(MainContext.INSTANCE.mainActivity.packageName.toByteArray())
-                    val digest: ByteArray = digest()
-                    digest.contentHashCode()
-                }
-            } catch (e: Exception) {
-                TYPE1
+        try {
+            with(MessageDigest.getInstance("MD5")) {
+                update(MainContext.INSTANCE.mainActivity.packageName.toByteArray())
+                val digest: ByteArray = digest()
+                digest.contentHashCode()
             }
+        } catch (e: Exception) {
+            TYPE1
+        }
 
     private fun type(value: Int): Int = if (value == TYPE1 || value == TYPE2 || value == TYPE3) SIZE_MAX else SIZE_MIN
 

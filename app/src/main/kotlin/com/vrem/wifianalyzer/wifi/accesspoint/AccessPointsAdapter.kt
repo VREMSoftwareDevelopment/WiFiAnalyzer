@@ -30,10 +30,10 @@ import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier
 
 @OpenClass
 class AccessPointsAdapter(
-        private val accessPointsAdapterData: AccessPointsAdapterData = AccessPointsAdapterData(),
-        private val accessPointDetail: AccessPointDetail = AccessPointDetail(),
-        private val accessPointPopup: AccessPointPopup = AccessPointPopup())
-    : BaseExpandableListAdapter(), UpdateNotifier {
+    private val accessPointsAdapterData: AccessPointsAdapterData = AccessPointsAdapterData(),
+    private val accessPointDetail: AccessPointDetail = AccessPointDetail(),
+    private val accessPointPopup: AccessPointPopup = AccessPointPopup()
+) : BaseExpandableListAdapter(), UpdateNotifier {
 
     lateinit var expandableListView: ExpandableListView
 
@@ -66,16 +66,16 @@ class AccessPointsAdapter(
     }
 
     override fun getGroupCount(): Int =
-            accessPointsAdapterData.parentsCount()
+        accessPointsAdapterData.parentsCount()
 
     override fun getChildrenCount(groupPosition: Int): Int =
-            accessPointsAdapterData.childrenCount(groupPosition)
+        accessPointsAdapterData.childrenCount(groupPosition)
 
     override fun getGroup(groupPosition: Int): WiFiDetail =
-            accessPointsAdapterData.parent(groupPosition)
+        accessPointsAdapterData.parent(groupPosition)
 
     override fun getChild(groupPosition: Int, childPosition: Int): WiFiDetail =
-            accessPointsAdapterData.child(groupPosition, childPosition)
+        accessPointsAdapterData.child(groupPosition, childPosition)
 
     override fun getGroupId(groupPosition: Int): Long = groupPosition.toLong()
 
@@ -86,10 +86,10 @@ class AccessPointsAdapter(
     override fun isChildSelectable(groupPosition: Int, childPosition: Int): Boolean = true
 
     override fun onGroupCollapsed(groupPosition: Int) =
-            accessPointsAdapterData.onGroupCollapsed(groupPosition)
+        accessPointsAdapterData.onGroupCollapsed(groupPosition)
 
     override fun onGroupExpanded(groupPosition: Int) =
-            accessPointsAdapterData.onGroupExpanded(groupPosition)
+        accessPointsAdapterData.onGroupExpanded(groupPosition)
 
     private fun attachPopup(view: View, wiFiDetail: WiFiDetail) {
         view.findViewById<View>(R.id.attachPopup)?.let {

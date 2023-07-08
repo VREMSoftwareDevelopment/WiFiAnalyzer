@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
-import java.util.*
+import java.util.SortedSet
 
 internal class WiFiChannelCountryGHZ6 {
     private val channelsSet1: Set<Int> = setOf(1, 5, 9, 13, 17, 21, 25, 29)

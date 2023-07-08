@@ -58,8 +58,9 @@ class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnec
             1 -> sortedWith.first()
             else ->
                 WiFiDetail(
-                        sortedWith.first(),
-                        sortedWith.subList(1, sortedWith.size).sortedWith(sortBy.sort))
+                    sortedWith.first(),
+                    sortedWith.subList(1, sortedWith.size).sortedWith(sortBy.sort)
+                )
         }
     }
 
@@ -75,7 +76,7 @@ class WiFiData(val wiFiDetails: List<WiFiDetail>, val wiFiConnection: WiFiConnec
         }
 
     private fun connected(it: WiFiDetail): Boolean =
-            wiFiConnection.wiFiIdentifier.equals(it.wiFiIdentifier, true)
+        wiFiConnection.wiFiIdentifier.equals(it.wiFiIdentifier, true)
 
     private fun copy(wiFiDetail: WiFiDetail): WiFiDetail {
         val vendorName: String = MainContext.INSTANCE.vendorService.findVendorName(wiFiDetail.wiFiIdentifier.bssid)

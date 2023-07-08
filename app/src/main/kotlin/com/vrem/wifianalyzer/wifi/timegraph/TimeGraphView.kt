@@ -35,11 +35,11 @@ import com.vrem.wifianalyzer.wifi.predicate.makeOtherPredicate
 private const val NUM_X_TIME = 21
 
 internal fun makeGraphView(mainContext: MainContext, graphMaximumY: Int, themeStyle: ThemeStyle): GraphView =
-        GraphViewBuilder(NUM_X_TIME, graphMaximumY, themeStyle, false)
-                .setLabelFormatter(TimeAxisLabel())
-                .setVerticalTitle(mainContext.resources.getString(R.string.graph_axis_y))
-                .setHorizontalTitle(mainContext.resources.getString(R.string.graph_time_axis_x))
-                .build(mainContext.context)
+    GraphViewBuilder(NUM_X_TIME, graphMaximumY, themeStyle, false)
+        .setLabelFormatter(TimeAxisLabel())
+        .setVerticalTitle(mainContext.resources.getString(R.string.graph_axis_y))
+        .setHorizontalTitle(mainContext.resources.getString(R.string.graph_time_axis_x))
+        .build(mainContext.context)
 
 internal fun makeGraphViewWrapper(): GraphViewWrapper {
     val settings = MainContext.INSTANCE.settings
@@ -53,10 +53,11 @@ internal fun makeGraphViewWrapper(): GraphViewWrapper {
 }
 
 @OpenClass
-internal class TimeGraphView(private val wiFiBand: WiFiBand,
-                             private val dataManager: DataManager = DataManager(),
-                             private val graphViewWrapper: GraphViewWrapper = makeGraphViewWrapper())
-    : GraphViewNotifier {
+internal class TimeGraphView(
+    private val wiFiBand: WiFiBand,
+    private val dataManager: DataManager = DataManager(),
+    private val graphViewWrapper: GraphViewWrapper = makeGraphViewWrapper()
+) : GraphViewNotifier {
 
     override fun update(wiFiData: WiFiData) {
         val predicate = predicate(MainContext.INSTANCE.settings)
