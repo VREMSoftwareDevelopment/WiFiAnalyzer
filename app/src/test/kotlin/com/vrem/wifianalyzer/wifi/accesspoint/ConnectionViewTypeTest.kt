@@ -24,7 +24,7 @@ import org.junit.Test
 class ConnectionViewTypeTest {
     @Test
     fun testConnectionViewTypeCount() {
-        assertEquals(3, ConnectionViewType.values().size)
+        assertEquals(3, ConnectionViewType.entries.size)
     }
 
     @Test

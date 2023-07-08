@@ -46,7 +46,7 @@ class NavigationMenuControllerTest {
         // execute
         val menu: Menu = navigationView.menu
         // validate
-        assertEquals(NavigationMenu.values().size, menu.size())
+        assertEquals(NavigationMenu.entries.size, menu.size())
         validateNavigationGroup(menu)
     }
 
@@ -105,7 +105,7 @@ class NavigationMenuControllerTest {
         bottomNavigationView.menu.findItem(navigationMenu.ordinal)
 
     private fun validateNavigationGroup(menu: Menu): Unit =
-        NavigationGroup.values().forEach { validateNavigationMenu(it, menu) }
+        NavigationGroup.entries.forEach { validateNavigationMenu(it, menu) }
 
     private fun validateNavigationMenu(navigationGroup: NavigationGroup, menu: Menu): Unit =
         navigationGroup.navigationMenus.forEach { validateMenuItem(menu, it, navigationGroup) }

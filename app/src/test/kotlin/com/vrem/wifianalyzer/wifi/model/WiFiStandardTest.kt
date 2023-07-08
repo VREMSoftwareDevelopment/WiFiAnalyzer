@@ -26,7 +26,7 @@ import org.junit.Test
 class WiFiStandardTest {
     @Test
     fun testWidth() {
-        assertEquals(7, WiFiStandard.values().size)
+        assertEquals(7, WiFiStandard.entries.size)
     }
 
     @Test

@@ -26,7 +26,7 @@ import org.junit.Test
 class StrengthTest {
     @Test
     fun testStrength() {
-        assertEquals(5, Strength.values().size)
+        assertEquals(5, Strength.entries.size)
     }
 
     @Test

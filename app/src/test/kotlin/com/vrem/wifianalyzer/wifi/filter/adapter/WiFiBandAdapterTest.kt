@@ -29,7 +29,7 @@ import org.junit.Test
 
 class WiFiBandAdapterTest {
     private val settings: Settings = mock()
-    private val fixture = WiFiBandAdapter(WiFiBand.values().toSet())
+    private val fixture = WiFiBandAdapter(WiFiBand.entries.toSet())
 
     @After
     fun tearDown() {
@@ -52,7 +52,7 @@ class WiFiBandAdapterTest {
     @Test
     fun testGetValues() {
         // setup
-        val expected = WiFiBand.values()
+        val expected = WiFiBand.entries
         // execute
         val actual = fixture.selections
         // validate
@@ -62,7 +62,7 @@ class WiFiBandAdapterTest {
     @Test
     fun testGetValuesDefault() {
         // setup
-        val expected = WiFiBand.values()
+        val expected = WiFiBand.entries.toTypedArray()
         // execute
         val actual = fixture.defaults
         // validate
@@ -92,7 +92,7 @@ class WiFiBandAdapterTest {
     @Test
     fun testRemovingAllWillNotRemoveLast() {
         // setup
-        val values: Set<WiFiBand> = WiFiBand.values().toSet()
+        val values: Set<WiFiBand> = WiFiBand.entries.toSet()
         // execute
         values.forEach { fixture.toggle(it) }
         // validate

@@ -90,7 +90,7 @@ class OptionActionTest {
 
     @Test
     fun testOptionAction() {
-        assertEquals(6, OptionAction.values().size)
+        assertEquals(6, OptionAction.entries.size)
     }
 
     @Test

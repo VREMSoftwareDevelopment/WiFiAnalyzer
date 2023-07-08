@@ -24,7 +24,7 @@ import org.junit.Test
 class SortByTest {
     @Test
     fun testSortByNumber() {
-        assertEquals(3, SortBy.values().size)
+        assertEquals(3, SortBy.entries.size)
     }
 
     @Test

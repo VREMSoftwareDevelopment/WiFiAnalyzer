@@ -35,7 +35,7 @@ import org.robolectric.annotation.Config
 class NavigationMenuTest {
     @Test
     fun testNavigationMenu() {
-        assertEquals(10, NavigationMenu.values().size)
+        assertEquals(10, NavigationMenu.entries.size)
     }
 
     @Test

@@ -29,7 +29,7 @@ import org.junit.Assert.*
 import org.junit.Test
 
 internal enum class TestObject {
-    VALUE1, VALUE3, VALUE2
+    VALUE1, VALUE3
 }
 
 class PredicateTest {
@@ -137,9 +137,9 @@ class PredicateTest {
 
     private fun whenSettingsWithFullSets() {
         whenever(settings.findSSIDs()).thenReturn(setOf())
-        whenever(settings.findWiFiBands()).thenReturn(WiFiBand.values().toSet())
-        whenever(settings.findStrengths()).thenReturn(Strength.values().toSet())
-        whenever(settings.findSecurities()).thenReturn(Security.values().toSet())
+        whenever(settings.findWiFiBands()).thenReturn(WiFiBand.entries.toSet())
+        whenever(settings.findStrengths()).thenReturn(Strength.entries.toSet())
+        whenever(settings.findSecurities()).thenReturn(Security.entries.toSet())
     }
 
     private fun whenSettings() {

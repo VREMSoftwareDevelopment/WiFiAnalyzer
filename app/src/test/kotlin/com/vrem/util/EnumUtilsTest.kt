@@ -26,9 +26,9 @@ class EnumUtilsTest {
     @Test
     fun testOrdinals() {
         // setup
-        val expected = TestObject.values()
+        val expected = TestObject.entries
         // execute
-        val actual = ordinals(TestObject.values())
+        val actual = ordinals(TestObject.entries)
         // validate
         assertEquals(expected.size, actual.size)
         expected.forEach {
@@ -39,10 +39,10 @@ class EnumUtilsTest {
     @Test
     fun testFindSetUsingOrdinals() {
         // setup
-        val expected = TestObject.values().toSet()
+        val expected = TestObject.entries.toSet()
         val ordinals: Set<String> = setOf("" + TestObject.VALUE1.ordinal, "" + TestObject.VALUE2.ordinal, "" + TestObject.VALUE3.ordinal)
         // execute
-        val actual = findSet(TestObject.values(), ordinals, TestObject.VALUE2)
+        val actual = findSet(TestObject.entries, ordinals, TestObject.VALUE2)
         // validate
         validate(expected, actual)
     }
@@ -50,9 +50,9 @@ class EnumUtilsTest {
     @Test
     fun testFindSetUsingOrdinalsWithEmptyInput() {
         // setup
-        val expected = TestObject.values().toSet()
+        val expected = TestObject.entries.toSet()
         // execute
-        val actual = findSet(TestObject.values(), setOf(), TestObject.VALUE2)
+        val actual = findSet(TestObject.entries, setOf(), TestObject.VALUE2)
         // validate
         validate(expected, actual)
     }
@@ -63,7 +63,7 @@ class EnumUtilsTest {
         val expected = TestObject.VALUE2
         val ordinals: Set<String> = setOf("-1")
         // execute
-        val actual = findSet(TestObject.values(), ordinals, expected)
+        val actual = findSet(TestObject.entries, ordinals, expected)
         // validate
         assertEquals(1, actual.size)
         assertTrue(actual.contains(expected))
@@ -71,9 +71,9 @@ class EnumUtilsTest {
 
     @Test
     fun testFindOneUsingIndex() {
-        TestObject.values().forEach {
+        TestObject.entries.forEach {
             // execute
-            val actual = findOne(TestObject.values(), it.ordinal, TestObject.VALUE2)
+            val actual = findOne(TestObject.entries, it.ordinal, TestObject.VALUE2)
             // validate
             assertEquals(it, actual)
         }
@@ -85,7 +85,7 @@ class EnumUtilsTest {
         val index = -1
         val expected = TestObject.VALUE3
         // execute
-        val actual = findOne(TestObject.values(), index, expected)
+        val actual = findOne(TestObject.entries, index, expected)
         // validate
         assertEquals(expected, actual)
     }
@@ -93,10 +93,10 @@ class EnumUtilsTest {
     @Test
     fun testFindOneUsingInvalidHighIndex() {
         // setup
-        val index = TestObject.values().size
+        val index = TestObject.entries.size
         val expected = TestObject.VALUE3
         // execute
-        val actual = findOne(TestObject.values(), index, expected)
+        val actual = findOne(TestObject.entries, index, expected)
         // validate
         assertEquals(expected, actual)
     }
