@@ -34,6 +34,7 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.TIRAMISU])
 class AccessPointsFragmentTest {
+    @Suppress("unused")
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val scanner = MainContextHelper.INSTANCE.scannerService
     private val fixture = AccessPointsFragment()

@@ -44,6 +44,7 @@ import java.util.*
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.TIRAMISU])
 class AboutFragmentTest {
+    @Suppress("unused")
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val configuration = INSTANCE.configuration
     private val fixture = AboutFragment()

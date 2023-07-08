@@ -36,6 +36,7 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.TIRAMISU])
 class ChannelGraphAdapterTest {
+    @Suppress("unused")
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val channelGraphNavigation: ChannelGraphNavigation = mock()
     private val fixture = ChannelGraphAdapter(channelGraphNavigation)

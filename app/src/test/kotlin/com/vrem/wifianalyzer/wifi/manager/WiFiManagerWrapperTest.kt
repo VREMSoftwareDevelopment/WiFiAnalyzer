@@ -60,7 +60,6 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    @Suppress("DEPRECATION")
     fun testEnableWiFi() {
         // setup
         whenever(wifiManager.isWifiEnabled).thenReturn(true)

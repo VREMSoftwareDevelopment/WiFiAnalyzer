@@ -33,9 +33,10 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.TIRAMISU])
 class DataManagerTest {
+    @Suppress("unused")
+    private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val bssid = "BSSID"
     private val level = -40
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val graphViewWrapper: GraphViewWrapper = mock()
     private val timeGraphCache: TimeGraphCache = mock()
     private val fixture = DataManager(timeGraphCache)
