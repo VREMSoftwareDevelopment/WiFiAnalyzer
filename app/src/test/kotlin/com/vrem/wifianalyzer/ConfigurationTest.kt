@@ -52,7 +52,7 @@ class ConfigurationTest {
     @Test
     fun testWiFiChannelPairWithInit() {
         // execute & validate
-        WiFiBand.entries.forEach {
+        WiFiBand.values().forEach {
             assertEquals(WiFiChannels.UNKNOWN, fixture.wiFiChannelPair(it))
         }
     }
@@ -62,7 +62,7 @@ class ConfigurationTest {
         // execute
         fixture.wiFiChannelPair(Locale.US.country)
         // validate
-        WiFiBand.entries.forEach {
+        WiFiBand.values().forEach {
             assertEquals(it.wiFiChannels.wiFiChannelPairFirst(Locale.US.country), fixture.wiFiChannelPair(it))
         }
     }

@@ -46,7 +46,10 @@ internal enum class OptionAction(val key: Int, val action: Action) {
 
     companion object {
         fun findOptionAction(key: Int): OptionAction {
-            return entries.find { it.key == key } ?: NO_ACTION
+            for (value in values()) {
+                if (value.key == key) return value
+            }
+            return NO_ACTION
         }
     }
 

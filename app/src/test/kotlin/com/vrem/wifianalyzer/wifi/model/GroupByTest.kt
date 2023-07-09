@@ -24,7 +24,7 @@ class GroupByTest {
 
     @Test
     fun testGroupByNumber() {
-        assertEquals(4, GroupBy.entries.size)
+        assertEquals(4, GroupBy.values().size)
     }
 
     @Test

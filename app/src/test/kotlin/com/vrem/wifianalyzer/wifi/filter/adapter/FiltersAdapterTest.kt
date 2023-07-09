@@ -42,9 +42,9 @@ class FiltersAdapterTest {
     @Suppress("unused")
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val ssids = setOf<String>()
-    private val wiFiBands: Set<WiFiBand> = WiFiBand.entries.toSet()
-    private val strengths: Set<Strength> = Strength.entries.toSet()
-    private val securities: Set<Security> = Security.entries.toSet()
+    private val wiFiBands: Set<WiFiBand> = WiFiBand.values().toSet()
+    private val strengths: Set<Strength> = Strength.values().toSet()
+    private val securities: Set<Security> = Security.values().toSet()
     private val settings = INSTANCE.settings
 
     private lateinit var fixture: FiltersAdapter

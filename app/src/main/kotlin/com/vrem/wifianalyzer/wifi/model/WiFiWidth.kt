@@ -65,6 +65,6 @@ enum class WiFiWidth(val channelWidth: ChannelWidth, val frequencyWidth: Int, va
 
     companion object {
         fun findOne(channelWidth: ChannelWidth): WiFiWidth =
-            entries.find { it.channelWidth == channelWidth } ?: MHZ_20
+            values().firstOrNull { it.channelWidth == channelWidth } ?: MHZ_20
     }
 }

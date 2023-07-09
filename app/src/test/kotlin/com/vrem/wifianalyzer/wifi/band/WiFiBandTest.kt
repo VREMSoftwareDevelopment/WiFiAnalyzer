@@ -39,7 +39,7 @@ class WiFiBandTest {
 
     @Test
     fun testWiFiBand() {
-        assertEquals(3, WiFiBand.entries.size)
+        assertEquals(3, WiFiBand.values().size)
     }
 
     @Test

@@ -28,7 +28,7 @@ import org.junit.Test
 
 class StrengthAdapterTest {
     private val settings: Settings = mock()
-    private val fixture = StrengthAdapter(Strength.entries.toSet())
+    private val fixture = StrengthAdapter(Strength.values().toSet())
 
     @After
     fun tearDown() {
@@ -51,7 +51,7 @@ class StrengthAdapterTest {
     @Test
     fun testGetValues() {
         // setup
-        val expected = Strength.entries
+        val expected = Strength.values()
         // execute
         val actual = fixture.selections
         // validate
@@ -61,7 +61,7 @@ class StrengthAdapterTest {
     @Test
     fun testGetValuesDefault() {
         // setup
-        val expected = Strength.entries.toTypedArray()
+        val expected = Strength.values()
         // execute
         val actual = fixture.defaults
         // validate
@@ -91,7 +91,7 @@ class StrengthAdapterTest {
     @Test
     fun testRemovingAllWillNotRemoveLast() {
         // setup
-        val values: Set<Strength> = Strength.entries.toSet()
+        val values: Set<Strength> = Strength.values().toSet()
         // execute
         values.forEach { fixture.toggle(it) }
         // validate

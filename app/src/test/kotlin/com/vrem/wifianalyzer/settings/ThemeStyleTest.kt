@@ -24,7 +24,7 @@ import org.junit.Test
 class ThemeStyleTest {
     @Test
     fun testThemeStyle() {
-        assertEquals(3, ThemeStyle.entries.size)
+        assertEquals(3, ThemeStyle.values().size)
     }
 
     @Test

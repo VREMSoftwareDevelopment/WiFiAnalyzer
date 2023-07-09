@@ -38,7 +38,7 @@ class TimeGraphAdapterTest {
         // execute
         val graphViewNotifiers = fixture.graphViewNotifiers()
         // validate
-        assertEquals(WiFiBand.entries.size, graphViewNotifiers.size)
+        assertEquals(WiFiBand.values().size, graphViewNotifiers.size)
     }
 
     @Test
@@ -49,6 +49,6 @@ class TimeGraphAdapterTest {
         // execute
         val graphViews = fixture.graphViews()
         // validate
-        assertEquals(WiFiBand.entries.size, graphViews.size)
+        assertEquals(WiFiBand.values().size, graphViews.size)
     }
 }

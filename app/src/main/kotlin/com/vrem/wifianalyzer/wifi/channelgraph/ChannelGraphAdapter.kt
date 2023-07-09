@@ -23,7 +23,7 @@ import com.vrem.wifianalyzer.wifi.graphutils.GraphAdapter
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 
 private fun channelGraphViews(): List<ChannelGraphView> =
-    WiFiBand.entries.flatMap { wiFiBand ->
+    WiFiBand.values().flatMap { wiFiBand ->
         wiFiBand.wiFiChannels.wiFiChannelPairs().map { ChannelGraphView(wiFiBand, it) }
     }
 

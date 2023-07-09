@@ -62,7 +62,7 @@ class ChannelRatingAdapterTest {
     @Test
     fun testGetView() {
         // setup
-        val expectedSize = Strength.entries.size
+        val expectedSize = Strength.values().size
         val expectedStrength = reverse(Strength.FOUR)
         val wiFiChannel = WiFiChannel(1, 2)
         fixture.add(wiFiChannel)

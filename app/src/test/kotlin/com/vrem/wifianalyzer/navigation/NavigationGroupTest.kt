@@ -30,7 +30,7 @@ import org.robolectric.annotation.Config
 class NavigationGroupTest {
     @Test
     fun testNavigationGroup() {
-        assertEquals(3, NavigationGroup.entries.size)
+        assertEquals(3, NavigationGroup.values().size)
     }
 
     @Test
@@ -42,7 +42,7 @@ class NavigationGroupTest {
             NavigationGroup.GROUP_SETTINGS
         )
         // validate
-        assertArrayEquals(expected, NavigationGroup.entries.toTypedArray())
+        assertArrayEquals(expected, NavigationGroup.values())
     }
 
     @Test

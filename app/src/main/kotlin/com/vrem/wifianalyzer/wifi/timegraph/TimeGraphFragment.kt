@@ -30,7 +30,7 @@ import com.vrem.wifianalyzer.databinding.GraphContentBinding
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.graphutils.GraphAdapter
 
-private fun timeGraphViews(): List<TimeGraphView> = WiFiBand.entries.map { TimeGraphView(it) }
+private fun timeGraphViews(): List<TimeGraphView> = WiFiBand.values().map { TimeGraphView(it) }
 
 class TimeGraphAdapter : GraphAdapter(timeGraphViews())
 

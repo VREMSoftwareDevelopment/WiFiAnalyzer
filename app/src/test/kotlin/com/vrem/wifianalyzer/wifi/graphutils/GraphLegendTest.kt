@@ -35,7 +35,7 @@ class GraphLegendTest {
 
     @Test
     fun testSortByNumber() {
-        assertEquals(3, GraphLegend.entries.size)
+        assertEquals(3, GraphLegend.values().size)
     }
 
     @Test

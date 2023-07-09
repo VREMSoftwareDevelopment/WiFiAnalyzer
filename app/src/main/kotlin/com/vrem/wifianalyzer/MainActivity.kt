@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         closeDrawer()
-        val currentNavigationMenu = findOne(NavigationMenu.entries, menuItem.itemId, NavigationMenu.ACCESS_POINTS)
+        val currentNavigationMenu = findOne(NavigationMenu.values(), menuItem.itemId, NavigationMenu.ACCESS_POINTS)
         currentNavigationMenu.activateNavigationMenu(this, menuItem)
         return true
     }

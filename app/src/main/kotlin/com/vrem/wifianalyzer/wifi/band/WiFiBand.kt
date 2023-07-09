@@ -37,7 +37,8 @@ enum class WiFiBand(@StringRes val textResource: Int, val wiFiChannels: WiFiChan
     val ghz6: Boolean get() = GHZ6 == this
 
     companion object {
-        fun find(frequency: Int): WiFiBand = entries.find { it.wiFiChannels.inRange(frequency) } ?: GHZ2
+        fun find(frequency: Int): WiFiBand = values().find { it.wiFiChannels.inRange(frequency) }
+            ?: GHZ2
     }
 
 }

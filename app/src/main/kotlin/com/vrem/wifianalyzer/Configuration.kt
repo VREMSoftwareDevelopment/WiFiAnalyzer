@@ -35,7 +35,7 @@ class Configuration(val largeScreen: Boolean) {
         get() = size == SIZE_MAX
 
     fun wiFiChannelPair(countryCode: String): Unit =
-        WiFiBand.entries.forEach {
+        WiFiBand.values().forEach {
             this.wiFiChannelPair[it] = it.wiFiChannels.wiFiChannelPairFirst(countryCode)
         }
 
@@ -47,7 +47,7 @@ class Configuration(val largeScreen: Boolean) {
     }
 
     init {
-        WiFiBand.entries.forEach {
+        WiFiBand.values().forEach {
             this.wiFiChannelPair[it] = WiFiChannels.UNKNOWN
         }
 

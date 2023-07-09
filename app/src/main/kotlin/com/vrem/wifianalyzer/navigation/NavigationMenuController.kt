@@ -56,7 +56,7 @@ class NavigationMenuController(
     }
 
     init {
-        NavigationGroup.entries.forEach { it.populateMenuItems(navigationView.menu) }
+        NavigationGroup.values().forEach { it.populateMenuItems(navigationView.menu) }
         @Suppress("LeakingThis")
         navigationView.setNavigationItemSelectedListener(navigationMenuControl)
         @Suppress("LeakingThis")

@@ -127,9 +127,9 @@ class AccessPointsAdapterDataTest {
     private fun withSettings() {
         whenever(settings.sortBy()).thenReturn(SortBy.SSID)
         whenever(settings.groupBy()).thenReturn(GroupBy.CHANNEL)
-        whenever(settings.findWiFiBands()).thenReturn(WiFiBand.entries.toSet())
-        whenever(settings.findStrengths()).thenReturn(Strength.entries.toSet())
-        whenever(settings.findSecurities()).thenReturn(Security.entries.toSet())
+        whenever(settings.findWiFiBands()).thenReturn(WiFiBand.values().toSet())
+        whenever(settings.findStrengths()).thenReturn(Strength.values().toSet())
+        whenever(settings.findSecurities()).thenReturn(Security.values().toSet())
     }
 
 }

@@ -29,7 +29,7 @@ import org.junit.Test
 
 class SecurityAdapterTest {
     private val settings: Settings = mock()
-    private val fixture = SecurityAdapter(Security.entries.toSet())
+    private val fixture = SecurityAdapter(Security.values().toSet())
 
     @After
     fun tearDown() {
@@ -52,7 +52,7 @@ class SecurityAdapterTest {
     @Test
     fun testGetValues() {
         // setup
-        val expected = Security.entries
+        val expected = Security.values()
         // execute
         val actual = fixture.selections
         // validate
@@ -62,7 +62,7 @@ class SecurityAdapterTest {
     @Test
     fun testGetValuesDefault() {
         // setup
-        val expected = Security.entries.toTypedArray()
+        val expected = Security.values()
         // execute
         val actual = fixture.defaults
         // validate
@@ -92,7 +92,7 @@ class SecurityAdapterTest {
     @Test
     fun testRemovingAllWillNotRemoveLast() {
         // setup
-        val values: Set<Security> = Security.entries.toSet()
+        val values: Set<Security> = Security.values().toSet()
         // execute
         values.forEach { fixture.toggle(it) }
         // validate
