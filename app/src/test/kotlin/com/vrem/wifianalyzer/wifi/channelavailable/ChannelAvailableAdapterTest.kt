@@ -75,8 +75,8 @@ class ChannelAvailableAdapterTest {
         // validate
         assertNotNull(actual)
         assertEquals(expected, actual.findViewById<TextView>(R.id.channel_available_country).text)
-        assertEquals("$wiFiBand2 : ", actual.findViewById<TextView>(R.id.channel_available_title_ghz_2).text)
-        assertEquals(expectedGHZ2, actual.findViewById<TextView>(R.id.channel_available_ghz_2).text)
+        assertEquals("$wiFiBand2 : ", actual.findViewById<TextView>(R.id.channel_available_title2_g_hz).text)
+        assertEquals(expectedGHZ2, actual.findViewById<TextView>(R.id.channel_available2_g_hz).text)
         assertEquals("$wiFiBand5 : ", actual.findViewById<TextView>(R.id.channel_available_title5_g_hz).text)
         assertEquals(expected5GHz, actual.findViewById<TextView>(R.id.channel_available5_g_hz).text)
         assertEquals("$wiFiBand6 : ", actual.findViewById<TextView>(R.id.channel_available_title6_g_hz).text)

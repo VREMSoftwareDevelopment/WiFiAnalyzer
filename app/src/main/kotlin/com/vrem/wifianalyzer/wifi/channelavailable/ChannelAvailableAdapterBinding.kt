@@ -46,8 +46,8 @@ internal class ChannelAvailableAdapterBinding {
     internal constructor(view: View) {
         root = view
         channelAvailableCountry = view.findViewById(R.id.channel_available_country)
-        channelAvailableTitleGhz2 = view.findViewById(R.id.channel_available_title_ghz_2)
-        channelAvailableGhz2 = view.findViewById(R.id.channel_available_ghz_2)
+        channelAvailableTitleGhz2 = view.findViewById(R.id.channel_available_title2_g_hz)
+        channelAvailableGhz2 = view.findViewById(R.id.channel_available2_g_hz)
         channelAvailableTitle5GHz = view.findViewById(R.id.channel_available_title5_g_hz)
         channelAvailable5GHz = view.findViewById(R.id.channel_available5_g_hz)
         channelAvailableTitle6GHz = view.findViewById(R.id.channel_available_title6_g_hz)
