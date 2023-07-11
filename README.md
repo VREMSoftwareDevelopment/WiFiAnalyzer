@@ -37,12 +37,12 @@ This is the official repository of WiFi Analyzer.
 * The application has too many features to mention them all
 
 **Please note WiFi Analyzer is not a WiFi password cracking or phishing tool.**
- 
+
 ## Usage Tips
 * Tap the title bar to switch between 2.4, 5 and 6 GHz WiFi band.
 * SSID with `***` or `*hidden*` means it is hidden.
-* Access Point security: 
-     * <img src="images/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20"> WPA3(SAE)/WPA2/WPA 
+* Access Point security:
+     * <img src="images/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20"> WPA3(SAE)/WPA2/WPA
      * <img src="images/ic_lock_outline_black_18dp.png" alt="WEP/WPS" height="20"> WEP/WPS
      * <img src="images/ic_lock_open_black_18dp.png" alt="Disabled" height="20"> Disabled
 * Wi-Fi Standard (Requires Android OS 11+):
@@ -104,7 +104,7 @@ WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 ## Contribute
 * Feel free to fork the project and submit your changes.
 * To learn how to submit a pull request [click here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Pull-Request).
-* We want to express our gratitude to all [people](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/graphs/contributors) for their contributions, such as: patches, bug solving, updates and etc. 
+* We want to express our gratitude to all [people](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/graphs/contributors) for their contributions, such as: patches, bug solving, updates and etc.
 * If you would like to contribute financially to the project please feel free to send any amount through paypal.
 	* [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=62PA6HJ3BZL3E)
 	* Thanks to every one who already donated so far!
