@@ -43,7 +43,7 @@ class DataManagerTest {
     @Test
     fun testNewSeries() {
         // setup
-        val wiFiChannelPair = WiFiBand.GHZ2.wiFiChannels.wiFiChannelPairs()[0]
+        val wiFiChannelPair = WiFiBand.band2GHz.wiFiChannels.wiFiChannelPairs()[0]
         val expected = makeWiFiDetails(wiFiChannelPair.first.frequency)
         // execute
         val actual = fixture.newSeries(expected, wiFiChannelPair)
@@ -117,7 +117,7 @@ class DataManagerTest {
     @Test
     fun testInRangeWithValidFrequency() {
         // setup
-        val wiFiChannelPair = WiFiBand.GHZ2.wiFiChannels.wiFiChannelPairs()[0]
+        val wiFiChannelPair = WiFiBand.band2GHz.wiFiChannels.wiFiChannelPairs()[0]
         // execute & validate
         assertTrue(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.first.frequency)))
         assertTrue(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.second.frequency)))
@@ -127,7 +127,7 @@ class DataManagerTest {
     @Test
     fun testInRangeWithInvalidValidFrequency() {
         // setup
-        val wiFiChannelPair = WiFiBand.GHZ2.wiFiChannels.wiFiChannelPairs()[0]
+        val wiFiChannelPair = WiFiBand.band2GHz.wiFiChannels.wiFiChannelPairs()[0]
         // execute & validate
         assertFalse(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.first.frequency - 1)))
         assertFalse(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.second.frequency + 1)))

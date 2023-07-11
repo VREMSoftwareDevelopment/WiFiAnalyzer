@@ -144,7 +144,7 @@ class PredicateTest {
 
     private fun whenSettings() {
         whenever(settings.findSSIDs()).thenReturn(setOf(ssid, ssid))
-        whenever(settings.findWiFiBands()).thenReturn(setOf(WiFiBand.GHZ2))
+        whenever(settings.findWiFiBands()).thenReturn(setOf(WiFiBand.band2GHz))
         whenever(settings.findStrengths()).thenReturn(setOf(Strength.TWO, Strength.FOUR))
         whenever(settings.findSecurities()).thenReturn(setOf(Security.WEP, Security.WPA2))
     }

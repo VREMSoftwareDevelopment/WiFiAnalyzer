@@ -25,7 +25,7 @@ import com.vrem.wifianalyzer.wifi.filter.adapter.WiFiBandAdapter
 internal class WiFiBandFilter(wiFiBandAdapter: WiFiBandAdapter, alertDialog: AlertDialog) :
     EnumFilter<WiFiBand, WiFiBandAdapter>(
         mapOf(
-            WiFiBand.GHZ2 to R.id.filterWifiBand2,
+            WiFiBand.band2GHz to R.id.filterWifiBand2,
             WiFiBand.band5GHz to R.id.filterWifiBand5,
             WiFiBand.band6GHz to R.id.filterWifiBand6
         ),

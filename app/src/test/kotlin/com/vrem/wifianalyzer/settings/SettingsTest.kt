@@ -205,12 +205,12 @@ class SettingsTest {
     fun testGetWiFiBand() {
         // setup
         doReturn(WiFiBand.band5GHz.ordinal)
-            .whenever(repository).stringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal)
+            .whenever(repository).stringAsInteger(R.string.wifi_band_key, WiFiBand.band2GHz.ordinal)
         // execute
         val actual = fixture.wiFiBand()
         // validate
         assertEquals(WiFiBand.band5GHz, actual)
-        verify(repository).stringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal)
+        verify(repository).stringAsInteger(R.string.wifi_band_key, WiFiBand.band2GHz.ordinal)
     }
 
     @Test

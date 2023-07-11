@@ -25,8 +25,8 @@ import com.vrem.wifianalyzer.databinding.ChannelAvailableDetailsBinding
 internal class ChannelAvailableAdapterBinding {
     val root: View
     val channelAvailableCountry: TextView
-    val channelAvailableTitleGhz2: TextView
-    val channelAvailableGhz2: TextView
+    val channelAvailableTitle2GHz: TextView
+    val channelAvailable2GHz: TextView
     val channelAvailableTitle5GHz: TextView
     val channelAvailable5GHz: TextView
     val channelAvailableTitle6GHz: TextView
@@ -35,8 +35,8 @@ internal class ChannelAvailableAdapterBinding {
     internal constructor(binding: ChannelAvailableDetailsBinding) {
         root = binding.root
         channelAvailableCountry = binding.channelAvailableCountry
-        channelAvailableTitleGhz2 = binding.channelAvailableTitleGhz2
-        channelAvailableGhz2 = binding.channelAvailableGhz2
+        channelAvailableTitle2GHz = binding.channelAvailableTitle2GHz
+        channelAvailable2GHz = binding.channelAvailable2GHz
         channelAvailableTitle5GHz = binding.channelAvailableTitle5GHz
         channelAvailable5GHz = binding.channelAvailable5GHz
         channelAvailableTitle6GHz = binding.channelAvailableTitle6GHz
@@ -46,8 +46,8 @@ internal class ChannelAvailableAdapterBinding {
     internal constructor(view: View) {
         root = view
         channelAvailableCountry = view.findViewById(R.id.channel_available_country)
-        channelAvailableTitleGhz2 = view.findViewById(R.id.channel_available_title2_g_hz)
-        channelAvailableGhz2 = view.findViewById(R.id.channel_available2_g_hz)
+        channelAvailableTitle2GHz = view.findViewById(R.id.channel_available_title2_g_hz)
+        channelAvailable2GHz = view.findViewById(R.id.channel_available2_g_hz)
         channelAvailableTitle5GHz = view.findViewById(R.id.channel_available_title5_g_hz)
         channelAvailable5GHz = view.findViewById(R.id.channel_available5_g_hz)
         channelAvailableTitle6GHz = view.findViewById(R.id.channel_available_title6_g_hz)

@@ -54,7 +54,7 @@ class ChannelGraphViewTest {
     private val configuration: Configuration = MainContextHelper.INSTANCE.configuration
     private val graphViewWrapper: GraphViewWrapper = mock()
     private val dataManager: DataManager = mock()
-    private val fixture: ChannelGraphView = spy(ChannelGraphView(WiFiBand.GHZ2, wiFiChannelPair, dataManager, graphViewWrapper))
+    private val fixture: ChannelGraphView = spy(ChannelGraphView(WiFiBand.band2GHz, wiFiChannelPair, dataManager, graphViewWrapper))
 
     @After
     fun tearDown() {
@@ -120,14 +120,14 @@ class ChannelGraphViewTest {
     fun testWiFiChannelPairSelected() {
         // setup
         val fixture = withWiFiChannelPair()
-        whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
-        whenever(configuration.wiFiChannelPair(WiFiBand.GHZ2)).thenReturn(fixture)
+        whenever(settings.wiFiBand()).thenReturn(WiFiBand.band2GHz)
+        whenever(configuration.wiFiChannelPair(WiFiBand.band2GHz)).thenReturn(fixture)
         // execute
-        val actual = fixture.selected(WiFiBand.GHZ2)
+        val actual = fixture.selected(WiFiBand.band2GHz)
         // validate
         assertTrue(actual)
         verify(settings).wiFiBand()
-        verify(configuration).wiFiChannelPair(WiFiBand.GHZ2)
+        verify(configuration).wiFiChannelPair(WiFiBand.band2GHz)
     }
 
     @Test
@@ -137,7 +137,7 @@ class ChannelGraphViewTest {
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.band5GHz)
         whenever(configuration.wiFiChannelPair(WiFiBand.band5GHz)).thenReturn(fixture)
         // execute
-        val actual = fixture.selected(WiFiBand.GHZ2)
+        val actual = fixture.selected(WiFiBand.band2GHz)
         // validate
         assertFalse(actual)
         verify(settings).wiFiBand()
@@ -148,14 +148,14 @@ class ChannelGraphViewTest {
     fun testWiFiChannelPairSelectedWith5GHz() {
         // setup
         val fixture = withWiFiChannelPair()
-        whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
-        whenever(configuration.wiFiChannelPair(WiFiBand.GHZ2)).thenReturn(fixture)
+        whenever(settings.wiFiBand()).thenReturn(WiFiBand.band2GHz)
+        whenever(configuration.wiFiChannelPair(WiFiBand.band2GHz)).thenReturn(fixture)
         // execute
         val actual = fixture.selected(WiFiBand.band5GHz)
         // validate
         assertFalse(actual)
         verify(settings).wiFiBand()
-        verify(configuration).wiFiChannelPair(WiFiBand.GHZ2)
+        verify(configuration).wiFiChannelPair(WiFiBand.band2GHz)
     }
 
     @Test
@@ -179,7 +179,7 @@ class ChannelGraphViewTest {
         RobolectricUtil.INSTANCE.activity
         val wiFiChannelPair = withWiFiChannelPair()
         // execute
-        val actual = makeGraphView(MainContext.INSTANCE, 10, ThemeStyle.DARK, WiFiBand.GHZ2, wiFiChannelPair)
+        val actual = makeGraphView(MainContext.INSTANCE, 10, ThemeStyle.DARK, WiFiBand.band2GHz, wiFiChannelPair)
         // validate
         assertNotNull(actual)
     }
@@ -191,7 +191,7 @@ class ChannelGraphViewTest {
         RobolectricUtil.INSTANCE.activity
         val wiFiChannelPair = withWiFiChannelPair()
         // execute
-        val actual = makeGraphViewWrapper(WiFiBand.GHZ2, wiFiChannelPair)
+        val actual = makeGraphViewWrapper(WiFiBand.band2GHz, wiFiChannelPair)
         // validate
         assertNotNull(actual)
     }

@@ -44,7 +44,7 @@ class WiFiBandAdapterTest {
     @Test
     fun testIsActiveWithChanges() {
         // setup
-        fixture.toggle(WiFiBand.GHZ2)
+        fixture.toggle(WiFiBand.band2GHz)
         // execute & validate
         assertTrue(fixture.isActive())
     }
@@ -72,10 +72,10 @@ class WiFiBandAdapterTest {
     @Test
     fun testToggleRemoves() {
         // execute
-        val actual = fixture.toggle(WiFiBand.GHZ2)
+        val actual = fixture.toggle(WiFiBand.band2GHz)
         // validate
         assertTrue(actual)
-        assertFalse(fixture.contains(WiFiBand.GHZ2))
+        assertFalse(fixture.contains(WiFiBand.band2GHz))
     }
 
     @Test
@@ -103,15 +103,15 @@ class WiFiBandAdapterTest {
     @Test
     fun testGetColorWithExisting() {
         // execute & validate
-        assertEquals(R.color.selected, fixture.color(WiFiBand.GHZ2))
+        assertEquals(R.color.selected, fixture.color(WiFiBand.band2GHz))
     }
 
     @Test
     fun testGetColorWithNonExisting() {
         // setup
-        fixture.toggle(WiFiBand.GHZ2)
+        fixture.toggle(WiFiBand.band2GHz)
         // execute & validate
-        assertEquals(R.color.regular, fixture.color(WiFiBand.GHZ2))
+        assertEquals(R.color.regular, fixture.color(WiFiBand.band2GHz))
     }
 
     @Test

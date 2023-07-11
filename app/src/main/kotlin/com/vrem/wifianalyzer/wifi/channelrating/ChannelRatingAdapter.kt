@@ -102,7 +102,7 @@ class ChannelRatingAdapter(
 
     private fun errorMessage(wiFiBand: WiFiBand): String = with(context.resources) {
         getText(R.string.channel_rating_best_none).toString() +
-            if (WiFiBand.GHZ2 == wiFiBand) {
+            if (WiFiBand.band2GHz == wiFiBand) {
                 getText(R.string.channel_rating_best_alternative).toString() +
                     " " + getString(WiFiBand.band5GHz.textResource)
             } else {

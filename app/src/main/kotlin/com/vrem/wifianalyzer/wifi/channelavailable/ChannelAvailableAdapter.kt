@@ -37,8 +37,8 @@ internal class ChannelAvailableAdapter(context: Context, wiFiChannelCountries: L
             val resources = rootView.resources
             val currentLocale = MainContext.INSTANCE.settings.languageLocale()
             binding.channelAvailableCountry.text = "${it.countryCode()} - ${it.countryName(currentLocale)}"
-            binding.channelAvailableTitleGhz2.text = "${resources.getString(WiFiBand.GHZ2.textResource)} : "
-            binding.channelAvailableGhz2.text = it.channelsGHZ2().joinToString(",")
+            binding.channelAvailableTitle2GHz.text = "${resources.getString(WiFiBand.band2GHz.textResource)} : "
+            binding.channelAvailable2GHz.text = it.channels2GHz().joinToString(",")
             binding.channelAvailableTitle5GHz.text = "${resources.getString(WiFiBand.band5GHz.textResource)} : "
             binding.channelAvailable5GHz.text = it.channels5GHz().joinToString(",")
             binding.channelAvailableTitle6GHz.text = "${resources.getString(WiFiBand.band6GHz.textResource)} : "

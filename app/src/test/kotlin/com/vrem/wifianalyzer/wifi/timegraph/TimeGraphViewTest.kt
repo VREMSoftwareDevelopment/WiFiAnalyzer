@@ -48,7 +48,7 @@ import org.robolectric.annotation.Config
 class TimeGraphViewTest {
     private val dataManager: DataManager = mock()
     private val graphViewWrapper: GraphViewWrapper = mock()
-    private val fixture: TimeGraphView = spy(TimeGraphView(WiFiBand.GHZ2, dataManager, graphViewWrapper))
+    private val fixture: TimeGraphView = spy(TimeGraphView(WiFiBand.band2GHz, dataManager, graphViewWrapper))
 
     @After
     fun tearDown() {
@@ -69,7 +69,7 @@ class TimeGraphViewTest {
         whenever(dataManager.addSeriesData(graphViewWrapper, wiFiDetails, MAX_Y)).thenReturn(newSeries)
         whenever(settings.sortBy()).thenReturn(SortBy.SSID)
         whenever(settings.timeGraphLegend()).thenReturn(GraphLegend.LEFT)
-        whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
+        whenever(settings.wiFiBand()).thenReturn(WiFiBand.band2GHz)
         whenever(settings.graphMaximumY()).thenReturn(MAX_Y)
         whenever(settings.themeStyle()).thenReturn(ThemeStyle.DARK)
         // execute

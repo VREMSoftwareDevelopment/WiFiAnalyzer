@@ -58,17 +58,17 @@ class ChannelGraphNavigationTest {
     }
 
     @Test
-    fun testUpdateWithGHZ2() {
+    fun testUpdateWith2GHz() {
         // setup
-        whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
-        whenever(configuration.wiFiChannelPair(WiFiBand.GHZ2)).thenReturn(WiFiChannels.UNKNOWN)
-        whenever(configuration.wiFiChannelPair(WiFiBand.GHZ2)).thenReturn(WiFiChannels.UNKNOWN)
+        whenever(settings.wiFiBand()).thenReturn(WiFiBand.band2GHz)
+        whenever(configuration.wiFiChannelPair(WiFiBand.band2GHz)).thenReturn(WiFiChannels.UNKNOWN)
+        whenever(configuration.wiFiChannelPair(WiFiBand.band2GHz)).thenReturn(WiFiChannels.UNKNOWN)
         // execute
         fixture.update()
         // validate
         verify(view).visibility = View.GONE
         verify(settings).wiFiBand()
-        verify(configuration).wiFiChannelPair(WiFiBand.GHZ2)
+        verify(configuration).wiFiChannelPair(WiFiBand.band2GHz)
     }
 
     @Test
@@ -115,9 +115,9 @@ class ChannelGraphNavigationTest {
     }
 
     @Test
-    fun testNavigationGHZ2Lines() {
-        assertEquals(0, navigationGHZ2Lines.size)
-        assertTrue(navigationGHZ2Lines.isEmpty())
+    fun testNavigation2GHzLines() {
+        assertEquals(0, navigation2GHzLines.size)
+        assertTrue(navigation2GHzLines.isEmpty())
     }
 
     @Test

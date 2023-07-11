@@ -34,7 +34,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannels6GHz
 typealias NavigationSets = Map<Int, WiFiChannelPair>
 typealias NavigationLines = Map<Int, NavigationSets>
 
-internal val navigationGHZ2Lines = mapOf<Int, NavigationSets>()
+internal val navigation2GHzLines = mapOf<Int, NavigationSets>()
 
 internal val navigation5GHzLines = mapOf(
     R.id.graphNavigationLine1 to mapOf(
@@ -105,7 +105,7 @@ class ChannelGraphNavigation(private val view: View, private val mainContext: Co
 
     private fun navigationLines(wiFiBand: WiFiBand): NavigationLines =
         when (wiFiBand) {
-            WiFiBand.GHZ2 -> navigationGHZ2Lines
+            WiFiBand.band2GHz -> navigation2GHzLines
             WiFiBand.band5GHz -> navigation5GHzLines
             WiFiBand.band6GHz -> navigation6GHzLines
         }

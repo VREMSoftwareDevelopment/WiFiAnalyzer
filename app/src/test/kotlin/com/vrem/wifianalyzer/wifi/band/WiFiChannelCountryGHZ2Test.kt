@@ -22,10 +22,10 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.util.SortedSet
 
-class WiFiChannelCountryGHZ2Test {
+class WiFiChannelCountry2GHzTest {
     private val channelsSet1: SortedSet<Int> = sortedSetOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
     private val channelsSet2: SortedSet<Int> = sortedSetOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)
-    private val fixture = WiFiChannelCountryGHZ2()
+    private val fixture = WiFiChannelCountry2GHz()
 
     @Test
     fun testChannelsForUSAndSimilar() {

@@ -34,7 +34,7 @@ import java.util.Locale
 
 class ChannelAxisLabelTest {
     private val settings = MainContextHelper.INSTANCE.settings
-    private val fixture = ChannelAxisLabel(WiFiBand.GHZ2, WiFiBand.GHZ2.wiFiChannels.wiFiChannelPairs()[0])
+    private val fixture = ChannelAxisLabel(WiFiBand.band2GHz, WiFiBand.band2GHz.wiFiChannels.wiFiChannelPairs()[0])
 
     @After
     fun tearDown() {
@@ -54,7 +54,7 @@ class ChannelAxisLabelTest {
     @Test
     fun testXAxis() {
         // setup
-        val (channel, frequency) = WiFiBand.GHZ2.wiFiChannels.wiFiChannelFirst()
+        val (channel, frequency) = WiFiBand.band2GHz.wiFiChannels.wiFiChannelFirst()
         whenever(settings.countryCode()).thenReturn(Locale.US.country)
         // execute
         val actual = fixture.formatLabel(frequency.toDouble(), true)
@@ -66,7 +66,7 @@ class ChannelAxisLabelTest {
     @Test
     fun testXAxisWithFrequencyInRange() {
         // setup
-        val (channel, frequency) = WiFiBand.GHZ2.wiFiChannels.wiFiChannelFirst()
+        val (channel, frequency) = WiFiBand.band2GHz.wiFiChannels.wiFiChannelFirst()
         whenever(settings.countryCode()).thenReturn(Locale.US.country)
         // execute & validate
         assertEquals("" + channel, fixture.formatLabel(frequency - 2.toDouble(), true))
@@ -77,7 +77,7 @@ class ChannelAxisLabelTest {
     @Test
     fun testXAxisWithFrequencyNotAllowedInLocale() {
         // setup
-        val (_, frequency) = WiFiBand.GHZ2.wiFiChannels.wiFiChannelLast()
+        val (_, frequency) = WiFiBand.band2GHz.wiFiChannels.wiFiChannelLast()
         // execute
         val actual = fixture.formatLabel(frequency.toDouble(), true)
         // validate
@@ -87,7 +87,7 @@ class ChannelAxisLabelTest {
     @Test
     fun testXAxisWithUnknownFrequencyReturnEmptyString() {
         // setup
-        val wiFiChannels = WiFiBand.GHZ2.wiFiChannels
+        val wiFiChannels = WiFiBand.band2GHz.wiFiChannels
         val (_, frequency) = wiFiChannels.wiFiChannelFirst()
         // execute
         val actual = fixture.formatLabel(frequency - WiFiChannels.FREQUENCY_OFFSET.toDouble(), true)

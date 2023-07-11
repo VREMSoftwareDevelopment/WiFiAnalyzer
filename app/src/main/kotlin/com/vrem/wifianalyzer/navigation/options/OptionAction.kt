@@ -30,7 +30,7 @@ internal val filterAction: Action = { Filter.build().show() }
 
 internal val scannerAction: Action = { MainContext.INSTANCE.scannerService.toggle() }
 
-internal val wiFiBandAction2: Action = { MainContext.INSTANCE.settings.wiFiBand(WiFiBand.GHZ2) }
+internal val wiFiBandAction2: Action = { MainContext.INSTANCE.settings.wiFiBand(WiFiBand.band2GHz) }
 
 internal val wiFiBandAction5: Action = { MainContext.INSTANCE.settings.wiFiBand(WiFiBand.band5GHz) }
 

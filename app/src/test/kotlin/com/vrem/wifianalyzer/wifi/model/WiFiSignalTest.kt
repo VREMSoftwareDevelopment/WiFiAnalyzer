@@ -36,7 +36,7 @@ class WiFiSignalTest {
         assertEquals(primaryFrequency, fixture.primaryFrequency)
         assertEquals(centerFrequency, fixture.centerFrequency)
         assertEquals(level, fixture.level)
-        assertEquals(WiFiBand.GHZ2, fixture.wiFiBand)
+        assertEquals(WiFiBand.band2GHz, fixture.wiFiBand)
         assertEquals(WiFiWidth.bandwidth40MHz, fixture.wiFiWidth)
         assertEquals(WiFiStandard.N, fixture.wiFiStandard)
     }
@@ -51,7 +51,7 @@ class WiFiSignalTest {
         assertEquals(centerFrequency, fixture.centerFrequency)
         assertEquals(centerChannel, fixture.centerWiFiChannel.channel)
         assertEquals(level, fixture.level)
-        assertEquals(WiFiBand.GHZ2, fixture.wiFiBand)
+        assertEquals(WiFiBand.band2GHz, fixture.wiFiBand)
         assertEquals(WiFiWidth.bandwidth80MHz, fixture.wiFiWidth)
         assertEquals(WiFiStandard.AC, fixture.wiFiStandard)
     }

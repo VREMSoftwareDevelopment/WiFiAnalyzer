@@ -103,7 +103,7 @@ class FiltersAdapterTest {
     @Test
     fun testIsActiveWhenWiFiBandFilterIsChanged() {
         // setup
-        fixture.wiFiBandAdapter().toggle(WiFiBand.GHZ2)
+        fixture.wiFiBandAdapter().toggle(WiFiBand.band2GHz)
         // execute & validate
         assertTrue(fixture.isActive())
     }

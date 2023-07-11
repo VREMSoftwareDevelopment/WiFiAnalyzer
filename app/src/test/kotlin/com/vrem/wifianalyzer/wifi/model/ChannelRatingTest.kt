@@ -116,7 +116,7 @@ class ChannelRatingTest {
     @Test
     fun testBestChannelsSortedInOrderWithMinimumChannels() {
         // setup
-        val channels: List<WiFiChannel> = WiFiBand.GHZ2.wiFiChannels.wiFiChannels()
+        val channels: List<WiFiChannel> = WiFiBand.band2GHz.wiFiChannels.wiFiChannels()
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4))
         // execute
         val actual: List<ChannelAPCount> = fixture.bestChannels(channels)

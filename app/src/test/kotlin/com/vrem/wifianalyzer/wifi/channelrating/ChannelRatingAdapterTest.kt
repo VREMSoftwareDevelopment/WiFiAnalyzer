@@ -105,7 +105,7 @@ class ChannelRatingAdapterTest {
     }
 
     @Test
-    fun testBestChannelsGHZ2ErrorMessage() {
+    fun testBestChannels2GHzErrorMessage() {
         // setup
         val resources = mainActivity.resources
         val expected = (resources.getText(R.string.channel_rating_best_none).toString()
@@ -115,7 +115,7 @@ class ChannelRatingAdapterTest {
         val channelAPCounts: List<ChannelAPCount> = listOf()
         whenever(channelRating.bestChannels(wiFiChannels)).thenReturn(channelAPCounts)
         // execute
-        val actual = fixture.bestChannels(WiFiBand.GHZ2, wiFiChannels)
+        val actual = fixture.bestChannels(WiFiBand.band2GHz, wiFiChannels)
         // validate
         assertEquals(expected, actual.message)
         assertEquals(R.color.error, actual.color)

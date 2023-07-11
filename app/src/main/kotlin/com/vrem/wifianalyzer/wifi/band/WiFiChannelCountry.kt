@@ -24,7 +24,7 @@ import java.util.SortedSet
 
 class WiFiChannelCountry(private val country: Locale) {
     private val unknown = "-Unknown"
-    private val wiFiChannelGHZ2 = WiFiChannelCountryGHZ2()
+    private val wiFiChannel2GHz = WiFiChannelCountry2GHz()
     private val wiFiChannel5GHz = WiFiChannelCountry5GHz()
     private val wiFiChannel6GHz = WiFiChannelCountry6GHz()
 
@@ -35,13 +35,13 @@ class WiFiChannelCountry(private val country: Locale) {
         return if (country.country == countryName) countryName + unknown else countryName
     }
 
-    fun channelsGHZ2(): SortedSet<Int> = wiFiChannelGHZ2.findChannels(country.country)
+    fun channels2GHz(): SortedSet<Int> = wiFiChannel2GHz.findChannels(country.country)
 
     fun channels5GHz(): SortedSet<Int> = wiFiChannel5GHz.findChannels(country.country)
 
     fun channels6GHz(): SortedSet<Int> = wiFiChannel6GHz.findChannels()
 
-    fun channelAvailableGHZ2(channel: Int): Boolean = channelsGHZ2().contains(channel)
+    fun channelAvailable2GHz(channel: Int): Boolean = channels2GHz().contains(channel)
 
     fun channelAvailable5GHz(channel: Int): Boolean = channels5GHz().contains(channel)
 
