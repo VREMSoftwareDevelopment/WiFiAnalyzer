@@ -42,8 +42,8 @@ class ChannelAvailableAdapterBindingTest {
         whenever(view.findViewById<TextView>(R.id.channel_available_country)).thenReturn(channelAvailableCountry)
         whenever(view.findViewById<TextView>(R.id.channel_available_title_ghz_2)).thenReturn(channelAvailableTitleGhz2)
         whenever(view.findViewById<TextView>(R.id.channel_available_ghz_2)).thenReturn(channelAvailableGhz2)
-        whenever(view.findViewById<TextView>(R.id.channel_available_title_ghz_5)).thenReturn(channelAvailableTitleGhz5)
-        whenever(view.findViewById<TextView>(R.id.channel_available_ghz_5)).thenReturn(channelAvailableGhz5)
+        whenever(view.findViewById<TextView>(R.id.channel_available_title5_g_hz)).thenReturn(channelAvailableTitleGhz5)
+        whenever(view.findViewById<TextView>(R.id.channel_available5_g_hz)).thenReturn(channelAvailableGhz5)
         whenever(view.findViewById<TextView>(R.id.channel_available_title6_g_hz)).thenReturn(channelAvailableTitle6GHz)
         whenever(view.findViewById<TextView>(R.id.channel_available6_g_hz)).thenReturn(channelAvailable6GHz)
         // execute
@@ -60,8 +60,8 @@ class ChannelAvailableAdapterBindingTest {
         verify(view).findViewById<TextView>(R.id.channel_available_country)
         verify(view).findViewById<TextView>(R.id.channel_available_title_ghz_2)
         verify(view).findViewById<TextView>(R.id.channel_available_ghz_2)
-        verify(view).findViewById<TextView>(R.id.channel_available_title_ghz_5)
-        verify(view).findViewById<TextView>(R.id.channel_available_ghz_5)
+        verify(view).findViewById<TextView>(R.id.channel_available_title5_g_hz)
+        verify(view).findViewById<TextView>(R.id.channel_available5_g_hz)
         verify(view).findViewById<TextView>(R.id.channel_available_title6_g_hz)
         verify(view).findViewById<TextView>(R.id.channel_available6_g_hz)
     }
