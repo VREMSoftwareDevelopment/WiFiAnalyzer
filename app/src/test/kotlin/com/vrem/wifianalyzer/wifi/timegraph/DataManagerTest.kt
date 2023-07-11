@@ -194,7 +194,7 @@ class DataManagerTest {
     }
 
     private fun makeWiFiSignal(): WiFiSignal =
-        WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, level, true)
+        WiFiSignal(2455, 2455, WiFiWidth.bandwidth20MHz, level, true)
 
     private fun makeWiFiDetail(SSID: String): WiFiDetail =
         WiFiDetail(WiFiIdentifier(SSID, bssid), String.EMPTY, makeWiFiSignal(), WiFiAdditional.EMPTY)

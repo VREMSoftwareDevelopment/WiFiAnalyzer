@@ -49,7 +49,7 @@ class WiFiBandPredicateTest {
         WiFiDetail(
             WiFiIdentifier("ssid", "bssid"),
             "wpa",
-            WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, 1, true)
+            WiFiSignal(frequency, frequency, WiFiWidth.bandwidth20MHz, 1, true)
         )
 
 }

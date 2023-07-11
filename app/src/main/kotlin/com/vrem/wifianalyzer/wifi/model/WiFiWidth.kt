@@ -27,7 +27,7 @@ typealias CalculateCenter = (primary: Int, center: Int) -> Int
 internal val calculateCenter20: CalculateCenter = { primary, _ -> primary }
 
 internal val calculateCenter40: CalculateCenter = { primary, center ->
-    if (abs(primary - center) >= WiFiWidth.MHZ_40.frequencyWidthHalf) {
+    if (abs(primary - center) >= WiFiWidth.bandwidth40MHz.frequencyWidthHalf) {
         (primary + center) / 2
     } else {
         center
@@ -55,16 +55,16 @@ internal val calculateCenter160: CalculateCenter = { primary, center ->
 }
 
 enum class WiFiWidth(val channelWidth: ChannelWidth, val frequencyWidth: Int, val guardBand: Int, val calculateCenter: CalculateCenter) {
-    MHZ_20(ScanResult.CHANNEL_WIDTH_20MHZ, 20, 2, calculateCenter20),
-    MHZ_40(ScanResult.CHANNEL_WIDTH_40MHZ, 40, 3, calculateCenter40),
-    MHZ_80(ScanResult.CHANNEL_WIDTH_80MHZ, 80, 3, calculateCenter80),
-    MHZ_160(ScanResult.CHANNEL_WIDTH_160MHZ, 160, 3, calculateCenter160),
-    MHZ_80_PLUS(ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ, 80, 3, calculateCenter80);
+    bandwidth20MHz(ScanResult.CHANNEL_WIDTH_20MHZ, 20, 2, calculateCenter20),
+    bandwidth40MHz(ScanResult.CHANNEL_WIDTH_40MHZ, 40, 3, calculateCenter40),
+    bandwidth80MHz(ScanResult.CHANNEL_WIDTH_80MHZ, 80, 3, calculateCenter80),
+    bandwidth160MHz(ScanResult.CHANNEL_WIDTH_160MHZ, 160, 3, calculateCenter160),
+    bandwidth80Plus80MHz(ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ, 80, 3, calculateCenter80);
 
     val frequencyWidthHalf: Int = frequencyWidth / 2
 
     companion object {
         fun findOne(channelWidth: ChannelWidth): WiFiWidth =
-            values().firstOrNull { it.channelWidth == channelWidth } ?: MHZ_20
+            values().firstOrNull { it.channelWidth == channelWidth } ?: bandwidth20MHz
     }
 }

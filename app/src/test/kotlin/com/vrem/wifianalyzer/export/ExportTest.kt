@@ -124,7 +124,7 @@ class ExportTest {
         listOf(withWiFiDetail(10), withWiFiDetail(20), withWiFiDetail(30))
 
     private fun withWiFiDetail(offset: Int): WiFiDetail {
-        val wiFiSignal = WiFiSignal(2412 + offset, 2422 + offset, WiFiWidth.MHZ_40, -offset, true)
+        val wiFiSignal = WiFiSignal(2412 + offset, 2422 + offset, WiFiWidth.bandwidth40MHz, -offset, true)
         val wiFiIdentifier = WiFiIdentifier("SSID$offset", "BSSID$offset")
         return WiFiDetail(wiFiIdentifier, "capabilities$offset", wiFiSignal)
     }

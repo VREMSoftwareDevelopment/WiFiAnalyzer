@@ -126,7 +126,7 @@ class AccessPointsAdapterGroupTest {
     private fun withWiFiDetail(): WiFiDetail =
         WiFiDetail(
             WiFiIdentifier("SSID1", "BSSID1"),
-            wiFiSignal = WiFiSignal(2255, 2255, WiFiWidth.MHZ_20, -40, true),
+            wiFiSignal = WiFiSignal(2255, 2255, WiFiWidth.bandwidth20MHz, -40, true),
             children = listOf(
                 WiFiDetail(WiFiIdentifier("SSID1-1", "BSSID1-1")),
                 WiFiDetail(WiFiIdentifier("SSID1-2", "BSSID1-2")),

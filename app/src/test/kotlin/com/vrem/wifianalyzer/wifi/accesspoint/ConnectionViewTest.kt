@@ -285,7 +285,7 @@ class ConnectionViewTest {
         WiFiDetail(
             WiFiIdentifier(ssid, bssid),
             String.EMPTY,
-            WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55, true),
+            WiFiSignal(2435, 2435, WiFiWidth.bandwidth20MHz, -55, true),
             wiFiAdditional
         )
 

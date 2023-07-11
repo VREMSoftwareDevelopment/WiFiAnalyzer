@@ -32,49 +32,49 @@ class WiFiWidthTest {
 
     @Test
     fun testGroupByGroup() {
-        assertTrue(WiFiWidth.MHZ_20.calculateCenter.javaClass.isInstance(calculateCenter20))
-        assertTrue(WiFiWidth.MHZ_40.calculateCenter.javaClass.isInstance(calculateCenter40))
-        assertTrue(WiFiWidth.MHZ_80.calculateCenter.javaClass.isInstance(calculateCenter80))
-        assertTrue(WiFiWidth.MHZ_160.calculateCenter.javaClass.isInstance(calculateCenter160))
-        assertTrue(WiFiWidth.MHZ_80_PLUS.calculateCenter.javaClass.isInstance(calculateCenter80))
+        assertTrue(WiFiWidth.bandwidth20MHz.calculateCenter.javaClass.isInstance(calculateCenter20))
+        assertTrue(WiFiWidth.bandwidth40MHz.calculateCenter.javaClass.isInstance(calculateCenter40))
+        assertTrue(WiFiWidth.bandwidth80MHz.calculateCenter.javaClass.isInstance(calculateCenter80))
+        assertTrue(WiFiWidth.bandwidth160MHz.calculateCenter.javaClass.isInstance(calculateCenter160))
+        assertTrue(WiFiWidth.bandwidth80Plus80MHz.calculateCenter.javaClass.isInstance(calculateCenter80))
     }
 
     @Test
     fun testFrequencyWidth() {
-        assertEquals(20, WiFiWidth.MHZ_20.frequencyWidth)
-        assertEquals(40, WiFiWidth.MHZ_40.frequencyWidth)
-        assertEquals(80, WiFiWidth.MHZ_80.frequencyWidth)
-        assertEquals(160, WiFiWidth.MHZ_160.frequencyWidth)
-        assertEquals(80, WiFiWidth.MHZ_80_PLUS.frequencyWidth)
+        assertEquals(20, WiFiWidth.bandwidth20MHz.frequencyWidth)
+        assertEquals(40, WiFiWidth.bandwidth40MHz.frequencyWidth)
+        assertEquals(80, WiFiWidth.bandwidth80MHz.frequencyWidth)
+        assertEquals(160, WiFiWidth.bandwidth160MHz.frequencyWidth)
+        assertEquals(80, WiFiWidth.bandwidth80Plus80MHz.frequencyWidth)
     }
 
     @Test
     fun testFrequencyHalfWidth() {
-        assertEquals(10, WiFiWidth.MHZ_20.frequencyWidthHalf)
-        assertEquals(20, WiFiWidth.MHZ_40.frequencyWidthHalf)
-        assertEquals(40, WiFiWidth.MHZ_80.frequencyWidthHalf)
-        assertEquals(80, WiFiWidth.MHZ_160.frequencyWidthHalf)
-        assertEquals(40, WiFiWidth.MHZ_80_PLUS.frequencyWidthHalf)
+        assertEquals(10, WiFiWidth.bandwidth20MHz.frequencyWidthHalf)
+        assertEquals(20, WiFiWidth.bandwidth40MHz.frequencyWidthHalf)
+        assertEquals(40, WiFiWidth.bandwidth80MHz.frequencyWidthHalf)
+        assertEquals(80, WiFiWidth.bandwidth160MHz.frequencyWidthHalf)
+        assertEquals(40, WiFiWidth.bandwidth80Plus80MHz.frequencyWidthHalf)
     }
 
     @Test
     fun testGuardBand() {
-        assertEquals(2, WiFiWidth.MHZ_20.guardBand)
-        assertEquals(3, WiFiWidth.MHZ_40.guardBand)
-        assertEquals(3, WiFiWidth.MHZ_80.guardBand)
-        assertEquals(3, WiFiWidth.MHZ_160.guardBand)
-        assertEquals(3, WiFiWidth.MHZ_80_PLUS.guardBand)
+        assertEquals(2, WiFiWidth.bandwidth20MHz.guardBand)
+        assertEquals(3, WiFiWidth.bandwidth40MHz.guardBand)
+        assertEquals(3, WiFiWidth.bandwidth80MHz.guardBand)
+        assertEquals(3, WiFiWidth.bandwidth160MHz.guardBand)
+        assertEquals(3, WiFiWidth.bandwidth80Plus80MHz.guardBand)
     }
 
     @Test
     fun testFindOne() {
-        assertEquals(WiFiWidth.MHZ_20, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_20MHZ))
-        assertEquals(WiFiWidth.MHZ_40, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_40MHZ))
-        assertEquals(WiFiWidth.MHZ_80, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ))
-        assertEquals(WiFiWidth.MHZ_160, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_160MHZ))
-        assertEquals(WiFiWidth.MHZ_80_PLUS, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ))
-        assertEquals(WiFiWidth.MHZ_20, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_20MHZ - 1))
-        assertEquals(WiFiWidth.MHZ_20, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ + 1))
+        assertEquals(WiFiWidth.bandwidth20MHz, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_20MHZ))
+        assertEquals(WiFiWidth.bandwidth40MHz, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_40MHZ))
+        assertEquals(WiFiWidth.bandwidth80MHz, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ))
+        assertEquals(WiFiWidth.bandwidth160MHz, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_160MHZ))
+        assertEquals(WiFiWidth.bandwidth80Plus80MHz, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ))
+        assertEquals(WiFiWidth.bandwidth20MHz, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_20MHZ - 1))
+        assertEquals(WiFiWidth.bandwidth20MHz, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ + 1))
     }
 
     @Test
@@ -91,7 +91,7 @@ class WiFiWidthTest {
     fun testCalculateCenter40() {
         // setup
         val primary = 10
-        val center = primary + WiFiWidth.MHZ_40.frequencyWidthHalf - 1
+        val center = primary + WiFiWidth.bandwidth40MHz.frequencyWidthHalf - 1
         // execute & validate
         assertEquals(center, calculateCenter40(primary, center))
         assertEquals(primary, calculateCenter40(center, primary))
@@ -101,7 +101,7 @@ class WiFiWidthTest {
     fun testCalculateCenter40WithCenter() {
         // setup
         val primary = 10
-        val center = primary + WiFiWidth.MHZ_40.frequencyWidthHalf
+        val center = primary + WiFiWidth.bandwidth40MHz.frequencyWidthHalf
         val expected = (primary + center) / 2
         // execute & validate
         assertEquals(expected, calculateCenter40(primary, center))

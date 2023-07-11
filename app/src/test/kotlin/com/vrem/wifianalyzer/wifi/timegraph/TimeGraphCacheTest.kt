@@ -78,7 +78,7 @@ class TimeGraphCacheTest {
         return WiFiDetail(
             WiFiIdentifier(SSID, "BSSID"),
             String.EMPTY,
-            WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5, true)
+            WiFiSignal(100, 100, WiFiWidth.bandwidth20MHz, 5, true)
         )
     }
 

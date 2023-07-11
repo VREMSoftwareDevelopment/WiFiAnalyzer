@@ -26,9 +26,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class TransformerTest {
-    private val scanResult1 = withScanResult(SSID_1, BSSID_1, WiFiWidth.MHZ_160, WiFiStandard.AX)
-    private val scanResult2 = withScanResult(SSID_2, BSSID_2, WiFiWidth.MHZ_80, WiFiStandard.AC)
-    private val scanResult3 = withScanResult(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N)
+    private val scanResult1 = withScanResult(SSID_1, BSSID_1, WiFiWidth.bandwidth160MHz, WiFiStandard.AX)
+    private val scanResult2 = withScanResult(SSID_2, BSSID_2, WiFiWidth.bandwidth80MHz, WiFiStandard.AC)
+    private val scanResult3 = withScanResult(SSID_3, BSSID_3, WiFiWidth.bandwidth40MHz, WiFiStandard.N)
     private val cacheResults = listOf(
         CacheResult(scanResult1, scanResult1.level),
         CacheResult(scanResult2, scanResult2.level),
@@ -90,9 +90,9 @@ class TransformerTest {
         val actual = fixture.transformCacheResults()
         // validate
         assertEquals(cacheResults.size, actual.size)
-        validateWiFiDetail(SSID_1, BSSID_1, WiFiWidth.MHZ_160, WiFiStandard.AX, actual[0])
-        validateWiFiDetail(SSID_2, BSSID_2, WiFiWidth.MHZ_80, WiFiStandard.AC, actual[1])
-        validateWiFiDetail(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N, actual[2])
+        validateWiFiDetail(SSID_1, BSSID_1, WiFiWidth.bandwidth160MHz, WiFiStandard.AX, actual[0])
+        validateWiFiDetail(SSID_2, BSSID_2, WiFiWidth.bandwidth80MHz, WiFiStandard.AC, actual[1])
+        validateWiFiDetail(SSID_3, BSSID_3, WiFiWidth.bandwidth40MHz, WiFiStandard.N, actual[2])
         verify(fixture, times(3)).minVersionR()
         verify(cache).scanResults()
     }
@@ -140,11 +140,11 @@ class TransformerTest {
         scanResult.capabilities = WPA
         scanResult.frequency = FREQUENCY
         scanResult.centerFreq0 = when (wiFiWidth) {
-            WiFiWidth.MHZ_20 -> FREQUENCY
-            WiFiWidth.MHZ_40 -> FREQUENCY + wiFiWidth.frequencyWidth
-            WiFiWidth.MHZ_80 -> FREQUENCY + wiFiWidth.frequencyWidthHalf
-            WiFiWidth.MHZ_160 -> FREQUENCY + wiFiWidth.frequencyWidth
-            WiFiWidth.MHZ_80_PLUS -> FREQUENCY + wiFiWidth.frequencyWidthHalf
+            WiFiWidth.bandwidth20MHz -> FREQUENCY
+            WiFiWidth.bandwidth40MHz -> FREQUENCY + wiFiWidth.frequencyWidth
+            WiFiWidth.bandwidth80MHz -> FREQUENCY + wiFiWidth.frequencyWidthHalf
+            WiFiWidth.bandwidth160MHz -> FREQUENCY + wiFiWidth.frequencyWidth
+            WiFiWidth.bandwidth80Plus80MHz -> FREQUENCY + wiFiWidth.frequencyWidthHalf
         }
         scanResult.level = LEVEL
         scanResult.channelWidth = wiFiWidth.ordinal

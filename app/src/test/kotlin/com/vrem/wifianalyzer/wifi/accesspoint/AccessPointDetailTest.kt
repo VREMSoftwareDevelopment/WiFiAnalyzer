@@ -355,7 +355,7 @@ class AccessPointDetailTest {
         WiFiDetail(
             WiFiIdentifier(ssid, "BSSID"),
             "[WPS-capabilities][WPA2-XYZ][XYZ-FT/SAE-XYZ-abc]",
-            WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, is80211mc, WiFiStandard.AC, timestamp),
+            WiFiSignal(1, 1, WiFiWidth.bandwidth40MHz, 2, is80211mc, WiFiStandard.AC, timestamp),
             wiFiAdditional
         )
 

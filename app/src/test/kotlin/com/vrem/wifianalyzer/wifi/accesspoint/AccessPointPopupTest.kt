@@ -107,7 +107,7 @@ class AccessPointPopupTest {
         WiFiDetail(
             WiFiIdentifier("SSID", "BSSID"),
             "capabilities",
-            WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, true),
+            WiFiSignal(1, 1, WiFiWidth.bandwidth40MHz, 2, true),
             WiFiAdditional.EMPTY
         )
 }

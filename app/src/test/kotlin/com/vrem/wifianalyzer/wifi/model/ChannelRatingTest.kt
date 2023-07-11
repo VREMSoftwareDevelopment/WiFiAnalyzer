@@ -32,25 +32,25 @@ class ChannelRatingTest {
     private val wiFiDetail1 = WiFiDetail(
         WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
         String.EMPTY,
-        WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50, true),
+        WiFiSignal(2432, 2432, WiFiWidth.bandwidth20MHz, -50, true),
         WiFiAdditional(String.EMPTY, wiFiConnection)
     )
     private val wiFiDetail2 = WiFiDetail(
         WiFiIdentifier("SSID2", "58:6d:8f:fa:ae:c0"),
         String.EMPTY,
-        WiFiSignal(2442, 2442, WiFiWidth.MHZ_20, -70, true),
+        WiFiSignal(2442, 2442, WiFiWidth.bandwidth20MHz, -70, true),
         WiFiAdditional.EMPTY
     )
     private val wiFiDetail3 = WiFiDetail(
         WiFiIdentifier("SSID3", "84:94:8c:9d:40:68"),
         String.EMPTY,
-        WiFiSignal(2452, 2452, WiFiWidth.MHZ_20, -60, true),
+        WiFiSignal(2452, 2452, WiFiWidth.bandwidth20MHz, -60, true),
         WiFiAdditional.EMPTY
     )
     private val wiFiDetail4 = WiFiDetail(
         WiFiIdentifier("SSID3", "64:A4:8c:90:10:12"),
         String.EMPTY,
-        WiFiSignal(2452, 2452, WiFiWidth.MHZ_20, -80, true),
+        WiFiSignal(2452, 2452, WiFiWidth.bandwidth20MHz, -80, true),
         WiFiAdditional.EMPTY
     )
 
@@ -142,7 +142,7 @@ class ChannelRatingTest {
         val wiFiDetail = WiFiDetail(
             WiFiIdentifier("SSID2", "22:cf:30:ce:1d:72"),
             String.EMPTY,
-            WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, wiFiDetail1.wiFiSignal.level - 5, true),
+            WiFiSignal(2432, 2432, WiFiWidth.bandwidth20MHz, wiFiDetail1.wiFiSignal.level - 5, true),
             WiFiAdditional.EMPTY
         )
         // execute

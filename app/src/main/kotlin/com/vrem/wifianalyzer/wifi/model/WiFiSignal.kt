@@ -23,7 +23,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 data class WiFiSignal(
     val primaryFrequency: Int = 0,
     val centerFrequency: Int = 0,
-    val wiFiWidth: WiFiWidth = WiFiWidth.MHZ_20,
+    val wiFiWidth: WiFiWidth = WiFiWidth.bandwidth20MHz,
     val level: Int = 0,
     val is80211mc: Boolean = false,
     val wiFiStandard: WiFiStandard = WiFiStandard.UNKNOWN,

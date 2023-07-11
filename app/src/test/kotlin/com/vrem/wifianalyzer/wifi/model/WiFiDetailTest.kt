@@ -28,7 +28,7 @@ class WiFiDetailTest {
     private val capabilities = "WPA-WPA2"
     private val ssid = "xyzSSID"
     private val bssid = "xyzBSSID"
-    private val wiFiSignal = WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, level, true)
+    private val wiFiSignal = WiFiSignal(frequency, frequency, WiFiWidth.bandwidth20MHz, level, true)
     private val wiFiAdditional = WiFiAdditional(vendorName, WiFiConnection.EMPTY)
     private val wiFiIdentifier = WiFiIdentifier(ssid, bssid)
     private val fixture = WiFiDetail(wiFiIdentifier, capabilities, wiFiSignal, wiFiAdditional)

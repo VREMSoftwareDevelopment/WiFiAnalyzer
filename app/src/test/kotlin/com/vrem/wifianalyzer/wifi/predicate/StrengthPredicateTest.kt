@@ -36,6 +36,6 @@ class StrengthPredicateTest {
         WiFiDetail(
             WiFiIdentifier("ssid", "bssid"),
             "wpa",
-            WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, level, true)
+            WiFiSignal(2445, 2445, WiFiWidth.bandwidth20MHz, level, true)
         )
 }

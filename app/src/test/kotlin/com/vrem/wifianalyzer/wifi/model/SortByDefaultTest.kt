@@ -30,13 +30,13 @@ class SortByDefaultTest {
         val wiFiDetail1 = WiFiDetail(
             WiFiIdentifier("SSID1", "BSSID1"),
             String.EMPTY,
-            WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
+            WiFiSignal(2462, 2462, WiFiWidth.bandwidth20MHz, -55, true),
             WiFiAdditional.EMPTY
         )
         val wiFiDetail2 = WiFiDetail(
             WiFiIdentifier("SSID1", "BSSID1"),
             String.EMPTY,
-            WiFiSignal(2432, 2432, WiFiWidth.MHZ_40, -35, false),
+            WiFiSignal(2432, 2432, WiFiWidth.bandwidth40MHz, -35, false),
             WiFiAdditional.EMPTY
         )
         // execute
@@ -51,13 +51,13 @@ class SortByDefaultTest {
         val wiFiDetail1 = WiFiDetail(
             WiFiIdentifier("ssid1", "BSSID1"),
             String.EMPTY,
-            WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
+            WiFiSignal(2462, 2462, WiFiWidth.bandwidth20MHz, -55, true),
             WiFiAdditional.EMPTY
         )
         val wiFiDetail2 = WiFiDetail(
             WiFiIdentifier("SSID1", "BSSID1"),
             String.EMPTY,
-            WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
+            WiFiSignal(2462, 2462, WiFiWidth.bandwidth20MHz, -55, true),
             WiFiAdditional.EMPTY
         )
         // execute
@@ -72,13 +72,13 @@ class SortByDefaultTest {
         val wiFiDetail1 = WiFiDetail(
             WiFiIdentifier("SSID1", "bssid1"),
             String.EMPTY,
-            WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
+            WiFiSignal(2462, 2462, WiFiWidth.bandwidth20MHz, -55, true),
             WiFiAdditional.EMPTY
         )
         val wiFiDetail2 = WiFiDetail(
             WiFiIdentifier("SSID1", "BSSID1"),
             String.EMPTY,
-            WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
+            WiFiSignal(2462, 2462, WiFiWidth.bandwidth20MHz, -55, true),
             WiFiAdditional.EMPTY
         )
         // execute

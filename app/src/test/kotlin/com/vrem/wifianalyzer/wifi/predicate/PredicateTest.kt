@@ -160,7 +160,7 @@ class PredicateTest {
         WiFiDetail(
             WiFiIdentifier(ssid, "bssid"),
             security,
-            WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, -40, true)
+            WiFiSignal(2445, 2445, WiFiWidth.bandwidth20MHz, -40, true)
         )
 
 }
