@@ -29,7 +29,7 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelsGHZ5
-import com.vrem.wifianalyzer.wifi.band.WiFiChannelsGHZ6
+import com.vrem.wifianalyzer.wifi.band.WiFiChannels6GHz
 
 typealias NavigationSets = Map<Int, WiFiChannelPair>
 typealias NavigationLines = Map<Int, NavigationSets>
@@ -45,17 +45,17 @@ internal val navigationGHZ5Lines = mapOf(
     R.id.graphNavigationLine2 to emptyMap()
 )
 
-internal val navigationGHZ6Lines = mapOf(
+internal val navigation6GHzLines = mapOf(
     R.id.graphNavigationLine1 to mapOf(
-        R.id.graphNavigationSet1 to WiFiChannelsGHZ6.SET1,
-        R.id.graphNavigationSet2 to WiFiChannelsGHZ6.SET2,
-        R.id.graphNavigationSet3 to WiFiChannelsGHZ6.SET3
+        R.id.graphNavigationSet1 to WiFiChannels6GHz.SET1,
+        R.id.graphNavigationSet2 to WiFiChannels6GHz.SET2,
+        R.id.graphNavigationSet3 to WiFiChannels6GHz.SET3
     ),
     R.id.graphNavigationLine2 to mapOf(
-        R.id.graphNavigationSet4 to WiFiChannelsGHZ6.SET4,
-        R.id.graphNavigationSet5 to WiFiChannelsGHZ6.SET5,
-        R.id.graphNavigationSet6 to WiFiChannelsGHZ6.SET6,
-        R.id.graphNavigationSet7 to WiFiChannelsGHZ6.SET7
+        R.id.graphNavigationSet4 to WiFiChannels6GHz.SET4,
+        R.id.graphNavigationSet5 to WiFiChannels6GHz.SET5,
+        R.id.graphNavigationSet6 to WiFiChannels6GHz.SET6,
+        R.id.graphNavigationSet7 to WiFiChannels6GHz.SET7
     )
 )
 
@@ -107,7 +107,7 @@ class ChannelGraphNavigation(private val view: View, private val mainContext: Co
         when (wiFiBand) {
             WiFiBand.GHZ2 -> navigationGHZ2Lines
             WiFiBand.GHZ5 -> navigationGHZ5Lines
-            WiFiBand.GHZ6 -> navigationGHZ6Lines
+            WiFiBand.band6GHz -> navigation6GHzLines
         }
 
 }

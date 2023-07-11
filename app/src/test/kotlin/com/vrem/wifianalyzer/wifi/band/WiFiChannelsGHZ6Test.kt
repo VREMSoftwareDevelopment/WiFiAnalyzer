@@ -22,8 +22,8 @@ import org.junit.Assert.*
 import org.junit.Test
 import java.util.Locale
 
-class WiFiChannelsGHZ6Test {
-    private val fixture: WiFiChannelsGHZ6 = WiFiChannelsGHZ6()
+class WiFiChannels6GHzTest {
+    private val fixture: WiFiChannels6GHz = WiFiChannels6GHz()
 
     @Test
     fun testInRange() {

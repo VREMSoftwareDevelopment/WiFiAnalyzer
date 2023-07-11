@@ -88,19 +88,19 @@ class ChannelGraphNavigationTest {
     }
 
     @Test
-    fun testUpdateWithGHZ6() {
+    fun testUpdateWith6GHz() {
         // setup
-        val selected = WiFiBand.GHZ6.wiFiChannels.wiFiChannelPairs()[0]
-        whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ6)
-        whenever(configuration.wiFiChannelPair(WiFiBand.GHZ6)).thenReturn(selected)
-        whenLines(navigationGHZ6Lines)
+        val selected = WiFiBand.band6GHz.wiFiChannels.wiFiChannelPairs()[0]
+        whenever(settings.wiFiBand()).thenReturn(WiFiBand.band6GHz)
+        whenever(configuration.wiFiChannelPair(WiFiBand.band6GHz)).thenReturn(selected)
+        whenLines(navigation6GHzLines)
         // execute
         fixture.update()
         // validate
-        verifyLines(navigationGHZ6Lines, selected)
+        verifyLines(navigation6GHzLines, selected)
         verify(view).visibility = View.VISIBLE
         verify(settings).wiFiBand()
-        verify(configuration).wiFiChannelPair(WiFiBand.GHZ6)
+        verify(configuration).wiFiChannelPair(WiFiBand.band6GHz)
     }
 
     @Test
@@ -128,10 +128,10 @@ class ChannelGraphNavigationTest {
     }
 
     @Test
-    fun testNavigationGHZ6Lines() {
-        assertEquals(2, navigationGHZ6Lines.size)
-        assertTrue(navigationGHZ6Lines[R.id.graphNavigationLine1]!!.isNotEmpty())
-        assertTrue(navigationGHZ6Lines[R.id.graphNavigationLine2]!!.isNotEmpty())
+    fun testNavigation6GHzLines() {
+        assertEquals(2, navigation6GHzLines.size)
+        assertTrue(navigation6GHzLines[R.id.graphNavigationLine1]!!.isNotEmpty())
+        assertTrue(navigation6GHzLines[R.id.graphNavigationLine2]!!.isNotEmpty())
     }
 
     @Test
@@ -144,22 +144,22 @@ class ChannelGraphNavigationTest {
     }
 
     @Test
-    fun testNavigationGHZ6Line1() {
-        val line1 = navigationGHZ6Lines[R.id.graphNavigationLine1]!!
+    fun testNavigation6GHzLine1() {
+        val line1 = navigation6GHzLines[R.id.graphNavigationLine1]!!
         assertEquals(3, line1.size)
-        assertEquals(line1[R.id.graphNavigationSet1], WiFiChannelsGHZ6.SET1)
-        assertEquals(line1[R.id.graphNavigationSet2], WiFiChannelsGHZ6.SET2)
-        assertEquals(line1[R.id.graphNavigationSet3], WiFiChannelsGHZ6.SET3)
+        assertEquals(line1[R.id.graphNavigationSet1], WiFiChannels6GHz.SET1)
+        assertEquals(line1[R.id.graphNavigationSet2], WiFiChannels6GHz.SET2)
+        assertEquals(line1[R.id.graphNavigationSet3], WiFiChannels6GHz.SET3)
     }
 
     @Test
-    fun testNavigationGHZ6Line2() {
-        val line2 = navigationGHZ6Lines[R.id.graphNavigationLine2]!!
+    fun testNavigation6GHzLine2() {
+        val line2 = navigation6GHzLines[R.id.graphNavigationLine2]!!
         assertEquals(4, line2.size)
-        assertEquals(line2[R.id.graphNavigationSet4], WiFiChannelsGHZ6.SET4)
-        assertEquals(line2[R.id.graphNavigationSet5], WiFiChannelsGHZ6.SET5)
-        assertEquals(line2[R.id.graphNavigationSet6], WiFiChannelsGHZ6.SET6)
-        assertEquals(line2[R.id.graphNavigationSet7], WiFiChannelsGHZ6.SET7)
+        assertEquals(line2[R.id.graphNavigationSet4], WiFiChannels6GHz.SET4)
+        assertEquals(line2[R.id.graphNavigationSet5], WiFiChannels6GHz.SET5)
+        assertEquals(line2[R.id.graphNavigationSet6], WiFiChannels6GHz.SET6)
+        assertEquals(line2[R.id.graphNavigationSet7], WiFiChannels6GHz.SET7)
     }
 
     private fun whenLines(navigationLines: NavigationLines) {

@@ -22,7 +22,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.util.SortedSet
 
-class WiFiChannelCountryGHZ6Test {
+class WiFiChannelCountry6GHzTest {
     private val channelsSet: SortedSet<Int> = sortedSetOf(
         1, 5, 9, 13, 17, 21, 25, 29,
         33, 37, 41, 45, 49, 53, 57, 61,
@@ -33,7 +33,7 @@ class WiFiChannelCountryGHZ6Test {
         193, 197, 201, 205, 209, 213, 217, 221, 225, 229
     )
 
-    private val fixture = WiFiChannelCountryGHZ6()
+    private val fixture = WiFiChannelCountry6GHz()
 
     @Test
     fun testChannelsForWorld() {

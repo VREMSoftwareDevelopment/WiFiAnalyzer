@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
-class WiFiChannelsGHZ6 : WiFiChannels(RANGE, SETS) {
+class WiFiChannels6GHz : WiFiChannels(RANGE, SETS) {
     override fun wiFiChannelPairs(): List<WiFiChannelPair> = SETS
 
     override fun wiFiChannelPairFirst(countryCode: String): WiFiChannelPair =
@@ -28,10 +28,10 @@ class WiFiChannelsGHZ6 : WiFiChannels(RANGE, SETS) {
                 ?: SET1
 
     override fun availableChannels(countryCode: String): List<WiFiChannel> =
-        availableChannels(WiFiChannelCountry.find(countryCode).channelsGHZ6())
+        availableChannels(WiFiChannelCountry.find(countryCode).channels6GHz())
 
     override fun channelAvailable(countryCode: String, channel: Int): Boolean =
-        WiFiChannelCountry.find(countryCode).channelAvailableGHZ6(channel)
+        WiFiChannelCountry.find(countryCode).channelAvailable6GHz(channel)
 
     override fun wiFiChannelByFrequency(frequency: Int, wiFiChannelPair: WiFiChannelPair): WiFiChannel =
         if (inRange(frequency)) wiFiChannel(frequency, wiFiChannelPair) else WiFiChannel.UNKNOWN

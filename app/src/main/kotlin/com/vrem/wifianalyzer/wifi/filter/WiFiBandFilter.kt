@@ -27,7 +27,7 @@ internal class WiFiBandFilter(wiFiBandAdapter: WiFiBandAdapter, alertDialog: Ale
         mapOf(
             WiFiBand.GHZ2 to R.id.filterWifiBand2,
             WiFiBand.GHZ5 to R.id.filterWifiBand5,
-            WiFiBand.GHZ6 to R.id.filterWifiBand6
+            WiFiBand.band6GHz to R.id.filterWifiBand6
         ),
         wiFiBandAdapter,
         alertDialog,

@@ -29,8 +29,8 @@ internal class ChannelAvailableAdapterBinding {
     val channelAvailableGhz2: TextView
     val channelAvailableTitleGhz5: TextView
     val channelAvailableGhz5: TextView
-    val channelAvailableTitleGhz6: TextView
-    val channelAvailableGhz6: TextView
+    val channelAvailableTitle6GHz: TextView
+    val channelAvailable6GHz: TextView
 
     internal constructor(binding: ChannelAvailableDetailsBinding) {
         root = binding.root
@@ -39,8 +39,8 @@ internal class ChannelAvailableAdapterBinding {
         channelAvailableGhz2 = binding.channelAvailableGhz2
         channelAvailableTitleGhz5 = binding.channelAvailableTitleGhz5
         channelAvailableGhz5 = binding.channelAvailableGhz5
-        channelAvailableTitleGhz6 = binding.channelAvailableTitleGhz6
-        channelAvailableGhz6 = binding.channelAvailableGhz6
+        channelAvailableTitle6GHz = binding.channelAvailableTitle6GHz
+        channelAvailable6GHz = binding.channelAvailable6GHz
     }
 
     internal constructor(view: View) {
@@ -50,8 +50,8 @@ internal class ChannelAvailableAdapterBinding {
         channelAvailableGhz2 = view.findViewById(R.id.channel_available_ghz_2)
         channelAvailableTitleGhz5 = view.findViewById(R.id.channel_available_title_ghz_5)
         channelAvailableGhz5 = view.findViewById(R.id.channel_available_ghz_5)
-        channelAvailableTitleGhz6 = view.findViewById(R.id.channel_available_title6_g_hz)
-        channelAvailableGhz6 = view.findViewById(R.id.channel_available6_g_hz)
+        channelAvailableTitle6GHz = view.findViewById(R.id.channel_available_title6_g_hz)
+        channelAvailable6GHz = view.findViewById(R.id.channel_available6_g_hz)
     }
 
 }

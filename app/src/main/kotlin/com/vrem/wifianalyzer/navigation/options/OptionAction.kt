@@ -34,7 +34,7 @@ internal val wiFiBandAction2: Action = { MainContext.INSTANCE.settings.wiFiBand(
 
 internal val wiFiBandAction5: Action = { MainContext.INSTANCE.settings.wiFiBand(WiFiBand.GHZ5) }
 
-internal val wiFiBandAction6: Action = { MainContext.INSTANCE.settings.wiFiBand(WiFiBand.GHZ6) }
+internal val wiFiBandAction6: Action = { MainContext.INSTANCE.settings.wiFiBand(WiFiBand.band6GHz) }
 
 internal enum class OptionAction(val key: Int, val action: Action) {
     NO_ACTION(-1, noAction),
