@@ -32,7 +32,7 @@ internal val scannerAction: Action = { MainContext.INSTANCE.scannerService.toggl
 
 internal val wiFiBandAction2: Action = { MainContext.INSTANCE.settings.wiFiBand(WiFiBand.GHZ2) }
 
-internal val wiFiBandAction5: Action = { MainContext.INSTANCE.settings.wiFiBand(WiFiBand.GHZ5) }
+internal val wiFiBandAction5: Action = { MainContext.INSTANCE.settings.wiFiBand(WiFiBand.band5GHz) }
 
 internal val wiFiBandAction6: Action = { MainContext.INSTANCE.settings.wiFiBand(WiFiBand.band6GHz) }
 

@@ -42,12 +42,12 @@ class WiFiChannelCountryTest {
     fun testChannelAvailableWithTrue() {
         assertTrue(find(Locale.US.country).channelAvailableGHZ2(1))
         assertTrue(find(Locale.US.country).channelAvailableGHZ2(11))
-        assertTrue(find(Locale.US.country).channelAvailableGHZ5(36))
-        assertTrue(find(Locale.US.country).channelAvailableGHZ5(165))
+        assertTrue(find(Locale.US.country).channelAvailable5GHz(36))
+        assertTrue(find(Locale.US.country).channelAvailable5GHz(165))
         assertTrue(find(Locale.UK.country).channelAvailableGHZ2(1))
         assertTrue(find(Locale.UK.country).channelAvailableGHZ2(13))
-        assertTrue(find(Locale.UK.country).channelAvailableGHZ5(36))
-        assertTrue(find(Locale.UK.country).channelAvailableGHZ5(140))
+        assertTrue(find(Locale.UK.country).channelAvailable5GHz(36))
+        assertTrue(find(Locale.UK.country).channelAvailable5GHz(140))
     }
 
     @Test
@@ -59,13 +59,13 @@ class WiFiChannelCountryTest {
     }
 
     @Test
-    fun testChannelAvailableWithGHZ5() {
-        assertTrue(find(Locale.US.country).channelAvailableGHZ5(36))
-        assertTrue(find(Locale.US.country).channelAvailableGHZ5(165))
-        assertTrue(find(Locale.UK.country).channelAvailableGHZ5(36))
-        assertTrue(find(Locale.UK.country).channelAvailableGHZ5(140))
-        assertTrue(find("AE").channelAvailableGHZ5(36))
-        assertTrue(find("AE").channelAvailableGHZ5(64))
+    fun testChannelAvailableWith5GHz() {
+        assertTrue(find(Locale.US.country).channelAvailable5GHz(36))
+        assertTrue(find(Locale.US.country).channelAvailable5GHz(165))
+        assertTrue(find(Locale.UK.country).channelAvailable5GHz(36))
+        assertTrue(find(Locale.UK.country).channelAvailable5GHz(140))
+        assertTrue(find("AE").channelAvailable5GHz(36))
+        assertTrue(find("AE").channelAvailable5GHz(64))
     }
 
     @Test
@@ -83,14 +83,14 @@ class WiFiChannelCountryTest {
         // setup
         val expectedCountryCode = Locale.US.country
         val expectedGHZ2: Set<Int> = WiFiChannelCountryGHZ2().findChannels(expectedCountryCode)
-        val expectedGHZ5: Set<Int> = WiFiChannelCountryGHZ5().findChannels(expectedCountryCode)
+        val expected5GHz: Set<Int> = WiFiChannelCountry5GHz().findChannels(expectedCountryCode)
         val expected6GHz: Set<Int> = WiFiChannelCountry6GHz().findChannels()
         // execute
         val actual: WiFiChannelCountry = find(expectedCountryCode)
         // validate
         assertEquals(expectedCountryCode, actual.countryCode())
         assertArrayEquals(expectedGHZ2.toTypedArray(), actual.channelsGHZ2().toTypedArray())
-        assertArrayEquals(expectedGHZ5.toTypedArray(), actual.channelsGHZ5().toTypedArray())
+        assertArrayEquals(expected5GHz.toTypedArray(), actual.channels5GHz().toTypedArray())
         assertArrayEquals(expected6GHz.toTypedArray(), actual.channels6GHz().toTypedArray())
     }
 

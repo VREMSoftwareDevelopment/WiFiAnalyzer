@@ -72,7 +72,7 @@ class OptionActionTest {
         // execute
         wiFiBandAction5()
         // validate
-        verify(settings).wiFiBand(WiFiBand.GHZ5)
+        verify(settings).wiFiBand(WiFiBand.band5GHz)
     }
 
     @Test

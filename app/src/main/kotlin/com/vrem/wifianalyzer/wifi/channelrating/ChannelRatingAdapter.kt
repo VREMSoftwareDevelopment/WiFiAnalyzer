@@ -104,7 +104,7 @@ class ChannelRatingAdapter(
         getText(R.string.channel_rating_best_none).toString() +
             if (WiFiBand.GHZ2 == wiFiBand) {
                 getText(R.string.channel_rating_best_alternative).toString() +
-                    " " + getString(WiFiBand.GHZ5.textResource)
+                    " " + getString(WiFiBand.band5GHz.textResource)
             } else {
                 String.EMPTY
             }

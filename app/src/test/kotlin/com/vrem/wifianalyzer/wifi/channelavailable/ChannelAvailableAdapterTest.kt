@@ -63,11 +63,11 @@ class ChannelAvailableAdapterTest {
         // setup
         val resources = mainActivity.resources
         val wiFiBand2 = resources.getString(WiFiBand.GHZ2.textResource)
-        val wiFiBand5 = resources.getString(WiFiBand.GHZ5.textResource)
+        val wiFiBand5 = resources.getString(WiFiBand.band5GHz.textResource)
         val wiFiBand6 = resources.getString(WiFiBand.band6GHz.textResource)
         val expected = "${wiFiChannelCountry.countryCode()} - ${wiFiChannelCountry.countryName(currentLocale)}"
         val expectedGHZ2 = wiFiChannelCountry.channelsGHZ2().joinToString(",")
-        val expectedGHZ5 = wiFiChannelCountry.channelsGHZ5().joinToString(",")
+        val expected5GHz = wiFiChannelCountry.channels5GHz().joinToString(",")
         val expected6GHz = wiFiChannelCountry.channels6GHz().joinToString(",")
         val viewGroup = mainActivity.findViewById<ViewGroup>(android.R.id.content)
         // execute
@@ -78,7 +78,7 @@ class ChannelAvailableAdapterTest {
         assertEquals("$wiFiBand2 : ", actual.findViewById<TextView>(R.id.channel_available_title_ghz_2).text)
         assertEquals(expectedGHZ2, actual.findViewById<TextView>(R.id.channel_available_ghz_2).text)
         assertEquals("$wiFiBand5 : ", actual.findViewById<TextView>(R.id.channel_available_title5_g_hz).text)
-        assertEquals(expectedGHZ5, actual.findViewById<TextView>(R.id.channel_available5_g_hz).text)
+        assertEquals(expected5GHz, actual.findViewById<TextView>(R.id.channel_available5_g_hz).text)
         assertEquals("$wiFiBand6 : ", actual.findViewById<TextView>(R.id.channel_available_title6_g_hz).text)
         assertEquals(expected6GHz, actual.findViewById<TextView>(R.id.channel_available6_g_hz).text)
     }

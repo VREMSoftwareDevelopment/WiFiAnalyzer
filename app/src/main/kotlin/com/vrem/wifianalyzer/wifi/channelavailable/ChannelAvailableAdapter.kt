@@ -39,8 +39,8 @@ internal class ChannelAvailableAdapter(context: Context, wiFiChannelCountries: L
             binding.channelAvailableCountry.text = "${it.countryCode()} - ${it.countryName(currentLocale)}"
             binding.channelAvailableTitleGhz2.text = "${resources.getString(WiFiBand.GHZ2.textResource)} : "
             binding.channelAvailableGhz2.text = it.channelsGHZ2().joinToString(",")
-            binding.channelAvailableTitleGhz5.text = "${resources.getString(WiFiBand.GHZ5.textResource)} : "
-            binding.channelAvailableGhz5.text = it.channelsGHZ5().joinToString(",")
+            binding.channelAvailableTitle5GHz.text = "${resources.getString(WiFiBand.band5GHz.textResource)} : "
+            binding.channelAvailable5GHz.text = it.channels5GHz().joinToString(",")
             binding.channelAvailableTitle6GHz.text = "${resources.getString(WiFiBand.band6GHz.textResource)} : "
             binding.channelAvailable6GHz.text = it.channels6GHz().joinToString(",")
         }

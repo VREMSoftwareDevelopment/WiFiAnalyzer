@@ -24,16 +24,16 @@ import com.vrem.wifianalyzer.R
 typealias Available = () -> Boolean
 
 internal val availableGHZ2: Available = { true }
-internal val availableGHZ5: Available = { MainContext.INSTANCE.wiFiManagerWrapper.is5GHzBandSupported() }
+internal val available5GHz: Available = { MainContext.INSTANCE.wiFiManagerWrapper.is5GHzBandSupported() }
 internal val available6GHz: Available = { MainContext.INSTANCE.wiFiManagerWrapper.is6GHzBandSupported() }
 
 enum class WiFiBand(@StringRes val textResource: Int, val wiFiChannels: WiFiChannels, val available: Available) {
     GHZ2(R.string.wifi_band_2ghz, WiFiChannelsGHZ2(), availableGHZ2),
-    GHZ5(R.string.wifi_band_5ghz, WiFiChannelsGHZ5(), availableGHZ5),
+    band5GHz(R.string.wifi_band_5ghz, WiFiChannels5GHz(), available5GHz),
     band6GHz(R.string.wifi_band_6ghz, WiFiChannels6GHz(), available6GHz);
 
     val ghz2: Boolean get() = GHZ2 == this
-    val ghz5: Boolean get() = GHZ5 == this
+    val is5GHz: Boolean get() = band5GHz == this
     val is6GHz: Boolean get() = band6GHz == this
 
     companion object {

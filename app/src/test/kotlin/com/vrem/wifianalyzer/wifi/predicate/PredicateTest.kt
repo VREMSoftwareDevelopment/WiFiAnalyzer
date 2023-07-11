@@ -121,7 +121,7 @@ class PredicateTest {
     @Test
     fun testMakeOtherPredicate() {
         // setup
-        whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5)
+        whenever(settings.wiFiBand()).thenReturn(WiFiBand.band5GHz)
         whenever(settings.findSSIDs()).thenReturn(setOf(ssid, ssid))
         whenever(settings.findStrengths()).thenReturn(setOf(Strength.TWO, Strength.FOUR))
         whenever(settings.findSecurities()).thenReturn(setOf(Security.WEP, Security.WPA2))

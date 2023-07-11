@@ -22,8 +22,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.Locale
 
-class WiFiChannelsGHZ5Test {
-    private val fixture: WiFiChannelsGHZ5 = WiFiChannelsGHZ5()
+class WiFiChannels5GHzTest {
+    private val fixture: WiFiChannels5GHz = WiFiChannels5GHz()
 
     @Test
     fun testWiFiChannelByFrequency() {

@@ -33,7 +33,7 @@ class WiFiBandPredicateTest {
         val wiFiDetail = makeWiFiDetail(2455)
         // execute & validate
         assertTrue(WiFiBand.GHZ2.predicate()(wiFiDetail))
-        assertFalse(WiFiBand.GHZ5.predicate()(wiFiDetail))
+        assertFalse(WiFiBand.band5GHz.predicate()(wiFiDetail))
     }
 
     @Test
@@ -42,7 +42,7 @@ class WiFiBandPredicateTest {
         val wiFiDetail = makeWiFiDetail(5455)
         // execute & validate
         assertFalse(WiFiBand.GHZ2.predicate()(wiFiDetail))
-        assertTrue(WiFiBand.GHZ5.predicate()(wiFiDetail))
+        assertTrue(WiFiBand.band5GHz.predicate()(wiFiDetail))
     }
 
     private fun makeWiFiDetail(frequency: Int): WiFiDetail =

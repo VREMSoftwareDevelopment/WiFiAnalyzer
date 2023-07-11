@@ -131,27 +131,27 @@ class ChannelGraphViewTest {
     }
 
     @Test
-    fun testWiFiChannelPairSelectedWithCurrentWiFiBandGHZ5() {
+    fun testWiFiChannelPairSelectedWithCurrentWiFiBand5GHz() {
         // setup
         val fixture = withWiFiChannelPair()
-        whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5)
-        whenever(configuration.wiFiChannelPair(WiFiBand.GHZ5)).thenReturn(fixture)
+        whenever(settings.wiFiBand()).thenReturn(WiFiBand.band5GHz)
+        whenever(configuration.wiFiChannelPair(WiFiBand.band5GHz)).thenReturn(fixture)
         // execute
         val actual = fixture.selected(WiFiBand.GHZ2)
         // validate
         assertFalse(actual)
         verify(settings).wiFiBand()
-        verify(configuration).wiFiChannelPair(WiFiBand.GHZ5)
+        verify(configuration).wiFiChannelPair(WiFiBand.band5GHz)
     }
 
     @Test
-    fun testWiFiChannelPairSelectedWithGHZ5() {
+    fun testWiFiChannelPairSelectedWith5GHz() {
         // setup
         val fixture = withWiFiChannelPair()
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
         whenever(configuration.wiFiChannelPair(WiFiBand.GHZ2)).thenReturn(fixture)
         // execute
-        val actual = fixture.selected(WiFiBand.GHZ5)
+        val actual = fixture.selected(WiFiBand.band5GHz)
         // validate
         assertFalse(actual)
         verify(settings).wiFiBand()
@@ -159,18 +159,18 @@ class ChannelGraphViewTest {
     }
 
     @Test
-    fun testWiFiChannelPairSelectedWithCurrentGHZ5() {
+    fun testWiFiChannelPairSelectedWithCurrent5GHz() {
         // setup
         val fixture = withWiFiChannelPair()
         val wiFiChannelPair = withWiFiChannelPair(30)
-        whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5)
-        whenever(configuration.wiFiChannelPair(WiFiBand.GHZ5)).thenReturn(wiFiChannelPair)
+        whenever(settings.wiFiBand()).thenReturn(WiFiBand.band5GHz)
+        whenever(configuration.wiFiChannelPair(WiFiBand.band5GHz)).thenReturn(wiFiChannelPair)
         // execute
-        val actual = fixture.selected(WiFiBand.GHZ5)
+        val actual = fixture.selected(WiFiBand.band5GHz)
         // validate
         assertFalse(actual)
         verify(settings).wiFiBand()
-        verify(configuration).wiFiChannelPair(WiFiBand.GHZ5)
+        verify(configuration).wiFiChannelPair(WiFiBand.band5GHz)
     }
 
     @Test

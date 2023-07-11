@@ -57,8 +57,8 @@ class WiFiSwitchOnTest {
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(menu)
         whenever(menu.findItem(R.id.action_wifi_band)).thenReturn(menuItem)
-        whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5)
-        whenever(mainActivity.getString(WiFiBand.GHZ5.textResource)).thenReturn("XYZ 123")
+        whenever(settings.wiFiBand()).thenReturn(WiFiBand.band5GHz)
+        whenever(mainActivity.getString(WiFiBand.band5GHz.textResource)).thenReturn("XYZ 123")
         // execute
         navigationOptionWiFiSwitchOn(mainActivity)
         // validate
@@ -66,7 +66,7 @@ class WiFiSwitchOnTest {
         verify(optionMenu).menu
         verify(menu).findItem(R.id.action_wifi_band)
         verify(settings).wiFiBand()
-        verify(mainActivity).getString(WiFiBand.GHZ5.textResource)
+        verify(mainActivity).getString(WiFiBand.band5GHz.textResource)
         verify(menuItem).isVisible = true
         verify(menuItem).title = expected
     }
@@ -83,7 +83,7 @@ class WiFiSwitchOnTest {
         verify(optionMenu).menu
         verify(menu, never()).findItem(R.id.action_wifi_band)
         verify(settings, never()).wiFiBand()
-        verify(mainActivity, never()).getString(WiFiBand.GHZ5.textResource)
+        verify(mainActivity, never()).getString(WiFiBand.band5GHz.textResource)
         verify(menuItem, never()).isVisible = any()
         verify(menuItem, never()).title = any()
     }

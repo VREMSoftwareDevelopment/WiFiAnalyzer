@@ -72,9 +72,9 @@ class ConfigurationTest {
         // setup
         val expected = WiFiChannelPair(WiFiChannel(1, 2), WiFiChannel(3, 4))
         // execute
-        fixture.wiFiChannelPair(WiFiBand.GHZ5, expected)
+        fixture.wiFiChannelPair(WiFiBand.band5GHz, expected)
         // validate
-        assertEquals(expected, fixture.wiFiChannelPair(WiFiBand.GHZ5))
+        assertEquals(expected, fixture.wiFiChannelPair(WiFiBand.band5GHz))
     }
 
 }

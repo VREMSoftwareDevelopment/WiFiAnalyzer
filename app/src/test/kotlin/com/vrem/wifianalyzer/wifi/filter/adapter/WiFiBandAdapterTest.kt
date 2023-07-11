@@ -81,12 +81,12 @@ class WiFiBandAdapterTest {
     @Test
     fun testToggleAdds() {
         // setup
-        fixture.toggle(WiFiBand.GHZ5)
+        fixture.toggle(WiFiBand.band5GHz)
         // execute
-        val actual = fixture.toggle(WiFiBand.GHZ5)
+        val actual = fixture.toggle(WiFiBand.band5GHz)
         // validate
         assertTrue(actual)
-        assertTrue(fixture.contains(WiFiBand.GHZ5))
+        assertTrue(fixture.contains(WiFiBand.band5GHz))
     }
 
     @Test

@@ -204,23 +204,23 @@ class SettingsTest {
     @Test
     fun testGetWiFiBand() {
         // setup
-        doReturn(WiFiBand.GHZ5.ordinal)
+        doReturn(WiFiBand.band5GHz.ordinal)
             .whenever(repository).stringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal)
         // execute
         val actual = fixture.wiFiBand()
         // validate
-        assertEquals(WiFiBand.GHZ5, actual)
+        assertEquals(WiFiBand.band5GHz, actual)
         verify(repository).stringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal)
     }
 
     @Test
     fun testSetWiFiBand() {
         // setup
-        doNothing().whenever(repository).save(R.string.wifi_band_key, WiFiBand.GHZ5.ordinal)
+        doNothing().whenever(repository).save(R.string.wifi_band_key, WiFiBand.band5GHz.ordinal)
         // execute
-        fixture.wiFiBand(WiFiBand.GHZ5)
+        fixture.wiFiBand(WiFiBand.band5GHz)
         // validate
-        verify(repository).save(R.string.wifi_band_key, WiFiBand.GHZ5.ordinal)
+        verify(repository).save(R.string.wifi_band_key, WiFiBand.band5GHz.ordinal)
     }
 
     @Test
@@ -249,7 +249,7 @@ class SettingsTest {
     @Test
     fun testFindWiFiBands() {
         // setup
-        val expected = WiFiBand.GHZ5
+        val expected = WiFiBand.band5GHz
         val values = setOf("" + expected.ordinal)
         val defaultValues = ordinals(WiFiBand.values())
         doReturn(values).whenever(repository).stringSet(R.string.filter_wifi_band_key, defaultValues)
@@ -264,8 +264,8 @@ class SettingsTest {
     @Test
     fun testSaveWiFiBands() {
         // setup
-        val values = setOf(WiFiBand.GHZ5)
-        val expected = setOf("" + WiFiBand.GHZ5.ordinal)
+        val values = setOf(WiFiBand.band5GHz)
+        val expected = setOf("" + WiFiBand.band5GHz.ordinal)
         doNothing().whenever(repository).saveStringSet(R.string.filter_wifi_band_key, expected)
         // execute
         fixture.saveWiFiBands(values)
