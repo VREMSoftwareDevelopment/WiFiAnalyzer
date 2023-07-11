@@ -44,8 +44,8 @@ class ChannelAvailableAdapterBindingTest {
         whenever(view.findViewById<TextView>(R.id.channel_available_ghz_2)).thenReturn(channelAvailableGhz2)
         whenever(view.findViewById<TextView>(R.id.channel_available_title_ghz_5)).thenReturn(channelAvailableTitleGhz5)
         whenever(view.findViewById<TextView>(R.id.channel_available_ghz_5)).thenReturn(channelAvailableGhz5)
-        whenever(view.findViewById<TextView>(R.id.channel_available_title_ghz_6)).thenReturn(channelAvailableTitleGhz6)
-        whenever(view.findViewById<TextView>(R.id.channel_available_ghz_6)).thenReturn(channelAvailableGhz6)
+        whenever(view.findViewById<TextView>(R.id.channel_available_title6_g_hz)).thenReturn(channelAvailableTitleGhz6)
+        whenever(view.findViewById<TextView>(R.id.channel_available6_g_hz)).thenReturn(channelAvailableGhz6)
         // execute
         val fixture = ChannelAvailableAdapterBinding(view)
         // validate
@@ -62,8 +62,8 @@ class ChannelAvailableAdapterBindingTest {
         verify(view).findViewById<TextView>(R.id.channel_available_ghz_2)
         verify(view).findViewById<TextView>(R.id.channel_available_title_ghz_5)
         verify(view).findViewById<TextView>(R.id.channel_available_ghz_5)
-        verify(view).findViewById<TextView>(R.id.channel_available_title_ghz_6)
-        verify(view).findViewById<TextView>(R.id.channel_available_ghz_6)
+        verify(view).findViewById<TextView>(R.id.channel_available_title6_g_hz)
+        verify(view).findViewById<TextView>(R.id.channel_available6_g_hz)
     }
 
 }
