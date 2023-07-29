@@ -254,4 +254,29 @@ class WiFiManagerWrapperTest {
         verify(fixture).minVersionR()
     }
 
+    @Test
+    fun testIsScanThrottleEnabledSupported() {
+        // setup
+        doReturn(false).whenever(fixture).minVersionR()
+        // execute
+        val actual = fixture.isScanThrottleEnabled()
+        // validate
+        assertFalse(actual)
+        verify(wifiManager, never()).isScanThrottleEnabled
+        verify(fixture).minVersionR()
+    }
+
+    @Test
+    fun testIsScanThrottleEnabledSupportedWithAndroidR() {
+        // setup
+        doReturn(true).whenever(fixture).minVersionR()
+        whenever(wifiManager.isScanThrottleEnabled).thenReturn(true)
+        // execute
+        val actual = fixture.isScanThrottleEnabled()
+        // validate
+        assertTrue(actual)
+        verify(wifiManager).isScanThrottleEnabled
+        verify(fixture).minVersionR()
+    }
+
 }

@@ -20,8 +20,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/throttling"
@@ -32,5 +31,4 @@
         android:textColor="@color/warning"
         android:visibility="gone"
         tools:visibility="visible" />
-
 </LinearLayout>

@@ -85,6 +85,13 @@ class WiFiManagerWrapper(
             false
         }
 
+    fun isScanThrottleEnabled(): Boolean =
+        if (minVersionR()) {
+            wifiManager.isScanThrottleEnabled
+        } else {
+            false
+        }
+
     fun minVersionR(): Boolean = buildMinVersionR()
 
 }

@@ -18,6 +18,7 @@
 package com.vrem.wifianalyzer
 
 import com.nhaarman.mockitokotlin2.mock
+import com.vrem.wifianalyzer.permission.PermissionService
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.vendor.model.VendorService
 import com.vrem.wifianalyzer.wifi.filter.adapter.FiltersAdapter
@@ -50,6 +51,17 @@ enum class MainContextHelper {
             }
             mainContext.vendorService = mock()
             return mainContext.vendorService
+        }
+
+    val permissionService: PermissionService
+        get() {
+            try {
+                saved[PermissionService::class.java] = mainContext.permissionService
+            } catch (e: UninitializedPropertyAccessException) {
+                /* do nothing */
+            }
+            mainContext.permissionService = mock()
+            return mainContext.permissionService
         }
 
     val scannerService: ScannerService

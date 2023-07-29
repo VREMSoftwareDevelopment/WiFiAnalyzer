@@ -68,5 +68,5 @@
 
     <include layout="@layout/main_wifi_support" />
 
-    <include layout="@layout/main_nodata" />
+    <include layout="@layout/main_warning" />
 </LinearLayout>

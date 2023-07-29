@@ -38,7 +38,6 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.navigation.NavigationMenuControl
 import com.vrem.wifianalyzer.navigation.NavigationMenuController
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
-import com.vrem.wifianalyzer.permission.PermissionService
 import com.vrem.wifianalyzer.settings.Repository
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionView
@@ -50,7 +49,6 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
     internal lateinit var mainReload: MainReload
     internal lateinit var navigationMenuController: NavigationMenuController
     internal lateinit var optionMenu: OptionMenu
-    internal lateinit var permissionService: PermissionService
     internal lateinit var connectionView: ConnectionView
 
     private var currentCountryCode: String = String.EMPTY
@@ -88,8 +86,6 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
 
         connectionView = ConnectionView(this)
 
-        permissionService = PermissionService(this)
-
         onBackPressedDispatcher.addCallback(this, MainActivityBackPressed(this))
     }
 
@@ -104,7 +100,7 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (!permissionService.granted(requestCode, grantResults)) {
+        if (!MainContext.INSTANCE.permissionService.granted(requestCode, grantResults)) {
             finish()
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -171,8 +167,8 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
     public override fun onResume() {
         super.onResume()
         val scannerService: ScannerService = MainContext.INSTANCE.scannerService
-        if (permissionService.permissionGranted()) {
-            if (!permissionService.locationEnabled()) {
+        if (MainContext.INSTANCE.permissionService.permissionGranted()) {
+            if (!MainContext.INSTANCE.permissionService.locationEnabled()) {
                 startLocationSettings()
             }
             scannerService.resume()
@@ -190,10 +186,10 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
 
     public override fun onStart() {
         super.onStart()
-        if (permissionService.permissionGranted()) {
+        if (MainContext.INSTANCE.permissionService.permissionGranted()) {
             MainContext.INSTANCE.scannerService.resume()
         } else {
-            permissionService.check()
+            MainContext.INSTANCE.permissionService.check()
         }
     }
 
