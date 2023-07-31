@@ -20,7 +20,7 @@ jobs:
       - name: Reports
         uses: actions/upload-artifact@v3
         with:
-          path: reports
+          path: app/build/reports
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
