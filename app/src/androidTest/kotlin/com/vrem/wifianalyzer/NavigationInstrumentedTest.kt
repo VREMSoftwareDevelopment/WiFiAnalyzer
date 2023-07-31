@@ -61,7 +61,7 @@ internal class NavigationInstrumentedTest : Runnable {
             Matchers.allOf(
                 ChildAtPosition(
                     Matchers.allOf(
-                        ViewMatchers.withId(R.id.design_navigation_view),
+                        ViewMatchers.withId(com.google.android.material.R.id.design_navigation_view),
                         ChildAtPosition(ViewMatchers.withId(R.id.nav_drawer), NAVIGATION_DRAWER_BUTTON)
                     ), menuItem
                 ),
