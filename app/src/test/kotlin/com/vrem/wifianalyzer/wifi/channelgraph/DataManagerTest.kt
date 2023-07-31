@@ -133,9 +133,9 @@ class DataManagerTest {
         assertFalse(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.second.frequency + 1)))
     }
 
-    private fun makeWiFiDetail(SSID: String = "SSID", frequency: Int = 2455): WiFiDetail {
+    private fun makeWiFiDetail(ssid: String = "SSID", frequency: Int = 2455): WiFiDetail {
         val wiFiSignal = WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, level, true)
-        val wiFiIdentifier = WiFiIdentifier(SSID, "BSSID")
+        val wiFiIdentifier = WiFiIdentifier(ssid, "BSSID")
         return WiFiDetail(wiFiIdentifier, String.EMPTY, wiFiSignal, WiFiAdditional.EMPTY)
     }
 

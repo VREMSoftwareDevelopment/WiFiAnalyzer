@@ -55,7 +55,7 @@ dependencies {
 
 android {
     namespace 'com.vrem.wifianalyzer'
-    compileSdkVersion 33
+    compileSdk 33
     buildToolsVersion '34.0.0'
 
     sourceSets.each {
@@ -104,7 +104,6 @@ android {
             }
         }
     }
-
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

@@ -42,7 +42,7 @@ def mainJavaSrc = "$project.projectDir/src/main/java"
 def mainKotlinSrc = "$project.projectDir/src/main/kotlin"
 def debugTree = fileTree(dir: classJavaDir, excludes: fileFilter) + fileTree(dir: classKotlinDir, excludes: fileFilter)
 
-tasks.withType(Test) {
+tasks.withType(Test).configureEach {
     jacoco.includeNoLocationClasses = true
     jacoco.excludes = ['jdk.internal.*']
 }

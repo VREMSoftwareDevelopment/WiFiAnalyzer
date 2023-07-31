@@ -186,8 +186,8 @@ class DataManagerTest {
         )
     }
 
-    private fun makeWiFiDetailConnected(SSID: String): WiFiDetail {
-        val wiFiIdentifier = WiFiIdentifier(SSID, bssid)
+    private fun makeWiFiDetailConnected(ssid: String): WiFiDetail {
+        val wiFiIdentifier = WiFiIdentifier(ssid, bssid)
         val wiFiConnection = WiFiConnection(wiFiIdentifier, "IPADDRESS", 11)
         val wiFiAdditional = WiFiAdditional("VendorName", wiFiConnection)
         return WiFiDetail(wiFiIdentifier, String.EMPTY, makeWiFiSignal(), wiFiAdditional)
@@ -196,8 +196,8 @@ class DataManagerTest {
     private fun makeWiFiSignal(): WiFiSignal =
         WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, level, true)
 
-    private fun makeWiFiDetail(SSID: String): WiFiDetail =
-        WiFiDetail(WiFiIdentifier(SSID, bssid), String.EMPTY, makeWiFiSignal(), WiFiAdditional.EMPTY)
+    private fun makeWiFiDetail(ssid: String): WiFiDetail =
+        WiFiDetail(WiFiIdentifier(ssid, bssid), String.EMPTY, makeWiFiSignal(), WiFiAdditional.EMPTY)
 
     private fun makeWiFiDetails(): List<WiFiDetail> =
         listOf(makeWiFiDetailConnected("SSID1"), makeWiFiDetail("SSID2"), makeWiFiDetail("SSID3"))

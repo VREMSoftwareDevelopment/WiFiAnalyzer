@@ -185,9 +185,9 @@ class SeriesCacheTest {
         assertEquals(wiFiDetails[1], actual)
     }
 
-    private fun makeWiFiDetail(SSID: String): WiFiDetail {
+    private fun makeWiFiDetail(ssid: String): WiFiDetail {
         return WiFiDetail(
-            WiFiIdentifier(SSID, "BSSID"),
+            WiFiIdentifier(ssid, "BSSID"),
             String.EMPTY,
             WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5, true)
         )

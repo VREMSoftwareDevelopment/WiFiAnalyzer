@@ -212,8 +212,7 @@ class WarningViewTest {
     }
 
     @Test
-    @Config(sdk = [Build.VERSION_CODES.TIRAMISU])
-    fun testThrottlingAndroidTVisibleWhenRegisteredAndThrottling() {
+    fun testThrottlingVisibleWhenRegisteredAndThrottling() {
         // setup
         whenever(wiFiManagerWrapper.isScanThrottleEnabled()).thenReturn(true)
         // execute
@@ -225,8 +224,7 @@ class WarningViewTest {
     }
 
     @Test
-    @Config(sdk = [Build.VERSION_CODES.TIRAMISU])
-    fun testThrottlingAndroidTGoneWhenNotRegistered() {
+    fun testThrottlingGoneWhenNotRegistered() {
         // setup
         whenever(wiFiManagerWrapper.isScanThrottleEnabled()).thenReturn(true)
         // execute
@@ -238,8 +236,7 @@ class WarningViewTest {
     }
 
     @Test
-    @Config(sdk = [Build.VERSION_CODES.TIRAMISU])
-    fun testThrottlingAndroidTGoneWhenNoThrottling() {
+    fun testThrottlingGoneWhenNoThrottling() {
         // setup
         whenever(wiFiManagerWrapper.isScanThrottleEnabled()).thenReturn(false)
         // execute

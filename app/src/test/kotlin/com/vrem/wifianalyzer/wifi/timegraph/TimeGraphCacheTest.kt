@@ -74,9 +74,9 @@ class TimeGraphCacheTest {
         assertTrue(actual.contains(expected[0]))
     }
 
-    private fun withWiFiDetail(SSID: String): WiFiDetail {
+    private fun withWiFiDetail(ssid: String): WiFiDetail {
         return WiFiDetail(
-            WiFiIdentifier(SSID, "BSSID"),
+            WiFiIdentifier(ssid, "BSSID"),
             String.EMPTY,
             WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5, true)
         )

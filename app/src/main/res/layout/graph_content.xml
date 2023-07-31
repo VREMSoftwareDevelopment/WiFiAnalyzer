@@ -23,6 +23,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.ButtonBarLayout
+        style="?android:attr/buttonBarStyle"
         android:id="@+id/graphNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,6 +46,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    style="?android:attr/buttonBarButtonStyle"
                     android:id="@+id/graphNavigationSet1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -55,6 +57,7 @@
                     tools:text="100-199" />
 
                 <Button
+                    style="?android:attr/buttonBarButtonStyle"
                     android:id="@+id/graphNavigationSet2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -66,6 +69,7 @@
                     tools:text="200-299" />
 
                 <Button
+                    style="?android:attr/buttonBarButtonStyle"
                     android:id="@+id/graphNavigationSet3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -85,6 +89,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    style="?android:attr/buttonBarButtonStyle"
                     android:id="@+id/graphNavigationSet4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -95,6 +100,7 @@
                     tools:text="400-499" />
 
                 <Button
+                    style="?android:attr/buttonBarButtonStyle"
                     android:id="@+id/graphNavigationSet5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -106,6 +112,7 @@
                     tools:text="500-599" />
 
                 <Button
+                    style="?android:attr/buttonBarButtonStyle"
                     android:id="@+id/graphNavigationSet6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -117,6 +124,7 @@
                     tools:text="600-699" />
 
                 <Button
+                    style="?android:attr/buttonBarButtonStyle"
                     android:id="@+id/graphNavigationSet7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
