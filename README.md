@@ -11,6 +11,7 @@ This is the official repository of WiFi Analyzer.
 <img src="images/feature-graphic-light.png" alt="Feature Graphic - Light Theme" height="200">
 
 ## Table of Contents
+
 - [Features](#features)
 - [Usage Tips](#usage-tips)
 - [How-to](#how-to)
@@ -21,6 +22,7 @@ This is the official repository of WiFi Analyzer.
 - [Contribute](#contribute)
 
 ## Features
+
 * Identify nearby Access Points
 * Graph channels signal strength
 * Graph Access Point signal strength over time
@@ -37,21 +39,23 @@ This is the official repository of WiFi Analyzer.
 * The application has too many features to mention them all
 
 **Please note WiFi Analyzer is not a WiFi password cracking or phishing tool.**
- 
+
 ## Usage Tips
+
 * Tap the title bar to switch between 2.4, 5 and 6 GHz WiFi band.
 * SSID with `***` or `*hidden*` means it is hidden.
-* Access Point security: 
-     * <img src="images/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20"> WPA3(SAE)/WPA2/WPA 
-     * <img src="images/ic_lock_outline_black_18dp.png" alt="WEP/WPS" height="20"> WEP/WPS
-     * <img src="images/ic_lock_open_black_18dp.png" alt="Disabled" height="20"> Disabled
+* Access Point security:
+    * <img src="images/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20"> WPA3(SAE)/WPA2/WPA 
+    * <img src="images/ic_lock_outline_black_18dp.png" alt="WEP/WPS" height="20"> WEP/WPS
+    * <img src="images/ic_lock_open_black_18dp.png" alt="Disabled" height="20"> Disabled
 * Wi-Fi Standard (Requires Android OS 11+):
-     * <img src="images/ic_wifi_legacy.png" alt="Wi-Fi 802.11a/b/g" height="20"> Wi-Fi 802.11a/b/g
-     * <img src="images/ic_wifi_4.png" alt="Wi-Fi 802.11n" height="20"> Wi-Fi 802.11n
-     * <img src="images/ic_wifi_5.png" alt="Wi-Fi 802.11ac" height="20"> Wi-Fi 802.11ac
-     * <img src="images/ic_wifi_6.png" alt="Wi-Fi 802.11ax" height="20"> Wi-Fi 802.11ax
+    * <img src="images/ic_wifi_legacy.png" alt="Wi-Fi 802.11a/b/g" height="20"> Wi-Fi 802.11a/b/g
+    * <img src="images/ic_wifi_4.png" alt="Wi-Fi 802.11n" height="20"> Wi-Fi 802.11n
+    * <img src="images/ic_wifi_5.png" alt="Wi-Fi 802.11ac" height="20"> Wi-Fi 802.11ac
+    * <img src="images/ic_wifi_6.png" alt="Wi-Fi 802.11ax" height="20"> Wi-Fi 802.11ax
 
 ## How-to
+
 * [How to video](https://youtu.be/JJVKja0VDR0)
 * [How to find the best 5Ghz WiFi Channel](https://www.maketecheasier.com/best-wifi-channel-for-5ghz-frequency/)
 * [Understand Wi-Fi 4/5/6/6E/7 (802.11 n/ac/ax/be) - Make educated wireless router/AP upgrade decisions](https://www.duckware.com/tech/wifi-in-the-us.html)
@@ -60,6 +64,7 @@ This is the official repository of WiFi Analyzer.
 * [How is distance calculated to Access Point](https://en.wikipedia.org/wiki/Free-space_path_loss)
 
 ## FAQ
+
 * [Android Wi-Fi scanning throttling](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Android-WiFi-scanning-throttling)
 * [Location Service Permission Requirements](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Location-Service-Permission-Requirements)
 * [WiFi Analyzer on secondary user accounts](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/WiFi-Analyzer-on-secondary-user-accounts)
@@ -68,17 +73,20 @@ This is the official repository of WiFi Analyzer.
 * [WiFi Analyzer equivalent on iOS](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/69)
 
 ## Feedback
+
 * Bug reports can be submitted [here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues).
 * To learn how to submit a bug [click here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Feedback).
 * [Discussions](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/discussions)
 * If you do not have GitHub account, please use [google groups](https://groups.google.com/forum/#!forum/wifi-analyzer-open-source) to discuss application features.
 
 ## License
+
 [<img src="https://www.gnu.org/graphics/gplv3-127x51.png" alt="GPLv3" >](http://www.gnu.org/licenses/gpl-3.0.html)
 
 WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 
 ### GPLv3 License key requirements:
+
 * Disclose Source
 * License and Copyright Notice
 * Same License
@@ -102,17 +110,20 @@ WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 [![Fork](https://img.shields.io/github/forks/VREMSoftwareDevelopment/WiFiAnalyzer.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/network)
 
 ## Contribute
+
 * Feel free to fork the project and submit your changes.
 * To learn how to submit a pull request [click here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Pull-Request).
-* We want to express our gratitude to all [people](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/graphs/contributors) for their contributions, such as: patches, bug solving, updates and etc. 
+* We want to express our gratitude to all [people](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/graphs/contributors) for their contributions, such as: patches, bug solving, updates and etc.
 * If you would like to contribute financially to the project please feel free to send any amount through paypal.
-	* [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=62PA6HJ3BZL3E)
-	* Thanks to every one who already donated so far!
+    * [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=62PA6HJ3BZL3E)
+    * Thanks to every one who already donated so far!
 
 ### Fork project
+
 [How to fork project](https://help.github.com/articles/fork-a-repo)
 
 ### Build project
+
 1. Install Android Studio
 2. Import project into Android Studio
     * In Welcome to Android Studio Screen select Import project ...
@@ -120,6 +131,7 @@ WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
     * WiFi Analyzer will build automatically.
 
 ### Running lint, unit tests and jacoco coverage report
+
 ```
 ./gradlew lintDebug jacocoTestCoverageVerification
 ```

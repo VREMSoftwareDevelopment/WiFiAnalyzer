@@ -1,5 +1,5 @@
 name: Android CI
-on: [push, pull_request]
+on: [ push, pull_request ]
 jobs:
   test:
     if: "!contains(github.event.head_commit.message, 'skip ci')"
