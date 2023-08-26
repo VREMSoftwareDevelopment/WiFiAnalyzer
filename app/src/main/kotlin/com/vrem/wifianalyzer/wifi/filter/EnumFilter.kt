@@ -24,7 +24,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.vrem.wifianalyzer.wifi.filter.adapter.EnumFilterAdapter
 
-internal abstract class EnumFilter<T : Enum<*>, U : EnumFilterAdapter<T>>(
+internal abstract class EnumFilter<T : Enum<T>, U : EnumFilterAdapter<T>>(
     internal val ids: Map<T, Int>,
     private val filter: U,
     alertDialog: AlertDialog,

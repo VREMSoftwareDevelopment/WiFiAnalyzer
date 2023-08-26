@@ -28,9 +28,9 @@ class MakePredicateTest {
         // setup
         val wiFiDetail = WiFiDetail.EMPTY
         val toPredicate: ToPredicate<TestObject> = { truePredicate }
-        val filters: Set<TestObject> = TestObject.values().toSet()
+        val filters: Set<TestObject> = TestObject.entries.toSet()
         // execute
-        val actual: Predicate = makePredicate(TestObject.values(), filters, toPredicate)
+        val actual: Predicate = makePredicate(TestObject.entries, filters, toPredicate)
         // validate
         assertTrue(actual(wiFiDetail))
     }
@@ -42,7 +42,7 @@ class MakePredicateTest {
         val toPredicate: ToPredicate<TestObject> = { truePredicate }
         val filters: Set<TestObject> = setOf(TestObject.VALUE1, TestObject.VALUE3)
         // execute
-        val actual: Predicate = makePredicate(TestObject.values(), filters, toPredicate)
+        val actual: Predicate = makePredicate(TestObject.entries, filters, toPredicate)
         // validate
         assertTrue(actual(wiFiDetail))
     }

@@ -152,7 +152,7 @@ class FilterTest {
     @Test
     fun testWiFiBandFilterMapping() {
         // setup
-        val expected: Set<WiFiBand> = WiFiBand.values().toSet()
+        val expected: Set<WiFiBand> = WiFiBand.entries.toSet()
         fixture.show()
         // execute
         val actual: Map<WiFiBand, Int> = fixture.wiFiBandFilter!!.ids
@@ -174,7 +174,7 @@ class FilterTest {
     @Test
     fun testSecurityFilterMapping() {
         // setup
-        val expected: Set<Security> = Security.values().toSet()
+        val expected: Set<Security> = Security.entries.toSet()
         fixture.show()
         // execute
         val actual: Map<Security, Int> = fixture.securityFilter!!.ids
@@ -197,7 +197,7 @@ class FilterTest {
     @Test
     fun testStrengthFilterMapping() {
         // setup
-        val expected: Set<Strength> = Strength.values().toSet()
+        val expected: Set<Strength> = Strength.entries.toSet()
         fixture.show()
         // execute
         val actual: Map<Strength, Int> = fixture.strengthFilter!!.ids

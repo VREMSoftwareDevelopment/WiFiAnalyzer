@@ -18,8 +18,9 @@
 package com.vrem.wifianalyzer.wifi.filter.adapter
 
 import com.vrem.wifianalyzer.R
+import kotlin.enums.EnumEntries
 
-abstract class EnumFilterAdapter<T : Enum<*>>(selections: Set<T>, val defaults: Array<T>) : BasicFilterAdapter<T>(selections) {
+abstract class EnumFilterAdapter<T : Enum<T>>(selections: Set<T>, val defaults: EnumEntries<T>) : BasicFilterAdapter<T>(selections) {
     override fun isActive(): Boolean = selections.size != defaults.size
 
     fun toggle(selection: T): Boolean {
@@ -35,7 +36,7 @@ abstract class EnumFilterAdapter<T : Enum<*>>(selections: Set<T>, val defaults: 
     }
 
     override fun reset() {
-        selections(defaults)
+        selections(defaults.toSet())
     }
 
     fun color(selection: T): Int = if (selections.contains(selection)) R.color.selected else R.color.regular

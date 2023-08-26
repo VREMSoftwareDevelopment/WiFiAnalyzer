@@ -24,11 +24,11 @@ import android.graphics.Path;
 import android.text.TextPaint;
 import android.view.animation.AccelerateInterpolator;
 
+import androidx.core.view.ViewCompat;
+
 import com.jjoe64.graphview.GraphView;
 
 import java.util.Iterator;
-
-import androidx.core.view.ViewCompat;
 
 /*
   modified version of com.jjoe64.graphview.series.LineGraphSeries

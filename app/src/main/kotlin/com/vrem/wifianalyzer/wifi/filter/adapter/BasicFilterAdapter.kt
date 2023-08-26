@@ -22,8 +22,8 @@ import com.vrem.wifianalyzer.settings.Settings
 
 @OpenClass
 abstract class BasicFilterAdapter<T>(open var selections: Set<T>) {
-    fun selections(selections: Array<T>) {
-        this.selections = selections.toSet()
+    fun selections(selections: Set<T>) {
+        this.selections = selections
     }
 
     abstract fun isActive(): Boolean

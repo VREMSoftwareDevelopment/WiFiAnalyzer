@@ -27,7 +27,7 @@ import org.junit.Test
 class SecurityTest {
     @Test
     fun testSecurity() {
-        assertEquals(6, Security.values().size)
+        assertEquals(6, Security.entries.size)
     }
 
     @Test
@@ -88,7 +88,11 @@ class SecurityTest {
 
     @Test
     fun testOrder() {
+        // setup
         val expected: Array<Security> = arrayOf(Security.NONE, Security.WPS, Security.WEP, Security.WPA, Security.WPA2, Security.WPA3)
-        assertArrayEquals(expected, Security.values())
+        // execute
+        val actual = Security.entries
+        // validate
+        assertArrayEquals(expected, actual.toTypedArray())
     }
 }

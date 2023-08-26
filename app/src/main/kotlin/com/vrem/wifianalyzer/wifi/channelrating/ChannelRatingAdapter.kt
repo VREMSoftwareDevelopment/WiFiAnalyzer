@@ -81,7 +81,7 @@ class ChannelRatingAdapter(
 
     private fun ratingBar(wiFiChannel: WiFiChannel, ratingBar: RatingBar) {
         val strength = reverse(channelRating.strength(wiFiChannel))
-        val size = Strength.values().size
+        val size = Strength.entries.size
         ratingBar.max = size
         ratingBar.numStars = size
         ratingBar.rating = strength.ordinal + 1.toFloat()

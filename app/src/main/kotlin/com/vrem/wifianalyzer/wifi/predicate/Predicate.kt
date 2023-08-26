@@ -23,6 +23,7 @@ import com.vrem.wifianalyzer.wifi.model.SSID
 import com.vrem.wifianalyzer.wifi.model.Security
 import com.vrem.wifianalyzer.wifi.model.Strength
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import kotlin.enums.EnumEntries
 
 internal typealias Predicate = (wiFiDetail: WiFiDetail) -> Boolean
 internal typealias ToPredicate<T> = (T) -> Predicate
@@ -54,7 +55,7 @@ private fun Set<SSID>.ssidPredicate(): Predicate =
     else
         this.map { it.predicate() }.anyPredicate()
 
-internal fun <T : Enum<T>> makePredicate(values: Array<T>, filter: Set<T>, toPredicate: ToPredicate<T>): Predicate =
+internal fun <T : Enum<T>> makePredicate(values: EnumEntries<T>, filter: Set<T>, toPredicate: ToPredicate<T>): Predicate =
     if (filter.size >= values.size)
         truePredicate
     else
@@ -62,9 +63,9 @@ internal fun <T : Enum<T>> makePredicate(values: Array<T>, filter: Set<T>, toPre
 
 private fun predicates(settings: Settings, wiFiBands: Set<WiFiBand>): List<Predicate> =
     listOf(settings.findSSIDs().ssidPredicate(),
-        makePredicate(WiFiBand.values(), wiFiBands) { wiFiBand -> wiFiBand.predicate() },
-        makePredicate(Strength.values(), settings.findStrengths()) { strength -> strength.predicate() },
-        makePredicate(Security.values(), settings.findSecurities()) { security -> security.predicate() })
+        makePredicate(WiFiBand.entries, wiFiBands) { wiFiBand -> wiFiBand.predicate() },
+        makePredicate(Strength.entries, settings.findStrengths()) { strength -> strength.predicate() },
+        makePredicate(Security.entries, settings.findSecurities()) { security -> security.predicate() })
 
 fun makeAccessPointsPredicate(settings: Settings): Predicate =
     predicates(settings, settings.findWiFiBands()).allPredicate()

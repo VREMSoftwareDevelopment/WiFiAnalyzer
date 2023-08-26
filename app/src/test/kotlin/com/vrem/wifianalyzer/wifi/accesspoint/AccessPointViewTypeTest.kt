@@ -24,7 +24,7 @@ import org.junit.Test
 class AccessPointViewTypeTest {
     @Test
     fun testAccessPointViewCount() {
-        assertEquals(2, AccessPointViewType.values().size)
+        assertEquals(2, AccessPointViewType.entries.size)
     }
 
     @Test

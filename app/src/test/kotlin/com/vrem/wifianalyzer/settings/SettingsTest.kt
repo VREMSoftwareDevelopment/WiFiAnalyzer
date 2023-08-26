@@ -251,7 +251,7 @@ class SettingsTest {
         // setup
         val expected = WiFiBand.GHZ5
         val values = setOf("" + expected.ordinal)
-        val defaultValues = ordinals(WiFiBand.values())
+        val defaultValues = ordinals(WiFiBand.entries)
         doReturn(values).whenever(repository).stringSet(R.string.filter_wifi_band_key, defaultValues)
         // execute
         val actual = fixture.findWiFiBands()
@@ -278,7 +278,7 @@ class SettingsTest {
         // setup
         val expected = Strength.THREE
         val values = setOf("" + expected.ordinal)
-        val defaultValues = ordinals(Strength.values())
+        val defaultValues = ordinals(Strength.entries)
         doReturn(values).whenever(repository).stringSet(R.string.filter_strength_key, defaultValues)
         // execute
         val actual = fixture.findStrengths()
@@ -305,7 +305,7 @@ class SettingsTest {
         // setup
         val expected = Security.WPA
         val values = setOf("" + expected.ordinal)
-        val defaultValues = ordinals(Security.values())
+        val defaultValues = ordinals(Security.entries)
         doReturn(values).whenever(repository).stringSet(R.string.filter_security_key, defaultValues)
         // execute
         val actual = fixture.findSecurities()

@@ -27,7 +27,7 @@ class WiFiWidthTest {
 
     @Test
     fun testWidth() {
-        assertEquals(5, WiFiWidth.values().size)
+        assertEquals(5, WiFiWidth.entries.size)
     }
 
     @Test
