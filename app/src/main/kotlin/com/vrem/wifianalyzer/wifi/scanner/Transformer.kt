@@ -22,6 +22,7 @@ import android.net.wifi.WifiInfo
 import com.vrem.annotation.OpenClass
 import com.vrem.util.EMPTY
 import com.vrem.util.buildMinVersionR
+import com.vrem.util.buildMinVersionT
 import com.vrem.util.ssid
 import com.vrem.wifianalyzer.wifi.model.*
 
@@ -55,7 +56,15 @@ internal class Transformer(private val cache: Cache) {
             WiFiStandard.UNKNOWN.wiFiStandardId
         }
 
+    internal fun securityTypes(scanResult: ScanResult): List<Int> =
+        if (minVersionT() && scanResult.securityTypes != null) {
+            scanResult.securityTypes.asList()
+        } else {
+            listOf()
+        }
+
     internal fun minVersionR(): Boolean = buildMinVersionR()
+    internal fun minVersionT(): Boolean = buildMinVersionT()
 
     private fun transform(cacheResult: CacheResult): WiFiDetail {
         val scanResult = cacheResult.scanResult
@@ -71,11 +80,11 @@ internal class Transformer(private val cache: Cache) {
             scanResult.ssid(),
             if (scanResult.BSSID == null) String.EMPTY else scanResult.BSSID
         )
-        return WiFiDetail(
-            wiFiIdentifier,
+        val wiFiSecurity = WiFiSecurity(
             if (scanResult.capabilities == null) String.EMPTY else scanResult.capabilities,
-            wiFiSignal
+            securityTypes(scanResult)
         )
+        return WiFiDetail(wiFiIdentifier, wiFiSecurity, wiFiSignal)
     }
 
 }

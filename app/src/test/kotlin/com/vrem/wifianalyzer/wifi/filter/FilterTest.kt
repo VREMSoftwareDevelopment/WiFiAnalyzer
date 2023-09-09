@@ -183,7 +183,6 @@ class FilterTest {
         expected.forEach { assertNotNull(actual[it]) }
     }
 
-
     @Test
     fun testStrengthFilterViewIsVisible() {
         // setup

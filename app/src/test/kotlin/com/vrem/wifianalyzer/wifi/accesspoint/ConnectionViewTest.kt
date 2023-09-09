@@ -197,7 +197,7 @@ class ConnectionViewTest {
     private fun withConnection(wiFiAdditional: WiFiAdditional): WiFiDetail =
         WiFiDetail(
             WiFiIdentifier(ssid, bssid),
-            String.EMPTY,
+            WiFiSecurity.EMPTY,
             WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55, true),
             wiFiAdditional
         )

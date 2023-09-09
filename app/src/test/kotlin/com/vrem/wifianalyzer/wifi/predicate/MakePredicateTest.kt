@@ -21,6 +21,10 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
+private enum class TestObject {
+    VALUE1, VALUE3, VALUE2
+}
+
 class MakePredicateTest {
 
     @Test

@@ -17,12 +17,8 @@
  */
 package com.vrem.wifianalyzer.wifi.timegraph
 
-import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_NOT_SEEN_COUNT
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+import com.vrem.wifianalyzer.wifi.model.*
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -77,7 +73,7 @@ class TimeGraphCacheTest {
     private fun withWiFiDetail(ssid: String): WiFiDetail {
         return WiFiDetail(
             WiFiIdentifier(ssid, "BSSID"),
-            String.EMPTY,
+            WiFiSecurity.EMPTY,
             WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5, true)
         )
     }

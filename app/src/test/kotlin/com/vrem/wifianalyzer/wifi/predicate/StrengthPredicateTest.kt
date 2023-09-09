@@ -26,16 +26,16 @@ class StrengthPredicateTest {
     @Test
     fun testStrengthPredicate() {
         // setup
-        val wiFiDetail = makeWiFiDetail(-60)
+        val wiFiDetail = makeWiFiDetail()
         // execute & validate
         assertTrue(Strength.THREE.predicate()(wiFiDetail))
         assertFalse(Strength.FOUR.predicate()(wiFiDetail))
     }
 
-    private fun makeWiFiDetail(level: Int): WiFiDetail =
+    private fun makeWiFiDetail(): WiFiDetail =
         WiFiDetail(
             WiFiIdentifier("ssid", "bssid"),
-            "wpa",
-            WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, level, true)
+            WiFiSecurity("wpa"),
+            WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, -60, true)
         )
 }

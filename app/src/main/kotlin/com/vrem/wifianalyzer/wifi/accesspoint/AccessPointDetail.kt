@@ -90,7 +90,7 @@ class AccessPointDetail {
 
     private fun setSecurityImage(view: View, wiFiDetail: WiFiDetail) =
         view.findViewById<ImageView>(R.id.securityImage)?.let {
-            val security = wiFiDetail.security
+            val security = wiFiDetail.wiFiSecurity.security
             it.tag = security.imageResource
             it.setImageResource(security.imageResource)
         }
@@ -104,7 +104,7 @@ class AccessPointDetail {
             it.text = "${wiFiSignal.frequencyStart} - ${wiFiSignal.frequencyEnd}"
             view.findViewById<TextView>(R.id.width).text =
                 "(${wiFiSignal.wiFiWidth.frequencyWidth}${WiFiSignal.FREQUENCY_UNITS})"
-            view.findViewById<TextView>(R.id.capabilities).text = wiFiDetail.securities
+            view.findViewById<TextView>(R.id.capabilities).text = wiFiDetail.wiFiSecurity.securities
                 .toList()
                 .joinToString(" ", "[", "]")
         }
@@ -141,7 +141,7 @@ class AccessPointDetail {
 
     private fun setViewCapabilitiesLong(view: View, wiFiDetail: WiFiDetail) =
         view.findViewById<TextView>(R.id.capabilitiesLong)?.let {
-            it.text = wiFiDetail.capabilities
+            it.text = wiFiDetail.wiFiSecurity.capabilities
         }
 
     private fun setViewVendorLong(view: View, wiFiAdditional: WiFiAdditional) =

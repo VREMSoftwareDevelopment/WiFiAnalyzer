@@ -354,7 +354,7 @@ class AccessPointDetailTest {
     ): WiFiDetail =
         WiFiDetail(
             WiFiIdentifier(ssid, "BSSID"),
-            "[WPS-capabilities][WPA2-XYZ][XYZ-FT/SAE-XYZ-abc]",
+            WiFiSecurity("[WPS-capabilities][WPA2-XYZ][XYZ-FT/SAE-XYZ-abc]"),
             WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, is80211mc, WiFiStandard.AC, timestamp),
             wiFiAdditional
         )
@@ -366,13 +366,13 @@ class AccessPointDetailTest {
         validateTextViewValue(view, "(${wiFiSignal.wiFiWidth.frequencyWidth}${WiFiSignal.FREQUENCY_UNITS})", R.id.width)
         validateTextViewValue(view, "[WPS WPA2 WPA3]", R.id.capabilities)
         validateImageViewValue(view, wiFiSignal.strength.imageResource, R.id.levelImage)
-        validateImageViewValue(view, wiFiDetail.security.imageResource, R.id.securityImage)
+        validateImageViewValue(view, wiFiDetail.wiFiSecurity.security.imageResource, R.id.securityImage)
         validateImageViewValue(view, wiFiSignal.wiFiStandard.imageResource, R.id.wiFiStandardImage)
     }
 
     private fun validateTextViewValuesPopupView(view: View, wiFiDetail: WiFiDetail) {
         validateTextViewValuesCompleteView(view, wiFiDetail)
-        validateTextViewValue(view, wiFiDetail.capabilities, R.id.capabilitiesLong)
+        validateTextViewValue(view, wiFiDetail.wiFiSecurity.capabilities, R.id.capabilitiesLong)
         val expectedWiFiStandard =
             view.context.getString(wiFiDetail.wiFiSignal.wiFiStandard.textResource)
         validateTextViewValue(view, expectedWiFiStandard, R.id.wiFiStandard)

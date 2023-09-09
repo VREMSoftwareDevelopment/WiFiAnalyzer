@@ -27,7 +27,7 @@ class ChannelRating {
     fun count(wiFiChannel: WiFiChannel): Int = collectOverlapping(wiFiChannel).size
 
     fun strength(wiFiChannel: WiFiChannel): Strength =
-        enumValues<Strength>()[
+        Strength.entries[
             collectOverlapping(wiFiChannel)
                 .filter { !it.wiFiAdditional.wiFiConnection.connected }
                 .map { it.wiFiSignal.strength.ordinal }

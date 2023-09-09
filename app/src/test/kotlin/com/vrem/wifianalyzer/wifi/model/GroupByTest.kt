@@ -97,7 +97,7 @@ class GroupByTest {
 
     private fun withWiFiDetail() = WiFiDetail(
         WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
-        "WPA-WPA2",
+        WiFiSecurity("WPA-WPA2"),
         WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -40, true)
     )
 }

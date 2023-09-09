@@ -81,7 +81,7 @@ class Export(private val exportIntent: ExportIntent = ExportIntent()) {
                 "${wiFiSignal.distance}|" +
                 "${wiFiSignal.timestamp}|" +
                 "${wiFiSignal.is80211mc}|" +
-                capabilities +
+                wiFiSecurity.capabilities +
                 "\n"
         }
     }

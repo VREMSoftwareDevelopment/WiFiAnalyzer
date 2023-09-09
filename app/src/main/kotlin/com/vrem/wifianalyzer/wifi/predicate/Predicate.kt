@@ -47,7 +47,7 @@ internal fun SSID.predicate(): Predicate =
     { wiFiDetail -> wiFiDetail.wiFiIdentifier.ssid.contains(this) }
 
 internal fun Security.predicate(): Predicate =
-    { wiFiDetail -> wiFiDetail.securities.contains(this) }
+    { wiFiDetail -> wiFiDetail.wiFiSecurity.securities.contains(this) }
 
 private fun Set<SSID>.ssidPredicate(): Predicate =
     if (this.isEmpty())

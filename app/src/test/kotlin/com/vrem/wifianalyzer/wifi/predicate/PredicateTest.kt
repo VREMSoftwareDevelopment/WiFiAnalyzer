@@ -28,10 +28,6 @@ import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
 
-internal enum class TestObject {
-    VALUE1, VALUE3, VALUE2
-}
-
 class PredicateTest {
     private val ssid = "SSID"
     private val wpa2 = "WPA2"
@@ -156,10 +152,10 @@ class PredicateTest {
         verify(settings).findSecurities()
     }
 
-    private fun makeWiFiDetail(ssid: String, security: String): WiFiDetail =
+    private fun makeWiFiDetail(ssid: String, capabilities: String): WiFiDetail =
         WiFiDetail(
             WiFiIdentifier(ssid, "bssid"),
-            security,
+            WiFiSecurity(capabilities),
             WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, -40, true)
         )
 

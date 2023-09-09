@@ -19,6 +19,7 @@ package com.vrem.wifianalyzer.wifi.predicate
 
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -27,7 +28,7 @@ class SSIDPredicateTest {
     @Test
     fun testSSIDPredicate() {
         // setup
-        val wiFiDetail = WiFiDetail(WiFiIdentifier("ssid", "bssid"), "wpa")
+        val wiFiDetail = WiFiDetail(WiFiIdentifier("ssid", "bssid"), WiFiSecurity("wpa"))
         // execute & validate
         assertTrue("ssid".predicate()(wiFiDetail))
         assertTrue("id".predicate()(wiFiDetail))

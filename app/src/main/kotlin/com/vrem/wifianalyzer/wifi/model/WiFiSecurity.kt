@@ -22,36 +22,35 @@ import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.R
 import java.util.Locale
 
-private const val SAE = "SAE"
+private val extras = listOf("SAE", "EAP_SUITE_B_192", "OWE")
+private val regex = Regex("[^A-Z0-9_]")
 
-enum class Security(@DrawableRes val imageResource: Int, val additional: String = String.EMPTY) {
+enum class Security(@DrawableRes val imageResource: Int, val extras: List<String> = listOf()) {
     NONE(R.drawable.ic_lock_open),
     WPS(R.drawable.ic_lock_outline),
     WEP(R.drawable.ic_lock_outline),
     WPA(R.drawable.ic_lock),
     WPA2(R.drawable.ic_lock),
-    WPA3(R.drawable.ic_lock, SAE);
+    WPA3(R.drawable.ic_lock, extras);
+}
+
+data class WiFiSecurity(val capabilities: String = String.EMPTY, val securityTypes: List<Int> = listOf()) {
+
+    val security: Security
+        get() = securities.first()
+
+    val securities: Set<Security>
+        get() = parse(capabilities).mapNotNull { transform(it) }.toSortedSet().ifEmpty { setOf(Security.NONE) }
+
+    private fun transform(name: String) =
+        Security.entries.find { security -> security.name == name } ?: Security.entries.find { security -> security.extras.contains(name) }
+
+    private fun parse(capabilities: String): List<String> =
+        regex.replace(capabilities.uppercase(Locale.getDefault()), "-")
+            .split("-")
+            .filter { it.isNotBlank() && it != Security.NONE.name }
 
     companion object {
-        private val regex = Regex("[^A-Z0-9]")
-
-        fun findAll(capabilities: String): Set<Security> =
-            parse(capabilities).mapNotNull(transform()).toSortedSet().ifEmpty { setOf(NONE) }
-
-        fun findOne(capabilities: String): Security = findAll(capabilities).first()
-
-        private fun transform(): (String) -> Security? = {
-            try {
-                enumValueOf<Security>(it)
-            } catch (e: IllegalArgumentException) {
-                enumValues<Security>().find { security -> security.additional == it }
-            }
-        }
-
-        private fun parse(capabilities: String): List<String> =
-            regex.replace(capabilities.uppercase(Locale.getDefault()), "-")
-                .split("-")
-                .filter { it.isNotBlank() && it != NONE.name }
+        val EMPTY = WiFiSecurity()
     }
-
 }

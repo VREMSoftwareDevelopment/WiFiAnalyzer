@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.wifi.timegraph
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.*
-import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.graphutils.*
 import com.vrem.wifianalyzer.wifi.model.*
@@ -190,14 +189,14 @@ class DataManagerTest {
         val wiFiIdentifier = WiFiIdentifier(ssid, bssid)
         val wiFiConnection = WiFiConnection(wiFiIdentifier, "IPADDRESS", 11)
         val wiFiAdditional = WiFiAdditional("VendorName", wiFiConnection)
-        return WiFiDetail(wiFiIdentifier, String.EMPTY, makeWiFiSignal(), wiFiAdditional)
+        return WiFiDetail(wiFiIdentifier, WiFiSecurity.EMPTY, makeWiFiSignal(), wiFiAdditional)
     }
 
     private fun makeWiFiSignal(): WiFiSignal =
         WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, level, true)
 
     private fun makeWiFiDetail(ssid: String): WiFiDetail =
-        WiFiDetail(WiFiIdentifier(ssid, bssid), String.EMPTY, makeWiFiSignal(), WiFiAdditional.EMPTY)
+        WiFiDetail(WiFiIdentifier(ssid, bssid), WiFiSecurity.EMPTY, makeWiFiSignal(), WiFiAdditional.EMPTY)
 
     private fun makeWiFiDetails(): List<WiFiDetail> =
         listOf(makeWiFiDetailConnected("SSID1"), makeWiFiDetail("SSID2"), makeWiFiDetail("SSID3"))

@@ -18,7 +18,6 @@
 
 package com.vrem.wifianalyzer.wifi.model
 
-import com.vrem.util.EMPTY
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -29,7 +28,7 @@ class WiFiVirtualTest {
         // setup
         val wiFiDetail = WiFiDetail(
             WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
-            String.EMPTY,
+            WiFiSecurity.EMPTY,
             WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50, true),
             WiFiAdditional.EMPTY
         )
@@ -46,7 +45,7 @@ class WiFiVirtualTest {
         // setup
         val wiFiDetail = WiFiDetail(
             WiFiIdentifier("SSID1", "20:cf:30:ce:1d:7"),
-            String.EMPTY,
+            WiFiSecurity.EMPTY,
             WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50, true),
             WiFiAdditional.EMPTY
         )
@@ -63,7 +62,7 @@ class WiFiVirtualTest {
         // setup
         val wiFiDetail = WiFiDetail(
             WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71:"),
-            String.EMPTY,
+            WiFiSecurity.EMPTY,
             WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50, true),
             WiFiAdditional.EMPTY
         )

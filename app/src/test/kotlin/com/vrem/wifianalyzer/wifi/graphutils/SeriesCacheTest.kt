@@ -20,11 +20,7 @@ package com.vrem.wifianalyzer.wifi.graphutils
 import com.jjoe64.graphview.series.BaseSeries
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
-import com.vrem.util.EMPTY
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+import com.vrem.wifianalyzer.wifi.model.*
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
@@ -188,7 +184,7 @@ class SeriesCacheTest {
     private fun makeWiFiDetail(ssid: String): WiFiDetail {
         return WiFiDetail(
             WiFiIdentifier(ssid, "BSSID"),
-            String.EMPTY,
+            WiFiSecurity.EMPTY,
             WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5, true)
         )
     }

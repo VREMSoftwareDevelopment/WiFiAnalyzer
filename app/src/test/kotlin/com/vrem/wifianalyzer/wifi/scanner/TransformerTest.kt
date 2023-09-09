@@ -173,7 +173,7 @@ class TransformerTest {
     private fun validateWiFiDetail(SSID: String, BSSID: String, wiFiWidth: WiFiWidth, wiFiStandard: WiFiStandard, wiFiDetail: WiFiDetail) {
         assertEquals(SSID, wiFiDetail.wiFiIdentifier.ssid)
         assertEquals(BSSID, wiFiDetail.wiFiIdentifier.bssid)
-        assertEquals(WPA, wiFiDetail.capabilities)
+        assertEquals(WPA, wiFiDetail.wiFiSecurity.capabilities)
         with(wiFiDetail.wiFiSignal) {
             assertEquals(wiFiWidth, this.wiFiWidth)
             assertEquals(wiFiStandard, this.wiFiStandard)

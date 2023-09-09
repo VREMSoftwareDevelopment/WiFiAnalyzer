@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import com.vrem.util.EMPTY
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -29,13 +28,13 @@ class SortByDefaultTest {
         // setup
         val wiFiDetail1 = WiFiDetail(
             WiFiIdentifier("SSID1", "BSSID1"),
-            String.EMPTY,
+            WiFiSecurity.EMPTY,
             WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
             WiFiAdditional.EMPTY
         )
         val wiFiDetail2 = WiFiDetail(
             WiFiIdentifier("SSID1", "BSSID1"),
-            String.EMPTY,
+            WiFiSecurity.EMPTY,
             WiFiSignal(2432, 2432, WiFiWidth.MHZ_40, -35, false),
             WiFiAdditional.EMPTY
         )
@@ -50,13 +49,13 @@ class SortByDefaultTest {
         // setup
         val wiFiDetail1 = WiFiDetail(
             WiFiIdentifier("ssid1", "BSSID1"),
-            String.EMPTY,
+            WiFiSecurity.EMPTY,
             WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
             WiFiAdditional.EMPTY
         )
         val wiFiDetail2 = WiFiDetail(
             WiFiIdentifier("SSID1", "BSSID1"),
-            String.EMPTY,
+            WiFiSecurity.EMPTY,
             WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
             WiFiAdditional.EMPTY
         )
@@ -71,13 +70,13 @@ class SortByDefaultTest {
         // setup
         val wiFiDetail1 = WiFiDetail(
             WiFiIdentifier("SSID1", "bssid1"),
-            String.EMPTY,
+            WiFiSecurity.EMPTY,
             WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
             WiFiAdditional.EMPTY
         )
         val wiFiDetail2 = WiFiDetail(
             WiFiIdentifier("SSID1", "BSSID1"),
-            String.EMPTY,
+            WiFiSecurity.EMPTY,
             WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55, true),
             WiFiAdditional.EMPTY
         )

@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.wifi.channelgraph
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.*
-import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint
@@ -136,7 +135,7 @@ class DataManagerTest {
     private fun makeWiFiDetail(ssid: String = "SSID", frequency: Int = 2455): WiFiDetail {
         val wiFiSignal = WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, level, true)
         val wiFiIdentifier = WiFiIdentifier(ssid, "BSSID")
-        return WiFiDetail(wiFiIdentifier, String.EMPTY, wiFiSignal, WiFiAdditional.EMPTY)
+        return WiFiDetail(wiFiIdentifier, WiFiSecurity.EMPTY, wiFiSignal, WiFiAdditional.EMPTY)
     }
 
     private fun makeWiFiDetails(frequency: Int): List<WiFiDetail> {
