@@ -71,6 +71,7 @@ class WiFiStandardTest {
         assertEquals(WiFiStandard.AX, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11AX))
         assertEquals(WiFiStandard.AD, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11AD))
         assertEquals(WiFiStandard.BE, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11BE))
+
         assertEquals(WiFiStandard.UNKNOWN, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_UNKNOWN - 1))
         assertEquals(WiFiStandard.UNKNOWN, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11BE + 1))
     }

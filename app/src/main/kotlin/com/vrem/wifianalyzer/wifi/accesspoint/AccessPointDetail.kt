@@ -29,6 +29,7 @@ import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -59,7 +60,8 @@ class AccessPointDetail {
         val view = MainContext.INSTANCE.layoutInflater.inflate(R.layout.access_point_view_popup, null)
         setViewCompact(view, wiFiDetail, false)
         setViewExtra(view, wiFiDetail)
-        setViewCapabilitiesLong(view, wiFiDetail)
+        setViewCapabilitiesLong(view, wiFiDetail.wiFiSecurity)
+        setViewSecurityTypes(view, wiFiDetail.wiFiSecurity)
         setViewVendorLong(view, wiFiDetail.wiFiAdditional)
         setViewWiFiBand(view, wiFiDetail.wiFiSignal)
         setView80211mc(view, wiFiDetail.wiFiSignal)
@@ -139,9 +141,18 @@ class AccessPointDetail {
             }
         }
 
-    private fun setViewCapabilitiesLong(view: View, wiFiDetail: WiFiDetail) =
+    private fun setViewCapabilitiesLong(view: View, wiFiSecurity: WiFiSecurity) =
         view.findViewById<TextView>(R.id.capabilitiesLong)?.let {
-            it.text = wiFiDetail.wiFiSecurity.capabilities
+            it.text = wiFiSecurity.capabilities
+        }
+
+    private fun setViewSecurityTypes(view: View, wiFiSecurity: WiFiSecurity) =
+        view.findViewById<TextView>(R.id.securityTypes)?.let {
+            it.text = wiFiSecurity.wiFiSecurityTypes
+                .map { securityType -> view.context.getString(securityType.textResource) }
+                .filter { text -> text.isNotBlank() }
+                .toList()
+                .joinToString(" ", "[", "]")
         }
 
     private fun setViewVendorLong(view: View, wiFiAdditional: WiFiAdditional) =

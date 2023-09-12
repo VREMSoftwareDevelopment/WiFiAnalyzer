@@ -18,6 +18,7 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.R
 import java.util.Locale
@@ -34,21 +35,58 @@ enum class Security(@DrawableRes val imageResource: Int, val extras: List<String
     WPA3(R.drawable.ic_lock, extras);
 }
 
+typealias SecurityTypeId = Int
+
+enum class WiFiSecurityType(val securityTypeId: SecurityTypeId, @StringRes val textResource: Int, val security: Security = Security.NONE) {
+    UNKNOWN(-1, R.string.security_type_unknown),
+    OPEN(0, R.string.security_type_open),
+    WEP(1, R.string.security_type_wep, Security.WEP),
+    PSK(2, R.string.security_type_psk),
+    EAP(3, R.string.security_type_eap),
+    SAE(4, R.string.security_type_sae, Security.WPA3),
+    EAP_WPA3_ENTERPRISE_192_BIT(5, R.string.security_type_eap_wpa3_enterprise_192_bit, Security.WPA3),
+    OWE(6, R.string.security_type_owe, Security.WPA3),
+    WAPI_PSK(7, R.string.security_type_wapi_psk),
+    WAPI_CERT(8, R.string.security_type_wapi_cert),
+    EAP_WPA3_ENTERPRISE(9, R.string.security_type_eap_wpa3_enterprise, Security.WPA3),
+    OSEN(10, R.string.security_type_osen),
+    PASSPOINT_R1_R2(11, R.string.security_type_passpoint_r1_r2),
+    PASSPOINT_R3(12, R.string.security_type_passpoint_r3),
+    SECURITY_TYPE_DPP(13, R.string.security_type_dpp);
+
+    companion object {
+        fun findOne(securityTypeId: SecurityTypeId) = values().firstOrNull { it.securityTypeId == securityTypeId } ?: UNKNOWN
+        fun findAll(securityTypes: List<Int>): Set<WiFiSecurityType> = securityTypes.map { findOne(it) }.toSet()
+    }
+}
+
 data class WiFiSecurity(val capabilities: String = String.EMPTY, val securityTypes: List<Int> = listOf()) {
 
     val security: Security
         get() = securities.first()
 
     val securities: Set<Security>
-        get() = parse(capabilities).mapNotNull { transform(it) }.toSortedSet().ifEmpty { setOf(Security.NONE) }
+        get() {
+            return (transformCapabilities() + transformSecurityTypes()).toSortedSet().ifEmpty { setOf(Security.NONE) }
+        }
 
-    private fun transform(name: String) =
-        Security.entries.find { security -> security.name == name } ?: Security.entries.find { security -> security.extras.contains(name) }
+    val wiFiSecurityTypes: Set<WiFiSecurityType>
+        get() {
+            return WiFiSecurityType.findAll(securityTypes)
+        }
 
-    private fun parse(capabilities: String): List<String> =
+    private fun transformCapabilities(): Set<Security> =
         regex.replace(capabilities.uppercase(Locale.getDefault()), "-")
             .split("-")
             .filter { it.isNotBlank() && it != Security.NONE.name }
+            .mapNotNull { transformCapability(it) }
+            .toSet()
+
+    private fun transformCapability(name: String) =
+        Security.entries.find { security -> security.name == name } ?: Security.entries.find { security -> security.extras.contains(name) }
+
+    private fun transformSecurityTypes(): Set<Security> =
+        wiFiSecurityTypes.filter { it.security != Security.NONE }.map { it.security }.toSet()
 
     companion object {
         val EMPTY = WiFiSecurity()

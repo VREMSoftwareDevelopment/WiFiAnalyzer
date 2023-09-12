@@ -215,6 +215,24 @@
     <string name="security_wpa3" translatable="false">"WPA3"</string>
     <!-- security end -->
 
+    <!-- security type start -->
+    <string name="security_type_unknown" translatable="false">""</string>
+    <string name="security_type_open" translatable="false">"OPEN"</string>
+    <string name="security_type_wep" translatable="false">"WEP"</string>
+    <string name="security_type_psk" translatable="false">"PSK"</string>
+    <string name="security_type_eap" translatable="false">"EAP"</string>
+    <string name="security_type_sae" translatable="false">"SAE"</string>
+    <string name="security_type_eap_wpa3_enterprise_192_bit" translatable="false">"EAP_WPA3_ENTERPRISE_192_BIT"</string>
+    <string name="security_type_owe" translatable="false">"OWE"</string>
+    <string name="security_type_wapi_psk" translatable="false">"WAPI_PSK"</string>
+    <string name="security_type_wapi_cert" translatable="false">"WAPI_CERT"</string>
+    <string name="security_type_eap_wpa3_enterprise" translatable="false">"EAP_WPA3_ENTERPRISE"</string>
+    <string name="security_type_osen" translatable="false">"OSEN"</string>
+    <string name="security_type_passpoint_r1_r2" translatable="false">"PASSPOINT_R1_R2"</string>
+    <string name="security_type_passpoint_r3" translatable="false">"PASSPOINT_R3"</string>
+    <string name="security_type_dpp" translatable="false">"DPP"</string>
+    <!-- security type end -->
+
     <!-- filter start -->
     <string name="filter_title">"Filter"</string>
     <string name="filter_close">"Close"</string>

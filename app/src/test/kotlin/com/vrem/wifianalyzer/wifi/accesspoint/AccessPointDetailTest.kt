@@ -43,6 +43,9 @@ class AccessPointDetailTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val settings = INSTANCE.settings
     private val fixture = AccessPointDetail()
+    private val expectedSecurities = "[WPS WEP WPA2 WPA3]"
+    private val expectedSecurityTypes =
+        "[DPP EAP OPEN OSEN PASSPOINT_R1_R2 PASSPOINT_R3 PSK WAPI_CERT WAPI_PSK WEP EAP_WPA3_ENTERPRISE EAP_WPA3_ENTERPRISE_192_BIT OWE SAE]"
 
     @Before
     fun setUp() {
@@ -354,7 +357,7 @@ class AccessPointDetailTest {
     ): WiFiDetail =
         WiFiDetail(
             WiFiIdentifier(ssid, "BSSID"),
-            WiFiSecurity("[WPS-capabilities][WPA2-XYZ][XYZ-FT/SAE-XYZ-abc]"),
+            WiFiSecurity("[WPS-capabilities][WPA2-XYZ][XYZ-FT]", WiFiSecurityTypeTest.All),
             WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, is80211mc, WiFiStandard.AC, timestamp),
             wiFiAdditional
         )
@@ -364,7 +367,7 @@ class AccessPointDetailTest {
         val wiFiSignal = wiFiDetail.wiFiSignal
         validateTextViewValue(view, "${wiFiSignal.frequencyStart} - ${wiFiSignal.frequencyEnd}", R.id.channel_frequency_range)
         validateTextViewValue(view, "(${wiFiSignal.wiFiWidth.frequencyWidth}${WiFiSignal.FREQUENCY_UNITS})", R.id.width)
-        validateTextViewValue(view, "[WPS WPA2 WPA3]", R.id.capabilities)
+        validateTextViewValue(view, expectedSecurities, R.id.capabilities)
         validateImageViewValue(view, wiFiSignal.strength.imageResource, R.id.levelImage)
         validateImageViewValue(view, wiFiDetail.wiFiSecurity.security.imageResource, R.id.securityImage)
         validateImageViewValue(view, wiFiSignal.wiFiStandard.imageResource, R.id.wiFiStandardImage)
@@ -372,12 +375,17 @@ class AccessPointDetailTest {
 
     private fun validateTextViewValuesPopupView(view: View, wiFiDetail: WiFiDetail) {
         validateTextViewValuesCompleteView(view, wiFiDetail)
-        validateTextViewValue(view, wiFiDetail.wiFiSecurity.capabilities, R.id.capabilitiesLong)
-        val expectedWiFiStandard =
-            view.context.getString(wiFiDetail.wiFiSignal.wiFiStandard.textResource)
-        validateTextViewValue(view, expectedWiFiStandard, R.id.wiFiStandard)
-        val expectedWiFiBand = view.context.getString(wiFiDetail.wiFiSignal.wiFiBand.textResource)
-        validateTextViewValue(view, expectedWiFiBand, R.id.wiFiBand)
+        with(wiFiDetail.wiFiSecurity) {
+            validateTextViewValue(view, this.capabilities, R.id.capabilitiesLong)
+            validateTextViewValue(view, expectedSecurityTypes, R.id.securityTypes)
+        }
+        with(wiFiDetail.wiFiSignal) {
+            val expectedWiFiStandard =
+                view.context.getString(this.wiFiStandard.textResource)
+            validateTextViewValue(view, expectedWiFiStandard, R.id.wiFiStandard)
+            val expectedWiFiBand = view.context.getString(this.wiFiBand.textResource)
+            validateTextViewValue(view, expectedWiFiBand, R.id.wiFiBand)
+        }
     }
 
     private fun validateTextViewValuesCompactView(view: View, wiFiDetail: WiFiDetail) {

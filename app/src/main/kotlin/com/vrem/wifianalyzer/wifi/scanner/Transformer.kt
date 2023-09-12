@@ -66,6 +66,12 @@ internal class Transformer(private val cache: Cache) {
     internal fun minVersionR(): Boolean = buildMinVersionR()
     internal fun minVersionT(): Boolean = buildMinVersionT()
 
+    internal fun bssid(scanResult: ScanResult): String =
+        if (scanResult.BSSID == null) String.EMPTY else scanResult.BSSID
+
+    internal fun capabilities(scanResult: ScanResult): String =
+        if (scanResult.capabilities == null) String.EMPTY else scanResult.capabilities
+
     private fun transform(cacheResult: CacheResult): WiFiDetail {
         val scanResult = cacheResult.scanResult
         val wiFiWidth = WiFiWidth.findOne(scanResult.channelWidth)
@@ -78,10 +84,10 @@ internal class Transformer(private val cache: Cache) {
         )
         val wiFiIdentifier = WiFiIdentifier(
             scanResult.ssid(),
-            if (scanResult.BSSID == null) String.EMPTY else scanResult.BSSID
+            bssid(scanResult)
         )
         val wiFiSecurity = WiFiSecurity(
-            if (scanResult.capabilities == null) String.EMPTY else scanResult.capabilities,
+            capabilities(scanResult),
             securityTypes(scanResult)
         )
         return WiFiDetail(wiFiIdentifier, wiFiSecurity, wiFiSignal)
