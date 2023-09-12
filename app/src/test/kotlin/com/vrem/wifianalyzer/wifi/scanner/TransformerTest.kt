@@ -241,20 +241,16 @@ class TransformerTest {
     private fun validateWiFiDetail(
         ssid: String, bssid: String, wiFiWidth: WiFiWidth, wiFiStandard: WiFiStandard, wiFiDetail: WiFiDetail, securityTypes: List<Int>
     ) {
-        with(wiFiDetail.wiFiIdentifier) {
-            assertEquals(ssid, this.ssid)
-            assertEquals(bssid, this.bssid)
-        }
-        with(wiFiDetail.wiFiSignal) {
-            assertEquals(wiFiWidth, this.wiFiWidth)
-            assertEquals(wiFiStandard, this.wiFiStandard)
-            assertEquals(LEVEL, this.level)
-            assertEquals(FREQUENCY, this.primaryFrequency)
-            assertEquals(FREQUENCY + wiFiWidth.frequencyWidthHalf, this.centerFrequency)
-        }
-        with(wiFiDetail.wiFiSecurity) {
-            assertEquals(WPA, this.capabilities)
-            assertEquals(securityTypes, this.securityTypes)
+        with(wiFiDetail) {
+            assertEquals(ssid, wiFiIdentifier.ssid)
+            assertEquals(bssid, wiFiIdentifier.bssid)
+            assertEquals(wiFiWidth, wiFiSignal.wiFiWidth)
+            assertEquals(wiFiStandard, wiFiSignal.wiFiStandard)
+            assertEquals(LEVEL, wiFiSignal.level)
+            assertEquals(FREQUENCY, wiFiSignal.primaryFrequency)
+            assertEquals(FREQUENCY + wiFiWidth.frequencyWidthHalf, wiFiSignal.centerFrequency)
+            assertEquals(WPA, wiFiSecurity.capabilities)
+            assertEquals(securityTypes, wiFiSecurity.securityTypes)
         }
     }
 
