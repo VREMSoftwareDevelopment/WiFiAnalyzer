@@ -74,9 +74,7 @@ fun ScanResult.ssid(): String =
     }.removeSurrounding("\"")
 
 @TargetApi(Build.VERSION_CODES.TIRAMISU)
-private fun ScanResult.ssidAndroidT(): String =
-    wifiSsid?.toString() ?: String.EMPTY
+private fun ScanResult.ssidAndroidT(): String = String.nullToEmpty(wifiSsid?.toString())
 
 @Suppress("DEPRECATION")
-private fun ScanResult.ssidLegacy(): String =
-    if (SSID == null) String.EMPTY else SSID
+private fun ScanResult.ssidLegacy(): String = String.nullToEmpty(SSID)

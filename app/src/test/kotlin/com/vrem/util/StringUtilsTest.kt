@@ -19,6 +19,7 @@ package com.vrem.util
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import java.util.Locale
 
 class StringUtilsTest {
 
@@ -32,5 +33,39 @@ class StringUtilsTest {
         // verify
         assertEquals(expected, actual)
     }
+
+    @Test
+    fun testToCapitalize() {
+        // setup
+        val expected = "Value"
+        val value = "value"
+        // execute
+        val actual: String = value.toCapitalize(Locale.US)
+        // verify
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun testNullToEmptyWhenNull() {
+        // setup
+        val expected = String.EMPTY
+        val value = null
+        // execute
+        val actual: String = String.nullToEmpty(value)
+        // verify
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun testNullToEmpty() {
+        // setup
+        val expected = "value"
+        val value = "value"
+        // execute
+        val actual: String = String.nullToEmpty(value)
+        // verify
+        assertEquals(expected, actual)
+    }
+
 
 }

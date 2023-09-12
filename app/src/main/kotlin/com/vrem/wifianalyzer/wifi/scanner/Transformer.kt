@@ -20,10 +20,7 @@ package com.vrem.wifianalyzer.wifi.scanner
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import com.vrem.annotation.OpenClass
-import com.vrem.util.EMPTY
-import com.vrem.util.buildMinVersionR
-import com.vrem.util.buildMinVersionT
-import com.vrem.util.ssid
+import com.vrem.util.*
 import com.vrem.wifianalyzer.wifi.model.*
 
 @Suppress("DEPRECATION")
@@ -37,8 +34,8 @@ internal class Transformer(private val cache: Cache) {
         return if (wifiInfo == null || wifiInfo.networkId == -1) {
             WiFiConnection.EMPTY
         } else {
-            val ssid = convertSSID(wifiInfo.ssid ?: String.EMPTY)
-            val wiFiIdentifier = WiFiIdentifier(ssid, wifiInfo.bssid ?: String.EMPTY)
+            val ssid = convertSSID(String.nullToEmpty(wifiInfo.ssid))
+            val wiFiIdentifier = WiFiIdentifier(ssid, String.nullToEmpty(wifiInfo.bssid))
             WiFiConnection(wiFiIdentifier, convertIpV4Address(wifiInfo.ipV4Address()), wifiInfo.linkSpeed)
         }
     }
@@ -57,7 +54,7 @@ internal class Transformer(private val cache: Cache) {
         }
 
     internal fun securityTypes(scanResult: ScanResult): List<Int> =
-        if (minVersionT() && scanResult.securityTypes != null) {
+        if (minVersionT()) {
             scanResult.securityTypes.asList()
         } else {
             listOf()
@@ -65,12 +62,6 @@ internal class Transformer(private val cache: Cache) {
 
     internal fun minVersionR(): Boolean = buildMinVersionR()
     internal fun minVersionT(): Boolean = buildMinVersionT()
-
-    internal fun bssid(scanResult: ScanResult): String =
-        if (scanResult.BSSID == null) String.EMPTY else scanResult.BSSID
-
-    internal fun capabilities(scanResult: ScanResult): String =
-        if (scanResult.capabilities == null) String.EMPTY else scanResult.capabilities
 
     private fun transform(cacheResult: CacheResult): WiFiDetail {
         val scanResult = cacheResult.scanResult
@@ -84,10 +75,10 @@ internal class Transformer(private val cache: Cache) {
         )
         val wiFiIdentifier = WiFiIdentifier(
             scanResult.ssid(),
-            bssid(scanResult)
+            String.nullToEmpty(scanResult.BSSID)
         )
         val wiFiSecurity = WiFiSecurity(
-            capabilities(scanResult),
+            String.nullToEmpty(scanResult.capabilities),
             securityTypes(scanResult)
         )
         return WiFiDetail(wiFiIdentifier, wiFiSecurity, wiFiSignal)

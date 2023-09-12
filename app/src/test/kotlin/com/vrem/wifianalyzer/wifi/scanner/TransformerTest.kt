@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.wifi.scanner
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import com.nhaarman.mockitokotlin2.*
-import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.wifi.model.*
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -29,8 +28,8 @@ import org.junit.Test
 
 class TransformerTest {
     private val scanResult1 = withScanResult(SSID_1, BSSID_1, WiFiWidth.MHZ_160, WiFiStandard.AX, WiFiSecurityTypeTest.All)
-    private val scanResult2 = withScanResult(SSID_2, BSSID_2, WiFiWidth.MHZ_80, WiFiStandard.AC, listOf())
-    private val scanResult3 = withScanResult(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N, null)
+    private val scanResult2 = withScanResult(SSID_2, BSSID_2, WiFiWidth.MHZ_80, WiFiStandard.AC, WiFiSecurityTypeTest.WPA3)
+    private val scanResult3 = withScanResult(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N, listOf())
     private val cacheResults = listOf(
         CacheResult(scanResult1, scanResult1.level),
         CacheResult(scanResult2, scanResult2.level),
@@ -94,7 +93,7 @@ class TransformerTest {
         // validate
         assertEquals(cacheResults.size, actual.size)
         validateWiFiDetail(SSID_1, BSSID_1, WiFiWidth.MHZ_160, WiFiStandard.AX, actual[0], WiFiSecurityTypeTest.All)
-        validateWiFiDetail(SSID_2, BSSID_2, WiFiWidth.MHZ_80, WiFiStandard.AC, actual[1], listOf())
+        validateWiFiDetail(SSID_2, BSSID_2, WiFiWidth.MHZ_80, WiFiStandard.AC, actual[1], WiFiSecurityTypeTest.WPA3)
         validateWiFiDetail(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N, actual[2], listOf())
         verify(fixture, times(3)).minVersionR()
         verify(fixture, times(3)).minVersionT()
@@ -151,17 +150,6 @@ class TransformerTest {
     }
 
     @Test
-    fun testSecurityTypesWhenSecurityTypesNull() {
-        // setup
-        doReturn(true).whenever(fixture).minVersionT()
-        // execute
-        val actual = fixture.securityTypes(scanResult3)
-        // validate
-        assertTrue(actual.isEmpty())
-        verify(fixture).minVersionT()
-    }
-
-    @Test
     fun testSecurityTypes() {
         // setup
         doReturn(false).whenever(fixture).minVersionT()
@@ -170,28 +158,6 @@ class TransformerTest {
         // validate
         assertTrue(actual.isEmpty())
         verify(fixture).minVersionT()
-    }
-
-    @Test
-    fun testBSSID() {
-        // setup
-        val scanResult: ScanResult = mock()
-        scanResult.BSSID = null
-        // execute
-        val actual = fixture.bssid(scanResult)
-        // validate
-        assertEquals(String.EMPTY, actual)
-    }
-
-    @Test
-    fun testCapabilities() {
-        // setup
-        val scanResult: ScanResult = mock()
-        scanResult.capabilities = null
-        // execute
-        val actual = fixture.capabilities(scanResult)
-        // validate
-        assertEquals(String.EMPTY, actual)
     }
 
     private fun withScanResult(
