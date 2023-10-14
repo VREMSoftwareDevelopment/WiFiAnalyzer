@@ -36,6 +36,7 @@
         android:paddingTop="@dimen/activity_vertical_margin">
 
         <ProgressBar
+            style="?android:attr/progressBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
