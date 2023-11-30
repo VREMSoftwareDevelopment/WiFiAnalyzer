@@ -88,6 +88,13 @@ WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 
 [GNU General Public License v3.0 (GPLv3)](http://www.gnu.org/licenses/gpl-3.0.html).
 
+## Privacy policy
+
+* WiFi Analyzer does not collect any personal/device information.
+* WiFi Analyzer is designed to use as few permissions as possible. It asks for just enough to perform the analysis. 
+* Plus, it is all open source so nothing is hidden! 
+* Most notably, this application does not require access to internet, so you can be sure it does not send any personal/device information to any other source and it does not receive any information from other sources. 
+
 ## WiFi Analyzer Build
 
 [![Workflow Status](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/workflows/Android%20CI/badge.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/actions?query=workflow%3A%22Android+CI%22)
