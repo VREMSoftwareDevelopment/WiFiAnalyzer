@@ -17,6 +17,7 @@ This is the official repository of WiFi Analyzer.
 - [FAQ](#faq)
 - [Feedback](#feedback)
 - [License](#license)
+- [Privacy policy](#privacy-policy)
 - [WiFi Analyzer Build](#wifi-analyzer-build)
 - [Contribute](#contribute)
 
