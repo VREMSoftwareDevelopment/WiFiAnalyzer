@@ -177,6 +177,8 @@
     <string name="about_how_to_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#how-to"</string>
     <string name="about_faq" translatable="false">"FAQ:"</string>
     <string name="about_faq_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq"</string>
+    <string name="about_privacy_policy" translatable="false">"Privacy Policy:"</string>
+    <string name="about_privacy_policy_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#privacy-policy"</string>
     <string name="about_contributor_title">"Contributors"</string>
     <string name="about_write_review">"Write a Review"</string>
     <string name="about_port_authority_url" translatable="false">https://github.com/aaronjwood/PortAuthority</string>
