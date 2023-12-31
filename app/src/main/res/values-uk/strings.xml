@@ -118,6 +118,7 @@
     <string name="filter_close">"Закрити"</string>
     <string name="filter_reset">"Скидання"</string>
     <string name="filter_apply">"Застосувати"</string>
+    <string name="filter_ssid_title">"SSID (чутливий до регістру)"</string>
     <string name="filter_wifi_band_title">"Wi-Fi діапазон"</string>
     <string name="filter_strength_title">"Рівень сигналу"</string>
     <string name="filter_security_title">"Безпека"</string>

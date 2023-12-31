@@ -119,6 +119,7 @@
     <string name="filter_close">"Schließen"</string>
     <string name="filter_reset">"Zurücksetzen"</string>
     <string name="filter_apply">"Anwenden"</string>
+    <string name="filter_ssid_title">"SSID (case-sensitiv)"</string>
     <string name="filter_wifi_band_title">"WLAN-Frequenzbänder"</string>
     <string name="filter_strength_title">"Signalstärke"</string>
     <string name="filter_security_title">"Sicherheit"</string>

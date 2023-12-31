@@ -119,6 +119,7 @@
     <string name="filter_close">"Chiudi"</string>
     <string name="filter_reset">"Resetta"</string>
     <string name="filter_apply">"Applica"</string>
+    <string name="filter_ssid_title">"SSID (sensibile alle maiuscole)"</string>
     <string name="filter_wifi_band_title">"Banda Wi-Fi"</string>
     <string name="filter_strength_title">"Potenza Segnale"</string>
     <string name="filter_security_title">"Sicurezza"</string>
