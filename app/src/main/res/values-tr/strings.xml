@@ -127,4 +127,9 @@
     <string name="filter_strength_title">"Sinyal Gücü"</string>
     <string name="filter_security_title">"Güvenlik"</string>
     <!-- filter end -->
+
+    <!-- wifi throttling start -->
+    <string name="wifi_throttling_on">Wi-Fi tarama kısıtlaması etkin</string>
+    <string name="wifi_throttling_off">Wi-Fi tarama kısıtlaması devre dışı</string>
+    <!-- wifi throttling end -->
 </resources>

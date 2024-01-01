@@ -93,6 +93,30 @@
             tools:text="device information" />
 
         <TextView
+            android:id="@+id/about_wifi_throttling_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/activity_horizontal_margin"
+            android:text="@string/wifi_throttling_off"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:drawableStartCompat="@drawable/ic_check"
+            app:drawableTint="@color/success"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/about_wifi_throttling_on"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/activity_horizontal_margin"
+            android:text="@string/wifi_throttling_on"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:drawableStartCompat="@drawable/ic_close"
+            app:drawableTint="@color/error"
+            tools:visibility="visible" />
+
+        <TextView
             android:id="@+id/about_wifi_band_2ghz_success"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

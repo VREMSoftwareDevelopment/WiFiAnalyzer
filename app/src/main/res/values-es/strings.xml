@@ -124,4 +124,8 @@
     <string name="filter_security_title">"Seguridad"</string>
     <!-- filter end -->
 
+    <!-- wifi throttling start -->
+    <string name="wifi_throttling_on">La aceleración del escaneo de Wi-Fi está habilitada</string>
+    <string name="wifi_throttling_off">La aceleración del escaneo de Wi-Fi está deshabilitada</string>
+    <!-- wifi throttling end -->
 </resources>

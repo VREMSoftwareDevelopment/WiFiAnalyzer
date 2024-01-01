@@ -69,8 +69,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <include layout="@layout/info_throttling" />
-
     <LinearLayout
         android:id="@+id/no_location"
         android:layout_width="match_parent"
@@ -78,6 +76,8 @@
         android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible">
+
+        <include layout="@layout/info_throttling" />
 
         <include layout="@layout/info_location" />
     </LinearLayout>

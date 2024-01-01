@@ -124,4 +124,8 @@
     <string name="filter_security_title">"Безопасность"</string>
     <!-- filter end -->
 
+    <!-- wifi throttling start -->
+    <string name="wifi_throttling_on">Регулирование сканирования Wi-Fi включено</string>
+    <string name="wifi_throttling_off">Регулирование сканирования Wi-Fi отключено</string>
+    <!-- wifi throttling end -->
 </resources>

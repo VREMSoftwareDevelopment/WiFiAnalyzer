@@ -17,11 +17,8 @@
  */
 package com.vrem.wifianalyzer.wifi.accesspoint
 
-import android.annotation.TargetApi
-import android.os.Build
 import android.view.View
 import com.vrem.util.buildMinVersionP
-import com.vrem.util.buildMinVersionT
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
@@ -34,8 +31,7 @@ class WarningView(private val mainActivity: MainActivity) {
         val registered = mainActivity.currentNavigationMenu().registered()
         val noData = noData(registered, wiFiData.wiFiDetails)
         val noLocation = noLocation(registered)
-        val throttling = throttling(registered, noData, noLocation)
-        val warning = noData || noLocation || throttling
+        val warning = noData || noLocation
         mainActivity.findViewById<View>(R.id.warning).visibility = if (warning) View.VISIBLE else View.GONE
         return warning
     }
@@ -48,36 +44,15 @@ class WarningView(private val mainActivity: MainActivity) {
 
     internal fun noLocation(registered: Boolean): Boolean {
         val noLocation = registered && !MainContext.INSTANCE.permissionService.enabled()
-        mainActivity.findViewById<View>(R.id.no_location).visibility = if (noLocation) View.VISIBLE else View.GONE
-        return noLocation
-    }
-
-    internal fun throttling(registered: Boolean, noData: Boolean, noLocation: Boolean): Boolean =
-        if (buildMinVersionT()) {
-            throttlingAndroidT(registered)
-        } else if (buildMinVersionP()) {
-            throttlingAndroidP(registered, noData, noLocation)
+        if (noLocation) {
+            mainActivity.findViewById<View>(R.id.no_location).visibility = View.VISIBLE
+            mainActivity.findViewById<View>(R.id.throttling).visibility =
+                if (buildMinVersionP()) View.VISIBLE else View.GONE
         } else {
-            throttlingLegacy()
+            mainActivity.findViewById<View>(R.id.no_location).visibility = View.GONE
+            mainActivity.findViewById<View>(R.id.throttling).visibility = View.GONE
         }
-
-    @TargetApi(Build.VERSION_CODES.TIRAMISU)
-    private fun throttlingAndroidT(registered: Boolean): Boolean {
-        val throttling = registered && MainContext.INSTANCE.wiFiManagerWrapper.isScanThrottleEnabled()
-        mainActivity.findViewById<View>(R.id.throttling).visibility = if (throttling) View.VISIBLE else View.GONE
-        return throttling
-    }
-
-    @TargetApi(Build.VERSION_CODES.P)
-    private fun throttlingAndroidP(registered: Boolean, noData: Boolean, noLocation: Boolean): Boolean {
-        val throttling = registered && (noData || noLocation)
-        mainActivity.findViewById<View>(R.id.throttling).visibility = if (throttling) View.VISIBLE else View.GONE
-        return throttling
-    }
-
-    private fun throttlingLegacy(): Boolean {
-        mainActivity.findViewById<View>(R.id.throttling).visibility = View.GONE
-        return false
+        return noLocation
     }
 
 }

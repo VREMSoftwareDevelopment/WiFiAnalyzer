@@ -124,4 +124,8 @@
     <string name="filter_security_title">"Protocolo de Segurança"</string>
     <!-- filter end -->
 
+    <!-- wifi throttling start -->
+    <string name="wifi_throttling_on">A otimização da verificação de Wi-Fi está ativada</string>
+    <string name="wifi_throttling_off">A otimização da verificação de Wi-Fi está desativada</string>
+    <!-- wifi throttling end -->
 </resources>

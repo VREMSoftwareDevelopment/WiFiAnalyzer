@@ -124,4 +124,8 @@
     <string name="filter_security_title">"Sécurité"</string>
     <!-- filter end -->
 
+    <!-- wifi throttling start -->
+    <string name="wifi_throttling_on">La limitation de l\'analyse Wi-Fi est activée</string>
+    <string name="wifi_throttling_off">La limitation de l\'analyse Wi-Fi est désactivée</string>
+    <!-- wifi throttling end -->
 </resources>

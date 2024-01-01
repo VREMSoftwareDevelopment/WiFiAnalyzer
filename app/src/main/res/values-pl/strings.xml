@@ -124,4 +124,8 @@
     <string name="filter_security_title">"Bezpieczeństwo"</string>
     <!-- filter end -->
 
+    <!-- wifi throttling start -->
+    <string name="wifi_throttling_on">Ograniczanie skanowania Wi-Fi jest włączone</string>
+    <string name="wifi_throttling_off">Ograniczanie skanowania Wi-Fi jest wyłączone</string>
+    <!-- wifi throttling end -->
 </resources>

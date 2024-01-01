@@ -126,4 +126,8 @@
     <string name="filter_security_title">"安全"</string>
     <!-- filter end -->
 
+    <!-- wifi throttling start -->
+    <string name="wifi_throttling_on">Wi-Fi 掃描限制已啟用</string>
+    <string name="wifi_throttling_off">Wi-Fi 掃描限制已停用</string>
+    <!-- wifi throttling end -->
 </resources>

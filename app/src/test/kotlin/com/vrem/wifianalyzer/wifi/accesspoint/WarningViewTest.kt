@@ -36,13 +36,11 @@ import org.robolectric.annotation.Config
 @Config(sdk = [Build.VERSION_CODES.TIRAMISU])
 class WarningViewTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val wiFiManagerWrapper = MainContextHelper.INSTANCE.wiFiManagerWrapper
     private val permissionService = MainContextHelper.INSTANCE.permissionService
     private val fixture = spy(WarningView(mainActivity))
 
     @After
     fun tearDown() {
-        verifyNoMoreInteractions(wiFiManagerWrapper)
         verifyNoMoreInteractions(permissionService)
         MainContextHelper.INSTANCE.restore()
         mainActivity.currentNavigationMenu(NavigationMenu.ACCESS_POINTS)
@@ -55,7 +53,6 @@ class WarningViewTest {
         val registered = mainActivity.currentNavigationMenu().registered()
         doReturn(false).whenever(fixture).noData(registered, wiFiData.wiFiDetails)
         doReturn(false).whenever(fixture).noLocation(registered)
-        doReturn(false).whenever(fixture).throttling(registered, noData = false, noLocation = false)
         // execute
         val actual = fixture.update(wiFiData)
         // validate
@@ -63,7 +60,6 @@ class WarningViewTest {
         assertTrue(mainActivity.findViewById<View>(R.id.warning).isGone)
         verify(fixture).noData(registered, wiFiData.wiFiDetails)
         verify(fixture).noLocation(registered)
-        verify(fixture).throttling(registered, noData = false, noLocation = false)
     }
 
     @Test
@@ -73,7 +69,6 @@ class WarningViewTest {
         val registered = mainActivity.currentNavigationMenu().registered()
         doReturn(true).whenever(fixture).noData(registered, wiFiData.wiFiDetails)
         doReturn(false).whenever(fixture).noLocation(registered)
-        doReturn(false).whenever(fixture).throttling(registered, noData = true, noLocation = false)
         // execute
         val actual = fixture.update(wiFiData)
         // validate
@@ -81,7 +76,6 @@ class WarningViewTest {
         assertTrue(mainActivity.findViewById<View>(R.id.warning).isVisible)
         verify(fixture).noData(registered, wiFiData.wiFiDetails)
         verify(fixture).noLocation(registered)
-        verify(fixture).throttling(registered, noData = true, noLocation = false)
     }
 
     @Test
@@ -91,7 +85,6 @@ class WarningViewTest {
         val registered = mainActivity.currentNavigationMenu().registered()
         doReturn(false).whenever(fixture).noData(registered, wiFiData.wiFiDetails)
         doReturn(true).whenever(fixture).noLocation(registered)
-        doReturn(false).whenever(fixture).throttling(registered, noData = false, noLocation = true)
         // execute
         val actual = fixture.update(wiFiData)
         // validate
@@ -99,25 +92,6 @@ class WarningViewTest {
         assertTrue(mainActivity.findViewById<View>(R.id.warning).isVisible)
         verify(fixture).noData(registered, wiFiData.wiFiDetails)
         verify(fixture).noLocation(registered)
-        verify(fixture).throttling(registered, noData = false, noLocation = true)
-    }
-
-    @Test
-    fun testWarningVisibleWhenThrottling() {
-        // setup
-        val wiFiData = WiFiData.EMPTY
-        val registered = mainActivity.currentNavigationMenu().registered()
-        doReturn(false).whenever(fixture).noData(registered, wiFiData.wiFiDetails)
-        doReturn(false).whenever(fixture).noLocation(registered)
-        doReturn(true).whenever(fixture).throttling(registered, noData = false, noLocation = false)
-        // execute
-        val actual = fixture.update(wiFiData)
-        // validate
-        assertTrue(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.warning).isVisible)
-        verify(fixture).noData(registered, wiFiData.wiFiDetails)
-        verify(fixture).noLocation(registered)
-        verify(fixture).throttling(registered, noData = false, noLocation = false)
     }
 
     @Test
@@ -172,6 +146,21 @@ class WarningViewTest {
         // validate
         assertTrue(actual)
         assertTrue(mainActivity.findViewById<View>(R.id.no_location).isVisible)
+        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isVisible)
+        verify(permissionService).enabled()
+    }
+
+    @Test
+    @Config(sdk = [Build.VERSION_CODES.O_MR1])
+    fun testNoLocationVisibleAndThrottlingIsGoneAndroidP() {
+        // setup
+        whenever(permissionService.enabled()).thenReturn(false)
+        // execute
+        val actual = fixture.noLocation(true)
+        // validate
+        assertTrue(actual)
+        assertTrue(mainActivity.findViewById<View>(R.id.no_location).isVisible)
+        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isGone)
         verify(permissionService).enabled()
     }
 
@@ -184,6 +173,7 @@ class WarningViewTest {
         // validate
         assertFalse(actual)
         assertTrue(mainActivity.findViewById<View>(R.id.no_location).isGone)
+        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isGone)
         verify(permissionService, never()).enabled()
     }
 
@@ -196,6 +186,7 @@ class WarningViewTest {
         // validate
         assertFalse(actual)
         assertTrue(mainActivity.findViewById<View>(R.id.no_location).isGone)
+        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isGone)
         verify(permissionService).enabled()
     }
 
@@ -208,93 +199,7 @@ class WarningViewTest {
         // validate
         assertFalse(actual)
         assertTrue(mainActivity.findViewById<View>(R.id.no_location).isGone)
+        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isGone)
         verify(permissionService, never()).enabled()
     }
-
-    @Test
-    fun testThrottlingVisibleWhenRegisteredAndThrottling() {
-        // setup
-        whenever(wiFiManagerWrapper.isScanThrottleEnabled()).thenReturn(true)
-        // execute
-        val actual = fixture.throttling(registered = true, noData = true, noLocation = true)
-        //
-        assertTrue(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isVisible)
-        verify(wiFiManagerWrapper).isScanThrottleEnabled()
-    }
-
-    @Test
-    fun testThrottlingGoneWhenNotRegistered() {
-        // setup
-        whenever(wiFiManagerWrapper.isScanThrottleEnabled()).thenReturn(true)
-        // execute
-        val actual = fixture.throttling(registered = false, noData = true, noLocation = true)
-        //
-        assertFalse(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isGone)
-        verify(wiFiManagerWrapper, never()).isScanThrottleEnabled()
-    }
-
-    @Test
-    fun testThrottlingGoneWhenNoThrottling() {
-        // setup
-        whenever(wiFiManagerWrapper.isScanThrottleEnabled()).thenReturn(false)
-        // execute
-        val actual = fixture.throttling(registered = true, noData = true, noLocation = true)
-        //
-        assertFalse(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isGone)
-        verify(wiFiManagerWrapper).isScanThrottleEnabled()
-    }
-
-    @Test
-    @Config(sdk = [Build.VERSION_CODES.P])
-    fun testThrottlingAndroidPGoneWhenNotRegistered() {
-        // execute
-        val actual = fixture.throttling(registered = false, noData = true, noLocation = true)
-        //
-        assertFalse(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isGone)
-    }
-
-    @Test
-    @Config(sdk = [Build.VERSION_CODES.P])
-    fun testThrottlingAndroidPGoneWhenRegisteredAndNoDataAndNoLocation() {
-        // execute
-        val actual = fixture.throttling(registered = true, noData = false, noLocation = false)
-        //
-        assertFalse(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isGone)
-    }
-
-    @Test
-    @Config(sdk = [Build.VERSION_CODES.P])
-    fun testThrottlingAndroidPVisibleWhenRegisteredAndNoData() {
-        // execute
-        val actual = fixture.throttling(registered = true, noData = true, noLocation = false)
-        //
-        assertTrue(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isVisible)
-    }
-
-    @Test
-    @Config(sdk = [Build.VERSION_CODES.P])
-    fun testThrottlingAndroidPVisibleWhenRegisteredAndNoLocation() {
-        // execute
-        val actual = fixture.throttling(registered = true, noData = false, noLocation = true)
-        //
-        assertTrue(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isVisible)
-    }
-
-    @Test
-    @Config(sdk = [Build.VERSION_CODES.O_MR1])
-    fun testThrottlingLegacyGone() {
-        // execute
-        val actual = fixture.throttling(registered = true, noData = true, noLocation = true)
-        //
-        assertFalse(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isGone)
-    }
-
 }

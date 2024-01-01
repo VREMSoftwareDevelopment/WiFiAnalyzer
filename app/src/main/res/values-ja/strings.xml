@@ -122,4 +122,9 @@
     <string name="filter_strength_title">"信号の強さ"</string>
     <string name="filter_security_title">"セキュリティ"</string>
     <!-- filter end -->
+
+    <!-- wifi throttling start -->
+    <string name="wifi_throttling_on">Wi-Fi スキャンのスロットルが有効になっています</string>
+    <string name="wifi_throttling_off">Wi-Fi スキャンのスロットリングが無効になっています</string>
+    <!-- wifi throttling end -->
 </resources>

@@ -67,19 +67,24 @@ class AboutFragment : Fragment() {
 
     private fun wiFiState(binding: AboutContentBinding) {
         val wiFiManagerWrapper = MainContext.INSTANCE.wiFiManagerWrapper
-        wiFiBand(
+        toggle(
+            wiFiManagerWrapper.isScanThrottleEnabled(),
+            binding.aboutWifiThrottlingOn,
+            binding.aboutWifiThrottlingOff
+        )
+        toggle(
             wiFiManagerWrapper.is5GHzBandSupported(),
             binding.aboutWifiBand5ghzSuccess,
             binding.aboutWifiBand5ghzFails
         )
-        wiFiBand(
+        toggle(
             wiFiManagerWrapper.is6GHzBandSupported(),
             binding.aboutWifiBand6ghzSuccess,
             binding.aboutWifiBand6ghzFails
         )
     }
 
-    private fun wiFiBand(bandSupported: Boolean, aboutWifiBandSuccess: TextView, aboutWifiBandFails: TextView) {
+    private fun toggle(bandSupported: Boolean, aboutWifiBandSuccess: TextView, aboutWifiBandFails: TextView) {
         if (bandSupported) {
             aboutWifiBandSuccess.visibility = View.VISIBLE
             aboutWifiBandFails.visibility = View.GONE
