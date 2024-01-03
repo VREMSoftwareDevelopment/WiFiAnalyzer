@@ -68,5 +68,7 @@
 
     <include layout="@layout/main_wifi_support" />
 
+    <include layout="@layout/main_wifi_throttling" />
+
     <include layout="@layout/main_warning" />
 </LinearLayout>

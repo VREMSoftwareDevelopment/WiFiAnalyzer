@@ -25,6 +25,7 @@ import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.settings.Settings
+import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
@@ -38,10 +39,16 @@ class ConnectionView(
 ) : UpdateNotifier {
 
     override fun update(wiFiData: WiFiData) {
-        val settings = MainContext.INSTANCE.settings
-        displayConnection(wiFiData, settings)
-        displayWiFiSupport(settings)
+        val mainContext = MainContext.INSTANCE
+        displayConnection(wiFiData, mainContext.settings)
+        displayWiFiSupport(mainContext.settings)
+        displayThrottling(mainContext.wiFiManagerWrapper)
         warningView.update(wiFiData)
+    }
+
+    private fun displayThrottling(wiFiManagerWrapper: WiFiManagerWrapper) {
+        val visibility = if (wiFiManagerWrapper.isScanThrottleEnabled()) View.VISIBLE else View.GONE
+        mainActivity.findViewById<TextView>(R.id.main_wifi_throttling).visibility = visibility
     }
 
     private fun displayWiFiSupport(settings: Settings) {
