@@ -194,40 +194,6 @@ class ConnectionViewTest {
         verify(warningView).update(wiFiData)
     }
 
-    @Test
-    fun testWiFiThrottlingIsGoneWhenWiFiThrottlingIsDisabled() {
-        // setup
-        whenever(wiFiManagerWrapper.isScanThrottleEnabled()).thenReturn(false)
-        whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
-        whenever(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE)
-        withConnectionInformation(withConnection(WiFiAdditional.EMPTY))
-        // execute
-        fixture.update(wiFiData)
-        // validate
-        val textView = mainActivity.findViewById<TextView>(R.id.main_wifi_throttling)
-        assertEquals(View.GONE, textView.visibility)
-        verify(wiFiManagerWrapper).isScanThrottleEnabled()
-        verify(settings).wiFiBand()
-        verify(warningView).update(wiFiData)
-    }
-
-    @Test
-    fun testWiFiThrottlingIsVisibleWhenWiFiThrottlingIsEnabled() {
-        // setup
-        whenever(wiFiManagerWrapper.isScanThrottleEnabled()).thenReturn(true)
-        whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
-        whenever(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE)
-        withConnectionInformation(withConnection(WiFiAdditional.EMPTY))
-        // execute
-        fixture.update(wiFiData)
-        // validate
-        val textView = mainActivity.findViewById<TextView>(R.id.main_wifi_throttling)
-        assertEquals(View.VISIBLE, textView.visibility)
-        verify(wiFiManagerWrapper).isScanThrottleEnabled()
-        verify(settings).wiFiBand()
-        verify(warningView).update(wiFiData)
-    }
-
     private fun withConnection(wiFiAdditional: WiFiAdditional): WiFiDetail =
         WiFiDetail(
             WiFiIdentifier(ssid, bssid),

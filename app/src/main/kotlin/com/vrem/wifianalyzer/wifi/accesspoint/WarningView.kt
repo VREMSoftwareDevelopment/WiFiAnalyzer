@@ -18,10 +18,13 @@
 package com.vrem.wifianalyzer.wifi.accesspoint
 
 import android.view.View
+import android.widget.TextView
 import com.vrem.util.buildMinVersionP
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
+import com.vrem.wifianalyzer.permission.PermissionService
+import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
@@ -29,11 +32,19 @@ class WarningView(private val mainActivity: MainActivity) {
 
     fun update(wiFiData: WiFiData): Boolean {
         val registered = mainActivity.currentNavigationMenu().registered()
+        val mainContext = MainContext.INSTANCE
+        throttling(registered, mainContext.wiFiManagerWrapper)
         val noData = noData(registered, wiFiData.wiFiDetails)
-        val noLocation = noLocation(registered)
+        val noLocation = noLocation(registered, mainContext.permissionService)
         val warning = noData || noLocation
         mainActivity.findViewById<View>(R.id.warning).visibility = if (warning) View.VISIBLE else View.GONE
         return warning
+    }
+
+    internal fun throttling(registered: Boolean, wiFiManagerWrapper: WiFiManagerWrapper) {
+        val throttling = registered && wiFiManagerWrapper.isScanThrottleEnabled()
+        val visibility = if (throttling) View.VISIBLE else View.GONE
+        mainActivity.findViewById<TextView>(R.id.main_wifi_throttling).visibility = visibility
     }
 
     internal fun noData(registered: Boolean, wiFiDetails: List<WiFiDetail>): Boolean {
@@ -42,8 +53,8 @@ class WarningView(private val mainActivity: MainActivity) {
         return noData
     }
 
-    internal fun noLocation(registered: Boolean): Boolean {
-        val noLocation = registered && !MainContext.INSTANCE.permissionService.enabled()
+    internal fun noLocation(registered: Boolean, permissionService: PermissionService): Boolean {
+        val noLocation = registered && !permissionService.enabled()
         if (noLocation) {
             mainActivity.findViewById<View>(R.id.no_location).visibility = View.VISIBLE
             mainActivity.findViewById<View>(R.id.throttling).visibility =
