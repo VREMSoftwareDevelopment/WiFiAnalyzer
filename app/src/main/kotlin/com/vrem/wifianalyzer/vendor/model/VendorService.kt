@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,7 +55,7 @@ class VendorService(private val resources: Resources) {
             .split("\n")
             .map { it.split("|").toTypedArray() }
             .filter { it.size == 2 }
-            .forEach { it ->
+            .forEach {
                 val name = it[0]
                 val results: List<String> = it[1].chunked(MAX_SIZE)
                 results.forEach { macs[it] = name }

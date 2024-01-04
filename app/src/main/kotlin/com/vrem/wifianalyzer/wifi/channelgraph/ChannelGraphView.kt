@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,13 @@ import com.vrem.wifianalyzer.settings.ThemeStyle
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels
-import com.vrem.wifianalyzer.wifi.graphutils.*
+import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint
+import com.vrem.wifianalyzer.wifi.graphutils.GraphViewBuilder
+import com.vrem.wifianalyzer.wifi.graphutils.GraphViewNotifier
+import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper
+import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
+import com.vrem.wifianalyzer.wifi.graphutils.THICKNESS_INVISIBLE
+import com.vrem.wifianalyzer.wifi.graphutils.transparent
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
 import com.vrem.wifianalyzer.wifi.predicate.makeOtherPredicate

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,8 +32,12 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.databinding.ChannelRatingDetailsBinding
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.ChannelRating
+import com.vrem.wifianalyzer.wifi.model.SortBy
+import com.vrem.wifianalyzer.wifi.model.Strength
 import com.vrem.wifianalyzer.wifi.model.Strength.Companion.reverse
+import com.vrem.wifianalyzer.wifi.model.WiFiData
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
 import com.vrem.wifianalyzer.wifi.predicate.predicate
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier

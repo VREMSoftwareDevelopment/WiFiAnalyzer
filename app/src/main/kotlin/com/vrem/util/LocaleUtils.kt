@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,8 +63,7 @@ val UKRAINIAN: Locale = Locale("uk")
 private const val SEPARATOR: String = "_"
 
 fun findByCountryCode(countryCode: String): Locale =
-    SyncAvoid.availableLocales
-        .find { countryCode.toCapitalize(Locale.getDefault()) == it.country }
+    SyncAvoid.availableLocales.firstOrNull { countryCode.toCapitalize(Locale.getDefault()) == it.country }
         ?: SyncAvoid.defaultLocale
 
 fun allCountries(): List<Locale> = SyncAvoid.countriesLocales.values.toList()
@@ -74,7 +73,7 @@ fun findByLanguageTag(languageTag: String): Locale {
         val locale: Locale = fromLanguageTag(languageTag)
         it.language == locale.language && it.country == locale.country
     }
-    return SyncAvoid.supportedLocales.find(languageTagPredicate) ?: SyncAvoid.defaultLocale
+    return SyncAvoid.supportedLocales.firstOrNull(languageTagPredicate) ?: SyncAvoid.defaultLocale
 }
 
 fun supportedLanguages(): List<Locale> = SyncAvoid.supportedLocales

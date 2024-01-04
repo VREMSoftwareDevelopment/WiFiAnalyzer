@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,10 @@ import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.model.Strength
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertArrayEquals
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class StrengthAdapterTest {

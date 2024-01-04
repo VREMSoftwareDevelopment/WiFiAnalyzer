@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,10 +18,23 @@
 package com.vrem.wifianalyzer.wifi.accesspoint
 
 import android.widget.ExpandableListView
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.eq
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
+import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.GroupBy
+import com.vrem.wifianalyzer.wifi.model.Security
+import com.vrem.wifianalyzer.wifi.model.SortBy
+import com.vrem.wifianalyzer.wifi.model.Strength
+import com.vrem.wifianalyzer.wifi.model.WiFiData
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test

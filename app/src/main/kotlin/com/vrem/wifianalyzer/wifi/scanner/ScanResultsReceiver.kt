@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ import android.net.wifi.WifiManager
 import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.MainActivity
 
-internal interface Callback {
+fun interface Callback { // Compliant, function interface used
     fun onSuccess()
 }
 
@@ -51,10 +51,10 @@ internal class ScanResultsReceiver(private val mainActivity: MainActivity, priva
     fun makeIntentFilter(action: String): IntentFilter = IntentFilter(action)
 
     override fun onReceive(context: Context, intent: Intent) {
-        if (WifiManager.SCAN_RESULTS_AVAILABLE_ACTION == intent.action) {
-            if (intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)) {
-                callback.onSuccess()
-            }
+        if (WifiManager.SCAN_RESULTS_AVAILABLE_ACTION == intent.action &&
+            intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)
+        ) {
+            callback.onSuccess()
         }
     }
 }

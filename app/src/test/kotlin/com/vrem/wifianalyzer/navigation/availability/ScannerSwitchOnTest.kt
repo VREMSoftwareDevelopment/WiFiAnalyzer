@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,11 @@ package com.vrem.wifianalyzer.navigation.availability
 
 import android.view.Menu
 import android.view.MenuItem
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.never
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
+import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R

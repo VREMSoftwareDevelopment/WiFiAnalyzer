@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,21 @@ package com.vrem.wifianalyzer.wifi.scanner
 
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
-import com.nhaarman.mockitokotlin2.*
-import com.vrem.wifianalyzer.wifi.model.*
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.spy
+import com.nhaarman.mockitokotlin2.times
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
+import com.nhaarman.mockitokotlin2.whenever
+import com.vrem.wifianalyzer.wifi.model.BSSID
+import com.vrem.wifianalyzer.wifi.model.SSID
+import com.vrem.wifianalyzer.wifi.model.WiFiConnection
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurityTypeTest
+import com.vrem.wifianalyzer.wifi.model.WiFiStandard
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

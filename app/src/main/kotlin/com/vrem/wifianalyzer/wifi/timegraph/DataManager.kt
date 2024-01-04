@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,11 @@ package com.vrem.wifianalyzer.wifi.timegraph
 
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.vrem.annotation.OpenClass
-import com.vrem.wifianalyzer.wifi.graphutils.*
+import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint
+import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper
+import com.vrem.wifianalyzer.wifi.graphutils.MAX_SCAN_COUNT
+import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
+import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y_OFFSET
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
 @OpenClass

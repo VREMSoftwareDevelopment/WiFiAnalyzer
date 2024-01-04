@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,8 +20,21 @@ package com.vrem.wifianalyzer.wifi.scanner
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import com.vrem.annotation.OpenClass
-import com.vrem.util.*
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.util.buildMinVersionR
+import com.vrem.util.buildMinVersionT
+import com.vrem.util.nullToEmpty
+import com.vrem.util.ssid
+import com.vrem.wifianalyzer.wifi.model.WiFiConnection
+import com.vrem.wifianalyzer.wifi.model.WiFiData
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiStandard
+import com.vrem.wifianalyzer.wifi.model.WiFiStandardId
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+import com.vrem.wifianalyzer.wifi.model.convertIpV4Address
+import com.vrem.wifianalyzer.wifi.model.convertSSID
 
 @Suppress("DEPRECATION")
 fun WifiInfo.ipV4Address(): Int = ipAddress

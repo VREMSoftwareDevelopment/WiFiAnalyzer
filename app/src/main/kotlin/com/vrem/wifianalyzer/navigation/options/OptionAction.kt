@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,12 +45,7 @@ internal enum class OptionAction(val key: Int, val action: Action) {
     WIFI_BAND_6(R.id.action_wifi_band_6ghz, wiFiBandAction6);
 
     companion object {
-        fun findOptionAction(key: Int): OptionAction {
-            for (value in values()) {
-                if (value.key == key) return value
-            }
-            return NO_ACTION
-        }
+        fun findOptionAction(key: Int): OptionAction = entries.firstOrNull { it.key == key } ?: NO_ACTION
     }
 
 }

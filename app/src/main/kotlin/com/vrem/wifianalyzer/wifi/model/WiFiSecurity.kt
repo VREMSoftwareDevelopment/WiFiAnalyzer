@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,7 +55,9 @@ enum class WiFiSecurityType(val securityTypeId: SecurityTypeId, @StringRes val t
     SECURITY_TYPE_DPP(13, R.string.security_type_dpp);
 
     companion object {
-        fun findOne(securityTypeId: SecurityTypeId) = values().firstOrNull { it.securityTypeId == securityTypeId } ?: UNKNOWN
+        fun findOne(securityTypeId: SecurityTypeId) =
+            entries.firstOrNull { it.securityTypeId == securityTypeId } ?: UNKNOWN
+
         fun findAll(securityTypes: List<Int>): Set<WiFiSecurityType> = securityTypes.map { findOne(it) }.toSet()
     }
 }
@@ -83,7 +85,8 @@ data class WiFiSecurity(val capabilities: String = String.EMPTY, val securityTyp
             .toSet()
 
     private fun transformCapability(name: String) =
-        Security.entries.find { security -> security.name == name } ?: Security.entries.find { security -> security.extras.contains(name) }
+        Security.entries.firstOrNull { security -> security.name == name }
+            ?: Security.entries.firstOrNull { security -> security.extras.contains(name) }
 
     private fun transformSecurityTypes(): Set<Security> =
         wiFiSecurityTypes.filter { it.security != Security.NONE }.map { it.security }.toSet()

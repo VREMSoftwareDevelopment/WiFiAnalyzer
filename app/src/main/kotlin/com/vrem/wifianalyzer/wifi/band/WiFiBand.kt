@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,8 +37,7 @@ enum class WiFiBand(@StringRes val textResource: Int, val wiFiChannels: WiFiChan
     val ghz6: Boolean get() = GHZ6 == this
 
     companion object {
-        fun find(frequency: Int): WiFiBand = values().find { it.wiFiChannels.inRange(frequency) }
-            ?: GHZ2
+        fun find(frequency: Int): WiFiBand = entries.firstOrNull { it.wiFiChannels.inRange(frequency) } ?: GHZ2
     }
 
 }

@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,13 @@ package com.vrem.wifianalyzer.settings
 
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import com.vrem.annotation.OpenClass
-import com.vrem.util.*
+import com.vrem.util.buildMinVersionQ
+import com.vrem.util.defaultCountryCode
+import com.vrem.util.defaultLanguageTag
+import com.vrem.util.findByLanguageTag
+import com.vrem.util.findOne
+import com.vrem.util.findSet
+import com.vrem.util.ordinals
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.NavigationGroup
 import com.vrem.wifianalyzer.navigation.NavigationMenu

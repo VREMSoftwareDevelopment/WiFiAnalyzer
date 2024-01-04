@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,13 +24,22 @@ import com.jjoe64.graphview.GridLabelRenderer
 import com.jjoe64.graphview.LegendRenderer
 import com.jjoe64.graphview.Viewport
 import com.jjoe64.graphview.series.BaseSeries
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.never
+import com.nhaarman.mockitokotlin2.spy
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
+import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.SIZE_MAX
 import com.vrem.wifianalyzer.SIZE_MIN
 import com.vrem.wifianalyzer.settings.ThemeStyle
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 

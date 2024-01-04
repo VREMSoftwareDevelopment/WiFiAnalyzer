@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2023 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,9 +20,15 @@ package com.vrem.wifianalyzer.wifi.graphutils
 import com.jjoe64.graphview.series.BaseSeries
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class SeriesCacheTest {
