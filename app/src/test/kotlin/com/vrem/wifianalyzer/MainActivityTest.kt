@@ -38,7 +38,7 @@ import org.robolectric.Robolectric
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.TIRAMISU])
+@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
 class MainActivityTest {
     private val fixture = Robolectric.buildActivity(MainActivity::class.java).create().resume().get()
 

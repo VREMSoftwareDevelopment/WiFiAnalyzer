@@ -27,7 +27,7 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.TIRAMISU])
+@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
 class VendorServiceTest {
     private val vendorName = "CISCO SYSTEMS INC"
     private val macAddress = "00:23:AB:8C:DF:10"
