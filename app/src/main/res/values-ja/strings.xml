@@ -118,6 +118,7 @@
     <string name="filter_close">"閉じる"</string>
     <string name="filter_reset">"リセット"</string>
     <string name="filter_apply">"適用"</string>
+    <string name="filter_ssid_title">"SSID (ケース・センシティブ)"</string>
     <string name="filter_wifi_band_title">"Wi-Fi バンド"</string>
     <string name="filter_strength_title">"信号の強さ"</string>
     <string name="filter_security_title">"セキュリティ"</string>

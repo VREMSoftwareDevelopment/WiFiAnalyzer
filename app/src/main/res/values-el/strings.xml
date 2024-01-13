@@ -119,6 +119,7 @@
     <string name="filter_close">"Κλείσιμο"</string>
     <string name="filter_reset">"Επαναφορά"</string>
     <string name="filter_apply">"Εφαρμογή"</string>
+    <string name="filter_ssid_title">"SSID (διάκριση πεζών-κεφαλαίων)"</string>
     <string name="filter_wifi_band_title">"Ζώνη Wi-Fi"</string>
     <string name="filter_strength_title">"Ισχύς σήματος"</string>
     <string name="filter_security_title">"Ασφάλεια"</string>

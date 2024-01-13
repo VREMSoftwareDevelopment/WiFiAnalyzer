@@ -123,6 +123,7 @@
     <string name="filter_close">"Затвори"</string>
     <string name="filter_reset">"Нулирай"</string>
     <string name="filter_apply">"Приложи"</string>
+    <string name="filter_ssid_title">"SSID (различаващ главни от малки букви)"</string>
     <string name="filter_wifi_band_title">"Wi-Fi диапазон"</string>
     <string name="filter_strength_title">"Сила на сигнала"</string>
     <string name="filter_security_title">"Защита"</string>
