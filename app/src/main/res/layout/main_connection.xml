@@ -34,6 +34,13 @@
         android:visibility="gone"
         tools:visibility="visible">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+            android:textColor="@color/selected"
+            android:textStyle="bold"
+            android:text="@string/current_connection" />
         <LinearLayout
             android:id="@+id/connectionDetail"
             android:layout_width="match_parent"

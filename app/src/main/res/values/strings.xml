@@ -54,6 +54,7 @@
     <string name="wifi_channels_list_url" translatable="false">"https://en.wikipedia.org/wiki/List_of_WLAN_channels"</string>
     <string name="vendor_search_hint" translatable="false">"00:0C:41 CISCO"</string>
     <string name="export_not_available">"Export not available"</string>
+    <string name="current_connection">"Current connection"</string>
 
     <string name="channel_rating_best">"Best Channels:"</string>
     <string name="channel_rating_best_none">"None"</string>
