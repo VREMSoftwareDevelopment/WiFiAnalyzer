@@ -44,6 +44,7 @@
     <string name="location_msg">"Cette application peut accéder à votre position précise via les services de localisation lorsque vous l\'utilisez. Pour cela, vous devez activer les services de localisation sur votre appareil au préalable. Cela risque de solliciter davantage la batterie."</string>
     <string name="throttling_msg">"Android 9 a introduit la limitation de l\'analyse Wi-Fi. Android 10 dispose d\'une nouvelle option pour les développeurs pour désactiver la limitation sous (Paramètres > Options pour les développeurs > Réseau > Limitation de l\'analyse Wi-Fi)."</string>
     <string name="export_not_available">"Export non disponible"</string>
+    <string name="current_connection">Connexion actuelle</string>
 
     <string name="channel_rating_best">"Meilleurs canaux:"</string>
     <string name="channel_rating_best_none">"Aucun"</string>

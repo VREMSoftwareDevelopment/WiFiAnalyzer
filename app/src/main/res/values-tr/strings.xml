@@ -46,6 +46,7 @@
     <string name="location_msg">"Bu uygulama, uygulama kullanılırken konum hizmetlerinden kesin konum bilginizi alabilir. Uygulamanın konum bilginizi alabilmesi için cihazınızda konum hizmetlerinin açık olması gerekir. Bu durum, pil kullanımını artırabilir."</string>
     <string name="throttling_msg">"Android 9, Wi-Fi tarama kısıtlamasını tanıttı. Android 10, (Ayarlar > Geliştirici Seçenekleri > Ağ > Kablosuz ağ taramasını kısma) altında azaltmayı kapatmak için yeni bir geliştirici seçeneğine sahiptir."</string>
     <string name="export_not_available">"Dışa aktarım yapılamıyor"</string>
+    <string name="current_connection">Mevcut bağlantı</string>
 
     <string name="channel_rating_best">"En İyi Kanallar:"</string>
     <string name="channel_rating_best_none">"Hiçbiri"</string>
