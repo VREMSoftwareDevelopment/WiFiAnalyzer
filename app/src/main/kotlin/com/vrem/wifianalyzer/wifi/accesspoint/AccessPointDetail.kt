@@ -66,6 +66,7 @@ class AccessPointDetail {
         setViewWiFiBand(view, wiFiDetail.wiFiSignal)
         setView80211mc(view, wiFiDetail.wiFiSignal)
         setViewWiFiStandard(view, wiFiDetail.wiFiSignal)
+        setViewFastRoaming(view, wiFiDetail.wiFiSignal)
         setTimestamp(view, wiFiDetail.wiFiSignal)
         enableTextSelection(view)
         return view
@@ -168,6 +169,18 @@ class AccessPointDetail {
     private fun setViewWiFiBand(view: View, wiFiSignal: WiFiSignal) =
         view.findViewById<TextView>(R.id.wiFiBand)?.setText(wiFiSignal.wiFiBand.textResource)
 
+
+    private fun setViewFastRoaming(view: View, wiFiSignal: WiFiSignal) {
+        view.findViewById<TextView>(R.id.fastRoaming)?.let {
+            if (wiFiSignal.fastRoaming.isEmpty()) {
+                it.setText(R.string.unsupported_802_11_k_v_r)
+            } else {
+                it.text = wiFiSignal.fastRoaming.joinToString("") {
+                    fastRoaming -> "[${fastRoaming.protocol}]"
+                }
+            }
+        }
+    }
     private fun setViewWiFiStandard(view: View, wiFiSignal: WiFiSignal) =
         view.findViewById<TextView>(R.id.wiFiStandard)
             ?.setText(wiFiSignal.wiFiStandard.textResource)

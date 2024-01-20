@@ -24,12 +24,20 @@ import com.vrem.util.buildMinVersionR
 import com.vrem.util.buildMinVersionT
 import com.vrem.util.nullToEmpty
 import com.vrem.util.ssid
+import com.vrem.wifianalyzer.wifi.model.FastRoaming
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
 import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.BSS_TRANSITION_BIT
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.BSS_TRANSITION_IDX
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.EXTENDED_CAPABILITIES_IE
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.MOBILE_DOMAIN_IE
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.NEIGHBOR_REPORT_BIT
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.NEIGHBOR_REPORT_IDX
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.RM_ENABLED_CAPABILITIES_IE
 import com.vrem.wifianalyzer.wifi.model.WiFiStandard
 import com.vrem.wifianalyzer.wifi.model.WiFiStandardId
 import com.vrem.wifianalyzer.wifi.model.WiFiWidth
@@ -73,6 +81,27 @@ internal class Transformer(private val cache: Cache) {
             listOf()
         }
 
+    internal fun fastRoaming(scanResult: ScanResult): List<FastRoaming> =
+        if (minVersionR()) {
+            scanResult.informationElements.mapNotNull {
+                if (it.id == RM_ENABLED_CAPABILITIES_IE && it.bytes[NEIGHBOR_REPORT_IDX].toInt()
+                        .and(1 shl NEIGHBOR_REPORT_BIT) == (1 shl NEIGHBOR_REPORT_BIT)
+                ) {
+                    FastRoaming.K
+                } else if (it.id == EXTENDED_CAPABILITIES_IE && it.bytes[BSS_TRANSITION_IDX].toInt()
+                        .and(1 shl BSS_TRANSITION_BIT) == (1 shl BSS_TRANSITION_BIT)
+                ) {
+                    FastRoaming.V
+                } else if (it.id == MOBILE_DOMAIN_IE) {
+                    FastRoaming.R
+                } else {
+                    null
+                }
+            }.sorted()
+        } else {
+            listOf()
+        }
+
     internal fun minVersionR(): Boolean = buildMinVersionR()
     internal fun minVersionT(): Boolean = buildMinVersionT()
 
@@ -84,7 +113,8 @@ internal class Transformer(private val cache: Cache) {
         val wiFiStandard = WiFiStandard.findOne(wiFiStandard(scanResult))
         val wiFiSignal = WiFiSignal(
             scanResult.frequency, centerFrequency, wiFiWidth,
-            cacheResult.average, mc80211, wiFiStandard, scanResult.timestamp
+            cacheResult.average, mc80211, wiFiStandard, scanResult.timestamp,
+            fastRoaming(scanResult)
         )
         val wiFiIdentifier = WiFiIdentifier(
             scanResult.ssid(),

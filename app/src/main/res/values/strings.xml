@@ -255,4 +255,8 @@
     <string name="wifi_throttling_on">Wi-Fi scan throttling is enabled</string>
     <string name="wifi_throttling_off">Wi-Fi scan throttling is disabled</string>
     <!-- wifi throttling end -->
+
+    <!-- fast roaming start -->
+    <string name="unsupported_802_11_k_v_r" translatable="false">UNSUPPORTED 802.11 k/v/r</string>
+    <!-- fast roaming end -->
 </resources>
