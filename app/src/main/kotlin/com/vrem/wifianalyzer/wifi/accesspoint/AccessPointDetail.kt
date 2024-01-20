@@ -27,6 +27,7 @@ import com.vrem.annotation.OpenClass
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
+import com.vrem.wifianalyzer.wifi.model.FastRoaming
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
@@ -174,9 +175,11 @@ class AccessPointDetail {
         view.findViewById<TextView>(R.id.fastRoaming)?.let {
             if (wiFiSignal.fastRoaming.isEmpty()) {
                 it.setText(R.string.unsupported_802_11_k_v_r)
+            } else if (wiFiSignal.fastRoaming.contains(FastRoaming.REQUIRE_ANDROID_R)) {
+                it.setText(R.string.require_android_11_802_11_k_v_r)
             } else {
-                it.text = wiFiSignal.fastRoaming.joinToString("") {
-                    fastRoaming -> "[${fastRoaming.protocol}]"
+                it.text = wiFiSignal.fastRoaming.joinToString("") { fastRoaming ->
+                    "[${fastRoaming.protocol}]"
                 }
             }
         }

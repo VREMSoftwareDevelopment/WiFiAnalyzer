@@ -257,6 +257,7 @@
     <!-- wifi throttling end -->
 
     <!-- fast roaming start -->
-    <string name="unsupported_802_11_k_v_r" translatable="false">UNSUPPORTED 802.11 k/v/r</string>
+    <string name="unsupported_802_11_k_v_r">Fast Roaming(802.11 k/v/r) is unsupported</string>
+    <string name="require_android_11_802_11_k_v_r">Fast Roaming(802.11 k/v/r) detection requires Android 11</string>
     <!-- fast roaming end -->
 </resources>

@@ -360,6 +360,17 @@ class AccessPointDetailTest {
         validateTextViewValue(actual, expectedFastRoaming, R.id.fastRoaming)
     }
 
+    @Test
+    fun testMakeViewDetailedFastRoamingMinVersionR() {
+        // setup
+        val wiFiDetail = withWiFiDetail(fastRoaming = listOf(FastRoaming.REQUIRE_ANDROID_R))
+        // execute
+        val actual = fixture.makeViewDetailed(wiFiDetail)
+        val expectedFastRoaming = actual.context.getString(R.string.require_android_11_802_11_k_v_r)
+        // validate
+        validateTextViewValue(actual, expectedFastRoaming, R.id.fastRoaming)
+    }
+
     private fun withWiFiDetail(
         ssid: String = "SSID",
         wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY,

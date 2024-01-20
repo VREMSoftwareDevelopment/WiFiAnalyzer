@@ -99,7 +99,7 @@ internal class Transformer(private val cache: Cache) {
                 }
             }.sorted()
         } else {
-            listOf()
+            listOf(FastRoaming.REQUIRE_ANDROID_R)
         }
 
     internal fun minVersionR(): Boolean = buildMinVersionR()

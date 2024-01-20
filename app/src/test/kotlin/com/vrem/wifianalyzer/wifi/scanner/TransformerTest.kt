@@ -193,7 +193,7 @@ class TransformerTest {
         // execute
         val actual = fixture.fastRoaming(scanResult1)
         // validate
-        assertEquals(listOf<FastRoaming>(),  actual)
+        assertEquals(listOf(FastRoaming.REQUIRE_ANDROID_R),  actual)
         verify(fixture).minVersionR()
     }
 

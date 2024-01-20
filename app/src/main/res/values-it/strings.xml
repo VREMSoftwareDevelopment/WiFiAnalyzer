@@ -128,4 +128,9 @@
     <string name="wifi_throttling_on">La limitazione della scansione Wi-Fi è abilitata</string>
     <string name="wifi_throttling_off">La limitazione della scansione Wi-Fi è disabilitata</string>
     <!-- wifi throttling end -->
+
+    <!-- fast roaming start -->
+    <string name="unsupported_802_11_k_v_r">Il roaming veloce (802.11 k/v/r) non è supportato</string>
+    <string name="require_android_11_802_11_k_v_r">Il rilevamento del roaming veloce (802.11 k/v/r) richiede Android 11</string>
+    <!-- fast roaming end -->
 </resources>
