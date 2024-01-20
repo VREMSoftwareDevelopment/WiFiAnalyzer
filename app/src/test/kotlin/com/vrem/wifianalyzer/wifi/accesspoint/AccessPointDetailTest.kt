@@ -349,16 +349,28 @@ class AccessPointDetailTest {
         validateTextViewValue(actual, expectedTimestamp, R.id.timestamp)
     }
 
+    @Test
+    fun testMakeViewDetailedWithFastRoaming() {
+        // setup
+        val wiFiDetail = withWiFiDetail(fastRoaming = listOf(FastRoaming.K, FastRoaming.V, FastRoaming.R))
+        val expectedFastRoaming = "[802.11k][802.11v][802.11r]"
+        // execute
+        val actual = fixture.makeViewDetailed(wiFiDetail)
+        // validate
+        validateTextViewValue(actual, expectedFastRoaming, R.id.fastRoaming)
+    }
+
     private fun withWiFiDetail(
         ssid: String = "SSID",
         wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY,
         is80211mc: Boolean = false,
-        timestamp: Long = 1000000
+        timestamp: Long = 1000000,
+        fastRoaming: List<FastRoaming> = listOf()
     ): WiFiDetail =
         WiFiDetail(
             WiFiIdentifier(ssid, "BSSID"),
             WiFiSecurity("[WPS-capabilities][WPA2-XYZ][XYZ-FT]", WiFiSecurityTypeTest.All),
-            WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, is80211mc, WiFiStandard.AC, timestamp),
+            WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, is80211mc, WiFiStandard.AC, timestamp, fastRoaming),
             wiFiAdditional
         )
 
@@ -382,6 +394,7 @@ class AccessPointDetailTest {
             validateTextViewValue(view, expectedWiFiStandard, R.id.wiFiStandard)
             val expectedWiFiBand = view.context.getString(wiFiSignal.wiFiBand.textResource)
             validateTextViewValue(view, expectedWiFiBand, R.id.wiFiBand)
+            validateTextViewValue(view, view.context.getString(R.string.unsupported_802_11_k_v_r), R.id.fastRoaming)
         }
     }
 

@@ -27,19 +27,32 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.wifi.model.BSSID
+import com.vrem.wifianalyzer.wifi.model.FastRoaming
 import com.vrem.wifianalyzer.wifi.model.SSID
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
 import com.vrem.wifianalyzer.wifi.model.WiFiSecurityTypeTest
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.EXTENDED_CAPABILITIES_IE
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.MOBILE_DOMAIN_IE
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.RM_ENABLED_CAPABILITIES_IE
 import com.vrem.wifianalyzer.wifi.model.WiFiStandard
 import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.nio.ByteBuffer
 
 class TransformerTest {
+    private val withoutFastRoaming = listOf(
+        mockInformationElement(0, 0, byteArrayOf()),
+    )
+    private val withFastRoaming = listOf(
+        mockInformationElement(RM_ENABLED_CAPABILITIES_IE, 0, byteArrayOf(0x7F, 0, 0, 0, 0)),
+        mockInformationElement(EXTENDED_CAPABILITIES_IE, 0, byteArrayOf(0, 0, 0x7F)),
+        mockInformationElement(MOBILE_DOMAIN_IE, 0, ByteArray(5)),
+    )
     private val scanResult1 = withScanResult(SSID_1, BSSID_1, WiFiWidth.MHZ_160, WiFiStandard.AX, WiFiSecurityTypeTest.All)
     private val scanResult2 = withScanResult(SSID_2, BSSID_2, WiFiWidth.MHZ_80, WiFiStandard.AC, WiFiSecurityTypeTest.WPA3)
     private val scanResult3 = withScanResult(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N, listOf())
@@ -108,7 +121,7 @@ class TransformerTest {
         validateWiFiDetail(SSID_1, BSSID_1, WiFiWidth.MHZ_160, WiFiStandard.AX, actual[0], WiFiSecurityTypeTest.All)
         validateWiFiDetail(SSID_2, BSSID_2, WiFiWidth.MHZ_80, WiFiStandard.AC, actual[1], WiFiSecurityTypeTest.WPA3)
         validateWiFiDetail(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N, actual[2], listOf())
-        verify(fixture, times(3)).minVersionR()
+        verify(fixture, times(6)).minVersionR()
         verify(fixture, times(3)).minVersionT()
         verify(cache).scanResults()
     }
@@ -173,6 +186,42 @@ class TransformerTest {
         verify(fixture).minVersionT()
     }
 
+    @Test
+    fun testFastRoamingMinVersionR() {
+        // setup
+        doReturn(false).whenever(fixture).minVersionR()
+        // execute
+        val actual = fixture.fastRoaming(scanResult1)
+        // validate
+        assertEquals(listOf<FastRoaming>(),  actual)
+        verify(fixture).minVersionR()
+    }
+
+    @Test
+    fun testFastRoaming() {
+        // setup
+        doReturn(true).whenever(fixture).minVersionR()
+        doReturn(withFastRoaming).whenever(scanResult1).informationElements
+
+        // execute
+        val actual = fixture.fastRoaming(scanResult1)
+        // validate
+        assertEquals(listOf(FastRoaming.K, FastRoaming.V, FastRoaming.R),  actual)
+        verify(fixture).minVersionR()
+    }
+
+    @Test
+    fun testNoFastRoaming() {
+        // setup
+        doReturn(true).whenever(fixture).minVersionR()
+        doReturn(withoutFastRoaming).whenever(scanResult1).informationElements
+        // execute
+        val actual = fixture.fastRoaming(scanResult1)
+        // validate
+        assertEquals(listOf<FastRoaming>(),  actual)
+        verify(fixture).minVersionR()
+    }
+
     private fun withScanResult(
         ssid: SSID,
         bssid: BSSID,
@@ -197,6 +246,15 @@ class TransformerTest {
         doReturn(wiFiStandard.wiFiStandardId).whenever(scanResult).wifiStandard
         doReturn(securityTypes?.toIntArray()).whenever(scanResult).securityTypes
         return scanResult
+    }
+
+    private fun mockInformationElement(id: Int, idExt: Int, bytes: ByteArray)
+            : ScanResult.InformationElement {
+        return mock<ScanResult.InformationElement>().apply {
+            doReturn(id).whenever(this).id
+            doReturn(idExt).whenever(this).idExt
+            doReturn(ByteBuffer.wrap(bytes).asReadOnlyBuffer()).whenever(this).bytes
+        }
     }
 
     private fun withWiFiInfo(): WifiInfo {
