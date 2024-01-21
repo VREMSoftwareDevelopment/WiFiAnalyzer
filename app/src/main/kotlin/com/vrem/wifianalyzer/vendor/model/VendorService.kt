@@ -58,8 +58,8 @@ class VendorService(private val resources: Resources) {
             .forEach {
                 val name = it[0]
                 val results: List<String> = it[1].chunked(MAX_SIZE)
-                results.forEach { macs[it] = name }
-                vendors[name] = results.map { it.toMacAddress() }
+                results.forEach { key -> macs[key] = name }
+                vendors[name] = results.map { value -> value.toMacAddress() }
             }
         return VendorData(vendors, macs)
     }

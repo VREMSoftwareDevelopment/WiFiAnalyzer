@@ -18,11 +18,7 @@
 package com.vrem.wifianalyzer.wifi.scanner
 
 import android.net.wifi.ScanResult
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.never
-import com.nhaarman.mockitokotlin2.times
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.wifi.band.WiFiRange
 import org.junit.After

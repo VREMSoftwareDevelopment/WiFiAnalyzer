@@ -19,11 +19,7 @@ package com.vrem.wifianalyzer.wifi.band
 
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry.Companion.find
 import org.junit.After
-import org.junit.Assert.assertArrayEquals
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import java.util.Locale

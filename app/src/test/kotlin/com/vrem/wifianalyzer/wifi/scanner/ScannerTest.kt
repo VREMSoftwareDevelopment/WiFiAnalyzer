@@ -17,12 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.scanner
 
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.never
-import com.nhaarman.mockitokotlin2.times
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.permission.PermissionService
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper

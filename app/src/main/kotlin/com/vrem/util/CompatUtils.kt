@@ -45,7 +45,6 @@ fun Context.packageInfo(): PackageInfo =
 private fun Context.packageInfoAndroidT(): PackageInfo =
     packageManager.getPackageInfo(packageName, PackageInfoFlags.of(0))
 
-@Suppress("DEPRECATION")
 private fun Context.packageInfoLegacy(): PackageInfo =
     packageManager.getPackageInfo(packageName, 0)
 

@@ -19,22 +19,11 @@ package com.vrem.wifianalyzer.wifi.accesspoint
 
 import android.widget.ExpandableListAdapter
 import android.widget.ExpandableListView
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.times
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
-import com.vrem.wifianalyzer.wifi.model.GroupBy
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+import com.vrem.wifianalyzer.wifi.model.*
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 
 class AccessPointsAdapterGroupTest {

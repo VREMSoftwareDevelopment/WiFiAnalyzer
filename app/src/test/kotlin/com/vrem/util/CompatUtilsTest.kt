@@ -112,7 +112,6 @@ class CompatUtilsTest {
 
     @Test
     @Config(sdk = [Build.VERSION_CODES.S_V2])
-    @Suppress("DEPRECATION")
     fun testContextPackageInfoLegacy() {
         // setup
         val packageName = "Package Name"

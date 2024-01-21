@@ -18,9 +18,7 @@
 package com.vrem.wifianalyzer.wifi.accesspoint
 
 import com.vrem.wifianalyzer.R
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 
 class ConnectionViewTypeTest {
