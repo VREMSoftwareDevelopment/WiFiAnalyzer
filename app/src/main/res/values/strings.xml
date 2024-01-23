@@ -240,7 +240,7 @@
     <string name="filter_close">"Close"</string>
     <string name="filter_reset">"Reset"</string>
     <string name="filter_apply">"Apply"</string>
-    <string name="filter_ssid_title" translatable="false">"SSID"</string>
+    <string name="filter_ssid_title" translatable="true">"SSID (case sensitive)"</string>
     <string name="filter_ssid_key" translatable="false">"filter_ssid"</string>
     <string name="filter_ssid_hint" translatable="false">"ssid SSID"</string>
     <string name="filter_wifi_band_title">"Wi-Fi Band"</string>

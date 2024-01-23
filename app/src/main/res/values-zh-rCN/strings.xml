@@ -119,6 +119,7 @@
     <string name="filter_close">"关闭"</string>
     <string name="filter_reset">"重置"</string>
     <string name="filter_apply">"应用"</string>
+    <string name="filter_ssid_title">"SSID (區分大小寫)"</string>
     <string name="filter_wifi_band_title">"Wi-Fi 频段"</string>
     <string name="filter_strength_title">"信号强度"</string>
     <string name="filter_security_title">"安全性"</string>

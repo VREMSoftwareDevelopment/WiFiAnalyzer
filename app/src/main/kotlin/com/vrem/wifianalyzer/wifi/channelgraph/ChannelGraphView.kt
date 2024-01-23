@@ -28,13 +28,7 @@ import com.vrem.wifianalyzer.settings.ThemeStyle
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels
-import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint
-import com.vrem.wifianalyzer.wifi.graphutils.GraphViewBuilder
-import com.vrem.wifianalyzer.wifi.graphutils.GraphViewNotifier
-import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper
-import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
-import com.vrem.wifianalyzer.wifi.graphutils.THICKNESS_INVISIBLE
-import com.vrem.wifianalyzer.wifi.graphutils.transparent
+import com.vrem.wifianalyzer.wifi.graphutils.*
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
 import com.vrem.wifianalyzer.wifi.predicate.makeOtherPredicate

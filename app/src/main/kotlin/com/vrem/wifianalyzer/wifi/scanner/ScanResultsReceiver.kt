@@ -22,13 +22,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.wifi.WifiManager
+import androidx.core.content.ContextCompat
 import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.MainActivity
 
 fun interface Callback { // Compliant, function interface used
     fun onSuccess()
 }
-
 @OpenClass
 internal class ScanResultsReceiver(private val mainActivity: MainActivity, private val callback: Callback) :
     BroadcastReceiver() {
@@ -36,9 +36,14 @@ internal class ScanResultsReceiver(private val mainActivity: MainActivity, priva
 
     fun register() {
         if (!registered) {
-            mainActivity.registerReceiver(this, makeIntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION))
+            val intentFilter = makeIntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
+            registerReceiver(mainActivity.applicationContext, this, intentFilter, ContextCompat.RECEIVER_EXPORTED)
             registered = true
         }
+    }
+
+    internal fun registerReceiver(context: Context, broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter, flags: Int) {
+        ContextCompat.registerReceiver(context, broadcastReceiver, intentFilter, flags)
     }
 
     fun unregister() {
@@ -48,7 +53,7 @@ internal class ScanResultsReceiver(private val mainActivity: MainActivity, priva
         }
     }
 
-    fun makeIntentFilter(action: String): IntentFilter = IntentFilter(action)
+    internal fun makeIntentFilter(action: String): IntentFilter = IntentFilter(action)
 
     override fun onReceive(context: Context, intent: Intent) {
         if (WifiManager.SCAN_RESULTS_AVAILABLE_ACTION == intent.action &&
@@ -57,4 +62,5 @@ internal class ScanResultsReceiver(private val mainActivity: MainActivity, priva
             callback.onSuccess()
         }
     }
+
 }

@@ -39,7 +39,7 @@ import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.TIRAMISU])
+@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
 class FilterTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val fixture = build()

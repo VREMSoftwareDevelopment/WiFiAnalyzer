@@ -39,7 +39,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.TIRAMISU])
+@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
 class ChannelGraphNavigationTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val scanner = MainContextHelper.INSTANCE.scannerService

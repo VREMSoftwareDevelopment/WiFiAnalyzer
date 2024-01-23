@@ -37,7 +37,7 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.TIRAMISU])
+@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
 class VendorAdapterTest {
     private val vendorName1 = "N1"
     private val vendorName2 = "N2"

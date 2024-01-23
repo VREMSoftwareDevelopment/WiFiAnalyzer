@@ -18,10 +18,7 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotSame
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 import java.util.Locale
 

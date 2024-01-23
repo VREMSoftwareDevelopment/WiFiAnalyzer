@@ -24,13 +24,7 @@ import com.vrem.util.buildMinVersionR
 import com.vrem.util.buildMinVersionT
 import com.vrem.util.nullToEmpty
 import com.vrem.util.ssid
-import com.vrem.wifianalyzer.wifi.model.FastRoaming
-import com.vrem.wifianalyzer.wifi.model.WiFiConnection
-import com.vrem.wifianalyzer.wifi.model.WiFiData
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.*
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.BSS_TRANSITION_BIT
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.BSS_TRANSITION_IDX
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.EXTENDED_CAPABILITIES_IE
@@ -38,11 +32,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.MOBILE_DOMAIN_IE
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.NEIGHBOR_REPORT_BIT
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.NEIGHBOR_REPORT_IDX
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.RM_ENABLED_CAPABILITIES_IE
-import com.vrem.wifianalyzer.wifi.model.WiFiStandard
-import com.vrem.wifianalyzer.wifi.model.WiFiStandardId
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
-import com.vrem.wifianalyzer.wifi.model.convertIpV4Address
-import com.vrem.wifianalyzer.wifi.model.convertSSID
 
 @Suppress("DEPRECATION")
 fun WifiInfo.ipV4Address(): Int = ipAddress

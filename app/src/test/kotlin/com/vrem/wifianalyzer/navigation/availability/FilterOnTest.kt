@@ -37,7 +37,7 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.TIRAMISU])
+@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
 class FilterOnTest {
     private val mainActivity: MainActivity = mock()
     private val optionMenu: OptionMenu = mock()

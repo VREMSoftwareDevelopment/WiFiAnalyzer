@@ -121,6 +121,7 @@
     <string name="filter_close">"關閉"</string>
     <string name="filter_reset">"重設"</string>
     <string name="filter_apply">"套用"</string>
+    <string name="filter_ssid_title">"SSID (區分大小寫)"</string>
     <string name="filter_wifi_band_title">"Wi-Fi 頻段"</string>
     <string name="filter_strength_title">"訊號強度"</string>
     <string name="filter_security_title">"安全"</string>

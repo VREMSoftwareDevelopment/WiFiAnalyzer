@@ -17,10 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotSame
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 
 class WiFiChannelTest {

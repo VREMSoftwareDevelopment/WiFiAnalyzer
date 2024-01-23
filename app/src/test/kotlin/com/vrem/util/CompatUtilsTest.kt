@@ -40,7 +40,7 @@ import org.robolectric.annotation.Config
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.TIRAMISU])
+@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
 class CompatUtilsTest {
 
     private val context: Context = mock()
@@ -95,25 +95,6 @@ class CompatUtilsTest {
     }
 
     @Test
-    @Config(sdk = [Build.VERSION_CODES.M])
-    @Suppress("DEPRECATION")
-    fun testCreateContextLegacy() {
-        // setup
-        whenever(context.resources).thenReturn(resources)
-        whenever(resources.configuration).thenReturn(configuration)
-        whenever(resources.displayMetrics).thenReturn(displayMetrics)
-        // execute
-        val actual: Context = context.createContext(newLocale)
-        // validate
-        assertEquals(context, actual)
-        assertEquals(newLocale, configuration.locale)
-        verify(resources).displayMetrics
-        verify(resources).updateConfiguration(configuration, displayMetrics)
-        verify(context).resources
-        verify(resources).configuration
-    }
-
-    @Test
     fun testContextPackageInfo() {
         // setup
         val packageName = "Package Name"
@@ -131,7 +112,6 @@ class CompatUtilsTest {
 
     @Test
     @Config(sdk = [Build.VERSION_CODES.S_V2])
-    @Suppress("DEPRECATION")
     fun testContextPackageInfoLegacy() {
         // setup
         val packageName = "Package Name"

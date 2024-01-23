@@ -19,25 +19,12 @@ package com.vrem.wifianalyzer.wifi.scanner
 
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.spy
-import com.nhaarman.mockitokotlin2.times
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
-import com.nhaarman.mockitokotlin2.whenever
-import com.vrem.wifianalyzer.wifi.model.BSSID
-import com.vrem.wifianalyzer.wifi.model.FastRoaming
-import com.vrem.wifianalyzer.wifi.model.SSID
-import com.vrem.wifianalyzer.wifi.model.WiFiConnection
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSecurityTypeTest
+import com.nhaarman.mockitokotlin2.*
+import com.vrem.wifianalyzer.wifi.model.*
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.EXTENDED_CAPABILITIES_IE
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.MOBILE_DOMAIN_IE
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.RM_ENABLED_CAPABILITIES_IE
-import com.vrem.wifianalyzer.wifi.model.WiFiStandard
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

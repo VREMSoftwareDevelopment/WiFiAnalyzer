@@ -19,7 +19,7 @@
 apply plugin: "jacoco"
 
 jacoco {
-    toolVersion = "0.8.10"
+    toolVersion = "0.8.11"
 }
 
 def executionPath = 'outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec'
