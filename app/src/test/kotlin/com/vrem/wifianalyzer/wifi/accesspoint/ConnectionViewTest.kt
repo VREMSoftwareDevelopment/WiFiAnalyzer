@@ -99,7 +99,9 @@ class ConnectionViewTest {
         // execute
         fixture.update(wiFiData)
         // validate
-        assertEquals(View.VISIBLE, mainActivity.findViewById<View>(R.id.connection).visibility)
+        val connectionView = mainActivity.findViewById<View>(R.id.connection)
+        assertEquals(View.VISIBLE, connectionView.visibility)
+        assertEquals(View.VISIBLE, connectionView.findViewById<View>(R.id.currentConnection).visibility)
         verifyConnectionInformation()
         verify(warningView).update(wiFiData)
     }
