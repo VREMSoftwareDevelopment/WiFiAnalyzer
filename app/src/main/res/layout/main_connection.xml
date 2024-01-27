@@ -73,6 +73,11 @@
                 android:textStyle="bold"
                 tools:text="192.168.111.222" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/selected" />
     </LinearLayout>
 
     <include layout="@layout/main_wifi_support" />
