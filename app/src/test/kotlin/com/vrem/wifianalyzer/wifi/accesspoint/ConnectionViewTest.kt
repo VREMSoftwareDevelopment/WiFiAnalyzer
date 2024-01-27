@@ -109,6 +109,7 @@ class ConnectionViewTest {
         // setup
         val wiFiAdditional = withWiFiAdditional()
         val connection = withConnection(wiFiAdditional)
+        val expectedText = mainActivity.getString(R.string.current_connection)
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
         whenever(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE)
         withConnectionInformation(connection)
@@ -123,8 +124,7 @@ class ConnectionViewTest {
         val linkSpeedView = view.findViewById<TextView>(R.id.linkSpeed)
         assertEquals(View.VISIBLE, linkSpeedView.visibility)
         assertEquals(wiFiConnection.linkSpeed.toString() + WifiInfo.LINK_SPEED_UNITS, linkSpeedView.text.toString())
-        val currentConnectionView = view.findViewById<TextView>(R.id.currentConnection)
-        assertEquals("Current connection", currentConnectionView.text.toString())
+        assertEquals(expectedText, view.findViewById<TextView>(R.id.currentConnection).text.toString())
         verify(warningView).update(wiFiData)
     }
 
