@@ -44,6 +44,7 @@
     <string name="location_msg">"Esse app poderá acessar seu local exato por meio dos Serviços de localização enquanto estiver sendo usado. Os Serviços de localização do dispositivo precisam estar ativados para que o app possa acessar o local. Isso pode aumentar o uso da bateria."</string>
     <string name="throttling_msg">"O Android 9 introduziu o controle de fluxo de Wi-Fi. O Android 10 tem uma nova opção de desenvolvedor para desativar o controle de fluxo em (Configurações > Opções do desenvolvedor > Rede > Controle de fluxo de Wi-Fi)."</string>
     <string name="export_not_available">"Não foi possível exportar"</string>
+    <string name="current_connection">Conexão atual</string>
 
     <string name="channel_rating_best">"Melhores Canais:"</string>
     <string name="channel_rating_best_none">"Nenhum"</string>

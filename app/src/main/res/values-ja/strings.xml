@@ -46,6 +46,7 @@
     <string name="location_msg">"このアプリは、使用中に、位置情報サービスからデバイスの正確な位置情報を取得できます。アプリが位置情報を取得するには、デバイスで位置情報サービスがオンになっている必要があります。この場合、電池使用量が増えることがあります。"</string>
     <string name="throttling_msg">"Android 9では、Wi-Fiスキャンスロットリングが導入されました。 Android 10には、スロットリングをオフに切り替える新しい開発者向けオプションがあります（[設定] > [開発者向けオプション] > [ネットワーク] > [Wi-Fiスキャンスロットリング]）。"</string>
     <string name="export_not_available">"出力は利用できません"</string>
+    <string name="current_connection">現在の接続</string>
 
     <string name="channel_rating_best">"最適なチャンネル:"</string>
     <string name="channel_rating_best_none">"なし"</string>

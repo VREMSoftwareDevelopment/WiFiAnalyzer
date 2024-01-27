@@ -123,6 +123,8 @@ class ConnectionViewTest {
         val linkSpeedView = view.findViewById<TextView>(R.id.linkSpeed)
         assertEquals(View.VISIBLE, linkSpeedView.visibility)
         assertEquals(wiFiConnection.linkSpeed.toString() + WifiInfo.LINK_SPEED_UNITS, linkSpeedView.text.toString())
+        val currentConnectionView = view.findViewById<TextView>(R.id.currentConnection)
+        assertEquals("Current connection", currentConnectionView.text.toString())
         verify(warningView).update(wiFiData)
     }
 

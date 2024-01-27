@@ -46,6 +46,7 @@
     <string name="location_msg">"Това приложение може да получава данни за точното ви местоположение от съответните услуги, докато се използва. За целта услугите за местоположение трябва да са включени за устройството ви. Това може да увеличи използването на батерията."</string>
     <string name="throttling_msg">"Android 9 представи регулиране на Wi-Fi сканирането. Android 10 има нова опция за разработчици, за да изключите регулирането под (Настройки > Опции за програмисти > Мрежа > Регулиране на Wi-Fi сканиране)."</string>
     <string name="export_not_available">"Експортирането не е налично"</string>
+    <string name="current_connection">Текуща връзка</string>
 
     <string name="channel_rating_best">"Най-добри канали:"</string>
     <string name="channel_rating_best_none">"Няма"</string>

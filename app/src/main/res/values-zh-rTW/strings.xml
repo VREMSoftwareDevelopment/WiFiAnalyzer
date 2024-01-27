@@ -44,6 +44,7 @@
     <string name="location_msg">"只有在你使用時，這個應用程式才能透過定位服務取得你的精確位置。你必須在裝置上開啟定位服務，這個應用程式才能取得位置資訊。這麼做可能會增加電池用量。"</string>
     <string name="throttling_msg">"Android 9 引入了 Wi-Fi 掃描限制。Android 10 有新的開發人員選項，可在「設定」>「開發人員選項」>「網路」>「Wi-Fi 掃描」下關閉限制。"</string>
     <string name="export_not_available">"無法匯出"</string>
+    <string name="current_connection">目前連接</string>
 
     <string name="channel_rating_best">"最佳頻道："</string>
     <string name="channel_rating_best_none">"無"</string>
