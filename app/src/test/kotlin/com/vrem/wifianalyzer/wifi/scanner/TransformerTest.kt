@@ -34,6 +34,8 @@ import java.nio.ByteBuffer
 class TransformerTest {
     private val withoutFastRoaming = listOf(
         mockInformationElement(0, 0, byteArrayOf()),
+        mockInformationElement(RM_ENABLED_CAPABILITIES_IE, 0, ByteArray(0)),
+        mockInformationElement(EXTENDED_CAPABILITIES_IE, 0, ByteArray(0)),
         mockInformationElement(RM_ENABLED_CAPABILITIES_IE, 0, ByteArray(5)),
         mockInformationElement(EXTENDED_CAPABILITIES_IE, 0, ByteArray(3)),
     )
