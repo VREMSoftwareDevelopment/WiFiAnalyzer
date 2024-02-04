@@ -87,11 +87,3 @@ data class WiFiSignal(
     }
 
 }
-
-enum class FastRoaming(val protocol :String) {
-    REQUIRE_ANDROID_R(""),
-    K("802.11k"),
-    V("802.11v"),
-    R("802.11r"),
-}
-

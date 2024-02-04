@@ -25,14 +25,6 @@ import com.vrem.util.buildMinVersionT
 import com.vrem.util.nullToEmpty
 import com.vrem.util.ssid
 import com.vrem.wifianalyzer.wifi.model.*
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.BSS_TRANSITION_BIT
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.BSS_TRANSITION_IDX
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.EXTENDED_CAPABILITIES_IE
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.MOBILE_DOMAIN_IE
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.NEIGHBOR_REPORT_BIT
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.NEIGHBOR_REPORT_IDX
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.RM_ENABLED_CAPABILITIES_IE
-import java.nio.ByteBuffer
 
 @Suppress("DEPRECATION")
 fun WifiInfo.ipV4Address(): Int = ipAddress
@@ -73,25 +65,10 @@ internal class Transformer(private val cache: Cache) {
 
     internal fun fastRoaming(scanResult: ScanResult): List<FastRoaming> =
         if (minVersionR()) {
-            scanResult.informationElements.mapNotNull {
-                if (it.id == RM_ENABLED_CAPABILITIES_IE &&
-                    validRoamingBit(it.bytes, NEIGHBOR_REPORT_IDX, NEIGHBOR_REPORT_BIT)
-                ) FastRoaming.K
-                else if (it.id == EXTENDED_CAPABILITIES_IE &&
-                    validRoamingBit(it.bytes, BSS_TRANSITION_IDX, BSS_TRANSITION_BIT)
-                ) FastRoaming.V
-                else if (it.id == MOBILE_DOMAIN_IE) FastRoaming.R
-                else null
-            }.sorted()
+            scanResult.informationElements.mapNotNull { FastRoaming.transformOrNull(it) }.sorted()
         } else {
             listOf(FastRoaming.REQUIRE_ANDROID_R)
         }
-
-    // some evil access point broadcasts illegal package, which may trigger oob exception
-    // make sure limit > index first
-    internal fun validRoamingBit(data: ByteBuffer, idx: Int, bit: Int): Boolean =
-        data.limit() > idx && data[idx].toInt().and(1 shl idx) == (1 shl idx)
-
 
     internal fun minVersionR(): Boolean = buildMinVersionR()
     internal fun minVersionT(): Boolean = buildMinVersionT()
@@ -117,5 +94,4 @@ internal class Transformer(private val cache: Cache) {
         )
         return WiFiDetail(wiFiIdentifier, wiFiSecurity, wiFiSignal)
     }
-
 }
