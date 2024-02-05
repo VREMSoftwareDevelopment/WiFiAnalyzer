@@ -47,7 +47,7 @@ class FastRoamingTest {
     @Test
     fun testFastRoaming() {
         // execute
-        val actual = withFastRoaming.map { FastRoaming.transformOrNull(it) }
+        val actual = withFastRoaming.map { FastRoaming.transform(it) }
         // validate
         assertEquals(listOf(FastRoaming.K, FastRoaming.V, FastRoaming.R), actual)
     }
@@ -55,9 +55,9 @@ class FastRoamingTest {
     @Test
     fun testNoFastRoaming() {
         // execute
-        val actual = withoutFastRoaming.map { FastRoaming.transformOrNull(it) }
+        val actual = withoutFastRoaming.map { FastRoaming.transform(it) }
         // validate
-        assertEquals(List(5) { null }, actual)
+        assertEquals(List(5) { FastRoaming.ILLEGAL_ATTR }, actual)
     }
 
     private fun mockInformationElement(id: Int, idExt: Int, bytes: ByteArray)

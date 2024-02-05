@@ -22,15 +22,16 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import java.nio.ByteBuffer
 
-enum class FastRoaming(val protocol: String) {
-    REQUIRE_ANDROID_R(""),
+enum class FastRoaming(val protocol: String = "") {
+    ILLEGAL_ATTR,
+    REQUIRE_ANDROID_R,
     K("802.11k"),
     V("802.11v"),
     R("802.11r");
 
     companion object {
         @RequiresApi(Build.VERSION_CODES.R)
-        fun transformOrNull(it: ScanResult.InformationElement): FastRoaming? =
+        fun transform(it: ScanResult.InformationElement): FastRoaming =
             if (it.id == WiFiSignal.RM_ENABLED_CAPABILITIES_IE &&
                 validRoamingBit(
                     it.bytes,
@@ -47,7 +48,7 @@ enum class FastRoaming(val protocol: String) {
             ) V
             else if (it.id == WiFiSignal.MOBILE_DOMAIN_IE
             ) R
-            else null
+            else ILLEGAL_ATTR
 
         // some evil access point broadcasts illegal package, which may trigger oob exception
         // make sure limit > index first

@@ -65,7 +65,9 @@ internal class Transformer(private val cache: Cache) {
 
     internal fun fastRoaming(scanResult: ScanResult): List<FastRoaming> =
         if (minVersionR()) {
-            scanResult.informationElements.mapNotNull { FastRoaming.transformOrNull(it) }.sorted()
+            scanResult.informationElements.map { FastRoaming.transform(it) }
+                .filter { it != FastRoaming.ILLEGAL_ATTR }
+                .sorted()
         } else {
             listOf(FastRoaming.REQUIRE_ANDROID_R)
         }
