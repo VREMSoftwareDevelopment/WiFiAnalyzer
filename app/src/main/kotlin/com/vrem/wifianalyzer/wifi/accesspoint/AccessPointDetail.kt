@@ -27,6 +27,7 @@ import com.vrem.annotation.OpenClass
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
+import com.vrem.wifianalyzer.wifi.model.FastRoaming
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
@@ -66,6 +67,7 @@ class AccessPointDetail {
         setViewWiFiBand(view, wiFiDetail.wiFiSignal)
         setView80211mc(view, wiFiDetail.wiFiSignal)
         setViewWiFiStandard(view, wiFiDetail.wiFiSignal)
+        setViewFastRoaming(view, wiFiDetail.wiFiSignal)
         setTimestamp(view, wiFiDetail.wiFiSignal)
         enableTextSelection(view)
         return view
@@ -168,6 +170,20 @@ class AccessPointDetail {
     private fun setViewWiFiBand(view: View, wiFiSignal: WiFiSignal) =
         view.findViewById<TextView>(R.id.wiFiBand)?.setText(wiFiSignal.wiFiBand.textResource)
 
+
+    private fun setViewFastRoaming(view: View, wiFiSignal: WiFiSignal) {
+        view.findViewById<TextView>(R.id.fastRoaming)?.let {
+            if (wiFiSignal.fastRoaming.isEmpty()) {
+                it.setText(R.string.unsupported_802_11_k_v_r)
+            } else if (wiFiSignal.fastRoaming.contains(FastRoaming.REQUIRE_ANDROID_R)) {
+                it.setText(R.string.require_android_11_802_11_k_v_r)
+            } else {
+                it.text = wiFiSignal.fastRoaming.joinToString("") { fastRoaming ->
+                    "[${fastRoaming.protocol}]"
+                }
+            }
+        }
+    }
     private fun setViewWiFiStandard(view: View, wiFiSignal: WiFiSignal) =
         view.findViewById<TextView>(R.id.wiFiStandard)
             ?.setText(wiFiSignal.wiFiStandard.textResource)

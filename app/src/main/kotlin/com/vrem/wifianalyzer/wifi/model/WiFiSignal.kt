@@ -27,7 +27,8 @@ data class WiFiSignal(
     val level: Int = 0,
     val is80211mc: Boolean = false,
     val wiFiStandard: WiFiStandard = WiFiStandard.UNKNOWN,
-    val timestamp: Long = 0
+    val timestamp: Long = 0,
+    val fastRoaming: List<FastRoaming> = listOf()
 ) {
 
     val wiFiBand: WiFiBand = WiFiBand.find(primaryFrequency)
@@ -73,6 +74,15 @@ data class WiFiSignal(
     companion object {
         const val FREQUENCY_UNITS = "MHz"
 
+        const val RM_ENABLED_CAPABILITIES_IE = 70
+        const val NEIGHBOR_REPORT_IDX = 0
+        const val NEIGHBOR_REPORT_BIT = 1
+
+        const val EXTENDED_CAPABILITIES_IE = 127
+        const val BSS_TRANSITION_IDX = 2
+        const val BSS_TRANSITION_BIT = 3
+
+        const val MOBILE_DOMAIN_IE = 54
         val EMPTY = WiFiSignal()
     }
 

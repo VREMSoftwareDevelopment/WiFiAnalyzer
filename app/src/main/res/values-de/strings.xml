@@ -130,4 +130,9 @@
     <string name="wifi_throttling_on">Die WLAN-Scan-Drosselung ist aktiviert</string>
     <string name="wifi_throttling_off">Die WLAN-Scan-Drosselung ist deaktiviert</string>
     <!-- wifi throttling end -->
+
+    <!-- fast roaming start -->
+    <string name="unsupported_802_11_k_v_r">Fast Roaming (802.11 k/v/r) wird nicht unterstützt</string>
+    <string name="require_android_11_802_11_k_v_r">Für die schnelle Roaming-Erkennung (802.11 k/v/r) ist Android 11 erforderlich</string>
+    <!-- fast roaming end -->
 </resources>

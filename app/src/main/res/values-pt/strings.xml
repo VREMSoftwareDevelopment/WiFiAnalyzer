@@ -130,4 +130,9 @@
     <string name="wifi_throttling_on">A otimização da verificação de Wi-Fi está ativada</string>
     <string name="wifi_throttling_off">A otimização da verificação de Wi-Fi está desativada</string>
     <!-- wifi throttling end -->
+
+    <!-- fast roaming start -->
+    <string name="unsupported_802_11_k_v_r">Roaming rápido (802.11 k/v/r) não é compatível</string>
+    <string name="require_android_11_802_11_k_v_r">A detecção de roaming rápido (802.11 k/v/r) requer Android 11</string>
+    <!-- fast roaming end -->
 </resources>

@@ -134,4 +134,9 @@
     <string name="wifi_throttling_on">Wi-Fi tarama kısıtlaması etkin</string>
     <string name="wifi_throttling_off">Wi-Fi tarama kısıtlaması devre dışı</string>
     <!-- wifi throttling end -->
+
+    <!-- fast roaming start -->
+    <string name="unsupported_802_11_k_v_r">Hızlı Dolaşım (802.11 k/v/r) desteklenmez</string>
+    <string name="require_android_11_802_11_k_v_r">Hızlı Dolaşım (802.11 k/v/r) tespiti Android 11 gerektirir</string>
+    <!-- fast roaming end -->
 </resources>
