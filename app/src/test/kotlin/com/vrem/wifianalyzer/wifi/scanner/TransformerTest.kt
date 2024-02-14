@@ -21,15 +21,36 @@ import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.EXTENDED_CAPABILITIES_IE
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.MOBILE_DOMAIN_IE
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal.Companion.RM_ENABLED_CAPABILITIES_IE
+
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.nio.ByteBuffer
 
 class TransformerTest {
-    private val scanResult1 = withScanResult(SSID_1, BSSID_1, WiFiWidth.MHZ_160, WiFiStandard.AX, WiFiSecurityTypeTest.All)
-    private val scanResult2 = withScanResult(SSID_2, BSSID_2, WiFiWidth.MHZ_80, WiFiStandard.AC, WiFiSecurityTypeTest.WPA3)
-    private val scanResult3 = withScanResult(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N, listOf())
+    private val withoutFastRoaming = listOf(
+        mockInformationElement(0, 0, byteArrayOf()),
+        mockInformationElement(RM_ENABLED_CAPABILITIES_IE, 0, ByteArray(0)),
+        mockInformationElement(EXTENDED_CAPABILITIES_IE, 0, ByteArray(0)),
+        mockInformationElement(RM_ENABLED_CAPABILITIES_IE, 0, ByteArray(5)),
+        mockInformationElement(EXTENDED_CAPABILITIES_IE, 0, ByteArray(3)),
+    )
+    private val withFastRoaming = listOf(
+        mockInformationElement(
+            RM_ENABLED_CAPABILITIES_IE,
+            0,
+            byteArrayOf(0x7F, 0, 0, 0, 0)
+        ),
+        mockInformationElement(EXTENDED_CAPABILITIES_IE, 0, byteArrayOf(0, 0, 0x7F)),
+        mockInformationElement(MOBILE_DOMAIN_IE, 0, ByteArray(5)),
+    )
+    private val scanResult1 = withScanResult(SSID_1, BSSID_1, WiFiWidth.MHZ_160, WiFiStandard.AX, WiFiSecurityTypeTest.All, withoutFastRoaming)
+    private val scanResult2 = withScanResult(SSID_2, BSSID_2, WiFiWidth.MHZ_80, WiFiStandard.AC, WiFiSecurityTypeTest.WPA3, withFastRoaming)
+    private val scanResult3 = withScanResult(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N, listOf(), listOf())
     private val cacheResults = listOf(
         CacheResult(scanResult1, scanResult1.level),
         CacheResult(scanResult2, scanResult2.level),
@@ -93,9 +114,9 @@ class TransformerTest {
         // validate
         assertEquals(cacheResults.size, actual.size)
         validateWiFiDetail(SSID_1, BSSID_1, WiFiWidth.MHZ_160, WiFiStandard.AX, actual[0], WiFiSecurityTypeTest.All)
-        validateWiFiDetail(SSID_2, BSSID_2, WiFiWidth.MHZ_80, WiFiStandard.AC, actual[1], WiFiSecurityTypeTest.WPA3)
+        validateWiFiDetail(SSID_2, BSSID_2, WiFiWidth.MHZ_80, WiFiStandard.AC, actual[1], WiFiSecurityTypeTest.WPA3, FAST_ROAMING_FULL)
         validateWiFiDetail(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N, actual[2], listOf())
-        verify(fixture, times(3)).minVersionR()
+        verify(fixture, times(6)).minVersionR()
         verify(fixture, times(3)).minVersionT()
         verify(cache).scanResults()
     }
@@ -160,12 +181,47 @@ class TransformerTest {
         verify(fixture).minVersionT()
     }
 
+    @Test
+    fun testFastRoamingMinVersionR() {
+        // setup
+        doReturn(false).whenever(fixture).minVersionR()
+        // execute
+        val actual = fixture.fastRoaming(scanResult1)
+        // validate
+        assertEquals(listOf(FastRoaming.REQUIRE_ANDROID_R),  actual)
+        verify(fixture).minVersionR()
+    }
+
+    @Test
+    fun testFastRoaming() {
+        // setup
+        doReturn(true).whenever(fixture).minVersionR()
+        // execute
+        val actual = fixture.fastRoaming(scanResult2)
+        // validate
+        assertEquals(FAST_ROAMING_FULL, actual)
+        verify(fixture).minVersionR()
+    }
+
+    @Test
+    fun testNoFastRoaming() {
+        // setup
+        doReturn(true).whenever(fixture).minVersionR()
+        // execute
+        val actual = fixture.fastRoaming(scanResult1)
+        // validate
+        assertEquals(listOf<FastRoaming>(),  actual)
+        verify(fixture).minVersionR()
+    }
+
     private fun withScanResult(
         ssid: SSID,
         bssid: BSSID,
         wiFiWidth: WiFiWidth,
         wiFiStandard: WiFiStandard,
-        securityTypes: List<Int>?
+        securityTypes: List<Int>,
+        informationElements: List<ScanResult.InformationElement>
+
     ): ScanResult {
         val scanResult: ScanResult = mock()
         whenSsid(scanResult, ssid)
@@ -182,8 +238,18 @@ class TransformerTest {
         scanResult.level = LEVEL
         scanResult.channelWidth = wiFiWidth.ordinal
         doReturn(wiFiStandard.wiFiStandardId).whenever(scanResult).wifiStandard
-        doReturn(securityTypes?.toIntArray()).whenever(scanResult).securityTypes
+        doReturn(securityTypes.toIntArray()).whenever(scanResult).securityTypes
+        doReturn(informationElements).whenever(scanResult).informationElements
         return scanResult
+    }
+
+    private fun mockInformationElement(id: Int, idExt: Int, bytes: ByteArray)
+            : ScanResult.InformationElement {
+        return mock<ScanResult.InformationElement>().apply {
+            doReturn(id).whenever(this).id
+            doReturn(idExt).whenever(this).idExt
+            doReturn(ByteBuffer.wrap(bytes).asReadOnlyBuffer()).whenever(this).bytes
+        }
     }
 
     private fun withWiFiInfo(): WifiInfo {
@@ -205,7 +271,13 @@ class TransformerTest {
     }
 
     private fun validateWiFiDetail(
-        ssid: String, bssid: String, wiFiWidth: WiFiWidth, wiFiStandard: WiFiStandard, wiFiDetail: WiFiDetail, securityTypes: List<Int>
+        ssid: String,
+        bssid: String,
+        wiFiWidth: WiFiWidth,
+        wiFiStandard: WiFiStandard,
+        wiFiDetail: WiFiDetail,
+        securityTypes: List<Int>,
+        fastRoaming: List<FastRoaming> = listOf()
     ) {
         with(wiFiDetail) {
             assertEquals(ssid, wiFiIdentifier.ssid)
@@ -215,6 +287,7 @@ class TransformerTest {
             assertEquals(LEVEL, wiFiSignal.level)
             assertEquals(FREQUENCY, wiFiSignal.primaryFrequency)
             assertEquals(FREQUENCY + wiFiWidth.frequencyWidthHalf, wiFiSignal.centerFrequency)
+            assertEquals(fastRoaming, wiFiSignal.fastRoaming)
             assertEquals(WPA, wiFiSecurity.capabilities)
             assertEquals(securityTypes, wiFiSecurity.securityTypes)
         }
@@ -233,5 +306,6 @@ class TransformerTest {
         private const val IP_ADDRESS_VALUE = 123456789
         private const val IP_ADDRESS = "21.205.91.7"
         private const val LINK_SPEED = 21
+        private val FAST_ROAMING_FULL = listOf(FastRoaming.K, FastRoaming.V, FastRoaming.R)
     }
 }

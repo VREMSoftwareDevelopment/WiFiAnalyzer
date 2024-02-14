@@ -74,6 +74,14 @@
         tools:text="[WPA][WPA2][WPS][WPA3]" />
 
     <TextView
+        android:id="@+id/fastRoaming"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/security"
+        android:textStyle="italic"
+        tools:text="[802.11k][802.11v][802.11r]" />
+
+    <TextView
         android:id="@+id/vendorLong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

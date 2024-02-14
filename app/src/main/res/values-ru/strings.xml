@@ -130,4 +130,9 @@
     <string name="wifi_throttling_on">Регулирование сканирования Wi-Fi включено</string>
     <string name="wifi_throttling_off">Регулирование сканирования Wi-Fi отключено</string>
     <!-- wifi throttling end -->
+
+    <!-- fast roaming start -->
+    <string name="unsupported_802_11_k_v_r">Быстрый роуминг (802.11 k/v/r) не поддерживается.</string>
+    <string name="require_android_11_802_11_k_v_r">Для обнаружения быстрого роуминга (802.11 k/v/r) требуется Android 11.</string>
+    <!-- fast roaming end -->
 </resources>

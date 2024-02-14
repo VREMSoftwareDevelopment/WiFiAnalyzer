@@ -63,6 +63,15 @@ internal class Transformer(private val cache: Cache) {
             listOf()
         }
 
+    internal fun fastRoaming(scanResult: ScanResult): List<FastRoaming> =
+        if (minVersionR()) {
+            scanResult.informationElements.map { FastRoaming.transform(it) }
+                .filter { it != FastRoaming.ILLEGAL_ATTR }
+                .sorted()
+        } else {
+            listOf(FastRoaming.REQUIRE_ANDROID_R)
+        }
+
     internal fun minVersionR(): Boolean = buildMinVersionR()
     internal fun minVersionT(): Boolean = buildMinVersionT()
 
@@ -74,7 +83,8 @@ internal class Transformer(private val cache: Cache) {
         val wiFiStandard = WiFiStandard.findOne(wiFiStandard(scanResult))
         val wiFiSignal = WiFiSignal(
             scanResult.frequency, centerFrequency, wiFiWidth,
-            cacheResult.average, mc80211, wiFiStandard, scanResult.timestamp
+            cacheResult.average, mc80211, wiFiStandard, scanResult.timestamp,
+            fastRoaming(scanResult)
         )
         val wiFiIdentifier = WiFiIdentifier(
             scanResult.ssid(),
@@ -86,5 +96,4 @@ internal class Transformer(private val cache: Cache) {
         )
         return WiFiDetail(wiFiIdentifier, wiFiSecurity, wiFiSignal)
     }
-
 }
