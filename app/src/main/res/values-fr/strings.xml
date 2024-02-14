@@ -130,9 +130,4 @@
     <string name="wifi_throttling_on">La limitation de l\'analyse Wi-Fi est activée</string>
     <string name="wifi_throttling_off">La limitation de l\'analyse Wi-Fi est désactivée</string>
     <!-- wifi throttling end -->
-
-    <!-- fast roaming start -->
-    <string name="unsupported_802_11_k_v_r">L\'itinérance rapide (802.11 k/v/r) n\'est pas prise en charge</string>
-    <string name="require_android_11_802_11_k_v_r">La détection d\'itinérance rapide (802.11 k/v/r) nécessite Android 11</string>
-    <!-- fast roaming end -->
 </resources>

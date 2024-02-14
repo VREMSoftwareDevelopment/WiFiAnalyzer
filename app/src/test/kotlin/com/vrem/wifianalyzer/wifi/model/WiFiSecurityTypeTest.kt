@@ -17,12 +17,25 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
+import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
+import android.os.Build
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
+import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.R
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
+import kotlin.test.assertTrue
 
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
 class WiFiSecurityTypeTest {
 
     @Test
@@ -130,6 +143,32 @@ class WiFiSecurityTypeTest {
         val actual = WiFiSecurityType.findAll(securityTypes)
         // validate
         assertEquals(expected, actual)
+    }
+
+    @Config(sdk = [Build.VERSION_CODES.S_V2])
+    @Test
+    fun testFindLegacy() {
+        // setup
+        val scanResult: ScanResult = mock()
+        // execute
+        val actual = WiFiSecurityType.find(scanResult)
+        // validate
+        assertTrue(actual.isEmpty())
+        verifyNoMoreInteractions(scanResult)
+    }
+
+    @Test
+    fun testFind() {
+        // setup
+        val scanResult: ScanResult = mock()
+        val expected: List<Int> = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
+        doReturn(expected.toIntArray()).whenever(scanResult).securityTypes
+        // execute
+        val actual = WiFiSecurityType.find(scanResult)
+        // validate
+        assertEquals(expected, actual)
+        verify(scanResult).securityTypes
+        verifyNoMoreInteractions(scanResult)
     }
 
     companion object {

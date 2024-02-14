@@ -18,8 +18,14 @@
 package com.vrem.wifianalyzer.wifi.timegraph
 
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_NOT_SEEN_COUNT
-import com.vrem.wifianalyzer.wifi.model.*
-import org.junit.Assert.*
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class TimeGraphCacheTest {
@@ -74,7 +80,7 @@ class TimeGraphCacheTest {
         return WiFiDetail(
             WiFiIdentifier(ssid, "BSSID"),
             WiFiSecurity.EMPTY,
-            WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5, true)
+            WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5)
         )
     }
 

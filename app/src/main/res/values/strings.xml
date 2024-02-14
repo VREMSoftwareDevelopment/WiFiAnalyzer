@@ -201,12 +201,12 @@
 
     <!-- Wi-Fi standard start -->
     <string name="wifi_standard_unknown" translatable="false">""</string>
-    <string name="wifi_standard_legacy" translatable="false">"Wi-Fi 802.11a/b/g"</string>
-    <string name="wifi_standard_n" translatable="false">"Wi-Fi 802.11n"</string>
-    <string name="wifi_standard_ac" translatable="false">"Wi-Fi 802.11ac"</string>
-    <string name="wifi_standard_ax" translatable="false">"Wi-Fi 802.11ax"</string>
-    <string name="wifi_standard_ad" translatable="false">"Wi-Fi 802.11ad"</string>
-    <string name="wifi_standard_be" translatable="false">"Wi-Fi 802.11be"</string>
+    <string name="wifi_standard_legacy" translatable="false">"802.11a/b/g"</string>
+    <string name="wifi_standard_n" translatable="false">"802.11n"</string>
+    <string name="wifi_standard_ac" translatable="false">"802.11ac"</string>
+    <string name="wifi_standard_ax" translatable="false">"802.11ax"</string>
+    <string name="wifi_standard_ad" translatable="false">"802.11ad"</string>
+    <string name="wifi_standard_be" translatable="false">"802.11be"</string>
     <!-- Wi-Fi standard end -->
 
     <!-- security start -->
@@ -258,7 +258,9 @@
     <!-- wifi throttling end -->
 
     <!-- fast roaming start -->
-    <string name="unsupported_802_11_k_v_r">Fast Roaming(802.11 k/v/r) is unsupported</string>
-    <string name="require_android_11_802_11_k_v_r">Fast Roaming(802.11 k/v/r) detection requires Android 11</string>
-    <!-- fast roaming end -->
+    <string name="fast_roaming_k" translatable="false">"802.11k"</string>
+    <string name="fast_roaming_r" translatable="false">"802.11r"</string>
+    <string name="fast_roaming_v" translatable="false">"802.11v"</string>
+    <!-- fast roaming -->
+
 </resources>

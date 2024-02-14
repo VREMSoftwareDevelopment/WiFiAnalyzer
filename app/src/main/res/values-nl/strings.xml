@@ -129,9 +129,4 @@
     <string name="wifi_throttling_on">Wi-Fi-scanbeperking is ingeschakeld</string>
     <string name="wifi_throttling_off">Wi-Fi-scanbeperking is uitgeschakeld</string>
     <!-- wifi throttling end -->
-
-    <!-- fast roaming start -->
-    <string name="unsupported_802_11_k_v_r">Snelle roaming (802.11 k/v/r) wordt niet ondersteund</string>
-    <string name="require_android_11_802_11_k_v_r">Voor snelle roaming(802.11 k/v/r)-detectie is Android 11 vereist</string>
-    <!-- fast roaming end -->
 </resources>

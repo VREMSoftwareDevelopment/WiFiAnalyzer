@@ -352,36 +352,28 @@ class AccessPointDetailTest {
     @Test
     fun testMakeViewDetailedWithFastRoaming() {
         // setup
-        val wiFiDetail = withWiFiDetail(fastRoaming = listOf(FastRoaming.K, FastRoaming.V, FastRoaming.R))
-        val expectedFastRoaming = "[802.11k][802.11v][802.11r]"
+        val wiFiDetail = withWiFiDetail()
+        val expectedFastRoaming = "802.11k 802.11r 802.11v"
         // execute
         val actual = fixture.makeViewDetailed(wiFiDetail)
         // validate
         validateTextViewValue(actual, expectedFastRoaming, R.id.fastRoaming)
     }
 
-    @Test
-    fun testMakeViewDetailedFastRoamingMinVersionR() {
-        // setup
-        val wiFiDetail = withWiFiDetail(fastRoaming = listOf(FastRoaming.REQUIRE_ANDROID_R))
-        // execute
-        val actual = fixture.makeViewDetailed(wiFiDetail)
-        val expectedFastRoaming = actual.context.getString(R.string.require_android_11_802_11_k_v_r)
-        // validate
-        validateTextViewValue(actual, expectedFastRoaming, R.id.fastRoaming)
-    }
 
     private fun withWiFiDetail(
         ssid: String = "SSID",
         wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY,
         is80211mc: Boolean = false,
-        timestamp: Long = 1000000,
-        fastRoaming: List<FastRoaming> = listOf()
+        timestamp: Long = 1000000
     ): WiFiDetail =
         WiFiDetail(
             WiFiIdentifier(ssid, "BSSID"),
             WiFiSecurity("[WPS-capabilities][WPA2-XYZ][XYZ-FT]", WiFiSecurityTypeTest.All),
-            WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2, is80211mc, WiFiStandard.AC, timestamp, fastRoaming),
+            WiFiSignal(
+                1, 1, WiFiWidth.MHZ_40, 2,
+                WiFiSignalExtra(is80211mc, WiFiStandard.AC, timestamp, FastRoaming.entries.toList())
+            ),
             wiFiAdditional
         )
 
@@ -393,7 +385,7 @@ class AccessPointDetailTest {
         validateTextViewValue(view, expectedSecurities, R.id.capabilities)
         validateImageViewValue(view, wiFiSignal.strength.imageResource, R.id.levelImage)
         validateImageViewValue(view, wiFiDetail.wiFiSecurity.security.imageResource, R.id.securityImage)
-        validateImageViewValue(view, wiFiSignal.wiFiStandard.imageResource, R.id.wiFiStandardImage)
+        validateImageViewValue(view, wiFiSignal.extra.wiFiStandard.imageResource, R.id.wiFiStandardImage)
     }
 
     private fun validateTextViewValuesPopupView(view: View, wiFiDetail: WiFiDetail) {
@@ -401,11 +393,10 @@ class AccessPointDetailTest {
         with(wiFiDetail) {
             validateTextViewValue(view, wiFiSecurity.capabilities, R.id.capabilitiesLong)
             validateTextViewValue(view, expectedSecurityTypes, R.id.securityTypes)
-            val expectedWiFiStandard = view.context.getString(wiFiSignal.wiFiStandard.textResource)
+            val expectedWiFiStandard = view.context.getString(wiFiSignal.extra.wiFiStandard.textResource)
             validateTextViewValue(view, expectedWiFiStandard, R.id.wiFiStandard)
             val expectedWiFiBand = view.context.getString(wiFiSignal.wiFiBand.textResource)
             validateTextViewValue(view, expectedWiFiBand, R.id.wiFiBand)
-            validateTextViewValue(view, view.context.getString(R.string.unsupported_802_11_k_v_r), R.id.fastRoaming)
         }
     }
 

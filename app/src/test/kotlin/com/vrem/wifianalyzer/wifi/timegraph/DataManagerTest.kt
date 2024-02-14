@@ -193,10 +193,10 @@ class DataManagerTest {
     }
 
     private fun makeWiFiSignal(): WiFiSignal =
-        WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, level, true)
+        WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, level)
 
     private fun makeWiFiDetail(ssid: String): WiFiDetail =
-        WiFiDetail(WiFiIdentifier(ssid, bssid), WiFiSecurity.EMPTY, makeWiFiSignal(), WiFiAdditional.EMPTY)
+        WiFiDetail(WiFiIdentifier(ssid, bssid), WiFiSecurity.EMPTY, makeWiFiSignal())
 
     private fun makeWiFiDetails(): List<WiFiDetail> =
         listOf(makeWiFiDetailConnected("SSID1"), makeWiFiDetail("SSID2"), makeWiFiDetail("SSID3"))

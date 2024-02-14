@@ -200,7 +200,7 @@ class ConnectionViewTest {
         WiFiDetail(
             WiFiIdentifier(ssid, bssid),
             WiFiSecurity.EMPTY,
-            WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55, true),
+            WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55),
             wiFiAdditional
         )
 

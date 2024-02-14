@@ -19,11 +19,22 @@ package com.vrem.wifianalyzer.wifi.accesspoint
 
 import android.widget.ExpandableListAdapter
 import android.widget.ExpandableListView
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.times
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
+import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.GroupBy
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class AccessPointsAdapterGroupTest {
@@ -126,7 +137,7 @@ class AccessPointsAdapterGroupTest {
     private fun withWiFiDetail(): WiFiDetail =
         WiFiDetail(
             WiFiIdentifier("SSID1", "BSSID1"),
-            wiFiSignal = WiFiSignal(2255, 2255, WiFiWidth.MHZ_20, -40, true),
+            wiFiSignal = WiFiSignal(2255, 2255, WiFiWidth.MHZ_20, -40),
             children = listOf(
                 WiFiDetail(WiFiIdentifier("SSID1-1", "BSSID1-1")),
                 WiFiDetail(WiFiIdentifier("SSID1-2", "BSSID1-2")),

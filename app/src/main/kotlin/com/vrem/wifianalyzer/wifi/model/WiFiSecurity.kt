@@ -17,9 +17,14 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
+import android.content.Context
+import android.net.wifi.ScanResult
+import android.os.Build
 import androidx.annotation.DrawableRes
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import com.vrem.util.EMPTY
+import com.vrem.util.buildMinVersionT
 import com.vrem.wifianalyzer.R
 import java.util.Locale
 
@@ -37,7 +42,11 @@ enum class Security(@DrawableRes val imageResource: Int, val extras: List<String
 
 typealias SecurityTypeId = Int
 
-enum class WiFiSecurityType(val securityTypeId: SecurityTypeId, @StringRes val textResource: Int, val security: Security = Security.NONE) {
+enum class WiFiSecurityType(
+    val securityTypeId: SecurityTypeId,
+    @StringRes val textResource: Int,
+    val security: Security = Security.NONE
+) {
     UNKNOWN(-1, R.string.security_type_unknown),
     OPEN(0, R.string.security_type_open),
     WEP(1, R.string.security_type_wep, Security.WEP),
@@ -59,6 +68,16 @@ enum class WiFiSecurityType(val securityTypeId: SecurityTypeId, @StringRes val t
             entries.firstOrNull { it.securityTypeId == securityTypeId } ?: UNKNOWN
 
         fun findAll(securityTypes: List<Int>): Set<WiFiSecurityType> = securityTypes.map { findOne(it) }.toSet()
+
+        fun find(scanResult: ScanResult): List<Int> =
+            if (buildMinVersionT()) {
+                securityTypeValues(scanResult)
+            } else {
+                listOf()
+            }
+
+        @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+        private fun securityTypeValues(scanResult: ScanResult) = scanResult.securityTypes.asList()
     }
 }
 
@@ -76,6 +95,13 @@ data class WiFiSecurity(val capabilities: String = String.EMPTY, val securityTyp
         get() {
             return WiFiSecurityType.findAll(securityTypes)
         }
+
+    fun wiFiSecurityTypesDisplay(context: Context): String =
+        wiFiSecurityTypes
+            .map { securityType -> context.getString(securityType.textResource) }
+            .filter { text -> text.isNotBlank() }
+            .toList()
+            .joinToString(" ", "[", "]")
 
     private fun transformCapabilities(): Set<Security> =
         regex.replace(capabilities.uppercase(Locale.getDefault()), "-")

@@ -17,14 +17,23 @@
  */
 package com.vrem.wifianalyzer.wifi.scanner
 
-import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import com.vrem.annotation.OpenClass
-import com.vrem.util.buildMinVersionR
-import com.vrem.util.buildMinVersionT
 import com.vrem.util.nullToEmpty
 import com.vrem.util.ssid
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.FastRoaming
+import com.vrem.wifianalyzer.wifi.model.WiFiConnection
+import com.vrem.wifianalyzer.wifi.model.WiFiData
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurityType
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiSignalExtra
+import com.vrem.wifianalyzer.wifi.model.WiFiStandard
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+import com.vrem.wifianalyzer.wifi.model.convertIpV4Address
+import com.vrem.wifianalyzer.wifi.model.convertSSID
 
 @Suppress("DEPRECATION")
 fun WifiInfo.ipV4Address(): Int = ipAddress
@@ -49,51 +58,18 @@ internal class Transformer(private val cache: Cache) {
     internal fun transformToWiFiData(): WiFiData =
         WiFiData(transformCacheResults(), transformWifiInfo())
 
-    internal fun wiFiStandard(scanResult: ScanResult): WiFiStandardId =
-        if (minVersionR()) {
-            scanResult.wifiStandard
-        } else {
-            WiFiStandard.UNKNOWN.wiFiStandardId
-        }
-
-    internal fun securityTypes(scanResult: ScanResult): List<Int> =
-        if (minVersionT()) {
-            scanResult.securityTypes.asList()
-        } else {
-            listOf()
-        }
-
-    internal fun fastRoaming(scanResult: ScanResult): List<FastRoaming> =
-        if (minVersionR()) {
-            scanResult.informationElements.map { FastRoaming.transform(it) }
-                .filter { it != FastRoaming.ILLEGAL_ATTR }
-                .sorted()
-        } else {
-            listOf(FastRoaming.REQUIRE_ANDROID_R)
-        }
-
-    internal fun minVersionR(): Boolean = buildMinVersionR()
-    internal fun minVersionT(): Boolean = buildMinVersionT()
-
     private fun transform(cacheResult: CacheResult): WiFiDetail {
         val scanResult = cacheResult.scanResult
         val wiFiWidth = WiFiWidth.findOne(scanResult.channelWidth)
         val centerFrequency = wiFiWidth.calculateCenter(scanResult.frequency, scanResult.centerFreq0)
         val mc80211 = scanResult.is80211mcResponder
-        val wiFiStandard = WiFiStandard.findOne(wiFiStandard(scanResult))
-        val wiFiSignal = WiFiSignal(
-            scanResult.frequency, centerFrequency, wiFiWidth,
-            cacheResult.average, mc80211, wiFiStandard, scanResult.timestamp,
-            fastRoaming(scanResult)
-        )
-        val wiFiIdentifier = WiFiIdentifier(
-            scanResult.ssid(),
-            String.nullToEmpty(scanResult.BSSID)
-        )
-        val wiFiSecurity = WiFiSecurity(
-            String.nullToEmpty(scanResult.capabilities),
-            securityTypes(scanResult)
-        )
+        val wiFiStandard = WiFiStandard.findOne(scanResult)
+        val fastRoaming = FastRoaming.find(scanResult)
+        val securityTypes = WiFiSecurityType.find(scanResult)
+        val extra = WiFiSignalExtra(mc80211, wiFiStandard, scanResult.timestamp, fastRoaming)
+        val wiFiSignal = WiFiSignal(scanResult.frequency, centerFrequency, wiFiWidth, cacheResult.average, extra)
+        val wiFiIdentifier = WiFiIdentifier(scanResult.ssid(), String.nullToEmpty(scanResult.BSSID))
+        val wiFiSecurity = WiFiSecurity(String.nullToEmpty(scanResult.capabilities), securityTypes)
         return WiFiDetail(wiFiIdentifier, wiFiSecurity, wiFiSignal)
     }
 }

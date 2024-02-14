@@ -17,7 +17,9 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class GroupByTest {
@@ -98,6 +100,6 @@ class GroupByTest {
     private fun withWiFiDetail() = WiFiDetail(
         WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
         WiFiSecurity("WPA-WPA2"),
-        WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -40, true)
+        WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -40)
     )
 }

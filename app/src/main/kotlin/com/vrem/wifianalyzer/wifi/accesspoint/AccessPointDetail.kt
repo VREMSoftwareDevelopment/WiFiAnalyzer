@@ -27,7 +27,6 @@ import com.vrem.annotation.OpenClass
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
-import com.vrem.wifianalyzer.wifi.model.FastRoaming
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
@@ -115,8 +114,8 @@ class AccessPointDetail {
 
     private fun setWiFiStandardImage(view: View, wiFiSignal: WiFiSignal) =
         view.findViewById<ImageView>(R.id.wiFiStandardImage)?.let {
-            it.tag = wiFiSignal.wiFiStandard.imageResource
-            it.setImageResource(wiFiSignal.wiFiStandard.imageResource)
+            it.tag = wiFiSignal.extra.wiFiStandard.imageResource
+            it.setImageResource(wiFiSignal.extra.wiFiStandard.imageResource)
         }
 
     private fun setLevelText(view: View, wiFiSignal: WiFiSignal) =
@@ -150,11 +149,7 @@ class AccessPointDetail {
 
     private fun setViewSecurityTypes(view: View, wiFiSecurity: WiFiSecurity) =
         view.findViewById<TextView>(R.id.securityTypes)?.let {
-            it.text = wiFiSecurity.wiFiSecurityTypes
-                .map { securityType -> view.context.getString(securityType.textResource) }
-                .filter { text -> text.isNotBlank() }
-                .toList()
-                .joinToString(" ", "[", "]")
+            it.text = wiFiSecurity.wiFiSecurityTypesDisplay(view.context)
         }
 
     private fun setViewVendorLong(view: View, wiFiAdditional: WiFiAdditional) =
@@ -170,32 +165,22 @@ class AccessPointDetail {
     private fun setViewWiFiBand(view: View, wiFiSignal: WiFiSignal) =
         view.findViewById<TextView>(R.id.wiFiBand)?.setText(wiFiSignal.wiFiBand.textResource)
 
-
-    private fun setViewFastRoaming(view: View, wiFiSignal: WiFiSignal) {
+    private fun setViewFastRoaming(view: View, wiFiSignal: WiFiSignal) =
         view.findViewById<TextView>(R.id.fastRoaming)?.let {
-            if (wiFiSignal.fastRoaming.isEmpty()) {
-                it.setText(R.string.unsupported_802_11_k_v_r)
-            } else if (wiFiSignal.fastRoaming.contains(FastRoaming.REQUIRE_ANDROID_R)) {
-                it.setText(R.string.require_android_11_802_11_k_v_r)
-            } else {
-                it.text = wiFiSignal.fastRoaming.joinToString("") { fastRoaming ->
-                    "[${fastRoaming.protocol}]"
-                }
-            }
+            it.text = wiFiSignal.extra.fastRoamingDisplay(view.context)
         }
-    }
+
     private fun setViewWiFiStandard(view: View, wiFiSignal: WiFiSignal) =
-        view.findViewById<TextView>(R.id.wiFiStandard)
-            ?.setText(wiFiSignal.wiFiStandard.textResource)
+        view.findViewById<TextView>(R.id.wiFiStandard)?.setText(wiFiSignal.extra.wiFiStandard.textResource)
 
     private fun setView80211mc(view: View, wiFiSignal: WiFiSignal) =
         view.findViewById<TextView>(R.id.flag80211mc)?.let {
-            it.visibility = if (wiFiSignal.is80211mc) View.VISIBLE else View.GONE
+            it.visibility = if (wiFiSignal.extra.is80211mc) View.VISIBLE else View.GONE
         }
 
     private fun setTimestamp(view: View, wiFiSignal: WiFiSignal) =
         view.findViewById<TextView>(R.id.timestamp)?.let {
-            val milliseconds: Long = wiFiSignal.timestamp / 1000
+            val milliseconds: Long = wiFiSignal.extra.timestamp / 1000
             if (0L == milliseconds) {
                 it.text = String.EMPTY
                 it.visibility = View.GONE

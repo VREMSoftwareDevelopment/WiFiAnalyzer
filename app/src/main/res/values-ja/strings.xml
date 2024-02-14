@@ -129,9 +129,4 @@
     <string name="wifi_throttling_on">Wi-Fi スキャンのスロットルが有効になっています</string>
     <string name="wifi_throttling_off">Wi-Fi スキャンのスロットリングが無効になっています</string>
     <!-- wifi throttling end -->
-
-    <!-- fast roaming start -->
-    <string name="unsupported_802_11_k_v_r">高速ローミング(802.11 k/v/r)はサポートされていません</string>
-    <string name="require_android_11_802_11_k_v_r">高速ローミング（802.11 k/v/r）の検出には Android 11 が必要です</string>
-    <!-- fast roaming end -->
 </resources>

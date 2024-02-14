@@ -19,11 +19,19 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import android.net.wifi.ScanResult
+import android.os.Build
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.R
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
 class WiFiStandardTest {
+
     @Test
     fun testWidth() {
         assertEquals(7, WiFiStandard.entries.size)
@@ -62,18 +70,51 @@ class WiFiStandardTest {
         assertEquals(ScanResult.WIFI_STANDARD_11BE, WiFiStandard.BE.wiFiStandardId)
     }
 
+    @Config(sdk = [Build.VERSION_CODES.Q])
+    @Test
+    fun testFindOneLegacy() {
+        // setup
+        val scanResult: ScanResult = mock()
+        // execute
+        val actual = WiFiStandard.findOne(scanResult)
+        // validate
+        assertEquals(WiFiStandard.UNKNOWN, actual)
+        verifyNoMoreInteractions(scanResult)
+    }
+
     @Test
     fun testFindOne() {
-        assertEquals(WiFiStandard.UNKNOWN, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_UNKNOWN))
-        assertEquals(WiFiStandard.LEGACY, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_LEGACY))
-        assertEquals(WiFiStandard.N, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11N))
-        assertEquals(WiFiStandard.AC, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11AC))
-        assertEquals(WiFiStandard.AX, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11AX))
-        assertEquals(WiFiStandard.AD, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11AD))
-        assertEquals(WiFiStandard.BE, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11BE))
-
-        assertEquals(WiFiStandard.UNKNOWN, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_UNKNOWN - 1))
-        assertEquals(WiFiStandard.UNKNOWN, WiFiStandard.findOne(ScanResult.WIFI_STANDARD_11BE + 1))
+        withTestDatas().forEach {
+            println(it)
+            validate(it.expected, it.input)
+        }
     }
+
+    private fun validate(expected: WiFiStandard, wiFiStandardId: Int) {
+        // setup
+        val scanResult: ScanResult = mock()
+        doReturn(wiFiStandardId).whenever(scanResult).wifiStandard
+        // execute
+        val actual = WiFiStandard.findOne(scanResult)
+        // validate
+        assertEquals(expected, actual)
+        verify(scanResult).wifiStandard
+        verifyNoMoreInteractions(scanResult)
+    }
+
+    private data class TestData(val expected: WiFiStandard, val input: Int)
+
+    private fun withTestDatas() =
+        listOf(
+            TestData(WiFiStandard.UNKNOWN, ScanResult.WIFI_STANDARD_UNKNOWN),
+            TestData(WiFiStandard.LEGACY, ScanResult.WIFI_STANDARD_LEGACY),
+            TestData(WiFiStandard.N, ScanResult.WIFI_STANDARD_11N),
+            TestData(WiFiStandard.AC, ScanResult.WIFI_STANDARD_11AC),
+            TestData(WiFiStandard.AX, ScanResult.WIFI_STANDARD_11AX),
+            TestData(WiFiStandard.AD, ScanResult.WIFI_STANDARD_11AD),
+            TestData(WiFiStandard.BE, ScanResult.WIFI_STANDARD_11BE),
+            TestData(WiFiStandard.UNKNOWN, ScanResult.WIFI_STANDARD_UNKNOWN - 1),
+            TestData(WiFiStandard.UNKNOWN, ScanResult.WIFI_STANDARD_11BE + 1)
+        )
 
 }

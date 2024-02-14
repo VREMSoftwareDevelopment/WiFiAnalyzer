@@ -133,7 +133,7 @@ class DataManagerTest {
     }
 
     private fun makeWiFiDetail(ssid: String = "SSID", frequency: Int = 2455): WiFiDetail {
-        val wiFiSignal = WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, level, true)
+        val wiFiSignal = WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, level)
         val wiFiIdentifier = WiFiIdentifier(ssid, "BSSID")
         return WiFiDetail(wiFiIdentifier, WiFiSecurity.EMPTY, wiFiSignal, WiFiAdditional.EMPTY)
     }

@@ -17,8 +17,12 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
+import android.net.wifi.ScanResult
+import android.os.Build
 import androidx.annotation.DrawableRes
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
+import com.vrem.util.buildMinVersionR
 import com.vrem.wifianalyzer.R
 
 typealias WiFiStandardId = Int
@@ -33,7 +37,15 @@ enum class WiFiStandard(val wiFiStandardId: WiFiStandardId, @StringRes val textR
     BE(8, R.string.wifi_standard_be, R.drawable.ic_wifi_unknown);
 
     companion object {
-        fun findOne(wiFiStandardId: WiFiStandardId): WiFiStandard =
-            entries.firstOrNull { it.wiFiStandardId == wiFiStandardId } ?: UNKNOWN
+        fun findOne(scanResult: ScanResult): WiFiStandard =
+            if (buildMinVersionR()) {
+                find(scanResult.wifiStandard)
+            } else {
+                UNKNOWN
+            }
+
+        @RequiresApi(Build.VERSION_CODES.R)
+        private fun find(wifiStandard: Int): WiFiStandard =
+            entries.firstOrNull { it.wiFiStandardId == wifiStandard } ?: UNKNOWN
     }
 }

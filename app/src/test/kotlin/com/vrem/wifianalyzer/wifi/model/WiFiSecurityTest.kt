@@ -18,10 +18,18 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import android.net.wifi.WifiInfo
+import android.os.Build
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.vrem.wifianalyzer.RobolectricUtil
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
 class WiFiSecurityTest {
+    private val mainActivity = RobolectricUtil.INSTANCE.activity
 
     @Test
     fun testWiFiSecurityTypes() {
@@ -31,6 +39,18 @@ class WiFiSecurityTest {
         // execute
         val actual: Set<WiFiSecurityType> = fixture.wiFiSecurityTypes
         // validate
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun testWiFiSecurityTypesDisplay() {
+        // expected
+        val fixture = WiFiSecurity(securityTypes = WiFiSecurityTypeTest.All)
+        val expected =
+            "[DPP EAP OPEN OSEN PASSPOINT_R1_R2 PASSPOINT_R3 PSK WAPI_CERT WAPI_PSK WEP EAP_WPA3_ENTERPRISE EAP_WPA3_ENTERPRISE_192_BIT OWE SAE]"
+        // execute
+        val actual = fixture.wiFiSecurityTypesDisplay(mainActivity.applicationContext)
+        //validate
         assertEquals(expected, actual)
     }
 

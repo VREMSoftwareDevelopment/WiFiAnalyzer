@@ -130,9 +130,4 @@
     <string name="wifi_throttling_on">Ο περιορισμός σάρωσης Wi-Fi είναι ενεργοποιημένος</string>
     <string name="wifi_throttling_off">Ο περιορισμός σάρωσης Wi-Fi είναι απενεργοποιημένος</string>
     <!-- wifi throttling end -->
-
-    <!-- fast roaming start -->
-    <string name="unsupported_802_11_k_v_r">Η γρήγορη περιαγωγή (802.11 k/v/r) δεν υποστηρίζεται</string>
-    <string name="require_android_11_802_11_k_v_r">Η ανίχνευση γρήγορης περιαγωγής (802.11 k/v/r) απαιτεί Android 11</string>
-    <!-- fast roaming end -->
 </resources>

@@ -17,7 +17,11 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.times
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
+import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
@@ -281,37 +285,37 @@ class WiFiDataTest {
         val wiFiDetail1 = WiFiDetail(
             WiFiIdentifier(ssid1, bssid1),
             WiFiSecurity.EMPTY,
-            WiFiSignal(frequency1, frequency1, WiFiWidth.MHZ_20, level1, true)
+            WiFiSignal(frequency1, frequency1, WiFiWidth.MHZ_20, level1)
         )
         val wiFiDetail2 = WiFiDetail(
             WiFiIdentifier(ssid2, bssid2),
             WiFiSecurity.EMPTY,
-            WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2, true)
+            WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2)
         )
         val wiFiDetail3 = WiFiDetail(
             WiFiIdentifier(ssid3, bssid3),
             WiFiSecurity.EMPTY,
-            WiFiSignal(frequency3, frequency3, WiFiWidth.MHZ_20, level0, true)
+            WiFiSignal(frequency3, frequency3, WiFiWidth.MHZ_20, level0)
         )
         val wiFiDetail4 = WiFiDetail(
             WiFiIdentifier(ssid4, bssid4),
             WiFiSecurity.EMPTY,
-            WiFiSignal(frequency4, frequency4, WiFiWidth.MHZ_20, level2, true)
+            WiFiSignal(frequency4, frequency4, WiFiWidth.MHZ_20, level2)
         )
         val wiFiDetail21 = WiFiDetail(
             WiFiIdentifier(ssid2, bssid2 + "_1"),
             WiFiSecurity.EMPTY,
-            WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 3, true)
+            WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 3)
         )
         val wiFiDetail22 = WiFiDetail(
             WiFiIdentifier(ssid2, bssid2 + "_2"),
             WiFiSecurity.EMPTY,
-            WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 1, true)
+            WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 1)
         )
         val wiFiDetail23 = WiFiDetail(
             WiFiIdentifier(ssid2, bssid2 + "_3"),
             WiFiSecurity.EMPTY,
-            WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 2, true)
+            WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 2)
         )
         return listOf(wiFiDetail23, wiFiDetail3, wiFiDetail22, wiFiDetail1, wiFiDetail21, wiFiDetail2, wiFiDetail4)
     }
