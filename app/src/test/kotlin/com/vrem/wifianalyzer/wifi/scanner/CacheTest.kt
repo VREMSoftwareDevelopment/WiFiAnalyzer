@@ -18,13 +18,17 @@
 package com.vrem.wifianalyzer.wifi.scanner
 
 import android.net.wifi.ScanResult
-import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.wifi.band.WiFiRange
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 
 class CacheTest {
     private val scanResult1: ScanResult = mock()

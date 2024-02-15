@@ -17,10 +17,6 @@
  */
 package com.vrem.wifianalyzer.wifi.channelgraph
 
-import com.nhaarman.mockitokotlin2.times
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
-import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
@@ -30,6 +26,10 @@ import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 import java.util.Locale
 
 class ChannelAxisLabelTest {

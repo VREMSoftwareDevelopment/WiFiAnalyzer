@@ -19,12 +19,6 @@ package com.vrem.wifianalyzer.export
 
 import android.content.Context
 import android.content.Intent
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.times
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
-import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.FastRoaming
@@ -38,6 +32,12 @@ import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

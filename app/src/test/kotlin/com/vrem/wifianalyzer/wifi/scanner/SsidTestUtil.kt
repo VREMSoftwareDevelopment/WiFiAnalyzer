@@ -19,9 +19,9 @@ package com.vrem.wifianalyzer.wifi.scanner
 
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiSsid
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
 import com.vrem.util.buildMinVersionT
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 
 fun whenSsid(scanResult: ScanResult, ssid: String) {
     if (buildMinVersionT()) {

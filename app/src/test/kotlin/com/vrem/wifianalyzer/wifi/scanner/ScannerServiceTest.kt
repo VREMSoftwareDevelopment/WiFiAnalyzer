@@ -18,14 +18,16 @@
 package com.vrem.wifianalyzer.wifi.scanner
 
 import android.os.Handler
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
 import org.junit.Test
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verifyNoMoreInteractions
 
 class ScannerServiceTest {
     private val wiFiManagerWrapper: WiFiManagerWrapper = mock()

@@ -22,12 +22,12 @@ import android.net.wifi.ScanResult.InformationElement
 import android.net.wifi.WifiInfo
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.wifi.model.*
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.kotlin.*
 import org.robolectric.annotation.Config
 import java.nio.ByteBuffer
 

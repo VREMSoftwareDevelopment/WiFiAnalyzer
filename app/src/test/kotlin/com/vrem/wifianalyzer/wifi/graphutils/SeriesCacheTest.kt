@@ -18,8 +18,6 @@
 package com.vrem.wifianalyzer.wifi.graphutils
 
 import com.jjoe64.graphview.series.BaseSeries
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
 import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
@@ -30,6 +28,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verifyNoMoreInteractions
 
 class SeriesCacheTest {
     private val series1: BaseSeries<GraphDataPoint> = mock()

@@ -21,7 +21,6 @@ import android.os.Build
 import android.view.View
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.jjoe64.graphview.GraphView
-import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.Configuration
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.MainContextHelper
@@ -44,6 +43,7 @@ import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.kotlin.*
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)

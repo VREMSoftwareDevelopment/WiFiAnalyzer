@@ -17,11 +17,16 @@
  */
 package com.vrem.wifianalyzer.settings
 
-import com.nhaarman.mockitokotlin2.*
 import org.junit.After
 import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Test
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.spy
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 class SettingsAndroidQTest {
     private val repository: Repository = mock()

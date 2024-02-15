@@ -20,8 +20,23 @@ package com.vrem.wifianalyzer.navigation
 import android.view.MenuItem
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
-import com.vrem.wifianalyzer.navigation.availability.*
-import com.vrem.wifianalyzer.navigation.items.*
+import com.vrem.wifianalyzer.navigation.availability.NavigationOption
+import com.vrem.wifianalyzer.navigation.availability.navigationOptionAp
+import com.vrem.wifianalyzer.navigation.availability.navigationOptionOff
+import com.vrem.wifianalyzer.navigation.availability.navigationOptionOther
+import com.vrem.wifianalyzer.navigation.availability.navigationOptionRating
+import com.vrem.wifianalyzer.navigation.availability.navigationOptionWiFiSwitchOn
+import com.vrem.wifianalyzer.navigation.items.NavigationItem
+import com.vrem.wifianalyzer.navigation.items.navigationItemAbout
+import com.vrem.wifianalyzer.navigation.items.navigationItemAccessPoints
+import com.vrem.wifianalyzer.navigation.items.navigationItemChannelAvailable
+import com.vrem.wifianalyzer.navigation.items.navigationItemChannelGraph
+import com.vrem.wifianalyzer.navigation.items.navigationItemChannelRating
+import com.vrem.wifianalyzer.navigation.items.navigationItemExport
+import com.vrem.wifianalyzer.navigation.items.navigationItemPortAuthority
+import com.vrem.wifianalyzer.navigation.items.navigationItemSettings
+import com.vrem.wifianalyzer.navigation.items.navigationItemTimeGraph
+import com.vrem.wifianalyzer.navigation.items.navigationItemVendors
 
 enum class NavigationMenu(
     val icon: Int,

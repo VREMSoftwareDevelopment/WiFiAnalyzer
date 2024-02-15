@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer.wifi.scanner
 
-import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.permission.PermissionService
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
@@ -27,6 +26,12 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 class ScannerTest {
     private val settings: Settings = mock()

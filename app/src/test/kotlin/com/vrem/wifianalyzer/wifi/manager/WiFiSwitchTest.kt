@@ -18,10 +18,16 @@
 package com.vrem.wifianalyzer.wifi.manager
 
 import android.net.wifi.WifiManager
-import com.nhaarman.mockitokotlin2.*
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.mockito.kotlin.doNothing
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.spy
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 class WiFiSwitchTest {
     private val wifiManager: WifiManager = mock()

@@ -20,7 +20,9 @@ package com.vrem.wifianalyzer.wifi.model
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.Strength.Companion.calculate
 import com.vrem.wifianalyzer.wifi.model.Strength.Companion.reverse
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class StrengthTest {

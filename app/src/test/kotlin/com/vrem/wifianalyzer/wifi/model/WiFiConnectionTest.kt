@@ -18,7 +18,10 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.util.EMPTY
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotSame
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class WiFiConnectionTest {

@@ -23,10 +23,14 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
-import com.nhaarman.mockitokotlin2.*
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.mockito.kotlin.any
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 class ActivityUtilsTest {
     private val window: Window = mock()

@@ -41,9 +41,9 @@ dependencies {
     // Unit Test Dependencies
     testImplementation 'androidx.test.ext:junit:1.1.5'
     testImplementation 'com.googlecode.junit-toolbox:junit-toolbox:2.4'
-    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:5.10.0'
+    testImplementation 'org.mockito.kotlin:mockito-kotlin:5.2.1'
     testImplementation 'org.robolectric:robolectric:4.11.1'
     testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
@@ -105,12 +105,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     lint {
         disable 'GoogleAppIndexingWarning'

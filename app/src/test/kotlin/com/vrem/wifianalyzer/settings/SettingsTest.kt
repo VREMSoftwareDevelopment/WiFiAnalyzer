@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.settings
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.nhaarman.mockitokotlin2.*
 import com.vrem.util.defaultCountryCode
 import com.vrem.util.defaultLanguageTag
 import com.vrem.util.ordinals
@@ -41,6 +40,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.kotlin.*
 import org.robolectric.annotation.Config
 import java.util.*
 

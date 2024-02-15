@@ -21,7 +21,6 @@ import android.os.Build
 import android.view.Menu
 import android.view.MenuItem
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
@@ -29,6 +28,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.kotlin.*
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)

@@ -17,13 +17,13 @@
  */
 package com.vrem.wifianalyzer
 
-import com.nhaarman.mockitokotlin2.mock
 import com.vrem.wifianalyzer.permission.PermissionService
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.vendor.model.VendorService
 import com.vrem.wifianalyzer.wifi.filter.adapter.FiltersAdapter
 import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService
+import org.mockito.kotlin.mock
 
 enum class MainContextHelper {
     INSTANCE;

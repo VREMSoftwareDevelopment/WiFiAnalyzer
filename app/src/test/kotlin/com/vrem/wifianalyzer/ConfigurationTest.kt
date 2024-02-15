@@ -22,7 +22,9 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.util.Locale
 

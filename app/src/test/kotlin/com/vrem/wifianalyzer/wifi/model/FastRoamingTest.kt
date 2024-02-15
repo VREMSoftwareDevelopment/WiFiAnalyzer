@@ -21,10 +21,10 @@ import android.net.wifi.ScanResult
 import android.net.wifi.ScanResult.InformationElement
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.nhaarman.mockitokotlin2.*
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.kotlin.*
 import org.robolectric.annotation.Config
 import java.nio.ByteBuffer
 

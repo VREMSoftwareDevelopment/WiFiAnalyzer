@@ -24,15 +24,24 @@ import com.jjoe64.graphview.GridLabelRenderer
 import com.jjoe64.graphview.LegendRenderer
 import com.jjoe64.graphview.Viewport
 import com.jjoe64.graphview.series.BaseSeries
-import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.SIZE_MAX
 import com.vrem.wifianalyzer.SIZE_MIN
 import com.vrem.wifianalyzer.settings.ThemeStyle
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import org.mockito.kotlin.any
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.spy
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 class GraphViewWrapperTest {
     private val graphView: GraphView = mock()

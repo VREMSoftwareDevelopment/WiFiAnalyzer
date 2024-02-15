@@ -23,11 +23,16 @@ import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.GridLabelRenderer
 import com.jjoe64.graphview.LabelFormatter
 import com.jjoe64.graphview.Viewport
-import com.nhaarman.mockitokotlin2.*
 import com.vrem.wifianalyzer.settings.ThemeStyle
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.mockito.kotlin.any
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 class GraphViewBuilderTest {
     private val numHorizontalLabels = 5
