@@ -28,7 +28,7 @@ enum class NavigationGroup(val navigationMenus: List<NavigationMenu>) {
             NavigationMenu.TIME_GRAPH
         )
     ),
-    GROUP_OTHER(listOf(NavigationMenu.EXPORT, NavigationMenu.CHANNEL_AVAILABLE, NavigationMenu.VENDORS, NavigationMenu.PORT_AUTHORITY)),
+    GROUP_OTHER(listOf(NavigationMenu.EXPORT, NavigationMenu.CHANNEL_AVAILABLE, NavigationMenu.VENDORS)),
     GROUP_SETTINGS(listOf(NavigationMenu.SETTINGS, NavigationMenu.ABOUT));
 
     fun next(navigationMenu: NavigationMenu): NavigationMenu {

@@ -288,19 +288,6 @@
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:text="@string/about_write_review" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="@string/action_port_authority" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:autoLink="web"
-                android:text="@string/about_port_authority_url" />
-
             <!-- Libraries -->
             <TextView
                 android:layout_width="wrap_content"

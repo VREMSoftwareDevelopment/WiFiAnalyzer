@@ -37,4 +37,3 @@ val navigationItemChannelAvailable: NavigationItem = FragmentItem(ChannelAvailab
 val navigationItemVendors: NavigationItem = FragmentItem(VendorFragment(), false, View.GONE)
 val navigationItemSettings: NavigationItem = FragmentItem(SettingsFragment(), false, View.GONE)
 val navigationItemAbout: NavigationItem = FragmentItem(AboutFragment(), false, View.GONE)
-val navigationItemPortAuthority: NavigationItem = PortAuthorityItem()

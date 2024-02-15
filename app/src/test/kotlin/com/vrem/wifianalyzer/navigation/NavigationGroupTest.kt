@@ -72,8 +72,7 @@ class NavigationGroupTest {
         val expected: List<NavigationMenu> = listOf(
             NavigationMenu.EXPORT,
             NavigationMenu.CHANNEL_AVAILABLE,
-            NavigationMenu.VENDORS,
-            NavigationMenu.PORT_AUTHORITY
+            NavigationMenu.VENDORS
         )
         // validate
         assertEquals(expected, NavigationGroup.GROUP_OTHER.navigationMenus)

@@ -35,7 +35,7 @@ import org.robolectric.annotation.Config
 class NavigationMenuTest {
     @Test
     fun testNavigationMenu() {
-        assertEquals(10, NavigationMenu.entries.size)
+        assertEquals(9, NavigationMenu.entries.size)
     }
 
     @Test
@@ -49,7 +49,6 @@ class NavigationMenuTest {
         assertEquals(navigationItemExport, NavigationMenu.EXPORT.navigationItem)
         assertEquals(navigationItemSettings, NavigationMenu.SETTINGS.navigationItem)
         assertEquals(navigationItemAbout, NavigationMenu.ABOUT.navigationItem)
-        assertEquals(navigationItemPortAuthority, NavigationMenu.PORT_AUTHORITY.navigationItem)
     }
 
     @Test
@@ -63,7 +62,6 @@ class NavigationMenuTest {
         assertEquals(R.string.action_vendors, NavigationMenu.VENDORS.title)
         assertEquals(R.string.action_settings, NavigationMenu.SETTINGS.title)
         assertEquals(R.string.action_about, NavigationMenu.ABOUT.title)
-        assertEquals(R.string.action_port_authority, NavigationMenu.PORT_AUTHORITY.title)
     }
 
     @Test
@@ -81,7 +79,6 @@ class NavigationMenuTest {
         assertFalse(NavigationMenu.VENDORS.wiFiBandSwitchable())
         assertFalse(NavigationMenu.SETTINGS.wiFiBandSwitchable())
         assertFalse(NavigationMenu.ABOUT.wiFiBandSwitchable())
-        assertFalse(NavigationMenu.PORT_AUTHORITY.wiFiBandSwitchable())
     }
 
     @Test
@@ -99,7 +96,6 @@ class NavigationMenuTest {
         assertFalse(NavigationMenu.VENDORS.registered())
         assertFalse(NavigationMenu.SETTINGS.registered())
         assertFalse(NavigationMenu.ABOUT.registered())
-        assertFalse(NavigationMenu.PORT_AUTHORITY.registered())
     }
 
     @Test
@@ -113,7 +109,6 @@ class NavigationMenuTest {
         assertEquals(R.drawable.ic_list, NavigationMenu.VENDORS.icon)
         assertEquals(R.drawable.ic_settings, NavigationMenu.SETTINGS.icon)
         assertEquals(R.drawable.ic_info_outline, NavigationMenu.ABOUT.icon)
-        assertEquals(R.drawable.ic_lan, NavigationMenu.PORT_AUTHORITY.icon)
     }
 
     @Test
@@ -127,6 +122,5 @@ class NavigationMenuTest {
         assertEquals(navigationOptionOff, NavigationMenu.EXPORT.navigationOptions)
         assertEquals(navigationOptionOff, NavigationMenu.SETTINGS.navigationOptions)
         assertEquals(navigationOptionOff, NavigationMenu.ABOUT.navigationOptions)
-        assertEquals(navigationOptionOff, NavigationMenu.PORT_AUTHORITY.navigationOptions)
     }
 }
