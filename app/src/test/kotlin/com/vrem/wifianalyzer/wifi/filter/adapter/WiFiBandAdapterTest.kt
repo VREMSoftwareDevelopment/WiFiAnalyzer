@@ -21,10 +21,7 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import org.junit.After
-import org.junit.Assert.assertArrayEquals
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -40,12 +37,12 @@ class WiFiBandAdapterTest {
     }
 
     @Test
-    fun testIsActive() {
+    fun isActive() {
         assertFalse(fixture.isActive())
     }
 
     @Test
-    fun testIsActiveWithChanges() {
+    fun isActiveWithChanges() {
         // setup
         fixture.toggle(WiFiBand.GHZ2)
         // execute & validate
@@ -53,7 +50,7 @@ class WiFiBandAdapterTest {
     }
 
     @Test
-    fun testGetValues() {
+    fun getValues() {
         // setup
         val expected = WiFiBand.entries
         // execute
@@ -63,7 +60,7 @@ class WiFiBandAdapterTest {
     }
 
     @Test
-    fun testGetValuesDefault() {
+    fun getValuesDefault() {
         // setup
         val expected = WiFiBand.entries
         // execute
@@ -73,7 +70,7 @@ class WiFiBandAdapterTest {
     }
 
     @Test
-    fun testToggleRemoves() {
+    fun toggleRemoves() {
         // execute
         val actual = fixture.toggle(WiFiBand.GHZ2)
         // validate
@@ -82,7 +79,7 @@ class WiFiBandAdapterTest {
     }
 
     @Test
-    fun testToggleAdds() {
+    fun toggleAdds() {
         // setup
         fixture.toggle(WiFiBand.GHZ5)
         // execute
@@ -93,7 +90,7 @@ class WiFiBandAdapterTest {
     }
 
     @Test
-    fun testRemovingAllWillNotRemoveLast() {
+    fun removingAllWillNotRemoveLast() {
         // setup
         val values: Set<WiFiBand> = WiFiBand.entries.toSet()
         // execute
@@ -104,13 +101,13 @@ class WiFiBandAdapterTest {
     }
 
     @Test
-    fun testGetColorWithExisting() {
+    fun getColorWithExisting() {
         // execute & validate
         assertEquals(R.color.selected, fixture.color(WiFiBand.GHZ2))
     }
 
     @Test
-    fun testGetColorWithNonExisting() {
+    fun getColorWithNonExisting() {
         // setup
         fixture.toggle(WiFiBand.GHZ2)
         // execute & validate
@@ -118,7 +115,7 @@ class WiFiBandAdapterTest {
     }
 
     @Test
-    fun testSave() {
+    fun save() {
         // setup
         val expected = fixture.selections
         // execute

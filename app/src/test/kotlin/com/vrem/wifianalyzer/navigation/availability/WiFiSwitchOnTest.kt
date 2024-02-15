@@ -51,7 +51,7 @@ class WiFiSwitchOnTest {
     }
 
     @Test
-    fun testNavigationOptionWiFiSwitchOnWithMenuWillSetTitleAndVisibility() {
+    fun navigationOptionWiFiSwitchOnWithMenuWillSetTitleAndVisibility() {
         // setup
         val expected = "XYZ\n123"
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
@@ -72,7 +72,7 @@ class WiFiSwitchOnTest {
     }
 
     @Test
-    fun testNavigationOptionWiFiSwitchOnWithNoMenuWillNotSetTitleAndVisibility() {
+    fun navigationOptionWiFiSwitchOnWithNoMenuWillNotSetTitleAndVisibility() {
         // setup
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(null)

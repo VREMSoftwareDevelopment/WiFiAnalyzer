@@ -49,7 +49,7 @@ class VendorServiceTest {
     private val fixture = VendorService(mainActivity.resources)
 
     @Test
-    fun testFindVendorNameUsingLowerCase() {
+    fun findVendorNameUsingLowerCase() {
         // execute
         val actual = fixture.findVendorName(macAddress.lowercase())
         // validate
@@ -57,7 +57,7 @@ class VendorServiceTest {
     }
 
     @Test
-    fun testFindVendorNameWithInvalidMac() {
+    fun findVendorNameWithInvalidMac() {
         // execute
         val actual = fixture.findVendorName(macAddressInvalid)
         // validate
@@ -65,7 +65,7 @@ class VendorServiceTest {
     }
 
     @Test
-    fun testFindVendorNameUsingDefault() {
+    fun findVendorNameUsingDefault() {
         // execute
         val actual = fixture.findVendorName()
         // validate
@@ -73,7 +73,7 @@ class VendorServiceTest {
     }
 
     @Test
-    fun testFindMacAddresses() {
+    fun findMacAddresses() {
         // setup
         // execute
         val actual = fixture.findMacAddresses(vendorName)
@@ -85,7 +85,7 @@ class VendorServiceTest {
     }
 
     @Test
-    fun testFindMacAddressesUsingLowerCase() {
+    fun findMacAddressesUsingLowerCase() {
         // setup
         // execute
         val actual = fixture.findMacAddresses(vendorName.lowercase())
@@ -97,7 +97,7 @@ class VendorServiceTest {
     }
 
     @Test
-    fun testFindMacAddressesWithInvalidName() {
+    fun findMacAddressesWithInvalidName() {
         // execute
         val actual = fixture.findMacAddresses(vendorNameInvalid)
         // validate
@@ -105,7 +105,7 @@ class VendorServiceTest {
     }
 
     @Test
-    fun testFindMacAddressesWithDefault() {
+    fun findMacAddressesWithDefault() {
         // setup
         // execute
         val actual = fixture.findMacAddresses()
@@ -114,7 +114,7 @@ class VendorServiceTest {
     }
 
     @Test
-    fun testFindVendors() {
+    fun findVendors() {
         // execute
         val actual = fixture.findVendors()
         // validate
@@ -122,7 +122,7 @@ class VendorServiceTest {
     }
 
     @Test
-    fun testFindVendorsWithVendorFilter() {
+    fun findVendorsWithVendorFilter() {
         // execute
         val actual = fixture.findVendors(filterVendor)
         // validate
@@ -132,7 +132,7 @@ class VendorServiceTest {
     }
 
     @Test
-    fun testFindVendorsWithVendorFilterUsingLowerCase() {
+    fun findVendorsWithVendorFilterUsingLowerCase() {
         // execute
         val actual = fixture.findVendors(filterVendor.lowercase())
         // validate
@@ -142,7 +142,7 @@ class VendorServiceTest {
     }
 
     @Test
-    fun testFindVendorsWithMacFilter() {
+    fun findVendorsWithMacFilter() {
         // execute
         val actual = fixture.findVendors(filterMac)
         // validate
@@ -152,7 +152,7 @@ class VendorServiceTest {
     }
 
     @Test
-    fun testFindVendorsWithMacFilterUsingLowerCase() {
+    fun findVendorsWithMacFilterUsingLowerCase() {
         // execute
         val actual = fixture.findVendors(filterMac.lowercase())
         // validate
@@ -162,7 +162,7 @@ class VendorServiceTest {
     }
 
     @Test
-    fun testFindMacs() {
+    fun findMacs() {
         // execute
         val actual = fixture.findMacs()
         // validate

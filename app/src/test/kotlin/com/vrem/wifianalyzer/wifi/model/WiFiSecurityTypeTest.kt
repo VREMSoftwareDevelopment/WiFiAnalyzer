@@ -26,11 +26,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 import org.robolectric.annotation.Config
 import kotlin.test.assertTrue
 
@@ -39,12 +35,12 @@ import kotlin.test.assertTrue
 class WiFiSecurityTypeTest {
 
     @Test
-    fun testSize() {
+    fun size() {
         assertEquals(All.size, WiFiSecurityType.entries.size)
     }
 
     @Test
-    fun testFindOneWithSecurityTypes() {
+    fun findOneWithSecurityTypes() {
         All.forEach {
             println(it)
             // execute & validate
@@ -53,7 +49,7 @@ class WiFiSecurityTypeTest {
     }
 
     @Test
-    fun testTextResource() {
+    fun textResource() {
         assertEquals(R.string.security_type_unknown, WiFiSecurityType.UNKNOWN.textResource)
         assertEquals(R.string.security_type_open, WiFiSecurityType.OPEN.textResource)
         assertEquals(R.string.security_type_wep, WiFiSecurityType.WEP.textResource)
@@ -72,7 +68,7 @@ class WiFiSecurityTypeTest {
     }
 
     @Test
-    fun testSecurity() {
+    fun security() {
         assertEquals(Security.NONE, WiFiSecurityType.UNKNOWN.security)
         assertEquals(Security.NONE, WiFiSecurityType.OPEN.security)
         assertEquals(Security.WEP, WiFiSecurityType.WEP.security)
@@ -91,7 +87,7 @@ class WiFiSecurityTypeTest {
     }
 
     @Test
-    fun testWiFIStandard() {
+    fun wiFIStandard() {
         assertEquals(WifiInfo.SECURITY_TYPE_UNKNOWN, WiFiSecurityType.UNKNOWN.securityTypeId)
         assertEquals(WifiInfo.SECURITY_TYPE_OPEN, WiFiSecurityType.OPEN.securityTypeId)
         assertEquals(WifiInfo.SECURITY_TYPE_WEP, WiFiSecurityType.WEP.securityTypeId)
@@ -110,7 +106,7 @@ class WiFiSecurityTypeTest {
     }
 
     @Test
-    fun testFindOne() {
+    fun findOne() {
         assertEquals(WiFiSecurityType.UNKNOWN, WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_UNKNOWN))
         assertEquals(WiFiSecurityType.OPEN, WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_OPEN))
         assertEquals(WiFiSecurityType.WEP, WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_WEP))
@@ -135,7 +131,7 @@ class WiFiSecurityTypeTest {
     }
 
     @Test
-    fun testFindAll() {
+    fun findAll() {
         // setup
         val securityTypes = All
         val expected = WiFiSecurityType.entries.toSet()
@@ -147,7 +143,7 @@ class WiFiSecurityTypeTest {
 
     @Config(sdk = [Build.VERSION_CODES.S_V2])
     @Test
-    fun testFindLegacy() {
+    fun findLegacy() {
         // setup
         val scanResult: ScanResult = mock()
         // execute
@@ -158,7 +154,7 @@ class WiFiSecurityTypeTest {
     }
 
     @Test
-    fun testFind() {
+    fun find() {
         // setup
         val scanResult: ScanResult = mock()
         val expected: List<Int> = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)

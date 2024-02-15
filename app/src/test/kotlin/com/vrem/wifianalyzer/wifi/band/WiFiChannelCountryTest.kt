@@ -19,11 +19,7 @@ package com.vrem.wifianalyzer.wifi.band
 
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry.Companion.find
 import org.junit.After
-import org.junit.Assert.assertArrayEquals
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import java.util.Locale
@@ -43,7 +39,7 @@ class WiFiChannelCountryTest {
 
 
     @Test
-    fun testChannelAvailableWithTrue() {
+    fun channelAvailableWithTrue() {
         assertTrue(find(Locale.US.country).channelAvailableGHZ2(1))
         assertTrue(find(Locale.US.country).channelAvailableGHZ2(11))
         assertTrue(find(Locale.US.country).channelAvailableGHZ5(36))
@@ -55,7 +51,7 @@ class WiFiChannelCountryTest {
     }
 
     @Test
-    fun testChannelAvailableWithGHZ2() {
+    fun channelAvailableWithGHZ2() {
         assertFalse(find(Locale.US.country).channelAvailableGHZ2(0))
         assertFalse(find(Locale.US.country).channelAvailableGHZ2(12))
         assertFalse(find(Locale.UK.country).channelAvailableGHZ2(0))
@@ -63,7 +59,7 @@ class WiFiChannelCountryTest {
     }
 
     @Test
-    fun testChannelAvailableWithGHZ5() {
+    fun channelAvailableWithGHZ5() {
         assertTrue(find(Locale.US.country).channelAvailableGHZ5(36))
         assertTrue(find(Locale.US.country).channelAvailableGHZ5(165))
         assertTrue(find(Locale.UK.country).channelAvailableGHZ5(36))
@@ -73,7 +69,7 @@ class WiFiChannelCountryTest {
     }
 
     @Test
-    fun testChannelAvailableWithGHZ6() {
+    fun channelAvailableWithGHZ6() {
         assertTrue(find(Locale.US.country).channelAvailableGHZ6(1))
         assertTrue(find(Locale.US.country).channelAvailableGHZ6(93))
         assertTrue(find(Locale.UK.country).channelAvailableGHZ6(1))
@@ -83,7 +79,7 @@ class WiFiChannelCountryTest {
     }
 
     @Test
-    fun testFindCorrectlyPopulatesGHZ() {
+    fun findCorrectlyPopulatesGHZ() {
         // setup
         val expectedCountryCode = Locale.US.country
         val expectedGHZ2: Set<Int> = WiFiChannelCountryGHZ2().findChannels(expectedCountryCode)
@@ -99,7 +95,7 @@ class WiFiChannelCountryTest {
     }
 
     @Test
-    fun testFindCorrectlyPopulatesCountryCodeAndName() {
+    fun findCorrectlyPopulatesCountryCodeAndName() {
         // setup
         val expected = Locale.SIMPLIFIED_CHINESE
         val expectedCountryCode = expected.country
@@ -112,7 +108,7 @@ class WiFiChannelCountryTest {
     }
 
     @Test
-    fun testCountryName() {
+    fun countryName() {
         // setup
         val fixture = WiFiChannelCountry(Locale.US)
         val expected = "United States"
@@ -123,7 +119,7 @@ class WiFiChannelCountryTest {
     }
 
     @Test
-    fun testCountryNameUnknown() {
+    fun countryNameUnknown() {
         // setup
         val fixture = WiFiChannelCountry(Locale("XYZ"))
         val expected = "-Unknown"

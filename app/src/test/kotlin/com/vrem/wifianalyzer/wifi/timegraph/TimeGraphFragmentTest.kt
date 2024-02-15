@@ -45,7 +45,7 @@ class TimeGraphFragmentTest {
     }
 
     @Test
-    fun testOnCreateView() {
+    fun onCreateView() {
         // setup
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
@@ -55,7 +55,7 @@ class TimeGraphFragmentTest {
     }
 
     @Test
-    fun testRefreshEnabled() {
+    fun refreshEnabled() {
         // setup
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
@@ -64,7 +64,7 @@ class TimeGraphFragmentTest {
     }
 
     @Test
-    fun testOnResume() {
+    fun onResume() {
         // setup
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // execute
@@ -75,7 +75,7 @@ class TimeGraphFragmentTest {
     }
 
     @Test
-    fun testOnPause() {
+    fun onPause() {
         // setup
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // execute
@@ -86,7 +86,7 @@ class TimeGraphFragmentTest {
 
     @Config(sdk = [Build.VERSION_CODES.P])
     @Test
-    fun testRefreshDisabled() {
+    fun refreshDisabled() {
         // setup
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate

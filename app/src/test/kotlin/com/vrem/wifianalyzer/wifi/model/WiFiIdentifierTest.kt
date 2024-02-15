@@ -18,9 +18,7 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.util.EMPTY
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotSame
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 
 class WiFiIdentifierTest {
@@ -30,7 +28,7 @@ class WiFiIdentifierTest {
     private val fixture = WiFiIdentifier(ssid, bssid)
 
     @Test
-    fun testWiFiIdentifier() {
+    fun wiFiIdentifier() {
         // setup
         val expectedTitle = "$ssid ($bssid)"
         // validate
@@ -41,7 +39,7 @@ class WiFiIdentifierTest {
     }
 
     @Test
-    fun testTitleWithEmptySSID() {
+    fun titleWithEmptySSID() {
         // setup
         val expectedTitle = "*hidden* ($bssid)"
         val fixture = WiFiIdentifier(String.EMPTY, bssid)
@@ -50,7 +48,7 @@ class WiFiIdentifierTest {
     }
 
     @Test
-    fun testEquals() {
+    fun equalsUsingSameCase() {
         // setup
         val other = WiFiIdentifier(ssid, bssid)
         // execute & validate
@@ -59,7 +57,7 @@ class WiFiIdentifierTest {
     }
 
     @Test
-    fun testHashCode() {
+    fun hashCodeUsingSameCase() {
         // setup
         val other = WiFiIdentifier(ssid, bssid)
         // execute & validate
@@ -67,7 +65,7 @@ class WiFiIdentifierTest {
     }
 
     @Test
-    fun testEqualsIgnoreCase() {
+    fun equalsUsingDifferentCase() {
         // setup
         val other = WiFiIdentifier(ssid.lowercase(), bssid.uppercase())
         // execute & validate
@@ -75,7 +73,7 @@ class WiFiIdentifierTest {
     }
 
     @Test
-    fun testCompareTo() {
+    fun compareTo() {
         // setup
         val other = WiFiIdentifier(ssid, bssid)
         // execute & validate
@@ -83,7 +81,7 @@ class WiFiIdentifierTest {
     }
 
     @Test
-    fun testRawSSID() {
+    fun rawSSID() {
         // setup
         val fixture = WiFiIdentifier(String.EMPTY, bssid)
         // execute & validate

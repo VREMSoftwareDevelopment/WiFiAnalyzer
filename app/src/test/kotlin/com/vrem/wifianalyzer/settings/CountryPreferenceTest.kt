@@ -38,7 +38,7 @@ class CountryPreferenceTest {
     private val currentLocale = Locale.getDefault()
 
     @Test
-    fun testEntries() {
+    fun entries() {
         // execute
         val actual: Array<CharSequence> = fixture.entries
         // validate
@@ -50,7 +50,7 @@ class CountryPreferenceTest {
     }
 
     @Test
-    fun testEntryValues() {
+    fun entryValues() {
         // execute
         val actual: Array<CharSequence> = fixture.entryValues
         // validate

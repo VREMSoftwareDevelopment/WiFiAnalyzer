@@ -31,7 +31,7 @@ import org.robolectric.annotation.Config
 class TimeGraphAdapterTest {
 
     @Test
-    fun testGraphViewNotifiers() {
+    fun graphViewNotifiers() {
         // setup
         RobolectricUtil.INSTANCE.activity
         val fixture = TimeGraphAdapter()
@@ -42,7 +42,7 @@ class TimeGraphAdapterTest {
     }
 
     @Test
-    fun testGraphViews() {
+    fun graphViews() {
         // setup
         RobolectricUtil.INSTANCE.activity
         val fixture = TimeGraphAdapter()

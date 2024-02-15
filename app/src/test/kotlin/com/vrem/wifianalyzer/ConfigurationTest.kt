@@ -22,9 +22,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 import java.util.Locale
 
@@ -32,13 +30,13 @@ class ConfigurationTest {
     private val fixture = Configuration(true)
 
     @Test
-    fun testSizeAvailable() {
+    fun sizeAvailable() {
         // execute & validate
         assertTrue(fixture.sizeAvailable)
     }
 
     @Test
-    fun testSizeIsNotAvailable() {
+    fun sizeIsNotAvailable() {
         // execute
         fixture.size = SIZE_MIN
         // validate
@@ -46,13 +44,13 @@ class ConfigurationTest {
     }
 
     @Test
-    fun testLargeScreen() {
+    fun largeScreen() {
         // execute & validate
         assertTrue(fixture.largeScreen)
     }
 
     @Test
-    fun testWiFiChannelPairWithInit() {
+    fun wiFiChannelPairWithInit() {
         // execute & validate
         WiFiBand.entries.forEach {
             assertEquals(WiFiChannels.UNKNOWN, fixture.wiFiChannelPair(it))
@@ -60,7 +58,7 @@ class ConfigurationTest {
     }
 
     @Test
-    fun testWiFiChannelPairWithCountry() {
+    fun wiFiChannelPairWithCountry() {
         // execute
         fixture.wiFiChannelPair(Locale.US.country)
         // validate
@@ -70,7 +68,7 @@ class ConfigurationTest {
     }
 
     @Test
-    fun testWiFiChannelPairWithWiFiBand() {
+    fun wiFiChannelPairWithWiFiBand() {
         // setup
         val expected = WiFiChannelPair(WiFiChannel(1, 2), WiFiChannel(3, 4))
         // execute

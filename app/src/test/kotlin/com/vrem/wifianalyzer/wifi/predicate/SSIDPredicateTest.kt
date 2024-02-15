@@ -26,7 +26,7 @@ import org.junit.Test
 
 class SSIDPredicateTest {
     @Test
-    fun testSSIDPredicate() {
+    fun sSIDPredicate() {
         // setup
         val wiFiDetail = WiFiDetail(WiFiIdentifier("ssid", "bssid"), WiFiSecurity("wpa"))
         // execute & validate

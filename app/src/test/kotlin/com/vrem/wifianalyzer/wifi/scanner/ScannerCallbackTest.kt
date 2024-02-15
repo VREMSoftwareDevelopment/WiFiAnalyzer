@@ -43,7 +43,7 @@ class ScannerCallbackTest {
     }
 
     @Test
-    fun testOnSuccess() {
+    fun onSuccess() {
         // setup
         whenever(wiFiManagerWrapper.scanResults()).thenReturn(scanResults)
         whenever(wiFiManagerWrapper.wiFiInfo()).thenReturn(wifiInfo)

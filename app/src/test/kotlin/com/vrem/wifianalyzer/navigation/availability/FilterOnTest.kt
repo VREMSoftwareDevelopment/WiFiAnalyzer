@@ -58,7 +58,7 @@ class FilterOnTest {
     }
 
     @Test
-    fun testNavigationOptionFilterOnWithFilterInactive() {
+    fun navigationOptionFilterOnWithFilterInactive() {
         // setup
         val colorResult = 200
         whenever(filterAdapter.isActive()).thenReturn(false)
@@ -73,7 +73,7 @@ class FilterOnTest {
     }
 
     @Test
-    fun testNavigationOptionFilterOnWithFilterActive() {
+    fun navigationOptionFilterOnWithFilterActive() {
         // setup
         val colorResult = 100
         whenever(filterAdapter.isActive()).thenReturn(true)
@@ -88,7 +88,7 @@ class FilterOnTest {
     }
 
     @Test
-    fun testNavigationOptionFilterOnWithNoMenuDoesNotSetVisibleTrue() {
+    fun navigationOptionFilterOnWithNoMenuDoesNotSetVisibleTrue() {
         // setup
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(null)

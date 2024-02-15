@@ -43,7 +43,7 @@ class ApplicationPermissionTest {
     }
 
     @Test
-    fun testCheckWithFineLocationGranted() {
+    fun checkWithFineLocationGranted() {
         // setup
         whenever(activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)).thenReturn(PackageManager.PERMISSION_GRANTED)
         // execute
@@ -55,7 +55,7 @@ class ApplicationPermissionTest {
     }
 
     @Test
-    fun testCheckWithActivityFinish() {
+    fun checkWithActivityFinish() {
         // setup
         whenever(activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)).thenReturn(PackageManager.PERMISSION_DENIED)
         whenever(activity.isFinishing).thenReturn(true)
@@ -68,7 +68,7 @@ class ApplicationPermissionTest {
     }
 
     @Test
-    fun testCheckWithRequestPermissions() {
+    fun checkWithRequestPermissions() {
         // setup
         whenever(activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)).thenReturn(PackageManager.PERMISSION_DENIED)
         whenever(activity.isFinishing).thenReturn(false)
@@ -81,7 +81,7 @@ class ApplicationPermissionTest {
     }
 
     @Test
-    fun testGranted() {
+    fun granted() {
         // setup
         val grantResults = intArrayOf(PackageManager.PERMISSION_GRANTED)
         // execute
@@ -91,7 +91,7 @@ class ApplicationPermissionTest {
     }
 
     @Test
-    fun testGrantedWithOtherRequestCode() {
+    fun grantedWithOtherRequestCode() {
         // setup
         val grantResults = intArrayOf(PackageManager.PERMISSION_GRANTED)
         // execute
@@ -101,7 +101,7 @@ class ApplicationPermissionTest {
     }
 
     @Test
-    fun testGrantedWithNoResults() {
+    fun grantedWithNoResults() {
         // setup
         val grantResults = intArrayOf()
         // execute
@@ -111,7 +111,7 @@ class ApplicationPermissionTest {
     }
 
     @Test
-    fun testGrantedWithNoPermissionGranted() {
+    fun grantedWithNoPermissionGranted() {
         // setup
         val grantResults = intArrayOf(PackageManager.PERMISSION_DENIED)
         // execute

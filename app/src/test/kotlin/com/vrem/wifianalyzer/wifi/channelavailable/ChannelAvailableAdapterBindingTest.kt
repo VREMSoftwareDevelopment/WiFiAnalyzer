@@ -29,7 +29,7 @@ import org.mockito.kotlin.whenever
 class ChannelAvailableAdapterBindingTest {
 
     @Test
-    fun testChannelAvailableAdapterBinding() {
+    fun channelAvailableAdapterBinding() {
         // setup
         val view: View = mock()
         val channelAvailableCountry: TextView = mock()

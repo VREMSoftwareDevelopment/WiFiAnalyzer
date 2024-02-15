@@ -42,7 +42,7 @@ class NavigationMenuControllerTest {
     }
 
     @Test
-    fun testNavigationMenuView() {
+    fun navigationMenuView() {
         // execute
         val menu: Menu = navigationView.menu
         // validate
@@ -51,7 +51,7 @@ class NavigationMenuControllerTest {
     }
 
     @Test
-    fun testGetCurrentMenuItem() {
+    fun getCurrentMenuItem() {
         // setup
         val expected = navigationViewMenuItem(NavigationMenu.ACCESS_POINTS)
         // execute
@@ -63,7 +63,7 @@ class NavigationMenuControllerTest {
     }
 
     @Test
-    fun testGetCurrentNavigationMenu() {
+    fun getCurrentNavigationMenu() {
         // execute
         val actual = fixture.currentNavigationMenu()
         // validate
@@ -71,7 +71,7 @@ class NavigationMenuControllerTest {
     }
 
     @Test
-    fun testSetCurrentNavigationMenuWithNavigationView() {
+    fun setCurrentNavigationMenuWithNavigationView() {
         // setup
         val expected = NavigationMenu.CHANNEL_GRAPH
         // execute
@@ -85,7 +85,7 @@ class NavigationMenuControllerTest {
     }
 
     @Test
-    fun testSetCurrentNavigationMenuWithBottomNavigationView() {
+    fun setCurrentNavigationMenuWithBottomNavigationView() {
         // setup
         val expected = NavigationMenu.CHANNEL_GRAPH
         // execute

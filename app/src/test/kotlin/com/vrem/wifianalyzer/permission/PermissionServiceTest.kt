@@ -41,7 +41,7 @@ class PermissionServiceTest {
     }
 
     @Test
-    fun testEnabled() {
+    fun enabled() {
         // setup
         whenever(locationPermission.enabled()).thenReturn(true)
         whenever(applicationPermission.granted()).thenReturn(true)
@@ -54,7 +54,7 @@ class PermissionServiceTest {
     }
 
     @Test
-    fun testEnabledWhenLocationPermissionIsNotEnabled() {
+    fun enabledWhenLocationPermissionIsNotEnabled() {
         // setup
         whenever(locationPermission.enabled()).thenReturn(false)
         // execute
@@ -65,7 +65,7 @@ class PermissionServiceTest {
     }
 
     @Test
-    fun testEnabledWhenApplicationPermissionAreNotGranted() {
+    fun enabledWhenApplicationPermissionAreNotGranted() {
         // setup
         whenever(locationPermission.enabled()).thenReturn(true)
         whenever(applicationPermission.granted()).thenReturn(false)
@@ -78,7 +78,7 @@ class PermissionServiceTest {
     }
 
     @Test
-    fun testSystemEnabled() {
+    fun systemEnabled() {
         // setup
         whenever(locationPermission.enabled()).thenReturn(true)
         // execute
@@ -89,7 +89,7 @@ class PermissionServiceTest {
     }
 
     @Test
-    fun testPermissionGranted() {
+    fun permissionGranted() {
         // setup
         whenever(applicationPermission.granted()).thenReturn(true)
         // execute
@@ -100,7 +100,7 @@ class PermissionServiceTest {
     }
 
     @Test
-    fun testPermissionCheck() {
+    fun permissionCheck() {
         // execute
         fixture.check()
         // validate
@@ -108,7 +108,7 @@ class PermissionServiceTest {
     }
 
     @Test
-    fun testGranted() {
+    fun granted() {
         // setup
         val requestCode = 111
         val results = intArrayOf(1, 2, 3)

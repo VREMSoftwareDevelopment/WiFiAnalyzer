@@ -52,7 +52,7 @@ class ChannelAvailableFragmentTest {
     }
 
     @Test
-    fun testOnCreateView() {
+    fun onCreateView() {
         // setup
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate

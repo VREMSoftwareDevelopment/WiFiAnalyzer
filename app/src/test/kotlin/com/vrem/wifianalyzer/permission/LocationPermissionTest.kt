@@ -43,7 +43,7 @@ class LocationPermissionTest {
     }
 
     @Test
-    fun testEnabledWhenGPSProviderIsEnabled() {
+    fun enabledWhenGPSProviderIsEnabled() {
         // setup
         whenever(activity.getSystemService(LocationManager::class.java)).thenReturn(locationManager)
         whenever(locationManager.isLocationEnabled).thenReturn(false)
@@ -60,7 +60,7 @@ class LocationPermissionTest {
     }
 
     @Test
-    fun testEnabledWhenLocationEnabled() {
+    fun enabledWhenLocationEnabled() {
         // setup
         whenever(activity.getSystemService(LocationManager::class.java)).thenReturn(locationManager)
         whenever(locationManager.isLocationEnabled).thenReturn(true)
@@ -73,7 +73,7 @@ class LocationPermissionTest {
     }
 
     @Test
-    fun testEnabledWhenNetworkProviderEnabled() {
+    fun enabledWhenNetworkProviderEnabled() {
         // setup
         whenever(activity.getSystemService(LocationManager::class.java)).thenReturn(locationManager)
         whenever(locationManager.isLocationEnabled).thenReturn(false)
@@ -88,7 +88,7 @@ class LocationPermissionTest {
     }
 
     @Test
-    fun testEnabledWhenAllProvidersAreDisabled() {
+    fun enabledWhenAllProvidersAreDisabled() {
         // setup
         whenever(activity.getSystemService(LocationManager::class.java)).thenReturn(locationManager)
         whenever(locationManager.isLocationEnabled).thenReturn(false)
@@ -105,7 +105,7 @@ class LocationPermissionTest {
     }
 
     @Test
-    fun testEnabledWhenAllProvidersThrowException() {
+    fun enabledWhenAllProvidersThrowException() {
         // setup
         whenever(activity.getSystemService(LocationManager::class.java)).thenReturn(locationManager)
         whenever(locationManager.isLocationEnabled).thenThrow(RuntimeException::class.java)
@@ -122,7 +122,7 @@ class LocationPermissionTest {
     }
 
     @Test
-    fun testEnabledWhenException() {
+    fun enabledWhenException() {
         // setup
         whenever(activity.getSystemService(LocationManager::class.java)).thenThrow(RuntimeException::class.java)
         // execute
@@ -134,7 +134,7 @@ class LocationPermissionTest {
 
     @Config(sdk = [Build.VERSION_CODES.O_MR1])
     @Test
-    fun testEnabledReturnsTrueLegacy() {
+    fun enabledReturnsTrueLegacy() {
         // execute
         val actual = fixture.enabled()
         // validate

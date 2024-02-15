@@ -20,22 +20,11 @@ package com.vrem.wifianalyzer.wifi.accesspoint
 import android.widget.ExpandableListAdapter
 import android.widget.ExpandableListView
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
-import com.vrem.wifianalyzer.wifi.model.GroupBy
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+import com.vrem.wifianalyzer.wifi.model.*
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
-import org.mockito.kotlin.any
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.times
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 
 class AccessPointsAdapterGroupTest {
     private val expandableListView: ExpandableListView = mock()
@@ -51,13 +40,13 @@ class AccessPointsAdapterGroupTest {
     }
 
     @Test
-    fun testBeforeUpdate() {
+    fun beforeUpdate() {
         assertEquals(GroupBy.NONE, fixture.groupBy)
         assertTrue(fixture.expanded.isEmpty())
     }
 
     @Test
-    fun testAfterUpdateWithGroupByChannel() {
+    fun afterUpdateWithGroupByChannel() {
         // setup
         val wiFiDetails = withWiFiDetails()
         whenever(settings.groupBy()).thenReturn(GroupBy.CHANNEL)
@@ -74,7 +63,7 @@ class AccessPointsAdapterGroupTest {
     }
 
     @Test
-    fun testUpdateGroupBy() {
+    fun updateGroupBy() {
         // setup
         whenever(settings.groupBy()).thenReturn(GroupBy.SSID)
         // execute
@@ -85,7 +74,7 @@ class AccessPointsAdapterGroupTest {
     }
 
     @Test
-    fun testUpdateGroupByWillClearExpandedWhenGroupByIsChanged() {
+    fun updateGroupByWillClearExpandedWhenGroupByIsChanged() {
         // setup
         fixture.expanded.add("TEST")
         whenever(settings.groupBy()).thenReturn(GroupBy.SSID)
@@ -98,7 +87,7 @@ class AccessPointsAdapterGroupTest {
     }
 
     @Test
-    fun testUpdateGroupByWillNotClearExpandedWhenGroupByIsSame() {
+    fun updateGroupByWillNotClearExpandedWhenGroupByIsSame() {
         // setup
         whenever(settings.groupBy()).thenReturn(GroupBy.SSID)
         fixture.updateGroupBy()
@@ -110,7 +99,7 @@ class AccessPointsAdapterGroupTest {
     }
 
     @Test
-    fun testOnGroupExpanded() {
+    fun onGroupExpanded() {
         // setup
         whenever(settings.groupBy()).thenReturn(GroupBy.SSID)
         fixture.updateGroupBy()
@@ -122,7 +111,7 @@ class AccessPointsAdapterGroupTest {
     }
 
     @Test
-    fun testOnGroupCollapsed() {
+    fun onGroupCollapsed() {
         // setup
         whenever(settings.groupBy()).thenReturn(GroupBy.SSID)
         fixture.updateGroupBy()

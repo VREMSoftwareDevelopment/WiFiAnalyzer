@@ -46,7 +46,7 @@ class OptionMenuTest {
     }
 
     @Test
-    fun testCreate() {
+    fun create() {
         // setup
         whenever(activity.menuInflater).thenReturn(menuInflater)
         // execute
@@ -58,7 +58,7 @@ class OptionMenuTest {
     }
 
     @Test
-    fun testActions() {
+    fun actions() {
         // setup
         val itemId = -1
         whenever(menuItem.itemId).thenReturn(itemId)

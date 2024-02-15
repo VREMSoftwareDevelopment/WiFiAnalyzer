@@ -26,7 +26,7 @@ class WiFiUtilsTest {
     private val decimalFormat = DecimalFormat("#.##")
 
     @Test
-    fun testCalculateDistance() {
+    fun calculateDistance() {
         validate(2437, -36, "0.62")
         validate(2437, -42, "1.23")
         validate(2432, -88, "246.34")
@@ -38,7 +38,7 @@ class WiFiUtilsTest {
     }
 
     @Test
-    fun testCalculateSignalLevel() {
+    fun calculateSignalLevel() {
         assertEquals(0, calculateSignalLevel(-110, 5))
         assertEquals(0, calculateSignalLevel(-89, 5))
         assertEquals(1, calculateSignalLevel(-88, 5))
@@ -52,7 +52,7 @@ class WiFiUtilsTest {
     }
 
     @Test
-    fun testConvertIpAddress() {
+    fun convertIpAddress() {
         assertEquals("21.205.91.7", convertIpV4Address(123456789))
         assertEquals("1.0.0.0", convertIpV4Address(1))
         assertTrue(convertIpV4Address(0).isEmpty())
@@ -60,7 +60,7 @@ class WiFiUtilsTest {
     }
 
     @Test
-    fun testConvertSSID() {
+    fun convertSSID() {
         assertEquals("SSID", convertSSID("\"SSID\""))
         assertEquals("SSID", convertSSID("SSID"))
     }

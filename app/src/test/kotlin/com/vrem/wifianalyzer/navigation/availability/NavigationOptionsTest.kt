@@ -17,14 +17,12 @@
  */
 package com.vrem.wifianalyzer.navigation.availability
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 
 class NavigationOptionsTest {
     @Test
-    fun testRating() {
+    fun rating() {
         val options: List<NavigationOption> = navigationOptionRating
         assertEquals(4, options.size)
         assertTrue(options.contains(navigationOptionWiFiSwitchOn))
@@ -38,7 +36,7 @@ class NavigationOptionsTest {
     }
 
     @Test
-    fun testOther() {
+    fun other() {
         val options: List<NavigationOption> = navigationOptionOther
         assertEquals(4, options.size)
         assertTrue(options.contains(navigationOptionWiFiSwitchOn))
@@ -52,7 +50,7 @@ class NavigationOptionsTest {
     }
 
     @Test
-    fun testOff() {
+    fun off() {
         val options: List<NavigationOption> = navigationOptionOff
         assertEquals(4, options.size)
         assertTrue(options.contains(navigationOptionWiFiSwitchOff))
@@ -66,7 +64,7 @@ class NavigationOptionsTest {
     }
 
     @Test
-    fun testAccessPoints() {
+    fun accessPoints() {
         val options: List<NavigationOption> = navigationOptionAp
         assertEquals(4, options.size)
         assertTrue(options.contains(navigationOptionWiFiSwitchOff))

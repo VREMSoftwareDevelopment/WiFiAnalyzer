@@ -21,13 +21,7 @@ import android.net.wifi.WifiManager
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.mockito.kotlin.doNothing
-import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.spy
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 
 class WiFiSwitchTest {
     private val wifiManager: WifiManager = mock()
@@ -40,7 +34,7 @@ class WiFiSwitchTest {
 
     @Suppress("DEPRECATION")
     @Test
-    fun testOn() {
+    fun on() {
         // setup
         whenever(wifiManager.setWifiEnabled(true)).thenReturn(true)
         // execute
@@ -52,7 +46,7 @@ class WiFiSwitchTest {
 
     @Suppress("DEPRECATION")
     @Test
-    fun testOff() {
+    fun off() {
         // setup
         whenever(wifiManager.setWifiEnabled(false)).thenReturn(true)
         // execute
@@ -63,7 +57,7 @@ class WiFiSwitchTest {
     }
 
     @Test
-    fun testOnWithAndroidQ() {
+    fun onWithAndroidQ() {
         // setup
         doReturn(true).whenever(fixture).minVersionQ()
         doNothing().whenever(fixture).startWiFiSettings()

@@ -24,7 +24,7 @@ class SortBySSIDTest {
     private val fixture = sortBySSID()
 
     @Test
-    fun testSortBySSID() {
+    fun sortBySSIDUsingSame() {
         // setup
         val wiFiDetail1 = WiFiDetail(
             WiFiIdentifier("SSID1", "BSSID1"),
@@ -39,13 +39,13 @@ class SortBySSIDTest {
             WiFiAdditional.EMPTY
         )
         // execute
-        val actual: Int = fixture.compare(wiFiDetail1, wiFiDetail2)
+        val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
         assertEquals(0, actual)
     }
 
     @Test
-    fun testSortBySSIDWithDifferentSSID() {
+    fun sortBySSIDWithDifferentSSID() {
         // setup
         val wiFiDetail1 = WiFiDetail(
             WiFiIdentifier("ssid1", "BSSID1"),
@@ -60,13 +60,13 @@ class SortBySSIDTest {
             WiFiAdditional.EMPTY
         )
         // execute
-        val actual: Int = fixture.compare(wiFiDetail1, wiFiDetail2)
+        val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
         assertEquals(32, actual)
     }
 
     @Test
-    fun testSortBySSIDWithDifferentBSSID() {
+    fun sortBySSIDWithDifferentBSSID() {
         // setup
         val wiFiDetail1 = WiFiDetail(
             WiFiIdentifier("SSID1", "bssid1"),
@@ -81,13 +81,13 @@ class SortBySSIDTest {
             WiFiAdditional.EMPTY
         )
         // execute
-        val actual: Int = fixture.compare(wiFiDetail1, wiFiDetail2)
+        val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
         assertEquals(32, actual)
     }
 
     @Test
-    fun testSortBySSIDWithDifferentStrength() {
+    fun sortBySSIDWithDifferentStrength() {
         // setup
         val wiFiDetail1 = WiFiDetail(
             WiFiIdentifier("SSID1", "BSSID1"),
@@ -102,7 +102,7 @@ class SortBySSIDTest {
             WiFiAdditional.EMPTY
         )
         // execute
-        val actual: Int = fixture.compare(wiFiDetail1, wiFiDetail2)
+        val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
         assertEquals(1, actual)
     }

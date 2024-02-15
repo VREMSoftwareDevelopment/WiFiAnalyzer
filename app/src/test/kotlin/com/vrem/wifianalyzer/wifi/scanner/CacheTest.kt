@@ -24,11 +24,7 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.never
-import org.mockito.kotlin.times
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 
 class CacheTest {
     private val scanResult1: ScanResult = mock()
@@ -54,7 +50,7 @@ class CacheTest {
     }
 
     @Test
-    fun testAddWithSizeAvailable() {
+    fun addWithSizeAvailable() {
         // setup
         val scanResults = listOf<ScanResult>()
         // execute
@@ -64,7 +60,7 @@ class CacheTest {
     }
 
     @Test
-    fun testAddCompliesToMaxCacheSizeWithSizeAvailable() {
+    fun addCompliesToMaxCacheSizeWithSizeAvailable() {
         // setup
         val cacheSize = 2
         val expected: MutableList<List<ScanResult>> = mutableListOf()
@@ -81,7 +77,7 @@ class CacheTest {
     }
 
     @Test
-    fun testScanResultsWithSizeAvailable() {
+    fun scanResultsWithSizeAvailable() {
         // setup
         withScanResults()
         // execute
@@ -94,7 +90,7 @@ class CacheTest {
     }
 
     @Test
-    fun testSizeWithSizeAvailable() {
+    fun sizeWithSizeAvailable() {
         // setup
         val values: List<WiFiRange> = listOf(
             WiFiRange(1, 4),
@@ -114,7 +110,7 @@ class CacheTest {
     }
 
     @Test
-    fun testAddWithCacheOff() {
+    fun addWithCacheOff() {
         // setup
         whenever(settings.cacheOff()).thenReturn(true)
         val scanResults = listOf<ScanResult>()
@@ -126,7 +122,7 @@ class CacheTest {
     }
 
     @Test
-    fun testAddCompliesToMaxCacheSizeWhenCacheOff() {
+    fun addCompliesToMaxCacheSizeWhenCacheOff() {
         // setup
         val count = 2
         whenever(settings.cacheOff()).thenReturn(true)
@@ -145,7 +141,7 @@ class CacheTest {
     }
 
     @Test
-    fun testScanResultsWhenSingleAndCacheOff() {
+    fun scanResultsWhenSingleAndCacheOff() {
         // setup
         whenever(settings.cacheOff()).thenReturn(true)
         val count = withScanResults()
@@ -159,7 +155,7 @@ class CacheTest {
     }
 
     @Test
-    fun testScanResultsWhenMultipleAndCacheOff() {
+    fun scanResultsWhenMultipleAndCacheOff() {
         // setup
         whenever(settings.cacheOff()).thenReturn(true)
         val count = withScanResults() + withScanResults()
@@ -173,7 +169,7 @@ class CacheTest {
     }
 
     @Test
-    fun testSizeWhenCacheOff() {
+    fun sizeWhenCacheOff() {
         // setup
         val expected = 1
         whenever(settings.cacheOff()).thenReturn(true)
@@ -185,7 +181,7 @@ class CacheTest {
     }
 
     @Test
-    fun testAdd() {
+    fun add() {
         // setup
         whenever(configuration.sizeAvailable).thenReturn(false)
         val scanResults = listOf<ScanResult>()
@@ -196,7 +192,7 @@ class CacheTest {
     }
 
     @Test
-    fun testAddCompliesToMaxCacheSize() {
+    fun addCompliesToMaxCacheSize() {
         // setup
         val cacheSize = 2
         whenever(configuration.sizeAvailable).thenReturn(false)
@@ -214,7 +210,7 @@ class CacheTest {
     }
 
     @Test
-    fun testScanResultsWhenSingle() {
+    fun scanResultsWhenSingle() {
         // setup
         whenever(configuration.sizeAvailable).thenReturn(false)
         withScanResults()
@@ -227,7 +223,7 @@ class CacheTest {
     }
 
     @Test
-    fun testScanResultsWhenMultiple() {
+    fun scanResultsWhenMultiple() {
         // setup
         whenever(configuration.sizeAvailable).thenReturn(false)
         withScanResults()
@@ -241,7 +237,7 @@ class CacheTest {
     }
 
     @Test
-    fun testSize() {
+    fun size() {
         // setup
         val expected = 1
         whenever(configuration.sizeAvailable).thenReturn(false)

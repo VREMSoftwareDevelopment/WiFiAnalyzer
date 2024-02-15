@@ -34,19 +34,19 @@ class GraphLegendTest {
     }
 
     @Test
-    fun testSortByNumber() {
+    fun sortByNumber() {
         assertEquals(3, GraphLegend.entries.size)
     }
 
     @Test
-    fun testGetDisplay() {
+    fun getDisplay() {
         assertEquals(GraphLegend.HIDE.legendDisplay, legendDisplayNone)
         assertEquals(GraphLegend.LEFT.legendDisplay, legendDisplayLeft)
         assertEquals(GraphLegend.RIGHT.legendDisplay, legendDisplayRight)
     }
 
     @Test
-    fun testDisplayHide() {
+    fun displayHide() {
         // execute
         GraphLegend.HIDE.display(legendRenderer)
         // validate
@@ -54,7 +54,7 @@ class GraphLegendTest {
     }
 
     @Test
-    fun testDisplayLeft() {
+    fun displayLeft() {
         // execute
         GraphLegend.LEFT.display(legendRenderer)
         // validate
@@ -63,7 +63,7 @@ class GraphLegendTest {
     }
 
     @Test
-    fun testDisplayRight() {
+    fun displayRight() {
         // execute
         GraphLegend.RIGHT.display(legendRenderer)
         // validate

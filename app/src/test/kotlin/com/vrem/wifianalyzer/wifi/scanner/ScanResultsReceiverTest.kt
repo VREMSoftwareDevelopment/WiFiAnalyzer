@@ -27,14 +27,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers
-import org.mockito.kotlin.doNothing
-import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.never
-import org.mockito.kotlin.spy
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 
 class ScanResultsReceiverTest {
     private val mainActivity: MainActivity = mock()
@@ -61,7 +54,7 @@ class ScanResultsReceiverTest {
     }
 
     @Test
-    fun testRegisterOnce() {
+    fun registerOnce() {
         // execute
         fixture.register()
         // verify
@@ -71,7 +64,7 @@ class ScanResultsReceiverTest {
     }
 
     @Test
-    fun testRegisterMoreThanOnce() {
+    fun registerMoreThanOnce() {
         // execute
         fixture.register()
         fixture.register()
@@ -82,7 +75,7 @@ class ScanResultsReceiverTest {
     }
 
     @Test
-    fun testUnregisterOnce() {
+    fun unregisterOnce() {
         // setup
         fixture.register()
         // execute
@@ -95,7 +88,7 @@ class ScanResultsReceiverTest {
     }
 
     @Test
-    fun testUnregisterMoreThanOnce() {
+    fun unregisterMoreThanOnce() {
         // setup
         fixture.register()
         // execute
@@ -109,7 +102,7 @@ class ScanResultsReceiverTest {
     }
 
     @Test
-    fun testOnReceiveWithScanResultsAction() {
+    fun onReceiveWithScanResultsAction() {
         // setup
         whenever(intent.action).thenReturn(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
         whenever(intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)).thenReturn(true)
@@ -122,7 +115,7 @@ class ScanResultsReceiverTest {
     }
 
     @Test
-    fun testOnReceiveWithSomeOtherAction() {
+    fun onReceiveWithSomeOtherAction() {
         // setup
         whenever(intent.action).thenReturn(WifiManager.ACTION_PICK_WIFI_NETWORK)
         // execute
@@ -134,7 +127,7 @@ class ScanResultsReceiverTest {
     }
 
     @Test
-    fun testOnReceiveWithBooleanExtraFalse() {
+    fun onReceiveWithBooleanExtraFalse() {
         // setup
         whenever(intent.action).thenReturn(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
         whenever(intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)).thenReturn(false)

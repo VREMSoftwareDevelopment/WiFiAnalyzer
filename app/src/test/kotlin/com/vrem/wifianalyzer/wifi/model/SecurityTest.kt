@@ -18,19 +18,17 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.wifianalyzer.R
-import org.junit.Assert.assertArrayEquals
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 
 class SecurityTest {
     @Test
-    fun testSize() {
+    fun size() {
         assertEquals(6, Security.entries.size)
     }
 
     @Test
-    fun testImageResource() {
+    fun imageResource() {
         assertEquals(R.drawable.ic_lock_open, Security.NONE.imageResource)
         assertEquals(R.drawable.ic_lock_outline, Security.WPS.imageResource)
         assertEquals(R.drawable.ic_lock_outline, Security.WEP.imageResource)
@@ -40,7 +38,7 @@ class SecurityTest {
     }
 
     @Test
-    fun testOrder() {
+    fun order() {
         // setup
         val expected: Array<Security> = arrayOf(Security.NONE, Security.WPS, Security.WEP, Security.WPA, Security.WPA2, Security.WPA3)
         // execute
@@ -50,7 +48,7 @@ class SecurityTest {
     }
 
     @Test
-    fun testExtras() {
+    fun extras() {
         assertTrue(Security.NONE.extras.isEmpty())
         assertTrue(Security.WPS.extras.isEmpty())
         assertTrue(Security.WEP.extras.isEmpty())

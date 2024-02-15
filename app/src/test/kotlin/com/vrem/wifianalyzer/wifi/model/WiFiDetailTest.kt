@@ -31,10 +31,11 @@ class WiFiDetailTest {
     private val wiFiSignal = WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, level)
     private val wiFiAdditional = WiFiAdditional(vendorName, WiFiConnection.EMPTY)
     private val wiFiIdentifier = WiFiIdentifier(ssid, bssid)
+    private val other = WiFiDetail(WiFiIdentifier(ssid, bssid), WiFiSecurity("WPA-WPA3"))
     private val fixture = WiFiDetail(wiFiIdentifier, wiFiSecurity, wiFiSignal, wiFiAdditional)
 
     @Test
-    fun testWiFiDetail() {
+    fun wiFiDetail() {
         // validate
         assertEquals(wiFiSignal, fixture.wiFiSignal)
         assertEquals(wiFiAdditional, fixture.wiFiAdditional)
@@ -43,32 +44,26 @@ class WiFiDetailTest {
     }
 
     @Test
-    fun testEquals() {
-        // setup
-        val other = WiFiDetail(wiFiIdentifier, wiFiSecurity, wiFiSignal)
+    fun equalsUsingIdentifier() {
         // execute & validate
         assertEquals(fixture, other)
         assertNotSame(fixture, other)
     }
 
     @Test
-    fun testHashCode() {
-        // setup
-        val other = WiFiDetail(wiFiIdentifier, wiFiSecurity, wiFiSignal)
+    fun hashCodeUsingIdentifier() {
         // execute & validate
         assertEquals(fixture.hashCode(), other.hashCode())
     }
 
     @Test
-    fun testCompareTo() {
-        // setup
-        val other = WiFiDetail(wiFiIdentifier, wiFiSecurity, wiFiSignal)
+    fun compareTo() {
         // execute & validate
         assertEquals(0, fixture.compareTo(other))
     }
 
     @Test
-    fun testWiFiDetailCopyConstructor() {
+    fun wiFiDetailCopyConstructor() {
         // setup
         val expected = WiFiDetail(wiFiIdentifier, wiFiSecurity, wiFiSignal)
         // execute

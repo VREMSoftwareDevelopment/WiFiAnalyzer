@@ -50,7 +50,7 @@ class WarningViewTest {
     }
 
     @Test
-    fun testWarningGone() {
+    fun warningGone() {
         // setup
         val wiFiData = WiFiData.EMPTY
         val registered = mainActivity.currentNavigationMenu().registered()
@@ -68,7 +68,7 @@ class WarningViewTest {
     }
 
     @Test
-    fun testWarningVisibleWhenNoData() {
+    fun warningVisibleWhenNoData() {
         // setup
         val wiFiData = WiFiData.EMPTY
         val registered = mainActivity.currentNavigationMenu().registered()
@@ -86,7 +86,7 @@ class WarningViewTest {
     }
 
     @Test
-    fun testWarningVisibleWhenNoLocation() {
+    fun warningVisibleWhenNoLocation() {
         // setup
         val wiFiData = WiFiData.EMPTY
         val registered = mainActivity.currentNavigationMenu().registered()
@@ -104,7 +104,7 @@ class WarningViewTest {
     }
 
     @Test
-    fun testNoDataVisible() {
+    fun noDataVisible() {
         // setup
         val wiFiDetails: List<WiFiDetail> = listOf()
         // execute
@@ -115,7 +115,7 @@ class WarningViewTest {
     }
 
     @Test
-    fun testNoDataGoneWhenNotRegistered() {
+    fun noDataGoneWhenNotRegistered() {
         // setup
         val wiFiDetails: List<WiFiDetail> = listOf()
         // execute
@@ -125,7 +125,7 @@ class WarningViewTest {
     }
 
     @Test
-    fun testNoDataGoneWithWiFiDetails() {
+    fun noDataGoneWithWiFiDetails() {
         // setup
         val wiFiDetails: List<WiFiDetail> = listOf(WiFiDetail.EMPTY)
         // execute
@@ -136,7 +136,7 @@ class WarningViewTest {
     }
 
     @Test
-    fun testNoDataGoneWhenNotRegisteredAndWithWiFiDetails() {
+    fun noDataGoneWhenNotRegisteredAndWithWiFiDetails() {
         // setup
         val wiFiDetails: List<WiFiDetail> = listOf(WiFiDetail.EMPTY)
         // execute
@@ -147,7 +147,7 @@ class WarningViewTest {
     }
 
     @Test
-    fun testNoLocationVisible() {
+    fun noLocationVisible() {
         // setup
         whenever(permissionService.enabled()).thenReturn(false)
         // execute
@@ -161,7 +161,7 @@ class WarningViewTest {
 
     @Test
     @Config(sdk = [Build.VERSION_CODES.O_MR1])
-    fun testNoLocationVisibleAndThrottlingIsGoneAndroidP() {
+    fun noLocationVisibleAndThrottlingIsGoneAndroidP() {
         // setup
         whenever(permissionService.enabled()).thenReturn(false)
         // execute
@@ -174,7 +174,7 @@ class WarningViewTest {
     }
 
     @Test
-    fun testNoLocationGoneWhenNotRegistered() {
+    fun noLocationGoneWhenNotRegistered() {
         // setup
         whenever(permissionService.enabled()).thenReturn(false)
         // execute
@@ -187,7 +187,7 @@ class WarningViewTest {
     }
 
     @Test
-    fun testNoLocationGoneWithNoPermission() {
+    fun noLocationGoneWithNoPermission() {
         // setup
         whenever(permissionService.enabled()).thenReturn(true)
         // execute
@@ -200,7 +200,7 @@ class WarningViewTest {
     }
 
     @Test
-    fun testNoLocationGoneWhenNotRegisteredAndNoPermission() {
+    fun noLocationGoneWhenNotRegisteredAndNoPermission() {
         // setup
         whenever(permissionService.enabled()).thenReturn(true)
         // execute
@@ -213,7 +213,7 @@ class WarningViewTest {
     }
 
     @Test
-    fun testThrottlingIsVisibleWhenRegisteredAndThrottlingIsEnabled() {
+    fun throttlingIsVisibleWhenRegisteredAndThrottlingIsEnabled() {
         // setup
         whenever(wiFiManagerWrapper.isScanThrottleEnabled()).thenReturn(true)
         // execute
@@ -225,7 +225,7 @@ class WarningViewTest {
     }
 
     @Test
-    fun testThrottlingIsGoneWhenNotRegisteredAndThrottlingIsEnabled() {
+    fun throttlingIsGoneWhenNotRegisteredAndThrottlingIsEnabled() {
         // setup
         whenever(wiFiManagerWrapper.isScanThrottleEnabled()).thenReturn(true)
         // execute
@@ -237,7 +237,7 @@ class WarningViewTest {
     }
 
     @Test
-    fun testThrottlingIsGoneWhenRegisteredAndThrottlingIsDisabled() {
+    fun throttlingIsGoneWhenRegisteredAndThrottlingIsDisabled() {
         // setup
         whenever(wiFiManagerWrapper.isScanThrottleEnabled()).thenReturn(false)
         // execute

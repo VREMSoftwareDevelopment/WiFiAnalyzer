@@ -19,9 +19,7 @@ package com.vrem.wifianalyzer.wifi.filter.adapter
 
 import com.vrem.wifianalyzer.settings.Settings
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -38,7 +36,7 @@ class SSIDAdapterTest {
     }
 
     @Test
-    fun testGetValues() {
+    fun getValues() {
         // setup
         // execute
         val actual = fixture.selections
@@ -47,12 +45,12 @@ class SSIDAdapterTest {
     }
 
     @Test
-    fun testIsActive() {
+    fun isActive() {
         assertTrue(fixture.isActive())
     }
 
     @Test
-    fun testIsNotActiveWithEmptyValue() {
+    fun isNotActiveWithEmptyValue() {
         // execute
         fixture.selections = setOf()
         // validate
@@ -61,7 +59,7 @@ class SSIDAdapterTest {
     }
 
     @Test
-    fun testIsNotActiveWithReset() {
+    fun isNotActiveWithReset() {
         // execute
         fixture.reset()
         // validate
@@ -70,7 +68,7 @@ class SSIDAdapterTest {
     }
 
     @Test
-    fun testSave() {
+    fun save() {
         // execute
         fixture.save(settings)
         // execute
@@ -78,7 +76,7 @@ class SSIDAdapterTest {
     }
 
     @Test
-    fun testSetValues() {
+    fun setValues() {
         // setup
         val expected: Set<String> = setOf("ABC", "EDF", "123")
         val values: Set<String> = setOf("", "ABC", "", "EDF", "  ", "123", "")

@@ -17,19 +17,14 @@
  */
 package com.vrem.wifianalyzer.wifi.predicate
 
-import com.vrem.wifianalyzer.wifi.model.Security
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+import com.vrem.wifianalyzer.wifi.model.*
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class SecurityPredicateTest {
     @Test
-    fun testSecurityPredicateWithFoundWPAValue() {
+    fun securityPredicateWithFoundWPAValue() {
         // setup
         val wiFiDetail = wiFiDetail()
         val fixture = Security.WPA.predicate()
@@ -40,7 +35,7 @@ class SecurityPredicateTest {
     }
 
     @Test
-    fun testSecurityPredicateWithFoundWEPValue() {
+    fun securityPredicateWithFoundWEPValue() {
         // setup
         val wiFiDetail = wiFiDetail()
         val fixture = Security.WEP.predicate()
@@ -51,7 +46,7 @@ class SecurityPredicateTest {
     }
 
     @Test
-    fun testSecurityPredicateWithFoundNoneValue() {
+    fun securityPredicateWithFoundNoneValue() {
         // setup
         val wiFiDetail = wiFiDetailWithNoSecurity()
         val fixture = Security.NONE.predicate()
@@ -62,7 +57,7 @@ class SecurityPredicateTest {
     }
 
     @Test
-    fun testSecurityPredicateWithNotFoundValue() {
+    fun securityPredicateWithNotFoundValue() {
         // setup
         val wiFiDetail = wiFiDetail()
         val fixture = Security.WPA2.predicate()

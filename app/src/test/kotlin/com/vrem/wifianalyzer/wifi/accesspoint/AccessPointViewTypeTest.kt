@@ -23,12 +23,12 @@ import org.junit.Test
 
 class AccessPointViewTypeTest {
     @Test
-    fun testAccessPointViewCount() {
+    fun accessPointViewCount() {
         assertEquals(2, AccessPointViewType.entries.size)
     }
 
     @Test
-    fun testGetLayout() {
+    fun getLayout() {
         assertEquals(R.layout.access_point_view_complete, AccessPointViewType.COMPLETE.layout)
         assertEquals(R.layout.access_point_view_compact, AccessPointViewType.COMPACT.layout)
     }

@@ -27,7 +27,7 @@ class WiFiChannelCountryGHZ5Test {
     private val fixture = WiFiChannelCountryGHZ5()
 
     @Test
-    fun testChannelsAustraliaCanada() {
+    fun channelsAustraliaCanada() {
         val expected = channelsSet1.union(setOf(100, 104, 108, 112, 116, 132, 136, 140, 144)).union(channelsSet3)
         listOf("AU", "CA").forEach {
             val actual = fixture.findChannels(it)
@@ -37,7 +37,7 @@ class WiFiChannelCountryGHZ5Test {
     }
 
     @Test
-    fun testChannelsChinaSouthKorea() {
+    fun channelsChinaSouthKorea() {
         val expected = channelsSet1.union(channelsSet3)
         listOf("CN", "KR").forEach {
             val actual = fixture.findChannels(it)
@@ -47,7 +47,7 @@ class WiFiChannelCountryGHZ5Test {
     }
 
     @Test
-    fun testChannelsJapanTurkeySouthAfrica() {
+    fun channelsJapanTurkeySouthAfrica() {
         val expected = channelsSet1.union(channelsSet2)
         listOf("JP", "TR", "ZA").forEach {
             val actual = fixture.findChannels(it)
@@ -57,7 +57,7 @@ class WiFiChannelCountryGHZ5Test {
     }
 
     @Test
-    fun testChannelsRussia() {
+    fun channelsRussia() {
         val expected = channelsSet1.union(setOf(132, 136, 140, 144)).union(channelsSet3)
         val actual = fixture.findChannels("RU")
         assertEquals(expected.size, actual.size)
@@ -65,7 +65,7 @@ class WiFiChannelCountryGHZ5Test {
     }
 
     @Test
-    fun testChannelsUS() {
+    fun channelsUS() {
         val expected = channelsSet1.union(channelsSet2).union(channelsSet3).union(setOf(169, 173, 177))
         val actual = fixture.findChannels("US")
         assertEquals(expected.size, actual.size)
@@ -73,7 +73,7 @@ class WiFiChannelCountryGHZ5Test {
     }
 
     @Test
-    fun testChannelsETSI() {
+    fun channelsETSI() {
         val countriesETSI = listOf(
             "AT",      // ETSI Austria
             "BE",      // ETSI Belgium
@@ -118,7 +118,7 @@ class WiFiChannelCountryGHZ5Test {
     }
 
     @Test
-    fun testChannelsOther() {
+    fun channelsOther() {
         val expected = channelsSet1.union(channelsSet2).union(channelsSet3)
         listOf("UK", "BR", "XYZ").forEach {
             val actual = fixture.findChannels(it)

@@ -23,12 +23,12 @@ import org.junit.Test
 
 class SortByTest {
     @Test
-    fun testSortByNumber() {
+    fun sortByNumber() {
         assertEquals(3, SortBy.entries.size)
     }
 
     @Test
-    fun testComparator() {
+    fun comparator() {
         assertTrue(SortBy.STRENGTH.sort.javaClass.isInstance(sortByStrength()))
         assertTrue(SortBy.SSID.sort.javaClass.isInstance(sortBySSID()))
         assertTrue(SortBy.CHANNEL.sort.javaClass.isInstance(sortByChannel()))

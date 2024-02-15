@@ -71,13 +71,13 @@ class FiltersAdapterTest {
     }
 
     @Test
-    fun testIsActive() {
+    fun isActive() {
         // execute & validate
         assertFalse(fixture.isActive())
     }
 
     @Test
-    fun testGetFilterAdapters() {
+    fun getFilterAdapters() {
         // execute
         val actual: List<BasicFilterAdapter<out Serializable?>?> = fixture.filterAdapters(true)
         // validate
@@ -85,7 +85,7 @@ class FiltersAdapterTest {
     }
 
     @Test
-    fun testGetFilterAdaptersWithNptAccessPoints() {
+    fun getFilterAdaptersWithNptAccessPoints() {
         // execute
         val actual: List<BasicFilterAdapter<out Serializable?>?> = fixture.filterAdapters(false)
         // validate
@@ -93,7 +93,7 @@ class FiltersAdapterTest {
     }
 
     @Test
-    fun testIsActiveWhenStrengthFilterIsChanged() {
+    fun isActiveWhenStrengthFilterIsChanged() {
         // setup
         fixture.strengthAdapter().toggle(Strength.THREE)
         // execute & validate
@@ -101,7 +101,7 @@ class FiltersAdapterTest {
     }
 
     @Test
-    fun testIsActiveWhenWiFiBandFilterIsChanged() {
+    fun isActiveWhenWiFiBandFilterIsChanged() {
         // setup
         fixture.wiFiBandAdapter().toggle(WiFiBand.GHZ2)
         // execute & validate
@@ -109,7 +109,7 @@ class FiltersAdapterTest {
     }
 
     @Test
-    fun testReset() {
+    fun reset() {
         // execute
         fixture.reset()
         // validate
@@ -120,7 +120,7 @@ class FiltersAdapterTest {
     }
 
     @Test
-    fun testReload() {
+    fun reload() {
         // execute
         fixture.reload()
         // validate
@@ -131,7 +131,7 @@ class FiltersAdapterTest {
     }
 
     @Test
-    fun testSave() {
+    fun save() {
         // execute
         fixture.save()
         // validate

@@ -65,7 +65,7 @@ class ExportItemTest {
     }
 
     @Test
-    fun testActivate() {
+    fun activate() {
         // setup
         val wiFiData: WiFiData = withWiFiData()
         doReturn(wiFiData).whenever(scanner).wiFiData()
@@ -84,13 +84,13 @@ class ExportItemTest {
     }
 
     @Test
-    fun testRegistered() {
+    fun registered() {
         // execute & validate
         assertFalse(fixture.registered)
     }
 
     @Test
-    fun testVisibility() {
+    fun visibility() {
         // execute & validate
         assertEquals(View.GONE, fixture.visibility)
     }

@@ -32,7 +32,7 @@ import org.robolectric.annotation.Config
 class SettingsFragmentTest {
 
     @Test
-    fun testOnCreate() {
+    fun onCreate() {
         // setup
         val fixture = SettingsFragment()
         RobolectricUtil.INSTANCE.startFragment(fixture)
@@ -42,7 +42,7 @@ class SettingsFragmentTest {
 
     @Config(sdk = [Build.VERSION_CODES.P])
     @Test
-    fun testWiFiOnExitIsVisible() {
+    fun wiFiOnExitIsVisible() {
         // setup
         val fixture = SettingsFragment()
         RobolectricUtil.INSTANCE.startFragment(fixture)
@@ -54,7 +54,7 @@ class SettingsFragmentTest {
     }
 
     @Test
-    fun testWiFiOnExitIsNotVisible() {
+    fun wiFiOnExitIsNotVisible() {
         // setup
         val fixture = SettingsFragment()
         RobolectricUtil.INSTANCE.startFragment(fixture)

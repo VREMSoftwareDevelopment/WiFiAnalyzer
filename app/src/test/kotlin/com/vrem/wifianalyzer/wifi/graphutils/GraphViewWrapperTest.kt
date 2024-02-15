@@ -29,19 +29,10 @@ import com.vrem.wifianalyzer.SIZE_MIN
 import com.vrem.wifianalyzer.settings.ThemeStyle
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import org.mockito.kotlin.any
-import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.never
-import org.mockito.kotlin.spy
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 
 class GraphViewWrapperTest {
     private val graphView: GraphView = mock()
@@ -73,7 +64,7 @@ class GraphViewWrapperTest {
     }
 
     @Test
-    fun testRemoveSeries() {
+    fun removeSeries() {
         // setup
         val newSeries: Set<WiFiDetail> = setOf()
         val difference: List<WiFiDetail> = listOf()
@@ -90,7 +81,7 @@ class GraphViewWrapperTest {
     }
 
     @Test
-    fun testDifferenceSeries() {
+    fun differenceSeries() {
         // setup
         val newSeries: Set<WiFiDetail> = setOf()
         val expected: List<WiFiDetail> = listOf()
@@ -103,7 +94,7 @@ class GraphViewWrapperTest {
     }
 
     @Test
-    fun testAddSeriesDirectly() {
+    fun addSeriesDirectly() {
         // execute
         fixture.addSeries(baseSeries)
         // validate
@@ -111,7 +102,7 @@ class GraphViewWrapperTest {
     }
 
     @Test
-    fun testAddSeriesWhenSeriesExistsDoesNotAddSeries() {
+    fun addSeriesWhenSeriesExistsDoesNotAddSeries() {
         // setup
         whenever(seriesCache.contains(wiFiDetail)).thenReturn(true)
         // execute
@@ -123,7 +114,7 @@ class GraphViewWrapperTest {
     }
 
     @Test
-    fun testAddSeriesAddsSeries() {
+    fun addSeriesAddsSeries() {
         // setup
         val expectedTitle = wiFiDetail.wiFiIdentifier.ssid + " " + wiFiDetail.wiFiSignal.channelDisplay()
         val connected = wiFiDetail.wiFiAdditional.wiFiConnection.connected
@@ -143,7 +134,7 @@ class GraphViewWrapperTest {
     }
 
     @Test
-    fun testUpdateSeriesWhenSeriesDoesNotExistsDoesNotUpdateSeries() {
+    fun updateSeriesWhenSeriesDoesNotExistsDoesNotUpdateSeries() {
         // setup
         whenever(seriesCache.contains(wiFiDetail)).thenReturn(false)
         // execute
@@ -155,7 +146,7 @@ class GraphViewWrapperTest {
     }
 
     @Test
-    fun testUpdateSeriesWhenSeriesDoesExists() {
+    fun updateSeriesWhenSeriesDoesExists() {
         // setup
         val connected = wiFiDetail.wiFiAdditional.wiFiConnection.connected
         whenever(seriesCache.contains(wiFiDetail)).thenReturn(true)
@@ -172,7 +163,7 @@ class GraphViewWrapperTest {
     }
 
     @Test
-    fun testAppendSeriesWhenSeriesDoesNotExistsDoesNotUpdateSeries() {
+    fun appendSeriesWhenSeriesDoesNotExistsDoesNotUpdateSeries() {
         // setup
         val count = 10
         whenever(seriesCache.contains(wiFiDetail)).thenReturn(false)
@@ -185,7 +176,7 @@ class GraphViewWrapperTest {
     }
 
     @Test
-    fun testAppendSeriesWhenSeriesDoesExists() {
+    fun appendSeriesWhenSeriesDoesExists() {
         // setup
         val count = 10
         val connected = wiFiDetail.wiFiAdditional.wiFiConnection.connected
@@ -203,7 +194,7 @@ class GraphViewWrapperTest {
     }
 
     @Test
-    fun testUpdateLegend() {
+    fun updateLegend() {
         // setup
         val textSize = 10f
         doReturn(legendRenderer).whenever(fixture).newLegendRenderer()
@@ -225,7 +216,7 @@ class GraphViewWrapperTest {
     }
 
     @Test
-    fun testSetVisibility() {
+    fun setVisibility() {
         // execute
         fixture.visibility(View.VISIBLE)
         // validate
@@ -233,13 +224,13 @@ class GraphViewWrapperTest {
     }
 
     @Test
-    fun testCalculateGraphType() {
+    fun calculateGraphType() {
         // execute & validate
         assertTrue(fixture.calculateGraphType() > 0)
     }
 
     @Test
-    fun testSetViewport() {
+    fun setViewport() {
         // setup
         whenever(graphView.gridLabelRenderer).thenReturn(gridLabelRenderer)
         whenever(gridLabelRenderer.numHorizontalLabels).thenReturn(10)
@@ -255,7 +246,7 @@ class GraphViewWrapperTest {
     }
 
     @Test
-    fun testGetSize() {
+    fun getSize() {
         // execute & validate
         assertEquals(SIZE_MAX, fixture.size(TYPE1))
         assertEquals(SIZE_MAX, fixture.size(TYPE2))
@@ -264,7 +255,7 @@ class GraphViewWrapperTest {
     }
 
     @Test
-    fun testSetViewportWithMinAndMax() {
+    fun setViewportWithMinAndMax() {
         // setup
         whenever(graphView.viewport).thenReturn(viewport)
         // execute
@@ -276,7 +267,7 @@ class GraphViewWrapperTest {
     }
 
     @Test
-    fun testIsNewSeries() {
+    fun isNewSeries() {
         // setup
         whenever(seriesCache.contains(wiFiDetail)).thenReturn(false)
         // execute

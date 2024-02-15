@@ -58,7 +58,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewShouldCreateNewView() {
+    fun makeViewShouldCreateNewView() {
         // setup
         val wiFiDetail = withWiFiDetail()
         // execute
@@ -68,7 +68,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewShouldUseGivenView() {
+    fun makeViewShouldUseGivenView() {
         // setup
         val expected = mainActivity.layoutInflater.inflate(AccessPointViewType.COMPLETE.layout, null, false)
         val wiFiDetail = withWiFiDetail()
@@ -79,7 +79,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompleteWithTabGone() {
+    fun makeViewCompleteWithTabGone() {
         // setup
         val wiFiDetail = withWiFiDetail()
         // execute
@@ -89,7 +89,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompleteWithGroupIndicatorGone() {
+    fun makeViewCompleteWithGroupIndicatorGone() {
         // setup
         val wiFiDetail = withWiFiDetail()
         // execute
@@ -99,7 +99,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompleteWithVendorShortNotVisible() {
+    fun makeViewCompleteWithVendorShortNotVisible() {
         // setup
         val wiFiDetail = withWiFiDetail()
         // execute
@@ -110,7 +110,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompleteWithVendorShortVisible() {
+    fun makeViewCompleteWithVendorShortVisible() {
         // setup
         val wiFiDetail = withWiFiDetail(wiFiAdditional = WiFiAdditional(vendorName, WiFiConnection.EMPTY))
         // execute
@@ -121,7 +121,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompleteWithVendorShortMaximumSize() {
+    fun makeViewCompleteWithVendorShortMaximumSize() {
         // setup
         val wiFiDetail = withWiFiDetail(wiFiAdditional = WiFiAdditional(vendorName, WiFiConnection.EMPTY))
         // execute
@@ -131,7 +131,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompleteWithTabVisible() {
+    fun makeViewCompleteWithTabVisible() {
         // setup
         val wiFiDetail = withWiFiDetail(String.EMPTY)
         // execute
@@ -141,7 +141,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompleteWithWiFiDetailAndEmptySSID() {
+    fun makeViewCompleteWithWiFiDetailAndEmptySSID() {
         // setup
         val wiFiDetail = withWiFiDetail(String.EMPTY)
         // execute
@@ -151,7 +151,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompleteWithWiFiDetail() {
+    fun makeViewCompleteWithWiFiDetail() {
         // setup
         val wiFiDetail = withWiFiDetail()
         // execute
@@ -161,7 +161,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompleteWithTextNotSelectable() {
+    fun makeViewCompleteWithTextNotSelectable() {
         // setup
         val wiFiDetail = withWiFiDetail()
         // execute
@@ -171,7 +171,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompactWithTabGone() {
+    fun makeViewCompactWithTabGone() {
         // setup
         val wiFiDetail = withWiFiDetail()
         whenever(settings.accessPointView()).thenReturn(AccessPointViewType.COMPACT)
@@ -182,7 +182,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompactWithGroupIndicatorGone() {
+    fun makeViewCompactWithGroupIndicatorGone() {
         // setup
         val wiFiDetail = withWiFiDetail()
         whenever(settings.accessPointView()).thenReturn(AccessPointViewType.COMPACT)
@@ -193,7 +193,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompactWithTabVisible() {
+    fun makeViewCompactWithTabVisible() {
         // setup
         val wiFiDetail = withWiFiDetail(String.EMPTY)
         whenever(settings.accessPointView()).thenReturn(AccessPointViewType.COMPACT)
@@ -204,7 +204,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompactWithWiFiDetailAndEmptySSID() {
+    fun makeViewCompactWithWiFiDetailAndEmptySSID() {
         // setup
         val wiFiDetail = withWiFiDetail(String.EMPTY)
         whenever(settings.accessPointView()).thenReturn(AccessPointViewType.COMPACT)
@@ -215,7 +215,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompactWithWiFiDetail() {
+    fun makeViewCompactWithWiFiDetail() {
         // setup
         val wiFiDetail = withWiFiDetail()
         whenever(settings.accessPointView()).thenReturn(AccessPointViewType.COMPACT)
@@ -226,7 +226,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompactWithAttachPopup() {
+    fun makeViewCompactWithAttachPopup() {
         // setup
         val wiFiDetail = withWiFiDetail()
         whenever(settings.accessPointView()).thenReturn(AccessPointViewType.COMPACT)
@@ -237,7 +237,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompactDoesNotHaveFullDetails() {
+    fun makeViewCompactDoesNotHaveFullDetails() {
         // setup
         val wiFiDetail = withWiFiDetail()
         whenever(settings.accessPointView()).thenReturn(AccessPointViewType.COMPACT)
@@ -253,7 +253,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewCompactWithTextNotSelectable() {
+    fun makeViewCompactWithTextNotSelectable() {
         // setup
         val wiFiDetail = withWiFiDetail()
         whenever(settings.accessPointView()).thenReturn(AccessPointViewType.COMPACT)
@@ -264,7 +264,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewPopupWithWiFiDetail() {
+    fun makeViewPopupWithWiFiDetail() {
         // setup
         val wiFiDetail = withWiFiDetail()
         // execute
@@ -274,7 +274,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewDetailedWithVendorNotVisible() {
+    fun makeViewDetailedWithVendorNotVisible() {
         // setup
         val wiFiDetail = withWiFiDetail()
         // execute
@@ -285,7 +285,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewDetailedWithVendorVisible() {
+    fun makeViewDetailedWithVendorVisible() {
         // setup
         val wiFiDetail = withWiFiDetail(wiFiAdditional = WiFiAdditional(vendorName, WiFiConnection.EMPTY))
         // execute
@@ -296,7 +296,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewDetailedWithTextSelectable() {
+    fun makeViewDetailedWithTextSelectable() {
         // setup
         val wiFiDetail = withWiFiDetail()
         // execute
@@ -307,7 +307,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewDetailedWith80211mcNotVisible() {
+    fun makeViewDetailedWith80211mcNotVisible() {
         // setup
         val wiFiDetail = withWiFiDetail()
         // execute
@@ -317,7 +317,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewDetailedWith80211mcVisible() {
+    fun makeViewDetailedWith80211mcVisible() {
         // setup
         val wiFiDetail = withWiFiDetail(is80211mc = true)
         // execute
@@ -327,7 +327,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewDetailedWithTimestampNotVisible() {
+    fun makeViewDetailedWithTimestampNotVisible() {
         // setup
         val wiFiDetail = withWiFiDetail(timestamp = 999)
         // execute
@@ -338,7 +338,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewDetailedWithTimestampVisible() {
+    fun makeViewDetailedWithTimestampVisible() {
         // setup
         val wiFiDetail = withWiFiDetail()
         val expectedTimestamp = "0:00:01.000"
@@ -350,7 +350,7 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun testMakeViewDetailedWithFastRoaming() {
+    fun makeViewDetailedWithFastRoaming() {
         // setup
         val wiFiDetail = withWiFiDetail()
         val expectedFastRoaming = "802.11k 802.11r 802.11v"

@@ -59,7 +59,7 @@ class ChannelAvailableAdapterTest {
     }
 
     @Test
-    fun testGetView() {
+    fun getView() {
         // setup
         val resources = mainActivity.resources
         val wiFiBand2 = resources.getString(WiFiBand.GHZ2.textResource)

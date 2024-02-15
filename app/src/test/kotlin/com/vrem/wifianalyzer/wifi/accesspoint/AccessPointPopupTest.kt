@@ -36,7 +36,7 @@ class AccessPointPopupTest {
     private val fixture = AccessPointPopup()
 
     @Test
-    fun testShowOpensPopup() {
+    fun showOpensPopup() {
         // setup
         val view = mainActivity.layoutInflater.inflate(R.layout.access_point_view_popup, null)
         // execute
@@ -47,7 +47,7 @@ class AccessPointPopupTest {
     }
 
     @Test
-    fun testPopupIsClosedOnPositiveButtonClick() {
+    fun popupIsClosedOnPositiveButtonClick() {
         // setup
         val view = mainActivity.layoutInflater.inflate(R.layout.access_point_view_popup, null)
         val alertDialog = fixture.show(view)
@@ -60,7 +60,7 @@ class AccessPointPopupTest {
     }
 
     @Test
-    fun testPopupPositiveButtonIsNotVisible() {
+    fun popupPositiveButtonIsNotVisible() {
         // setup
         val view = mainActivity.layoutInflater.inflate(R.layout.access_point_view_popup, null)
         val alertDialog = fixture.show(view)
@@ -71,7 +71,7 @@ class AccessPointPopupTest {
     }
 
     @Test
-    fun testPopupNegativeButtonIsNotVisible() {
+    fun popupNegativeButtonIsNotVisible() {
         // setup
         val view = mainActivity.layoutInflater.inflate(R.layout.access_point_view_popup, null)
         val alertDialog = fixture.show(view)
@@ -82,7 +82,7 @@ class AccessPointPopupTest {
     }
 
     @Test
-    fun testPopupNeutralButtonIsNotVisible() {
+    fun popupNeutralButtonIsNotVisible() {
         // setup
         val view = mainActivity.layoutInflater.inflate(R.layout.access_point_view_popup, null)
         val alertDialog = fixture.show(view)
@@ -93,7 +93,7 @@ class AccessPointPopupTest {
     }
 
     @Test
-    fun testAttach() {
+    fun attach() {
         // setup
         val wiFiDetail = withWiFiDetail()
         val view = mainActivity.layoutInflater.inflate(R.layout.access_point_view_compact, null)

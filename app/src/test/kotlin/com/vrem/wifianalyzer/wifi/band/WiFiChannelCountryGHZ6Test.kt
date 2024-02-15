@@ -36,7 +36,7 @@ class WiFiChannelCountryGHZ6Test {
     private val fixture = WiFiChannelCountryGHZ6()
 
     @Test
-    fun testChannelsForWorld() {
+    fun channelsForWorld() {
         listOf("GB", "XYZ", "US", "AU", "AE")
             .forEach { _ -> validateChannels(channelsSet, fixture.findChannels()) }
     }

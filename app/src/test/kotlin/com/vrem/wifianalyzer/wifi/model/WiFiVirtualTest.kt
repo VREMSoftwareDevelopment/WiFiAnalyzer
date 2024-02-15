@@ -24,7 +24,7 @@ import org.junit.Test
 class WiFiVirtualTest {
 
     @Test
-    fun testWiFiVirtualWithVirtualBSSID() {
+    fun wiFiVirtualWithVirtualBSSID() {
         // setup
         val wiFiDetail = WiFiDetail(
             WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
@@ -41,7 +41,7 @@ class WiFiVirtualTest {
     }
 
     @Test
-    fun testWiFiVirtualWithRegularBSSIDWhenBSSIDShort() {
+    fun wiFiVirtualWithRegularBSSIDWhenBSSIDShort() {
         // setup
         val wiFiDetail = WiFiDetail(
             WiFiIdentifier("SSID1", "20:cf:30:ce:1d:7"),
@@ -58,7 +58,7 @@ class WiFiVirtualTest {
     }
 
     @Test
-    fun testWiFiVirtualWithRegularBSSIDWhenBSSIDLong() {
+    fun wiFiVirtualWithRegularBSSIDWhenBSSIDLong() {
         // setup
         val wiFiDetail = WiFiDetail(
             WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71:"),

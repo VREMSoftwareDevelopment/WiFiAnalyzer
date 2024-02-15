@@ -20,9 +20,7 @@ package com.vrem.wifianalyzer
 import com.vrem.wifianalyzer.settings.ThemeStyle
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.atLeastOnce
@@ -53,7 +51,7 @@ class MainReloadTest {
     }
 
     @Test
-    fun testShouldNotReloadWithNoThemeChanges() {
+    fun shouldNotReloadWithNoThemeChanges() {
         // execute
         val actual = fixture.shouldReload(settings)
         // validate
@@ -62,7 +60,7 @@ class MainReloadTest {
     }
 
     @Test
-    fun testShouldReloadWithThemeChange() {
+    fun shouldReloadWithThemeChange() {
         // setup
         val expected = ThemeStyle.LIGHT
         whenever(settings.themeStyle()).thenReturn(expected)
@@ -74,7 +72,7 @@ class MainReloadTest {
     }
 
     @Test
-    fun testShouldNotReloadWithNoConnectionViewTypeChanges() {
+    fun shouldNotReloadWithNoConnectionViewTypeChanges() {
         // execute
         val actual = fixture.shouldReload(settings)
         // validate
@@ -83,7 +81,7 @@ class MainReloadTest {
     }
 
     @Test
-    fun testShouldReloadWithConnectionViewTypeChange() {
+    fun shouldReloadWithConnectionViewTypeChange() {
         // setup
         val expected = ConnectionViewType.COMPACT
         whenever(settings.connectionViewType()).thenReturn(expected)
@@ -95,7 +93,7 @@ class MainReloadTest {
     }
 
     @Test
-    fun testShouldNotReloadWithNoLanguageLocaleChanges() {
+    fun shouldNotReloadWithNoLanguageLocaleChanges() {
         // execute
         val actual = fixture.shouldReload(settings)
         // validate
@@ -104,7 +102,7 @@ class MainReloadTest {
     }
 
     @Test
-    fun testShouldReloadWithLanguageLocaleChange() {
+    fun shouldReloadWithLanguageLocaleChange() {
         // setup
         val expected = Locale.US
         whenever(settings.languageLocale()).thenReturn(expected)

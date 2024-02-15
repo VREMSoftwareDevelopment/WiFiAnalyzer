@@ -32,7 +32,7 @@ class WiFiSecurityTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
 
     @Test
-    fun testWiFiSecurityTypes() {
+    fun wiFiSecurityTypes() {
         // setup
         val fixture = WiFiSecurity(securityTypes = WiFiSecurityTypeTest.All)
         val expected = WiFiSecurityType.entries.toSet()
@@ -43,7 +43,7 @@ class WiFiSecurityTest {
     }
 
     @Test
-    fun testWiFiSecurityTypesDisplay() {
+    fun wiFiSecurityTypesDisplay() {
         // expected
         val fixture = WiFiSecurity(securityTypes = WiFiSecurityTypeTest.All)
         val expected =
@@ -55,7 +55,7 @@ class WiFiSecurityTest {
     }
 
     @Test
-    fun testSecurities() {
+    fun securities() {
         // setup
         withSecuritiesValues().forEach { (wiFiSecurity, expected) ->
             println(wiFiSecurity)
@@ -67,7 +67,7 @@ class WiFiSecurityTest {
     }
 
     @Test
-    fun testSecurity() {
+    fun security() {
         // setup
         val values: Map<Security, List<WiFiSecurity>> = withSecurityValues()
         Security.entries.forEach { security ->

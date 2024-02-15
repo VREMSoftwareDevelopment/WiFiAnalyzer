@@ -43,7 +43,7 @@ class GraphAdapterTest {
     }
 
     @Test
-    fun testUpdate() {
+    fun update() {
         // execute
         fixture.update(wiFiData)
         // validate
@@ -51,7 +51,7 @@ class GraphAdapterTest {
     }
 
     @Test
-    fun testGraphViews() {
+    fun graphViews() {
         // setup
         whenever(graphViewNotifier.graphView()).thenReturn(graphView)
         // execute

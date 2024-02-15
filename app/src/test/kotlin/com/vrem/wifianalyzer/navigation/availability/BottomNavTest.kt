@@ -38,7 +38,7 @@ class BottomNavTest {
     }
 
     @Test
-    fun testNavigationOptionBottomNavOff() {
+    fun navigationOptionBottomNavOff() {
         // setup
         whenever<View>(mainActivity.findViewById(R.id.nav_bottom)).thenReturn(view)
         // execute
@@ -49,7 +49,7 @@ class BottomNavTest {
     }
 
     @Test
-    fun testNavigationOptionBottomNavOn() {
+    fun navigationOptionBottomNavOn() {
         // setup
         whenever<View>(mainActivity.findViewById(R.id.nav_bottom)).thenReturn(view)
         // execute

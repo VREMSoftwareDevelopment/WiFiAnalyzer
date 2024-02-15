@@ -43,7 +43,7 @@ class ChannelAxisLabelTest {
     }
 
     @Test
-    fun testYAxis() {
+    fun yAxis() {
         // execute & verify
         assertEquals(String.EMPTY, fixture.formatLabel(MIN_Y.toDouble(), false))
         assertEquals("-99", fixture.formatLabel(MIN_Y + 1.toDouble(), false))
@@ -52,7 +52,7 @@ class ChannelAxisLabelTest {
     }
 
     @Test
-    fun testXAxis() {
+    fun xAxis() {
         // setup
         val (channel, frequency) = WiFiBand.GHZ2.wiFiChannels.wiFiChannelFirst()
         whenever(settings.countryCode()).thenReturn(Locale.US.country)
@@ -64,7 +64,7 @@ class ChannelAxisLabelTest {
     }
 
     @Test
-    fun testXAxisWithFrequencyInRange() {
+    fun xAxisWithFrequencyInRange() {
         // setup
         val (channel, frequency) = WiFiBand.GHZ2.wiFiChannels.wiFiChannelFirst()
         whenever(settings.countryCode()).thenReturn(Locale.US.country)
@@ -75,7 +75,7 @@ class ChannelAxisLabelTest {
     }
 
     @Test
-    fun testXAxisWithFrequencyNotAllowedInLocale() {
+    fun xAxisWithFrequencyNotAllowedInLocale() {
         // setup
         val (_, frequency) = WiFiBand.GHZ2.wiFiChannels.wiFiChannelLast()
         // execute
@@ -85,7 +85,7 @@ class ChannelAxisLabelTest {
     }
 
     @Test
-    fun testXAxisWithUnknownFrequencyReturnEmptyString() {
+    fun xAxisWithUnknownFrequencyReturnEmptyString() {
         // setup
         val wiFiChannels = WiFiBand.GHZ2.wiFiChannels
         val (_, frequency) = wiFiChannels.wiFiChannelFirst()

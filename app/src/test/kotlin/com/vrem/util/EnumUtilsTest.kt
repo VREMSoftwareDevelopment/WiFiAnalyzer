@@ -24,7 +24,7 @@ import org.junit.Test
 class EnumUtilsTest {
 
     @Test
-    fun testOrdinals() {
+    fun ordinals() {
         // setup
         val expected = TestObject.entries
         // execute
@@ -37,7 +37,7 @@ class EnumUtilsTest {
     }
 
     @Test
-    fun testFindSetUsingOrdinals() {
+    fun findSetUsingOrdinals() {
         // setup
         val expected = TestObject.entries.toSet()
         val ordinals: Set<String> = setOf("" + TestObject.VALUE1.ordinal, "" + TestObject.VALUE2.ordinal, "" + TestObject.VALUE3.ordinal)
@@ -48,7 +48,7 @@ class EnumUtilsTest {
     }
 
     @Test
-    fun testFindSetUsingOrdinalsWithEmptyInput() {
+    fun findSetUsingOrdinalsWithEmptyInput() {
         // setup
         val expected = TestObject.entries.toSet()
         // execute
@@ -58,7 +58,7 @@ class EnumUtilsTest {
     }
 
     @Test
-    fun testFindSetUsingOrdinalsWithInvalidInput() {
+    fun findSetUsingOrdinalsWithInvalidInput() {
         // setup
         val expected = TestObject.VALUE2
         val ordinals: Set<String> = setOf("-1")
@@ -70,7 +70,7 @@ class EnumUtilsTest {
     }
 
     @Test
-    fun testFindOneUsingIndex() {
+    fun findOneUsingIndex() {
         TestObject.entries.forEach {
             // execute
             val actual = findOne(TestObject.entries, it.ordinal, TestObject.VALUE2)
@@ -80,7 +80,7 @@ class EnumUtilsTest {
     }
 
     @Test
-    fun testFindOneUsingInvalidLowIndex() {
+    fun findOneUsingInvalidLowIndex() {
         // setup
         val index = -1
         val expected = TestObject.VALUE3
@@ -91,7 +91,7 @@ class EnumUtilsTest {
     }
 
     @Test
-    fun testFindOneUsingInvalidHighIndex() {
+    fun findOneUsingInvalidHighIndex() {
         // setup
         val index = TestObject.entries.size
         val expected = TestObject.VALUE3

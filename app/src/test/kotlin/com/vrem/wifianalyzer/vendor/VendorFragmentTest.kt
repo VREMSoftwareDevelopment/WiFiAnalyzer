@@ -54,7 +54,7 @@ class VendorFragmentTest {
     }
 
     @Test
-    fun testListenerOnQueryTextChange() {
+    fun listenerOnQueryTextChange() {
         // setup
         val values = "     ABS       ADF      "
         val expected = "ABS ADF"
@@ -68,7 +68,7 @@ class VendorFragmentTest {
     }
 
     @Test
-    fun testListenerOnQueryTextChangeWithNull() {
+    fun listenerOnQueryTextChangeWithNull() {
         // setup
         val vendorAdapter: VendorAdapter = mock()
         val fixture = VendorFragment.Listener(vendorAdapter)
@@ -80,7 +80,7 @@ class VendorFragmentTest {
     }
 
     @Test
-    fun testListenerOnQueryTextSubmit() {
+    fun listenerOnQueryTextSubmit() {
         // setup
         val vendorAdapter: VendorAdapter = mock()
         val fixture = VendorFragment.Listener(vendorAdapter)

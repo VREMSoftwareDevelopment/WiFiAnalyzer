@@ -34,7 +34,7 @@ class WiFiSignalExtraTest {
         WiFiSignalExtra(true, WiFiStandard.AC, timestamp, FastRoaming.entries.toList())
 
     @Test
-    fun testWiFiSignalExtra() {
+    fun wiFiSignalExtra() {
         // validate
         assertTrue(fixture.is80211mc)
         assertEquals(WiFiStandard.AC, fixture.wiFiStandard)
@@ -43,7 +43,7 @@ class WiFiSignalExtraTest {
     }
 
     @Test
-    fun testWiFiStandardDisplay() {
+    fun wiFiStandardDisplay() {
         // setup
         val expected = "802.11ac"
         // execute
@@ -53,7 +53,7 @@ class WiFiSignalExtraTest {
     }
 
     @Test
-    fun testFastRoamingDisplay() {
+    fun fastRoamingDisplay() {
         // setup
         val expected = "802.11k 802.11r 802.11v"
         // execute
@@ -63,7 +63,7 @@ class WiFiSignalExtraTest {
     }
 
     @Test
-    fun testFastRoamingDisplayWithOneFastRoaming() {
+    fun fastRoamingDisplayWithOneFastRoaming() {
         // setup
         val fixture = WiFiSignalExtra(fastRoaming = listOf(FastRoaming.FR_802_11R))
         val expected = "802.11r"

@@ -64,7 +64,7 @@ class ChannelGraphViewTest {
     }
 
     @Test
-    fun testUpdate() {
+    fun update() {
         // setup
         val newSeries: Set<WiFiDetail> = setOf()
         val wiFiDetails: List<WiFiDetail> = listOf()
@@ -94,7 +94,7 @@ class ChannelGraphViewTest {
     }
 
     @Test
-    fun testGraphView() {
+    fun graphView() {
         // setup
         val expected: GraphView = mock()
         whenever(graphViewWrapper.graphView).thenReturn(expected)
@@ -106,7 +106,7 @@ class ChannelGraphViewTest {
     }
 
     @Test
-    fun testWiFiChannelPairNumX() {
+    fun wiFiChannelPairNumX() {
         // setup
         val expected = 15
         val wiFiChannelPair: WiFiChannelPair = withWiFiChannelPair()
@@ -117,7 +117,7 @@ class ChannelGraphViewTest {
     }
 
     @Test
-    fun testWiFiChannelPairSelected() {
+    fun wiFiChannelPairSelected() {
         // setup
         val fixture = withWiFiChannelPair()
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
@@ -131,7 +131,7 @@ class ChannelGraphViewTest {
     }
 
     @Test
-    fun testWiFiChannelPairSelectedWithCurrentWiFiBandGHZ5() {
+    fun wiFiChannelPairSelectedWithCurrentWiFiBandGHZ5() {
         // setup
         val fixture = withWiFiChannelPair()
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5)
@@ -145,7 +145,7 @@ class ChannelGraphViewTest {
     }
 
     @Test
-    fun testWiFiChannelPairSelectedWithGHZ5() {
+    fun wiFiChannelPairSelectedWithGHZ5() {
         // setup
         val fixture = withWiFiChannelPair()
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
@@ -159,7 +159,7 @@ class ChannelGraphViewTest {
     }
 
     @Test
-    fun testWiFiChannelPairSelectedWithCurrentGHZ5() {
+    fun wiFiChannelPairSelectedWithCurrentGHZ5() {
         // setup
         val fixture = withWiFiChannelPair()
         val wiFiChannelPair = withWiFiChannelPair(30)
@@ -174,7 +174,7 @@ class ChannelGraphViewTest {
     }
 
     @Test
-    fun testMakeGraphView() {
+    fun makeGraphView() {
         // setup
         RobolectricUtil.INSTANCE.activity
         val wiFiChannelPair = withWiFiChannelPair()
@@ -185,7 +185,7 @@ class ChannelGraphViewTest {
     }
 
     @Test
-    fun testMakeGraphViewWrapper() {
+    fun makeGraphViewWrapper() {
         // setup
         MainContextHelper.INSTANCE.restore()
         RobolectricUtil.INSTANCE.activity
@@ -197,7 +197,7 @@ class ChannelGraphViewTest {
     }
 
     @Test
-    fun testMakeDefaultSeries() {
+    fun makeDefaultSeries() {
         // setup
         val frequencyEnd = 10
         val minX = 20

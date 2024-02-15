@@ -44,7 +44,7 @@ class PermissionDialogTest {
     private val fixture = PermissionDialog(activity)
 
     @Test
-    fun testShow() {
+    fun show() {
         // execute
         val actual = fixture.show()
         //
@@ -54,7 +54,7 @@ class PermissionDialogTest {
 
     @Test
     @Config(sdk = [Build.VERSION_CODES.O_MR1])
-    fun testShowAndroidO() {
+    fun showAndroidO() {
         // execute
         val actual = fixture.show()
         //
@@ -63,7 +63,7 @@ class PermissionDialogTest {
     }
 
     @Test
-    fun testOkClick() {
+    fun okClick() {
         // setup
         val activity: Activity = mock()
         val dialog: DialogInterface = mock()
@@ -78,7 +78,7 @@ class PermissionDialogTest {
     }
 
     @Test
-    fun testCancelClick() {
+    fun cancelClick() {
         // setup
         val activity: Activity = mock()
         val dialog: DialogInterface = mock()

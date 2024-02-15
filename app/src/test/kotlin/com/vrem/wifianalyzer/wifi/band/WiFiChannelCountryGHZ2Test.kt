@@ -28,13 +28,13 @@ class WiFiChannelCountryGHZ2Test {
     private val fixture = WiFiChannelCountryGHZ2()
 
     @Test
-    fun testChannelsForUSAndSimilar() {
+    fun channelsForUSAndSimilar() {
         listOf("AS", "CA", "CO", "DO", "FM", "GT", "GU", "MP", "MX", "PA", "PR", "UM", "US", "UZ", "VI")
             .forEach { validateChannels(channelsSet1, fixture.findChannels(it)) }
     }
 
     @Test
-    fun testChannelsForWorld() {
+    fun channelsForWorld() {
         listOf("GB", "XYZ", "AU", "AE")
             .forEach { validateChannels(channelsSet2, fixture.findChannels(it)) }
     }

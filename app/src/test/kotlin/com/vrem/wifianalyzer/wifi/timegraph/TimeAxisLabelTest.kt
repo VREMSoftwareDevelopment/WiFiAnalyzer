@@ -27,7 +27,7 @@ class TimeAxisLabelTest {
     private val fixture = TimeAxisLabel()
 
     @Test
-    fun testYAxis() {
+    fun yAxis() {
         assertEquals(String.EMPTY, fixture.formatLabel(MIN_Y.toDouble(), false))
         assertEquals("-99", fixture.formatLabel(MIN_Y + 1.toDouble(), false))
         assertEquals("0", fixture.formatLabel(MAX_Y.toDouble(), false))
@@ -35,7 +35,7 @@ class TimeAxisLabelTest {
     }
 
     @Test
-    fun testXAxis() {
+    fun xAxis() {
         assertEquals(String.EMPTY, fixture.formatLabel(-2.0, true))
         assertEquals(String.EMPTY, fixture.formatLabel(-1.0, true))
         assertEquals(String.EMPTY, fixture.formatLabel(0.0, true))

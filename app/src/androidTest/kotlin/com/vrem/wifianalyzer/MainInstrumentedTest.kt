@@ -33,21 +33,21 @@ class MainInstrumentedTest {
     val activityTestRule: ActivityScenarioRule<MainActivity> = activityScenarioRule()
 
     @Test
-    fun testNavigation() {
+    fun navigation() {
         pauseShort()
         NavigationInstrumentedTest().run()
         pauseShort()
     }
 
     @Test
-    fun testScanner() {
+    fun scanner() {
         pauseShort()
         ScannerInstrumentedTest().run()
         pauseShort()
     }
 
     @Test
-    fun testFilter() {
+    fun filter() {
         pauseShort()
         FilterInstrumentedTest().run()
         pauseShort()

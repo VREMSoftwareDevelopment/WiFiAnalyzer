@@ -76,7 +76,7 @@ class CompatUtilsTest {
     }
 
     @Test
-    fun testCreateContext() {
+    fun createContext() {
         // setup
         whenever(context.resources).thenReturn(resources)
         whenever(resources.configuration).thenReturn(configuration)
@@ -95,7 +95,7 @@ class CompatUtilsTest {
     }
 
     @Test
-    fun testContextPackageInfo() {
+    fun contextPackageInfo() {
         // setup
         val packageName = "Package Name"
         whenever(context.packageManager).thenReturn(packageManager)
@@ -112,7 +112,7 @@ class CompatUtilsTest {
 
     @Test
     @Config(sdk = [Build.VERSION_CODES.S_V2])
-    fun testContextPackageInfoLegacy() {
+    fun contextPackageInfoLegacy() {
         // setup
         val packageName = "Package Name"
         whenever(context.packageManager).thenReturn(packageManager)
@@ -128,7 +128,7 @@ class CompatUtilsTest {
     }
 
     @Test
-    fun testScanResultSSID() {
+    fun scanResultSSID() {
         // setup
         val expected = "SSID"
         val ssid = "\"$expected\""
@@ -142,7 +142,7 @@ class CompatUtilsTest {
     }
 
     @Test
-    fun testScanResultSSIDWhenWifiSsidNull() {
+    fun scanResultSSIDWhenWifiSsidNull() {
         // setup
         whenever(scanResult.wifiSsid).thenReturn(null)
         // execute
@@ -153,7 +153,7 @@ class CompatUtilsTest {
     }
 
     @Test
-    fun testScanResultSSIDWhenNull() {
+    fun scanResultSSIDWhenNull() {
         // setup
         whenever(scanResult.wifiSsid).thenReturn(wifiSsid)
         whenever(wifiSsid.toString()).thenReturn(null)
@@ -167,7 +167,7 @@ class CompatUtilsTest {
     @Test
     @Config(sdk = [Build.VERSION_CODES.S_V2])
     @Suppress("DEPRECATION")
-    fun testScanResultSSIDLegacy() {
+    fun scanResultSSIDLegacy() {
         // setup
         val expected = "SSID"
         val ssid = "\"$expected\""
@@ -181,7 +181,7 @@ class CompatUtilsTest {
     @Test
     @Config(sdk = [Build.VERSION_CODES.S_V2])
     @Suppress("DEPRECATION")
-    fun testScanResultSSIDLegacyWhenNull() {
+    fun scanResultSSIDLegacyWhenNull() {
         // setup
         scanResult.SSID = null
         // execute

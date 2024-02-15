@@ -34,12 +34,12 @@ import org.robolectric.annotation.Config
 @Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
 class NavigationMenuTest {
     @Test
-    fun testNavigationMenu() {
+    fun navigationMenu() {
         assertEquals(9, NavigationMenu.entries.size)
     }
 
     @Test
-    fun testNavigationItem() {
+    fun navigationItem() {
         assertEquals(navigationItemAccessPoints, NavigationMenu.ACCESS_POINTS.navigationItem)
         assertEquals(navigationItemChannelRating, NavigationMenu.CHANNEL_RATING.navigationItem)
         assertEquals(navigationItemChannelGraph, NavigationMenu.CHANNEL_GRAPH.navigationItem)
@@ -52,7 +52,7 @@ class NavigationMenuTest {
     }
 
     @Test
-    fun testTitle() {
+    fun title() {
         assertEquals(R.string.action_access_points, NavigationMenu.ACCESS_POINTS.title)
         assertEquals(R.string.action_channel_rating, NavigationMenu.CHANNEL_RATING.title)
         assertEquals(R.string.action_channel_graph, NavigationMenu.CHANNEL_GRAPH.title)
@@ -65,14 +65,14 @@ class NavigationMenuTest {
     }
 
     @Test
-    fun testWiFiBandSwitchableTrue() {
+    fun wiFiBandSwitchableTrue() {
         assertTrue(NavigationMenu.CHANNEL_RATING.wiFiBandSwitchable())
         assertTrue(NavigationMenu.CHANNEL_GRAPH.wiFiBandSwitchable())
         assertTrue(NavigationMenu.TIME_GRAPH.wiFiBandSwitchable())
     }
 
     @Test
-    fun testWiFiBandSwitchableFalse() {
+    fun wiFiBandSwitchableFalse() {
         assertFalse(NavigationMenu.ACCESS_POINTS.wiFiBandSwitchable())
         assertFalse(NavigationMenu.CHANNEL_AVAILABLE.wiFiBandSwitchable())
         assertFalse(NavigationMenu.EXPORT.wiFiBandSwitchable())
@@ -82,7 +82,7 @@ class NavigationMenuTest {
     }
 
     @Test
-    fun testRegisteredTrue() {
+    fun registeredTrue() {
         assertTrue(NavigationMenu.ACCESS_POINTS.registered())
         assertTrue(NavigationMenu.CHANNEL_RATING.registered())
         assertTrue(NavigationMenu.CHANNEL_GRAPH.registered())
@@ -90,7 +90,7 @@ class NavigationMenuTest {
     }
 
     @Test
-    fun testRegisteredFalse() {
+    fun registeredFalse() {
         assertFalse(NavigationMenu.CHANNEL_AVAILABLE.registered())
         assertFalse(NavigationMenu.EXPORT.registered())
         assertFalse(NavigationMenu.VENDORS.registered())
@@ -99,7 +99,7 @@ class NavigationMenuTest {
     }
 
     @Test
-    fun testIcon() {
+    fun icon() {
         assertEquals(R.drawable.ic_network_wifi, NavigationMenu.ACCESS_POINTS.icon)
         assertEquals(R.drawable.ic_wifi_tethering, NavigationMenu.CHANNEL_RATING.icon)
         assertEquals(R.drawable.ic_insert_chart, NavigationMenu.CHANNEL_GRAPH.icon)
@@ -112,7 +112,7 @@ class NavigationMenuTest {
     }
 
     @Test
-    fun testNavigationOptions() {
+    fun navigationOptions() {
         assertEquals(navigationOptionAp, NavigationMenu.ACCESS_POINTS.navigationOptions)
         assertEquals(navigationOptionRating, NavigationMenu.CHANNEL_RATING.navigationOptions)
         assertEquals(navigationOptionOther, NavigationMenu.CHANNEL_GRAPH.navigationOptions)

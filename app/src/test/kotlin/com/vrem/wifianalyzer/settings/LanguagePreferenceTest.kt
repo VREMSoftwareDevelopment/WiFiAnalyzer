@@ -39,7 +39,7 @@ class LanguagePreferenceTest {
     private val fixture = LanguagePreference(mainActivity, Robolectric.buildAttributeSet().build())
 
     @Test
-    fun testEntries() {
+    fun entries() {
         // execute
         val actual: Array<CharSequence> = fixture.entries
         // validate
@@ -51,7 +51,7 @@ class LanguagePreferenceTest {
     }
 
     @Test
-    fun testEntryValues() {
+    fun entryValues() {
         // execute
         val actual: Array<CharSequence> = fixture.entryValues
         // validate

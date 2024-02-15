@@ -20,24 +20,11 @@ package com.vrem.wifianalyzer.wifi.accesspoint
 import android.widget.ExpandableListView
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.model.GroupBy
-import com.vrem.wifianalyzer.wifi.model.Security
-import com.vrem.wifianalyzer.wifi.model.SortBy
-import com.vrem.wifianalyzer.wifi.model.Strength
-import com.vrem.wifianalyzer.wifi.model.WiFiData
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+import com.vrem.wifianalyzer.wifi.model.*
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.kotlin.any
-import org.mockito.kotlin.eq
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 
 class AccessPointsAdapterDataTest {
     private val wiFiData: WiFiData = mock()
@@ -57,7 +44,7 @@ class AccessPointsAdapterDataTest {
     }
 
     @Test
-    fun testBeforeUpdate() {
+    fun beforeUpdate() {
         assertEquals(0, fixture.parentsCount())
         assertEquals(0, fixture.childrenCount(0))
         assertEquals(WiFiDetail.EMPTY, fixture.parent(0))
@@ -67,7 +54,7 @@ class AccessPointsAdapterDataTest {
     }
 
     @Test
-    fun testAfterUpdateWithGroupByChannel() {
+    fun afterUpdateWithGroupByChannel() {
         // setup
         val wiFiDetails = withWiFiDetails()
         withSettings()
@@ -89,7 +76,7 @@ class AccessPointsAdapterDataTest {
     }
 
     @Test
-    fun testOnGroupCollapsed() {
+    fun onGroupCollapsed() {
         // setup
         val index = 11
         val wiFiDetails: List<WiFiDetail> = fixture.wiFiDetails
@@ -100,7 +87,7 @@ class AccessPointsAdapterDataTest {
     }
 
     @Test
-    fun testOnGroupExpanded() {
+    fun onGroupExpanded() {
         // setup
         val index = 22
         val wiFiDetails: List<WiFiDetail> = fixture.wiFiDetails

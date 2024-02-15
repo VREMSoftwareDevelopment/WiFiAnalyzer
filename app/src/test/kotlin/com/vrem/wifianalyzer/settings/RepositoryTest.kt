@@ -28,15 +28,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.mockito.kotlin.atLeastOnce
-import org.mockito.kotlin.doNothing
-import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.doThrow
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.spy
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 
 class RepositoryTest {
     private val keyIndex = R.string.app_full_name
@@ -63,7 +55,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testInitializeDefaultValues() {
+    fun initializeDefaultValues() {
         // setup
         doNothing().whenever(fixture).defaultValues(context, R.xml.settings, false)
         // execute
@@ -73,7 +65,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testSaveString() {
+    fun saveString() {
         // setup
         val value = "1111"
         withSave(value)
@@ -85,7 +77,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testSaveInteger() {
+    fun saveInteger() {
         // setup
         val value = 1111
         withSave(value.toString())
@@ -97,7 +89,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testString() {
+    fun string() {
         // setup
         val value = "1111"
         val defaultValue = "2222"
@@ -113,7 +105,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testStringAsInteger() {
+    fun stringAsInteger() {
         // setup
         val value = 1111
         val defaultValue = 2222
@@ -129,7 +121,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testStringAsIntegerThrowsException() {
+    fun stringAsIntegerThrowsException() {
         // setup
         val defaultValue = 2222
         val defaultValueAsString = defaultValue.toString()
@@ -147,7 +139,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testInteger() {
+    fun integer() {
         // setup
         val value = 1111
         val defaultValue = 2222
@@ -163,7 +155,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testIntegerThrowsException() {
+    fun integerThrowsException() {
         // setup
         val defaultValue = 2222
         doReturn(keyValue).whenever(context).getString(keyIndex)
@@ -180,7 +172,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testResourceBoolean() {
+    fun resourceBoolean() {
         // setup
         val keyIndex = R.bool.wifi_off_on_exit_default
         doReturn(resources).whenever(context).resources
@@ -194,7 +186,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testBoolean() {
+    fun boolean() {
         // setup
         doReturn(keyValue).whenever(context).getString(keyIndex)
         doReturn(true).whenever(sharedPreferences).getBoolean(keyValue, false)
@@ -208,7 +200,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testBooleanThrowsException() {
+    fun booleanThrowsException() {
         // setup
         val defaultValue = true
         doReturn(keyValue).whenever(context).getString(keyIndex)
@@ -225,7 +217,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testRegisterOnSharedPreferenceChangeListener() {
+    fun registerOnSharedPreferenceChangeListener() {
         // setup
         doNothing().whenever(sharedPreferences)
             .registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
@@ -237,7 +229,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testStringSet() {
+    fun stringSet() {
         // setup
         val expected = setOf("123")
         val defaultValues = setOf("567")
@@ -253,7 +245,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testStringSetThrowsException() {
+    fun stringSetThrowsException() {
         // setup
         val expected = setOf("567")
         doThrow(RuntimeException()).whenever(sharedPreferences).getStringSet(keyValue, expected)
@@ -268,7 +260,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testSaveStringSet() {
+    fun saveStringSet() {
         // setup
         val keyIndex = R.string.app_full_name
         val values = setOf("123")
@@ -281,7 +273,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun testStringWhenGetStringReturnsNull() {
+    fun stringWhenGetStringReturnsNull() {
         // setup
         val keyValue = "123"
         val defaultValue = "default value"

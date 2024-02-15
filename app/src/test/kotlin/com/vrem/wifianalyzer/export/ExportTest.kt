@@ -21,23 +21,11 @@ import android.content.Context
 import android.content.Intent
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
-import com.vrem.wifianalyzer.wifi.model.FastRoaming
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal
-import com.vrem.wifianalyzer.wifi.model.WiFiSignalExtra
-import com.vrem.wifianalyzer.wifi.model.WiFiStandard
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+import com.vrem.wifianalyzer.wifi.model.*
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.times
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -61,7 +49,7 @@ class ExportTest {
     }
 
     @Test
-    fun testExport() {
+    fun export() {
         // setup
         val wiFiDetails = withWiFiDetails()
         val count = wiFiDetails.size
@@ -85,7 +73,7 @@ class ExportTest {
     }
 
     @Test
-    fun testTimestamp() {
+    fun timestamp() {
         // setup
         val expected = timestamp(date)
         // execute
@@ -95,7 +83,7 @@ class ExportTest {
     }
 
     @Test
-    fun testData() {
+    fun data() {
         // setup
         val wiFiDetails = withWiFiDetails()
         val count = wiFiDetails.size
@@ -112,7 +100,7 @@ class ExportTest {
     }
 
     @Test
-    fun testTitle() {
+    fun title() {
         // setup
         val timestamp = timestamp(date)
         val expected = "$name-$timestamp"

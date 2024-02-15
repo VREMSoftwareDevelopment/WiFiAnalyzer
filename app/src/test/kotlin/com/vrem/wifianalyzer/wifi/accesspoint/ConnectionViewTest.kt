@@ -59,7 +59,7 @@ class ConnectionViewTest {
     }
 
     @Test
-    fun testConnectionGoneWithNoConnectionInformation() {
+    fun connectionGoneWithNoConnectionInformation() {
         // setup
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
         whenever(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE)
@@ -73,7 +73,7 @@ class ConnectionViewTest {
     }
 
     @Test
-    fun testConnectionGoneWithConnectionInformationAndHideType() {
+    fun connectionGoneWithConnectionInformationAndHideType() {
         // setup
         val connection = withConnection(withWiFiAdditional())
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
@@ -89,7 +89,7 @@ class ConnectionViewTest {
     }
 
     @Test
-    fun testConnectionVisibleWithConnectionInformation() {
+    fun connectionVisibleWithConnectionInformation() {
         // setup
         val connection = withConnection(withWiFiAdditional())
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
@@ -105,7 +105,7 @@ class ConnectionViewTest {
     }
 
     @Test
-    fun testConnectionWithConnectionInformation() {
+    fun connectionWithConnectionInformation() {
         // setup
         val wiFiAdditional = withWiFiAdditional()
         val connection = withConnection(wiFiAdditional)
@@ -129,7 +129,7 @@ class ConnectionViewTest {
     }
 
     @Test
-    fun testConnectionWithInvalidLinkSpeed() {
+    fun connectionWithInvalidLinkSpeed() {
         // setup
         val wiFiIdentifier = WiFiIdentifier(ssid, bssid)
         val wiFiConnection = WiFiConnection(wiFiIdentifier, ipAddress, WiFiConnection.LINK_SPEED_INVALID)
@@ -148,7 +148,7 @@ class ConnectionViewTest {
     }
 
     @Test
-    fun testViewCompactAddsPopup() {
+    fun viewCompactAddsPopup() {
         // setup
         val connection = withConnection(withWiFiAdditional())
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
@@ -164,7 +164,7 @@ class ConnectionViewTest {
     }
 
     @Test
-    fun testWiFiSupportIsGoneWhenWiFiBandIsAvailable() {
+    fun wiFiSupportIsGoneWhenWiFiBandIsAvailable() {
         // setup
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
         whenever(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE)
@@ -178,7 +178,7 @@ class ConnectionViewTest {
     }
 
     @Test
-    fun testWiFiSupportIsVisibleWhenWiFiBandIsNotAvailable() {
+    fun wiFiSupportIsVisibleWhenWiFiBandIsNotAvailable() {
         // setup
         val expectedText = mainActivity.resources.getString(WiFiBand.GHZ6.textResource)
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ6)

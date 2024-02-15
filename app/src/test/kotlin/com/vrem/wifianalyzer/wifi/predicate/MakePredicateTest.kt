@@ -28,7 +28,7 @@ private enum class TestObject {
 class MakePredicateTest {
 
     @Test
-    fun testMakePredicateExpectsTruePredicate() {
+    fun makePredicateExpectsTruePredicate() {
         // setup
         val wiFiDetail = WiFiDetail.EMPTY
         val toPredicate: ToPredicate<TestObject> = { truePredicate }
@@ -40,7 +40,7 @@ class MakePredicateTest {
     }
 
     @Test
-    fun testMakePredicateExpectsAnyPredicate() {
+    fun makePredicateExpectsAnyPredicate() {
         // setup
         val wiFiDetail = WiFiDetail.EMPTY
         val toPredicate: ToPredicate<TestObject> = { truePredicate }

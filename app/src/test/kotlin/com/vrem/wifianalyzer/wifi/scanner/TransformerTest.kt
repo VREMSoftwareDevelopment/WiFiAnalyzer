@@ -59,7 +59,7 @@ class TransformerTest {
     }
 
     @Test
-    fun testTransformWifiInfo() {
+    fun transformWifiInfo() {
         // setup
         val expected = WiFiConnection(WiFiIdentifier(SSID_1, BSSID_1), IP_ADDRESS, LINK_SPEED)
         doReturn(wifiInfo).whenever(cache).wifiInfo
@@ -72,7 +72,7 @@ class TransformerTest {
     }
 
     @Test
-    fun testTransformWithNulls() {
+    fun transformWithNulls() {
         // setup
         doReturn(null).whenever(cache).wifiInfo
         // execute
@@ -83,7 +83,7 @@ class TransformerTest {
     }
 
     @Test
-    fun testTransformWifiInfoNotConnected() {
+    fun transformWifiInfoNotConnected() {
         // setup
         doReturn(wifiInfo).whenever(cache).wifiInfo
         doReturn(-1).whenever(wifiInfo).networkId
@@ -96,7 +96,7 @@ class TransformerTest {
     }
 
     @Test
-    fun testTransformScanResults() {
+    fun transformScanResults() {
         // setup
         val fastRoaming = FastRoaming.entries.toList()
         doReturn(cacheResults).whenever(cache).scanResults()
@@ -119,7 +119,7 @@ class TransformerTest {
     }
 
     @Test
-    fun testWiFiData() {
+    fun wiFiData() {
         // setup
         val expectedWiFiConnection = WiFiConnection(WiFiIdentifier(SSID_1, BSSID_1), IP_ADDRESS, LINK_SPEED)
         doReturn(wifiInfo).whenever(cache).wifiInfo

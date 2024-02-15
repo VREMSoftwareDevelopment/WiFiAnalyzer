@@ -26,7 +26,7 @@ class WiFiChannelsGHZ5Test {
     private val fixture: WiFiChannelsGHZ5 = WiFiChannelsGHZ5()
 
     @Test
-    fun testWiFiChannelByFrequency() {
+    fun wiFiChannelByFrequency() {
         validateFrequencyToChannel(5180, 5320, 36)
         validateFrequencyToChannel(5500, 5720, 100)
         validateFrequencyToChannel(5745, 5885, 149)
@@ -43,30 +43,30 @@ class WiFiChannelsGHZ5Test {
     }
 
     @Test
-    fun testWiFiChannelByFrequencyFail() {
+    fun wiFiChannelByFrequencyFail() {
         assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(5149))
         assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(5896))
     }
 
     @Test
-    fun testWiFiChannelFirst() {
+    fun wiFiChannelFirst() {
         assertEquals(36, fixture.wiFiChannelFirst().channel)
     }
 
     @Test
-    fun testWiFiChannelLast() {
+    fun wiFiChannelLast() {
         assertEquals(177, fixture.wiFiChannelLast().channel)
     }
 
     @Test
-    fun testWiFiChannelPair() {
+    fun wiFiChannelPair() {
         validatePair(36, 64, fixture.wiFiChannelPairFirst(Locale.JAPAN.country))
         validatePair(36, 64, fixture.wiFiChannelPairFirst(String.EMPTY))
         validatePair(36, 64, fixture.wiFiChannelPairFirst("XYZ"))
     }
 
     @Test
-    fun testWiFiChannelPairs() {
+    fun wiFiChannelPairs() {
         val wiFiChannelPairs: List<WiFiChannelPair> = fixture.wiFiChannelPairs()
         assertEquals(3, wiFiChannelPairs.size)
         validatePair(36, 64, wiFiChannelPairs[0])
@@ -80,7 +80,7 @@ class WiFiChannelsGHZ5Test {
     }
 
     @Test
-    fun testWiFiChannelByFrequency5GHZ() {
+    fun wiFiChannelByFrequency5GHZ() {
         // setup
         val wiFiChannelPair: WiFiChannelPair = fixture.wiFiChannelPairs()[1]
         // execute
@@ -90,7 +90,7 @@ class WiFiChannelsGHZ5Test {
     }
 
     @Test
-    fun testWiFiChannelByFrequency5GHZInRange() {
+    fun wiFiChannelByFrequency5GHZInRange() {
         // setup
         val wiFiChannelPair: WiFiChannelPair = fixture.wiFiChannelPairs()[1]
         // execute

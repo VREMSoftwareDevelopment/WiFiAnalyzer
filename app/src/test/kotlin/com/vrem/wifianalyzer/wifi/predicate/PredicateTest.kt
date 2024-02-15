@@ -19,17 +19,9 @@ package com.vrem.wifianalyzer.wifi.predicate
 
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.model.Security
-import com.vrem.wifianalyzer.wifi.model.Strength
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+import com.vrem.wifianalyzer.wifi.model.*
 import org.junit.After
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -48,7 +40,7 @@ class PredicateTest {
     }
 
     @Test
-    fun testMakeAccessPointsPredicate() {
+    fun makeAccessPointsPredicate() {
         // setup
         whenSettings()
         // execute
@@ -59,7 +51,7 @@ class PredicateTest {
     }
 
     @Test
-    fun testMakeAccessPointsPredicateIsTrue() {
+    fun makeAccessPointsPredicateIsTrue() {
         // setup
         whenSettings()
         val fixture: Predicate = makeAccessPointsPredicate(settings)
@@ -72,7 +64,7 @@ class PredicateTest {
     }
 
     @Test
-    fun testMakeAccessPointsPredicateWithSecurityToFalse() {
+    fun makeAccessPointsPredicateWithSecurityToFalse() {
         // setup
         whenSettings()
         val fixture: Predicate = makeAccessPointsPredicate(settings)
@@ -85,7 +77,7 @@ class PredicateTest {
     }
 
     @Test
-    fun testMakeAccessPointsPredicateWithSSIDToFalse() {
+    fun makeAccessPointsPredicateWithSSIDToFalse() {
         // setup
         whenSettings()
         val fixture: Predicate = makeAccessPointsPredicate(settings)
@@ -98,7 +90,7 @@ class PredicateTest {
     }
 
     @Test
-    fun testMakeAccessPointsPredicateIsAllPredicate() {
+    fun makeAccessPointsPredicateIsAllPredicate() {
         // setup
         val wiFiDetail = WiFiDetail.EMPTY
         whenSettingsWithFullSets()
@@ -110,7 +102,7 @@ class PredicateTest {
     }
 
     @Test
-    fun testMakeAccessPointsPredicateIsTrueWhenFullSet() {
+    fun makeAccessPointsPredicateIsTrueWhenFullSet() {
         // setup
         whenSettingsWithFullSets()
         val wiFiDetail = makeWiFiDetail(ssid, wpa2)
@@ -123,7 +115,7 @@ class PredicateTest {
     }
 
     @Test
-    fun testMakeOtherPredicate() {
+    fun makeOtherPredicate() {
         // setup
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5)
         whenever(settings.findSSIDs()).thenReturn(setOf(ssid, ssid))

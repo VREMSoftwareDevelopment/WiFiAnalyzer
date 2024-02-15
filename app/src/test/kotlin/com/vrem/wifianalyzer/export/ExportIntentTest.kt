@@ -21,12 +21,7 @@ import android.content.Intent
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.spy
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 
 class ExportIntentTest {
     private val intentSend: Intent = mock()
@@ -41,7 +36,7 @@ class ExportIntentTest {
     }
 
     @Test
-    fun testIntent() {
+    fun intent() {
         // setup
         val title = "title"
         val data = "data"

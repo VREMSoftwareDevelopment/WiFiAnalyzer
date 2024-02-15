@@ -55,7 +55,7 @@ class FilterTest {
     }
 
     @Test
-    fun testAlertDialog() {
+    fun alertDialog() {
         // execute
         val actual = fixture.alertDialog!!
         // validate
@@ -63,7 +63,7 @@ class FilterTest {
     }
 
     @Test
-    fun testShow() {
+    fun show() {
         // execute
         fixture.show()
         // validate
@@ -71,7 +71,7 @@ class FilterTest {
     }
 
     @Test
-    fun testTitle() {
+    fun title() {
         // setup
         val expected = mainActivity.resources.getString(R.string.filter_title)
         val shadowAlertDialog = Shadows.shadowOf(fixture.alertDialog!!)
@@ -82,7 +82,7 @@ class FilterTest {
     }
 
     @Test
-    fun testPositiveButton() {
+    fun positiveButton() {
         // setup
         fixture.show()
         val button = fixture.alertDialog!!.getButton(DialogInterface.BUTTON_POSITIVE)
@@ -98,7 +98,7 @@ class FilterTest {
     }
 
     @Test
-    fun testNegativeButton() {
+    fun negativeButton() {
         // setup
         fixture.show()
         val button = fixture.alertDialog!!.getButton(DialogInterface.BUTTON_NEGATIVE)
@@ -114,7 +114,7 @@ class FilterTest {
     }
 
     @Test
-    fun testNeutralButton() {
+    fun neutralButton() {
         // setup
         fixture.show()
         val button = fixture.alertDialog!!.getButton(DialogInterface.BUTTON_NEUTRAL)
@@ -130,7 +130,7 @@ class FilterTest {
     }
 
     @Test
-    fun testSSIDFilterViewIsVisible() {
+    fun sSIDFilterViewIsVisible() {
         // setup
         fixture.show()
         // execute
@@ -140,7 +140,7 @@ class FilterTest {
     }
 
     @Test
-    fun testWiFiBandFilterViewIsVisible() {
+    fun wiFiBandFilterViewIsVisible() {
         // setup
         fixture.show()
         // execute
@@ -150,7 +150,7 @@ class FilterTest {
     }
 
     @Test
-    fun testWiFiBandFilterMapping() {
+    fun wiFiBandFilterMapping() {
         // setup
         val expected: Set<WiFiBand> = WiFiBand.entries.toSet()
         fixture.show()
@@ -162,7 +162,7 @@ class FilterTest {
     }
 
     @Test
-    fun testSecurityFilterViewIsVisible() {
+    fun securityFilterViewIsVisible() {
         // setup
         fixture.show()
         // execute
@@ -172,7 +172,7 @@ class FilterTest {
     }
 
     @Test
-    fun testSecurityFilterMapping() {
+    fun securityFilterMapping() {
         // setup
         val expected: Set<Security> = Security.entries.toSet()
         fixture.show()
@@ -184,7 +184,7 @@ class FilterTest {
     }
 
     @Test
-    fun testStrengthFilterViewIsVisible() {
+    fun strengthFilterViewIsVisible() {
         // setup
         fixture.show()
         // execute
@@ -194,7 +194,7 @@ class FilterTest {
     }
 
     @Test
-    fun testStrengthFilterMapping() {
+    fun strengthFilterMapping() {
         // setup
         val expected: Set<Strength> = Strength.entries.toSet()
         fixture.show()

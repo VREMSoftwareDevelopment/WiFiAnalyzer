@@ -17,20 +17,18 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 
 class GroupByTest {
 
     @Test
-    fun testGroupByNumber() {
+    fun groupByNumber() {
         assertEquals(4, GroupBy.entries.size)
     }
 
     @Test
-    fun testGroupBySort() {
+    fun groupBySort() {
         assertTrue(GroupBy.CHANNEL.sort.javaClass.isInstance(sortByChannel()))
         assertTrue(GroupBy.NONE.sort.javaClass.isInstance(sortByDefault()))
         assertTrue(GroupBy.SSID.sort.javaClass.isInstance(sortBySSID()))
@@ -38,7 +36,7 @@ class GroupByTest {
     }
 
     @Test
-    fun testGroupByGroup() {
+    fun groupByGroup() {
         assertTrue(GroupBy.CHANNEL.group.javaClass.isInstance(groupByChannel))
         assertTrue(GroupBy.NONE.group.javaClass.isInstance(groupBySSID))
         assertTrue(GroupBy.SSID.group.javaClass.isInstance(groupBySSID))
@@ -46,7 +44,7 @@ class GroupByTest {
     }
 
     @Test
-    fun testNone() {
+    fun none() {
         assertFalse(GroupBy.CHANNEL.none)
         assertTrue(GroupBy.NONE.none)
         assertFalse(GroupBy.SSID.none)
@@ -54,7 +52,7 @@ class GroupByTest {
     }
 
     @Test
-    fun testGroupByKeyWithNone() {
+    fun groupByKeyWithNone() {
         // setup
         val expected = "SSID_TO_TEST"
         val wiFiDetail = WiFiDetail(WiFiIdentifier(expected))
@@ -65,7 +63,7 @@ class GroupByTest {
     }
 
     @Test
-    fun testGroupByKeyWithSSID() {
+    fun groupByKeyWithSSID() {
         // setup
         val expected = "SSID_TO_TEST"
         val wiFiDetail = WiFiDetail(WiFiIdentifier(expected))
@@ -76,7 +74,7 @@ class GroupByTest {
     }
 
     @Test
-    fun testGroupByKeyWithChannel() {
+    fun groupByKeyWithChannel() {
         // setup
         val wiFiDetail = withWiFiDetail()
         val expected = "2435"
@@ -87,7 +85,7 @@ class GroupByTest {
     }
 
     @Test
-    fun testGroupByKeyWithVirtual() {
+    fun groupByKeyWithVirtual() {
         // setup
         val wiFiDetail = withWiFiDetail()
         val expected = ":cf:30:ce:1d:7-2435"

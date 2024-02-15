@@ -64,7 +64,7 @@ class VendorAdapterTest {
     }
 
     @Test
-    fun testConstructor() {
+    fun constructor() {
         // validate
         assertEquals(vendors.size, fixture.count)
         assertEquals(vendors[0], fixture.getItem(0))
@@ -74,7 +74,7 @@ class VendorAdapterTest {
     }
 
     @Test
-    fun testGetView() {
+    fun getView() {
         // setup
         val expected = macs.joinToString(separator = ", ")
         val viewGroup = mainActivity.findViewById<ViewGroup>(android.R.id.content)
@@ -91,7 +91,7 @@ class VendorAdapterTest {
     }
 
     @Test
-    fun testUpdate() {
+    fun update() {
         // setup
         fixture = spy(VendorAdapter(mainActivity, vendorService))
         whenever(vendorService.findVendors(vendorName2)).thenReturn(vendors)
@@ -106,7 +106,7 @@ class VendorAdapterTest {
     }
 
     @Test
-    fun testGetViewWhenRootViewNotNull() {
+    fun getViewWhenRootViewNotNull() {
         // setup
         val rootView: View = mock()
         val vendorNameView: TextView = mock()

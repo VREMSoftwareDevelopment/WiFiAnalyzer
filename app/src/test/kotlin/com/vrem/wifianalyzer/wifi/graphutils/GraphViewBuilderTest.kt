@@ -27,12 +27,7 @@ import com.vrem.wifianalyzer.settings.ThemeStyle
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.kotlin.any
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.never
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 
 class GraphViewBuilderTest {
     private val numHorizontalLabels = 5
@@ -50,7 +45,7 @@ class GraphViewBuilderTest {
     }
 
     @Test
-    fun testGraphViewLayout() {
+    fun graphViewLayout() {
         // setup
         val fixture = GraphViewBuilder(numHorizontalLabels, MAX_Y_DEFAULT, ThemeStyle.DARK, true)
         val layoutParams = fixture.layoutParams
@@ -62,7 +57,7 @@ class GraphViewBuilderTest {
     }
 
     @Test
-    fun testViewPortInitialize() {
+    fun viewPortInitialize() {
         // setup
         val maximumY = 20
         // execute
@@ -76,7 +71,7 @@ class GraphViewBuilderTest {
     }
 
     @Test
-    fun testGridLabelRendererLabelFormat() {
+    fun gridLabelRendererLabelFormat() {
         // execute
         gridLabelRenderer.labelFormat(labelFormatter)
         // validate
@@ -84,7 +79,7 @@ class GraphViewBuilderTest {
     }
 
     @Test
-    fun testGridLabelRendererLabels() {
+    fun gridLabelRendererLabels() {
         // setup
         val textSize = 11.1f
         val expectedSize = textSize * TEXT_SIZE_ADJUSTMENT
@@ -106,7 +101,7 @@ class GraphViewBuilderTest {
     }
 
     @Test
-    fun testGridLabelRendererVerticalAxisTitle() {
+    fun gridLabelRendererVerticalAxisTitle() {
         // setup
         val verticalTitle = "verticalTitle"
         val textSize = 11.1f
@@ -121,7 +116,7 @@ class GraphViewBuilderTest {
     }
 
     @Test
-    fun testGridLabelRendererVerticalTitleEmpty() {
+    fun gridLabelRendererVerticalTitleEmpty() {
         // execute
         gridLabelRenderer.verticalTitle("")
         // validate
@@ -130,7 +125,7 @@ class GraphViewBuilderTest {
     }
 
     @Test
-    fun testGridLabelRendererHorizontalAxisTitle() {
+    fun gridLabelRendererHorizontalAxisTitle() {
         // setup
         val horizontalTitle = "horizontalTitle"
         val textSize = 11f
@@ -145,7 +140,7 @@ class GraphViewBuilderTest {
     }
 
     @Test
-    fun testGridLabelRendererHorizontalAxisTitleEmpty() {
+    fun gridLabelRendererHorizontalAxisTitleEmpty() {
         // execute
         gridLabelRenderer.horizontalTitle("")
         // validate
@@ -154,7 +149,7 @@ class GraphViewBuilderTest {
     }
 
     @Test
-    fun testGetNumVerticalLabels() {
+    fun getNumVerticalLabels() {
         // setup
         val expected = 9
         val fixture = GraphViewBuilder(numHorizontalLabels, MAX_Y_DEFAULT, ThemeStyle.DARK, true)
@@ -165,7 +160,7 @@ class GraphViewBuilderTest {
     }
 
     @Test
-    fun testGetMaximumYLimits() {
+    fun getMaximumYLimits() {
         validateMaximumY(1, MAX_Y_DEFAULT)
         validateMaximumY(0, 0)
         validateMaximumY(-50, -50)
@@ -178,7 +173,7 @@ class GraphViewBuilderTest {
     }
 
     @Test
-    fun testGridLabelRenderColorsDarkTheme() {
+    fun gridLabelRenderColorsDarkTheme() {
         // execute
         gridLabelRenderer.colors(ThemeStyle.DARK)
         // validate
@@ -190,7 +185,7 @@ class GraphViewBuilderTest {
     }
 
     @Test
-    fun testGridLabelRenderColorsLightTheme() {
+    fun gridLabelRenderColorsLightTheme() {
         // execute
         gridLabelRenderer.colors(ThemeStyle.LIGHT)
         // validate

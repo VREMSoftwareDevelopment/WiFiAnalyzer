@@ -66,7 +66,7 @@ class AccessPointsAdapterTest {
     }
 
     @Test
-    fun testGetGroupViewWithNoChildren() {
+    fun getGroupViewWithNoChildren() {
         // setup
         val wiFiDetail = WiFiDetail.EMPTY
         whenever(accessPointsAdapterData.parent(1)).thenReturn(wiFiDetail)
@@ -83,7 +83,7 @@ class AccessPointsAdapterTest {
     }
 
     @Test
-    fun testGetGroupViewCompactAddsPopup() {
+    fun getGroupViewCompactAddsPopup() {
         // setup
         val wiFiDetail = WiFiDetail.EMPTY
         whenever(accessPointsAdapterData.parent(1)).thenReturn(wiFiDetail)
@@ -102,7 +102,7 @@ class AccessPointsAdapterTest {
     }
 
     @Test
-    fun testGetGroupViewWithChildren() {
+    fun getGroupViewWithChildren() {
         // setup
         val wiFiDetail = WiFiDetail.EMPTY
         whenever(accessPointsAdapterData.parent(1)).thenReturn(wiFiDetail)
@@ -119,7 +119,7 @@ class AccessPointsAdapterTest {
     }
 
     @Test
-    fun testGetChildView() {
+    fun getChildView() {
         // setup
         val wiFiDetail = WiFiDetail.EMPTY
         whenever(accessPointsAdapterData.child(0, 0)).thenReturn(wiFiDetail)
@@ -134,7 +134,7 @@ class AccessPointsAdapterTest {
     }
 
     @Test
-    fun testGetChildViewCompactAddsPopup() {
+    fun getChildViewCompactAddsPopup() {
         // setup
         val wiFiDetail = WiFiDetail.EMPTY
         whenever(accessPointsAdapterData.child(0, 0)).thenReturn(wiFiDetail)
@@ -151,7 +151,7 @@ class AccessPointsAdapterTest {
     }
 
     @Test
-    fun testUpdate() {
+    fun update() {
         // setup
         val wiFiData = WiFiData(listOf(), WiFiConnection.EMPTY)
         // execute
@@ -161,7 +161,7 @@ class AccessPointsAdapterTest {
     }
 
     @Test
-    fun testGetGroupCount() {
+    fun getGroupCount() {
         // setup
         val expected = 5
         whenever(accessPointsAdapterData.parentsCount()).thenReturn(expected)
@@ -173,7 +173,7 @@ class AccessPointsAdapterTest {
     }
 
     @Test
-    fun testGetChildrenCount() {
+    fun getChildrenCount() {
         // setup
         val expected = 25
         whenever(accessPointsAdapterData.childrenCount(1)).thenReturn(expected)
@@ -185,7 +185,7 @@ class AccessPointsAdapterTest {
     }
 
     @Test
-    fun testGetGroup() {
+    fun getGroup() {
         // setup
         val expected = WiFiDetail.EMPTY
         whenever(accessPointsAdapterData.parent(3)).thenReturn(expected)
@@ -197,7 +197,7 @@ class AccessPointsAdapterTest {
     }
 
     @Test
-    fun testGetChild() {
+    fun getChild() {
         // setup
         val expected = WiFiDetail.EMPTY
         whenever(accessPointsAdapterData.child(1, 2)).thenReturn(expected)
@@ -209,27 +209,27 @@ class AccessPointsAdapterTest {
     }
 
     @Test
-    fun testGetGroupId() {
+    fun getGroupId() {
         assertEquals(22, fixture.getGroupId(22))
     }
 
     @Test
-    fun testGetChildId() {
+    fun getChildId() {
         assertEquals(11, fixture.getChildId(1, 11))
     }
 
     @Test
-    fun testHasStableIds() {
+    fun hasStableIds() {
         assertTrue(fixture.hasStableIds())
     }
 
     @Test
-    fun testIsChildSelectable() {
+    fun isChildSelectable() {
         assertTrue(fixture.isChildSelectable(0, 0))
     }
 
     @Test
-    fun testOnGroupCollapsed() {
+    fun onGroupCollapsed() {
         // setup
         val index = 11
         // execute
@@ -239,7 +239,7 @@ class AccessPointsAdapterTest {
     }
 
     @Test
-    fun testOnGroupExpanded() {
+    fun onGroupExpanded() {
         // setup
         val index = 22
         // execute

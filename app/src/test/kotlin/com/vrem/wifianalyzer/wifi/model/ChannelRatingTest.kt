@@ -57,7 +57,7 @@ class ChannelRatingTest {
     private val fixture = ChannelRating()
 
     @Test
-    fun testChannelRating() {
+    fun channelRating() {
         // setup
         val wiFiChannel: WiFiChannel = wiFiDetail1.wiFiSignal.centerWiFiChannel
         // execute & validate
@@ -66,7 +66,7 @@ class ChannelRatingTest {
     }
 
     @Test
-    fun testCount() {
+    fun count() {
         // setup
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4))
         // execute and validate
@@ -80,7 +80,7 @@ class ChannelRatingTest {
     }
 
     @Test
-    fun testStrengthShouldReturnMaximum() {
+    fun strengthShouldReturnMaximum() {
         // setup
         val other: WiFiDetail = makeCopy(wiFiDetail3)
         fixture.wiFiDetails(listOf(other, wiFiDetail3))
@@ -92,7 +92,7 @@ class ChannelRatingTest {
     }
 
     @Test
-    fun testStrengthWithConnected() {
+    fun strengthWithConnected() {
         // setup
         val other: WiFiDetail = makeCopy(wiFiDetail1)
         fixture.wiFiDetails(listOf(other, wiFiDetail1))
@@ -114,7 +114,7 @@ class ChannelRatingTest {
     }
 
     @Test
-    fun testBestChannelsSortedInOrderWithMinimumChannels() {
+    fun bestChannelsSortedInOrderWithMinimumChannels() {
         // setup
         val channels: List<WiFiChannel> = WiFiBand.GHZ2.wiFiChannels.wiFiChannels()
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4))
@@ -137,7 +137,7 @@ class ChannelRatingTest {
     }
 
     @Test
-    fun testSetWiFiChannelsRemovesDuplicateAccessPoints() {
+    fun setWiFiChannelsRemovesDuplicateAccessPoints() {
         // setup
         val wiFiDetail = WiFiDetail(
             WiFiIdentifier("SSID2", "22:cf:30:ce:1d:72"),

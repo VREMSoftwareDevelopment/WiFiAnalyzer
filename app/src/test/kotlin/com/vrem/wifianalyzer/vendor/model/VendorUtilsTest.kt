@@ -28,7 +28,7 @@ class VendorUtilsTest {
     private val macAddressFull = "00:23:AB:8C:DF:10"
 
     @Test
-    fun testClean() {
+    fun clean() {
         assertTrue("".clean().isEmpty())
         assertEquals(macAddressClean, macAddressFull.clean())
         assertEquals("34AF", "34aF".clean())
@@ -38,7 +38,7 @@ class VendorUtilsTest {
     }
 
     @Test
-    fun testToMacAddress() {
+    fun toMacAddress() {
         assertTrue("".toMacAddress().isEmpty())
         assertEquals(macAddressShort, macAddressClean.toMacAddress())
         assertEquals("*34AF*", "34AF".toMacAddress())

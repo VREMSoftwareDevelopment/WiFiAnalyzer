@@ -18,15 +18,9 @@
 package com.vrem.wifianalyzer.wifi.graphutils
 
 import com.jjoe64.graphview.series.BaseSeries
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+import com.vrem.wifianalyzer.wifi.model.*
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verifyNoMoreInteractions
@@ -46,7 +40,7 @@ class SeriesCacheTest {
     }
 
     @Test
-    fun testContains() {
+    fun contains() {
         // setup
         val wiFiDetails = withData()
         // execute
@@ -56,7 +50,7 @@ class SeriesCacheTest {
     }
 
     @Test
-    fun testGet() {
+    fun get() {
         // setup
         val wiFiDetails = withData()
         // execute & validate
@@ -67,7 +61,7 @@ class SeriesCacheTest {
     }
 
     @Test
-    fun testAddExistingSeries() {
+    fun addExistingSeries() {
         // setup
         val wiFiDetails = withData()
         // execute
@@ -114,7 +108,7 @@ class SeriesCacheTest {
     }
 
     @Test
-    fun testRemoveExpectedAllLeft() {
+    fun removeExpectedAllLeft() {
         // setup
         val expected = withData()
         // execute
@@ -125,7 +119,7 @@ class SeriesCacheTest {
     }
 
     @Test
-    fun testRemoveExpectNoneLeft() {
+    fun removeExpectNoneLeft() {
         // setup
         val expected = withData()
         // execute
@@ -136,7 +130,7 @@ class SeriesCacheTest {
     }
 
     @Test
-    fun testRemoveExpectOneLeft() {
+    fun removeExpectOneLeft() {
         // setup
         val expected = withData()
         // execute
@@ -151,7 +145,7 @@ class SeriesCacheTest {
     }
 
     @Test
-    fun testRemoveNonExistingOne() {
+    fun removeNonExistingOne() {
         // setup
         val expected = withData()
         val toRemove = listOf(makeWiFiDetail("SSID-999"))
@@ -163,7 +157,7 @@ class SeriesCacheTest {
     }
 
     @Test
-    fun testRemoveExpectMoreThanOneLeft() {
+    fun removeExpectMoreThanOneLeft() {
         // setup
         val expected = withData()
         // execute
@@ -178,7 +172,7 @@ class SeriesCacheTest {
     }
 
     @Test
-    fun testFind() {
+    fun find() {
         // setup
         val wiFiDetails = withData()
         // execute

@@ -33,12 +33,12 @@ import org.robolectric.annotation.Config
 class WiFiStandardTest {
 
     @Test
-    fun testWidth() {
+    fun width() {
         assertEquals(7, WiFiStandard.entries.size)
     }
 
     @Test
-    fun testNameResource() {
+    fun nameResource() {
         assertEquals(R.string.wifi_standard_unknown, WiFiStandard.UNKNOWN.textResource)
         assertEquals(R.string.wifi_standard_legacy, WiFiStandard.LEGACY.textResource)
         assertEquals(R.string.wifi_standard_n, WiFiStandard.N.textResource)
@@ -49,7 +49,7 @@ class WiFiStandardTest {
     }
 
     @Test
-    fun testImageResource() {
+    fun imageResource() {
         assertEquals(R.drawable.ic_wifi_unknown, WiFiStandard.UNKNOWN.imageResource)
         assertEquals(R.drawable.ic_wifi_legacy, WiFiStandard.LEGACY.imageResource)
         assertEquals(R.drawable.ic_wifi_4, WiFiStandard.N.imageResource)
@@ -60,7 +60,7 @@ class WiFiStandardTest {
     }
 
     @Test
-    fun testWiFIStandard() {
+    fun wiFIStandard() {
         assertEquals(ScanResult.WIFI_STANDARD_UNKNOWN, WiFiStandard.UNKNOWN.wiFiStandardId)
         assertEquals(ScanResult.WIFI_STANDARD_LEGACY, WiFiStandard.LEGACY.wiFiStandardId)
         assertEquals(ScanResult.WIFI_STANDARD_11N, WiFiStandard.N.wiFiStandardId)
@@ -72,7 +72,7 @@ class WiFiStandardTest {
 
     @Config(sdk = [Build.VERSION_CODES.Q])
     @Test
-    fun testFindOneLegacy() {
+    fun findOneLegacy() {
         // setup
         val scanResult: ScanResult = mock()
         // execute
@@ -83,7 +83,7 @@ class WiFiStandardTest {
     }
 
     @Test
-    fun testFindOne() {
+    fun findOne() {
         withTestDatas().forEach {
             println(it)
             validate(it.expected, it.input)

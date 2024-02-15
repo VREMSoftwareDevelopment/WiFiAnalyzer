@@ -24,7 +24,7 @@ import java.util.Locale
 class StringUtilsTest {
 
     @Test
-    fun testSpecialTrim() {
+    fun specialTrim() {
         // setup
         val expected = "ABS ADF"
         val value = "    ABS    ADF    "
@@ -35,7 +35,7 @@ class StringUtilsTest {
     }
 
     @Test
-    fun testToCapitalize() {
+    fun toCapitalize() {
         // setup
         val expected = "Value"
         val value = "value"
@@ -46,7 +46,7 @@ class StringUtilsTest {
     }
 
     @Test
-    fun testNullToEmptyWhenNull() {
+    fun nullToEmptyWhenNull() {
         // setup
         val expected = String.EMPTY
         val value = null
@@ -57,7 +57,7 @@ class StringUtilsTest {
     }
 
     @Test
-    fun testNullToEmpty() {
+    fun nullToEmpty() {
         // setup
         val expected = "value"
         val value = "value"

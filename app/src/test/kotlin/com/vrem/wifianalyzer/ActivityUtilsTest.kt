@@ -26,11 +26,7 @@ import androidx.appcompat.widget.Toolbar
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.mockito.kotlin.any
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 
 class ActivityUtilsTest {
     private val window: Window = mock()
@@ -52,7 +48,7 @@ class ActivityUtilsTest {
     }
 
     @Test
-    fun testSetupToolbar() {
+    fun setupToolbar() {
         // setup
         whenever<Any>(mainActivity.findViewById(R.id.toolbar)).thenReturn(toolbar)
         whenever(mainActivity.supportActionBar).thenReturn(actionBar)
@@ -68,7 +64,7 @@ class ActivityUtilsTest {
     }
 
     @Test
-    fun testKeepScreenOnSwitchOn() {
+    fun keepScreenOnSwitchOn() {
         // setup
         whenever(settings.keepScreenOn()).thenReturn(true)
         whenever(mainActivity.window).thenReturn(window)
@@ -81,7 +77,7 @@ class ActivityUtilsTest {
     }
 
     @Test
-    fun testKeepScreenOnSwitchOff() {
+    fun keepScreenOnSwitchOff() {
         // setup
         whenever(settings.keepScreenOn()).thenReturn(false)
         whenever(mainActivity.window).thenReturn(window)
@@ -94,7 +90,7 @@ class ActivityUtilsTest {
     }
 
     @Test
-    fun testStartWiFiSettings() {
+    fun startWiFiSettings() {
         // execute
         mainActivity.startWiFiSettings()
         // validate
@@ -102,7 +98,7 @@ class ActivityUtilsTest {
     }
 
     @Test
-    fun testStartLocationSettings() {
+    fun startLocationSettings() {
         // execute
         mainActivity.startLocationSettings()
         // validate

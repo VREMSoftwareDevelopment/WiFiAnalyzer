@@ -41,7 +41,7 @@ class DataManagerTest {
     private val fixture = DataManager(timeGraphCache)
 
     @Test
-    fun testAddSeriesDataIncreaseXValue() {
+    fun addSeriesDataIncreaseXValue() {
         // setup
         assertEquals(0, fixture.xValue)
         // execute
@@ -51,7 +51,7 @@ class DataManagerTest {
     }
 
     @Test
-    fun testAddSeriesDataIncreaseCounts() {
+    fun addSeriesDataIncreaseCounts() {
         // setup
         assertEquals(0, fixture.scanCount)
         // execute
@@ -61,7 +61,7 @@ class DataManagerTest {
     }
 
     @Test
-    fun testAddSeriesDoesNotIncreasesScanCountWhenLimitIsReached() {
+    fun addSeriesDoesNotIncreasesScanCountWhenLimitIsReached() {
         // setup
         fixture.scanCount = MAX_SCAN_COUNT
         // execute
@@ -71,7 +71,7 @@ class DataManagerTest {
     }
 
     @Test
-    fun testAddSeriesSetHorizontalLabelsVisible() {
+    fun addSeriesSetHorizontalLabelsVisible() {
         // setup
         fixture.scanCount = 1
         // execute
@@ -82,7 +82,7 @@ class DataManagerTest {
     }
 
     @Test
-    fun testAddSeriesDoesNotSetHorizontalLabelsVisible() {
+    fun addSeriesDoesNotSetHorizontalLabelsVisible() {
         // execute
         fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y)
         // validate
@@ -90,7 +90,7 @@ class DataManagerTest {
     }
 
     @Test
-    fun testAdjustDataAppendsData() {
+    fun adjustDataAppendsData() {
         // setup
         val wiFiDetails: Set<WiFiDetail> = setOf()
         val difference = makeWiFiDetails()
@@ -114,7 +114,7 @@ class DataManagerTest {
     }
 
     @Test
-    fun testNewSeries() {
+    fun newSeries() {
         // setup
         val wiFiDetails: Set<WiFiDetail> = makeWiFiDetails().toSet()
         val moreWiFiDetails: Set<WiFiDetail> = makeMoreWiFiDetails().toSet()
@@ -128,7 +128,7 @@ class DataManagerTest {
     }
 
     @Test
-    fun testAddDataToExistingSeries() {
+    fun addDataToExistingSeries() {
         // setup
         val scanCount = fixture.scanCount
         val xValue = fixture.xValue
@@ -149,7 +149,7 @@ class DataManagerTest {
     }
 
     @Test
-    fun testAddDataToExistingSeriesExpectLevelToEqualToLevelMax() {
+    fun addDataToExistingSeriesExpectLevelToEqualToLevelMax() {
         // setup
         val expectedLevel = level - 10
         val scanCount = fixture.scanCount
@@ -169,7 +169,7 @@ class DataManagerTest {
     }
 
     @Test
-    fun testAddDataNewSeries() {
+    fun addDataNewSeries() {
         // setup
         val wiFiDetail = makeWiFiDetailConnected("SSID")
         whenever(graphViewWrapper.newSeries(wiFiDetail)).thenReturn(true)

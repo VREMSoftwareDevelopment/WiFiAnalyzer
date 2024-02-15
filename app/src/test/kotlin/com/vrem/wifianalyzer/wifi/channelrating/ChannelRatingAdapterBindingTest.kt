@@ -30,7 +30,7 @@ import org.mockito.kotlin.whenever
 class ChannelRatingAdapterBindingTest {
 
     @Test
-    fun testChannelRatingAdapterBinding() {
+    fun channelRatingAdapterBinding() {
         // setup
         val view: View = mock()
         val channelNumber: TextView = mock()

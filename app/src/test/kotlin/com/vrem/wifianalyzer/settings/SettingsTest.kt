@@ -67,7 +67,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testInitializeDefaultValues() {
+    fun initializeDefaultValues() {
         // setup
         doNothing().whenever(repository).initializeDefaultValues()
         // execute
@@ -77,7 +77,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testRegisterOnSharedPreferenceChangeListener() {
+    fun registerOnSharedPreferenceChangeListener() {
         // setup
         doNothing().whenever(repository).registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
         // execute
@@ -87,7 +87,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testScanSpeed() {
+    fun scanSpeed() {
         // setup
         val defaultValue = scanSpeedDefault - 2
         val speedValue = scanSpeedDefault - 1
@@ -102,7 +102,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testGraphMaximumY() {
+    fun graphMaximumY() {
         // setup
         val defaultValue = 1
         val value = 2
@@ -118,7 +118,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testGroupBy() {
+    fun groupBy() {
         // setup
         doReturn(GroupBy.CHANNEL.ordinal)
             .whenever(repository).stringAsInteger(R.string.group_by_key, GroupBy.NONE.ordinal)
@@ -130,7 +130,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testSortBy() {
+    fun sortBy() {
         // setup
         doReturn(SortBy.SSID.ordinal)
             .whenever(repository).stringAsInteger(R.string.sort_by_key, SortBy.STRENGTH.ordinal)
@@ -142,7 +142,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testAccessPointView() {
+    fun accessPointView() {
         // setup
         doReturn(AccessPointViewType.COMPACT.ordinal)
             .whenever(repository).stringAsInteger(R.string.ap_view_key, AccessPointViewType.COMPLETE.ordinal)
@@ -154,7 +154,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testConnectionViewType() {
+    fun connectionViewType() {
         // setup
         doReturn(ConnectionViewType.COMPLETE.ordinal)
             .whenever(repository).stringAsInteger(R.string.connection_view_key, ConnectionViewType.COMPACT.ordinal)
@@ -166,7 +166,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testThemeStyle() {
+    fun themeStyle() {
         // setup
         doReturn(ThemeStyle.LIGHT.ordinal)
             .whenever(repository).stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
@@ -178,7 +178,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testChannelGraphLegend() {
+    fun channelGraphLegend() {
         // setup
         doReturn(GraphLegend.RIGHT.ordinal)
             .whenever(repository).stringAsInteger(R.string.channel_graph_legend_key, GraphLegend.HIDE.ordinal)
@@ -190,7 +190,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testTimeGraphLegend() {
+    fun timeGraphLegend() {
         // setup
         doReturn(GraphLegend.RIGHT.ordinal)
             .whenever(repository).stringAsInteger(R.string.time_graph_legend_key, GraphLegend.LEFT.ordinal)
@@ -202,7 +202,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testGetWiFiBand() {
+    fun getWiFiBand() {
         // setup
         doReturn(WiFiBand.GHZ5.ordinal)
             .whenever(repository).stringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal)
@@ -214,7 +214,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testSetWiFiBand() {
+    fun setWiFiBand() {
         // setup
         doNothing().whenever(repository).save(R.string.wifi_band_key, WiFiBand.GHZ5.ordinal)
         // execute
@@ -224,7 +224,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testFindSSIDs() {
+    fun findSSIDs() {
         // setup
         val expected: Set<String> = setOf("value1", "value2", "value3")
         doReturn(expected).whenever(repository).stringSet(R.string.filter_ssid_key, setOf())
@@ -236,7 +236,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testSaveSSIDs() {
+    fun saveSSIDs() {
         // setup
         val values: Set<String> = setOf("value1", "value2", "value3")
         doNothing().whenever(repository).saveStringSet(R.string.filter_ssid_key, values)
@@ -247,7 +247,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testFindWiFiBands() {
+    fun findWiFiBands() {
         // setup
         val expected = WiFiBand.GHZ5
         val values = setOf("" + expected.ordinal)
@@ -262,7 +262,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testSaveWiFiBands() {
+    fun saveWiFiBands() {
         // setup
         val values = setOf(WiFiBand.GHZ5)
         val expected = setOf("" + WiFiBand.GHZ5.ordinal)
@@ -274,7 +274,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testFindStrengths() {
+    fun findStrengths() {
         // setup
         val expected = Strength.THREE
         val values = setOf("" + expected.ordinal)
@@ -289,7 +289,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testSaveStrengths() {
+    fun saveStrengths() {
         // setup
         val values = setOf(Strength.TWO)
         val expected = setOf("" + Strength.TWO.ordinal)
@@ -301,7 +301,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testFindSecurities() {
+    fun findSecurities() {
         // setup
         val expected = Security.WPA
         val values = setOf("" + expected.ordinal)
@@ -316,7 +316,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testSaveSecurities() {
+    fun saveSecurities() {
         // setup
         val values = setOf(Security.WEP)
         val expected = setOf("" + Security.WEP.ordinal)
@@ -328,7 +328,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testCountryCode() {
+    fun countryCode() {
         // setup
         val defaultValue = defaultCountryCode()
         val expected = "WW"
@@ -341,7 +341,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testLanguageLocale() {
+    fun languageLocale() {
         // setup
         val defaultValue = defaultLanguageTag()
         val expected = Locale.FRENCH
@@ -354,7 +354,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testSelectedMenu() {
+    fun selectedMenu() {
         // setup
         doReturn(NavigationMenu.CHANNEL_GRAPH.ordinal)
             .whenever(repository).stringAsInteger(R.string.selected_menu_key, NavigationMenu.ACCESS_POINTS.ordinal)
@@ -366,7 +366,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testSaveSelectedMenu() {
+    fun saveSelectedMenu() {
         // setup
         doNothing().whenever(repository).save(R.string.selected_menu_key, NavigationMenu.CHANNEL_GRAPH.ordinal)
         // execute
@@ -376,13 +376,13 @@ class SettingsTest {
     }
 
     @Test
-    fun testSaveSelectedMenuWithNotAllowedMenu() {
+    fun saveSelectedMenuWithNotAllowedMenu() {
         // execute
         fixture.saveSelectedMenu(NavigationMenu.ABOUT)
     }
 
     @Test
-    fun testWiFiOffOnExit() {
+    fun wiFiOffOnExit() {
         // setup
         doReturn(true).whenever(repository).resourceBoolean(R.bool.wifi_off_on_exit_default)
         doReturn(true).whenever(repository).boolean(R.string.wifi_off_on_exit_key, true)
@@ -395,7 +395,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testKeepScreenOn() {
+    fun keepScreenOn() {
         // setup
         doReturn(true).whenever(repository).resourceBoolean(R.bool.keep_screen_on_default)
         doReturn(true).whenever(repository).boolean(R.string.keep_screen_on_key, true)
@@ -408,7 +408,7 @@ class SettingsTest {
     }
 
     @Test
-    fun testCacheOff() {
+    fun cacheOff() {
         // setup
         doReturn(true).whenever(repository).resourceBoolean(R.bool.cache_off_default)
         doReturn(true).whenever(repository).boolean(R.string.cache_off_key, true)

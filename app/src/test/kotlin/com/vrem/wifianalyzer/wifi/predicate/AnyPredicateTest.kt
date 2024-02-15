@@ -25,7 +25,7 @@ import org.junit.Test
 class AmyPredicateTest {
 
     @Test
-    fun testAnyPredicateIsTrue() {
+    fun anyPredicateIsTrue() {
         // setup
         val wiFiDetail = WiFiDetail.EMPTY
         val fixture = listOf(falsePredicate, truePredicate, falsePredicate).anyPredicate()
@@ -36,7 +36,7 @@ class AmyPredicateTest {
     }
 
     @Test
-    fun testAnyPredicateIsFalse() {
+    fun anyPredicateIsFalse() {
         // setup
         val wiFiDetail = WiFiDetail.EMPTY
         val fixture = listOf(falsePredicate, falsePredicate, falsePredicate).anyPredicate()

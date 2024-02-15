@@ -21,19 +21,9 @@ import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import org.junit.After
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertSame
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
-import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.never
-import org.mockito.kotlin.spy
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 
 class WiFiManagerWrapperTest {
     private val wifiManager: WifiManager = mock()
@@ -48,7 +38,7 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    fun testWiFiEnabled() {
+    fun wiFiEnabled() {
         // setup
         whenever(wifiManager.isWifiEnabled).thenReturn(true)
         // execute
@@ -59,7 +49,7 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    fun testWiFiEnabledWithException() {
+    fun wiFiEnabledWithException() {
         // setup
         whenever(wifiManager.isWifiEnabled).thenThrow(RuntimeException())
         // execute
@@ -70,7 +60,7 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    fun testEnableWiFi() {
+    fun enableWiFi() {
         // setup
         whenever(wifiManager.isWifiEnabled).thenReturn(true)
         // execute
@@ -81,7 +71,7 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    fun testEnableWiFiWhenDisabled() {
+    fun enableWiFiWhenDisabled() {
         // setup
         whenever(wifiManager.isWifiEnabled).thenReturn(false)
         whenever(wiFiSwitch.on()).thenReturn(true)
@@ -94,7 +84,7 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    fun testEnableWiFiWithException() {
+    fun enableWiFiWithException() {
         // setup
         whenever(wifiManager.isWifiEnabled).thenReturn(false)
         whenever(wiFiSwitch.on()).thenThrow(RuntimeException())
@@ -107,7 +97,7 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    fun testDisableWiFi() {
+    fun disableWiFi() {
         // setup
         whenever(wifiManager.isWifiEnabled).thenReturn(true)
         whenever(wiFiSwitch.off()).thenReturn(true)
@@ -120,7 +110,7 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    fun testDisableWiFiWhenDisabled() {
+    fun disableWiFiWhenDisabled() {
         // setup
         whenever(wifiManager.isWifiEnabled).thenReturn(false)
         // execute
@@ -132,7 +122,7 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    fun testDisableWiFiWithException() {
+    fun disableWiFiWithException() {
         // setup
         whenever(wifiManager.isWifiEnabled).thenReturn(true)
         whenever(wiFiSwitch.off()).thenThrow(RuntimeException())
@@ -146,7 +136,7 @@ class WiFiManagerWrapperTest {
 
     @Suppress("DEPRECATION")
     @Test
-    fun testStartScan() {
+    fun startScan() {
         // setup
         whenever(wifiManager.startScan()).thenReturn(true)
         // execute
@@ -158,7 +148,7 @@ class WiFiManagerWrapperTest {
 
     @Suppress("DEPRECATION")
     @Test
-    fun testStartScanWithException() {
+    fun startScanWithException() {
         // setup
         whenever(wifiManager.startScan()).thenThrow(RuntimeException())
         // execute
@@ -169,7 +159,7 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    fun testScanResults() {
+    fun scanResults() {
         // setup
         val expected = listOf<ScanResult>()
         whenever(wifiManager.scanResults).thenReturn(expected)
@@ -181,7 +171,7 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    fun testScanResultsWhenWiFiManagerReturnsNullScanResults() {
+    fun scanResultsWhenWiFiManagerReturnsNullScanResults() {
         // setup
         whenever(wifiManager.scanResults).thenReturn(null)
         // execute
@@ -193,7 +183,7 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    fun testScanResultsWithException() {
+    fun scanResultsWithException() {
         // setup
         whenever(wifiManager.scanResults).thenThrow(RuntimeException())
         // execute
@@ -206,7 +196,7 @@ class WiFiManagerWrapperTest {
 
     @Suppress("DEPRECATION")
     @Test
-    fun testWiFiInfo() {
+    fun wiFiInfo() {
         // setup
         whenever(wifiManager.connectionInfo).thenReturn(wifiInfo)
         // execute
@@ -218,7 +208,7 @@ class WiFiManagerWrapperTest {
 
     @Suppress("DEPRECATION")
     @Test
-    fun testWiFiInfoWithException() {
+    fun wiFiInfoWithException() {
         // setup
         whenever(wifiManager.connectionInfo).thenThrow(RuntimeException())
         // execute
@@ -229,7 +219,7 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    fun testIs5GHzBandSupported() {
+    fun is5GHzBandSupported() {
         // setup
         whenever(wifiManager.is5GHzBandSupported).thenReturn(true)
         // execute
@@ -240,7 +230,7 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    fun testIs6GHzBandSupported() {
+    fun is6GHzBandSupported() {
         // setup
         doReturn(false).whenever(fixture).minVersionR()
         // execute
@@ -252,7 +242,7 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    fun testIs6GHzBandSupportedWithAndroidR() {
+    fun is6GHzBandSupportedWithAndroidR() {
         // setup
         doReturn(true).whenever(fixture).minVersionR()
         whenever(wifiManager.is6GHzBandSupported).thenReturn(true)
@@ -265,7 +255,7 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    fun testIsScanThrottleEnabledSupported() {
+    fun isScanThrottleEnabledSupported() {
         // setup
         doReturn(false).whenever(fixture).minVersionR()
         // execute
@@ -277,7 +267,7 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
-    fun testIsScanThrottleEnabledSupportedWithAndroidR() {
+    fun isScanThrottleEnabledSupportedWithAndroidR() {
         // setup
         doReturn(true).whenever(fixture).minVersionR()
         whenever(wifiManager.isScanThrottleEnabled).thenReturn(true)

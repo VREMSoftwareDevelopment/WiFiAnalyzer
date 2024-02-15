@@ -23,19 +23,19 @@ import org.junit.Test
 
 class ThemeStyleTest {
     @Test
-    fun testThemeStyle() {
+    fun themeStyle() {
         assertEquals(3, ThemeStyle.entries.size)
     }
 
     @Test
-    fun testTheme() {
+    fun theme() {
         assertEquals(R.style.ThemeLight, ThemeStyle.LIGHT.theme)
         assertEquals(R.style.ThemeDark, ThemeStyle.DARK.theme)
         assertEquals(R.style.ThemeSystem, ThemeStyle.SYSTEM.theme)
     }
 
     @Test
-    fun testThemeNoActionBar() {
+    fun themeNoActionBar() {
         assertEquals(R.style.ThemeDarkNoActionBar, ThemeStyle.DARK.themeNoActionBar)
         assertEquals(R.style.ThemeLightNoActionBar, ThemeStyle.LIGHT.themeNoActionBar)
         assertEquals(R.style.ThemeSystemNoActionBar, ThemeStyle.SYSTEM.themeNoActionBar)

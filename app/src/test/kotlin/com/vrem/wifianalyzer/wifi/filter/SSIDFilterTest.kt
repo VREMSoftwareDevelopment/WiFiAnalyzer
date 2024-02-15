@@ -58,7 +58,7 @@ class SSIDFilterTest {
     }
 
     @Test
-    fun testSSIDFilterWithValues() {
+    fun sSIDFilterWithValues() {
         // setup
         val values: Set<String> = setOf("", " ", "ABC", " JDS ")
         whenever(ssidAdapter.selections).thenReturn(values)
@@ -77,7 +77,7 @@ class SSIDFilterTest {
     }
 
     @Test
-    fun testOnChangeAfterTextChangedWithValues() {
+    fun onChangeAfterTextChangedWithValues() {
         // setup
         val value = " ABS ADF "
         val onChange = OnChange(ssidAdapter)

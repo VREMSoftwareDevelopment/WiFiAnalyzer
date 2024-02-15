@@ -33,7 +33,7 @@ import java.nio.ByteBuffer
 class FastRoamingTest {
     @Config(sdk = [Build.VERSION_CODES.Q])
     @Test
-    fun testFindLegacy() {
+    fun findLegacy() {
         // setup
         val scanResult: ScanResult = mock()
         // execute
@@ -44,7 +44,7 @@ class FastRoamingTest {
     }
 
     @Test
-    fun testFind() {
+    fun find() {
         withTestDatas().forEach {
             println(it)
             validate(it.expected, it.elements)

@@ -18,18 +18,14 @@
 package com.vrem.wifianalyzer.wifi.predicate
 
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+import com.vrem.wifianalyzer.wifi.model.*
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class WiFiBandPredicateTest {
     @Test
-    fun testWiFiBandPredicateWith2GHzFrequency() {
+    fun wiFiBandPredicateWith2GHzFrequency() {
         // setup
         val wiFiDetail = makeWiFiDetail(2455)
         // execute & validate
@@ -38,7 +34,7 @@ class WiFiBandPredicateTest {
     }
 
     @Test
-    fun testWiFiBandPredicateWith5GHzFrequency() {
+    fun wiFiBandPredicateWith5GHzFrequency() {
         // setup
         val wiFiDetail = makeWiFiDetail(5455)
         // execute & validate

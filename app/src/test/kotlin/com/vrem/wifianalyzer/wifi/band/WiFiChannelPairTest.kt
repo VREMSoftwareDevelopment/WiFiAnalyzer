@@ -24,7 +24,7 @@ import org.junit.Test
 class WiFiChannelPairTest {
 
     @Test
-    fun testChannelCount() {
+    fun channelCount() {
         // setup
         val expected = 20 - 10 + 5
         val first = WiFiChannel(10, 10)

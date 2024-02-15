@@ -48,7 +48,7 @@ class ChannelRatingFragmentTest {
     }
 
     @Test
-    fun testOnCreateView() {
+    fun onCreateView() {
         // execute
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
@@ -57,7 +57,7 @@ class ChannelRatingFragmentTest {
     }
 
     @Test
-    fun testRefreshEnabled() {
+    fun refreshEnabled() {
         // setup
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // execute
@@ -68,7 +68,7 @@ class ChannelRatingFragmentTest {
 
 
     @Test
-    fun testOnResume() {
+    fun onResume() {
         // setup
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // execute
@@ -79,7 +79,7 @@ class ChannelRatingFragmentTest {
     }
 
     @Test
-    fun testOnPause() {
+    fun onPause() {
         // setup
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // execute
@@ -90,7 +90,7 @@ class ChannelRatingFragmentTest {
 
     @Config(sdk = [Build.VERSION_CODES.P])
     @Test
-    fun testRefreshDisabled() {
+    fun refreshDisabled() {
         // setup
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // execute

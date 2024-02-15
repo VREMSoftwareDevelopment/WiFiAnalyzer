@@ -54,7 +54,7 @@ class FragmentItemTest {
     }
 
     @Test
-    fun testActivateWithStateSaved() {
+    fun activateWithStateSaved() {
         // setup
         val fixture = FragmentItem(fragment, true, View.VISIBLE)
         val navigationMenu = NavigationMenu.ACCESS_POINTS
@@ -70,7 +70,7 @@ class FragmentItemTest {
     }
 
     @Test
-    fun testActivateWithStateNotSaved() {
+    fun activateWithStateNotSaved() {
         // setup
         val fixture = FragmentItem(fragment, true, View.VISIBLE)
         val navigationMenu = NavigationMenu.ACCESS_POINTS
@@ -89,7 +89,7 @@ class FragmentItemTest {
     }
 
     @Test
-    fun testRegisteredFalse() {
+    fun registeredFalse() {
         // setup
         val fixture = FragmentItem(fragment, false, View.VISIBLE)
         // execute & validate
@@ -97,7 +97,7 @@ class FragmentItemTest {
     }
 
     @Test
-    fun testRegisteredTrue() {
+    fun registeredTrue() {
         // setup
         val fixture = FragmentItem(fragment, true, View.VISIBLE)
         // execute & validate
@@ -105,7 +105,7 @@ class FragmentItemTest {
     }
 
     @Test
-    fun testVisibility() {
+    fun visibility() {
         // setup
         val fixture = FragmentItem(fragment, false, View.INVISIBLE)
         // execute & validate

@@ -59,7 +59,7 @@ class AboutFragment2Test {
     }
 
     @Test
-    fun testDeviceInformation() {
+    fun deviceInformation() {
         assertEquals(View.VISIBLE, fixture.requireView().findViewById<TextView>(R.id.about_wifi_throttling_on).visibility)
         assertEquals(View.GONE, fixture.requireView().findViewById<TextView>(R.id.about_wifi_throttling_off).visibility)
 

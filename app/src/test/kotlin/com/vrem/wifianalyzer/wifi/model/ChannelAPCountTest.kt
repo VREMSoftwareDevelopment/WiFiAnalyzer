@@ -19,7 +19,6 @@ package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotSame
 import org.junit.Test
 
 class ChannelAPCountTest {
@@ -30,31 +29,39 @@ class ChannelAPCountTest {
     private val fixture: ChannelAPCount = ChannelAPCount(wiFiChannel, count)
 
     @Test
-    fun testEquals() {
-        // setup
-        val wiFiChannel = WiFiChannel(channel, frequency)
-        val other = ChannelAPCount(wiFiChannel, count)
-        // execute & validate
-        assertEquals(fixture, other)
-        assertNotSame(fixture, other)
-    }
-
-    @Test
-    fun testHashCode() {
-        // setup
-        val wiFiChannel = WiFiChannel(channel, frequency)
-        val other = ChannelAPCount(wiFiChannel, count)
-        // execute & validate
-        assertEquals(fixture.hashCode(), other.hashCode())
-    }
-
-    @Test
-    fun testCompareTo() {
+    fun compareToUsingSameCountAndChannel() {
         // setup
         val wiFiChannel = WiFiChannel(channel, frequency)
         val other = ChannelAPCount(wiFiChannel, count)
         // execute & validate
         assertEquals(0, fixture.compareTo(other))
+    }
+
+    @Test
+    fun compareToUsingDifferentCount() {
+        // setup
+        val wiFiChannel = WiFiChannel(channel, frequency)
+        val other = ChannelAPCount(wiFiChannel, count + 1)
+        // execute & validate
+        assertEquals(-1, fixture.compareTo(other))
+    }
+
+    @Test
+    fun compareToUsingDifferentChannel() {
+        // setup
+        val wiFiChannel = WiFiChannel(channel + 1, frequency)
+        val other = ChannelAPCount(wiFiChannel, count)
+        // execute & validate
+        assertEquals(-1, fixture.compareTo(other))
+    }
+
+    @Test
+    fun compareToUsingDifferentFrequency() {
+        // setup
+        val wiFiChannel = WiFiChannel(channel, frequency + 1)
+        val other = ChannelAPCount(wiFiChannel, count)
+        // execute & validate
+        assertEquals(-1, fixture.compareTo(other))
     }
 
 }

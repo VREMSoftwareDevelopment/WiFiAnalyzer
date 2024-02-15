@@ -17,15 +17,13 @@
  */
 package com.vrem.util
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 import java.util.Locale
 
 class LocaleUtilsTest {
     @Test
-    fun testAllCountries() {
+    fun allSupportedCountries() {
         // execute
         val actual = allCountries()
         // validate
@@ -34,7 +32,7 @@ class LocaleUtilsTest {
     }
 
     @Test
-    fun testFindByCountryCode() {
+    fun findByCountryCodeWithKnownCode() {
         // setup
         val expected = allCountries()[0]
         // execute
@@ -48,7 +46,7 @@ class LocaleUtilsTest {
     }
 
     @Test
-    fun testFindByCountryCodeWithUnknownCode() {
+    fun findByCountryCodeWithUnknownCode() {
         // execute
         val actual = findByCountryCode("WW")
         // validate
@@ -56,13 +54,13 @@ class LocaleUtilsTest {
     }
 
     @Test
-    fun testToLanguageTag() {
+    fun toLanguageTagWithKnownCode() {
         assertEquals(Locale.US.language + "_" + Locale.US.country, toLanguageTag(Locale.US))
         assertEquals(Locale.ENGLISH.language + "_", toLanguageTag(Locale.ENGLISH))
     }
 
     @Test
-    fun testFindByLanguageTagWithUnknownTag() {
+    fun findByLanguageTagWithUnknownTag() {
         val defaultLocal = Locale.getDefault()
         assertEquals(defaultLocal, findByLanguageTag(String.EMPTY))
         assertEquals(defaultLocal, findByLanguageTag("WW"))
@@ -70,14 +68,14 @@ class LocaleUtilsTest {
     }
 
     @Test
-    fun testFindByLanguageTag() {
+    fun findByLanguageTagWithKnownTag() {
         assertEquals(Locale.SIMPLIFIED_CHINESE, findByLanguageTag(toLanguageTag(Locale.SIMPLIFIED_CHINESE)))
         assertEquals(Locale.TRADITIONAL_CHINESE, findByLanguageTag(toLanguageTag(Locale.TRADITIONAL_CHINESE)))
         assertEquals(Locale.ENGLISH, findByLanguageTag(toLanguageTag(Locale.ENGLISH)))
     }
 
     @Test
-    fun testSupportedLanguages() {
+    fun allSupportedLanguages() {
         // setup
         val expected: Set<Locale> = setOf(
             BULGARIAN,
@@ -107,12 +105,12 @@ class LocaleUtilsTest {
     }
 
     @Test
-    fun testDefaultCountryCode() {
+    fun currentDefaultCountryCode() {
         assertEquals(Locale.getDefault().country, defaultCountryCode())
     }
 
     @Test
-    fun testDefaultLanguageTag() {
+    fun currentDefaultLanguageTag() {
         assertEquals(toLanguageTag(Locale.getDefault()), defaultLanguageTag())
     }
 }

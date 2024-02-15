@@ -53,7 +53,7 @@ class GraphColorsTest {
     }
 
     @Test
-    fun testGetColorStartsOverWhenEndIsReached() {
+    fun getColorStartsOverWhenEndIsReached() {
         // setup
         val graphColors = withGraphColors()
         // validate & execute
@@ -64,7 +64,7 @@ class GraphColorsTest {
     }
 
     @Test
-    fun testAddColorAddsColorToAvailablePool() {
+    fun addColorAddsColorToAvailablePool() {
         // setup
         val graphColors = withGraphColors()
         val expected = graphColors[2]
@@ -75,7 +75,7 @@ class GraphColorsTest {
     }
 
     @Test
-    fun testAddColorDoesNotAddNonExistingColor() {
+    fun addColorDoesNotAddNonExistingColor() {
         // setup
         val graphColors = withGraphColors()
         val expected = graphColors[1]

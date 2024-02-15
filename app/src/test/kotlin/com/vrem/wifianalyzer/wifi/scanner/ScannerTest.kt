@@ -26,12 +26,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.never
-import org.mockito.kotlin.times
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 
 class ScannerTest {
     private val settings: Settings = mock()
@@ -70,7 +65,7 @@ class ScannerTest {
     }
 
     @Test
-    fun testStop() {
+    fun stop() {
         // setup
         whenever(settings.wiFiOffOnExit()).thenReturn(false)
         // execute
@@ -84,7 +79,7 @@ class ScannerTest {
     }
 
     @Test
-    fun testStopWithDisableWiFiOnExit() {
+    fun stopWithDisableWiFiOnExit() {
         // setup
         whenever(settings.wiFiOffOnExit()).thenReturn(true)
         // execute
@@ -98,7 +93,7 @@ class ScannerTest {
     }
 
     @Test
-    fun testPause() {
+    fun pause() {
         // execute
         fixture.pause()
         // validate
@@ -107,7 +102,7 @@ class ScannerTest {
     }
 
     @Test
-    fun testResume() {
+    fun resume() {
         // execute
         fixture.resume()
         // validate
@@ -115,7 +110,7 @@ class ScannerTest {
     }
 
     @Test
-    fun testRunning() {
+    fun running() {
         // setup
         whenever(periodicScan.running).thenReturn(true)
         // execute
@@ -126,7 +121,7 @@ class ScannerTest {
     }
 
     @Test
-    fun testRegister() {
+    fun register() {
         // setup
         assertEquals(3, fixture.registered())
         // execute
@@ -136,7 +131,7 @@ class ScannerTest {
     }
 
     @Test
-    fun testUnregister() {
+    fun unregister() {
         // setup
         assertEquals(3, fixture.registered())
         // execute
@@ -146,7 +141,7 @@ class ScannerTest {
     }
 
     @Test
-    fun testUpdate() {
+    fun update() {
         // setup
         whenever(transformer.transformToWiFiData()).thenReturn(wiFiData)
         whenever(permissionService.enabled()).thenReturn(true)
@@ -164,7 +159,7 @@ class ScannerTest {
     }
 
     @Test
-    fun testUpdateShouldScanResultsOnce() {
+    fun updateShouldScanResultsOnce() {
         // setup
         val expected = 3
         whenever(transformer.transformToWiFiData()).thenReturn(wiFiData)
@@ -184,7 +179,7 @@ class ScannerTest {
     }
 
     @Test
-    fun testUpdateWithRequirementPermissionDisabled() {
+    fun updateWithRequirementPermissionDisabled() {
         // setup
         whenever(transformer.transformToWiFiData()).thenReturn(wiFiData)
         whenever(permissionService.enabled()).thenReturn(false)
@@ -201,7 +196,7 @@ class ScannerTest {
     }
 
     @Test
-    fun testToggleWhenRunning() {
+    fun toggleWhenRunning() {
         // setup
         fixture.periodicScan = periodicScan
         whenever(periodicScan.running).thenReturn(true)
@@ -213,7 +208,7 @@ class ScannerTest {
     }
 
     @Test
-    fun testToggleWhenNotRunning() {
+    fun toggleWhenNotRunning() {
         // setup
         fixture.periodicScan = periodicScan
         whenever(periodicScan.running).thenReturn(false)

@@ -58,7 +58,7 @@ class TimeGraphViewTest {
     }
 
     @Test
-    fun testUpdate() {
+    fun update() {
         // setup
         val settings = MainContextHelper.INSTANCE.settings
         val wiFiDetails: List<WiFiDetail> = listOf()
@@ -88,7 +88,7 @@ class TimeGraphViewTest {
     }
 
     @Test
-    fun testGraphView() {
+    fun graphView() {
         // setup
         val expected: GraphView = mock()
         whenever(graphViewWrapper.graphView).thenReturn(expected)
@@ -101,7 +101,7 @@ class TimeGraphViewTest {
     }
 
     @Test
-    fun testMakeGraphView() {
+    fun makeGraphViewShouldNotBeNull() {
         // setup
         RobolectricUtil.INSTANCE.activity
         // execute
@@ -111,7 +111,7 @@ class TimeGraphViewTest {
     }
 
     @Test
-    fun testMakeGraphViewWrapper() {
+    fun makeGraphViewWrapperShouldNotBeNull() {
         // setup
         RobolectricUtil.INSTANCE.activity
         // execute

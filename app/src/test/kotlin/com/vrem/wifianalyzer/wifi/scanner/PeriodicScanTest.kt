@@ -31,7 +31,7 @@ class PeriodicScanTest {
     private val fixture: PeriodicScan = PeriodicScan(scanner, handler, settings)
 
     @Test
-    fun testRun() {
+    fun run() {
         // setup
         val delayInterval = 1000L
         val scanSpeed = 15
@@ -45,7 +45,7 @@ class PeriodicScanTest {
     }
 
     @Test
-    fun testStop() {
+    fun stop() {
         // execute
         fixture.stop()
         // validate
@@ -53,7 +53,7 @@ class PeriodicScanTest {
     }
 
     @Test
-    fun testStart() {
+    fun start() {
         // setup
         val delayInitial = 1L
         // execute
@@ -64,7 +64,7 @@ class PeriodicScanTest {
     }
 
     @Test
-    fun testStartWithDelay() {
+    fun startWithDelay() {
         // setup
         val scanSpeed = 15
         whenever(settings.scanSpeed()).thenReturn(scanSpeed)

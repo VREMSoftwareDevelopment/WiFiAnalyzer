@@ -18,21 +18,15 @@
 package com.vrem.wifianalyzer.wifi.timegraph
 
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_NOT_SEEN_COUNT
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import com.vrem.wifianalyzer.wifi.model.*
+import org.junit.Assert.*
 import org.junit.Test
 
 class TimeGraphCacheTest {
     private val fixture = TimeGraphCache()
 
     @Test
-    fun testAll() {
+    fun all() {
         // setup
         val expected = withWiFiDetails()
         // execute
@@ -42,7 +36,7 @@ class TimeGraphCacheTest {
     }
 
     @Test
-    fun testActive() {
+    fun active() {
         // setup
         val expected = withWiFiDetails()
         // execute
@@ -53,7 +47,7 @@ class TimeGraphCacheTest {
     }
 
     @Test
-    fun testClear() {
+    fun clear() {
         // setup
         val expected = withWiFiDetails()
         // execute
@@ -65,7 +59,7 @@ class TimeGraphCacheTest {
     }
 
     @Test
-    fun testReset() {
+    fun reset() {
         // setup
         val expected = withWiFiDetails()
         // execute

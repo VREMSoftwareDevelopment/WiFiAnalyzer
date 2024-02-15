@@ -20,19 +20,17 @@ package com.vrem.wifianalyzer.wifi.model
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.Strength.Companion.calculate
 import com.vrem.wifianalyzer.wifi.model.Strength.Companion.reverse
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 
 class StrengthTest {
     @Test
-    fun testStrength() {
+    fun strength() {
         assertEquals(5, Strength.entries.size)
     }
 
     @Test
-    fun testImageResource() {
+    fun imageResource() {
         assertEquals(R.drawable.ic_signal_wifi_0_bar, Strength.ZERO.imageResource)
         assertEquals(R.drawable.ic_signal_wifi_1_bar, Strength.ONE.imageResource)
         assertEquals(R.drawable.ic_signal_wifi_2_bar, Strength.TWO.imageResource)
@@ -41,7 +39,7 @@ class StrengthTest {
     }
 
     @Test
-    fun testColorResource() {
+    fun colorResource() {
         assertEquals(R.color.error, Strength.ZERO.colorResource)
         assertEquals(R.color.warning, Strength.ONE.colorResource)
         assertEquals(R.color.warning, Strength.TWO.colorResource)
@@ -50,7 +48,7 @@ class StrengthTest {
     }
 
     @Test
-    fun testWeak() {
+    fun weak() {
         assertTrue(Strength.ZERO.weak())
         assertFalse(Strength.ONE.weak())
         assertFalse(Strength.TWO.weak())
@@ -59,7 +57,7 @@ class StrengthTest {
     }
 
     @Test
-    fun testCalculate() {
+    fun calculate() {
         assertEquals(Strength.ZERO, calculate(-89))
         assertEquals(Strength.ONE, calculate(-88))
         assertEquals(Strength.ONE, calculate(-78))
@@ -72,7 +70,7 @@ class StrengthTest {
     }
 
     @Test
-    fun testReverse() {
+    fun reverse() {
         assertEquals(Strength.FOUR, reverse(Strength.ZERO))
         assertEquals(Strength.THREE, reverse(Strength.ONE))
         assertEquals(Strength.TWO, reverse(Strength.TWO))

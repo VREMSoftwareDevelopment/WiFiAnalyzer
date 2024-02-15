@@ -40,7 +40,7 @@ class FileUtilsTest {
     }
 
     @Test
-    fun testReadFile() {
+    fun readFile() {
         // setup
         val id = 11
         val expected = "Line-1\nLine-2\n"
@@ -54,7 +54,7 @@ class FileUtilsTest {
     }
 
     @Test
-    fun testReadFileHandleException() {
+    fun readFileHandleException() {
         // setup
         val id = 11
         whenever(resources.openRawResource(id)).thenThrow(NotFoundException::class.java)

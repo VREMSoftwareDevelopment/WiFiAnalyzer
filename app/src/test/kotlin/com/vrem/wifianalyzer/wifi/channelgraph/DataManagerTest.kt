@@ -40,7 +40,7 @@ class DataManagerTest {
     private val fixture = DataManager()
 
     @Test
-    fun testNewSeries() {
+    fun newSeries() {
         // setup
         val wiFiChannelPair = WiFiBand.GHZ2.wiFiChannels.wiFiChannelPairs()[0]
         val expected = makeWiFiDetails(wiFiChannelPair.first.frequency)
@@ -54,7 +54,7 @@ class DataManagerTest {
     }
 
     @Test
-    fun testGraphDataPoints() {
+    fun graphDataPoints() {
         // setup
         val expected = makeWiFiDetail()
         // execute
@@ -69,7 +69,7 @@ class DataManagerTest {
     }
 
     @Test
-    fun testGraphDataPointsExpectLevelToEqualToLevelMax() {
+    fun graphDataPointsExpectLevelToEqualToLevelMax() {
         // setup
         val expectedLevel = level - 10
         val expected = makeWiFiDetail()
@@ -85,7 +85,7 @@ class DataManagerTest {
     }
 
     @Test
-    fun testAddSeriesDataWithExistingWiFiDetails() {
+    fun addSeriesDataWithExistingWiFiDetails() {
         // setup
         val graphViewWrapper: GraphViewWrapper = mock()
         val wiFiDetail = makeWiFiDetail()
@@ -100,7 +100,7 @@ class DataManagerTest {
     }
 
     @Test
-    fun testAddSeriesDataNewWiFiDetails() {
+    fun addSeriesDataNewWiFiDetails() {
         // setup
         val graphViewWrapper: GraphViewWrapper = mock()
         val wiFiDetail = makeWiFiDetail()
@@ -114,7 +114,7 @@ class DataManagerTest {
     }
 
     @Test
-    fun testInRangeWithValidFrequency() {
+    fun inRangeWithValidFrequency() {
         // setup
         val wiFiChannelPair = WiFiBand.GHZ2.wiFiChannels.wiFiChannelPairs()[0]
         // execute & validate
@@ -124,7 +124,7 @@ class DataManagerTest {
     }
 
     @Test
-    fun testInRangeWithInvalidValidFrequency() {
+    fun inRangeWithInvalidValidFrequency() {
         // setup
         val wiFiChannelPair = WiFiBand.GHZ2.wiFiChannels.wiFiChannelPairs()[0]
         // execute & validate

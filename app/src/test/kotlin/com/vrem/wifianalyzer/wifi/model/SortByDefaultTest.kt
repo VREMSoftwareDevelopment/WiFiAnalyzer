@@ -24,7 +24,7 @@ class SortByDefaultTest {
     private val fixture = sortByDefault()
 
     @Test
-    fun testSortByDefault() {
+    fun sortByDefaultUsingSame() {
         // setup
         val wiFiDetail1 = WiFiDetail(
             WiFiIdentifier("SSID1", "BSSID1"),
@@ -39,13 +39,13 @@ class SortByDefaultTest {
             WiFiAdditional.EMPTY
         )
         // execute
-        val actual: Int = fixture.compare(wiFiDetail1, wiFiDetail2)
+        val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
         assertEquals(0, actual)
     }
 
     @Test
-    fun testSortByDefaultWithDifferentSSID() {
+    fun sortByDefaultWithDifferentSSID() {
         // setup
         val wiFiDetail1 = WiFiDetail(
             WiFiIdentifier("ssid1", "BSSID1"),
@@ -60,13 +60,13 @@ class SortByDefaultTest {
             WiFiAdditional.EMPTY
         )
         // execute
-        val actual: Int = fixture.compare(wiFiDetail1, wiFiDetail2)
+        val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
         assertEquals(32, actual)
     }
 
     @Test
-    fun testSortByDefaultWithDifferentBSSID() {
+    fun sortByDefaultWithDifferentBSSID() {
         // setup
         val wiFiDetail1 = WiFiDetail(
             WiFiIdentifier("SSID1", "bssid1"),
@@ -81,7 +81,7 @@ class SortByDefaultTest {
             WiFiAdditional.EMPTY
         )
         // execute
-        val actual: Int = fixture.compare(wiFiDetail1, wiFiDetail2)
+        val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
         assertEquals(32, actual)
     }

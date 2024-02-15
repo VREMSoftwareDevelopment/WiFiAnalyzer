@@ -52,7 +52,7 @@ class OptionActionTest {
     }
 
     @Test
-    fun testScannerAction() {
+    fun scannerActionShouldToggleScannerService() {
         // execute
         scannerAction()
         // validate
@@ -60,7 +60,7 @@ class OptionActionTest {
     }
 
     @Test
-    fun testWiFiBandAction2() {
+    fun wiFiBandAction2ShouldSwitchToGHZ2() {
         // execute
         wiFiBandAction2()
         // validate
@@ -68,7 +68,7 @@ class OptionActionTest {
     }
 
     @Test
-    fun testWiFiBandAction5() {
+    fun wiFiBandAction5ShouldSwitchToGHZ5() {
         // execute
         wiFiBandAction5()
         // validate
@@ -76,7 +76,7 @@ class OptionActionTest {
     }
 
     @Test
-    fun testWiFiBandAction6() {
+    fun wiFiBandAction6ShouldSwitchToGHZ6() {
         // execute
         wiFiBandAction6()
         // validate
@@ -84,17 +84,17 @@ class OptionActionTest {
     }
 
     @Test
-    fun testFilterAction() {
+    fun filterActionShouldBuildAndShow() {
         filterAction()
     }
 
     @Test
-    fun testOptionAction() {
+    fun optionAction() {
         assertEquals(6, OptionAction.entries.size)
     }
 
     @Test
-    fun testGetKey() {
+    fun getKey() {
         assertEquals(-1, OptionAction.NO_ACTION.key)
         assertEquals(R.id.action_scanner, OptionAction.SCANNER.key)
         assertEquals(R.id.action_filter, OptionAction.FILTER.key)
@@ -104,7 +104,7 @@ class OptionActionTest {
     }
 
     @Test
-    fun testGetAction() {
+    fun getAction() {
         assertTrue(OptionAction.NO_ACTION.action == noAction)
         assertTrue(OptionAction.SCANNER.action == scannerAction)
         assertTrue(OptionAction.FILTER.action == filterAction)
@@ -114,7 +114,7 @@ class OptionActionTest {
     }
 
     @Test
-    fun testGetOptionAction() {
+    fun getOptionAction() {
         assertEquals(OptionAction.NO_ACTION, findOptionAction(OptionAction.NO_ACTION.key))
         assertEquals(OptionAction.SCANNER, findOptionAction(OptionAction.SCANNER.key))
         assertEquals(OptionAction.FILTER, findOptionAction(OptionAction.FILTER.key))
@@ -124,7 +124,7 @@ class OptionActionTest {
     }
 
     @Test
-    fun testGetOptionActionInvalidKey() {
+    fun getOptionActionInvalidKey() {
         assertEquals(OptionAction.NO_ACTION, findOptionAction(-99))
         assertEquals(OptionAction.NO_ACTION, findOptionAction(99))
     }

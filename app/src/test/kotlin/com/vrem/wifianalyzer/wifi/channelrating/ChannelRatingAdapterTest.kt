@@ -60,7 +60,7 @@ class ChannelRatingAdapterTest {
     }
 
     @Test
-    fun testGetView() {
+    fun getView() {
         // setup
         val expectedSize = Strength.entries.size
         val expectedStrength = reverse(Strength.FOUR)
@@ -85,7 +85,7 @@ class ChannelRatingAdapterTest {
     }
 
     @Test
-    fun testUpdate() {
+    fun update() {
         // setup
         val expected = mainActivity.resources.getText(R.string.channel_rating_best_none).toString()
         val wiFiData = WiFiData(listOf(), WiFiConnection.EMPTY)
@@ -105,7 +105,7 @@ class ChannelRatingAdapterTest {
     }
 
     @Test
-    fun testBestChannelsGHZ2ErrorMessage() {
+    fun bestChannelsGHZ2ErrorMessage() {
         // setup
         val resources = mainActivity.resources
         val expected = (resources.getText(R.string.channel_rating_best_none).toString()
@@ -123,7 +123,7 @@ class ChannelRatingAdapterTest {
     }
 
     @Test
-    fun testBestChannelsGHZ5WithErrorMessage() {
+    fun bestChannelsGHZ5WithErrorMessage() {
         // setup
         val expected = mainActivity.resources.getText(R.string.channel_rating_best_none).toString()
         val wiFiChannels: List<WiFiChannel> = listOf()
@@ -138,7 +138,7 @@ class ChannelRatingAdapterTest {
     }
 
     @Test
-    fun testBestChannelsGHZ5WithMaximumChannels() {
+    fun bestChannelsGHZ5WithMaximumChannels() {
         // setup
         val expected = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ..."
         val wiFiChannels: List<WiFiChannel> = listOf()
@@ -153,7 +153,7 @@ class ChannelRatingAdapterTest {
     }
 
     @Test
-    fun testBestChannelsGHZ5WithChannels() {
+    fun bestChannelsGHZ5WithChannels() {
         // setup
         val expected = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11"
         val wiFiChannels: List<WiFiChannel> = listOf()

@@ -37,7 +37,7 @@ import org.robolectric.annotation.Config
 @Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
 class NavigationItemsTest {
     @Test
-    fun testFragmentItem() {
+    fun fragmentItem() {
         assertTrue((navigationItemAccessPoints as FragmentItem).fragment is AccessPointsFragment)
         assertTrue((navigationItemChannelRating as FragmentItem).fragment is ChannelRatingFragment)
         assertTrue((navigationItemChannelGraph as FragmentItem).fragment is ChannelGraphFragment)
@@ -49,7 +49,7 @@ class NavigationItemsTest {
     }
 
     @Test
-    fun testRegisteredTrue() {
+    fun registeredTrue() {
         assertTrue(navigationItemAccessPoints.registered)
         assertTrue(navigationItemChannelRating.registered)
         assertTrue(navigationItemChannelGraph.registered)
@@ -57,7 +57,7 @@ class NavigationItemsTest {
     }
 
     @Test
-    fun testRegisteredFalse() {
+    fun registeredFalse() {
         assertFalse(navigationItemExport.registered)
         assertFalse(navigationItemChannelAvailable.registered)
         assertFalse(navigationItemVendors.registered)
@@ -66,7 +66,7 @@ class NavigationItemsTest {
     }
 
     @Test
-    fun testVisibility() {
+    fun visibility() {
         assertEquals(View.VISIBLE, navigationItemAccessPoints.visibility)
         assertEquals(View.VISIBLE, navigationItemChannelRating.visibility)
         assertEquals(View.VISIBLE, navigationItemChannelGraph.visibility)
@@ -79,7 +79,7 @@ class NavigationItemsTest {
     }
 
     @Test
-    fun testExportItem() {
+    fun exportItem() {
         assertTrue(navigationItemExport is ExportItem)
     }
 }

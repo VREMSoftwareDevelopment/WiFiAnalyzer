@@ -48,7 +48,7 @@ class ChannelGraphAdapterTest {
     }
 
     @Test
-    fun testGetGraphViewNotifiers() {
+    fun getGraphViewNotifiers() {
         // setup
         val expected = WiFiBand.entries.sumOf { it.wiFiChannels.wiFiChannelPairs().size }
         // execute
@@ -58,7 +58,7 @@ class ChannelGraphAdapterTest {
     }
 
     @Test
-    fun testGetGraphViews() {
+    fun getGraphViews() {
         // setup
         val expected = WiFiBand.entries.sumOf { it.wiFiChannels.wiFiChannelPairs().size }
         // execute
@@ -68,7 +68,7 @@ class ChannelGraphAdapterTest {
     }
 
     @Test
-    fun testUpdate() {
+    fun update() {
         // setup
         val wiFiData = WiFiData(listOf(), WiFiConnection.EMPTY)
         // execute

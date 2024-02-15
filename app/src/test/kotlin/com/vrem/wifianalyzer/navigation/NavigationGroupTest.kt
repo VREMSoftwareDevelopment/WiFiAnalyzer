@@ -29,12 +29,12 @@ import org.robolectric.annotation.Config
 @Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
 class NavigationGroupTest {
     @Test
-    fun testNavigationGroup() {
+    fun navigationGroup() {
         assertEquals(3, NavigationGroup.entries.size)
     }
 
     @Test
-    fun testNavigationGroupOrder() {
+    fun navigationGroupOrder() {
         // setup
         val expected = arrayOf(
             NavigationGroup.GROUP_FEATURE,
@@ -46,7 +46,7 @@ class NavigationGroupTest {
     }
 
     @Test
-    fun testSettingsNavigationMenus() {
+    fun settingsNavigationMenus() {
         // setup
         val expected: List<NavigationMenu> = listOf(NavigationMenu.SETTINGS, NavigationMenu.ABOUT)
         // validate
@@ -54,7 +54,7 @@ class NavigationGroupTest {
     }
 
     @Test
-    fun testFeatureNavigationMenus() {
+    fun featureNavigationMenus() {
         // setup
         val expected: List<NavigationMenu> = listOf(
             NavigationMenu.ACCESS_POINTS,
@@ -67,7 +67,7 @@ class NavigationGroupTest {
     }
 
     @Test
-    fun testOtherNavigationMenus() {
+    fun otherNavigationMenus() {
         // setup
         val expected: List<NavigationMenu> = listOf(
             NavigationMenu.EXPORT,
@@ -79,14 +79,14 @@ class NavigationGroupTest {
     }
 
     @Test
-    fun testNext() {
+    fun next() {
         assertEquals(NavigationMenu.CHANNEL_GRAPH, NavigationGroup.GROUP_FEATURE.next(NavigationMenu.CHANNEL_RATING))
         assertEquals(NavigationMenu.ACCESS_POINTS, NavigationGroup.GROUP_FEATURE.next(NavigationMenu.TIME_GRAPH))
         assertEquals(NavigationMenu.EXPORT, NavigationGroup.GROUP_FEATURE.next(NavigationMenu.EXPORT))
     }
 
     @Test
-    fun testPrevious() {
+    fun previous() {
         assertEquals(NavigationMenu.ACCESS_POINTS, NavigationGroup.GROUP_FEATURE.previous(NavigationMenu.CHANNEL_RATING))
         assertEquals(NavigationMenu.TIME_GRAPH, NavigationGroup.GROUP_FEATURE.previous(NavigationMenu.ACCESS_POINTS))
         assertEquals(NavigationMenu.EXPORT, NavigationGroup.GROUP_FEATURE.next(NavigationMenu.EXPORT))

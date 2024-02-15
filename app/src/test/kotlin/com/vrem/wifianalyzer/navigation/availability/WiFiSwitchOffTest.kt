@@ -24,12 +24,7 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
 import org.junit.After
 import org.junit.Test
-import org.mockito.kotlin.any
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.never
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 
 class WiFiSwitchOffTest {
     private val mainActivity = MainContextHelper.INSTANCE.mainActivity
@@ -47,7 +42,7 @@ class WiFiSwitchOffTest {
     }
 
     @Test
-    fun testNavigationOptionWiFiSwitchOffWithMenuWillSetVisibility() {
+    fun navigationOptionWiFiSwitchOffWithMenuWillSetVisibility() {
         // setup
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(menu)
@@ -62,7 +57,7 @@ class WiFiSwitchOffTest {
     }
 
     @Test
-    fun testNavigationOptionWiFiSwitchOffWithNoMenuWillNotVisibility() {
+    fun navigationOptionWiFiSwitchOffWithNoMenuWillNotVisibility() {
         // setup
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)

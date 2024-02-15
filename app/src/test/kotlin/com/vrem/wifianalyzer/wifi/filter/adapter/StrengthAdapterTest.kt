@@ -20,10 +20,7 @@ package com.vrem.wifianalyzer.wifi.filter.adapter
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.model.Strength
 import org.junit.After
-import org.junit.Assert.assertArrayEquals
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -39,12 +36,12 @@ class StrengthAdapterTest {
     }
 
     @Test
-    fun testIsActive() {
+    fun isActive() {
         assertFalse(fixture.isActive())
     }
 
     @Test
-    fun testIsActiveWithChanges() {
+    fun isActiveWithChanges() {
         // setup
         fixture.toggle(Strength.TWO)
         // execute & validate
@@ -52,7 +49,7 @@ class StrengthAdapterTest {
     }
 
     @Test
-    fun testGetValues() {
+    fun getValues() {
         // setup
         val expected = Strength.entries
         // execute
@@ -62,7 +59,7 @@ class StrengthAdapterTest {
     }
 
     @Test
-    fun testGetValuesDefault() {
+    fun getValuesDefault() {
         // setup
         val expected = Strength.entries
         // execute
@@ -72,7 +69,7 @@ class StrengthAdapterTest {
     }
 
     @Test
-    fun testToggleRemoves() {
+    fun toggleRemoves() {
         // execute
         val actual = fixture.toggle(Strength.TWO)
         // validate
@@ -81,7 +78,7 @@ class StrengthAdapterTest {
     }
 
     @Test
-    fun testToggleAdds() {
+    fun toggleAdds() {
         // setup
         fixture.toggle(Strength.THREE)
         // execute
@@ -92,7 +89,7 @@ class StrengthAdapterTest {
     }
 
     @Test
-    fun testRemovingAllWillNotRemoveLast() {
+    fun removingAllWillNotRemoveLast() {
         // setup
         val values: Set<Strength> = Strength.entries.toSet()
         // execute
@@ -103,13 +100,13 @@ class StrengthAdapterTest {
     }
 
     @Test
-    fun testGetColorWithExisting() {
+    fun getColorWithExisting() {
         // execute & validate
         assertEquals(Strength.TWO.colorResource, fixture.color(Strength.TWO))
     }
 
     @Test
-    fun testGetColorWithNonExisting() {
+    fun getColorWithNonExisting() {
         // setup
         fixture.toggle(Strength.TWO)
         // execute & validate
@@ -117,7 +114,7 @@ class StrengthAdapterTest {
     }
 
     @Test
-    fun testSave() {
+    fun save() {
         // setup
         val expected = fixture.selections
         // execute

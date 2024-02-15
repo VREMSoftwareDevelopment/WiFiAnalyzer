@@ -70,12 +70,12 @@ class AboutFragmentTest {
     }
 
     @Test
-    fun testOnCreateView() {
+    fun onCreateView() {
         assertNotNull(fixture.view)
     }
 
     @Test
-    fun testVersionNumber() {
+    fun versionNumber() {
         // setup
         val expected: String = version() + "SL" + " (" + Build.VERSION.RELEASE + "-" + Build.VERSION.SDK_INT + ")"
         // execute
@@ -86,7 +86,7 @@ class AboutFragmentTest {
     }
 
     @Test
-    fun testPackageName() {
+    fun packageName() {
         // execute
         val actual = fixture.requireView().findViewById<TextView>(R.id.about_package_name)
         // validate
@@ -95,7 +95,7 @@ class AboutFragmentTest {
     }
 
     @Test
-    fun testApplicationName() {
+    fun applicationName() {
         // setup
         val expected = fixture.getString(R.string.app_full_name)
         // execute
@@ -106,7 +106,7 @@ class AboutFragmentTest {
     }
 
     @Test
-    fun testCopyright() {
+    fun copyright() {
         // setup
         val expected = (fixture.getString(R.string.app_copyright) + SimpleDateFormat("yyyy").format(Date()))
         // execute
@@ -117,7 +117,7 @@ class AboutFragmentTest {
     }
 
     @Test
-    fun testDevice() {
+    fun device() {
         // setup
         val expected = "robolectric - robolectric - robolectric"
         // execute
@@ -128,7 +128,7 @@ class AboutFragmentTest {
     }
 
     @Test
-    fun testDeviceInformation() {
+    fun deviceInformation() {
         assertEquals(View.GONE, fixture.requireView().findViewById<TextView>(R.id.about_wifi_throttling_on).visibility)
         assertEquals(View.VISIBLE, fixture.requireView().findViewById<TextView>(R.id.about_wifi_throttling_off).visibility)
 
@@ -142,7 +142,7 @@ class AboutFragmentTest {
     }
 
     @Test
-    fun testWriteReview() {
+    fun writeReview() {
         // setup
         val view = fixture.requireView().findViewById<View>(R.id.writeReview)
         // execute
@@ -152,7 +152,7 @@ class AboutFragmentTest {
     }
 
     @Test
-    fun testAlertDialogClickListener() {
+    fun alertDialogClickListener() {
         validateAlertDialogClickListener(R.id.contributors, R.string.about_contributor_title, R.raw.contributors)
         validateAlertDialogClickListener(R.id.license, R.string.gpl, R.raw.gpl)
         validateAlertDialogClickListener(R.id.graphViewLicense, R.string.al, R.raw.al)
