@@ -80,7 +80,7 @@ task jacocoTestCoverageVerification(type: JacocoCoverageVerification, dependsOn:
             }
             limit {
                 counter = 'LINE'
-                minimum = 0.97
+                minimum = 0.98
             }
             limit {
                 counter = 'METHOD'

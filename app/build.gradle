@@ -19,7 +19,7 @@
 apply plugin: "com.android.application"
 
 apply from: "jacoco.gradle"
-apply plugin: 'kotlin-android'
+apply plugin: "kotlin-android"
 apply plugin: "kotlin-allopen"
 
 // dependencies -------------------------------------------------
