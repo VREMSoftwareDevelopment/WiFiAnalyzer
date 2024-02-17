@@ -32,21 +32,21 @@ import java.util.Locale
 class Export(private val exportIntent: ExportIntent = ExportIntent()) {
 
     private val header = "Time Stamp|" +
-            "SSID|" +
-            "BSSID|" +
-            "Strength|" +
-            "Primary Channel|" +
-            "Primary Frequency|" +
-            "Center Channel|" +
-            "Center Frequency|" +
-            "Width (Range)|" +
-            "Distance|" +
-            "Timestamp|" +
-            "802.11mc|" +
-            "Security|" +
-            "Standard|" +
-            "FastRoaming" +
-            "\n"
+        "SSID|" +
+        "BSSID|" +
+        "Strength|" +
+        "Primary Channel|" +
+        "Primary Frequency|" +
+        "Center Channel|" +
+        "Center Frequency|" +
+        "Width (Range)|" +
+        "Distance|" +
+        "Timestamp|" +
+        "802.11mc|" +
+        "Security|" +
+        "Standard|" +
+        "FastRoaming" +
+        "\n"
 
     fun export(mainActivity: MainActivity, wiFiDetails: List<WiFiDetail>): Intent =
         export(mainActivity, wiFiDetails, Date())
@@ -72,21 +72,21 @@ class Export(private val exportIntent: ExportIntent = ExportIntent()) {
     private fun toExportString(context: Context, timestamp: String): (WiFiDetail) -> String = {
         with(it) {
             "$timestamp|" +
-                    "${wiFiIdentifier.ssid}|" +
-                    "${wiFiIdentifier.bssid}|" +
-                    "${wiFiSignal.level}dBm|" +
-                    "${wiFiSignal.primaryWiFiChannel.channel}|" +
-                    "${wiFiSignal.primaryFrequency}$FREQUENCY_UNITS|" +
-                    "${wiFiSignal.centerWiFiChannel.channel}|" +
-                    "${wiFiSignal.centerFrequency}$FREQUENCY_UNITS|" +
-                    "${wiFiSignal.wiFiWidth.frequencyWidth}$FREQUENCY_UNITS (${wiFiSignal.frequencyStart} - ${wiFiSignal.frequencyEnd})|" +
-                    "${wiFiSignal.distance}|" +
-                    "${wiFiSignal.extra.timestamp}|" +
-                    "${wiFiSignal.extra.is80211mc}|" +
-                    wiFiSecurity.capabilities + "|" +
-                    wiFiSignal.extra.wiFiStandardDisplay(context) + "|" +
-                    wiFiSignal.extra.fastRoamingDisplay(context) +
-                    "\n"
+                "${wiFiIdentifier.ssid}|" +
+                "${wiFiIdentifier.bssid}|" +
+                "${wiFiSignal.level}dBm|" +
+                "${wiFiSignal.primaryWiFiChannel.channel}|" +
+                "${wiFiSignal.primaryFrequency}$FREQUENCY_UNITS|" +
+                "${wiFiSignal.centerWiFiChannel.channel}|" +
+                "${wiFiSignal.centerFrequency}$FREQUENCY_UNITS|" +
+                "${wiFiSignal.wiFiWidth.frequencyWidth}$FREQUENCY_UNITS (${wiFiSignal.frequencyStart} - ${wiFiSignal.frequencyEnd})|" +
+                "${wiFiSignal.distance}|" +
+                "${wiFiSignal.extra.timestamp}|" +
+                "${wiFiSignal.extra.is80211mc}|" +
+                wiFiSecurity.capabilities + "|" +
+                wiFiSignal.extra.wiFiStandardDisplay(context) + "|" +
+                wiFiSignal.extra.fastRoamingDisplay(context) +
+                "\n"
         }
     }
 

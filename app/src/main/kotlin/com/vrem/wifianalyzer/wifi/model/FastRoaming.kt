@@ -40,14 +40,14 @@ typealias Available = (id: Int, bytes: ByteBuffer) -> Boolean
 
 private val available802_11k: Available = { id: Int, bytes: ByteBuffer ->
     RM_ENABLED_CAPABILITIES_IE == id &&
-            bytes.contains(NEIGHBOR_REPORT_IDX, NEIGHBOR_REPORT_BIT)
+        bytes.contains(NEIGHBOR_REPORT_IDX, NEIGHBOR_REPORT_BIT)
 }
 private val available802_11r: Available = { id: Int, _: ByteBuffer ->
     MOBILE_DOMAIN_IE == id
 }
 private val available802_11v: Available = { id: Int, bytes: ByteBuffer ->
     EXTENDED_CAPABILITIES_IE == id &&
-            bytes.contains(BSS_TRANSITION_IDX, BSS_TRANSITION_BIT)
+        bytes.contains(BSS_TRANSITION_IDX, BSS_TRANSITION_BIT)
 }
 
 enum class FastRoaming(@StringRes val textResource: Int, val available: Available) {

@@ -29,6 +29,7 @@ import com.vrem.wifianalyzer.MainActivity
 fun interface Callback { // Compliant, function interface used
     fun onSuccess()
 }
+
 @OpenClass
 internal class ScanResultsReceiver(private val mainActivity: MainActivity, private val callback: Callback) :
     BroadcastReceiver() {

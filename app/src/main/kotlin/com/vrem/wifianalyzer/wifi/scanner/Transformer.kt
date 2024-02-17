@@ -21,19 +21,7 @@ import android.net.wifi.WifiInfo
 import com.vrem.annotation.OpenClass
 import com.vrem.util.nullToEmpty
 import com.vrem.util.ssid
-import com.vrem.wifianalyzer.wifi.model.FastRoaming
-import com.vrem.wifianalyzer.wifi.model.WiFiConnection
-import com.vrem.wifianalyzer.wifi.model.WiFiData
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
-import com.vrem.wifianalyzer.wifi.model.WiFiSecurityType
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal
-import com.vrem.wifianalyzer.wifi.model.WiFiSignalExtra
-import com.vrem.wifianalyzer.wifi.model.WiFiStandard
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
-import com.vrem.wifianalyzer.wifi.model.convertIpV4Address
-import com.vrem.wifianalyzer.wifi.model.convertSSID
+import com.vrem.wifianalyzer.wifi.model.*
 
 @Suppress("DEPRECATION")
 fun WifiInfo.ipV4Address(): Int = ipAddress
