@@ -19,7 +19,7 @@ package com.vrem.wifianalyzer.wifi.timegraph
 
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_NOT_SEEN_COUNT
 import com.vrem.wifianalyzer.wifi.model.*
-import org.junit.Assert.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class TimeGraphCacheTest {
@@ -32,7 +32,7 @@ class TimeGraphCacheTest {
         // execute
         val actual = fixture.wiFiDetails
         // validate
-        assertEquals(expected.size, actual.size)
+        assertThat(actual).hasSize(expected.size)
     }
 
     @Test
@@ -42,8 +42,8 @@ class TimeGraphCacheTest {
         // execute
         val actual = fixture.active()
         // validate
-        assertEquals(expected.size - 1, actual.size)
-        assertFalse(actual.contains(expected[0]))
+        assertThat(actual).hasSize(expected.size - 1)
+        assertThat(actual).doesNotContain(expected[0])
     }
 
     @Test
@@ -54,8 +54,8 @@ class TimeGraphCacheTest {
         fixture.clear()
         // validate
         val actual = fixture.wiFiDetails
-        assertEquals(expected.size - 1, actual.size)
-        assertFalse(actual.contains(expected[0]))
+        assertThat(actual).hasSize(expected.size - 1)
+        assertThat(actual).doesNotContain(expected[0])
     }
 
     @Test
@@ -66,8 +66,8 @@ class TimeGraphCacheTest {
         fixture.reset(expected[0])
         // validate
         val actual = fixture.wiFiDetails
-        assertEquals(expected.size, actual.size)
-        assertTrue(actual.contains(expected[0]))
+        assertThat(actual).hasSize(expected.size)
+        assertThat(actual).contains(expected[0])
     }
 
     private fun withWiFiDetail(ssid: String): WiFiDetail {

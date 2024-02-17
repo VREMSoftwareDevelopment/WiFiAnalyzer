@@ -22,9 +22,8 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.*
@@ -87,7 +86,7 @@ class ApplicationPermissionTest {
         // execute
         val actual = fixture.granted(ApplicationPermission.REQUEST_CODE, grantResults)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
     }
 
     @Test
@@ -97,7 +96,7 @@ class ApplicationPermissionTest {
         // execute
         val actual = fixture.granted(-ApplicationPermission.REQUEST_CODE, grantResults)
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
     }
 
     @Test
@@ -107,7 +106,7 @@ class ApplicationPermissionTest {
         // execute
         val actual = fixture.granted(ApplicationPermission.REQUEST_CODE, grantResults)
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
     }
 
     @Test
@@ -117,6 +116,6 @@ class ApplicationPermissionTest {
         // execute
         val actual = fixture.granted(ApplicationPermission.REQUEST_CODE, grantResults)
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
     }
 }

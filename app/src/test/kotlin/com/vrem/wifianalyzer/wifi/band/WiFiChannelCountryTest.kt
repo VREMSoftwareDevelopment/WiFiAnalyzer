@@ -18,8 +18,8 @@
 package com.vrem.wifianalyzer.wifi.band
 
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry.Companion.find
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import java.util.Locale
@@ -40,42 +40,42 @@ class WiFiChannelCountryTest {
 
     @Test
     fun channelAvailableWithTrue() {
-        assertTrue(find(Locale.US.country).channelAvailableGHZ2(1))
-        assertTrue(find(Locale.US.country).channelAvailableGHZ2(11))
-        assertTrue(find(Locale.US.country).channelAvailableGHZ5(36))
-        assertTrue(find(Locale.US.country).channelAvailableGHZ5(165))
-        assertTrue(find(Locale.UK.country).channelAvailableGHZ2(1))
-        assertTrue(find(Locale.UK.country).channelAvailableGHZ2(13))
-        assertTrue(find(Locale.UK.country).channelAvailableGHZ5(36))
-        assertTrue(find(Locale.UK.country).channelAvailableGHZ5(140))
+        assertThat(find(Locale.US.country).channelAvailableGHZ2(1)).isTrue()
+        assertThat(find(Locale.US.country).channelAvailableGHZ2(11)).isTrue()
+        assertThat(find(Locale.US.country).channelAvailableGHZ5(36)).isTrue()
+        assertThat(find(Locale.US.country).channelAvailableGHZ5(165)).isTrue()
+        assertThat(find(Locale.UK.country).channelAvailableGHZ2(1)).isTrue()
+        assertThat(find(Locale.UK.country).channelAvailableGHZ2(13)).isTrue()
+        assertThat(find(Locale.UK.country).channelAvailableGHZ5(36)).isTrue()
+        assertThat(find(Locale.UK.country).channelAvailableGHZ5(140)).isTrue()
     }
 
     @Test
     fun channelAvailableWithGHZ2() {
-        assertFalse(find(Locale.US.country).channelAvailableGHZ2(0))
-        assertFalse(find(Locale.US.country).channelAvailableGHZ2(12))
-        assertFalse(find(Locale.UK.country).channelAvailableGHZ2(0))
-        assertFalse(find(Locale.UK.country).channelAvailableGHZ2(14))
+        assertThat(find(Locale.US.country).channelAvailableGHZ2(0)).isFalse()
+        assertThat(find(Locale.US.country).channelAvailableGHZ2(12)).isFalse()
+        assertThat(find(Locale.UK.country).channelAvailableGHZ2(0)).isFalse()
+        assertThat(find(Locale.UK.country).channelAvailableGHZ2(14)).isFalse()
     }
 
     @Test
     fun channelAvailableWithGHZ5() {
-        assertTrue(find(Locale.US.country).channelAvailableGHZ5(36))
-        assertTrue(find(Locale.US.country).channelAvailableGHZ5(165))
-        assertTrue(find(Locale.UK.country).channelAvailableGHZ5(36))
-        assertTrue(find(Locale.UK.country).channelAvailableGHZ5(140))
-        assertTrue(find("AE").channelAvailableGHZ5(36))
-        assertTrue(find("AE").channelAvailableGHZ5(64))
+        assertThat(find(Locale.US.country).channelAvailableGHZ5(36)).isTrue()
+        assertThat(find(Locale.US.country).channelAvailableGHZ5(165)).isTrue()
+        assertThat(find(Locale.UK.country).channelAvailableGHZ5(36)).isTrue()
+        assertThat(find(Locale.UK.country).channelAvailableGHZ5(140)).isTrue()
+        assertThat(find("AE").channelAvailableGHZ5(36)).isTrue()
+        assertThat(find("AE").channelAvailableGHZ5(64)).isTrue()
     }
 
     @Test
     fun channelAvailableWithGHZ6() {
-        assertTrue(find(Locale.US.country).channelAvailableGHZ6(1))
-        assertTrue(find(Locale.US.country).channelAvailableGHZ6(93))
-        assertTrue(find(Locale.UK.country).channelAvailableGHZ6(1))
-        assertTrue(find(Locale.UK.country).channelAvailableGHZ6(93))
-        assertTrue(find("AE").channelAvailableGHZ6(1))
-        assertTrue(find("AE").channelAvailableGHZ6(93))
+        assertThat(find(Locale.US.country).channelAvailableGHZ6(1)).isTrue()
+        assertThat(find(Locale.US.country).channelAvailableGHZ6(93)).isTrue()
+        assertThat(find(Locale.UK.country).channelAvailableGHZ6(1)).isTrue()
+        assertThat(find(Locale.UK.country).channelAvailableGHZ6(93)).isTrue()
+        assertThat(find("AE").channelAvailableGHZ6(1)).isTrue()
+        assertThat(find("AE").channelAvailableGHZ6(93)).isTrue()
     }
 
     @Test
@@ -88,10 +88,10 @@ class WiFiChannelCountryTest {
         // execute
         val actual: WiFiChannelCountry = find(expectedCountryCode)
         // validate
-        assertEquals(expectedCountryCode, actual.countryCode())
-        assertArrayEquals(expectedGHZ2.toTypedArray(), actual.channelsGHZ2().toTypedArray())
-        assertArrayEquals(expectedGHZ5.toTypedArray(), actual.channelsGHZ5().toTypedArray())
-        assertArrayEquals(expectedGHZ6.toTypedArray(), actual.channelsGHZ6().toTypedArray())
+        assertThat(actual.countryCode()).isEqualTo(expectedCountryCode)
+        assertThat(actual.channelsGHZ2().toTypedArray()).isEqualTo(expectedGHZ2.toTypedArray())
+        assertThat(actual.channelsGHZ5().toTypedArray()).isEqualTo(expectedGHZ5.toTypedArray())
+        assertThat(actual.channelsGHZ6().toTypedArray()).isEqualTo(expectedGHZ6.toTypedArray())
     }
 
     @Test
@@ -102,9 +102,9 @@ class WiFiChannelCountryTest {
         // execute
         val actual: WiFiChannelCountry = find(expectedCountryCode)
         // validate
-        assertEquals(expectedCountryCode, actual.countryCode())
-        assertNotEquals(expected.displayCountry, actual.countryName(expected))
-        assertEquals(expected.getDisplayCountry(expected), actual.countryName(expected))
+        assertThat(actual.countryCode()).isEqualTo(expectedCountryCode)
+        assertThat(actual.countryName(expected)).isNotEqualTo(expected.displayCountry)
+        assertThat(actual.countryName(expected)).isEqualTo(expected.getDisplayCountry(expected))
     }
 
     @Test
@@ -115,7 +115,7 @@ class WiFiChannelCountryTest {
         // execute & validate
         val actual = fixture.countryName(Locale.US)
         // execute & validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -126,7 +126,7 @@ class WiFiChannelCountryTest {
         // execute & validate
         val actual = fixture.countryName(Locale.US)
         // execute & validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
 }

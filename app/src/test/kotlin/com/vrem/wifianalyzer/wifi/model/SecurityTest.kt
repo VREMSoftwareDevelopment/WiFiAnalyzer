@@ -18,42 +18,42 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.wifianalyzer.R
-import org.junit.Assert.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class SecurityTest {
     @Test
     fun size() {
-        assertEquals(6, Security.entries.size)
+        assertThat(Security.entries).hasSize(6)
     }
 
     @Test
     fun imageResource() {
-        assertEquals(R.drawable.ic_lock_open, Security.NONE.imageResource)
-        assertEquals(R.drawable.ic_lock_outline, Security.WPS.imageResource)
-        assertEquals(R.drawable.ic_lock_outline, Security.WEP.imageResource)
-        assertEquals(R.drawable.ic_lock, Security.WPA.imageResource)
-        assertEquals(R.drawable.ic_lock, Security.WPA2.imageResource)
-        assertEquals(R.drawable.ic_lock, Security.WPA3.imageResource)
+        assertThat(Security.NONE.imageResource).isEqualTo(R.drawable.ic_lock_open)
+        assertThat(Security.WPS.imageResource).isEqualTo(R.drawable.ic_lock_outline)
+        assertThat(Security.WEP.imageResource).isEqualTo(R.drawable.ic_lock_outline)
+        assertThat(Security.WPA.imageResource).isEqualTo(R.drawable.ic_lock)
+        assertThat(Security.WPA2.imageResource).isEqualTo(R.drawable.ic_lock)
+        assertThat(Security.WPA3.imageResource).isEqualTo(R.drawable.ic_lock)
     }
 
     @Test
     fun order() {
         // setup
-        val expected: Array<Security> = arrayOf(Security.NONE, Security.WPS, Security.WEP, Security.WPA, Security.WPA2, Security.WPA3)
+        val expected = listOf(Security.NONE, Security.WPS, Security.WEP, Security.WPA, Security.WPA2, Security.WPA3)
         // execute
         val actual = Security.entries
         // validate
-        assertArrayEquals(expected, actual.toTypedArray())
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun extras() {
-        assertTrue(Security.NONE.extras.isEmpty())
-        assertTrue(Security.WPS.extras.isEmpty())
-        assertTrue(Security.WEP.extras.isEmpty())
-        assertTrue(Security.WPA.extras.isEmpty())
-        assertTrue(Security.WPA2.extras.isEmpty())
-        assertEquals(listOf("SAE", "EAP_SUITE_B_192", "OWE"), Security.WPA3.extras)
+        assertThat(Security.NONE.extras).isEmpty()
+        assertThat(Security.WPS.extras).isEmpty()
+        assertThat(Security.WEP.extras).isEmpty()
+        assertThat(Security.WPA.extras).isEmpty()
+        assertThat(Security.WPA2.extras).isEmpty()
+        assertThat(Security.WPA3.extras).isEqualTo(listOf("SAE", "EAP_SUITE_B_192", "OWE"))
     }
 }

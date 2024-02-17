@@ -21,8 +21,8 @@ import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.RobolectricUtil
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -56,6 +56,6 @@ class ChannelAvailableFragmentTest {
         // setup
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
-        assertNotNull(fixture)
+        assertThat(fixture).isNotNull()
     }
 }

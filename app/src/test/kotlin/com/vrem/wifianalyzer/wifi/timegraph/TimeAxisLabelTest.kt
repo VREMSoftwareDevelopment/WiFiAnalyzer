@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.wifi.timegraph
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y
 import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class TimeAxisLabelTest {
@@ -28,19 +28,19 @@ class TimeAxisLabelTest {
 
     @Test
     fun yAxis() {
-        assertEquals(String.EMPTY, fixture.formatLabel(MIN_Y.toDouble(), false))
-        assertEquals("-99", fixture.formatLabel(MIN_Y + 1.toDouble(), false))
-        assertEquals("0", fixture.formatLabel(MAX_Y.toDouble(), false))
-        assertEquals(String.EMPTY, fixture.formatLabel(MAX_Y + 1.toDouble(), false))
+        assertThat(fixture.formatLabel(MIN_Y.toDouble(), false)).isEqualTo(String.EMPTY)
+        assertThat(fixture.formatLabel(MIN_Y + 1.toDouble(), false)).isEqualTo("-99")
+        assertThat(fixture.formatLabel(MAX_Y.toDouble(), false)).isEqualTo("0")
+        assertThat(fixture.formatLabel(MAX_Y + 1.toDouble(), false)).isEqualTo(String.EMPTY)
     }
 
     @Test
     fun xAxis() {
-        assertEquals(String.EMPTY, fixture.formatLabel(-2.0, true))
-        assertEquals(String.EMPTY, fixture.formatLabel(-1.0, true))
-        assertEquals(String.EMPTY, fixture.formatLabel(0.0, true))
-        assertEquals(String.EMPTY, fixture.formatLabel(1.0, true))
-        assertEquals("2", fixture.formatLabel(2.0, true))
-        assertEquals("10", fixture.formatLabel(10.0, true))
+        assertThat(fixture.formatLabel(-2.0, true)).isEqualTo(String.EMPTY)
+        assertThat(fixture.formatLabel(-1.0, true)).isEqualTo(String.EMPTY)
+        assertThat(fixture.formatLabel(0.0, true)).isEqualTo(String.EMPTY)
+        assertThat(fixture.formatLabel(1.0, true)).isEqualTo(String.EMPTY)
+        assertThat(fixture.formatLabel(2.0, true)).isEqualTo("2")
+        assertThat(fixture.formatLabel(10.0, true)).isEqualTo("10")
     }
 }

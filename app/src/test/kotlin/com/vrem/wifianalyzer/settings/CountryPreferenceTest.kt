@@ -21,8 +21,7 @@ import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry.Companion.findAll
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -42,10 +41,9 @@ class CountryPreferenceTest {
         // execute
         val actual: Array<CharSequence> = fixture.entries
         // validate
-        assertEquals(countries.size, actual.size)
+        assertThat(actual).hasSize(countries.size)
         countries.forEach {
-            val countryName: String = it.countryName(currentLocale)
-            assertTrue(countryName, actual.contains(countryName))
+            assertThat(actual).contains(it.countryName(currentLocale))
         }
     }
 
@@ -54,10 +52,9 @@ class CountryPreferenceTest {
         // execute
         val actual: Array<CharSequence> = fixture.entryValues
         // validate
-        assertEquals(countries.size, actual.size)
+        assertThat(actual).hasSize(countries.size)
         countries.forEach {
-            val countryCode: String = it.countryCode()
-            assertTrue(countryCode, actual.contains(countryCode))
+            assertThat(actual).contains(it.countryCode())
         }
     }
 }

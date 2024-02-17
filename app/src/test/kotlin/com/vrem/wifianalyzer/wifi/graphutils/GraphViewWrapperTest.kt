@@ -28,8 +28,8 @@ import com.vrem.wifianalyzer.SIZE_MAX
 import com.vrem.wifianalyzer.SIZE_MIN
 import com.vrem.wifianalyzer.settings.ThemeStyle
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.*
@@ -49,7 +49,7 @@ class GraphViewWrapperTest {
 
     @Before
     fun setUp() {
-        assertEquals(GraphLegend.HIDE, fixture.graphLegend)
+        assertThat(fixture.graphLegend).isEqualTo(GraphLegend.HIDE)
     }
 
     @After
@@ -89,7 +89,7 @@ class GraphViewWrapperTest {
         // execute
         val actual = fixture.differenceSeries(newSeries)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(seriesCache).difference(newSeries)
     }
 
@@ -108,7 +108,7 @@ class GraphViewWrapperTest {
         // execute
         val actual = fixture.addSeries(wiFiDetail, baseSeries, false)
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
         verify(seriesCache).contains(wiFiDetail)
         verify(seriesCache, never()).put(wiFiDetail, baseSeries)
     }
@@ -122,7 +122,7 @@ class GraphViewWrapperTest {
         // execute
         val actual = fixture.addSeries(wiFiDetail, baseSeries, true)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(seriesCache).contains(wiFiDetail)
         verify(seriesCache).put(wiFiDetail, baseSeries)
         verify(baseSeries).title = expectedTitle
@@ -140,7 +140,7 @@ class GraphViewWrapperTest {
         // execute
         val actual = fixture.updateSeries(wiFiDetail, dataPoints, true)
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
         verify(seriesCache).contains(wiFiDetail)
         verify(seriesCache, never())[wiFiDetail]
     }
@@ -154,7 +154,7 @@ class GraphViewWrapperTest {
         // execute
         val actual = fixture.updateSeries(wiFiDetail, dataPoints, true)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(seriesCache).contains(wiFiDetail)
         verify(seriesCache)[wiFiDetail]
         verify(baseSeries).resetData(dataPoints)
@@ -170,7 +170,7 @@ class GraphViewWrapperTest {
         // execute
         val actual = fixture.appendToSeries(wiFiDetail, dataPoint, count, true)
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
         verify(seriesCache).contains(wiFiDetail)
         verify(seriesCache, never())[wiFiDetail]
     }
@@ -185,7 +185,7 @@ class GraphViewWrapperTest {
         // execute
         val actual = fixture.appendToSeries(wiFiDetail, dataPoint, count, true)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(seriesCache).contains(wiFiDetail)
         verify(seriesCache)[wiFiDetail]
         verify(baseSeries).appendData(dataPoint, true, count + 1)
@@ -203,7 +203,7 @@ class GraphViewWrapperTest {
         // execute
         fixture.updateLegend(GraphLegend.RIGHT)
         // validate
-        assertEquals(GraphLegend.RIGHT, fixture.graphLegend)
+        assertThat(fixture.graphLegend).isEqualTo(GraphLegend.RIGHT)
         verify(graphView).titleTextSize
         verify(graphView).legendRenderer
         verify(graphView).legendRenderer = legendRenderer
@@ -226,7 +226,7 @@ class GraphViewWrapperTest {
     @Test
     fun calculateGraphType() {
         // execute & validate
-        assertTrue(fixture.calculateGraphType() > 0)
+        assertThat(fixture.calculateGraphType()).isGreaterThan(0)
     }
 
     @Test
@@ -248,10 +248,10 @@ class GraphViewWrapperTest {
     @Test
     fun getSize() {
         // execute & validate
-        assertEquals(SIZE_MAX, fixture.size(TYPE1))
-        assertEquals(SIZE_MAX, fixture.size(TYPE2))
-        assertEquals(SIZE_MAX, fixture.size(TYPE3))
-        assertEquals(SIZE_MIN, fixture.size(TYPE4))
+        assertThat(fixture.size(TYPE1)).isEqualTo(SIZE_MAX)
+        assertThat(fixture.size(TYPE2)).isEqualTo(SIZE_MAX)
+        assertThat(fixture.size(TYPE3)).isEqualTo(SIZE_MAX)
+        assertThat(fixture.size(TYPE4)).isEqualTo(SIZE_MIN)
     }
 
     @Test
@@ -273,7 +273,7 @@ class GraphViewWrapperTest {
         // execute
         val actual = fixture.newSeries(wiFiDetail)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(seriesCache).contains(wiFiDetail)
     }
 }

@@ -27,8 +27,8 @@ import com.vrem.util.readFile
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -71,7 +71,7 @@ class AboutFragmentTest {
 
     @Test
     fun onCreateView() {
-        assertNotNull(fixture.view)
+        assertThat(fixture.view).isNotNull()
     }
 
     @Test
@@ -81,8 +81,8 @@ class AboutFragmentTest {
         // execute
         val actual = fixture.requireView().findViewById<TextView>(R.id.about_version_info)
         // validate
-        assertNotNull(actual)
-        assertEquals(expected, actual.text)
+        assertThat(actual).isNotNull()
+        assertThat(actual.text).isEqualTo(expected)
     }
 
     @Test
@@ -90,8 +90,8 @@ class AboutFragmentTest {
         // execute
         val actual = fixture.requireView().findViewById<TextView>(R.id.about_package_name)
         // validate
-        assertNotNull(actual)
-        assertEquals(fixture.requireActivity().packageName, actual.text)
+        assertThat(actual).isNotNull()
+        assertThat(actual.text).isEqualTo(fixture.requireActivity().packageName)
     }
 
     @Test
@@ -101,8 +101,8 @@ class AboutFragmentTest {
         // execute
         val actual = fixture.requireView().findViewById<TextView>(R.id.about_application_name)
         // validate
-        assertNotNull(actual)
-        assertEquals(expected, actual.text)
+        assertThat(actual).isNotNull()
+        assertThat(actual.text).isEqualTo(expected)
     }
 
     @Test
@@ -112,8 +112,8 @@ class AboutFragmentTest {
         // execute
         val actual = fixture.requireView().findViewById<TextView>(R.id.about_copyright)
         // validate
-        assertNotNull(actual)
-        assertEquals(expected, actual.text)
+        assertThat(actual).isNotNull()
+        assertThat(actual.text).isEqualTo(expected)
     }
 
     @Test
@@ -123,22 +123,22 @@ class AboutFragmentTest {
         // execute
         val actual = fixture.requireView().findViewById<TextView>(R.id.about_device)
         // validate
-        assertNotNull(actual)
-        assertEquals(expected, actual.text)
+        assertThat(actual).isNotNull()
+        assertThat(actual.text).isEqualTo(expected)
     }
 
     @Test
     fun deviceInformation() {
-        assertEquals(View.GONE, fixture.requireView().findViewById<TextView>(R.id.about_wifi_throttling_on).visibility)
-        assertEquals(View.VISIBLE, fixture.requireView().findViewById<TextView>(R.id.about_wifi_throttling_off).visibility)
+        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_throttling_on).visibility).isEqualTo(View.GONE)
+        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_throttling_off).visibility).isEqualTo(View.VISIBLE)
 
-        assertEquals(View.VISIBLE, fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_2ghz_success).visibility)
+        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_2ghz_success).visibility).isEqualTo(View.VISIBLE)
 
-        assertEquals(View.GONE, fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_5ghz_success).visibility)
-        assertEquals(View.VISIBLE, fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_5ghz_fails).visibility)
+        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_5ghz_success).visibility).isEqualTo(View.GONE)
+        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_5ghz_fails).visibility).isEqualTo(View.VISIBLE)
 
-        assertEquals(View.GONE, fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_6ghz_success).visibility)
-        assertEquals(View.VISIBLE, fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_6ghz_fails).visibility)
+        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_6ghz_success).visibility).isEqualTo(View.GONE)
+        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_6ghz_fails).visibility).isEqualTo(View.VISIBLE)
     }
 
     @Test
@@ -148,7 +148,7 @@ class AboutFragmentTest {
         // execute
         val actual = view.performClick()
         //
-        assertTrue(actual)
+        assertThat(actual).isTrue()
     }
 
     @Test
@@ -174,7 +174,7 @@ class AboutFragmentTest {
         // validate
         val alertDialog = ShadowAlertDialog.getLatestAlertDialog()
         val shadowAlertDialog = shadowOf(alertDialog)
-        assertEquals(expectedTitle, shadowAlertDialog.title.toString())
-        assertEquals(expectedMessage, shadowAlertDialog.message.toString())
+        assertThat(shadowAlertDialog.title.toString()).isEqualTo(expectedTitle)
+        assertThat(shadowAlertDialog.message.toString()).isEqualTo(expectedMessage)
     }
 }

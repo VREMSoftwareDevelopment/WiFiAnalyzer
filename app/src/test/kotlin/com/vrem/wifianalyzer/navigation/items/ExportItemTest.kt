@@ -31,9 +31,8 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.*
@@ -86,13 +85,13 @@ class ExportItemTest {
     @Test
     fun registered() {
         // execute & validate
-        assertFalse(fixture.registered)
+        assertThat(fixture.registered).isFalse()
     }
 
     @Test
     fun visibility() {
         // execute & validate
-        assertEquals(View.GONE, fixture.visibility)
+        assertThat(fixture.visibility).isEqualTo(View.GONE)
     }
 
     private fun withWiFiData(): WiFiData {

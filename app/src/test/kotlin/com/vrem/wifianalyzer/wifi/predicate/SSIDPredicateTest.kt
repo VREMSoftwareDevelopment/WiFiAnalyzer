@@ -20,8 +20,7 @@ package com.vrem.wifianalyzer.wifi.predicate
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
 import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class SSIDPredicateTest {
@@ -30,12 +29,12 @@ class SSIDPredicateTest {
         // setup
         val wiFiDetail = WiFiDetail(WiFiIdentifier("ssid", "bssid"), WiFiSecurity("wpa"))
         // execute & validate
-        assertTrue("ssid".predicate()(wiFiDetail))
-        assertTrue("id".predicate()(wiFiDetail))
-        assertTrue("ss".predicate()(wiFiDetail))
-        assertTrue("s".predicate()(wiFiDetail))
-        assertTrue("".predicate()(wiFiDetail))
-        assertFalse("SSID".predicate()(wiFiDetail))
-        assertFalse("B".predicate()(wiFiDetail))
+        assertThat("ssid".predicate()(wiFiDetail)).isTrue()
+        assertThat("id".predicate()(wiFiDetail)).isTrue()
+        assertThat("ss".predicate()(wiFiDetail)).isTrue()
+        assertThat("s".predicate()(wiFiDetail)).isTrue()
+        assertThat("".predicate()(wiFiDetail)).isTrue()
+        assertThat("SSID".predicate()(wiFiDetail)).isFalse()
+        assertThat("B".predicate()(wiFiDetail)).isFalse()
     }
 }

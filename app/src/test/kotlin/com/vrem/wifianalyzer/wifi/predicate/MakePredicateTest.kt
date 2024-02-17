@@ -18,7 +18,7 @@
 package com.vrem.wifianalyzer.wifi.predicate
 
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import org.junit.Assert.assertTrue
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 private enum class TestObject {
@@ -36,7 +36,7 @@ class MakePredicateTest {
         // execute
         val actual: Predicate = makePredicate(TestObject.entries, filters, toPredicate)
         // validate
-        assertTrue(actual(wiFiDetail))
+        assertThat(actual(wiFiDetail)).isTrue()
     }
 
     @Test
@@ -48,7 +48,7 @@ class MakePredicateTest {
         // execute
         val actual: Predicate = makePredicate(TestObject.entries, filters, toPredicate)
         // validate
-        assertTrue(actual(wiFiDetail))
+        assertThat(actual(wiFiDetail)).isTrue()
     }
 
 }

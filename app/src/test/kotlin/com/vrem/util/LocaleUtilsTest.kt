@@ -17,7 +17,7 @@
  */
 package com.vrem.util
 
-import org.junit.Assert.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.util.Locale
 
@@ -27,8 +27,8 @@ class LocaleUtilsTest {
         // execute
         val actual = allCountries()
         // validate
-        assertTrue(actual.size >= 2)
-        assertTrue(actual[0].country < actual[actual.size - 1].country)
+        assertThat(actual.size).isGreaterThanOrEqualTo(2)
+        assertThat(actual[0].country).isLessThan(actual[actual.size - 1].country)
     }
 
     @Test
@@ -38,11 +38,11 @@ class LocaleUtilsTest {
         // execute
         val actual = findByCountryCode(expected.country)
         // validate
-        assertEquals(expected, actual)
-        assertEquals(expected.country, actual.country)
-        assertEquals(expected.displayCountry, actual.displayCountry)
-        assertNotEquals(expected.country, expected.displayCountry)
-        assertNotEquals(actual.country, actual.displayCountry)
+        assertThat(actual).isEqualTo(expected)
+        assertThat(actual.country).isEqualTo(expected.country)
+        assertThat(actual.displayCountry).isEqualTo(expected.displayCountry)
+        assertThat(expected.displayCountry).isNotEqualTo(expected.country)
+        assertThat(actual.displayCountry).isNotEqualTo(actual.country)
     }
 
     @Test
@@ -50,28 +50,28 @@ class LocaleUtilsTest {
         // execute
         val actual = findByCountryCode("WW")
         // validate
-        assertEquals(Locale.getDefault(), actual)
+        assertThat(actual).isEqualTo(Locale.getDefault())
     }
 
     @Test
     fun toLanguageTagWithKnownCode() {
-        assertEquals(Locale.US.language + "_" + Locale.US.country, toLanguageTag(Locale.US))
-        assertEquals(Locale.ENGLISH.language + "_", toLanguageTag(Locale.ENGLISH))
+        assertThat(toLanguageTag(Locale.US)).isEqualTo(Locale.US.language + "_" + Locale.US.country)
+        assertThat(toLanguageTag(Locale.ENGLISH)).isEqualTo(Locale.ENGLISH.language + "_")
     }
 
     @Test
     fun findByLanguageTagWithUnknownTag() {
         val defaultLocal = Locale.getDefault()
-        assertEquals(defaultLocal, findByLanguageTag(String.EMPTY))
-        assertEquals(defaultLocal, findByLanguageTag("WW"))
-        assertEquals(defaultLocal, findByLanguageTag("WW_HH_TT"))
+        assertThat(findByLanguageTag(String.EMPTY)).isEqualTo(defaultLocal)
+        assertThat(findByLanguageTag("WW")).isEqualTo(defaultLocal)
+        assertThat(findByLanguageTag("WW_HH_TT")).isEqualTo(defaultLocal)
     }
 
     @Test
     fun findByLanguageTagWithKnownTag() {
-        assertEquals(Locale.SIMPLIFIED_CHINESE, findByLanguageTag(toLanguageTag(Locale.SIMPLIFIED_CHINESE)))
-        assertEquals(Locale.TRADITIONAL_CHINESE, findByLanguageTag(toLanguageTag(Locale.TRADITIONAL_CHINESE)))
-        assertEquals(Locale.ENGLISH, findByLanguageTag(toLanguageTag(Locale.ENGLISH)))
+        assertThat(findByLanguageTag(toLanguageTag(Locale.SIMPLIFIED_CHINESE))).isEqualTo(Locale.SIMPLIFIED_CHINESE)
+        assertThat(findByLanguageTag(toLanguageTag(Locale.TRADITIONAL_CHINESE))).isEqualTo(Locale.TRADITIONAL_CHINESE)
+        assertThat(findByLanguageTag(toLanguageTag(Locale.ENGLISH))).isEqualTo(Locale.ENGLISH)
     }
 
     @Test
@@ -98,19 +98,19 @@ class LocaleUtilsTest {
         // execute
         val actual = supportedLanguages()
         // validate
-        assertEquals(expected.size, actual.size)
+        assertThat(actual).hasSize(expected.size)
         for (locale in expected) {
-            assertTrue(actual.contains(locale))
+            assertThat(actual).contains(locale)
         }
     }
 
     @Test
     fun currentDefaultCountryCode() {
-        assertEquals(Locale.getDefault().country, defaultCountryCode())
+        assertThat(defaultCountryCode()).isEqualTo(Locale.getDefault().country)
     }
 
     @Test
     fun currentDefaultLanguageTag() {
-        assertEquals(toLanguageTag(Locale.getDefault()), defaultLanguageTag())
+        assertThat(defaultLanguageTag()).isEqualTo(toLanguageTag(Locale.getDefault()))
     }
 }

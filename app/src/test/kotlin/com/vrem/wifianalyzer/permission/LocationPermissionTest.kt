@@ -21,9 +21,8 @@ import android.app.Activity
 import android.location.LocationManager
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.*
@@ -52,7 +51,7 @@ class LocationPermissionTest {
         // execute
         val actual = fixture.enabled()
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(activity).getSystemService(LocationManager::class.java)
         verify(locationManager).isLocationEnabled
         verify(locationManager).isProviderEnabled(LocationManager.NETWORK_PROVIDER)
@@ -67,7 +66,7 @@ class LocationPermissionTest {
         // execute
         val actual = fixture.enabled()
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(activity).getSystemService(LocationManager::class.java)
         verify(locationManager).isLocationEnabled
     }
@@ -81,7 +80,7 @@ class LocationPermissionTest {
         // execute
         val actual = fixture.enabled()
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(activity).getSystemService(LocationManager::class.java)
         verify(locationManager).isLocationEnabled
         verify(locationManager).isProviderEnabled(LocationManager.NETWORK_PROVIDER)
@@ -97,7 +96,7 @@ class LocationPermissionTest {
         // execute
         val actual = fixture.enabled()
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
         verify(activity).getSystemService(LocationManager::class.java)
         verify(locationManager).isLocationEnabled
         verify(locationManager).isProviderEnabled(LocationManager.NETWORK_PROVIDER)
@@ -114,7 +113,7 @@ class LocationPermissionTest {
         // execute
         val actual = fixture.enabled()
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
         verify(activity).getSystemService(LocationManager::class.java)
         verify(locationManager).isLocationEnabled
         verify(locationManager).isProviderEnabled(LocationManager.NETWORK_PROVIDER)
@@ -128,7 +127,7 @@ class LocationPermissionTest {
         // execute
         val actual = fixture.enabled()
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
         verify(activity).getSystemService(LocationManager::class.java)
     }
 
@@ -138,7 +137,7 @@ class LocationPermissionTest {
         // execute
         val actual = fixture.enabled()
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(activity, never()).getSystemService(any())
     }
 

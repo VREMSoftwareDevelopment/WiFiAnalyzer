@@ -19,9 +19,8 @@ package com.vrem.util
 
 import android.content.res.Resources
 import android.content.res.Resources.NotFoundException
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -49,7 +48,7 @@ class FileUtilsTest {
         // execute
         val actual: String = readFile(resources, id)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(resources).openRawResource(id)
     }
 
@@ -61,7 +60,7 @@ class FileUtilsTest {
         // execute
         val actual: String = readFile(resources, id)
         // validate
-        assertTrue(actual.isEmpty())
+        assertThat(actual).isEmpty()
         verify(resources).openRawResource(id)
     }
 }

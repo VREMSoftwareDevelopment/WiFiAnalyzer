@@ -17,38 +17,38 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import org.junit.Assert.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class GroupByTest {
 
     @Test
     fun groupByNumber() {
-        assertEquals(4, GroupBy.entries.size)
+        assertThat(GroupBy.entries).hasSize(4)
     }
 
     @Test
     fun groupBySort() {
-        assertTrue(GroupBy.CHANNEL.sort.javaClass.isInstance(sortByChannel()))
-        assertTrue(GroupBy.NONE.sort.javaClass.isInstance(sortByDefault()))
-        assertTrue(GroupBy.SSID.sort.javaClass.isInstance(sortBySSID()))
-        assertTrue(GroupBy.VIRTUAL.sort.javaClass.isInstance(sortBySSID()))
+        assertThat(GroupBy.CHANNEL.sort.javaClass.isInstance(sortByChannel())).isTrue()
+        assertThat(GroupBy.NONE.sort.javaClass.isInstance(sortByDefault())).isTrue()
+        assertThat(GroupBy.SSID.sort.javaClass.isInstance(sortBySSID())).isTrue()
+        assertThat(GroupBy.VIRTUAL.sort.javaClass.isInstance(sortBySSID())).isTrue()
     }
 
     @Test
     fun groupByGroup() {
-        assertTrue(GroupBy.CHANNEL.group.javaClass.isInstance(groupByChannel))
-        assertTrue(GroupBy.NONE.group.javaClass.isInstance(groupBySSID))
-        assertTrue(GroupBy.SSID.group.javaClass.isInstance(groupBySSID))
-        assertTrue(GroupBy.VIRTUAL.group.javaClass.isInstance(groupByVirtual))
+        assertThat(GroupBy.CHANNEL.group.javaClass.isInstance(groupByChannel)).isTrue()
+        assertThat(GroupBy.NONE.group.javaClass.isInstance(groupBySSID)).isTrue()
+        assertThat(GroupBy.SSID.group.javaClass.isInstance(groupBySSID)).isTrue()
+        assertThat(GroupBy.VIRTUAL.group.javaClass.isInstance(groupByVirtual)).isTrue()
     }
 
     @Test
     fun none() {
-        assertFalse(GroupBy.CHANNEL.none)
-        assertTrue(GroupBy.NONE.none)
-        assertFalse(GroupBy.SSID.none)
-        assertFalse(GroupBy.VIRTUAL.none)
+        assertThat(GroupBy.CHANNEL.none).isFalse()
+        assertThat(GroupBy.NONE.none).isTrue()
+        assertThat(GroupBy.SSID.none).isFalse()
+        assertThat(GroupBy.VIRTUAL.none).isFalse()
     }
 
     @Test
@@ -59,7 +59,7 @@ class GroupByTest {
         // execute
         val actual: String = GroupBy.NONE.group(wiFiDetail)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -70,7 +70,7 @@ class GroupByTest {
         // execute
         val actual: String = GroupBy.SSID.group(wiFiDetail)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -81,7 +81,7 @@ class GroupByTest {
         // execute
         val actual: String = GroupBy.CHANNEL.group(wiFiDetail)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -92,7 +92,7 @@ class GroupByTest {
         // execute
         val actual: String = GroupBy.VIRTUAL.group(wiFiDetail)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     private fun withWiFiDetail() = WiFiDetail(

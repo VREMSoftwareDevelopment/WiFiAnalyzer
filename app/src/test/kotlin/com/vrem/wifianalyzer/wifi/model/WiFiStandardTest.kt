@@ -22,7 +22,7 @@ import android.net.wifi.ScanResult
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.R
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.*
@@ -34,40 +34,40 @@ class WiFiStandardTest {
 
     @Test
     fun width() {
-        assertEquals(7, WiFiStandard.entries.size)
+        assertThat(WiFiStandard.entries).hasSize(7)
     }
 
     @Test
     fun nameResource() {
-        assertEquals(R.string.wifi_standard_unknown, WiFiStandard.UNKNOWN.textResource)
-        assertEquals(R.string.wifi_standard_legacy, WiFiStandard.LEGACY.textResource)
-        assertEquals(R.string.wifi_standard_n, WiFiStandard.N.textResource)
-        assertEquals(R.string.wifi_standard_ac, WiFiStandard.AC.textResource)
-        assertEquals(R.string.wifi_standard_ax, WiFiStandard.AX.textResource)
-        assertEquals(R.string.wifi_standard_ad, WiFiStandard.AD.textResource)
-        assertEquals(R.string.wifi_standard_be, WiFiStandard.BE.textResource)
+        assertThat(WiFiStandard.UNKNOWN.textResource).isEqualTo(R.string.wifi_standard_unknown)
+        assertThat(WiFiStandard.LEGACY.textResource).isEqualTo(R.string.wifi_standard_legacy)
+        assertThat(WiFiStandard.N.textResource).isEqualTo(R.string.wifi_standard_n)
+        assertThat(WiFiStandard.AC.textResource).isEqualTo(R.string.wifi_standard_ac)
+        assertThat(WiFiStandard.AX.textResource).isEqualTo(R.string.wifi_standard_ax)
+        assertThat(WiFiStandard.AD.textResource).isEqualTo(R.string.wifi_standard_ad)
+        assertThat(WiFiStandard.BE.textResource).isEqualTo(R.string.wifi_standard_be)
     }
 
     @Test
     fun imageResource() {
-        assertEquals(R.drawable.ic_wifi_unknown, WiFiStandard.UNKNOWN.imageResource)
-        assertEquals(R.drawable.ic_wifi_legacy, WiFiStandard.LEGACY.imageResource)
-        assertEquals(R.drawable.ic_wifi_4, WiFiStandard.N.imageResource)
-        assertEquals(R.drawable.ic_wifi_5, WiFiStandard.AC.imageResource)
-        assertEquals(R.drawable.ic_wifi_6, WiFiStandard.AX.imageResource)
-        assertEquals(R.drawable.ic_wifi_unknown, WiFiStandard.AD.imageResource)
-        assertEquals(R.drawable.ic_wifi_unknown, WiFiStandard.BE.imageResource)
+        assertThat(WiFiStandard.UNKNOWN.imageResource).isEqualTo(R.drawable.ic_wifi_unknown)
+        assertThat(WiFiStandard.LEGACY.imageResource).isEqualTo(R.drawable.ic_wifi_legacy)
+        assertThat(WiFiStandard.N.imageResource).isEqualTo(R.drawable.ic_wifi_4)
+        assertThat(WiFiStandard.AC.imageResource).isEqualTo(R.drawable.ic_wifi_5)
+        assertThat(WiFiStandard.AX.imageResource).isEqualTo(R.drawable.ic_wifi_6)
+        assertThat(WiFiStandard.AD.imageResource).isEqualTo(R.drawable.ic_wifi_unknown)
+        assertThat(WiFiStandard.BE.imageResource).isEqualTo(R.drawable.ic_wifi_unknown)
     }
 
     @Test
     fun wiFIStandard() {
-        assertEquals(ScanResult.WIFI_STANDARD_UNKNOWN, WiFiStandard.UNKNOWN.wiFiStandardId)
-        assertEquals(ScanResult.WIFI_STANDARD_LEGACY, WiFiStandard.LEGACY.wiFiStandardId)
-        assertEquals(ScanResult.WIFI_STANDARD_11N, WiFiStandard.N.wiFiStandardId)
-        assertEquals(ScanResult.WIFI_STANDARD_11AC, WiFiStandard.AC.wiFiStandardId)
-        assertEquals(ScanResult.WIFI_STANDARD_11AX, WiFiStandard.AX.wiFiStandardId)
-        assertEquals(ScanResult.WIFI_STANDARD_11AD, WiFiStandard.AD.wiFiStandardId)
-        assertEquals(ScanResult.WIFI_STANDARD_11BE, WiFiStandard.BE.wiFiStandardId)
+        assertThat(WiFiStandard.UNKNOWN.wiFiStandardId).isEqualTo(ScanResult.WIFI_STANDARD_UNKNOWN)
+        assertThat(WiFiStandard.LEGACY.wiFiStandardId).isEqualTo(ScanResult.WIFI_STANDARD_LEGACY)
+        assertThat(WiFiStandard.N.wiFiStandardId).isEqualTo(ScanResult.WIFI_STANDARD_11N)
+        assertThat(WiFiStandard.AC.wiFiStandardId).isEqualTo(ScanResult.WIFI_STANDARD_11AC)
+        assertThat(WiFiStandard.AX.wiFiStandardId).isEqualTo(ScanResult.WIFI_STANDARD_11AX)
+        assertThat(WiFiStandard.AD.wiFiStandardId).isEqualTo(ScanResult.WIFI_STANDARD_11AD)
+        assertThat(WiFiStandard.BE.wiFiStandardId).isEqualTo(ScanResult.WIFI_STANDARD_11BE)
     }
 
     @Config(sdk = [Build.VERSION_CODES.Q])
@@ -78,7 +78,7 @@ class WiFiStandardTest {
         // execute
         val actual = WiFiStandard.findOne(scanResult)
         // validate
-        assertEquals(WiFiStandard.UNKNOWN, actual)
+        assertThat(actual).isEqualTo(WiFiStandard.UNKNOWN)
         verifyNoMoreInteractions(scanResult)
     }
 
@@ -97,7 +97,7 @@ class WiFiStandardTest {
         // execute
         val actual = WiFiStandard.findOne(scanResult)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(scanResult).wifiStandard
         verifyNoMoreInteractions(scanResult)
     }

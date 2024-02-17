@@ -28,14 +28,13 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.permission.PermissionDialog.CancelClick
 import com.vrem.wifianalyzer.permission.PermissionDialog.OkClick
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
 import org.robolectric.annotation.Config
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
@@ -48,8 +47,8 @@ class PermissionDialogTest {
         // execute
         val actual = fixture.show()
         //
-        assertNotNull(actual)
-        assertTrue(actual.findViewById<View>(R.id.throttling).isVisible)
+        assertThat(actual).isNotNull()
+        assertThat(actual?.findViewById<View>(R.id.throttling)?.isVisible).isTrue()
     }
 
     @Test
@@ -58,8 +57,8 @@ class PermissionDialogTest {
         // execute
         val actual = fixture.show()
         //
-        assertNotNull(actual)
-        assertTrue(actual.findViewById<View>(R.id.throttling).isGone)
+        assertThat(actual).isNotNull()
+        assertThat(actual?.findViewById<View>(R.id.throttling)?.isGone).isTrue()
     }
 
     @Test

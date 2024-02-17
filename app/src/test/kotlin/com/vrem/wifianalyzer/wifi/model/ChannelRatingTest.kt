@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.wifi.model
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class ChannelRatingTest {
@@ -61,8 +61,8 @@ class ChannelRatingTest {
         // setup
         val wiFiChannel: WiFiChannel = wiFiDetail1.wiFiSignal.centerWiFiChannel
         // execute & validate
-        assertEquals(0, fixture.count(wiFiChannel))
-        assertEquals(Strength.ZERO, fixture.strength(wiFiChannel))
+        assertThat(fixture.count(wiFiChannel)).isEqualTo(0)
+        assertThat(fixture.strength(wiFiChannel)).isEqualTo(Strength.ZERO)
     }
 
     @Test
@@ -76,7 +76,7 @@ class ChannelRatingTest {
     }
 
     private fun validateCount(expected: Int, wiFiChannel: WiFiChannel) {
-        assertEquals(expected, fixture.count(wiFiChannel))
+        assertThat(fixture.count(wiFiChannel)).isEqualTo(expected)
     }
 
     @Test
@@ -88,7 +88,7 @@ class ChannelRatingTest {
         // execute
         val actual: Strength = fixture.strength(wiFiDetail3.wiFiSignal.centerWiFiChannel)
         // execute and validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -100,7 +100,7 @@ class ChannelRatingTest {
         // execute
         val actual: Strength = fixture.strength(wiFiDetail1.wiFiSignal.centerWiFiChannel)
         // execute and validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     private fun makeCopy(wiFiDetail: WiFiDetail): WiFiDetail {
@@ -121,7 +121,7 @@ class ChannelRatingTest {
         // execute
         val actual: List<ChannelAPCount> = fixture.bestChannels(channels)
         // validate
-        assertEquals(7, actual.size)
+        assertThat(actual).hasSize(7)
         validateChannelAPCount(1, 0, actual[0])
         validateChannelAPCount(2, 0, actual[1])
         validateChannelAPCount(12, 0, actual[2])
@@ -132,8 +132,8 @@ class ChannelRatingTest {
     }
 
     private fun validateChannelAPCount(expectedChannel: Int, expectedCount: Int, channelAPCount: ChannelAPCount) {
-        assertEquals(expectedChannel, channelAPCount.wiFiChannel.channel)
-        assertEquals(expectedCount, channelAPCount.count)
+        assertThat(channelAPCount.wiFiChannel.channel).isEqualTo(expectedChannel)
+        assertThat(channelAPCount.count).isEqualTo(expectedCount)
     }
 
     @Test
@@ -148,7 +148,7 @@ class ChannelRatingTest {
         // execute
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail))
         // validate
-        assertEquals(1, fixture.wiFiDetails().size)
-        assertEquals(wiFiDetail1, fixture.wiFiDetails()[0])
+        assertThat(fixture.wiFiDetails()).hasSize(1)
+        assertThat(fixture.wiFiDetails()[0]).isEqualTo(wiFiDetail1)
     }
 }

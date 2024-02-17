@@ -21,8 +21,8 @@ import android.os.Handler
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verifyNoMoreInteractions
@@ -47,13 +47,13 @@ class ScannerServiceTest {
         // execute
         val actual = makeScannerService(mainActivity, wiFiManagerWrapper, handler, settings) as Scanner
         // validate
-        assertEquals(wiFiManagerWrapper, actual.wiFiManagerWrapper)
-        assertEquals(settings, actual.settings)
-        assertNotNull(actual.transformer)
-        assertNotNull(actual.periodicScan)
-        assertNotNull(actual.scannerCallback)
-        assertNotNull(actual.scanResultsReceiver)
-        assertFalse(actual.running())
+        assertThat(actual.wiFiManagerWrapper).isEqualTo(wiFiManagerWrapper)
+        assertThat(actual.settings).isEqualTo(settings)
+        assertThat(actual.transformer).isNotNull()
+        assertThat(actual.periodicScan).isNotNull()
+        assertThat(actual.scannerCallback).isNotNull()
+        assertThat(actual.scanResultsReceiver).isNotNull()
+        assertThat(actual.running()).isFalse()
     }
 
 }

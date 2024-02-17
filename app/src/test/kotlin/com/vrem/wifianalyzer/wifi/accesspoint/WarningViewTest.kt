@@ -26,8 +26,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.*
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.wifi.model.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.*
@@ -60,8 +60,8 @@ class WarningViewTest {
         // execute
         val actual = fixture.update(wiFiData)
         // validate
-        assertFalse(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.warning).isGone)
+        assertThat(actual).isFalse()
+        assertThat(mainActivity.findViewById<View>(R.id.warning).isGone).isTrue()
         verify(fixture).noData(registered, wiFiData.wiFiDetails)
         verify(fixture).noLocation(registered, permissionService)
         verify(fixture).throttling(registered, wiFiManagerWrapper)
@@ -78,8 +78,8 @@ class WarningViewTest {
         // execute
         val actual = fixture.update(wiFiData)
         // validate
-        assertTrue(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.warning).isVisible)
+        assertThat(actual).isTrue()
+        assertThat(mainActivity.findViewById<View>(R.id.warning).isVisible).isTrue()
         verify(fixture).noData(registered, wiFiData.wiFiDetails)
         verify(fixture).noLocation(registered, permissionService)
         verify(fixture).throttling(registered, wiFiManagerWrapper)
@@ -96,8 +96,8 @@ class WarningViewTest {
         // execute
         val actual = fixture.update(wiFiData)
         // validate
-        assertTrue(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.warning).isVisible)
+        assertThat(actual).isTrue()
+        assertThat(mainActivity.findViewById<View>(R.id.warning).isVisible).isTrue()
         verify(fixture).noData(registered, wiFiData.wiFiDetails)
         verify(fixture).noLocation(registered, permissionService)
         verify(fixture).throttling(registered, wiFiManagerWrapper)
@@ -110,8 +110,8 @@ class WarningViewTest {
         // execute
         val actual = fixture.noData(true, wiFiDetails)
         // validate
-        assertTrue(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.no_data).isVisible)
+        assertThat(actual).isTrue()
+        assertThat(mainActivity.findViewById<View>(R.id.no_data).isVisible).isTrue()
     }
 
     @Test
@@ -121,7 +121,7 @@ class WarningViewTest {
         // execute
         fixture.noData(false, wiFiDetails)
         // validate
-        assertTrue(mainActivity.findViewById<View>(R.id.no_data).isGone)
+        assertThat(mainActivity.findViewById<View>(R.id.no_data).isGone).isTrue()
     }
 
     @Test
@@ -131,8 +131,8 @@ class WarningViewTest {
         // execute
         val actual = fixture.noData(true, wiFiDetails)
         // validate
-        assertFalse(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.no_data).isGone)
+        assertThat(actual).isFalse()
+        assertThat(mainActivity.findViewById<View>(R.id.no_data).isGone).isTrue()
     }
 
     @Test
@@ -142,8 +142,8 @@ class WarningViewTest {
         // execute
         val actual = fixture.noData(false, wiFiDetails)
         // validate
-        assertFalse(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.no_data).isGone)
+        assertThat(actual).isFalse()
+        assertThat(mainActivity.findViewById<View>(R.id.no_data).isGone).isTrue()
     }
 
     @Test
@@ -153,9 +153,9 @@ class WarningViewTest {
         // execute
         val actual = fixture.noLocation(true, permissionService)
         // validate
-        assertTrue(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.no_location).isVisible)
-        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isVisible)
+        assertThat(actual).isTrue()
+        assertThat(mainActivity.findViewById<View>(R.id.no_location).isVisible).isTrue()
+        assertThat(mainActivity.findViewById<View>(R.id.throttling).isVisible).isTrue()
         verify(permissionService).enabled()
     }
 
@@ -167,9 +167,9 @@ class WarningViewTest {
         // execute
         val actual = fixture.noLocation(true, permissionService)
         // validate
-        assertTrue(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.no_location).isVisible)
-        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isGone)
+        assertThat(actual).isTrue()
+        assertThat(mainActivity.findViewById<View>(R.id.no_location).isVisible).isTrue()
+        assertThat(mainActivity.findViewById<View>(R.id.throttling).isGone).isTrue()
         verify(permissionService).enabled()
     }
 
@@ -180,9 +180,9 @@ class WarningViewTest {
         // execute
         val actual = fixture.noLocation(false, permissionService)
         // validate
-        assertFalse(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.no_location).isGone)
-        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isGone)
+        assertThat(actual).isFalse()
+        assertThat(mainActivity.findViewById<View>(R.id.no_location).isGone).isTrue()
+        assertThat(mainActivity.findViewById<View>(R.id.throttling).isGone).isTrue()
         verify(permissionService, never()).enabled()
     }
 
@@ -193,9 +193,9 @@ class WarningViewTest {
         // execute
         val actual = fixture.noLocation(true, permissionService)
         // validate
-        assertFalse(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.no_location).isGone)
-        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isGone)
+        assertThat(actual).isFalse()
+        assertThat(mainActivity.findViewById<View>(R.id.no_location).isGone).isTrue()
+        assertThat(mainActivity.findViewById<View>(R.id.throttling).isGone).isTrue()
         verify(permissionService).enabled()
     }
 
@@ -206,9 +206,9 @@ class WarningViewTest {
         // execute
         val actual = fixture.noLocation(false, permissionService)
         // validate
-        assertFalse(actual)
-        assertTrue(mainActivity.findViewById<View>(R.id.no_location).isGone)
-        assertTrue(mainActivity.findViewById<View>(R.id.throttling).isGone)
+        assertThat(actual).isFalse()
+        assertThat(mainActivity.findViewById<View>(R.id.no_location).isGone).isTrue()
+        assertThat(mainActivity.findViewById<View>(R.id.throttling).isGone).isTrue()
         verify(permissionService, never()).enabled()
     }
 
@@ -220,7 +220,7 @@ class WarningViewTest {
         fixture.throttling(true, wiFiManagerWrapper)
         // validate
         val textView = mainActivity.findViewById<TextView>(R.id.main_wifi_throttling)
-        assertEquals(View.VISIBLE, textView.visibility)
+        assertThat(textView.visibility).isEqualTo(View.VISIBLE)
         verify(wiFiManagerWrapper).isScanThrottleEnabled()
     }
 
@@ -232,7 +232,7 @@ class WarningViewTest {
         fixture.throttling(false, wiFiManagerWrapper)
         // validate
         val textView = mainActivity.findViewById<TextView>(R.id.main_wifi_throttling)
-        assertEquals(View.GONE, textView.visibility)
+        assertThat(textView.visibility).isEqualTo(View.GONE)
         verify(wiFiManagerWrapper, never()).isScanThrottleEnabled()
     }
 
@@ -244,7 +244,7 @@ class WarningViewTest {
         fixture.throttling(true, wiFiManagerWrapper)
         // validate
         val textView = mainActivity.findViewById<TextView>(R.id.main_wifi_throttling)
-        assertEquals(View.GONE, textView.visibility)
+        assertThat(textView.visibility).isEqualTo(View.GONE)
         verify(wiFiManagerWrapper).isScanThrottleEnabled()
     }
 

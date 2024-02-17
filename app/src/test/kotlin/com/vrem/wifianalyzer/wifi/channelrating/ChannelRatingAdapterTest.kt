@@ -31,9 +31,8 @@ import com.vrem.wifianalyzer.wifi.model.*
 import com.vrem.wifianalyzer.wifi.model.Strength.Companion.reverse
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
 import com.vrem.wifianalyzer.wifi.predicate.predicate
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.mock
@@ -72,14 +71,14 @@ class ChannelRatingAdapterTest {
         // execute
         val actual = fixture.getView(0, null, viewGroup)
         // validate
-        assertNotNull(actual)
-        assertEquals("1", actual.findViewById<TextView>(R.id.channelNumber).text)
-        assertEquals("5", actual.findViewById<TextView>(R.id.accessPointCount).text)
+        assertThat(actual).isNotNull()
+        assertThat(actual.findViewById<TextView>(R.id.channelNumber).text).isEqualTo("1")
+        assertThat(actual.findViewById<TextView>(R.id.accessPointCount).text).isEqualTo("5")
         val ratingBar = actual.findViewById<RatingBar>(R.id.channelRating)
-        assertEquals(expectedSize, ratingBar.max)
-        assertEquals(expectedSize, ratingBar.numStars)
-        assertEquals(expectedStrength.ordinal + 1, ratingBar.rating.toInt())
-        assertEquals("", bestChannels.text)
+        assertThat(ratingBar.max).isEqualTo(expectedSize)
+        assertThat(ratingBar.numStars).isEqualTo(expectedSize)
+        assertThat(ratingBar.rating.toInt()).isEqualTo(expectedStrength.ordinal + 1)
+        assertThat(bestChannels.text).isEqualTo("")
         verify(channelRating).count(wiFiChannel)
         verify(channelRating).strength(wiFiChannel)
     }
@@ -97,7 +96,7 @@ class ChannelRatingAdapterTest {
         // execute
         fixture.update(wiFiData)
         // validate
-        assertEquals(expected, bestChannels.text)
+        assertThat(bestChannels.text).isEqualTo(expected)
         verify(channelRating).bestChannels(wiFiChannels)
         verify(channelRating).wiFiDetails(wiFiDetails)
         verify(settings).wiFiBand()
@@ -117,8 +116,8 @@ class ChannelRatingAdapterTest {
         // execute
         val actual = fixture.bestChannels(WiFiBand.GHZ2, wiFiChannels)
         // validate
-        assertEquals(expected, actual.message)
-        assertEquals(R.color.error, actual.color)
+        assertThat(actual.message).isEqualTo(expected)
+        assertThat(actual.color).isEqualTo(R.color.error)
         verify(channelRating).bestChannels(wiFiChannels)
     }
 
@@ -132,8 +131,8 @@ class ChannelRatingAdapterTest {
         // execute
         val actual = fixture.bestChannels(WiFiBand.GHZ5, wiFiChannels)
         // validate
-        assertEquals(expected, actual.message)
-        assertEquals(R.color.error, actual.color)
+        assertThat(actual.message).isEqualTo(expected)
+        assertThat(actual.color).isEqualTo(R.color.error)
         verify(channelRating).bestChannels(wiFiChannels)
     }
 
@@ -147,8 +146,8 @@ class ChannelRatingAdapterTest {
         // execute
         val actual = fixture.bestChannels(WiFiBand.GHZ5, wiFiChannels)
         // validate
-        assertEquals(expected, actual.message)
-        assertEquals(R.color.success, actual.color)
+        assertThat(actual.message).isEqualTo(expected)
+        assertThat(actual.color).isEqualTo(R.color.success)
         verify(channelRating).bestChannels(wiFiChannels)
     }
 
@@ -162,8 +161,8 @@ class ChannelRatingAdapterTest {
         // execute
         val actual = fixture.bestChannels(WiFiBand.GHZ5, wiFiChannels)
         // validate
-        assertEquals(expected, actual.message)
-        assertEquals(R.color.success, actual.color)
+        assertThat(actual.message).isEqualTo(expected)
+        assertThat(actual.color).isEqualTo(R.color.success)
         verify(channelRating).bestChannels(wiFiChannels)
     }
 

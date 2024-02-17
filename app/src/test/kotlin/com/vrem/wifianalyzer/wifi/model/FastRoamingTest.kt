@@ -21,7 +21,7 @@ import android.net.wifi.ScanResult
 import android.net.wifi.ScanResult.InformationElement
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import org.junit.Assert.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.*
@@ -39,7 +39,7 @@ class FastRoamingTest {
         // execute
         val actual = FastRoaming.find(scanResult)
         // validate
-        assertTrue(actual.isEmpty())
+        assertThat(actual).isEmpty()
         verifyNoMoreInteractions(scanResult)
     }
 
@@ -67,7 +67,7 @@ class FastRoamingTest {
         // execute
         val actual = FastRoaming.find(scanResult)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         informationElements.forEachIndexed { index, it ->
             verify(it, times(elements[index].countId)).id
             verify(it, times(elements[index].countBytes)).bytes

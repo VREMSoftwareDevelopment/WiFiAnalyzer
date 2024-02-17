@@ -18,8 +18,7 @@
 package com.vrem.wifianalyzer.wifi.predicate
 
 import com.vrem.wifianalyzer.wifi.model.*
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class SecurityPredicateTest {
@@ -31,7 +30,7 @@ class SecurityPredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
     }
 
     @Test
@@ -42,7 +41,7 @@ class SecurityPredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
     }
 
     @Test
@@ -53,7 +52,7 @@ class SecurityPredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
     }
 
     @Test
@@ -64,7 +63,7 @@ class SecurityPredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
     }
 
     private fun wiFiDetail(): WiFiDetail =

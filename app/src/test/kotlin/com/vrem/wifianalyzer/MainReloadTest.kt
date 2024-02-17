@@ -19,8 +19,8 @@ package com.vrem.wifianalyzer
 
 import com.vrem.wifianalyzer.settings.ThemeStyle
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.atLeastOnce
@@ -55,8 +55,8 @@ class MainReloadTest {
         // execute
         val actual = fixture.shouldReload(settings)
         // validate
-        assertFalse(actual)
-        assertEquals(ThemeStyle.DARK, fixture.themeStyle)
+        assertThat(actual).isFalse()
+        assertThat(fixture.themeStyle).isEqualTo(ThemeStyle.DARK)
     }
 
     @Test
@@ -67,8 +67,8 @@ class MainReloadTest {
         // execute
         val actual = fixture.shouldReload(settings)
         // validate
-        assertTrue(actual)
-        assertEquals(expected, fixture.themeStyle)
+        assertThat(actual).isTrue()
+        assertThat(fixture.themeStyle).isEqualTo(expected)
     }
 
     @Test
@@ -76,8 +76,8 @@ class MainReloadTest {
         // execute
         val actual = fixture.shouldReload(settings)
         // validate
-        assertFalse(actual)
-        assertEquals(ConnectionViewType.COMPLETE, fixture.connectionViewType)
+        assertThat(actual).isFalse()
+        assertThat(fixture.connectionViewType).isEqualTo(ConnectionViewType.COMPLETE)
     }
 
     @Test
@@ -88,8 +88,8 @@ class MainReloadTest {
         // execute
         val actual = fixture.shouldReload(settings)
         // validate
-        assertTrue(actual)
-        assertEquals(expected, fixture.connectionViewType)
+        assertThat(actual).isTrue()
+        assertThat(fixture.connectionViewType).isEqualTo(expected)
     }
 
     @Test
@@ -97,8 +97,8 @@ class MainReloadTest {
         // execute
         val actual = fixture.shouldReload(settings)
         // validate
-        assertFalse(actual)
-        assertEquals(Locale.UK, fixture.languageLocale)
+        assertThat(actual).isFalse()
+        assertThat(fixture.languageLocale).isEqualTo(Locale.UK)
     }
 
     @Test
@@ -109,8 +109,8 @@ class MainReloadTest {
         // execute
         val actual = fixture.shouldReload(settings)
         // validate
-        assertTrue(actual)
-        assertEquals(expected, fixture.languageLocale)
+        assertThat(actual).isTrue()
+        assertThat(fixture.languageLocale).isEqualTo(expected)
     }
 
 }

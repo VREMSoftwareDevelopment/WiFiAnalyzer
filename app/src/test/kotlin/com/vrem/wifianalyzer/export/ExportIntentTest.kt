@@ -18,8 +18,8 @@
 package com.vrem.wifianalyzer.export
 
 import android.content.Intent
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.*
 
@@ -45,7 +45,7 @@ class ExportIntentTest {
         // execute
         val actual = fixture.intent(title, data)
         // validate
-        assertEquals(intentChooser, actual)
+        assertThat(actual).isEqualTo(intentChooser)
 
         verify(intentSend).flags = Intent.FLAG_ACTIVITY_NEW_TASK
         verify(intentSend).type = "text/plain"

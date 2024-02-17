@@ -21,9 +21,8 @@ import com.vrem.wifianalyzer.permission.PermissionService
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
 import com.vrem.wifianalyzer.wifi.model.WiFiData
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.*
@@ -71,7 +70,7 @@ class ScannerTest {
         // execute
         fixture.stop()
         // validate
-        assertEquals(0, fixture.registered())
+        assertThat(fixture.registered()).isEqualTo(0)
         verify(settings).wiFiOffOnExit()
         verify(wiFiManagerWrapper, never()).disableWiFi()
         verify(periodicScan).stop()
@@ -85,7 +84,7 @@ class ScannerTest {
         // execute
         fixture.stop()
         // validate
-        assertEquals(0, fixture.registered())
+        assertThat(fixture.registered()).isEqualTo(0)
         verify(wiFiManagerWrapper).disableWiFi()
         verify(periodicScan).stop()
         verify(scanResultsReceiver).unregister()
@@ -116,28 +115,28 @@ class ScannerTest {
         // execute
         val actual = fixture.running()
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(periodicScan).running
     }
 
     @Test
     fun register() {
         // setup
-        assertEquals(3, fixture.registered())
+        assertThat(fixture.registered()).isEqualTo(3)
         // execute
         fixture.register(updateNotifier2)
         // validate
-        assertEquals(4, fixture.registered())
+        assertThat(fixture.registered()).isEqualTo(4)
     }
 
     @Test
     fun unregister() {
         // setup
-        assertEquals(3, fixture.registered())
+        assertThat(fixture.registered()).isEqualTo(3)
         // execute
         fixture.unregister(updateNotifier2)
         // validate
-        assertEquals(2, fixture.registered())
+        assertThat(fixture.registered()).isEqualTo(2)
     }
 
     @Test
@@ -148,7 +147,7 @@ class ScannerTest {
         // execute
         fixture.update()
         // validate
-        assertEquals(wiFiData, fixture.wiFiData())
+        assertThat(fixture.wiFiData()).isEqualTo(wiFiData)
         verify(wiFiManagerWrapper).enableWiFi()
         verify(permissionService).enabled()
         verify(scanResultsReceiver).register()

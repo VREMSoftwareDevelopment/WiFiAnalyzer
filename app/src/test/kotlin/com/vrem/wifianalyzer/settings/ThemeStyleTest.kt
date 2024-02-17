@@ -18,27 +18,27 @@
 package com.vrem.wifianalyzer.settings
 
 import com.vrem.wifianalyzer.R
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class ThemeStyleTest {
     @Test
     fun themeStyle() {
-        assertEquals(3, ThemeStyle.entries.size)
+        assertThat(ThemeStyle.entries).hasSize(3)
     }
 
     @Test
     fun theme() {
-        assertEquals(R.style.ThemeLight, ThemeStyle.LIGHT.theme)
-        assertEquals(R.style.ThemeDark, ThemeStyle.DARK.theme)
-        assertEquals(R.style.ThemeSystem, ThemeStyle.SYSTEM.theme)
+        assertThat(ThemeStyle.LIGHT.theme).isEqualTo(R.style.ThemeLight)
+        assertThat(ThemeStyle.DARK.theme).isEqualTo(R.style.ThemeDark)
+        assertThat(ThemeStyle.SYSTEM.theme).isEqualTo(R.style.ThemeSystem)
     }
 
     @Test
     fun themeNoActionBar() {
-        assertEquals(R.style.ThemeDarkNoActionBar, ThemeStyle.DARK.themeNoActionBar)
-        assertEquals(R.style.ThemeLightNoActionBar, ThemeStyle.LIGHT.themeNoActionBar)
-        assertEquals(R.style.ThemeSystemNoActionBar, ThemeStyle.SYSTEM.themeNoActionBar)
+        assertThat(ThemeStyle.DARK.themeNoActionBar).isEqualTo(R.style.ThemeDarkNoActionBar)
+        assertThat(ThemeStyle.LIGHT.themeNoActionBar).isEqualTo(R.style.ThemeLightNoActionBar)
+        assertThat(ThemeStyle.SYSTEM.themeNoActionBar).isEqualTo(R.style.ThemeSystemNoActionBar)
     }
 
 }

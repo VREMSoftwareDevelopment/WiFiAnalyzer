@@ -22,8 +22,8 @@ import android.content.Intent
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.*
 import java.text.SimpleDateFormat
@@ -64,7 +64,7 @@ class ExportTest {
         // execute
         val actual = fixture.export(mainActivity, wiFiDetails, date)
         // validate
-        assertEquals(intent, actual)
+        assertThat(actual).isEqualTo(intent)
         verify(mainActivity).applicationContext
         verify(context).getString(R.string.action_access_points)
         verify(context, times(count)).getString(WiFiStandard.AC.textResource)
@@ -79,7 +79,7 @@ class ExportTest {
         // execute
         val actual = fixture.timestamp(date)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -94,7 +94,7 @@ class ExportTest {
         // execute
         val actual = fixture.data(context, wiFiDetails, timestamp)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(context, times(count)).getString(WiFiStandard.AC.textResource)
         verify(context, times(count)).getString(FastRoaming.FR_802_11R.textResource)
     }
@@ -108,7 +108,7 @@ class ExportTest {
         // execute
         val actual = fixture.title(context, timestamp)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(context).getString(R.string.action_access_points)
     }
 
@@ -116,9 +116,9 @@ class ExportTest {
 
     private fun data(timestamp: String): String =
         "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|Timestamp|802.11mc|Security|Standard|FastRoaming\n" +
-                timestamp + "|SSID10|BSSID10|-10dBm|3|2422MHz|5|2432MHz|40MHz (2412 - 2452)|~0.0m|123456789|true|capabilities10|802.11AC|802.11R\n" +
-                timestamp + "|SSID20|BSSID20|-20dBm|5|2432MHz|7|2442MHz|40MHz (2422 - 2462)|~0.1m|123456789|true|capabilities20|802.11AC|802.11R\n" +
-                timestamp + "|SSID30|BSSID30|-30dBm|7|2442MHz|9|2452MHz|40MHz (2432 - 2472)|~0.3m|123456789|true|capabilities30|802.11AC|802.11R\n"
+            timestamp + "|SSID10|BSSID10|-10dBm|3|2422MHz|5|2432MHz|40MHz (2412 - 2452)|~0.0m|123456789|true|capabilities10|802.11AC|802.11R\n" +
+            timestamp + "|SSID20|BSSID20|-20dBm|5|2432MHz|7|2442MHz|40MHz (2422 - 2462)|~0.1m|123456789|true|capabilities20|802.11AC|802.11R\n" +
+            timestamp + "|SSID30|BSSID30|-30dBm|7|2442MHz|9|2452MHz|40MHz (2432 - 2472)|~0.3m|123456789|true|capabilities30|802.11AC|802.11R\n"
 
     private fun timestamp(date: Date): String = SimpleDateFormat("yyyy/MM/dd-HH:mm:ss", Locale.US).format(date)
 

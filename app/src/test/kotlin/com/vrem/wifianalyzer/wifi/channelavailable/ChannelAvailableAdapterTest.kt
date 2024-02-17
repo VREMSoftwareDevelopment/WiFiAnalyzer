@@ -26,9 +26,8 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry.Companion.find
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -73,14 +72,14 @@ class ChannelAvailableAdapterTest {
         // execute
         val actual = fixture.getView(0, null, viewGroup)
         // validate
-        assertNotNull(actual)
-        assertEquals(expected, actual.findViewById<TextView>(R.id.channel_available_country).text)
-        assertEquals("$wiFiBand2 : ", actual.findViewById<TextView>(R.id.channel_available_title_ghz_2).text)
-        assertEquals(expectedGHZ2, actual.findViewById<TextView>(R.id.channel_available_ghz_2).text)
-        assertEquals("$wiFiBand5 : ", actual.findViewById<TextView>(R.id.channel_available_title_ghz_5).text)
-        assertEquals(expectedGHZ5, actual.findViewById<TextView>(R.id.channel_available_ghz_5).text)
-        assertEquals("$wiFiBand6 : ", actual.findViewById<TextView>(R.id.channel_available_title_ghz_6).text)
-        assertEquals(expectedGHZ6, actual.findViewById<TextView>(R.id.channel_available_ghz_6).text)
+        assertThat(actual).isNotNull()
+        assertThat(actual.findViewById<TextView>(R.id.channel_available_country).text).isEqualTo(expected)
+        assertThat(actual.findViewById<TextView>(R.id.channel_available_title_ghz_2).text).isEqualTo("$wiFiBand2 : ")
+        assertThat(actual.findViewById<TextView>(R.id.channel_available_ghz_2).text).isEqualTo(expectedGHZ2)
+        assertThat(actual.findViewById<TextView>(R.id.channel_available_title_ghz_5).text).isEqualTo("$wiFiBand5 : ")
+        assertThat(actual.findViewById<TextView>(R.id.channel_available_ghz_5).text).isEqualTo(expectedGHZ5)
+        assertThat(actual.findViewById<TextView>(R.id.channel_available_title_ghz_6).text).isEqualTo("$wiFiBand6 : ")
+        assertThat(actual.findViewById<TextView>(R.id.channel_available_ghz_6).text).isEqualTo(expectedGHZ6)
     }
 
 }

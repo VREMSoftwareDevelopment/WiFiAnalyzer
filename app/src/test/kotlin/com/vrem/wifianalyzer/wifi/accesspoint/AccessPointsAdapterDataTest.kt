@@ -21,8 +21,8 @@ import android.widget.ExpandableListView
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.model.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.*
 
@@ -45,12 +45,12 @@ class AccessPointsAdapterDataTest {
 
     @Test
     fun beforeUpdate() {
-        assertEquals(0, fixture.parentsCount())
-        assertEquals(0, fixture.childrenCount(0))
-        assertEquals(WiFiDetail.EMPTY, fixture.parent(0))
-        assertEquals(WiFiDetail.EMPTY, fixture.parent(-1))
-        assertEquals(WiFiDetail.EMPTY, fixture.child(0, 0))
-        assertEquals(WiFiDetail.EMPTY, fixture.child(0, -1))
+        assertThat(fixture.parentsCount()).isEqualTo(0)
+        assertThat(fixture.childrenCount(0)).isEqualTo(0)
+        assertThat(fixture.parent(0)).isEqualTo(WiFiDetail.EMPTY)
+        assertThat(fixture.parent(-1)).isEqualTo(WiFiDetail.EMPTY)
+        assertThat(fixture.child(0, 0)).isEqualTo(WiFiDetail.EMPTY)
+        assertThat(fixture.child(0, -1)).isEqualTo(WiFiDetail.EMPTY)
     }
 
     @Test
@@ -65,14 +65,14 @@ class AccessPointsAdapterDataTest {
         verify(wiFiData).wiFiDetails(any(), eq(SortBy.SSID), eq(GroupBy.CHANNEL))
         verify(accessPointsAdapterGroup).update(wiFiDetails, expandableListView)
         verifySettings()
-        assertEquals(wiFiDetails.size, fixture.parentsCount())
-        assertEquals(wiFiDetails[0], fixture.parent(0))
-        assertEquals(wiFiDetails[0].children.size, fixture.childrenCount(0))
-        assertEquals(wiFiDetails[0].children[0], fixture.child(0, 0))
-        assertEquals(WiFiDetail.EMPTY, fixture.parent(-1))
-        assertEquals(WiFiDetail.EMPTY, fixture.parent(wiFiDetails.size))
-        assertEquals(WiFiDetail.EMPTY, fixture.child(0, -1))
-        assertEquals(WiFiDetail.EMPTY, fixture.child(0, wiFiDetails[0].children.size))
+        assertThat(fixture.parentsCount()).isEqualTo(wiFiDetails.size)
+        assertThat(fixture.parent(0)).isEqualTo(wiFiDetails[0])
+        assertThat(fixture.childrenCount(0)).isEqualTo(wiFiDetails[0].children.size)
+        assertThat(fixture.child(0, 0)).isEqualTo(wiFiDetails[0].children[0])
+        assertThat(fixture.parent(-1)).isEqualTo(WiFiDetail.EMPTY)
+        assertThat(fixture.parent(wiFiDetails.size)).isEqualTo(WiFiDetail.EMPTY)
+        assertThat(fixture.child(0, -1)).isEqualTo(WiFiDetail.EMPTY)
+        assertThat(fixture.child(0, wiFiDetails[0].children.size)).isEqualTo(WiFiDetail.EMPTY)
     }
 
     @Test

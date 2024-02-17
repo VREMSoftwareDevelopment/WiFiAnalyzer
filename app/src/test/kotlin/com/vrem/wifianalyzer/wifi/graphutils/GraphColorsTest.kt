@@ -21,8 +21,8 @@ import android.content.Context
 import android.content.res.Resources
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.mock
@@ -57,10 +57,10 @@ class GraphColorsTest {
         // setup
         val graphColors = withGraphColors()
         // validate & execute
-        assertEquals(graphColors[2], fixture.graphColor())
-        assertEquals(graphColors[1], fixture.graphColor())
-        assertEquals(graphColors[0], fixture.graphColor())
-        assertEquals(graphColors[2], fixture.graphColor())
+        assertThat(fixture.graphColor()).isEqualTo(graphColors[2])
+        assertThat(fixture.graphColor()).isEqualTo(graphColors[1])
+        assertThat(fixture.graphColor()).isEqualTo(graphColors[0])
+        assertThat(fixture.graphColor()).isEqualTo(graphColors[2])
     }
 
     @Test
@@ -69,9 +69,9 @@ class GraphColorsTest {
         val graphColors = withGraphColors()
         val expected = graphColors[2]
         // validate & execute
-        assertEquals(expected, fixture.graphColor())
+        assertThat(fixture.graphColor()).isEqualTo(expected)
         fixture.addColor(expected.primary)
-        assertEquals(expected, fixture.graphColor())
+        assertThat(fixture.graphColor()).isEqualTo(expected)
     }
 
     @Test
@@ -84,8 +84,8 @@ class GraphColorsTest {
         // execute
         val actual = fixture.graphColor()
         // validate
-        assertEquals(expected, actual)
-        assertEquals(graphColor, original)
+        assertThat(actual).isEqualTo(expected)
+        assertThat(original).isEqualTo(graphColor)
     }
 
     private fun withColors(): Array<String> {

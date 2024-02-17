@@ -17,8 +17,7 @@
  */
 package com.vrem.util
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class EnumUtilsTest {
@@ -30,9 +29,9 @@ class EnumUtilsTest {
         // execute
         val actual = ordinals(TestObject.entries)
         // validate
-        assertEquals(expected.size, actual.size)
+        assertThat(actual).hasSize(expected.size)
         expected.forEach {
-            assertTrue(actual.contains("" + it.ordinal))
+            assertThat(actual).contains("" + it.ordinal)
         }
     }
 
@@ -65,8 +64,8 @@ class EnumUtilsTest {
         // execute
         val actual = findSet(TestObject.entries, ordinals, expected)
         // validate
-        assertEquals(1, actual.size)
-        assertTrue(actual.contains(expected))
+        assertThat(actual).hasSize(1)
+        assertThat(actual).contains(expected)
     }
 
     @Test
@@ -75,7 +74,7 @@ class EnumUtilsTest {
             // execute
             val actual = findOne(TestObject.entries, it.ordinal, TestObject.VALUE2)
             // validate
-            assertEquals(it, actual)
+            assertThat(actual).isEqualTo(it)
         }
     }
 
@@ -87,7 +86,7 @@ class EnumUtilsTest {
         // execute
         val actual = findOne(TestObject.entries, index, expected)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -98,13 +97,13 @@ class EnumUtilsTest {
         // execute
         val actual = findOne(TestObject.entries, index, expected)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     private fun validate(expected: Collection<TestObject>, actual: Collection<TestObject>) {
-        assertEquals(expected.size, actual.size)
+        assertThat(actual).hasSize(expected.size)
         expected.forEach {
-            assertTrue(actual.contains(it))
+            assertThat(actual).contains(it)
         }
     }
 

@@ -23,9 +23,8 @@ import android.content.SharedPreferences.Editor
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.res.Resources
 import com.vrem.wifianalyzer.R
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.*
@@ -98,7 +97,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.string(keyIndex, defaultValue)
         // validate
-        assertEquals(value, actual)
+        assertThat(actual).isEqualTo(value)
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getString(keyValue, "" + defaultValue)
         verifyPreferenceManager()
@@ -114,7 +113,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.stringAsInteger(keyIndex, defaultValue)
         // validate
-        assertEquals(value, actual)
+        assertThat(actual).isEqualTo(value)
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getString(keyValue, defaultValue.toString())
         verifyPreferenceManager()
@@ -131,7 +130,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.stringAsInteger(keyIndex, defaultValue)
         // validate
-        assertEquals(defaultValue, actual)
+        assertThat(actual).isEqualTo(defaultValue)
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getString(keyValue, defaultValueAsString)
         verifySave(defaultValueAsString)
@@ -148,7 +147,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.integer(keyIndex, defaultValue)
         // validate
-        assertEquals(value, actual)
+        assertThat(actual).isEqualTo(value)
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getInt(keyValue, defaultValue)
         verifyPreferenceManager()
@@ -164,7 +163,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.integer(keyIndex, defaultValue)
         // validate
-        assertEquals(defaultValue, actual)
+        assertThat(actual).isEqualTo(defaultValue)
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getInt(keyValue, defaultValue)
         verifySave(defaultValue.toString())
@@ -180,7 +179,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.resourceBoolean(keyIndex)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(context).resources
         verify(resources).getBoolean(keyIndex)
     }
@@ -193,7 +192,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.boolean(keyIndex, false)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getBoolean(keyValue, false)
         verifyPreferenceManager()
@@ -209,7 +208,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.boolean(keyIndex, defaultValue)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getBoolean(keyValue, defaultValue)
         verifySave()
@@ -238,7 +237,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.stringSet(keyIndex, defaultValues)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getStringSet(keyValue, defaultValues)
         verifyPreferenceManager()
@@ -253,7 +252,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.stringSet(keyIndex, expected)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(sharedPreferences).getStringSet(keyValue, expected)
         verifySave(expected)
         verifyPreferenceManager()
@@ -282,7 +281,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.string(keyIndex, defaultValue)
         // validate
-        assertEquals(defaultValue, actual)
+        assertThat(actual).isEqualTo(defaultValue)
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getString(keyValue, defaultValue)
     }

@@ -18,7 +18,7 @@
 package com.vrem.wifianalyzer.wifi.band
 
 import com.vrem.util.EMPTY
-import org.junit.Assert.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.util.Locale
 
@@ -27,70 +27,70 @@ class WiFiChannelsGHZ2Test {
 
     @Test
     fun inRange() {
-        assertTrue(fixture.inRange(2400))
-        assertTrue(fixture.inRange(2499))
+        assertThat(fixture.inRange(2400)).isTrue()
+        assertThat(fixture.inRange(2499)).isTrue()
     }
 
     @Test
     fun notInRange() {
-        assertFalse(fixture.inRange(2399))
-        assertFalse(fixture.inRange(2500))
+        assertThat(fixture.inRange(2399)).isFalse()
+        assertThat(fixture.inRange(2500)).isFalse()
     }
 
     @Test
     fun wiFiChannelByFrequency() {
-        assertEquals(1, fixture.wiFiChannelByFrequency(2410).channel)
-        assertEquals(1, fixture.wiFiChannelByFrequency(2412).channel)
-        assertEquals(1, fixture.wiFiChannelByFrequency(2414).channel)
-        assertEquals(6, fixture.wiFiChannelByFrequency(2437).channel)
-        assertEquals(7, fixture.wiFiChannelByFrequency(2442).channel)
-        assertEquals(13, fixture.wiFiChannelByFrequency(2470).channel)
-        assertEquals(13, fixture.wiFiChannelByFrequency(2472).channel)
-        assertEquals(13, fixture.wiFiChannelByFrequency(2474).channel)
-        assertEquals(14, fixture.wiFiChannelByFrequency(2482).channel)
-        assertEquals(14, fixture.wiFiChannelByFrequency(2484).channel)
-        assertEquals(14, fixture.wiFiChannelByFrequency(2486).channel)
+        assertThat(fixture.wiFiChannelByFrequency(2410).channel).isEqualTo(1)
+        assertThat(fixture.wiFiChannelByFrequency(2412).channel).isEqualTo(1)
+        assertThat(fixture.wiFiChannelByFrequency(2414).channel).isEqualTo(1)
+        assertThat(fixture.wiFiChannelByFrequency(2437).channel).isEqualTo(6)
+        assertThat(fixture.wiFiChannelByFrequency(2442).channel).isEqualTo(7)
+        assertThat(fixture.wiFiChannelByFrequency(2470).channel).isEqualTo(13)
+        assertThat(fixture.wiFiChannelByFrequency(2472).channel).isEqualTo(13)
+        assertThat(fixture.wiFiChannelByFrequency(2474).channel).isEqualTo(13)
+        assertThat(fixture.wiFiChannelByFrequency(2482).channel).isEqualTo(14)
+        assertThat(fixture.wiFiChannelByFrequency(2484).channel).isEqualTo(14)
+        assertThat(fixture.wiFiChannelByFrequency(2486).channel).isEqualTo(14)
     }
 
     @Test
     fun wiFiChannelByFrequencyNotFound() {
-        assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(2399))
-        assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(2409))
-        assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(2481))
-        assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(2481))
-        assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(2487))
-        assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByFrequency(2500))
+        assertThat(fixture.wiFiChannelByFrequency(2399)).isEqualTo(WiFiChannel.UNKNOWN)
+        assertThat(fixture.wiFiChannelByFrequency(2409)).isEqualTo(WiFiChannel.UNKNOWN)
+        assertThat(fixture.wiFiChannelByFrequency(2481)).isEqualTo(WiFiChannel.UNKNOWN)
+        assertThat(fixture.wiFiChannelByFrequency(2481)).isEqualTo(WiFiChannel.UNKNOWN)
+        assertThat(fixture.wiFiChannelByFrequency(2487)).isEqualTo(WiFiChannel.UNKNOWN)
+        assertThat(fixture.wiFiChannelByFrequency(2500)).isEqualTo(WiFiChannel.UNKNOWN)
     }
 
     @Test
     fun wiFiChannelByChannel() {
-        assertEquals(2412, fixture.wiFiChannelByChannel(1).frequency)
-        assertEquals(2437, fixture.wiFiChannelByChannel(6).frequency)
-        assertEquals(2442, fixture.wiFiChannelByChannel(7).frequency)
-        assertEquals(2472, fixture.wiFiChannelByChannel(13).frequency)
-        assertEquals(2484, fixture.wiFiChannelByChannel(14).frequency)
+        assertThat(fixture.wiFiChannelByChannel(1).frequency).isEqualTo(2412)
+        assertThat(fixture.wiFiChannelByChannel(6).frequency).isEqualTo(2437)
+        assertThat(fixture.wiFiChannelByChannel(7).frequency).isEqualTo(2442)
+        assertThat(fixture.wiFiChannelByChannel(13).frequency).isEqualTo(2472)
+        assertThat(fixture.wiFiChannelByChannel(14).frequency).isEqualTo(2484)
     }
 
     @Test
     fun wiFiChannelByChannelNotFound() {
-        assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByChannel(0))
-        assertEquals(WiFiChannel.UNKNOWN, fixture.wiFiChannelByChannel(15))
+        assertThat(fixture.wiFiChannelByChannel(0)).isEqualTo(WiFiChannel.UNKNOWN)
+        assertThat(fixture.wiFiChannelByChannel(15)).isEqualTo(WiFiChannel.UNKNOWN)
     }
 
     @Test
     fun wiFiChannelFirst() {
-        assertEquals(1, fixture.wiFiChannelFirst().channel)
+        assertThat(fixture.wiFiChannelFirst().channel).isEqualTo(1)
     }
 
     @Test
     fun wiFiChannelLast() {
-        assertEquals(14, fixture.wiFiChannelLast().channel)
+        assertThat(fixture.wiFiChannelLast().channel).isEqualTo(14)
     }
 
     @Test
     fun wiFiChannelPairs() {
         val pair: List<WiFiChannelPair> = fixture.wiFiChannelPairs()
-        assertEquals(1, pair.size)
+        assertThat(pair).hasSize(1)
         validatePair(pair[0])
     }
 
@@ -101,14 +101,14 @@ class WiFiChannelsGHZ2Test {
     }
 
     private fun validatePair(pair: WiFiChannelPair) {
-        assertEquals(1, pair.first.channel)
-        assertEquals(14, pair.second.channel)
+        assertThat(pair.first.channel).isEqualTo(1)
+        assertThat(pair.second.channel).isEqualTo(14)
     }
 
     @Test
     fun availableChannels() {
-        assertEquals(11, fixture.availableChannels(Locale.US.country).size)
-        assertEquals(13, fixture.availableChannels(Locale.UK.country).size)
+        assertThat(fixture.availableChannels(Locale.US.country)).hasSize(11)
+        assertThat(fixture.availableChannels(Locale.UK.country)).hasSize(13)
     }
 
     @Test
@@ -118,7 +118,7 @@ class WiFiChannelsGHZ2Test {
         // execute
         val actual: WiFiChannel = fixture.wiFiChannelByFrequency(2000, wiFiChannelPair)
         // validate
-        assertEquals(WiFiChannel.UNKNOWN, actual)
+        assertThat(actual).isEqualTo(WiFiChannel.UNKNOWN)
     }
 
     @Test
@@ -128,6 +128,6 @@ class WiFiChannelsGHZ2Test {
         // execute
         val actual: WiFiChannel = fixture.wiFiChannelByFrequency(wiFiChannelPair.first.frequency, wiFiChannelPair)
         // validate
-        assertEquals(wiFiChannelPair.first, actual)
+        assertThat(actual).isEqualTo(wiFiChannelPair.first)
     }
 }

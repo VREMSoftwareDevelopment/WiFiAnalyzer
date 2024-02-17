@@ -18,9 +18,8 @@
 package com.vrem.wifianalyzer.permission
 
 import android.app.Activity
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -48,7 +47,7 @@ class PermissionServiceTest {
         // execute
         val actual = fixture.enabled()
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(locationPermission).enabled()
         verify(applicationPermission).granted()
     }
@@ -60,7 +59,7 @@ class PermissionServiceTest {
         // execute
         val actual = fixture.enabled()
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
         verify(locationPermission).enabled()
     }
 
@@ -72,7 +71,7 @@ class PermissionServiceTest {
         // execute
         val actual = fixture.enabled()
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
         verify(locationPermission).enabled()
         verify(applicationPermission).granted()
     }
@@ -84,7 +83,7 @@ class PermissionServiceTest {
         // execute
         val actual = fixture.locationEnabled()
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(locationPermission).enabled()
     }
 
@@ -95,7 +94,7 @@ class PermissionServiceTest {
         // execute
         val actual = fixture.permissionGranted()
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(applicationPermission).granted()
     }
 
@@ -116,7 +115,7 @@ class PermissionServiceTest {
         // execute
         val actual = fixture.granted(requestCode, results)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(applicationPermission).granted(requestCode, results)
     }
 }

@@ -20,8 +20,7 @@ package com.vrem.wifianalyzer.vendor.model
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.RobolectricUtil
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -53,7 +52,7 @@ class VendorServiceTest {
         // execute
         val actual = fixture.findVendorName(macAddress.lowercase())
         // validate
-        assertEquals(vendorName, actual)
+        assertThat(actual).isEqualTo(vendorName)
     }
 
     @Test
@@ -61,7 +60,7 @@ class VendorServiceTest {
         // execute
         val actual = fixture.findVendorName(macAddressInvalid)
         // validate
-        assertTrue(actual.isEmpty())
+        assertThat(actual).isEmpty()
     }
 
     @Test
@@ -69,7 +68,7 @@ class VendorServiceTest {
         // execute
         val actual = fixture.findVendorName()
         // validate
-        assertTrue(actual.isEmpty())
+        assertThat(actual).isEmpty()
     }
 
     @Test
@@ -78,10 +77,10 @@ class VendorServiceTest {
         // execute
         val actual = fixture.findMacAddresses(vendorName)
         // validate
-        assertEquals(macsCiscoSize, actual.size)
-        assertEquals(expectedMac1, actual[0])
-        assertEquals(expectedMac2, actual[macsCiscoSize - 1])
-        assertEquals(expectedMac3, actual[macsCiscoSize / 2])
+        assertThat(actual).hasSize(macsCiscoSize)
+        assertThat(actual[0]).isEqualTo(expectedMac1)
+        assertThat(actual[macsCiscoSize - 1]).isEqualTo(expectedMac2)
+        assertThat(actual[macsCiscoSize / 2]).isEqualTo(expectedMac3)
     }
 
     @Test
@@ -90,10 +89,10 @@ class VendorServiceTest {
         // execute
         val actual = fixture.findMacAddresses(vendorName.lowercase())
         // validate
-        assertEquals(macsCiscoSize, actual.size)
-        assertEquals(expectedMac1, actual[0])
-        assertEquals(expectedMac2, actual[macsCiscoSize - 1])
-        assertEquals(expectedMac3, actual[macsCiscoSize / 2])
+        assertThat(actual).hasSize(macsCiscoSize)
+        assertThat(actual[0]).isEqualTo(expectedMac1)
+        assertThat(actual[macsCiscoSize - 1]).isEqualTo(expectedMac2)
+        assertThat(actual[macsCiscoSize / 2]).isEqualTo(expectedMac3)
     }
 
     @Test
@@ -101,7 +100,7 @@ class VendorServiceTest {
         // execute
         val actual = fixture.findMacAddresses(vendorNameInvalid)
         // validate
-        assertTrue(actual.isEmpty())
+        assertThat(actual).isEmpty()
     }
 
     @Test
@@ -110,7 +109,7 @@ class VendorServiceTest {
         // execute
         val actual = fixture.findMacAddresses()
         // validate
-        assertTrue(actual.isEmpty())
+        assertThat(actual).isEmpty()
     }
 
     @Test
@@ -118,7 +117,7 @@ class VendorServiceTest {
         // execute
         val actual = fixture.findVendors()
         // validate
-        assertEquals(vendorSize, actual.size)
+        assertThat(actual).hasSize(vendorSize)
     }
 
     @Test
@@ -126,9 +125,9 @@ class VendorServiceTest {
         // execute
         val actual = fixture.findVendors(filterVendor)
         // validate
-        assertEquals(2, actual.size)
-        assertEquals(expectedVendorName3, actual[0])
-        assertEquals(expectedVendorName1, actual[1])
+        assertThat(actual).hasSize(2)
+        assertThat(actual[0]).isEqualTo(expectedVendorName3)
+        assertThat(actual[1]).isEqualTo(expectedVendorName1)
     }
 
     @Test
@@ -136,9 +135,9 @@ class VendorServiceTest {
         // execute
         val actual = fixture.findVendors(filterVendor.lowercase())
         // validate
-        assertEquals(2, actual.size)
-        assertEquals(expectedVendorName3, actual[0])
-        assertEquals(expectedVendorName1, actual[1])
+        assertThat(actual).hasSize(2)
+        assertThat(actual[0]).isEqualTo(expectedVendorName3)
+        assertThat(actual[1]).isEqualTo(expectedVendorName1)
     }
 
     @Test
@@ -146,9 +145,9 @@ class VendorServiceTest {
         // execute
         val actual = fixture.findVendors(filterMac)
         // validate
-        assertEquals(16, actual.size)
-        assertEquals(expectedVendorName1, actual[0])
-        assertEquals(expectedVendorName2, actual[15])
+        assertThat(actual).hasSize(16)
+        assertThat(actual[0]).isEqualTo(expectedVendorName1)
+        assertThat(actual[15]).isEqualTo(expectedVendorName2)
     }
 
     @Test
@@ -156,9 +155,9 @@ class VendorServiceTest {
         // execute
         val actual = fixture.findVendors(filterMac.lowercase())
         // validate
-        assertEquals(16, actual.size)
-        assertEquals(expectedVendorName1, actual[0])
-        assertEquals(expectedVendorName2, actual[15])
+        assertThat(actual).hasSize(16)
+        assertThat(actual[0]).isEqualTo(expectedVendorName1)
+        assertThat(actual[15]).isEqualTo(expectedVendorName2)
     }
 
     @Test
@@ -166,7 +165,7 @@ class VendorServiceTest {
         // execute
         val actual = fixture.findMacs()
         // validate
-        assertEquals(macsSize, actual.size)
+        assertThat(actual).hasSize(macsSize)
     }
 
 }

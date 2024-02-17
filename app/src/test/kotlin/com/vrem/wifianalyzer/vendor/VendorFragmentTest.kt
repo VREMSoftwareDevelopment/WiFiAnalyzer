@@ -22,9 +22,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.RobolectricUtil
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -63,7 +62,7 @@ class VendorFragmentTest {
         // execute
         val actual = fixture.onQueryTextChange(values)
         // verify
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(vendorAdapter).update(expected)
     }
 
@@ -75,7 +74,7 @@ class VendorFragmentTest {
         // execute
         val actual = fixture.onQueryTextChange(String.EMPTY)
         // verify
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(vendorAdapter).update(String.EMPTY)
     }
 
@@ -87,6 +86,6 @@ class VendorFragmentTest {
         // execute
         val actual = fixture.onQueryTextSubmit(String.EMPTY)
         // verify
-        assertFalse(actual)
+        assertThat(actual).isFalse()
     }
 }

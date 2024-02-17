@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.wifi.channelavailable
 import android.view.View
 import android.widget.TextView
 import com.vrem.wifianalyzer.R
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -49,14 +49,14 @@ class ChannelAvailableAdapterBindingTest {
         // execute
         val fixture = ChannelAvailableAdapterBinding(view)
         // validate
-        assertEquals(view, fixture.root)
-        assertEquals(channelAvailableCountry, fixture.channelAvailableCountry)
-        assertEquals(channelAvailableTitleGhz2, fixture.channelAvailableTitleGhz2)
-        assertEquals(channelAvailableGhz2, fixture.channelAvailableGhz2)
-        assertEquals(channelAvailableTitleGhz5, fixture.channelAvailableTitleGhz5)
-        assertEquals(channelAvailableGhz5, fixture.channelAvailableGhz5)
-        assertEquals(channelAvailableTitleGhz6, fixture.channelAvailableTitleGhz6)
-        assertEquals(channelAvailableGhz6, fixture.channelAvailableGhz6)
+        assertThat(fixture.root).isEqualTo(view)
+        assertThat(fixture.channelAvailableCountry).isEqualTo(channelAvailableCountry)
+        assertThat(fixture.channelAvailableTitleGhz2).isEqualTo(channelAvailableTitleGhz2)
+        assertThat(fixture.channelAvailableGhz2).isEqualTo(channelAvailableGhz2)
+        assertThat(fixture.channelAvailableTitleGhz5).isEqualTo(channelAvailableTitleGhz5)
+        assertThat(fixture.channelAvailableGhz5).isEqualTo(channelAvailableGhz5)
+        assertThat(fixture.channelAvailableTitleGhz6).isEqualTo(channelAvailableTitleGhz6)
+        assertThat(fixture.channelAvailableGhz6).isEqualTo(channelAvailableGhz6)
         verify(view).findViewById<TextView>(R.id.channel_available_country)
         verify(view).findViewById<TextView>(R.id.channel_available_title_ghz_2)
         verify(view).findViewById<TextView>(R.id.channel_available_ghz_2)

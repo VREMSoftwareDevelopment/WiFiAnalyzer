@@ -24,7 +24,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.model.*
-import org.junit.Assert.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -42,8 +42,8 @@ class AccessPointPopupTest {
         // execute
         val actual = fixture.show(view)
         // validate
-        assertNotNull(actual)
-        assertTrue(actual.isShowing)
+        assertThat(actual).isNotNull()
+        assertThat(actual.isShowing).isTrue()
     }
 
     @Test
@@ -56,7 +56,7 @@ class AccessPointPopupTest {
         button.performClick()
         // validate
         RobolectricUtil.INSTANCE.clearLooper()
-        assertFalse(alertDialog.isShowing)
+        assertThat(alertDialog.isShowing).isFalse()
     }
 
     @Test
@@ -67,7 +67,7 @@ class AccessPointPopupTest {
         // execute
         val actual = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
         // validate
-        assertEquals(View.VISIBLE, actual.visibility)
+        assertThat(actual.visibility).isEqualTo(View.VISIBLE)
     }
 
     @Test
@@ -78,7 +78,7 @@ class AccessPointPopupTest {
         // execute
         val actual = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE)
         // validate
-        assertEquals(View.GONE, actual.visibility)
+        assertThat(actual.visibility).isEqualTo(View.GONE)
     }
 
     @Test
@@ -89,7 +89,7 @@ class AccessPointPopupTest {
         // execute
         val actual = alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL)
         // validate
-        assertEquals(View.GONE, actual.visibility)
+        assertThat(actual.visibility).isEqualTo(View.GONE)
     }
 
     @Test
@@ -100,7 +100,7 @@ class AccessPointPopupTest {
         // execute
         fixture.attach(view, wiFiDetail)
         // validate
-        assertTrue(view.performClick())
+        assertThat(view.performClick()).isTrue()
     }
 
     private fun withWiFiDetail(): WiFiDetail =

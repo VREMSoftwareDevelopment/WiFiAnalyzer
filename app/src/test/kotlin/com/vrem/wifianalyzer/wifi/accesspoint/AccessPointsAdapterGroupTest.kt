@@ -21,8 +21,8 @@ import android.widget.ExpandableListAdapter
 import android.widget.ExpandableListView
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.wifi.model.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.kotlin.*
 
@@ -41,8 +41,8 @@ class AccessPointsAdapterGroupTest {
 
     @Test
     fun beforeUpdate() {
-        assertEquals(GroupBy.NONE, fixture.groupBy)
-        assertTrue(fixture.expanded.isEmpty())
+        assertThat(fixture.groupBy).isEqualTo(GroupBy.NONE)
+        assertThat(fixture.expanded).isEmpty()
     }
 
     @Test
@@ -59,7 +59,7 @@ class AccessPointsAdapterGroupTest {
         verify(expandableListView).expandableListAdapter
         verify(expandableListAdapter).groupCount
         verify(expandableListView, times(3)).collapseGroup(any())
-        assertEquals(GroupBy.CHANNEL, fixture.groupBy)
+        assertThat(fixture.groupBy).isEqualTo(GroupBy.CHANNEL)
     }
 
     @Test
@@ -70,7 +70,7 @@ class AccessPointsAdapterGroupTest {
         fixture.updateGroupBy()
         // validate
         verify(settings).groupBy()
-        assertEquals(GroupBy.SSID, fixture.groupBy)
+        assertThat(fixture.groupBy).isEqualTo(GroupBy.SSID)
     }
 
     @Test
@@ -82,8 +82,8 @@ class AccessPointsAdapterGroupTest {
         fixture.updateGroupBy()
         // validate
         verify(settings).groupBy()
-        assertEquals(GroupBy.SSID, fixture.groupBy)
-        assertTrue(fixture.expanded.isEmpty())
+        assertThat(fixture.groupBy).isEqualTo(GroupBy.SSID)
+        assertThat(fixture.expanded).isEmpty()
     }
 
     @Test
@@ -95,7 +95,7 @@ class AccessPointsAdapterGroupTest {
         // execute
         fixture.updateGroupBy()
         // validate
-        assertFalse(fixture.expanded.isEmpty())
+        assertThat(fixture.expanded).isNotEmpty()
     }
 
     @Test
@@ -107,7 +107,7 @@ class AccessPointsAdapterGroupTest {
         // execute
         fixture.onGroupExpanded(wiFiDetails, 0)
         // validate
-        assertTrue(fixture.expanded.contains(wiFiDetails[0].wiFiIdentifier.ssid))
+        assertThat(fixture.expanded).contains(wiFiDetails[0].wiFiIdentifier.ssid)
     }
 
     @Test
@@ -120,7 +120,7 @@ class AccessPointsAdapterGroupTest {
         // execute
         fixture.onGroupCollapsed(wiFiDetails, 0)
         // validate
-        assertTrue(fixture.expanded.isEmpty())
+        assertThat(fixture.expanded).isEmpty()
     }
 
     private fun withWiFiDetail(): WiFiDetail =

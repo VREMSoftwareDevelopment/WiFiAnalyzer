@@ -28,8 +28,8 @@ import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.model.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -64,7 +64,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
-        assertNotNull(actual)
+        assertThat(actual).isNotNull
     }
 
     @Test
@@ -75,7 +75,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(expected, null, wiFiDetail)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -85,7 +85,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
-        assertEquals(View.GONE, actual.findViewById<View>(R.id.tab).visibility)
+        assertThat(actual.findViewById<View>(R.id.tab).visibility).isEqualTo(View.GONE)
     }
 
     @Test
@@ -95,7 +95,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
-        assertEquals(View.GONE, actual.findViewById<View>(R.id.groupIndicator).visibility)
+        assertThat(actual.findViewById<View>(R.id.groupIndicator).visibility).isEqualTo(View.GONE)
     }
 
     @Test
@@ -105,8 +105,8 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
-        assertNull(actual.findViewById(R.id.vendorLong))
-        assertEquals(View.GONE, actual.findViewById<View>(R.id.vendorShort).visibility)
+        assertThat(actual.findViewById<View>(R.id.vendorLong)).isNull()
+        assertThat(actual.findViewById<View>(R.id.vendorShort).visibility).isEqualTo(View.GONE)
     }
 
     @Test
@@ -116,8 +116,8 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
-        assertNull(actual.findViewById(R.id.vendorLong))
-        assertEquals(View.VISIBLE, actual.findViewById<View>(R.id.vendorShort).visibility)
+        assertThat(actual.findViewById<View>(R.id.vendorLong)).isNull()
+        assertThat(actual.findViewById<View>(R.id.vendorShort).visibility).isEqualTo(View.VISIBLE)
     }
 
     @Test
@@ -137,7 +137,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail, true)
         // validate
-        assertEquals(View.VISIBLE, actual.findViewById<View>(R.id.tab).visibility)
+        assertThat(actual.findViewById<View>(R.id.tab).visibility).isEqualTo(View.VISIBLE)
     }
 
     @Test
@@ -167,7 +167,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
-        assertFalse(actual.findViewById<TextView>(R.id.ssid).isTextSelectable)
+        assertThat(actual.findViewById<TextView>(R.id.ssid).isTextSelectable).isFalse()
     }
 
     @Test
@@ -178,7 +178,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
-        assertEquals(View.GONE, actual.findViewById<View>(R.id.tab).visibility)
+        assertThat(actual.findViewById<View>(R.id.tab).visibility).isEqualTo(View.GONE)
     }
 
     @Test
@@ -189,7 +189,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
-        assertEquals(View.GONE, actual.findViewById<View>(R.id.groupIndicator).visibility)
+        assertThat(actual.findViewById<View>(R.id.groupIndicator).visibility).isEqualTo(View.GONE)
     }
 
     @Test
@@ -200,7 +200,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail, true)
         // validate
-        assertEquals(View.VISIBLE, actual.findViewById<View>(R.id.tab).visibility)
+        assertThat(actual.findViewById<View>(R.id.tab).visibility).isEqualTo(View.VISIBLE)
     }
 
     @Test
@@ -233,7 +233,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
-        assertNotNull(actual.findViewById(R.id.attachPopup))
+        assertThat(actual.findViewById<View>(R.id.attachPopup)).isNotNull()
     }
 
     @Test
@@ -244,12 +244,12 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
-        assertNull(actual.findViewById(R.id.levelImage))
-        assertNull(actual.findViewById(R.id.wiFiStandardImage))
-        assertNull(actual.findViewById(R.id.channel_frequency_range))
-        assertNull(actual.findViewById(R.id.width))
-        assertNull(actual.findViewById(R.id.capabilities))
-        assertNull(actual.findViewById(R.id.vendorShort))
+        assertThat(actual.findViewById<View>(R.id.levelImage)).isNull()
+        assertThat(actual.findViewById<View>(R.id.wiFiStandardImage)).isNull()
+        assertThat(actual.findViewById<View>(R.id.channel_frequency_range)).isNull()
+        assertThat(actual.findViewById<View>(R.id.width)).isNull()
+        assertThat(actual.findViewById<View>(R.id.capabilities)).isNull()
+        assertThat(actual.findViewById<View>(R.id.vendorShort)).isNull()
     }
 
     @Test
@@ -260,7 +260,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
-        assertFalse(actual.findViewById<TextView>(R.id.ssid).isTextSelectable)
+        assertThat(actual.findViewById<TextView>(R.id.ssid).isTextSelectable).isFalse()
     }
 
     @Test
@@ -280,8 +280,8 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeViewDetailed(wiFiDetail)
         // validate
-        assertEquals(View.GONE, actual.findViewById<View>(R.id.vendorShort).visibility)
-        assertEquals(View.GONE, actual.findViewById<View>(R.id.vendorLong).visibility)
+        assertThat(actual.findViewById<View>(R.id.vendorShort).visibility).isEqualTo(View.GONE)
+        assertThat(actual.findViewById<View>(R.id.vendorLong).visibility).isEqualTo(View.GONE)
     }
 
     @Test
@@ -291,8 +291,8 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeViewDetailed(wiFiDetail)
         // validate
-        assertEquals(View.GONE, actual.findViewById<View>(R.id.vendorShort).visibility)
-        assertEquals(View.VISIBLE, actual.findViewById<View>(R.id.vendorLong).visibility)
+        assertThat(actual.findViewById<View>(R.id.vendorShort).visibility).isEqualTo(View.GONE)
+        assertThat(actual.findViewById<View>(R.id.vendorLong).visibility).isEqualTo(View.VISIBLE)
     }
 
     @Test
@@ -302,8 +302,8 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeViewDetailed(wiFiDetail)
         // validate
-        assertTrue(actual.findViewById<TextView>(R.id.ssid).isTextSelectable)
-        assertTrue(actual.findViewById<TextView>(R.id.vendorLong).isTextSelectable)
+        assertThat(actual.findViewById<TextView>(R.id.ssid).isTextSelectable).isTrue()
+        assertThat(actual.findViewById<TextView>(R.id.vendorLong).isTextSelectable).isTrue()
     }
 
     @Test
@@ -313,7 +313,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeViewDetailed(wiFiDetail)
         // validate
-        assertEquals(View.GONE, actual.findViewById<View>(R.id.flag80211mc).visibility)
+        assertThat(actual.findViewById<View>(R.id.flag80211mc).visibility).isEqualTo(View.GONE)
     }
 
     @Test
@@ -323,7 +323,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeViewDetailed(wiFiDetail)
         // validate
-        assertEquals(View.VISIBLE, actual.findViewById<View>(R.id.flag80211mc).visibility)
+        assertThat(actual.findViewById<View>(R.id.flag80211mc).visibility).isEqualTo(View.VISIBLE)
     }
 
     @Test
@@ -333,7 +333,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeViewDetailed(wiFiDetail)
         // validate
-        assertEquals(View.GONE, actual.findViewById<View>(R.id.timestamp).visibility)
+        assertThat(actual.findViewById<View>(R.id.timestamp).visibility).isEqualTo(View.GONE)
         validateTextViewValue(actual, String.EMPTY, R.id.timestamp)
     }
 
@@ -345,7 +345,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeViewDetailed(wiFiDetail)
         // validate
-        assertEquals(View.VISIBLE, actual.findViewById<View>(R.id.timestamp).visibility)
+        assertThat(actual.findViewById<View>(R.id.timestamp).visibility).isEqualTo(View.VISIBLE)
         validateTextViewValue(actual, expectedTimestamp, R.id.timestamp)
     }
 
@@ -410,11 +410,11 @@ class AccessPointDetailTest {
     }
 
     private fun validateTextViewValue(view: View, expected: String, id: Int) {
-        assertEquals(expected, view.findViewById<TextView>(id).text.toString())
+        assertThat(view.findViewById<TextView>(id).text.toString()).isEqualTo(expected)
     }
 
     private fun validateImageViewValue(view: View, @DrawableRes expected: Int, id: Int) {
-        assertEquals(expected, view.findViewById<ImageView>(id).tag)
+        assertThat(view.findViewById<ImageView>(id).tag).isEqualTo(expected)
     }
 
 }

@@ -22,8 +22,8 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import com.vrem.wifianalyzer.R
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -52,7 +52,7 @@ class OptionMenuTest {
         // execute
         fixture.create(activity, menu)
         // validate
-        assertEquals(menu, fixture.menu)
+        assertThat(fixture.menu).isEqualTo(menu)
         verify(activity).menuInflater
         verify(menuInflater).inflate(R.menu.optionmenu, menu)
     }

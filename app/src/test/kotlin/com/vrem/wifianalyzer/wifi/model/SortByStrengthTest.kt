@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class SortByStrengthTest {
@@ -41,7 +41,7 @@ class SortByStrengthTest {
         // execute
         val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
-        assertEquals(0, actual)
+        assertThat(actual).isEqualTo(0)
     }
 
     @Test
@@ -62,7 +62,7 @@ class SortByStrengthTest {
         // execute
         val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
-        assertEquals(32, actual)
+        assertThat(actual).isEqualTo(32)
     }
 
     @Test
@@ -83,7 +83,7 @@ class SortByStrengthTest {
         // execute
         val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
-        assertEquals(32, actual)
+        assertThat(actual).isEqualTo(32)
     }
 
     @Test
@@ -104,6 +104,6 @@ class SortByStrengthTest {
         // execute
         val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
-        assertEquals(1, actual)
+        assertThat(actual).isEqualTo(1)
     }
 }

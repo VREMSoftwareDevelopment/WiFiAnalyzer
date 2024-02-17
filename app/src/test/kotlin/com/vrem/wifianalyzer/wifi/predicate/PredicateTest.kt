@@ -20,8 +20,8 @@ package com.vrem.wifianalyzer.wifi.predicate
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.model.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -46,7 +46,7 @@ class PredicateTest {
         // execute
         val fixture: Predicate = makeAccessPointsPredicate(settings)
         // validate
-        assertNotNull(fixture)
+        assertThat(fixture).isNotNull()
         verifySettings()
     }
 
@@ -59,7 +59,7 @@ class PredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verifySettings()
     }
 
@@ -72,7 +72,7 @@ class PredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
         verifySettings()
     }
 
@@ -85,7 +85,7 @@ class PredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
         verifySettings()
     }
 
@@ -97,7 +97,7 @@ class PredicateTest {
         // execute
         val fixture: Predicate = makeAccessPointsPredicate(settings)
         // validate
-        assertTrue(fixture(wiFiDetail))
+        assertThat(fixture(wiFiDetail)).isTrue()
         verifySettings()
     }
 
@@ -110,7 +110,7 @@ class PredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verifySettings()
     }
 
@@ -124,7 +124,7 @@ class PredicateTest {
         // execute
         val fixture: Predicate = makeOtherPredicate(settings)
         // validate
-        assertNotNull(fixture)
+        assertThat(fixture).isNotNull()
         verify(settings).wiFiBand()
         verify(settings).findSSIDs()
         verify(settings).findStrengths()

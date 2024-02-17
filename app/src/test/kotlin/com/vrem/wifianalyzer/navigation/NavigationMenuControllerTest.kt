@@ -22,8 +22,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.RobolectricUtil
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -46,7 +46,7 @@ class NavigationMenuControllerTest {
         // execute
         val menu: Menu = navigationView.menu
         // validate
-        assertEquals(NavigationMenu.entries.size, menu.size())
+        assertThat(menu.size()).isEqualTo(NavigationMenu.entries.size)
         validateNavigationGroup(menu)
     }
 
@@ -57,9 +57,9 @@ class NavigationMenuControllerTest {
         // execute
         val actual = fixture.currentMenuItem()
         // validate
-        assertEquals(expected, actual)
-        assertTrue(actual.isCheckable)
-        assertTrue(actual.isChecked)
+        assertThat(actual).isEqualTo(expected)
+        assertThat(actual.isCheckable).isTrue()
+        assertThat(actual.isChecked).isTrue()
     }
 
     @Test
@@ -67,7 +67,7 @@ class NavigationMenuControllerTest {
         // execute
         val actual = fixture.currentNavigationMenu()
         // validate
-        assertEquals(NavigationMenu.ACCESS_POINTS, actual)
+        assertThat(actual).isEqualTo(NavigationMenu.ACCESS_POINTS)
     }
 
     @Test
@@ -77,11 +77,11 @@ class NavigationMenuControllerTest {
         // execute
         fixture.currentNavigationMenu(expected)
         // validate
-        assertEquals(expected, fixture.currentNavigationMenu())
-        assertTrue(navigationViewMenuItem(NavigationMenu.CHANNEL_GRAPH).isCheckable)
-        assertTrue(navigationViewMenuItem(NavigationMenu.CHANNEL_GRAPH).isChecked)
-        assertFalse(navigationViewMenuItem(NavigationMenu.ACCESS_POINTS).isCheckable)
-        assertFalse(navigationViewMenuItem(NavigationMenu.ACCESS_POINTS).isChecked)
+        assertThat(fixture.currentNavigationMenu()).isEqualTo(expected)
+        assertThat(navigationViewMenuItem(NavigationMenu.CHANNEL_GRAPH).isCheckable).isTrue()
+        assertThat(navigationViewMenuItem(NavigationMenu.CHANNEL_GRAPH).isChecked).isTrue()
+        assertThat(navigationViewMenuItem(NavigationMenu.ACCESS_POINTS).isCheckable).isFalse()
+        assertThat(navigationViewMenuItem(NavigationMenu.ACCESS_POINTS).isChecked).isFalse()
     }
 
     @Test
@@ -91,11 +91,11 @@ class NavigationMenuControllerTest {
         // execute
         fixture.currentNavigationMenu(expected)
         // validate
-        assertEquals(expected, fixture.currentNavigationMenu())
+        assertThat(fixture.currentNavigationMenu()).isEqualTo(expected)
         val menuItem = bottomNavigationMenuItem(NavigationMenu.CHANNEL_GRAPH)
-        assertTrue(menuItem.isCheckable)
-        assertTrue(menuItem.isChecked)
-        assertFalse(bottomNavigationMenuItem(NavigationMenu.ACCESS_POINTS).isCheckable)
+        assertThat(menuItem.isCheckable).isTrue()
+        assertThat(menuItem.isChecked).isTrue()
+        assertThat(bottomNavigationMenuItem(NavigationMenu.ACCESS_POINTS).isCheckable).isFalse()
     }
 
     private fun navigationViewMenuItem(navigationMenu: NavigationMenu): MenuItem =
@@ -112,10 +112,10 @@ class NavigationMenuControllerTest {
 
     private fun validateMenuItem(menu: Menu, navigationMenu: NavigationMenu, navigationGroup: NavigationGroup) {
         val actual: MenuItem = menu.getItem(navigationMenu.ordinal)
-        assertEquals(navigationGroup.ordinal, actual.groupId)
-        assertEquals(mainActivity.resources.getString(navigationMenu.title), actual.title)
-        assertEquals(navigationMenu.ordinal, actual.itemId)
-        assertEquals(navigationMenu.ordinal, actual.order)
+        assertThat(actual.groupId).isEqualTo(navigationGroup.ordinal)
+        assertThat(actual.title).isEqualTo(mainActivity.resources.getString(navigationMenu.title))
+        assertThat(actual.itemId).isEqualTo(navigationMenu.ordinal)
+        assertThat(actual.order).isEqualTo(navigationMenu.ordinal)
     }
 
 }

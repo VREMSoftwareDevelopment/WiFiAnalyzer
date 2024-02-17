@@ -17,8 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.util.SortedSet
 
@@ -40,8 +39,8 @@ class WiFiChannelCountryGHZ2Test {
     }
 
     private fun validateChannels(expected: SortedSet<Int>, actual: SortedSet<Int>) {
-        assertEquals(expected.size, actual.size)
-        assertTrue(actual.containsAll(expected))
+        assertThat(actual).hasSize(expected.size)
+        assertThat(actual).containsAll(expected)
     }
 
 }

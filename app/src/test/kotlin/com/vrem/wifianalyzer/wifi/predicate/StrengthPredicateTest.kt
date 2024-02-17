@@ -18,8 +18,7 @@
 package com.vrem.wifianalyzer.wifi.predicate
 
 import com.vrem.wifianalyzer.wifi.model.*
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class StrengthPredicateTest {
@@ -28,8 +27,8 @@ class StrengthPredicateTest {
         // setup
         val wiFiDetail = makeWiFiDetail()
         // execute & validate
-        assertTrue(Strength.THREE.predicate()(wiFiDetail))
-        assertFalse(Strength.FOUR.predicate()(wiFiDetail))
+        assertThat(Strength.THREE.predicate()(wiFiDetail)).isTrue()
+        assertThat(Strength.FOUR.predicate()(wiFiDetail)).isFalse()
     }
 
     private fun makeWiFiDetail(): WiFiDetail =

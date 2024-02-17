@@ -25,9 +25,8 @@ import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.times
@@ -63,7 +62,7 @@ class ChannelRatingFragmentTest {
         // execute
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.channelRatingRefresh)
         // validate
-        assertTrue(swipeRefreshLayout.isEnabled)
+        assertThat(swipeRefreshLayout.isEnabled).isTrue()
     }
 
 
@@ -96,7 +95,7 @@ class ChannelRatingFragmentTest {
         // execute
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.channelRatingRefresh)
         // validate
-        assertFalse(swipeRefreshLayout.isRefreshing)
-        assertFalse(swipeRefreshLayout.isEnabled)
+        assertThat(swipeRefreshLayout.isRefreshing).isFalse()
+        assertThat(swipeRefreshLayout.isEnabled).isFalse()
     }
 }

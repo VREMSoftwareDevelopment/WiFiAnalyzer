@@ -28,8 +28,8 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.filter.Filter.Companion.build
 import com.vrem.wifianalyzer.wifi.model.Security
 import com.vrem.wifianalyzer.wifi.model.Strength
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -59,7 +59,7 @@ class FilterTest {
         // execute
         val actual = fixture.alertDialog!!
         // validate
-        assertFalse(actual.isShowing)
+        assertThat(actual.isShowing).isFalse()
     }
 
     @Test
@@ -67,7 +67,7 @@ class FilterTest {
         // execute
         fixture.show()
         // validate
-        assertTrue(fixture.alertDialog!!.isShowing)
+        assertThat(fixture.alertDialog!!.isShowing).isTrue()
     }
 
     @Test
@@ -78,7 +78,7 @@ class FilterTest {
         // execute
         val actual = shadowAlertDialog.title
         // validate
-        assertEquals(expected, actual.toString())
+        assertThat(actual.toString()).isEqualTo(expected)
     }
 
     @Test
@@ -92,7 +92,7 @@ class FilterTest {
         button.performClick()
         // validate
         RobolectricUtil.INSTANCE.clearLooper()
-        assertFalse(fixture.alertDialog!!.isShowing)
+        assertThat(fixture.alertDialog!!.isShowing).isFalse()
         verify(filtersAdapter).save()
         verify(mainActivity).update()
     }
@@ -108,7 +108,7 @@ class FilterTest {
         button.performClick()
         // validate
         RobolectricUtil.INSTANCE.clearLooper()
-        assertFalse(fixture.alertDialog!!.isShowing)
+        assertThat(fixture.alertDialog!!.isShowing).isFalse()
         verify(filtersAdapter).reset()
         verify(mainActivity).update()
     }
@@ -124,7 +124,7 @@ class FilterTest {
         button.performClick()
         // validate
         RobolectricUtil.INSTANCE.clearLooper()
-        assertFalse(fixture.alertDialog!!.isShowing)
+        assertThat(fixture.alertDialog!!.isShowing).isFalse()
         verify(filtersAdapter).reload()
         verify(mainActivity, never()).update()
     }
@@ -136,7 +136,7 @@ class FilterTest {
         // execute
         val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterSSID).visibility
         // validate
-        assertEquals(View.VISIBLE, actual)
+        assertThat(actual).isEqualTo(View.VISIBLE)
     }
 
     @Test
@@ -146,7 +146,7 @@ class FilterTest {
         // execute
         val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterWiFiBand).visibility
         // validate
-        assertEquals(View.VISIBLE, actual)
+        assertThat(actual).isEqualTo(View.VISIBLE)
     }
 
     @Test
@@ -157,8 +157,8 @@ class FilterTest {
         // execute
         val actual: Map<WiFiBand, Int> = fixture.wiFiBandFilter!!.ids
         // validate
-        assertEquals(expected.size, actual.size)
-        expected.forEach { assertNotNull(actual[it]) }
+        assertThat(actual).hasSize(expected.size)
+        expected.forEach { assertThat(actual[it]).isNotNull() }
     }
 
     @Test
@@ -168,7 +168,7 @@ class FilterTest {
         // execute
         val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterSecurity).visibility
         // validate
-        assertEquals(View.VISIBLE, actual)
+        assertThat(actual).isEqualTo(View.VISIBLE)
     }
 
     @Test
@@ -179,8 +179,8 @@ class FilterTest {
         // execute
         val actual: Map<Security, Int> = fixture.securityFilter!!.ids
         // validate
-        assertEquals(expected.size, actual.size)
-        expected.forEach { assertNotNull(actual[it]) }
+        assertThat(actual).hasSize(expected.size)
+        expected.forEach { assertThat(actual[it]).isNotNull() }
     }
 
     @Test
@@ -190,7 +190,7 @@ class FilterTest {
         // execute
         val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterStrength).visibility
         // validate
-        assertEquals(View.VISIBLE, actual)
+        assertThat(actual).isEqualTo(View.VISIBLE)
     }
 
     @Test
@@ -201,8 +201,8 @@ class FilterTest {
         // execute
         val actual: Map<Strength, Int> = fixture.strengthFilter!!.ids
         // validate
-        assertEquals(expected.size, actual.size)
-        expected.forEach { assertNotNull(actual[it]) }
+        assertThat(actual).hasSize(expected.size)
+        expected.forEach { assertThat(actual[it]).isNotNull() }
     }
 
 }

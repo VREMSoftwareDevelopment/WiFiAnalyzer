@@ -21,7 +21,7 @@ import android.view.View
 import android.widget.RatingBar
 import android.widget.TextView
 import com.vrem.wifianalyzer.R
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -42,10 +42,10 @@ class ChannelRatingAdapterBindingTest {
         // execute
         val fixture = ChannelRatingAdapterBinding(view)
         // validate
-        assertEquals(view, fixture.root)
-        assertEquals(channelNumber, fixture.channelNumber)
-        assertEquals(accessPointCount, fixture.accessPointCount)
-        assertEquals(channelRating, fixture.channelRating)
+        assertThat(fixture.root).isEqualTo(view)
+        assertThat(fixture.channelNumber).isEqualTo(channelNumber)
+        assertThat(fixture.accessPointCount).isEqualTo(accessPointCount)
+        assertThat(fixture.channelRating).isEqualTo(channelRating)
         verify(view).findViewById<View>(R.id.channelNumber)
         verify(view).findViewById<View>(R.id.accessPointCount)
         verify(view).findViewById<View>(R.id.channelRating)

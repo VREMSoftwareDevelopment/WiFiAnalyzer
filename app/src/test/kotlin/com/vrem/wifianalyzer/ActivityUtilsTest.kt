@@ -23,8 +23,8 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.*
 
@@ -55,7 +55,7 @@ class ActivityUtilsTest {
         // execute
         val actual = mainActivity.setupToolbar()
         // validate
-        assertEquals(toolbar, actual)
+        assertThat(actual).isEqualTo(toolbar)
         verify(mainActivity).findViewById<View>(R.id.toolbar)
         verify(mainActivity).supportActionBar
         verify(mainActivity).setSupportActionBar(toolbar)

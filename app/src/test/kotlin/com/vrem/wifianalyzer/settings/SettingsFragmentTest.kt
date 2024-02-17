@@ -22,7 +22,7 @@ import androidx.preference.Preference
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
-import org.junit.Assert.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -37,7 +37,7 @@ class SettingsFragmentTest {
         val fixture = SettingsFragment()
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
-        assertNotNull(fixture.view)
+        assertThat(fixture.view).isNotNull()
     }
 
     @Config(sdk = [Build.VERSION_CODES.P])
@@ -50,7 +50,7 @@ class SettingsFragmentTest {
         // execute
         val actual = fixture.findPreference<Preference>(key)
         // validate
-        assertTrue(actual!!.isVisible)
+        assertThat(actual!!.isVisible).isTrue()
     }
 
     @Test
@@ -62,7 +62,7 @@ class SettingsFragmentTest {
         // execute
         val actual = fixture.findPreference<Preference>(key)
         // validate
-        assertFalse(actual!!.isVisible)
+        assertThat(actual!!.isVisible).isFalse()
     }
 
 }

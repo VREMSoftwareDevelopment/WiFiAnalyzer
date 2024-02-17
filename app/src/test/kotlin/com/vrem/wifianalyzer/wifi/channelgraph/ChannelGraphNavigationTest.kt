@@ -28,6 +28,7 @@ import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -35,8 +36,6 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
@@ -116,50 +115,49 @@ class ChannelGraphNavigationTest {
 
     @Test
     fun navigationGHZ2Lines() {
-        assertEquals(0, navigationGHZ2Lines.size)
-        assertTrue(navigationGHZ2Lines.isEmpty())
+        assertThat(navigationGHZ2Lines).isEmpty()
     }
 
     @Test
     fun navigationGHZ5Lines() {
-        assertEquals(2, navigationGHZ5Lines.size)
-        assertTrue(navigationGHZ5Lines[R.id.graphNavigationLine1]!!.isNotEmpty())
-        assertTrue(navigationGHZ5Lines[R.id.graphNavigationLine2]!!.isEmpty())
+        assertThat(navigationGHZ5Lines).hasSize(2)
+        assertThat(navigationGHZ5Lines[R.id.graphNavigationLine1]).isNotEmpty()
+        assertThat(navigationGHZ5Lines[R.id.graphNavigationLine2]).isEmpty()
     }
 
     @Test
     fun navigationGHZ6Lines() {
-        assertEquals(2, navigationGHZ6Lines.size)
-        assertTrue(navigationGHZ6Lines[R.id.graphNavigationLine1]!!.isNotEmpty())
-        assertTrue(navigationGHZ6Lines[R.id.graphNavigationLine2]!!.isNotEmpty())
+        assertThat(navigationGHZ6Lines).hasSize(2)
+        assertThat(navigationGHZ6Lines[R.id.graphNavigationLine1]).isNotEmpty()
+        assertThat(navigationGHZ6Lines[R.id.graphNavigationLine2]).isNotEmpty()
     }
 
     @Test
     fun navigationGHZ5Line1() {
         val line1 = navigationGHZ5Lines[R.id.graphNavigationLine1]!!
-        assertEquals(3, line1.size)
-        assertEquals(line1[R.id.graphNavigationSet1], WiFiChannelsGHZ5.SET1)
-        assertEquals(line1[R.id.graphNavigationSet2], WiFiChannelsGHZ5.SET2)
-        assertEquals(line1[R.id.graphNavigationSet3], WiFiChannelsGHZ5.SET3)
+        assertThat(line1).hasSize(3)
+        assertThat(WiFiChannelsGHZ5.SET1).isEqualTo(line1[R.id.graphNavigationSet1])
+        assertThat(WiFiChannelsGHZ5.SET2).isEqualTo(line1[R.id.graphNavigationSet2])
+        assertThat(WiFiChannelsGHZ5.SET3).isEqualTo(line1[R.id.graphNavigationSet3])
     }
 
     @Test
     fun navigationGHZ6Line1() {
         val line1 = navigationGHZ6Lines[R.id.graphNavigationLine1]!!
-        assertEquals(3, line1.size)
-        assertEquals(line1[R.id.graphNavigationSet1], WiFiChannelsGHZ6.SET1)
-        assertEquals(line1[R.id.graphNavigationSet2], WiFiChannelsGHZ6.SET2)
-        assertEquals(line1[R.id.graphNavigationSet3], WiFiChannelsGHZ6.SET3)
+        assertThat(line1).hasSize(3)
+        assertThat(WiFiChannelsGHZ6.SET1).isEqualTo(line1[R.id.graphNavigationSet1])
+        assertThat(WiFiChannelsGHZ6.SET2).isEqualTo(line1[R.id.graphNavigationSet2])
+        assertThat(WiFiChannelsGHZ6.SET3).isEqualTo(line1[R.id.graphNavigationSet3])
     }
 
     @Test
     fun navigationGHZ6Line2() {
         val line2 = navigationGHZ6Lines[R.id.graphNavigationLine2]!!
-        assertEquals(4, line2.size)
-        assertEquals(line2[R.id.graphNavigationSet4], WiFiChannelsGHZ6.SET4)
-        assertEquals(line2[R.id.graphNavigationSet5], WiFiChannelsGHZ6.SET5)
-        assertEquals(line2[R.id.graphNavigationSet6], WiFiChannelsGHZ6.SET6)
-        assertEquals(line2[R.id.graphNavigationSet7], WiFiChannelsGHZ6.SET7)
+        assertThat(line2).hasSize(4)
+        assertThat(WiFiChannelsGHZ6.SET4).isEqualTo(line2[R.id.graphNavigationSet4])
+        assertThat(WiFiChannelsGHZ6.SET5).isEqualTo(line2[R.id.graphNavigationSet5])
+        assertThat(WiFiChannelsGHZ6.SET6).isEqualTo(line2[R.id.graphNavigationSet6])
+        assertThat(WiFiChannelsGHZ6.SET7).isEqualTo(line2[R.id.graphNavigationSet7])
     }
 
     private fun whenLines(navigationLines: NavigationLines) {

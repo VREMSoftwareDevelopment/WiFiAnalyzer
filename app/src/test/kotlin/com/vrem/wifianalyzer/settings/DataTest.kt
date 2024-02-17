@@ -18,8 +18,8 @@
 
 package com.vrem.wifianalyzer.settings
 
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
-import kotlin.test.assertEquals
 
 internal class DataTest {
 
@@ -31,7 +31,7 @@ internal class DataTest {
         // execute
         val actual = data1.compareTo(data2)
         // validate
-        assertEquals(0, actual)
+        assertThat(actual).isEqualTo(0)
     }
 
     @Test
@@ -42,7 +42,7 @@ internal class DataTest {
         // execute
         val actual = data1.compareTo(data2)
         // validate
-        assertEquals(-1, actual)
+        assertThat(actual).isEqualTo(-1)
     }
 
     @Test
@@ -53,7 +53,7 @@ internal class DataTest {
         // execute
         val actual = data1.compareTo(data2)
         // validate
-        assertEquals(-1, actual)
+        assertThat(actual).isEqualTo(-1)
     }
 
 }

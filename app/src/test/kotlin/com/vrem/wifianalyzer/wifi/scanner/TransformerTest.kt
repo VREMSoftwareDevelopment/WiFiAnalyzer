@@ -23,8 +23,8 @@ import android.net.wifi.WifiInfo
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.wifi.model.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.*
@@ -66,7 +66,7 @@ class TransformerTest {
         // execute
         val actual = fixture.transformWifiInfo()
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(cache).wifiInfo
         verifyWiFiInfo()
     }
@@ -78,7 +78,7 @@ class TransformerTest {
         // execute
         val actual = fixture.transformWifiInfo()
         // validate
-        assertEquals(WiFiConnection.EMPTY, actual)
+        assertThat(actual).isEqualTo(WiFiConnection.EMPTY)
         verify(cache).wifiInfo
     }
 
@@ -90,7 +90,7 @@ class TransformerTest {
         // execute
         val actual = fixture.transformWifiInfo()
         // validate
-        assertEquals(WiFiConnection.EMPTY, actual)
+        assertThat(actual).isEqualTo(WiFiConnection.EMPTY)
         verify(wifiInfo).networkId
         verify(cache).wifiInfo
     }
@@ -103,7 +103,7 @@ class TransformerTest {
         // execute
         val actual = fixture.transformCacheResults()
         // validate
-        assertEquals(cacheResults.size, actual.size)
+        assertThat(actual).hasSize(cacheResults.size)
         validateWiFiDetail(SSID_1, BSSID_1, WiFiWidth.MHZ_160, WiFiStandard.AX, actual[0], WiFiSecurityTypeTest.All)
         validateWiFiDetail(
             SSID_2,
@@ -127,8 +127,8 @@ class TransformerTest {
         // execute
         val actual = fixture.transformToWiFiData()
         // validate
-        assertEquals(expectedWiFiConnection, actual.wiFiConnection)
-        assertEquals(cacheResults.size, actual.wiFiDetails.size)
+        assertThat(actual.wiFiConnection).isEqualTo(expectedWiFiConnection)
+        assertThat(actual.wiFiDetails).hasSize(cacheResults.size)
         verifyWiFiInfo()
         verify(cache).wifiInfo
         verify(cache).scanResults()
@@ -197,16 +197,16 @@ class TransformerTest {
         fastRoaming: List<FastRoaming> = listOf()
     ) {
         with(wiFiDetail) {
-            assertEquals(ssid, wiFiIdentifier.ssid)
-            assertEquals(bssid, wiFiIdentifier.bssid)
-            assertEquals(wiFiWidth, wiFiSignal.wiFiWidth)
-            assertEquals(wiFiStandard, wiFiSignal.extra.wiFiStandard)
-            assertEquals(LEVEL, wiFiSignal.level)
-            assertEquals(FREQUENCY, wiFiSignal.primaryFrequency)
-            assertEquals(FREQUENCY + wiFiWidth.frequencyWidthHalf, wiFiSignal.centerFrequency)
-            assertEquals(fastRoaming, wiFiSignal.extra.fastRoaming)
-            assertEquals(WPA, wiFiSecurity.capabilities)
-            assertEquals(securityTypes, wiFiSecurity.securityTypes)
+            assertThat(wiFiIdentifier.ssid).isEqualTo(ssid)
+            assertThat(wiFiIdentifier.bssid).isEqualTo(bssid)
+            assertThat(wiFiSignal.wiFiWidth).isEqualTo(wiFiWidth)
+            assertThat(wiFiSignal.extra.wiFiStandard).isEqualTo(wiFiStandard)
+            assertThat(wiFiSignal.level).isEqualTo(LEVEL)
+            assertThat(wiFiSignal.primaryFrequency).isEqualTo(FREQUENCY)
+            assertThat(wiFiSignal.centerFrequency).isEqualTo(FREQUENCY + wiFiWidth.frequencyWidthHalf)
+            assertThat(wiFiSignal.extra.fastRoaming).isEqualTo(fastRoaming)
+            assertThat(wiFiSecurity.capabilities).isEqualTo(WPA)
+            assertThat(wiFiSecurity.securityTypes).isEqualTo(securityTypes)
         }
     }
 

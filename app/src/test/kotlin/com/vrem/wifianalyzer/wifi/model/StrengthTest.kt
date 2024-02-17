@@ -20,61 +20,61 @@ package com.vrem.wifianalyzer.wifi.model
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.Strength.Companion.calculate
 import com.vrem.wifianalyzer.wifi.model.Strength.Companion.reverse
-import org.junit.Assert.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class StrengthTest {
     @Test
     fun strength() {
-        assertEquals(5, Strength.entries.size)
+        assertThat(Strength.entries).hasSize(5)
     }
 
     @Test
     fun imageResource() {
-        assertEquals(R.drawable.ic_signal_wifi_0_bar, Strength.ZERO.imageResource)
-        assertEquals(R.drawable.ic_signal_wifi_1_bar, Strength.ONE.imageResource)
-        assertEquals(R.drawable.ic_signal_wifi_2_bar, Strength.TWO.imageResource)
-        assertEquals(R.drawable.ic_signal_wifi_3_bar, Strength.THREE.imageResource)
-        assertEquals(R.drawable.ic_signal_wifi_4_bar, Strength.FOUR.imageResource)
+        assertThat(Strength.ZERO.imageResource).isEqualTo(R.drawable.ic_signal_wifi_0_bar)
+        assertThat(Strength.ONE.imageResource).isEqualTo(R.drawable.ic_signal_wifi_1_bar)
+        assertThat(Strength.TWO.imageResource).isEqualTo(R.drawable.ic_signal_wifi_2_bar)
+        assertThat(Strength.THREE.imageResource).isEqualTo(R.drawable.ic_signal_wifi_3_bar)
+        assertThat(Strength.FOUR.imageResource).isEqualTo(R.drawable.ic_signal_wifi_4_bar)
     }
 
     @Test
     fun colorResource() {
-        assertEquals(R.color.error, Strength.ZERO.colorResource)
-        assertEquals(R.color.warning, Strength.ONE.colorResource)
-        assertEquals(R.color.warning, Strength.TWO.colorResource)
-        assertEquals(R.color.success, Strength.THREE.colorResource)
-        assertEquals(R.color.success, Strength.FOUR.colorResource)
+        assertThat(Strength.ZERO.colorResource).isEqualTo(R.color.error)
+        assertThat(Strength.ONE.colorResource).isEqualTo(R.color.warning)
+        assertThat(Strength.TWO.colorResource).isEqualTo(R.color.warning)
+        assertThat(Strength.THREE.colorResource).isEqualTo(R.color.success)
+        assertThat(Strength.FOUR.colorResource).isEqualTo(R.color.success)
     }
 
     @Test
     fun weak() {
-        assertTrue(Strength.ZERO.weak())
-        assertFalse(Strength.ONE.weak())
-        assertFalse(Strength.TWO.weak())
-        assertFalse(Strength.THREE.weak())
-        assertFalse(Strength.FOUR.weak())
+        assertThat(Strength.ZERO.weak()).isTrue()
+        assertThat(Strength.ONE.weak()).isFalse()
+        assertThat(Strength.TWO.weak()).isFalse()
+        assertThat(Strength.THREE.weak()).isFalse()
+        assertThat(Strength.FOUR.weak()).isFalse()
     }
 
     @Test
     fun calculate() {
-        assertEquals(Strength.ZERO, calculate(-89))
-        assertEquals(Strength.ONE, calculate(-88))
-        assertEquals(Strength.ONE, calculate(-78))
-        assertEquals(Strength.TWO, calculate(-77))
-        assertEquals(Strength.TWO, calculate(-67))
-        assertEquals(Strength.THREE, calculate(-66))
-        assertEquals(Strength.THREE, calculate(-56))
-        assertEquals(Strength.FOUR, calculate(-55))
-        assertEquals(Strength.FOUR, calculate(0))
+        assertThat(calculate(-89)).isEqualTo(Strength.ZERO)
+        assertThat(calculate(-88)).isEqualTo(Strength.ONE)
+        assertThat(calculate(-78)).isEqualTo(Strength.ONE)
+        assertThat(calculate(-77)).isEqualTo(Strength.TWO)
+        assertThat(calculate(-67)).isEqualTo(Strength.TWO)
+        assertThat(calculate(-66)).isEqualTo(Strength.THREE)
+        assertThat(calculate(-56)).isEqualTo(Strength.THREE)
+        assertThat(calculate(-55)).isEqualTo(Strength.FOUR)
+        assertThat(calculate(0)).isEqualTo(Strength.FOUR)
     }
 
     @Test
     fun reverse() {
-        assertEquals(Strength.FOUR, reverse(Strength.ZERO))
-        assertEquals(Strength.THREE, reverse(Strength.ONE))
-        assertEquals(Strength.TWO, reverse(Strength.TWO))
-        assertEquals(Strength.ONE, reverse(Strength.THREE))
-        assertEquals(Strength.ZERO, reverse(Strength.FOUR))
+        assertThat(reverse(Strength.ZERO)).isEqualTo(Strength.FOUR)
+        assertThat(reverse(Strength.ONE)).isEqualTo(Strength.THREE)
+        assertThat(reverse(Strength.TWO)).isEqualTo(Strength.TWO)
+        assertThat(reverse(Strength.THREE)).isEqualTo(Strength.ONE)
+        assertThat(reverse(Strength.FOUR)).isEqualTo(Strength.ZERO)
     }
 }

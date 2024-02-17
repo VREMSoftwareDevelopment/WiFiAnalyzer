@@ -27,8 +27,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.NavigationMenu
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.*
@@ -93,7 +93,7 @@ class FragmentItemTest {
         // setup
         val fixture = FragmentItem(fragment, false, View.VISIBLE)
         // execute & validate
-        assertFalse(fixture.registered)
+        assertThat(fixture.registered).isFalse()
     }
 
     @Test
@@ -101,7 +101,7 @@ class FragmentItemTest {
         // setup
         val fixture = FragmentItem(fragment, true, View.VISIBLE)
         // execute & validate
-        assertTrue(fixture.registered)
+        assertThat(fixture.registered).isTrue()
     }
 
     @Test
@@ -109,7 +109,7 @@ class FragmentItemTest {
         // setup
         val fixture = FragmentItem(fragment, false, View.INVISIBLE)
         // execute & validate
-        assertEquals(View.INVISIBLE, fixture.visibility)
+        assertThat(fixture.visibility).isEqualTo(View.INVISIBLE)
     }
 
     private fun withFragmentTransaction() {

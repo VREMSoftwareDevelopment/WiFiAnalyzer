@@ -21,7 +21,7 @@ import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -38,7 +38,7 @@ class TimeGraphAdapterTest {
         // execute
         val graphViewNotifiers = fixture.graphViewNotifiers()
         // validate
-        assertEquals(WiFiBand.entries.size, graphViewNotifiers.size)
+        assertThat(graphViewNotifiers).hasSize(WiFiBand.entries.size)
     }
 
     @Test
@@ -49,6 +49,6 @@ class TimeGraphAdapterTest {
         // execute
         val graphViews = fixture.graphViews()
         // validate
-        assertEquals(WiFiBand.entries.size, graphViews.size)
+        assertThat(graphViews).hasSize(WiFiBand.entries.size)
     }
 }

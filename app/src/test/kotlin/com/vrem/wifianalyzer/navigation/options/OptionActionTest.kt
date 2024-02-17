@@ -27,9 +27,8 @@ import com.vrem.wifianalyzer.navigation.options.OptionAction.Companion.findOptio
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.verify
@@ -90,42 +89,42 @@ class OptionActionTest {
 
     @Test
     fun optionAction() {
-        assertEquals(6, OptionAction.entries.size)
+        assertThat(OptionAction.entries).hasSize(6)
     }
 
     @Test
     fun getKey() {
-        assertEquals(-1, OptionAction.NO_ACTION.key)
-        assertEquals(R.id.action_scanner, OptionAction.SCANNER.key)
-        assertEquals(R.id.action_filter, OptionAction.FILTER.key)
-        assertEquals(R.id.action_wifi_band_2ghz, OptionAction.WIFI_BAND_2.key)
-        assertEquals(R.id.action_wifi_band_5ghz, OptionAction.WIFI_BAND_5.key)
-        assertEquals(R.id.action_wifi_band_6ghz, OptionAction.WIFI_BAND_6.key)
+        assertThat(OptionAction.NO_ACTION.key).isEqualTo(-1)
+        assertThat(OptionAction.SCANNER.key).isEqualTo(R.id.action_scanner)
+        assertThat(OptionAction.FILTER.key).isEqualTo(R.id.action_filter)
+        assertThat(OptionAction.WIFI_BAND_2.key).isEqualTo(R.id.action_wifi_band_2ghz)
+        assertThat(OptionAction.WIFI_BAND_5.key).isEqualTo(R.id.action_wifi_band_5ghz)
+        assertThat(OptionAction.WIFI_BAND_6.key).isEqualTo(R.id.action_wifi_band_6ghz)
     }
 
     @Test
     fun getAction() {
-        assertTrue(OptionAction.NO_ACTION.action == noAction)
-        assertTrue(OptionAction.SCANNER.action == scannerAction)
-        assertTrue(OptionAction.FILTER.action == filterAction)
-        assertTrue(OptionAction.WIFI_BAND_2.action == wiFiBandAction2)
-        assertTrue(OptionAction.WIFI_BAND_5.action == wiFiBandAction5)
-        assertTrue(OptionAction.WIFI_BAND_6.action == wiFiBandAction6)
+        assertThat(OptionAction.NO_ACTION.action == noAction).isTrue()
+        assertThat(OptionAction.SCANNER.action == scannerAction).isTrue()
+        assertThat(OptionAction.FILTER.action == filterAction).isTrue()
+        assertThat(OptionAction.WIFI_BAND_2.action == wiFiBandAction2).isTrue()
+        assertThat(OptionAction.WIFI_BAND_5.action == wiFiBandAction5).isTrue()
+        assertThat(OptionAction.WIFI_BAND_6.action == wiFiBandAction6).isTrue()
     }
 
     @Test
     fun getOptionAction() {
-        assertEquals(OptionAction.NO_ACTION, findOptionAction(OptionAction.NO_ACTION.key))
-        assertEquals(OptionAction.SCANNER, findOptionAction(OptionAction.SCANNER.key))
-        assertEquals(OptionAction.FILTER, findOptionAction(OptionAction.FILTER.key))
-        assertEquals(OptionAction.WIFI_BAND_2, findOptionAction(OptionAction.WIFI_BAND_2.key))
-        assertEquals(OptionAction.WIFI_BAND_5, findOptionAction(OptionAction.WIFI_BAND_5.key))
-        assertEquals(OptionAction.WIFI_BAND_6, findOptionAction(OptionAction.WIFI_BAND_6.key))
+        assertThat(findOptionAction(OptionAction.NO_ACTION.key)).isEqualTo(OptionAction.NO_ACTION)
+        assertThat(findOptionAction(OptionAction.SCANNER.key)).isEqualTo(OptionAction.SCANNER)
+        assertThat(findOptionAction(OptionAction.FILTER.key)).isEqualTo(OptionAction.FILTER)
+        assertThat(findOptionAction(OptionAction.WIFI_BAND_2.key)).isEqualTo(OptionAction.WIFI_BAND_2)
+        assertThat(findOptionAction(OptionAction.WIFI_BAND_5.key)).isEqualTo(OptionAction.WIFI_BAND_5)
+        assertThat(findOptionAction(OptionAction.WIFI_BAND_6.key)).isEqualTo(OptionAction.WIFI_BAND_6)
     }
 
     @Test
     fun getOptionActionInvalidKey() {
-        assertEquals(OptionAction.NO_ACTION, findOptionAction(-99))
-        assertEquals(OptionAction.NO_ACTION, findOptionAction(99))
+        assertThat(findOptionAction(-99)).isEqualTo(OptionAction.NO_ACTION)
+        assertThat(findOptionAction(99)).isEqualTo(OptionAction.NO_ACTION)
     }
 }

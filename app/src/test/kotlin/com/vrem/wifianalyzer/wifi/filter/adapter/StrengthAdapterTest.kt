@@ -19,8 +19,8 @@ package com.vrem.wifianalyzer.wifi.filter.adapter
 
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.model.Strength
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -37,7 +37,7 @@ class StrengthAdapterTest {
 
     @Test
     fun isActive() {
-        assertFalse(fixture.isActive())
+        assertThat(fixture.isActive()).isFalse()
     }
 
     @Test
@@ -45,7 +45,7 @@ class StrengthAdapterTest {
         // setup
         fixture.toggle(Strength.TWO)
         // execute & validate
-        assertTrue(fixture.isActive())
+        assertThat(fixture.isActive()).isTrue()
     }
 
     @Test
@@ -55,7 +55,7 @@ class StrengthAdapterTest {
         // execute
         val actual = fixture.selections
         // validate
-        assertTrue(actual.containsAll(expected.toList()))
+        assertThat(actual).containsAll(expected.toList())
     }
 
     @Test
@@ -65,7 +65,7 @@ class StrengthAdapterTest {
         // execute
         val actual = fixture.defaults
         // validate
-        assertArrayEquals(expected.toTypedArray(), actual.toTypedArray())
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -73,8 +73,8 @@ class StrengthAdapterTest {
         // execute
         val actual = fixture.toggle(Strength.TWO)
         // validate
-        assertTrue(actual)
-        assertFalse(fixture.contains(Strength.TWO))
+        assertThat(actual).isTrue()
+        assertThat(fixture.contains(Strength.TWO)).isFalse()
     }
 
     @Test
@@ -84,8 +84,8 @@ class StrengthAdapterTest {
         // execute
         val actual = fixture.toggle(Strength.THREE)
         // validate
-        assertTrue(actual)
-        assertTrue(fixture.contains(Strength.THREE))
+        assertThat(actual).isTrue()
+        assertThat(fixture.contains(Strength.THREE)).isTrue()
     }
 
     @Test
@@ -95,14 +95,14 @@ class StrengthAdapterTest {
         // execute
         values.forEach { fixture.toggle(it) }
         // validate
-        values.toList().subList(0, values.size - 1).forEach { assertFalse(fixture.contains(it)) }
-        assertTrue(fixture.contains(values.last()))
+        values.toList().subList(0, values.size - 1).forEach { assertThat(fixture.contains(it)).isFalse() }
+        assertThat(fixture.contains(values.last())).isTrue()
     }
 
     @Test
     fun getColorWithExisting() {
         // execute & validate
-        assertEquals(Strength.TWO.colorResource, fixture.color(Strength.TWO))
+        assertThat(fixture.color(Strength.TWO)).isEqualTo(Strength.TWO.colorResource)
     }
 
     @Test
@@ -110,7 +110,7 @@ class StrengthAdapterTest {
         // setup
         fixture.toggle(Strength.TWO)
         // execute & validate
-        assertEquals(Strength.colorResourceDefault, fixture.color(Strength.TWO))
+        assertThat(fixture.color(Strength.TWO)).isEqualTo(Strength.colorResourceDefault)
     }
 
     @Test

@@ -24,8 +24,8 @@ import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.model.Security
 import com.vrem.wifianalyzer.wifi.model.Strength
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -73,7 +73,7 @@ class FiltersAdapterTest {
     @Test
     fun isActive() {
         // execute & validate
-        assertFalse(fixture.isActive())
+        assertThat(fixture.isActive()).isFalse()
     }
 
     @Test
@@ -81,7 +81,7 @@ class FiltersAdapterTest {
         // execute
         val actual: List<BasicFilterAdapter<out Serializable?>?> = fixture.filterAdapters(true)
         // validate
-        assertEquals(4, actual.size)
+        assertThat(actual).hasSize(4)
     }
 
     @Test
@@ -89,7 +89,7 @@ class FiltersAdapterTest {
         // execute
         val actual: List<BasicFilterAdapter<out Serializable?>?> = fixture.filterAdapters(false)
         // validate
-        assertEquals(3, actual.size)
+        assertThat(actual).hasSize(3)
     }
 
     @Test
@@ -97,7 +97,7 @@ class FiltersAdapterTest {
         // setup
         fixture.strengthAdapter().toggle(Strength.THREE)
         // execute & validate
-        assertTrue(fixture.isActive())
+        assertThat(fixture.isActive()).isTrue()
     }
 
     @Test
@@ -105,7 +105,7 @@ class FiltersAdapterTest {
         // setup
         fixture.wiFiBandAdapter().toggle(WiFiBand.GHZ2)
         // execute & validate
-        assertTrue(fixture.isActive())
+        assertThat(fixture.isActive()).isTrue()
     }
 
     @Test

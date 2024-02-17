@@ -24,8 +24,8 @@ import com.jjoe64.graphview.GridLabelRenderer
 import com.jjoe64.graphview.LabelFormatter
 import com.jjoe64.graphview.Viewport
 import com.vrem.wifianalyzer.settings.ThemeStyle
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.*
 
@@ -156,7 +156,7 @@ class GraphViewBuilderTest {
         // execute
         val actual = fixture.numVerticalLabels
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -169,7 +169,7 @@ class GraphViewBuilderTest {
 
     private fun validateMaximumY(maximumY: Int, expected: Int) {
         val fixture = GraphViewBuilder(numHorizontalLabels, maximumY, ThemeStyle.DARK, true)
-        assertEquals(expected, fixture.maximumPortY)
+        assertThat(fixture.maximumPortY).isEqualTo(expected)
     }
 
     @Test

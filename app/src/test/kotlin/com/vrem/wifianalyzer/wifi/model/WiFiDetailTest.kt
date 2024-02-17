@@ -17,8 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotSame
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class WiFiDetailTest {
@@ -37,29 +36,29 @@ class WiFiDetailTest {
     @Test
     fun wiFiDetail() {
         // validate
-        assertEquals(wiFiSignal, fixture.wiFiSignal)
-        assertEquals(wiFiAdditional, fixture.wiFiAdditional)
-        assertEquals(wiFiIdentifier, fixture.wiFiIdentifier)
-        assertEquals(wiFiSecurity, fixture.wiFiSecurity)
+        assertThat(fixture.wiFiSignal).isEqualTo(wiFiSignal)
+        assertThat(fixture.wiFiAdditional).isEqualTo(wiFiAdditional)
+        assertThat(fixture.wiFiIdentifier).isEqualTo(wiFiIdentifier)
+        assertThat(fixture.wiFiSecurity).isEqualTo(wiFiSecurity)
     }
 
     @Test
     fun equalsUsingIdentifier() {
         // execute & validate
-        assertEquals(fixture, other)
-        assertNotSame(fixture, other)
+        assertThat(other).isEqualTo(fixture)
+        assertThat(other).isNotSameAs(fixture)
     }
 
     @Test
     fun hashCodeUsingIdentifier() {
         // execute & validate
-        assertEquals(fixture.hashCode(), other.hashCode())
+        assertThat(other.hashCode()).isEqualTo(fixture.hashCode())
     }
 
     @Test
     fun compareTo() {
         // execute & validate
-        assertEquals(0, fixture.compareTo(other))
+        assertThat(fixture.compareTo(other)).isEqualTo(0)
     }
 
     @Test
@@ -69,13 +68,13 @@ class WiFiDetailTest {
         // execute
         val actual = WiFiDetail(expected, expected.wiFiAdditional)
         // validate
-        assertEquals(expected, actual)
-        assertEquals(expected.wiFiIdentifier, actual.wiFiIdentifier)
-        assertEquals(expected.wiFiSecurity, actual.wiFiSecurity)
-        assertEquals(expected.wiFiSecurity.security, actual.wiFiSecurity.security)
-        assertEquals(expected.wiFiSecurity.securities, actual.wiFiSecurity.securities)
-        assertEquals(expected.wiFiAdditional, actual.wiFiAdditional)
-        assertEquals(expected.wiFiSignal, actual.wiFiSignal)
+        assertThat(actual).isEqualTo(expected)
+        assertThat(actual.wiFiIdentifier).isEqualTo(expected.wiFiIdentifier)
+        assertThat(actual.wiFiSecurity).isEqualTo(expected.wiFiSecurity)
+        assertThat(actual.wiFiSecurity.security).isEqualTo(expected.wiFiSecurity.security)
+        assertThat(actual.wiFiSecurity.securities).isEqualTo(expected.wiFiSecurity.securities)
+        assertThat(actual.wiFiAdditional).isEqualTo(expected.wiFiAdditional)
+        assertThat(actual.wiFiSignal).isEqualTo(expected.wiFiSignal)
     }
 
 }

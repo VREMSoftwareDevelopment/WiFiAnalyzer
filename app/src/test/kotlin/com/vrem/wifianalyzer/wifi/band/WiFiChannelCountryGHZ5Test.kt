@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class WiFiChannelCountryGHZ5Test {
@@ -31,8 +31,8 @@ class WiFiChannelCountryGHZ5Test {
         val expected = channelsSet1.union(setOf(100, 104, 108, 112, 116, 132, 136, 140, 144)).union(channelsSet3)
         listOf("AU", "CA").forEach {
             val actual = fixture.findChannels(it)
-            assertEquals(it, expected.size, actual.size)
-            assertEquals(it, expected, actual)
+            assertThat(actual).hasSize(expected.size)
+            assertThat(actual).isEqualTo(expected)
         }
     }
 
@@ -41,8 +41,8 @@ class WiFiChannelCountryGHZ5Test {
         val expected = channelsSet1.union(channelsSet3)
         listOf("CN", "KR").forEach {
             val actual = fixture.findChannels(it)
-            assertEquals(it, expected.size, actual.size)
-            assertEquals(it, expected, actual)
+            assertThat(actual).hasSize(expected.size)
+            assertThat(actual).isEqualTo(expected)
         }
     }
 
@@ -51,8 +51,8 @@ class WiFiChannelCountryGHZ5Test {
         val expected = channelsSet1.union(channelsSet2)
         listOf("JP", "TR", "ZA").forEach {
             val actual = fixture.findChannels(it)
-            assertEquals(it, expected.size, actual.size)
-            assertEquals(it, expected, actual)
+            assertThat(actual).hasSize(expected.size)
+            assertThat(actual).isEqualTo(expected)
         }
     }
 
@@ -60,16 +60,16 @@ class WiFiChannelCountryGHZ5Test {
     fun channelsRussia() {
         val expected = channelsSet1.union(setOf(132, 136, 140, 144)).union(channelsSet3)
         val actual = fixture.findChannels("RU")
-        assertEquals(expected.size, actual.size)
-        assertEquals(expected, actual)
+        assertThat(actual).hasSize(expected.size)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun channelsUS() {
         val expected = channelsSet1.union(channelsSet2).union(channelsSet3).union(setOf(169, 173, 177))
         val actual = fixture.findChannels("US")
-        assertEquals(expected.size, actual.size)
-        assertEquals(expected, actual)
+        assertThat(actual).hasSize(expected.size)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -112,8 +112,8 @@ class WiFiChannelCountryGHZ5Test {
             .union(setOf(149, 153, 157, 161, 165, 169, 173))
         countriesETSI.forEach {
             val actual = fixture.findChannels(it)
-            assertEquals(it, expected.size, actual.size)
-            assertEquals(it, expected, actual)
+            assertThat(actual).hasSize(expected.size)
+            assertThat(actual).isEqualTo(expected)
         }
     }
 
@@ -122,8 +122,8 @@ class WiFiChannelCountryGHZ5Test {
         val expected = channelsSet1.union(channelsSet2).union(channelsSet3)
         listOf("UK", "BR", "XYZ").forEach {
             val actual = fixture.findChannels(it)
-            assertEquals(it, expected.size, actual.size)
-            assertEquals(it, expected, actual)
+            assertThat(actual).hasSize(expected.size)
+            assertThat(actual).isEqualTo(expected)
         }
     }
 

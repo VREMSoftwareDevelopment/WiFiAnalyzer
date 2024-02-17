@@ -23,8 +23,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.times
@@ -49,7 +49,7 @@ class AccessPointsFragmentTest {
         // setup
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
-        assertNotNull(fixture)
+        assertThat(fixture).isNotNull()
         verify(scanner).update()
         verify(scanner).register(fixture.accessPointsAdapter)
     }
@@ -60,7 +60,7 @@ class AccessPointsFragmentTest {
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.accessPointsRefresh)
-        assertTrue(swipeRefreshLayout.isEnabled)
+        assertThat(swipeRefreshLayout.isEnabled).isTrue()
     }
 
     @Test
@@ -91,8 +91,8 @@ class AccessPointsFragmentTest {
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.accessPointsRefresh)
-        assertFalse(swipeRefreshLayout.isRefreshing)
-        assertFalse(swipeRefreshLayout.isEnabled)
+        assertThat(swipeRefreshLayout.isRefreshing).isFalse()
+        assertThat(swipeRefreshLayout.isEnabled).isFalse()
     }
 
 }

@@ -23,8 +23,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.times
@@ -49,7 +49,7 @@ class ChannelGraphFragmentTest {
         // setup
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
-        assertNotNull(fixture)
+        assertThat(fixture).isNotNull()
         verify(scanner).update()
         verify(scanner).register(fixture.channelGraphAdapter)
     }
@@ -60,7 +60,7 @@ class ChannelGraphFragmentTest {
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.graphRefresh)
-        assertTrue(swipeRefreshLayout.isEnabled)
+        assertThat(swipeRefreshLayout.isEnabled).isTrue()
     }
 
     @Test
@@ -91,7 +91,7 @@ class ChannelGraphFragmentTest {
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.graphRefresh)
-        assertFalse(swipeRefreshLayout.isRefreshing)
-        assertFalse(swipeRefreshLayout.isEnabled)
+        assertThat(swipeRefreshLayout.isRefreshing).isFalse()
+        assertThat(swipeRefreshLayout.isEnabled).isFalse()
     }
 }

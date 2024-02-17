@@ -22,8 +22,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.graphutils.*
 import com.vrem.wifianalyzer.wifi.model.*
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.*
@@ -43,21 +42,21 @@ class DataManagerTest {
     @Test
     fun addSeriesDataIncreaseXValue() {
         // setup
-        assertEquals(0, fixture.xValue)
+        assertThat(fixture.xValue).isEqualTo(0)
         // execute
         fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y)
         // validate
-        assertEquals(1, fixture.xValue)
+        assertThat(fixture.xValue).isEqualTo(1)
     }
 
     @Test
     fun addSeriesDataIncreaseCounts() {
         // setup
-        assertEquals(0, fixture.scanCount)
+        assertThat(fixture.scanCount).isEqualTo(0)
         // execute
         fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y)
         // validate
-        assertEquals(1, fixture.scanCount)
+        assertThat(fixture.scanCount).isEqualTo(1)
     }
 
     @Test
@@ -67,7 +66,7 @@ class DataManagerTest {
         // execute
         fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y)
         // validate
-        assertEquals(MAX_SCAN_COUNT, fixture.scanCount)
+        assertThat(fixture.scanCount).isEqualTo(MAX_SCAN_COUNT)
     }
 
     @Test
@@ -77,7 +76,7 @@ class DataManagerTest {
         // execute
         fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y)
         // validate
-        assertEquals(2, fixture.scanCount)
+        assertThat(fixture.scanCount).isEqualTo(2)
         verify(graphViewWrapper).setHorizontalLabelsVisible(true)
     }
 
@@ -122,8 +121,8 @@ class DataManagerTest {
         // execute
         val actual = fixture.newSeries(wiFiDetails)
         // validate
-        assertTrue(actual.containsAll(wiFiDetails))
-        assertTrue(actual.containsAll(moreWiFiDetails))
+        assertThat(actual).containsAll(wiFiDetails)
+        assertThat(actual).containsAll(moreWiFiDetails)
         verify(timeGraphCache).active()
     }
 

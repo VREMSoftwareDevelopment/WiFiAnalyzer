@@ -35,9 +35,8 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
 import com.vrem.wifianalyzer.wifi.predicate.truePredicate
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.*
@@ -95,7 +94,7 @@ class TimeGraphViewTest {
         // execute
         val actual = fixture.graphView()
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(graphViewWrapper).graphView
         verifyNoMoreInteractions(expected)
     }
@@ -107,7 +106,7 @@ class TimeGraphViewTest {
         // execute
         val actual = makeGraphView(MainContext.INSTANCE, 10, ThemeStyle.DARK)
         // validate
-        assertNotNull(actual)
+        assertThat(actual).isNotNull()
     }
 
     @Test
@@ -117,6 +116,6 @@ class TimeGraphViewTest {
         // execute
         val actual = makeGraphViewWrapper()
         // validate
-        assertNotNull(actual)
+        assertThat(actual).isNotNull()
     }
 }

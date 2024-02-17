@@ -30,8 +30,8 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.model.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.*
@@ -67,7 +67,7 @@ class ConnectionViewTest {
         // execute
         fixture.update(wiFiData)
         // validate
-        assertEquals(View.GONE, mainActivity.findViewById<View>(R.id.connection).visibility)
+        assertThat(mainActivity.findViewById<View>(R.id.connection).visibility).isEqualTo(View.GONE)
         verifyConnectionInformation()
         verify(warningView).update(wiFiData)
     }
@@ -83,7 +83,7 @@ class ConnectionViewTest {
         // execute
         fixture.update(wiFiData)
         // validate
-        assertEquals(View.GONE, mainActivity.findViewById<View>(R.id.connection).visibility)
+        assertThat(mainActivity.findViewById<View>(R.id.connection).visibility).isEqualTo(View.GONE)
         verifyConnectionInformation()
         verify(warningView).update(wiFiData)
     }
@@ -99,7 +99,7 @@ class ConnectionViewTest {
         // execute
         fixture.update(wiFiData)
         // validate
-        assertEquals(View.VISIBLE, mainActivity.findViewById<View>(R.id.connection).visibility)
+        assertThat(mainActivity.findViewById<View>(R.id.connection).visibility).isEqualTo(View.VISIBLE)
         verifyConnectionInformation()
         verify(warningView).update(wiFiData)
     }
@@ -120,11 +120,11 @@ class ConnectionViewTest {
         val wiFiConnection = wiFiAdditional.wiFiConnection
         val view = mainActivity.findViewById<View>(R.id.connection)
         val ipAddressView = view.findViewById<TextView>(R.id.ipAddress)
-        assertEquals(wiFiConnection.ipAddress, ipAddressView.text.toString())
+        assertThat(ipAddressView.text.toString()).isEqualTo(wiFiConnection.ipAddress)
         val linkSpeedView = view.findViewById<TextView>(R.id.linkSpeed)
-        assertEquals(View.VISIBLE, linkSpeedView.visibility)
-        assertEquals(wiFiConnection.linkSpeed.toString() + WifiInfo.LINK_SPEED_UNITS, linkSpeedView.text.toString())
-        assertEquals(expectedText, view.findViewById<TextView>(R.id.currentConnection).text.toString())
+        assertThat(linkSpeedView.visibility).isEqualTo(View.VISIBLE)
+        assertThat(linkSpeedView.text.toString()).isEqualTo(wiFiConnection.linkSpeed.toString() + WifiInfo.LINK_SPEED_UNITS)
+        assertThat(view.findViewById<TextView>(R.id.currentConnection).text.toString()).isEqualTo(expectedText)
         verify(warningView).update(wiFiData)
     }
 
@@ -143,7 +143,7 @@ class ConnectionViewTest {
         // validate
         val view = mainActivity.findViewById<View>(R.id.connection)
         val linkSpeedView = view.findViewById<TextView>(R.id.linkSpeed)
-        assertEquals(View.GONE, linkSpeedView.visibility)
+        assertThat(linkSpeedView.visibility).isEqualTo(View.GONE)
         verify(warningView).update(wiFiData)
     }
 
@@ -172,7 +172,7 @@ class ConnectionViewTest {
         // execute
         fixture.update(wiFiData)
         // validate
-        assertEquals(View.GONE, mainActivity.findViewById<View>(R.id.main_wifi_support).visibility)
+        assertThat(mainActivity.findViewById<View>(R.id.main_wifi_support).visibility).isEqualTo(View.GONE)
         verify(settings).wiFiBand()
         verify(warningView).update(wiFiData)
     }
@@ -189,8 +189,8 @@ class ConnectionViewTest {
         fixture.update(wiFiData)
         // validate
         val textView = mainActivity.findViewById<TextView>(R.id.main_wifi_support)
-        assertEquals(View.VISIBLE, textView.visibility)
-        assertEquals(expectedText, textView.text)
+        assertThat(textView.visibility).isEqualTo(View.VISIBLE)
+        assertThat(textView.text).isEqualTo(expectedText)
         verify(settings).wiFiBand()
         verify(wiFiManagerWrapper).is6GHzBandSupported()
         verify(warningView).update(wiFiData)

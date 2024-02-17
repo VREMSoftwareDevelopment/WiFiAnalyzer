@@ -17,8 +17,8 @@
  */
 package com.vrem.wifianalyzer.settings
 
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.*
@@ -42,7 +42,7 @@ class SettingsAndroidQTest {
         // execute
         val actual = fixture.wiFiOffOnExit()
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
         verify(fixture).minVersionQ()
     }
 

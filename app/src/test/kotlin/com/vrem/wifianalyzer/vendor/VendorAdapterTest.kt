@@ -27,9 +27,8 @@ import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.vendor.model.VendorService
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -66,10 +65,10 @@ class VendorAdapterTest {
     @Test
     fun constructor() {
         // validate
-        assertEquals(vendors.size, fixture.count)
-        assertEquals(vendors[0], fixture.getItem(0))
-        assertEquals(vendors[1], fixture.getItem(1))
-        assertEquals(vendors[2], fixture.getItem(2))
+        assertThat(fixture.count).isEqualTo(vendors.size)
+        assertThat(fixture.getItem(0)).isEqualTo(vendors[0])
+        assertThat(fixture.getItem(1)).isEqualTo(vendors[1])
+        assertThat(fixture.getItem(2)).isEqualTo(vendors[2])
         verify(vendorService).findVendors()
     }
 
@@ -82,9 +81,9 @@ class VendorAdapterTest {
         // execute
         val actual = fixture.getView(1, null, viewGroup)
         // validate
-        assertNotNull(actual)
-        assertEquals(vendorName2, actual.findViewById<TextView>(R.id.vendor_name).text.toString())
-        assertEquals(expected, actual.findViewById<TextView>(R.id.vendor_macs).text.toString())
+        assertThat(actual).isNotNull()
+        assertThat(actual.findViewById<TextView>(R.id.vendor_name).text.toString()).isEqualTo(vendorName2)
+        assertThat(actual.findViewById<TextView>(R.id.vendor_macs).text.toString()).isEqualTo(expected)
         verify(vendorService).findMacAddresses(vendorName2)
         verify(vendorService, never()).findVendorName(vendorName1)
         verify(vendorService, never()).findVendorName(vendorName3)
@@ -119,7 +118,7 @@ class VendorAdapterTest {
         // execute
         val actual = fixture.getView(1, rootView, viewGroup)
         // validate
-        assertNotNull(actual)
+        assertThat(actual).isNotNull()
         verify(vendorNameView).text = vendorName2
         verify(vendorMacsView).text = expected
         verify(rootView).findViewById<TextView>(R.id.vendor_name)

@@ -20,8 +20,8 @@ package com.vrem.wifianalyzer.wifi.graphutils
 import com.jjoe64.graphview.GraphView
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.wifi.model.WiFiData
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -57,8 +57,8 @@ class GraphAdapterTest {
         // execute
         val actual = fixture.graphViews()
         // validate
-        assertEquals(1, actual.size)
-        assertEquals(graphView, actual[0])
+        assertThat(actual).hasSize(1)
+        assertThat(actual[0]).isEqualTo(graphView)
         verify(graphViewNotifier).graphView()
     }
 }

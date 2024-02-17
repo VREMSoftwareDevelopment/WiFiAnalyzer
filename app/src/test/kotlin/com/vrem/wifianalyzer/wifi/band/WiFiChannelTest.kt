@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
-import org.junit.Assert.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class WiFiChannelTest {
@@ -27,11 +27,11 @@ class WiFiChannelTest {
 
     @Test
     fun inRange() {
-        assertTrue(fixture.inRange(frequency))
-        assertTrue(fixture.inRange(frequency - 2))
-        assertTrue(fixture.inRange(frequency + 2))
-        assertFalse(fixture.inRange(frequency - 3))
-        assertFalse(fixture.inRange(frequency + 3))
+        assertThat(fixture.inRange(frequency)).isTrue()
+        assertThat(fixture.inRange(frequency - 2)).isTrue()
+        assertThat(fixture.inRange(frequency + 2)).isTrue()
+        assertThat(fixture.inRange(frequency - 3)).isFalse()
+        assertThat(fixture.inRange(frequency + 3)).isFalse()
     }
 
     @Test
@@ -39,7 +39,7 @@ class WiFiChannelTest {
         // setup
         val other = WiFiChannel(channel, frequency)
         // execute & validate
-        assertEquals(0, fixture.compareTo(other))
+        assertThat(fixture.compareTo(other)).isEqualTo(0)
     }
 
     @Test
@@ -47,7 +47,7 @@ class WiFiChannelTest {
         // setup
         val other = WiFiChannel(channel + 1, frequency)
         // execute & validate
-        assertEquals(-1, fixture.compareTo(other))
+        assertThat(fixture.compareTo(other)).isEqualTo(-1)
     }
 
     @Test
@@ -55,7 +55,7 @@ class WiFiChannelTest {
         // setup
         val other = WiFiChannel(channel, frequency + 1)
         // execute & validate
-        assertEquals(-1, fixture.compareTo(other))
+        assertThat(fixture.compareTo(other)).isEqualTo(-1)
     }
 
 }

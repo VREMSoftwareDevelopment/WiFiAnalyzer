@@ -19,8 +19,7 @@ package com.vrem.wifianalyzer.navigation
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import org.junit.Assert.assertArrayEquals
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -30,7 +29,7 @@ import org.robolectric.annotation.Config
 class NavigationGroupTest {
     @Test
     fun navigationGroup() {
-        assertEquals(3, NavigationGroup.entries.size)
+        assertThat(NavigationGroup.entries).hasSize(3)
     }
 
     @Test
@@ -42,7 +41,7 @@ class NavigationGroupTest {
             NavigationGroup.GROUP_SETTINGS
         )
         // validate
-        assertArrayEquals(expected, NavigationGroup.entries.toTypedArray())
+        assertThat(NavigationGroup.entries.toTypedArray()).isEqualTo(expected)
     }
 
     @Test
@@ -50,7 +49,7 @@ class NavigationGroupTest {
         // setup
         val expected: List<NavigationMenu> = listOf(NavigationMenu.SETTINGS, NavigationMenu.ABOUT)
         // validate
-        assertEquals(expected, NavigationGroup.GROUP_SETTINGS.navigationMenus)
+        assertThat(NavigationGroup.GROUP_SETTINGS.navigationMenus).isEqualTo(expected)
     }
 
     @Test
@@ -63,7 +62,7 @@ class NavigationGroupTest {
             NavigationMenu.TIME_GRAPH
         )
         // validate
-        assertEquals(expected, NavigationGroup.GROUP_FEATURE.navigationMenus)
+        assertThat(NavigationGroup.GROUP_FEATURE.navigationMenus).isEqualTo(expected)
     }
 
     @Test
@@ -75,20 +74,20 @@ class NavigationGroupTest {
             NavigationMenu.VENDORS
         )
         // validate
-        assertEquals(expected, NavigationGroup.GROUP_OTHER.navigationMenus)
+        assertThat(NavigationGroup.GROUP_OTHER.navigationMenus).isEqualTo(expected)
     }
 
     @Test
     fun next() {
-        assertEquals(NavigationMenu.CHANNEL_GRAPH, NavigationGroup.GROUP_FEATURE.next(NavigationMenu.CHANNEL_RATING))
-        assertEquals(NavigationMenu.ACCESS_POINTS, NavigationGroup.GROUP_FEATURE.next(NavigationMenu.TIME_GRAPH))
-        assertEquals(NavigationMenu.EXPORT, NavigationGroup.GROUP_FEATURE.next(NavigationMenu.EXPORT))
+        assertThat(NavigationGroup.GROUP_FEATURE.next(NavigationMenu.CHANNEL_RATING)).isEqualTo(NavigationMenu.CHANNEL_GRAPH)
+        assertThat(NavigationGroup.GROUP_FEATURE.next(NavigationMenu.TIME_GRAPH)).isEqualTo(NavigationMenu.ACCESS_POINTS)
+        assertThat(NavigationGroup.GROUP_FEATURE.next(NavigationMenu.EXPORT)).isEqualTo(NavigationMenu.EXPORT)
     }
 
     @Test
     fun previous() {
-        assertEquals(NavigationMenu.ACCESS_POINTS, NavigationGroup.GROUP_FEATURE.previous(NavigationMenu.CHANNEL_RATING))
-        assertEquals(NavigationMenu.TIME_GRAPH, NavigationGroup.GROUP_FEATURE.previous(NavigationMenu.ACCESS_POINTS))
-        assertEquals(NavigationMenu.EXPORT, NavigationGroup.GROUP_FEATURE.next(NavigationMenu.EXPORT))
+        assertThat(NavigationGroup.GROUP_FEATURE.previous(NavigationMenu.CHANNEL_RATING)).isEqualTo(NavigationMenu.ACCESS_POINTS)
+        assertThat(NavigationGroup.GROUP_FEATURE.previous(NavigationMenu.ACCESS_POINTS)).isEqualTo(NavigationMenu.TIME_GRAPH)
+        assertThat(NavigationGroup.GROUP_FEATURE.next(NavigationMenu.EXPORT)).isEqualTo(NavigationMenu.EXPORT)
     }
 }

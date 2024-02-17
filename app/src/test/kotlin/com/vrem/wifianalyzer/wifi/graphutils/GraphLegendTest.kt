@@ -18,8 +18,8 @@
 package com.vrem.wifianalyzer.wifi.graphutils
 
 import com.jjoe64.graphview.LegendRenderer
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -35,14 +35,14 @@ class GraphLegendTest {
 
     @Test
     fun sortByNumber() {
-        assertEquals(3, GraphLegend.entries.size)
+        assertThat(GraphLegend.entries).hasSize(3)
     }
 
     @Test
     fun getDisplay() {
-        assertEquals(GraphLegend.HIDE.legendDisplay, legendDisplayNone)
-        assertEquals(GraphLegend.LEFT.legendDisplay, legendDisplayLeft)
-        assertEquals(GraphLegend.RIGHT.legendDisplay, legendDisplayRight)
+        assertThat(legendDisplayNone).isEqualTo(GraphLegend.HIDE.legendDisplay)
+        assertThat(legendDisplayLeft).isEqualTo(GraphLegend.LEFT.legendDisplay)
+        assertThat(legendDisplayRight).isEqualTo(GraphLegend.RIGHT.legendDisplay)
     }
 
     @Test

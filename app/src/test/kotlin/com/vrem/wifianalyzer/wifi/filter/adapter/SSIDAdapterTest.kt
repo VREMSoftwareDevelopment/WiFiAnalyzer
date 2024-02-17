@@ -18,8 +18,8 @@
 package com.vrem.wifianalyzer.wifi.filter.adapter
 
 import com.vrem.wifianalyzer.settings.Settings
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -37,16 +37,15 @@ class SSIDAdapterTest {
 
     @Test
     fun getValues() {
-        // setup
         // execute
         val actual = fixture.selections
         // validate
-        assertTrue(actual.containsAll(ssidValues))
+        assertThat(actual).containsAll(ssidValues)
     }
 
     @Test
     fun isActive() {
-        assertTrue(fixture.isActive())
+        assertThat(fixture.isActive()).isTrue()
     }
 
     @Test
@@ -54,8 +53,8 @@ class SSIDAdapterTest {
         // execute
         fixture.selections = setOf()
         // validate
-        assertFalse(fixture.isActive())
-        assertTrue(fixture.selections.isEmpty())
+        assertThat(fixture.isActive()).isFalse()
+        assertThat(fixture.selections).isEmpty()
     }
 
     @Test
@@ -63,8 +62,8 @@ class SSIDAdapterTest {
         // execute
         fixture.reset()
         // validate
-        assertFalse(fixture.isActive())
-        assertTrue(fixture.selections.isEmpty())
+        assertThat(fixture.isActive()).isFalse()
+        assertThat(fixture.selections).isEmpty()
     }
 
     @Test
@@ -83,7 +82,7 @@ class SSIDAdapterTest {
         // execute
         fixture.selections = values
         // execute
-        assertEquals(expected, fixture.selections)
+        assertThat(fixture.selections).isEqualTo(expected)
     }
 
 }

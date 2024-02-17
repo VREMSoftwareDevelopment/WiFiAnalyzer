@@ -17,8 +17,7 @@
  */
 package com.vrem.wifianalyzer.vendor.model
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class VendorUtilsTest {
@@ -29,20 +28,20 @@ class VendorUtilsTest {
 
     @Test
     fun clean() {
-        assertTrue("".clean().isEmpty())
-        assertEquals(macAddressClean, macAddressFull.clean())
-        assertEquals("34AF", "34aF".clean())
-        assertEquals("34AF0B", "34aF0B".clean())
-        assertEquals("34AA0B", "34:aa:0b".clean())
-        assertEquals("34AC0B", "34:ac:0B:A0".clean())
+        assertThat("".clean()).isEmpty()
+        assertThat(macAddressFull.clean()).isEqualTo(macAddressClean)
+        assertThat("34aF".clean()).isEqualTo("34AF")
+        assertThat("34aF0B".clean()).isEqualTo("34AF0B")
+        assertThat("34:aa:0b".clean()).isEqualTo("34AA0B")
+        assertThat("34:ac:0B:A0".clean()).isEqualTo("34AC0B")
     }
 
     @Test
     fun toMacAddress() {
-        assertTrue("".toMacAddress().isEmpty())
-        assertEquals(macAddressShort, macAddressClean.toMacAddress())
-        assertEquals("*34AF*", "34AF".toMacAddress())
-        assertEquals("34:AF:0B", "34AF0BAC".toMacAddress())
+        assertThat("".toMacAddress()).isEmpty()
+        assertThat(macAddressClean.toMacAddress()).isEqualTo(macAddressShort)
+        assertThat("34AF".toMacAddress()).isEqualTo("*34AF*")
+        assertThat("34AF0BAC".toMacAddress()).isEqualTo("34:AF:0B")
     }
 
 }

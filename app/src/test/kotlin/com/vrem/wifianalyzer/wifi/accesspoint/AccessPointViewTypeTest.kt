@@ -18,19 +18,19 @@
 package com.vrem.wifianalyzer.wifi.accesspoint
 
 import com.vrem.wifianalyzer.R
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class AccessPointViewTypeTest {
     @Test
     fun accessPointViewCount() {
-        assertEquals(2, AccessPointViewType.entries.size)
+        assertThat(AccessPointViewType.entries).hasSize(2)
     }
 
     @Test
     fun getLayout() {
-        assertEquals(R.layout.access_point_view_complete, AccessPointViewType.COMPLETE.layout)
-        assertEquals(R.layout.access_point_view_compact, AccessPointViewType.COMPACT.layout)
+        assertThat(AccessPointViewType.COMPLETE.layout).isEqualTo(R.layout.access_point_view_complete)
+        assertThat(AccessPointViewType.COMPACT.layout).isEqualTo(R.layout.access_point_view_compact)
     }
 
 }

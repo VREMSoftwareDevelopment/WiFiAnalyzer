@@ -24,8 +24,8 @@ import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiData
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.mock
@@ -54,7 +54,7 @@ class ChannelGraphAdapterTest {
         // execute
         val graphViewNotifiers = fixture.graphViewNotifiers()
         // validate
-        assertEquals(expected, graphViewNotifiers.size)
+        assertThat(graphViewNotifiers).hasSize(expected)
     }
 
     @Test
@@ -64,7 +64,7 @@ class ChannelGraphAdapterTest {
         // execute
         val graphViews = fixture.graphViews()
         // validate
-        assertEquals(expected, graphViews.size)
+        assertThat(graphViews).hasSize(expected)
     }
 
     @Test

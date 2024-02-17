@@ -18,7 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi.model
 
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class WiFiVirtualTest {
@@ -35,9 +35,9 @@ class WiFiVirtualTest {
         // execute
         val actual = wiFiDetail.wiFiVirtual
         // validate
-        assertEquals(":cf:30:ce:1d:7", actual.bssid)
-        assertEquals(2432, actual.frequency)
-        assertEquals(":cf:30:ce:1d:7-" + 2432, actual.key)
+        assertThat(actual.bssid).isEqualTo(":cf:30:ce:1d:7")
+        assertThat(actual.frequency).isEqualTo(2432)
+        assertThat(actual.key).isEqualTo(":cf:30:ce:1d:7-" + 2432)
     }
 
     @Test
@@ -52,9 +52,9 @@ class WiFiVirtualTest {
         // execute
         val actual = wiFiDetail.wiFiVirtual
         // validate
-        assertEquals("20:cf:30:ce:1d:7", actual.bssid)
-        assertEquals(2432, actual.frequency)
-        assertEquals("20:cf:30:ce:1d:7-" + 2432, actual.key)
+        assertThat(actual.bssid).isEqualTo("20:cf:30:ce:1d:7")
+        assertThat(actual.frequency).isEqualTo(2432)
+        assertThat(actual.key).isEqualTo("20:cf:30:ce:1d:7-" + 2432)
     }
 
     @Test
@@ -69,9 +69,9 @@ class WiFiVirtualTest {
         // execute
         val actual = wiFiDetail.wiFiVirtual
         // validate
-        assertEquals("20:cf:30:ce:1d:71:", actual.bssid)
-        assertEquals(2432, actual.frequency)
-        assertEquals("20:cf:30:ce:1d:71:-" + 2432, actual.key)
+        assertThat(actual.bssid).isEqualTo("20:cf:30:ce:1d:71:")
+        assertThat(actual.frequency).isEqualTo(2432)
+        assertThat(actual.key).isEqualTo("20:cf:30:ce:1d:71:-" + 2432)
     }
 
 }

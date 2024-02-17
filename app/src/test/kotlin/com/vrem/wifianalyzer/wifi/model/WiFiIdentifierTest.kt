@@ -18,7 +18,7 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.util.EMPTY
-import org.junit.Assert.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class WiFiIdentifierTest {
@@ -32,10 +32,10 @@ class WiFiIdentifierTest {
         // setup
         val expectedTitle = "$ssid ($bssid)"
         // validate
-        assertEquals(ssid, fixture.ssidRaw)
-        assertEquals(ssid, fixture.ssid)
-        assertEquals(bssid, fixture.bssid)
-        assertEquals(expectedTitle, fixture.title)
+        assertThat(fixture.ssidRaw).isEqualTo(ssid)
+        assertThat(fixture.ssid).isEqualTo(ssid)
+        assertThat(fixture.bssid).isEqualTo(bssid)
+        assertThat(fixture.title).isEqualTo(expectedTitle)
     }
 
     @Test
@@ -44,7 +44,7 @@ class WiFiIdentifierTest {
         val expectedTitle = "*hidden* ($bssid)"
         val fixture = WiFiIdentifier(String.EMPTY, bssid)
         // validate
-        assertEquals(expectedTitle, fixture.title)
+        assertThat(fixture.title).isEqualTo(expectedTitle)
     }
 
     @Test
@@ -52,8 +52,8 @@ class WiFiIdentifierTest {
         // setup
         val other = WiFiIdentifier(ssid, bssid)
         // execute & validate
-        assertEquals(fixture, other)
-        assertNotSame(fixture, other)
+        assertThat(other).isEqualTo(fixture)
+        assertThat(other).isNotSameAs(fixture)
     }
 
     @Test
@@ -61,7 +61,7 @@ class WiFiIdentifierTest {
         // setup
         val other = WiFiIdentifier(ssid, bssid)
         // execute & validate
-        assertEquals(fixture.hashCode(), other.hashCode())
+        assertThat(other.hashCode()).isEqualTo(fixture.hashCode())
     }
 
     @Test
@@ -69,7 +69,7 @@ class WiFiIdentifierTest {
         // setup
         val other = WiFiIdentifier(ssid.lowercase(), bssid.uppercase())
         // execute & validate
-        assertTrue(fixture.equals(other, true))
+        assertThat(fixture.equals(other, true)).isTrue()
     }
 
     @Test
@@ -77,7 +77,7 @@ class WiFiIdentifierTest {
         // setup
         val other = WiFiIdentifier(ssid, bssid)
         // execute & validate
-        assertEquals(0, fixture.compareTo(other))
+        assertThat(fixture.compareTo(other)).isEqualTo(0)
     }
 
     @Test
@@ -85,8 +85,8 @@ class WiFiIdentifierTest {
         // setup
         val fixture = WiFiIdentifier(String.EMPTY, bssid)
         // execute & validate
-        assertEquals(String.EMPTY, fixture.ssidRaw)
-        assertEquals(hidden, fixture.ssid)
+        assertThat(fixture.ssidRaw).isEqualTo(String.EMPTY)
+        assertThat(fixture.ssid).isEqualTo(hidden)
     }
 
 }

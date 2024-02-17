@@ -21,7 +21,7 @@ import android.net.wifi.WifiInfo
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.RobolectricUtil
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -39,7 +39,7 @@ class WiFiSecurityTest {
         // execute
         val actual: Set<WiFiSecurityType> = fixture.wiFiSecurityTypes
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -51,7 +51,7 @@ class WiFiSecurityTest {
         // execute
         val actual = fixture.wiFiSecurityTypesDisplay(mainActivity.applicationContext)
         //validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -62,7 +62,7 @@ class WiFiSecurityTest {
             // execute
             val actual: Set<Security> = wiFiSecurity.securities
             // validate
-            assertEquals(expected, actual)
+            assertThat(actual).isEqualTo(expected)
         }
     }
 
@@ -77,7 +77,7 @@ class WiFiSecurityTest {
                 // execute
                 val actual = wiFiSecurity.security
                 // validate
-                assertEquals(security, actual)
+                assertThat(actual).isEqualTo(security)
             }
         }
     }

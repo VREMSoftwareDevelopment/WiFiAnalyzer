@@ -20,8 +20,8 @@ package com.vrem.wifianalyzer.wifi.filter.adapter
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.model.Security
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -38,7 +38,7 @@ class SecurityAdapterTest {
 
     @Test
     fun isActive() {
-        assertFalse(fixture.isActive())
+        assertThat(fixture.isActive()).isFalse()
     }
 
     @Test
@@ -46,7 +46,7 @@ class SecurityAdapterTest {
         // setup
         fixture.toggle(Security.WPA)
         // execute & validate
-        assertTrue(fixture.isActive())
+        assertThat(fixture.isActive()).isTrue()
     }
 
     @Test
@@ -56,7 +56,7 @@ class SecurityAdapterTest {
         // execute
         val actual = fixture.selections
         // validate
-        assertTrue(actual.containsAll(expected.toList()))
+        assertThat(actual).containsAll(expected)
     }
 
     @Test
@@ -66,7 +66,7 @@ class SecurityAdapterTest {
         // execute
         val actual = fixture.defaults
         // validate
-        assertArrayEquals(expected.toTypedArray(), actual.toTypedArray())
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -74,8 +74,8 @@ class SecurityAdapterTest {
         // execute
         val actual = fixture.toggle(Security.WEP)
         // validate
-        assertTrue(actual)
-        assertFalse(fixture.contains(Security.WEP))
+        assertThat(actual).isTrue()
+        assertThat(fixture.contains(Security.WEP)).isFalse()
     }
 
     @Test
@@ -85,8 +85,8 @@ class SecurityAdapterTest {
         // execute
         val actual = fixture.toggle(Security.WPA)
         // validate
-        assertTrue(actual)
-        assertTrue(fixture.contains(Security.WPA))
+        assertThat(actual).isTrue()
+        assertThat(fixture.contains(Security.WPA)).isTrue()
     }
 
     @Test
@@ -97,13 +97,13 @@ class SecurityAdapterTest {
         values.forEach { fixture.toggle(it) }
         // validate
         values.forEach { fixture.contains(it) }
-        assertTrue(fixture.contains(values.last()))
+        assertThat(fixture.contains(values.last())).isTrue()
     }
 
     @Test
     fun getColorWithExisting() {
         // execute & validate
-        assertEquals(R.color.selected, fixture.color(Security.WPA))
+        assertThat(fixture.color(Security.WPA)).isEqualTo(R.color.selected)
     }
 
     @Test
@@ -111,7 +111,7 @@ class SecurityAdapterTest {
         // setup
         fixture.toggle(Security.WPA)
         // execute & validate
-        assertEquals(R.color.regular, fixture.color(Security.WPA))
+        assertThat(fixture.color(Security.WPA)).isEqualTo(R.color.regular)
     }
 
     @Test

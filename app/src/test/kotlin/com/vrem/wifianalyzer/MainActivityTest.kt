@@ -27,8 +27,8 @@ import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.navigation.NavigationMenuController
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.mock
@@ -49,7 +49,7 @@ class MainActivityTest {
 
     @Test
     fun mainActivity() {
-        assertFalse(MainContext.INSTANCE.scannerService.running())
+        assertThat(MainContext.INSTANCE.scannerService.running()).isFalse()
     }
 
     @Test
@@ -127,7 +127,7 @@ class MainActivityTest {
         // execute
         val actual = fixture.onCreateOptionsMenu(menu)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(optionMenu).create(fixture, menu)
     }
 
@@ -140,7 +140,7 @@ class MainActivityTest {
         // execute
         val actual = fixture.onOptionsItemSelected(menuItem)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(optionMenu).select(menuItem)
     }
 
@@ -203,7 +203,7 @@ class MainActivityTest {
         // execute
         val actual = fixture.optionMenu
         // validate
-        assertNotNull(actual)
+        assertThat(actual).isNotNull()
     }
 
     @Test
@@ -216,7 +216,7 @@ class MainActivityTest {
         // execute
         val actual = fixture.currentMenuItem()
         // validate
-        assertEquals(menuItem, actual)
+        assertThat(actual).isEqualTo(menuItem)
         verify(navigationMenuController).currentMenuItem()
     }
 
@@ -230,7 +230,7 @@ class MainActivityTest {
         // execute
         val actual = fixture.currentNavigationMenu()
         // validate
-        assertEquals(navigationMenu, actual)
+        assertThat(actual).isEqualTo(navigationMenu)
         verify(navigationMenuController).currentNavigationMenu()
     }
 
@@ -258,7 +258,7 @@ class MainActivityTest {
         // execute
         val actual = fixture.navigationView()
         // validate
-        assertEquals(navigationView, actual)
+        assertThat(actual).isEqualTo(navigationView)
         verify(navigationMenuController).navigationView
     }
 }

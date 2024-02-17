@@ -19,62 +19,61 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import android.net.wifi.ScanResult
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class WiFiWidthTest {
 
     @Test
     fun width() {
-        assertEquals(5, WiFiWidth.entries.size)
+        assertThat(WiFiWidth.entries.size).isEqualTo(5)
     }
 
     @Test
     fun groupByGroup() {
-        assertTrue(WiFiWidth.MHZ_20.calculateCenter.javaClass.isInstance(calculateCenter20))
-        assertTrue(WiFiWidth.MHZ_40.calculateCenter.javaClass.isInstance(calculateCenter40))
-        assertTrue(WiFiWidth.MHZ_80.calculateCenter.javaClass.isInstance(calculateCenter80))
-        assertTrue(WiFiWidth.MHZ_160.calculateCenter.javaClass.isInstance(calculateCenter160))
-        assertTrue(WiFiWidth.MHZ_80_PLUS.calculateCenter.javaClass.isInstance(calculateCenter80))
+        assertThat(WiFiWidth.MHZ_20.calculateCenter.javaClass.isInstance(calculateCenter20)).isTrue()
+        assertThat(WiFiWidth.MHZ_40.calculateCenter.javaClass.isInstance(calculateCenter40)).isTrue()
+        assertThat(WiFiWidth.MHZ_80.calculateCenter.javaClass.isInstance(calculateCenter80)).isTrue()
+        assertThat(WiFiWidth.MHZ_160.calculateCenter.javaClass.isInstance(calculateCenter160)).isTrue()
+        assertThat(WiFiWidth.MHZ_80_PLUS.calculateCenter.javaClass.isInstance(calculateCenter80)).isTrue()
     }
 
     @Test
     fun frequencyWidth() {
-        assertEquals(20, WiFiWidth.MHZ_20.frequencyWidth)
-        assertEquals(40, WiFiWidth.MHZ_40.frequencyWidth)
-        assertEquals(80, WiFiWidth.MHZ_80.frequencyWidth)
-        assertEquals(160, WiFiWidth.MHZ_160.frequencyWidth)
-        assertEquals(80, WiFiWidth.MHZ_80_PLUS.frequencyWidth)
+        assertThat(WiFiWidth.MHZ_20.frequencyWidth).isEqualTo(20)
+        assertThat(WiFiWidth.MHZ_40.frequencyWidth).isEqualTo(40)
+        assertThat(WiFiWidth.MHZ_80.frequencyWidth).isEqualTo(80)
+        assertThat(WiFiWidth.MHZ_160.frequencyWidth).isEqualTo(160)
+        assertThat(WiFiWidth.MHZ_80_PLUS.frequencyWidth).isEqualTo(80)
     }
 
     @Test
     fun frequencyHalfWidth() {
-        assertEquals(10, WiFiWidth.MHZ_20.frequencyWidthHalf)
-        assertEquals(20, WiFiWidth.MHZ_40.frequencyWidthHalf)
-        assertEquals(40, WiFiWidth.MHZ_80.frequencyWidthHalf)
-        assertEquals(80, WiFiWidth.MHZ_160.frequencyWidthHalf)
-        assertEquals(40, WiFiWidth.MHZ_80_PLUS.frequencyWidthHalf)
+        assertThat(WiFiWidth.MHZ_20.frequencyWidthHalf).isEqualTo(10)
+        assertThat(WiFiWidth.MHZ_40.frequencyWidthHalf).isEqualTo(20)
+        assertThat(WiFiWidth.MHZ_80.frequencyWidthHalf).isEqualTo(40)
+        assertThat(WiFiWidth.MHZ_160.frequencyWidthHalf).isEqualTo(80)
+        assertThat(WiFiWidth.MHZ_80_PLUS.frequencyWidthHalf).isEqualTo(40)
     }
 
     @Test
     fun guardBand() {
-        assertEquals(2, WiFiWidth.MHZ_20.guardBand)
-        assertEquals(3, WiFiWidth.MHZ_40.guardBand)
-        assertEquals(3, WiFiWidth.MHZ_80.guardBand)
-        assertEquals(3, WiFiWidth.MHZ_160.guardBand)
-        assertEquals(3, WiFiWidth.MHZ_80_PLUS.guardBand)
+        assertThat(WiFiWidth.MHZ_20.guardBand).isEqualTo(2)
+        assertThat(WiFiWidth.MHZ_40.guardBand).isEqualTo(3)
+        assertThat(WiFiWidth.MHZ_80.guardBand).isEqualTo(3)
+        assertThat(WiFiWidth.MHZ_160.guardBand).isEqualTo(3)
+        assertThat(WiFiWidth.MHZ_80_PLUS.guardBand).isEqualTo(3)
     }
 
     @Test
     fun findOne() {
-        assertEquals(WiFiWidth.MHZ_20, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_20MHZ))
-        assertEquals(WiFiWidth.MHZ_40, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_40MHZ))
-        assertEquals(WiFiWidth.MHZ_80, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ))
-        assertEquals(WiFiWidth.MHZ_160, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_160MHZ))
-        assertEquals(WiFiWidth.MHZ_80_PLUS, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ))
-        assertEquals(WiFiWidth.MHZ_20, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_20MHZ - 1))
-        assertEquals(WiFiWidth.MHZ_20, WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ + 1))
+        assertThat(WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_20MHZ)).isEqualTo(WiFiWidth.MHZ_20)
+        assertThat(WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_40MHZ)).isEqualTo(WiFiWidth.MHZ_40)
+        assertThat(WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ)).isEqualTo(WiFiWidth.MHZ_80)
+        assertThat(WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_160MHZ)).isEqualTo(WiFiWidth.MHZ_160)
+        assertThat(WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ)).isEqualTo(WiFiWidth.MHZ_80_PLUS)
+        assertThat(WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_20MHZ - 1)).isEqualTo(WiFiWidth.MHZ_20)
+        assertThat(WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ + 1)).isEqualTo(WiFiWidth.MHZ_20)
     }
 
     @Test
@@ -82,9 +81,9 @@ class WiFiWidthTest {
         // setup
         val expected = 35
         // execute & validate
-        assertEquals(expected, calculateCenter20(expected, Int.MIN_VALUE))
-        assertEquals(expected, calculateCenter20(expected, 0))
-        assertEquals(expected, calculateCenter20(expected, Int.MAX_VALUE))
+        assertThat(calculateCenter20(expected, Int.MIN_VALUE)).isEqualTo(expected)
+        assertThat(calculateCenter20(expected, 0)).isEqualTo(expected)
+        assertThat(calculateCenter20(expected, Int.MAX_VALUE)).isEqualTo(expected)
     }
 
     @Test
@@ -93,8 +92,8 @@ class WiFiWidthTest {
         val primary = 10
         val center = primary + WiFiWidth.MHZ_40.frequencyWidthHalf - 1
         // execute & validate
-        assertEquals(center, calculateCenter40(primary, center))
-        assertEquals(primary, calculateCenter40(center, primary))
+        assertThat(calculateCenter40(primary, center)).isEqualTo(center)
+        assertThat(calculateCenter40(center, primary)).isEqualTo(primary)
     }
 
     @Test
@@ -104,8 +103,8 @@ class WiFiWidthTest {
         val center = primary + WiFiWidth.MHZ_40.frequencyWidthHalf
         val expected = (primary + center) / 2
         // execute & validate
-        assertEquals(expected, calculateCenter40(primary, center))
-        assertEquals(expected, calculateCenter40(center, primary))
+        assertThat(calculateCenter40(primary, center)).isEqualTo(expected)
+        assertThat(calculateCenter40(center, primary)).isEqualTo(expected)
     }
 
     @Test
@@ -113,120 +112,53 @@ class WiFiWidthTest {
         // setup
         val expected = 35
         // execute & validate
-        assertEquals(expected, calculateCenter80(Int.MIN_VALUE, expected))
-        assertEquals(expected, calculateCenter80(0, expected))
-        assertEquals(expected, calculateCenter80(Int.MAX_VALUE, expected))
-    }
-
-    @Test
-    fun calculateCenter160_UNII_1_2A() {
-        // execute & validate
-        for (value in 5170..5330) {
-            assertEquals(5250, calculateCenter160(value, Int.MIN_VALUE))
-            assertEquals(5250, calculateCenter160(value, 0))
-            assertEquals(5250, calculateCenter160(value, Int.MAX_VALUE))
-        }
-    }
-
-    @Test
-    fun calculateCenter160_UNII_2C_3() {
-        // execute & validate
-        for (value in 5490..5730) {
-            assertEquals(5570, calculateCenter160(value, Int.MIN_VALUE))
-            assertEquals(5570, calculateCenter160(value, 0))
-            assertEquals(5570, calculateCenter160(value, Int.MAX_VALUE))
-        }
-    }
-
-    @Test
-    fun calculateCenter160_UNII_3_4() {
-        // execute & validate
-        for (value in 5735..5895) {
-            assertEquals(5815, calculateCenter160(value, Int.MIN_VALUE))
-            assertEquals(5815, calculateCenter160(value, 0))
-            assertEquals(5815, calculateCenter160(value, Int.MAX_VALUE))
-        }
-    }
-
-    @Test
-    fun calculateCenter160_UNII_5_1() {
-        // execute & validate
-        for (value in 5950..6100) {
-            assertEquals(6025, calculateCenter160(value, Int.MIN_VALUE))
-            assertEquals(6025, calculateCenter160(value, 0))
-            assertEquals(6025, calculateCenter160(value, Int.MAX_VALUE))
-        }
-    }
-
-    @Test
-    fun calculateCenter160_UNII_5_2() {
-        // execute & validate
-        for (value in 6110..6260) {
-            assertEquals(6185, calculateCenter160(value, Int.MIN_VALUE))
-            assertEquals(6185, calculateCenter160(value, 0))
-            assertEquals(6185, calculateCenter160(value, Int.MAX_VALUE))
-        }
-    }
-
-    @Test
-    fun calculateCenter160_UNII_5_3() {
-        // execute & validate
-        for (value in 6270..6420) {
-            assertEquals(6345, calculateCenter160(value, Int.MIN_VALUE))
-            assertEquals(6345, calculateCenter160(value, 0))
-            assertEquals(6345, calculateCenter160(value, Int.MAX_VALUE))
-        }
-    }
-
-    @Test
-    fun calculateCenter160_UNII_6_1() {
-        // execute & validate
-        for (value in 6430..6580) {
-            assertEquals(6505, calculateCenter160(value, Int.MIN_VALUE))
-            assertEquals(6505, calculateCenter160(value, 0))
-            assertEquals(6505, calculateCenter160(value, Int.MAX_VALUE))
-        }
-    }
-
-    @Test
-    fun calculateCenter160_UNII_7_1() {
-        // execute & validate
-        for (value in 6590..6740) {
-            assertEquals(6665, calculateCenter160(value, Int.MIN_VALUE))
-            assertEquals(6665, calculateCenter160(value, 0))
-            assertEquals(6665, calculateCenter160(value, Int.MAX_VALUE))
-        }
-    }
-
-    @Test
-    fun calculateCenter160_UNII_7_2() {
-        // execute & validate
-        for (value in 6750..6900) {
-            assertEquals(6825, calculateCenter160(value, Int.MIN_VALUE))
-            assertEquals(6825, calculateCenter160(value, 0))
-            assertEquals(6825, calculateCenter160(value, Int.MAX_VALUE))
-        }
-    }
-
-    @Test
-    fun calculateCenter160_UNII_8_1() {
-        // execute & validate
-        for (value in 6910..7120) {
-            assertEquals(6985, calculateCenter160(value, Int.MIN_VALUE))
-            assertEquals(6985, calculateCenter160(value, 0))
-            assertEquals(6985, calculateCenter160(value, Int.MAX_VALUE))
-        }
+        assertThat(calculateCenter80(Int.MIN_VALUE, expected)).isEqualTo(expected)
+        assertThat(calculateCenter80(0, expected)).isEqualTo(expected)
+        assertThat(calculateCenter80(Int.MAX_VALUE, expected)).isEqualTo(expected)
     }
 
     @Test
     fun calculateCenter160Invalid() {
         // execute & validate
-        assertEquals(Int.MIN_VALUE, calculateCenter160(5169, Int.MIN_VALUE))
-        assertEquals(0, calculateCenter160(5169, 0))
-        assertEquals(Int.MAX_VALUE, calculateCenter160(5169, Int.MAX_VALUE))
-        assertEquals(Int.MIN_VALUE, calculateCenter160(5896, Int.MIN_VALUE))
-        assertEquals(0, calculateCenter160(5896, 0))
-        assertEquals(Int.MAX_VALUE, calculateCenter160(5896, Int.MAX_VALUE))
+        assertThat(calculateCenter160(5169, Int.MIN_VALUE)).isEqualTo(Int.MIN_VALUE)
+        assertThat(calculateCenter160(5169, 0)).isEqualTo(0)
+        assertThat(calculateCenter160(5169, Int.MAX_VALUE)).isEqualTo(Int.MAX_VALUE)
+        assertThat(calculateCenter160(5896, Int.MIN_VALUE)).isEqualTo(Int.MIN_VALUE)
+        assertThat(calculateCenter160(5896, 0)).isEqualTo(0)
+        assertThat(calculateCenter160(5896, Int.MAX_VALUE)).isEqualTo(Int.MAX_VALUE)
     }
+
+    @Test
+    fun calculateCenter160() {
+        withTestDatas().forEach {
+            println(it)
+            validate(it.expected, it.start, it.end)
+        }
+    }
+
+    private fun validate(expected: Int, start: Int, end: Int) {
+        // execute & validate
+        for (value in start..end) {
+            assertThat(calculateCenter160(value, Int.MIN_VALUE)).isEqualTo(expected)
+            assertThat(calculateCenter160(value, 0)).isEqualTo(expected)
+            assertThat(calculateCenter160(value, Int.MAX_VALUE)).isEqualTo(expected)
+        }
+    }
+
+    private data class TestData(val tag: String, val expected: Int, val start: Int, val end: Int)
+
+    private fun withTestDatas(): List<TestData> =
+        listOf(
+            TestData("UNII_1_2A", 5250, 5170, 5330),
+            TestData("UNII_2C_3", 5570, 5490, 5730),
+            TestData("UNII_3_4", 5815, 5735, 5895),
+            TestData("UNII_5_1", 6025, 5950, 6100),
+            TestData("UNII_5_2", 6185, 6110, 6260),
+            TestData("UNII_5_3", 6345, 6270, 6420),
+            TestData("UNII_6_1", 6505, 6430, 6580),
+            TestData("UNII_7_1", 6665, 6590, 6740),
+            TestData("UNII_7_2", 6825, 6750, 6900),
+            TestData("UNII_8_1", 6985, 6910, 7120)
+        )
 
 }

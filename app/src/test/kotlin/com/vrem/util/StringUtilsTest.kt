@@ -17,7 +17,7 @@
  */
 package com.vrem.util
 
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.util.Locale
 
@@ -31,7 +31,7 @@ class StringUtilsTest {
         // execute
         val actual: String = value.specialTrim()
         // verify
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -42,7 +42,7 @@ class StringUtilsTest {
         // execute
         val actual: String = value.toCapitalize(Locale.US)
         // verify
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -53,7 +53,7 @@ class StringUtilsTest {
         // execute
         val actual: String = String.nullToEmpty(value)
         // verify
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -64,7 +64,7 @@ class StringUtilsTest {
         // execute
         val actual: String = String.nullToEmpty(value)
         // verify
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
 

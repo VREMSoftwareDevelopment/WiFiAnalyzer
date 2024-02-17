@@ -34,9 +34,8 @@ import com.vrem.wifianalyzer.wifi.model.GroupBy
 import com.vrem.wifianalyzer.wifi.model.Security
 import com.vrem.wifianalyzer.wifi.model.SortBy
 import com.vrem.wifianalyzer.wifi.model.Strength
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -96,7 +95,7 @@ class SettingsTest {
         // execute
         val actual = fixture.scanSpeed()
         // validate
-        assertEquals(speedValue, actual)
+        assertThat(actual).isEqualTo(speedValue)
         verify(repository).stringAsInteger(R.string.scan_speed_default, scanSpeedDefault)
         verify(repository).stringAsInteger(R.string.scan_speed_key, defaultValue)
     }
@@ -112,7 +111,7 @@ class SettingsTest {
         // execute
         val actual = fixture.graphMaximumY()
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(repository).stringAsInteger(R.string.graph_maximum_y_default, graphYDefault)
         verify(repository).stringAsInteger(R.string.graph_maximum_y_key, defaultValue)
     }
@@ -125,7 +124,7 @@ class SettingsTest {
         // execute
         val actual = fixture.groupBy()
         // validate
-        assertEquals(GroupBy.CHANNEL, actual)
+        assertThat(actual).isEqualTo(GroupBy.CHANNEL)
         verify(repository).stringAsInteger(R.string.group_by_key, GroupBy.NONE.ordinal)
     }
 
@@ -137,7 +136,7 @@ class SettingsTest {
         // execute
         val actual = fixture.sortBy()
         // validate
-        assertEquals(SortBy.SSID, actual)
+        assertThat(actual).isEqualTo(SortBy.SSID)
         verify(repository).stringAsInteger(R.string.sort_by_key, SortBy.STRENGTH.ordinal)
     }
 
@@ -149,7 +148,7 @@ class SettingsTest {
         // execute
         val actual = fixture.accessPointView()
         // validate
-        assertEquals(AccessPointViewType.COMPACT, actual)
+        assertThat(actual).isEqualTo(AccessPointViewType.COMPACT)
         verify(repository).stringAsInteger(R.string.ap_view_key, AccessPointViewType.COMPLETE.ordinal)
     }
 
@@ -161,7 +160,7 @@ class SettingsTest {
         // execute
         val actual = fixture.connectionViewType()
         // validate
-        assertEquals(ConnectionViewType.COMPLETE, actual)
+        assertThat(actual).isEqualTo(ConnectionViewType.COMPLETE)
         verify(repository).stringAsInteger(R.string.connection_view_key, ConnectionViewType.COMPACT.ordinal)
     }
 
@@ -173,7 +172,7 @@ class SettingsTest {
         // execute
         val actual = fixture.themeStyle()
         // validate
-        assertEquals(ThemeStyle.LIGHT, actual)
+        assertThat(actual).isEqualTo(ThemeStyle.LIGHT)
         verify(repository).stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
     }
 
@@ -185,7 +184,7 @@ class SettingsTest {
         // execute
         val actual = fixture.channelGraphLegend()
         // validate
-        assertEquals(GraphLegend.RIGHT, actual)
+        assertThat(actual).isEqualTo(GraphLegend.RIGHT)
         verify(repository).stringAsInteger(R.string.channel_graph_legend_key, GraphLegend.HIDE.ordinal)
     }
 
@@ -197,7 +196,7 @@ class SettingsTest {
         // execute
         val actual = fixture.timeGraphLegend()
         // validate
-        assertEquals(GraphLegend.RIGHT, actual)
+        assertThat(actual).isEqualTo(GraphLegend.RIGHT)
         verify(repository).stringAsInteger(R.string.time_graph_legend_key, GraphLegend.LEFT.ordinal)
     }
 
@@ -209,7 +208,7 @@ class SettingsTest {
         // execute
         val actual = fixture.wiFiBand()
         // validate
-        assertEquals(WiFiBand.GHZ5, actual)
+        assertThat(actual).isEqualTo(WiFiBand.GHZ5)
         verify(repository).stringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal)
     }
 
@@ -231,7 +230,7 @@ class SettingsTest {
         // execute
         val actual = fixture.findSSIDs()
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(repository).stringSet(R.string.filter_ssid_key, setOf())
     }
 
@@ -256,8 +255,8 @@ class SettingsTest {
         // execute
         val actual = fixture.findWiFiBands()
         // validate
-        assertEquals(1, actual.size)
-        assertTrue(actual.contains(expected))
+        assertThat(actual).hasSize(1)
+        assertThat(actual).contains(expected)
         verify(repository).stringSet(R.string.filter_wifi_band_key, defaultValues)
     }
 
@@ -283,8 +282,8 @@ class SettingsTest {
         // execute
         val actual = fixture.findStrengths()
         // validate
-        assertEquals(1, actual.size)
-        assertTrue(actual.contains(expected))
+        assertThat(actual).hasSize(1)
+        assertThat(actual).contains(expected)
         verify(repository).stringSet(R.string.filter_strength_key, defaultValues)
     }
 
@@ -310,8 +309,8 @@ class SettingsTest {
         // execute
         val actual = fixture.findSecurities()
         // validate
-        assertEquals(1, actual.size)
-        assertTrue(actual.contains(expected))
+        assertThat(actual).hasSize(1)
+        assertThat(actual).contains(expected)
         verify(repository).stringSet(R.string.filter_security_key, defaultValues)
     }
 
@@ -336,7 +335,7 @@ class SettingsTest {
         // execute
         val actual = fixture.countryCode()
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(repository).string(R.string.country_code_key, defaultValue)
     }
 
@@ -349,7 +348,7 @@ class SettingsTest {
         // execute
         val actual = fixture.languageLocale()
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(repository).string(R.string.language_key, defaultValue)
     }
 
@@ -361,7 +360,7 @@ class SettingsTest {
         // execute
         val actual = fixture.selectedMenu()
         // validate
-        assertEquals(NavigationMenu.CHANNEL_GRAPH, actual)
+        assertThat(actual).isEqualTo(NavigationMenu.CHANNEL_GRAPH)
         verify(repository).stringAsInteger(R.string.selected_menu_key, NavigationMenu.ACCESS_POINTS.ordinal)
     }
 
@@ -389,7 +388,7 @@ class SettingsTest {
         // execute
         val actual = fixture.wiFiOffOnExit()
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(repository).boolean(R.string.wifi_off_on_exit_key, true)
         verify(repository).resourceBoolean(R.bool.wifi_off_on_exit_default)
     }
@@ -402,7 +401,7 @@ class SettingsTest {
         // execute
         val actual = fixture.keepScreenOn()
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(repository).boolean(R.string.keep_screen_on_key, true)
         verify(repository).resourceBoolean(R.bool.keep_screen_on_default)
     }
@@ -415,7 +414,7 @@ class SettingsTest {
         // execute
         val actual = fixture.cacheOff()
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(repository).boolean(R.string.cache_off_key, true)
         verify(repository).resourceBoolean(R.bool.cache_off_default)
     }

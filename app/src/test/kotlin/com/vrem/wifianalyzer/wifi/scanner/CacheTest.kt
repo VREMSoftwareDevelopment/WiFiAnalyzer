@@ -20,8 +20,8 @@ package com.vrem.wifianalyzer.wifi.scanner
 import android.net.wifi.ScanResult
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.wifi.band.WiFiRange
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.*
@@ -56,7 +56,7 @@ class CacheTest {
         // execute
         fixture.add(scanResults)
         // validate
-        assertEquals(scanResults, fixture.first())
+        assertThat(fixture.first()).isEqualTo(scanResults)
     }
 
     @Test
@@ -71,9 +71,9 @@ class CacheTest {
             fixture.add(scanResults)
         }
         // validate
-        assertEquals(cacheSize, expected.size)
-        assertEquals(expected[cacheSize - 1], fixture.first())
-        assertEquals(expected[cacheSize - 2], fixture.last())
+        assertThat(expected).hasSize(cacheSize)
+        assertThat(fixture.first()).isEqualTo(expected[cacheSize - 1])
+        assertThat(fixture.last()).isEqualTo(expected[cacheSize - 2])
     }
 
     @Test
@@ -83,7 +83,7 @@ class CacheTest {
         // execute
         val actual = fixture.scanResults()
         // validate
-        assertEquals(3, actual.size)
+        assertThat(actual).hasSize(3)
         validate(scanResult2, -25, actual[0])
         validate(scanResult5, -40, actual[1])
         validate(scanResult6, -10, actual[2])
@@ -104,7 +104,7 @@ class CacheTest {
         // execute & validate
         values.forEach {
             whenever(settings.scanSpeed()).thenReturn(it.first)
-            assertEquals("Scan Speed:" + it.first, it.second, fixture.size())
+            assertThat(fixture.size()).isEqualTo(it.second)
         }
         verify(settings, times(values.size)).scanSpeed()
     }
@@ -117,7 +117,7 @@ class CacheTest {
         // execute
         fixture.add(scanResults)
         // validate
-        assertEquals(scanResults, fixture.first())
+        assertThat(fixture.first()).isEqualTo(scanResults)
         verify(settings).cacheOff()
     }
 
@@ -134,9 +134,9 @@ class CacheTest {
             fixture.add(scanResults)
         }
         // validate
-        assertEquals(count, expected.size)
-        assertEquals(expected[count - 1], fixture.first())
-        assertEquals(expected[count - 2], fixture.last())
+        assertThat(expected).hasSize(count)
+        assertThat(fixture.first()).isEqualTo(expected[count - 1])
+        assertThat(fixture.last()).isEqualTo(expected[count - 2])
         verify(settings, times(count)).cacheOff()
     }
 
@@ -148,7 +148,7 @@ class CacheTest {
         // execute
         val actual = fixture.scanResults()
         // validate
-        assertEquals(2, actual.size)
+        assertThat(actual).hasSize(2)
         validate(scanResult3, -30, actual[0])
         validate(scanResult6, -10, actual[1])
         verify(settings, times(count)).cacheOff()
@@ -162,7 +162,7 @@ class CacheTest {
         // execute
         val actual = fixture.scanResults()
         // validate
-        assertEquals(2, actual.size)
+        assertThat(actual).hasSize(2)
         validate(scanResult3, -30, actual[0])
         validate(scanResult6, -10, actual[1])
         verify(settings, times(count)).cacheOff()
@@ -176,7 +176,7 @@ class CacheTest {
         // execute
         val actual = fixture.size()
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(settings).cacheOff()
     }
 
@@ -188,7 +188,7 @@ class CacheTest {
         // execute
         fixture.add(scanResults)
         // validate
-        assertEquals(scanResults, fixture.first())
+        assertThat(fixture.first()).isEqualTo(scanResults)
     }
 
     @Test
@@ -204,9 +204,9 @@ class CacheTest {
             fixture.add(scanResults)
         }
         // validate
-        assertEquals(cacheSize, expected.size)
-        assertEquals(expected[cacheSize - 1], fixture.first())
-        assertEquals(expected[cacheSize - 2], fixture.last())
+        assertThat(expected).hasSize(cacheSize)
+        assertThat(fixture.first()).isEqualTo(expected[cacheSize - 1])
+        assertThat(fixture.last()).isEqualTo(expected[cacheSize - 2])
     }
 
     @Test
@@ -217,7 +217,7 @@ class CacheTest {
         // execute
         val actual = fixture.scanResults()
         // validate
-        assertEquals(2, actual.size)
+        assertThat(actual).hasSize(2)
         validate(scanResult3, -47, actual[0])
         validate(scanResult6, -27, actual[1])
     }
@@ -231,7 +231,7 @@ class CacheTest {
         // execute
         val actual = fixture.scanResults()
         // validate
-        assertEquals(2, actual.size)
+        assertThat(actual).hasSize(2)
         validate(scanResult3, -55, actual[0])
         validate(scanResult6, -35, actual[1])
     }
@@ -244,13 +244,13 @@ class CacheTest {
         // execute
         val actual = fixture.size()
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(settings, never()).scanSpeed()
     }
 
     private fun validate(expectedScanResult: ScanResult, expectedLevel: Int, actual: CacheResult) {
-        assertEquals(expectedScanResult, actual.scanResult)
-        assertEquals(expectedLevel, actual.average)
+        assertThat(actual.scanResult).isEqualTo(expectedScanResult)
+        assertThat(actual.average).isEqualTo(expectedLevel)
     }
 
     private fun withScanResults(): Int {

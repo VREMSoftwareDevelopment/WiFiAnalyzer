@@ -17,8 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class WiFiAdditionalTest {
@@ -31,8 +30,8 @@ class WiFiAdditionalTest {
         // execute
         val fixture = WiFiAdditional(vendorName, wiFiConnection)
         // validate
-        assertEquals(vendorName, fixture.vendorName)
-        assertEquals(wiFiConnection, fixture.wiFiConnection)
+        assertThat(fixture.vendorName).isEqualTo(vendorName)
+        assertThat(fixture.wiFiConnection).isEqualTo(wiFiConnection)
     }
 
     @Test
@@ -40,13 +39,13 @@ class WiFiAdditionalTest {
         // execute
         val fixture = WiFiAdditional(vendorName, WiFiConnection.EMPTY)
         // validate
-        assertEquals(vendorName, fixture.vendorName)
+        assertThat(fixture.vendorName).isEqualTo(vendorName)
     }
 
     @Test
     fun wiFiAdditionalEmpty() {
         // validate
-        assertTrue(WiFiAdditional.EMPTY.vendorName.isEmpty())
+        assertThat(WiFiAdditional.EMPTY.vendorName).isEmpty()
     }
 
 }

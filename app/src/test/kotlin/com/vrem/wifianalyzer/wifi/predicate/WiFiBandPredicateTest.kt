@@ -19,8 +19,7 @@ package com.vrem.wifianalyzer.wifi.predicate
 
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.model.*
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class WiFiBandPredicateTest {
@@ -29,8 +28,8 @@ class WiFiBandPredicateTest {
         // setup
         val wiFiDetail = makeWiFiDetail(2455)
         // execute & validate
-        assertTrue(WiFiBand.GHZ2.predicate()(wiFiDetail))
-        assertFalse(WiFiBand.GHZ5.predicate()(wiFiDetail))
+        assertThat(WiFiBand.GHZ2.predicate()(wiFiDetail)).isTrue()
+        assertThat(WiFiBand.GHZ5.predicate()(wiFiDetail)).isFalse()
     }
 
     @Test
@@ -38,8 +37,8 @@ class WiFiBandPredicateTest {
         // setup
         val wiFiDetail = makeWiFiDetail(5455)
         // execute & validate
-        assertFalse(WiFiBand.GHZ2.predicate()(wiFiDetail))
-        assertTrue(WiFiBand.GHZ5.predicate()(wiFiDetail))
+        assertThat(WiFiBand.GHZ2.predicate()(wiFiDetail)).isFalse()
+        assertThat(WiFiBand.GHZ5.predicate()(wiFiDetail)).isTrue()
     }
 
     private fun makeWiFiDetail(frequency: Int): WiFiDetail =

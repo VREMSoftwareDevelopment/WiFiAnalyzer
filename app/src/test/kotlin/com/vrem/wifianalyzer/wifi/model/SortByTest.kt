@@ -17,20 +17,19 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class SortByTest {
     @Test
     fun sortByNumber() {
-        assertEquals(3, SortBy.entries.size)
+        assertThat(SortBy.entries).hasSize(3)
     }
 
     @Test
     fun comparator() {
-        assertTrue(SortBy.STRENGTH.sort.javaClass.isInstance(sortByStrength()))
-        assertTrue(SortBy.SSID.sort.javaClass.isInstance(sortBySSID()))
-        assertTrue(SortBy.CHANNEL.sort.javaClass.isInstance(sortByChannel()))
+        assertThat(SortBy.STRENGTH.sort.javaClass.isInstance(sortByStrength())).isTrue()
+        assertThat(SortBy.SSID.sort.javaClass.isInstance(sortBySSID())).isTrue()
+        assertThat(SortBy.CHANNEL.sort.javaClass.isInstance(sortByChannel())).isTrue()
     }
 }

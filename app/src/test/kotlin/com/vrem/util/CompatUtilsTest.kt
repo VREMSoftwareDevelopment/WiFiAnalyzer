@@ -30,8 +30,8 @@ import android.net.wifi.WifiSsid
 import android.os.Build
 import android.util.DisplayMetrics
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -85,8 +85,8 @@ class CompatUtilsTest {
         // execute
         val actual: Context = context.createContext(newLocale)
         // validate
-        assertEquals(contextWrapper, actual)
-        assertEquals(context, (actual as ContextWrapper).baseContext)
+        assertThat(actual).isEqualTo(contextWrapper)
+        assertThat((actual as ContextWrapper).baseContext).isEqualTo(context)
         verify(configuration).setLocale(newLocale)
         verify(context).createConfigurationContext(configuration)
         verify(context).resources
@@ -104,7 +104,7 @@ class CompatUtilsTest {
         // execute
         val actual = context.packageInfo()
         // validate
-        assertEquals(packageInfo, actual)
+        assertThat(actual).isEqualTo(packageInfo)
         verify(packageManager).getPackageInfo(eq(packageName), any<PackageInfoFlags>())
         verify(context).packageName
         verify(context).packageManager
@@ -121,7 +121,7 @@ class CompatUtilsTest {
         // execute
         val actual = context.packageInfo()
         // validate
-        assertEquals(packageInfo, actual)
+        assertThat(actual).isEqualTo(packageInfo)
         verify(packageManager).getPackageInfo(packageName, 0)
         verify(context).packageName
         verify(context).packageManager
@@ -137,7 +137,7 @@ class CompatUtilsTest {
         // execute
         val actual = scanResult.ssid()
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(scanResult).wifiSsid
     }
 
@@ -148,7 +148,7 @@ class CompatUtilsTest {
         // execute
         val actual = scanResult.ssid()
         // validate
-        assertEquals(String.EMPTY, actual)
+        assertThat(actual).isEqualTo(String.EMPTY)
         verify(scanResult).wifiSsid
     }
 
@@ -160,7 +160,7 @@ class CompatUtilsTest {
         // execute
         val actual = scanResult.ssid()
         // validate
-        assertEquals(String.EMPTY, actual)
+        assertThat(actual).isEqualTo(String.EMPTY)
         verify(scanResult).wifiSsid
     }
 
@@ -175,7 +175,7 @@ class CompatUtilsTest {
         // execute
         val actual = scanResult.ssid()
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -187,7 +187,7 @@ class CompatUtilsTest {
         // execute
         val actual = scanResult.ssid()
         // validate
-        assertEquals(String.EMPTY, actual)
+        assertThat(actual).isEqualTo(String.EMPTY)
     }
 
 }

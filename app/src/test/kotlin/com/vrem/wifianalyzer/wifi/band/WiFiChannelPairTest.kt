@@ -18,7 +18,7 @@
 
 package com.vrem.wifianalyzer.wifi.band
 
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class WiFiChannelPairTest {
@@ -33,6 +33,6 @@ class WiFiChannelPairTest {
         // execute
         val actual = fixture.channelCount()
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 }

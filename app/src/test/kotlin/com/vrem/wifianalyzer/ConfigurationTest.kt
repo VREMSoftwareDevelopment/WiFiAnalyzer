@@ -22,7 +22,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels
-import org.junit.Assert.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.util.Locale
 
@@ -32,7 +32,7 @@ class ConfigurationTest {
     @Test
     fun sizeAvailable() {
         // execute & validate
-        assertTrue(fixture.sizeAvailable)
+        assertThat(fixture.sizeAvailable).isTrue()
     }
 
     @Test
@@ -40,20 +40,20 @@ class ConfigurationTest {
         // execute
         fixture.size = SIZE_MIN
         // validate
-        assertFalse(fixture.sizeAvailable)
+        assertThat(fixture.sizeAvailable).isFalse()
     }
 
     @Test
     fun largeScreen() {
         // execute & validate
-        assertTrue(fixture.largeScreen)
+        assertThat(fixture.largeScreen).isTrue()
     }
 
     @Test
     fun wiFiChannelPairWithInit() {
         // execute & validate
         WiFiBand.entries.forEach {
-            assertEquals(WiFiChannels.UNKNOWN, fixture.wiFiChannelPair(it))
+            assertThat(fixture.wiFiChannelPair(it)).isEqualTo(WiFiChannels.UNKNOWN)
         }
     }
 
@@ -63,7 +63,7 @@ class ConfigurationTest {
         fixture.wiFiChannelPair(Locale.US.country)
         // validate
         WiFiBand.entries.forEach {
-            assertEquals(it.wiFiChannels.wiFiChannelPairFirst(Locale.US.country), fixture.wiFiChannelPair(it))
+            assertThat(fixture.wiFiChannelPair(it)).isEqualTo(it.wiFiChannels.wiFiChannelPairFirst(Locale.US.country))
         }
     }
 
@@ -74,7 +74,7 @@ class ConfigurationTest {
         // execute
         fixture.wiFiChannelPair(WiFiBand.GHZ5, expected)
         // validate
-        assertEquals(expected, fixture.wiFiChannelPair(WiFiBand.GHZ5))
+        assertThat(fixture.wiFiChannelPair(WiFiBand.GHZ5)).isEqualTo(expected)
     }
 
 }

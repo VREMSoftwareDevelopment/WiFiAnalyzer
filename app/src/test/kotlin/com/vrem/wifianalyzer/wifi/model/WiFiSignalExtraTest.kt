@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.wifi.model
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.RobolectricUtil
-import org.junit.Assert.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -36,10 +36,10 @@ class WiFiSignalExtraTest {
     @Test
     fun wiFiSignalExtra() {
         // validate
-        assertTrue(fixture.is80211mc)
-        assertEquals(WiFiStandard.AC, fixture.wiFiStandard)
-        assertEquals(timestamp, fixture.timestamp)
-        assertEquals(FastRoaming.entries.toList(), fixture.fastRoaming)
+        assertThat(fixture.is80211mc).isTrue()
+        assertThat(fixture.wiFiStandard).isEqualTo(WiFiStandard.AC)
+        assertThat(fixture.timestamp).isEqualTo(timestamp)
+        assertThat(fixture.fastRoaming).isEqualTo(FastRoaming.entries.toList())
     }
 
     @Test
@@ -49,7 +49,7 @@ class WiFiSignalExtraTest {
         // execute
         val actual = fixture.wiFiStandardDisplay(mainActivity.applicationContext)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -59,7 +59,7 @@ class WiFiSignalExtraTest {
         // execute
         val actual = fixture.fastRoamingDisplay(mainActivity.applicationContext)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -70,7 +70,7 @@ class WiFiSignalExtraTest {
         // execute
         val actual = fixture.fastRoamingDisplay(mainActivity.applicationContext)
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
 }

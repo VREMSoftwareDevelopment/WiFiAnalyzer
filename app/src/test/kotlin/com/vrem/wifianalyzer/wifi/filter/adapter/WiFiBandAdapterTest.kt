@@ -20,8 +20,8 @@ package com.vrem.wifianalyzer.wifi.filter.adapter
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -38,7 +38,7 @@ class WiFiBandAdapterTest {
 
     @Test
     fun isActive() {
-        assertFalse(fixture.isActive())
+        assertThat(fixture.isActive()).isFalse()
     }
 
     @Test
@@ -46,7 +46,7 @@ class WiFiBandAdapterTest {
         // setup
         fixture.toggle(WiFiBand.GHZ2)
         // execute & validate
-        assertTrue(fixture.isActive())
+        assertThat(fixture.isActive()).isTrue()
     }
 
     @Test
@@ -56,7 +56,7 @@ class WiFiBandAdapterTest {
         // execute
         val actual = fixture.selections
         // validate
-        assertTrue(actual.containsAll(expected.toList()))
+        assertThat(actual).containsAll(expected)
     }
 
     @Test
@@ -66,7 +66,7 @@ class WiFiBandAdapterTest {
         // execute
         val actual = fixture.defaults
         // validate
-        assertArrayEquals(expected.toTypedArray(), actual.toTypedArray())
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -74,8 +74,8 @@ class WiFiBandAdapterTest {
         // execute
         val actual = fixture.toggle(WiFiBand.GHZ2)
         // validate
-        assertTrue(actual)
-        assertFalse(fixture.contains(WiFiBand.GHZ2))
+        assertThat(actual).isTrue()
+        assertThat(fixture.contains(WiFiBand.GHZ2)).isFalse()
     }
 
     @Test
@@ -85,8 +85,8 @@ class WiFiBandAdapterTest {
         // execute
         val actual = fixture.toggle(WiFiBand.GHZ5)
         // validate
-        assertTrue(actual)
-        assertTrue(fixture.contains(WiFiBand.GHZ5))
+        assertThat(actual).isTrue()
+        assertThat(fixture.contains(WiFiBand.GHZ5)).isTrue()
     }
 
     @Test
@@ -96,14 +96,14 @@ class WiFiBandAdapterTest {
         // execute
         values.forEach { fixture.toggle(it) }
         // validate
-        values.toList().subList(0, values.size - 1).forEach { assertFalse(fixture.contains(it)) }
-        assertTrue(fixture.contains(values.last()))
+        values.toList().subList(0, values.size - 1).forEach { assertThat(fixture.contains(it)).isFalse() }
+        assertThat(fixture.contains(values.last())).isTrue()
     }
 
     @Test
     fun getColorWithExisting() {
         // execute & validate
-        assertEquals(R.color.selected, fixture.color(WiFiBand.GHZ2))
+        assertThat(fixture.color(WiFiBand.GHZ2)).isEqualTo(R.color.selected)
     }
 
     @Test
@@ -111,7 +111,7 @@ class WiFiBandAdapterTest {
         // setup
         fixture.toggle(WiFiBand.GHZ2)
         // execute & validate
-        assertEquals(R.color.regular, fixture.color(WiFiBand.GHZ2))
+        assertThat(fixture.color(WiFiBand.GHZ2)).isEqualTo(R.color.regular)
     }
 
     @Test

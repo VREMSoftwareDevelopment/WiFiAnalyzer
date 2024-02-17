@@ -39,8 +39,8 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
 import com.vrem.wifianalyzer.wifi.predicate.truePredicate
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.*
@@ -101,7 +101,7 @@ class ChannelGraphViewTest {
         // execute
         val actual = fixture.graphView()
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
         verify(graphViewWrapper).graphView
     }
 
@@ -113,7 +113,7 @@ class ChannelGraphViewTest {
         // execute
         val actual = wiFiChannelPair.numX()
         // validate
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -125,7 +125,7 @@ class ChannelGraphViewTest {
         // execute
         val actual = fixture.selected(WiFiBand.GHZ2)
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(settings).wiFiBand()
         verify(configuration).wiFiChannelPair(WiFiBand.GHZ2)
     }
@@ -139,7 +139,7 @@ class ChannelGraphViewTest {
         // execute
         val actual = fixture.selected(WiFiBand.GHZ2)
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
         verify(settings).wiFiBand()
         verify(configuration).wiFiChannelPair(WiFiBand.GHZ5)
     }
@@ -153,7 +153,7 @@ class ChannelGraphViewTest {
         // execute
         val actual = fixture.selected(WiFiBand.GHZ5)
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
         verify(settings).wiFiBand()
         verify(configuration).wiFiChannelPair(WiFiBand.GHZ2)
     }
@@ -168,7 +168,7 @@ class ChannelGraphViewTest {
         // execute
         val actual = fixture.selected(WiFiBand.GHZ5)
         // validate
-        assertFalse(actual)
+        assertThat(actual).isFalse()
         verify(settings).wiFiBand()
         verify(configuration).wiFiChannelPair(WiFiBand.GHZ5)
     }
@@ -181,7 +181,7 @@ class ChannelGraphViewTest {
         // execute
         val actual = makeGraphView(MainContext.INSTANCE, 10, ThemeStyle.DARK, WiFiBand.GHZ2, wiFiChannelPair)
         // validate
-        assertNotNull(actual)
+        assertThat(actual).isNotNull()
     }
 
     @Test
@@ -193,7 +193,7 @@ class ChannelGraphViewTest {
         // execute
         val actual = makeGraphViewWrapper(WiFiBand.GHZ2, wiFiChannelPair)
         // validate
-        assertNotNull(actual)
+        assertThat(actual).isNotNull()
     }
 
     @Test
@@ -205,7 +205,7 @@ class ChannelGraphViewTest {
         // execute
         val actual = makeDefaultSeries(frequencyEnd, minX)
         // validate
-        assertNotNull(actual)
+        assertThat(actual).isNotNull()
     }
 
     private fun withWiFiChannelPair(channel: Int = 10): WiFiChannelPair =

@@ -18,8 +18,8 @@
 package com.vrem.wifianalyzer.wifi.manager
 
 import android.net.wifi.WifiManager
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.mockito.kotlin.*
 
@@ -40,7 +40,7 @@ class WiFiSwitchTest {
         // execute
         val actual = fixture.on()
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(wifiManager).isWifiEnabled = true
     }
 
@@ -52,7 +52,7 @@ class WiFiSwitchTest {
         // execute
         val actual = fixture.off()
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(wifiManager).isWifiEnabled = false
     }
 
@@ -64,7 +64,7 @@ class WiFiSwitchTest {
         // execute
         val actual = fixture.on()
         // validate
-        assertTrue(actual)
+        assertThat(actual).isTrue()
         verify(fixture).startWiFiSettings()
         verify(fixture).minVersionQ()
     }
