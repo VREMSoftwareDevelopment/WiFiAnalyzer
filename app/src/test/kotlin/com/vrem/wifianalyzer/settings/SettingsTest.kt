@@ -36,7 +36,6 @@ import com.vrem.wifianalyzer.wifi.model.SortBy
 import com.vrem.wifianalyzer.wifi.model.Strength
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.*
@@ -52,12 +51,7 @@ class SettingsTest {
 
     private val repository: Repository = mock()
     private val onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener = mock()
-    private val fixture = spy(Settings(repository))
-
-    @Before
-    fun setUp() {
-        doReturn(false).whenever(fixture).minVersionQ()
-    }
+    private val fixture: Settings = Settings(repository)
 
     @After
     fun tearDown() {
@@ -382,6 +376,15 @@ class SettingsTest {
 
     @Test
     fun wiFiOffOnExit() {
+        // execute
+        val actual = fixture.wiFiOffOnExit()
+        // validate
+        assertThat(actual).isFalse()
+    }
+
+    @Test
+    @Config(sdk = [Build.VERSION_CODES.P])
+    fun wiFiOffOnExitLegacy() {
         // setup
         doReturn(true).whenever(repository).resourceBoolean(R.bool.wifi_off_on_exit_default)
         doReturn(true).whenever(repository).boolean(R.string.wifi_off_on_exit_key, true)
