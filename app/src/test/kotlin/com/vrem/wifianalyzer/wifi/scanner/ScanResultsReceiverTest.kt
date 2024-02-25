@@ -17,11 +17,10 @@
  */
 package com.vrem.wifianalyzer.wifi.scanner
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.wifi.WifiManager
-import androidx.core.content.ContextCompat
 import com.vrem.wifianalyzer.MainActivity
 import org.junit.After
 import org.junit.Before
@@ -29,9 +28,9 @@ import org.junit.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.kotlin.*
 
+@SuppressLint("UnspecifiedRegisterReceiverFlag")
 class ScanResultsReceiverTest {
     private val mainActivity: MainActivity = mock()
-    private val context: Context = mock()
     private val callback: Callback = mock()
     private val intentFilter: IntentFilter = mock()
     private val intent: Intent = mock()
@@ -39,18 +38,13 @@ class ScanResultsReceiverTest {
 
     @Before
     fun setUp() {
-        doReturn(context).whenever(mainActivity).applicationContext
-        doReturn(intentFilter).whenever(fixture).makeIntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
-        doNothing().whenever(fixture).registerReceiver(context, fixture, intentFilter, ContextCompat.RECEIVER_EXPORTED)
+        whenever(fixture.makeIntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)).thenReturn(intentFilter)
     }
 
     @After
     fun tearDown() {
         verifyNoMoreInteractions(mainActivity)
-        verifyNoMoreInteractions(context)
         verifyNoMoreInteractions(callback)
-        verifyNoMoreInteractions(intentFilter)
-        verifyNoMoreInteractions(intent)
     }
 
     @Test
@@ -58,9 +52,7 @@ class ScanResultsReceiverTest {
         // execute
         fixture.register()
         // verify
-        verify(mainActivity).applicationContext
-        verify(fixture).makeIntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
-        verify(fixture).registerReceiver(context, fixture, intentFilter, ContextCompat.RECEIVER_EXPORTED)
+        verify(mainActivity).registerReceiver(fixture, intentFilter)
     }
 
     @Test
@@ -69,9 +61,7 @@ class ScanResultsReceiverTest {
         fixture.register()
         fixture.register()
         // verify
-        verify(mainActivity).applicationContext
-        verify(fixture).makeIntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
-        verify(fixture).registerReceiver(context, fixture, intentFilter, ContextCompat.RECEIVER_EXPORTED)
+        verify(mainActivity).registerReceiver(fixture, intentFilter)
     }
 
     @Test
@@ -81,10 +71,8 @@ class ScanResultsReceiverTest {
         // execute
         fixture.unregister()
         // verify
-        verify(mainActivity).applicationContext
+        verify(mainActivity).registerReceiver(fixture, intentFilter)
         verify(mainActivity).unregisterReceiver(fixture)
-        verify(fixture).makeIntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
-        verify(fixture).registerReceiver(context, fixture, intentFilter, ContextCompat.RECEIVER_EXPORTED)
     }
 
     @Test
@@ -95,10 +83,8 @@ class ScanResultsReceiverTest {
         fixture.unregister()
         fixture.unregister()
         // verify
-        verify(mainActivity).applicationContext
+        verify(mainActivity).registerReceiver(fixture, intentFilter)
         verify(mainActivity).unregisterReceiver(fixture)
-        verify(fixture).makeIntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
-        verify(fixture).registerReceiver(context, fixture, intentFilter, ContextCompat.RECEIVER_EXPORTED)
     }
 
     @Test

@@ -17,12 +17,12 @@
  */
 package com.vrem.wifianalyzer.wifi.scanner
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.wifi.WifiManager
-import androidx.core.content.ContextCompat
 import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.MainActivity
 
@@ -30,6 +30,7 @@ fun interface Callback { // Compliant, function interface used
     fun onSuccess()
 }
 
+@SuppressLint("UnspecifiedRegisterReceiverFlag")
 @OpenClass
 internal class ScanResultsReceiver(private val mainActivity: MainActivity, private val callback: Callback) :
     BroadcastReceiver() {
@@ -38,13 +39,9 @@ internal class ScanResultsReceiver(private val mainActivity: MainActivity, priva
     fun register() {
         if (!registered) {
             val intentFilter = makeIntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
-            registerReceiver(mainActivity.applicationContext, this, intentFilter, ContextCompat.RECEIVER_EXPORTED)
+            mainActivity.registerReceiver(this, intentFilter)
             registered = true
         }
-    }
-
-    internal fun registerReceiver(context: Context, broadcastReceiver: BroadcastReceiver, intentFilter: IntentFilter, flags: Int) {
-        ContextCompat.registerReceiver(context, broadcastReceiver, intentFilter, flags)
     }
 
     fun unregister() {
@@ -54,7 +51,7 @@ internal class ScanResultsReceiver(private val mainActivity: MainActivity, priva
         }
     }
 
-    internal fun makeIntentFilter(action: String): IntentFilter = IntentFilter(action)
+    fun makeIntentFilter(action: String): IntentFilter = IntentFilter(action)
 
     override fun onReceive(context: Context, intent: Intent) {
         if (WifiManager.SCAN_RESULTS_AVAILABLE_ACTION == intent.action &&
