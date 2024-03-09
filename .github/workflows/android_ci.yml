@@ -24,7 +24,7 @@ jobs:
           name: artifact-reports
           path: app/build/reports
       - name: upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml
