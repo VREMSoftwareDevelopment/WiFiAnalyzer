@@ -36,7 +36,7 @@ def fileFilter = [
         '**/com/vrem/wifianalyzer/settings/SharedPreferences*'
 ]
 
-def classJavaDir = "$project.buildDir/intermediates/javac/debug/classes"
+def classJavaDir = "$project.buildDir/intermediates/javac/debug/compileDebugJavaWithJavac/classes"
 def classKotlinDir = "$project.buildDir/tmp/kotlin-classes/debug"
 def mainJavaSrc = "$project.projectDir/src/main/java"
 def mainKotlinSrc = "$project.projectDir/src/main/kotlin"
