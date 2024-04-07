@@ -24,17 +24,12 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import com.vrem.annotation.OpenClass
-import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
 
 @OpenClass
 class AccessPointDetail {
@@ -67,7 +62,6 @@ class AccessPointDetail {
         setView80211mc(view, wiFiDetail.wiFiSignal)
         setViewWiFiStandard(view, wiFiDetail.wiFiSignal)
         setViewFastRoaming(view, wiFiDetail.wiFiSignal)
-        setTimestamp(view, wiFiDetail.wiFiSignal)
         enableTextSelection(view)
         return view
     }
@@ -177,23 +171,5 @@ class AccessPointDetail {
         view.findViewById<TextView>(R.id.flag80211mc)?.let {
             it.visibility = if (wiFiSignal.extra.is80211mc) View.VISIBLE else View.GONE
         }
-
-    private fun setTimestamp(view: View, wiFiSignal: WiFiSignal) =
-        view.findViewById<TextView>(R.id.timestamp)?.let {
-            val milliseconds: Long = wiFiSignal.extra.timestamp / 1000
-            if (0L == milliseconds) {
-                it.text = String.EMPTY
-                it.visibility = View.GONE
-            } else {
-                val simpleDateFormat = SimpleDateFormat(TIME_STAMP_FORMAT, Locale.US)
-                simpleDateFormat.timeZone = TimeZone.getTimeZone("GMT")
-                it.text = simpleDateFormat.format(Date(milliseconds))
-                it.visibility = View.VISIBLE
-            }
-        }
-
-    companion object {
-        private const val TIME_STAMP_FORMAT = "H:mm:ss.SSS"
-    }
 
 }

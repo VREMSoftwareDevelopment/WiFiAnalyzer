@@ -82,12 +82,6 @@
         tools:text="[WPA][WPA2][WPS][WPA3]" />
 
     <TextView
-        android:id="@+id/timestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="13:35:45.123" />
-
-    <TextView
         android:id="@+id/vendorLong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

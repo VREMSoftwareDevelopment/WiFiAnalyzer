@@ -24,7 +24,6 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 data class WiFiSignalExtra(
     val is80211mc: Boolean = false,
     val wiFiStandard: WiFiStandard = WiFiStandard.UNKNOWN,
-    val timestamp: Long = 0,
     val fastRoaming: List<FastRoaming> = listOf()
 ) {
     fun wiFiStandardDisplay(context: Context): String =

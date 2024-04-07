@@ -34,7 +34,7 @@ enum class WiFiStandard(val wiFiStandardId: WiFiStandardId, @StringRes val textR
     AC(5, R.string.wifi_standard_ac, R.drawable.ic_wifi_5),
     AX(6, R.string.wifi_standard_ax, R.drawable.ic_wifi_6),
     AD(7, R.string.wifi_standard_ad, R.drawable.ic_wifi_unknown),
-    BE(8, R.string.wifi_standard_be, R.drawable.ic_wifi_unknown);
+    BE(8, R.string.wifi_standard_be, R.drawable.ic_wifi_6);
 
     companion object {
         fun findOne(scanResult: ScanResult): WiFiStandard =

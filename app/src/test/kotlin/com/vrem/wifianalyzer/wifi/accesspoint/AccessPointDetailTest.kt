@@ -27,7 +27,17 @@ import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.FastRoaming
+import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
+import com.vrem.wifianalyzer.wifi.model.WiFiConnection
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurityTypeTest
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiSignalExtra
+import com.vrem.wifianalyzer.wifi.model.WiFiStandard
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Before
@@ -327,29 +337,6 @@ class AccessPointDetailTest {
     }
 
     @Test
-    fun makeViewDetailedWithTimestampNotVisible() {
-        // setup
-        val wiFiDetail = withWiFiDetail(timestamp = 999)
-        // execute
-        val actual = fixture.makeViewDetailed(wiFiDetail)
-        // validate
-        assertThat(actual.findViewById<View>(R.id.timestamp).visibility).isEqualTo(View.GONE)
-        validateTextViewValue(actual, String.EMPTY, R.id.timestamp)
-    }
-
-    @Test
-    fun makeViewDetailedWithTimestampVisible() {
-        // setup
-        val wiFiDetail = withWiFiDetail()
-        val expectedTimestamp = "0:00:01.000"
-        // execute
-        val actual = fixture.makeViewDetailed(wiFiDetail)
-        // validate
-        assertThat(actual.findViewById<View>(R.id.timestamp).visibility).isEqualTo(View.VISIBLE)
-        validateTextViewValue(actual, expectedTimestamp, R.id.timestamp)
-    }
-
-    @Test
     fun makeViewDetailedWithFastRoaming() {
         // setup
         val wiFiDetail = withWiFiDetail()
@@ -364,15 +351,14 @@ class AccessPointDetailTest {
     private fun withWiFiDetail(
         ssid: String = "SSID",
         wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY,
-        is80211mc: Boolean = false,
-        timestamp: Long = 1000000
+        is80211mc: Boolean = false
     ): WiFiDetail =
         WiFiDetail(
             WiFiIdentifier(ssid, "BSSID"),
             WiFiSecurity("[WPS-capabilities][WPA2-XYZ][XYZ-FT]", WiFiSecurityTypeTest.All),
             WiFiSignal(
                 1, 1, WiFiWidth.MHZ_40, 2,
-                WiFiSignalExtra(is80211mc, WiFiStandard.AC, timestamp, FastRoaming.entries.toList())
+                WiFiSignalExtra(is80211mc, WiFiStandard.AC, FastRoaming.entries.toList())
             ),
             wiFiAdditional
         )

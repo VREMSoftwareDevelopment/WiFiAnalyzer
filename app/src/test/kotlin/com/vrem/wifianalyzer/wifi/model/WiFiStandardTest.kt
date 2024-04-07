@@ -25,7 +25,11 @@ import com.vrem.wifianalyzer.R
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
@@ -56,7 +60,7 @@ class WiFiStandardTest {
         assertThat(WiFiStandard.AC.imageResource).isEqualTo(R.drawable.ic_wifi_5)
         assertThat(WiFiStandard.AX.imageResource).isEqualTo(R.drawable.ic_wifi_6)
         assertThat(WiFiStandard.AD.imageResource).isEqualTo(R.drawable.ic_wifi_unknown)
-        assertThat(WiFiStandard.BE.imageResource).isEqualTo(R.drawable.ic_wifi_unknown)
+        assertThat(WiFiStandard.BE.imageResource).isEqualTo(R.drawable.ic_wifi_6)
     }
 
     @Test

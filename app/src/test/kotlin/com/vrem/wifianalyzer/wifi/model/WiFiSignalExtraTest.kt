@@ -29,16 +29,13 @@ import org.robolectric.annotation.Config
 @Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
 class WiFiSignalExtraTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val timestamp: Long = 123456789
-    private val fixture: WiFiSignalExtra =
-        WiFiSignalExtra(true, WiFiStandard.AC, timestamp, FastRoaming.entries.toList())
+    private val fixture: WiFiSignalExtra = WiFiSignalExtra(true, WiFiStandard.AC, FastRoaming.entries.toList())
 
     @Test
     fun wiFiSignalExtra() {
         // validate
         assertThat(fixture.is80211mc).isTrue()
         assertThat(fixture.wiFiStandard).isEqualTo(WiFiStandard.AC)
-        assertThat(fixture.timestamp).isEqualTo(timestamp)
         assertThat(fixture.fastRoaming).isEqualTo(FastRoaming.entries.toList())
     }
 
