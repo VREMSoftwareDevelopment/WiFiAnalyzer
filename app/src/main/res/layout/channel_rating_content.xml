@@ -17,8 +17,7 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
   -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -27,7 +26,7 @@
         android:id="@+id/channel_rating_best"
         layout="@layout/channel_rating_best" />
 
-    <include layout="@layout/channel_rating_header"/>
+    <include layout="@layout/channel_rating_header" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/channelRatingRefresh"
@@ -40,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@null"
-            android:dividerHeight="0dp"/>
+            android:dividerHeight="0dp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

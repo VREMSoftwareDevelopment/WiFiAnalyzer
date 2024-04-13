@@ -18,9 +18,9 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/accessPointsRefresh"
@@ -32,7 +32,7 @@
             android:id="@+id/accessPointsView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:groupIndicator="@null"/>
+            android:groupIndicator="@null" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

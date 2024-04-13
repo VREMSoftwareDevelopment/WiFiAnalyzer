@@ -27,17 +27,7 @@ import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
-import com.vrem.wifianalyzer.wifi.model.FastRoaming
-import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
-import com.vrem.wifianalyzer.wifi.model.WiFiConnection
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
-import com.vrem.wifianalyzer.wifi.model.WiFiSecurityTypeTest
-import com.vrem.wifianalyzer.wifi.model.WiFiSignal
-import com.vrem.wifianalyzer.wifi.model.WiFiSignalExtra
-import com.vrem.wifianalyzer.wifi.model.WiFiStandard
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+import com.vrem.wifianalyzer.wifi.model.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Before
@@ -49,7 +39,7 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
 class AccessPointDetailTest {
-    private val vendorName = "VendorName-VendorName-VendorName-VendorName-VendorName-VendorName"
+    private val vendorName = "1VendorName-2VendorName-3VendorName-4VendorName-5VendorName-6VendorName"
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val settings = INSTANCE.settings
     private val fixture = AccessPointDetail()
@@ -128,16 +118,7 @@ class AccessPointDetailTest {
         // validate
         assertThat(actual.findViewById<View>(R.id.vendorLong)).isNull()
         assertThat(actual.findViewById<View>(R.id.vendorShort).visibility).isEqualTo(View.VISIBLE)
-    }
-
-    @Test
-    fun makeViewCompleteWithVendorShortMaximumSize() {
-        // setup
-        val wiFiDetail = withWiFiDetail(wiFiAdditional = WiFiAdditional(vendorName, WiFiConnection.EMPTY))
-        // execute
-        val actual = fixture.makeView(null, null, wiFiDetail)
-        // validate
-        validateTextViewValue(actual, vendorName.substring(0, 12), R.id.vendorShort)
+        validateTextViewValue(actual, vendorName, R.id.vendorShort)
     }
 
     @Test
@@ -255,7 +236,7 @@ class AccessPointDetailTest {
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
         assertThat(actual.findViewById<View>(R.id.levelImage)).isNull()
-        assertThat(actual.findViewById<View>(R.id.wiFiStandardImage)).isNull()
+        assertThat(actual.findViewById<View>(R.id.wiFiStandardValue)).isNull()
         assertThat(actual.findViewById<View>(R.id.channel_frequency_range)).isNull()
         assertThat(actual.findViewById<View>(R.id.width)).isNull()
         assertThat(actual.findViewById<View>(R.id.capabilities)).isNull()
@@ -303,6 +284,7 @@ class AccessPointDetailTest {
         // validate
         assertThat(actual.findViewById<View>(R.id.vendorShort).visibility).isEqualTo(View.GONE)
         assertThat(actual.findViewById<View>(R.id.vendorLong).visibility).isEqualTo(View.VISIBLE)
+        validateTextViewValue(actual, vendorName, R.id.vendorLong)
     }
 
     @Test
@@ -371,7 +353,8 @@ class AccessPointDetailTest {
         validateTextViewValue(view, expectedSecurities, R.id.capabilities)
         validateImageViewValue(view, wiFiSignal.strength.imageResource, R.id.levelImage)
         validateImageViewValue(view, wiFiDetail.wiFiSecurity.security.imageResource, R.id.securityImage)
-        validateImageViewValue(view, wiFiSignal.extra.wiFiStandard.imageResource, R.id.wiFiStandardImage)
+        val expectedWiFiStandard = view.context.getString(wiFiSignal.extra.wiFiStandard.valueResource)
+        validateTextViewValue(view, expectedWiFiStandard, R.id.wiFiStandardValue)
     }
 
     private fun validateTextViewValuesPopupView(view: View, wiFiDetail: WiFiDetail) {
@@ -379,8 +362,8 @@ class AccessPointDetailTest {
         with(wiFiDetail) {
             validateTextViewValue(view, wiFiSecurity.capabilities, R.id.capabilitiesLong)
             validateTextViewValue(view, expectedSecurityTypes, R.id.securityTypes)
-            val expectedWiFiStandard = view.context.getString(wiFiSignal.extra.wiFiStandard.textResource)
-            validateTextViewValue(view, expectedWiFiStandard, R.id.wiFiStandard)
+            val expectedWiFiStandard = view.context.getString(wiFiSignal.extra.wiFiStandard.fullResource)
+            validateTextViewValue(view, expectedWiFiStandard, R.id.wiFiStandardFull)
             val expectedWiFiBand = view.context.getString(wiFiSignal.wiFiBand.textResource)
             validateTextViewValue(view, expectedWiFiBand, R.id.wiFiBand)
         }

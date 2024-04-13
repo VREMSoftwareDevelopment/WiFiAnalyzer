@@ -22,7 +22,7 @@ import com.vrem.wifianalyzer.wifi.model.Strength
 
 class StrengthAdapter(selections: Set<Strength>) : EnumFilterAdapter<Strength>(selections, Strength.entries) {
     override fun color(selection: Strength): Int =
-        if (selections.contains(selection)) selection.colorResource else Strength.colorResourceDefault
+        if (selections.contains(selection)) selection.colorResource else Strength.COLOR_RESOURCE_DEFAULT
 
     override fun save(settings: Settings): Unit =
         settings.saveStrengths(selections)

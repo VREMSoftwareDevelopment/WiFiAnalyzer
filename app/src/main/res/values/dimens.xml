@@ -32,4 +32,6 @@
 
     <dimen name="icon_small">12dp</dimen>
     <dimen name="icon_large">36dp</dimen>
+
+    <dimen name="font_small">10sp</dimen>
 </resources>

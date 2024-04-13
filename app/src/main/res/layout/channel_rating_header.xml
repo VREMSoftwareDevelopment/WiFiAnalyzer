@@ -37,13 +37,13 @@
         android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:layout_weight="1.75"
         android:text="@string/channel_rating_heading_number"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.75"
         android:text="@string/channel_rating_heading_count"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
 </LinearLayout>

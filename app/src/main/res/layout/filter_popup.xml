@@ -32,11 +32,11 @@
 
         <include layout="@layout/filter_ssid" />
 
-        <include layout="@layout/filter_wifi_band"/>
+        <include layout="@layout/filter_wifi_band" />
 
-        <include layout="@layout/filter_strength"/>
+        <include layout="@layout/filter_strength" />
 
-        <include layout="@layout/filter_security"/>
+        <include layout="@layout/filter_security" />
 
     </LinearLayout>
 </ScrollView>

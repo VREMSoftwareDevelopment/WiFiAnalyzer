@@ -56,7 +56,7 @@ internal fun GridLabelRenderer.colors(themeStyle: ThemeStyle): GridLabelRenderer
 internal fun GridLabelRenderer.horizontalTitle(title: String): GridLabelRenderer {
     if (title.isNotEmpty()) {
         this.horizontalAxisTitle = title
-        this.horizontalAxisTitleTextSize = this.horizontalAxisTitleTextSize * AXIS_TEXT_SIZE_ADJUSTMENT
+        this.horizontalAxisTitleTextSize *= AXIS_TEXT_SIZE_ADJUSTMENT
     }
     return this
 }
@@ -64,7 +64,7 @@ internal fun GridLabelRenderer.horizontalTitle(title: String): GridLabelRenderer
 internal fun GridLabelRenderer.verticalTitle(title: String): GridLabelRenderer {
     if (title.isNotEmpty()) {
         this.verticalAxisTitle = title
-        this.verticalAxisTitleTextSize = this.verticalAxisTitleTextSize * AXIS_TEXT_SIZE_ADJUSTMENT
+        this.verticalAxisTitleTextSize *= AXIS_TEXT_SIZE_ADJUSTMENT
     }
     return this
 }
@@ -87,7 +87,7 @@ internal fun GridLabelRenderer.labels(
     this.numHorizontalLabels = numHorizontalLabels
     this.isVerticalLabelsVisible = true
     this.isHorizontalLabelsVisible = horizontalLabelsVisible
-    this.textSize = this.textSize * TEXT_SIZE_ADJUSTMENT
+    this.textSize *= TEXT_SIZE_ADJUSTMENT
     this.reloadStyles()
     return this
 }

@@ -21,15 +21,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    >
+    android:orientation="horizontal">
 
     <!-- Column 1 -->
     <TextView
         android:id="@+id/tab"
         android:layout_width="@dimen/list_view_item_horizontal_tab"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <!-- Column 2 -->
     <LinearLayout
@@ -82,7 +81,7 @@
                 android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                 android:text="@string/channel_short_name"
                 android:textColor="@color/channel"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/channel"

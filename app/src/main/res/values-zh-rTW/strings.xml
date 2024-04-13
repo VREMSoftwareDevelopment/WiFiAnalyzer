@@ -85,9 +85,7 @@
     <string name="graph_maximum_y_title">"最大訊號強度圖"</string>
 
     <string name="channel_graph_legend_title">"頻道圖例顯示位置"</string>
-    
     <string name="time_graph_legend_title">"時間圖例顯示位置"</string>
-    
     <string name="graph_legend_left">"左"</string>
     <string name="graph_legend_right">"右"</string>
     <string name="graph_legend_hide">"隱藏"</string>

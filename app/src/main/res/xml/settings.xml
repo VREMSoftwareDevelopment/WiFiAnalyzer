@@ -28,7 +28,7 @@
             app:persistent="true"
             app:summary="@string/scan_speed_summary"
             app:useSimpleSummaryProvider="true"
-            app:title="@string/scan_speed_title"/>
+            app:title="@string/scan_speed_title" />
     </PreferenceCategory>
 
     <PreferenceCategory>
@@ -41,7 +41,7 @@
             app:persistent="true"
             app:summary="@string/sort_by_summary"
             app:useSimpleSummaryProvider="true"
-            app:title="@string/sort_by_title"/>
+            app:title="@string/sort_by_title" />
 
         <ListPreference
             app:defaultValue="@string/group_by_default"
@@ -52,7 +52,7 @@
             app:persistent="true"
             app:summary="@string/group_by_summary"
             app:useSimpleSummaryProvider="true"
-            app:title="@string/group_by_title"/>
+            app:title="@string/group_by_title" />
     </PreferenceCategory>
 
     <PreferenceCategory>
@@ -65,7 +65,7 @@
             app:persistent="true"
             app:summary="@string/connection_view_summary"
             app:useSimpleSummaryProvider="true"
-            app:title="@string/connection_view_title"/>
+            app:title="@string/connection_view_title" />
 
         <ListPreference
             app:defaultValue="@string/ap_view_default"
@@ -76,7 +76,7 @@
             app:persistent="true"
             app:summary="@string/ap_view_summary"
             app:useSimpleSummaryProvider="true"
-            app:title="@string/ap_view_title"/>
+            app:title="@string/ap_view_title" />
     </PreferenceCategory>
 
     <PreferenceCategory>
@@ -88,7 +88,7 @@
             app:persistent="true"
             app:summary="@string/graph_maximum_y_summary"
             app:useSimpleSummaryProvider="true"
-            app:title="@string/graph_maximum_y_title"/>
+            app:title="@string/graph_maximum_y_title" />
 
         <ListPreference
             app:defaultValue="@string/channel_graph_legend_default"
@@ -99,7 +99,7 @@
             app:persistent="true"
             app:summary="@string/channel_graph_legend_summary"
             app:useSimpleSummaryProvider="true"
-            app:title="@string/channel_graph_legend_title"/>
+            app:title="@string/channel_graph_legend_title" />
 
         <ListPreference
             app:defaultValue="@string/time_graph_legend_default"
@@ -110,7 +110,7 @@
             app:persistent="true"
             app:summary="@string/time_graph_legend_summary"
             app:useSimpleSummaryProvider="true"
-            app:title="@string/time_graph_legend_title"/>
+            app:title="@string/time_graph_legend_title" />
     </PreferenceCategory>
 
     <PreferenceCategory>
@@ -123,19 +123,19 @@
             app:persistent="true"
             app:summary="@string/theme_summary"
             app:useSimpleSummaryProvider="true"
-            app:title="@string/theme_title"/>
+            app:title="@string/theme_title" />
 
         <androidx.preference.SwitchPreferenceCompat
             app:defaultValue="@bool/wifi_off_on_exit_default"
             app:icon="@drawable/ic_signal_wifi_off"
             app:key="@string/wifi_off_on_exit_key"
-            app:title="@string/wifi_off_on_exit_title"/>
+            app:title="@string/wifi_off_on_exit_title" />
 
         <androidx.preference.SwitchPreferenceCompat
             app:defaultValue="@bool/keep_screen_on_default"
             app:icon="@drawable/ic_brightness_low"
             app:key="@string/keep_screen_on_key"
-            app:title="@string/keep_screen_on_title"/>
+            app:title="@string/keep_screen_on_title" />
 
     </PreferenceCategory>
 

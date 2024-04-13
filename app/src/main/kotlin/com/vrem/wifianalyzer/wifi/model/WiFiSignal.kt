@@ -27,7 +27,7 @@ data class WiFiSignalExtra(
     val fastRoaming: List<FastRoaming> = listOf()
 ) {
     fun wiFiStandardDisplay(context: Context): String =
-        context.getString(wiFiStandard.textResource)
+        context.getString(wiFiStandard.fullResource)
 
     fun fastRoamingDisplay(context: Context): String =
         fastRoaming

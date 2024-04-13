@@ -31,7 +31,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/filter_strength_title"/>
+        android:text="@string/filter_strength_title" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,7 +46,7 @@
             android:layout_height="@dimen/icon_large"
             android:layout_weight="1"
             android:contentDescription="@null"
-            android:src="@drawable/ic_signal_wifi_0_bar"/>
+            android:src="@drawable/ic_signal_wifi_0_bar" />
 
         <ImageView
             android:id="@+id/filterStrength1"
@@ -54,7 +54,7 @@
             android:layout_height="@dimen/icon_large"
             android:layout_weight="1"
             android:contentDescription="@null"
-            android:src="@drawable/ic_signal_wifi_1_bar"/>
+            android:src="@drawable/ic_signal_wifi_1_bar" />
 
         <ImageView
             android:id="@+id/filterStrength2"
@@ -62,7 +62,7 @@
             android:layout_height="@dimen/icon_large"
             android:layout_weight="1"
             android:contentDescription="@null"
-            android:src="@drawable/ic_signal_wifi_2_bar"/>
+            android:src="@drawable/ic_signal_wifi_2_bar" />
 
         <ImageView
             android:id="@+id/filterStrength3"
@@ -70,7 +70,7 @@
             android:layout_height="@dimen/icon_large"
             android:layout_weight="1"
             android:contentDescription="@null"
-            android:src="@drawable/ic_signal_wifi_3_bar"/>
+            android:src="@drawable/ic_signal_wifi_3_bar" />
 
         <ImageView
             android:id="@+id/filterStrength4"
@@ -78,9 +78,9 @@
             android:layout_height="@dimen/icon_large"
             android:layout_weight="1"
             android:contentDescription="@null"
-            android:src="@drawable/ic_signal_wifi_4_bar"/>
+            android:src="@drawable/ic_signal_wifi_4_bar" />
 
     </LinearLayout>
 
-    <include layout="@layout/separator_line"/>
+    <include layout="@layout/separator_line" />
 </LinearLayout>

@@ -19,7 +19,6 @@ package com.vrem.wifianalyzer.wifi.model
 
 import android.net.wifi.ScanResult
 import android.os.Build
-import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import com.vrem.util.buildMinVersionR
@@ -27,14 +26,14 @@ import com.vrem.wifianalyzer.R
 
 typealias WiFiStandardId = Int
 
-enum class WiFiStandard(val wiFiStandardId: WiFiStandardId, @StringRes val textResource: Int, @DrawableRes val imageResource: Int) {
-    UNKNOWN(0, R.string.wifi_standard_unknown, R.drawable.ic_wifi_unknown),
-    LEGACY(1, R.string.wifi_standard_legacy, R.drawable.ic_wifi_legacy),
-    N(4, R.string.wifi_standard_n, R.drawable.ic_wifi_4),
-    AC(5, R.string.wifi_standard_ac, R.drawable.ic_wifi_5),
-    AX(6, R.string.wifi_standard_ax, R.drawable.ic_wifi_6),
-    AD(7, R.string.wifi_standard_ad, R.drawable.ic_wifi_unknown),
-    BE(8, R.string.wifi_standard_be, R.drawable.ic_wifi_6);
+enum class WiFiStandard(val wiFiStandardId: WiFiStandardId, @StringRes val fullResource: Int, @StringRes val valueResource: Int) {
+    UNKNOWN(0, R.string.wifi_standard_unknown, R.string.wifi_standard_unknown),
+    LEGACY(1, R.string.wifi_standard_legacy, R.string.wifi_standard_unknown),
+    N(4, R.string.wifi_standard_n, R.string.wifi_standard_value_n),
+    AC(5, R.string.wifi_standard_ac, R.string.wifi_standard_value_ac),
+    AX(6, R.string.wifi_standard_ax, R.string.wifi_standard_value_ax),
+    AD(7, R.string.wifi_standard_ad, R.string.wifi_standard_unknown),
+    BE(8, R.string.wifi_standard_be, R.string.wifi_standard_value_be);
 
     companion object {
         fun findOne(scanResult: ScanResult): WiFiStandard =

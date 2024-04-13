@@ -33,8 +33,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiSignal
 
 @OpenClass
 class AccessPointDetail {
-    private val vendorShortMax = 12
-    private val vendorLongMax = 30
 
     fun makeView(
         convertView: View?,
@@ -107,9 +105,8 @@ class AccessPointDetail {
         }
 
     private fun setWiFiStandardImage(view: View, wiFiSignal: WiFiSignal) =
-        view.findViewById<ImageView>(R.id.wiFiStandardImage)?.let {
-            it.tag = wiFiSignal.extra.wiFiStandard.imageResource
-            it.setImageResource(wiFiSignal.extra.wiFiStandard.imageResource)
+        view.findViewById<TextView>(R.id.wiFiStandardValue)?.let {
+            it.text = ContextCompat.getString(view.context, wiFiSignal.extra.wiFiStandard.valueResource)
         }
 
     private fun setLevelText(view: View, wiFiSignal: WiFiSignal) =
@@ -132,7 +129,7 @@ class AccessPointDetail {
                 it.visibility = View.GONE
             } else {
                 it.visibility = View.VISIBLE
-                it.text = wiFiAdditional.vendorName.take(vendorShortMax)
+                it.text = wiFiAdditional.vendorName
             }
         }
 
@@ -152,7 +149,7 @@ class AccessPointDetail {
                 it.visibility = View.GONE
             } else {
                 it.visibility = View.VISIBLE
-                it.text = wiFiAdditional.vendorName.take(vendorLongMax)
+                it.text = wiFiAdditional.vendorName
             }
         }
 
@@ -165,7 +162,7 @@ class AccessPointDetail {
         }
 
     private fun setViewWiFiStandard(view: View, wiFiSignal: WiFiSignal) =
-        view.findViewById<TextView>(R.id.wiFiStandard)?.setText(wiFiSignal.extra.wiFiStandard.textResource)
+        view.findViewById<TextView>(R.id.wiFiStandardFull)?.setText(wiFiSignal.extra.wiFiStandard.fullResource)
 
     private fun setView80211mc(view: View, wiFiSignal: WiFiSignal) =
         view.findViewById<TextView>(R.id.flag80211mc)?.let {

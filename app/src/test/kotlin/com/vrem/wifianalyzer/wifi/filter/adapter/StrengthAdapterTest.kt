@@ -110,7 +110,7 @@ class StrengthAdapterTest {
         // setup
         fixture.toggle(Strength.TWO)
         // execute & validate
-        assertThat(fixture.color(Strength.TWO)).isEqualTo(Strength.colorResourceDefault)
+        assertThat(fixture.color(Strength.TWO)).isEqualTo(Strength.COLOR_RESOURCE_DEFAULT)
     }
 
     @Test

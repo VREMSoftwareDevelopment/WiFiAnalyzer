@@ -17,8 +17,7 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
   -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
@@ -31,7 +30,7 @@
         android:layout_height="match_parent"
         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
         android:layout_weight="1"
-        android:stepSize="1.0"/>
+        android:stepSize="1.0" />
 
     <TextView
         android:id="@+id/channelNumber"
@@ -41,7 +40,7 @@
         android:layout_marginStart="@dimen/list_view_item_horizontal_spacer"
         android:layout_weight="1.75"
         android:textColor="@color/channel_number"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/accessPointCount"
@@ -49,6 +48,6 @@
         android:layout_height="match_parent"
         android:layout_weight="1.75"
         android:textColor="@color/selected"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
 </LinearLayout>

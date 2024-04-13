@@ -39,7 +39,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/wiFiStandard"
+            android:id="@+id/wiFiStandardFull"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
@@ -86,6 +86,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        tools:text="Very Long Vendor Name1234567890"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:maxLines="1"
+        tools:text="Very Long Vendor Name 1-0123456789 2-1234567890 3-0123456789"
         tools:visibility="visible" />
 </LinearLayout>

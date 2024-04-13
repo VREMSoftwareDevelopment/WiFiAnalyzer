@@ -25,11 +25,7 @@ import com.vrem.wifianalyzer.R
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
@@ -43,24 +39,24 @@ class WiFiStandardTest {
 
     @Test
     fun nameResource() {
-        assertThat(WiFiStandard.UNKNOWN.textResource).isEqualTo(R.string.wifi_standard_unknown)
-        assertThat(WiFiStandard.LEGACY.textResource).isEqualTo(R.string.wifi_standard_legacy)
-        assertThat(WiFiStandard.N.textResource).isEqualTo(R.string.wifi_standard_n)
-        assertThat(WiFiStandard.AC.textResource).isEqualTo(R.string.wifi_standard_ac)
-        assertThat(WiFiStandard.AX.textResource).isEqualTo(R.string.wifi_standard_ax)
-        assertThat(WiFiStandard.AD.textResource).isEqualTo(R.string.wifi_standard_ad)
-        assertThat(WiFiStandard.BE.textResource).isEqualTo(R.string.wifi_standard_be)
+        assertThat(WiFiStandard.UNKNOWN.fullResource).isEqualTo(R.string.wifi_standard_unknown)
+        assertThat(WiFiStandard.LEGACY.fullResource).isEqualTo(R.string.wifi_standard_legacy)
+        assertThat(WiFiStandard.N.fullResource).isEqualTo(R.string.wifi_standard_n)
+        assertThat(WiFiStandard.AC.fullResource).isEqualTo(R.string.wifi_standard_ac)
+        assertThat(WiFiStandard.AX.fullResource).isEqualTo(R.string.wifi_standard_ax)
+        assertThat(WiFiStandard.AD.fullResource).isEqualTo(R.string.wifi_standard_ad)
+        assertThat(WiFiStandard.BE.fullResource).isEqualTo(R.string.wifi_standard_be)
     }
 
     @Test
-    fun imageResource() {
-        assertThat(WiFiStandard.UNKNOWN.imageResource).isEqualTo(R.drawable.ic_wifi_unknown)
-        assertThat(WiFiStandard.LEGACY.imageResource).isEqualTo(R.drawable.ic_wifi_legacy)
-        assertThat(WiFiStandard.N.imageResource).isEqualTo(R.drawable.ic_wifi_4)
-        assertThat(WiFiStandard.AC.imageResource).isEqualTo(R.drawable.ic_wifi_5)
-        assertThat(WiFiStandard.AX.imageResource).isEqualTo(R.drawable.ic_wifi_6)
-        assertThat(WiFiStandard.AD.imageResource).isEqualTo(R.drawable.ic_wifi_unknown)
-        assertThat(WiFiStandard.BE.imageResource).isEqualTo(R.drawable.ic_wifi_6)
+    fun valueResource() {
+        assertThat(WiFiStandard.UNKNOWN.valueResource).isEqualTo(R.string.wifi_standard_unknown)
+        assertThat(WiFiStandard.LEGACY.valueResource).isEqualTo(R.string.wifi_standard_unknown)
+        assertThat(WiFiStandard.N.valueResource).isEqualTo(R.string.wifi_standard_value_n)
+        assertThat(WiFiStandard.AC.valueResource).isEqualTo(R.string.wifi_standard_value_ac)
+        assertThat(WiFiStandard.AX.valueResource).isEqualTo(R.string.wifi_standard_value_ax)
+        assertThat(WiFiStandard.AD.valueResource).isEqualTo(R.string.wifi_standard_unknown)
+        assertThat(WiFiStandard.BE.valueResource).isEqualTo(R.string.wifi_standard_value_be)
     }
 
     @Test

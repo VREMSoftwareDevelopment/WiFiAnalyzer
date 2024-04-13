@@ -18,9 +18,9 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <SearchView
         android:id="@+id/vendorSearchText"
@@ -29,12 +29,12 @@
         android:layout_marginBottom="@dimen/list_view_item_horizontal_spacer"
         android:iconifiedByDefault="false"
         android:inputType="text|textCapCharacters"
-        android:queryHint="@string/vendor_search_hint"/>
+        android:queryHint="@string/vendor_search_hint" />
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@android:id/empty"
@@ -44,5 +44,5 @@
         android:text="@string/no_data"
         android:textAlignment="center"
         android:textColor="@color/error"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 </LinearLayout>

@@ -33,7 +33,7 @@ enum class Strength(@DrawableRes val imageResource: Int, @ColorRes val colorReso
 
     companion object {
         @SuppressLint("NonConstantResourceId")
-        const val colorResourceDefault: Int = R.color.regular
+        const val COLOR_RESOURCE_DEFAULT: Int = R.color.regular
 
         fun calculate(level: Int): Strength {
             return entries[calculateSignalLevel(level, entries.size)]

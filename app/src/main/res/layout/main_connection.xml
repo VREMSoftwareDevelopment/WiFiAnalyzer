@@ -42,7 +42,7 @@
             android:textColor="@color/selected"
             android:textStyle="bold"
             android:text="@string/current_connection" />
-      
+
         <LinearLayout
             android:id="@+id/connectionDetail"
             android:layout_width="match_parent"

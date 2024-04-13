@@ -50,10 +50,10 @@ This is the official repository of WiFi Analyzer.
     * <img src="images/ic_lock_outline_black_18dp.png" alt="WEP/WPS" height="20">WEP/WPS
     * <img src="images/ic_lock_open_black_18dp.png" alt="Disabled" height="20">Disabled
 * Wi-Fi Standard (Requires Android OS 11+):
-    * <img src="images/ic_wifi_legacy.png" alt="802.11a/b/g" height="20">802.11a/b/g
-    * <img src="images/ic_wifi_4.png" alt="802.11n" height="20">802.11n
-    * <img src="images/ic_wifi_5.png" alt="802.11ac" height="20">802.11ac
-    * <img src="images/ic_wifi_6.png" alt="802.11ax" height="20">802.11ax
+    * 4 - 802.11n
+    * 5 - 802.11ac
+    * 6 - 802.11ax
+    * 7 - 802.11be
 
 ## How-to
 

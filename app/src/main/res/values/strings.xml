@@ -205,6 +205,10 @@
     <string name="wifi_standard_ax" translatable="false">"802.11ax"</string>
     <string name="wifi_standard_ad" translatable="false">"802.11ad"</string>
     <string name="wifi_standard_be" translatable="false">"802.11be"</string>
+    <string name="wifi_standard_value_n" translatable="false">"4"</string>
+    <string name="wifi_standard_value_ac" translatable="false">"5"</string>
+    <string name="wifi_standard_value_ax" translatable="false">"6"</string>
+    <string name="wifi_standard_value_be" translatable="false">"7"</string>
     <!-- Wi-Fi standard end -->
 
     <!-- security start -->

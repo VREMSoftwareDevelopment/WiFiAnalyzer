@@ -34,5 +34,5 @@
         android:layout_height="wrap_content"
         android:autoLink="web"
         android:gravity="center"
-        android:text="@string/no_data_url"/>
+        android:text="@string/no_data_url" />
 </LinearLayout>
