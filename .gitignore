@@ -1,6 +1,7 @@
 *.iml
 .gradle
 .idea
+.kotlin
 .run
 .navigation
 local.properties
