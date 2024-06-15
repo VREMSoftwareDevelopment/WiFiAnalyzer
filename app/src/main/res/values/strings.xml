@@ -255,8 +255,8 @@
     <!-- filter end -->
 
     <!-- wifi throttling start -->
-    <string name="wifi_throttling_on">Wi-Fi scan throttling is enabled</string>
-    <string name="wifi_throttling_off">Wi-Fi scan throttling is disabled</string>
+    <string name="wifi_throttling_on">"Wi-Fi scan throttling is enabled"</string>
+    <string name="wifi_throttling_off">"Wi-Fi scan throttling is disabled"</string>
     <!-- wifi throttling end -->
 
     <!-- fast roaming start -->

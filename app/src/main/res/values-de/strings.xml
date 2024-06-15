@@ -44,7 +44,7 @@
     <string name="location_msg">"Wenn diese App verwendet wird, kann sie über die Standortdienste deinen genauen Standort ermitteln. Damit das funktioniert, müssen die Standortdienste auf deinem Gerät aktiviert sein. Das kann den Akkuverbrauch erhöhen."</string>
     <string name="throttling_msg">"Android 9 führte die Drosselung des WLan-Scans ein. Android 10 verfügt über eine neue Entwickleroption, mit der Sie die Drosselung unter (Einstellungen > Entwickleroptionen > Netzwerk > Drosselung des WLan-Scans) deaktivieren können."</string>
     <string name="export_not_available">"Export nicht verfügbar"</string>
-    <string name="current_connection">Aktuelle Verbindung</string>
+    <string name="current_connection">"Aktuelle Verbindung"</string>
 
     <string name="channel_rating_best">"Beste Kanäle:"</string>
     <string name="channel_rating_best_none">"Keine"</string>
@@ -127,7 +127,7 @@
     <!-- filter end -->
 
     <!-- wifi throttling start -->
-    <string name="wifi_throttling_on">Die WLAN-Scan-Drosselung ist aktiviert</string>
-    <string name="wifi_throttling_off">Die WLAN-Scan-Drosselung ist deaktiviert</string>
+    <string name="wifi_throttling_on">"Die WLAN-Scan-Drosselung ist aktiviert"</string>
+    <string name="wifi_throttling_off">"Die WLAN-Scan-Drosselung ist deaktiviert"</string>
     <!-- wifi throttling end -->
 </resources>

@@ -44,7 +44,7 @@
     <string name="location_msg">"Mientras la utilizas, esta aplicación puede obtener tu ubicación exacta mediante servicios de ubicación, siempre que el dispositivo los tenga activados. Es posible que esto aumente el consumo de batería."</string>
     <string name="throttling_msg">"Android 9 introdujo la limitación de escaneo de Wi-Fi. Android 10 tiene una nueva opción de desarrollador para desactivar la aceleración en (Configuración > Opciones de desarrollador > Redes > Aceleración de escaneo de Wi-Fi)."</string>
     <string name="export_not_available">"Exportación no disponible"</string>
-    <string name="current_connection">Conexión actual</string>
+    <string name="current_connection">"Conexión actual"</string>
 
     <string name="channel_rating_best">"Mejores canales:"</string>
     <string name="channel_rating_best_none">"Ninguno"</string>
@@ -127,7 +127,7 @@
     <!-- filter end -->
 
     <!-- wifi throttling start -->
-    <string name="wifi_throttling_on">La aceleración del escaneo de Wi-Fi está habilitada</string>
-    <string name="wifi_throttling_off">La aceleración del escaneo de Wi-Fi está deshabilitada</string>
+    <string name="wifi_throttling_on">"La aceleración del escaneo de Wi-Fi está habilitada"</string>
+    <string name="wifi_throttling_off">"La aceleración del escaneo de Wi-Fi está deshabilitada"</string>
     <!-- wifi throttling end -->
 </resources>

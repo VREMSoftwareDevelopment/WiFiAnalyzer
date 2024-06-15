@@ -43,7 +43,7 @@
     <string name="location_msg">"Deze app kan je precieze locatie opvragen bij de locatieservices terwijl de app wordt gebruikt. De app kan de locatie alleen opvragen als de locatieservices voor je apparaat zijn ingeschakeld. Hierdoor kan het batterijgebruik toenemen."</string>
     <string name="throttling_msg">"Android 9 introduceerde wifi-scanbeperking. Android 10 heeft een nieuwe ontwikkelaaroptie om de beperking uit te schakelen onder (Instellingen > Opties voor ontwikkelaars > Netwerken > wifi-scanbeperking)."</string>
     <string name="export_not_available">"Export niet beschikbaar"</string>
-    <string name="current_connection">Huidige verbinding</string>
+    <string name="current_connection">"Huidige verbinding"</string>
 
     <string name="channel_rating_best">"Beste kanalen:"</string>
     <string name="channel_rating_best_none">"Geen"</string>
@@ -126,7 +126,7 @@
     <!-- filter end -->
 
     <!-- wifi throttling start -->
-    <string name="wifi_throttling_on">Wi-Fi-scanbeperking is ingeschakeld</string>
-    <string name="wifi_throttling_off">Wi-Fi-scanbeperking is uitgeschakeld</string>
+    <string name="wifi_throttling_on">"Wi-Fi-scanbeperking is ingeschakeld"</string>
+    <string name="wifi_throttling_off">"Wi-Fi-scanbeperking is uitgeschakeld"</string>
     <!-- wifi throttling end -->
 </resources>

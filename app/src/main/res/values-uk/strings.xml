@@ -43,7 +43,7 @@
     <string name="location_msg">"Цей додаток може отримувати дані про ваше точне місцезнаходження лише в активному режимі. Щоб додаток користувався службами локації, вони мають бути наявні й увімкнені на вашому телефоні. Через це може швидше розряджатись акумулятор."</string>
     <string name="throttling_msg">"Android 9 представив регулятор Wi-Fi сканування. Android 10 має нову опцію для розробника, щоб вимкнути регулювання в розділі (Налаштування > Параметри розробника > Мережа > Регулювання сканування Wi-Fi)."</string>
     <string name="export_not_available">"Експорт не доступний"</string>
-    <string name="current_connection">Поточне підключення</string>
+    <string name="current_connection">"Поточне підключення"</string>
 
     <string name="channel_rating_best">"Кращі канали:"</string>
     <string name="channel_rating_best_none">"Немає"</string>
@@ -126,7 +126,7 @@
     <!-- filter end -->
 
     <!-- wifi throttling start -->
-    <string name="wifi_throttling_on">Регулювання сканування Wi-Fi увімкнено</string>
-    <string name="wifi_throttling_off">Регулювання сканування Wi-Fi вимкнено</string>
+    <string name="wifi_throttling_on">"Регулювання сканування Wi-Fi увімкнено"</string>
+    <string name="wifi_throttling_off">"Регулювання сканування Wi-Fi вимкнено"</string>
     <!-- wifi throttling end -->
 </resources>

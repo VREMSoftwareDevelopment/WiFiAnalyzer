@@ -44,7 +44,7 @@
     <string name="location_msg">"Приложение сможет получать сведения о вашем точном местоположении, только когда используется. Для этого на устройстве должна быть включена геолокация. Учтите, что при этом заряд батареи может расходоваться быстрее."</string>
     <string name="throttling_msg">"В Android 9 введено регулирование сканирования Wi-Fi. В Android 10 появилась новая опция разработчика, позволяющая отключить регулирование в (Настройки > Параметры разработчика > Сеть > Регулирование сканирования Wi-Fi)."</string>
     <string name="export_not_available">"Экспорт не доступен"</string>
-    <string name="current_connection">Текущее соединение</string>
+    <string name="current_connection">"Текущее соединение"</string>
 
     <string name="channel_rating_best">"Лучшие каналы:"</string>
     <string name="channel_rating_best_none">"Нет"</string>
@@ -127,7 +127,7 @@
     <!-- filter end -->
 
     <!-- wifi throttling start -->
-    <string name="wifi_throttling_on">Регулирование сканирования Wi-Fi включено</string>
-    <string name="wifi_throttling_off">Регулирование сканирования Wi-Fi отключено</string>
+    <string name="wifi_throttling_on">"Регулирование сканирования Wi-Fi включено"</string>
+    <string name="wifi_throttling_off">"Регулирование сканирования Wi-Fi отключено"</string>
     <!-- wifi throttling end -->
 </resources>

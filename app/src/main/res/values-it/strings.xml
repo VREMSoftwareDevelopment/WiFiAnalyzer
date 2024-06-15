@@ -44,7 +44,7 @@
     <string name="location_msg">"Questa app può recuperare la tua posizione precisa dai Servizi di geolocalizzazione quando l\'app è in uso. L\'impostazione Servizi di geolocalizzazione deve essere attiva sul tuo dispositivo perché l\'app possa recuperare la tua posizione. Questa operazione potrebbe comportare un maggior consumo della batteria."</string>
     <string name="throttling_msg">"Android 9 ha introdotto la limitazione della scansione Wi-Fi. Android 10 ha una nuova opzione sviluppatore per disattivare la limitazione in (Impostazioni > Opzioni sviluppatore > Rete > Limitazione scansione Wi-Fi)."</string>
     <string name="export_not_available">"Impossibile esportare"</string>
-    <string name="current_connection">Connessione attuale</string>
+    <string name="current_connection">"Connessione attuale"</string>
 
     <string name="channel_rating_best">"Canali Migliori:"</string>
     <string name="channel_rating_best_none">"Nessuno"</string>
@@ -127,7 +127,7 @@
     <!-- filter end -->
 
     <!-- wifi throttling start -->
-    <string name="wifi_throttling_on">La limitazione della scansione Wi-Fi è abilitata</string>
-    <string name="wifi_throttling_off">La limitazione della scansione Wi-Fi è disabilitata</string>
+    <string name="wifi_throttling_on">"La limitazione della scansione Wi-Fi è abilitata"</string>
+    <string name="wifi_throttling_off">"La limitazione della scansione Wi-Fi è disabilitata"</string>
     <!-- wifi throttling end -->
 </resources>
