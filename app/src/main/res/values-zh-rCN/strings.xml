@@ -44,7 +44,7 @@
     <string name="location_msg">"当您使用此应用时，此应用可以通过位置信息服务获取您的确切位置信息。您必须开启设备的位置信息服务，此应用才能获取位置信息。这可能会增加耗电量。"</string>
     <string name="throttling_msg">"Android 9 引入了 Wi-Fi 扫描限制。 Android 10 有一个新的开发人员选项，可在（设置 > 开发人员选项 > 网络 > Wi-Fi 扫描限制）下关闭限制。"</string>
     <string name="export_not_available">无可用的导出"</string>
-    <string name="current_connection">"目前連接"</string>
+    <string name="current_connection">"目前连接"</string>
 
     <string name="channel_rating_best">"最佳信道："</string>
     <string name="channel_rating_best_none">"无"</string>
@@ -59,7 +59,7 @@
     <string name="graph_axis_y">"信号强度 (dBm)"</string>
 
     <!-- settings start -->
-    <string name="country_code_title">"国家"</string>
+    <string name="country_code_title">"国家 (或地区)"</string>
 
     <string name="scan_speed_title">"扫描间隔"</string>
     <string name="scan_speed_summary">"%s 秒"</string>
@@ -120,7 +120,7 @@
     <string name="filter_close">"关闭"</string>
     <string name="filter_reset">"重置"</string>
     <string name="filter_apply">"应用"</string>
-    <string name="filter_ssid_title">"SSID (區分大小寫)"</string>
+    <string name="filter_ssid_title">"SSID (区分大小写)"</string>
     <string name="filter_wifi_band_title">"Wi-Fi 频段"</string>
     <string name="filter_strength_title">"信号强度"</string>
     <string name="filter_security_title">"安全性"</string>
