@@ -26,32 +26,32 @@ apply plugin: "kotlin-allopen"
 dependencies {
     // Compile Build Dependencies
     implementation fileTree(include: ["*.jar"], dir: "libs")
-    implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.annotation:annotation:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.collection:collection-ktx:1.4.0'
-    implementation 'androidx.core:core-ktx:1.13.1'
-    implementation 'androidx.core:core-splashscreen:1.0.1'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2'
-    implementation 'androidx.media:media:1.7.0'
-    implementation 'androidx.preference:preference-ktx:1.2.1'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'com.jjoe64:graphview:4.2.2'
+    implementation libs.material
+    implementation libs.annotation
+    implementation libs.appcompat
+    implementation libs.collection.ktx
+    implementation libs.core.ktx
+    implementation libs.core.splashscreen
+    implementation libs.legacy.support.v4
+    implementation libs.lifecycle.viewmodel.ktx
+    implementation libs.media
+    implementation libs.preference.ktx
+    implementation libs.kotlin.stdlib
+    implementation libs.graphview
     // Unit Test Dependencies
-    testImplementation 'androidx.test.ext:junit:1.1.5'
-    testImplementation 'com.googlecode.junit-toolbox:junit-toolbox:2.4'
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:5.12.0'
-    testImplementation 'org.mockito.kotlin:mockito-kotlin:5.3.1'
-    testImplementation 'org.robolectric:robolectric:4.12.2'
-    testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    testImplementation 'org.slf4j:slf4j-simple:2.0.13'
-    testImplementation 'org.assertj:assertj-core:3.26.0'
+    testImplementation libs.junit
+    testImplementation libs.junit.toolbox
+    testImplementation libs.junit.junit
+    testImplementation libs.mockito.core
+    testImplementation libs.mockito.kotlin
+    testImplementation libs.robolectric
+    testImplementation libs.kotlin.test
+    testImplementation libs.kotlin.test.junit
+    testImplementation libs.slf4j.simple
+    testImplementation libs.assertj.core
     // Android Test Dependencies
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.5'
+    androidTestImplementation libs.espresso.core
+    androidTestImplementation libs.junit.ktx
 }
 
 android {
