@@ -1,0 +1,49 @@
+[versions]
+annotation = "1.8.1"
+appcompat = "1.7.0"
+assertjCore = "3.26.3"
+collectionKtx = "1.4.2"
+coreKtx = "1.13.1"
+coreSplashscreen = "1.0.1"
+espressoCore = "3.6.1"
+junit = "1.2.1"
+junitToolbox = "2.4"
+junitVersion = "4.13.2"
+kotlinStdlib = "2.0.0"
+graphview = "4.2.2"
+legacySupportV4 = "1.0.0"
+lifecycleViewmodelKtx = "2.8.4"
+material = "1.12.0"
+media = "1.7.0"
+mockitoCore = "5.12.0"
+mockitoKotlin = "5.4.0"
+preferenceKtx = "1.2.1"
+robolectric = "4.13"
+slf4jSimple = "2.0.13"
+
+[libraries]
+annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertjCore" }
+collection-ktx = { module = "androidx.collection:collection-ktx", version.ref = "collectionKtx" }
+core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
+espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
+graphview = { module = "com.jjoe64:graphview", version.ref = "graphview" }
+junit-junit = { module = "junit:junit", version.ref = "junitVersion" }
+junit-ktx = { module = "androidx.test.ext:junit-ktx", version.ref = "junit" }
+junit-toolbox = { module = "com.googlecode.junit-toolbox:junit-toolbox", version.ref = "junitToolbox" }
+junit = { module = "androidx.test.ext:junit", version.ref = "junit" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlinStdlib" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlinStdlib" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlinStdlib" }
+legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacySupportV4" }
+lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+media = { module = "androidx.media:media", version.ref = "media" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
+preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4jSimple" }
+
