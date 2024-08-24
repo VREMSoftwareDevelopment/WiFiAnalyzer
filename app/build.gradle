@@ -27,13 +27,13 @@ dependencies {
     // Compile Build Dependencies
     implementation fileTree(include: ["*.jar"], dir: "libs")
     implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.annotation:annotation:1.8.0'
+    implementation 'androidx.annotation:annotation:1.8.2'
     implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.collection:collection-ktx:1.4.1'
+    implementation 'androidx.collection:collection-ktx:1.4.3'
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.core:core-splashscreen:1.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4'
     implementation 'androidx.media:media:1.7.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -47,7 +47,7 @@ dependencies {
     testImplementation 'org.robolectric:robolectric:4.13'
     testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    testImplementation 'org.slf4j:slf4j-simple:2.0.13'
+    testImplementation 'org.slf4j:slf4j-simple:2.0.16'
     testImplementation 'org.assertj:assertj-core:3.26.3'
     // Android Test Dependencies
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
