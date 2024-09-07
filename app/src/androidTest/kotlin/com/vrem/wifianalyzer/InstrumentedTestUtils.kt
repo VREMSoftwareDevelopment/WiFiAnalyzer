@@ -30,7 +30,7 @@ internal class ChildAtPosition(private val parentMatcher: Matcher<View>, private
         parentMatcher.describeTo(description)
     }
 
-    public override fun matchesSafely(view: View): Boolean {
+    override fun matchesSafely(view: View): Boolean {
         val parent = view.parent
         return (parent is ViewGroup && parentMatcher.matches(parent) && view == parent.getChildAt(position))
     }
