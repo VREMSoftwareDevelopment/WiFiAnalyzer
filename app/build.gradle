@@ -29,11 +29,11 @@ dependencies {
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.annotation:annotation:1.8.2'
     implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.collection:collection-ktx:1.4.3'
+    implementation 'androidx.collection:collection-ktx:1.4.4'
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.core:core-splashscreen:1.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.5'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6'
     implementation 'androidx.media:media:1.7.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -42,7 +42,7 @@ dependencies {
     testImplementation 'androidx.test.ext:junit:1.2.1'
     testImplementation 'com.googlecode.junit-toolbox:junit-toolbox:2.4'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:5.13.0'
+    testImplementation 'org.mockito:mockito-core:5.14.0'
     testImplementation 'org.mockito.kotlin:mockito-kotlin:5.4.0'
     testImplementation 'org.robolectric:robolectric:4.13'
     testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
