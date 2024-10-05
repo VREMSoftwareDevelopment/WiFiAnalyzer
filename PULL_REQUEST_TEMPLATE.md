@@ -1,7 +1,5 @@
 Thanks for sending a pull request!
 
-**Please make sure that you are using `feature` branch, since all the WiFi Analyzer changes are done on the `feature` branch!**
-
 [How to submit a pull request](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Pull-Request)
 
 **What does this implement/fix? Please describe.**

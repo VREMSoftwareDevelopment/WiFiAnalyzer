@@ -13,7 +13,8 @@
 
 - Make sure you are using the latest version of WiFiAnalyzer.
 - Please search issues to see if the same feature has already been submitted.
-- If an feature has already been opened, feel free to add more useful information to it. Oherwise, open a new feature request (one feature per request).
+- If an feature has already been opened, feel free to add more useful information to it. Otherwise, open a new feature
+  request (one feature per request).
 - Please provide an explanation how the feature solves the problem you are having.
 - UI feature request, please  describe what the UI would look like and how the user would interact with it.
 
@@ -21,8 +22,6 @@
 
 - When starting to work on a feature or bug that has been reported, please add a comment to it that you are working on it.
 - Fork the repository
-- Please make sure that you are using `feature` branch, since all the WiFiAnalyzer changes are done on the `feature` branch.
-- WiFiAnalyzer 'master' branch is only used to release new versions. As a result, the `master` branch most likely doesn't contain the latest changes.
 - To close a feature or a bug automatically, once pull request has been merged, please mention it in the [commit comment](https://help.github.com/articles/closing-issues-via-commit-messages/) or [pull request text](https://github.com/blog/1506-closing-issues-via-pull-requests).
 - Please avoid if possible large change sets.
 - Please do not forget to add unit tests.
