@@ -17,4 +17,4 @@ jobs:
           stale-issue-label: 'stale'
           stale-pr-label: 'stale'
           exempt-issue-labels: 'bug,high-priority'
-          operations-per-run: 100
+          days-before-stale: 365

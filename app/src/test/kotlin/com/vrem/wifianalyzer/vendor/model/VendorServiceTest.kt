@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2024 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2025 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,9 +32,9 @@ class VendorServiceTest {
     private val macAddress = "00:23:AB:8C:DF:10"
     private val vendorNameInvalid = "XXXXX"
     private val macAddressInvalid = "XX:XX:XX"
-    private val vendorSize = 19076
-    private val macsSize = 35611
-    private val macsCiscoSize = 1132
+    private val vendorSize = 19230
+    private val macsSize = 36644
+    private val macsCiscoSize = 1160
     private val filterVendor = "1394 "
     private val filterMac = "00:A0:2"
     private val expectedVendorName1 = "1394 TRADE ASSOCIATION"
@@ -42,7 +42,7 @@ class VendorServiceTest {
     private val expectedVendorName3 = "1394 PRINTER WORKING GROUP"
     private val expectedMac1 = "00:00:0C"
     private val expectedMac2 = "FC:FB:FB"
-    private val expectedMac3 = "24:16:1B"
+    private val expectedMac3 = "28:34:A2"
 
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val fixture = VendorService(mainActivity.resources)
