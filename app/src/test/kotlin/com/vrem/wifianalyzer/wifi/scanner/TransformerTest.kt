@@ -32,7 +32,7 @@ import org.robolectric.annotation.Config
 import java.nio.ByteBuffer
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
+@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class TransformerTest {
     private val informationElement1 = withInformationElement(RM_ENABLED_CAPABILITIES_IE, byteArrayOf(0x7F, 0, 0, 0, 0))
     private val informationElement2 = withInformationElement(EXTENDED_CAPABILITIES_IE, byteArrayOf(0, 0, 0x7F))

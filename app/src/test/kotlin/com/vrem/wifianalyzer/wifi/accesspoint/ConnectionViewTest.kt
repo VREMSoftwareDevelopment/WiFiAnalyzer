@@ -38,7 +38,7 @@ import org.mockito.kotlin.*
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
+@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class ConnectionViewTest {
     private val ssid = "SSID"
     private val bssid = "BSSID"

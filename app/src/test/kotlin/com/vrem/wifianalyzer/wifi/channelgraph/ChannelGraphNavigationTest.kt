@@ -38,7 +38,7 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
+@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class ChannelGraphNavigationTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val scanner = MainContextHelper.INSTANCE.scannerService

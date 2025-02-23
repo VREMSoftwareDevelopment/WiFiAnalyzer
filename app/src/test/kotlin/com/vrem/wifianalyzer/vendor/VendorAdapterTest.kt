@@ -36,7 +36,7 @@ import org.mockito.kotlin.*
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
+@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class VendorAdapterTest {
     private val vendorName1 = "N1"
     private val vendorName2 = "N2"

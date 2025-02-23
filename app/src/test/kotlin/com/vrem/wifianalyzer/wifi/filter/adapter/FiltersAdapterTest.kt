@@ -37,7 +37,7 @@ import org.robolectric.annotation.Config
 import java.io.Serializable
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
+@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class FiltersAdapterTest {
     @Suppress("unused")
     private val mainActivity = RobolectricUtil.INSTANCE.activity

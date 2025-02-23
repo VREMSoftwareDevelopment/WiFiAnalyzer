@@ -40,7 +40,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
+@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class AboutFragmentTest {
     @Suppress("unused")
     private val mainActivity = RobolectricUtil.INSTANCE.activity

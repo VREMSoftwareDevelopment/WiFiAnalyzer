@@ -29,7 +29,7 @@ import org.robolectric.annotation.Config
 import java.nio.ByteBuffer
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.UPSIDE_DOWN_CAKE])
+@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class FastRoamingTest {
     @Config(sdk = [Build.VERSION_CODES.Q])
     @Test
