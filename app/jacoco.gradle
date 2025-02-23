@@ -66,15 +66,15 @@ task jacocoTestCoverageVerification(type: JacocoCoverageVerification, dependsOn:
             element = 'BUNDLE'
             limit {
                 counter = 'INSTRUCTION'
-                minimum = 0.96
+                minimum = 0.97
             }
             limit {
                 counter = 'BRANCH'
-                minimum = 0.84
+                minimum = 0.88
             }
             limit {
                 counter = 'COMPLEXITY'
-                minimum = 0.89
+                minimum = 0.92
             }
             limit {
                 counter = 'LINE'

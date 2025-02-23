@@ -32,6 +32,7 @@ import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.robolectric.Robolectric
@@ -64,12 +65,28 @@ class MainActivityTest {
     }
 
     @Test
-    fun onResumeWithPermissionGrantedWillResumeScanner() {
+    fun onResumeWithPermissionGrantedAndLocationDisabledWillResumeScanner() {
         // setup
         val permissionService = MainContextHelper.INSTANCE.permissionService
         val scannerService = MainContextHelper.INSTANCE.scannerService
         whenever(permissionService.permissionGranted()).thenReturn(true)
         whenever(permissionService.locationEnabled()).thenReturn(false)
+        // execute
+        fixture.onResume()
+        // validate
+        verify(permissionService).permissionGranted()
+        verify(permissionService).locationEnabled()
+        verify(scannerService).resume()
+        verify(scannerService).register(fixture.connectionView)
+    }
+
+    @Test
+    fun onResumeWithPermissionGrantedAndLocationEnabledWillResumeScanner() {
+        // setup
+        val permissionService = MainContextHelper.INSTANCE.permissionService
+        val scannerService = MainContextHelper.INSTANCE.scannerService
+        whenever(permissionService.permissionGranted()).thenReturn(true)
+        whenever(permissionService.locationEnabled()).thenReturn(true)
         // execute
         fixture.onResume()
         // validate
@@ -91,19 +108,37 @@ class MainActivityTest {
         verify(scannerService).pause()
         verify(scannerService).register(fixture.connectionView)
         verify(permissionService).permissionGranted()
+        verify(permissionService, never()).locationEnabled()
     }
 
     @Test
-    fun onStartWithPermissionGrantedWillResumeScanner() {
+    fun onStartWithPermissionGrantedAndLocationDisabledWillResumeScanner() {
         // setup
         val permissionService = MainContextHelper.INSTANCE.permissionService
         val scannerService = MainContextHelper.INSTANCE.scannerService
         whenever(permissionService.permissionGranted()).thenReturn(true)
+        whenever(permissionService.locationEnabled()).thenReturn(false)
         // execute
         fixture.onStart()
         // validate
         verify(scannerService).resume()
         verify(permissionService).permissionGranted()
+        verify(permissionService).locationEnabled()
+    }
+
+    @Test
+    fun onStartWithPermissionGrantedAndLocationEnabledWillResumeScanner() {
+        // setup
+        val permissionService = MainContextHelper.INSTANCE.permissionService
+        val scannerService = MainContextHelper.INSTANCE.scannerService
+        whenever(permissionService.permissionGranted()).thenReturn(true)
+        whenever(permissionService.locationEnabled()).thenReturn(true)
+        // execute
+        fixture.onStart()
+        // validate
+        verify(scannerService).resume()
+        verify(permissionService).permissionGranted()
+        verify(permissionService).locationEnabled()
     }
 
     @Test
@@ -116,6 +151,7 @@ class MainActivityTest {
         // validate
         verify(permissionService).check()
         verify(permissionService).permissionGranted()
+        verify(permissionService, never()).locationEnabled()
     }
 
     @Test

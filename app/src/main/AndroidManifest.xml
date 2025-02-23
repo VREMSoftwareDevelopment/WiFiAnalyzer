@@ -56,10 +56,4 @@
             </intent-filter>
         </activity>
     </application>
-
-    <queries>
-        <package android:name="com.aaronjwood.portauthority" />
-        <package android:name="com.aaronjwood.portauthority.free" />
-        <package android:name="com.aaronjwood.portauthority.donate" />
-    </queries>
 </manifest>

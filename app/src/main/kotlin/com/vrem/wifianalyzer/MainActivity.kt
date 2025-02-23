@@ -100,10 +100,10 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (!MainContext.INSTANCE.permissionService.granted(requestCode, grantResults)) {
             finish()
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     private fun setWiFiChannelPairs(mainContext: MainContext) {
@@ -181,16 +181,21 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
 
     public override fun onStop() {
         MainContext.INSTANCE.scannerService.stop()
+        updateActionBar()
         super.onStop()
     }
 
     public override fun onStart() {
         super.onStart()
         if (MainContext.INSTANCE.permissionService.permissionGranted()) {
+            if (!MainContext.INSTANCE.permissionService.locationEnabled()) {
+                startLocationSettings()
+            }
             MainContext.INSTANCE.scannerService.resume()
         } else {
             MainContext.INSTANCE.permissionService.check()
         }
+        updateActionBar()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
