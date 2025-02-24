@@ -92,7 +92,7 @@ class FilterTest {
         button.performClick()
         // validate
         RobolectricUtil.INSTANCE.clearLooper()
-        assertThat(fixture.alertDialog!!.isShowing).isFalse()
+        assertThat(fixture.alertDialog.isShowing).isFalse()
         verify(filtersAdapter).save()
         verify(mainActivity).update()
     }
@@ -108,7 +108,7 @@ class FilterTest {
         button.performClick()
         // validate
         RobolectricUtil.INSTANCE.clearLooper()
-        assertThat(fixture.alertDialog!!.isShowing).isFalse()
+        assertThat(fixture.alertDialog.isShowing).isFalse()
         verify(filtersAdapter).reset()
         verify(mainActivity).update()
     }
@@ -124,7 +124,7 @@ class FilterTest {
         button.performClick()
         // validate
         RobolectricUtil.INSTANCE.clearLooper()
-        assertThat(fixture.alertDialog!!.isShowing).isFalse()
+        assertThat(fixture.alertDialog.isShowing).isFalse()
         verify(filtersAdapter).reload()
         verify(mainActivity, never()).update()
     }
