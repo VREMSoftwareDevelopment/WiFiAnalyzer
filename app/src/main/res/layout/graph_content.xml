@@ -123,17 +123,6 @@
                     android:minHeight="0dp"
                     tools:text="600-699" />
 
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/graphNavigationSet7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/activity_vertical_half_margin"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    tools:text="700-799" />
             </LinearLayout>
         </LinearLayout>
 
