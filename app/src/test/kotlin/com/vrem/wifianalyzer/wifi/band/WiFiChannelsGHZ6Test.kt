@@ -56,7 +56,7 @@ class WiFiChannelsGHZ6Test {
     @Test
     fun wiFiChannelByChannel() {
         assertThat(fixture.wiFiChannelByChannel(1).frequency).isEqualTo(5955)
-        assertThat(fixture.wiFiChannelByChannel(93).frequency).isEqualTo(6415)
+        assertThat(fixture.wiFiChannelByChannel(97).frequency).isEqualTo(6435)
     }
 
     @Test
@@ -72,7 +72,7 @@ class WiFiChannelsGHZ6Test {
 
     @Test
     fun wiFiChannelLast() {
-        assertThat(fixture.wiFiChannelLast().channel).isEqualTo(229)
+        assertThat(fixture.wiFiChannelLast().channel).isEqualTo(233)
     }
 
     @Test
@@ -85,14 +85,13 @@ class WiFiChannelsGHZ6Test {
     @Test
     fun wiFiChannelPairs() {
         val wiFiChannelPairs: List<WiFiChannelPair> = fixture.wiFiChannelPairs()
-        assertThat(wiFiChannelPairs).hasSize(7)
-        validatePair(1, 29, wiFiChannelPairs[0])
-        validatePair(33, 61, wiFiChannelPairs[1])
-        validatePair(65, 93, wiFiChannelPairs[2])
-        validatePair(97, 125, wiFiChannelPairs[3])
-        validatePair(129, 157, wiFiChannelPairs[4])
-        validatePair(161, 189, wiFiChannelPairs[5])
-        validatePair(193, 229, wiFiChannelPairs[6])
+        assertThat(wiFiChannelPairs).hasSize(6)
+        validatePair(1, 65, wiFiChannelPairs[0])
+        validatePair(33, 97, wiFiChannelPairs[1])
+        validatePair(65, 129, wiFiChannelPairs[2])
+        validatePair(97, 161, wiFiChannelPairs[3])
+        validatePair(129, 189, wiFiChannelPairs[4])
+        validatePair(161, 233, wiFiChannelPairs[5])
     }
 
     private fun validatePair(expectedFirst: Int, expectedSecond: Int, pair: WiFiChannelPair) {

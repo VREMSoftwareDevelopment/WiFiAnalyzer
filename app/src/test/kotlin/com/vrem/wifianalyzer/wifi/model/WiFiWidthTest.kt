@@ -26,7 +26,7 @@ class WiFiWidthTest {
 
     @Test
     fun width() {
-        assertThat(WiFiWidth.entries.size).isEqualTo(5)
+        assertThat(WiFiWidth.entries.size).isEqualTo(6)
     }
 
     @Test
@@ -56,7 +56,7 @@ class WiFiWidthTest {
         assertThat(WiFiWidth.MHZ_80.frequencyWidthHalf).isEqualTo(40)
         assertThat(WiFiWidth.MHZ_160.frequencyWidthHalf).isEqualTo(80)
         assertThat(WiFiWidth.MHZ_80_PLUS.frequencyWidthHalf).isEqualTo(40)
-        assertThat(WiFiWidth.MHZ_320.frequencyWidthHalf).isEqualTo(320)
+        assertThat(WiFiWidth.MHZ_320.frequencyWidthHalf).isEqualTo(160)
     }
 
     @Test
@@ -78,7 +78,7 @@ class WiFiWidthTest {
         assertThat(WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_320MHZ)).isEqualTo(WiFiWidth.MHZ_320)
         assertThat(WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ)).isEqualTo(WiFiWidth.MHZ_80_PLUS)
         assertThat(WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_20MHZ - 1)).isEqualTo(WiFiWidth.MHZ_20)
-        assertThat(WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ + 1)).isEqualTo(WiFiWidth.MHZ_20)
+        assertThat(WiFiWidth.findOne(ScanResult.CHANNEL_WIDTH_320MHZ + 1)).isEqualTo(WiFiWidth.MHZ_20)
     }
 
     @Test
