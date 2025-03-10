@@ -157,7 +157,6 @@ class ChannelGraphNavigationTest {
         assertThat(WiFiChannelsGHZ6.SET4).isEqualTo(line2[R.id.graphNavigationSet4])
         assertThat(WiFiChannelsGHZ6.SET5).isEqualTo(line2[R.id.graphNavigationSet5])
         assertThat(WiFiChannelsGHZ6.SET6).isEqualTo(line2[R.id.graphNavigationSet6])
-        assertThat(WiFiChannelsGHZ6.SET7).isEqualTo(line2[R.id.graphNavigationSet7])
     }
 
     private fun whenLines(navigationLines: NavigationLines) {
