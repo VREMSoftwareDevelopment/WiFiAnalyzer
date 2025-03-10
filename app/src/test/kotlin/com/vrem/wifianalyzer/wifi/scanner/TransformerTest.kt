@@ -153,6 +153,11 @@ class TransformerTest {
             WiFiWidth.MHZ_80 -> FREQUENCY + wiFiWidth.frequencyWidthHalf
             WiFiWidth.MHZ_160 -> FREQUENCY + wiFiWidth.frequencyWidth
             WiFiWidth.MHZ_80_PLUS -> FREQUENCY + wiFiWidth.frequencyWidthHalf
+            WiFiWidth.MHZ_320 -> FREQUENCY + wiFiWidth.frequencyWidthHalf
+        }
+        scanResult.centerFreq1 = when(wiFiWidth) {
+            WiFiWidth.MHZ_320 -> FREQUENCY + wiFiWidth.frequencyWidth
+            else -> -1
         }
         scanResult.level = LEVEL
         scanResult.channelWidth = wiFiWidth.ordinal
