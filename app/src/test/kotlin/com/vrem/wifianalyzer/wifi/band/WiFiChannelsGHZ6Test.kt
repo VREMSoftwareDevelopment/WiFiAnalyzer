@@ -50,7 +50,7 @@ class WiFiChannelsGHZ6Test {
     @Test
     fun wiFiChannelByFrequencyNotFound() {
         assertThat(fixture.wiFiChannelByFrequency(5952)).isEqualTo(WiFiChannel.UNKNOWN)
-        assertThat(fixture.wiFiChannelByFrequency(6418)).isEqualTo(WiFiChannel.UNKNOWN)
+        assertThat(fixture.wiFiChannelByFrequency(7098)).isEqualTo(WiFiChannel.UNKNOWN)
     }
 
     @Test
@@ -62,7 +62,7 @@ class WiFiChannelsGHZ6Test {
     @Test
     fun wiFiChannelByChannelNotFound() {
         assertThat(fixture.wiFiChannelByChannel(0)).isEqualTo(WiFiChannel.UNKNOWN)
-        assertThat(fixture.wiFiChannelByChannel(94)).isEqualTo(WiFiChannel.UNKNOWN)
+        assertThat(fixture.wiFiChannelByChannel(230)).isEqualTo(WiFiChannel.UNKNOWN)
     }
 
     @Test
@@ -77,9 +77,9 @@ class WiFiChannelsGHZ6Test {
 
     @Test
     fun wiFiChannelPair() {
-        validatePair(1, 29, fixture.wiFiChannelPairFirst(Locale.US.country))
-        validatePair(1, 29, fixture.wiFiChannelPairFirst(String.EMPTY))
-        validatePair(1, 29, fixture.wiFiChannelPairFirst("XYZ"))
+        validatePair(1, 65, fixture.wiFiChannelPairFirst(Locale.US.country))
+        validatePair(1, 65, fixture.wiFiChannelPairFirst(String.EMPTY))
+        validatePair(1, 65, fixture.wiFiChannelPairFirst("XYZ"))
     }
 
     @Test
