@@ -41,7 +41,7 @@ class WiFiChannelsGHZ6 : WiFiChannels(RANGE, SETS) {
         val SET3 = WiFiChannelPair(WiFiChannel(65, 6275), WiFiChannel(129, 6595))
         val SET4 = WiFiChannelPair(WiFiChannel(97, 6435), WiFiChannel(161, 6755))
         val SET5 = WiFiChannelPair(WiFiChannel(129, 6595), WiFiChannel(189, 6895))
-        val SET6 = WiFiChannelPair(WiFiChannel(161, 6755), WiFiChannel(233, 7115))
+        val SET6 = WiFiChannelPair(WiFiChannel(161, 6755), WiFiChannel(229, 7095))
         val SETS = listOf(SET1, SET2, SET3, SET4, SET5, SET6)
         private val RANGE = WiFiRange(5925, 7125)
     }

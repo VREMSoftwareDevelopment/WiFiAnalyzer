@@ -72,7 +72,7 @@ class WiFiChannelsGHZ6Test {
 
     @Test
     fun wiFiChannelLast() {
-        assertThat(fixture.wiFiChannelLast().channel).isEqualTo(233)
+        assertThat(fixture.wiFiChannelLast().channel).isEqualTo(229)
     }
 
     @Test
@@ -91,7 +91,7 @@ class WiFiChannelsGHZ6Test {
         validatePair(65, 129, wiFiChannelPairs[2])
         validatePair(97, 161, wiFiChannelPairs[3])
         validatePair(129, 189, wiFiChannelPairs[4])
-        validatePair(161, 233, wiFiChannelPairs[5])
+        validatePair(161, 229, wiFiChannelPairs[5])
     }
 
     private fun validatePair(expectedFirst: Int, expectedSecond: Int, pair: WiFiChannelPair) {
