@@ -17,11 +17,13 @@
  */
 package com.vrem.wifianalyzer.settings
 
+import android.graphics.Color
+import androidx.annotation.ColorInt
 import androidx.annotation.StyleRes
 import com.vrem.wifianalyzer.R
 
-enum class ThemeStyle(@param:StyleRes val theme: Int, @param:StyleRes val themeNoActionBar: Int) {
-    DARK(R.style.ThemeDark, R.style.ThemeDarkNoActionBar),
-    LIGHT(R.style.ThemeLight, R.style.ThemeLightNoActionBar),
-    SYSTEM(R.style.ThemeSystem, R.style.ThemeSystemNoActionBar);
+enum class ThemeStyle(@param:StyleRes val theme: Int, @param:StyleRes val themeNoActionBar: Int, @param:ColorInt val colorGraphText: Int) {
+    DARK(R.style.ThemeDark, R.style.ThemeDarkNoActionBar, Color.WHITE),
+    LIGHT(R.style.ThemeLight, R.style.ThemeLightNoActionBar, Color.BLACK),
+    SYSTEM(R.style.ThemeSystem, R.style.ThemeSystemNoActionBar, Color.GRAY);
 }

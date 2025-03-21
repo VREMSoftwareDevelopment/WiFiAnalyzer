@@ -173,27 +173,17 @@ class GraphViewBuilderTest {
     }
 
     @Test
-    fun gridLabelRenderColorsDarkTheme() {
+    fun gridLabelRenderColors() {
+        // setup
+        val themeStyle = ThemeStyle.LIGHT
         // execute
-        gridLabelRenderer.colors(ThemeStyle.DARK)
+        gridLabelRenderer.colors(themeStyle)
         // validate
         verify(gridLabelRenderer).gridColor = Color.GRAY
-        verify(gridLabelRenderer).verticalLabelsColor = Color.WHITE
-        verify(gridLabelRenderer).verticalAxisTitleColor = Color.WHITE
-        verify(gridLabelRenderer).horizontalLabelsColor = Color.WHITE
-        verify(gridLabelRenderer).horizontalAxisTitleColor = Color.WHITE
-    }
-
-    @Test
-    fun gridLabelRenderColorsLightTheme() {
-        // execute
-        gridLabelRenderer.colors(ThemeStyle.LIGHT)
-        // validate
-        verify(gridLabelRenderer).gridColor = Color.GRAY
-        verify(gridLabelRenderer).verticalLabelsColor = Color.BLACK
-        verify(gridLabelRenderer).verticalAxisTitleColor = Color.BLACK
-        verify(gridLabelRenderer).horizontalLabelsColor = Color.BLACK
-        verify(gridLabelRenderer).horizontalAxisTitleColor = Color.BLACK
+        verify(gridLabelRenderer).verticalLabelsColor = themeStyle.colorGraphText
+        verify(gridLabelRenderer).verticalAxisTitleColor = themeStyle.colorGraphText
+        verify(gridLabelRenderer).horizontalLabelsColor = themeStyle.colorGraphText
+        verify(gridLabelRenderer).horizontalAxisTitleColor = themeStyle.colorGraphText
     }
 
 }
