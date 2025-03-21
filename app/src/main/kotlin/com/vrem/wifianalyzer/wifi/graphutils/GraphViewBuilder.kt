@@ -44,12 +44,11 @@ internal fun Viewport.initialize(maximumY: Int): Viewport {
 }
 
 internal fun GridLabelRenderer.colors(themeStyle: ThemeStyle): GridLabelRenderer {
-    val color = if (ThemeStyle.DARK == themeStyle) Color.WHITE else Color.BLACK
     this.gridColor = Color.GRAY
-    this.verticalLabelsColor = color
-    this.verticalAxisTitleColor = color
-    this.horizontalLabelsColor = color
-    this.horizontalAxisTitleColor = color
+    this.verticalLabelsColor = themeStyle.colorGraphText
+    this.verticalAxisTitleColor = themeStyle.colorGraphText
+    this.horizontalLabelsColor = themeStyle.colorGraphText
+    this.horizontalAxisTitleColor = themeStyle.colorGraphText
     return this
 }
 

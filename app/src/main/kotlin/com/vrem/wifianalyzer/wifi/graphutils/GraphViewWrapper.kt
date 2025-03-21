@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer.wifi.graphutils
 
-import android.graphics.Color
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.LegendRenderer
 import com.jjoe64.graphview.series.BaseSeries
@@ -113,7 +112,7 @@ class GraphViewWrapper(
         legendRenderer.resetStyles()
         legendRenderer.width = 0
         legendRenderer.textSize = graphView.titleTextSize
-        legendRenderer.textColor = if (ThemeStyle.DARK == themeStyle) Color.WHITE else Color.BLACK
+        legendRenderer.textColor = themeStyle.colorGraphText
         graphLegend.display(legendRenderer)
     }
 
