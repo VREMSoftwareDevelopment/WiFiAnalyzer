@@ -27,8 +27,8 @@ This is the official repository of WiFi Analyzer.
 * Graph channels signal strength
 * Graph Access Point signal strength over time
 * Analyze WiFi networks to rate channels
-* HT/VHT Detection - 40/80/160MHz (Requires Android OS 6+)
-* 2.4 GHz, 5 GHz and 6 GHz WiFi bands (Requires hardware support)
+* HT/VHT Detection - 40/80/160/320MHz (Requires hardware/software support)
+* 2.4 GHz, 5 GHz and 6 GHz WiFi bands (Requires hardware/software support)
 * Access Point view complete or compact
 * Estimated Distance to the Access Points
 * Export access points details
@@ -49,10 +49,10 @@ This is the official repository of WiFi Analyzer.
     * <img src="images/ic_lock_outline_black_18dp.png" alt="WEP/WPS" height="20">WEP/WPS
     * <img src="images/ic_lock_open_black_18dp.png" alt="Disabled" height="20">Disabled
 * Wi-Fi Standard (Requires Android OS 11+):
-    * 4 - 802.11n
-    * 5 - 802.11ac
-    * 6 - 802.11ax
-    * 7 - 802.11be
+    * 4 - <img src="images/ic_wifi_4.png" alt="4" height="20"> - 802.11n
+    * 5 - <img src="images/ic_wifi_5.png" alt="5" height="20"> - 802.11ac
+    * 6 - <img src="images/ic_wifi_6.png" alt="6" height="20"> - 802.11ax
+    * 7 - <img src="images/ic_wifi_7.png" alt="7" height="20"> - 802.11be
 
 ## How-to
 
