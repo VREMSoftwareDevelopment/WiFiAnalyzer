@@ -60,8 +60,9 @@ internal class Transformer(private val cache: Cache) {
 
     private fun transform(cacheResult: CacheResult): WiFiDetail {
         val scanResult = cacheResult.scanResult
+
         val wiFiWidth = WiFiWidth.findOne(scanResult.channelWidth)
-        val centerFrequency = wiFiWidth.calculateCenter(scanResult.frequency, scanResult.centerFreq0)
+        val centerFrequency = wiFiWidth.calculateCenter(scanResult.frequency, scanResult.centerFreq0, scanResult.centerFreq1)
         val mc80211 = scanResult.is80211mcResponder
         val wiFiStandard = WiFiStandard.findOne(scanResult)
         val fastRoaming = FastRoaming.find(scanResult)

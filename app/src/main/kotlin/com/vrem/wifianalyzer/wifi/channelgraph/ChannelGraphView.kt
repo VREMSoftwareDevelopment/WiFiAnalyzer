@@ -53,11 +53,15 @@ internal fun makeGraphView(
     wiFiChannelPair: WiFiChannelPair
 ): GraphView {
     val resources = mainContext.resources
-    return GraphViewBuilder(wiFiChannelPair.numX(), graphMaximumY, themeStyle, true)
+    val gridView = GraphViewBuilder(wiFiChannelPair.numX(), graphMaximumY, themeStyle, true)
         .setLabelFormatter(ChannelAxisLabel(wiFiBand, wiFiChannelPair))
         .setVerticalTitle(resources.getString(R.string.graph_axis_y))
         .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
         .build(mainContext.context)
+    if(wiFiBand.ghz6) {
+        gridView.gridLabelRenderer.setHorizontalLabelsAngle(45)
+    }
+    return  gridView;
 }
 
 internal fun makeDefaultSeries(frequencyEnd: Int, minX: Int): TitleLineGraphSeries<GraphDataPoint> {

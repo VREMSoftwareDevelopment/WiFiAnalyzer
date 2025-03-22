@@ -153,11 +153,10 @@ class ChannelGraphNavigationTest {
     @Test
     fun navigationGHZ6Line2() {
         val line2 = navigationGHZ6Lines[R.id.graphNavigationLine2]!!
-        assertThat(line2).hasSize(4)
+        assertThat(line2).hasSize(3)
         assertThat(WiFiChannelsGHZ6.SET4).isEqualTo(line2[R.id.graphNavigationSet4])
         assertThat(WiFiChannelsGHZ6.SET5).isEqualTo(line2[R.id.graphNavigationSet5])
         assertThat(WiFiChannelsGHZ6.SET6).isEqualTo(line2[R.id.graphNavigationSet6])
-        assertThat(WiFiChannelsGHZ6.SET7).isEqualTo(line2[R.id.graphNavigationSet7])
     }
 
     private fun whenLines(navigationLines: NavigationLines) {

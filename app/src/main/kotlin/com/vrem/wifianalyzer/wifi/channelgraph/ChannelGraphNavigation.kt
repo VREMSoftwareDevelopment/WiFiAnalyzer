@@ -54,8 +54,7 @@ internal val navigationGHZ6Lines = mapOf(
     R.id.graphNavigationLine2 to mapOf(
         R.id.graphNavigationSet4 to WiFiChannelsGHZ6.SET4,
         R.id.graphNavigationSet5 to WiFiChannelsGHZ6.SET5,
-        R.id.graphNavigationSet6 to WiFiChannelsGHZ6.SET6,
-        R.id.graphNavigationSet7 to WiFiChannelsGHZ6.SET7
+        R.id.graphNavigationSet6 to WiFiChannelsGHZ6.SET6
     )
 )
 

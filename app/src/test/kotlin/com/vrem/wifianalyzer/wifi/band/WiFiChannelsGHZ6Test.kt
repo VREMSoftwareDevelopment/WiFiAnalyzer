@@ -50,19 +50,19 @@ class WiFiChannelsGHZ6Test {
     @Test
     fun wiFiChannelByFrequencyNotFound() {
         assertThat(fixture.wiFiChannelByFrequency(5952)).isEqualTo(WiFiChannel.UNKNOWN)
-        assertThat(fixture.wiFiChannelByFrequency(6418)).isEqualTo(WiFiChannel.UNKNOWN)
+        assertThat(fixture.wiFiChannelByFrequency(7098)).isEqualTo(WiFiChannel.UNKNOWN)
     }
 
     @Test
     fun wiFiChannelByChannel() {
         assertThat(fixture.wiFiChannelByChannel(1).frequency).isEqualTo(5955)
-        assertThat(fixture.wiFiChannelByChannel(93).frequency).isEqualTo(6415)
+        assertThat(fixture.wiFiChannelByChannel(97).frequency).isEqualTo(6435)
     }
 
     @Test
     fun wiFiChannelByChannelNotFound() {
         assertThat(fixture.wiFiChannelByChannel(0)).isEqualTo(WiFiChannel.UNKNOWN)
-        assertThat(fixture.wiFiChannelByChannel(94)).isEqualTo(WiFiChannel.UNKNOWN)
+        assertThat(fixture.wiFiChannelByChannel(230)).isEqualTo(WiFiChannel.UNKNOWN)
     }
 
     @Test
@@ -77,22 +77,21 @@ class WiFiChannelsGHZ6Test {
 
     @Test
     fun wiFiChannelPair() {
-        validatePair(1, 29, fixture.wiFiChannelPairFirst(Locale.US.country))
-        validatePair(1, 29, fixture.wiFiChannelPairFirst(String.EMPTY))
-        validatePair(1, 29, fixture.wiFiChannelPairFirst("XYZ"))
+        validatePair(1, 65, fixture.wiFiChannelPairFirst(Locale.US.country))
+        validatePair(1, 65, fixture.wiFiChannelPairFirst(String.EMPTY))
+        validatePair(1, 65, fixture.wiFiChannelPairFirst("XYZ"))
     }
 
     @Test
     fun wiFiChannelPairs() {
         val wiFiChannelPairs: List<WiFiChannelPair> = fixture.wiFiChannelPairs()
-        assertThat(wiFiChannelPairs).hasSize(7)
-        validatePair(1, 29, wiFiChannelPairs[0])
-        validatePair(33, 61, wiFiChannelPairs[1])
-        validatePair(65, 93, wiFiChannelPairs[2])
-        validatePair(97, 125, wiFiChannelPairs[3])
-        validatePair(129, 157, wiFiChannelPairs[4])
-        validatePair(161, 189, wiFiChannelPairs[5])
-        validatePair(193, 229, wiFiChannelPairs[6])
+        assertThat(wiFiChannelPairs).hasSize(6)
+        validatePair(1, 65, wiFiChannelPairs[0])
+        validatePair(33, 97, wiFiChannelPairs[1])
+        validatePair(65, 129, wiFiChannelPairs[2])
+        validatePair(97, 161, wiFiChannelPairs[3])
+        validatePair(129, 189, wiFiChannelPairs[4])
+        validatePair(161, 229, wiFiChannelPairs[5])
     }
 
     private fun validatePair(expectedFirst: Int, expectedSecond: Int, pair: WiFiChannelPair) {
