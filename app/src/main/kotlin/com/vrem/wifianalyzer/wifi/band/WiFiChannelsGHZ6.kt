@@ -30,8 +30,8 @@ class WiFiChannelsGHZ6 : WiFiChannels(RANGE, SETS) {
         if (inRange(frequency)) wiFiChannel(frequency, wiFiChannelPair) else WiFiChannel.UNKNOWN
 
     companion object {
-        val SET = WiFiChannelPair(WiFiChannel(1, 5955), WiFiChannel(229, 7095))
-        val SETS = listOf(SET)
+        private val SET = WiFiChannelPair(WiFiChannel(1, 5955), WiFiChannel(229, 7095))
+        private val SETS = listOf(SET)
         private val RANGE = WiFiRange(5925, 7125)
     }
 }

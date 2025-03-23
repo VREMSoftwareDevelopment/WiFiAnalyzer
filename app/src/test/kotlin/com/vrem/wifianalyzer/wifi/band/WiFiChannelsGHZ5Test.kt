@@ -89,4 +89,17 @@ class WiFiChannelsGHZ5Test {
         // validate
         assertThat(actual).isEqualTo(wiFiChannelPair.first)
     }
+
+    @Test
+    fun wiFiChannels() {
+        // setup
+        val expected = (36..64).toList() + (100..144).toList() + (149..177).toList()
+        // execute
+        val actual = fixture.wiFiChannels()
+        // validate
+        assertThat(actual).hasSize(expected.size)
+        val actualChannels = actual.map { it.channel }.toList()
+        assertThat(actualChannels).hasSize(expected.size).containsAll(expected)
+    }
+
 }

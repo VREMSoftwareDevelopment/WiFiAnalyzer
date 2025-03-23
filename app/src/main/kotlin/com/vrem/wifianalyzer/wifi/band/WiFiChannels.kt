@@ -65,10 +65,9 @@ abstract class WiFiChannels(private val wiFiRange: WiFiRange, private val wiFiCh
         (wiFiChannelPair.first.channel..wiFiChannelPair.second.channel).map { wiFiChannelByChannel(it) }
 
     companion object {
-        val UNKNOWN = WiFiChannelPair(WiFiChannel.UNKNOWN, WiFiChannel.UNKNOWN)
-        internal const val FREQUENCY_SPREAD = 5
-        internal const val CHANNEL_OFFSET = 2
-        internal const val FREQUENCY_OFFSET = FREQUENCY_SPREAD * CHANNEL_OFFSET
+        const val FREQUENCY_SPREAD = 5
+        const val CHANNEL_OFFSET = 2
+        const val FREQUENCY_OFFSET = FREQUENCY_SPREAD * CHANNEL_OFFSET
     }
 
 }
