@@ -18,13 +18,8 @@
 
 package com.vrem.wifianalyzer
 
-import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.band.WiFiChannel
-import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
-import com.vrem.wifianalyzer.wifi.band.WiFiChannels
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
-import java.util.Locale
 
 class ConfigurationTest {
     private val fixture = Configuration(true)
@@ -47,34 +42,6 @@ class ConfigurationTest {
     fun largeScreen() {
         // execute & validate
         assertThat(fixture.largeScreen).isTrue()
-    }
-
-    @Test
-    fun wiFiChannelPairWithInit() {
-        // execute & validate
-        WiFiBand.entries.forEach {
-            assertThat(fixture.wiFiChannelPair(it)).isEqualTo(WiFiChannels.UNKNOWN)
-        }
-    }
-
-    @Test
-    fun wiFiChannelPairWithCountry() {
-        // execute
-        fixture.wiFiChannelPair(Locale.US.country)
-        // validate
-        WiFiBand.entries.forEach {
-            assertThat(fixture.wiFiChannelPair(it)).isEqualTo(it.wiFiChannels.wiFiChannelPairFirst(Locale.US.country))
-        }
-    }
-
-    @Test
-    fun wiFiChannelPairWithWiFiBand() {
-        // setup
-        val expected = WiFiChannelPair(WiFiChannel(1, 2), WiFiChannel(3, 4))
-        // execute
-        fixture.wiFiChannelPair(WiFiBand.GHZ5, expected)
-        // validate
-        assertThat(fixture.wiFiChannelPair(WiFiBand.GHZ5)).isEqualTo(expected)
     }
 
 }

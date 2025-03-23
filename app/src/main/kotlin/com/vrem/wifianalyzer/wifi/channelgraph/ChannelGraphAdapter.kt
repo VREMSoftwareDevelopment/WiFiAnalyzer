@@ -23,15 +23,12 @@ import com.vrem.wifianalyzer.wifi.graphutils.GraphAdapter
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 
 private fun channelGraphViews(): List<ChannelGraphView> =
-    WiFiBand.entries.flatMap { wiFiBand ->
-        wiFiBand.wiFiChannels.wiFiChannelPairs().map { ChannelGraphView(wiFiBand, it) }
-    }
+    WiFiBand.entries.map { wiFiBand -> ChannelGraphView(wiFiBand) }
 
 @OpenClass
-class ChannelGraphAdapter(private val channelGraphNavigation: ChannelGraphNavigation) : GraphAdapter(channelGraphViews()) {
+class ChannelGraphAdapter() : GraphAdapter(channelGraphViews()) {
     override fun update(wiFiData: WiFiData) {
         super.update(wiFiData)
-        channelGraphNavigation.update()
     }
 }
 

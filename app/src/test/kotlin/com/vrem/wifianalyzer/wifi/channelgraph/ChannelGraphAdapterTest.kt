@@ -19,18 +19,13 @@ package com.vrem.wifianalyzer.wifi.channelgraph
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
@@ -38,19 +33,12 @@ import org.robolectric.annotation.Config
 class ChannelGraphAdapterTest {
     @Suppress("unused")
     private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val channelGraphNavigation: ChannelGraphNavigation = mock()
-    private val fixture = ChannelGraphAdapter(channelGraphNavigation)
-
-    @After
-    fun tearDown() {
-        verifyNoMoreInteractions(channelGraphNavigation)
-        MainContextHelper.INSTANCE.restore()
-    }
+    private val fixture = ChannelGraphAdapter()
 
     @Test
     fun getGraphViewNotifiers() {
         // setup
-        val expected = WiFiBand.entries.sumOf { it.wiFiChannels.wiFiChannelPairs().size }
+        val expected = WiFiBand.entries.size
         // execute
         val graphViewNotifiers = fixture.graphViewNotifiers()
         // validate
@@ -60,7 +48,7 @@ class ChannelGraphAdapterTest {
     @Test
     fun getGraphViews() {
         // setup
-        val expected = WiFiBand.entries.sumOf { it.wiFiChannels.wiFiChannelPairs().size }
+        val expected = WiFiBand.entries.size
         // execute
         val graphViews = fixture.graphViews()
         // validate
@@ -73,7 +61,5 @@ class ChannelGraphAdapterTest {
         val wiFiData = WiFiData(listOf(), WiFiConnection.EMPTY)
         // execute
         fixture.update(wiFiData)
-        // validate
-        verify(channelGraphNavigation).update()
     }
 }

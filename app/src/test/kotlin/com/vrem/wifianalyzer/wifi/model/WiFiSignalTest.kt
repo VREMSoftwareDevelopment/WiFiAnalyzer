@@ -18,6 +18,7 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
+import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.util.Locale
@@ -27,6 +28,8 @@ class WiFiSignalTest {
     private val primaryChannel = 5
     private val centerFrequency = 2437
     private val centerChannel = 6
+    private val channelStart = 2
+    private val channelEnd = 10
     private val level = -65
     private val other = WiFiSignal(primaryFrequency, centerFrequency + 10, WiFiWidth.MHZ_40, level + 10)
     private val fixture = WiFiSignal(primaryFrequency, centerFrequency, WiFiWidth.MHZ_40, level)
@@ -59,8 +62,26 @@ class WiFiSignalTest {
     @Test
     fun centerFrequency() {
         assertThat(fixture.centerFrequency).isEqualTo(centerFrequency)
-        assertThat(fixture.frequencyStart).isEqualTo(centerFrequency - WiFiWidth.MHZ_40.frequencyWidthHalf)
-        assertThat(fixture.frequencyEnd).isEqualTo(centerFrequency + WiFiWidth.MHZ_40.frequencyWidthHalf)
+    }
+
+    @Test
+    fun wiFiChannelStart() {
+        // setup
+        val expected = WiFiChannel(channelStart, centerFrequency - WiFiWidth.MHZ_40.frequencyWidthHalf)
+        // execute
+        val actual = fixture.wiFiChannelStart
+        // validate
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun wiFiChannelEnd() {
+        // setup
+        val expected = WiFiChannel(channelEnd, centerFrequency + WiFiWidth.MHZ_40.frequencyWidthHalf)
+        // execute
+        val actual = fixture.wiFiChannelEnd
+        // validate
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test

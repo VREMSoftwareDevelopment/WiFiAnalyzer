@@ -22,12 +22,27 @@ import android.net.wifi.ScanResult.InformationElement
 import android.net.wifi.WifiInfo
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.BSSID
+import com.vrem.wifianalyzer.wifi.model.EXTENDED_CAPABILITIES_IE
+import com.vrem.wifianalyzer.wifi.model.FastRoaming
+import com.vrem.wifianalyzer.wifi.model.MOBILE_DOMAIN_IE
+import com.vrem.wifianalyzer.wifi.model.RM_ENABLED_CAPABILITIES_IE
+import com.vrem.wifianalyzer.wifi.model.SSID
+import com.vrem.wifianalyzer.wifi.model.WiFiConnection
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurityTypeTest
+import com.vrem.wifianalyzer.wifi.model.WiFiStandard
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 import java.nio.ByteBuffer
 
@@ -47,6 +62,8 @@ class TransformerTest {
         )
     )
     private val scanResult3 = withScanResult(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N, listOf(), listOf())
+    private val scanResult4 =
+        withScanResult(SSID_4, BSSID_4, WiFiWidth.MHZ_320, WiFiStandard.BE, WiFiSecurityTypeTest.All)
     private val cacheResults = withCacheResults()
     private val wifiInfo = withWiFiInfo()
     private val cache: Cache = mock()
@@ -115,6 +132,7 @@ class TransformerTest {
             fastRoaming
         )
         validateWiFiDetail(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N, actual[2], listOf())
+        validateWiFiDetail(SSID_4, BSSID_4, WiFiWidth.MHZ_320, WiFiStandard.BE, actual[3], WiFiSecurityTypeTest.All)
         verify(cache).scanResults()
     }
 
@@ -151,13 +169,17 @@ class TransformerTest {
             WiFiWidth.MHZ_20 -> FREQUENCY
             WiFiWidth.MHZ_40 -> FREQUENCY + wiFiWidth.frequencyWidth
             WiFiWidth.MHZ_80 -> FREQUENCY + wiFiWidth.frequencyWidthHalf
-            WiFiWidth.MHZ_160 -> FREQUENCY + wiFiWidth.frequencyWidth
+            WiFiWidth.MHZ_160 -> 0
             WiFiWidth.MHZ_80_PLUS -> FREQUENCY + wiFiWidth.frequencyWidthHalf
-            WiFiWidth.MHZ_320 -> FREQUENCY + wiFiWidth.frequencyWidthHalf
+            WiFiWidth.MHZ_320 -> 0
         }
-        scanResult.centerFreq1 = when(wiFiWidth) {
-            WiFiWidth.MHZ_320 -> FREQUENCY + wiFiWidth.frequencyWidth
-            else -> -1
+        scanResult.centerFreq1 = when (wiFiWidth) {
+            WiFiWidth.MHZ_20 -> 0
+            WiFiWidth.MHZ_40 -> 0
+            WiFiWidth.MHZ_80 -> 0
+            WiFiWidth.MHZ_160 -> FREQUENCY + wiFiWidth.frequencyWidthHalf
+            WiFiWidth.MHZ_80_PLUS -> 0
+            WiFiWidth.MHZ_320 -> FREQUENCY + wiFiWidth.frequencyWidthHalf
         }
         scanResult.level = LEVEL
         scanResult.channelWidth = wiFiWidth.ordinal
@@ -218,7 +240,8 @@ class TransformerTest {
     private fun withCacheResults() = listOf(
         CacheResult(scanResult1, scanResult1.level),
         CacheResult(scanResult2, scanResult2.level),
-        CacheResult(scanResult3, scanResult2.level)
+        CacheResult(scanResult3, scanResult3.level),
+        CacheResult(scanResult4, scanResult4.level)
     )
 
     companion object {
@@ -228,6 +251,8 @@ class TransformerTest {
         private const val BSSID_2 = "BSSID_2-123"
         private const val SSID_3 = "SSID_3-123"
         private const val BSSID_3 = "BSSID_3-123"
+        private const val SSID_4 = "SSID_4-123"
+        private const val BSSID_4 = "BSSID_4-123"
         private const val WPA = "WPA"
         private const val FREQUENCY = 5170
         private const val LEVEL = -40

@@ -57,6 +57,7 @@ class AccessPointDetail {
         setViewSecurityTypes(view, wiFiDetail.wiFiSecurity)
         setViewVendorLong(view, wiFiDetail.wiFiAdditional)
         setViewWiFiBand(view, wiFiDetail.wiFiSignal)
+        setViewWiFiChannelPair(view, wiFiDetail.wiFiSignal)
         setView80211mc(view, wiFiDetail.wiFiSignal)
         setViewWiFiStandard(view, wiFiDetail.wiFiSignal)
         setViewFastRoaming(view, wiFiDetail.wiFiSignal)
@@ -96,7 +97,7 @@ class AccessPointDetail {
             val wiFiSignal = wiFiDetail.wiFiSignal
             setLevelImage(view, wiFiSignal)
             setWiFiStandardImage(view, wiFiSignal)
-            it.text = "${wiFiSignal.frequencyStart} - ${wiFiSignal.frequencyEnd}"
+            it.text = "${wiFiSignal.wiFiChannelStart.frequency} - ${wiFiSignal.wiFiChannelEnd.frequency}"
             view.findViewById<TextView>(R.id.width).text =
                 "(${wiFiSignal.wiFiWidth.frequencyWidth}${WiFiSignal.FREQUENCY_UNITS})"
             view.findViewById<TextView>(R.id.capabilities).text = wiFiDetail.wiFiSecurity.securities
@@ -167,6 +168,14 @@ class AccessPointDetail {
     private fun setView80211mc(view: View, wiFiSignal: WiFiSignal) =
         view.findViewById<TextView>(R.id.flag80211mc)?.let {
             it.visibility = if (wiFiSignal.extra.is80211mc) View.VISIBLE else View.GONE
+        }
+
+    private fun setViewWiFiChannelPair(view: View, wiFiSignal: WiFiSignal) =
+        with(wiFiSignal) {
+            view.findViewById<TextView>(R.id.channel_start).text = "${wiFiChannelStart.channel}"
+            view.findViewById<TextView>(R.id.channel_end).text = "${wiFiChannelEnd.channel}"
+            view.findViewById<TextView>(R.id.channel_width).text =
+                "(${wiFiWidth.frequencyWidth}${WiFiSignal.FREQUENCY_UNITS})"
         }
 
 }

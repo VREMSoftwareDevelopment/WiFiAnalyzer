@@ -51,11 +51,11 @@ data class WiFiSignal(
 
     val wiFiBand: WiFiBand = WiFiBand.find(primaryFrequency)
 
-    val frequencyStart: Int
-        get() = centerFrequency - wiFiWidth.frequencyWidthHalf
+    val wiFiChannelStart: WiFiChannel
+        get() = wiFiBand.wiFiChannels.wiFiChannelByFrequency(centerFrequency - wiFiWidth.frequencyWidthHalf)
 
-    val frequencyEnd: Int
-        get() = centerFrequency + wiFiWidth.frequencyWidthHalf
+    val wiFiChannelEnd: WiFiChannel
+        get() = wiFiBand.wiFiChannels.wiFiChannelByFrequency(centerFrequency + wiFiWidth.frequencyWidthHalf)
 
     val primaryWiFiChannel: WiFiChannel
         get() = wiFiBand.wiFiChannels.wiFiChannelByFrequency(primaryFrequency)
@@ -70,7 +70,7 @@ data class WiFiSignal(
         get() = String.format("~%.1fm", calculateDistance(primaryFrequency, level))
 
     fun inRange(frequency: Int): Boolean =
-        frequency in frequencyStart..frequencyEnd
+        frequency in wiFiChannelStart.frequency..wiFiChannelEnd.frequency
 
     fun channelDisplay(): String {
         val primaryChannel: Int = primaryWiFiChannel.channel

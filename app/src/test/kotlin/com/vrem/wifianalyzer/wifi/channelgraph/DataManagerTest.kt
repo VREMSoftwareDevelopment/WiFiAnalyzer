@@ -20,15 +20,23 @@ package com.vrem.wifianalyzer.wifi.channelgraph
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.RobolectricUtil
-import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.eq
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
@@ -42,15 +50,11 @@ class DataManagerTest {
     @Test
     fun newSeries() {
         // setup
-        val wiFiChannelPair = WiFiBand.GHZ2.wiFiChannels.wiFiChannelPairs()[0]
-        val expected = makeWiFiDetails(wiFiChannelPair.first.frequency)
+        val expected = makeWiFiDetails()
         // execute
-        val actual = fixture.newSeries(expected, wiFiChannelPair)
+        val actual = fixture.newSeries(expected)
         // validate
-        assertThat(actual).hasSize(expected.size - 1)
-        assertThat(actual).contains(expected[0])
-        assertThat(actual).doesNotContain(expected[1])
-        assertThat(actual).contains(expected[2])
+        assertThat(actual).containsAll(expected)
     }
 
     @Test
@@ -113,33 +117,14 @@ class DataManagerTest {
         verify(graphViewWrapper).addSeries(eq(wiFiDetail), any(), eq(true))
     }
 
-    @Test
-    fun inRangeWithValidFrequency() {
-        // setup
-        val wiFiChannelPair = WiFiBand.GHZ2.wiFiChannels.wiFiChannelPairs()[0]
-        // execute & validate
-        assertThat(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.first.frequency))).isTrue()
-        assertThat(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.second.frequency))).isTrue()
-        assertThat(wiFiChannelPair.inRange(makeWiFiDetail(frequency = (wiFiChannelPair.first.frequency + wiFiChannelPair.second.frequency) / 2))).isTrue()
-    }
-
-    @Test
-    fun inRangeWithInvalidValidFrequency() {
-        // setup
-        val wiFiChannelPair = WiFiBand.GHZ2.wiFiChannels.wiFiChannelPairs()[0]
-        // execute & validate
-        assertThat(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.first.frequency - 1))).isFalse()
-        assertThat(wiFiChannelPair.inRange(makeWiFiDetail(frequency = wiFiChannelPair.second.frequency + 1))).isFalse()
-    }
-
     private fun makeWiFiDetail(ssid: String = "SSID", frequency: Int = 2455): WiFiDetail {
         val wiFiSignal = WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, level)
         val wiFiIdentifier = WiFiIdentifier(ssid, "BSSID")
         return WiFiDetail(wiFiIdentifier, WiFiSecurity.EMPTY, wiFiSignal, WiFiAdditional.EMPTY)
     }
 
-    private fun makeWiFiDetails(frequency: Int): List<WiFiDetail> {
-        return listOf(makeWiFiDetail("SSID1", frequency), makeWiFiDetail("SSID2", -frequency), makeWiFiDetail("SSID3", frequency))
+    private fun makeWiFiDetails(): List<WiFiDetail> {
+        return listOf(makeWiFiDetail("SSID1"), makeWiFiDetail("SSID2"), makeWiFiDetail("SSID3"))
     }
 
 }

@@ -18,29 +18,15 @@
 package com.vrem.wifianalyzer.wifi.channelgraph
 
 import com.vrem.util.EMPTY
-import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannels
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y
 import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.After
 import org.junit.Test
-import org.mockito.kotlin.times
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
-import java.util.Locale
 
 class ChannelAxisLabelTest {
-    private val settings = MainContextHelper.INSTANCE.settings
-    private val fixture = ChannelAxisLabel(WiFiBand.GHZ2, WiFiBand.GHZ2.wiFiChannels.wiFiChannelPairs()[0])
-
-    @After
-    fun tearDown() {
-        verifyNoMoreInteractions(settings)
-        MainContextHelper.INSTANCE.restore()
-    }
+    private val fixture = ChannelAxisLabel(WiFiBand.GHZ2)
 
     @Test
     fun yAxis() {
@@ -55,23 +41,19 @@ class ChannelAxisLabelTest {
     fun xAxis() {
         // setup
         val (channel, frequency) = WiFiBand.GHZ2.wiFiChannels.wiFiChannelFirst()
-        whenever(settings.countryCode()).thenReturn(Locale.US.country)
         // execute
         val actual = fixture.formatLabel(frequency.toDouble(), true)
         // validate
         assertThat(actual).isEqualTo("" + channel)
-        verify(settings).countryCode()
     }
 
     @Test
     fun xAxisWithFrequencyInRange() {
         // setup
         val (channel, frequency) = WiFiBand.GHZ2.wiFiChannels.wiFiChannelFirst()
-        whenever(settings.countryCode()).thenReturn(Locale.US.country)
         // execute & validate
         assertThat(fixture.formatLabel(frequency - 2.toDouble(), true)).isEqualTo("" + channel)
         assertThat(fixture.formatLabel(frequency + 2.toDouble(), true)).isEqualTo("" + channel)
-        verify(settings, times(2)).countryCode()
     }
 
     @Test
@@ -79,7 +61,7 @@ class ChannelAxisLabelTest {
         // setup
         val (_, frequency) = WiFiBand.GHZ2.wiFiChannels.wiFiChannelLast()
         // execute
-        val actual = fixture.formatLabel(frequency.toDouble(), true)
+        val actual = fixture.formatLabel(frequency.toDouble() + WiFiChannels.FREQUENCY_OFFSET.toDouble(), true)
         // validate
         assertThat(actual).isEqualTo(String.EMPTY)
     }

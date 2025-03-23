@@ -27,7 +27,12 @@ internal val availableGHZ2: Available = { true }
 internal val availableGHZ5: Available = { MainContext.INSTANCE.wiFiManagerWrapper.is5GHzBandSupported() }
 internal val availableGHZ6: Available = { MainContext.INSTANCE.wiFiManagerWrapper.is6GHzBandSupported() }
 
-enum class WiFiBand(@StringRes val textResource: Int, val wiFiChannels: WiFiChannels, val available: Available) {
+enum class WiFiBand(
+    @StringRes val textResource: Int,
+    val wiFiChannels: WiFiChannels,
+    val available: Available,
+    val maxX: Int = 9
+) {
     GHZ2(R.string.wifi_band_2ghz, WiFiChannelsGHZ2(), availableGHZ2),
     GHZ5(R.string.wifi_band_5ghz, WiFiChannelsGHZ5(), availableGHZ5),
     GHZ6(R.string.wifi_band_6ghz, WiFiChannelsGHZ6(), availableGHZ6);
@@ -37,7 +42,7 @@ enum class WiFiBand(@StringRes val textResource: Int, val wiFiChannels: WiFiChan
     val ghz6: Boolean get() = GHZ6 == this
 
     companion object {
-        fun find(frequency: Int): WiFiBand = entries.firstOrNull { it.wiFiChannels.inRange(frequency) } ?: GHZ2
+        fun find(frequency: Int): WiFiBand = WiFiBand.entries.firstOrNull { it.wiFiChannels.inRange(frequency) } ?: GHZ2
     }
 
 }

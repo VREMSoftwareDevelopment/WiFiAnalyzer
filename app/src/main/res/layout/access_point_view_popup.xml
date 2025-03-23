@@ -39,6 +39,53 @@
         android:orientation="horizontal">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+            android:text="@string/channel_short_name"
+            android:textColor="@color/channel"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channel_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+            android:textColor="@color/channel_number"
+            android:textStyle="bold"
+            tools:text="132" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+            android:text="@string/channel_from_to"
+            android:textColor="@color/channel_number" />
+
+        <TextView
+            android:id="@+id/channel_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+            android:textColor="@color/channel_number"
+            android:textStyle="bold"
+            tools:text="232" />
+
+        <TextView
+            android:id="@+id/channel_width"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+            android:textColor="@color/frequency"
+            tools:text="(160MHz)" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
             android:id="@+id/wiFiStandardFull"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

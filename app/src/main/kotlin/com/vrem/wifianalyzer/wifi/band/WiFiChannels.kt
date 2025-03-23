@@ -20,8 +20,6 @@ package com.vrem.wifianalyzer.wifi.band
 typealias WiFiRange = Pair<Int, Int>
 typealias WiFiChannelPair = Pair<WiFiChannel, WiFiChannel>
 
-fun WiFiChannelPair.channelCount(): Int = second.channel - first.channel + 1 + WiFiChannels.CHANNEL_OFFSET * 2
-
 abstract class WiFiChannels(private val wiFiRange: WiFiRange, private val wiFiChannelPairs: List<WiFiChannelPair>) {
     fun inRange(frequency: Int): Boolean =
         frequency in wiFiRange.first..wiFiRange.second
@@ -57,7 +55,6 @@ abstract class WiFiChannels(private val wiFiRange: WiFiRange, private val wiFiCh
     abstract fun availableChannels(countryCode: String): List<WiFiChannel>
     abstract fun channelAvailable(countryCode: String, channel: Int): Boolean
     abstract fun wiFiChannelPairs(): List<WiFiChannelPair>
-    abstract fun wiFiChannelPairFirst(countryCode: String): WiFiChannelPair
     abstract fun wiFiChannelByFrequency(frequency: Int, wiFiChannelPair: WiFiChannelPair): WiFiChannel
 
     fun availableChannels(channels: Set<Int>): List<WiFiChannel> = channels.map { this.wiFiChannelByChannel(it) }

@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
-import com.vrem.util.EMPTY
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.util.Locale
@@ -76,30 +75,6 @@ class WiFiChannelsGHZ6Test {
     }
 
     @Test
-    fun wiFiChannelPair() {
-        validatePair(1, 65, fixture.wiFiChannelPairFirst(Locale.US.country))
-        validatePair(1, 65, fixture.wiFiChannelPairFirst(String.EMPTY))
-        validatePair(1, 65, fixture.wiFiChannelPairFirst("XYZ"))
-    }
-
-    @Test
-    fun wiFiChannelPairs() {
-        val wiFiChannelPairs: List<WiFiChannelPair> = fixture.wiFiChannelPairs()
-        assertThat(wiFiChannelPairs).hasSize(6)
-        validatePair(1, 65, wiFiChannelPairs[0])
-        validatePair(33, 97, wiFiChannelPairs[1])
-        validatePair(65, 129, wiFiChannelPairs[2])
-        validatePair(97, 161, wiFiChannelPairs[3])
-        validatePair(129, 189, wiFiChannelPairs[4])
-        validatePair(161, 229, wiFiChannelPairs[5])
-    }
-
-    private fun validatePair(expectedFirst: Int, expectedSecond: Int, pair: WiFiChannelPair) {
-        assertThat(pair.first.channel).isEqualTo(expectedFirst)
-        assertThat(pair.second.channel).isEqualTo(expectedSecond)
-    }
-
-    @Test
     fun availableChannels() {
         assertThat(fixture.availableChannels(Locale.US.country)).hasSize(58)
         assertThat(fixture.availableChannels(Locale.UK.country)).hasSize(58)
@@ -108,7 +83,7 @@ class WiFiChannelsGHZ6Test {
     @Test
     fun wiFiChannelByFrequency2GHZ() {
         // setup
-        val wiFiChannelPair: WiFiChannelPair = fixture.wiFiChannelPairs()[0]
+        val wiFiChannelPair: WiFiChannelPair = fixture.wiFiChannelPairs().first()
         // execute
         val actual: WiFiChannel = fixture.wiFiChannelByFrequency(2000, wiFiChannelPair)
         // validate
@@ -118,11 +93,12 @@ class WiFiChannelsGHZ6Test {
     @Test
     fun wiFiChannelByFrequency6GHZInRange() {
         // setup
-        val wiFiChannelPair: WiFiChannelPair = fixture.wiFiChannelPairs()[0]
+        val wiFiChannelPair: WiFiChannelPair = fixture.wiFiChannelPairs().first()
         // execute
         val actual: WiFiChannel =
             fixture.wiFiChannelByFrequency(wiFiChannelPair.first.frequency, wiFiChannelPair)
         // validate
         assertThat(actual).isEqualTo(wiFiChannelPair.first)
     }
+
 }

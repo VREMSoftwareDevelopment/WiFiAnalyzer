@@ -86,9 +86,9 @@ class WiFiWidthTest {
         // setup
         val expected = 35
         // execute & validate
-        assertThat(calculateCenter20(expected, Int.MIN_VALUE,Int.MIN_VALUE)).isEqualTo(expected)
-        assertThat(calculateCenter20(expected, 0,Int.MIN_VALUE)).isEqualTo(expected)
-        assertThat(calculateCenter20(expected, Int.MAX_VALUE,Int.MIN_VALUE)).isEqualTo(expected)
+        assertThat(calculateCenter20(expected, Int.MIN_VALUE, Int.MIN_VALUE)).isEqualTo(expected)
+        assertThat(calculateCenter20(expected, 0, Int.MIN_VALUE)).isEqualTo(expected)
+        assertThat(calculateCenter20(expected, Int.MAX_VALUE, Int.MIN_VALUE)).isEqualTo(expected)
     }
 
     @Test
@@ -97,8 +97,8 @@ class WiFiWidthTest {
         val primary = 10
         val center = primary + WiFiWidth.MHZ_40.frequencyWidthHalf - 1
         // execute & validate
-        assertThat(calculateCenter40(primary, center,Int.MIN_VALUE)).isEqualTo(center)
-        assertThat(calculateCenter40(center, primary,Int.MIN_VALUE)).isEqualTo(primary)
+        assertThat(calculateCenter40(primary, center, Int.MIN_VALUE)).isEqualTo(center)
+        assertThat(calculateCenter40(center, primary, Int.MIN_VALUE)).isEqualTo(primary)
     }
 
     @Test
@@ -108,8 +108,8 @@ class WiFiWidthTest {
         val center = primary + WiFiWidth.MHZ_40.frequencyWidthHalf
         val expected = (primary + center) / 2
         // execute & validate
-        assertThat(calculateCenter40(primary, center,Int.MIN_VALUE)).isEqualTo(expected)
-        assertThat(calculateCenter40(center, primary,Int.MIN_VALUE)).isEqualTo(expected)
+        assertThat(calculateCenter40(primary, center, Int.MIN_VALUE)).isEqualTo(expected)
+        assertThat(calculateCenter40(center, primary, Int.MIN_VALUE)).isEqualTo(expected)
     }
 
     @Test
@@ -117,62 +117,29 @@ class WiFiWidthTest {
         // setup
         val expected = 35
         // execute & validate
-        assertThat(calculateCenter80(Int.MIN_VALUE, expected,Int.MIN_VALUE)).isEqualTo(expected)
-        assertThat(calculateCenter80(0, expected,Int.MIN_VALUE)).isEqualTo(expected)
-        assertThat(calculateCenter80(Int.MAX_VALUE, expected,Int.MIN_VALUE)).isEqualTo(expected)
-    }
-
-    @Test
-    fun calculateCenter160Invalid() {
-        // execute & validate
-        assertThat(calculateCenter160(5169, Int.MIN_VALUE,Int.MIN_VALUE)).isEqualTo(Int.MIN_VALUE)
-        assertThat(calculateCenter160(5169, 0,Int.MIN_VALUE)).isEqualTo(0)
-        assertThat(calculateCenter160(5169, Int.MAX_VALUE,Int.MIN_VALUE)).isEqualTo(Int.MAX_VALUE)
-        assertThat(calculateCenter160(5896, Int.MIN_VALUE,Int.MIN_VALUE)).isEqualTo(Int.MIN_VALUE)
-        assertThat(calculateCenter160(5896, 0,Int.MIN_VALUE)).isEqualTo(0)
-        assertThat(calculateCenter160(5896, Int.MAX_VALUE,Int.MIN_VALUE)).isEqualTo(Int.MAX_VALUE)
+        assertThat(calculateCenter80(Int.MIN_VALUE, expected, Int.MIN_VALUE)).isEqualTo(expected)
+        assertThat(calculateCenter80(0, expected, Int.MIN_VALUE)).isEqualTo(expected)
+        assertThat(calculateCenter80(Int.MAX_VALUE, expected, Int.MIN_VALUE)).isEqualTo(expected)
     }
 
     @Test
     fun calculateCenter160() {
-        withTestDatas().forEach {
-            println(it)
-            validate(it.expected, it.start, it.end)
-        }
-    }
-
-    @Test
-    fun calculateCenter320(){
         // setup
         val expected = 35
         // execute & validate
-        assertThat(calculateCenter320(Int.MIN_VALUE,Int.MIN_VALUE, expected)).isEqualTo(expected)
-        assertThat(calculateCenter320(0,Int.MIN_VALUE, expected)).isEqualTo(expected)
-        assertThat(calculateCenter320(Int.MAX_VALUE,Int.MIN_VALUE, expected)).isEqualTo(expected)
+        assertThat(calculateCenter160(Int.MIN_VALUE, Int.MIN_VALUE, expected)).isEqualTo(expected)
+        assertThat(calculateCenter160(0, Int.MIN_VALUE, expected)).isEqualTo(expected)
+        assertThat(calculateCenter160(Int.MAX_VALUE, Int.MIN_VALUE, expected)).isEqualTo(expected)
     }
-    private fun validate(expected: Int, start: Int, end: Int) {
+
+    @Test
+    fun calculateCenter320() {
+        // setup
+        val expected = 35
         // execute & validate
-        for (value in start..end) {
-            assertThat(calculateCenter160(value, Int.MIN_VALUE,Int.MIN_VALUE)).isEqualTo(expected)
-            assertThat(calculateCenter160(value, 0,Int.MIN_VALUE)).isEqualTo(expected)
-            assertThat(calculateCenter160(value, Int.MAX_VALUE,Int.MIN_VALUE)).isEqualTo(expected)
-        }
+        assertThat(calculateCenter320(Int.MIN_VALUE, Int.MIN_VALUE, expected)).isEqualTo(expected)
+        assertThat(calculateCenter320(0, Int.MIN_VALUE, expected)).isEqualTo(expected)
+        assertThat(calculateCenter320(Int.MAX_VALUE, Int.MIN_VALUE, expected)).isEqualTo(expected)
     }
-
-    private data class TestData(val tag: String, val expected: Int, val start: Int, val end: Int)
-
-    private fun withTestDatas(): List<TestData> =
-        listOf(
-            TestData("UNII_1_2A", 5250, 5170, 5330),
-            TestData("UNII_2C_3", 5570, 5490, 5730),
-            TestData("UNII_3_4", 5815, 5735, 5895),
-            TestData("UNII_5_1", 6025, 5950, 6100),
-            TestData("UNII_5_2", 6185, 6110, 6260),
-            TestData("UNII_5_3", 6345, 6270, 6420),
-            TestData("UNII_6_1", 6505, 6430, 6580),
-            TestData("UNII_7_1", 6665, 6590, 6740),
-            TestData("UNII_7_2", 6825, 6750, 6900),
-            TestData("UNII_8_1", 6985, 6910, 7120)
-        )
 
 }

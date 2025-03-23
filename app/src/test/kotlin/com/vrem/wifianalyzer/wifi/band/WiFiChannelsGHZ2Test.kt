@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
-import com.vrem.util.EMPTY
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.util.Locale
@@ -92,12 +91,6 @@ class WiFiChannelsGHZ2Test {
         val pair: List<WiFiChannelPair> = fixture.wiFiChannelPairs()
         assertThat(pair).hasSize(1)
         validatePair(pair[0])
-    }
-
-    @Test
-    fun wiFiChannelPair() {
-        validatePair(fixture.wiFiChannelPairFirst(Locale.US.country))
-        validatePair(fixture.wiFiChannelPairFirst(String.EMPTY))
     }
 
     private fun validatePair(pair: WiFiChannelPair) {

@@ -21,7 +21,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
@@ -42,9 +41,7 @@ class ChannelGraphFragment : Fragment(), OnRefreshListener {
             swipeRefreshLayout.isRefreshing = false
             swipeRefreshLayout.isEnabled = false
         }
-        val linearLayout: LinearLayout = binding.graphNavigation
-        val channelGraphNavigation = ChannelGraphNavigation(linearLayout, requireActivity().applicationContext)
-        channelGraphAdapter = ChannelGraphAdapter(channelGraphNavigation)
+        channelGraphAdapter = ChannelGraphAdapter()
         channelGraphAdapter.graphViews().forEach { binding.graphFlipper.addView(it) }
         return binding.root
     }

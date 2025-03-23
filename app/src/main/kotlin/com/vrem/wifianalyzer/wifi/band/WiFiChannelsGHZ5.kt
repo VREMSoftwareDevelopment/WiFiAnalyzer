@@ -20,12 +20,6 @@ package com.vrem.wifianalyzer.wifi.band
 class WiFiChannelsGHZ5 : WiFiChannels(RANGE, SETS) {
     override fun wiFiChannelPairs(): List<WiFiChannelPair> = SETS
 
-    override fun wiFiChannelPairFirst(countryCode: String): WiFiChannelPair =
-        if (countryCode.isBlank())
-            SET1
-        else
-            wiFiChannelPairs().firstOrNull { channelAvailable(countryCode, it.first.channel) } ?: SET1
-
     override fun availableChannels(countryCode: String): List<WiFiChannel> =
         availableChannels(WiFiChannelCountry.find(countryCode).channelsGHZ5())
 

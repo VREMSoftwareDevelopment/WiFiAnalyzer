@@ -27,7 +27,17 @@ import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.FastRoaming
+import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
+import com.vrem.wifianalyzer.wifi.model.WiFiConnection
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurityTypeTest
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiSignalExtra
+import com.vrem.wifianalyzer.wifi.model.WiFiStandard
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Before
@@ -329,7 +339,6 @@ class AccessPointDetailTest {
         validateTextViewValue(actual, expectedFastRoaming, R.id.fastRoaming)
     }
 
-
     private fun withWiFiDetail(
         ssid: String = "SSID",
         wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY,
@@ -339,7 +348,7 @@ class AccessPointDetailTest {
             WiFiIdentifier(ssid, "BSSID"),
             WiFiSecurity("[WPS-capabilities][WPA2-XYZ][XYZ-FT]", WiFiSecurityTypeTest.All),
             WiFiSignal(
-                1, 1, WiFiWidth.MHZ_40, 2,
+                2432, 2437, WiFiWidth.MHZ_40, -65,
                 WiFiSignalExtra(is80211mc, WiFiStandard.AC, FastRoaming.entries.toList())
             ),
             wiFiAdditional
@@ -348,7 +357,11 @@ class AccessPointDetailTest {
     private fun validateTextViewValuesCompleteView(view: View, wiFiDetail: WiFiDetail) {
         validateTextViewValuesCompactView(view, wiFiDetail)
         val wiFiSignal = wiFiDetail.wiFiSignal
-        validateTextViewValue(view, "${wiFiSignal.frequencyStart} - ${wiFiSignal.frequencyEnd}", R.id.channel_frequency_range)
+        validateTextViewValue(
+            view,
+            "${wiFiSignal.wiFiChannelStart.frequency} - ${wiFiSignal.wiFiChannelEnd.frequency}",
+            R.id.channel_frequency_range
+        )
         validateTextViewValue(view, "(${wiFiSignal.wiFiWidth.frequencyWidth}${WiFiSignal.FREQUENCY_UNITS})", R.id.width)
         validateTextViewValue(view, expectedSecurities, R.id.capabilities)
         validateImageViewValue(view, wiFiSignal.strength.imageResource, R.id.levelImage)
@@ -360,6 +373,13 @@ class AccessPointDetailTest {
     private fun validateTextViewValuesPopupView(view: View, wiFiDetail: WiFiDetail) {
         validateTextViewValuesCompleteView(view, wiFiDetail)
         with(wiFiDetail) {
+            validateTextViewValue(view, "${wiFiSignal.wiFiChannelStart.channel}", R.id.channel_start)
+            validateTextViewValue(view, "${wiFiSignal.wiFiChannelEnd.channel}", R.id.channel_end)
+            validateTextViewValue(
+                view,
+                "(${wiFiSignal.wiFiWidth.frequencyWidth}${WiFiSignal.FREQUENCY_UNITS})",
+                R.id.channel_width
+            )
             validateTextViewValue(view, wiFiSecurity.capabilities, R.id.capabilitiesLong)
             validateTextViewValue(view, expectedSecurityTypes, R.id.securityTypes)
             val expectedWiFiStandard = view.context.getString(wiFiSignal.extra.wiFiStandard.fullResource)
@@ -374,7 +394,11 @@ class AccessPointDetailTest {
         validateTextViewValue(view, wiFiDetail.wiFiIdentifier.title, R.id.ssid)
         validateTextViewValue(view, "${wiFiSignal.level}dBm", R.id.level)
         validateTextViewValue(view, wiFiSignal.channelDisplay(), R.id.channel)
-        validateTextViewValue(view, "${wiFiSignal.primaryFrequency}${WiFiSignal.FREQUENCY_UNITS}", R.id.primaryFrequency)
+        validateTextViewValue(
+            view,
+            "${wiFiSignal.primaryFrequency}${WiFiSignal.FREQUENCY_UNITS}",
+            R.id.primaryFrequency
+        )
         validateTextViewValue(view, wiFiSignal.distance, R.id.distance)
     }
 

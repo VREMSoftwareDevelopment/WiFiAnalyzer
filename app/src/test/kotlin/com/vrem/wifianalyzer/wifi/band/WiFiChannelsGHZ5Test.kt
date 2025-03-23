@@ -17,10 +17,8 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
-import com.vrem.util.EMPTY
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
-import java.util.Locale
 
 class WiFiChannelsGHZ5Test {
     private val fixture: WiFiChannelsGHZ5 = WiFiChannelsGHZ5()
@@ -56,13 +54,6 @@ class WiFiChannelsGHZ5Test {
     @Test
     fun wiFiChannelLast() {
         assertThat(fixture.wiFiChannelLast().channel).isEqualTo(177)
-    }
-
-    @Test
-    fun wiFiChannelPair() {
-        validatePair(36, 64, fixture.wiFiChannelPairFirst(Locale.JAPAN.country))
-        validatePair(36, 64, fixture.wiFiChannelPairFirst(String.EMPTY))
-        validatePair(36, 64, fixture.wiFiChannelPairFirst("XYZ"))
     }
 
     @Test

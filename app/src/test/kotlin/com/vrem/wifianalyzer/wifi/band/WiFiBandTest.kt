@@ -78,6 +78,13 @@ class WiFiBandTest {
     }
 
     @Test
+    fun maxX() {
+        assertThat(WiFiBand.GHZ2.maxX).isEqualTo(9)
+        assertThat(WiFiBand.GHZ5.maxX).isEqualTo(9)
+        assertThat(WiFiBand.GHZ6.maxX).isEqualTo(9)
+    }
+
+    @Test
     fun wiFiBandFind() {
         assertThat(find(2399)).isEqualTo(WiFiBand.GHZ2)
         assertThat(find(2400)).isEqualTo(WiFiBand.GHZ2)

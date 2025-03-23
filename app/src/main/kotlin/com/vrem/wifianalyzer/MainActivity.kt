@@ -31,7 +31,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.vrem.annotation.OpenClass
-import com.vrem.util.EMPTY
 import com.vrem.util.createContext
 import com.vrem.util.findOne
 import com.vrem.wifianalyzer.navigation.NavigationMenu
@@ -51,8 +50,6 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
     internal lateinit var optionMenu: OptionMenu
     internal lateinit var connectionView: ConnectionView
 
-    private var currentCountryCode: String = String.EMPTY
-
     override fun attachBaseContext(newBase: Context) =
         super.attachBaseContext(newBase.createContext(Settings(Repository(newBase)).languageLocale()))
 
@@ -63,7 +60,6 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
         val settings = mainContext.settings
         settings.initializeDefaultValues()
         setTheme(settings.themeStyle().themeNoActionBar)
-        setWiFiChannelPairs(mainContext)
 
         mainReload = MainReload(settings)
 
@@ -106,15 +102,6 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
         }
     }
 
-    private fun setWiFiChannelPairs(mainContext: MainContext) {
-        val settings = mainContext.settings
-        val countryCode = settings.countryCode()
-        if (countryCode != currentCountryCode) {
-            mainContext.configuration.wiFiChannelPair(countryCode)
-            currentCountryCode = countryCode
-        }
-    }
-
     private val largeScreen: Boolean
         get() {
             val configuration = resources.configuration
@@ -130,7 +117,6 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
             recreate()
         } else {
             keepScreenOn()
-            setWiFiChannelPairs(mainContext)
             update()
         }
     }
