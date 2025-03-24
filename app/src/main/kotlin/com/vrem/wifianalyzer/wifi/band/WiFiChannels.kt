@@ -55,7 +55,9 @@ abstract class WiFiChannels(private val wiFiRange: WiFiRange, private val wiFiCh
     abstract fun availableChannels(countryCode: String): List<WiFiChannel>
     abstract fun channelAvailable(countryCode: String, channel: Int): Boolean
     abstract fun wiFiChannelPairs(): List<WiFiChannelPair>
-    abstract fun wiFiChannelByFrequency(frequency: Int, wiFiChannelPair: WiFiChannelPair): WiFiChannel
+    
+    fun wiFiChannelByFrequency(frequency: Int, wiFiChannelPair: WiFiChannelPair): WiFiChannel =
+        if (inRange(frequency)) wiFiChannel(frequency, wiFiChannelPair) else WiFiChannel.UNKNOWN
 
     fun availableChannels(channels: Set<Int>): List<WiFiChannel> = channels.map { this.wiFiChannelByChannel(it) }
 

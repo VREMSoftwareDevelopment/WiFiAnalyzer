@@ -26,9 +26,6 @@ class WiFiChannelsGHZ2 : WiFiChannels(RANGE, SETS) {
     override fun channelAvailable(countryCode: String, channel: Int): Boolean =
         WiFiChannelCountry.find(countryCode).channelAvailableGHZ2(channel)
 
-    override fun wiFiChannelByFrequency(frequency: Int, wiFiChannelPair: WiFiChannelPair): WiFiChannel =
-        if (inRange(frequency)) wiFiChannel(frequency, SET) else WiFiChannel.UNKNOWN
-
     companion object {
         private val RANGE: WiFiRange = WiFiRange(2400, 2499)
         private val SETS: List<WiFiChannelPair> = listOf(
