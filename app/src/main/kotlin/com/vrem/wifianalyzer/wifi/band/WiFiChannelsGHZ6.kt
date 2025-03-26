@@ -29,7 +29,7 @@ class WiFiChannelsGHZ6 : WiFiChannels(channelRange, graphChannels) {
     }
 
     companion object {
-        private val channelRange = WiFiChannelPair(WiFiChannel(-1, 5945), WiFiChannel(235, 7125))
+        private val channelRange = WiFiChannelPair(WiFiChannel(-5, 5925), WiFiChannel(235, 7125))
         private val graphChannels: Set<Int> = setOf(15, 47, 79, 110, 142, 174, 208)
     }
 

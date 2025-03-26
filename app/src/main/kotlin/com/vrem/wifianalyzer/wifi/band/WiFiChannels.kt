@@ -48,10 +48,10 @@ abstract class WiFiChannels(val channelRange: WiFiChannelPair, val graphChannels
 
     fun graphChannelByFrequency(frequency: Int): String {
         val wiFiChannel: WiFiChannel = wiFiChannelByFrequency(frequency)
-        return if (WiFiChannel.UNKNOWN == wiFiChannel) {
-            String.EMPTY
+        return if (WiFiChannel.UNKNOWN != wiFiChannel && graphChannels.contains(wiFiChannel.channel)) {
+            "${wiFiChannel.channel}"
         } else {
-            if (graphChannels.contains(wiFiChannel.channel)) "${wiFiChannel.channel}" else String.EMPTY
+            String.EMPTY
         }
     }
 
@@ -60,10 +60,9 @@ abstract class WiFiChannels(val channelRange: WiFiChannelPair, val graphChannels
     fun wiFiChannels(): List<WiFiChannel> = (channelRange.first.channel..channelRange.second.channel).map { wiFiChannelByChannel(it) }
 
     private fun wiFiChannel(frequency: Int, wiFiChannelPair: WiFiChannelPair): WiFiChannel {
-        val (first, last) = wiFiChannelPair
-        val firstChannel: Int = (first.channel + if (first.channel < 0) -0.5 else 0.5).toInt()
-        val channel: Int = ((frequency - first.frequency).toDouble() / FREQUENCY_SPREAD + firstChannel).toInt()
-        return if (frequency in first.frequency..last.frequency) WiFiChannel(channel, frequency) else WiFiChannel.UNKNOWN
+        val firstChannel: Int = (wiFiChannelPair.first.channel + if (wiFiChannelPair.first.channel < 0) -0.5 else 0.5).toInt()
+        val channel: Int = ((frequency - wiFiChannelPair.first.frequency).toDouble() / FREQUENCY_SPREAD + firstChannel).toInt()
+        return WiFiChannel(channel, frequency)
     }
 
     companion object {

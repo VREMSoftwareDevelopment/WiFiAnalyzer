@@ -103,7 +103,7 @@ class WiFiChannelsGHZ2Test {
     }
 
     @Test
-    fun graphChannelByFrequency() {
+    fun graphChannelByFrequencyInRange() {
         expectedChannels.forEach { it ->
             // setup
             val expected = if (expectedGraphChannels.contains(it.channel)) "${it.channel}" else String.EMPTY
@@ -112,6 +112,12 @@ class WiFiChannelsGHZ2Test {
             // validate
             assertThat(actual).describedAs("Channel: $it").isEqualTo(expected)
         }
+    }
+
+    @Test
+    fun graphChannelByFrequencyOutInRange() {
+        assertThat(fixture.graphChannelByFrequency(expectedChannels.first().frequency - 1)).isEmpty()
+        assertThat(fixture.graphChannelByFrequency(expectedChannels.last().frequency + 1)).isEmpty()
     }
 
 }

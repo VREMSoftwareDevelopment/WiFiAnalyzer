@@ -24,7 +24,7 @@ import org.junit.Test
 import java.util.Locale
 
 class WiFiChannelsGHZ6Test {
-    private val expectedChannels: List<WiFiChannel> = (-1..235).map { WiFiChannel(it, 5950 + it * FREQUENCY_SPREAD) }
+    private val expectedChannels: List<WiFiChannel> = (-5..235).map { WiFiChannel(it, 5950 + it * FREQUENCY_SPREAD) }
     private val expectedGraphChannels = listOf(15, 47, 79, 110, 142, 174, 208)
     private val fixture: WiFiChannelsGHZ6 = WiFiChannelsGHZ6()
 
@@ -112,6 +112,12 @@ class WiFiChannelsGHZ6Test {
             // validate
             assertThat(actual).describedAs("Channel: $it").isEqualTo(expected)
         }
+    }
+
+    @Test
+    fun graphChannelByFrequencyOutInRange() {
+        assertThat(fixture.graphChannelByFrequency(expectedChannels.first().frequency - 1)).isEmpty()
+        assertThat(fixture.graphChannelByFrequency(expectedChannels.last().frequency + 1)).isEmpty()
     }
 
 }

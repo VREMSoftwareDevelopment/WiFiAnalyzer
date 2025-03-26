@@ -115,4 +115,10 @@ class WiFiChannelsGHZ5Test {
         }
     }
 
+    @Test
+    fun graphChannelByFrequencyOutInRange() {
+        assertThat(fixture.graphChannelByFrequency(expectedChannels.first().frequency - 1)).isEmpty()
+        assertThat(fixture.graphChannelByFrequency(expectedChannels.last().frequency + 1)).isEmpty()
+    }
+
 }
