@@ -61,6 +61,7 @@ private val countriesETSI: Set<String> = setOf(
     "IL"       // ETSI Israel
 )
 
+// FIXME ... Rules are updated
 internal class WiFiChannelCountryGHZ5 {
     private val channelsSet1: Set<Int> = setOf(36, 40, 44, 48, 52, 56, 60, 64)
     private val channelsSet2: Set<Int> = setOf(100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140, 144)

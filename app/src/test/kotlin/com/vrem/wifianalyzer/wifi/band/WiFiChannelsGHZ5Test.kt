@@ -17,89 +17,102 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
+import com.vrem.util.EMPTY
+import com.vrem.wifianalyzer.wifi.band.WiFiChannels.Companion.FREQUENCY_SPREAD
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
+import java.util.Locale
 
 class WiFiChannelsGHZ5Test {
+    private val expectedChannels: List<WiFiChannel> = (30..179).map { WiFiChannel(it, 5150 + (it - 30) * FREQUENCY_SPREAD) }
+    private val expectedGraphChannels = listOf(42, 58, 74, 90, 106, 122, 138, 156, 171)
     private val fixture: WiFiChannelsGHZ5 = WiFiChannelsGHZ5()
 
     @Test
-    fun wiFiChannelByFrequency() {
-        validateFrequencyToChannel(5180, 5320, 36)
-        validateFrequencyToChannel(5500, 5720, 100)
-        validateFrequencyToChannel(5745, 5885, 149)
+    fun inRange() {
+        assertThat(fixture.inRange(expectedChannels.first().frequency)).isTrue()
+        assertThat(fixture.inRange(expectedChannels.last().frequency)).isTrue()
     }
 
-    private fun validateFrequencyToChannel(frequencyStart: Int, frequencyEnd: Int, channelStart: Int) {
-        var channel = channelStart
-        var frequency = frequencyStart
-        while (frequency <= frequencyEnd) {
-            assertThat(fixture.wiFiChannelByFrequency(frequency).channel).isEqualTo(channel)
-            channel += 2
-            frequency += 10
+    @Test
+    fun notInRange() {
+        assertThat(fixture.inRange(expectedChannels.first().frequency - 1)).isFalse()
+        assertThat(fixture.inRange(expectedChannels.last().frequency + 1)).isFalse()
+    }
+
+    @Test
+    fun wiFiChannelByFrequencyInRange() {
+        expectedChannels.forEach { expected ->
+            // execute
+            val actual = fixture.wiFiChannelByFrequency(expected.frequency)
+            // validate
+            assertThat(actual).isEqualTo(expected)
         }
     }
 
     @Test
-    fun wiFiChannelByFrequencyFail() {
-        assertThat(fixture.wiFiChannelByFrequency(5149)).isEqualTo(WiFiChannel.UNKNOWN)
-        assertThat(fixture.wiFiChannelByFrequency(5896)).isEqualTo(WiFiChannel.UNKNOWN)
+    fun wiFiChannelByFrequencyOutOfRange() {
+        assertThat(fixture.wiFiChannelByFrequency(expectedChannels.first().frequency - 1)).isEqualTo(WiFiChannel.UNKNOWN)
+        assertThat(fixture.wiFiChannelByFrequency(expectedChannels.last().frequency + 1)).isEqualTo(WiFiChannel.UNKNOWN)
     }
 
     @Test
-    fun wiFiChannelFirst() {
-        assertThat(fixture.wiFiChannelFirst().channel).isEqualTo(36)
+    fun wiFiChannelByChannelInRange() {
+        expectedChannels.forEach { expected ->
+            // execute
+            val actual = fixture.wiFiChannelByChannel(expected.channel)
+            // validate
+            assertThat(actual).isEqualTo(expected)
+        }
     }
 
     @Test
-    fun wiFiChannelLast() {
-        assertThat(fixture.wiFiChannelLast().channel).isEqualTo(177)
+    fun wiFiChannelByChannelNotInRange() {
+        assertThat(fixture.wiFiChannelByChannel(expectedChannels.first().channel - 1)).isEqualTo(WiFiChannel.UNKNOWN)
+        assertThat(fixture.wiFiChannelByChannel(expectedChannels.last().channel + 1)).isEqualTo(WiFiChannel.UNKNOWN)
     }
 
     @Test
-    fun wiFiChannelPairs() {
-        val wiFiChannelPairs: List<WiFiChannelPair> = fixture.wiFiChannelPairs()
-        assertThat(wiFiChannelPairs).hasSize(3)
-        validatePair(36, 64, wiFiChannelPairs[0])
-        validatePair(100, 144, wiFiChannelPairs[1])
-        validatePair(149, 177, wiFiChannelPairs[2])
-    }
-
-    private fun validatePair(expectedFirst: Int, expectedSecond: Int, pair: WiFiChannelPair) {
-        assertThat(pair.first.channel).isEqualTo(expectedFirst)
-        assertThat(pair.second.channel).isEqualTo(expectedSecond)
+    fun channelRange() {
+        assertThat(fixture.channelRange.first).isEqualTo(expectedChannels.first())
+        assertThat(fixture.channelRange.second).isEqualTo(expectedChannels.last())
     }
 
     @Test
-    fun wiFiChannelByFrequency5GHZ() {
-        // setup
-        val wiFiChannelPair: WiFiChannelPair = fixture.wiFiChannelPairs()[1]
-        // execute
-        val actual: WiFiChannel = fixture.wiFiChannelByFrequency(2000, wiFiChannelPair)
-        // validate
-        assertThat(actual).isEqualTo(WiFiChannel.UNKNOWN)
+    fun graphChannels() {
+        assertThat(fixture.graphChannels).containsAll(expectedGraphChannels)
     }
 
     @Test
-    fun wiFiChannelByFrequency5GHZInRange() {
-        // setup
-        val wiFiChannelPair: WiFiChannelPair = fixture.wiFiChannelPairs()[1]
-        // execute
-        val actual: WiFiChannel = fixture.wiFiChannelByFrequency(wiFiChannelPair.first.frequency, wiFiChannelPair)
-        // validate
-        assertThat(actual).isEqualTo(wiFiChannelPair.first)
+    fun availableChannels() {
+        assertThat(fixture.availableChannels(Locale.US.country)).hasSize(28)
+        assertThat(fixture.availableChannels(Locale.CANADA.country)).hasSize(22)
+        assertThat(fixture.availableChannels(Locale.JAPAN.country)).hasSize(20)
     }
 
     @Test
     fun wiFiChannels() {
-        // setup
-        val expected = (36..64).toList() + (100..144).toList() + (149..177).toList()
         // execute
         val actual = fixture.wiFiChannels()
         // validate
-        assertThat(actual).hasSize(expected.size)
-        val actualChannels = actual.map { it.channel }.toList()
-        assertThat(actualChannels).hasSize(expected.size).containsAll(expected)
+        assertThat(actual).containsAll(expectedChannels)
+    }
+
+    @Test
+    fun graphChannelCount() {
+        assertThat(fixture.graphChannelCount()).isEqualTo(expectedChannels.size / 2)
+    }
+
+    @Test
+    fun graphChannelByFrequency() {
+        expectedChannels.forEach { it ->
+            // setup
+            val expected = if (expectedGraphChannels.contains(it.channel)) "${it.channel}" else String.EMPTY
+            // execute
+            val actual = fixture.graphChannelByFrequency(it.frequency)
+            // validate
+            assertThat(actual).describedAs("Channel: $it").isEqualTo(expected)
+        }
     }
 
 }

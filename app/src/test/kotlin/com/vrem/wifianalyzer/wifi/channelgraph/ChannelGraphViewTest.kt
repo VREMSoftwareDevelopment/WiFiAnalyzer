@@ -27,8 +27,6 @@ import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.settings.ThemeStyle
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.band.WiFiChannel
-import com.vrem.wifianalyzer.wifi.band.WiFiChannelPair
 import com.vrem.wifianalyzer.wifi.graphutils.GraphLegend
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y
@@ -42,12 +40,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.spy
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
@@ -139,8 +132,5 @@ class ChannelGraphViewTest {
         // validate
         assertThat(actual).isNotNull()
     }
-
-    private fun withWiFiChannelPair(channel: Int = 10): WiFiChannelPair =
-        WiFiChannelPair(WiFiChannel(channel, 100), WiFiChannel(20, 200))
 
 }

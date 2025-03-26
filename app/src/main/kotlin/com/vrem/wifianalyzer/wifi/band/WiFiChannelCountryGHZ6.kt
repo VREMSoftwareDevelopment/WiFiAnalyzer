@@ -19,6 +19,7 @@ package com.vrem.wifianalyzer.wifi.band
 
 import java.util.SortedSet
 
+// FIXME ... Rules are updated
 internal class WiFiChannelCountryGHZ6 {
 
     fun findChannels(): SortedSet<Int> = sortedSetOf(

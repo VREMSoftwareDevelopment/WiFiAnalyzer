@@ -36,7 +36,6 @@ class WiFiBandTest {
         verifyNoMoreInteractions(wiFiManagerWrapper)
     }
 
-
     @Test
     fun wiFiBand() {
         assertThat(WiFiBand.entries).hasSize(3)
@@ -78,28 +77,27 @@ class WiFiBandTest {
     }
 
     @Test
-    fun maxX() {
-        assertThat(WiFiBand.GHZ2.maxX).isEqualTo(9)
-        assertThat(WiFiBand.GHZ5.maxX).isEqualTo(9)
-        assertThat(WiFiBand.GHZ6.maxX).isEqualTo(9)
+    fun wiFiBandFindGHZ2() {
+        assertThat(find(WiFiBand.GHZ2.wiFiChannels.channelRange.first.frequency - 1)).isEqualTo(WiFiBand.GHZ2)
+        assertThat(find(WiFiBand.GHZ2.wiFiChannels.channelRange.first.frequency)).isEqualTo(WiFiBand.GHZ2)
+        assertThat(find(WiFiBand.GHZ2.wiFiChannels.channelRange.second.frequency)).isEqualTo(WiFiBand.GHZ2)
+        assertThat(find(WiFiBand.GHZ2.wiFiChannels.channelRange.second.frequency + 1)).isEqualTo(WiFiBand.GHZ2)
     }
 
     @Test
-    fun wiFiBandFind() {
-        assertThat(find(2399)).isEqualTo(WiFiBand.GHZ2)
-        assertThat(find(2400)).isEqualTo(WiFiBand.GHZ2)
-        assertThat(find(2499)).isEqualTo(WiFiBand.GHZ2)
-        assertThat(find(2500)).isEqualTo(WiFiBand.GHZ2)
+    fun wiFiBandFindGHZ5() {
+        assertThat(find(WiFiBand.GHZ5.wiFiChannels.channelRange.first.frequency - 1)).isEqualTo(WiFiBand.GHZ2)
+        assertThat(find(WiFiBand.GHZ5.wiFiChannels.channelRange.first.frequency)).isEqualTo(WiFiBand.GHZ5)
+        assertThat(find(WiFiBand.GHZ5.wiFiChannels.channelRange.second.frequency)).isEqualTo(WiFiBand.GHZ5)
+        assertThat(find(WiFiBand.GHZ5.wiFiChannels.channelRange.second.frequency + 1)).isEqualTo(WiFiBand.GHZ2)
+    }
 
-        assertThat(find(4899)).isEqualTo(WiFiBand.GHZ2)
-        assertThat(find(4900)).isEqualTo(WiFiBand.GHZ5)
-        assertThat(find(5899)).isEqualTo(WiFiBand.GHZ5)
-        assertThat(find(5900)).isEqualTo(WiFiBand.GHZ2)
-
-        assertThat(find(5924)).isEqualTo(WiFiBand.GHZ2)
-        assertThat(find(5925)).isEqualTo(WiFiBand.GHZ6)
-        assertThat(find(7125)).isEqualTo(WiFiBand.GHZ6)
-        assertThat(find(7126)).isEqualTo(WiFiBand.GHZ2)
+    @Test
+    fun wiFiBandFindGHZ6() {
+        assertThat(find(WiFiBand.GHZ6.wiFiChannels.channelRange.first.frequency - 1)).isEqualTo(WiFiBand.GHZ2)
+        assertThat(find(WiFiBand.GHZ6.wiFiChannels.channelRange.first.frequency)).isEqualTo(WiFiBand.GHZ6)
+        assertThat(find(WiFiBand.GHZ6.wiFiChannels.channelRange.second.frequency)).isEqualTo(WiFiBand.GHZ6)
+        assertThat(find(WiFiBand.GHZ6.wiFiChannels.channelRange.second.frequency + 1)).isEqualTo(WiFiBand.GHZ2)
     }
 
     @Test

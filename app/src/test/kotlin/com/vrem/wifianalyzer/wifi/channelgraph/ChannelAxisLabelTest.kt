@@ -19,7 +19,6 @@ package com.vrem.wifianalyzer.wifi.channelgraph
 
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.band.WiFiChannels
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y
 import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
 import org.assertj.core.api.Assertions.assertThat
@@ -38,42 +37,42 @@ class ChannelAxisLabelTest {
     }
 
     @Test
-    fun xAxis() {
+    fun formatLabelWithFirstFrequencyInRange() {
         // setup
-        val (channel, frequency) = WiFiBand.GHZ2.wiFiChannels.wiFiChannelFirst()
+        val frequency = WiFiBand.GHZ2.wiFiChannels.channelRange.first.frequency
+        // execute
+        val actual = fixture.formatLabel(frequency + 10.toDouble(), true)
+        // validate
+        assertThat(actual).isEqualTo("1")
+    }
+
+    @Test
+    fun formatLabelWithLastFrequencyInRange() {
+        // setup
+        val frequency = WiFiBand.GHZ2.wiFiChannels.channelRange.second.frequency
+        // execute
+        val actual = fixture.formatLabel(frequency - 10.toDouble(), true)
+        // validate
+        assertThat(actual).isEqualTo("13")
+    }
+
+    @Test
+    fun formatLabelWithFirstFrequencyNotInRange() {
+        // setup
+        val frequency = WiFiBand.GHZ2.wiFiChannels.channelRange.first.frequency
         // execute
         val actual = fixture.formatLabel(frequency.toDouble(), true)
         // validate
-        assertThat(actual).isEqualTo("" + channel)
+        assertThat(actual).isEmpty()
     }
 
     @Test
-    fun xAxisWithFrequencyInRange() {
+    fun formatLabelWithLastFrequencyNotInRange() {
         // setup
-        val (channel, frequency) = WiFiBand.GHZ2.wiFiChannels.wiFiChannelFirst()
-        // execute & validate
-        assertThat(fixture.formatLabel(frequency - 2.toDouble(), true)).isEqualTo("" + channel)
-        assertThat(fixture.formatLabel(frequency + 2.toDouble(), true)).isEqualTo("" + channel)
-    }
-
-    @Test
-    fun xAxisWithFrequencyNotAllowedInLocale() {
-        // setup
-        val (_, frequency) = WiFiBand.GHZ2.wiFiChannels.wiFiChannelLast()
+        val frequency = WiFiBand.GHZ2.wiFiChannels.channelRange.first.frequency
         // execute
-        val actual = fixture.formatLabel(frequency.toDouble() + WiFiChannels.FREQUENCY_OFFSET.toDouble(), true)
+        val actual = fixture.formatLabel(frequency.toDouble(), true)
         // validate
-        assertThat(actual).isEqualTo(String.EMPTY)
-    }
-
-    @Test
-    fun xAxisWithUnknownFrequencyReturnEmptyString() {
-        // setup
-        val wiFiChannels = WiFiBand.GHZ2.wiFiChannels
-        val (_, frequency) = wiFiChannels.wiFiChannelFirst()
-        // execute
-        val actual = fixture.formatLabel(frequency - WiFiChannels.FREQUENCY_OFFSET.toDouble(), true)
-        // validate
-        assertThat(actual).isEqualTo(String.EMPTY)
+        assertThat(actual).isEmpty()
     }
 }

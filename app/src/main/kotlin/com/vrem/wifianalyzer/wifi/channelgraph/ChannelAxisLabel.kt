@@ -21,7 +21,6 @@ import com.jjoe64.graphview.LabelFormatter
 import com.jjoe64.graphview.Viewport
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y
 import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
 
@@ -29,31 +28,20 @@ internal class ChannelAxisLabel(private val wiFiBand: WiFiBand) : LabelFormatter
     override fun formatLabel(value: Double, isValueX: Boolean): String {
         val valueAsInt = (value + if (value < 0) -0.5 else 0.5).toInt()
         return if (isValueX) {
-            xValue(valueAsInt)
+            wiFiBand.wiFiChannels.graphChannelByFrequency(valueAsInt)
         } else {
             yValue(valueAsInt)
         }
     }
 
-    private fun yValue(value: Int): String {
-        return if (value in (MIN_Y + 1)..MAX_Y) {
+    private fun yValue(value: Int): String =
+        if (value in (MIN_Y + 1)..MAX_Y) {
             "$value"
         } else {
             String.EMPTY
         }
-    }
-
-    private fun xValue(value: Int): String {
-        val wiFiChannel: WiFiChannel = wiFiBand.wiFiChannels.wiFiChannelByFrequency(value)
-        return if (wiFiChannel == WiFiChannel.UNKNOWN) {
-            String.EMPTY
-        } else {
-            "${wiFiChannel.channel}"
-        }
-    }
 
     override fun setViewport(viewport: Viewport) {
         // ignore
     }
-
 }

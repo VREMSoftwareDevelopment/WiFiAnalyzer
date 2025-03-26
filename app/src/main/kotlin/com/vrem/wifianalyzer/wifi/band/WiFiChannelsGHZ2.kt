@@ -17,9 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
-class WiFiChannelsGHZ2 : WiFiChannels(RANGE, SETS) {
-    override fun wiFiChannelPairs(): List<WiFiChannelPair> = listOf(SET)
-
+class WiFiChannelsGHZ2 : WiFiChannels(channelRange, graphChannels) {
     override fun availableChannels(countryCode: String): List<WiFiChannel> =
         availableChannels(WiFiChannelCountry.find(countryCode).channelsGHZ2())
 
@@ -27,11 +25,7 @@ class WiFiChannelsGHZ2 : WiFiChannels(RANGE, SETS) {
         WiFiChannelCountry.find(countryCode).channelAvailableGHZ2(channel)
 
     companion object {
-        private val RANGE: WiFiRange = WiFiRange(2400, 2499)
-        private val SETS: List<WiFiChannelPair> = listOf(
-            WiFiChannelPair(WiFiChannel(1, 2412), WiFiChannel(13, 2472)),
-            WiFiChannelPair(WiFiChannel(14, 2484), WiFiChannel(14, 2484))
-        )
-        private val SET: WiFiChannelPair = WiFiChannelPair(SETS[0].first, SETS[SETS.size - 1].second)
+        private val channelRange: WiFiChannelPair = WiFiChannelPair(WiFiChannel(-1, 2402), WiFiChannel(15, 2482))
+        private val graphChannels: Set<Int> = (1..13).toSet()
     }
 }

@@ -22,6 +22,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
+import java.util.Locale
 
 class ChannelRatingTest {
     private val wiFiConnection = WiFiConnection(
@@ -114,21 +115,35 @@ class ChannelRatingTest {
     }
 
     @Test
-    fun bestChannelsSortedInOrderWithMinimumChannels() {
+    fun bestChannelsUSSortedInOrderWithMinimumChannels() {
         // setup
-        val channels: List<WiFiChannel> = WiFiBand.GHZ2.wiFiChannels.wiFiChannels()
+        val channels: List<WiFiChannel> = WiFiBand.GHZ2.wiFiChannels.availableChannels(Locale.US.country)
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4))
         // execute
         val actual: List<ChannelAPCount> = fixture.bestChannels(channels)
         // validate
-        assertThat(actual).hasSize(7)
+        assertThat(actual).hasSize(4)
+        validateChannelAPCount(1, 0, actual[0])
+        validateChannelAPCount(2, 0, actual[1])
+        validateChannelAPCount(3, 1, actual[2])
+        validateChannelAPCount(4, 1, actual[3])
+    }
+
+    @Test
+    fun bestChannelsJPSortedInOrderWithMinimumChannels() {
+        // setup
+        val channels: List<WiFiChannel> = WiFiBand.GHZ2.wiFiChannels.availableChannels(Locale.JAPAN.country)
+        fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4))
+        // execute
+        val actual: List<ChannelAPCount> = fixture.bestChannels(channels)
+        // validate
+        assertThat(actual).hasSize(6)
         validateChannelAPCount(1, 0, actual[0])
         validateChannelAPCount(2, 0, actual[1])
         validateChannelAPCount(12, 0, actual[2])
         validateChannelAPCount(13, 0, actual[3])
-        validateChannelAPCount(14, 0, actual[4])
-        validateChannelAPCount(3, 1, actual[5])
-        validateChannelAPCount(4, 1, actual[6])
+        validateChannelAPCount(3, 1, actual[4])
+        validateChannelAPCount(4, 1, actual[5])
     }
 
     private fun validateChannelAPCount(expectedChannel: Int, expectedCount: Int, channelAPCount: ChannelAPCount) {
