@@ -22,8 +22,8 @@ import org.junit.Test
 import java.util.SortedSet
 
 class WiFiChannelCountryGHZ2Test {
-    private val channelsSet1: SortedSet<Int> = sortedSetOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
-    private val channelsSet2: SortedSet<Int> = sortedSetOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)
+    private val channelsSet1 = (1..11).toList()
+    private val channelsSet2 = channelsSet1.union(12..13).toList()
     private val fixture = WiFiChannelCountryGHZ2()
 
     @Test
@@ -38,7 +38,7 @@ class WiFiChannelCountryGHZ2Test {
             .forEach { validateChannels(channelsSet2, fixture.findChannels(it)) }
     }
 
-    private fun validateChannels(expected: SortedSet<Int>, actual: SortedSet<Int>) {
+    private fun validateChannels(expected: List<Int>, actual: SortedSet<Int>) {
         assertThat(actual).hasSize(expected.size)
         assertThat(actual).containsAll(expected)
     }

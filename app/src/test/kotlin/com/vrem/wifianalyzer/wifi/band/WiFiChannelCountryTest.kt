@@ -39,7 +39,7 @@ class WiFiChannelCountryTest {
 
 
     @Test
-    fun channelAvailableWithTrue() {
+    fun channelAvailable() {
         assertThat(find(Locale.US.country).channelAvailableGHZ2(1)).isTrue()
         assertThat(find(Locale.US.country).channelAvailableGHZ2(11)).isTrue()
         assertThat(find(Locale.US.country).channelAvailableGHZ5(36)).isTrue()
@@ -51,7 +51,7 @@ class WiFiChannelCountryTest {
     }
 
     @Test
-    fun channelAvailableWithGHZ2() {
+    fun channelIsNotAvailableWithGHZ2() {
         assertThat(find(Locale.US.country).channelAvailableGHZ2(0)).isFalse()
         assertThat(find(Locale.US.country).channelAvailableGHZ2(12)).isFalse()
         assertThat(find(Locale.UK.country).channelAvailableGHZ2(0)).isFalse()
@@ -59,7 +59,7 @@ class WiFiChannelCountryTest {
     }
 
     @Test
-    fun channelAvailableWithGHZ5() {
+    fun channelAvailableGHZ5() {
         assertThat(find(Locale.US.country).channelAvailableGHZ5(36)).isTrue()
         assertThat(find(Locale.US.country).channelAvailableGHZ5(165)).isTrue()
         assertThat(find(Locale.UK.country).channelAvailableGHZ5(36)).isTrue()
@@ -69,7 +69,7 @@ class WiFiChannelCountryTest {
     }
 
     @Test
-    fun channelAvailableWithGHZ6() {
+    fun channelAvailableGHZ6() {
         assertThat(find(Locale.US.country).channelAvailableGHZ6(1)).isTrue()
         assertThat(find(Locale.US.country).channelAvailableGHZ6(93)).isTrue()
         assertThat(find(Locale.UK.country).channelAvailableGHZ6(1)).isTrue()
