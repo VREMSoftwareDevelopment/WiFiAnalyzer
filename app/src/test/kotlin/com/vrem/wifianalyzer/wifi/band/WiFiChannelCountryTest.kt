@@ -17,12 +17,46 @@
  */
 package com.vrem.wifianalyzer.wifi.band
 
-import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry.Companion.find
+import com.vrem.util.allCountries
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import java.util.Locale
+import java.util.SortedSet
+
+private val countriesETSI: Set<String> = setOf(
+    "AT",      // ETSI Austria
+    "BE",      // ETSI Belgium
+    "CH",      // ETSI Switzerland
+    "CY",      // ETSI Cyprus
+    "CZ",      // ETSI Czechia
+    "DE",      // ETSI Germany
+    "DK",      // ETSI Denmark
+    "EE",      // ETSI Estonia
+    "ES",      // ETSI Spain
+    "FI",      // ETSI Finland
+    "FR",      // ETSI France
+    "GR",      // ETSI Greece
+    "HU",      // ETSI Hungary
+    "IE",      // ETSI Ireland
+    "IS",      // ETSI Iceland
+    "IT",      // ETSI Italy
+    "LI",      // ETSI Liechtenstein
+    "LT",      // ETSI Lithuania
+    "LU",      // ETSI Luxembourg
+    "LV",      // ETSI Latvia
+    "MT",      // ETSI Malta
+    "NL",      // ETSI Netherlands
+    "NO",      // ETSI Norway
+    "PL",      // ETSI Poland
+    "PT",      // ETSI Portugal
+    "RO",      // ETSI Romania
+    "SE",      // ETSI Sweden
+    "SI",      // ETSI Slovenia
+    "SK",      // ETSI Slovakia
+    "IL"       // ETSI Israel
+)
 
 class WiFiChannelCountryTest {
     private val currentLocale: Locale = Locale.getDefault()
@@ -37,96 +71,137 @@ class WiFiChannelCountryTest {
         Locale.setDefault(currentLocale)
     }
 
-
-    @Test
-    fun channelAvailable() {
-        assertThat(find(Locale.US.country).channelAvailableGHZ2(1)).isTrue()
-        assertThat(find(Locale.US.country).channelAvailableGHZ2(11)).isTrue()
-        assertThat(find(Locale.US.country).channelAvailableGHZ5(36)).isTrue()
-        assertThat(find(Locale.US.country).channelAvailableGHZ5(165)).isTrue()
-        assertThat(find(Locale.UK.country).channelAvailableGHZ2(1)).isTrue()
-        assertThat(find(Locale.UK.country).channelAvailableGHZ2(13)).isTrue()
-        assertThat(find(Locale.UK.country).channelAvailableGHZ5(36)).isTrue()
-        assertThat(find(Locale.UK.country).channelAvailableGHZ5(140)).isTrue()
+    data class TestData(
+        val wiFiBand: WiFiBand,
+        val channels: SortedSet<Int>,
+        val channelsCountry: List<Rules> = listOf()
+    ) {
+        fun find(countryCode: String): SortedSet<Int> =
+            channelsCountry
+                .filter { it.first.contains(countryCode) }
+                .flatMap { it.second }
+                .toSortedSet()
+                .ifEmpty { channels }
     }
 
-    @Test
-    fun channelIsNotAvailableWithGHZ2() {
-        assertThat(find(Locale.US.country).channelAvailableGHZ2(0)).isFalse()
-        assertThat(find(Locale.US.country).channelAvailableGHZ2(12)).isFalse()
-        assertThat(find(Locale.UK.country).channelAvailableGHZ2(0)).isFalse()
-        assertThat(find(Locale.UK.country).channelAvailableGHZ2(14)).isFalse()
-    }
+    private val testData = listOf(
+        TestData(
+            WiFiBand.GHZ2,
+            (1..13).toSortedSet()
+        ),
+        TestData(
+            WiFiBand.GHZ5,
+            sortedSetOf(42, 50, 58, 74, 82, 90, 106, 114, 122, 138, 155, 163, 171),
+            listOf(
+                Rules(
+                    setOf("JP", "TR", "ZA"),
+                    sortedSetOf(42, 50, 58, 74, 82, 90, 106, 114, 122, 138)
+                ),
+                Rules(
+                    setOf("CN", "BH", "ID"),
+                    sortedSetOf(42, 50, 58, 74, 82, 90, 155, 163)
+                ),
+                Rules(
+                    setOf("RU"),
+                    sortedSetOf(42, 50, 58, 74, 82, 90, 138, 155, 163, 171)
+                )
+            )
+        ),
+        TestData(
+            WiFiBand.GHZ6,
+            sortedSetOf(15, 31, 47, 63, 79, 95, 111, 127, 143, 159, 175, 191, 207),
+            listOf(
+                Rules(
+                    countriesETSI.union(setOf("JP", "RU", "NZ", "AU", "GL", "AE", "GB", "MX", "SG", "HK", "MO", "PH")),
+                    sortedSetOf(15, 31, 47, 63, 79)
+                )
+            )
+        )
+    )
 
     @Test
-    fun channelAvailableGHZ5() {
-        assertThat(find(Locale.US.country).channelAvailableGHZ5(36)).isTrue()
-        assertThat(find(Locale.US.country).channelAvailableGHZ5(165)).isTrue()
-        assertThat(find(Locale.UK.country).channelAvailableGHZ5(36)).isTrue()
-        assertThat(find(Locale.UK.country).channelAvailableGHZ5(140)).isTrue()
-        assertThat(find("AE").channelAvailableGHZ5(36)).isTrue()
-        assertThat(find("AE").channelAvailableGHZ5(64)).isTrue()
-    }
-
-    @Test
-    fun channelAvailableGHZ6() {
-        assertThat(find(Locale.US.country).channelAvailableGHZ6(1)).isTrue()
-        assertThat(find(Locale.US.country).channelAvailableGHZ6(93)).isTrue()
-        assertThat(find(Locale.UK.country).channelAvailableGHZ6(1)).isTrue()
-        assertThat(find(Locale.UK.country).channelAvailableGHZ6(93)).isTrue()
-        assertThat(find("AE").channelAvailableGHZ6(1)).isTrue()
-        assertThat(find("AE").channelAvailableGHZ6(93)).isTrue()
-    }
-
-    @Test
-    fun findCorrectlyPopulatesGHZ() {
-        // setup
-        val expectedCountryCode = Locale.US.country
-        val expectedGHZ2: Set<Int> = WiFiChannelCountryGHZ2().findChannels(expectedCountryCode)
-        val expectedGHZ5: Set<Int> = WiFiChannelCountryGHZ5().findChannels(expectedCountryCode)
-        val expectedGHZ6: Set<Int> = WiFiChannelCountryGHZ6().findChannels()
+    fun findAll() {
+        val expected = allCountries()
         // execute
-        val actual: WiFiChannelCountry = find(expectedCountryCode)
+        val actual = WiFiChannelCountry.findAll()
         // validate
-        assertThat(actual.countryCode()).isEqualTo(expectedCountryCode)
-        assertThat(actual.channelsGHZ2().toTypedArray()).isEqualTo(expectedGHZ2.toTypedArray())
-        assertThat(actual.channelsGHZ5().toTypedArray()).isEqualTo(expectedGHZ5.toTypedArray())
-        assertThat(actual.channelsGHZ6().toTypedArray()).isEqualTo(expectedGHZ6.toTypedArray())
+        assertThat(actual).hasSize(expected.size)
     }
 
     @Test
-    fun findCorrectlyPopulatesCountryCodeAndName() {
+    fun find() {
         // setup
-        val expected = Locale.SIMPLIFIED_CHINESE
-        val expectedCountryCode = expected.country
+        val expected = Locale.US
         // execute
-        val actual: WiFiChannelCountry = find(expectedCountryCode)
+        val actual = WiFiChannelCountry.find(expected.country)
         // validate
-        assertThat(actual.countryCode()).isEqualTo(expectedCountryCode)
-        assertThat(actual.countryName(expected)).isNotEqualTo(expected.displayCountry)
-        assertThat(actual.countryName(expected)).isEqualTo(expected.getDisplayCountry(expected))
+        assertThat(actual.countryCode()).isEqualTo(expected.country)
+        assertThat(actual.countryName(expected)).isEqualTo(expected.displayCountry)
+    }
+
+    @Test
+    fun countryCode() {
+        Locale.getAvailableLocales().forEach { locale ->
+            val fixture = WiFiChannelCountry(locale)
+            // execute
+            val actual = fixture.countryCode()
+            // validate
+            assertThat(actual).describedAs("Code: ${locale.country}").isEqualTo(locale.country)
+        }
     }
 
     @Test
     fun countryName() {
-        // setup
-        val fixture = WiFiChannelCountry(Locale.US)
-        val expected = "United States"
-        // execute & validate
-        val actual = fixture.countryName(Locale.US)
-        // execute & validate
-        assertThat(actual).isEqualTo(expected)
+        Locale.getAvailableLocales().forEach { locale ->
+            val fixture = WiFiChannelCountry(locale)
+            val expected = if (locale.displayCountry.isEmpty()) "-Unknown" else locale.displayCountry
+            // execute
+            val actual = fixture.countryName(Locale.US)
+            // validate
+            assertThat(actual).describedAs("Code: ${locale.country}").isEqualTo(expected)
+        }
     }
 
     @Test
-    fun countryNameUnknown() {
-        // setup
-        val fixture = WiFiChannelCountry(Locale("XYZ"))
-        val expected = "-Unknown"
-        // execute & validate
-        val actual = fixture.countryName(Locale.US)
-        // execute & validate
-        assertThat(actual).isEqualTo(expected)
+    fun channels() {
+        Locale.getAvailableLocales().forEach { locale ->
+            val fixture = WiFiChannelCountry(locale)
+            testData.forEach { it ->
+                val expected = it.find(locale.country)
+                // execute
+                val actual = fixture.channels(it.wiFiBand)
+                // validate
+                assertThat(actual).describedAs("Code: ${locale.country} | ${it.wiFiBand.name}").containsExactlyElementsOf(expected)
+            }
+        }
+    }
+
+    @Test
+    fun available() {
+        Locale.getAvailableLocales().forEach { locale ->
+            val fixture = WiFiChannelCountry(locale)
+            testData.forEach { (wiFiBand, expectedChannels) ->
+                expectedChannels.forEach { channel ->
+                    // execute
+                    val actual = fixture.available(wiFiBand, channel)
+                    // validate
+                    assertThat(actual).describedAs("Code: ${locale.country} | ${wiFiBand.name} | Channel: $channel").isTrue()
+                }
+            }
+        }
+    }
+
+    @Test
+    fun notAvailable() {
+        Locale.getAvailableLocales().forEach { locale ->
+            val fixture = WiFiChannelCountry(locale)
+            testData.forEach { (wiFiBand, channels) ->
+                assertThat(fixture.available(wiFiBand, channels.first() - 1)).describedAs("Code: ${locale.country} | ${wiFiBand.name}")
+                    .isFalse()
+                assertThat(fixture.available(wiFiBand, channels.last() + 1)).describedAs("Code: ${locale.country} | ${wiFiBand.name}")
+                    .isFalse()
+            }
+        }
     }
 
 }

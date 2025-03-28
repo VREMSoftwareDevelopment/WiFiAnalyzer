@@ -115,24 +115,10 @@ class ChannelRatingTest {
     }
 
     @Test
-    fun bestChannelsUSSortedInOrderWithMinimumChannels() {
+    fun bestChannelsSortedInOrderWithMinimumChannels() {
         // setup
-        val channels: List<WiFiChannel> = WiFiBand.GHZ2.wiFiChannels.availableChannels(Locale.US.country)
-        fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4))
-        // execute
-        val actual: List<ChannelAPCount> = fixture.bestChannels(channels)
-        // validate
-        assertThat(actual).hasSize(4)
-        validateChannelAPCount(1, 0, actual[0])
-        validateChannelAPCount(2, 0, actual[1])
-        validateChannelAPCount(3, 1, actual[2])
-        validateChannelAPCount(4, 1, actual[3])
-    }
-
-    @Test
-    fun bestChannelsJPSortedInOrderWithMinimumChannels() {
-        // setup
-        val channels: List<WiFiChannel> = WiFiBand.GHZ2.wiFiChannels.availableChannels(Locale.JAPAN.country)
+        val wiFiBand = WiFiBand.GHZ2
+        val channels: List<WiFiChannel> = wiFiBand.wiFiChannels.availableChannels(wiFiBand, Locale.US.country)
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4))
         // execute
         val actual: List<ChannelAPCount> = fixture.bestChannels(channels)

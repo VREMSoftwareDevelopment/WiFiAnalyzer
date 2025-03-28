@@ -63,7 +63,7 @@ class ChannelRatingAdapter(
     }
 
     private fun wiFiChannels(wiFiBand: WiFiBand, countryCode: String): List<WiFiChannel> {
-        val wiFiChannels: List<WiFiChannel> = wiFiBand.wiFiChannels.availableChannels(countryCode)
+        val wiFiChannels: List<WiFiChannel> = wiFiBand.wiFiChannels.availableChannels(wiFiBand, countryCode)
         clear()
         addAll(wiFiChannels)
         return wiFiChannels

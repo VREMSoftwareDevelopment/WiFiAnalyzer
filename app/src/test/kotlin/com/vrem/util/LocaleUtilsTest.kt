@@ -18,10 +18,24 @@
 package com.vrem.util
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import java.util.Locale
 
 class LocaleUtilsTest {
+    private val currentLocale: Locale = Locale.getDefault()
+
+    @Before
+    fun setUp() {
+        Locale.setDefault(Locale.US)
+    }
+
+    @After
+    fun tearDown() {
+        Locale.setDefault(currentLocale)
+    }
+
     @Test
     fun allSupportedCountries() {
         // execute

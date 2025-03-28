@@ -35,7 +35,7 @@ import org.mockito.kotlin.atLeastOnce
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
-import java.util.*
+import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
@@ -65,9 +65,9 @@ class ChannelAvailableAdapterTest {
         val wiFiBand5 = resources.getString(WiFiBand.GHZ5.textResource)
         val wiFiBand6 = resources.getString(WiFiBand.GHZ6.textResource)
         val expected = "${wiFiChannelCountry.countryCode()} - ${wiFiChannelCountry.countryName(currentLocale)}"
-        val expectedGHZ2 = wiFiChannelCountry.channelsGHZ2().joinToString(",")
-        val expectedGHZ5 = wiFiChannelCountry.channelsGHZ5().joinToString(",")
-        val expectedGHZ6 = wiFiChannelCountry.channelsGHZ6().joinToString(",")
+        val expectedGHZ2 = wiFiChannelCountry.channels(WiFiBand.GHZ2).joinToString(",")
+        val expectedGHZ5 = wiFiChannelCountry.channels(WiFiBand.GHZ5).joinToString(",")
+        val expectedGHZ6 = wiFiChannelCountry.channels(WiFiBand.GHZ6).joinToString(",")
         val viewGroup = mainActivity.findViewById<ViewGroup>(android.R.id.content)
         // execute
         val actual = fixture.getView(0, null, viewGroup)

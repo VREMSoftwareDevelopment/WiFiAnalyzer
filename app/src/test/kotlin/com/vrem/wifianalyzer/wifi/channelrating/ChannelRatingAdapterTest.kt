@@ -40,7 +40,7 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
 import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
-import java.util.*
+import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
@@ -88,10 +88,11 @@ class ChannelRatingAdapterTest {
         // setup
         val expected = mainActivity.resources.getText(R.string.channel_rating_best_none).toString()
         val wiFiData = WiFiData(listOf(), WiFiConnection.EMPTY)
-        val wiFiChannels = WiFiBand.GHZ5.wiFiChannels.availableChannels(Locale.US.country)
-        val predicate: Predicate = WiFiBand.GHZ5.predicate()
+        val wiFiBand = WiFiBand.GHZ5
+        val wiFiChannels = wiFiBand.wiFiChannels.availableChannels(wiFiBand, Locale.US.country)
+        val predicate: Predicate = wiFiBand.predicate()
         val wiFiDetails = wiFiData.wiFiDetails(predicate, SortBy.STRENGTH)
-        whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5)
+        whenever(settings.wiFiBand()).thenReturn(wiFiBand)
         whenever(settings.countryCode()).thenReturn(Locale.US.country)
         // execute
         fixture.update(wiFiData)

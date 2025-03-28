@@ -38,11 +38,11 @@ internal class ChannelAvailableAdapter(context: Context, wiFiChannelCountries: L
             val currentLocale = MainContext.INSTANCE.settings.languageLocale()
             binding.channelAvailableCountry.text = "${it.countryCode()} - ${it.countryName(currentLocale)}"
             binding.channelAvailableTitleGhz2.text = "${resources.getString(WiFiBand.GHZ2.textResource)} : "
-            binding.channelAvailableGhz2.text = it.channelsGHZ2().joinToString(",")
+            binding.channelAvailableGhz2.text = it.channels(WiFiBand.GHZ2).joinToString(",")
             binding.channelAvailableTitleGhz5.text = "${resources.getString(WiFiBand.GHZ5.textResource)} : "
-            binding.channelAvailableGhz5.text = it.channelsGHZ5().joinToString(",")
+            binding.channelAvailableGhz5.text = it.channels(WiFiBand.GHZ5).joinToString(",")
             binding.channelAvailableTitleGhz6.text = "${resources.getString(WiFiBand.GHZ6.textResource)} : "
-            binding.channelAvailableGhz6.text = it.channelsGHZ6().joinToString(",")
+            binding.channelAvailableGhz6.text = it.channels(WiFiBand.GHZ6).joinToString(",")
         }
         return rootView
     }

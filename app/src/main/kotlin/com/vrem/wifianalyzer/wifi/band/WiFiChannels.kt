@@ -24,49 +24,10 @@ internal const val FREQUENCY_SPREAD = 5
 typealias WiFiRange = Pair<Int, Int>
 typealias WiFiChannelPair = Pair<WiFiChannel, WiFiChannel>
 
-private val channelRangeGHZ2 = WiFiChannelPair(WiFiChannel(-1, 2402), WiFiChannel(15, 2482))
-private val graphChannelsGHZ2 = (1..13).associate { it to "$it" }
+class WiFiChannels(val channelRange: WiFiChannelPair, val graphChannels: Map<Int, String>, val offset: Int = 2) {
 
-class WiFiChannelsGHZ2 : WiFiChannels(channelRangeGHZ2, graphChannelsGHZ2) {
-    override fun availableChannels(countryCode: String): List<WiFiChannel> =
-        availableChannels(WiFiChannelCountry.find(countryCode).channelsGHZ2())
-}
-
-private val channelRangeGHZ5 = WiFiChannelPair(WiFiChannel(30, 5150), WiFiChannel(179, 5895))
-private val graphChannelsGHZ5 = listOf(42, 58, 74, 90, 106, 122, 138, 156, 171).associate {
-    it to when (it) {
-        156 -> "155"
-        else -> "$it"
-    }
-}
-
-class WiFiChannelsGHZ5 : WiFiChannels(channelRangeGHZ5, graphChannelsGHZ5) {
-    override fun availableChannels(countryCode: String): List<WiFiChannel> =
-        availableChannels(WiFiChannelCountry.find(countryCode).channelsGHZ5())
-
-    override fun graphChannelCount(): Int = super.graphChannelCount() / 2
-}
-
-private val channelRangeGHZ6 = WiFiChannelPair(WiFiChannel(-5, 5925), WiFiChannel(235, 7125))
-private val graphChannelsGHZ6 = listOf(15, 47, 79, 110, 142, 174, 208).associate {
-    it to when (it) {
-        110 -> "111"
-        142 -> "143"
-        174 -> "175"
-        208 -> "207"
-        else -> "$it"
-    }
-}
-
-class WiFiChannelsGHZ6 : WiFiChannels(channelRangeGHZ6, graphChannelsGHZ6) {
-    override fun availableChannels(countryCode: String): List<WiFiChannel> =
-        availableChannels(WiFiChannelCountry.find(countryCode).channelsGHZ6())
-
-    override fun graphChannelCount(): Int = super.graphChannelCount() / 2
-}
-
-abstract class WiFiChannels(val channelRange: WiFiChannelPair, val graphChannels: Map<Int, String>) {
-    abstract fun availableChannels(countryCode: String): List<WiFiChannel>
+    fun availableChannels(wiFiBand: WiFiBand, countryCode: String): List<WiFiChannel> =
+        WiFiChannelCountry.find(countryCode).channels(wiFiBand).map { wiFiChannelByChannel(it) }
 
     fun inRange(frequency: Int): Boolean = frequency in channelRange.first.frequency..channelRange.second.frequency
 
@@ -80,12 +41,10 @@ abstract class WiFiChannels(val channelRange: WiFiChannelPair, val graphChannels
             WiFiChannel.UNKNOWN
         }
 
-    open fun graphChannelCount(): Int = channelRange.second.channel - channelRange.first.channel + 1
+    fun graphChannelCount(): Int = (channelRange.second.channel - channelRange.first.channel + 1) / offset
 
     fun graphChannelByFrequency(frequency: Int): String =
         graphChannels[wiFiChannelByFrequency(frequency).channel] ?: String.EMPTY
-
-    fun availableChannels(channels: Set<Int>): List<WiFiChannel> = channels.map { wiFiChannelByChannel(it) }
 
     fun wiFiChannels(): List<WiFiChannel> = (channelRange.first.channel..channelRange.second.channel).map { wiFiChannelByChannel(it) }
 
