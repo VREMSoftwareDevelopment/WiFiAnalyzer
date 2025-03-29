@@ -23,33 +23,6 @@ import kotlin.math.abs
 
 private val CHANNEL_WIDTH_320MHZ = if (buildMinVersionT()) ScanResult.CHANNEL_WIDTH_320MHZ else 5
 
-// 5GHz: 50, 82, 114, 163 | 6GHz: 15, 47, 79, 111, 143, 175, 207
-private val frequency160Range = listOf(
-    5250 to (5170 to 5329),
-    5410 to (5330 to 5489),
-    5650 to (5490 to 5730),
-    5815 to (5735 to 5895),
-    6025 to (5945 to 6104),
-    6185 to (6105 to 6264),
-    6345 to (6265 to 6424),
-    6505 to (6425 to 6584),
-    6665 to (6585 to 6744),
-    6825 to (6745 to 6904),
-    6985 to (6905 to 7065)
-)
-private val frequency160center = frequency160Range.map { it.first }
-
-// 6GHz: 31, 95, 159, 191
-private val frequency320Range = listOf(
-    6100 to (5945 to 6264),
-    6430 to (6265 to 6584),
-    6750 to (6585 to 6904),
-    6910 to (6905 to 7065)
-)
-
-// 6GHz: 31, 63, 95, 127, 159, 191
-private val frequency320Center = listOf(6100, 6270, 6430, 6590, 6750, 6910)
-
 typealias ChannelWidth = Int
 typealias CalculateCenter = (primary: Int, center0: Int, center1: Int) -> Int
 
@@ -58,22 +31,8 @@ internal val calculateCenter40: CalculateCenter = { primary, center0, _ ->
     if (abs(primary - center0) >= WiFiWidth.MHZ_40.frequencyWidthHalf) (primary + center0) / 2 else center0
 }
 internal val calculateCenter80: CalculateCenter = { _, center0, _ -> center0 }
-internal val calculateCenter160: CalculateCenter = { primary, center0, center1 ->
-    when {
-        center1 in frequency160center -> center1
-        center0 in frequency160center -> center0
-        primary in frequency160center -> primary
-        else -> frequency160Range.firstOrNull { primary in it.second.first..it.second.second }?.first ?: center1
-    }
-}
-internal val calculateCenter320: CalculateCenter = { primary, center0, center1 ->
-    when {
-        center1 in frequency320Center -> center1
-        center0 in frequency320Center -> center0
-        primary in frequency320Center -> primary
-        else -> frequency320Range.firstOrNull { primary in it.second.first..it.second.second }?.first ?: center1
-    }
-}
+internal val calculateCenter160: CalculateCenter = { _, _, center1 -> center1 }
+internal val calculateCenter320: CalculateCenter = { _, _, center1 -> center1 }
 
 enum class WiFiWidth(val channelWidth: ChannelWidth, val frequencyWidth: Int, val guardBand: Int, val calculateCenter: CalculateCenter) {
     MHZ_20(ScanResult.CHANNEL_WIDTH_20MHZ, 20, 2, calculateCenter20),
