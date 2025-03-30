@@ -97,12 +97,16 @@ class AccessPointDetail {
             val wiFiSignal = wiFiDetail.wiFiSignal
             setLevelImage(view, wiFiSignal)
             setWiFiStandardImage(view, wiFiSignal)
+            setWiFiWidth(view, wiFiSignal)
             it.text = "${wiFiSignal.wiFiChannelStart.frequency} - ${wiFiSignal.wiFiChannelEnd.frequency}"
-            view.findViewById<TextView>(R.id.width).text =
-                "(${wiFiSignal.wiFiWidth.frequencyWidth}${WiFiSignal.FREQUENCY_UNITS})"
             view.findViewById<TextView>(R.id.capabilities).text = wiFiDetail.wiFiSecurity.securities
                 .toList()
                 .joinToString(" ", "[", "]")
+        }
+
+    private fun setWiFiWidth(view: View, wiFiSignal: WiFiSignal) =
+        view.findViewById<TextView>(R.id.width)?.let {
+            it.text = ContextCompat.getString(view.context, wiFiSignal.wiFiWidth.textResource)
         }
 
     private fun setWiFiStandardImage(view: View, wiFiSignal: WiFiSignal) =
@@ -174,8 +178,9 @@ class AccessPointDetail {
         with(wiFiSignal) {
             view.findViewById<TextView>(R.id.channel_start).text = "${wiFiChannelStart.channel}"
             view.findViewById<TextView>(R.id.channel_end).text = "${wiFiChannelEnd.channel}"
-            view.findViewById<TextView>(R.id.channel_width).text =
-                "(${wiFiWidth.frequencyWidth}${WiFiSignal.FREQUENCY_UNITS})"
+            view.findViewById<TextView>(R.id.channel_width)?.let {
+                it.text = ContextCompat.getString(view.context, wiFiSignal.wiFiWidth.textResource)
+            }
         }
 
 }

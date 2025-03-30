@@ -27,7 +27,7 @@ import java.util.Locale
 private fun data(): List<Data> {
     val currentLocale: Locale = MainContext.INSTANCE.settings.languageLocale()
     return WiFiChannelCountry.findAll()
-        .map { Data(it.countryCode(), it.countryName(currentLocale)) }
+        .map { Data(it.countryCode, it.countryName(currentLocale)) }
         .sorted()
 }
 

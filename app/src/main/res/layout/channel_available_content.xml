@@ -18,6 +18,7 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -29,8 +30,203 @@
         android:autoLink="web"
         android:text="@string/wifi_channels_list_url" />
 
-    <ListView
-        android:id="@android:id/list"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/list_view_item_horizontal_tab"
+        android:orientation="vertical">
+
+        <!-- 2.4 GHz channels -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wifi_band_2ghz"
+            android:textColor="@color/selected"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_half_margin"
+            android:text="@string/wifi_width_20mhz"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channels_available_2GHz_20MHz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:textColor="@color/channel_number"
+            tools:text="1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_half_margin"
+            android:text="@string/wifi_width_40mhz"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channels_available_2GHz_40MHz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:textColor="@color/channel_number"
+            tools:text="1, 6, 11" />
+
+        <!-- 5 GHz channels -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/wifi_band_5ghz"
+            android:textColor="@color/selected"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_half_margin"
+            android:text="@string/wifi_width_20mhz"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channels_available_5GHz_20MHz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:textColor="@color/channel_number"
+            tools:text="32, 36, 40, 44, 48, 52, 56, 60, 64" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_half_margin"
+            android:text="@string/wifi_width_40mhz"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channels_available_5GHz_40MHz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:textColor="@color/channel_number"
+            tools:text="38, 46, 54, 62" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_half_margin"
+            android:text="@string/wifi_width_80mhz"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channels_available_5GHz_80MHz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:textColor="@color/channel_number"
+            tools:text="42, 58" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_half_margin"
+            android:text="@string/wifi_width_160mhz"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channels_available_5GHz_160MHz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:textColor="@color/channel_number"
+            tools:text="50" />
+
+        <!-- 6 GHz channels -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/wifi_band_6ghz"
+            android:textColor="@color/selected"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_half_margin"
+            android:text="@string/wifi_width_20mhz"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channels_available_6GHz_20MHz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:textColor="@color/channel_number"
+            tools:text="1, 5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 53, 57, 61" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_half_margin"
+            android:text="@string/wifi_width_40mhz"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channels_available_6GHz_40MHz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:textColor="@color/channel_number"
+            tools:text="3, 11, 19, 27, 35, 43, 51, 59" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_half_margin"
+            android:text="@string/wifi_width_80mhz"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channels_available_6GHz_80MHz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:textColor="@color/channel_number"
+            tools:text="7, 23, 39, 55, 71, 87" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_half_margin"
+            android:text="@string/wifi_width_160mhz"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channels_available_6GHz_160MHz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:textColor="@color/channel_number"
+            tools:text="15, 47" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_half_margin"
+            android:text="@string/wifi_width_320mhz"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channels_available_6GHz_320MHz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:textColor="@color/channel_number"
+            tools:text="31" />
+
+    </LinearLayout>
+
 </LinearLayout>

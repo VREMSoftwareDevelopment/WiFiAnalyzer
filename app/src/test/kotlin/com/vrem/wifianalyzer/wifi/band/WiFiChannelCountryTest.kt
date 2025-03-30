@@ -23,40 +23,79 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import java.util.Locale
-import java.util.SortedSet
 
-private val countriesETSI: Set<String> = setOf(
-    "AT",      // ETSI Austria
-    "BE",      // ETSI Belgium
-    "CH",      // ETSI Switzerland
-    "CY",      // ETSI Cyprus
-    "CZ",      // ETSI Czechia
-    "DE",      // ETSI Germany
-    "DK",      // ETSI Denmark
-    "EE",      // ETSI Estonia
-    "ES",      // ETSI Spain
-    "FI",      // ETSI Finland
-    "FR",      // ETSI France
-    "GR",      // ETSI Greece
-    "HU",      // ETSI Hungary
-    "IE",      // ETSI Ireland
-    "IS",      // ETSI Iceland
-    "IT",      // ETSI Italy
-    "LI",      // ETSI Liechtenstein
-    "LT",      // ETSI Lithuania
-    "LU",      // ETSI Luxembourg
-    "LV",      // ETSI Latvia
-    "MT",      // ETSI Malta
-    "NL",      // ETSI Netherlands
-    "NO",      // ETSI Norway
-    "PL",      // ETSI Poland
-    "PT",      // ETSI Portugal
-    "RO",      // ETSI Romania
-    "SE",      // ETSI Sweden
-    "SI",      // ETSI Slovenia
-    "SK",      // ETSI Slovakia
-    "IL"       // ETSI Israel
+private val countriesETSI = listOf(
+    "AT",
+    "BE",
+    "CH",
+    "CY",
+    "CZ",
+    "DE",
+    "DK",
+    "EE",
+    "ES",
+    "FI",
+    "FR",
+    "GR",
+    "HU",
+    "IE",
+    "IS",
+    "IT",
+    "LI",
+    "LT",
+    "LU",
+    "LV",
+    "MT",
+    "NL",
+    "NO",
+    "PL",
+    "PT",
+    "RO",
+    "SE",
+    "SI",
+    "SK",
+    "IL"
 )
+
+private fun excludeChannelsGHZ6(): List<Map<String, List<Int>>> {
+    val exclude = (97..223).toList()
+    val additional = listOf("JP", "RU", "NZ", "AU", "GL", "AE", "GB", "MX", "SG", "HK", "MO", "PH")
+    return (countriesETSI + additional).map { mapOf(it to exclude) }
+}
+
+private fun excludeChannelsGHZ5(): List<Map<String, List<Int>>> {
+    val exclude1 = listOf(177)
+    val exclude2 = (120..128).toList()
+    val exclude3 = (169..177).toList()
+    val exclude4 = (96..128).toList()
+    val exclude5 = (173..177).toList()
+    val exclude6 = (149..177).toList()
+    val exclude7 = (96..144).toList()
+    val exclude8 = listOf(144)
+    val exclude9 = (165..177).toList()
+    val additional = listOf(
+        "AU" to exclude2 + exclude1,
+        "CA" to exclude2 + exclude3,
+        "UK" to exclude2 + exclude1,
+        "RU" to exclude4 + exclude5,
+        "JP" to exclude4 + exclude6,
+        "IN" to exclude1,
+        "SG" to exclude3,
+        "CH" to exclude7 + exclude3,
+        "IL" to exclude1,
+        "KR" to exclude3,
+        "TR" to exclude8 + exclude6,
+        "ZA" to exclude8 + exclude6,
+        "BR" to exclude3,
+        "TW" to exclude3,
+        "NZ" to exclude3,
+        "BH" to exclude7 + exclude3,
+        "VN" to exclude3,
+        "ID" to exclude7 + exclude9,
+        "PH" to exclude5
+    )
+    return countriesETSI.map { mapOf(it to exclude1) } + additional.map { mapOf(it.first to it.second) }
+}
 
 class WiFiChannelCountryTest {
     private val currentLocale: Locale = Locale.getDefault()
@@ -71,52 +110,20 @@ class WiFiChannelCountryTest {
         Locale.setDefault(currentLocale)
     }
 
-    data class TestData(
+    private data class TestData(
         val wiFiBand: WiFiBand,
-        val channels: SortedSet<Int>,
-        val channelsCountry: List<Rules> = listOf()
+        val exclude: List<Map<String, List<Int>>> = listOf()
     ) {
-        fun find(countryCode: String): SortedSet<Int> =
-            channelsCountry
-                .filter { it.first.contains(countryCode) }
-                .flatMap { it.second }
-                .toSortedSet()
-                .ifEmpty { channels }
+        fun find(countryCode: String): List<Int> =
+            wiFiBand.wiFiChannels.availableChannels
+                .subtract(exclude.flatMap { it[countryCode] ?: emptyList() })
+                .toList()
     }
 
     private val testData = listOf(
-        TestData(
-            WiFiBand.GHZ2,
-            (1..13).toSortedSet()
-        ),
-        TestData(
-            WiFiBand.GHZ5,
-            sortedSetOf(42, 50, 58, 74, 82, 90, 106, 114, 122, 138, 155, 163, 171),
-            listOf(
-                Rules(
-                    setOf("JP", "TR", "ZA"),
-                    sortedSetOf(42, 50, 58, 74, 82, 90, 106, 114, 122, 138)
-                ),
-                Rules(
-                    setOf("CN", "BH", "ID"),
-                    sortedSetOf(42, 50, 58, 74, 82, 90, 155, 163)
-                ),
-                Rules(
-                    setOf("RU"),
-                    sortedSetOf(42, 50, 58, 74, 82, 90, 138, 155, 163, 171)
-                )
-            )
-        ),
-        TestData(
-            WiFiBand.GHZ6,
-            sortedSetOf(15, 31, 47, 63, 79, 95, 111, 127, 143, 159, 175, 191, 207),
-            listOf(
-                Rules(
-                    countriesETSI.union(setOf("JP", "RU", "NZ", "AU", "GL", "AE", "GB", "MX", "SG", "HK", "MO", "PH")),
-                    sortedSetOf(15, 31, 47, 63, 79)
-                )
-            )
-        )
+        TestData(WiFiBand.GHZ2),
+        TestData(WiFiBand.GHZ5, excludeChannelsGHZ5()),
+        TestData(WiFiBand.GHZ6, excludeChannelsGHZ6())
     )
 
     @Test
@@ -135,18 +142,16 @@ class WiFiChannelCountryTest {
         // execute
         val actual = WiFiChannelCountry.find(expected.country)
         // validate
-        assertThat(actual.countryCode()).isEqualTo(expected.country)
+        assertThat(actual.countryCode).isEqualTo(expected.country)
         assertThat(actual.countryName(expected)).isEqualTo(expected.displayCountry)
     }
 
     @Test
     fun countryCode() {
         Locale.getAvailableLocales().forEach { locale ->
-            val fixture = WiFiChannelCountry(locale)
-            // execute
-            val actual = fixture.countryCode()
-            // validate
-            assertThat(actual).describedAs("Code: ${locale.country}").isEqualTo(locale.country)
+            assertThat(WiFiChannelCountry(locale).countryCode)
+                .describedAs("Code: ${locale.country}")
+                .isEqualTo(locale.country)
         }
     }
 
@@ -154,11 +159,9 @@ class WiFiChannelCountryTest {
     fun countryName() {
         Locale.getAvailableLocales().forEach { locale ->
             val fixture = WiFiChannelCountry(locale)
-            val expected = if (locale.displayCountry.isEmpty()) "-Unknown" else locale.displayCountry
-            // execute
-            val actual = fixture.countryName(Locale.US)
-            // validate
-            assertThat(actual).describedAs("Code: ${locale.country}").isEqualTo(expected)
+            assertThat(fixture.countryName(Locale.US))
+                .describedAs("Code: ${locale.country}")
+                .isEqualTo(if (locale.displayCountry.isEmpty()) "-Unknown" else locale.displayCountry)
         }
     }
 
@@ -167,39 +170,9 @@ class WiFiChannelCountryTest {
         Locale.getAvailableLocales().forEach { locale ->
             val fixture = WiFiChannelCountry(locale)
             testData.forEach { it ->
-                val expected = it.find(locale.country)
-                // execute
-                val actual = fixture.channels(it.wiFiBand)
-                // validate
-                assertThat(actual).describedAs("Code: ${locale.country} | ${it.wiFiBand.name}").containsExactlyElementsOf(expected)
-            }
-        }
-    }
-
-    @Test
-    fun available() {
-        Locale.getAvailableLocales().forEach { locale ->
-            val fixture = WiFiChannelCountry(locale)
-            testData.forEach { (wiFiBand, expectedChannels) ->
-                expectedChannels.forEach { channel ->
-                    // execute
-                    val actual = fixture.available(wiFiBand, channel)
-                    // validate
-                    assertThat(actual).describedAs("Code: ${locale.country} | ${wiFiBand.name} | Channel: $channel").isTrue()
-                }
-            }
-        }
-    }
-
-    @Test
-    fun notAvailable() {
-        Locale.getAvailableLocales().forEach { locale ->
-            val fixture = WiFiChannelCountry(locale)
-            testData.forEach { (wiFiBand, channels) ->
-                assertThat(fixture.available(wiFiBand, channels.first() - 1)).describedAs("Code: ${locale.country} | ${wiFiBand.name}")
-                    .isFalse()
-                assertThat(fixture.available(wiFiBand, channels.last() + 1)).describedAs("Code: ${locale.country} | ${wiFiBand.name}")
-                    .isFalse()
+                assertThat(fixture.channels(it.wiFiBand))
+                    .describedAs("Code: ${locale.country} | ${it.wiFiBand.name}")
+                    .containsExactlyElementsOf(it.find(locale.country))
             }
         }
     }

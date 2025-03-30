@@ -123,13 +123,12 @@ class ChannelRatingTest {
         // execute
         val actual: List<ChannelAPCount> = fixture.bestChannels(channels)
         // validate
-        assertThat(actual).hasSize(6)
+        assertThat(actual).hasSize(5)
         validateChannelAPCount(1, 0, actual[0])
         validateChannelAPCount(2, 0, actual[1])
         validateChannelAPCount(12, 0, actual[2])
         validateChannelAPCount(13, 0, actual[3])
         validateChannelAPCount(3, 1, actual[4])
-        validateChannelAPCount(4, 1, actual[5])
     }
 
     private fun validateChannelAPCount(expectedChannel: Int, expectedCount: Int, channelAPCount: ChannelAPCount) {

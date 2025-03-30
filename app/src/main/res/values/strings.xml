@@ -198,6 +198,14 @@
     <string name="wifi_band_6ghz" translatable="false">"6 GHz"</string>
     <!-- Wi-Fi band end -->
 
+    <!-- Wi-Fi width start -->
+    <string name="wifi_width_20mhz" translatable="false">20 MHz</string>
+    <string name="wifi_width_40mhz" translatable="false">40 MHz</string>
+    <string name="wifi_width_80mhz" translatable="false">80 MHz</string>
+    <string name="wifi_width_160mhz" translatable="false">160 MHz</string>
+    <string name="wifi_width_320mhz" translatable="false">320 MHz</string>
+    <!-- Wi-Fi width end -->
+
     <!-- Wi-Fi standard start -->
     <string name="wifi_standard_unknown" translatable="false">""</string>
     <string name="wifi_standard_legacy" translatable="false">"802.11a/b/g"</string>

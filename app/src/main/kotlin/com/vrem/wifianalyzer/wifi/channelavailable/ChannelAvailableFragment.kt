@@ -21,29 +21,50 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.ListFragment
+import androidx.fragment.app.Fragment
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.databinding.ChannelAvailableContentBinding
-import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry
-import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry.Companion.find
+import com.vrem.wifianalyzer.wifi.band.WiFiBand
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 
-class ChannelAvailableFragment : ListFragment() {
-    private lateinit var channelAvailableAdapter: ChannelAvailableAdapter
+class ChannelAvailableFragment : Fragment() {
+    private lateinit var binding: ChannelAvailableContentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val binding = ChannelAvailableContentBinding.inflate(inflater, container, false)
-        channelAvailableAdapter = ChannelAvailableAdapter(requireActivity(), channelAvailable())
-        listAdapter = channelAvailableAdapter
+        binding = ChannelAvailableContentBinding.inflate(inflater, container, false)
+        update()
         return binding.root
+    }
+
+    private fun update() {
+        val countryCode = MainContext.INSTANCE.settings.countryCode()
+        binding.apply {
+            channelsAvailable2GHz20MHz.text = channels(WiFiBand.GHZ2, WiFiWidth.MHZ_20, countryCode)
+            channelsAvailable2GHz40MHz.text = channels(WiFiBand.GHZ2, WiFiWidth.MHZ_40, countryCode)
+            channelsAvailable5GHz20MHz.text = channels(WiFiBand.GHZ5, WiFiWidth.MHZ_20, countryCode)
+            channelsAvailable5GHz40MHz.text = channels(WiFiBand.GHZ5, WiFiWidth.MHZ_40, countryCode)
+            channelsAvailable5GHz80MHz.text = channels(WiFiBand.GHZ5, WiFiWidth.MHZ_80, countryCode)
+            channelsAvailable5GHz160MHz.text = channels(WiFiBand.GHZ5, WiFiWidth.MHZ_160, countryCode)
+            channelsAvailable6GHz20MHz.text = channels(WiFiBand.GHZ6, WiFiWidth.MHZ_20, countryCode)
+            channelsAvailable6GHz40MHz.text = channels(WiFiBand.GHZ6, WiFiWidth.MHZ_40, countryCode)
+            channelsAvailable6GHz80MHz.text = channels(WiFiBand.GHZ6, WiFiWidth.MHZ_80, countryCode)
+            channelsAvailable6GHz160MHz.text = channels(WiFiBand.GHZ6, WiFiWidth.MHZ_160, countryCode)
+            channelsAvailable6GHz320MHz.text = channels(WiFiBand.GHZ6, WiFiWidth.MHZ_320, countryCode)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        channelAvailableAdapter.clear()
-        channelAvailableAdapter.addAll(channelAvailable())
+        update()
     }
 
-    private fun channelAvailable(): MutableList<WiFiChannelCountry> =
-        mutableListOf(find(MainContext.INSTANCE.settings.countryCode()))
+    private fun channels(wiFiBand: WiFiBand, wiFiWidth: WiFiWidth, countryCode: String): String {
+        val wiFiChannels = wiFiBand.wiFiChannels
+        return wiFiChannels.activeChannels[wiFiWidth]
+            .orEmpty()
+            .subtract(wiFiChannels.excludeChannels.flatMap { it[countryCode] ?: emptyList() })
+            .toList()
+            .joinToString(", ")
+    }
 
 }

@@ -19,6 +19,7 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import android.net.wifi.ScanResult
+import com.vrem.wifianalyzer.R
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
@@ -30,13 +31,23 @@ class WiFiWidthTest {
     }
 
     @Test
-    fun groupByGroup() {
+    fun calculateCenter() {
         assertThat(WiFiWidth.MHZ_20.calculateCenter).isInstanceOf(calculateCenterUsingPrimary::class.java)
         assertThat(WiFiWidth.MHZ_40.calculateCenter).isInstanceOf(calculateCenter40::class.java)
         assertThat(WiFiWidth.MHZ_80.calculateCenter).isInstanceOf(calculateCenterUsingCenter0::class.java)
         assertThat(WiFiWidth.MHZ_160.calculateCenter).isInstanceOf(calculateCenterUsingCenter1::class.java)
         assertThat(WiFiWidth.MHZ_80_PLUS.calculateCenter).isInstanceOf(calculateCenterUsingCenter1::class.java)
         assertThat(WiFiWidth.MHZ_320.calculateCenter).isInstanceOf(calculateCenterUsingCenter1::class.java)
+    }
+
+    @Test
+    fun textResource() {
+        assertThat(WiFiWidth.MHZ_20.textResource).isEqualTo(R.string.wifi_width_20mhz)
+        assertThat(WiFiWidth.MHZ_40.textResource).isEqualTo(R.string.wifi_width_40mhz)
+        assertThat(WiFiWidth.MHZ_80.textResource).isEqualTo(R.string.wifi_width_80mhz)
+        assertThat(WiFiWidth.MHZ_160.textResource).isEqualTo(R.string.wifi_width_160mhz)
+        assertThat(WiFiWidth.MHZ_80_PLUS.textResource).isEqualTo(R.string.wifi_width_80mhz)
+        assertThat(WiFiWidth.MHZ_320.textResource).isEqualTo(R.string.wifi_width_320mhz)
     }
 
     @Test
@@ -67,6 +78,16 @@ class WiFiWidthTest {
         assertThat(WiFiWidth.MHZ_160.guardBand).isEqualTo(3)
         assertThat(WiFiWidth.MHZ_80_PLUS.guardBand).isEqualTo(3)
         assertThat(WiFiWidth.MHZ_320.guardBand).isEqualTo(3)
+    }
+
+    @Test
+    fun step() {
+        assertThat(WiFiWidth.MHZ_20.step).isEqualTo(4)
+        assertThat(WiFiWidth.MHZ_40.step).isEqualTo(8)
+        assertThat(WiFiWidth.MHZ_80.step).isEqualTo(16)
+        assertThat(WiFiWidth.MHZ_160.step).isEqualTo(32)
+        assertThat(WiFiWidth.MHZ_80_PLUS.step).isEqualTo(16)
+        assertThat(WiFiWidth.MHZ_320.step).isEqualTo(32)
     }
 
     @Test

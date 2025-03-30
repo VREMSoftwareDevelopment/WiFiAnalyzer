@@ -53,6 +53,7 @@ class AccessPointDetailTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val settings = INSTANCE.settings
     private val fixture = AccessPointDetail()
+    private val expectedWidth = "40 MHz"
     private val expectedSecurities = "[WPS WEP WPA2 WPA3]"
     private val expectedSecurityTypes =
         "[DPP EAP OPEN OSEN PASSPOINT_R1_R2 PASSPOINT_R3 PSK WAPI_CERT WAPI_PSK WEP EAP_WPA3_ENTERPRISE EAP_WPA3_ENTERPRISE_192_BIT OWE SAE]"
@@ -362,7 +363,7 @@ class AccessPointDetailTest {
             "${wiFiSignal.wiFiChannelStart.frequency} - ${wiFiSignal.wiFiChannelEnd.frequency}",
             R.id.channel_frequency_range
         )
-        validateTextViewValue(view, "(${wiFiSignal.wiFiWidth.frequencyWidth}${WiFiSignal.FREQUENCY_UNITS})", R.id.width)
+        validateTextViewValue(view, expectedWidth, R.id.width)
         validateTextViewValue(view, expectedSecurities, R.id.capabilities)
         validateImageViewValue(view, wiFiSignal.strength.imageResource, R.id.levelImage)
         validateImageViewValue(view, wiFiDetail.wiFiSecurity.security.imageResource, R.id.securityImage)
@@ -375,11 +376,7 @@ class AccessPointDetailTest {
         with(wiFiDetail) {
             validateTextViewValue(view, "${wiFiSignal.wiFiChannelStart.channel}", R.id.channel_start)
             validateTextViewValue(view, "${wiFiSignal.wiFiChannelEnd.channel}", R.id.channel_end)
-            validateTextViewValue(
-                view,
-                "(${wiFiSignal.wiFiWidth.frequencyWidth}${WiFiSignal.FREQUENCY_UNITS})",
-                R.id.channel_width
-            )
+            validateTextViewValue(view, expectedWidth, R.id.channel_width)
             validateTextViewValue(view, wiFiSecurity.capabilities, R.id.capabilitiesLong)
             validateTextViewValue(view, expectedSecurityTypes, R.id.securityTypes)
             val expectedWiFiStandard = view.context.getString(wiFiSignal.extra.wiFiStandard.fullResource)
