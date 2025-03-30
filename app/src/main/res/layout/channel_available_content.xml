@@ -17,24 +17,32 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:autoLink="web"
-        android:text="@string/wifi_channels_list_url" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/list_view_item_horizontal_tab"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:autoLink="web"
+            android:text="@string/wifi_channels_list_url" />
+
+        <TextView
+            android:id="@+id/channels_available_country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:textColor="@color/selected"
+            android:textStyle="bold"
+            tools:text="United States" />
 
         <!-- 2.4 GHz channels -->
         <TextView
@@ -228,5 +236,4 @@
             tools:text="31" />
 
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

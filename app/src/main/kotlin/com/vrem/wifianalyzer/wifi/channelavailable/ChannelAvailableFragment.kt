@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.databinding.ChannelAvailableContentBinding
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
+import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry
 import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 
 class ChannelAvailableFragment : Fragment() {
@@ -37,8 +38,11 @@ class ChannelAvailableFragment : Fragment() {
     }
 
     private fun update() {
-        val countryCode = MainContext.INSTANCE.settings.countryCode()
+        val settings = MainContext.INSTANCE.settings
+        val countryCode = settings.countryCode()
+        val languageLocale = settings.languageLocale()
         binding.apply {
+            channelsAvailableCountry.text = WiFiChannelCountry.find(countryCode).countryName(languageLocale)
             channelsAvailable2GHz20MHz.text = channels(WiFiBand.GHZ2, WiFiWidth.MHZ_20, countryCode)
             channelsAvailable2GHz40MHz.text = channels(WiFiBand.GHZ2, WiFiWidth.MHZ_40, countryCode)
             channelsAvailable5GHz20MHz.text = channels(WiFiBand.GHZ5, WiFiWidth.MHZ_20, countryCode)

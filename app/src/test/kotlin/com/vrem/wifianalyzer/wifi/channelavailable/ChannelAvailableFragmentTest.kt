@@ -48,11 +48,13 @@ class ChannelAvailableFragmentTest {
     @Before
     fun setUp() {
         whenever(settings.countryCode()).thenReturn(countryCode)
+        whenever(settings.languageLocale()).thenReturn(Locale.US)
     }
 
     @After
     fun tearDown() {
         verify(settings, atLeastOnce()).countryCode()
+        verify(settings, atLeastOnce()).languageLocale()
         INSTANCE.restore()
     }
 
@@ -63,6 +65,8 @@ class ChannelAvailableFragmentTest {
         // validate
         assertThat(fixture).isNotNull()
         val view = fixture.view!!
+        assertThat(view.findViewById<TextView>(R.id.channels_available_country).text)
+            .isEqualTo("Japan")
         assertThat(view.findViewById<TextView>(R.id.channels_available_2GHz_20MHz).text)
             .isEqualTo(convert(WiFiBand.GHZ2, WiFiWidth.MHZ_20))
         assertThat(view.findViewById<TextView>(R.id.channels_available_2GHz_40MHz).text)
