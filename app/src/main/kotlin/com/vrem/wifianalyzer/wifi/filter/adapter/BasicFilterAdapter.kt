@@ -21,7 +21,7 @@ import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.settings.Settings
 
 @OpenClass
-abstract class BasicFilterAdapter<T>(open var selections: Set<T>) {
+abstract class BasicFilterAdapter<T>(var selections: Set<T>) {
     fun selections(selections: Set<T>) {
         this.selections = selections
     }

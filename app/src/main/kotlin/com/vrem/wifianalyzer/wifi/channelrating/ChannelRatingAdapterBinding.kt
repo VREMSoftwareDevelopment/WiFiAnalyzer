@@ -25,21 +25,24 @@ import com.vrem.wifianalyzer.databinding.ChannelRatingDetailsBinding
 
 internal class ChannelRatingAdapterBinding {
     val root: View
-    val channelNumber: TextView
-    val accessPointCount: TextView
+    val channelRatingChannel: TextView
+    val channelRatingAPCount: TextView
+    val channelRatingWidth: TextView
     val channelRating: RatingBar
 
     internal constructor(binding: ChannelRatingDetailsBinding) {
         root = binding.root
-        channelNumber = binding.channelNumber
-        accessPointCount = binding.accessPointCount
+        channelRatingChannel = binding.channelRatingChannel
+        channelRatingWidth = binding.channelRatingWidth
+        channelRatingAPCount = binding.channelRatingAPCount
         channelRating = binding.channelRating
     }
 
     internal constructor(view: View) {
         root = view
-        channelNumber = view.findViewById(R.id.channelNumber)
-        accessPointCount = view.findViewById(R.id.accessPointCount)
+        channelRatingChannel = view.findViewById(R.id.channelRatingChannel)
+        channelRatingWidth = view.findViewById(R.id.channelRatingWidth)
+        channelRatingAPCount = view.findViewById(R.id.channelRatingAPCount)
         channelRating = view.findViewById(R.id.channelRating)
     }
 }

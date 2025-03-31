@@ -78,7 +78,7 @@ class Export(private val exportIntent: ExportIntent = ExportIntent()) {
                 "${wiFiSignal.primaryFrequency}$FREQUENCY_UNITS|" +
                 "${wiFiSignal.centerWiFiChannel.channel}|" +
                 "${wiFiSignal.centerFrequency}$FREQUENCY_UNITS|" +
-                    "${wiFiSignal.wiFiWidth.frequencyWidth}$FREQUENCY_UNITS (${wiFiSignal.wiFiChannelStart.frequency} - ${wiFiSignal.wiFiChannelEnd.frequency})|" +
+                "${wiFiSignal.wiFiWidth.frequencyWidth}$FREQUENCY_UNITS (${wiFiSignal.wiFiChannelStart.frequency} - ${wiFiSignal.wiFiChannelEnd.frequency})|" +
                 "${wiFiSignal.distance}|" +
                 "${wiFiSignal.extra.is80211mc}|" +
                 wiFiSecurity.capabilities + "|" +

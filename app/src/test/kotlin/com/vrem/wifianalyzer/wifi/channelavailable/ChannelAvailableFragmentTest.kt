@@ -41,13 +41,27 @@ import java.util.Locale
 class ChannelAvailableFragmentTest {
     @Suppress("unused")
     private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val countryCode = Locale.JAPAN.country
+    private val locale = Locale.JAPAN
     private val settings = INSTANCE.settings
     private val fixture = ChannelAvailableFragment()
 
+    private val textViewsIds = listOf(
+        Triple(R.id.channels_available_2GHz_20MHz, WiFiBand.GHZ2, WiFiWidth.MHZ_20),
+        Triple(R.id.channels_available_2GHz_40MHz, WiFiBand.GHZ2, WiFiWidth.MHZ_40),
+        Triple(R.id.channels_available_5GHz_20MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_20),
+        Triple(R.id.channels_available_5GHz_40MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_40),
+        Triple(R.id.channels_available_5GHz_80MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_80),
+        Triple(R.id.channels_available_5GHz_160MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_160),
+        Triple(R.id.channels_available_6GHz_20MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_20),
+        Triple(R.id.channels_available_6GHz_40MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_40),
+        Triple(R.id.channels_available_6GHz_80MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_80),
+        Triple(R.id.channels_available_6GHz_160MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_160),
+        Triple(R.id.channels_available_6GHz_320MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_320)
+    )
+
     @Before
     fun setUp() {
-        whenever(settings.countryCode()).thenReturn(countryCode)
+        whenever(settings.countryCode()).thenReturn(locale.country)
         whenever(settings.languageLocale()).thenReturn(Locale.US)
     }
 
@@ -65,39 +79,12 @@ class ChannelAvailableFragmentTest {
         // validate
         assertThat(fixture).isNotNull()
         val view = fixture.view!!
-        assertThat(view.findViewById<TextView>(R.id.channels_available_country).text)
-            .isEqualTo("Japan")
-        assertThat(view.findViewById<TextView>(R.id.channels_available_2GHz_20MHz).text)
-            .isEqualTo(convert(WiFiBand.GHZ2, WiFiWidth.MHZ_20))
-        assertThat(view.findViewById<TextView>(R.id.channels_available_2GHz_40MHz).text)
-            .isEqualTo(convert(WiFiBand.GHZ2, WiFiWidth.MHZ_40))
-        assertThat(view.findViewById<TextView>(R.id.channels_available_5GHz_20MHz).text)
-            .isEqualTo(convert(WiFiBand.GHZ5, WiFiWidth.MHZ_20))
-        assertThat(view.findViewById<TextView>(R.id.channels_available_5GHz_40MHz).text)
-            .isEqualTo(convert(WiFiBand.GHZ5, WiFiWidth.MHZ_40))
-        assertThat(view.findViewById<TextView>(R.id.channels_available_5GHz_80MHz).text)
-            .isEqualTo(convert(WiFiBand.GHZ5, WiFiWidth.MHZ_80))
-        assertThat(view.findViewById<TextView>(R.id.channels_available_5GHz_160MHz).text)
-            .isEqualTo(convert(WiFiBand.GHZ5, WiFiWidth.MHZ_160))
-        assertThat(view.findViewById<TextView>(R.id.channels_available_6GHz_20MHz).text)
-            .isEqualTo(convert(WiFiBand.GHZ6, WiFiWidth.MHZ_20))
-        assertThat(view.findViewById<TextView>(R.id.channels_available_6GHz_40MHz).text)
-            .isEqualTo(convert(WiFiBand.GHZ6, WiFiWidth.MHZ_40))
-        assertThat(view.findViewById<TextView>(R.id.channels_available_6GHz_80MHz).text)
-            .isEqualTo(convert(WiFiBand.GHZ6, WiFiWidth.MHZ_80))
-        assertThat(view.findViewById<TextView>(R.id.channels_available_6GHz_160MHz).text)
-            .isEqualTo(convert(WiFiBand.GHZ6, WiFiWidth.MHZ_160))
-        assertThat(view.findViewById<TextView>(R.id.channels_available_6GHz_320MHz).text)
-            .isEqualTo(convert(WiFiBand.GHZ6, WiFiWidth.MHZ_320))
-    }
-
-    private fun convert(wiFiBand: WiFiBand, wiFiWidth: WiFiWidth): String {
-        val wiFiChannels = wiFiBand.wiFiChannels
-        return wiFiChannels.activeChannels[wiFiWidth]
-            .orEmpty()
-            .subtract(wiFiChannels.excludeChannels.flatMap { it[countryCode] ?: emptyList() })
-            .toList()
-            .joinToString(", ")
+        assertThat(view.findViewById<TextView>(R.id.channels_available_country_code).text).isEqualTo(locale.country)
+        assertThat(view.findViewById<TextView>(R.id.channels_available_country_name).text).isEqualTo(locale.displayCountry)
+        textViewsIds.forEach { (id, wiFiBand, wiFiWidth) ->
+            assertThat(view.findViewById<TextView>(id).text)
+                .isEqualTo(wiFiBand.wiFiChannels.availableChannels(wiFiWidth, locale.country).joinToString(", "))
+        }
     }
 
 }

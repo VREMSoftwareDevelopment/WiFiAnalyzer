@@ -19,6 +19,8 @@ package com.vrem.wifianalyzer.navigation
 
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.view.get
+import androidx.core.view.size
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.vrem.annotation.OpenClass
@@ -33,7 +35,7 @@ class NavigationMenuController(
 
     private lateinit var currentNavigationMenu: NavigationMenu
 
-    fun currentMenuItem(): MenuItem = navigationView.menu.getItem(currentNavigationMenu.ordinal)
+    fun currentMenuItem(): MenuItem = navigationView.menu[currentNavigationMenu.ordinal]
 
     fun currentNavigationMenu(): NavigationMenu = currentNavigationMenu
 
@@ -44,8 +46,8 @@ class NavigationMenuController(
     }
 
     private fun selectCurrentMenuItem(navigationMenu: NavigationMenu, menu: Menu) {
-        for (i in 0 until menu.size()) {
-            val menuItem: MenuItem = menu.getItem(i)
+        for (i in 0 until menu.size) {
+            val menuItem: MenuItem = menu[i]
             menuItem.isCheckable = false
             menuItem.isChecked = false
         }

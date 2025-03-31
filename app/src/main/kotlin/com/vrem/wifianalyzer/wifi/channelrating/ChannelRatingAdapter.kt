@@ -70,11 +70,15 @@ class ChannelRatingAdapter(
     }
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
+        val mainContext = MainContext.INSTANCE
+        val wiFiBand = mainContext.settings.wiFiBand()
         val binding = view?.let { ChannelRatingAdapterBinding(it) } ?: ChannelRatingAdapterBinding(create(parent))
-        getItem(position)?.let {
-            binding.channelNumber.text = it.channel.toString()
-            binding.accessPointCount.text = channelRating.count(it).toString()
-            ratingBar(it, binding.channelRating)
+        getItem(position)?.let { wiFiChannel ->
+            val wiFiWidth = wiFiBand.wiFiChannels.wiFiWidthByChannel(wiFiChannel.channel)
+            binding.channelRatingChannel.text = wiFiChannel.channel.toString()
+            binding.channelRatingAPCount.text = channelRating.count(wiFiChannel).toString()
+            binding.channelRatingWidth.text = ContextCompat.getString(mainContext.context, wiFiWidth.textResource)
+            ratingBar(wiFiChannel, binding.channelRating)
         }
         return binding.root
     }

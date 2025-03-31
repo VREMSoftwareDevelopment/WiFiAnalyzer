@@ -17,7 +17,6 @@
  */
 package com.vrem.util
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager.PackageInfoFlags
@@ -25,7 +24,8 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.net.wifi.ScanResult
 import android.os.Build
-import java.util.*
+import androidx.annotation.RequiresApi
+import java.util.Locale
 
 fun Context.createContext(newLocale: Locale): Context {
     val resources: Resources = resources
@@ -41,7 +41,7 @@ fun Context.packageInfo(): PackageInfo =
         packageInfoLegacy()
     }
 
-@TargetApi(Build.VERSION_CODES.TIRAMISU)
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 private fun Context.packageInfoAndroidT(): PackageInfo =
     packageManager.getPackageInfo(packageName, PackageInfoFlags.of(0))
 
@@ -55,7 +55,7 @@ fun ScanResult.ssid(): String =
         ssidLegacy()
     }.removeSurrounding("\"")
 
-@TargetApi(Build.VERSION_CODES.TIRAMISU)
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 private fun ScanResult.ssidAndroidT(): String = String.nullToEmpty(wifiSsid?.toString())
 
 @Suppress("DEPRECATION")

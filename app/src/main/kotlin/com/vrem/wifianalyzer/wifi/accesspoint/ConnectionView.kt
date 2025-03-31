@@ -21,6 +21,7 @@ import android.net.wifi.WifiInfo
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isEmpty
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
@@ -64,7 +65,7 @@ class ConnectionView(
             val parent = connectionView.findViewById<ViewGroup>(R.id.connectionDetail)
             val view =
                 accessPointDetail.makeView(parent.getChildAt(0), parent, connection, layout = connectionViewType.layout)
-            if (parent.childCount == 0) {
+            if (parent.isEmpty()) {
                 parent.addView(view)
             }
             setViewConnection(connectionView, wiFiConnection)

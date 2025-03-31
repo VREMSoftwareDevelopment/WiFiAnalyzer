@@ -21,10 +21,7 @@ import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.series.TitleLineGraphSeries
 import org.junit.After
 import org.junit.Test
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 
 class SeriesOptionsTest {
     private val graphColors: GraphColors = mock()
@@ -58,6 +55,8 @@ class SeriesOptionsTest {
         fixture.highlightConnected(lineGraphSeries, true)
         // validate
         verify(lineGraphSeries).thickness = THICKNESS_CONNECTED
+        verify(titleLineGraphSeries, never()).thickness
+        verify(titleLineGraphSeries, never()).setTextBold(any())
     }
 
     @Test
@@ -66,6 +65,8 @@ class SeriesOptionsTest {
         fixture.highlightConnected(lineGraphSeries, false)
         // validate
         verify(lineGraphSeries).thickness = THICKNESS_REGULAR
+        verify(titleLineGraphSeries, never()).thickness
+        verify(titleLineGraphSeries, never()).setTextBold(any())
     }
 
     @Test
@@ -75,6 +76,7 @@ class SeriesOptionsTest {
         // validate
         verify(titleLineGraphSeries).thickness = THICKNESS_CONNECTED
         verify(titleLineGraphSeries).setTextBold(true)
+        verify(lineGraphSeries, never()).thickness
     }
 
     @Test
@@ -84,6 +86,7 @@ class SeriesOptionsTest {
         // validate
         verify(titleLineGraphSeries).thickness = THICKNESS_REGULAR
         verify(titleLineGraphSeries).setTextBold(false)
+        verify(lineGraphSeries, never()).thickness
     }
 
     @Test
@@ -96,6 +99,8 @@ class SeriesOptionsTest {
         verify(graphColors).graphColor()
         verify(lineGraphSeries).color = graphColor.primary.toInt()
         verify(lineGraphSeries).backgroundColor = graphColor.background.toInt()
+        verify(titleLineGraphSeries, never()).color
+        verify(titleLineGraphSeries, never()).backgroundColor
     }
 
     @Test
@@ -108,6 +113,8 @@ class SeriesOptionsTest {
         verify(graphColors).graphColor()
         verify(titleLineGraphSeries).color = graphColor.primary.toInt()
         verify(titleLineGraphSeries).backgroundColor = graphColor.background.toInt()
+        verify(lineGraphSeries, never()).color
+        verify(lineGraphSeries, never()).backgroundColor
     }
 
     @Test
@@ -117,4 +124,13 @@ class SeriesOptionsTest {
         // validate
         verify(lineGraphSeries).isDrawBackground = true
     }
+
+    @Test
+    fun drawBackgroundForTitleLineGraphSeries() {
+        // execute
+        fixture.drawBackground(titleLineGraphSeries, true)
+        // validate
+        verify(titleLineGraphSeries).isDrawBackground = true
+    }
+
 }

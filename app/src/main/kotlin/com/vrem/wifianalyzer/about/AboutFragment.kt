@@ -23,7 +23,6 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager.NameNotFoundException
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -32,6 +31,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.pm.PackageInfoCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.vrem.util.EMPTY
@@ -129,7 +129,7 @@ class AboutFragment : Fragment() {
     private class WriteReviewClickListener(private val activity: Activity) : View.OnClickListener {
         override fun onClick(view: View) {
             val url = "market://details?id=" + activity.applicationContext.packageName
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            val intent = Intent(Intent.ACTION_VIEW, url.toUri())
             try {
                 activity.startActivity(intent)
             } catch (e: ActivityNotFoundException) {

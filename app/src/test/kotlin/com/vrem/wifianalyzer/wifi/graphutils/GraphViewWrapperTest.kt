@@ -224,6 +224,17 @@ class GraphViewWrapperTest {
     }
 
     @Test
+    fun setHorizontalLabelsVisible() {
+        // setup
+        doReturn(gridLabelRenderer).whenever(graphView).gridLabelRenderer
+        // execute
+        fixture.setHorizontalLabelsVisible(true)
+        // validate
+        verify(graphView).gridLabelRenderer
+        verify(gridLabelRenderer).isHorizontalLabelsVisible = true
+    }
+
+    @Test
     fun calculateGraphType() {
         // execute & validate
         assertThat(fixture.calculateGraphType()).isGreaterThan(0)

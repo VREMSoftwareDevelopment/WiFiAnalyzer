@@ -65,7 +65,6 @@ class ChannelRatingFragmentTest {
         assertThat(swipeRefreshLayout.isEnabled).isTrue()
     }
 
-
     @Test
     fun onResume() {
         // setup

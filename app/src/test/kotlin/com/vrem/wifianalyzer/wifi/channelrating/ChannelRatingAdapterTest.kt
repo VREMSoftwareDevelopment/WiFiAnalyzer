@@ -22,7 +22,7 @@ import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
+import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
@@ -46,7 +46,7 @@ import java.util.Locale
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class ChannelRatingAdapterTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val settings = INSTANCE.settings
+    private val settings = MainContextHelper.INSTANCE.settings
     private val channelRating: ChannelRating = mock()
     private val bestChannels = TextView(mainActivity)
     private val fixture = ChannelRatingAdapter(mainActivity, bestChannels, channelRating)
@@ -55,7 +55,7 @@ class ChannelRatingAdapterTest {
     fun tearDown() {
         verifyNoMoreInteractions(settings)
         verifyNoMoreInteractions(channelRating)
-        INSTANCE.restore()
+        MainContextHelper.INSTANCE.restore()
     }
 
     @Test
@@ -65,6 +65,8 @@ class ChannelRatingAdapterTest {
         val expectedStrength = reverse(Strength.FOUR)
         val wiFiChannel = WiFiChannel(1, 2)
         fixture.add(wiFiChannel)
+        val wiFiBand = WiFiBand.GHZ5
+        whenever(settings.wiFiBand()).thenReturn(wiFiBand)
         whenever(channelRating.count(wiFiChannel)).thenReturn(5)
         whenever(channelRating.strength(wiFiChannel)).thenReturn(Strength.FOUR)
         val viewGroup = mainActivity.findViewById<ViewGroup>(android.R.id.content)
@@ -72,13 +74,15 @@ class ChannelRatingAdapterTest {
         val actual = fixture.getView(0, null, viewGroup)
         // validate
         assertThat(actual).isNotNull()
-        assertThat(actual.findViewById<TextView>(R.id.channelNumber).text).isEqualTo("1")
-        assertThat(actual.findViewById<TextView>(R.id.accessPointCount).text).isEqualTo("5")
+        assertThat(actual.findViewById<TextView>(R.id.channelRatingChannel).text).isEqualTo("1")
+        assertThat(actual.findViewById<TextView>(R.id.channelRatingWidth).text).isEqualTo("20 MHz")
+        assertThat(actual.findViewById<TextView>(R.id.channelRatingAPCount).text).isEqualTo("5")
         val ratingBar = actual.findViewById<RatingBar>(R.id.channelRating)
         assertThat(ratingBar.max).isEqualTo(expectedSize)
         assertThat(ratingBar.numStars).isEqualTo(expectedSize)
         assertThat(ratingBar.rating.toInt()).isEqualTo(expectedStrength.ordinal + 1)
         assertThat(bestChannels.text).isEqualTo("")
+        verify(settings).wiFiBand()
         verify(channelRating).count(wiFiChannel)
         verify(channelRating).strength(wiFiChannel)
     }

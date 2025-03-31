@@ -28,79 +28,10 @@ import kotlin.test.Test
 class WiFiChannelsTest {
     private val currentLocale: Locale = Locale.getDefault()
 
-    private data class TestData(
-        val wiFiBand: WiFiBand,
-        val fixture: WiFiChannels,
-        val expectedChannels: List<WiFiChannel>,
-        val expectedChannelsCount: Int,
-        val expectedActiveChannels: Map<WiFiWidth, List<Int>>,
-        val expectedGraphChannels: Map<Int, String>,
-        val expectedAvailableChannels: List<Int>
-    )
-
-    private val testData = listOf(
-        TestData(
-            WiFiBand.GHZ2,
-            wiFiChannelsGHZ2,
-            (-1..15).map { WiFiChannel(it, 2407 + it * FREQUENCY_SPREAD) },
-            17,
-            mapOf(
-                (WiFiWidth.MHZ_20 to listOf(1, 2, 3, 6, 7, 8, 11, 12, 13)),
-                (WiFiWidth.MHZ_40 to listOf(3, 7, 11))
-            ),
-            (1..13).associateWith { "$it" },
-            listOf(1, 2, 3, 6, 7, 8, 11, 12, 13)
-        ),
-        TestData(
-            WiFiBand.GHZ5,
-            wiFiChannelsGHZ5,
-            (30..184).map { WiFiChannel(it, 5150 + (it - 30) * FREQUENCY_SPREAD) },
-            77,
-            mapOf(
-                (WiFiWidth.MHZ_20 to ((32..144 step WiFiWidth.MHZ_20.step) + (149..177 step WiFiWidth.MHZ_20.step))),
-                (WiFiWidth.MHZ_40 to ((38..142 step WiFiWidth.MHZ_40.step) + (151..175 step WiFiWidth.MHZ_40.step))),
-                (WiFiWidth.MHZ_80 to ((42..138 step WiFiWidth.MHZ_80.step) + (155..171 step WiFiWidth.MHZ_80.step))),
-                (WiFiWidth.MHZ_160 to ((50..114 step WiFiWidth.MHZ_160.step) + 163))
-            ),
-            listOf(34, 50, 66, 82, 98, 113, 129, 147, 163, 178).associateWith {
-                when (it) {
-                    113 -> "114"
-                    129 -> "130"
-                    178 -> "179"
-                    else -> "$it"
-                }
-            },
-            ((42..138 step WiFiWidth.MHZ_80.step) + (155..171 step WiFiWidth.MHZ_80.step) +
-                    (50..114 step WiFiWidth.MHZ_160.step) + 163)
-                .toSortedSet()
-                .toList()
-        ),
-        TestData(
-            WiFiBand.GHZ6,
-            wiFiChannelsGHZ6,
-            (-5..235).map { WiFiChannel(it, 5950 + it * FREQUENCY_SPREAD) },
-            120,
-            mapOf(
-                (WiFiWidth.MHZ_20 to (1..233 step WiFiWidth.MHZ_20.step).toList()),
-                (WiFiWidth.MHZ_40 to (3..227 step WiFiWidth.MHZ_40.step).toList()),
-                (WiFiWidth.MHZ_80 to (7..215 step WiFiWidth.MHZ_80.step).toList()),
-                (WiFiWidth.MHZ_160 to (15..207 step WiFiWidth.MHZ_160.step).toList()),
-                (WiFiWidth.MHZ_320 to (31..191 step WiFiWidth.MHZ_320.step).toList())
-            ),
-            listOf(1, 31, 63, 95, 128, 160, 192, 222).associateWith {
-                when (it) {
-                    128 -> "127"
-                    160 -> "159"
-                    192 -> "191"
-                    222 -> "223"
-                    else -> "$it"
-                }
-            },
-            ((15..207 step WiFiWidth.MHZ_160.step) + (31..191 step WiFiWidth.MHZ_320.step))
-                .toSortedSet()
-                .toList(),
-
-        )
+    private val fixtures = listOf(
+        Triple(WiFiBand.GHZ2, wiFiChannelsGHZ2, expectedWiFiInfoGHZ2),
+        Triple(WiFiBand.GHZ5, wiFiChannelsGHZ5, expectedWiFiInfoGHZ5),
+        Triple(WiFiBand.GHZ6, wiFiChannelsGHZ6, expectedWiFiInfoGHZ6)
     )
 
     @Before
@@ -114,20 +45,25 @@ class WiFiChannelsTest {
     }
 
     @Test
+    fun fixturesCheck() {
+        assertThat(fixtures).hasSize(WiFiBand.entries.size)
+    }
+
+    @Test
     fun inRange() {
-        testData.forEach { (wiFiBand, fixture, expectedChannels) ->
-            assertThat(fixture.inRange(expectedChannels.first().frequency)).describedAs(wiFiBand.name).isTrue()
-            assertThat(fixture.inRange(expectedChannels.last().frequency)).describedAs(wiFiBand.name).isTrue()
+        fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
+            assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.first().frequency)).describedAs(wiFiBand.name).isTrue()
+            assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.last().frequency)).describedAs(wiFiBand.name).isTrue()
         }
     }
 
     @Test
     fun notInRange() {
-        testData.forEach { (wiFiBand, fixture, expectedChannels) ->
-            assertThat(fixture.inRange(expectedChannels.first().frequency - 1))
+        fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
+            assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.first().frequency - 1))
                 .describedAs(wiFiBand.name)
                 .isFalse()
-            assertThat(fixture.inRange(expectedChannels.last().frequency + 1))
+            assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.last().frequency + 1))
                 .describedAs(wiFiBand.name)
                 .isFalse()
         }
@@ -135,8 +71,8 @@ class WiFiChannelsTest {
 
     @Test
     fun wiFiChannelByFrequencyInRange() {
-        testData.forEach { (wiFiBand, fixture, expectedChannels) ->
-            expectedChannels.forEach { expected ->
+        fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
+            expectedWiFiInfo.expectedChannels.forEach { expected ->
                 assertThat(fixture.wiFiChannelByFrequency(expected.frequency))
                     .describedAs(wiFiBand.name)
                     .isEqualTo(expected)
@@ -146,11 +82,11 @@ class WiFiChannelsTest {
 
     @Test
     fun wiFiChannelByFrequencyOutOfRange() {
-        testData.forEach { (wiFiBand, fixture, expectedChannels) ->
-            assertThat(fixture.wiFiChannelByFrequency(expectedChannels.first().frequency - 1))
+        fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
+            assertThat(fixture.wiFiChannelByFrequency(expectedWiFiInfo.expectedChannels.first().frequency - 1))
                 .describedAs(wiFiBand.name)
                 .isEqualTo(WiFiChannel.UNKNOWN)
-            assertThat(fixture.wiFiChannelByFrequency(expectedChannels.last().frequency + 1))
+            assertThat(fixture.wiFiChannelByFrequency(expectedWiFiInfo.expectedChannels.last().frequency + 1))
                 .describedAs(wiFiBand.name)
                 .isEqualTo(WiFiChannel.UNKNOWN)
         }
@@ -158,8 +94,8 @@ class WiFiChannelsTest {
 
     @Test
     fun wiFiChannelByChannelInRange() {
-        testData.forEach { (wiFiBand, fixture, expectedChannels) ->
-            expectedChannels.forEach { expected ->
+        fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
+            expectedWiFiInfo.expectedChannels.forEach { expected ->
                 assertThat(fixture.wiFiChannelByChannel(expected.channel))
                     .describedAs(wiFiBand.name)
                     .isEqualTo(expected)
@@ -169,11 +105,11 @@ class WiFiChannelsTest {
 
     @Test
     fun wiFiChannelByChannelNotInRange() {
-        testData.forEach { (wiFiBand, fixture, expectedChannels) ->
-            assertThat(fixture.wiFiChannelByChannel(expectedChannels.first().channel - 1))
+        fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
+            assertThat(fixture.wiFiChannelByChannel(expectedWiFiInfo.expectedChannels.first().channel - 1))
                 .describedAs(wiFiBand.name)
                 .isEqualTo(WiFiChannel.UNKNOWN)
-            assertThat(fixture.wiFiChannelByChannel(expectedChannels.last().channel + 1))
+            assertThat(fixture.wiFiChannelByChannel(expectedWiFiInfo.expectedChannels.last().channel + 1))
                 .describedAs(wiFiBand.name)
                 .isEqualTo(WiFiChannel.UNKNOWN)
         }
@@ -181,21 +117,21 @@ class WiFiChannelsTest {
 
     @Test
     fun channelRange() {
-        testData.forEach { (wiFiBand, fixture, expectedChannels) ->
+        fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
             assertThat(fixture.channelRange.first)
                 .describedAs(wiFiBand.name)
-                .isEqualTo(expectedChannels.first())
+                .isEqualTo(expectedWiFiInfo.expectedChannels.first())
             assertThat(fixture.channelRange.second)
                 .describedAs(wiFiBand.name)
-                .isEqualTo(expectedChannels.last())
+                .isEqualTo(expectedWiFiInfo.expectedChannels.last())
         }
     }
 
     @Test
     fun activeChannels() {
-        testData.forEach { (wiFiBand, fixture, _, _, expectedActiveChannels) ->
+        fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
             fixture.activeChannels.forEach { (wiFiWidth, wiFiWidthChannels) ->
-                val expected = expectedActiveChannels
+                val expected = expectedWiFiInfo.expectedActiveChannels
                     .filter { (expectedWiFiWidth) -> expectedWiFiWidth == wiFiWidth }
                     .map { (_, expectedWiFiWidthChannels) ->
                         expectedWiFiWidthChannels
@@ -209,73 +145,105 @@ class WiFiChannelsTest {
     }
 
     @Test
+    fun wiFiWidthUsingChannel() {
+        fixtures.forEach { (wiFiBand, fixture) ->
+            fixture.activeChannels.forEach { (wiFiWidth, channels) ->
+                val expected = if (wiFiBand == WiFiBand.GHZ2 && wiFiWidth == WiFiWidth.MHZ_40) {
+                    WiFiWidth.MHZ_20
+                } else {
+                    wiFiWidth
+                }
+                channels.forEach { channel ->
+                    assertThat(fixture.wiFiWidthByChannel(channel))
+                        .describedAs("$wiFiBand $wiFiWidth | Channel: $channel")
+                        .isEqualTo(expected)
+                }
+            }
+        }
+    }
+
+    @Test
     fun availableChannels() {
-        testData.forEach { (wiFiBand, fixture, _, _, _, _, expectedAvailableChannels) ->
+        fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
             assertThat(fixture.availableChannels)
                 .describedAs("$wiFiBand")
-                .containsExactlyElementsOf(expectedAvailableChannels)
+                .containsExactlyElementsOf(expectedWiFiInfo.expectedAvailableChannels)
         }
     }
 
     @Test
     fun graphChannels() {
-        testData.forEach { (wiFiBand, fixture, _, _, _, expectedGraphChannels) ->
+        fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
             assertThat(fixture.graphChannels.keys)
                 .describedAs(wiFiBand.name)
-                .containsExactlyElementsOf(expectedGraphChannels.keys)
+                .containsExactlyElementsOf(expectedWiFiInfo.expectedGraphChannels.keys)
             assertThat(fixture.graphChannels.values)
                 .describedAs(wiFiBand.name)
-                .containsExactlyElementsOf(expectedGraphChannels.values)
+                .containsExactlyElementsOf(expectedWiFiInfo.expectedGraphChannels.values)
         }
     }
 
     @Test
     fun availableChannelsUsingCountry() {
         Locale.getAvailableLocales().forEach { locale ->
-            testData.forEach { (wiFiBand, fixture) ->
+            fixtures.forEach { (wiFiBand, fixture, _) ->
                 assertThat(fixture.availableChannels(wiFiBand, locale.country).map { it -> it.channel })
-                    .describedAs(wiFiBand.name)
+                    .describedAs("$wiFiBand.name | Country: ${locale.country}")
                     .containsExactlyElementsOf(WiFiChannelCountry(locale).channels(wiFiBand))
             }
         }
     }
 
     @Test
+    fun availableChannelsUsingWiFiWidthAndCountry() {
+        Locale.getAvailableLocales().forEach { locale ->
+            val country = locale.country
+            fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
+                WiFiWidth.entries.forEach { wiFiWidth ->
+                    assertThat(fixture.availableChannels(wiFiWidth, country))
+                        .describedAs("$wiFiBand.name | $wiFiWidth.name | Country: $country")
+                        .containsExactlyElementsOf(expectedWiFiInfo.expectedAvailableChannels(wiFiWidth, country))
+                }
+            }
+        }
+    }
+
+    @Test
     fun wiFiChannels() {
-        testData.forEach { (wiFiBand, fixture, expectedChannels) ->
+        fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
             assertThat(fixture.wiFiChannels())
                 .describedAs(wiFiBand.name)
-                .containsAll(expectedChannels)
+                .containsAll(expectedWiFiInfo.expectedChannels)
         }
     }
 
     @Test
     fun graphChannelCount() {
-        testData.forEach { (wiFiBand, fixture, _, expectedChannelsCount) ->
+        fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
             assertThat(fixture.graphChannelCount())
                 .describedAs(wiFiBand.name)
-                .isEqualTo(expectedChannelsCount)
+                .isEqualTo(expectedWiFiInfo.expectedChannelsCount)
         }
     }
 
     @Test
     fun graphChannelByFrequencyInRange() {
-        testData.forEach { (wiFiBand, fixture, expectedChannels, _, _, expectedGraphChannels) ->
-            expectedChannels.forEach { (channel, frequency) ->
+        fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
+            expectedWiFiInfo.expectedChannels.forEach { (channel, frequency) ->
                 assertThat(fixture.graphChannelByFrequency(frequency))
                     .describedAs("$wiFiBand.name | Channel: $channel | Frequency: $frequency")
-                    .isEqualTo(expectedGraphChannels[channel] ?: String.EMPTY)
+                    .isEqualTo(expectedWiFiInfo.expectedGraphChannels[channel] ?: String.EMPTY)
             }
         }
     }
 
     @Test
     fun graphChannelByFrequencyOutOfRange() {
-        testData.forEach { (wiFiBand, fixture, expectedChannels) ->
-            assertThat(fixture.graphChannelByFrequency(expectedChannels.first().frequency - 1))
+        fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
+            assertThat(fixture.graphChannelByFrequency(expectedWiFiInfo.expectedChannels.first().frequency - 1))
                 .describedAs(wiFiBand.name)
                 .isEmpty()
-            assertThat(fixture.graphChannelByFrequency(expectedChannels.last().frequency + 1))
+            assertThat(fixture.graphChannelByFrequency(expectedWiFiInfo.expectedChannels.last().frequency + 1))
                 .describedAs(wiFiBand.name)
                 .isEmpty()
         }

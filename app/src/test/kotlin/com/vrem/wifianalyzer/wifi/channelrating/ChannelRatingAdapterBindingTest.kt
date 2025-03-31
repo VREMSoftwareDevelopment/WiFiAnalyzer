@@ -33,21 +33,25 @@ class ChannelRatingAdapterBindingTest {
     fun channelRatingAdapterBinding() {
         // setup
         val view: View = mock()
-        val channelNumber: TextView = mock()
-        val accessPointCount: TextView = mock()
+        val channelRatingChannel: TextView = mock()
+        val channelRatingAPCount: TextView = mock()
+        val channelRatingWidth: TextView = mock()
         val channelRating: RatingBar = mock()
-        whenever(view.findViewById<TextView>(R.id.channelNumber)).thenReturn(channelNumber)
-        whenever(view.findViewById<TextView>(R.id.accessPointCount)).thenReturn(accessPointCount)
+        whenever(view.findViewById<TextView>(R.id.channelRatingChannel)).thenReturn(channelRatingChannel)
+        whenever(view.findViewById<TextView>(R.id.channelRatingWidth)).thenReturn(channelRatingWidth)
+        whenever(view.findViewById<TextView>(R.id.channelRatingAPCount)).thenReturn(channelRatingAPCount)
         whenever(view.findViewById<RatingBar>(R.id.channelRating)).thenReturn(channelRating)
         // execute
         val fixture = ChannelRatingAdapterBinding(view)
         // validate
         assertThat(fixture.root).isEqualTo(view)
-        assertThat(fixture.channelNumber).isEqualTo(channelNumber)
-        assertThat(fixture.accessPointCount).isEqualTo(accessPointCount)
+        assertThat(fixture.channelRatingChannel).isEqualTo(channelRatingChannel)
+        assertThat(fixture.channelRatingWidth).isEqualTo(channelRatingWidth)
+        assertThat(fixture.channelRatingAPCount).isEqualTo(channelRatingAPCount)
         assertThat(fixture.channelRating).isEqualTo(channelRating)
-        verify(view).findViewById<View>(R.id.channelNumber)
-        verify(view).findViewById<View>(R.id.accessPointCount)
+        verify(view).findViewById<View>(R.id.channelRatingChannel)
+        verify(view).findViewById<View>(R.id.channelRatingWidth)
+        verify(view).findViewById<View>(R.id.channelRatingAPCount)
         verify(view).findViewById<View>(R.id.channelRating)
     }
 
