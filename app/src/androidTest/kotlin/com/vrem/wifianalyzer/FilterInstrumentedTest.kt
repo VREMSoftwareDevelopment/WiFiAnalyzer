@@ -20,13 +20,13 @@ package com.vrem.wifianalyzer
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.scrollTo
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import org.hamcrest.Matchers.allOf
 
 internal class FilterInstrumentedTest : Runnable {
     override fun run() {
-        onView(withId(R.id.action_filter)).perform(click())
-        pauseShort()
-        onView(withId(android.R.id.button3)).perform(scrollTo(), click())
-        pauseShort()
+        onView(allOf(withId(R.id.action_filter), isDisplayed())).perform(click())
+        onView(allOf(withId(android.R.id.button3), isDisplayed())).perform(scrollTo(), click())
     }
 }

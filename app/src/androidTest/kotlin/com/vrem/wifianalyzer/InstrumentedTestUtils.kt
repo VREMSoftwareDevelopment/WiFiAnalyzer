@@ -20,13 +20,16 @@ package com.vrem.wifianalyzer
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
-import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.matcher.BoundedMatcher
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 
-internal class ChildAtPosition(private val parentMatcher: Matcher<View>, private val position: Int) : TypeSafeMatcher<View>() {
+private const val SLEEP_1_SECOND = 1000
+private const val SLEEP_3_SECONDS = 3000
+
+internal class ChildAtPosition(val parentMatcher: Matcher<View>, val position: Int) : TypeSafeMatcher<View>() {
     override fun describeTo(description: Description) {
         description.appendText("Child at position $position in parent ")
         parentMatcher.describeTo(description)
@@ -49,20 +52,16 @@ internal fun withToolbarTitle(expectedTitle: CharSequence): Matcher<View> {
     }
 }
 
-private const val SLEEP_TIME_SHORT = 5000
-private const val SLEEP_TIME_LONG = SLEEP_TIME_SHORT * 3
-
 internal fun pressBackButton() {
-    pauseShort()
-    Espresso.pressBack()
+    pressBack()
 }
 
 internal fun pauseShort() {
-    pause(SLEEP_TIME_SHORT)
+    pause(SLEEP_1_SECOND)
 }
 
 internal fun pauseLong() {
-    pause(SLEEP_TIME_LONG)
+    pause(SLEEP_3_SECONDS)
 }
 
 private fun pause(sleepTime: Int) {

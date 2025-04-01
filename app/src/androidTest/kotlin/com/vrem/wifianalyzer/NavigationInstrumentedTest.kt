@@ -41,14 +41,12 @@ internal class NavigationInstrumentedTest : Runnable {
             8 to "Vendors"
         ).forEach { (id, title) ->
             selectMenuItem(id, title)
-            pauseShort()
         }
         listOf(
             10 to "Settings",
             11 to "About"
         ).forEach { (id, title) ->
             selectMenuItem(id, title)
-            pauseShort()
             pressBackButton()
         }
     }

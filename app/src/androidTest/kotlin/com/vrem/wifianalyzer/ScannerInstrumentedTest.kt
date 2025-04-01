@@ -30,11 +30,7 @@ internal class ScannerInstrumentedTest : Runnable {
 
     override fun run() {
         onView(allOf(withId(action_scanner), withContentDescription(PAUSE), isDisplayed())).perform(click())
-        pauseShort()
         onView(allOf(withId(action_scanner), withContentDescription(PLAY), isDisplayed())).perform(click())
-        pauseShort()
-        onView(allOf(withId(action_scanner), withContentDescription(PAUSE), isDisplayed()))
-        pauseShort()
     }
 
 }
