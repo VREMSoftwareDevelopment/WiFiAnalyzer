@@ -12,25 +12,8 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '21'
-      - name: set up Android SDK
-        uses: android-actions/setup-android@v3
-      - name: Start emulator
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 30
-          target: google_apis
-          arch: x86_64
-          profile: Nexus 6
-          script: |
-            adb shell pm grant com.vrem.wifianalyzer android.permission.ACCESS_COARSE_LOCATION
-            adb shell pm grant com.vrem.wifianalyzer android.permission.ACCESS_FINE_LOCATION
-            adb shell pm grant com.vrem.wifianalyzer android.permission.ACCESS_WIFI_STATE
-            adb shell pm grant com.vrem.wifianalyzer android.permission.CHANGE_WIFI_STATE
-            adb shell pm grant com.vrem.wifianalyzer android.permission.NEARBY_WIFI_DEVICES
-      - name: build app apk
-        run: bash ./gradlew assembleDebug
-      - name: build android test apk
-        run: bash ./gradlew assembleAndroidTest
+      - name: build apks
+        run: bash ./gradlew assembleDebug assembleAndroidTest
       - name: run tests
         uses: emulator-wtf/run-tests@v0
         with:
