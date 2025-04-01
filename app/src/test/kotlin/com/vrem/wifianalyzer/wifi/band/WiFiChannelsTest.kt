@@ -145,7 +145,7 @@ class WiFiChannelsTest {
     }
 
     @Test
-    fun wiFiWidthUsingChannel() {
+    fun wiFiWidthUsingChannelInRange() {
         fixtures.forEach { (wiFiBand, fixture) ->
             fixture.activeChannels.forEach { (wiFiWidth, channels) ->
                 val expected = if (wiFiBand == WiFiBand.GHZ2 && wiFiWidth == WiFiWidth.MHZ_40) {
@@ -159,6 +159,20 @@ class WiFiChannelsTest {
                         .isEqualTo(expected)
                 }
             }
+        }
+    }
+
+    @Test
+    fun wiFiWidthUsingChannelNotInRange() {
+        fixtures.forEach { (wiFiBand, fixture) ->
+            val first = wiFiBand.wiFiChannels.channelRange.first.channel
+            val last = wiFiBand.wiFiChannels.channelRange.second.channel
+            assertThat(fixture.wiFiWidthByChannel(first - 1))
+                .describedAs("$wiFiBand")
+                .isEqualTo(WiFiWidth.MHZ_20)
+            assertThat(fixture.wiFiWidthByChannel(last + 1))
+                .describedAs("$wiFiBand")
+                .isEqualTo(WiFiWidth.MHZ_20)
         }
     }
 

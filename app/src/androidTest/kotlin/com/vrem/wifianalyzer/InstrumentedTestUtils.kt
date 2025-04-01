@@ -19,7 +19,9 @@ package com.vrem.wifianalyzer
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.matcher.BoundedMatcher
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
@@ -33,6 +35,17 @@ internal class ChildAtPosition(private val parentMatcher: Matcher<View>, private
     override fun matchesSafely(view: View): Boolean {
         val parent = view.parent
         return (parent is ViewGroup && parentMatcher.matches(parent) && view == parent.getChildAt(position))
+    }
+}
+
+internal fun withToolbarTitle(expectedTitle: CharSequence): Matcher<View> {
+    return object : BoundedMatcher<View, Toolbar>(Toolbar::class.java) {
+        override fun describeTo(description: Description) {
+            description.appendText("with toolbar title: $expectedTitle")
+        }
+
+        override fun matchesSafely(toolbar: Toolbar): Boolean =
+            toolbar.title == expectedTitle
     }
 }
 

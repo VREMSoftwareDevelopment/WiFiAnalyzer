@@ -21,6 +21,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import androidx.test.rule.GrantPermissionRule
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,24 +33,27 @@ class MainInstrumentedTest {
     @get:Rule
     val activityTestRule: ActivityScenarioRule<MainActivity> = activityScenarioRule()
 
+    @get:Rule
+    val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(
+        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+        android.Manifest.permission.ACCESS_FINE_LOCATION,
+        android.Manifest.permission.ACCESS_WIFI_STATE,
+        android.Manifest.permission.CHANGE_WIFI_STATE,
+        android.Manifest.permission.NEARBY_WIFI_DEVICES
+    )
+
     @Test
     fun navigation() {
-        pauseShort()
         NavigationInstrumentedTest().run()
-        pauseShort()
     }
 
     @Test
     fun scanner() {
-        pauseShort()
         ScannerInstrumentedTest().run()
-        pauseShort()
     }
 
     @Test
     fun filter() {
-        pauseShort()
         FilterInstrumentedTest().run()
-        pauseShort()
     }
 }
