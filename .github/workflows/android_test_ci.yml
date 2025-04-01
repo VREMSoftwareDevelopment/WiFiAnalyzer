@@ -2,6 +2,7 @@ name: "Android Instrumentation Tests"
 on: [ push, pull_request ]
 jobs:
   instrumentation_tests:
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
     runs-on: ubuntu-latest
     steps:
       - name: checkout repository
