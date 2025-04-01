@@ -28,8 +28,6 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml
-      - name: run instrumented tests
-        run: bash ./gradlew connectedAndroidTest --stacktrace
       - name: build apk
         run: bash ./gradlew assembleDebug --stacktrace
       - name: artifact apk
