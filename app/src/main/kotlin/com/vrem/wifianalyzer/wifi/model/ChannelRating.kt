@@ -21,9 +21,7 @@ import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 
 @OpenClass
-class ChannelRating {
-    private val wiFiDetails: MutableList<WiFiDetail> = mutableListOf()
-
+class ChannelRating(val wiFiDetails: MutableList<WiFiDetail> = mutableListOf()) {
     fun count(wiFiChannel: WiFiChannel): Int = collectOverlapping(wiFiChannel).size
 
     fun strength(wiFiChannel: WiFiChannel): Strength =
@@ -34,11 +32,9 @@ class ChannelRating {
                 .maxByOrNull { it } ?: Strength.ZERO.ordinal
         ]
 
-    fun wiFiDetails(): List<WiFiDetail> = wiFiDetails
-
-    fun wiFiDetails(wiFiDetails: List<WiFiDetail>) {
-        this.wiFiDetails.clear()
-        this.wiFiDetails.addAll(removeSame(wiFiDetails))
+    fun wiFiDetails(newWiFiDetails: List<WiFiDetail>) {
+        wiFiDetails.clear()
+        wiFiDetails.addAll(removeSame(newWiFiDetails))
     }
 
     fun bestChannels(wiFiChannels: List<WiFiChannel>): List<ChannelAPCount> =

@@ -78,14 +78,11 @@ internal class Cache {
             .coerceIn(LEVEL_MINIMUM, LEVEL_MAXIMUM)
     }
 
-    private fun combineCache(): List<ScanResult> =
-        scanResults.flatten().sortedWith(comparator())
+    private fun combineCache(): List<ScanResult> = scanResults.flatten().sortedWith(comparator())
 
-    private fun comparator(): Comparator<ScanResult> =
-        compareBy<ScanResult> { it.BSSID }.thenBy { it.ssid() }.thenBy { it.level }
+    private fun comparator(): Comparator<ScanResult> = compareBy<ScanResult> { it.BSSID }.thenBy { it.ssid() }.thenBy { it.level }
 
-    private val sizeAvailable: Boolean
-        get() = MainContext.INSTANCE.configuration.sizeAvailable
+    private val sizeAvailable: Boolean get() = MainContext.INSTANCE.configuration.sizeAvailable
 
     companion object {
         private const val MINIMUM: Int = 1

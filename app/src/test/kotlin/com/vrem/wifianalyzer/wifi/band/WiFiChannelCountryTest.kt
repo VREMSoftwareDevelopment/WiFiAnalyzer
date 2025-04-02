@@ -27,10 +27,10 @@ import java.util.Locale
 class WiFiChannelCountryTest {
     private val currentLocale: Locale = Locale.getDefault()
 
-    private val expectedChannelExcludes = mapOf(
-        WiFiBand.GHZ2 to expectedChannelExcludesGHZ2,
-        WiFiBand.GHZ5 to expectedChannelExcludesGHZ5,
-        WiFiBand.GHZ6 to expectedChannelExcludesGHZ6
+    private val expectedWiFiBands = listOf(
+        WiFiBand.GHZ2 to expectedWiFiInfoGHZ2,
+        WiFiBand.GHZ5 to expectedWiFiInfoGHZ5,
+        WiFiBand.GHZ6 to expectedWiFiInfoGHZ6
     )
 
     @Before
@@ -44,8 +44,8 @@ class WiFiChannelCountryTest {
     }
 
     @Test
-    fun expectedChannelExcludesCheck() {
-        assertThat(expectedChannelExcludes).hasSize(WiFiBand.entries.size)
+    fun fixturesCheck() {
+        assertThat(expectedWiFiBands).hasSize(WiFiBand.entries.size)
     }
 
     @Test
@@ -84,10 +84,10 @@ class WiFiChannelCountryTest {
     fun channels() {
         Locale.getAvailableLocales().forEach { locale ->
             val fixture = WiFiChannelCountry(locale)
-            expectedChannelExcludes.forEach { (wiFiBand, exclude) ->
+            expectedWiFiBands.forEach { (wiFiBand, expectedWiFiInfo) ->
                 assertThat(fixture.channels(wiFiBand))
                     .describedAs("Code: ${locale.country} | ${wiFiBand.name}")
-                    .containsExactlyElementsOf(exclude.expectedAvailableChannels(wiFiBand, locale.country))
+                    .containsExactlyElementsOf(expectedWiFiInfo.expectedRatingChannels(wiFiBand, locale.country))
             }
         }
     }

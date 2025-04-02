@@ -44,17 +44,13 @@ enum class MainContext {
     lateinit var configuration: Configuration
     lateinit var filtersAdapter: FiltersAdapter
 
-    val context: Context
-        get() = mainActivity.applicationContext
+    val context: Context get() = mainActivity.applicationContext
 
-    val resources: Resources
-        get() = context.resources
+    val resources: Resources get() = context.resources
 
-    val layoutInflater: LayoutInflater
-        get() = mainActivity.layoutInflater
+    val layoutInflater: LayoutInflater get() = mainActivity.layoutInflater
 
-    private val wiFiManager: WifiManager
-        get() = context.getSystemService(Context.WIFI_SERVICE) as WifiManager
+    private val wiFiManager: WifiManager get() = context.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
     fun initialize(activity: MainActivity, largeScreen: Boolean) {
         mainActivity = activity

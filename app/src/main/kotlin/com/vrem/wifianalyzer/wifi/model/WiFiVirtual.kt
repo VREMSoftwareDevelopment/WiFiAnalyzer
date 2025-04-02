@@ -21,8 +21,7 @@ package com.vrem.wifianalyzer.wifi.model
 private const val BSSID_LENGTH = 17
 
 data class WiFiVirtual(val bssid: String, val frequency: Int) {
-    val key: String
-        get() = "$bssid-$frequency"
+    val key: String get() = "$bssid-$frequency"
 }
 
 val WiFiDetail.wiFiVirtual: WiFiVirtual

@@ -26,6 +26,5 @@ const val SIZE_MAX = 4096
 class Configuration(val largeScreen: Boolean) {
     var size = SIZE_MAX
 
-    val sizeAvailable: Boolean
-        get() = size == SIZE_MAX
+    val sizeAvailable: Boolean get() = size == SIZE_MAX
 }

@@ -18,6 +18,7 @@
 package com.vrem.wifianalyzer.wifi.band
 
 import com.vrem.util.EMPTY
+import com.vrem.util.findByCountryCode
 import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
@@ -148,15 +149,10 @@ class WiFiChannelsTest {
     fun wiFiWidthUsingChannelInRange() {
         fixtures.forEach { (wiFiBand, fixture) ->
             fixture.activeChannels.forEach { (wiFiWidth, channels) ->
-                val expected = if (wiFiBand == WiFiBand.GHZ2 && wiFiWidth == WiFiWidth.MHZ_40) {
-                    WiFiWidth.MHZ_20
-                } else {
-                    wiFiWidth
-                }
                 channels.forEach { channel ->
                     assertThat(fixture.wiFiWidthByChannel(channel))
                         .describedAs("$wiFiBand $wiFiWidth | Channel: $channel")
-                        .isEqualTo(expected)
+                        .isEqualTo(wiFiWidth)
                 }
             }
         }
@@ -198,8 +194,9 @@ class WiFiChannelsTest {
     }
 
     @Test
-    fun availableChannelsUsingCountry() {
+    fun availableChannelsUsingWiFiBandAndCountry() {
         Locale.getAvailableLocales().forEach { locale ->
+            val locale = findByCountryCode(locale.country)
             fixtures.forEach { (wiFiBand, fixture, _) ->
                 assertThat(fixture.availableChannels(wiFiBand, locale.country).map { it -> it.channel })
                     .describedAs("$wiFiBand.name | Country: ${locale.country}")
@@ -209,15 +206,27 @@ class WiFiChannelsTest {
     }
 
     @Test
-    fun availableChannelsUsingWiFiWidthAndCountry() {
+    fun availableChannelsUsingWiFiWidtWiFiBandAndCountry() {
         Locale.getAvailableLocales().forEach { locale ->
-            val country = locale.country
+            val country = findByCountryCode(locale.country).country
             fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
                 WiFiWidth.entries.forEach { wiFiWidth ->
-                    assertThat(fixture.availableChannels(wiFiWidth, country))
+                    assertThat(fixture.availableChannels(wiFiWidth, wiFiBand, country))
                         .describedAs("$wiFiBand.name | $wiFiWidth.name | Country: $country")
-                        .containsExactlyElementsOf(expectedWiFiInfo.expectedAvailableChannels(wiFiWidth, country))
+                        .containsExactlyElementsOf(expectedWiFiInfo.availableChannels(wiFiWidth, wiFiBand, country))
                 }
+            }
+        }
+    }
+
+    @Test
+    fun ratingChannels() {
+        Locale.getAvailableLocales().forEach { locale ->
+            val locale = findByCountryCode(locale.country)
+            fixtures.forEach { (wiFiBand, fixture, expectedWiFiInfo) ->
+                assertThat(fixture.ratingChannels(wiFiBand, locale.country))
+                    .describedAs("$wiFiBand.name | Country: ${locale.country}")
+                    .containsExactlyElementsOf(expectedWiFiInfo.expectedRatingChannels(wiFiBand, locale.country))
             }
         }
     }

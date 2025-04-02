@@ -27,8 +27,7 @@ data class WiFiConnection(
 ) :
     Comparable<WiFiConnection> {
 
-    val connected: Boolean
-        get() = EMPTY != this
+    val connected: Boolean get() = EMPTY != this
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

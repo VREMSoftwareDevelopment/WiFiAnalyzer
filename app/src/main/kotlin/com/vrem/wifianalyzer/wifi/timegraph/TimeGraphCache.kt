@@ -43,7 +43,6 @@ internal class TimeGraphCache {
         if (notSeen[wiFiDetail] != null) notSeen[wiFiDetail] = 0
     }
 
-    val wiFiDetails: Set<WiFiDetail>
-        get() = notSeen.keys
+    val wiFiDetails: Set<WiFiDetail> get() = notSeen.keys
 
 }

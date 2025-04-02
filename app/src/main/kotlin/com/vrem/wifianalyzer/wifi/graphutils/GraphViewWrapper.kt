@@ -99,8 +99,7 @@ class GraphViewWrapper(
         viewport.setMaxX(maxX.toDouble())
     }
 
-    val viewportCntX: Int
-        get() = graphView.gridLabelRenderer.numHorizontalLabels - 1
+    val viewportCntX: Int get() = graphView.gridLabelRenderer.numHorizontalLabels - 1
 
     fun addSeries(series: BaseSeries<GraphDataPoint>) {
         graphView.addSeries(series)

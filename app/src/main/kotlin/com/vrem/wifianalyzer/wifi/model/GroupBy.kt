@@ -31,7 +31,6 @@ enum class GroupBy(val sort: Comparator<WiFiDetail>, val group: GroupByKey<WiFiD
     CHANNEL(sortByChannel(), groupByChannel),
     VIRTUAL(sortBySSID(), groupByVirtual);
 
-    val none: Boolean
-        get() = NONE == this
+    val none: Boolean get() = NONE == this
 
 }

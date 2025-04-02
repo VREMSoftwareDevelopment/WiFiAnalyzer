@@ -83,7 +83,7 @@ class ChannelAvailableFragmentTest {
         assertThat(view.findViewById<TextView>(R.id.channels_available_country_name).text).isEqualTo(locale.displayCountry)
         textViewsIds.forEach { (id, wiFiBand, wiFiWidth) ->
             assertThat(view.findViewById<TextView>(id).text)
-                .isEqualTo(wiFiBand.wiFiChannels.availableChannels(wiFiWidth, locale.country).joinToString(", "))
+                .isEqualTo(wiFiBand.wiFiChannels.availableChannels(wiFiWidth, wiFiBand, locale.country).joinToString(", "))
         }
     }
 

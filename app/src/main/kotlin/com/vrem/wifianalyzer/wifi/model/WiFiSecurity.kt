@@ -83,18 +83,12 @@ enum class WiFiSecurityType(
 
 data class WiFiSecurity(val capabilities: String = String.EMPTY, val securityTypes: List<Int> = listOf()) {
 
-    val security: Security
-        get() = securities.first()
+    val security: Security get() = securities.first()
 
     val securities: Set<Security>
-        get() {
-            return (transformCapabilities() + transformSecurityTypes()).toSortedSet().ifEmpty { setOf(Security.NONE) }
-        }
+        get() = (transformCapabilities() + transformSecurityTypes()).toSortedSet().ifEmpty { setOf(Security.NONE) }
 
-    val wiFiSecurityTypes: Set<WiFiSecurityType>
-        get() {
-            return WiFiSecurityType.findAll(securityTypes)
-        }
+    val wiFiSecurityTypes: Set<WiFiSecurityType> get() = WiFiSecurityType.findAll(securityTypes)
 
     fun wiFiSecurityTypesDisplay(context: Context): String =
         wiFiSecurityTypes

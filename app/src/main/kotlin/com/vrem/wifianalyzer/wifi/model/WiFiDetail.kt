@@ -31,8 +31,7 @@ data class WiFiDetail(
     constructor(wiFiDetail: WiFiDetail, children: List<WiFiDetail>) :
         this(wiFiDetail.wiFiIdentifier, wiFiDetail.wiFiSecurity, wiFiDetail.wiFiSignal, wiFiDetail.wiFiAdditional, children)
 
-    val noChildren: Boolean
-        get() = children.isNotEmpty()
+    val noChildren: Boolean get() = children.isNotEmpty()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

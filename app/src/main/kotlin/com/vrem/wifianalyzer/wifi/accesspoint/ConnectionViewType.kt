@@ -25,6 +25,5 @@ enum class ConnectionViewType(@LayoutRes val layout: Int) {
     COMPACT(R.layout.access_point_view_compact),
     HIDE(R.layout.access_point_view_hide);
 
-    val hide: Boolean
-        get() = HIDE == this
+    val hide: Boolean get() = HIDE == this
 }

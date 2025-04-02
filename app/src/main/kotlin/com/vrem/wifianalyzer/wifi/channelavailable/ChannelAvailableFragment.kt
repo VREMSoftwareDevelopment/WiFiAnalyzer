@@ -58,7 +58,7 @@ class ChannelAvailableFragment : Fragment() {
             channelsAvailableCountryCode.text = countryCode
             channelsAvailableCountryName.text = WiFiChannelCountry.find(countryCode).countryName(languageLocale)
             textViews.forEach { (textView, wiFiBand, wiFiWidth) ->
-                textView.text = wiFiBand.wiFiChannels.availableChannels(wiFiWidth, countryCode).joinToString(", ")
+                textView.text = wiFiBand.wiFiChannels.availableChannels(wiFiWidth, wiFiBand, countryCode).joinToString(", ")
             }
         }
     }

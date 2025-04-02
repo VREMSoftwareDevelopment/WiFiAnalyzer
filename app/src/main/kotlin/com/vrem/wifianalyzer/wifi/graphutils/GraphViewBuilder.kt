@@ -137,11 +137,9 @@ class GraphViewBuilder(
         return this
     }
 
-    val numVerticalLabels: Int
-        get() = (maximumPortY - MIN_Y) / 10 + 1
+    val numVerticalLabels: Int get() = (maximumPortY - MIN_Y) / 10 + 1
 
-    val maximumPortY: Int
-        get() = if (maximumY > MAX_Y || maximumY < MIN_Y_HALF) MAX_Y_DEFAULT else maximumY
+    val maximumPortY: Int get() = if (maximumY > MAX_Y || maximumY < MIN_Y_HALF) MAX_Y_DEFAULT else maximumY
 
     val layoutParams: ViewGroup.LayoutParams =
         ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)

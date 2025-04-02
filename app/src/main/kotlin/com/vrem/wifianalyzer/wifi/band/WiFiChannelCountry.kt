@@ -25,20 +25,14 @@ import java.util.Locale
 class WiFiChannelCountry(val locale: Locale) {
     private val unknown = "-Unknown"
 
-    val countryCode: String
-        get() = locale.country.toCapitalize(locale)
+    val countryCode: String get() = locale.country.toCapitalize(locale)
 
     fun countryName(currentLocale: Locale): String {
         val countryName: String = locale.getDisplayCountry(currentLocale)
         return if (locale.country == countryName) countryName + unknown else countryName
     }
 
-    fun channels(wiFiBand: WiFiBand): List<Int> {
-        val wiFiChannels = wiFiBand.wiFiChannels
-        return wiFiChannels.availableChannels
-            .subtract(wiFiChannels.excludeChannels.flatMap { it[countryCode] ?: emptyList() })
-            .toList()
-    }
+    fun channels(wiFiBand: WiFiBand): List<Int> = wiFiBand.wiFiChannels.ratingChannels(wiFiBand, countryCode)
 
     companion object {
         fun find(countryCode: String): WiFiChannelCountry = WiFiChannelCountry(findByCountryCode(countryCode))

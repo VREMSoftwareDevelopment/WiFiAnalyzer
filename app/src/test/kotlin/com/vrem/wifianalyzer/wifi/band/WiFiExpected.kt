@@ -52,7 +52,19 @@ private val expectedETSICountries = listOf(
     "IL"
 )
 
-private val expectedChannelExcludeGH5: List<Map<String, List<Int>>> =
+private val expectedNACountries = listOf("AS", "CA", "CO", "DO", "FM", "GT", "GU", "MP", "MX", "PA", "PR", "UM", "US", "UZ", "VI")
+
+private val expectedGHZ6Countries = listOf("JP", "RU", "NZ", "AU", "GL", "AE", "GB", "MX", "SG", "HK", "MO", "PH")
+
+/**
+ * WORLD: 20 MHz 1, 5, 9, 13 | 40 MHz 3, 11
+ * NA: 20 MHz 1, 6, 9 | 40 MHz 3, 11
+ * No need to support Japan channel 14 (802.11b)
+ */
+private val channelsWorldGHZ2 = listOf(1, 3, 5, 9, 13)
+private val channelsNAGHZ2 = listOf(1, 3, 6, 9, 11)
+
+private val expectedChannelExcludeGHZ5: List<Map<String, List<Int>>> =
     expectedETSICountries.map { mapOf(it to listOf(177)) } +
         listOf(
             "AU" to (120..128).toList() + listOf(177),
@@ -76,20 +88,24 @@ private val expectedChannelExcludeGH5: List<Map<String, List<Int>>> =
             "PH" to (173..177).toList()
         ).map { mapOf(it.first to it.second) }
 
-private val expectedChannelExcludeGH6: List<Map<String, List<Int>>> =
-    (expectedETSICountries + listOf("JP", "RU", "NZ", "AU", "GL", "AE", "GB", "MX", "SG", "HK", "MO", "PH"))
+private val expectedChannelExcludeGHZ6: List<Map<String, List<Int>>> =
+    (expectedETSICountries + expectedGHZ6Countries)
         .map { mapOf(it to (97..223).toList()) }
 
-data class ExpectedChannelExclude(val exclude: List<Map<String, List<Int>>> = listOf()) {
-    fun expectedAvailableChannels(wiFiBand: WiFiBand, countryCode: String): List<Int> =
-        wiFiBand.wiFiChannels.availableChannels
-            .subtract(exclude.flatMap { it[countryCode] ?: emptyList() })
-            .toList()
+private val expectedRatingChannelsGHZ2: RatingChannels = { wiFiBand, countryCode ->
+    val channels = if (expectedNACountries.contains(countryCode)) channelsNAGHZ2 else channelsWorldGHZ2
+    wiFiBand.wiFiChannels.availableChannels.filter { it in channels }
 }
 
-val expectedChannelExcludesGHZ2 = ExpectedChannelExclude(listOf())
-val expectedChannelExcludesGHZ5 = ExpectedChannelExclude(expectedChannelExcludeGH5)
-val expectedChannelExcludesGHZ6 = ExpectedChannelExclude(expectedChannelExcludeGH6)
+private val expectedRatingChannelsGHZ5: RatingChannels = { wiFiBand, countryCode ->
+    val excludedChannels = expectedChannelExcludeGHZ5.flatMap { it[countryCode] ?: emptyList() }
+    wiFiBand.wiFiChannels.availableChannels.filterNot { it in excludedChannels }
+}
+
+private val expectedRatingChannelsGHZ6: RatingChannels = { wiFiBand, countryCode ->
+    val excludedChannels = expectedChannelExcludeGHZ6.flatMap { it[countryCode] ?: emptyList() }
+    wiFiBand.wiFiChannels.availableChannels.filterNot { it in excludedChannels }
+}
 
 data class ExpectedWiFiInfo(
     val expectedChannels: List<WiFiChannel>,
@@ -97,25 +113,22 @@ data class ExpectedWiFiInfo(
     val expectedActiveChannels: Map<WiFiWidth, List<Int>>,
     val expectedGraphChannels: Map<Int, String>,
     val expectedAvailableChannels: List<Int>,
-    val expectedChannelExclude: ExpectedChannelExclude
+    val expectedRatingChannels: RatingChannels
 ) {
-    fun expectedAvailableChannels(wiFiWidth: WiFiWidth, countryCode: String): List<Int> =
-        expectedActiveChannels[wiFiWidth]
-            .orEmpty()
-            .subtract(expectedChannelExclude.exclude.flatMap { it[countryCode] ?: emptyList() })
-            .toList()
+    fun availableChannels(wiFiWidth: WiFiWidth, wiFiBand: WiFiBand, countryCode: String): List<Int> =
+        expectedActiveChannels[wiFiWidth].orEmpty().filter { it in expectedRatingChannels(wiFiBand, countryCode) }
 }
 
 val expectedWiFiInfoGHZ2 = ExpectedWiFiInfo(
     (-1..15).map { WiFiChannel(it, 2407 + it * FREQUENCY_SPREAD) },
     17,
     mapOf(
-        (WiFiWidth.MHZ_20 to listOf(1, 2, 3, 6, 7, 8, 11, 12, 13)),
-        (WiFiWidth.MHZ_40 to listOf(3, 7, 11))
+        WiFiWidth.MHZ_20 to listOf(1, 5, 6, 9, 13).toList(),
+        WiFiWidth.MHZ_40 to listOf(3, 11).toList(),
     ),
     (1..13).associateWith { "$it" },
-    listOf(1, 2, 3, 6, 7, 8, 11, 12, 13),
-    expectedChannelExcludesGHZ2
+    listOf(1, 3, 5, 6, 9, 11, 13),
+    expectedRatingChannelsGHZ2
 )
 
 val expectedWiFiInfoGHZ5 = ExpectedWiFiInfo(
@@ -135,11 +148,13 @@ val expectedWiFiInfoGHZ5 = ExpectedWiFiInfo(
             else -> "$it"
         }
     },
-    ((42..138 step WiFiWidth.MHZ_80.step) + (155..171 step WiFiWidth.MHZ_80.step) +
+    ((32..144 step WiFiWidth.MHZ_20.step) + (149..177 step WiFiWidth.MHZ_20.step) +
+        (38..142 step WiFiWidth.MHZ_40.step) + (151..175 step WiFiWidth.MHZ_40.step) +
+        (42..138 step WiFiWidth.MHZ_80.step) + (155..171 step WiFiWidth.MHZ_80.step) +
         (50..114 step WiFiWidth.MHZ_160.step) + 163)
         .toSortedSet()
         .toList(),
-    expectedChannelExcludesGHZ5
+    expectedRatingChannelsGHZ5
 )
 
 val expectedWiFiInfoGHZ6 = ExpectedWiFiInfo(
@@ -161,8 +176,13 @@ val expectedWiFiInfoGHZ6 = ExpectedWiFiInfo(
             else -> "$it"
         }
     },
-    ((15..207 step WiFiWidth.MHZ_160.step) + (31..191 step WiFiWidth.MHZ_320.step))
+    ((1..233 step WiFiWidth.MHZ_20.step) +
+        (3..227 step WiFiWidth.MHZ_40.step) +
+        (7..215 step WiFiWidth.MHZ_80.step) +
+        (15..207 step WiFiWidth.MHZ_160.step) +
+        (31..191 step WiFiWidth.MHZ_320.step))
         .toSortedSet()
         .toList(),
-    expectedChannelExcludesGHZ6
+    expectedRatingChannelsGHZ6
 )
+

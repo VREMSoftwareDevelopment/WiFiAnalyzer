@@ -20,23 +20,22 @@ package com.vrem.wifianalyzer.wifi.band
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 
+typealias RatingChannels = (wiFiBand: WiFiBand, countryCode: String) -> List<Int>
+
 class WiFiChannels(
     val channelRange: WiFiChannelPair,
     val offset: Int,
     val activeChannels: Map<WiFiWidth, List<Int>>,
     val graphChannels: Map<Int, String>,
     val availableChannels: List<Int>,
-    val excludeChannels: List<Map<String, List<Int>>> = listOf()
+    val ratingChannels: RatingChannels
 ) {
 
     fun availableChannels(wiFiBand: WiFiBand, countryCode: String): List<WiFiChannel> =
         WiFiChannelCountry.find(countryCode).channels(wiFiBand).map { wiFiChannelByChannel(it) }
 
-    fun availableChannels(wiFiWidth: WiFiWidth, countryCode: String): List<Int> =
-        activeChannels[wiFiWidth]
-            .orEmpty()
-            .subtract(excludeChannels.flatMap { it[countryCode] ?: emptyList() })
-            .toList()
+    fun availableChannels(wiFiWidth: WiFiWidth, wiFiBand: WiFiBand, countryCode: String): List<Int> =
+        activeChannels[wiFiWidth].orEmpty().filter { it in ratingChannels(wiFiBand, countryCode) }
 
     fun inRange(frequency: Int): Boolean = frequency in channelRange.first.frequency..channelRange.second.frequency
 
@@ -66,4 +65,5 @@ class WiFiChannels(
         val channel = ((frequency - channelRange.first.frequency) / FREQUENCY_SPREAD + firstChannel).toInt()
         return WiFiChannel(channel, frequency)
     }
+
 }
