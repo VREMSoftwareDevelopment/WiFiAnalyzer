@@ -25,6 +25,7 @@ import org.junit.Test
 import java.util.Locale
 
 class ChannelRatingTest {
+    private val wiFiWidth = WiFiWidth.MHZ_20
     private val wiFiConnection = WiFiConnection(
         WiFiIdentifier("ssid1", "20:CF:30:CE:1D:71"),
         "192.168.1.15",
@@ -33,25 +34,25 @@ class ChannelRatingTest {
     private val wiFiDetail1 = WiFiDetail(
         WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
         WiFiSecurity.EMPTY,
-        WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50),
+        WiFiSignal(2432, 2432, wiFiWidth, -50),
         WiFiAdditional(String.EMPTY, wiFiConnection)
     )
     private val wiFiDetail2 = WiFiDetail(
         WiFiIdentifier("SSID2", "58:6d:8f:fa:ae:c0"),
         WiFiSecurity.EMPTY,
-        WiFiSignal(2442, 2442, WiFiWidth.MHZ_20, -70),
+        WiFiSignal(2442, 2442, wiFiWidth, -70),
         WiFiAdditional.EMPTY
     )
     private val wiFiDetail3 = WiFiDetail(
         WiFiIdentifier("SSID3", "84:94:8c:9d:40:68"),
         WiFiSecurity.EMPTY,
-        WiFiSignal(2452, 2452, WiFiWidth.MHZ_20, -60),
+        WiFiSignal(2452, 2452, wiFiWidth, -60),
         WiFiAdditional.EMPTY
     )
     private val wiFiDetail4 = WiFiDetail(
         WiFiIdentifier("SSID3", "64:A4:8c:90:10:12"),
         WiFiSecurity.EMPTY,
-        WiFiSignal(2452, 2452, WiFiWidth.MHZ_20, -80),
+        WiFiSignal(2452, 2452, wiFiWidth, -80),
         WiFiAdditional.EMPTY
     )
 
@@ -121,11 +122,13 @@ class ChannelRatingTest {
         val channels: List<WiFiChannel> = wiFiBand.wiFiChannels.availableChannels(wiFiBand, Locale.US.country)
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4))
         // execute
-        val actual: List<ChannelAPCount> = fixture.bestChannels(channels)
+        val actual: List<ChannelAPCount> = fixture.bestChannels(wiFiBand, channels)
         // validate
-        assertThat(actual).hasSize(2)
+        assertThat(actual).hasSize(4)
         validateChannelAPCount(1, 0, actual[0])
-        validateChannelAPCount(3, 1, actual[1])
+        validateChannelAPCount(2, 0, actual[1])
+        validateChannelAPCount(3, 1, actual[2])
+        validateChannelAPCount(4, 1, actual[3])
     }
 
     @Test
@@ -135,16 +138,24 @@ class ChannelRatingTest {
         val channels: List<WiFiChannel> = wiFiBand.wiFiChannels.availableChannels(wiFiBand, Locale.JAPAN.country)
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4))
         // execute
-        val actual: List<ChannelAPCount> = fixture.bestChannels(channels)
+        val actual: List<ChannelAPCount> = fixture.bestChannels(wiFiBand, channels)
         // validate
-        assertThat(actual).hasSize(3)
+        assertThat(actual).hasSize(6)
         validateChannelAPCount(1, 0, actual[0])
-        validateChannelAPCount(13, 0, actual[1])
-        validateChannelAPCount(3, 1, actual[2])
+        validateChannelAPCount(2, 0, actual[1])
+        validateChannelAPCount(12, 0, actual[2])
+        validateChannelAPCount(13, 0, actual[3])
+        validateChannelAPCount(3, 1, actual[4])
+        validateChannelAPCount(4, 1, actual[5])
     }
 
-    private fun validateChannelAPCount(expectedChannel: Int, expectedCount: Int, channelAPCount: ChannelAPCount) {
+    private fun validateChannelAPCount(
+        expectedChannel: Int,
+        expectedCount: Int,
+        channelAPCount: ChannelAPCount
+    ) {
         assertThat(channelAPCount.wiFiChannel.channel).isEqualTo(expectedChannel)
+        assertThat(channelAPCount.wiFiWidth).isEqualTo(wiFiWidth)
         assertThat(channelAPCount.count).isEqualTo(expectedCount)
     }
 
@@ -154,7 +165,7 @@ class ChannelRatingTest {
         val wiFiDetail = WiFiDetail(
             WiFiIdentifier("SSID2", "22:cf:30:ce:1d:72"),
             WiFiSecurity.EMPTY,
-            WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, wiFiDetail1.wiFiSignal.level - 5),
+            WiFiSignal(2432, 2432, wiFiWidth, wiFiDetail1.wiFiSignal.level - 5),
             WiFiAdditional.EMPTY
         )
         // execute

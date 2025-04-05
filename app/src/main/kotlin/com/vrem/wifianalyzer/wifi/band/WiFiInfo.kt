@@ -61,8 +61,7 @@ private val countriesNA = listOf("AS", "CA", "CO", "DO", "FM", "GT", "GU", "MP",
 
 private val countriesGHZ6 = listOf("JP", "RU", "NZ", "AU", "GL", "AE", "GB", "MX", "SG", "HK", "MO", "PH")
 
-private val channelsWorldGHZ2 = listOf(1, 3, 5, 9, 13)
-private val channelsNAGHZ2 = listOf(1, 3, 6, 9, 11)
+private val excludeGHZ2: List<Map<String, List<Int>>> = countriesNA.map { mapOf(it to listOf(12, 13)) }
 
 private val excludeGHZ5: List<Map<String, List<Int>>> =
     countriesETSI.map { mapOf(it to listOf(177)) } +
@@ -92,8 +91,8 @@ private val excludeGHZ6: List<Map<String, List<Int>>> =
     (countriesETSI + countriesGHZ6).map { mapOf(it to (97..223).toList()) }
 
 private val ratingChannelsGHZ2: RatingChannels = { wiFiBand, countryCode ->
-    val channels = if (countriesNA.contains(countryCode)) channelsNAGHZ2 else channelsWorldGHZ2
-    wiFiBand.wiFiChannels.availableChannels.filter { it in channels }
+    val excludedChannels = excludeGHZ2.flatMap { it[countryCode] ?: emptyList() }
+    wiFiBand.wiFiChannels.availableChannels.filterNot { it in excludedChannels }
 }
 
 private val ratingChannelsGHZ5: RatingChannels = { wiFiBand, countryCode ->
@@ -110,11 +109,11 @@ internal val wiFiChannelsGHZ2 = WiFiChannels(
     WiFiChannelPair(WiFiChannel(-1, 2402), WiFiChannel(15, 2482)),
     1,
     mapOf(
-        WiFiWidth.MHZ_20 to listOf(1, 5, 6, 9, 13).toList(),
-        WiFiWidth.MHZ_40 to listOf(3, 11).toList(),
+        WiFiWidth.MHZ_20 to (1..13).toList(),
+        WiFiWidth.MHZ_40 to listOf(3, 7, 11),
     ),
     (1..13).associateWith { "$it" },
-    listOf(1, 3, 5, 6, 9, 11, 13),
+    (1..13).toList(),
     ratingChannelsGHZ2
 )
 

@@ -25,7 +25,6 @@ import kotlin.math.abs
 
 private val CHANNEL_WIDTH_320MHZ = if (buildMinVersionT()) ScanResult.CHANNEL_WIDTH_320MHZ else 5
 
-typealias ChannelWidth = Int
 typealias CalculateCenter = (primary: Int, center0: Int, center1: Int) -> Int
 
 internal val calculateCenter40: CalculateCenter = { primary, center0, _ ->
@@ -37,7 +36,7 @@ internal val calculateCenterUsingCenter1: CalculateCenter = { _, _, center1 -> c
 
 enum class WiFiWidth(
     @StringRes val textResource: Int,
-    val channelWidth: ChannelWidth,
+    val channelWidth: Int,
     val frequencyWidth: Int,
     val guardBand: Int,
     val calculateCenter: CalculateCenter,
@@ -47,20 +46,13 @@ enum class WiFiWidth(
     MHZ_40(R.string.wifi_width_40mhz, ScanResult.CHANNEL_WIDTH_40MHZ, 40, 3, calculateCenter40, 8),
     MHZ_80(R.string.wifi_width_80mhz, ScanResult.CHANNEL_WIDTH_80MHZ, 80, 3, calculateCenterUsingCenter0, 16),
     MHZ_160(R.string.wifi_width_160mhz, ScanResult.CHANNEL_WIDTH_160MHZ, 160, 3, calculateCenterUsingCenter1, 32),
-    MHZ_80_PLUS(
-        R.string.wifi_width_80mhz,
-        ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ,
-        80,
-        3,
-        calculateCenterUsingCenter1,
-        16
-    ),
+    MHZ_80_PLUS(R.string.wifi_width_80mhz, ScanResult.CHANNEL_WIDTH_80MHZ_PLUS_MHZ, 80, 3, calculateCenterUsingCenter1, 16),
     MHZ_320(R.string.wifi_width_320mhz, CHANNEL_WIDTH_320MHZ, 320, 3, calculateCenterUsingCenter1, 32);
 
     val frequencyWidthHalf: Int = frequencyWidth / 2
 
     companion object {
-        fun findOne(channelWidth: ChannelWidth): WiFiWidth =
+        fun findOne(channelWidth: Int): WiFiWidth =
             WiFiWidth.entries.firstOrNull { it.channelWidth == channelWidth } ?: MHZ_20
     }
 }

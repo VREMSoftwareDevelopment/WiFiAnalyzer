@@ -22,7 +22,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
@@ -44,8 +43,7 @@ class ChannelRatingFragment : Fragment(), OnRefreshListener {
             swipeRefreshLayout.isRefreshing = false
             swipeRefreshLayout.isEnabled = false
         }
-        val bestChannels: TextView = binding.channelRatingBest.channelRatingBestChannels
-        channelRatingAdapter = ChannelRatingAdapter(requireActivity(), bestChannels)
+        channelRatingAdapter = ChannelRatingAdapter(requireActivity(), binding.channelRatingBest)
         val listView: ListView = binding.channelRatingRefresh.findViewById(R.id.channelRatingView)
         listView.adapter = channelRatingAdapter
         return binding.root

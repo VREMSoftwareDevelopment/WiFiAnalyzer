@@ -18,22 +18,175 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_horizontal_margin">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-        android:text="@string/channel_rating_best"
-        android:textColor="@color/channel"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/channelRatingBestChannels"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+            android:text="@string/channel_rating_best"
+            android:textColor="@color/channel"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channelRatingMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/channel_rating_best_alternative" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/channelRating20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+            android:text="@string/wifi_width_20mhz"
+            android:textColor="@color/frequency"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channelRatingRatingChannel20"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/success"
+            android:textStyle="bold"
+            tools:text="1,2,3,4,5,6,7,8,9" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/channelRating40"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+            android:text="@string/wifi_width_40mhz"
+            android:textColor="@color/frequency"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channelRatingRatingChannel40"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/success"
+            android:textStyle="bold"
+            tools:text="11,12,13,14,15,16,17,18,19" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/channelRating80"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+            android:text="@string/wifi_width_80mhz"
+            android:textColor="@color/frequency"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channelRatingRatingChannel80"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/success"
+            android:textStyle="bold"
+            tools:text="31,32,33,34,35,36,37,38,39" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/channelRating160"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+            android:text="@string/wifi_width_160mhz"
+            android:textColor="@color/frequency"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channelRatingRatingChannel160"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/success"
+            android:textStyle="bold"
+            tools:text="41,42,43,44,45,46,47,48,49" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/channelRating320"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+            android:text="@string/wifi_width_320mhz"
+            android:textColor="@color/frequency"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/channelRatingRatingChannel320"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/success"
+            android:textStyle="bold"
+            tools:text="51,52,53,54,55,56,57,58,59" />
+    </LinearLayout>
 
 </LinearLayout>

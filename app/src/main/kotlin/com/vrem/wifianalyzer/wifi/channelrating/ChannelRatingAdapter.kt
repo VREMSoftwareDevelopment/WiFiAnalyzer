@@ -23,12 +23,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.RatingBar
-import android.widget.TextView
-import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
+import com.vrem.wifianalyzer.databinding.ChannelRatingBestBinding
 import com.vrem.wifianalyzer.databinding.ChannelRatingDetailsBinding
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel
@@ -40,13 +39,18 @@ import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier
 
 class ChannelRatingAdapter(
     context: Context,
-    private val bestChannels: TextView,
-    private val channelRating: ChannelRating = ChannelRating()
+    val channelRatingBest: ChannelRatingBestBinding,
+    val channelRating: ChannelRating = ChannelRating()
 ) :
-    ArrayAdapter<WiFiChannel>(context, R.layout.channel_rating_details, mutableListOf()),
-    UpdateNotifier {
+    ArrayAdapter<WiFiChannel>(context, R.layout.channel_rating_details, mutableListOf()), UpdateNotifier {
 
-    private val maxChannelsToDisplay = 11
+    private val bindingMap = mapOf(
+        WiFiWidth.MHZ_20 to Pair(channelRatingBest.channelRating20, channelRatingBest.channelRatingRatingChannel20),
+        WiFiWidth.MHZ_40 to Pair(channelRatingBest.channelRating40, channelRatingBest.channelRatingRatingChannel40),
+        WiFiWidth.MHZ_80 to Pair(channelRatingBest.channelRating80, channelRatingBest.channelRatingRatingChannel80),
+        WiFiWidth.MHZ_160 to Pair(channelRatingBest.channelRating160, channelRatingBest.channelRatingRatingChannel160),
+        WiFiWidth.MHZ_320 to Pair(channelRatingBest.channelRating320, channelRatingBest.channelRatingRatingChannel320)
+    )
 
     override fun update(wiFiData: WiFiData) {
         val settings = MainContext.INSTANCE.settings
@@ -56,9 +60,7 @@ class ChannelRatingAdapter(
         val predicate: Predicate = wiFiBand.predicate()
         val wiFiDetails: List<WiFiDetail> = wiFiData.wiFiDetails(predicate, SortBy.STRENGTH)
         channelRating.wiFiDetails(wiFiDetails)
-        val bestChannel = bestChannels(wiFiBand, wiFiChannels)
-        bestChannels.text = bestChannel.message
-        bestChannels.setTextColor(ContextCompat.getColor(context, bestChannel.color))
+        bestChannels(wiFiBand, wiFiChannels)
         notifyDataSetChanged()
     }
 
@@ -70,14 +72,13 @@ class ChannelRatingAdapter(
     }
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-        val mainContext = MainContext.INSTANCE
-        val wiFiBand = mainContext.settings.wiFiBand()
+        val wiFiBand = MainContext.INSTANCE.settings.wiFiBand()
         val binding = view?.let { ChannelRatingAdapterBinding(it) } ?: ChannelRatingAdapterBinding(create(parent))
         getItem(position)?.let { wiFiChannel ->
             val wiFiWidth = wiFiBand.wiFiChannels.wiFiWidthByChannel(wiFiChannel.channel)
             binding.channelRatingChannel.text = wiFiChannel.channel.toString()
             binding.channelRatingAPCount.text = channelRating.count(wiFiChannel).toString()
-            binding.channelRatingWidth.text = ContextCompat.getString(mainContext.context, wiFiWidth.textResource)
+            binding.channelRatingWidth.text = ContextCompat.getString(context, wiFiWidth.textResource)
             ratingBar(wiFiChannel, binding.channelRating)
         }
         return binding.root
@@ -93,16 +94,32 @@ class ChannelRatingAdapter(
         ratingBar.progressTintList = ColorStateList.valueOf(color)
     }
 
-    internal fun bestChannels(wiFiBand: WiFiBand, wiFiChannels: List<WiFiChannel>): Message {
-        val bestChannels: List<Int> = channelRating.bestChannels(wiFiChannels).map { it.wiFiChannel.channel }
-        return if (bestChannels.isNotEmpty()) {
-            Message(bestChannels.joinToString(separator = ", ", limit = maxChannelsToDisplay), R.color.success)
+    internal fun bestChannels(wiFiBand: WiFiBand, wiFiChannels: List<WiFiChannel>) {
+        val channels = channelRating.bestChannels(wiFiBand, wiFiChannels)
+        val channelRatingMessage = channelRatingBest.channelRatingMessage
+        if (channels.isEmpty()) {
+            channelRatingMessage.text = errorMessage(wiFiBand)
+            channelRatingMessage.setTextColor(ContextCompat.getColor(context, R.color.error))
         } else {
-            Message(errorMessage(wiFiBand), R.color.error)
+            channelRatingMessage.text = String.EMPTY
+            channelRatingMessage.setTextColor(ContextCompat.getColor(context, R.color.success))
         }
+        updateChannelRatings(channels)
     }
 
-    internal class Message(val message: String, @ColorRes val color: Int)
+    private fun updateChannelRatings(channelAPCounts: List<ChannelAPCount>) {
+        WiFiWidth.entries.forEach { wiFiWidth ->
+            val channels = channelAPCounts
+                .filter { it.wiFiWidth == wiFiWidth }
+                .map { it.wiFiChannel.channel }
+                .joinToString(",")
+            val visibility = if (channels.isEmpty()) View.GONE else View.VISIBLE
+            bindingMap[wiFiWidth]?.let { (channelRatingView, channelRatingTextView) ->
+                channelRatingView.visibility = visibility
+                channelRatingTextView.text = channels
+            }
+        }
+    }
 
     private fun errorMessage(wiFiBand: WiFiBand): String = with(context.resources) {
         getText(R.string.channel_rating_best_none).toString() +

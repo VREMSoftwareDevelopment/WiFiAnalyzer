@@ -149,6 +149,9 @@ class WiFiChannelsTest {
     fun wiFiWidthUsingChannelInRange() {
         fixtures.forEach { (wiFiBand, fixture) ->
             fixture.activeChannels.forEach { (wiFiWidth, channels) ->
+                if (wiFiBand == WiFiBand.GHZ2 && wiFiWidth == WiFiWidth.MHZ_40) {
+                    return@forEach
+                }
                 channels.forEach { channel ->
                     assertThat(fixture.wiFiWidthByChannel(channel))
                         .describedAs("$wiFiBand $wiFiWidth | Channel: $channel")

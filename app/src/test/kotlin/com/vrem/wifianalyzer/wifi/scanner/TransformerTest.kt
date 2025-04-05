@@ -22,27 +22,12 @@ import android.net.wifi.ScanResult.InformationElement
 import android.net.wifi.WifiInfo
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.vrem.wifianalyzer.wifi.model.BSSID
-import com.vrem.wifianalyzer.wifi.model.EXTENDED_CAPABILITIES_IE
-import com.vrem.wifianalyzer.wifi.model.FastRoaming
-import com.vrem.wifianalyzer.wifi.model.MOBILE_DOMAIN_IE
-import com.vrem.wifianalyzer.wifi.model.RM_ENABLED_CAPABILITIES_IE
-import com.vrem.wifianalyzer.wifi.model.SSID
-import com.vrem.wifianalyzer.wifi.model.WiFiConnection
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
-import com.vrem.wifianalyzer.wifi.model.WiFiSecurityTypeTest
-import com.vrem.wifianalyzer.wifi.model.WiFiStandard
-import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+import com.vrem.wifianalyzer.wifi.model.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 import org.robolectric.annotation.Config
 import java.nio.ByteBuffer
 
@@ -182,7 +167,7 @@ class TransformerTest {
             WiFiWidth.MHZ_320 -> FREQUENCY + wiFiWidth.frequencyWidthHalf
         }
         scanResult.level = LEVEL
-        scanResult.channelWidth = wiFiWidth.ordinal
+        scanResult.channelWidth = wiFiWidth.channelWidth
         doReturn(wiFiStandard.wiFiStandardId).whenever(scanResult).wifiStandard
         doReturn(securityTypes.toIntArray()).whenever(scanResult).securityTypes
         doReturn(informationElements).whenever(scanResult).informationElements

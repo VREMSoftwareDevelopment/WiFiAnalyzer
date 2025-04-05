@@ -26,13 +26,13 @@ class ChannelAPCountTest {
     private val channel = 10
     private val count = 111
     private val wiFiChannel: WiFiChannel = WiFiChannel(channel, frequency)
-    private val fixture: ChannelAPCount = ChannelAPCount(wiFiChannel, count)
+    private val fixture: ChannelAPCount = ChannelAPCount(wiFiChannel, WiFiWidth.MHZ_40, count)
 
     @Test
     fun compareToUsingSameCountAndChannel() {
         // setup
         val wiFiChannel = WiFiChannel(channel, frequency)
-        val other = ChannelAPCount(wiFiChannel, count)
+        val other = ChannelAPCount(wiFiChannel, WiFiWidth.MHZ_20, count)
         // execute & validate
         assertThat(fixture.compareTo(other)).isEqualTo(0)
     }
@@ -41,7 +41,7 @@ class ChannelAPCountTest {
     fun compareToUsingDifferentCount() {
         // setup
         val wiFiChannel = WiFiChannel(channel, frequency)
-        val other = ChannelAPCount(wiFiChannel, count + 1)
+        val other = ChannelAPCount(wiFiChannel, WiFiWidth.MHZ_20, count + 1)
         // execute & validate
         assertThat(fixture.compareTo(other)).isEqualTo(-1)
     }
@@ -50,7 +50,7 @@ class ChannelAPCountTest {
     fun compareToUsingDifferentChannel() {
         // setup
         val wiFiChannel = WiFiChannel(channel + 1, frequency)
-        val other = ChannelAPCount(wiFiChannel, count)
+        val other = ChannelAPCount(wiFiChannel, WiFiWidth.MHZ_20, count)
         // execute & validate
         assertThat(fixture.compareTo(other)).isEqualTo(-1)
     }
@@ -59,7 +59,7 @@ class ChannelAPCountTest {
     fun compareToUsingDifferentFrequency() {
         // setup
         val wiFiChannel = WiFiChannel(channel, frequency + 1)
-        val other = ChannelAPCount(wiFiChannel, count)
+        val other = ChannelAPCount(wiFiChannel, WiFiWidth.MHZ_20, count)
         // execute & validate
         assertThat(fixture.compareTo(other)).isEqualTo(-1)
     }
