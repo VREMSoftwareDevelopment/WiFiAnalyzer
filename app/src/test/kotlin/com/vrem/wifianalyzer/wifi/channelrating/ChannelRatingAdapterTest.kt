@@ -138,6 +138,7 @@ class ChannelRatingAdapterTest {
         assertThat(binding.channelRatingMessage.textColors.defaultColor).isEqualTo(expectedColor)
         WiFiWidth.entries.forEach { wiFiWidth ->
             bindingMap[wiFiWidth]?.let { (channelRatingView, channelRatingTextView) ->
+                println("[$wiFiWidth]")
                 assertThat(channelRatingView.visibility).describedAs("$wiFiWidth").isEqualTo(View.GONE)
                 assertThat(channelRatingTextView.text).describedAs("$wiFiWidth").isEmpty()
             }
@@ -160,6 +161,7 @@ class ChannelRatingAdapterTest {
         assertThat(binding.channelRatingMessage.textColors.defaultColor).isEqualTo(expectedColor)
         WiFiWidth.entries.forEach { wiFiWidth ->
             bindingMap[wiFiWidth]?.let { (channelRatingView, channelRatingTextView) ->
+                println("[$wiFiWidth]")
                 assertThat(channelRatingView.visibility).describedAs("$wiFiWidth").isEqualTo(View.GONE)
                 assertThat(channelRatingTextView.text).describedAs("$wiFiWidth").isEmpty()
             }
@@ -184,6 +186,7 @@ class ChannelRatingAdapterTest {
                 .map { it.wiFiChannel.channel }
                 .joinToString(",")
             bindingMap[wiFiWidth]?.let { (channelRatingView, channelRatingTextView) ->
+                println("[$wiFiWidth]")
                 assertThat(channelRatingView.visibility).describedAs("$wiFiWidth").isEqualTo(View.VISIBLE)
                 assertThat(channelRatingTextView.text).describedAs("$wiFiWidth").isEqualTo(expected)
             }

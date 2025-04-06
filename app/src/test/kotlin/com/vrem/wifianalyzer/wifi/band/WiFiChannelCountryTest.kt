@@ -64,6 +64,7 @@ class WiFiChannelCountryTest {
     @Test
     fun countryCode() {
         Locale.getAvailableLocales().forEach { locale ->
+            println("[Code: ${locale.country}]")
             assertThat(WiFiChannelCountry(locale).countryCode)
                 .describedAs("Code: ${locale.country}")
                 .isEqualTo(locale.country)
@@ -73,6 +74,7 @@ class WiFiChannelCountryTest {
     @Test
     fun countryName() {
         Locale.getAvailableLocales().forEach { locale ->
+            println("[Code: ${locale.country}]")
             val fixture = WiFiChannelCountry(locale)
             assertThat(fixture.countryName(Locale.US))
                 .describedAs("Code: ${locale.country}")
@@ -85,8 +87,9 @@ class WiFiChannelCountryTest {
         Locale.getAvailableLocales().forEach { locale ->
             val fixture = WiFiChannelCountry(locale)
             expectedWiFiBands.forEach { (wiFiBand, expectedWiFiInfo) ->
+                println("[Code: ${locale.country} | $wiFiBand]")
                 assertThat(fixture.channels(wiFiBand))
-                    .describedAs("Code: ${locale.country} | ${wiFiBand.name}")
+                    .describedAs("Code: ${locale.country} | $wiFiBand")
                     .containsExactlyElementsOf(expectedWiFiInfo.expectedRatingChannels(wiFiBand, locale.country))
             }
         }
