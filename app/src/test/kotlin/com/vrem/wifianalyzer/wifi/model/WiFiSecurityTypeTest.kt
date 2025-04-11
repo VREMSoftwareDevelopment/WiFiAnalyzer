@@ -40,9 +40,7 @@ class WiFiSecurityTypeTest {
     @Test
     fun findOneWithSecurityTypes() {
         All.forEach {
-            println(it)
-            // execute & validate
-            assertThat(WiFiSecurityType.findOne(it)).isNotNull()
+            assertThat(WiFiSecurityType.findOne(it)).describedAs("$it").isNotNull()
         }
     }
 

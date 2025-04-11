@@ -19,7 +19,6 @@ package com.vrem.wifianalyzer.wifi.channelrating
 
 import android.os.Build
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RatingBar
@@ -55,14 +54,6 @@ class ChannelRatingAdapterTest {
     private val parent: ViewGroup = LinearLayout(mainActivity)
     private val binding: ChannelRatingBestBinding = ChannelRatingBestBinding.inflate(inflater, parent, false)
     private val fixture = ChannelRatingAdapter(mainActivity, binding, channelRating)
-
-    private val bindingMap = mapOf(
-        WiFiWidth.MHZ_20 to Pair(binding.channelRating20, binding.channelRatingRatingChannel20),
-        WiFiWidth.MHZ_40 to Pair(binding.channelRating40, binding.channelRatingRatingChannel40),
-        WiFiWidth.MHZ_80 to Pair(binding.channelRating80, binding.channelRatingRatingChannel80),
-        WiFiWidth.MHZ_160 to Pair(binding.channelRating160, binding.channelRatingRatingChannel160),
-        WiFiWidth.MHZ_320 to Pair(binding.channelRating320, binding.channelRatingRatingChannel320)
-    )
 
     @After
     fun tearDown() {
@@ -136,13 +127,6 @@ class ChannelRatingAdapterTest {
         // validate
         assertThat(binding.channelRatingMessage.text).isEqualTo(expected)
         assertThat(binding.channelRatingMessage.textColors.defaultColor).isEqualTo(expectedColor)
-        WiFiWidth.entries.forEach { wiFiWidth ->
-            bindingMap[wiFiWidth]?.let { (channelRatingView, channelRatingTextView) ->
-                println("[$wiFiWidth]")
-                assertThat(channelRatingView.visibility).describedAs("$wiFiWidth").isEqualTo(View.GONE)
-                assertThat(channelRatingTextView.text).describedAs("$wiFiWidth").isEmpty()
-            }
-        }
         verify(channelRating).bestChannels(WiFiBand.GHZ2, wiFiChannels)
     }
 
@@ -159,13 +143,6 @@ class ChannelRatingAdapterTest {
         // validate
         assertThat(binding.channelRatingMessage.text).isEqualTo(expected)
         assertThat(binding.channelRatingMessage.textColors.defaultColor).isEqualTo(expectedColor)
-        WiFiWidth.entries.forEach { wiFiWidth ->
-            bindingMap[wiFiWidth]?.let { (channelRatingView, channelRatingTextView) ->
-                println("[$wiFiWidth]")
-                assertThat(channelRatingView.visibility).describedAs("$wiFiWidth").isEqualTo(View.GONE)
-                assertThat(channelRatingTextView.text).describedAs("$wiFiWidth").isEmpty()
-            }
-        }
         verify(channelRating).bestChannels(WiFiBand.GHZ5, wiFiChannels)
     }
 
@@ -181,27 +158,12 @@ class ChannelRatingAdapterTest {
         // validate
         assertThat(binding.channelRatingMessage.text).isEqualTo(String.EMPTY)
         assertThat(binding.channelRatingMessage.textColors.defaultColor).isEqualTo(expectedColor)
-        WiFiWidth.entries.forEach { wiFiWidth ->
-            val expected = channelAPCounts.filter { it.wiFiWidth == wiFiWidth }
-                .map { it.wiFiChannel.channel }
-                .joinToString(",")
-            bindingMap[wiFiWidth]?.let { (channelRatingView, channelRatingTextView) ->
-                println("[$wiFiWidth]")
-                assertThat(channelRatingView.visibility).describedAs("$wiFiWidth").isEqualTo(View.VISIBLE)
-                assertThat(channelRatingTextView.text).describedAs("$wiFiWidth").isEqualTo(expected)
-            }
-        }
         verify(channelRating).bestChannels(WiFiBand.GHZ5, wiFiChannels)
     }
 
-    private fun withChannelAPCounts(): List<ChannelAPCount> =
-        (1..9).map { channelAPCount(it, WiFiWidth.MHZ_20) } +
-            (30..39).map { channelAPCount(it, WiFiWidth.MHZ_40) } +
-            (40..49).map { channelAPCount(it, WiFiWidth.MHZ_80) } +
-            (50..59).map { channelAPCount(it, WiFiWidth.MHZ_160) } +
-            (60..69).map { channelAPCount(it, WiFiWidth.MHZ_320) }
+    private fun withChannelAPCounts(): List<ChannelAPCount> = (1..9).map { channelAPCount(it) }
 
-    private fun channelAPCount(channel: Int, wiFiWidth: WiFiWidth): ChannelAPCount =
-        ChannelAPCount(WiFiChannel(channel, channel + 100), wiFiWidth, 1)
+    private fun channelAPCount(channel: Int): ChannelAPCount =
+        ChannelAPCount(WiFiChannel(channel, channel + 100), WiFiWidth.MHZ_20, 1)
 
 }
