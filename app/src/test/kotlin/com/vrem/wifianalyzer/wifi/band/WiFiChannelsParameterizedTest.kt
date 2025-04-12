@@ -42,8 +42,8 @@ class WiFiChannelsParameterizedTest {
 
     @Test
     fun inRange() {
-        assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.first().frequency)).describedAs("$wiFiBand").isTrue()
-        assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.last().frequency)).describedAs("$wiFiBand").isTrue()
+        assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.first().frequency)).isTrue()
+        assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.last().frequency)).isTrue()
     }
 
     @Test
@@ -61,8 +61,10 @@ class WiFiChannelsParameterizedTest {
 
     @Test
     fun wiFiChannelByFrequencyOutOfRange() {
-        assertThat(fixture.wiFiChannelByFrequency(expectedWiFiInfo.expectedChannels.first().frequency - 1)).isEqualTo(WiFiChannel.UNKNOWN)
-        assertThat(fixture.wiFiChannelByFrequency(expectedWiFiInfo.expectedChannels.last().frequency + 1)).isEqualTo(WiFiChannel.UNKNOWN)
+        assertThat(fixture.wiFiChannelByFrequency(expectedWiFiInfo.expectedChannels.first().frequency - 1))
+            .isEqualTo(WiFiChannel.UNKNOWN)
+        assertThat(fixture.wiFiChannelByFrequency(expectedWiFiInfo.expectedChannels.last().frequency + 1))
+            .isEqualTo(WiFiChannel.UNKNOWN)
     }
 
     @Test
@@ -74,8 +76,10 @@ class WiFiChannelsParameterizedTest {
 
     @Test
     fun wiFiChannelByChannelNotInRange() {
-        assertThat(fixture.wiFiChannelByChannel(expectedWiFiInfo.expectedChannels.first().channel - 1)).isEqualTo(WiFiChannel.UNKNOWN)
-        assertThat(fixture.wiFiChannelByChannel(expectedWiFiInfo.expectedChannels.last().channel + 1)).isEqualTo(WiFiChannel.UNKNOWN)
+        assertThat(fixture.wiFiChannelByChannel(expectedWiFiInfo.expectedChannels.first().channel - 1))
+            .isEqualTo(WiFiChannel.UNKNOWN)
+        assertThat(fixture.wiFiChannelByChannel(expectedWiFiInfo.expectedChannels.last().channel + 1))
+            .isEqualTo(WiFiChannel.UNKNOWN)
     }
 
     @Test
@@ -115,8 +119,10 @@ class WiFiChannelsParameterizedTest {
 
     @Test
     fun wiFiWidthUsingChannelNotInRange() {
-        assertThat(fixture.wiFiWidthByChannel(wiFiBand.wiFiChannels.channelRange.first.channel - 1)).isEqualTo(WiFiWidth.MHZ_20)
-        assertThat(fixture.wiFiWidthByChannel(wiFiBand.wiFiChannels.channelRange.second.channel + 1)).isEqualTo(WiFiWidth.MHZ_20)
+        assertThat(fixture.wiFiWidthByChannel(wiFiBand.wiFiChannels.channelRange.first.channel - 1))
+            .isEqualTo(WiFiWidth.MHZ_20)
+        assertThat(fixture.wiFiWidthByChannel(wiFiBand.wiFiChannels.channelRange.second.channel + 1))
+            .isEqualTo(WiFiWidth.MHZ_20)
     }
 
     @Test

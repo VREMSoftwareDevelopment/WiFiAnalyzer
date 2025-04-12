@@ -36,4 +36,12 @@ class WiFiChannelCountryTest {
         assertThat(actual.countryName(expected)).isEqualTo(expected.displayCountry)
     }
 
+    @Test
+    fun unknownLocale() {
+        val locale = Locale("XYZ")
+        val wiFiChannelCountry = WiFiChannelCountry(locale)
+        assertThat(wiFiChannelCountry.countryCode).isEqualTo("")
+        assertThat(wiFiChannelCountry.countryName(Locale.US)).isEqualTo("-Unknown")
+    }
+
 }

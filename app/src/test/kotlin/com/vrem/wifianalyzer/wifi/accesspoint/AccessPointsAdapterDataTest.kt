@@ -20,11 +20,24 @@ package com.vrem.wifianalyzer.wifi.accesspoint
 import android.widget.ExpandableListView
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.GroupBy
+import com.vrem.wifianalyzer.wifi.model.Security
+import com.vrem.wifianalyzer.wifi.model.SortBy
+import com.vrem.wifianalyzer.wifi.model.Strength
+import com.vrem.wifianalyzer.wifi.model.WiFiData
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
-import org.mockito.kotlin.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.eq
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 class AccessPointsAdapterDataTest {
     private val wiFiData: WiFiData = mock()

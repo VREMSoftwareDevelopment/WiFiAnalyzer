@@ -17,7 +17,7 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="no_margin">0dp</dimen>
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
@@ -34,4 +34,7 @@
     <dimen name="icon_large">36dp</dimen>
 
     <dimen name="font_small">10sp</dimen>
+
+    <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>
+    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">12sp</dimen>
 </resources>
