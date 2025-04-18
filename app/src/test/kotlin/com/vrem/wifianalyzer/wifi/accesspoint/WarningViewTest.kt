@@ -23,9 +23,12 @@ import android.widget.TextView
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.vrem.wifianalyzer.*
+import com.vrem.wifianalyzer.MainContextHelper
+import com.vrem.wifianalyzer.R
+import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.navigation.NavigationMenu
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.WiFiData
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test

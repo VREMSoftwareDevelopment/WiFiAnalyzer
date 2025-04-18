@@ -18,7 +18,8 @@
 package com.vrem.util
 
 import android.annotation.SuppressLint
-import java.util.*
+import java.util.Locale
+import java.util.SortedMap
 
 private object SyncAvoid {
     @SuppressLint("ConstantLocale")

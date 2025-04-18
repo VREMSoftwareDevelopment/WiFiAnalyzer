@@ -67,6 +67,7 @@ class GraphViewWrapper(
         if (seriesExists(wiFiDetail)) {
             val series = seriesCache[wiFiDetail]
             series.resetData(data)
+            series.title = wiFiDetail.wiFiIdentifier.ssid + " " + wiFiDetail.wiFiSignal.channelDisplay()
             seriesOptions.highlightConnected(series, wiFiDetail.wiFiAdditional.wiFiConnection.connected)
             seriesOptions.drawBackground(series, drawBackground)
             true

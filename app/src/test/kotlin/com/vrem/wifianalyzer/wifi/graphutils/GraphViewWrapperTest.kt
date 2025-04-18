@@ -32,14 +32,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.mockito.kotlin.any
-import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.never
-import org.mockito.kotlin.spy
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.verifyNoMoreInteractions
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 
 class GraphViewWrapperTest {
     private val graphView: GraphView = mock()
@@ -155,6 +148,7 @@ class GraphViewWrapperTest {
     @Test
     fun updateSeriesWhenSeriesDoesExists() {
         // setup
+        val expectedTitle = wiFiDetail.wiFiIdentifier.ssid + " " + wiFiDetail.wiFiSignal.channelDisplay()
         val connected = wiFiDetail.wiFiAdditional.wiFiConnection.connected
         whenever(seriesCache.contains(wiFiDetail)).thenReturn(true)
         whenever(seriesCache[wiFiDetail]).thenReturn(baseSeries)
@@ -165,6 +159,7 @@ class GraphViewWrapperTest {
         verify(seriesCache).contains(wiFiDetail)
         verify(seriesCache)[wiFiDetail]
         verify(baseSeries).resetData(dataPoints)
+        verify(baseSeries).title = expectedTitle
         verify(seriesOptions).highlightConnected(baseSeries, connected)
         verify(seriesOptions).drawBackground(baseSeries, true)
     }
