@@ -34,10 +34,10 @@ def fileFilter = [
         '**/com/vrem/wifianalyzer/settings/SharedPreferences*'
 ]
 
-def classJavaDir = "$project.buildDir/intermediates/javac/debug/compileDebugJavaWithJavac/classes"
-def classKotlinDir = "$project.buildDir/tmp/kotlin-classes/debug"
-def mainJavaSrc = "$project.projectDir/src/main/java"
-def mainKotlinSrc = "$project.projectDir/src/main/kotlin"
+def classJavaDir = project.file("build/intermediates/javac/debug/compileDebugJavaWithJavac/classes")
+def classKotlinDir = project.file("build/tmp/kotlin-classes/debug")
+def mainJavaSrc = project.file("src/main/java")
+def mainKotlinSrc = project.file("src/main/kotlin")
 def debugTree = fileTree(dir: classJavaDir, excludes: fileFilter) + fileTree(dir: classKotlinDir, excludes: fileFilter)
 
 tasks.withType(Test).configureEach {
@@ -45,7 +45,8 @@ tasks.withType(Test).configureEach {
     jacoco.excludes = ['jdk.internal.*']
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+def jacocoReportProvider = tasks.register('jacocoTestReport', JacocoReport) {
+    dependsOn('testDebugUnitTest')
     reports {
         csv.required = false
         xml.required = true
@@ -53,13 +54,14 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
     }
     sourceDirectories.from = files([mainJavaSrc, mainKotlinSrc])
     classDirectories.from = files([debugTree])
-    executionData.from = fileTree(dir: project.buildDir, includes: [executionPath])
+    executionData.from = fileTree(dir: project.file("build"), includes: [executionPath])
 }
 
-task jacocoTestCoverageVerification(type: JacocoCoverageVerification, dependsOn: 'jacocoTestReport') {
+def jacocoCoverageVerificationProvider = tasks.register('jacocoTestCoverageVerification', JacocoCoverageVerification) {
+    dependsOn(jacocoReportProvider)
     sourceDirectories.from = files([[mainJavaSrc, mainKotlinSrc]])
     classDirectories.from = files([debugTree])
-    executionData.from = fileTree(dir: project.buildDir, includes: [executionPath])
+    executionData.from = fileTree(dir: project.file("build"), includes: [executionPath])
     violationRules {
         failOnViolation = true
         rule {
