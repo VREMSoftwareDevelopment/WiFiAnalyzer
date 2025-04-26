@@ -17,6 +17,7 @@
  */
 package com.vrem.wifianalyzer.navigation.options
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.view.Menu
 import android.view.MenuItem
@@ -36,6 +37,7 @@ class OptionMenu {
 
     fun select(item: MenuItem): Unit = OptionAction.findOptionAction(item.itemId).action()
 
+    @SuppressLint("RestrictedApi")
     private fun iconsVisible(menu: Menu) {
         try {
             (menu as MenuBuilder).setOptionalIconsVisible(true)

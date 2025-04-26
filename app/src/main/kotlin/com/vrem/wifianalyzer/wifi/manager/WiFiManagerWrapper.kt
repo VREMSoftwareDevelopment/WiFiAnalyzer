@@ -17,9 +17,12 @@
  */
 package com.vrem.wifianalyzer.wifi.manager
 
+import android.annotation.SuppressLint
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.vrem.annotation.OpenClass
 import com.vrem.util.buildMinVersionR
 
@@ -56,6 +59,7 @@ class WiFiManagerWrapper(
             false
         }
 
+    @SuppressLint("MissingPermission")
     fun scanResults(): List<ScanResult> =
         try {
             wifiManager.scanResults ?: listOf()
@@ -83,10 +87,14 @@ class WiFiManagerWrapper(
 
     fun isScanThrottleEnabled(): Boolean =
         if (minVersionR()) {
-            wifiManager.isScanThrottleEnabled
+            isScanThrottleEnabledR()
         } else {
             false
         }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun isScanThrottleEnabledR(): Boolean =
+        wifiManager.isScanThrottleEnabled
 
     fun minVersionR(): Boolean = buildMinVersionR()
 
