@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import android.annotation.SuppressLint
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import com.vrem.wifianalyzer.R
@@ -32,9 +31,6 @@ enum class Strength(@DrawableRes val imageResource: Int, @ColorRes val colorReso
     fun weak(): Boolean = ZERO == this
 
     companion object {
-        @SuppressLint("NonConstantResourceId")
-        const val COLOR_RESOURCE_DEFAULT: Int = R.color.regular
-
         fun calculate(level: Int): Strength {
             return entries[calculateSignalLevel(level, entries.size)]
         }

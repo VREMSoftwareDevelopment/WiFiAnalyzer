@@ -39,7 +39,6 @@ import java.util.Locale
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class ChannelAvailableFragmentTest {
-    @Suppress("unused")
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val locale = Locale.JAPAN
     private val settings = INSTANCE.settings

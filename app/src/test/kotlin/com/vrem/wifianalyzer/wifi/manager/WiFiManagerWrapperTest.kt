@@ -134,7 +134,6 @@ class WiFiManagerWrapperTest {
         verify(wiFiSwitch).off()
     }
 
-    @Suppress("DEPRECATION")
     @Test
     fun startScan() {
         // setup
@@ -146,7 +145,6 @@ class WiFiManagerWrapperTest {
         verify(wifiManager).startScan()
     }
 
-    @Suppress("DEPRECATION")
     @Test
     fun startScanWithException() {
         // setup
@@ -194,7 +192,6 @@ class WiFiManagerWrapperTest {
         verify(wifiManager).scanResults
     }
 
-    @Suppress("DEPRECATION")
     @Test
     fun wiFiInfo() {
         // setup
@@ -206,7 +203,6 @@ class WiFiManagerWrapperTest {
         verify(wifiManager).connectionInfo
     }
 
-    @Suppress("DEPRECATION")
     @Test
     fun wiFiInfoWithException() {
         // setup

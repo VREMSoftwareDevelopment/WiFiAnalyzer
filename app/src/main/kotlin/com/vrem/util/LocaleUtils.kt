@@ -17,17 +17,14 @@
  */
 package com.vrem.util
 
-import android.annotation.SuppressLint
 import java.util.Locale
 import java.util.SortedMap
 
 private object SyncAvoid {
-    @SuppressLint("ConstantLocale")
     val defaultLocale: Locale = Locale.getDefault()
     val countryCodes: Set<String> = Locale.getISOCountries().toSet()
     val availableLocales: List<Locale> = Locale.getAvailableLocales().filter { countryCodes.contains(it.country) }
 
-    @SuppressLint("ConstantLocale")
     val countriesLocales: SortedMap<String, Locale> =
         availableLocales
             .associateBy { it.country.toCapitalize(Locale.getDefault()) }

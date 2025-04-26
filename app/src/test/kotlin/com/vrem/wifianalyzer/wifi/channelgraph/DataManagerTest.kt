@@ -33,7 +33,6 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class DataManagerTest {
-    @Suppress("unused")
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val level = -40
     private val fixture = DataManager()

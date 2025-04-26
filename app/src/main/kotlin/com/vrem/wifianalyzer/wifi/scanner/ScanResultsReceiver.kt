@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer.wifi.scanner
 
-import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -30,7 +29,6 @@ fun interface Callback { // Compliant, function interface used
     fun onSuccess()
 }
 
-@SuppressLint("UnspecifiedRegisterReceiverFlag")
 @OpenClass
 internal class ScanResultsReceiver(private val mainActivity: MainActivity, private val callback: Callback) :
     BroadcastReceiver() {

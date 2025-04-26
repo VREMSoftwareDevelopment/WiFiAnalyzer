@@ -166,7 +166,6 @@ class CompatUtilsTest {
 
     @Test
     @Config(sdk = [Build.VERSION_CODES.S_V2])
-    @Suppress("DEPRECATION")
     fun scanResultSSIDLegacy() {
         // setup
         val expected = "SSID"
@@ -180,7 +179,6 @@ class CompatUtilsTest {
 
     @Test
     @Config(sdk = [Build.VERSION_CODES.S_V2])
-    @Suppress("DEPRECATION")
     fun scanResultSSIDLegacyWhenNull() {
         // setup
         scanResult.SSID = null

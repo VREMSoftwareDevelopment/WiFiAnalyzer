@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer.wifi.scanner
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.wifi.WifiManager
@@ -28,7 +27,6 @@ import org.junit.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.kotlin.*
 
-@SuppressLint("UnspecifiedRegisterReceiverFlag")
 class ScanResultsReceiverTest {
     private val mainActivity: MainActivity = mock()
     private val callback: Callback = mock()

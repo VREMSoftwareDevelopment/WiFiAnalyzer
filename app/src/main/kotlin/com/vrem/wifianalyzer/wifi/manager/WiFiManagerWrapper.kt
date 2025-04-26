@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer.wifi.manager
 
-import android.annotation.SuppressLint
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
@@ -50,7 +49,6 @@ class WiFiManagerWrapper(
             false
         }
 
-    @Suppress("DEPRECATION")
     fun startScan(): Boolean =
         try {
             wifiManager.startScan()
@@ -58,7 +56,6 @@ class WiFiManagerWrapper(
             false
         }
 
-    @SuppressLint("MissingPermission")
     fun scanResults(): List<ScanResult> =
         try {
             wifiManager.scanResults ?: listOf()
@@ -66,7 +63,6 @@ class WiFiManagerWrapper(
             listOf()
         }
 
-    @Suppress("DEPRECATION")
     fun wiFiInfo(): WifiInfo? =
         try {
             wifiManager.connectionInfo

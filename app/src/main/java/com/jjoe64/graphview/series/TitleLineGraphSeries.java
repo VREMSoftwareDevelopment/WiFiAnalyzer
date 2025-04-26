@@ -28,8 +28,6 @@ import com.jjoe64.graphview.GraphView;
 
 import java.util.Iterator;
 
-import androidx.core.view.ViewCompat;
-
 /*
   modified version of com.jjoe64.graphview.series.LineGraphSeries
  */
@@ -322,7 +320,7 @@ public class TitleLineGraphSeries<E extends DataPointInterface> extends BaseSeri
                                 startXAnimated = (startX - lastAnimationReferenceX) * factor + lastAnimationReferenceX;
                                 startXAnimated = Math.max(startXAnimated, lastAnimationReferenceX);
                                 endXAnimated = (endX - lastAnimationReferenceX) * factor + lastAnimationReferenceX;
-                                ViewCompat.postInvalidateOnAnimation(graphView);
+                                graphView.postInvalidateOnAnimation();
                             } else {
                                 // animation finished
                                 mLastAnimatedValue = valueX;
@@ -414,7 +412,7 @@ public class TitleLineGraphSeries<E extends DataPointInterface> extends BaseSeri
                         float factor = mAnimationInterpolator.getInterpolation(timeFactor);
                         if (timeFactor <= 1.0) {
                             first_X = (first_X - lastAnimationReferenceX) * factor + lastAnimationReferenceX;
-                            ViewCompat.postInvalidateOnAnimation(graphView);
+                            graphView.postInvalidateOnAnimation();
                         } else {
                             // animation finished
                             mLastAnimatedValue = valueX;

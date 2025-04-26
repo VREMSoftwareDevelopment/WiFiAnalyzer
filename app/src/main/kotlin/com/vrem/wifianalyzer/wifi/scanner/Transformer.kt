@@ -23,7 +23,6 @@ import com.vrem.util.nullToEmpty
 import com.vrem.util.ssid
 import com.vrem.wifianalyzer.wifi.model.*
 
-@Suppress("DEPRECATION")
 fun WifiInfo.ipV4Address(): Int = ipAddress
 
 @OpenClass

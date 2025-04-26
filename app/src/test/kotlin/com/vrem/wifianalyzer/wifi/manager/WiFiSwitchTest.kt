@@ -32,7 +32,6 @@ class WiFiSwitchTest {
         verifyNoMoreInteractions(wifiManager)
     }
 
-    @Suppress("DEPRECATION")
     @Test
     fun on() {
         // setup
@@ -44,7 +43,6 @@ class WiFiSwitchTest {
         verify(wifiManager).isWifiEnabled = true
     }
 
-    @Suppress("DEPRECATION")
     @Test
     fun off() {
         // setup

@@ -17,6 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.filter.adapter
 
+import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.model.Strength
 import org.assertj.core.api.Assertions.assertThat
@@ -110,7 +111,7 @@ class StrengthAdapterTest {
         // setup
         fixture.toggle(Strength.TWO)
         // execute & validate
-        assertThat(fixture.color(Strength.TWO)).isEqualTo(Strength.COLOR_RESOURCE_DEFAULT)
+        assertThat(fixture.color(Strength.TWO)).isEqualTo(R.color.regular)
     }
 
     @Test

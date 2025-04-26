@@ -29,7 +29,6 @@ fun whenSsid(scanResult: ScanResult, ssid: String) {
         whenever(scanResult.wifiSsid).thenReturn(wifiSsid)
         whenever(wifiSsid.toString()).thenReturn(ssid)
     } else {
-        @Suppress("DEPRECATION")
         scanResult.SSID = ssid
     }
 }

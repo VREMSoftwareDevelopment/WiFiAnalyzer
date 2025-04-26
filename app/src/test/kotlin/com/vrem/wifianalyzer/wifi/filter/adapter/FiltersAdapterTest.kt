@@ -39,7 +39,6 @@ import java.io.Serializable
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class FiltersAdapterTest {
-    @Suppress("unused")
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val ssids = setOf<String>()
     private val wiFiBands: Set<WiFiBand> = WiFiBand.entries.toSet()

@@ -44,7 +44,6 @@ class WiFiSwitch(private val wifiManager: WifiManager) {
         return true
     }
 
-    @Suppress("DEPRECATION")
     private fun enableWiFiLegacy(enabled: Boolean): Boolean = wifiManager.setWifiEnabled(enabled)
 
 }

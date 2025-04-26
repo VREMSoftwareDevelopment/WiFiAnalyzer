@@ -77,6 +77,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        release {
+        }
+    }
+
     buildFeatures {
         viewBinding = true
     }
@@ -86,7 +91,7 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile("proguard-android.txt")
-            signingConfig
+            signingConfig signingConfigs.release
         }
         debug {
             applicationIdSuffix ".BETA"
@@ -130,15 +135,18 @@ allOpen {
 }
 
 // keystore -------------------------------------------------
-if (project.hasProperty("keyAlias")) {
-    def propertiesFile = file("../../keystores/androidkeystore.properties")
-    Properties properties = readProperties(propertiesFile)
+signingConfig()
 
-    System.out.println(">>> Signing Config " + properties)
-    android.buildTypes.release.signingConfig.keyAlias = properties["key_alias"].toString()
-    android.buildTypes.release.signingConfig.keyPassword = properties["key_password"].toString()
-    android.buildTypes.release.signingConfig.storeFile = file(properties["store_filename"].toString())
-    android.buildTypes.release.signingConfig.storePassword = properties["store_password"].toString()
+def signingConfig() {
+    if (isReleaseTask()) {
+        Properties properties = readProperties(file("androidkeystore.properties"))
+
+        System.out.println(">>> Signing Config " + properties)
+        android.buildTypes.release.signingConfig.keyAlias = properties["key_alias"].toString()
+        android.buildTypes.release.signingConfig.keyPassword = properties["key_password"].toString()
+        android.buildTypes.release.signingConfig.storeFile = file(properties["store_filename"].toString())
+        android.buildTypes.release.signingConfig.storePassword = properties["store_password"].toString()
+    }
 }
 
 // version -------------------------------------------------

@@ -45,7 +45,6 @@ import java.util.Date
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class AboutFragmentTest {
-    @Suppress("unused")
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val configuration = MainContextHelper.INSTANCE.configuration
     private val wiFiManagerWrapper = MainContextHelper.INSTANCE.wiFiManagerWrapper
