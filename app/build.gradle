@@ -77,11 +77,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs {
-        release {
-        }
-    }
-
     buildFeatures {
         viewBinding = true
     }
@@ -91,7 +86,7 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile("proguard-android.txt")
-            signingConfig signingConfigs.release
+            signingConfig
         }
         debug {
             applicationIdSuffix ".BETA"
@@ -139,13 +134,20 @@ signingConfig()
 
 def signingConfig() {
     if (isReleaseTask()) {
-        Properties properties = readProperties(file("androidkeystore.properties"))
-
-        System.out.println(">>> Signing Config " + properties)
-        android.buildTypes.release.signingConfig.keyAlias = properties["key_alias"].toString()
-        android.buildTypes.release.signingConfig.keyPassword = properties["key_password"].toString()
-        android.buildTypes.release.signingConfig.storeFile = file(properties["store_filename"].toString())
-        android.buildTypes.release.signingConfig.storePassword = properties["store_password"].toString()
+        def propertiesFile = file("androidkeystore.properties")
+        if (propertiesFile.exists()) {
+            Properties properties = readProperties(propertiesFile)
+            System.out.println(">>> Signing Config " + properties)
+            android.signingConfigs.create("releaseConfig") {
+                keyAlias = properties["key_alias"].toString()
+                keyPassword = properties["key_password"].toString()
+                storeFile = file(properties["store_filename"].toString())
+                storePassword = properties["store_password"].toString()
+            }
+            android.buildTypes.release.signingConfig = android.signingConfigs.releaseConfig
+        } else {
+            System.err.println(">>> No Signing Config found! Missing '" + propertiesFile.name + "' file!")
+        }
     }
 }
 
