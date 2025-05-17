@@ -1,0 +1,17 @@
+Otimize sua rede Wi-Fi ao conferir o estado da rede, a força do sinal, e ao identificar canais congestionados usando o WiFiAnalyzer
+
+Recursos:
+
+* Identifique pontos de acesso por perto
+* Gráfico da força do sinal nos canais
+* Gráfico da força do sinal dos pontos de acesso ao longo do tempo
+* Analize as redes Wi-Fi para avaliar os canais
+* Detecção HT/VHT - 40/80/160MHz (requer o Android 6 ou mais recente)
+* Bandas de Wi-Fi 2.4 GHz, 5GHz, e 6GHz. (requer suporte pelo hardware)
+* Tela de pontos de acesso completa ou compacta
+* Distância estimada até os pontos de acesso
+* Exporte os detalhes dos pontos de acesso
+* Tema escuro, claro, e automático disponíveis
+* Pause ou retome a busca por redes
+* Filtros disponíveis: Banda de Wi-Fi, força do sinal, segurança e SSID
+* Pesquisa no banco de dados de fabricantes/OUI
