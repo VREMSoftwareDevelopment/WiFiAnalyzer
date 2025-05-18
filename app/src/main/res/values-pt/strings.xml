@@ -18,7 +18,7 @@
   -->
 
 <resources>
-    <string name="app_copyright">"Copyright \u00A9 2015 \u002D "</string>
+    <string name="app_copyright">"Direitos autorais \u00A9 2015 \u002D"</string>
 
     <string name="navigation_drawer_open">"Abrir gaveta de notificações"</string>
     <string name="navigation_drawer_close">"Fechar gaveta de notificações"</string>
@@ -41,7 +41,7 @@
     <string name="no_data">"Sem Informações"</string>
     <string name="no_data_msg">"Por favor, visite com freqüência as perguntas sobre em nosso site."</string>
     <string name="permission_msg">"A partir do Android Marshmallow, as permissões de localização são necessárias para realizar uma verificação de Wi-Fi. Você será solicitado a ativar serviços / permissões de localização. Como este aplicativo não requer acesso à Internet, você pode ter certeza de que este aplicativo não pode transmitir sua localização!"</string>
-    <string name="location_msg">"Esse app poderá acessar seu local exato por meio dos Serviços de localização enquanto estiver sendo usado. Os Serviços de localização do dispositivo precisam estar ativados para que o app possa acessar o local. Isso pode aumentar o uso da bateria."</string>
+    <string name="location_msg">"Esse app poderá acessar seu local exato com os Serviços de localização enquanto estiver sendo usado. Os Serviços de localização do dispositivo precisam estar ativados para que o app possa acessar o local. Isso pode aumentar o uso da bateria."</string>
     <string name="throttling_msg">"O Android 9 introduziu o controle de fluxo de Wi-Fi. O Android 10 tem uma nova opção de desenvolvedor para desativar o controle de fluxo em (Configurações > Opções do desenvolvedor > Rede > Controle de fluxo de Wi-Fi)."</string>
     <string name="export_not_available">"Não foi possível exportar"</string>
     <string name="current_connection">"Conexão atual"</string>

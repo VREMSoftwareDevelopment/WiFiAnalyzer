@@ -40,7 +40,8 @@ private object SyncAvoid {
         Locale.ITALIAN,
         Locale.JAPANESE,
         POLISH,
-        PORTUGUESE,
+        PORTUGUESE_BRAZIL,
+        PORTUGUESE_PORTUGAL,
         SPANISH,
         RUSSIAN,
         TURKISH,
@@ -52,7 +53,8 @@ private object SyncAvoid {
 val BULGARIAN: Locale = Locale("bg")
 val GREEK: Locale = Locale("el")
 val POLISH: Locale = Locale("pl")
-val PORTUGUESE: Locale = Locale("pt")
+val PORTUGUESE_PORTUGAL: Locale = Locale("pt", "PT")
+val PORTUGUESE_BRAZIL: Locale = Locale("pt", "BR")
 val SPANISH: Locale = Locale("es")
 val RUSSIAN: Locale = Locale("ru")
 val TURKISH: Locale = Locale("tr")
