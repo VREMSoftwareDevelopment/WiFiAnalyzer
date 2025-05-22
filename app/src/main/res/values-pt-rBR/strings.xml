@@ -48,7 +48,7 @@
 
     <string name="channel_rating_best">"Canais melhores:"</string>
     <string name="channel_rating_best_none">"Nenhum"</string>
-    <string name="channel_rating_best_alternative">", tente a banda de"</string>
+    <string name="channel_rating_best_alternative">", tente a frequência de"</string>
     <string name="channel_rating_heading_rating">"Avaliação"</string>
     <string name="channel_rating_heading_number">"Número"</string>
     <string name="channel_rating_heading_count">"Redes"</string>
@@ -105,7 +105,7 @@
     <!-- about start -->
     <string name="about_license_title">"Licença:"</string>
     <string name="about_description_title">"Descrição:"</string>
-    <string name="about_description_text">"Otimize sua rede Wi-Fi ao conferir o estado da rede, a força do sinal, e ao identificar canais congestionados usando o WiFiAnalyzer para Android que é código aberto"</string>
+    <string name="about_description_text">"Otimize sua rede Wi-Fi ao conferir o estado da rede, a força do sinal, e ao identificar canais congestionados usando o WiFiAnalyzer para Android que é de código aberto"</string>
     <string name="about_libraries_title">"Bibliotecas utilizadas:"</string>
     <string name="about_contributor_title">"Colaboradores"</string>
     <string name="about_write_review">"Escrever uma avaliação"</string>
@@ -120,8 +120,8 @@
     <string name="filter_close">"Fechar"</string>
     <string name="filter_reset">"Redefinir"</string>
     <string name="filter_apply">"Aplicar"</string>
-    <string name="filter_ssid_title">"SSID (sensível à caixa das letras)"</string>
-    <string name="filter_wifi_band_title">"Banda de Wi-Fi"</string>
+    <string name="filter_ssid_title">"SSID (sensível à letras maiúsculas)"</string>
+    <string name="filter_wifi_band_title">"Frequência do Wi-Fi"</string>
     <string name="filter_strength_title">"Força do sinal"</string>
     <string name="filter_security_title">"Segurança"</string>
     <!-- filter end -->
