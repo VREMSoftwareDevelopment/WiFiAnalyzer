@@ -5,13 +5,13 @@ Recursos:
 * Identifique redes por perto
 * Gráfico da força do sinal nos canais
 * Gráfico da força do sinal das redes ao longo do tempo
-* Analize as redes Wi-Fi para avaliar os canais
+* Analise as redes Wi-Fi para avaliar os canais
 * Detecção HT/VHT - 40/80/160MHz (requer o Android 6 ou mais recente)
-* Bandas de Wi-Fi 2.4 GHz, 5GHz, e 6GHz. (requer suporte pelo hardware)
+* Frequências de Wi-Fi 2.4 GHz, 5GHz, e 6GHz. (requer suporte pelo hardware)
 * Tela de redes completa ou compacta
 * Distância estimada até as redes
 * Exporte os detalhes das redes
 * Tema escuro, claro, e automático disponíveis
 * Pause ou retome a busca por redes
-* Filtros disponíveis: Banda de Wi-Fi, força do sinal, segurança e SSID
+* Filtros disponíveis: Frequência do Wi-Fi, força do sinal, segurança e SSID
 * Pesquisa no banco de dados de fabricantes/OUI
