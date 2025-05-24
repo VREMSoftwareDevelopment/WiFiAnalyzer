@@ -32,8 +32,8 @@ class VendorServiceTest {
     private val macAddress = "00:23:AB:8C:DF:10"
     private val vendorNameInvalid = "XXXXX"
     private val macAddressInvalid = "XX:XX:XX"
-    private val vendorSize = 19353
-    private val macsSize = 37329
+    private val vendorSize = 19369
+    private val macsSize = 37432
     private val macsCiscoSize = 1180
     private val filterVendor = "1394 "
     private val filterMac = "00:A0:2"
