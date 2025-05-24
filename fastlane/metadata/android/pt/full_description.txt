@@ -1,1 +1,17 @@
-Otimize sua rede Wi-Fi, verificando o estado da rede, a intensidade do sinal e identificando canais congestionados usando o WiFiAnalyzer, app open-source para Android
+Otimize sua rede Wi-Fi ao conferir o estado da rede, a força do sinal, e ao identificar canais congestionados usando o WiFiAnalyzer
+
+Recursos:
+
+* Identifique redes por perto
+* Gráfico da intensidade do sinal nos canais
+* Gráfico da intensidade do sinal das redes ao longo do tempo
+* Analise as redes Wi-Fi para avaliar os canais
+* Detecção HT/VHT - 40/80/160MHz (requer o Android 6 ou mais recente)
+* Frequências de Wi-Fi 2.4 GHz, 5GHz, e 6GHz. (requer suporte pelo hardware)
+* Ecrã de redes completo ou compacto
+* Distância estimada até as redes
+* Exporte os detalhes das redes
+* Tema escuro, claro, e automático disponíveis
+* Pause ou retome a procura de redes
+* Filtros disponíveis: Frequência do Wi-Fi, intensidade do sinal, segurança e SSID
+* Pesquisa na base de dados de fabricantes/OUI
