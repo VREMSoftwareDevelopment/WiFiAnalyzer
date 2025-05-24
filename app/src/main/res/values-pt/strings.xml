@@ -22,7 +22,7 @@
 
     <string name="navigation_drawer_open">"Abrir gaveta de navegação"</string>
     <string name="navigation_drawer_close">"Fechar gaveta de navegação"</string>
-    <string name="scanner_message">"Procurando &#8230;"</string>
+    <string name="scanner_message">"A procurar &#8230;"</string>
     <string name="scanner_pause">"Pausar"</string>
     <string name="scanner_play">"Iniciar"</string>
 
@@ -78,7 +78,7 @@
     <string name="connection_view_compact">"Compacta"</string>
     <string name="connection_view_hide">"Ocultar"</string>
 
-    <string name="ap_view_title">"Ecrã de redes"</string>
+    <string name="ap_view_title">"Vista de redes"</string>
     <string name="ap_view_complete">"Completo"</string>
     <string name="ap_view_compact">"Compacto"</string>
 
