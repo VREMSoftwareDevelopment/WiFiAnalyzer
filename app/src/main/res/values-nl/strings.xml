@@ -126,7 +126,7 @@
     <!-- filter end -->
 
     <!-- wifi throttling start -->
-    <string name="wifi_throttling_on">"Wi-Fi-scanbeperking is ingeschakeld"</string>
-    <string name="wifi_throttling_off">"Wi-Fi-scanbeperking is uitgeschakeld"</string>
+    <string name="wifi_throttling_on">"Wifi-scanbeperking is ingeschakeld"</string>
+    <string name="wifi_throttling_off">"Wifi-scanbeperking is uitgeschakeld"</string>
     <!-- wifi throttling end -->
 </resources>
