@@ -63,6 +63,7 @@ This is the official repository of WiFiAnalyzer.
 * [Wi-Fi channels list](https://en.wikipedia.org/wiki/List_of_WLAN_channels)
 * [How is distance calculated to Access Point](https://en.wikipedia.org/wiki/Free-space_path_loss)
 
+
 ## FAQ
 
 * [Android Wi-Fi scanning throttling](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Android-WiFi-scanning-throttling)
