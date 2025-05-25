@@ -6,8 +6,8 @@ Features:
 * Graph channels signal strength
 * Graph Access Point signal strength over time
 * Analyze Wi-Fi networks to rate channels
-* HT/VHT Detection - 40/80/160MHz (Requires Android OS 6+)
-* 2.4 GHz, 5 GHz and 6 GHz Wi-Fi bands (Requires hardware support)
+* HT/VHT Detection - 40/80/160/320 MHz (Requires hardware/software support)
+* 2.4 GHz, 5 GHz and 6 GHz Wi-Fi bands (Requires hardware/software support)
 * Access Point view complete or compact
 * Estimated Distance to the Access Points
 * Export access points details

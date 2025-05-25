@@ -182,7 +182,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
                         android:textColor="@color/frequency"
-                        tools:text="(160MHz)" />
+                        tools:text="(160 MHz)" />
 
                     <TextView
                         android:id="@+id/vendorShort"

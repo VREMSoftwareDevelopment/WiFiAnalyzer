@@ -6,8 +6,8 @@ Recursos:
 * Gráfico da intensidade do sinal nos canais
 * Gráfico da intensidade do sinal das redes ao longo do tempo
 * Analise as redes Wi-Fi para avaliar os canais
-* Detecção HT/VHT - 40/80/160MHz (requer o Android 6 ou mais recente)
-* Frequências de Wi-Fi 2.4 GHz, 5GHz, e 6GHz. (requer suporte pelo hardware)
+* Detecção HT/VHT - 40/80/160/320 MHz (requer suporte pelo hardware)
+* Frequências de Wi-Fi 2.4 GHz, 5 GHz, e 6 GHz. (requer suporte pelo hardware)
 * Ecrã de redes completo ou compacto
 * Distância estimada até as redes
 * Exporte os detalhes das redes

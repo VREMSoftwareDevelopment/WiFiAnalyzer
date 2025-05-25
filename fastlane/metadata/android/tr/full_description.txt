@@ -6,7 +6,7 @@ WiFiAnalyzer'ı kullanarak Wi-Fi ağ durumunu, sinyal gücünü kontrol ederek v
 * Kanalların sinyal gücü grafiği
 * Zaman içinde Erişim Noktası sinyal gücü grafiği
 * Kanalları derecelendirmek için Wi-Fi ağlarını analiz edin
-* HT/VHT Algılama - 40/80/160MHz (Android 6+ gerektirir)
+* HT/VHT Algılama - 40/80/160/320 MHz (Donanım desteği gerektirir)
 * 2,4 GHz, 5 GHz ve 6 GHz Wi-Fi bantları (Donanım desteği gerektirir)
 * Erişim Noktası görünümü tam veya kompakt
 * Erişim Noktalarına Tahmini Mesafe

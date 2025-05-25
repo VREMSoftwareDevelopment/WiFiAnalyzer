@@ -1,10 +1,10 @@
-<h1>WiFi Analyzer <img src="images/icon.png" alt="Application Icon" width="45" height="45"></h1>
+<h1>WiFiAnalyzer <img src="images/icon.png" alt="Application Icon" width="45" height="45"></h1>
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=com.vrem.wifianalyzer)
 [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/repository/browse/?fdid=com.vrem.wifianalyzer)
 [<img src="https://raw.githubusercontent.com/andOTP/andOTP/master/assets/badges/get-it-on-github.png" alt="Get it on GitHub" height="80">](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/releases/latest)
 
-This is the official repository of WiFi Analyzer.
+This is the official repository of WiFiAnalyzer.
 
 <img src="images/feature-graphic.png" alt="Feature Graphic - Dark Theme" height="200">
 <img src="images/feature-graphic-light.png" alt="Feature Graphic - Light Theme" height="200">
@@ -18,7 +18,7 @@ This is the official repository of WiFi Analyzer.
 - [Feedback](#feedback)
 - [License](#license)
 - [Privacy policy](#privacy-policy)
-- [WiFi Analyzer Build](#wifi-analyzer-build)
+- [WiFiAnalyzer Build](#wifi-analyzer-build)
 - [Contribute](#contribute)
 
 ## Features
@@ -26,23 +26,23 @@ This is the official repository of WiFi Analyzer.
 * Identify nearby Access Points
 * Graph channels signal strength
 * Graph Access Point signal strength over time
-* Analyze WiFi networks to rate channels
-* HT/VHT Detection - 40/80/160/320MHz (Requires hardware/software support)
-* 2.4 GHz, 5 GHz and 6 GHz WiFi bands (Requires hardware/software support)
+* Analyze Wi-Fi networks to rate channels
+* HT/VHT Detection - 40/80/160/320 MHz (Requires hardware/software support)
+* 2.4 GHz, 5 GHz and 6 GHz Wi-Fi bands (Requires hardware/software support)
 * Access Point view complete or compact
 * Estimated Distance to the Access Points
 * Export access points details
 * Dark, Light and System theme available
 * Pause/Resume scanning
-* Available filters: WiFi band, Signal strength, Security and SSID
+* Available filters: Wi-Fi band, Signal strength, Security and SSID
 * Vendor/OUI Database Lookup
 * The application has too many features to mention them all
 
-**Please note WiFi Analyzer is not a WiFi password cracking or phishing tool.**
+**Please note WiFiAnalyzer is not a Wi-Fi password cracking or phishing tool.**
 
 ## Usage Tips
 
-* Tap the title bar to switch between 2.4, 5 and 6 GHz WiFi band.
+* Tap the title bar to switch between 2.4, 5 and 6 GHz Wi-Fi band.
 * SSID with `***` or `*hidden*` means it is hidden.
 * Access Point security:
     * <img src="images/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20">WPA3(SAE)/WPA2/WPA
@@ -57,7 +57,7 @@ This is the official repository of WiFi Analyzer.
 ## How-to
 
 * [How to video](https://youtu.be/JJVKja0VDR0)
-* [How to find the best 5Ghz WiFi Channel](https://www.maketecheasier.com/best-wifi-channel-for-5ghz-frequency/)
+* [How to find the best 5Ghz Wi-Fi Channel](https://www.maketecheasier.com/best-wifi-channel-for-5ghz-frequency/)
 * [Understand Wi-Fi 4/5/6/6E/7 (802.11 n/ac/ax/be) - Make educated wireless router/AP upgrade decisions](https://www.duckware.com/tech/wifi-in-the-us.html)
 * [Why Wi-Fi stinks and how to fix it](http://spectrum.ieee.org/telecom/wireless/why-wifi-stinksand-how-to-fix-it)
 * [Wi-Fi channels list](https://en.wikipedia.org/wiki/List_of_WLAN_channels)
@@ -67,10 +67,10 @@ This is the official repository of WiFi Analyzer.
 
 * [Android Wi-Fi scanning throttling](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Android-WiFi-scanning-throttling)
 * [Location Service Permission Requirements](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Location-Service-Permission-Requirements)
-* [WiFi Analyzer on secondary user accounts](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/WiFi-Analyzer-on-secondary-user-accounts)
-* [How channel graph displays 20/40/80/160 MHz channel width?](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/64)
+* [WiFiAnalyzer on secondary user accounts](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/WiFi-Analyzer-on-secondary-user-accounts)
+* [How channel graph displays 20/40/80/160/320 MHz channel width?](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/64)
 * [How to use SSID filter?](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/125)
-* [WiFi Analyzer equivalent on iOS](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/69)
+* [WiFiAnalyzer equivalent on iOS](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/69)
 
 ## Feedback
 
@@ -83,7 +83,7 @@ This is the official repository of WiFi Analyzer.
 
 [<img src="https://www.gnu.org/graphics/gplv3-127x51.png" alt="GPLv3" >](http://www.gnu.org/licenses/gpl-3.0.html)
 
-WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
+WiFiAnalyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 
 ### GPLv3 License key requirements:
 
@@ -98,12 +98,12 @@ WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 
 ## Privacy policy
 
-* WiFi Analyzer does not collect any personal/device information.
-* WiFi Analyzer is designed to use as few permissions as possible. It asks for just enough to perform the analysis. 
+* WiFiAnalyzer does not collect any personal/device information.
+* WiFiAnalyzer is designed to use as few permissions as possible. It asks for just enough to perform the analysis. 
 * Plus, it is all open source so nothing is hidden! 
 * Most notably, this application does not require access to internet, so you can be sure it does not send any personal/device information to any other source and it does not receive any information from other sources. 
 
-## WiFi Analyzer Build
+## WiFiAnalyzer Build
 
 [![Workflow Status](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/workflows/Android%20CI/badge.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/actions?query=workflow%3A%22Android+CI%22)
 [![Workflow Status](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/workflows/Android%20Instrumentation%20Tests/badge.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/actions?query=workflow%3A%22Android+Instrumentation+Tests%22)
@@ -137,8 +137,8 @@ WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 1. Install Android Studio
 2. Import project into Android Studio
     * In Welcome to Android Studio Screen select Import project ...
-    * Select the root directory of the WiFi Analyzer repository and click "OK".
-    * WiFi Analyzer will build automatically.
+    * Select the root directory of the WiFiAnalyzer repository and click "OK".
+    * WiFiAnalyzer will build automatically.
 
 ### Running lint, unit tests and jacoco coverage report
 
