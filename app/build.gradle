@@ -121,7 +121,7 @@ android {
         jvmTarget = "11"
     }
     lint {
-        disable 'GoogleAppIndexingWarning'
+        lintConfig = file("app/lint.xml")
     }
 }
 
