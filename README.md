@@ -105,9 +105,6 @@ WiFiAnalyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 
 ## WiFiAnalyzer Build
 
-[![Translation status](https://hosted.weblate.org/widget/wifianalyzer/language-badge.svg)](https://hosted.weblate.org/engage/wifianalyzer/)
-[![Translation status](https://hosted.weblate.org/widget/wifianalyzer/svg-badge.svg)](https://hosted.weblate.org/engage/wifianalyzer/)
-
 [![Workflow Status](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/workflows/Android%20CI/badge.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/actions?query=workflow%3A%22Android+CI%22)
 [![Workflow Status](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/workflows/Android%20Instrumentation%20Tests/badge.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/actions?query=workflow%3A%22Android+Instrumentation+Tests%22)
 [![Workflow Status](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/workflows/CodeQL%20Analyze/badge.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/actions?query=workflow%3A%22CodeQL+Analyze%22)
@@ -115,20 +112,15 @@ WiFiAnalyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/203eaa0583694bcca6554190513179ba)](https://app.codacy.com/gh/VREMSoftwareDevelopment/WiFiAnalyzer/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![codecov](https://codecov.io/gh/VREMSoftwareDevelopment/WiFiAnalyzer/branch/main/graph/badge.svg)](https://codecov.io/gh/VREMSoftwareDevelopment/WiFiAnalyzer)
 
+[![Translation status](https://hosted.weblate.org/widget/wifianalyzer/language-badge.svg)](https://hosted.weblate.org/engage/wifianalyzer/)
+[![Translation status](https://hosted.weblate.org/widget/wifianalyzer/svg-badge.svg)](https://hosted.weblate.org/engage/wifianalyzer/)
+
 [![Known Vulnerabilities](https://snyk.io/test/github/vremsoftwaredevelopment/wifianalyzer/badge.svg)](https://snyk.io/test/github/vremsoftwaredevelopment/wifianalyzer)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FVREMSoftwareDevelopment%2FWiFiAnalyzer.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FVREMSoftwareDevelopment%2FWiFiAnalyzer?ref=badge_shield)
 
 [![Issues](https://img.shields.io/github/issues/VREMSoftwareDevelopment/WiFiAnalyzer.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues)
 [![Star](https://img.shields.io/github/stars/VREMSoftwareDevelopment/WiFiAnalyzer.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/stargazers)
 [![Fork](https://img.shields.io/github/forks/VREMSoftwareDevelopment/WiFiAnalyzer.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/network)
-
-## Translation
-
-We support many languages, all done by people like you! We make use of free [Weblate's Libre hosting](https://weblate.org/en/donate/) to allow this.
-This means if you don't like how a translation was done for your language, you can change it!
-Or, you can add a whole new language! Visit [our Weblate project](https://hosted.weblate.org/engage/wifianalyzer/) to help.
-
-[![Translation status](https://hosted.weblate.org/widget/wifianalyzer/multi-auto.svg?threshold=0)](https://hosted.weblate.org/engage/wifianalyzer/)
 
 ## Contribute
 
@@ -160,3 +152,11 @@ Or, you can add a whole new language! Visit [our Weblate project](https://hosted
 - lint report: `app/build/reports/lint-results.html`
 - unit test report: `app/build/reports/tests/testDebugUnitTest/index.html`
 - code coverage report: `app/build/reports/jacoco/jacocoTestReport/html/index.html`
+
+## Translation
+
+We support many languages, all done by people like you! We make use of free [Weblate's Libre hosting](https://weblate.org/en/donate/) to allow this.
+This means if you don't like how a translation was done for your language, you can change it!
+Or, you can add a whole new language! Visit [our Weblate project](https://hosted.weblate.org/engage/wifianalyzer/) to help.
+
+[![Translation status](https://hosted.weblate.org/widget/wifianalyzer/multi-auto.svg?threshold=0)](https://hosted.weblate.org/engage/wifianalyzer/)
