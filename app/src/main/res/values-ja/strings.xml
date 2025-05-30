@@ -99,6 +99,8 @@
     <string name="wifi_off_on_exit_title">"閉じる時 Wi-Fi をオフにする"</string>
     <string name="keep_screen_on_title">"画面をオフにしない"</string>
     <string name="language_title">"言語"</string>
+
+    <string name="reset_title">"リセット"</string>
     <!-- settings end -->
 
     <!-- about start -->

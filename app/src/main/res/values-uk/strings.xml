@@ -99,6 +99,8 @@
     <string name="keep_screen_on_title">"Екран завжди увімкнено"</string>
 
     <string name="language_title">"Мова"</string>
+
+    <string name="reset_title">"Скидання"</string>
     <!-- settings end -->
 
     <!-- about start -->

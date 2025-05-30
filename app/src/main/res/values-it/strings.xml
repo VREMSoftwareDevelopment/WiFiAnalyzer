@@ -100,6 +100,8 @@
     <string name="keep_screen_on_title">"Mantieni schermo acceso"</string>
 
     <string name="language_title">"Lingua"</string>
+
+    <string name="reset_title">"Resetta"</string>
     <!-- settings end -->
 
     <!-- about start -->

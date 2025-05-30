@@ -104,6 +104,8 @@
     <string name="keep_screen_on_title">"Дръж екрана включен"</string>
 
     <string name="language_title">"Език"</string>
+
+    <string name="reset_title">""Нулирай"</string>
     <!-- settings end -->
 
     <!-- about start -->

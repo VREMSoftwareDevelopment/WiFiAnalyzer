@@ -27,7 +27,6 @@
             app:key="@string/scan_speed_key"
             app:persistent="true"
             app:summary="@string/scan_speed_summary"
-            app:useSimpleSummaryProvider="true"
             app:title="@string/scan_speed_title" />
     </PreferenceCategory>
 
@@ -157,6 +156,14 @@
             app:title="@string/language_title" />
     </PreferenceCategory>
 
+    <PreferenceCategory>
+        <Preference
+            app:icon="@drawable/ic_reset"
+            app:key="@string/reset_key"
+            app:persistent="false"
+            app:title="@string/reset_title" />
+    </PreferenceCategory>
+
     <PreferenceCategory
         app:key="@string/experimental_key"
         app:title="@string/experimental_title">
@@ -165,7 +172,6 @@
             app:defaultValue="@bool/cache_off_default"
             app:key="@string/cache_off_key"
             app:title="@string/cache_off_title" />
-
     </PreferenceCategory>
 
 </PreferenceScreen>

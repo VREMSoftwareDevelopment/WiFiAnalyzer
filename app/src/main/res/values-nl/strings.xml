@@ -99,6 +99,8 @@
     <string name="keep_screen_on_title">"Scherm aan houden"</string>
 
     <string name="language_title">"Taal"</string>
+
+    <string name="reset_title">"Resetten"</string>
     <!-- settings end -->
 
     <!-- about start -->
@@ -117,7 +119,7 @@
     <!-- filter start -->
     <string name="filter_title">"Filter"</string>
     <string name="filter_close">"Sluiten"</string>
-    <string name="filter_reset">"Reset"</string>
+    <string name="filter_reset">"Resetten"</string>
     <string name="filter_apply">"Toepassen"</string>
     <string name="filter_ssid_title">"SSID (hoofdlettergevoelig)"</string>
     <string name="filter_wifi_band_title">"Wifi-band"</string>

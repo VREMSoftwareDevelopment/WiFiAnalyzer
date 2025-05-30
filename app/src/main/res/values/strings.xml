@@ -161,6 +161,9 @@
     <string name="language_title">"Language"</string>
     <string name="language_summary" translatable="false">"%s"</string>
     <string name="language_key" translatable="false">"language"</string>
+
+    <string name="reset_title">"Reset"</string>
+    <string name="reset_key" translatable="false">"reset"</string>
     <!-- settings end -->
 
     <!-- about start -->

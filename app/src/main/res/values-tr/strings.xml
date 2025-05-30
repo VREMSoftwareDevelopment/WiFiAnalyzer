@@ -104,6 +104,8 @@
     <string name="keep_screen_on_title">"Ekranı açık tut"</string>
 
     <string name="language_title">"Dil"</string>
+
+    <string name="reset_title">"Sıfırla"</string>
     <!-- settings end -->
 
     <!-- about start -->
