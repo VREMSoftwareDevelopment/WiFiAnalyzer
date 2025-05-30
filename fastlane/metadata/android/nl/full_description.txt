@@ -1,1 +1,0 @@
-Optimaliseer uw Wifi netwerk door het controleren van de Wifi netwerkstatus, signaalsterkte en het indentificeren van drukke kanalen met gebruik van een open-source WiFiAnalyzer voor Android.
