@@ -18,6 +18,7 @@
 package com.vrem.wifianalyzer.settings
 
 import android.os.Bundle
+import androidx.core.content.edit
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.vrem.util.buildMinVersionQ
@@ -25,8 +26,22 @@ import com.vrem.wifianalyzer.R
 
 open class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(bundle: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.settings)
-        findPreference<Preference>(getString(R.string.wifi_off_on_exit_key))!!.isVisible = !buildMinVersionQ()
+        setupPreferences()
     }
 
+    override fun onPreferenceTreeClick(preference: Preference): Boolean {
+        if (preference.key == getString(R.string.reset_key)) {
+            preferenceManager.sharedPreferences!!.edit { clear() }
+            preferenceScreen.removeAll()
+            setupPreferences()
+            return true
+        }
+        return super.onPreferenceTreeClick(preference)
+    }
+
+    private fun setupPreferences() {
+        addPreferencesFromResource(R.xml.settings)
+        findPreference<Preference>(getString(R.string.wifi_off_on_exit_key))!!
+            .isVisible = !buildMinVersionQ()
+    }
 }

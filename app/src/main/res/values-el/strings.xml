@@ -100,6 +100,8 @@
     <string name="keep_screen_on_title">"Οθόνη ενεργή"</string>
 
     <string name="language_title">"Γλώσσα"</string>
+
+    <string name="reset_title">"Επαναφορά"</string>
     <!-- settings end -->
 
     <!-- about start -->

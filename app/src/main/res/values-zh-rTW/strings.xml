@@ -100,6 +100,8 @@
     <string name="keep_screen_on_title">"保持螢幕開啟"</string>
 
     <string name="language_title">"語言"</string>
+
+    <string name="reset_title">"重設"</string>
     <!-- settings end -->
 
     <!-- about start -->

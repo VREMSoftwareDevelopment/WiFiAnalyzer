@@ -97,6 +97,8 @@
 
 
     <string name="language_title">"Язык"</string>
+
+    <string name="reset_title">"Сброс"</string>
     <!-- settings end -->
 
     <!-- about start -->

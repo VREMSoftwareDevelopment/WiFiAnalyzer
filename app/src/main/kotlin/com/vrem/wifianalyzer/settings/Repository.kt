@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.settings
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.vrem.wifianalyzer.R
 

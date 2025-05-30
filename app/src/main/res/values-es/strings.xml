@@ -100,6 +100,8 @@
     <string name="keep_screen_on_title">"Mantener pantalla encendida"</string>
 
     <string name="language_title">"Lenguaje"</string>
+
+    <string name="reset_title">"Restablecer"</string>
     <!-- settings end -->
 
     <!-- about start -->
@@ -118,7 +120,7 @@
     <!-- filter start -->
     <string name="filter_title">"Filtro"</string>
     <string name="filter_close">"Cerrar"</string>
-    <string name="filter_reset">"Reset"</string>
+    <string name="filter_reset">"Restablecer"</string>
     <string name="filter_apply">"Aplicar"</string>
     <string name="filter_ssid_title">"SSID (sensible a mayúsculas)"</string>
     <string name="filter_wifi_band_title">"Banda de Wi-Fi"</string>

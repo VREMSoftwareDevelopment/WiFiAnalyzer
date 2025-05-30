@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
-    <issue id="GoogleAppIndexingWarning" severity="ignore" />
+    <issue id="GoogleAppIndexingWarning" severity="warning" />
 
      <!-- Translations are crowdsourced, we can't have 100% coverage at all times -->
-    <issue id="MissingTranslation" severity="ignore" />
+    <issue id="MissingTranslation" severity="warning" />
 
     <!-- Weblate doesn't handle these yet: https://github.com/WeblateOrg/weblate/issues/7520 -->
     <issue id="MissingQuantity" severity="error">
