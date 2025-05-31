@@ -15,121 +15,101 @@
   ~
   ~ You should have received a copy of the GNU General Public License
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
-  -->
-
-<resources>
-    <string name="app_copyright">"Πνευματικά δικαιώματα \u00A9 2015 \u002D"</string>
-
-    <string name="navigation_drawer_open">"Άνοιγμα συρταριού πλοήγησης"</string>
-    <string name="navigation_drawer_close">"Κλείσιμο συρταριού πλοήγησης"</string>
-    <string name="scanner_message">"Σάρωση &#8230;"</string>
-    <string name="scanner_pause">"Παύση"</string>
-    <string name="scanner_play">"Έναρξη"</string>
-
+  --><resources>
+    <string name="app_copyright">Πνευματικά δικαιώματα © 2015 -</string>
+    <string name="navigation_drawer_open">Άνοιγμα συρταριού πλοήγησης</string>
+    <string name="navigation_drawer_close">Κλείσιμο συρταριού πλοήγησης</string>
+    <string name="scanner_message">Σάρωση …</string>
+    <string name="scanner_pause">Παύση</string>
+    <string name="scanner_play">Έναρξη</string>
     <!-- action start -->
-    <string name="action_access_points">"Σημεία πρόσβασης"</string>
-    <string name="action_channel_rating">"Ταξινόμηση καναλιών"</string>
-    <string name="action_channel_graph">"Γράφημα καναλιών"</string>
-    <string name="action_time_graph">"Γράφημα χρόνου"</string>
-    <string name="action_export">"Εξαγωγή"</string>
-    <string name="action_channel_available">"Διαθέσιμα κανάλια"</string>
-    <string name="action_vendors">"Προμηθευτές"</string>
-    <string name="action_settings">"Ρυθμίσεις"</string>
-    <string name="action_about">"Σχετικά"</string>
+    <string name="action_access_points">Σημεία πρόσβασης</string>
+    <string name="action_channel_rating">Ταξινόμηση καναλιών</string>
+    <string name="action_channel_graph">Γράφημα καναλιών</string>
+    <string name="action_time_graph">Γράφημα χρόνου</string>
+    <string name="action_export">Εξαγωγή</string>
+    <string name="action_channel_available">Διαθέσιμα κανάλια</string>
+    <string name="action_vendors">Προμηθευτές</string>
+    <string name="action_settings">Ρυθμίσεις</string>
+    <string name="action_about">Σχετικά</string>
     <!-- action end -->
 
-    <string name="no_data">"Χωρίς δεδομένα"</string>
-    <string name="no_data_msg">"Επισκεφτείτε τις συχνές ερωτήσεις στον ιστότοπό μας."</string>
-    <string name="permission_msg">"Από το Android Marshmallow, απαιτούνται άδειες τοποθεσίας για να πραγματοποιηθεί σάρωση Wi-Fi. Θα σας ζητηθεί να ενεργοποιήσετε τις υπηρεσίες/άδειες τοποθεσίας. Δεδομένου ότι αυτή η εφαρμογή δεν απαιτεί πρόσβαση στο διαδίκτυο, μπορείτε να είστε σίγουροι ότι αυτή η εφαρμογή δεν μπορεί να μεταδώσει την τοποθεσία σας!"</string>
-    <string name="location_msg">"Αυτή η εφαρμογή έχει πρόσβαση στην ακριβή τοποθεσία από τις υπηρεσίες τοποθεσίας ενώ η εφαρμογή χρησιμοποιείται. Οι υπηρεσίες τοποθεσίας για τη συσκευή σας θα πρέπει να είναι ενεργοποιημένες έτσι ώστε η εφαρμογή να λάβει την τοποθεσία. Αυτό μπορεί να αυξήσει τη χρήση της μπαταρίας."</string>
-    <string name="throttling_msg">"Το Android 9 εισήγαγε τον περιορισμό σάρωσης Wi-Fi. Το Android 10 έχει μια νέα επιλογή προγραμματιστή για να απενεργοποιήσετε τον περιορισμό (Ρυθμίσεις > Επιλογές για προγραμματιστές > Δικτύωση > Περιορισμός σάρωσης Wi-Fi)."</string>
-    <string name="export_not_available">"Η εξαγωγή δεν είναι διαθέσιμη"</string>
-    <string name="current_connection">"Τρέχουσα σύνδεση"</string>
-
-    <string name="channel_rating_best">"Βέλτιστα κανάλια:"</string>
-    <string name="channel_rating_best_none">"Κανένα"</string>
-    <string name="channel_rating_best_alternative">", δοκιμάστε εναλλακτική ζώνη Wi-Fi"</string>
-    <string name="channel_rating_heading_rating">"Ταξινόμηση καναλιού"</string>
-    <string name="channel_rating_heading_number">"Αριθμός καναλιού"</string>
-    <string name="channel_rating_heading_count">"Πλήθος σημείων πρόσβασης"</string>
-    <string name="channel_short_name">"CH"</string>
-
-    <string name="graph_channel_axis_x">"Κανάλια Wi-Fi"</string>
-    <string name="graph_time_axis_x">"Πλήθος σαρώσεων"</string>
-    <string name="graph_axis_y">"Ισχύς σήματος (dBm)"</string>
-
+    <string name="no_data">Χωρίς δεδομένα</string>
+    <string name="no_data_msg">Επισκεφτείτε τις συχνές ερωτήσεις στον ιστότοπό μας.</string>
+    <string name="permission_msg">Από το Android Marshmallow, απαιτούνται άδειες τοποθεσίας για να πραγματοποιηθεί σάρωση Wi-Fi. Θα σας ζητηθεί να ενεργοποιήσετε τις υπηρεσίες/άδειες τοποθεσίας. Δεδομένου ότι αυτή η εφαρμογή δεν απαιτεί πρόσβαση στο διαδίκτυο, μπορείτε να είστε σίγουροι ότι αυτή η εφαρμογή δεν μπορεί να μεταδώσει την τοποθεσία σας!</string>
+    <string name="location_msg">Αυτή η εφαρμογή έχει πρόσβαση στην ακριβή τοποθεσία από τις υπηρεσίες τοποθεσίας ενώ η εφαρμογή χρησιμοποιείται. Οι υπηρεσίες τοποθεσίας για τη συσκευή σας θα πρέπει να είναι ενεργοποιημένες έτσι ώστε η εφαρμογή να λάβει την τοποθεσία. Αυτό μπορεί να αυξήσει τη χρήση της μπαταρίας.</string>
+    <string name="throttling_msg">Το Android 9 εισήγαγε τον περιορισμό σάρωσης Wi-Fi. Το Android 10 έχει μια νέα επιλογή προγραμματιστή για να απενεργοποιήσετε τον περιορισμό (Ρυθμίσεις &gt; Επιλογές για προγραμματιστές &gt; Δικτύωση &gt; Περιορισμός σάρωσης Wi-Fi).</string>
+    <string name="export_not_available">Η εξαγωγή δεν είναι διαθέσιμη</string>
+    <string name="current_connection">Τρέχουσα σύνδεση</string>
+    <string name="channel_rating_best">Βέλτιστα κανάλια:</string>
+    <string name="channel_rating_best_none">Κανένα</string>
+    <string name="channel_rating_best_alternative">, δοκιμάστε εναλλακτική ζώνη Wi-Fi</string>
+    <string name="channel_rating_heading_rating">Ταξινόμηση καναλιού</string>
+    <string name="channel_rating_heading_number">Αριθμός καναλιού</string>
+    <string name="channel_rating_heading_count">Πλήθος σημείων πρόσβασης</string>
+    <string name="channel_short_name">CH</string>
+    <string name="graph_channel_axis_x">Κανάλια Wi-Fi</string>
+    <string name="graph_time_axis_x">Πλήθος σαρώσεων</string>
+    <string name="graph_axis_y">Ισχύς σήματος (dBm)</string>
     <!-- settings start -->
-    <string name="country_code_title">"Χώρα"</string>
-
-    <string name="scan_speed_title">"Διάστημα σάρωσης"</string>
-    <string name="scan_speed_summary">"%s δευτερόλεπτα μεταξύ των σαρώσεων"</string>
-
-    <string name="sort_by_title">"Ταξινόμηση σημείων πρόσβασης κατά"</string>
-    <string name="sort_by_signal_strength">"Ισχύ σήματος"</string>
-    <string name="sort_by_channel">"Κανάλι"</string>
-
-    <string name="group_by_title">"Ομαδοποίηση σημείων πρόσβασης κατά"</string>
-    <string name="group_by_none">"Καμία"</string>
-    <string name="group_by_channel">"Κανάλι"</string>
-    <string name="group_by_virtual">"Εικονική"</string>
-
-    <string name="connection_view_title">"Εμφάνιση σύνδεσης"</string>
-    <string name="connection_view_complete">"Πλήρης"</string>
-    <string name="connection_view_compact">"Συμπαγής"</string>
-    <string name="connection_view_hide">"Απόκρυψη"</string>
-
-    <string name="ap_view_title">"Εμφάνιση σημείων πρόσβασης"</string>
-    <string name="ap_view_complete">"Πλήρης"</string>
-    <string name="ap_view_compact">"Συμπαγής"</string>
-
-    <string name="graph_maximum_y_title">"Μέγιστη ισχύς σήματος στο γράφημα"</string>
-
-    <string name="channel_graph_legend_title">"Εμφάνιση υπομνήματος γραφήματος καναλιών"</string>
-    <string name="time_graph_legend_title">"Εμφάνιση υπομνήματος γραφήματος χρόνου"</string>
-    <string name="graph_legend_left">"Αριστερά"</string>
-    <string name="graph_legend_right">"Δεξιά"</string>
-    <string name="graph_legend_hide">"Απόκρυψη"</string>
-
-    <string name="theme_title">"Θέμα"</string>
-    <string name="theme_dark">"Σκούρο"</string>
-    <string name="theme_light">"Ανοικτό"</string>
-    <string name="theme_system">"Συστήματος"</string>
-
-    <string name="wifi_off_on_exit_title">"Απενεργοποίηση Wi-Fi κατά την έξοδο"</string>
-
-    <string name="keep_screen_on_title">"Οθόνη ενεργή"</string>
-
-    <string name="language_title">"Γλώσσα"</string>
-
-    <string name="reset_title">"Επαναφορά"</string>
+    <string name="country_code_title">Χώρα</string>
+    <string name="scan_speed_title">Διάστημα σάρωσης</string>
+    <string name="scan_speed_summary">%s δευτερόλεπτα μεταξύ των σαρώσεων</string>
+    <string name="sort_by_title">Ταξινόμηση σημείων πρόσβασης κατά</string>
+    <string name="sort_by_signal_strength">Ισχύ σήματος</string>
+    <string name="sort_by_channel">Κανάλι</string>
+    <string name="group_by_title">Ομαδοποίηση σημείων πρόσβασης κατά</string>
+    <string name="group_by_none">Καμία</string>
+    <string name="group_by_channel">Κανάλι</string>
+    <string name="group_by_virtual">Εικονική</string>
+    <string name="connection_view_title">Εμφάνιση σύνδεσης</string>
+    <string name="connection_view_complete">Πλήρης</string>
+    <string name="connection_view_compact">Συμπαγής</string>
+    <string name="connection_view_hide">Απόκρυψη</string>
+    <string name="ap_view_title">Εμφάνιση σημείων πρόσβασης</string>
+    <string name="ap_view_complete">Πλήρης</string>
+    <string name="ap_view_compact">Συμπαγής</string>
+    <string name="graph_maximum_y_title">Μέγιστη ισχύς σήματος στο γράφημα</string>
+    <string name="channel_graph_legend_title">Εμφάνιση υπομνήματος γραφήματος καναλιών</string>
+    <string name="time_graph_legend_title">Εμφάνιση υπομνήματος γραφήματος χρόνου</string>
+    <string name="graph_legend_left">Αριστερά</string>
+    <string name="graph_legend_right">Δεξιά</string>
+    <string name="graph_legend_hide">Απόκρυψη</string>
+    <string name="theme_title">Θέμα</string>
+    <string name="theme_dark">Σκούρο</string>
+    <string name="theme_light">Ανοικτό</string>
+    <string name="theme_system">Συστήματος</string>
+    <string name="wifi_off_on_exit_title">Απενεργοποίηση Wi-Fi κατά την έξοδο</string>
+    <string name="keep_screen_on_title">Οθόνη ενεργή</string>
+    <string name="language_title">Γλώσσα</string>
+    <string name="reset_title">Επαναφορά</string>
     <!-- settings end -->
 
     <!-- about start -->
-    <string name="about_license_title">"Άδεια:"</string>
-    <string name="about_description_title">"Περιγραφή:"</string>
-    <string name="about_description_text">"Βελτιστοποιήστε το Wi-Fi σας, ελέγχοντας την κατάσταση του δικτύου, την ισχύ του σήματος και τα πολυσύχναστα κανάλια, χρησιμοποιώντας το ανοιχτού κώδικα WiFiAnalyzer για Android"</string>
-    <string name="about_libraries_title">"Χρησιμοποιούμενες βιβλιοθήκες:"</string>
-    <string name="about_contributor_title">"Συντελεστές"</string>
-    <string name="about_write_review">"Γράψτε μια κριτική"</string>
+    <string name="about_license_title">Άδεια:</string>
+    <string name="about_description_title">Περιγραφή:</string>
+    <string name="about_description_text">Βελτιστοποιήστε το Wi-Fi σας, ελέγχοντας την κατάσταση του δικτύου, την ισχύ του σήματος και τα πολυσύχναστα κανάλια, χρησιμοποιώντας το ανοιχτού κώδικα WiFiAnalyzer για Android</string>
+    <string name="about_libraries_title">Χρησιμοποιούμενες βιβλιοθήκες:</string>
+    <string name="about_contributor_title">Συντελεστές</string>
+    <string name="about_write_review">Γράψτε μια κριτική</string>
     <!-- about end -->
 
     <!-- security start -->
-    <string name="security_none">"Καμία"</string>
+    <string name="security_none">Καμία</string>
     <!-- security end -->
 
     <!-- filter start -->
-    <string name="filter_title">"Φίλτρο"</string>
-    <string name="filter_close">"Κλείσιμο"</string>
-    <string name="filter_reset">"Επαναφορά"</string>
-    <string name="filter_apply">"Εφαρμογή"</string>
-    <string name="filter_ssid_title">"SSID (διάκριση πεζών-κεφαλαίων)"</string>
-    <string name="filter_wifi_band_title">"Ζώνη Wi-Fi"</string>
-    <string name="filter_strength_title">"Ισχύς σήματος"</string>
-    <string name="filter_security_title">"Ασφάλεια"</string>
+    <string name="filter_title">Φίλτρο</string>
+    <string name="filter_close">Κλείσιμο</string>
+    <string name="filter_reset">Επαναφορά</string>
+    <string name="filter_apply">Εφαρμογή</string>
+    <string name="filter_ssid_title">SSID (διάκριση πεζών-κεφαλαίων)</string>
+    <string name="filter_wifi_band_title">Ζώνη Wi-Fi</string>
+    <string name="filter_strength_title">Ισχύς σήματος</string>
+    <string name="filter_security_title">Ασφάλεια</string>
     <!-- filter end -->
 
     <!-- wifi throttling start -->
-    <string name="wifi_throttling_on">"Ο περιορισμός σάρωσης Wi-Fi είναι ενεργοποιημένος"</string>
-    <string name="wifi_throttling_off">"Ο περιορισμός σάρωσης Wi-Fi είναι απενεργοποιημένος"</string>
-    <!-- wifi throttling end -->
+    <string name="wifi_throttling_on">Ο περιορισμός σάρωσης Wi-Fi είναι ενεργοποιημένος</string>
+    <string name="wifi_throttling_off">Ο περιορισμός σάρωσης Wi-Fi είναι απενεργοποιημένος</string>
 </resources>

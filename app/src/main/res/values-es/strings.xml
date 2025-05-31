@@ -15,121 +15,101 @@
   ~
   ~ You should have received a copy of the GNU General Public License
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
-  -->
-
-<resources>
-    <string name="app_copyright">"Derechos de autor \u00A9 2015 \u002D "</string>
-
-    <string name="navigation_drawer_open">"Abrir panel de navegación"</string>
-    <string name="navigation_drawer_close">"Cerrar el panel de navegación"</string>
-    <string name="scanner_message">"Analizando &#8230;"</string>
-    <string name="scanner_pause">"Pausar"</string>
-    <string name="scanner_play">"Reproducir"</string>
-
+  --><resources>
+    <string name="app_copyright">"Derechos de autor © 2015 - "</string>
+    <string name="navigation_drawer_open">Abrir panel de navegación</string>
+    <string name="navigation_drawer_close">Cerrar el panel de navegación</string>
+    <string name="scanner_message">Analizando …</string>
+    <string name="scanner_pause">Pausar</string>
+    <string name="scanner_play">Reproducir</string>
     <!-- action start -->
-    <string name="action_access_points">"Puntos de acceso"</string>
-    <string name="action_channel_rating">"Clasificación de Canal"</string>
-    <string name="action_channel_graph">"Gráfico de Canal"</string>
-    <string name="action_time_graph">"Gráfico de Tiempo"</string>
-    <string name="action_export">"Exportar"</string>
-    <string name="action_channel_available">"Canales Disponibles"</string>
-    <string name="action_vendors">"Fabricantes"</string>
-    <string name="action_settings">"Ajustes"</string>
-    <string name="action_about">"Acerca de"</string>
+    <string name="action_access_points">Puntos de acceso</string>
+    <string name="action_channel_rating">Clasificación de Canal</string>
+    <string name="action_channel_graph">Gráfico de Canal</string>
+    <string name="action_time_graph">Gráfico de Tiempo</string>
+    <string name="action_export">Exportar</string>
+    <string name="action_channel_available">Canales Disponibles</string>
+    <string name="action_vendors">Fabricantes</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="action_about">Acerca de</string>
     <!-- action end -->
 
-    <string name="no_data">"Sin datos"</string>
-    <string name="no_data_msg">"Por favor, visite frecuentemente preguntas sección en nuestro sitio web."</string>
-    <string name="permission_msg">"A partir de Android Marshmallow, se requieren permisos de ubicación para realizar un escaneo Wi-Fi. Se le pedirá que habilite los servicios / permisos de ubicación. Como esta aplicación no requiere acceso a Internet, puede estar seguro de que esta aplicación no puede transmitir su ubicación!"</string>
-    <string name="location_msg">"Mientras la utilizas, esta aplicación puede obtener tu ubicación exacta mediante servicios de ubicación, siempre que el dispositivo los tenga activados. Es posible que esto aumente el consumo de batería."</string>
-    <string name="throttling_msg">"Android 9 introdujo la limitación de escaneo de Wi-Fi. Android 10 tiene una nueva opción de desarrollador para desactivar la aceleración en (Configuración > Opciones de desarrollador > Redes > Aceleración de escaneo de Wi-Fi)."</string>
-    <string name="export_not_available">"Exportación no disponible"</string>
-    <string name="current_connection">"Conexión actual"</string>
-
-    <string name="channel_rating_best">"Mejores canales:"</string>
-    <string name="channel_rating_best_none">"Ninguno"</string>
-    <string name="channel_rating_best_alternative">", tratar Banda Wi-Fi alternativa"</string>
-    <string name="channel_rating_heading_rating">"Clasificación de Canal"</string>
-    <string name="channel_rating_heading_number">"Número de Canal"</string>
-    <string name="channel_rating_heading_count">"Cantidad de Puntos de Acceso"</string>
-    <string name="channel_short_name">"CH"</string>
-
-    <string name="graph_channel_axis_x">"Canales Wi-Fi"</string>
-    <string name="graph_time_axis_x">"Cantidad de Exploraciones"</string>
-    <string name="graph_axis_y">"Intensidad de señal (dBm)"</string>
-
+    <string name="no_data">Sin datos</string>
+    <string name="no_data_msg">Por favor, visite frecuentemente preguntas sección en nuestro sitio web.</string>
+    <string name="permission_msg">A partir de Android Marshmallow, se requieren permisos de ubicación para realizar un escaneo Wi-Fi. Se le pedirá que habilite los servicios / permisos de ubicación. Como esta aplicación no requiere acceso a Internet, puede estar seguro de que esta aplicación no puede transmitir su ubicación!</string>
+    <string name="location_msg">Mientras la utilizas, esta aplicación puede obtener tu ubicación exacta mediante servicios de ubicación, siempre que el dispositivo los tenga activados. Es posible que esto aumente el consumo de batería.</string>
+    <string name="throttling_msg">Android 9 introdujo la limitación de escaneo de Wi-Fi. Android 10 tiene una nueva opción de desarrollador para desactivar la aceleración en (Configuración &gt; Opciones de desarrollador &gt; Redes &gt; Aceleración de escaneo de Wi-Fi).</string>
+    <string name="export_not_available">Exportación no disponible</string>
+    <string name="current_connection">Conexión actual</string>
+    <string name="channel_rating_best">Mejores canales:</string>
+    <string name="channel_rating_best_none">Ninguno</string>
+    <string name="channel_rating_best_alternative">, tratar Banda Wi-Fi alternativa</string>
+    <string name="channel_rating_heading_rating">Clasificación de Canal</string>
+    <string name="channel_rating_heading_number">Número de Canal</string>
+    <string name="channel_rating_heading_count">Cantidad de Puntos de Acceso</string>
+    <string name="channel_short_name">CH</string>
+    <string name="graph_channel_axis_x">Canales Wi-Fi</string>
+    <string name="graph_time_axis_x">Cantidad de Exploraciones</string>
+    <string name="graph_axis_y">Intensidad de señal (dBm)</string>
     <!-- settings start -->
-    <string name="country_code_title">"País"</string>
-
-    <string name="scan_speed_title">"Intervalo de exploración"</string>
-    <string name="scan_speed_summary">"%s segundos entre exploraciones"</string>
-
-    <string name="sort_by_title">"Ordenar Puntos de Acceso por:"</string>
-    <string name="sort_by_signal_strength">"Intensidad de señal"</string>
-    <string name="sort_by_channel">"Canal"</string>
-
-    <string name="group_by_title">"Agrupar Puntos de Acceso por:"</string>
-    <string name="group_by_none">"Ninguna"</string>
-    <string name="group_by_channel">"Canal"</string>
-    <string name="group_by_virtual">"Virtual"</string>
-
-    <string name="connection_view_title">"Pantalla de conexión"</string>
-    <string name="connection_view_complete">"Completo"</string>
-    <string name="connection_view_compact">"Compacto"</string>
-    <string name="connection_view_hide">"Esconder"</string>
-
-    <string name="ap_view_title">"Pantalla de punto de acceso"</string>
-    <string name="ap_view_complete">"Completo"</string>
-    <string name="ap_view_compact">"Compacto"</string>
-
-    <string name="graph_maximum_y_title">"Gráfico de intensidad máxima de la señal"</string>
-
-    <string name="channel_graph_legend_title">"Leyenda de Visualización de Gráfico de Canales"</string>
-    <string name="time_graph_legend_title">"Leyenda de Visualización de Gráfico de Tiempo"</string>
-    <string name="graph_legend_left">"Izquierda"</string>
-    <string name="graph_legend_right">"Derecha"</string>
-    <string name="graph_legend_hide">"Esconder"</string>
-
-    <string name="theme_title">"Tema"</string>
-    <string name="theme_dark">"Oscuro"</string>
-    <string name="theme_light">"Claro"</string>
-    <string name="theme_system">"Sistema"</string>
-
-    <string name="wifi_off_on_exit_title">"Apagar Wi-Fi al salir"</string>
-
-    <string name="keep_screen_on_title">"Mantener pantalla encendida"</string>
-
-    <string name="language_title">"Lenguaje"</string>
-
-    <string name="reset_title">"Restablecer"</string>
+    <string name="country_code_title">País</string>
+    <string name="scan_speed_title">Intervalo de exploración</string>
+    <string name="scan_speed_summary">%s segundos entre exploraciones</string>
+    <string name="sort_by_title">Ordenar Puntos de Acceso por:</string>
+    <string name="sort_by_signal_strength">Intensidad de señal</string>
+    <string name="sort_by_channel">Canal</string>
+    <string name="group_by_title">Agrupar Puntos de Acceso por:</string>
+    <string name="group_by_none">Ninguna</string>
+    <string name="group_by_channel">Canal</string>
+    <string name="group_by_virtual">Virtual</string>
+    <string name="connection_view_title">Pantalla de conexión</string>
+    <string name="connection_view_complete">Completo</string>
+    <string name="connection_view_compact">Compacto</string>
+    <string name="connection_view_hide">Esconder</string>
+    <string name="ap_view_title">Pantalla de punto de acceso</string>
+    <string name="ap_view_complete">Completo</string>
+    <string name="ap_view_compact">Compacto</string>
+    <string name="graph_maximum_y_title">Gráfico de intensidad máxima de la señal</string>
+    <string name="channel_graph_legend_title">Leyenda de Visualización de Gráfico de Canales</string>
+    <string name="time_graph_legend_title">Leyenda de Visualización de Gráfico de Tiempo</string>
+    <string name="graph_legend_left">Izquierda</string>
+    <string name="graph_legend_right">Derecha</string>
+    <string name="graph_legend_hide">Esconder</string>
+    <string name="theme_title">Tema</string>
+    <string name="theme_dark">Oscuro</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_system">Sistema</string>
+    <string name="wifi_off_on_exit_title">Apagar Wi-Fi al salir</string>
+    <string name="keep_screen_on_title">Mantener pantalla encendida</string>
+    <string name="language_title">Lenguaje</string>
+    <string name="reset_title">Restablecer</string>
     <!-- settings end -->
 
     <!-- about start -->
-    <string name="about_license_title">"Licencia:"</string>
-    <string name="about_description_title">"Descripción:"</string>
-    <string name="about_description_text">"Optimiza tu red Wi-Fi, mediante la comprobación de estado de red, intensidad de señal e identificación de los canales llenos usando la aplicación de código abierto WiFiAnalyzer para Android"</string>
-    <string name="about_libraries_title">"Librerias usadas:"</string>
-    <string name="about_contributor_title">"Colaboradores"</string>
-    <string name="about_write_review">"Escribir una opinión"</string>
+    <string name="about_license_title">Licencia:</string>
+    <string name="about_description_title">Descripción:</string>
+    <string name="about_description_text">Optimiza tu red Wi-Fi, mediante la comprobación de estado de red, intensidad de señal e identificación de los canales llenos usando la aplicación de código abierto WiFiAnalyzer para Android</string>
+    <string name="about_libraries_title">Librerias usadas:</string>
+    <string name="about_contributor_title">Colaboradores</string>
+    <string name="about_write_review">Escribir una opinión</string>
     <!-- about end -->
 
     <!-- security start -->
-    <string name="security_none">"Ninguna"</string>
+    <string name="security_none">Ninguna</string>
     <!-- security end -->
 
     <!-- filter start -->
-    <string name="filter_title">"Filtro"</string>
-    <string name="filter_close">"Cerrar"</string>
-    <string name="filter_reset">"Restablecer"</string>
-    <string name="filter_apply">"Aplicar"</string>
-    <string name="filter_ssid_title">"SSID (sensible a mayúsculas)"</string>
-    <string name="filter_wifi_band_title">"Banda de Wi-Fi"</string>
-    <string name="filter_strength_title">"Intensidad de señal"</string>
-    <string name="filter_security_title">"Seguridad"</string>
+    <string name="filter_title">Filtro</string>
+    <string name="filter_close">Cerrar</string>
+    <string name="filter_reset">Restablecer</string>
+    <string name="filter_apply">Aplicar</string>
+    <string name="filter_ssid_title">SSID (sensible a mayúsculas)</string>
+    <string name="filter_wifi_band_title">Banda de Wi-Fi</string>
+    <string name="filter_strength_title">Intensidad de señal</string>
+    <string name="filter_security_title">Seguridad</string>
     <!-- filter end -->
 
     <!-- wifi throttling start -->
-    <string name="wifi_throttling_on">"La aceleración del escaneo de Wi-Fi está habilitada"</string>
-    <string name="wifi_throttling_off">"La aceleración del escaneo de Wi-Fi está deshabilitada"</string>
-    <!-- wifi throttling end -->
+    <string name="wifi_throttling_on">La aceleración del escaneo de Wi-Fi está habilitada</string>
+    <string name="wifi_throttling_off">La aceleración del escaneo de Wi-Fi está deshabilitada</string>
 </resources>
