@@ -126,8 +126,6 @@
     <string name="filter_close">"Kapat"</string>
     <string name="filter_reset">"Sıfırla"</string>
     <string name="filter_apply">"Uygula"</string>
-    <string name="filter_ssid_title">"SSID (harfe duyarlı)"</string>
-    <string name="filter_wifi_band_title">"Wi-Fi Bandı"</string>
     <string name="filter_strength_title">"Sinyal Gücü"</string>
     <string name="filter_security_title">"Güvenlik"</string>
     <!-- filter end -->
