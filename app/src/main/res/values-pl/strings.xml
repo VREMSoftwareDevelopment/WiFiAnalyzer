@@ -16,7 +16,7 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
   --><resources>
-    <string name="app_copyright">"Prawa autorskie © 2015 - "</string>
+    <string name="app_copyright">Prawa autorskie © 2015 -</string>
     <string name="navigation_drawer_open">Otwórz panel nawigacji</string>
     <string name="navigation_drawer_close">Zamnkij panel nawigacji</string>
     <string name="scanner_message">Skanowanie …</string>
@@ -103,7 +103,7 @@
     <string name="filter_close">Zamknij</string>
     <string name="filter_reset">Resetuj</string>
     <string name="filter_apply">Zastosuj</string>
-    <string name="filter_ssid_title">SSID (sprawa ma znaczenie)</string>
+    <string name="filter_ssid_title">SSID (wielkość liter ma znaczenie)</string>
     <string name="filter_wifi_band_title">Pasmo Wi-Fi</string>
     <string name="filter_strength_title">Siła sygnału</string>
     <string name="filter_security_title">Bezpieczeństwo</string>
