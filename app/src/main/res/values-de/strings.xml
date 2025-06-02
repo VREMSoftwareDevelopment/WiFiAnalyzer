@@ -15,121 +15,101 @@
   ~
   ~ You should have received a copy of the GNU General Public License
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
-  -->
-
-<resources>
-    <string name="app_copyright">"Copyright \u00A9 2015 \u002D "</string>
-
-    <string name="navigation_drawer_open">"Navigationsleiste öffnen"</string>
-    <string name="navigation_drawer_close">"Navigationsleiste schließen"</string>
-    <string name="scanner_message">"Wird gescannt &#8230;"</string>
-    <string name="scanner_pause">"Pausieren"</string>
-    <string name="scanner_play">"Wiedergeben"</string>
-
+  --><resources>
+    <string name="app_copyright">"Copyright © 2015 - "</string>
+    <string name="navigation_drawer_open">Navigationsleiste öffnen</string>
+    <string name="navigation_drawer_close">Navigationsleiste schließen</string>
+    <string name="scanner_message">Wird gescannt …</string>
+    <string name="scanner_pause">Pausieren</string>
+    <string name="scanner_play">Wiedergeben</string>
     <!-- action start -->
-    <string name="action_access_points">"Access Points"</string>
-    <string name="action_channel_rating">"Kanalbewertung"</string>
-    <string name="action_channel_graph">"Kanalübersicht"</string>
-    <string name="action_time_graph">"Signalverlauf"</string>
-    <string name="action_export">"Exportieren"</string>
-    <string name="action_channel_available">"Verfügbare Kanäle"</string>
-    <string name="action_vendors">"Hersteller"</string>
-    <string name="action_settings">"Einstellungen"</string>
-    <string name="action_about">"Über"</string>
+    <string name="action_access_points">Access Points</string>
+    <string name="action_channel_rating">Kanalbewertung</string>
+    <string name="action_channel_graph">Kanalübersicht</string>
+    <string name="action_time_graph">Signalverlauf</string>
+    <string name="action_export">Exportieren</string>
+    <string name="action_channel_available">Verfügbare Kanäle</string>
+    <string name="action_vendors">Hersteller</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="action_about">Über</string>
     <!-- action end -->
 
-    <string name="no_data">"Keine Daten"</string>
-    <string name="no_data_msg">"Bitte besuchen Sie den Abschnitt zu häufig gestellten Fragen auf unserer Website."</string>
-    <string name="permission_msg">"In Android Marshmallow ist es erforderlich, die Standortdienste zu aktivieren, um WLAN-Scans durchzuführen. Sie werden aufgefordert, die Standortdienste-Berechtigung zu erteilen. Da diese App keine Internetverbindung benötigt, können Sie sicher sein, dass die App Ihren Standort nicht übermitteln kann!"</string>
-    <string name="location_msg">"Wenn diese App verwendet wird, kann sie über die Standortdienste deinen genauen Standort ermitteln. Damit das funktioniert, müssen die Standortdienste auf deinem Gerät aktiviert sein. Das kann den Akkuverbrauch erhöhen."</string>
-    <string name="throttling_msg">"Android 9 führte die Drosselung des WLan-Scans ein. Android 10 verfügt über eine neue Entwickleroption, mit der Sie die Drosselung unter (Einstellungen > Entwickleroptionen > Netzwerk > Drosselung des WLan-Scans) deaktivieren können."</string>
-    <string name="export_not_available">"Export nicht verfügbar"</string>
-    <string name="current_connection">"Aktuelle Verbindung"</string>
-
-    <string name="channel_rating_best">"Beste Kanäle:"</string>
-    <string name="channel_rating_best_none">"Keine"</string>
-    <string name="channel_rating_best_alternative">", probiere ein anderes WLAN-Frequenzband"</string>
-    <string name="channel_rating_heading_rating">"Kanalbewertung"</string>
-    <string name="channel_rating_heading_number">"Kanal"</string>
-    <string name="channel_rating_heading_count">"Anzahl Access Points"</string>
-    <string name="channel_short_name">"CH"</string>
-
-    <string name="graph_channel_axis_x">"WLAN-Kanäle"</string>
-    <string name="graph_time_axis_x">"Scans"</string>
-    <string name="graph_axis_y">"Signalstärke (dBm)"</string>
-
+    <string name="no_data">Keine Daten</string>
+    <string name="no_data_msg">Bitte besuchen Sie den Abschnitt zu häufig gestellten Fragen auf unserer Website.</string>
+    <string name="permission_msg">In Android Marshmallow ist es erforderlich, die Standortdienste zu aktivieren, um WLAN-Scans durchzuführen. Sie werden aufgefordert, die Standortdienste-Berechtigung zu erteilen. Da diese App keine Internetverbindung benötigt, können Sie sicher sein, dass die App Ihren Standort nicht übermitteln kann!</string>
+    <string name="location_msg">Wenn diese App verwendet wird, kann sie über die Standortdienste deinen genauen Standort ermitteln. Damit das funktioniert, müssen die Standortdienste auf deinem Gerät aktiviert sein. Das kann den Akkuverbrauch erhöhen.</string>
+    <string name="throttling_msg">Android 9 führte die Drosselung des WLan-Scans ein. Android 10 verfügt über eine neue Entwickleroption, mit der Sie die Drosselung unter (Einstellungen &gt; Entwickleroptionen &gt; Netzwerk &gt; Drosselung des WLan-Scans) deaktivieren können.</string>
+    <string name="export_not_available">Export nicht verfügbar</string>
+    <string name="current_connection">Aktuelle Verbindung</string>
+    <string name="channel_rating_best">Beste Kanäle:</string>
+    <string name="channel_rating_best_none">Keine</string>
+    <string name="channel_rating_best_alternative">, probiere ein anderes WLAN-Frequenzband</string>
+    <string name="channel_rating_heading_rating">Kanalbewertung</string>
+    <string name="channel_rating_heading_number">Kanal</string>
+    <string name="channel_rating_heading_count">Anzahl Access Points</string>
+    <string name="channel_short_name">CH</string>
+    <string name="graph_channel_axis_x">WLAN-Kanäle</string>
+    <string name="graph_time_axis_x">Scans</string>
+    <string name="graph_axis_y">Signalstärke (dBm)</string>
     <!-- settings start -->
-    <string name="country_code_title">"Land"</string>
-
-    <string name="scan_speed_title">"Scan-Intervall"</string>
-    <string name="scan_speed_summary">"%s Sekunden zwischen den Scans"</string>
-
-    <string name="sort_by_title">"Sortiere Access Points nach"</string>
-    <string name="sort_by_signal_strength">"Signalstärke"</string>
-    <string name="sort_by_channel">"Kanal"</string>
-
-    <string name="group_by_title">"Gruppiere Access Points nach"</string>
-    <string name="group_by_none">"Nicht Gruppieren"</string>
-    <string name="group_by_channel">"Kanal"</string>
-    <string name="group_by_virtual">"Virtual"</string>
-
-    <string name="connection_view_title">"Verbindungs-Darstellung"</string>
-    <string name="connection_view_complete">"Komplett"</string>
-    <string name="connection_view_compact">"Kompakt"</string>
-    <string name="connection_view_hide">"Verstecken"</string>
-
-    <string name="ap_view_title">"Access Point-Darstellung"</string>
-    <string name="ap_view_complete">"Komplett"</string>
-    <string name="ap_view_compact">"Kompakt"</string>
-
-    <string name="graph_maximum_y_title">"Maximale Signalstärke in Grafik"</string>
-
-    <string name="channel_graph_legend_title">"Anzeige der Legende in Kanalübersicht"</string>
-    <string name="time_graph_legend_title">"Anzeige der Legende in Signalverlauf"</string>
-    <string name="graph_legend_left">"Links"</string>
-    <string name="graph_legend_right">"Rechts"</string>
-    <string name="graph_legend_hide">"Verstecken"</string>
-
-    <string name="theme_title">"Theme"</string>
-    <string name="theme_dark">"Dunkel"</string>
-    <string name="theme_light">"Hell"</string>
-    <string name="theme_system">"System"</string>
-
-    <string name="wifi_off_on_exit_title">"WLAN beim Verlassen deaktivieren"</string>
-
-    <string name="keep_screen_on_title">"Bildschirm angeschaltet lassen"</string>
-
-    <string name="language_title">"Sprache"</string>
-
-    <string name="reset_title">"Zurücksetzen"</string>
+    <string name="country_code_title">Land</string>
+    <string name="scan_speed_title">Scan-Intervall</string>
+    <string name="scan_speed_summary">%s Sekunden zwischen den Scans</string>
+    <string name="sort_by_title">Sortiere Access Points nach</string>
+    <string name="sort_by_signal_strength">Signalstärke</string>
+    <string name="sort_by_channel">Kanal</string>
+    <string name="group_by_title">Gruppiere Access Points nach</string>
+    <string name="group_by_none">Nicht Gruppieren</string>
+    <string name="group_by_channel">Kanal</string>
+    <string name="group_by_virtual">Virtual</string>
+    <string name="connection_view_title">Verbindungs-Darstellung</string>
+    <string name="connection_view_complete">Komplett</string>
+    <string name="connection_view_compact">Kompakt</string>
+    <string name="connection_view_hide">Verstecken</string>
+    <string name="ap_view_title">Access Point-Darstellung</string>
+    <string name="ap_view_complete">Komplett</string>
+    <string name="ap_view_compact">Kompakt</string>
+    <string name="graph_maximum_y_title">Maximale Signalstärke in Grafik</string>
+    <string name="channel_graph_legend_title">Anzeige der Legende in Kanalübersicht</string>
+    <string name="time_graph_legend_title">Anzeige der Legende in Signalverlauf</string>
+    <string name="graph_legend_left">Links</string>
+    <string name="graph_legend_right">Rechts</string>
+    <string name="graph_legend_hide">Verstecken</string>
+    <string name="theme_title">Theme</string>
+    <string name="theme_dark">Dunkel</string>
+    <string name="theme_light">Hell</string>
+    <string name="theme_system">System</string>
+    <string name="wifi_off_on_exit_title">WLAN beim Verlassen deaktivieren</string>
+    <string name="keep_screen_on_title">Bildschirm angeschaltet lassen</string>
+    <string name="language_title">Sprache</string>
+    <string name="reset_title">Zurücksetzen</string>
     <!-- settings end -->
 
     <!-- about start -->
-    <string name="about_license_title">"Lizenz:"</string>
-    <string name="about_description_title">"Beschreibung:"</string>
-    <string name="about_description_text">"Verbesseren Sie Ihr WLAN-Netzwerk, indem Sie den Netzwerkstatus und die Signalstärke Ihres WLANs messen und erkennnen Sie überlastete Kanäle mithilfe einer freien Open-Source App für Android."</string>
-    <string name="about_libraries_title">"Benutzte Bibliotheken:"</string>
-    <string name="about_contributor_title">"Beitragende"</string>
-    <string name="about_write_review">"Rezension schreiben"</string>
+    <string name="about_license_title">Lizenz:</string>
+    <string name="about_description_title">Beschreibung:</string>
+    <string name="about_description_text">Verbesseren Sie Ihr WLAN-Netzwerk, indem Sie den Netzwerkstatus und die Signalstärke Ihres WLANs messen und erkennnen Sie überlastete Kanäle mithilfe einer freien Open-Source App für Android.</string>
+    <string name="about_libraries_title">Benutzte Bibliotheken:</string>
+    <string name="about_contributor_title">Beitragende</string>
+    <string name="about_write_review">Rezension schreiben</string>
     <!-- about end -->
 
     <!-- security start -->
-    <string name="security_none">"Keiner"</string>
+    <string name="security_none">Keiner</string>
     <!-- security end -->
 
     <!-- filter start -->
-    <string name="filter_title">"Filter"</string>
-    <string name="filter_close">"Schließen"</string>
-    <string name="filter_reset">"Zurücksetzen"</string>
-    <string name="filter_apply">"Anwenden"</string>
-    <string name="filter_ssid_title">"SSID (case-sensitiv)"</string>
-    <string name="filter_wifi_band_title">"WLAN-Frequenzbänder"</string>
-    <string name="filter_strength_title">"Signalstärke"</string>
-    <string name="filter_security_title">"Sicherheit"</string>
+    <string name="filter_title">Filter</string>
+    <string name="filter_close">Schließen</string>
+    <string name="filter_reset">Zurücksetzen</string>
+    <string name="filter_apply">Anwenden</string>
+    <string name="filter_ssid_title">SSID (case-sensitiv)</string>
+    <string name="filter_wifi_band_title">WLAN-Frequenzbänder</string>
+    <string name="filter_strength_title">Signalstärke</string>
+    <string name="filter_security_title">Sicherheit</string>
     <!-- filter end -->
 
     <!-- wifi throttling start -->
-    <string name="wifi_throttling_on">"Die WLAN-Scan-Drosselung ist aktiviert"</string>
-    <string name="wifi_throttling_off">"Die WLAN-Scan-Drosselung ist deaktiviert"</string>
-    <!-- wifi throttling end -->
+    <string name="wifi_throttling_on">Die WLAN-Scan-Drosselung ist aktiviert</string>
+    <string name="wifi_throttling_off">Die WLAN-Scan-Drosselung ist deaktiviert</string>
 </resources>
