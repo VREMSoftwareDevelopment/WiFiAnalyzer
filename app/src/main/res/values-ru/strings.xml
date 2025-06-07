@@ -16,7 +16,7 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
   --><resources>
-    <string name="app_copyright">"Авторские права © 2015 - "</string>
+    <string name="app_copyright">Авторские права © 2015 -</string>
     <string name="navigation_drawer_open">Открыть панель навигации</string>
     <string name="navigation_drawer_close">Закрыть панель навигации</string>
     <string name="scanner_message">Сканирование …</string>
@@ -61,7 +61,7 @@
     <string name="group_by_title">Группировка</string>
     <string name="group_by_none">Нет</string>
     <string name="group_by_channel">Канал</string>
-    <string name="group_by_virtual">Virtual</string>
+    <string name="group_by_virtual">Виртуально</string>
     <string name="connection_view_title">Дисплей соединение</string>
     <string name="connection_view_complete">Полный</string>
     <string name="connection_view_compact">Компактный</string>
@@ -103,7 +103,7 @@
     <string name="filter_close">Закрыть</string>
     <string name="filter_reset">Сброс</string>
     <string name="filter_apply">Применить</string>
-    <string name="filter_ssid_title">SSID (Чувствительность к регистру символов)</string>
+    <string name="filter_ssid_title">SSID (чувствительно к регистру символов)</string>
     <string name="filter_wifi_band_title">Wi-Fi диапазон</string>
     <string name="filter_strength_title">Уровень сигнала</string>
     <string name="filter_security_title">Безопасность</string>
