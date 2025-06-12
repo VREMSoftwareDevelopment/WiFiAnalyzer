@@ -23,7 +23,7 @@
     <string name="scanner_pause">Pausar</string>
     <string name="scanner_play">Iniciar</string>
     <!-- action start -->
-    <string name="action_access_points">Redes</string>
+    <string name="action_access_points">Pontos de acesso</string>
     <string name="action_channel_rating">Avaliações</string>
     <string name="action_channel_graph">Gráfico</string>
     <string name="action_time_graph">Histórico</string>
@@ -46,7 +46,7 @@
     <string name="channel_rating_best_alternative">, tente a frequência de</string>
     <string name="channel_rating_heading_rating">Avaliação</string>
     <string name="channel_rating_heading_number">Número</string>
-    <string name="channel_rating_heading_count">Redes</string>
+    <string name="channel_rating_heading_count">Contagem de pontos de acesso</string>
     <string name="channel_short_name">CN</string>
     <string name="graph_channel_axis_x">Canais de Wi-Fi</string>
     <string name="graph_time_axis_x">Número de procuras</string>
