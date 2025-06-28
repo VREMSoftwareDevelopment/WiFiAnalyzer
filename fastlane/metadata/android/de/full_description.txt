@@ -1,1 +1,16 @@
 Verbesseren Sie Ihr WLAN-Netzwerk, indem Sie den Netzwerkstatus und die Signalstärke Ihres WLANs messen und erkennnen Sie überlastete Kanäle mithilfe einer freien Open-Source App für Android
+
+Funktionen:
+* Identifizieren Sie nahegelegene Zugangspunkte
+* Grafische Darstellung der Signalstärke der Kanäle
+* Grafische Darstellung der Signalstärke des Zugangspunkts im Zeitverlauf
+* Analysieren Sie Wi-Fi-Netzwerke, um Kanäle zu bewerten
+* HT/VHT-Erkennung - 40/80/160/320 MHz (erfordert Hardware-/Software-Unterstützung)
+* 2,4-GHz-, 5-GHz- und 6-GHz-Wi-Fi-Bänder (erfordert Hardware-/Software-Unterstützung)
+* Zugangspunktansicht vollständig oder kompakt
+* Geschätzte Entfernung zu den Zugangspunkten
+* Details der Zugangspunkte exportieren
+* Dunkles, helles und System-Design verfügbar
+* Scannen anhalten/fortsetzen
+* Verfügbare Filter: Wi-Fi-Band, Signalstärke, Sicherheit und SSID
+* Hersteller/OUI-Datenbanksuche

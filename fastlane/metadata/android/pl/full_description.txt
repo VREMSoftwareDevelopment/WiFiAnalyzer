@@ -1,1 +1,17 @@
 Zoptymalizuj twoją sieć Wi-Fi, poprzez sprawdzanie statusu sieci Wi-Fi, siłę sygnały i indentyfikowanie zatłoczonych kanałów używając otwartoźródłowej aplikacji WiFiAnalyzer dla Androida
+
+Funkcje:
+
+* Identyfikuj pobliskie punkty dostępowe
+* Wykres siły sygnału kanałów
+* Wykres siły sygnału punktu dostępowego w czasie
+* Analizuj sieci Wi-Fi, aby ocenić kanały
+* Wykrywanie HT/VHT - 40/80/160/320 MHz (Wymaga wsparcia sprzętowego/programowego)
+* Pasma Wi-Fi 2,4 GHz, 5 GHz i 6 GHz (Wymaga wsparcia sprzętowego/programowego)
+* Widok punktu dostępowego pełny lub kompaktowy
+* Szacowana odległość do punktów dostępowych
+* Eksportuj szczegóły punktów dostępowych
+* Dostępny motyw ciemny, jasny i systemowy
+* Wstrzymaj/Wznów skanowanie
+* Dostępne filtry: pasmo Wi-Fi, siła sygnału, zabezpieczenia i SSID
+* Wyszukiwanie w bazie danych dostawców/OUI

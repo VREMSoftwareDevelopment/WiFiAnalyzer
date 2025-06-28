@@ -1,1 +1,18 @@
 Ottimizza la tua rete Wi-Fi, controllando lo stato, la potenza del segnale e identificando i canali affollati, usando un WiFiAnalyzer per Android
+
+Caratteristiche:
+
+* Identifica i punti di accesso vicini
+* Grafico della potenza del segnale dei canali
+* Grafico della potenza del segnale del punto di accesso nel tempo
+* Analizza le reti Wi-Fi per valutare i canali
+* Rilevamento HT/VHT - 40/80/160/320 MHz (Richiede Android OS 6+)
+* Bande Wi-Fi a 2,4 GHz, 5 GHz e 6 GHz (Richiede supporto hardware)
+* Visualizzazione completa o compatta dei punti di accesso
+* Distanza stimata dai punti di accesso
+* Esporta i dettagli dei punti di accesso
+* Tema Scuro, Chiaro e di Sistema disponibili
+* Metti in pausa/Riprendi la scansione
+* Filtri disponibili: banda Wi-Fi, potenza del segnale, sicurezza e SSID
+* Ricerca nel database dei fornitori/OUI
+* L'applicazione ha troppe funzionalità per menzionarle tutte

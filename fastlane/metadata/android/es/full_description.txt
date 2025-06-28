@@ -1,1 +1,17 @@
 Optimiza tu red Wi-Fi, mediante la comprobación de estado de red, intensidad de señal e identificación de los canales llenos usando la aplicación de código abierto WiFiAnalyzer para Android
+
+Funciones:
+
+* Identifica los puntos de acceso cercanos
+* Grafica la intensidad de la señal por canales
+* Grafica la intensidad de la señal de los puntos de acceso a lo largo del tiempo
+* Analiza las redes Wi-Fi para calificar los canales
+* Detección HT/VHT - 40/80/160/320 MHz (requiere soporte de hardware/software)
+* Bandas Wi-Fi de 2.4 GHz, 5 GHz y 6 GHz (requiere soporte de hardware/software)
+* Vista de puntos de acceso completa o compacta
+* Distancia estimada a los puntos de acceso
+* Exporta los detalles de los puntos de acceso
+* Tema oscuro, claro y del sistema disponible
+* Pausar/reanudar el escaneo
+* Filtros disponibles: banda Wi-Fi, intensidad de la señal, seguridad y SSID
+* Búsqueda en la base de datos de fabricantes/OUI

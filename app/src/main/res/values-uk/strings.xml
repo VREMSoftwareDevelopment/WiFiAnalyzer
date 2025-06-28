@@ -33,8 +33,8 @@
     <string name="action_export">"Експорт"</string>
     <string name="action_channel_available">"Доступні канали"</string>
     <string name="action_vendors">"Постачальники"</string>
-    <string name="action_settings">Налаштування</string>
-    <string name="action_about">Про Програму</string>
+    <string name="action_settings">"Налаштування"</string>
+    <string name="action_about">"Про Програму"</string>
     <!-- action end -->
 
     <string name="no_data">"Немає даних"</string>
