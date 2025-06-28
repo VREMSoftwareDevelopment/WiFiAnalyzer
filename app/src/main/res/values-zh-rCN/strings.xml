@@ -48,7 +48,7 @@
 
     <string name="channel_rating_best">"最佳信道："</string>
     <string name="channel_rating_best_none">"无"</string>
-    <string name="channel_rating_best_alternative">", 尝试其他 Wi-Fi 频段"</string>
+    <string name="channel_rating_best_alternative">"%s, 尝试其他 Wi-Fi 频段 %s"</string>
     <string name="channel_rating_heading_rating">"信道评级"</string>
     <string name="channel_rating_heading_number">"信道编号"</string>
     <string name="channel_rating_heading_count">"接入点数量"</string>

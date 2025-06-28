@@ -122,13 +122,15 @@ class ChannelRatingAdapter(
     }
 
     private fun errorMessage(wiFiBand: WiFiBand): String = with(context.resources) {
-        getText(R.string.channel_rating_best_none).toString() +
-            if (WiFiBand.GHZ2 == wiFiBand) {
-                getText(R.string.channel_rating_best_alternative).toString() +
-                    " " + getString(WiFiBand.GHZ5.textResource)
-            } else {
-                String.EMPTY
-            }
+        if (WiFiBand.GHZ2 == wiFiBand) {
+            String.format(
+                getString(R.string.channel_rating_best_alternative),
+                getString(R.string.channel_rating_best_none),
+                getString(WiFiBand.GHZ5.textResource)
+            )
+        } else {
+            getString(R.string.channel_rating_best_none)
+        }
     }
 
     private fun create(parent: ViewGroup): ChannelRatingDetailsBinding =

@@ -48,7 +48,7 @@
 
     <string name="channel_rating_best">"最佳頻道："</string>
     <string name="channel_rating_best_none">"無"</string>
-    <string name="channel_rating_best_alternative">"，嘗試其他 Wi-Fi 頻段"</string>
+    <string name="channel_rating_best_alternative">"%s，嘗試其他 Wi-Fi 頻段 %s"</string>
     <string name="channel_rating_heading_rating">"頻道評分"</string>
     <string name="channel_rating_heading_number">"頻道數"</string>
     <string name="channel_rating_heading_count">"存取點計數"</string>

@@ -48,7 +48,7 @@
 
     <string name="channel_rating_best">"Canais melhores:"</string>
     <string name="channel_rating_best_none">"Nenhum"</string>
-    <string name="channel_rating_best_alternative">", tente a frequência de"</string>
+    <string name="channel_rating_best_alternative">"%s, tente a frequência de %s"</string>
     <string name="channel_rating_heading_rating">"Avaliação"</string>
     <string name="channel_rating_heading_number">"Número"</string>
     <string name="channel_rating_heading_count">"Contagem de pontos de acesso"</string>

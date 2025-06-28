@@ -50,7 +50,7 @@
 
     <string name="channel_rating_best">"最適なチャンネル:"</string>
     <string name="channel_rating_best_none">"なし"</string>
-    <string name="channel_rating_best_alternative">"、 Wi-Fi バンドを代替して試す"</string>
+    <string name="channel_rating_best_alternative">"%s、 Wi-Fi バンドを代替して試す %s"</string>
     <string name="channel_rating_heading_rating">"チャンネルの評価"</string>
     <string name="channel_rating_heading_number">"チャンネルの番号"</string>
     <string name="channel_rating_heading_count">"アクセスポイントの数"</string>

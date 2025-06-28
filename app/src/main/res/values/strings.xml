@@ -57,7 +57,7 @@
 
     <string name="channel_rating_best">"Best Channels:"</string>
     <string name="channel_rating_best_none">"None"</string>
-    <string name="channel_rating_best_alternative">", try alternative Wi-Fi Band"</string>
+    <string name="channel_rating_best_alternative">"%s, try alternative Wi-Fi Band %s"</string>
     <string name="channel_rating_heading_rating">"Channel Rating"</string>
     <string name="channel_rating_heading_number">"Channel Number"</string>
     <string name="channel_rating_heading_count">"Access Point Count"</string>

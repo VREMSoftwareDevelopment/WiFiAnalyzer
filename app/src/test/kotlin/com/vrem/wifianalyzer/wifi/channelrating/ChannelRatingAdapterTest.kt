@@ -115,9 +115,10 @@ class ChannelRatingAdapterTest {
     fun bestChannelsGHZ2WithErrorMessage() {
         // setup
         val resources = mainActivity.resources
-        val expected = (resources.getText(R.string.channel_rating_best_none).toString()
-            + resources.getText(R.string.channel_rating_best_alternative)
-            + " " + resources.getString(WiFiBand.GHZ5.textResource))
+        val expected = String.format(
+                resources.getString(R.string.channel_rating_best_alternative),
+                resources.getString(R.string.channel_rating_best_none),
+                resources.getString(WiFiBand.GHZ5.textResource))
         val expectedColor = ContextCompat.getColor(mainActivity, R.color.error)
         val wiFiChannels: List<WiFiChannel> = listOf()
         val channelAPCounts: List<ChannelAPCount> = listOf()

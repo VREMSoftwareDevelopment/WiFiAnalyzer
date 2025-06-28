@@ -48,7 +48,7 @@
 
     <string name="channel_rating_best">"Canali Migliori:"</string>
     <string name="channel_rating_best_none">"Nessuno"</string>
-    <string name="channel_rating_best_alternative">", prova un altra banda Wi-Fi"</string>
+    <string name="channel_rating_best_alternative">"%s, prova un altra banda Wi-Fi %s"</string>
     <string name="channel_rating_heading_rating">"Qualità Canale"</string>
     <string name="channel_rating_heading_number">"Numero Canale"</string>
     <string name="channel_rating_heading_count">"Numero di Access Point"</string>

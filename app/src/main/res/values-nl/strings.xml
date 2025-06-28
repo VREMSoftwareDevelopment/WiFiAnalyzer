@@ -47,7 +47,7 @@
 
     <string name="channel_rating_best">"Beste kanalen:"</string>
     <string name="channel_rating_best_none">"Geen"</string>
-    <string name="channel_rating_best_alternative">", probeer alternatieve wifi-band"</string>
+    <string name="channel_rating_best_alternative">"%s, probeer alternatieve wifi-band %s"</string>
     <string name="channel_rating_heading_rating">"Kanaalbeoordeling"</string>
     <string name="channel_rating_heading_number">"Kanaalnummer"</string>
     <string name="channel_rating_heading_count">"Aantal toegangspunten"</string>

@@ -48,7 +48,7 @@
 
     <string name="channel_rating_best">"Beste Kanäle:"</string>
     <string name="channel_rating_best_none">"Keine"</string>
-    <string name="channel_rating_best_alternative">", probiere ein anderes WLAN-Frequenzband"</string>
+    <string name="channel_rating_best_alternative">"%s, probiere ein anderes WLAN-Frequenzband %s"</string>
     <string name="channel_rating_heading_rating">"Kanalbewertung"</string>
     <string name="channel_rating_heading_number">"Kanal"</string>
     <string name="channel_rating_heading_count">"Anzahl Access Points"</string>

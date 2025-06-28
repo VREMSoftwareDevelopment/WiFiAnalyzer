@@ -48,7 +48,7 @@
 
     <string name="channel_rating_best">"Βέλτιστα κανάλια:"</string>
     <string name="channel_rating_best_none">"Κανένα"</string>
-    <string name="channel_rating_best_alternative">", δοκιμάστε εναλλακτική ζώνη Wi-Fi"</string>
+    <string name="channel_rating_best_alternative">"%s, δοκιμάστε εναλλακτική ζώνη Wi-Fi %s"</string>
     <string name="channel_rating_heading_rating">"Ταξινόμηση καναλιού"</string>
     <string name="channel_rating_heading_number">"Αριθμός καναλιού"</string>
     <string name="channel_rating_heading_count">"Πλήθος σημείων πρόσβασης"</string>

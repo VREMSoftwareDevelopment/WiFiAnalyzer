@@ -48,7 +48,7 @@
 
     <string name="channel_rating_best">"Лучшие каналы:"</string>
     <string name="channel_rating_best_none">"Нет"</string>
-    <string name="channel_rating_best_alternative">", попробуйте альтернативный Wi-Fi диапазон"</string>
+    <string name="channel_rating_best_alternative">"%s, попробуйте альтернативный Wi-Fi диапазон %s"</string>
     <string name="channel_rating_heading_rating">"Оценка каналов"</string>
     <string name="channel_rating_heading_number">"Номер канала"</string>
     <string name="channel_rating_heading_count">"Число точек доступа"</string>
