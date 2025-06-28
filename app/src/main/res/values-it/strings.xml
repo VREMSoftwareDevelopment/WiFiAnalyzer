@@ -15,101 +15,121 @@
   ~
   ~ You should have received a copy of the GNU General Public License
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
-  --><resources>
-    <string name="app_copyright">"Copyright © 2015 - "</string>
-    <string name="navigation_drawer_open">Apri pannello laterale</string>
-    <string name="navigation_drawer_close">Chiudi pannello laterale</string>
-    <string name="scanner_message">Ricerca in corso …</string>
-    <string name="scanner_pause">Pausa</string>
-    <string name="scanner_play">Avvia</string>
+  -->
+
+<resources>
+    <string name="app_copyright">"Copyright \u00A9 2015 \u002D "</string>
+
+    <string name="navigation_drawer_open">"Apri pannello laterale"</string>
+    <string name="navigation_drawer_close">"Chiudi pannello laterale"</string>
+    <string name="scanner_message">"Ricerca in corso &#8230;"</string>
+    <string name="scanner_pause">"Pausa"</string>
+    <string name="scanner_play">"Avvia"</string>
+
     <!-- action start -->
-    <string name="action_access_points">Access Points</string>
-    <string name="action_channel_rating">Qualità Canali</string>
-    <string name="action_channel_graph">Grafico Canali</string>
-    <string name="action_time_graph">Grafico Tempo</string>
-    <string name="action_export">Esporta</string>
-    <string name="action_channel_available">Canali Disponibili</string>
-    <string name="action_vendors">Fornitori</string>
-    <string name="action_settings">Impostazioni</string>
-    <string name="action_about">Altro</string>
+    <string name="action_access_points">"Access Points"</string>
+    <string name="action_channel_rating">"Qualità Canali"</string>
+    <string name="action_channel_graph">"Grafico Canali"</string>
+    <string name="action_time_graph">"Grafico Tempo"</string>
+    <string name="action_export">"Esporta"</string>
+    <string name="action_channel_available">"Canali Disponibili"</string>
+    <string name="action_vendors">"Fornitori"</string>
+    <string name="action_settings">"Impostazioni"</string>
+    <string name="action_about">"Altro"</string>
     <!-- action end -->
 
-    <string name="no_data">Nessun Dato</string>
-    <string name="no_data_msg">Visita la sezione di domande frequenti sul nostro sito web.</string>
-    <string name="permission_msg">Da Android Marshmallow, sono necessari i permessi di geolocalizzazione per effettuare scansioni delle reti Wi-Fi. Ti sarà chiesto di abilitare questo permesso. Dal momento che quest\'app non richiede l\'accesso ad internet, puoi essere sicuro del fatto che non può trasmettere la tua posizione!</string>
-    <string name="location_msg">Questa app può recuperare la tua posizione precisa dai Servizi di geolocalizzazione quando l\'app è in uso. L\'impostazione Servizi di geolocalizzazione deve essere attiva sul tuo dispositivo perché l\'app possa recuperare la tua posizione. Questa operazione potrebbe comportare un maggior consumo della batteria.</string>
-    <string name="throttling_msg">Android 9 ha introdotto la limitazione della scansione Wi-Fi. Android 10 ha una nuova opzione sviluppatore per disattivare la limitazione in (Impostazioni &gt; Opzioni sviluppatore &gt; Rete &gt; Limitazione scansione Wi-Fi).</string>
-    <string name="export_not_available">Impossibile esportare</string>
-    <string name="current_connection">Connessione attuale</string>
-    <string name="channel_rating_best">Canali Migliori:</string>
-    <string name="channel_rating_best_none">Nessuno</string>
-    <string name="channel_rating_best_alternative">, prova un altra banda Wi-Fi</string>
-    <string name="channel_rating_heading_rating">Qualità Canale</string>
-    <string name="channel_rating_heading_number">Numero Canale</string>
-    <string name="channel_rating_heading_count">Numero di Access Point</string>
-    <string name="channel_short_name">CH</string>
-    <string name="graph_channel_axis_x">Canali Wi-Fi</string>
-    <string name="graph_time_axis_x">Numero Scansioni</string>
-    <string name="graph_axis_y">Potenza Segnale (dBm)</string>
+    <string name="no_data">"Nessun Dato"</string>
+    <string name="no_data_msg">"Visita la sezione di domande frequenti sul nostro sito web."</string>
+    <string name="permission_msg">"Da Android Marshmallow, sono necessari i permessi di geolocalizzazione per effettuare scansioni delle reti Wi-Fi. Ti sarà chiesto di abilitare questo permesso. Dal momento che quest\'app non richiede l\'accesso ad internet, puoi essere sicuro del fatto che non può trasmettere la tua posizione!"</string>
+    <string name="location_msg">"Questa app può recuperare la tua posizione precisa dai Servizi di geolocalizzazione quando l\'app è in uso. L\'impostazione Servizi di geolocalizzazione deve essere attiva sul tuo dispositivo perché l\'app possa recuperare la tua posizione. Questa operazione potrebbe comportare un maggior consumo della batteria."</string>
+    <string name="throttling_msg">"Android 9 ha introdotto la limitazione della scansione Wi-Fi. Android 10 ha una nuova opzione sviluppatore per disattivare la limitazione in (Impostazioni > Opzioni sviluppatore > Rete > Limitazione scansione Wi-Fi)."</string>
+    <string name="export_not_available">"Impossibile esportare"</string>
+    <string name="current_connection">"Connessione attuale"</string>
+
+    <string name="channel_rating_best">"Canali Migliori:"</string>
+    <string name="channel_rating_best_none">"Nessuno"</string>
+    <string name="channel_rating_best_alternative">", prova un altra banda Wi-Fi"</string>
+    <string name="channel_rating_heading_rating">"Qualità Canale"</string>
+    <string name="channel_rating_heading_number">"Numero Canale"</string>
+    <string name="channel_rating_heading_count">"Numero di Access Point"</string>
+    <string name="channel_short_name">"CH"</string>
+
+    <string name="graph_channel_axis_x">"Canali Wi-Fi"</string>
+    <string name="graph_time_axis_x">"Numero Scansioni"</string>
+    <string name="graph_axis_y">"Potenza Segnale (dBm)"</string>
+
     <!-- settings start -->
-    <string name="country_code_title">Paese</string>
-    <string name="scan_speed_title">Intervallo scansioni</string>
-    <string name="scan_speed_summary">%s secondi tra ogni scansione</string>
-    <string name="sort_by_title">Ordina Access Points per</string>
-    <string name="sort_by_signal_strength">Potenza Segnale</string>
-    <string name="sort_by_channel">Canale</string>
-    <string name="group_by_title">Raggruppa Access Points per</string>
-    <string name="group_by_none">Non Raggruppare</string>
-    <string name="group_by_channel">Canale</string>
-    <string name="group_by_virtual">Virtual</string>
-    <string name="connection_view_title">Access Point connesso</string>
-    <string name="connection_view_complete">Completo</string>
-    <string name="connection_view_compact">Compatto</string>
-    <string name="connection_view_hide">Nascondi</string>
-    <string name="ap_view_title">Visualizzazione Access Point</string>
-    <string name="ap_view_complete">Completo</string>
-    <string name="ap_view_compact">Compatto</string>
-    <string name="graph_maximum_y_title">Potenza massima del segnale nel grafico</string>
-    <string name="channel_graph_legend_title">Mostra legenda grafico canali</string>
-    <string name="time_graph_legend_title">Mostra legenda grafico temporale</string>
-    <string name="graph_legend_left">Sinistra</string>
-    <string name="graph_legend_right">Destra</string>
-    <string name="graph_legend_hide">Nascondi</string>
-    <string name="theme_title">Tema</string>
-    <string name="theme_dark">Scuro</string>
-    <string name="theme_light">Chiaro</string>
-    <string name="theme_system">Sistema</string>
-    <string name="wifi_off_on_exit_title">Spegni Wi-Fi all\'uscita</string>
-    <string name="keep_screen_on_title">Mantieni schermo acceso</string>
-    <string name="language_title">Lingua</string>
-    <string name="reset_title">Resetta</string>
+    <string name="country_code_title">"Paese"</string>
+
+    <string name="scan_speed_title">"Intervallo scansioni"</string>
+    <string name="scan_speed_summary">"%s secondi tra ogni scansione"</string>
+
+    <string name="sort_by_title">"Ordina Access Points per"</string>
+    <string name="sort_by_signal_strength">"Potenza Segnale"</string>
+    <string name="sort_by_channel">"Canale"</string>
+
+    <string name="group_by_title">"Raggruppa Access Points per"</string>
+    <string name="group_by_none">"Non Raggruppare"</string>
+    <string name="group_by_channel">"Canale"</string>
+    <string name="group_by_virtual">"Virtual"</string>
+
+    <string name="connection_view_title">"Access Point connesso"</string>
+    <string name="connection_view_complete">"Completo"</string>
+    <string name="connection_view_compact">"Compatto"</string>
+    <string name="connection_view_hide">"Nascondi"</string>
+
+    <string name="ap_view_title">"Visualizzazione Access Point"</string>
+    <string name="ap_view_complete">"Completo"</string>
+    <string name="ap_view_compact">"Compatto"</string>
+
+    <string name="graph_maximum_y_title">"Potenza massima del segnale nel grafico"</string>
+
+    <string name="channel_graph_legend_title">"Mostra legenda grafico canali"</string>
+    <string name="time_graph_legend_title">"Mostra legenda grafico temporale"</string>
+    <string name="graph_legend_left">"Sinistra"</string>
+    <string name="graph_legend_right">"Destra"</string>
+    <string name="graph_legend_hide">"Nascondi"</string>
+
+    <string name="theme_title">"Tema"</string>
+    <string name="theme_dark">"Scuro"</string>
+    <string name="theme_light">"Chiaro"</string>
+    <string name="theme_system">"Sistema"</string>
+
+    <string name="wifi_off_on_exit_title">"Spegni Wi-Fi all\'uscita"</string>
+
+    <string name="keep_screen_on_title">"Mantieni schermo acceso"</string>
+
+    <string name="language_title">"Lingua"</string>
+
+    <string name="reset_title">"Resetta"</string>
     <!-- settings end -->
 
     <!-- about start -->
-    <string name="about_license_title">Licenza:</string>
-    <string name="about_description_title">Descrizione:</string>
-    <string name="about_description_text">Ottimizza la tua rete Wi-Fi, controllando lo stato, la potenza del segnale e identificando i canali affollati, usando un WiFiAnalyzer per Android</string>
-    <string name="about_libraries_title">Librarie Usate:</string>
-    <string name="about_contributor_title">Contributori</string>
-    <string name="about_write_review">Scrivi una recensione</string>
+    <string name="about_license_title">"Licenza:"</string>
+    <string name="about_description_title">"Descrizione:"</string>
+    <string name="about_description_text">"Ottimizza la tua rete Wi-Fi, controllando lo stato, la potenza del segnale e identificando i canali affollati, usando un WiFiAnalyzer per Android"</string>
+    <string name="about_libraries_title">"Librarie Usate:"</string>
+    <string name="about_contributor_title">"Contributori"</string>
+    <string name="about_write_review">"Scrivi una recensione"</string>
     <!-- about end -->
 
     <!-- security start -->
-    <string name="security_none">Nessuna</string>
+    <string name="security_none">"Nessuna"</string>
     <!-- security end -->
 
     <!-- filter start -->
-    <string name="filter_title">Filtro</string>
-    <string name="filter_close">Chiudi</string>
-    <string name="filter_reset">Resetta</string>
-    <string name="filter_apply">Applica</string>
-    <string name="filter_ssid_title">SSID (sensibile alle maiuscole)</string>
-    <string name="filter_wifi_band_title">Banda Wi-Fi</string>
-    <string name="filter_strength_title">Potenza Segnale</string>
-    <string name="filter_security_title">Sicurezza</string>
+    <string name="filter_title">"Filtro"</string>
+    <string name="filter_close">"Chiudi"</string>
+    <string name="filter_reset">"Resetta"</string>
+    <string name="filter_apply">"Applica"</string>
+    <string name="filter_ssid_title">"SSID (sensibile alle maiuscole)"</string>
+    <string name="filter_wifi_band_title">"Banda Wi-Fi"</string>
+    <string name="filter_strength_title">"Potenza Segnale"</string>
+    <string name="filter_security_title">"Sicurezza"</string>
     <!-- filter end -->
 
     <!-- wifi throttling start -->
-    <string name="wifi_throttling_on">La limitazione della scansione Wi-Fi è abilitata</string>
-    <string name="wifi_throttling_off">La limitazione della scansione Wi-Fi è disabilitata</string>
+    <string name="wifi_throttling_on">"La limitazione della scansione Wi-Fi è abilitata"</string>
+    <string name="wifi_throttling_off">"La limitazione della scansione Wi-Fi è disabilitata"</string>
+    <!-- wifi throttling end -->
 </resources>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ WiFiAnalyzer
   ~ Copyright (C) 2015 - 2025 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
   ~
@@ -15,101 +14,121 @@
   ~
   ~ You should have received a copy of the GNU General Public License
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
-  --><resources>
-    <string name="app_copyright">"Auteursrecht © 2015 - "</string>
-    <string name="navigation_drawer_open">Open navigatiepaneel</string>
-    <string name="navigation_drawer_close">Sluit navigatiepaneel</string>
-    <string name="scanner_message">Scannen …</string>
-    <string name="scanner_pause">Pauzeer</string>
-    <string name="scanner_play">Hervat</string>
+  -->
+
+<resources>
+    <string name="app_copyright">"Auteursrecht \u00A9 2015 \u002D "</string>
+
+    <string name="navigation_drawer_open">"Open navigatiepaneel"</string>
+    <string name="navigation_drawer_close">"Sluit navigatiepaneel"</string>
+    <string name="scanner_message">"Scannen &#8230;"</string>
+    <string name="scanner_pause">"Pauzeer"</string>
+    <string name="scanner_play">"Hervat"</string>
+
     <!-- action start -->
-    <string name="action_access_points">Toegangspunten</string>
-    <string name="action_channel_rating">Kanaalbeoordeling</string>
-    <string name="action_channel_graph">Kanaalgrafiek</string>
-    <string name="action_time_graph">Tijdgrafiek</string>
-    <string name="action_export">Exporteren</string>
-    <string name="action_channel_available">Beschikbare kanalen</string>
-    <string name="action_vendors">Fabrikanten</string>
-    <string name="action_settings">Instellingen</string>
-    <string name="action_about">Over</string>
+    <string name="action_access_points">"Toegangspunten"</string>
+    <string name="action_channel_rating">"Kanaalbeoordeling"</string>
+    <string name="action_channel_graph">"Kanaalgrafiek"</string>
+    <string name="action_time_graph">"Tijdgrafiek"</string>
+    <string name="action_export">"Exporteren"</string>
+    <string name="action_channel_available">"Beschikbare kanalen"</string>
+    <string name="action_vendors">"Fabrikanten"</string>
+    <string name="action_settings">"Instellingen"</string>
+    <string name="action_about">"Over"</string>
     <!-- action end -->
 
-    <string name="no_data">Geen gegevens</string>
-    <string name="no_data_msg">Bezoek de rubriek veelgestelde vragen op onze website.</string>
-    <string name="permission_msg">Vanaf Android Marshmallow zijn locatiepermissies benodigd voor een wifi-scan. Er zal je worden gevraagd om locatie-diensten/-permissies in te schakelen. Aangezien deze app geen internettoegang vereist kun je er zeker van zijn dat deze app je locatie niet kan verzenden!</string>
-    <string name="location_msg">Deze app kan je precieze locatie opvragen bij de locatieservices terwijl de app wordt gebruikt. De app kan de locatie alleen opvragen als de locatieservices voor je apparaat zijn ingeschakeld. Hierdoor kan het batterijgebruik toenemen.</string>
-    <string name="throttling_msg">Android 9 introduceerde wifi-scanbeperking. Android 10 heeft een nieuwe ontwikkelaaroptie om de beperking uit te schakelen onder (Instellingen &gt; Opties voor ontwikkelaars &gt; Netwerken &gt; wifi-scanbeperking).</string>
-    <string name="export_not_available">Export niet beschikbaar</string>
-    <string name="current_connection">Huidige verbinding</string>
-    <string name="channel_rating_best">Beste kanalen:</string>
-    <string name="channel_rating_best_none">Geen</string>
-    <string name="channel_rating_best_alternative">, probeer alternatieve wifi-band</string>
-    <string name="channel_rating_heading_rating">Kanaalbeoordeling</string>
-    <string name="channel_rating_heading_number">Kanaalnummer</string>
-    <string name="channel_rating_heading_count">Aantal toegangspunten</string>
-    <string name="channel_short_name">Kan.</string>
-    <string name="graph_channel_axis_x">Wifi-kanalen</string>
-    <string name="graph_time_axis_x">Aantal scans</string>
-    <string name="graph_axis_y">Signaalsterkte (dBm)</string>
+    <string name="no_data">"Geen gegevens"</string>
+    <string name="no_data_msg">"Bezoek de rubriek veelgestelde vragen op onze website."</string>
+    <string name="permission_msg">"Vanaf Android Marshmallow zijn locatiepermissies benodigd voor een wifi-scan. Er zal je worden gevraagd om locatie-diensten/-permissies in te schakelen. Aangezien deze app geen internettoegang vereist kun je er zeker van zijn dat deze app je locatie niet kan verzenden!"</string>
+    <string name="location_msg">"Deze app kan je precieze locatie opvragen bij de locatieservices terwijl de app wordt gebruikt. De app kan de locatie alleen opvragen als de locatieservices voor je apparaat zijn ingeschakeld. Hierdoor kan het batterijgebruik toenemen."</string>
+    <string name="throttling_msg">"Android 9 introduceerde wifi-scanbeperking. Android 10 heeft een nieuwe ontwikkelaaroptie om de beperking uit te schakelen onder (Instellingen > Opties voor ontwikkelaars > Netwerken > wifi-scanbeperking)."</string>
+    <string name="export_not_available">"Export niet beschikbaar"</string>
+    <string name="current_connection">"Huidige verbinding"</string>
+
+    <string name="channel_rating_best">"Beste kanalen:"</string>
+    <string name="channel_rating_best_none">"Geen"</string>
+    <string name="channel_rating_best_alternative">", probeer alternatieve wifi-band"</string>
+    <string name="channel_rating_heading_rating">"Kanaalbeoordeling"</string>
+    <string name="channel_rating_heading_number">"Kanaalnummer"</string>
+    <string name="channel_rating_heading_count">"Aantal toegangspunten"</string>
+    <string name="channel_short_name">"Kan."</string>
+
+    <string name="graph_channel_axis_x">"Wifi-kanalen"</string>
+    <string name="graph_time_axis_x">"Aantal scans"</string>
+    <string name="graph_axis_y">"Signaalsterkte (dBm)"</string>
+
     <!-- settings start -->
-    <string name="country_code_title">Land</string>
-    <string name="scan_speed_title">Scan-interval</string>
-    <string name="scan_speed_summary">%s seconden tussen elke scan</string>
-    <string name="sort_by_title">Sorteer toegangspunten op</string>
-    <string name="sort_by_signal_strength">Signaalsterkte</string>
-    <string name="sort_by_channel">Kanaal</string>
-    <string name="group_by_title">Groepeer toegangspunten op</string>
-    <string name="group_by_none">Niet</string>
-    <string name="group_by_channel">Kanaal</string>
-    <string name="group_by_virtual">Virtual</string>
-    <string name="connection_view_title">Verbindingsweergave</string>
-    <string name="connection_view_complete">Compleet</string>
-    <string name="connection_view_compact">Compact</string>
-    <string name="connection_view_hide">Verbergen</string>
-    <string name="ap_view_title">Toegangspuntweergave</string>
-    <string name="ap_view_complete">Compleet</string>
-    <string name="ap_view_compact">Compact</string>
-    <string name="graph_maximum_y_title">Grafiek maximale signaalsterkte</string>
-    <string name="channel_graph_legend_title">Kanaalgrafiek legendaweergave</string>
-    <string name="time_graph_legend_title">Tijdgrafiek legendaweergave</string>
-    <string name="graph_legend_left">Links</string>
-    <string name="graph_legend_right">Rechts</string>
-    <string name="graph_legend_hide">Verbergen</string>
-    <string name="theme_title">Thema</string>
-    <string name="theme_dark">Donker</string>
-    <string name="theme_light">Licht</string>
-    <string name="theme_system">Systeem</string>
-    <string name="wifi_off_on_exit_title">Wifi uitsch. bij afsluiten</string>
-    <string name="keep_screen_on_title">Scherm aan houden</string>
-    <string name="language_title">Taal</string>
-    <string name="reset_title">Resetten</string>
+    <string name="country_code_title">"Land"</string>
+
+    <string name="scan_speed_title">"Scan-interval"</string>
+    <string name="scan_speed_summary">"%s seconden tussen elke scan"</string>
+
+    <string name="sort_by_title">"Sorteer toegangspunten op"</string>
+    <string name="sort_by_signal_strength">"Signaalsterkte"</string>
+    <string name="sort_by_channel">"Kanaal"</string>
+
+    <string name="group_by_title">"Groepeer toegangspunten op"</string>
+    <string name="group_by_none">"Niet"</string>
+    <string name="group_by_channel">"Kanaal"</string>
+    <string name="group_by_virtual">"Virtual"</string>
+
+    <string name="connection_view_title">"Verbindingsweergave"</string>
+    <string name="connection_view_complete">"Compleet"</string>
+    <string name="connection_view_compact">"Compact"</string>
+    <string name="connection_view_hide">"Verbergen"</string>
+
+    <string name="ap_view_title">"Toegangspuntweergave"</string>
+    <string name="ap_view_complete">"Compleet"</string>
+    <string name="ap_view_compact">"Compact"</string>
+
+    <string name="graph_maximum_y_title">"Grafiek maximale signaalsterkte"</string>
+
+    <string name="channel_graph_legend_title">"Kanaalgrafiek legendaweergave"</string>
+    <string name="time_graph_legend_title">"Tijdgrafiek legendaweergave"</string>
+    <string name="graph_legend_left">"Links"</string>
+    <string name="graph_legend_right">"Rechts"</string>
+    <string name="graph_legend_hide">"Verbergen"</string>
+
+    <string name="theme_title">"Thema"</string>
+    <string name="theme_dark">"Donker"</string>
+    <string name="theme_light">"Licht"</string>
+    <string name="theme_system">"Systeem"</string>
+
+    <string name="wifi_off_on_exit_title">"Wifi uitsch. bij afsluiten"</string>
+
+    <string name="keep_screen_on_title">"Scherm aan houden"</string>
+
+    <string name="language_title">"Taal"</string>
+
+    <string name="reset_title">"Resetten"</string>
     <!-- settings end -->
 
     <!-- about start -->
-    <string name="about_license_title">Licentie:</string>
-    <string name="about_description_title">Beschrijving:</string>
-    <string name="about_description_text">Optimaliseer uw wifi-netwerk door het controleren van de wifi-netwerkstatus en de signaalsterkte en door het indentificeren van drukke kanalen met gebruik van een open-source wifi-analyzer voor Android.</string>
-    <string name="about_libraries_title">Gebruikte bibiliotheken:</string>
-    <string name="about_contributor_title">Bijdragers</string>
-    <string name="about_write_review">Schrijf een beoordeling</string>
+    <string name="about_license_title">"Licentie:"</string>
+    <string name="about_description_title">"Beschrijving:"</string>
+    <string name="about_description_text">"Optimaliseer uw wifi-netwerk door het controleren van de wifi-netwerkstatus en de signaalsterkte en door het indentificeren van drukke kanalen met gebruik van een open-source wifi-analyzer voor Android."</string>
+    <string name="about_libraries_title">"Gebruikte bibiliotheken:"</string>
+    <string name="about_contributor_title">"Bijdragers"</string>
+    <string name="about_write_review">"Schrijf een beoordeling"</string>
     <!-- about end -->
 
     <!-- security start -->
-    <string name="security_none">Geen</string>
+    <string name="security_none">"Geen"</string>
     <!-- security end -->
 
     <!-- filter start -->
-    <string name="filter_title">Filter</string>
-    <string name="filter_close">Sluiten</string>
-    <string name="filter_reset">Resetten</string>
-    <string name="filter_apply">Toepassen</string>
-    <string name="filter_ssid_title">SSID (hoofdlettergevoelig)</string>
-    <string name="filter_wifi_band_title">Wifi-band</string>
-    <string name="filter_strength_title">Signaalsterkte</string>
-    <string name="filter_security_title">Beveiliging</string>
+    <string name="filter_title">"Filter"</string>
+    <string name="filter_close">"Sluiten"</string>
+    <string name="filter_reset">"Resetten"</string>
+    <string name="filter_apply">"Toepassen"</string>
+    <string name="filter_ssid_title">"SSID (hoofdlettergevoelig)"</string>
+    <string name="filter_wifi_band_title">"Wifi-band"</string>
+    <string name="filter_strength_title">"Signaalsterkte"</string>
+    <string name="filter_security_title">"Beveiliging"</string>
     <!-- filter end -->
 
     <!-- wifi throttling start -->
-    <string name="wifi_throttling_on">Wifi-scanbeperking is ingeschakeld</string>
-    <string name="wifi_throttling_off">Wifi-scanbeperking is uitgeschakeld</string>
+    <string name="wifi_throttling_on">"Wifi-scanbeperking is ingeschakeld"</string>
+    <string name="wifi_throttling_off">"Wifi-scanbeperking is uitgeschakeld"</string>
+    <!-- wifi throttling end -->
 </resources>

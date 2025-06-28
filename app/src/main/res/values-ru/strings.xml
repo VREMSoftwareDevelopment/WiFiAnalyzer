@@ -15,101 +15,121 @@
   ~
   ~ You should have received a copy of the GNU General Public License
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
-  --><resources>
-    <string name="app_copyright">Авторские права © 2015 -</string>
-    <string name="navigation_drawer_open">Открыть панель навигации</string>
-    <string name="navigation_drawer_close">Закрыть панель навигации</string>
-    <string name="scanner_message">Сканирование …</string>
-    <string name="scanner_pause">Приостановить</string>
-    <string name="scanner_play">Воспроизвести</string>
+  -->
+
+<resources>
+    <string name="app_copyright">"Авторские права \u00A9 2015 \u002D "</string>
+
+    <string name="navigation_drawer_open">"Открыть панель навигации"</string>
+    <string name="navigation_drawer_close">"Закрыть панель навигации"</string>
+    <string name="scanner_message">"Сканирование &#8230;"</string>
+    <string name="scanner_pause">"Приостановить"</string>
+    <string name="scanner_play">"Воспроизвести"</string>
+
     <!-- action start -->
-    <string name="action_access_points">Точки доступа</string>
-    <string name="action_channel_rating">Оценка каналов</string>
-    <string name="action_channel_graph">График каналов</string>
-    <string name="action_time_graph">Временной график</string>
-    <string name="action_export">Экспорт</string>
-    <string name="action_channel_available">Доступные каналы</string>
-    <string name="action_vendors">Поставщики</string>
-    <string name="action_settings">Настройки</string>
-    <string name="action_about">О Программе</string>
+    <string name="action_access_points">"Точки доступа"</string>
+    <string name="action_channel_rating">"Оценка каналов"</string>
+    <string name="action_channel_graph">"График каналов"</string>
+    <string name="action_time_graph">"Временной график"</string>
+    <string name="action_export">"Экспорт"</string>
+    <string name="action_channel_available">"Доступные каналы"</string>
+    <string name="action_vendors">"Поставщики"</string>
+    <string name="action_settings">"Настройки"</string>
+    <string name="action_about">"О Программе"</string>
     <!-- action end -->
 
-    <string name="no_data">Нет данных</string>
-    <string name="no_data_msg">Пожалуйста, посетите часто задаваемые вопросы на нашем сайте.</string>
-    <string name="permission_msg">Начиная с Android Marshmallow, разрешения на размещение необходимы для выполнения сканирования Wi-Fi. Вам будет предложено включить службы определения местоположения / разрешения. Поскольку это приложение не требует доступа в Интернет, вы можете быть уверены, что это приложение не сможет передать ваше местоположение!</string>
-    <string name="location_msg">Приложение сможет получать сведения о вашем точном местоположении, только когда используется. Для этого на устройстве должна быть включена геолокация. Учтите, что при этом заряд батареи может расходоваться быстрее.</string>
-    <string name="throttling_msg">В Android 9 введено регулирование сканирования Wi-Fi. В Android 10 появилась новая опция разработчика, позволяющая отключить регулирование в (Настройки &gt; Параметры разработчика &gt; Сеть &gt; Регулирование сканирования Wi-Fi).</string>
-    <string name="export_not_available">Экспорт не доступен</string>
-    <string name="current_connection">Текущее соединение</string>
-    <string name="channel_rating_best">Лучшие каналы:</string>
-    <string name="channel_rating_best_none">Нет</string>
-    <string name="channel_rating_best_alternative">, попробуйте альтернативный Wi-Fi диапазон</string>
-    <string name="channel_rating_heading_rating">Оценка каналов</string>
-    <string name="channel_rating_heading_number">Номер канала</string>
-    <string name="channel_rating_heading_count">Число точек доступа</string>
-    <string name="channel_short_name">CH</string>
-    <string name="graph_channel_axis_x">Wi-Fi каналы</string>
-    <string name="graph_time_axis_x">Число сканирований</string>
-    <string name="graph_axis_y">Уровень сигнала (dBm)</string>
+    <string name="no_data">"Нет данных"</string>
+    <string name="no_data_msg">"Пожалуйста, посетите часто задаваемые вопросы на нашем сайте."</string>
+    <string name="permission_msg">"Начиная с Android Marshmallow, разрешения на размещение необходимы для выполнения сканирования Wi-Fi. Вам будет предложено включить службы определения местоположения / разрешения. Поскольку это приложение не требует доступа в Интернет, вы можете быть уверены, что это приложение не сможет передать ваше местоположение!"</string>
+    <string name="location_msg">"Приложение сможет получать сведения о вашем точном местоположении, только когда используется. Для этого на устройстве должна быть включена геолокация. Учтите, что при этом заряд батареи может расходоваться быстрее."</string>
+    <string name="throttling_msg">"В Android 9 введено регулирование сканирования Wi-Fi. В Android 10 появилась новая опция разработчика, позволяющая отключить регулирование в (Настройки > Параметры разработчика > Сеть > Регулирование сканирования Wi-Fi)."</string>
+    <string name="export_not_available">"Экспорт не доступен"</string>
+    <string name="current_connection">"Текущее соединение"</string>
+
+    <string name="channel_rating_best">"Лучшие каналы:"</string>
+    <string name="channel_rating_best_none">"Нет"</string>
+    <string name="channel_rating_best_alternative">", попробуйте альтернативный Wi-Fi диапазон"</string>
+    <string name="channel_rating_heading_rating">"Оценка каналов"</string>
+    <string name="channel_rating_heading_number">"Номер канала"</string>
+    <string name="channel_rating_heading_count">"Число точек доступа"</string>
+    <string name="channel_short_name">"CH"</string>
+
+    <string name="graph_channel_axis_x">"Wi-Fi каналы"</string>
+    <string name="graph_time_axis_x">"Число сканирований"</string>
+    <string name="graph_axis_y">"Уровень сигнала (dBm)"</string>
+
     <!-- settings start -->
-    <string name="country_code_title">Страна</string>
-    <string name="scan_speed_title">Интервал сканирования</string>
-    <string name="scan_speed_summary">%s секунд между каждым сканированием</string>
-    <string name="sort_by_title">Сортировка</string>
-    <string name="sort_by_signal_strength">Уровень сигнала</string>
-    <string name="sort_by_channel">Канал</string>
-    <string name="group_by_title">Группировка</string>
-    <string name="group_by_none">Нет</string>
-    <string name="group_by_channel">Канал</string>
-    <string name="group_by_virtual">Виртуально</string>
-    <string name="connection_view_title">Дисплей соединение</string>
-    <string name="connection_view_complete">Полный</string>
-    <string name="connection_view_compact">Компактный</string>
-    <string name="connection_view_hide">Скрыть</string>
-    <string name="ap_view_title">Точка доступа</string>
-    <string name="ap_view_complete">Полный</string>
-    <string name="ap_view_compact">Компактный</string>
-    <string name="graph_maximum_y_title">Максимальная сила сигнала графика</string>
-    <string name="channel_graph_legend_title">Показать легенду графика каналa</string>
-    <string name="time_graph_legend_title">Показать легенду графика времени</string>
-    <string name="graph_legend_left">Слева</string>
-    <string name="graph_legend_right">Справа</string>
-    <string name="graph_legend_hide">Скрыть</string>
-    <string name="theme_title">Цветовая тема</string>
-    <string name="theme_dark">Темная</string>
-    <string name="theme_light">Светлая</string>
-    <string name="theme_system">Система</string>
-    <string name="wifi_off_on_exit_title">Wi-Fi выключен при выходе</string>
-    <string name="keep_screen_on_title">Экран всегда включен</string>
-    <string name="language_title">Язык</string>
-    <string name="reset_title">Сброс</string>
+    <string name="country_code_title">"Страна"</string>
+
+    <string name="scan_speed_title">"Интервал сканирования"</string>
+    <string name="scan_speed_summary">"%s секунд между каждым сканированием"</string>
+
+    <string name="sort_by_title">"Сортировка"</string>
+    <string name="sort_by_signal_strength">"Уровень сигнала"</string>
+    <string name="sort_by_channel">"Канал"</string>
+
+    <string name="group_by_title">"Группировка"</string>
+    <string name="group_by_none">"Нет"</string>
+    <string name="group_by_channel">"Канал"</string>
+    <string name="group_by_virtual">"Виртуально"</string>
+
+    <string name="connection_view_title">"Дисплей соединение"</string>
+    <string name="connection_view_complete">"Полный"</string>
+    <string name="connection_view_compact">"Компактный"</string>
+    <string name="connection_view_hide">"Скрыть"</string>
+
+    <string name="ap_view_title">"Точка доступа"</string>
+    <string name="ap_view_complete">"Полный"</string>
+    <string name="ap_view_compact">"Компактный"</string>
+
+    <string name="graph_maximum_y_title">"Максимальная сила сигнала графика"</string>
+
+    <string name="channel_graph_legend_title">"Показать легенду графика каналa"</string>
+    <string name="time_graph_legend_title">"Показать легенду графика времени"</string>
+    <string name="graph_legend_left">"Слева"</string>
+    <string name="graph_legend_right">"Справа"</string>
+    <string name="graph_legend_hide">"Скрыть"</string>
+
+    <string name="theme_title">"Цветовая тема"</string>
+    <string name="theme_dark">"Темная"</string>
+    <string name="theme_light">"Светлая"</string>
+    <string name="theme_system">"Система"</string>
+
+    <string name="wifi_off_on_exit_title">"Wi-Fi выключен при выходе"</string>
+
+    <string name="keep_screen_on_title">"Экран всегда включен"</string>
+
+    <string name="language_title">"Язык"</string>
+
+    <string name="reset_title">"Сброс"</string>
     <!-- settings end -->
 
     <!-- about start -->
-    <string name="about_license_title">Лицензия:</string>
-    <string name="about_description_title">Описание:</string>
-    <string name="about_description_text">Оптимизация сети Wi-Fi путем проверки состояния Wi-Fi, уровня сигнала и определения переполненных каналов используя WiFiAnalyzer для Android</string>
-    <string name="about_libraries_title">Использованные библиотеки:</string>
-    <string name="about_contributor_title">Авторы</string>
-    <string name="about_write_review">Написать отзыв</string>
+    <string name="about_license_title">"Лицензия:"</string>
+    <string name="about_description_title">"Описание:"</string>
+    <string name="about_description_text">"Оптимизация сети Wi-Fi путем проверки состояния Wi-Fi, уровня сигнала и определения переполненных каналов используя WiFiAnalyzer для Android"</string>
+    <string name="about_libraries_title">"Использованные библиотеки:"</string>
+    <string name="about_contributor_title">"Авторы"</string>
+    <string name="about_write_review">"Написать отзыв"</string>
     <!-- about end -->
 
     <!-- security start -->
-    <string name="security_none">Нет</string>
+    <string name="security_none">"Нет"</string>
     <!-- security end -->
 
     <!-- filter start -->
-    <string name="filter_title">Фильтр</string>
-    <string name="filter_close">Закрыть</string>
-    <string name="filter_reset">Сброс</string>
-    <string name="filter_apply">Применить</string>
-    <string name="filter_ssid_title">SSID (чувствительно к регистру символов)</string>
-    <string name="filter_wifi_band_title">Wi-Fi диапазон</string>
-    <string name="filter_strength_title">Уровень сигнала</string>
-    <string name="filter_security_title">Безопасность</string>
+    <string name="filter_title">"Фильтр"</string>
+    <string name="filter_close">"Закрыть"</string>
+    <string name="filter_reset">"Сброс"</string>
+    <string name="filter_apply">"Применить"</string>
+    <string name="filter_ssid_title">"SSID (чувствительно к регистру символов)"</string>
+    <string name="filter_wifi_band_title">"Wi-Fi диапазон"</string>
+    <string name="filter_strength_title">"Уровень сигнала"</string>
+    <string name="filter_security_title">"Безопасность"</string>
     <!-- filter end -->
 
     <!-- wifi throttling start -->
-    <string name="wifi_throttling_on">Регулирование сканирования Wi-Fi включено</string>
-    <string name="wifi_throttling_off">Регулирование сканирования Wi-Fi отключено</string>
+    <string name="wifi_throttling_on">"Регулирование сканирования Wi-Fi включено"</string>
+    <string name="wifi_throttling_off">"Регулирование сканирования Wi-Fi отключено"</string>
+    <!-- wifi throttling end -->
 </resources>
