@@ -27,10 +27,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.vrem.util.buildVersionP
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.databinding.GraphContentBinding
+import com.vrem.wifianalyzer.wifi.band.WiFiBand
+import com.vrem.wifianalyzer.wifi.graphutils.GraphAdapter
 
 class ChannelGraphFragment : Fragment(), OnRefreshListener {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    lateinit var channelGraphAdapter: ChannelGraphAdapter
+    lateinit var graphAdapter: GraphAdapter
         private set
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -41,8 +43,9 @@ class ChannelGraphFragment : Fragment(), OnRefreshListener {
             swipeRefreshLayout.isRefreshing = false
             swipeRefreshLayout.isEnabled = false
         }
-        channelGraphAdapter = ChannelGraphAdapter()
-        channelGraphAdapter.graphViews().forEach { binding.graphFlipper.addView(it) }
+        val graphViews = WiFiBand.entries.map { wiFiBand -> ChannelGraphView(wiFiBand) }
+        graphAdapter = GraphAdapter(graphViews)
+        graphAdapter.graphViews().forEach { binding.graphFlipper.addView(it) }
         return binding.root
     }
 
@@ -54,12 +57,12 @@ class ChannelGraphFragment : Fragment(), OnRefreshListener {
 
     override fun onResume() {
         super.onResume()
-        MainContext.INSTANCE.scannerService.register(channelGraphAdapter)
+        MainContext.INSTANCE.scannerService.register(graphAdapter)
         onRefresh()
     }
 
     override fun onPause() {
-        MainContext.INSTANCE.scannerService.unregister(channelGraphAdapter)
+        MainContext.INSTANCE.scannerService.unregister(graphAdapter)
         super.onPause()
     }
 

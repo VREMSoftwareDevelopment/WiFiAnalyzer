@@ -50,7 +50,7 @@ class ChannelGraphFragmentTest {
         // validate
         assertThat(fixture).isNotNull()
         verify(scanner).update()
-        verify(scanner).register(fixture.channelGraphAdapter)
+        verify(scanner).register(fixture.graphAdapter)
     }
 
     @Test
@@ -70,7 +70,7 @@ class ChannelGraphFragmentTest {
         fixture.onResume()
         // validate
         verify(scanner, times(2)).update()
-        verify(scanner, times(2)).register(fixture.channelGraphAdapter)
+        verify(scanner, times(2)).register(fixture.graphAdapter)
     }
 
     @Test
@@ -80,7 +80,7 @@ class ChannelGraphFragmentTest {
         // execute
         fixture.onPause()
         // validate
-        verify(scanner).unregister(fixture.channelGraphAdapter)
+        verify(scanner).unregister(fixture.graphAdapter)
     }
 
     @Config(sdk = [Build.VERSION_CODES.P])

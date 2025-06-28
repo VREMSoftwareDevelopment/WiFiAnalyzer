@@ -62,7 +62,7 @@ class WiFiChannels(
 
     private fun wiFiChannel(frequency: Int): WiFiChannel {
         val firstChannel = (channelRange.first.channel + if (channelRange.first.channel < 0) -0.5 else 0.5).toInt()
-        val channel = ((frequency - channelRange.first.frequency) / FREQUENCY_SPREAD + firstChannel).toInt()
+        val channel = (frequency - channelRange.first.frequency) / FREQUENCY_SPREAD + firstChannel
         return WiFiChannel(channel, frequency)
     }
 
