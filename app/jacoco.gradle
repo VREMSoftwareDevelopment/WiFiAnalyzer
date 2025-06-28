@@ -31,7 +31,8 @@ def fileFilter = [
         '**/*Test*.*',
         'android/**/*.*',
         '**/com/jjoe64/*',
-        '**/com/vrem/wifianalyzer/settings/SharedPreferences*'
+        '**/com/vrem/wifianalyzer/settings/SharedPreferences*',
+        '**/*$DefaultImpls.class'
 ]
 
 def classJavaDir = project.file("build/intermediates/javac/debug/compileDebugJavaWithJavac/classes")
