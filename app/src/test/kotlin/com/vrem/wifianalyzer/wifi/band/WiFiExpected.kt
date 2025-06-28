@@ -69,7 +69,7 @@ private val expectedChannelExcludeGHZ5: List<Map<String, List<Int>>> =
             "JP" to (96..128).toList() + (149..177).toList(),
             "IN" to listOf(177),
             "SG" to (169..177).toList(),
-            "CH" to (96..144).toList() + (169..177).toList(),
+            "CN" to (96..144).toList() + (169..177).toList(),
             "IL" to listOf(177),
             "KR" to (169..177).toList(),
             "TR" to listOf(144) + (149..177).toList(),
