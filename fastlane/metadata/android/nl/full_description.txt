@@ -1,1 +1,17 @@
 Optimaliseer uw Wifi netwerk door het controleren van de Wifi netwerkstatus, signaalsterkte en het indentificeren van drukke kanalen met gebruik van een open-source WiFiAnalyzer voor Android.
+
+Functies:
+
+*   Identificeer nabijgelegen Access Points
+*   Grafiek van de signaalsterkte van kanalen
+*   Grafiek van de signaalsterkte van een Access Point over tijd
+*   Analyseer wifi-netwerken om kanalen te beoordelen
+*   HT/VHT-detectie - 40/80/160/320 MHz (Vereist hardware-/softwareondersteuning)
+*   2,4 GHz, 5 GHz en 6 GHz wifi-banden (Vereist hardware-/softwareondersteuning)
+*   Volledige of compacte weergave van Access Points
+*   Geschatte afstand tot de Access Points
+*   Exporteer details van Access Points
+*   Donker, licht en systeemthema beschikbaar
+*   Pauzeer/hervat scannen
+*   Beschikbare filters: wifi-band, signaalsterkte, beveiliging en SSID
+*   Opzoeken in de database van leveranciers/OUI

@@ -1,1 +1,19 @@
 Optimisez vos réseaux Wi-Fi, en vérifiant l\'état du réseau, la force du signal et en identifiant les canaux surchargés grâce à WiFiAnalyzer pour Android.
+
+
+Fonctionnalités :
+
+* Identifier les points d'accès à proximité
+* Graphique de la force du signal des canaux
+* Graphique de la force du signal du point d'accès dans le temps
+* Analyser les réseaux Wi-Fi pour évaluer les canaux
+* Détection HT/VHT - 40/80/160/320 MHz (Nécessite Android OS 6+)
+* Bandes Wi-Fi 2,4 GHz, 5 GHz et 6 GHz (Nécessite un support matériel)
+* Vue des points d'accès complète ou compacte
+* Distance estimée aux points d'accès
+* Exporter les détails des points d'accès
+* Thèmes Sombre, Clair et Système disponibles
+* Mettre en pause/Reprendre l'analyse
+* Filtres disponibles : bande Wi-Fi, force du signal, sécurité et SSID
+* Recherche dans la base de données des vendeurs/OUI
+* L'application a trop de fonctionnalités pour toutes les mentionner
