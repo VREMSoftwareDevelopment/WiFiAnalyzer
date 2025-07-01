@@ -12,7 +12,7 @@ This is the official repository of WiFiAnalyzer.
 ## Table of Contents
 
 - [Features](#features)
-- [Usage Tips](#usage-tips)
+- [Documentation](#documentation)
 - [How-to](#how-to)
 - [FAQ](#faq)
 - [Feedback](#feedback)
@@ -41,19 +41,9 @@ This is the official repository of WiFiAnalyzer.
 
 **Please note WiFiAnalyzer is not a Wi-Fi password cracking or phishing tool.**
 
-## Usage Tips
+## Documentation
 
-* Tap the title bar to switch between 2.4, 5 and 6 GHz Wi-Fi band.
-* SSID with `***` or `*hidden*` means it is hidden.
-* Access Point security:
-    * <img src="images/ic_lock_black_18dp.png" alt="WPA2/WPA" height="20">WPA3(SAE)/WPA2/WPA
-    * <img src="images/ic_lock_outline_black_18dp.png" alt="WEP/WPS" height="20">WEP/WPS
-    * <img src="images/ic_lock_open_black_18dp.png" alt="Disabled" height="20">Disabled
-* Wi-Fi Standard (Requires Android OS 11+):
-    * 4 - <img src="images/ic_wifi_4.png" alt="4" height="20"> - 802.11n
-    * 5 - <img src="images/ic_wifi_5.png" alt="5" height="20"> - 802.11ac
-    * 6 - <img src="images/ic_wifi_6.png" alt="6" height="20"> - 802.11ax
-    * 7 - <img src="images/ic_wifi_7.png" alt="7" height="20"> - 802.11be
+The complete guide to using WiFiAnalyzer can be found in the [User Manual](USER_MANUAL.md). For quick access to specific topics, see:
 
 ## How-to
 
@@ -125,16 +115,11 @@ WiFiAnalyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 
 ## Contribute
 
-* Feel free to fork the project and submit your changes.
-* To learn how to submit a pull request [click here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Pull-Request).
+* Want to contribute? Check out our [CONTRIBUTING.md](CONTRIBUTING.md) to see how you can help.
 * We want to express our gratitude to all [people](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/graphs/contributors) for their contributions, such as: patches, bug solving, updates and etc.
 * If you would like to contribute financially to the project please feel free to send any amount through paypal.
     * [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=62PA6HJ3BZL3E)
     * Thanks to every one who already donated so far!
-
-### Fork project
-
-[How to fork project](https://help.github.com/articles/fork-a-repo)
 
 ### Build project
 

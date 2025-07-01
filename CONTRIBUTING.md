@@ -20,8 +20,8 @@
 
 # Submit a pull request
 
+- First, [fork the repository](https://help.github.com/articles/fork-a-repo).
 - When starting to work on a feature or bug that has been reported, please add a comment to it that you are working on it.
-- Fork the repository
 - To close a feature or a bug automatically, once pull request has been merged, please mention it in the [commit comment](https://help.github.com/articles/closing-issues-via-commit-messages/) or [pull request text](https://github.com/blog/1506-closing-issues-via-pull-requests).
 - Please avoid if possible large change sets.
 - Please do not forget to add unit tests.
