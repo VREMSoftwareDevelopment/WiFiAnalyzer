@@ -230,13 +230,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="@string/about_usage_tips" />
+                android:text="@string/about_documentation" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoLink="web"
-                android:text="@string/about_usage_tips_url" />
+                android:text="@string/about_documentation_url" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -91,7 +91,7 @@
     <string name="experimental_title" translatable="false">"Experimental"</string>
     <string name="experimental_key" translatable="false">"experimental_key"</string>
 
-    <string name="sort_by_title">"Sort Access Points By"</string>
+    <string name="sort_by_title" translatable="false">"Sort Access Points By"</string>
     <string name="sort_by_summary" translatable="false">"%s"</string>
     <string name="sort_by_key" translatable="false">"sort_by"</string>
     <string name="sort_by_default" translatable="false">"0"</string>
@@ -99,7 +99,7 @@
     <string name="sort_by_ssid" translatable="false">"SSID"</string>
     <string name="sort_by_channel">"Channel"</string>
 
-    <string name="group_by_title">"Group Access Points By"</string>
+    <string name="group_by_title" translatable="false">"Group Access Points By"</string>
     <string name="group_by_summary" translatable="false">"%s"</string>
     <string name="group_by_key" translatable="false">"group_by"</string>
     <string name="group_by_default" translatable="false">"0"</string>
@@ -108,7 +108,7 @@
     <string name="group_by_channel">"Channel"</string>
     <string name="group_by_virtual">"Virtual"</string>
 
-    <string name="connection_view_title">"Connection Display"</string>
+    <string name="connection_view_title" translatable="false">"Connection Display"</string>
     <string name="connection_view_summary" translatable="false">"%s"</string>
     <string name="connection_view_key" translatable="false">"connection"</string>
     <string name="connection_view_default" translatable="false">"1"</string>
@@ -116,24 +116,24 @@
     <string name="connection_view_compact">"Compact"</string>
     <string name="connection_view_hide">"Hide"</string>
 
-    <string name="ap_view_title">"Access Point Display"</string>
+    <string name="ap_view_title" translatable="false">"Access Point Display"</string>
     <string name="ap_view_summary" translatable="false">"%s"</string>
     <string name="ap_view_key" translatable="false">"view"</string>
     <string name="ap_view_default" translatable="false">"0"</string>
     <string name="ap_view_complete">"Complete"</string>
     <string name="ap_view_compact">"Compact"</string>
 
-    <string name="graph_maximum_y_title">"Graph Maximum Signal Strength"</string>
+    <string name="graph_maximum_y_title" translatable="false">"Graph Maximum Signal Strength"</string>
     <string name="graph_maximum_y_summary" translatable="false">"%s"</string>
     <string name="graph_maximum_y_key" translatable="false">"graph_maximum_y"</string>
     <string name="graph_maximum_y_default" translatable="false">"2"</string>
 
-    <string name="channel_graph_legend_title">"Channel Graph Legend Display"</string>
+    <string name="channel_graph_legend_title" translatable="false">"Channel Graph Legend Display"</string>
     <string name="channel_graph_legend_summary" translatable="false">"%s"</string>
     <string name="channel_graph_legend_key" translatable="false">"channel_graph_legend"</string>
     <string name="channel_graph_legend_default" translatable="false">"2"</string>
 
-    <string name="time_graph_legend_title">"Time Graph Legend Display"</string>
+    <string name="time_graph_legend_title" translatable="false">"Time Graph Legend Display"</string>
     <string name="time_graph_legend_summary" translatable="false">"%s"</string>
     <string name="time_graph_legend_key" translatable="false">"time_graph_legend"</string>
     <string name="time_graph_legend_default" translatable="false">"0"</string>
@@ -175,13 +175,13 @@
     <string name="about_library_graph_view_url" translatable="false">"http://www.android-graphview.org"</string>
     <string name="about_library_material" translatable="false">"Material Design Icons"</string>
     <string name="about_library_material_url" translatable="false">"https://design.google.com/icons"</string>
-    <string name="about_usage_tips" translatable="false">"Usage Tips:"</string>
-    <string name="about_usage_tips_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#usage-tips"</string>
-    <string name="about_how_to" translatable="false">"How-to:"</string>
+    <string name="about_documentation">"Documentation:"</string>
+    <string name="about_documentation_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#documentation"</string>
+    <string name="about_how_to">"How-to:"</string>
     <string name="about_how_to_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#how-to"</string>
-    <string name="about_faq" translatable="false">"FAQ:"</string>
+    <string name="about_faq">"FAQ:"</string>
     <string name="about_faq_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq"</string>
-    <string name="about_privacy_policy" translatable="false">"Privacy Policy:"</string>
+    <string name="about_privacy_policy">"Privacy Policy:"</string>
     <string name="about_privacy_policy_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#privacy-policy"</string>
     <string name="about_contributor_title">"Contributors"</string>
     <string name="about_write_review">"Write a Review"</string>
@@ -255,7 +255,7 @@
     <string name="filter_close">"Close"</string>
     <string name="filter_reset">"Reset"</string>
     <string name="filter_apply">"Apply"</string>
-    <string name="filter_ssid_title" translatable="true">"SSID (case sensitive)"</string>
+    <string name="filter_ssid_title">"SSID (case sensitive)"</string>
     <string name="filter_ssid_key" translatable="false">"filter_ssid"</string>
     <string name="filter_ssid_hint" translatable="false">"ssid SSID"</string>
     <string name="filter_wifi_band_title">"Wi-Fi Band"</string>
