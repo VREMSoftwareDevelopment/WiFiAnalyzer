@@ -15,17 +15,13 @@
   ~
   ~ You should have received a copy of the GNU General Public License
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
-  -->
-
-<resources>
+  --><resources>
     <string name="app_copyright">"版权所有 \u00A9 2015 \u002D"</string>
-
     <string name="navigation_drawer_open">"打开导航抽屉"</string>
     <string name="navigation_drawer_close">"关闭导航抽屉"</string>
-    <string name="scanner_message">"正在扫描 &#8230;"</string>
+    <string name="scanner_message">"正在扫描 …"</string>
     <string name="scanner_pause">"暂停"</string>
-    <string name="scanner_play">"继续"</string>
-
+    <string name="scanner_play">恢复</string>
     <!-- action start -->
     <string name="action_access_points">"接入点"</string>
     <string name="action_channel_rating">"信道评级"</string>
@@ -42,10 +38,9 @@
     <string name="no_data_msg">"请访问我们网站上的“常见问题”部分。"</string>
     <string name="permission_msg">"从 Android 棉花糖版本开始，执行 WLAN 扫描需要位置权限。 系统将提示您启用位置服务/权限。 由于此应用并不需要联网权限，你可以确信此应用不会泄露你的位置！"</string>
     <string name="location_msg">"当您使用此应用时，此应用可以通过位置信息服务获取您的确切位置信息。您必须开启设备的位置信息服务，此应用才能获取位置信息。这可能会增加耗电量。"</string>
-    <string name="throttling_msg">"Android 9 引入了 Wi-Fi 扫描限制。 Android 10 有一个新的开发人员选项，可在（设置 > 开发人员选项 > 网络 > Wi-Fi 扫描限制）下关闭限制。"</string>
+    <string name="throttling_msg">"Android 9 引入了 Wi-Fi 扫描限制。 Android 10 有一个新的开发人员选项，可在（设置 &gt; 开发人员选项 &gt; 网络 &gt; Wi-Fi 扫描限制）下关闭限制。"</string>
     <string name="export_not_available">"无可用的导出"</string>
     <string name="current_connection">"目前连接"</string>
-
     <string name="channel_rating_best">"最佳信道："</string>
     <string name="channel_rating_best_none">"无"</string>
     <string name="channel_rating_best_alternative">"%s, 尝试其他 Wi-Fi 频段 %s"</string>
@@ -53,54 +48,40 @@
     <string name="channel_rating_heading_number">"信道编号"</string>
     <string name="channel_rating_heading_count">"接入点数量"</string>
     <string name="channel_short_name">"信道"</string>
-
     <string name="graph_channel_axis_x">"Wi-Fi 信道"</string>
     <string name="graph_time_axis_x">"扫描次数"</string>
     <string name="graph_axis_y">"信号强度 (dBm)"</string>
-
     <!-- settings start -->
-    <string name="country_code_title">"国家 (或地区)"</string>
-
+    <string name="country_code_title">国家/地区</string>
     <string name="scan_speed_title">"扫描间隔"</string>
-    <string name="scan_speed_summary">"%s 秒"</string>
-
+    <string name="scan_speed_summary">每次扫描间隔 %s 秒</string>
     <string name="sort_by_title">"接入点排序依据"</string>
     <string name="sort_by_signal_strength">"信号强度"</string>
     <string name="sort_by_channel">"信道"</string>
-
     <string name="group_by_title">"接入点分组依据"</string>
     <string name="group_by_none">"无"</string>
     <string name="group_by_channel">"信道"</string>
     <string name="group_by_virtual">"虚拟"</string>
-
     <string name="connection_view_title">"连接展示"</string>
     <string name="connection_view_complete">"完整"</string>
     <string name="connection_view_compact">"紧凑"</string>
     <string name="connection_view_hide">"隐藏"</string>
-
     <string name="ap_view_title">"接入点展示"</string>
     <string name="ap_view_complete">"完整"</string>
     <string name="ap_view_compact">"紧凑"</string>
-
     <string name="graph_maximum_y_title">"图形最大信号强度"</string>
-
     <string name="channel_graph_legend_title">"信道图例显示位置"</string>
     <string name="time_graph_legend_title">"时间图例显示位置"</string>
     <string name="graph_legend_left">"左"</string>
     <string name="graph_legend_right">"右"</string>
     <string name="graph_legend_hide">"隐藏"</string>
-
     <string name="theme_title">"主题"</string>
     <string name="theme_dark">"深色"</string>
     <string name="theme_light">"浅色"</string>
     <string name="theme_system">"跟随系统"</string>
-
     <string name="wifi_off_on_exit_title">"退出时关闭 Wi-Fi"</string>
-
     <string name="keep_screen_on_title">"保持屏幕常亮"</string>
-
     <string name="language_title">"语言"</string>
-
     <string name="reset_title">"重置"</string>
     <!-- settings end -->
 
@@ -108,7 +89,7 @@
     <string name="about_license_title">"许可证："</string>
     <string name="about_description_title">"描述："</string>
     <string name="about_description_text">"使用适用于Android的开源应用 WiFiAnalyzer，通过检查 WLAN 网络状态，信号强度和识别拥挤的频道来优化您的 WLAN 网络"</string>
-    <string name="about_libraries_title">"使用的库"</string>
+    <string name="about_libraries_title">使用的库：</string>
     <string name="about_contributor_title">"贡献者"</string>
     <string name="about_write_review">"写一条评论"</string>
     <!-- about end -->
@@ -122,7 +103,7 @@
     <string name="filter_close">"关闭"</string>
     <string name="filter_reset">"重置"</string>
     <string name="filter_apply">"应用"</string>
-    <string name="filter_ssid_title">"SSID (区分大小写)"</string>
+    <string name="filter_ssid_title">SSID（区分大小写）</string>
     <string name="filter_wifi_band_title">"Wi-Fi 频段"</string>
     <string name="filter_strength_title">"信号强度"</string>
     <string name="filter_security_title">"安全性"</string>
@@ -132,4 +113,8 @@
     <string name="wifi_throttling_on">"Wi-Fi 扫描限制已启用"</string>
     <string name="wifi_throttling_off">"Wi-Fi 扫描限制已禁用"</string>
     <!-- wifi throttling end -->
+<string name="about_documentation">文档：</string>
+    <string name="about_how_to">如何操作：</string>
+    <string name="about_faq">常见问题：</string>
+    <string name="about_privacy_policy">隐私政策：</string>
 </resources>
