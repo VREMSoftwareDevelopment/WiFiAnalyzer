@@ -24,7 +24,7 @@
     <string name="navigation_drawer_close">"关闭导航抽屉"</string>
     <string name="scanner_message">"正在扫描 &#8230;"</string>
     <string name="scanner_pause">"暂停"</string>
-    <string name="scanner_play">恢复</string>
+    <string name="scanner_play">"恢复"</string>
 
     <!-- action start -->
     <string name="action_access_points">"接入点"</string>
@@ -59,7 +59,7 @@
     <string name="graph_axis_y">"信号强度 (dBm)"</string>
 
     <!-- settings start -->
-    <string name="country_code_title">国家/地区</string>
+    <string name="country_code_title">"国家/地区"</string>
 
     <string name="scan_speed_title">"扫描间隔"</string>
     <string name="scan_speed_summary">每次扫描间隔 %s 秒</string>
