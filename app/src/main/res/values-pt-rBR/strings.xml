@@ -109,6 +109,10 @@
     <string name="about_description_title">"Descrição:"</string>
     <string name="about_description_text">"Otimize sua rede Wi-Fi ao conferir o estado da rede, a força do sinal, e ao identificar canais congestionados usando o WiFiAnalyzer para Android que é de código aberto"</string>
     <string name="about_libraries_title">"Bibliotecas utilizadas:"</string>
+    <string name="about_documentation">"Documentação:"</string>
+    <string name="about_how_to">"Tutorial:"</string>
+    <string name="about_faq">"Perguntas frequentes:"</string>
+    <string name="about_privacy_policy">"Política de Privacidade:"</string>
     <string name="about_contributor_title">"Colaboradores"</string>
     <string name="about_write_review">"Escrever uma avaliação"</string>
     <!-- about end -->

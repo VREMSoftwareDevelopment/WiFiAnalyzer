@@ -24,7 +24,7 @@
     <string name="navigation_drawer_close">"关闭导航抽屉"</string>
     <string name="scanner_message">"正在扫描 &#8230;"</string>
     <string name="scanner_pause">"暂停"</string>
-    <string name="scanner_play">"继续"</string>
+    <string name="scanner_play">"恢复"</string>
 
     <!-- action start -->
     <string name="action_access_points">"接入点"</string>
@@ -59,10 +59,10 @@
     <string name="graph_axis_y">"信号强度 (dBm)"</string>
 
     <!-- settings start -->
-    <string name="country_code_title">"国家 (或地区)"</string>
+    <string name="country_code_title">"国家/地区"</string>
 
     <string name="scan_speed_title">"扫描间隔"</string>
-    <string name="scan_speed_summary">"%s 秒"</string>
+    <string name="scan_speed_summary">每次扫描间隔 %s 秒</string>
 
     <string name="sort_by_title">"接入点排序依据"</string>
     <string name="sort_by_signal_strength">"信号强度"</string>
@@ -107,8 +107,12 @@
     <!-- about start -->
     <string name="about_license_title">"许可证："</string>
     <string name="about_description_title">"描述："</string>
-    <string name="about_description_text">"使用适用于Android的开源应用 WiFiAnalyzer，通过检查 WLAN 网络状态，信号强度和识别拥挤的频道来优化您的 WLAN 网络"</string>
-    <string name="about_libraries_title">"使用的库"</string>
+    <string name="about_description_text">"使用 WiFiAnalyzer 检查 Wi-Fi 网络状态、信号强度以及识别拥挤信道，从而优化您的 Wi-Fi 网络。"</string>
+    <string name="about_libraries_title">"使用的库："</string>
+    <string name="about_documentation">"文档："</string>
+    <string name="about_how_to">"如何操作："</string>
+    <string name="about_faq">"常见问题："</string>
+    <string name="about_privacy_policy">"隐私政策："</string>
     <string name="about_contributor_title">"贡献者"</string>
     <string name="about_write_review">"写一条评论"</string>
     <!-- about end -->
