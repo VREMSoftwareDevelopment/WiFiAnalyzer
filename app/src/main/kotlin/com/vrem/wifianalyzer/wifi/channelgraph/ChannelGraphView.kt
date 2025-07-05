@@ -43,7 +43,7 @@ internal fun makeGraphView(
         .setLabelFormatter(ChannelAxisLabel(wiFiBand))
         .setVerticalTitle(resources.getString(R.string.graph_axis_y))
         .setHorizontalTitle(resources.getString(R.string.graph_channel_axis_x))
-        .build(mainContext.context)
+        .build(mainContext.context, !wiFiBand.ghz2)
 }
 
 internal fun makeDefaultSeries(frequencyStart: Int, frequencyEnd: Int): TitleLineGraphSeries<GraphDataPoint> {

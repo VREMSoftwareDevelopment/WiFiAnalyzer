@@ -39,7 +39,7 @@ internal fun makeGraphView(mainContext: MainContext, graphMaximumY: Int, themeSt
         .setLabelFormatter(TimeAxisLabel())
         .setVerticalTitle(mainContext.resources.getString(R.string.graph_axis_y))
         .setHorizontalTitle(mainContext.resources.getString(R.string.graph_time_axis_x))
-        .build(mainContext.context)
+        .build(mainContext.context, false)
 
 internal fun makeGraphViewWrapper(): GraphViewWrapper {
     val settings = MainContext.INSTANCE.settings

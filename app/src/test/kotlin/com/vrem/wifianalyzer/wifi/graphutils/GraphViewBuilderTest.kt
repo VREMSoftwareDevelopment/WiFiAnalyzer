@@ -60,14 +60,17 @@ class GraphViewBuilderTest {
     fun viewPortInitialize() {
         // setup
         val maximumY = 20
+        val scalable = true
         // execute
-        viewport.initialize(maximumY)
+        viewport.initialize(maximumY, scalable)
         // validate
         verify(viewport).isScrollable = true
+        verify(viewport).isScalable = scalable
+        verify(viewport).setScalableY(false)
+        verify(viewport).isXAxisBoundsManual = true
         verify(viewport).isYAxisBoundsManual = true
         verify(viewport).setMinY(MIN_Y.toDouble())
         verify(viewport).setMaxY(maximumY.toDouble())
-        verify(viewport).isXAxisBoundsManual = true
     }
 
     @Test

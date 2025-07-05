@@ -34,12 +34,14 @@ internal fun GraphView.layout(layoutParams: ViewGroup.LayoutParams): GraphView {
     return this
 }
 
-internal fun Viewport.initialize(maximumY: Int): Viewport {
+internal fun Viewport.initialize(maximumY: Int, scalable: Boolean): Viewport {
     this.isScrollable = true
+    this.isScalable = scalable
+    this.setScalableY(false)
+    this.isXAxisBoundsManual = true
     this.isYAxisBoundsManual = true
     this.setMinY(MIN_Y.toDouble())
     this.setMaxY(maximumY.toDouble())
-    this.isXAxisBoundsManual = true
     return this
 }
 
@@ -116,14 +118,14 @@ class GraphViewBuilder(
         return this
     }
 
-    fun build(context: Context): GraphView =
+    fun build(context: Context, scalable: Boolean): GraphView =
         GraphView(context)
             .layout(layoutParams)
             .gridLabelInitialize()
-            .viewportInitialize()
+            .viewportInitialize(scalable)
 
-    private fun GraphView.viewportInitialize(): GraphView {
-        this.viewport.initialize(maximumY)
+    private fun GraphView.viewportInitialize(scalable: Boolean): GraphView {
+        this.viewport.initialize(maximumY, scalable)
         return this
     }
 
