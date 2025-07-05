@@ -107,7 +107,7 @@
     <!-- about start -->
     <string name="about_license_title">"许可证："</string>
     <string name="about_description_title">"描述："</string>
-    <string name="about_description_text">"使用适用于Android的开源应用 WiFiAnalyzer，通过检查 WLAN 网络状态，信号强度和识别拥挤的频道来优化您的 WLAN 网络"</string>
+    <string name="about_description_text">"使用 WiFiAnalyzer 检查 Wi-Fi 网络状态、信号强度以及识别拥挤信道，从而优化您的 Wi-Fi 网络。"</string>
     <string name="about_libraries_title">"使用的库："</string>
     <string name="about_documentation">"文档："</string>
     <string name="about_how_to">"如何操作："</string>
