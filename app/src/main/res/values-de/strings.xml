@@ -42,7 +42,7 @@
     <string name="no_data_msg">"Bitte besuchen Sie den Abschnitt zu häufig gestellten Fragen auf unserer Website."</string>
     <string name="permission_msg">"In Android Marshmallow ist es erforderlich, die Standortdienste zu aktivieren, um WLAN-Scans durchzuführen. Sie werden aufgefordert, die Standortdienste-Berechtigung zu erteilen. Da diese App keine Internetverbindung benötigt, können Sie sicher sein, dass die App Ihren Standort nicht übermitteln kann!"</string>
     <string name="location_msg">"Wenn diese App verwendet wird, kann sie über die Standortdienste deinen genauen Standort ermitteln. Damit das funktioniert, müssen die Standortdienste auf deinem Gerät aktiviert sein. Das kann den Akkuverbrauch erhöhen."</string>
-    <string name="throttling_msg">"Android 9 führte die Drosselung des WLan-Scans ein. Android 10 verfügt über eine neue Entwickleroption, mit der Sie die Drosselung unter (Einstellungen > Entwickleroptionen > Netzwerk > Drosselung des WLan-Scans) deaktivieren können."</string>
+    <string name="throttling_msg">"Android 9 führte die Drosselung des WLan-Scans ein. Android 10 verfügt über eine neue Entwickleroption, mit der Sie die Drosselung unter (Einstellungen - Entwickleroptionen - Netzwerk - Drosselung des WLan-Scans) deaktivieren können."</string>
     <string name="export_not_available">"Export nicht verfügbar"</string>
     <string name="current_connection">"Aktuelle Verbindung"</string>
 

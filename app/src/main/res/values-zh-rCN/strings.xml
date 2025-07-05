@@ -42,7 +42,7 @@
     <string name="no_data_msg">"请访问我们网站上的“常见问题”部分。"</string>
     <string name="permission_msg">"从 Android 棉花糖版本开始，执行 WLAN 扫描需要位置权限。 系统将提示您启用位置服务/权限。 由于此应用并不需要联网权限，你可以确信此应用不会泄露你的位置！"</string>
     <string name="location_msg">"当您使用此应用时，此应用可以通过位置信息服务获取您的确切位置信息。您必须开启设备的位置信息服务，此应用才能获取位置信息。这可能会增加耗电量。"</string>
-    <string name="throttling_msg">"Android 9 引入了 Wi-Fi 扫描限制。 Android 10 有一个新的开发人员选项，可在（设置 > 开发人员选项 > 网络 > Wi-Fi 扫描限制）下关闭限制。"</string>
+    <string name="throttling_msg">"Android 9 引入了 Wi-Fi 扫描限制。 Android 10 有一个新的开发人员选项，可在（设置 - 开发人员选项 - 网络 - Wi-Fi 扫描限制）下关闭限制。"</string>
     <string name="export_not_available">"无可用的导出"</string>
     <string name="current_connection">"目前连接"</string>
 

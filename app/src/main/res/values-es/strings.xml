@@ -42,7 +42,7 @@
     <string name="no_data_msg">"Por favor, visite frecuentemente preguntas sección en nuestro sitio web."</string>
     <string name="permission_msg">"A partir de Android Marshmallow, se requieren permisos de ubicación para realizar un escaneo Wi-Fi. Se le pedirá que habilite los servicios / permisos de ubicación. Como esta aplicación no requiere acceso a Internet, puede estar seguro de que esta aplicación no puede transmitir su ubicación!"</string>
     <string name="location_msg">"Mientras la utilizas, esta aplicación puede obtener tu ubicación exacta mediante servicios de ubicación, siempre que el dispositivo los tenga activados. Es posible que esto aumente el consumo de batería."</string>
-    <string name="throttling_msg">"Android 9 introdujo la limitación de escaneo de Wi-Fi. Android 10 tiene una nueva opción de desarrollador para desactivar la aceleración en (Configuración > Opciones de desarrollador > Redes > Aceleración de escaneo de Wi-Fi)."</string>
+    <string name="throttling_msg">"Android 9 introdujo la limitación de escaneo de Wi-Fi. Android 10 tiene una nueva opción de desarrollador para desactivar la aceleración en (Configuración - Opciones de desarrollador - Redes - Aceleración de escaneo de Wi-Fi)."</string>
     <string name="export_not_available">"Exportación no disponible"</string>
     <string name="current_connection">"Conexión actual"</string>
 
