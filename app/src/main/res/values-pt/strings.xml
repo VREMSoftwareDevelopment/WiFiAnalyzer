@@ -42,7 +42,7 @@
     <string name="no_data_msg">"Por favor visite a secção de perguntas frequentes no nosso site."</string>
     <string name="permission_msg">"Desde o Android Marshmallow, as permissões de localização são necessárias para executar uma procura de Wi-Fi. Receberá uma solicitação para ativar as permissões/serviços de localização. Como essa app não tem acesso à internet, pode ter certeza que não pode transmitir a sua localização!"</string>
     <string name="location_msg">"Essa app pode obter seu local exato dos serviços de localização enquanto está em uso. Os serviços de localização do seu aparelho devem estar ativados para obter uma localização. Isso pode aumentar o uso da bateria."</string>
-    <string name="throttling_msg">"O Android 9 introduziu uma limitação na procura de Wi-Fi. O Android 10 tem uma opção de programador nova para habilitar a limitação em (Definições -> Opções de programador -> Controlo da procura de Wi-Fi)."</string>
+    <string name="throttling_msg">"O Android 9 introduziu uma limitação na procura de Wi-Fi. O Android 10 tem uma opção de programador nova para habilitar a limitação em (Definições - Opções de programador - Controlo da procura de Wi-Fi)."</string>
     <string name="export_not_available">"O recurso de exportar não está disponível"</string>
     <string name="current_connection">"Ligação atual"</string>
 
