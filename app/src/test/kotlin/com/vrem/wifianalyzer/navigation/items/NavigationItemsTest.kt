@@ -38,31 +38,31 @@ import org.robolectric.annotation.Config
 class NavigationItemsTest {
     @Test
     fun fragmentItem() {
-        assertThat((navigationItemAccessPoints as FragmentItem).fragment is AccessPointsFragment).isTrue()
-        assertThat((navigationItemChannelRating as FragmentItem).fragment is ChannelRatingFragment).isTrue()
-        assertThat((navigationItemChannelGraph as FragmentItem).fragment is ChannelGraphFragment).isTrue()
-        assertThat((navigationItemTimeGraph as FragmentItem).fragment is TimeGraphFragment).isTrue()
-        assertThat((navigationItemChannelAvailable as FragmentItem).fragment is ChannelAvailableFragment).isTrue()
-        assertThat((navigationItemVendors as FragmentItem).fragment is VendorFragment).isTrue()
-        assertThat((navigationItemSettings as FragmentItem).fragment is SettingsFragment).isTrue()
-        assertThat((navigationItemAbout as FragmentItem).fragment is AboutFragment).isTrue()
+        assertThat((navigationItemAccessPoints as FragmentItem).fragment is AccessPointsFragment).isTrue
+        assertThat((navigationItemChannelRating as FragmentItem).fragment is ChannelRatingFragment).isTrue
+        assertThat((navigationItemChannelGraph as FragmentItem).fragment is ChannelGraphFragment).isTrue
+        assertThat((navigationItemTimeGraph as FragmentItem).fragment is TimeGraphFragment).isTrue
+        assertThat((navigationItemChannelAvailable as FragmentItem).fragment is ChannelAvailableFragment).isTrue
+        assertThat((navigationItemVendors as FragmentItem).fragment is VendorFragment).isTrue
+        assertThat((navigationItemSettings as FragmentItem).fragment is SettingsFragment).isTrue
+        assertThat((navigationItemAbout as FragmentItem).fragment is AboutFragment).isTrue
     }
 
     @Test
     fun registeredTrue() {
-        assertThat(navigationItemAccessPoints.registered).isTrue()
-        assertThat(navigationItemChannelRating.registered).isTrue()
-        assertThat(navigationItemChannelGraph.registered).isTrue()
-        assertThat(navigationItemTimeGraph.registered).isTrue()
+        assertThat(navigationItemAccessPoints.registered).isTrue
+        assertThat(navigationItemChannelRating.registered).isTrue
+        assertThat(navigationItemChannelGraph.registered).isTrue
+        assertThat(navigationItemTimeGraph.registered).isTrue
     }
 
     @Test
     fun registeredFalse() {
-        assertThat(navigationItemExport.registered).isFalse()
-        assertThat(navigationItemChannelAvailable.registered).isFalse()
-        assertThat(navigationItemVendors.registered).isFalse()
-        assertThat(navigationItemSettings.registered).isFalse()
-        assertThat(navigationItemAbout.registered).isFalse()
+        assertThat(navigationItemExport.registered).isFalse
+        assertThat(navigationItemChannelAvailable.registered).isFalse
+        assertThat(navigationItemVendors.registered).isFalse
+        assertThat(navigationItemSettings.registered).isFalse
+        assertThat(navigationItemAbout.registered).isFalse
     }
 
     @Test
@@ -80,6 +80,6 @@ class NavigationItemsTest {
 
     @Test
     fun exportItem() {
-        assertThat(navigationItemExport is ExportItem).isTrue()
+        assertThat(navigationItemExport is ExportItem).isTrue
     }
 }

@@ -21,7 +21,7 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import com.vrem.annotation.OpenClass
 import com.vrem.util.*
 import com.vrem.wifianalyzer.R
-import com.vrem.wifianalyzer.navigation.NavigationGroup
+import com.vrem.wifianalyzer.navigation.MAIN_NAVIGATION
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointViewType
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType
@@ -99,7 +99,7 @@ class Settings(private val repository: Repository) {
     fun selectedMenu(): NavigationMenu = find(NavigationMenu.entries, R.string.selected_menu_key, NavigationMenu.ACCESS_POINTS)
 
     fun saveSelectedMenu(navigationMenu: NavigationMenu) {
-        if (NavigationGroup.GROUP_FEATURE.navigationMenus.contains(navigationMenu)) {
+        if (MAIN_NAVIGATION.contains(navigationMenu)) {
             repository.save(R.string.selected_menu_key, navigationMenu.ordinal)
         }
     }

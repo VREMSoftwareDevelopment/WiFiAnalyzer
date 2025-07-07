@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer.navigation.items
 
-import android.view.MenuItem
 import android.view.View
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.navigation.NavigationMenu
@@ -26,12 +25,12 @@ import org.junit.Test
 
 class NavigationItemTest {
     private val fixture: NavigationItem = object : NavigationItem {
-        override fun activate(mainActivity: MainActivity, menuItem: MenuItem, navigationMenu: NavigationMenu) = Unit
+        override fun activate(mainActivity: MainActivity, navigationMenu: NavigationMenu) = Unit
     }
 
     @Test
     fun registered() {
-        assertThat(fixture.registered).isFalse()
+        assertThat(fixture.registered).isFalse
     }
 
     @Test

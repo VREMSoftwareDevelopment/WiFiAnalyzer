@@ -17,30 +17,83 @@
  */
 package com.vrem.wifianalyzer.navigation
 
-import android.view.MenuItem
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.availability.*
 import com.vrem.wifianalyzer.navigation.items.*
 
+val MAIN_NAVIGATION = listOf(NavigationMenu.ACCESS_POINTS, NavigationMenu.CHANNEL_RATING, NavigationMenu.CHANNEL_GRAPH, NavigationMenu.TIME_GRAPH)
+
+private const val MENU_ITEM_INVALID_ID = -1
+
 enum class NavigationMenu(
-    val icon: Int,
+    val idDrawer: Int,
+    val idBottom: Int,
     val title: Int,
     val navigationItem: NavigationItem,
     val navigationOptions: List<NavigationOption> = navigationOptionOff
 ) {
-    ACCESS_POINTS(R.drawable.ic_network_wifi, R.string.action_access_points, navigationItemAccessPoints, navigationOptionAp),
-    CHANNEL_RATING(R.drawable.ic_wifi_tethering, R.string.action_channel_rating, navigationItemChannelRating, navigationOptionRating),
-    CHANNEL_GRAPH(R.drawable.ic_insert_chart, R.string.action_channel_graph, navigationItemChannelGraph, navigationOptionOther),
-    TIME_GRAPH(R.drawable.ic_show_chart, R.string.action_time_graph, navigationItemTimeGraph, navigationOptionOther),
-    EXPORT(R.drawable.ic_import_export, R.string.action_export, navigationItemExport),
-    CHANNEL_AVAILABLE(R.drawable.ic_location_on, R.string.action_channel_available, navigationItemChannelAvailable),
-    VENDORS(R.drawable.ic_list, R.string.action_vendors, navigationItemVendors),
-    SETTINGS(R.drawable.ic_settings, R.string.action_settings, navigationItemSettings),
-    ABOUT(R.drawable.ic_info_outline, R.string.action_about, navigationItemAbout);
+    ACCESS_POINTS(
+        R.id.nav_drawer_access_points,
+        R.id.nav_bottom_access_points,
+        R.string.action_access_points,
+        navigationItemAccessPoints,
+        navigationOptionAp
+    ),
+    CHANNEL_RATING(
+        R.id.nav_drawer_channel_rating,
+        R.id.nav_bottom_channel_rating,
+        R.string.action_channel_rating,
+        navigationItemChannelRating,
+        navigationOptionRating
+    ),
+    CHANNEL_GRAPH(
+        R.id.nav_drawer_channel_graph,
+        R.id.nav_bottom_channel_graph,
+        R.string.action_channel_graph,
+        navigationItemChannelGraph,
+        navigationOptionOther
+    ),
+    TIME_GRAPH(
+        R.id.nav_drawer_time_graph,
+        R.id.nav_bottom_time_graph,
+        R.string.action_time_graph,
+        navigationItemTimeGraph,
+        navigationOptionOther
+    ),
+    EXPORT(
+        R.id.nav_drawer_export,
+        MENU_ITEM_INVALID_ID,
+        title = R.string.action_export,
+        navigationItem = navigationItemExport
+    ),
+    CHANNEL_AVAILABLE(
+        R.id.nav_drawer_channel_available,
+        MENU_ITEM_INVALID_ID,
+        title = R.string.action_channel_available,
+        navigationItem = navigationItemChannelAvailable
+    ),
+    VENDORS(
+        R.id.nav_drawer_vendors,
+        MENU_ITEM_INVALID_ID,
+        title = R.string.action_vendors,
+        navigationItem = navigationItemVendors
+    ),
+    SETTINGS(
+        R.id.nav_drawer_settings,
+        MENU_ITEM_INVALID_ID,
+        title = R.string.action_settings,
+        navigationItem = navigationItemSettings
+    ),
+    ABOUT(
+        R.id.nav_drawer_about,
+        MENU_ITEM_INVALID_ID,
+        title = R.string.action_about,
+        navigationItem = navigationItemAbout
+    );
 
-    fun activateNavigationMenu(mainActivity: MainActivity, menuItem: MenuItem): Unit =
-        navigationItem.activate(mainActivity, menuItem, this)
+    fun activateNavigationMenu(mainActivity: MainActivity): Unit =
+        navigationItem.activate(mainActivity, this)
 
     fun activateOptions(mainActivity: MainActivity): Unit = navigationOptions.forEach { it(mainActivity) }
 
@@ -48,4 +101,8 @@ enum class NavigationMenu(
 
     fun registered(): Boolean = navigationItem.registered
 
+    companion object {
+        fun find(id: Int): NavigationMenu =
+            entries.firstOrNull { it.idDrawer == id || (it.idBottom != MENU_ITEM_INVALID_ID && it.idBottom == id) } ?: ACCESS_POINTS
+    }
 }

@@ -33,6 +33,17 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class NavigationMenuTest {
+
+    @Test
+    fun groupFeature() {
+        assertThat(MAIN_NAVIGATION).containsExactly(
+            NavigationMenu.ACCESS_POINTS,
+            NavigationMenu.CHANNEL_RATING,
+            NavigationMenu.CHANNEL_GRAPH,
+            NavigationMenu.TIME_GRAPH
+        )
+    }
+
     @Test
     fun navigationMenu() {
         assertThat(NavigationMenu.entries).hasSize(9)
@@ -66,49 +77,62 @@ class NavigationMenuTest {
 
     @Test
     fun wiFiBandSwitchableTrue() {
-        assertThat(NavigationMenu.CHANNEL_RATING.wiFiBandSwitchable()).isTrue()
-        assertThat(NavigationMenu.CHANNEL_GRAPH.wiFiBandSwitchable()).isTrue()
-        assertThat(NavigationMenu.TIME_GRAPH.wiFiBandSwitchable()).isTrue()
+        assertThat(NavigationMenu.CHANNEL_RATING.wiFiBandSwitchable()).isTrue
+        assertThat(NavigationMenu.CHANNEL_GRAPH.wiFiBandSwitchable()).isTrue
+        assertThat(NavigationMenu.TIME_GRAPH.wiFiBandSwitchable()).isTrue
     }
 
     @Test
     fun wiFiBandSwitchableFalse() {
-        assertThat(NavigationMenu.ACCESS_POINTS.wiFiBandSwitchable()).isFalse()
-        assertThat(NavigationMenu.CHANNEL_AVAILABLE.wiFiBandSwitchable()).isFalse()
-        assertThat(NavigationMenu.EXPORT.wiFiBandSwitchable()).isFalse()
-        assertThat(NavigationMenu.VENDORS.wiFiBandSwitchable()).isFalse()
-        assertThat(NavigationMenu.SETTINGS.wiFiBandSwitchable()).isFalse()
-        assertThat(NavigationMenu.ABOUT.wiFiBandSwitchable()).isFalse()
+        assertThat(NavigationMenu.ACCESS_POINTS.wiFiBandSwitchable()).isFalse
+        assertThat(NavigationMenu.CHANNEL_AVAILABLE.wiFiBandSwitchable()).isFalse
+        assertThat(NavigationMenu.EXPORT.wiFiBandSwitchable()).isFalse
+        assertThat(NavigationMenu.VENDORS.wiFiBandSwitchable()).isFalse
+        assertThat(NavigationMenu.SETTINGS.wiFiBandSwitchable()).isFalse
+        assertThat(NavigationMenu.ABOUT.wiFiBandSwitchable()).isFalse
     }
 
     @Test
     fun registeredTrue() {
-        assertThat(NavigationMenu.ACCESS_POINTS.registered()).isTrue()
-        assertThat(NavigationMenu.CHANNEL_RATING.registered()).isTrue()
-        assertThat(NavigationMenu.CHANNEL_GRAPH.registered()).isTrue()
-        assertThat(NavigationMenu.TIME_GRAPH.registered()).isTrue()
+        assertThat(NavigationMenu.ACCESS_POINTS.registered()).isTrue
+        assertThat(NavigationMenu.CHANNEL_RATING.registered()).isTrue
+        assertThat(NavigationMenu.CHANNEL_GRAPH.registered()).isTrue
+        assertThat(NavigationMenu.TIME_GRAPH.registered()).isTrue
     }
 
     @Test
     fun registeredFalse() {
-        assertThat(NavigationMenu.CHANNEL_AVAILABLE.registered()).isFalse()
-        assertThat(NavigationMenu.EXPORT.registered()).isFalse()
-        assertThat(NavigationMenu.VENDORS.registered()).isFalse()
-        assertThat(NavigationMenu.SETTINGS.registered()).isFalse()
-        assertThat(NavigationMenu.ABOUT.registered()).isFalse()
+        assertThat(NavigationMenu.CHANNEL_AVAILABLE.registered()).isFalse
+        assertThat(NavigationMenu.EXPORT.registered()).isFalse
+        assertThat(NavigationMenu.VENDORS.registered()).isFalse
+        assertThat(NavigationMenu.SETTINGS.registered()).isFalse
+        assertThat(NavigationMenu.ABOUT.registered()).isFalse
     }
 
     @Test
-    fun icon() {
-        assertThat(NavigationMenu.ACCESS_POINTS.icon).isEqualTo(R.drawable.ic_network_wifi)
-        assertThat(NavigationMenu.CHANNEL_RATING.icon).isEqualTo(R.drawable.ic_wifi_tethering)
-        assertThat(NavigationMenu.CHANNEL_GRAPH.icon).isEqualTo(R.drawable.ic_insert_chart)
-        assertThat(NavigationMenu.TIME_GRAPH.icon).isEqualTo(R.drawable.ic_show_chart)
-        assertThat(NavigationMenu.EXPORT.icon).isEqualTo(R.drawable.ic_import_export)
-        assertThat(NavigationMenu.CHANNEL_AVAILABLE.icon).isEqualTo(R.drawable.ic_location_on)
-        assertThat(NavigationMenu.VENDORS.icon).isEqualTo(R.drawable.ic_list)
-        assertThat(NavigationMenu.SETTINGS.icon).isEqualTo(R.drawable.ic_settings)
-        assertThat(NavigationMenu.ABOUT.icon).isEqualTo(R.drawable.ic_info_outline)
+    fun idDrawer() {
+        assertThat(NavigationMenu.ACCESS_POINTS.idDrawer).isEqualTo(R.id.nav_drawer_access_points)
+        assertThat(NavigationMenu.CHANNEL_RATING.idDrawer).isEqualTo(R.id.nav_drawer_channel_rating)
+        assertThat(NavigationMenu.CHANNEL_GRAPH.idDrawer).isEqualTo(R.id.nav_drawer_channel_graph)
+        assertThat(NavigationMenu.TIME_GRAPH.idDrawer).isEqualTo(R.id.nav_drawer_time_graph)
+        assertThat(NavigationMenu.EXPORT.idDrawer).isEqualTo(R.id.nav_drawer_export)
+        assertThat(NavigationMenu.CHANNEL_AVAILABLE.idDrawer).isEqualTo(R.id.nav_drawer_channel_available)
+        assertThat(NavigationMenu.VENDORS.idDrawer).isEqualTo(R.id.nav_drawer_vendors)
+        assertThat(NavigationMenu.SETTINGS.idDrawer).isEqualTo(R.id.nav_drawer_settings)
+        assertThat(NavigationMenu.ABOUT.idDrawer).isEqualTo(R.id.nav_drawer_about)
+    }
+
+    @Test
+    fun idBottom() {
+        assertThat(NavigationMenu.ACCESS_POINTS.idBottom).isEqualTo(R.id.nav_bottom_access_points)
+        assertThat(NavigationMenu.CHANNEL_RATING.idBottom).isEqualTo(R.id.nav_bottom_channel_rating)
+        assertThat(NavigationMenu.CHANNEL_GRAPH.idBottom).isEqualTo(R.id.nav_bottom_channel_graph)
+        assertThat(NavigationMenu.TIME_GRAPH.idBottom).isEqualTo(R.id.nav_bottom_time_graph)
+        assertThat(NavigationMenu.EXPORT.idBottom).isEqualTo(-1)
+        assertThat(NavigationMenu.CHANNEL_AVAILABLE.idBottom).isEqualTo(-1)
+        assertThat(NavigationMenu.VENDORS.idBottom).isEqualTo(-1)
+        assertThat(NavigationMenu.SETTINGS.idBottom).isEqualTo(-1)
+        assertThat(NavigationMenu.ABOUT.idBottom).isEqualTo(-1)
     }
 
     @Test
@@ -122,5 +146,31 @@ class NavigationMenuTest {
         assertThat(NavigationMenu.EXPORT.navigationOptions).isEqualTo(navigationOptionOff)
         assertThat(NavigationMenu.SETTINGS.navigationOptions).isEqualTo(navigationOptionOff)
         assertThat(NavigationMenu.ABOUT.navigationOptions).isEqualTo(navigationOptionOff)
+    }
+
+    @Test
+    fun findByDrawerId() {
+        assertThat(NavigationMenu.find(R.id.nav_drawer_access_points)).isEqualTo(NavigationMenu.ACCESS_POINTS)
+        assertThat(NavigationMenu.find(R.id.nav_drawer_channel_rating)).isEqualTo(NavigationMenu.CHANNEL_RATING)
+        assertThat(NavigationMenu.find(R.id.nav_drawer_channel_graph)).isEqualTo(NavigationMenu.CHANNEL_GRAPH)
+        assertThat(NavigationMenu.find(R.id.nav_drawer_time_graph)).isEqualTo(NavigationMenu.TIME_GRAPH)
+        assertThat(NavigationMenu.find(R.id.nav_drawer_export)).isEqualTo(NavigationMenu.EXPORT)
+        assertThat(NavigationMenu.find(R.id.nav_drawer_channel_available)).isEqualTo(NavigationMenu.CHANNEL_AVAILABLE)
+        assertThat(NavigationMenu.find(R.id.nav_drawer_vendors)).isEqualTo(NavigationMenu.VENDORS)
+        assertThat(NavigationMenu.find(R.id.nav_drawer_settings)).isEqualTo(NavigationMenu.SETTINGS)
+        assertThat(NavigationMenu.find(R.id.nav_drawer_about)).isEqualTo(NavigationMenu.ABOUT)
+    }
+
+    @Test
+    fun findByBottomId() {
+        assertThat(NavigationMenu.find(R.id.nav_bottom_access_points)).isEqualTo(NavigationMenu.ACCESS_POINTS)
+        assertThat(NavigationMenu.find(R.id.nav_bottom_channel_rating)).isEqualTo(NavigationMenu.CHANNEL_RATING)
+        assertThat(NavigationMenu.find(R.id.nav_bottom_channel_graph)).isEqualTo(NavigationMenu.CHANNEL_GRAPH)
+        assertThat(NavigationMenu.find(R.id.nav_bottom_time_graph)).isEqualTo(NavigationMenu.TIME_GRAPH)
+    }
+
+    @Test
+    fun findDefault() {
+        assertThat(NavigationMenu.find(0)).isEqualTo(NavigationMenu.ACCESS_POINTS)
     }
 }

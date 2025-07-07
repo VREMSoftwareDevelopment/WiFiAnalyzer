@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ WiFiAnalyzer
+  ~ Copyright (C) 2015 - 2025 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/nav_drawer_group_feature">
+        <item
+            android:id="@+id/nav_drawer_access_points"
+            android:icon="@drawable/ic_network_wifi"
+            android:checkable="true"
+            android:title="@string/action_access_points" />
+        <item
+            android:id="@+id/nav_drawer_channel_rating"
+            android:icon="@drawable/ic_wifi_tethering"
+            android:checkable="true"
+            android:title="@string/action_channel_rating" />
+        <item
+            android:id="@+id/nav_drawer_channel_graph"
+            android:icon="@drawable/ic_insert_chart"
+            android:checkable="true"
+            android:title="@string/action_channel_graph" />
+        <item
+            android:id="@+id/nav_drawer_time_graph"
+            android:icon="@drawable/ic_show_chart"
+            android:checkable="true"
+            android:title="@string/action_time_graph" />
+    </group>
+    <group android:id="@+id/nav_drawer_group_other">
+        <item
+            android:id="@+id/nav_drawer_export"
+            android:icon="@drawable/ic_import_export"
+            android:checkable="true"
+            android:title="@string/action_export" />
+        <item
+            android:id="@+id/nav_drawer_channel_available"
+            android:icon="@drawable/ic_location_on"
+            android:checkable="true"
+            android:title="@string/action_channel_available" />
+        <item
+            android:id="@+id/nav_drawer_vendors"
+            android:icon="@drawable/ic_list"
+            android:checkable="true"
+            android:title="@string/action_vendors" />
+    </group>
+    <group android:id="@+id/nav_drawer_group_settings">
+        <item
+            android:id="@+id/nav_drawer_settings"
+            android:icon="@drawable/ic_settings"
+            android:checkable="true"
+            android:title="@string/action_settings" />
+        <item
+            android:id="@+id/nav_drawer_about"
+            android:icon="@drawable/ic_info_outline"
+            android:checkable="true"
+            android:title="@string/action_about" />
+    </group>
+</menu>

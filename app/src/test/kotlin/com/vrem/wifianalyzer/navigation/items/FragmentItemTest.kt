@@ -18,7 +18,6 @@
 package com.vrem.wifianalyzer.navigation.items
 
 import android.os.Build
-import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -40,7 +39,6 @@ class FragmentItemTest {
     private val title = "title"
     private val fragment: Fragment = mock()
     private val mainActivity: MainActivity = mock()
-    private val menuItem: MenuItem = mock()
     private val fragmentManager: FragmentManager = mock()
     private val fragmentTransaction: FragmentTransaction = mock()
 
@@ -48,7 +46,6 @@ class FragmentItemTest {
     fun tearDown() {
         verifyNoMoreInteractions(fragment)
         verifyNoMoreInteractions(mainActivity)
-        verifyNoMoreInteractions(menuItem)
         verifyNoMoreInteractions(fragmentManager)
         verifyNoMoreInteractions(fragmentTransaction)
     }
@@ -61,8 +58,9 @@ class FragmentItemTest {
         whenever(mainActivity.supportFragmentManager).thenReturn(fragmentManager)
         whenever(fragmentManager.isStateSaved).thenReturn(true)
         // execute
-        fixture.activate(mainActivity, menuItem, navigationMenu)
+        fixture.activate(mainActivity, navigationMenu)
         // validate
+        verify(mainActivity, never()).getString(navigationMenu.title)
         verify(mainActivity).supportFragmentManager
         verify(fragmentManager).isStateSaved
         verifyFragmentManagerIsNotCalled()
@@ -74,16 +72,16 @@ class FragmentItemTest {
         // setup
         val fixture = FragmentItem(fragment, true, View.VISIBLE)
         val navigationMenu = NavigationMenu.ACCESS_POINTS
+        whenever(mainActivity.getString(navigationMenu.title)).thenReturn(title)
         whenever(mainActivity.supportFragmentManager).thenReturn(fragmentManager)
         whenever(fragmentManager.isStateSaved).thenReturn(false)
-        whenever(menuItem.title).thenReturn(title)
         withFragmentTransaction()
         // execute
-        fixture.activate(mainActivity, menuItem, navigationMenu)
+        fixture.activate(mainActivity, navigationMenu)
         // validate
+        verify(mainActivity).getString(navigationMenu.title)
         verify(mainActivity).supportFragmentManager
         verify(fragmentManager).isStateSaved
-        verify(menuItem).title
         verifyFragmentManager()
         verifyMainActivityChanges(navigationMenu)
     }
@@ -93,7 +91,7 @@ class FragmentItemTest {
         // setup
         val fixture = FragmentItem(fragment, false, View.VISIBLE)
         // execute & validate
-        assertThat(fixture.registered).isFalse()
+        assertThat(fixture.registered).isFalse
     }
 
     @Test
@@ -101,7 +99,7 @@ class FragmentItemTest {
         // setup
         val fixture = FragmentItem(fragment, true, View.VISIBLE)
         // execute & validate
-        assertThat(fixture.registered).isTrue()
+        assertThat(fixture.registered).isTrue
     }
 
     @Test

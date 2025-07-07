@@ -10,7 +10,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.material.navigation.NavigationView
-import org.assertj.core.api.Assertions
+import com.vrem.wifianalyzer.navigation.NavigationMenu
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -59,75 +60,72 @@ class MainRobolectricTest {
         val navigationView = activity.findViewById<NavigationView>(R.id.nav_drawer)
         val toolbar = activity.findViewById<Toolbar>(R.id.toolbar)
 
-        fun selectMenuItem(index: Int, expectedTitle: String) {
-            val menuItem = navigationView.menu.getItem(index)
+        fun selectMenuItem(navigationMenu: NavigationMenu) {
+            val expectedTitle = activity.getString(navigationMenu.title)
+            val menuItem = navigationView.menu.findItem(navigationMenu.idDrawer)
             activity.onNavigationItemSelected(menuItem)
             Shadows.shadowOf(Looper.getMainLooper()).idle()
-            Assertions.assertThat(toolbar.title.toString()).isEqualTo(expectedTitle)
+            assertThat(toolbar.title.toString()).isEqualTo(expectedTitle)
         }
 
-        fun selectMenuItemAndGoBack(index: Int, expectedTitle: String) {
-            selectMenuItem(index, expectedTitle)
+        fun selectMenuItemAndGoBack(navigationMenu: NavigationMenu) {
+            selectMenuItem(navigationMenu)
             activity.onBackPressedDispatcher.onBackPressed()
             Shadows.shadowOf(Looper.getMainLooper()).idle()
         }
 
         listOf(
-            1 to "Channel Rating",
-            2 to "Channel Graph",
-            3 to "Time Graph",
-            0 to "Access Points",
-            5 to "Available Channels",
-            6 to "Vendors"
-        ).forEach { (id, title) ->
-            selectMenuItem(id, title)
-        }
+            NavigationMenu.CHANNEL_RATING,
+            NavigationMenu.CHANNEL_GRAPH,
+            NavigationMenu.TIME_GRAPH,
+            NavigationMenu.ACCESS_POINTS,
+            NavigationMenu.CHANNEL_AVAILABLE,
+            NavigationMenu.VENDORS
+        ).forEach { selectMenuItem(it) }
 
         listOf(
-            7 to "Settings",
-            8 to "About"
-        ).forEach { (id, title) ->
-            selectMenuItemAndGoBack(id, title)
-        }
+            NavigationMenu.SETTINGS,
+            NavigationMenu.ABOUT
+        ).forEach { selectMenuItemAndGoBack(it) }
     }
 
     @Test
     fun scanner() {
         val toolbar = activity.findViewById<Toolbar>(R.id.toolbar)
         val scannerMenuItem = toolbar.menu.findItem(R.id.action_scanner)
-        Assertions.assertThat(scannerMenuItem).isNotNull
-        Assertions.assertThat(scannerMenuItem.isVisible).isTrue
+        assertThat(scannerMenuItem).isNotNull
+        assertThat(scannerMenuItem.isVisible).isTrue
 
         val scannerActionView = toolbar.findViewById<View>(R.id.action_scanner)
-        Assertions.assertThat(scannerActionView.contentDescription).isEqualTo(pause)
+        assertThat(scannerActionView.contentDescription).isEqualTo(pause)
 
         activity.onOptionsItemSelected(scannerMenuItem)
         Shadows.shadowOf(Looper.getMainLooper()).idle()
 
-        Assertions.assertThat(scannerActionView.contentDescription).isEqualTo(play)
+        assertThat(scannerActionView.contentDescription).isEqualTo(play)
 
         activity.onOptionsItemSelected(scannerMenuItem)
         Shadows.shadowOf(Looper.getMainLooper()).idle()
 
-        Assertions.assertThat(scannerActionView.contentDescription).isEqualTo(pause)
+        assertThat(scannerActionView.contentDescription).isEqualTo(pause)
     }
 
     @Test
     fun filter() {
         val toolbar = activity.findViewById<Toolbar>(R.id.toolbar)
         val filterMenuItem = toolbar.menu.findItem(R.id.action_filter)
-        Assertions.assertThat(filterMenuItem).isNotNull
+        assertThat(filterMenuItem).isNotNull
 
         activity.onOptionsItemSelected(filterMenuItem)
         Shadows.shadowOf(Looper.getMainLooper()).idle()
 
         val dialog = ShadowAlertDialog.getLatestAlertDialog()
-        Assertions.assertThat(dialog).isNotNull
-        Assertions.assertThat(dialog.isShowing).isTrue
+        assertThat(dialog).isNotNull
+        assertThat(dialog.isShowing).isTrue
 
         dialog.getButton(AlertDialog.BUTTON_NEUTRAL).performClick()
         Shadows.shadowOf(Looper.getMainLooper()).idle()
 
-        Assertions.assertThat(dialog.isShowing).isFalse
+        assertThat(dialog.isShowing).isFalse
     }
 }

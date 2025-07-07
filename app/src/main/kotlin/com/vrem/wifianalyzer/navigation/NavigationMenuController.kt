@@ -19,8 +19,8 @@ package com.vrem.wifianalyzer.navigation
 
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.view.forEach
 import androidx.core.view.get
-import androidx.core.view.size
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.vrem.annotation.OpenClass
@@ -29,38 +29,31 @@ import com.vrem.wifianalyzer.R
 @OpenClass
 class NavigationMenuController(
     navigationMenuControl: NavigationMenuControl,
-    val navigationView: NavigationView = navigationMenuControl.findViewById(R.id.nav_drawer),
+    val drawerNavigationView: NavigationView = navigationMenuControl.findViewById(R.id.nav_drawer),
     val bottomNavigationView: BottomNavigationView = navigationMenuControl.findViewById(R.id.nav_bottom)
 ) {
 
     private lateinit var currentNavigationMenu: NavigationMenu
 
-    fun currentMenuItem(): MenuItem = navigationView.menu[currentNavigationMenu.ordinal]
+    fun currentMenuItem(): MenuItem = drawerNavigationView.menu[currentNavigationMenu.ordinal]
 
     fun currentNavigationMenu(): NavigationMenu = currentNavigationMenu
 
     fun currentNavigationMenu(navigationMenu: NavigationMenu) {
         currentNavigationMenu = navigationMenu
-        selectCurrentMenuItem(navigationMenu, navigationView.menu)
-        selectCurrentMenuItem(navigationMenu, bottomNavigationView.menu)
+        setChecked(drawerNavigationView.menu,navigationMenu.idDrawer)
+        setChecked(bottomNavigationView.menu,navigationMenu.idBottom)
     }
 
-    private fun selectCurrentMenuItem(navigationMenu: NavigationMenu, menu: Menu) {
-        for (i in 0 until menu.size) {
-            val menuItem: MenuItem = menu[i]
-            menuItem.isCheckable = false
-            menuItem.isChecked = false
-        }
-        menu.findItem(navigationMenu.ordinal)?.let {
-            it.isCheckable = true
-            it.isChecked = true
+    private fun setChecked(menu: Menu, id: Int) {
+        if (id != -1) {
+            menu.forEach { it.isChecked = false }
+            menu.findItem(id)?.isChecked = true
         }
     }
 
     init {
-        NavigationGroup.entries.forEach { it.populateMenuItems(navigationView.menu) }
-        navigationView.setNavigationItemSelectedListener(navigationMenuControl)
-        NavigationGroup.GROUP_FEATURE.populateMenuItems(bottomNavigationView.menu)
+        drawerNavigationView.setNavigationItemSelectedListener(navigationMenuControl)
         bottomNavigationView.setOnItemSelectedListener(navigationMenuControl)
     }
 }

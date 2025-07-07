@@ -32,7 +32,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.vrem.annotation.OpenClass
 import com.vrem.util.createContext
-import com.vrem.util.findOne
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.navigation.NavigationMenuControl
 import com.vrem.wifianalyzer.navigation.NavigationMenuController
@@ -128,8 +127,8 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         closeDrawer()
-        val currentNavigationMenu = findOne(NavigationMenu.entries, menuItem.itemId, NavigationMenu.ACCESS_POINTS)
-        currentNavigationMenu.activateNavigationMenu(this, menuItem)
+        val currentNavigationMenu = NavigationMenu.find(menuItem.itemId)
+        currentNavigationMenu.activateNavigationMenu(this)
         return true
     }
 
@@ -207,7 +206,7 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
         MainContext.INSTANCE.settings.saveSelectedMenu(navigationMenu)
     }
 
-    override fun navigationView(): NavigationView = navigationMenuController.navigationView
+    override fun navigationView(): NavigationView = navigationMenuController.drawerNavigationView
 
     fun mainConnectionVisibility(visibility: Int) {
         findViewById<View>(R.id.main_connection).visibility = visibility

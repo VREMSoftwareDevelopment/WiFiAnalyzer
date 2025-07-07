@@ -21,7 +21,6 @@ import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import android.view.MenuItem
 import android.view.View
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.MainActivity
@@ -43,7 +42,6 @@ import org.robolectric.annotation.Config
 class ExportItemTest {
     private val export: Export = mock()
     private val mainActivity: MainActivity = mock()
-    private val menuItem: MenuItem = mock()
     private val intent: Intent = mock()
     private val packageManager: PackageManager = mock()
     private val componentName: ComponentName = mock()
@@ -55,7 +53,6 @@ class ExportItemTest {
     fun tearDown() {
         verifyNoMoreInteractions(export)
         verifyNoMoreInteractions(mainActivity)
-        verifyNoMoreInteractions(menuItem)
         verifyNoMoreInteractions(intent)
         verifyNoMoreInteractions(packageManager)
         verifyNoMoreInteractions(componentName)
@@ -73,7 +70,7 @@ class ExportItemTest {
         doReturn(packageManager).whenever(mainActivity).packageManager
         doReturn(componentName).whenever(intent).resolveActivity(packageManager)
         // execute
-        fixture.activate(mainActivity, menuItem, NavigationMenu.EXPORT)
+        fixture.activate(mainActivity, NavigationMenu.EXPORT)
         // validate
         verify(scanner).wiFiData()
         verify(mainActivity).packageManager
@@ -85,7 +82,7 @@ class ExportItemTest {
     @Test
     fun registered() {
         // execute & validate
-        assertThat(fixture.registered).isFalse()
+        assertThat(fixture.registered).isFalse
     }
 
     @Test

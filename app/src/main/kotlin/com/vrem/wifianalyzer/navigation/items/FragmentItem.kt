@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer.navigation.items
 
-import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -29,10 +28,10 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu
 internal class FragmentItem(val fragment: Fragment, override val registered: Boolean = true, override val visibility: Int = View.VISIBLE) :
     NavigationItem {
 
-    override fun activate(mainActivity: MainActivity, menuItem: MenuItem, navigationMenu: NavigationMenu) {
+    override fun activate(mainActivity: MainActivity, navigationMenu: NavigationMenu) {
         val fragmentManager: FragmentManager = mainActivity.supportFragmentManager
         if (fragmentManager.isStateSaved) return
-        updateMainActivity(mainActivity, menuItem, navigationMenu)
+        updateMainActivity(mainActivity, navigationMenu)
         startFragment(fragmentManager)
     }
 
@@ -42,9 +41,9 @@ internal class FragmentItem(val fragment: Fragment, override val registered: Boo
         }
     }
 
-    private fun updateMainActivity(mainActivity: MainActivity, menuItem: MenuItem, navigationMenu: NavigationMenu) {
+    private fun updateMainActivity(mainActivity: MainActivity, navigationMenu: NavigationMenu) {
         mainActivity.currentNavigationMenu(navigationMenu)
-        mainActivity.title = menuItem.title
+        mainActivity.title = mainActivity.getString(navigationMenu.title)
         mainActivity.updateActionBar()
         mainActivity.mainConnectionVisibility(visibility)
     }

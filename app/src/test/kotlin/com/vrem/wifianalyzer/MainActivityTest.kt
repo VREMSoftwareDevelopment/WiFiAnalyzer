@@ -50,7 +50,7 @@ class MainActivityTest {
 
     @Test
     fun mainActivity() {
-        assertThat(MainContext.INSTANCE.scannerService.running()).isFalse()
+        assertThat(MainContext.INSTANCE.scannerService.running()).isFalse
     }
 
     @Test
@@ -163,7 +163,7 @@ class MainActivityTest {
         // execute
         val actual = fixture.onCreateOptionsMenu(menu)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(optionMenu).create(fixture, menu)
     }
 
@@ -176,7 +176,7 @@ class MainActivityTest {
         // execute
         val actual = fixture.onOptionsItemSelected(menuItem)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(optionMenu).select(menuItem)
     }
 
@@ -289,12 +289,12 @@ class MainActivityTest {
         // setup
         val navigationMenuController: NavigationMenuController = mock()
         val navigationView: NavigationView = mock()
-        whenever(navigationMenuController.navigationView).thenReturn(navigationView)
+        whenever(navigationMenuController.drawerNavigationView).thenReturn(navigationView)
         fixture.navigationMenuController = navigationMenuController
         // execute
         val actual = fixture.navigationView()
         // validate
         assertThat(actual).isEqualTo(navigationView)
-        verify(navigationMenuController).navigationView
+        verify(navigationMenuController).drawerNavigationView
     }
 }
