@@ -22,7 +22,12 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.availability.*
 import com.vrem.wifianalyzer.navigation.items.*
 
-val MAIN_NAVIGATION = listOf(NavigationMenu.ACCESS_POINTS, NavigationMenu.CHANNEL_RATING, NavigationMenu.CHANNEL_GRAPH, NavigationMenu.TIME_GRAPH)
+val MAIN_NAVIGATION = listOf(
+    NavigationMenu.ACCESS_POINTS,
+    NavigationMenu.CHANNEL_RATING,
+    NavigationMenu.CHANNEL_GRAPH,
+    NavigationMenu.TIME_GRAPH
+)
 
 private const val MENU_ITEM_INVALID_ID = -1
 
@@ -92,10 +97,9 @@ enum class NavigationMenu(
         navigationItem = navigationItemAbout
     );
 
-    fun activateNavigationMenu(mainActivity: MainActivity): Unit =
-        navigationItem.activate(mainActivity, this)
+    fun activateNavigationMenu(mainActivity: MainActivity) = navigationItem.activate(mainActivity, this)
 
-    fun activateOptions(mainActivity: MainActivity): Unit = navigationOptions.forEach { it(mainActivity) }
+    fun activateOptions(mainActivity: MainActivity) = navigationOptions.forEach { it(mainActivity) }
 
     fun wiFiBandSwitchable(): Boolean = navigationOptions.contains(navigationOptionWiFiSwitchOn)
 
@@ -103,6 +107,6 @@ enum class NavigationMenu(
 
     companion object {
         fun find(id: Int): NavigationMenu =
-            entries.firstOrNull { it.idDrawer == id || (it.idBottom != MENU_ITEM_INVALID_ID && it.idBottom == id) } ?: ACCESS_POINTS
+            entries.firstOrNull { it.idDrawer == id || it.idBottom == id } ?: ACCESS_POINTS
     }
 }
