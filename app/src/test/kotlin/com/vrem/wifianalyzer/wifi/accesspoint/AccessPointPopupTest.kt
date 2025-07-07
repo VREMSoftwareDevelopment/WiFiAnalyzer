@@ -43,7 +43,7 @@ class AccessPointPopupTest {
         val actual = fixture.show(view)
         // validate
         assertThat(actual).isNotNull()
-        assertThat(actual.isShowing).isTrue()
+        assertThat(actual.isShowing).isTrue
     }
 
     @Test
@@ -56,7 +56,7 @@ class AccessPointPopupTest {
         button.performClick()
         // validate
         RobolectricUtil.INSTANCE.clearLooper()
-        assertThat(alertDialog.isShowing).isFalse()
+        assertThat(alertDialog.isShowing).isFalse
     }
 
     @Test
@@ -100,7 +100,7 @@ class AccessPointPopupTest {
         // execute
         fixture.attach(view, wiFiDetail)
         // validate
-        assertThat(view.performClick()).isTrue()
+        assertThat(view.performClick()).isTrue
     }
 
     private fun withWiFiDetail(): WiFiDetail =

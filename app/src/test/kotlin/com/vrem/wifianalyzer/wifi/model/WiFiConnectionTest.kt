@@ -34,7 +34,7 @@ class WiFiConnectionTest {
         assertThat(WiFiConnection.EMPTY.wiFiIdentifier).isEqualTo(WiFiIdentifier.EMPTY)
         assertThat(WiFiConnection.EMPTY.ipAddress).isEqualTo(String.EMPTY)
         assertThat(WiFiConnection.EMPTY.linkSpeed).isEqualTo(WiFiConnection.LINK_SPEED_INVALID)
-        assertThat(WiFiConnection.EMPTY.connected).isFalse()
+        assertThat(WiFiConnection.EMPTY.connected).isFalse
     }
 
     @Test
@@ -43,7 +43,7 @@ class WiFiConnectionTest {
         assertThat(fixture.wiFiIdentifier).isEqualTo(wiFiIdentifier)
         assertThat(fixture.ipAddress).isEqualTo(ipAddress)
         assertThat(fixture.linkSpeed).isEqualTo(linkSpeed)
-        assertThat(fixture.connected).isTrue()
+        assertThat(fixture.connected).isTrue
     }
 
     @Test

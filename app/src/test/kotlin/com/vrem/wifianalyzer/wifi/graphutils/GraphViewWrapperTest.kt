@@ -108,7 +108,7 @@ class GraphViewWrapperTest {
         // execute
         val actual = fixture.addSeries(wiFiDetail, baseSeries, false)
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
         verify(seriesCache).contains(wiFiDetail)
         verify(seriesCache, never()).put(wiFiDetail, baseSeries)
     }
@@ -122,7 +122,7 @@ class GraphViewWrapperTest {
         // execute
         val actual = fixture.addSeries(wiFiDetail, baseSeries, true)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(seriesCache).contains(wiFiDetail)
         verify(seriesCache).put(wiFiDetail, baseSeries)
         verify(baseSeries).title = expectedTitle
@@ -140,7 +140,7 @@ class GraphViewWrapperTest {
         // execute
         val actual = fixture.updateSeries(wiFiDetail, dataPoints, true)
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
         verify(seriesCache).contains(wiFiDetail)
         verify(seriesCache, never())[wiFiDetail]
     }
@@ -155,7 +155,7 @@ class GraphViewWrapperTest {
         // execute
         val actual = fixture.updateSeries(wiFiDetail, dataPoints, true)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(seriesCache).contains(wiFiDetail)
         verify(seriesCache)[wiFiDetail]
         verify(baseSeries).resetData(dataPoints)
@@ -172,7 +172,7 @@ class GraphViewWrapperTest {
         // execute
         val actual = fixture.appendToSeries(wiFiDetail, dataPoint, count, true)
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
         verify(seriesCache).contains(wiFiDetail)
         verify(seriesCache, never())[wiFiDetail]
     }
@@ -187,7 +187,7 @@ class GraphViewWrapperTest {
         // execute
         val actual = fixture.appendToSeries(wiFiDetail, dataPoint, count, true)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(seriesCache).contains(wiFiDetail)
         verify(seriesCache)[wiFiDetail]
         verify(baseSeries).appendData(dataPoint, true, count + 1)
@@ -286,7 +286,7 @@ class GraphViewWrapperTest {
         // execute
         val actual = fixture.newSeries(wiFiDetail)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(seriesCache).contains(wiFiDetail)
     }
 }

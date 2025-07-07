@@ -159,7 +159,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
-        assertThat(actual.findViewById<TextView>(R.id.ssid).isTextSelectable).isFalse()
+        assertThat(actual.findViewById<TextView>(R.id.ssid).isTextSelectable).isFalse
     }
 
     @Test
@@ -252,7 +252,7 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeView(null, null, wiFiDetail)
         // validate
-        assertThat(actual.findViewById<TextView>(R.id.ssid).isTextSelectable).isFalse()
+        assertThat(actual.findViewById<TextView>(R.id.ssid).isTextSelectable).isFalse
     }
 
     @Test
@@ -295,8 +295,8 @@ class AccessPointDetailTest {
         // execute
         val actual = fixture.makeViewDetailed(wiFiDetail)
         // validate
-        assertThat(actual.findViewById<TextView>(R.id.ssid).isTextSelectable).isTrue()
-        assertThat(actual.findViewById<TextView>(R.id.vendorLong).isTextSelectable).isTrue()
+        assertThat(actual.findViewById<TextView>(R.id.ssid).isTextSelectable).isTrue
+        assertThat(actual.findViewById<TextView>(R.id.vendorLong).isTextSelectable).isTrue
     }
 
     @Test

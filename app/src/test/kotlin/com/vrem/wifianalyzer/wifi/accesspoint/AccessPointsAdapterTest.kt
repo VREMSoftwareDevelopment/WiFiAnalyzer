@@ -230,12 +230,12 @@ class AccessPointsAdapterTest {
 
     @Test
     fun hasStableIds() {
-        assertThat(fixture.hasStableIds()).isTrue()
+        assertThat(fixture.hasStableIds()).isTrue
     }
 
     @Test
     fun isChildSelectable() {
-        assertThat(fixture.isChildSelectable(0, 0)).isTrue()
+        assertThat(fixture.isChildSelectable(0, 0)).isTrue
     }
 
     @Test

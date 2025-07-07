@@ -36,9 +36,9 @@ class ConnectionViewTypeTest {
 
     @Test
     fun isHide() {
-        assertThat(ConnectionViewType.COMPLETE.hide).isFalse()
-        assertThat(ConnectionViewType.COMPACT.hide).isFalse()
-        assertThat(ConnectionViewType.HIDE.hide).isTrue()
+        assertThat(ConnectionViewType.COMPLETE.hide).isFalse
+        assertThat(ConnectionViewType.COMPACT.hide).isFalse
+        assertThat(ConnectionViewType.HIDE.hide).isTrue
     }
 
 }

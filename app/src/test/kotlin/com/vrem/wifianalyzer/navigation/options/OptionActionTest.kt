@@ -103,12 +103,12 @@ class OptionActionTest {
 
     @Test
     fun getAction() {
-        assertThat(OptionAction.NO_ACTION.action == noAction).isTrue()
-        assertThat(OptionAction.SCANNER.action == scannerAction).isTrue()
-        assertThat(OptionAction.FILTER.action == filterAction).isTrue()
-        assertThat(OptionAction.WIFI_BAND_2.action == wiFiBandAction2).isTrue()
-        assertThat(OptionAction.WIFI_BAND_5.action == wiFiBandAction5).isTrue()
-        assertThat(OptionAction.WIFI_BAND_6.action == wiFiBandAction6).isTrue()
+        assertThat(OptionAction.NO_ACTION.action == noAction).isTrue
+        assertThat(OptionAction.SCANNER.action == scannerAction).isTrue
+        assertThat(OptionAction.FILTER.action == filterAction).isTrue
+        assertThat(OptionAction.WIFI_BAND_2.action == wiFiBandAction2).isTrue
+        assertThat(OptionAction.WIFI_BAND_5.action == wiFiBandAction5).isTrue
+        assertThat(OptionAction.WIFI_BAND_6.action == wiFiBandAction6).isTrue
     }
 
     @Test

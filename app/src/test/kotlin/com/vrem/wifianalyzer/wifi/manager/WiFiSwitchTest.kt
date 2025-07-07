@@ -39,7 +39,7 @@ class WiFiSwitchTest {
         // execute
         val actual = fixture.on()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(wifiManager).isWifiEnabled = true
     }
 
@@ -50,7 +50,7 @@ class WiFiSwitchTest {
         // execute
         val actual = fixture.off()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(wifiManager).isWifiEnabled = false
     }
 
@@ -62,7 +62,7 @@ class WiFiSwitchTest {
         // execute
         val actual = fixture.on()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(fixture).startWiFiSettings()
         verify(fixture).minVersionQ()
     }

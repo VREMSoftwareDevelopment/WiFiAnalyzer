@@ -61,7 +61,7 @@ class ChannelRatingFragmentTest {
         // execute
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.channelRatingRefresh)
         // validate
-        assertThat(swipeRefreshLayout.isEnabled).isTrue()
+        assertThat(swipeRefreshLayout.isEnabled).isTrue
     }
 
     @Test
@@ -93,7 +93,7 @@ class ChannelRatingFragmentTest {
         // execute
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.channelRatingRefresh)
         // validate
-        assertThat(swipeRefreshLayout.isRefreshing).isFalse()
-        assertThat(swipeRefreshLayout.isEnabled).isFalse()
+        assertThat(swipeRefreshLayout.isRefreshing).isFalse
+        assertThat(swipeRefreshLayout.isEnabled).isFalse
     }
 }

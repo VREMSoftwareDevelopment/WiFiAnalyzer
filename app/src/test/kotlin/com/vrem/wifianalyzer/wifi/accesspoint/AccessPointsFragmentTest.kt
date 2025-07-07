@@ -59,7 +59,7 @@ class AccessPointsFragmentTest {
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.accessPointsRefresh)
-        assertThat(swipeRefreshLayout.isEnabled).isTrue()
+        assertThat(swipeRefreshLayout.isEnabled).isTrue
     }
 
     @Test
@@ -90,8 +90,8 @@ class AccessPointsFragmentTest {
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.accessPointsRefresh)
-        assertThat(swipeRefreshLayout.isRefreshing).isFalse()
-        assertThat(swipeRefreshLayout.isEnabled).isFalse()
+        assertThat(swipeRefreshLayout.isRefreshing).isFalse
+        assertThat(swipeRefreshLayout.isEnabled).isFalse
     }
 
 }

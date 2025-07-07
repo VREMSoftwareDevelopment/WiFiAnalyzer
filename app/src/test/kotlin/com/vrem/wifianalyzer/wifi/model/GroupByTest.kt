@@ -29,26 +29,26 @@ class GroupByTest {
 
     @Test
     fun groupBySort() {
-        assertThat(GroupBy.CHANNEL.sort.javaClass.isInstance(sortByChannel())).isTrue()
-        assertThat(GroupBy.NONE.sort.javaClass.isInstance(sortByDefault())).isTrue()
-        assertThat(GroupBy.SSID.sort.javaClass.isInstance(sortBySSID())).isTrue()
-        assertThat(GroupBy.VIRTUAL.sort.javaClass.isInstance(sortBySSID())).isTrue()
+        assertThat(GroupBy.CHANNEL.sort.javaClass.isInstance(sortByChannel())).isTrue
+        assertThat(GroupBy.NONE.sort.javaClass.isInstance(sortByDefault())).isTrue
+        assertThat(GroupBy.SSID.sort.javaClass.isInstance(sortBySSID())).isTrue
+        assertThat(GroupBy.VIRTUAL.sort.javaClass.isInstance(sortBySSID())).isTrue
     }
 
     @Test
     fun groupByGroup() {
-        assertThat(GroupBy.CHANNEL.group.javaClass.isInstance(groupByChannel)).isTrue()
-        assertThat(GroupBy.NONE.group.javaClass.isInstance(groupBySSID)).isTrue()
-        assertThat(GroupBy.SSID.group.javaClass.isInstance(groupBySSID)).isTrue()
-        assertThat(GroupBy.VIRTUAL.group.javaClass.isInstance(groupByVirtual)).isTrue()
+        assertThat(GroupBy.CHANNEL.group.javaClass.isInstance(groupByChannel)).isTrue
+        assertThat(GroupBy.NONE.group.javaClass.isInstance(groupBySSID)).isTrue
+        assertThat(GroupBy.SSID.group.javaClass.isInstance(groupBySSID)).isTrue
+        assertThat(GroupBy.VIRTUAL.group.javaClass.isInstance(groupByVirtual)).isTrue
     }
 
     @Test
     fun none() {
-        assertThat(GroupBy.CHANNEL.none).isFalse()
-        assertThat(GroupBy.NONE.none).isTrue()
-        assertThat(GroupBy.SSID.none).isFalse()
-        assertThat(GroupBy.VIRTUAL.none).isFalse()
+        assertThat(GroupBy.CHANNEL.none).isFalse
+        assertThat(GroupBy.NONE.none).isTrue
+        assertThat(GroupBy.SSID.none).isFalse
+        assertThat(GroupBy.VIRTUAL.none).isFalse
     }
 
     @Test

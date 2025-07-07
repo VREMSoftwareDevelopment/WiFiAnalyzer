@@ -27,11 +27,11 @@ class WiFiChannelTest {
 
     @Test
     fun inRange() {
-        assertThat(fixture.inRange(frequency)).isTrue()
-        assertThat(fixture.inRange(frequency - 2)).isTrue()
-        assertThat(fixture.inRange(frequency + 2)).isTrue()
-        assertThat(fixture.inRange(frequency - 3)).isFalse()
-        assertThat(fixture.inRange(frequency + 3)).isFalse()
+        assertThat(fixture.inRange(frequency)).isTrue
+        assertThat(fixture.inRange(frequency - 2)).isTrue
+        assertThat(fixture.inRange(frequency + 2)).isTrue
+        assertThat(fixture.inRange(frequency - 3)).isFalse
+        assertThat(fixture.inRange(frequency + 3)).isFalse
     }
 
     @Test

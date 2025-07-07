@@ -36,7 +36,7 @@ class MakePredicateTest {
         // execute
         val actual: Predicate = makePredicate(TestObject.entries, filters, toPredicate)
         // validate
-        assertThat(actual(wiFiDetail)).isTrue()
+        assertThat(actual(wiFiDetail)).isTrue
     }
 
     @Test
@@ -48,7 +48,7 @@ class MakePredicateTest {
         // execute
         val actual: Predicate = makePredicate(TestObject.entries, filters, toPredicate)
         // validate
-        assertThat(actual(wiFiDetail)).isTrue()
+        assertThat(actual(wiFiDetail)).isTrue
     }
 
 }

@@ -38,7 +38,7 @@ class SecurityAdapterTest {
 
     @Test
     fun isActive() {
-        assertThat(fixture.isActive()).isFalse()
+        assertThat(fixture.isActive()).isFalse
     }
 
     @Test
@@ -46,7 +46,7 @@ class SecurityAdapterTest {
         // setup
         fixture.toggle(Security.WPA)
         // execute & validate
-        assertThat(fixture.isActive()).isTrue()
+        assertThat(fixture.isActive()).isTrue
     }
 
     @Test
@@ -74,8 +74,8 @@ class SecurityAdapterTest {
         // execute
         val actual = fixture.toggle(Security.WEP)
         // validate
-        assertThat(actual).isTrue()
-        assertThat(fixture.contains(Security.WEP)).isFalse()
+        assertThat(actual).isTrue
+        assertThat(fixture.contains(Security.WEP)).isFalse
     }
 
     @Test
@@ -85,8 +85,8 @@ class SecurityAdapterTest {
         // execute
         val actual = fixture.toggle(Security.WPA)
         // validate
-        assertThat(actual).isTrue()
-        assertThat(fixture.contains(Security.WPA)).isTrue()
+        assertThat(actual).isTrue
+        assertThat(fixture.contains(Security.WPA)).isTrue
     }
 
     @Test
@@ -97,7 +97,7 @@ class SecurityAdapterTest {
         values.forEach { fixture.toggle(it) }
         // validate
         values.forEach { fixture.contains(it) }
-        assertThat(fixture.contains(values.last())).isTrue()
+        assertThat(fixture.contains(values.last())).isTrue
     }
 
     @Test

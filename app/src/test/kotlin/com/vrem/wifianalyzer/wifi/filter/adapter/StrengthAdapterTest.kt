@@ -38,7 +38,7 @@ class StrengthAdapterTest {
 
     @Test
     fun isActive() {
-        assertThat(fixture.isActive()).isFalse()
+        assertThat(fixture.isActive()).isFalse
     }
 
     @Test
@@ -46,7 +46,7 @@ class StrengthAdapterTest {
         // setup
         fixture.toggle(Strength.TWO)
         // execute & validate
-        assertThat(fixture.isActive()).isTrue()
+        assertThat(fixture.isActive()).isTrue
     }
 
     @Test
@@ -74,8 +74,8 @@ class StrengthAdapterTest {
         // execute
         val actual = fixture.toggle(Strength.TWO)
         // validate
-        assertThat(actual).isTrue()
-        assertThat(fixture.contains(Strength.TWO)).isFalse()
+        assertThat(actual).isTrue
+        assertThat(fixture.contains(Strength.TWO)).isFalse
     }
 
     @Test
@@ -85,8 +85,8 @@ class StrengthAdapterTest {
         // execute
         val actual = fixture.toggle(Strength.THREE)
         // validate
-        assertThat(actual).isTrue()
-        assertThat(fixture.contains(Strength.THREE)).isTrue()
+        assertThat(actual).isTrue
+        assertThat(fixture.contains(Strength.THREE)).isTrue
     }
 
     @Test
@@ -96,8 +96,8 @@ class StrengthAdapterTest {
         // execute
         values.forEach { fixture.toggle(it) }
         // validate
-        values.toList().subList(0, values.size - 1).forEach { assertThat(fixture.contains(it)).isFalse() }
-        assertThat(fixture.contains(values.last())).isTrue()
+        values.toList().subList(0, values.size - 1).forEach { assertThat(fixture.contains(it)).isFalse }
+        assertThat(fixture.contains(values.last())).isTrue
     }
 
     @Test

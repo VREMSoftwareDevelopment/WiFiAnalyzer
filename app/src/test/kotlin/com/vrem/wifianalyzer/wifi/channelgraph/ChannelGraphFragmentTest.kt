@@ -59,7 +59,7 @@ class ChannelGraphFragmentTest {
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.graphRefresh)
-        assertThat(swipeRefreshLayout.isEnabled).isTrue()
+        assertThat(swipeRefreshLayout.isEnabled).isTrue
     }
 
     @Test
@@ -90,7 +90,7 @@ class ChannelGraphFragmentTest {
         RobolectricUtil.INSTANCE.startFragment(fixture)
         // validate
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.graphRefresh)
-        assertThat(swipeRefreshLayout.isRefreshing).isFalse()
-        assertThat(swipeRefreshLayout.isEnabled).isFalse()
+        assertThat(swipeRefreshLayout.isRefreshing).isFalse
+        assertThat(swipeRefreshLayout.isEnabled).isFalse
     }
 }

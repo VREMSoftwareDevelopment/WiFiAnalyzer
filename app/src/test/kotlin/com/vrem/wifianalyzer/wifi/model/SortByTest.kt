@@ -28,8 +28,8 @@ class SortByTest {
 
     @Test
     fun comparator() {
-        assertThat(SortBy.STRENGTH.sort.javaClass.isInstance(sortByStrength())).isTrue()
-        assertThat(SortBy.SSID.sort.javaClass.isInstance(sortBySSID())).isTrue()
-        assertThat(SortBy.CHANNEL.sort.javaClass.isInstance(sortByChannel())).isTrue()
+        assertThat(SortBy.STRENGTH.sort.javaClass.isInstance(sortByStrength())).isTrue
+        assertThat(SortBy.SSID.sort.javaClass.isInstance(sortBySSID())).isTrue
+        assertThat(SortBy.CHANNEL.sort.javaClass.isInstance(sortByChannel())).isTrue
     }
 }

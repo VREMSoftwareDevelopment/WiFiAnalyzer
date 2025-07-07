@@ -45,7 +45,7 @@ class SSIDAdapterTest {
 
     @Test
     fun isActive() {
-        assertThat(fixture.isActive()).isTrue()
+        assertThat(fixture.isActive()).isTrue
     }
 
     @Test
@@ -53,7 +53,7 @@ class SSIDAdapterTest {
         // execute
         fixture.selections = setOf()
         // validate
-        assertThat(fixture.isActive()).isFalse()
+        assertThat(fixture.isActive()).isFalse
         assertThat(fixture.selections).isEmpty()
     }
 
@@ -62,7 +62,7 @@ class SSIDAdapterTest {
         // execute
         fixture.reset()
         // validate
-        assertThat(fixture.isActive()).isFalse()
+        assertThat(fixture.isActive()).isFalse
         assertThat(fixture.selections).isEmpty()
     }
 

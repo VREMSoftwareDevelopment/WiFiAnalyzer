@@ -86,7 +86,7 @@ class ApplicationPermissionTest {
         // execute
         val actual = fixture.granted(ApplicationPermission.REQUEST_CODE, grantResults)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
     }
 
     @Test
@@ -96,7 +96,7 @@ class ApplicationPermissionTest {
         // execute
         val actual = fixture.granted(-ApplicationPermission.REQUEST_CODE, grantResults)
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
     }
 
     @Test
@@ -106,7 +106,7 @@ class ApplicationPermissionTest {
         // execute
         val actual = fixture.granted(ApplicationPermission.REQUEST_CODE, grantResults)
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
     }
 
     @Test
@@ -116,6 +116,6 @@ class ApplicationPermissionTest {
         // execute
         val actual = fixture.granted(ApplicationPermission.REQUEST_CODE, grantResults)
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
     }
 }

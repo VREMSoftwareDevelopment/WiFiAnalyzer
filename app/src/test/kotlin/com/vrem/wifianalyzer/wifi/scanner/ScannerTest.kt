@@ -115,7 +115,7 @@ class ScannerTest {
         // execute
         val actual = fixture.running()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(periodicScan).running
     }
 

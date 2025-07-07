@@ -30,7 +30,7 @@ class SecurityPredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
     }
 
     @Test
@@ -41,7 +41,7 @@ class SecurityPredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
     }
 
     @Test
@@ -52,7 +52,7 @@ class SecurityPredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
     }
 
     @Test
@@ -63,7 +63,7 @@ class SecurityPredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
     }
 
     private fun wiFiDetail(): WiFiDetail =

@@ -42,14 +42,14 @@ class WiFiChannelsParameterizedTest {
 
     @Test
     fun inRange() {
-        assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.first().frequency)).isTrue()
-        assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.last().frequency)).isTrue()
+        assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.first().frequency)).isTrue
+        assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.last().frequency)).isTrue
     }
 
     @Test
     fun notInRange() {
-        assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.first().frequency - 1)).isFalse()
-        assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.last().frequency + 1)).isFalse()
+        assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.first().frequency - 1)).isFalse
+        assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.last().frequency + 1)).isFalse
     }
 
     @Test

@@ -150,7 +150,7 @@ class AboutFragmentTest {
         // execute
         val actual = view.performClick()
         //
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
     }
 
     @Test

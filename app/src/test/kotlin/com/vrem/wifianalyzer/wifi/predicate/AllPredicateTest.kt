@@ -31,7 +31,7 @@ class AllPredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
     }
 
     @Test
@@ -42,7 +42,7 @@ class AllPredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
     }
 
 }

@@ -379,7 +379,7 @@ class SettingsTest {
         // execute
         val actual = fixture.wiFiOffOnExit()
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
     }
 
     @Test
@@ -391,7 +391,7 @@ class SettingsTest {
         // execute
         val actual = fixture.wiFiOffOnExit()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(repository).boolean(R.string.wifi_off_on_exit_key, true)
         verify(repository).resourceBoolean(R.bool.wifi_off_on_exit_default)
     }
@@ -404,7 +404,7 @@ class SettingsTest {
         // execute
         val actual = fixture.keepScreenOn()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(repository).boolean(R.string.keep_screen_on_key, true)
         verify(repository).resourceBoolean(R.bool.keep_screen_on_default)
     }
@@ -417,7 +417,7 @@ class SettingsTest {
         // execute
         val actual = fixture.cacheOff()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(repository).boolean(R.string.cache_off_key, true)
         verify(repository).resourceBoolean(R.bool.cache_off_default)
     }

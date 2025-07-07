@@ -72,7 +72,7 @@ class FiltersAdapterTest {
     @Test
     fun isActive() {
         // execute & validate
-        assertThat(fixture.isActive()).isFalse()
+        assertThat(fixture.isActive()).isFalse
     }
 
     @Test
@@ -96,7 +96,7 @@ class FiltersAdapterTest {
         // setup
         fixture.strengthAdapter().toggle(Strength.THREE)
         // execute & validate
-        assertThat(fixture.isActive()).isTrue()
+        assertThat(fixture.isActive()).isTrue
     }
 
     @Test
@@ -104,7 +104,7 @@ class FiltersAdapterTest {
         // setup
         fixture.wiFiBandAdapter().toggle(WiFiBand.GHZ2)
         // execute & validate
-        assertThat(fixture.isActive()).isTrue()
+        assertThat(fixture.isActive()).isTrue
     }
 
     @Test

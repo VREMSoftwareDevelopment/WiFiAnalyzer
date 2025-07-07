@@ -86,11 +86,11 @@ class WiFiSignalTest {
 
     @Test
     fun inRange() {
-        assertThat(fixture.inRange(centerFrequency)).isTrue()
-        assertThat(fixture.inRange(centerFrequency - WiFiWidth.MHZ_40.frequencyWidthHalf)).isTrue()
-        assertThat(fixture.inRange(centerFrequency + WiFiWidth.MHZ_40.frequencyWidthHalf)).isTrue()
-        assertThat(fixture.inRange(centerFrequency - WiFiWidth.MHZ_40.frequencyWidthHalf - 1)).isFalse()
-        assertThat(fixture.inRange(centerFrequency + WiFiWidth.MHZ_40.frequencyWidthHalf + 1)).isFalse()
+        assertThat(fixture.inRange(centerFrequency)).isTrue
+        assertThat(fixture.inRange(centerFrequency - WiFiWidth.MHZ_40.frequencyWidthHalf)).isTrue
+        assertThat(fixture.inRange(centerFrequency + WiFiWidth.MHZ_40.frequencyWidthHalf)).isTrue
+        assertThat(fixture.inRange(centerFrequency - WiFiWidth.MHZ_40.frequencyWidthHalf - 1)).isFalse
+        assertThat(fixture.inRange(centerFrequency + WiFiWidth.MHZ_40.frequencyWidthHalf + 1)).isFalse
     }
 
     @Test

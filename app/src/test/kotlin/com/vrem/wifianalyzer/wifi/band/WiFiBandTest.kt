@@ -43,9 +43,9 @@ class WiFiBandTest {
 
     @Test
     fun available() {
-        assertThat(WiFiBand.GHZ2.available.javaClass.isInstance(availableGHZ2)).isTrue()
-        assertThat(WiFiBand.GHZ5.available.javaClass.isInstance(availableGHZ5)).isTrue()
-        assertThat(WiFiBand.GHZ6.available.javaClass.isInstance(availableGHZ6)).isTrue()
+        assertThat(WiFiBand.GHZ2.available.javaClass.isInstance(availableGHZ2)).isTrue
+        assertThat(WiFiBand.GHZ5.available.javaClass.isInstance(availableGHZ5)).isTrue
+        assertThat(WiFiBand.GHZ6.available.javaClass.isInstance(availableGHZ6)).isTrue
     }
 
     @Test
@@ -64,23 +64,23 @@ class WiFiBandTest {
 
     @Test
     fun ghz5() {
-        assertThat(WiFiBand.GHZ2.ghz5).isFalse()
-        assertThat(WiFiBand.GHZ5.ghz5).isTrue()
-        assertThat(WiFiBand.GHZ6.ghz5).isFalse()
+        assertThat(WiFiBand.GHZ2.ghz5).isFalse
+        assertThat(WiFiBand.GHZ5.ghz5).isTrue
+        assertThat(WiFiBand.GHZ6.ghz5).isFalse
     }
 
     @Test
     fun ghz2() {
-        assertThat(WiFiBand.GHZ2.ghz2).isTrue()
-        assertThat(WiFiBand.GHZ5.ghz2).isFalse()
-        assertThat(WiFiBand.GHZ6.ghz2).isFalse()
+        assertThat(WiFiBand.GHZ2.ghz2).isTrue
+        assertThat(WiFiBand.GHZ5.ghz2).isFalse
+        assertThat(WiFiBand.GHZ6.ghz2).isFalse
     }
 
     @Test
     fun ghz6() {
-        assertThat(WiFiBand.GHZ2.ghz6).isFalse()
-        assertThat(WiFiBand.GHZ5.ghz6).isFalse()
-        assertThat(WiFiBand.GHZ6.ghz6).isTrue()
+        assertThat(WiFiBand.GHZ2.ghz6).isFalse
+        assertThat(WiFiBand.GHZ5.ghz6).isFalse
+        assertThat(WiFiBand.GHZ6.ghz6).isTrue
     }
 
     @Test
@@ -112,7 +112,7 @@ class WiFiBandTest {
         // execute
         val actual = WiFiBand.GHZ2.available()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
     }
 
     @Test
@@ -122,7 +122,7 @@ class WiFiBandTest {
         // execute
         val actual = WiFiBand.GHZ5.available()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(wiFiManagerWrapper).is5GHzBandSupported()
     }
 
@@ -133,7 +133,7 @@ class WiFiBandTest {
         // execute
         val actual = WiFiBand.GHZ6.available()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(wiFiManagerWrapper).is6GHzBandSupported()
     }
 

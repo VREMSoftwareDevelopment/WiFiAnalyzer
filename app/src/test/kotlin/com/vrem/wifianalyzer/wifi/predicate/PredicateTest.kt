@@ -59,7 +59,7 @@ class PredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verifySettings()
     }
 
@@ -72,7 +72,7 @@ class PredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
         verifySettings()
     }
 
@@ -85,7 +85,7 @@ class PredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
         verifySettings()
     }
 
@@ -97,7 +97,7 @@ class PredicateTest {
         // execute
         val fixture: Predicate = makeAccessPointsPredicate(settings)
         // validate
-        assertThat(fixture(wiFiDetail)).isTrue()
+        assertThat(fixture(wiFiDetail)).isTrue
         verifySettings()
     }
 
@@ -110,7 +110,7 @@ class PredicateTest {
         // execute
         val actual = fixture(wiFiDetail)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verifySettings()
     }
 

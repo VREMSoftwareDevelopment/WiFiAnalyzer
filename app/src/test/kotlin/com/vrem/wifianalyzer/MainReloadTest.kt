@@ -55,7 +55,7 @@ class MainReloadTest {
         // execute
         val actual = fixture.shouldReload(settings)
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
         assertThat(fixture.themeStyle).isEqualTo(ThemeStyle.DARK)
     }
 
@@ -67,7 +67,7 @@ class MainReloadTest {
         // execute
         val actual = fixture.shouldReload(settings)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         assertThat(fixture.themeStyle).isEqualTo(expected)
     }
 
@@ -76,7 +76,7 @@ class MainReloadTest {
         // execute
         val actual = fixture.shouldReload(settings)
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
         assertThat(fixture.connectionViewType).isEqualTo(ConnectionViewType.COMPLETE)
     }
 
@@ -88,7 +88,7 @@ class MainReloadTest {
         // execute
         val actual = fixture.shouldReload(settings)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         assertThat(fixture.connectionViewType).isEqualTo(expected)
     }
 
@@ -97,7 +97,7 @@ class MainReloadTest {
         // execute
         val actual = fixture.shouldReload(settings)
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
         assertThat(fixture.languageLocale).isEqualTo(Locale.UK)
     }
 
@@ -109,7 +109,7 @@ class MainReloadTest {
         // execute
         val actual = fixture.shouldReload(settings)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         assertThat(fixture.languageLocale).isEqualTo(expected)
     }
 

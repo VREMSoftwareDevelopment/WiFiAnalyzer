@@ -179,7 +179,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.resourceBoolean(keyIndex)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(context).resources
         verify(resources).getBoolean(keyIndex)
     }
@@ -192,7 +192,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.boolean(keyIndex, false)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getBoolean(keyValue, false)
         verifyPreferenceManager()
@@ -208,7 +208,7 @@ class RepositoryTest {
         // execute
         val actual = fixture.boolean(keyIndex, defaultValue)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(context).getString(keyIndex)
         verify(sharedPreferences).getBoolean(keyValue, defaultValue)
         verifySave()

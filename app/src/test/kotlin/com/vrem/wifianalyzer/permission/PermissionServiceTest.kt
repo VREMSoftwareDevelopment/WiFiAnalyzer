@@ -47,7 +47,7 @@ class PermissionServiceTest {
         // execute
         val actual = fixture.enabled()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(locationPermission).enabled()
         verify(applicationPermission).granted()
     }
@@ -59,7 +59,7 @@ class PermissionServiceTest {
         // execute
         val actual = fixture.enabled()
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
         verify(locationPermission).enabled()
     }
 
@@ -71,7 +71,7 @@ class PermissionServiceTest {
         // execute
         val actual = fixture.enabled()
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
         verify(locationPermission).enabled()
         verify(applicationPermission).granted()
     }
@@ -83,7 +83,7 @@ class PermissionServiceTest {
         // execute
         val actual = fixture.locationEnabled()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(locationPermission).enabled()
     }
 
@@ -94,7 +94,7 @@ class PermissionServiceTest {
         // execute
         val actual = fixture.permissionGranted()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(applicationPermission).granted()
     }
 
@@ -115,7 +115,7 @@ class PermissionServiceTest {
         // execute
         val actual = fixture.granted(requestCode, results)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(applicationPermission).granted(requestCode, results)
     }
 }

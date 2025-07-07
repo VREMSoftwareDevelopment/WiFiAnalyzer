@@ -46,7 +46,7 @@ class SeriesCacheTest {
         // execute
         val actual = fixture.contains(wiFiDetails[0])
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
     }
 
     @Test
@@ -115,7 +115,7 @@ class SeriesCacheTest {
         val actual = fixture.remove(listOf())
         // validate
         assertThat(actual).isEmpty()
-        expected.forEach { assertThat(fixture.contains(it)).isTrue() }
+        expected.forEach { assertThat(fixture.contains(it)).isTrue }
     }
 
     @Test
@@ -126,7 +126,7 @@ class SeriesCacheTest {
         val actual = fixture.remove(expected)
         // validate
         assertThat(actual).hasSize(expected.size)
-        expected.forEach { assertThat(fixture.contains(it)).isFalse() }
+        expected.forEach { assertThat(fixture.contains(it)).isFalse }
     }
 
     @Test
@@ -139,9 +139,9 @@ class SeriesCacheTest {
         assertThat(actual).hasSize(2)
         for (i in 1 until expected.size) {
             assertThat(series).contains(actual[i - 1])
-            assertThat(fixture.contains(expected[i])).isFalse()
+            assertThat(fixture.contains(expected[i])).isFalse
         }
-        assertThat(fixture.contains(expected[0])).isTrue()
+        assertThat(fixture.contains(expected[0])).isTrue
     }
 
     @Test
@@ -153,7 +153,7 @@ class SeriesCacheTest {
         val actual = fixture.remove(toRemove)
         // validate
         assertThat(actual).isEmpty()
-        expected.forEach { assertThat(fixture.contains(it)).isTrue() }
+        expected.forEach { assertThat(fixture.contains(it)).isTrue }
     }
 
     @Test
@@ -166,9 +166,9 @@ class SeriesCacheTest {
         assertThat(actual).hasSize(1)
         assertThat(series).contains(actual[0])
         for (i in 1 until expected.size) {
-            assertThat(fixture.contains(expected[i])).isTrue()
+            assertThat(fixture.contains(expected[i])).isTrue
         }
-        assertThat(fixture.contains(expected[0])).isFalse()
+        assertThat(fixture.contains(expected[0])).isFalse
     }
 
     @Test

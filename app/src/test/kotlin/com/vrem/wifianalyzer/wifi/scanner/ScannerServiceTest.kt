@@ -53,7 +53,7 @@ class ScannerServiceTest {
         assertThat(actual.periodicScan).isNotNull()
         assertThat(actual.scannerCallback).isNotNull()
         assertThat(actual.scanResultsReceiver).isNotNull()
-        assertThat(actual.running()).isFalse()
+        assertThat(actual.running()).isFalse
     }
 
 }

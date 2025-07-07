@@ -49,7 +49,7 @@ class SettingsFragmentTest {
         // execute
         val actual = fixture.findPreference<Preference>(key)
         // validate
-        assertThat(actual!!.isVisible).isTrue()
+        assertThat(actual!!.isVisible).isTrue
     }
 
     @Test
@@ -59,7 +59,7 @@ class SettingsFragmentTest {
         // execute
         val actual = fixture.findPreference<Preference>(key)
         // validate
-        assertThat(actual!!.isVisible).isFalse()
+        assertThat(actual!!.isVisible).isFalse
     }
 
     @Test
@@ -70,9 +70,9 @@ class SettingsFragmentTest {
         // execute
         val actual = fixture.onPreferenceTreeClick(preference)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         assertThat(fixture.preferenceScreen.preferenceCount).isGreaterThan(0)
-        assertThat(fixture.findPreference<Preference>(fixture.getString(wifi_off_on_exit_key))!!.isVisible).isFalse()
+        assertThat(fixture.findPreference<Preference>(fixture.getString(wifi_off_on_exit_key))!!.isVisible).isFalse
     }
 
     @Test
@@ -83,7 +83,7 @@ class SettingsFragmentTest {
         // execute
         val result = fixture.onPreferenceTreeClick(preference)
         // validate
-        assertThat(result).isFalse()
+        assertThat(result).isFalse
     }
 
     @Config(sdk = [Build.VERSION_CODES.P])
@@ -95,9 +95,9 @@ class SettingsFragmentTest {
         // execute
         val actual = fixture.onPreferenceTreeClick(preference)
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         assertThat(fixture.preferenceScreen.preferenceCount).isGreaterThan(0)
-        assertThat(fixture.findPreference<Preference>(fixture.getString(wifi_off_on_exit_key))!!.isVisible).isTrue()
+        assertThat(fixture.findPreference<Preference>(fixture.getString(wifi_off_on_exit_key))!!.isVisible).isTrue
     }
 
 }

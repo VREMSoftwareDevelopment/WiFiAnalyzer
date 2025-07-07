@@ -44,7 +44,7 @@ class WiFiManagerWrapperTest {
         // execute
         val actual = fixture.wiFiEnabled()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(wifiManager).isWifiEnabled
     }
 
@@ -55,7 +55,7 @@ class WiFiManagerWrapperTest {
         // execute
         val actual = fixture.wiFiEnabled()
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
         verify(wifiManager).isWifiEnabled
     }
 
@@ -66,7 +66,7 @@ class WiFiManagerWrapperTest {
         // execute
         val actual = fixture.enableWiFi()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(wifiManager).isWifiEnabled
     }
 
@@ -78,7 +78,7 @@ class WiFiManagerWrapperTest {
         // execute
         val actual = fixture.enableWiFi()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(wifiManager).isWifiEnabled
         verify(wiFiSwitch).on()
     }
@@ -91,7 +91,7 @@ class WiFiManagerWrapperTest {
         // execute
         val actual = fixture.enableWiFi()
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
         verify(wifiManager).isWifiEnabled
         verify(wiFiSwitch).on()
     }
@@ -104,7 +104,7 @@ class WiFiManagerWrapperTest {
         // execute
         val actual = fixture.disableWiFi()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(wifiManager).isWifiEnabled
         verify(wiFiSwitch).off()
     }
@@ -116,7 +116,7 @@ class WiFiManagerWrapperTest {
         // execute
         val actual = fixture.disableWiFi()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(wifiManager).isWifiEnabled
         verify(wiFiSwitch, never()).off()
     }
@@ -129,7 +129,7 @@ class WiFiManagerWrapperTest {
         // execute
         val actual = fixture.disableWiFi()
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
         verify(wifiManager).isWifiEnabled
         verify(wiFiSwitch).off()
     }
@@ -141,7 +141,7 @@ class WiFiManagerWrapperTest {
         // execute
         val actual = fixture.startScan()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(wifiManager).startScan()
     }
 
@@ -152,7 +152,7 @@ class WiFiManagerWrapperTest {
         // execute
         val actual = fixture.startScan()
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
         verify(wifiManager).startScan()
     }
 
@@ -221,7 +221,7 @@ class WiFiManagerWrapperTest {
         // execute
         val actual = fixture.is5GHzBandSupported()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(wifiManager).is5GHzBandSupported
     }
 
@@ -232,7 +232,7 @@ class WiFiManagerWrapperTest {
         // execute
         val actual = fixture.is6GHzBandSupported()
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
         verify(wifiManager, never()).is6GHzBandSupported
         verify(fixture).minVersionR()
     }
@@ -245,7 +245,7 @@ class WiFiManagerWrapperTest {
         // execute
         val actual = fixture.is6GHzBandSupported()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(wifiManager).is6GHzBandSupported
         verify(fixture).minVersionR()
     }
@@ -257,7 +257,7 @@ class WiFiManagerWrapperTest {
         // execute
         val actual = fixture.isScanThrottleEnabled()
         // validate
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
         verify(wifiManager, never()).isScanThrottleEnabled
         verify(fixture).minVersionR()
     }
@@ -270,7 +270,7 @@ class WiFiManagerWrapperTest {
         // execute
         val actual = fixture.isScanThrottleEnabled()
         // validate
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(wifiManager).isScanThrottleEnabled
         verify(fixture).minVersionR()
     }

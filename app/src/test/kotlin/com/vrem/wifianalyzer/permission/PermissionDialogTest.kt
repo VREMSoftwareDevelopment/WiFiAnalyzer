@@ -48,7 +48,7 @@ class PermissionDialogTest {
         val actual = fixture.show()
         //
         assertThat(actual).isNotNull()
-        assertThat(actual?.findViewById<View>(R.id.throttling)?.isVisible).isTrue()
+        assertThat(actual?.findViewById<View>(R.id.throttling)?.isVisible).isTrue
     }
 
     @Test
@@ -58,7 +58,7 @@ class PermissionDialogTest {
         val actual = fixture.show()
         //
         assertThat(actual).isNotNull()
-        assertThat(actual?.findViewById<View>(R.id.throttling)?.isGone).isTrue()
+        assertThat(actual?.findViewById<View>(R.id.throttling)?.isGone).isTrue
     }
 
     @Test

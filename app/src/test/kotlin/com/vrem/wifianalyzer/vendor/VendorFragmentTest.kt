@@ -61,7 +61,7 @@ class VendorFragmentTest {
         // execute
         val actual = fixture.onQueryTextChange(values)
         // verify
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(vendorAdapter).update(expected)
     }
 
@@ -73,7 +73,7 @@ class VendorFragmentTest {
         // execute
         val actual = fixture.onQueryTextChange(String.EMPTY)
         // verify
-        assertThat(actual).isTrue()
+        assertThat(actual).isTrue
         verify(vendorAdapter).update(String.EMPTY)
     }
 
@@ -85,6 +85,6 @@ class VendorFragmentTest {
         // execute
         val actual = fixture.onQueryTextSubmit(String.EMPTY)
         // verify
-        assertThat(actual).isFalse()
+        assertThat(actual).isFalse
     }
 }

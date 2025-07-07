@@ -59,7 +59,7 @@ class FilterTest {
         // execute
         val actual = fixture.alertDialog!!
         // validate
-        assertThat(actual.isShowing).isFalse()
+        assertThat(actual.isShowing).isFalse
     }
 
     @Test
@@ -67,7 +67,7 @@ class FilterTest {
         // execute
         fixture.show()
         // validate
-        assertThat(fixture.alertDialog!!.isShowing).isTrue()
+        assertThat(fixture.alertDialog!!.isShowing).isTrue
     }
 
     @Test
@@ -92,7 +92,7 @@ class FilterTest {
         button.performClick()
         // validate
         RobolectricUtil.INSTANCE.clearLooper()
-        assertThat(fixture.alertDialog.isShowing).isFalse()
+        assertThat(fixture.alertDialog.isShowing).isFalse
         verify(filtersAdapter).save()
         verify(mainActivity).update()
     }
@@ -108,7 +108,7 @@ class FilterTest {
         button.performClick()
         // validate
         RobolectricUtil.INSTANCE.clearLooper()
-        assertThat(fixture.alertDialog.isShowing).isFalse()
+        assertThat(fixture.alertDialog.isShowing).isFalse
         verify(filtersAdapter).reset()
         verify(mainActivity).update()
     }
@@ -124,7 +124,7 @@ class FilterTest {
         button.performClick()
         // validate
         RobolectricUtil.INSTANCE.clearLooper()
-        assertThat(fixture.alertDialog.isShowing).isFalse()
+        assertThat(fixture.alertDialog.isShowing).isFalse
         verify(filtersAdapter).reload()
         verify(mainActivity, never()).update()
     }

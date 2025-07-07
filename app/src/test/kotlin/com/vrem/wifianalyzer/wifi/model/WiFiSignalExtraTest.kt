@@ -34,7 +34,7 @@ class WiFiSignalExtraTest {
     @Test
     fun wiFiSignalExtra() {
         // validate
-        assertThat(fixture.is80211mc).isTrue()
+        assertThat(fixture.is80211mc).isTrue
         assertThat(fixture.wiFiStandard).isEqualTo(WiFiStandard.AC)
         assertThat(fixture.fastRoaming).isEqualTo(FastRoaming.entries.toList())
     }

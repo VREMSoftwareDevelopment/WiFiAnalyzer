@@ -69,7 +69,7 @@ class WiFiIdentifierTest {
         // setup
         val other = WiFiIdentifier(ssid.lowercase(), bssid.uppercase())
         // execute & validate
-        assertThat(fixture.equals(other, true)).isTrue()
+        assertThat(fixture.equals(other, true)).isTrue
     }
 
     @Test

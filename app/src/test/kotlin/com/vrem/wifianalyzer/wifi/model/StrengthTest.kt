@@ -49,11 +49,11 @@ class StrengthTest {
 
     @Test
     fun weak() {
-        assertThat(Strength.ZERO.weak()).isTrue()
-        assertThat(Strength.ONE.weak()).isFalse()
-        assertThat(Strength.TWO.weak()).isFalse()
-        assertThat(Strength.THREE.weak()).isFalse()
-        assertThat(Strength.FOUR.weak()).isFalse()
+        assertThat(Strength.ZERO.weak()).isTrue
+        assertThat(Strength.ONE.weak()).isFalse
+        assertThat(Strength.TWO.weak()).isFalse
+        assertThat(Strength.THREE.weak()).isFalse
+        assertThat(Strength.FOUR.weak()).isFalse
     }
 
     @Test

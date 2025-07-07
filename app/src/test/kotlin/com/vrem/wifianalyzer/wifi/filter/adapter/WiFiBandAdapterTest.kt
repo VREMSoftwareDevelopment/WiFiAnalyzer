@@ -38,7 +38,7 @@ class WiFiBandAdapterTest {
 
     @Test
     fun isActive() {
-        assertThat(fixture.isActive()).isFalse()
+        assertThat(fixture.isActive()).isFalse
     }
 
     @Test
@@ -46,7 +46,7 @@ class WiFiBandAdapterTest {
         // setup
         fixture.toggle(WiFiBand.GHZ2)
         // execute & validate
-        assertThat(fixture.isActive()).isTrue()
+        assertThat(fixture.isActive()).isTrue
     }
 
     @Test
@@ -74,8 +74,8 @@ class WiFiBandAdapterTest {
         // execute
         val actual = fixture.toggle(WiFiBand.GHZ2)
         // validate
-        assertThat(actual).isTrue()
-        assertThat(fixture.contains(WiFiBand.GHZ2)).isFalse()
+        assertThat(actual).isTrue
+        assertThat(fixture.contains(WiFiBand.GHZ2)).isFalse
     }
 
     @Test
@@ -85,8 +85,8 @@ class WiFiBandAdapterTest {
         // execute
         val actual = fixture.toggle(WiFiBand.GHZ5)
         // validate
-        assertThat(actual).isTrue()
-        assertThat(fixture.contains(WiFiBand.GHZ5)).isTrue()
+        assertThat(actual).isTrue
+        assertThat(fixture.contains(WiFiBand.GHZ5)).isTrue
     }
 
     @Test
@@ -96,8 +96,8 @@ class WiFiBandAdapterTest {
         // execute
         values.forEach { fixture.toggle(it) }
         // validate
-        values.toList().subList(0, values.size - 1).forEach { assertThat(fixture.contains(it)).isFalse() }
-        assertThat(fixture.contains(values.last())).isTrue()
+        values.toList().subList(0, values.size - 1).forEach { assertThat(fixture.contains(it)).isFalse }
+        assertThat(fixture.contains(values.last())).isTrue
     }
 
     @Test
