@@ -1,17 +1,17 @@
-WiFiAnalyzer'ı kullanarak Wi-Fi ağ durumunu, sinyal gücünü kontrol ederek ve kalabalık kanalları belirleyerek Wi-Fi ağınızı iyileştirin
+WiFiAnalyzer ile Wi-Fi ağınızı optimize edin; Wi-Fi ağ durumu, sinyal gücü kontrolü yapın ve yoğun kanalları tespit edin
 
 Özellikler:
 
-* Yakındaki Erişim Noktalarını belirleyin
-* Kanalların sinyal gücü grafiği
-* Zaman içinde Erişim Noktası sinyal gücü grafiği
-* Kanalları derecelendirmek için Wi-Fi ağlarını analiz edin
-* HT/VHT Algılama - 40/80/160/320 MHz (Donanım desteği gerektirir)
-* 2,4 GHz, 5 GHz ve 6 GHz Wi-Fi bantları (Donanım desteği gerektirir)
-* Erişim Noktası görünümü tam veya kompakt
-* Erişim Noktalarına Tahmini Mesafe
-* Erişim noktaları ayrıntılarını dışa aktarma
-* Koyu, Açık ve Sistem teması mevcut
-* Taramayı Duraklat/Sürdür
+* Yakındaki Erişim Noktalarını (Access Point) tanımlama
+* Kanalların sinyal gücünü grafikle gösterme
+* Erişim Noktalarının sinyal gücünü zaman içinde grafikle gösterme
+* Wi-Fi ağlarını analiz ederek kanalları derecelendirme
+* HT/VHT Algılama - 40/80/160/320 MHz (Donanım/yazılım desteği gerektirir)
+* 2.4 GHz, 5 GHz ve 6 GHz Wi-Fi bantları (Donanım/yazılım desteği gerektirir)
+* Erişim Noktası görünümü: tam veya kompakt
+* Erişim Noktalarına tahmini mesafe
+* Erişim noktası detaylarını dışa aktarma
+* Karanlık, Aydınlık ve Sistem temaları mevcut
+* Tarama işlemini duraklatma/devam ettirme
 * Mevcut filtreler: Wi-Fi bandı, Sinyal gücü, Güvenlik ve SSID
-* Satıcı/OUI Veritabanı Arama
+* Satıcı/OUI veritabanı sorgulama
