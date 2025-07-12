@@ -40,14 +40,11 @@ fun calculateSignalLevel(rssi: Int, numLevels: Int): Int = when {
 
 fun convertSSID(ssid: String): String = ssid.removePrefix(QUOTE).removeSuffix(QUOTE)
 
-fun convertIpV4Address(ipV4Address: Int): String {
-    return try {
+fun convertIpV4Address(ipV4Address: Int): String =
+    runCatching {
         val value: Long = when (ByteOrder.LITTLE_ENDIAN) {
             ByteOrder.nativeOrder() -> Integer.reverseBytes(ipV4Address).toLong()
             else -> ipV4Address.toLong()
         }
-        return InetAddress.getByAddress(value.toBigInteger().toByteArray()).hostAddress ?: String.EMPTY
-    } catch (e: Exception) {
-        String.EMPTY
-    }
-}
+        InetAddress.getByAddress(value.toBigInteger().toByteArray()).hostAddress ?: String.EMPTY
+    }.getOrDefault(String.EMPTY)

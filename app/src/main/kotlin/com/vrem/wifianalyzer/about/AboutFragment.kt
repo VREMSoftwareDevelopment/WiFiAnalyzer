@@ -19,10 +19,8 @@ package com.vrem.wifianalyzer.about
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageInfo
-import android.content.pm.PackageManager.NameNotFoundException
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -118,22 +116,19 @@ class AboutFragment : Fragment() {
     }
 
     private fun applicationVersion(activity: FragmentActivity): String =
-        try {
+        runCatching {
             val packageInfo: PackageInfo = activity.packageInfo()
             packageInfo.versionName + " - " + PackageInfoCompat.getLongVersionCode(packageInfo)
-        } catch (e: NameNotFoundException) {
-            String.EMPTY
-        }
-
+        }.getOrDefault(String.EMPTY)
 
     private class WriteReviewClickListener(private val activity: Activity) : View.OnClickListener {
         override fun onClick(view: View) {
             val url = "market://details?id=" + activity.applicationContext.packageName
             val intent = Intent(Intent.ACTION_VIEW, url.toUri())
-            try {
+            runCatching {
                 activity.startActivity(intent)
-            } catch (e: ActivityNotFoundException) {
-                Toast.makeText(view.context, e.localizedMessage, Toast.LENGTH_LONG).show()
+            }.getOrElse{
+                Toast.makeText(view.context, it.localizedMessage, Toast.LENGTH_LONG).show()
             }
         }
     }

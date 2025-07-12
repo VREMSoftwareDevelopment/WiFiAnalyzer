@@ -33,88 +33,56 @@ enum class MainContextHelper {
 
     val settings: Settings
         get() {
-            try {
-                saved[Settings::class.java] = mainContext.settings
-            } catch (e: UninitializedPropertyAccessException) {
-                /* do nothing */
-            }
+            runCatching { saved[Settings::class.java] = mainContext.settings }
             mainContext.settings = mock()
             return mainContext.settings
         }
 
     val vendorService: VendorService
         get() {
-            try {
-                saved[VendorService::class.java] = mainContext.vendorService
-            } catch (e: UninitializedPropertyAccessException) {
-                /* do nothing */
-            }
+            runCatching { saved[VendorService::class.java] = mainContext.vendorService }
             mainContext.vendorService = mock()
             return mainContext.vendorService
         }
 
     val permissionService: PermissionService
         get() {
-            try {
-                saved[PermissionService::class.java] = mainContext.permissionService
-            } catch (e: UninitializedPropertyAccessException) {
-                /* do nothing */
-            }
+            runCatching { saved[PermissionService::class.java] = mainContext.permissionService }
             mainContext.permissionService = mock()
             return mainContext.permissionService
         }
 
     val scannerService: ScannerService
         get() {
-            try {
-                saved[ScannerService::class.java] = mainContext.scannerService
-            } catch (e: UninitializedPropertyAccessException) {
-                /* do nothing */
-            }
+            runCatching { saved[ScannerService::class.java] = mainContext.scannerService }
             mainContext.scannerService = mock()
             return mainContext.scannerService
         }
 
     val mainActivity: MainActivity
         get() {
-            try {
-                saved[MainActivity::class.java] = mainContext.mainActivity
-            } catch (e: UninitializedPropertyAccessException) {
-                /* do nothing */
-            }
+            runCatching { saved[MainActivity::class.java] = mainContext.mainActivity }
             mainContext.mainActivity = mock()
             return mainContext.mainActivity
         }
 
     val configuration: Configuration
         get() {
-            try {
-                saved[Configuration::class.java] = mainContext.configuration
-            } catch (e: UninitializedPropertyAccessException) {
-                /* do nothing */
-            }
+            runCatching { saved[Configuration::class.java] = mainContext.configuration }
             mainContext.configuration = mock()
             return mainContext.configuration
         }
 
     val filterAdapter: FiltersAdapter
         get() {
-            try {
-                saved[FiltersAdapter::class.java] = mainContext.filtersAdapter
-            } catch (e: UninitializedPropertyAccessException) {
-                /* do nothing */
-            }
+            runCatching { saved[FiltersAdapter::class.java] = mainContext.filtersAdapter }
             mainContext.filtersAdapter = mock()
             return mainContext.filtersAdapter
         }
 
     val wiFiManagerWrapper: WiFiManagerWrapper
         get() {
-            try {
-                saved[WiFiManagerWrapper::class.java] = mainContext.wiFiManagerWrapper
-            } catch (e: UninitializedPropertyAccessException) {
-                /* do nothing */
-            }
+            runCatching { saved[WiFiManagerWrapper::class.java] = mainContext.wiFiManagerWrapper }
             mainContext.wiFiManagerWrapper = mock()
             return mainContext.wiFiManagerWrapper
         }

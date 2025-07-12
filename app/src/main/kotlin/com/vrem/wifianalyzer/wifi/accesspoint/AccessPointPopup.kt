@@ -35,11 +35,7 @@ class AccessPointPopup {
 
     fun attach(view: View, wiFiDetail: WiFiDetail) {
         view.setOnClickListener {
-            try {
-                show(AccessPointDetail().makeViewDetailed(wiFiDetail))
-            } catch (e: Exception) {
-                // do nothing
-            }
+            runCatching { show(AccessPointDetail().makeViewDetailed(wiFiDetail)) }
         }
     }
 

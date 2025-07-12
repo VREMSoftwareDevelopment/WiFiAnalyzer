@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.wifi.model
 import android.net.wifi.ScanResult
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.annotation.StringRes
 import com.vrem.util.buildMinVersionR
 import com.vrem.wifianalyzer.R
 import java.nio.ByteBuffer
@@ -50,7 +49,7 @@ private val available802_11v: Available = { id: Int, bytes: ByteBuffer ->
         bytes.contains(BSS_TRANSITION_IDX, BSS_TRANSITION_BIT)
 }
 
-enum class FastRoaming(@StringRes val textResource: Int, val available: Available) {
+enum class FastRoaming(val textResource: Int, val available: Available) {
     FR_802_11K(R.string.fast_roaming_k, available802_11k),
     FR_802_11R(R.string.fast_roaming_r, available802_11r),
     FR_802_11V(R.string.fast_roaming_v, available802_11v);
@@ -68,11 +67,8 @@ enum class FastRoaming(@StringRes val textResource: Int, val available: Availabl
             entries
                 .filter { fastRoaming ->
                     informationElements.any {
-                        try {
-                            fastRoaming.available(it.id, it.bytes)
-                        } catch (e: Exception) {
-                            false
-                        }
+                        runCatching { fastRoaming.available(it.id, it.bytes) }
+                            .getOrDefault(false)
                     }
                 }
                 .toList()

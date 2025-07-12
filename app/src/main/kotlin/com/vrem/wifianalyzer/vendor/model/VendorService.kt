@@ -20,7 +20,7 @@ package com.vrem.wifianalyzer.vendor.model
 import android.content.res.Resources
 import com.vrem.annotation.OpenClass
 import com.vrem.util.EMPTY
-import com.vrem.util.readFile
+import com.vrem.util.readZipFile
 import com.vrem.wifianalyzer.R
 import java.util.Locale
 import java.util.TreeMap
@@ -51,8 +51,7 @@ class VendorService(private val resources: Resources) {
     private fun load(resources: Resources): VendorData {
         val macs: MutableMap<String, String> = TreeMap()
         val vendors: MutableMap<String, List<String>> = TreeMap()
-        readFile(resources, R.raw.data)
-            .split("\n")
+        readZipFile(resources, R.raw.data)
             .map { it.split("|").toTypedArray() }
             .filter { it.size == 2 }
             .forEach {

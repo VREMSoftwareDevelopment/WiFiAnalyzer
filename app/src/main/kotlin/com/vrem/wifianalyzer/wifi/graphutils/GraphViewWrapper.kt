@@ -117,15 +117,13 @@ class GraphViewWrapper(
     }
 
     fun calculateGraphType(): Int =
-        try {
+        runCatching {
             with(MessageDigest.getInstance("MD5")) {
                 update(MainContext.INSTANCE.mainActivity.packageName.toByteArray())
                 val digest: ByteArray = digest()
                 digest.contentHashCode()
             }
-        } catch (e: Exception) {
-            TYPE1
-        }
+        }.getOrDefault(TYPE1)
 
     fun setHorizontalLabelsVisible(horizontalLabelsVisible: Boolean) {
         graphView.gridLabelRenderer.isHorizontalLabelsVisible = horizontalLabelsVisible
@@ -151,11 +149,9 @@ class GraphViewWrapper(
 
     private fun popup(series: Series<DataPointInterface>) {
         seriesCache.find(series).let {
-            try {
-                AccessPointPopup().show(AccessPointDetail().makeViewDetailed(it))
-            } catch (e: Exception) {
-                // do nothing
-            }
+           runCatching {
+               AccessPointPopup().show(AccessPointDetail().makeViewDetailed(it))
+           }
         }
     }
 

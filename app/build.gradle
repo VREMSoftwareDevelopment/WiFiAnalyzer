@@ -61,20 +61,20 @@ dependencies {
 }
 
 android {
-    namespace 'com.vrem.wifianalyzer'
-    compileSdk 35
+    namespace = 'com.vrem.wifianalyzer'
+    compileSdk = 35
 
     sourceSets.each {
         it.java.srcDirs += "src/$it.name/kotlin"
     }
 
     defaultConfig {
-        applicationId "com.vrem.wifianalyzer"
+        applicationId = "com.vrem.wifianalyzer"
         minSdkVersion 24
         targetSdkVersion 35
         versionCode
         versionName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
@@ -83,28 +83,28 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled = true
+            shrinkResources = true
             proguardFiles getDefaultProguardFile("proguard-android.txt")
             signingConfig
         }
         debug {
-            applicationIdSuffix ".BETA"
-            versionNameSuffix "-BETA"
-            minifyEnabled false
-            shrinkResources false
-            debuggable true
-            enableUnitTestCoverage true
+            applicationIdSuffix = ".BETA"
+            versionNameSuffix = "-BETA"
+            minifyEnabled = false
+            shrinkResources = false
+            debuggable = true
+            enableUnitTestCoverage = true
         }
     }
 
     testOptions {
         unitTests {
-            includeAndroidResources true
+            includeAndroidResources = true
             all {
                 jvmArgs("-XX:+EnableDynamicAgentLoading")
                 testLogging {
-                    events "passed", "skipped", "failed", "standardOut", "standardError"
+                    events = ["passed", "skipped", "failed", "standardOut", "standardError"]
                     outputs.upToDateWhen { false }
                     showStandardStreams = true
                 }
@@ -113,8 +113,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
         jvmTarget = "17"

@@ -32,48 +32,23 @@ class WiFiManagerWrapper(
     private val wiFiSwitch: WiFiSwitch = WiFiSwitch(wifiManager)
 ) {
     fun wiFiEnabled(): Boolean =
-        try {
-            wifiManager.isWifiEnabled
-        } catch (e: Exception) {
-            false
-        }
+        runCatching { wifiManager.isWifiEnabled }.getOrDefault(false)
 
     fun enableWiFi(): Boolean =
-        try {
-            wiFiEnabled() || wiFiSwitch.on()
-        } catch (e: Exception) {
-            false
-        }
+        runCatching { wiFiEnabled() || wiFiSwitch.on() }.getOrDefault(false)
 
     fun disableWiFi(): Boolean =
-        try {
-            !wiFiEnabled() || wiFiSwitch.off()
-        } catch (e: Exception) {
-            false
-        }
+        runCatching { !wiFiEnabled() || wiFiSwitch.off() }.getOrDefault(false)
 
     fun startScan(): Boolean =
-        try {
-            wifiManager.startScan()
-        } catch (e: Exception) {
-            false
-        }
+        runCatching { wifiManager.startScan() }.getOrDefault(false)
 
     @SuppressLint("MissingPermission")
     fun scanResults(): List<ScanResult> =
-        try {
-            wifiManager.scanResults ?: listOf()
-        } catch (e: Exception) {
-            listOf()
-        }
+        runCatching { wifiManager.scanResults ?: listOf() }.getOrDefault(listOf())
 
     fun wiFiInfo(): WifiInfo? =
-        try {
-            wifiManager.connectionInfo
-        } catch (e: Exception) {
-            null
-        }
-
+        runCatching { wifiManager.connectionInfo }.getOrNull()
 
     fun is5GHzBandSupported(): Boolean =
         wifiManager.is5GHzBandSupported

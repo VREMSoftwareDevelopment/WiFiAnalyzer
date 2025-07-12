@@ -62,15 +62,13 @@ class AccessPointsAdapterData(
         accessPointsAdapterGroup.onGroupExpanded(wiFiDetails, groupPosition)
 
     private fun calculateChildType(): Int =
-        try {
+        runCatching {
             with(MessageDigest.getInstance("MD5")) {
                 update(MainContext.INSTANCE.mainActivity.packageName.toByteArray())
                 val digest: ByteArray = digest()
                 digest.contentHashCode()
             }
-        } catch (e: Exception) {
-            TYPE1
-        }
+        }.getOrDefault(TYPE1)
 
     private fun type(value: Int): Int = if (value == TYPE1 || value == TYPE2 || value == TYPE3) SIZE_MAX else SIZE_MIN
 

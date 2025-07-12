@@ -19,19 +19,24 @@ package com.vrem.util
 
 import android.content.res.Resources
 import androidx.annotation.RawRes
-import java.io.InputStream
+import java.util.zip.ZipInputStream
 
-fun readFile(resources: Resources, @RawRes id: Int): String {
-    return try {
-        resources.openRawResource(id).use { read(it) }
-    } catch (e: Exception) {
-        String.EMPTY
+fun readFile(resources: Resources, @RawRes id: Int): String =
+    runCatching {
+        resources.openRawResource(id)
+            .bufferedReader()
+            .use { it.readText() }
+            .replace("\r", String.EMPTY)
     }
-}
+        .getOrDefault(String.EMPTY)
 
-private fun read(inputStream: InputStream): String {
-    val size = inputStream.available()
-    val bytes = ByteArray(size)
-    val count = inputStream.read(bytes)
-    return if (count == size) String(bytes).replace("\r", "") else String.EMPTY
-}
+fun readZipFile(resources: Resources, @RawRes id: Int): List<String> =
+    runCatching {
+        resources.openRawResource(id).use { inputStream ->
+            ZipInputStream(inputStream).use { zipInputStream ->
+                zipInputStream.nextEntry
+                zipInputStream.bufferedReader().readLines()
+            }
+        }
+    }
+        .getOrDefault(emptyList())

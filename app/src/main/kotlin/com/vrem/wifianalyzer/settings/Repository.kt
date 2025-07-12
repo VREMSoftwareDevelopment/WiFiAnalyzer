@@ -40,9 +40,9 @@ class Repository(private val context: Context) {
 
     fun string(key: Int, defaultValue: String): String {
         val keyValue: String = context.getString(key)
-        return try {
+        return runCatching {
             sharedPreferences().getString(keyValue, defaultValue) ?: defaultValue
-        } catch (e: Exception) {
+        }.getOrElse {
             sharedPreferences().edit { putString(keyValue, defaultValue) }
             defaultValue
         }
@@ -50,11 +50,11 @@ class Repository(private val context: Context) {
 
     fun boolean(key: Int, defaultValue: Boolean): Boolean {
         val keyValue: String = context.getString(key)
-        return try {
+        return runCatching {
             sharedPreferences().getBoolean(keyValue, defaultValue)
-        } catch (e: Exception) {
+        }.getOrElse {
             sharedPreferences().edit { putBoolean(keyValue, defaultValue) }
-            defaultValue
+            return defaultValue
         }
     }
 
@@ -62,22 +62,23 @@ class Repository(private val context: Context) {
 
     fun integer(key: Int, defaultValue: Int): Int {
         val keyValue: String = context.getString(key)
-        return try {
+        return runCatching {
             sharedPreferences().getInt(keyValue, defaultValue)
-        } catch (e: Exception) {
+        }.getOrElse {
             sharedPreferences().edit { putString(keyValue, defaultValue.toString()) }
-            defaultValue
+            return defaultValue
         }
     }
 
     fun stringSet(key: Int, defaultValues: Set<String>): Set<String> {
         val keyValue: String = context.getString(key)
-        return try {
+        return runCatching {
             sharedPreferences().getStringSet(keyValue, defaultValues)!!
-        } catch (e: Exception) {
+        }.getOrElse {
             sharedPreferences().edit { putStringSet(keyValue, defaultValues) }
-            defaultValues
+            return defaultValues
         }
+
     }
 
     fun saveStringSet(key: Int, values: Set<String>): Unit =

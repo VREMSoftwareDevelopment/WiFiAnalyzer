@@ -52,22 +52,11 @@ internal fun withToolbarTitle(expectedTitle: CharSequence): Matcher<View> {
     }
 }
 
-internal fun pressBackButton() {
-    pressBack()
-}
+internal fun pressBackButton() = pressBack()
 
-internal fun pauseShort() {
-    pause(SLEEP_1_SECOND)
-}
+internal fun pauseShort() = pause(SLEEP_1_SECOND)
 
-internal fun pauseLong() {
-    pause(SLEEP_3_SECONDS)
-}
+internal fun pauseLong() = pause(SLEEP_3_SECONDS)
 
-private fun pause(sleepTime: Int) {
-    try {
-        Thread.sleep(sleepTime.toLong())
-    } catch (e: InterruptedException) {
-        e.printStackTrace()
-    }
-}
+private fun pause(sleepTime: Int) =
+    runCatching { Thread.sleep(sleepTime.toLong()) }.getOrElse{ it.printStackTrace() }

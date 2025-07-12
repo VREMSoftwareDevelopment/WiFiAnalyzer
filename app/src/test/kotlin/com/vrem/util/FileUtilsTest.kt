@@ -26,8 +26,10 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
 import org.mockito.kotlin.whenever
-import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 import java.io.InputStream
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
 
 class FileUtilsTest {
 
@@ -43,10 +45,9 @@ class FileUtilsTest {
         // setup
         val id = 11
         val expected = "Line-1\nLine-2\n"
-        val inputStream: InputStream = ByteArrayInputStream(expected.toByteArray())
-        whenever(resources.openRawResource(id)).thenReturn(inputStream)
+        whenever(resources.openRawResource(id)).thenReturn(expected.byteInputStream())
         // execute
-        val actual: String = readFile(resources, id)
+        val actual = readFile(resources, id)
         // validate
         assertThat(actual).isEqualTo(expected)
         verify(resources).openRawResource(id)
@@ -58,9 +59,44 @@ class FileUtilsTest {
         val id = 11
         whenever(resources.openRawResource(id)).thenThrow(NotFoundException::class.java)
         // execute
-        val actual: String = readFile(resources, id)
+        val actual = readFile(resources, id)
         // validate
         assertThat(actual).isEmpty()
         verify(resources).openRawResource(id)
+    }
+
+    @Test
+    fun readZipFile() {
+        // setup
+        val id = 12
+        val expected = listOf("Line-1", "Line-2")
+        whenever(resources.openRawResource(id)).thenReturn(createZippedInputStream(expected))
+        // execute
+        val actual = readZipFile(resources, id)
+        // validate
+        assertThat(actual).isEqualTo(expected)
+        verify(resources).openRawResource(id)
+    }
+
+    @Test
+    fun readZipFileHandleException() {
+        // setup
+        val id = 12
+        whenever(resources.openRawResource(id)).thenThrow(NotFoundException::class.java)
+        // execute
+        val actual = readZipFile(resources, id)
+        // validate
+        assertThat(actual).isEmpty()
+        verify(resources).openRawResource(id)
+    }
+
+    private fun createZippedInputStream(lines: List<String>): InputStream {
+        val outputStream = ByteArrayOutputStream()
+        ZipOutputStream(outputStream).use {
+            it.putNextEntry(ZipEntry("file.txt"))
+            it.write(lines.joinToString("\n").toByteArray())
+            it.closeEntry()
+        }
+        return outputStream.toByteArray().inputStream()
     }
 }
