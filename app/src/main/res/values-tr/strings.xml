@@ -15,16 +15,19 @@
   ~
   ~ You should have received a copy of the GNU General Public License
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
-  --><resources>
+  -->
+
+<resources>
     <!-- application start -->
     <string name="app_copyright">"Telif Hakkı \u00A9 2015 \u002D"</string>
     <!-- application end -->
 
     <string name="navigation_drawer_open">"Gezinti çekmecesini aç"</string>
     <string name="navigation_drawer_close">"Gezinti çekmecesini kapat"</string>
-    <string name="scanner_message">Taranıyor …</string>
+    <string name="scanner_message">Taranıyor &#8230;</string>
     <string name="scanner_pause">"Duraklat"</string>
     <string name="scanner_play">"Devam ettir"</string>
+
     <!-- action start -->
     <string name="action_access_points">"Erişim Noktaları"</string>
     <string name="action_channel_rating">"Kanal Derecesi"</string>
@@ -44,6 +47,7 @@
     <string name="throttling_msg">"Android 9, Wi-Fi tarama kısıtlamasını tanıttı. Android 10, (Ayarlar - Geliştirici Seçenekleri - Ağ - Kablosuz ağ taramasını kısma) altında azaltmayı kapatmak için yeni bir geliştirici seçeneğine sahiptir."</string>
     <string name="export_not_available">"Dışa aktarım yapılamıyor"</string>
     <string name="current_connection">"Mevcut bağlantı"</string>
+
     <string name="channel_rating_best">"En İyi Kanallar:"</string>
     <string name="channel_rating_best_none">"Hiçbiri"</string>
     <string name="channel_rating_best_alternative">"%s, alternatif Wi-Fi Bandını deneyin %s"</string>
@@ -51,40 +55,56 @@
     <string name="channel_rating_heading_number">"Kanal Numarası"</string>
     <string name="channel_rating_heading_count">"Erişim Noktası Sayısı"</string>
     <string name="channel_short_name">"KA"</string>
+
     <string name="graph_channel_axis_x">"Wi-Fi Kanalları"</string>
     <string name="graph_time_axis_x">"Tarama Sayısı"</string>
     <string name="graph_axis_y">"Sinyal Gücü (dBm)"</string>
+
     <!-- settings start -->
     <string name="country_code_title">"Ülke"</string>
+
     <string name="scan_speed_title">"Tarama Aralığı"</string>
     <string name="scan_speed_summary">"Her tarama arasında %s saniye"</string>
+
     <string name="sort_by_title">"Erişim Noktalarını Şuna Göre Sırala"</string>
     <string name="sort_by_signal_strength">"Sinyal Gücü"</string>
     <string name="sort_by_channel">"Kanal"</string>
+
     <string name="group_by_title">"Erişim Noktalarını Grupla"</string>
     <string name="group_by_none">"Hiçbiri"</string>
     <string name="group_by_channel">"Kanal"</string>
     <string name="group_by_virtual">"Sanal"</string>
+
     <string name="connection_view_title">"Bağlantı Göstergesi"</string>
     <string name="connection_view_complete">"Tam"</string>
     <string name="connection_view_compact">"Sıkışık"</string>
     <string name="connection_view_hide">"Gizle"</string>
+
     <string name="ap_view_title">"Erişim Noktası Göstergesi"</string>
     <string name="ap_view_complete">"Tam"</string>
     <string name="ap_view_compact">"Sıkışık"</string>
+
     <string name="graph_maximum_y_title">"Grafikteki Maksimum Sinyal Gücü"</string>
+
     <string name="channel_graph_legend_title">"Kanal Grafiği Gösterge Ekranı"</string>
+
     <string name="time_graph_legend_title">"Zaman Grafiği Göstergesi Ekranı"</string>
+
     <string name="graph_legend_left">"Sol"</string>
     <string name="graph_legend_right">"Sağ"</string>
     <string name="graph_legend_hide">"Gizle"</string>
+
     <string name="theme_title">"Tema"</string>
     <string name="theme_dark">"Koyu"</string>
     <string name="theme_light">"Açık"</string>
     <string name="theme_system">"Sistem"</string>
+
     <string name="wifi_off_on_exit_title">"Çıkışta Wi-Fi'yi kapat"</string>
+
     <string name="keep_screen_on_title">"Ekranı açık tut"</string>
+
     <string name="language_title">"Dil"</string>
+
     <string name="reset_title">"Sıfırla"</string>
     <!-- settings end -->
 
@@ -93,6 +113,10 @@
     <string name="about_description_title">"Açıklama:"</string>
     <string name="about_description_text">"Android için geliştirilmiş açık kaynaklı WiFiAnalyzer ile Wi-Fi ağ durumunu, sinyal gücünü kontrol ederek ve kalabalık kanalları belirleyerek Wi-Fi ağınızı iyileştirin"</string>
     <string name="about_libraries_title">"Kullanılan Kütüphaneler:"</string>
+    <string name="about_documentation">Dokümantasyon:</string>
+    <string name="about_how_to">Nasıl yapılır:</string>
+    <string name="about_faq">SSS:</string>
+    <string name="about_privacy_policy">Gizlilik Politikası:</string>
     <string name="about_contributor_title">"Katkıda Bulunanlar"</string>
     <string name="about_write_review">"Bir Yorum Yaz"</string>
     <!-- about end -->
@@ -116,8 +140,4 @@
     <string name="wifi_throttling_on">"Wi-Fi tarama kısıtlaması etkin"</string>
     <string name="wifi_throttling_off">"Wi-Fi tarama kısıtlaması devre dışı"</string>
     <!-- wifi throttling end -->
-<string name="about_documentation">Dokümantasyon:</string>
-    <string name="about_how_to">Nasıl yapılır:</string>
-    <string name="about_faq">SSS:</string>
-    <string name="about_privacy_policy">Gizlilik Politikası:</string>
 </resources>
