@@ -84,6 +84,19 @@ class WiFiManagerWrapperTest {
     }
 
     @Test
+    fun enableWiFiWhenDisabledAndSwitchFails() {
+        // setup
+        whenever(wifiManager.isWifiEnabled).thenReturn(false)
+        whenever(wiFiSwitch.on()).thenReturn(false)
+        // execute
+        val actual = fixture.enableWiFi()
+        // validate
+        assertThat(actual).isFalse
+        verify(wifiManager).isWifiEnabled
+        verify(wiFiSwitch).on()
+    }
+
+    @Test
     fun enableWiFiWithException() {
         // setup
         whenever(wifiManager.isWifiEnabled).thenReturn(false)
@@ -105,6 +118,19 @@ class WiFiManagerWrapperTest {
         val actual = fixture.disableWiFi()
         // validate
         assertThat(actual).isTrue
+        verify(wifiManager).isWifiEnabled
+        verify(wiFiSwitch).off()
+    }
+
+    @Test
+    fun disableWiFiWhenEnabledAndSwitchFails() {
+        // setup
+        whenever(wifiManager.isWifiEnabled).thenReturn(true)
+        whenever(wiFiSwitch.off()).thenReturn(false)
+        // execute
+        val actual = fixture.disableWiFi()
+        // validate
+        assertThat(actual).isFalse
         verify(wifiManager).isWifiEnabled
         verify(wiFiSwitch).off()
     }

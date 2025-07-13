@@ -70,6 +70,19 @@ class TimeGraphCacheTest {
         assertThat(actual).contains(expected[0])
     }
 
+    @Test
+    fun resetShouldNotAdd() {
+        // setup
+        val wiFiDetails = withWiFiDetails()
+        val newWiFiDetail = withWiFiDetail("newSSID")
+        // execute
+        fixture.reset(newWiFiDetail)
+        // validate
+        val actual = fixture.wiFiDetails
+        assertThat(actual).hasSize(wiFiDetails.size)
+        assertThat(actual).doesNotContain(newWiFiDetail)
+    }
+
     private fun withWiFiDetail(ssid: String): WiFiDetail {
         return WiFiDetail(
             WiFiIdentifier(ssid, "BSSID"),
@@ -85,7 +98,7 @@ class TimeGraphCacheTest {
             results.add(wiFiDetail)
         }
         results.forEach { fixture.add(it) }
-        for (i in 0 until MAX_NOT_SEEN_COUNT) {
+        repeat(MAX_NOT_SEEN_COUNT) {
             fixture.add(results[0])
         }
         return results

@@ -80,7 +80,7 @@ class ApplicationPermissionTest {
     }
 
     @Test
-    fun granted() {
+    fun grantedWithRequestCode() {
         // setup
         val grantResults = intArrayOf(PackageManager.PERMISSION_GRANTED)
         // execute
@@ -117,5 +117,27 @@ class ApplicationPermissionTest {
         val actual = fixture.granted(ApplicationPermission.REQUEST_CODE, grantResults)
         // validate
         assertThat(actual).isFalse
+    }
+
+    @Test
+    fun grantedWhenPermissionGranted() {
+        // setup
+        doReturn(PackageManager.PERMISSION_GRANTED).whenever(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+        // execute
+        val actual = fixture.granted()
+        // validate
+        assertThat(actual).isTrue
+        verify(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+    }
+
+    @Test
+    fun grantedWhenPermissionDenied() {
+        // setup
+        doReturn(PackageManager.PERMISSION_DENIED).whenever(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+        // execute
+        val actual = fixture.granted()
+        // validate
+        assertThat(actual).isFalse
+        verify(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     }
 }

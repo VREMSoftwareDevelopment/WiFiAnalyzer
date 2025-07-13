@@ -32,6 +32,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.kotlin.*
 import org.robolectric.annotation.Config
 
@@ -126,4 +127,18 @@ class VendorAdapterTest {
         verify(vendorService).findMacAddresses(vendorName2)
     }
 
+    @Test
+    fun getViewShouldHandleNullItem() {
+        // setup
+        val viewGroup = mainActivity.findViewById<ViewGroup>(android.R.id.content)
+        val spiedFixture = spy(fixture)
+        doReturn(null).whenever(spiedFixture).getItem(anyInt())
+        // execute
+        val actual = spiedFixture.getView(0, null, viewGroup)
+        // validate
+        assertThat(actual).isNotNull
+        assertThat(actual.findViewById<TextView>(R.id.vendor_name).text).isEmpty()
+        assertThat(actual.findViewById<TextView>(R.id.vendor_macs).text).isEmpty()
+        verify(vendorService, never()).findMacAddresses(any())
+    }
 }

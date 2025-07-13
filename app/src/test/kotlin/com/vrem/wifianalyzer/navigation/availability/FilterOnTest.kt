@@ -99,6 +99,25 @@ class FilterOnTest {
         verify(optionMenu).menu
     }
 
+    @Test
+    fun navigationOptionFilterOnWithNoIconDoesNotSetTint() {
+        // setup
+        whenever(filterAdapter.isActive()).thenReturn(false)
+        whenever(mainActivity.optionMenu).thenReturn(optionMenu)
+        whenever(optionMenu.menu).thenReturn(menu)
+        whenever(menu.findItem(R.id.action_filter)).thenReturn(menuItem)
+        whenever(menuItem.icon).thenReturn(null)
+        // execute
+        navigationOptionFilterOn(mainActivity)
+        // validate
+        verify(mainActivity).optionMenu
+        verify(optionMenu).menu
+        verify(menu).findItem(R.id.action_filter)
+        verify(menuItem).icon
+        verify(filterAdapter).isActive()
+        verify(menuItem).isVisible = true
+    }
+
     private fun verifyMenuItem() {
         verify(mainActivity).optionMenu
         verify(optionMenu).menu

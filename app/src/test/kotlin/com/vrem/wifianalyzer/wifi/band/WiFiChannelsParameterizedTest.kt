@@ -41,6 +41,15 @@ class WiFiChannelsParameterizedTest {
     lateinit var fixture: WiFiChannels
 
     @Test
+    fun getOffset() {
+        if (wiFiBand == WiFiBand.GHZ2) {
+            assertThat(fixture.offset).isEqualTo(1)
+        } else {
+            assertThat(fixture.offset).isEqualTo(2)
+        }
+    }
+
+    @Test
     fun inRange() {
         assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.first().frequency)).isTrue
         assertThat(fixture.inRange(expectedWiFiInfo.expectedChannels.last().frequency)).isTrue
@@ -123,6 +132,17 @@ class WiFiChannelsParameterizedTest {
             .isEqualTo(WiFiWidth.MHZ_20)
         assertThat(fixture.wiFiWidthByChannel(wiFiBand.wiFiChannels.channelRange.second.channel + 1))
             .isEqualTo(WiFiWidth.MHZ_20)
+    }
+
+    @Test
+    fun wiFiWidthUsingChannelNotInActiveChannels() {
+        val channel = fixture.availableChannels.firstOrNull { channel ->
+            fixture.activeChannels.values.flatten().none { it == channel }
+        }
+        if (channel != null) {
+            val actual = fixture.wiFiWidthByChannel(channel)
+            assertThat(actual).isEqualTo(WiFiWidth.MHZ_20)
+        }
     }
 
     @Test

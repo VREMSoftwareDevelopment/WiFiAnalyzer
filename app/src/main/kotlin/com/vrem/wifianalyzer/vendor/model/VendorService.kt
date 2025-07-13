@@ -53,7 +53,6 @@ class VendorService(private val resources: Resources) {
         val vendors: MutableMap<String, List<String>> = TreeMap()
         readZipFile(resources, R.raw.data)
             .map { it.split("|").toTypedArray() }
-            .filter { it.size == 2 }
             .forEach {
                 val name = it[0]
                 val results: List<String> = it[1].chunked(MAX_SIZE)

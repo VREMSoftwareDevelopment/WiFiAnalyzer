@@ -31,7 +31,7 @@ class PermissionDialog(private val activity: Activity) {
     fun show(): View? {
         val view = activity.layoutInflater.inflate(R.layout.info_permission, null)
         val visibility = if (buildMinVersionP()) View.VISIBLE else View.GONE
-        view.findViewById<View>(R.id.throttling)?.visibility = visibility
+        view.findViewById<View>(R.id.throttling)!!.visibility = visibility
         AlertDialog.Builder(activity)
             .setView(view)
             .setTitle(R.string.app_full_name)
@@ -46,7 +46,7 @@ class PermissionDialog(private val activity: Activity) {
     internal class OkClick(private val activity: Activity) : DialogInterface.OnClickListener {
         override fun onClick(alertDialog: DialogInterface, which: Int) {
             alertDialog.dismiss()
-            activity.requestPermissions(ApplicationPermission.PERMISSIONS, ApplicationPermission.REQUEST_CODE)
+            activity.requestPermissions(arrayOf(ApplicationPermission.PERMISSION), ApplicationPermission.REQUEST_CODE)
         }
     }
 

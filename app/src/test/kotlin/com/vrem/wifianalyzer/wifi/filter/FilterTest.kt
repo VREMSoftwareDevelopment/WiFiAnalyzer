@@ -21,9 +21,11 @@ import android.content.DialogInterface
 import android.os.Build
 import android.view.View
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
+import com.vrem.wifianalyzer.MainActivity
+import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
+import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.filter.Filter.Companion.build
 import com.vrem.wifianalyzer.wifi.model.Security
@@ -41,8 +43,8 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class FilterTest {
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val fixture = build()
+    private val mainActivity: MainActivity = RobolectricUtil.INSTANCE.activity
+    private val fixture: Filter = build()
 
     @Before
     fun setUp() {
@@ -51,7 +53,8 @@ class FilterTest {
 
     @After
     fun tearDown() {
-        INSTANCE.restore()
+        mainActivity.currentNavigationMenu(NavigationMenu.ACCESS_POINTS)
+        MainContextHelper.INSTANCE.restore()
     }
 
     @Test
@@ -86,8 +89,8 @@ class FilterTest {
         // setup
         fixture.show()
         val button = fixture.alertDialog!!.getButton(DialogInterface.BUTTON_POSITIVE)
-        val filtersAdapter = INSTANCE.filterAdapter
-        val mainActivity = INSTANCE.mainActivity
+        val filtersAdapter = MainContextHelper.INSTANCE.filterAdapter
+        val mainActivity = MainContextHelper.INSTANCE.mainActivity
         // execute
         button.performClick()
         // validate
@@ -102,8 +105,8 @@ class FilterTest {
         // setup
         fixture.show()
         val button = fixture.alertDialog!!.getButton(DialogInterface.BUTTON_NEGATIVE)
-        val filtersAdapter = INSTANCE.filterAdapter
-        val mainActivity = INSTANCE.mainActivity
+        val filtersAdapter = MainContextHelper.INSTANCE.filterAdapter
+        val mainActivity = MainContextHelper.INSTANCE.mainActivity
         // execute
         button.performClick()
         // validate
@@ -118,8 +121,8 @@ class FilterTest {
         // setup
         fixture.show()
         val button = fixture.alertDialog!!.getButton(DialogInterface.BUTTON_NEUTRAL)
-        val filtersAdapter = INSTANCE.filterAdapter
-        val mainActivity = INSTANCE.mainActivity
+        val filtersAdapter = MainContextHelper.INSTANCE.filterAdapter
+        val mainActivity = MainContextHelper.INSTANCE.mainActivity
         // execute
         button.performClick()
         // validate
@@ -203,6 +206,39 @@ class FilterTest {
         // validate
         assertThat(actual).hasSize(expected.size)
         expected.forEach { assertThat(actual[it]).isNotNull() }
+    }
+
+    @Test
+    fun showWhenDialogIsNull() {
+        // setup
+        val fixture = Filter(null)
+        // execute
+        fixture.show()
+        // validate
+        assertThat(fixture.wiFiBandFilter).isNull()
+        assertThat(fixture.strengthFilter).isNull()
+        assertThat(fixture.securityFilter).isNull()
+    }
+
+    @Test
+    fun wiFiBandFilterViewIsGone() {
+        // setup
+        mainActivity.currentNavigationMenu(NavigationMenu.CHANNEL_RATING)
+        fixture.show()
+        // execute
+        val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterWiFiBand).visibility
+        // validate
+        assertThat(actual).isEqualTo(View.GONE)
+    }
+
+    @Test
+    fun showWhenAlreadyShowing() {
+        // setup
+        fixture.show()
+        // execute
+        fixture.show()
+        // validate
+        assertThat(fixture.alertDialog!!.isShowing).isTrue
     }
 
 }

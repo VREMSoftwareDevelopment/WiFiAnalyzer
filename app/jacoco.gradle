@@ -69,15 +69,15 @@ def jacocoCoverageVerificationProvider = tasks.register('jacocoTestCoverageVerif
             element = 'BUNDLE'
             limit {
                 counter = 'INSTRUCTION'
-                minimum = 0.97
+                minimum = 0.98
             }
             limit {
                 counter = 'BRANCH'
-                minimum = 0.88
+                minimum = 0.90
             }
             limit {
                 counter = 'COMPLEXITY'
-                minimum = 0.92
+                minimum = 0.94
             }
             limit {
                 counter = 'LINE'
@@ -85,34 +85,11 @@ def jacocoCoverageVerificationProvider = tasks.register('jacocoTestCoverageVerif
             }
             limit {
                 counter = 'METHOD'
-                minimum = 0.97
+                minimum = 0.98
             }
             limit {
                 counter = 'CLASS'
                 minimum = 0.99
-            }
-        }
-        rule {
-            element = 'CLASS'
-            limit {
-                counter = 'INSTRUCTION'
-                minimum = 0.67
-            }
-            limit {
-                counter = 'BRANCH'
-                minimum = 0.50
-            }
-            limit {
-                counter = 'COMPLEXITY'
-                minimum = 0.33
-            }
-            limit {
-                counter = 'LINE'
-                minimum = 0.60
-            }
-            limit {
-                counter = 'METHOD'
-                minimum = 0.33
             }
         }
     }

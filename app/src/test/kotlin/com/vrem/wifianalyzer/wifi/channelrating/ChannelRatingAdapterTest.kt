@@ -37,6 +37,7 @@ import com.vrem.wifianalyzer.wifi.model.Strength.Companion.reverse
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
 import com.vrem.wifianalyzer.wifi.predicate.predicate
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatExceptionOfType
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -88,6 +89,52 @@ class ChannelRatingAdapterTest {
         verify(settings).wiFiBand()
         verify(channelRating).count(wiFiChannel)
         verify(channelRating).strength(wiFiChannel)
+    }
+
+    @Test
+    fun getViewWithRecycledView() {
+        // setup
+        val expectedSize = Strength.entries.size
+        val expectedStrength = reverse(Strength.THREE)
+        val wiFiChannel = WiFiChannel(1, 2)
+        fixture.add(wiFiChannel)
+        val wiFiBand = WiFiBand.GHZ5
+        doReturn(wiFiBand).whenever(settings).wiFiBand()
+        doReturn(5).whenever(channelRating).count(wiFiChannel)
+        doReturn(Strength.FOUR).whenever(channelRating).strength(wiFiChannel)
+        val viewGroup = mainActivity.findViewById<ViewGroup>(android.R.id.content)
+        val view = fixture.getView(0, null, viewGroup)
+        clearInvocations(settings, channelRating)
+        doReturn(wiFiBand).whenever(settings).wiFiBand()
+        doReturn(6).whenever(channelRating).count(wiFiChannel)
+        doReturn(Strength.THREE).whenever(channelRating).strength(wiFiChannel)
+        // execute
+        val actual = fixture.getView(0, view, viewGroup)
+        // validate
+        assertThat(actual).isNotNull()
+        assertThat(actual.findViewById<TextView>(R.id.channelRatingChannel).text).isEqualTo("1")
+        assertThat(actual.findViewById<TextView>(R.id.channelRatingWidth).text).isEqualTo("20 MHz")
+        assertThat(actual.findViewById<TextView>(R.id.channelRatingAPCount).text).isEqualTo("6")
+        val ratingBar = actual.findViewById<RatingBar>(R.id.channelRating)
+        assertThat(ratingBar.max).isEqualTo(expectedSize)
+        assertThat(ratingBar.numStars).isEqualTo(expectedSize)
+        assertThat(ratingBar.rating.toInt()).isEqualTo(expectedStrength.ordinal + 1)
+        verify(settings).wiFiBand()
+        verify(channelRating).count(wiFiChannel)
+        verify(channelRating).strength(wiFiChannel)
+    }
+
+    @Test
+    fun getViewWithNoItem() {
+        // setup
+        val wiFiBand = WiFiBand.GHZ5
+        doReturn(wiFiBand).whenever(settings).wiFiBand()
+        val viewGroup = mainActivity.findViewById<ViewGroup>(android.R.id.content)
+        // execute & validate
+        assertThatExceptionOfType(IndexOutOfBoundsException::class.java)
+            .isThrownBy { fixture.getView(0, null, viewGroup) }
+            .withMessage("Index 0 out of bounds for length 0")
+        verify(settings).wiFiBand()
     }
 
     @Test
@@ -160,6 +207,18 @@ class ChannelRatingAdapterTest {
         assertThat(binding.channelRatingMessage.text).isEqualTo(String.EMPTY)
         assertThat(binding.channelRatingMessage.textColors.defaultColor).isEqualTo(expectedColor)
         verify(channelRating).bestChannels(WiFiBand.GHZ5, wiFiChannels)
+    }
+
+    @Test
+    fun getChannelRatingBest() {
+        // execute & validate
+        assertThat(fixture.channelRatingBest).isEqualTo(binding)
+    }
+
+    @Test
+    fun getChannelRating() {
+        // execute & validate
+        assertThat(fixture.channelRating).isEqualTo(channelRating)
     }
 
     private fun withChannelAPCounts(): List<ChannelAPCount> = (1..9).map { channelAPCount(it) }

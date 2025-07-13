@@ -65,15 +65,15 @@ class CacheTest {
         val cacheSize = 2
         val expected: MutableList<List<ScanResult>> = mutableListOf()
         // execute
-        for (i in 0 until cacheSize) {
+        repeat(cacheSize) {
             val scanResults = listOf<ScanResult>()
             expected.add(scanResults)
             fixture.add(scanResults)
         }
         // validate
         assertThat(expected).hasSize(cacheSize)
-        assertThat(fixture.first()).isEqualTo(expected[cacheSize - 1])
-        assertThat(fixture.last()).isEqualTo(expected[cacheSize - 2])
+        assertThat(fixture.first()).isEqualTo(expected[1])
+        assertThat(fixture.last()).isEqualTo(expected[0])
     }
 
     @Test
@@ -128,15 +128,15 @@ class CacheTest {
         whenever(settings.cacheOff()).thenReturn(true)
         val expected: MutableList<List<ScanResult>> = mutableListOf()
         // execute
-        for (i in 0 until count) {
+        repeat(count) {
             val scanResults = listOf<ScanResult>()
             expected.add(scanResults)
             fixture.add(scanResults)
         }
         // validate
         assertThat(expected).hasSize(count)
-        assertThat(fixture.first()).isEqualTo(expected[count - 1])
-        assertThat(fixture.last()).isEqualTo(expected[count - 2])
+        assertThat(fixture.first()).isEqualTo(expected[1])
+        assertThat(fixture.last()).isEqualTo(expected[0])
         verify(settings, times(count)).cacheOff()
     }
 
@@ -198,15 +198,15 @@ class CacheTest {
         whenever(configuration.sizeAvailable).thenReturn(false)
         val expected: MutableList<List<ScanResult>> = mutableListOf()
         // execute
-        for (i in 0 until cacheSize) {
+        repeat(cacheSize) {
             val scanResults = listOf<ScanResult>()
             expected.add(scanResults)
             fixture.add(scanResults)
         }
         // validate
         assertThat(expected).hasSize(cacheSize)
-        assertThat(fixture.first()).isEqualTo(expected[cacheSize - 1])
-        assertThat(fixture.last()).isEqualTo(expected[cacheSize - 2])
+        assertThat(fixture.first()).isEqualTo(expected[1])
+        assertThat(fixture.last()).isEqualTo(expected[0])
     }
 
     @Test
@@ -246,6 +246,41 @@ class CacheTest {
         // validate
         assertThat(actual).isEqualTo(expected)
         verify(settings, never()).scanSpeed()
+    }
+
+    @Test
+    fun cacheKey() {
+        // setup
+        val bssid = "BSSID"
+        val ssid = "SSID"
+        // execute
+        val fixture = CacheKey(bssid, ssid)
+        // validate
+        assertThat(fixture.bssid).isEqualTo(bssid)
+        assertThat(fixture.ssid).isEqualTo(ssid)
+    }
+
+    @Test
+    fun addResetsCountWhenMaximumIsReached() {
+        // setup
+        whenever(configuration.sizeAvailable).thenReturn(false)
+        val scanResults = listOf(scanResult1)
+        whenSsid(scanResult1, "SSID1")
+        scanResult1.BSSID = "BSSID1"
+        scanResult1.level = -50
+        // execute & validate
+        repeat(10) {
+            fixture.add(scanResults)
+        }
+        var actual = fixture.scanResults()
+        assertThat(actual).hasSize(1)
+        validate(scanResult1, -80, actual[0])
+        // execute & validate
+        // call add again, count is reset to 2
+        fixture.add(scanResults)
+        actual = fixture.scanResults()
+        assertThat(actual).hasSize(1)
+        validate(scanResult1, -60, actual[0])
     }
 
     private fun validate(expectedScanResult: ScanResult, expectedLevel: Int, actual: CacheResult) {

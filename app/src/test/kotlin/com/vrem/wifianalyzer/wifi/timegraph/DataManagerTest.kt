@@ -59,6 +59,20 @@ class DataManagerTest {
     }
 
     @Test
+    fun addSeriesDataCallsAddDataAndAdjustData() {
+        // setup
+        val wiFiDetails = makeWiFiDetails()
+        val wiFiDetailsSet = wiFiDetails.toSet()
+        // execute
+        fixture.addSeriesData(graphViewWrapper, wiFiDetails, MAX_Y)
+        // validate
+        wiFiDetailsSet.forEach {
+            verify(graphViewWrapper).newSeries(it)
+        }
+        verify(graphViewWrapper).differenceSeries(wiFiDetailsSet)
+    }
+
+    @Test
     fun addSeriesDoesNotIncreasesScanCountWhenLimitIsReached() {
         // setup
         fixture.scanCount = MAX_SCAN_COUNT

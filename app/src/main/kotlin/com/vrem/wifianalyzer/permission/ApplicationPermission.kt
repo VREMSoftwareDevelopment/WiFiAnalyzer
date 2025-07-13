@@ -28,10 +28,8 @@ class ApplicationPermission(
     private val permissionDialog: PermissionDialog = PermissionDialog(activity)
 ) {
     fun check() {
-        PERMISSIONS.forEach {
-            if (!granted(it) && !activity.isFinishing) {
-                permissionDialog.show()
-            }
+        if (!granted() && !activity.isFinishing) {
+            permissionDialog.show()
         }
     }
 
@@ -39,13 +37,10 @@ class ApplicationPermission(
         requestCode == REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
 
     fun granted(): Boolean =
-        PERMISSIONS.all { return granted(it) }
-
-    private fun granted(permission: String): Boolean =
-        activity.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
+        activity.checkSelfPermission(PERMISSION) == PackageManager.PERMISSION_GRANTED
 
     companion object {
-        internal val PERMISSIONS = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+        internal const val PERMISSION = Manifest.permission.ACCESS_FINE_LOCATION
         internal const val REQUEST_CODE = 0x123450
     }
 

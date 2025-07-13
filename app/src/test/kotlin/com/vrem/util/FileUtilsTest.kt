@@ -44,8 +44,9 @@ class FileUtilsTest {
     fun readFile() {
         // setup
         val id = 11
+        val input = "Line-1\r\nLine-2\r\n"
         val expected = "Line-1\nLine-2\n"
-        whenever(resources.openRawResource(id)).thenReturn(expected.byteInputStream())
+        whenever(resources.openRawResource(id)).thenReturn(input.byteInputStream())
         // execute
         val actual = readFile(resources, id)
         // validate
@@ -90,12 +91,26 @@ class FileUtilsTest {
         verify(resources).openRawResource(id)
     }
 
-    private fun createZippedInputStream(lines: List<String>): InputStream {
+    @Test
+    fun readZipFileWithEmptyZipReturnsEmptyList() {
+        // setup
+        val id = 12
+        whenever(resources.openRawResource(id)).thenReturn(createZippedInputStream(emptyList(), false))
+        // execute
+        val actual = readZipFile(resources, id)
+        // validate
+        assertThat(actual).isEmpty()
+        verify(resources).openRawResource(id)
+    }
+
+    private fun createZippedInputStream(lines: List<String>, addEntry: Boolean = true): InputStream {
         val outputStream = ByteArrayOutputStream()
         ZipOutputStream(outputStream).use {
-            it.putNextEntry(ZipEntry("file.txt"))
-            it.write(lines.joinToString("\n").toByteArray())
-            it.closeEntry()
+            if (addEntry) {
+                it.putNextEntry(ZipEntry("file.txt"))
+                it.write(lines.joinToString("\n").toByteArray())
+                it.closeEntry()
+            }
         }
         return outputStream.toByteArray().inputStream()
     }

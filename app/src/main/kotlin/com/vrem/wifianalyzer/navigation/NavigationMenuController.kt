@@ -48,7 +48,7 @@ class NavigationMenuController(
     private fun setChecked(menu: Menu, id: Int) {
         if (id != -1) {
             menu.forEach { it.isChecked = false }
-            menu.findItem(id)?.isChecked = true
+            menu.findItem(id)!!.isChecked = true
         }
     }
 

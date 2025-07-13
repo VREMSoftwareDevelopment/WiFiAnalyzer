@@ -164,7 +164,7 @@ class ScannerTest {
         whenever(transformer.transformToWiFiData()).thenReturn(wiFiData)
         whenever(permissionService.enabled()).thenReturn(true)
         // execute
-        for (i in 0 until expected) {
+        repeat(expected) {
             fixture.update()
         }
         // validate
@@ -216,6 +216,14 @@ class ScannerTest {
         // validate
         verify(periodicScan).running
         verify(periodicScan).start()
+    }
+
+    @Test
+    fun resumeWithDelay() {
+        // execute
+        fixture.resumeWithDelay()
+        // validate
+        verify(periodicScan).startWithDelay()
     }
 
     private fun verifyUpdateNotifier(expected: Int) {
