@@ -32,6 +32,7 @@ private fun BaseSeries<GraphDataPoint>.highlightConnected(connected: Boolean) {
             this.thickness = thickness
             this.setTextBold(connected)
         }
+        else -> throw IllegalArgumentException("Unsupported series type: ${this::class.java}")
     }
 }
 
@@ -41,6 +42,7 @@ private fun BaseSeries<GraphDataPoint>.seriesColor(graphColors: GraphColors) {
     when (this) {
         is LineGraphSeries<GraphDataPoint> -> this.backgroundColor = graphColor.background.toInt()
         is TitleLineGraphSeries<GraphDataPoint> -> this.backgroundColor = graphColor.background.toInt()
+        else -> throw IllegalArgumentException("Unsupported series type: ${this::class.java}")
     }
 }
 
@@ -48,6 +50,7 @@ private fun BaseSeries<GraphDataPoint>.drawBackground(drawBackground: Boolean) {
     when (this) {
         is LineGraphSeries<GraphDataPoint> -> this.isDrawBackground = drawBackground
         is TitleLineGraphSeries<GraphDataPoint> -> this.isDrawBackground = drawBackground
+        else -> throw IllegalArgumentException("Unsupported series type: ${this::class.java}")
     }
 }
 

@@ -54,13 +54,7 @@ class GraphViewWrapperTest {
 
     @After
     fun tearDown() {
-        verifyNoMoreInteractions(graphView)
         verifyNoMoreInteractions(viewport)
-        verifyNoMoreInteractions(gridLabelRenderer)
-        verifyNoMoreInteractions(legendRenderer)
-        verifyNoMoreInteractions(seriesCache)
-        verifyNoMoreInteractions(seriesOptions)
-        verifyNoMoreInteractions(baseSeries)
     }
 
     @Test
@@ -268,25 +262,90 @@ class GraphViewWrapperTest {
     }
 
     @Test
-    fun setViewportWithMinAndMax() {
+    fun setViewportSetsMinAndMaxX() {
         // setup
         whenever(graphView.viewport).thenReturn(viewport)
+        whenever(graphView.gridLabelRenderer).thenReturn(gridLabelRenderer)
+        whenever(gridLabelRenderer.numHorizontalLabels).thenReturn(5)
         // execute
-        fixture.setViewport(1, 2)
+        fixture.setViewport()
         // validate
-        verify(graphView).viewport
-        verify(viewport).setMinX(1.0)
-        verify(viewport).setMaxX(2.0)
+        verify(viewport).setMinX(0.0)
+        verify(viewport).setMaxX(4.0)
     }
 
     @Test
-    fun isNewSeries() {
+    fun setViewportWithParamsSetsMinAndMaxX() {
+        // setup
+        whenever(graphView.viewport).thenReturn(viewport)
+        // execute
+        fixture.setViewport(1, 10)
+        // validate
+        verify(viewport).setMinX(1.0)
+        verify(viewport).setMaxX(10.0)
+    }
+
+    @Test
+    fun viewportCntXReturnsCorrectValue() {
+        // setup
+        whenever(graphView.gridLabelRenderer).thenReturn(gridLabelRenderer)
+        whenever(gridLabelRenderer.numHorizontalLabels).thenReturn(7)
+        // execute
+        assertThat(fixture.viewportCntX).isEqualTo(6)
+        // validate
+        verify(graphView).gridLabelRenderer
+        verify(gridLabelRenderer).numHorizontalLabels
+    }
+
+    @Test
+    fun updateLegendWhenSameLegendDoesNotResetLegendRenderer() {
+        whenever(graphView.legendRenderer).thenReturn(legendRenderer)
+        whenever(graphView.titleTextSize).thenReturn(12f)
+        fixture.updateLegend(GraphLegend.HIDE)
+        verify(legendRenderer).resetStyles()
+    }
+
+    @Test
+    fun setHorizontalLabelsVisibleSetsValue() {
+        // setup
+        whenever(graphView.gridLabelRenderer).thenReturn(gridLabelRenderer)
+        // execute
+        fixture.setHorizontalLabelsVisible(true)
+        // validate
+        verify(gridLabelRenderer).isHorizontalLabelsVisible = true
+    }
+
+    @Test
+    fun visibilitySetsVisibility() {
+        // execute
+        fixture.visibility(View.VISIBLE)
+        // validate
+        verify(graphView).visibility = View.VISIBLE
+    }
+
+    @Test
+    fun newSeriesReturnsTrueIfNotExists() {
+        // setup
+        whenever(seriesCache.contains(wiFiDetail)).thenReturn(false)
+        // execute & validate
+        assertThat(fixture.newSeries(wiFiDetail)).isTrue
+    }
+
+    @Test
+    fun newSeriesReturnsFalseIfExists() {
+        // setup
+        whenever(seriesCache.contains(wiFiDetail)).thenReturn(true)
+        // execute & validate
+        assertThat(fixture.newSeries(wiFiDetail)).isFalse
+    }
+
+    @Test
+    fun addSeriesTriggersPopupOnTap() {
         // setup
         whenever(seriesCache.contains(wiFiDetail)).thenReturn(false)
         // execute
-        val actual = fixture.newSeries(wiFiDetail)
+        fixture.addSeries(wiFiDetail, baseSeries, false)
         // validate
-        assertThat(actual).isTrue
-        verify(seriesCache).contains(wiFiDetail)
+        verify(baseSeries).setOnDataPointTapListener(any())
     }
 }

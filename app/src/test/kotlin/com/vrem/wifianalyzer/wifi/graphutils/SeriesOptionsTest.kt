@@ -17,8 +17,10 @@
  */
 package com.vrem.wifianalyzer.wifi.graphutils
 
+import com.jjoe64.graphview.series.BaseSeries
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.series.TitleLineGraphSeries
+import org.assertj.core.api.Assertions.*
 import org.junit.After
 import org.junit.Test
 import org.mockito.kotlin.*
@@ -90,6 +92,16 @@ class SeriesOptionsTest {
     }
 
     @Test
+    fun highlightConnectedThrowsException() {
+        // setup
+        val baseSeries: BaseSeries<GraphDataPoint> = mock()
+        // execute & validate
+        assertThatThrownBy { fixture.highlightConnected(baseSeries, true) }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("Unsupported series type")
+    }
+
+    @Test
     fun setSeriesColorForLineGraphSeries() {
         // setup
         whenever(graphColors.graphColor()).thenReturn(graphColor)
@@ -118,6 +130,19 @@ class SeriesOptionsTest {
     }
 
     @Test
+    fun setSeriesColorThrowsException() {
+        // setup
+        val baseSeries: BaseSeries<GraphDataPoint> = mock()
+        whenever(graphColors.graphColor()).thenReturn(graphColor)
+        // execute & validate
+        assertThatThrownBy { fixture.setSeriesColor(baseSeries) }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("Unsupported series type")
+        // validate
+        verify(graphColors).graphColor()
+    }
+
+    @Test
     fun drawBackgroundForLineGraphSeries() {
         // execute
         fixture.drawBackground(lineGraphSeries, true)
@@ -131,6 +156,16 @@ class SeriesOptionsTest {
         fixture.drawBackground(titleLineGraphSeries, true)
         // validate
         verify(titleLineGraphSeries).isDrawBackground = true
+    }
+
+    @Test
+    fun drawBackgroundThrowsException() {
+        // setup
+        val baseSeries: BaseSeries<GraphDataPoint> = mock()
+        // execute & validate
+        assertThatThrownBy { fixture.drawBackground(baseSeries, true) }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("Unsupported series type")
     }
 
 }

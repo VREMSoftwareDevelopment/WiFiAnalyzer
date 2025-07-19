@@ -75,17 +75,38 @@ class GraphColorsTest {
     }
 
     @Test
-    fun addColorDoesNotAddNonExistingColor() {
+    fun addColorDoesNotAddExistingColor() {
+        // setup
+        val graphColors = withGraphColors()
+        val expected = graphColors[2]
+        // validate & execute
+        assertThat(fixture.graphColor()).isEqualTo(expected)
+        fixture.addColor(expected.primary)
+        fixture.addColor(expected.primary)
+        assertThat(fixture.graphColor()).isEqualTo(expected)
+    }
+
+    @Test
+    fun addColorWithNonExistingColor() {
+        // setup
+        val size = fixture.graphColor()
+        // execute
+        fixture.addColor(123)
+        // validate
+        assertThat(fixture.graphColor()).isNotEqualTo(size)
+    }
+
+    @Test
+    fun graphColorCyclesThroughColors() {
         // setup
         val graphColors = withGraphColors()
         val expected = graphColors[1]
-        val graphColor = graphColors[2]
         val original = fixture.graphColor()
         // execute
         val actual = fixture.graphColor()
         // validate
         assertThat(actual).isEqualTo(expected)
-        assertThat(original).isEqualTo(graphColor)
+        assertThat(original).isEqualTo(graphColors[2])
     }
 
     private fun withColors(): Array<String> {

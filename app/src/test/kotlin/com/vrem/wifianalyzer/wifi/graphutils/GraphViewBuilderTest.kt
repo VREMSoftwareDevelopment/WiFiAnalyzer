@@ -45,9 +45,21 @@ class GraphViewBuilderTest {
     }
 
     @Test
-    fun graphViewLayout() {
+    fun graphViewBuilderWithHorizontalLabelsVisible() {
         // setup
-        val fixture = GraphViewBuilder(numHorizontalLabels, MAX_Y_DEFAULT, ThemeStyle.DARK, true)
+        val fixture = GraphViewBuilder(numHorizontalLabels, MAX_Y_DEFAULT, ThemeStyle.DARK)
+        val layoutParams = fixture.layoutParams
+        // execute
+        graphView.layout(layoutParams)
+        // validate
+        verify(graphView).layoutParams = layoutParams
+        verify(graphView).visibility = View.GONE
+    }
+
+    @Test
+    fun graphViewBuilderWithHorizontalLabelsNotVisible() {
+        // setup
+        val fixture = GraphViewBuilder(numHorizontalLabels, MAX_Y_DEFAULT, ThemeStyle.DARK, false)
         val layoutParams = fixture.layoutParams
         // execute
         graphView.layout(layoutParams)
@@ -76,9 +88,18 @@ class GraphViewBuilderTest {
     @Test
     fun gridLabelRendererLabelFormat() {
         // execute
-        gridLabelRenderer.labelFormat(labelFormatter)
+        val actual = gridLabelRenderer.labelFormat(labelFormatter)
         // validate
+        assertThat(actual).isSameAs(gridLabelRenderer)
         verify(gridLabelRenderer).labelFormatter = labelFormatter
+    }
+
+    @Test
+    fun gridLabelRendererLabelFormatNull() {
+        // execute
+        val actual = gridLabelRenderer.labelFormat(null)
+        // validate
+        assertThat(actual).isSameAs(gridLabelRenderer)
     }
 
     @Test
@@ -111,8 +132,9 @@ class GraphViewBuilderTest {
         val expectedSize = textSize * AXIS_TEXT_SIZE_ADJUSTMENT
         whenever(gridLabelRenderer.verticalAxisTitleTextSize).thenReturn(textSize)
         // execute
-        gridLabelRenderer.verticalTitle(verticalTitle)
+        val actual = gridLabelRenderer.verticalTitle(verticalTitle)
         // validate
+        assertThat(actual).isSameAs(gridLabelRenderer)
         verify(gridLabelRenderer).verticalAxisTitleTextSize = expectedSize
         verify(gridLabelRenderer).verticalAxisTitleTextSize
         verify(gridLabelRenderer).verticalAxisTitle = verticalTitle
@@ -121,10 +143,11 @@ class GraphViewBuilderTest {
     @Test
     fun gridLabelRendererVerticalTitleEmpty() {
         // execute
-        gridLabelRenderer.verticalTitle("")
+        val actual = gridLabelRenderer.verticalTitle("")
         // validate
         verify(gridLabelRenderer, never()).verticalAxisTitle = any()
         verify(gridLabelRenderer, never()).verticalAxisTitleTextSize = any()
+        assertThat(actual).isSameAs(gridLabelRenderer)
     }
 
     @Test

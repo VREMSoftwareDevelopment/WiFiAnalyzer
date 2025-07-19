@@ -37,7 +37,7 @@ import com.vrem.wifianalyzer.wifi.model.Strength.Companion.reverse
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
 import com.vrem.wifianalyzer.wifi.predicate.predicate
 import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -131,9 +131,9 @@ class ChannelRatingAdapterTest {
         doReturn(wiFiBand).whenever(settings).wiFiBand()
         val viewGroup = mainActivity.findViewById<ViewGroup>(android.R.id.content)
         // execute & validate
-        assertThatExceptionOfType(IndexOutOfBoundsException::class.java)
-            .isThrownBy { fixture.getView(0, null, viewGroup) }
-            .withMessage("Index 0 out of bounds for length 0")
+        assertThatThrownBy({ fixture.getView(0, null, viewGroup) })
+            .isInstanceOf(IndexOutOfBoundsException::class.java)
+            .hasMessage("Index 0 out of bounds for length 0")
         verify(settings).wiFiBand()
     }
 
