@@ -148,6 +148,7 @@
     <string name="theme_default" translatable="false">"0"</string>
     <string name="theme_dark">"Dark"</string>
     <string name="theme_light">"Light"</string>
+    <string name="theme_amoled">"AMOLED"</string>
     <string name="theme_system">"System"</string>
 
     <string name="wifi_off_on_exit_title">"Wi-Fi off on Exit"</string>

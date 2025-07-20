@@ -100,11 +100,13 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
+        <item>3</item>
     </string-array>
 
     <string-array name="theme_array">
         <item>@string/theme_dark</item>
         <item>@string/theme_light</item>
+        <item>@string/theme_amoled</item>
         <item>@string/theme_system</item>
     </string-array>
 
