@@ -39,7 +39,7 @@
     <!-- green_500 -->
     <color name="success">#4CAF50</color>
     <!-- background -->
-    <color name="background">#616161</color>
+    <color name="background">#757575</color>
     <!-- black -->
     <color name="black">#000000</color>
 </resources>

@@ -159,51 +159,18 @@ class SettingsTest {
     }
 
     @Test
-    fun themeStyleDark() {
-        // setup
-        doReturn(ThemeStyle.DARK.ordinal)
-            .whenever(repository).stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
-        // execute
-        val actual = fixture.themeStyle()
-        // validate
-        assertThat(actual).isEqualTo(ThemeStyle.DARK)
-        verify(repository).stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
-    }
-
-    @Test
-    fun themeStyleLight() {
-        // setup
-        doReturn(ThemeStyle.LIGHT.ordinal)
-            .whenever(repository).stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
-        // execute
-        val actual = fixture.themeStyle()
-        // validate
-        assertThat(actual).isEqualTo(ThemeStyle.LIGHT)
-        verify(repository).stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
-    }
-
-    @Test
-    fun themeStyleBlack() {
-        // setup
-        doReturn(ThemeStyle.BLACK.ordinal)
-            .whenever(repository).stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
-        // execute
-        val actual = fixture.themeStyle()
-        // validate
-        assertThat(actual).isEqualTo(ThemeStyle.BLACK)
-        verify(repository).stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
-    }
-
-    @Test
-    fun themeStyleSystem() {
-        // setup
-        doReturn(ThemeStyle.SYSTEM.ordinal)
-            .whenever(repository).stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
-        // execute
-        val actual = fixture.themeStyle()
-        // validate
-        assertThat(actual).isEqualTo(ThemeStyle.SYSTEM)
-        verify(repository).stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
+    fun themeStyle() {
+        ThemeStyle.entries.forEach {
+            // setup
+            doReturn(it.ordinal).whenever(repository)
+                .stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
+            // execute
+            val actual = fixture.themeStyle()
+            // validate
+            assertThat(actual).describedAs("Theme: $it").isEqualTo(it)
+        }
+        verify(repository, times(ThemeStyle.entries.size))
+            .stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
     }
 
     @Test

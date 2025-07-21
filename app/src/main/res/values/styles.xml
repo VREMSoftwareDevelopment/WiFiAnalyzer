@@ -18,60 +18,57 @@
 
 <resources>
 
+    <!-- Dark theme -->
     <style name="ThemeDark" parent="Theme.AppCompat">
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="android:actionMenuTextColor">@color/selected</item>
     </style>
-
     <style name="ThemeDarkNoActionBar" parent="ThemeDark">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!-- Light theme -->
     <style name="ThemeLight" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="android:actionMenuTextColor">@color/selected</item>
     </style>
-
     <style name="ThemeLightNoActionBar" parent="ThemeLight">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!-- Black theme -->
     <style name="ThemeBlack" parent="Theme.AppCompat">
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="android:actionMenuTextColor">@color/selected</item>
         <item name="android:windowBackground">@color/black</item>
         <item name="colorPrimary">@color/black</item>
-
     </style>
-
     <style name="ThemeBlackNoActionBar" parent="ThemeBlack">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!-- System (DayNight) theme -->
     <style name="ThemeSystem" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="android:actionMenuTextColor">@color/selected</item>
     </style>
-
     <style name="ThemeSystemNoActionBar" parent="ThemeSystem">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="ThemeOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
-        <item name="android:actionMenuTextColor">@color/selected</item>
-    </style>
-
+    <!-- Overlay and splash styles -->
+    <style name="ThemeOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="ThemeSplash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/background</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_inset</item>
         <item name="windowSplashScreenAnimationDuration">500</item>
     </style>
 
+    <!-- Window animation style -->
     <style name="WindowAnimationTransition">
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
