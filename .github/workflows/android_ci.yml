@@ -23,6 +23,7 @@ jobs:
           name: test-report
           path: app/build/reports/tests/testDebugUnitTest/
       - name: publish unit test results
+        if: always()
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
           files: app/build/test-results/testDebugUnitTest/*.xml
