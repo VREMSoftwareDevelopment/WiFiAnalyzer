@@ -41,8 +41,8 @@
     <style name="ThemeBlack" parent="Theme.AppCompat">
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="android:actionMenuTextColor">@color/selected</item>
-        <item name="android:windowBackground">@android:color/black</item>
-        <item name="colorPrimary">@android:color/black</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="colorPrimary">@color/black</item>
 
     </style>
 
