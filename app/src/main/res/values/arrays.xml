@@ -106,7 +106,7 @@
     <string-array name="theme_array">
         <item>@string/theme_dark</item>
         <item>@string/theme_light</item>
-        <item>@string/theme_amoled</item>
+        <item>@string/theme_black</item>
         <item>@string/theme_system</item>
     </string-array>
 

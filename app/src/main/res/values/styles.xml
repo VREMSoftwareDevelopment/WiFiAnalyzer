@@ -38,7 +38,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="ThemeAmoled" parent="Theme.AppCompat">
+    <style name="ThemeBlack" parent="Theme.AppCompat">
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="android:actionMenuTextColor">@color/selected</item>
         <item name="android:windowBackground">@android:color/black</item>
@@ -46,7 +46,7 @@
 
     </style>
 
-    <style name="ThemeAmoledNoActionBar" parent="ThemeAmoled">
+    <style name="ThemeBlackNoActionBar" parent="ThemeBlack">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
