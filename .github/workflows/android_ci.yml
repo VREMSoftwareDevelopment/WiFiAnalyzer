@@ -16,6 +16,16 @@ jobs:
         run: bash ./gradlew lintDebug --stacktrace
       - name: unit tests
         run: bash ./gradlew testDebugUnitTest --stacktrace
+      - name: artifact test reports
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: app/build/reports/tests/testDebugUnitTest/
+      - name: publish unit test results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: app/build/test-results/testDebugUnitTest/*.xml
       - name: coverage
         run: bash ./gradlew jacocoTestCoverageVerification --stacktrace
       - name: artifact reports
