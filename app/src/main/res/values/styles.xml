@@ -38,6 +38,19 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="ThemeBlack" parent="Theme.AppCompat">
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="android:actionMenuTextColor">@color/selected</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="colorPrimary">@color/black</item>
+
+    </style>
+
+    <style name="ThemeBlackNoActionBar" parent="ThemeBlack">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="ThemeSystem" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="android:actionMenuTextColor">@color/selected</item>

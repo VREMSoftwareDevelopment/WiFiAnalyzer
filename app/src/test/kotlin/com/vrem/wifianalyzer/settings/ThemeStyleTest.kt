@@ -25,13 +25,14 @@ import org.junit.Test
 class ThemeStyleTest {
     @Test
     fun themeStyle() {
-        assertThat(ThemeStyle.entries).hasSize(3)
+        assertThat(ThemeStyle.entries).hasSize(4)
     }
 
     @Test
     fun theme() {
         assertThat(ThemeStyle.LIGHT.theme).isEqualTo(R.style.ThemeLight)
         assertThat(ThemeStyle.DARK.theme).isEqualTo(R.style.ThemeDark)
+        assertThat(ThemeStyle.BLACK.theme).isEqualTo(R.style.ThemeBlack)
         assertThat(ThemeStyle.SYSTEM.theme).isEqualTo(R.style.ThemeSystem)
     }
 
@@ -39,6 +40,7 @@ class ThemeStyleTest {
     fun themeNoActionBar() {
         assertThat(ThemeStyle.DARK.themeNoActionBar).isEqualTo(R.style.ThemeDarkNoActionBar)
         assertThat(ThemeStyle.LIGHT.themeNoActionBar).isEqualTo(R.style.ThemeLightNoActionBar)
+        assertThat(ThemeStyle.BLACK.themeNoActionBar).isEqualTo(R.style.ThemeBlackNoActionBar)
         assertThat(ThemeStyle.SYSTEM.themeNoActionBar).isEqualTo(R.style.ThemeSystemNoActionBar)
     }
 
@@ -46,6 +48,7 @@ class ThemeStyleTest {
     fun colorGraphText() {
         assertThat(ThemeStyle.DARK.colorGraphText).isEqualTo(Color.WHITE)
         assertThat(ThemeStyle.LIGHT.colorGraphText).isEqualTo(Color.BLACK)
+        assertThat(ThemeStyle.BLACK.colorGraphText).isEqualTo(Color.WHITE)
         assertThat(ThemeStyle.SYSTEM.colorGraphText).isEqualTo(Color.GRAY)
     }
 
