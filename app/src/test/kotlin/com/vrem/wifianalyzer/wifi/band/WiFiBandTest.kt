@@ -38,7 +38,9 @@ class WiFiBandTest {
 
     @Test
     fun wiFiBand() {
-        assertThat(WiFiBand.entries).hasSize(3)
+        assertThat(WiFiBand.entries)
+            .hasSize(3)
+            .containsExactly(WiFiBand.GHZ2, WiFiBand.GHZ5, WiFiBand.GHZ6)
     }
 
     @Test
@@ -60,6 +62,13 @@ class WiFiBandTest {
         assertThat(WiFiBand.GHZ2.wiFiChannels).isEqualTo(wiFiChannelsGHZ2)
         assertThat(WiFiBand.GHZ5.wiFiChannels).isEqualTo(wiFiChannelsGHZ5)
         assertThat(WiFiBand.GHZ6.wiFiChannels).isEqualTo(wiFiChannelsGHZ6)
+    }
+
+    @Test
+    fun wiFiBandOrdinal() {
+        assertThat(WiFiBand.GHZ2.ordinal).isEqualTo(0)
+        assertThat(WiFiBand.GHZ5.ordinal).isEqualTo(1)
+        assertThat(WiFiBand.GHZ6.ordinal).isEqualTo(2)
     }
 
     @Test

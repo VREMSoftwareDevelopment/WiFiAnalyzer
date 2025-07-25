@@ -23,8 +23,18 @@ import org.junit.Test
 class GroupByTest {
 
     @Test
-    fun groupByNumber() {
-        assertThat(GroupBy.entries).hasSize(4)
+    fun groupBy() {
+        assertThat(GroupBy.entries)
+            .hasSize(4)
+            .containsExactly(GroupBy.NONE, GroupBy.SSID, GroupBy.CHANNEL, GroupBy.VIRTUAL)
+    }
+
+    @Test
+    fun groupByOrdinal() {
+        assertThat(GroupBy.NONE.ordinal).isEqualTo(0)
+        assertThat(GroupBy.SSID.ordinal).isEqualTo(1)
+        assertThat(GroupBy.CHANNEL.ordinal).isEqualTo(2)
+        assertThat(GroupBy.VIRTUAL.ordinal).isEqualTo(3)
     }
 
     @Test

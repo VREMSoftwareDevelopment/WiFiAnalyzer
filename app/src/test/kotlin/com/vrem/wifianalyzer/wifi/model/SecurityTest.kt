@@ -23,8 +23,20 @@ import org.junit.Test
 
 class SecurityTest {
     @Test
-    fun size() {
-        assertThat(Security.entries).hasSize(6)
+    fun security() {
+        assertThat(Security.entries)
+            .hasSize(6)
+            .containsExactly(Security.NONE, Security.WPS, Security.WEP, Security.WPA, Security.WPA2, Security.WPA3)
+    }
+
+    @Test
+    fun securityOrdinal() {
+        assertThat(Security.NONE.ordinal).isEqualTo(0)
+        assertThat(Security.WPS.ordinal).isEqualTo(1)
+        assertThat(Security.WEP.ordinal).isEqualTo(2)
+        assertThat(Security.WPA.ordinal).isEqualTo(3)
+        assertThat(Security.WPA2.ordinal).isEqualTo(4)
+        assertThat(Security.WPA3.ordinal).isEqualTo(5)
     }
 
     @Test

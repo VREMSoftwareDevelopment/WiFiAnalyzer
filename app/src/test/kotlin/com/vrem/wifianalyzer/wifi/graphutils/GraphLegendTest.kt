@@ -34,39 +34,42 @@ class GraphLegendTest {
     }
 
     @Test
-    fun sortByNumber() {
-        assertThat(GraphLegend.entries).hasSize(3)
+    fun graphLegend() {
+        assertThat(GraphLegend.entries)
+            .hasSize(3)
+            .containsExactly(GraphLegend.LEFT, GraphLegend.RIGHT, GraphLegend.HIDE)
     }
 
     @Test
-    fun getDisplay() {
+    fun graphLegendOrdinal() {
+        assertThat(GraphLegend.LEFT.ordinal).isEqualTo(0)
+        assertThat(GraphLegend.RIGHT.ordinal).isEqualTo(1)
+        assertThat(GraphLegend.HIDE.ordinal).isEqualTo(2)
+    }
+
+    @Test
+    fun graphLegendDisplay() {
         assertThat(legendDisplayNone).isEqualTo(GraphLegend.HIDE.legendDisplay)
         assertThat(legendDisplayLeft).isEqualTo(GraphLegend.LEFT.legendDisplay)
         assertThat(legendDisplayRight).isEqualTo(GraphLegend.RIGHT.legendDisplay)
     }
 
     @Test
-    fun displayHide() {
-        // execute
+    fun graphLegendHideDisplay() {
         GraphLegend.HIDE.display(legendRenderer)
-        // validate
         verify(legendRenderer).isVisible = false
     }
 
     @Test
-    fun displayLeft() {
-        // execute
+    fun graphLegendLeftDisplay() {
         GraphLegend.LEFT.display(legendRenderer)
-        // validate
         verify(legendRenderer).isVisible = true
         verify(legendRenderer).setFixedPosition(0, 0)
     }
 
     @Test
-    fun displayRight() {
-        // execute
+    fun graphLegendRightDisplay() {
         GraphLegend.RIGHT.display(legendRenderer)
-        // validate
         verify(legendRenderer).isVisible = true
         verify(legendRenderer).align = LegendRenderer.LegendAlign.TOP
     }

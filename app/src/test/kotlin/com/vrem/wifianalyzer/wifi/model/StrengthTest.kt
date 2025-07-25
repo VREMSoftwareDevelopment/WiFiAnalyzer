@@ -18,33 +18,52 @@
 package com.vrem.wifianalyzer.wifi.model
 
 import com.vrem.wifianalyzer.R
-import com.vrem.wifianalyzer.wifi.model.Strength.Companion.calculate
-import com.vrem.wifianalyzer.wifi.model.Strength.Companion.reverse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class StrengthTest {
     @Test
     fun strength() {
-        assertThat(Strength.entries).hasSize(5)
+        assertThat(Strength.entries)
+            .hasSize(5)
+            .containsExactly(Strength.ZERO, Strength.ONE, Strength.TWO, Strength.THREE, Strength.FOUR)
+    }
+
+    @Test
+    fun strengthOrdinal() {
+        assertThat(Strength.ZERO.ordinal).isEqualTo(0)
+        assertThat(Strength.ONE.ordinal).isEqualTo(1)
+        assertThat(Strength.TWO.ordinal).isEqualTo(2)
+        assertThat(Strength.THREE.ordinal).isEqualTo(3)
+        assertThat(Strength.FOUR.ordinal).isEqualTo(4)
     }
 
     @Test
     fun imageResource() {
-        assertThat(Strength.ZERO.imageResource).isEqualTo(R.drawable.ic_signal_wifi_0_bar)
-        assertThat(Strength.ONE.imageResource).isEqualTo(R.drawable.ic_signal_wifi_1_bar)
-        assertThat(Strength.TWO.imageResource).isEqualTo(R.drawable.ic_signal_wifi_2_bar)
-        assertThat(Strength.THREE.imageResource).isEqualTo(R.drawable.ic_signal_wifi_3_bar)
-        assertThat(Strength.FOUR.imageResource).isEqualTo(R.drawable.ic_signal_wifi_4_bar)
+        val expectedImages = listOf(
+            R.drawable.ic_signal_wifi_0_bar,
+            R.drawable.ic_signal_wifi_1_bar,
+            R.drawable.ic_signal_wifi_2_bar,
+            R.drawable.ic_signal_wifi_3_bar,
+            R.drawable.ic_signal_wifi_4_bar
+        )
+        Strength.entries.forEachIndexed { i, strength ->
+            assertThat(strength.imageResource).isEqualTo(expectedImages[i])
+        }
     }
 
     @Test
     fun colorResource() {
-        assertThat(Strength.ZERO.colorResource).isEqualTo(R.color.error)
-        assertThat(Strength.ONE.colorResource).isEqualTo(R.color.warning)
-        assertThat(Strength.TWO.colorResource).isEqualTo(R.color.warning)
-        assertThat(Strength.THREE.colorResource).isEqualTo(R.color.success)
-        assertThat(Strength.FOUR.colorResource).isEqualTo(R.color.success)
+        val expectedColors = listOf(
+            R.color.error,
+            R.color.warning,
+            R.color.warning,
+            R.color.success,
+            R.color.success
+        )
+        Strength.entries.forEachIndexed { i, strength ->
+            assertThat(strength.colorResource).isEqualTo(expectedColors[i])
+        }
     }
 
     @Test
@@ -58,23 +77,27 @@ class StrengthTest {
 
     @Test
     fun calculate() {
-        assertThat(calculate(-89)).isEqualTo(Strength.ZERO)
-        assertThat(calculate(-88)).isEqualTo(Strength.ONE)
-        assertThat(calculate(-78)).isEqualTo(Strength.ONE)
-        assertThat(calculate(-77)).isEqualTo(Strength.TWO)
-        assertThat(calculate(-67)).isEqualTo(Strength.TWO)
-        assertThat(calculate(-66)).isEqualTo(Strength.THREE)
-        assertThat(calculate(-56)).isEqualTo(Strength.THREE)
-        assertThat(calculate(-55)).isEqualTo(Strength.FOUR)
-        assertThat(calculate(0)).isEqualTo(Strength.FOUR)
+        val testCases = listOf(
+            -89 to Strength.ZERO,
+            -88 to Strength.ONE,
+            -78 to Strength.ONE,
+            -77 to Strength.TWO,
+            -67 to Strength.TWO,
+            -66 to Strength.THREE,
+            -56 to Strength.THREE,
+            -55 to Strength.FOUR,
+            0 to Strength.FOUR
+        )
+        testCases.forEach { (input, expected) ->
+            assertThat(Strength.calculate(input)).isEqualTo(expected)
+        }
     }
 
     @Test
     fun reverse() {
-        assertThat(reverse(Strength.ZERO)).isEqualTo(Strength.FOUR)
-        assertThat(reverse(Strength.ONE)).isEqualTo(Strength.THREE)
-        assertThat(reverse(Strength.TWO)).isEqualTo(Strength.TWO)
-        assertThat(reverse(Strength.THREE)).isEqualTo(Strength.ONE)
-        assertThat(reverse(Strength.FOUR)).isEqualTo(Strength.ZERO)
+        val expected = listOf(Strength.FOUR, Strength.THREE, Strength.TWO, Strength.ONE, Strength.ZERO)
+        Strength.entries.forEachIndexed { i, strength ->
+            assertThat(Strength.reverse(strength)).isEqualTo(expected[i])
+        }
     }
 }

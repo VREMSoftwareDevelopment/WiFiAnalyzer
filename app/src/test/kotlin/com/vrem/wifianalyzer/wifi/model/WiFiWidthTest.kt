@@ -26,8 +26,10 @@ import org.junit.Test
 class WiFiWidthTest {
 
     @Test
-    fun width() {
-        assertThat(WiFiWidth.entries.size).isEqualTo(6)
+    fun wiFiWidth() {
+        assertThat(WiFiWidth.entries)
+            .hasSize(6)
+            .containsExactly(WiFiWidth.MHZ_20, WiFiWidth.MHZ_40, WiFiWidth.MHZ_80, WiFiWidth.MHZ_160, WiFiWidth.MHZ_80_PLUS, WiFiWidth.MHZ_320)
     }
 
     @Test

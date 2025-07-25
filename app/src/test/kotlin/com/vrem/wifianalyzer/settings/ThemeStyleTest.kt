@@ -25,31 +25,41 @@ import org.junit.Test
 class ThemeStyleTest {
     @Test
     fun themeStyle() {
-        assertThat(ThemeStyle.entries).hasSize(4)
+        assertThat(ThemeStyle.entries)
+            .hasSize(4)
+            .containsExactly(ThemeStyle.DARK,ThemeStyle.LIGHT,ThemeStyle.SYSTEM,ThemeStyle.BLACK)
     }
 
     @Test
     fun theme() {
         assertThat(ThemeStyle.LIGHT.theme).isEqualTo(R.style.ThemeLight)
         assertThat(ThemeStyle.DARK.theme).isEqualTo(R.style.ThemeDark)
-        assertThat(ThemeStyle.BLACK.theme).isEqualTo(R.style.ThemeBlack)
         assertThat(ThemeStyle.SYSTEM.theme).isEqualTo(R.style.ThemeSystem)
+        assertThat(ThemeStyle.BLACK.theme).isEqualTo(R.style.ThemeBlack)
     }
 
     @Test
     fun themeNoActionBar() {
         assertThat(ThemeStyle.DARK.themeNoActionBar).isEqualTo(R.style.ThemeDarkNoActionBar)
         assertThat(ThemeStyle.LIGHT.themeNoActionBar).isEqualTo(R.style.ThemeLightNoActionBar)
-        assertThat(ThemeStyle.BLACK.themeNoActionBar).isEqualTo(R.style.ThemeBlackNoActionBar)
         assertThat(ThemeStyle.SYSTEM.themeNoActionBar).isEqualTo(R.style.ThemeSystemNoActionBar)
+        assertThat(ThemeStyle.BLACK.themeNoActionBar).isEqualTo(R.style.ThemeBlackNoActionBar)
     }
 
     @Test
     fun colorGraphText() {
         assertThat(ThemeStyle.DARK.colorGraphText).isEqualTo(Color.WHITE)
         assertThat(ThemeStyle.LIGHT.colorGraphText).isEqualTo(Color.BLACK)
-        assertThat(ThemeStyle.BLACK.colorGraphText).isEqualTo(Color.WHITE)
         assertThat(ThemeStyle.SYSTEM.colorGraphText).isEqualTo(Color.GRAY)
+        assertThat(ThemeStyle.BLACK.colorGraphText).isEqualTo(Color.WHITE)
+    }
+
+    @Test
+    fun themeStyleOrdinal() {
+        assertThat(ThemeStyle.DARK.ordinal).isEqualTo(0)
+        assertThat(ThemeStyle.LIGHT.ordinal).isEqualTo(1)
+        assertThat(ThemeStyle.SYSTEM.ordinal).isEqualTo(2)
+        assertThat(ThemeStyle.BLACK.ordinal).isEqualTo(3)
     }
 
 }
