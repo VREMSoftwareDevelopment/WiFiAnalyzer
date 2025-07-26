@@ -126,6 +126,33 @@ class WiFiSignalTest {
     }
 
     @Test
+    fun equalsReturnsFalseForDifferentPrimaryFrequency() {
+        val different = WiFiSignal(primaryFrequency + 1, centerFrequency, WiFiWidth.MHZ_40, level)
+        assertThat(fixture).isNotEqualTo(different)
+    }
+
+    @Test
+    fun equalsReturnsFalseForDifferentWiFiWidth() {
+        val different = WiFiSignal(primaryFrequency, centerFrequency, WiFiWidth.MHZ_20, level)
+        assertThat(fixture).isNotEqualTo(different)
+    }
+
+    @Test
+    fun equalsReturnsFalseForNull() {
+        assertThat(fixture.equals(null)).isFalse
+    }
+
+    @Test
+    fun equalsReturnsFalseForDifferentType() {
+        assertThat(fixture.equals("not a WiFiSignal")).isFalse
+    }
+
+    @Test
+    fun equalsReturnsTrueForSameInstance() {
+        assertThat(fixture).isEqualTo(fixture)
+    }
+
+    @Test
     fun hashCodeUsingPrimaryFrequencyAndWidth() {
         // execute & validate
         assertThat(other.hashCode()).isEqualTo(fixture.hashCode())

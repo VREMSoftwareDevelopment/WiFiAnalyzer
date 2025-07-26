@@ -50,6 +50,37 @@ class WiFiDetailTest {
     }
 
     @Test
+    fun equalsWithSelf() {
+        // execute & validate
+        assertThat(fixture).isEqualTo(fixture)
+    }
+
+    @Test
+    fun equalsWithNull() {
+        // execute & validate
+        assertThat(fixture.equals(null)).isFalse()
+    }
+
+    @Test
+    fun equalsWithDifferentClass() {
+        // execute & validate
+        assertThat(fixture.equals("not a WiFiDetail")).isFalse()
+    }
+
+    @Test
+    fun equalsWithDifferentIdentifier() {
+        // setup
+        val different = WiFiDetail(
+            WiFiIdentifier("otherSSID", "otherBSSID"),
+            wiFiSecurity,
+            wiFiSignal,
+            wiFiAdditional
+        )
+        // execute & validate
+        assertThat(fixture).isNotEqualTo(different)
+    }
+
+    @Test
     fun hashCodeUsingIdentifier() {
         // execute & validate
         assertThat(other.hashCode()).isEqualTo(fixture.hashCode())
@@ -77,4 +108,16 @@ class WiFiDetailTest {
         assertThat(actual.wiFiSignal).isEqualTo(expected.wiFiSignal)
     }
 
+    @Test
+    fun noChildrenReturnsFalseWhenChildrenIsEmpty() {
+        val detail = WiFiDetail(wiFiIdentifier, wiFiSecurity, wiFiSignal, wiFiAdditional, listOf())
+        assertThat(detail.noChildren).isFalse()
+    }
+
+    @Test
+    fun noChildrenReturnsTrueWhenChildrenIsNotEmpty() {
+        val child = WiFiDetail(WiFiIdentifier("childSSID", "childBSSID"), wiFiSecurity, wiFiSignal, wiFiAdditional)
+        val detail = WiFiDetail(wiFiIdentifier, wiFiSecurity, wiFiSignal, wiFiAdditional, listOf(child))
+        assertThat(detail.noChildren).isTrue()
+    }
 }

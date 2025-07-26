@@ -73,11 +73,11 @@ def jacocoCoverageVerificationProvider = tasks.register('jacocoTestCoverageVerif
             }
             limit {
                 counter = 'BRANCH'
-                minimum = 0.91
+                minimum = 0.93
             }
             limit {
                 counter = 'COMPLEXITY'
-                minimum = 0.94
+                minimum = 0.95
             }
             limit {
                 counter = 'LINE'

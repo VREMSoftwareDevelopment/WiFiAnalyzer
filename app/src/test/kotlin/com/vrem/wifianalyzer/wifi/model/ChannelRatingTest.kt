@@ -77,10 +77,6 @@ class ChannelRatingTest {
         validateCount(3, wiFiDetail3.wiFiSignal.centerWiFiChannel)
     }
 
-    private fun validateCount(expected: Int, wiFiChannel: WiFiChannel) {
-        assertThat(fixture.count(wiFiChannel)).isEqualTo(expected)
-    }
-
     @Test
     fun strengthShouldReturnMaximum() {
         // setup
@@ -103,16 +99,6 @@ class ChannelRatingTest {
         val actual: Strength = fixture.strength(wiFiDetail1.wiFiSignal.centerWiFiChannel)
         // execute and validate
         assertThat(actual).isEqualTo(expected)
-    }
-
-    private fun makeCopy(wiFiDetail: WiFiDetail): WiFiDetail {
-        val wiFiSignal: WiFiSignal = wiFiDetail.wiFiSignal
-        return WiFiDetail(
-            WiFiIdentifier("SSID2-OTHER", "BSSID-OTHER"),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(wiFiSignal.primaryFrequency, wiFiSignal.centerFrequency, wiFiSignal.wiFiWidth, -80),
-            WiFiAdditional.EMPTY
-        )
     }
 
     @Test
@@ -149,16 +135,6 @@ class ChannelRatingTest {
         validateChannelAPCount(4, 1, actual[5])
     }
 
-    private fun validateChannelAPCount(
-        expectedChannel: Int,
-        expectedCount: Int,
-        channelAPCount: ChannelAPCount
-    ) {
-        assertThat(channelAPCount.wiFiChannel.channel).isEqualTo(expectedChannel)
-        assertThat(channelAPCount.wiFiWidth).isEqualTo(wiFiWidth)
-        assertThat(channelAPCount.count).isEqualTo(expectedCount)
-    }
-
     @Test
     fun setWiFiChannelsRemovesDuplicateAccessPoints() {
         // setup
@@ -172,5 +148,29 @@ class ChannelRatingTest {
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail))
         // validate
         assertThat(fixture.wiFiDetails).hasSize(1).contains(wiFiDetail1)
+    }
+
+    private fun validateCount(expected: Int, wiFiChannel: WiFiChannel) {
+        assertThat(fixture.count(wiFiChannel)).isEqualTo(expected)
+    }
+
+    private fun makeCopy(wiFiDetail: WiFiDetail): WiFiDetail {
+        val wiFiSignal: WiFiSignal = wiFiDetail.wiFiSignal
+        return WiFiDetail(
+            WiFiIdentifier("SSID2-OTHER", "BSSID-OTHER"),
+            WiFiSecurity.EMPTY,
+            WiFiSignal(wiFiSignal.primaryFrequency, wiFiSignal.centerFrequency, wiFiSignal.wiFiWidth, -80),
+            WiFiAdditional.EMPTY
+        )
+    }
+
+    private fun validateChannelAPCount(
+        expectedChannel: Int,
+        expectedCount: Int,
+        channelAPCount: ChannelAPCount
+    ) {
+        assertThat(channelAPCount.wiFiChannel.channel).isEqualTo(expectedChannel)
+        assertThat(channelAPCount.wiFiWidth).isEqualTo(wiFiWidth)
+        assertThat(channelAPCount.count).isEqualTo(expectedCount)
     }
 }

@@ -48,28 +48,11 @@ class WiFiIdentifierTest {
     }
 
     @Test
-    fun equalsUsingSameCase() {
-        // setup
-        val other = WiFiIdentifier(ssid, bssid)
-        // execute & validate
-        assertThat(other).isEqualTo(fixture)
-        assertThat(other).isNotSameAs(fixture)
-    }
-
-    @Test
     fun hashCodeUsingSameCase() {
         // setup
         val other = WiFiIdentifier(ssid, bssid)
         // execute & validate
         assertThat(other.hashCode()).isEqualTo(fixture.hashCode())
-    }
-
-    @Test
-    fun equalsUsingDifferentCase() {
-        // setup
-        val other = WiFiIdentifier(ssid.lowercase(), bssid.uppercase())
-        // execute & validate
-        assertThat(fixture.equals(other, true)).isTrue
     }
 
     @Test
@@ -87,6 +70,47 @@ class WiFiIdentifierTest {
         // execute & validate
         assertThat(fixture.ssidRaw).isEqualTo(String.EMPTY)
         assertThat(fixture.ssid).isEqualTo(hidden)
+    }
+
+    @Test
+    fun equalsWithDifferentCaseAndIgnoreCaseFalse() {
+        val other = WiFiIdentifier(ssid.lowercase(), bssid.uppercase())
+        assertThat(fixture.equals(other, false)).isFalse
+    }
+
+    @Test
+    fun equalsWithDifferentSSID() {
+        val other = WiFiIdentifier("otherSSID", bssid)
+        assertThat(fixture.equals(other)).isFalse
+    }
+
+    @Test
+    fun equalsWithDifferentBSSID() {
+        val other = WiFiIdentifier(ssid, "otherBSSID")
+        assertThat(fixture.equals(other)).isFalse
+    }
+
+    @Test
+    fun equalsWithBothDifferent() {
+        val other = WiFiIdentifier("otherSSID", "otherBSSID")
+        assertThat(fixture.equals(other)).isFalse
+    }
+
+    @Test
+    fun equalsUsingDifferentCase() {
+        // setup
+        val other = WiFiIdentifier(ssid.lowercase(), bssid.uppercase())
+        // execute & validate
+        assertThat(fixture.equals(other, true)).isTrue
+    }
+
+    @Test
+    fun equalsUsingSameCase() {
+        // setup
+        val other = WiFiIdentifier(ssid, bssid)
+        // execute & validate
+        assertThat(other).isEqualTo(fixture)
+        assertThat(other).isNotSameAs(fixture)
     }
 
 }

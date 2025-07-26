@@ -54,6 +54,27 @@ class WiFiConnectionTest {
     }
 
     @Test
+    fun equalsIsReflexive() {
+        assertThat(fixture).isEqualTo(fixture)
+    }
+
+    @Test
+    fun equalsWithNull() {
+        assertThat(fixture.equals(null)).isFalse
+    }
+
+    @Test
+    fun equalsWithDifferentClass() {
+        assertThat(fixture.equals("not a WiFiConnection")).isFalse
+    }
+
+    @Test
+    fun equalsWithDifferentIdentifier() {
+        val different = WiFiConnection(WiFiIdentifier("SSID-999", "BSSID-999"), ipAddress, linkSpeed)
+        assertThat(fixture).isNotEqualTo(different)
+    }
+
+    @Test
     fun hashCodeUsingIdentifier() {
         // execute & validate
         assertThat(other.hashCode()).isEqualTo(fixture.hashCode())

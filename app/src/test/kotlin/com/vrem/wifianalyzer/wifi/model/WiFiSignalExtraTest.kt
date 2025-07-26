@@ -70,4 +70,25 @@ class WiFiSignalExtraTest {
         assertThat(actual).isEqualTo(expected)
     }
 
+    @Test
+    fun fastRoamingDisplayWithEmptyList() {
+        // setup
+        val fixture = WiFiSignalExtra(fastRoaming = emptyList())
+        val expected = ""
+        // execute
+        val actual = fixture.fastRoamingDisplay(mainActivity.applicationContext)
+        // validate
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun fastRoamingDisplayWithDuplicateValues() {
+        // setup
+        val fixture = WiFiSignalExtra(fastRoaming = listOf(FastRoaming.FR_802_11R, FastRoaming.FR_802_11R))
+        val expected = "802.11r 802.11r"
+        // execute
+        val actual = fixture.fastRoamingDisplay(mainActivity.applicationContext)
+        // validate
+        assertThat(actual).isEqualTo(expected)
+    }
 }

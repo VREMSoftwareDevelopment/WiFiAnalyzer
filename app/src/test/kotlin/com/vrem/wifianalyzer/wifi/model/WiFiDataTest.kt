@@ -71,6 +71,42 @@ class WiFiDataTest {
     }
 
     @Test
+    fun connectionReturnsEmptyWhenNoMatch() {
+        // setup
+        val wiFiData = WiFiData(listOf(
+            WiFiDetail(
+                WiFiIdentifier("OtherSSID", "OtherBSSID"),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(2412, 2412, WiFiWidth.MHZ_20, -50)
+            )
+        ), wiFiConnection)
+        // execute
+        val actual = wiFiData.connection()
+        // validate
+        assertThat(actual).isEqualTo(WiFiDetail.EMPTY)
+    }
+
+    @Test
+    fun connectionReturnsEmptyWhenWiFiDetailsIsEmpty() {
+        // setup
+        val wiFiData = WiFiData(emptyList(), wiFiConnection)
+        // execute
+        val actual = wiFiData.connection()
+        // validate
+        assertThat(actual).isEqualTo(WiFiDetail.EMPTY)
+    }
+
+    @Test
+    fun connectionReturnsEmptyWhenWiFiConnectionIsEmpty() {
+        // setup
+        val wiFiData = WiFiData(wiFiDetails, WiFiConnection.EMPTY)
+        // execute
+        val actual = wiFiData.connection()
+        // validate
+        assertThat(actual).isEqualTo(WiFiDetail.EMPTY)
+    }
+
+    @Test
     fun wiFiDetailsWithConfiguredNetwork() {
         // setup
         val predicate: Predicate = WiFiBand.GHZ2.predicate()
