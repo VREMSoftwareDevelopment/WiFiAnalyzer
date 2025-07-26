@@ -93,6 +93,7 @@
     <string name="theme_dark">"Donker"</string>
     <string name="theme_light">"Licht"</string>
     <string name="theme_system">"Systeem"</string>
+    <string name="theme_black">"Zwart"</string>
 
     <string name="wifi_off_on_exit_title">"Wifi uitsch. bij afsluiten"</string>
 
@@ -110,6 +111,7 @@
     <string name="about_libraries_title">"Gebruikte bibiliotheken:"</string>
     <string name="about_contributor_title">"Bijdragers"</string>
     <string name="about_write_review">"Schrijf een beoordeling"</string>
+    <string name="about_documentation">"Documentatie:"</string>
     <!-- about end -->
 
     <!-- security start -->

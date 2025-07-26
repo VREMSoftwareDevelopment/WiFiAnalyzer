@@ -94,6 +94,7 @@
     <string name="theme_dark">"Dunkel"</string>
     <string name="theme_light">"Hell"</string>
     <string name="theme_system">"System"</string>
+    <string name="theme_black">"Schwarz"</string>
 
     <string name="wifi_off_on_exit_title">"WLAN beim Verlassen deaktivieren"</string>
 
@@ -109,6 +110,10 @@
     <string name="about_description_title">"Beschreibung:"</string>
     <string name="about_description_text">"Verbesseren Sie Ihr WLAN-Netzwerk, indem Sie den Netzwerkstatus und die Signalstärke Ihres WLANs messen und erkennnen Sie überlastete Kanäle mithilfe einer freien Open-Source App für Android."</string>
     <string name="about_libraries_title">"Benutzte Bibliotheken:"</string>
+    <string name="about_documentation">"Dokumentation:"</string>
+    <string name="about_how_to">"Anleitung:"</string>
+    <string name="about_faq">"FAQ:"</string>
+    <string name="about_privacy_policy">"Datenschutzerklärung:"</string>
     <string name="about_contributor_title">"Beitragende"</string>
     <string name="about_write_review">"Rezension schreiben"</string>
     <!-- about end -->

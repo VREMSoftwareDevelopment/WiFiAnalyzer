@@ -98,6 +98,7 @@
     <string name="theme_dark">"Koyu"</string>
     <string name="theme_light">"Açık"</string>
     <string name="theme_system">"Sistem"</string>
+    <string name="theme_black">"Siyah"</string>
 
     <string name="wifi_off_on_exit_title">"Çıkışta Wi-Fi'yi kapat"</string>
 
@@ -113,10 +114,10 @@
     <string name="about_description_title">"Açıklama:"</string>
     <string name="about_description_text">"Android için geliştirilmiş açık kaynaklı WiFiAnalyzer ile Wi-Fi ağ durumunu, sinyal gücünü kontrol ederek ve kalabalık kanalları belirleyerek Wi-Fi ağınızı iyileştirin"</string>
     <string name="about_libraries_title">"Kullanılan Kütüphaneler:"</string>
-    <string name="about_documentation">Dokümantasyon:</string>
-    <string name="about_how_to">Nasıl yapılır:</string>
-    <string name="about_faq">SSS:</string>
-    <string name="about_privacy_policy">Gizlilik Politikası:</string>
+    <string name="about_documentation">"Dokümantasyon:"</string>
+    <string name="about_how_to">"Nasıl yapılır:"</string>
+    <string name="about_faq">"SSS:"</string>
+    <string name="about_privacy_policy">"Gizlilik Politikası:"</string>
     <string name="about_contributor_title">"Katkıda Bulunanlar"</string>
     <string name="about_write_review">"Bir Yorum Yaz"</string>
     <!-- about end -->

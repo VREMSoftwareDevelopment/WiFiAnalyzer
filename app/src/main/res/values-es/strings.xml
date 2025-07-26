@@ -94,6 +94,7 @@
     <string name="theme_dark">"Oscuro"</string>
     <string name="theme_light">"Claro"</string>
     <string name="theme_system">"Sistema"</string>
+    <string name="theme_black">"Negro"</string>
 
     <string name="wifi_off_on_exit_title">"Apagar Wi-Fi al salir"</string>
 
@@ -109,6 +110,10 @@
     <string name="about_description_title">"Descripción:"</string>
     <string name="about_description_text">"Optimiza tu red Wi-Fi, mediante la comprobación de estado de red, intensidad de señal e identificación de los canales llenos usando la aplicación de código abierto WiFiAnalyzer para Android"</string>
     <string name="about_libraries_title">"Librerias usadas:"</string>
+    <string name="about_documentation">"Documentación:"</string>
+    <string name="about_how_to">"Cómo hacer:"</string>
+    <string name="about_faq">"Preguntas frecuentes:"</string>
+    <string name="about_privacy_policy">"Política de privacidad:"</string>
     <string name="about_contributor_title">"Colaboradores"</string>
     <string name="about_write_review">"Escribir una opinión"</string>
     <!-- about end -->

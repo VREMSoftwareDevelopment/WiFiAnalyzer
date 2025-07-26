@@ -94,6 +94,7 @@
     <string name="theme_dark">"深色"</string>
     <string name="theme_light">"淺色"</string>
     <string name="theme_system">"系統"</string>
+    <string name="theme_black">"黑色"</string>
 
     <string name="wifi_off_on_exit_title">"退出時關閉 Wi-Fi"</string>
 
@@ -111,6 +112,7 @@
     <string name="about_libraries_title">"使用的函式庫："</string>
     <string name="about_contributor_title">"貢獻者"</string>
     <string name="about_write_review">"撰寫評論"</string>
+    <string name="about_documentation">"文件:"</string>
     <!-- about end -->
 
     <!-- security start -->

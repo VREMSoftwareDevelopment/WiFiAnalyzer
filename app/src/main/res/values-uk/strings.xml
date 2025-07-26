@@ -93,6 +93,7 @@
     <string name="theme_dark">"Темна"</string>
     <string name="theme_light">"Світла"</string>
     <string name="theme_system">"Система"</string>
+    <string name="theme_black">"Чорна"</string>
 
     <string name="wifi_off_on_exit_title">"Wi-Fi вимкнений при виході"</string>
 
@@ -110,6 +111,7 @@
     <string name="about_libraries_title">"Використані бібліотеки:"</string>
     <string name="about_contributor_title">"Автори"</string>
     <string name="about_write_review">"Написати відгук"</string>
+    <string name="about_documentation">"Документація:"</string>
     <!-- about end -->
 
     <!-- security start -->

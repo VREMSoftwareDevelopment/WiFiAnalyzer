@@ -98,6 +98,7 @@
     <string name="theme_dark">"Тъмна"</string>
     <string name="theme_light">"Светла"</string>
     <string name="theme_system">"Системна"</string>
+    <string name="theme_black">"Черна"</string>
 
     <string name="wifi_off_on_exit_title">"Изключи Wi-Fi при изход"</string>
 
@@ -115,6 +116,7 @@
     <string name="about_libraries_title">"Използвани библиоеки:"</string>
     <string name="about_contributor_title">"Сътрудници"</string>
     <string name="about_write_review">"Напиши отзив"</string>
+    <string name="about_documentation">"Документация:"</string>
     <!-- about end -->
 
     <!-- security start -->

@@ -93,7 +93,8 @@
     <string name="theme_title">"Θέμα"</string>
     <string name="theme_dark">"Σκούρο"</string>
     <string name="theme_light">"Ανοικτό"</string>
-    <string name="theme_system">"Συστήματος"</string>
+    <string name="theme_system">"Σύστημα"</string>
+    <string name="theme_black">"Μαύρο"</string>
 
     <string name="wifi_off_on_exit_title">"Απενεργοποίηση Wi-Fi κατά την έξοδο"</string>
 
@@ -109,6 +110,7 @@
     <string name="about_description_title">"Περιγραφή:"</string>
     <string name="about_description_text">"Βελτιστοποιήστε το Wi-Fi σας, ελέγχοντας την κατάσταση του δικτύου, την ισχύ του σήματος και τα πολυσύχναστα κανάλια, χρησιμοποιώντας το ανοιχτού κώδικα WiFiAnalyzer για Android"</string>
     <string name="about_libraries_title">"Χρησιμοποιούμενες βιβλιοθήκες:"</string>
+    <string name="about_documentation">"Τεκμηρίωση:"</string>
     <string name="about_contributor_title">"Συντελεστές"</string>
     <string name="about_write_review">"Γράψτε μια κριτική"</string>
     <!-- about end -->

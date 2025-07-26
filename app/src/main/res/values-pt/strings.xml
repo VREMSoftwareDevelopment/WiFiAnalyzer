@@ -94,6 +94,7 @@
     <string name="theme_dark">"Escuro"</string>
     <string name="theme_light">"Claro"</string>
     <string name="theme_system">"O mesmo do sistema"</string>
+    <string name="theme_black">"Preto"</string>
 
     <string name="wifi_off_on_exit_title">"Desligar o Wi-Fi ao sair"</string>
 
@@ -111,6 +112,7 @@
     <string name="about_libraries_title">"Bibliotecas utilizadas:"</string>
     <string name="about_contributor_title">"Colaboradores"</string>
     <string name="about_write_review">"Escrever uma avaliação"</string>
+    <string name="about_documentation">"Documentação:"</string>
     <!-- about end -->
 
     <!-- security start -->
