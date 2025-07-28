@@ -24,12 +24,18 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class WiFiWidthTest {
-
     @Test
     fun wiFiWidth() {
         assertThat(WiFiWidth.entries)
             .hasSize(6)
-            .containsExactly(WiFiWidth.MHZ_20, WiFiWidth.MHZ_40, WiFiWidth.MHZ_80, WiFiWidth.MHZ_160, WiFiWidth.MHZ_80_PLUS, WiFiWidth.MHZ_320)
+            .containsExactly(
+                WiFiWidth.MHZ_20,
+                WiFiWidth.MHZ_40,
+                WiFiWidth.MHZ_80,
+                WiFiWidth.MHZ_160,
+                WiFiWidth.MHZ_80_PLUS,
+                WiFiWidth.MHZ_320,
+            )
     }
 
     @Test
@@ -162,5 +168,4 @@ class WiFiWidthTest {
         assertThat(calculateCenterUsingCenter1(Int.MIN_VALUE, Int.MIN_VALUE, expected)).isEqualTo(expected)
         assertThat(calculateCenterUsingCenter1(Int.MAX_VALUE, Int.MAX_VALUE, expected)).isEqualTo(expected)
     }
-
 }

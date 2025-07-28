@@ -75,5 +75,4 @@ class PeriodicScanTest {
         verify(handler).postDelayed(fixture, scanSpeed * PeriodicScan.DELAY_INTERVAL)
         verify(settings).scanSpeed()
     }
-
 }

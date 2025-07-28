@@ -28,8 +28,10 @@ import org.robolectric.annotation.Config
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
-class WiFiSecurityParameterized1Test(val wiFiSecurity: WiFiSecurity, val expected: Set<Security>) {
-
+class WiFiSecurityParameterized1Test(
+    val wiFiSecurity: WiFiSecurity,
+    val expected: Set<Security>,
+) {
     @Test
     fun securities() {
         assertThat(wiFiSecurity.securities).isEqualTo(expected)
@@ -38,25 +40,29 @@ class WiFiSecurityParameterized1Test(val wiFiSecurity: WiFiSecurity, val expecte
     companion object {
         @JvmStatic
         @Parameters(name = "{index}: {0} -> {1}")
-        fun data() = listOf(
-            arrayOf(WiFiSecurity(), setOf(Security.NONE)),
-            arrayOf(
-                WiFiSecurity("WPA-WPA2-WPA-WEP-YZX-WPA3-WPS-WPA2-NONE"),
-                setOf(Security.WPS, Security.WEP, Security.WPA, Security.WPA2, Security.WPA3)
-            ),
-            arrayOf(
-                WiFiSecurity("WPA-[FT/WPA2]-[WPA]-[WEP-FT/SAE+TST][KPG-WPS-NONE]EAP_SUITE_B_192"),
-                setOf(Security.WPS, Security.WEP, Security.WPA, Security.WPA2, Security.WPA3)
-            ),
-            arrayOf(WiFiSecurity(securityTypes = WiFiSecurityTypeTest.All), setOf(Security.WEP, Security.WPA3)),
-            arrayOf(WiFiSecurity(securityTypes = WiFiSecurityTypeTest.WEP), setOf(Security.WEP)),
-            arrayOf(WiFiSecurity(securityTypes = WiFiSecurityTypeTest.WPA3), setOf(Security.WPA3)),
-            arrayOf(WiFiSecurity(securityTypes = WiFiSecurityTypeTest.NONE), setOf(Security.NONE)),
-            arrayOf(WiFiSecurity("YZX-NONE", WiFiSecurityTypeTest.NONE), setOf(Security.NONE)),
-            arrayOf(
-                WiFiSecurity("WPA-WPA2-WPA-YZX-WPS-NONE", listOf(WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE, WifiInfo.SECURITY_TYPE_WEP)),
-                setOf(Security.WPS, Security.WEP, Security.WPA, Security.WPA2, Security.WPA3)
+        fun data() =
+            listOf(
+                arrayOf(WiFiSecurity(), setOf(Security.NONE)),
+                arrayOf(
+                    WiFiSecurity("WPA-WPA2-WPA-WEP-YZX-WPA3-WPS-WPA2-NONE"),
+                    setOf(Security.WPS, Security.WEP, Security.WPA, Security.WPA2, Security.WPA3),
+                ),
+                arrayOf(
+                    WiFiSecurity("WPA-[FT/WPA2]-[WPA]-[WEP-FT/SAE+TST][KPG-WPS-NONE]EAP_SUITE_B_192"),
+                    setOf(Security.WPS, Security.WEP, Security.WPA, Security.WPA2, Security.WPA3),
+                ),
+                arrayOf(WiFiSecurity(securityTypes = WiFiSecurityTypeTest.All), setOf(Security.WEP, Security.WPA3)),
+                arrayOf(WiFiSecurity(securityTypes = WiFiSecurityTypeTest.WEP), setOf(Security.WEP)),
+                arrayOf(WiFiSecurity(securityTypes = WiFiSecurityTypeTest.WPA3), setOf(Security.WPA3)),
+                arrayOf(WiFiSecurity(securityTypes = WiFiSecurityTypeTest.NONE), setOf(Security.NONE)),
+                arrayOf(WiFiSecurity("YZX-NONE", WiFiSecurityTypeTest.NONE), setOf(Security.NONE)),
+                arrayOf(
+                    WiFiSecurity(
+                        "WPA-WPA2-WPA-YZX-WPS-NONE",
+                        listOf(WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE, WifiInfo.SECURITY_TYPE_WEP),
+                    ),
+                    setOf(Security.WPS, Security.WEP, Security.WPA, Security.WPA2, Security.WPA3),
+                ),
             )
-        )
     }
 }

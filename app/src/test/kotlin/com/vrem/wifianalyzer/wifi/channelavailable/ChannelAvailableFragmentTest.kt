@@ -44,19 +44,20 @@ class ChannelAvailableFragmentTest {
     private val settings = INSTANCE.settings
     private val fixture = ChannelAvailableFragment()
 
-    private val textViewsIds = listOf(
-        Triple(R.id.channels_available_2GHz_20MHz, WiFiBand.GHZ2, WiFiWidth.MHZ_20),
-        Triple(R.id.channels_available_2GHz_40MHz, WiFiBand.GHZ2, WiFiWidth.MHZ_40),
-        Triple(R.id.channels_available_5GHz_20MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_20),
-        Triple(R.id.channels_available_5GHz_40MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_40),
-        Triple(R.id.channels_available_5GHz_80MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_80),
-        Triple(R.id.channels_available_5GHz_160MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_160),
-        Triple(R.id.channels_available_6GHz_20MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_20),
-        Triple(R.id.channels_available_6GHz_40MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_40),
-        Triple(R.id.channels_available_6GHz_80MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_80),
-        Triple(R.id.channels_available_6GHz_160MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_160),
-        Triple(R.id.channels_available_6GHz_320MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_320)
-    )
+    private val textViewsIds =
+        listOf(
+            Triple(R.id.channels_available_2GHz_20MHz, WiFiBand.GHZ2, WiFiWidth.MHZ_20),
+            Triple(R.id.channels_available_2GHz_40MHz, WiFiBand.GHZ2, WiFiWidth.MHZ_40),
+            Triple(R.id.channels_available_5GHz_20MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_20),
+            Triple(R.id.channels_available_5GHz_40MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_40),
+            Triple(R.id.channels_available_5GHz_80MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_80),
+            Triple(R.id.channels_available_5GHz_160MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_160),
+            Triple(R.id.channels_available_6GHz_20MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_20),
+            Triple(R.id.channels_available_6GHz_40MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_40),
+            Triple(R.id.channels_available_6GHz_80MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_80),
+            Triple(R.id.channels_available_6GHz_160MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_160),
+            Triple(R.id.channels_available_6GHz_320MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_320),
+        )
 
     @Before
     fun setUp() {
@@ -79,12 +80,14 @@ class ChannelAvailableFragmentTest {
         assertThat(fixture).isNotNull()
         val view = fixture.view!!
         assertThat(view.findViewById<TextView>(R.id.channels_available_country_code).text).isEqualTo(locale.country)
-        assertThat(view.findViewById<TextView>(R.id.channels_available_country_name).text).isEqualTo(locale.displayCountry)
+        assertThat(
+            view.findViewById<TextView>(R.id.channels_available_country_name).text,
+        ).isEqualTo(locale.displayCountry)
         textViewsIds.forEach { (id, wiFiBand, wiFiWidth) ->
             assertThat(view.findViewById<TextView>(id).text)
-                .isEqualTo(wiFiBand.wiFiChannels.availableChannels(wiFiWidth, wiFiBand, locale.country).joinToString(", "))
+                .isEqualTo(
+                    wiFiBand.wiFiChannels.availableChannels(wiFiWidth, wiFiBand, locale.country).joinToString(", "),
+                )
         }
     }
-
 }
-

@@ -7,11 +7,22 @@ jobs:
     steps:
       - name: checkout repository
         uses: actions/checkout@v4
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
       - name: set up JDK 21
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '21'
+      - name: ktlint check
+        run: bash ./gradlew ktlintCheck --stacktrace
       - name: lint
         run: bash ./gradlew lintDebug --stacktrace
       - name: unit tests

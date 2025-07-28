@@ -91,25 +91,26 @@ class LocaleUtilsTest {
     @Test
     fun allSupportedLanguages() {
         // setup
-        val expected: Set<Locale> = setOf(
-            BULGARIAN,
-            GREEK,
-            Locale.SIMPLIFIED_CHINESE,
-            Locale.TRADITIONAL_CHINESE,
-            Locale.ENGLISH,
-            Locale.FRENCH,
-            Locale.GERMAN,
-            Locale.ITALIAN,
-            Locale.JAPANESE,
-            POLISH,
-            PORTUGUESE_BRAZIL,
-            PORTUGUESE_PORTUGAL,
-            SPANISH,
-            RUSSIAN,
-            TURKISH,
-            UKRAINIAN,
-            Locale.getDefault()
-        )
+        val expected: Set<Locale> =
+            setOf(
+                BULGARIAN,
+                GREEK,
+                Locale.SIMPLIFIED_CHINESE,
+                Locale.TRADITIONAL_CHINESE,
+                Locale.ENGLISH,
+                Locale.FRENCH,
+                Locale.GERMAN,
+                Locale.ITALIAN,
+                Locale.JAPANESE,
+                POLISH,
+                PORTUGUESE_BRAZIL,
+                PORTUGUESE_PORTUGAL,
+                SPANISH,
+                RUSSIAN,
+                TURKISH,
+                UKRAINIAN,
+                Locale.getDefault(),
+            )
         // execute
         val actual = supportedLanguages()
         // validate

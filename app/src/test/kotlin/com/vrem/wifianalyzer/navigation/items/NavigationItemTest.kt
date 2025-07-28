@@ -24,9 +24,13 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class NavigationItemTest {
-    private val fixture: NavigationItem = object : NavigationItem {
-        override fun activate(mainActivity: MainActivity, navigationMenu: NavigationMenu) = Unit
-    }
+    private val fixture: NavigationItem =
+        object : NavigationItem {
+            override fun activate(
+                mainActivity: MainActivity,
+                navigationMenu: NavigationMenu,
+            ) = Unit
+        }
 
     @Test
     fun registered() {

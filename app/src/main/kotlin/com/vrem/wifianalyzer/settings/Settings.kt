@@ -19,7 +19,13 @@ package com.vrem.wifianalyzer.settings
 
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import com.vrem.annotation.OpenClass
-import com.vrem.util.*
+import com.vrem.util.buildMinVersionQ
+import com.vrem.util.defaultCountryCode
+import com.vrem.util.defaultLanguageTag
+import com.vrem.util.findByLanguageTag
+import com.vrem.util.findOne
+import com.vrem.util.findSet
+import com.vrem.util.ordinals
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.MAIN_NAVIGATION
 import com.vrem.wifianalyzer.navigation.NavigationMenu
@@ -35,17 +41,19 @@ import java.util.Locale
 import kotlin.enums.EnumEntries
 
 @OpenClass
-class Settings(private val repository: Repository) {
-
+class Settings(
+    private val repository: Repository,
+) {
     fun initializeDefaultValues(): Unit = repository.initializeDefaultValues()
 
-    fun registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener): Unit =
-        repository.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
+    fun registerOnSharedPreferenceChangeListener(
+        onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener,
+    ): Unit = repository.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
 
     fun scanSpeed(): Int =
         repository.stringAsInteger(
             R.string.scan_speed_key,
-            repository.stringAsInteger(R.string.scan_speed_default, SCAN_SPEED_DEFAULT)
+            repository.stringAsInteger(R.string.scan_speed_default, SCAN_SPEED_DEFAULT),
         )
 
     fun cacheOff(): Boolean =
@@ -67,20 +75,23 @@ class Settings(private val repository: Repository) {
         return findByLanguageTag(languageTag)
     }
 
-    fun sortBy(): SortBy = find(SortBy.entries, R.string.sort_by_key, SortBy.STRENGTH)
+    fun sortBy(): SortBy = settingsFind(SortBy.entries, R.string.sort_by_key, SortBy.STRENGTH)
 
-    fun groupBy(): GroupBy = find(GroupBy.entries, R.string.group_by_key, GroupBy.NONE)
+    fun groupBy(): GroupBy = settingsFind(GroupBy.entries, R.string.group_by_key, GroupBy.NONE)
 
-    fun accessPointView(): AccessPointViewType = find(AccessPointViewType.entries, R.string.ap_view_key, AccessPointViewType.COMPLETE)
+    fun accessPointView(): AccessPointViewType =
+        settingsFind(AccessPointViewType.entries, R.string.ap_view_key, AccessPointViewType.COMPLETE)
 
     fun connectionViewType(): ConnectionViewType =
-        find(ConnectionViewType.entries, R.string.connection_view_key, ConnectionViewType.COMPACT)
+        settingsFind(ConnectionViewType.entries, R.string.connection_view_key, ConnectionViewType.COMPACT)
 
-    fun channelGraphLegend(): GraphLegend = find(GraphLegend.entries, R.string.channel_graph_legend_key, GraphLegend.HIDE)
+    fun channelGraphLegend(): GraphLegend =
+        settingsFind(GraphLegend.entries, R.string.channel_graph_legend_key, GraphLegend.HIDE)
 
-    fun timeGraphLegend(): GraphLegend = find(GraphLegend.entries, R.string.time_graph_legend_key, GraphLegend.LEFT)
+    fun timeGraphLegend(): GraphLegend =
+        settingsFind(GraphLegend.entries, R.string.time_graph_legend_key, GraphLegend.LEFT)
 
-    fun wiFiBand(): WiFiBand = find(WiFiBand.entries, R.string.wifi_band_key, WiFiBand.GHZ2)
+    fun wiFiBand(): WiFiBand = settingsFind(WiFiBand.entries, R.string.wifi_band_key, WiFiBand.GHZ2)
 
     fun wiFiOffOnExit(): Boolean =
         if (buildMinVersionQ()) {
@@ -88,15 +99,17 @@ class Settings(private val repository: Repository) {
         } else {
             repository.boolean(
                 R.string.wifi_off_on_exit_key,
-                repository.resourceBoolean(R.bool.wifi_off_on_exit_default)
+                repository.resourceBoolean(R.bool.wifi_off_on_exit_default),
             )
         }
 
-    fun keepScreenOn(): Boolean = repository.boolean(R.string.keep_screen_on_key, repository.resourceBoolean(R.bool.keep_screen_on_default))
+    fun keepScreenOn(): Boolean =
+        repository.boolean(R.string.keep_screen_on_key, repository.resourceBoolean(R.bool.keep_screen_on_default))
 
-    fun themeStyle(): ThemeStyle = find(ThemeStyle.entries, R.string.theme_key, ThemeStyle.DARK)
+    fun themeStyle(): ThemeStyle = settingsFind(ThemeStyle.entries, R.string.theme_key, ThemeStyle.DARK)
 
-    fun selectedMenu(): NavigationMenu = find(NavigationMenu.entries, R.string.selected_menu_key, NavigationMenu.ACCESS_POINTS)
+    fun selectedMenu(): NavigationMenu =
+        settingsFind(NavigationMenu.entries, R.string.selected_menu_key, NavigationMenu.ACCESS_POINTS)
 
     fun saveSelectedMenu(navigationMenu: NavigationMenu) {
         if (MAIN_NAVIGATION.contains(navigationMenu)) {
@@ -108,35 +121,45 @@ class Settings(private val repository: Repository) {
 
     fun saveSSIDs(values: Set<String>): Unit = repository.saveStringSet(R.string.filter_ssid_key, values)
 
-    fun findWiFiBands(): Set<WiFiBand> = findSet(WiFiBand.entries, R.string.filter_wifi_band_key, WiFiBand.GHZ2)
+    fun findWiFiBands(): Set<WiFiBand> = settingsFindSet(WiFiBand.entries, R.string.filter_wifi_band_key, WiFiBand.GHZ2)
 
-    fun saveWiFiBands(values: Set<WiFiBand>): Unit = saveSet(R.string.filter_wifi_band_key, values)
+    fun saveWiFiBands(values: Set<WiFiBand>): Unit = settingsSaveSet(R.string.filter_wifi_band_key, values)
 
-    fun findStrengths(): Set<Strength> = findSet(Strength.entries, R.string.filter_strength_key, Strength.FOUR)
+    fun findStrengths(): Set<Strength> = settingsFindSet(Strength.entries, R.string.filter_strength_key, Strength.FOUR)
 
-    fun saveStrengths(values: Set<Strength>): Unit = saveSet(R.string.filter_strength_key, values)
+    fun saveStrengths(values: Set<Strength>): Unit = settingsSaveSet(R.string.filter_strength_key, values)
 
-    fun findSecurities(): Set<Security> = findSet(Security.entries, R.string.filter_security_key, Security.NONE)
+    fun findSecurities(): Set<Security> = settingsFindSet(Security.entries, R.string.filter_security_key, Security.NONE)
 
-    fun saveSecurities(values: Set<Security>): Unit = saveSet(R.string.filter_security_key, values)
+    fun saveSecurities(values: Set<Security>): Unit = settingsSaveSet(R.string.filter_security_key, values)
 
-    private fun <T : Enum<T>> find(values: EnumEntries<T>, key: Int, defaultValue: T): T {
+    private fun <T : Enum<T>> settingsFind(
+        values: EnumEntries<T>,
+        key: Int,
+        defaultValue: T,
+    ): T {
         val value = repository.stringAsInteger(key, defaultValue.ordinal)
         return findOne(values, value, defaultValue)
     }
 
-    private fun <T : Enum<T>> findSet(values: EnumEntries<T>, key: Int, defaultValue: T): Set<T> {
+    private fun <T : Enum<T>> settingsFindSet(
+        values: EnumEntries<T>,
+        key: Int,
+        defaultValue: T,
+    ): Set<T> {
         val ordinalDefault = ordinals(values)
         val ordinalSaved = repository.stringSet(key, ordinalDefault)
         return findSet(values, ordinalSaved, defaultValue)
     }
 
-    private fun <T : Enum<T>> saveSet(key: Int, values: Set<T>): Unit = repository.saveStringSet(key, ordinals(values))
+    private fun <T : Enum<T>> settingsSaveSet(
+        key: Int,
+        values: Set<T>,
+    ): Unit = repository.saveStringSet(key, ordinals(values))
 
     companion object {
         private const val SCAN_SPEED_DEFAULT = 5
         private const val GRAPH_Y_MULTIPLIER = -10
         private const val GRAPH_Y_DEFAULT = 2
     }
-
 }

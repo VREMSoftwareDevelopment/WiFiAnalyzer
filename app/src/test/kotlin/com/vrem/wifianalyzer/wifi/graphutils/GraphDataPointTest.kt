@@ -4,8 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class GraphDataPointTest {
-
-    private val fixture:GraphDataPoint = GraphDataPoint(111, 222)
+    private val fixture: GraphDataPoint = GraphDataPoint(111, 222)
 
     @Test
     fun getX() {
@@ -18,5 +17,4 @@ class GraphDataPointTest {
         // Validate
         assertThat(fixture.y).isEqualTo(222)
     }
-
 }

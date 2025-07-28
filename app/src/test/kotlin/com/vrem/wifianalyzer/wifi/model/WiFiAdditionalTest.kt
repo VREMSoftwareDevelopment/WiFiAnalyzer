@@ -47,5 +47,4 @@ class WiFiAdditionalTest {
         // validate
         assertThat(WiFiAdditional.EMPTY.vendorName).isEmpty()
     }
-
 }

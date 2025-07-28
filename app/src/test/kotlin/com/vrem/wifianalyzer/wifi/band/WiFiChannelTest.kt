@@ -57,5 +57,4 @@ class WiFiChannelTest {
         // execute & validate
         assertThat(fixture.compareTo(other)).isEqualTo(-1)
     }
-
 }

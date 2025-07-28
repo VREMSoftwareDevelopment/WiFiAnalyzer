@@ -21,11 +21,23 @@ import android.content.Context
 import android.content.Intent
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.FastRoaming
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiSignalExtra
+import com.vrem.wifianalyzer.wifi.model.WiFiStandard
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
-import org.mockito.kotlin.*
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -115,15 +127,21 @@ class ExportTest {
     private fun title(timestamp: String): String = "$name-$timestamp"
 
     private fun data(timestamp: String): String =
-        "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|Width (Range)|Distance|802.11mc|Security|Standard|FastRoaming\n" +
-            timestamp + "|SSID10|BSSID10|-10dBm|3|2422MHz|5|2432MHz|40MHz (2412 - 2452)|~0.0m|true|capabilities10|802.11AC|802.11R\n" +
-            timestamp + "|SSID20|BSSID20|-20dBm|5|2432MHz|7|2442MHz|40MHz (2422 - 2462)|~0.1m|true|capabilities20|802.11AC|802.11R\n" +
-            timestamp + "|SSID30|BSSID30|-30dBm|7|2442MHz|9|2452MHz|40MHz (2432 - 2472)|~0.3m|true|capabilities30|802.11AC|802.11R\n"
+        "Time Stamp|SSID|BSSID|Strength|Primary Channel|Primary Frequency|Center Channel|Center Frequency|" +
+            "Width (Range)|Distance|802.11mc|Security|Standard|FastRoaming\n" +
+            timestamp +
+            "|SSID10|BSSID10|-10dBm|3|2422MHz|5|2432MHz|40MHz (2412 - 2452)|~0.0m|true|capabilities10|802.11AC|" +
+            "802.11R\n" +
+            timestamp +
+            "|SSID20|BSSID20|-20dBm|5|2432MHz|7|2442MHz|40MHz (2422 - 2462)|~0.1m|true|capabilities20|802.11AC|" +
+            "802.11R\n" +
+            timestamp +
+            "|SSID30|BSSID30|-30dBm|7|2442MHz|9|2452MHz|40MHz (2432 - 2472)|~0.3m|true|capabilities30|802.11AC|" +
+            "802.11R\n"
 
     private fun timestamp(date: Date): String = SimpleDateFormat("yyyy/MM/dd-HH:mm:ss", Locale.US).format(date)
 
-    private fun withWiFiDetails(): List<WiFiDetail> =
-        listOf(withWiFiDetail(10), withWiFiDetail(20), withWiFiDetail(30))
+    private fun withWiFiDetails(): List<WiFiDetail> = listOf(withWiFiDetail(10), withWiFiDetail(20), withWiFiDetail(30))
 
     private fun withWiFiDetail(offset: Int): WiFiDetail {
         val wiFiSignalExtra = WiFiSignalExtra(true, WiFiStandard.AC, listOf(FastRoaming.FR_802_11R))
@@ -132,5 +150,4 @@ class ExportTest {
         val wiFiSecurity = WiFiSecurity("capabilities$offset")
         return WiFiDetail(wiFiIdentifier, wiFiSecurity, wiFiSignal)
     }
-
 }

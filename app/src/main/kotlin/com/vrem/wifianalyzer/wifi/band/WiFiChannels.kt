@@ -28,14 +28,18 @@ class WiFiChannels(
     val activeChannels: Map<WiFiWidth, List<Int>>,
     val graphChannels: Map<Int, String>,
     val availableChannels: List<Int>,
-    val ratingChannels: RatingChannels
+    val ratingChannels: RatingChannels,
 ) {
+    fun availableChannels(
+        wiFiBand: WiFiBand,
+        countryCode: String,
+    ): List<WiFiChannel> = WiFiChannelCountry.find(countryCode).channels(wiFiBand).map { wiFiChannelByChannel(it) }
 
-    fun availableChannels(wiFiBand: WiFiBand, countryCode: String): List<WiFiChannel> =
-        WiFiChannelCountry.find(countryCode).channels(wiFiBand).map { wiFiChannelByChannel(it) }
-
-    fun availableChannels(wiFiWidth: WiFiWidth, wiFiBand: WiFiBand, countryCode: String): List<Int> =
-        activeChannels[wiFiWidth].orEmpty().filter { it in ratingChannels(wiFiBand, countryCode) }
+    fun availableChannels(
+        wiFiWidth: WiFiWidth,
+        wiFiBand: WiFiBand,
+        countryCode: String,
+    ): List<Int> = activeChannels[wiFiWidth].orEmpty().filter { it in ratingChannels(wiFiBand, countryCode) }
 
     fun inRange(frequency: Int): Boolean = frequency in channelRange.first.frequency..channelRange.second.frequency
 
@@ -44,7 +48,10 @@ class WiFiChannels(
 
     fun wiFiChannelByChannel(channel: Int): WiFiChannel =
         if (channel in channelRange.first.channel..channelRange.second.channel) {
-            WiFiChannel(channel, channelRange.first.frequency + (channel - channelRange.first.channel) * FREQUENCY_SPREAD)
+            WiFiChannel(
+                channel,
+                channelRange.first.frequency + (channel - channelRange.first.channel) * FREQUENCY_SPREAD,
+            )
         } else {
             WiFiChannel.UNKNOWN
         }
@@ -65,5 +72,4 @@ class WiFiChannels(
         val channel = (frequency - channelRange.first.frequency) / FREQUENCY_SPREAD + firstChannel
         return WiFiChannel(channel, frequency)
     }
-
 }

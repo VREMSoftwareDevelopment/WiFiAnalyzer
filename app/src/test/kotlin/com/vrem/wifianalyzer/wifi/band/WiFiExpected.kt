@@ -19,40 +19,42 @@ package com.vrem.wifianalyzer.wifi.band
 
 import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 
-private val expectedETSICountries = listOf(
-    "AT",
-    "BE",
-    "CH",
-    "CY",
-    "CZ",
-    "DE",
-    "DK",
-    "EE",
-    "ES",
-    "FI",
-    "FR",
-    "GR",
-    "HU",
-    "IE",
-    "IS",
-    "IT",
-    "LI",
-    "LT",
-    "LU",
-    "LV",
-    "MT",
-    "NL",
-    "NO",
-    "PL",
-    "PT",
-    "RO",
-    "SE",
-    "SI",
-    "SK",
-    "IL"
-)
+private val expectedETSICountries =
+    listOf(
+        "AT",
+        "BE",
+        "CH",
+        "CY",
+        "CZ",
+        "DE",
+        "DK",
+        "EE",
+        "ES",
+        "FI",
+        "FR",
+        "GR",
+        "HU",
+        "IE",
+        "IS",
+        "IT",
+        "LI",
+        "LT",
+        "LU",
+        "LV",
+        "MT",
+        "NL",
+        "NO",
+        "PL",
+        "PT",
+        "RO",
+        "SE",
+        "SI",
+        "SK",
+        "IL",
+    )
 
-private val expectedNACountries = listOf("AS", "CA", "CO", "DO", "FM", "GT", "GU", "MP", "MX", "PA", "PR", "UM", "US", "UZ", "VI")
+private val expectedNACountries =
+    listOf("AS", "CA", "CO", "DO", "FM", "GT", "GU", "MP", "MX", "PA", "PR", "UM", "US", "UZ", "VI")
 
 private val expectedGHZ6Countries = listOf("JP", "RU", "NZ", "AU", "GL", "AE", "GB", "MX", "SG", "HK", "MO", "PH")
 
@@ -80,7 +82,7 @@ private val expectedChannelExcludeGHZ5: List<Map<String, List<Int>>> =
             "BH" to (96..144).toList() + (169..177).toList(),
             "VN" to (169..177).toList(),
             "ID" to (96..144).toList() + (165..177).toList(),
-            "PH" to (173..177).toList()
+            "PH" to (173..177).toList(),
         ).map { mapOf(it.first to it.second) }
 
 private val expectedChannelExcludeGHZ6: List<Map<String, List<Int>>> =
@@ -108,76 +110,84 @@ data class ExpectedWiFiInfo(
     val expectedActiveChannels: Map<WiFiWidth, List<Int>>,
     val expectedGraphChannels: Map<Int, String>,
     val expectedAvailableChannels: List<Int>,
-    val expectedRatingChannels: RatingChannels
+    val expectedRatingChannels: RatingChannels,
 ) {
-    fun availableChannels(wiFiWidth: WiFiWidth, wiFiBand: WiFiBand, countryCode: String): List<Int> =
+    fun availableChannels(
+        wiFiWidth: WiFiWidth,
+        wiFiBand: WiFiBand,
+        countryCode: String,
+    ): List<Int> =
         expectedActiveChannels[wiFiWidth].orEmpty().filter { it in expectedRatingChannels(wiFiBand, countryCode) }
 }
 
-val expectedWiFiInfoGHZ2 = ExpectedWiFiInfo(
-    (-1..15).map { WiFiChannel(it, 2407 + it * FREQUENCY_SPREAD) },
-    17,
-    mapOf(
-        WiFiWidth.MHZ_20 to (1..13).toList(),
-        WiFiWidth.MHZ_40 to listOf(3, 7, 11),
-    ),
-    (1..13).associateWith { "$it" },
-    (1..13).toList(),
-    expectedRatingChannelsGHZ2
-)
+val expectedWiFiInfoGHZ2 =
+    ExpectedWiFiInfo(
+        (-1..15).map { WiFiChannel(it, 2407 + it * FREQUENCY_SPREAD) },
+        17,
+        mapOf(
+            WiFiWidth.MHZ_20 to (1..13).toList(),
+            WiFiWidth.MHZ_40 to listOf(3, 7, 11),
+        ),
+        (1..13).associateWith { "$it" },
+        (1..13).toList(),
+        expectedRatingChannelsGHZ2,
+    )
 
-val expectedWiFiInfoGHZ5 = ExpectedWiFiInfo(
-    (30..184).map { WiFiChannel(it, 5150 + (it - 30) * FREQUENCY_SPREAD) },
-    77,
-    mapOf(
-        (WiFiWidth.MHZ_20 to ((32..144 step WiFiWidth.MHZ_20.step) + (149..177 step WiFiWidth.MHZ_20.step))),
-        (WiFiWidth.MHZ_40 to ((38..142 step WiFiWidth.MHZ_40.step) + (151..175 step WiFiWidth.MHZ_40.step))),
-        (WiFiWidth.MHZ_80 to ((42..138 step WiFiWidth.MHZ_80.step) + (155..171 step WiFiWidth.MHZ_80.step))),
-        (WiFiWidth.MHZ_160 to ((50..114 step WiFiWidth.MHZ_160.step) + 163))
-    ),
-    listOf(34, 50, 66, 82, 98, 113, 129, 147, 163, 178).associateWith {
-        when (it) {
-            113 -> "114"
-            129 -> "130"
-            178 -> "179"
-            else -> "$it"
-        }
-    },
-    ((32..144 step WiFiWidth.MHZ_20.step) + (149..177 step WiFiWidth.MHZ_20.step) +
-        (38..142 step WiFiWidth.MHZ_40.step) + (151..175 step WiFiWidth.MHZ_40.step) +
-        (42..138 step WiFiWidth.MHZ_80.step) + (155..171 step WiFiWidth.MHZ_80.step) +
-        (50..114 step WiFiWidth.MHZ_160.step) + 163)
-        .toSortedSet()
-        .toList(),
-    expectedRatingChannelsGHZ5
-)
+val expectedWiFiInfoGHZ5 =
+    ExpectedWiFiInfo(
+        (30..184).map { WiFiChannel(it, 5150 + (it - 30) * FREQUENCY_SPREAD) },
+        77,
+        mapOf(
+            (WiFiWidth.MHZ_20 to ((32..144 step WiFiWidth.MHZ_20.step) + (149..177 step WiFiWidth.MHZ_20.step))),
+            (WiFiWidth.MHZ_40 to ((38..142 step WiFiWidth.MHZ_40.step) + (151..175 step WiFiWidth.MHZ_40.step))),
+            (WiFiWidth.MHZ_80 to ((42..138 step WiFiWidth.MHZ_80.step) + (155..171 step WiFiWidth.MHZ_80.step))),
+            (WiFiWidth.MHZ_160 to ((50..114 step WiFiWidth.MHZ_160.step) + 163)),
+        ),
+        listOf(34, 50, 66, 82, 98, 113, 129, 147, 163, 178).associateWith {
+            when (it) {
+                113 -> "114"
+                129 -> "130"
+                178 -> "179"
+                else -> "$it"
+            }
+        },
+        (
+            (32..144 step WiFiWidth.MHZ_20.step) + (149..177 step WiFiWidth.MHZ_20.step) +
+                (38..142 step WiFiWidth.MHZ_40.step) + (151..175 step WiFiWidth.MHZ_40.step) +
+                (42..138 step WiFiWidth.MHZ_80.step) + (155..171 step WiFiWidth.MHZ_80.step) +
+                (50..114 step WiFiWidth.MHZ_160.step) + 163
+        ).toSortedSet()
+            .toList(),
+        expectedRatingChannelsGHZ5,
+    )
 
-val expectedWiFiInfoGHZ6 = ExpectedWiFiInfo(
-    (-5..235).map { WiFiChannel(it, 5950 + it * FREQUENCY_SPREAD) },
-    120,
-    mapOf(
-        (WiFiWidth.MHZ_20 to (1..233 step WiFiWidth.MHZ_20.step).toList()),
-        (WiFiWidth.MHZ_40 to (3..227 step WiFiWidth.MHZ_40.step).toList()),
-        (WiFiWidth.MHZ_80 to (7..215 step WiFiWidth.MHZ_80.step).toList()),
-        (WiFiWidth.MHZ_160 to (15..207 step WiFiWidth.MHZ_160.step).toList()),
-        (WiFiWidth.MHZ_320 to (31..191 step WiFiWidth.MHZ_320.step).toList())
-    ),
-    listOf(1, 31, 63, 95, 128, 160, 192, 222).associateWith {
-        when (it) {
-            128 -> "127"
-            160 -> "159"
-            192 -> "191"
-            222 -> "223"
-            else -> "$it"
-        }
-    },
-    ((1..233 step WiFiWidth.MHZ_20.step) +
-        (3..227 step WiFiWidth.MHZ_40.step) +
-        (7..215 step WiFiWidth.MHZ_80.step) +
-        (15..207 step WiFiWidth.MHZ_160.step) +
-        (31..191 step WiFiWidth.MHZ_320.step))
-        .toSortedSet()
-        .toList(),
-    expectedRatingChannelsGHZ6
-)
-
+val expectedWiFiInfoGHZ6 =
+    ExpectedWiFiInfo(
+        (-5..235).map { WiFiChannel(it, 5950 + it * FREQUENCY_SPREAD) },
+        120,
+        mapOf(
+            (WiFiWidth.MHZ_20 to (1..233 step WiFiWidth.MHZ_20.step).toList()),
+            (WiFiWidth.MHZ_40 to (3..227 step WiFiWidth.MHZ_40.step).toList()),
+            (WiFiWidth.MHZ_80 to (7..215 step WiFiWidth.MHZ_80.step).toList()),
+            (WiFiWidth.MHZ_160 to (15..207 step WiFiWidth.MHZ_160.step).toList()),
+            (WiFiWidth.MHZ_320 to (31..191 step WiFiWidth.MHZ_320.step).toList()),
+        ),
+        listOf(1, 31, 63, 95, 128, 160, 192, 222).associateWith {
+            when (it) {
+                128 -> "127"
+                160 -> "159"
+                192 -> "191"
+                222 -> "223"
+                else -> "$it"
+            }
+        },
+        (
+            (1..233 step WiFiWidth.MHZ_20.step) +
+                (3..227 step WiFiWidth.MHZ_40.step) +
+                (7..215 step WiFiWidth.MHZ_80.step) +
+                (15..207 step WiFiWidth.MHZ_160.step) +
+                (31..191 step WiFiWidth.MHZ_320.step)
+        ).toSortedSet()
+            .toList(),
+        expectedRatingChannelsGHZ6,
+    )

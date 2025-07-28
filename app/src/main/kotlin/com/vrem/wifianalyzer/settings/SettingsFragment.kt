@@ -25,7 +25,10 @@ import com.vrem.util.buildMinVersionQ
 import com.vrem.wifianalyzer.R
 
 open class SettingsFragment : PreferenceFragmentCompat() {
-    override fun onCreatePreferences(bundle: Bundle?, rootKey: String?) {
+    override fun onCreatePreferences(
+        bundle: Bundle?,
+        rootKey: String?,
+    ) {
         setupPreferences()
     }
 

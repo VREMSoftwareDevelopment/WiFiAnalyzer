@@ -25,10 +25,15 @@ import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 
-internal class FragmentItem(val fragment: Fragment, override val registered: Boolean = true, override val visibility: Int = View.VISIBLE) :
-    NavigationItem {
-
-    override fun activate(mainActivity: MainActivity, navigationMenu: NavigationMenu) {
+internal class FragmentItem(
+    val fragment: Fragment,
+    override val registered: Boolean = true,
+    override val visibility: Int = View.VISIBLE,
+) : NavigationItem {
+    override fun activate(
+        mainActivity: MainActivity,
+        navigationMenu: NavigationMenu,
+    ) {
         val fragmentManager: FragmentManager = mainActivity.supportFragmentManager
         if (fragmentManager.isStateSaved) return
         updateMainActivity(mainActivity, navigationMenu)
@@ -41,11 +46,13 @@ internal class FragmentItem(val fragment: Fragment, override val registered: Boo
         }
     }
 
-    private fun updateMainActivity(mainActivity: MainActivity, navigationMenu: NavigationMenu) {
+    private fun updateMainActivity(
+        mainActivity: MainActivity,
+        navigationMenu: NavigationMenu,
+    ) {
         mainActivity.currentNavigationMenu(navigationMenu)
         mainActivity.title = mainActivity.getString(navigationMenu.title)
         mainActivity.updateActionBar()
         mainActivity.mainConnectionVisibility(visibility)
     }
-
 }

@@ -23,7 +23,10 @@ import com.vrem.util.buildMinVersionT
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
-fun whenSsid(scanResult: ScanResult, ssid: String) {
+fun whenSsid(
+    scanResult: ScanResult,
+    ssid: String,
+) {
     if (buildMinVersionT()) {
         val wifiSsid: WifiSsid = mock()
         whenever(scanResult.wifiSsid).thenReturn(wifiSsid)

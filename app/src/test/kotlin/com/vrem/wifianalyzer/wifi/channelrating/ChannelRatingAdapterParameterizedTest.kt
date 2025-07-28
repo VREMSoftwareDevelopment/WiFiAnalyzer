@@ -34,14 +34,20 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 import org.robolectric.ParameterizedRobolectricTestRunner
 import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
 import org.robolectric.annotation.Config
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
-class ChannelRatingAdapterParameterizedTest(val wiFiWidth: WiFiWidth) {
+class ChannelRatingAdapterParameterizedTest(
+    val wiFiWidth: WiFiWidth,
+) {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val settings = MainContextHelper.INSTANCE.settings
     private val channelRating: ChannelRating = mock()
@@ -50,13 +56,14 @@ class ChannelRatingAdapterParameterizedTest(val wiFiWidth: WiFiWidth) {
     private val binding: ChannelRatingBestBinding = ChannelRatingBestBinding.inflate(inflater, parent, false)
     private val fixture = ChannelRatingAdapter(mainActivity, binding, channelRating)
 
-    private val bindingMap = mapOf(
-        WiFiWidth.MHZ_20 to Pair(binding.channelRating20, binding.channelRatingRatingChannel20),
-        WiFiWidth.MHZ_40 to Pair(binding.channelRating40, binding.channelRatingRatingChannel40),
-        WiFiWidth.MHZ_80 to Pair(binding.channelRating80, binding.channelRatingRatingChannel80),
-        WiFiWidth.MHZ_160 to Pair(binding.channelRating160, binding.channelRatingRatingChannel160),
-        WiFiWidth.MHZ_320 to Pair(binding.channelRating320, binding.channelRatingRatingChannel320)
-    )
+    private val bindingMap =
+        mapOf(
+            WiFiWidth.MHZ_20 to Pair(binding.channelRating20, binding.channelRatingRatingChannel20),
+            WiFiWidth.MHZ_40 to Pair(binding.channelRating40, binding.channelRatingRatingChannel40),
+            WiFiWidth.MHZ_80 to Pair(binding.channelRating80, binding.channelRatingRatingChannel80),
+            WiFiWidth.MHZ_160 to Pair(binding.channelRating160, binding.channelRatingRatingChannel160),
+            WiFiWidth.MHZ_320 to Pair(binding.channelRating320, binding.channelRatingRatingChannel320),
+        )
 
     @After
     fun tearDown() {
@@ -102,9 +109,11 @@ class ChannelRatingAdapterParameterizedTest(val wiFiWidth: WiFiWidth) {
         // setup
         val wiFiChannels: List<WiFiChannel> = listOf()
         val channelAPCounts = withChannelAPCounts()
-        val expected = channelAPCounts.filter { it.wiFiWidth == wiFiWidth }
-            .map { it.wiFiChannel.channel }
-            .joinToString(",")
+        val expected =
+            channelAPCounts
+                .filter { it.wiFiWidth == wiFiWidth }
+                .map { it.wiFiChannel.channel }
+                .joinToString(",")
         doReturn(channelAPCounts).whenever(channelRating).bestChannels(WiFiBand.GHZ5, wiFiChannels)
         // execute
         fixture.bestChannels(WiFiBand.GHZ5, wiFiChannels)
@@ -123,8 +132,10 @@ class ChannelRatingAdapterParameterizedTest(val wiFiWidth: WiFiWidth) {
             (50..59).map { channelAPCount(it, WiFiWidth.MHZ_160) } +
             (60..69).map { channelAPCount(it, WiFiWidth.MHZ_320) }
 
-    private fun channelAPCount(channel: Int, wiFiWidth: WiFiWidth): ChannelAPCount =
-        ChannelAPCount(WiFiChannel(channel, channel + 100), wiFiWidth, 1)
+    private fun channelAPCount(
+        channel: Int,
+        wiFiWidth: WiFiWidth,
+    ): ChannelAPCount = ChannelAPCount(WiFiChannel(channel, channel + 100), wiFiWidth, 1)
 
     companion object {
         @JvmStatic

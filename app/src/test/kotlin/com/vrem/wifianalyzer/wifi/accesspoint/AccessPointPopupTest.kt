@@ -23,7 +23,11 @@ import android.view.View
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -107,6 +111,6 @@ class AccessPointPopupTest {
         WiFiDetail(
             WiFiIdentifier("SSID", "BSSID"),
             WiFiSecurity("capabilities"),
-            WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2)
+            WiFiSignal(1, 1, WiFiWidth.MHZ_40, 2),
         )
 }

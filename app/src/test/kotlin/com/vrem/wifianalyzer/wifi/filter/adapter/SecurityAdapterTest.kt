@@ -123,5 +123,4 @@ class SecurityAdapterTest {
         // validate
         verify(settings).saveSecurities(expected)
     }
-
 }

@@ -29,12 +29,22 @@ import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
+import com.vrem.wifianalyzer.wifi.model.WiFiConnection
+import com.vrem.wifianalyzer.wifi.model.WiFiData
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
@@ -123,7 +133,9 @@ class ConnectionViewTest {
         assertThat(ipAddressView.text.toString()).isEqualTo(wiFiConnection.ipAddress)
         val linkSpeedView = view.findViewById<TextView>(R.id.linkSpeed)
         assertThat(linkSpeedView.visibility).isEqualTo(View.VISIBLE)
-        assertThat(linkSpeedView.text.toString()).isEqualTo(wiFiConnection.linkSpeed.toString() + WifiInfo.LINK_SPEED_UNITS)
+        assertThat(linkSpeedView.text.toString()).isEqualTo(
+            wiFiConnection.linkSpeed.toString() + WifiInfo.LINK_SPEED_UNITS,
+        )
         assertThat(view.findViewById<TextView>(R.id.currentConnection).text.toString()).isEqualTo(expectedText)
         verify(warningView).update(wiFiData)
     }
@@ -201,13 +213,16 @@ class ConnectionViewTest {
             WiFiIdentifier(ssid, bssid),
             WiFiSecurity.EMPTY,
             WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -55),
-            wiFiAdditional
+            wiFiAdditional,
         )
 
     private fun withWiFiAdditional(): WiFiAdditional =
         WiFiAdditional(wiFiConnection = WiFiConnection(WiFiIdentifier(ssid, bssid), ipAddress, 11))
 
-    private fun withAccessPointDetailView(connection: WiFiDetail, @LayoutRes layout: Int): View {
+    private fun withAccessPointDetailView(
+        connection: WiFiDetail,
+        @LayoutRes layout: Int,
+    ): View {
         val parent = mainActivity.findViewById<View>(R.id.connection).findViewById<ViewGroup>(R.id.connectionDetail)
         val view = mainActivity.layoutInflater.inflate(layout, parent, false)
         whenever(accessPointDetail.makeView(null, parent, connection, layout = layout)).thenReturn(view)

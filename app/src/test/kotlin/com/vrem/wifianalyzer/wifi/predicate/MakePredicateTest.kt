@@ -22,11 +22,12 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 private enum class TestObject {
-    VALUE1, VALUE3, VALUE2
+    VALUE1,
+    VALUE3,
+    VALUE2,
 }
 
 class MakePredicateTest {
-
     @Test
     fun makePredicateExpectsTruePredicate() {
         // setup
@@ -50,5 +51,4 @@ class MakePredicateTest {
         // validate
         assertThat(actual(wiFiDetail)).isTrue
     }
-
 }

@@ -30,12 +30,18 @@ import com.vrem.wifianalyzer.databinding.GraphContentBinding
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.graphutils.GraphAdapter
 
-class ChannelGraphFragment : Fragment(), OnRefreshListener {
+class ChannelGraphFragment :
+    Fragment(),
+    OnRefreshListener {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     lateinit var graphAdapter: GraphAdapter
         private set
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
         val binding = GraphContentBinding.inflate(inflater, container, false)
         swipeRefreshLayout = binding.graphRefresh
         swipeRefreshLayout.setOnRefreshListener(this)
@@ -65,5 +71,4 @@ class ChannelGraphFragment : Fragment(), OnRefreshListener {
         MainContext.INSTANCE.scannerService.unregister(graphAdapter)
         super.onPause()
     }
-
 }

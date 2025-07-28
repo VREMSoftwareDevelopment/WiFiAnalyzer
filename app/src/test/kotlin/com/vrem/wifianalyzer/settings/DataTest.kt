@@ -22,7 +22,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 internal class DataTest {
-
     @Test
     fun compareToWhenAreSame() {
         // setup
@@ -55,5 +54,4 @@ internal class DataTest {
         // validate
         assertThat(actual).isEqualTo(-1)
     }
-
 }

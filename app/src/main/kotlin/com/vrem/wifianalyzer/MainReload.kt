@@ -22,7 +22,9 @@ import com.vrem.wifianalyzer.settings.ThemeStyle
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType
 import java.util.Locale
 
-class MainReload(settings: Settings) {
+class MainReload(
+    settings: Settings,
+) {
     var themeStyle: ThemeStyle
         private set
     var connectionViewType: ConnectionViewType

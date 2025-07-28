@@ -28,12 +28,18 @@ import com.vrem.util.buildVersionP
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.databinding.AccessPointsContentBinding
 
-class AccessPointsFragment : Fragment(), OnRefreshListener {
+class AccessPointsFragment :
+    Fragment(),
+    OnRefreshListener {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     lateinit var accessPointsAdapter: AccessPointsAdapter
         private set
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
         val binding = AccessPointsContentBinding.inflate(inflater, container, false)
         swipeRefreshLayout = binding.accessPointsRefresh
         swipeRefreshLayout.setOnRefreshListener(this)
@@ -63,5 +69,4 @@ class AccessPointsFragment : Fragment(), OnRefreshListener {
         MainContext.INSTANCE.scannerService.unregister(accessPointsAdapter)
         super.onPause()
     }
-
 }

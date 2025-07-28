@@ -25,12 +25,15 @@ internal val groupBySSID: GroupByKey<WiFiDetail> = { it.wiFiIdentifier.ssid }
 
 internal val groupByVirtual: GroupByKey<WiFiDetail> = { it.wiFiVirtual.key }
 
-enum class GroupBy(val sort: Comparator<WiFiDetail>, val group: GroupByKey<WiFiDetail>) {
+enum class GroupBy(
+    val sort: Comparator<WiFiDetail>,
+    val group: GroupByKey<WiFiDetail>,
+) {
     NONE(sortByDefault(), groupBySSID),
     SSID(sortBySSID(), groupBySSID),
     CHANNEL(sortByChannel(), groupByChannel),
-    VIRTUAL(sortBySSID(), groupByVirtual);
+    VIRTUAL(sortBySSID(), groupByVirtual),
+    ;
 
     val none: Boolean get() = NONE == this
-
 }

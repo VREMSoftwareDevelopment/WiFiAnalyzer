@@ -22,7 +22,6 @@ import org.junit.Test
 import java.util.Locale
 
 class StringUtilsTest {
-
     @Test
     fun specialTrim() {
         // setup
@@ -66,6 +65,4 @@ class StringUtilsTest {
         // verify
         assertThat(actual).isEqualTo(expected)
     }
-
-
 }

@@ -240,5 +240,4 @@ class FilterTest {
         // validate
         assertThat(fixture.alertDialog!!.isShowing).isTrue
     }
-
 }

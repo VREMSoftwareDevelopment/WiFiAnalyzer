@@ -26,7 +26,9 @@ import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.startWiFiSettings
 
 @OpenClass
-class WiFiSwitch(private val wifiManager: WifiManager) {
+class WiFiSwitch(
+    private val wifiManager: WifiManager,
+) {
     fun on(): Boolean = enable(true)
 
     fun off(): Boolean = enable(false)
@@ -36,7 +38,8 @@ class WiFiSwitch(private val wifiManager: WifiManager) {
 
     fun minVersionQ(): Boolean = buildMinVersionQ()
 
-    private fun enable(enabled: Boolean): Boolean = if (minVersionQ()) enableWiFiAndroidQ() else enableWiFiLegacy(enabled)
+    private fun enable(enabled: Boolean): Boolean =
+        if (minVersionQ()) enableWiFiAndroidQ() else enableWiFiLegacy(enabled)
 
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun enableWiFiAndroidQ(): Boolean {
@@ -45,5 +48,4 @@ class WiFiSwitch(private val wifiManager: WifiManager) {
     }
 
     private fun enableWiFiLegacy(enabled: Boolean): Boolean = wifiManager.setWifiEnabled(enabled)
-
 }

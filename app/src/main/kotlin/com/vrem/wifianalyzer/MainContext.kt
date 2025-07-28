@@ -33,7 +33,8 @@ import com.vrem.wifianalyzer.wifi.scanner.ScannerService
 import com.vrem.wifianalyzer.wifi.scanner.makeScannerService
 
 enum class MainContext {
-    INSTANCE;
+    INSTANCE,
+    ;
 
     lateinit var settings: Settings
     lateinit var mainActivity: MainActivity
@@ -52,7 +53,10 @@ enum class MainContext {
 
     private val wiFiManager: WifiManager get() = context.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
-    fun initialize(activity: MainActivity, largeScreen: Boolean) {
+    fun initialize(
+        activity: MainActivity,
+        largeScreen: Boolean,
+    ) {
         mainActivity = activity
         configuration = Configuration(largeScreen)
         settings = Settings(Repository(context))
@@ -62,5 +66,4 @@ enum class MainContext {
         scannerService = makeScannerService(mainActivity, wiFiManagerWrapper, Handler(Looper.getMainLooper()), settings)
         filtersAdapter = FiltersAdapter(settings)
     }
-
 }

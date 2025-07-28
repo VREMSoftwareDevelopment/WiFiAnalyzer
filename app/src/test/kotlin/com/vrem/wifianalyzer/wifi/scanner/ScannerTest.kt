@@ -25,7 +25,12 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.mockito.kotlin.*
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 class ScannerTest {
     private val settings: Settings = mock()
@@ -231,5 +236,4 @@ class ScannerTest {
         verify(updateNotifier2, times(expected)).update(wiFiData)
         verify(updateNotifier3, times(expected)).update(wiFiData)
     }
-
 }

@@ -28,8 +28,10 @@ import kotlin.test.Test
 
 @RunWith(Parameterized::class)
 class WiFiChannelsParameterizedTest {
-    private val countries: List<WiFiChannelCountry> = WiFiChannelCountry.findAll()
-        .filter { !it.locale.country.isEmpty() && !it.locale.displayName.isEmpty() }
+    private val countries: List<WiFiChannelCountry> =
+        WiFiChannelCountry
+            .findAll()
+            .filter { !it.locale.country.isEmpty() && !it.locale.displayName.isEmpty() }
 
     @Parameter(0)
     lateinit var wiFiBand: WiFiBand
@@ -100,12 +102,12 @@ class WiFiChannelsParameterizedTest {
     @Test
     fun activeChannels() {
         fixture.activeChannels.forEach { (wiFiWidth, wiFiWidthChannels) ->
-            val expected = expectedWiFiInfo.expectedActiveChannels
-                .filter { (expectedWiFiWidth) -> expectedWiFiWidth == wiFiWidth }
-                .map { (_, expectedWiFiWidthChannels) ->
-                    expectedWiFiWidthChannels
-                }
-                .first()
+            val expected =
+                expectedWiFiInfo.expectedActiveChannels
+                    .filter { (expectedWiFiWidth) -> expectedWiFiWidth == wiFiWidth }
+                    .map { (_, expectedWiFiWidthChannels) ->
+                        expectedWiFiWidthChannels
+                    }.first()
             assertThat(wiFiWidthChannels)
                 .describedAs("$wiFiWidth")
                 .containsExactlyElementsOf(expected)
@@ -136,9 +138,12 @@ class WiFiChannelsParameterizedTest {
 
     @Test
     fun wiFiWidthUsingChannelNotInActiveChannels() {
-        val channel = fixture.availableChannels.firstOrNull { channel ->
-            fixture.activeChannels.values.flatten().none { it == channel }
-        }
+        val channel =
+            fixture.availableChannels.firstOrNull { channel ->
+                fixture.activeChannels.values
+                    .flatten()
+                    .none { it == channel }
+            }
         if (channel != null) {
             val actual = fixture.wiFiWidthByChannel(channel)
             assertThat(actual).isEqualTo(WiFiWidth.MHZ_20)
@@ -153,7 +158,9 @@ class WiFiChannelsParameterizedTest {
     @Test
     fun graphChannels() {
         assertThat(fixture.graphChannels.keys).containsExactlyElementsOf(expectedWiFiInfo.expectedGraphChannels.keys)
-        assertThat(fixture.graphChannels.values).containsExactlyElementsOf(expectedWiFiInfo.expectedGraphChannels.values)
+        assertThat(
+            fixture.graphChannels.values,
+        ).containsExactlyElementsOf(expectedWiFiInfo.expectedGraphChannels.values)
     }
 
     @Test
@@ -171,7 +178,9 @@ class WiFiChannelsParameterizedTest {
             countries.forEach { country ->
                 assertThat(fixture.availableChannels(wiFiWidth, wiFiBand, country.countryCode))
                     .describedAs("$wiFiWidth | Country: $country")
-                    .containsExactlyElementsOf(expectedWiFiInfo.availableChannels(wiFiWidth, wiFiBand, country.countryCode))
+                    .containsExactlyElementsOf(
+                        expectedWiFiInfo.availableChannels(wiFiWidth, wiFiBand, country.countryCode),
+                    )
             }
         }
     }
@@ -213,11 +222,11 @@ class WiFiChannelsParameterizedTest {
     companion object {
         @JvmStatic
         @Parameters(name = "{0}")
-        fun data() = listOf(
-            arrayOf(WiFiBand.GHZ2, expectedWiFiInfoGHZ2, wiFiChannelsGHZ2),
-            arrayOf(WiFiBand.GHZ5, expectedWiFiInfoGHZ5, wiFiChannelsGHZ5),
-            arrayOf(WiFiBand.GHZ6, expectedWiFiInfoGHZ6, wiFiChannelsGHZ6)
-        )
+        fun data() =
+            listOf(
+                arrayOf(WiFiBand.GHZ2, expectedWiFiInfoGHZ2, wiFiChannelsGHZ2),
+                arrayOf(WiFiBand.GHZ5, expectedWiFiInfoGHZ5, wiFiChannelsGHZ5),
+                arrayOf(WiFiBand.GHZ6, expectedWiFiInfoGHZ6, wiFiChannelsGHZ6),
+            )
     }
-
 }

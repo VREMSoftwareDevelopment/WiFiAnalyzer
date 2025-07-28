@@ -17,9 +17,9 @@
  */
 package com.vrem.wifianalyzer.settings
 
-data class Data(val code: String, val name: String) : Comparable<Data> {
-
-    override fun compareTo(other: Data): Int =
-        compareBy<Data> { it.name }.thenBy { it.code }.compare(this, other)
-
+data class Data(
+    val code: String,
+    val name: String,
+) : Comparable<Data> {
+    override fun compareTo(other: Data): Int = compareBy<Data> { it.name }.thenBy { it.code }.compare(this, other)
 }

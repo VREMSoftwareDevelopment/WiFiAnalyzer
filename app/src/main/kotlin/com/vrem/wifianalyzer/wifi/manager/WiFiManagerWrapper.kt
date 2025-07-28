@@ -29,29 +29,22 @@ import com.vrem.util.buildMinVersionR
 @OpenClass
 class WiFiManagerWrapper(
     private val wifiManager: WifiManager,
-    private val wiFiSwitch: WiFiSwitch = WiFiSwitch(wifiManager)
+    private val wiFiSwitch: WiFiSwitch = WiFiSwitch(wifiManager),
 ) {
-    fun wiFiEnabled(): Boolean =
-        runCatching { wifiManager.isWifiEnabled }.getOrDefault(false)
+    fun wiFiEnabled(): Boolean = runCatching { wifiManager.isWifiEnabled }.getOrDefault(false)
 
-    fun enableWiFi(): Boolean =
-        runCatching { wiFiEnabled() || wiFiSwitch.on() }.getOrDefault(false)
+    fun enableWiFi(): Boolean = runCatching { wiFiEnabled() || wiFiSwitch.on() }.getOrDefault(false)
 
-    fun disableWiFi(): Boolean =
-        runCatching { !wiFiEnabled() || wiFiSwitch.off() }.getOrDefault(false)
+    fun disableWiFi(): Boolean = runCatching { !wiFiEnabled() || wiFiSwitch.off() }.getOrDefault(false)
 
-    fun startScan(): Boolean =
-        runCatching { wifiManager.startScan() }.getOrDefault(false)
+    fun startScan(): Boolean = runCatching { wifiManager.startScan() }.getOrDefault(false)
 
     @SuppressLint("MissingPermission")
-    fun scanResults(): List<ScanResult> =
-        runCatching { wifiManager.scanResults ?: listOf() }.getOrDefault(listOf())
+    fun scanResults(): List<ScanResult> = runCatching { wifiManager.scanResults ?: listOf() }.getOrDefault(listOf())
 
-    fun wiFiInfo(): WifiInfo? =
-        runCatching { wifiManager.connectionInfo }.getOrNull()
+    fun wiFiInfo(): WifiInfo? = runCatching { wifiManager.connectionInfo }.getOrNull()
 
-    fun is5GHzBandSupported(): Boolean =
-        wifiManager.is5GHzBandSupported
+    fun is5GHzBandSupported(): Boolean = wifiManager.is5GHzBandSupported
 
     fun is6GHzBandSupported(): Boolean =
         if (minVersionR()) {
@@ -68,10 +61,7 @@ class WiFiManagerWrapper(
         }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    private fun isScanThrottleEnabledR(): Boolean =
-        wifiManager.isScanThrottleEnabled
+    private fun isScanThrottleEnabledR(): Boolean = wifiManager.isScanThrottleEnabled
 
     fun minVersionR(): Boolean = buildMinVersionR()
-
 }
-

@@ -33,13 +33,15 @@ internal val legendDisplayRight: LegendDisplay = {
     it.align = LegendRenderer.LegendAlign.TOP
 }
 
-enum class GraphLegend(val legendDisplay: LegendDisplay) {
+enum class GraphLegend(
+    val legendDisplay: LegendDisplay,
+) {
     LEFT(legendDisplayLeft),
     RIGHT(legendDisplayRight),
-    HIDE(legendDisplayNone);
+    HIDE(legendDisplayNone),
+    ;
 
     fun display(legendRenderer: LegendRenderer) {
         legendDisplay(legendRenderer)
     }
-
 }

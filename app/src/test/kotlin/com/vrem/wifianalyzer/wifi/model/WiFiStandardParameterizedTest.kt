@@ -23,15 +23,21 @@ import android.os.Build
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 import org.robolectric.ParameterizedRobolectricTestRunner
 import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
 import org.robolectric.annotation.Config
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
-class WiFiStandardParameterizedTest(val expected: WiFiStandard, val input: Int) {
-
+class WiFiStandardParameterizedTest(
+    val expected: WiFiStandard,
+    val input: Int,
+) {
     @Test
     fun findOne() {
         // setup
@@ -58,7 +64,7 @@ class WiFiStandardParameterizedTest(val expected: WiFiStandard, val input: Int) 
                 arrayOf(WiFiStandard.AD, ScanResult.WIFI_STANDARD_11AD),
                 arrayOf(WiFiStandard.BE, ScanResult.WIFI_STANDARD_11BE),
                 arrayOf(WiFiStandard.UNKNOWN, ScanResult.WIFI_STANDARD_UNKNOWN - 1),
-                arrayOf(WiFiStandard.UNKNOWN, ScanResult.WIFI_STANDARD_11BE + 1)
+                arrayOf(WiFiStandard.UNKNOWN, ScanResult.WIFI_STANDARD_11BE + 1),
             )
     }
 }

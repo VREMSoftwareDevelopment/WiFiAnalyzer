@@ -30,14 +30,23 @@ fun interface UpdateNotifier { // Compliant, function interface used
 
 interface ScannerService {
     fun update()
+
     fun wiFiData(): WiFiData
+
     fun register(updateNotifier: UpdateNotifier): Boolean
+
     fun unregister(updateNotifier: UpdateNotifier): Boolean
+
     fun pause()
+
     fun running(): Boolean
+
     fun resume()
+
     fun resumeWithDelay()
+
     fun stop()
+
     fun toggle()
 }
 
@@ -45,7 +54,7 @@ fun makeScannerService(
     mainActivity: MainActivity,
     wiFiManagerWrapper: WiFiManagerWrapper,
     handler: Handler,
-    settings: Settings
+    settings: Settings,
 ): ScannerService {
     val cache = Cache()
     val transformer = Transformer(cache)

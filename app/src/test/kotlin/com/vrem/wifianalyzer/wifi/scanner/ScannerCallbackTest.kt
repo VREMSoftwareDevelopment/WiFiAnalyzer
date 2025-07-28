@@ -55,5 +55,4 @@ class ScannerCallbackTest {
         verify(cache).add(scanResults)
         verify(cache).wifiInfo = wifiInfo
     }
-
 }

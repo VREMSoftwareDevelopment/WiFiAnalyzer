@@ -29,7 +29,10 @@ import org.hamcrest.TypeSafeMatcher
 private const val SLEEP_1_SECOND = 1000
 private const val SLEEP_3_SECONDS = 3000
 
-internal class ChildAtPosition(val parentMatcher: Matcher<View>, val position: Int) : TypeSafeMatcher<View>() {
+internal class ChildAtPosition(
+    val parentMatcher: Matcher<View>,
+    val position: Int,
+) : TypeSafeMatcher<View>() {
     override fun describeTo(description: Description) {
         description.appendText("Child at position $position in parent ")
         parentMatcher.describeTo(description)
@@ -41,16 +44,14 @@ internal class ChildAtPosition(val parentMatcher: Matcher<View>, val position: I
     }
 }
 
-internal fun withToolbarTitle(expectedTitle: CharSequence): Matcher<View> {
-    return object : BoundedMatcher<View, Toolbar>(Toolbar::class.java) {
+internal fun withToolbarTitle(expectedTitle: CharSequence): Matcher<View> =
+    object : BoundedMatcher<View, Toolbar>(Toolbar::class.java) {
         override fun describeTo(description: Description) {
             description.appendText("with toolbar title: $expectedTitle")
         }
 
-        override fun matchesSafely(toolbar: Toolbar): Boolean =
-            toolbar.title == expectedTitle
+        override fun matchesSafely(toolbar: Toolbar): Boolean = toolbar.title == expectedTitle
     }
-}
 
 internal fun pressBackButton() = pressBack()
 
@@ -58,5 +59,4 @@ internal fun pauseShort() = pause(SLEEP_1_SECOND)
 
 internal fun pauseLong() = pause(SLEEP_3_SECONDS)
 
-private fun pause(sleepTime: Int) =
-    runCatching { Thread.sleep(sleepTime.toLong()) }.getOrElse{ it.printStackTrace() }
+private fun pause(sleepTime: Int) = runCatching { Thread.sleep(sleepTime.toLong()) }.getOrElse { it.printStackTrace() }

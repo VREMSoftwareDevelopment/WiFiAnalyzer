@@ -22,7 +22,8 @@ import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.series.TitleLineGraphSeries
 import com.vrem.annotation.OpenClass
 
-private fun BaseSeries<GraphDataPoint>.removeSeriesColor(graphColors: GraphColors) = graphColors.addColor(this.color.toLong())
+private fun BaseSeries<GraphDataPoint>.removeSeriesColor(graphColors: GraphColors) =
+    graphColors.addColor(this.color.toLong())
 
 private fun BaseSeries<GraphDataPoint>.highlightConnected(connected: Boolean) {
     val thickness = if (connected) THICKNESS_CONNECTED else THICKNESS_REGULAR
@@ -55,14 +56,20 @@ private fun BaseSeries<GraphDataPoint>.drawBackground(drawBackground: Boolean) {
 }
 
 @OpenClass
-class SeriesOptions(private val graphColors: GraphColors = GraphColors()) {
-
-    fun highlightConnected(series: BaseSeries<GraphDataPoint>, connected: Boolean) = series.highlightConnected(connected)
+class SeriesOptions(
+    private val graphColors: GraphColors = GraphColors(),
+) {
+    fun highlightConnected(
+        series: BaseSeries<GraphDataPoint>,
+        connected: Boolean,
+    ) = series.highlightConnected(connected)
 
     fun setSeriesColor(series: BaseSeries<GraphDataPoint>) = series.seriesColor(graphColors)
 
-    fun drawBackground(series: BaseSeries<GraphDataPoint>, drawBackground: Boolean) = series.drawBackground(drawBackground)
+    fun drawBackground(
+        series: BaseSeries<GraphDataPoint>,
+        drawBackground: Boolean,
+    ) = series.drawBackground(drawBackground)
 
     fun removeSeriesColor(series: BaseSeries<GraphDataPoint>) = series.removeSeriesColor(graphColors)
-
 }

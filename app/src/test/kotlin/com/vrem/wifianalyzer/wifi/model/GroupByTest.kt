@@ -21,7 +21,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class GroupByTest {
-
     @Test
     fun groupBy() {
         assertThat(GroupBy.entries)
@@ -39,18 +38,42 @@ class GroupByTest {
 
     @Test
     fun groupBySort() {
-        assertThat(GroupBy.CHANNEL.sort.javaClass.isInstance(sortByChannel())).isTrue
-        assertThat(GroupBy.NONE.sort.javaClass.isInstance(sortByDefault())).isTrue
-        assertThat(GroupBy.SSID.sort.javaClass.isInstance(sortBySSID())).isTrue
-        assertThat(GroupBy.VIRTUAL.sort.javaClass.isInstance(sortBySSID())).isTrue
+        assertThat(
+            GroupBy.CHANNEL.sort.javaClass
+                .isInstance(sortByChannel()),
+        ).isTrue
+        assertThat(
+            GroupBy.NONE.sort.javaClass
+                .isInstance(sortByDefault()),
+        ).isTrue
+        assertThat(
+            GroupBy.SSID.sort.javaClass
+                .isInstance(sortBySSID()),
+        ).isTrue
+        assertThat(
+            GroupBy.VIRTUAL.sort.javaClass
+                .isInstance(sortBySSID()),
+        ).isTrue
     }
 
     @Test
     fun groupByGroup() {
-        assertThat(GroupBy.CHANNEL.group.javaClass.isInstance(groupByChannel)).isTrue
-        assertThat(GroupBy.NONE.group.javaClass.isInstance(groupBySSID)).isTrue
-        assertThat(GroupBy.SSID.group.javaClass.isInstance(groupBySSID)).isTrue
-        assertThat(GroupBy.VIRTUAL.group.javaClass.isInstance(groupByVirtual)).isTrue
+        assertThat(
+            GroupBy.CHANNEL.group.javaClass
+                .isInstance(groupByChannel),
+        ).isTrue
+        assertThat(
+            GroupBy.NONE.group.javaClass
+                .isInstance(groupBySSID),
+        ).isTrue
+        assertThat(
+            GroupBy.SSID.group.javaClass
+                .isInstance(groupBySSID),
+        ).isTrue
+        assertThat(
+            GroupBy.VIRTUAL.group.javaClass
+                .isInstance(groupByVirtual),
+        ).isTrue
     }
 
     @Test
@@ -105,9 +128,10 @@ class GroupByTest {
         assertThat(actual).isEqualTo(expected)
     }
 
-    private fun withWiFiDetail() = WiFiDetail(
-        WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
-        WiFiSecurity("WPA-WPA2"),
-        WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -40)
-    )
+    private fun withWiFiDetail() =
+        WiFiDetail(
+            WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
+            WiFiSecurity("WPA-WPA2"),
+            WiFiSignal(2435, 2435, WiFiWidth.MHZ_20, -40),
+        )
 }

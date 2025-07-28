@@ -43,8 +43,11 @@ import java.util.Date
 import java.util.Locale
 
 class AboutFragment : Fragment() {
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
         val binding: AboutContentBinding = AboutContentBinding.inflate(inflater, container, false)
         val activity: FragmentActivity = requireActivity()
         setTexts(binding, activity)
@@ -53,36 +56,42 @@ class AboutFragment : Fragment() {
         return binding.root
     }
 
-    private fun setTexts(binding: AboutContentBinding, activity: FragmentActivity) {
+    private fun setTexts(
+        binding: AboutContentBinding,
+        activity: FragmentActivity,
+    ) {
         binding.aboutCopyright.text = copyright()
         binding.aboutVersionInfo.text = version(activity)
         binding.aboutPackageName.text = activity.packageName
         binding.aboutDevice.text = device()
     }
 
-    private fun device(): String =
-        Build.MANUFACTURER + " - " + Build.BRAND + " - " + Build.MODEL
+    private fun device(): String = Build.MANUFACTURER + " - " + Build.BRAND + " - " + Build.MODEL
 
     private fun wiFiState(binding: AboutContentBinding) {
         val wiFiManagerWrapper = MainContext.INSTANCE.wiFiManagerWrapper
         toggle(
             wiFiManagerWrapper.isScanThrottleEnabled(),
             binding.aboutWifiThrottlingOn,
-            binding.aboutWifiThrottlingOff
+            binding.aboutWifiThrottlingOff,
         )
         toggle(
             wiFiManagerWrapper.is5GHzBandSupported(),
             binding.aboutWifiBand5ghzSuccess,
-            binding.aboutWifiBand5ghzFails
+            binding.aboutWifiBand5ghzFails,
         )
         toggle(
             wiFiManagerWrapper.is6GHzBandSupported(),
             binding.aboutWifiBand6ghzSuccess,
-            binding.aboutWifiBand6ghzFails
+            binding.aboutWifiBand6ghzFails,
         )
     }
 
-    private fun toggle(bandSupported: Boolean, aboutWifiBandSuccess: TextView, aboutWifiBandFails: TextView) {
+    private fun toggle(
+        bandSupported: Boolean,
+        aboutWifiBandSuccess: TextView,
+        aboutWifiBandFails: TextView,
+    ) {
         if (bandSupported) {
             aboutWifiBandSuccess.visibility = View.VISIBLE
             aboutWifiBandFails.visibility = View.GONE
@@ -92,7 +101,10 @@ class AboutFragment : Fragment() {
         }
     }
 
-    private fun setOnClicks(binding: AboutContentBinding, activity: FragmentActivity) {
+    private fun setOnClicks(
+        binding: AboutContentBinding,
+        activity: FragmentActivity,
+    ) {
         val gpl = AlertDialogClickListener(activity, R.string.gpl, R.raw.gpl)
         binding.license.setOnClickListener(gpl)
         val contributors =
@@ -121,13 +133,15 @@ class AboutFragment : Fragment() {
             packageInfo.versionName + " - " + PackageInfoCompat.getLongVersionCode(packageInfo)
         }.getOrDefault(String.EMPTY)
 
-    private class WriteReviewClickListener(private val activity: Activity) : View.OnClickListener {
+    private class WriteReviewClickListener(
+        private val activity: Activity,
+    ) : View.OnClickListener {
         override fun onClick(view: View) {
             val url = "market://details?id=" + activity.applicationContext.packageName
             val intent = Intent(Intent.ACTION_VIEW, url.toUri())
             runCatching {
                 activity.startActivity(intent)
-            }.getOrElse{
+            }.getOrElse {
                 Toast.makeText(view.context, it.localizedMessage, Toast.LENGTH_LONG).show()
             }
         }
@@ -137,16 +151,18 @@ class AboutFragment : Fragment() {
         private val activity: Activity,
         private val titleId: Int,
         private val resourceId: Int,
-        private val isSmallFont: Boolean = true
+        private val isSmallFont: Boolean = true,
     ) : View.OnClickListener {
         override fun onClick(view: View) {
             if (!activity.isFinishing) {
                 val text = readFile(activity.resources, resourceId)
-                val alertDialog: AlertDialog = AlertDialog.Builder(view.context)
-                    .setTitle(titleId)
-                    .setMessage(text)
-                    .setNeutralButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }
-                    .create()
+                val alertDialog: AlertDialog =
+                    AlertDialog
+                        .Builder(view.context)
+                        .setTitle(titleId)
+                        .setMessage(text)
+                        .setNeutralButton(android.R.string.ok) { dialog, _ -> dialog.dismiss() }
+                        .create()
                 alertDialog.show()
                 if (isSmallFont) {
                     alertDialog.findViewById<TextView>(android.R.id.message).textSize = 8f
@@ -155,13 +171,14 @@ class AboutFragment : Fragment() {
         }
     }
 
-    private fun ifElse(condition: Boolean, value: String) =
-        if (condition) {
-            value
-        } else {
-            String.EMPTY
-        }
-
+    private fun ifElse(
+        condition: Boolean,
+        value: String,
+    ) = if (condition) {
+        value
+    } else {
+        String.EMPTY
+    }
 
     companion object {
         private const val YEAR_FORMAT = "yyyy"

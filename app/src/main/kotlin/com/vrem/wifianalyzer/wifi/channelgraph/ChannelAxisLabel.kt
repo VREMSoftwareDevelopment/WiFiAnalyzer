@@ -24,8 +24,13 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y
 import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
 
-internal class ChannelAxisLabel(private val wiFiBand: WiFiBand) : LabelFormatter {
-    override fun formatLabel(value: Double, isValueX: Boolean): String {
+internal class ChannelAxisLabel(
+    private val wiFiBand: WiFiBand,
+) : LabelFormatter {
+    override fun formatLabel(
+        value: Double,
+        isValueX: Boolean,
+    ): String {
         val valueAsInt = (value + if (value < 0) -0.5 else 0.5).toInt()
         return if (isValueX) {
             wiFiBand.wiFiChannels.graphChannelByFrequency(valueAsInt)

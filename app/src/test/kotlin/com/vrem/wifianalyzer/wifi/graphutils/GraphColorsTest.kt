@@ -109,15 +109,13 @@ class GraphColorsTest {
         assertThat(original).isEqualTo(graphColors[2])
     }
 
-    private fun withColors(): Array<String> {
-        return arrayOf("#FB1554", "#33FB1554", "#74FF89", "#3374FF89", "#8B1EFC", "#338B1EFC")
-    }
+    private fun withColors(): Array<String> =
+        arrayOf("#FB1554", "#33FB1554", "#74FF89", "#3374FF89", "#8B1EFC", "#338B1EFC")
 
-    private fun withGraphColors(): Array<GraphColor> {
-        return arrayOf(
+    private fun withGraphColors(): Array<GraphColor> =
+        arrayOf(
             GraphColor(0xFB1554, 0x33FB1554),
             GraphColor(0x74FF89, 0x3374FF89),
-            GraphColor(0x8B1EFC, 0x338B1EFC)
+            GraphColor(0x8B1EFC, 0x338B1EFC),
         )
-    }
 }

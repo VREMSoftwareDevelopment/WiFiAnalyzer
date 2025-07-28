@@ -24,7 +24,11 @@ import com.vrem.wifianalyzer.wifi.predicate.predicate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
-import org.mockito.kotlin.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 class WiFiDataTest {
     private val ipAddress = "21.205.91.7"
@@ -73,13 +77,17 @@ class WiFiDataTest {
     @Test
     fun connectionReturnsEmptyWhenNoMatch() {
         // setup
-        val wiFiData = WiFiData(listOf(
-            WiFiDetail(
-                WiFiIdentifier("OtherSSID", "OtherBSSID"),
-                WiFiSecurity.EMPTY,
-                WiFiSignal(2412, 2412, WiFiWidth.MHZ_20, -50)
+        val wiFiData =
+            WiFiData(
+                listOf(
+                    WiFiDetail(
+                        WiFiIdentifier("OtherSSID", "OtherBSSID"),
+                        WiFiSecurity.EMPTY,
+                        WiFiSignal(2412, 2412, WiFiWidth.MHZ_20, -50),
+                    ),
+                ),
+                wiFiConnection,
             )
-        ), wiFiConnection)
         // execute
         val actual = wiFiData.connection()
         // validate
@@ -308,50 +316,62 @@ class WiFiDataTest {
 
     private fun withVendorNames() {
         wiFiDetails.forEach {
-            whenever(vendorService.findVendorName(it.wiFiIdentifier.bssid)).thenReturn(vendorName + it.wiFiIdentifier.bssid)
+            whenever(vendorService.findVendorName(it.wiFiIdentifier.bssid)).thenReturn(
+                vendorName + it.wiFiIdentifier.bssid,
+            )
         }
     }
 
     private fun withWiFiDetails(): List<WiFiDetail> {
-        val wiFiDetail1 = WiFiDetail(
-            WiFiIdentifier(ssid1, bssid1),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(frequency1, frequency1, WiFiWidth.MHZ_20, level1)
-        )
-        val wiFiDetail2 = WiFiDetail(
-            WiFiIdentifier(ssid2, bssid2),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2)
-        )
-        val wiFiDetail3 = WiFiDetail(
-            WiFiIdentifier(ssid3, bssid3),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(frequency3, frequency3, WiFiWidth.MHZ_20, level0)
-        )
-        val wiFiDetail4 = WiFiDetail(
-            WiFiIdentifier(ssid4, bssid4),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(frequency4, frequency4, WiFiWidth.MHZ_20, level2)
-        )
-        val wiFiDetail21 = WiFiDetail(
-            WiFiIdentifier(ssid2, bssid2 + "_1"),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 3)
-        )
-        val wiFiDetail22 = WiFiDetail(
-            WiFiIdentifier(ssid2, bssid2 + "_2"),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 1)
-        )
-        val wiFiDetail23 = WiFiDetail(
-            WiFiIdentifier(ssid2, bssid2 + "_3"),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 2)
-        )
+        val wiFiDetail1 =
+            WiFiDetail(
+                WiFiIdentifier(ssid1, bssid1),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(frequency1, frequency1, WiFiWidth.MHZ_20, level1),
+            )
+        val wiFiDetail2 =
+            WiFiDetail(
+                WiFiIdentifier(ssid2, bssid2),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2),
+            )
+        val wiFiDetail3 =
+            WiFiDetail(
+                WiFiIdentifier(ssid3, bssid3),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(frequency3, frequency3, WiFiWidth.MHZ_20, level0),
+            )
+        val wiFiDetail4 =
+            WiFiDetail(
+                WiFiIdentifier(ssid4, bssid4),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(frequency4, frequency4, WiFiWidth.MHZ_20, level2),
+            )
+        val wiFiDetail21 =
+            WiFiDetail(
+                WiFiIdentifier(ssid2, bssid2 + "_1"),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 3),
+            )
+        val wiFiDetail22 =
+            WiFiDetail(
+                WiFiIdentifier(ssid2, bssid2 + "_2"),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 1),
+            )
+        val wiFiDetail23 =
+            WiFiDetail(
+                WiFiIdentifier(ssid2, bssid2 + "_3"),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(frequency2, frequency2, WiFiWidth.MHZ_20, level2 - 2),
+            )
         return listOf(wiFiDetail23, wiFiDetail3, wiFiDetail22, wiFiDetail1, wiFiDetail21, wiFiDetail2, wiFiDetail4)
     }
 
-    private fun verifyChildren(actual: List<WiFiDetail>, index: Int) {
+    private fun verifyChildren(
+        actual: List<WiFiDetail>,
+        index: Int,
+    ) {
         actual.indices.forEach {
             val children: List<WiFiDetail> = actual[index].children
             if (it == index) {
@@ -365,7 +385,12 @@ class WiFiDataTest {
         }
     }
 
-    private fun verifyChildrenGroupByChannel(actual: List<WiFiDetail>, indexEmpty: Int, indexWith3: Int, indexWith1: Int) {
+    private fun verifyChildrenGroupByChannel(
+        actual: List<WiFiDetail>,
+        indexEmpty: Int,
+        indexWith3: Int,
+        indexWith1: Int,
+    ) {
         assertThat(actual[indexEmpty].children).isEmpty()
         val children1: List<WiFiDetail> = actual[indexWith3].children
         assertThat(children1).hasSize(3)

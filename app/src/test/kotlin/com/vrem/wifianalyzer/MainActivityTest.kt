@@ -41,7 +41,12 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class MainActivityTest {
-    private val fixture = Robolectric.buildActivity(MainActivity::class.java).create().resume().get()
+    private val fixture =
+        Robolectric
+            .buildActivity(MainActivity::class.java)
+            .create()
+            .resume()
+            .get()
 
     @After
     fun tearDown() {

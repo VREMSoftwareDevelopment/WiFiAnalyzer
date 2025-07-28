@@ -26,7 +26,8 @@ import com.vrem.wifianalyzer.wifi.scanner.ScannerService
 import org.mockito.kotlin.mock
 
 enum class MainContextHelper {
-    INSTANCE;
+    INSTANCE,
+    ;
 
     private val saved: MutableMap<Class<*>, Any> = mutableMapOf()
     private val mainContext: MainContext = MainContext.INSTANCE
@@ -101,5 +102,4 @@ enum class MainContextHelper {
         }
         saved.clear()
     }
-
 }

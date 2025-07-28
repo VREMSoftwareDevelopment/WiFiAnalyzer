@@ -20,10 +20,15 @@ package com.vrem.wifianalyzer.wifi.graphutils
 import com.jjoe64.graphview.series.BaseSeries
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.series.TitleLineGraphSeries
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.After
 import org.junit.Test
-import org.mockito.kotlin.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 class SeriesOptionsTest {
     private val graphColors: GraphColors = mock()
@@ -167,5 +172,4 @@ class SeriesOptionsTest {
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessageContaining("Unsupported series type")
     }
-
 }

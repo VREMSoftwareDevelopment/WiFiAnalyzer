@@ -43,5 +43,4 @@ class ConfigurationTest {
         // execute & validate
         assertThat(fixture.largeScreen).isTrue
     }
-
 }

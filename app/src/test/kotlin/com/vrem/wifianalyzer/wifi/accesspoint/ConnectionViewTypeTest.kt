@@ -28,18 +28,21 @@ class ConnectionViewTypeTest {
             .hasSize(3)
             .containsExactly(ConnectionViewType.COMPLETE, ConnectionViewType.COMPACT, ConnectionViewType.HIDE)
     }
+
     @Test
     fun connectionViewTypeOrdinal() {
         assertThat(ConnectionViewType.COMPLETE.ordinal).isEqualTo(0)
         assertThat(ConnectionViewType.COMPACT.ordinal).isEqualTo(1)
         assertThat(ConnectionViewType.HIDE.ordinal).isEqualTo(2)
     }
+
     @Test
     fun connectionViewTypeLayout() {
         assertThat(ConnectionViewType.COMPLETE.layout).isEqualTo(R.layout.access_point_view_complete)
         assertThat(ConnectionViewType.COMPACT.layout).isEqualTo(R.layout.access_point_view_compact)
         assertThat(ConnectionViewType.HIDE.layout).isEqualTo(R.layout.access_point_view_hide)
     }
+
     @Test
     fun connectionViewTypeHide() {
         assertThat(ConnectionViewType.COMPLETE.hide).isFalse

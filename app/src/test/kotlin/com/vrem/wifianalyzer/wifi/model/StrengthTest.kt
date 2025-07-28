@@ -40,13 +40,14 @@ class StrengthTest {
 
     @Test
     fun imageResource() {
-        val expectedImages = listOf(
-            R.drawable.ic_signal_wifi_0_bar,
-            R.drawable.ic_signal_wifi_1_bar,
-            R.drawable.ic_signal_wifi_2_bar,
-            R.drawable.ic_signal_wifi_3_bar,
-            R.drawable.ic_signal_wifi_4_bar
-        )
+        val expectedImages =
+            listOf(
+                R.drawable.ic_signal_wifi_0_bar,
+                R.drawable.ic_signal_wifi_1_bar,
+                R.drawable.ic_signal_wifi_2_bar,
+                R.drawable.ic_signal_wifi_3_bar,
+                R.drawable.ic_signal_wifi_4_bar,
+            )
         Strength.entries.forEachIndexed { i, strength ->
             assertThat(strength.imageResource).isEqualTo(expectedImages[i])
         }
@@ -54,13 +55,14 @@ class StrengthTest {
 
     @Test
     fun colorResource() {
-        val expectedColors = listOf(
-            R.color.error,
-            R.color.warning,
-            R.color.warning,
-            R.color.success,
-            R.color.success
-        )
+        val expectedColors =
+            listOf(
+                R.color.error,
+                R.color.warning,
+                R.color.warning,
+                R.color.success,
+                R.color.success,
+            )
         Strength.entries.forEachIndexed { i, strength ->
             assertThat(strength.colorResource).isEqualTo(expectedColors[i])
         }
@@ -77,17 +79,18 @@ class StrengthTest {
 
     @Test
     fun calculate() {
-        val testCases = listOf(
-            -89 to Strength.ZERO,
-            -88 to Strength.ONE,
-            -78 to Strength.ONE,
-            -77 to Strength.TWO,
-            -67 to Strength.TWO,
-            -66 to Strength.THREE,
-            -56 to Strength.THREE,
-            -55 to Strength.FOUR,
-            0 to Strength.FOUR
-        )
+        val testCases =
+            listOf(
+                -89 to Strength.ZERO,
+                -88 to Strength.ONE,
+                -78 to Strength.ONE,
+                -77 to Strength.TWO,
+                -67 to Strength.TWO,
+                -66 to Strength.THREE,
+                -56 to Strength.THREE,
+                -55 to Strength.FOUR,
+                0 to Strength.FOUR,
+            )
         testCases.forEach { (input, expected) ->
             assertThat(Strength.calculate(input)).isEqualTo(expected)
         }

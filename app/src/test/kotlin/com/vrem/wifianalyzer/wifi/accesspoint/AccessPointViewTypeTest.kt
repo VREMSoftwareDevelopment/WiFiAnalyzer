@@ -28,11 +28,13 @@ class AccessPointViewTypeTest {
             .hasSize(2)
             .containsExactly(AccessPointViewType.COMPLETE, AccessPointViewType.COMPACT)
     }
+
     @Test
     fun accessPointViewTypeOrdinal() {
         assertThat(AccessPointViewType.COMPLETE.ordinal).isEqualTo(0)
         assertThat(AccessPointViewType.COMPACT.ordinal).isEqualTo(1)
     }
+
     @Test
     fun accessPointViewTypeLayout() {
         assertThat(AccessPointViewType.COMPLETE.layout).isEqualTo(R.layout.access_point_view_complete)

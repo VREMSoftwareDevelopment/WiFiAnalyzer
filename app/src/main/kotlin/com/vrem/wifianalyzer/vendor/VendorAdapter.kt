@@ -29,10 +29,15 @@ import com.vrem.wifianalyzer.databinding.VendorDetailsBinding
 import com.vrem.wifianalyzer.vendor.model.VendorService
 
 @OpenClass
-internal class VendorAdapter(context: Context, private val vendorService: VendorService) :
-    ArrayAdapter<String>(context, R.layout.vendor_details, vendorService.findVendors()) {
-
-    override fun getView(position: Int, view: View?, parent: ViewGroup): View {
+internal class VendorAdapter(
+    context: Context,
+    private val vendorService: VendorService,
+) : ArrayAdapter<String>(context, R.layout.vendor_details, vendorService.findVendors()) {
+    override fun getView(
+        position: Int,
+        view: View?,
+        parent: ViewGroup,
+    ): View {
         val binding: Binding = view?.let { Binding(it) } ?: Binding(create(parent))
         getItem(position)?.let {
             binding.vendorName.text = it
@@ -65,7 +70,5 @@ internal class VendorAdapter(context: Context, private val vendorService: Vendor
             vendorName = view.findViewById(R.id.vendor_name)
             vendorMacs = view.findViewById(R.id.vendor_macs)
         }
-
     }
-
 }

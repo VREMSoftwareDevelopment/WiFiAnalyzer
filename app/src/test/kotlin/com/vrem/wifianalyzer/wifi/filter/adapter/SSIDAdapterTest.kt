@@ -84,5 +84,4 @@ class SSIDAdapterTest {
         // execute
         assertThat(fixture.selections).isEqualTo(expected)
     }
-
 }

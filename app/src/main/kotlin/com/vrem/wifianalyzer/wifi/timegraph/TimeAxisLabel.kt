@@ -24,7 +24,10 @@ import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y
 import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
 
 internal class TimeAxisLabel : LabelFormatter {
-    override fun formatLabel(value: Double, isValueX: Boolean): String {
+    override fun formatLabel(
+        value: Double,
+        isValueX: Boolean,
+    ): String {
         val valueAsInt = (value + if (value < 0) -0.5 else 0.5).toInt()
         return when {
             isValueX -> {

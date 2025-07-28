@@ -55,5 +55,4 @@ class ScannerServiceTest {
         assertThat(actual.scanResultsReceiver).isNotNull()
         assertThat(actual.running()).isFalse
     }
-
 }

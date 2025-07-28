@@ -22,12 +22,27 @@ import android.net.wifi.ScanResult.InformationElement
 import android.net.wifi.WifiInfo
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.BSSID
+import com.vrem.wifianalyzer.wifi.model.EXTENDED_CAPABILITIES_IE
+import com.vrem.wifianalyzer.wifi.model.FastRoaming
+import com.vrem.wifianalyzer.wifi.model.MOBILE_DOMAIN_IE
+import com.vrem.wifianalyzer.wifi.model.RM_ENABLED_CAPABILITIES_IE
+import com.vrem.wifianalyzer.wifi.model.SSID
+import com.vrem.wifianalyzer.wifi.model.WiFiConnection
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurityTypeTest
+import com.vrem.wifianalyzer.wifi.model.WiFiStandard
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 import java.nio.ByteBuffer
 
@@ -39,13 +54,19 @@ class TransformerTest {
     private val informationElement3 = withInformationElement(MOBILE_DOMAIN_IE, byteArrayOf())
     private val scanResult1 =
         withScanResult(SSID_1, BSSID_1, WiFiWidth.MHZ_160, WiFiStandard.AX, WiFiSecurityTypeTest.All)
-    private val scanResult2 = withScanResult(
-        SSID_2, BSSID_2, WiFiWidth.MHZ_80, WiFiStandard.AC, WiFiSecurityTypeTest.WPA3, listOf(
-            informationElement1,
-            informationElement2,
-            informationElement3
+    private val scanResult2 =
+        withScanResult(
+            SSID_2,
+            BSSID_2,
+            WiFiWidth.MHZ_80,
+            WiFiStandard.AC,
+            WiFiSecurityTypeTest.WPA3,
+            listOf(
+                informationElement1,
+                informationElement2,
+                informationElement3,
+            ),
         )
-    )
     private val scanResult3 = withScanResult(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N, listOf(), listOf())
     private val scanResult4 =
         withScanResult(SSID_4, BSSID_4, WiFiWidth.MHZ_320, WiFiStandard.BE, WiFiSecurityTypeTest.All)
@@ -114,7 +135,7 @@ class TransformerTest {
             WiFiStandard.AC,
             actual[1],
             WiFiSecurityTypeTest.WPA3,
-            fastRoaming
+            fastRoaming,
         )
         validateWiFiDetail(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N, actual[2], listOf())
         validateWiFiDetail(SSID_4, BSSID_4, WiFiWidth.MHZ_320, WiFiStandard.BE, actual[3], WiFiSecurityTypeTest.All)
@@ -143,29 +164,31 @@ class TransformerTest {
         wiFiWidth: WiFiWidth,
         wiFiStandard: WiFiStandard,
         securityTypes: List<Int>,
-        informationElements: List<InformationElement> = listOf()
+        informationElements: List<InformationElement> = listOf(),
     ): ScanResult {
         val scanResult: ScanResult = mock()
         whenSsid(scanResult, ssid)
         scanResult.BSSID = bssid
         scanResult.capabilities = WPA
         scanResult.frequency = FREQUENCY
-        scanResult.centerFreq0 = when (wiFiWidth) {
-            WiFiWidth.MHZ_20 -> FREQUENCY
-            WiFiWidth.MHZ_40 -> FREQUENCY + wiFiWidth.frequencyWidth
-            WiFiWidth.MHZ_80 -> FREQUENCY + wiFiWidth.frequencyWidthHalf
-            WiFiWidth.MHZ_160 -> 0
-            WiFiWidth.MHZ_80_PLUS -> FREQUENCY + wiFiWidth.frequencyWidthHalf
-            WiFiWidth.MHZ_320 -> 0
-        }
-        scanResult.centerFreq1 = when (wiFiWidth) {
-            WiFiWidth.MHZ_20 -> 0
-            WiFiWidth.MHZ_40 -> 0
-            WiFiWidth.MHZ_80 -> 0
-            WiFiWidth.MHZ_160 -> FREQUENCY + wiFiWidth.frequencyWidthHalf
-            WiFiWidth.MHZ_80_PLUS -> 0
-            WiFiWidth.MHZ_320 -> FREQUENCY + wiFiWidth.frequencyWidthHalf
-        }
+        scanResult.centerFreq0 =
+            when (wiFiWidth) {
+                WiFiWidth.MHZ_20 -> FREQUENCY
+                WiFiWidth.MHZ_40 -> FREQUENCY + wiFiWidth.frequencyWidth
+                WiFiWidth.MHZ_80 -> FREQUENCY + wiFiWidth.frequencyWidthHalf
+                WiFiWidth.MHZ_160 -> 0
+                WiFiWidth.MHZ_80_PLUS -> FREQUENCY + wiFiWidth.frequencyWidthHalf
+                WiFiWidth.MHZ_320 -> 0
+            }
+        scanResult.centerFreq1 =
+            when (wiFiWidth) {
+                WiFiWidth.MHZ_20 -> 0
+                WiFiWidth.MHZ_40 -> 0
+                WiFiWidth.MHZ_80 -> 0
+                WiFiWidth.MHZ_160 -> FREQUENCY + wiFiWidth.frequencyWidthHalf
+                WiFiWidth.MHZ_80_PLUS -> 0
+                WiFiWidth.MHZ_320 -> FREQUENCY + wiFiWidth.frequencyWidthHalf
+            }
         scanResult.level = LEVEL
         scanResult.channelWidth = wiFiWidth.channelWidth
         doReturn(wiFiStandard.wiFiStandardId).whenever(scanResult).wifiStandard
@@ -174,7 +197,10 @@ class TransformerTest {
         return scanResult
     }
 
-    private fun withInformationElement(id: Int, bytes: ByteArray): InformationElement =
+    private fun withInformationElement(
+        id: Int,
+        bytes: ByteArray,
+    ): InformationElement =
         mock<InformationElement>().apply {
             doReturn(id).whenever(this).id
             doReturn(0).whenever(this).idExt
@@ -206,7 +232,7 @@ class TransformerTest {
         wiFiStandard: WiFiStandard,
         wiFiDetail: WiFiDetail,
         securityTypes: List<Int>,
-        fastRoaming: List<FastRoaming> = listOf()
+        fastRoaming: List<FastRoaming> = listOf(),
     ) {
         with(wiFiDetail) {
             assertThat(wiFiIdentifier.ssid).isEqualTo(ssid)
@@ -222,12 +248,13 @@ class TransformerTest {
         }
     }
 
-    private fun withCacheResults() = listOf(
-        CacheResult(scanResult1, scanResult1.level),
-        CacheResult(scanResult2, scanResult2.level),
-        CacheResult(scanResult3, scanResult3.level),
-        CacheResult(scanResult4, scanResult4.level)
-    )
+    private fun withCacheResults() =
+        listOf(
+            CacheResult(scanResult1, scanResult1.level),
+            CacheResult(scanResult2, scanResult2.level),
+            CacheResult(scanResult3, scanResult3.level),
+            CacheResult(scanResult4, scanResult4.level),
+        )
 
     companion object {
         private const val SSID_1 = "SSID_1-123"

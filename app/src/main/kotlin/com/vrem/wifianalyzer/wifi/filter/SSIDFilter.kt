@@ -27,13 +27,28 @@ import com.vrem.util.specialTrim
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.filter.adapter.SSIDAdapter
 
-internal class SSIDFilter(ssidAdapter: SSIDAdapter, alertDialog: AlertDialog) {
-    internal class OnChange(private val ssidAdapter: SSIDAdapter) : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+internal class SSIDFilter(
+    ssidAdapter: SSIDAdapter,
+    alertDialog: AlertDialog,
+) {
+    internal class OnChange(
+        private val ssidAdapter: SSIDAdapter,
+    ) : TextWatcher {
+        override fun beforeTextChanged(
+            s: CharSequence,
+            start: Int,
+            count: Int,
+            after: Int,
+        ) {
             // Do nothing
         }
 
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        override fun onTextChanged(
+            s: CharSequence,
+            start: Int,
+            before: Int,
+            count: Int,
+        ) {
             // Do nothing
         }
 
@@ -43,7 +58,12 @@ internal class SSIDFilter(ssidAdapter: SSIDAdapter, alertDialog: AlertDialog) {
     }
 
     init {
-        val value: String = ssidAdapter.selections.toTypedArray().joinToString(separator = String.SPACE_SEPARATOR).specialTrim()
+        val value: String =
+            ssidAdapter.selections
+                .toTypedArray()
+                .joinToString(
+                    separator = String.SPACE_SEPARATOR,
+                ).specialTrim()
         val editText: EditText = alertDialog.findViewById(R.id.filterSSIDtext)
         editText.setText(value)
         editText.addTextChangedListener(OnChange(ssidAdapter))

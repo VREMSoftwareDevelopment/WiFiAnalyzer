@@ -58,6 +58,4 @@ class BottomNavTest {
         verify(mainActivity).findViewById<View>(R.id.nav_bottom)
         verify(view).visibility = View.VISIBLE
     }
-
 }
-

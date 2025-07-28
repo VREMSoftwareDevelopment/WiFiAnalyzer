@@ -38,7 +38,13 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.doNothing
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 import java.util.Locale
 
@@ -114,7 +120,8 @@ class SettingsTest {
     fun groupBy() {
         // setup
         doReturn(GroupBy.CHANNEL.ordinal)
-            .whenever(repository).stringAsInteger(R.string.group_by_key, GroupBy.NONE.ordinal)
+            .whenever(repository)
+            .stringAsInteger(R.string.group_by_key, GroupBy.NONE.ordinal)
         // execute
         val actual = fixture.groupBy()
         // validate
@@ -126,7 +133,8 @@ class SettingsTest {
     fun sortBy() {
         // setup
         doReturn(SortBy.SSID.ordinal)
-            .whenever(repository).stringAsInteger(R.string.sort_by_key, SortBy.STRENGTH.ordinal)
+            .whenever(repository)
+            .stringAsInteger(R.string.sort_by_key, SortBy.STRENGTH.ordinal)
         // execute
         val actual = fixture.sortBy()
         // validate
@@ -138,7 +146,8 @@ class SettingsTest {
     fun accessPointView() {
         // setup
         doReturn(AccessPointViewType.COMPACT.ordinal)
-            .whenever(repository).stringAsInteger(R.string.ap_view_key, AccessPointViewType.COMPLETE.ordinal)
+            .whenever(repository)
+            .stringAsInteger(R.string.ap_view_key, AccessPointViewType.COMPLETE.ordinal)
         // execute
         val actual = fixture.accessPointView()
         // validate
@@ -150,7 +159,8 @@ class SettingsTest {
     fun connectionViewType() {
         // setup
         doReturn(ConnectionViewType.COMPLETE.ordinal)
-            .whenever(repository).stringAsInteger(R.string.connection_view_key, ConnectionViewType.COMPACT.ordinal)
+            .whenever(repository)
+            .stringAsInteger(R.string.connection_view_key, ConnectionViewType.COMPACT.ordinal)
         // execute
         val actual = fixture.connectionViewType()
         // validate
@@ -162,7 +172,8 @@ class SettingsTest {
     fun themeStyle() {
         ThemeStyle.entries.forEach {
             // setup
-            doReturn(it.ordinal).whenever(repository)
+            doReturn(it.ordinal)
+                .whenever(repository)
                 .stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
             // execute
             val actual = fixture.themeStyle()
@@ -177,7 +188,8 @@ class SettingsTest {
     fun themeStyleInvalid() {
         // setup
         doReturn(ThemeStyle.entries.size)
-            .whenever(repository).stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
+            .whenever(repository)
+            .stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
         // execute
         val actual = fixture.themeStyle()
         // validate
@@ -189,7 +201,8 @@ class SettingsTest {
     fun channelGraphLegend() {
         // setup
         doReturn(GraphLegend.RIGHT.ordinal)
-            .whenever(repository).stringAsInteger(R.string.channel_graph_legend_key, GraphLegend.HIDE.ordinal)
+            .whenever(repository)
+            .stringAsInteger(R.string.channel_graph_legend_key, GraphLegend.HIDE.ordinal)
         // execute
         val actual = fixture.channelGraphLegend()
         // validate
@@ -201,7 +214,8 @@ class SettingsTest {
     fun timeGraphLegend() {
         // setup
         doReturn(GraphLegend.RIGHT.ordinal)
-            .whenever(repository).stringAsInteger(R.string.time_graph_legend_key, GraphLegend.LEFT.ordinal)
+            .whenever(repository)
+            .stringAsInteger(R.string.time_graph_legend_key, GraphLegend.LEFT.ordinal)
         // execute
         val actual = fixture.timeGraphLegend()
         // validate
@@ -213,7 +227,8 @@ class SettingsTest {
     fun getWiFiBand() {
         // setup
         doReturn(WiFiBand.GHZ5.ordinal)
-            .whenever(repository).stringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal)
+            .whenever(repository)
+            .stringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal)
         // execute
         val actual = fixture.wiFiBand()
         // validate
@@ -232,7 +247,7 @@ class SettingsTest {
     }
 
     @Test
-    fun findSSIDs() {
+    fun settingsFindSSIDs() {
         // setup
         val expected: Set<String> = setOf("value1", "value2", "value3")
         doReturn(expected).whenever(repository).stringSet(R.string.filter_ssid_key, setOf())
@@ -255,7 +270,7 @@ class SettingsTest {
     }
 
     @Test
-    fun findWiFiBands() {
+    fun settingsFindWiFiBands() {
         // setup
         val expected = WiFiBand.GHZ5
         val values = setOf("" + expected.ordinal)
@@ -282,7 +297,7 @@ class SettingsTest {
     }
 
     @Test
-    fun findStrengths() {
+    fun settingsFindStrengths() {
         // setup
         val expected = Strength.THREE
         val values = setOf("" + expected.ordinal)
@@ -309,7 +324,7 @@ class SettingsTest {
     }
 
     @Test
-    fun findSecurities() {
+    fun settingsFindSecurities() {
         // setup
         val expected = Security.WPA
         val values = setOf("" + expected.ordinal)
@@ -365,7 +380,8 @@ class SettingsTest {
     fun selectedMenu() {
         // setup
         doReturn(NavigationMenu.CHANNEL_GRAPH.ordinal)
-            .whenever(repository).stringAsInteger(R.string.selected_menu_key, NavigationMenu.ACCESS_POINTS.ordinal)
+            .whenever(repository)
+            .stringAsInteger(R.string.selected_menu_key, NavigationMenu.ACCESS_POINTS.ordinal)
         // execute
         val actual = fixture.selectedMenu()
         // validate
@@ -436,5 +452,4 @@ class SettingsTest {
         verify(repository).boolean(R.string.cache_off_key, true)
         verify(repository).resourceBoolean(R.bool.cache_off_default)
     }
-
 }

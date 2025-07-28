@@ -124,4 +124,3 @@ class StrengthAdapterTest {
         verify(settings).saveStrengths(expected)
     }
 }
-

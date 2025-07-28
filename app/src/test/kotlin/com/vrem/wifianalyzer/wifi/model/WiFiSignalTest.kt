@@ -173,5 +173,4 @@ class WiFiSignalTest {
         // execute & validate
         assertThat(fixture.channelDisplay()).isEqualTo("5(6)")
     }
-
 }

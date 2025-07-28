@@ -26,7 +26,12 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
@@ -44,32 +49,44 @@ class ApplicationPermissionTest {
     @Test
     fun checkWithFineLocationGranted() {
         // setup
-        whenever(activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)).thenReturn(PackageManager.PERMISSION_GRANTED)
+        whenever(
+            activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION),
+        ).thenReturn(PackageManager.PERMISSION_GRANTED)
         // execute
         fixture.check()
         // validate
         verify(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
         verify(activity, never()).isFinishing
-        verify(activity, never()).requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), ApplicationPermission.REQUEST_CODE)
+        verify(
+            activity,
+            never(),
+        ).requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), ApplicationPermission.REQUEST_CODE)
     }
 
     @Test
     fun checkWithActivityFinish() {
         // setup
-        whenever(activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)).thenReturn(PackageManager.PERMISSION_DENIED)
+        whenever(
+            activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION),
+        ).thenReturn(PackageManager.PERMISSION_DENIED)
         whenever(activity.isFinishing).thenReturn(true)
         // execute
         fixture.check()
         // validate
         verify(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
         verify(activity).isFinishing
-        verify(activity, never()).requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), ApplicationPermission.REQUEST_CODE)
+        verify(
+            activity,
+            never(),
+        ).requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), ApplicationPermission.REQUEST_CODE)
     }
 
     @Test
     fun checkWithRequestPermissions() {
         // setup
-        whenever(activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)).thenReturn(PackageManager.PERMISSION_DENIED)
+        whenever(
+            activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION),
+        ).thenReturn(PackageManager.PERMISSION_DENIED)
         whenever(activity.isFinishing).thenReturn(false)
         // execute
         fixture.check()
@@ -122,7 +139,9 @@ class ApplicationPermissionTest {
     @Test
     fun grantedWhenPermissionGranted() {
         // setup
-        doReturn(PackageManager.PERMISSION_GRANTED).whenever(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+        doReturn(
+            PackageManager.PERMISSION_GRANTED,
+        ).whenever(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
         // execute
         val actual = fixture.granted()
         // validate
@@ -133,7 +152,9 @@ class ApplicationPermissionTest {
     @Test
     fun grantedWhenPermissionDenied() {
         // setup
-        doReturn(PackageManager.PERMISSION_DENIED).whenever(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+        doReturn(
+            PackageManager.PERMISSION_DENIED,
+        ).whenever(activity).checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
         // execute
         val actual = fixture.granted()
         // validate

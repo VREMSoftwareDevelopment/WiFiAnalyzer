@@ -27,7 +27,12 @@ import com.vrem.wifianalyzer.settings.ThemeStyle
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
-import org.mockito.kotlin.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 class GraphViewBuilderTest {
     private val numHorizontalLabels = 5
@@ -193,7 +198,10 @@ class GraphViewBuilderTest {
         validateMaximumY(-51, MAX_Y_DEFAULT)
     }
 
-    private fun validateMaximumY(maximumY: Int, expected: Int) {
+    private fun validateMaximumY(
+        maximumY: Int,
+        expected: Int,
+    ) {
         val fixture = GraphViewBuilder(numHorizontalLabels, maximumY, ThemeStyle.DARK, true)
         assertThat(fixture.maximumPortY).isEqualTo(expected)
     }
@@ -211,5 +219,4 @@ class GraphViewBuilderTest {
         verify(gridLabelRenderer).horizontalLabelsColor = themeStyle.colorGraphText
         verify(gridLabelRenderer).horizontalAxisTitleColor = themeStyle.colorGraphText
     }
-
 }

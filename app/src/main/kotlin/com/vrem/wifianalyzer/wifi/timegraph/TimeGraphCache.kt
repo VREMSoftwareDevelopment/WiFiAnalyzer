@@ -26,12 +26,14 @@ internal class TimeGraphCache {
     private val notSeen: MutableMap<WiFiDetail, Int> = mutableMapOf()
 
     fun active(): Set<WiFiDetail> =
-        notSeen.filterValues { it <= MAX_NOT_SEEN_COUNT }
+        notSeen
+            .filterValues { it <= MAX_NOT_SEEN_COUNT }
             .keys
             .toSet()
 
     fun clear() =
-        notSeen.filterValues { it > MAX_NOT_SEEN_COUNT }
+        notSeen
+            .filterValues { it > MAX_NOT_SEEN_COUNT }
             .keys
             .forEach { notSeen.remove(it) }
 
@@ -44,5 +46,4 @@ internal class TimeGraphCache {
     }
 
     val wiFiDetails: Set<WiFiDetail> get() = notSeen.keys
-
 }

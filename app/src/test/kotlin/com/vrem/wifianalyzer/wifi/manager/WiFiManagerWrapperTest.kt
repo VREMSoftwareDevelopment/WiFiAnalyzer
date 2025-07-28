@@ -23,7 +23,13 @@ import android.net.wifi.WifiManager
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
-import org.mockito.kotlin.*
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.spy
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 class WiFiManagerWrapperTest {
     private val wifiManager: WifiManager = mock()
@@ -300,5 +306,4 @@ class WiFiManagerWrapperTest {
         verify(wifiManager).isScanThrottleEnabled
         verify(fixture).minVersionR()
     }
-
 }

@@ -112,5 +112,4 @@ class MainReloadTest {
         assertThat(actual).isTrue
         assertThat(fixture.languageLocale).isEqualTo(expected)
     }
-
 }

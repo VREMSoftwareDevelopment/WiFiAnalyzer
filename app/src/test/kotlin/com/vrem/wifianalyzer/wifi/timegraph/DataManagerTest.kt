@@ -20,12 +20,28 @@ package com.vrem.wifianalyzer.wifi.timegraph
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.RobolectricUtil
-import com.vrem.wifianalyzer.wifi.graphutils.*
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint
+import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper
+import com.vrem.wifianalyzer.wifi.graphutils.MAX_SCAN_COUNT
+import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y
+import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
+import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y_OFFSET
+import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
+import com.vrem.wifianalyzer.wifi.model.WiFiConnection
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.eq
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
@@ -118,7 +134,7 @@ class DataManagerTest {
                 it,
                 dataPoint,
                 scanCount,
-                it.wiFiAdditional.wiFiConnection.connected
+                it.wiFiAdditional.wiFiConnection.connected,
             )
             verify(timeGraphCache).add(it)
         }
@@ -155,7 +171,7 @@ class DataManagerTest {
             wiFiDetail,
             dataPoint,
             scanCount,
-            wiFiDetail.wiFiAdditional.wiFiConnection.connected
+            wiFiDetail.wiFiAdditional.wiFiConnection.connected,
         )
         verify(timeGraphCache).reset(wiFiDetail)
     }
@@ -176,7 +192,7 @@ class DataManagerTest {
             wiFiDetail,
             dataPoint,
             scanCount,
-            wiFiDetail.wiFiAdditional.wiFiConnection.connected
+            wiFiDetail.wiFiAdditional.wiFiConnection.connected,
         )
     }
 
@@ -193,7 +209,7 @@ class DataManagerTest {
         verify(graphViewWrapper).addSeries(
             eq(wiFiDetail),
             any(),
-            eq(wiFiDetail.wiFiAdditional.wiFiConnection.connected)
+            eq(wiFiDetail.wiFiAdditional.wiFiConnection.connected),
         )
     }
 
@@ -204,8 +220,7 @@ class DataManagerTest {
         return WiFiDetail(wiFiIdentifier, WiFiSecurity.EMPTY, makeWiFiSignal(), wiFiAdditional)
     }
 
-    private fun makeWiFiSignal(): WiFiSignal =
-        WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, level)
+    private fun makeWiFiSignal(): WiFiSignal = WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, level)
 
     private fun makeWiFiDetail(ssid: String): WiFiDetail =
         WiFiDetail(WiFiIdentifier(ssid, bssid), WiFiSecurity.EMPTY, makeWiFiSignal())
@@ -213,7 +228,5 @@ class DataManagerTest {
     private fun makeWiFiDetails(): List<WiFiDetail> =
         listOf(makeWiFiDetailConnected("SSID1"), makeWiFiDetail("SSID2"), makeWiFiDetail("SSID3"))
 
-    private fun makeMoreWiFiDetails(): List<WiFiDetail> =
-        listOf(makeWiFiDetail("SSID4"), makeWiFiDetail("SSID5"))
-
+    private fun makeMoreWiFiDetails(): List<WiFiDetail> = listOf(makeWiFiDetail("SSID4"), makeWiFiDetail("SSID5"))
 }

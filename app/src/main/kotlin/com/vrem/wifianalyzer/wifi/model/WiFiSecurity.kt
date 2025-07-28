@@ -31,13 +31,16 @@ import java.util.Locale
 private val extras = listOf("SAE", "EAP_SUITE_B_192", "OWE")
 private val regex = Regex("[^A-Z0-9_]")
 
-enum class Security(@DrawableRes val imageResource: Int, val extras: List<String> = listOf()) {
+enum class Security(
+    @DrawableRes val imageResource: Int,
+    val extras: List<String> = listOf(),
+) {
     NONE(R.drawable.ic_lock_open),
     WPS(R.drawable.ic_lock_outline),
     WEP(R.drawable.ic_lock_outline),
     WPA(R.drawable.ic_lock),
     WPA2(R.drawable.ic_lock),
-    WPA3(R.drawable.ic_lock, extras);
+    WPA3(R.drawable.ic_lock, extras),
 }
 
 typealias SecurityTypeId = Int
@@ -45,7 +48,7 @@ typealias SecurityTypeId = Int
 enum class WiFiSecurityType(
     val securityTypeId: SecurityTypeId,
     @StringRes val textResource: Int,
-    val security: Security = Security.NONE
+    val security: Security = Security.NONE,
 ) {
     UNKNOWN(-1, R.string.security_type_unknown),
     OPEN(0, R.string.security_type_open),
@@ -61,7 +64,8 @@ enum class WiFiSecurityType(
     OSEN(10, R.string.security_type_osen),
     PASSPOINT_R1_R2(11, R.string.security_type_passpoint_r1_r2),
     PASSPOINT_R3(12, R.string.security_type_passpoint_r3),
-    SECURITY_TYPE_DPP(13, R.string.security_type_dpp);
+    SECURITY_TYPE_DPP(13, R.string.security_type_dpp),
+    ;
 
     companion object {
         fun findOne(securityTypeId: SecurityTypeId) =
@@ -81,8 +85,10 @@ enum class WiFiSecurityType(
     }
 }
 
-data class WiFiSecurity(val capabilities: String = String.EMPTY, val securityTypes: List<Int> = listOf()) {
-
+data class WiFiSecurity(
+    val capabilities: String = String.EMPTY,
+    val securityTypes: List<Int> = listOf(),
+) {
     val security: Security get() = securities.first()
 
     val securities: Set<Security>
@@ -98,7 +104,8 @@ data class WiFiSecurity(val capabilities: String = String.EMPTY, val securityTyp
             .joinToString(" ", "[", "]")
 
     private fun transformCapabilities(): Set<Security> =
-        regex.replace(capabilities.uppercase(Locale.getDefault()), "-")
+        regex
+            .replace(capabilities.uppercase(Locale.getDefault()), "-")
             .split("-")
             .filter { it.isNotBlank() && it != Security.NONE.name }
             .mapNotNull { transformCapability(it) }

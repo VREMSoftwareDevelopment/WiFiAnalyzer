@@ -34,7 +34,10 @@ internal fun GraphView.layout(layoutParams: ViewGroup.LayoutParams): GraphView {
     return this
 }
 
-internal fun Viewport.initialize(maximumY: Int, scalable: Boolean): Viewport {
+internal fun Viewport.initialize(
+    maximumY: Int,
+    scalable: Boolean,
+): Viewport {
     this.isScrollable = true
     this.isScalable = scalable
     this.setScalableY(false)
@@ -80,7 +83,7 @@ internal fun GridLabelRenderer.labelFormat(labelFormatter: LabelFormatter?): Gri
 internal fun GridLabelRenderer.labels(
     numHorizontalLabels: Int,
     numVerticalLabels: Int,
-    horizontalLabelsVisible: Boolean
+    horizontalLabelsVisible: Boolean,
 ): GridLabelRenderer {
     this.setHumanRounding(false)
     this.isHighlightZeroLines = false
@@ -97,7 +100,7 @@ class GraphViewBuilder(
     private val numHorizontalLabels: Int,
     private val maximumY: Int,
     private val themeStyle: ThemeStyle,
-    private val horizontalLabelsVisible: Boolean = true
+    private val horizontalLabelsVisible: Boolean = true,
 ) {
     private var labelFormatter: LabelFormatter? = null
     private var verticalTitle: String = String.EMPTY
@@ -118,7 +121,10 @@ class GraphViewBuilder(
         return this
     }
 
-    fun build(context: Context, scalable: Boolean): GraphView =
+    fun build(
+        context: Context,
+        scalable: Boolean,
+    ): GraphView =
         GraphView(context)
             .layout(layoutParams)
             .gridLabelInitialize()
@@ -145,5 +151,4 @@ class GraphViewBuilder(
 
     val layoutParams: ViewGroup.LayoutParams =
         ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-
 }

@@ -22,7 +22,9 @@ import com.vrem.util.findByCountryCode
 import com.vrem.util.toCapitalize
 import java.util.Locale
 
-class WiFiChannelCountry(val locale: Locale) {
+class WiFiChannelCountry(
+    val locale: Locale,
+) {
     private val unknown = "-Unknown"
 
     val countryCode: String get() = locale.country.toCapitalize(locale)
@@ -39,5 +41,4 @@ class WiFiChannelCountry(val locale: Locale) {
 
         fun findAll(): List<WiFiChannelCountry> = allCountries().map { WiFiChannelCountry(it) }
     }
-
 }

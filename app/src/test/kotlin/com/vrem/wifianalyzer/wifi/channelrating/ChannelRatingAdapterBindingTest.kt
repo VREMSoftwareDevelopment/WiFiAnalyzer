@@ -28,7 +28,6 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
 class ChannelRatingAdapterBindingTest {
-
     @Test
     fun channelRatingAdapterBinding() {
         // setup
@@ -54,5 +53,4 @@ class ChannelRatingAdapterBindingTest {
         verify(view).findViewById<View>(R.id.channelRatingAPCount)
         verify(view).findViewById<View>(R.id.channelRating)
     }
-
 }

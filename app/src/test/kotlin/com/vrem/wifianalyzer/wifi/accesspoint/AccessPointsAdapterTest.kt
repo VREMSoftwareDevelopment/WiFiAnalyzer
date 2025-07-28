@@ -258,25 +258,37 @@ class AccessPointsAdapterTest {
         verify(accessPointsAdapterData).onGroupExpanded(index)
     }
 
-    private fun withView(wiFiDetail: WiFiDetail, accessPointViewType: AccessPointViewType): View {
+    private fun withView(
+        wiFiDetail: WiFiDetail,
+        accessPointViewType: AccessPointViewType,
+    ): View {
         val view = mainActivity.layoutInflater.inflate(accessPointViewType.layout, null, false)
         whenever(settings.accessPointView()).thenReturn(accessPointViewType)
         whenever(accessPointDetail.makeView(view, viewGroup, wiFiDetail)).thenReturn(view)
         return view
     }
 
-    private fun withChildView(wiFiDetail: WiFiDetail, accessPointViewType: AccessPointViewType): View {
+    private fun withChildView(
+        wiFiDetail: WiFiDetail,
+        accessPointViewType: AccessPointViewType,
+    ): View {
         val view = mainActivity.layoutInflater.inflate(accessPointViewType.layout, null, true)
         whenever(settings.accessPointView()).thenReturn(accessPointViewType)
         whenever(accessPointDetail.makeView(view, viewGroup, wiFiDetail, true)).thenReturn(view)
         return view
     }
 
-    private fun verifyView(view: View, wiFiDetail: WiFiDetail) {
+    private fun verifyView(
+        view: View,
+        wiFiDetail: WiFiDetail,
+    ) {
         verify(accessPointDetail).makeView(view, viewGroup, wiFiDetail)
     }
 
-    private fun verifyChildView(view: View, wiFiDetail: WiFiDetail) {
+    private fun verifyChildView(
+        view: View,
+        wiFiDetail: WiFiDetail,
+    ) {
         verify(accessPointDetail).makeView(view, viewGroup, wiFiDetail, true)
     }
 }

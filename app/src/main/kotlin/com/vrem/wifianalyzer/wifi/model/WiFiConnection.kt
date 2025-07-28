@@ -23,10 +23,8 @@ import com.vrem.util.EMPTY
 data class WiFiConnection(
     val wiFiIdentifier: WiFiIdentifier = WiFiIdentifier.EMPTY,
     val ipAddress: String = String.EMPTY,
-    val linkSpeed: Int = LINK_SPEED_INVALID
-) :
-    Comparable<WiFiConnection> {
-
+    val linkSpeed: Int = LINK_SPEED_INVALID,
+) : Comparable<WiFiConnection> {
     val connected: Boolean get() = EMPTY != this
 
     override fun equals(other: Any?): Boolean {
@@ -45,4 +43,3 @@ data class WiFiConnection(
         val EMPTY = WiFiConnection()
     }
 }
-

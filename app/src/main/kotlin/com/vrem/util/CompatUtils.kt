@@ -45,8 +45,7 @@ fun Context.packageInfo(): PackageInfo =
 private fun Context.packageInfoAndroidT(): PackageInfo =
     packageManager.getPackageInfo(packageName, PackageInfoFlags.of(0))
 
-private fun Context.packageInfoLegacy(): PackageInfo =
-    packageManager.getPackageInfo(packageName, 0)
+private fun Context.packageInfoLegacy(): PackageInfo = packageManager.getPackageInfo(packageName, 0)
 
 fun ScanResult.ssid(): String =
     if (buildMinVersionT()) {

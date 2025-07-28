@@ -23,11 +23,20 @@ import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.eq
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
@@ -107,14 +116,15 @@ class DataManagerTest {
         verify(graphViewWrapper).addSeries(eq(wiFiDetail), any(), eq(true))
     }
 
-    private fun makeWiFiDetail(ssid: String = "SSID", frequency: Int = 2455): WiFiDetail {
+    private fun makeWiFiDetail(
+        ssid: String = "SSID",
+        frequency: Int = 2455,
+    ): WiFiDetail {
         val wiFiSignal = WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, level)
         val wiFiIdentifier = WiFiIdentifier(ssid, "BSSID")
         return WiFiDetail(wiFiIdentifier, WiFiSecurity.EMPTY, wiFiSignal, WiFiAdditional.EMPTY)
     }
 
-    private fun makeWiFiDetails(): List<WiFiDetail> {
-        return listOf(makeWiFiDetail("SSID1"), makeWiFiDetail("SSID2"), makeWiFiDetail("SSID3"))
-    }
-
+    private fun makeWiFiDetails(): List<WiFiDetail> =
+        listOf(makeWiFiDetail("SSID1"), makeWiFiDetail("SSID2"), makeWiFiDetail("SSID3"))
 }

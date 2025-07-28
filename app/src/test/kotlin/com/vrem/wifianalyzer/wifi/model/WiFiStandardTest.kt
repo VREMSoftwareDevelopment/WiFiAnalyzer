@@ -32,7 +32,6 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class WiFiStandardTest {
-
     @Test
     fun width() {
         assertThat(WiFiStandard.entries).hasSize(7)
@@ -82,5 +81,4 @@ class WiFiStandardTest {
         assertThat(actual).isEqualTo(WiFiStandard.UNKNOWN)
         verifyNoMoreInteractions(scanResult)
     }
-
 }

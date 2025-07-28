@@ -32,7 +32,6 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
 class FileUtilsTest {
-
     private val resources: Resources = mock()
 
     @After
@@ -103,7 +102,10 @@ class FileUtilsTest {
         verify(resources).openRawResource(id)
     }
 
-    private fun createZippedInputStream(lines: List<String>, addEntry: Boolean = true): InputStream {
+    private fun createZippedInputStream(
+        lines: List<String>,
+        addEntry: Boolean = true,
+    ): InputStream {
         val outputStream = ByteArrayOutputStream()
         ZipOutputStream(outputStream).use {
             if (addEntry) {

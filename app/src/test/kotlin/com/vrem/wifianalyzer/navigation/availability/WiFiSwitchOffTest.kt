@@ -24,7 +24,12 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
 import org.junit.After
 import org.junit.Test
-import org.mockito.kotlin.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 class WiFiSwitchOffTest {
     private val mainActivity = MainContextHelper.INSTANCE.mainActivity
@@ -70,5 +75,4 @@ class WiFiSwitchOffTest {
         verify(menu, never()).findItem(R.id.action_wifi_band)
         verify(menuItem, never()).isVisible = any()
     }
-
 }

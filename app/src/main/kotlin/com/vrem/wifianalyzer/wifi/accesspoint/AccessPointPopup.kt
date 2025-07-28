@@ -25,18 +25,23 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 @OpenClass
 class AccessPointPopup {
     fun show(view: View): AlertDialog {
-        val alertDialog: AlertDialog = AlertDialog.Builder(view.context)
-            .setView(view)
-            .setPositiveButton(android.R.string.ok) { dialog, _ -> dialog.cancel(); }
-            .create()
+        val alertDialog: AlertDialog =
+            AlertDialog
+                .Builder(view.context)
+                .setView(view)
+                .setPositiveButton(android.R.string.ok) { dialog, _ ->
+                    dialog.cancel()
+                }.create()
         alertDialog.show()
         return alertDialog
     }
 
-    fun attach(view: View, wiFiDetail: WiFiDetail) {
+    fun attach(
+        view: View,
+        wiFiDetail: WiFiDetail,
+    ) {
         view.setOnClickListener {
             runCatching { show(AccessPointDetail().makeViewDetailed(wiFiDetail)) }
         }
     }
-
 }

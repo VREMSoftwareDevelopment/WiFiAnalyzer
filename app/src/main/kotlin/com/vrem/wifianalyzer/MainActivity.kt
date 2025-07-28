@@ -42,7 +42,10 @@ import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionView
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService
 
 @OpenClass
-class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPreferenceChangeListener {
+class MainActivity :
+    AppCompatActivity(),
+    NavigationMenuControl,
+    OnSharedPreferenceChangeListener {
     internal lateinit var drawerNavigation: DrawerNavigation
     internal lateinit var mainReload: MainReload
     internal lateinit var navigationMenuController: NavigationMenuController
@@ -94,7 +97,11 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
         drawerNavigation.onConfigurationChanged(newConfig)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray,
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (!MainContext.INSTANCE.permissionService.granted(requestCode, grantResults)) {
             finish()
@@ -109,7 +116,10 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
                 screenLayoutSize == Configuration.SCREENLAYOUT_SIZE_XLARGE
         }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
+    override fun onSharedPreferenceChanged(
+        sharedPreferences: SharedPreferences,
+        key: String?,
+    ) {
         val mainContext = MainContext.INSTANCE
         if (mainReload.shouldReload(mainContext.settings)) {
             MainContext.INSTANCE.scannerService.stop()
@@ -211,5 +221,4 @@ class MainActivity : AppCompatActivity(), NavigationMenuControl, OnSharedPrefere
     fun mainConnectionVisibility(visibility: Int) {
         findViewById<View>(R.id.main_connection).visibility = visibility
     }
-
 }

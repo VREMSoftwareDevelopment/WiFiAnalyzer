@@ -93,5 +93,4 @@ class AccessPointsFragmentTest {
         assertThat(swipeRefreshLayout.isRefreshing).isFalse
         assertThat(swipeRefreshLayout.isEnabled).isFalse
     }
-
 }

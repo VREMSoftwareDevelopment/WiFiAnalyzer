@@ -28,8 +28,9 @@ import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
-class WarningView(private val mainActivity: MainActivity) {
-
+class WarningView(
+    private val mainActivity: MainActivity,
+) {
     fun update(wiFiData: WiFiData): Boolean {
         val registered = mainActivity.currentNavigationMenu().registered()
         val mainContext = MainContext.INSTANCE
@@ -41,19 +42,28 @@ class WarningView(private val mainActivity: MainActivity) {
         return warning
     }
 
-    internal fun throttling(registered: Boolean, wiFiManagerWrapper: WiFiManagerWrapper) {
+    internal fun throttling(
+        registered: Boolean,
+        wiFiManagerWrapper: WiFiManagerWrapper,
+    ) {
         val throttling = registered && wiFiManagerWrapper.isScanThrottleEnabled()
         val visibility = if (throttling) View.VISIBLE else View.GONE
         mainActivity.findViewById<TextView>(R.id.main_wifi_throttling).visibility = visibility
     }
 
-    internal fun noData(registered: Boolean, wiFiDetails: List<WiFiDetail>): Boolean {
+    internal fun noData(
+        registered: Boolean,
+        wiFiDetails: List<WiFiDetail>,
+    ): Boolean {
         val noData = registered && wiFiDetails.isEmpty()
         mainActivity.findViewById<View>(R.id.no_data).visibility = if (noData) View.VISIBLE else View.GONE
         return noData
     }
 
-    internal fun noLocation(registered: Boolean, permissionService: PermissionService): Boolean {
+    internal fun noLocation(
+        registered: Boolean,
+        permissionService: PermissionService,
+    ): Boolean {
         val noLocation = registered && !permissionService.enabled()
         if (noLocation) {
             mainActivity.findViewById<View>(R.id.no_location).visibility = View.VISIBLE
@@ -65,5 +75,4 @@ class WarningView(private val mainActivity: MainActivity) {
         }
         return noLocation
     }
-
 }

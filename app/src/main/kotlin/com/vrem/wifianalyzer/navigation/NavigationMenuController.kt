@@ -30,9 +30,8 @@ import com.vrem.wifianalyzer.R
 class NavigationMenuController(
     navigationMenuControl: NavigationMenuControl,
     val drawerNavigationView: NavigationView = navigationMenuControl.findViewById(R.id.nav_drawer),
-    val bottomNavigationView: BottomNavigationView = navigationMenuControl.findViewById(R.id.nav_bottom)
+    val bottomNavigationView: BottomNavigationView = navigationMenuControl.findViewById(R.id.nav_bottom),
 ) {
-
     private lateinit var currentNavigationMenu: NavigationMenu
 
     fun currentMenuItem(): MenuItem = drawerNavigationView.menu[currentNavigationMenu.ordinal]
@@ -41,11 +40,14 @@ class NavigationMenuController(
 
     fun currentNavigationMenu(navigationMenu: NavigationMenu) {
         currentNavigationMenu = navigationMenu
-        setChecked(drawerNavigationView.menu,navigationMenu.idDrawer)
-        setChecked(bottomNavigationView.menu,navigationMenu.idBottom)
+        setChecked(drawerNavigationView.menu, navigationMenu.idDrawer)
+        setChecked(bottomNavigationView.menu, navigationMenu.idBottom)
     }
 
-    private fun setChecked(menu: Menu, id: Int) {
+    private fun setChecked(
+        menu: Menu,
+        id: Int,
+    ) {
         if (id != -1) {
             menu.forEach { it.isChecked = false }
             menu.findItem(id)!!.isChecked = true

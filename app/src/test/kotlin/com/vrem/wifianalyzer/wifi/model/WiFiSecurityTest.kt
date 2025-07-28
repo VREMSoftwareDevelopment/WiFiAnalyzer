@@ -49,7 +49,7 @@ class WiFiSecurityTest {
             "[DPP EAP OPEN OSEN PASSPOINT_R1_R2 PASSPOINT_R3 PSK WAPI_CERT WAPI_PSK WEP EAP_WPA3_ENTERPRISE EAP_WPA3_ENTERPRISE_192_BIT OWE SAE]"
         // execute
         val actual = fixture.wiFiSecurityTypesDisplay(mainActivity.applicationContext)
-        //validate
+        // validate
         assertThat(actual).isEqualTo(expected)
     }
 }

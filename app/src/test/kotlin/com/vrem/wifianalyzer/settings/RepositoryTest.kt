@@ -27,7 +27,15 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.mockito.kotlin.*
+import org.mockito.kotlin.atLeastOnce
+import org.mockito.kotlin.doNothing
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.doThrow
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.spy
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 class RepositoryTest {
     private val keyIndex = R.string.app_full_name
@@ -218,7 +226,8 @@ class RepositoryTest {
     @Test
     fun registerOnSharedPreferenceChangeListener() {
         // setup
-        doNothing().whenever(sharedPreferences)
+        doNothing()
+            .whenever(sharedPreferences)
             .registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
         // execute
         fixture.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
@@ -286,7 +295,6 @@ class RepositoryTest {
         verify(sharedPreferences).getString(keyValue, defaultValue)
     }
 
-
     private fun verifySave(values: Set<String>) {
         verify(context).getString(keyIndex)
         verify(sharedPreferences).edit()
@@ -332,5 +340,4 @@ class RepositoryTest {
     private fun verifyPreferenceManager() {
         verify(fixture, atLeastOnce()).defaultSharedPreferences(context)
     }
-
 }

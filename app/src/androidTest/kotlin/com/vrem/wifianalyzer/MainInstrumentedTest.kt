@@ -29,17 +29,17 @@ import org.junit.runner.RunWith
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class MainInstrumentedTest {
-
     @get:Rule
     val activityTestRule: ActivityScenarioRule<MainActivity> = activityScenarioRule()
 
     @get:Rule
-    val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(
-        android.Manifest.permission.ACCESS_COARSE_LOCATION,
-        android.Manifest.permission.ACCESS_FINE_LOCATION,
-        android.Manifest.permission.ACCESS_WIFI_STATE,
-        android.Manifest.permission.CHANGE_WIFI_STATE
-    )
+    val grantPermissionRule: GrantPermissionRule =
+        GrantPermissionRule.grant(
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.ACCESS_WIFI_STATE,
+            android.Manifest.permission.CHANGE_WIFI_STATE,
+        )
 
     @Test
     fun navigation() {

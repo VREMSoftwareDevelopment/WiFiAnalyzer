@@ -22,14 +22,19 @@ data class WiFiDetail(
     val wiFiSecurity: WiFiSecurity = WiFiSecurity.EMPTY,
     val wiFiSignal: WiFiSignal = WiFiSignal.EMPTY,
     val wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY,
-    val children: List<WiFiDetail> = listOf()
+    val children: List<WiFiDetail> = listOf(),
 ) : Comparable<WiFiDetail> {
-
     constructor(wiFiDetail: WiFiDetail, wiFiAdditional: WiFiAdditional) :
         this(wiFiDetail.wiFiIdentifier, wiFiDetail.wiFiSecurity, wiFiDetail.wiFiSignal, wiFiAdditional)
 
     constructor(wiFiDetail: WiFiDetail, children: List<WiFiDetail>) :
-        this(wiFiDetail.wiFiIdentifier, wiFiDetail.wiFiSecurity, wiFiDetail.wiFiSignal, wiFiDetail.wiFiAdditional, children)
+        this(
+            wiFiDetail.wiFiIdentifier,
+            wiFiDetail.wiFiSecurity,
+            wiFiDetail.wiFiSignal,
+            wiFiDetail.wiFiAdditional,
+            children,
+        )
 
     val noChildren: Boolean get() = children.isNotEmpty()
 
@@ -50,4 +55,3 @@ data class WiFiDetail(
         val EMPTY = WiFiDetail()
     }
 }
-

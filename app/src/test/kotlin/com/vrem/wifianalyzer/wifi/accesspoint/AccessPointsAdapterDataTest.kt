@@ -20,11 +20,24 @@ package com.vrem.wifianalyzer.wifi.accesspoint
 import android.widget.ExpandableListView
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.GroupBy
+import com.vrem.wifianalyzer.wifi.model.Security
+import com.vrem.wifianalyzer.wifi.model.SortBy
+import com.vrem.wifianalyzer.wifi.model.Strength
+import com.vrem.wifianalyzer.wifi.model.WiFiData
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
-import org.mockito.kotlin.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.eq
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 class AccessPointsAdapterDataTest {
     private val wiFiData: WiFiData = mock()
@@ -101,18 +114,19 @@ class AccessPointsAdapterDataTest {
         WiFiDetail(
             WiFiIdentifier("SSID1", "BSSID1"),
             wiFiSignal = WiFiSignal(2255, 2255, WiFiWidth.MHZ_20, -40),
-            children = listOf(
-                WiFiDetail(WiFiIdentifier("SSID1-1", "BSSID1-1")),
-                WiFiDetail(WiFiIdentifier("SSID1-2", "BSSID1-2")),
-                WiFiDetail(WiFiIdentifier("SSID1-3", "BSSID1-3"))
-            )
+            children =
+                listOf(
+                    WiFiDetail(WiFiIdentifier("SSID1-1", "BSSID1-1")),
+                    WiFiDetail(WiFiIdentifier("SSID1-2", "BSSID1-2")),
+                    WiFiDetail(WiFiIdentifier("SSID1-3", "BSSID1-3")),
+                ),
         )
 
     private fun withWiFiDetails(): List<WiFiDetail> =
         listOf(
             withWiFiDetail(),
             WiFiDetail(WiFiIdentifier("SSID2", "BSSID2")),
-            WiFiDetail(WiFiIdentifier("SSID3", "BSSID3"))
+            WiFiDetail(WiFiIdentifier("SSID3", "BSSID3")),
         )
 
     private fun verifySettings() {
@@ -131,5 +145,4 @@ class AccessPointsAdapterDataTest {
         whenever(settings.findStrengths()).thenReturn(Strength.entries.toSet())
         whenever(settings.findSecurities()).thenReturn(Security.entries.toSet())
     }
-
 }

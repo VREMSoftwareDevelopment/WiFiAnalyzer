@@ -60,16 +60,29 @@ class AboutFragment2Test {
 
     @Test
     fun deviceInformation() {
-        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_throttling_on).visibility).isEqualTo(View.VISIBLE)
-        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_throttling_off).visibility).isEqualTo(View.GONE)
+        assertThat(
+            fixture.requireView().findViewById<TextView>(R.id.about_wifi_throttling_on).visibility,
+        ).isEqualTo(View.VISIBLE)
+        assertThat(
+            fixture.requireView().findViewById<TextView>(R.id.about_wifi_throttling_off).visibility,
+        ).isEqualTo(View.GONE)
 
-        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_2ghz_success).visibility).isEqualTo(View.VISIBLE)
+        assertThat(
+            fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_2ghz_success).visibility,
+        ).isEqualTo(View.VISIBLE)
 
-        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_5ghz_success).visibility).isEqualTo(View.VISIBLE)
-        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_5ghz_fails).visibility).isEqualTo(View.GONE)
+        assertThat(
+            fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_5ghz_success).visibility,
+        ).isEqualTo(View.VISIBLE)
+        assertThat(
+            fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_5ghz_fails).visibility,
+        ).isEqualTo(View.GONE)
 
-        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_6ghz_success).visibility).isEqualTo(View.VISIBLE)
-        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_6ghz_fails).visibility).isEqualTo(View.GONE)
+        assertThat(
+            fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_6ghz_success).visibility,
+        ).isEqualTo(View.VISIBLE)
+        assertThat(
+            fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_6ghz_fails).visibility,
+        ).isEqualTo(View.GONE)
     }
-
 }

@@ -23,9 +23,15 @@ import org.robolectric.Robolectric
 import org.robolectric.Shadows
 
 enum class RobolectricUtil {
-    INSTANCE;
+    INSTANCE,
+    ;
 
-    val activity: MainActivity = Robolectric.buildActivity(MainActivity::class.java).create().resume().get()
+    val activity: MainActivity =
+        Robolectric
+            .buildActivity(MainActivity::class.java)
+            .create()
+            .resume()
+            .get()
 
     fun startFragment(fragment: Fragment) {
         val fragmentManager = activity.supportFragmentManager
@@ -38,5 +44,4 @@ enum class RobolectricUtil {
     fun clearLooper() {
         Shadows.shadowOf(Looper.getMainLooper()).idle()
     }
-
 }

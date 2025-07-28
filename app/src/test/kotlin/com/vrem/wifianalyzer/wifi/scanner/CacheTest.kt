@@ -24,7 +24,11 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.mockito.kotlin.*
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 
 class CacheTest {
     private val scanResult1: ScanResult = mock()
@@ -92,15 +96,16 @@ class CacheTest {
     @Test
     fun sizeWithSizeAvailable() {
         // setup
-        val values: List<WiFiRange> = listOf(
-            WiFiRange(1, 4),
-            WiFiRange(2, 3),
-            WiFiRange(4, 3),
-            WiFiRange(5, 2),
-            WiFiRange(9, 2),
-            WiFiRange(10, 1),
-            WiFiRange(20, 1)
-        )
+        val values: List<WiFiRange> =
+            listOf(
+                WiFiRange(1, 4),
+                WiFiRange(2, 3),
+                WiFiRange(4, 3),
+                WiFiRange(5, 2),
+                WiFiRange(9, 2),
+                WiFiRange(10, 1),
+                WiFiRange(20, 1),
+            )
         // execute & validate
         values.forEach {
             whenever(settings.scanSpeed()).thenReturn(it.first)
@@ -283,7 +288,11 @@ class CacheTest {
         validate(scanResult1, -60, actual[0])
     }
 
-    private fun validate(expectedScanResult: ScanResult, expectedLevel: Int, actual: CacheResult) {
+    private fun validate(
+        expectedScanResult: ScanResult,
+        expectedLevel: Int,
+        actual: CacheResult,
+    ) {
         assertThat(actual.scanResult).isEqualTo(expectedScanResult)
         assertThat(actual.average).isEqualTo(expectedLevel)
     }
@@ -323,5 +332,4 @@ class CacheTest {
 
         return result
     }
-
 }

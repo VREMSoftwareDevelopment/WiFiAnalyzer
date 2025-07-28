@@ -19,7 +19,9 @@ package com.vrem.wifianalyzer.wifi.filter.adapter
 
 import com.vrem.wifianalyzer.settings.Settings
 
-class SSIDAdapter(selections: Set<String>) : BasicFilterAdapter<String>(selections) {
+class SSIDAdapter(
+    selections: Set<String>,
+) : BasicFilterAdapter<String>(selections) {
     override var selections: Set<String>
         get() = super.selections
         set(values) {
@@ -32,7 +34,5 @@ class SSIDAdapter(selections: Set<String>) : BasicFilterAdapter<String>(selectio
         selections = setOf()
     }
 
-    override fun save(settings: Settings): Unit =
-        settings.saveSSIDs(selections)
-
+    override fun save(settings: Settings): Unit = settings.saveSSIDs(selections)
 }

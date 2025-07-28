@@ -17,7 +17,12 @@
  */
 package com.vrem.wifianalyzer.wifi.predicate
 
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.Security
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
@@ -70,14 +75,13 @@ class SecurityPredicateTest {
         WiFiDetail(
             WiFiIdentifier("ssid", "bssid"),
             WiFiSecurity("ess-wep-wpa"),
-            WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1)
+            WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1),
         )
 
     private fun wiFiDetailWithNoSecurity(): WiFiDetail =
         WiFiDetail(
             WiFiIdentifier("ssid", "bssid"),
             WiFiSecurity("ess"),
-            WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1)
+            WiFiSignal(2455, 2455, WiFiWidth.MHZ_20, 1),
         )
-
 }

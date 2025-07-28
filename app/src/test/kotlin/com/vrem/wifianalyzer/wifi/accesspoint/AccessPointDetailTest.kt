@@ -27,7 +27,17 @@ import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.FastRoaming
+import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
+import com.vrem.wifianalyzer.wifi.model.WiFiConnection
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurityTypeTest
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiSignalExtra
+import com.vrem.wifianalyzer.wifi.model.WiFiStandard
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Before
@@ -333,25 +343,31 @@ class AccessPointDetailTest {
     private fun withWiFiDetail(
         ssid: String = "SSID",
         wiFiAdditional: WiFiAdditional = WiFiAdditional.EMPTY,
-        is80211mc: Boolean = false
+        is80211mc: Boolean = false,
     ): WiFiDetail =
         WiFiDetail(
             WiFiIdentifier(ssid, "BSSID"),
             WiFiSecurity("[WPS-capabilities][WPA2-XYZ][XYZ-FT]", WiFiSecurityTypeTest.All),
             WiFiSignal(
-                2432, 2437, WiFiWidth.MHZ_40, -65,
-                WiFiSignalExtra(is80211mc, WiFiStandard.AC, FastRoaming.entries.toList())
+                2432,
+                2437,
+                WiFiWidth.MHZ_40,
+                -65,
+                WiFiSignalExtra(is80211mc, WiFiStandard.AC, FastRoaming.entries.toList()),
             ),
-            wiFiAdditional
+            wiFiAdditional,
         )
 
-    private fun validateTextViewValuesCompleteView(view: View, wiFiDetail: WiFiDetail) {
+    private fun validateTextViewValuesCompleteView(
+        view: View,
+        wiFiDetail: WiFiDetail,
+    ) {
         validateTextViewValuesCompactView(view, wiFiDetail)
         val wiFiSignal = wiFiDetail.wiFiSignal
         validateTextViewValue(
             view,
             "${wiFiSignal.wiFiChannelStart.frequency} - ${wiFiSignal.wiFiChannelEnd.frequency}",
-            R.id.channel_frequency_range
+            R.id.channel_frequency_range,
         )
         validateTextViewValue(view, expectedWidth, R.id.width)
         validateTextViewValue(view, expectedSecurities, R.id.capabilities)
@@ -361,7 +377,10 @@ class AccessPointDetailTest {
         validateTextViewValue(view, expectedWiFiStandard, R.id.wiFiStandardValue)
     }
 
-    private fun validateTextViewValuesPopupView(view: View, wiFiDetail: WiFiDetail) {
+    private fun validateTextViewValuesPopupView(
+        view: View,
+        wiFiDetail: WiFiDetail,
+    ) {
         validateTextViewValuesCompleteView(view, wiFiDetail)
         with(wiFiDetail) {
             validateTextViewValue(view, "${wiFiSignal.wiFiChannelStart.channel}", R.id.channel_start)
@@ -376,7 +395,10 @@ class AccessPointDetailTest {
         }
     }
 
-    private fun validateTextViewValuesCompactView(view: View, wiFiDetail: WiFiDetail) {
+    private fun validateTextViewValuesCompactView(
+        view: View,
+        wiFiDetail: WiFiDetail,
+    ) {
         val wiFiSignal = wiFiDetail.wiFiSignal
         validateTextViewValue(view, wiFiDetail.wiFiIdentifier.title, R.id.ssid)
         validateTextViewValue(view, "${wiFiSignal.level}dBm", R.id.level)
@@ -384,17 +406,24 @@ class AccessPointDetailTest {
         validateTextViewValue(
             view,
             "${wiFiSignal.primaryFrequency}${WiFiSignal.FREQUENCY_UNITS}",
-            R.id.primaryFrequency
+            R.id.primaryFrequency,
         )
         validateTextViewValue(view, wiFiSignal.distance, R.id.distance)
     }
 
-    private fun validateTextViewValue(view: View, expected: String, id: Int) {
+    private fun validateTextViewValue(
+        view: View,
+        expected: String,
+        id: Int,
+    ) {
         assertThat(view.findViewById<TextView>(id).text.toString()).isEqualTo(expected)
     }
 
-    private fun validateImageViewValue(view: View, @DrawableRes expected: Int, id: Int) {
+    private fun validateImageViewValue(
+        view: View,
+        @DrawableRes expected: Int,
+        id: Int,
+    ) {
         assertThat(view.findViewById<ImageView>(id).tag).isEqualTo(expected)
     }
-
 }

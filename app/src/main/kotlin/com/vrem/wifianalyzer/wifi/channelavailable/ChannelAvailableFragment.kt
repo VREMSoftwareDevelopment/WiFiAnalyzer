@@ -31,7 +31,11 @@ import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 class ChannelAvailableFragment : Fragment() {
     private lateinit var binding: ChannelAvailableContentBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
         binding = ChannelAvailableContentBinding.inflate(inflater, container, false)
         update()
         return binding.root
@@ -42,23 +46,25 @@ class ChannelAvailableFragment : Fragment() {
         val countryCode = settings.countryCode()
         val languageLocale = settings.languageLocale()
         binding.apply {
-            val textViews = listOf(
-                Triple(channelsAvailable2GHz20MHz, WiFiBand.GHZ2, WiFiWidth.MHZ_20),
-                Triple(channelsAvailable2GHz40MHz, WiFiBand.GHZ2, WiFiWidth.MHZ_40),
-                Triple(channelsAvailable5GHz20MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_20),
-                Triple(channelsAvailable5GHz40MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_40),
-                Triple(channelsAvailable5GHz80MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_80),
-                Triple(channelsAvailable5GHz160MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_160),
-                Triple(channelsAvailable6GHz20MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_20),
-                Triple(channelsAvailable6GHz40MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_40),
-                Triple(channelsAvailable6GHz80MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_80),
-                Triple(channelsAvailable6GHz160MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_160),
-                Triple(channelsAvailable6GHz320MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_320)
-            )
+            val textViews =
+                listOf(
+                    Triple(channelsAvailable2GHz20MHz, WiFiBand.GHZ2, WiFiWidth.MHZ_20),
+                    Triple(channelsAvailable2GHz40MHz, WiFiBand.GHZ2, WiFiWidth.MHZ_40),
+                    Triple(channelsAvailable5GHz20MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_20),
+                    Triple(channelsAvailable5GHz40MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_40),
+                    Triple(channelsAvailable5GHz80MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_80),
+                    Triple(channelsAvailable5GHz160MHz, WiFiBand.GHZ5, WiFiWidth.MHZ_160),
+                    Triple(channelsAvailable6GHz20MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_20),
+                    Triple(channelsAvailable6GHz40MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_40),
+                    Triple(channelsAvailable6GHz80MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_80),
+                    Triple(channelsAvailable6GHz160MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_160),
+                    Triple(channelsAvailable6GHz320MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_320),
+                )
             channelsAvailableCountryCode.text = countryCode
             channelsAvailableCountryName.text = WiFiChannelCountry.find(countryCode).countryName(languageLocale)
             textViews.forEach { (textView, wiFiBand, wiFiWidth) ->
-                textView.text = wiFiBand.wiFiChannels.availableChannels(wiFiWidth, wiFiBand, countryCode).joinToString(", ")
+                textView.text =
+                    wiFiBand.wiFiChannels.availableChannels(wiFiWidth, wiFiBand, countryCode).joinToString(", ")
             }
         }
     }
@@ -67,5 +73,4 @@ class ChannelAvailableFragment : Fragment() {
         super.onResume()
         update()
     }
-
 }

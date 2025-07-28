@@ -34,12 +34,18 @@ private fun timeGraphViews(): List<TimeGraphView> = WiFiBand.entries.map { TimeG
 
 class TimeGraphAdapter : GraphAdapter(timeGraphViews())
 
-class TimeGraphFragment : Fragment(), OnRefreshListener {
+class TimeGraphFragment :
+    Fragment(),
+    OnRefreshListener {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     lateinit var timeGraphAdapter: TimeGraphAdapter
         private set
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
         val binding = GraphContentBinding.inflate(inflater, container, false)
         swipeRefreshLayout = binding.graphRefresh
         swipeRefreshLayout.setOnRefreshListener(this)
@@ -68,5 +74,4 @@ class TimeGraphFragment : Fragment(), OnRefreshListener {
         MainContext.INSTANCE.scannerService.unregister(timeGraphAdapter)
         super.onPause()
     }
-
 }

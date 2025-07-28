@@ -25,7 +25,11 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
 import org.junit.After
 import org.junit.Test
-import org.mockito.kotlin.*
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 class ScannerSwitchOnTest {
     private val mainActivity: MainActivity = mock()
@@ -113,5 +117,4 @@ class ScannerSwitchOnTest {
         verify(menu, never()).findItem(R.id.action_scanner)
         verify(menuItem, never()).isVisible = true
     }
-
 }

@@ -26,10 +26,13 @@ import java.util.Locale
 
 private fun data(): List<Data> {
     val currentLocale: Locale = MainContext.INSTANCE.settings.languageLocale()
-    return WiFiChannelCountry.findAll()
+    return WiFiChannelCountry
+        .findAll()
         .map { Data(it.countryCode, it.countryName(currentLocale)) }
         .sorted()
 }
 
-class CountryPreference(context: Context, attrs: AttributeSet) :
-    CustomPreference(context, attrs, data(), defaultCountryCode())
+class CountryPreference(
+    context: Context,
+    attrs: AttributeSet,
+) : CustomPreference(context, attrs, data(), defaultCountryCode())

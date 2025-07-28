@@ -19,16 +19,21 @@ package com.vrem.util
 
 import kotlin.enums.EnumEntries
 
-fun <T : Enum<T>> findSet(values: EnumEntries<T>, indexes: Set<String>, defaultValue: T): Set<T> {
+fun <T : Enum<T>> findSet(
+    values: EnumEntries<T>,
+    indexes: Set<String>,
+    defaultValue: T,
+): Set<T> {
     val results: Set<T> = indexes.map { findOne(values, it.toInt(), defaultValue) }.toSet()
     return results.ifEmpty { values.toSet() }
 }
 
-fun <T : Enum<T>> findOne(values: EnumEntries<T>, index: Int, defaultValue: T): T =
-    if (index in values.indices) values[index] else defaultValue
+fun <T : Enum<T>> findOne(
+    values: EnumEntries<T>,
+    index: Int,
+    defaultValue: T,
+): T = if (index in values.indices) values[index] else defaultValue
 
-fun <T : Enum<T>> ordinals(values: EnumEntries<T>): Set<String> =
-    ordinals(values.toSet())
+fun <T : Enum<T>> ordinals(values: EnumEntries<T>): Set<String> = ordinals(values.toSet())
 
-fun <T : Enum<T>> ordinals(values: Set<T>): Set<String> =
-    values.map { it.ordinal.toString() }.toSet()
+fun <T : Enum<T>> ordinals(values: Set<T>): Set<String> = values.map { it.ordinal.toString() }.toSet()

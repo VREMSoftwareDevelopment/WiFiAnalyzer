@@ -70,12 +70,13 @@ class WiFiDetailTest {
     @Test
     fun equalsWithDifferentIdentifier() {
         // setup
-        val different = WiFiDetail(
-            WiFiIdentifier("otherSSID", "otherBSSID"),
-            wiFiSecurity,
-            wiFiSignal,
-            wiFiAdditional
-        )
+        val different =
+            WiFiDetail(
+                WiFiIdentifier("otherSSID", "otherBSSID"),
+                wiFiSecurity,
+                wiFiSignal,
+                wiFiAdditional,
+            )
         // execute & validate
         assertThat(fixture).isNotEqualTo(different)
     }

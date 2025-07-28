@@ -19,9 +19,11 @@ package com.vrem.wifianalyzer.wifi.band
 
 private const val ALLOWED_RANGE = FREQUENCY_SPREAD / 2
 
-data class WiFiChannel(val channel: Int = 0, val frequency: Int = 0) : Comparable<WiFiChannel> {
-    fun inRange(value: Int): Boolean =
-        value in frequency - ALLOWED_RANGE..frequency + ALLOWED_RANGE
+data class WiFiChannel(
+    val channel: Int = 0,
+    val frequency: Int = 0,
+) : Comparable<WiFiChannel> {
+    fun inRange(value: Int): Boolean = value in frequency - ALLOWED_RANGE..frequency + ALLOWED_RANGE
 
     override fun compareTo(other: WiFiChannel): Int =
         compareBy<WiFiChannel> { it.channel }.thenBy { it.frequency }.compare(this, other)
@@ -29,5 +31,4 @@ data class WiFiChannel(val channel: Int = 0, val frequency: Int = 0) : Comparabl
     companion object {
         val UNKNOWN = WiFiChannel()
     }
-
 }

@@ -21,16 +21,22 @@ import android.content.res.Resources
 import androidx.annotation.RawRes
 import java.util.zip.ZipInputStream
 
-fun readFile(resources: Resources, @RawRes id: Int): String =
+fun readFile(
+    resources: Resources,
+    @RawRes id: Int,
+): String =
     runCatching {
-        resources.openRawResource(id)
+        resources
+            .openRawResource(id)
             .bufferedReader()
             .use { it.readText() }
             .replace("\r", String.EMPTY)
-    }
-        .getOrDefault(String.EMPTY)
+    }.getOrDefault(String.EMPTY)
 
-fun readZipFile(resources: Resources, @RawRes id: Int): List<String> =
+fun readZipFile(
+    resources: Resources,
+    @RawRes id: Int,
+): List<String> =
     runCatching {
         resources.openRawResource(id).use { inputStream ->
             ZipInputStream(inputStream).use { zipInputStream ->
@@ -38,5 +44,4 @@ fun readZipFile(resources: Resources, @RawRes id: Int): List<String> =
                 zipInputStream.bufferedReader().readLines()
             }
         }
-    }
-        .getOrDefault(emptyList())
+    }.getOrDefault(emptyList())

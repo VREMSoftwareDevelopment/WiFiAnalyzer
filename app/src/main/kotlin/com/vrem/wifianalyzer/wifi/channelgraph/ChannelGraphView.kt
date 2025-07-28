@@ -26,7 +26,13 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.settings.ThemeStyle
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.graphutils.*
+import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint
+import com.vrem.wifianalyzer.wifi.graphutils.GraphViewBuilder
+import com.vrem.wifianalyzer.wifi.graphutils.GraphViewNotifier
+import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper
+import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
+import com.vrem.wifianalyzer.wifi.graphutils.THICKNESS_INVISIBLE
+import com.vrem.wifianalyzer.wifi.graphutils.transparent
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
 import com.vrem.wifianalyzer.wifi.predicate.makeOtherPredicate
@@ -35,7 +41,7 @@ internal fun makeGraphView(
     mainContext: MainContext,
     graphMaximumY: Int,
     themeStyle: ThemeStyle,
-    wiFiBand: WiFiBand
+    wiFiBand: WiFiBand,
 ): GraphView {
     val resources = mainContext.resources
 
@@ -46,11 +52,15 @@ internal fun makeGraphView(
         .build(mainContext.context, !wiFiBand.ghz2)
 }
 
-internal fun makeDefaultSeries(frequencyStart: Int, frequencyEnd: Int): TitleLineGraphSeries<GraphDataPoint> {
-    val dataPoints = arrayOf(
-        GraphDataPoint(frequencyStart, MIN_Y),
-        GraphDataPoint(frequencyEnd, MIN_Y)
-    )
+internal fun makeDefaultSeries(
+    frequencyStart: Int,
+    frequencyEnd: Int,
+): TitleLineGraphSeries<GraphDataPoint> {
+    val dataPoints =
+        arrayOf(
+            GraphDataPoint(frequencyStart, MIN_Y),
+            GraphDataPoint(frequencyEnd, MIN_Y),
+        )
     val series = TitleLineGraphSeries(dataPoints)
     series.color = transparent.primary.toInt()
     series.thickness = THICKNESS_INVISIBLE
@@ -77,9 +87,8 @@ internal fun makeGraphViewWrapper(wiFiBand: WiFiBand): GraphViewWrapper {
 internal class ChannelGraphView(
     private val wiFiBand: WiFiBand,
     private var dataManager: DataManager = DataManager(),
-    private var graphViewWrapper: GraphViewWrapper = makeGraphViewWrapper(wiFiBand)
+    private var graphViewWrapper: GraphViewWrapper = makeGraphViewWrapper(wiFiBand),
 ) : GraphViewNotifier {
-
     override fun update(wiFiData: WiFiData) {
         val predicate = predicate(MainContext.INSTANCE.settings)
         val wiFiDetails = wiFiData.wiFiDetails(predicate, MainContext.INSTANCE.settings.sortBy())
@@ -94,8 +103,5 @@ internal class ChannelGraphView(
 
     fun predicate(settings: Settings): Predicate = makeOtherPredicate(settings)
 
-    override fun graphView(): GraphView {
-        return graphViewWrapper.graphView
-    }
-
+    override fun graphView(): GraphView = graphViewWrapper.graphView
 }

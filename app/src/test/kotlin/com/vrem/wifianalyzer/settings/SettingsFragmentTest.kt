@@ -31,7 +31,6 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class SettingsFragmentTest {
-
     val fixture = SettingsFragment()
     val fragment = RobolectricUtil.INSTANCE.startFragment(fixture)
 
@@ -99,5 +98,4 @@ class SettingsFragmentTest {
         assertThat(fixture.preferenceScreen.preferenceCount).isGreaterThan(0)
         assertThat(fixture.findPreference<Preference>(fixture.getString(wifi_off_on_exit_key))!!.isVisible).isTrue
     }
-
 }

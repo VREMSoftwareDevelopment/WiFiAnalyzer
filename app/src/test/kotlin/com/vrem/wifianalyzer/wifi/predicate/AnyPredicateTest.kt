@@ -21,8 +21,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-class AmyPredicateTest {
-
+class AnyPredicateTest {
     @Test
     fun anyPredicateIsTrue() {
         // setup
@@ -44,5 +43,4 @@ class AmyPredicateTest {
         // validate
         assertThat(actual).isFalse
     }
-
 }

@@ -37,7 +37,8 @@ class SeriesCache {
 
     operator fun get(wiFiDetail: WiFiDetail): BaseSeries<GraphDataPoint> = cache[wiFiDetail]!!
 
-    fun put(wiFiDetail: WiFiDetail, series: BaseSeries<GraphDataPoint>) =
-        cache.put(wiFiDetail, series)
-
+    fun put(
+        wiFiDetail: WiFiDetail,
+        series: BaseSeries<GraphDataPoint>,
+    ) = cache.put(wiFiDetail, series)
 }

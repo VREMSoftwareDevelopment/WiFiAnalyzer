@@ -26,18 +26,20 @@ class SortByDefaultTest {
     @Test
     fun sortByDefaultUsingSame() {
         // setup
-        val wiFiDetail1 = WiFiDetail(
-            WiFiIdentifier("SSID1", "BSSID1"),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55),
-            WiFiAdditional.EMPTY
-        )
-        val wiFiDetail2 = WiFiDetail(
-            WiFiIdentifier("SSID1", "BSSID1"),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(2432, 2432, WiFiWidth.MHZ_40, -35),
-            WiFiAdditional.EMPTY
-        )
+        val wiFiDetail1 =
+            WiFiDetail(
+                WiFiIdentifier("SSID1", "BSSID1"),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55),
+                WiFiAdditional.EMPTY,
+            )
+        val wiFiDetail2 =
+            WiFiDetail(
+                WiFiIdentifier("SSID1", "BSSID1"),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(2432, 2432, WiFiWidth.MHZ_40, -35),
+                WiFiAdditional.EMPTY,
+            )
         // execute
         val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
@@ -47,18 +49,20 @@ class SortByDefaultTest {
     @Test
     fun sortByDefaultWithDifferentSSID() {
         // setup
-        val wiFiDetail1 = WiFiDetail(
-            WiFiIdentifier("ssid1", "BSSID1"),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55),
-            WiFiAdditional.EMPTY
-        )
-        val wiFiDetail2 = WiFiDetail(
-            WiFiIdentifier("SSID1", "BSSID1"),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55),
-            WiFiAdditional.EMPTY
-        )
+        val wiFiDetail1 =
+            WiFiDetail(
+                WiFiIdentifier("ssid1", "BSSID1"),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55),
+                WiFiAdditional.EMPTY,
+            )
+        val wiFiDetail2 =
+            WiFiDetail(
+                WiFiIdentifier("SSID1", "BSSID1"),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55),
+                WiFiAdditional.EMPTY,
+            )
         // execute
         val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate
@@ -68,18 +72,20 @@ class SortByDefaultTest {
     @Test
     fun sortByDefaultWithDifferentBSSID() {
         // setup
-        val wiFiDetail1 = WiFiDetail(
-            WiFiIdentifier("SSID1", "bssid1"),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55),
-            WiFiAdditional.EMPTY
-        )
-        val wiFiDetail2 = WiFiDetail(
-            WiFiIdentifier("SSID1", "BSSID1"),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55),
-            WiFiAdditional.EMPTY
-        )
+        val wiFiDetail1 =
+            WiFiDetail(
+                WiFiIdentifier("SSID1", "bssid1"),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55),
+                WiFiAdditional.EMPTY,
+            )
+        val wiFiDetail2 =
+            WiFiDetail(
+                WiFiIdentifier("SSID1", "BSSID1"),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55),
+                WiFiAdditional.EMPTY,
+            )
         // execute
         val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
         // validate

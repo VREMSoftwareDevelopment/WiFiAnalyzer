@@ -39,13 +39,15 @@ class MainRobolectricTest {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_WIFI_STATE,
-            Manifest.permission.CHANGE_WIFI_STATE
+            Manifest.permission.CHANGE_WIFI_STATE,
         )
-        activityController = Robolectric.buildActivity(MainActivity::class.java)
-            .create()
-            .start()
-            .resume()
-            .visible()
+        activityController =
+            Robolectric
+                .buildActivity(MainActivity::class.java)
+                .create()
+                .start()
+                .resume()
+                .visible()
         activity = activityController.get()
         Shadows.shadowOf(Looper.getMainLooper()).idle()
     }
@@ -80,12 +82,12 @@ class MainRobolectricTest {
             NavigationMenu.TIME_GRAPH,
             NavigationMenu.ACCESS_POINTS,
             NavigationMenu.CHANNEL_AVAILABLE,
-            NavigationMenu.VENDORS
+            NavigationMenu.VENDORS,
         ).forEach { selectMenuItem(it) }
 
         listOf(
             NavigationMenu.SETTINGS,
-            NavigationMenu.ABOUT
+            NavigationMenu.ABOUT,
         ).forEach { selectMenuItemAndGoBack(it) }
     }
 

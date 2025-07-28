@@ -21,7 +21,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class VendorUtilsTest {
-
     private val macAddressClean = "0023AB"
     private val macAddressShort = "00:23:AB"
     private val macAddressFull = "00:23:AB:8C:DF:10"
@@ -43,5 +42,4 @@ class VendorUtilsTest {
         assertThat("34AF".toMacAddress()).isEqualTo("*34AF*")
         assertThat("34AF0BAC".toMacAddress()).isEqualTo("34:AF:0B")
     }
-
 }

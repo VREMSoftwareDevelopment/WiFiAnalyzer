@@ -24,10 +24,9 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 data class WiFiSignalExtra(
     val is80211mc: Boolean = false,
     val wiFiStandard: WiFiStandard = WiFiStandard.UNKNOWN,
-    val fastRoaming: List<FastRoaming> = listOf()
+    val fastRoaming: List<FastRoaming> = listOf(),
 ) {
-    fun wiFiStandardDisplay(context: Context): String =
-        context.getString(wiFiStandard.fullResource)
+    fun wiFiStandardDisplay(context: Context): String = context.getString(wiFiStandard.fullResource)
 
     fun fastRoamingDisplay(context: Context): String =
         fastRoaming
@@ -46,14 +45,19 @@ data class WiFiSignal(
     val centerFrequency: Int = 0,
     val wiFiWidth: WiFiWidth = WiFiWidth.MHZ_20,
     val level: Int = 0,
-    val extra: WiFiSignalExtra = WiFiSignalExtra.EMPTY
+    val extra: WiFiSignalExtra = WiFiSignalExtra.EMPTY,
 ) {
-
     val wiFiBand: WiFiBand = WiFiBand.find(primaryFrequency)
 
-    val wiFiChannelStart: WiFiChannel get() = wiFiBand.wiFiChannels.wiFiChannelByFrequency(centerFrequency - wiFiWidth.frequencyWidthHalf)
+    val wiFiChannelStart: WiFiChannel get() =
+        wiFiBand.wiFiChannels.wiFiChannelByFrequency(
+            centerFrequency - wiFiWidth.frequencyWidthHalf,
+        )
 
-    val wiFiChannelEnd: WiFiChannel get() = wiFiBand.wiFiChannels.wiFiChannelByFrequency(centerFrequency + wiFiWidth.frequencyWidthHalf)
+    val wiFiChannelEnd: WiFiChannel get() =
+        wiFiBand.wiFiChannels.wiFiChannelByFrequency(
+            centerFrequency + wiFiWidth.frequencyWidthHalf,
+        )
 
     val primaryWiFiChannel: WiFiChannel get() = wiFiBand.wiFiChannels.wiFiChannelByFrequency(primaryFrequency)
 
@@ -63,8 +67,7 @@ data class WiFiSignal(
 
     val distance: String get() = String.format("~%.1fm", calculateDistance(primaryFrequency, level))
 
-    fun inRange(frequency: Int): Boolean =
-        frequency in wiFiChannelStart.frequency..wiFiChannelEnd.frequency
+    fun inRange(frequency: Int): Boolean = frequency in wiFiChannelStart.frequency..wiFiChannelEnd.frequency
 
     fun channelDisplay(): String {
         val primaryChannel: Int = primaryWiFiChannel.channel
@@ -88,5 +91,4 @@ data class WiFiSignal(
 
         val EMPTY = WiFiSignal()
     }
-
 }

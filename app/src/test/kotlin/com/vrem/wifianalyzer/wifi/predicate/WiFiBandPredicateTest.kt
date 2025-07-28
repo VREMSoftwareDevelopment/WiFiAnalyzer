@@ -18,7 +18,11 @@
 package com.vrem.wifianalyzer.wifi.predicate
 
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
@@ -45,7 +49,6 @@ class WiFiBandPredicateTest {
         WiFiDetail(
             WiFiIdentifier("ssid", "bssid"),
             WiFiSecurity("wpa"),
-            WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, 1)
+            WiFiSignal(frequency, frequency, WiFiWidth.MHZ_20, 1),
         )
-
 }

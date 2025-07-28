@@ -18,7 +18,11 @@
 package com.vrem.wifianalyzer.wifi.graphutils
 
 import com.jjoe64.graphview.series.BaseSeries
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
@@ -181,13 +185,12 @@ class SeriesCacheTest {
         assertThat(actual).isEqualTo(wiFiDetails[1])
     }
 
-    private fun makeWiFiDetail(ssid: String): WiFiDetail {
-        return WiFiDetail(
+    private fun makeWiFiDetail(ssid: String): WiFiDetail =
+        WiFiDetail(
             WiFiIdentifier(ssid, "BSSID"),
             WiFiSecurity.EMPTY,
-            WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5)
+            WiFiSignal(100, 100, WiFiWidth.MHZ_20, 5),
         )
-    }
 
     private fun withData(): List<WiFiDetail> {
         val results: MutableList<WiFiDetail> = mutableListOf()
@@ -198,5 +201,4 @@ class SeriesCacheTest {
         }
         return results
     }
-
 }

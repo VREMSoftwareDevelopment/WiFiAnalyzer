@@ -29,22 +29,29 @@ private const val MIN_RSSI = -100
 private const val MAX_RSSI = -55
 private const val QUOTE = "\""
 
-fun calculateDistance(frequency: Int, level: Int): Double =
-    10.0.pow((DISTANCE_MHZ_M - 20 * log10(frequency.toDouble()) + abs(level)) / 20.0)
+fun calculateDistance(
+    frequency: Int,
+    level: Int,
+): Double = 10.0.pow((DISTANCE_MHZ_M - 20 * log10(frequency.toDouble()) + abs(level)) / 20.0)
 
-fun calculateSignalLevel(rssi: Int, numLevels: Int): Int = when {
-    rssi <= MIN_RSSI -> 0
-    rssi >= MAX_RSSI -> numLevels - 1
-    else -> (rssi - MIN_RSSI) * (numLevels - 1) / (MAX_RSSI - MIN_RSSI)
-}
+fun calculateSignalLevel(
+    rssi: Int,
+    numLevels: Int,
+): Int =
+    when {
+        rssi <= MIN_RSSI -> 0
+        rssi >= MAX_RSSI -> numLevels - 1
+        else -> (rssi - MIN_RSSI) * (numLevels - 1) / (MAX_RSSI - MIN_RSSI)
+    }
 
 fun convertSSID(ssid: String): String = ssid.removePrefix(QUOTE).removeSuffix(QUOTE)
 
 fun convertIpV4Address(ipV4Address: Int): String =
     runCatching {
-        val value: Long = when (ByteOrder.LITTLE_ENDIAN) {
-            ByteOrder.nativeOrder() -> Integer.reverseBytes(ipV4Address).toLong()
-            else -> ipV4Address.toLong()
-        }
+        val value: Long =
+            when (ByteOrder.LITTLE_ENDIAN) {
+                ByteOrder.nativeOrder() -> Integer.reverseBytes(ipV4Address).toLong()
+                else -> ipV4Address.toLong()
+            }
         InetAddress.getByAddress(value.toBigInteger().toByteArray()).hostAddress ?: String.EMPTY
     }.getOrDefault(String.EMPTY)

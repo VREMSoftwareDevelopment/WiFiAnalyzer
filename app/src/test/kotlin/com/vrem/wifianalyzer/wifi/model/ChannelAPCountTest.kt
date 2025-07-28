@@ -63,5 +63,4 @@ class ChannelAPCountTest {
         // execute & validate
         assertThat(fixture.compareTo(other)).isEqualTo(-1)
     }
-
 }

@@ -22,7 +22,9 @@ import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 
 @OpenClass
-class ChannelRating(val wiFiDetails: MutableList<WiFiDetail> = mutableListOf()) {
+class ChannelRating(
+    val wiFiDetails: MutableList<WiFiDetail> = mutableListOf(),
+) {
     fun count(wiFiChannel: WiFiChannel): Int = collectOverlapping(wiFiChannel).size
 
     fun strength(wiFiChannel: WiFiChannel): Strength =
@@ -30,7 +32,7 @@ class ChannelRating(val wiFiDetails: MutableList<WiFiDetail> = mutableListOf()) 
             collectOverlapping(wiFiChannel)
                 .filter { !it.wiFiAdditional.wiFiConnection.connected }
                 .map { it.wiFiSignal.strength.ordinal }
-                .maxByOrNull { it } ?: Strength.ZERO.ordinal
+                .maxByOrNull { it } ?: Strength.ZERO.ordinal,
         ]
 
     fun wiFiDetails(newWiFiDetails: List<WiFiDetail>) {
@@ -38,7 +40,10 @@ class ChannelRating(val wiFiDetails: MutableList<WiFiDetail> = mutableListOf()) 
         wiFiDetails.addAll(removeSame(newWiFiDetails))
     }
 
-    fun bestChannels(wiFiBand: WiFiBand, wiFiChannels: List<WiFiChannel>): List<ChannelAPCount> =
+    fun bestChannels(
+        wiFiBand: WiFiBand,
+        wiFiChannels: List<WiFiChannel>,
+    ): List<ChannelAPCount> =
         wiFiChannels
             .filter { bestChannel(it) }
             .map { ChannelAPCount(it, wiFiBand.wiFiChannels.wiFiWidthByChannel(it.channel), count(it)) }
@@ -54,5 +59,4 @@ class ChannelRating(val wiFiDetails: MutableList<WiFiDetail> = mutableListOf()) 
         val strength: Strength = strength(wiFiChannel)
         return Strength.ZERO == strength || Strength.ONE == strength
     }
-
 }

@@ -27,7 +27,7 @@ class ThemeStyleTest {
     fun themeStyle() {
         assertThat(ThemeStyle.entries)
             .hasSize(4)
-            .containsExactly(ThemeStyle.DARK,ThemeStyle.LIGHT,ThemeStyle.SYSTEM,ThemeStyle.BLACK)
+            .containsExactly(ThemeStyle.DARK, ThemeStyle.LIGHT, ThemeStyle.SYSTEM, ThemeStyle.BLACK)
     }
 
     @Test
@@ -61,5 +61,4 @@ class ThemeStyleTest {
         assertThat(ThemeStyle.SYSTEM.ordinal).isEqualTo(2)
         assertThat(ThemeStyle.BLACK.ordinal).isEqualTo(3)
     }
-
 }

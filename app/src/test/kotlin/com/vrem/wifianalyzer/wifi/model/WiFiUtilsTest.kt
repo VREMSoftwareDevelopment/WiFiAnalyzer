@@ -32,7 +32,11 @@ class WiFiUtilsTest {
         validate(2412, -91, "350.85")
     }
 
-    private fun validate(frequency: Int, level: Int, expected: String) {
+    private fun validate(
+        frequency: Int,
+        level: Int,
+        expected: String,
+    ) {
         assertThat(decimalFormat.format(calculateDistance(frequency, level))).isEqualTo(expected)
     }
 

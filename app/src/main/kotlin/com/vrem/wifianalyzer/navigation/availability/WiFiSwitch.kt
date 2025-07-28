@@ -29,7 +29,10 @@ internal val navigationOptionWiFiSwitchOn: NavigationOption = {
     updateMenuItem(it, true)
 }
 
-private fun updateMenuItem(mainActivity: MainActivity, visible: Boolean) {
+private fun updateMenuItem(
+    mainActivity: MainActivity,
+    visible: Boolean,
+) {
     mainActivity.optionMenu.menu?.let {
         val menuItem = it.findItem(R.id.action_wifi_band)
         menuItem.isVisible = visible
@@ -40,4 +43,3 @@ private fun updateMenuItem(mainActivity: MainActivity, visible: Boolean) {
         }
     }
 }
-

@@ -23,9 +23,15 @@ import com.vrem.annotation.OpenClass
 import com.vrem.util.ssid
 import com.vrem.wifianalyzer.MainContext
 
-internal class CacheResult(val scanResult: ScanResult, val average: Int)
+internal class CacheResult(
+    val scanResult: ScanResult,
+    val average: Int,
+)
 
-internal data class CacheKey(val bssid: String, val ssid: String)
+internal data class CacheKey(
+    val bssid: String,
+    val ssid: String,
+)
 
 @OpenClass
 internal class Cache {
@@ -38,8 +44,7 @@ internal class Cache {
             .groupingBy { CacheKey(it.BSSID, it.ssid()) }
             .aggregate { _, accumulator: CacheResult?, element, first ->
                 CacheResult(element, calculate(first, element, accumulator))
-            }
-            .values
+            }.values
             .toList()
 
     fun add(scanResults: List<ScanResult>) {
@@ -58,9 +63,9 @@ internal class Cache {
     fun size(): Int =
         if (sizeAvailable) {
             val settings = MainContext.INSTANCE.settings
-            if (settings.cacheOff())
+            if (settings.cacheOff()) {
                 MINIMUM
-            else {
+            } else {
                 with(settings.scanSpeed()) {
                     when {
                         this < 2 -> MAXIMUM
@@ -70,9 +75,15 @@ internal class Cache {
                     }
                 }
             }
-        } else MINIMUM
+        } else {
+            MINIMUM
+        }
 
-    private fun calculate(first: Boolean, element: ScanResult, accumulator: CacheResult?): Int {
+    private fun calculate(
+        first: Boolean,
+        element: ScanResult,
+        accumulator: CacheResult?,
+    ): Int {
         val average: Int = if (first) element.level else (accumulator!!.average + element.level) / DENOMINATOR
         return (if (sizeAvailable) average else average - SIZE * (count + count % FACTOR) / DENOMINATOR)
             .coerceIn(LEVEL_MINIMUM, LEVEL_MAXIMUM)
@@ -80,7 +91,10 @@ internal class Cache {
 
     private fun combineCache(): List<ScanResult> = scanResults.flatten().sortedWith(comparator())
 
-    private fun comparator(): Comparator<ScanResult> = compareBy<ScanResult> { it.BSSID }.thenBy { it.ssid() }.thenBy { it.level }
+    private fun comparator(): Comparator<ScanResult> =
+        compareBy<ScanResult> {
+            it.BSSID
+        }.thenBy { it.ssid() }.thenBy { it.level }
 
     private val sizeAvailable: Boolean get() = MainContext.INSTANCE.configuration.sizeAvailable
 

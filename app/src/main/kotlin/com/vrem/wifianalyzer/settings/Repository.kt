@@ -24,21 +24,34 @@ import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.vrem.wifianalyzer.R
 
-class Repository(private val context: Context) {
-
+class Repository(
+    private val context: Context,
+) {
     fun initializeDefaultValues(): Unit = defaultValues(context, R.xml.settings, false)
 
-    fun registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener): Unit =
-        sharedPreferences().registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
+    fun registerOnSharedPreferenceChangeListener(
+        onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener,
+    ): Unit = sharedPreferences().registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
 
-    fun save(key: Int, value: Int): Unit = save(key, value.toString())
+    fun save(
+        key: Int,
+        value: Int,
+    ): Unit = save(key, value.toString())
 
-    fun save(key: Int, value: String): Unit = sharedPreferences().edit { putString(context.getString(key), value) }
+    fun save(
+        key: Int,
+        value: String,
+    ): Unit = sharedPreferences().edit { putString(context.getString(key), value) }
 
-    fun stringAsInteger(key: Int, defaultValue: Int): Int =
-        string(key, defaultValue.toString()).toInt()
+    fun stringAsInteger(
+        key: Int,
+        defaultValue: Int,
+    ): Int = string(key, defaultValue.toString()).toInt()
 
-    fun string(key: Int, defaultValue: String): String {
+    fun string(
+        key: Int,
+        defaultValue: String,
+    ): String {
         val keyValue: String = context.getString(key)
         return runCatching {
             sharedPreferences().getString(keyValue, defaultValue) ?: defaultValue
@@ -48,7 +61,10 @@ class Repository(private val context: Context) {
         }
     }
 
-    fun boolean(key: Int, defaultValue: Boolean): Boolean {
+    fun boolean(
+        key: Int,
+        defaultValue: Boolean,
+    ): Boolean {
         val keyValue: String = context.getString(key)
         return runCatching {
             sharedPreferences().getBoolean(keyValue, defaultValue)
@@ -60,7 +76,10 @@ class Repository(private val context: Context) {
 
     fun resourceBoolean(key: Int): Boolean = context.resources.getBoolean(key)
 
-    fun integer(key: Int, defaultValue: Int): Int {
+    fun integer(
+        key: Int,
+        defaultValue: Int,
+    ): Int {
         val keyValue: String = context.getString(key)
         return runCatching {
             sharedPreferences().getInt(keyValue, defaultValue)
@@ -70,7 +89,10 @@ class Repository(private val context: Context) {
         }
     }
 
-    fun stringSet(key: Int, defaultValues: Set<String>): Set<String> {
+    fun stringSet(
+        key: Int,
+        defaultValues: Set<String>,
+    ): Set<String> {
         val keyValue: String = context.getString(key)
         return runCatching {
             sharedPreferences().getStringSet(keyValue, defaultValues)!!
@@ -78,18 +100,21 @@ class Repository(private val context: Context) {
             sharedPreferences().edit { putStringSet(keyValue, defaultValues) }
             return defaultValues
         }
-
     }
 
-    fun saveStringSet(key: Int, values: Set<String>): Unit =
-        sharedPreferences().edit { putStringSet(context.getString(key), values) }
+    fun saveStringSet(
+        key: Int,
+        values: Set<String>,
+    ): Unit = sharedPreferences().edit { putStringSet(context.getString(key), values) }
 
-    fun defaultValues(context: Context, resId: Int, readAgain: Boolean): Unit =
-        PreferenceManager.setDefaultValues(context, resId, readAgain)
+    fun defaultValues(
+        context: Context,
+        resId: Int,
+        readAgain: Boolean,
+    ): Unit = PreferenceManager.setDefaultValues(context, resId, readAgain)
 
     fun defaultSharedPreferences(context: Context): SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(context)
 
     private fun sharedPreferences(): SharedPreferences = defaultSharedPreferences(context)
-
 }

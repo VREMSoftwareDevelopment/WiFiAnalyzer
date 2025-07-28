@@ -28,8 +28,11 @@ import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.databinding.VendorContentBinding
 
 class VendorFragment : ListFragment() {
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
         val binding: VendorContentBinding = VendorContentBinding.inflate(inflater, container, false)
         val vendorAdapter = VendorAdapter(requireActivity(), MainContext.INSTANCE.vendorService)
         listAdapter = vendorAdapter
@@ -37,13 +40,14 @@ class VendorFragment : ListFragment() {
         return binding.root
     }
 
-    internal class Listener(private val vendorAdapter: VendorAdapter) : SearchView.OnQueryTextListener {
+    internal class Listener(
+        private val vendorAdapter: VendorAdapter,
+    ) : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String): Boolean = false
 
         override fun onQueryTextChange(newText: String): Boolean {
             vendorAdapter.update(newText.specialTrim())
             return true
         }
-
     }
 }

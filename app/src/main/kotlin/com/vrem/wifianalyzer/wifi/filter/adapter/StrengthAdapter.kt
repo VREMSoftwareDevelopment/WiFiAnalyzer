@@ -21,10 +21,11 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.model.Strength
 
-class StrengthAdapter(selections: Set<Strength>) : EnumFilterAdapter<Strength>(selections, Strength.entries) {
+class StrengthAdapter(
+    selections: Set<Strength>,
+) : EnumFilterAdapter<Strength>(selections, Strength.entries) {
     override fun color(selection: Strength): Int =
         if (selections.contains(selection)) selection.colorResource else R.color.regular
 
-    override fun save(settings: Settings): Unit =
-        settings.saveStrengths(selections)
+    override fun save(settings: Settings): Unit = settings.saveStrengths(selections)
 }

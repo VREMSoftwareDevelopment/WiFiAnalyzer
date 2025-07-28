@@ -22,7 +22,11 @@ import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.settings.Settings
 
 @OpenClass
-internal class PeriodicScan(private val scanner: ScannerService, private val handler: Handler, private val settings: Settings) : Runnable {
+internal class PeriodicScan(
+    private val scanner: ScannerService,
+    private val handler: Handler,
+    private val settings: Settings,
+) : Runnable {
     internal var running = false
 
     fun stop() {

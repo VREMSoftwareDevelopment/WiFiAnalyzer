@@ -26,14 +26,19 @@ import com.vrem.wifianalyzer.R
 
 typealias WiFiStandardId = Int
 
-enum class WiFiStandard(val wiFiStandardId: WiFiStandardId, @StringRes val fullResource: Int, @StringRes val valueResource: Int) {
+enum class WiFiStandard(
+    val wiFiStandardId: WiFiStandardId,
+    @StringRes val fullResource: Int,
+    @StringRes val valueResource: Int,
+) {
     UNKNOWN(0, R.string.wifi_standard_unknown, R.string.wifi_standard_unknown),
     LEGACY(1, R.string.wifi_standard_legacy, R.string.wifi_standard_unknown),
     N(4, R.string.wifi_standard_n, R.string.wifi_standard_value_n),
     AC(5, R.string.wifi_standard_ac, R.string.wifi_standard_value_ac),
     AX(6, R.string.wifi_standard_ax, R.string.wifi_standard_value_ax),
     AD(7, R.string.wifi_standard_ad, R.string.wifi_standard_unknown),
-    BE(8, R.string.wifi_standard_be, R.string.wifi_standard_value_be);
+    BE(8, R.string.wifi_standard_be, R.string.wifi_standard_value_be),
+    ;
 
     companion object {
         fun findOne(scanResult: ScanResult): WiFiStandard =

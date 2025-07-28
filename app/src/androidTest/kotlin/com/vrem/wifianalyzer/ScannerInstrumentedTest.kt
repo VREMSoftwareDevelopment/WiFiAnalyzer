@@ -19,7 +19,9 @@ package com.vrem.wifianalyzer
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.vrem.wifianalyzer.R.id.action_scanner
 import org.hamcrest.Matchers.allOf
 
@@ -27,10 +29,8 @@ private const val PAUSE = "Pause"
 private const val PLAY = "Play"
 
 internal class ScannerInstrumentedTest : Runnable {
-
     override fun run() {
         onView(allOf(withId(action_scanner), withContentDescription(PAUSE), isDisplayed())).perform(click())
         onView(allOf(withId(action_scanner), withContentDescription(PLAY), isDisplayed())).perform(click())
     }
-
 }

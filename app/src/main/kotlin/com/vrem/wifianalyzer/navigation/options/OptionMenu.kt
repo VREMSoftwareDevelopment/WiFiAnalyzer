@@ -29,7 +29,10 @@ import com.vrem.wifianalyzer.R
 class OptionMenu {
     var menu: Menu? = null
 
-    fun create(activity: Activity, menu: Menu) {
+    fun create(
+        activity: Activity,
+        menu: Menu,
+    ) {
         activity.menuInflater.inflate(R.menu.optionmenu, menu)
         this.menu = menu
         iconsVisible(menu)
@@ -40,5 +43,4 @@ class OptionMenu {
     @SuppressLint("RestrictedApi")
     private fun iconsVisible(menu: Menu): Result<Unit> =
         runCatching { (menu as MenuBuilder).setOptionalIconsVisible(true) }
-
 }

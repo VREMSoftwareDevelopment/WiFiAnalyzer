@@ -45,9 +45,18 @@ class WiFiBandTest {
 
     @Test
     fun available() {
-        assertThat(WiFiBand.GHZ2.available.javaClass.isInstance(availableGHZ2)).isTrue
-        assertThat(WiFiBand.GHZ5.available.javaClass.isInstance(availableGHZ5)).isTrue
-        assertThat(WiFiBand.GHZ6.available.javaClass.isInstance(availableGHZ6)).isTrue
+        assertThat(
+            WiFiBand.GHZ2.available.javaClass
+                .isInstance(availableGHZ2),
+        ).isTrue
+        assertThat(
+            WiFiBand.GHZ5.available.javaClass
+                .isInstance(availableGHZ5),
+        ).isTrue
+        assertThat(
+            WiFiBand.GHZ6.available.javaClass
+                .isInstance(availableGHZ6),
+        ).isTrue
     }
 
     @Test
@@ -145,5 +154,4 @@ class WiFiBandTest {
         assertThat(actual).isTrue
         verify(wiFiManagerWrapper).is6GHzBandSupported()
     }
-
 }

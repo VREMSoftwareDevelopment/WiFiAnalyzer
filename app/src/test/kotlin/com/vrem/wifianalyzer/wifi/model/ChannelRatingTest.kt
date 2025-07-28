@@ -26,35 +26,40 @@ import java.util.Locale
 
 class ChannelRatingTest {
     private val wiFiWidth = WiFiWidth.MHZ_20
-    private val wiFiConnection = WiFiConnection(
-        WiFiIdentifier("ssid1", "20:CF:30:CE:1D:71"),
-        "192.168.1.15",
-        11
-    )
-    private val wiFiDetail1 = WiFiDetail(
-        WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
-        WiFiSecurity.EMPTY,
-        WiFiSignal(2432, 2432, wiFiWidth, -50),
-        WiFiAdditional(String.EMPTY, wiFiConnection)
-    )
-    private val wiFiDetail2 = WiFiDetail(
-        WiFiIdentifier("SSID2", "58:6d:8f:fa:ae:c0"),
-        WiFiSecurity.EMPTY,
-        WiFiSignal(2442, 2442, wiFiWidth, -70),
-        WiFiAdditional.EMPTY
-    )
-    private val wiFiDetail3 = WiFiDetail(
-        WiFiIdentifier("SSID3", "84:94:8c:9d:40:68"),
-        WiFiSecurity.EMPTY,
-        WiFiSignal(2452, 2452, wiFiWidth, -60),
-        WiFiAdditional.EMPTY
-    )
-    private val wiFiDetail4 = WiFiDetail(
-        WiFiIdentifier("SSID3", "64:A4:8c:90:10:12"),
-        WiFiSecurity.EMPTY,
-        WiFiSignal(2452, 2452, wiFiWidth, -80),
-        WiFiAdditional.EMPTY
-    )
+    private val wiFiConnection =
+        WiFiConnection(
+            WiFiIdentifier("ssid1", "20:CF:30:CE:1D:71"),
+            "192.168.1.15",
+            11,
+        )
+    private val wiFiDetail1 =
+        WiFiDetail(
+            WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
+            WiFiSecurity.EMPTY,
+            WiFiSignal(2432, 2432, wiFiWidth, -50),
+            WiFiAdditional(String.EMPTY, wiFiConnection),
+        )
+    private val wiFiDetail2 =
+        WiFiDetail(
+            WiFiIdentifier("SSID2", "58:6d:8f:fa:ae:c0"),
+            WiFiSecurity.EMPTY,
+            WiFiSignal(2442, 2442, wiFiWidth, -70),
+            WiFiAdditional.EMPTY,
+        )
+    private val wiFiDetail3 =
+        WiFiDetail(
+            WiFiIdentifier("SSID3", "84:94:8c:9d:40:68"),
+            WiFiSecurity.EMPTY,
+            WiFiSignal(2452, 2452, wiFiWidth, -60),
+            WiFiAdditional.EMPTY,
+        )
+    private val wiFiDetail4 =
+        WiFiDetail(
+            WiFiIdentifier("SSID3", "64:A4:8c:90:10:12"),
+            WiFiSecurity.EMPTY,
+            WiFiSignal(2452, 2452, wiFiWidth, -80),
+            WiFiAdditional.EMPTY,
+        )
 
     private val fixture = ChannelRating()
 
@@ -138,19 +143,23 @@ class ChannelRatingTest {
     @Test
     fun setWiFiChannelsRemovesDuplicateAccessPoints() {
         // setup
-        val wiFiDetail = WiFiDetail(
-            WiFiIdentifier("SSID2", "22:cf:30:ce:1d:72"),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(2432, 2432, wiFiWidth, wiFiDetail1.wiFiSignal.level - 5),
-            WiFiAdditional.EMPTY
-        )
+        val wiFiDetail =
+            WiFiDetail(
+                WiFiIdentifier("SSID2", "22:cf:30:ce:1d:72"),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(2432, 2432, wiFiWidth, wiFiDetail1.wiFiSignal.level - 5),
+                WiFiAdditional.EMPTY,
+            )
         // execute
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail))
         // validate
         assertThat(fixture.wiFiDetails).hasSize(1).contains(wiFiDetail1)
     }
 
-    private fun validateCount(expected: Int, wiFiChannel: WiFiChannel) {
+    private fun validateCount(
+        expected: Int,
+        wiFiChannel: WiFiChannel,
+    ) {
         assertThat(fixture.count(wiFiChannel)).isEqualTo(expected)
     }
 
@@ -160,14 +169,14 @@ class ChannelRatingTest {
             WiFiIdentifier("SSID2-OTHER", "BSSID-OTHER"),
             WiFiSecurity.EMPTY,
             WiFiSignal(wiFiSignal.primaryFrequency, wiFiSignal.centerFrequency, wiFiSignal.wiFiWidth, -80),
-            WiFiAdditional.EMPTY
+            WiFiAdditional.EMPTY,
         )
     }
 
     private fun validateChannelAPCount(
         expectedChannel: Int,
         expectedCount: Int,
-        channelAPCount: ChannelAPCount
+        channelAPCount: ChannelAPCount,
     ) {
         assertThat(channelAPCount.wiFiChannel.channel).isEqualTo(expectedChannel)
         assertThat(channelAPCount.wiFiWidth).isEqualTo(wiFiWidth)

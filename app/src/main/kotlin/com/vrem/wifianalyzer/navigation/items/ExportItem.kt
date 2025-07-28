@@ -26,10 +26,17 @@ import com.vrem.wifianalyzer.export.Export
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
-internal class ExportItem(private val export: Export) : NavigationItem {
-
-    override fun activate(mainActivity: MainActivity, navigationMenu: NavigationMenu) {
-        val wiFiDetails: List<WiFiDetail> = MainContext.INSTANCE.scannerService.wiFiData().wiFiDetails
+internal class ExportItem(
+    private val export: Export,
+) : NavigationItem {
+    override fun activate(
+        mainActivity: MainActivity,
+        navigationMenu: NavigationMenu,
+    ) {
+        val wiFiDetails: List<WiFiDetail> =
+            MainContext.INSTANCE.scannerService
+                .wiFiData()
+                .wiFiDetails
         if (wiFiDetails.isEmpty()) {
             Toast.makeText(mainActivity, R.string.no_data, Toast.LENGTH_LONG).show()
             return
@@ -41,12 +48,14 @@ internal class ExportItem(private val export: Export) : NavigationItem {
         }
         runCatching { mainActivity.startActivity(intent) }
             .getOrElse {
-                Toast.makeText(mainActivity, it.localizedMessage, Toast.LENGTH_LONG)
+                Toast
+                    .makeText(mainActivity, it.localizedMessage, Toast.LENGTH_LONG)
                     .show()
             }
     }
 
-    private fun exportAvailable(mainActivity: MainActivity, chooser: Intent): Boolean =
-        chooser.resolveActivity(mainActivity.packageManager) != null
-
+    private fun exportAvailable(
+        mainActivity: MainActivity,
+        chooser: Intent,
+    ): Boolean = chooser.resolveActivity(mainActivity.packageManager) != null
 }

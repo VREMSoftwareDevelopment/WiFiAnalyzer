@@ -23,7 +23,10 @@ import com.vrem.wifianalyzer.R
 
 private fun String.toColor(): Long = this.substring(1).toLong(16)
 
-data class GraphColor(val primary: Long, val background: Long)
+data class GraphColor(
+    val primary: Long,
+    val background: Long,
+)
 
 internal val transparent = GraphColor(0x009E9E9E, 0x009E9E9E)
 
@@ -34,12 +37,14 @@ class GraphColors {
 
     private fun availableGraphColors(): List<GraphColor> {
         if (availableGraphColors.isEmpty()) {
-            val colors = MainContext.INSTANCE.resources.getStringArray(R.array.graph_colors)
-                .filterNotNull()
-                .withIndex()
-                .groupBy { it.index / 2 }
-                .map { GraphColor(it.value[0].value.toColor(), it.value[1].value.toColor()) }
-                .reversed()
+            val colors =
+                MainContext.INSTANCE.resources
+                    .getStringArray(R.array.graph_colors)
+                    .filterNotNull()
+                    .withIndex()
+                    .groupBy { it.index / 2 }
+                    .map { GraphColor(it.value[0].value.toColor(), it.value[1].value.toColor()) }
+                    .reversed()
             availableGraphColors.addAll(colors)
         }
         return availableGraphColors
@@ -59,7 +64,4 @@ class GraphColors {
             }
         }
     }
-
 }
-
-

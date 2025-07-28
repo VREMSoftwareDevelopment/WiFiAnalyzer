@@ -21,12 +21,16 @@ import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.settings.Settings
 
 @OpenClass
-abstract class BasicFilterAdapter<T>(var selections: Set<T>) {
+abstract class BasicFilterAdapter<T>(
+    var selections: Set<T>,
+) {
     fun selections(selections: Set<T>) {
         this.selections = selections
     }
 
     abstract fun isActive(): Boolean
+
     abstract fun reset()
+
     abstract fun save(settings: Settings)
 }

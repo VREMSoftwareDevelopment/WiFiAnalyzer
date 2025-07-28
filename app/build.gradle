@@ -21,6 +21,7 @@ plugins {
     id "kotlin-android"
     id "kotlin-allopen"
     id "jacoco"
+    id "org.jlleitschuh.gradle.ktlint" version "13.0.0"
 }
 
 apply {

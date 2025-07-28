@@ -22,5 +22,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiData
 
 interface GraphViewNotifier {
     fun graphView(): GraphView
+
     fun update(wiFiData: WiFiData)
 }

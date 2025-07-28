@@ -112,5 +112,4 @@ class WiFiIdentifierTest {
         assertThat(other).isEqualTo(fixture)
         assertThat(other).isNotSameAs(fixture)
     }
-
 }

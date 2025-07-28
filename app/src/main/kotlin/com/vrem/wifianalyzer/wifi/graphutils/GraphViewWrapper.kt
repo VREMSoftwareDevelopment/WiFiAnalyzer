@@ -38,9 +38,8 @@ class GraphViewWrapper(
     var graphLegend: GraphLegend,
     private val themeStyle: ThemeStyle,
     private val seriesCache: SeriesCache = SeriesCache(),
-    private val seriesOptions: SeriesOptions = SeriesOptions()
+    private val seriesOptions: SeriesOptions = SeriesOptions(),
 ) {
-
     fun removeSeries(newSeries: Set<WiFiDetail>): Unit =
         seriesCache.remove(differenceSeries(newSeries)).forEach {
             seriesOptions.removeSeriesColor(it)
@@ -49,7 +48,11 @@ class GraphViewWrapper(
 
     fun differenceSeries(newSeries: Set<WiFiDetail>): List<WiFiDetail> = seriesCache.difference(newSeries)
 
-    fun addSeries(wiFiDetail: WiFiDetail, series: BaseSeries<GraphDataPoint>, drawBackground: Boolean): Boolean =
+    fun addSeries(
+        wiFiDetail: WiFiDetail,
+        series: BaseSeries<GraphDataPoint>,
+        drawBackground: Boolean,
+    ): Boolean =
         if (seriesExists(wiFiDetail)) {
             false
         } else {
@@ -63,7 +66,11 @@ class GraphViewWrapper(
             true
         }
 
-    fun updateSeries(wiFiDetail: WiFiDetail, data: Array<GraphDataPoint>, drawBackground: Boolean): Boolean =
+    fun updateSeries(
+        wiFiDetail: WiFiDetail,
+        data: Array<GraphDataPoint>,
+        drawBackground: Boolean,
+    ): Boolean =
         if (seriesExists(wiFiDetail)) {
             val series = seriesCache[wiFiDetail]
             series.resetData(data)
@@ -75,7 +82,12 @@ class GraphViewWrapper(
             false
         }
 
-    fun appendToSeries(wiFiDetail: WiFiDetail, data: GraphDataPoint, count: Int, drawBackground: Boolean): Boolean =
+    fun appendToSeries(
+        wiFiDetail: WiFiDetail,
+        data: GraphDataPoint,
+        count: Int,
+        drawBackground: Boolean,
+    ): Boolean =
         if (seriesExists(wiFiDetail)) {
             val series = seriesCache[wiFiDetail]
             series.appendData(data, true, count + 1)
@@ -94,7 +106,10 @@ class GraphViewWrapper(
         viewport.setMaxX(viewportCntX.toDouble())
     }
 
-    fun setViewport(minX: Int, maxX: Int) {
+    fun setViewport(
+        minX: Int,
+        maxX: Int,
+    ) {
         val viewport = graphView.viewport
         viewport.setMinX(minX.toDouble())
         viewport.setMaxX(maxX.toDouble())
@@ -119,7 +134,10 @@ class GraphViewWrapper(
     fun calculateGraphType(): Int =
         runCatching {
             with(MessageDigest.getInstance("MD5")) {
-                update(MainContext.INSTANCE.mainActivity.packageName.toByteArray())
+                update(
+                    MainContext.INSTANCE.mainActivity.packageName
+                        .toByteArray(),
+                )
                 val digest: ByteArray = digest()
                 digest.contentHashCode()
             }
@@ -133,8 +151,7 @@ class GraphViewWrapper(
         graphView.visibility = visibility
     }
 
-    fun size(value: Int): Int =
-        if (value == TYPE1 || value == TYPE2 || value == TYPE3) SIZE_MAX else SIZE_MIN
+    fun size(value: Int): Int = if (value == TYPE1 || value == TYPE2 || value == TYPE3) SIZE_MAX else SIZE_MIN
 
     fun newLegendRenderer(): LegendRenderer = LegendRenderer(graphView)
 
@@ -149,10 +166,9 @@ class GraphViewWrapper(
 
     private fun popup(series: Series<DataPointInterface>) {
         seriesCache.find(series).let {
-           runCatching {
-               AccessPointPopup().show(AccessPointDetail().makeViewDetailed(it))
-           }
+            runCatching {
+                AccessPointPopup().show(AccessPointDetail().makeViewDetailed(it))
+            }
         }
     }
-
 }

@@ -28,7 +28,7 @@ internal class Scanner(
     val wiFiManagerWrapper: WiFiManagerWrapper,
     val settings: Settings,
     val permissionService: PermissionService,
-    val transformer: Transformer
+    val transformer: Transformer,
 ) : ScannerService {
     private val updateNotifiers: MutableList<UpdateNotifier> = mutableListOf()
 
@@ -87,5 +87,4 @@ internal class Scanner(
         }
 
     fun registered(): Int = updateNotifiers.size
-
 }

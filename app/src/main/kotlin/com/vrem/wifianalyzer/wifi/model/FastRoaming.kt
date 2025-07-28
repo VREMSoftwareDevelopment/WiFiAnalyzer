@@ -32,8 +32,10 @@ internal const val BSS_TRANSITION_IDX = 2
 internal const val BSS_TRANSITION_BIT = 3
 internal const val MOBILE_DOMAIN_IE = 54
 
-private fun ByteBuffer.contains(idx: Int, bit: Int): Boolean =
-    this[idx].toInt().and(1 shl bit) == (1 shl bit)
+private fun ByteBuffer.contains(
+    idx: Int,
+    bit: Int,
+): Boolean = this[idx].toInt().and(1 shl bit) == (1 shl bit)
 
 typealias Available = (id: Int, bytes: ByteBuffer) -> Boolean
 
@@ -49,10 +51,14 @@ private val available802_11v: Available = { id: Int, bytes: ByteBuffer ->
         bytes.contains(BSS_TRANSITION_IDX, BSS_TRANSITION_BIT)
 }
 
-enum class FastRoaming(val textResource: Int, val available: Available) {
+enum class FastRoaming(
+    val textResource: Int,
+    val available: Available,
+) {
     FR_802_11K(R.string.fast_roaming_k, available802_11k),
     FR_802_11R(R.string.fast_roaming_r, available802_11r),
-    FR_802_11V(R.string.fast_roaming_v, available802_11v);
+    FR_802_11V(R.string.fast_roaming_v, available802_11v),
+    ;
 
     companion object {
         fun find(scanResult: ScanResult): List<FastRoaming> =
@@ -70,7 +76,6 @@ enum class FastRoaming(val textResource: Int, val available: Available) {
                         runCatching { fastRoaming.available(it.id, it.bytes) }
                             .getOrDefault(false)
                     }
-                }
-                .toList()
+                }.toList()
     }
 }

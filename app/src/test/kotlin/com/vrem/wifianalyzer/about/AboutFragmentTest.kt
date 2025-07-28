@@ -131,16 +131,30 @@ class AboutFragmentTest {
 
     @Test
     fun deviceInformation() {
-        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_throttling_on).visibility).isEqualTo(View.GONE)
-        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_throttling_off).visibility).isEqualTo(View.VISIBLE)
+        assertThat(
+            fixture.requireView().findViewById<TextView>(R.id.about_wifi_throttling_on).visibility,
+        ).isEqualTo(View.GONE)
+        assertThat(
+            fixture.requireView().findViewById<TextView>(R.id.about_wifi_throttling_off).visibility,
+        ).isEqualTo(View.VISIBLE)
 
-        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_2ghz_success).visibility).isEqualTo(View.VISIBLE)
+        assertThat(
+            fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_2ghz_success).visibility,
+        ).isEqualTo(View.VISIBLE)
 
-        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_5ghz_success).visibility).isEqualTo(View.GONE)
-        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_5ghz_fails).visibility).isEqualTo(View.VISIBLE)
+        assertThat(
+            fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_5ghz_success).visibility,
+        ).isEqualTo(View.GONE)
+        assertThat(
+            fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_5ghz_fails).visibility,
+        ).isEqualTo(View.VISIBLE)
 
-        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_6ghz_success).visibility).isEqualTo(View.GONE)
-        assertThat(fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_6ghz_fails).visibility).isEqualTo(View.VISIBLE)
+        assertThat(
+            fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_6ghz_success).visibility,
+        ).isEqualTo(View.GONE)
+        assertThat(
+            fixture.requireView().findViewById<TextView>(R.id.about_wifi_band_6ghz_fails).visibility,
+        ).isEqualTo(View.VISIBLE)
     }
 
     @Test
@@ -166,7 +180,11 @@ class AboutFragmentTest {
         return packageInfo.versionName + " - " + packageInfo.longVersionCode
     }
 
-    private fun validateAlertDialogClickListener(viewId: Int, titleId: Int, messageId: Int) {
+    private fun validateAlertDialogClickListener(
+        viewId: Int,
+        titleId: Int,
+        messageId: Int,
+    ) {
         // setup
         val view = fixture.view!!.findViewById<View>(viewId)
         val expectedTitle = fixture.requireActivity().applicationContext.getString(titleId)

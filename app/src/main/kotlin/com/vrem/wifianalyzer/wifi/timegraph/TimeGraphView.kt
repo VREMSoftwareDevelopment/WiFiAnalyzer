@@ -34,7 +34,11 @@ import com.vrem.wifianalyzer.wifi.predicate.makeOtherPredicate
 
 private const val NUM_X_TIME = 21
 
-internal fun makeGraphView(mainContext: MainContext, graphMaximumY: Int, themeStyle: ThemeStyle): GraphView =
+internal fun makeGraphView(
+    mainContext: MainContext,
+    graphMaximumY: Int,
+    themeStyle: ThemeStyle,
+): GraphView =
     GraphViewBuilder(NUM_X_TIME, graphMaximumY, themeStyle, false)
         .setLabelFormatter(TimeAxisLabel())
         .setVerticalTitle(mainContext.resources.getString(R.string.graph_axis_y))
@@ -56,13 +60,17 @@ internal fun makeGraphViewWrapper(): GraphViewWrapper {
 internal class TimeGraphView(
     private val wiFiBand: WiFiBand,
     private val dataManager: DataManager = DataManager(),
-    private val graphViewWrapper: GraphViewWrapper = makeGraphViewWrapper()
+    private val graphViewWrapper: GraphViewWrapper = makeGraphViewWrapper(),
 ) : GraphViewNotifier {
-
     override fun update(wiFiData: WiFiData) {
         val predicate = predicate(MainContext.INSTANCE.settings)
         val wiFiDetails = wiFiData.wiFiDetails(predicate, MainContext.INSTANCE.settings.sortBy())
-        val newSeries = dataManager.addSeriesData(graphViewWrapper, wiFiDetails, MainContext.INSTANCE.settings.graphMaximumY())
+        val newSeries =
+            dataManager.addSeriesData(
+                graphViewWrapper,
+                wiFiDetails,
+                MainContext.INSTANCE.settings.graphMaximumY(),
+            )
         graphViewWrapper.removeSeries(newSeries)
         graphViewWrapper.updateLegend(MainContext.INSTANCE.settings.timeGraphLegend())
         graphViewWrapper.visibility(if (selected()) View.VISIBLE else View.GONE)
@@ -70,12 +78,7 @@ internal class TimeGraphView(
 
     fun predicate(settings: Settings): Predicate = makeOtherPredicate(settings)
 
-    private fun selected(): Boolean {
-        return wiFiBand == MainContext.INSTANCE.settings.wiFiBand()
-    }
+    private fun selected(): Boolean = wiFiBand == MainContext.INSTANCE.settings.wiFiBand()
 
-    override fun graphView(): GraphView {
-        return graphViewWrapper.graphView
-    }
-
+    override fun graphView(): GraphView = graphViewWrapper.graphView
 }

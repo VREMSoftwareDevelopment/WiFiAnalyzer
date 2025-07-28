@@ -30,8 +30,10 @@ fun interface Callback { // Compliant, function interface used
 }
 
 @OpenClass
-internal class ScanResultsReceiver(private val mainActivity: MainActivity, private val callback: Callback) :
-    BroadcastReceiver() {
+internal class ScanResultsReceiver(
+    private val mainActivity: MainActivity,
+    private val callback: Callback,
+) : BroadcastReceiver() {
     private var registered = false
 
     fun register() {
@@ -51,12 +53,14 @@ internal class ScanResultsReceiver(private val mainActivity: MainActivity, priva
 
     fun makeIntentFilter(action: String): IntentFilter = IntentFilter(action)
 
-    override fun onReceive(context: Context, intent: Intent) {
+    override fun onReceive(
+        context: Context,
+        intent: Intent,
+    ) {
         if (WifiManager.SCAN_RESULTS_AVAILABLE_ACTION == intent.action &&
             intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)
         ) {
             callback.onSuccess()
         }
     }
-
 }

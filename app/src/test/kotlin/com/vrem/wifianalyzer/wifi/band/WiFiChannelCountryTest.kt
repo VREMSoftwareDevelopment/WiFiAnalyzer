@@ -43,5 +43,4 @@ class WiFiChannelCountryTest {
         assertThat(wiFiChannelCountry.countryCode).isEqualTo("")
         assertThat(wiFiChannelCountry.countryName(Locale.US)).isEqualTo("-Unknown")
     }
-
 }

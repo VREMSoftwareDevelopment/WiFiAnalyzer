@@ -35,14 +35,18 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.eq
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class CompatUtilsTest {
-
     private val context: Context = mock()
     private val contextWrapper: ContextWrapper = mock()
     private val resources: Resources = mock()
@@ -187,5 +191,4 @@ class CompatUtilsTest {
         // validate
         assertThat(actual).isEqualTo(String.EMPTY)
     }
-
 }

@@ -27,12 +27,13 @@ import org.junit.runners.Parameterized.Parameters
 import java.util.Locale
 
 @RunWith(Parameterized::class)
-class WiFiChannelCountryParameterizedTest() {
-    private val expectedWiFiBands = listOf(
-        WiFiBand.GHZ2 to expectedWiFiInfoGHZ2,
-        WiFiBand.GHZ5 to expectedWiFiInfoGHZ5,
-        WiFiBand.GHZ6 to expectedWiFiInfoGHZ6
-    )
+class WiFiChannelCountryParameterizedTest {
+    private val expectedWiFiBands =
+        listOf(
+            WiFiBand.GHZ2 to expectedWiFiInfoGHZ2,
+            WiFiBand.GHZ5 to expectedWiFiInfoGHZ5,
+            WiFiBand.GHZ6 to expectedWiFiInfoGHZ6,
+        )
 
     @Parameter(0)
     lateinit var locale: Locale
@@ -73,7 +74,8 @@ class WiFiChannelCountryParameterizedTest() {
         @JvmStatic
         @Parameters(name = "{index}: {1} - {2}")
         fun data() =
-            Locale.getAvailableLocales()
+            Locale
+                .getAvailableLocales()
                 .filter { !it.country.isEmpty() && !it.displayName.isEmpty() }
                 .map { locale -> arrayOf(locale, locale.country, locale.getDisplayCountry(Locale.US)) }
     }

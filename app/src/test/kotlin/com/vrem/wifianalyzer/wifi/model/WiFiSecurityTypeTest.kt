@@ -25,13 +25,16 @@ import com.vrem.wifianalyzer.R
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class WiFiSecurityTypeTest {
-
     @Test
     fun size() {
         assertThat(WiFiSecurityType.entries).hasSize(All.size)
@@ -52,11 +55,15 @@ class WiFiSecurityTypeTest {
         assertThat(WiFiSecurityType.PSK.textResource).isEqualTo(R.string.security_type_psk)
         assertThat(WiFiSecurityType.EAP.textResource).isEqualTo(R.string.security_type_eap)
         assertThat(WiFiSecurityType.SAE.textResource).isEqualTo(R.string.security_type_sae)
-        assertThat(WiFiSecurityType.EAP_WPA3_ENTERPRISE_192_BIT.textResource).isEqualTo(R.string.security_type_eap_wpa3_enterprise_192_bit)
+        assertThat(
+            WiFiSecurityType.EAP_WPA3_ENTERPRISE_192_BIT.textResource,
+        ).isEqualTo(R.string.security_type_eap_wpa3_enterprise_192_bit)
         assertThat(WiFiSecurityType.OWE.textResource).isEqualTo(R.string.security_type_owe)
         assertThat(WiFiSecurityType.WAPI_PSK.textResource).isEqualTo(R.string.security_type_wapi_psk)
         assertThat(WiFiSecurityType.WAPI_CERT.textResource).isEqualTo(R.string.security_type_wapi_cert)
-        assertThat(WiFiSecurityType.EAP_WPA3_ENTERPRISE.textResource).isEqualTo(R.string.security_type_eap_wpa3_enterprise)
+        assertThat(
+            WiFiSecurityType.EAP_WPA3_ENTERPRISE.textResource,
+        ).isEqualTo(R.string.security_type_eap_wpa3_enterprise)
         assertThat(WiFiSecurityType.OSEN.textResource).isEqualTo(R.string.security_type_osen)
         assertThat(WiFiSecurityType.PASSPOINT_R1_R2.textResource).isEqualTo(R.string.security_type_passpoint_r1_r2)
         assertThat(WiFiSecurityType.PASSPOINT_R3.textResource).isEqualTo(R.string.security_type_passpoint_r3)
@@ -90,11 +97,15 @@ class WiFiSecurityTypeTest {
         assertThat(WiFiSecurityType.PSK.securityTypeId).isEqualTo(WifiInfo.SECURITY_TYPE_PSK)
         assertThat(WiFiSecurityType.EAP.securityTypeId).isEqualTo(WifiInfo.SECURITY_TYPE_EAP)
         assertThat(WiFiSecurityType.SAE.securityTypeId).isEqualTo(WifiInfo.SECURITY_TYPE_SAE)
-        assertThat(WiFiSecurityType.EAP_WPA3_ENTERPRISE_192_BIT.securityTypeId).isEqualTo(WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE_192_BIT)
+        assertThat(
+            WiFiSecurityType.EAP_WPA3_ENTERPRISE_192_BIT.securityTypeId,
+        ).isEqualTo(WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE_192_BIT)
         assertThat(WiFiSecurityType.OWE.securityTypeId).isEqualTo(WifiInfo.SECURITY_TYPE_OWE)
         assertThat(WiFiSecurityType.WAPI_PSK.securityTypeId).isEqualTo(WifiInfo.SECURITY_TYPE_WAPI_PSK)
         assertThat(WiFiSecurityType.WAPI_CERT.securityTypeId).isEqualTo(WifiInfo.SECURITY_TYPE_WAPI_CERT)
-        assertThat(WiFiSecurityType.EAP_WPA3_ENTERPRISE.securityTypeId).isEqualTo(WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE)
+        assertThat(
+            WiFiSecurityType.EAP_WPA3_ENTERPRISE.securityTypeId,
+        ).isEqualTo(WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE)
         assertThat(WiFiSecurityType.OSEN.securityTypeId).isEqualTo(WifiInfo.SECURITY_TYPE_OSEN)
         assertThat(WiFiSecurityType.PASSPOINT_R1_R2.securityTypeId).isEqualTo(WifiInfo.SECURITY_TYPE_PASSPOINT_R1_R2)
         assertThat(WiFiSecurityType.PASSPOINT_R3.securityTypeId).isEqualTo(WifiInfo.SECURITY_TYPE_PASSPOINT_R3)
@@ -109,14 +120,22 @@ class WiFiSecurityTypeTest {
         assertThat(WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_PSK)).isEqualTo(WiFiSecurityType.PSK)
         assertThat(WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_EAP)).isEqualTo(WiFiSecurityType.EAP)
         assertThat(WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_SAE)).isEqualTo(WiFiSecurityType.SAE)
-        assertThat(WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE_192_BIT)).isEqualTo(WiFiSecurityType.EAP_WPA3_ENTERPRISE_192_BIT)
+        assertThat(
+            WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE_192_BIT),
+        ).isEqualTo(WiFiSecurityType.EAP_WPA3_ENTERPRISE_192_BIT)
         assertThat(WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_OWE)).isEqualTo(WiFiSecurityType.OWE)
         assertThat(WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_WAPI_PSK)).isEqualTo(WiFiSecurityType.WAPI_PSK)
         assertThat(WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_WAPI_CERT)).isEqualTo(WiFiSecurityType.WAPI_CERT)
-        assertThat(WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE)).isEqualTo(WiFiSecurityType.EAP_WPA3_ENTERPRISE)
+        assertThat(
+            WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE),
+        ).isEqualTo(WiFiSecurityType.EAP_WPA3_ENTERPRISE)
         assertThat(WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_OSEN)).isEqualTo(WiFiSecurityType.OSEN)
-        assertThat(WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_PASSPOINT_R1_R2)).isEqualTo(WiFiSecurityType.PASSPOINT_R1_R2)
-        assertThat(WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_PASSPOINT_R3)).isEqualTo(WiFiSecurityType.PASSPOINT_R3)
+        assertThat(
+            WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_PASSPOINT_R1_R2),
+        ).isEqualTo(WiFiSecurityType.PASSPOINT_R1_R2)
+        assertThat(
+            WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_PASSPOINT_R3),
+        ).isEqualTo(WiFiSecurityType.PASSPOINT_R3)
         assertThat(WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_DPP)).isEqualTo(WiFiSecurityType.SECURITY_TYPE_DPP)
 
         assertThat(WiFiSecurityType.findOne(WifiInfo.SECURITY_TYPE_UNKNOWN - 1)).isEqualTo(WiFiSecurityType.UNKNOWN)
@@ -161,29 +180,30 @@ class WiFiSecurityTypeTest {
     }
 
     companion object {
-        internal val NONE = listOf(
-            WifiInfo.SECURITY_TYPE_DPP,
-            WifiInfo.SECURITY_TYPE_EAP,
-            WifiInfo.SECURITY_TYPE_OPEN,
-            WifiInfo.SECURITY_TYPE_OSEN,
-            WifiInfo.SECURITY_TYPE_PASSPOINT_R1_R2,
-            WifiInfo.SECURITY_TYPE_PASSPOINT_R3,
-            WifiInfo.SECURITY_TYPE_PSK,
-            WifiInfo.SECURITY_TYPE_UNKNOWN,
-            WifiInfo.SECURITY_TYPE_WAPI_CERT,
-            WifiInfo.SECURITY_TYPE_WAPI_PSK,
-        )
+        internal val NONE =
+            listOf(
+                WifiInfo.SECURITY_TYPE_DPP,
+                WifiInfo.SECURITY_TYPE_EAP,
+                WifiInfo.SECURITY_TYPE_OPEN,
+                WifiInfo.SECURITY_TYPE_OSEN,
+                WifiInfo.SECURITY_TYPE_PASSPOINT_R1_R2,
+                WifiInfo.SECURITY_TYPE_PASSPOINT_R3,
+                WifiInfo.SECURITY_TYPE_PSK,
+                WifiInfo.SECURITY_TYPE_UNKNOWN,
+                WifiInfo.SECURITY_TYPE_WAPI_CERT,
+                WifiInfo.SECURITY_TYPE_WAPI_PSK,
+            )
 
-        internal val WPA3 = listOf(
-            WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE,
-            WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE_192_BIT,
-            WifiInfo.SECURITY_TYPE_OWE,
-            WifiInfo.SECURITY_TYPE_SAE,
-        )
+        internal val WPA3 =
+            listOf(
+                WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE,
+                WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE_192_BIT,
+                WifiInfo.SECURITY_TYPE_OWE,
+                WifiInfo.SECURITY_TYPE_SAE,
+            )
 
         internal val WEP = listOf(WifiInfo.SECURITY_TYPE_WEP)
 
         internal val All = NONE + WEP + WPA3
     }
-
 }

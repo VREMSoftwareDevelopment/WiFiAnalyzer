@@ -22,7 +22,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class AllPredicateTest {
-
     @Test
     fun allPredicateIsTrue() {
         // setup
@@ -44,5 +43,4 @@ class AllPredicateTest {
         // validate
         assertThat(actual).isFalse
     }
-
 }

@@ -25,14 +25,16 @@ import com.vrem.annotation.OpenClass
 import com.vrem.util.buildMinVersionP
 
 @OpenClass
-class LocationPermission(private val activity: Activity) {
+class LocationPermission(
+    private val activity: Activity,
+) {
     fun enabled(): Boolean =
         if (buildMinVersionP()) {
             runCatching {
                 val locationManager = activity.getSystemService(LocationManager::class.java)
                 locationEnabled(locationManager) ||
-                        networkProviderEnabled(locationManager) ||
-                        gpsProviderEnabled(locationManager)
+                    networkProviderEnabled(locationManager) ||
+                    gpsProviderEnabled(locationManager)
             }.getOrDefault(false)
         } else {
             true
@@ -49,5 +51,4 @@ class LocationPermission(private val activity: Activity) {
     @RequiresApi(Build.VERSION_CODES.P)
     private fun locationEnabled(locationManager: LocationManager): Boolean =
         runCatching { locationManager.isLocationEnabled }.getOrDefault(false)
-
 }

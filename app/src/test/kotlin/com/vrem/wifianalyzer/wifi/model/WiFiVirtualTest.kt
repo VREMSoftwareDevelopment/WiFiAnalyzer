@@ -22,16 +22,16 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class WiFiVirtualTest {
-
     @Test
     fun wiFiVirtualWithVirtualBSSID() {
         // setup
-        val wiFiDetail = WiFiDetail(
-            WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50),
-            WiFiAdditional.EMPTY
-        )
+        val wiFiDetail =
+            WiFiDetail(
+                WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50),
+                WiFiAdditional.EMPTY,
+            )
         // execute
         val actual = wiFiDetail.wiFiVirtual
         // validate
@@ -43,12 +43,13 @@ class WiFiVirtualTest {
     @Test
     fun wiFiVirtualWithRegularBSSIDWhenBSSIDShort() {
         // setup
-        val wiFiDetail = WiFiDetail(
-            WiFiIdentifier("SSID1", "20:cf:30:ce:1d:7"),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50),
-            WiFiAdditional.EMPTY
-        )
+        val wiFiDetail =
+            WiFiDetail(
+                WiFiIdentifier("SSID1", "20:cf:30:ce:1d:7"),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50),
+                WiFiAdditional.EMPTY,
+            )
         // execute
         val actual = wiFiDetail.wiFiVirtual
         // validate
@@ -60,12 +61,13 @@ class WiFiVirtualTest {
     @Test
     fun wiFiVirtualWithRegularBSSIDWhenBSSIDLong() {
         // setup
-        val wiFiDetail = WiFiDetail(
-            WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71:"),
-            WiFiSecurity.EMPTY,
-            WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50),
-            WiFiAdditional.EMPTY
-        )
+        val wiFiDetail =
+            WiFiDetail(
+                WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71:"),
+                WiFiSecurity.EMPTY,
+                WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50),
+                WiFiAdditional.EMPTY,
+            )
         // execute
         val actual = wiFiDetail.wiFiVirtual
         // validate
@@ -73,5 +75,4 @@ class WiFiVirtualTest {
         assertThat(actual.frequency).isEqualTo(2432)
         assertThat(actual.key).isEqualTo("20:cf:30:ce:1d:71:-" + 2432)
     }
-
 }

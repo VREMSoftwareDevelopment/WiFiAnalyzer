@@ -30,24 +30,26 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class NavigationMenuControllerTest {
-    val DRAWER_MENU_ITEMS = listOf(
-        NavigationMenu.ACCESS_POINTS,
-        NavigationMenu.CHANNEL_RATING,
-        NavigationMenu.CHANNEL_GRAPH,
-        NavigationMenu.TIME_GRAPH,
-        NavigationMenu.EXPORT,
-        NavigationMenu.CHANNEL_AVAILABLE,
-        NavigationMenu.VENDORS,
-        NavigationMenu.SETTINGS,
-        NavigationMenu.ABOUT
-    )
+    val drawerMenuItems =
+        listOf(
+            NavigationMenu.ACCESS_POINTS,
+            NavigationMenu.CHANNEL_RATING,
+            NavigationMenu.CHANNEL_GRAPH,
+            NavigationMenu.TIME_GRAPH,
+            NavigationMenu.EXPORT,
+            NavigationMenu.CHANNEL_AVAILABLE,
+            NavigationMenu.VENDORS,
+            NavigationMenu.SETTINGS,
+            NavigationMenu.ABOUT,
+        )
 
-    val BOTTOM_MENU_ITEMS = listOf(
-        NavigationMenu.ACCESS_POINTS,
-        NavigationMenu.CHANNEL_RATING,
-        NavigationMenu.CHANNEL_GRAPH,
-        NavigationMenu.TIME_GRAPH
-    )
+    val bottomMenuItems =
+        listOf(
+            NavigationMenu.ACCESS_POINTS,
+            NavigationMenu.CHANNEL_RATING,
+            NavigationMenu.CHANNEL_GRAPH,
+            NavigationMenu.TIME_GRAPH,
+        )
 
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val fixture = mainActivity.navigationMenuController
@@ -64,7 +66,7 @@ class NavigationMenuControllerTest {
         // execute
         val menu: Menu = drawerNavigationView.menu
         // validate
-        assertThat(menu.size()).isEqualTo(DRAWER_MENU_ITEMS.size)
+        assertThat(menu.size()).isEqualTo(drawerMenuItems.size)
     }
 
     @Test
@@ -72,7 +74,7 @@ class NavigationMenuControllerTest {
         // execute
         val menu: Menu = bottomNavigationView.menu
         // validate
-        assertThat(menu.size()).isEqualTo(BOTTOM_MENU_ITEMS.size)
+        assertThat(menu.size()).isEqualTo(bottomMenuItems.size)
     }
 
     @Test
@@ -102,7 +104,7 @@ class NavigationMenuControllerTest {
         fixture.currentNavigationMenu(expected)
         // validate
         assertThat(fixture.currentNavigationMenu()).isEqualTo(expected)
-        DRAWER_MENU_ITEMS.forEach {
+        drawerMenuItems.forEach {
             val menuItem = drawerNavigationView.menu.findItem(it.idDrawer)
             if (it == expected) {
                 assertThat(menuItem.isChecked).describedAs(it.toString()).isTrue
@@ -120,7 +122,7 @@ class NavigationMenuControllerTest {
         fixture.currentNavigationMenu(expected)
         // validate
         assertThat(fixture.currentNavigationMenu()).isEqualTo(expected)
-        BOTTOM_MENU_ITEMS.forEach {
+        bottomMenuItems.forEach {
             val menuItem = bottomNavigationView.menu.findItem(it.idBottom)
             if (it == expected) {
                 assertThat(menuItem.isChecked).describedAs(it.toString()).isTrue
@@ -129,5 +131,4 @@ class NavigationMenuControllerTest {
             }
         }
     }
-
 }

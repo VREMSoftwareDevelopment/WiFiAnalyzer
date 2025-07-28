@@ -24,7 +24,15 @@ import com.vrem.wifianalyzer.navigation.availability.navigationOptionAp
 import com.vrem.wifianalyzer.navigation.availability.navigationOptionOff
 import com.vrem.wifianalyzer.navigation.availability.navigationOptionOther
 import com.vrem.wifianalyzer.navigation.availability.navigationOptionRating
-import com.vrem.wifianalyzer.navigation.items.*
+import com.vrem.wifianalyzer.navigation.items.navigationItemAbout
+import com.vrem.wifianalyzer.navigation.items.navigationItemAccessPoints
+import com.vrem.wifianalyzer.navigation.items.navigationItemChannelAvailable
+import com.vrem.wifianalyzer.navigation.items.navigationItemChannelGraph
+import com.vrem.wifianalyzer.navigation.items.navigationItemChannelRating
+import com.vrem.wifianalyzer.navigation.items.navigationItemExport
+import com.vrem.wifianalyzer.navigation.items.navigationItemSettings
+import com.vrem.wifianalyzer.navigation.items.navigationItemTimeGraph
+import com.vrem.wifianalyzer.navigation.items.navigationItemVendors
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,14 +41,13 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class NavigationMenuTest {
-
     @Test
     fun groupFeature() {
         assertThat(MAIN_NAVIGATION).containsExactly(
             NavigationMenu.ACCESS_POINTS,
             NavigationMenu.CHANNEL_RATING,
             NavigationMenu.CHANNEL_GRAPH,
-            NavigationMenu.TIME_GRAPH
+            NavigationMenu.TIME_GRAPH,
         )
     }
 

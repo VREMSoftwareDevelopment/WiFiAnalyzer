@@ -24,9 +24,14 @@ import com.vrem.wifianalyzer.wifi.model.GroupBy
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
 @OpenClass
-class AccessPointsAdapterGroup(val expanded: MutableSet<String> = mutableSetOf(), var groupBy: GroupBy = GroupBy.NONE) {
-
-    fun update(wiFiDetails: List<WiFiDetail>, expandableListView: ExpandableListView?) {
+class AccessPointsAdapterGroup(
+    val expanded: MutableSet<String> = mutableSetOf(),
+    var groupBy: GroupBy = GroupBy.NONE,
+) {
+    fun update(
+        wiFiDetails: List<WiFiDetail>,
+        expandableListView: ExpandableListView?,
+    ) {
         updateGroupBy()
         if (!groupBy.none) {
             expandableListView?.let { toggle(wiFiDetails, it) }
@@ -41,7 +46,10 @@ class AccessPointsAdapterGroup(val expanded: MutableSet<String> = mutableSetOf()
         }
     }
 
-    fun onGroupCollapsed(wiFiDetails: List<WiFiDetail>, groupPosition: Int) {
+    fun onGroupCollapsed(
+        wiFiDetails: List<WiFiDetail>,
+        groupPosition: Int,
+    ) {
         if (!groupBy.none) {
             wiFiDetails.getOrNull(groupPosition)?.let {
                 if (it.noChildren) {
@@ -51,7 +59,10 @@ class AccessPointsAdapterGroup(val expanded: MutableSet<String> = mutableSetOf()
         }
     }
 
-    fun onGroupExpanded(wiFiDetails: List<WiFiDetail>, groupPosition: Int) {
+    fun onGroupExpanded(
+        wiFiDetails: List<WiFiDetail>,
+        groupPosition: Int,
+    ) {
         if (!groupBy.none) {
             wiFiDetails.getOrNull(groupPosition)?.let {
                 if (it.noChildren) {
@@ -61,14 +72,15 @@ class AccessPointsAdapterGroup(val expanded: MutableSet<String> = mutableSetOf()
         }
     }
 
-    private fun toggle(wiFiDetails: List<WiFiDetail>, expandableListView: ExpandableListView) =
-        (0 until expandableListView.expandableListAdapter.groupCount).forEach {
-            val group = groupBy.group(wiFiDetails.getOrNull(it) ?: WiFiDetail.EMPTY)
-            if (expanded.contains(group)) {
-                expandableListView.expandGroup(it)
-            } else {
-                expandableListView.collapseGroup(it)
-            }
+    private fun toggle(
+        wiFiDetails: List<WiFiDetail>,
+        expandableListView: ExpandableListView,
+    ) = (0 until expandableListView.expandableListAdapter.groupCount).forEach {
+        val group = groupBy.group(wiFiDetails.getOrNull(it) ?: WiFiDetail.EMPTY)
+        if (expanded.contains(group)) {
+            expandableListView.expandGroup(it)
+        } else {
+            expandableListView.collapseGroup(it)
         }
-
+    }
 }

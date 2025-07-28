@@ -28,10 +28,12 @@ internal abstract class EnumFilter<T : Enum<T>, U : EnumFilterAdapter<T>>(
     internal val ids: Map<T, Int>,
     private val filter: U,
     alertDialog: AlertDialog,
-    id: Int
+    id: Int,
 ) {
-
-    private fun setColor(view: View, value: T) {
+    private fun setColor(
+        view: View,
+        value: T,
+    ) {
         this.filter.color(value).let {
             val color = ContextCompat.getColor(view.context, it)
             when (view) {
@@ -46,13 +48,20 @@ internal abstract class EnumFilter<T : Enum<T>, U : EnumFilterAdapter<T>>(
         alertDialog.findViewById<View>(id).visibility = View.VISIBLE
     }
 
-    private fun process(alertDialog: AlertDialog, id: Int, value: T) {
+    private fun process(
+        alertDialog: AlertDialog,
+        id: Int,
+        value: T,
+    ) {
         val view = alertDialog.findViewById<View>(id)
         view.setOnClickListener { onClickListener(value, it) }
         setColor(view, value)
     }
 
-    private fun onClickListener(value: T, view: View) {
+    private fun onClickListener(
+        value: T,
+        view: View,
+    ) {
         filter.toggle(value)
         setColor(view, value)
     }

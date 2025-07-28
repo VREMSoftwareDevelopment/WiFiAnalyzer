@@ -21,7 +21,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class EnumUtilsTest {
-
     @Test
     fun ordinals() {
         // setup
@@ -39,7 +38,12 @@ class EnumUtilsTest {
     fun findSetUsingOrdinals() {
         // setup
         val expected = TestObject.entries.toSet()
-        val ordinals: Set<String> = setOf("" + TestObject.VALUE1.ordinal, "" + TestObject.VALUE2.ordinal, "" + TestObject.VALUE3.ordinal)
+        val ordinals: Set<String> =
+            setOf(
+                "" + TestObject.VALUE1.ordinal,
+                "" + TestObject.VALUE2.ordinal,
+                "" + TestObject.VALUE3.ordinal,
+            )
         // execute
         val actual = findSet(TestObject.entries, ordinals, TestObject.VALUE2)
         // validate
@@ -100,7 +104,10 @@ class EnumUtilsTest {
         assertThat(actual).isEqualTo(expected)
     }
 
-    private fun validate(expected: Collection<TestObject>, actual: Collection<TestObject>) {
+    private fun validate(
+        expected: Collection<TestObject>,
+        actual: Collection<TestObject>,
+    ) {
         assertThat(actual).hasSize(expected.size)
         expected.forEach {
             assertThat(actual).contains(it)
@@ -108,7 +115,8 @@ class EnumUtilsTest {
     }
 
     private enum class TestObject {
-        VALUE1, VALUE3, VALUE2
+        VALUE1,
+        VALUE3,
+        VALUE2,
     }
-
 }

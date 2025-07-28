@@ -26,10 +26,12 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
 @OpenClass
 internal class DataManager {
-    fun newSeries(wiFiDetails: List<WiFiDetail>): Set<WiFiDetail> =
-        wiFiDetails.toSet()
+    fun newSeries(wiFiDetails: List<WiFiDetail>): Set<WiFiDetail> = wiFiDetails.toSet()
 
-    fun graphDataPoints(wiFiDetail: WiFiDetail, levelMax: Int): Array<GraphDataPoint> {
+    fun graphDataPoints(
+        wiFiDetail: WiFiDetail,
+        levelMax: Int,
+    ): Array<GraphDataPoint> {
         val wiFiSignal = wiFiDetail.wiFiSignal
         val guardBand = wiFiSignal.wiFiWidth.guardBand
         val frequencyStart = wiFiSignal.wiFiChannelStart.frequency
@@ -40,11 +42,15 @@ internal class DataManager {
             GraphDataPoint(frequencyStart + guardBand, level),
             GraphDataPoint(wiFiSignal.centerFrequency, level),
             GraphDataPoint(frequencyEnd - guardBand, level),
-            GraphDataPoint(frequencyEnd, MIN_Y)
+            GraphDataPoint(frequencyEnd, MIN_Y),
         )
     }
 
-    fun addSeriesData(graphViewWrapper: GraphViewWrapper, wiFiDetails: Set<WiFiDetail>, levelMax: Int) {
+    fun addSeriesData(
+        graphViewWrapper: GraphViewWrapper,
+        wiFiDetails: Set<WiFiDetail>,
+        levelMax: Int,
+    ) {
         wiFiDetails.forEach {
             val dataPoints = graphDataPoints(it, levelMax)
             if (graphViewWrapper.newSeries(it)) {
@@ -54,5 +60,4 @@ internal class DataManager {
             }
         }
     }
-
 }

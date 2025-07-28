@@ -21,11 +21,9 @@ import com.vrem.util.EMPTY
 
 class WiFiAdditional(
     val vendorName: String = String.EMPTY,
-    val wiFiConnection: WiFiConnection = WiFiConnection.EMPTY
+    val wiFiConnection: WiFiConnection = WiFiConnection.EMPTY,
 ) {
-
     companion object {
         val EMPTY = WiFiAdditional()
     }
-
 }

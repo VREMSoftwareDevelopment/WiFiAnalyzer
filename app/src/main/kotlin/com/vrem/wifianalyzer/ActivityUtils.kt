@@ -44,9 +44,7 @@ internal fun MainActivity.setupToolbar(): Toolbar {
 internal fun makeIntent(action: String): Intent = Intent(action)
 
 @RequiresApi(Build.VERSION_CODES.Q)
-internal fun MainActivity.startWiFiSettings() =
-    this.startActivity(makeIntent(Settings.Panel.ACTION_WIFI))
+internal fun MainActivity.startWiFiSettings() = this.startActivity(makeIntent(Settings.Panel.ACTION_WIFI))
 
 internal fun MainActivity.startLocationSettings() =
     this.startActivity(makeIntent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
-

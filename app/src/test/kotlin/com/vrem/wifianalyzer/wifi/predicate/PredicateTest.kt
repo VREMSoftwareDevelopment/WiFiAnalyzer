@@ -19,7 +19,13 @@ package com.vrem.wifianalyzer.wifi.predicate
 
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.model.*
+import com.vrem.wifianalyzer.wifi.model.Security
+import com.vrem.wifianalyzer.wifi.model.Strength
+import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
+import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
+import com.vrem.wifianalyzer.wifi.model.WiFiSignal
+import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
@@ -152,11 +158,13 @@ class PredicateTest {
         verify(settings).findSecurities()
     }
 
-    private fun makeWiFiDetail(ssid: String, capabilities: String): WiFiDetail =
+    private fun makeWiFiDetail(
+        ssid: String,
+        capabilities: String,
+    ): WiFiDetail =
         WiFiDetail(
             WiFiIdentifier(ssid, "bssid"),
             WiFiSecurity(capabilities),
-            WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, -40)
+            WiFiSignal(2445, 2445, WiFiWidth.MHZ_20, -40),
         )
-
 }

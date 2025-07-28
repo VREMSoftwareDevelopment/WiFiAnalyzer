@@ -35,9 +35,8 @@ class ConnectionView(
     private val mainActivity: MainActivity,
     private val accessPointDetail: AccessPointDetail = AccessPointDetail(),
     private val accessPointPopup: AccessPointPopup = AccessPointPopup(),
-    private val warningView: WarningView = WarningView(mainActivity)
+    private val warningView: WarningView = WarningView(mainActivity),
 ) : UpdateNotifier {
-
     override fun update(wiFiData: WiFiData) {
         val mainContext = MainContext.INSTANCE
         displayConnection(wiFiData, mainContext.settings)
@@ -53,7 +52,10 @@ class ConnectionView(
         textView.text = mainActivity.resources.getString(wiFiBand.textResource)
     }
 
-    private fun displayConnection(wiFiData: WiFiData, settings: Settings) {
+    private fun displayConnection(
+        wiFiData: WiFiData,
+        settings: Settings,
+    ) {
         val connectionViewType = settings.connectionViewType()
         val connection = wiFiData.connection()
         val connectionView = mainActivity.findViewById<View>(R.id.connection)
@@ -73,7 +75,10 @@ class ConnectionView(
         }
     }
 
-    private fun setViewConnection(connectionView: View, wiFiConnection: WiFiConnection) {
+    private fun setViewConnection(
+        connectionView: View,
+        wiFiConnection: WiFiConnection,
+    ) {
         val ipAddress = wiFiConnection.ipAddress
         connectionView.findViewById<TextView>(R.id.ipAddress).text = ipAddress
         val textLinkSpeed = connectionView.findViewById<TextView>(R.id.linkSpeed)
@@ -86,11 +91,13 @@ class ConnectionView(
         }
     }
 
-    private fun attachPopup(view: View, wiFiDetail: WiFiDetail) {
+    private fun attachPopup(
+        view: View,
+        wiFiDetail: WiFiDetail,
+    ) {
         view.findViewById<View>(R.id.attachPopup)?.let {
             accessPointPopup.attach(it, wiFiDetail)
             accessPointPopup.attach(view.findViewById(R.id.ssid), wiFiDetail)
         }
     }
-
 }

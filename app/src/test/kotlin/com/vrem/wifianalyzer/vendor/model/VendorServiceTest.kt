@@ -167,5 +167,4 @@ class VendorServiceTest {
         // validate
         assertThat(actual).hasSize(macsSize)
     }
-
 }

@@ -21,12 +21,12 @@ import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
 
 @OpenClass
-internal class ScannerCallback(private val wiFiManagerWrapper: WiFiManagerWrapper, private val cache: Cache) :
-    Callback {
-
+internal class ScannerCallback(
+    private val wiFiManagerWrapper: WiFiManagerWrapper,
+    private val cache: Cache,
+) : Callback {
     override fun onSuccess() {
         cache.add(wiFiManagerWrapper.scanResults())
         cache.wifiInfo = wiFiManagerWrapper.wiFiInfo()
     }
-
 }

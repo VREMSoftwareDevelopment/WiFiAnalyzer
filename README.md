@@ -30,7 +30,7 @@ This is the official repository of WiFiAnalyzer.
 * Analyze Wi-Fi networks to rate channels
 * HT/VHT Detection - 40/80/160/320 MHz (Requires hardware/software support)
 * 2.4 GHz, 5 GHz and 6 GHz Wi-Fi bands (Requires hardware/software support)
-* Access Point view complete or compact
+* Access Point view: complete or compact
 * Estimated Distance to the Access Points
 * Export access points details
 * Dark, Light and System theme available
@@ -59,7 +59,7 @@ The complete guide to using WiFiAnalyzer can be found in the [User Manual](USER_
 * [Android Wi-Fi scanning throttling](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Android-WiFi-scanning-throttling)
 * [Location Service Permission Requirements](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Location-Service-Permission-Requirements)
 * [WiFiAnalyzer on secondary user accounts](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/WiFi-Analyzer-on-secondary-user-accounts)
-* [How channel graph displays 20/40/80/160/320 MHz channel width?](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/64)
+* [How does the channel graph display...](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/64)
 * [How to use SSID filter?](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/125)
 * [WiFiAnalyzer equivalent on iOS](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/69)
 
@@ -68,7 +68,6 @@ The complete guide to using WiFiAnalyzer can be found in the [User Manual](USER_
 * Bug reports can be submitted [here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues).
 * To learn how to submit a bug [click here](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Feedback).
 * [Discussions](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/discussions)
-* If you do not have GitHub account, please use [google groups](https://groups.google.com/forum/#!forum/wifi-analyzer-open-source) to discuss application features.
 
 ## License
 
@@ -90,9 +89,9 @@ WiFiAnalyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 ## Privacy policy
 
 * WiFiAnalyzer does not collect any personal/device information.
-* WiFiAnalyzer is designed to use as few permissions as possible. It asks for just enough to perform the analysis. 
-* Plus, it is all open source so nothing is hidden! 
-* Most notably, this application does not require access to internet, so you can be sure it does not send any personal/device information to any other source and it does not receive any information from other sources. 
+* WiFiAnalyzer is designed to use as few permissions as possible. It asks for just enough to perform the analysis.
+* Plus, it is all open source so nothing is hidden!
+* Most notably, this application does not require access to the internet, so you can be sure it does not send any personal/device information to any other source and it does not receive any information from other sources.
 
 ## WiFiAnalyzer Build
 
@@ -116,28 +115,53 @@ WiFiAnalyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 ## Contribute
 
 * Want to contribute? Check out our [CONTRIBUTING.md](CONTRIBUTING.md) to see how you can help.
-* We want to express our gratitude to all [people](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/graphs/contributors) for their contributions, such as: patches, bug solving, updates and etc.
-* If you would like to contribute financially to the project please feel free to send any amount through paypal.
+* We want to express our gratitude to all [contributors](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/graphs/contributors) for their contributions, such as patches, bug fixes, updates, and more.
+* If you would like to contribute financially to the project, please feel free to send any amount through PayPal.
     * [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=62PA6HJ3BZL3E)
-    * Thanks to every one who already donated so far!
+    * Thanks to everyone who has already donated!
 
-### Build project
+## Build project
 
 1. Install Android Studio
-2. Import project into Android Studio
-    * In Welcome to Android Studio Screen select Import project ...
+2. Import the project into Android Studio
+    * In the Welcome to Android Studio screen, select "Import project ..."
     * Select the root directory of the WiFiAnalyzer repository and click "OK".
     * WiFiAnalyzer will build automatically.
 
-### Running lint, unit tests and jacoco coverage report
+## Running various Gradle commands
 
-```
-./gradlew lintDebug jacocoTestCoverageVerification
-```
+### Check Kotlin code style
+`./gradlew ktlintCheck`
 
-- lint report: `app/build/reports/lint-results.html`
-- unit test report: `app/build/reports/tests/testDebugUnitTest/index.html`
-- code coverage report: `app/build/reports/jacoco/jacocoTestReport/html/index.html`
+### Apply Kotlin code style
+`./gradlew ktlintFormat`
+
+### Run lint analysis
+`./gradlew lintDebug`
+
+This command generates the following report:
+- Lint report: `app/build/reports/lint-results.html`
+
+### Run unit tests with coverage
+`./gradlew testDebugUnitTest`
+
+This command generates the following report:
+- Unit test report: `app/build/reports/tests/testDebugUnitTest/index.html`
+
+### Run unit tests with coverage
+`./gradlew jacocoTestCoverageVerification`
+
+This command generates the following report:
+- Code coverage report: `app/build/reports/jacoco/jacocoTestReport/html/index.html`
+
+## Continuous Integration
+
+This project uses GitHub Actions for CI/CD. On every push and pull request, the following checks are performed automatically:
+- Code style check with ktlint
+- Lint analysis
+- Unit tests with coverage (uploaded to Codecov)
+- APK build (debug)
+- Artifacts (reports and APK) are available for download in the workflow run
 
 ## Translation
 

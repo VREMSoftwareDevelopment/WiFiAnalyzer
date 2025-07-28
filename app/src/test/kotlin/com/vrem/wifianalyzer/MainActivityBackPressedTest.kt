@@ -90,5 +90,4 @@ class MainActivityBackPressedTest {
         verify(mainActivity).currentMenuItem()
         verify(mainActivity).onNavigationItemSelected(menuItem)
     }
-
 }

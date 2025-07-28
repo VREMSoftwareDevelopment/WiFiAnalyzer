@@ -25,7 +25,12 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
@@ -108,8 +113,12 @@ class LocationPermissionTest {
         // setup
         whenever(activity.getSystemService(LocationManager::class.java)).thenReturn(locationManager)
         whenever(locationManager.isLocationEnabled).thenThrow(RuntimeException::class.java)
-        whenever(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)).thenThrow(RuntimeException::class.java)
-        whenever(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)).thenThrow(RuntimeException::class.java)
+        whenever(
+            locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER),
+        ).thenThrow(RuntimeException::class.java)
+        whenever(
+            locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER),
+        ).thenThrow(RuntimeException::class.java)
         // execute
         val actual = fixture.enabled()
         // validate
@@ -140,5 +149,4 @@ class LocationPermissionTest {
         assertThat(actual).isTrue
         verify(activity, never()).getSystemService(any())
     }
-
 }
