@@ -170,7 +170,7 @@ class FastRoamingParameterizedTest(
                 arrayOf(
                     listOf(),
                     listOf(Element(IE_VENDOR_SPECIFIC, byteArrayOf(0x00, 0x0F, 0xAC.toByte(), 0x13).toList())),
-                )
+                ),
             )
     }
 }
