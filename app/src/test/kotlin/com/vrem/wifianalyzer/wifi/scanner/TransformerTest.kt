@@ -43,20 +43,20 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 import java.nio.ByteBuffer
 
-private const val IE_MOBILE_DOMAIN = 54
-private const val IE_RM_ENABLED_CAPABILITIES = 70
-private const val IE_EXTENDED_CAPABILITIES = 127
-private const val IE_VENDOR_SPECIFIC = 221
+private const val ID_MOBILE_DOMAIN = 54
+private const val ID_RM_ENABLED_CAPABILITIES = 70
+private const val ID_EXTENDED_CAPABILITIES = 127
+private const val ID_VENDOR_SPECIFIC = 221
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class TransformerTest {
     private val informationElement1 =
-        withInformationElement(IE_RM_ENABLED_CAPABILITIES, byteArrayOf(0x7F, 0x00, 0x00, 0x00, 0x00))
-    private val informationElement2 = withInformationElement(IE_EXTENDED_CAPABILITIES, byteArrayOf(0x00, 0x00, 0x7F))
-    private val informationElement3 = withInformationElement(IE_MOBILE_DOMAIN, byteArrayOf())
+        withInformationElement(ID_RM_ENABLED_CAPABILITIES, byteArrayOf(0x7F, 0x00, 0x00, 0x00, 0x00))
+    private val informationElement2 = withInformationElement(ID_EXTENDED_CAPABILITIES, byteArrayOf(0x00, 0x00, 0x7F))
+    private val informationElement3 = withInformationElement(ID_MOBILE_DOMAIN, byteArrayOf())
     private val informationElement4 =
-        withInformationElement(IE_VENDOR_SPECIFIC, byteArrayOf(0x00, 0x0F, 0xAC.toByte(), 0x12))
+        withInformationElement(ID_VENDOR_SPECIFIC, byteArrayOf(0x00, 0x0F, 0xAC.toByte(), 0x12))
 
     private val scanResult1 =
         withScanResult(SSID_1, BSSID_1, WiFiWidth.MHZ_160, WiFiStandard.AX, WiFiSecurityTypeTest.All)

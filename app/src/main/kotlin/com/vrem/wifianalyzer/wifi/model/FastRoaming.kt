@@ -24,20 +24,20 @@ import com.vrem.util.buildMinVersionR
 import com.vrem.wifianalyzer.R
 import java.nio.ByteBuffer
 
-typealias Available = (ie: Int, bytes: ByteBuffer) -> Boolean
+typealias Available = (id: Int, bytes: ByteBuffer) -> Boolean
 
-private const val IE_MOBILE_DOMAIN = 54
-private const val IE_RM_ENABLED_CAPABILITIES = 70
-private const val IE_EXTENDED_CAPABILITIES = 127
-private const val IE_VENDOR_SPECIFIC = 221
+private const val ID_MOBILE_DOMAIN = 54
+private const val ID_RM_ENABLED_CAPABILITIES = 70
+private const val ID_EXTENDED_CAPABILITIES = 127
+private const val ID_VENDOR_SPECIFIC = 221
 
 /**
  * Checks for 802.11k (Radio Resource Management) support.
  * Returns true if the Information Element is RM Enabled Capabilities (IE 70)
  * and the Neighbor Report bit (bit 1 of the first byte) is set.
  */
-internal val available802_11k: Available = { ie: Int, bytes: ByteBuffer ->
-    ie == IE_RM_ENABLED_CAPABILITIES &&
+private val available802_11k: Available = { id: Int, bytes: ByteBuffer ->
+    id == ID_RM_ENABLED_CAPABILITIES &&
         bytes.remaining() > 0 &&
         (bytes[0].toInt() and (1 shl 1)) != 0
 }
@@ -46,15 +46,15 @@ internal val available802_11k: Available = { ie: Int, bytes: ByteBuffer ->
  * Checks for 802.11r (Fast BSS Transition) support.
  * Returns true if the Information Element is Mobile Domain IE (IE 54).
  */
-internal val available802_11r: Available = { ie: Int, _: ByteBuffer -> ie == IE_MOBILE_DOMAIN }
+private val available802_11r: Available = { id: Int, _: ByteBuffer -> id == ID_MOBILE_DOMAIN }
 
 /**
  * Checks for 802.11v (BSS Transition Management) support.
  * Returns true if the Information Element is Extended Capabilities (IE 127)
  * and the BSS Transition bit (bit 3 of the third byte) is set.
  */
-internal val available802_11v: Available = { ie: Int, bytes: ByteBuffer ->
-    ie == IE_EXTENDED_CAPABILITIES &&
+private val available802_11v: Available = { id: Int, bytes: ByteBuffer ->
+    id == ID_EXTENDED_CAPABILITIES &&
         bytes.remaining() > 2 &&
         (bytes[2].toInt() and (1 shl 3)) != 0
 }
@@ -64,8 +64,8 @@ internal val available802_11v: Available = { ie: Int, bytes: ByteBuffer ->
  * Returns true if the Information Element is Vendor Specific (IE 221)
  * and the first 4 bytes match the OKC OUI and type.
  */
-internal val availableOKC: Available = { ie: Int, bytes: ByteBuffer ->
-    ie == IE_VENDOR_SPECIFIC &&
+private val availableOKC: Available = { id: Int, bytes: ByteBuffer ->
+    id == ID_VENDOR_SPECIFIC &&
         bytes.remaining() >= 4 &&
         bytes[0] == 0x00.toByte() &&
         bytes[1] == 0x0F.toByte() &&
