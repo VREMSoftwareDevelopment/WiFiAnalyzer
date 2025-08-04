@@ -333,7 +333,7 @@ class AccessPointDetailTest {
     fun makeViewDetailedWithFastRoaming() {
         // setup
         val wiFiDetail = withWiFiDetail()
-        val expectedFastRoaming = "802.11k 802.11r 802.11v"
+        val expectedFastRoaming = "802.11k 802.11r 802.11v OKC"
         // execute
         val actual = fixture.makeViewDetailed(wiFiDetail)
         // validate

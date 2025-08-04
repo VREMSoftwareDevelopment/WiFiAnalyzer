@@ -24,31 +24,53 @@ import com.vrem.util.buildMinVersionR
 import com.vrem.wifianalyzer.R
 import java.nio.ByteBuffer
 
-internal const val RM_ENABLED_CAPABILITIES_IE = 70
-internal const val NEIGHBOR_REPORT_IDX = 0
-internal const val NEIGHBOR_REPORT_BIT = 1
-internal const val EXTENDED_CAPABILITIES_IE = 127
-internal const val BSS_TRANSITION_IDX = 2
-internal const val BSS_TRANSITION_BIT = 3
-internal const val MOBILE_DOMAIN_IE = 54
+typealias Available = (ie: Int, bytes: ByteBuffer) -> Boolean
 
-private fun ByteBuffer.contains(
-    idx: Int,
-    bit: Int,
-): Boolean = this[idx].toInt().and(1 shl bit) == (1 shl bit)
+private const val IE_MOBILE_DOMAIN = 54
+private const val IE_RM_ENABLED_CAPABILITIES = 70
+private const val IE_EXTENDED_CAPABILITIES = 127
+private const val IE_VENDOR_SPECIFIC = 221
 
-typealias Available = (id: Int, bytes: ByteBuffer) -> Boolean
-
-private val available802_11k: Available = { id: Int, bytes: ByteBuffer ->
-    RM_ENABLED_CAPABILITIES_IE == id &&
-        bytes.contains(NEIGHBOR_REPORT_IDX, NEIGHBOR_REPORT_BIT)
+/**
+ * Checks for 802.11k (Radio Resource Management) support.
+ * Returns true if the Information Element is RM Enabled Capabilities (IE 70)
+ * and the Neighbor Report bit (bit 1 of the first byte) is set.
+ */
+internal val available802_11k: Available = { ie: Int, bytes: ByteBuffer ->
+    ie == IE_RM_ENABLED_CAPABILITIES &&
+        bytes.remaining() > 0 &&
+        (bytes[0].toInt() and (1 shl 1)) != 0
 }
-private val available802_11r: Available = { id: Int, _: ByteBuffer ->
-    MOBILE_DOMAIN_IE == id
+
+/**
+ * Checks for 802.11r (Fast BSS Transition) support.
+ * Returns true if the Information Element is Mobile Domain IE (IE 54).
+ */
+internal val available802_11r: Available = { ie: Int, _: ByteBuffer -> ie == IE_MOBILE_DOMAIN }
+
+/**
+ * Checks for 802.11v (BSS Transition Management) support.
+ * Returns true if the Information Element is Extended Capabilities (IE 127)
+ * and the BSS Transition bit (bit 3 of the third byte) is set.
+ */
+internal val available802_11v: Available = { ie: Int, bytes: ByteBuffer ->
+    ie == IE_EXTENDED_CAPABILITIES &&
+        bytes.remaining() > 2 &&
+        (bytes[2].toInt() and (1 shl 3)) != 0
 }
-private val available802_11v: Available = { id: Int, bytes: ByteBuffer ->
-    EXTENDED_CAPABILITIES_IE == id &&
-        bytes.contains(BSS_TRANSITION_IDX, BSS_TRANSITION_BIT)
+
+/**
+ * Checks for Opportunistic Key Caching (OKC) support.
+ * Returns true if the Information Element is Vendor Specific (IE 221)
+ * and the first 4 bytes match the OKC OUI and type.
+ */
+internal val availableOKC: Available = { ie: Int, bytes: ByteBuffer ->
+    ie == IE_VENDOR_SPECIFIC &&
+        bytes.remaining() >= 4 &&
+        bytes[0] == 0x00.toByte() &&
+        bytes[1] == 0x0F.toByte() &&
+        bytes[2] == 0xAC.toByte() &&
+        bytes[3] == 0x12.toByte()
 }
 
 enum class FastRoaming(
@@ -58,6 +80,7 @@ enum class FastRoaming(
     FR_802_11K(R.string.fast_roaming_k, available802_11k),
     FR_802_11R(R.string.fast_roaming_r, available802_11r),
     FR_802_11V(R.string.fast_roaming_v, available802_11v),
+    FR_OKC(R.string.fast_roaming_okc, availableOKC),
     ;
 
     companion object {

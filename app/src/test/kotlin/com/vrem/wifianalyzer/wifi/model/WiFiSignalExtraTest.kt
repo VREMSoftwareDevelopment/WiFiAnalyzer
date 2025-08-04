@@ -52,7 +52,7 @@ class WiFiSignalExtraTest {
     @Test
     fun fastRoamingDisplay() {
         // setup
-        val expected = "802.11k 802.11r 802.11v"
+        val expected = "802.11k 802.11r 802.11v OKC"
         // execute
         val actual = fixture.fastRoamingDisplay(mainActivity.applicationContext)
         // validate

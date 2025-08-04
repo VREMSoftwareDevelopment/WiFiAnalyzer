@@ -33,6 +33,11 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 import org.robolectric.annotation.Config
 import java.nio.ByteBuffer.wrap
 
+private const val IE_MOBILE_DOMAIN = 54
+private const val IE_RM_ENABLED_CAPABILITIES = 70
+private const val IE_EXTENDED_CAPABILITIES = 127
+private const val IE_VENDOR_SPECIFIC = 221
+
 @RunWith(ParameterizedRobolectricTestRunner::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class FastRoamingParameterizedTest(
@@ -68,8 +73,8 @@ class FastRoamingParameterizedTest(
     data class Element(
         val id: Int,
         val bytes: List<Byte>,
-        val countId: Int = 3,
-        val countBytes: Int = 3,
+        val countId: Int = 4,
+        val countBytes: Int = 4,
     )
 
     companion object {
@@ -79,38 +84,93 @@ class FastRoamingParameterizedTest(
             listOf(
                 arrayOf(
                     listOf(FastRoaming.FR_802_11K),
-                    listOf(Element(RM_ENABLED_CAPABILITIES_IE, listOf(0x7F, 0, 0, 0, 0))),
+                    listOf(Element(IE_RM_ENABLED_CAPABILITIES, byteArrayOf(0x7F, 0x00, 0x00, 0x00, 0x00).toList())),
                 ),
                 arrayOf(
                     listOf(FastRoaming.FR_802_11R),
-                    listOf(Element(MOBILE_DOMAIN_IE, listOf(0))),
+                    listOf(Element(IE_MOBILE_DOMAIN, byteArrayOf(0x00).toList())),
                 ),
                 arrayOf(
                     listOf(FastRoaming.FR_802_11V),
-                    listOf(Element(EXTENDED_CAPABILITIES_IE, listOf(0, 0, 0x7F))),
+                    listOf(Element(IE_EXTENDED_CAPABILITIES, byteArrayOf(0x00, 0x00, 0x7F).toList())),
+                ),
+                arrayOf(
+                    listOf(FastRoaming.FR_OKC),
+                    listOf(Element(IE_VENDOR_SPECIFIC, byteArrayOf(0x00, 0x0F, 0xAC.toByte(), 0x12).toList())),
                 ),
                 arrayOf(
                     FastRoaming.entries.toList(),
                     listOf(
-                        Element(RM_ENABLED_CAPABILITIES_IE, listOf(0x7F, 0, 0, 0, 0), 3, 3),
-                        Element(MOBILE_DOMAIN_IE, listOf(0), 2, 2),
-                        Element(EXTENDED_CAPABILITIES_IE, listOf(0, 0, 0x7F), 1, 1),
+                        Element(IE_RM_ENABLED_CAPABILITIES, byteArrayOf(0x7F, 0x00, 0x00, 0x00, 0x00).toList()),
+                        Element(IE_MOBILE_DOMAIN, byteArrayOf(0x00).toList(), 3, 3),
+                        Element(IE_EXTENDED_CAPABILITIES, byteArrayOf(0x00, 0x00, 0x7F).toList(), 2, 2),
+                        Element(IE_VENDOR_SPECIFIC, byteArrayOf(0x00, 0x0F, 0xAC.toByte(), 0x12).toList(), 1, 1),
                     ),
                 ),
                 arrayOf(listOf(), listOf()),
-                arrayOf(listOf(), listOf(Element(0, listOf()))),
-                arrayOf(listOf(), listOf(Element(RM_ENABLED_CAPABILITIES_IE, listOf(0)))),
-                arrayOf(listOf(), listOf(Element(RM_ENABLED_CAPABILITIES_IE, listOf(0, 0x7F)))),
-                arrayOf(listOf(), listOf(Element(RM_ENABLED_CAPABILITIES_IE, listOf(0, 0x7F, 0x7F)))),
-                arrayOf(listOf(), listOf(Element(RM_ENABLED_CAPABILITIES_IE, listOf(0, 0x7F, 0x7F, 0x7F)))),
-                arrayOf(listOf(), listOf(Element(RM_ENABLED_CAPABILITIES_IE, listOf(0, 0x7F, 0x7F, 0x7F, 0x7F)))),
-                arrayOf(listOf(), listOf(Element(RM_ENABLED_CAPABILITIES_IE, listOf(0, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F)))),
-                arrayOf(listOf(), listOf(Element(EXTENDED_CAPABILITIES_IE, listOf(0)))),
-                arrayOf(listOf(), listOf(Element(EXTENDED_CAPABILITIES_IE, listOf(0x7F)))),
-                arrayOf(listOf(), listOf(Element(EXTENDED_CAPABILITIES_IE, listOf(0x7F, 0x7F)))),
-                arrayOf(listOf(), listOf(Element(EXTENDED_CAPABILITIES_IE, listOf(0x7F, 0x7F, 0)))),
-                arrayOf(listOf(), listOf(Element(EXTENDED_CAPABILITIES_IE, listOf(0x7F, 0x7F, 0, 0x7F)))),
-                arrayOf(listOf(), listOf(Element(EXTENDED_CAPABILITIES_IE, listOf(0x7F, 0x7F, 0, 0x7F, 0x7F)))),
+                arrayOf(listOf(), listOf(Element(0, byteArrayOf().toList()))),
+                arrayOf(listOf(), listOf(Element(IE_RM_ENABLED_CAPABILITIES, byteArrayOf().toList()))),
+                arrayOf(listOf(), listOf(Element(IE_RM_ENABLED_CAPABILITIES, byteArrayOf(0x00).toList()))),
+                arrayOf(listOf(), listOf(Element(IE_RM_ENABLED_CAPABILITIES, byteArrayOf(0x00, 0x7F).toList()))),
+                arrayOf(listOf(), listOf(Element(IE_RM_ENABLED_CAPABILITIES, byteArrayOf(0x00, 0x7F, 0x7F).toList()))),
+                arrayOf(
+                    listOf(),
+                    listOf(Element(IE_RM_ENABLED_CAPABILITIES, byteArrayOf(0x00, 0x7F, 0x7F, 0x7F).toList())),
+                ),
+                arrayOf(
+                    listOf(),
+                    listOf(Element(IE_RM_ENABLED_CAPABILITIES, byteArrayOf(0x00, 0x7F, 0x7F, 0x7F, 0x7F).toList())),
+                ),
+                arrayOf(
+                    listOf(),
+                    listOf(
+                        Element(IE_RM_ENABLED_CAPABILITIES, byteArrayOf(0x00, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F).toList()),
+                    ),
+                ),
+                arrayOf(listOf(), listOf(Element(IE_EXTENDED_CAPABILITIES, byteArrayOf(0x00).toList()))),
+                arrayOf(listOf(), listOf(Element(IE_EXTENDED_CAPABILITIES, byteArrayOf(0x7F).toList()))),
+                arrayOf(listOf(), listOf(Element(IE_EXTENDED_CAPABILITIES, byteArrayOf(0x7F, 0x7F).toList()))),
+                arrayOf(listOf(), listOf(Element(IE_EXTENDED_CAPABILITIES, byteArrayOf(0x7F, 0x7F, 0x00).toList()))),
+                arrayOf(
+                    listOf(),
+                    listOf(Element(IE_EXTENDED_CAPABILITIES, byteArrayOf(0x7F, 0x7F, 0x00, 0x7F).toList())),
+                ),
+                arrayOf(
+                    listOf(),
+                    listOf(Element(IE_EXTENDED_CAPABILITIES, byteArrayOf(0x7F, 0x7F, 0x00, 0x7F, 0x7F).toList())),
+                ),
+                arrayOf(
+                    listOf(),
+                    listOf(Element(IE_VENDOR_SPECIFIC, byteArrayOf().toList())),
+                ),
+                arrayOf(
+                    listOf(),
+                    listOf(Element(IE_VENDOR_SPECIFIC, byteArrayOf(0x00).toList())),
+                ),
+                arrayOf(
+                    listOf(),
+                    listOf(Element(IE_VENDOR_SPECIFIC, byteArrayOf(0x00, 0x0F).toList())),
+                ),
+                arrayOf(
+                    listOf(),
+                    listOf(Element(IE_VENDOR_SPECIFIC, byteArrayOf(0x00, 0x0F, 0xAC.toByte()).toList())),
+                ),
+                arrayOf(
+                    listOf(),
+                    listOf(Element(IE_VENDOR_SPECIFIC, byteArrayOf(0x01, 0x0F, 0xAC.toByte(), 0x12).toList())),
+                ),
+                arrayOf(
+                    listOf(),
+                    listOf(Element(IE_VENDOR_SPECIFIC, byteArrayOf(0x00, 0x01, 0xAC.toByte(), 0x12).toList())),
+                ),
+                arrayOf(
+                    listOf(),
+                    listOf(Element(IE_VENDOR_SPECIFIC, byteArrayOf(0x00, 0x0F, 0xAD.toByte(), 0x12).toList())),
+                ),
+                arrayOf(
+                    listOf(),
+                    listOf(Element(IE_VENDOR_SPECIFIC, byteArrayOf(0x00, 0x0F, 0xAC.toByte(), 0x13).toList())),
+                )
             )
     }
 }

@@ -276,6 +276,7 @@
     <string name="fast_roaming_k" translatable="false">"802.11k"</string>
     <string name="fast_roaming_r" translatable="false">"802.11r"</string>
     <string name="fast_roaming_v" translatable="false">"802.11v"</string>
+    <string name="fast_roaming_okc" translatable="false">"OKC"</string>
     <!-- fast roaming -->
 
 </resources>

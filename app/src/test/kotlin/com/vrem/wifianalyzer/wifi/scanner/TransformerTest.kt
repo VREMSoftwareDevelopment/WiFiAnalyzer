@@ -23,10 +23,7 @@ import android.net.wifi.WifiInfo
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.wifi.model.BSSID
-import com.vrem.wifianalyzer.wifi.model.EXTENDED_CAPABILITIES_IE
 import com.vrem.wifianalyzer.wifi.model.FastRoaming
-import com.vrem.wifianalyzer.wifi.model.MOBILE_DOMAIN_IE
-import com.vrem.wifianalyzer.wifi.model.RM_ENABLED_CAPABILITIES_IE
 import com.vrem.wifianalyzer.wifi.model.SSID
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
@@ -46,12 +43,21 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 import java.nio.ByteBuffer
 
+private const val IE_MOBILE_DOMAIN = 54
+private const val IE_RM_ENABLED_CAPABILITIES = 70
+private const val IE_EXTENDED_CAPABILITIES = 127
+private const val IE_VENDOR_SPECIFIC = 221
+
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
 class TransformerTest {
-    private val informationElement1 = withInformationElement(RM_ENABLED_CAPABILITIES_IE, byteArrayOf(0x7F, 0, 0, 0, 0))
-    private val informationElement2 = withInformationElement(EXTENDED_CAPABILITIES_IE, byteArrayOf(0, 0, 0x7F))
-    private val informationElement3 = withInformationElement(MOBILE_DOMAIN_IE, byteArrayOf())
+    private val informationElement1 =
+        withInformationElement(IE_RM_ENABLED_CAPABILITIES, byteArrayOf(0x7F, 0x00, 0x00, 0x00, 0x00))
+    private val informationElement2 = withInformationElement(IE_EXTENDED_CAPABILITIES, byteArrayOf(0x00, 0x00, 0x7F))
+    private val informationElement3 = withInformationElement(IE_MOBILE_DOMAIN, byteArrayOf())
+    private val informationElement4 =
+        withInformationElement(IE_VENDOR_SPECIFIC, byteArrayOf(0x00, 0x0F, 0xAC.toByte(), 0x12))
+
     private val scanResult1 =
         withScanResult(SSID_1, BSSID_1, WiFiWidth.MHZ_160, WiFiStandard.AX, WiFiSecurityTypeTest.All)
     private val scanResult2 =
@@ -65,6 +71,7 @@ class TransformerTest {
                 informationElement1,
                 informationElement2,
                 informationElement3,
+                informationElement4,
             ),
         )
     private val scanResult3 = withScanResult(SSID_3, BSSID_3, WiFiWidth.MHZ_40, WiFiStandard.N, listOf(), listOf())
