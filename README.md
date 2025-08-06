@@ -142,7 +142,7 @@ WiFiAnalyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 This command generates the following report:
 - Lint report: `app/build/reports/lint-results.html`
 
-### Run unit tests with coverage
+### Run unit tests
 `./gradlew testDebugUnitTest`
 
 This command generates the following report:
