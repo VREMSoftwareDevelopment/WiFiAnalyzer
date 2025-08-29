@@ -66,7 +66,8 @@ data class WiFiSignal(
 
     val strength: Strength get() = Strength.calculate(level)
 
-    val distance: String get() = String.format(Locale.getDefault(), "~%.1fm", calculateDistance(primaryFrequency, level))
+    val distance: String get() =
+        String.format(Locale.getDefault(), "~%.1fm", calculateDistance(primaryFrequency, level))
 
     fun inRange(frequency: Int): Boolean = frequency in wiFiChannelStart.frequency..wiFiChannelEnd.frequency
 
