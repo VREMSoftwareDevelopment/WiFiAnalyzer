@@ -57,7 +57,7 @@ import org.robolectric.annotation.Config
 import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class ChannelRatingAdapterTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val settings = MainContextHelper.INSTANCE.settings
@@ -142,7 +142,7 @@ class ChannelRatingAdapterTest {
         doReturn(wiFiBand).whenever(settings).wiFiBand()
         val viewGroup = mainActivity.findViewById<ViewGroup>(android.R.id.content)
         // execute & validate
-        assertThatThrownBy({ fixture.getView(0, null, viewGroup) })
+        assertThatThrownBy { fixture.getView(0, null, viewGroup) }
             .isInstanceOf(IndexOutOfBoundsException::class.java)
             .hasMessage("Index 0 out of bounds for length 0")
         verify(settings).wiFiBand()

@@ -39,7 +39,7 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class SSIDFilterTest {
     private val alertDialog: AlertDialog = mock()
     private val editText: EditText = mock()

@@ -1,0 +1,13 @@
+name: 'Setup Java and Gradle'
+description: 'Composite action to set up Java and Gradle for Android builds.'
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: zulu
+        java-version: 21
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@v4
+

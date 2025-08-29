@@ -22,6 +22,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.util.supportedLanguages
 import com.vrem.util.toCapitalize
 import com.vrem.util.toLanguageTag
+import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
@@ -31,11 +32,12 @@ import org.robolectric.annotation.Config
 import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class LanguagePreferenceTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val languages = supportedLanguages()
-    private val fixture = LanguagePreference(mainActivity, Robolectric.buildAttributeSet().build())
+    private val attributeSet = Robolectric.getAttributeSetFromXml(R.xml.test_attrs)
+    private val fixture = LanguagePreference(mainActivity, attributeSet)
 
     @Test
     fun entries() {

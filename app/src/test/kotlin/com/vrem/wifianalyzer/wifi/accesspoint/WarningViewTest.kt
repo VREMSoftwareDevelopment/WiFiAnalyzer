@@ -43,7 +43,7 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class WarningViewTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val permissionService = MainContextHelper.INSTANCE.permissionService

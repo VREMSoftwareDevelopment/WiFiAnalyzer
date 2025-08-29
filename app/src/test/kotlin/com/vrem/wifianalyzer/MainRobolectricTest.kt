@@ -23,7 +23,7 @@ import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowAlertDialog
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class MainRobolectricTest {
     private val pause = "Pause"
     private val play = "Play"

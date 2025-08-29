@@ -49,7 +49,7 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class ChannelGraphViewTest {
     private val settings: Settings = MainContextHelper.INSTANCE.settings
     private val graphViewWrapper: GraphViewWrapper = mock()

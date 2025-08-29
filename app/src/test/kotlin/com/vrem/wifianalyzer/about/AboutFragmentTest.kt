@@ -43,7 +43,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class AboutFragmentTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val configuration = MainContextHelper.INSTANCE.configuration

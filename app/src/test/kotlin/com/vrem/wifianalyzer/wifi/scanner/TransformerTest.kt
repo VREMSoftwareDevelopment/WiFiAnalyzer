@@ -49,7 +49,7 @@ private const val ID_EXTENDED_CAPABILITIES = 127
 private const val ID_VENDOR_SPECIFIC = 221
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class TransformerTest {
     private val informationElement1 =
         withInformationElement(ID_RM_ENABLED_CAPABILITIES, byteArrayOf(0x7F, 0x00, 0x00, 0x00, 0x00))

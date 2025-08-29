@@ -39,7 +39,7 @@ private const val ID_EXTENDED_CAPABILITIES = 127
 private const val ID_VENDOR_SPECIFIC = 221
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
-@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class FastRoamingParameterizedTest(
     val expected: List<FastRoaming>,
     val elements: List<Element>,

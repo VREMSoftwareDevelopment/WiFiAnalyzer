@@ -19,6 +19,7 @@ package com.vrem.wifianalyzer.settings
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry.Companion.findAll
 import org.assertj.core.api.Assertions.assertThat
@@ -29,11 +30,12 @@ import org.robolectric.annotation.Config
 import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class CountryPreferenceTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val countries = findAll()
-    private val fixture = CountryPreference(mainActivity, Robolectric.buildAttributeSet().build())
+    private val attributeSet = Robolectric.getAttributeSetFromXml(R.xml.test_attrs)
+    private val fixture = CountryPreference(mainActivity, attributeSet)
     private val currentLocale = Locale.getDefault()
 
     @Test

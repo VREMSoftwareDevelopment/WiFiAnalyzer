@@ -51,15 +51,15 @@ private object SyncAvoid {
         ).toList()
 }
 
-val BULGARIAN: Locale = Locale("bg")
-val GREEK: Locale = Locale("el")
-val POLISH: Locale = Locale("pl")
-val PORTUGUESE_PORTUGAL: Locale = Locale("pt", "PT")
-val PORTUGUESE_BRAZIL: Locale = Locale("pt", "BR")
-val SPANISH: Locale = Locale("es")
-val RUSSIAN: Locale = Locale("ru")
-val TURKISH: Locale = Locale("tr")
-val UKRAINIAN: Locale = Locale("uk")
+val BULGARIAN: Locale = Locale.forLanguageTag("bg")
+val GREEK: Locale = Locale.forLanguageTag("el")
+val POLISH: Locale = Locale.forLanguageTag("pl")
+val PORTUGUESE_PORTUGAL: Locale = Locale.forLanguageTag("pt-PT")
+val PORTUGUESE_BRAZIL: Locale = Locale.forLanguageTag("pt-BR")
+val SPANISH: Locale = Locale.forLanguageTag("es")
+val RUSSIAN: Locale = Locale.forLanguageTag("ru")
+val TURKISH: Locale = Locale.forLanguageTag("tr")
+val UKRAINIAN: Locale = Locale.forLanguageTag("uk")
 
 private const val SEPARATOR: String = "_"
 
@@ -88,8 +88,8 @@ fun toLanguageTag(locale: Locale): String = locale.language + SEPARATOR + locale
 private fun fromLanguageTag(languageTag: String): Locale {
     val codes: Array<String> = languageTag.split(SEPARATOR).toTypedArray()
     return when (codes.size) {
-        1 -> Locale(codes[0])
-        2 -> Locale(codes[0], codes[1].toCapitalize(Locale.getDefault()))
+        1 -> Locale.forLanguageTag(codes[0])
+        2 -> Locale.forLanguageTag("${codes[0]}-${codes[1].toCapitalize(Locale.getDefault())}")
         else -> SyncAvoid.defaultLocale
     }
 }

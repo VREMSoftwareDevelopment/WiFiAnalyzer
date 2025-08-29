@@ -27,7 +27,7 @@ import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
 import org.robolectric.annotation.Config
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
-@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class WiFiSecurityParameterized1Test(
     val wiFiSecurity: WiFiSecurity,
     val expected: Set<Security>,

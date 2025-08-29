@@ -45,7 +45,7 @@ import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowToast
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.VANILLA_ICE_CREAM])
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class ExportItemTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val export: Export = mock()

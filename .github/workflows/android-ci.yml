@@ -1,0 +1,90 @@
+name: "Android CI"
+
+on:
+  push:
+    paths-ignore:
+      - '**/*.md'
+      - '.github/workflows/android-test-ci.yml'
+      - '.github/workflows/codeql-analysis.yml'
+      - '.github/workflows/stale.yml'
+  pull_request:
+    paths-ignore:
+      - '**/*.md'
+      - '.github/workflows/android-test-ci.yml'
+      - '.github/workflows/codeql-analysis.yml'
+      - '.github/workflows/stale.yml'
+  workflow_dispatch: {}
+
+jobs:
+  ktlint:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/common-setup
+      - name: ktlint check
+        run: bash ./gradlew ktlintCheck --stacktrace
+      - name: Upload ktlint report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ktlint-report
+          path: app/build/reports/ktlint
+
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/common-setup
+      - name: lint
+        run: bash ./gradlew lintDebug --stacktrace
+      - name: Upload lint report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-report
+          path: app/build/reports/lint-results*.*
+
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/common-setup
+      - name: unit tests
+        run: bash ./gradlew testDebugUnitTest --stacktrace
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: app/build/reports/tests
+
+  coverage:
+    runs-on: ubuntu-22.04
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/common-setup
+      - name: coverage
+        run: bash ./gradlew jacocoTestCoverageVerification --stacktrace
+      - name: Upload JaCoCo report
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report
+          path: app/build/reports/jacoco
+      - name: upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml
+
+  build-apk:
+    runs-on: ubuntu-22.04
+    needs: [ktlint, lint, test, coverage]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/common-setup
+      - name: build apk
+        run: bash ./gradlew assembleDebug --stacktrace
+      - name: artifact apk
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact-apk
+          path: app/build/outputs/apk/debug
+

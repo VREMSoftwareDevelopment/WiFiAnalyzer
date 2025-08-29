@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi.model
 import android.content.Context
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel
+import java.util.Locale
 
 data class WiFiSignalExtra(
     val is80211mc: Boolean = false,
@@ -65,7 +66,7 @@ data class WiFiSignal(
 
     val strength: Strength get() = Strength.calculate(level)
 
-    val distance: String get() = String.format("~%.1fm", calculateDistance(primaryFrequency, level))
+    val distance: String get() = String.format(Locale.getDefault(), "~%.1fm", calculateDistance(primaryFrequency, level))
 
     fun inRange(frequency: Int): Boolean = frequency in wiFiChannelStart.frequency..wiFiChannelEnd.frequency
 
