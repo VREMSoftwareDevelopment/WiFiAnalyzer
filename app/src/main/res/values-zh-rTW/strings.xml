@@ -71,7 +71,7 @@
     <string name="group_by_title">"存取點分組依據"</string>
     <string name="group_by_none">"無"</string>
     <string name="group_by_channel">"頻道"</string>
-    <string name="group_by_virtual">"Virtual"</string>
+    <string name="group_by_virtual">"虛擬"</string>
 
     <string name="connection_view_title">"顯示連線"</string>
     <string name="connection_view_complete">"完整"</string>
@@ -110,6 +110,7 @@
     <string name="about_description_title">"描述："</string>
     <string name="about_description_text">"使用本開放原始碼的 Android WiFiAnalyzer 應用程式來檢查 Wi-Fi 狀態、訊號強度並識別擁擠的頻道從而最佳化您的 Wi-Fi 網路"</string>
     <string name="about_libraries_title">"使用的函式庫："</string>
+    <string name="about_privacy_policy">"隱私權政策："</string>
     <string name="about_contributor_title">"貢獻者"</string>
     <string name="about_write_review">"撰寫評論"</string>
     <string name="about_documentation">"文件:"</string>
