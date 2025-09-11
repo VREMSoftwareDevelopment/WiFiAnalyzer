@@ -48,7 +48,7 @@ The complete guide to using WiFiAnalyzer can be found in the [User Manual](USER_
 ## How-to
 
 * [How to video](https://youtu.be/JJVKja0VDR0)
-* [How to find the best 5Ghz Wi-Fi Channel](https://www.maketecheasier.com/best-wifi-channel-for-5ghz-frequency/)
+* [How to find the best 5 GHz Wi-Fi Channel](https://www.maketecheasier.com/best-wifi-channel-for-5ghz-frequency/)
 * [Understand Wi-Fi 4/5/6/6E/7 (802.11 n/ac/ax/be) - Make educated wireless router/AP upgrade decisions](https://www.duckware.com/tech/wifi-in-the-us.html)
 * [Why Wi-Fi stinks and how to fix it](http://spectrum.ieee.org/telecom/wireless/why-wifi-stinksand-how-to-fix-it)
 * [Wi-Fi channels list](https://en.wikipedia.org/wiki/List_of_WLAN_channels)
