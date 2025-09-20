@@ -17,7 +17,7 @@
  */
 
 jacoco {
-    toolVersion = "0.8.12"
+    toolVersion = "0.8.13"
 }
 
 def executionPath = 'outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec'

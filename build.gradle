@@ -20,16 +20,18 @@
 
 buildscript {
     ext {
-        kotlin_version = '2.2.10'
+        kotlin_version = '2.2.20'
     }
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal() // Added for plugin resolution
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.12.2'
+        classpath 'com.android.tools.build:gradle:8.13.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.52.0"
     }
 }
 
@@ -51,3 +53,5 @@ allprojects {
 tasks.register('clean', Delete) {
     delete rootProject.layout.buildDirectory
 }
+
+apply from: "dependencyUpdates.gradle"
