@@ -94,6 +94,7 @@ class LocaleUtilsTest {
         val expected: Set<Locale> =
             setOf(
                 BULGARIAN,
+                DUTCH,
                 GREEK,
                 Locale.SIMPLIFIED_CHINESE,
                 Locale.TRADITIONAL_CHINESE,
@@ -109,7 +110,6 @@ class LocaleUtilsTest {
                 RUSSIAN,
                 TURKISH,
                 UKRAINIAN,
-                Locale.getDefault(),
             )
         // execute
         val actual = supportedLanguages()

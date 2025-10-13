@@ -32,6 +32,7 @@ private object SyncAvoid {
     val supportedLocales: List<Locale> =
         setOf(
             BULGARIAN,
+            DUTCH,
             GREEK,
             Locale.SIMPLIFIED_CHINESE,
             Locale.TRADITIONAL_CHINESE,
@@ -47,11 +48,11 @@ private object SyncAvoid {
             RUSSIAN,
             TURKISH,
             UKRAINIAN,
-            defaultLocale,
         ).toList()
 }
 
 val BULGARIAN: Locale = Locale.forLanguageTag("bg")
+val DUTCH: Locale = Locale.forLanguageTag("nl")
 val GREEK: Locale = Locale.forLanguageTag("el")
 val POLISH: Locale = Locale.forLanguageTag("pl")
 val PORTUGUESE_PORTUGAL: Locale = Locale.forLanguageTag("pt-PT")
