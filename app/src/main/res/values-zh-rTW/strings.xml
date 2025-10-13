@@ -18,121 +18,89 @@
   -->
 
 <resources>
-    <string name="app_copyright">"著作權 \u00A9 2015 \u002D "</string>
-
-    <string name="navigation_drawer_open">"開啟導覽欄"</string>
-    <string name="navigation_drawer_close">"關閉導覽欄"</string>
-    <string name="scanner_message">"正在掃描 &#8230;"</string>
-    <string name="scanner_pause">"暫停"</string>
-    <string name="scanner_play">"播放"</string>
-
-    <!-- action start -->
-    <string name="action_access_points">"存取點"</string>
-    <string name="action_channel_rating">"頻道評分"</string>
-    <string name="action_channel_graph">"頻道圖"</string>
-    <string name="action_time_graph">"時間圖"</string>
-    <string name="action_export">"匯出"</string>
-    <string name="action_channel_available">"可用頻道"</string>
-    <string name="action_vendors">"製造商"</string>
-    <string name="action_settings">"設定"</string>
+    <string name="about_contributor_title">"貢獻者"</string>
+    <string name="about_description_text">"使用本開放原始碼的 Android WiFiAnalyzer 應用程式來檢查 Wi-Fi 狀態、訊號強度並識別擁擠的頻道從而最佳化您的 Wi-Fi 網路"</string>
+    <string name="about_description_title">"描述："</string>
+    <string name="about_documentation">"文件:"</string>
+    <string name="about_faq">"常見問題："</string>
+    <string name="about_how_to">"操作指南："</string>
+    <string name="about_libraries_title">"使用的函式庫："</string>
+    <string name="about_license_title">"授權條款："</string>
+    <string name="about_privacy_policy">"隱私權政策："</string>
+    <string name="about_write_review">"撰寫評論"</string>
     <string name="action_about">"關於"</string>
-    <!-- action end -->
-
+    <string name="action_access_points">"存取點"</string>
+    <string name="action_channel_available">"可用頻道"</string>
+    <string name="action_channel_graph">"頻道圖"</string>
+    <string name="action_channel_rating">"頻道評分"</string>
+    <string name="action_export">"匯出"</string>
+    <string name="action_settings">"設定"</string>
+    <string name="action_time_graph">"時間圖"</string>
+    <string name="action_vendors">"製造商"</string>
+    <string name="ap_view_compact">"精簡"</string>
+    <string name="ap_view_complete">"完整"</string>
+    <string name="ap_view_title">"顯示存取點"</string>
+    <string name="app_copyright">"著作權 \u00A9 2015 \u002D "</string>
+    <string name="channel_graph_legend_title">"頻道圖例顯示位置"</string>
+    <string name="channel_rating_best">"最佳頻道："</string>
+    <string name="channel_rating_best_alternative">"%s，嘗試其他 Wi-Fi 頻段 %s"</string>
+    <string name="channel_rating_best_none">"無"</string>
+    <string name="channel_rating_heading_count">"存取點計數"</string>
+    <string name="channel_rating_heading_number">"頻道數"</string>
+    <string name="channel_rating_heading_rating">"頻道評分"</string>
+    <string name="channel_short_name">"頻道"</string>
+    <string name="connection_view_compact">"精簡"</string>
+    <string name="connection_view_complete">"完整"</string>
+    <string name="connection_view_hide">"隱藏"</string>
+    <string name="connection_view_title">"顯示連線"</string>
+    <string name="country_code_title">"國家"</string>
+    <string name="current_connection">"目前連接"</string>
+    <string name="export_not_available">"無法匯出"</string>
+    <string name="filter_apply">"套用"</string>
+    <string name="filter_close">"關閉"</string>
+    <string name="filter_reset">"重設"</string>
+    <string name="filter_security_title">"安全"</string>
+    <string name="filter_ssid_title">"SSID (區分大小寫)"</string>
+    <string name="filter_strength_title">"訊號強度"</string>
+    <string name="filter_title">"過濾器"</string>
+    <string name="filter_wifi_band_title">"Wi-Fi 頻段"</string>
+    <string name="graph_axis_y">"訊號強度 (dBm)"</string>
+    <string name="graph_channel_axis_x">"Wi-Fi頻道"</string>
+    <string name="graph_legend_hide">"隱藏"</string>
+    <string name="graph_legend_left">"左"</string>
+    <string name="graph_legend_right">"右"</string>
+    <string name="graph_maximum_y_title">"最大訊號強度圖"</string>
+    <string name="graph_time_axis_x">"掃描次數"</string>
+    <string name="group_by_channel">"頻道"</string>
+    <string name="group_by_none">"無"</string>
+    <string name="group_by_title">"存取點分組依據"</string>
+    <string name="group_by_virtual">"虛擬"</string>
+    <string name="keep_screen_on_title">"保持螢幕開啟"</string>
+    <string name="language_title">"語言"</string>
+    <string name="location_msg">"只有在你使用時，這個應用程式才能透過定位服務取得你的精確位置。你必須在裝置上開啟定位服務，這個應用程式才能取得位置資訊。這麼做可能會增加電池用量。"</string>
+    <string name="navigation_drawer_close">"關閉導覽欄"</string>
+    <string name="navigation_drawer_open">"開啟導覽欄"</string>
     <string name="no_data">"無資料"</string>
     <string name="no_data_msg">"請造訪我們網站上的「常見問題」一節。"</string>
     <string name="permission_msg">"從 Android Marshmallow 開始，執行 Wi-Fi 掃描需要位置權限。系統將會提示您啟用位置服務／權限。因為本應用程式並不需要網路存取的權限，所以您可以相信本應用程式不會傳輸您的位置！"</string>
-    <string name="location_msg">"只有在你使用時，這個應用程式才能透過定位服務取得你的精確位置。你必須在裝置上開啟定位服務，這個應用程式才能取得位置資訊。這麼做可能會增加電池用量。"</string>
-    <string name="throttling_msg">"Android 9 引入了 Wi-Fi 掃描限制。Android 10 有新的開發人員選項，可在「設定」-「開發人員選項」-「網路」-「Wi-Fi 掃描」下關閉限制。"</string>
-    <string name="export_not_available">"無法匯出"</string>
-    <string name="current_connection">"目前連接"</string>
-
-    <string name="channel_rating_best">"最佳頻道："</string>
-    <string name="channel_rating_best_none">"無"</string>
-    <string name="channel_rating_best_alternative">"%s，嘗試其他 Wi-Fi 頻段 %s"</string>
-    <string name="channel_rating_heading_rating">"頻道評分"</string>
-    <string name="channel_rating_heading_number">"頻道數"</string>
-    <string name="channel_rating_heading_count">"存取點計數"</string>
-    <string name="channel_short_name">"頻道"</string>
-
-    <string name="graph_channel_axis_x">"Wi-Fi頻道"</string>
-    <string name="graph_time_axis_x">"掃描次數"</string>
-    <string name="graph_axis_y">"訊號強度 (dBm)"</string>
-
-    <!-- settings start -->
-    <string name="country_code_title">"國家"</string>
-
-    <string name="scan_speed_title">"掃描間隔"</string>
+    <string name="reset_title">"重設"</string>
     <string name="scan_speed_summary">"每次掃描間隔%s秒"</string>
-
-    <string name="sort_by_title">"存取點排序依據"</string>
-    <string name="sort_by_signal_strength">"訊號強度"</string>
+    <string name="scan_speed_title">"掃描間隔"</string>
+    <string name="scanner_message">"正在掃描 &#8230;"</string>
+    <string name="scanner_pause">"暫停"</string>
+    <string name="scanner_play">"播放"</string>
+    <string name="security_none">"無"</string>
     <string name="sort_by_channel">"頻道"</string>
-
-    <string name="group_by_title">"存取點分組依據"</string>
-    <string name="group_by_none">"無"</string>
-    <string name="group_by_channel">"頻道"</string>
-    <string name="group_by_virtual">"虛擬"</string>
-
-    <string name="connection_view_title">"顯示連線"</string>
-    <string name="connection_view_complete">"完整"</string>
-    <string name="connection_view_compact">"精簡"</string>
-    <string name="connection_view_hide">"隱藏"</string>
-
-    <string name="ap_view_title">"顯示存取點"</string>
-    <string name="ap_view_complete">"完整"</string>
-    <string name="ap_view_compact">"精簡"</string>
-
-    <string name="graph_maximum_y_title">"最大訊號強度圖"</string>
-
-    <string name="channel_graph_legend_title">"頻道圖例顯示位置"</string>
-    <string name="time_graph_legend_title">"時間圖例顯示位置"</string>
-    <string name="graph_legend_left">"左"</string>
-    <string name="graph_legend_right">"右"</string>
-    <string name="graph_legend_hide">"隱藏"</string>
-
-    <string name="theme_title">"佈景主題"</string>
+    <string name="sort_by_signal_strength">"訊號強度"</string>
+    <string name="sort_by_title">"存取點排序依據"</string>
+    <string name="theme_black">"黑色"</string>
     <string name="theme_dark">"深色"</string>
     <string name="theme_light">"淺色"</string>
     <string name="theme_system">"系統"</string>
-    <string name="theme_black">"黑色"</string>
-
+    <string name="theme_title">"佈景主題"</string>
+    <string name="throttling_msg">"Android 9 引入了 Wi-Fi 掃描限制。Android 10 有新的開發人員選項，可在「設定」-「開發人員選項」-「網路」-「Wi-Fi 掃描」下關閉限制。"</string>
+    <string name="time_graph_legend_title">"時間圖例顯示位置"</string>
     <string name="wifi_off_on_exit_title">"退出時關閉 Wi-Fi"</string>
-
-    <string name="keep_screen_on_title">"保持螢幕開啟"</string>
-
-    <string name="language_title">"語言"</string>
-
-    <string name="reset_title">"重設"</string>
-    <!-- settings end -->
-
-    <!-- about start -->
-    <string name="about_license_title">"授權條款："</string>
-    <string name="about_description_title">"描述："</string>
-    <string name="about_description_text">"使用本開放原始碼的 Android WiFiAnalyzer 應用程式來檢查 Wi-Fi 狀態、訊號強度並識別擁擠的頻道從而最佳化您的 Wi-Fi 網路"</string>
-    <string name="about_libraries_title">"使用的函式庫："</string>
-    <string name="about_privacy_policy">"隱私權政策："</string>
-    <string name="about_contributor_title">"貢獻者"</string>
-    <string name="about_write_review">"撰寫評論"</string>
-    <string name="about_documentation">"文件:"</string>
-    <!-- about end -->
-
-    <!-- security start -->
-    <string name="security_none">"無"</string>
-    <!-- security end -->
-
-    <!-- filter start -->
-    <string name="filter_title">"過濾器"</string>
-    <string name="filter_close">"關閉"</string>
-    <string name="filter_reset">"重設"</string>
-    <string name="filter_apply">"套用"</string>
-    <string name="filter_ssid_title">"SSID (區分大小寫)"</string>
-    <string name="filter_wifi_band_title">"Wi-Fi 頻段"</string>
-    <string name="filter_strength_title">"訊號強度"</string>
-    <string name="filter_security_title">"安全"</string>
-    <!-- filter end -->
-
-    <!-- wifi throttling start -->
-    <string name="wifi_throttling_on">"Wi-Fi 掃描限制已啟用"</string>
     <string name="wifi_throttling_off">"Wi-Fi 掃描限制已停用"</string>
-    <!-- wifi throttling end -->
+    <string name="wifi_throttling_on">"Wi-Fi 掃描限制已啟用"</string>
 </resources>

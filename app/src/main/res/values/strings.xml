@@ -18,265 +18,203 @@
   -->
 
 <resources>
-    <!-- application start -->
-    <string name="app_name" translatable="false">"WiFiAnalyzer"</string>
-    <string name="app_full_name" translatable="false">"WiFiAnalyzer (open-source)"</string>
-    <string name="app_company_name" translatable="false">"VREM Software Development"</string>
-    <string name="app_copyright">"Copyright \u00A9 2015 \u002D"</string>
-    <string name="app_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer"</string>
-    <!-- application end -->
-
-    <string name="navigation_drawer_open">"Open navigation drawer"</string>
-    <string name="navigation_drawer_close">"Close navigation drawer"</string>
-    <string name="scanner_message">"Scanning &#8230;"</string>
-    <string name="scanner_pause">"Pause"</string>
-    <string name="scanner_play">"Play"</string>
-
-    <!-- action start -->
-    <string name="action_access_points">"Access Points"</string>
-    <string name="action_channel_rating">"Channel Rating"</string>
-    <string name="action_channel_graph">"Channel Graph"</string>
-    <string name="action_time_graph">"Time Graph"</string>
-    <string name="action_export">"Export"</string>
-    <string name="action_channel_available">"Available Channels"</string>
-    <string name="action_vendors">"Vendors"</string>
-    <string name="action_settings">"Settings"</string>
-    <string name="action_about">"About"</string>
-    <!-- action end -->
-
-    <string name="no_data">"No Data"</string>
-    <string name="no_data_msg">"Please visit frequently ask questions section on our website."</string>
-    <string name="no_data_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq"</string>
-    <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a Wi-Fi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
-    <string name="location_msg">"This app can get your precise location from location services while the app is in use. Location services for your device must be turned on for the app to get location. This may increase battery usage."</string>
-    <string name="throttling_msg">"Android 9 introduced Wi-Fi scan throttling. Android 10 has a new developer option to toggle the throttling off under (Settings - Developer Options - Networking - Wi-Fi scan throttling)."</string>
-    <string name="wifi_channels_list_url" translatable="false">"https://en.wikipedia.org/wiki/List_of_WLAN_channels"</string>
-    <string name="vendor_search_hint" translatable="false">"00:0C:41 CISCO"</string>
-    <string name="export_not_available">"Export not available"</string>
-    <string name="current_connection">"Current connection"</string>
-
-    <string name="channel_rating_best">"Best Channels:"</string>
-    <string name="channel_rating_best_none">"None"</string>
-    <string name="channel_rating_best_alternative">"%s, try alternative Wi-Fi Band %s"</string>
-    <string name="channel_rating_heading_rating">"Channel Rating"</string>
-    <string name="channel_rating_heading_number">"Channel Number"</string>
-    <string name="channel_rating_heading_count">"Access Point Count"</string>
-    <string name="channel_short_name">"CH"</string>
-    <string name="channel_from_to" translatable="false">"->"</string>
-
-    <string name="graph_channel_axis_x">"Wi-Fi Channels"</string>
-    <string name="graph_time_axis_x">"Scan Count"</string>
-    <string name="graph_axis_y">"Signal Strength (dBm)"</string>
-
-    <string name="mc_flag" translatable="false">"802.11mc"</string>
-
-    <!-- settings start -->
-    <string name="selected_menu_key" translatable="false">"selected_menu"</string>
-
-    <string name="country_code_title">"Country"</string>
-    <string name="country_code_summary" translatable="false">"%s"</string>
-    <string name="country_code_key" translatable="false">"country_code"</string>
-
-    <string name="wifi_band_key" translatable="false">"wifi_band"</string>
-
-    <string name="scan_speed_title">"Scan Interval"</string>
-    <string name="scan_speed_summary">"%s seconds between each scan"</string>
-    <string name="scan_speed_key" translatable="false">"scan_speed"</string>
-    <string name="scan_speed_default" translatable="false">"5"</string>
-
-    <string name="cache_off_title" translatable="false">"Cache off"</string>
-    <string name="cache_off_key" translatable="false">"cache_off"</string>
     <bool name="cache_off_default" translatable="false">false</bool>
-
-    <string name="experimental_title" translatable="false">"Experimental"</string>
-    <string name="experimental_key" translatable="false">"experimental_key"</string>
-
-    <string name="sort_by_title" translatable="false">"Sort Access Points By"</string>
-    <string name="sort_by_summary" translatable="false">"%s"</string>
-    <string name="sort_by_key" translatable="false">"sort_by"</string>
-    <string name="sort_by_default" translatable="false">"0"</string>
-    <string name="sort_by_signal_strength">"Signal Strength"</string>
-    <string name="sort_by_ssid" translatable="false">"SSID"</string>
-    <string name="sort_by_channel">"Channel"</string>
-
-    <string name="group_by_title" translatable="false">"Group Access Points By"</string>
-    <string name="group_by_summary" translatable="false">"%s"</string>
-    <string name="group_by_key" translatable="false">"group_by"</string>
-    <string name="group_by_default" translatable="false">"0"</string>
-    <string name="group_by_none">"None"</string>
-    <string name="group_by_ssid" translatable="false">"SSID"</string>
-    <string name="group_by_channel">"Channel"</string>
-    <string name="group_by_virtual">"Virtual"</string>
-
-    <string name="connection_view_title" translatable="false">"Connection Display"</string>
-    <string name="connection_view_summary" translatable="false">"%s"</string>
-    <string name="connection_view_key" translatable="false">"connection"</string>
-    <string name="connection_view_default" translatable="false">"1"</string>
-    <string name="connection_view_complete">"Complete"</string>
-    <string name="connection_view_compact">"Compact"</string>
-    <string name="connection_view_hide">"Hide"</string>
-
-    <string name="ap_view_title" translatable="false">"Access Point Display"</string>
-    <string name="ap_view_summary" translatable="false">"%s"</string>
-    <string name="ap_view_key" translatable="false">"view"</string>
-    <string name="ap_view_default" translatable="false">"0"</string>
-    <string name="ap_view_complete">"Complete"</string>
-    <string name="ap_view_compact">"Compact"</string>
-
-    <string name="graph_maximum_y_title" translatable="false">"Graph Maximum Signal Strength"</string>
-    <string name="graph_maximum_y_summary" translatable="false">"%s"</string>
-    <string name="graph_maximum_y_key" translatable="false">"graph_maximum_y"</string>
-    <string name="graph_maximum_y_default" translatable="false">"2"</string>
-
-    <string name="channel_graph_legend_title" translatable="false">"Channel Graph Legend Display"</string>
-    <string name="channel_graph_legend_summary" translatable="false">"%s"</string>
-    <string name="channel_graph_legend_key" translatable="false">"channel_graph_legend"</string>
-    <string name="channel_graph_legend_default" translatable="false">"2"</string>
-
-    <string name="time_graph_legend_title" translatable="false">"Time Graph Legend Display"</string>
-    <string name="time_graph_legend_summary" translatable="false">"%s"</string>
-    <string name="time_graph_legend_key" translatable="false">"time_graph_legend"</string>
-    <string name="time_graph_legend_default" translatable="false">"0"</string>
-
-    <string name="graph_legend_left">"Left"</string>
-    <string name="graph_legend_right">"Right"</string>
-    <string name="graph_legend_hide">"Hide"</string>
-
-    <string name="theme_title">"Theme"</string>
-    <string name="theme_summary" translatable="false">"%s"</string>
-    <string name="theme_key" translatable="false">"theme"</string>
-    <string name="theme_default" translatable="false">"0"</string>
-    <string name="theme_dark">"Dark"</string>
-    <string name="theme_light">"Light"</string>
-    <string name="theme_system">"System"</string>
-    <string name="theme_black">"Black"</string>
-
-    <string name="wifi_off_on_exit_title">"Wi-Fi off on Exit"</string>
-    <string name="wifi_off_on_exit_key" translatable="false">"wifi_off_on_exit"</string>
-    <bool name="wifi_off_on_exit_default" translatable="false">false</bool>
-
-    <string name="keep_screen_on_title">"Keep screen on"</string>
-    <string name="keep_screen_on_key" translatable="false">"keep_screen_on"</string>
     <bool name="keep_screen_on_default" translatable="false">false</bool>
-
-    <string name="language_title">"Language"</string>
-    <string name="language_summary" translatable="false">"%s"</string>
-    <string name="language_key" translatable="false">"language"</string>
-
-    <string name="reset_title">"Reset"</string>
-    <string name="reset_key" translatable="false">"reset"</string>
-    <!-- settings end -->
-
-    <!-- about start -->
-    <string name="about_license_title">"License:"</string>
-    <string name="about_description_title">"Description:"</string>
+    <bool name="wifi_off_on_exit_default" translatable="false">false</bool>
+    <string name="about_contributor_title">"Contributors"</string>
     <string name="about_description_text">"Optimize your Wi-Fi network, by checking Wi-Fi network status, signal strength and identifying crowded channels using an open-source WiFiAnalyzer for Android"</string>
+    <string name="about_description_title">"Description:"</string>
+    <string name="about_documentation">"Documentation:"</string>
+    <string name="about_documentation_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#documentation"</string>
+    <string name="about_faq">"FAQ:"</string>
+    <string name="about_faq_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq"</string>
+    <string name="about_how_to">"How-to:"</string>
+    <string name="about_how_to_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#how-to"</string>
     <string name="about_libraries_title">"Libraries Used:"</string>
     <string name="about_library_graph_view" translatable="false">"Graph View"</string>
     <string name="about_library_graph_view_url" translatable="false">"http://www.android-graphview.org"</string>
     <string name="about_library_material" translatable="false">"Material Design Icons"</string>
     <string name="about_library_material_url" translatable="false">"https://design.google.com/icons"</string>
-    <string name="about_documentation">"Documentation:"</string>
-    <string name="about_documentation_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#documentation"</string>
-    <string name="about_how_to">"How-to:"</string>
-    <string name="about_how_to_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#how-to"</string>
-    <string name="about_faq">"FAQ:"</string>
-    <string name="about_faq_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq"</string>
+    <string name="about_license_title">"License:"</string>
     <string name="about_privacy_policy">"Privacy Policy:"</string>
     <string name="about_privacy_policy_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#privacy-policy"</string>
-    <string name="about_contributor_title">"Contributors"</string>
     <string name="about_write_review">"Write a Review"</string>
-    <!-- about end -->
-
-    <!-- license start -->
-    <string name="gpl" translatable="false">"<u>GNU General Public License v3.0</u>"</string>
-    <string name="gpl_url" translatable="false">"http://www.gnu.org/licenses/gpl-3.0.html"</string>
+    <string name="action_about">"About"</string>
+    <string name="action_access_points">"Access Points"</string>
+    <string name="action_channel_available">"Available Channels"</string>
+    <string name="action_channel_graph">"Channel Graph"</string>
+    <string name="action_channel_rating">"Channel Rating"</string>
+    <string name="action_export">"Export"</string>
+    <string name="action_settings">"Settings"</string>
+    <string name="action_time_graph">"Time Graph"</string>
+    <string name="action_vendors">"Vendors"</string>
     <string name="al" translatable="false">"<u>Apache License 2.0</u>"</string>
     <string name="al_url" translatable="false">"http://www.apache.org/licenses/LICENSE-2.0"</string>
-    <!-- license end -->
-
-    <!-- Wi-Fi band start -->
-    <string name="wifi_band_title" translatable="false">"2.4/5/6 GHz"</string>
+    <string name="ap_view_compact">"Compact"</string>
+    <string name="ap_view_complete">"Complete"</string>
+    <string name="ap_view_default" translatable="false">"0"</string>
+    <string name="ap_view_key" translatable="false">"view"</string>
+    <string name="ap_view_summary" translatable="false">"%s"</string>
+    <string name="ap_view_title">"Access Point Display"</string>
+    <string name="app_company_name" translatable="false">"VREM Software Development"</string>
+    <string name="app_copyright">"Copyright \u00A9 2015 \u002D"</string>
+    <string name="app_full_name" translatable="false">"WiFiAnalyzer (open-source)"</string>
+    <string name="app_name" translatable="false">"WiFiAnalyzer"</string>
+    <string name="app_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer"</string>
+    <string name="cache_off_key" translatable="false">"cache_off"</string>
+    <string name="cache_off_title" translatable="false">"Cache off"</string>
+    <string name="channel_from_to" translatable="false">"->"</string>
+    <string name="channel_graph_legend_default" translatable="false">"2"</string>
+    <string name="channel_graph_legend_key" translatable="false">"channel_graph_legend"</string>
+    <string name="channel_graph_legend_summary" translatable="false">"%s"</string>
+    <string name="channel_graph_legend_title">"Channel Graph Legend Display"</string>
+    <string name="channel_rating_best">"Best Channels:"</string>
+    <string name="channel_rating_best_alternative">"%s, try alternative Wi-Fi Band %s"</string>
+    <string name="channel_rating_best_none">"None"</string>
+    <string name="channel_rating_heading_count">"Access Point Count"</string>
+    <string name="channel_rating_heading_number">"Channel Number"</string>
+    <string name="channel_rating_heading_rating">"Channel Rating"</string>
+    <string name="channel_short_name">"CH"</string>
+    <string name="connection_view_compact">"Compact"</string>
+    <string name="connection_view_complete">"Complete"</string>
+    <string name="connection_view_default" translatable="false">"1"</string>
+    <string name="connection_view_hide">"Hide"</string>
+    <string name="connection_view_key" translatable="false">"connection"</string>
+    <string name="connection_view_summary" translatable="false">"%s"</string>
+    <string name="connection_view_title" translatable="false">"Connection Display"</string>
+    <string name="country_code_key" translatable="false">"country_code"</string>
+    <string name="country_code_summary" translatable="false">"%s"</string>
+    <string name="country_code_title">"Country"</string>
+    <string name="current_connection">"Current connection"</string>
+    <string name="experimental_key" translatable="false">"experimental_key"</string>
+    <string name="experimental_title" translatable="false">"Experimental"</string>
+    <string name="export_not_available">"Export not available"</string>
+    <string name="fast_roaming_k" translatable="false">"802.11k"</string>
+    <string name="fast_roaming_okc" translatable="false">"OKC"</string>
+    <string name="fast_roaming_r" translatable="false">"802.11r"</string>
+    <string name="fast_roaming_v" translatable="false">"802.11v"</string>
+    <string name="filter_apply">"Apply"</string>
+    <string name="filter_close">"Close"</string>
+    <string name="filter_reset">"Reset"</string>
+    <string name="filter_security_key" translatable="false">"filter_security"</string>
+    <string name="filter_security_title">"Security"</string>
+    <string name="filter_ssid_hint" translatable="false">"ssid SSID"</string>
+    <string name="filter_ssid_key" translatable="false">"filter_ssid"</string>
+    <string name="filter_ssid_title">"SSID (case sensitive)"</string>
+    <string name="filter_strength_key" translatable="false">"filter_strength"</string>
+    <string name="filter_strength_title">"Signal Strength"</string>
+    <string name="filter_title">"Filter"</string>
+    <string name="filter_wifi_band_key" translatable="false">"filter_wifi_band"</string>
+    <string name="filter_wifi_band_title">"Wi-Fi Band"</string>
+    <string name="gpl" translatable="false">"<u>GNU General Public License v3.0</u>"</string>
+    <string name="gpl_url" translatable="false">"http://www.gnu.org/licenses/gpl-3.0.html"</string>
+    <string name="graph_axis_y">"Signal Strength (dBm)"</string>
+    <string name="graph_channel_axis_x">"Wi-Fi Channels"</string>
+    <string name="graph_legend_hide">"Hide"</string>
+    <string name="graph_legend_left">"Left"</string>
+    <string name="graph_legend_right">"Right"</string>
+    <string name="graph_maximum_y_default" translatable="false">"2"</string>
+    <string name="graph_maximum_y_key" translatable="false">"graph_maximum_y"</string>
+    <string name="graph_maximum_y_summary" translatable="false">"%s"</string>
+    <string name="graph_maximum_y_title" translatable="false">"Graph Maximum Signal Strength"</string>
+    <string name="graph_time_axis_x">"Scan Count"</string>
+    <string name="group_by_channel">"Channel"</string>
+    <string name="group_by_default" translatable="false">"0"</string>
+    <string name="group_by_key" translatable="false">"group_by"</string>
+    <string name="group_by_none">"None"</string>
+    <string name="group_by_ssid" translatable="false">"SSID"</string>
+    <string name="group_by_summary" translatable="false">"%s"</string>
+    <string name="group_by_title" translatable="false">"Group Access Points By"</string>
+    <string name="group_by_virtual">"Virtual"</string>
+    <string name="keep_screen_on_key" translatable="false">"keep_screen_on"</string>
+    <string name="keep_screen_on_title">"Keep screen on"</string>
+    <string name="language_key" translatable="false">"language"</string>
+    <string name="language_summary" translatable="false">"%s"</string>
+    <string name="language_title">"Language"</string>
+    <string name="location_msg">"This app can get your precise location from location services while the app is in use. Location services for your device must be turned on for the app to get location. This may increase battery usage."</string>
+    <string name="mc_flag" translatable="false">"802.11mc"</string>
+    <string name="navigation_drawer_close">"Close navigation drawer"</string>
+    <string name="navigation_drawer_open">"Open navigation drawer"</string>
+    <string name="no_data">"No Data"</string>
+    <string name="no_data_msg">"Please visit frequently ask questions section on our website."</string>
+    <string name="no_data_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#faq"</string>
+    <string name="permission_msg">"As of Android Marshmallow, location permissions are required to perform a Wi-Fi scan. You will be prompted to enable location services/permissions. Since this app does not require internet access, you can be confident that this app cannot transmit your location!"</string>
+    <string name="reset_key" translatable="false">"reset"</string>
+    <string name="reset_title">"Reset"</string>
+    <string name="scan_speed_default" translatable="false">"5"</string>
+    <string name="scan_speed_key" translatable="false">"scan_speed"</string>
+    <string name="scan_speed_summary">"%s seconds between each scan"</string>
+    <string name="scan_speed_title">"Scan Interval"</string>
+    <string name="scanner_message">"Scanning &#8230;"</string>
+    <string name="scanner_pause">"Pause"</string>
+    <string name="scanner_play">"Play"</string>
+    <string name="security_none">"None"</string>
+    <string name="security_type_dpp" translatable="false">"DPP"</string>
+    <string name="security_type_eap" translatable="false">"EAP"</string>
+    <string name="security_type_eap_wpa3_enterprise" translatable="false">"EAP_WPA3_ENTERPRISE"</string>
+    <string name="security_type_eap_wpa3_enterprise_192_bit" translatable="false">"EAP_WPA3_ENTERPRISE_192_BIT"</string>
+    <string name="security_type_open" translatable="false">"OPEN"</string>
+    <string name="security_type_osen" translatable="false">"OSEN"</string>
+    <string name="security_type_owe" translatable="false">"OWE"</string>
+    <string name="security_type_passpoint_r1_r2" translatable="false">"PASSPOINT_R1_R2"</string>
+    <string name="security_type_passpoint_r3" translatable="false">"PASSPOINT_R3"</string>
+    <string name="security_type_psk" translatable="false">"PSK"</string>
+    <string name="security_type_sae" translatable="false">"SAE"</string>
+    <string name="security_type_unknown" translatable="false">""</string>
+    <string name="security_type_wapi_cert" translatable="false">"WAPI_CERT"</string>
+    <string name="security_type_wapi_psk" translatable="false">"WAPI_PSK"</string>
+    <string name="security_type_wep" translatable="false">"WEP"</string>
+    <string name="security_wep" translatable="false">"WEP"</string>
+    <string name="security_wpa" translatable="false">"WPA"</string>
+    <string name="security_wpa2" translatable="false">"WPA2"</string>
+    <string name="security_wpa3" translatable="false">"WPA3"</string>
+    <string name="security_wps" translatable="false">"WPS"</string>
+    <string name="selected_menu_key" translatable="false">"selected_menu"</string>
+    <string name="sort_by_channel">"Channel"</string>
+    <string name="sort_by_default" translatable="false">"0"</string>
+    <string name="sort_by_key" translatable="false">"sort_by"</string>
+    <string name="sort_by_signal_strength">"Signal Strength"</string>
+    <string name="sort_by_ssid" translatable="false">"SSID"</string>
+    <string name="sort_by_summary" translatable="false">"%s"</string>
+    <string name="sort_by_title" translatable="false">"Sort Access Points By"</string>
+    <string name="theme_black">"Black"</string>
+    <string name="theme_dark">"Dark"</string>
+    <string name="theme_default" translatable="false">"0"</string>
+    <string name="theme_key" translatable="false">"theme"</string>
+    <string name="theme_light">"Light"</string>
+    <string name="theme_summary" translatable="false">"%s"</string>
+    <string name="theme_system">"System"</string>
+    <string name="theme_title">"Theme"</string>
+    <string name="throttling_msg">"Android 9 introduced Wi-Fi scan throttling. Android 10 has a new developer option to toggle the throttling off under (Settings - Developer Options - Networking - Wi-Fi scan throttling)."</string>
+    <string name="time_graph_legend_default" translatable="false">"0"</string>
+    <string name="time_graph_legend_key" translatable="false">"time_graph_legend"</string>
+    <string name="time_graph_legend_summary" translatable="false">"%s"</string>
+    <string name="time_graph_legend_title" translatable="false">"Time Graph Legend Display"</string>
+    <string name="vendor_search_hint" translatable="false">"00:0C:41 CISCO"</string>
     <string name="wifi_band_2ghz" translatable="false">"2.4 GHz"</string>
     <string name="wifi_band_5ghz" translatable="false">"5 GHz"</string>
     <string name="wifi_band_6ghz" translatable="false">"6 GHz"</string>
-    <!-- Wi-Fi band end -->
-
-    <!-- Wi-Fi width start -->
+    <string name="wifi_band_key" translatable="false">"wifi_band"</string>
+    <string name="wifi_band_title" translatable="false">"2.4/5/6 GHz"</string>
+    <string name="wifi_channels_list_url" translatable="false">"https://en.wikipedia.org/wiki/List_of_WLAN_channels"</string>
+    <string name="wifi_off_on_exit_key" translatable="false">"wifi_off_on_exit"</string>
+    <string name="wifi_off_on_exit_title">"Wi-Fi off on Exit"</string>
+    <string name="wifi_standard_ac" translatable="false">"802.11ac"</string>
+    <string name="wifi_standard_ad" translatable="false">"802.11ad"</string>
+    <string name="wifi_standard_ax" translatable="false">"802.11ax"</string>
+    <string name="wifi_standard_be" translatable="false">"802.11be"</string>
+    <string name="wifi_standard_legacy" translatable="false">"802.11a/b/g"</string>
+    <string name="wifi_standard_n" translatable="false">"802.11n"</string>
+    <string name="wifi_standard_unknown" translatable="false">""</string>
+    <string name="wifi_standard_value_ac" translatable="false">"5"</string>
+    <string name="wifi_standard_value_ax" translatable="false">"6"</string>
+    <string name="wifi_standard_value_be" translatable="false">"7"</string>
+    <string name="wifi_standard_value_n" translatable="false">"4"</string>
+    <string name="wifi_throttling_off">"Wi-Fi scan throttling is disabled"</string>
+    <string name="wifi_throttling_on">"Wi-Fi scan throttling is enabled"</string>
     <string name="wifi_width_20mhz" translatable="false">"20 MHz"</string>
     <string name="wifi_width_40mhz" translatable="false">"40 MHz"</string>
     <string name="wifi_width_80mhz" translatable="false">"80 MHz"</string>
     <string name="wifi_width_160mhz" translatable="false">"160 MHz"</string>
     <string name="wifi_width_320mhz" translatable="false">"320 MHz"</string>
-    <!-- Wi-Fi width end -->
-
-    <!-- Wi-Fi standard start -->
-    <string name="wifi_standard_unknown" translatable="false">""</string>
-    <string name="wifi_standard_legacy" translatable="false">"802.11a/b/g"</string>
-    <string name="wifi_standard_n" translatable="false">"802.11n"</string>
-    <string name="wifi_standard_ac" translatable="false">"802.11ac"</string>
-    <string name="wifi_standard_ax" translatable="false">"802.11ax"</string>
-    <string name="wifi_standard_ad" translatable="false">"802.11ad"</string>
-    <string name="wifi_standard_be" translatable="false">"802.11be"</string>
-    <string name="wifi_standard_value_n" translatable="false">"4"</string>
-    <string name="wifi_standard_value_ac" translatable="false">"5"</string>
-    <string name="wifi_standard_value_ax" translatable="false">"6"</string>
-    <string name="wifi_standard_value_be" translatable="false">"7"</string>
-    <!-- Wi-Fi standard end -->
-
-    <!-- security start -->
-    <string name="security_none">"None"</string>
-    <string name="security_wps" translatable="false">"WPS"</string>
-    <string name="security_wep" translatable="false">"WEP"</string>
-    <string name="security_wpa" translatable="false">"WPA"</string>
-    <string name="security_wpa2" translatable="false">"WPA2"</string>
-    <string name="security_wpa3" translatable="false">"WPA3"</string>
-    <!-- security end -->
-
-    <!-- security type start -->
-    <string name="security_type_unknown" translatable="false">""</string>
-    <string name="security_type_open" translatable="false">"OPEN"</string>
-    <string name="security_type_wep" translatable="false">"WEP"</string>
-    <string name="security_type_psk" translatable="false">"PSK"</string>
-    <string name="security_type_eap" translatable="false">"EAP"</string>
-    <string name="security_type_sae" translatable="false">"SAE"</string>
-    <string name="security_type_eap_wpa3_enterprise_192_bit" translatable="false">"EAP_WPA3_ENTERPRISE_192_BIT"</string>
-    <string name="security_type_owe" translatable="false">"OWE"</string>
-    <string name="security_type_wapi_psk" translatable="false">"WAPI_PSK"</string>
-    <string name="security_type_wapi_cert" translatable="false">"WAPI_CERT"</string>
-    <string name="security_type_eap_wpa3_enterprise" translatable="false">"EAP_WPA3_ENTERPRISE"</string>
-    <string name="security_type_osen" translatable="false">"OSEN"</string>
-    <string name="security_type_passpoint_r1_r2" translatable="false">"PASSPOINT_R1_R2"</string>
-    <string name="security_type_passpoint_r3" translatable="false">"PASSPOINT_R3"</string>
-    <string name="security_type_dpp" translatable="false">"DPP"</string>
-    <!-- security type end -->
-
-    <!-- filter start -->
-    <string name="filter_title">"Filter"</string>
-    <string name="filter_close">"Close"</string>
-    <string name="filter_reset">"Reset"</string>
-    <string name="filter_apply">"Apply"</string>
-    <string name="filter_ssid_title">"SSID (case sensitive)"</string>
-    <string name="filter_ssid_key" translatable="false">"filter_ssid"</string>
-    <string name="filter_ssid_hint" translatable="false">"ssid SSID"</string>
-    <string name="filter_wifi_band_title">"Wi-Fi Band"</string>
-    <string name="filter_wifi_band_key" translatable="false">"filter_wifi_band"</string>
-    <string name="filter_strength_title">"Signal Strength"</string>
-    <string name="filter_strength_key" translatable="false">"filter_strength"</string>
-    <string name="filter_security_title">"Security"</string>
-    <string name="filter_security_key" translatable="false">"filter_security"</string>
-    <!-- filter end -->
-
-    <!-- wifi throttling start -->
-    <string name="wifi_throttling_on">"Wi-Fi scan throttling is enabled"</string>
-    <string name="wifi_throttling_off">"Wi-Fi scan throttling is disabled"</string>
-    <!-- wifi throttling end -->
-
-    <!-- fast roaming start -->
-    <string name="fast_roaming_k" translatable="false">"802.11k"</string>
-    <string name="fast_roaming_r" translatable="false">"802.11r"</string>
-    <string name="fast_roaming_v" translatable="false">"802.11v"</string>
-    <string name="fast_roaming_okc" translatable="false">"OKC"</string>
-    <!-- fast roaming -->
-
 </resources>
