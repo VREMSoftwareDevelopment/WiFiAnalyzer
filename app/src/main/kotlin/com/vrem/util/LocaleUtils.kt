@@ -34,6 +34,7 @@ private object SyncAvoid {
             BULGARIAN,
             DUTCH,
             GREEK,
+            HUNGARIAN,
             Locale.SIMPLIFIED_CHINESE,
             Locale.TRADITIONAL_CHINESE,
             Locale.ENGLISH,
@@ -55,6 +56,7 @@ private object SyncAvoid {
 val BULGARIAN: Locale = Locale.forLanguageTag("bg")
 val DUTCH: Locale = Locale.forLanguageTag("nl")
 val GREEK: Locale = Locale.forLanguageTag("el")
+val HUNGARIAN: Locale = Locale.forLanguageTag("hu")
 val POLISH: Locale = Locale.forLanguageTag("pl")
 val PORTUGUESE_PORTUGAL: Locale = Locale.forLanguageTag("pt-PT")
 val PORTUGUESE_BRAZIL: Locale = Locale.forLanguageTag("pt-BR")

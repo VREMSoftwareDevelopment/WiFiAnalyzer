@@ -96,6 +96,7 @@ class LocaleUtilsTest {
                 BULGARIAN,
                 DUTCH,
                 GREEK,
+                HUNGARIAN,
                 Locale.SIMPLIFIED_CHINESE,
                 Locale.TRADITIONAL_CHINESE,
                 Locale.ENGLISH,

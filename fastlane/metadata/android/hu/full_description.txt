@@ -1,0 +1,17 @@
+Optimalizálja Wi‑Fi hálózatát: ellenőrizze a hálózat állapotát, a jelerősséget és azonosítsa a túlterhelt csatornákat a WiFiAnalyzer segítségével.
+
+Funkciók:
+
+* Közeli hozzáférési pontok (Access Point, AP) azonosítása
+* Csatornák jelerősségének grafikonja
+* Hozzáférési pontok jelerősségének ábrázolása az idő függvényében
+* Wi‑Fi hálózatok elemzése és csatornák értékelése
+* HT/VHT észlelés — 40/80/160/320 MHz (hardver/szoftver támogatást igényel)
+* 2,4 GHz, 5 GHz és 6 GHz Wi‑Fi sávok (hardver/szoftver támogatást igényel)
+* Hozzáférési pont nézet: részletes vagy tömör
+* Becsült távolság a hozzáférési pontoktól
+* Hozzáférési pontok adatainak exportálása
+* Sötét, világos és rendszer témák támogatása
+* Szkennelés szüneteltetése/folytatása
+* Elérhető szűrők: Wi‑Fi sáv, jelerősség, titkosítás és SSID
+* Gyártó/OUI adatbázis keresés

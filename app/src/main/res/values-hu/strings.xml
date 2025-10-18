@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ WiFiAnalyzer
+  ~ Copyright (C) 2015 - 2025 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
+  -->
+<resources>
+    <string name="about_contributor_title">"Közreműködők"</string>
+    <string name="about_description_text">"Optimalizálja Wi‑Fi hálózatát a hálózati állapot és a jelerősség ellenőrzésével, valamint a túlterhelt csatornák azonosításával az Android számára készült nyílt forráskódú WiFiAnalyzer segítségével"</string>
+    <string name="about_description_title">"Leírás:"</string>
+    <string name="about_documentation">"Dokumentáció:"</string>
+    <string name="about_faq">"Gyakran Ismételt Kérdések:"</string>
+    <string name="about_how_to">"Használati útmutató:"</string>
+    <string name="about_libraries_title">"Használt könyvtárak:"</string>
+    <string name="about_license_title">"Licenc:"</string>
+    <string name="about_privacy_policy">"Adatvédelmi nyilatkozat:"</string>
+    <string name="about_write_review">"Értékelés írása"</string>
+    <string name="action_about">"Névjegy"</string>
+    <string name="action_access_points">"Hozzáférési pontok"</string>
+    <string name="action_channel_available">"Elérhető csatornák"</string>
+    <string name="action_channel_graph">"Csatorna grafikon"</string>
+    <string name="action_channel_rating">"Csatorna értékelés"</string>
+    <string name="action_export">"Exportálás"</string>
+    <string name="action_settings">"Beállítások"</string>
+    <string name="action_time_graph">"Időgrafikon"</string>
+    <string name="action_vendors">"Gyártók"</string>
+    <string name="ap_view_compact">"Kompakt"</string>
+    <string name="ap_view_complete">"Részletes"</string>
+    <string name="ap_view_title">"Hozzáférési pont nézet"</string>
+    <string name="app_copyright">"Minden jog fenntartva \u00A9 2015 \u002D "</string>
+    <string name="channel_graph_legend_title">"Csatorna grafikon jelmagyarázat"</string>
+    <string name="channel_rating_best">"Legjobb csatornák:"</string>
+    <string name="channel_rating_best_alternative">"%s, próbálja meg a másik Wi‑Fi sávot: %s"</string>
+    <string name="channel_rating_best_none">"Nincs"</string>
+    <string name="channel_rating_heading_count">"Hozzáférési pontok száma"</string>
+    <string name="channel_rating_heading_number">"Csatorna száma"</string>
+    <string name="channel_rating_heading_rating">"Csatorna értékelése"</string>
+    <string name="channel_short_name">"CH"</string>
+    <string name="connection_view_compact">"Kompakt"</string>
+    <string name="connection_view_complete">"Részletes"</string>
+    <string name="connection_view_hide">"Elrejtés"</string>
+    <string name="connection_view_title">"Kapcsolat nézet"</string>
+    <string name="country_code_title">"Ország"</string>
+    <string name="current_connection">"Aktuális kapcsolat"</string>
+    <string name="export_not_available">"Exportálás nem elérhető"</string>
+    <string name="filter_apply">"Alkalmaz"</string>
+    <string name="filter_close">"Bezárás"</string>
+    <string name="filter_reset">"Visszaállítás"</string>
+    <string name="filter_security_title">"Biztonság"</string>
+    <string name="filter_ssid_title">"SSID (kis- és nagybetű megkülönböztető)"</string>
+    <string name="filter_strength_title">"Jelerősség"</string>
+    <string name="filter_title">"Szűrő"</string>
+    <string name="filter_wifi_band_title">"Wi‑Fi sáv"</string>
+    <string name="graph_axis_y">"Jelerősség (dBm)"</string>
+    <string name="graph_channel_axis_x">"Wi‑Fi csatornák"</string>
+    <string name="graph_legend_hide">"Elrejtés"</string>
+    <string name="graph_legend_left">"Bal"</string>
+    <string name="graph_legend_right">"Jobb"</string>
+    <string name="graph_maximum_y_title">"Grafikon maximális jelerősség"</string>
+    <string name="graph_time_axis_x">"Szkennelések száma"</string>
+    <string name="group_by_channel">"Csatorna"</string>
+    <string name="group_by_none">"Nincs"</string>
+    <string name="group_by_title">"Hozzáférési pontok csoportosítása"</string>
+    <string name="group_by_virtual">"Virtuális"</string>
+    <string name="keep_screen_on_title">"Képernyő bekapcsolva tartása"</string>
+    <string name="language_title">"Nyelv"</string>
+    <string name="location_msg">"Ez az alkalmazás a pontos helyzetét kaphatja meg a helymeghatározó szolgáltatásoktól, miközben használja az alkalmazást. A készülék helymeghatározó szolgáltatásait be kell kapcsolni az alkalmazás használatához. Ez megnövelheti az akkumulátorhasználatot."</string>
+    <string name="navigation_drawer_close">"Navigációs menü bezárása"</string>
+    <string name="navigation_drawer_open">"Navigációs menü megnyitása"</string>
+    <string name="no_data">"Nincs adat"</string>
+    <string name="no_data_msg">"Kérjük, nézze meg a weboldalunk GYIK szekcióját."</string>
+    <string name="permission_msg">"Android Marshmallow óta a helymeghatározási engedélyek szükségesek a Wi‑Fi vizsgálathoz. Arra kérik majd, hogy engedélyezze a helymeghatározást. Mivel ez az alkalmazás nem igényel internet-hozzáférést, biztos lehet benne, hogy az alkalmazás nem továbbítja a helyzetét!"</string>
+    <string name="reset_title">"Visszaállítás"</string>
+    <string name="scan_speed_summary">"%s másodpercenként egy vizsgálat"</string>
+    <string name="scan_speed_title">"Vizsgálati intervallum"</string>
+    <string name="scanner_message">"Keresés &#8230;"</string>
+    <string name="scanner_pause">"Szünet"</string>
+    <string name="scanner_play">"Indítás"</string>
+    <string name="security_none">"Nincs"</string>
+    <string name="sort_by_channel">"Csatorna"</string>
+    <string name="sort_by_signal_strength">"Jelerősség"</string>
+    <string name="sort_by_title">"Hozzáférési pontok rendezése"</string>
+    <string name="theme_black">"Fekete"</string>
+    <string name="theme_dark">"Sötét"</string>
+    <string name="theme_light">"Világos"</string>
+    <string name="theme_system">"Rendszer"</string>
+    <string name="theme_title">"Téma"</string>
+    <string name="throttling_msg">"Az Android 9 bevezette a Wi‑Fi szkennelés korlátozását. Az Android 10 új fejlesztői beállítással rendelkezik a korlátozás kikapcsolásához: (Beállítások - Fejlesztői beállítások - Hálózat - Wi‑Fi szkennelés korlátozása)."</string>
+    <string name="time_graph_legend_title">"Időgrafikon jelmagyarázat"</string>
+    <string name="wifi_off_on_exit_title">"Wi‑Fi kikapcsolása kilépéskor"</string>
+    <string name="wifi_throttling_off">"A Wi‑Fi szkennelés korlátozása tiltva"</string>
+    <string name="wifi_throttling_on">"A Wi‑Fi szkennelés korlátozása engedélyezve"</string>
+</resources>
+
