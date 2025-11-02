@@ -124,5 +124,4 @@ class StrengthTest {
         assertThat(Strength.fromRssi(-200)).isEqualTo(Strength.ZERO)
         assertThat(Strength.fromRssi(200)).isEqualTo(Strength.FOUR)
     }
-
 }
