@@ -1,0 +1,38 @@
+name: Close Empty Translation PRs
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  check-xml-content:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v3
+      - name: Fetch base branch
+        run: |
+          git fetch origin ${{ github.event.pull_request.base.ref }}
+      - name: List changed XML files
+        id: list_files
+        run: |
+          FILES=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD | grep '\.xml$' || true)
+          echo "Changed XML files:"
+          echo "$FILES"
+          echo "files=$FILES" >> $GITHUB_OUTPUT
+      - name: Check for meaningful XML content
+        run: |
+          EMPTY=true
+          for file in ${{ steps.list_files.outputs.files }}; do
+            if grep -q '<string' "$file"; then
+              EMPTY=false
+              break
+            fi
+          done
+          if $EMPTY; then
+            echo "No meaningful XML content found. Closing PR."
+            gh pr close ${{ github.event.pull_request.number }} --comment "Closed: No meaningful translation content in XML files."
+          else
+            echo "Meaningful content found. PR stays open."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -6,12 +6,14 @@ on:
       - '**/*.md'
       - '.github/workflows/android-test-ci.yml'
       - '.github/workflows/codeql-analysis.yml'
+      - '.github/workflows/close-empty-xml.yml'
       - '.github/workflows/stale.yml'
   pull_request:
     paths-ignore:
       - '**/*.md'
       - '.github/workflows/android-test-ci.yml'
       - '.github/workflows/codeql-analysis.yml'
+      - '.github/workflows/close-empty-xml.yml'
       - '.github/workflows/stale.yml'
   workflow_dispatch: {}
 
