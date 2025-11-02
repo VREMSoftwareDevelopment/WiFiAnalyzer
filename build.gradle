@@ -20,7 +20,7 @@
 
 buildscript {
     ext {
-        kotlin_version = '2.2.20'
+        kotlin_version = '2.2.21'
     }
     repositories {
         google()
@@ -31,7 +31,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:8.13.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
-        classpath "com.github.ben-manes:gradle-versions-plugin:0.52.0"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.53.0"
     }
 }
 

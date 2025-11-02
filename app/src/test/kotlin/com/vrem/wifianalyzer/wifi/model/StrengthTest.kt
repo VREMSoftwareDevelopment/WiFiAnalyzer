@@ -78,7 +78,7 @@ class StrengthTest {
     }
 
     @Test
-    fun calculate() {
+    fun fromRssi() {
         val testCases =
             listOf(
                 -89 to Strength.ZERO,
@@ -92,7 +92,7 @@ class StrengthTest {
                 0 to Strength.FOUR,
             )
         testCases.forEach { (input, expected) ->
-            assertThat(Strength.calculate(input)).isEqualTo(expected)
+            assertThat(Strength.fromRssi(input)).isEqualTo(expected)
         }
     }
 
@@ -103,4 +103,26 @@ class StrengthTest {
             assertThat(Strength.reverse(strength)).isEqualTo(expected[i])
         }
     }
+
+    @Test
+    fun colorForRssi() {
+        // rssi >= -67 (success)
+        assertThat(Strength.colorForRssi(-67)).isEqualTo(R.color.success)
+        assertThat(Strength.colorForRssi(0)).isEqualTo(R.color.success)
+        assertThat(Strength.colorForRssi(-66)).isEqualTo(R.color.success)
+        // -70 <= rssi < -67 (warning)
+        assertThat(Strength.colorForRssi(-68)).isEqualTo(R.color.warning)
+        assertThat(Strength.colorForRssi(-69)).isEqualTo(R.color.warning)
+        assertThat(Strength.colorForRssi(-70)).isEqualTo(R.color.warning)
+        // rssi < -70 (error)
+        assertThat(Strength.colorForRssi(-71)).isEqualTo(R.color.error)
+        assertThat(Strength.colorForRssi(-100)).isEqualTo(R.color.error)
+    }
+
+    @Test
+    fun fromRssiLevelBoundaries() {
+        assertThat(Strength.fromRssi(-200)).isEqualTo(Strength.ZERO)
+        assertThat(Strength.fromRssi(200)).isEqualTo(Strength.FOUR)
+    }
+
 }

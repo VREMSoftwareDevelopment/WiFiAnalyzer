@@ -109,6 +109,16 @@ class WiFiSignalTest {
     }
 
     @Test
+    fun strengthColor() {
+        // Arrange
+        val expectedColor = Strength.colorForRssi(level)
+        // Act
+        val actualColor = fixture.strengthColor
+        // Assert
+        assertThat(actualColor).isEqualTo(expectedColor)
+    }
+
+    @Test
     fun distance() {
         // setup
         val expected = String.format(Locale.ENGLISH, "~%.1fm", calculateDistance(primaryFrequency, level))

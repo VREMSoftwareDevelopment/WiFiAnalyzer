@@ -64,7 +64,9 @@ data class WiFiSignal(
 
     val centerWiFiChannel: WiFiChannel get() = wiFiBand.wiFiChannels.wiFiChannelByFrequency(centerFrequency)
 
-    val strength: Strength get() = Strength.calculate(level)
+    val strength: Strength get() = Strength.fromRssi(level)
+
+    val strengthColor: Int get() = Strength.colorForRssi(level)
 
     val distance: String get() =
         String.format(Locale.getDefault(), "~%.1fm", calculateDistance(primaryFrequency, level))

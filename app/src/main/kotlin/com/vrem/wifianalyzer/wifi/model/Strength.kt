@@ -35,8 +35,21 @@ enum class Strength(
     fun weak(): Boolean = ZERO == this
 
     companion object {
-        fun calculate(level: Int): Strength = entries[calculateSignalLevel(level, entries.size)]
+        fun fromRssi(rssi: Int): Strength = entries[calculateSignalLevel(rssi, entries.size)]
 
         fun reverse(strength: Strength): Strength = entries[entries.size - strength.ordinal - 1]
+
+        /**
+         * RSSI thresholds are based on common Wi-Fi signal quality guidelines:
+         * - -67 dBm or higher: Excellent signal (mapped to [R.color.success])
+         * - -70 dBm to -68 dBm: Good signal (mapped to [R.color.warning])
+         * - Below -70 dBm: Weak or poor signal (mapped to [R.color.error])
+         */
+        fun colorForRssi(rssi: Int): Int =
+            when {
+                rssi >= -67 -> R.color.success
+                rssi >= -70 -> R.color.warning
+                else -> R.color.error
+            }
     }
 }

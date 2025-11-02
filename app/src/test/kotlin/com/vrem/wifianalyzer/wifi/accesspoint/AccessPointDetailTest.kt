@@ -22,6 +22,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.MainContextHelper.INSTANCE
@@ -338,6 +339,18 @@ class AccessPointDetailTest {
         val actual = fixture.makeViewDetailed(wiFiDetail)
         // validate
         validateTextViewValue(actual, expectedFastRoaming, R.id.fastRoaming)
+    }
+
+    @Test
+    fun makeViewSetsCorrectLevelTextColor() {
+        // Arrange
+        val wiFiDetail = withWiFiDetail()
+        val expectedColor = ContextCompat.getColor(mainActivity, wiFiDetail.wiFiSignal.strengthColor)
+        // Act
+        val view = fixture.makeView(null, null, wiFiDetail)
+        val levelTextView = view.findViewById<TextView>(R.id.level)
+        // Assert
+        assertThat(levelTextView.currentTextColor).isEqualTo(expectedColor)
     }
 
     private fun withWiFiDetail(

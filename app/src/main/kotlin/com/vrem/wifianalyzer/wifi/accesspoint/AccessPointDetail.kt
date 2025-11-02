@@ -131,7 +131,7 @@ class AccessPointDetail {
         wiFiSignal: WiFiSignal,
     ) = view.findViewById<TextView>(R.id.level)?.let {
         it.text = "${wiFiSignal.level}dBm"
-        it.setTextColor(ContextCompat.getColor(view.context, wiFiSignal.strength.colorResource))
+        it.setTextColor(ContextCompat.getColor(view.context, wiFiSignal.strengthColor))
     }
 
     private fun setLevelImage(
@@ -141,7 +141,7 @@ class AccessPointDetail {
         val strength = wiFiSignal.strength
         it.tag = strength.imageResource
         it.setImageResource(strength.imageResource)
-        it.setColorFilter(ContextCompat.getColor(view.context, strength.colorResource))
+        it.setColorFilter(ContextCompat.getColor(view.context, wiFiSignal.strengthColor))
     }
 
     private fun setViewVendorShort(
