@@ -61,7 +61,7 @@ private val countriesETSI =
 private val countriesNA =
     listOf("AS", "CA", "CO", "DO", "FM", "GT", "GU", "MP", "MX", "PA", "PR", "UM", "US", "UZ", "VI")
 
-private val countriesGHZ6 = listOf("JP", "RU", "NZ", "AU", "GL", "AE", "GB", "MX", "SG", "HK", "MO", "PH")
+private val countriesGHZ6 = listOf("JP", "RU", "NZ", "AU", "GL", "AE", "GB", "SG", "HK", "MO", "PH")
 
 private val excludeGHZ2: List<Map<String, List<Int>>> = countriesNA.map { mapOf(it to listOf(12, 13)) }
 
@@ -69,7 +69,7 @@ private val excludeGHZ5: List<Map<String, List<Int>>> =
     countriesETSI.map { mapOf(it to listOf(177)) } +
         listOf(
             "AU" to (120..128).toList() + listOf(177),
-            "CA" to (120..128).toList() + (169..177).toList(),
+            "CA" to (169..177).toList(),
             "UK" to (120..128).toList() + listOf(177),
             "RU" to (96..128).toList() + (173..177).toList(),
             "JP" to (149..177).toList(),
@@ -90,7 +90,7 @@ private val excludeGHZ5: List<Map<String, List<Int>>> =
         ).map { mapOf(it.first to it.second) }
 
 private val excludeGHZ6: List<Map<String, List<Int>>> =
-    (countriesETSI + countriesGHZ6).map { mapOf(it to (97..223).toList()) }
+    (countriesETSI + countriesGHZ6).map { mapOf(it to (97..233).toList()) }
 
 private val ratingChannelsGHZ2: RatingChannels = { wiFiBand, countryCode ->
     val excludedChannels = excludeGHZ2.flatMap { it[countryCode] ?: emptyList() }

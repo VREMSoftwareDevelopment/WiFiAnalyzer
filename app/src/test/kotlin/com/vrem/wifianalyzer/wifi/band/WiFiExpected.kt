@@ -56,7 +56,7 @@ private val expectedETSICountries =
 private val expectedNACountries =
     listOf("AS", "CA", "CO", "DO", "FM", "GT", "GU", "MP", "MX", "PA", "PR", "UM", "US", "UZ", "VI")
 
-private val expectedGHZ6Countries = listOf("JP", "RU", "NZ", "AU", "GL", "AE", "GB", "MX", "SG", "HK", "MO", "PH")
+private val expectedGHZ6Countries = listOf("JP", "RU", "NZ", "AU", "GL", "AE", "GB", "SG", "HK", "MO", "PH")
 
 private val expectedChannelExcludeGHZ2: List<Map<String, List<Int>>> =
     expectedNACountries.map { mapOf(it to listOf(12, 13)) }
@@ -65,8 +65,8 @@ private val expectedChannelExcludeGHZ5: List<Map<String, List<Int>>> =
     expectedETSICountries.map { mapOf(it to listOf(177)) } +
         listOf(
             "AU" to (120..128).toList() + listOf(177),
-            "CA" to (120..128).toList() + (169..177).toList(),
-            "UK" to (120..128).toList() + 177,
+            "CA" to (169..177).toList(),
+            "UK" to (120..128).toList() + listOf(177),
             "RU" to (96..128).toList() + (173..177).toList(),
             "JP" to (149..177).toList(),
             "IN" to listOf(177),
@@ -87,7 +87,7 @@ private val expectedChannelExcludeGHZ5: List<Map<String, List<Int>>> =
 
 private val expectedChannelExcludeGHZ6: List<Map<String, List<Int>>> =
     (expectedETSICountries + expectedGHZ6Countries)
-        .map { mapOf(it to (97..223).toList()) }
+        .map { mapOf(it to (97..233).toList()) }
 
 private val expectedRatingChannelsGHZ2: RatingChannels = { wiFiBand, countryCode ->
     val excludedChannels = expectedChannelExcludeGHZ2.flatMap { it[countryCode] ?: emptyList() }

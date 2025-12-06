@@ -21,7 +21,7 @@ plugins {
     id "kotlin-android"
     id "kotlin-allopen"
     id "jacoco"
-    id "org.jlleitschuh.gradle.ktlint" version "13.1.0"
+    id "org.jlleitschuh.gradle.ktlint" version "14.0.1"
 }
 
 apply {
@@ -37,9 +37,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'androidx.collection:collection-ktx:1.5.0'
     implementation 'androidx.core:core-ktx:1.17.0'
-    implementation 'androidx.core:core-splashscreen:1.0.1'
+    implementation 'androidx.core:core-splashscreen:1.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.4'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0'
     implementation 'androidx.media:media:1.7.1'
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
