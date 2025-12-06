@@ -38,12 +38,10 @@ jobs:
           mkdir filtered_wifianalyzer filtered_targetrepo
           rsync -av --exclude-from='.gitignore' wifianalyzer/app/src/ filtered_wifianalyzer/
           rsync -av --exclude-from='.gitignore' targetrepo/app/src/ filtered_targetrepo/
-      - name: Compare app/src folders (limit output to 100KB)
-        run: |
-                    diff -r filtered_wifianalyzer filtered_targetrepo | head -n 1000 > diff_output.txt
+      - name: Compare app/src folders
+        run: diff -r filtered_wifianalyzer filtered_targetrepo > diff_output.txt
       - name: Summarize file-level changes
-        run: |
-          comm -3 <(find filtered_wifianalyzer -type f | sort) <(find filtered_targetrepo -type f | sort) > file_changes.txt
+        run: comm -3 <(find filtered_wifianalyzer -type f | sort) <(find filtered_targetrepo -type f | sort) > file_changes.txt
       - name: Upload diff and summary as artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -63,6 +61,8 @@ jobs:
       - name: Clone target repository
         run: |
           git clone --depth 1 --branch "${{ github.event.inputs.target_repo_branch }}" "${{ github.event.inputs.target_repo_url }}" targetrepo
+      - name: Make gradlew executable
+        run: chmod +x targetrepo/gradlew
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -71,7 +71,7 @@ jobs:
       - name: Build target repository (Gradle)
         run: |
           cd targetrepo
-                    ./gradlew assembleDebug || ./gradlew build
+          ./gradlew assembleDebug || ./gradlew build
       - name: Upload APKs if present
         uses: actions/upload-artifact@v4
         with:
