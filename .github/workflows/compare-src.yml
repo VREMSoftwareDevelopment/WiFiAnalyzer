@@ -20,8 +20,34 @@ on:
     inputs: {}
 
 jobs:
+  check-gplv3-compliance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone target repository
+        run: |
+          git clone --depth 1 --branch "${{ github.event.inputs.target_repo_branch }}" "${{ github.event.inputs.target_repo_url }}" targetrepo
+      - name: Check for LICENSE file in target repository
+        run: |
+          if [ ! -f targetrepo/LICENSE ]; then
+            echo "ERROR: LICENSE file not found in target repository." && exit 2
+          fi
+      - name: Check for GPLv3 in LICENSE file
+        run: |
+          if ! grep -q "GNU General Public License" targetrepo/LICENSE || ! grep -q "Version 3" targetrepo/LICENSE; then
+            echo "ERROR: LICENSE file does not contain GPLv3 text." && exit 3
+          fi
+      - name: Check GPLv3 header in all .kt and .java files
+        run: |
+          missing_files=$(find targetrepo/app/src -type f \( -name '*.kt' -o -name '*.java' \) \
+            ! -exec grep -q 'GNU General Public License' {} \; -print)
+          if [ -n "$missing_files" ]; then
+            echo "ERROR: The following files are missing the GPLv3 header:" && echo "$missing_files"
+            exit 4
+          fi
+
   compare-src:
     runs-on: ubuntu-latest
+    needs: check-gplv3-compliance
     steps:
       - name: Checkout WiFiAnalyzer
         uses: actions/checkout@v4
@@ -68,10 +94,14 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Build target repository (Gradle)
+      - name: Build target repository (assembleDebug)
         run: |
           cd targetrepo
-          ./gradlew assembleDebug || ./gradlew build
+          ./gradlew assembleDebug
+      - name: Build target repository (assembleRelease)
+        run: |
+          cd targetrepo
+          ./gradlew assembleRelease
       - name: Upload APKs if present
         uses: actions/upload-artifact@v4
         with:
