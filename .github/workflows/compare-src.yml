@@ -1,0 +1,81 @@
+# Workflow to compare app/src folder with another public repository
+# This workflow is isolated and does NOT trigger builds for other workflows.
+# Parameters: target_repo_url, target_repo_branch
+# Ignores files in .gitignore and limits diff output to 100KB
+
+name: Compare app/src with public repository
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_repo_url:
+        description: 'URL of the public repository to compare against'
+        required: true
+        type: string
+      target_repo_branch:
+        description: 'Branch of the public repository to compare against'
+        required: true
+        type: string
+  workflow_call:
+    inputs: {}
+
+jobs:
+  compare-src:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout WiFiAnalyzer
+        uses: actions/checkout@v4
+        with:
+          path: wifianalyzer
+      - name: Clone target repository
+        run: |
+          git clone --depth 1 --branch "${{ github.event.inputs.target_repo_branch }}" "${{ github.event.inputs.target_repo_url }}" targetrepo
+      - name: Copy .gitignore from WiFiAnalyzer
+        run: |
+          cp wifianalyzer/.gitignore .
+      - name: Prepare filtered app/src folders
+        run: |
+          mkdir filtered_wifianalyzer filtered_targetrepo
+          rsync -av --exclude-from='.gitignore' wifianalyzer/app/src/ filtered_wifianalyzer/
+          rsync -av --exclude-from='.gitignore' targetrepo/app/src/ filtered_targetrepo/
+      - name: Compare app/src folders (limit output to 100KB)
+        run: |
+                    diff -r filtered_wifianalyzer filtered_targetrepo | head -n 1000 > diff_output.txt
+      - name: Summarize file-level changes
+        run: |
+          comm -3 <(find filtered_wifianalyzer -type f | sort) <(find filtered_targetrepo -type f | sort) > file_changes.txt
+      - name: Upload diff and summary as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: src-comparison
+          path: |
+            diff_output.txt
+            file_changes.txt
+      - name: Display summary in workflow output
+        run: |
+          echo "Summary of file-level changes:" && cat file_changes.txt
+          echo "First 20 lines of diff output:" && head -20 diff_output.txt
+
+  build-target-repo:
+    runs-on: ubuntu-latest
+    needs: compare-src
+    steps:
+      - name: Clone target repository
+        run: |
+          git clone --depth 1 --branch "${{ github.event.inputs.target_repo_branch }}" "${{ github.event.inputs.target_repo_url }}" targetrepo
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Build target repository (Gradle)
+        run: |
+          cd targetrepo
+                    ./gradlew assembleDebug || ./gradlew build
+      - name: Upload APKs if present
+        uses: actions/upload-artifact@v4
+        with:
+          name: targetrepo-apks
+          path: |
+            targetrepo/app/build/outputs/apk/**/*.apk
+            targetrepo/app/build/outputs/apk/*.apk

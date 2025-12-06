@@ -1,5 +1,11 @@
 name: "CodeQL Analyze"
-on: [ push, pull_request ]
+on:
+  push:
+    paths-ignore:
+      - '.github/workflows/compare-src.yml'
+  pull_request:
+    paths-ignore:
+      - '.github/workflows/compare-src.yml'
 jobs:
   analyze:
     if: "!contains(github.event.head_commit.message, 'skip ci')"

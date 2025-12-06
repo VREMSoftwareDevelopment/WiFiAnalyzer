@@ -8,6 +8,7 @@ on:
       - '.github/workflows/codeql-analysis.yml'
       - '.github/workflows/close-empty-xml.yml'
       - '.github/workflows/stale.yml'
+      - '.github/workflows/compare-src.yml'
   pull_request:
     paths-ignore:
       - '**/*.md'
@@ -15,6 +16,7 @@ on:
       - '.github/workflows/codeql-analysis.yml'
       - '.github/workflows/close-empty-xml.yml'
       - '.github/workflows/stale.yml'
+      - '.github/workflows/compare-src.yml'
   workflow_dispatch: {}
 
 jobs:
@@ -89,4 +91,3 @@ jobs:
         with:
           name: artifact-apk
           path: app/build/outputs/apk/debug
-

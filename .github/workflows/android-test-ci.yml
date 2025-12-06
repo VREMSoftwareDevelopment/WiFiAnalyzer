@@ -9,6 +9,7 @@ on:
       - '.github/workflows/codeql-analysis.yml'
       - '.github/workflows/close-empty-xml.yml'
       - '.github/workflows/stale.yml'
+      - '.github/workflows/compare-src.yml'
   workflow_dispatch: {}
 
 jobs:
