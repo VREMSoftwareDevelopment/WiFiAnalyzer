@@ -21,18 +21,46 @@ jobs:
           echo "$FILES"
           echo "files=$FILES" >> $GITHUB_OUTPUT
       - name: Check for meaningful XML content
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Read the list of files produced by the previous step. It may be empty.
+          FILES="${{ steps.list_files.outputs.files }}"
+
+          echo "Files variable content: [${FILES}]"
+
+          # If no xml files changed, close the PR with a comment and exit cleanly.
+          if [ -z "$FILES" ]; then
+            echo "No XML files changed. Closing PR."
+            gh pr close ${{ github.event.pull_request.number }} --comment "Closed: No meaningful translation content in XML files." || true
+            exit 0
+          fi
+
+          # Assume empty until we find a <string entry in any of the modified xml files.
           EMPTY=true
-          for file in ${{ steps.list_files.outputs.files }}; do
+
+          # Use a while-read loop with here-string to handle filenames with spaces/newlines safely.
+          while IFS= read -r file; do
+            # Skip blank lines
+            [ -z "$file" ] && continue
+
+            # Skip if file doesn't exist in the checkout (defensive)
+            if [ ! -f "$file" ]; then
+              echo "Warning: file not found: $file (skipping)"
+              continue
+            fi
+
+            # If the file contains a <string tag, treat this as meaningful content and stop.
             if grep -q '<string' "$file"; then
               EMPTY=false
               break
             fi
-          done
+          done <<< "$FILES"
+
           if $EMPTY; then
             echo "No meaningful XML content found. Closing PR."
-            gh pr close ${{ github.event.pull_request.number }} --comment "Closed: No meaningful translation content in XML files."
+            gh pr close ${{ github.event.pull_request.number }} --comment "Closed: No meaningful translation content in XML files." || true
           else
             echo "Meaningful content found. PR stays open."
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          fi

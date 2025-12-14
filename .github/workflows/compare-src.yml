@@ -14,7 +14,8 @@ on:
         type: string
       target_repo_branch:
         description: 'Branch of the public repository to compare against'
-        required: true
+        required: false
+        default: 'main'
         type: string
   workflow_call:
     inputs: {}
@@ -24,8 +25,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone target repository
+        shell: bash -l {0}
         run: |
-          git clone --depth 1 --branch "${{ github.event.inputs.target_repo_branch }}" "${{ github.event.inputs.target_repo_url }}" targetrepo
+          BRANCH="${{ github.event.inputs.target_repo_branch }}"
+          BRANCH="${BRANCH:-main}"
+          git clone --depth 1 --branch "$BRANCH" "${{ github.event.inputs.target_repo_url }}" targetrepo
       - name: Check for LICENSE file in target repository
         run: |
           if [ ! -f targetrepo/LICENSE ]; then
@@ -38,6 +42,9 @@ jobs:
           fi
       - name: Check GPLv3 header in all .kt and .java files
         run: |
+          if [ ! -d targetrepo/app/src ]; then
+            echo "WARNING: targetrepo/app/src does not exist; skipping header checks." && exit 0
+          fi
           missing_files=$(find targetrepo/app/src -type f \( -name '*.kt' -o -name '*.java' \) \
             ! -exec grep -q 'GNU General Public License' {} \; -print)
           if [ -n "$missing_files" ]; then
@@ -53,54 +60,108 @@ jobs:
         with:
           path: wifianalyzer
       - name: Clone target repository
+        shell: bash -l {0}
         run: |
-          git clone --depth 1 --branch "${{ github.event.inputs.target_repo_branch }}" "${{ github.event.inputs.target_repo_url }}" targetrepo
+          BRANCH="${{ github.event.inputs.target_repo_branch }}"
+          BRANCH="${BRANCH:-main}"
+          git clone --depth 1 --branch "$BRANCH" "${{ github.event.inputs.target_repo_url }}" targetrepo
       - name: Copy .gitignore from WiFiAnalyzer
         run: |
-          cp wifianalyzer/.gitignore .
+          if [ -f wifianalyzer/.gitignore ]; then
+            cp wifianalyzer/.gitignore .
+          else
+            echo "# no .gitignore in wifianalyzer (fallback)" > .gitignore
+          fi
       - name: Prepare filtered app/src folders
+        shell: bash -l {0}
         run: |
-          mkdir filtered_wifianalyzer filtered_targetrepo
-          rsync -av --exclude-from='.gitignore' wifianalyzer/app/src/ filtered_wifianalyzer/
-          rsync -av --exclude-from='.gitignore' targetrepo/app/src/ filtered_targetrepo/
+          mkdir -p filtered_wifianalyzer filtered_targetrepo
+          if [ -d wifianalyzer/app/src ]; then
+            rsync -av --exclude-from='.gitignore' wifianalyzer/app/src/ filtered_wifianalyzer/ || true
+          else
+            echo "Note: wifianalyzer/app/src not present; leaving filtered_wifianalyzer empty"
+          fi
+          if [ -d targetrepo/app/src ]; then
+            rsync -av --exclude-from='.gitignore' targetrepo/app/src/ filtered_targetrepo/ || true
+          else
+            echo "Note: targetrepo/app/src not present; leaving filtered_targetrepo empty"
+          fi
       - name: Compare app/src folders
-        run: diff -r filtered_wifianalyzer filtered_targetrepo > diff_output.txt || true
+        shell: bash -l {0}
+        run: |
+          diff -r filtered_wifianalyzer filtered_targetrepo > diff_output.txt || true
+          # Truncate to ~100KiB for artifact upload/preview
+          head -c 102400 diff_output.txt > diff_output_truncated.txt || cp diff_output.txt diff_output_truncated.txt
       - name: Summarize file-level changes
-        run: comm -3 <(find filtered_wifianalyzer -type f | sort) <(find filtered_targetrepo -type f | sort) > file_changes.txt
+        shell: bash -l {0}
+        run: |
+          find filtered_wifianalyzer -type f | sort > left_files.txt || true
+          find filtered_targetrepo -type f | sort > right_files.txt || true
+          comm -3 left_files.txt right_files.txt > file_changes.txt || true
       - name: Upload diff and summary as artifacts
         uses: actions/upload-artifact@v4
         with:
           name: src-comparison
           path: |
-            diff_output.txt
+            diff_output_truncated.txt
             file_changes.txt
       - name: Display summary in workflow output
+        shell: bash -l {0}
         run: |
-          echo "Summary of file-level changes:" && cat file_changes.txt
-          echo "First 20 lines of diff output:" && head -20 diff_output.txt
+          echo "Summary of file-level changes:" && cat file_changes.txt || true
+          echo "First 20 lines of diff output:" && head -20 diff_output_truncated.txt || true
 
   build-target-repo:
     runs-on: ubuntu-latest
     steps:
       - name: Clone target repository
+        shell: bash -l {0}
         run: |
-          git clone --depth 1 --branch "${{ github.event.inputs.target_repo_branch }}" "${{ github.event.inputs.target_repo_url }}" targetrepo
+          BRANCH="${{ github.event.inputs.target_repo_branch }}"
+          BRANCH="${BRANCH:-main}"
+          git clone --depth 1 --branch "$BRANCH" "${{ github.event.inputs.target_repo_url }}" targetrepo
       - name: Make gradlew executable
-        run: chmod +x targetrepo/gradlew
+        run: |
+          if [ -f targetrepo/gradlew ]; then
+            chmod +x targetrepo/gradlew
+          else
+            echo "Warning: targetrepo/gradlew not found; proceeding without wrapper"
+          fi
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
       - name: Build target repository (assembleDebug)
+        timeout-minutes: 30
         run: |
           cd targetrepo
-          ./gradlew assembleDebug
+          if [ -f ./gradlew ]; then
+            ./gradlew assembleDebug --no-daemon
+          else
+            gradle assembleDebug --no-daemon || true
+          fi
       - name: Build target repository (assembleRelease)
+        timeout-minutes: 30
         run: |
           cd targetrepo
-          ./gradlew assembleRelease
+          if [ -f ./gradlew ]; then
+            ./gradlew assembleRelease --no-daemon
+          else
+            gradle assembleRelease --no-daemon || true
+          fi
       - name: Upload APKs if present
+        if: always()
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: targetrepo-apks

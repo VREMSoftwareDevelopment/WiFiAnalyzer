@@ -25,3 +25,6 @@
 - To close a feature or a bug automatically, once pull request has been merged, please mention it in the [commit comment](https://help.github.com/articles/closing-issues-via-commit-messages/) or [pull request text](https://github.com/blog/1506-closing-issues-via-pull-requests).
 - Please avoid if possible large change sets.
 - Please do not forget to add unit tests.
+
+- Use the repository's canonical pull request template located at `.github/PULL_REQUEST_TEMPLATE.md` for PR descriptions and the submission checklist. GitHub will automatically populate the PR description when opening a new pull request.
+- If you want multiple specialized templates (for example: bugfix, feature, docs), they can be placed under `.github/PULL_REQUEST_TEMPLATE/` and GitHub will pick from them when configured.

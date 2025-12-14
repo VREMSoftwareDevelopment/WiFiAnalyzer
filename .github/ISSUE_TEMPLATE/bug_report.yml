@@ -1,0 +1,78 @@
+name: Bug report
+description: Create a report to help us fix the issue
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting an issue — please fill in the fields below. Do not include passwords or other sensitive information.
+  - type: input
+    id: short_title
+    attributes:
+      label: Short title
+      description: One-line summary of the bug
+      placeholder: App crashes when scanning
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of the problem
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Exact steps to reproduce the behavior
+      placeholder: 1) Open app\n2) Tap Scan\n3) Observe crash
+      required: true
+  - type: dropdown
+    id: reproduction_frequency
+    attributes:
+      label: Reproduction frequency
+      options:
+        - Always
+        - Sometimes
+        - Rarely
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity / Impact
+      options:
+        - Low
+        - Medium
+        - High
+      required: true
+  - type: input
+    id: device_model
+    attributes:
+      label: Device model
+      placeholder: e.g. Pixel 6, Samsung S21
+      required: true
+  - type: input
+    id: android_version
+    attributes:
+      label: Android version / API level
+      placeholder: e.g. Android 12 (API 31)
+      required: true
+  - type: input
+    id: app_version
+    attributes:
+      label: WiFiAnalyzer version
+      placeholder: e.g. 3.2.1
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logcat lines (optional)
+      description: Capture with `adb logcat -v time > logcat.txt` and paste the most relevant lines or attach the file.
+      required: false
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional context
+      description: Any other information (network setup, nearby APs, whether it occurs on other devices)
+      required: false
+
