@@ -13,13 +13,11 @@ body:
       label: Short title
       description: One-line summary of the bug
       placeholder: App crashes when scanning
-      required: true
   - type: textarea
     id: description
     attributes:
       label: Describe the bug
       description: A clear and concise description of the problem
-      required: true
   - type: textarea
     id: steps
     attributes:
@@ -29,19 +27,16 @@ body:
         1) Open app
         2) Tap Scan
         3) Observe crash
-      required: true
   - type: textarea
     id: expected
     attributes:
       label: Expected behavior
       description: What did you expect to happen?
-      required: false
   - type: textarea
     id: logs
     attributes:
       label: Relevant logs/screenshots
       description: Paste logs or add screenshots if available
-      required: false
   - type: dropdown
     id: reproduction_frequency
     attributes:
@@ -63,22 +58,18 @@ body:
     attributes:
       label: Device model
       placeholder: e.g. Pixel 6, Samsung S21
-      required: true
   - type: input
     id: android_version
     attributes:
       label: Android version / API level
       placeholder: e.g. Android 12 (API 31)
-      required: true
   - type: input
     id: app_version
     attributes:
       label: WiFiAnalyzer version
       placeholder: e.g. 3.2.1
-      required: true
   - type: textarea
     id: additional_context
     attributes:
       label: Additional context
       description: Any other information (network setup, nearby APs, whether it occurs on other devices)
-      required: false

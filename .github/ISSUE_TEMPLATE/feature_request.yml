@@ -14,30 +14,25 @@ body:
     attributes:
       label: Short title
       description: One-line summary of the feature
-      required: true
   - type: textarea
     id: problem
     attributes:
       label: Is your feature request related to a problem? Please describe.
       description: Describe the problem or use-case this feature solves
-      required: true
   - type: textarea
     id: solution
     attributes:
       label: Describe the solution you'd like
-      required: true
   - type: textarea
     id: alternatives
     attributes:
       label: Alternatives considered
       description: Any alternative solutions or features you've considered
-      required: false
   - type: input
     id: willing_to_help
     attributes:
       label: How I can help
       description: e.g. PR, testing, design
-      required: false
   - type: dropdown
     id: reproduction_frequency
     attributes:
@@ -64,40 +59,33 @@ body:
     attributes:
       label: Device model
       placeholder: e.g. Pixel 6, Samsung S21
-      required: false
   - type: input
     id: android_version
     attributes:
       label: Android version
       placeholder: e.g. Android 12
-      required: false
   - type: input
     id: android_api_level
     attributes:
       label: Android API level
       placeholder: e.g. 31
-      required: false
   - type: input
     id: app_version
     attributes:
       label: WiFiAnalyzer version
       placeholder: e.g. 3.2.1
-      required: false
   - type: input
     id: build_variant
     attributes:
       label: Build variant
       placeholder: e.g. debug / release
-      required: false
   - type: textarea
     id: additional_context
     attributes:
       label: Additional context
       description: Any other information that may help (network setup, similar behavior on other devices)
-      required: false
   - type: textarea
     id: attachments
     attributes:
       label: Screenshots / Mockups / Attachments (optional)
       description: Attach screenshots or mockups to illustrate the feature.
-      required: false
