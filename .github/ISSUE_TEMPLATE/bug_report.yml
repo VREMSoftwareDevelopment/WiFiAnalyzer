@@ -25,7 +25,10 @@ body:
     attributes:
       label: Steps to reproduce
       description: Exact steps to reproduce the behavior
-      placeholder: 1) Open app\n2) Tap Scan\n3) Observe crash
+      placeholder: |
+        1) Open app
+        2) Tap Scan
+        3) Observe crash
       required: true
   - type: textarea
     id: expected
@@ -47,7 +50,6 @@ body:
         - Always
         - Sometimes
         - Rarely
-      required: true
   - type: dropdown
     id: severity
     attributes:
@@ -56,7 +58,6 @@ body:
         - Low
         - Medium
         - High
-      required: true
   - type: input
     id: device_model
     attributes:

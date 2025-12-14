@@ -46,7 +46,6 @@ body:
         - Always
         - Sometimes
         - Rarely
-      required: false
   - type: dropdown
     id: priority
     attributes:
@@ -55,7 +54,6 @@ body:
         - Low
         - Medium
         - High
-      required: false
   - type: markdown
     attributes:
       value: |
