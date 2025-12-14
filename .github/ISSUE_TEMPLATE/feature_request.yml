@@ -29,7 +29,8 @@ body:
   - type: textarea
     id: alternatives
     attributes:
-      label: Describe alternatives you've considered
+      label: Alternatives considered
+      description: Any alternative solutions or features you've considered
       required: false
   - type: input
     id: willing_to_help

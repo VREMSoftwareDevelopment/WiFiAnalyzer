@@ -27,6 +27,18 @@ body:
       description: Exact steps to reproduce the behavior
       placeholder: 1) Open app\n2) Tap Scan\n3) Observe crash
       required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs/screenshots
+      description: Paste logs or add screenshots if available
+      required: false
   - type: dropdown
     id: reproduction_frequency
     attributes:
@@ -64,15 +76,8 @@ body:
       placeholder: e.g. 3.2.1
       required: true
   - type: textarea
-    id: logs
-    attributes:
-      label: Relevant logcat lines (optional)
-      description: Capture with `adb logcat -v time > logcat.txt` and paste the most relevant lines or attach the file.
-      required: false
-  - type: textarea
     id: additional_context
     attributes:
       label: Additional context
       description: Any other information (network setup, nearby APs, whether it occurs on other devices)
       required: false
-
