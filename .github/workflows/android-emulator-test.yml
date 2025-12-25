@@ -44,6 +44,8 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           script: echo "Generated AVD snapshot for caching."
+      - name: Build app and test APKs
+        run: ./gradlew assembleDebug assembleDebugAndroidTest
       - name: Run instrumented tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -52,7 +54,7 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: ./gradlew connectedDebugAndroidTest
+          script: ./gradlew connectedDebugAndroidTest -x assembleDebug -x assembleDebugAndroidTest
       - name: Upload test results
         uses: actions/upload-artifact@v4
         if: always()
