@@ -19,6 +19,7 @@ package com.vrem.wifianalyzer
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -30,7 +31,23 @@ private const val PLAY = "Play"
 
 internal class ScannerInstrumentedTest : Runnable {
     override fun run() {
-        onView(allOf(withId(action_scanner), withContentDescription(PAUSE), isDisplayed())).perform(click())
-        onView(allOf(withId(action_scanner), withContentDescription(PLAY), isDisplayed())).perform(click())
+        verifyPauseResumeToggle()
+        verifyPausedStateHolds()
+    }
+
+    private fun verifyPauseResumeToggle() {
+        onView(withId(action_scanner)).check(matches(withContentDescription(PAUSE)))
+        onView(allOf(withId(action_scanner), isDisplayed())).perform(click())
+        onView(withId(action_scanner)).check(matches(withContentDescription(PLAY)))
+        onView(allOf(withId(action_scanner), isDisplayed())).perform(click())
+        onView(withId(action_scanner)).check(matches(withContentDescription(PAUSE)))
+    }
+
+    private fun verifyPausedStateHolds() {
+        onView(allOf(withId(action_scanner), isDisplayed())).perform(click())
+        onView(withId(action_scanner)).check(matches(withContentDescription(PLAY)))
+        pauseShort()
+        onView(allOf(withId(action_scanner), isDisplayed())).perform(click())
+        onView(withId(action_scanner)).check(matches(withContentDescription(PAUSE)))
     }
 }

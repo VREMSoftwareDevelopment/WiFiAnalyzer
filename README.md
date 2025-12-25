@@ -154,6 +154,12 @@ This command generates the following report:
 This command generates the following report:
 - Code coverage report: `app/build/reports/jacoco/jacocoTestReport/html/index.html`
 
+### Run instrumented tests
+`./gradlew connectedDebugAndroidTest`
+
+This command generates the following report:
+- Instrumented test report: `app/build/reports/androidTests/connected/debug/index.html`
+
 ## Continuous Integration
 
 This project uses GitHub Actions for CI/CD. On every push and pull request, the following checks are performed automatically:
@@ -161,6 +167,7 @@ This project uses GitHub Actions for CI/CD. On every push and pull request, the 
 - Lint analysis
 - Unit tests with coverage (uploaded to Codecov)
 - APK build (debug)
+- Instrumented tests on Android emulator (API levels 29, 31, 35)
 - Artifacts (reports and APK) are available for download in the workflow run
 
 ## Translation

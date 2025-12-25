@@ -17,17 +17,31 @@
  */
 package com.vrem.wifianalyzer
 
+import android.view.InputDevice
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
-import androidx.test.espresso.Espresso.pressBack
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.ViewAction
+import androidx.test.espresso.action.GeneralClickAction
+import androidx.test.espresso.action.Press
+import androidx.test.espresso.action.Tap
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.BoundedMatcher
+import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withClassName
+import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.Description
 import org.hamcrest.Matcher
+import org.hamcrest.Matchers
+import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
-
-private const val SLEEP_1_SECOND = 1000
-private const val SLEEP_3_SECONDS = 3000
 
 internal class ChildAtPosition(
     val parentMatcher: Matcher<View>,
@@ -53,10 +67,91 @@ internal fun withToolbarTitle(expectedTitle: CharSequence): Matcher<View> =
         override fun matchesSafely(toolbar: Toolbar): Boolean = toolbar.title == expectedTitle
     }
 
-internal fun pressBackButton() = pressBack()
+private const val SLEEP_1_SECOND = 1000
 
 internal fun pauseShort() = pause(SLEEP_1_SECOND)
 
-internal fun pauseLong() = pause(SLEEP_3_SECONDS)
+private const val SLEEP_20_SECONDS = 20000
+
+internal fun pauseLong() = pause(SLEEP_20_SECONDS)
 
 private fun pause(sleepTime: Int) = runCatching { Thread.sleep(sleepTime.toLong()) }.getOrElse { it.printStackTrace() }
+
+internal fun verifyCurrentConnectionDisplayed() {
+    onView(withId(R.id.connection)).check(matches(isDisplayed()))
+}
+
+internal fun navigateToBottomNav(navId: Int) {
+    onView(allOf(withId(navId), isDisplayed())).perform(click())
+    pauseShort()
+}
+
+internal fun verifyToolbarTitle(expectedTitle: String) {
+    onView(isAssignableFrom(Toolbar::class.java)).check(matches(withToolbarTitle(expectedTitle)))
+}
+
+internal fun dismissPopup() {
+    onView(withText("OK")).check(matches(isDisplayed()))
+    onView(withText("OK")).perform(click())
+    pauseShort()
+    onView(withText("OK")).check(doesNotExist())
+}
+
+internal fun clickAtPosition(
+    xPercent: Float,
+    yPercent: Float,
+): ViewAction =
+    GeneralClickAction(
+        Tap.SINGLE,
+        { view ->
+            val screenPos = IntArray(2)
+            view.getLocationOnScreen(screenPos)
+            val x = screenPos[0] + view.width * xPercent
+            val y = screenPos[1] + view.height * yPercent
+            floatArrayOf(x, y)
+        },
+        Press.FINGER,
+        InputDevice.SOURCE_UNKNOWN,
+        MotionEvent.BUTTON_PRIMARY,
+    )
+
+private const val NAVIGATION_DRAWER_BUTTON = 0
+private const val NAVIGATION_DRAWER_ACTION = 1
+private const val NAVIGATION_DRAWER_TAG = "Open navigation drawer"
+
+internal fun selectMenuItem(
+    menuItem: Int,
+    expectedTitle: String,
+) {
+    onView(
+        allOf(
+            withContentDescription(NAVIGATION_DRAWER_TAG),
+            ChildAtPosition(
+                allOf(
+                    withId(R.id.toolbar),
+                    ChildAtPosition(
+                        withClassName(Matchers.`is`("com.google.android.material.appbar.AppBarLayout")),
+                        NAVIGATION_DRAWER_BUTTON,
+                    ),
+                ),
+                NAVIGATION_DRAWER_ACTION,
+            ),
+            isDisplayed(),
+        ),
+    ).check(matches(isDisplayed())).perform(click())
+
+    onView(
+        allOf(
+            ChildAtPosition(
+                allOf(
+                    withId(com.google.android.material.R.id.design_navigation_view),
+                    ChildAtPosition(withId(R.id.nav_drawer), NAVIGATION_DRAWER_BUTTON),
+                ),
+                menuItem,
+            ),
+            isDisplayed(),
+        ),
+    ).check(matches(isDisplayed())).perform(click())
+
+    onView(isAssignableFrom(Toolbar::class.java)).check(matches(withToolbarTitle(expectedTitle)))
+}

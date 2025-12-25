@@ -17,26 +17,26 @@
  */
 package com.vrem.wifianalyzer
 
-import androidx.test.espresso.Espresso.pressBack
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 
-internal class NavigationInstrumentedTest : Runnable {
+internal class ChannelRatingInstrumentedTest : Runnable {
     override fun run() {
-        listOf(
-            2 to "Channel Rating",
-            3 to "Channel Graph",
-            4 to "Time Graph",
-            1 to "Access Points",
-            7 to "Available Channels",
-            8 to "Vendors",
-        ).forEach { (id, title) ->
-            selectMenuItem(id, title)
-        }
-        listOf(
-            10 to "Settings",
-            11 to "About",
-        ).forEach { (id, title) ->
-            selectMenuItem(id, title)
-            pressBack()
-        }
+        navigateToBottomNav(R.id.nav_bottom_channel_rating)
+        verifyToolbarTitle("Channel Rating")
+        verifyChannelListDisplayed()
+        verifyBestChannels()
+        verifyCurrentConnectionDisplayed()
+    }
+
+    private fun verifyChannelListDisplayed() {
+        onView(withId(R.id.channelRatingView)).check(matches(isDisplayed()))
+    }
+
+    private fun verifyBestChannels() {
+        onView(withText("Best Channels:")).check(matches(isDisplayed()))
     }
 }

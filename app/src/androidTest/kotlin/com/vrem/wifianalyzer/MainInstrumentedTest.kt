@@ -55,4 +55,44 @@ class MainInstrumentedTest {
     fun filter() {
         FilterInstrumentedTest().run()
     }
+
+    @Test
+    fun accessPoints() {
+        AccessPointsInstrumentedTest().run()
+    }
+
+    @Test
+    fun channelRating() {
+        ChannelRatingInstrumentedTest().run()
+    }
+
+    @Test
+    fun channelGraph() {
+        ChannelGraphInstrumentedTest().run()
+    }
+
+    @Test
+    fun timeGraph() {
+        TimeGraphInstrumentedTest().run()
+    }
+
+    @Test
+    fun connection() {
+        ConnectionInstrumentedTest().run()
+    }
+
+    @Test
+    fun vendor() {
+        VendorInstrumentedTest().run()
+    }
+
+    @Test
+    fun channelAvailable() {
+        ChannelAvailableInstrumentedTest().run()
+    }
+
+    @Test
+    fun settings() {
+        SettingsInstrumentedTest().run()
+    }
 }

@@ -17,26 +17,31 @@
  */
 package com.vrem.wifianalyzer
 
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import org.hamcrest.Matchers.allOf
 
-internal class NavigationInstrumentedTest : Runnable {
+internal class ChannelAvailableInstrumentedTest : Runnable {
     override fun run() {
-        listOf(
-            2 to "Channel Rating",
-            3 to "Channel Graph",
-            4 to "Time Graph",
-            1 to "Access Points",
-            7 to "Available Channels",
-            8 to "Vendors",
-        ).forEach { (id, title) ->
-            selectMenuItem(id, title)
-        }
-        listOf(
-            10 to "Settings",
-            11 to "About",
-        ).forEach { (id, title) ->
-            selectMenuItem(id, title)
-            pressBack()
-        }
+        selectMenuItem(7, "Available Channels")
+        verify2GHzSection()
+        verify5GHzSection()
+        verify6GHzSection()
+        pressBack()
+    }
+
+    private fun verify2GHzSection() {
+        onView(allOf(withText("2.4 GHz"), isDisplayed())).check(matches(isDisplayed()))
+    }
+
+    private fun verify5GHzSection() {
+        onView(allOf(withText("5 GHz"), isDisplayed())).check(matches(isDisplayed()))
+    }
+
+    private fun verify6GHzSection() {
+        onView(allOf(withText("6 GHz"), isDisplayed())).check(matches(isDisplayed()))
     }
 }
