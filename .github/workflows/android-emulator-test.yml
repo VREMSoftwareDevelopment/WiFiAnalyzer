@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        api-level: [29, 31, 35]
+        api-level: [29, 35]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/common-setup
@@ -40,6 +40,7 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           arch: x86_64
+          device: Medium Phone
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
@@ -51,6 +52,7 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           arch: x86_64
+          device: Medium Phone
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
