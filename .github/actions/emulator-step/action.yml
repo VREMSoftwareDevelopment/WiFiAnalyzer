@@ -14,8 +14,9 @@ runs:
       with:
         api-level: ${{ inputs.api-level }}
         arch: x86_64
-        profile: Medium Phone
+        profile: medium_phone
         force-avd-creation: false
         emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
         disable-animations: true
         script: ${{ inputs.script }}
+
