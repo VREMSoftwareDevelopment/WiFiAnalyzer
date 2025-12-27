@@ -29,9 +29,18 @@ private val countriesLocales: SortedMap<String, Locale> =
         .toSortedMap()
 
 val BULGARIAN: Locale = Locale.forLanguageTag("bg")
+
+val CHINESE_SIMPLIFIED: Locale = Locale.forLanguageTag("zh-Hans")
+
+val CHINESE_TRADITIONAL: Locale = Locale.forLanguageTag("zh-Hant")
 val DUTCH: Locale = Locale.forLanguageTag("nl")
+val ENGLISH: Locale = Locale.forLanguageTag("en")
+val FRENCH: Locale = Locale.forLanguageTag("fr")
+val GERMAN: Locale = Locale.forLanguageTag("de")
 val GREEK: Locale = Locale.forLanguageTag("el")
 val HUNGARIAN: Locale = Locale.forLanguageTag("hu")
+val ITALIAN: Locale = Locale.forLanguageTag("it")
+val JAPANESE: Locale = Locale.forLanguageTag("ja")
 val POLISH: Locale = Locale.forLanguageTag("pl")
 val PORTUGUESE_PORTUGAL: Locale = Locale.forLanguageTag("pt-PT")
 val PORTUGUESE_BRAZIL: Locale = Locale.forLanguageTag("pt-BR")
@@ -46,13 +55,13 @@ val baseSupportedLocales: List<Locale> =
         DUTCH,
         GREEK,
         HUNGARIAN,
-        Locale.SIMPLIFIED_CHINESE,
-        Locale.TRADITIONAL_CHINESE,
-        Locale.ENGLISH,
-        Locale.FRENCH,
-        Locale.GERMAN,
-        Locale.ITALIAN,
-        Locale.JAPANESE,
+        CHINESE_SIMPLIFIED,
+        CHINESE_TRADITIONAL,
+        ENGLISH,
+        FRENCH,
+        GERMAN,
+        ITALIAN,
+        JAPANESE,
         POLISH,
         PORTUGUESE_BRAZIL,
         PORTUGUESE_PORTUGAL,
@@ -76,10 +85,15 @@ fun supportedLanguageTags(): List<String> =
 
 fun findByLanguageTag(languageTag: String): Locale {
     if (languageTag.isEmpty()) return currentLocale
-    val locale = Locale.forLanguageTag(languageTag)
-    return baseSupportedLocales.firstOrNull {
-        it.language == locale.language && it.country == locale.country
-    } ?: currentLocale
+
+    val target = Locale.forLanguageTag(languageTag)
+    if (target.language.isEmpty()) return currentLocale
+
+    return baseSupportedLocales.find { it == target }
+        ?: baseSupportedLocales.find { it.language == target.language && it.script == target.script }
+        ?: baseSupportedLocales.find { it.language == target.language && it.country == target.country }
+        ?: baseSupportedLocales.find { it.language == target.language }
+        ?: currentLocale
 }
 
 fun currentCountryCode(): String = currentLocale.country
@@ -87,3 +101,6 @@ fun currentCountryCode(): String = currentLocale.country
 fun currentLanguageTag(): String = currentLocale.toLanguageTag()
 
 fun toLanguageTag(locale: Locale): String = locale.toLanguageTag()
+
+fun Locale.toSupportedLocaleTag(): String =
+    findByLanguageTag(this.toLanguageTag()).toLanguageTag()

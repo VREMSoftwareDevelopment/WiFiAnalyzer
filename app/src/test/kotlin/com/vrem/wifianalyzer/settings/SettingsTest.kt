@@ -370,7 +370,7 @@ class SettingsTest {
         val expected = Locale.FRENCH
         doReturn(toLanguageTag(expected)).whenever(repository).string(R.string.language_key, defaultValue)
         // execute
-        val actual = fixture.languageLocale()
+        val actual = fixture.appLocale()
         // validate
         assertThat(actual).isEqualTo(expected)
         verify(repository).string(R.string.language_key, defaultValue)

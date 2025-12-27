@@ -62,13 +62,13 @@ class ChannelAvailableFragmentTest {
     @Before
     fun setUp() {
         whenever(settings.countryCode()).thenReturn(locale.country)
-        whenever(settings.languageLocale()).thenReturn(Locale.US)
+        whenever(settings.appLocale()).thenReturn(Locale.US)
     }
 
     @After
     fun tearDown() {
         verify(settings, atLeastOnce()).countryCode()
-        verify(settings, atLeastOnce()).languageLocale()
+        verify(settings, atLeastOnce()).appLocale()
         INSTANCE.restore()
     }
 

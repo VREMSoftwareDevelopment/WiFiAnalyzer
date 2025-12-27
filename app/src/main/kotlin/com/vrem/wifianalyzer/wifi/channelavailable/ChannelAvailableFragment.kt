@@ -44,7 +44,7 @@ class ChannelAvailableFragment : Fragment() {
     private fun update() {
         val settings = MainContext.INSTANCE.settings
         val countryCode = settings.countryCode()
-        val languageLocale = settings.languageLocale()
+        val languageLocale = settings.appLocale()
         binding.apply {
             val textViews =
                 listOf(

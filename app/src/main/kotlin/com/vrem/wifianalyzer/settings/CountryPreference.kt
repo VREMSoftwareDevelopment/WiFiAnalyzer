@@ -25,7 +25,7 @@ import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry
 import java.util.Locale
 
 private fun data(): List<Data> {
-    val currentLocale: Locale = MainContext.INSTANCE.settings.languageLocale()
+    val currentLocale: Locale = MainContext.INSTANCE.settings.appLocale()
     return WiFiChannelCountry
         .findAll()
         .map { Data(it.countryCode, it.countryName(currentLocale)) }

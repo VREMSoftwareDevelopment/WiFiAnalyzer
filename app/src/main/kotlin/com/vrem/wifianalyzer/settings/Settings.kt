@@ -18,14 +18,15 @@
 package com.vrem.wifianalyzer.settings
 
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import androidx.appcompat.app.AppCompatDelegate
 import com.vrem.annotation.OpenClass
 import com.vrem.util.buildMinVersionQ
 import com.vrem.util.currentCountryCode
-import com.vrem.util.currentLanguageTag
 import com.vrem.util.findByLanguageTag
 import com.vrem.util.findOne
 import com.vrem.util.findSet
 import com.vrem.util.ordinals
+import com.vrem.util.toSupportedLocaleTag
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.MAIN_NAVIGATION
 import com.vrem.wifianalyzer.navigation.NavigationMenu
@@ -69,10 +70,14 @@ class Settings(
 
     fun countryCode(): String = repository.string(R.string.country_code_key, currentCountryCode())
 
-    fun languageLocale(): Locale {
-        val currentLanguageTag = currentLanguageTag()
-        val languageTag = repository.string(R.string.language_key, currentLanguageTag)
-        return findByLanguageTag(languageTag)
+    fun appLocale(): Locale =
+        findByLanguageTag(AppCompatDelegate.getApplicationLocales().toLanguageTags())
+
+    fun syncLanguage() {
+        val appLocaleTag = appLocale().toSupportedLocaleTag()
+        if (appLocaleTag != repository.string(R.string.language_key, "")) {
+            repository.save(R.string.language_key, appLocaleTag)
+        }
     }
 
     fun sortBy(): SortBy = settingsFind(SortBy.entries, R.string.sort_by_key, SortBy.STRENGTH)
