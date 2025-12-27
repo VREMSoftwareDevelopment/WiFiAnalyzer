@@ -20,8 +20,8 @@ package com.vrem.wifianalyzer.settings
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.vrem.util.defaultCountryCode
-import com.vrem.util.defaultLanguageTag
+import com.vrem.util.currentCountryCode
+import com.vrem.util.currentLanguageTag
 import com.vrem.util.ordinals
 import com.vrem.util.toLanguageTag
 import com.vrem.wifianalyzer.R
@@ -353,7 +353,7 @@ class SettingsTest {
     @Test
     fun countryCode() {
         // setup
-        val defaultValue = defaultCountryCode()
+        val defaultValue = currentCountryCode()
         val expected = "WW"
         doReturn(expected).whenever(repository).string(R.string.country_code_key, defaultValue)
         // execute
@@ -366,7 +366,7 @@ class SettingsTest {
     @Test
     fun languageLocale() {
         // setup
-        val defaultValue = defaultLanguageTag()
+        val defaultValue = currentLanguageTag()
         val expected = Locale.FRENCH
         doReturn(toLanguageTag(expected)).whenever(repository).string(R.string.language_key, defaultValue)
         // execute
