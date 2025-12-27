@@ -19,20 +19,22 @@ package com.vrem.wifianalyzer.settings
 
 import android.content.Context
 import android.util.AttributeSet
-import com.vrem.util.currentLanguageTag
-import com.vrem.util.supportedLanguages
-import com.vrem.util.toCapitalize
-import com.vrem.util.toLanguageTag
+import com.vrem.util.supportedLanguageTags
+import com.vrem.util.titlecaseFirst
+import com.vrem.wifianalyzer.R
 import java.util.Locale
 
-private fun data(): List<Data> =
-    supportedLanguages()
-        .map { map(it) }
-        .sorted()
-
-private fun map(it: Locale): Data = Data(toLanguageTag(it), it.getDisplayName(it).toCapitalize(Locale.getDefault()))
+private fun data(context: Context): List<Data> =
+    supportedLanguageTags().map { tag ->
+        if (tag.isEmpty()) {
+            Data("", context.getString(R.string.system_default))
+        } else {
+            val locale = Locale.forLanguageTag(tag)
+            Data(tag, locale.getDisplayName(locale).titlecaseFirst(locale))
+        }
+    }
 
 class LanguagePreference(
     context: Context,
     attrs: AttributeSet,
-) : CustomPreference(context, attrs, data(), currentLanguageTag())
+) : CustomPreference(context, attrs, data(context), "")

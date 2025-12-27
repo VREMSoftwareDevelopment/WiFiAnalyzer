@@ -62,8 +62,6 @@ val baseSupportedLocales: List<Locale> =
         UKRAINIAN,
     ).toList()
 
-private const val SEPARATOR: String = "_"
-
 fun findByCountryCode(countryCode: String): Locale =
     availableLocales.firstOrNull { countryCode.toCapitalize(Locale.getDefault()) == it.country }
         ?: currentLocale
@@ -73,25 +71,19 @@ fun allCountries(): List<Locale> = countriesLocales.values.toList()
 fun supportedLanguages(): List<Locale> =
     (baseSupportedLocales + currentLocale).distinct()
 
+fun supportedLanguageTags(): List<String> =
+    listOf("") + baseSupportedLocales.map { it.toLanguageTag() }
+
 fun findByLanguageTag(languageTag: String): Locale {
-    val languageTagPredicate: (Locale) -> Boolean = {
-        val locale: Locale = fromLanguageTag(languageTag)
+    if (languageTag.isEmpty()) return currentLocale
+    val locale = Locale.forLanguageTag(languageTag)
+    return baseSupportedLocales.firstOrNull {
         it.language == locale.language && it.country == locale.country
-    }
-    return supportedLanguages().firstOrNull(languageTagPredicate) ?: currentLocale
+    } ?: currentLocale
 }
 
 fun currentCountryCode(): String = currentLocale.country
 
-fun currentLanguageTag(): String = toLanguageTag(currentLocale)
+fun currentLanguageTag(): String = currentLocale.toLanguageTag()
 
-fun toLanguageTag(locale: Locale): String = locale.language + SEPARATOR + locale.country
-
-private fun fromLanguageTag(languageTag: String): Locale {
-    val codes: Array<String> = languageTag.split(SEPARATOR).toTypedArray()
-    return when (codes.size) {
-        1 -> Locale.forLanguageTag(codes[0])
-        2 -> Locale.forLanguageTag("${codes[0]}-${codes[1].toCapitalize(currentLocale)}")
-        else -> currentLocale
-    }
-}
+fun toLanguageTag(locale: Locale): String = locale.toLanguageTag()

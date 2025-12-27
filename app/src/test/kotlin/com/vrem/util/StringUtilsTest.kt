@@ -45,6 +45,38 @@ class StringUtilsTest {
     }
 
     @Test
+    fun titlecaseFirst() {
+        // setup
+        val expected = "Value"
+        val value = "value"
+        // execute
+        val actual: String = value.titlecaseFirst(Locale.US)
+        // verify
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun titlecaseFirstWithEmptyString() {
+        // setup
+        val value = ""
+        // execute
+        val actual: String = value.titlecaseFirst(Locale.US)
+        // verify
+        assertThat(actual).isEmpty()
+    }
+
+    @Test
+    fun titlecaseFirstWithAlreadyTitlecase() {
+        // setup
+        val expected = "Value"
+        val value = "Value"
+        // execute
+        val actual: String = value.titlecaseFirst(Locale.US)
+        // verify
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
     fun nullToEmptyWhenNull() {
         // setup
         val expected = String.EMPTY
