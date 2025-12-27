@@ -19,7 +19,7 @@ package com.vrem.wifianalyzer.settings
 
 import android.content.Context
 import android.util.AttributeSet
-import com.vrem.util.defaultLanguageTag
+import com.vrem.util.currentLanguageTag
 import com.vrem.util.supportedLanguages
 import com.vrem.util.toCapitalize
 import com.vrem.util.toLanguageTag
@@ -35,4 +35,4 @@ private fun map(it: Locale): Data = Data(toLanguageTag(it), it.getDisplayName(it
 class LanguagePreference(
     context: Context,
     attrs: AttributeSet,
-) : CustomPreference(context, attrs, data(), defaultLanguageTag())
+) : CustomPreference(context, attrs, data(), currentLanguageTag())

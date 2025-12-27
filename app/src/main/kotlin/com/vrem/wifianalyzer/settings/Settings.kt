@@ -20,8 +20,8 @@ package com.vrem.wifianalyzer.settings
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import com.vrem.annotation.OpenClass
 import com.vrem.util.buildMinVersionQ
-import com.vrem.util.defaultCountryCode
-import com.vrem.util.defaultLanguageTag
+import com.vrem.util.currentCountryCode
+import com.vrem.util.currentLanguageTag
 import com.vrem.util.findByLanguageTag
 import com.vrem.util.findOne
 import com.vrem.util.findSet
@@ -67,11 +67,11 @@ class Settings(
 
     fun wiFiBand(wiFiBand: WiFiBand): Unit = repository.save(R.string.wifi_band_key, wiFiBand.ordinal)
 
-    fun countryCode(): String = repository.string(R.string.country_code_key, defaultCountryCode())
+    fun countryCode(): String = repository.string(R.string.country_code_key, currentCountryCode())
 
     fun languageLocale(): Locale {
-        val defaultLanguageTag = defaultLanguageTag()
-        val languageTag = repository.string(R.string.language_key, defaultLanguageTag)
+        val currentLanguageTag = currentLanguageTag()
+        val languageTag = repository.string(R.string.language_key, currentLanguageTag)
         return findByLanguageTag(languageTag)
     }
 
