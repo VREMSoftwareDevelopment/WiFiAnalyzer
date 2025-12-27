@@ -103,4 +103,5 @@
     <string name="wifi_off_on_exit_title">"Wyłączanie Wi-Fi przy wyjściu"</string>
     <string name="wifi_throttling_off">"Ograniczanie skanowania Wi-Fi jest wyłączone"</string>
     <string name="wifi_throttling_on">"Ograniczanie skanowania Wi-Fi jest włączone"</string>
+    <string name="system_default">Ustawienie domyślne systemu</string>
 </resources>

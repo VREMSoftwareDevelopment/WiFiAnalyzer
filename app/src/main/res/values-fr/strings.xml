@@ -102,4 +102,5 @@
     <string name="wifi_off_on_exit_title">"Arrêter le Wi-Fi en quittant"</string>
     <string name="wifi_throttling_off">"La limitation de l'analyse Wi-Fi est désactivée"</string>
     <string name="wifi_throttling_on">"La limitation de l'analyse Wi-Fi est activée"</string>
+    <string name="system_default">Paramètre système par défaut</string>
 </resources>
