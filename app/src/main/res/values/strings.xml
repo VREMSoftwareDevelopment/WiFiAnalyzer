@@ -217,4 +217,5 @@
     <string name="wifi_width_80mhz" translatable="false">"80 MHz"</string>
     <string name="wifi_width_160mhz" translatable="false">"160 MHz"</string>
     <string name="wifi_width_320mhz" translatable="false">"320 MHz"</string>
+    <string name="system_default">System default</string>
 </resources>
