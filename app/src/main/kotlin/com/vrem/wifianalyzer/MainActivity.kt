@@ -119,10 +119,11 @@ class MainActivity :
         val languageKey = getString(R.string.language_key)
         if (key == languageKey) {
             val languageTag = sharedPreferences.getString(languageKey, "")
-            val locales = languageTag
-                ?.takeIf { it.isNotEmpty() }
-                ?.let(LocaleListCompat::forLanguageTags)
-                ?: LocaleListCompat.getEmptyLocaleList()
+            val locales =
+                languageTag
+                    ?.takeIf { it.isNotEmpty() }
+                    ?.let(LocaleListCompat::forLanguageTags)
+                    ?: LocaleListCompat.getEmptyLocaleList()
 
             AppCompatDelegate.setApplicationLocales(locales)
         }

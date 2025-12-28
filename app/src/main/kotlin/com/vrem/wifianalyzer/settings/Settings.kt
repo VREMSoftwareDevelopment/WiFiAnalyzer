@@ -70,8 +70,7 @@ class Settings(
 
     fun countryCode(): String = repository.string(R.string.country_code_key, currentCountryCode())
 
-    fun appLocale(): Locale =
-        findByLanguageTag(AppCompatDelegate.getApplicationLocales().toLanguageTags())
+    fun appLocale(): Locale = findByLanguageTag(AppCompatDelegate.getApplicationLocales().toLanguageTags())
 
     fun syncLanguage() {
         val appLocaleTag = appLocale().toSupportedLocaleTag()

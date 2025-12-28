@@ -69,8 +69,10 @@ class LocaleUtilsTest {
 
     @Test
     fun toLanguageTagWithKnownCode() {
-        assertThat(toLanguageTag(Locale.US)).isEqualTo(Locale.US.language + "_" + Locale.US.country)
-        assertThat(toLanguageTag(Locale.ENGLISH)).isEqualTo(Locale.ENGLISH.language + "_")
+        assertThat(toLanguageTag(Locale.US)).isEqualTo("en-US")
+        assertThat(toLanguageTag(ENGLISH)).isEqualTo("en")
+        assertThat(toLanguageTag(CHINESE_SIMPLIFIED)).isEqualTo("zh-Hans")
+        assertThat(toLanguageTag(CHINESE_TRADITIONAL)).isEqualTo("zh-Hant")
     }
 
     @Test
@@ -83,9 +85,16 @@ class LocaleUtilsTest {
 
     @Test
     fun findByLanguageTagWithKnownTag() {
-        assertThat(findByLanguageTag(toLanguageTag(Locale.SIMPLIFIED_CHINESE))).isEqualTo(Locale.SIMPLIFIED_CHINESE)
-        assertThat(findByLanguageTag(toLanguageTag(Locale.TRADITIONAL_CHINESE))).isEqualTo(Locale.TRADITIONAL_CHINESE)
-        assertThat(findByLanguageTag(toLanguageTag(Locale.ENGLISH))).isEqualTo(Locale.ENGLISH)
+        // BCP-47 format (new)
+        assertThat(findByLanguageTag("zh-Hans")).isEqualTo(CHINESE_SIMPLIFIED)
+        assertThat(findByLanguageTag("zh-Hant")).isEqualTo(CHINESE_TRADITIONAL)
+        assertThat(findByLanguageTag("en")).isEqualTo(ENGLISH)
+        assertThat(findByLanguageTag("en-US")).isEqualTo(ENGLISH)
+
+        // Backward compatibility: underscore format (old)
+        assertThat(findByLanguageTag("zh_Hans")).isEqualTo(CHINESE_SIMPLIFIED)
+        assertThat(findByLanguageTag("zh_Hant")).isEqualTo(CHINESE_TRADITIONAL)
+        assertThat(findByLanguageTag("en_US")).isEqualTo(ENGLISH)
     }
 
     @Test
