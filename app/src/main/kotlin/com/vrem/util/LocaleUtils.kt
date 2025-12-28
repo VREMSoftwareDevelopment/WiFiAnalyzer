@@ -72,7 +72,7 @@ val baseSupportedLocales: List<Locale> =
     ).toList()
 
 fun findByCountryCode(countryCode: String): Locale =
-    availableLocales.firstOrNull { countryCode.toCapitalize(Locale.getDefault()) == it.country }
+    availableLocales.firstOrNull { countryCode.uppercase(Locale.ROOT) == it.country }
         ?: currentLocale
 
 fun allCountries(): List<Locale> = countriesLocales.values.toList()
@@ -83,10 +83,14 @@ fun supportedLanguages(): List<Locale> =
 fun supportedLanguageTags(): List<String> =
     listOf("") + baseSupportedLocales.map { it.toLanguageTag() }
 
-fun findByLanguageTag(languageTag: String): Locale {
-    if (languageTag.isEmpty()) return currentLocale
+private fun normalizeLanguageTag(languageTag: String): String =
+    languageTag.replace('_', '-').trim()
 
-    val target = Locale.forLanguageTag(languageTag)
+fun findByLanguageTag(languageTag: String): Locale {
+    val normalizedLanguageTag = normalizeLanguageTag(languageTag)
+    if (normalizedLanguageTag.isEmpty()) return currentLocale
+
+    val target = Locale.forLanguageTag(normalizedLanguageTag)
     if (target.language.isEmpty()) return currentLocale
 
     return baseSupportedLocales.find { it == target }

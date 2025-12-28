@@ -30,10 +30,14 @@ class WiFiChannelCountryTest {
 
     @Test
     fun find() {
-        val expected = Locale.US
-        val actual = WiFiChannelCountry.find(expected.country)
-        assertThat(actual.countryCode).isEqualTo(expected.country)
-        assertThat(actual.countryName(expected)).isEqualTo(expected.displayCountry)
+        val countryLocale = Locale.US
+        val displayLocale = Locale.getDefault()
+
+        val actual = WiFiChannelCountry.find(countryLocale.country)
+
+        assertThat(actual.countryCode).isEqualTo(countryLocale.country)
+        assertThat(actual.countryName(displayLocale))
+            .isEqualTo(countryLocale.getDisplayCountry(displayLocale))
     }
 
     @Test
