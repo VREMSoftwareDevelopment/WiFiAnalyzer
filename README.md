@@ -167,7 +167,7 @@ This project uses GitHub Actions for CI/CD. On every push and pull request, the 
 - Lint analysis
 - Unit tests with coverage (uploaded to Codecov)
 - APK build (debug)
-- Instrumented tests on Android emulator (API levels 29, 31, 35)
+- Instrumented tests on Android emulator
 - Artifacts (reports and APK) are available for download in the workflow run
 
 ## Translation
