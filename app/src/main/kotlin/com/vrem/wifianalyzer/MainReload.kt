@@ -29,8 +29,7 @@ class MainReload(
     var connectionViewType: ConnectionViewType
         private set
 
-    fun shouldReload(settings: Settings): Boolean =
-        themeChanged(settings) || connectionViewTypeChanged(settings)
+    fun shouldReload(settings: Settings): Boolean = themeChanged(settings) || connectionViewTypeChanged(settings)
 
     private fun connectionViewTypeChanged(settings: Settings): Boolean {
         val currentConnectionViewType = settings.connectionViewType()

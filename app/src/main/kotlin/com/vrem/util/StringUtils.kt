@@ -28,5 +28,4 @@ fun String.specialTrim(): String = this.trim { it <= ' ' }.replace(" +".toRegex(
 
 fun String.toCapitalize(locale: Locale): String = this.replaceFirstChar { word -> word.uppercase(locale) }
 
-fun String.titlecaseFirst(locale: Locale): String =
-    replaceFirstChar { it.titlecase(locale) }
+fun String.titlecaseFirst(locale: Locale): String = replaceFirstChar { it.titlecase(locale) }

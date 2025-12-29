@@ -77,14 +77,11 @@ fun findByCountryCode(countryCode: String): Locale =
 
 fun allCountries(): List<Locale> = countriesLocales.values.toList()
 
-fun supportedLanguages(): List<Locale> =
-    (baseSupportedLocales + currentLocale).distinct()
+fun supportedLanguages(): List<Locale> = (baseSupportedLocales + currentLocale).distinct()
 
-fun supportedLanguageTags(): List<String> =
-    listOf("") + baseSupportedLocales.map { it.toLanguageTag() }
+fun supportedLanguageTags(): List<String> = listOf("") + baseSupportedLocales.map { it.toLanguageTag() }
 
-private fun normalizeLanguageTag(languageTag: String): String =
-    languageTag.replace('_', '-').trim()
+private fun normalizeLanguageTag(languageTag: String): String = languageTag.replace('_', '-').trim()
 
 fun findByLanguageTag(languageTag: String): Locale {
     val normalizedLanguageTag = normalizeLanguageTag(languageTag)
@@ -106,5 +103,4 @@ fun currentLanguageTag(): String = currentLocale.toLanguageTag()
 
 fun toLanguageTag(locale: Locale): String = locale.toLanguageTag()
 
-fun Locale.toSupportedLocaleTag(): String =
-    findByLanguageTag(this.toLanguageTag()).toLanguageTag()
+fun Locale.toSupportedLocaleTag(): String = findByLanguageTag(this.toLanguageTag()).toLanguageTag()
