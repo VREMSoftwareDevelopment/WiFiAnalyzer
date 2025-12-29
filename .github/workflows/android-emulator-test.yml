@@ -40,12 +40,6 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           script: echo "Generated AVD snapshot for caching."
-      - name: Show AVD details
-        run: |
-          echo "Listing available AVDs:"
-          avdmanager list avd || true
-          echo "Dumping AVD .ini files:"
-          cat ~/.android/avd/*.ini || true
       - name: Build app and test APKs
         run: ./gradlew assembleDebug assembleDebugAndroidTest
       - name: Run instrumented tests
