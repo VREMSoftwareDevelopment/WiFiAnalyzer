@@ -31,8 +31,8 @@ import androidx.test.espresso.action.Tap
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.contrib.RecyclerViewActions
+import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -159,7 +159,10 @@ internal fun selectMenuItem(
     onView(isAssignableFrom(Toolbar::class.java)).check(matches(withToolbarTitle(expectedTitle)))
 }
 
-internal fun scrollToAndVerify(text: String, recyclerViewId: Int = androidx.preference.R.id.recycler_view) {
+internal fun scrollToAndVerify(
+    text: String,
+    recyclerViewId: Int = androidx.preference.R.id.recycler_view,
+) {
     onView(withId(recyclerViewId))
         .perform(RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(hasDescendant(withText(text))))
     onView(withText(text)).check(matches(isDisplayed()))

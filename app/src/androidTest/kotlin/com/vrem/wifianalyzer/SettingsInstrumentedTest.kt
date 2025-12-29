@@ -40,7 +40,7 @@ internal class SettingsInstrumentedTest : Runnable {
             "Keep screen on",
             "Country",
             "Language",
-            "Reset"
+            "Reset",
         ).forEach { scrollToAndVerify(it) }
     }
 }
