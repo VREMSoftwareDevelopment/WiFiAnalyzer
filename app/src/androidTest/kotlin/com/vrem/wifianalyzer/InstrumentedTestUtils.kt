@@ -22,6 +22,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.GeneralClickAction
@@ -30,7 +31,9 @@ import androidx.test.espresso.action.Tap
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.BoundedMatcher
+import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withClassName
@@ -154,4 +157,13 @@ internal fun selectMenuItem(
     ).check(matches(isDisplayed())).perform(click())
 
     onView(isAssignableFrom(Toolbar::class.java)).check(matches(withToolbarTitle(expectedTitle)))
+}
+
+internal fun scrollToAndVerify(
+    text: String,
+    recyclerViewId: Int = androidx.preference.R.id.recycler_view,
+) {
+    onView(withId(recyclerViewId))
+        .perform(RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(hasDescendant(withText(text))))
+    onView(withText(text)).check(matches(isDisplayed()))
 }

@@ -4,7 +4,6 @@ on:
   push:
     paths-ignore:
       - '**/*.md'
-      - '.github/workflows/android-test-ci.yml'
       - '.github/workflows/android-emulator-test.yml'
       - '.github/workflows/codeql-analysis.yml'
       - '.github/workflows/close-empty-xml.yml'
@@ -13,7 +12,6 @@ on:
   pull_request:
     paths-ignore:
       - '**/*.md'
-      - '.github/workflows/android-test-ci.yml'
       - '.github/workflows/android-emulator-test.yml'
       - '.github/workflows/codeql-analysis.yml'
       - '.github/workflows/close-empty-xml.yml'

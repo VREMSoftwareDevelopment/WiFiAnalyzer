@@ -1,0 +1,22 @@
+name: 'Emulator Step'
+description: 'Run Android emulator with common configuration.'
+inputs:
+  api-level:
+    description: 'API level for the emulator.'
+    required: true
+  script:
+    description: 'Script to run inside the emulator.'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: ${{ inputs.api-level }}
+        arch: x86_64
+        profile: medium_phone
+        force-avd-creation: false
+        emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+        disable-animations: true
+        script: ${{ inputs.script }}
+

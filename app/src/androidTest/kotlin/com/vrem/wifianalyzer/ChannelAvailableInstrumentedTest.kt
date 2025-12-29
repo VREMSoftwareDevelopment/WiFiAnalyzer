@@ -27,21 +27,13 @@ import org.hamcrest.Matchers.allOf
 internal class ChannelAvailableInstrumentedTest : Runnable {
     override fun run() {
         selectMenuItem(7, "Available Channels")
-        verify2GHzSection()
-        verify5GHzSection()
-        verify6GHzSection()
+        verifySections()
         pressBack()
     }
 
-    private fun verify2GHzSection() {
-        onView(allOf(withText("2.4 GHz"), isDisplayed())).check(matches(isDisplayed()))
-    }
-
-    private fun verify5GHzSection() {
-        onView(allOf(withText("5 GHz"), isDisplayed())).check(matches(isDisplayed()))
-    }
-
-    private fun verify6GHzSection() {
-        onView(allOf(withText("6 GHz"), isDisplayed())).check(matches(isDisplayed()))
+    private fun verifySections() {
+        listOf("2.4 GHz", "5 GHz", "6 GHz").forEach { section ->
+            onView(allOf(withText(section), isDisplayed())).check(matches(isDisplayed()))
+        }
     }
 }

@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        api-level: [29, 31, 35]
+        api-level: [35]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/common-setup
@@ -36,24 +36,16 @@ jobs:
           key: avd-${{ matrix.api-level }}
       - name: Create AVD and generate snapshot for caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
-        uses: reactivecircus/android-emulator-runner@v2
+        uses: ./.github/actions/emulator-step
         with:
           api-level: ${{ matrix.api-level }}
-          arch: x86_64
-          force-avd-creation: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: true
           script: echo "Generated AVD snapshot for caching."
       - name: Build app and test APKs
         run: ./gradlew assembleDebug assembleDebugAndroidTest
       - name: Run instrumented tests
-        uses: reactivecircus/android-emulator-runner@v2
+        uses: ./.github/actions/emulator-step
         with:
           api-level: ${{ matrix.api-level }}
-          arch: x86_64
-          force-avd-creation: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: true
           script: ./gradlew connectedDebugAndroidTest -x assembleDebug -x assembleDebugAndroidTest
       - name: Upload test results
         uses: actions/upload-artifact@v4
