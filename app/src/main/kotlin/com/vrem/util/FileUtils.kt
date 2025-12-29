@@ -19,7 +19,6 @@ package com.vrem.util
 
 import android.content.res.Resources
 import androidx.annotation.RawRes
-import java.util.zip.ZipInputStream
 
 fun readFile(
     resources: Resources,
@@ -32,16 +31,3 @@ fun readFile(
             .use { it.readText() }
             .replace("\r", String.EMPTY)
     }.getOrDefault(String.EMPTY)
-
-fun readZipFile(
-    resources: Resources,
-    @RawRes id: Int,
-): List<String> =
-    runCatching {
-        resources.openRawResource(id).use { inputStream ->
-            ZipInputStream(inputStream).use { zipInputStream ->
-                zipInputStream.nextEntry
-                zipInputStream.bufferedReader().readLines()
-            }
-        }
-    }.getOrDefault(emptyList())
