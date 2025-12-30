@@ -34,6 +34,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:saveEnabled="false"
         app:headerLayout="@layout/main_navigation"
         app:itemIconTint="@drawable/menu_selector"
         app:itemTextColor="@drawable/menu_selector"
