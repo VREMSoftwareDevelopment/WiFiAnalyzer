@@ -35,7 +35,6 @@ internal class FilterInstrumentedTest : Runnable {
         verifyDialogAndReset()
         verifyWifiBandFilter()
         verifySsidFilter()
-        resetFilters()
     }
 
     private fun verifyDialogAndReset() {
@@ -60,11 +59,6 @@ internal class FilterInstrumentedTest : Runnable {
         onView(withHint("ssid SSID")).perform(typeText("test"), closeSoftKeyboard())
         onView(allOf(withId(android.R.id.button3), isDisplayed())).perform(click())
         onView(withText("Filter")).check(doesNotExist())
-        onView(allOf(withId(R.id.action_filter), isDisplayed())).perform(click())
-        onView(allOf(withId(android.R.id.button2), isDisplayed())).perform(scrollTo(), click())
-    }
-
-    private fun resetFilters() {
         onView(allOf(withId(R.id.action_filter), isDisplayed())).perform(click())
         onView(allOf(withId(android.R.id.button2), isDisplayed())).perform(scrollTo(), click())
     }

@@ -17,11 +17,14 @@
  */
 package com.vrem.wifianalyzer
 
+import androidx.test.espresso.Espresso.pressBack
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.GrantPermissionRule
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -40,6 +43,23 @@ class MainInstrumentedTest {
             android.Manifest.permission.ACCESS_WIFI_STATE,
             android.Manifest.permission.CHANGE_WIFI_STATE,
         )
+
+    @Before
+    fun setUp() {
+        returnToHome()
+        resetFilters()
+        resetScannerState()
+        resetSettings()
+        returnToHome()
+    }
+
+    @After
+    fun tearDown() {
+        try {
+            pressBack()
+        } catch (_: Exception) {
+        }
+    }
 
     @Test
     fun navigation() {

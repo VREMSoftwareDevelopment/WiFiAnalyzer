@@ -22,20 +22,20 @@ import androidx.test.espresso.Espresso.pressBack
 internal class NavigationInstrumentedTest : Runnable {
     override fun run() {
         listOf(
-            2 to "Channel Rating",
-            3 to "Channel Graph",
-            4 to "Time Graph",
-            1 to "Access Points",
-            7 to "Available Channels",
-            8 to "Vendors",
-        ).forEach { (id, title) ->
-            selectMenuItem(id, title)
+            R.id.nav_drawer_channel_rating to "Channel Rating",
+            R.id.nav_drawer_channel_graph to "Channel Graph",
+            R.id.nav_drawer_time_graph to "Time Graph",
+            R.id.nav_drawer_access_points to "Access Points",
+            R.id.nav_drawer_channel_available to "Available Channels",
+            R.id.nav_drawer_vendors to "Vendors",
+        ).forEach { (menuItemId, title) ->
+            selectMenuItem(menuItemId, title)
         }
         listOf(
-            10 to "Settings",
-            11 to "About",
-        ).forEach { (id, title) ->
-            selectMenuItem(id, title)
+            R.id.nav_drawer_settings to "Settings",
+            R.id.nav_drawer_about to "About",
+        ).forEach { (menuItemId, title) ->
+            selectMenuItem(menuItemId, title)
             pressBack()
         }
     }

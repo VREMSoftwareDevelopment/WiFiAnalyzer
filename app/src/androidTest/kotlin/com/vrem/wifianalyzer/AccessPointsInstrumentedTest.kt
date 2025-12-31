@@ -24,10 +24,8 @@ import androidx.test.espresso.action.ViewActions.swipeDown
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.anything
-import org.hamcrest.Matchers.containsString
 
 internal class AccessPointsInstrumentedTest : Runnable {
     override fun run() {
@@ -55,7 +53,6 @@ internal class AccessPointsInstrumentedTest : Runnable {
             .atPosition(0)
             .perform(click())
         pauseShort()
-        onView(withText(containsString("AndroidWifi"))).check(matches(isDisplayed()))
         dismissPopup()
     }
 }

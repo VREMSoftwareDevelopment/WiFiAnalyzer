@@ -21,7 +21,7 @@ import androidx.test.espresso.Espresso.pressBack
 
 internal class SettingsInstrumentedTest : Runnable {
     override fun run() {
-        selectMenuItem(10, "Settings")
+        selectMenuItem(R.id.nav_drawer_settings, "Settings")
         verifySettings()
         pressBack()
     }

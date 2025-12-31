@@ -27,10 +27,11 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withHint
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import org.assertj.core.api.Assertions.assertThat
 
 internal class VendorInstrumentedTest : Runnable {
     override fun run() {
-        selectMenuItem(8, "Vendors")
+        selectMenuItem(R.id.nav_drawer_vendors, "Vendors")
         verifySearchField()
         val totalCount = getListCount()
         verifySearch(totalCount)
@@ -46,18 +47,18 @@ internal class VendorInstrumentedTest : Runnable {
         onView(withHint("00:0C:41 CISCO")).perform(replaceText("CISCO"), closeSoftKeyboard())
         pauseShort()
         val filteredCount = getListCount()
-        assert(
-            filteredCount < totalCount,
-        ) { "Filtered count ($filteredCount) should be less than initial count ($totalCount)" }
+        assertThat(filteredCount)
+            .withFailMessage("Filtered count ($filteredCount) should be less than initial count ($totalCount)")
+            .isLessThan(totalCount)
     }
 
     private fun verifyClearSearch(totalCount: Int) {
         onView(withHint("00:0C:41 CISCO")).perform(clearText())
         pauseShort()
         val restoredCount = getListCount()
-        assert(
-            restoredCount == totalCount,
-        ) { "Restored count ($restoredCount) should equal initial count ($totalCount)" }
+        assertThat(restoredCount)
+            .withFailMessage("Restored count ($restoredCount) should equal initial count ($totalCount)")
+            .isEqualTo(totalCount)
     }
 
     private fun getListCount(): Int {
