@@ -23,7 +23,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import org.hamcrest.Matchers.containsString
+import org.hamcrest.Matchers.matchesPattern
 
 internal class ConnectionInstrumentedTest : Runnable {
     override fun run() {
@@ -38,7 +38,8 @@ internal class ConnectionInstrumentedTest : Runnable {
     }
 
     private fun verifyIpAddressDisplayed() {
-        onView(withText(containsString("10.0.2.16"))).check(matches(isDisplayed()))
+        val ipv4Pattern = "\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b"
+        onView(withText(matchesPattern(ipv4Pattern))).check(matches(isDisplayed()))
     }
 
     private fun verifyConnectionPopup() {

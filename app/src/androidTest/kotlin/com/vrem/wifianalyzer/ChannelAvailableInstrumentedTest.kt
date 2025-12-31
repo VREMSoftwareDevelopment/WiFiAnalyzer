@@ -26,7 +26,7 @@ import org.hamcrest.Matchers.allOf
 
 internal class ChannelAvailableInstrumentedTest : Runnable {
     override fun run() {
-        selectMenuItem(7, "Available Channels")
+        selectMenuItem(R.id.nav_drawer_channel_available, "Available Channels")
         verifySections()
         pressBack()
     }
