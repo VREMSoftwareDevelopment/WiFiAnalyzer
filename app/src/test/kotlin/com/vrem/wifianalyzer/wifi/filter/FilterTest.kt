@@ -35,8 +35,10 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 
@@ -239,5 +241,17 @@ class FilterTest {
         fixture.show()
         // validate
         assertThat(fixture.alertDialog!!.isShowing).isTrue
+    }
+
+    @Test
+    fun buildReturnsNullDialogWhenActivityIsFinishing() {
+        // setup
+        val mainActivity = MainContextHelper.INSTANCE.mainActivity
+        doReturn(true).whenever(mainActivity).isFinishing
+        // execute
+        val actual = build()
+        // validate
+        assertThat(actual.alertDialog).isNull()
+        verify(mainActivity).isFinishing
     }
 }

@@ -224,6 +224,25 @@ class AccessPointsAdapterGroupTest {
     }
 
     @Test
+    fun updateExpandsGroupWhenInExpandedSet() {
+        // setup
+        val wiFiDetails = withWiFiDetails()
+        doReturn(GroupBy.CHANNEL).whenever(settings).groupBy()
+        fixture.updateGroupBy()
+        fixture.expanded.add(GroupBy.CHANNEL.group(wiFiDetails[0]))
+        doReturn(expandableListAdapter).whenever(expandableListView).expandableListAdapter
+        doReturn(wiFiDetails.size).whenever(expandableListAdapter).groupCount
+        // execute
+        fixture.update(wiFiDetails, expandableListView)
+        // validate
+        verify(settings, times(2)).groupBy()
+        verify(expandableListView).expandableListAdapter
+        verify(expandableListAdapter).groupCount
+        verify(expandableListView).expandGroup(0)
+        verify(expandableListView, times(2)).collapseGroup(any())
+    }
+
+    @Test
     fun onGroupCollapsedDoesNotRemoveIfHasChildren() {
         // setup
         doReturn(GroupBy.SSID).whenever(settings).groupBy()
