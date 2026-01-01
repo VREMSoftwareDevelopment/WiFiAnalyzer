@@ -29,9 +29,7 @@ private val countriesLocales: SortedMap<String, Locale> =
         .toSortedMap()
 
 val BULGARIAN: Locale = Locale.forLanguageTag("bg")
-
 val CHINESE_SIMPLIFIED: Locale = Locale.forLanguageTag("zh-Hans")
-
 val CHINESE_TRADITIONAL: Locale = Locale.forLanguageTag("zh-Hant")
 val DUTCH: Locale = Locale.forLanguageTag("nl")
 val ENGLISH: Locale = Locale.forLanguageTag("en")
@@ -42,34 +40,34 @@ val HUNGARIAN: Locale = Locale.forLanguageTag("hu")
 val ITALIAN: Locale = Locale.forLanguageTag("it")
 val JAPANESE: Locale = Locale.forLanguageTag("ja")
 val POLISH: Locale = Locale.forLanguageTag("pl")
-val PORTUGUESE_PORTUGAL: Locale = Locale.forLanguageTag("pt-PT")
 val PORTUGUESE_BRAZIL: Locale = Locale.forLanguageTag("pt-BR")
-val SPANISH: Locale = Locale.forLanguageTag("es")
+val PORTUGUESE_PORTUGAL: Locale = Locale.forLanguageTag("pt-PT")
 val RUSSIAN: Locale = Locale.forLanguageTag("ru")
+val SPANISH: Locale = Locale.forLanguageTag("es")
 val TURKISH: Locale = Locale.forLanguageTag("tr")
 val UKRAINIAN: Locale = Locale.forLanguageTag("uk")
 
 val baseSupportedLocales: List<Locale> =
-    setOf(
+    listOf(
         BULGARIAN,
-        DUTCH,
-        GREEK,
-        HUNGARIAN,
         CHINESE_SIMPLIFIED,
         CHINESE_TRADITIONAL,
+        DUTCH,
         ENGLISH,
         FRENCH,
         GERMAN,
+        GREEK,
+        HUNGARIAN,
         ITALIAN,
         JAPANESE,
         POLISH,
         PORTUGUESE_BRAZIL,
         PORTUGUESE_PORTUGAL,
-        SPANISH,
         RUSSIAN,
+        SPANISH,
         TURKISH,
         UKRAINIAN,
-    ).toList()
+    )
 
 fun findByCountryCode(countryCode: String): Locale =
     availableLocales.firstOrNull { countryCode.uppercase(Locale.ROOT) == it.country }
