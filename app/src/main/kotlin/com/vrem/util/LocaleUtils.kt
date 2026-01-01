@@ -29,6 +29,7 @@ private val countriesLocales: SortedMap<String, Locale> =
         .toSortedMap()
 
 val BULGARIAN: Locale = Locale.forLanguageTag("bg")
+val CHINESE: Locale = Locale.forLanguageTag("zh")
 val CHINESE_SIMPLIFIED: Locale = Locale.forLanguageTag("zh-Hans")
 val CHINESE_TRADITIONAL: Locale = Locale.forLanguageTag("zh-Hant")
 val DUTCH: Locale = Locale.forLanguageTag("nl")
@@ -81,12 +82,26 @@ fun supportedLanguageTags(): List<String> = listOf("") + baseSupportedLocales.ma
 
 private fun normalizeLanguageTag(languageTag: String): String = languageTag.replace('_', '-').trim()
 
+private val chineseCountryToLocale: Map<String, Locale> =
+    mapOf(
+        "CN" to CHINESE_SIMPLIFIED,
+        "SG" to CHINESE_SIMPLIFIED,
+        "TW" to CHINESE_TRADITIONAL,
+        "HK" to CHINESE_TRADITIONAL,
+        "MO" to CHINESE_TRADITIONAL,
+    )
+
 fun findByLanguageTag(languageTag: String): Locale {
     val normalizedLanguageTag = normalizeLanguageTag(languageTag)
     if (normalizedLanguageTag.isEmpty()) return currentLocale
 
     val target = Locale.forLanguageTag(normalizedLanguageTag)
     if (target.language.isEmpty()) return currentLocale
+
+    if (target.language == "zh" && target.script.isEmpty()) {
+        if (target.country.isEmpty()) return CHINESE
+        return chineseCountryToLocale[target.country] ?: CHINESE
+    }
 
     return baseSupportedLocales.find { it == target }
         ?: baseSupportedLocales.find { it.language == target.language && it.script == target.script }
