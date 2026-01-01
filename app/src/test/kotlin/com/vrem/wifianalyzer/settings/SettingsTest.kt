@@ -174,14 +174,14 @@ class SettingsTest {
             // setup
             doReturn(it.ordinal)
                 .whenever(repository)
-                .stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
+                .stringAsInteger(R.string.theme_key, ThemeStyle.SYSTEM.ordinal)
             // execute
             val actual = fixture.themeStyle()
             // validate
             assertThat(actual).describedAs("Theme: $it").isEqualTo(it)
         }
         verify(repository, times(ThemeStyle.entries.size))
-            .stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
+            .stringAsInteger(R.string.theme_key, ThemeStyle.SYSTEM.ordinal)
     }
 
     @Test
@@ -189,12 +189,12 @@ class SettingsTest {
         // setup
         doReturn(ThemeStyle.entries.size)
             .whenever(repository)
-            .stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
+            .stringAsInteger(R.string.theme_key, ThemeStyle.SYSTEM.ordinal)
         // execute
         val actual = fixture.themeStyle()
         // validate
-        assertThat(actual).isEqualTo(ThemeStyle.DARK)
-        verify(repository).stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
+        assertThat(actual).isEqualTo(ThemeStyle.SYSTEM)
+        verify(repository).stringAsInteger(R.string.theme_key, ThemeStyle.SYSTEM.ordinal)
     }
 
     @Test
