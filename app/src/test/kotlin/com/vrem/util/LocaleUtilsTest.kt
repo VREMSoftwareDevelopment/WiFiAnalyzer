@@ -132,12 +132,12 @@ class LocaleUtilsTest {
     }
 
     @Test
-    fun currentCurrentCountryCode() {
+    fun currentCountryCodeReturnsDefault() {
         assertThat(currentCountryCode()).isEqualTo(Locale.getDefault().country)
     }
 
     @Test
-    fun currentCurrentLanguageTag() {
+    fun currentLanguageTagReturnsDefault() {
         assertThat(currentLanguageTag()).isEqualTo(toLanguageTag(Locale.getDefault()))
     }
 }

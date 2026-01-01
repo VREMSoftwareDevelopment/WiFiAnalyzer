@@ -44,7 +44,7 @@ class ChannelAvailableFragment : Fragment() {
     private fun update() {
         val settings = MainContext.INSTANCE.settings
         val countryCode = settings.countryCode()
-        val languageLocale = settings.appLocale()
+        val appLocale = settings.appLocale()
         binding.apply {
             val textViews =
                 listOf(
@@ -61,7 +61,7 @@ class ChannelAvailableFragment : Fragment() {
                     Triple(channelsAvailable6GHz320MHz, WiFiBand.GHZ6, WiFiWidth.MHZ_320),
                 )
             channelsAvailableCountryCode.text = countryCode
-            channelsAvailableCountryName.text = WiFiChannelCountry.find(countryCode).countryName(languageLocale)
+            channelsAvailableCountryName.text = WiFiChannelCountry.find(countryCode).countryName(appLocale)
             textViews.forEach { (textView, wiFiBand, wiFiWidth) ->
                 textView.text =
                     wiFiBand.wiFiChannels.availableChannels(wiFiWidth, wiFiBand, countryCode).joinToString(", ")
