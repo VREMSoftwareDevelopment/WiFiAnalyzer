@@ -56,9 +56,9 @@ The complete guide to using WiFiAnalyzer can be found in the [User Manual](USER_
 
 ## FAQ
 
-* [Android Wi-Fi scanning throttling](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Android-WiFi-scanning-throttling)
+* [Android Wi-Fi scanning throttling](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Android-Wi%E2%80%90Fi-scanning-throttling)
 * [Location Service Permission Requirements](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/Location-Service-Permission-Requirements)
-* [WiFiAnalyzer on secondary user accounts](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/WiFi-Analyzer-on-secondary-user-accounts)
+* [WiFiAnalyzer on secondary user accounts](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/wiki/WiFiAnalyzer-on-secondary-user-accounts)
 * [How does the channel graph display...](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/64)
 * [How to use SSID filter?](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/125)
 * [WiFiAnalyzer equivalent on iOS](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues/69)

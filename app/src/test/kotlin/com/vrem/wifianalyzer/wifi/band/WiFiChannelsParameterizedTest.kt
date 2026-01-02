@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2025 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2026 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,11 +20,11 @@ package com.vrem.wifianalyzer.wifi.band
 import com.vrem.util.EMPTY
 import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import org.junit.runners.Parameterized.Parameter
 import org.junit.runners.Parameterized.Parameters
-import kotlin.test.Test
 
 @RunWith(Parameterized::class)
 class WiFiChannelsParameterizedTest {
@@ -166,7 +166,7 @@ class WiFiChannelsParameterizedTest {
     @Test
     fun availableChannelsUsingWiFiBandAndCountry() {
         countries.forEach { country ->
-            assertThat(fixture.availableChannels(wiFiBand, country.countryCode).map { it -> it.channel })
+            assertThat(fixture.availableChannels(wiFiBand, country.countryCode).map { it.channel })
                 .describedAs("Country: ${country.countryCode}")
                 .containsExactlyElementsOf(country.channels(wiFiBand))
         }

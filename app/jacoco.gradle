@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2025 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2026 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -73,11 +73,11 @@ def jacocoCoverageVerificationProvider = tasks.register('jacocoTestCoverageVerif
             }
             limit {
                 counter = 'BRANCH'
-                minimum = 0.94
+                minimum = 0.95
             }
             limit {
                 counter = 'COMPLEXITY'
-                minimum = 0.95
+                minimum = 0.96
             }
             limit {
                 counter = 'LINE'

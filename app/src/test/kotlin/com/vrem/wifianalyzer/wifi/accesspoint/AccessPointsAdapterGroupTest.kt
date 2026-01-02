@@ -1,6 +1,6 @@
 /*
  * WiFiAnalyzer
- * Copyright (C) 2015 - 2025 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
+ * Copyright (C) 2015 - 2026 VREM Software Development <VREMSoftwareDevelopment@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -221,6 +221,25 @@ class AccessPointsAdapterGroupTest {
         verify(settings).groupBy()
         verify(expandableListView).expandableListAdapter
         verify(expandableListAdapter).groupCount
+    }
+
+    @Test
+    fun updateExpandsGroupWhenInExpandedSet() {
+        // setup
+        val wiFiDetails = withWiFiDetails()
+        doReturn(GroupBy.CHANNEL).whenever(settings).groupBy()
+        fixture.updateGroupBy()
+        fixture.expanded.add(GroupBy.CHANNEL.group(wiFiDetails[0]))
+        doReturn(expandableListAdapter).whenever(expandableListView).expandableListAdapter
+        doReturn(wiFiDetails.size).whenever(expandableListAdapter).groupCount
+        // execute
+        fixture.update(wiFiDetails, expandableListView)
+        // validate
+        verify(settings, times(2)).groupBy()
+        verify(expandableListView).expandableListAdapter
+        verify(expandableListAdapter).groupCount
+        verify(expandableListView).expandGroup(0)
+        verify(expandableListView, times(2)).collapseGroup(any())
     }
 
     @Test
